@@ -1,0 +1,19 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8168.0 (f36a6a4e).
+//
+// thidchk.tli
+//
+// Wrapper implementations for Win32 type library .\thidchk.dll
+// compiler-generated file created 07/07/13 at 14:45:22 - DO NOT EDIT!
+
+#pragma once
+
+//
+// interface _clsURLCHK wrapper method implementations
+//
+
+inline _bstr_t _clsURLCHK::GetID ( _bstr_t id ) {
+    BSTR _result;
+    HRESULT _hr = raw_GetID(id, &_result);
+    if (FAILED(_hr)) _com_issue_errorex(_hr, this, __uuidof(this));
+    return _bstr_t(_result, false);
+}

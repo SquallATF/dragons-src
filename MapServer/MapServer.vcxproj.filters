@@ -1,0 +1,826 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5310687a-7f85-4077-ad26-a4364007ee1c}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Source Files\HigherLayers">
+      <UniqueIdentifier>{e7c1bf0f-8c14-4e37-b1d0-4de374a60101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\LowerLayers">
+      <UniqueIdentifier>{55f1e0e1-73ff-4e0a-bdeb-aea4567bce2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{e5ae54dd-e064-4288-8b5c-26b907c758c8}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{553314bc-0538-4db9-b724-313ccfc7de7f}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Hades War">
+      <UniqueIdentifier>{d226e985-04ec-4266-95b7-1226e5b1be31}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HigherLayers\Ability.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\AdventManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\AIManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Area.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ArenaDef.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ArenaManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\AssistanceMagic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\AttackMagic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Auction.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\BaseArena.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Battle.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\BattleManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\CharInfo.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Chatting.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ChrLog.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Cinfo.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\CItem.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\CoreArena.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\CrackMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\CursingMagic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\DarkCombat.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\DragonServer.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\dragonserver2.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\DualManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\dungeon.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\EarthCombat.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\eventmgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\EventTreasureBoxMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\exchangemgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ExtraMagic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\FlameCombat.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\FreezeCombat.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\GMMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\GuildManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Hong_sub.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ImportantListMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\init_magic_tbl.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\init_npc_table.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ItemList.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ItemMallManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ItemMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Kein_item.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\KickOffAll.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\LocalizingMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\LogManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\LottoSystem.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\LTSSupport.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\MagicState.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\mailmgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Map.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\MapInfo.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="MapServer.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\MenuFuction.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Menuserver.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\MenuServer2.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\MonsterArena.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\MySql.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\nation.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\nationsupport.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\NationSys.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Network6.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\network7.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\NPC_pattern.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Npclist.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Object.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\OP_Battle.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\OP_Chr_Status.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\OP_Inv.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\OP_Magic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Path.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\PhysicalAttack.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Prison.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ProtectionMagic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\quest_cpp.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\QuestFunction.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\RaidManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\RajaSystem.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\RareEffectMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\RecoveryMagic.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\RegenManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ResistState.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Scrp_exe.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Scrp_int.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\SealStone.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\SealStoneGameServer.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\Skill.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\skill_lsw.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\SkillMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\StepMigration.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\StoneArena.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\SymbolItemMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\TalkWithGM.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\TalkWithGMMgr.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\teambattle.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\ThunderCombat.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\UserManager.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WarStartInfo.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WeatherControl.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WindCombat.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WinZS.cpp">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\DrServerManager.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\GameTimer.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\monitor.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\mylog.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\recvmsg.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\servertable.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="LowerLayers\ServerTable2.cpp">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDefine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RMProc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\GuardInfo.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\HadesWarfield.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\HWState.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\HWStateFactory.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\TeamInfo.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WarfieldFactory.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WarfieldInfo.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+    <ClCompile Include="HigherLayers\WarfieldMgr.cpp">
+      <Filter>Hades War</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HigherLayers\Ability.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\AdventManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\AIDefine.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\AIManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Area.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ArenaDef.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ArenaManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\AssistanceMagic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\AttackMagic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Auction.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\BaseArena.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Battle.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\BattleManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\CharInfo.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\CharList.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Chatting.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ChrLog.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Cinfo.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\CItem.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\CoreArena.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\CrackMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\CursingMagic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\DarkCombat.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Debug.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\DefaultHeader.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Dr_Network.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\DualManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\dungeon.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\EarthCombat.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\eventmgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\EventTreasureBoxMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\exchangemgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ExtraMagic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\FileMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\FlameCombat.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\FreezeCombat.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\gamblerate.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\GMMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\GuildManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Hong_sub.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ImportantListMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Itemlist.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ItemMallManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ItemMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Jnpcenum.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Kein_item.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\KickOffAll.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\LocalizingMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\LogManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\LottoSystem.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\LTSSupport.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\MagicState.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\mailmgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Map.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\MapInfo.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="mapserver.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\MenuDefine.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\MenuServer.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\MonsterArena.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Mysql.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\nation.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\NationSys.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\NationSys_Define.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Network2.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Network3.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\NetWork4.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Network5.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Network6.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\network7.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Npc_pattern.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Npclist.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Object.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Op_Battle.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Op_chr_status.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Op_magic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Path.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\PhysicalAttack.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Prison.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ProtectionMagic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\quest_cpp.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\QuestFunction.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\RaidManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Rajasystem.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\RareEffectMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\RecoveryMagic.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\RegenManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ResistState.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\resource.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Scrp_exe.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Scrp_int.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\SealStone.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\SealStoneGameServer.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\skill_lsw.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\SkillMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\StepMigration.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\StoneArena.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\SymbolItemMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\TalkWithGM.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\TalkWithGMMgr.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\teambattle.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\ThunderCombat.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\UserManager.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\WarStartInfo.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Weather.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\WeatherControl.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\WindCombat.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Winzs.h">
+      <Filter>Source Files\HigherLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\define.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\DrServerManager.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\GameTimer.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\inetwork.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\monitor.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\mylog.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\net_define.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\network_guid.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\packed.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\protocol.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\recvmsg.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\Resource.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\ServerIdentity.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\servertable.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\ServerTable2.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="LowerLayers\typedef.h">
+      <Filter>Source Files\LowerLayers</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RMDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\GuardInfo.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\HadesWarfield.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\HWState.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\HWStateFactory.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\IFactoryDefine.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\IWarfieldDefine.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\TeamInfo.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\WarfieldFactory.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\WarfieldInfo.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="HigherLayers\WarfieldMgr.h">
+      <Filter>Hades War</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MapServer.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="dragon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

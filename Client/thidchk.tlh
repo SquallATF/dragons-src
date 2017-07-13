@@ -1,0 +1,64 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8168.0 (f36a6a4e).
+//
+// thidchk.tlh
+//
+// C++ source equivalent of Win32 type library .\thidchk.dll
+// compiler-generated file created 07/07/13 at 14:45:22 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+namespace thrunet {
+
+//
+// Forward references and typedefs
+//
+
+struct __declspec(uuid("b6ab5305-ae0b-11d3-ae3a-00104b9e4cfb"))
+/* dual interface */ _clsURLCHK;
+struct /* coclass */ clsURLCHK;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(_clsURLCHK, __uuidof(_clsURLCHK));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("b6ab5305-ae0b-11d3-ae3a-00104b9e4cfb"))
+_clsURLCHK : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    _bstr_t GetID (
+        _bstr_t id );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_GetID (
+        BSTR id,
+        BSTR * _arg2 ) = 0;
+};
+
+struct __declspec(uuid("b6ab5306-ae0b-11d3-ae3a-00104b9e4cfb"))
+clsURLCHK;
+    // [ default ] interface _clsURLCHK
+
+//
+// Wrapper method implementations
+//
+
+#include "thidchk.tli"
+
+} // namespace thrunet
+
+#pragma pack(pop)

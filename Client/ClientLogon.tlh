@@ -1,0 +1,138 @@
+// Created by Microsoft (R) C/C++ Compiler Version 12.00.8168.0 (fec3c836).
+//
+// ClientLogon.tlh
+//
+// C++ source equivalent of Win32 type library .\ClientLogon.dll
+// compiler-generated file created 07/07/13 at 14:45:22 - DO NOT EDIT!
+
+#pragma once
+#pragma pack(push, 8)
+
+#include <comdef.h>
+
+//
+// Forward references and typedefs
+//
+
+struct /* coclass */ LogIn;
+struct __declspec(uuid("87bf5b0c-f5ab-4f48-ac8c-1fe3590e18e0"))
+/* dual interface */ ILogIn;
+struct /* coclass */ Launch;
+struct __declspec(uuid("b0cbee32-867e-4f5f-a390-0bfe58b1fd04"))
+/* dual interface */ ILaunch;
+
+//
+// Smart pointer typedef declarations
+//
+
+_COM_SMARTPTR_TYPEDEF(ILogIn, __uuidof(ILogIn));
+_COM_SMARTPTR_TYPEDEF(ILaunch, __uuidof(ILaunch));
+
+//
+// Type library items
+//
+
+struct __declspec(uuid("532518f9-3131-4c87-aeb0-021f8aa6fdd8"))
+LogIn;
+    // [ default ] interface ILogIn
+
+struct __declspec(uuid("87bf5b0c-f5ab-4f48-ac8c-1fe3590e18e0"))
+ILogIn : IDispatch
+{
+    //
+    // Property data
+    //
+
+    __declspec(property(put=PutParameters))
+    _bstr_t Parameters;
+    __declspec(property(get=GetIP))
+    _bstr_t IP;
+    __declspec(property(get=GetPort))
+    long Port;
+    __declspec(property(get=GetParameter))
+    _bstr_t Parameter;
+    __declspec(property(get=GetPID))
+    _bstr_t PID;
+    __declspec(property(get=GetPayMethod))
+    long PayMethod;
+    __declspec(property(get=GetGameCode))
+    _bstr_t GameCode;
+
+    //
+    // Wrapper methods for error-handling
+    //
+
+    HRESULT LogIn (
+        unsigned int s,
+        _bstr_t bstrParam,
+        unsigned int * nRet,
+        unsigned long dwTimeOut );
+    void PutParameters (
+        _bstr_t _arg1 );
+    _bstr_t GetIP ( );
+    long GetPort ( );
+    _bstr_t GetParameter ( );
+    _bstr_t GetPID ( );
+    long GetPayMethod ( );
+    _bstr_t GetGameCode ( );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_LogIn (
+        unsigned int s,
+        BSTR bstrParam,
+        unsigned int * nRet,
+        unsigned long dwTimeOut ) = 0;
+    virtual HRESULT __stdcall put_Parameters (
+        BSTR _arg1 ) = 0;
+    virtual HRESULT __stdcall get_IP (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_Port (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_Parameter (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_PID (
+        BSTR * pVal ) = 0;
+    virtual HRESULT __stdcall get_PayMethod (
+        long * pVal ) = 0;
+    virtual HRESULT __stdcall get_GameCode (
+        BSTR * pVal ) = 0;
+};
+
+struct __declspec(uuid("f35c44a9-d95f-4363-8797-d109ba7ccc37"))
+Launch;
+    // [ default ] interface ILaunch
+
+struct __declspec(uuid("b0cbee32-867e-4f5f-a390-0bfe58b1fd04"))
+ILaunch : IDispatch
+{
+    //
+    // Wrapper methods for error-handling
+    //
+
+    long Run (
+        _bstr_t bstrParam );
+    long Exe (
+        _bstr_t bstrParam );
+
+    //
+    // Raw methods provided by interface
+    //
+
+    virtual HRESULT __stdcall raw_Run (
+        BSTR bstrParam,
+        long * bFlag ) = 0;
+    virtual HRESULT __stdcall raw_Exe (
+        BSTR bstrParam,
+        long * bFlag ) = 0;
+};
+
+//
+// Wrapper method implementations
+//
+
+#include "ClientLogon.tli"
+
+#pragma pack(pop)

@@ -1,0 +1,60 @@
+#include "HSEL.h"
+
+CHSEL_STREAM::CHSEL_STREAM(void)
+{
+	iCRCValue = 0;
+}
+
+CHSEL_STREAM::~CHSEL_STREAM(void)
+{
+
+}
+
+__int32 CHSEL_STREAM::Initial(HSEL_INITIAL hselinit)
+{
+	hselinit = hselinit;
+	iCRCValue = 0;
+	return unsigned(0);
+}
+
+//////////////////////////////////////////////////////////////
+
+// return crc
+bool CHSEL_STREAM::Encrypt(char *lpStream, const __int32 iStreamSize/* = 0*/)
+{
+	return true;
+}
+
+//return crc
+bool CHSEL_STREAM::Decrypt(char *lpStream, const __int32 iStreamSize/* = 0*/)
+{
+	return true;
+}
+
+char CHSEL_STREAM::GetCRCConvertChar(void)const
+{
+	return 0;
+}
+short CHSEL_STREAM::GetCRCConvertShort(void)const
+{
+	return 0;
+}
+__int32 CHSEL_STREAM::GetCRCConvertInt(void)const
+{
+	return 0;
+}
+
+void CHSEL_STREAM::SetKeyCustom(HselKey IntoKey)
+{
+
+}
+
+void CHSEL_STREAM::SetNextKey(void)
+{
+
+}
+
+void CHSEL_STREAM::GenerateKeys(HselKey &IntoKey)
+{
+
+}
