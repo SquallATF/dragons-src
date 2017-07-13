@@ -43,6 +43,7 @@ ipch/
 
 #init
 *.VC.db
+*.VC.opendb
 *
 *.user
 
