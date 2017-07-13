@@ -4419,7 +4419,7 @@ void CheckCrash()
 void __stdcall GameTimeFunc(DWORD dwValue)
 {
 	prepare(connections);
-	if( g_pServerTable->GetOwnPort() == 4002 )
+	if(g_pServerTable != NULL && g_pServerTable->GetOwnPort() == 4002 )
 	{
 		CheckOutSideMail(); // 030221 YGI
 	}

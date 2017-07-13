@@ -10,6 +10,7 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Compiled Dynamic libraries
 *.so
@@ -28,7 +29,34 @@
 Library/*.lib
 
 # Executables
-exe/
-exe-release/
+*.exe
 *.out
 *.app
+
+#dirs
+exe/
+exe-release/
+Release/
+Debug/
+ipch/
+.vs/
+
+#init
+*.VC.db
+*.VC.opendb
+*
+*.user
+
+#debug files
+Exe/*.exe
+Exe/*.ilk
+Exe/*.map
+Exe/*.pdb
+Exe-release/*.exe
+Exe-release/*.ilk
+Exe-release/*.map
+Exe-release/*.pdb
+
+#log
+*.log
+

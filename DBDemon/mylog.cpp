@@ -10,6 +10,7 @@
 #include "mylog.h"
 #include "monitor.h"
 #include <afxmt.h>
+#include "utility.h"
 
 
 // Default Log Level
@@ -114,7 +115,7 @@ void MyLog( int type, char *logmsg, ... )
 		log_mon = mon;
 		log_day = day;
 
-		sprintf( sLogFileName, ".\\%d-%d-%d.log", year, mon, day );
+		sprintf( sLogFileName,(GetAppPath() + _T(".\\%d-%d-%d.log")).c_str(), year, mon, day );
 
 		if( !(fpLog = fopen( sLogFileName, "a" )) )
 		{
@@ -197,7 +198,7 @@ void HackLog( int type, char *logmsg, ... )
 		
 	DWORD   dwAttr   =   GetFileAttributes(".\\SQLÂ©¶´¼ÇÂ¼");   
 	if(dwAttr   ==   0xFFFFFFFF)     //ÎÄ¼þ¼Ð²»´æÔÚ   
-	{ CreateDirectory(".\\SQLÂ©¶´¼ÇÂ¼",NULL);  } 
+	{ CreateDirectory((GetAppPath() + _T(".\\SQLÂ©¶´¼ÇÂ¼")).c_str(), NULL);  }    // ".\\SQLÂ©¶´¼ÇÂ¼"
 /*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //ÊÇÎÄ¼þ¼Ð   
 	{   
 	//do   something   
@@ -252,7 +253,7 @@ void HackLog( int type, char *logmsg, ... )
 		log_mon = mon;
 		log_day = day;
 
-		sprintf( sLogFileName, ".\\SQLÂ©¶´¼ÇÂ¼\\SQL¹¥»÷¼ÇÂ¼%d-%d-%d.log", year, mon, day );
+		sprintf( sLogFileName, (GetAppPath() + _T(".\\SQLÂ©¶´¼ÇÂ¼\\SQL¹¥»÷¼ÇÂ¼%d-%d-%d.log")).c_str(), year, mon, day );  // ".\\SQLÂ©¶´¼ÇÂ¼\\SQL¹¥»÷¼ÇÂ¼%d-%d-%d.log"
 
 		if( !(fpLog = fopen( sLogFileName, "a" )) )
 		{

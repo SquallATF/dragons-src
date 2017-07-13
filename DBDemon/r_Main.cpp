@@ -9,6 +9,7 @@
 #include "network.h"
 #include "LottoDBMgr.h"//soto-030505
 #include "ShopDemon.h"
+#include "utility.h"
 
 SOCKET lsock = 0;
 struct sockaddr_in laddr;
@@ -148,7 +149,7 @@ int init_login_main( void )
 	char path[MAX_PATH];
 	ID_PASS id_password;
 	int bIdPassword = 0;		// 정확히 암호를 읽어 왔는가?
-	int size = GetPrivateProfileString( "option", "path", "", path, 50, DB_DEMON_INI_ );//021007 lsw
+	int size = GetPrivateProfileString( "option", "path", "", path, 50, (GetAppPath() + DB_DEMON_INI_).c_str());//021007 lsw
 	if( size )
 	{
 		sprintf( path, "%s/data/IdPassword.bin", path );

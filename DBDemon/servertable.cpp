@@ -2544,7 +2544,7 @@ DWORD CServerTable::GetNumOfConnectedServers()
 // 030221 YGI
 WORD CServerTable::GetOwnPort()
 {
-	return m_pOwnServerData->wPort;
+	return m_pOwnServerData != NULL ? m_pOwnServerData->wPort : 0;
 }
 
 DWORD CServerTable::GetServerStatus()

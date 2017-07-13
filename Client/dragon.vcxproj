@@ -335,7 +335,6 @@
     <None Include="ClientLogon.tlh" />
     <None Include="ClientLogon.tli" />
     <None Include="cursor4.cur" />
-    <None Include="NoKillDll.dll" />
     <None Include="SafeMem_040317.exe" />
     <None Include="thidchk.tlh" />
     <None Include="thidchk.tli" />

@@ -15,6 +15,6 @@ StdString GetAppPath(void)
 	//csAppPath = csAppPath.Left(csAppPath.ReverseFind(_T('\\')));
 	//strAppPath = strAppPath.substr(0, strAppPath.rfind(_T("\\")));
 
-	return strAppPath.substr(0, strAppPath.rfind(_T("\\")));;
+	return strAppPath.substr(0, strAppPath.rfind(_T("\\"))+1);;
 }
 
