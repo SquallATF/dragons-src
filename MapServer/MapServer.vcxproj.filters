@@ -390,6 +390,9 @@
     <ClCompile Include="HigherLayers\WarfieldMgr.cpp">
       <Filter>Hades War</Filter>
     </ClCompile>
+    <ClCompile Include="..\Utility\utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HigherLayers\Ability.h">
@@ -811,6 +814,9 @@
     </ClInclude>
     <ClInclude Include="HigherLayers\WarfieldMgr.h">
       <Filter>Hades War</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Utility\utility.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -65,6 +65,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>../Utility/</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\Debug\AgentServer.tlb</TypeLibraryName>
@@ -96,6 +97,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../Utility/</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\Release\AgentServer.tlb</TypeLibraryName>
@@ -116,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Utility\utility.cpp" />
     <ClCompile Include="AgentServer.cpp" />
     <ClCompile Include="CUseMoney.cpp" />
     <ClCompile Include="DrServerManager.cpp" />
@@ -137,6 +140,7 @@
     <ResourceCompile Include="AgentServer.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Utility\utility.h" />
     <ClInclude Include="AgentServer.h" />
     <ClInclude Include="CUseMoney.h" />
     <ClInclude Include="define.h" />

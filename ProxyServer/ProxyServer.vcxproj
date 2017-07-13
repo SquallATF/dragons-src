@@ -62,6 +62,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../Utility/</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\Release\ProxyServer.tlb</TypeLibraryName>
@@ -92,9 +93,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>true</MinimalRebuild>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>../Utility/</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <TypeLibraryName>.\Debug\ProxyServer.tlb</TypeLibraryName>
@@ -116,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Utility\utility.cpp" />
     <ClCompile Include="DrServerManager.cpp" />
     <ClCompile Include="LocalizingMgr.cpp" />
     <ClCompile Include="main.cpp" />
@@ -139,6 +141,7 @@
     <ResourceCompile Include="ProxyServer.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Utility\utility.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DrServerManager.h" />
     <ClInclude Include="dr_agent_defines.h" />
