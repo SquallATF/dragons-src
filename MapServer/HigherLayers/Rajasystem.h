@@ -16,7 +16,7 @@ extern char NetworkDir[MAX_PATH];
 extern char MapServerConfigFileName[MAX_PATH];
 
 
-extern int InitGameMakeModeSetting( char *filename );
+extern int InitGameMakeModeSetting(const char *filename );
 
 extern void SaveGameServerStatus( void );
 extern void LoadGameServerStatus( void );

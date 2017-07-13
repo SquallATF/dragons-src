@@ -42,7 +42,7 @@ BYTE szMsg[MM_MAX_PACKET_SIZE+1+4];
 // -----------------------------------------------------------------
 // Constructor / Destructor
 // -----------------------------------------------------------------
-CServerTable::CServerTable( char* sFileName, WORD wMaxBucketNum, I4DyuchiNET* pINet )
+CServerTable::CServerTable(const char* sFileName, WORD wMaxBucketNum, I4DyuchiNET* pINet )
 {
 	this->m_wMaxBucketNum = wMaxBucketNum;
 
@@ -1777,7 +1777,7 @@ bool CServerTable::BeginNegotiationWithNormalServer( LP_SERVER_DATA pServerData 
 	return true;
 }
 
-bool CServerTable::InitServerTable( char *sFileName )
+bool CServerTable::InitServerTable(const char *sFileName )
 {
 	LP_SERVER_DATA pServerData = NULL;
 	char	sDummyIP[MM_IP_LENGTH];

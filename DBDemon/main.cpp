@@ -14,7 +14,6 @@
 #include <afx.h>
 #include "Main.h" 
 #include <process.h>
-#include "utility.h"
 
 			
 bool g_bTaiwanMainOn = true;		// 한국이회의 프로그램에서 종료시킬때 false 한다.
@@ -42,9 +41,9 @@ void ProcessEnd(const int iDestroyType)
 bool InitDynamicData()
 {	//< CSD-040127
 	char szNationName[100] = {0,} ;
-	if( GetPrivateProfileString( "nation_set", "nation_name", "" , szNationName, 50, (GetAppPath() + DB_DEMON_INI_).c_str()) )
+	if( GetPrivateProfileString( "nation_set", "nation_name", "" , szNationName, 50, DB_DEMON_INI_))
 	{
-		const bool bIsFree = (bool)GetPrivateProfileInt( "NATION_SET", "BETA_SERVER", 0, (GetAppPath() + DB_DEMON_INI_).c_str());
+		const bool bIsFree = (bool)GetPrivateProfileInt( "NATION_SET", "BETA_SERVER", 0, DB_DEMON_INI_);
 		if(!LocalMgr.InitVersion(szNationName,bIsFree)){return false;}
 	}
 	else
@@ -55,13 +54,13 @@ bool InitDynamicData()
 	
 	char szFreeLevel[50] = {0, };
 
-	if (GetPrivateProfileString("option", "FREE_LEVEL", "" , szFreeLevel, 50, (GetAppPath() + DB_DEMON_INI_).c_str()) > 0)
+	if (GetPrivateProfileString("option", "FREE_LEVEL", "" , szFreeLevel, 50, DB_DEMON_INI_) > 0)
 	{
 		FREE_LEVEL_ = atoi(szFreeLevel);
 	}
 
-	LocalMgr.SetRookieLv( GetPrivateProfileInt("NATION_SET", "RookieAbleLevel", 0, (GetAppPath() + DB_DEMON_INI_).c_str()) );//021230 Rookie Server
-	LocalMgr.SetDoubtUserTableLimitDay( GetPrivateProfileInt("NATION_SET", "DoubtUserTableLimitDay", 60, (GetAppPath() + DB_DEMON_INI_).c_str()) );//021230 Rookie Server
+	LocalMgr.SetRookieLv(GetPrivateProfileInt("NATION_SET", "RookieAbleLevel", 0, DB_DEMON_INI_));//021230 Rookie Server
+	LocalMgr.SetDoubtUserTableLimitDay(GetPrivateProfileInt("NATION_SET", "DoubtUserTableLimitDay", 60, DB_DEMON_INI_));//021230 Rookie Server
 	return true;
 }	//> CSD-040127
 

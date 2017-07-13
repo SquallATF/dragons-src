@@ -10,6 +10,7 @@
 #include "mylog.h"
 #include "monitor.h"
 #include <afxmt.h>
+#include "utility.h"
 
 // Default Log Level
 int ConsoleLogLevel = 2;
@@ -95,7 +96,7 @@ void MyLog( const int type, char *logmsg, ... )
 		log_year = year;
 		log_mon = mon;
 		log_day = day;
-		sprintf( sLogFileName, ".\\%4d-%2d-%2d.log", year, mon, day );
+		sprintf( sLogFileName, (GetAppPath() + _T(".\\%d-%d-%d.log")).c_str(), year, mon, day );  //".\\%4d-%2d-%2d.log"
 		if( !(fpLog = fopen( sLogFileName, "a" )) )
 		{	// Notify ERROR
 			sprintf( buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName );

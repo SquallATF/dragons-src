@@ -48,7 +48,7 @@ void SetGlobalBlockValues()
 // 결  과 : 성공 return 1;
 //			싶패 reutrn < 0 :
 // ------------------------------------------------------------------------------------------------------------------------------
-int InitGameMakeModeSetting( char *filename )
+int InitGameMakeModeSetting(const char *filename)
 {
 	GetPrivateProfileString( "network", "path", "", GameServerDataPath, sizeof( GameServerDataPath ), filename );
 	if( GameServerDataPath[0] == 0 )

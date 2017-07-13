@@ -85,15 +85,15 @@ int InitAsync(  void )
 read_bill_ip:
 
 	sprintf( temps, "billing_server_info___ip%d", BillServerIndex );
-	GetPrivateProfileString( "billing_server_info", temps, "", sBillServerIP, sizeof(sBillServerIP), (GetAppPath() + DB_DEMON_INI_).c_str());//021007 lsw
+	GetPrivateProfileString( "billing_server_info", temps, "", sBillServerIP, sizeof(sBillServerIP), DB_DEMON_INI_);//021007 lsw
 
 	sprintf( temps, "billing_server_info_port%d", BillServerIndex );
-	BillServerPort= (DWORD)GetPrivateProfileInt( "billing_server_info", temps, 0, (GetAppPath() + DB_DEMON_INI_).c_str());
-	BillServerMax = (DWORD)GetPrivateProfileInt( "billing_server_info", "billing_server_num", 0, (GetAppPath() + DB_DEMON_INI_).c_str());
+	BillServerPort= (DWORD)GetPrivateProfileInt( "billing_server_info", temps, 0, DB_DEMON_INI_);
+	BillServerMax = (DWORD)GetPrivateProfileInt( "billing_server_info", "billing_server_num", 0, DB_DEMON_INI_);
 
 	if( BillServerPort == 0 || BillServerMax == 0 || sBillServerIP[0] == 0 )
 	{
-		MyLog( LOG_NORMAL, "[BILL] Fail to read IP/Port in '%s' (%d)!!!!", (GetAppPath() + DB_DEMON_INI_).c_str(), BillServerIndex );
+		MyLog( LOG_NORMAL, "[BILL] Fail to read IP/Port in '%s' (%d)!!!!", DB_DEMON_INI_, BillServerIndex );
 		return 0;
 	}
 

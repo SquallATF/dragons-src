@@ -9,11 +9,25 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define PROXY_SERVER_INI_		".\\ProxyServer.ini"
+#include "utility.h"
+
+//#define PROXY_SERVER_INI_		".\\ProxyServer.ini"
+//#define SERVER_MANAGER_INI_		PROXY_SERVER_INI_
+//#define DB_DEMON_INI_			".\\DBDemon.ini"
+//#define AGENT_SERVER_INI_		".\\agentserver.ini"
+//#define MAP_SERVER_INI_			".\\MapServer.ini"
+
+#define PROXY_SERVER_INI_NAME		".\\ProxyServer.ini"
+#define SERVER_MANAGER_INI_NAME		PROXY_SERVER_INI_
+#define DB_DEMON_INI_NAME			".\\DBDemon.ini"
+#define AGENT_SERVER_INI_NAME		".\\agentserver.ini"
+#define MAP_SERVER_INI_NAME			".\\MapServer.ini"
+
+#define PROXY_SERVER_INI_		(GetAppPath() + PROXY_SERVER_INI_NAME).c_str()
 #define SERVER_MANAGER_INI_		PROXY_SERVER_INI_
-#define DB_DEMON_INI_			".\\DBDemon.ini"
-#define AGENT_SERVER_INI_		".\\agentserver.ini"
-#define MAP_SERVER_INI_			".\\MapServer.ini"
+#define DB_DEMON_INI_			(GetAppPath() + DB_DEMON_INI_NAME).c_str()
+#define AGENT_SERVER_INI_		(GetAppPath() + AGENT_SERVER_INI_NAME).c_str()
+#define MAP_SERVER_INI_			(GetAppPath() + MAP_SERVER_INI_NAME).c_str()
 
 extern const char szKorea	[];
 extern const char szChina	[];

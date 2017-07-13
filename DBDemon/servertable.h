@@ -279,7 +279,7 @@ public:
 	bool					ConnectToProxyServer();
 	bool					ConnectToServer( LP_SERVER_DATA pServerData, DWORD dwConnectType );
 	bool					ConnectToServer( WORD wServerID, DWORD dwConnectType );
-	bool					InitServerTable( char* sFileName );
+	bool					InitServerTable(const char* sFileName );
 	bool					Send( WORD wServerID, char* pMsg, DWORD dwLength );
 	bool					Send( DWORD dwConnectionIndex, char* pMsg, DWORD dwLength );
 	bool					SendToProxyServer( char *pMsg, DWORD dwLength );
@@ -364,7 +364,7 @@ public:
 	// -----------------------------------------------------------------
 
 	// Constructor, Destructor -----------------------------------------
-	CServerTable( char* sFileName, WORD wMaxBucketNum, I4DyuchiNET* pINet );
+	CServerTable(const char* sFileName, WORD wMaxBucketNum, I4DyuchiNET* pINet );
 	~CServerTable();
 	// -----------------------------------------------------------------
 };
