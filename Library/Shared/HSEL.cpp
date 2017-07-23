@@ -2,6 +2,8 @@
 
 CHSEL_STREAM::CHSEL_STREAM(void)
 {
+	iVersion = 3;
+	//iHSELType = HSEL_ENCRYPTTYPE_1;
 	iCRCValue = 0;
 }
 
@@ -14,7 +16,7 @@ __int32 CHSEL_STREAM::Initial(HSEL_INITIAL hselinit)
 {
 	hselinit = hselinit;
 	iCRCValue = 0;
-	return unsigned(0);
+	return unsigned(1);
 }
 
 //////////////////////////////////////////////////////////////

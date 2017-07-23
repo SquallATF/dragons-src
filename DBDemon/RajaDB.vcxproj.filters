@@ -93,9 +93,6 @@
     <ClInclude Include="Hong_Sub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HSEL.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Id.h">
       <Filter>Header Files</Filter>
     </ClInclude>

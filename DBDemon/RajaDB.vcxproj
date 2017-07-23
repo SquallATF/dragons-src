@@ -145,7 +145,6 @@
     <ClInclude Include="dragonLoginServer2.h" />
     <ClInclude Include="DrServerManager.h" />
     <ClInclude Include="Hong_Sub.h" />
-    <ClInclude Include="HSEL.h" />
     <ClInclude Include="Id.h" />
     <ClInclude Include="inetwork.h" />
     <ClInclude Include="ItemList.h" />

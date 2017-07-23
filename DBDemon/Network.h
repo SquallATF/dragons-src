@@ -15,7 +15,6 @@
 #include "stdafx.h"
 #include "define.h"
 
-#include "hsel.h"
 #include "sqltypes.h"
 
 #ifdef __CLIENT_PROGRAM__

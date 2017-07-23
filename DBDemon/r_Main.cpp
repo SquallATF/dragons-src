@@ -95,7 +95,7 @@ struct ID_PASS
 		m_szPASS3[0] = 0;
 	}
 };
-#include "hsel.h"
+
 bool DecoadFile( char *filename, void *pData, int size )
 {
 	CHSEL_STREAM m_hsel;
