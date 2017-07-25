@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 
 #include "../LowerLayers/mylog.h" //!!
@@ -50,11 +50,11 @@ extern char g_ChangeLogPath[80];
 #define PLAYER	0
 #define NPC		1
 
-#define MELEE			0	// ´Ü°Å¸®.
-#define RANGE_BOW		1	// Àå°Å¸®..
-#define RANGE_HURL		2	// Áß°Å¸®.
-#define RANGE_DEFAULT	3	// ´Ü°Å¸®..
-#define MAGIC			4	// ¸¶¹ı.
+#define MELEE			0	// ë‹¨ê±°ë¦¬.
+#define RANGE_BOW		1	// ì¥ê±°ë¦¬..
+#define RANGE_HURL		2	// ì¤‘ê±°ë¦¬.
+#define RANGE_DEFAULT	3	// ë‹¨ê±°ë¦¬..
+#define MAGIC			4	// ë§ˆë²•.
 
 extern NPCName_by_Gender	NPC_Name_Ref[Num_Of_NPC_Name];
 extern NPCLev_to_Exp		NPC_Lev_Ref[Num_Of_NPC_Lev] ;
@@ -70,15 +70,15 @@ extern void getItemIndex(int, int &, int &) ;
 
 
 extern void SendServerKillPc( short int cn );			//
-///////////////////// 0811 yjs Ãß°¡ ////////////////////////
+///////////////////// 0811 yjs ì¶”ê°€ ////////////////////////
 
-extern bool IsWar();	// 010904 LTS								// ±¹°¡Àü »óÈ²¿¡¼­ ÀüÀïÀÌ ¾Æ´Ï¸é ¼º¹® ¼öÈ£¼® ¹Ì½º
-extern bool CanDestroyTarget(CHARLIST* pCaster,CHARLIST* pTarget);  // 010904 LTS	// ¹æ¾îÀÚÀÇ ¼º¹® ¼öÈ£¼® ¹Ì½º
+extern bool IsWar();	// 010904 LTS								// êµ­ê°€ì „ ìƒí™©ì—ì„œ ì „ìŸì´ ì•„ë‹ˆë©´ ì„±ë¬¸ ìˆ˜í˜¸ì„ ë¯¸ìŠ¤
+extern bool CanDestroyTarget(CHARLIST* pCaster,CHARLIST* pTarget);  // 010904 LTS	// ë°©ì–´ìì˜ ì„±ë¬¸ ìˆ˜í˜¸ì„ ë¯¸ìŠ¤
 extern void CheckBossAndDeActiveGroupNo(CHARLIST* Npc);				// LTS AI2
 
 void rollDice(int base_hd, int &dice_res);
 int  getDistance(CHARLIST *a, CHARLIST *d);
-int  calcClassWeaponCorrection( CHARLIST * a, int itemtype );	// Å¬·¡½º¿¡ ¸Â´Â ItemÀ» »ç¿ëÇßÀ»°æ¿ì 20%Áõ°¡ÇÑ´Ù. 
+int  calcClassWeaponCorrection( CHARLIST * a, int itemtype );	// í´ë˜ìŠ¤ì— ë§ëŠ” Itemì„ ì‚¬ìš©í–ˆì„ê²½ìš° 20%ì¦ê°€í•œë‹¤. 
 short int getWeatherCorrection( void );
 int  calcRangeCorrection(CHARLIST *a, CHARLIST *d );
 int  AttackMapper( int a_id, int d_id,  int *damage_val);
@@ -174,8 +174,8 @@ static bool	bAttackChangeCondition_slow_i = false;
 static bool	bAttackChangeCondition_slow_you = false;
 static bool	bAttackChangeCondition_daze_i  =false;
 static bool	bAttackChangeCondition_daze_you  =false;
-// Å¬·¡½º-¹«±âº° º¸Á¤: 1.Àü»ç(´Ü°Å¸®:100/Áß°Å¸®:100/Àå°Å¸®:90) 2.µµÀû(´Ü°Å¸®:90/Áß°Å¸®:100/Àå°Å¸®:100) 3.±Ã¼ö(´Ü°Å¸®:90/Áß°Å¸®:100/Àå°Å¸®:100)
-//                     4.¸¶¹ı»ç(´Ü°Å¸®:100/Áß°Å¸®:100/Àå°Å¸®:100) 5.¼ºÁ÷ÀÚ(´Ü°Å¸®:100/Áß°Å¸®:100/Àå°Å¸®:100)
+// í´ë˜ìŠ¤-ë¬´ê¸°ë³„ ë³´ì •: 1.ì „ì‚¬(ë‹¨ê±°ë¦¬:100/ì¤‘ê±°ë¦¬:100/ì¥ê±°ë¦¬:90) 2.ë„ì (ë‹¨ê±°ë¦¬:90/ì¤‘ê±°ë¦¬:100/ì¥ê±°ë¦¬:100) 3.ê¶ìˆ˜(ë‹¨ê±°ë¦¬:90/ì¤‘ê±°ë¦¬:100/ì¥ê±°ë¦¬:100)
+//                     4.ë§ˆë²•ì‚¬(ë‹¨ê±°ë¦¬:100/ì¤‘ê±°ë¦¬:100/ì¥ê±°ë¦¬:100) 5.ì„±ì§ì(ë‹¨ê±°ë¦¬:100/ì¤‘ê±°ë¦¬:100/ì¥ê±°ë¦¬:100)
 static	int rate_by_class[5][3] = { { 100, 90, 100 }, { 90, 100, 100}, { 90, 100, 100}, { 100, 100, 100 }, { 100, 100, 100 } };
 
 extern ItemAttr *GetItemByPOS( int cn, POS item ); // itemtable.cpp
@@ -199,24 +199,24 @@ void SendItemAttrDurationChange( t_connection c[], int cn, int pos )
 }	
 
 
-extern void GetItemDuration( ItemAttr &rItem, WORD &d_curr, WORD &d_max );	// ¾ÆÀÌÅÛ ³»±¸·Â »Ì¾Æ ¿À±â
+extern void GetItemDuration( ItemAttr &rItem, WORD &d_curr, WORD &d_max );	// ì•„ì´í…œ ë‚´êµ¬ë ¥ ë½‘ì•„ ì˜¤ê¸°
 // 020428 YGI acer
 extern int BreakItemByDuration( ItemAttr *item, CHARLIST *ch, POS pos );
 
-/*	¹«±â³ª ¹æ¾î±¸ÀÇ ¸¶³ëµµ °è»ê..
-// type : 0 °ø°İµµ±¸.
-//        1 ¹æ¾î±¸ 
+/*	ë¬´ê¸°ë‚˜ ë°©ì–´êµ¬ì˜ ë§ˆë…¸ë„ ê³„ì‚°..
+// type : 0 ê³µê²©ë„êµ¬.
+//        1 ë°©ì–´êµ¬ 
 
   
 	d_curr = LOWORD( item.attr[IATTR_DURATION] );
 	d_max = HIWORD( item.attr[IATTR_DURATION] );
 	
-	  ÁÁÀº ¾ÆÀÌÅÛÀº  1000Àúµµ¸¦ ±âÁØÇÑ´Ù. 
+	  ì¢‹ì€ ì•„ì´í…œì€  1000ì €ë„ë¥¼ ê¸°ì¤€í•œë‹¤. 
 	  
-		°è»êÀº 1000À» °¡Áö°í ÇÏÁö¸¸ Display´Â /10À» ÇÏ¿© Ç¥½ÃÇÑ´Ù. 
+		ê³„ì‚°ì€ 1000ì„ ê°€ì§€ê³  í•˜ì§€ë§Œ DisplayëŠ” /10ì„ í•˜ì—¬ í‘œì‹œí•œë‹¤. 
 		
 */
-int getEquipRandomPos( void )//³»±¸µµ ±ğÀ»¶§ Æ÷Áö¼ÇÀ» ¹Ş¾Æ¿À´Â ºÎºĞ
+int getEquipRandomPos( void )//ë‚´êµ¬ë„ ê¹ì„ë•Œ í¬ì§€ì…˜ì„ ë°›ì•„ì˜¤ëŠ” ë¶€ë¶„
 {	
 	const int pos = rand()%100;
 	
@@ -228,24 +228,24 @@ int getEquipRandomPos( void )//³»±¸µµ ±ğÀ»¶§ Æ÷Áö¼ÇÀ» ¹Ş¾Æ¿À´Â ºÎºĞ
 	return WT_ARMOR; 
 }	
 
-// Àå°Å¸® ¹«±âÀÇ Á¾·ù¿¡ µû¸¥ »çÁ¤°Å¸®ÀÇ º¯È­¿Í °ø°İ·ÂÀÇ °¡°¨..
-////////////////////// 0804 lkh Ãß°¡ ////////////////////////
+// ì¥ê±°ë¦¬ ë¬´ê¸°ì˜ ì¢…ë¥˜ì— ë”°ë¥¸ ì‚¬ì •ê±°ë¦¬ì˜ ë³€í™”ì™€ ê³µê²©ë ¥ì˜ ê°€ê°..
+////////////////////// 0804 lkh ì¶”ê°€ ////////////////////////
 int calcRangeCorrection(CHARLIST *a, CHARLIST *d )
 {	
 	int range_corr= 100;
 	int min = 0, mid = 0, max = 0;
 	
 	const int dist= getDistance(a, d) ;
-	if(dist < 2 )			return 100;		// »óÈ£ °Å¸®°¡ 64¹Ì¸¸ÀÌ¸é..
+	if(dist < 2 )			return 100;		// ìƒí˜¸ ê±°ë¦¬ê°€ 64ë¯¸ë§Œì´ë©´..
 	
-	const int ino = a->equip[ WT_WEAPON].item_no;		// ItemÀÌ ¾ø´Ù.
+	const int ino = a->equip[ WT_WEAPON].item_no;		// Itemì´ ì—†ë‹¤.
 	if( ino == 0 )			return 100;
 	
-	CItem *ii = ItemUnit( ino/1000, ino%1000 );	// ItemÀÌ ¾ø´Ù.
+	CItem *ii = ItemUnit( ino/1000, ino%1000 );	// Itemì´ ì—†ë‹¤.
 	if( ii == NULL )		return 100;
 	
 	
-	// ¹«±âÀÇ »çÁ¤°Å¸®..
+	// ë¬´ê¸°ì˜ ì‚¬ì •ê±°ë¦¬..
 	/*
 	int range = ii->Getrange();
 	if( range < 2 )			return 100;
@@ -272,7 +272,7 @@ int calcRangeCorrection(CHARLIST *a, CHARLIST *d )
 		max = 12;
 		break ;
 		
-	case IK_TWO_ARROW :	//È­»ì.¼®±Ã..
+	case IK_TWO_ARROW :	//í™”ì‚´.ì„ê¶..
 	case IK_DUAL_ARROW:
 		min = 5;
 		mid = 10;
@@ -316,13 +316,13 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 	damage = abs(damage);
 	
 	switch (d->Race)
-	{ // °æÇèÄ¡¸¦ ÁÖÁö ¾Ê´Â NPC
+	{ // ê²½í—˜ì¹˜ë¥¼ ì£¼ì§€ ì•ŠëŠ” NPC
     case GUARD:
     case SEALSTONE: return 0; 
 	}
 	
 	if( d->SprNo == 96 ) return 0;
-	if (d->IsTamedNpc())  return 0;	// ÅÂ¹ÖµÈ ¾ÖÇÑÅ×¼­´Â °æÄ¡¸¦ ¾òÀ»¼ö ¾ø´Ù.
+	if (d->IsTamedNpc())  return 0;	// íƒœë°ëœ ì• í•œí…Œì„œëŠ” ê²½ì¹˜ë¥¼ ì–»ì„ìˆ˜ ì—†ë‹¤.
 	
 #ifdef _NATION_APPLY_
 	if( d->SprType != SPRITETYPE_NPC ) 
@@ -337,20 +337,20 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 			{
 				if (bCanGetExpPcPc == false)
 					if (a->IsPlayer() && d->IsPlayer())
-					{// PKÇÑ »óÅÂÀÌ´Ù. 
+					{// PKí•œ ìƒíƒœì´ë‹¤. 
 						return 0;
 					}		
 					
-					if( d ) // °æÇèÄ¡¸¦ ¾òÀ»¼ö ¾ø´Â NPCµé..					
+					if( d ) // ê²½í—˜ì¹˜ë¥¼ ì–»ì„ìˆ˜ ì—†ëŠ” NPCë“¤..					
 						if( d->SprType == SPRITETYPE_NPC )
 						{
 							switch( d->SprNo )
 							{
-							case 92 :	// ±âµÕ..
-							case 93 :	// ±âµÕ..
-							case 94 :	// °ú³á..
-							case 95 :	// Çã¼ö¾Æºñ.
-							case 96 :	// Çã¼ö¾Æºñ.
+							case 92 :	// ê¸°ë‘¥..
+							case 93 :	// ê¸°ë‘¥..
+							case 94 :	// ê³¼ë…..
+							case 95 :	// í—ˆìˆ˜ì•„ë¹„.
+							case 96 :	// í—ˆìˆ˜ì•„ë¹„.
 								{
 									if (a->GetLevel() > ENABLE_DUMMY_LEVEL)
 									{	//< CSD-030806
@@ -358,7 +358,7 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 									}	//> CSD-030806
 								}
 							}
-							// NPCÀÇ Á¾Á·ÀÌ ÀÎ°£ÀÌ¸é...°æÄ¡¾øÀ½..
+							// NPCì˜ ì¢…ì¡±ì´ ì¸ê°„ì´ë©´...ê²½ì¹˜ì—†ìŒ..
 							if( d->Race == 1 ) return 0;
 						}
 						
@@ -406,19 +406,19 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 		}
 		
 		
-		// base_point¸¦ ÀÌ¿ëÇØ °æÄ¡ÀÇ ·®À» °è»êÇÑ´Ù. 
+		// base_pointë¥¼ ì´ìš©í•´ ê²½ì¹˜ì˜ ëŸ‰ì„ ê³„ì‚°í•œë‹¤. 
 		switch(criteria)
 		{
 		case HIT_FAILED:		exp = 0; partexpflag = 0;	break;
 		case HIT_AND_DEAD:	
 			{
 				exp = base_point*0.4;
-				partexpflag = 1; // ÆÄÆ¼¿Í ³ª´«´Ù.	
+				partexpflag = 1; // íŒŒí‹°ì™€ ë‚˜ëˆˆë‹¤.	
 				
 				if (d)
 				{
 					switch (d->SprNo) 	
-					{ // ´õ¹Ì¸¦ °ø°İÇÒ¶§¿¡´Â ÆÄÆ¼¸¦ ÇØµµ °æÄ¡¸¦ ³ª´©Áö ¾Ê´Â´Ù. 
+					{ // ë”ë¯¸ë¥¼ ê³µê²©í• ë•Œì—ëŠ” íŒŒí‹°ë¥¼ í•´ë„ ê²½ì¹˜ë¥¼ ë‚˜ëˆ„ì§€ ì•ŠëŠ”ë‹¤. 
 					case 92:
 					case 93:
 					case 94:
@@ -441,13 +441,13 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 					exp =	base_point*tdamage/d->HpMax;
 				}
 				
-				partexpflag = 1; // ÆÄÆ¼¿Í ³ª´«´Ù.
+				partexpflag = 1; // íŒŒí‹°ì™€ ë‚˜ëˆˆë‹¤.
 				break; 
 			}
 		case HIT_AND_ALIVE:	        
 			{
 				exp = (DWORD)(base_point*0.02);	
-				partexpflag = 1; // ÆÄÆ¼¿Í ³ª´«´Ù.  
+				partexpflag = 1; // íŒŒí‹°ì™€ ë‚˜ëˆˆë‹¤.  
 				break; 
 			}
 		case HIT_GHOSTRESURRECTION:	
@@ -464,20 +464,20 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 		
 		if( bCanGetExpPcPc == true )
 		{	
-			exp /= GET_EXP_PC_AND_PC_;	// PC°£¿¡´Â °æÇèÄ¡¸¦ Á¶±İ¸¸ ÁØ´Ù. 
+			exp /= GET_EXP_PC_AND_PC_;	// PCê°„ì—ëŠ” ê²½í—˜ì¹˜ë¥¼ ì¡°ê¸ˆë§Œ ì¤€ë‹¤. 
 		}	
 		
 		if( exp == 0 ) return 0; 	
 		
 		if (a->GetLevel() < 5)
 		{	//< CSD-030806
-			exp += 2; // ÃÖÀú 2ÀÌ»óÀÌ ³ª¿À°Ô ÇÑ´Ù.   ÀÌ·±¼öÄ¡´Â ¾îÂ÷ÇÇ ¾øÁö¸¸..
+			exp += 2; // ìµœì € 2ì´ìƒì´ ë‚˜ì˜¤ê²Œ í•œë‹¤.   ì´ëŸ°ìˆ˜ì¹˜ëŠ” ì–´ì°¨í”¼ ì—†ì§€ë§Œ..
 		}	//> CSD-030806
 		
 		CHARLIST *ttt[6] ={0,};
 		int tc = 0;
 
-		if( partexpflag == 1  ) // °æÇèÄ¡¸¦ ºĞ¹èÇÏ´Â°æ¿ì´Â, ÆÄÆ¼°¡ ÀÖ´ÂÁö Ã£´Â´Ù. 
+		if( partexpflag == 1  ) // ê²½í—˜ì¹˜ë¥¼ ë¶„ë°°í•˜ëŠ”ê²½ìš°ëŠ”, íŒŒí‹°ê°€ ìˆëŠ”ì§€ ì°¾ëŠ”ë‹¤. 
 		{
 			AREA *aa = connections[a->GetServerID()].area_tbl;
 
@@ -498,15 +498,15 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 									for (int i = 0; i < MAX_PARTY_MEMBER; i++)
 									{
 										if (a->party[i].On && !stricmp(a->party[i].Name, tt->Name))
-										{   // ÆÄÆ¼¿øÀÌÁö ¿©ºÎ °Ë»ç
+										{   // íŒŒí‹°ì›ì´ì§€ ì—¬ë¶€ ê²€ì‚¬
 											if (abs(a->GetLevel() - tt->GetLevel()) <= ENABLE_PARTY_LEVEL)
-											{   //< CSD-030806 : ·¹º§Â÷ÀÌ°¡ 35ÀÌÇÏÀÌ¸é °æÇèÄ¡ ºĞ¹è
+											{   //< CSD-030806 : ë ˆë²¨ì°¨ì´ê°€ 35ì´í•˜ì´ë©´ ê²½í—˜ì¹˜ ë¶„ë°°
 												goto YES_FIND_PARTY_;
 											}	//> CSD-030806
 										}
 									}
 									continue;
-	YES_FIND_PARTY_:// ÆÄÆ¼°¡ ÀÖÀ¸¸é  tc != 0 ÀÌ µÈ´Ù. 
+	YES_FIND_PARTY_:// íŒŒí‹°ê°€ ìˆìœ¼ë©´  tc != 0 ì´ ëœë‹¤. 
 									ttt[tc] = tt; tc++;
 								}		
 							}
@@ -525,7 +525,7 @@ int addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage )
 		//< CSD-040803
 		isLevelUp(a);
 
-		if( tc )// ÀÎ¿ø¼ö¿¡ µû¸¥ º¸Á¤Ä¡¸¦ Àû¿ëÇÑ´Ù. 
+		if( tc )// ì¸ì›ìˆ˜ì— ë”°ë¥¸ ë³´ì •ì¹˜ë¥¼ ì ìš©í•œë‹¤. 
 		{
 			switch( tc )
 			{						  	
@@ -578,9 +578,9 @@ extern int g_LocalWarBegin;			// 011215 LTS
 extern BOOL IsNeoWarfieldServer();	// LTH-040226-KO
 
 
-//////////////////// 0812 lkh ¼öÁ¤ //////////////////////
+//////////////////// 0812 lkh ìˆ˜ì • //////////////////////
 void killCharacter( CHARLIST *a,CHARLIST *d )
-{	// °ø°İÀÚ´Â NULLÀÏ ¼öµµ ÀÖÀ½
+{	// ê³µê²©ìëŠ” NULLì¼ ìˆ˜ë„ ìˆìŒ
 	//	if( a == NULL ) return;
 	if( d == NULL ) return;
 	if( d->GetServerID() == LOGIN_SERVER_CONNECT || d->GetServerID() == DB_DEMON ) return;
@@ -613,7 +613,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 				break;
 			}
 		default:
-			{	// µµÃàÀÌ ºÒ°¡´ÉÇÑ °æ¿ì´Â ¸®Á¨½Ã°£À» ÁÙÀÓ
+			{	// ë„ì¶•ì´ ë¶ˆê°€ëŠ¥í•œ ê²½ìš°ëŠ” ë¦¬ì  ì‹œê°„ì„ ì¤„ì„
 				if (d->Meat_amount > 0 || d->Skin_amount > 0)
 				{
 					d->deadcount =  DEAD_NPC_MONSTER_COUNT_;
@@ -688,12 +688,12 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 		
 		if( d->Race == SEALSTONE ) 
 		{
-			if (a->IsPlayer()) a->GainedFame+=2;					// °á°è¼®À» Á×ÀÎ »ç¶÷¿¡°Ô ¾òÀ» ¸í¼ºÄ¡¸¦ +2ÇØÁØ´Ù.
+			if (a->IsPlayer()) a->GainedFame+=2;					// ê²°ê³„ì„ì„ ì£½ì¸ ì‚¬ëŒì—ê²Œ ì–»ì„ ëª…ì„±ì¹˜ë¥¼ +2í•´ì¤€ë‹¤.
 			Send_CMD_SEALSTONE_STATUS( d, 0 );
 		} 
 		else
-		{	//< LTH-040820-KO ÆòÈ­±â°£¿¡ °¡µåµéÀ» Á¦°ÅÇÒ¶§¿¡´Â ¾ÆÀÌÅÛÀÌ µå·ÓµÇÁö ¾Êµµ·Ï
-			if (d->Race==GUARDSTONE)						// ÀüÀïÅÍ °è¿­
+		{	//< LTH-040820-KO í‰í™”ê¸°ê°„ì— ê°€ë“œë“¤ì„ ì œê±°í• ë•Œì—ëŠ” ì•„ì´í…œì´ ë“œë¡­ë˜ì§€ ì•Šë„ë¡
+			if (d->Race==GUARDSTONE)						// ì „ìŸí„° ê³„ì—´
 			{
 				UpdateGuardStoneStatus(a,d);
 
@@ -706,18 +706,18 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 			}
 		}	//> LTH-040820-KO
 		
-		if (!d->ChairNum)							// ¼­¹ö AI°¡ ¾Æ´Ñ NPC°¡ Á×À¸¸é ¹Ù·Î ÄÁÆ®·Ñ µ¥ÀÌÅÍ¸¦ ÇØÁ¦ÇÑ´Ù.		// LTS DRAGON MODIFY
+		if (!d->ChairNum)							// ì„œë²„ AIê°€ ì•„ë‹Œ NPCê°€ ì£½ìœ¼ë©´ ë°”ë¡œ ì»¨íŠ¸ë¡¤ ë°ì´í„°ë¥¼ í•´ì œí•œë‹¤.		// LTS DRAGON MODIFY
 		{
 			int cn=d->ctrlpc;
-			RemoveNPCControlData(cn,d->GetServerID());	// NPC AI ÄÁÆ®·Ñ µ¥ÀÌÅÍ¸¦ Á¦°ÅÇÑ´Ù.
+			RemoveNPCControlData(cn,d->GetServerID());	// NPC AI ì»¨íŠ¸ë¡¤ ë°ì´í„°ë¥¼ ì œê±°í•œë‹¤.
 		}
-		//1020 zhh		//Æ¯Á¤ÇÑ Á¶°ÇÀ» °®Ãß¾úÀ»¶§ Æ¯Á¤ÇÑ ¾ÆÀÌÅÛ »ı»ê
+		//1020 zhh		//íŠ¹ì •í•œ ì¡°ê±´ì„ ê°–ì¶”ì—ˆì„ë•Œ íŠ¹ì •í•œ ì•„ì´í…œ ìƒì‚°
 	}			
 	
 	if (d->IsPlayer())
 	{	
 		ExpDown(a, d, true); // CSD-030314
-		// ÀüÀï ÁßÀÎ °æ¿ì Àû±ºÀ» Á×ÀÎ ¼ö Áß°¡
+		// ì „ìŸ ì¤‘ì¸ ê²½ìš° ì êµ°ì„ ì£½ì¸ ìˆ˜ ì¤‘ê°€
 		if (isNationWarfieldServer() && IsWar())
 		{
 			CountNationDeath(a, d);
@@ -726,7 +726,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 		{
 			CountNewWarfieldDeath(a,d);
 		}
-		//< LTH-040225-KO 1.4 ÆĞÄ¡·Î Ãß°¡
+		//< LTH-040225-KO 1.4 íŒ¨ì¹˜ë¡œ ì¶”ê°€
 		if (IsNeoWarfieldServer() && IsWar())
 		{
 			CountNewWarfieldDeath(a,d);
@@ -740,8 +740,8 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 		// 020428 YGI acer 3
 		if( a )
 		{
-			if( a->IsPlayer() || a->IsTamedNpc() )	// Å×¹Ö¿¡ ¼º°øÇØµµ ¼ÒÈ¯ÇØµµ IsTamedNpc() ´Â true ÀÌ´Ù.
-			{	// ´©±º°¡¸¦ Á×¿´´Ù¸é ±â·Ï¿¡ ³²±âÀÚ...
+			if( a->IsPlayer() || a->IsTamedNpc() )	// í…Œë°ì— ì„±ê³µí•´ë„ ì†Œí™˜í•´ë„ IsTamedNpc() ëŠ” true ì´ë‹¤.
+			{	// ëˆ„êµ°ê°€ë¥¼ ì£½ì˜€ë‹¤ë©´ ê¸°ë¡ì— ë‚¨ê¸°ì...
 				CHARLIST *ch = 0;
 				if( a->IsPlayer() )
 				{
@@ -788,7 +788,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 							MapName, ch->MoveSx, ch->MoveSy, ch->Name,OutNK(ch,3), OutNK(ch, 4), OutNK(ch, 6), 
 							d->Name,OutNK(d,3), OutNK(d, 4), OutNK(d, 6), g_mon+1, g_day,g_hour, g_min, g_sec );
 
-						// 040715_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+						// 040715_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 						g_pLogManager->SaveLogRoot_PK(pk_msg);
 					}
 				}
@@ -800,7 +800,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 	d->Mana = 0;
 	d->Hungry= 0;
 	d->MoveLength = d->MovePathCount = 0;				
-	d->cur_skillno = 0;  // ¸Á¾à ±â¼úÀ» ½ÃÀüÁßÀÌ¾úÀ¸¸é....
+	d->cur_skillno = 0;  // ë§ì•½ ê¸°ìˆ ì„ ì‹œì „ì¤‘ì´ì—ˆìœ¼ë©´....
 	
 	
 	//021030 YGI
@@ -814,10 +814,10 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 	if( a == NULL ) return;
 	if( a->GetServerID() == LOGIN_SERVER_CONNECT || a->GetServerID() == DB_DEMON ) return;
 	
-	// 021023 kyo npcÁ×ÀÎ Ä«¿îÅÍ¸¦ ¼¼°í ÀÖÀ»¶§ 
+	// 021023 kyo npcì£½ì¸ ì¹´ìš´í„°ë¥¼ ì„¸ê³  ìˆì„ë•Œ 
 	if (a && d->IsNpc())
 	{
-		//Ä³¸¯ÅÍ°¡ Á×¿´°Å³ª Ä³¸¯ÅÍÀÇ ¼ÒÈ¯¼ö°¡ Á×¿´°Å³ª.
+		//ìºë¦­í„°ê°€ ì£½ì˜€ê±°ë‚˜ ìºë¦­í„°ì˜ ì†Œí™˜ìˆ˜ê°€ ì£½ì˜€ê±°ë‚˜.
 		CHARLIST *ch = a;
 
 		if (a->IsSummonMonster())
@@ -829,7 +829,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 		g_QuestInMap.RunScriptCounter( ch->GetServerID(), ch->Name, d->npc_index, SCRIPT_COUNTER_TYPE__NPCKILL );
 		g_QuestInMap.GiveRequitalAfterKillNpc( ch, d ); // 021106 kyo
 	}
-	// ´©°¡ Á×¿´´ÂÁö Àû¾î µĞ´Ù. 
+	// ëˆ„ê°€ ì£½ì˜€ëŠ”ì§€ ì ì–´ ë‘”ë‹¤. 
 	if (a->IsSummonMonster())
 	{
 		char szBuffer[40];
@@ -875,7 +875,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 			break;		
 		}
 	}	//> CSD-031013
-	// ¼ÒÈ¯¸óÀÌ ÀûÀ» °ø°İÇÑ ÈÄ »ó´ë¹æÀ» Á×¾ú´Ù¸é ÁÖÀÎÀ» µû¶ó°¨
+	// ì†Œí™˜ëª¬ì´ ì ì„ ê³µê²©í•œ í›„ ìƒëŒ€ë°©ì„ ì£½ì—ˆë‹¤ë©´ ì£¼ì¸ì„ ë”°ë¼ê°
 	if (a && a->IsSummonMonster() && a->ctrlpc < 10000)
 	{ 
 		const WORD idMaster = a->GetMaster();
@@ -887,7 +887,7 @@ void killCharacter( CHARLIST *a,CHARLIST *d )
 			pMaster->m_xSummon.Command(FollowSummon);
 		}
 	} 
-	// ¼ÒÈ¯¸óÀÌ Á×¾ú´Ù¸é ÁÖÀÎÀÇ ¸®½ºÆ®¿¡¼­ Á¦°Å
+	// ì†Œí™˜ëª¬ì´ ì£½ì—ˆë‹¤ë©´ ì£¼ì¸ì˜ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°
 	if (d && d->IsSummonMonster())
 	{ 
 		const WORD idMaster = d->GetMaster();
@@ -932,7 +932,7 @@ BOOL ChangeDirection( DIRECTION* direction, int sx, int sy, int dx, int dy )
 
 
 
-///////////////////////// 0525 lkh ¼öÁ¤ ///////////////////////////////
+///////////////////////// 0525 lkh ìˆ˜ì • ///////////////////////////////
 bool	YouCanBackdraw( CHARLIST *a, CHARLIST *d, int how )
 {		
 	DIRECTION dir;
@@ -958,7 +958,7 @@ bool	YouCanBackdraw( CHARLIST *a, CHARLIST *d, int how )
 	x += t_X;
 	y += t_Y;
 	
-	if( FreeTile( d, x, y, x, y ) )			//½ÇÁ¦ °¥¼ö ÀÖ´Â ÁöÁ¡ÀÎ°¡?
+	if( FreeTile( d, x, y, x, y ) )			//ì‹¤ì œ ê°ˆìˆ˜ ìˆëŠ” ì§€ì ì¸ê°€?
 	{	
 		d->MoveLength = d->MovePathCount = 0;
 		d->MoveSx	= x;
@@ -1015,7 +1015,7 @@ inline int IsNKNation(LPCHARLIST ch)
 }		
 
 inline int IsHeNK( LPCHARLIST ch, int nation )
-{	// ÇöÀç ¸Ê¿¡ ´ëÇØ¼­ PK¼öÄ¡°¡ ÀÖ´Ù.
+{	// í˜„ì¬ ë§µì— ëŒ€í•´ì„œ PKìˆ˜ì¹˜ê°€ ìˆë‹¤.
 	switch (nation)
 	{
 	case N_VYSEUS:
@@ -1133,7 +1133,7 @@ void InNK( LPCHARLIST ch, int nation, short int add_nk )
 }	
 
 
-// °¢ ±¹°¡°¡ ±³Àü»óÅÂÀÌ¸é true¸¦ ¸®ÅÏÇÑ´Ù. 
+// ê° êµ­ê°€ê°€ êµì „ìƒíƒœì´ë©´ trueë¥¼ ë¦¬í„´í•œë‹¤. 
 inline bool IsWarfare( int anation, int bnation )
 {
 	if( anation < 0 || anation >= MAX_NATION )	return false;
@@ -1228,12 +1228,12 @@ void CheckNK( int a_id, int d_id, int type )
 	{
 		return;
 	}
-	// Çö»ó¹üÀÎ °æ¿ì
+	// í˜„ìƒë²”ì¸ ê²½ìš°
 	if (defender->GetWanted()) 
 	{
 		return;
 	}
-	// ±¹ÁöÀüÀÎ °æ¿ì
+	// êµ­ì§€ì „ì¸ ê²½ìš°
 	if (g_LocalWarBegin && g_isLocalWarServer)
 	{
 		if (attacker->JoinLocalWar && defender->JoinLocalWar)
@@ -1274,11 +1274,11 @@ void CheckNK( int a_id, int d_id, int type )
 	a_nation =	attacker->name_status.nation;
 	d_nation =	defender->name_status.nation;
 	
-	// Monster´Â Ä¥¼ö ¾ø´Ù.. 
+	// MonsterëŠ” ì¹ ìˆ˜ ì—†ë‹¤.. 
 	if( d_nation == N_NONSTER ) return;
 	if( defender->SprType == SPRITETYPE_NPC && type == NK_TYPE_NO_KILL_ ) return;  // 010613 KHS
 	
-	// Áö±İ À§Ä¡ÇÑ ¸Ê¿¡ ´ëÇÑ NK¼öÄ¡°ª..
+	// ì§€ê¸ˆ ìœ„ì¹˜í•œ ë§µì— ëŒ€í•œ NKìˆ˜ì¹˜ê°’..
 	a_nk = OutNK( attacker, cur_nation );
 	d_nk = OutNK( defender, cur_nation );
 	int tcase = GetCaseOfNK( cur_nation, a_nation, d_nation, a_nk, d_nk );
@@ -1289,13 +1289,13 @@ void CheckNK( int a_id, int d_id, int type )
 	
 	if( tcase == 3)	
 	{
-		if( cur_nation != d_nation)	InNK( attacker, d_nation, t[2] ); // Àû±¹°ú Àû±ºÀÇ³ª¶ó°¡ ÀÏÄ¡ÇÏ¸é µÎ¹ø PK°¡ ¿Ã¶ó°¡Áö ¾Ê°Ô ÇÑ´Ù.
+		if( cur_nation != d_nation)	InNK( attacker, d_nation, t[2] ); // ì êµ­ê³¼ ì êµ°ì˜ë‚˜ë¼ê°€ ì¼ì¹˜í•˜ë©´ ë‘ë²ˆ PKê°€ ì˜¬ë¼ê°€ì§€ ì•Šê²Œ í•œë‹¤.
 	}
 	else 
 	{
 		InNK( attacker, d_nation, t[2] );	
 	}
-	// ±×¸Ê¿¡ Á×¾úÀ¸´Ï... ±×¸Ê¿¡ ´ëÇÑ NK¼öÄ¡´Â ¶³¾îÁü
+	// ê·¸ë§µì— ì£½ì—ˆìœ¼ë‹ˆ... ê·¸ë§µì— ëŒ€í•œ NKìˆ˜ì¹˜ëŠ” ë–¨ì–´ì§
 	if (d_nk && type == NK_TYPE_KILL_)	
 	{
 		InNK(defender, cur_nation, -10);
@@ -1304,35 +1304,35 @@ void CheckNK( int a_id, int d_id, int type )
 
 //------------------------------------------------------------------------------
 
-// ¹èºvÀ» ÇÒ¼ö ÀÖ´Â Áö¿ªÀÎ°¡ 
-// ¹èºvÀ» ÇÒ¼ö »óÅÂÀÎ°¡¸¦ ÆÇ´Ù...
+// ë°°?ì„ í• ìˆ˜ ìˆëŠ” ì§€ì—­ì¸ê°€ 
+// ë°°?ì„ í• ìˆ˜ ìƒíƒœì¸ê°€ë¥¼ íŒë‹¤...
 // 0810 KHS
 bool CanBattleArea( LPCHARLIST a, LPCHARLIST  d)
 {
-	// 0810 KHS  CMD_MOVE ÆĞÅ¶ÀÌ µé¾î¿À´Â°÷¿¡ d->attackedblock = 0;À¸·Î SettingÇÑ´Ù. 
-	if( d->attackedblock ) return false; // ÃÖÃÊ¿¡ °ÔÀÓ¿¡ µé¾î¿À¸é ÀÌµ¿ÇÏ±âÀü±îÁö´Â °ø°İÀ» ¹ŞÁö ¾Ê´Â´Ù. 
+	// 0810 KHS  CMD_MOVE íŒ¨í‚·ì´ ë“¤ì–´ì˜¤ëŠ”ê³³ì— d->attackedblock = 0;ìœ¼ë¡œ Settingí•œë‹¤. 
+	if( d->attackedblock ) return false; // ìµœì´ˆì— ê²Œì„ì— ë“¤ì–´ì˜¤ë©´ ì´ë™í•˜ê¸°ì „ê¹Œì§€ëŠ” ê³µê²©ì„ ë°›ì§€ ì•ŠëŠ”ë‹¤. 
 	
 	
-	if( a->Hp <= 0 ) return false; //  Á×ÀºÀÚ´Â °ø°İÇÒ¼ö ¾ø´Ù. 
-	if( d->Hp <= 0 ) return false; //  Á×ÀºÀÚ¸¦ ¶Ç °ø°İÇÒ¼ø ¾ø´Ù. 
+	if( a->Hp <= 0 ) return false; //  ì£½ì€ìëŠ” ê³µê²©í• ìˆ˜ ì—†ë‹¤. 
+	if( d->Hp <= 0 ) return false; //  ì£½ì€ìë¥¼ ë˜ ê³µê²©í• ìˆœ ì—†ë‹¤. 
 	
-	// ±Ø¾ÇPK // 1012 KHS
+	// ê·¹ì•…PK // 1012 KHS
 	//	if( d->name_status.ultra_pk == 1 ) return true;
-	//	if( a->name_status.ultra_pk == 1 ) return false; //  ±¹¾Ç PK´Â °ø°İÇÒ¼ö ¾ø´Ù.  ¸¶¹ı¿¡µµ ÀÖ³ª  Check ÇØÁà...
+	//	if( a->name_status.ultra_pk == 1 ) return false; //  êµ­ì•… PKëŠ” ê³µê²©í• ìˆ˜ ì—†ë‹¤.  ë§ˆë²•ì—ë„ ìˆë‚˜  Check í•´ì¤˜...
 	
 	if( d->IsCounselor() ) return false;
-	if( d->accessory[ WT_WEAPON] == 114 ) return false; // »êÅ¸ ¿ÊÀ» ÀÔ¾ú´Ù. 
-	// 030106 kyo À§Ä¡ÀÌµ¿
+	if( d->accessory[ WT_WEAPON] == 114 ) return false; // ì‚°íƒ€ ì˜·ì„ ì…ì—ˆë‹¤. 
+	// 030106 kyo ìœ„ì¹˜ì´ë™
 	if (a->Race != GUARD) 
-	{	//< CSD-030226 : °æºñ¿øÀÌ ¾Æ´Ï¶ó¸é °æ¿ì
+	{	//< CSD-030226 : ê²½ë¹„ì›ì´ ì•„ë‹ˆë¼ë©´ ê²½ìš°
 		if (TileMap[a->MoveSx][a->MoveSy].attr_no_battle) 
 		{
-			return false;  // ¸Ê¿¡ no battle ¼Ó¼ºÀÌ ÀÖÀ¸¸é °ø°İÇÒ¼ö ¾ø´Ù. 
+			return false;  // ë§µì— no battle ì†ì„±ì´ ìˆìœ¼ë©´ ê³µê²©í• ìˆ˜ ì—†ë‹¤. 
 		}
 		
 		if (TileMap[d->MoveSx][d->MoveSy].attr_no_battle) 
 		{
-			return false;  // ¸Ê¿¡ no battle ¼Ó¼ºÀÌ ÀÖÀ¸¸é °ø°İÇÒ¼ö ¾ø´Ù. 
+			return false;  // ë§µì— no battle ì†ì„±ì´ ìˆìœ¼ë©´ ê³µê²©í• ìˆ˜ ì—†ë‹¤. 
 		}
 	}	//> CSD-030226
 	
@@ -1343,7 +1343,7 @@ bool CanBattleArea( LPCHARLIST a, LPCHARLIST  d)
 																		if( d->SprType == SPRITETYPE_NPC )
 																		if( d->Race == HUMAN )
 																		{
-																		// °°Àº ±¹°¡ »ç¶÷npc´Â °ø°İÀ» ¹ŞÁö ¾Ê°Ô ÇÑ´Ù. 
+																		// ê°™ì€ êµ­ê°€ ì‚¬ëŒnpcëŠ” ê³µê²©ì„ ë°›ì§€ ì•Šê²Œ í•œë‹¤. 
 																		return false;
 																		}
 																		}
@@ -1353,8 +1353,8 @@ bool CanBattleArea( LPCHARLIST a, LPCHARLIST  d)
 	
 	if (a->Race == GUARD)	return true;
 	if (IsHeNK(d, MapInfo[MapNumber].nation) > 5)	return true;
-	if (g_block_attack)	return false; // °ø°İÇÒ¼ö ¾ø´Ù. ¸¹¾à Event¶§¹®¿¡ °ø°İÇÒ¼ö ¾ø´Â »óÅÂ·Î ¼³Á¤À» ¹Ù²Ù¾ú´Ù¸é ..
-	if (a->dwDontAttack > 0)	return false; //¸¸¾à °ø°İºÒ°¡ »óÅÂ¶ó¸é
+	if (g_block_attack)	return false; // ê³µê²©í• ìˆ˜ ì—†ë‹¤. ë§ì•½ Eventë•Œë¬¸ì— ê³µê²©í• ìˆ˜ ì—†ëŠ” ìƒíƒœë¡œ ì„¤ì •ì„ ë°”ê¾¸ì—ˆë‹¤ë©´ ..
+	if (a->dwDontAttack > 0)	return false; //ë§Œì•½ ê³µê²©ë¶ˆê°€ ìƒíƒœë¼ë©´
 	if (a->Hungry <= 0)	return false;
 	
 	return true;
@@ -1402,17 +1402,17 @@ void RecvDebugReqCharInfo( int cn, int target )
 	p.u.debug_server_req_char_info.lv = n->GetLevel(); // CSD-030806
 	p.u.debug_server_req_char_info.exp   = n->Exp; 
 	p.u.debug_server_req_char_info.ac    = n->Ac;
-	p.u.debug_server_req_char_info.Str   = n->Str;					//  Èû
-	p.u.debug_server_req_char_info.Con   = n->Con;				//  °Ç°­
-	p.u.debug_server_req_char_info.Dex   = n->Dex;				//	¹ÎÃ¸¼º
-	p.u.debug_server_req_char_info.Wis   = n->Wis;				//	ÁöÇı
-	p.u.debug_server_req_char_info.Int   = n->Int;				//	Áö´É
-	p.u.debug_server_req_char_info.MoveP = n->MoveP;				//	ÀÌµ¿·Â
-	p.u.debug_server_req_char_info.Char  = n->Char;				//	¸Å·Â
-	p.u.debug_server_req_char_info.Endu  = n->Endu;				//  ÀúÇâ·Â
-	p.u.debug_server_req_char_info.Moral = n->Moral;				//	»ç±â
-	p.u.debug_server_req_char_info.Luck  = n->Luck;				//	Çà¿î
-	p.u.debug_server_req_char_info.wsps  = n->wsps;				//  ¸¶¹ı·Â->¸¶¹ı ¸Ş¸ğ¶óÀÌÁî
+	p.u.debug_server_req_char_info.Str   = n->Str;					//  í˜
+	p.u.debug_server_req_char_info.Con   = n->Con;				//  ê±´ê°•
+	p.u.debug_server_req_char_info.Dex   = n->Dex;				//	ë¯¼ì²©ì„±
+	p.u.debug_server_req_char_info.Wis   = n->Wis;				//	ì§€í˜œ
+	p.u.debug_server_req_char_info.Int   = n->Int;				//	ì§€ëŠ¥
+	p.u.debug_server_req_char_info.MoveP = n->MoveP;				//	ì´ë™ë ¥
+	p.u.debug_server_req_char_info.Char  = n->Char;				//	ë§¤ë ¥
+	p.u.debug_server_req_char_info.Endu  = n->Endu;				//  ì €í–¥ë ¥
+	p.u.debug_server_req_char_info.Moral = n->Moral;				//	ì‚¬ê¸°
+	p.u.debug_server_req_char_info.Luck  = n->Luck;				//	í–‰ìš´
+	p.u.debug_server_req_char_info.wsps  = n->wsps;				//  ë§ˆë²•ë ¥->ë§ˆë²• ë©”ëª¨ë¼ì´ì¦ˆ
 	p.u.debug_server_req_char_info.Hp    = n->Hp;    	
 	p.u.debug_server_req_char_info.HpMax = n->HpMax;
 	p.u.debug_server_req_char_info.Mp    = n->Mana;     
@@ -1494,7 +1494,7 @@ void SaveBallancingSkill( LPCHARLIST a, int skillno )
 	fprintf( fp, "skill< %s[%d(%d)](lv%d:exp%d) >\n", skill_name42[skillno], skillno, mother, a->skillexp[mother].skillexp/10000, a->skillexp[mother].skillexp%10000 );
 	fprintf( fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n",  MapName, a->MoveSx, a->MoveSy, g_mon+1, g_day,g_hour, g_min, g_sec );
 	fprintf( fp, "WORKER(Lv:%3d/Exp:%9d/ladder:%3d/fame:%3d)\n", a->GetLevel(), a->Exp, a->LadderScore, a->fame ); // CSD-030806
-	for(int iCount = 0; iCount<45; iCount++)//½ºÅ³ °æÇèÄ¡
+	for(int iCount = 0; iCount<45; iCount++)//ìŠ¤í‚¬ ê²½í—˜ì¹˜
 	{
 		if( a->skillexp[iCount].skillexp/10000 )
 		{
@@ -1510,7 +1510,7 @@ void SaveBallancingSkill( LPCHARLIST a, int skillno )
 	fclose(fp);
 }	
 
-/* 040715_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®) - ·Î±×´Â BattleÆú´õ¿¡ ÀúÀåµÊ
+/* 040715_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬) - ë¡œê·¸ëŠ” Battleí´ë”ì— ì €ì¥ë¨
 void SaveBallancing2( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int mana, int attack, int attacktype, int tac  )
 {   //< CSD-030324
 }
@@ -1524,7 +1524,7 @@ void SaveLogLevelUp(LPCHARLIST pTarget)
 
 //----------------------------------------------------------------------------
 // 010502 YGI
-// ÁÖ¹®À» Ÿ½¾úÀ» °æ¿ì
+// ì£¼ë¬¸ì„ ÂŸìŠ­ç¦?ê²½ìš°
 // acer5
 void Recv_CMD_PLEASE_GIVE_LIFE( int cn, int type, int alive_word_type  )
 {	
@@ -1533,20 +1533,20 @@ void Recv_CMD_PLEASE_GIVE_LIFE( int cn, int type, int alive_word_type  )
 	
 	bool alive_flag = false;
 	
-	if( type == 0 )		// ÀÏ¹İ À¯Àú
+	if( type == 0 )		// ì¼ë°˜ ìœ ì €
 	{
-		if( ch->viewtype != VIEWTYPE_GHOST_ ) return; //À¯·ÉÅ¸ÀÔµµ ¾Æ´Ï¸é¼­..
-		if( g_stop_please_give_life ) return;		// ½ÅÀüÀÇ ±â´ÉÀ» ¸·À»¼ö ÀÖ´Ù. ( µÇ»ì¾Æ´Ï´Â )..
-		if( ch->reporter_mode ) return;		// ±âÀÚ¸ğµåÀÏ°æ¿ì¿£ ÇØ´ç¾ø´Ù.		// 011128 YGI
+		if( ch->viewtype != VIEWTYPE_GHOST_ ) return; //ìœ ë ¹íƒ€ì…ë„ ì•„ë‹ˆë©´ì„œ..
+		if( g_stop_please_give_life ) return;		// ì‹ ì „ì˜ ê¸°ëŠ¥ì„ ë§‰ì„ìˆ˜ ìˆë‹¤. ( ë˜ì‚´ì•„ë‹ˆëŠ” )..
+		if( ch->reporter_mode ) return;		// ê¸°ìëª¨ë“œì¼ê²½ìš°ì—” í•´ë‹¹ì—†ë‹¤.		// 011128 YGI
 		
 		int ret = g_AliveMap.CheckAlive( ch->MoveSx, ch->MoveSy, MapNumber, alive_word_type );
-		if( ret < 0 ) return;		// »ì¾Æ ³¯¼ö ÀÖ´Â °÷ÀÌ ¾Æ´Ï´Ù.
+		if( ret < 0 ) return;		// ì‚´ì•„ ë‚ ìˆ˜ ìˆëŠ” ê³³ì´ ì•„ë‹ˆë‹¤.
 		
-		if( ret == 100 )		// »ì·Á ÁØ´Ù.
+		if( ret == 100 )		// ì‚´ë ¤ ì¤€ë‹¤.
 		{
-			SkillMgr.CharacterToAlive(ch);// »ì·ÁÁØ´Ù.//020501 lsw
+			SkillMgr.CharacterToAlive(ch);// ì‚´ë ¤ì¤€ë‹¤.//020501 lsw
 		}
-		else		// »ì¾Æ³ª´Â °÷ÀÌ±ä ÇÏÁö¸¸ ÁÖ¹®ÀÌ Æ²·È´Ù.
+		else		// ì‚´ì•„ë‚˜ëŠ” ê³³ì´ê¸´ í•˜ì§€ë§Œ ì£¼ë¬¸ì´ í‹€ë ¸ë‹¤.
 		{
 			char ret_alive_word_type = ret;
 			SendPacketDefault( CMD_ALIVE_FAIL_RESULT, (char*)&ret_alive_word_type, sizeof( char), cn );
@@ -1556,18 +1556,18 @@ void Recv_CMD_PLEASE_GIVE_LIFE( int cn, int type, int alive_word_type  )
 	{
 		//ACER5
 		CrackMgr.SendHackingUser( cn, USE_GM_TOOL, "CMD_GIVE_LIFE" );
-		SkillMgr.CharacterToAlive(ch, 1);// »ì·ÁÁØ´Ù.//020501 lsw
+		SkillMgr.CharacterToAlive(ch, 1);// ì‚´ë ¤ì¤€ë‹¤.//020501 lsw
 	}
 	return;
 }
 
-///////////////////////// 0726 lkh Ãß°¡ ///////////////////////////
-void	TameNpcAI( LPCHARLIST master )			//ÁÖÀÎ¿¡°Ô ¼ÓÇØ ÀÖ´Â Å×¹ÖNPCÀÇ Çàµ¿À» Á¦¾î
+///////////////////////// 0726 lkh ì¶”ê°€ ///////////////////////////
+void	TameNpcAI( LPCHARLIST master )			//ì£¼ì¸ì—ê²Œ ì†í•´ ìˆëŠ” í…Œë°NPCì˜ í–‰ë™ì„ ì œì–´
 {
 	LPCHARLIST	tame_Char=NULL, target	= NULL;
 	int			distance, distance_Min	= 1000;
 	
-	for( int i = NPC_LIST_START ; i < MAX_NPC_LIST ; i ++ )	//ÅÂ¹ÖÇÑ NPC¸¦ Ã£´Â´Ù.
+	for( int i = NPC_LIST_START ; i < MAX_NPC_LIST ; i ++ )	//íƒœë°í•œ NPCë¥¼ ì°¾ëŠ”ë‹¤.
 	{
 		if (NPCList[i].bAlive == ALIVE_ && NPCList[i].IsTamedNpc())
 			if( NPCList[i].HostName[0] )
@@ -1577,9 +1577,9 @@ void	TameNpcAI( LPCHARLIST master )			//ÁÖÀÎ¿¡°Ô ¼ÓÇØ ÀÖ´Â Å×¹ÖNPCÀÇ Çàµ¿À» Á¦¾î
 					break;
 				}
 	}
-	if(!tame_Char)	return;						//ÁÖÀÎÀÌ Å×¹ÖÇÑ NPC°¡ ¾ø´Â °æ¿ì
+	if(!tame_Char)	return;						//ì£¼ì¸ì´ í…Œë°í•œ NPCê°€ ì—†ëŠ” ê²½ìš°
 	
-	for( int j = NPC_LIST_START ; j < MAX_NPC_LIST ; j ++ )	//°ø°İÇÒ ´ë»óÀ» Ã£´Â´Ù.
+	for( int j = NPC_LIST_START ; j < MAX_NPC_LIST ; j ++ )	//ê³µê²©í•  ëŒ€ìƒì„ ì°¾ëŠ”ë‹¤.
 	{
 		if( NPCList[j].bAlive == ALIVE_ && tame_Char!=&NPCList[j] )
 		{
@@ -1591,7 +1591,7 @@ void	TameNpcAI( LPCHARLIST master )			//ÁÖÀÎ¿¡°Ô ¼ÓÇØ ÀÖ´Â Å×¹ÖNPCÀÇ Çàµ¿À» Á¦¾î
 			}
 		}
 	}
-	if(!target)		return;						//°ø°İÇÒ ´ë»óÀÌ ¾ø´Ù.
+	if(!target)		return;						//ê³µê²©í•  ëŒ€ìƒì´ ì—†ë‹¤.
 	
 	if( target->SprType == SPRITETYPE_NPC ) 
 	{
@@ -1610,7 +1610,7 @@ void	TameNpcAI( LPCHARLIST master )			//ÁÖÀÎ¿¡°Ô ¼ÓÇØ ÀÖ´Â Å×¹ÖNPCÀÇ Çàµ¿À» Á¦¾î
 	SendTameResult( master->GetServerID(), 5 );	//TAME_ATTACK
 	SendNPC_StringParameter( tame_Char->GetServerID(), NPC_PARAMETER_TARGETNAME, tame_Char->TargetName );
 }
-// PK¸¦ ÇÒ¼ö ÀÖ´Â Flag¸¦ º¸³½´Ù.
+// PKë¥¼ í• ìˆ˜ ìˆëŠ” Flagë¥¼ ë³´ë‚¸ë‹¤.
 //void SendStartGoodBad( int id )
 void SendNK( int id, int nk )
 {			

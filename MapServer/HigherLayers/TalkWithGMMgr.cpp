@@ -1,4 +1,4 @@
-// TalkWithGMMgr.cpp: implementation of the CTalkWithGMMgr class.
+﻿// TalkWithGMMgr.cpp: implementation of the CTalkWithGMMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 

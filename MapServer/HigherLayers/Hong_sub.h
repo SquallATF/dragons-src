@@ -1,4 +1,4 @@
-#define MemAlloc(x, y)				__Alloc( (char **)(&##x), (y), __FILE__, __LINE__ )
+﻿#define MemAlloc(x, y)				__Alloc( (char **)(&##x), (y), __FILE__, __LINE__ )
 #define MemFree( x ) MemFree_Sub( (char **)(&##x), __FILE__, __LINE__ )
 
 #ifndef __HONG_SUB_H__

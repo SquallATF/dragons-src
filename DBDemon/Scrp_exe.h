@@ -1,4 +1,4 @@
-
+﻿
 
 #define _SCRIPT_VARABLE_POINT_      300
 

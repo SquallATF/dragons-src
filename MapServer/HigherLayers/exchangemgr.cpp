@@ -1,4 +1,4 @@
-// ExchangeMgr.cpp: implementation of the CExchangeMgr class.
+ï»¿// ExchangeMgr.cpp: implementation of the CExchangeMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,14 +27,14 @@ CExchangeMgr::~CExchangeMgr()
 
 
 // 011120 YGI
-int RecvItemExchange( K_ITEM *k_item, int you_id, int cn , const int iExchangeType)//°Å·¡¸¦ ÇÏ°í ½Í´Ù´Â ¿ä±¸
+int RecvItemExchange( K_ITEM *k_item, int you_id, int cn , const int iExchangeType)//ê±°ë˜ë¥¼ í•˜ê³  ì‹¶ë‹¤ëŠ” ìš”êµ¬
 {
 	//////////////////// exist check //////////////
 	CHARLIST *ch	= ::CheckServerId( cn );
 	CHARLIST *you	= ::CheckServerId( you_id );
 	if( !ch || !you ) {return 0;}
 
-	if( ch->IsDead() || you->IsDead() )//Á×¾ú´Ù¸é.
+	if( ch->IsDead() || you->IsDead() )//ì£½ì—ˆë‹¤ë©´.
 	{
 		return 0;
 	}
@@ -46,60 +46,60 @@ int RecvItemExchange( K_ITEM *k_item, int you_id, int cn , const int iExchangeTy
 	
 	if(!ch->IsTradeOn() || !you->IsTradeOn())
 	{
-		if(!ch->IsTradeOn()){::OutMessage(ch,2,920);}//±³È¯ °ÅºÎ »óÅÂ È®ÀÎÈÄ ¾ÆÀÌÅÛÀ» °Å·¡ ÇÏ½Ê½Ã¿ä.
-		else				{::OutMessage(ch,2,921);}//»ó´ë°¡ ±³È¯À» °ÅºÎ
+		if(!ch->IsTradeOn()){::OutMessage(ch,2,920);}//êµí™˜ ê±°ë¶€ ìƒíƒœ í™•ì¸í›„ ì•„ì´í…œì„ ê±°ë˜ í•˜ì‹­ì‹œìš”.
+		else				{::OutMessage(ch,2,921);}//ìƒëŒ€ê°€ êµí™˜ì„ ê±°ë¶€
 
-		if(!you->IsTradeOn())	{::OutMessage(you,2,920);}//±³È¯ °ÅºÎ »óÅÂ È®ÀÎÈÄ ¾ÆÀÌÅÛÀ» °Å·¡ ÇÏ½Ê½Ã¿ä.
-		else					{::OutMessage(you,2,921);}//»ó´ë°¡ ±³È¯À» °ÅºÎ
+		if(!you->IsTradeOn())	{::OutMessage(you,2,920);}//êµí™˜ ê±°ë¶€ ìƒíƒœ í™•ì¸í›„ ì•„ì´í…œì„ ê±°ë˜ í•˜ì‹­ì‹œìš”.
+		else					{::OutMessage(you,2,921);}//ìƒëŒ€ê°€ êµí™˜ì„ ê±°ë¶€
 		
 		return 0;
 	}
 
-	if( EXCHANGE_STATE_READY != you->GetExchangeState() )		// ±×»ç¶÷ÀÌ ´©±º°¡¿Í °Å·¡¸¦ ÇÏ°í ÀÖÀ¸¸é
+	if( EXCHANGE_STATE_READY != you->GetExchangeState() )		// ê·¸ì‚¬ëŒì´ ëˆ„êµ°ê°€ì™€ ê±°ë˜ë¥¼ í•˜ê³  ìˆìœ¼ë©´
 	{
 		SendExchangeItemResult( cn, 0 ); 
 		return 0;
 	}
-	if( EXCHANGE_STATE_READY != ch->GetExchangeState() )	// ³»°¡ ´©±º°¡¿Í °Å·¡ÇÏ°í ÀÖÀ¸¸é¼­ 
+	if( EXCHANGE_STATE_READY != ch->GetExchangeState() )	// ë‚´ê°€ ëˆ„êµ°ê°€ì™€ ê±°ë˜í•˜ê³  ìˆìœ¼ë©´ì„œ 
 	{
-		SendExchangeItemResult( cn, 1 ); // ´Ù¸¥ »ç¶÷ÇÏ°í °Å·¡ÇÏ°í ÀÖ´Ù´Â °Í~
+		SendExchangeItemResult( cn, 1 ); // ë‹¤ë¥¸ ì‚¬ëŒí•˜ê³  ê±°ë˜í•˜ê³  ìˆë‹¤ëŠ” ê²ƒ~
 		return 0;
 	}
 	if( ch->fight_flag > 0 )
 	{
-		SendExchangeItemResult( cn, 5 ); // 1:1 °áÅõ ÁßÀÌ´Ù.
+		SendExchangeItemResult( cn, 5 ); // 1:1 ê²°íˆ¬ ì¤‘ì´ë‹¤.
 		return 0;
 	}
 	if( you->fight_flag > 0 )
 	{
-		SendExchangeItemResult( cn, 5 ); // 1:1 °áÅõ ÁßÀÌ´Ù.
+		SendExchangeItemResult( cn, 5 ); // 1:1 ê²°íˆ¬ ì¤‘ì´ë‹¤.
 		return 0;
 	}
 	if( !you->IsPlayer())
 	{
-		SendExchangeItemResult( cn, 3 );		// ÀÎ°£ÀÌ ¾Æ³Ä~
+		SendExchangeItemResult( cn, 3 );		// ì¸ê°„ì´ ì•„ëƒ~
 		return 0;
 	}
-	if(!connections[you_id].dwAgentConnectionIndex || connections[you_id].state < CONNECT_JOIN) // ±× »ç¶÷Àº ÇöÀç Á¢¼ÓÁßÀÌ ¾Æ´Ï´Ù.	
+	if(!connections[you_id].dwAgentConnectionIndex || connections[you_id].state < CONNECT_JOIN) // ê·¸ ì‚¬ëŒì€ í˜„ì¬ ì ‘ì†ì¤‘ì´ ì•„ë‹ˆë‹¤.	
 	{
 		SendExchangeItemResult( cn, 4 );
 		return 0;
 	}
 
 	if( EXCHANGE_STATE_READY != ch->GetExchangeState() 
-	&&	you_id == ch->GetExchangeTargetId())	// ±× »ç¶÷°ú °Å·¡ÁßÀÏ¶§ Ã³¸® ¸Ş´º¿¡ ¿Ã·Á ³õ´Â °Å¿Í °°Àº Ã³¸® ÇÊ¿ä
+	&&	you_id == ch->GetExchangeTargetId())	// ê·¸ ì‚¬ëŒê³¼ ê±°ë˜ì¤‘ì¼ë•Œ ì²˜ë¦¬ ë©”ë‰´ì— ì˜¬ë ¤ ë†“ëŠ” ê±°ì™€ ê°™ì€ ì²˜ë¦¬ í•„ìš”
 	{		
 		return 0;
 	}
 
-	//////////// ±³È¯ ½ÃÀÛ ¼º°ø ·çÆ¾ ////////////////
-	ch->ClearExchangeInfo();//¼ø¼­ ÁÖÀÇ Å¬¸®¾î ½ÃÅ°°í °ª ¼ÂÆÃÀÌ´Ï±î ³»¸®Áö ¸»°Í
+	//////////// êµí™˜ ì‹œì‘ ì„±ê³µ ë£¨í‹´ ////////////////
+	ch->ClearExchangeInfo();//ìˆœì„œ ì£¼ì˜ í´ë¦¬ì–´ ì‹œí‚¤ê³  ê°’ ì…‹íŒ…ì´ë‹ˆê¹Œ ë‚´ë¦¬ì§€ ë§ê²ƒ
 	you->ClearExchangeInfo();
 
 	switch(iExchangeType)
 	{
 	case EXCHANGE_TYPE_NORMAL:
-		{	//±³È¯À» Ã³À½ ½ÃÀÛÇÒ ¶§´Â Á¤º¸¸¦ ¸ğµÎ Å¬¸®¾î ½ÃÅ´
+		{	//êµí™˜ì„ ì²˜ìŒ ì‹œì‘í•  ë•ŒëŠ” ì •ë³´ë¥¼ ëª¨ë‘ í´ë¦¬ì–´ ì‹œí‚´
 			::memset(k_item,0,sizeof(K_ITEM));
 			::memset(ch->give,0,sizeof(K_ITEM)*MAX_EXCHANGE_ITEM);
 			::memset(ch->recv,0,sizeof(K_ITEM)*MAX_EXCHANGE_ITEM);
@@ -107,7 +107,7 @@ int RecvItemExchange( K_ITEM *k_item, int you_id, int cn , const int iExchangeTy
 			::memset(you->recv,0,sizeof(K_ITEM)*MAX_EXCHANGE_ITEM);
 		}break;
 	case EXCHANGE_TYPE_MERCHANT_DIRECT:
-		{//°Ë»ç°¡ ¾ø´Ù. ¼­¹ö³»¿¡¼­ È£Ãâ ÇÏ±â ¶§¹®ÀÌ´Ù
+		{//ê²€ì‚¬ê°€ ì—†ë‹¤. ì„œë²„ë‚´ì—ì„œ í˜¸ì¶œ í•˜ê¸° ë•Œë¬¸ì´ë‹¤
 			ch->give[0] = *k_item;
 			you->recv[0] = *k_item;
 		}break;//021121 lsw
@@ -120,19 +120,19 @@ int RecvItemExchange( K_ITEM *k_item, int you_id, int cn , const int iExchangeTy
 	ch->SetExchangeTarget(you_id,you->Name);
 	you->SetExchangeTarget(cn,ch->Name);
 
-	ch->SetExchangeType(iExchangeType);//°Å·¡Å¸ÀÔ ¼ÂÆÃ
+	ch->SetExchangeType(iExchangeType);//ê±°ë˜íƒ€ì… ì…‹íŒ…
 	you->SetExchangeType(iExchangeType);
 
-	ch->SetExchangeState(EXCHANGE_STATE_EXCHANGE_NOW_SIGN_NO);//º¸Åë °Å·¡·Î ¼ÂÆÃ
+	ch->SetExchangeState(EXCHANGE_STATE_EXCHANGE_NOW_SIGN_NO);//ë³´í†µ ê±°ë˜ë¡œ ì…‹íŒ…
 	you->SetExchangeState(EXCHANGE_STATE_EXCHANGE_NOW_SIGN_NO);
 	
-	::SendExchangeItemOk( you_id, cn, k_item ,iExchangeType);// ¼º°ø // ¸Ş´º¸¦ ¶ç¿î´Ù.
+	::SendExchangeItemOk( you_id, cn, k_item ,iExchangeType);// ì„±ê³µ // ë©”ë‰´ë¥¼ ë„ìš´ë‹¤.
 	::SendExchangeItemReq( you_id, cn, k_item ,iExchangeType);
 	return 1;
 }
 
 void SendExchangeItemOk( int you_id, int cn, const K_ITEM *item , const int iExchangeType)	
-{	// ¾ÆÀÌÅÛ ±³È¯ ¸Ş´º¸¦ ¶ç¿ö¶ó...
+{	// ì•„ì´í…œ êµí™˜ ë©”ë‰´ë¥¼ ë„ì›Œë¼...
 	t_packet packet;
 	
 	packet.h.header.type = CMD_EXCHANGE_ITEM_READY;
@@ -145,7 +145,7 @@ void SendExchangeItemOk( int you_id, int cn, const K_ITEM *item , const int iExc
 }
 
 void SendExchangeItemReq( int you_id, int cn, const K_ITEM *item , const int iExchangeType)	
-{	// cnÀÌ ³Ê¿¡°Ô ¾ÆÀÌÅÛÀ» ±³È¯ÇÏÀÚ°í ¿äÃ»Çß´Ù.
+{	// cnì´ ë„ˆì—ê²Œ ì•„ì´í…œì„ êµí™˜í•˜ìê³  ìš”ì²­í–ˆë‹¤.
 	t_packet packet;
 
 	packet.h.header.type = CMD_EXCHANGE_ITEM_REQ;
@@ -168,11 +168,11 @@ void SendExchangeItemResult( int cn, int result )
 }
 
 void RecvExchangeStateSign( short int you, short int me , bool bIsOkSign)
-{//±³È¯ OK »çÀÎÀÌ ¿Ô¾î
+{//êµí™˜ OK ì‚¬ì¸ì´ ì™”ì–´
 	CHARLIST *me_ch = ::CheckServerId(me);
 	CHARLIST *you_ch = ::CheckServerId(you);
 
-	if( !me_ch || !you_ch )			 //  ±×·± ³ğ ¾ø´ç~
+	if( !me_ch || !you_ch )			 //  ê·¸ëŸ° ë†ˆ ì—†ë‹¹~
 	{
 		::SendExchangeCancel( you, me );
 		return;
@@ -199,7 +199,7 @@ void RecvExchangeStateSign( short int you, short int me , bool bIsOkSign)
 			me_ch->SetExchangeState(EXCHANGE_STATE_EXCHANGE_NOW_SIGN_NO);//Change SignState
 		}
 	
-		t_packet packet;// µÑÀÌ °Å·¡¸¦ ÇÏ°í ÀÖ´Â ÁßÀÌ¾ß ÇÑ´Ù.
+		t_packet packet;// ë‘˜ì´ ê±°ë˜ë¥¼ í•˜ê³  ìˆëŠ” ì¤‘ì´ì•¼ í•œë‹¤.
 		packet.h.header.type = iSendPacketType;
 		packet.h.header.size = sizeof( 0 );
 		::QueuePacket(connections, you, &packet, 1);
@@ -211,14 +211,14 @@ void RecvExchangeStateSign( short int you, short int me , bool bIsOkSign)
 	return;
 }
 
-void ExchangeCancel(CHARLIST *ch)//SendExchangeCancel() ¿Í ¼ÂÆ® ÀÔ´Ï´Ù. ¶³¾îÁöÁö ¾Ê°Ô ÁÖÀÇ ÇÏ¼¼¿ä
+void ExchangeCancel(CHARLIST *ch)//SendExchangeCancel() ì™€ ì…‹íŠ¸ ì…ë‹ˆë‹¤. ë–¨ì–´ì§€ì§€ ì•Šê²Œ ì£¼ì˜ í•˜ì„¸ìš”
 {
 	if(!ch){return;}
 	switch(ch->GetExchangeType())
 	{
-	case EXCHANGE_TYPE_MERCHANT_DIRECT:	//»óÀÎ°ú Á÷Á¢ °Å·¡
-		{//Ãë¼Ò µÉ¶§ IS_END_BUYING ¸¦ Ç®¾î ÁÖÀÚ
-			if(	AUCTION_DB == ch->give[0].item_pos.type)//ÆÇ¸Å ¹°Ç°Áß
+	case EXCHANGE_TYPE_MERCHANT_DIRECT:	//ìƒì¸ê³¼ ì§ì ‘ ê±°ë˜
+		{//ì·¨ì†Œ ë ë•Œ IS_END_BUYING ë¥¼ í’€ì–´ ì£¼ì
+			if(	AUCTION_DB == ch->give[0].item_pos.type)//íŒë§¤ ë¬¼í’ˆì¤‘
 			{
 				// 030929 HK YGI
 				int iIndex = MAKELONG( ch->give[0].item_pos.p1, ch->give[0].item_pos.p2 );
@@ -248,11 +248,11 @@ void ExchangeCancel(CHARLIST *ch)//SendExchangeCancel() ¿Í ¼ÂÆ® ÀÔ´Ï´Ù. ¶³¾îÁöÁö
 }
 
 void SendExchangeCancel( short int you, short int me)
-{//iExchangeTypeÀÌ »óÀÎ°ú °Å·¡ÀÏ¶§ iIndex°ªÀ» ³Ö°í
+{//iExchangeTypeì´ ìƒì¸ê³¼ ê±°ë˜ì¼ë•Œ iIndexê°’ì„ ë„£ê³ 
 	CHARLIST *pChMe		= ::CheckServerId(me);
 	CHARLIST *pChYou	= ::CheckServerId(you);
 
-	if( pChMe )		// ¾ÆÀÌµğ°¡ 0 ÀÌ¸é ¾ÈµÈ´Ù.
+	if( pChMe )		// ì•„ì´ë””ê°€ 0 ì´ë©´ ì•ˆëœë‹¤.
 	{
 		::ExchangeCancel(pChMe); 
 	}
@@ -263,12 +263,12 @@ void SendExchangeCancel( short int you, short int me)
 }
 
 // 010223 YGI
-void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn )		// ¿Ã·Á ³õ±â ½ÃÀÛÇÑ ¹°°Çµé
+void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn )		// ì˜¬ë ¤ ë†“ê¸° ì‹œì‘í•œ ë¬¼ê±´ë“¤
 {
 	CHARLIST *me_ch	= ::CheckServerId( cn );
 	CHARLIST *you_ch = ::CheckServerId( you_id );
 
-	if( !me_ch || !you_ch )			 //  ±×·± ³ğ ¾ø´ç~
+	if( !me_ch || !you_ch )			 //  ê·¸ëŸ° ë†ˆ ì—†ë‹¹~
 	{
 		::SendExchangeCancel( you_id, cn );
 		return;
@@ -301,7 +301,7 @@ void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn )		// ¿Ã·Á ³õ±â ½ÃÀÛÇÑ
 		}break;
 	}
 
-	const ItemAttr *target= ::GetItemByPOS( cn, k_item->item_pos );		// Á¤¸»·Î ±× ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´À³Ä?
+	const ItemAttr *target= ::GetItemByPOS( cn, k_item->item_pos );		// ì •ë§ë¡œ ê·¸ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠëƒ?
 
 	if( !target
 	||	!target->item_no 
@@ -313,7 +313,7 @@ void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn )		// ¿Ã·Á ³õ±â ½ÃÀÛÇÑ
 	// 040601 YGI
 	if( GetAttr2( target->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) )
 	{
-		// ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀº ±³È¯À» ÇÒ ¼ö ¾ø´Ù.
+		// ì•„ì´í…œ ëª° ì•„ì´í…œì€ êµí™˜ì„ í•  ìˆ˜ ì—†ë‹¤.
 		return;
 	}
 
@@ -323,14 +323,14 @@ void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn )		// ¿Ã·Á ³õ±â ½ÃÀÛÇÑ
 	{
 		if( ::EqualPosByPos(&me_ch->give[i].item_pos, &k_item->item_pos) ) 
 		{
-			return;// °°Àº °÷ÀÇ ¾ÆÀÌÅÛÀÌ ¿Ã¶ó ¿Ô´Ù.
+			return;// ê°™ì€ ê³³ì˜ ì•„ì´í…œì´ ì˜¬ë¼ ì™”ë‹¤.
 		}
 	}
 
 	if(AUCTION_DB == me_ch->give[0].item_pos.type)
 	{
 		return;
-	}//0¹ø¿¡ °æ¸ÅÇ°ÀÌ ÀÖÀ¸¸é ¾ÆÀÌÅÛ ¸ø¿Ã¸°´Ù
+	}//0ë²ˆì— ê²½ë§¤í’ˆì´ ìˆìœ¼ë©´ ì•„ì´í…œ ëª»ì˜¬ë¦°ë‹¤
 	
 	for(int i=0; i<MAX_EXCHANGE_ITEM; i++ )
 	{
@@ -358,8 +358,8 @@ void RecvExchange_Sub(CHARLIST *pCaster,CHARLIST *pTarget,const int i)
 	{
 		ItemAttr *del_item = ::GetItemByPOS( iCasterCn, pCaster->give[i].item_pos );
 		
-		if(	AUCTION_DB == pCaster->give[0].item_pos.type)//ÆÇ¸Å ¹°Ç°Áß
-		{//±³È¯ ¼º°ø ¿Á¼Ç¿¡ ÀÖ´Â°Å ±¸¸Å °¡´ÉÀ¸·Î ¿Ã·Á¶ó
+		if(	AUCTION_DB == pCaster->give[0].item_pos.type)//íŒë§¤ ë¬¼í’ˆì¤‘
+		{//êµí™˜ ì„±ê³µ ì˜¥ì…˜ì— ìˆëŠ”ê±° êµ¬ë§¤ ê°€ëŠ¥ìœ¼ë¡œ ì˜¬ë ¤ë¼
 			// 030929 HK YGI
 			int iIndex = MAKELONG(pCaster->give[0].item_pos.p1, pCaster->give[0].item_pos.p2 );
 			Auction.SendCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(
@@ -371,7 +371,7 @@ void RecvExchange_Sub(CHARLIST *pCaster,CHARLIST *pTarget,const int i)
 		// 040901 YGI
 		if( GetAttr2( del_item->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) )
 		{
-			// ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀº ±³È¯À» ÇÒ ¼ö ¾ø´Ù.
+			// ì•„ì´í…œ ëª° ì•„ì´í…œì€ êµí™˜ì„ í•  ìˆ˜ ì—†ë‹¤.
 			return;
 		}
 
@@ -403,7 +403,7 @@ void RecvExchange( short int you, short int me )
 	CHARLIST *me_ch = ::CheckServerId( me );
 	CHARLIST *you_ch = ::CheckServerId( you );
 
-	if( !me_ch || !you_ch )			 //  ±×·± ³ğ ¾ø´ç~
+	if( !me_ch || !you_ch )			 //  ê·¸ëŸ° ë†ˆ ì—†ë‹¹~
 	{
 		SendExchangeCancel( you, me );
 		return;
@@ -411,7 +411,7 @@ void RecvExchange( short int you, short int me )
 	const int iExchangeType = me_ch->GetExchangeType();
 
 	if(iExchangeType != you_ch->GetExchangeType())
-	{//±³È¯ Å¸ÀÔÀÌ ´Ù¸£¸é
+	{//êµí™˜ íƒ€ì…ì´ ë‹¤ë¥´ë©´
 		return;
 	}
 	
@@ -465,7 +465,7 @@ void RecvExchangeItemDel( POS pos, short int you_id, short int me )
 	CHARLIST *me_ch	= ::CheckServerId(me);
 	CHARLIST *you_ch = ::CheckServerId(you_id);
 
-	if( !me_ch || !you_ch )			 //  ±×·± ³ğ ¾ø´ç~
+	if( !me_ch || !you_ch )			 //  ê·¸ëŸ° ë†ˆ ì—†ë‹¹~
 	{
 		::SendExchangeCancel( you_id, me );
 		return;
@@ -474,7 +474,7 @@ void RecvExchangeItemDel( POS pos, short int you_id, short int me )
 	RecvExchangeStateSign( you_id, me , false);
 	RecvExchangeStateSign( me, you_id , false);
 	
-	if(AUCTION_DB == me_ch->give[0].item_pos.type)//0¹ø¿¡ °æ¸ÅÇ°ÀÌ ÀÖÀ¸¸é ³ª¸ÓÁöµµ Ãë¼Ò ÇÒ ¼ö ¾ø´Ù(µé¾î ³¾ ¼ö ¾ø´Ù)
+	if(AUCTION_DB == me_ch->give[0].item_pos.type)//0ë²ˆì— ê²½ë§¤í’ˆì´ ìˆìœ¼ë©´ ë‚˜ë¨¸ì§€ë„ ì·¨ì†Œ í•  ìˆ˜ ì—†ë‹¤(ë“¤ì–´ ë‚¼ ìˆ˜ ì—†ë‹¤)
 	{
 		return;
 	}
@@ -501,7 +501,7 @@ void RecvExchangeItemDel( POS pos, short int you_id, short int me )
 	
 }
 
-void SendExchangeItemDel( const short int you, const K_ITEM item )		// »ó´ëÆí¿¡°Ô ³Ñ¾î°¥ ¾ÆÀÌÅÛÁß »èÁ¦ÇÒ ¾ÆÀÌÅÛ..
+void SendExchangeItemDel( const short int you, const K_ITEM item )		// ìƒëŒ€í¸ì—ê²Œ ë„˜ì–´ê°ˆ ì•„ì´í…œì¤‘ ì‚­ì œí•  ì•„ì´í…œ..
 {
 	t_packet packet;
 	packet.h.header.type = CMD_EXCHANGE_ITEM_DEL;
@@ -526,7 +526,7 @@ void RecvReqManToMan( short int target_id, short int cn )
 	}	//> CSD-030806
 
 	if( EXCHANGE_STATE_READY != target->GetExchangeState() 
-	||	EXCHANGE_STATE_READY != ch->GetExchangeState() ) // ¹°°Ç °Å·¡ÁßÀÌ´Ù
+	||	EXCHANGE_STATE_READY != ch->GetExchangeState() ) // ë¬¼ê±´ ê±°ë˜ì¤‘ì´ë‹¤
 	{
 		::SendReqManToManResult(4, cn);
 		return;
@@ -537,13 +537,13 @@ void RecvReqManToMan( short int target_id, short int cn )
 		::SendReqManToManResult(4, cn);
 		return;
 	}
-	::SendReqManToManResult(1, cn) ;		// ½ÅÃ» ¼º°ø	//¾ÆÀÌÅÛÀ» °ÉÁö ¾Ê½À´Ï´Ù.//021030 lsw
+	::SendReqManToManResult(1, cn) ;		// ì‹ ì²­ ì„±ê³µ	//ì•„ì´í…œì„ ê±¸ì§€ ì•ŠìŠµë‹ˆë‹¤.//021030 lsw
 
-	// °áÅõ ½Ã½ºÅÛ ÇÃ·¹±× ¼ÂÆÃ
-	target->fight_flag	= 2;		// °áÅõ ¸Ş´º°¡ ¶°ÀÖ´Â »óÅÂ ÇÃ·¹±× set
-	ch->fight_flag		= 2;		// °áÅõ ¸Ş´º°¡ ¶°ÀÖ´Â »óÅÂ ÇÃ·¹±× set
+	// ê²°íˆ¬ ì‹œìŠ¤í…œ í”Œë ˆê·¸ ì…‹íŒ…
+	target->fight_flag	= 2;		// ê²°íˆ¬ ë©”ë‰´ê°€ ë– ìˆëŠ” ìƒíƒœ í”Œë ˆê·¸ set
+	ch->fight_flag		= 2;		// ê²°íˆ¬ ë©”ë‰´ê°€ ë– ìˆëŠ” ìƒíƒœ í”Œë ˆê·¸ set
 
-	t_packet packet;				// 1:1 ½ÅÃ»
+	t_packet packet;				// 1:1 ì‹ ì²­
 	packet.h.header.type = CMD_REQ_MAN_TO_MAN;
 	packet.u.kein.req_man_to_man.id = cn;
 	packet.h.header.size = sizeof( k_req_man_to_man );
@@ -553,7 +553,7 @@ void RecvReqManToMan( short int target_id, short int cn )
 ////////////////////////////////////////////////////////
 void SendReqManToManResult( char ret, short int cn )
 {
-	t_packet packet;				// 1:1 ½ÅÃ»
+	t_packet packet;				// 1:1 ì‹ ì²­
 	packet.h.header.type = CMD_REQ_MAN_TO_MAN_RESULT;
 	packet.u.kein.default_char= ret;
 	packet.h.header.size = sizeof( char );
@@ -566,7 +566,7 @@ void RecvManToManConsent( short int target_id, short int cn )
 	CHARLIST *target = CheckServerId( target_id );
 	if( !ch || !target ) return;
 
-	t_packet packet;				// 1:1 ½ÃÀÛ
+	t_packet packet;				// 1:1 ì‹œì‘
 	packet.h.header.type = CMD_REQ_MAN_TO_MAN_CONSENT;
 	packet.h.header.size = sizeof( short int );
 	packet.u.kein.default_short_int = target_id;
@@ -576,7 +576,7 @@ void RecvManToManConsent( short int target_id, short int cn )
 	QueuePacket(connections, target_id, &packet, 1);
 }
 
-void ResultManToMan( short int cn, short int target_id, int flag )		// 1:1 ¿¡¼­ °á°ú°¡ ³ª¿ÔÀ» °æ¿ì ¾ÆÀÌÅÛ ¼ÂÆÃ~
+void ResultManToMan( short int cn, short int target_id, int flag )		// 1:1 ì—ì„œ ê²°ê³¼ê°€ ë‚˜ì™”ì„ ê²½ìš° ì•„ì´í…œ ì…‹íŒ…~
 {
 	CHARLIST *me = CheckServerId( cn );
 	if( !me || me->fight_flag == 0 )
@@ -590,9 +590,9 @@ void ResultManToMan( short int cn, short int target_id, int flag )		// 1:1 ¿¡¼­ 
 		return;
 	}
 
-	switch( flag )//ÀúÂÊ¿¡¼­ ÀÎÅÍÆäÀÌ½º¸¦ ´İÀ»¶§ //030116 lsw
+	switch( flag )//ì €ìª½ì—ì„œ ì¸í„°í˜ì´ìŠ¤ë¥¼ ë‹«ì„ë•Œ //030116 lsw
 	{
-	case 3:					// ºñ±ä°æ¿ì		// °¢ÀÚ ¾ÆÀÌÅÛÀ» °¢ÀÚ°¡ °¡Á®°£´Ù.
+	case 3:					// ë¹„ê¸´ê²½ìš°		// ê°ì ì•„ì´í…œì„ ê°ìê°€ ê°€ì ¸ê°„ë‹¤.
 		{
 			::CallClient( target_id, CMD_REQ_MAN_TO_MAN_REFUSAL );
 		}break;
@@ -604,7 +604,7 @@ void ResultManToMan( short int cn, short int target_id, int flag )		// 1:1 ¿¡¼­ 
 	you->fight_flag = 0;
 }
 
-void RecvCMD_TRADE_MODE_CHANGE(const int iCn, t_packet *p)//030127 lsw //Trade On/Off ¼ÂÆÃ
+void RecvCMD_TRADE_MODE_CHANGE(const int iCn, t_packet *p)//030127 lsw //Trade On/Off ì…‹íŒ…
 {
 	CHARLIST *pCh = ::CheckServerId(iCn);
 	const bool bIsTradeOn = p->u.Hwoa.rang.TradeModeChange.bIsTradeOn;

@@ -1,4 +1,4 @@
-// GMMgr.h: interface for the CGMMgr class.
+ï»¿// GMMgr.h: interface for the CGMMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -18,8 +18,8 @@ public:
 public:
 	int		CanGmRegist( const int iGmIndex, CHARLIST *ch );
 	bool	IsMerchant(CHARLIST *ch)const;
-	int		IsAllGM(CHARLIST *ch)const;//1Â÷ 2Â÷ ¿Ã Áö¿¥?
-	int		IsSkillMaster(CHARLIST *ch)const;//±â¼ºÀÎ°¡? ±â¼ºÀÌ¸é ½ºÅ³ ³Ñ¹ö¸¦ ³Ñ°Ü¶ó
+	int		IsAllGM(CHARLIST *ch)const;//1ì°¨ 2ì°¨ ì˜¬ ì§€ì— ?
+	int		IsSkillMaster(CHARLIST *ch)const;//ê¸°ì„±ì¸ê°€? ê¸°ì„±ì´ë©´ ìŠ¤í‚¬ ë„˜ë²„ë¥¼ ë„˜ê²¨ë¼
 };
 extern CGMMgr GMMgr;
 #endif // !defined(AFX_GMMGR_H__53127C18_C708_4D19_96E4_BAA47D361D6F__INCLUDED_)

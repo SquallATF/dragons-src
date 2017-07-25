@@ -1,4 +1,4 @@
-// MailMgr.cpp: implementation of the CMailMgr class.
+ï»¿// MailMgr.cpp: implementation of the CMailMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,9 +22,9 @@
 ////////////////////////////////////////////////////////////
 #include <string.h>
 #include <stdio.h>
-char SQLerror[200];/////////////////////////////////////¶¨Òå·¢ËÍÍâ¹Ò´íÎóµÄ×Ö·û´®
-extern void HackLog( int type, char *logmsg, ... );//¼ÇÂ¼Íâ¹ÒµÄLOG
-////////////////////////////////////½Ø»ñÉùÃ÷
+char SQLerror[200];/////////////////////////////////////å®šä¹‰å‘é€å¤–æŒ‚é”™è¯¯çš„å­—ç¬¦ä¸²
+extern void HackLog( int type, char *logmsg, ... );//è®°å½•å¤–æŒ‚çš„LOG
+////////////////////////////////////æˆªèŽ·å£°æ˜Ž
 int i,len1,len2,len3,len4;
 char s1[100],s2[100],s3[100],s4[100],*str;
 //char hackID[100],hackname[100];
@@ -50,21 +50,21 @@ CMailMgr::~CMailMgr()
 
 }
 
-void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//¸®½ºÆ® ¿äÃ»À» ¹ÞÀ½
+void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//åºœèƒ¶é£˜ å¤¸æ²¡é˜‘ ç½æ¾œ
 {
-	//¹ÞÀº ¸Ê¼­¹ö·Î µÇµ¹¸²	//ÀÌ¸§°ú ¹¹.. ¹¹.. ·Î °Ë»öÇÏÀÚ
+	//ç½ç¯® ç”˜è¾‘æ»šè‚º ç™»å€’è¦†	//æžæŠšè‹ž æž„.. æž„.. è‚º å…«ç¥¸çªç£Š
 	REQESTMAILLIST *pMailList = (LPREQESTMAILLIST)&p->u.Hwoa.rang.ReqestMailList;
 	pMailList->szName[MAX_NAME-1] = 0;
-	const char *szName = pMailList->szName;//±×»ç¶÷ÀÌ ÀÖÀ» °æ¿ì µðºñ¿¡°Ô ¿äÃ»À» ÇÑ´Ù	
+	const char *szName = pMailList->szName;//å¼Šè¤æ©æž ä¹é˜‘ ç‰ˆå¿« å¼åŽšä¿Šéœ¸ å¤¸æ²¡é˜‘ èŒ„ä¿ƒ	
 
-	const int iFindType = pMailList->iWantMailType;//¹ÞÀºÆíÁöÇÔ Áö¿î ÆíÁöÇÔ
+	const int iFindType = pMailList->iWantMailType;//ç½ç¯®ç¥ˆç˜¤çªƒ ç˜¤æ¬¾ ç¥ˆç˜¤çªƒ
 	const int iPageIndex = pMailList->iPageIndex;
 
-	if(0 > iPageIndex || MAX_MAIL_PAGE_COUNT <= iPageIndex)//ÆäÀÌÁö ÀÎµ¦½º°¡ ÀÌ»óÇÏ´Ù¸é
+	if(0 > iPageIndex || MAX_MAIL_PAGE_COUNT <= iPageIndex)//å…¶æžç˜¤ ç‰¢éƒ¸èƒ¶å•Š æžæƒ‘çªä¿ƒæ
 	{
 		return;
 	}
-	//	CMD_MAIL_LIST_FROM_DBDEMON//ÆÐÅ¶ Å¸ÀÔ
+	//	CMD_MAIL_LIST_FROM_DBDEMON//è©å“¦ é¸¥æ¶
 //	MAILDATA[MAX_MAIL_PAGE];
 	
 	t_packet packet;
@@ -95,7 +95,7 @@ void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//¸®½ºÆ® ¿äÃ»À» ¹ÞÀ½
 		retCode = SQLFetch(hStmt);
 		while( retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 		{
-			if(i < (iPageIndex)*MAX_MAIL_PAGE)//³»°¡ º¸°íÀÚ ÇÏ´Â ÆäÀÌÁö º¸´Ù ÀÛ´Ù.
+			if(i < (iPageIndex)*MAX_MAIL_PAGE)//éƒ´å•Š ç„Šç»Šç£Š çªç»° å…¶æžç˜¤ ç„Šä¿ƒ ç´¯ä¿ƒ.
 			{
 				i++;
 				retCode = ::SQLFetch(hStmt);
@@ -106,13 +106,13 @@ void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//¸®½ºÆ® ¿äÃ»À» ¹ÞÀ½
 				}
 				continue;
 			}
-			if(i > (iPageIndex+1)*MAX_MAIL_PAGE)//³»°¡ º¸°íÀÚ ÇÏ´Â ÆäÀÌÁö¸¦ ³Ñ¾î¼¹´Ù.
+			if(i > (iPageIndex+1)*MAX_MAIL_PAGE)//éƒ´å•Š ç„Šç»Šç£Š çªç»° å…¶æžç˜¤ç”« é€žç»¢è„Šä¿ƒ.
 			{
 				::SQLFreeStmt(hStmt, SQL_DROP);
 				break;
 			}
 
-			if(j >= MAX_MAIL_PAGE)//ÆäÀÌÁö ¼ö ³Ñ¾úÀ½ ÂüÁ¶ ÇÏÁö ¸»°Í
+			if(j >= MAX_MAIL_PAGE)//å…¶æžç˜¤ è é€žèŒæ¾œ æ›¼ç‚¼ çªç˜¤ å¯Œå·´
 			{
 				::SQLFreeStmt(hStmt, SQL_DROP);
 				break;
@@ -155,33 +155,33 @@ void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//¸®½ºÆ® ¿äÃ»À» ¹ÞÀ½
 		::SQLFreeStmt(hStmt, SQL_DROP);
 		return;
 	}
-	//¸®½Ã¹ö°¡ szName ÀÌ°í
-	::QueuePacket(connections,cn,&packet,1);//¸Ê¼­¹ö·Î µ¹·Áº¸³½´Ù
+	//åºœçŸ«æ»šå•Š szName æžç»Š
+	::QueuePacket(connections,cn,&packet,1);//ç”˜è¾‘æ»šè‚º å€’å¦¨ç„Šè¾°ä¿ƒ
 }
 
-void CMailMgr::Recv(const int cn, t_packet *p)//ÕâÀïÊÇÊÕµ½EMAILµÄµØ·½
-{//insert ¸¦ ÇÏ°í ´äÀ» º¸³»ÁØ´Ù
+void CMailMgr::Recv(const int cn, t_packet *p)//è¿™é‡Œæ˜¯æ”¶åˆ°EMAILçš„åœ°æ–¹
+{//insert ç”« çªç»Š ç¿ é˜‘ ç„Šéƒ´éœ–ä¿ƒ
 
 
-	MAILSEND *pMailSend = &p->u.Hwoa.rang.MailSend;//ÊÕµ½ÐÅ¼þ
-	pMailSend->szSender[MAX_NAME-1]			= 0; //·¢ËÍÈË
-	pMailSend->szTarget[MAX_NAME-1]			= 0; //½ÓÊÕÈË
-	pMailSend->szTitle[60-1]				= 0; //ÕâÀïÊÇÖ÷Ö¼
-	pMailSend->szBody[MAX_MAIL_BODY_LEN-1]	= 0; //ÕâÀïÊÇÄÚÈÝ
+	MAILSEND *pMailSend = &p->u.Hwoa.rang.MailSend;//æ”¶åˆ°ä¿¡ä»¶
+	pMailSend->szSender[MAX_NAME-1]			= 0; //å‘é€äºº
+	pMailSend->szTarget[MAX_NAME-1]			= 0; //æŽ¥æ”¶äºº
+	pMailSend->szTitle[60-1]				= 0; //è¿™é‡Œæ˜¯ä¸»æ—¨
+	pMailSend->szBody[MAX_MAIL_BODY_LEN-1]	= 0; //è¿™é‡Œæ˜¯å†…å®¹
 
-////////////////////////////////////////////////////////////////////////////////////////½Ø»ñ·Ç·¨×Ö·û	
-	strcpy(s1,pMailSend->szSender);	//·¢ËÍÈË
-	strcpy(s2,pMailSend->szTarget);	//½ÓÊÕÈË
-	strcpy(s3,pMailSend->szTitle);	//Ö÷Ö¼
-	strcpy(s4,pMailSend->szBody);	//ÄÚÈÝ
+////////////////////////////////////////////////////////////////////////////////////////æˆªèŽ·éžæ³•å­—ç¬¦	
+	strcpy(s1,pMailSend->szSender);	//å‘é€äºº
+	strcpy(s2,pMailSend->szTarget);	//æŽ¥æ”¶äºº
+	strcpy(s3,pMailSend->szTitle);	//ä¸»æ—¨
+	strcpy(s4,pMailSend->szBody);	//å†…å®¹
 //gets(pMailSend->szSender);
 len1 = (int)strlen(s1);
 len2 = (int)strlen(s2);
 len3 = (int)strlen(s3);
 len4 = (int)strlen(s4);
 
-str="·¢ÏÖSQLÂ©¶´¹¥»÷!·Ç·¨ÄÚÈÝ:[%s],  ·¢ËÍÈË:[%s], ÊÕÐÅÈË:[%s],  Ö÷Ö¼:[%s],  ÄÚÈÝ:[%s]";
-for(i = 0; i < len1; i++)		//·¢¼þÈË
+str="å‘çŽ°SQLæ¼æ´žæ”»å‡»!éžæ³•å†…å®¹:[%s],  å‘é€äºº:[%s], æ”¶ä¿¡äºº:[%s],  ä¸»æ—¨:[%s],  å†…å®¹:[%s]";
+for(i = 0; i < len1; i++)		//å‘ä»¶äºº
 {
 /*   if(!(input[i] > 'z' && input[i] < '==' || 
       input[i] > 'A' && input[i] < 'Z' ||
@@ -200,7 +200,7 @@ for(i = 0; i < len1; i++)		//·¢¼þÈË
 	}
 } 
 
-for(i = 0; i < len2; i++)		//ÊÕ¼þÈË
+for(i = 0; i < len2; i++)		//æ”¶ä»¶äºº
 {
 	if(s2[i]==39 || s2[i]=='-')
 	{
@@ -213,7 +213,7 @@ for(i = 0; i < len2; i++)		//ÊÕ¼þÈË
 	}
 } 
 
-for(i = 0; i < len3; i++)		//Ö÷Ö¼
+for(i = 0; i < len3; i++)		//ä¸»æ—¨
 {
 	if(s3[i]==39 || s3[i]=='-')
 	{
@@ -226,7 +226,7 @@ for(i = 0; i < len3; i++)		//Ö÷Ö¼
 	}
 } 
 
-for(i = 0; i < len4; i++)		//ÄÚÈÝ
+for(i = 0; i < len4; i++)		//å†…å®¹
 {
 	if(s4[i]==39 || s4[i]=='-')
 	{
@@ -239,23 +239,23 @@ for(i = 0; i < len4; i++)		//ÄÚÈÝ
 	}
 } 
 
- /*   if(pMailSend->szSender == 'ÔÂÉñÒ¹')
+ /*   if(pMailSend->szSender == 'æœˆç¥žå¤œ')
 	{
-		pMailSend->szSender = 'ÔÂÉñÒ¹';
+		pMailSend->szSender = 'æœˆç¥žå¤œ';
 	}*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	if( InsertMail( pMailSend->iType, pMailSend->szSender ,pMailSend->szTarget, pMailSend->szTitle, pMailSend->szBody ) ) 
 	{
-		SendInsertMailResult(  pMailSend->szSender, cn, CMD_SEND_MAIL_OK );	// ¼º°ø
-		if(LocalMgr.IsAbleNation(CHINA|TAIWAN|HONGKONG))//´ë¸¸¿¡ mail2
+		SendInsertMailResult(  pMailSend->szSender, cn, CMD_SEND_MAIL_OK );	// å·±å‚
+		if(LocalMgr.IsAbleNation(CHINA|TAIWAN|HONGKONG))//æŽªçˆ¶ä¿Š mail2
 		{
 			InsertMail2( pMailSend->iType, pMailSend->szSender ,pMailSend->szTarget, pMailSend->szTitle, pMailSend->szBody );
 		}
 	}
 	else 
 	{
-		SendInsertMailResult(  pMailSend->szSender, cn, CMD_SEND_MAIL_FAIL );	// ¼º°ø
+		SendInsertMailResult(  pMailSend->szSender, cn, CMD_SEND_MAIL_FAIL );	// å·±å‚
 	}
 }
 
@@ -287,7 +287,7 @@ bool CMailMgr::InsertMail( const int iType, const char *szSender, const char *sz
 
 	if( 1 == ::Querry_SQL( szMailQuerry ))
 	{
-		SendAlert(szReceiver);//¸ÞÀÏ ¿ÔÀ½À» ¾Ë¸°´Ù.
+		SendAlert(szReceiver);//çš‹è€ å­æ¾œé˜‘ èˆ…èµ´ä¿ƒ.
 		return true;
 	}
 	return false;
@@ -326,7 +326,7 @@ bool CMailMgr::InsertMail2(const int iType, const char *szSender, const char *sz
 	return true;
 }
 
-void CMailMgr::SendAlert( const char *szName )		// ´©±º°¡ ¸ÞÀÏÀ» º¸³ÂÀ»¶§ ¹Þ´Â »ç¶÷¿¡°Ô ¾Ë·ÁÁØ´Ù.
+void CMailMgr::SendAlert( const char *szName )		// ç©¿ç„™å•Š çš‹è€é˜‘ ç„Šé™ˆé˜‘é”­ ç½ç»° è¤æ©ä¿Šéœ¸ èˆ…å¦¨éœ–ä¿ƒ.
 {
 	t_packet packet;
 	packet.h.header.type = CMD_MAIL_ALERT;
@@ -349,9 +349,9 @@ void CMailMgr::SendInsertMailResult( const char *szName, const int cn, const int
 	QueuePacket( connections, cn, &packet, 1 );
 }
 
-bool CMailMgr::RecvDelete(const int cn, t_packet *p)//¸ÞÀÏÀÌ Áö¿öÁü 
-{//¸ÞÀÏ »èÁ¦
-	//¿ì¼± Áö¿î ÆíÁöÇÑ¿¡ ³Ö°í Áö¿îÆíÁöÇÔ¿¡ ÀÖ´Â ¾ÖµéÀº »èÁ¦ µÇµµ·Ï Ã³¸® ÇÏÀÚ.
+bool CMailMgr::RecvDelete(const int cn, t_packet *p)//çš‹è€æž ç˜¤å†µå’™ 
+{//çš‹è€ æ˜åŠ›
+	//å¿«æ€¥ ç˜¤æ¬¾ ç¥ˆç˜¤èŒ„ä¿Š æŒç»Š ç˜¤æ¬¾ç¥ˆç˜¤çªƒä¿Š ä¹ç»° å±€ç”¸ç¯® æ˜åŠ› ç™»æ¡£åºŸ è´¸åºœ çªç£Š.
 	char		szQuerry[255]= {0,};
 
 	for (int i = 0; MAX_MAIL_PAGE>i; i++)
@@ -368,9 +368,9 @@ bool CMailMgr::RecvDelete(const int cn, t_packet *p)//¸ÞÀÏÀÌ Áö¿öÁü
 	return true;
 }
 
-bool CMailMgr::RecvRepair(const int cn, t_packet *p)//¸ÞÀÏÀÌ Áö¿öÁü 
-{//¸ÞÀÏ º¹¿ø // Delete ¿Í °°Àº ÆÐÅ¶À» ¾¹´Ï´Ù. 
-	//¿ì¼± Áö¿î ÆíÁöÇÑ¿¡ ³Ö°í Áö¿îÆíÁöÇÔ¿¡ ÀÖ´Â ¾ÖµéÀº »èÁ¦ µÇµµ·Ï Ã³¸® ÇÏÀÚ.
+bool CMailMgr::RecvRepair(const int cn, t_packet *p)//çš‹è€æž ç˜¤å†µå’™ 
+{//çš‹è€ æ±—ç›” // Delete å®¢ éžç¯® è©å“¦é˜‘ ç«Ÿèªä¿ƒ. 
+	//å¿«æ€¥ ç˜¤æ¬¾ ç¥ˆç˜¤èŒ„ä¿Š æŒç»Š ç˜¤æ¬¾ç¥ˆç˜¤çªƒä¿Š ä¹ç»° å±€ç”¸ç¯® æ˜åŠ› ç™»æ¡£åºŸ è´¸åºœ çªç£Š.
 	
 	char		szQuerry[255]= {0,};
 	for (int i = 0; MAX_MAIL_PAGE>i; i++)
@@ -388,7 +388,7 @@ bool CMailMgr::RecvRepair(const int cn, t_packet *p)//¸ÞÀÏÀÌ Áö¿öÁü
 }
 
 void CMailMgr::RecvRequestBody(const int cn,t_packet *p)
-{//¹Ùµð¸¦ Ã£½À´Ï´Ù.
+{//å®˜å¼ç”« èŒ«åš¼èªä¿ƒ.
 	t_packet packet;
 	packet.h.header.type = CMD_MAIL_REQ_BODY_RESULT;
 	packet.h.header.size = sizeof(REQESTMAILBODYRESULT);
@@ -458,11 +458,11 @@ void CMailMgr::RecvRequestBody(const int cn,t_packet *p)
 		return;
 	}
 
-	::QueuePacket(connections,cn,&packet,1);//¸Ê¼­¹ö·Î µ¹·Áº¸³½´Ù
+	::QueuePacket(connections,cn,&packet,1);//ç”˜è¾‘æ»šè‚º å€’å¦¨ç„Šè¾°ä¿ƒ
 }
 
 
-bool CMailMgr::IsExistNotRead(const int cn,t_packet *p)//¾ÈÀÐÀº ¸ÞÀÏÀÌ ÀÖ´Â°¡?
+bool CMailMgr::IsExistNotRead(const int cn,t_packet *p)//æ•‘ä½¬ç¯® çš‹è€æž ä¹ç»°å•Š?
 {
 	char		szQuerry[MAX_PATH] = {0,};
 
@@ -492,7 +492,7 @@ bool CMailMgr::IsExistNotRead(const int cn,t_packet *p)//¾ÈÀÐÀº ¸ÞÀÏÀÌ ÀÖ´Â°¡?
 		
 		if(iCount)
 		{
-			SendAlert(pSGM->name);//¾ó·µÀ» ¶§¸°´Ù
+			SendAlert(pSGM->name);//å€”è¿”é˜‘ é”­èµ´ä¿ƒ
 		}
 		return ((iCount)?true:false);
 	}

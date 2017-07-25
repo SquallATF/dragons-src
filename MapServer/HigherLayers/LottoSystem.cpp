@@ -1,4 +1,4 @@
-// LottoSystem.cpp: implementation of the CLottoSystem class.
+ï»¿// LottoSystem.cpp: implementation of the CLottoSystem class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #include <direct.h>
 
 #define		ARENA_MAP_PORT	5570
-#define		BROADCAST_TIME	1200000 //¹æ¼Û ½Ã°£Àº 20ºĞ °£°İÀÌ´Ù.
+#define		BROADCAST_TIME	1200000 //ë°©ì†¡ ì‹œê°„ì€ 20ë¶„ ê°„ê²©ì´ë‹¤.
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
@@ -21,21 +21,21 @@ CLottoSystem::CLottoSystem()
 	srand(timeGetTime());
 	m_pClass = this;
 
-	m_nLottoNumberCount = 4;// ÀÌ°ªÀº Å×ÀÌºí¿¡¼­ ÀĞ¾î ¿Â´Ù.
-//	m_nGiveItemNumber = SADONIX_NO;//±âº»Àº »çµå ¿À´Ğ½º¸¦ ÁØ´Ù. ÇÏÁö¸¸ Å×ÀÌºí¿¡¼­ ÀĞ¾î¿Â´Ù.
-	memset(m_anItemCount4Grade,0,sizeof(int)*5);//µî¼öº°·Î Áö±ŞµÇ´Â ¾ÆÀÌÅÛ °¹¼ö.
-	memset(m_anWinNumberCount4Grade,0,sizeof(int)*5);//¸î°³ÀÇ ¹øÈ£°¡ ¸Â¾Æ¾ß ¸îµîÀÎ°¡..
-	memset(m_anGiveItemNumber,0,sizeof(int)*5);//µî¼öº°·Î Áö±ŞµÇ´Â ¾ÆÀÌÅÛ ¹øÈ£.
-	m_nLottoPay = 10000; //µğÆúÆ®´Â 10000 Å©¸´ÀÌ´Ù.//µğºñ¿¡ ÀúÀå µÇ¾î ÀÖ´Â °ªÀ» ·ÎµåÇØ¾ß ÇÑ´Ù.
+	m_nLottoNumberCount = 4;// ì´ê°’ì€ í…Œì´ë¸”ì—ì„œ ì½ì–´ ì˜¨ë‹¤.
+//	m_nGiveItemNumber = SADONIX_NO;//ê¸°ë³¸ì€ ì‚¬ë“œ ì˜¤ë‹‰ìŠ¤ë¥¼ ì¤€ë‹¤. í•˜ì§€ë§Œ í…Œì´ë¸”ì—ì„œ ì½ì–´ì˜¨ë‹¤.
+	memset(m_anItemCount4Grade,0,sizeof(int)*5);//ë“±ìˆ˜ë³„ë¡œ ì§€ê¸‰ë˜ëŠ” ì•„ì´í…œ ê°¯ìˆ˜.
+	memset(m_anWinNumberCount4Grade,0,sizeof(int)*5);//ëª‡ê°œì˜ ë²ˆí˜¸ê°€ ë§ì•„ì•¼ ëª‡ë“±ì¸ê°€..
+	memset(m_anGiveItemNumber,0,sizeof(int)*5);//ë“±ìˆ˜ë³„ë¡œ ì§€ê¸‰ë˜ëŠ” ì•„ì´í…œ ë²ˆí˜¸.
+	m_nLottoPay = 10000; //ë””í´íŠ¸ëŠ” 10000 í¬ë¦¿ì´ë‹¤.//ë””ë¹„ì— ì €ì¥ ë˜ì–´ ìˆëŠ” ê°’ì„ ë¡œë“œí•´ì•¼ í•œë‹¤.
 
 	memset(&m_LotteryStart,0,sizeof(DATECHECK));
 	memset(&m_LotteryEnd,0,sizeof(DATECHECK));
 
 	mkdir("LotteryItem");
 
-	m_bWinnerChecking = false;		// BBD 040127	·Î¶Ç È®ÀÎÁßÀÎÁöÀÇ ÇÃ·¡±×
+	m_bWinnerChecking = false;		// BBD 040127	ë¡œë˜ í™•ì¸ì¤‘ì¸ì§€ì˜ í”Œë˜ê·¸
 
-	//< 040615_KJHuNs »õ·Î¿î È¸Â÷ÀÇ ·Î¶Ç ÀÌº¥Æ® µî·Ï ¸Ş¼¼Áö¸¦ DBDemon¿¡ ÇÑ¹ø¸¸ º¸³»±âÀ§ÇÔ
+	//< 040615_KJHuNs ìƒˆë¡œìš´ íšŒì°¨ì˜ ë¡œë˜ ì´ë²¤íŠ¸ ë“±ë¡ ë©”ì„¸ì§€ë¥¼ DBDemonì— í•œë²ˆë§Œ ë³´ë‚´ê¸°ìœ„í•¨
 	m_bIsNewEventRegistToOnce = false;
 }
 
@@ -44,7 +44,7 @@ CLottoSystem::~CLottoSystem()
 	Clear();
 }
 
-//º¹±Ç ½Ã½ºÅÛÀº Äİ·Î¼­½º ¾Æ·¹³ª¿¡¼­ ÇÑ¹ø¸¸ ¸¸µé¾îÁ®¾ß ÇÑ´Ù.
+//ë³µê¶Œ ì‹œìŠ¤í…œì€ ì½œë¡œì„œìŠ¤ ì•„ë ˆë‚˜ì—ì„œ í•œë²ˆë§Œ ë§Œë“¤ì–´ì ¸ì•¼ í•œë‹¤.
 bool CLottoSystem::Create()
 {
 	if(m_pClass || ::g_pServerTable->GetOwnServerData()->wPort != ARENA_MAP_PORT )return false;
@@ -89,7 +89,7 @@ void CLottoSystem::Generate6Number()
 
 	Sort(m_anNumbers,m_nLottoNumberCount);
 
-	m_bGenNumbers = true; // ¹øÈ£¸¦ ÇÑ¹ø ¸¸µé¾ú´Ù.
+	m_bGenNumbers = true; // ë²ˆí˜¸ë¥¼ í•œë²ˆ ë§Œë“¤ì—ˆë‹¤.
 }
 
 
@@ -110,7 +110,7 @@ int CLottoSystem::Check6Number(int an6Numbers[])
 
 int CLottoSystem::SetLottoID(int nID)
 {
-	m_nRunID = nID; //1ÀÌ»óÀÌ µé¾î°¡¾ß ·Î¶Ç°¡ ÁøÇàµÇ°í ÀÖ´ÂÁßÀÌ´Ù.
+	m_nRunID = nID; //1ì´ìƒì´ ë“¤ì–´ê°€ì•¼ ë¡œë˜ê°€ ì§„í–‰ë˜ê³  ìˆëŠ”ì¤‘ì´ë‹¤.
 
 	return m_nRunID;
 }
@@ -235,7 +235,7 @@ bool CLottoSystem::LoadTable(HDBC hDragonDB)
 
 	SQLFreeStmt(hStmt, SQL_DROP);
 
-//< LTH-040825-KO ·Î¶Ç È¸Â÷ ¹®Á¦·Î ¼öÁ¤. order by Ãß°¡
+//< LTH-040825-KO ë¡œë˜ íšŒì°¨ ë¬¸ì œë¡œ ìˆ˜ì •. order by ì¶”ê°€
 	sprintf(szQuerry, "SELECT * FROM Lotto_Event ORDER BY Lotto_ID, StartYear, StartMonth, StartDay");
 	SQLAllocStmt(hDragonDB, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
@@ -254,7 +254,7 @@ bool CLottoSystem::LoadTable(HDBC hDragonDB)
 	int nLine = 1;
 
 	retCode = SQLFetch(hStmt);
-	//Å×ÀÌºí¿¡ ³»¿ëÀÌ ¾ø´Ù.Çä. ¸¸µé¾î¾ßÁö.
+	//í…Œì´ë¸”ì— ë‚´ìš©ì´ ì—†ë‹¤.í—‰. ë§Œë“¤ì–´ì•¼ì§€.
 	if (retCode == SQL_NO_DATA)
 	{
 		SQLFreeStmt(hStmt, SQL_DROP);
@@ -275,7 +275,7 @@ bool CLottoSystem::LoadTable(HDBC hDragonDB)
 	{		
 		memset(&m_Lotto_Info,0,sizeof(m_Lotto_Info));
 		
-		SQLGetData(hStmt, 1, SQL_C_LONG, &m_Lotto_Info.nLottoID, 0, &cbValue);//LottoID ¸¶Áö¸· È¸Â÷ÀÇ ·Î¶Ç ¾ÆÀÌµğ°¡ ·Îµå µÈ´Ù.
+		SQLGetData(hStmt, 1, SQL_C_LONG, &m_Lotto_Info.nLottoID, 0, &cbValue);//LottoID ë§ˆì§€ë§‰ íšŒì°¨ì˜ ë¡œë˜ ì•„ì´ë””ê°€ ë¡œë“œ ëœë‹¤.
 		SQLGetData(hStmt, 2, SQL_C_LONG, &m_Lotto_Info.StartDate.tm_year, 0, &cbValue);
 		SQLGetData(hStmt, 3, SQL_C_LONG, &m_Lotto_Info.StartDate.tm_mon, 0, &cbValue);
 		SQLGetData(hStmt, 4, SQL_C_LONG, &m_Lotto_Info.StartDate.tm_wday, 0, &cbValue);
@@ -321,12 +321,12 @@ void CLottoSystem::RunProc()
 {
 	tm	CurDate = GetCurDate();
 
-	if(m_EventStatus == LOTTERIED)//ÃßÃ·ÀÌ µÈ±â°£ÀÌ´Ù.
+	if(m_EventStatus == LOTTERIED)//ì¶”ì²¨ì´ ëœê¸°ê°„ì´ë‹¤.
 	{
 		if(timeGetTime() - m_dwBroadCastTime >= BROADCAST_TIME)
 		{
 			m_dwBroadCastTime = timeGetTime();
-			BroadCastLotteryMsg();//¸Ş¼¼Áö¸¦ ÀüÆÄ ÇÏÀÚ.
+			BroadCastLotteryMsg();//ë©”ì„¸ì§€ë¥¼ ì „íŒŒ í•˜ì.
 		}
 		
 		int nEventCount = this->m_vtLottery_date.size();
@@ -334,21 +334,21 @@ void CLottoSystem::RunProc()
 		{
 			DATECHECK LotteryEnd = this->m_vtLottery_date[i].stLotteryEnd;
 
-			if(CurDate.tm_wday == LotteryEnd.nDay)//ÃßÃ· ³¡³¯ ÀÏÀÌ¶û °°À¸¸é.
+			if(CurDate.tm_wday == LotteryEnd.nDay)//ì¶”ì²¨ ëë‚  ì¼ì´ë‘ ê°™ìœ¼ë©´.
 			{
-				if(CurDate.tm_hour == LotteryEnd.nHour)//ÃßÃ· ³¡³¯ ½Ã°£ÀÌ¶û °°À»¶§.
+				if(CurDate.tm_hour == LotteryEnd.nHour)//ì¶”ì²¨ ëë‚  ì‹œê°„ì´ë‘ ê°™ì„ë•Œ.
 				{
-					if(CurDate.tm_min == LotteryEnd.nMin)//»õ ÀÌº¥Æ®ÀÇ ¶§°¡ µÇ¾ú´Ù.
+					if(CurDate.tm_min == LotteryEnd.nMin)//ìƒˆ ì´ë²¤íŠ¸ì˜ ë•Œê°€ ë˜ì—ˆë‹¤.
 					{
 						//< 040615_KJHuNs
-						//±âÁ¸Àº SQL¿¡ °°Àº È¸Â÷¿¡ ¿©·¯¹ø µî·ÏµÇ¾î¼­ Á¤º¸ Sync °¡ ¾È¸Â¾ÒÀ½.
-						//¼öÁ¤³»¿ëÀº ½ÇÇàµÇ´Â 1ºĞ¾È¿¡ 1¹ø¸¸ º¸³»°Ô Ã³¸®µÊ
-						// ¼±°áÁ¶°Ç:	1. DBDemon°ú MapServer°£¿¡´Â ÆĞÅ¶ ¼Õ½ÇÀÌ ¾ø´Ù.
-						//				2. DBDemonÀÇ Packet Queue¿¡¼­ÀÇ Overflow´Â ¾ø´Ù.
+						//ê¸°ì¡´ì€ SQLì— ê°™ì€ íšŒì°¨ì— ì—¬ëŸ¬ë²ˆ ë“±ë¡ë˜ì–´ì„œ ì •ë³´ Sync ê°€ ì•ˆë§ì•˜ìŒ.
+						//ìˆ˜ì •ë‚´ìš©ì€ ì‹¤í–‰ë˜ëŠ” 1ë¶„ì•ˆì— 1ë²ˆë§Œ ë³´ë‚´ê²Œ ì²˜ë¦¬ë¨
+						// ì„ ê²°ì¡°ê±´:	1. DBDemonê³¼ MapServerê°„ì—ëŠ” íŒ¨í‚· ì†ì‹¤ì´ ì—†ë‹¤.
+						//				2. DBDemonì˜ Packet Queueì—ì„œì˜ OverflowëŠ” ì—†ë‹¤.
 						if (false == m_bIsNewEventRegistToOnce ) //< 040615_KJHuNs
 						{
-							SendDBNewEvent();//»õ ÀÌº¥Æ®¸¦ ÁøÇàÇÏÀÚ.
-							//< 040615_KJHuNs »õ·Î¿î È¸Â÷ÀÇ ·Î¶Ç ÀÌº¥Æ® µî·Ï ¸Ş¼¼Áö¸¦ DBDemon¿¡ ÇÑ¹ø¸¸ º¸³¿
+							SendDBNewEvent();//ìƒˆ ì´ë²¤íŠ¸ë¥¼ ì§„í–‰í•˜ì.
+							//< 040615_KJHuNs ìƒˆë¡œìš´ íšŒì°¨ì˜ ë¡œë˜ ì´ë²¤íŠ¸ ë“±ë¡ ë©”ì„¸ì§€ë¥¼ DBDemonì— í•œë²ˆë§Œ ë³´ëƒ„
 							m_bIsNewEventRegistToOnce = true; 
 						}
 					}				
@@ -356,25 +356,25 @@ void CLottoSystem::RunProc()
 			}
 		}
 	}
-	else//º¹±Ç µî·Ï ±â°£ÀÌ´Ù.
+	else//ë³µê¶Œ ë“±ë¡ ê¸°ê°„ì´ë‹¤.
 	{
 		int nEventCount = this->m_vtLottery_date.size();
 		
 		for(int i = 0; i < nEventCount;++i)
 		{
 		DATECHECK LotteryStart = this->m_vtLottery_date[i].stLotteryStart;
-			DATECHECK LotteryEnd = this->m_vtLottery_date[i].stLotteryEnd;		// BBD 040211 ÃßÃ·Á¾·á½Ã°£
-			if(CurDate.tm_wday == LotteryStart.nDay)//ÃßÃ· ½ÃÀÛÀÏÀÌ¶û °°À¸¸é.
+			DATECHECK LotteryEnd = this->m_vtLottery_date[i].stLotteryEnd;		// BBD 040211 ì¶”ì²¨ì¢…ë£Œì‹œê°„
+			if(CurDate.tm_wday == LotteryStart.nDay)//ì¶”ì²¨ ì‹œì‘ì¼ì´ë‘ ê°™ìœ¼ë©´.
 			{
 				if(CurDate.tm_hour >= LotteryStart.nHour &&
-					CurDate.tm_hour <= LotteryEnd.nHour)	// BBD 040211 ÃßÃ·±â°£ »çÀÌ(½Ã°£) ÀÌ¸é
+					CurDate.tm_hour <= LotteryEnd.nHour)	// BBD 040211 ì¶”ì²¨ê¸°ê°„ ì‚¬ì´(ì‹œê°„) ì´ë©´
 				{
 					if(CurDate.tm_min >= LotteryStart.nMin &&
-						CurDate.tm_min < LotteryEnd.nMin)	// BBD 040211 ÃßÃ·±â°£ »çÀÌ(ºĞ) ÀÌ¸é
+						CurDate.tm_min < LotteryEnd.nMin)	// BBD 040211 ì¶”ì²¨ê¸°ê°„ ì‚¬ì´(ë¶„) ì´ë©´
 					{
 						if(m_Lotto_Info.nLottoID)
 						{
-							SendDBLottery();//ÃßÃ·ÇÏÀÚ.
+							SendDBLottery();//ì¶”ì²¨í•˜ì.
 							break;
 						}
 					}
@@ -404,7 +404,7 @@ void CLottoSystem::SendDBLottery()
 	LOTTO_EVENT_INFO	Info;
 	memcpy(&Info,&m_Lotto_Info,sizeof(LOTTO_EVENT_INFO));
 	
-	if(!m_bGenNumbers)Generate6Number(); //ÇÑ¹ø¸¸ ¸¸µç´Ù.
+	if(!m_bGenNumbers)Generate6Number(); //í•œë²ˆë§Œ ë§Œë“ ë‹¤.
 
 	Info.nWinNumCount = m_nLottoNumberCount;
 	memcpy(&Info.anWinNumbers,&m_anNumbers,sizeof(int)*this->m_nLottoNumberCount);
@@ -443,7 +443,7 @@ void CLottoSystem::RecvDBNewEvent(LOTTO_EVENT_INFO* pInfo)
 {
 	m_EventStatus = EVENT;
 	m_bGenNumbers = false;
-	m_bIsNewEventRegistToOnce = false;		//< 040614_KJHuNs ´ÙÀ½ È¸Â÷ ·Î¶Ç µî·ÏÇÏ±âÀ§ÇÔ
+	m_bIsNewEventRegistToOnce = false;		//< 040614_KJHuNs ë‹¤ìŒ íšŒì°¨ ë¡œë˜ ë“±ë¡í•˜ê¸°ìœ„í•¨
 	memcpy(&m_Lotto_Info,pInfo,sizeof(LOTTO_EVENT_INFO));
 }
 
@@ -463,16 +463,16 @@ void CLottoSystem::RecvBuyLotto(t_BUY_LOTTO *pBuyLotto)
 //			tm Date = GetCurDate();
 			t_BUY_LOTTO	BuyLotto; memcpy(&BuyLotto,pBuyLotto,sizeof(BuyLotto));
 
-			if(m_EventStatus == LOTTERIED)//´çÃ· ¿Ï·á ±â°£ÀÌ´Ù.
+			if(m_EventStatus == LOTTERIED)//ë‹¹ì²¨ ì™„ë£Œ ê¸°ê°„ì´ë‹¤.
 			{
 				memcpy(&p.u.Lotto_Buy,pBuyLotto,sizeof(t_BUY_LOTTO));
-				p.u.Lotto_Buy.anLottoNumber[0] = -1;//¹øÈ£ÀÇ ¸Ç¾ÕÀÌ -1ÀÌ¸é 
+				p.u.Lotto_Buy.anLottoNumber[0] = -1;//ë²ˆí˜¸ì˜ ë§¨ì•ì´ -1ì´ë©´ 
 				QueuePacket(connections,cn,&p,1);
 				return;
 			}
 			else
 			{
-				if(LocalMgr.IsAbleNation(TAIWAN | HONGKONG | CHINA))//°ú±İ ¹®Á¦·Î ¹«Á¶°Ç DBDEMONÀ¸·Î À¯Ã»À» ÇÑ´Ù.
+				if(LocalMgr.IsAbleNation(TAIWAN | HONGKONG | CHINA))//ê³¼ê¸ˆ ë¬¸ì œë¡œ ë¬´ì¡°ê±´ DBDEMONìœ¼ë¡œ ìœ ì²­ì„ í•œë‹¤.
 				{
 					
 					t_packet p2;
@@ -488,15 +488,15 @@ void CLottoSystem::RecvBuyLotto(t_BUY_LOTTO *pBuyLotto)
 				}
 				else
 				{
-					if(pChar->GetBankMoney() < m_nLottoPay)//µ·ÀÌ ¸ğÀÚ¶ó´Ù.
+					if(pChar->GetBankMoney() < m_nLottoPay)//ëˆì´ ëª¨ìë¼ë‹¤.
 					{
 						memcpy(&p.u.Lotto_Buy,pBuyLotto,sizeof(t_BUY_LOTTO));
-						p.u.Lotto_Buy.anLottoNumber[0] = 0;//¹øÈ£ÀÇ ¸Ç¾ÕÀÌ 0ÀÌ¸é µ·ÀÌ ¸ğÀÚ¶ó´Ù.
+						p.u.Lotto_Buy.anLottoNumber[0] = 0;//ë²ˆí˜¸ì˜ ë§¨ì•ì´ 0ì´ë©´ ëˆì´ ëª¨ìë¼ë‹¤.
 						QueuePacket(connections,cn,&p,1);
 					}
-					else//»ì¼ö ÀÖ´Â Á¶°ÇÀÌ ÃæÁ· µÇ¾ú´Ù. ¸¶Áö¸·À¸·Î ¸îÀåÀ» »ò°í Áßº¹ ¹øÈ£°¡ ÀÖ´ÂÁö È®ÀÎ ÇØ¾ß ÇÑ´Ù.
+					else//ì‚´ìˆ˜ ìˆëŠ” ì¡°ê±´ì´ ì¶©ì¡± ë˜ì—ˆë‹¤. ë§ˆì§€ë§‰ìœ¼ë¡œ ëª‡ì¥ì„ ìƒ€ê³  ì¤‘ë³µ ë²ˆí˜¸ê°€ ìˆëŠ”ì§€ í™•ì¸ í•´ì•¼ í•œë‹¤.
 					{
-						//¿©±â¼­¸¸ DB_DEMONÀ¸·Î È®ÀÎ ¿äÃ»À» ÇÑ´Ù.
+						//ì—¬ê¸°ì„œë§Œ DB_DEMONìœ¼ë¡œ í™•ì¸ ìš”ì²­ì„ í•œë‹¤.
 						t_packet p2;
 						p2.h.header.type = CMD_CAN_BUY;
 						p2.h.header.size = sizeof(t_BUY_LOTTO);
@@ -529,11 +529,11 @@ void CLottoSystem::RecvCanBuyLotto(t_BUY_LOTTO *pCanBuyLotto)
 			
 			memcpy(&p.u.Lotto_Buy,pCanBuyLotto,sizeof(t_BUY_LOTTO));
 
-			if(p.u.Lotto_Buy.anLottoNumber[0] > 0)//»ì¼ö ÀÖ´Ù.//Ä³¸¯ÅÍ¿ÍDB_DEMON ¿¡°Ô µ¿½Ã¿¡ º¸³½´Ù.
+			if(p.u.Lotto_Buy.anLottoNumber[0] > 0)//ì‚´ìˆ˜ ìˆë‹¤.//ìºë¦­í„°ì™€DB_DEMON ì—ê²Œ ë™ì‹œì— ë³´ë‚¸ë‹¤.
 			{
 				p.u.Lotto_Buy.m_nLottoPay = m_nLottoPay;
 				
-				if(LocalMgr.IsAbleNation(KOREA | CHINA | THAI | HONGKONG | USA | JAPAN))//soto-LottoADD ´ë¸¸Àº Æ÷ÀÎÆ®·Î ÇÑ´Ù.
+				if(LocalMgr.IsAbleNation(KOREA | CHINA | THAI | HONGKONG | USA | JAPAN))//soto-LottoADD ëŒ€ë§Œì€ í¬ì¸íŠ¸ë¡œ í•œë‹¤.
 				{									
 					pChar->DecBankMoney(m_nLottoPay, BMCT_BUY_LOTTO); // CSD-030723
 				}
@@ -547,7 +547,7 @@ void CLottoSystem::RecvCanBuyLotto(t_BUY_LOTTO *pCanBuyLotto)
 			}
 			else
 			{
-				QueuePacket(connections,cn,&p,1);//Ä³¸¯ÅÍ¿¡°Ô¸¸ º¸³½´Ù.
+				QueuePacket(connections,cn,&p,1);//ìºë¦­í„°ì—ê²Œë§Œ ë³´ë‚¸ë‹¤.
 			}
 		}
 	}
@@ -558,22 +558,22 @@ void CLottoSystem::RecvCheckWinner(int cn)
 
 	if(m_EventStatus == LOTTERIED)
 	{
-		//<!	BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
+		//<!	BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 		if(m_bWinnerChecking)
 		{
-			// ·Î¶Ç Ã¤Å·ÁßÀÌ´Ù ±âµÑ¸®¶ó´Â ½Ã±×³ÎÀ» º¸³»¼¼
+			// ë¡œë˜ ì±„í‚¹ì¤‘ì´ë‹¤ ê¸°ë‘˜ë¦¬ë¼ëŠ” ì‹œê·¸ë„ì„ ë³´ë‚´ì„¸
 			t_packet	p;
 			p.h.header.type = CMD_WINNER_CHECK;
 			p.h.header.size = sizeof(t_CHECK_WINNER);
 
 			memset(&p.u.Check_Winner,0,sizeof(t_CHECK_WINNER));
 
-			p.u.Check_Winner.nWinItemCount = -10;	//	<--- ÀÌ³ÑÀÌ Ã¤Å·ÁßÀÓÀ» Ç¥½ÃÇÑ´Ù
+			p.u.Check_Winner.nWinItemCount = -10;	//	<--- ì´ë„˜ì´ ì±„í‚¹ì¤‘ì„ì„ í‘œì‹œí•œë‹¤
 
-			QueuePacket(connections,cn,&p,1);	//Å¬¶óÀÌ¾ğÆ®¿¡°Ô..Ã¤Å·ÁßÀÌ¶ó´Â ¸Ş¼¼Áö.
+			QueuePacket(connections,cn,&p,1);	//í´ë¼ì´ì–¸íŠ¸ì—ê²Œ..ì±„í‚¹ì¤‘ì´ë¼ëŠ” ë©”ì„¸ì§€.
 			return;
 		}
-		//>		BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
+		//>		BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 		
 		t_packet	p;
 		p.h.header.type = CMD_WINNER_CHECK;
@@ -586,13 +586,13 @@ void CLottoSystem::RecvCheckWinner(int cn)
 		memcpy(p.u.Check_Winner.anWinNumbers,m_Lotto_Info.anWinNumbers,sizeof(int)*10);
 		
 
-		QueuePacket(connections,DB_DEMON,&p,1);//µ¥¸ó¿¡´Ù...È®ÀÎ ¿äÃ»À» ÇÑ´Ù.
+		QueuePacket(connections,DB_DEMON,&p,1);//ë°ëª¬ì—ë‹¤...í™•ì¸ ìš”ì²­ì„ í•œë‹¤.
 
-		//<! BBD 040127	·Î¶Ç ºí·° ·Î±× ³²±è
-		m_bWinnerChecking = true;	// trueÀÏ¶§ ºí·°ÁßÀÌ´Ù
+		//<! BBD 040127	ë¡œë˜ ë¸”ëŸ­ ë¡œê·¸ ë‚¨ê¹€
+		m_bWinnerChecking = true;	// trueì¼ë•Œ ë¸”ëŸ­ì¤‘ì´ë‹¤
 		MyLog(LOG_NORMAL, "Start Checking Lotto now UserID = %s",
 			p.u.Check_Winner.strCharName);
-		//> BBD 040127	·Î¶Ç ºí·° ·Î±× ³²±è
+		//> BBD 040127	ë¡œë˜ ë¸”ëŸ­ ë¡œê·¸ ë‚¨ê¹€
 	}
 	else
 	{
@@ -607,7 +607,7 @@ void CLottoSystem::RecvCheckWinner(int cn)
 		p.u.Check_Winner.nWinItemCount = -3;
 
 //		p.u.Check_Winner.anWinNumbers[0]
-		QueuePacket(connections,cn,&p,1);//Å¬¶óÀÌ¾ğÆ®¿¡°Ô..ÃßÃ· ±â°£ÀÌ ¾Æ´Ï¶ó´Â ¸Ş¼¼Áö.
+		QueuePacket(connections,cn,&p,1);//í´ë¼ì´ì–¸íŠ¸ì—ê²Œ..ì¶”ì²¨ ê¸°ê°„ì´ ì•„ë‹ˆë¼ëŠ” ë©”ì„¸ì§€.
 
 
 	}
@@ -625,9 +625,9 @@ void CLottoSystem::RecvCheckOKWinner(t_CHECK_WINNER *pCheckOK)
 		p.h.header.size = sizeof(t_CHECK_WINNER);
 		memcpy(&p.u.Check_Winner,pCheckOK,sizeof(t_CHECK_WINNER));
 
-		if(pCheckOK->nWinItemCount > 0)//ÀÏ´ÜÀº ´çÃ· µÇ¾ú±â´Â ÇÑµ¥.
+		if(pCheckOK->nWinItemCount > 0)//ì¼ë‹¨ì€ ë‹¹ì²¨ ë˜ì—ˆê¸°ëŠ” í•œë°.
 		{
-		//Ä³¸¯ÅÍÀÇ ¾ÆÀÌÅÛ Ã¢°íÀÇ ºó°ø°£À» È®ÀÎÇÒÇÊ¿ä°¡ ÀÖ´Ù. ÃæºĞÇÏ¸é. +¼ö ³Ö¾î ÁØ´Ù. ÃæºĞÇÏÁö ¾ÊÀ¸¸é -1
+		//ìºë¦­í„°ì˜ ì•„ì´í…œ ì°½ê³ ì˜ ë¹ˆê³µê°„ì„ í™•ì¸í• í•„ìš”ê°€ ìˆë‹¤. ì¶©ë¶„í•˜ë©´. +ìˆ˜ ë„£ì–´ ì¤€ë‹¤. ì¶©ë¶„í•˜ì§€ ì•Šìœ¼ë©´ -1
 			int nBlank = 0;
 			for(int i = 0;i < 5;i++)
 				for(int j = 0; j < 3;j++)
@@ -637,12 +637,12 @@ void CLottoSystem::RecvCheckOKWinner(t_CHECK_WINNER *pCheckOK)
 			int	nNeedBlank = pCheckOK->nWinItemCount;
 			if(nBlank >= pCheckOK->nWinItemCount )
 			{
-				QueuePacket(connections,cn,&p,1);//¾ÆÀÌÅÛÀ» ¸¸µé¾ú´Ù.
-				//¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁÖ¾î¾ß ÇÑ´Ù.
+				QueuePacket(connections,cn,&p,1);//ì•„ì´í…œì„ ë§Œë“¤ì—ˆë‹¤.
+				//ì•„ì´í…œì„ ë§Œë“¤ì–´ ì£¼ì–´ì•¼ í•œë‹¤.
 
 				int nItemCounter = pCheckOK->nWinItemCount;
 								
-				//·Î±×¸¦ ³²±ä´Ù.
+				//ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 				for(int nGradeItemIndex = 0;nGradeItemIndex < 5;++nGradeItemIndex)
 				{
 					int nGradeItemCount = 0;
@@ -675,7 +675,7 @@ void CLottoSystem::RecvCheckOKWinner(t_CHECK_WINNER *pCheckOK)
 
 						if(fp != NULL)
 						{
-						fprintf(fp ,"Lotto ´çÃ· : %s ´Ô¿¡°Ô %d°³ÀÇ %dµî ¾ÆÀÌÅÛÀÌ Áö±Ş µÇ¾ú½À´Ï´Ù.\n"
+						fprintf(fp ,"Lotto ë‹¹ì²¨ : %s ë‹˜ì—ê²Œ %dê°œì˜ %dë“± ì•„ì´í…œì´ ì§€ê¸‰ ë˜ì—ˆìŠµë‹ˆë‹¤.\n"
 								,pChar->Name,pCheckOK->anWinItemsCount[nGradeItemIndex]
 								,nGradeItemIndex+1);
 						fclose(fp);
@@ -687,30 +687,30 @@ void CLottoSystem::RecvCheckOKWinner(t_CHECK_WINNER *pCheckOK)
 					}
 				}
 
-				p.h.header.type = CMD_DEL_LOTTO_USER;//µ¥¸ó¿¡´Ù »èÁ¦ ¿äÃ»À» ÇØ¾ß ÇÑ´Ù.
+				p.h.header.type = CMD_DEL_LOTTO_USER;//ë°ëª¬ì—ë‹¤ ì‚­ì œ ìš”ì²­ì„ í•´ì•¼ í•œë‹¤.
 				QueuePacket(connections,DB_DEMON,&p,1);
 				
 			}
 			else
 			{
 				pCheckOK->nWinItemCount = -1;
-				pCheckOK->anWinNumbers[0] = nNeedBlank;//ÇÊ¿äÇÑ ºó°ø°£ÀÇ ¼ö.
+				pCheckOK->anWinNumbers[0] = nNeedBlank;//í•„ìš”í•œ ë¹ˆê³µê°„ì˜ ìˆ˜.
 
-				memcpy(&p.u.Check_Winner,pCheckOK,sizeof(t_CHECK_WINNER));	// BBD 040127	¸Ş¸ğ¸® Ä«ÇÇ°¡ ÇÊ¿äÇÏ´Ù
-				QueuePacket(connections,cn,&p,1);//½ÇÆĞ ½ÅÈ£¸¦ º¸³»ÀÚ.
+				memcpy(&p.u.Check_Winner,pCheckOK,sizeof(t_CHECK_WINNER));	// BBD 040127	ë©”ëª¨ë¦¬ ì¹´í”¼ê°€ í•„ìš”í•˜ë‹¤
+				QueuePacket(connections,cn,&p,1);//ì‹¤íŒ¨ ì‹ í˜¸ë¥¼ ë³´ë‚´ì.
 
-				//<! BBD 040127	·Î¶Ç ºí·°ÇØÁ¦ ·Î±× ³²±è
-				m_bWinnerChecking = false;			//	·Î¶Ç È®ÀÎ °¡´ÉÇÏ°Ô Ç®¾îÁÖÀÚ
+				//<! BBD 040127	ë¡œë˜ ë¸”ëŸ­í•´ì œ ë¡œê·¸ ë‚¨ê¹€
+				m_bWinnerChecking = false;			//	ë¡œë˜ í™•ì¸ ê°€ëŠ¥í•˜ê²Œ í’€ì–´ì£¼ì
 				MyLog(LOG_NORMAL, "End Checking Lotto now");
-				//> BBD 040127	·Î¶Ç ºí·°ÇØÁ¦ ·Î±× ³²±è
+				//> BBD 040127	ë¡œë˜ ë¸”ëŸ­í•´ì œ ë¡œê·¸ ë‚¨ê¹€
 			}
 		
 		}
-		else if(pCheckOK->nWinItemCount == 0)//²ÎÀÌ´Ù.
+		else if(pCheckOK->nWinItemCount == 0)//ê½ì´ë‹¤.
 		{
-			QueuePacket(connections,cn,&p,1);//Å¬¶óÀÌ¾ğÆ®¿¡°Ô´Â º¸³Â´Ù.
+			QueuePacket(connections,cn,&p,1);//í´ë¼ì´ì–¸íŠ¸ì—ê²ŒëŠ” ë³´ëƒˆë‹¤.
 			
-			p.h.header.type = CMD_DEL_LOTTO_USER;//µ¥¸ó¿¡´Ù »èÁ¦ ¿äÃ»À» ÇØ¾ß ÇÑ´Ù.
+			p.h.header.type = CMD_DEL_LOTTO_USER;//ë°ëª¬ì—ë‹¤ ì‚­ì œ ìš”ì²­ì„ í•´ì•¼ í•œë‹¤.
 			QueuePacket(connections,DB_DEMON,&p,1);
 		}		
 	}
@@ -794,16 +794,16 @@ int CLottoSystem::FindSameDayIndex(int nDay)
 	return -1;
 }
 
-//<! BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
+//<! BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 void CLottoSystem::CheckIsDelOk(bool bIsOk)
 {
-	// ¸ğµç È®ÀÎ ÀıÂ÷°¡ ³¡³µÀ¸¹Ç·Î ´Ù¸¥ Å¬¶óÀÌ¾ğÆ®ÀÇ È®ÀÎÀ» Çã¿ëÇÑ´Ù
+	// ëª¨ë“  í™•ì¸ ì ˆì°¨ê°€ ëë‚¬ìœ¼ë¯€ë¡œ ë‹¤ë¥¸ í´ë¼ì´ì–¸íŠ¸ì˜ í™•ì¸ì„ í—ˆìš©í•œë‹¤
 	if(bIsOk && m_bWinnerChecking)
 	{
-		//<! BBD 040127	·Î¶Ç ºí·°ÇØÁ¦ ·Î±× ³²±è
+		//<! BBD 040127	ë¡œë˜ ë¸”ëŸ­í•´ì œ ë¡œê·¸ ë‚¨ê¹€
 		m_bWinnerChecking = false;
 		MyLog(LOG_NORMAL, "End Checking Lotto now");
-		//> BBD 040127	·Î¶Ç ºí·°ÇØÁ¦ ·Î±× ³²±è
+		//> BBD 040127	ë¡œë˜ ë¸”ëŸ­í•´ì œ ë¡œê·¸ ë‚¨ê¹€
 	}
 }
-//> BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
+//> BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½

@@ -1,4 +1,4 @@
-// CrackMgr.cpp: implementation of the CCrackMgr class.
+ï»¿// CrackMgr.cpp: implementation of the CCrackMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,19 +10,19 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-/*041229_KCH_Taiwan(Acer) CrackingMgr -> Client Á¢¼ÓÂ÷´ÜµÇ´Â ¹®Á¦. [ex)¾Æ·¹³ª¿¡¼­ Âü°üÀÚ°¡ µ·°É¶§, ¶§¶§·Î À©98pc¿¡¼­ AccelaterÀÛµ¿À¸·Î Àß¸ø ÀÎ½ÄÇÏ¿© Â÷´ÜµÊ]
- ±×·¡¼­ ±âÁ¸ÀÇ ½Ã°£°¸À» ´Ã¿©ÁÖµµ·Ï ÇÏÀÚ.(Å×½ºÆ®¸¦ ÅëÇÑ Æ©´×ÀÌ ÇÊ¿äÇÏÁö¸¸, ´ëÃæ 30ÃÊ¸¦ 60ÃÊ·Î ´Ã¿©ÁÖµµ·Ï ÇÏÀÚ)
- ¶ÇÇÑ Client¿¡¼­ÀÇ CHECK_ACCEL_RECOMMAND_TIME ½Ã°£°ªµµ °°ÀÌ º¯°æÇØ¾ß ÇÑ´Ù.
-const	int DEFAULT_CHECK_ACCEL_TIME	= 35000;//¹Ýµå½Ã CHECK_ACCEL_RECOMMAND_TIMEº¸´Ù 5ÃÊ ÀÌ»ó Ä¿¾ß ÇÑ´Ù ´ÜÀ§´Â ms
-const	int CHECK_ACCEL_RECOMMAND_TIME	= 30000;//30 ÃÊ
+/*041229_KCH_Taiwan(Acer) CrackingMgr -> Client ì ‘ì†ì°¨ë‹¨ë˜ëŠ” ë¬¸ì œ. [ex)ì•„ë ˆë‚˜ì—ì„œ ì°¸ê´€ìžê°€ ëˆê±¸ë•Œ, ë•Œë•Œë¡œ ìœˆ98pcì—ì„œ Accelaterìž‘ë™ìœ¼ë¡œ ìž˜ëª» ì¸ì‹í•˜ì—¬ ì°¨ë‹¨ë¨]
+ ê·¸ëž˜ì„œ ê¸°ì¡´ì˜ ì‹œê°„ê°­ì„ ëŠ˜ì—¬ì£¼ë„ë¡ í•˜ìž.(í…ŒìŠ¤íŠ¸ë¥¼ í†µí•œ íŠœë‹ì´ í•„ìš”í•˜ì§€ë§Œ, ëŒ€ì¶© 30ì´ˆë¥¼ 60ì´ˆë¡œ ëŠ˜ì—¬ì£¼ë„ë¡ í•˜ìž)
+ ë˜í•œ Clientì—ì„œì˜ CHECK_ACCEL_RECOMMAND_TIME ì‹œê°„ê°’ë„ ê°™ì´ ë³€ê²½í•´ì•¼ í•œë‹¤.
+const	int DEFAULT_CHECK_ACCEL_TIME	= 35000;//ë°˜ë“œì‹œ CHECK_ACCEL_RECOMMAND_TIMEë³´ë‹¤ 5ì´ˆ ì´ìƒ ì»¤ì•¼ í•œë‹¤ ë‹¨ìœ„ëŠ” ms
+const	int CHECK_ACCEL_RECOMMAND_TIME	= 30000;//30 ì´ˆ
 const	int CHECK_ACCEL_PING_TIME		= 1800; */
 
-const	int DEFAULT_CHECK_ACCEL_TIME	=	100000; //¹Ýµå½Ã CHECK_ACCEL_RECOMMAND_TIME ÀÌÀüÀÇ ½Ã°£¿¡ ºñÀ²À» °öÇØ¼­ °è»êÇÏÀÚ.(Accel½Ã°£ÀÌ ¾Æ´Ñ°ÍÀ¸·Î ÀÎÁ¤ÇÏ°Ú´Ù.) ´ÜÀ§´Â ms
-												   //050408_KCH ^40ÀÇ °¸ÀÌ ÀÖÀ¸¹Ç·Î, ÀÌÁß°£¿¡´Â ÀÀ´äÇÒ°ÍÀ¸·Î ÃßÁ¤.
-const	int CHECK_ACCEL_RECOMMAND_TIME	=	 60000; //050328_KCH ÀÌ½Ã°£µ¿¾È ±â´Ù¸®´Ù°¡, ¼­¹ö¿¡ ¸Þ¼¼Áö¸¦ Åëº¸ÇÑ´Ù.(ÀÀ´äÇØ¾ß ÇÒ½Ã°£ 60ÃÊ)
+const	int DEFAULT_CHECK_ACCEL_TIME	=	100000; //ë°˜ë“œì‹œ CHECK_ACCEL_RECOMMAND_TIME ì´ì „ì˜ ì‹œê°„ì— ë¹„ìœ¨ì„ ê³±í•´ì„œ ê³„ì‚°í•˜ìž.(Accelì‹œê°„ì´ ì•„ë‹Œê²ƒìœ¼ë¡œ ì¸ì •í•˜ê² ë‹¤.) ë‹¨ìœ„ëŠ” ms
+												   //050408_KCH ^40ì˜ ê°­ì´ ìžˆìœ¼ë¯€ë¡œ, ì´ì¤‘ê°„ì—ëŠ” ì‘ë‹µí• ê²ƒìœ¼ë¡œ ì¶”ì •.
+const	int CHECK_ACCEL_RECOMMAND_TIME	=	 60000; //050328_KCH ì´ì‹œê°„ë™ì•ˆ ê¸°ë‹¤ë¦¬ë‹¤ê°€, ì„œë²„ì— ë©”ì„¸ì§€ë¥¼ í†µë³´í•œë‹¤.(ì‘ë‹µí•´ì•¼ í• ì‹œê°„ 60ì´ˆ)
 const	int CHECK_ACCEL_PING_TIME		=	  1800;
 
-//<050421_KCH Accelerate Ã¼Å© ·çÆ¾ Á¦°Å(È¿°ú¹Ì¹Ì,AMDPCÁ¢¼Ó Â÷´Ü¹®Á¦)
+//<050421_KCH Accelerate ì²´í¬ ë£¨í‹´ ì œê±°(íš¨ê³¼ë¯¸ë¯¸,AMDPCì ‘ì† ì°¨ë‹¨ë¬¸ì œ)
 CCrackMgr CrackMgr;
 //>050421_KCH
 
@@ -42,11 +42,11 @@ void CCrackMgr::AutoCheckAccelator(CHARLIST *ch)
 	const DWORD dwRealTime = timeGetTime();
 	const int iMyState = connections[cn].state;
 
-	if(iMyState==CONNECT_JOIN  || iMyState==CONNECT_JOIN_START)//°ÔÀÓ ÁßÀÏ °æ¿ì¸¸ Ã¼Å© ÇÑ´Ù
+	if(iMyState==CONNECT_JOIN  || iMyState==CONNECT_JOIN_START)//ê²Œìž„ ì¤‘ì¼ ê²½ìš°ë§Œ ì²´í¬ í•œë‹¤
 	{
-		if( dwRealTime >=  ch->dwCheckAccelTime)//½Ã°£ Ã¼Å©
+		if( dwRealTime >=  ch->dwCheckAccelTime)//ì‹œê°„ ì²´í¬
 		{
-			if( ch->dwSendedAccelTime )//¾Æ±î º¸³Â´Âµ¥ »õ·Î º¸³¾¶§ ±îÁö ÀÀ´äÀÌ ¾øÀ¸¸é
+			if( ch->dwSendedAccelTime )//ì•„ê¹Œ ë³´ëƒˆëŠ”ë° ìƒˆë¡œ ë³´ë‚¼ë•Œ ê¹Œì§€ ì‘ë‹µì´ ì—†ìœ¼ë©´
 			{
 				return;
 			}
@@ -55,13 +55,13 @@ void CCrackMgr::AutoCheckAccelator(CHARLIST *ch)
 			ch->dwSendedAccelTime = dwRealTime;
 			packet.h.header.type = CMD_CHECK_ACCEL;
 			packet.h.header.size = sizeof(t_server_check_accel);
-			packet.u.server_check_accel.dwCheckAccelNowtime	= ch->dwSendedAccelTime;//º¸³»´Â ½Ã°£.
+			packet.u.server_check_accel.dwCheckAccelNowtime	= ch->dwSendedAccelTime;//ë³´ë‚´ëŠ” ì‹œê°„.
 			::QueuePacket(connections, cn, &packet, 1);
 		}
 	}
-	else//°ÔÀÓÁßÀÌ ¾Æ´Ï¸é
+	else//ê²Œìž„ì¤‘ì´ ì•„ë‹ˆë©´
 	{
-		ch->dwSendedAccelTime = 0;//º¸³½°Ç ¹«È¿È­ ½ÃÅ²´Ù
+		ch->dwSendedAccelTime = 0;//ë³´ë‚¸ê±´ ë¬´íš¨í™” ì‹œí‚¨ë‹¤
 	}	
 	return;
 }
@@ -76,25 +76,25 @@ void CCrackMgr::ComformAccelator( const int cn, const t_packet *packet )
 	const DWORD dwRecvSendedServerTime	=	packet->u.server_check_accel.dwCheckAccelNowtime;
 	const DWORD dwSendedAccelTime		=	ch->dwSendedAccelTime;
 	const int iMyState = connections[cn].state;
-	//±¦ÂúÀº ¿µ¿ªÀº (Áö±Ý 90ÃÊÀü- ÇÎÅ¸ÀÓ)ºÎÅÍ (Áö±Ý±îÁö) ÀÌ´Ù
+	//ê´œì°®ì€ ì˜ì—­ì€ (ì§€ê¸ˆ 90ì´ˆì „- í•‘íƒ€ìž„)ë¶€í„° (ì§€ê¸ˆê¹Œì§€) ì´ë‹¤
 	
-	if(iMyState==CONNECT_JOIN  || iMyState==CONNECT_JOIN_START)//°ÔÀÓ ÁßÀÏ °æ¿ì¸¸ Ã¼Å© ÇÑ´Ù
+	if(iMyState==CONNECT_JOIN  || iMyState==CONNECT_JOIN_START)//ê²Œìž„ ì¤‘ì¼ ê²½ìš°ë§Œ ì²´í¬ í•œë‹¤
 	{
-		if	((	dwRealtime-dwRecvSendedServerTime < CHECK_ACCEL_RECOMMAND_TIME)//-CHECK_ACCEL_PING_TIME )//CHECK_ACCEL_RECOMMAND_TIME ÀÌÀü º¸´Ù ÀÛ´Ù//CHECK_ACCEL_PING_TIME ÇÎÀÖ´Ù°í Ä£´Ù
-			||(	dwSendedAccelTime != dwRecvSendedServerTime))//¾Æ±î º¸³½ °ª°ú ´Ù¸¥ °ªÀÌ µé¾î¿Â´Ù
+		if	((	dwRealtime-dwRecvSendedServerTime < CHECK_ACCEL_RECOMMAND_TIME)//-CHECK_ACCEL_PING_TIME )//CHECK_ACCEL_RECOMMAND_TIME ì´ì „ ë³´ë‹¤ ìž‘ë‹¤//CHECK_ACCEL_PING_TIME í•‘ìžˆë‹¤ê³  ì¹œë‹¤
+			||(	dwSendedAccelTime != dwRecvSendedServerTime))//ì•„ê¹Œ ë³´ë‚¸ ê°’ê³¼ ë‹¤ë¥¸ ê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 		{
 			sprintf( msg,"Accel Time Error 90 Never.. \nSended = %d , Recved = %d , Value = %d",dwSendedAccelTime, dwRecvSendedServerTime, dwRealtime-dwRecvSendedServerTime);
 
 			if(g_accelator_user_closeconnection )	
 			{	
-				g_pLogManager->SaveLogAccelater(ch, msg,cn);	//050328_KCH ·Î±× Ãß°¡.
+				g_pLogManager->SaveLogAccelater(ch, msg,cn);	//050328_KCH ë¡œê·¸ ì¶”ê°€.
 				SendHackingUser( cn, HACKING_ACCELATOR_, msg );
-				//<0540413_KCH ´çºÐ°£ ·Î±×¸¸ È®ÀÎÇÏ°í, Å¬¶óÀÌ¾ðÆ® Á¢¼ÓÀ» ²÷Áø ¾Ê´Â´Ù. ¿Ö³ÄÇÏ¸é, ÇöÀç, µ¿Á¢1500¿¡ ÆÐÅ¶ÀÌ ¹Ð¸®±â ¶§¹®¿¡, ÀûÀýÇÑ ¼¼ÆÃÀÌÈÄ¿¡, Ãß°¡ÇÒ°Í
+				//<0540413_KCH ë‹¹ë¶„ê°„ ë¡œê·¸ë§Œ í™•ì¸í•˜ê³ , í´ë¼ì´ì–¸íŠ¸ ì ‘ì†ì„ ëŠì§„ ì•ŠëŠ”ë‹¤. ì™œëƒí•˜ë©´, í˜„ìž¬, ë™ì ‘1500ì— íŒ¨í‚·ì´ ë°€ë¦¬ê¸° ë•Œë¬¸ì—, ì ì ˆí•œ ì„¸íŒ…ì´í›„ì—, ì¶”ê°€í• ê²ƒ
 //				closeconnection( connections, cn, -208 );
 				//>0540413_KCH
 			}
 		}
-		ch->dwSendedAccelTime = 0;//¹Þ¾ÒÀ¸´Ï±î º¸³Â´ø ½Ã°£À» Å¬¸®¾î ÇØÁØ´Ù// À§Ä¡ º¯°æ Á¶½É. Áö¿ìÁöµµ ¸»°í. ÁÖ¼® Ã³¸® ÇÏÁö ¸»°Í
+		ch->dwSendedAccelTime = 0;//ë°›ì•˜ìœ¼ë‹ˆê¹Œ ë³´ëƒˆë˜ ì‹œê°„ì„ í´ë¦¬ì–´ í•´ì¤€ë‹¤// ìœ„ì¹˜ ë³€ê²½ ì¡°ì‹¬. ì§€ìš°ì§€ë„ ë§ê³ . ì£¼ì„ ì²˜ë¦¬ í•˜ì§€ ë§ê²ƒ
 	}
 	else
 	{

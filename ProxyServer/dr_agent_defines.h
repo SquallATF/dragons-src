@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #define MAX_CHARACTEROFID						4
 
@@ -19,7 +19,7 @@
 // ....
 #define CONNECT_OK								1
 
-// Agent ¿¡¼­ ¾²ÀÌ´Â ÆÐÅ¶¸¸ °ñ¶ó³ÂÀ½.
+// Agent ì—ì„œ ì“°ì´ëŠ” íŒ¨í‚·ë§Œ ê³¨ë¼ëƒˆìŒ.
 #define CMD_NONE								0
 #define CMD_PING								5
 #define CMD_ACCESS_LOGIN						6066 // CSD-030322
@@ -37,7 +37,7 @@
 #define CMD_CONNECT_INFO						200
 #define CMD_LEVELUP_POINT						410
 
-// Added by chan78 at 2000/12/07 :: °ú±Ý
+// Added by chan78 at 2000/12/07 :: ê³¼ê¸ˆ
 #define CMD_ACCESS_PAY_PER_MIN					710
 
 #define	CMD_CHR_ITEM_INFO_0						5000	// Inventory
@@ -51,7 +51,7 @@
 #define CMD_HOW_MANY_IN_MAP						8413
 #define CMD_UPDATE_VERY_IMPORTANT_STATUS		8465
 // Login Server -> Game Server
-// id¸¦ °¡Áø ³ðÀ» ²÷¾î¶ó...
+// idë¥¼ ê°€ì§„ ë†ˆì„ ëŠì–´ë¼...
 #define CMD_CLOSE_LOGIN_ID						8462
 
 #define CMD_UPDATE_VERY_IMPORTANT_TACTICS		8466
@@ -68,18 +68,18 @@
 #define CMD_GLOBAL_CHAT_DATA					9001
 #define CMD_ACCESS_CHAR_DB						9021
 #define CMD_CONNECT_INFO1						10000		// 1218 YGI
-#define CMD_DELETE_ITEM							10011		// ¾ÆÀÌÅÛ ºÎ¼­Áü
+#define CMD_DELETE_ITEM							10011		// ì•„ì´í…œ ë¶€ì„œì§
 #define CMD_REQ_PARTY_MEMBER					10036
 #define	CMD_CHECK_BETA_TEST						10068
 #define	CMD_PARTY_ACCESS						10082
-#define CMD_REQ_PARTY_TOGETHER					10083		// ¼­·Î µ¿¸ÍÀ» ¸Î°í ÀÖ´ÂÁö ¾Ë¾Æº¸±â À§ÇØ ·Î±×ÀÎ ¼­¹ö·Î µðºñ¸¦ ¿äÃ»ÇÑ´Ù.
-#define CMD_THROW_DICE							10088		// ÁÖ»çÀ§ ´øÁö±â...
-#define CMD_CREATE_ABILITY						10089		// ±âº»¼öÄ¡ ·£´ý »ý¼º
+#define CMD_REQ_PARTY_TOGETHER					10083		// ì„œë¡œ ë™ë§¹ì„ ë§ºê³  ìžˆëŠ”ì§€ ì•Œì•„ë³´ê¸° ìœ„í•´ ë¡œê·¸ì¸ ì„œë²„ë¡œ ë””ë¹„ë¥¼ ìš”ì²­í•œë‹¤.
+#define CMD_THROW_DICE							10088		// ì£¼ì‚¬ìœ„ ë˜ì§€ê¸°...
+#define CMD_CREATE_ABILITY						10089		// ê¸°ë³¸ìˆ˜ì¹˜ ëžœë¤ ìƒì„±
 #define CMD_CHECK_NEW_CHAR						10120
 
 // 001205 KHS 
-#define CMD_RESET_JOB							10213	// JOB¸¦ »õ·Î ¼±ÅÃ
-#define CMD_SELECT_NATION						10215	// ³ª¶ó ¼±ÅÃ 
+#define CMD_RESET_JOB							10213	// JOBë¥¼ ìƒˆë¡œ ì„ íƒ
+#define CMD_SELECT_NATION						10215	// ë‚˜ë¼ ì„ íƒ 
 
 #define MAX_LEARN_ITEM						1000			//1220
 #define MAX_DIR_TABLE						 256
@@ -88,8 +88,8 @@
 #define	MAX_PC_CONTROL_NPC					   8
 
 // Added by chan78 at 2000/11/28
-#define CMD_SV_CONNECT_SERVER_COUNT			12001	// ¼­¹ö Ä«¿îÆ® °¡Á®¿À±â
-#define CMD_SV_GET_CONNECT_SERVER_PORT		12002	// ¿¬°áµÈ °ÔÀÓ¼­¹ö °¡Á®¿À±â
+#define CMD_SV_CONNECT_SERVER_COUNT			12001	// ì„œë²„ ì¹´ìš´íŠ¸ ê°€ì ¸ì˜¤ê¸°
+#define CMD_SV_GET_CONNECT_SERVER_PORT		12002	// ì—°ê²°ëœ ê²Œìž„ì„œë²„ ê°€ì ¸ì˜¤ê¸°
 
 #define CMD_ACCEPT_LOGIN				11
 
@@ -100,7 +100,7 @@
 #define CMD_CLOSE_CONNECTION_SLEPT_TOO_LONG_TIME	13004
 
 // 010109 KHS
-#define	CMD_SV_SEND_MESSAGE_ALL				12003	// °ÔÀÓ ¼­¹ö¿¡ ¸Þ½ÃÁö¸¦ »Ñ·ÁÁØ´Ù.		// 010110 YGI
+#define	CMD_SV_SEND_MESSAGE_ALL				12003	// ê²Œìž„ ì„œë²„ì— ë©”ì‹œì§€ë¥¼ ë¿Œë ¤ì¤€ë‹¤.		// 010110 YGI
 #define	CMD_LOGIN_BBS						8450	// 010110 YGI
 
 #define CMD_ALL_READY					33

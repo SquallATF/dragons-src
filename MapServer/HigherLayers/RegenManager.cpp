@@ -1,4 +1,4 @@
-// RegenManager.cpp: implementation of the CRegenManager class.
+ï»¿// RegenManager.cpp: implementation of the CRegenManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -81,8 +81,8 @@ void CRegenInfo::AddMember(CHARLIST* pMonster)
 
 	if (IsExistMaster())
 	{	
-		pMonster->SetMaster(m_pMaster->GetServerID());          // ¸®´õÀ» ¼³Á¤
-		m_pMaster->m_xSummon.Increase(pMonster->GetServerID()); // ¸®´õ°¡ ºÎÇÏ·Î Ãß°¡
+		pMonster->SetMaster(m_pMaster->GetServerID());          // ë¦¬ë”ì„ ì„¤ì •
+		m_pMaster->m_xSummon.Increase(pMonster->GetServerID()); // ë¦¬ë”ê°€ ë¶€í•˜ë¡œ ì¶”ê°€
 	}
 }
 
@@ -198,7 +198,7 @@ void CGroupInfo::Ready()
 }
 
 void CGroupInfo::Regenerate()
-{	// ¸ó½ºÅÍ ¹ß»ı
+{	// ëª¬ìŠ¤í„° ë°œìƒ
 	if (m_nGroupType == 0)
 	{
 		RegenerateAll();
@@ -223,7 +223,7 @@ void CGroupInfo::Remove()
 ///////////////////////////////////////////////////////////////////////////////
 
 void CGroupInfo::RegenerateAll()
-{	// À§Ä¡¿¡ ÀüºÎ ¸ó½ºÅÍ°¡ ¹ß»ı
+{	// ìœ„ì¹˜ì— ì „ë¶€ ëª¬ìŠ¤í„°ê°€ ë°œìƒ
 	if (m_ltRegen.empty())
 	{
 		return;
@@ -257,7 +257,7 @@ void CGroupInfo::RegenerateAll()
 }
 
 void CGroupInfo::RegenerateCycle()
-{	// À§Ä¡¿¡ ¼øÈ¯ÇÏ¸ç ¸ó½ºÅÍ°¡ ¹ß»ı
+{	// ìœ„ì¹˜ì— ìˆœí™˜í•˜ë©° ëª¬ìŠ¤í„°ê°€ ë°œìƒ
 	for (ITOR_REGEN i = m_ltRegen.begin(); i != m_ltRegen.end(); ++i)
 	{
 		CRegenInfo* pRegen = *i;
@@ -312,7 +312,7 @@ void CGroupInfo::CreateMonster(CRegenInfo* pRegen, int nPlace, int nMonster)
 		int nX = 0, nY = 0;
 		
 		if (nType == 1)
-		{	// º¸½º ¸ó½ºÅÍ »ı¼º ÁÂÇ¥¼³Á¤
+		{	// ë³´ìŠ¤ ëª¬ìŠ¤í„° ìƒì„± ì¢Œí‘œì„¤ì •
 			nX = infPlace.nPosX;
 			nY = infPlace.nPosY;
 		}
@@ -458,7 +458,7 @@ void CRegenManager::Ready(int nHunt, int nEvent)
 }	//> CSD-040310
 
 void CRegenManager::Regenerate(int nEvent)
-{	//< CSD-040317 : ¸ó½ºÅÍ ¹ß»ı
+{	//< CSD-040317 : ëª¬ìŠ¤í„° ë°œìƒ
 	if (!IsReady())
 	{
 		return;
@@ -476,7 +476,7 @@ void CRegenManager::Regenerate(int nEvent)
 }	//> CSD-040317
 
 void CRegenManager::Regenerate(int nHunt, int nEvent)
-{	//< CSD-040310 : ¸ó½ºÅÍ ¹ß»ı
+{	//< CSD-040310 : ëª¬ìŠ¤í„° ë°œìƒ
 	if (!IsExistHunt(nHunt))
 	{
 		return;

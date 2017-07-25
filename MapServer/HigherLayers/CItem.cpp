@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 
 #define CITEM_CLASS__
@@ -26,8 +26,8 @@ extern HDBC g_hDBC_DragonDB ;
 struct CItem_List Item_Ref ;
 
 
-// ¾ÆÀÌÅÛ ÂüÁ¶ Å×ÀÌºíÀ» DB¿¡¼­ ÀÐ¾î¿Í »ý¼ºÇÏ´Â ÇÔ¼ö.
-// ¾ÆÀÌÅÛ ÂüÁ¶ Å×ÀÌºíÀ» DB¿¡¼­ ÀÐ¾î¿Í »ý¼ºÇÏ´Â ÇÔ¼ö.
+// ì•„ì´í…œ ì°¸ì¡° í…Œì´ë¸”ì„ DBì—ì„œ ì½ì–´ì™€ ìƒì„±í•˜ëŠ” í•¨ìˆ˜.
+// ì•„ì´í…œ ì°¸ì¡° í…Œì´ë¸”ì„ DBì—ì„œ ì½ì–´ì™€ ìƒì„±í•˜ëŠ” í•¨ìˆ˜.
 int initItem(void)		// 0705 YGI
 {
 	int i, c ;
@@ -90,8 +90,8 @@ int initItem(void)		// 0705 YGI
 	MyLog( LOG_NORMAL, "    .Etc Item		%4d data Loaded", c) ;
 
 	
-	// 0¹ø ÀÎµ¦½º´Â »ç¿ëÇÏÁö ¾ÊÀ½. 
-	// item¹øÈ£°¡ 1¹øºÎÅÍ ½ÃÀÛ(0¹øÀº NULL¾ÆÀÌÅÛ, Áï ¾ÆÀÌÅÛ ¾øÀ½ÀÇ »óÅÂ¸¦ ³ªÅ¸³½´Ù)
+	// 0ë²ˆ ì¸ë±ìŠ¤ëŠ” ì‚¬ìš©í•˜ì§€ ì•ŠìŒ. 
+	// itemë²ˆí˜¸ê°€ 1ë²ˆë¶€í„° ì‹œìž‘(0ë²ˆì€ NULLì•„ì´í…œ, ì¦‰ ì•„ì´í…œ ì—†ìŒì˜ ìƒíƒœë¥¼ ë‚˜íƒ€ë‚¸ë‹¤)
 	for(i= 1 ; i <= Item_Ref.nItem[0] ; i++) Item_Ref.Item_Info[0][i]= &CPlant[i] ;
 	for(i= 1 ; i <= Item_Ref.nItem[1] ; i++) Item_Ref.Item_Info[1][i]= &CMineral[i] ;
 	for(i= 1 ; i <= Item_Ref.nItem[2] ; i++) Item_Ref.Item_Info[2][i]= &CHerb[i] ;
@@ -110,14 +110,14 @@ int initItem(void)		// 0705 YGI
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö¼³¸í: DB¿¡¼­ ÇØ´ç ¾ÆÀÌÅÛÀÇ ¼öÄ¡¸¦ ÀÐ¾î¿À´Â ÇÔ¼ö.
-//				virtual ÇÔ¼öÀÌ´Ù.
-//				ÇØ´ç ¾ÆÀÌÅÛ ¹è¿­ÀÇ 1¹øºÎÅÍ ÀÐ¾î¿À±â ½ÃÀÛÇÑ´Ù.
-//				Num_Of_CItem_XXXXX·Î defineµÈ °³¼ö¸¸Å­ ÀÐ¾î¿Â´Ù.
-//				DB¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ °³¼ö°¡ Num_Of_CItem_XXXXXº¸´Ù ÀÛ´Ù¸é
-//				DB¿¡ ÀÖ´Â ¾ÆÀÌÅÛ Àç¼ö¸¸ ÀÐ¾î¿Â´Ù.
+// í•¨ìˆ˜ì„¤ëª…: DBì—ì„œ í•´ë‹¹ ì•„ì´í…œì˜ ìˆ˜ì¹˜ë¥¼ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜.
+//				virtual í•¨ìˆ˜ì´ë‹¤.
+//				í•´ë‹¹ ì•„ì´í…œ ë°°ì—´ì˜ 1ë²ˆë¶€í„° ì½ì–´ì˜¤ê¸° ì‹œìž‘í•œë‹¤.
+//				Num_Of_CItem_XXXXXë¡œ defineëœ ê°œìˆ˜ë§Œí¼ ì½ì–´ì˜¨ë‹¤.
+//				DBì— ìžˆëŠ” ì•„ì´í…œì˜ ê°œìˆ˜ê°€ Num_Of_CItem_XXXXXë³´ë‹¤ ìž‘ë‹¤ë©´
+//				DBì— ìžˆëŠ” ì•„ì´í…œ ìž¬ìˆ˜ë§Œ ì½ì–´ì˜¨ë‹¤.
 // 
-// ¸®ÅÏ°ª: DB¿¡¼­ ½ÇÁ¦·Î ÀÐ¾î¿Â ¾ÆÀÌÅÛ °³¼ö
+// ë¦¬í„´ê°’: DBì—ì„œ ì‹¤ì œë¡œ ì½ì–´ì˜¨ ì•„ì´í…œ ê°œìˆ˜
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -895,7 +895,7 @@ int CItem_Accessory::getAllData(void)
 		c++ ;
 		
 		ret= SQLFetch(hStmt) ;
-		m_Much  = 0;		// ±× ¾ÆÀÌÅÛÀÌ ¾ó¸¶³ª ÀÖ³ª ÃÊ±âÈ­ 1215
+		m_Much  = 0;		// ê·¸ ì•„ì´í…œì´ ì–¼ë§ˆë‚˜ ìžˆë‚˜ ì´ˆê¸°í™” 1215
 	}
 //	printf("\n<<<<<< %d Cols.>>>>>>>>", nCols) ;
 //	printf("\n<<<<<< %d Rows.>>>>>>>>", c) ;
@@ -979,8 +979,8 @@ int CItem_Etc::getAllData(void)
 // *****************************************************************************************
 // *****************************************************************************************
 // *****************************************************************************************
-//    Item »ý¼º 
-//	  Item »ý¼º 
+//    Item ìƒì„± 
+//	  Item ìƒì„± 
 // *****************************************************************************************
 // *****************************************************************************************
 // *****************************************************************************************
@@ -996,7 +996,7 @@ int ItemGen_successrate( t_connection c[], int cn, int type, int tableno, int it
 
 	ch = &c[cn].chrlst;
 	if( ch->bAlive != ALIVE_ ) return 0;
-//----------------------------------------------------  Check Variables ¹üÀ§...
+//----------------------------------------------------  Check Variables ë²”ìœ„...
 	return 100;
 }
 
@@ -1072,23 +1072,23 @@ void RecvItemDoorOpenClose( int cn, t_item_door_open_close *p )
 
 	i = &ItemList[ item_id ];
 			
-	if( (i->attr[ IATTR_ATTR] & IA2_DOOR) == 0 ) return; // ¹®ÀÌ ¾Æ´Ï³×...
+	if( (i->attr[ IATTR_ATTR] & IA2_DOOR) == 0 ) return; // ë¬¸ì´ ì•„ë‹ˆë„¤...
 			
-	if( p->openclose == 0 ) // ¿­¾îÁÖ¼¼¿ä..
+	if( p->openclose == 0 ) // ì—´ì–´ì£¼ì„¸ìš”..
 	{		
-		if( i->attr[ IATTR_ATTR] & IA2_OPENED ) return; // ¿­·Á ÀÖÀ¸¸é ¸®ÅÏ.
+		if( i->attr[ IATTR_ATTR] & IA2_OPENED ) return; // ì—´ë ¤ ìžˆìœ¼ë©´ ë¦¬í„´.
 		//	
-		// ¿©±â¼­ connections[cn].chrslt°¡  ¿­¼ö ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+		// ì—¬ê¸°ì„œ connections[cn].chrsltê°€  ì—´ìˆ˜ ìžˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 		//	
 		i->attr[ IATTR_ATTR] |= IA2_OPENED;
 			
 		SetArea( CHANGE_IA2_ATTR_ITEM_AREA, item_id );
 	}		
-	else // ´Ý¾ÆÁÖ¼¼¿ä.
+	else // ë‹«ì•„ì£¼ì„¸ìš”.
 	{		
-		if( (i->attr[ IATTR_ATTR] & IA2_OPENED) == 0 ) return; // ´ÝÇô ÀÖÀ¸¸é ¸®ÅÏ.
+		if( (i->attr[ IATTR_ATTR] & IA2_OPENED) == 0 ) return; // ë‹«í˜€ ìžˆìœ¼ë©´ ë¦¬í„´.
 		//
-		// ¿©±â¼­ connections[cn].chrslt°¡  ´ÝÀ»¼ö ÀÖ´ÂÁö °Ë»çÇÑ´Ù.
+		// ì—¬ê¸°ì„œ connections[cn].chrsltê°€  ë‹«ì„ìˆ˜ ìžˆëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 		//
 		i->attr[ IATTR_ATTR] &= (~(IA2_OPENED) );
 		
@@ -1170,7 +1170,7 @@ void CheckItemTimeElapsed( void )
 	s = count;												
 	count += ( MAX_ITEM_LIST/ 100 );
 	e = count;					
-	if( e > MAX_ITEM_LIST ) e = MAX_ITEM_LIST;		// ÇÑ¹ø¿¡ MAX_ITEM_LIST/3Á¤µµ¸¸ CheckÇÑ´Ù. ¼­¹ö ºÎ´ãÀ» ÁÙÀÌ±â À§ÇØ.
+	if( e > MAX_ITEM_LIST ) e = MAX_ITEM_LIST;		// í•œë²ˆì— MAX_ITEM_LIST/3ì •ë„ë§Œ Checkí•œë‹¤. ì„œë²„ ë¶€ë‹´ì„ ì¤„ì´ê¸° ìœ„í•´.
 								
 	for( int m = s ; m < e ; m ++)
 	{							
@@ -1183,7 +1183,7 @@ void CheckItemTimeElapsed( void )
 		{
 			if( GetAttr2( attr2, IA2_OPENED ) ) 
 			{
-				if( time > ii->attr[ IATTR_LIMIT] ) // ±úÁøµÚ ¾ó¸¶°£ÀÇ ½Ã°£ÀÌ Áö³µ´Ù. 
+				if( time > ii->attr[ IATTR_LIMIT] ) // ê¹¨ì§„ë’¤ ì–¼ë§ˆê°„ì˜ ì‹œê°„ì´ ì§€ë‚¬ë‹¤. 
 				{
 					ii->attr[ IATTR_ATTR] = IA2_NOTMOVE | IA2_BOX;
 					SetArea( CHANGE_IA2_ATTR_ITEM_AREA, m );
@@ -1281,9 +1281,9 @@ void CheckItemTimeElapsed( void )
 				SetArea( CHANGE_IA2_ATTR_ITEM_AREA, m );
 				SetArea( CHANGE_IA2_DURATION_ITEM_AREA, m );
 			}
-		}else if( attr2 & IA2_FARM7 )	// ¼öÈ®À» ÇÏÁö ¾Ê°í ½Ã°£ÀÌ Áö³ª¸é »ç¶óÁø´Ù. 
+		}else if( attr2 & IA2_FARM7 )	// ìˆ˜í™•ì„ í•˜ì§€ ì•Šê³  ì‹œê°„ì´ ì§€ë‚˜ë©´ ì‚¬ë¼ì§„ë‹¤. 
 		{
-			//001214 zhh		//¼öÈ®ÇÏ´Â ´Ü°è¸¸ 5´Ü°è°¡ µÈ´Ù.(¼öÈ®ÇÏ´Âµ¥ ½Ã°£ÀÌ ºÎÁ·ÇÔ)
+			//001214 zhh		//ìˆ˜í™•í•˜ëŠ” ë‹¨ê³„ë§Œ 5ë‹¨ê³„ê°€ ëœë‹¤.(ìˆ˜í™•í•˜ëŠ”ë° ì‹œê°„ì´ ë¶€ì¡±í•¨)
 			if( ii->attr[IATTR_DURATION] < g_curr_time )
 			{
 				RemoveItemList( m );
@@ -1336,9 +1336,9 @@ void CheckItemTimeElapsed( void )
 		else if( ( GetAttr2( attr2, IA2_COLOSSUS_STONE ) )
 			|| ( GetAttr2( attr2, IA2_SCENARIO_POTAL ) )	)	// 020620 YGI
 		{
-			// ½Ã°£ÀÌ Áö³ªµµ ¾Æ¹«·± ÀÛ¾÷À» ÇÏÁö ¾Ê´Â´Ù.
+			// ì‹œê°„ì´ ì§€ë‚˜ë„ ì•„ë¬´ëŸ° ìž‘ì—…ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		}
-		else		// ½Ã°£ÀÌ °æ°úÇÏ¸é ÀÚµ¿À¸·Î Áö¿öÁø´Ù. 
+		else		// ì‹œê°„ì´ ê²½ê³¼í•˜ë©´ ìžë™ìœ¼ë¡œ ì§€ì›Œì§„ë‹¤. 
 		{		
 
 			int iLimitTime = 120;
@@ -1367,7 +1367,7 @@ void CheckItemTimeElapsed( void )
 
 
 //-----------------------------------------------------------------------
-// ¾ÆÀÌÅÛ »ý¼º ÇÔ¼ö ( 10/24 )
+// ì•„ì´í…œ ìƒì„± í•¨ìˆ˜ ( 10/24 )
 //-----------------------------------------------------------------------
 /*
 DWORD ItemAttr_Make_First( int type, int itemno, int success_rate )
@@ -1394,7 +1394,7 @@ DWORD ItemAttr_Make_First( int type, int itemno, int success_rate )
 
 
 //////////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ ÀÎº¥Åä¸®¿¡¼­ ºó°÷ Ã£±â, ¾øÀ¸¸é 0À» ¸®ÅÏ
+// ìºë¦­í„° ì¸ë²¤í† ë¦¬ì—ì„œ ë¹ˆê³³ ì°¾ê¸°, ì—†ìœ¼ë©´ 0ì„ ë¦¬í„´
 bool SearchInv( ItemAttr inv[3][3][8], int &a, int &b, int &c )
 {
 	for( a=0; a<3; a++)
@@ -1421,7 +1421,7 @@ int SearchInv_invert( ItemAttr inv[3][3][8], int &a, int &b, int &c )
 }
 
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ìž‘ì—…
 bool IsCanItemMallMall_TimeAttr(const int iYear, const int iMonth,const int iDay,const int iHour,const int iMinute)
 {
 	if( iYear	> 99	||	iYear	<=	0	)	{ return false;}
@@ -1434,7 +1434,7 @@ bool IsCanItemMallMall_TimeAttr(const int iYear, const int iMonth,const int iDay
 }
 
 _eRT_INV_ITEMMALL SearchInvForItemMall( CHARLIST *pCh, int &a, int &b, int &c ,const ItemAttr _UserItem)
-{	// 1. ÀÎº¥¿¡ ¶È°°Àº ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö¸¦ °Ë»çÈÄ
+{	// 1. ì¸ë²¤ì— ë˜‘ê°™ì€ ì•„ì´í…œëª° ì•„ì´í…œì´ ìžˆëŠ”ì§€ë¥¼ ê²€ì‚¬í›„
 	_eRT_INV_ITEMMALL IsEmptyInv = FULL_INV;
 	for( int i=0; i<3; ++i)
 	for( int j=0; j<3; ++j)
@@ -1445,18 +1445,18 @@ _eRT_INV_ITEMMALL SearchInvForItemMall( CHARLIST *pCh, int &a, int &b, int &c ,c
 		{
 			if (pItem->attr[IATTR_ITEM_MALL_IDX] == _UserItem.attr[IATTR_ITEM_MALL_IDX] )
 			{
-				//ItemMall_Idx°¡ °°´Ù¸é º¹ÅÛÀÌ ÀÎº¥¿¡ Á¸ÀçÇÑ´Ù.(Limit´Â Áö±Þ ½Ã°£À» ±âÁØÀ¸·Î ÇÏ¹Ç·Î Å×ÀÌºí¼öÁ¤¿¡ µû¶ó ´Þ¶óÁú¼öµµ ÀÖ´Ù.
-				a = i;	//À§Ä¡°ª ¹ÝÈ¯
+				//ItemMall_Idxê°€ ê°™ë‹¤ë©´ ë³µí…œì´ ì¸ë²¤ì— ì¡´ìž¬í•œë‹¤.(LimitëŠ” ì§€ê¸‰ ì‹œê°„ì„ ê¸°ì¤€ìœ¼ë¡œ í•˜ë¯€ë¡œ í…Œì´ë¸”ìˆ˜ì •ì— ë”°ë¼ ë‹¬ë¼ì§ˆìˆ˜ë„ ìžˆë‹¤.
+				a = i;	//ìœ„ì¹˜ê°’ ë°˜í™˜
 				b = j;
 				c = k;
 				return DUPE_ITEM_INV;
 			}
 		}
 
-		//2. Ä³¸¯ÅÍ ÀÎº¥Åä¸®¿¡¼­ ¾ÆÀÌÅÛ ³ÖÀ»¼ö ÀÖ´Â ºó°÷ Ã£¾Æ¼­ ¸®ÅÏ
+		//2. ìºë¦­í„° ì¸ë²¤í† ë¦¬ì—ì„œ ì•„ì´í…œ ë„£ì„ìˆ˜ ìžˆëŠ” ë¹ˆê³³ ì°¾ì•„ì„œ ë¦¬í„´
 		if( !pItem->item_no && EMPTY_INV != IsEmptyInv) 
 		{
-			a = i;	//À§Ä¡°ª ¹ÝÈ¯
+			a = i;	//ìœ„ì¹˜ê°’ ë°˜í™˜
 			b = j;
 			c = k;
 			IsEmptyInv = EMPTY_INV;
@@ -1465,10 +1465,10 @@ _eRT_INV_ITEMMALL SearchInvForItemMall( CHARLIST *pCh, int &a, int &b, int &c ,c
 
 	return IsEmptyInv;
 }
-//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ìž‘ì—…
 
 
-// add money ¿¡¼­ »ç¿ëÇÒ MAX_MONEYº¸´Ù ÀÛÀº µ·°ú ºó°ø°£À» Ã£´Â ÇÔ¼ö		// 001030 YGI
+// add money ì—ì„œ ì‚¬ìš©í•  MAX_MONEYë³´ë‹¤ ìž‘ì€ ëˆê³¼ ë¹ˆê³µê°„ì„ ì°¾ëŠ” í•¨ìˆ˜		// 001030 YGI
 int SearchMoneyItem( ItemAttr inv[3][3][8], int &a, int &b, int &c )		
 {
 	for( a=0; a<3; a++)

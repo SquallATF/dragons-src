@@ -1,4 +1,4 @@
-// BaseArena.cpp: implementation of the CBaseArena class.
+ï»¿// BaseArena.cpp: implementation of the CBaseArena class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -231,7 +231,7 @@ bool CBaseArena::AddObserve(int nTeam, CHARLIST* pMember)
 	{
 		pTeam->DelObserve(pMember);
 	}
-	// °üÀü·á °è»ê
+	// ê´€ì „ë£Œ ê³„ì‚°
 	if (!m_pObserve->IsEnoughMoney(pMember))
 	{
 		pMember->Message(MK_INFORMATION, 1, 109);
@@ -419,7 +419,7 @@ void CBaseArena::SendLeaderInfo(CHARLIST* pMember)
 	packet.h.header.size = sizeof(t_arena_leader_info);
 	packet.u.arena.arena_leader_info.idLeader = pMember->GetServerID();
 	SendPacketAll(&packet);
-	// ¸®´õ·Î ¼³Á¤
+	// ë¦¬ë”ë¡œ ì„¤ì •
 	m_pLeader = pMember;
 }
 
@@ -607,7 +607,7 @@ void CBaseArena::RequestArenaMember(CHARLIST* pMember)
 			}
 
 			if (pTemp == m_pLeader)
-			{	// ¸®´õÀÓÀ» ¾Ë¸²
+			{	// ë¦¬ë”ìž„ì„ ì•Œë¦¼
 				t_packet packet;
 				packet.h.header.type = CMD_ARENA_LEADER_INFO;
 				packet.h.header.size = sizeof(t_arena_leader_info);
@@ -857,9 +857,9 @@ void CBaseArena::StartGame(DWORD dwTime)
 
 	m_pState->StartState(dwTime);
 
-	//< KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//< KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 	MyLog( 0, "Gamble Start Money : %i", m_pGambling->GetBattingMoney() );
-	//> KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//> KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 }
 
 void CBaseArena::EndGame(CArenaInfo* pArena)
@@ -887,9 +887,9 @@ void CBaseArena::EndGame(CArenaInfo* pArena)
 	m_pState->EndState();
 	m_pGambling->InitBattingMoney();
 
-	//< KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//< KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 	MyLog( 0, "Gamble End Money : %i", m_pGambling->GetBattingMoney() );
-	//> KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//> KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 }
 
 bool CBaseArena::PlayGame(DWORD dwTime)

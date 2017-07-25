@@ -1,10 +1,10 @@
-
+ï»¿
 // ---------------------------------------------------
 // Commands
-// 20010508 ¼öÁ¤
+// 20010508 ìˆ˜ì •
 // ---------------------------------------------------
 
-// ¼­¹öÁ¤º¸ °ü·Ã ÆĞÅ¶
+// ì„œë²„ì •ë³´ ê´€ë ¨ íŒ¨í‚·
 #define MANAGER_CMD_TARGET_NOT_AVAILABLE		101
 #define MANAGER_CMD_AUTH						102
 
@@ -15,15 +15,15 @@
 #define MANAGER_CMD_REQUEST_SUBSERVER_STATUS	205
 #define MANAGER_CMD_REQUEST_SERVER_SHUTDOWN		206
 
-// ¼­¹ö Á¶Á¤ °ü·Ã ÆĞÅ¶
+// ì„œë²„ ì¡°ì • ê´€ë ¨ íŒ¨í‚·
 #define MANAGER_CMD_CONTROL_USER_ALLOW			301
 #define MANAGER_CMD_CONTROL_SERVER_MAXUSER		302
 #define MANAGER_CMD_CONTROL_SERVER_LIMITUSER	303
 
-// °øÁö»çÇ×  ÆĞÅ¶
+// ê³µì§€ì‚¬í•­  íŒ¨í‚·
 #define MANAGER_CMD_PUBLIC_NOTICE				401
 
-// ¸Ê¼­¹ö¿¡°Ô º¸³»´Â ¸í·É
+// ë§µì„œë²„ì—ê²Œ ë³´ë‚´ëŠ” ëª…ë ¹
 #define	CMD_BBS									8411
 
 #pragma once
@@ -105,7 +105,7 @@ typedef struct server_shutdown
 
 } MGR_SERVER_SHUTDOWN_PACKET, *LP_MGR_SERVER_SHUTDOWN_PACKET;
 
-// ¼­¹ö °øÅë Á¤º¸
+// ì„œë²„ ê³µí†µ ì •ë³´
 typedef struct server_status
 {
 	DWORD		dwNumOfUsers;
@@ -114,7 +114,7 @@ typedef struct server_status
 
 } MGR_SERVER_STATUS_PACKET, *LP_MGR_SERVER_STATUS_PACKET;
 
-// °øÁö»çÇ× Àü´Ş
+// ê³µì§€ì‚¬í•­ ì „ë‹¬
 typedef struct public_notice
 {
 	WORD		wPort;
@@ -152,22 +152,22 @@ typedef struct manager_packet
 		MGR_SUBSERVER_REQUEST_PACKET	MgrSubServerRequestPacket;
 		MGR_SUBSERVER_INFO_PACKET		MgrSubServerInfoPacket;
 
-		// ¼­¹ö Á¶Á¤
+		// ì„œë²„ ì¡°ì •
 		MGR_USER_ALLOW_PACKET			MgrUserAllowPacket;
 		MGR_SERVER_MAXUSER_PACKET		MgrServerMaxUserPacket;
 		MGR_SERVER_LIMITUSER_PACKET		MgrServerLimitUserPacket;
 		MGR_SERVER_SHUTDOWN_PACKET		MgrServerShutDownPacket;
 
-		// °øÁö»çÇ×
+		// ê³µì§€ì‚¬í•­
 		MGR_PUBLIC_NOTICE_PACKET		MgrPublicNoticePacket;
 	} b;
 } MANAGER_PACKET, *LP_MANAGER_PACKET;
 //---------------------------------------
 
-// Map ¼­¹ö °ü·Ã ÆĞÅ¶
+// Map ì„œë²„ ê´€ë ¨ íŒ¨í‚·
 //--------------------------------------------------------------------
 
-// °øÁö»çÇ×
+// ê³µì§€ì‚¬í•­
 typedef struct bbs
 {
 	char msg[260];

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	HadesWarfield.cpp
  *			implementation of the CHadesWarfield class.
  */
@@ -13,7 +13,7 @@
 
 extern LPWARFIELDINFO g_pcWarfieldInfo;
 
-//< LTH-040318-KO ³²Àº °¡µå(¼º¹®/°á°è¼®) ¼ö¸¦ Ã¼Å©ÇÏ¿© º¸³½´Ù
+//< LTH-040318-KO ë‚¨ì€ ê°€ë“œ(ì„±ë¬¸/ê²°ê³„ì„) ìˆ˜ë¥¼ ì²´í¬í•˜ì—¬ ë³´ë‚¸ë‹¤
 void SendCMD_CHECK_REMAIN_GUARD(int nWarfieldNo, DWORD dwRemainTime, int aRemainGuard[MAX_TEAM][GS_MAX_GUARD_SPECIES])
 {
 	t_packet packet;
@@ -51,7 +51,7 @@ CHadesWarfield::CHadesWarfield()
 	lpStateFactory = new CHWStateFactory;
 	if (FAILED(lpStateFactory->Create(m_nWarfieldState, (LPVOID*)&m_lpWarfieldState)))
 	{
-		::MyLog(LOG_FATAL, "CHadesWarfield::SetStatus() lpStateFactory->Create() ½ÇÆĞ");
+		::MyLog(LOG_FATAL, "CHadesWarfield::SetStatus() lpStateFactory->Create() ì‹¤íŒ¨");
 		return;
 	}
 	SAFE_DELETE(lpStateFactory);
@@ -81,7 +81,7 @@ STDMETHODIMP CHadesWarfield::Init(INT nWarfieldNo)
 	lpStateFactory = new CHWStateFactory;
 	if (FAILED(lpStateFactory->Create(m_nWarfieldState, (LPVOID*)&m_lpWarfieldState)))
 	{
-		::MyLog(LOG_FATAL, "CHadesWarfield::SetStatus() lpStateFactory->Create() ½ÇÆĞ");
+		::MyLog(LOG_FATAL, "CHadesWarfield::SetStatus() lpStateFactory->Create() ì‹¤íŒ¨");
 		return E_FAIL;
 	}
 	SAFE_DELETE(lpStateFactory);
@@ -101,21 +101,21 @@ STDMETHODIMP CHadesWarfield::Init(INT nWarfieldNo)
 	m_lpGuard[TEAM2].SetTeamNo(TEAM2);
 	m_lpGuard[TEAM2].LoadData();
 
-	// TEAM1Àº À¯ÀúÆÀ, TEAM2´Â ¸ó½ºÅÍÆÀÀÌ´Ù. ´Ù¸¥ ÀüÀïÅÍ¿Í °°ÀÌ ±¸ºĞ Áş±âÀ§ÇØ ¸¸µé¾úÀ» »ÓÀÌ´Ù
-	// ÁöÇÏÀüÀïÅÍÀÇ ¾Æ±ºÀº ºÎ´ë°¡ 4°³ÀÌ´Ù 0¹ø ºÎ´ë´Â ºÎ´ë°¡ ¾ø´Â ÀÏ¹İÀÎÀÌ¶ó´Â ±âÁ¸ ¼Ò½º¿Í µ¿ÀÏÇÏ°Ô...
+	// TEAM1ì€ ìœ ì €íŒ€, TEAM2ëŠ” ëª¬ìŠ¤í„°íŒ€ì´ë‹¤. ë‹¤ë¥¸ ì „ìŸí„°ì™€ ê°™ì´ êµ¬ë¶„ ì§“ê¸°ìœ„í•´ ë§Œë“¤ì—ˆì„ ë¿ì´ë‹¤
+	// ì§€í•˜ì „ìŸí„°ì˜ ì•„êµ°ì€ ë¶€ëŒ€ê°€ 4ê°œì´ë‹¤ 0ë²ˆ ë¶€ëŒ€ëŠ” ë¶€ëŒ€ê°€ ì—†ëŠ” ì¼ë°˜ì¸ì´ë¼ëŠ” ê¸°ì¡´ ì†ŒìŠ¤ì™€ ë™ì¼í•˜ê²Œ...
 	if (FAILED(m_lpTeam[TEAM1].Init(NW_SQUAD_MAX)))
 	{
-		::MyLog(LOG_FATAL, "CHadesWarfield::Init()ÀÇ m_lpTeam[TEAM1].Init() ½ÇÇà ½ÇÆĞ");
+		::MyLog(LOG_FATAL, "CHadesWarfield::Init()ì˜ m_lpTeam[TEAM1].Init() ì‹¤í–‰ ì‹¤íŒ¨");
 		return E_FAIL;
 	}
-	m_lpTeam[TEAM2].Init(1);				// LTH-040212-KO ÁöÇÏÀüÀïÅÍÀÇ À¯ÀúÆÀÀº ÇÏ³ªÀÌ´Ù. Error¸¦ ÇÇÇÏ±â À§ÇØ ºóºÎ´ë ÇÏ³ª¸¦ ³Ö´Â´Ù
-	m_lpGuard[TEAM2].FirstMakeNPCPtr();		// LTH-040212-KO ¼öÈ£¼®Àº ¸ó½ºÅÍ ÆÀ¸¸ °¡Áö°íÀÖ´Ù
+	m_lpTeam[TEAM2].Init(1);				// LTH-040212-KO ì§€í•˜ì „ìŸí„°ì˜ ìœ ì €íŒ€ì€ í•˜ë‚˜ì´ë‹¤. Errorë¥¼ í”¼í•˜ê¸° ìœ„í•´ ë¹ˆë¶€ëŒ€ í•˜ë‚˜ë¥¼ ë„£ëŠ”ë‹¤
+	m_lpGuard[TEAM2].FirstMakeNPCPtr();		// LTH-040212-KO ìˆ˜í˜¸ì„ì€ ëª¬ìŠ¤í„° íŒ€ë§Œ ê°€ì§€ê³ ìˆë‹¤
 
 	SetStatus(NW_PEACE);
 
 	if (FALSE == LoadWarfieldData())
 	{
-		::MyLog(LOG_FATAL, "CHadesWarfield::Init()ÀÇ LoadWarfieldData() ½ÇÇà ½ÇÆĞ");
+		::MyLog(LOG_FATAL, "CHadesWarfield::Init()ì˜ LoadWarfieldData() ì‹¤í–‰ ì‹¤íŒ¨");
 		return E_FAIL;
 	}
 	
@@ -139,7 +139,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::SetStatus(INT nState)
 	lpStateFactory = new CHWStateFactory;
 	if (FAILED(lpStateFactory->Create(m_nWarfieldState, (LPVOID*)&m_lpWarfieldState)))
 	{
-		::MyLog(LOG_FATAL, "CHadesWarfield::SetStatus() lpStateFactory->Create() ½ÇÆĞ");
+		::MyLog(LOG_FATAL, "CHadesWarfield::SetStatus() lpStateFactory->Create() ì‹¤íŒ¨");
 		return;
 	}
 	SAFE_DELETE(lpStateFactory);
@@ -162,7 +162,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::SetStatus(INT nState)
 			for (nI = 0; nI < MAX_TEAM; ++nI)
 				m_lpGuard[nI].MakeNPCPtr();
 
-			//< LTH-040318-KO ³²Àº °¡µå ¼ö¸¦ ÀüÀï ½ÃÀÛ ÇÏÀÚ¸¶ÀÚ º¸³½´Ù.
+			//< LTH-040318-KO ë‚¨ì€ ê°€ë“œ ìˆ˜ë¥¼ ì „ìŸ ì‹œì‘ í•˜ìë§ˆì ë³´ë‚¸ë‹¤.
 			int aRemainGuard[MAX_TEAM][GS_MAX_GUARD_SPECIES];
 			int nI, nJ;
 			for (nJ = 0; nJ < MAX_TEAM; ++nJ)
@@ -179,7 +179,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::SetStatus(INT nState)
 		break;
 	case NW_SOPEN	: 
 		{
-			//< LTH-040518-KO ºñ¹ĞÁö¿ª ¿ÀÇÂ¶§ ³²Àº ½Ã°£À» Á¤È®È÷ º¸³»·Á°í ±âÁ¸¿¡ ÀÖ´ø ÆĞÅ¶Ã³¸®¸¦ ÇÔ ÇÑ´Ù -_-;.
+			//< LTH-040518-KO ë¹„ë°€ì§€ì—­ ì˜¤í”ˆë•Œ ë‚¨ì€ ì‹œê°„ì„ ì •í™•íˆ ë³´ë‚´ë ¤ê³  ê¸°ì¡´ì— ìˆë˜ íŒ¨í‚·ì²˜ë¦¬ë¥¼ í•¨ í•œë‹¤ -_-;.
 			int aRemainGuard[MAX_TEAM][GS_MAX_GUARD_SPECIES];
 			int nI, nJ;
 			for (nJ = 0; nJ < MAX_TEAM; ++nJ)
@@ -192,7 +192,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::SetStatus(INT nState)
 			::SendCMD_CHECK_REMAIN_GUARD(m_nWarfieldNo, m_lpWarfieldState->GetRemainTime(), aRemainGuard);
 			//> LTH-040518-KO
 			::SendNewWarEnd(m_nWarfieldNo);// End Process
-			//< LTH-040323-KO ·Î±× °­È­
+			//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 			g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "Hades War End!!");
 			//> LTH-040323-KO
 			for (nI = 0; nI < MAX_TEAM; ++nI)
@@ -235,14 +235,14 @@ STDMETHODIMP CHadesWarfield::Update()
 			break;
 
 		case NW_WAR:
-			{	//< LTH-040314-KO ÀÌ°÷Àº ½Ã°£ÀÌ ´ÙµÇ¾î À¯Àú°¡ ÆĞÇßÀ» °æ¿ì´Ù
+			{	//< LTH-040314-KO ì´ê³³ì€ ì‹œê°„ì´ ë‹¤ë˜ì–´ ìœ ì €ê°€ íŒ¨í–ˆì„ ê²½ìš°ë‹¤
 				SendMonsterRaidMsg(FALSE);
 				CheckWinTeam();
 				if (FALSE == m_bIsVictory)
 					m_lpTeam[TEAM1].GiveFame2Dual(2);
 				SendWarResult();
 
-				//< LTH-040226-KO ÇÑ Å¸ÀÓ ÀüÀïÀÌ ³¡³­ÈÄ¿¡ ÀüÀï Âü¿© °¡´É ±¹°¡¸¦ ÃÊ±âÈ­
+				//< LTH-040226-KO í•œ íƒ€ì„ ì „ìŸì´ ëë‚œí›„ì— ì „ìŸ ì°¸ì—¬ ê°€ëŠ¥ êµ­ê°€ë¥¼ ì´ˆê¸°í™”
 				UpdateNationPoint(m_aSumNationPoint);
 				INT nI;
 				for (nI = 0; nI < NW_NATION_COUNT; ++nI)
@@ -267,14 +267,14 @@ STDMETHODIMP CHadesWarfield::Update()
 		{
 		case NW_WAR:
 			if (TRUE == m_lpGuard[TEAM2].IsAllBroken())
-			{	//< LTH-040314-KO ÀÌ°÷Àº À¯Àú°¡ ½Â¸®ÇßÀ» °æ¿ì´Ù
+			{	//< LTH-040314-KO ì´ê³³ì€ ìœ ì €ê°€ ìŠ¹ë¦¬í–ˆì„ ê²½ìš°ë‹¤
 				SendMonsterRaidMsg(FALSE);
 				m_bIsVictory = TRUE;
 				m_lpTeam[TEAM1].GiveFame2Dual(4);
 				
 				SendWarResult();
 				
-				//< LTH-040226-KO ÇÑ Å¸ÀÓ ÀüÀïÀÌ ³¡³­ÈÄ¿¡ ÀüÀï Âü¿© °¡´É ±¹°¡¸¦ ÃÊ±âÈ­
+				//< LTH-040226-KO í•œ íƒ€ì„ ì „ìŸì´ ëë‚œí›„ì— ì „ìŸ ì°¸ì—¬ ê°€ëŠ¥ êµ­ê°€ë¥¼ ì´ˆê¸°í™”
 				UpdateNationPoint(m_aSumNationPoint);
 				INT nI;
 				for (nI = 0; nI < NW_NATION_COUNT; ++nI)
@@ -292,8 +292,8 @@ STDMETHODIMP CHadesWarfield::Update()
 
 STDMETHODIMP_(INT) CHadesWarfield::GetSquadMemberCount(INT nSquadNo)
 {
-	//< LTH-040304-KO ÆÀÀÌ ´Ã¾î³ª¸é ÇÔ¼ö ÀÎÀÚ¿¡ ÆÀµµ ¹Ş¾Æ¾ßÇÑ´Ù
-	// 1.4 ÆĞÄ¡ÀÇ ½Å±Ô±¹°¡Àü¿¡ ±¹ÇÑµÇ¾îÀÖ´Ù
+	//< LTH-040304-KO íŒ€ì´ ëŠ˜ì–´ë‚˜ë©´ í•¨ìˆ˜ ì¸ìì— íŒ€ë„ ë°›ì•„ì•¼í•œë‹¤
+	// 1.4 íŒ¨ì¹˜ì˜ ì‹ ê·œêµ­ê°€ì „ì— êµ­í•œë˜ì–´ìˆë‹¤
 	return m_lpTeam[TEAM1].GetSquadMemberCount(nSquadNo);
 	//> LTH-040304-KO
 }
@@ -315,31 +315,31 @@ STDMETHODIMP_(BOOL) CHadesWarfield::CanAttackGuard(LPCHARLIST lpCaster, LPCHARLI
 	if (m_lpGuard[TEAM2].CheckNPC(lpTarget->GetServerID())) 
 		nTargetTeamNo = TEAM2;
 
-	if (nCasterTeamNo == nTargetTeamNo)		// °°Àº ÆÀÀÌ´Ù.. 
+	if (nCasterTeamNo == nTargetTeamNo)		// ê°™ì€ íŒ€ì´ë‹¤.. 
 		return FALSE;
 
 	BOOL bIsBroken = FALSE;
 	switch (lpTarget->SprNo)
 	{
-	case 64:	// ÃÖÁ¾ ¼öÈ£¼®
+	case 64:	// ìµœì¢… ìˆ˜í˜¸ì„
 		bIsBroken = (BOOL)m_lpGuard[nTargetTeamNo].CheckTypeAllBroke(GS_INNER_GUARD_STONE);
 		if (FALSE == bIsBroken)
 			m_lpGuard[nTargetTeamNo].SendCanNotBrokeBBS(GS_INNER_GUARD_STONE);
 		return bIsBroken;
 
-	case 63:	// ³»¼º ¼öÈ£¼®. ¼º¹® ´Ù ºÎ¼Å¾ß ºÎ½Ç¼ö ÀÖµµ·Ï ÇØ¾ßÇÑ´Ù
+	case 63:	// ë‚´ì„± ìˆ˜í˜¸ì„. ì„±ë¬¸ ë‹¤ ë¶€ì…”ì•¼ ë¶€ì‹¤ìˆ˜ ìˆë„ë¡ í•´ì•¼í•œë‹¤
 		bIsBroken = (BOOL)m_lpGuard[nTargetTeamNo].CheckTypeAllBroke(GS_GATE);
 		if (FALSE == bIsBroken)
 			m_lpGuard[nTargetTeamNo].SendCanNotBrokeBBS(GS_GATE);
 		return bIsBroken;
 	
-	case 177:	// ¼º¹®
+	case 177:	// ì„±ë¬¸
 		bIsBroken = (BOOL)m_lpGuard[nTargetTeamNo].CheckTypeAllBroke(GS_OUTER_GUARD_STONE);
 		if (FALSE == bIsBroken)
 			m_lpGuard[nTargetTeamNo].SendCanNotBrokeBBS(GS_OUTER_GUARD_STONE);
 		return bIsBroken;
 		
-	case 178:	// ¿Ü¼º ¼öÈ£¼®.
+	case 178:	// ì™¸ì„± ìˆ˜í˜¸ì„.
 		return TRUE;
 	}
 
@@ -357,7 +357,7 @@ INT CHadesWarfield::GetTeamNo(LPCHARLIST lpChar)
 		return TEAM1;
 	}
 
-	//< LTH-040329-KO ·Î±× °­È­
+	//< LTH-040329-KO ë¡œê·¸ ê°•í™”
 	::MyLog(0,"CHadesWarfield GetTeamNo(),illegal Nation : %d, SprNo : %d",lpChar->name_status.nation, lpChar->SprNo);
 	//> LTH-040329-KO
 	return TEAM2;
@@ -367,10 +367,10 @@ extern void SendCMD_UPDATE_WARTIME(const int WarfieldNo, const int Status, const
 
 STDMETHODIMP_(VOID) CHadesWarfield::InsertSquadMember(INT nCn)
 {
-	//< LTH-040304-KO 1.4 ÆĞÄ¡¿¡ ±¹ÇÑ. À¯ÀúÆÀ¿¡¸¸ ¸É¹öÃß°¡°¡´É
+	//< LTH-040304-KO 1.4 íŒ¨ì¹˜ì— êµ­í•œ. ìœ ì €íŒ€ì—ë§Œ ë§´ë²„ì¶”ê°€ê°€ëŠ¥
 	if (NW_WAR == m_nWarfieldState)
 	{
-		//< LTH-040318-KO ³²Àº °¡µå ¼ö¸¦ ÀüÀï Âü¿© ÇÏÀÚ¸¶ÀÚ º¸³½´Ù.
+		//< LTH-040318-KO ë‚¨ì€ ê°€ë“œ ìˆ˜ë¥¼ ì „ìŸ ì°¸ì—¬ í•˜ìë§ˆì ë³´ë‚¸ë‹¤.
 		int aRemainGuard[MAX_TEAM][GS_MAX_GUARD_SPECIES];
 		int nI, nJ;
 		for (nJ = 0; nJ < MAX_TEAM; ++nJ)
@@ -390,7 +390,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::InsertSquadMember(INT nCn)
 
 STDMETHODIMP_(VOID) CHadesWarfield::DeleteSquadMember(INT nCn)
 {
-	//< LTH-040326-KO 1.4 ÆĞÄ¡¿¡ ±¹ÇÑ. À¯ÀúÆÀ¿¡¸¸ ¸É¹ö»èÁ¦°¡´É. ÀüÀïÁß¿¡¸¸ ºÎ´ë ¸â¹ö¸¦ Á¦°Å
+	//< LTH-040326-KO 1.4 íŒ¨ì¹˜ì— êµ­í•œ. ìœ ì €íŒ€ì—ë§Œ ë§´ë²„ì‚­ì œê°€ëŠ¥. ì „ìŸì¤‘ì—ë§Œ ë¶€ëŒ€ ë©¤ë²„ë¥¼ ì œê±°
 	if (NW_WAR == m_nWarfieldState)
 		m_lpTeam[TEAM1].DeleteSquadMember(m_nWarfieldNo, nCn);
 	//> LTH-040326-KO
@@ -414,7 +414,7 @@ STDMETHODIMP_(LPTEAMINFO) CHadesWarfield::GetTeamInfo(INT nTeamNo)
 
 STDMETHODIMP_(INT) CHadesWarfield::GetTeamMemberCount(INT nTeamNo)
 {
-	//< LTH-040304-KO ¾ÈÀüÀ» À§ÇØ ºÎ´ë¼ö¸¦ È®ÀÎÇÑ´Ù.
+	//< LTH-040304-KO ì•ˆì „ì„ ìœ„í•´ ë¶€ëŒ€ìˆ˜ë¥¼ í™•ì¸í•œë‹¤.
 	INT nNumOfSquad = m_lpTeam[nTeamNo].GetNumOfSquad();
 	INT nI, nCount = 0;
 	for (nI = 0; nI < nNumOfSquad; ++nI)
@@ -470,7 +470,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::CheckAndKickUser(INT nCn)
 	if (FALSE == m_bIsVictory)
 	{
 		if (TRUE == m_lpTeam[nTeamNo].KickUser(nCn))
-		{	//< LTH-040322-KO MoveToVillage()´Â ÃÊº¸ÀÚ¸¦ À§ÇÑ Á×¾úÀ»¶§ »ì¸®´Â ÇÔ¼ö´ç ºñ¿õ¾Æ!!
+		{	//< LTH-040322-KO MoveToVillage()ëŠ” ì´ˆë³´ìë¥¼ ìœ„í•œ ì£½ì—ˆì„ë•Œ ì‚´ë¦¬ëŠ” í•¨ìˆ˜ë‹¹ ë¹„ì›…ì•„!!
 			switch (connections[nCn].chrlst.name_status.nation)
 			{
 			case NW_BY:
@@ -490,7 +490,7 @@ STDMETHODIMP_(VOID) CHadesWarfield::CheckAndKickUser(INT nCn)
 STDMETHODIMP_(VOID) CHadesWarfield::LoopTimeChange(t_packet *p)
 {
 	m_lpWarfieldState->SetLoopTime(p->u.NationWar.WarLoopTime.LoopTime);
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_TIME_INFO, "[LoopTime Change] = %d",p->u.NationWar.WarLoopTime.LoopTime);
 	//> LTH-040323-KO
 }
@@ -532,7 +532,7 @@ VOID CHadesWarfield::UpdateNationPoint(INT nScore[NW_NATION_COUNT])
 
 	SQLFreeStmt(hStmt, SQL_DROP);
 
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "After War Nation Sum Point Vy : %d Zy : %d Yl : %d", \
 		nScore[0], nScore[1], nScore[2]);
 	//> LTH-040323-KO
@@ -585,7 +585,7 @@ VOID CheckWarStartNation(INT nSumPoint[NW_NATION_COUNT], BOOL bJoinNation[NW_NAT
 	INT nJ;
 	for (nJ = 0; nJ < NW_NATION_COUNT; ++nJ)
 	{
-		// LTH-040224-KO 1.4 Patch. Hades ÀüÀï ½ÃÀÛ Á¶°Ç
+		// LTH-040224-KO 1.4 Patch. Hades ì „ìŸ ì‹œì‘ ì¡°ê±´
 		if (nSumPoint[nJ] >= LIMITNATIONPOINT)
 			bJoinNation[nJ] = TRUE;
 		else
@@ -595,18 +595,18 @@ VOID CheckWarStartNation(INT nSumPoint[NW_NATION_COUNT], BOOL bJoinNation[NW_NAT
 
 VOID CHadesWarfield::CheckWarStartTeam()
 {
-	// DB¿¡¼­ ÇöÀç °¢ ±¹°¡ÀÇ Æ÷ÀÎÆ® ÇÕÀÇ ¹è¿­À» ºÒ·¯¿Â´Ù
+	// DBì—ì„œ í˜„ì¬ ê° êµ­ê°€ì˜ í¬ì¸íŠ¸ í•©ì˜ ë°°ì—´ì„ ë¶ˆëŸ¬ì˜¨ë‹¤
 	::GetSumNationPoint(m_aSumNationPoint);
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "Before Nation Sum Point Vy : %d Zy : %d Yl : %d", \
 		m_aSumNationPoint[0], m_aSumNationPoint[1], m_aSumNationPoint[2]);
 	//> LTH-040323-KO
-	// ÀüÀï Âü¿© °¡´É ±¹°¡¸¦ ÆÇº°ÇÑ´Ù
+	// ì „ìŸ ì°¸ì—¬ ê°€ëŠ¥ êµ­ê°€ë¥¼ íŒë³„í•œë‹¤
 	::CheckWarStartNation(m_aSumNationPoint, m_bJoinNation);
 
 	INT nJ;
 	for (nJ = 0; nJ < NW_NATION_COUNT; ++nJ)
-	{	//< LTH-040323-KO ·Î±× °­È­
+	{	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 		if (TRUE == m_bJoinNation[nJ])
 			g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "%d Nation Join in Monster War (0:Vy, 1:Zy, 2:Yl)", nJ);
 	}	//> LTH-040323-KO
@@ -624,18 +624,18 @@ VOID CHadesWarfield::SendMonsterRaidMsg(BOOL bIsStart)
 	if (TRUE == bIsStart)
 	{
 		packet.h.header.type = CMD_MONSTER_RAID_START;
-		g_pRegenManager->Remove(CGroupInfo::ET_NORMAL); // CSD-040324 ÀÏ¹İ ¸ó½ºÅÍ Á¦°Å
-		g_pRegenManager->Ready(CGroupInfo::ET_HADES); // CSD-040324 ÀüÀïÀÌ ½ÃÀÛµÇ¸é ÁöÇÏÀüÀïÅÍÀÇ ¸ó½ºÅÍ ±×·ìÀÌ È°¼ºÈ­ µÈ´Ù
-		//< LTH-040323-KO ·Î±× °­È­
+		g_pRegenManager->Remove(CGroupInfo::ET_NORMAL); // CSD-040324 ì¼ë°˜ ëª¬ìŠ¤í„° ì œê±°
+		g_pRegenManager->Ready(CGroupInfo::ET_HADES); // CSD-040324 ì „ìŸì´ ì‹œì‘ë˜ë©´ ì§€í•˜ì „ìŸí„°ì˜ ëª¬ìŠ¤í„° ê·¸ë£¹ì´ í™œì„±í™” ëœë‹¤
+		//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "<--- Monster Raid Start Infomation --->");
 		//> LTH-040323-KO
 	}
 	else
 	{
 		packet.h.header.type = CMD_MONSTER_RAID_END;
-		g_pRegenManager->Remove(CGroupInfo::ET_HADES); // CSD-040324 ÀüÀïÀÌ ³¡³ª¸é ÁöÇÏÀüÀïÅÍÀÇ ¸ó½ºÅÍ ±×·ìÀÌ Á¦°Å µÈ´Ù
-		g_pRegenManager->Ready(CGroupInfo::ET_NORMAL); // CSD-040324 ÀÏ¹İ ¸ó½ºÅÍ ±×·ì È°¼ºÈ­
-		//< LTH-040323-KO ·Î±× °­È­
+		g_pRegenManager->Remove(CGroupInfo::ET_HADES); // CSD-040324 ì „ìŸì´ ëë‚˜ë©´ ì§€í•˜ì „ìŸí„°ì˜ ëª¬ìŠ¤í„° ê·¸ë£¹ì´ ì œê±° ëœë‹¤
+		g_pRegenManager->Ready(CGroupInfo::ET_NORMAL); // CSD-040324 ì¼ë°˜ ëª¬ìŠ¤í„° ê·¸ë£¹ í™œì„±í™”
+		//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "<--- Monster Raid End Infomation --->");
 		//> LTH-040323-KO
 	}
@@ -667,13 +667,13 @@ VOID CHadesWarfield::SendMonsterRaidMsg(BOOL bIsStart)
 
 			if (TRUE == bIsStart)
 			{
-				//< LTH-040323-KO ·Î±× °­È­
+				//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 				g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "%d Nation was raided by Monster!! (0:Vy, 1:Zy, 2:Yl)", nI);
 				//> LTH-040323-KO
 			}
 			else
 			{
-				//< LTH-040323-KO ·Î±× °­È­
+				//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 				g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "%d Nation repulsed Monster!! (0:Vy, 1:Zy, 2:Yl)", nI);
 				//> LTH-040323-KO
 			}
@@ -699,7 +699,7 @@ VOID CHadesWarfield::SendWarResult()
 	packet.u.NationWar.NeoWarResult.nBYDeathCount = m_lpTeam[TEAM1].GetNationDeathCount(NW_BY);
 	packet.u.NationWar.NeoWarResult.nZYDeathCount = m_lpTeam[TEAM1].GetNationDeathCount(NW_ZY);
 	packet.u.NationWar.NeoWarResult.nYLDeathCount = m_lpTeam[TEAM1].GetNationDeathCount(NW_YL);
-	//< LTH-040413-KO ¸ğµç ³ª¶ó°¡ ¸ó½ºÅÍ ½À°İÀ» ¹ŞÀ¸¸é °á°úÃ¢À» ¶ç¿ìÁö ¾Ê±â À§ÇØ ÀÌ°ªÀ» ½Ç¾î º¸³½´Ù.
+	//< LTH-040413-KO ëª¨ë“  ë‚˜ë¼ê°€ ëª¬ìŠ¤í„° ìŠµê²©ì„ ë°›ìœ¼ë©´ ê²°ê³¼ì°½ì„ ë„ìš°ì§€ ì•Šê¸° ìœ„í•´ ì´ê°’ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤.
 	bool bAllNationJoin = FALSE;
 	int nI;
 	for (nI = 0; nI < NW_NATION_COUNT; ++nI)
@@ -729,7 +729,7 @@ VOID CHadesWarfield::GiveFame(INT TeamNo, LPCHARLIST lpCaster, LPCHARLIST lpTarg
 	switch (lpTarget->SprNo)
 	{
 	case 64 :	
-		//< LTH-040324-KO Fame ·Î±× °­È­
+		//< LTH-040324-KO Fame ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogChange_Fame(lpCaster, lpCaster->fame, lpCaster->fame + 20, LF_NATIONWAR);
 		sOldFame = lpCaster->fame;
 		lpCaster->fame += 20; 	
@@ -741,7 +741,7 @@ VOID CHadesWarfield::GiveFame(INT TeamNo, LPCHARLIST lpCaster, LPCHARLIST lpTarg
 		break;
 
 	case 63 :
-		//< LTH-040324-KO Fame ·Î±× °­È­
+		//< LTH-040324-KO Fame ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogChange_Fame(lpCaster, lpCaster->fame, lpCaster->fame + 15, LF_NATIONWAR);
 		sOldFame = lpCaster->fame;
 		lpCaster->fame += 15; 									
@@ -753,9 +753,9 @@ VOID CHadesWarfield::GiveFame(INT TeamNo, LPCHARLIST lpCaster, LPCHARLIST lpTarg
 		break;
 
 	case 177 :
-		//< LTH-040315-KO ¼º¹®Àº µÎ°³ ´Ù±úµµ ÇÑ¹ø¸¸ FameÀ» ¹Şµµ·Ï...
+		//< LTH-040315-KO ì„±ë¬¸ì€ ë‘ê°œ ë‹¤ê¹¨ë„ í•œë²ˆë§Œ Fameì„ ë°›ë„ë¡...
 		if (TRUE == m_lpGuard[TEAM2].IsTargetBroken(lpTarget, GS_GATE))
-		{	//< LTH-040324-KO Fame ·Î±× °­È­
+		{	//< LTH-040324-KO Fame ë¡œê·¸ ê°•í™”
 			g_pLogManager->SaveLogChange_Fame(lpCaster, lpCaster->fame, lpCaster->fame + 10, LF_NATIONWAR);
 			sOldFame = lpCaster->fame;
 			lpCaster->fame += 10;
@@ -769,7 +769,7 @@ VOID CHadesWarfield::GiveFame(INT TeamNo, LPCHARLIST lpCaster, LPCHARLIST lpTarg
 		break;
 		
 	case 178 :
-		//< LTH-040324-KO Fame ·Î±× °­È­
+		//< LTH-040324-KO Fame ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogChange_Fame(lpCaster, lpCaster->fame, lpCaster->fame + 15, LF_NATIONWAR);
 		sOldFame = lpCaster->fame;
 		lpCaster->fame += 15; 									

@@ -1,4 +1,4 @@
-// BattleManager.cpp: implementation of the CBattleManager class.
+ï»¿// BattleManager.cpp: implementation of the CBattleManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -46,7 +46,7 @@ extern int CanLocalWarAttack(CHARLIST* pAttacker,CHARLIST* pDefencer); // 020115
 extern int CheckLocalWarAttacker(CHARLIST* pAttacker);						     // 020115 LTS
 extern int CheckEventAttack();	 // 020115 LTS
 extern int CheckEventWarDoing(); // 020115 LTS
-/* 040720_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+/* 040720_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 extern void SaveLogChange_ObtainCombat(CHARLIST* ch, int nOld, int nNew);
 extern void SaveLogChange_Combat(CHARLIST* ch, int nCombat, int nOld, int nNew);
 */
@@ -69,22 +69,22 @@ CBattleManager::CBattleManager()
 {
 	m_vtBuffer.clear();
 	m_vtBuffer.reserve(13);
-	// magic_type¿¡ µû¶ó¼­ ¼ø¼­ÀûÀ¸·Î »ı¼º
-	m_vtBuffer.push_back(new CPhysicalAttack);  // [ 0] ¹°¸®Àû °ø°İ
-	m_vtBuffer.push_back(new CRecoveryMagic);   // [ 1] 10 ~ 19 : È¸º¹°è¿­ ¸¶¹ı
-	m_vtBuffer.push_back(new CProtectionMagic); // [ 2] 20 ~ 29 : º¸È£°è¿­ ¸¶¹ı
-	m_vtBuffer.push_back(new CAssistanceMagic); // [ 3] 30 ~ 39 : º¸Á¶°è¿­ ¸¶¹ı
-	m_vtBuffer.push_back(new CCursingMagic);    // [ 4] 40 ~ 49 : ÀúÁÖ°è¿­ ¸¶¹ı
-	m_vtBuffer.push_back(new CAttackMagic);     // [ 5] 50 ~ 59 : °ø°İ°è¿­ ¸¶¹ı
-	m_vtBuffer.push_back(new CExtraMagic);      // [ 6] 60 ~ 69 : ½Ã°ø, ¼ÒÈ¯, ±âÅ¸°è¿­ ¸¶¹ı
-	// order_type¿¡ µû¶ó¼­ ¼ø¼­ÀûÀ¸·Î »ı¼º
-	m_vtBuffer.push_back(new CThunderCombat);   // [ 7] 61 : ¹ø°³¼Ó¼º ÀüÅõ½ºÅ³
-	m_vtBuffer.push_back(new CEarthCombat);     // [ 8] 62 : ´ëÁö¼Ó¼º ÀüÅõ½ºÅ³
-	m_vtBuffer.push_back(new CFlameCombat);     // [ 9] 63 : È­¿°¼Ó¼º ÀüÅõ½ºÅ³
-	m_vtBuffer.push_back(new CDarkCombat);      // [10] 64 : ¾îµÒ¼Ó¼º ÀüÅõ½ºÅ³
-	m_vtBuffer.push_back(new CFreezeCombat);    // [11] 65 : ¾óÀ½¼Ó¼º ÀüÅõ½ºÅ³
-	m_vtBuffer.push_back(new CWindCombat);      // [12] 66 : ¹Ù¶÷¼Ó¼º ÀüÅõ½ºÅ³
-	// Method ¹ÙÀÎµù
+	// magic_typeì— ë”°ë¼ì„œ ìˆœì„œì ìœ¼ë¡œ ìƒì„±
+	m_vtBuffer.push_back(new CPhysicalAttack);  // [ 0] ë¬¼ë¦¬ì  ê³µê²©
+	m_vtBuffer.push_back(new CRecoveryMagic);   // [ 1] 10 ~ 19 : íšŒë³µê³„ì—´ ë§ˆë²•
+	m_vtBuffer.push_back(new CProtectionMagic); // [ 2] 20 ~ 29 : ë³´í˜¸ê³„ì—´ ë§ˆë²•
+	m_vtBuffer.push_back(new CAssistanceMagic); // [ 3] 30 ~ 39 : ë³´ì¡°ê³„ì—´ ë§ˆë²•
+	m_vtBuffer.push_back(new CCursingMagic);    // [ 4] 40 ~ 49 : ì €ì£¼ê³„ì—´ ë§ˆë²•
+	m_vtBuffer.push_back(new CAttackMagic);     // [ 5] 50 ~ 59 : ê³µê²©ê³„ì—´ ë§ˆë²•
+	m_vtBuffer.push_back(new CExtraMagic);      // [ 6] 60 ~ 69 : ì‹œê³µ, ì†Œí™˜, ê¸°íƒ€ê³„ì—´ ë§ˆë²•
+	// order_typeì— ë”°ë¼ì„œ ìˆœì„œì ìœ¼ë¡œ ìƒì„±
+	m_vtBuffer.push_back(new CThunderCombat);   // [ 7] 61 : ë²ˆê°œì†ì„± ì „íˆ¬ìŠ¤í‚¬
+	m_vtBuffer.push_back(new CEarthCombat);     // [ 8] 62 : ëŒ€ì§€ì†ì„± ì „íˆ¬ìŠ¤í‚¬
+	m_vtBuffer.push_back(new CFlameCombat);     // [ 9] 63 : í™”ì—¼ì†ì„± ì „íˆ¬ìŠ¤í‚¬
+	m_vtBuffer.push_back(new CDarkCombat);      // [10] 64 : ì–´ë‘ ì†ì„± ì „íˆ¬ìŠ¤í‚¬
+	m_vtBuffer.push_back(new CFreezeCombat);    // [11] 65 : ì–¼ìŒì†ì„± ì „íˆ¬ìŠ¤í‚¬
+	m_vtBuffer.push_back(new CWindCombat);      // [12] 66 : ë°”ëŒì†ì„± ì „íˆ¬ìŠ¤í‚¬
+	// Method ë°”ì¸ë”©
 	for_each(m_vtBuffer.begin(), m_vtBuffer.end(), mem_fun(&CBattle::Bind));
 }
 
@@ -99,7 +99,7 @@ CBattleManager::~CBattleManager()
 ///////////////////////////////////////////////////////////////////////////////
 
 void CBattleManager::Elapse(DWORD dwSecond)
-{	//< CSD-CHAOS : ½Ã°£°ü·Ã »óÅÂ¸¦ Á¶Á¤
+{	//< CSD-CHAOS : ì‹œê°„ê´€ë ¨ ìƒíƒœë¥¼ ì¡°ì •
 	if (g_curr_time < s_dwDelay)
 	{
 		return;
@@ -118,7 +118,7 @@ void CBattleManager::Elapse(DWORD dwSecond)
 
 			::CheckCharacterCondition(pTemp);
 			::CheckTransparency(pTemp);
-			// ¸¶¹ıÀÌ³ª ÀüÅõ½ºÅ³ »óÅÂ °Ë»ç
+			// ë§ˆë²•ì´ë‚˜ ì „íˆ¬ìŠ¤í‚¬ ìƒíƒœ ê²€ì‚¬
 			for_each(m_vtBuffer.begin(), m_vtBuffer.end(), bind2nd(mf, pTemp));
 		}
 	}	
@@ -132,11 +132,11 @@ void CBattleManager::Elapse(DWORD dwSecond)
 			pTemp->IncPoisonedCount();
 		
 			::CheckCharacterCondition(pTemp);
-			// ¸¶¹ıÀÌ³ª ÀüÅõ½ºÅ³ »óÅÂ °Ë»ç
+			// ë§ˆë²•ì´ë‚˜ ì „íˆ¬ìŠ¤í‚¬ ìƒíƒœ ê²€ì‚¬
 			for_each(m_vtBuffer.begin(), m_vtBuffer.end(), bind2nd(mf, pTemp));
 		}
 	}
-	// Áö¿¬ ½Ã°£ ¼³Á¤
+	// ì§€ì—° ì‹œê°„ ì„¤ì •
 	s_dwDelay = g_curr_time + dwSecond;
 }	//> CSD-CHAOS
 
@@ -146,7 +146,7 @@ void CBattleManager::ClearCombat(BYTE nCombat, WORD idMaster)
 	if (pMaster == NULL)  return;
 	
 	if (nCombat != 0 && !IsEnableWeapon(nCombat, pMaster))
-	{	// ¹«±â¸¦ ¹Ù²Û °æ¿ì¿¡ Ã³¸®
+	{	// ë¬´ê¸°ë¥¼ ë°”ê¾¼ ê²½ìš°ì— ì²˜ë¦¬
 		t_client_combat_clear packet;
 		packet.nType = 0;
 		RecvCombatClear(idMaster, &packet);
@@ -185,10 +185,10 @@ void CBattleManager::ClearCombat(BYTE nCombat, WORD idMaster)
 				pMaster->SendCharInfoBasic( BP, nCount);//020704 lsw
 				break;
 			}
-			// ÀüÅõ½ºÅ³ ÃÊ±âÈ­
+			// ì „íˆ¬ìŠ¤í‚¬ ì´ˆê¸°í™”
 			pMaster->InitActiveCombat();
 			pMaster->ClearActiveState();
-			// °ü·Ã Packet Àü¼Û  
+			// ê´€ë ¨ Packet ì „ì†¡  
 			memset(&m_packet, 0, sizeof(t_packet));
 			m_packet.h.header.type = CMD_COMBAT_INIT;
 			m_packet.h.header.size = sizeof(t_combat_init);
@@ -212,10 +212,10 @@ void CBattleManager::ClearCombat(BYTE nCombat, WORD idMaster)
 				
 				break;
 			}
-			// ÀüÅõ½ºÅ³ ÃÊ±âÈ­
+			// ì „íˆ¬ìŠ¤í‚¬ ì´ˆê¸°í™”
 			pMaster->InitActiveCombat();
 			pMaster->ClearActiveState();
-			// °ü·Ã Packet Àü¼Û  
+			// ê´€ë ¨ Packet ì „ì†¡  
 			memset(&m_packet, 0, sizeof(t_packet));
 			m_packet.h.header.type = CMD_COMBAT_INIT;
 			m_packet.h.header.size = sizeof(t_combat_init);
@@ -248,12 +248,12 @@ void CBattleManager::ChangeCombat(BYTE nCombat, WORD idMaster)
 }
 
 void CBattleManager::ResetCombat(BYTE nCombat, WORD idMaster)
-{	// ÀüÅõ½ºÅ³ »ç¿ë°¡´É¼ö Àç¼³Á¤
+{	// ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ìˆ˜ ì¬ì„¤ì •
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	// CP·® Àç¼³Á¤  
+	// CPëŸ‰ ì¬ì„¤ì •  
 	pMaster->DecCombat(Magic_Ref[nCombat].exhaust_MP);
-	// ¾×Æ¼ºê ¼Ó¼ºÀÇ ÀüÅõ½ºÅ³ÀÎ °æ¿ì
+	// ì•¡í‹°ë¸Œ ì†ì„±ì˜ ì „íˆ¬ìŠ¤í‚¬ì¸ ê²½ìš°
 	if (IsActiveCombat(nCombat))
 	{
 		int nMax = 0, nNow = 0;
@@ -264,7 +264,7 @@ void CBattleManager::ResetCombat(BYTE nCombat, WORD idMaster)
 		case POISONING_NOVA:
 		case WHILWIND:
 		case TWISTER:
-			{ // »ç¿ëµÚ °¨¼Ò
+			{ // ì‚¬ìš©ë’¤ ê°ì†Œ
 				nMax = Magic_Ref[nCombat].nCombatCount;
 				pMaster->SetActiveCombat(nCombat, nMax);
 				pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
@@ -282,7 +282,7 @@ void CBattleManager::ResetCombat(BYTE nCombat, WORD idMaster)
 				break;
 			}
 		default:
-			{ // °ø°İµÚ °¨¼Ò
+			{ // ê³µê²©ë’¤ ê°ì†Œ
 				nMax = Magic_Ref[nCombat].nCombatCount;
 				pMaster->SetActiveCombat(nCombat, nMax);
 				pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
@@ -294,14 +294,14 @@ void CBattleManager::ResetCombat(BYTE nCombat, WORD idMaster)
 		
 		return;
 	}
-	// ÆĞ½Ãºê ¼Ó¼ºÀÇ ÀüÅõ½ºÅ³ÀÎ °æ¿ì
+	// íŒ¨ì‹œë¸Œ ì†ì„±ì˜ ì „íˆ¬ìŠ¤í‚¬ì¸ ê²½ìš°
 	if (IsPassiveCombat(nCombat))
 	{
 		DWORD dwPeriod = g_curr_time + Magic_Ref[nCombat].continue_Time;
 		pMaster->SetPassiveCombat(nCombat, dwPeriod);
 		return;
 	}
-	// È¸º¹ ¼Ó¼ºÀÇ ÀüÅõ½ºÅ³ÀÎ °æ¿ì
+	// íšŒë³µ ì†ì„±ì˜ ì „íˆ¬ìŠ¤í‚¬ì¸ ê²½ìš°
 	if (IsRecoveryCombat(nCombat))
 	{	// 030415 kyo
 		DWORD dwPeriod = g_curr_time + Magic_Ref[nCombat].continue_Time;
@@ -312,15 +312,15 @@ void CBattleManager::ResetCombat(BYTE nCombat, WORD idMaster)
 
 void CBattleManager::SendNpcAttack(WORD idNpc)
 {
-	// °ø°İÀÚ
+	// ê³µê²©ì
 	WORD idCaster = idNpc + 10000;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	if (pCaster == NULL)  return;
-	// ¹æ¾îÀÚ
+	// ë°©ì–´ì
 	WORD idTarget = pCaster->targetid;
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pTarget == NULL)  return;
-	// °ø°İ ¼öÇà
+	// ê³µê²© ìˆ˜í–‰
 	t_npc_attack packet;
 	packet.idCaster = idCaster;
 	packet.idTarget = idTarget;
@@ -331,15 +331,15 @@ void CBattleManager::SendNpcAttack(WORD idNpc)
 
 void CBattleManager::SendNpcThrow(WORD idNpc)
 {
-	// °ø°İÀÚ
+	// ê³µê²©ì
 	WORD idCaster = idNpc + 10000;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	if (pCaster == NULL)  return;
-	// ¹æ¾îÀÚ
+	// ë°©ì–´ì
 	WORD idTarget = pCaster->targetid;
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pTarget == NULL)  return;
-	// °ø°İ ¼öÇà
+	// ê³µê²© ìˆ˜í–‰
 	t_npc_throw packet;
 	packet.idCaster = idCaster;
 	packet.idTarget = idTarget;
@@ -349,16 +349,16 @@ void CBattleManager::SendNpcThrow(WORD idNpc)
 }
 
 void CBattleManager::SendNpcMagic(WORD idNpc, BYTE nMagic)
-{ // ´ë»ó ÁöÁ¤ ¸¶¹ı
-	// ½ÃÀüÀÚ
+{ // ëŒ€ìƒ ì§€ì • ë§ˆë²•
+	// ì‹œì „ì
 	WORD idCaster = idNpc + 10000;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	if (pCaster == NULL)  return;
-	// ´ë»óÀÚ
+	// ëŒ€ìƒì
 	WORD idTarget = pCaster->targetid;
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pTarget == NULL)  return;
-	// ¸¶¹ı ¼öÇà
+	// ë§ˆë²• ìˆ˜í–‰
 	t_client_npc_magic packet;
 	packet.nMagic = nMagic;
 	packet.idCaster = idCaster;
@@ -370,11 +370,11 @@ void CBattleManager::SendNpcMagic(WORD idNpc, BYTE nMagic)
 }
 
 void CBattleManager::SendNpcMagic(WORD idNpc, BYTE nMagic, int nX, int nY, bool bTimeDisable)
-{ // Áö¿ª ¸¶¹ı
+{ // ì§€ì—­ ë§ˆë²•
 	WORD idCaster = idNpc + 10000;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	if (pCaster == NULL)  return;
-	// ¸¶¹ı ¼öÇà
+	// ë§ˆë²• ìˆ˜í–‰
 	t_client_npc_magic packet;
 	packet.nMagic = nMagic;
 	packet.idCaster = idCaster;
@@ -386,13 +386,13 @@ void CBattleManager::SendNpcMagic(WORD idNpc, BYTE nMagic, int nX, int nY, bool 
 }
 
 void CBattleManager::SendNpcRecall(WORD idNpc, BYTE nMagic, BYTE nMonster, int nX, int nY)
-{ // ¼ÒÈ¯ ¸¶¹ı
+{ // ì†Œí™˜ ë§ˆë²•
 	WORD idMaster = idNpc + 10000;
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	// ¼ÒÈ¯ÇÒ ¸ó½ºÅÍ ¼³Á¤
+	// ì†Œí™˜í•  ëª¬ìŠ¤í„° ì„¤ì •
 	pMaster->SetFollow(nMonster);
-	// ¸¶¹ı ¼öÇà
+	// ë§ˆë²• ìˆ˜í–‰
 	t_client_npc_magic packet;
 	packet.nMagic = nMagic;
 	packet.idCaster = idMaster;
@@ -408,7 +408,7 @@ void CBattleManager::SendNpcTeleport(WORD idNpc, int nX, int nY)
 	WORD idMaster = idNpc + 10000;
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	// ¸¶¹ı ¼öÇà
+	// ë§ˆë²• ìˆ˜í–‰
 	t_client_npc_magic packet;
 	packet.nMagic = TELEPORT;
 	packet.idCaster = idMaster;
@@ -432,7 +432,7 @@ void CBattleManager::RecvNpcAttack(t_npc_attack* pPacket)
 		return;
 	}
 	
-	const int nBattle = 0; // ÇöÀç NPC´Â ´Ü°Å¸® °ø°İ¸¸ °¡´ÉÇÏµµ·Ï ¼³Á¤
+	const int nBattle = 0; // í˜„ì¬ NPCëŠ” ë‹¨ê±°ë¦¬ ê³µê²©ë§Œ ê°€ëŠ¥í•˜ë„ë¡ ì„¤ì •
 	GetBattle(nBattle)->SetIndex(WR_SHORT);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
@@ -445,17 +445,17 @@ void CBattleManager::RecvStrikeAttack(WORD idCaster, t_player_attack* pPacket)
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)     return;
-	// °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle())                            return;
 	if (!IsBattle(pCaster))                     return;
 	if (!IsBattle(pCaster, pTarget))            return;
 	if (!pCaster->CheckAttack(2, g_curr_time))  return;
 	if (!FilterAttack(pCaster, pTarget))        return;
-	// Çö»ó¹üÀÎÁö ¿©ºÎ ¼³Á¤
+	// í˜„ìƒë²”ì¸ì§€ ì—¬ë¶€ ì„¤ì •
 	pTarget->SetWanted(pPacket->bWanted);
-	// ÀúÁÖ¼Ó¼º ¼³Á¤
+	// ì €ì£¼ì†ì„± ì„¤ì •
 	AutoCurse(idCaster, idTarget);
-	// ÀüÅõ½ºÅ³ »ç¿ë °¡´É¼ö °è»ê
+	// ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© ê°€ëŠ¥ìˆ˜ ê³„ì‚°
 	const int nBattle = 0;
 	const int nCombat = pCaster->GetActiveCombat();
 	ClearCombat(nCombat, idCaster);
@@ -464,12 +464,12 @@ void CBattleManager::RecvStrikeAttack(WORD idCaster, t_player_attack* pPacket)
 
 	switch (pCaster->GetTacticsKind())
 	{	
-	case TACTICS_Archery: // Àå°Å¸® ¹«±â
+	case TACTICS_Archery: // ì¥ê±°ë¦¬ ë¬´ê¸°
 	case TACTICS_Hurl:
 		{ 
 			return;
 		}
-    case TACTICS_Whirl:   // Áß°Å¸® ¹«±â
+    case TACTICS_Whirl:   // ì¤‘ê±°ë¦¬ ë¬´ê¸°
     case TACTICS_Pierce:
     case TACTICS_Magery:
     case TACTICS_Orison:    
@@ -477,7 +477,7 @@ void CBattleManager::RecvStrikeAttack(WORD idCaster, t_player_attack* pPacket)
 			GetBattle(nBattle)->SetIndex(WR_MIDDLE);
 			break;
 		}
-    default:              //	´Ü°Å¸® ¹«±â  
+    default:              //	ë‹¨ê±°ë¦¬ ë¬´ê¸°  
 		{ 
 			GetBattle(nBattle)->SetIndex(WR_SHORT);
 			break;
@@ -487,7 +487,7 @@ void CBattleManager::RecvStrikeAttack(WORD idCaster, t_player_attack* pPacket)
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
-	// °ø°İ È½¼ö ¼³Á¤
+	// ê³µê²© íšŸìˆ˜ ì„¤ì •
 	int nCount = 1;
 	
 	switch (nCombat)
@@ -510,7 +510,7 @@ void CBattleManager::RecvNpcThrow(t_npc_throw* pPacket)
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
 	if (!FilterNpcAttack(pCaster, pTarget))  return;
-	// Packet Àü¼Û
+	// Packet ì „ì†¡
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_THROW_ATTACK;
 	m_packet.h.header.size = sizeof(t_server_throw_attack);
@@ -527,7 +527,7 @@ void CBattleManager::RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPack
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)     return;
-	// °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (g_block_attack)                         return;
 	if (!IsBattle(pCaster))                     return;
 	if (!IsBattle(pCaster, pTarget))            return;
@@ -536,14 +536,14 @@ void CBattleManager::RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPack
 	const int nCombat = pCaster->GetActiveCombat();
 	ClearCombat(nCombat, idCaster);
 	if (!FilterAttack(pCaster, pTarget))        return;
-	// Çö»ó¹üÀÎÁö ¿©ºÎ ¼³Á¤
+	// í˜„ìƒë²”ì¸ì§€ ì—¬ë¶€ ì„¤ì •
 	pTarget->SetWanted(pPacket->bWanted);
 	// CSD-030806
 	g_pLogManager->SaveLogCheck_ThrowAttack(pCaster, pTarget);
 
 	switch (pCaster->GetTacticsKind())
 	{	
-	case TACTICS_Archery: // È°½î±â
+	case TACTICS_Archery: // í™œì˜ê¸°
 		{
 			if (!pCaster->IsArrow())
 			{
@@ -551,7 +551,7 @@ void CBattleManager::RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPack
 				return;
 			}
 		}
-	case TACTICS_Hurl: // ºñ°Ë ´øÁö±â
+	case TACTICS_Hurl: // ë¹„ê²€ ë˜ì§€ê¸°
 		{ 
 			memset(&m_packet, 0, sizeof(t_packet));
 			m_packet.h.header.type = CMD_THROW_ATTACK;
@@ -570,15 +570,15 @@ void CBattleManager::RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPack
 
 void CBattleManager::RecvThrowResult(WORD idCaster, t_client_throw_result* pPacket)
 {	//< CSD-030723
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;  
 	if (!FilterThrow(pCaster, pTarget))      return;
 
-	// Çö»ó¹üÀÎÁö ¿©ºÎ ¼³Á¤
+	// í˜„ìƒë²”ì¸ì§€ ì—¬ë¶€ ì„¤ì •
 	pTarget->SetWanted(pPacket->bWanted);
-	// ÀúÁÖ¼Ó¼º ¼³Á¤
+	// ì €ì£¼ì†ì„± ì„¤ì •
 	AutoCurse(idCaster, idTarget);
 	
 	const int nBattle = 0; 
@@ -593,11 +593,11 @@ void CBattleManager::RecvThrowResult(WORD idCaster, t_client_throw_result* pPack
 	case TACTICS_Hurl:    
 		{ 
 			if (pCaster->GetWeaponKind() == IK_THROW_EVENT)
-			{	// ´«½Î¿ò
+			{	// ëˆˆì‹¸ì›€
 				GetBattle(nBattle)->SetIndex(WR_LONG3);
 			}
 			else
-			{	// ºñ°Ë ´øÁö±â
+			{	// ë¹„ê²€ ë˜ì§€ê¸°
 				GetBattle(nBattle)->SetIndex(WR_LONG2);
 			}
 			
@@ -622,7 +622,7 @@ void CBattleManager::RecvEffectResult(WORD idCaster, t_client_effect_result* pPa
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle())
 	{
 		return;
@@ -643,11 +643,11 @@ void CBattleManager::RecvEffectResult(WORD idCaster, t_client_effect_result* pPa
 		return;
 	}
 	
-	pTarget->SetWanted(pPacket->bWanted); // Çö»ó¹üÀÎÁö ¿©ºÎ ¼³Á¤
+	pTarget->SetWanted(pPacket->bWanted); // í˜„ìƒë²”ì¸ì§€ ì—¬ë¶€ ì„¤ì •
 	
 	const int nBattle = 0;
-	const int nX = pPacket->nX;           // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	const int nY = pPacket->nY;           // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	const int nX = pPacket->nX;           // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	const int nY = pPacket->nY;           // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 	GetBattle(nBattle)->SetIndex(WR_EFFECT);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
@@ -739,8 +739,8 @@ void CBattleManager::RecvMagicLearn(WORD idMaster, k_client_learn_magic* pPacket
 
 void CBattleManager::RecvNpcMagic(t_client_npc_magic* pPacket)
 {
-	const WORD idCaster = pPacket->idCaster; // ¸¶¹ıÀ» »ç¿ëÇÑ ½ÃÀüÀÚ
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
+	const WORD idCaster = pPacket->idCaster; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ì‹œì „ì
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
 	const int nMagic = pPacket->nMagic;
 	const bool bTimeDisable = pPacket->bTimeDisable;	// LTS DRAGON MODIFY
 	
@@ -752,14 +752,14 @@ void CBattleManager::RecvNpcMagic(t_client_npc_magic* pPacket)
 	{
     case FIRE_ARROW:
     case ICE_ARROW: 
-		{ // È­¿°È­»ìÀÌ³ª ¾óÀ½È­»ìÀÎ °æ¿ì´Â ¹°¸®Àû °ø°İÀ¸·Î Ã³¸®
+		{ // í™”ì—¼í™”ì‚´ì´ë‚˜ ì–¼ìŒí™”ì‚´ì¸ ê²½ìš°ëŠ” ë¬¼ë¦¬ì  ê³µê²©ìœ¼ë¡œ ì²˜ë¦¬
 			return;
 		}
-    case SUMMONING_SKELETON: // ½ºÄÌ·¹ÅæÅ· ¼ÒÈ¯
-    case SUMMONING_UNDEAD:   // ¾ğµ¥µå ¼ÒÈ¯
+    case SUMMONING_SKELETON: // ìŠ¤ì¼ˆë ˆí†¤í‚¹ ì†Œí™˜
+    case SUMMONING_UNDEAD:   // ì–¸ë°ë“œ ì†Œí™˜
 		{
 			if (pCaster->m_xSummon.Count() >= Magic_Ref[nMagic].nCombatCount)
-			{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ¼ö°¡ ÃÖ´ë¶ó¸é ¸¶¹ıÀ» ½ÇÇàÇÏÁö ¾ÊÀ½
+			{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ìˆ˜ê°€ ìµœëŒ€ë¼ë©´ ë§ˆë²•ì„ ì‹¤í–‰í•˜ì§€ ì•ŠìŒ
 				return;
 			}
 			
@@ -774,13 +774,13 @@ void CBattleManager::RecvNpcMagic(t_client_npc_magic* pPacket)
 	}
 	
 	bool bFail = false;
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ¸¶¹ıµµ Àû¿ëÀ» ¹ŞÁö ¸øÇÔ. ´Ü ÀúÁÖÇØÁ¦´Â Á¦¿Ü
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ë§ˆë²•ë„ ì ìš©ì„ ë°›ì§€ ëª»í•¨. ë‹¨ ì €ì£¼í•´ì œëŠ” ì œì™¸
 	if (pTarget->IsStone() && pPacket->nMagic != REMOVE_CURSE)
 	{		
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
-	// ¸¶¹ı »ç¿ë »êÃâ ¿©ºÎ °¡´É °Ë»ç
+	// ë§ˆë²• ì‚¬ìš© ì‚°ì¶œ ì—¬ë¶€ ê°€ëŠ¥ ê²€ì‚¬
 	if (!FilterNpcMagic(nMagic, pCaster, pTarget, pPacket->nX, pPacket->nY))
 	{ 
 		bFail = true;
@@ -802,15 +802,15 @@ MAGIC_FAIL:
 
 void CBattleManager::RecvNpcRecall(t_client_npc_magic* pPacket)
 { //< CSD-021119
-	const WORD idCaster = pPacket->idCaster; // ¸¶¹ıÀ» »ç¿ëÇÑ ½ÃÀüÀÚ
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
+	const WORD idCaster = pPacket->idCaster; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ì‹œì „ì
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
 	const int nMagic = pPacket->nMagic;
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;  
-	// ¸¶¹ı »ç¿ë »êÃâ ¿©ºÎ °¡´É °Ë»ç
+	// ë§ˆë²• ì‚¬ìš© ì‚°ì¶œ ì—¬ë¶€ ê°€ëŠ¥ ê²€ì‚¬
 	if (!FilterNpcMagic(nMagic, pCaster, pTarget, nX, nY))
 	{ 
 		return;
@@ -828,15 +828,15 @@ void CBattleManager::RecvNpcRecall(t_client_npc_magic* pPacket)
 
 void CBattleManager::RecvNpcTeleport(t_client_npc_magic* pPacket)
 {	//< CSD-030306
-	const WORD idCaster = pPacket->idCaster; // ¸¶¹ıÀ» »ç¿ëÇÑ ½ÃÀüÀÚ
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
+	const WORD idCaster = pPacket->idCaster; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ì‹œì „ì
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
 	const int nMagic = pPacket->nMagic;
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;  
-	// ¸¶¹ı »ç¿ë »êÃâ ¿©ºÎ °¡´É °Ë»ç
+	// ë§ˆë²• ì‚¬ìš© ì‚°ì¶œ ì—¬ë¶€ ê°€ëŠ¥ ê²€ì‚¬
 	if (!FilterNpcMagic(nMagic, pCaster, pTarget, nX, nY))
 	{ 
 		return;
@@ -885,7 +885,7 @@ void CBattleManager::RecvMagicCasting(WORD idCaster, t_client_magic_casting* pPa
 {	//< CSD-TW-030606
 	CHARLIST* pCaster = GetCharListPtr(idCaster);
 	if (pCaster == NULL)  return;  
-	// ¸¶¹ı ½ÃÀü °Ë»ç ¼³Á¤
+	// ë§ˆë²• ì‹œì „ ê²€ì‚¬ ì„¤ì •
 	const BYTE nMagic = pPacket->nMagic;
 	const DWORD dwNow = g_curr_time + RareEM.GetStaticRareBear(pCaster->StaticRare);
 	
@@ -894,13 +894,13 @@ void CBattleManager::RecvMagicCasting(WORD idCaster, t_client_magic_casting* pPa
 		pCaster->ClearMagic();
 		return;
 	}
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle(pCaster))  
 	{
 		pCaster->ClearMagic();
 		return;
 	}
-	// ¸¶¹ı ½ÃÀü »êÃâ ¿©ºÎ °¡´É °Ë»ç
+	// ë§ˆë²• ì‹œì „ ì‚°ì¶œ ì—¬ë¶€ ê°€ëŠ¥ ê²€ì‚¬
 	if (!FilterStart(pCaster))
 	{ 
 		pCaster->ClearMagic();
@@ -920,18 +920,18 @@ void CBattleManager::RecvMagicCasting(WORD idCaster, t_client_magic_casting* pPa
 void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPacket)
 {	//< CSD-TW-030606
 	const int nMagic = pPacket->nMagic;
-	// È­¿°È­»ìÀÌ³ª ¾óÀ½È­»ìÀÎ °æ¿ì´Â ¹°¸®Àû °ø°İÀ¸·Î Ã³¸®
+	// í™”ì—¼í™”ì‚´ì´ë‚˜ ì–¼ìŒí™”ì‚´ì¸ ê²½ìš°ëŠ” ë¬¼ë¦¬ì  ê³µê²©ìœ¼ë¡œ ì²˜ë¦¬
 	switch (nMagic)
 	{
     case FIRE_ARROW:
     case ICE_ARROW: return;
 	}
 	
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ı ´ë»óÀÚ 
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²• ëŒ€ìƒì 
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;  
-	// È¿°úº®¿¡ ´ëÇÑ Ã³¸®
+	// íš¨ê³¼ë²½ì— ëŒ€í•œ ì²˜ë¦¬
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
 	
@@ -942,7 +942,7 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 	}
 	
 	bool bFail = false;
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ¸¶¹ıµµ Àû¿ëÀ» ¹ŞÁö ¸øÇÔ. ´Ü ÀúÁÖÇØÁ¦´Â Á¦¿Ü
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ë§ˆë²•ë„ ì ìš©ì„ ë°›ì§€ ëª»í•¨. ë‹¨ ì €ì£¼í•´ì œëŠ” ì œì™¸
 	if (pTarget->IsStone() && pPacket->nMagic != REMOVE_CURSE)
 	{		
 		pCaster->Message(MK_NORMAL, 1, 18);
@@ -950,7 +950,7 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle(pCaster, pTarget))
 	{
 		pCaster->ClearMagic();
@@ -958,7 +958,7 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 		goto MAGIC_FAIL;
 	}
 	
-	// ¸¶¹ı »ç¿ëÀÌ °¡´ÉÇÑÁö °Ë»ç
+	// ë§ˆë²• ì‚¬ìš©ì´ ê°€ëŠ¥í•œì§€ ê²€ì‚¬
 	if (!pCaster->CheckDoing(nMagic, g_curr_time))
 	{
 		pCaster->ClearMagic();
@@ -973,7 +973,7 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 		goto MAGIC_FAIL;
 	}
 	
-	pCaster->ClearMagic(false); // ¸¶¹ı »ç¿ëÀÌ µÇ¾úÀ½À» ¼³Á¤
+	pCaster->ClearMagic(false); // ë§ˆë²• ì‚¬ìš©ì´ ë˜ì—ˆìŒì„ ì„¤ì •
 	// CSD-030806
 	g_pLogManager->SaveLogCheck_MagicExecute(nMagic, pCaster, pTarget, nX, nY);
 	
@@ -993,14 +993,14 @@ MAGIC_FAIL:
 
 void CBattleManager::RecvMagicResult(WORD idCaster, t_client_magic_result* pPacket)
 {
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;  
 	
 	const int nMagic = pPacket->nMagic;
 	if (nMagic == 0)  return;
-	// È¿°úº®¿¡ ´ëÇÑ Ã³¸®
+	// íš¨ê³¼ë²½ì— ëŒ€í•œ ì²˜ë¦¬
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
 	
@@ -1009,19 +1009,19 @@ void CBattleManager::RecvMagicResult(WORD idCaster, t_client_magic_result* pPack
 		pCaster->Message(MK_WARNING, 1, 4);
 		return;
 	}
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ¸¶¹ıµµ Àû¿ëÀ» ¹ŞÁö ¸øÇÔ. ´Ü ÀúÁÖÇØÁ¦´Â Á¦¿Ü
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ë§ˆë²•ë„ ì ìš©ì„ ë°›ì§€ ëª»í•¨. ë‹¨ ì €ì£¼í•´ì œëŠ” ì œì™¸
 	if (pTarget->IsStone() && nMagic != REMOVE_CURSE)
 	{	
 		pCaster->ClearMagic();
 		return;
 	}
-	// ¸¶¹ı Àû¿ëÀÌ °¡´ÉÇÑÁö °Ë»ç
+	// ë§ˆë²• ì ìš©ì´ ê°€ëŠ¥í•œì§€ ê²€ì‚¬
 	if (!pCaster->CheckEnd(nMagic, g_curr_time))
 	{ 
 		pCaster->ClearMagic();
 		return;
 	}  
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle(pCaster, pTarget))
 	{
 		pCaster->ClearMagic();
@@ -1034,7 +1034,7 @@ void CBattleManager::RecvMagicResult(WORD idCaster, t_client_magic_result* pPack
 		return;
 	}
 	
-	pTarget->SetWanted(pPacket->bWanted);    // Çö»ó¹üÀÎÁö ¿©ºÎ ¼³Á¤
+	pTarget->SetWanted(pPacket->bWanted);    // í˜„ìƒë²”ì¸ì§€ ì—¬ë¶€ ì„¤ì •
 	
 	const int nBattle = Magic_Ref[nMagic].magic_Type/10;
 	
@@ -1050,19 +1050,19 @@ void CBattleManager::RecvMagicResult(WORD idCaster, t_client_magic_result* pPack
 void CBattleManager::RecvMagicResult(t_magic_result_d* pPacket)
 {
 	const WORD idCaster = pPacket->idCaster;
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
-	// ¸¶¹ı °á°ú »êÃâ ¿©ºÎ °¡´É °Ë»ç
+	// ë§ˆë²• ê²°ê³¼ ì‚°ì¶œ ì—¬ë¶€ ê°€ëŠ¥ ê²€ì‚¬
 	if (!FilterResult(pPacket->nMagic, pCaster, pTarget))
 	{ 
 		return;
 	}
 	
-	const BYTE nMagic = pPacket->nMagic; // ¸¶¹ıÀÇ ¹øÈ£
-	const int nX = pPacket->nX;          // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	const int nY = pPacket->nY;          // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥  
+	const BYTE nMagic = pPacket->nMagic; // ë§ˆë²•ì˜ ë²ˆí˜¸
+	const int nX = pPacket->nX;          // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	const int nY = pPacket->nY;          // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ  
 	const int nBattle = Magic_Ref[nMagic].magic_Type/10;
 	
 	if (nBattle >= 1 && nBattle <= 6)
@@ -1078,7 +1078,7 @@ void CBattleManager::RecvMagicResult(t_magic_result_d* pPacket)
 }
 
 void CBattleManager::RecvCombatReset(WORD idMaster)
-{ // ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ ÀçºĞ¹è
+{ // ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° ì¬ë¶„ë°°
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
 	
@@ -1100,7 +1100,7 @@ void CBattleManager::RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPa
 	
 	const int nPoint = pPacket->nPoint;
 	const int nOld = pMaster->GetCombatPoint();
-	// Á¦ÇÑÄ¡ °Ë»ç
+	// ì œí•œì¹˜ ê²€ì‚¬
 	if (pMaster->IsLimit(nPoint))  
 	{
 		pMaster->Message(MK_INFORMATION, 1, 58);
@@ -1109,7 +1109,7 @@ void CBattleManager::RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPa
 	
 	const int nNew = pMaster->GetCombatPoint();
 	g_pLogManager->SaveLogChange_ObtainCombat(pMaster, nOld, nNew);
-	// Packet Àü¼Û
+	// Packet ì „ì†¡
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_OBTAIN;
 	m_packet.h.header.size = sizeof(t_server_combat_obtain);
@@ -1125,9 +1125,9 @@ void CBattleManager::RecvCombatRequest(WORD idMaster, t_client_combat_request* p
 {  
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	// Á¦ÇÑÄ¡¸¦ ³Ñ¾ú´Ù¸é ÃÊ±âÈ­
+	// ì œí•œì¹˜ë¥¼ ë„˜ì—ˆë‹¤ë©´ ì´ˆê¸°í™”
 	if (pMaster->IsLimit())  pMaster->InitCombat();
-	// Packet Àü¼Û
+	// Packet ì „ì†¡
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_REQUEST;
 	m_packet.h.header.size = sizeof(t_server_combat_request);
@@ -1150,7 +1150,7 @@ void CBattleManager::RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPack
 	const int nCombat = pPacket->nSkill;
 	
 	if (!IsEnableClass(nCombat, pMaster))  return;
-	// Á¦ÇÑÄ¡¸¦ ³Ñ¾ú´Ù¸é ÃÊ±âÈ­
+	// ì œí•œì¹˜ë¥¼ ë„˜ì—ˆë‹¤ë©´ ì´ˆê¸°í™”
 	if (pMaster->IsLimit())  
 	{
 		pMaster->InitCombat();
@@ -1175,7 +1175,7 @@ void CBattleManager::RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPack
 			break;
 		}
 	}
-	// ÀüÅõ½ºÅ³ ½Àµæ
+	// ì „íˆ¬ìŠ¤í‚¬ ìŠµë“
 	const int nLevel = pMaster->GetCombatLevel(nCombat) + 1;
 	
 	if (!IsValid(nCombat, nLevel, pMaster))
@@ -1197,7 +1197,7 @@ void CBattleManager::RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPack
 	g_pLogManager->SaveLogChange_Combat(pMaster, nCombat, nOld, nNew);
 	//> CSD-020909
 	
-	// Packet Àü¼Û
+	// Packet ì „ì†¡
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_LEARN;
 	m_packet.h.header.size = sizeof(t_server_combat_learn);
@@ -1235,13 +1235,13 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 {   //< CSD-TW-030623
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	if (pCaster == NULL)  return;
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle())                 return;
 	if (!IsBattle(pCaster))          return;
-	// »ç¿ë°¡´ÉÇÑ ÀüÅõ½ºÅ³ÀÎÁö °Ë»ç
+	// ì‚¬ìš©ê°€ëŠ¥í•œ ì „íˆ¬ìŠ¤í‚¬ì¸ì§€ ê²€ì‚¬
 	const int nCombat = pPacket->nCombat;
 	if (!IsValid(nCombat, pCaster))  return;
-	// cpÈ¸º¹°è¿­ ¸¶¹ıÀÌ ¹ßµ¿ÁßÀÏ¶§´Â ¾Æ¹«°Íµµ ÇÒ ¼ö ¾øÀ½ // 030430 kyo
+	// cpíšŒë³µê³„ì—´ ë§ˆë²•ì´ ë°œë™ì¤‘ì¼ë•ŒëŠ” ì•„ë¬´ê²ƒë„ í•  ìˆ˜ ì—†ìŒ // 030430 kyo
 	if (pCaster->IsRecoveryCombatState())
 	{	
 		pCaster->Message(MK_INFORMATION, 1, 43);
@@ -1249,7 +1249,7 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 	}
 
 	if (pCaster->IsProtectionContinue() || pCaster->IsAssistanceContinue())
-	{	//< CSD-040826 : º¸È£/º¸Á¶ °è¿­ÀÇ ¸¶¹ı »óÅÂÀÎ °æ¿ì
+	{	//< CSD-040826 : ë³´í˜¸/ë³´ì¡° ê³„ì—´ì˜ ë§ˆë²• ìƒíƒœì¸ ê²½ìš°
 		pCaster->Message(MK_WARNING, 1, 69);
 		return;
 	}	//> CSD-040826
@@ -1257,7 +1257,7 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 	switch (Magic_Ref[nCombat].Spell_Type)
 	{
 	case ACTIVE_COMBAT:
-		{	// Passive ÀüÅõ½ºÅ³ »óÅÂ¿¡¼­ ´Ù¸¥ °è¿­ÀÇ ÀüÅõ½ºÅ³À» ¼±ÅÃÇÑ °æ¿ì
+		{	// Passive ì „íˆ¬ìŠ¤í‚¬ ìƒíƒœì—ì„œ ë‹¤ë¥¸ ê³„ì—´ì˜ ì „íˆ¬ìŠ¤í‚¬ì„ ì„ íƒí•œ ê²½ìš°
 			const int nPassive = pCaster->GetPassiveCombat();
 			
 			if (nPassive > 0)
@@ -1272,7 +1272,7 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 			break;
 		}
 	case PASSIVE_COMBAT:
-		{	// Active ¼Ó¼º ÀüÅõ½ºÅ³ »óÅÂ¿¡¼­ ´Ù¸¥ °è¿­ÀÇ ÀüÅõ½ºÅ³À» ¼±ÅÃÇÑ °æ¿ì
+		{	// Active ì†ì„± ì „íˆ¬ìŠ¤í‚¬ ìƒíƒœì—ì„œ ë‹¤ë¥¸ ê³„ì—´ì˜ ì „íˆ¬ìŠ¤í‚¬ì„ ì„ íƒí•œ ê²½ìš°
 			const int nActive = pCaster->GetActiveCombat();
 			
 			if (nActive > 0)
@@ -1287,11 +1287,11 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 			break;
 		}
 	case RECOVERY_COMBAT: // 030415 kyo
-		{	// RECOVERY_COMBATÅ¸ÀÔ 
+		{	// RECOVERY_COMBATíƒ€ì… 
 			const int nRecovery = pCaster->GetRecoveryCombat();
 
 			if (nRecovery > 0)
-			{	// cpÈ¸º¹ Å¸ÀÔÀº active¼Ó¼ºÀ» ÃÊ±âÈ­ ½ÃÅ²´Ù.
+			{	// cpíšŒë³µ íƒ€ì…ì€ activeì†ì„±ì„ ì´ˆê¸°í™” ì‹œí‚¨ë‹¤.
 				pCaster->InitActiveCombat();
 				pCaster->ClearActiveState();
 
@@ -1307,7 +1307,7 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 	}
 	
 	pCaster->ClearCombat(nCombat);
-	// Packet Àü¼Û
+	// Packet ì „ì†¡
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_SELECT;
 	m_packet.h.header.size = sizeof(t_server_combat_select);
@@ -1322,28 +1322,28 @@ void CBattleManager::RecvCombatAttack(WORD idCaster, t_client_combat_attack* pPa
 	const int nCombat = pPacket->nSkill;
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
-	const WORD idTarget = pPacket->idTarget; // ¸¶¹ı ´ë»óÀÚ
+	const WORD idTarget = pPacket->idTarget; // ë§ˆë²• ëŒ€ìƒì
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
 	
 	bool bFail = false;
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ÀüÅõ½ºÅ³µµ Àû¿ëÀ» ¹ŞÁö ¸øÇÔ
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ì „íˆ¬ìŠ¤í‚¬ë„ ì ìš©ì„ ë°›ì§€ ëª»í•¨
 	if (pTarget->IsStone())
 	{		
 		pCaster->Message(MK_NORMAL, 1, 18);
 		bFail = true;
 		goto COMBAT_FAIL;
 	}
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle())                        return;
 	if (!IsBattle(pCaster))                 return;
 	if (!IsBattle(pCaster, pTarget))        return;
-	// »ç¿ë°¡´ÉÇÑ ÀüÅõ½ºÅ³ÀÎÁö °Ë»ç
+	// ì‚¬ìš©ê°€ëŠ¥í•œ ì „íˆ¬ìŠ¤í‚¬ì¸ì§€ ê²€ì‚¬
 	if (!IsValid(nCombat, pCaster))         return;
 	if (!IsEnableClass(nCombat, pCaster))   return;
 	if (!IsEnableWeapon(nCombat, pCaster))  return;
-	// ÀüÅõ½ºÅ³ »ç¿ë ¿©ºÎ °¡´É °Ë»ç
+	// ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© ì—¬ë¶€ ê°€ëŠ¥ ê²€ì‚¬
 	if (!FilterCombat(nCombat, pCaster, pTarget, nX, nY))
 	{ 
 		bFail = true;
@@ -1355,7 +1355,7 @@ void CBattleManager::RecvCombatAttack(WORD idCaster, t_client_combat_attack* pPa
 		pCaster->Message(MK_SHORTAGE, 1, 57);
 		return;
 	}
-	// ½ºÅ³ »ç¿ë°¡´É¼ö Àç¼³Á¤
+	// ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ìˆ˜ ì¬ì„¤ì •
 	switch (nCombat)
 	{
     case BLOOD_EARTH:
@@ -1401,23 +1401,23 @@ COMBAT_FAIL:
 
 void CBattleManager::RecvCombatResult(WORD idCaster, t_client_combat_result* pPacket)
 { //
-	const BYTE nCombat = pPacket->nSkill; // ÀüÅõ½ºÅ³ ¹øÈ£
+	const BYTE nCombat = pPacket->nSkill; // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
 	const WORD idTarget = pPacket->idTarget;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
-	// ¼­·Î °ø°İ °¡´É¿©ºÎ °Ë»ç
+	// ì„œë¡œ ê³µê²© ê°€ëŠ¥ì—¬ë¶€ ê²€ì‚¬
 	if (!IsBattle())                               return;
 	if (!IsBattle(pCaster))                        return;
 	if (!IsBattle(pCaster, pTarget))               return;
 	if (!FilterCombat(nCombat, pCaster, pTarget))  return;
 	
-	pTarget->SetWanted(pPacket->bWanted); // Çö»ó¹üÀÎÁö ¿©ºÎ ¼³Á¤
+	pTarget->SetWanted(pPacket->bWanted); // í˜„ìƒë²”ì¸ì§€ ì—¬ë¶€ ì„¤ì •
 	
 	const int nType = Magic_Ref[nCombat].order_Type;
 	const int nBattle = (nType/10) + (nType%10);
-	const int nX = pPacket->nX;           // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	const int nY = pPacket->nY;           // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥  
+	const int nX = pPacket->nX;           // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	const int nY = pPacket->nY;           // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ  
 	
 	GetBattle(nBattle)->SetIndex(nCombat);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
@@ -1440,12 +1440,12 @@ void CBattleManager::AutoCurse(WORD idCaster, WORD idTarget)
 	if (rand()%101 >= 5)                     return;
 	
 	int nMagic = 0, nContinue = 0;
-	// ÀúÁÖ°è¿­ÀÇ ·¹¾î ¾ÆÀÌÅÛ
-	const int nStiff = RareEM.GetStaticRareStiff(pCaster->StaticRare);       // ¼®È­  
-	const int nSnag = RareEM.GetStaticRareSnag(pCaster->StaticRare);         // Àı´ë¸¶ºñ 
-	const int nVertigly = RareEM.GetStaticRareVertigly(pCaster->StaticRare); // È¥¶õ
-	const int nPoison = RareEM.GetStaticRarePoison(pCaster->StaticRare);     // Áßµ¶
-	const int nSlack = RareEM.GetStaticRareSlack(pCaster->StaticRare);       // ¼ÓµµÀúÇÏ
+	// ì €ì£¼ê³„ì—´ì˜ ë ˆì–´ ì•„ì´í…œ
+	const int nStiff = RareEM.GetStaticRareStiff(pCaster->StaticRare);       // ì„í™”  
+	const int nSnag = RareEM.GetStaticRareSnag(pCaster->StaticRare);         // ì ˆëŒ€ë§ˆë¹„ 
+	const int nVertigly = RareEM.GetStaticRareVertigly(pCaster->StaticRare); // í˜¼ë€
+	const int nPoison = RareEM.GetStaticRarePoison(pCaster->StaticRare);     // ì¤‘ë…
+	const int nSlack = RareEM.GetStaticRareSlack(pCaster->StaticRare);       // ì†ë„ì €í•˜
 	
 	if (nStiff > 0)
 	{
@@ -1476,12 +1476,12 @@ void CBattleManager::AutoCurse(WORD idCaster, WORD idTarget)
 	if (nMagic > 0)
 	{
 		const BYTE nType = Magic_Ref[nMagic].magic_Type;
-		// ¸¶¹ıÀ» Àû¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+		// ë§ˆë²•ì„ ì ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 		if (!IsApply(nType, pCaster, pTarget))
 		{ 
 			return;
 		}
-		// ¸¶¹ıÀÌ ½ÇÆĞÇÑ °æ¿ì¶ó¸é
+		// ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²½ìš°ë¼ë©´
 		if (IsMissMagic(nType, pCaster, pTarget))
 		{
 			return;
@@ -1499,13 +1499,13 @@ void CBattleManager::AutoCurse(WORD idCaster, WORD idTarget)
 
 bool CBattleManager::FilterNpcAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 {	//< CSD-030723
-	// ¸¸¾à ÀÌµ¿¿¡ °ø°İÇÑ°Å¶ó¸é Á¦ÀÚ¸®¿¡ ¸ØÃã(NPC¿¡°Ô¸¸ Àû¿ë)
+	// ë§Œì•½ ì´ë™ì— ê³µê²©í•œê±°ë¼ë©´ ì œìë¦¬ì— ë©ˆì¶¤(NPCì—ê²Œë§Œ ì ìš©)
 	pCaster->MoveLength = pCaster->MovePathCount = 0;
-	// ¹ö±×¸÷¿¡ ´ëÇÑ ÀÓ½Ã ¹æÆí
+	// ë²„ê·¸ëª¹ì— ëŒ€í•œ ì„ì‹œ ë°©í¸
 	if (!IsBugMon(pCaster, pTarget))  return false;
-	// °ø°İÀÌ ºÒ°¡ÇÑ °æ¿ì¶ó¸é
+	// ê³µê²©ì´ ë¶ˆê°€í•œ ê²½ìš°ë¼ë©´
 	if (!::CanBattleArea(pCaster, pTarget))  return false;
-	// ¼ÒÈ¯¸óÀº ÀÎ°£ NPC¸¦ Á×ÀÏ ¼ö ¾øÀ½
+	// ì†Œí™˜ëª¬ì€ ì¸ê°„ NPCë¥¼ ì£½ì¼ ìˆ˜ ì—†ìŒ
 	if (pCaster->IsTamedNpc() && pTarget->IsNpc())
 	{	
 		switch (pTarget->Race)
@@ -1526,21 +1526,21 @@ bool CBattleManager::FilterNpcAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 
 bool CBattleManager::FilterAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 { 
-	// ¹ö±×¸÷¿¡ ´ëÇÑ ÀÓ½Ã ¹æÆí
+	// ë²„ê·¸ëª¹ì— ëŒ€í•œ ì„ì‹œ ë°©í¸
 	if (!IsBugMon(pCaster, pTarget))  return false;
-	// °ø°İÀÌ ºÒ°¡ÇÑ °æ¿ì¶ó¸é
+	// ê³µê²©ì´ ë¶ˆê°€í•œ ê²½ìš°ë¼ë©´
 	if (!::CanBattleArea(pCaster, pTarget))  
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
 	}
-	// ±Ø¾Ç NK¶ó¸é ¹°¸®Àû °ø°İ ºÒ°¡
+	// ê·¹ì•… NKë¼ë©´ ë¬¼ë¦¬ì  ê³µê²© ë¶ˆê°€
 	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation))
 	{ 
 		::OutMessage(pCaster, 1, 18);
 		return false;
 	}
-	// NPCÀÎ °æ¿ì¶ó¸é
+	// NPCì¸ ê²½ìš°ë¼ë©´
 	if (pTarget->IsNpc())
 	{ 
 		switch (pTarget->Race)
@@ -1564,28 +1564,28 @@ bool CBattleManager::FilterAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 	{ 
 		return false;
 	}
-	// 1 : °í -> Àú, 2 : Àú -> °í, 3 : °°Àº ³ôÀÌ
+	// 1 : ê³  -> ì €, 2 : ì € -> ê³ , 3 : ê°™ì€ ë†’ì´
 	const int nX = pTarget->MoveSx; 
 	const int nY = pTarget->MoveSy;
 	const BYTE nRiseFall = pCaster->GetRiseFall(nX, nY);
 	
 	switch (pCaster->GetTacticsKind())
 	{
-    case TACTICS_Archery: // È°½î±â
-	case TACTICS_Hurl:    // ºñ°Ë ´øÁö±â
-		{ // Àå°Å¸® ¹«±â
+    case TACTICS_Archery: // í™œì˜ê¸°
+	case TACTICS_Hurl:    // ë¹„ê²€ ë˜ì§€ê¸°
+		{ // ì¥ê±°ë¦¬ ë¬´ê¸°
 			return true;
 		}
     case TACTICS_Whirl:
     case TACTICS_Pierce:
     case TACTICS_Magery:
     case TACTICS_Orison:
-		{ // Áß°Å¸® ¹«±â
-			return (nRiseFall == 3) ? true:false; // ³ôÀÌ°¡ ´Ù¸£´Ù¸é ½ÇÆĞ
+		{ // ì¤‘ê±°ë¦¬ ë¬´ê¸°
+			return (nRiseFall == 3) ? true:false; // ë†’ì´ê°€ ë‹¤ë¥´ë‹¤ë©´ ì‹¤íŒ¨
 		}
     default: 
-		{ // ´Ü°Å¸® ¹«±â
-			return (nRiseFall == 3) ? true:false; // ³ôÀÌ°¡ ´Ù¸£´Ù¸é ½ÇÆĞ
+		{ // ë‹¨ê±°ë¦¬ ë¬´ê¸°
+			return (nRiseFall == 3) ? true:false; // ë†’ì´ê°€ ë‹¤ë¥´ë‹¤ë©´ ì‹¤íŒ¨
 		}
 	}
 	
@@ -1595,19 +1595,19 @@ bool CBattleManager::FilterAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 bool CBattleManager::FilterThrow(CHARLIST* pCaster, CHARLIST* pTarget)
 {
 	if (pTarget->IsNpc())
-	{ // NPCÀÎ °æ¿ì¶ó¸é
+	{ // NPCì¸ ê²½ìš°ë¼ë©´
 		switch (pTarget->Race)
 		{
 		case HUMAN:     return false;
 		case SEALSTONE: return IsBreak(pCaster, pTarget);
 		}
 	}
-	// Ä«¿î¼¿·¯ÀÎ °æ¿ì¶ó¸é
+	// ì¹´ìš´ì…€ëŸ¬ì¸ ê²½ìš°ë¼ë©´
 	if (pTarget->IsCounselor())  return false;
 	if (pTarget->accessory[0] == 114)  return false;
-	// ¹ö±×¸ó¿¡ ´ëÇÑ ÀÓ½Ã ¹æÆí
+	// ë²„ê·¸ëª¬ì— ëŒ€í•œ ì„ì‹œ ë°©í¸
 	if (!IsBugMon(pCaster, pTarget))  return false;
-	// µ¿·áÀÎ °æ¿ì¶ó¸é
+	// ë™ë£Œì¸ ê²½ìš°ë¼ë©´
 	if (IsColleague(pCaster, pTarget))
 	{ 
 		return false;
@@ -1619,7 +1619,7 @@ bool CBattleManager::FilterThrow(CHARLIST* pCaster, CHARLIST* pTarget)
 bool CBattleManager::FilterNpcMagic(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTarget, int nX, int nY)
 {	//< CSD-030723
 	if (pTarget->IsNpc())
-	{	// NPCÀÎ °æ¿ì¶ó¸é
+	{	// NPCì¸ ê²½ìš°ë¼ë©´
 		switch (pTarget->Race)
 		{
 		case HUMAN:
@@ -1632,19 +1632,19 @@ bool CBattleManager::FilterNpcMagic(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pT
 			}
 		}
 	}
-	// ¸¶¹ı ½ÃÀüÀÌ ºÒ°¡ÇÑ »óÅÂ³ª ´É·ÂÀÌ³ª ¸¶³ª°¡ ºÎÁ·ÇÑ »óÅÂÀÎ °æ¿ì
+	// ë§ˆë²• ì‹œì „ì´ ë¶ˆê°€í•œ ìƒíƒœë‚˜ ëŠ¥ë ¥ì´ë‚˜ ë§ˆë‚˜ê°€ ë¶€ì¡±í•œ ìƒíƒœì¸ ê²½ìš°
 	if (!IsEnable(nMagic, pCaster))
 	{
 		return false;
 	}
 	
 	const BYTE nType = Magic_Ref[nMagic].magic_Type;
-	// ¸¶¹ıÀ» Àû¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+	// ë§ˆë²•ì„ ì ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 	if (!IsApply(nType, pCaster, pTarget))
 	{ 
 		return false;
 	}
-	// ¸¶¹ıÀÌ ½ÇÆĞÇÑ °æ¿ì¶ó¸é
+	// ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²½ìš°ë¼ë©´
 	if (IsMissMagic(nType, pCaster, pTarget))
 	{ 
 		return false;
@@ -1655,14 +1655,14 @@ bool CBattleManager::FilterNpcMagic(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pT
 
 bool CBattleManager::FilterStart(CHARLIST* pCaster)
 { //
-	// »ì¸®±â ¸¶¹ı »ç¿ë ºÒ°¡ °Ë»ç
+	// ì‚´ë¦¬ê¸° ë§ˆë²• ì‚¬ìš© ë¶ˆê°€ ê²€ì‚¬
 	const BYTE nMagic = pCaster->GetMagic();
 	if (IsValid(nMagic, pCaster) == false)                   return false;
 	if (nMagic == RELIEF_AUTHORITY && CheckEventWarDoing())  return false;
 	
 	const int nX = pCaster->MoveSx;
 	const int nY = pCaster->MoveSy;
-	// ¸¶¹ı »ç¿ë ºÒ°¡ Áö¿ªÀÎ °æ¿ì  															 
+	// ë§ˆë²• ì‚¬ìš© ë¶ˆê°€ ì§€ì—­ì¸ ê²½ìš°  															 
 	if (!IsPlaceMagic(nMagic, nX, nY))
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
@@ -1676,19 +1676,19 @@ bool CBattleManager::FilterStart(CHARLIST* pCaster)
 		pCaster->Message(MK_WARNING, 1, 44);
 		return false;
 	}	//> CSD-030516
-	// ¸¶¹ıÀ» »ç¿ëÇÒ¼ö ¾ø°Ô ÇØµµ Counselor´Â ¸¶¹ı »ç¿ë °¡´É
+	// ë§ˆë²•ì„ ì‚¬ìš©í• ìˆ˜ ì—†ê²Œ í•´ë„ CounselorëŠ” ë§ˆë²• ì‚¬ìš© ê°€ëŠ¥
 	if (g_block_magic && !pCaster->IsCounselor())
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
 	}  
-	// ±Ø¾Ç NK¶ó¸é ¸¶¹ı »ç¿ëÀÌ ºÒ°¡
+	// ê·¹ì•… NKë¼ë©´ ë§ˆë²• ì‚¬ìš©ì´ ë¶ˆê°€
 	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation)) 
 	{ 
 		pCaster->Message(MK_WARNING, 1, 5);
 		return false;
 	}
-	// ¸¶¹ı ½ÃÀüÀÌ ºÒ°¡ÇÑ »óÅÂ³ª ´É·ÂÀÌ³ª ¸¶³ª°¡ ºÎÁ·ÇÑ »óÅÂÀÎ °æ¿ì
+	// ë§ˆë²• ì‹œì „ì´ ë¶ˆê°€í•œ ìƒíƒœë‚˜ ëŠ¥ë ¥ì´ë‚˜ ë§ˆë‚˜ê°€ ë¶€ì¡±í•œ ìƒíƒœì¸ ê²½ìš°
 	if (!IsAbility(nMagic, pCaster) || !IsEnable(nMagic, pCaster))
 	{
 		return false;
@@ -1697,11 +1697,11 @@ bool CBattleManager::FilterStart(CHARLIST* pCaster)
 }
 
 bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, int nY)
-{	// ¸¶¹ı »ç¿ëÀÌ °¡´ÉÇÑÁö °Ë»ç 
-	const BYTE nMagic = pCaster->GetMagic(); // ¸¶¹ıÀÇ ¹øÈ£
+{	// ë§ˆë²• ì‚¬ìš©ì´ ê°€ëŠ¥í•œì§€ ê²€ì‚¬ 
+	const BYTE nMagic = pCaster->GetMagic(); // ë§ˆë²•ì˜ ë²ˆí˜¸
 	if (!IsValid(nMagic, pCaster))    return false;
 	if (!IsAbility(nMagic, pCaster))  return false;
-	// NPCÀÎ °æ¿ì¶ó¸é ÀÌ·Î¿î ¸¶¹ıÀ» »ç¿ëÇÑ °æ¿ì ¸¶¹ı Àû¿ë ºÒ°¡
+	// NPCì¸ ê²½ìš°ë¼ë©´ ì´ë¡œìš´ ë§ˆë²•ì„ ì‚¬ìš©í•œ ê²½ìš° ë§ˆë²• ì ìš© ë¶ˆê°€
 	if (pTarget->IsNpc())
 	{ 
 		if (!IsHarmfulMagic(nMagic))
@@ -1710,7 +1710,7 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 			return false;
 		}
 	}
-	// ¸¶¹ı »ç¿ë À¯È¿°Å¸® °Ë»ç
+	// ë§ˆë²• ì‚¬ìš© ìœ íš¨ê±°ë¦¬ ê²€ì‚¬
 	if (Magic_Ref[nMagic].avail_Range != 0)
 	{
 		if (pCaster->GetDistance(nX, nY) > Magic_Ref[nMagic].avail_Range)
@@ -1719,13 +1719,13 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 			return false;
 		}
 	}
-	// 1 : °í -> Àú, 2 : Àú -> °í, 3 : °°Àº ³ôÀÌ
+	// 1 : ê³  -> ì €, 2 : ì € -> ê³ , 3 : ê°™ì€ ë†’ì´
 	const BYTE nRiseFall = pCaster->GetRiseFall(nX>>5, nY>>5);
 	
 	switch (Magic_Ref[nMagic].nRiseFall)
 	{
     case 1: 
-		{ // °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+		{ // ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 			if (nRiseFall == 1 || nRiseFall == 2)  
 			{ 
 				pCaster->Message(MK_NORMAL, 1, 20);
@@ -1735,7 +1735,7 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 			break;
 		}
     case 2: 
-		{ // °í->Àú¿Í °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+		{ // ê³ ->ì €ì™€ ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 			if (nRiseFall == 2)  
 			{
 				pCaster->Message(MK_NORMAL, 1, 20);
@@ -1745,7 +1745,7 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 			break;
 		}
     case 3: 
-		{ // Àú->°í¿Í °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+		{ // ì €->ê³ ì™€ ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 			if (nRiseFall == 1)  
 			{
 				pCaster->Message(MK_NORMAL, 1, 20);
@@ -1757,12 +1757,12 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 	}
 	
 	const BYTE nType = Magic_Ref[nMagic].magic_Type;
-	// ¸¶¹ıÀ» Àû¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+	// ë§ˆë²•ì„ ì ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 	if (!IsApply(nType, pCaster, pTarget))
 	{ 
 		return false;
 	}
-	// ¸¶¹ıÀÌ ½ÇÆĞÇÑ °æ¿ì¶ó¸é
+	// ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²½ìš°ë¼ë©´
 	if (IsMissMagic(nType, pCaster, pTarget))
 	{ 
 		return false;
@@ -1775,17 +1775,17 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTarget, int nX, int nY)
 {	//< CSD-TW-030606
 	if (pCaster->IsRecoveryCombatState())
-	{	// cpÈ¸º¹°è¿­ ¸¶¹ıÀÌ ¹ßµ¿ÁßÀÏ¶§´Â ¾Æ¹«°Íµµ ÇÒ ¼ö ¾øÀ½ // 030430 kyo			
+	{	// cpíšŒë³µê³„ì—´ ë§ˆë²•ì´ ë°œë™ì¤‘ì¼ë•ŒëŠ” ì•„ë¬´ê²ƒë„ í•  ìˆ˜ ì—†ìŒ // 030430 kyo			
 		pCaster->Message(MK_INFORMATION, 1, 43);
 		return false;
 	}
-	// °ø°İÀÌ ºÒ°¡ÇÑ °æ¿ì¶ó¸é
+	// ê³µê²©ì´ ë¶ˆê°€í•œ ê²½ìš°ë¼ë©´
 	if (!::CanBattleArea(pCaster, pTarget))
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
 	}
-	// ±Ø¾Ç NK¶ó¸é ¸¶¹ı »ç¿ëÀÌ ºÒ°¡
+	// ê·¹ì•… NKë¼ë©´ ë§ˆë²• ì‚¬ìš©ì´ ë¶ˆê°€
 	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation)) 
 	{ 
 		pCaster->Message(MK_WARNING, 1, 5);
@@ -1793,12 +1793,12 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 	}
 	
 	if (pCaster->IsProtectionContinue() || pCaster->IsAssistanceContinue())
-	{	//< CSD-040826 : º¸È£/º¸Á¶ °è¿­ÀÇ ¸¶¹ı »óÅÂÀÎ °æ¿ì
+	{	//< CSD-040826 : ë³´í˜¸/ë³´ì¡° ê³„ì—´ì˜ ë§ˆë²• ìƒíƒœì¸ ê²½ìš°
 		pCaster->Message(MK_WARNING, 1, 69);
 		return false;
 	}	//> CSD-040826
 	
-	// ÀüÅõ½ºÅ³ »ç¿ë À¯È¿°Å¸® °Ë»ç
+	// ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© ìœ íš¨ê±°ë¦¬ ê²€ì‚¬
 	if (Magic_Ref[nCombat].avail_Range != 0)
 	{
 		switch (nCombat)
@@ -1827,13 +1827,13 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 			}
 		}
 	}
-	// 1 : °í -> Àú, 2 : Àú -> °í, 3 : °°Àº ³ôÀÌ
+	// 1 : ê³  -> ì €, 2 : ì € -> ê³ , 3 : ê°™ì€ ë†’ì´
 	const BYTE nRiseFall = pCaster->GetRiseFall(nX>>5, nY>>5);
 	
 	switch (Magic_Ref[nCombat].nRiseFall)
 	{
     case 1: 
-		{ // °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+		{ // ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 			if (nRiseFall == 1 || nRiseFall == 2)  
 			{ 
 				//pCaster->Message(MK_NORMAL, 1, 20);
@@ -1843,7 +1843,7 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 			break;
 		}
     case 2: 
-		{ // °í->Àú¿Í °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+		{ // ê³ ->ì €ì™€ ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 			if (nRiseFall == 2)  
 			{
 				//pCaster->Message(MK_NORMAL, 1, 20);
@@ -1853,7 +1853,7 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 			break;
 		}
     case 3: 
-		{ // Àú->°í¿Í °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+		{ // ì €->ê³ ì™€ ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 			if (nRiseFall == 1)  
 			{
 				//pCaster->Message(MK_NORMAL, 1, 20);
@@ -1865,12 +1865,12 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 	}  
 	
 	const BYTE nType = Magic_Ref[nCombat].magic_Type;
-	// ¸¶¹ıÀ» Àû¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+	// ë§ˆë²•ì„ ì ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 	if (!IsApply(nType, pCaster, pTarget))
 	{ 
 		return false;
 	}
-	// ¸¶¹ıÀÌ ½ÇÆĞÇÑ °æ¿ì¶ó¸é
+	// ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²½ìš°ë¼ë©´
 	if (IsMissMagic(nType, pCaster, pTarget))
 	{ 
 		return false;
@@ -1881,13 +1881,13 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 
 bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTarget)
 {	//< CSD-TW-030606
-	// °ø°İÀÌ ºÒ°¡ÇÑ °æ¿ì¶ó¸é
+	// ê³µê²©ì´ ë¶ˆê°€í•œ ê²½ìš°ë¼ë©´
 	if (!::CanBattleArea(pCaster, pTarget))
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
 	}
-	// ÀüÅõ½ºÅ³ »óÅÂ °Ë»ç
+	// ì „íˆ¬ìŠ¤í‚¬ ìƒíƒœ ê²€ì‚¬
 	switch (Magic_Ref[nCombat].Spell_Type)
 	{
     case ACTIVE_COMBAT: 
@@ -1923,17 +1923,17 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 	}
     
 	const BYTE nType = Magic_Ref[nCombat].magic_Type;
-	// ¸¶¹ıÀ» Àû¿ëÇÒ ¼ö ¾ø´Â °æ¿ì
+	// ë§ˆë²•ì„ ì ìš©í•  ìˆ˜ ì—†ëŠ” ê²½ìš°
 	if (!IsApply(nType, pCaster, pTarget))
 	{ 
 		return false;
 	}
-	// ¸¶¹ıÀÌ ½ÇÆĞÇÑ °æ¿ì¶ó¸é
+	// ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²½ìš°ë¼ë©´
 	if (IsMissMagic(nType, pCaster, pTarget))
 	{ 
 		return false;
 	}
-	// NPCÀÎ °æ¿ì¶ó¸é
+	// NPCì¸ ê²½ìš°ë¼ë©´
 	if (pTarget->IsNpc())
 	{ 
 		switch (pTarget->Race)
@@ -1941,13 +1941,13 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 		case HUMAN:      return false;
 		case SEALSTONE:  return IsBreak(pCaster, pTarget);
 		}
-		// À§ÀÇ °æ¿ì¸¦ Á¦¿ÜÇÏ°í´Â NPC´Â ÀÌ·Î¿î ¸¶¹ı Àû¿ëÀÌ ºÒ°¡´É  
+		// ìœ„ì˜ ê²½ìš°ë¥¼ ì œì™¸í•˜ê³ ëŠ” NPCëŠ” ì´ë¡œìš´ ë§ˆë²• ì ìš©ì´ ë¶ˆê°€ëŠ¥  
 		if (!IsHarmfulMagic(nCombat))  return false;
 	} 
-	// Ä«¿î¼¿·¯ÀÎ °æ¿ì¶ó¸é
+	// ì¹´ìš´ì…€ëŸ¬ì¸ ê²½ìš°ë¼ë©´
 	if (pTarget->IsCounselor())     return false;
 	if (pTarget->accessory[0] == 114)       return false;
-	// ¹ö±×¸ó¿¡ ´ëÇÑ ÀÓ½Ã ¹æÆí
+	// ë²„ê·¸ëª¬ì— ëŒ€í•œ ì„ì‹œ ë°©í¸
 	if (!IsBugMon(pCaster, pTarget))        return false;
 	
 	return (IsHarmfulMagic(nCombat) && IsColleague(pCaster, pTarget)) ? false:true;
@@ -1956,30 +1956,30 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 
 bool CBattleManager::FilterResult(CHARLIST* pCaster, CHARLIST* pTarget)
 {	//< CSD-TW-030627
-	const BYTE nMagic = pCaster->GetMagic();         // ¸¶¹ıÀÇ ¹øÈ£
+	const BYTE nMagic = pCaster->GetMagic();         // ë§ˆë²•ì˜ ë²ˆí˜¸
 	if (!IsValid(nMagic, pCaster))          return false;
-	const BYTE nType = Magic_Ref[nMagic].magic_Type; // ¸¶¹ıÀÇ Å¸ÀÔ
+	const BYTE nType = Magic_Ref[nMagic].magic_Type; // ë§ˆë²•ì˜ íƒ€ì…
 	if (!IsApply(nType, pCaster, pTarget))  return false;
-	// ¸¶¹ıÀÌ ½ÇÆĞÇÑ °æ¿ì¶ó¸é
+	// ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²½ìš°ë¼ë©´
 	if (IsHarmfulMagic(nMagic) && IsMissMagic(nType, pCaster, pTarget))
 	{ 
 		return false;
 	}
-	// Åõ¸í»óÅÂ¿¡¼­ ¸¶¹ı Àû¿ë½Ã Åõ¸í »óÅÂ°¡ ÇØÁ¦
+	// íˆ¬ëª…ìƒíƒœì—ì„œ ë§ˆë²• ì ìš©ì‹œ íˆ¬ëª… ìƒíƒœê°€ í•´ì œ
 	if (pTarget->dwTransparency > 0)  
 	{
 		::CheckTransparency(pTarget, true);
 		pTarget->Message(MK_NORMAL, 1, 28);
 	}
-	// NPCÀÎ °æ¿ì¶ó¸é
+	// NPCì¸ ê²½ìš°ë¼ë©´
 	if (pTarget->IsNpc())
 	{ 
 		switch (pTarget->Race)
 		{
 		case HUMAN:      return false;
-		case GUARDSTONE: return true; // ¿ÏÄ¡ÀÇ ±âÀûÀÌ °¡´ÉÇÏµµ·Ï ÇÔ
+		case GUARDSTONE: return true; // ì™„ì¹˜ì˜ ê¸°ì ì´ ê°€ëŠ¥í•˜ë„ë¡ í•¨
 		}
-		// À§ÀÇ °æ¿ì¸¦ Á¦¿ÜÇÏ°í´Â NPC´Â ÀÌ·Î¿î ¸¶¹ı Àû¿ëÀÌ ºÒ°¡´É  
+		// ìœ„ì˜ ê²½ìš°ë¥¼ ì œì™¸í•˜ê³ ëŠ” NPCëŠ” ì´ë¡œìš´ ë§ˆë²• ì ìš©ì´ ë¶ˆê°€ëŠ¥  
 		if (!IsHarmfulMagic(nMagic))  
 		{
 			return false;
@@ -1990,10 +1990,10 @@ bool CBattleManager::FilterResult(CHARLIST* pCaster, CHARLIST* pTarget)
 		case SEALSTONE:  return IsBreak(pCaster, pTarget);
 		}
 	} 
-	// Ä«¿î¼¿·¯ÀÎ °æ¿ì¶ó¸é
+	// ì¹´ìš´ì…€ëŸ¬ì¸ ê²½ìš°ë¼ë©´
 	if (pTarget->IsCounselor())  return false;
 	if (pTarget->accessory[0] == 114)  return false;
-	// ¹ö±×¸ó¿¡ ´ëÇÑ ÀÓ½Ã ¹æÆí
+	// ë²„ê·¸ëª¬ì— ëŒ€í•œ ì„ì‹œ ë°©í¸
 	if (!IsBugMon(pCaster, pTarget) && nMagic != RELIEF_AUTHORITY)  return false;
 	
 	return (IsHarmfulMagic(nMagic) && IsColleague(pCaster, pTarget)) ? false:true;
@@ -2003,7 +2003,7 @@ bool CBattleManager::FilterResult(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTar
 { //
 	//if (IsValid(nMagic, pCaster) == false)           return false;
 	if (pTarget->IsNpc() && IsHarmfulMagic(nMagic))  return false;
-	// ¹ö±×¸ó¿¡ ´ëÇÑ ÀÓ½Ã ¹æÆí
+	// ë²„ê·¸ëª¬ì— ëŒ€í•œ ì„ì‹œ ë°©í¸
 	return (IsBugMon(pCaster, pTarget) || nMagic == RELIEF_AUTHORITY) ? true:false;
 }
 
@@ -2012,16 +2012,16 @@ bool CBattleManager::FilterResult(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTar
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CBattleManager::IsBattle() const
-{ // ÇöÀç »óÅÂ¿¡¼­ ÀüÅõ°¡ °¡´ÉÇÑÁö ¿©ºÎ °Ë»ç
+{ // í˜„ì¬ ìƒíƒœì—ì„œ ì „íˆ¬ê°€ ê°€ëŠ¥í•œì§€ ì—¬ë¶€ ê²€ì‚¬
 	if (g_block_magic)   return false;
 	if (g_block_attack)  return false;
 	return true;
 }
 
 bool CBattleManager::IsBattle(CHARLIST* pCaster) const
-{ // ÇöÀç »óÅÂ¿¡¼­ ÀüÅõ°¡ °¡´ÉÇÑÁö ¿©ºÎ °Ë»ç
+{ // í˜„ì¬ ìƒíƒœì—ì„œ ì „íˆ¬ê°€ ê°€ëŠ¥í•œì§€ ì—¬ë¶€ ê²€ì‚¬
 	if (::CheckEventAttack())  
-	{ // ¹éº´ÀüÀÎ °æ¿ì
+	{ // ë°±ë³‘ì „ì¸ ê²½ìš°
 		pCaster->Message(MK_NORMAL, 0, 346);
 		return false;
 	}
@@ -2031,7 +2031,7 @@ bool CBattleManager::IsBattle(CHARLIST* pCaster) const
 		pCaster->Message(MK_NORMAL, 2, 5);
 		return false;
 	}
-	// ¼®È­»óÅÂÀÌ¸é ¾î¶°ÇÑ ÀüÅõ½ºÅ³µµ »ç¿ëÇÏÁö ¸øÇÔ
+	// ì„í™”ìƒíƒœì´ë©´ ì–´ë– í•œ ì „íˆ¬ìŠ¤í‚¬ë„ ì‚¬ìš©í•˜ì§€ ëª»í•¨
 	if (pCaster->IsStone())
 	{	//< CSD-021011	
 		pCaster->Message(MK_NORMAL, 1, 91);
@@ -2042,7 +2042,7 @@ bool CBattleManager::IsBattle(CHARLIST* pCaster) const
 }
 
 bool CBattleManager::IsBattle(CHARLIST* pCaster, CHARLIST* pTarget) const
-{ // ¼­·Î ÀüÅõ°¡ °¡´ÉÇÑÁö ¿©ºÎ °Ë»ç
+{ // ì„œë¡œ ì „íˆ¬ê°€ ê°€ëŠ¥í•œì§€ ì—¬ë¶€ ê²€ì‚¬
 	if (pTarget->ChairNum)// LTS DRAGON MODIFY
 	{
 		if (pTarget->patterntype==NPC_PATTERN_BOSS_WAIT)
@@ -2056,14 +2056,14 @@ bool CBattleManager::IsBattle(CHARLIST* pCaster, CHARLIST* pTarget) const
 		if (pCaster != pTarget) 
 		{  
 			if (g_LocalWarBegin && g_isLocalWarServer)
-			{ // ±¹ÁöÀüÀº °æ¿ì
+			{ // êµ­ì§€ì „ì€ ê²½ìš°
 				if (pCaster->JoinLocalWar && pTarget->JoinLocalWar)
-				{ // µÑ´Ù Âü°¡ÀÚÀÎ °æ¿ì
+				{ // ë‘˜ë‹¤ ì°¸ê°€ìì¸ ê²½ìš°
 					return true;
 				}
 				
 				if (!pCaster->JoinLocalWar && !pTarget->JoinLocalWar)
-				{ // µÑ´Ù ºñÂü°¡ÀÚÀÎ °æ¿ì
+				{ // ë‘˜ë‹¤ ë¹„ì°¸ê°€ìì¸ ê²½ìš°
 					return true;
 				}
 				
@@ -2076,7 +2076,7 @@ bool CBattleManager::IsBattle(CHARLIST* pCaster, CHARLIST* pTarget) const
 }
 
 bool CBattleManager::IsValid(BYTE nMagic, int nX, int nY) const
-{ //< 020522 : È¿°úº®ÀÎ °æ¿ì Ã³¸®
+{ //< 020522 : íš¨ê³¼ë²½ì¸ ê²½ìš° ì²˜ë¦¬
 	if (nX < 0)  return false;
 	if (nY < 0)  return false; 
 	if (nX >= g_lpMapFile->wWidth)   return false;
@@ -2084,8 +2084,8 @@ bool CBattleManager::IsValid(BYTE nMagic, int nX, int nY) const
 	
 	switch (Magic_Ref[nMagic].magic_Type/10)
 	{
-    case 4: // ÀúÁÖ°è¿­ÀÇ ¸¶¹ıÀÎ °æ¿ì
-    case 5: // °ø°İ°è¿­ÀÇ ¸¶¹ıÀÎ °æ¿ì
+    case 4: // ì €ì£¼ê³„ì—´ì˜ ë§ˆë²•ì¸ ê²½ìš°
+    case 5: // ê³µê²©ê³„ì—´ì˜ ë§ˆë²•ì¸ ê²½ìš°
 		{
 			if (TileMap[nX][nY].attr_light)
 			{
@@ -2105,17 +2105,17 @@ bool CBattleManager::IsValid(BYTE nKind, CHARLIST* pCaster) const
 	{
 		return false;
 	}
-	// ¸¶¹ıÀÎ °æ¿ì
+	// ë§ˆë²•ì¸ ê²½ìš°
 	if (IsMagic(nKind))
 	{
 		switch (pCaster->Spell)
 		{
-		case WIZARD_SPELL: // ¸¶¹ı»ç¶ó¸é  
+		case WIZARD_SPELL: // ë§ˆë²•ì‚¬ë¼ë©´  
 			{
 				if (pCaster->Ws[nKind])  return true;
 				break;
 			}
-		case PRIEST_SPELL: // ¼ºÁ÷ÀÚ¶ó¸é
+		case PRIEST_SPELL: // ì„±ì§ìë¼ë©´
 			{
 				if (pCaster->Ps[nKind - 150])  return true;
 				break;
@@ -2124,7 +2124,7 @@ bool CBattleManager::IsValid(BYTE nKind, CHARLIST* pCaster) const
 		
 		return false;
 	}
-	// ÀüÅõ½ºÅ³ÀÎ °æ¿ì
+	// ì „íˆ¬ìŠ¤í‚¬ì¸ ê²½ìš°
 	if (IsCombat(nKind))
 	{
 		const int nLevel = pCaster->GetLevel(); // CSD-030806
@@ -2143,7 +2143,7 @@ bool CBattleManager::IsValid(BYTE nKind, CHARLIST* pCaster) const
 }
 
 bool CBattleManager::IsValid(BYTE nKind, BYTE nStep, CHARLIST* pCaster) const
-{ // ÀüÅõ½ºÅ³ÀÎ °æ¿ì
+{ // ì „íˆ¬ìŠ¤í‚¬ì¸ ê²½ìš°
 	if (IsCombat(nKind))
 	{
 		const int nLevel = pCaster->GetLevel(); // CSD-030806
@@ -2182,7 +2182,7 @@ bool CBattleManager::IsAbility(BYTE nMagic, CHARLIST* pCaster) const
 	
 	switch (pCaster->Spell)
 	{
-    case WIZARD_SPELL: // ¸¶¹ı»ç¶ó¸é
+    case WIZARD_SPELL: // ë§ˆë²•ì‚¬ë¼ë©´
 		{
 			if (pCaster->Skill[TACTICS_Magery] + 1 < Magic_Ref[nMagic].basic_magery)
 			{
@@ -2198,7 +2198,7 @@ bool CBattleManager::IsAbility(BYTE nMagic, CHARLIST* pCaster) const
 			
 			break;
 		}
-    case PRIEST_SPELL: // ¼ºÁ÷ÀÚ¶ó¸é
+    case PRIEST_SPELL: // ì„±ì§ìë¼ë©´
 		{
 			if (pCaster->Skill[TACTICS_Orison] + 1 < Magic_Ref[nMagic].basic_magery)
 			{
@@ -2220,20 +2220,20 @@ bool CBattleManager::IsAbility(BYTE nMagic, CHARLIST* pCaster) const
 }
 
 bool CBattleManager::IsEnable(BYTE nMagic, CHARLIST* pCaster) const
-{	//< CSD-TW-030606 : ½ÃÀüÀÚ ¸¶¹ı »ç¿ë °¡´É ¿©ºÎ ÆÇ´Ü
+{	//< CSD-TW-030606 : ì‹œì „ì ë§ˆë²• ì‚¬ìš© ê°€ëŠ¥ ì—¬ë¶€ íŒë‹¨
 	const BYTE nType = Magic_Ref[nMagic].magic_Type;
-	// º¸È£°è¿­ ¸¶¹ı Áß ¿ÏÀüÇÑ °á°èÀÎ °æ¿ì
+	// ë³´í˜¸ê³„ì—´ ë§ˆë²• ì¤‘ ì™„ì „í•œ ê²°ê³„ì¸ ê²½ìš°
 	if (pCaster->IsPerfect() || pCaster->IsDivineUp())
 	{
 		switch (nType/10)
 		{
 		case 4: 
-			{ // ÀúÁÖ°è¿­ÀÇ ¸¶¹ı
+			{ // ì €ì£¼ê³„ì—´ì˜ ë§ˆë²•
 				pCaster->Message(MK_WARNING, 1, 11);
 				return false; 
 			}
 		case 5: 
-			{ // °ø°İ°è¿­ÀÇ ¸¶¹ı
+			{ // ê³µê²©ê³„ì—´ì˜ ë§ˆë²•
 				pCaster->Message(MK_WARNING, 1, 12);
 				return false; 
 			}		
@@ -2241,19 +2241,19 @@ bool CBattleManager::IsEnable(BYTE nMagic, CHARLIST* pCaster) const
 	}
 	/*
 	if (nType == 64)
-	{	// ±âµµÀÏ¶§ ¾ÈµÊ
+	{	// ê¸°ë„ì¼ë•Œ ì•ˆë¨
 		pCaster->Message(MK_WARNING, 1, 42);
 		return false; 
 	}
 	*/
-	// ÀúÁÖ 1°è¿­ ¸¶¹ı »óÅÂ³ª Ä³½ºÆÃ ºÒ°¡ÇÑ °æ¿ì
+	// ì €ì£¼ 1ê³„ì—´ ë§ˆë²• ìƒíƒœë‚˜ ìºìŠ¤íŒ… ë¶ˆê°€í•œ ê²½ìš°
 	if (pCaster->dwCurse1 > 0 || !pCaster->IsCasting())
 	{
 		pCaster->Message(MK_WARNING, 1, 13);
 		return false;
 	}
 
-	// µà¾ó ¾ÆÀÌÅÛ·¹º§¿¡ ¸ÂÁö ¾Ê´Â ¸¶¹ı »ç¿ëºÒ°¡ // 031110 kyo
+	// ë“€ì–¼ ì•„ì´í…œë ˆë²¨ì— ë§ì§€ ì•ŠëŠ” ë§ˆë²• ì‚¬ìš©ë¶ˆê°€ // 031110 kyo
 	if( Magic_Ref[nMagic].nDualStep > g_CSymbolMgr.GetSymbolGrade(pCaster) )	
 	{
 		pCaster->Message(MK_WARNING, 1, 45);
@@ -2267,15 +2267,15 @@ bool CBattleManager::IsHarmfulMagic(BYTE nMagic) const
 {
 	switch (Magic_Ref[nMagic].magic_Type/10)
 	{
-    case 4:              // ÀúÁÖ°è¿­ÀÇ ¸¶¹ıÀÎ °æ¿ì
-    case 5: return true; // °ø°İ°è¿­ÀÇ ¸¶¹ıÀÎ °æ¿ì
+    case 4:              // ì €ì£¼ê³„ì—´ì˜ ë§ˆë²•ì¸ ê²½ìš°
+    case 5: return true; // ê³µê²©ê³„ì—´ì˜ ë§ˆë²•ì¸ ê²½ìš°
 	}
 	
 	return false;
 }
 
 bool CBattleManager::IsPlaceMagic(BYTE nMagic, int nX, int nY) const
-{	// ÀÌ·Î¿î ¸¶¹ıÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â Áö¿ªÀÎÁö °Ë»ç
+{	// ì´ë¡œìš´ ë§ˆë²•ì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì§€ì—­ì¸ì§€ ê²€ì‚¬
 	if (IsHarmfulMagic(nMagic) && TileMap[nX][nY].attr_no_battle)
 	{
 		return false;
@@ -2285,8 +2285,8 @@ bool CBattleManager::IsPlaceMagic(BYTE nMagic, int nX, int nY) const
 }
 
 bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) const
-{	// ´ë»óÀÚ ¸¶¹ı Àû¿ë °¡´É ¿©ºÎ ÆÇ´Ü
-	// Æ¯º°ÇÑ NPC´Â ÀúÁÖ °è¿­ ¸¶¹ı Àû¿ë ºÒ°¡
+{	// ëŒ€ìƒì ë§ˆë²• ì ìš© ê°€ëŠ¥ ì—¬ë¶€ íŒë‹¨
+	// íŠ¹ë³„í•œ NPCëŠ” ì €ì£¼ ê³„ì—´ ë§ˆë²• ì ìš© ë¶ˆê°€
 	if (pTarget->IsNpc() && nType/10 == 4)
 	{
 		switch (pTarget->Race)
@@ -2303,9 +2303,9 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 	
 	switch (nType)
 	{ 
-		// º¸È£°è¿­ ¸¶¹ıÀÎ °æ¿ì
+		// ë³´í˜¸ê³„ì—´ ë§ˆë²•ì¸ ê²½ìš°
     case 21: 
-		{ // ÀÏ¹İº¸È£°è¿­ ¸¶¹ı
+		{ // ì¼ë°˜ë³´í˜¸ê³„ì—´ ë§ˆë²•
 			if (pTarget->dwNormalProtect > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 21);
@@ -2315,7 +2315,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;  
 		}
     case 22: 
-		{ // Æ¯¼öº¸È£°è¿­ ¸¶¹ı
+		{ // íŠ¹ìˆ˜ë³´í˜¸ê³„ì—´ ë§ˆë²•
 			if (pTarget->dwSpecialProtect > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 21);
@@ -2325,9 +2325,9 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 23: 
-		{	// ¿¹¿Üº¸È£°è¿­ ¸¶¹ı
+		{	// ì˜ˆì™¸ë³´í˜¸ê³„ì—´ ë§ˆë²•
 			if (pTarget->dwSpecialProtect > 0 ||
-				pTarget->dwExceptProtect > 0) // ³»°¡ ±âµµ³ª ¿Ï°áÀÏ¶© ¿Ï°á ¾ÈµÊ
+				pTarget->dwExceptProtect > 0) // ë‚´ê°€ ê¸°ë„ë‚˜ ì™„ê²°ì¼ë• ì™„ê²° ì•ˆë¨
 			{
 				pCaster->Message(MK_WARNING, 1, 21);
 				return false;
@@ -2335,9 +2335,9 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			
 			break;
 		}
-		// º¸Á¶°è¿­ ¸¶¹ıÀÎ °æ¿ì
+		// ë³´ì¡°ê³„ì—´ ë§ˆë²•ì¸ ê²½ìš°
     case 31: 
-		{ // ÀÌµ¿ ¼Óµµ
+		{ // ì´ë™ ì†ë„
 			if (pTarget->speedUp.IsContinue() == true)
 			{
 				pCaster->Message(MK_WARNING, 1, 22);
@@ -2347,7 +2347,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 32: 
-		{ // ¹°¸®Àû °ø°İ µ¥¹ÌÁö
+		{ // ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€
 			if (pTarget->apShort.IsContinue() && 
 				pTarget->apMiddle.IsContinue() && 
 				pTarget->apLong.IsContinue())
@@ -2359,7 +2359,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 33: 
-		{ // °ø°İ ¸¶¹ı µ¥¹ÌÁö
+		{ // ê³µê²© ë§ˆë²• ë°ë¯¸ì§€
 			if (pTarget->amplify.IsContinue() == true)
 			{
 				pCaster->Message(MK_WARNING, 1, 22);
@@ -2369,7 +2369,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 34: 
-		{ // Åõ¸í
+		{ // íˆ¬ëª…
 			if (pTarget->dwTransparency > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 22);
@@ -2379,7 +2379,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 35: 
-		{ // ºû
+		{ // ë¹›
 			if (pTarget->dwLight > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 22);
@@ -2389,7 +2389,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 36: 
-		{ // Çà¿î
+		{ // í–‰ìš´
 			if (pTarget->dwDontMiss > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 22);
@@ -2398,9 +2398,9 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			
 			break;
 		}
-		// ÀúÁÖ°è¿­ ¸¶¹ıÀÎ °æ¿ì
+		// ì €ì£¼ê³„ì—´ ë§ˆë²•ì¸ ê²½ìš°
     case 41: 
-		{ // ÀúÁÖ 1°è¿­ ¸¶¹ı
+		{ // ì €ì£¼ 1ê³„ì—´ ë§ˆë²•
 			if (pTarget->dwCurse1 > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 23);
@@ -2410,7 +2410,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 42:
-		{ //< CSD-021024 : ÀúÁÖ 2°è¿­ ¸¶¹ı 
+		{ //< CSD-021024 : ì €ì£¼ 2ê³„ì—´ ë§ˆë²• 
 			if (pTarget->dwCurse2 > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 23);
@@ -2420,7 +2420,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		} //> CSD-021024
     case 43: 
-		{ // ÀúÁÖ 3°è¿­ ¸¶¹ı
+		{ // ì €ì£¼ 3ê³„ì—´ ë§ˆë²•
 			if (pTarget->dwCurse3 > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 23);
@@ -2430,7 +2430,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		}
     case 44: 
-		{ // ÀúÁÖ 4°è¿­ ¸¶¹ı
+		{ // ì €ì£¼ 4ê³„ì—´ ë§ˆë²•
 			if (pTarget->dwCurse4 > 0)
 			{
 				pCaster->Message(MK_WARNING, 1, 23);
@@ -2440,7 +2440,7 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 			break;
 		} 
     case 46:
-		{ //< CSD-021024 : ¾ó¸² ÀúÁÖ ¸¶¹ı
+		{ //< CSD-021024 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²•
 			if (pTarget->IsFreeze())
 			{
 				pCaster->Message(MK_WARNING, 1, 23);
@@ -2455,27 +2455,27 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 }
 
 bool CBattleManager::IsMissAttack(CHARLIST* pCaster, CHARLIST* pTarget) const
-{ // ¹°¸®Àû °ø°İ ¼º°ø ¿©ºÎ ÆÇ´Ü
+{ // ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µ ì—¬ë¶€ íŒë‹¨
 	const int nDefence = RareEM.GetStaticRareSmart(pTarget->StaticRare);
-	// 20À» 100À¸·Î È¯»êÇÏ¿© °è»ê
+	// 20ì„ 100ìœ¼ë¡œ í™˜ì‚°í•˜ì—¬ ê³„ì‚°
 	const int nRate = pCaster->CalcAttackSuccessRate(nDefence); 
 	return (nRate < rand()%101) ? true:false;
 }
 
 bool CBattleManager::IsMissMagic(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) const
-{	//< CSD-021024 : ¸¶¹ı ½ÇÆĞ ¿©ºÎ ÆÇ´Ü
+{	//< CSD-021024 : ë§ˆë²• ì‹¤íŒ¨ ì—¬ë¶€ íŒë‹¨
 	if (pTarget->IsPerfect())
 	{ 
 		pCaster->Message(MK_WARNING, 1, 24);
 		return true;
 	}
-	// ÇØ´ç ÀúÁÖ °è¿­ÀÇ ¸¶¹ı ¹æ¾î·ÂÀÌ ÀÖ´ÂÁö °Ë»ç
+	// í•´ë‹¹ ì €ì£¼ ê³„ì—´ì˜ ë§ˆë²• ë°©ì–´ë ¥ì´ ìˆëŠ”ì§€ ê²€ì‚¬
 	if (pTarget->IsCurseDefense(nType))
 	{
 		pCaster->Message(MK_WARNING, 1, 25);
 		return true;
 	}
-	// ÀúÁÖ°è¿­ ¸¶¹ı È¸ÇÇ ¿©ºÎ °Ë»ç
+	// ì €ì£¼ê³„ì—´ ë§ˆë²• íšŒí”¼ ì—¬ë¶€ ê²€ì‚¬
 	if (pTarget->IsCurseAvoid(nType))
 	{ 
 		pCaster->Message(MK_WARNING, 1, 37);
@@ -2512,20 +2512,20 @@ bool CBattleManager::IsBugMon(CHARLIST* pCaster, CHARLIST* pTarget) const
 bool CBattleManager::IsBreak(CHARLIST* pCaster, CHARLIST* pTarget) const
 {
 	if (::ReturnSealStoneBreakable() != CMD_STEALSTONE_BREAKABLE)
-	{ // ±ı ¼ö ÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¶ó¸é 
+	{ // ê¹° ìˆ˜ ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ 
 		return false;
 	}
 	
 	if (::CheckLocalWarAttacker(pCaster))  
-	{ // ±¹ÁöÀü Âü¿©ÀÚ°¡ ¾Æ´Ï¶ó¸é
+	{ // êµ­ì§€ì „ ì°¸ì—¬ìê°€ ì•„ë‹ˆë¼ë©´
 		return false;
 	}
     
 	switch (pTarget->SprNo)
 	{
-    case 98: return (pCaster->name_status.nation == 3) ? false:true; // ¹ÙÀÌ¼­½º 
-    case 99: return (pCaster->name_status.nation == 4) ? false:true; // ÀÚÀÌÆİ
-    case 91: return (pCaster->name_status.nation == 6) ? false:true; // ÀÏ½º
+    case 98: return (pCaster->name_status.nation == 3) ? false:true; // ë°”ì´ì„œìŠ¤ 
+    case 99: return (pCaster->name_status.nation == 4) ? false:true; // ìì´í€
+    case 91: return (pCaster->name_status.nation == 6) ? false:true; // ì¼ìŠ¤
 	}
 	
 	return false;
@@ -2540,12 +2540,12 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 	{
 		return false;
 	}
-	// ÀÚ±âÀÚ½ÅÀÎ °æ¿ì
+	// ìê¸°ìì‹ ì¸ ê²½ìš°
 	if (pCaster->GetServerID() == pTarget->GetServerID())
 	{
 		return true;
 	}
-	// ¾Æ·¹³ª °æ±â ÁßÀÎ °æ¿ì
+	// ì•„ë ˆë‚˜ ê²½ê¸° ì¤‘ì¸ ê²½ìš°
 	if (g_pArenaManager->IsColossusArena())
 	{
 		if (pCaster->IsJoinArenaGame() && pTarget->IsJoinArenaGame())
@@ -2559,11 +2559,11 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 			}
 		}
 	}
-	// ±¹ÁöÀüÀÎ °æ¿ì
+	// êµ­ì§€ì „ì¸ ê²½ìš°
 	if (g_LocalWarBegin && g_isLocalWarServer)
 	{
 		if (pCaster->JoinLocalWar && pTarget->JoinLocalWar)
-		{	// ¸ğµÎ ±¹ÁöÀü¿¡ Âü¿©ÇÑ °æ¿ì¶ó¸é
+		{	// ëª¨ë‘ êµ­ì§€ì „ì— ì°¸ì—¬í•œ ê²½ìš°ë¼ë©´
 			if (pCaster->name_status.nation == pTarget->name_status.nation)
 			{
 				return true;
@@ -2572,16 +2572,16 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 			return false;
 		}
 	}
-	// ±¹°¡ÀüÀÎ °æ¿ì
+	// êµ­ê°€ì „ì¸ ê²½ìš°
 	if (::isNationWarfieldServer() && ::IsWar())
 	{
 		if (::isAttacker(pCaster) && ::isAttacker(pTarget))
-		{ // µÑ´Ù °ø°İÀÚÀÎ °æ¿ì
+		{ // ë‘˜ë‹¤ ê³µê²©ìì¸ ê²½ìš°
 			return true;
 		}
 		
 		if (!::isAttacker(pCaster) && !::isAttacker(pTarget))
-		{ // µÑ´Ù ¹æ¾îÀÚÀÎ °æ¿ì
+		{ // ë‘˜ë‹¤ ë°©ì–´ìì¸ ê²½ìš°
 			return true;
 		}
 		
@@ -2593,7 +2593,7 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 		return true;
 	}
 	
-	//< LTH-040225-KO 1.4 ½Å±Ô±¹°¡Àü¿¡¼­´Â À¯Àú´Â ¸ğµÎ µ¿¸ÍÀÌ´Ù.
+	//< LTH-040225-KO 1.4 ì‹ ê·œêµ­ê°€ì „ì—ì„œëŠ” ìœ ì €ëŠ” ëª¨ë‘ ë™ë§¹ì´ë‹¤.
 	if (::IsNeoWarfieldServer() && ::IsWar())
 		return TRUE;
 	//> LTH-040225-KO
@@ -2604,13 +2604,13 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 	}
 	// if (MapInfo[MapNumber].forrookie)
 	{
-		// Scholium¿¡¼­´Â ¹«Á¶°Ç ÀÌ »ç¶÷À» Ä¥¼ö ¾øÀ½
+		// Scholiumì—ì„œëŠ” ë¬´ì¡°ê±´ ì´ ì‚¬ëŒì„ ì¹ ìˆ˜ ì—†ìŒ
 		if (MapNumber == 30 || MapNumber == 85)//020905 lsw
 		{ 
 			return true;
 		}
 	}
-	// ´ë»óÀÚ°¡ ÆÄÆ¼¿øÀÎ °æ¿ì
+	// ëŒ€ìƒìê°€ íŒŒí‹°ì›ì¸ ê²½ìš°
 	for (int i = 0; i < 6; ++i)
 	{
 		if (pCaster->party[i].On && !strcmp(pCaster->party[i].Name, pTarget->Name))
@@ -2623,9 +2623,9 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 }	//> CSD-031013
 
 bool CBattleManager::IsEnableClass(BYTE nCombat, CHARLIST* pCaster) const
-{	// Å¬·¡½º¿¡ µû¸¥ ÀüÅõ½ºÅ³ ½Àµæ ¿©ºÎ °Ë»ç
+{	// í´ë˜ìŠ¤ì— ë”°ë¥¸ ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ ì—¬ë¶€ ê²€ì‚¬
 	bitset<MAX_CLASS> bsClass(Magic_Ref[nCombat].nClass);
-	// Å¬·¡½º °Ë»ç  
+	// í´ë˜ìŠ¤ ê²€ì‚¬  
 	const int nClass = pCaster->Class;
 	
 	if (nClass < WARRIOR || nClass > PRIEST)
@@ -2633,7 +2633,7 @@ bool CBattleManager::IsEnableClass(BYTE nCombat, CHARLIST* pCaster) const
 		pCaster->Message(MK_INFORMATION, 1, 73);
 		return false;
 	}
-	// ½Àµæ ¿©ºÎ °Ë»ç
+	// ìŠµë“ ì—¬ë¶€ ê²€ì‚¬
 	if (!bsClass[nClass])
 	{
 		switch (nClass)
@@ -2652,9 +2652,9 @@ bool CBattleManager::IsEnableClass(BYTE nCombat, CHARLIST* pCaster) const
 }
 
 bool CBattleManager::IsEnableWeapon(BYTE nCombat, CHARLIST* pCaster) const
-{ // ¹«±âÅÃÆ½¿¡ µû¸¥ ÀüÅõ½ºÅ³ ½Àµæ ¿©ºÎ °Ë»ç
+{ // ë¬´ê¸°íƒí‹±ì— ë”°ë¥¸ ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ ì—¬ë¶€ ê²€ì‚¬
 	bitset<ALL_WEAPON> bsWeapon(Magic_Ref[nCombat].nTactics);
-	// ¹«±âÅÃÆ½ °Ë»ç
+	// ë¬´ê¸°íƒí‹± ê²€ì‚¬
 	const int nTactics = pCaster->GetTacticsKind() - TACTICS_Crapple;
 	
 	if (nTactics < CRAPPLE || nTactics > DOUBLE_MACEFIGHTING)
@@ -2662,7 +2662,7 @@ bool CBattleManager::IsEnableWeapon(BYTE nCombat, CHARLIST* pCaster) const
 		pCaster->Message(MK_INFORMATION, 1, 79);
 		return false;
 	}
-	// ½Àµæ ¿©ºÎ °Ë»ç
+	// ìŠµë“ ì—¬ë¶€ ê²€ì‚¬
 	if (!bsWeapon[nTactics])
 	{
 		switch (nTactics)

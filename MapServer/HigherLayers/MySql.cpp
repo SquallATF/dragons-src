@@ -1,4 +1,4 @@
-#include "..\stdAfx.h"
+ï»¿#include "..\stdAfx.h"
 
 #include "DefaultHeader.h"
 #include "NPC_Pattern.h"
@@ -30,10 +30,10 @@
 //class CGuardianGuild;
 CGuardianGuild g_CGuardianGuild;
 
-HENV  g_hEnv_DragonDB  = NULL;	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
-HDBC  g_hDBC_DragonDB  = NULL;	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
-HENV  g_hEnv_TotalDB  = NULL;	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
-HDBC  g_hDBC_TotalDB  = NULL;	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+HENV  g_hEnv_DragonDB  = NULL;	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
+HDBC  g_hDBC_DragonDB  = NULL;	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
+HENV  g_hEnv_TotalDB  = NULL;	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
+HDBC  g_hDBC_TotalDB  = NULL;	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 HENV  g_hEnv_ChrLogDB	= NULL;
 HDBC  g_hDBC_ChrLogDB	= NULL;
@@ -87,12 +87,12 @@ bool CanSaveUserData(LPCHARLIST ch, const int iCallType)
 		iErrorType = 6;
 	}
 	
-	// Ãß°¡´Â ÀÌ°÷¿¡
+	// ì¶”ê°€ëŠ” ì´ê³³ì—
 
 	// 030923 HK YGI
 	if (iErrorType == 0)
 	{
-		/*040720_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+		/*040720_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 		extern void SaveLogChange_LoginLogoutByKein( CHARLIST *ch, int type, int );
 		*/
 		g_pLogManager->SaveLogChange_LoginLogoutByKein( ch, 0, iCallType );
@@ -200,15 +200,15 @@ int Querry_SQL(LPSTR szQuerry, HDBC hdbc /*= NULL */)
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö¼³¸í: Ä³¸¯ÅÍÀÇ binary(Å©±â°¡ Å«¹è¿­µéÀº binary·Î ÀúÀåÇÏ°í binary·Î
-//				ÀĞ¾î¿Â´Ù)¸¦ ÀúÀå(update)ÇÏ´Â ÇÔ¼ö.
+// í•¨ìˆ˜ì„¤ëª…: ìºë¦­í„°ì˜ binary(í¬ê¸°ê°€ í°ë°°ì—´ë“¤ì€ binaryë¡œ ì €ì¥í•˜ê³  binaryë¡œ
+//				ì½ì–´ì˜¨ë‹¤)ë¥¼ ì €ì¥(update)í•˜ëŠ” í•¨ìˆ˜.
 //
-// ÆÄ¶ó¹ÌÅÍ:	ws; Ä³¸¯ÅÍ Á¤º¸Áß WS[200]¹è¿­ÀÇ *, ps; PS[200]¹è¿­ÀÇ *
-//				inv; inv[3][3][8]¹è¿­ÀÇ *
-//				equip, quick; ÇØ´ç ¹è¿­ÀÇ *
-//				(Âü°í: inv, equip, quickÀº ItemAttr StructureÀÇ ¹è¿­ÀÌ´Ù)
+// íŒŒë¼ë¯¸í„°:	ws; ìºë¦­í„° ì •ë³´ì¤‘ WS[200]ë°°ì—´ì˜ *, ps; PS[200]ë°°ì—´ì˜ *
+//				inv; inv[3][3][8]ë°°ì—´ì˜ *
+//				equip, quick; í•´ë‹¹ ë°°ì—´ì˜ *
+//				(ì°¸ê³ : inv, equip, quickì€ ItemAttr Structureì˜ ë°°ì—´ì´ë‹¤)
 //
-// ¸®ÅÏ°ª: updateÀÇ ¼º°ø ¿©ºÎ; ¼º°ø(1), ½ÇÆĞ(ret < 0)
+// ë¦¬í„´ê°’: updateì˜ ì„±ê³µ ì—¬ë¶€; ì„±ê³µ(1), ì‹¤íŒ¨(ret < 0)
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -414,12 +414,12 @@ int updateCharacterStatus(t_connection c[], int char_id)
 	//> CSD-HK-030829
 	BYTE aStepInfo[20];
 	chr->GetStepInfo(aStepInfo, sizeof(aStepInfo));
-	ConvertSave(aStepInfo); // ÀúÀåÀ» À§ÇÑ µ¥ÀÌÅ¸ º¯Çü(°¢ ÇÊµå¿¡ 1¸¦ ´õÇÔ)
-	// Äû¸®¹® »ı¼º
+	ConvertSave(aStepInfo); // ì €ì¥ì„ ìœ„í•œ ë°ì´íƒ€ ë³€í˜•(ê° í•„ë“œì— 1ë¥¼ ë”í•¨)
+	// í€´ë¦¬ë¬¸ ìƒì„±
 	sprintf(query, 
 		"UPDATE chr_info "
 		"SET lev = %d, spritvalue = %d, social_status = %d, fame = %d, fame_pk = %d, guildname = '%s', "
-		"gender=%d,sprno=%d,face=%d "		//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+		"gender=%d,sprno=%d,face=%d "		//050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 		"WHERE name= '%s'",
 			  chr->GetLevel(),
 			  chr->GetGuildCode(),
@@ -482,12 +482,12 @@ int updateCharacterStatus(t_connection c[], int char_id)
 		,chr->Hungry, chr->HungryMax, chr->killmon,
 		chr->killanimal, chr->killpc, 
 		
-		chr->GetBasicResist(RT_POISON), // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		chr->GetBasicResist(RT_CURSE),	 //	ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		chr->GetBasicResist(RT_HOLY),    // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		chr->GetBasicResist(RT_FIRE),     //	ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		chr->GetBasicResist(RT_ICE) ,      //	¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		chr->GetBasicResist(RT_ELECT),   //	Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+		chr->GetBasicResist(RT_POISON), // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		chr->GetBasicResist(RT_CURSE),	 //	ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		chr->GetBasicResist(RT_HOLY),    // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		chr->GetBasicResist(RT_FIRE),     //	ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		chr->GetBasicResist(RT_ICE) ,      //	ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		chr->GetBasicResist(RT_ELECT),   //	ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 		chr->X, chr->Y,
 		chr->accessory[0], chr->accessory[1], chr->accessory[2], chr->accessory[3], 
 		c[char_id].name) ;  
@@ -648,7 +648,7 @@ int AddCRC( void *pSource, int size, int step )
 void updateCharacterStatusToLoginServer( t_connection c[], int char_id)
 {
 	t_packet p;
-	ZeroMemory(&p.u.update_char_db,sizeof(p.u.update_char_db));	//050413_KCH ÃÊ±âÈ­
+	ZeroMemory(&p.u.update_char_db,sizeof(p.u.update_char_db));	//050413_KCH ì´ˆê¸°í™”
 
 	t_update_char_db *tp;
 	LPCHARLIST ch = &c[ char_id].chrlst;
@@ -679,12 +679,12 @@ void updateCharacterStatusToLoginServer( t_connection c[], int char_id)
 	tp->Luck 				= ch->Luck;
 	tp->wsps 				= ch->wsps;
 	
-	tp->Tactics 			= ch->Tactics;				// ¼±ÅÃÇÑ ÀüÅõ±â¼ú (º¸¿©ÁÖ±â À§ÇÔ)
+	tp->Tactics 			= ch->Tactics;				// ì„ íƒí•œ ì „íˆ¬ê¸°ìˆ  (ë³´ì—¬ì£¼ê¸° ìœ„í•¨)
 	memcpy( &tp->nation, &ch->name_status, sizeof( DWORD ) );		// 1004 YGI
 	tp->Money = ch->Money;
 	tp->Hp = ch->Hp;
 	tp->HpMax = ch->HpMax ;
-	tp->Mana = ch->Mana;					// ¸¶¹ı·Â
+	tp->Mana = ch->Mana;					// ë§ˆë²•ë ¥
 	tp->ManaMax	= ch->ManaMax;
 	tp->Hungry = ch->Hungry;	
 	tp->HungryMax = ch->HungryMax;
@@ -693,18 +693,18 @@ void updateCharacterStatusToLoginServer( t_connection c[], int char_id)
 	memcpy( tp->MapName, MapName, 20 );
 	tp->Sight = ch->Sight;
 	tp->Age = ch->Age;
-	tp->bAlive		= ch->bAlive;					// Ä³¸¯ÅÍÀÇ »ı»ç¿©ºÎ(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
+	tp->bAlive		= ch->bAlive;					// ìºë¦­í„°ì˜ ìƒì‚¬ì—¬ë¶€(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
 	
-	tp->killmon = ch->killmon;						// 1°è¿­¸ó½ºÅÍ Å³¸µ½º
-	tp->killanimal = ch->killanimal;				// µ¿¹° Å³¸µ¼ö
-	tp->killpc = ch->killpc;						// »ç¶÷,NPC Å³¸µ¼ö
+	tp->killmon = ch->killmon;						// 1ê³„ì—´ëª¬ìŠ¤í„° í‚¬ë§ìŠ¤
+	tp->killanimal = ch->killanimal;				// ë™ë¬¼ í‚¬ë§ìˆ˜
+	tp->killpc = ch->killpc;						// ì‚¬ëŒ,NPC í‚¬ë§ìˆ˜
 	//030227 lsw
-	tp->nPoison = ch->GetBasicResist(RT_POISON); // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nCurse	= ch->GetBasicResist(RT_CURSE);	 //	ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nHoly	= ch->GetBasicResist(RT_HOLY);    // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nFire	= ch->GetBasicResist(RT_FIRE);     //	ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nIce	= ch->GetBasicResist(RT_ICE);       //	¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nElect	= ch->GetBasicResist(RT_ELECT);   //	Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+	tp->nPoison = ch->GetBasicResist(RT_POISON); // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nCurse	= ch->GetBasicResist(RT_CURSE);	 //	ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nHoly	= ch->GetBasicResist(RT_HOLY);    // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nFire	= ch->GetBasicResist(RT_FIRE);     //	ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nIce	= ch->GetBasicResist(RT_ICE);       //	ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nElect	= ch->GetBasicResist(RT_ELECT);   //	ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 	
 	tp->X = ch->X;
 	tp->Y = ch->Y;
@@ -726,11 +726,11 @@ void updateCharacterStatusToLoginServer( t_connection c[], int char_id)
 	tp->Exp				= ch->Exp;
 	tp->viewtype		= ch->viewtype;
 	
-	//<050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+	//<050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 	tp->gender			= ch->Gender;
 	tp->sprno			= ch->SprNo;
 	tp->face			= ch->Face;
-	//>050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+	//>050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 
 	tp->nk3				= ch->nk[N_VYSEUS];
 	tp->nk4				= ch->nk[N_ZYPERN];
@@ -879,7 +879,7 @@ int TotalConnections( void )
 
 
 DiseaseTable	disease_tbl[6];
-// Áúº´ Å×ÀÌºí ~~~		0104
+// ì§ˆë³‘ í…Œì´ë¸” ~~~		0104
 int GetDisease_SQL( )
 {	
 	HSTMT		hStmt = NULL;
@@ -1025,7 +1025,7 @@ int UpdateCharID_SQL( int char_id )
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
-// BBS°ü¸® ¼Ò½º...
+// BBSê´€ë¦¬ ì†ŒìŠ¤...
 
 //#define MAX_DATA  5000
 //	char enter[ MAX_DATA];
@@ -1044,7 +1044,7 @@ int InsertBBS( char *name, char *title, char *contents )
 		"values ('%d/%d/%d %d:%d:%d', '%s', '%s' )", 
 		g_mon+1, g_day, g_year - 2000, g_hour, g_min, g_sec, name, title );
 	
-	// Ä³¸¯ÅÍÀÇ ÀÏ¹İ Data¸¦ chr_info¿¡ »ı¼ºÇÏ°í ( 1-1´Ü°è )
+	// ìºë¦­í„°ì˜ ì¼ë°˜ Dataë¥¼ chr_infoì— ìƒì„±í•˜ê³  ( 1-1ë‹¨ê³„ )
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -1133,7 +1133,7 @@ int GetTitleBBS( int count, int ct[10], TIMESTAMP_STRUCT date[10], char name[10]
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	char		szQuerry[128];
-	DWORD		bbs_count=0;		// °øÁö»çÇ×ÀÇ ÃÑ °³¼ö
+	DWORD		bbs_count=0;		// ê³µì§€ì‚¬í•­ì˜ ì´ ê°œìˆ˜
 	int max=10;		
 	
 	
@@ -1172,7 +1172,7 @@ int GetTitleBBS( int count, int ct[10], TIMESTAMP_STRUCT date[10], char name[10]
 		if(retCode == SQL_SUCCESS)
 		{
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return ( max );			// °¡Á®¿Â µ¥ÀÌÅÍÀÇ °³¼ö¸¦ ¸®ÅÏÇØÁØ´Ù.
+			return ( max );			// ê°€ì ¸ì˜¨ ë°ì´í„°ì˜ ê°œìˆ˜ë¥¼ ë¦¬í„´í•´ì¤€ë‹¤.
 		}
 		else 
 		{
@@ -1224,7 +1224,7 @@ int GetContentsBBS( char *date, char *con )
 
 
 
-SkillMain SkillTbl[ MAX_SKILLMAIN]	= {0,};	//050329_KCH ÃÊ±âÈ­(DragonDBÀÇ skillmainÀÚÃ¼¿¡ ºóidx°¡ Á¸ÀçÇÏ±â ¶§¹®¿¡ ²ÀÇÊ¿ä);
+SkillMain SkillTbl[ MAX_SKILLMAIN]	= {0,};	//050329_KCH ì´ˆê¸°í™”(DragonDBì˜ skillmainìì²´ì— ë¹ˆidxê°€ ì¡´ì¬í•˜ê¸° ë•Œë¬¸ì— ê¼­í•„ìš”);
 
 int InitSkillTable( void )
 {
@@ -1578,7 +1578,7 @@ int UpdateFaith_SQL( short int faith, char *name )		// 0405 YGI
 	else return 0;
 }
 
-int UpdateEvaName( char *my_name, char *eva_name )		// ÀüµµÇÑ »ç¶÷ ÀÌ¸§À» µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù. // 0405 YGI
+int UpdateEvaName( char *my_name, char *eva_name )		// ì „ë„í•œ ì‚¬ëŒ ì´ë¦„ì„ ë””ë¹„ì— ì—…ë°ì´íŠ¸ í•œë‹¤. // 0405 YGI
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -1593,7 +1593,7 @@ int UpdateEvaName( char *my_name, char *eva_name )		// ÀüµµÇÑ »ç¶÷ ÀÌ¸§À» µğºñ¿¡
 	else return 0;
 }
 
-int GetEvangelist( char *my_name, char *eva_name )		// ³ª¸¦ ÀüµµÇÑ »ç¶÷ ÀÌ¸§ °¡Á®¿À±â
+int GetEvangelist( char *my_name, char *eva_name )		// ë‚˜ë¥¼ ì „ë„í•œ ì‚¬ëŒ ì´ë¦„ ê°€ì ¸ì˜¤ê¸°
 {
 	SDWORD		cbValue;
 	HSTMT		hStmt = NULL;
@@ -1624,7 +1624,7 @@ int GetEvangelist( char *my_name, char *eva_name )		// ³ª¸¦ ÀüµµÇÑ »ç¶÷ ÀÌ¸§ °¡Á
 	return 1;
 }
 
-void SubtractFaith( char *name )		// »èÁ¦¸¦ ÇÒ °æ¿ì ÀÚ±â¸¦ ÀüµµÇÑ »ç¶÷ÀÇ ½Å¾Ó½ÉÀ» ±ï´Â´Ù.
+void SubtractFaith( char *name )		// ì‚­ì œë¥¼ í•  ê²½ìš° ìê¸°ë¥¼ ì „ë„í•œ ì‚¬ëŒì˜ ì‹ ì•™ì‹¬ì„ ê¹ëŠ”ë‹¤.
 {
 	char eva_name[20] = {0, };
 	if( GetEvangelist( name, eva_name ) )
@@ -1677,7 +1677,7 @@ int GetGodFood_SQL( int &god_food, DWORD &god_food_date, char *name )
 
 
 
-char *GodIndex2Name[] = { "EDELBLHOY", "TEFFERY", "LETTY", };	// 0410 YGI		¿¡µ¨ºê·ÎÀÌ, Å×Æä¸®, ±×¶û¿¤º£¸£, À¯ÇÇ³Ú, ·¹Æ¼, ÇïÄ«³×½º, È­·»Â÷
+char *GodIndex2Name[] = { "EDELBLHOY", "TEFFERY", "LETTY", };	// 0410 YGI		ì—ë¸ë¸Œë¡œì´, í…Œí˜ë¦¬, ê·¸ë‘ì—˜ë² ë¥´, ìœ í”¼ë„¬, ë ˆí‹°, í—¬ì¹´ë„¤ìŠ¤, í™”ë Œì°¨
 int GetGodMeetingTime( TIMESTAMP_STRUCT &day, TIMESTAMP_STRUCT &month, TIMESTAMP_STRUCT &year, int god_index )
 {		
 	SDWORD		cbValue;
@@ -1838,8 +1838,8 @@ typedef struct
 	int max_store;
 	//1018 zhh
 	int now_store;
-	int Date;			//8ÀÚ¸®·Î ¹Ş´Â ºÎºĞ
-	int add_Day;		//¾ÆÀÌÅÛ ÁÖ´Â ³¯¿¡ ´õÇÏ´Â ¼ö
+	int Date;			//8ìë¦¬ë¡œ ë°›ëŠ” ë¶€ë¶„
+	int add_Day;		//ì•„ì´í…œ ì£¼ëŠ” ë‚ ì— ë”í•˜ëŠ” ìˆ˜
 	today now;
 }	sGen_SpecialItem;
 
@@ -1879,7 +1879,7 @@ int SendUpdateSpecialItemReleaseNumber( int i );
 // Marking by chan78
 void UpdateSpecialItem(  int i )
 {	
-	//	if( connections[DB_DEMON].dwAgentConnectionIndex == 0 ) // LoginServer¿Í ¿¬°áÀÌ ²÷¾îÁø »óÅÂ¶ó¸é..	
+	//	if( connections[DB_DEMON].dwAgentConnectionIndex == 0 ) // LoginServerì™€ ì—°ê²°ì´ ëŠì–´ì§„ ìƒíƒœë¼ë©´..	
 	//		UpdateSpecialItemReleaseNumber(i);		
 	//	else 
 	SendUpdateSpecialItemReleaseNumber( i );
@@ -1909,7 +1909,7 @@ int SaveGiveSpecialItem(int NPCno,int dx,int dy,int MapNo,int How,int i)
 {	
 	FILE *fp;
 	char name[100];
-	wsprintf(name,"c:\\½ºÆä¼È¾ÆÀÌÅÛ·Î±×%d.txt",MapNo);
+	wsprintf(name,"c:\\ìŠ¤í˜ì…œì•„ì´í…œë¡œê·¸%d.txt",MapNo);
 	fp = fopen(name,"at+");
 	if(fp==NULL)
 		return 0;
@@ -1973,18 +1973,18 @@ void ChangeSpecialItemDate(int i)
 
 int CheckSpecialItem(int i,int NPCno,int MapNo,int dx,int dy)
 {
-	if( GenSpcItem[i].howmany==0)		//³ª´©¾î ÁÙ°ÍÀÌ ¾ø´Ù.
+	if( GenSpcItem[i].howmany==0)		//ë‚˜ëˆ„ì–´ ì¤„ê²ƒì´ ì—†ë‹¤.
 		return -1;	
-	if( GenSpcItem[i].now_store>=GenSpcItem[i].max_store && GenSpcItem[i].max_store!= -1)	//¾Æ¹«¸® ¸¹ÀÌ ³ª¿Íµµ ÃÖ´ë°ªº¸´Ù ³ª¿ÀÁö ¾Ê´Â´Ù.
+	if( GenSpcItem[i].now_store>=GenSpcItem[i].max_store && GenSpcItem[i].max_store!= -1)	//ì•„ë¬´ë¦¬ ë§ì´ ë‚˜ì™€ë„ ìµœëŒ€ê°’ë³´ë‹¤ ë‚˜ì˜¤ì§€ ì•ŠëŠ”ë‹¤.
 		return -2;
-	if( NPCno != GenSpcItem[i].NpcNo ||										//ÇØ´çÇÏ´Â Npc°¡ ÀÖ´Ù
-		( GenSpcItem[i].map_num != MapNo && GenSpcItem[i].map_num!=-1))  	//ÇØ´ç ¸ÊÀÌ°Å³ª ¸Ê¿¡ »ó°ü ¾øÀ¸¸é
+	if( NPCno != GenSpcItem[i].NpcNo ||										//í•´ë‹¹í•˜ëŠ” Npcê°€ ìˆë‹¤
+		( GenSpcItem[i].map_num != MapNo && GenSpcItem[i].map_num!=-1))  	//í•´ë‹¹ ë§µì´ê±°ë‚˜ ë§µì— ìƒê´€ ì—†ìœ¼ë©´
 		return -3;
-	if( GenSpcItem[i].now_store>GenSpcItem[i].max_store && GenSpcItem[i].max_store!=-1) //¾ÆÁ÷ ³ª´©¾î ÁÙ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ¸é
+	if( GenSpcItem[i].now_store>GenSpcItem[i].max_store && GenSpcItem[i].max_store!=-1) //ì•„ì§ ë‚˜ëˆ„ì–´ ì¤„ ìˆ˜ ìˆëŠ” ì•„ì´í…œì´ë©´
 		return -4;
-	if( (GenSpcItem[i].time/100>g_hour || GenSpcItem[i].time%100<g_hour) && GenSpcItem[i].time!=0 ) //½Ã°£ÀÌ ¸Â°Å³ª »ó°ü¾øÀ¸¸é)
+	if( (GenSpcItem[i].time/100>g_hour || GenSpcItem[i].time%100<g_hour) && GenSpcItem[i].time!=0 ) //ì‹œê°„ì´ ë§ê±°ë‚˜ ìƒê´€ì—†ìœ¼ë©´)
 		return -5;
-	if( (GenSpcItem[i].day/100 >g_day  && GenSpcItem[i].day%100 >g_day ) && GenSpcItem[i].day !=0 ) //³¯Â¥°¡ ¸Â°Å³ª »ó°ü¾øÀ¸¸é
+	if( (GenSpcItem[i].day/100 >g_day  && GenSpcItem[i].day%100 >g_day ) && GenSpcItem[i].day !=0 ) //ë‚ ì§œê°€ ë§ê±°ë‚˜ ìƒê´€ì—†ìœ¼ë©´
 		return -6;
 	if ( GenSpcItem[i].now.Year > g_year )
 		return -7;
@@ -2002,7 +2002,7 @@ int CheckSpecialItem(int i,int NPCno,int MapNo,int dx,int dy)
 	//		  GenSpcItem[i].now.Year!=0 && GenSpcItem[i].now.Year>=g_year) )
 	//		return -7;
 	if( ((dx>GenSpcItem[i].ex || dx<GenSpcItem[i].sx || dy>GenSpcItem[i].ey || dy<GenSpcItem[i].sy)
-		&& GenSpcItem[i].ex != -1) )									//ÇØ´çÇÏ´Â ÁÂÇ¥ÀÌ°Å³ª ¾Æ´Ï¸é ÁÂÇ¥¿¡ Á¦ÇÑÀÌ ¾øÀ¸¸é
+		&& GenSpcItem[i].ex != -1) )									//í•´ë‹¹í•˜ëŠ” ì¢Œí‘œì´ê±°ë‚˜ ì•„ë‹ˆë©´ ì¢Œí‘œì— ì œí•œì´ ì—†ìœ¼ë©´
 		return -10;
 	
 	return 1;
@@ -2010,9 +2010,9 @@ int CheckSpecialItem(int i,int NPCno,int MapNo,int dx,int dy)
 
 int CheckSpecialItemRate(int i,int How)
 {
-	if( rand()%GenSpcItem[i].howmany != 0 )								//ÇØ´çÇÏ´Â È®·üÀÌ¾Æ´Ï¸é
+	if( rand()%GenSpcItem[i].howmany != 0 )								//í•´ë‹¹í•˜ëŠ” í™•ë¥ ì´ì•„ë‹ˆë©´
 		return -1;
-	if( How!=GenSpcItem[i].howget && GenSpcItem[i].howget!=0 )		//¸¸¾à ¾ò´Â ¹æ¹ıÀÌ ÀÖÀ¸¸é ¶Ç´Â »ó°ü ¾øÀ¸¸é
+	if( How!=GenSpcItem[i].howget && GenSpcItem[i].howget!=0 )		//ë§Œì•½ ì–»ëŠ” ë°©ë²•ì´ ìˆìœ¼ë©´ ë˜ëŠ” ìƒê´€ ì—†ìœ¼ë©´
 		return -2;
 	return 1;
 }
@@ -2037,8 +2037,8 @@ int MakeSpecialItem(int i,int dx,int dy)
 }
 //1026 zhh
 //g_year,g_mon,g_day,g_yday,g_hour,g_min,g_sec,
-//1018 zhh		»õ·Î ¸¸µé¾îÁø ÇÔ¼ö
-//How : 0 Á×ÀÌ¸é  : ±×¿Ü¿¡ ±â¼úÀ» ¾²¸é ¾òÀ» ¼ö ÀÖ´Â °ÍµéÀº ±â¼ú¹øÈ£
+//1018 zhh		ìƒˆë¡œ ë§Œë“¤ì–´ì§„ í•¨ìˆ˜
+//How : 0 ì£½ì´ë©´  : ê·¸ì™¸ì— ê¸°ìˆ ì„ ì“°ë©´ ì–»ì„ ìˆ˜ ìˆëŠ” ê²ƒë“¤ì€ ê¸°ìˆ ë²ˆí˜¸
 int GiveSpecialItem(int NPCno,int dx,int dy,int MapNo,int How)
 {
 	int return_value=0;
@@ -2047,16 +2047,16 @@ int GiveSpecialItem(int NPCno,int dx,int dy,int MapNo,int How)
 	{
 		// YGI ACER
 		if( !GenSpcItem[i].No ) continue;
-		if( CheckSpecialItem(i,NPCno,MapNo,dx,dy) < 0)					//ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀ» ÁÙ¼ö ÀÖ´Â »óÈ²ÀÎÁö È®ÀÎ
+		if( CheckSpecialItem(i,NPCno,MapNo,dx,dy) < 0)					//í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì„ ì¤„ìˆ˜ ìˆëŠ” ìƒí™©ì¸ì§€ í™•ì¸
 			continue;
-		if( CheckSpecialItemRate(i,How) < 0)				//ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀ» ÁÙ ¼ö ÀÖ´Â È®·ü°è»ê
+		if( CheckSpecialItemRate(i,How) < 0)				//í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì„ ì¤„ ìˆ˜ ìˆëŠ” í™•ë¥ ê³„ì‚°
 			continue;			
-		int AddSuccess=MakeSpecialItem(i,dx,dy);				//¾ÆÀÌÅÛÀ» ¸¸µç °¹¼ö.
+		int AddSuccess=MakeSpecialItem(i,dx,dy);				//ì•„ì´í…œì„ ë§Œë“  ê°¯ìˆ˜.
 		if( AddSuccess ==0)
 			continue;
-		ChangeSpecialItemDate(i);						//³¯Â¥¸¦ ¹Ù²Ù¾î ÁØ´Ù.
-		UpdateSpecialItem( i );							//¾ÆÀÌÅÛÀ» »ı¼ºÇß´Ù±¸ µğºñ¿¡ ¾´´Ù.
-		SaveGiveSpecialItem(NPCno,dx,dy,MapNo,How,i);	//È­ÀÏ·Î ·Î±×¸¦ ³²±ä´Ù.
+		ChangeSpecialItemDate(i);						//ë‚ ì§œë¥¼ ë°”ê¾¸ì–´ ì¤€ë‹¤.
+		UpdateSpecialItem( i );							//ì•„ì´í…œì„ ìƒì„±í–ˆë‹¤êµ¬ ë””ë¹„ì— ì“´ë‹¤.
+		SaveGiveSpecialItem(NPCno,dx,dy,MapNo,How,i);	//í™”ì¼ë¡œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 		return_value++;
 	}
 	return(return_value);
@@ -2176,7 +2176,7 @@ int InitMapInfo( t_MapInfo map[] )		// 1004 YGI
 			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].ghostguide4y = value;
 			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].group = value;
 			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].Class = value;
-			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].LvMin = value;//030116 lsw ·¹º§ Á¦ÇÑ Ãß°¡
+			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].LvMin = value;//030116 lsw ë ˆë²¨ ì œí•œ ì¶”ê°€
 			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].LvMax = value;
 			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].nDisableMagicType = value; // CSD-030516
 			retCode = SQLGetData(hStmt, Col++, SQL_C_LONG, &value,	0, &cbValue); map[count].bEncode = value; // YGI-040510
@@ -2222,10 +2222,10 @@ int InitMapInfo( t_MapInfo map[] )		// 1004 YGI
 
 
 ///////////////////////////////////////////////////////////////////
-//		ÅõÇ¥ Äõ¸®¹®
+//		íˆ¬í‘œ ì¿¼ë¦¬ë¬¸
 //
 
-// Æ¯Á¤ Å×ÀÌºí¿¡¼­ Æ¯Á¤ ÇÊµå°ª(intÇü) ÇÏ³ª¸¦ °¡Á®¿Â´Ù.
+// íŠ¹ì • í…Œì´ë¸”ì—ì„œ íŠ¹ì • í•„ë“œê°’(intí˜•) í•˜ë‚˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 int Get_INT_ValueBySQL( const char *table, const char *field, char *condition, int *value, int max )		
 {
 	SDWORD		cbValue;
@@ -2251,7 +2251,7 @@ int Get_INT_ValueBySQL( const char *table, const char *field, char *condition, i
 			
 			SQLGetData(hStmt, 1, SQL_C_ULONG, &temp_value, 0, &cbValue); value[ct] = temp_value;
 			ct++;
-			if( ct >= max  ) break;		// °ªÀÌ Á»´õ ÀÖÀ½
+			if( ct >= max  ) break;		// ê°’ì´ ì¢€ë” ìˆìŒ
 		}
 		SQLFreeStmt(hStmt, SQL_DROP);
 		return(-2);
@@ -2263,7 +2263,7 @@ int Get_INT_ValueBySQL( const char *table, const char *field, char *condition, i
 
 
 ////////////////////////////////////////////////////////////
-// GM_quest	°ª °¡Á®¿À±â
+// GM_quest	ê°’ ê°€ì ¸ì˜¤ê¸°
 
 GM_QUEST	g_GmMain[MAX_GM_MAIN];
 int InitGmQuest( void )
@@ -2299,7 +2299,7 @@ int InitGmQuest( void )
 
 		ret = SQLGetData(hStmt,  1, SQL_C_LONG,	&iPos,			 0, &cbValue);
 		
-		GM_QUEST *pTemp = &g_GmMain[iPos];//À§Ä¡ Á¶½É
+		GM_QUEST *pTemp = &g_GmMain[iPos];//ìœ„ì¹˜ ì¡°ì‹¬
 		
 		ret = SQLGetData(hStmt,  2, SQL_C_CHAR,	pTemp->name, 20, &cbValue);
 		::EatRearWhiteChar( pTemp->name );
@@ -2538,7 +2538,7 @@ int LoadGuildListForMapServer( )
 		SQLFreeStmt(hStmt, SQL_DROP);
 		return retCode;
 	}
-	// ÃÖ´ë°¡´É ±æµåµî·Ï¼ö ¼³Á¤
+	// ìµœëŒ€ê°€ëŠ¥ ê¸¸ë“œë“±ë¡ìˆ˜ ì„¤ì •
 	retCode = SQLFetch(hStmt);
 
 	SDWORD cbValue;
@@ -2580,7 +2580,7 @@ int LoadGuildListForMapServer( )
 		EatRearWhiteChar(pGuild->guild_degree[4]);
 		SQLGetData(hStmt, 13, SQL_C_SLONG, &nTemp, 0, &cbValue); pGuild->nation = nTemp;
 
-		/*//050222_KCH Å×½ºÆ®
+		/*//050222_KCH í…ŒìŠ¤íŠ¸
 		CString strTemp;
 		int nkkk =0;
 		strTemp.Format("nGuildCode:%d\n \
@@ -2781,9 +2781,9 @@ bool LoadDualInfo()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	·¹ÄÚµå °¹¼ö¸¦ °¡Á®¿Â´Ù.
-//	Ã·ÀÚ : Å×ÀÌºí ÀÌ¸§( table ), key°ªÀÌ °É¸° ÇÊµå¸í( field ) NULLÀÏ°æ¿ì * À¸·Î Ã³¸®, °¡Áö°í°¥ °á°ú°ª( RowCount )
-//	¸®ÅÏ°ª : SQL¹®À» ½ÇÇàÇßÀ»¶§ »ı±ä °á°ú°ª( ¼º°ø, ½ÇÆĞ )À» ¸®ÅÏÇØÁØ´Ù.
+//	ë ˆì½”ë“œ ê°¯ìˆ˜ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
+//	ì²¨ì : í…Œì´ë¸” ì´ë¦„( table ), keyê°’ì´ ê±¸ë¦° í•„ë“œëª…( field ) NULLì¼ê²½ìš° * ìœ¼ë¡œ ì²˜ë¦¬, ê°€ì§€ê³ ê°ˆ ê²°ê³¼ê°’( RowCount )
+//	ë¦¬í„´ê°’ : SQLë¬¸ì„ ì‹¤í–‰í–ˆì„ë•Œ ìƒê¸´ ê²°ê³¼ê°’( ì„±ê³µ, ì‹¤íŒ¨ )ì„ ë¦¬í„´í•´ì¤€ë‹¤.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int GetRowLineOfSQL(const DBType _DBType, const char *table, const char *field, int *RowCount, const char *condition )
 {
@@ -2809,7 +2809,7 @@ int GetRowLineOfSQL(const DBType _DBType, const char *table, const char *field, 
 		/////////////////////////////////////////////////////////////////////////////
 	}
 	
-	switch(_DBType) //050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	switch(_DBType) //050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 	{
 	case DRAGON_DB:
 		SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
@@ -3003,7 +3003,7 @@ void InitItemLog( int port )
 }
 int SaveItemLog( k_item_log *pData )
 {
-	if( !g_hDBC_ChrLogDB ) return -100;		// ¿¬°á µÇ¾î ÀÖÁö ¾ÊÀº »óÅÂÀÌ´Ù.
+	if( !g_hDBC_ChrLogDB ) return -100;		// ì—°ê²° ë˜ì–´ ìˆì§€ ì•Šì€ ìƒíƒœì´ë‹¤.
 	
 	//acer7
 	static int count = 101;
@@ -3110,7 +3110,7 @@ int LoadDungeonMapAll()		// 020701 YGI
 	while( SQLOK( retCode ) )
 	{
 		SQLGetData(hStmt, 1, SQL_C_ULONG, &nTemp, 0, &cbValue);
-		// ½Ã°£ Á¤º¸ ¼³Á¤
+		// ì‹œê°„ ì •ë³´ ì„¤ì •
 		CDungeonBasic *pData = g_pDungeonMgr->GetDungeon(nTemp);
 		SQLGetData(hStmt, 2, SQL_C_ULONG, &idIndex, 0, &cbValue);
 		SQLGetData(hStmt, 3, SQL_C_ULONG, &nApplyDay, 0, &cbValue);
@@ -3336,7 +3336,7 @@ int CEventMgr::LoadNpcItem()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventNpcItem.CheckActiveEvent();
 	return 1;
 }
@@ -3397,7 +3397,7 @@ int CEventMgr::LoadNpcCreate()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventNpcCreate.CheckActiveEvent();
 	return 1;
 }
@@ -3454,7 +3454,7 @@ int CEventMgr::LoadEventMap()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventObject.CheckActiveEvent();
 	return 1;
 }
@@ -3505,7 +3505,7 @@ int CEventMgr::LoadEventSound()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventSound.CheckActiveEvent();
 	return 1;
 }
@@ -3574,7 +3574,7 @@ int CEventMgr::LoadEventMessage()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventMessage.CheckActiveEvent();
 	return 1;
 }
@@ -3646,7 +3646,7 @@ int CEventMgr::LoadEventNpcScript()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventNpcScript.CheckActiveEvent();
 	return 1;
 }
@@ -3753,7 +3753,7 @@ int CEventMgr::LoadEventMoveMap()
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// ÀÌº¥Æ® ½Ã°£ Ã¼Å©
+	// ì´ë²¤íŠ¸ ì‹œê°„ ì²´í¬
 	m_eventMoveMap.CheckActiveEvent();
 	return 1;
 }
@@ -3996,7 +3996,7 @@ bool LoadArenaTeamInfo()
 			SQLGetData(hStmt, 4, SQL_C_LONG, &nTemp, 0, &cbValue);
 			pTeam->SetHuntNumber(nTemp);
 			pTeam->SetTeamNumber(nTeam++);
-			// ÆÀ Ãß°¡
+			// íŒ€ ì¶”ê°€
 			pGame->AddTeam(pTeam);
 		}
 		
@@ -4062,7 +4062,7 @@ bool LoadArenaBonusInfo()
 			pBonus->SetItemGainRate(fRate);
 			SQLGetData(hStmt, 8, SQL_C_FLOAT, &fRate, 0, &cbValue);
 			pBonus->SetExpRate(fRate);
-			// ÆÀ Ãß°¡
+			// íŒ€ ì¶”ê°€
 			pGame->AddBonus(pBonus);
 		}
 		
@@ -4378,7 +4378,7 @@ int GetItemLimitCount_SQL( WORD port, DWORD *pLimit )
 	return 0;
 }
 
-// 040105 YGI º¸¹°
+// 040105 YGI ë³´ë¬¼
 bool LoadEventTreasureXY()
 {
 	int nRow = 0;

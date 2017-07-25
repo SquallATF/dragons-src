@@ -1,4 +1,4 @@
-#ifndef _DEFINE_H
+ï»¿#ifndef _DEFINE_H
 #define	_DEFINE_H
 
 #define DEFAULT_HEADER_SIZE			2
@@ -7,7 +7,7 @@
 #define DEFAULT_QUEUE_NUM			128
 #define MAX_SERVER_BUFFER_SIZE		512000
 #define MAX_USER_BUFFER_SIZE		128000
-#define MM_MAX_PACKET_SIZE			51200	// 001211 KHS network.h¿¡ defineµÇ¾î ÀÖ´Â MAX_PACKET_SIZE¿Í ºÎµúÈù´Ù. 
+#define MM_MAX_PACKET_SIZE			51200	// 001211 KHS network.hì— defineë˜ì–´ ìˆëŠ” MAX_PACKET_SIZEì™€ ë¶€ë”ªíŒë‹¤. 
 #define MAX_USER_NUM				800
 #define MAX_SERVER_NUM				100
 #define MAX_CHAT_MSG_LENGHT			255

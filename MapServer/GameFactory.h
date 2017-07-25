@@ -1,4 +1,4 @@
-// GameFactory.h: interface for the CGameFactory class.
+ï»¿// GameFactory.h: interface for the CGameFactory class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,7 +12,7 @@
 #include "GameDefine.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-// °ÔÀÓ °ü·Ã Manager »ı¼º °ü¸® Å¬·¡½º
+// ê²Œì„ ê´€ë ¨ Manager ìƒì„± ê´€ë¦¬ í´ë˜ìŠ¤
 class CGameFactory : public IGameFactory
 {
 public:

@@ -1,26 +1,26 @@
-#if !defined(AFX_NPC_PATTERN_H__562FB52A_67CE_44B8_82E6_8CCA090DFDA2__INCLUDED_)
+ï»¿#if !defined(AFX_NPC_PATTERN_H__562FB52A_67CE_44B8_82E6_8CCA090DFDA2__INCLUDED_)
 #define AFX_NPC_PATTERN_H__562FB52A_67CE_44B8_82E6_8CCA090DFDA2__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define NPC_PATTERN_NO_MOVE_			 0		// °¡¸¸È÷ ÀÖ´Â´Ù.
-#define NPC_PATTERN_HOSTILE_			10		// Àû´ëÀûÀ¸·Î ¹Ù²ï´Ù. 
-#define NPC_PATTERN_PEACE_				20		// ÆòÈ­ÀûÀ¸·Î ¹Ù²ï´Ù.
-#define NPC_PATTERN_FIND_CLOSE_PC_		30		// °¡±î¿î pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-#define NPC_PATTERN_FIND_WEAK_PC_		40		// ¾àÇÑ  pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-#define NPC_PATTERN_FIND_STRONG_PC_		50		// °­ÇÑ  pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-#define NPC_PATTERN_ACCESS_PC_			60		// Ã£Àº PC¿¡ Àû±ÙÇÑ´Ù. ( HostileÀÏ°æ¿ì °ø°Ý¹üÀ§¿¡ ÀÖÀ¸¸é °ø°ÝÇÑ´Ù. peaceÀÏ°æ¿ì Á¢±ÙÇØµµ °¡¸¸È÷ Á¢±ÙÇÏ´Â³ðÀ» ¹Ù¶óº»´Ù.  
-#define NPC_PATTERN_ACCESS_PC_ATTACKED_	70		// ³ª¸¦ °ø°ÝÇÑ Pc¿¡ Á¢±ÙÇÑ´Ù. 
+#define NPC_PATTERN_NO_MOVE_			 0		// ê°€ë§Œížˆ ìžˆëŠ”ë‹¤.
+#define NPC_PATTERN_HOSTILE_			10		// ì ëŒ€ì ìœ¼ë¡œ ë°”ë€ë‹¤. 
+#define NPC_PATTERN_PEACE_				20		// í‰í™”ì ìœ¼ë¡œ ë°”ë€ë‹¤.
+#define NPC_PATTERN_FIND_CLOSE_PC_		30		// ê°€ê¹Œìš´ pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+#define NPC_PATTERN_FIND_WEAK_PC_		40		// ì•½í•œ  pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+#define NPC_PATTERN_FIND_STRONG_PC_		50		// ê°•í•œ  pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+#define NPC_PATTERN_ACCESS_PC_			60		// ì°¾ì€ PCì— ì ê·¼í•œë‹¤. ( Hostileì¼ê²½ìš° ê³µê²©ë²”ìœ„ì— ìžˆìœ¼ë©´ ê³µê²©í•œë‹¤. peaceì¼ê²½ìš° ì ‘ê·¼í•´ë„ ê°€ë§Œížˆ ì ‘ê·¼í•˜ëŠ”ë†ˆì„ ë°”ë¼ë³¸ë‹¤.  
+#define NPC_PATTERN_ACCESS_PC_ATTACKED_	70		// ë‚˜ë¥¼ ê³µê²©í•œ Pcì— ì ‘ê·¼í•œë‹¤. 
 #define NPC_PATTERN_ATTACK_PC_			71
-#define NPC_PATTERN_WANDER_RANGE_1_		80		// ¹èÈ¸ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 1ÀÌ´Ù. )
-#define NPC_PATTERN_WANDER_RANGE_2_		90		// ¹èÈ­ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 2ÀÌ´Ù. )
-#define NPC_PATTERN_WANDER_RANGE_3_		100  	// ¹èÈ­ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 3ÀÌ´Ù. )
-#define NPC_PATTERN_ESCAPE_PC_			110		// Ã£Àº PC·Î ºÎÅÍ µµ¸Á°£´Ù. 
-#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// ±ÙÃ³¿¡ °ø°Ý PC°¡ ÀÖÀ¸¸é ¸Ö¸® µµ¸Á°£´Ù. 
-#define NPC_PATTERN_RETURN_				130		// patterntypeÀ» 0À¸·Î SettingÇÑ´Ù.
-#define NPC_PATTERN_BACKDRAW_			140		// °ø°ÝÇÏ·Á´Â ³ðµÚ·Î 3Å¸ÀÏ ºüÁø´Ù.
+#define NPC_PATTERN_WANDER_RANGE_1_		80		// ë°°íšŒí•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 1ì´ë‹¤. )
+#define NPC_PATTERN_WANDER_RANGE_2_		90		// ë°°í™”í•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 2ì´ë‹¤. )
+#define NPC_PATTERN_WANDER_RANGE_3_		100  	// ë°°í™”í•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 3ì´ë‹¤. )
+#define NPC_PATTERN_ESCAPE_PC_			110		// ì°¾ì€ PCë¡œ ë¶€í„° ë„ë§ê°„ë‹¤. 
+#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// ê·¼ì²˜ì— ê³µê²© PCê°€ ìžˆìœ¼ë©´ ë©€ë¦¬ ë„ë§ê°„ë‹¤. 
+#define NPC_PATTERN_RETURN_				130		// patterntypeì„ 0ìœ¼ë¡œ Settingí•œë‹¤.
+#define NPC_PATTERN_BACKDRAW_			140		// ê³µê²©í•˜ë ¤ëŠ” ë†ˆë’¤ë¡œ 3íƒ€ì¼ ë¹ ì§„ë‹¤.
 #define NPC_PATTERN_IAM_BOSS_8_			150
 #define NPC_PATTERN_TOBOSS_8_			160
 #define NPC_PATTERN_WANDER_8_			170
@@ -80,7 +80,7 @@
 #define NPC_PATTERN_BOSS_BACKDRAW		611			// LTS NEW AI
 #define NPC_PATTERN_BOSS_WAIT			612			// LTS NEW AI
 #define NPC_PATTERN_BOSS_AVOID			613			// LTS NEW AI
-// Client¿¡¼­ º¯È­µÈ NPC ÆÄ¶ó¸ÞÅÍ¸¦ Server·Î º¸³»ÁØ´Ù. 
+// Clientì—ì„œ ë³€í™”ëœ NPC íŒŒë¼ë©”í„°ë¥¼ Serverë¡œ ë³´ë‚´ì¤€ë‹¤. 
 #define NPC_PARAMETER_TARGETID			0
 #define NPC_PARAMETER_TARGETNAME		1
 #define NPC_PARAMETER_BOSSID			2
@@ -97,11 +97,11 @@
 #define GT_SKILL_SUMMON		2
 #define	GT_EVENT_MONSTER	4 // LTS AI2
 #define	GT_SCENARIO_MONSTER	5 // 020701 YGI
-#define GT_EVENT_NPC		6 // ±â°£ ÀÌº¥Æ®¸¦ ÅëÇØ µîÀåÇÏ´Â NPCµé	//021030 YGI
+#define GT_EVENT_NPC		6 // ê¸°ê°„ ì´ë²¤íŠ¸ë¥¼ í†µí•´ ë“±ìž¥í•˜ëŠ” NPCë“¤	//021030 YGI
 #define GT_HUNT_MONSTER		7 // CSD-030408 : hunt monster
-#define GT_TREASUER_GUARD	8	// º¸¹° ÁöÅ´ÀÌ	// 040105 YGI º¸¹°
+#define GT_TREASUER_GUARD	8	// ë³´ë¬¼ ì§€í‚´ì´	// 040105 YGI ë³´ë¬¼
 
-// ¿øÃµÀûÀÎ ¼Ó¼ºÀ» ÀÇ¹ÌÇÑ´Ù
+// ì›ì²œì ì¸ ì†ì„±ì„ ì˜ë¯¸í•œë‹¤
 #define	ELEMENT_FIRE					1
 #define ELEMENT_WATER					2
 #define ELEMENT_AIR						3

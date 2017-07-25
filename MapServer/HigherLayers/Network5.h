@@ -1,5 +1,5 @@
-///////////////////////////////////////////////////////////////////////////////
-// µà¾ó Å¬·¡½º¿¡ °üÇÑ Packet Á¤ÀÇ 7501 ~ 7599
+ï»¿///////////////////////////////////////////////////////////////////////////////
+// ë“€ì–¼ í´ë˜ìŠ¤ì— ê´€í•œ Packet ì •ì˜ 7501 ~ 7599
 #ifndef __NETWORK5__
 #define __NETWORK5__
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,16 +60,16 @@ struct t_char_info_tactic
 
 struct t_battle_message
 {
-	BYTE nType;   // ¸Ş¼¼ÁöÀÇ ºĞ·ù
-	BYTE nKind;   // ¸Ş¼¼ÁöÀÇ Á¾·ù
-	WORD nNumber; // ¸Ş¼¼ÁöÀÇ ¹øÈ£
+	BYTE nType;   // ë©”ì„¸ì§€ì˜ ë¶„ë¥˜
+	BYTE nKind;   // ë©”ì„¸ì§€ì˜ ì¢…ë¥˜
+	WORD nNumber; // ë©”ì„¸ì§€ì˜ ë²ˆí˜¸
 };
 
 struct t_battle_damage
 {
-	WORD    idTarget; // ´ë»óÀÚ 
-	BYTE    nKind;    // µ¥¹ÌÁö Á¾·ù
-	__int32 nDamage;  // µ¥¹ÌÁö
+	WORD    idTarget; // ëŒ€ìƒì 
+	BYTE    nKind;    // ë°ë¯¸ì§€ ì¢…ë¥˜
+	__int32 nDamage;  // ë°ë¯¸ì§€
 };
 
 union t_battle
@@ -78,7 +78,7 @@ union t_battle
 	t_battle_damage  battle_damage;
 };
 
-// ´ÜÁß°Å¸® ¹«±â·Î °ø°İ½Ã
+// ë‹¨ì¤‘ê±°ë¦¬ ë¬´ê¸°ë¡œ ê³µê²©ì‹œ
 struct t_npc_attack
 {
 	WORD idCaster;
@@ -117,7 +117,7 @@ struct t_attack_result_d
 	BYTE nResult;
 	bool bDoubleExpUp;
 };	//> CSD-040803
-// Àå°Å¸® ¹«±â·Î °ø°İ½Ã
+// ì¥ê±°ë¦¬ ë¬´ê¸°ë¡œ ê³µê²©ì‹œ
 struct t_npc_throw
 {
 	WORD idCaster;
@@ -143,9 +143,9 @@ struct t_server_throw_attack
 
 struct t_client_throw_result
 { 
-	WORD idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	__int16 nX;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	WORD idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	__int16 nX;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 	bool bWanted;
 };
 
@@ -177,10 +177,10 @@ struct t_throw_result_d
 struct t_client_effect_result
 {	//< CSD-031007
 	WORD wdEffect;
-	WORD idTarget; // ÀüÅõ½ºÅ³ ´ë»óÀÚ
-	__int16 nX;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
-	bool bWanted;  // ´ë»óÀÚÀÇ Çå»ó¹ü ¿©ºÎ
+	WORD idTarget; // ì „íˆ¬ìŠ¤í‚¬ ëŒ€ìƒì
+	__int16 nX;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
+	bool bWanted;  // ëŒ€ìƒìì˜ í—Œìƒë²” ì—¬ë¶€
 };	//> CSD-031007
 
 struct t_server_effect_result
@@ -206,109 +206,109 @@ union t_strike
 	t_server_effect_result server_effect_result;
 };	//> CSD-031007
 
-// ¸¶¹ı °ü·Ã
+// ë§ˆë²• ê´€ë ¨
 struct t_client_npc_magic
 {
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
-	WORD idCaster; // ¸¶¹ı ½ÃÀüÀÚ
-	WORD idTarget; // ¸¶¹ı ´ë»óÀÚ
-	__int16 nX;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idCaster; // ë§ˆë²• ì‹œì „ì
+	WORD idTarget; // ë§ˆë²• ëŒ€ìƒì
+	__int16 nX;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 	bool bTimeDisable;	// LTS DRAGON MODIFY
 };
 
 struct t_server_npc_magic
 {
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
-	WORD idCaster; // ¸¶¹ı ½ÃÀüÀÚ
-	WORD idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	__int16 nX;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idCaster; // ë§ˆë²• ì‹œì „ì
+	WORD idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	__int16 nX;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 	bool bFailed;
 };
 
 struct t_client_magic_select
 {	//< CSD-TW-030606
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
 };	//> CSD-TW-030606
 
 struct t_server_magic_select
 {	//< CSD-TW-030606
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
-	WORD idCaster; // ¸¶¹ı ½ÃÀüÀÚ
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idCaster; // ë§ˆë²• ì‹œì „ì
 };	//> CSD-TW-030606
 
 struct t_client_magic_casting
 {	//< CSD-TW-030606
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
 };	//> CSD-TW-030606
 
 struct t_server_magic_casting
 {	//< CSD-TW-030606
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
-	WORD wReady;   // ¸¶¹ı ÁØºñ½Ã°£
-	WORD idCaster; // ¸¶¹ı ½ÃÀüÀÚ
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD wReady;   // ë§ˆë²• ì¤€ë¹„ì‹œê°„
+	WORD idCaster; // ë§ˆë²• ì‹œì „ì
 };	//> CSD-TW-030606
 
 struct t_client_magic_execute
 {	//< CSD-TW-030606
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
-	WORD idTarget; // ¸¶¹ı ´ë»óÀÚ
-	__int16 nX;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idTarget; // ë§ˆë²• ëŒ€ìƒì
+	__int16 nX;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 };	//> CSD-TW-030606
 
 struct t_server_magic_execute 
 {	//< CSD-TW-030606
-	BYTE nMagic;   // ¸¶¹ıÀÇ ¹øÈ£
-	WORD idCaster; // ¸¶¹ı ½ÃÀüÀÚ
-	WORD idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	__int16 nX;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	BYTE nMagic;   // ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idCaster; // ë§ˆë²• ì‹œì „ì
+	WORD idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	__int16 nX;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 	bool bFailed;
 };	//> CSD-TW-030606
 
 struct t_client_magic_result
 {
-	BYTE nMagic;   // »ç¿ëµÈ ¸¶¹ıÀÇ ¹øÈ£
-	WORD idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	__int16 nX;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	BYTE nMagic;   // ì‚¬ìš©ëœ ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	__int16 nX;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 	bool bWanted; 
 };
 
 struct t_server_magic_result
 {	//< CSD-TW-030606
-	BYTE nMagic; // »ç¿ëµÈ ¸¶¹ıÀÇ ¹øÈ£
-	WORD idTarget; // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	BYTE nState; // ¸¶¹ıÀÌ Àû¿ëµÈ ÈÄ »óÅÂ
-	BYTE nResult; // ¸¶¹ı »ç¿ë °á°ú
+	BYTE nMagic; // ì‚¬ìš©ëœ ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idTarget; // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	BYTE nState; // ë§ˆë²•ì´ ì ìš©ëœ í›„ ìƒíƒœ
+	BYTE nResult; // ë§ˆë²• ì‚¬ìš© ê²°ê³¼
 };	//> CSD-TW-030606
 
 struct t_server_magic_result_t : public t_server_magic_result
 {	//< CSD-TW-030606
-	WORD wDuration; // À¯Áö½Ã°£
+	WORD wDuration; // ìœ ì§€ì‹œê°„
 };	//> CSD-TW-030606
 
 struct t_server_magic_result_h : public t_server_magic_result
 {	//< CSD-TW-030606
-	__int32 nLife; // ¸¶¹ı »ç¿ëÀ¸·Î º¯È­µÈ LifeÀÇ ·®
+	__int32 nLife; // ë§ˆë²• ì‚¬ìš©ìœ¼ë¡œ ë³€í™”ëœ Lifeì˜ ëŸ‰
 };	//> CSD-TW-030606
 
 struct t_server_magic_result_m : public t_server_magic_result
 {	//< CSD-040803
-	__int32 nLife; // ¸¶¹ı »ç¿ëÀ¸·Î º¯È­µÈ LifeÀÇ ·®
-	__int32 nMana; // ¸¶¹ı »ç¿ëÀ¸·Î º¯È­µÈ ManaÀÇ ·®
+	__int32 nLife; // ë§ˆë²• ì‚¬ìš©ìœ¼ë¡œ ë³€í™”ëœ Lifeì˜ ëŸ‰
+	__int32 nMana; // ë§ˆë²• ì‚¬ìš©ìœ¼ë¡œ ë³€í™”ëœ Manaì˜ ëŸ‰
 	bool bDoubleExpUp;
 };	//> CSD-040803
 
 struct t_magic_result_d
 {
-	BYTE nMagic;    // »ç¿ëµÈ ¸¶¹ıÀÇ ¹øÈ£
-	WORD idCaster;  // ¸¶¹ı ½ÃÀüÇÑ NPC
-	WORD idTarget;  // ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	__int16 nX;     // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;     // ¸¶¹ıÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥ 
+	BYTE nMagic;    // ì‚¬ìš©ëœ ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idCaster;  // ë§ˆë²• ì‹œì „í•œ NPC
+	WORD idTarget;  // ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	__int16 nX;     // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;     // ë§ˆë²•ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ 
 };
 
 union t_magic
@@ -329,56 +329,56 @@ union t_magic
 	t_magic_result_d       magic_result_d;
 };
 
-// ÀüÅõ½ºÅ³ °ü·Ã
+// ì „íˆ¬ìŠ¤í‚¬ ê´€ë ¨
 struct t_combat_init
 {	//< CSD-TW-030606
-	WORD idMaster; // ÀüÅõ½ºÅ³ ½ÀµæÀÚ
-	BYTE nType;    // ÀüÅõ½ºÅ³ Å¸ÀÔ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ì
+	BYTE nType;    // ì „íˆ¬ìŠ¤í‚¬ íƒ€ì…
 };	//> CSD-TW-030606
 
 struct t_client_combat_obtain
 {
-	WORD idMaster; // ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ ½ÀµæÀÚ
-	BYTE nPara;    // INV À§Ä¡
-	BYTE nPosX;    // INVÀÇ XÀÚ¸® 
-	BYTE nPosY;    // INVÀÇ YÀÚ¸®
-	BYTE nPoint;   // ÀüÅõ½ºÅ³ È¹µæ Æ÷ÀÎÅÍ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° ìŠµë“ì
+	BYTE nPara;    // INV ìœ„ì¹˜
+	BYTE nPosX;    // INVì˜ Xìë¦¬ 
+	BYTE nPosY;    // INVì˜ Yìë¦¬
+	BYTE nPoint;   // ì „íˆ¬ìŠ¤í‚¬ íšë“ í¬ì¸í„°
 };
 
 struct t_server_combat_obtain
 {
-	WORD idMaster; // ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ ½ÀµæÀÚ
-	BYTE nPara;    // INV À§Ä¡
-	BYTE nPosX;    // INVÀÇ XÀÚ¸®
-	BYTE nPosY;    // INVÀÇ YÀÚ¸®
-	BYTE nTotal;   // ÃÑ ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° ìŠµë“ì
+	BYTE nPara;    // INV ìœ„ì¹˜
+	BYTE nPosX;    // INVì˜ Xìë¦¬
+	BYTE nPosY;    // INVì˜ Yìë¦¬
+	BYTE nTotal;   // ì´ ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„°
 };
 
 struct t_client_combat_request
 {
-	WORD idMaster; // ÀüÅõ½ºÅ³ ½ÀµæÀÚ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ì
 };
 
 struct t_server_combat_request
 {
-	WORD idMaster;   // ÀüÅõ½ºÅ³ ½ÀµæÀÚ
-	BYTE nRemain;    // ³²Àº ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ
-	BYTE aLevel[36]; // ÀüÅõ½ºÅ³ Á¤º¸
+	WORD idMaster;   // ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ì
+	BYTE nRemain;    // ë‚¨ì€ ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„°
+	BYTE aLevel[36]; // ì „íˆ¬ìŠ¤í‚¬ ì •ë³´
 };
 
 struct t_client_combat_learn
 {
-	WORD idMaster; // ÀüÅõ½ºÅ³ ½ÀµæÀÚ
-	BYTE nSkill;   // ÀüÅõ½ºÅ³ ¹øÈ£
-	BYTE nPoint;   // ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ì
+	BYTE nSkill;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	BYTE nPoint;   // ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„°
 };
 
 struct t_server_combat_learn
 {
-	WORD idMaster; // ÀüÅõ½ºÅ³ ½ÀµæÀÚ
-	BYTE nSkill;   // ÀüÅõ½ºÅ³ ¹øÈ£
-	BYTE nLevel;   // ÀüÅõ½ºÅ³ ·¹º§
-	BYTE nRemain;  // ³²Àº ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ì
+	BYTE nSkill;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	BYTE nLevel;   // ì „íˆ¬ìŠ¤í‚¬ ë ˆë²¨
+	BYTE nRemain;  // ë‚¨ì€ ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„°
 };
 
 struct t_client_combat_clear
@@ -388,79 +388,79 @@ struct t_client_combat_clear
 
 struct t_server_combat_clear
 {	//< CSD-TW-030606
-	WORD idMaster; // ÀüÅõ½ºÅ³ ½ÀµæÀÚ
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ ìŠµë“ì
 	BYTE nType;
 };	//> CSD-TW-030606
 
 struct t_client_combat_select
 {	//< CSD-TW-030606
-	BYTE nCombat;   // ÀüÅõ½ºÅ³ ¹øÈ£
+	BYTE nCombat;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
 };	//> CSD-TW-030606
 
 struct t_server_combat_select
 {	//< CSD-TW-030606
-	BYTE nCombat;  // ÀüÅõ½ºÅ³ ¹øÈ£
-	WORD idMaster; // ÀüÅõ½ºÅ³ ½ÃÀüÀÚ
+	BYTE nCombat;  // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	WORD idMaster; // ì „íˆ¬ìŠ¤í‚¬ ì‹œì „ì
 };	//> CSD-TW-030606
 
 struct t_client_combat_attack
 {
-	BYTE nSkill;   // ÀüÅõ½ºÅ³ ¹øÈ£
-	WORD idTarget; // ÀüÅõ½ºÅ³ ´ë»óÀÚ
-	__int16 nX;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
+	BYTE nSkill;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	WORD idTarget; // ì „íˆ¬ìŠ¤í‚¬ ëŒ€ìƒì
+	__int16 nX;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 };
 
 struct t_server_combat_attack
 {
-	BYTE nSkill;   // ÀüÅõ½ºÅ³ ¹øÈ£
-	BYTE nLevel;   // ÀüÅõ½ºÅ³ ·¹º§
-	WORD idCaster; // ÀüÅõ½ºÅ³ ½ÃÀüÀÚ
-	WORD idTarget; // ÀüÅõ½ºÅ³ ´ë»óÀÚ
-	WORD wAmount;  // ÀüÅõ½ºÅ³ »ç¿ë °¡´É·®
-	__int16 nX;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
-	bool bFailed;  // ÀüÅõ½ºÅ³ ½ÇÆĞ¿©ºÎ
+	BYTE nSkill;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	BYTE nLevel;   // ì „íˆ¬ìŠ¤í‚¬ ë ˆë²¨
+	WORD idCaster; // ì „íˆ¬ìŠ¤í‚¬ ì‹œì „ì
+	WORD idTarget; // ì „íˆ¬ìŠ¤í‚¬ ëŒ€ìƒì
+	WORD wAmount;  // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© ê°€ëŠ¥ëŸ‰
+	__int16 nX;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
+	bool bFailed;  // ì „íˆ¬ìŠ¤í‚¬ ì‹¤íŒ¨ì—¬ë¶€
 };
 
 struct t_client_combat_result
 {
-	BYTE nSkill;   // ÀüÅõ½ºÅ³ ¹øÈ£
-	WORD idTarget; // ÀüÅõ½ºÅ³ ´ë»óÀÚ
-	__int16 nX;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ XÁÂÇ¥
-	__int16 nY;    // ÀüÅõ½ºÅ³ÀÌ ¹ß»ıµÈ À§Ä¡ÀÇ YÁÂÇ¥
-	bool bWanted;  // ´ë»óÀÚÀÇ Çå»ó¹ü ¿©ºÎ
+	BYTE nSkill;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	WORD idTarget; // ì „íˆ¬ìŠ¤í‚¬ ëŒ€ìƒì
+	__int16 nX;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	__int16 nY;    // ì „íˆ¬ìŠ¤í‚¬ì´ ë°œìƒëœ ìœ„ì¹˜ì˜ Yì¢Œí‘œ
+	bool bWanted;  // ëŒ€ìƒìì˜ í—Œìƒë²” ì—¬ë¶€
 };
 
 struct t_server_combat_result
 {
-	BYTE nSkill;   // ÀüÅõ½ºÅ³ ¹øÈ£
-	BYTE nResult;  // ÀüÅõ½ºÅ³ »ç¿ë °á°ú
-	WORD idTarget; // ÀüÅõ½ºÅ³ ´ë»óÀÚ
+	BYTE nSkill;   // ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	BYTE nResult;  // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© ê²°ê³¼
+	WORD idTarget; // ì „íˆ¬ìŠ¤í‚¬ ëŒ€ìƒì
 };
 
 struct t_server_combat_result_h : public t_server_combat_result
 {//< CSD-040803
-	BYTE nState;   // ÀüÅõ½ºÅ³ Àû¿ë »óÅÂ
-	__int32 nLife; // ÀüÅõ½ºÅ³ »ç¿ëÈÄ º¯È­µÈ LifeÀÇ ·®
-	bool bChangeAni; //¸ğ½Àº¯µ¿ÀÌ ÀÖ´Â°¡? // 030415 kyo 
+	BYTE nState;   // ì „íˆ¬ìŠ¤í‚¬ ì ìš© ìƒíƒœ
+	__int32 nLife; // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©í›„ ë³€í™”ëœ Lifeì˜ ëŸ‰
+	bool bChangeAni; //ëª¨ìŠµë³€ë™ì´ ìˆëŠ”ê°€? // 030415 kyo 
 	bool bDoubleExpUp;
 };	//> CSD-040803
 
 struct t_server_combat_result_m : public t_server_combat_result
 {
-	__int32 nMana; // ÀüÅõ½ºÅ³ »ç¿ëÈÄ º¯È­µÈ ManaÀÇ ·®
+	__int32 nMana; // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©í›„ ë³€í™”ëœ Manaì˜ ëŸ‰
 };
 
 struct t_server_combat_result_s : public t_server_combat_result
 {
-	__int32 nHungry; // ÀüÅõ½ºÅ³ »ç¿ëÈÄ º¯È­µÈ ManaÀÇ ·®
+	__int32 nHungry; // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©í›„ ë³€í™”ëœ Manaì˜ ëŸ‰
 };
 
 struct t_server_combat_result_t : public t_server_combat_result
 {
-	BYTE nState;    // ÀüÅõ½ºÅ³ Àû¿ë »óÅÂ
-	WORD wMaintain; // ÀüÅõ½ºÅ³ ¼Ó¼º À¯Áö½Ã°£
+	BYTE nState;    // ì „íˆ¬ìŠ¤í‚¬ ì ìš© ìƒíƒœ
+	WORD wMaintain; // ì „íˆ¬ìŠ¤í‚¬ ì†ì„± ìœ ì§€ì‹œê°„
 };
 
 union t_combat
@@ -486,37 +486,37 @@ union t_combat
 	t_server_combat_result_t server_combat_result_t;
 };
 
-// µà¾ó Å¬·¡½º °ü·Ã
+// ë“€ì–¼ í´ë˜ìŠ¤ ê´€ë ¨
 struct t_client_dual_enable
 {
-	WORD idMaster; // µà¾ó Å¬·¡½º ¿äÃ»ÀÚ
-	BYTE nPara;    // INV À§Ä¡
-	BYTE nPosX;    // INVÀÇ XÀÚ¸® 
-	BYTE nPosY;    // INVÀÇ YÀÚ¸®
+	WORD idMaster; // ë“€ì–¼ í´ë˜ìŠ¤ ìš”ì²­ì
+	BYTE nPara;    // INV ìœ„ì¹˜
+	BYTE nPosX;    // INVì˜ Xìë¦¬ 
+	BYTE nPosY;    // INVì˜ Yìë¦¬
 };
 
 struct t_server_dual_enable
 {
-	WORD idMaster; // µà¾ó Å¬·¡½º ¿äÃ»ÀÚ
-	BYTE nPara;    // INV À§Ä¡
-	BYTE nPosX;    // INVÀÇ XÀÚ¸®
-	BYTE nPosY;    // INVÀÇ YÀÚ¸®
+	WORD idMaster; // ë“€ì–¼ í´ë˜ìŠ¤ ìš”ì²­ì
+	BYTE nPara;    // INV ìœ„ì¹˜
+	BYTE nPosX;    // INVì˜ Xìë¦¬
+	BYTE nPosY;    // INVì˜ Yìë¦¬
 };
 
 struct t_client_dual_change
 {
-	WORD idMaster;  // µà¾ó Å¬·¡½º°¡ µÇ´Â Player
-	BYTE nPara;     // INV À§Ä¡
-	BYTE nPosX;     // INVÀÇ XÀÚ¸®
-	BYTE nPosY;     // INVÀÇ YÀÚ¸®
-	BYTE nNext;     // º¯°æÇÒ µà¾ó Å¬·¡½º
+	WORD idMaster;  // ë“€ì–¼ í´ë˜ìŠ¤ê°€ ë˜ëŠ” Player
+	BYTE nPara;     // INV ìœ„ì¹˜
+	BYTE nPosX;     // INVì˜ Xìë¦¬
+	BYTE nPosY;     // INVì˜ Yìë¦¬
+	BYTE nNext;     // ë³€ê²½í•  ë“€ì–¼ í´ë˜ìŠ¤
 };
 
 struct t_server_dual_change
 {
-	WORD  idMaster; // µà¾ó Å¬·¡½º°¡ µÇ´Â Player
-	BYTE  nDual;    // µà¾ó Å¬·¡½º
-	DWORD dwFame;   // ±¹°¡Àü fame Á¡¼ö
+	WORD  idMaster; // ë“€ì–¼ í´ë˜ìŠ¤ê°€ ë˜ëŠ” Player
+	BYTE  nDual;    // ë“€ì–¼ í´ë˜ìŠ¤
+	DWORD dwFame;   // êµ­ê°€ì „ fame ì ìˆ˜
 	WORD  wStr;     // Str
 	WORD  wCon;     // Con
 	WORD  wDex;     // Dex
@@ -528,19 +528,19 @@ struct t_server_dual_change
 	WORD  wMor;     // Mor
 	WORD  wLuck;    // Luck
 	WORD  wWsPs;    // Ws or Ps
-	WORD  wPoint;   // ³²¾ÆÀÖ´Â Ability Point °³¼ö
+	WORD  wPoint;   // ë‚¨ì•„ìˆëŠ” Ability Point ê°œìˆ˜
 };
 
 struct t_client_dual_divide
 {
-	WORD idMaster; // µà¾ó Å¬·¡½º°¡ µÇ´Â Player
-	BYTE nNext;    // ºĞ¹èÇÒ µà¾ó Å¬·¡½º
+	WORD idMaster; // ë“€ì–¼ í´ë˜ìŠ¤ê°€ ë˜ëŠ” Player
+	BYTE nNext;    // ë¶„ë°°í•  ë“€ì–¼ í´ë˜ìŠ¤
 };
 
 struct t_server_dual_divide
 {
-	WORD idMaster; // µà¾ó Å¬·¡½º°¡ µÇ´Â Player
-	BYTE nDual;    // µà¾ó Å¬·¡½º
+	WORD idMaster; // ë“€ì–¼ í´ë˜ìŠ¤ê°€ ë˜ëŠ” Player
+	BYTE nDual;    // ë“€ì–¼ í´ë˜ìŠ¤
 	WORD wStr;     // Str
 	WORD wCon;     // Con
 	WORD wDex;     // Dex
@@ -552,7 +552,7 @@ struct t_server_dual_divide
 	WORD wMor;     // Mor
 	WORD wLuck;    // Luck
 	WORD wWsPs;    // Ws or Ps
-	WORD wPoint;   // ³²¾ÆÀÖ´Â Ability Point °³¼ö
+	WORD wPoint;   // ë‚¨ì•„ìˆëŠ” Ability Point ê°œìˆ˜
 };
 
 union t_dual
@@ -613,41 +613,41 @@ union t_dual
 
 struct t_arena_enter_lobby
 {
-	int nArenaGame; // ¾Æ·¹³ª °æ±â ID
+	int nArenaGame; // ì•„ë ˆë‚˜ ê²½ê¸° ID
 };
 
 struct t_arena_enter_team
 {
-	int nArenaGame; // ¾Æ·¹³ª °æ±â ¹øÈ£
-	int nArenaTeam; // ¾Æ·¹³ª ÆÀ ¹øÈ£
+	int nArenaGame; // ì•„ë ˆë‚˜ ê²½ê¸° ë²ˆí˜¸
+	int nArenaTeam; // ì•„ë ˆë‚˜ íŒ€ ë²ˆí˜¸
 };
 
 struct t_arena_leave_team
 {
-	int nArenaGame; // ¾Æ·¹³ª °æ±â ¹øÈ£
+	int nArenaGame; // ì•„ë ˆë‚˜ ê²½ê¸° ë²ˆí˜¸
 };
 
 struct t_arena_enter_observe
 {
-	int nArenaGame; // ¾Æ·¹³ª °æ±â ¹øÈ£
-	int nArenaTeam; // ¾Æ·¹³ª ÆÀ ¹øÈ£
+	int nArenaGame; // ì•„ë ˆë‚˜ ê²½ê¸° ë²ˆí˜¸
+	int nArenaTeam; // ì•„ë ˆë‚˜ íŒ€ ë²ˆí˜¸
 };
 
 struct t_arena_leave_observe
 {
-	int nArenaGame; // ¾Æ·¹³ª °æ±â ¹øÈ£
+	int nArenaGame; // ì•„ë ˆë‚˜ ê²½ê¸° ë²ˆí˜¸
 };
 
 struct t_arena_enter_gambling
 {
-	int   nArenaGame;     // ¾Æ·¹³ª °æ±â ¹øÈ£
-	int   nArenaTeam;     // ¾Æ·¹³ª ÆÀ ¹øÈ£
-	DWORD dwBattingMoney; // ¹èÆÃ±İ¾×
+	int   nArenaGame;     // ì•„ë ˆë‚˜ ê²½ê¸° ë²ˆí˜¸
+	int   nArenaTeam;     // ì•„ë ˆë‚˜ íŒ€ ë²ˆí˜¸
+	DWORD dwBattingMoney; // ë°°íŒ…ê¸ˆì•¡
 };
 
 struct t_arena_leave_gambling
 {
-	int nArenaGame; // ¾Æ·¹³ª °æ±â ¹øÈ£
+	int nArenaGame; // ì•„ë ˆë‚˜ ê²½ê¸° ë²ˆí˜¸
 };
 
 struct t_arena_add_lobby
@@ -703,27 +703,27 @@ struct t_arena_leader_info
 
 struct t_arena_game_info
 {	//< CSD-TW-030701
-	WORD wPort;		   // ±× ¸ÊÀÇ Æ÷Æ® ¹øÈ£
-	WORD wMemberCount; // ÇöÀç ÀÎ¿ø
-	char szLeader[20]; // ¹æÀå
+	WORD wPort;		   // ê·¸ ë§µì˜ í¬íŠ¸ ë²ˆí˜¸
+	WORD wMemberCount; // í˜„ì¬ ì¸ì›
+	char szLeader[20]; // ë°©ì¥
 };	//> CSD-TW-030701
 
 struct t_arena_probability_info
 {
-	int   nArenaTeam;   // ¾Æ·¹³ª ÆÀ ¹øÈ£
-	float fProbability; // ¾Æ·¹³ª ÆÀ ½Â·ü
+	int   nArenaTeam;   // ì•„ë ˆë‚˜ íŒ€ ë²ˆí˜¸
+	float fProbability; // ì•„ë ˆë‚˜ íŒ€ ìŠ¹ë¥ 
 };
 
 struct t_arena_gambling_info
 {
-	int nArenaTeam;     // ¾Æ·¹³ª ÆÀ ¹øÈ£
-	DWORD dwBattingMoney; // ¾Æ·¹³ª ÆÀ¿¡ °É·Á ÀÖ´Â ¹èÆÃ±İ¾×
+	int nArenaTeam;     // ì•„ë ˆë‚˜ íŒ€ ë²ˆí˜¸
+	DWORD dwBattingMoney; // ì•„ë ˆë‚˜ íŒ€ì— ê±¸ë ¤ ìˆëŠ” ë°°íŒ…ê¸ˆì•¡
 };
 
 struct t_arena_dividend_info
 {
-	DWORD dwBattingMoney;  // ¹èÆÃ±İ
-	DWORD dwDividendMoney; // ¹è´ç±İ
+	DWORD dwBattingMoney;  // ë°°íŒ…ê¸ˆ
+	DWORD dwDividendMoney; // ë°°ë‹¹ê¸ˆ
 };
 
 struct t_arena_ready_info
@@ -733,7 +733,7 @@ struct t_arena_ready_info
 
 struct t_arena_ready_game
 {
-	DWORD dwDelay; // Áö¿¬½Ã°£
+	DWORD dwDelay; // ì§€ì—°ì‹œê°„
 };
 
 struct t_arena_start_game

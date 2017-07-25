@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "CItem.h"
 #include "OP_Magic.h"
@@ -9,10 +9,10 @@ extern void getItemIndex(int, int &, int &) ;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//	¾ÆÀÌÅÛ ¹øÈ£¿Í Å¸ÀÔÀÌ Çã¿ëµÈ °ªÀ» ³Ñ¾ú´ÂÁö¸¦ ÆÇ´ÜÇÏ´Â ÇÔ¼ö
+//	ì•„ì´í…œ ë²ˆí˜¸ì™€ íƒ€ì…ì´ í—ˆìš©ëœ ê°’ì„ ë„˜ì—ˆëŠ”ì§€ë¥¼ íŒë‹¨í•˜ëŠ” í•¨ìˆ˜
 //
-//		ÆÄ¶ó¸ŞÅÍ´Â Å¸ÀÔ°ú ¹øÈ£¸¦ ÀÔ·Â ¹Ş°í
-//		Æ÷ÀÎÅÍ·Î ¸®ÅÏÇÑ´Ù.	Àß ¸ø µÆÀ» °æ¿ì NULL¸®ÅÏ
+//		íŒŒë¼ë©”í„°ëŠ” íƒ€ì…ê³¼ ë²ˆí˜¸ë¥¼ ì…ë ¥ ë°›ê³ 
+//		í¬ì¸í„°ë¡œ ë¦¬í„´í•œë‹¤.	ì˜ ëª» ëì„ ê²½ìš° NULLë¦¬í„´
 //
 ////////////////////////////////////////////////////////////////////////////////
 CItem *ItemUnit( ItemAttr item )
@@ -88,7 +88,7 @@ ItemAttr GenerateItem( const int iItemFullNo )
 int DeleteItem( ItemAttr *item )
 {
 	int type, num;
-	if( !item ) return 0;		// NULLÀÏ °æ¿ì 
+	if( !item ) return 0;		// NULLì¼ ê²½ìš° 
 	getItemIndex( item->item_no, type, num );
 
 	CItem *t = ItemUnit( type, num );
@@ -152,7 +152,7 @@ int GetTotalItemWeight( CHARLIST *ch )
 
 
 /////////////////////////////////////////////////
-// ÀåÂø ÀÌ¹ÌÁö¸¦ °¡Á®¿Â´Ù
+// ì¥ì°© ì´ë¯¸ì§€ë¥¼ ê°€ì ¸ì˜¨ë‹¤
 /////////////////////////////////////////////////
 int GetItemView( int item_no, int is_man )
 {
@@ -198,7 +198,7 @@ DWORD GetMoneyByItem( CHARLIST *ch )
 	return (LocalMgr.IsChangeMoney())?GetNewMoneyByItem(ch):GetMoneyByOldItem(ch);
 }
 
-DWORD GetNewMoneyByItem( CHARLIST *ch )		// ÀÎº¥¿¡ ÀÖ´Â µ·¸¸
+DWORD GetNewMoneyByItem( CHARLIST *ch )		// ì¸ë²¤ì— ìˆëŠ” ëˆë§Œ
 {
 	DWORD money=0;
 
@@ -218,11 +218,11 @@ DWORD GetNewMoneyByItem( CHARLIST *ch )		// ÀÎº¥¿¡ ÀÖ´Â µ·¸¸
 					t = ItemUnit( type, num );
 					if( t->GetItemKind() == IK_NEW_MONEY )
 					{
-						if( item.item_no == IN_NEW_COIN && item.attr[IATTR_MUCH] > 5)	// µ¿Àü
+						if( item.item_no == IN_NEW_COIN && item.attr[IATTR_MUCH] > 5)	// ë™ì „
 						{
-							item.item_no = IN_NEW_COINS;		// µ· ´õ¹Ì·Î ¹Ù²Ş
+							item.item_no = IN_NEW_COINS;		// ëˆ ë”ë¯¸ë¡œ ë°”ê¿ˆ
 						}
-						else if( item.item_no == IN_NEW_COINS && item.attr[IATTR_MUCH] <= 5 ) // µ¿Àü ´õ¹Ì
+						else if( item.item_no == IN_NEW_COINS && item.attr[IATTR_MUCH] <= 5 ) // ë™ì „ ë”ë¯¸
 						{
 							item.item_no = IN_NEW_COIN;
 						}
@@ -254,11 +254,11 @@ DWORD GetMoneyByOldItem( CHARLIST *ch )
 					t = ItemUnit( type, num );
 					if( t->GetItemKind() == IK_MONEY )
 					{
-						if( item.item_no == IN_COIN && item.attr[IATTR_MUCH] > 5)	// µ¿Àü
+						if( item.item_no == IN_COIN && item.attr[IATTR_MUCH] > 5)	// ë™ì „
 						{
-							item.item_no = IN_COINS;		// µ· ´õ¹Ì·Î ¹Ù²Ş
+							item.item_no = IN_COINS;		// ëˆ ë”ë¯¸ë¡œ ë°”ê¿ˆ
 						}
-						else if( item.item_no == IN_COINS && item.attr[IATTR_MUCH] <= 5 ) // µ¿Àü ´õ¹Ì
+						else if( item.item_no == IN_COINS && item.attr[IATTR_MUCH] <= 5 ) // ë™ì „ ë”ë¯¸
 						{
 							item.item_no = IN_COIN;
 						}
@@ -271,13 +271,13 @@ DWORD GetMoneyByOldItem( CHARLIST *ch )
 }
 
 /////////////////////////////////////////////////////////////////////////
-//	Ä³¸¯ÅÍ°¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ ¸ã¿¡ ¶³±¸±â
+//	ìºë¦­í„°ê°€ ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œ ë©¥ì— ë–¨êµ¬ê¸°
 ///////////////////////////////////////////////////////////////////////
 int DropItem( int x, int y, ItemAttr *item )
 {
-	//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷	¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛÀº ¸Ê¿¡ ¶³¾î¶ß¸®Áö ¸øÇÑ´Ù.
+	//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…	ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œì€ ë§µì— ë–¨ì–´ëœ¨ë¦¬ì§€ ëª»í•œë‹¤.
 	if (GetAttr2( item->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM)) { return 0; }
-	//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 	return AddItemList( item->item_no, item->attr, 0, x, y, 0, 0 );
 }
@@ -285,7 +285,7 @@ int DropItem( int x, int y, ItemAttr *item )
 
 /////////////////////////////////////////////////////////////////////
 //
-// µ· ¾ÆÀÌÅÛ¿¡ °ü·ÃÇÑ ¸Ş¼Òµåµé ( µ· »©°í ´õÇÏ±â ÇÔ¼ö )
+// ëˆ ì•„ì´í…œì— ê´€ë ¨í•œ ë©”ì†Œë“œë“¤ ( ëˆ ë¹¼ê³  ë”í•˜ê¸° í•¨ìˆ˜ )
 //
 ////////////////////////////////////////////////////////////////////
 
@@ -298,7 +298,7 @@ int SubtractOldMoney( DWORD money, CHARLIST *ch )
 
 	int a, b, c;
 	ItemAttr *item = SearchItemOfInvByKind( IK_MONEY, ch, a, b, c );
-	if( !item ) return -1;		// µ· ¾ÆÀÌÅÛÀÌ ÇÏ³ªµµ ¾øÀ½. -->SCharacterData.nMoney = 0;		==> ¹®Á¦ ÀÖÀ½...
+	if( !item ) return -1;		// ëˆ ì•„ì´í…œì´ í•˜ë‚˜ë„ ì—†ìŒ. -->SCharacterData.nMoney = 0;		==> ë¬¸ì œ ìˆìŒ...
 
 	POS pos;
 	SetItemPos( INV, a, b, c, &pos);
@@ -325,7 +325,7 @@ int SubtractMoney( DWORD money, CHARLIST *ch, int type )
 	CHARLIST *check_ch = CheckServerId( ch->GetServerID());
 	if( check_ch != ch ) return -1;
 
-	if(ch->Money < money ) return -1;	// µ·ÀÌ ºÎÁ·ÇÔ
+	if(ch->Money < money ) return -1;	// ëˆì´ ë¶€ì¡±í•¨
 	if( !money ) return 1;
 
 	int a = 0, b = 0, c = 0;
@@ -338,7 +338,7 @@ int SubtractMoney( DWORD money, CHARLIST *ch, int type )
 	{
 		item = SearchItemOfInvByKind( IK_MONEY, ch, a, b, c );
 	}
-	if( !item ) return -1;		// µ· ¾ÆÀÌÅÛÀÌ ÇÏ³ªµµ ¾øÀ½. -->SCharacterData.nMoney = 0;		==> ¹®Á¦ ÀÖÀ½...
+	if( !item ) return -1;		// ëˆ ì•„ì´í…œì´ í•˜ë‚˜ë„ ì—†ìŒ. -->SCharacterData.nMoney = 0;		==> ë¬¸ì œ ìˆìŒ...
 
 	POS pos;
 	SetItemPos( INV, a, b, c, &pos);
@@ -359,8 +359,8 @@ int SubtractMoney( DWORD money, CHARLIST *ch, int type )
 }
 int SubtractMoney( DWORD money, CHARLIST *ch )
 {
-	int ret = SubtractMoney( money, ch, 1 );	// Àç±Í È£ÃâÀ» ¸ğµÎ ³¡³»°í
-	ch->Money = GetMoneyByItem( ch );			// µ· °è»êÀº ÇÑ¹ø¸¸ ÇÑ´Ù.
+	int ret = SubtractMoney( money, ch, 1 );	// ì¬ê·€ í˜¸ì¶œì„ ëª¨ë‘ ëë‚´ê³ 
+	ch->Money = GetMoneyByItem( ch );			// ëˆ ê³„ì‚°ì€ í•œë²ˆë§Œ í•œë‹¤.
 	return ret;
 }
 
@@ -453,7 +453,7 @@ int IsEqualPosByPos( POS first, POS second )
 	return 1;
 }
 
-void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
+void CheckItem( short int cn ) // ì˜ëª»ëœ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€
 {	//021126 lsw
 	CHARLIST *ch = CheckServerId(cn);
 	if( !ch ) {return;}
@@ -468,7 +468,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 		ItemAttr *pItem = &ch->inv[a][b][c];
 		if(pItem->item_no)
 		{
-			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 µî±Ş ÀÌ»óÀÇ ·¹¾î ¹× ÀÌ»óÇÑ ¾ÆÀÌÅÛ Áö¿ò 
+			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 ë“±ê¸‰ ì´ìƒì˜ ë ˆì–´ ë° ì´ìƒí•œ ì•„ì´í…œ ì§€ì›€ 
 			{	
 				::SetItemPos( INV, a, b, c, &pos );
 				::SendServerEachItem( &pos, pItem, cn );
@@ -482,7 +482,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 		ItemAttr *pItem = &ch->equip[a];
 		if(pItem->item_no)
 		{
-			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 µî±Ş ÀÌ»óÀÇ ·¹¾î ¹× ÀÌ»óÇÑ ¾ÆÀÌÅÛ Áö¿ò 
+			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 ë“±ê¸‰ ì´ìƒì˜ ë ˆì–´ ë° ì´ìƒí•œ ì•„ì´í…œ ì§€ì›€ 
 			{
 				::SetItemPos( EQUIP, a, &pos );
 				::SendServerEachItem( &pos, pItem, cn );
@@ -496,7 +496,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 		ItemAttr *pItem = &ch->quick[a];
 		if(pItem->item_no)
 		{
-			//soto-030513 Äü 5¹øÀº ½Éº¼ ¾ÆÀÌÅÛÀÌ´Ù.
+			//soto-030513 í€µ 5ë²ˆì€ ì‹¬ë³¼ ì•„ì´í…œì´ë‹¤.
 			if( a >= 5)
 			{
 				::SetItemPos( QUICK, a, &pos );
@@ -504,7 +504,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 				::SendItemEventLog( pItem, cn, 0, SILT_DELETE_BY_ATTR, 1 ); //YGI acer
 			}
 			else
-			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 µî±Ş ÀÌ»óÀÇ ·¹¾î ¹× ÀÌ»óÇÑ ¾ÆÀÌÅÛ Áö¿ò 
+			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 ë“±ê¸‰ ì´ìƒì˜ ë ˆì–´ ë° ì´ìƒí•œ ì•„ì´í…œ ì§€ì›€ 
 			{
 				::SetItemPos( QUICK, a, &pos );
 				::SendServerEachItem( &pos, pItem, cn );
@@ -520,7 +520,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 		ItemAttr *pItem = &ch->bank[a][b][c];
 		if(pItem->item_no)
 		{
-			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 µî±Ş ÀÌ»óÀÇ ·¹¾î ¹× ÀÌ»óÇÑ ¾ÆÀÌÅÛ Áö¿ò 
+			if(!ItemMgr.CheckFaultItem(*pItem,true))//020116 LSW// 10 ë“±ê¸‰ ì´ìƒì˜ ë ˆì–´ ë° ì´ìƒí•œ ì•„ì´í…œ ì§€ì›€ 
 			{
 				::SetItemPos( BANK, a, b, c, &pos );
 				::SendServerEachItem( &pos, pItem, cn );
@@ -533,7 +533,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 }
 
 // 020428 YGI acer
-int BreakItemByDuration( ItemAttr *pItem, CHARLIST *ch, POS pos )		// ³»±¸µµ°¡ Á¦·Î ÀÏ¶§ ¾ÆÀÌÅÛÀ» ºÎ½Å´Ù.
+int BreakItemByDuration( ItemAttr *pItem, CHARLIST *ch, POS pos )		// ë‚´êµ¬ë„ê°€ ì œë¡œ ì¼ë•Œ ì•„ì´í…œì„ ë¶€ì‹ ë‹¤.
 {
 	SendItemEventLog( pItem, ch->GetServerID(), SN_NOT_USER, SILT_DELETE_BY_DURATION, 2 ); //YGI acer
 	SendDeleteItem( pItem, &pos, ch, 1 );
@@ -542,44 +542,44 @@ int BreakItemByDuration( ItemAttr *pItem, CHARLIST *ch, POS pos )		// ³»±¸µµ°¡ Á
 	return 1;
 }
 
-int CheckAutoDivideMoney( ItemAttr *item, const short int cn )		// 100000À» ³ÑÀº ¾ÆÀÌÅÛ Ã³¸®
+int CheckAutoDivideMoney( ItemAttr *item, const short int cn )		// 100000ì„ ë„˜ì€ ì•„ì´í…œ ì²˜ë¦¬
 {//021126 lsw
 	CItem *t = ItemUnit( *item );
 	if( !t ) {return 0 ;}
 
 	if( t->GetItemKind() != IK_MONEY 
-	&&	t->GetItemKind() != IK_NEW_MONEY ) {return 0;}		// µ·ÀÏ °æ¿ì¸¸
+	&&	t->GetItemKind() != IK_NEW_MONEY ) {return 0;}		// ëˆì¼ ê²½ìš°ë§Œ
 	CHARLIST *ch = ::CheckServerId( cn );
 	if( !ch ) {return 0;}
 
-	if( item->attr[IATTR_DURATION] > MAX_MONEY ) //100¸¸¿ø ³Ñ¾î°¡³×
-	{//°¡¸¦ ¾ÆÀÌÅÛÀÌ 100¸¸¿øÀ» ³Ñ´Â´Ù
+	if( item->attr[IATTR_DURATION] > MAX_MONEY ) //100ë§Œì› ë„˜ì–´ê°€ë„¤
+	{//ê°€ë¥¼ ì•„ì´í…œì´ 100ë§Œì›ì„ ë„˜ëŠ”ë‹¤
 		int a=0, b=0, c=0;
-		if( !::SearchMoneyItem( ch->inv, a, b, c ) )//ºó°ø°£ÀÌ³ª µ·ÀÌ ¾ø³×
-		{//ºó°ø°£ÀÌ³ª µ·ÀÌ ¾ø³×
-			ItemAttr temp_item = *item;//µ·¾ÆÀÌÅÛÀ» temp¿¡ ´ëÀÔ 
-			item->attr[IATTR_MUCH]		= MAX_MONEY;//100¸¸¿øÀ¸·Î ¸¸µé¾î ÁÖ°í
-			temp_item.attr[IATTR_MUCH] -= MAX_MONEY;//100¸¸¿ø º¸´Ù Å©´Ï±î 100¸¸¿øÀ» »©´õ¶óµµ -°ªÀº ¾ÈµÈ´Ù
+		if( !::SearchMoneyItem( ch->inv, a, b, c ) )//ë¹ˆê³µê°„ì´ë‚˜ ëˆì´ ì—†ë„¤
+		{//ë¹ˆê³µê°„ì´ë‚˜ ëˆì´ ì—†ë„¤
+			ItemAttr temp_item = *item;//ëˆì•„ì´í…œì„ tempì— ëŒ€ì… 
+			item->attr[IATTR_MUCH]		= MAX_MONEY;//100ë§Œì›ìœ¼ë¡œ ë§Œë“¤ì–´ ì£¼ê³ 
+			temp_item.attr[IATTR_MUCH] -= MAX_MONEY;//100ë§Œì› ë³´ë‹¤ í¬ë‹ˆê¹Œ 100ë§Œì›ì„ ë¹¼ë”ë¼ë„ -ê°’ì€ ì•ˆëœë‹¤
 			::SendItemEventLog( &temp_item , cn, cn, SILT_PUT_GROUND_MAX_INVEN, 1 );
-			::DropItem( ch->X, ch->Y, &temp_item );//¹æ±İÀü °Í¿¡¼­ 100¸¸¿ø »« µ·À» ¹Ù´Ú¿¡ Èê¸°´Ù
-		}//if( !::SearchMoneyItem( ch->inv, a, b, c ) )//ºó°ø°£ÀÌ³ª µ·ÀÌ ¾ø³×
+			::DropItem( ch->X, ch->Y, &temp_item );//ë°©ê¸ˆì „ ê²ƒì—ì„œ 100ë§Œì› ëº€ ëˆì„ ë°”ë‹¥ì— í˜ë¦°ë‹¤
+		}//if( !::SearchMoneyItem( ch->inv, a, b, c ) )//ë¹ˆê³µê°„ì´ë‚˜ ëˆì´ ì—†ë„¤
 		else
-		{//ºó°ø°£ÀÌ³ª µ·ÀÌ ÀÖ³×
+		{//ë¹ˆê³µê°„ì´ë‚˜ ëˆì´ ìˆë„¤
 			ItemAttr *new_item = &ch->inv[a][b][c];
 			if( new_item->item_no )
-			{//±×°Ô µ·ÀÌ¶ó¸é SearchMoneyItem¿¡ ÀÇÇØ µ·¹øÈ£¸¸ ¸®ÅÏ µÈ´Ù
-				new_item->attr[IATTR_MUCH] += (item->attr[IATTR_MUCH] - MAX_MONEY);//100¸¸¿ø ³Ñ±â ¶§¹®¿¡ 100¸¸¿øÀ» ³ÑÀº ¿©ºĞÀÇ µ·À» ´õÇÑ´Ù
+			{//ê·¸ê²Œ ëˆì´ë¼ë©´ SearchMoneyItemì— ì˜í•´ ëˆë²ˆí˜¸ë§Œ ë¦¬í„´ ëœë‹¤
+				new_item->attr[IATTR_MUCH] += (item->attr[IATTR_MUCH] - MAX_MONEY);//100ë§Œì› ë„˜ê¸° ë•Œë¬¸ì— 100ë§Œì›ì„ ë„˜ì€ ì—¬ë¶„ì˜ ëˆì„ ë”í•œë‹¤
 			}
 			else
-			{//ºóÄ­ ÀÌ¶ó¸é
+			{//ë¹ˆì¹¸ ì´ë¼ë©´
 				*new_item = *item;
-				new_item->attr[IATTR_MUCH] = (item->attr[IATTR_MUCH] - MAX_MONEY);//100¸¸¿ø ¿©ºĞÀ» ÀÎº¥¿¡ ³Ö´Â´Ù
+				new_item->attr[IATTR_MUCH] = (item->attr[IATTR_MUCH] - MAX_MONEY);//100ë§Œì› ì—¬ë¶„ì„ ì¸ë²¤ì— ë„£ëŠ”ë‹¤
 			}
 
 			item->attr[IATTR_MUCH] = MAX_MONEY;
-			::SendServerEachItem( item, ch );//°á°ú¹°ÀÇ º¯È­¸¦ Å¬¶óÀÌ¾ğÆ®·Î ³¯·ÁÁØ´Ù
+			::SendServerEachItem( item, ch );//ê²°ê³¼ë¬¼ì˜ ë³€í™”ë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ë‚ ë ¤ì¤€ë‹¤
 			if( new_item->attr[IATTR_MUCH] > MAX_MONEY ) 
-			{//ÁÖ°í³­ ¾ÆÀÌÅÛÀÌ 100¸¸ ³ÑÀ¸¸é ³ª´²Áú¶§ ±îÁö °è¼Ó ³ª´«´Ù
+			{//ì£¼ê³ ë‚œ ì•„ì´í…œì´ 100ë§Œ ë„˜ìœ¼ë©´ ë‚˜ëˆ ì§ˆë•Œ ê¹Œì§€ ê³„ì† ë‚˜ëˆˆë‹¤
 				::CheckAutoDivideMoney( new_item, cn );
 			}
 			POS pos = {0,};
@@ -587,16 +587,16 @@ int CheckAutoDivideMoney( ItemAttr *item, const short int cn )		// 100000À» ³ÑÀº
 			::SendServerEachItem( &pos, new_item, cn );
 			return 1;
 		}
-	}//if( item->attr[IATTR_DURATION] > MAX_MONEY ) //100¸¸¿ø ³Ñ¾î°¡³×
-	else//100¸¸¿ø ¾È³Ñ³×.. ³ª´­ ÇÊ¿ä°¡ ¾ø´Ù
+	}//if( item->attr[IATTR_DURATION] > MAX_MONEY ) //100ë§Œì› ë„˜ì–´ê°€ë„¤
+	else//100ë§Œì› ì•ˆë„˜ë„¤.. ë‚˜ëˆŒ í•„ìš”ê°€ ì—†ë‹¤
 	{
 		return 2;
 	}
 	return 0;
 }
 
-////////////////////// ±× ¾ÆÀÌÅÛ ±× À§Ä¡¿¡ Á¤¸»·Î Á¸ÀçÇÏ´Â °¡? ////////////////////
-bool ExistItem( short int cn, ItemAttr item, POS pos )		// Á¤¸» Á¸ÀçÇÏ´Â °¡?
+////////////////////// ê·¸ ì•„ì´í…œ ê·¸ ìœ„ì¹˜ì— ì •ë§ë¡œ ì¡´ì¬í•˜ëŠ” ê°€? ////////////////////
+bool ExistItem( short int cn, ItemAttr item, POS pos )		// ì •ë§ ì¡´ì¬í•˜ëŠ” ê°€?
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return false;
@@ -609,7 +609,7 @@ bool ExistItem( short int cn, ItemAttr item, POS pos )		// Á¤¸» Á¸ÀçÇÏ´Â °¡?
 	return false;
 }
 
-////////////////////////// ¾ÆÀÌÅÛ ¹«°Ô¿¡ ÀÇÇÑ movp //////////////////////
+////////////////////////// ì•„ì´í…œ ë¬´ê²Œì— ì˜í•œ movp //////////////////////
 int CalcMovpByItem( CHARLIST *ch, int movp )
 {
 	return movp;
@@ -627,7 +627,7 @@ int CalcMovpByItem( CHARLIST *ch, int movp )
 	return result;
 }
 
-void CheckEquipItem( CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ÀÌµ¿ÇßÀ»¶§
+void CheckEquipItem( CHARLIST *ch )		// ì•„ì´í…œì„ ì´ë™í–ˆì„ë•Œ
 {
 	for( int c=0; c<8; c++ )
 	{
@@ -654,7 +654,7 @@ void CheckEquipItem( CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ÀÌµ¿ÇßÀ»¶§
 			if( t->is_equipable( ch->GetServerID(), &cstatus, source, dest ) == NOT )
 			{
 				MoveEmptyInv( item, ch );
-				SendServerEachItem( &dest, item, ch->GetServerID()); // ¾ø¾îÁø »ç½ÇÀ» Å¬¶óÀÌ¾ğÆ®¿¡ ¾Ë¸°´Ù.
+				SendServerEachItem( &dest, item, ch->GetServerID()); // ì—†ì–´ì§„ ì‚¬ì‹¤ì„ í´ë¼ì´ì–¸íŠ¸ì— ì•Œë¦°ë‹¤.
 				t->ReleaseItem( ch );
 				continue;
 			}
@@ -663,7 +663,7 @@ void CheckEquipItem( CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ÀÌµ¿ÇßÀ»¶§
 }
 
 //////////////////////////////////////////////////////////////////////
-//		¾ÆÀÌÅÛ ÀåÂø¿¡ ÀÇÇÑ hp, mana º¸Á¤
+//		ì•„ì´í…œ ì¥ì°©ì— ì˜í•œ hp, mana ë³´ì •
 void ChangePlusHp( CHARLIST *ch, int hp_max_plus, int mp_max_plus )
 {
 	ch->HpMax	+=	hp_max_plus;
@@ -699,7 +699,7 @@ int CItem_Etc::PlusHp(CHARLIST *ch)
 }
 ////////////////////////////////////////////////////////////////////////
 
-// Æ¯Á¤ ¾ÆÀÌÅÛ°ú ³»°¡ °¡Áø ¾ÆÀÌÅÛÀÇ °¹¼öÀÇ Â÷¸¦ ¸®ÅÏ
+// íŠ¹ì • ì•„ì´í…œê³¼ ë‚´ê°€ ê°€ì§„ ì•„ì´í…œì˜ ê°¯ìˆ˜ì˜ ì°¨ë¥¼ ë¦¬í„´
 int CheckInventory( CHARLIST *ch, int item, int count )
 {
 	int ct = 0;
@@ -718,7 +718,7 @@ int CheckInventory( CHARLIST *ch, int item, int count )
 	return ct - count;
 }
 
-// Æ¯Á¤ ¾ÆÀÌÅÛÀ» ¿øÇÏ´Â °¹¼ö¸¸Å­ Áö¿î´Ù.
+// íŠ¹ì • ì•„ì´í…œì„ ì›í•˜ëŠ” ê°¯ìˆ˜ë§Œí¼ ì§€ìš´ë‹¤.
 int SendDeleteMuchItemQuantity( CHARLIST *ch, int item, int count )
 {
 	if( !count ) return 1;
@@ -737,7 +737,7 @@ int SendDeleteMuchItemQuantity( CHARLIST *ch, int item, int count )
 						lpItem->attr[IATTR_MUCH] -= count;
 						POS pos;
 						SetItemPos( INV, a, b, c, &pos );
-						// °ªÀÌ °¨¼Ò µÆÀ½À» º¸³»ÁØ´Ù.
+						// ê°’ì´ ê°ì†Œ ëìŒì„ ë³´ë‚´ì¤€ë‹¤.
 						SendChangeDurationByKein( &pos, lpItem->attr[IATTR_MUCH], ch->GetServerID());
 						return 1;
 					}
@@ -764,7 +764,7 @@ int SendDeleteMuchItemQuantity( CHARLIST *ch, int item, int count )
 	return 0;
 }
 
-// Æ¯Á¤ ¾ÆÀÌÅÛÀ» ¿øÇÏ´Â °¹¼ö¸¸Å­ Áö¿î´Ù.
+// íŠ¹ì • ì•„ì´í…œì„ ì›í•˜ëŠ” ê°¯ìˆ˜ë§Œí¼ ì§€ìš´ë‹¤.
 int SendDeleteItemQuantity( CHARLIST *ch, int item, int count )
 {
 	if( !count ) return 1;

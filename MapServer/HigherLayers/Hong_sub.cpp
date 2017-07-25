@@ -1,4 +1,4 @@
-#define __HONG_SUB_H__
+ï»¿#define __HONG_SUB_H__
 
 #include "Hong_Sub.h"
 #include "..\stdafx.h"
@@ -15,12 +15,12 @@ bool BoxAndDotCrash(int dx, int dy, int dxl, int dyl, int x, int y)
 static int IMemUseCount;
 static DWORD ITotalUseMemory;
 
-/*¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-ÇÔ¼ö¸í : void FreeMem( char **buf )
-¼³  ¸í : *bufÀÇ °ªÀÌ NULLÀÌ ¾Æ´Ñ°æ¿ì¿¡¸¸ freeÇÑ´Ù.
-ÀÎ  ÀÚ :
-¸®  ÅÏ :
-¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡*/
+/*â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+í•¨ìˆ˜ëª… : void FreeMem( char **buf )
+ì„¤  ëª… : *bufì˜ ê°’ì´ NULLì´ ì•„ë‹Œê²½ìš°ì—ë§Œ freeí•œë‹¤.
+ì¸  ì :
+ë¦¬  í„´ :
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€*/
 void MemFree_Sub( char **buf, char *file, int line  )
 {
 	if( *buf == NULL ) return; 
@@ -33,18 +33,18 @@ void MemFree_Sub( char **buf, char *file, int line  )
 
 
 
-/*¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
-ÇÔ¼ö¸í : void __Alloc( char **s, int size, const char *file, int line )
-¼³  ¸í :
-ÀÎ  ÀÚ :
-¸®  ÅÏ :
-¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡*/
+/*â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+í•¨ìˆ˜ëª… : void __Alloc( char **s, int size, const char *file, int line )
+ì„¤  ëª… :
+ì¸  ì :
+ë¦¬  í„´ :
+â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€*/
 void __Alloc( char **s, int size, const char *file, int line )
 {	
 	if( *s )	
 	{
-		//Error( "*s ¿¡ ¹º°¡°¡ ÀÖ´Ù. " );
-		MessageBox( NULL, "*s ¿¡ ¹º°¡°¡ ÀÖ´Ù. ", "¿¡·¯", MB_OK );
+		//Error( "*s ì— ë­”ê°€ê°€ ìˆë‹¤. " );
+		MessageBox( NULL, "*s ì— ë­”ê°€ê°€ ìˆë‹¤. ", "ì—ëŸ¬", MB_OK );
 	}
 	
     *s = (char *)GlobalAlloc( GMEM_FIXED, size );
@@ -55,7 +55,7 @@ void __Alloc( char **s, int size, const char *file, int line )
 	{
 		char temp[ FILENAME_MAX];
 		sprintf( temp, "%s FILE %d LINE --> %d size alloc error.\n", file, line, size );
-		MessageBox( NULL, temp, "¿¡·¯", MB_OK );
+		MessageBox( NULL, temp, "ì—ëŸ¬", MB_OK );
 		exit(0);
 	}
 	memset( *s, 0, size );

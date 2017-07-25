@@ -1,4 +1,4 @@
-// -------------------------------
+ï»¿// -------------------------------
 // New RAJA Server Table
 //
 // Rewrote By chan78 at 2000/12/27
@@ -85,8 +85,8 @@ enum CONNECT_TYPE
 	CONNECT_TYPE_BY_PROXY_ORDER			= 3
 };
 
-#define CONNECTION_CHECK_INTERVAL			60000// 1ºĞ (mil-sec ´ÜÀ§)
-#define SERVER_CONNECTION_TIME_OUT			CONNECTION_CHECK_INTERVAL+30000		// 30ÃÊ (mil-sec ´ÜÀ§)
+#define CONNECTION_CHECK_INTERVAL			60000// 1ë¶„ (mil-sec ë‹¨ìœ„)
+#define SERVER_CONNECTION_TIME_OUT			CONNECTION_CHECK_INTERVAL+30000		// 30ì´ˆ (mil-sec ë‹¨ìœ„)
 #define NUM_OF_SERVER_TYPES					4
 #define NUM_OF_SERVER_STATUS				15	//Modified by KBS 020120
 
@@ -180,7 +180,7 @@ typedef struct server_data
 
 } SERVER_DATA, *LP_SERVER_DATA;
 
-// ÇÑ ÁıÇÕÀÇ Á¢¼Ó½Ãµµ °á°ú¸¦ Ã¼Å©ÇÏ´Âµ¥ ¾²ÀÎ´Ù.
+// í•œ ì§‘í•©ì˜ ì ‘ì†ì‹œë„ ê²°ê³¼ë¥¼ ì²´í¬í•˜ëŠ”ë° ì“°ì¸ë‹¤.
 typedef struct awaiting_connection_result_data
 {
 	DWORD					dwConnectionType;
@@ -207,29 +207,29 @@ public:	//
 	DWORD					m_dwMaxUserNumPerSec;
 	DWORD					m_dwNumOfUsersInServerSet;					
 	
-	WORD					m_wMaxBucketNum;							// Hashing ¿ë Bucket
+	WORD					m_wMaxBucketNum;							// Hashing ìš© Bucket
 
 	bool					m_bIsServerRunning;							// Is Server Running
 
-	char					m_szNewMsg[MM_MAX_PACKET_SIZE];				// ÆĞÅ¶ Build¿ë ¹öÆÛ.
+	char					m_szNewMsg[MM_MAX_PACKET_SIZE];				// íŒ¨í‚· Buildìš© ë²„í¼.
 
-	DWORD					m_dwServerSetNumber;						// ¼¼Æ®.
+	DWORD					m_dwServerSetNumber;						// ì„¸íŠ¸.
 
-	DWORD					m_dwNumOfServerConnections;					// Serverside connections ¼ö.
-	DWORD					m_dwNumOfServers;							// ÀüÃ¼ Server ÀÇ ¼ö.
-	DWORD					m_dwNumOfTypedServers[NUM_OF_SERVER_TYPES];	// Server Type º° Server ¼ö.
-	DWORD					m_dwNumOfConnectedServers;					// Á¤»óÀÛµ¿ÁßÀÎ ServerÀÇ ¼ö.
-	DWORD					m_dwNumOfUsers;								// »ç¿ëÀÚ ¼ö.
+	DWORD					m_dwNumOfServerConnections;					// Serverside connections ìˆ˜.
+	DWORD					m_dwNumOfServers;							// ì „ì²´ Server ì˜ ìˆ˜.
+	DWORD					m_dwNumOfTypedServers[NUM_OF_SERVER_TYPES];	// Server Type ë³„ Server ìˆ˜.
+	DWORD					m_dwNumOfConnectedServers;					// ì •ìƒì‘ë™ì¤‘ì¸ Serverì˜ ìˆ˜.
+	DWORD					m_dwNumOfUsers;								// ì‚¬ìš©ì ìˆ˜.
 
-	LP_SERVER_DATA			m_pOwnProxyServerData[2];					// PROXY ServerÀÇ Pointer;
-	LP_SERVER_DATA			m_pOwnDBDemonData;							// DB ServerÀÇ Pointer;
-	LP_SERVER_DATA			m_pServerListHead;							// Server List ÀÇ Head
-	LP_SERVER_DATA			m_pServerListTail;							// Server List ÀÇ Tail
-	LP_SERVER_DATA			m_pOwnServerData;							// ServerÀÇ ÀÚ±âÁ¤º¸.
+	LP_SERVER_DATA			m_pOwnProxyServerData[2];					// PROXY Serverì˜ Pointer;
+	LP_SERVER_DATA			m_pOwnDBDemonData;							// DB Serverì˜ Pointer;
+	LP_SERVER_DATA			m_pServerListHead;							// Server List ì˜ Head
+	LP_SERVER_DATA			m_pServerListTail;							// Server List ì˜ Tail
+	LP_SERVER_DATA			m_pOwnServerData;							// Serverì˜ ìê¸°ì •ë³´.
 
-	AWAITING_CONNECTION_RESULT_DATA	m_ConnectionResultData;			// ÇÁ¶ô½Ã¿¡°Ô Á¢¼Ó °á°ú¸¦ ¾Ë¸®±â À§ÇØ ¾²ÀÎ´Ù.
+	AWAITING_CONNECTION_RESULT_DATA	m_ConnectionResultData;			// í”„ë½ì‹œì—ê²Œ ì ‘ì† ê²°ê³¼ë¥¼ ì•Œë¦¬ê¸° ìœ„í•´ ì“°ì¸ë‹¤.
 
-	CPackedMsg**			m_ppPackedTable;							// CPackedMsg Å×ÀÌºí
+	CPackedMsg**			m_ppPackedTable;							// CPackedMsg í…Œì´ë¸”
 
 	HASHED_SERVER_DATA**	m_ppServerTable;							// Server HashTable
 
@@ -237,7 +237,7 @@ public:	//
 
 	CRITICAL_SECTION		m_IsRunningCriticalSection;					// Critical Sections
 
-	COMMUNICATION_STATISTICS_DATA	m_CommStatisticsData;				// Àü¼Û·® Åë°è¿ë ±¸Á¶Ã¼.
+	COMMUNICATION_STATISTICS_DATA	m_CommStatisticsData;				// ì „ì†¡ëŸ‰ í†µê³„ìš© êµ¬ì¡°ì²´.
 #ifdef __IS_PROXY_SERVER
 	CRITICAL_SECTION		m_IsUserAcceptAllowedCriticalSection;
 
@@ -248,13 +248,13 @@ public:	//
 	// -----------------------------------------------------------------
 	
 	// Private Methods -------------------------------------------------
-	void					RemoveAllServerDatasFromTable();			// ¸ğµç ¼­¹ö¸¦ List¿¡¼­ Á¦°Å.
-	void					RemoveAllServerDatasFromList();				// ¸ğµç ¼­¹ö¸¦ HashTable¿¡¼­ Á¦°Å.
+	void					RemoveAllServerDatasFromTable();			// ëª¨ë“  ì„œë²„ë¥¼ Listì—ì„œ ì œê±°.
+	void					RemoveAllServerDatasFromList();				// ëª¨ë“  ì„œë²„ë¥¼ HashTableì—ì„œ ì œê±°.
 	void					SendServerUpMessage( DWORD index,WORD port );	// SendServer
-	void					OnChangeServerStatus( LP_SERVER_DATA pServerData );	// ¼­¹öÀÇ Status °¡ º¯°æµÈ °æ¿ì...
-	void					NotifyServerStatus();							// Server ÀÇ status¸¦ ´Ù¸¥ ¼­¹ö¿¡ ¾Ë¸².
+	void					OnChangeServerStatus( LP_SERVER_DATA pServerData );	// ì„œë²„ì˜ Status ê°€ ë³€ê²½ëœ ê²½ìš°...
+	void					NotifyServerStatus();							// Server ì˜ statusë¥¼ ë‹¤ë¥¸ ì„œë²„ì— ì•Œë¦¼.
 	bool					NotifyServerStatus( LP_SERVER_DATA pToServer ); //
-	bool					ReportServerStatus();							// ¼­¹öÀÇ Status ¸¦ PROXY¿¡ ¾Ë¸².
+	bool					ReportServerStatus();							// ì„œë²„ì˜ Status ë¥¼ PROXYì— ì•Œë¦¼.
 	bool					ReportServerStatus( LP_SERVER_DATA pToServer );	//
 	// -----------------------------------------------------------------
 
@@ -284,7 +284,7 @@ public:
 	void					ReportOrderedConnectionResult();
 	
 
-	// Åë°è¿ë...
+	// í†µê³„ìš©...
 //	void					CollectTransStatistics( DWORD dwType, DWORD size );
 
 	bool					AddServerDataToList( SERVER_DATA *pSeverData );

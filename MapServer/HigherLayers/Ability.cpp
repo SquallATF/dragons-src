@@ -1,4 +1,4 @@
-// Ability.cpp: implementation of the CAbility class.
+﻿// Ability.cpp: implementation of the CAbility class.
 //
 //////////////////////////////////////////////////////////////////////
 

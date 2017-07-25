@@ -1,4 +1,4 @@
-// LottoSystem.h: interface for the CLottoSystem class.
+ï»¿// LottoSystem.h: interface for the CLottoSystem class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,8 +24,8 @@ class CLottoSystem
 {
 	enum
 	{
-		EVENT = 1,//»ç¶÷µéÀÌ ÀÀ¸ğÇÏ±æ ±â´Ù¸®°í ÀÖ´Ù.
-		LOTTERIED = 2,//ÃßÃ·ÀÌ µÇ¾ú´Ù.»óÇ°À» ÁÖ¾î¾ßÁö.
+		EVENT = 1,//ì‚¬ëŒë“¤ì´ ì‘ëª¨í•˜ê¸¸ ê¸°ë‹¤ë¦¬ê³  ìˆë‹¤.
+		LOTTERIED = 2,//ì¶”ì²¨ì´ ë˜ì—ˆë‹¤.ìƒí’ˆì„ ì£¼ì–´ì•¼ì§€.
 	};
 
 	DATECHECK		m_LotteryStart;
@@ -38,9 +38,9 @@ class CLottoSystem
 	int		m_anNumbers[10];
 	LOTTO_EVENT_INFO	m_Lotto_Info;
 	bool	m_bGenNumbers;
-	bool	m_bWinnerChecking;		// BBD 040127	·Î¶Ç È®ÀÎÁß ÇÃ·¡±×
+	bool	m_bWinnerChecking;		// BBD 040127	ë¡œë˜ í™•ì¸ì¤‘ í”Œë˜ê·¸
 public:
-	void CheckIsDelOk(bool bIsOk);	// BBD 040127	·Î¶Ç È®ÀÎÀıÂ÷°¡ ³¡³µÀ»¶§ È£Ãâ
+	void CheckIsDelOk(bool bIsOk);	// BBD 040127	ë¡œë˜ í™•ì¸ì ˆì°¨ê°€ ëë‚¬ì„ë•Œ í˜¸ì¶œ
 	int FindSameDayIndex(int nDay);
 	int GetNextLotteryIndex();
 	int GetLottoID();
@@ -49,7 +49,7 @@ public:
 	void RecvOpenLottoMenu(int cn);
 	int m_nLottoPay;
 	int m_anWinNumberCount4Grade[5];
-	int	m_anGiveItemNumber[5];//µî¼öº° ¾ÆÀÌÅÛ ¹øÈ£.
+	int	m_anGiveItemNumber[5];//ë“±ìˆ˜ë³„ ì•„ì´í…œ ë²ˆí˜¸.
 	int m_anItemCount4Grade[5];
 	int m_nLottoNumberCount;
 //	int m_nGiveItemNumber;
@@ -77,7 +77,7 @@ public:
 	static	bool	Create();
 	static	void	Destroy()	{if(m_pClass){delete m_pClass;m_pClass = NULL;}}
 		
-	//< 040614_KJHuNs CMD_NEW_EVENT (·Î¶Ç)¸¦ DB¿¡ ÇÑ¹ø¸¸ ¼¼ÆÃÇÏ°Ô Ã³¸®.
+	//< 040614_KJHuNs CMD_NEW_EVENT (ë¡œë˜)ë¥¼ DBì— í•œë²ˆë§Œ ì„¸íŒ…í•˜ê²Œ ì²˜ë¦¬.
 	bool m_bIsNewEventRegistToOnce;
 	CLottoSystem();
 	virtual ~CLottoSystem();

@@ -1,4 +1,4 @@
-// WheatherControl.cpp: implementation of the CWeatherControl class.
+ï»¿// WheatherControl.cpp: implementation of the CWeatherControl class.
 //
 //////////////////////////////////////////////////////////////////////
 #include "..\stdafx.h"
@@ -37,11 +37,11 @@ CWeatherControl::~CWeatherControl()
 
 void CWeatherControl::AutoSetDayLight(CHARLIST *ch)
 {
-	short int nTempDaylight = nDayLightControl;//nTempDaylight ¼ÂÆÃµÉ °á°ú¹°
+	short int nTempDaylight = nDayLightControl;//nTempDaylight ì…‹íŒ…ë  ê²°ê³¼ë¬¼
 	if(ch->dwDayLightControlCustomTime  )
 	{
 		nTempDaylight = nDayLightControl;
-		if(ch->dwDayLightControlCustomTime < global_time)//Ä¿½ºÅÒ ½Ã°£ÀÌ ÀÖ´Ù ±×·¯³ª ½Ã°£ÀÌ Áö³µ´Ù
+		if(ch->dwDayLightControlCustomTime < global_time)//ì»¤ìŠ¤í…€ ì‹œê°„ì´ ìžˆë‹¤ ê·¸ëŸ¬ë‚˜ ì‹œê°„ì´ ì§€ë‚¬ë‹¤
 		{
 			ch->dwDayLightControlCustomTime = 0;
 		}
@@ -70,16 +70,16 @@ void CWeatherControl::AutoSetDayLight(CHARLIST *ch)
 
 void CWeatherControl::CheckDayLight()
 {
-	if( timeGetTime()  <=  dwCheckedTime )//½Ã°£ Ã¼Å©
+	if( timeGetTime()  <=  dwCheckedTime )//ì‹œê°„ ì²´í¬
 	{
 		return;
 	}
-//	dwCheckedTime = timeGetTime()+ (60000 * 10 );//10ºÐ
-	dwCheckedTime = timeGetTime()+ (10 );//10ºÐ
+//	dwCheckedTime = timeGetTime()+ (60000 * 10 );//10ë¶„
+	dwCheckedTime = timeGetTime()+ (10 );//10ë¶„
 
 	switch(MapInfo[MapNumber].daylightcontrol)
 	{
-	case 1://2: 3: 1//»õº®(0,1) , ³·(2,3,4), ¹ã(5)
+	case 1://2: 3: 1//ìƒˆë²½(0,1) , ë‚®(2,3,4), ë°¤(5)
 		{
 			const int iGameHour = g_hour%6;
 			short int nValue = nMinimumLight;
@@ -104,7 +104,7 @@ void CWeatherControl::CheckDayLight()
 			case 4:
 				{
 					nValue = 25;
-					if(g_min >30)//30ºÐÀÌ¸é ¶óÀÌÆ®°¡ 5 °¨¼Ò
+					if(g_min >30)//30ë¶„ì´ë©´ ë¼ì´íŠ¸ê°€ 5 ê°ì†Œ
 					{
 						nValue-=5;
 					}
@@ -155,7 +155,7 @@ void CWeatherControl::CheckDayLight()
 void CWeatherControl::SetChLight(CHARLIST *ch,const int iLight,const int iTimeSec )
 {
 	if(!ch)	{ return; }
-	ch->dwDayLightControlCustomTime = global_time +iTimeSec*1000;//*1000;//5ºÐ
+	ch->dwDayLightControlCustomTime = global_time +iTimeSec*1000;//*1000;//5ë¶„
 	ch->nDayLightControlCustom = nDayLightControl + iLight;
 	ch->nDayLightControl = nMinimumLight-1;
 }
@@ -247,7 +247,7 @@ void CheckWeatherSystem( void )
 		
 	if( g_curr_time - time > 600 )
 	{	
-		time = g_curr_time; // ÇÑ °ÔÀÓ½Ã°£ CheckÇÑ´Ù. 
+		time = g_curr_time; // í•œ ê²Œìž„ì‹œê°„ Checkí•œë‹¤. 
 	}	
 	else return;
 			
@@ -258,14 +258,14 @@ void CheckWeatherSystem( void )
 	CurrentGameDate( g_curr_time * 6, &y, &mo, &d, &h, &mi, &sec );
 			
 	static int to;
-	//	¸¸¾à¿¡ Å©¸®½º¸¶½ºÀÌ¸é..
+	//	ë§Œì•½ì— í¬ë¦¬ìŠ¤ë§ˆìŠ¤ì´ë©´..
 	g_X_MAS = false;
 	if( ( g_mon == 11 && g_day >=1 ) || (g_mon==0 && g_day <= 30 ) )		// 021128 YGI
 	{
 		g_X_MAS = true;
 	}
 
-	if( g_X_MAS && MapInfo[ MapNumber].rain )		// ´«³»·Á¶ó..
+	if( g_X_MAS && MapInfo[ MapNumber].rain )		// ëˆˆë‚´ë ¤ë¼..
 	{		
 		to ++;
 		if( to < 10 ) 
@@ -312,9 +312,9 @@ void CheckWeatherSystem( void )
 	else
 	{	
 		mon			= mo, day = d;	
-		today_weathercount		= (rand()%5) +1;	// ¸ç¸î¹øÀ¸·Î ³ª´©¾î »Ñ¸±°ÍÀÎ°¡?
-		rain_amount = RainTable[mon][day] / today_weathercount;	// ¿À´Ã ³»·Á¾ßÇÒ ¾ç¿¡¼­ ¸î¸ÕÀ¸·Î ³ª´©¾î »Ñ¸±Áö ¾çÀ» °è»êÇÑ´Ù. 
-		today_temperature	= (Temprature[mon][day][0] + Temprature[mon][day][1])/2;	// ¿À´ÃÀÇ ±â¿ÂÀº...
+		today_weathercount		= (rand()%5) +1;	// ë©°ëª‡ë²ˆìœ¼ë¡œ ë‚˜ëˆ„ì–´ ë¿Œë¦´ê²ƒì¸ê°€?
+		rain_amount = RainTable[mon][day] / today_weathercount;	// ì˜¤ëŠ˜ ë‚´ë ¤ì•¼í•  ì–‘ì—ì„œ ëª‡ë¨¼ìœ¼ë¡œ ë‚˜ëˆ„ì–´ ë¿Œë¦´ì§€ ì–‘ì„ ê³„ì‚°í•œë‹¤. 
+		today_temperature	= (Temprature[mon][day][0] + Temprature[mon][day][1])/2;	// ì˜¤ëŠ˜ì˜ ê¸°ì˜¨ì€...
 		
 		for( i = 0 ; i < 5 ; i ++)
 		{	

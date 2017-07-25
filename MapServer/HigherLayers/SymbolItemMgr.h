@@ -1,4 +1,4 @@
-// SymbolItemMgr.h: interface for the CSymbolItemMgr class.
+ï»¿// SymbolItemMgr.h: interface for the CSymbolItemMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -14,7 +14,7 @@ using namespace std;
 
 #define MAX_APPLY_ATTR		5
 #define MAX_SYMBOL_LEVEL	5
-#define MAX_SYMBOL_ITEM		23	// ÇöÀçÀÇ ½Éº¼ ¾ÆÀÌÅÛÀº 23°³ÀÌ´Ù.
+#define MAX_SYMBOL_ITEM		23	// í˜„ì¬ì˜ ì‹¬ë³¼ ì•„ì´í…œì€ 23ê°œì´ë‹¤.
 #define MAX_NAME_LENGTH		64
 #define MAX_NAME_BUFFER		64+1
 
@@ -25,20 +25,20 @@ typedef struct tag_SYMBOL_ITEM{
 	char	strHanName[MAX_NAME_BUFFER];
 	int		nFirst_Class;
 	int		nSecond_Class;
-	int		anAplly_Attr[MAX_APPLY_ATTR]; //ÇØ´ç µÇ´Â Attr¿¡´Â ·¹¾î¹øÈ£°¡ µé¾î°£´Ù.
+	int		anAplly_Attr[MAX_APPLY_ATTR]; //í•´ë‹¹ ë˜ëŠ” Attrì—ëŠ” ë ˆì–´ë²ˆí˜¸ê°€ ë“¤ì–´ê°„ë‹¤.
 }SYMBOL_ITEM;
 
 
-typedef vector<SYMBOL_ITEM>	SYMBOL_LIST; // ÇöÀç 23°³´Ù.
+typedef vector<SYMBOL_ITEM>	SYMBOL_LIST; // í˜„ì¬ 23ê°œë‹¤.
 typedef vector<SYMBOL_ITEM>::iterator	ITOR_SYMBOL_LIST;
 
 typedef struct tag_SYMBOL_VALUE{
 	int		anAttrValue[MAX_SYMBOL_ITEM];
 }SYMBOL_VALUE;
-typedef vector<SYMBOL_VALUE>	SYMBOL_VALUE_LIST; //ÇöÀç 5°³ÀÇ ·¹º§·Î ¼³Á¤µÇ¾î ÀÖ´Ù.
+typedef vector<SYMBOL_VALUE>	SYMBOL_VALUE_LIST; //í˜„ì¬ 5ê°œì˜ ë ˆë²¨ë¡œ ì„¤ì •ë˜ì–´ ìˆë‹¤.
 
 
-typedef vector<SYMBOL_VALUE_LIST> SYMBOL_APPLY_ATTR_LIST;//ÇöÀç 5°³ÀÇ ¼Ó¼ºÀ¸·Î µÇ¾îÀÖ´Ù.
+typedef vector<SYMBOL_VALUE_LIST> SYMBOL_APPLY_ATTR_LIST;//í˜„ì¬ 5ê°œì˜ ì†ì„±ìœ¼ë¡œ ë˜ì–´ìˆë‹¤.
 
 
 enum{
@@ -58,7 +58,7 @@ private:
 	SYMBOL_LIST				m_vtSymbolItemList;
 	SYMBOL_APPLY_ATTR_LIST	m_vtSymbolApplyAttrList;
 
-	int						m_nAttrMaxCount;// ÇÑ ¾ÆÀÌÅÛ¿¡ Æ÷ÇÔµÇ´Â ¼Ó¼ºÀÇ ÃÖ´ë °³¼ö.
+	int						m_nAttrMaxCount;// í•œ ì•„ì´í…œì— í¬í•¨ë˜ëŠ” ì†ì„±ì˜ ìµœëŒ€ ê°œìˆ˜.
 	HDBC					m_hDragonDB;
 	HDBC					m_hChrLogDB;
 

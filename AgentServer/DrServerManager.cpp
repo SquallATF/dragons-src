@@ -1,4 +1,4 @@
-// -----------------------------
+ï»¿// -----------------------------
 // Wrote by chan78 at 2001/03/16
 // -----------------------------
 #include "DrServerManager.h"
@@ -15,13 +15,13 @@ bool AnswerToManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
 {
 	pPacket->h.bPTCL = PTCL_MANAGER_ANSWER;
 
-	// ÇöÀç·Î¼± ÇÁ¶ô½Ã ¼­¹ö°¡ ÇÏ³ª»ÓÀÌ¹Ç·Î.
+	// í˜„ì¬ë¡œì„  í”„ë½ì‹œ ì„œë²„ê°€ í•˜ë‚˜ë¿ì´ë¯€ë¡œ.
 	return g_pServerTable->SendToProxyServer( (char*)pPacket, dwLength );
 }
 #endif
 
 // -------------------------------------------------------------------
-// PROXY SERVER ¿ë
+// PROXY SERVER ìš©
 // -------------------------------------------------------------------
 #ifdef __IS_PROXY_SERVER
 bool OnRecvAuthMsgFromManager( USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD dwLength )
@@ -57,18 +57,18 @@ bool OnRecvMsgFromManager( USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD
 	char szSendMsg[MM_MAX_PACKET_SIZE];
 	LP_MANAGER_PACKET pSendPacket = (LP_MANAGER_PACKET)szSendMsg;
 
-	// ¹Ì¸® Ã¤¿öµĞ´Ù. Answer ¿ë.
+	// ë¯¸ë¦¬ ì±„ì›Œë‘”ë‹¤. Answer ìš©.
 	pSendPacket->h.bPTCL = PTCL_MANAGER_ANSWER;
 	pSendPacket->h.uTarget.dwTargetManagerID = pUserInfo->dwID;
 
-	// PROXY SERVER ÀÎ °æ¿ì¿£ ÀÌ ÇÔ¼ö·Î ³Ñ°ÜÁø ÆĞÅ¶ÀÇ Å¸°ÙÀÌ ³»°¡ ¾Æ´Ò¼öµµ ÀÖ´Ù.
-	// ´Ù¸¥ ¼­¹ö·Î ¸®´ÙÀÌ·º¼Ç.
+	// PROXY SERVER ì¸ ê²½ìš°ì—” ì´ í•¨ìˆ˜ë¡œ ë„˜ê²¨ì§„ íŒ¨í‚·ì˜ íƒ€ê²Ÿì´ ë‚´ê°€ ì•„ë‹ìˆ˜ë„ ìˆë‹¤.
+	// ë‹¤ë¥¸ ì„œë²„ë¡œ ë¦¬ë‹¤ì´ë ‰ì…˜.
 	if( pPacket->h.uTarget.wTargetServerID != g_pServerTable->GetOwnServerData()->wPort )
 	{
-		// ³»°¡ Ã³¸®ÇÒ ÆĞÅ¶ÀÌ ¾Æ´Ï´Ù. Redirection.
+		// ë‚´ê°€ ì²˜ë¦¬í•  íŒ¨í‚·ì´ ì•„ë‹ˆë‹¤. Redirection.
 		LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( pPacket->h.uTarget.wTargetServerID );
 
-		// Å¸°Ù ¼­¹ö°¡ ¾ø°Å³ª Á¢¼ÓµÇ¾îÀÖÁö ¾Ê´Ù.
+		// íƒ€ê²Ÿ ì„œë²„ê°€ ì—†ê±°ë‚˜ ì ‘ì†ë˜ì–´ìˆì§€ ì•Šë‹¤.
 		if( !pServerData || !pServerData->dwConnectionIndex )
 		{
 			if( !AnswerToManager( pSendPacket, sizeof(MANAGER_PACKET_HEADER) ) )
@@ -85,7 +85,7 @@ bool OnRecvMsgFromManager( USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD
 		return true;
 	}
 
-	// PROXY°¡ Á÷Á¢ Ã³¸®ÇÒ °Íµé.
+	// PROXYê°€ ì§ì ‘ ì²˜ë¦¬í•  ê²ƒë“¤.
 	switch( pPacket->h.wCMD )
 	{
 	case MANAGER_CMD_REQUEST_SERVER_STATUS:
@@ -113,7 +113,7 @@ bool OnRecvMsgFromManager( USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD
 
 
 // -------------------------------------------------------------------
-// Agent SERVER ¿ë
+// Agent SERVER ìš©
 // -------------------------------------------------------------------
 #ifdef __IS_AGENT_SERVER
 bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
@@ -121,7 +121,7 @@ bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
 	char szSendMsg[MM_MAX_PACKET_SIZE];
 	LP_MANAGER_PACKET pSendPacket = (LP_MANAGER_PACKET)szSendMsg;
 
-	// ¹Ì¸® Ã¤¿öµĞ´Ù. Answer ¿ë.
+	// ë¯¸ë¦¬ ì±„ì›Œë‘”ë‹¤. Answer ìš©.
 	pSendPacket->h.bPTCL = PTCL_MANAGER_ANSWER;
 	pSendPacket->h.uTarget.dwTargetManagerID = pPacket->h.uTarget.dwTargetManagerID;
 
@@ -152,7 +152,7 @@ bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
 
 
 // -------------------------------------------------------------------
-// Map SERVER ¿ë
+// Map SERVER ìš©
 // -------------------------------------------------------------------
 #ifdef __IS_MAP_SERVER
 extern char MapName[ MAX_PATH];	
@@ -162,7 +162,7 @@ bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
 	char szSendMsg[MM_MAX_PACKET_SIZE];
 	LP_MANAGER_PACKET pSendPacket = (LP_MANAGER_PACKET)szSendMsg;
 
-	// ¹Ì¸® Ã¤¿öµĞ´Ù. Answer ¿ë.
+	// ë¯¸ë¦¬ ì±„ì›Œë‘”ë‹¤. Answer ìš©.
 	pSendPacket->h.bPTCL = PTCL_MANAGER_ANSWER;
 	pSendPacket->h.uTarget.dwTargetManagerID = pPacket->h.uTarget.dwTargetManagerID;
 
@@ -193,7 +193,7 @@ bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
 
 
 // -------------------------------------------------------------------
-// DB Demon ¿ë
+// DB Demon ìš©
 // -------------------------------------------------------------------
 #ifdef __IS_DB_DEMON
 bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
@@ -201,7 +201,7 @@ bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength )
 	char szSendMsg[MM_MAX_PACKET_SIZE];
 	LP_MANAGER_PACKET pSendPacket = (LP_MANAGER_PACKET)szSendMsg;
 
-	// ¹Ì¸® Ã¤¿öµĞ´Ù. Answer ¿ë.
+	// ë¯¸ë¦¬ ì±„ì›Œë‘”ë‹¤. Answer ìš©.
 	pSendPacket->h.bPTCL = PTCL_MANAGER_ANSWER;
 	pSendPacket->h.uTarget.dwTargetManagerID = pPacket->h.uTarget.dwTargetManagerID;
 

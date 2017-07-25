@@ -1,4 +1,4 @@
-#ifndef USERTABLE_H
+Ôªø#ifndef USERTABLE_H
 #define USERTABLE_H
 
 #include "stdafx.h"
@@ -7,7 +7,7 @@
 #include "dr_agent_structures.h"//010707 lsw
 
 #define SIZE_OF_USER_DISCONNECT_TICK		5
-#define MAX_ALLOWED_SLEEP_TIME				5			// x*15, 75√ .
+#define MAX_ALLOWED_SLEEP_TIME				5			// x*15, 75Ï¥à.
 
 #define STATUS_USER_NOT_CERTIFIED			0
 #define STATUS_USER_ACTIVATED				1
@@ -47,7 +47,7 @@ struct USERINFO
 	WORD			wPort;
 
 	//2001/01/29 zhh
-	char			logintime[15];		//∑Œ±◊¿Œ «— Ω√∞£ ¿˙¿Â
+	char			logintime[15];		//Î°úÍ∑∏Ïù∏ Ìïú ÏãúÍ∞Ñ Ï†ÄÏû•
 	
 	CHSEL_STREAM	en;	
 	CHSEL_STREAM	de;

@@ -1,4 +1,4 @@
-/*****************************************************************************\
+ï»¿/*****************************************************************************\
 * Copyright (c), Future Entertainment World / Seoul, Republic of Korea        *
 * All Rights Reserved.                                                        *
 *                                                                             *
@@ -43,8 +43,8 @@ extern int DRAGON_MAX_CONNECTIONS;
 
 #define DRAGON_CONNECTIONS_START		2
 
-#define LOGIN_SERVER_CONNECT			0	// °øÁö»çÇ× ¸ğµç ¼­¹ö¿¡ ¿¬°áÇÏ±â À§ÇÑ ¼­¹ö wka
-#define DB_DEMON						1	//	°ÔÀÓ¼­¹ö¿¡ ÇÒ´çµÈ DBµ¥¸ó
+#define LOGIN_SERVER_CONNECT			0	// ê³µì§€ì‚¬í•­ ëª¨ë“  ì„œë²„ì— ì—°ê²°í•˜ê¸° ìœ„í•œ ì„œë²„ wka
+#define DB_DEMON						1	//	ê²Œì„ì„œë²„ì— í• ë‹¹ëœ DBë°ëª¬
 // Added by chan78 at 2000/12/16
 #define CN_FROM_OTHER_MAPSERVER_MSG		-1
 
@@ -54,9 +54,9 @@ extern int DRAGON_MAX_CONNECTIONS;
 //--------------------------------------------------------		// YGI 0521
 #define CONNECT_FAIL					0
 #define CONNECT_OK						1
-#define CONNECT_LOGIN_KEIN				2	// ¸Ê°£ ÀÌµ¿
+#define CONNECT_LOGIN_KEIN				2	// ë§µê°„ ì´ë™
 #define CONNECT_LOGIN					3
-#define CONNECT_JOIN					4	// ¸Ê¿¡ Á¸Àç..	Å¬¶óÀÌ¾ğÆ®¿¡¼­ CMD_ALL_READY¸¦ º¸³»´Â ¼ø°£.
+#define CONNECT_JOIN					4	// ë§µì— ì¡´ì¬..	í´ë¼ì´ì–¸íŠ¸ì—ì„œ CMD_ALL_READYë¥¼ ë³´ë‚´ëŠ” ìˆœê°„.
 #define CONNECT_JOIN_START				5
 // Added by chan78 at 2000/11/27
 #define CONNECT_CHANGING_MAP			6
@@ -89,8 +89,8 @@ extern int DRAGON_MAX_CONNECTIONS;
 										 
 #define CMD_PING						5
 
-#define CMD_ACCESS_LOGIN				6066 //010707 lsw ¼öÁ¤
-#define CMD_ACCEPT_LOGIN				6067 //010707 lsw ¼öÁ¤
+#define CMD_ACCESS_LOGIN				6066 //010707 lsw ìˆ˜ì •
+#define CMD_ACCEPT_LOGIN				6067 //010707 lsw ìˆ˜ì •
 #define CMD_ACCESS_LOGOUT				12
 #define CMD_ACCEPT_CREATE				13
 #define CMD_USED_ID						14
@@ -151,7 +151,7 @@ typedef struct GUARDAINLIST
 #define CMD_CHANGE_EQUIP				77
 #define CMD_ITEM_ATTR_CHANGE			78
 #define CMD_ITEM_DOOR_OPEN_CLOSE		79
-#define	CMD_ITEM_ADD_ZIPED 					7001 //this lsw // ÆĞÅ¶ Å¸ÀÔ Ãß°¡ 
+#define	CMD_ITEM_ADD_ZIPED 					7001 //this lsw // íŒ¨í‚· íƒ€ì… ì¶”ê°€ 
 typedef struct item_door_open_close			
 {
 	short int item_id;
@@ -180,7 +180,7 @@ typedef struct client_item_box_break_result
 											
 #define CMD_ITEM_BOX_REFRESH			211	
 											
-// ¸ÅÁ÷À¸·Î ¾ÆÀÌÅÛÀ» ºÎ¼ú¶§ »ç¿ëÇÑ´Ù.		
+// ë§¤ì§ìœ¼ë¡œ ì•„ì´í…œì„ ë¶€ìˆ ë•Œ ì‚¬ìš©í•œë‹¤.		
 #define CMD_ITEM_BOX_MAGIC_BREAK		214		
 typedef struct client_item_box_magic_break	
 {													
@@ -200,8 +200,8 @@ typedef struct client_just_attack_animation{
 	short int		item_id;
 }t_client_just_attack_animation;
 												
-#define CMD_MOVE						6100	//010707 lsw ¼öÁ¤
-#define CMD_CHAT_DATA					6250	//010707 lsw ¼öÁ¤
+#define CMD_MOVE						6100	//010707 lsw ìˆ˜ì •
+#define CMD_CHAT_DATA					6250	//010707 lsw ìˆ˜ì •
 #define CMD_WEATHER						83	
 
 #define CMD_INSERT_MAGIC				624
@@ -216,7 +216,7 @@ typedef struct server_insert_magic
 	
 
 
-//------------ ÀºÇà ¸Ş´º Ãß°¡ -------------------------------
+//------------ ì€í–‰ ë©”ë‰´ ì¶”ê°€ -------------------------------
 
 #define	REQ_MY_DEPOSIT_INFO				90
 #define	REP_YOUR_DEPOSIT_INFO			91
@@ -367,14 +367,14 @@ typedef struct server_modify_position_absolute
 
 
 
-// ----------  Ãß°¡ Data ¿ä±¸---------------------
-// º¸³»Áö ¾ÊÀº user/npc/item¿¡ ´ëÇÑ Á¤º¸°¡ ¿ÔÀ»¶§ 
-// ±âº» Data¸¦ º¸³»´Ş¶ó°í ¿ä±¸ÇÑ´Ù. 
+// ----------  ì¶”ê°€ Data ìš”êµ¬---------------------
+// ë³´ë‚´ì§€ ì•Šì€ user/npc/itemì— ëŒ€í•œ ì •ë³´ê°€ ì™”ì„ë•Œ 
+// ê¸°ë³¸ Dataë¥¼ ë³´ë‚´ë‹¬ë¼ê³  ìš”êµ¬í•œë‹¤. 
 #define REQ_NPC_ADD						1000	
 #define REQ_PC_ADD						1001
 #define REQ_ITEM_ADD					1002
 
-#define CMD_LOST_CONNECTION				127	//°ÔÀÓ Á¾·á
+#define CMD_LOST_CONNECTION				127	//ê²Œì„ ì¢…ë£Œ
 
 #define CMD_CONNECT_INFO				200
 #define CMD_CONNECT_INFO1				10000		// 1218 YGI
@@ -383,7 +383,7 @@ typedef struct server_modify_position_absolute
 #define CMD_INTERFACE_BATTLE			301
 
 
-// ¸Ş´º,..
+// ë©”ë‰´,..
 #define CMD_CALL_SMALLMENU				2000
 #define CMD_STORE_ITEMLIST				2001
 
@@ -398,7 +398,7 @@ typedef struct server_modify_position_absolute
 #define CMD_MENU_MESSAGE				140
 
 //------------------------------------------------------------------------------------
-//±æµå Menu 
+//ê¸¸ë“œ Menu 
 #define CMD_GUILD_INFO					7000
 typedef struct server_guild_info
 {
@@ -414,7 +414,7 @@ typedef struct client_learn_skill
 	short int guildindex;
 	short int skillno;
 }t_client_learn_skill;
-//			( ¾î¶»°Ô..¹è¿ìÁö? ½Ç½ÀÀ» ÇÏ³ª? )
+//			( ì–´ë–»ê²Œ..ë°°ìš°ì§€? ì‹¤ìŠµì„ í•˜ë‚˜? )
 typedef struct server_learn_skill
 {
 	short int guildindex;
@@ -433,15 +433,15 @@ typedef struct server_learn_skillitem
 }t_server_learn_skillitem;
 
 
-// Å¬¶óÀÌ¾ğÆ® -> ¼­¹ö : 
-// ±æµå¿¡¼­ Item RepairÇÏ°íÀÚ ÇÏ´Â List¸¦ ¿ä±¸ÇÑ´Ù.   
+// í´ë¼ì´ì–¸íŠ¸ -> ì„œë²„ : 
+// ê¸¸ë“œì—ì„œ Item Repairí•˜ê³ ì í•˜ëŠ” Listë¥¼ ìš”êµ¬í•œë‹¤.   
 #define CMD_ITEM_REPAIR_REQ				7030
 
 #define CMD_REPAIR_ITEMLIST				7040
 typedef struct server_repair_itemlist
 {
 	char  array;
-	short int item[ 10]; // ±æµå¿¡¼­ Ãë±ŞÇÏ´Â Item¸ñ·Ï.
+	short int item[ 10]; // ê¸¸ë“œì—ì„œ ì·¨ê¸‰í•˜ëŠ” Itemëª©ë¡.
 }t_server_repair_itemlist;
 
 
@@ -604,7 +604,7 @@ struct t_server_npc_add
 	DWORD nHomeY:10;
 	DWORD nSprNo:9;
 	DWORD nEventNpc:1;
-	DWORD nAIType:1; // LTS AI 0 : Å¬¶óÀÌ¾ğÆ® AI, 1 : ¼­¹ö AI
+	DWORD nAIType:1; // LTS AI 0 : í´ë¼ì´ì–¸íŠ¸ AI, 1 : ì„œë²„ AI
 	DWORD nRecall:1; 
 
 	DWORD idNpc:16;
@@ -669,7 +669,7 @@ typedef struct server_item_add
 	short int		x, y;
 } t_server_item_add;
 
-//this lsw ÀÌ°ÍÀÌ¾ĞÃàµÉ ÆĞÅ¶. 010326
+//this lsw ì´ê²ƒì´ì••ì¶•ë  íŒ¨í‚·. 010326
 typedef struct server_item_add_ziped 		
 {
 	BYTE zipedpack[50];
@@ -829,7 +829,7 @@ typedef struct client_connect_info
 	char			startmap;
 } t_client_connect_info;
 
-typedef struct server_connect_info	// »ç¿ë¾ÈÇÔ.
+typedef struct server_connect_info	// ì‚¬ìš©ì•ˆí•¨.
 {
 	char			ip[3][18];
 	int				port;
@@ -903,7 +903,7 @@ struct ACCESSJOIN
 	char			id[ID_LENGTH];
 	char			pw[PW_LENGTH];
 	char			name[NM_LENGTH];
-	char			startposition;		// 99ÀÌ¸é ¸Ç ¸¶Áö¸·¿¡ LogOutÇÑÀÚ¸®¿¡¼­ ³ªÅ¸³­´Ù. 
+	char			startposition;		// 99ì´ë©´ ë§¨ ë§ˆì§€ë§‰ì— LogOutí•œìë¦¬ì—ì„œ ë‚˜íƒ€ë‚œë‹¤. 
 	short			nBillingType;
 	char			ip[40];
 };	//> CSD-030806
@@ -914,7 +914,7 @@ typedef struct server_assign_server_id
 	short int		x, y;
 }t_server_assign_server_id;
 	
-//// LoginServer¿Í GameServer°£ÀÇ Access Join°ü°è..
+//// LoginServerì™€ GameServerê°„ì˜ Access Joinê´€ê³„..
 	
 #define CMD_REQ_INSERT_USERID			34
 #define CMD_REQ_DELETE_USERID			35
@@ -953,7 +953,7 @@ typedef struct ls_not_joinable
 }t_ls_not_joinable;
 	
 	
-typedef struct ls_updating		// LoginServer ->  GameServer.	¿äÃ»ÇÑ User´Â ÇöÀç Data¸¦ UpdatingÇÏ°í ÀÖ±â ¶§¹®¿¡ Àá½Ã ±â´Ù·Á¾ß ÇÕ´Ï´Ù. 
+typedef struct ls_updating		// LoginServer ->  GameServer.	ìš”ì²­í•œ UserëŠ” í˜„ì¬ Dataë¥¼ Updatingí•˜ê³  ìˆê¸° ë•Œë¬¸ì— ì ì‹œ ê¸°ë‹¤ë ¤ì•¼ í•©ë‹ˆë‹¤. 
 {	
 	short int server_id;
 	
@@ -1000,7 +1000,7 @@ struct t_server_user_db_data
 	
 	short int social_status;
 	short int fame;
-	short int fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+	short int fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.		
 	NW_Character NWCharacter;	// 010915 LTS
 	short int nk3;
 	short int nk4;
@@ -1041,7 +1041,7 @@ struct t_server_user_add
 	
 	DWORD x:11;
 	DWORD y:11;
-	//DWORD face:5;		//050413_KCH ÀÎÅÍÆäÀÌ½º ¾ó±¼ ÀÌ¹ÌÁö ¹ö±× Àß¸øµÈ°Å ¼öÁ¤(32°³ÀÇ ÀÌ¹ÌÁö±îÁö Ç¥Çö°¡´É)
+	//DWORD face:5;		//050413_KCH ì¸í„°í˜ì´ìŠ¤ ì–¼êµ´ ì´ë¯¸ì§€ ë²„ê·¸ ì˜ëª»ëœê±° ìˆ˜ì •(32ê°œì˜ ì´ë¯¸ì§€ê¹Œì§€ í‘œí˜„ê°€ëŠ¥)
 	DWORD face:4;
 	DWORD viewtype:4;
 	DWORD spr_no:1;
@@ -1064,18 +1064,18 @@ struct t_server_user_add
 	DWORD nk4:16;
 	DWORD nk6:16;
 
-	DWORD SquadNo:3;	//	ºÎ´ë¹øÈ£		// 010915 LTS
-	DWORD isSquadLeader:1;	//	ºÎ´ëÀåÀÎ°¡?	
-	DWORD YL_JoinNation:4;	//	ÀÏ½ºÀÎ°æ¿ì ÀÚÀÌÆİ¿¡Çß³ª? ¹ÙÀÌ¼­½º¿¡ Çß³ª?  // ±¹°¡¹øÈ£
-	DWORD nDualCls:4;		// µà¾ó °ü·Ã	
+	DWORD SquadNo:3;	//	ë¶€ëŒ€ë²ˆí˜¸		// 010915 LTS
+	DWORD isSquadLeader:1;	//	ë¶€ëŒ€ì¥ì¸ê°€?	
+	DWORD YL_JoinNation:4;	//	ì¼ìŠ¤ì¸ê²½ìš° ìì´í€ì—í–ˆë‚˜? ë°”ì´ì„œìŠ¤ì— í–ˆë‚˜?  // êµ­ê°€ë²ˆí˜¸
+	DWORD nDualCls:4;		// ë“€ì–¼ ê´€ë ¨	
 	DWORD nClsStep:4;		
-	DWORD mantle:16;  // 011018 KHS ¸Á¶Ç 
+	DWORD mantle:16;  // 011018 KHS ë§ë˜ 
 
-	DWORD isCommander:1;	//	»ç·É°üÀÎ°¡?
+	DWORD isCommander:1;	//	ì‚¬ë ¹ê´€ì¸ê°€?
 	DWORD jjing:4;	// 011030 KHS JJING
-	DWORD JoinLocalWar:1;		// ±¹±âÀü¿¡ Âü¿© Çß´Ù. // LTS LOCALWAR
+	DWORD JoinLocalWar:1;		// êµ­ê¸°ì „ì— ì°¸ì—¬ í–ˆë‹¤. // LTS LOCALWAR
 	DWORD nCurrentAction:1;		
-	DWORD ChairNum:2;		  // 0 ¾øÀ½ 1 ÀÇÀÚ1  2 ÀÇÀÚ2	// LTS SITDOWN BUG
+	DWORD ChairNum:2;		  // 0 ì—†ìŒ 1 ì˜ì1  2 ì˜ì2	// LTS SITDOWN BUG
 	DWORD HorseNo:2;			// LTS HORSERIDER
 	DWORD RiderNo:2;			// LTS HORSERIDER
 	DWORD HorseGrade:2;			// LTS HORSERIDER
@@ -1147,9 +1147,9 @@ struct t_update_char_db
 	char id[NM_LENGTH];
 	short Level;
 	short nGuildCode;
-	short social_status; // ½ÅºĞ
-	short fame;	// ¸í¼ºÄ¡
-	NW_Character NWCharacter; // ±¹°¡Àü °ü·Ã ÇÊµå // 010915 LTS
+	short social_status; // ì‹ ë¶„
+	short fame;	// ëª…ì„±ì¹˜
+	NW_Character NWCharacter; // êµ­ê°€ì „ ê´€ë ¨ í•„ë“œ // 010915 LTS
 	short Str;	
 	short Con;	
 	short Dex;
@@ -1161,7 +1161,7 @@ struct t_update_char_db
 	short Moral;	  
 	short Luck ;	 
 	short wsps;
-	BYTE Tactics; // ¼±ÅÃÇÑ ÀüÅõ±â¼ú (º¸¿©ÁÖ±â À§ÇÔ)
+	BYTE Tactics; // ì„ íƒí•œ ì „íˆ¬ê¸°ìˆ  (ë³´ì—¬ì£¼ê¸° ìœ„í•¨)
 	DWORD nation; // 1004 YGI
 	DWORD Money;
 	int	Hp;
@@ -1170,24 +1170,24 @@ struct t_update_char_db
 	int	ManaMax;
 	int Hungry;	
 	int	HungryMax;
-	BYTE Condition;	// Ä³¸¯ÅÍ »óÅÂ
+	BYTE Condition;	// ìºë¦­í„° ìƒíƒœ
 	char MapName[21];
 	int Sight;		// YGI 020418
 	short Age;
-	BYTE bAlive; // Ä³¸¯ÅÍÀÇ »ı»ç¿©ºÎ
-	DWORD killmon;	// 1°è¿­¸ó½ºÅÍ Å³¸µ¼ö
-	DWORD killanimal; // µ¿¹° Å³¸µ¼ö
-	DWORD killpc; // »ç¶÷, NPC Å³¸µ¼ö
-	short nPoison; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	short nCurse; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â	
-	short nFire; // ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	short nIce;	// ¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	short nElect; // Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇâ·Â
-	short nHoly; // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+	BYTE bAlive; // ìºë¦­í„°ì˜ ìƒì‚¬ì—¬ë¶€
+	DWORD killmon;	// 1ê³„ì—´ëª¬ìŠ¤í„° í‚¬ë§ìˆ˜
+	DWORD killanimal; // ë™ë¬¼ í‚¬ë§ìˆ˜
+	DWORD killpc; // ì‚¬ëŒ, NPC í‚¬ë§ìˆ˜
+	short nPoison; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	short nCurse; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥	
+	short nFire; // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	short nIce;	// ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	short nElect; // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í–¥ë ¥
+	short nHoly; // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 	short X;
 	short Y;
 	BYTE accessory[4];
-	short mantle; // 011018 KHS ¸Á¶Ç
+	short mantle; // 011018 KHS ë§ë˜
 	short openhouse;
 	short reserved_point ;
 	DWORD BankMoney;
@@ -1203,11 +1203,11 @@ struct t_update_char_db
 	BYTE aStepInfo[20];
 	int nCombatAmount;
 	int	check_crc; //acer5
-	//<050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+	//<050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 	short int gender;
 	short int sprno;
 	short int face;
-	//>050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+	//>050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 };	//> CSD-030807
 
 typedef struct  server_update_binary_data0
@@ -1281,40 +1281,40 @@ typedef struct  server_update_bankitem_data
 
 typedef struct chr_status_info
 {
-	short int		Str;				//  Èû
+	short int		Str;				//  í˜
 	bool			fStr ;
-	short int		Con;				//  °Ç°­
+	short int		Con;				//  ê±´ê°•
 	bool			fCon ;
-	short int		Dex;				//	¹ÎÃ¸¼º
+	short int		Dex;				//	ë¯¼ì²©ì„±
 	bool			fDex ;
-	short int		Wis;				//	ÁöÇı
+	short int		Wis;				//	ì§€í˜œ
 	bool			fWis ;
-	short int		Int;				//	Áö´É
+	short int		Int;				//	ì§€ëŠ¥
 	bool			fInt ;
-	short int		MoveP;				//	ÀÌµ¿·Â
+	short int		MoveP;				//	ì´ë™ë ¥
 	bool			fMoveP ;
-	short int		Char;				//	¸Å·Â
+	short int		Char;				//	ë§¤ë ¥
 	bool			fChar ;
-	short int		Endu;				//  ÀúÇâ·Â
+	short int		Endu;				//  ì €í–¥ë ¥
 	bool			fEndu ;
-	short int		Health;				//	Ã¼·Â
+	short int		Health;				//	ì²´ë ¥
 	bool			fHealth ;
-	short int		Moral;				//	»ç±â
+	short int		Moral;				//	ì‚¬ê¸°
 	bool			fMoral ;
-	short int		Luck;				//	Çà¿î
+	short int		Luck;				//	í–‰ìš´
 	bool			fLuck ;
 
-	short int		Resis_Poision;		//	µ¶/Á×À½ ÀúÇ×·Â
+	short int		Resis_Poision;		//	ë…/ì£½ìŒ ì €í•­ë ¥
 	bool			fPoison ;
-	short int		Resis_Stone;		//	¼®È­ ¸¶ºñ ÀúÇ×·Â
+	short int		Resis_Stone;		//	ì„í™” ë§ˆë¹„ ì €í•­ë ¥
 	bool			fStone ;
-	short int		Resis_Magic;		//	¸¶¹ıÀúÇ×·Â
+	short int		Resis_Magic;		//	ë§ˆë²•ì €í•­ë ¥
 	bool			fMagic ;
-	short int		Resis_Fire;			//	ºÒ ÀúÇ×·Â
+	short int		Resis_Fire;			//	ë¶ˆ ì €í•­ë ¥
 	bool			fFire ;
-	short int		Resis_Ice;			//	¾óÀ½ÀúÇ×·Â
+	short int		Resis_Ice;			//	ì–¼ìŒì €í•­ë ¥
 	bool			fIce ;
-	short int		Resis_Elect;		//	Àü±âÀúÇâ·Â
+	short int		Resis_Elect;		//	ì „ê¸°ì €í–¥ë ¥
 	bool			fElect ;
 
 	short int		Ap ;
@@ -1348,14 +1348,14 @@ typedef struct chr_status_info
 
 } t_chr_status_info ;
 
-typedef struct item_ex_info				// ¸Ş´º¿¡¼­ »ç¿ë (¾ÆÀÌÅÛ)( ¼­¹ö¿ë )
+typedef struct item_ex_info				// ë©”ë‰´ì—ì„œ ì‚¬ìš© (ì•„ì´í…œ)( ì„œë²„ìš© )
 {
 //	ItemAttr item_attr;
 	int		itemno ;
 	POS		pos_s;
 	POS		pos_t;
 } t_item_ex_info;
-typedef struct item_exchange			// Å¬¶óÀÌ¾ğÆ®¿ë...
+typedef struct item_exchange			// í´ë¼ì´ì–¸íŠ¸ìš©...
 {
 	int		item_no;
 	POS		pos_s;
@@ -1364,9 +1364,9 @@ typedef struct item_exchange			// Å¬¶óÀÌ¾ğÆ®¿ë...
 
 // Menu..
 // ===========================================================================================
-// ¼³¸í: Å¬¶óÀÌ¾ğÆ®°¡ ¾î¶² ¸Ş´º¸¦ ¶ç¿ïÁö ÀÌº¥Æ®¿¡ µû¶ó ¸Ş´ºID¸¦ ¾Ë·ÁÁÖ±âÀ§ÇÑ ±¸Á¶Ã¼
-// Àü¼Û: SERVER ==> CLIENT
-// Çì´õ: CMD_CALL_SMALLMENU
+// ì„¤ëª…: í´ë¼ì´ì–¸íŠ¸ê°€ ì–´ë–¤ ë©”ë‰´ë¥¼ ë„ìš¸ì§€ ì´ë²¤íŠ¸ì— ë”°ë¼ ë©”ë‰´IDë¥¼ ì•Œë ¤ì£¼ê¸°ìœ„í•œ êµ¬ì¡°ì²´
+// ì „ì†¡: SERVER ==> CLIENT
+// í—¤ë”: CMD_CALL_SMALLMENU
 // -------------------------------------------------------------------------------------------
 typedef struct server_call_smallmenu
 {
@@ -1387,7 +1387,7 @@ typedef struct server_call_smallmenucustom
 //
 
 
-typedef struct tag_store_list_item			// °´Ã¼		// 0928 YGI
+typedef struct tag_store_list_item			// ê°ì²´		// 0928 YGI
 {
 	short int item;
 //	short int price;
@@ -1458,7 +1458,7 @@ typedef struct server_turn_dir
 // ----------------- Skill -------------------------------
 // ----------------- Skill -------------------------------
 
-#define CMD_SKILL_INFO					6150	//010707 lsw ¼öÁ¤
+#define CMD_SKILL_INFO					6150	//010707 lsw ìˆ˜ì •
 
 typedef struct server_skill_info
 {
@@ -1522,7 +1522,7 @@ typedef struct server_special_item
 }t_server_special_item;
 
 const int  CMD_OUTPUT_MESSAGE				=704;
-const int  CMD_SOUND_OUT					=705;//¾Æ·¡¿Í °°ÀÌ ¾¹´Ï´Ù.
+const int  CMD_SOUND_OUT					=705;//ì•„ë˜ì™€ ê°™ì´ ì”ë‹ˆë‹¤.
 typedef struct server_output_message
 {
 	DWORD para1;
@@ -1614,7 +1614,7 @@ typedef struct chat_set
 	char chatname[ NM_LENGTH];
 }t_chat_set;
 #define CMD_CHAT_SET_RESULT			7510		
-typedef struct chat_set_result	// ¼³Á¤Çß´Âµ¥ »ó´ë°¡ ¾ø´Ù¸é ¾ø´Ù°í ¾ê±â ÇØÁØ´Ù. 
+typedef struct chat_set_result	// ì„¤ì •í–ˆëŠ”ë° ìƒëŒ€ê°€ ì—†ë‹¤ë©´ ì—†ë‹¤ê³  ì–˜ê¸° í•´ì¤€ë‹¤. 
 {
 	char result;
 }t_chat_set_result;
@@ -1673,7 +1673,7 @@ typedef struct  server_access_char_db
 							
 typedef struct  server_accept_char_db // 2308
 {							
-	char			name[20];		// 030923 HK YGI	// ÀÌ¸§À¸·Î È®ÀÎÇÑ´Ù.
+	char			name[20];		// 030923 HK YGI	// ì´ë¦„ìœ¼ë¡œ í™•ì¸í•œë‹¤.
 	short int		server_id;
 							
 	short int		Level;	
@@ -1728,28 +1728,28 @@ typedef struct  server_accept_char_db // 2308
 	DWORD			nation;				//1004 YGI
 
 	BYTE			accessory[4];
-	short int		mantle;		// 011018 KHS ¸Á¶Ç 
+	short int		mantle;		// 011018 KHS ë§ë˜ 
 
 	BYTE			bAlive;
 	short int		openhouse;
 	char			disease[6];		
 	DWORD			total_id;
 
-	__int16 nPoison; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nCurse; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â	
-	__int16 nFire;	 // ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nIce;		 // ¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nHoly;	 // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nElect;	 // Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇâ·Â
+	__int16 nPoison; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nCurse; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥	
+	__int16 nFire;	 // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nIce;		 // ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nHoly;	 // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nElect;	 // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í–¥ë ¥
 	char			viewtype;
 
 	short int		social_status;
 	short int		fame;
-	short int		fame_pk;		// 010915 LTS	//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+	short int		fame_pk;		// 010915 LTS	//Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.		
 	NW_Character	NWCharacter;	// 010915 LTS
  
 	BYTE aStepInfo[20];
-	int		nUserAge;				// 030929 kyo	// ÅÂ±¹¿¡¼­ »ç¿ëÇÏ´Â À¯Àú³ªÀÌ 
+	int		nUserAge;				// 030929 kyo	// íƒœêµ­ì—ì„œ ì‚¬ìš©í•˜ëŠ” ìœ ì €ë‚˜ì´ 
   	Event_Join		EventJoin;		// 020115 LTS
 } t_server_accept_char_db;
 
@@ -1804,7 +1804,7 @@ typedef struct  server_accept_inv_data
 	short int		server_id;
 	UCHAR			inv[SIZE_OF_INV];
 	//021030 YGI
-	char			refresh_inventory;		// ¸Ê¼­¹ö°¡ ´Ù½Ã Å¬¶óÀÌ¾ğÆ®¿¡ °ªÀ» º¸³»Áà¾ß ÇÒ¶§
+	char			refresh_inventory;		// ë§µì„œë²„ê°€ ë‹¤ì‹œ í´ë¼ì´ì–¸íŠ¸ì— ê°’ì„ ë³´ë‚´ì¤˜ì•¼ í• ë•Œ
 
 } t_server_accept_inv_data;
 
@@ -1823,7 +1823,7 @@ typedef struct  server_accept_bankitem_data
 } t_server_accept_bankitem_data;
 
 
-typedef struct server_accept_data_error		// login server¿¡¼­ Error°¡ ¹ß»ıÇß´Ù. 
+typedef struct server_accept_data_error		// login serverì—ì„œ Errorê°€ ë°œìƒí–ˆë‹¤. 
 {
 	char name[ NM_LENGTH];
 }t_server_accept_data_error;
@@ -1888,17 +1888,17 @@ typedef struct debug_server_req_char_info
 	int		lv;
 	int		exp;
 	int		 ac;
-	int		Str;				//  Èû
-	int		Con;				//  °Ç°­
-	int		Dex;				//	¹ÎÃ¸¼º
-	int		Wis;				//	ÁöÇı
-	int		Int;				//	Áö´É
-	int		MoveP;				//	ÀÌµ¿·Â
-	int		Char;				//	¸Å·Â
-	int		Endu;				//  ÀúÇâ·Â
-	int		Moral;				//	»ç±â
-	int		Luck;				//	Çà¿î
-	int		wsps;				//  ¸¶¹ı·Â->¸¶¹ı ¸Ş¸ğ¶óÀÌÁî
+	int		Str;				//  í˜
+	int		Con;				//  ê±´ê°•
+	int		Dex;				//	ë¯¼ì²©ì„±
+	int		Wis;				//	ì§€í˜œ
+	int		Int;				//	ì§€ëŠ¥
+	int		MoveP;				//	ì´ë™ë ¥
+	int		Char;				//	ë§¤ë ¥
+	int		Endu;				//  ì €í–¥ë ¥
+	int		Moral;				//	ì‚¬ê¸°
+	int		Luck;				//	í–‰ìš´
+	int		wsps;				//  ë§ˆë²•ë ¥->ë§ˆë²• ë©”ëª¨ë¼ì´ì¦ˆ
 
 	int     Hp, HpMax;
 	int     Mp, MpMax;
@@ -1940,14 +1940,14 @@ typedef struct server_smile_face
 	char  smileno;
 }t_server_smile_face;
 
-// °øÁö»çÇ× °ø°í....
+// ê³µì§€ì‚¬í•­ ê³µê³ ....
 #define		CMD_BBS					8411
 typedef struct server_bbs
 {
 	char bbs[ MAX_PATH];
 }t_server_bbs;
 
-#define CMD_ACCESS_JOIN_YOU_ALREADY_IN_MAP			8412	// id¿Í Password¸¦ µé°í Á¢±ÙÇÏÁö¸¸. ´ç½ÅÀº ÀÌ¹Ì ¸Ê¿¡ ÀÖ´Ù. ¶Ç´Â ÇöÀç UpdateÁßÀÌ´Ù. 
+#define CMD_ACCESS_JOIN_YOU_ALREADY_IN_MAP			8412	// idì™€ Passwordë¥¼ ë“¤ê³  ì ‘ê·¼í•˜ì§€ë§Œ. ë‹¹ì‹ ì€ ì´ë¯¸ ë§µì— ìˆë‹¤. ë˜ëŠ” í˜„ì¬ Updateì¤‘ì´ë‹¤. 
 
 
 #define CMD_HOW_MANY_IN_MAP							8413
@@ -1957,7 +1957,7 @@ typedef struct how_many_in_map
 	short int	how;
 }t_how_many_in_map;
 
-// °ÔÀÓ ¿î¿µÀÚ¿ë
+// ê²Œì„ ìš´ì˜ììš©
 #define CMD_BLOCK_ATTACK_START						8414
 #define CMD_BLOCK_ATTACK_END						8415
 #define CMD_BLOCK_MOVE_START 						8416
@@ -2003,7 +2003,7 @@ typedef struct item_duration_change
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
-// NPC¸¦ Á¦¾îÇÏ±â À§ÇÑ ÇÁ·ÎÅäÄİ
+// NPCë¥¼ ì œì–´í•˜ê¸° ìœ„í•œ í”„ë¡œí† ì½œ
 //
 
 #define CMD_NPC_CHAT_DATA							8427
@@ -2163,7 +2163,7 @@ typedef struct char_in_game
 
 
 // Login Server -> Game Server
-// id¸¦ °¡Áø ³ğÀ» ²÷¾î¶ó...
+// idë¥¼ ê°€ì§„ ë†ˆì„ ëŠì–´ë¼...
 #define CMD_CLOSE_LOGIN_ID							8462
 typedef struct login_close_login_id 
 {
@@ -2261,7 +2261,7 @@ typedef struct dual_proposal_accept
 typedef struct debug_change_skill_exp
 {
 	short int id;
-	DWORD			skillexp[45];		// 1219 YGI °æÇèÄ¡
+	DWORD			skillexp[45];		// 1219 YGI ê²½í—˜ì¹˜
 
 }t_debug_change_skill_exp;
 
@@ -2284,7 +2284,7 @@ typedef struct server_npc_access_table_reload
 
 
 
-// ±¹°¡Àü¿¡ ´ëÇÑ  packet..
+// êµ­ê°€ì „ì— ëŒ€í•œ  packet..
 #define CMD_SEALSTONE_WAR_LEFTTIME			8850
 typedef struct sealstone_warlefttime
 {				
@@ -2487,12 +2487,12 @@ typedef struct server_chr_log_basic_data
 	char MapName[ NM_LENGTH];
 	int HungryMax;
 
-  __int16 nPoison; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-  __int16 nCurse; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â	
-  __int16 nFire;	 // ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-  __int16 nIce;		 // ¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-  __int16 nElect;	 // Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇâ·Â
-  __int16 nHoly;	 // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+  __int16 nPoison; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+  __int16 nCurse; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥	
+  __int16 nFire;	 // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+  __int16 nIce;		 // ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+  __int16 nElect;	 // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í–¥ë ¥
+  __int16 nHoly;	 // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
   
 	int X, Y;
 	int		reserved_point;
@@ -2555,12 +2555,12 @@ typedef struct hacking_user
 typedef struct rare_item_make_log
 {
 	int map;
-	//date; ÀÚµ¿ ±â·Ï
+	//date; ìë™ ê¸°ë¡
 	char maker[20];
 	
-	int itemno;//¾ÆÀÌÅÛ ÀÚÃ¼ ³Ñ¹ö
+	int itemno;//ì•„ì´í…œ ìì²´ ë„˜ë²„
 	
-	int today_count;//¿À´Ã ¸î¹ø ¸¸µé¾ú³ª
+	int today_count;//ì˜¤ëŠ˜ ëª‡ë²ˆ ë§Œë“¤ì—ˆë‚˜
 	
 	int grade;
 
@@ -2580,7 +2580,7 @@ typedef struct rare_item_make_log
 	int why;
 	int why2;
 
-	int resource1limit;//¸®¹Ô
+	int resource1limit;//ë¦¬ë°‹
 	int resource2limit;
 	int resource3limit;
 	int resource4limit;
@@ -2729,7 +2729,7 @@ typedef struct packet
 		t_server_guild_info			server_guild_info;
 		t_client_learn_skill		client_learn_skill;
 		t_server_learn_skill		server_learn_skill;
-		t_server_learn_skillitem	server_learn_skillitem;				//### 1214 ¼öÁ¤ 
+		t_server_learn_skillitem	server_learn_skillitem;				//### 1214 ìˆ˜ì • 
 		t_server_repair_itemlist	server_repair_itemlist;
 		t_client_item_repair		client_item_repair;
 		t_server_item_repair		server_item_repair;
@@ -2796,11 +2796,11 @@ typedef struct packet
 		t_client_smile_face				client_smile_face;
 		t_server_smile_face				server_smile_face;
 
-		// °øÁö»çÇ×..
+		// ê³µì§€ì‚¬í•­..
 		t_server_bbs					server_bbs;
 
 
-		// °ÔÀÓ¼­¹ö ÀÎ½Ä 
+		// ê²Œì„ì„œë²„ ì¸ì‹ 
 		t_im_game_server				im_game_server;
 
 
@@ -2816,7 +2816,7 @@ typedef struct packet
 
 		t_server_accept_data_error		server_accept_data_error;
 
-		// ¿î¿µÀÚ¿ë 
+		// ìš´ì˜ììš© 
 		t_absolute_logout				absolute_logout;
 		t_make_ghost					make_ghost;
 		t_give_life						give_life;
@@ -2832,7 +2832,7 @@ typedef struct packet
 		t_server_update_bankitem_data	server_update_bankitem_data;
 
 
-		// GameServer¿Í  LoginServer¿ÍÀÇ Access Join°ü°è..
+		// GameServerì™€  LoginServerì™€ì˜ Access Joinê´€ê³„..
 		t_gs_req_insert_userid	gs_req_insert_userid;
 		t_gs_req_delete_userid	gs_req_delete_userid;
 		t_ls_joinable			ls_joinable;
@@ -2841,11 +2841,11 @@ typedef struct packet
 
 		t_how_many_in_map		how_many_in_map;
 
-		// Item Duration °¨¼ÒÃ³¸®....
+		// Item Duration ê°ì†Œì²˜ë¦¬....
 		t_item_duration_change	item_duration_change;
 
 
-		// Client¿¡¼­ NPC°ü¸®¸¦ À§ÇÑ ÇÁ·ÎÅäÄİ
+		// Clientì—ì„œ NPCê´€ë¦¬ë¥¼ ìœ„í•œ í”„ë¡œí† ì½œ
 		t_npc_chat_data			npc_chat_data;
 
 		t_npcctrl_sealstone		npcctrl_sealstone;
@@ -2867,7 +2867,7 @@ typedef struct packet
 
 		t_login_bbs						login_bbs;
 
-		t_char_in_game					char_in_game;	// °ÔÀÓ¼­¹ö¿¡ ±×·¯ÇÑ ³ğÀÌ ÀÕ´Â°¡ ¾ø´Â°¡¸¦ CheckÇÑ´Ù. 
+		t_char_in_game					char_in_game;	// ê²Œì„ì„œë²„ì— ê·¸ëŸ¬í•œ ë†ˆì´ ì‡ëŠ”ê°€ ì—†ëŠ”ê°€ë¥¼ Checkí•œë‹¤. 
 		t_login_close_login_id			login_close_login_id;
 
 		t_update_very_important_status	update_very_important_status;
@@ -2881,7 +2881,7 @@ typedef struct packet
 		t_server_npc_access_table_reload	server_npc_access_table_reload;
 
 
-		// ±¹°¡Àü¿¡ ´ëÇÑ packet.
+		// êµ­ê°€ì „ì— ëŒ€í•œ packet.
 		t_sealstone_warlefttime		sealstone_warlefttime;
 		t_sealstone_war_start		sealstone_war_start;
 		t_sealstone_client_warlefttime	sealstone_client_warlefttime;
@@ -2913,9 +2913,9 @@ typedef struct packet
 		t_server_chr_log_binary_data2 server_chr_log_binary_data2;
 		t_server_chr_log_binary_data3 server_chr_log_binary_data3;
 
-		//this lsw ¾ÆÀÌÅÛ ÆĞÅ¶ ¾ĞÃà¿¡ ´ëÇÑ..   010326
+		//this lsw ì•„ì´í…œ íŒ¨í‚· ì••ì¶•ì— ëŒ€í•œ..   010326
 		t_server_item_add_ziped		server_item_add_ziped;
-		t_server_check_accel		server_check_accel;//¿¢¼¿·¹ÀÌÅÍ ¾²´Â°Å ¹æÁö 010604 lsw
+		t_server_check_accel		server_check_accel;//ì—‘ì…€ë ˆì´í„° ì“°ëŠ”ê±° ë°©ì§€ 010604 lsw
 
 
 		t_hacking_user				hacking_user;
@@ -2985,10 +2985,10 @@ typedef struct packet
 		
 		t_LOTTERY_INFO		Lotto_BroadCast;//soto-HK030924
 
-		t_LOTTOPAPER_SEEK	Lotto_Seek;//soto-LottoÃß°¡.
+		t_LOTTOPAPER_SEEK	Lotto_Seek;//soto-Lottoì¶”ê°€.
 
-		t_DEL_LOTTO_USER_OK			Lotto_Del_Ok;		// BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
-		t_EVENT_RARE_ITEM_LIST		Event_Item_List;	// BBD 040308	ÀÌº¥Æ®·¹¾î¾ÆÀÌÅÛ È®ÀÎ¿ë ±¸Á¶Ã¼
+		t_DEL_LOTTO_USER_OK			Lotto_Del_Ok;		// BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½
+		t_EVENT_RARE_ITEM_LIST		Event_Item_List;	// BBD 040308	ì´ë²¤íŠ¸ë ˆì–´ì•„ì´í…œ í™•ì¸ìš© êµ¬ì¡°ì²´
 	} u;
 	
 	struct packet *next;
@@ -3021,7 +3021,7 @@ typedef struct connection
 	char			name[NM_LENGTH];
 	char			mapname[NM_LENGTH];
 
-	int				server_check;	// ÇöÀç Sealstone.cpp¿¡¼­ »ç¿ëÇÏ´Âµ¥.. Á¤¸®ÇØ¾ßÇÒ º¯¼öÀÌ´Ù..010531 KHS
+	int				server_check;	// í˜„ì¬ Sealstone.cppì—ì„œ ì‚¬ìš©í•˜ëŠ”ë°.. ì •ë¦¬í•´ì•¼í•  ë³€ìˆ˜ì´ë‹¤..010531 KHS
 
     CHARLIST		chrlst;
 
@@ -3067,7 +3067,7 @@ extern "C"
 	extern void SendAliveCheckRoutine(t_connection c[]);
 	extern void SendWeatherRoutine(t_connection c[]);
 	//extern void closeconnection(t_connection c[], int cn, int errnum);
-	extern void closeconnection(t_connection c[], int cn, int errnum,  bool bUseDemon = false);	// BBD 040110 ÀÎ¼ö È®Àå
+	extern void closeconnection(t_connection c[], int cn, int errnum,  bool bUseDemon = false);	// BBD 040110 ì¸ìˆ˜ í™•ì¥
 	extern void closeconnection_core( t_connection c[], int cn, int errnum);
 
 	//------------ NEW_APPEND -------------------------------
@@ -3089,8 +3089,8 @@ extern "C"
 	extern void RecvTotalMapConnections( int cn );
 	extern void RecvTotalConnections( int cn );
 
-	/* 040715_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®) - ·Î±×´Â BattleÆú´õ¿¡ ÀúÀåµÊ
-			¿¬°üµÈ BallancingXXX´Â ÇöÀç »ç¿ëÄ¡ ¾Ê´Â°ÍÀ¸·Î º¸¿©¼­ ÀÌ³à¼®¸¸ ÀÌµ¿.
+	/* 040715_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬) - ë¡œê·¸ëŠ” Battleí´ë”ì— ì €ì¥ë¨
+			ì—°ê´€ëœ BallancingXXXëŠ” í˜„ì¬ ì‚¬ìš©ì¹˜ ì•ŠëŠ”ê²ƒìœ¼ë¡œ ë³´ì—¬ì„œ ì´ë…€ì„ë§Œ ì´ë™.
 	extern void SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int mana, int attack, int attacktype, int tac  );
 	
 	extern void SaveLogLevelUp(LPCHARLIST pChar);

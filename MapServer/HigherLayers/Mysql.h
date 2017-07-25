@@ -1,4 +1,4 @@
-#if !defined(AFX_MYSQL_H__D6CBF8EF_AAC2_4E8E_823B_4ED7AE440D83__INCLUDED_)
+ï»¿#if !defined(AFX_MYSQL_H__D6CBF8EF_AAC2_4E8E_823B_4ED7AE440D83__INCLUDED_)
 #define AFX_MYSQL_H__D6CBF8EF_AAC2_4E8E_823B_4ED7AE440D83__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -10,7 +10,7 @@
 #define MAX_SKILLMAPTABLE	100
 
 
-#include "LocalizingMgr.h"	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+#include "LocalizingMgr.h"	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 typedef struct t_skillmain{
 int NO;
@@ -160,7 +160,7 @@ extern int             SkillMapTableCount;
 
 
 extern int Init_DragonRajaDB_SQL(LPSTR szDSN, LPSTR szUID, LPSTR szUPW);
-extern int Init_TotalDB_SQL(LPSTR szDSN, LPSTR szUID, LPSTR szUPW);	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+extern int Init_TotalDB_SQL(LPSTR szDSN, LPSTR szUID, LPSTR szUPW);	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 extern int Release_SQL(void);
 //YGI acer
 extern int Querry_SQL(LPSTR szQuerry, HDBC hdbc = NULL);
@@ -210,7 +210,7 @@ extern char * GetMessageBBS_public( int count );			// 0306 YGI
 extern int GetBelieveAndFaith_SQL( int &believe, int &faith, char *name );		// 0316 YGI
 extern int UpdateFaith_SQL( short int faith, char *name );						// 0316 YGI
 
-extern int UpdateEvaName( char *my_name, char *eva_name );		// ÀüµµÇÑ »ç¶÷ ÀÌ¸§À» µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+extern int UpdateEvaName( char *my_name, char *eva_name );		// ì „ë„í•œ ì‚¬ëŒ ì´ë¦„ì„ ë””ë¹„ì— ì—…ë°ì´íŠ¸ í•œë‹¤.
 extern void SubtractFaith( char *naem );
 
 
@@ -266,7 +266,7 @@ bool LoadHuntPlaceInfo();   // CSD-030509
 bool LoadWarStartInfo();    // CSD-030723
 //021030 YGI
 extern int GetEventNpcItemAmount( int event_no );
-// 040105 YGI º¸¹°
+// 040105 YGI ë³´ë¬¼
 extern bool LoadEventTreasureXY();
 extern bool LoadEventTreasureGuard();
 

@@ -1,4 +1,4 @@
-// RareEffectMgr.h: interface for the CRareEffectMgr class.
+ï»¿// RareEffectMgr.h: interface for the CRareEffectMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -25,61 +25,61 @@ enum eLegendNeed
 
 enum eRareType
 {
-	RARE_POWER				=1,	//	short	nPower				//¾ÆÀÌÅÛÀÇ ¹°¸®Àû Damage Áõ°¡	
-	RARE_ACCURATE			=2,	//	char	nAccurate			//¹°¸®Àû °ø°İ ¼º°ø·ü Áõ°¡ (Å¸°İ½Ã miss È®·ü °¨¼Ò)	
-	RARE_WISE				=3,	//	short	nWise				//¸¶¹ı Ä³½ºÆÃ ½Ã°£ 00¸¸Å­ ´ÜÃà	
-	RARE_BEAR				=4,	//	short	nBear				//Ä³½ºÆÃ À¯Áö ½Ã°£ 00¸¸Å­ Áõ°¡	
-	RARE_DISTANT			=5,	//	char	cDistant			//°ø°İ ¹üÀ§°¡ ¸Ö¾úÀ» ¶§ÀÇ µ¥¹ÌÁö Áõ°¡ (ÇöÀç 100%/90%/85%·Î °¨¼Ò)	
-	RARE_VIGOR				=6,	//	short	nVigor				//¾ÆÀÌÅÛÀÇ ¹°¸®Àû Damage % Áõ°¡	
-	RARE_CURSE				=7,	//	short	nCurse				//ÀÚ½ÅÀÌ ½ÃÀüÇÑ ÀúÁÖ °è¿­ ¸¶¹ı È¿°ú Áö¼Ó ½Ã°£ 00 Áõ°¡	
-	RARE_AID				=8,	//	short	nAid				//ÀÚ½ÅÀÌ ½ÃÀüÇÑ º¸Á¶ °è¿­ ¸¶¹ı È¿°ú Áö¼Ó ½Ã°£ 00 Áõ°¡	
-	RARE_MASKING			=9,	//	short	nMasking			//ÀÚ½ÅÀÌ ½ÃÀüÇÑ º¸È£ °è¿­ ¸¶¹ı È¿°ú Áö¼Ó ½Ã°£ 00 Áõ°¡	
-	RARE_PIERCING			=10,	//	char	cPiercing			//00% È®·ü·Î »ó´ëÀÇ º¸È£ °è¿­ ¸¶¹ıÀ» ¹«½ÃÇÏ¿© ¹°¸®Àû µ¥¹ÌÁö¸¦ ÀÔÈû	
-	RARE_BASIC_RESIST		=11,//	char	cBasicResist		//00% È®·ü·Î »ó´ëÀÇ ¸¶¹ı ÀúÇ×·ÂÀ» ¹«½Ã(±âº»ÀúÇ×·Â)ÇÏ¿© ¸¶¹ı µ¥¹ÌÁö¸¦ ÀÔÈû	
-	RARE_HARDEST			=12,	//	short	nHardest			//ac Áõ°¡	
-	RARE_SMART				=13,	//	char	cSmart				//¹°¸®Àû °ø°İ È¸ÇÇÀ² Áõ°¡ (»ó´ë°¡ ¹°¸®Àû Å¸°İ½Ã miss È®·ü Áõ°¡)	
-	RARE_RESIST_FREEZE		=14,	//	short	nResist_freeze		//¾óÀ½ÀúÇ×·Â Áõ°¡	
-	RARE_RESIST_VENOM		=15,	//	short	nResist_venom		//µ¶ÀúÇ×·Â Áõ°¡	
-	RARE_RESIST_LIGHTNING	=16,	//	short	nResist_lightning	//Àü°İÀúÇ×·Â Áõ°¡	
-	RARE_RESIST_BLAZE		=17,	//	short	nResist_blaze		//ºÒÀúÇ×·Â Áõ°¡	
-	RARE_RESIST_PARALYSIS	=18,	//	short	nResist_paralysis	//¸¶ºñÀúÇ×·Â Áõ°¡	
-	RARE_RESIST_HOLY		=19,	//	short	nResist_holy		//½Å¹ıÀúÇ×·Â Áõ°¡	
-	RARE_RESIST_ALL			=20,	//	short	nResist_all			//¸ğµç ÀúÇ×·Â Áõ°¡	//À§¿¡²¨ µû´Ù ¾¸
-	RARE_SPEED				=21,	//	short	nSpeed				//ÀÌµ¿ ¼Óµµ Áõ°¡	
-	RARE_LIFE				=22,	//	short	nLife				//Life max Áõ°¡	
-	RARE_MANA				=23,	//	short	nMana				//Mana max Áõ°¡	
-	RARE_DIVINE				=24,	//	short	nDivine				//Divine max Áõ°¡	
-	RARE_HEALTH				=25,	//	short	nHealth				//Health max Áõ°¡	
-	RARE_BROOD				=26,	//	short	nBrood				//Life max % Áõ°¡	
-	RARE_MIND				=27,	//	short	nMind				//Mana max % Áõ°¡	
-	RARE_SPIRIT				=28,	//	short	nSpirit				//Divine max % Áõ°¡	
-	RARE_YOUTH				=29,	//	short	nYouth				//Health max % Áõ°¡	
-	RARE_FATAL				=30,	//	short	nFatal				//Life 1È¸ ÀÚµ¿ È¸º¹·® Áõ°¡	
-	RARE_MAGIC				=31,	//	short	nMagic				//Mana 1È¸ ÀÚµ¿ È¸º¹·® Áõ°¡	
-	RARE_NATURE				=32,	//	short	nNature				//Divine 1È¸ ÀÚµ¿ È¸º¹·® Áõ°¡	
-	RARE_STRENGTH			=33,	//	short	nStrength			//str Áõ°¡	
-	RARE_DEXTERITY			=34,	//	short	nDexterity			//dex Áõ°¡	
-	RARE_CONSTITUTION		=35,	//	short	nConstitution		//con Áõ°¡	
-	RARE_WISDOM				=36,	//	short	nWisdom				//wis Áõ°¡	
-	RARE_INTELLIGENCE		=37,	//	short	nIntelligence		//int Áõ°¡	
-	RARE_CHARISMA			=38,	//	short	nCharisma			//cha Áõ°¡	
-	RARE_ENDURANCE			=39,	//	short	nEndurance			//endu Áõ°¡	
-	RARE_MOVEMENT			=40,	//	short	nMovement			//movp Áõ°¡	
-	RARE_MORAL				=41,	//	short	nMoral				//mor Áõ°¡	
-	RARE_LUCKY				=42,	//	short	nLucky				//luck Áõ°¡	
-	RARE_WIZARD				=43,	//	short	nWizard				//WS Áõ°¡	
-	RARE_PRIEST				=44,	//	short	nPriest				//PS Áõ°¡	
-	RARE_MAGIC_POWER		=45,	//	short	nMagic_power		//À§ÀÚµå °è¿­ ¸¶¹ı µ¥¹ÌÁö ÁõÆø	
-	RARE_MAGIC_VIGOR		=46,	//	char	cMagic_vigor		//À§ÀÚµå °è¿­ ¸¶¹ı µ¥¹ÌÁö 00% ÁõÆø	
-	RARE_MAGIC_STAY			=47,	//	short	nMagic_stay			//À§ÀÚµå °è¿­ ¸¶¹ı Áö¼Ó ½Ã°£ ÁõÆø	
-	RARE_NATURE_POWER		=48,	//	short	nNature_power		//ÇÁ¸®½ºÆ® °è¿­ ¸¶¹ı µ¥¹ÌÁö ÁõÆø	
-	RARE_NATURE_VIGOR		=49,	//	char	cNature_vigor		//ÇÁ¸®½ºÆ® °è¿­ ¸¶¹ı µ¥¹ÌÁö 00% ÁõÆø	
-	RARE_NATURE_STAY		=50,	//	short	nNature_stay		//ÇÁ¸®½ºÆ® °è¿­ ¸¶¹ı Áö¼Ó½Ã°£ ÁõÆø	
-	RARE_LIFE_RECOVERY		=51,	//	char	cLife_recovery		//Life ÀÚµ¿ È¸º¹·® ÃÖ´ëÄ¡ Áõ°¡ (ÀüÃ¼ÀÇ 00%±îÁö ÀÚµ¿ È¸º¹)
-	RARE_MANA_RECOVERY		=52,	//	char	cMana_recovery		//Mana ÀÚµ¿ È¸º¹·® ÃÖ´ëÄ¡ Áõ°¡ (ÀüÃ¼ÀÇ 00%±îÁö ÀÚµ¿ È¸º¹)
-	RARE_CRITICAL			=53,	//	char 	cCritical			//Å©¸®Æ¼ÄÃ µ¥¹ÌÁö ³ª¿Ã È®·ü 00% Áõ°¡	
-	RARE_GUARDIAN			=54,	//	short	nGuardian			//Ä³¸¯ÅÍÀÇ ¹°¸®Àû ¹æ¾î·Â Áõ°¡	
-	RARE_EVASION			=55,	//	char	nEvasion			//°ø°İ ¸¶¹ı È¸ÇÇÀ² Áõ°¡ (»ó´ëÀÇ °ø°İ ¸¶¹ı ¹«È¿È­ È®·ü)	
+	RARE_POWER				=1,	//	short	nPower				//ì•„ì´í…œì˜ ë¬¼ë¦¬ì  Damage ì¦ê°€	
+	RARE_ACCURATE			=2,	//	char	nAccurate			//ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µë¥  ì¦ê°€ (íƒ€ê²©ì‹œ miss í™•ë¥  ê°ì†Œ)	
+	RARE_WISE				=3,	//	short	nWise				//ë§ˆë²• ìºìŠ¤íŒ… ì‹œê°„ 00ë§Œí¼ ë‹¨ì¶•	
+	RARE_BEAR				=4,	//	short	nBear				//ìºìŠ¤íŒ… ìœ ì§€ ì‹œê°„ 00ë§Œí¼ ì¦ê°€	
+	RARE_DISTANT			=5,	//	char	cDistant			//ê³µê²© ë²”ìœ„ê°€ ë©€ì—ˆì„ ë•Œì˜ ë°ë¯¸ì§€ ì¦ê°€ (í˜„ì¬ 100%/90%/85%ë¡œ ê°ì†Œ)	
+	RARE_VIGOR				=6,	//	short	nVigor				//ì•„ì´í…œì˜ ë¬¼ë¦¬ì  Damage % ì¦ê°€	
+	RARE_CURSE				=7,	//	short	nCurse				//ìì‹ ì´ ì‹œì „í•œ ì €ì£¼ ê³„ì—´ ë§ˆë²• íš¨ê³¼ ì§€ì† ì‹œê°„ 00 ì¦ê°€	
+	RARE_AID				=8,	//	short	nAid				//ìì‹ ì´ ì‹œì „í•œ ë³´ì¡° ê³„ì—´ ë§ˆë²• íš¨ê³¼ ì§€ì† ì‹œê°„ 00 ì¦ê°€	
+	RARE_MASKING			=9,	//	short	nMasking			//ìì‹ ì´ ì‹œì „í•œ ë³´í˜¸ ê³„ì—´ ë§ˆë²• íš¨ê³¼ ì§€ì† ì‹œê°„ 00 ì¦ê°€	
+	RARE_PIERCING			=10,	//	char	cPiercing			//00% í™•ë¥ ë¡œ ìƒëŒ€ì˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²•ì„ ë¬´ì‹œí•˜ì—¬ ë¬¼ë¦¬ì  ë°ë¯¸ì§€ë¥¼ ì…í˜	
+	RARE_BASIC_RESIST		=11,//	char	cBasicResist		//00% í™•ë¥ ë¡œ ìƒëŒ€ì˜ ë§ˆë²• ì €í•­ë ¥ì„ ë¬´ì‹œ(ê¸°ë³¸ì €í•­ë ¥)í•˜ì—¬ ë§ˆë²• ë°ë¯¸ì§€ë¥¼ ì…í˜	
+	RARE_HARDEST			=12,	//	short	nHardest			//ac ì¦ê°€	
+	RARE_SMART				=13,	//	char	cSmart				//ë¬¼ë¦¬ì  ê³µê²© íšŒí”¼ìœ¨ ì¦ê°€ (ìƒëŒ€ê°€ ë¬¼ë¦¬ì  íƒ€ê²©ì‹œ miss í™•ë¥  ì¦ê°€)	
+	RARE_RESIST_FREEZE		=14,	//	short	nResist_freeze		//ì–¼ìŒì €í•­ë ¥ ì¦ê°€	
+	RARE_RESIST_VENOM		=15,	//	short	nResist_venom		//ë…ì €í•­ë ¥ ì¦ê°€	
+	RARE_RESIST_LIGHTNING	=16,	//	short	nResist_lightning	//ì „ê²©ì €í•­ë ¥ ì¦ê°€	
+	RARE_RESIST_BLAZE		=17,	//	short	nResist_blaze		//ë¶ˆì €í•­ë ¥ ì¦ê°€	
+	RARE_RESIST_PARALYSIS	=18,	//	short	nResist_paralysis	//ë§ˆë¹„ì €í•­ë ¥ ì¦ê°€	
+	RARE_RESIST_HOLY		=19,	//	short	nResist_holy		//ì‹ ë²•ì €í•­ë ¥ ì¦ê°€	
+	RARE_RESIST_ALL			=20,	//	short	nResist_all			//ëª¨ë“  ì €í•­ë ¥ ì¦ê°€	//ìœ„ì—êº¼ ë”°ë‹¤ ì”€
+	RARE_SPEED				=21,	//	short	nSpeed				//ì´ë™ ì†ë„ ì¦ê°€	
+	RARE_LIFE				=22,	//	short	nLife				//Life max ì¦ê°€	
+	RARE_MANA				=23,	//	short	nMana				//Mana max ì¦ê°€	
+	RARE_DIVINE				=24,	//	short	nDivine				//Divine max ì¦ê°€	
+	RARE_HEALTH				=25,	//	short	nHealth				//Health max ì¦ê°€	
+	RARE_BROOD				=26,	//	short	nBrood				//Life max % ì¦ê°€	
+	RARE_MIND				=27,	//	short	nMind				//Mana max % ì¦ê°€	
+	RARE_SPIRIT				=28,	//	short	nSpirit				//Divine max % ì¦ê°€	
+	RARE_YOUTH				=29,	//	short	nYouth				//Health max % ì¦ê°€	
+	RARE_FATAL				=30,	//	short	nFatal				//Life 1íšŒ ìë™ íšŒë³µëŸ‰ ì¦ê°€	
+	RARE_MAGIC				=31,	//	short	nMagic				//Mana 1íšŒ ìë™ íšŒë³µëŸ‰ ì¦ê°€	
+	RARE_NATURE				=32,	//	short	nNature				//Divine 1íšŒ ìë™ íšŒë³µëŸ‰ ì¦ê°€	
+	RARE_STRENGTH			=33,	//	short	nStrength			//str ì¦ê°€	
+	RARE_DEXTERITY			=34,	//	short	nDexterity			//dex ì¦ê°€	
+	RARE_CONSTITUTION		=35,	//	short	nConstitution		//con ì¦ê°€	
+	RARE_WISDOM				=36,	//	short	nWisdom				//wis ì¦ê°€	
+	RARE_INTELLIGENCE		=37,	//	short	nIntelligence		//int ì¦ê°€	
+	RARE_CHARISMA			=38,	//	short	nCharisma			//cha ì¦ê°€	
+	RARE_ENDURANCE			=39,	//	short	nEndurance			//endu ì¦ê°€	
+	RARE_MOVEMENT			=40,	//	short	nMovement			//movp ì¦ê°€	
+	RARE_MORAL				=41,	//	short	nMoral				//mor ì¦ê°€	
+	RARE_LUCKY				=42,	//	short	nLucky				//luck ì¦ê°€	
+	RARE_WIZARD				=43,	//	short	nWizard				//WS ì¦ê°€	
+	RARE_PRIEST				=44,	//	short	nPriest				//PS ì¦ê°€	
+	RARE_MAGIC_POWER		=45,	//	short	nMagic_power		//ìœ„ìë“œ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ ì¦í­	
+	RARE_MAGIC_VIGOR		=46,	//	char	cMagic_vigor		//ìœ„ìë“œ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ 00% ì¦í­	
+	RARE_MAGIC_STAY			=47,	//	short	nMagic_stay			//ìœ„ìë“œ ê³„ì—´ ë§ˆë²• ì§€ì† ì‹œê°„ ì¦í­	
+	RARE_NATURE_POWER		=48,	//	short	nNature_power		//í”„ë¦¬ìŠ¤íŠ¸ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ ì¦í­	
+	RARE_NATURE_VIGOR		=49,	//	char	cNature_vigor		//í”„ë¦¬ìŠ¤íŠ¸ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ 00% ì¦í­	
+	RARE_NATURE_STAY		=50,	//	short	nNature_stay		//í”„ë¦¬ìŠ¤íŠ¸ ê³„ì—´ ë§ˆë²• ì§€ì†ì‹œê°„ ì¦í­	
+	RARE_LIFE_RECOVERY		=51,	//	char	cLife_recovery		//Life ìë™ íšŒë³µëŸ‰ ìµœëŒ€ì¹˜ ì¦ê°€ (ì „ì²´ì˜ 00%ê¹Œì§€ ìë™ íšŒë³µ)
+	RARE_MANA_RECOVERY		=52,	//	char	cMana_recovery		//Mana ìë™ íšŒë³µëŸ‰ ìµœëŒ€ì¹˜ ì¦ê°€ (ì „ì²´ì˜ 00%ê¹Œì§€ ìë™ íšŒë³µ)
+	RARE_CRITICAL			=53,	//	char 	cCritical			//í¬ë¦¬í‹°ì»¬ ë°ë¯¸ì§€ ë‚˜ì˜¬ í™•ë¥  00% ì¦ê°€	
+	RARE_GUARDIAN			=54,	//	short	nGuardian			//ìºë¦­í„°ì˜ ë¬¼ë¦¬ì  ë°©ì–´ë ¥ ì¦ê°€	
+	RARE_EVASION			=55,	//	char	nEvasion			//ê³µê²© ë§ˆë²• íšŒí”¼ìœ¨ ì¦ê°€ (ìƒëŒ€ì˜ ê³µê²© ë§ˆë²• ë¬´íš¨í™” í™•ë¥ )	
 	RARE_56					=56,	//		56					//	
 	RARE_57					=57,	//		57					//	
 	RARE_58					=58,	//		58					//	
@@ -92,29 +92,29 @@ enum eRareType
 	RARE_65					=65,	//		65					//	
 	RARE_66					=66,	//		66					//	
 	RARE_67					=67,	//		67					//	
-	RARE_WITCH				=68,	//	short	nWitch				//Å¸°İ ½Ã »ó´ëÀÇ Mana¸¦ 00¸¸Å­ »¯¾î¿È	
-	RARE_DEVIL				=69,	//	char	cDevil				//Å¸°İ ½Ã »ó´ëÀÇ Mana¸¦ 00% ¸¸Å­ »¯¾î¿È	
-	RARE_DESIRE				=70,	//	short	nDesire				//Å¸°İ ½Ã »ó´ëÀÇ Life¸¦ ºÎ°¡ÀûÀ¸·Î 00¸¸Å­ »¯¾î¿È	
-	RARE_ROBBER				=71,	//	char	cRobber				//Å¸°İ ½Ã »ó´ëÀÇ Life¸¦ ºÎ°¡ÀûÀ¸·Î 00% ¸¸Å­ »¯¾î¿È	
-	RARE_EVIL				=72,	//	short	nEvil				//Å¸°İ ½Ã »ó´ëÀÇ DivineÀ» ºÎ°¡ÀûÀ¸·Î 00¸¸Å­ »¯¾î¿È	
-	RARE_SATAN				=73,	//	char	cSatan				//Å¸°İ ½Ã »ó´ëÀÇ DivineÀ» ºÎ°¡ÀûÀ¸·Î 00% ¸¸Å­ »¯¾î¿È	
-	RARE_WEARY				=74,	//	short	nWeary				//Å¸°İ ½Ã »ó´ëÀÇ Health¸¦ ºÎ°¡ÀûÀ¸·Î 00¸¸Å­ »¯¾î¿È	
-	RARE_FATIGUE			=75,	//	char	cFatigue			//Å¸°İ ½Ã »ó´ëÀÇ Health¸¦ ºÎ°¡ÀûÀ¸·Î 00% ¸¸Å­ »¯¾î¿È	
-	RARE_COUNTERATTACK		=76,	//	short	nCounterattack		//°ø°İÀÚ¿¡°Ô 00ÀÇ µ¥¹ÌÁö¸¦ µ¹·ÁÁÜ	
-	RARE_STRIKE				=77,	//	char	cStrike				//°ø°İÀÚÀÇ µ¥¹ÌÁö¿¡¼­ 00%¸¦ µ¹·ÁÁÜ	
+	RARE_WITCH				=68,	//	short	nWitch				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Manaë¥¼ 00ë§Œí¼ ëºì–´ì˜´	
+	RARE_DEVIL				=69,	//	char	cDevil				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Manaë¥¼ 00% ë§Œí¼ ëºì–´ì˜´	
+	RARE_DESIRE				=70,	//	short	nDesire				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Lifeë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00ë§Œí¼ ëºì–´ì˜´	
+	RARE_ROBBER				=71,	//	char	cRobber				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Lifeë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00% ë§Œí¼ ëºì–´ì˜´	
+	RARE_EVIL				=72,	//	short	nEvil				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Divineì„ ë¶€ê°€ì ìœ¼ë¡œ 00ë§Œí¼ ëºì–´ì˜´	
+	RARE_SATAN				=73,	//	char	cSatan				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Divineì„ ë¶€ê°€ì ìœ¼ë¡œ 00% ë§Œí¼ ëºì–´ì˜´	
+	RARE_WEARY				=74,	//	short	nWeary				//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Healthë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00ë§Œí¼ ëºì–´ì˜´	
+	RARE_FATIGUE			=75,	//	char	cFatigue			//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Healthë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00% ë§Œí¼ ëºì–´ì˜´	
+	RARE_COUNTERATTACK		=76,	//	short	nCounterattack		//ê³µê²©ìì—ê²Œ 00ì˜ ë°ë¯¸ì§€ë¥¼ ëŒë ¤ì¤Œ	
+	RARE_STRIKE				=77,	//	char	cStrike				//ê³µê²©ìì˜ ë°ë¯¸ì§€ì—ì„œ 00%ë¥¼ ëŒë ¤ì¤Œ	
 //	RARE_78					=78,	//		83					//	
-	RARE_SNAG				=79,	//	short	nSnag				//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È ¸¶ºñ½ÃÅ´	
-	RARE_VERTIGLY			=80,	//	short	nVertigly			//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È È¥¶õ¿¡ °É¸®°Ô ÇÔ	
-	RARE_POISON				=81,	//	short	nPoison				//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È Áßµ¶¿¡ °É¸®°Ô ÇÔ	
-	RARE_STIFF				=82,	//	short	nStiff				//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È ¼®È­¿¡ °É¸®°Ô ÇÔ	
-	RARE_SLACK				=83,	//	short	nSlack				//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È ¼ÓµµÀúÇÏ¿¡ °É¸®°Ô ÇÔ	
+	RARE_SNAG				=79,	//	short	nSnag				//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ë§ˆë¹„ì‹œí‚´	
+	RARE_VERTIGLY			=80,	//	short	nVertigly			//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ í˜¼ë€ì— ê±¸ë¦¬ê²Œ í•¨	
+	RARE_POISON				=81,	//	short	nPoison				//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ì¤‘ë…ì— ê±¸ë¦¬ê²Œ í•¨	
+	RARE_STIFF				=82,	//	short	nStiff				//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ì„í™”ì— ê±¸ë¦¬ê²Œ í•¨	
+	RARE_SLACK				=83,	//	short	nSlack				//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ì†ë„ì €í•˜ì— ê±¸ë¦¬ê²Œ í•¨	
 //	RARE_84					=84,	//		84					//	
-	RARE_GHOST				=85,	//	char	bGhost				//Âø¿ëÇÏ°Ô µÇ¸é À¯·ÉÀ» º¼ ¼ö ÀÖÀ½	
-	RARE_LANDMINE			=86,	//	char	bLandmine			//ÀÏ¹İ Æ®·¦À» °¨ÁöÇÒ ¼ö ÀÖÀ½	
-	RARE_TRAPING			=87,	//	char	bTraping			//¸¶¹ı Æ®·¦À» °¨ÁöÇÒ ¼ö ÀÖÀ½	
-	RARE_DETECT				=88,	//	char	bDetect				//¸ğµç Æ®·¦À» °¨ÁöÇÒ ¼ö ÀÖÀ½	//À§¿¡²¨ µû´Ù ¾¸ 
+	RARE_GHOST				=85,	//	char	bGhost				//ì°©ìš©í•˜ê²Œ ë˜ë©´ ìœ ë ¹ì„ ë³¼ ìˆ˜ ìˆìŒ	
+	RARE_LANDMINE			=86,	//	char	bLandmine			//ì¼ë°˜ íŠ¸ë©ì„ ê°ì§€í•  ìˆ˜ ìˆìŒ	
+	RARE_TRAPING			=87,	//	char	bTraping			//ë§ˆë²• íŠ¸ë©ì„ ê°ì§€í•  ìˆ˜ ìˆìŒ	
+	RARE_DETECT				=88,	//	char	bDetect				//ëª¨ë“  íŠ¸ë©ì„ ê°ì§€í•  ìˆ˜ ìˆìŒ	//ìœ„ì—êº¼ ë”°ë‹¤ ì”€ 
 	
-	RARE_HIGH_POWER			=101,	//020730 lsw ÇÏÀÌ ·¹¾îÀÇ ½ÃÀÛÁ¡
+	RARE_HIGH_POWER			=101,	//020730 lsw í•˜ì´ ë ˆì–´ì˜ ì‹œì‘ì 
 	RARE_HIGH_SHIELD		=102,	
 	RARE_HIGH_BLOOD			=103,
 	RARE_HIGH_MAGIC			=104,
@@ -124,12 +124,12 @@ enum eRareType
 const int MAX_STATIC_RARE	= RARE_HIGH_POWER-1;//020725 lsw
 const int START_HIGH_RARE	= RARE_HIGH_POWER;//020725 lsw
 
-const int RARE_HP_STEAL_RAND			=20;//HP »¯À» È®·ü( /100)
-const int RARE_MP_STEAL_RAND			=20;//MP »¯À» È®·ü( /100)
-const int RARE_DIVINE_STEAL_RAND		=20;//DIVINE »¯À» È®·ü( /100)
-const int RARE_HUNGRY_STEAL_RAND		=20;//HUNGRY »¯À» È®·ü( /100)
-const int RARE_COUNTERATTCK_RAND		=20;//¹İ°İ ÇÒ È®·ü( /100)
-const int RARE_AUTO_CURSE				=20;//¹İ°İ ÇÒ È®·ü( /100)
+const int RARE_HP_STEAL_RAND			=20;//HP ëºì„ í™•ë¥ ( /100)
+const int RARE_MP_STEAL_RAND			=20;//MP ëºì„ í™•ë¥ ( /100)
+const int RARE_DIVINE_STEAL_RAND		=20;//DIVINE ëºì„ í™•ë¥ ( /100)
+const int RARE_HUNGRY_STEAL_RAND		=20;//HUNGRY ëºì„ í™•ë¥ ( /100)
+const int RARE_COUNTERATTCK_RAND		=20;//ë°˜ê²© í•  í™•ë¥ ( /100)
+const int RARE_AUTO_CURSE				=20;//ë°˜ê²© í•  í™•ë¥ ( /100)
 
 const int MAX_IMR_FIELD_CT = 4;
 const int MAX_IMR_INSURANCE_CT = 3;
@@ -137,14 +137,14 @@ typedef struct ITEMMULTIRARE
 {
 	int iGrade;
 	int iAble;
-	int aItemNo[MAX_IMR_FIELD_CT];//0 ¹ÙÀÌ, 1 ÀÚÀÌ, ÀÏ½º
+	int aItemNo[MAX_IMR_FIELD_CT];//0 ë°”ì´, 1 ìì´, ì¼ìŠ¤
 	int aInsuranceItemNo[MAX_IMR_INSURANCE_CT];
 
-	int aItemCt[MAX_IMR_FIELD_CT];//0 ¹ÙÀÌ, 1 ÀÚÀÌ, ÀÏ½º
+	int aItemCt[MAX_IMR_FIELD_CT];//0 ë°”ì´, 1 ìì´, ì¼ìŠ¤
 	int aInsuranceItemCt[MAX_IMR_INSURANCE_CT];
 	int	iAddCt;
 }t_ItemMultiRare,*LPITEMMULTIRARE;
-const int MAX_ITEM_MULTI_RARE= 17;//Å×ÀÌºíÀÇ Ä«¿îÆ®
+const int MAX_ITEM_MULTI_RARE= 17;//í…Œì´ë¸”ì˜ ì¹´ìš´íŠ¸
 
 const int MAX_ITEM_LEGEND_SUB_BONUS_MAX = 4;
 typedef struct ITEM_LEGEND_SUB
@@ -196,22 +196,22 @@ private:
 	ITEM_LEGEND  m_aItemLegend[MAX_ITEM_LEGEND];
 	ITEM_LEGEND_BONUS	m_aLegendBonus[MAX_ITEM_LEGEND_BONUS];
 public:
-	int		ResetRareEffect(void* ch);//·¹¾î ÀÌÆåÆ® ¸®¼Â
-	void	ClearRareEffect(void* ch);//·¹¾î ÀÌÆåÆ® Á¦°Å
-	void	ClearDynamicRareEffect(void* ch);//±â´É ¾ÆÀÌÅÛ¸¸ Å¬¸®¾î
+	int		ResetRareEffect(void* ch);//ë ˆì–´ ì´í™íŠ¸ ë¦¬ì…‹
+	void	ClearRareEffect(void* ch);//ë ˆì–´ ì´í™íŠ¸ ì œê±°
+	void	ClearDynamicRareEffect(void* ch);//ê¸°ëŠ¥ ì•„ì´í…œë§Œ í´ë¦¬ì–´
 
 	int		GetStaticRareEffectValue(const int iKind, const int iGrade)const;
 	int		GetDynamicRareEffectValue(const int iKind, const int iGrade)const;
 	
 	int		GetDynamicRareValue(const int iDRType,const	DYNAMICRAREEFFECT	&DR) const;
-	int		GetRareDisplayEffectNo		(const bool bIsDynamicRare,const DYNAMICRAREEFFECT &DR)const;	// »ç¿ëµÈ ¸¶¹ıÀÇ ¹øÈ£
-	int		GetRareDisplayEffectTime	(const DYNAMICRAREEFFECT &DR)const;	// À¯Áö½Ã°£
+	int		GetRareDisplayEffectNo		(const bool bIsDynamicRare,const DYNAMICRAREEFFECT &DR)const;	// ì‚¬ìš©ëœ ë§ˆë²•ì˜ ë²ˆí˜¸
+	int		GetRareDisplayEffectTime	(const DYNAMICRAREEFFECT &DR)const;	// ìœ ì§€ì‹œê°„
 	
 	int		ApplyStaticRareEffect(STATICRAREEFFECT	&SR, const int iKind, const int iGrade,bool bSymbol = false);//soto-1.02
 	int		AddANDCheckStaticRareMaxValue(const int iKind,short &nNow, const int iAddValue,bool bSymbol = false);//soto-1.02
 	short	GetStaticRareMaxValue(const int iKind)const;
 
-	int		ApplyDynamicRareEffect(void* ch,const int iKind, const int iGrade,const int iOrder);//iOrder ¿¡ 0À» ³ÖÀ¸¸é ¼ø°£ ÀûÀÎ È¿°ú¸¦ º¸´Â °Í¸¸ Àû¿ë
+	int		ApplyDynamicRareEffect(void* ch,const int iKind, const int iGrade,const int iOrder);//iOrder ì— 0ì„ ë„£ìœ¼ë©´ ìˆœê°„ ì ì¸ íš¨ê³¼ë¥¼ ë³´ëŠ” ê²ƒë§Œ ì ìš©
 	int		AddANDCheckDynamicRareMaxValue(const int iKind,const int iValue);
 	int		GetDynamicRareMaxValue(const int iKind)const ;
 
@@ -320,7 +320,7 @@ public:
 	bool	IsHaveRivaval(void *ch);
 public:
 	void	AutoCheckDynamicRare(DYNAMICRAREEFFECT	&DR);
-	DWORD	GetDynamicRareEffectTime(const int iKind, const int iGrade)const;//µî±Ş¿¡ µû¸¥ À¯Áö ½Ã°£
+	DWORD	GetDynamicRareEffectTime(const int iKind, const int iGrade)const;//ë“±ê¸‰ì— ë”°ë¥¸ ìœ ì§€ ì‹œê°„
 };
 
 #endif // !defined(AFX_RAREEFFECTMGR_H__D6CBF8EF_AAC2_4E8E_823B_4ED7AE440D83__INCLUDED_)

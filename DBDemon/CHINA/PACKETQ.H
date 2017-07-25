@@ -1,4 +1,4 @@
-// PacketQ.h: interface for the PacketQ class.
+﻿// PacketQ.h: interface for the PacketQ class.
 //
 //////////////////////////////////////////////////////////////////////
 

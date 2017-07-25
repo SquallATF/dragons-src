@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	WarfieldMgr.cpp.
  *			implementation of the CWarfieldMgr class.
  */
@@ -9,11 +9,11 @@
 
 /**
  * @fn		CWarfieldMgr::ExecMsg().
- * @brief	¿ÜºÎ ¸ğµâ°úÀÇ Message¸¦ Ã³¸®ÇÑ´Ù.
- * @param	CWarfieldMgr::eWARFIELD_PROC_MSG eWarfieldProcMsg. ¿ÜºÎ ¸ğµâ°úÀÇ Message.
- * @param	LPVOID lpVoid. ÇÊ¿äÇÏ´Ù¸é ¹İÈ¯ÇÏ±â À§ÇÑ ÀÎÀÚ. ¾ø´Ù¸é Default´Â NULLÀÌ´Ù.
- * @return	HRESULT. Message ¼öÇà ÈÄ °á°ú°ª.
- * @warning	¿©±â¿¡ ±â¼úµÇÁö ¾ÊÀº Message´Â µû·Î º¯È¯ÇÏ¿© ÀÌ°÷¿¡ ´Ù½Ã ÀüÇØÁö´Â ·çÆ¾À» ¸¸µé¾î¾ßÇÑ´Ù. Æ÷ÀÎÅÍ ÁÖÀÇ!!.
+ * @brief	ì™¸ë¶€ ëª¨ë“ˆê³¼ì˜ Messageë¥¼ ì²˜ë¦¬í•œë‹¤.
+ * @param	CWarfieldMgr::eWARFIELD_PROC_MSG eWarfieldProcMsg. ì™¸ë¶€ ëª¨ë“ˆê³¼ì˜ Message.
+ * @param	LPVOID lpVoid. í•„ìš”í•˜ë‹¤ë©´ ë°˜í™˜í•˜ê¸° ìœ„í•œ ì¸ì. ì—†ë‹¤ë©´ DefaultëŠ” NULLì´ë‹¤.
+ * @return	HRESULT. Message ìˆ˜í–‰ í›„ ê²°ê³¼ê°’.
+ * @warning	ì—¬ê¸°ì— ê¸°ìˆ ë˜ì§€ ì•Šì€ MessageëŠ” ë”°ë¡œ ë³€í™˜í•˜ì—¬ ì´ê³³ì— ë‹¤ì‹œ ì „í•´ì§€ëŠ” ë£¨í‹´ì„ ë§Œë“¤ì–´ì•¼í•œë‹¤. í¬ì¸í„° ì£¼ì˜!!.
  */
 //< LTH-031219-KO.
 HRESULT CWarfieldMgr::ExecMsg(CWarfieldMgr::eWARFIELD_PROC_MSG eWarfieldProcMsg, LPVOID lpVoid)
@@ -22,10 +22,10 @@ HRESULT CWarfieldMgr::ExecMsg(CWarfieldMgr::eWARFIELD_PROC_MSG eWarfieldProcMsg,
 	{
 	case CWarfieldMgr::WPM_CREATE_WARFIELD:
 		{
-			// Ã·ÀÚ·Î ¹ŞÀº ÀüÀïÅÍ ¹øÈ£°¡ NullÀÌ ¾Æ´Ï¸é...
+			// ì²¨ìë¡œ ë°›ì€ ì „ìŸí„° ë²ˆí˜¸ê°€ Nullì´ ì•„ë‹ˆë©´...
 			if (NULL != lpVoid)
 			{
-				CreateWarfield(*((INT*)lpVoid));	// ÀüÀïÅÍ »ı¼º.
+				CreateWarfield(*((INT*)lpVoid));	// ì „ìŸí„° ìƒì„±.
 			}
 			else
 			{
@@ -67,7 +67,7 @@ HRESULT CWarfieldMgr::ExecMsg(CWarfieldMgr::eWARFIELD_PROC_MSG eWarfieldProcMsg,
 
 	case CWarfieldMgr::WPM_UPDATE:
 		{
-			//< LTH-040419-KO ÀüÀïÅÍ°¡ »ı¼ºµµ µÇÁö ¾Ê¾Ò´Âµ¥ ÀĞÁö ¸øÇÏµµ·Ï ÇÑ´Ù.
+			//< LTH-040419-KO ì „ìŸí„°ê°€ ìƒì„±ë„ ë˜ì§€ ì•Šì•˜ëŠ”ë° ì½ì§€ ëª»í•˜ë„ë¡ í•œë‹¤.
 			if (NULL == m_lpWarfield)
 				return E_FAIL;
 			//> LTH-040419-KO
@@ -199,19 +199,19 @@ HRESULT CWarfieldMgr::ExecMsg(CWarfieldMgr::eWARFIELD_PROC_MSG eWarfieldProcMsg,
 
 /**
  * @fn		CWarfieldMgr::CreateWarfield().
- * @brief	ÀüÀïÅÍ¸¦ »ı¼ºÇÏ´Â ÇÔ¼ö.
- * @param	INT nWarfieldId. ÀüÀïÅÍ ¹øÈ£.
- * @return	HRESULT. »ı¼º ¹İÈ¯.
+ * @brief	ì „ìŸí„°ë¥¼ ìƒì„±í•˜ëŠ” í•¨ìˆ˜.
+ * @param	INT nWarfieldId. ì „ìŸí„° ë²ˆí˜¸.
+ * @return	HRESULT. ìƒì„± ë°˜í™˜.
  */
 //< LTH-040414-KO.
 HRESULT CWarfieldMgr::CreateWarfield(INT nWarfieldId)
 {
-	// ÀüÀïÅÍ ÆÑÅä¸®¸¦ ¸¸µé¾î ÀüÀïÅÍ¸¦ »ı¼ºÇÑ´Ù.
+	// ì „ìŸí„° íŒ©í† ë¦¬ë¥¼ ë§Œë“¤ì–´ ì „ìŸí„°ë¥¼ ìƒì„±í•œë‹¤.
 	LPFACTORYDEFINE lpWarfieldFactory = NULL;
 	lpWarfieldFactory = new CWarfieldFactory;
 	if (FAILED(lpWarfieldFactory->Create(nWarfieldId, (VOID**)&m_lpWarfield)))
 	{
-		::JustMsg("CWarfieldMgr::CreateWarfield() lpWarfieldFactory->Create() ½ÇÆĞ");
+		::JustMsg("CWarfieldMgr::CreateWarfield() lpWarfieldFactory->Create() ì‹¤íŒ¨");
 		return E_FAIL;
 	}
 	SAFE_DELETE(lpWarfieldFactory);

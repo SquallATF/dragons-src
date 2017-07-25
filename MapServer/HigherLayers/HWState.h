@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	HWState.h.
  */
 #pragma once
@@ -6,7 +6,7 @@
 
 /**
  * @class	CHWPeaceState.
- * @brief	ÆòÈ­ »óÅÂ¸¦ ´ã´çÇÏ´Â class. IWarfieldStateDefine¸¦ »ó¼Ó ¹Ş´Â´Ù.
+ * @brief	í‰í™” ìƒíƒœë¥¼ ë‹´ë‹¹í•˜ëŠ” class. IWarfieldStateDefineë¥¼ ìƒì† ë°›ëŠ”ë‹¤.
  */
 //< LTH-040419-KO.
 class CHWPeaceState : public IWarfieldStateDefine
@@ -27,7 +27,7 @@ public:
 //--------------------------------------------------------------------
 /**
  * @class	CHWWarState.
- * @brief	ÀüÀï »óÅÂ¸¦ ´ã´çÇÏ´Â class. IWarfieldStateDefine¸¦ »ó¼Ó ¹Ş´Â´Ù.
+ * @brief	ì „ìŸ ìƒíƒœë¥¼ ë‹´ë‹¹í•˜ëŠ” class. IWarfieldStateDefineë¥¼ ìƒì† ë°›ëŠ”ë‹¤.
  */
 //< LTH-040419-KO.
 class CHWWarState : public IWarfieldStateDefine
@@ -48,7 +48,7 @@ public:
 //-----------------------------------------------------------------
 /**
  * @class	CHWSOpenState.
- * @brief	ºñ¹Ğ Áö¿ª ¿ÀÇÂ »óÅÂ¸¦ ´ã´çÇÏ´Â class. IWarfieldStateDefine¸¦ »ó¼Ó ¹Ş´Â´Ù.
+ * @brief	ë¹„ë°€ ì§€ì—­ ì˜¤í”ˆ ìƒíƒœë¥¼ ë‹´ë‹¹í•˜ëŠ” class. IWarfieldStateDefineë¥¼ ìƒì† ë°›ëŠ”ë‹¤.
  */
 //< LTH-040419-KO.
 class CHWSOpenState : public IWarfieldStateDefine

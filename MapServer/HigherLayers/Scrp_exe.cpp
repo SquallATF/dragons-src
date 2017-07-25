@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\mylog.h"
 #include "..\LowerLayers\servertable.h"
 
@@ -22,7 +22,7 @@
 #include "UserManager.h"
 #include "KickOffAll.h"		// BBD 040329
 
-#include "LogManager.h"			//040719_KJHuNs g_pLogManager¸¦ »ç¿ëÇÏ±â À§ÇÔ.
+#include "LogManager.h"			//040719_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨.
 
 int var[ DRAGON_MAX_CONNECTIONS_][ _SCRIPT_VARABLE_POINT_ ] = {0,};
 char String[ MAX_STRING_]  = {0,};
@@ -177,16 +177,16 @@ int SendDial( short int cn, int npc_index, char *msg, int length )
 
 
 /*?????????????????????????????????????
-ÇÔ¼ö¸í : void sDialogD( void )
-¼³  ¸í : ´ëÈ­¸¦ ÇÏ´Âµ¥ ´ëÈ­ÇÏ´Â ÀÚÀÇ ¹æÇâÀÌ ÁÖÀÎ°øÀ» ÇâÇÑ´Ù.
-ÀÎ  ÀÚ :
-¸®  ÅÏ :
+í•¨ìˆ˜ëª… : void sDialogD( void )
+ì„¤  ëª… : ëŒ€í™”ë¥¼ í•˜ëŠ”ë° ëŒ€í™”í•˜ëŠ” ìì˜ ë°©í–¥ì´ ì£¼ì¸ê³µì„ í–¥í•œë‹¤.
+ì¸  ì :
+ë¦¬  í„´ :
 ??????????????????????????????????????*/
 void sDialOnlyPC( void )// 0
 {		
 	int length;
 	
-	// Client¿¡ ´ëÈ­¸¦ º¸³»ÁØ´Ù....
+	// Clientì— ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤....
 	GetString( String );
 	length = strlen( String );
 	SendDial( EventPC, EventNPC[EventPC], String, strlen( String ) );
@@ -202,7 +202,7 @@ void sSendMessageBox()			// 001212 YGI
 	int length;
 	t_packet packet;
 	
-	// Client¿¡ ´ëÈ­¸¦ º¸³»ÁØ´Ù....
+	// Clientì— ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤....
 	GetString( String );
 	
 	length = strlen( String );
@@ -221,7 +221,7 @@ void sSendMessageBox()			// 001212 YGI
 void sSendSound()			// 001222 YGI
 {
 	t_packet packet;
-	// Client¿¡ ´ëÈ­¸¦ º¸³»ÁØ´Ù....
+	// Clientì— ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤....
 	int type = GetInt();
 	int sound = GetInt();
 	
@@ -237,18 +237,18 @@ void sSendSound()			// 001222 YGI
 	switch (type)
 	{	//< CSD-CN-031213
 	case 0:	
-		{	// ÀÚ±âÀÚ½ÅÇÑÅ×¸¸
+		{	// ìê¸°ìì‹ í•œí…Œë§Œ
 			QueuePacket(connections, EventPC, &packet, 1); 
 			break;		
 		}
 	case 1:		
-		{	// ÁÖº¯»ç¶÷µé±îÁö
+		{	// ì£¼ë³€ì‚¬ëŒë“¤ê¹Œì§€
 			CastMe2Other(EventPC, &packet);
 			QueuePacket(connections, EventPC, &packet, 1); 
 			break;
 		}
 	case 2:
-		{	// ÇöÀç ¸Ê
+		{	// í˜„ì¬ ë§µ
 			g_pUserManager->SendPacket(&packet);
 			break; 
 		}
@@ -259,7 +259,7 @@ void sSendSound()			// 001222 YGI
 			break;
 		}
 	case 4:
-		{	// ¸ğµç¸Ê
+		{	// ëª¨ë“ ë§µ
 			g_pUserManager->SendPacket(&packet);
 			g_pServerTable->BroadCastToEveryServer((char*)&packet, (sizeof(t_header)+packet.h.header.size), SERVER_TYPE_MAP);
 			break;
@@ -278,14 +278,14 @@ void sSendEffect()			// 010522 YGI
 	p.h.header.type = CMD_SEND_EFFECT;
 	p.u.kein.send_effect.effect_num = effect;
 	p.u.kein.send_effect.target_id = EventPC;
-	// 040105 YGI º¸¹°
+	// 040105 YGI ë³´ë¬¼
 	p.u.kein.send_effect.x = 0;
 	p.u.kein.send_effect.y = 0;
 	p.h.header.size = sizeof( k_send_effect );
 	
 	QueuePacket(connections, EventPC, &p, 1);
 	
-	if( type == 1 )	// ÁÖº¯»ç¶÷¿¡°Ôµµ
+	if( type == 1 )	// ì£¼ë³€ì‚¬ëŒì—ê²Œë„
 	{
 		CastMe2Other( EventPC, &p );
 	}
@@ -339,8 +339,8 @@ void sSetQuestNumStep(void)
 {		
 	int quest_no=GetInt();
 	int quest_value=GetInt();
-	//	EventPC		// ½ºÅ©¸³Æ®¸¦ ÁøÇàÇÏ°í ÀÖ´Â Ä³¸¯ÅÍ ¾ÆÀÌµğ¸¦ °¡Áö°í ÀÖ´Ù.
-	//	connections	// ÇöÀç ¼­¹ö¿¡ Á¢¼ÓÇØÀÖ´Â Å¬¶óÀÌ¾ğÆ® ±¸Á¶Ã¼ ( Ä³¸¯ÅÍ Á¤º¸µµ °¡Áö°í ÀÖ´Ù. )
+	//	EventPC		// ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì§„í–‰í•˜ê³  ìˆëŠ” ìºë¦­í„° ì•„ì´ë””ë¥¼ ê°€ì§€ê³  ìˆë‹¤.
+	//	connections	// í˜„ì¬ ì„œë²„ì— ì ‘ì†í•´ìˆëŠ” í´ë¼ì´ì–¸íŠ¸ êµ¬ì¡°ì²´ ( ìºë¦­í„° ì •ë³´ë„ ê°€ì§€ê³  ìˆë‹¤. )
 	
 	//	CHARLIST *ch = &connections[EventPC].chrlst;
 	//	if( !ch ) return;
@@ -352,8 +352,8 @@ void sSetQuestNumStep(void)
 
 void sSetQuestNumStep(int quest_no,int quest_value)
 {	
-	// EventPC		// ½ºÅ©¸³Æ®¸¦ ÁøÇàÇÏ°í ÀÖ´Â Ä³¸¯ÅÍ ¾ÆÀÌµğ¸¦ °¡Áö°í ÀÖ´Ù.
-	// connections	// ÇöÀç ¼­¹ö¿¡ Á¢¼ÓÇØÀÖ´Â Å¬¶óÀÌ¾ğÆ® ±¸Á¶Ã¼ ( Ä³¸¯ÅÍ Á¤º¸µµ °¡Áö°í ÀÖ´Ù. )
+	// EventPC		// ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì§„í–‰í•˜ê³  ìˆëŠ” ìºë¦­í„° ì•„ì´ë””ë¥¼ ê°€ì§€ê³  ìˆë‹¤.
+	// connections	// í˜„ì¬ ì„œë²„ì— ì ‘ì†í•´ìˆëŠ” í´ë¼ì´ì–¸íŠ¸ êµ¬ì¡°ì²´ ( ìºë¦­í„° ì •ë³´ë„ ê°€ì§€ê³  ìˆë‹¤. )
 	// CHARLIST *ch = &connections[EventPC].chrlst;
 	// if( !ch ) return;
 	var[EventPC][quest_no] = quest_value;
@@ -411,7 +411,7 @@ void sMapName( void )// 3
 		}
 	}
 
-	//050314_KCH 5999¸Ê(¾ÆÅÛ°ü¸®·Î±×)Àº TotalDBÀÇ MapInfo¿¡ ¾ø±â¶§¹®(±âÈ¹ÂÊ¿¡¼­ ³Ö¾îÁÖÁö ¾ÊÀ½.) ÀÓ½Ã·Î SkipÇÏ°Ô ÇÔ.
+	//050314_KCH 5999ë§µ(ì•„í…œê´€ë¦¬ë¡œê·¸)ì€ TotalDBì˜ MapInfoì— ì—†ê¸°ë•Œë¬¸(ê¸°íšìª½ì—ì„œ ë„£ì–´ì£¼ì§€ ì•ŠìŒ.) ì„ì‹œë¡œ Skipí•˜ê²Œ í•¨.
 	if (0 == (strcmp(_T("ITEMSEARCH"),MAPNAME)))
 	{
 	}
@@ -426,12 +426,12 @@ extern void CheckMapMove(int ID);			// LTS DRAGONLORDWAR
 int MapMove(int idUser, const char* pMapName, int nX, int nY)
 {	//< CSD-HK-030829
 
-	//<! BBD 040329		À¯Àú¹æÃâÁß ¸Ê¹«ºê ±İÁöÇÑ´Ù
+	//<! BBD 040329		ìœ ì €ë°©ì¶œì¤‘ ë§µë¬´ë¸Œ ê¸ˆì§€í•œë‹¤
 	if(g_KickMgr.IsKicking())
 	{
 		return 0;
 	}
-	//> BBD 040329		À¯Àú¹æÃâÁß ¸Ê¹«ºê ±İÁöÇÑ´Ù
+	//> BBD 040329		ìœ ì €ë°©ì¶œì¤‘ ë§µë¬´ë¸Œ ê¸ˆì§€í•œë‹¤
 
 	CHARLIST* pUser = CheckServerId(idUser);
 	
@@ -439,7 +439,7 @@ int MapMove(int idUser, const char* pMapName, int nX, int nY)
 	{
 		return 0;
 	}
-	// ¸ÊÀÌµ¿½Ã Ä³¸¯ÅÍ µ¥ÀÌÅ¸ ÀúÀå
+	// ë§µì´ë™ì‹œ ìºë¦­í„° ë°ì´íƒ€ ì €ì¥
 	UpdateCharacterData(connections, idUser);
 
 	LPMAPINFO pMapInfo = GetMapInfoByMapName(pMapName);
@@ -487,13 +487,13 @@ int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY)
 	}
 	
 	if( !g_LightVersion.IsAbleMapMove( ch, pMapInfo->mapfile ) )
-	{	// ¶óÀÌÆ® ¹öÀüÀÌ¶ó ½ÇÆĞ
+	{	// ë¼ì´íŠ¸ ë²„ì „ì´ë¼ ì‹¤íŒ¨
 		ch->Message( MK_WARNING, 5, 28 );
 		ch->Message( MK_WARNING, 5, 29 );
-		return 0;		// ¶óÀÌÆ® ¹öÀüÀÌ¶ó ½ÇÆĞ..
+		return 0;		// ë¼ì´íŠ¸ ë²„ì „ì´ë¼ ì‹¤íŒ¨..
 	}
 	
-	if (!ch->IsCounselor() && !ch->IsReporter()) // ¿î¿µÀÚ³ª µµ¿ì¹Ì, ±âÀÚ´Â µé¾î°¥¼ö ÀÖ´Ù.
+	if (!ch->IsCounselor() && !ch->IsReporter()) // ìš´ì˜ìë‚˜ ë„ìš°ë¯¸, ê¸°ìëŠ” ë“¤ì–´ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		const int type = pMapInfo->m_MoveType; //020903 lsw
 
@@ -501,13 +501,13 @@ int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY)
 		{
 		case MMT_NORMAL: 
 			{
-				break;		// ÀÌµ¿ÇÏ´Âµ¥ ¾Æ¹«·± Á¦¾àÀÌ ¾ø´Ù.
+				break;		// ì´ë™í•˜ëŠ”ë° ì•„ë¬´ëŸ° ì œì•½ì´ ì—†ë‹¤.
 			}
-		case MMT_FAIL: 		// ¾ø´Â ¸ÊÀÌ´Ù.
+		case MMT_FAIL: 		// ì—†ëŠ” ë§µì´ë‹¤.
 		case MMT_NOT_MOVE: 
 			{
 				CallClient(cn, CMD_CHANGE_MAP_FAIL);
-				return 0;		// ÀÌµ¿ÇÒ ¼ö ¾ø´Ù.
+				return 0;		// ì´ë™í•  ìˆ˜ ì—†ë‹¤.
 			}		
 		}
 	}
@@ -519,7 +519,7 @@ int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY)
 	
 	t_packet dummy_packet;
 	strcpy(connections[cn].mapname, pMapInfo->mapfile);
-	// ¸ÊÃ¼ÀÎÁö ½ÇÆĞ»óÈ²À» À§ÇÑ ¹é¾÷.
+	// ë§µì²´ì¸ì§€ ì‹¤íŒ¨ìƒí™©ì„ ìœ„í•œ ë°±ì—….
 	ch->MapChange_MoveGox = ch->MoveGox;
 	ch->MapChange_MoveGoy = ch->MoveGoy;
 	ch->MapChange_X = ch->X;
@@ -528,7 +528,7 @@ int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY)
 	ch->MapChange_MoveSy = ch->MoveSy;
 	ch->MapChange_MoveLength = ch->MoveLength;
 	ch->MapChange_MovePathCount = ch->MovePathCount;
-	// »õ ¸ÊÀ» À§ÇÑ ¼¼ÆÃ.
+	// ìƒˆ ë§µì„ ìœ„í•œ ì„¸íŒ….
 	ch->MovePathCount	= 0;
 	ch->MoveLength		= 0;
 	ch->MoveGox = ch->X = nMoveX * TILE_SIZE + 16;
@@ -569,10 +569,10 @@ int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY)
 	}
 
 NO_PORT_:	
-	// Ä¿³Ø¼Ç °ª º¹±¸
+	// ì»¤ë„¥ì…˜ ê°’ ë³µêµ¬
 	connections[cn].state = CONNECT_JOIN;
 	strcpy(connections[cn].mapname, MapName);
-	// ¹é¾÷ÇØ³õ¾Ò´ø °ªÀ¸·Î µÇµ¹¸®±â.
+	// ë°±ì—…í•´ë†“ì•˜ë˜ ê°’ìœ¼ë¡œ ë˜ëŒë¦¬ê¸°.
 	ch->MoveGox = ch->MapChange_MoveGox;
 	ch->MoveGoy = ch->MapChange_MoveGoy;
 	ch->X = ch->MapChange_X;
@@ -609,7 +609,7 @@ void sMapMove( void )// 4
 void sIsLevel( void )
 {	//< CSD-030806
 	const int lev = GetInt();
-	// EventPCÀÇ ·¹º§ÀÌ levº¸´Ù ³ôÀ¸¸é 1¸¦ sYES¿¡ ³Ö°í ±×·¸Áö ¾ÊÀ¸¸é 0À» ³Ö´Â´Ù. 
+	// EventPCì˜ ë ˆë²¨ì´ levë³´ë‹¤ ë†’ìœ¼ë©´ 1ë¥¼ sYESì— ë„£ê³  ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ 0ì„ ë„£ëŠ”ë‹¤. 
 	if (connections[EventPC].chrlst.GetLevel() >= lev)
 	{
 		sYES = 1;
@@ -623,8 +623,8 @@ void sIsLevel( void )
 
 void sIsJobPC( void )
 {
-	int job = GetInt()-1+20;//Á÷¾÷Àº 0¹ø ºÎÅÏµ¥... 1¹øºÎÅÍ·Î Àâ¾ÒÀ½... 
-	// EventPCÀÇ Á÷¾÷ÀÌ jobÀÌ¸é  1À»  sYES¿¡ ³Ö°í ±×·¸Áö ¾ÊÀ¸¸é 0À» ³Ö´Â´Ù. 
+	int job = GetInt()-1+20;//ì§ì—…ì€ 0ë²ˆ ë¶€í„´ë°... 1ë²ˆë¶€í„°ë¡œ ì¡ì•˜ìŒ... 
+	// EventPCì˜ ì§ì—…ì´ jobì´ë©´  1ì„  sYESì— ë„£ê³  ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ 0ì„ ë„£ëŠ”ë‹¤. 
 	
 	if( connections[ EventPC].chrlst.Job == job )
 	{
@@ -647,7 +647,7 @@ void sGetGender( void )			// 010210 YGI
 	}
 	// 030930 kyo >>
 
-	sYES = connections[ EventPC].chrlst.Gender;		// 0 : ¿©ÀÚ, 1 : ³²ÀÚ
+	sYES = connections[ EventPC].chrlst.Gender;		// 0 : ì—¬ì, 1 : ë‚¨ì
 }
 
 void sQuestComplete(int magic_no)
@@ -701,7 +701,7 @@ void sQuestTeleport(void)
 	//	CHARLIST	*caster;
 	t_server_magic_position	smp;
 	
-	//Å¬¶óÀÌ¾ğÆ®·Î º¸³¾ ÆĞÅ¶ ¼ÂÆÃ
+	//í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¼ íŒ¨í‚· ì…‹íŒ…
 	smp.nType =	PT_TELEPORT;
 	smp.idTarget = EventPC;
 	smp.nX = tile_X;
@@ -717,7 +717,7 @@ void QuestTeleport( const int nCn, const int nX, const int nY )
 
 	t_server_magic_position	smp;
 	
-	//Å¬¶óÀÌ¾ğÆ®·Î º¸³¾ ÆĞÅ¶ ¼ÂÆÃ
+	//í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¼ íŒ¨í‚· ì…‹íŒ…
 	smp.nType =	PT_TELEPORT;
 	smp.idTarget = nCn;
 	smp.nX = nX;
@@ -772,14 +772,14 @@ void sSetItemInvPC(void)
 			for( int c=0; c<8; c++ )
 				if( ch->inv[a][b][c].item_no == change_no ) 
 				{
-					SendItemEventLog( &ch->inv[a][b][c], EventPC, SN_NOT_USER, SILT_DELETE_BY_SCRIPT, 2 );//³Ö±âÀü.
+					SendItemEventLog( &ch->inv[a][b][c], EventPC, SN_NOT_USER, SILT_DELETE_BY_SCRIPT, 2 );//ë„£ê¸°ì „.
 
 					ItemAttr target = GenerateItem( item_no, IATTR_MUCH,item_dur);//020509 lsw
 					
 					ch->inv[a][b][c] = target;
 					if(target.item_no)
 					{
-						SendItemEventLog( &ch->inv[a][b][c], EventPC, SN_NOT_USER, SILT_MAKE_BY_SCRIPT, 2 );//³ÖÀºÈÄ
+						SendItemEventLog( &ch->inv[a][b][c], EventPC, SN_NOT_USER, SILT_MAKE_BY_SCRIPT, 2 );//ë„£ì€í›„
 					}
 					
 					POS pos;
@@ -827,7 +827,7 @@ void sIsItemHavePC( void )
 {		
 	int ItemNum = GetInt();
 	int ItemPos = GetInt();
-	//ÇØ´çÇÏ´Â ¾ÆÀÌÅÛÀÌ ÇØ´ç Àåºñ¿¡  Âø¿ëÇÏ°í ÀÖÀ¸¸é.. ¿¡½º¾Æ´Ï¸é ³ë
+	//í•´ë‹¹í•˜ëŠ” ì•„ì´í…œì´ í•´ë‹¹ ì¥ë¹„ì—  ì°©ìš©í•˜ê³  ìˆìœ¼ë©´.. ì—ìŠ¤ì•„ë‹ˆë©´ ë…¸
 	if(connections[ EventPC].chrlst.equip[ItemPos].item_no == ItemNum)
 	{
 		sYES = 1;
@@ -844,7 +844,7 @@ void sIsClassPC( void )
 {		
 	int ClassNum = GetInt();
 	
-	//ÇØ´çÇÏ´Â Å¬·¡½º¸é.. ¿¡½º¾Æ´Ï¸é ³ë
+	//í•´ë‹¹í•˜ëŠ” í´ë˜ìŠ¤ë©´.. ì—ìŠ¤ì•„ë‹ˆë©´ ë…¸
 	if(connections[EventPC].chrlst.Class == ClassNum)
 	{
 		sYES = 1;
@@ -861,7 +861,7 @@ void sIsClassPC( void )
 void sIsSkillHavePC(void)
 {
 	int SkillNum = GetInt();
-	//ÇØ´ç ±â¼úÀÌ ÀÖÀ¸¸é ¿¡½º ¾Æ´Ï¸é ³ë 
+	//í•´ë‹¹ ê¸°ìˆ ì´ ìˆìœ¼ë©´ ì—ìŠ¤ ì•„ë‹ˆë©´ ë…¸ 
 	if(connections[EventPC].chrlst.Skill[SkillNum] == 1)
 	{
 		sYES = 1;
@@ -876,7 +876,7 @@ void sIsSkillHavePC(void)
 void sCheckNation(void)
 {
 	int NationNum = GetInt();
-	// °°Àº ³ª¶ó¶ó¸é ¿¹½º  
+	// ê°™ì€ ë‚˜ë¼ë¼ë©´ ì˜ˆìŠ¤  
 	
 	if(connections[EventPC].chrlst.name_status.nation == (DWORD )NationNum)
 	{
@@ -889,7 +889,7 @@ void sCheckNation(void)
 	return;
 }	
 
-// Monster°¡ ¹ß»ıÇÒ Àå¼Ò¿Í Sprite¹øÈ£¸¦ Á¤ÀÇÇÑ´Ù. 
+// Monsterê°€ ë°œìƒí•  ì¥ì†Œì™€ Spriteë²ˆí˜¸ë¥¼ ì •ì˜í•œë‹¤. 
 void sInitMonsterGeneratedPosition( void )
 {
 	int x = GetInt();
@@ -901,7 +901,7 @@ void sInitMonsterGeneratedPosition( void )
 	NPCGeneratePosition( npcindex, x, y, 0, 0 );
 }
 
-void sIsPlayArenaGame()		// ÀüÅõ¸Ê ½ÃÀÛÀÎÁö ¾Æ´ÑÁö
+void sIsPlayArenaGame()		// ì „íˆ¬ë§µ ì‹œì‘ì¸ì§€ ì•„ë‹Œì§€
 {	//< CSD-030517
 	const int nGame = GetInt();
 	CBaseArena* pGame = g_pArenaManager->GetGameInfo(nGame);
@@ -939,7 +939,7 @@ void sIsFullFightMapTeam( void )		// 0915 YGI
 
 int callmenudef[]= 
 { 
-	MN_QUEST			,	// ÀÓ½Ã 5°³ YGI  0923
+	MN_QUEST			,	// ì„ì‹œ 5ê°œ YGI  0923
 	MN_FAME				,
 	MN_QUEST_INDEX		,
 	MN_RELATION			,
@@ -1011,19 +1011,19 @@ int callmenudef[]=
 	MN_INN_REST,
 	MN_INN_SLEEP,			// 69
 	MN_SYSTEM_LOGOUT,		// 70
-	MN_MAGIC_GUILD,			// 71 ¸¶¹ı»ç ±æµå		// 0208_2 YGI
-	MN_ACADEMY,				// 72 ¾ÆÄ«µ¥¹Ì			// 0208_2 YGI
+	MN_MAGIC_GUILD,			// 71 ë§ˆë²•ì‚¬ ê¸¸ë“œ		// 0208_2 YGI
+	MN_ACADEMY,				// 72 ì•„ì¹´ë°ë¯¸			// 0208_2 YGI
 	
-	MN_GOD_EDELBLHOY,		// 73	¿¡µ¨ºê·ÎÀÌ ½ÅÀü		// 0410 YGI
-	MN_GOD_TEFFERY,			// 74	Å×Æä¸® ½ÅÀü			// 0410 YGI
-	MN_GOD_LETTY,			// 75	·¹Æ¼ ½ÅÀü			// 0410 YGI
+	MN_GOD_EDELBLHOY,		// 73	ì—ë¸ë¸Œë¡œì´ ì‹ ì „		// 0410 YGI
+	MN_GOD_TEFFERY,			// 74	í…Œí˜ë¦¬ ì‹ ì „			// 0410 YGI
+	MN_GOD_LETTY,			// 75	ë ˆí‹° ì‹ ì „			// 0410 YGI
 	
-	MN_GUILD_ADMIN,			// 76	GM µî·Ï ¸Ş´º 		// 1027 YGI
-	MN_SALVATION2,			// 77	Àû½ÊÀÚ ¸Ş´º			//  YGI				// 010522 YGI
+	MN_GUILD_ADMIN,			// 76	GM ë“±ë¡ ë©”ë‰´ 		// 1027 YGI
+	MN_SALVATION2,			// 77	ì ì‹­ì ë©”ë‰´			//  YGI				// 010522 YGI
 	MN_CHANGE_MONEY,		// 78						// 010204 YGI
 	
-	MN_MERCHANT_MAIN,		// 79	// »óÀÎ ¸Ş´º ¸ŞÀÎ		// 010410 YGI
-	MN_ARENA_LOBBY,			// 80	// ¹èÆ²¸Ş´º // CSD-030509
+	MN_MERCHANT_MAIN,		// 79	// ìƒì¸ ë©”ë‰´ ë©”ì¸		// 010410 YGI
+	MN_ARENA_LOBBY,			// 80	// ë°°í‹€ë©”ë‰´ // CSD-030509
 	
 	MN_LADDER_RANK,			// 81	// 010511 YGI
 	MN_GOD_OREM,			// 82		// 010525 YGI
@@ -1032,7 +1032,7 @@ int callmenudef[]=
 	MN_NATION_MAIN_ZY,		// 84
 	MN_NATION_MAIN_ILL,		// 85
 
-	MN_MERCHANT_OLDMAIN,	// 86	// »óÀÎµî·Ï¸Ş´º µÇÃ£±â ¸Ş´º // BBD 040303 	
+	MN_MERCHANT_OLDMAIN,	// 86	// ìƒì¸ë“±ë¡ë©”ë‰´ ë˜ì°¾ê¸° ë©”ë‰´ // BBD 040303 	
 };		
 
 // 010530 YGI
@@ -1043,7 +1043,7 @@ void sCallMenu( void  )
 	SendCallSmallMenu( EventPC, 0, menu );
 }
 
-void sGetNationByMap( void )	// Æ¯Á¤ ¸ÊÀÇ ±¹Àû¾Ë¾Æ ¿À±â
+void sGetNationByMap( void )	// íŠ¹ì • ë§µì˜ êµ­ì ì•Œì•„ ì˜¤ê¸°
 {
 	char	mapname[30];
 	GetString( mapname );
@@ -1051,7 +1051,7 @@ void sGetNationByMap( void )	// Æ¯Á¤ ¸ÊÀÇ ±¹Àû¾Ë¾Æ ¿À±â
 	s_Nation = GetNationByMapName( mapname );
 }
 
-void sCalcFriendShip( void )	// Æ¯Á¤ ±¹°¡ÀÇ Àû´ë¼öÄ¡ ¼öÁ¤ÇÏ±â	// »©°í ½ÍÀ»¶§´Â -°ªÀ» ³Ö¾î ÁØ´Ù.
+void sCalcFriendShip( void )	// íŠ¹ì • êµ­ê°€ì˜ ì ëŒ€ìˆ˜ì¹˜ ìˆ˜ì •í•˜ê¸°	// ë¹¼ê³  ì‹¶ì„ë•ŒëŠ” -ê°’ì„ ë„£ì–´ ì¤€ë‹¤.
 {
 	int nation = GetInt();
 	int friend_ship = GetInt();
@@ -1075,7 +1075,7 @@ void sCalcFriendShip( void )	// Æ¯Á¤ ±¹°¡ÀÇ Àû´ë¼öÄ¡ ¼öÁ¤ÇÏ±â	// »©°í ½ÍÀ»¶§´Â -
 	return;
 }
 
-void sCompFriendShip( void )	// Àû´ë¼öÄ¡ ºñ±³ÇÏ±â
+void sCompFriendShip( void )	// ì ëŒ€ìˆ˜ì¹˜ ë¹„êµí•˜ê¸°
 {
 	int nation = GetInt();
 	int comp_data = GetInt();
@@ -1114,7 +1114,7 @@ void sCompLadderScore( void )
 
 void sCallSmallMenu( void )
 {
-	int index = GetInt();	// »óÁ¡ List Index..
+	int index = GetInt();	// ìƒì  List Index..
 	int menu = GetInt();	// SmallMenu Index..
 
 	
@@ -1187,13 +1187,13 @@ void srandom( void )		// 0131 YGI
 
 void sEventMsg( void )// 0
 {		
-	// Client¿¡ ´ëÈ­¸¦ º¸³»ÁØ´Ù....	
+	// Clientì— ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤....	
 	GetString( String );
 	
 	if(connections[ EventPC].dwAgentConnectionIndex && connections[ EventPC].state >= CONNECT_JOIN)
 	{
 		SendBBS2( String, (short)EventPC );
-		//SendBBS2¶ó´Â ÀÌº¥Æ® ¸Ş¼¼Áö ¹ß»ı ÇÔ¼ö¸¦ ½ÇÇàÇÑ´ç.
+		//SendBBS2ë¼ëŠ” ì´ë²¤íŠ¸ ë©”ì„¸ì§€ ë°œìƒ í•¨ìˆ˜ë¥¼ ì‹¤í–‰í•œë‹¹.
 		//QueuePacket(connections, EventPC, &packet, 1);
 	}	
 	
@@ -1224,7 +1224,7 @@ void sSaveItemAtDb( void )
 	
 	if( !SearchItemByInv( item_no, ch, a, b, c ) ) goto ERROR__;
 	
-	// ¸ÕÀú ¾ÆÀÌÅÛÀ» Áö¿ì°í µğºñ·Î º¸³½´Ù.
+	// ë¨¼ì € ì•„ì´í…œì„ ì§€ìš°ê³  ë””ë¹„ë¡œ ë³´ë‚¸ë‹¤.
 	
 	SetItemPos( INV, a, b, c, &pos );
 	pItem = GetItemByPOS( EventPC, pos );
@@ -1233,7 +1233,7 @@ void sSaveItemAtDb( void )
 	// 020428 YGI acer
 	SendItemEventLog( pItem, EventPC, 0, SILT_DELETE_BY_SCRIPT, 7);	 //YGI acer
 	SendDeleteItem( pItem, &pos, ch );
-	SendSaveEventItem( ch, item_no, 1);		// ÀÌº¥Æ® ¾ÆÀÌÅÛ µğºñ¿¡ ÀúÀå
+	SendSaveEventItem( ch, item_no, 1);		// ì´ë²¤íŠ¸ ì•„ì´í…œ ë””ë¹„ì— ì €ì¥
 	
 	sYES = 1;
 	return;
@@ -1243,7 +1243,7 @@ ERROR__ :
 	return;
 }
 
-void sCheckMoney( void )	// ÇÇ½ÃÀÇ µ·À» ¾Ë¾Æ¿À±â
+void sCheckMoney( void )	// í”¼ì‹œì˜ ëˆì„ ì•Œì•„ì˜¤ê¸°
 {	
 	int money = GetInt();
 	CHARLIST *ch = CheckServerId( EventPC );
@@ -1253,13 +1253,13 @@ void sCheckMoney( void )	// ÇÇ½ÃÀÇ µ·À» ¾Ë¾Æ¿À±â
 	
 	s_PcMoney = pc_money = GetMoneyByItem( ch );
 	
-	//sYes = pc_money - money;		// ´õ¸¹ÀÌ °¡Áö°í ÀÖÀ»°æ¿ì¿£ ¾çÀÇ Á¤¼ö
-	if( pc_money > money ) sYES = 1;		// ´õ¸¹ÀÌ °¡Áö°í ÀÖÀ»°æ¿ì
+	//sYes = pc_money - money;		// ë”ë§ì´ ê°€ì§€ê³  ìˆì„ê²½ìš°ì—” ì–‘ì˜ ì •ìˆ˜
+	if( pc_money > money ) sYES = 1;		// ë”ë§ì´ ê°€ì§€ê³  ìˆì„ê²½ìš°
 	else if( pc_money == money ) sYES = 0;
 	else sYES = -1;
 }
 
-// ÇÇ½Ã¿¡°Ô¼­ µ· ±ï±â
+// í”¼ì‹œì—ê²Œì„œ ëˆ ê¹ê¸°
 void sSubtractMoney( void )
 {
 	int money = GetInt();
@@ -1274,10 +1274,10 @@ void sSubtractMoney( void )
 }
 
 // 010129 KHS		
-// ¸ó½ºÅÍ°¡ ¹ß»ı Á¶°ÇÀ» ÀĞ¾îµéÀÎ´Ù. 
-// ±âÁ¸¿¡ NPCÀÇ ¹ß»ıÀº .SKBÈ­ÀÏ¿¡ µé¾î ÀÖ´Â Data¸¦ ÀÌ¿ëÇÏ´Â°ÍÀ» ¿øÄ¢À¸·Î ÇÏÁö¸¸
-// QuestÁ¶°Ç¿¡ ¸Â´Â NPC¸¦ ¹ß»ı½ÃÅ°±â À§ÇØ Ãß°¡ ÇÏ¿´´Ù. 
-// ÀÌ´Â 10ºĞ¸¶´Ù Á¶°ÇÀ» °Ë»öÇÏ¿© Á¶°Ç¿¡ ¸ÂÀ¸¸é ¹ß»ıÇÑ´Ù. 
+// ëª¬ìŠ¤í„°ê°€ ë°œìƒ ì¡°ê±´ì„ ì½ì–´ë“¤ì¸ë‹¤. 
+// ê¸°ì¡´ì— NPCì˜ ë°œìƒì€ .SKBí™”ì¼ì— ë“¤ì–´ ìˆëŠ” Dataë¥¼ ì´ìš©í•˜ëŠ”ê²ƒì„ ì›ì¹™ìœ¼ë¡œ í•˜ì§€ë§Œ
+// Questì¡°ê±´ì— ë§ëŠ” NPCë¥¼ ë°œìƒì‹œí‚¤ê¸° ìœ„í•´ ì¶”ê°€ í•˜ì˜€ë‹¤. 
+// ì´ëŠ” 10ë¶„ë§ˆë‹¤ ì¡°ê±´ì„ ê²€ìƒ‰í•˜ì—¬ ì¡°ê±´ì— ë§ìœ¼ë©´ ë°œìƒí•œë‹¤. 
 void sGenMonSpec( void )
 {	
 	
@@ -1290,21 +1290,21 @@ int time;
 int iftime;
 int turn;
 
-  x			= GetInt();	// ¸ÊÀÇ ÁÂÇ¥.(´ÜÀ§: Tile )
+  x			= GetInt();	// ë§µì˜ ì¢Œí‘œ.(ë‹¨ìœ„: Tile )
   y			= GetInt();
-  monsprno	= GetInt();	// ¸ó½ºÅÍÀÇ ¹øÈ£.
-  lev			= GetInt();	// ¹ß»ıÇÒ MonsterÀÇ Level
-  rate		= GetInt();	// ¹ß»ıÈ°·ü ( 10000 = 100% )
+  monsprno	= GetInt();	// ëª¬ìŠ¤í„°ì˜ ë²ˆí˜¸.
+  lev			= GetInt();	// ë°œìƒí•  Monsterì˜ Level
+  rate		= GetInt();	// ë°œìƒí™œë¥  ( 10000 = 100% )
   
-	genyear		= GetInt();	// ¹ß»ıÁ¶°Ç½Ã°¢½Ã°£( ÀÌ ½Ã°£ÀÌÈÄ ºÎÅÍ ¾Æ·¡ ½Ã°£¿¡ µû¶ó ¹ß»ıÇÑ´Ù. )
+	genyear		= GetInt();	// ë°œìƒì¡°ê±´ì‹œê°ì‹œê°„( ì´ ì‹œê°„ì´í›„ ë¶€í„° ì•„ë˜ ì‹œê°„ì— ë”°ë¼ ë°œìƒí•œë‹¤. )
 	genmon		= GetInt();	
 	genday		= GetInt();	
 	genhour		= GetInt();	
 	genmin		= GetInt();	
 	
-	  iftime		= GetInt();	// À§ÀÇ gen*ÀÇ ½Ã°£ÀÇ Â÷ÀÌ¸¦ ¹ß»ıÁ¶°ÇÀ¸·Î ÇÑ´Ù. 
+	  iftime		= GetInt();	// ìœ„ì˜ gen*ì˜ ì‹œê°„ì˜ ì°¨ì´ë¥¼ ë°œìƒì¡°ê±´ìœ¼ë¡œ í•œë‹¤. 
 	  
-		turn		= GetInt();	// ¸îÅÏ¸¶´Ù ¹ß»ıÇÏ´Â°¡.( 1ÀÌ¸é 10ºĞ¸¶´Ù ¹ß»ıÇÑ´Ù. )
+		turn		= GetInt();	// ëª‡í„´ë§ˆë‹¤ ë°œìƒí•˜ëŠ”ê°€.( 1ì´ë©´ 10ë¶„ë§ˆë‹¤ ë°œìƒí•œë‹¤. )
 	*/
 }
 
@@ -1321,7 +1321,7 @@ extern int g_pLoadingPoint[NW_NATION_COUNT][NW_SQUAD_MAX]; // 010904 LTS
 
 void sCheckLoadingPoint() // 010904 LTS	
 {
-	CHARLIST* ch=CheckServerId(EventPC);   //°ø°İÀÚ ¹æ¾îÀÚ¸¦ ºĞ¸®ÇØ¾ß ÇÑ´Ù... ¤Ì.¤Ì 
+	CHARLIST* ch=CheckServerId(EventPC);   //ê³µê²©ì ë°©ì–´ìë¥¼ ë¶„ë¦¬í•´ì•¼ í•œë‹¤... ã…œ.ã…œ 
 	if (!ch) return;
 	sYES=g_pLoadingPoint[ch->NWCharacter.WarfieldNo][ch->NWCharacter.SquadNo];	// 010915 LTS
 }
@@ -1329,7 +1329,7 @@ void sCheckLoadingPoint() // 010904 LTS
 extern bool CheckDefence(int cn); // 010904 LTS
 extern bool CanGoBonus();			// 010915 LTS
 
-void sCheckDefence()			// ¹æ¾îÀÚ ÀÎÁö È®ÀÎÇÑ´Ù. 
+void sCheckDefence()			// ë°©ì–´ì ì¸ì§€ í™•ì¸í•œë‹¤. 
 {
 	if (CheckDefence(EventPC)) sYES=1;
 	else sYES=0;
@@ -1371,7 +1371,7 @@ extern void (*SFunction[_SCRIPT_FUNCTION_POINT_ ])(void);
 QT QTickData[DRAGON_MAX_CONNECTIONS_];
 DWORD QTemp, QTick = 1;
 
-// ÃÊ´ç ÇÑ¹ø¾¿ ÁøÀÔµÊ
+// ì´ˆë‹¹ í•œë²ˆì”© ì§„ì…ë¨
 void QuestSecond()	// 1000 ms
 {	
 	QTick++;
@@ -1392,18 +1392,18 @@ void QuestSecond()	// 1000 ms
 
 void TimerFirstFunc( void ) 
 {	
-	// CSB ÄÚµùÇÊ¿ä
+	// CSB ì½”ë”©í•„ìš”
 	
-	// ³ªÁß¿¡ ÀÌ°÷¿¡ ÇØ´ç À¯Àú( QTemp )ÀÇ Äù½ºÆ® ¾ÆÀÌÅÛ(±â¹Ğ¹®¼­?)
-	// °¡ ÀÖ´ÂÁö Ã¼Å©ÇÏ¿© ¾ø¾ÖÁÖ°í À¯Àú¿¡°Ô ´Ê¾ú´Ù´Â ¸Ş½ÃÁö¸¦ º¸³» ÁÖ¾î¾ßÇÑ´Ù.
-	// Äù½ºÆ® ½ºÅÜ(Äù½ºÆ® ¹øÈ£ ¹ÌÁ¤)À» Æ¯Á¤ ¼ıÀÚ(¹ÌÁ¤--;)·Î ¼ÂÆÃÇØÁÖ¾î¾ß ÇÑ´Ù.
-	// 2~3ÁÙ ÄÚµù ¿ä¸Á ( ¼öÁ¤ µÉÁöµµ ¸ğ¸§ )
+	// ë‚˜ì¤‘ì— ì´ê³³ì— í•´ë‹¹ ìœ ì €( QTemp )ì˜ í€˜ìŠ¤íŠ¸ ì•„ì´í…œ(ê¸°ë°€ë¬¸ì„œ?)
+	// ê°€ ìˆëŠ”ì§€ ì²´í¬í•˜ì—¬ ì—†ì• ì£¼ê³  ìœ ì €ì—ê²Œ ëŠ¦ì—ˆë‹¤ëŠ” ë©”ì‹œì§€ë¥¼ ë³´ë‚´ ì£¼ì–´ì•¼í•œë‹¤.
+	// í€˜ìŠ¤íŠ¸ ìŠ¤í…(í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ ë¯¸ì •)ì„ íŠ¹ì • ìˆ«ì(ë¯¸ì •--;)ë¡œ ì…‹íŒ…í•´ì£¼ì–´ì•¼ í•œë‹¤.
+	// 2~3ì¤„ ì½”ë”© ìš”ë§ ( ìˆ˜ì • ë ì§€ë„ ëª¨ë¦„ )
 	
-	// ¿¹Á¦(½ÇÁ¦)
-	// if( ±â¹Ğ¹®¼­°¡ ÀÖ´Â°¡? ) {
-	//		Äù½ºÆ® ½ºÅÜ ¼³Á¤
-	//		2ºĞ Áö³²À» À¯Àú¿¡°Ô ¾Ë¸²
-	//		±â¹Ğ¹®¼­ »èÁ¦
+	// ì˜ˆì œ(ì‹¤ì œ)
+	// if( ê¸°ë°€ë¬¸ì„œê°€ ìˆëŠ”ê°€? ) {
+	//		í€˜ìŠ¤íŠ¸ ìŠ¤í… ì„¤ì •
+	//		2ë¶„ ì§€ë‚¨ì„ ìœ ì €ì—ê²Œ ì•Œë¦¼
+	//		ê¸°ë°€ë¬¸ì„œ ì‚­ì œ
 	// } 
 	
 	int change_no = 0;
@@ -1438,8 +1438,8 @@ void TimerFirstFunc( void )
 	int length;
 	t_packet packet;
 	
-	// Client¿¡ ´ëÈ­¸¦ º¸³»ÁØ´Ù....
-	strcpy( String, "2ºĞÀÌ °æ°ú" );
+	// Clientì— ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤....
+	strcpy( String, "2ë¶„ì´ ê²½ê³¼" );
 	
 	length = strlen( String );
 	packet.h.header.type = CMD_SCRIPT_MESSAGE_BOX;
@@ -1458,43 +1458,43 @@ void TimerFirstFunc( void )
 void TimerSecondFunc( void )
 {
 	
-	// ÀÌ°÷¿¡ ÄÚµù.
+	// ì´ê³³ì— ì½”ë”©.
 	
 }
 
-// Æ¯Á¤ ½Ã°£ÈÄ ½ÇÇàµÉ¼ö ÀÖ´Â ÇÔ¼ö ¸®½ºÆ®
+// íŠ¹ì • ì‹œê°„í›„ ì‹¤í–‰ë ìˆ˜ ìˆëŠ” í•¨ìˆ˜ ë¦¬ìŠ¤íŠ¸
 void (*TimerFunc[_SCRIPT_FUNCTION_POINT_])(void) =
 {	
-	TimerFirstFunc,	 // 0 ¹ø Å¸ÀÌ¸Ó ÇÔ¼ö
-	TimerSecondFunc, // 1 ¹ø Å¸ÀÌ¸Ó ÇÔ¼ö
+	TimerFirstFunc,	 // 0 ë²ˆ íƒ€ì´ë¨¸ í•¨ìˆ˜
+	TimerSecondFunc, // 1 ë²ˆ íƒ€ì´ë¨¸ í•¨ìˆ˜
 };
 
-// À¯Àúº° Å¸ÀÌ¸Ó ¼³Á¤
+// ìœ ì €ë³„ íƒ€ì´ë¨¸ ì„¤ì •
 void sSetTimer()
 {
-	QTickData[EventPC].Tick = QTick + GetInt();	   // ¸î ÃÊÈÄ ½ÇÇà (ÃÖ´ë ¿ÀÂ÷ ¹üÀ§ 1ÃÊ)
-	GetInt();									   // ¿©ºĞ
-	QTickData[EventPC].Func = TimerFunc[GetInt()]; // ÃÊÈÄ ½ÇÇàµÉ ÇÔ¼ö
-	QTickData[EventPC].ExtInt = GetInt();		   // ½ÇÇàÈÄ »ç¿ëµÉ È®Àå°ª(Integer)
-	GetString(QTickData[EventPC].ExtChar);		   // ½ÇÇàÈÄ »ç¿ëµÉ È®Àå°ª(String)
+	QTickData[EventPC].Tick = QTick + GetInt();	   // ëª‡ ì´ˆí›„ ì‹¤í–‰ (ìµœëŒ€ ì˜¤ì°¨ ë²”ìœ„ 1ì´ˆ)
+	GetInt();									   // ì—¬ë¶„
+	QTickData[EventPC].Func = TimerFunc[GetInt()]; // ì´ˆí›„ ì‹¤í–‰ë  í•¨ìˆ˜
+	QTickData[EventPC].ExtInt = GetInt();		   // ì‹¤í–‰í›„ ì‚¬ìš©ë  í™•ì¥ê°’(Integer)
+	GetString(QTickData[EventPC].ExtChar);		   // ì‹¤í–‰í›„ ì‚¬ìš©ë  í™•ì¥ê°’(String)
 	
 }
-// À¯ÀúÀÇ Å¸ÀÌ¸Ó ÁßÁö
+// ìœ ì €ì˜ íƒ€ì´ë¨¸ ì¤‘ì§€
 void sStopTimer()
 {
 	QTickData[EventPC].Func = NULL;
 }
-// ·¹º§ °¡Á®¿À±â - yes ¿¡ ·¹º§ ÀúÀå
+// ë ˆë²¨ ê°€ì ¸ì˜¤ê¸° - yes ì— ë ˆë²¨ ì €ì¥
 void sGetLevel()	
 {	//< CSD-030806
 	sYES = connections[EventPC].chrlst.GetLevel();
 }	//> CSD-030806
-// Å¬·¡½º °¡Á®¿À±â - yes ¿¡ Å¬·¡½º°ª ÀúÀå
+// í´ë˜ìŠ¤ ê°€ì ¸ì˜¤ê¸° - yes ì— í´ë˜ìŠ¤ê°’ ì €ì¥
 void sGetClass()
 {
 	sYES = connections[EventPC].chrlst.Class;
 }
-// ¾îºô¸®Æ¼ °¡Á®¿À±â - yes ¿¡ ¾îºô¸®Æ¼ ¹øÈ£ ÀúÀå
+// ì–´ë¹Œë¦¬í‹° ê°€ì ¸ì˜¤ê¸° - yes ì— ì–´ë¹Œë¦¬í‹° ë²ˆí˜¸ ì €ì¥
 void sGetAbil()
 {
 	int abil = GetInt();
@@ -1515,7 +1515,7 @@ void sGetAbil()
 	case 11: sYES = connections[EventPC].chrlst.Luck;  break;
 	}
 }
-// Æ¯Á¤ À¯Àú¿Í ÆÄÆ¼¸¦ ¸Î¾ú´ÂÁö È®ÀÎ - yes¿¡ ÀÖÀ¸¸é 1 ¾øÀ¸¸é 0
+// íŠ¹ì • ìœ ì €ì™€ íŒŒí‹°ë¥¼ ë§ºì—ˆëŠ”ì§€ í™•ì¸ - yesì— ìˆìœ¼ë©´ 1 ì—†ìœ¼ë©´ 0
 void sCheckParty()
 {
 	char id[0xff];
@@ -1532,24 +1532,24 @@ void sCheckParty()
 	
 	
 }
-// Æ¯Á¤ À¯ÀúÀÇ ±¹°¡¸¦ °¡Á®¿È - yes ¿¡ ±¹°¡ ¹øÈ£
+// íŠ¹ì • ìœ ì €ì˜ êµ­ê°€ë¥¼ ê°€ì ¸ì˜´ - yes ì— êµ­ê°€ ë²ˆí˜¸
 void sGetNat()
 {
 	sYES = connections[ EventPC ].chrlst.name_status.nation;
 }
 
-// ÅĞ¶ÏKING
+// í„¸ë™¤KING
 void sGetKing()
 {
 	sYES = connections[ EventPC ].chrlst.name_status.king;
 }
 
-// ½ºÆç Á¾·ù ¾ò¾î¿À±â - yes ¿¡ ½ºÆç Á¾·ù ¹øÈ£ ¹İÈ¯
+// ìŠ¤í  ì¢…ë¥˜ ì–»ì–´ì˜¤ê¸° - yes ì— ìŠ¤í  ì¢…ë¥˜ ë²ˆí˜¸ ë°˜í™˜
 void sGetSpell()
 {
 	sYES = connections[ EventPC ].chrlst.Spell;
 }
-// ÆÄÆ¼ ¼ö ¹İÈ¯ - yes ¿¡ ÇöÀç ¸Î°í ÀÖ´Â ÆÄÆ¼¼ö ¹İÈ¯
+// íŒŒí‹° ìˆ˜ ë°˜í™˜ - yes ì— í˜„ì¬ ë§ºê³  ìˆëŠ” íŒŒí‹°ìˆ˜ ë°˜í™˜
 void sCheckPartyCount()
 {
 	int ti;
@@ -1559,18 +1559,18 @@ void sCheckPartyCount()
 		if( connections[ EventPC ].chrlst.party[ti].On ) sYES++;
 	}
 }
-// ÃÖ±Ù »ç¿ëÇÑ ¸¶¹ı - yes ¿¡ ÃÖ±Ù¿¡(¸¶Áö¸·¿¡) »ç¿ëÇÑ ¸¶¹ı¹øÈ£ ¹İÈ¯
+// ìµœê·¼ ì‚¬ìš©í•œ ë§ˆë²• - yes ì— ìµœê·¼ì—(ë§ˆì§€ë§‰ì—) ì‚¬ìš©í•œ ë§ˆë²•ë²ˆí˜¸ ë°˜í™˜
 void sCheckLastMagic()
 {
 	sYES = connections[ EventPC ].chrlst.GetMagic();
 }
-// ÅÃÆ½ °¡Á®¿À±â - yes ¿¡ ÀÎÀÚ°ªÀ¸·Î ¹ŞÀº ÅÃÆ½°ª ¹İÈ¯
+// íƒí‹± ê°€ì ¸ì˜¤ê¸° - yes ì— ì¸ìê°’ìœ¼ë¡œ ë°›ì€ íƒí‹±ê°’ ë°˜í™˜
 void sGetTactic()
 {
 	int tac = GetInt();	
 	sYES = connections[ EventPC ].chrlst.Skill[ 87+tac ];
 }
-// ¸ğµç ÅÃÆ½Áß Æ¯Á¤ ¼öÄ¡ÀÌ»óÀÇ ÅÃÆ½ÀÌ ÀÖ´ÂÁö Ã¼Å© - yes ¿¡ ¾øÀ¸¸é 0 ÀÖÀ¸¸é 1 ¹İÈ¯
+// ëª¨ë“  íƒí‹±ì¤‘ íŠ¹ì • ìˆ˜ì¹˜ì´ìƒì˜ íƒí‹±ì´ ìˆëŠ”ì§€ ì²´í¬ - yes ì— ì—†ìœ¼ë©´ 0 ìˆìœ¼ë©´ 1 ë°˜í™˜
 void sCheckTacticPoint()
 {
 	int mode = GetInt();
@@ -1594,14 +1594,14 @@ void sCheckTacticPoint()
 }
 
 
-// µà¾ó ÀÎÁö ¾Æ´ÑÁö - yes ¿¡ ÀÎÀÚ°ªÀ¸·Î 0Àº ¾Æ´Ô 1Àº µà¾ó ¹İÈ¯
+// ë“€ì–¼ ì¸ì§€ ì•„ë‹Œì§€ - yes ì— ì¸ìê°’ìœ¼ë¡œ 0ì€ ì•„ë‹˜ 1ì€ ë“€ì–¼ ë°˜í™˜
 void sIsDual()
 {
 	sYES = connections[ EventPC ].chrlst.IsDual();
 }
 
 
-// »ó¿ì ¿äÃ»
+// ìƒìš° ìš”ì²­
 void sCallCustomSmallMenu( void )
 {
 	
@@ -1638,7 +1638,7 @@ void sSetRareItemInvPc(void)
 	CHARLIST *ch = ::CheckServerId( EventPC );
 	if( !ch ) return;
 	
-	ItemAttr item;//021213 lsw 0À¸·Î ³ª´²Áö´Â ¹®Á¦ ¼öÁ¤
+	ItemAttr item;//021213 lsw 0ìœ¼ë¡œ ë‚˜ëˆ ì§€ëŠ” ë¬¸ì œ ìˆ˜ì •
 	const int iGradeGab = iGradeMax-iGradeMin;
 	const int iResultGrade = iGradeMin + ((0 < iGradeGab)?rand()%iGradeGab:0);
 	const int ret = ItemMgr.MakeDefaultRareItem( &item, iItemNo, iMutant, iResultGrade, iTryMulti );
@@ -1818,7 +1818,7 @@ void sLocalWarPointDown()
 	int NationIndex=GetInt();
 	int Value=GetInt();
 	
-	Value*=-1;	//À½¼ö·Î ¸¸µé¾î ÁØ´Ù.
+	Value*=-1;	//ìŒìˆ˜ë¡œ ë§Œë“¤ì–´ ì¤€ë‹¤.
 	
 	switch (NationIndex)
 	{
@@ -1859,7 +1859,7 @@ extern cWarfield*	g_pWarfield;
 extern bool			isNationWarfieldServer();
 
   
-	void sWarfieldMany()				// 011213 LTS		// ÇãÁ¢
+	void sWarfieldMany()				// 011213 LTS		// í—ˆì ‘
 	{
 	int PoseNo=GetInt();
 	int BYPose=0,ZYPose=0;
@@ -1929,8 +1929,8 @@ void sDualCheck()
 	sYES = (type == ch->GetClassStep()) ? 1:0;
 }
 
-// ¿¥Æ÷¸®¾Æ·Î ÀÌµ¿
-void sGotoGuildHouse()					// ±è¿µÁÖ
+// ì— í¬ë¦¬ì•„ë¡œ ì´ë™
+void sGotoGuildHouse()					// ê¹€ì˜ì£¼
 {	//< CSD-030324
 	CHARLIST *ch = CheckServerId( EventPC );
 	if( !ch ) return;
@@ -1947,8 +1947,8 @@ void sGotoGuildHouse()					// ±è¿µÁÖ
 	}
 }	//> CSD-030324
 
-// ÀÚ±â ±æµå ÁıÀÎÁö È®ÀÎ
-void sIsMyGuildHouse()			//±è¿µÁÖ
+// ìê¸° ê¸¸ë“œ ì§‘ì¸ì§€ í™•ì¸
+void sIsMyGuildHouse()			//ê¹€ì˜ì£¼
 {
 	int event_no = GetInt();
 	CHARLIST *ch = CheckServerId( EventPC );
@@ -1983,7 +1983,7 @@ void sCheckEventLocalWarStep()			// 020115 LTS
 	sYES=g_EventLocalWarStep;
 }
 
-void sCheckEventJoin()					// 020115 LTS	//ÀÌº¥Æ® ¹øÈ£¸¦ ³ÖÀ¸¸é ÂüÀÎÁö ¾Æ´ÑÁö¸¦ ¸®ÅÏ
+void sCheckEventJoin()					// 020115 LTS	//ì´ë²¤íŠ¸ ë²ˆí˜¸ë¥¼ ë„£ìœ¼ë©´ ì°¸ì¸ì§€ ì•„ë‹Œì§€ë¥¼ ë¦¬í„´
 {
 	int EventNo=GetInt();
 	switch (EventNo)
@@ -2075,11 +2075,11 @@ void sSpellMapMove()	//90 // 021014 kyo
 	CHARLIST *ch = CheckServerId( EventPC );
 	if( !ch ) return;
 	
-	/* 021128 kyo ¸Ê¼­¹ö¿¡ ºÎÇÏ¸¦ ÁØ´Ü´Ù.
+	/* 021128 kyo ë§µì„œë²„ì— ë¶€í•˜ë¥¼ ì¤€ë‹¨ë‹¤.
 	sYES =  g_QuestInMap.CheckSpell( EventPC, szSpell );
 	//int port = GetMapPortByName( dungeon_name );
 	if( sYES == 1)
-	{//¸ÊÀÌµ¿ÇÑ´Ù.
+	{//ë§µì´ë™í•œë‹¤.
 	sYES = MapMove( EventPC, szMapName, iMap_x, iMap_y );			
 	}
 	*/
@@ -2136,10 +2136,10 @@ bool DeleteItemMuch( const int iItemNum, const int iNumMuch, const int cn)
 	
 	int iCheckNum = 0;
 	
-	//Áö¿ì·Á´Â ¾ÆÀÌÅÛÀÇ °¹¼ö°¡ °¡Áø°Åº¸´Ù Àû¾î¾ßÁö
+	//ì§€ìš°ë ¤ëŠ” ì•„ì´í…œì˜ ê°¯ìˆ˜ê°€ ê°€ì§„ê±°ë³´ë‹¤ ì ì–´ì•¼ì§€
 	if( iNumMuch > SearchItemMuch( iItemNum, cn ) ) return false;
 	
-	//¾ÆÀÌÅÛ »èÁ¦´Â ±âÁ¸ÀÇ setiteminvPc ±×´ë·Î
+	//ì•„ì´í…œ ì‚­ì œëŠ” ê¸°ì¡´ì˜ setiteminvPc ê·¸ëŒ€ë¡œ
 	//inv
 	for( int a=0; a<3; a++ )
 		for( int b=0; b<3; b++ )
@@ -2195,7 +2195,7 @@ bool DeleteItemMuch( const int iItemNum, const int iNumMuch, const int cn)
 
 
 // 021117 YGI
-void sCheckItemMulti()							//92 ¿©·¯°³ÀÇ ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡?
+void sCheckItemMulti()							//92 ì—¬ëŸ¬ê°œì˜ ì•„ì´í…œì´ ìˆëŠ”ê°€?
 {
 	int iItemNumber = GetInt();
 	int iNumMuch	= GetInt();
@@ -2210,7 +2210,7 @@ void sCheckItemMulti()							//92 ¿©·¯°³ÀÇ ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡?
 	else if( iNumMuch <  iCurNum)	sYES = 2;
 }
 
-void sDeleteItemMulti()							//93 ¿©·¯°³ÀÇ ¾ÆÀÌÅÛÀ» Áö¿ì±â
+void sDeleteItemMulti()							//93 ì—¬ëŸ¬ê°œì˜ ì•„ì´í…œì„ ì§€ìš°ê¸°
 {
 	int iItemNumber = GetInt();
 	int iDelMuch	= GetInt();
@@ -2224,9 +2224,9 @@ void sDeleteItemMulti()							//93 ¿©·¯°³ÀÇ ¾ÆÀÌÅÛÀ» Áö¿ì±â
 		sYES = 0;
 }
 
-void sScriptTimer()								//94 // 021020 kyo //ÃÊ·Î ½Ã°£À» °è»êÇÑ´Ù. 
-{//0ÀÌ¸é Å¸ÀÌ¸Ó¸¦ ¸ØÃç¶ó
-	//ÇÑ Å¬¶óÀÌ¾ğÆ®´ç ÇÏ³ª¸¸ÀÇ Å¸ÀÌ¸Ó°¡ ÁÖ¾îÁø´Ù.
+void sScriptTimer()								//94 // 021020 kyo //ì´ˆë¡œ ì‹œê°„ì„ ê³„ì‚°í•œë‹¤. 
+{//0ì´ë©´ íƒ€ì´ë¨¸ë¥¼ ë©ˆì¶°ë¼
+	//í•œ í´ë¼ì´ì–¸íŠ¸ë‹¹ í•˜ë‚˜ë§Œì˜ íƒ€ì´ë¨¸ê°€ ì£¼ì–´ì§„ë‹¤.
 	DWORD dwTime;
 	
 	int iTime = GetInt();
@@ -2239,11 +2239,11 @@ void sScriptTimer()								//94 // 021020 kyo //ÃÊ·Î ½Ã°£À» °è»êÇÑ´Ù.
 	if( !ch ) return;
 	
 	if( iTime > 0 )
-		dwTime = iTime* 1000;	//1000ÀÌ 1ÃÊ
+		dwTime = iTime* 1000;	//1000ì´ 1ì´ˆ
 	else
 		dwTime = 0;
 	
-	//Å¸ÀÌ¸ÓÀÇ ½ÃÀÛ Å¸ÀÌ¸Ó¸¦ ¹ßµ¿½ÃÅ³¶§ÀÇ cn°ú name¸¦ ±â·Ï½ÃÅ²´Ù. 
+	//íƒ€ì´ë¨¸ì˜ ì‹œì‘ íƒ€ì´ë¨¸ë¥¼ ë°œë™ì‹œí‚¬ë•Œì˜ cnê³¼ nameë¥¼ ê¸°ë¡ì‹œí‚¨ë‹¤. 
 	if( g_QuestInMap.StartScriptTimer( EventPC, ch->Name, dwTime , MIN_SYNCH_TIME, mapfile, x, y) )
 		sYES = 1;
 	else
@@ -2252,9 +2252,9 @@ void sScriptTimer()								//94 // 021020 kyo //ÃÊ·Î ½Ã°£À» °è»êÇÑ´Ù.
 }
 
 void sScriptCounter()				//95 // 021023 kyo 
-{	//(¼ıÀÚ¼¿²¨ ¹øÈ£, Á¾·ù, °¹¼ö, ÇÃ·¯±×)
-	//Á¾·ù: 0=ncp,1=¾ÆÀÌÅÛ,2=¹ÌÁ¤. 
-	//ÇÃ·¯±×: 0=¸ØÃã,1=½ÃÀÛ,2=°¹¼ö¶û ÀÏÄ¡
+{	//(ìˆ«ìì…€êº¼ ë²ˆí˜¸, ì¢…ë¥˜, ê°¯ìˆ˜, í”ŒëŸ¬ê·¸)
+	//ì¢…ë¥˜: 0=ncp,1=ì•„ì´í…œ,2=ë¯¸ì •. 
+	//í”ŒëŸ¬ê·¸: 0=ë©ˆì¶¤,1=ì‹œì‘,2=ê°¯ìˆ˜ë‘ ì¼ì¹˜
 	int iNumber = GetInt();
 	int iType = GetInt();
 	int iMuch = GetInt();
@@ -2281,18 +2281,18 @@ void sUpRareInEquip()			//96 // 021028 kyo
 	CHARLIST *ch = CheckServerId( EventPC);	
 	if( !ch) return;
 	
-	//Â÷·Ê
-	// ÀåÂø µÇ¾î ÀÖ´Â ¾ÆÀÌÅÛ ¹øÈ£¸¦ ¾ò¾î ¿Â´Ù.
-	// ±× ¾ÆÀÌÅÛ ¹øÈ£¸¦ ±âÃÊ·Î ·¹¾î ¾ÆÀÌÅÛÀ» ¸¸µç´Ù.
-	// ÀÎº¥Åä¸®¿¡ ³Ö¾î ÁØ´Ù.
+	//ì°¨ë¡€
+	// ì¥ì°© ë˜ì–´ ìˆëŠ” ì•„ì´í…œ ë²ˆí˜¸ë¥¼ ì–»ì–´ ì˜¨ë‹¤.
+	// ê·¸ ì•„ì´í…œ ë²ˆí˜¸ë¥¼ ê¸°ì´ˆë¡œ ë ˆì–´ ì•„ì´í…œì„ ë§Œë“ ë‹¤.
+	// ì¸ë²¤í† ë¦¬ì— ë„£ì–´ ì¤€ë‹¤.
 	
 	if( WT_WEAPON > iEquipPos || iEquipPos > WT_UNIQUE2 )
-	{//À§Ä¡ ¿¡·¯
+	{//ìœ„ì¹˜ ì—ëŸ¬
 		sYES = 0; return;
 	}
 	int item_no = ch->equip[iEquipPos].item_no;
 	if( !item_no ) 
-	{// ¾ÆÀÌÅÛÀ» ¾È µé°í ÀÖ´Ù.
+	{// ì•„ì´í…œì„ ì•ˆ ë“¤ê³  ìˆë‹¤.
 		sYES = 0; return;
 	}
 
@@ -2307,7 +2307,7 @@ void sUpRareInEquip()			//96 // 021028 kyo
 
 	int ret = ItemMgr.MakeDefaultRareItem( &item, item_no, iMutant, rand()%grade_gab+iMin, iMulti );
 
-	if( ret == 1 )		// ¼º°ø
+	if( ret == 1 )		// ì„±ê³µ
 	{
 		SendItemEventLog( &item, EventPC, SN_NOT_USER, SILT_MAKE_BY_SCRIPT, 2 );
 		MoveEmptyInv( &item, ch );
@@ -2321,7 +2321,7 @@ void sUpRareInEquip()			//96 // 021028 kyo
 }
 
 void sBossTimerCheck()		//97 // 021106 kyo
-{//iiiiii (npc¹øÈ£,x,y, ÀÎ¿øÁ¦ÇÑ, Å¸ÀÌ¸Ó½Ã°£, Á¦¾à½Ã°£)
+{//iiiiii (npcë²ˆí˜¸,x,y, ì¸ì›ì œí•œ, íƒ€ì´ë¨¸ì‹œê°„, ì œì•½ì‹œê°„)
 	const int iNPC = GetInt();
 	const int iNpc_x = GetInt();
 	const int iNpc_y = GetInt();
@@ -2336,9 +2336,9 @@ void sBossTimerCheck()		//97 // 021106 kyo
 	
 	int nKey = iNpc_x*1000 + iNpc_y;
 
-	//flag 0 -> º¸½º ÇÑ¸í µîÀå
-	//flag 1 -> º¸½º ¿©·µ µîÀå
-	//flag 2 -> º¸½º¹æ¿¡¼­ ³ª¿À°í ´Ù ³ª¿À¸é ¹æ Á¦°Å
+	//flag 0 -> ë³´ìŠ¤ í•œëª… ë“±ì¥
+	//flag 1 -> ë³´ìŠ¤ ì—¬ëŸ¿ ë“±ì¥
+	//flag 2 -> ë³´ìŠ¤ë°©ì—ì„œ ë‚˜ì˜¤ê³  ë‹¤ ë‚˜ì˜¤ë©´ ë°© ì œê±°
 	if( nFlag == CBossTimer::TYPE_BOSS_OUT )
 	{
 		g_QuestInMap.DecreaseBossTimerUser( nKey, EventPC );
@@ -2353,11 +2353,11 @@ void sBossTimerCheck()		//97 // 021106 kyo
 		return;
 	}
 
-	if( g_QuestInMap.GetCurrentBossTimer(nKey) <= (iTime - iLimiteTime) )	//Å¸ÀÌ¸Ó ¾øÀ¸¸é 0, ÀÖÀ¸¸é Å¸ÀÌ¸Ó½Ã°£(dwtime)
+	if( g_QuestInMap.GetCurrentBossTimer(nKey) <= (iTime - iLimiteTime) )	//íƒ€ì´ë¨¸ ì—†ìœ¼ë©´ 0, ìˆìœ¼ë©´ íƒ€ì´ë¨¸ì‹œê°„(dwtime)
 	{
 		sYES = ( g_QuestInMap.StartBossTimer( EventPC, iNPC, iNpc_x, iNpc_y, iTime, iMaxEntree, nFlag) )/1000; //031028 kyo
 	}
-	else //Á¦¾à½Ã°£¾È¿¡ ÀÖ´Ù.
+	else //ì œì•½ì‹œê°„ì•ˆì— ìˆë‹¤.
 	{
 		sYES = 1;
 	}
@@ -2395,7 +2395,7 @@ void sIsGetMagic()
 }
 
 void sDualClassCheck()
-{ //100 ³»°¡ ÇØ´ç µà¾óÅ¬·¡½ºÀÎ°¡ ¸ÂÀ¸¸é 1 Æ²¸®¸é 0
+{ //100 ë‚´ê°€ í•´ë‹¹ ë“€ì–¼í´ë˜ìŠ¤ì¸ê°€ ë§ìœ¼ë©´ 1 í‹€ë¦¬ë©´ 0
 	const int n1Class = GetInt();
 	const int n2Class = GetInt();
 	CHARLIST *ch = CheckServerId(EventPC);
@@ -2413,7 +2413,7 @@ void sDualClassCheck()
 }
 
 void sUpDualClassItem()
-{ //101 µà¾óÅ¬·¡½º¾ÆÀÌÅÛÀ» ÇÑ´Ü°è¿Ã·ÁÁØ´Ù.
+{ //101 ë“€ì–¼í´ë˜ìŠ¤ì•„ì´í…œì„ í•œë‹¨ê³„ì˜¬ë ¤ì¤€ë‹¤.
 	
 	const int nFlag = GetInt();
 	CHARLIST *ch = CheckServerId(EventPC);
@@ -2442,17 +2442,17 @@ void sUpDualClassItem()
 }
 
 void sShowLearnDualMagic()
-{// 102 µà¾ó¸¶¹ıÀ» ¹è¿ï¼ö ÀÖ´Â Ã¢À» ¶ç¿î´Ù.
+{// 102 ë“€ì–¼ë§ˆë²•ì„ ë°°ìš¸ìˆ˜ ìˆëŠ” ì°½ì„ ë„ìš´ë‹¤.
 	::SendCallDualMagicLearnMenu(EventPC);
 }
 
 void sLogDualQuest()
-{// 103 iisi µà¾óÄù½ºÆ®¸¸ ·Î±×¸¦ ³²±ä´Ù.
-	const int nQnum = GetInt();	//Äù½ºÆ® ¹øÈ£
-	const int nQCount = GetInt();	//¼öÇàÈ½¼ö.
+{// 103 iisi ë“€ì–¼í€˜ìŠ¤íŠ¸ë§Œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
+	const int nQnum = GetInt();	//í€˜ìŠ¤íŠ¸ ë²ˆí˜¸
+	const int nQCount = GetInt();	//ìˆ˜í–‰íšŸìˆ˜.
 	char szMsg[128];
-	GetString( szMsg);	//¸Ş½ÃÁö ³»¿ë
-	const int nStart = GetInt();	//½ÃÀÛÀÎÁö ¾Æ´ÑÁö
+	GetString( szMsg);	//ë©”ì‹œì§€ ë‚´ìš©
+	const int nStart = GetInt();	//ì‹œì‘ì¸ì§€ ì•„ë‹Œì§€
 
 	CHARLIST *ch = CheckServerId( EventPC);
 	if( !ch ) return;
@@ -2462,7 +2462,7 @@ void sLogDualQuest()
 }	//> CSD-TW-030618
 
 void sLogForScript()
-{// 104 is ½ºÅ©¸³Æ®¸¦ ¼öÇàÇÑ ·Î±×¸¦ ³²±ä´Ù.  // 030826 kyo
+{// 104 is ìŠ¤í¬ë¦½íŠ¸ë¥¼ ìˆ˜í–‰í•œ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.  // 030826 kyo
 	const int nQnum = GetInt();
 	char szMsg[128];
 	GetString(szMsg);
@@ -2477,7 +2477,7 @@ void sLogForScript()
 	g_pLogManager->SaveLogScriptLog(ch, nQnum, var[EventPC][nQnum], szMsg);//kyo
 }
 
-//<! BBD 040308	ÀÌº¥Æ® ¾ÆÀÌÅÛ Áö±ŞÀ» ÇØÁÖ´Â ÇÔ¼ö
+//<! BBD 040308	ì´ë²¤íŠ¸ ì•„ì´í…œ ì§€ê¸‰ì„ í•´ì£¼ëŠ” í•¨ìˆ˜
 void sEventItemInsert()
 {
 	GetString( String );
@@ -2486,12 +2486,12 @@ void sEventItemInsert()
 
 	if(connections[ EventPC].dwAgentConnectionIndex && connections[ EventPC].state >= CONNECT_JOIN)
 	{
-		//SendBBS2¶ó´Â ÀÌº¥Æ® ¸Ş¼¼Áö ¹ß»ı ÇÔ¼ö¸¦ ½ÇÇàÇÑ´ç.
+		//SendBBS2ë¼ëŠ” ì´ë²¤íŠ¸ ë©”ì„¸ì§€ ë°œìƒ í•¨ìˆ˜ë¥¼ ì‹¤í–‰í•œë‹¹.
 		SendBBS2( String, (short)EventPC );
 		
 		if(!ch->IsEventRecv())
 		{
-			// ÀÎº¥ÀÇ ºóÄ­ ¼¼±â
+			// ì¸ë²¤ì˜ ë¹ˆì¹¸ ì„¸ê¸°
 			int blankcount = 0;
 			for(int a=0; a<3; a++)
 			{
@@ -2507,9 +2507,9 @@ void sEventItemInsert()
 				}
 			}
 			
-			if(blankcount < 10)	// 10Ä­ ÀÌ»óÀÎ°¡?
+			if(blankcount < 10)	// 10ì¹¸ ì´ìƒì¸ê°€?
 			{
-				::OutMessage(ch,2,13);//ÀÓ½Ã,,ÀÎº¥Åä¸® °ø°£ÀÌ ÃæºĞÄ¡ ¾Ê½À´Ï´Ù.
+				::OutMessage(ch,2,13);//ì„ì‹œ,,ì¸ë²¤í† ë¦¬ ê³µê°„ì´ ì¶©ë¶„ì¹˜ ì•ŠìŠµë‹ˆë‹¤.
 				return;
 			}
 
@@ -2529,9 +2529,9 @@ void sEventItemInsert()
 		
 	}	
 }
-//> BBD 040308	ÀÌº¥Æ® ¾ÆÀÌÅÛ Áö±ŞÀ» ÇØÁÖ´Â ÇÔ¼ö
+//> BBD 040308	ì´ë²¤íŠ¸ ì•„ì´í…œ ì§€ê¸‰ì„ í•´ì£¼ëŠ” í•¨ìˆ˜
 
-//<! kjy 040406  Ä³¸¯ÅÍ ´É·ÂÄ¡ °¡Á®¿À´Â ÇÔ¼ö
+//<! kjy 040406  ìºë¦­í„° ëŠ¥ë ¥ì¹˜ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 void sGetCharacterStatus()
 {
 	int type = GetInt();
@@ -2564,10 +2564,10 @@ void sGetCharacterStatus()
 		sYES = 1;
 	}
 } 
-//> kjy 040406  Ä³¸¯ÅÍ ´É·ÂÄ¡ °¡Á®¿À´Â ÇÔ¼ö
+//> kjy 040406  ìºë¦­í„° ëŠ¥ë ¥ì¹˜ ê°€ì ¸ì˜¤ëŠ” í•¨ìˆ˜
 
 
-//<! kjy 040406  ·¹¾î ¾ÆÀÌÅÛ °³¼ö È®ÀÎ ÇÔ¼ö
+//<! kjy 040406  ë ˆì–´ ì•„ì´í…œ ê°œìˆ˜ í™•ì¸ í•¨ìˆ˜
 void sSearchItemMuchForRare()
 {
 	int item_number = GetInt();
@@ -2580,7 +2580,7 @@ void sSearchItemMuchForRare()
 
 	int iRet = 0;
 	
-	// º£³¶ ¼ÓÀÇ ¸ğµç ¾ÆÀÌÅÛ °Ë»ö..
+	// ë² ë‚­ ì†ì˜ ëª¨ë“  ì•„ì´í…œ ê²€ìƒ‰..
 	for( int a=0; a<3; a++ )
 		for( int b=0; b<3; b++ )
 			for( int c=0; c<8; c++ )
@@ -2601,7 +2601,7 @@ void sSearchItemMuchForRare()
 	if ( iRet < tt )		sYES = 0;
 	else if ( iRet >= tt )	sYES = 1;
 }
-//> kjy 040406  ·¹¾î ¾ÆÀÌÅÛ °³¼ö È®ÀÎ ÇÔ¼ö
+//> kjy 040406  ë ˆì–´ ì•„ì´í…œ ê°œìˆ˜ í™•ì¸ í•¨ìˆ˜
 
 // 040601 YGI
 void sGetItemMallItem()
@@ -2609,9 +2609,9 @@ void sGetItemMallItem()
 //	CHARLIST *ch = CheckServerId( EventPC );
 //	if( !ch ) return;
 
-	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ ÀÌºÎºĞ¿¡¼­ È¨ÆäÀÌ¿¡¼­ »ê ¾ÆÀÌÅÛÁß¿¡ ¸î¸îÀ» ÀÎÅÍÆäÀÌ½ºÃ¢À» ÅëÇØ¼­ ¹Ş°ÔÇÏÀÚ.
-	//±¸ÀÔÇÑ ÀüÃ¼¸¶ÀÏ¸®Áö ¸ñ·Ï(±æµåÃ¢°í,ÀºÇàÃ¢°í½Ä)¿¡¼­ À¯Àú°¡ ¹ŞÀ» ¾ÆÀÌÅÛ ¸ñ·Ï¸¸À» ¿äÃ»ÇØ¼­ ¹Şµµ·Ï ÇÏÀÚ.
-	//(ItemMall IDX¸¦ º¸³»¼­ ¹Ş¾Æ¿À¸é µÇ°Ú´Ù.)
+	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… ì´ë¶€ë¶„ì—ì„œ í™ˆí˜ì´ì—ì„œ ì‚° ì•„ì´í…œì¤‘ì— ëª‡ëª‡ì„ ì¸í„°í˜ì´ìŠ¤ì°½ì„ í†µí•´ì„œ ë°›ê²Œí•˜ì.
+	//êµ¬ì…í•œ ì „ì²´ë§ˆì¼ë¦¬ì§€ ëª©ë¡(ê¸¸ë“œì°½ê³ ,ì€í–‰ì°½ê³ ì‹)ì—ì„œ ìœ ì €ê°€ ë°›ì„ ì•„ì´í…œ ëª©ë¡ë§Œì„ ìš”ì²­í•´ì„œ ë°›ë„ë¡ í•˜ì.
+	//(ItemMall IDXë¥¼ ë³´ë‚´ì„œ ë°›ì•„ì˜¤ë©´ ë˜ê² ë‹¤.)
 
 //	int menu = GetInt(); 
 	SendCallSmallMenu( EventPC, 0, MN_ITEM_MALL_ACCOUNT_BOX_GET );
@@ -2624,63 +2624,63 @@ void (*SFunction[_SCRIPT_FUNCTION_POINT_])(void) =
 	sDialOnlyPC,			//  0
 	sDialInAreaPC,
 	sDialEveryone,
-	sAddItem,				//  4 //Æ¯Á¤ À§Ä¡¿¡ ¾ÆÀÌÅÛ °®´Ù ³õ±â (xÁÂÇ¥ * 32, yÁÂÇ¥ *32)
-	sAddNpc,				//  5 //Æ¯Á¤ À§Ä¡¿¡ NPC °®´Ù ³õ±â	(xÁÂÇ¥ , yÁÂÇ¥)
+	sAddItem,				//  4 //íŠ¹ì • ìœ„ì¹˜ì— ì•„ì´í…œ ê°–ë‹¤ ë†“ê¸° (xì¢Œí‘œ * 32, yì¢Œí‘œ *32)
+	sAddNpc,				//  5 //íŠ¹ì • ìœ„ì¹˜ì— NPC ê°–ë‹¤ ë†“ê¸°	(xì¢Œí‘œ , yì¢Œí‘œ)
 	sMapName,
 	sMapMove,				//  7 
 	sIsLevel,
 	sInitMonsterGeneratedPosition,
 	sCallSmallMenu, 
-	sWeatherOn,				// 10 // ³¯¾¾¿¡ °üÇØ BroadCastÇÑ´Ù. 
-	sWeatherOff,			// 11 // ³¯¾¾¿¡ °üÇØ BroadCastÇÏÁö ¾Ê´Â´Ù.  
+	sWeatherOn,				// 10 // ë‚ ì”¨ì— ê´€í•´ BroadCastí•œë‹¤. 
+	sWeatherOff,			// 11 // ë‚ ì”¨ì— ê´€í•´ BroadCastí•˜ì§€ ì•ŠëŠ”ë‹¤.  
 	sRecallScriptStart,		// 12
 	sRecallScriptEnd,		// 13
 	sMaxMonsterGeneration,	// 14
-	sLoadItemValueOneMaul,  // 15 //031116 lsw Á¦°ÅµÈ ÇÔ¼ö.
+	sLoadItemValueOneMaul,  // 15 //031116 lsw ì œê±°ëœ í•¨ìˆ˜.
 	srandom,				// 16 // 0131 YGI
-	sEventMsg,				// 17 //ÀÌº¥Æ® ¸Ş¼¼Áö¸¦ »Ñ·ÁÁØ´Ù.
-	sIsItemHavePC,			// 18 // 0720 LHS Æ¯Á¤ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö È®ÀÎÇÑ´Ù. ÀåÂø¿¡ °üÇØ¼­
-	sIsClassPC,				// 19 // 0721 LHS Æ¯Á¤ Å¬·¡¼­ÀÎ°¡? i
-	sSetQuestNumStep,		// 20 // 0721 LHS Äù½ºÆ® ¹øÈ£¸¦ ¼³Á¤ÇÑ´Ù. ii
-	sCmpQuestNumStep,		// 21 // 0722 LHS °°Àº Äù½ºÆ® ¹øÈ£¿¡¼­ ÁøÇà ´Ü°è¸¦ È®ÀÎÇÑ´Ù. 0 ³·Àº°ª 1 °°Àº°ª 2 ³ôÀº°ª ii
-	sQuestComplete,			// 22 // 0722 LHS Äù½ºÆ® ¿Ï·á½Ã ÃàÆ÷ºü¹æ~~ i
-	sQuestTeleport,			// 23 // 0726 LHS Äù½ºÆ®ÅÚ·¹Æ÷Æ® iii
-	sIsJobPC,				// 24 // 0728 LHS ÇØ´ç Á÷¾÷ÀÎ°¡? i	
-	sIsInvHavePC,			// 25 // 0728 LHS ÄüÀÎº¥ÀÌÅ¢¿¡ ÇØ´ç ¾ÆÀÌÅÛÀÌ ÀÖ´Â°¡? i
-	sSetItemInvPC,			// 26 // 0729 LHS ÀÎº¥Åä¸®Ã¢¿¡ ÇØ´ç ¾ÆÀÌÅÛÀ» ´Ù¸¥ ¾ÆÀÌÅÛÀ¸·Î º¯°æÇÑ´Ù.(¹Ù²ğ¾ÆÅÛ,¹Ù²Ü¾ÆÅÛ,¾ÆÅÛµà) iii
-	sIsSkillHavePC,			// 27 // 0729 LHS ½ºÅ³À» ¹è¿ü´Â°¡? i
-	sSetSkillPC,			// 28 // 0729 LHS ½ºÅ³À» ¹è¿ì°Ô ÇÑ´Ù. ¾È¹è¿î°Å·Î ÇÑ´Ù. ii(½ºÅ³,¹è¿ò/¾È¹è¿ò)	
-	sQuestSound,			// 29 // 0809 LHS Äù½ºÆ®¿ë »ç¿îµå i
-	sAddFightMap,			// 30 // 0905 YGI ÀüÅõ¸Ê¿¡¼­ ÆÀ µî·Ï i
-	sIsPlayArenaGame,		// 31 // CSD-030517 : ¾Æ·¹³ª °æ±â ÁßÀÎÁö ¿©ºÎ °Ë»ç
-	sIsFullFightMapTeam,	// 32 // 0907 YGI ÀüÅõ¸Ê¿¡¼­ ÆÀ¿ø ¸ğµÎ µî·ÏÇÑ »óÅÂÀÎÁö ¾Æ´ÑÁö i( ÆÀ ¹øÈ£ )
-	sDeleteFightMap,		// 33 // 0915 YGI ÀüÅõ¸Ê¿¡¼­ ÆÀ ÇØÁ¦ ÇÏ±â 
+	sEventMsg,				// 17 //ì´ë²¤íŠ¸ ë©”ì„¸ì§€ë¥¼ ë¿Œë ¤ì¤€ë‹¤.
+	sIsItemHavePC,			// 18 // 0720 LHS íŠ¹ì • ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ í™•ì¸í•œë‹¤. ì¥ì°©ì— ê´€í•´ì„œ
+	sIsClassPC,				// 19 // 0721 LHS íŠ¹ì • í´ë˜ì„œì¸ê°€? i
+	sSetQuestNumStep,		// 20 // 0721 LHS í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ë¥¼ ì„¤ì •í•œë‹¤. ii
+	sCmpQuestNumStep,		// 21 // 0722 LHS ê°™ì€ í€˜ìŠ¤íŠ¸ ë²ˆí˜¸ì—ì„œ ì§„í–‰ ë‹¨ê³„ë¥¼ í™•ì¸í•œë‹¤. 0 ë‚®ì€ê°’ 1 ê°™ì€ê°’ 2 ë†’ì€ê°’ ii
+	sQuestComplete,			// 22 // 0722 LHS í€˜ìŠ¤íŠ¸ ì™„ë£Œì‹œ ì¶•í¬ë¹ ë°©~~ i
+	sQuestTeleport,			// 23 // 0726 LHS í€˜ìŠ¤íŠ¸í…”ë ˆí¬íŠ¸ iii
+	sIsJobPC,				// 24 // 0728 LHS í•´ë‹¹ ì§ì—…ì¸ê°€? i	
+	sIsInvHavePC,			// 25 // 0728 LHS í€µì¸ë²¤ì´í…ì— í•´ë‹¹ ì•„ì´í…œì´ ìˆëŠ”ê°€? i
+	sSetItemInvPC,			// 26 // 0729 LHS ì¸ë²¤í† ë¦¬ì°½ì— í•´ë‹¹ ì•„ì´í…œì„ ë‹¤ë¥¸ ì•„ì´í…œìœ¼ë¡œ ë³€ê²½í•œë‹¤.(ë°”ë€”ì•„í…œ,ë°”ê¿€ì•„í…œ,ì•„í…œë“€) iii
+	sIsSkillHavePC,			// 27 // 0729 LHS ìŠ¤í‚¬ì„ ë°°ì› ëŠ”ê°€? i
+	sSetSkillPC,			// 28 // 0729 LHS ìŠ¤í‚¬ì„ ë°°ìš°ê²Œ í•œë‹¤. ì•ˆë°°ìš´ê±°ë¡œ í•œë‹¤. ii(ìŠ¤í‚¬,ë°°ì›€/ì•ˆë°°ì›€)	
+	sQuestSound,			// 29 // 0809 LHS í€˜ìŠ¤íŠ¸ìš© ì‚¬ìš´ë“œ i
+	sAddFightMap,			// 30 // 0905 YGI ì „íˆ¬ë§µì—ì„œ íŒ€ ë“±ë¡ i
+	sIsPlayArenaGame,		// 31 // CSD-030517 : ì•„ë ˆë‚˜ ê²½ê¸° ì¤‘ì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
+	sIsFullFightMapTeam,	// 32 // 0907 YGI ì „íˆ¬ë§µì—ì„œ íŒ€ì› ëª¨ë‘ ë“±ë¡í•œ ìƒíƒœì¸ì§€ ì•„ë‹Œì§€ i( íŒ€ ë²ˆí˜¸ )
+	sDeleteFightMap,		// 33 // 0915 YGI ì „íˆ¬ë§µì—ì„œ íŒ€ í•´ì œ í•˜ê¸° 
 	sCheckNation,
-	sReturnSealStoneBreakable,	// 35 // 001026 KHS sYES == 1 ÀÌµ¿°¡´É, sYES == 0 ÀÌµ¿ºÒ°¡.
+	sReturnSealStoneBreakable,	// 35 // 001026 KHS sYES == 1 ì´ë™ê°€ëŠ¥, sYES == 0 ì´ë™ë¶ˆê°€.
 	// Added by chan78
-	sSendMessageBox,			// 36 // 001124 YGI  // ¸»Ç³¼±ÀÌ ¶ß°Ô ÇÑ´Ù.		// 001212 YGI
-	sSendSound,					// 37 // 001205 YGI		// Æ¯Á¤ »ç¿îµå ¹øÈ£ÀÇ »ç¿îµå¸¦ Ãâ·ÂÇÏ°Ô ÇÑ´Ù. 001212 YGI
+	sSendMessageBox,			// 36 // 001124 YGI  // ë§í’ì„ ì´ ëœ¨ê²Œ í•œë‹¤.		// 001212 YGI
+	sSendSound,					// 37 // 001205 YGI		// íŠ¹ì • ì‚¬ìš´ë“œ ë²ˆí˜¸ì˜ ì‚¬ìš´ë“œë¥¼ ì¶œë ¥í•˜ê²Œ í•œë‹¤. 001212 YGI
 	sGenMonSpec,				// 38 // 010129 KHS
 	sGetGender,					// 39 // 010205 YGI				// 010210 YGI
 	
 	// 010303 YGI
-	sSaveItemAtDb,				// 40 // Æ¯Á¤ ¾ÆÀÌÅÛÀ» µğºñ¿¡ ÀúÀåÇÑ´Ù.
-	sCheckMoney,				// 41 // µ·ÀÌ ¾ó¸¶³ª ÀÖ´ÂÁö ¾Ë¾Æº»´Ù.
-	sSubtractMoney,				// 42 // pcÇÑÅ×¼­ µ·À» »©³½´Ù.
-	sGetGuild,					// 43 // ±æµå ÄÚµå¸¦ °¡Á®¿Â´Ù. sYES ¿¡ ÀúÀåµÈ´Ù.		// 010511 YGI
-	sSendEffect,				// 44	// effect º¸¿©ÁÖ±â 010522 YGI
+	sSaveItemAtDb,				// 40 // íŠ¹ì • ì•„ì´í…œì„ ë””ë¹„ì— ì €ì¥í•œë‹¤.
+	sCheckMoney,				// 41 // ëˆì´ ì–¼ë§ˆë‚˜ ìˆëŠ”ì§€ ì•Œì•„ë³¸ë‹¤.
+	sSubtractMoney,				// 42 // pcí•œí…Œì„œ ëˆì„ ë¹¼ë‚¸ë‹¤.
+	sGetGuild,					// 43 // ê¸¸ë“œ ì½”ë“œë¥¼ ê°€ì ¸ì˜¨ë‹¤. sYES ì— ì €ì¥ëœë‹¤.		// 010511 YGI
+	sSendEffect,				// 44	// effect ë³´ì—¬ì£¼ê¸° 010522 YGI
 	
-	sCallMenu,					// 45	Á÷Á¢ µğÆÄÀÎµÈ ¹øÈ£·Î ¸Ş´º¸¦ È£ÃâÇÑ´Ù.		// 010528 YGI
-	sGetNationByMap,			// 46	Æ¯Á¤ ¸ÊÀÇ ±¹Àû¾Ë¾Æ ¿À±â
-	sCalcFriendShip,			// 47	Æ¯Á¤ ±¹°¡ÀÇ Àû´ë¼öÄ¡ ´õÇØÁÖ±â
-	sCompFriendShip,			// 48	Àû´ë¼öÄ¡ ºñ±³ÇÏ±â
-	sCompLadderScore,			// 49	·¡´õ Á¡¼ö ºñ±³					// 010531			YGI
-	sCheckLoadingPoint,			// 50	ºÎ´ëÀÇ °ø°İ°ÅÁ¡À» È®ÀÎ			// 010904 LTS
-	sCheckDefence,				// 51	¹æ¾îÀÚ °ø°İÀÚ¸¸ ÀÌµ¿°¡´É ÇÑ Æ÷Å»..		// 010904 LTS
-	sFameDown,					// 52   Ä³¸¯ÅÍÀÇ ÆäÀÓÀ» ³·Ãá´Ù			// 010915 LTS
-	sFameUp,					// 53	Ä³¸¯ÅÍÀÇ ÆäÀÓÀ» ³ôÀÎ´Ù
-	sFameCheck,					// 54	Ä³¸¯ÅÍÀÇ ÆäÀÓÀÌ ÁÖ¾îÁø °ªÀÌ»óÀÎÁö ÆÇº°ÆÇ´Ù
-	sCanGoBonus,				// 55	// ±¹°¡Àü º¸³Ê½º ¸ÊÀ¸·Î °¥¼ö ÀÖ´Â ±â°£ÀÎÁö È®ÀÎÇÑ´Ù.
+	sCallMenu,					// 45	ì§ì ‘ ë””íŒŒì¸ëœ ë²ˆí˜¸ë¡œ ë©”ë‰´ë¥¼ í˜¸ì¶œí•œë‹¤.		// 010528 YGI
+	sGetNationByMap,			// 46	íŠ¹ì • ë§µì˜ êµ­ì ì•Œì•„ ì˜¤ê¸°
+	sCalcFriendShip,			// 47	íŠ¹ì • êµ­ê°€ì˜ ì ëŒ€ìˆ˜ì¹˜ ë”í•´ì£¼ê¸°
+	sCompFriendShip,			// 48	ì ëŒ€ìˆ˜ì¹˜ ë¹„êµí•˜ê¸°
+	sCompLadderScore,			// 49	ë˜ë” ì ìˆ˜ ë¹„êµ					// 010531			YGI
+	sCheckLoadingPoint,			// 50	ë¶€ëŒ€ì˜ ê³µê²©ê±°ì ì„ í™•ì¸			// 010904 LTS
+	sCheckDefence,				// 51	ë°©ì–´ì ê³µê²©ìë§Œ ì´ë™ê°€ëŠ¥ í•œ í¬íƒˆ..		// 010904 LTS
+	sFameDown,					// 52   ìºë¦­í„°ì˜ í˜ì„ì„ ë‚®ì¶˜ë‹¤			// 010915 LTS
+	sFameUp,					// 53	ìºë¦­í„°ì˜ í˜ì„ì„ ë†’ì¸ë‹¤
+	sFameCheck,					// 54	ìºë¦­í„°ì˜ í˜ì„ì´ ì£¼ì–´ì§„ ê°’ì´ìƒì¸ì§€ íŒë³„íŒë‹¤
+	sCanGoBonus,				// 55	// êµ­ê°€ì „ ë³´ë„ˆìŠ¤ ë§µìœ¼ë¡œ ê°ˆìˆ˜ ìˆëŠ” ê¸°ê°„ì¸ì§€ í™•ì¸í•œë‹¤.
 	// CSB AddCode
 	sGetLevel,					// 56
 	sGetClass,					// 57
@@ -2705,7 +2705,7 @@ void (*SFunction[_SCRIPT_FUNCTION_POINT_])(void) =
 	sLocalWarPointUp,			// 75
 	sLocalWarPointDown,			// 76
 	// CSB AddCode End
-	// Ãß°¡½Ã ¾Æ·¡ ¸Æ½º °ªÀ» ´Ã·ÁÁØ´Ù.
+	// ì¶”ê°€ì‹œ ì•„ë˜ ë§¥ìŠ¤ ê°’ì„ ëŠ˜ë ¤ì¤€ë‹¤.
 	sCheckEventLocalWarStatus,	// 77		// 020115 LTS
 	sCheckEventLocalWarStep,	// 78		// 020115 LTS
 	sCheckEventJoin,			// 79		// 020115 LTS
@@ -2713,7 +2713,7 @@ void (*SFunction[_SCRIPT_FUNCTION_POINT_])(void) =
 	
 	sSetOXSelect,				// 81		// YGI
 	sGotoGuildHouse,			// 82	
-	sIsMyGuildHouse,			// 83		// i ( ÀÌº¥Æ® ¹øÈ£ )
+	sIsMyGuildHouse,			// 83		// i ( ì´ë²¤íŠ¸ ë²ˆí˜¸ )
 	sCheckAllSealStoneBroked,	// 84		// LTS NEW LOCALWAR
 	sSetFame,					// 85		// LTS NEW LOCALWAR
 	sCheckQuestMode,			// 86		// LTS DRAGON MODIFY
@@ -2721,30 +2721,30 @@ void (*SFunction[_SCRIPT_FUNCTION_POINT_])(void) =
 	sMoveDungeon,				// 87		// sii
 	sDualCheck,					// 88		// i		// 020707 YGI
 	sResetCombatSkill,    // 89    //   // 021008 KYO
-	sSpellMapMove,				//90		// ssii (ÁÖ¹®, Áöµµ,Áöµµx,Áöµµy) // 021014 kyo ÁÖ¹®À» ¿Ü¸é ÀÌµ¿ÇÑ´Ù. 
-	sShowStateMessage,			//91		// siii	(¸Ş½ÃÁö, R,G,B )	//»ö¿¡ ¸Â´Â ±ÛÀÚ¸¦ º¸¿©ÁØ´Ù.
-	sCheckItemMulti,			//92 		// ii   ´Ù¼öÀÇ ¾ÆÀÌÅÛ È®ÀÎ (¾ÆÀÌÅÛ¹øÈ£, °¹¼ö)  yes°ª ½ÇÆĞ =0, ¼º°ø =1		
-	sDeleteItemMulti,			//93		// ii	´Ù¼öÀÇ ¾ÆÀÌÅÛ »è¼¼ (¾ÆÀÌÅÛ¹øÈ£, °¹¼ö)  yes°ª ½ÇÆĞ =0, ¼º°ø =1
-	sScriptTimer,				//94		// isii	(Å¸ÀÌ¸Ó ¼³Á¤ ½Ã°£, ¸ÊÀÌ¸§,¸Êx,¸Êy) //¼³Á¤ ½Ã°£: 0=ÇØÁ¦, 0!=½Ã°£
-	sScriptCounter,				//95		// iiii (¼ıÀÚ¼¿²¨ ¹øÈ£, Á¾·ù, °¹¼ö, ÇÃ·¯±×) Á¾·ù: 0=ncp,1=¾ÆÀÌÅÛ,2=¾ÈÁ¤ÇØµû. ÇÃ·¯±×: 0=¸ØÃã,1=½ÃÀÛ,2=°¹¼ö¶û ÀÏÄ¡?
-	sUpRareInEquip,				//96		// iii	ÀåÂø³ë¸»¾ÆÀÌÅÛÀ» ·¹¾î ¾ÆÅÛÀ¸·Î ¹Ù²Û´Ù.: ¼Ó¼º¸¸ ¿Ã¸² ( ÀåÂøÀ§Ä¡, µî±Ş, ¼Ó¼º) yes°ª 0=¾ÆÅÛ¾ø´Ù, 1=¼º°ø, 2=³ë¸»¾ÆÅÛ¾Æ´Ô
-	sBossTimerCheck,			//97		// iiiiii (npc¹øÈ£,x,y, ÀÎ¿øÁ¦ÇÑ, Å¸ÀÌ¸Ó½Ã°£, Á¦¾à½Ã°£)
-	// yes 0=ÀÎ¿øÃÊ°ú, 1=Á¦¾à½Ã°£¾È¿¡ ÀÖ´Ù. ±×¿Ü= ÇöÀç Å¸ÀÌ¸ÓÀÇ ½Ã°£
-	sNationBelong,        // 98   yes 1 : ¹ÙÀÌ¼­½º 2:ÀÚÀÌÆİ 3 : error
-	sIsGetMagic,				//99		// i (¸¶¹ı¹øÈ£) ¸¶¹ıÀ»  ¹è¿üÀ¸¸é 1, ¾Æ´Ï¸é 0 // 030415 kyo 
-	sDualClassCheck,			//100		//ii ¼±ÇàÅ¬·¡½º ÈÄÇà Å¬·¡½º ¼±ÇàÅ¬·¡½º°¡ 5ÀÌ»óÀÌ¸é ¼±ÇàÅ¬·¡½º´Â ¹«½ÃÇÑ´Ù.
-								//0.Àü»ç 1,µµµÏ 2. ±Ã ¼ö 3. ¸¶¹ı»ç 4.  ¼ºÁ÷ÀÚ
-	sUpDualClassItem,				//101		//i µÎ¾ó¾ÆÀÌÅÛÀÌ ¾ø´Â »ç¸²Àº ÁÖ°í ÀÖ´Â »ç¶÷Àº ´Ü°è¸¦ ¿Ã¸°´Ù. syes°ªÀº ÇöÀç À¯ÀúÀÇ »óÅÂ¸¦ ¸»ÇÔ
-	sShowLearnDualMagic,		//102		//null Ä³¸¯ÅÍ°¡ ¹è¿ï¼ö ÀÕ´Â ¸¶¹ıÃ¥ÀÌ º¸¿©Áø´Ù.
-	sLogDualQuest,				//103		//iisi	qcount, ³»¿ë, ½ÃÀÛ(0:½ÃÀÛ, 1:³¡) 
-	sLogForScript,				//104		//is	Äù½ºÆ®¹øÈ£	msg	 //ÇöÀçÀÇ »óÅÂ¸¦ ·Î±ëÇÑ´Ù. 
-	sEventItemInsert,			//105		// BBD 040226	ÀÌº¥Æ®¾ÆÀÌÅÛ Áö±ŞÀ» ÇÏ´Â ÇÔ¼ö
-	sGetCharacterStatus,		//106		// kjy 040406   Ä³¸¯ÅÍÀÇ ´É·ÂÄ¡¸¦ °¡Á®¿Í¼­ °ªÀ»ºñ±³  i = 0 : str, 1 : con, 2 : dex..., 10 : wsps, tt = ºñ±³ÇÒ °ª (°¡Á®¿Â ´É·ÂÄ¡°¡ ttº¸´Ù ÀÛÀ¸¸é syes°ªÀÌ 0, Å©¸é 1, °°À¸¸é 2)
-	sSearchItemMuchForRare,		//107		// kjy 040406   Æ¯Á¤ Rare ¾ÆÀÌÅÛÀÇ °³¼ö¸¦ ¾ò¾î¿Í¼­ °ªÀ» ºñ±³ 
+	sSpellMapMove,				//90		// ssii (ì£¼ë¬¸, ì§€ë„,ì§€ë„x,ì§€ë„y) // 021014 kyo ì£¼ë¬¸ì„ ì™¸ë©´ ì´ë™í•œë‹¤. 
+	sShowStateMessage,			//91		// siii	(ë©”ì‹œì§€, R,G,B )	//ìƒ‰ì— ë§ëŠ” ê¸€ìë¥¼ ë³´ì—¬ì¤€ë‹¤.
+	sCheckItemMulti,			//92 		// ii   ë‹¤ìˆ˜ì˜ ì•„ì´í…œ í™•ì¸ (ì•„ì´í…œë²ˆí˜¸, ê°¯ìˆ˜)  yesê°’ ì‹¤íŒ¨ =0, ì„±ê³µ =1		
+	sDeleteItemMulti,			//93		// ii	ë‹¤ìˆ˜ì˜ ì•„ì´í…œ ì‚­ì„¸ (ì•„ì´í…œë²ˆí˜¸, ê°¯ìˆ˜)  yesê°’ ì‹¤íŒ¨ =0, ì„±ê³µ =1
+	sScriptTimer,				//94		// isii	(íƒ€ì´ë¨¸ ì„¤ì • ì‹œê°„, ë§µì´ë¦„,ë§µx,ë§µy) //ì„¤ì • ì‹œê°„: 0=í•´ì œ, 0!=ì‹œê°„
+	sScriptCounter,				//95		// iiii (ìˆ«ìì…€êº¼ ë²ˆí˜¸, ì¢…ë¥˜, ê°¯ìˆ˜, í”ŒëŸ¬ê·¸) ì¢…ë¥˜: 0=ncp,1=ì•„ì´í…œ,2=ì•ˆì •í•´ë”°. í”ŒëŸ¬ê·¸: 0=ë©ˆì¶¤,1=ì‹œì‘,2=ê°¯ìˆ˜ë‘ ì¼ì¹˜?
+	sUpRareInEquip,				//96		// iii	ì¥ì°©ë…¸ë§ì•„ì´í…œì„ ë ˆì–´ ì•„í…œìœ¼ë¡œ ë°”ê¾¼ë‹¤.: ì†ì„±ë§Œ ì˜¬ë¦¼ ( ì¥ì°©ìœ„ì¹˜, ë“±ê¸‰, ì†ì„±) yesê°’ 0=ì•„í…œì—†ë‹¤, 1=ì„±ê³µ, 2=ë…¸ë§ì•„í…œì•„ë‹˜
+	sBossTimerCheck,			//97		// iiiiii (npcë²ˆí˜¸,x,y, ì¸ì›ì œí•œ, íƒ€ì´ë¨¸ì‹œê°„, ì œì•½ì‹œê°„)
+	// yes 0=ì¸ì›ì´ˆê³¼, 1=ì œì•½ì‹œê°„ì•ˆì— ìˆë‹¤. ê·¸ì™¸= í˜„ì¬ íƒ€ì´ë¨¸ì˜ ì‹œê°„
+	sNationBelong,        // 98   yes 1 : ë°”ì´ì„œìŠ¤ 2:ìì´í€ 3 : error
+	sIsGetMagic,				//99		// i (ë§ˆë²•ë²ˆí˜¸) ë§ˆë²•ì„  ë°°ì› ìœ¼ë©´ 1, ì•„ë‹ˆë©´ 0 // 030415 kyo 
+	sDualClassCheck,			//100		//ii ì„ í–‰í´ë˜ìŠ¤ í›„í–‰ í´ë˜ìŠ¤ ì„ í–‰í´ë˜ìŠ¤ê°€ 5ì´ìƒì´ë©´ ì„ í–‰í´ë˜ìŠ¤ëŠ” ë¬´ì‹œí•œë‹¤.
+								//0.ì „ì‚¬ 1,ë„ë‘‘ 2. ê¶ ìˆ˜ 3. ë§ˆë²•ì‚¬ 4.  ì„±ì§ì
+	sUpDualClassItem,				//101		//i ë‘ì–¼ì•„ì´í…œì´ ì—†ëŠ” ì‚¬ë¦¼ì€ ì£¼ê³  ìˆëŠ” ì‚¬ëŒì€ ë‹¨ê³„ë¥¼ ì˜¬ë¦°ë‹¤. syesê°’ì€ í˜„ì¬ ìœ ì €ì˜ ìƒíƒœë¥¼ ë§í•¨
+	sShowLearnDualMagic,		//102		//null ìºë¦­í„°ê°€ ë°°ìš¸ìˆ˜ ì‡ëŠ” ë§ˆë²•ì±…ì´ ë³´ì—¬ì§„ë‹¤.
+	sLogDualQuest,				//103		//iisi	qcount, ë‚´ìš©, ì‹œì‘(0:ì‹œì‘, 1:ë) 
+	sLogForScript,				//104		//is	í€˜ìŠ¤íŠ¸ë²ˆí˜¸	msg	 //í˜„ì¬ì˜ ìƒíƒœë¥¼ ë¡œê¹…í•œë‹¤. 
+	sEventItemInsert,			//105		// BBD 040226	ì´ë²¤íŠ¸ì•„ì´í…œ ì§€ê¸‰ì„ í•˜ëŠ” í•¨ìˆ˜
+	sGetCharacterStatus,		//106		// kjy 040406   ìºë¦­í„°ì˜ ëŠ¥ë ¥ì¹˜ë¥¼ ê°€ì ¸ì™€ì„œ ê°’ì„ë¹„êµ  i = 0 : str, 1 : con, 2 : dex..., 10 : wsps, tt = ë¹„êµí•  ê°’ (ê°€ì ¸ì˜¨ ëŠ¥ë ¥ì¹˜ê°€ ttë³´ë‹¤ ì‘ìœ¼ë©´ syesê°’ì´ 0, í¬ë©´ 1, ê°™ìœ¼ë©´ 2)
+	sSearchItemMuchForRare,		//107		// kjy 040406   íŠ¹ì • Rare ì•„ì´í…œì˜ ê°œìˆ˜ë¥¼ ì–»ì–´ì™€ì„œ ê°’ì„ ë¹„êµ 
 
 	// 040601 YGI
-	sGetItemMallItem,			//108		// YGI 040531	¾ÆÀÌÅÛ ¸ô¿¡¼­ ¾ÆÀÌÅÛÀ» °¡Á®¿Â´Ù.
-	sGetKing,					// 109 ÅĞ¶ÏKING
+	sGetItemMallItem,			//108		// YGI 040531	ì•„ì´í…œ ëª°ì—ì„œ ì•„ì´í…œì„ ê°€ì ¸ì˜¨ë‹¤.
+	sGetKing,					// 109 í„¸ë™¤KING
 	
-	//MAX_SCRIPT_FUNCTION ¿¡¼­ ÇöÀç ¸Æ½º°ª È®ÀÎÇÒ²¯. 
-}; // »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼öµéÀÇ Æ÷ÀÎÅÍ
+	//MAX_SCRIPT_FUNCTION ì—ì„œ í˜„ì¬ ë§¥ìŠ¤ê°’ í™•ì¸í• ê». 
+}; // ì‚¬ìš©ì ì •ì˜ í•¨ìˆ˜ë“¤ì˜ í¬ì¸í„°

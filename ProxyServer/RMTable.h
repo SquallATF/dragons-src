@@ -1,4 +1,4 @@
-//////////////////////////////////////////////////////////////////////////////////////
+ï»¿//////////////////////////////////////////////////////////////////////////////////////
 //						  CRMTable Class by Byung-soo Koo		                    //
 //																					//
 //                                                      Last Update: 2001.11.06		//
@@ -8,9 +8,9 @@
 #include "RMDefine.h"
 #include "RMListenerTable.h"
 
-//RMTool, RMListenrÀÇ Á¢¼Ó Á¤º¸¸¦ °¡Áö°í ÀÖÀ» HashTable·Î 
-//CRMTable ÀÚÃ¼´Â Client(Åø) Á¤º¸¸¦ °¡Áö°í ÀÖ°í..
-//CRMTable¿¡ ÀÖ´Â ¸â¹ö º¯¼öÀÎ m_ListenerTableÀÌ ListenerµéÀÇ Á¤º¸¸¦ °¡Áö°í ÀÖ´Ù. 
+//RMTool, RMListenrì˜ ì ‘ì† ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆì„ HashTableë¡œ 
+//CRMTable ìì²´ëŠ” Client(íˆ´) ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆê³ ..
+//CRMTableì— ìˆëŠ” ë©¤ë²„ ë³€ìˆ˜ì¸ m_ListenerTableì´ Listenerë“¤ì˜ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆë‹¤. 
 class CRMTable
 {
 	DWORD					m_dwMaxBucketNum;
@@ -22,11 +22,11 @@ class CRMTable
 	void					AddClientInfo(RMCLIENT_INFO* info);
 	
 public:								  
-	CRMListenerTable		m_ListenerTable;			//Listener¸¸À» °ü¸®ÇÏ´Â hash table
+	CRMListenerTable		m_ListenerTable;			//Listenerë§Œì„ ê´€ë¦¬í•˜ëŠ” hash table
 	
-	BYTE					m_bClientConnect;			//RM Tool(Client)ÀÇ Á¢¼Ó¼ö
+	BYTE					m_bClientConnect;			//RM Tool(Client)ì˜ ì ‘ì†ìˆ˜
 	RMCLIENT_INFO*			GetClientInfo(DWORD id);
-	BYTE					GetClientNum();				//Á¢¼ÓÇÑ Å¬¶óÀÌ¾ğÆ® ¼ıÀÚ¸¦ ¸®ÅÏ 
+	BYTE					GetClientNum();				//ì ‘ì†í•œ í´ë¼ì´ì–¸íŠ¸ ìˆ«ìë¥¼ ë¦¬í„´ 
 	bool					AddClient(DWORD dwConnectionIndex, PACKET_RM_LOGIN* packet);
 	void					RemoveClientID(DWORD id);
 	void					RemoveClient(DWORD dwConnectionIndex);
@@ -34,10 +34,10 @@ public:
 	BOOL					BroadcastAllListener(char *packet, DWORD dwLength);
 	BOOL					GetCertainIPFromIni();
 	BOOL					CheckCertainIP(DWORD dwConnectionIndex, char* ip);
-//	BOOL					BroadcastEachListener(DWORD dwServerType, char *packet, DWORD dwLength);	//¼­¹ö Á¾·ù¸¶´Ù Listener¿¡°Ô ¸Ş¼¼Áö Àü´Ş.. ¿¹)SERVER_TYPE_DB
+//	BOOL					BroadcastEachListener(DWORD dwServerType, char *packet, DWORD dwLength);	//ì„œë²„ ì¢…ë¥˜ë§ˆë‹¤ Listenerì—ê²Œ ë©”ì„¸ì§€ ì „ë‹¬.. ì˜ˆ)SERVER_TYPE_DB
 	void					BroadcastAllRMClient(char* pMsg, DWORD dwLength);		
-	BOOL					CheckExistIP(char *szIp);	//ÇØ´ç IP°¡ ListenerÅ×ÀÌºí¿¡(Á¢¼ÓÀÌ°Ç ¾Æ´Ï°Ç) ÀÖ´ÂÁö ¾ø´ÂÁö Ã¼Å© 
-	DWORD					GetListenerConnectionIndex( WORD wGameServerPort ); //°ÔÀÓ ¼­¹öÀÇ Port¹øÈ£·Î ListenerÀÇ ConnectionIndex¸¦ ¹Ş¾Æ³¿ 
+	BOOL					CheckExistIP(char *szIp);	//í•´ë‹¹ IPê°€ Listenerí…Œì´ë¸”ì—(ì ‘ì†ì´ê±´ ì•„ë‹ˆê±´) ìˆëŠ”ì§€ ì—†ëŠ”ì§€ ì²´í¬ 
+	DWORD					GetListenerConnectionIndex( WORD wGameServerPort ); //ê²Œì„ ì„œë²„ì˜ Portë²ˆí˜¸ë¡œ Listenerì˜ ConnectionIndexë¥¼ ë°›ì•„ëƒ„ 
 
 
 	CRMTable(DWORD num);

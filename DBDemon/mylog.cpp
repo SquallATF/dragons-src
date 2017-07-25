@@ -1,4 +1,4 @@
-// ---------------------------
+ï»¿// ---------------------------
 // Wrote By chan78@esofnet.com
 // Last Updated at 2001/10/22
 // ---------------------------
@@ -180,7 +180,7 @@ ReturnMyLogAfterEnterCriticalSection:
 	return;
 }	
 
-///////////////////////////////////////¼ÇÂ¼Íâ¹ÒÕËºÅµÄLog,×Ô¶¨Òå
+///////////////////////////////////////è®°å½•å¤–æŒ‚è´¦å·çš„Log,è‡ªå®šä¹‰
 void HackLog( int type, char *logmsg, ... )
 {
 	va_list vargs;
@@ -194,12 +194,12 @@ void HackLog( int type, char *logmsg, ... )
 	char LogIdentifier[NUM_OF_LOG_TYPE] = { 'A', 'B', 'C', 'D', 'E', 'F' };
 	char buf[(MAX_LOG_LENGTH*10)+1];
 	static char sLogFileName[80+1];
-	// ---------------------------------------------//´´½¨¼ÇÂ¼ÎÄ¼ş¼Ğ
+	// ---------------------------------------------//åˆ›å»ºè®°å½•æ–‡ä»¶å¤¹
 		
-	DWORD   dwAttr   =   GetFileAttributes(".\\SQLÂ©¶´¼ÇÂ¼");   
-	if(dwAttr   ==   0xFFFFFFFF)     //ÎÄ¼ş¼Ğ²»´æÔÚ   
-	{ CreateDirectory((GetAppPath() + _T(".\\SQLÂ©¶´¼ÇÂ¼")).c_str(), NULL);  }    // ".\\SQLÂ©¶´¼ÇÂ¼"
-/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //ÊÇÎÄ¼ş¼Ğ   
+	DWORD   dwAttr   =   GetFileAttributes(".\\SQLæ¼æ´è®°å½•");   
+	if(dwAttr   ==   0xFFFFFFFF)     //æ–‡ä»¶å¤¹ä¸å­˜åœ¨   
+	{ CreateDirectory((GetAppPath() + _T(".\\SQLæ¼æ´è®°å½•")).c_str(), NULL);  }    // ".\\SQLæ¼æ´è®°å½•"
+/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //æ˜¯æ–‡ä»¶å¤¹   
 	{   
 	//do   something   
 	}*/
@@ -253,7 +253,7 @@ void HackLog( int type, char *logmsg, ... )
 		log_mon = mon;
 		log_day = day;
 
-		sprintf( sLogFileName, (GetAppPath() + _T(".\\SQLÂ©¶´¼ÇÂ¼\\SQL¹¥»÷¼ÇÂ¼%d-%d-%d.log")).c_str(), year, mon, day );  // ".\\SQLÂ©¶´¼ÇÂ¼\\SQL¹¥»÷¼ÇÂ¼%d-%d-%d.log"
+		sprintf( sLogFileName, (GetAppPath() + _T(".\\SQLæ¼æ´è®°å½•\\SQLæ”»å‡»è®°å½•%d-%d-%d.log")).c_str(), year, mon, day );  // ".\\SQLæ¼æ´è®°å½•\\SQLæ”»å‡»è®°å½•%d-%d-%d.log"
 
 		if( !(fpLog = fopen( sLogFileName, "a" )) )
 		{

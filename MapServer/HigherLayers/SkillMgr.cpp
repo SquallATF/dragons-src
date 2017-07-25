@@ -1,4 +1,4 @@
-// SkillMgr.cpp: implementation of the CSkillMgr class.
+ï»¿// SkillMgr.cpp: implementation of the CSkillMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -35,14 +35,14 @@ void CSkillMgr::AutoSetCanView(CHARLIST *ch)
 	if(ch->bCanViewGhost)
 	{
 		if(ch->dwCanViewGhostTime <= global_time)
-		{//º¼ ¼ö ¾ø°Ô µÇ¾úÀ»¶§ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¾Ë·Á Áà¾ß ÇÑ´Ù
-			if(RareEM.GetStaticRareGhost(ch->StaticRare))//º¼¼ö ¾øÁö¸¸ ·¹¾î¶§¹®¿¡ º»´Ù
+		{//ë³¼ ìˆ˜ ì—†ê²Œ ë˜ì—ˆì„ë•Œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì•Œë ¤ ì¤˜ì•¼ í•œë‹¤
+			if(RareEM.GetStaticRareGhost(ch->StaticRare))//ë³¼ìˆ˜ ì—†ì§€ë§Œ ë ˆì–´ë•Œë¬¸ì— ë³¸ë‹¤
 			{
-				SetCanViewGhost(ch,STATIC_RARE_VIEW_FORCE_TIME);//³»ºÎ ¿¡¼­ bCanViewGhost¸¦ true·Î
+				SetCanViewGhost(ch,STATIC_RARE_VIEW_FORCE_TIME);//ë‚´ë¶€ ì—ì„œ bCanViewGhostë¥¼ trueë¡œ
 			}
 			else
 			{
-				SetCanViewGhost(ch,0);//³»ºÎ ¿¡¼­ bCanViewGhost¸¦ false·Î
+				SetCanViewGhost(ch,0);//ë‚´ë¶€ ì—ì„œ bCanViewGhostë¥¼ falseë¡œ
 			}
 		}
 	}
@@ -50,7 +50,7 @@ void CSkillMgr::AutoSetCanView(CHARLIST *ch)
 	if(ch->bCanViewBomb)
 	{
 		if(ch->dwCanViewBombTime <= global_time)
-		{//º¼ ¼ö ¾ø°Ô µÇ¾úÀ»¶§ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¾Ë·Á Áà¾ß ÇÑ´Ù
+		{//ë³¼ ìˆ˜ ì—†ê²Œ ë˜ì—ˆì„ë•Œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì•Œë ¤ ì¤˜ì•¼ í•œë‹¤
 			if(RareEM.GetStaticRareLandmine(ch->StaticRare))
 			{
 				SkillMgr.SetCanViewBomb(ch,STATIC_RARE_VIEW_FORCE_TIME);//020510 lsw
@@ -65,7 +65,7 @@ void CSkillMgr::AutoSetCanView(CHARLIST *ch)
 	if(ch->bCanViewTrap)
 	{
 		if(ch->dwCanViewTrapTime <= global_time)
-		{//º¼ ¼ö ¾ø°Ô µÇ¾úÀ»¶§ Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¾Ë·Á Áà¾ß ÇÑ´Ù
+		{//ë³¼ ìˆ˜ ì—†ê²Œ ë˜ì—ˆì„ë•Œ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì•Œë ¤ ì¤˜ì•¼ í•œë‹¤
 			if(RareEM.GetStaticRareTraping(ch->StaticRare))
 			{
 				ch->bCanViewTrap = true;
@@ -82,7 +82,7 @@ void CSkillMgr::AutoSetCanView(CHARLIST *ch)
 	return;
 }
 
-bool	CSkillMgr::IsRecoverAble(const int iNow,const int iMax)const//ÇöÀç °ª°ú ÃÖ´ë·®À» ºñ±³ÇØ¼­ ÃÖ´ë·®ÀÌ ÇöÀçº¸´Ù ¸¹À¸¸é °¡´ÉÇÏ´Ù¸¦ ¸®ÅÏÇÑ´Ù
+bool	CSkillMgr::IsRecoverAble(const int iNow,const int iMax)const//í˜„ì¬ ê°’ê³¼ ìµœëŒ€ëŸ‰ì„ ë¹„êµí•´ì„œ ìµœëŒ€ëŸ‰ì´ í˜„ì¬ë³´ë‹¤ ë§ìœ¼ë©´ ê°€ëŠ¥í•˜ë‹¤ë¥¼ ë¦¬í„´í•œë‹¤
 {
 	if(iNow <  iMax)
 	{
@@ -91,7 +91,7 @@ bool	CSkillMgr::IsRecoverAble(const int iNow,const int iMax)const//ÇöÀç °ª°ú ÃÖ´
 	return false;
 }
 
-// HP ÀÚµ¿È¸º¹
+// HP ìë™íšŒë³µ
 void CSkillMgr::AutoRecoverHp(CHARLIST *ch)
 {
 	if(	ch->bAlive != ALIVE_ )
@@ -101,7 +101,7 @@ void CSkillMgr::AutoRecoverHp(CHARLIST *ch)
 	}
 
 	const int cn	= ch->GetServerID();
-	if( global_time  >=  ch->dwHpRecoverTime )//½Ã°£ Ã¼Å©
+	if( global_time  >=  ch->dwHpRecoverTime )//ì‹œê°„ ì²´í¬
 	{
 		int iCombatRecoverHp = 0;
 		int iCombatRecoverHpRate = 0;
@@ -120,15 +120,15 @@ void CSkillMgr::AutoRecoverHp(CHARLIST *ch)
         break;
       }
     }
-    //DEFAULT_RECOVER_HP_TIME	ÀÌ°ÍÀÇ ÆÛ¼¾Å×ÀÌÁö Á¶Àı ÇÏ¸é ´õ ºü¸¥ È¸º¹ µÈ´Ù
+    //DEFAULT_RECOVER_HP_TIME	ì´ê²ƒì˜ í¼ì„¼í…Œì´ì§€ ì¡°ì ˆ í•˜ë©´ ë” ë¹ ë¥¸ íšŒë³µ ëœë‹¤
     ch->dwHpRecoverTime = global_time + DEFAULT_RECOVER_HP_TIME - iCombatRecoverTime;
 
-		const int	iRecoverHp	= ch->HpMax*(HP_RECOVER_RATE+RareEM.GetStaticRareFatal(ch->StaticRare)+iCombatRecoverHpRate)/100 + iCombatRecoverHp;//ÇÑ¹ø¿¡ 5% È¸º¹ ½ÃÄÑÁØ´Ù//ÀÌ¹ø¿¡ È¸º¹ µÉ °ª
-		const int	iRecoverHpMaxPercent = (DEFAULT_RECOVER_HP_MAX_PERCENT+ iCombatRecoverHpMax/*+RareEM.GetStaticRareLife_recovery(ch->StaticRare)*/);//ÃÖ´ë È¸º¹ ÆÛ¼¾Å×ÀÌÁö
+		const int	iRecoverHp	= ch->HpMax*(HP_RECOVER_RATE+RareEM.GetStaticRareFatal(ch->StaticRare)+iCombatRecoverHpRate)/100 + iCombatRecoverHp;//í•œë²ˆì— 5% íšŒë³µ ì‹œì¼œì¤€ë‹¤//ì´ë²ˆì— íšŒë³µ ë  ê°’
+		const int	iRecoverHpMaxPercent = (DEFAULT_RECOVER_HP_MAX_PERCENT+ iCombatRecoverHpMax/*+RareEM.GetStaticRareLife_recovery(ch->StaticRare)*/);//ìµœëŒ€ íšŒë³µ í¼ì„¼í…Œì´ì§€
 		const int	iRecoverHpMax = ch->HpMax * iRecoverHpMaxPercent/100;
 		if(IsRecoverAble(ch->Hp,iRecoverHpMax ))
 		{
-			if(ch->IncLife(iRecoverHp,iRecoverHpMaxPercent))//º¯È­·®ÀÌ ÀÖ´Ù¸é
+			if(ch->IncLife(iRecoverHp,iRecoverHpMaxPercent))//ë³€í™”ëŸ‰ì´ ìˆë‹¤ë©´
 			{
 				ch->SendCharInfoBasic( HP, ch->Hp );//020704 lsw
 			}
@@ -145,24 +145,24 @@ void CSkillMgr::AutoRecoverMp(CHARLIST *ch)
 		return;
 	}
 	const int cn	= ch->GetServerID();
-	//MPÈ¸º¹
+	//MPíšŒë³µ
 	if( ch->Spell == WIZARD_SPELL )	// Wizard...
 	{
-		if( global_time >= ch->dwManaRecoverTime )//½Ã°£ Ã¼Å©
-		{	//DEFAULT_RECOVER_MANA_TIME	ÀÌ°ÍÀÇ ÆÛ¼¾Å×ÀÌÁö Á¶Àı ÇÏ¸é ´õ ºü¸¥ È¸º¹ µÈ´Ù
-			const char cForRookie  = MapInfo[MapNumber].forrookie;//5¹è ´õ »¡¸® È¸º¹ µÈ´Ù
+		if( global_time >= ch->dwManaRecoverTime )//ì‹œê°„ ì²´í¬
+		{	//DEFAULT_RECOVER_MANA_TIME	ì´ê²ƒì˜ í¼ì„¼í…Œì´ì§€ ì¡°ì ˆ í•˜ë©´ ë” ë¹ ë¥¸ íšŒë³µ ëœë‹¤
+			const char cForRookie  = MapInfo[MapNumber].forrookie;//5ë°° ë” ë¹¨ë¦¬ íšŒë³µ ëœë‹¤
 			ch->dwManaRecoverTime = global_time +(( 2 == cForRookie || 3 == cForRookie)?DEFAULT_RECOVER_MANA_TIME/5:DEFAULT_RECOVER_MANA_TIME);
 
 			int iCombatRecoverMp = 0;
 			int iCombatRecoverMpRate = 0;
 			int iCombatRecoverMpMax	= 0;
 			
-			const int	iRecoverMana	= ch->ManaMax*(MANA_RECOVER_RATE+RareEM.GetStaticRareMagic(ch->StaticRare)+iCombatRecoverMpRate)/100 + iCombatRecoverMp;//ÇÑ¹ø¿¡ 5% È¸º¹ ½ÃÄÑÁØ´Ù
+			const int	iRecoverMana	= ch->ManaMax*(MANA_RECOVER_RATE+RareEM.GetStaticRareMagic(ch->StaticRare)+iCombatRecoverMpRate)/100 + iCombatRecoverMp;//í•œë²ˆì— 5% íšŒë³µ ì‹œì¼œì¤€ë‹¤
 			const int	iRecoverManaMaxPercent = (DEFAULT_RECOVER_MANA_MAX_PERCENT+RareEM.GetStaticRareMana_recovery(ch->StaticRare)+iCombatRecoverMpMax);
 			const int	iRecoverManaMax = ch->ManaMax * iRecoverManaMaxPercent/100;
 			if(IsRecoverAble(ch->Mana,iRecoverManaMax))
 			{
-				if(ch->IncMana(iRecoverMana,iRecoverManaMaxPercent))//º¯È­·®ÀÌ ÀÖ´Ù¸é
+				if(ch->IncMana(iRecoverMana,iRecoverManaMaxPercent))//ë³€í™”ëŸ‰ì´ ìˆë‹¤ë©´
 				{
 					ch->SendCharInfoBasic( MP, ch->Mana );//020704 lsw
 				}
@@ -170,8 +170,8 @@ void CSkillMgr::AutoRecoverMp(CHARLIST *ch)
 		}
 	}
 	else // Priest..
-	{	//DEFAULT_RECOVER_DIVINE_TIME	ÀÌ°ÍÀÇ ÆÛ¼¾Å×ÀÌÁö Á¶Àı ÇÏ¸é ´õ ºü¸¥ È¸º¹ µÈ´Ù
-if( global_time >= ch->dwDivineRecoverTime )//½Ã°£ Ã¼Å©
+	{	//DEFAULT_RECOVER_DIVINE_TIME	ì´ê²ƒì˜ í¼ì„¼í…Œì´ì§€ ì¡°ì ˆ í•˜ë©´ ë” ë¹ ë¥¸ íšŒë³µ ëœë‹¤
+if( global_time >= ch->dwDivineRecoverTime )//ì‹œê°„ ì²´í¬
 		{	//< CSD-TW-030606
 			int nPlusTime = 0;
 
@@ -202,12 +202,12 @@ if( global_time >= ch->dwDivineRecoverTime )//½Ã°£ Ã¼Å©
 			int iCombatRecoverDivineRate = 0;
 			int iCombatRecoverDivineMax = 0;
 			
-			const int iRecoverDivine	= ch->ManaMax*(DIVINE_RECOVER_RATE+RareEM.GetStaticRareNature(ch->StaticRare)+iCombatRecoverDivineRate)/100;//ÇÑ¹ø¿¡ 5% È¸º¹ ½ÃÄÑÁØ´Ù
+			const int iRecoverDivine	= ch->ManaMax*(DIVINE_RECOVER_RATE+RareEM.GetStaticRareNature(ch->StaticRare)+iCombatRecoverDivineRate)/100;//í•œë²ˆì— 5% íšŒë³µ ì‹œì¼œì¤€ë‹¤
 			const int iRecoverDivineMaxPercent = (DEFAULT_RECOVER_DIVINE_MAX_PERCENT + iCombatRecoverDivineMax);
 			const int iRecoverDivineMax = ch->ManaMax*iRecoverDivineMaxPercent/100;
 			if(IsRecoverAble(ch->Mana,iRecoverDivineMax))
 			{
-				if(ch->IncMana(iRecoverDivine,iRecoverDivineMaxPercent))//º¯È­·®ÀÌ ÀÖ´Ù¸é
+				if(ch->IncMana(iRecoverDivine,iRecoverDivineMaxPercent))//ë³€í™”ëŸ‰ì´ ìˆë‹¤ë©´
 				{
 					ch->SendCharInfoBasic( MP, ch->Mana );//020704 lsw
 				}
@@ -216,14 +216,14 @@ if( global_time >= ch->dwDivineRecoverTime )//½Ã°£ Ã¼Å©
 	}
 }
 
-//¹è°íÇÄ °ÔÀÌÁö´Â ±×³É Â÷Áö ¾Ê´Â´Ù Æ¯º°ÇÑ »óÈ²¿¡¼­¸¸ Âù´Ù(ex>ÀÇÀÚ)
+//ë°°ê³ í”” ê²Œì´ì§€ëŠ” ê·¸ëƒ¥ ì°¨ì§€ ì•ŠëŠ”ë‹¤ íŠ¹ë³„í•œ ìƒí™©ì—ì„œë§Œ ì°¬ë‹¤(ex>ì˜ì)
 void CSkillMgr::AutoChangeHungry( CHARLIST *ch )
 {	
 	if( ch->bAlive != ALIVE_ )
 	{	
 		ch->Hungry =0;
 		ch->fChangeHungry = 0;
-		return;//»ì¾Æ ÀÖÁö ¾ÊÀ¸¸é ¹è°íÇÄ °ÔÀÌÁö º¯È­ ¾ø´Ù
+		return;//ì‚´ì•„ ìˆì§€ ì•Šìœ¼ë©´ ë°°ê³ í”” ê²Œì´ì§€ ë³€í™” ì—†ë‹¤
 	}
 	
 	const int cn = ch->GetServerID();
@@ -233,17 +233,17 @@ void CSkillMgr::AutoChangeHungry( CHARLIST *ch )
 	{
 		const int	iChangeHungry		= abs((int)ch->fChangeHungry);
 		if(!iChangeHungry)	{return;}
-		ch->dwHungryRecoverTime = global_time+DEFAULT_CHANGE_HUNGRY_TIME;//Ã¼Å©ÇÏ´Â term
+		ch->dwHungryRecoverTime = global_time+DEFAULT_CHANGE_HUNGRY_TIME;//ì²´í¬í•˜ëŠ” term
 
 		if( ch->DecHungry((int)iChangeHungry))
 		{
-			ch->fChangeHungry -= (float)iChangeHungry;//¿ì¼± »ç¿ë·®À» ¸ğµÎ °è»ê ÇÏ°í ÀÇÀÚ¿¡ ¾É¾ÒÀ»¶§´Â È¸º¹À» ½ÃÄÑÁØ´Ù
+			ch->fChangeHungry -= (float)iChangeHungry;//ìš°ì„  ì‚¬ìš©ëŸ‰ì„ ëª¨ë‘ ê³„ì‚° í•˜ê³  ì˜ìì— ì•‰ì•˜ì„ë•ŒëŠ” íšŒë³µì„ ì‹œì¼œì¤€ë‹¤
 			bSend =true;
 		}
 	
-		if(ch->nCurrentAction == 17 )//¾ÉÀº »óÅÂ
+		if(ch->nCurrentAction == 17 )//ì•‰ì€ ìƒíƒœ
 		{
-			const int	iRecoverHungry				= ch->HungryMax * HUNGRY_CHANGE_RATE/100;//ÇÑ¹ø¿¡ 5% È¸º¹ ½ÃÄÑÁØ´Ù
+			const int	iRecoverHungry				= ch->HungryMax * HUNGRY_CHANGE_RATE/100;//í•œë²ˆì— 5% íšŒë³µ ì‹œì¼œì¤€ë‹¤
 			const int	iRecoverHungryMaxPercent	= DEFAULT_CHANGE_HUNGRY_MAX_PERCENT;
 			const int	iRecoverHungryMax = ch->HungryMax * iRecoverHungryMaxPercent/100;
 			if(IsRecoverAble(ch->Hungry,iRecoverHungryMax))
@@ -262,7 +262,7 @@ void CSkillMgr::AutoChangeHungry( CHARLIST *ch )
 	return;
 }
 
-// CP ÀÚµ¿È¸º¹
+// CP ìë™íšŒë³µ
 void CSkillMgr::AutoRecoverCp(CHARLIST *ch)
 {
 	if(	ch->bAlive != ALIVE_ )
@@ -273,15 +273,15 @@ void CSkillMgr::AutoRecoverCp(CHARLIST *ch)
 
 	const int cn	= ch->GetServerID();
 
-	if (global_time >= ch->dwCpRecoverTime && ch->Peacests) // ½Ã°£ Ã¼Å©
+	if (global_time >= ch->dwCpRecoverTime && ch->Peacests) // ì‹œê°„ ì²´í¬
 	{	//< CSD-TW-030624
-		// DEFAULT_RECOVER_CP_TIME	ÀÌ°ÍÀÇ ÆÛ¼¾Å×ÀÌÁö Á¶Àı ÇÏ¸é ´õ ºü¸¥ È¸º¹
+		// DEFAULT_RECOVER_CP_TIME	ì´ê²ƒì˜ í¼ì„¼í…Œì´ì§€ ì¡°ì ˆ í•˜ë©´ ë” ë¹ ë¥¸ íšŒë³µ
 		ch->dwCpRecoverTime = global_time + DEFAULT_RECOVER_CP_TIME;
 				
 		int	iRecoverCp = __max(ch->CpMax*CP_CHANGE_RATE/100, 1);
 
 		if (ch->IsRecoveryCombatState())
-		{	// ÀüÅõ½ºÅ³ ·¹º§¿¡ µû¶ó È¸º¹¼Óµµ¸¦ ¿Ã¸°´Ù.
+		{	// ì „íˆ¬ìŠ¤í‚¬ ë ˆë²¨ì— ë”°ë¼ íšŒë³µì†ë„ë¥¼ ì˜¬ë¦°ë‹¤.
 			const int nRecoveryCombat = ch->GetRecoveryCombat();
 			const int nMinus = ch->HpMax*ch->GetCombatValue(nRecoveryCombat)/100;
 
@@ -302,7 +302,7 @@ void CSkillMgr::AutoRecoverCp(CHARLIST *ch)
 
 		if(IsRecoverAble(ch->Cp,iRecoverCpMax ))
 		{
-			if(ch->IncCombat(iRecoverCp,iRecoverCpMaxPercent))//º¯È­·®ÀÌ ÀÖ´Ù¸é
+			if(ch->IncCombat(iRecoverCp,iRecoverCpMaxPercent))//ë³€í™”ëŸ‰ì´ ìˆë‹¤ë©´
 			{
 				ch->SendCharInfoBasic(CP, ch->Cp);
 			}
@@ -310,16 +310,16 @@ void CSkillMgr::AutoRecoverCp(CHARLIST *ch)
 	}	//> CSD-TW-030624
 }
 
-void CSkillMgr::AutoRefreshRareMakeCount(CHARLIST *ch)//·¹¾î ¾ÆÀÌÅÛÀ» ¸¸µç ¼ö·® °»½Å ÇÏ´Â ÇÔ¼ö  
+void CSkillMgr::AutoRefreshRareMakeCount(CHARLIST *ch)//ë ˆì–´ ì•„ì´í…œì„ ë§Œë“  ìˆ˜ëŸ‰ ê°±ì‹  í•˜ëŠ” í•¨ìˆ˜  
 {//021108 lsw
 	if( ch->bAlive != ALIVE_ ) {return;}
 
 	const int day		=	g_day%8;
-	const int month		=	g_mon%8;//0-11 ±îÁö
+	const int month		=	g_mon%8;//0-11 ê¹Œì§€
 	bool bSendFlag		= false;
 
 	for ( int i =0; i < 7 ; i++ )
-	{//·¹¾î¾ÆÀÌÅÛ °¹¼ö 
+	{//ë ˆì–´ì•„ì´í…œ ê°¯ìˆ˜ 
 		t_skillexp2 *skillexp2 = ((t_skillexp2*)&ch->skillexp[i]); 
 		if( skillexp2->day != day)
 		{
@@ -338,22 +338,22 @@ void CSkillMgr::AutoRefreshRareMakeCount(CHARLIST *ch)//·¹¾î ¾ÆÀÌÅÛÀ» ¸¸µç ¼ö·® 
 			SendSkillExp(i, ch->skillexp[i], ch->GetServerID());
 		}
 	}	
-	//±â¼º µî·ÏÀÏ Á¦°Å //µî·Ï ³¯Â¥´Â ¿À´Ã·Î ºÎÅÍ ¸îÀÏÀÌ´Ù
+	//ê¸°ì„± ë“±ë¡ì¼ ì œê±° //ë“±ë¡ ë‚ ì§œëŠ” ì˜¤ëŠ˜ë¡œ ë¶€í„° ëª‡ì¼ì´ë‹¤
 	t_SkillExp3 *pSkillexp3 = (t_SkillExp3*)&ch->skillexp[SKILL_MASTER];
 	if(pSkillexp3->skillType)
 	{
 		if(g_year > pSkillexp3->year)
-		{//ÇØ°¡ ¹è²î¾ú´Ù Áö¿ö¶ó 
+		{//í•´ê°€ ë°°ë€Œì—ˆë‹¤ ì§€ì›Œë¼ 
 			bSendFlag = true;
 		}
 		if(g_mon*30 + g_day > pSkillexp3->day)
-		{//³¯ÀÌ ¹è²î¾ú´Ù Áö¿ö¶ó 
+		{//ë‚ ì´ ë°°ë€Œì—ˆë‹¤ ì§€ì›Œë¼ 
 			bSendFlag = true;			
 		}
 		if(bSendFlag)
 		{
 			bSendFlag = false;
-			memset(pSkillexp3,0,sizeof(DWORD));//Áö¿öÁø´Ù
+			memset(pSkillexp3,0,sizeof(DWORD));//ì§€ì›Œì§„ë‹¤
 			SendSkillExp(SKILL_MASTER, ch->skillexp[SKILL_MASTER], ch->GetServerID());
 		}
 	}
@@ -362,9 +362,9 @@ void CSkillMgr::AutoRefreshRareMakeCount(CHARLIST *ch)//·¹¾î ¾ÆÀÌÅÛÀ» ¸¸µç ¼ö·® 
 
 bool CSkillMgr::CheckSkillNo( const int iSkillNo )const 
 {	
-//MAX_SKILL_NO		MAX_SKILL_NO ÀÌ °Å °ªÀÌ MAX_SKILLMAINº¸´Ù ÀÛÀ¸¸é ¾ÈµÈ´Ù
-//	if(	MAX_SKILL_NO <= skillno ||	0 >= skillno)//0¹ø ½ºÅ³Àº ¾ø´Ù
-	if(	MAX_SKILLMAIN >= iSkillNo && 0 < iSkillNo)//0¹ø ½ºÅ³Àº ¾ø´Ù
+//MAX_SKILL_NO		MAX_SKILL_NO ì´ ê±° ê°’ì´ MAX_SKILLMAINë³´ë‹¤ ì‘ìœ¼ë©´ ì•ˆëœë‹¤
+//	if(	MAX_SKILL_NO <= skillno ||	0 >= skillno)//0ë²ˆ ìŠ¤í‚¬ì€ ì—†ë‹¤
+	if(	MAX_SKILLMAIN >= iSkillNo && 0 < iSkillNo)//0ë²ˆ ìŠ¤í‚¬ì€ ì—†ë‹¤
 	{
 		return true;	
 	}
@@ -397,18 +397,18 @@ int CSkillMgr::CorrectLearnItem(CHARLIST *ch)
 	return 0;
 }
 
-int CSkillMgr::FindLearnItem( CHARLIST *ch, const int item_no )		// ¹è¿î°Ô ÀÖÀ¸¸é -1À» ¸®ÅÏ, ¾øÀ¸¸é item_max¸¦ ¸®ÅÏ
+int CSkillMgr::FindLearnItem( CHARLIST *ch, const int item_no )		// ë°°ìš´ê²Œ ìˆìœ¼ë©´ -1ì„ ë¦¬í„´, ì—†ìœ¼ë©´ item_maxë¥¼ ë¦¬í„´
 {
 	// 020620 YGI
 	if( !ch ) return -1;
 
-	for( int i=0; i<ITEM_JOIN_MAX; i++ )		// ±âº»ÀûÀ¸·Î ¹è¿ï ÇÊ¿ä°¡ ¾ø´Â °ÇÁö..
+	for( int i=0; i<ITEM_JOIN_MAX; i++ )		// ê¸°ë³¸ì ìœ¼ë¡œ ë°°ìš¸ í•„ìš”ê°€ ì—†ëŠ” ê±´ì§€..
 	{
 		if( item_join[i].item_id == item_no )
 		{
 			if( !item_join[i].need_know )
 			{
-				return -1;		// ¹è¿ï ÇÊ¿ä°¡ ¾ø´Ù.
+				return -1;		// ë°°ìš¸ í•„ìš”ê°€ ì—†ë‹¤.
 			}
 			else break;
 		}
@@ -422,7 +422,7 @@ int CSkillMgr::FindLearnItem( CHARLIST *ch, const int item_no )		// ¹è¿î°Ô ÀÖÀ¸¸
 	{
 		if( ch->Item[ct] )
 		{
-			if( ch->Item[ct] == item_no )		// ÀÌ¹Ì ¹è¿î°Ô ÀÖÀ½...
+			if( ch->Item[ct] == item_no )		// ì´ë¯¸ ë°°ìš´ê²Œ ìˆìŒ...
 				return -1;
 		}	
 	}
@@ -436,9 +436,9 @@ int CSkillMgr::CheckYouCanSkillIt( const int cn, CItem_Join &join, const int ski
 	bool bJoinFlag = false;
 	CHARLIST *ch = ::CheckServerId(cn);
 
-	// ³×°¡ ¾Ë°í ÀÖ´Â ItemÀÎ°¡?
-	iCheck = FindLearnItem( ch, target_id );		// ¹è¿î°Ô ÀÖÀ¸¸é -1À» ¸®ÅÏ, ¾øÀ¸¸é item_max¸¦ ¸®ÅÏ
-	if( iCheck != -1 ){ return ITEMMAKE_UNKNOWN; }	// ³»°¡ ¸ğ¸£´Â ¾ÆÀÌÅÛ...
+	// ë„¤ê°€ ì•Œê³  ìˆëŠ” Itemì¸ê°€?
+	iCheck = FindLearnItem( ch, target_id );		// ë°°ìš´ê²Œ ìˆìœ¼ë©´ -1ì„ ë¦¬í„´, ì—†ìœ¼ë©´ item_maxë¥¼ ë¦¬í„´
+	if( iCheck != -1 ){ return ITEMMAKE_UNKNOWN; }	// ë‚´ê°€ ëª¨ë¥´ëŠ” ì•„ì´í…œ...
 
 	for(int i = 0 ; i < TotalItemJoinTableCount ; i ++)
 	{		
@@ -452,49 +452,49 @@ int CSkillMgr::CheckYouCanSkillIt( const int cn, CItem_Join &join, const int ski
 	
 	if(!bJoinFlag){ return ITEM_MAKE_NO_JOIN;}
 
-	// µµ±¸´Â ÀûÀıÇÑ°¡?
+	// ë„êµ¬ëŠ” ì ì ˆí•œê°€?
 	iCheck = CheckSkillTool( ch, join, skillno, target_id );
-	if( iCheck ){ return iCheck;}//¿©±â¼­ ¸Ş¼¼Áö¸¦ ÁÖ´ø°¡ ÇØ¾ß ÇÒ µí
+	if( iCheck ){ return iCheck;}//ì—¬ê¸°ì„œ ë©”ì„¸ì§€ë¥¼ ì£¼ë˜ê°€ í•´ì•¼ í•  ë“¯
 	
 	return ITEMMAKE_YOUCAN;
 }
 
 /*
-48				µµ±¸ °³°£¿ë
-49				µµ±¸ Ãß¼ö¿ë
-50				µµ±¸ Ã¤±¤¿ë
-51				µµ±¸ Á¦·Ã¿ë
-52				µµ±¸ ³¬½Ã¿ë
-53				µµ±¸ ¹ú¸ñ¿ë
-54				µµ±¸ ¸ñÀç°¡°ø¿ë
-55				µµ±¸ µµÃà¿ë
-56				µµ±¸ ¾àÃÊÃ¤Áı¿ë
-57				µµ±¸ ¾àÀç¸¸µé±â¿ë
-58				µµ±¸ °¡À§·ù
-59				µµ±¸ ¸ñ°ø¿ë
-60				µµ±¸ Ã¶°ø¿ë
-61				µµ±¸ ´ë¿ì´Â¿ä¸®¿ë(ÄíÄ¿)
-62				µµ±¸ ½á´Â¿ä¸®¿ë
-63				µµ±¸ ¹Ù´Ã·ù
-64				µµ±¸ È°Á¦ÀÛ¿ë
-65				µµ±¸ ºÒ´ë
-66				µµ±¸ ¾çÃÊÁ¦ÀÛ¿ë
-67				µµ±¸ ¹Ğ³³°¡°ø¿ë
-68				µµ±¸ Å×ÀÌ¹Ö¿ë
-69				µµ±¸ ±×¹°·ù
-70				µµ±¸ ºÎ½Ëµ¹·ù
-71				ÀÛ¾÷´ë ¿ë±¤·Î
-72				ÀÛ¾÷´ë ¹èÆ²
-73				ÀÛ¾÷´ë ¼±¹İ
-74				ÀÛ¾÷´ë ¸ğ·ç
-75				ÀÛ¾÷´ë È­´ö
-76				ÀÛ¾÷´ë ½ÃÇè°ü·ù
-77				ÀÛ¾÷´ë ¹°·¹
-78				ÀÛ¾÷´ë ºÒ´ë 
+48				ë„êµ¬ ê°œê°„ìš©
+49				ë„êµ¬ ì¶”ìˆ˜ìš©
+50				ë„êµ¬ ì±„ê´‘ìš©
+51				ë„êµ¬ ì œë ¨ìš©
+52				ë„êµ¬ ë‚šì‹œìš©
+53				ë„êµ¬ ë²Œëª©ìš©
+54				ë„êµ¬ ëª©ì¬ê°€ê³µìš©
+55				ë„êµ¬ ë„ì¶•ìš©
+56				ë„êµ¬ ì•½ì´ˆì±„ì§‘ìš©
+57				ë„êµ¬ ì•½ì¬ë§Œë“¤ê¸°ìš©
+58				ë„êµ¬ ê°€ìœ„ë¥˜
+59				ë„êµ¬ ëª©ê³µìš©
+60				ë„êµ¬ ì² ê³µìš©
+61				ë„êµ¬ ëŒ€ìš°ëŠ”ìš”ë¦¬ìš©(ì¿ ì»¤)
+62				ë„êµ¬ ì¨ëŠ”ìš”ë¦¬ìš©
+63				ë„êµ¬ ë°”ëŠ˜ë¥˜
+64				ë„êµ¬ í™œì œì‘ìš©
+65				ë„êµ¬ ë¶ˆëŒ€
+66				ë„êµ¬ ì–‘ì´ˆì œì‘ìš©
+67				ë„êµ¬ ë°€ë‚©ê°€ê³µìš©
+68				ë„êµ¬ í…Œì´ë°ìš©
+69				ë„êµ¬ ê·¸ë¬¼ë¥˜
+70				ë„êµ¬ ë¶€ì‹¯ëŒë¥˜
+71				ì‘ì—…ëŒ€ ìš©ê´‘ë¡œ
+72				ì‘ì—…ëŒ€ ë°°í‹€
+73				ì‘ì—…ëŒ€ ì„ ë°˜
+74				ì‘ì—…ëŒ€ ëª¨ë£¨
+75				ì‘ì—…ëŒ€ í™”ë•
+76				ì‘ì—…ëŒ€ ì‹œí—˜ê´€ë¥˜
+77				ì‘ì—…ëŒ€ ë¬¼ë ˆ
+78				ì‘ì—…ëŒ€ ë¶ˆëŒ€ 
 */
-// ±â´É : ÀÛÂøÇÑ µµ±¸¿Í ¿ä±¸ÇÏ´Â  µµ±¸°¡ ÀÏÄ¡ÇÏ´Â°¡¸¦ È®ÀÎÇÏ°í 
-//        µµ±¸°¡ ÀåÂøµÇ¾î ÀÖÀ»°æ¿ì ¸¶¸ğ½ÃÅ²´Ù. 
-//	µµ±¸°¡ ¸ÂÀ¸¸é 0 À» ¸®ÅÏÇÑ´Ù
+// ê¸°ëŠ¥ : ì‘ì°©í•œ ë„êµ¬ì™€ ìš”êµ¬í•˜ëŠ”  ë„êµ¬ê°€ ì¼ì¹˜í•˜ëŠ”ê°€ë¥¼ í™•ì¸í•˜ê³  
+//        ë„êµ¬ê°€ ì¥ì°©ë˜ì–´ ìˆì„ê²½ìš° ë§ˆëª¨ì‹œí‚¨ë‹¤. 
+//	ë„êµ¬ê°€ ë§ìœ¼ë©´ 0 ì„ ë¦¬í„´í•œë‹¤
 int CSkillMgr::CheckSkillTool( LPCHARLIST ch, CItem_Join &join, const int iSkillNo, const int target_id )
 {	
 	const int iToolNo = ch->equip[WT_WEAPON].item_no;;
@@ -502,23 +502,23 @@ int CSkillMgr::CheckSkillTool( LPCHARLIST ch, CItem_Join &join, const int iSkill
 	int iNowToolKind = 0;
 	int iNeedToolKind = 0;
 
-	// SkillMain.Tool == -1  :  ¾ÆÀÌÅÛ Á¶ÀÎÅ×ÀÌºíÀ» ÂüÁ¶ÇÑ´Ù. 
-	// SkillMain.Tool ==  0  :  µµ±¸¸¦ ÇÊ¿ä·Î ÇÏÁö ¾Ê´Â´Ù. 
-	// SkillMain.Tool >   0  :  SkillMain.ToolÀÇ Å¸ÀÔ°ú ÀåÂøÇÑ ¾ÆÀÌÅÛÀÇ Å¸ÀÔ°ú ºñ°íÇÑ´Ù. 
+	// SkillMain.Tool == -1  :  ì•„ì´í…œ ì¡°ì¸í…Œì´ë¸”ì„ ì°¸ì¡°í•œë‹¤. 
+	// SkillMain.Tool ==  0  :  ë„êµ¬ë¥¼ í•„ìš”ë¡œ í•˜ì§€ ì•ŠëŠ”ë‹¤. 
+	// SkillMain.Tool >   0  :  SkillMain.Toolì˜ íƒ€ì…ê³¼ ì¥ì°©í•œ ì•„ì´í…œì˜ íƒ€ì…ê³¼ ë¹„ê³ í•œë‹¤. 
 	switch( SkillTbl[ iSkillNo].Tool )
 	{
-	case 0	:{  return 0;	}break;// ToolÀ» ÇÊ¿ä·Î ÇÏÁö ¾Ê´Â´Ù. 
-	case -1 :// ItemJoin Å×ÀÌºíÀ» ÂüÁ¶ÇÑ´Ù. 
+	case 0	:{  return 0;	}break;// Toolì„ í•„ìš”ë¡œ í•˜ì§€ ì•ŠëŠ”ë‹¤. 
+	case -1 :// ItemJoin í…Œì´ë¸”ì„ ì°¸ì¡°í•œë‹¤. 
 		{
-			if( !join.Tool_kind )  {return 0;}	// µµ±¸°¡ ÇÊ¿ä¾øÀ¸¸é..
+			if( !join.Tool_kind )  {return 0;}	// ë„êµ¬ê°€ í•„ìš”ì—†ìœ¼ë©´..
 			
 			if( !ii ){return join.Tool_kind;}
 			iNowToolKind = ii->GetItemKind();
 			iNeedToolKind = join.Tool_kind;
 			if( iNeedToolKind == iNowToolKind )
-			{	//±âº» ÀûÀ¸·Î »ç¿ë ÇÏ¸é ³»±¸µµ °¨¼Ò
+			{	//ê¸°ë³¸ ì ìœ¼ë¡œ ì‚¬ìš© í•˜ë©´ ë‚´êµ¬ë„ ê°ì†Œ
 				DecreaseEquipDuration( ch, rand()%5+3, WT_WEAPON, 0 ,true); 
-				return 0; // Á¤È®ÇÑ µµ±¸ÀÌ´Ù. 
+				return 0; // ì •í™•í•œ ë„êµ¬ì´ë‹¤. 
 			}
 			else
 			{
@@ -530,9 +530,9 @@ int CSkillMgr::CheckSkillTool( LPCHARLIST ch, CItem_Join &join, const int iSkill
 		{
 			if( !ii ){return 1;}
 			iNowToolKind = ii->GetItemKind();
-			iNeedToolKind = SkillTbl[iSkillNo].Tool;//Ã¼Å© ÇØ¾ß ÇÏ³×
+			iNeedToolKind = SkillTbl[iSkillNo].Tool;//ì²´í¬ í•´ì•¼ í•˜ë„¤
 			if( iNeedToolKind == iNowToolKind )
-			{	//±âº» ÀûÀ¸·Î »ç¿ë ÇÏ¸é ³»±¸µµ °¨¼Ò
+			{	//ê¸°ë³¸ ì ìœ¼ë¡œ ì‚¬ìš© í•˜ë©´ ë‚´êµ¬ë„ ê°ì†Œ
 				DecreaseEquipDuration( ch, rand()%5+3, WT_WEAPON, 0 ,true);
 				return 0;
 			}
@@ -542,7 +542,7 @@ int CSkillMgr::CheckSkillTool( LPCHARLIST ch, CItem_Join &join, const int iSkill
 			}
 		}break;
 	}
-	return 0;	// µµ±¸°¡ ¸ÂÁö ¾Ê´Â´Ù.   // µµ±¸¸¦ ÇÊ¿ä·Î ÇÏÁö ¾Ê´Â´Ù. 
+	return 0;	// ë„êµ¬ê°€ ë§ì§€ ì•ŠëŠ”ë‹¤.   // ë„êµ¬ë¥¼ í•„ìš”ë¡œ í•˜ì§€ ì•ŠëŠ”ë‹¤. 
 }
 
 bool CSkillMgr::CanLearnItem( CHARLIST *ch, const int join_num )const
@@ -557,16 +557,16 @@ bool CSkillMgr::CanLearnItem( CHARLIST *ch, const int join_num )const
 	return false;
 }
 
-void CSkillMgr::CharacterToAlive(CHARLIST *ch, const int iType)//»ì·ÁÁÖ´Â ÇÔ¼ö
+void CSkillMgr::CharacterToAlive(CHARLIST *ch, const int iType)//ì‚´ë ¤ì£¼ëŠ” í•¨ìˆ˜
 {
-	if( iType )//ÀÖÀ¸¸é Ç®·Î
+	if( iType )//ìˆìœ¼ë©´ í’€ë¡œ
 	{
 		ch->Hp		= ch->HpMax;
 		ch->Hungry  = ch->HungryMax;
 		ch->Mana	= ch->ManaMax;
 		ch->Cp = 0;
 	}
-	else//¾øÀ¸¸é µğÆúÆ®·Î
+	else//ì—†ìœ¼ë©´ ë””í´íŠ¸ë¡œ
 	{
 		ch->Hp		= ch->HpMax		* 20 / 100;
 		ch->Hungry  = ch->HungryMax * 30 / 100;
@@ -591,7 +591,7 @@ void CSkillMgr::CharacterToAlive(CHARLIST *ch, const int iType)//»ì·ÁÁÖ´Â ÇÔ¼ö
 	CheckAndSendChangeEquip(ch,true); // CSD-021216
 }
 
-void CSkillMgr::CharacterToGhost(CHARLIST *ch, const int iType)//À¯·ÉÀ¸·Î ¸¸µé¾î ÁÖ´Â ÇÔ¼ö
+void CSkillMgr::CharacterToGhost(CHARLIST *ch, const int iType)//ìœ ë ¹ìœ¼ë¡œ ë§Œë“¤ì–´ ì£¼ëŠ” í•¨ìˆ˜
 {
 	ch->deadcount	= 0;
 	if (ch->Hp <= 0)  ch->Hp = 0;
@@ -603,7 +603,7 @@ void CSkillMgr::CharacterToGhost(CHARLIST *ch, const int iType)//À¯·ÉÀ¸·Î ¸¸µé¾î
 	ch->MoveGoy = ch->Y;
 }
 
-bool CSkillMgr::SetCanViewGhost(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
+bool CSkillMgr::SetCanViewGhost(CHARLIST *ch, const int iTime)//ì´ˆë‹¨ìœ„
 {
 	if(iTime)
 	{
@@ -614,7 +614,7 @@ bool CSkillMgr::SetCanViewGhost(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
 		}
 
 		ch->bCanViewGhost = true;
-		ch->dwCanViewGhostTime = dwTargetTime;//ÃÊ´ÜÀ§
+		ch->dwCanViewGhostTime = dwTargetTime;//ì´ˆë‹¨ìœ„
 		ch->SendCharInfoBasic(  VIEWGHOST, iTime);//020704 lsw
 	}
 	else
@@ -625,7 +625,7 @@ bool CSkillMgr::SetCanViewGhost(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
 	return true;
 }
 
-bool CSkillMgr::SetCanViewBomb(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
+bool CSkillMgr::SetCanViewBomb(CHARLIST *ch, const int iTime)//ì´ˆë‹¨ìœ„
 {
 	if(iTime)
 	{
@@ -636,7 +636,7 @@ bool CSkillMgr::SetCanViewBomb(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
 		}
 
 		ch->bCanViewBomb = true;
-		ch->dwCanViewBombTime = dwTargetTime;//ÃÊ´ÜÀ§
+		ch->dwCanViewBombTime = dwTargetTime;//ì´ˆë‹¨ìœ„
 		ch->SendCharInfoBasic(  VIEWBOMB, iTime);//020704 lsw
 	}
 	else
@@ -647,7 +647,7 @@ bool CSkillMgr::SetCanViewBomb(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
 	return true;
 }
 
-bool CSkillMgr::SetCanViewTrap(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
+bool CSkillMgr::SetCanViewTrap(CHARLIST *ch, const int iTime)//ì´ˆë‹¨ìœ„
 {
 	if(iTime)
 	{
@@ -658,7 +658,7 @@ bool CSkillMgr::SetCanViewTrap(CHARLIST *ch, const int iTime)//ÃÊ´ÜÀ§
 		}
 
 		ch->bCanViewTrap = true;
-		ch->dwCanViewTrapTime = dwTargetTime;//ÃÊ´ÜÀ§
+		ch->dwCanViewTrapTime = dwTargetTime;//ì´ˆë‹¨ìœ„
 		ch->SendCharInfoBasic(  VIEWTRAP, iTime);//020704 lsw
 	}
 	else
@@ -720,10 +720,10 @@ bool CSkillMgr::IncSkillCount(CHARLIST *ch, const int iType, const int iKind, co
 
 	if(MAX_ITEM_SKILL_COUNT <= nCount)
 	{
-		const int r = rand()%1000;//1%·Î ÇØ¾ß ½Ã°£¿¡ ¸ÂÃç¼­ ¸®Á¨ÀÌ µÇ´Â°Í Ã³·³ º¸ÀÌ´Â°É ¸·À» ¼ö ÀÖ´Ù
-		if(10 > r)//Æ¯¼ö ¾ÆÀÌÅÛÀ» ¾òÀ» ¼ö ÀÖ´Ù
+		const int r = rand()%1000;//1%ë¡œ í•´ì•¼ ì‹œê°„ì— ë§ì¶°ì„œ ë¦¬ì  ì´ ë˜ëŠ”ê²ƒ ì²˜ëŸ¼ ë³´ì´ëŠ”ê±¸ ë§‰ì„ ìˆ˜ ìˆë‹¤
+		if(10 > r)//íŠ¹ìˆ˜ ì•„ì´í…œì„ ì–»ì„ ìˆ˜ ìˆë‹¤
 		{
-			SendCMD_CONFORM_SADONIX(ch->GetServerID(), iType, iKind, ch->X, ch->Y);//»çµåµç ¹¹µç Áà¿ä 
+			SendCMD_CONFORM_SADONIX(ch->GetServerID(), iType, iKind, ch->X, ch->Y);//ì‚¬ë“œë“  ë­ë“  ì¤˜ìš” 
 		}
 	}
 	return true;
@@ -741,7 +741,7 @@ void CSkillMgr::SendSkillExp( const int iType, const t_skillexp exp, const int c
 	packet.u.kein.server_skill_exp.exp.skillexp = exp.skillexp;
 	packet.u.kein.server_skill_exp.exp.rare		= exp.rare;
 	
-	::QueuePacket( connections, cn, &packet, 1 );		// Å¬¶óÀÌ¾ğÆ® Àü¼Û	¹ŞÀº°Å °í´ë·Î º¸³»ÁØ´Ù.
+	::QueuePacket( connections, cn, &packet, 1 );		// í´ë¼ì´ì–¸íŠ¸ ì „ì†¡	ë°›ì€ê±° ê³ ëŒ€ë¡œ ë³´ë‚´ì¤€ë‹¤.
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -888,13 +888,13 @@ void CSkillMgr::SkillMapper( const int cn, const int iSkillNo, const int x, cons
 	return;
 }
 
-//npc¸¦ Á×À¸¸é ³ª¿Ã ¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁØ´Ù.  ½ÇÆĞ : 0   ¼º°ø : ¸¸µç ¾ÆÀÌÅÛ °¹¼ö ¹İÈ¯
+//npcë¥¼ ì£½ìœ¼ë©´ ë‚˜ì˜¬ ì•„ì´í…œì„ ë§Œë“¤ì–´ ì¤€ë‹¤.  ì‹¤íŒ¨ : 0   ì„±ê³µ : ë§Œë“  ì•„ì´í…œ ê°¯ìˆ˜ ë°˜í™˜
 //Npc_Item_Table
-//NPC_ITEM_TABLE_TOTAL_ITEM			60							//»óÀÚ ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ö// 
-//NPC_ITEM_TABLE_START_ITEM_POS		2							//¹è¿­¾ÈÀÇ À§Ä¡
-//NPC_ITEM_TABLE_PROBABILITY_POS	62							//¹è¿­¾ÈÀÇ À§Ä¡.½ÇÁ¦·Î´Â 50¹øÂ° À§Ä¡.
-//NPC_ITEM_TABLE_BETWEEN_POS		63							//¹è¿­¾ÈÀÇ À§Ä¡.
-//NPC_ITEM_TABLE_LEVEL_POS			1							//¹è¿­¾ÈÀÇ À§Ä¡.
+//NPC_ITEM_TABLE_TOTAL_ITEM			60							//ìƒì ì•ˆì— ìˆëŠ” ì•„ì´í…œì˜ ìˆ˜// 
+//NPC_ITEM_TABLE_START_ITEM_POS		2							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜
+//NPC_ITEM_TABLE_PROBABILITY_POS	62							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜.ì‹¤ì œë¡œëŠ” 50ë²ˆì§¸ ìœ„ì¹˜.
+//NPC_ITEM_TABLE_BETWEEN_POS		63							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜.
+//NPC_ITEM_TABLE_LEVEL_POS			1							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜.
 int CSkillMgr::GetItemFallPercentPos(const int iFallNo)
 {
 	const int iTotalPer = ItemFallPercent[iFallNo].per[0];
@@ -931,11 +931,11 @@ int CSkillMgr::SetNPCItem(const int iBagNo, const bool bIsBasic, ItemAttr *pItem
 
 	if(bIsBasic)
 	{
-		if(iCallType)//1ÀÌ¸é ·¹Àüµå ¾ÆÀÌÅÛ
+		if(iCallType)//1ì´ë©´ ë ˆì „ë“œ ì•„ì´í…œ
 		{
 			*pItem = ItemMgr.GiveLegendItem(BasicItemBag[iBagNo].ItemNo[i]);
 		}
-		else // 0ÀÌ¸é ³ë¸» ¾ÆÀÌÅÛ
+		else // 0ì´ë©´ ë…¸ë§ ì•„ì´í…œ
 		{
 			*pItem = ItemMgr.GenerateItem(BasicItemBag[iBagNo].ItemNo[i]);
 		}
@@ -946,7 +946,7 @@ int CSkillMgr::SetNPCItem(const int iBagNo, const bool bIsBasic, ItemAttr *pItem
 		RareMain rare;
 		t_RareItemBag RareBag = RareItemBag[iBagNo];
 		const int iR = rand()%100;
-		if( 20 > iR )//20ÀÌÇÏ´Â ·¹¾î°¡ ³ª¿Â´Ù
+		if( 20 > iR )//20ì´í•˜ëŠ” ë ˆì–´ê°€ ë‚˜ì˜¨ë‹¤
 		{
 			*pItem = ItemMgr.GiveRareItem(RareBag.ItemNo[i],0,RARE_ABLE,1,RareBag.iGradeMin,RareBag.iGradeMax,rare,H_LV_NO_HIGH_ITEM);//020725 lsw
 		}
@@ -982,7 +982,7 @@ int CSkillMgr::SetNPCInventory(CHARLIST *NPC, const int iItemControlNo,ItemAttr*
 
 	switch(i)
 	{
-	case 1://ÀÏ¹İ ¾ÆÀÌÅÛ ¹é
+	case 1://ì¼ë°˜ ì•„ì´í…œ ë°±
 	case 2:
 	case 3:
 	case 4:
@@ -990,7 +990,7 @@ int CSkillMgr::SetNPCInventory(CHARLIST *NPC, const int iItemControlNo,ItemAttr*
 		{
 			return SetNPCItem(ItemControl[iItemControlNo].ItemGroup[i], true,pItem,iCallType);
 		}break;
-	case 6://·¹¾î ¾ÆÀÌÅÛ ¹é
+	case 6://ë ˆì–´ ì•„ì´í…œ ë°±
 	case 7:
 		{
 			return SetNPCItem(ItemControl[iItemControlNo].ItemGroup[i], false,pItem);
@@ -1004,61 +1004,61 @@ int CSkillMgr::SetNPCInventory(CHARLIST *NPC, const int iItemControlNo,ItemAttr*
 
 int CSkillMgr::GenerateNPCItem2(CHARLIST *NPC, NPC_Generation *NPCGenerate)
 {	
-	//¿£ÇÇ¾¾°¡ »ı¼º µÉ¶§ »óÈ²À» ÆÇ´Ü ÇÑ´Ù
-	//Æò»ó½Ã, Æ¯Á¤¸Ê, ³¯Â¥ , ÀÌº¥Æ® ¸ó½ºÅÍ 
+	//ì—”í”¼ì”¨ê°€ ìƒì„± ë ë•Œ ìƒí™©ì„ íŒë‹¨ í•œë‹¤
+	//í‰ìƒì‹œ, íŠ¹ì •ë§µ, ë‚ ì§œ , ì´ë²¤íŠ¸ ëª¬ìŠ¤í„° 
 	int iItemControlNo = 0;
 
-	if(rand()%2)//Æò»ó½Ã
+	if(rand()%2)//í‰ìƒì‹œ
 	{
-		iItemControlNo = NPCGenerate->Inventory[0];//0~14 ±îÁö´Ï±î
+		iItemControlNo = NPCGenerate->Inventory[0];//0~14 ê¹Œì§€ë‹ˆê¹Œ
 	}
 	else
 	{
-		iItemControlNo = NPCGenerate->Inventory[1];//0~14 ±îÁö´Ï±î
+		iItemControlNo = NPCGenerate->Inventory[1];//0~14 ê¹Œì§€ë‹ˆê¹Œ
 	}
 
 	const int iMyMapGroup = MapInfo[MapNumber].group;
 
-	if(NPCGenerate->Inventory[2] && iMyMapGroup == NPCGenerate->Inventory[2] )//¸Ê±×·ì
-	{//°°Àº ±×·ìÀÇ ¸ÊÀÌ¸é
+	if(NPCGenerate->Inventory[2] && iMyMapGroup == NPCGenerate->Inventory[2] )//ë§µê·¸ë£¹
+	{//ê°™ì€ ê·¸ë£¹ì˜ ë§µì´ë©´
 		iItemControlNo = NPCGenerate->Inventory[3];
 	}
 
-	if(NPCGenerate->Inventory[4] && iMyMapGroup == NPCGenerate->Inventory[4] )//¸Ê±×·ì
-	{//°°Àº ±×·ìÀÇ ¸ÊÀÌ¸é
+	if(NPCGenerate->Inventory[4] && iMyMapGroup == NPCGenerate->Inventory[4] )//ë§µê·¸ë£¹
+	{//ê°™ì€ ê·¸ë£¹ì˜ ë§µì´ë©´
 		iItemControlNo = NPCGenerate->Inventory[5];
 	}
 
-	if(NPCGenerate->Inventory[6] && iMyMapGroup == NPCGenerate->Inventory[6] )//¸Ê±×·ì
-	{//°°Àº ±×·ìÀÇ ¸ÊÀÌ¸é
+	if(NPCGenerate->Inventory[6] && iMyMapGroup == NPCGenerate->Inventory[6] )//ë§µê·¸ë£¹
+	{//ê°™ì€ ê·¸ë£¹ì˜ ë§µì´ë©´
 		iItemControlNo = NPCGenerate->Inventory[7];
 	}
 
-	//³¯Â¥
+	//ë‚ ì§œ
 	if(NPCGenerate->Inventory[8]/10000 && NPCGenerate->Inventory[8]%10000)
 	{
 		if(IsEquipAbleCheckAbleDay(NPCGenerate->Inventory[8]/10000,NPCGenerate->Inventory[8]%10000))
 		{
-			iItemControlNo = NPCGenerate->Inventory[9];//0~14 ±îÁö´Ï±î
+			iItemControlNo = NPCGenerate->Inventory[9];//0~14 ê¹Œì§€ë‹ˆê¹Œ
 		}
 	}
 	
 	if(GT_EVENT_MONSTER == NPC->generationtype)
 	{
-		switch(NPC->GainedFame)	//1ÀÌ¸é º¸½º°í 0¸é ¶Ê¸¶´Ï
+		switch(NPC->GainedFame)	//1ì´ë©´ ë³´ìŠ¤ê³  0ë©´ ë˜˜ë§ˆë‹ˆ
 		{
 		case 0:
 			{
 				if( NPCGenerate->Inventory[10])
 				{
-					iItemControlNo = NPCGenerate->Inventory[10];//0~14 ±îÁö´Ï±î
+					iItemControlNo = NPCGenerate->Inventory[10];//0~14 ê¹Œì§€ë‹ˆê¹Œ
 				}
 			}break;
 		default:
 			{
 				if( NPCGenerate->Inventory[11])
 				{
-					 iItemControlNo = NPCGenerate->Inventory[11];//0~14 ±îÁö´Ï±î
+					 iItemControlNo = NPCGenerate->Inventory[11];//0~14 ê¹Œì§€ë‹ˆê¹Œ
 				}
 			}
 		}
@@ -1077,8 +1077,8 @@ int CSkillMgr::GenerateNPCItem2(CHARLIST *NPC, NPC_Generation *NPCGenerate)
 
 	//021113 lsw
 	const int iMyMapClass = MapInfo[MapNumber].Class;
-	if(NPCGenerate->Inventory[12] && iMyMapClass == NPCGenerate->Inventory[12] )//¸ÊÅ¬·¡½º°¡ °°´Ù
-	{	//°°Àº Å¬·¡½ºÀÇ ¸ÊÀÌ¸é
+	if(NPCGenerate->Inventory[12] && iMyMapClass == NPCGenerate->Inventory[12] )//ë§µí´ë˜ìŠ¤ê°€ ê°™ë‹¤
+	{	//ê°™ì€ í´ë˜ìŠ¤ì˜ ë§µì´ë©´
 		iItemControlNo = NPCGenerate->Inventory[13];
 
 		const int iMax= ItemControl[iItemControlNo].iFallItemCount;
@@ -1092,7 +1092,7 @@ int CSkillMgr::GenerateNPCItem2(CHARLIST *NPC, NPC_Generation *NPCGenerate)
 			}
 		}
 	}
-	//µ· ³Ö±â
+	//ëˆ ë„£ê¸°
 	if( (rand()%100) < 30 ) 
 	{
 		int iRandMoney = NPCGenerate->Money_Max - NPCGenerate->Money_min;
@@ -1141,7 +1141,7 @@ int CSkillMgr::GenerateNPCItem2(CHARLIST *NPC, NPC_Generation *NPCGenerate)
 	return 0;
 }
 
-int CSkillMgr::FallItemWhenNPCDie(CHARLIST *NPC)//¾ÆÀÌÅÛ ¸Ş´ÏÀú·Î ¿Å°Ü¾ß ÇÒ °Í °°´Ù..
+int CSkillMgr::FallItemWhenNPCDie(CHARLIST *NPC)//ì•„ì´í…œ ë©”ë‹ˆì €ë¡œ ì˜®ê²¨ì•¼ í•  ê²ƒ ê°™ë‹¤..
 {
 	for( int k = 0 ; k < 3 ; k ++)
 	{
@@ -1206,7 +1206,7 @@ void CSkillMgr::RecvCMD_CONFORM_SADONIX(const t_packet &p)
 
 	switch(item_no)
 	{
-	case	SADONIX_NO:		{	ch->nSkillSadCount	= 0;	}break;//ÀÌ°Å Áö¿ö¾ß ÇÒµí..
+	case	SADONIX_NO:		{	ch->nSkillSadCount	= 0;	}break;//ì´ê±° ì§€ì›Œì•¼ í• ë“¯..
 	case	BLESSLEAF_NO:	{	ch->nSkillBlessLeaf = 0;	}break;
 	default:
 		{	
@@ -1224,17 +1224,17 @@ void CSkillMgr::RecvCMD_CONFORM_SADONIX(const t_packet &p)
 							0,0,0,0,
 							item.attr[IATTR_LIMIT],
 							item.attr[IATTR_MUCH],
-							0,3000,kind,//Æ÷Æ®//Å¸ÀÔµµ 3000
+							0,3000,kind,//í¬íŠ¸//íƒ€ì…ë„ 3000
 							0,0,0,0,
 							3000,0
 							);
 }
 
-// ¼­¹ö¿¡¼­ Ä³¸¯ÅÍÀÇ ¸¶¹ı¿¡ ÀÇÇÑ »óÅÂ¸¦ ÃÊ±âÈ­ÇÔ.
-// ÃÊ±âÈ­ÇÏ¸é¼­ ³»¿ëÀº Packet¿Ã Å¬¶óÀÌ¾ğÆ®·Î Àü¼ÛÇÑ´Ù. 
+// ì„œë²„ì—ì„œ ìºë¦­í„°ì˜ ë§ˆë²•ì— ì˜í•œ ìƒíƒœë¥¼ ì´ˆê¸°í™”í•¨.
+// ì´ˆê¸°í™”í•˜ë©´ì„œ ë‚´ìš©ì€ Packetì˜¬ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡í•œë‹¤. 
 inline void Init_CharacterCondition(CHARLIST* ch)
 {
-  if (ch->GetState() != CON_NORMAL)//0x00 »óÅÂ°¡ Á¤»óÀÌ ¾Æ´Ñ °æ¿ì
+  if (ch->GetState() != CON_NORMAL)//0x00 ìƒíƒœê°€ ì •ìƒì´ ì•„ë‹Œ ê²½ìš°
   { 
 		ch->SetState(CON_NORMAL);
 		SendCharacterCondition(ch, 0);

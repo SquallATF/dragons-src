@@ -1,4 +1,4 @@
-#include "inetwork.h"
+ï»¿#include "inetwork.h"
 #include "RMListenerTable.h"
 
 extern I4DyuchiNET *g_pINet;
@@ -29,7 +29,7 @@ BOOL CRMListenerTable::Create(DWORD num)
 
 	m_ppInfoTable = NULL;
 
-	m_ppInfoTable = new RM_LISTENER_INFO*[num];		//m_ppInfoTableÀº (À¯ÀúÀÎÆ÷ ³»¿ëÀÇ ÁÖ¼Ò°ª)ÀÇ ÁÖ¼Ò°ªÀ» °¡¸£Å²´ç.. 
+	m_ppInfoTable = new RM_LISTENER_INFO*[num];		//m_ppInfoTableì€ (ìœ ì €ì¸í¬ ë‚´ìš©ì˜ ì£¼ì†Œê°’)ì˜ ì£¼ì†Œê°’ì„ ê°€ë¥´í‚¨ë‹¹.. 
 	memset(m_ppInfoTable,0,sizeof(RM_LISTENER_INFO*)*num);
 	return TRUE;
 }
@@ -42,23 +42,23 @@ bool CRMListenerTable::Add(char* ip, BYTE type,  DWORD dwConnectionIndex)
 	RM_LISTENER_INFO* info = new RM_LISTENER_INFO;	
 
 	memset(info, 0, sizeof(RM_LISTENER_INFO));		
-	info->bConnectType = RM_TYPE_LISTENER;		//¸Å°³º¯¼ö type°ú´Â Çò±ò¸®Áö ¸»°Í!!   ¸Å°³º¯¼ö typeÀº Á¢¼Ó, ¹ÌÁ¢¼Ó ¿©ºÎÀÌ´Ù.
+	info->bConnectType = RM_TYPE_LISTENER;		//ë§¤ê°œë³€ìˆ˜ typeê³¼ëŠ” í—·ê¹”ë¦¬ì§€ ë§ê²ƒ!!   ë§¤ê°œë³€ìˆ˜ typeì€ ì ‘ì†, ë¯¸ì ‘ì† ì—¬ë¶€ì´ë‹¤.
 	info->dwConnectionIndex = dwConnectionIndex;
 //	info->dwServerType = pServerData->dwServerType;
 	strcpy(info->szIP, ip);
 
-	//Á¢¼Ó »óÅÂÀÏ¶§ dwConnectionIndex°¡ ³ª¿À¹Ç·Î ±×¶§ DLL¿¡ ¼ÂÆÃÇÏÀÚ..
-	//typeÀÌ 1ÀÏ¶§¸¸ dwConnectionIndex°¡ 0ÀÌ ¾Æ´Ò°ÍÀÌ´Ù..   bucketnum 1ÀÏ¶§¸¸ ¾Æ·¡ if¹®ÀÌ ¼öÇàµÉ °ÍÀÌ´Ù.
+	//ì ‘ì† ìƒíƒœì¼ë•Œ dwConnectionIndexê°€ ë‚˜ì˜¤ë¯€ë¡œ ê·¸ë•Œ DLLì— ì…‹íŒ…í•˜ì..
+	//typeì´ 1ì¼ë•Œë§Œ dwConnectionIndexê°€ 0ì´ ì•„ë‹ê²ƒì´ë‹¤..   bucketnum 1ì¼ë•Œë§Œ ì•„ë˜ ifë¬¸ì´ ìˆ˜í–‰ë  ê²ƒì´ë‹¤.
 	if(dwConnectionIndex)
 	{
 		g_pINet->SetServerInfo(dwConnectionIndex, info);
 	}
 
-	AddInfo(info, type);	//HashTable¿¡ Ãß°¡
+	AddInfo(info, type);	//HashTableì— ì¶”ê°€
 	return true;
 }
 
-//type ÀÌ 0ÀÌ¸é Á¢¼Ó ¾ÈÇÑ »óÅÂ, 1ÀÌ¸é Á¢¼ÓÇÑ »óÅÂ 
+//type ì´ 0ì´ë©´ ì ‘ì† ì•ˆí•œ ìƒíƒœ, 1ì´ë©´ ì ‘ì†í•œ ìƒíƒœ 
 void CRMListenerTable::AddInfo(RM_LISTENER_INFO* info, BYTE type)
 {													
 	if(type)
@@ -66,7 +66,7 @@ void CRMListenerTable::AddInfo(RM_LISTENER_INFO* info, BYTE type)
 	else
 		m_wNotConnect++;
 	
-	if (!m_ppInfoTable[ type ])		//m_ppInfoTable[index] ¿¡ ³»¿ëÀÌ ¾øÀ¸¸é °ıÈ£ ¾ÈÀ¸·Î.
+	if (!m_ppInfoTable[ type ])		//m_ppInfoTable[index] ì— ë‚´ìš©ì´ ì—†ìœ¼ë©´ ê´„í˜¸ ì•ˆìœ¼ë¡œ.
 	{
 		m_ppInfoTable[ type ] = info;
 		info->pNextInfo = NULL;
@@ -165,29 +165,29 @@ void CRMListenerTable::RemoveAllTable()
 
 void CRMListenerTable::MoveToConnectStatus(char* ip, DWORD dwConnectionIndex)
 {
-	Remove(ip, 0);	//Á¢¼Ó ¾ÈÇÑ»óÅÂ¸¦ ÇÏ³ª Áö¿ì°í 
-	Add(ip,1, dwConnectionIndex);		//ConnectÇÑ »óÅÂ·Î Move
+	Remove(ip, 0);	//ì ‘ì† ì•ˆí•œìƒíƒœë¥¼ í•˜ë‚˜ ì§€ìš°ê³  
+	Add(ip,1, dwConnectionIndex);		//Connectí•œ ìƒíƒœë¡œ Move
 }
 
 void CRMListenerTable::MoveToDisconnectStatus(char* ip)
 {
-	Remove(ip, 1);	//Á¢¼Ó ÇÑ»óÅÂ¸¦ ÇÏ³ª Áö¿ì°í 
-	Add(ip,0);		//DisconnectÇÑ »óÅÂ·Î Move
+	Remove(ip, 1);	//ì ‘ì† í•œìƒíƒœë¥¼ í•˜ë‚˜ ì§€ìš°ê³  
+	Add(ip,0);		//Disconnectí•œ ìƒíƒœë¡œ Move
 }
 
 
-//Table¿¡ ¶È°°Àº Data°¡ ÀÖ´ÂÁö ¾ø´ÂÁö¸¦ È®ÀÎÇÑ´Ù...  ¶È°°Àº Data°¡ ÀÖÀ¸¸é True, ¾øÀ¸¸é FALSE
+//Tableì— ë˜‘ê°™ì€ Dataê°€ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ë¥¼ í™•ì¸í•œë‹¤...  ë˜‘ê°™ì€ Dataê°€ ìˆìœ¼ë©´ True, ì—†ìœ¼ë©´ FALSE
 BOOL CRMListenerTable::CheckDuplicateIP(char* ip, BYTE type)
 {
 	RM_LISTENER_INFO* cur = NULL;
 	RM_LISTENER_INFO* next = NULL;
 	
-	cur = m_ppInfoTable[type];		//0ÀÌ Á¢¼Ó ¾ÈÇÑ »óÅÂÀÌ´Ï...
+	cur = m_ppInfoTable[type];		//0ì´ ì ‘ì† ì•ˆí•œ ìƒíƒœì´ë‹ˆ...
 	while (cur)
 	{
 		next = cur->pNextInfo;
 		
-		if(!strcmp(cur->szIP, ip))	//°°Àº°Ô ÀÖ½¿..
+		if(!strcmp(cur->szIP, ip))	//ê°™ì€ê²Œ ìˆìŠ´..
 		{
 			return TRUE;
 		}

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "MAIN.H"
 
 
@@ -48,18 +48,18 @@ void ReCallScript( void )
 
 
 	
-/*­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
-ÇÔ¼ö¸í : void sDialogD( void )
-¼³  ¸í : ´ëÈ­¸¦ ÇÏ´Âµ¥ ´ëÈ­ÇÏ´Â ÀÚÀÇ ¹æÇâÀÌ ÁÖÀÎ°øÀ» ÇâÇÑ´Ù.
-ÀÎ  ÀÚ :
-¸®  ÅÏ :
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å*/
+/*î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…
+çªƒèç–™ : void sDialogD( void )
+æ±²  ç–™ : æªæ‹³ç”« çªç»°å• æªæ‹³çªç»° ç£Šç‹¼ è§„æ°¢æ æ—ç‰¢å‚é˜‘ æ°¢èŒ„ä¿ƒ.
+ç‰¢  ç£Š :
+åºœ  ç•” :
+î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…î…*/
 void sDialOnlyPC( void )// 0
 {		
 	int length;
 	t_packet packet;
 
-	// Client¿¡ ´ëÈ­¸¦ º¸³»ÁØ´Ù....
+	// Clientä¿Š æªæ‹³ç”« ç„Šéƒ´éœ–ä¿ƒ....
 	GetString( String );
 
 	length = strlen( String );
@@ -161,7 +161,7 @@ void sIsLevel( void )
 {
 	int lev = GetInt();
 
-	// EventPCÀÇ ·¹º§ÀÌ levº¸´Ù ³ôÀ¸¸é 1¸¦ sYES¿¡ ³Ö°í ±×·¸Áö ¾ÊÀ¸¸é 0À» ³Ö´Â´Ù. 
+	// EventPCç‹¼ é¥­éª‡æ levç„Šä¿ƒ è‡­æ æ 1ç”« sYESä¿Š æŒç»Š å¼ŠçŠ¯ç˜¤ è‡¼æ æ 0é˜‘ æŒç»°ä¿ƒ. 
 
 	if( connections[ EventPC].chrlst.Level >= lev )
 	{
@@ -175,7 +175,7 @@ void sIsLevel( void )
 }
 
 
-// Monster°¡ ¹ß»ıÇÒ Àå¼Ò¿Í Sprite¹øÈ£¸¦ Á¤ÀÇÇÑ´Ù. 
+// Monsterå•Š æƒ¯ç§¯ä¸” å˜å®¶å®¢ Spriteé”…é¾‹ç”« æ²¥ç‹¼èŒ„ä¿ƒ. 
 void sInitMonsterGeneratedPosition( void )
 {
 	int x = GetInt();
@@ -264,7 +264,7 @@ MN_SYSTEM_LOGOUT };		// 70
 
 void sCallSmallMenu( void )
 {
-	int index = GetInt();	// »óÁ¡ List Index...
+	int index = GetInt();	// æƒ‘ç—¢ List Index...
 	int menu = GetInt();	// SmallMenu Index..
 
 	CallSmallMenu( EventPC, index, callmenudef[ menu] );
@@ -347,13 +347,13 @@ void (*SFunction[   _SCRIPT_FUNCTION_POINT_ ])( void )
 	sIsLevel,
 	sInitMonsterGeneratedPosition,
 	sCallSmallMenu, 
-	sWeatherOn,				// 10 				// ³¯¾¾¿¡ °üÇØ BroadCastÇÑ´Ù. 
-	sWeatherOff,			// 11	// ³¯¾¾¿¡ °üÇØ BroadCastÇÏÁö ¾Ê´Â´Ù.  
+	sWeatherOn,				// 10 				// æœæªä¿Š åŒ…ç§¦ BroadCastèŒ„ä¿ƒ. 
+	sWeatherOff,			// 11	// æœæªä¿Š åŒ…ç§¦ BroadCastçªç˜¤ è‡¼ç»°ä¿ƒ.  
 	sRecallScriptStart,		// 12
 	sRecallScriptEnd,		// 13
 
 
-}; // »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼öµéÀÇ Æ÷ÀÎÅÍ
+}; // è¤ä¾©ç£Š æ²¥ç‹¼ çªƒèç”¸ç‹¼ å™¨ç‰¢ç£
 
 
 

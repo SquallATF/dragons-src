@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	Prison.h.
  *			interface for the CPrison class.
  */
@@ -6,19 +6,19 @@
 
 /**
  * @struct	_tagPrisonInfo.
- * @brief	°¨¿Á ¸ÊÁ¤º¸¸¦ ÀúÀå.
+ * @brief	ê°ì˜¥ ë§µì •ë³´ë¥¼ ì €ìž¥.
  */
 //< LTH-040723-KO.
 typedef struct _tagPrisonInfo
 {
-	char	szMapName[20];			/**< ¸Ê ÀÌ¸§. */
-	POINT	xyPosition;				/**< À§Ä¡. */
+	char	szMapName[20];			/**< ë§µ ì´ë¦„. */
+	POINT	xyPosition;				/**< ìœ„ì¹˜. */
 } tagPrisonInfo;
 //> LTH-040723-KO.
 
 /**
  * @enum	ePRISON_NATION.
- * @brief	°¨¿Á ½Ã½ºÅÛ¿¡ »ç¿ëµÇ°ï ÇÏ´Â ±¹°¡ ¹øÈ£ÀÎµ¥ Çò°¥¸®Áö ¸»¶ó°í ¸¸µé¾ú´Ù.
+ * @brief	ê°ì˜¥ ì‹œìŠ¤í…œì— ì‚¬ìš©ë˜ê³¤ í•˜ëŠ” êµ­ê°€ ë²ˆí˜¸ì¸ë° í—·ê°ˆë¦¬ì§€ ë§ë¼ê³  ë§Œë“¤ì—ˆë‹¤.
  */
 //< LTH-040727-KO.
 enum ePRISON_NATION
@@ -32,8 +32,8 @@ enum ePRISON_NATION
 
 /**
  * @class	CPrison.
- * @brief	°¨¿Á ½Ã½ºÅÛ class.
- *			°¨¿Á ½Ã½ºÅÛÀ» ÀÛµ¿ ½ÃÅ°±â À§ÇÑ class.
+ * @brief	ê°ì˜¥ ì‹œìŠ¤í…œ class.
+ *			ê°ì˜¥ ì‹œìŠ¤í…œì„ ìž‘ë™ ì‹œí‚¤ê¸° ìœ„í•œ class.
  */
 //< LTH-040824-KO.
 class CPrison  
@@ -41,17 +41,17 @@ class CPrison
 public:
 	/**
 	 * @def		enum _ePRISON_SYS_RESULT.
-	 * @brief	°¨¿Á ½Ã½ºÅÛ Ã³¸®ÀÇ °á°ú »ó¼ö.
+	 * @brief	ê°ì˜¥ ì‹œìŠ¤í…œ ì²˜ë¦¬ì˜ ê²°ê³¼ ìƒìˆ˜.
 	 */
 	//< LTH-040727-KO.
 	typedef enum _ePRISON_SYS_RESULT
 	{
-		PSR_ERROR						= 0,	/**< °á°ú°ª ¿¡·¯. */
-		PSR_ALREADY_REGISTERED_BAD_USER	= 1,	/**< ÀÌ¹Ì ºÒ·® À¯Àú·Î µî·ÏµÇ¾î ÀÖÀ» °æ¿ì. */
-		PSR_MOVE_TO_PRISON				= 2,	/**< °¨¿ÁÀ¸·Î ÀÌµ¿ ÇÑ´Ù. */
-		PSR_NOT_BAD_USER				= 3,	/**< °¨¿Á¿¡ °¤Èù À¯Àú°¡ ¾Æ´Ï´Ù. */
-		PSR_MOVE_TO_VILLAGE				= 4,	/**< ¸ÞÀÎ ¸¶À»·Î ÀÌµ¿ÇÑ´Ù. */
-		PSR_MAX							= 5,	/**< °á°ú°ª ÃÖ´ë °³¼ö. */
+		PSR_ERROR						= 0,	/**< ê²°ê³¼ê°’ ì—ëŸ¬. */
+		PSR_ALREADY_REGISTERED_BAD_USER	= 1,	/**< ì´ë¯¸ ë¶ˆëŸ‰ ìœ ì €ë¡œ ë“±ë¡ë˜ì–´ ìžˆì„ ê²½ìš°. */
+		PSR_MOVE_TO_PRISON				= 2,	/**< ê°ì˜¥ìœ¼ë¡œ ì´ë™ í•œë‹¤. */
+		PSR_NOT_BAD_USER				= 3,	/**< ê°ì˜¥ì— ê°‡ížŒ ìœ ì €ê°€ ì•„ë‹ˆë‹¤. */
+		PSR_MOVE_TO_VILLAGE				= 4,	/**< ë©”ì¸ ë§ˆì„ë¡œ ì´ë™í•œë‹¤. */
+		PSR_MAX							= 5,	/**< ê²°ê³¼ê°’ ìµœëŒ€ ê°œìˆ˜. */
 	} ePRISON_SYS_RESULT;
 	//> LTH-040727-KO.
 
@@ -83,9 +83,9 @@ public:
 	virtual ~CPrison();
 
 protected:
-	bool m_bIsPrisonMap;					/**< LTH-040824-KO ÀÌ ¸ÊÀÌ °¨¿ÁÀÌ ÀÖ´Â ¸ÊÀÎ°¡?. */
-	DWORD m_dwImprisonment;					/**< LTH-040727-KO °¨¿Á¿¡ ÀÖ´Â ±â°£. */
-	tagPrisonInfo* m_ppPrisonInfo[PN_MAX];	/**< LTH-040723-KO °¨¿Á Á¤º¸ ±¸Á¶Ã¼ ¹è¿­. */
-	int m_naNumOfPrisonByNation[PN_MAX];	/**< LTH-040727-KO °¢ ±¹°¡º° °¨¿Á ÁÂÇ¥ÀÇ °³¼ö. */
+	bool m_bIsPrisonMap;					/**< LTH-040824-KO ì´ ë§µì´ ê°ì˜¥ì´ ìžˆëŠ” ë§µì¸ê°€?. */
+	DWORD m_dwImprisonment;					/**< LTH-040727-KO ê°ì˜¥ì— ìžˆëŠ” ê¸°ê°„. */
+	tagPrisonInfo* m_ppPrisonInfo[PN_MAX];	/**< LTH-040723-KO ê°ì˜¥ ì •ë³´ êµ¬ì¡°ì²´ ë°°ì—´. */
+	int m_naNumOfPrisonByNation[PN_MAX];	/**< LTH-040727-KO ê° êµ­ê°€ë³„ ê°ì˜¥ ì¢Œí‘œì˜ ê°œìˆ˜. */
 };
 //> LTH-040824-KO.

@@ -1,4 +1,4 @@
-// AssistanceMagic.h: interface for the CAssistanceMagic class.
+ï»¿// AssistanceMagic.h: interface for the CAssistanceMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// º¸Á¶°è¿­ ¸¶¹ý
+// ë³´ì¡°ê³„ì—´ ë§ˆë²•
 class CAssistanceMagic : public TBinder<CMagic, CAssistanceMagic>
 { 
 public:
@@ -33,15 +33,15 @@ public:
   }
   
 public:
-  bool SpeedUp();       // º¸Á¶ 1°è¿­ ¸¶¹ý
-  bool EnchantWeapon(); // º¸Á¶ 2°è¿­ ¸¶¹ý
+  bool SpeedUp();       // ë³´ì¡° 1ê³„ì—´ ë§ˆë²•
+  bool EnchantWeapon(); // ë³´ì¡° 2ê³„ì—´ ë§ˆë²•
   bool PrayPower();
   bool GreatPray();
-  bool MinorAmplify();  // º¸Á¶ 3°è¿­ ¸¶¹ý
+  bool MinorAmplify();  // ë³´ì¡° 3ê³„ì—´ ë§ˆë²•
   bool MagicAmplify();
-  bool Transparency();  // º¸Á¶ 4°è¿­ ¸¶¹ý
-  bool Light();         // º¸Á¶ 5°è¿­ ¸¶¹ý 
-  bool AuthorityLuck(); // º¸Á¶ 6°è¿­ ¸¶¹ý
+  bool Transparency();  // ë³´ì¡° 4ê³„ì—´ ë§ˆë²•
+  bool Light();         // ë³´ì¡° 5ê³„ì—´ ë§ˆë²• 
+  bool AuthorityLuck(); // ë³´ì¡° 6ê³„ì—´ ë§ˆë²•
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

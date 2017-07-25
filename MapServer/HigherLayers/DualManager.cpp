@@ -1,4 +1,4 @@
-// DualManager.cpp: implementation of the CDualManager class.
+ï»¿// DualManager.cpp: implementation of the CDualManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -8,7 +8,7 @@
 #include "CItem.h"
 #include "LTSSupport.h"
 
-#include "LogManager.h"		//040719_KJHuNs g_pLogManager¸¦ »ç¿ëÇÏ±â À§ÇÔ.
+#include "LogManager.h"		//040719_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨.
 
 extern inline int GetTotalAbility(LPCHARLIST ch);
 extern void AddAbility(CHARLIST *ch, int type, int add);
@@ -273,10 +273,10 @@ void CDualManager::SendDualDivide(WORD idMaster)
 }
 
 void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
-{	// µà¾óÀÌ °¡´ÉÇÑÁö °Ë»ç
+{	// ë“€ì–¼ì´ ê°€ëŠ¥í•œì§€ ê²€ì‚¬
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
-	// µà¾ó ¿©ºÎ °Ë»ç
+	// ë“€ì–¼ ì—¬ë¶€ ê²€ì‚¬
 	if (pMaster->IsDual())
 	{
 		pMaster->Message(MK_WARNING, 0, 383);
@@ -311,16 +311,16 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 }
 
 void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
-{	// µà¾ó Å¬·¡½º·Î º¯È¯ µÇ¾ú´Ù´Â Packet¸¦ ¹ŞÀ½
+{	// ë“€ì–¼ í´ë˜ìŠ¤ë¡œ ë³€í™˜ ë˜ì—ˆë‹¤ëŠ” Packetë¥¼ ë°›ìŒ
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
-	// µà¾ó ¿©ºÎ °Ë»ç
+	// ë“€ì–¼ ì—¬ë¶€ ê²€ì‚¬
 	if (pMaster->IsDual())
 	{
 		pMaster->Message(MK_WARNING, 0, 383);
 		return;
 	}
-	// ÀÏ¹İ¿¡¼­ µà¾ó·Î ÀüÈ¯ÇÏ´Â °æ¿ì
+	// ì¼ë°˜ì—ì„œ ë“€ì–¼ë¡œ ì „í™˜í•˜ëŠ” ê²½ìš°
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
@@ -341,7 +341,7 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 		{
 			::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
 			::SendDeleteItem(pAttr, &pos, pMaster, 0);
-			pMaster->SetDualClass(pPacket->nNext); // µà¾ó Å¬·¡½º ¼³Á¤
+			pMaster->SetDualClass(pPacket->nNext); // ë“€ì–¼ í´ë˜ìŠ¤ ì„¤ì •
 			pMaster->DivideAbility(pPacket->nNext);
 			Change(nStep, pMaster);
 			SendDualChange(idMaster);
@@ -354,10 +354,10 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 }
 
 void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
-{	// µà¾ó Å¬·¡½º ¾îºô¸®Æ¼ ºĞ¹è¸¦ ÇÏ°Ú´Ù´Â Packet¸¦ ¹ŞÀ½
+{	// ë“€ì–¼ í´ë˜ìŠ¤ ì–´ë¹Œë¦¬í‹° ë¶„ë°°ë¥¼ í•˜ê² ë‹¤ëŠ” Packetë¥¼ ë°›ìŒ
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
-	// µà¾óÀÇ ´Ü°è°¡ ¿Ã¶ó°¡´Â °æ¿ì
+	// ë“€ì–¼ì˜ ë‹¨ê³„ê°€ ì˜¬ë¼ê°€ëŠ” ê²½ìš°
 	const int nStep = pMaster->GetClassStep() + 1;
 	
 	if (pMaster->IsDual() && IsLevelUp(nStep, pMaster))
@@ -374,16 +374,16 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 	}
 }
 
-void CDualManager::RecvResetAbility(WORD idMaster)//ÖØ·Öµãº¯Êı
+void CDualManager::RecvResetAbility(WORD idMaster)//è·¯ë¡¸ë“ë³€é‘’
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
 	
-//	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101¼¶ÖØ·ÖµãµÄÏŞÖÆ. 
-	{	//< 101·Öµã
+//	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101ì„¬è·¯ë¡¸ë“ë¨æ˜é½¡. 
+	{	//< 101ë¡¸ë“
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;
-		// Í³¼Æµã
+		// å›ºì…•ë“
 		pMaster->Str = BASIC_ABILITY[nClass][STR];
 		pMaster->Dex = BASIC_ABILITY[nClass][DEX];
 		pMaster->Con = BASIC_ABILITY[nClass][CON];
@@ -406,10 +406,10 @@ void CDualManager::RecvResetAbility(WORD idMaster)//ÖØ·Öµãº¯Êı
 		{
 			nMinus += BASIC_ABILITY[nClass][i];
 		}
-		// ¼ÆËãµãÊı²¢ÇÒµÄ½á¹û
+		// ì…•ç‚¬ë“é‘’ê¹»í• ë¨ì¨ë²
 		pMaster->SetReservedPoint(nTotal - nMinus - nFirst - nSecond);
 		::SendCharInfo(idMaster);
-	}	//> 101·Öµã
+	}	//> 101ë¡¸ë“
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -417,7 +417,7 @@ void CDualManager::RecvResetAbility(WORD idMaster)//ÖØ·Öµãº¯Êı
 ///////////////////////////////////////////////////////////////////////////////
 
 void CDualManager::Change(BYTE nStep, CHARLIST* pMaster)
-{	//< CSD-TW-030606 : µà¾ó Å¬·¡½º ´Ü°è »ó½Â¿¡ µû¸¥ ¼Ò¸ğ Ladder³ª Fame
+{	//< CSD-TW-030606 : ë“€ì–¼ í´ë˜ìŠ¤ ë‹¨ê³„ ìƒìŠ¹ì— ë”°ë¥¸ ì†Œëª¨ Ladderë‚˜ Fame
 	CDualDataInfo* pDualData = GetDualDataInfo(nStep);
 
 	if (pDualData == NULL)
@@ -463,7 +463,7 @@ void CDualManager::Change(BYTE nStep, CHARLIST* pMaster)
 			pMaster->fame -= DecFame;
 			break;
 		}
-	case 6:  //coromo ×ªÖ°Ìõ¼ş
+	case 6:  //coromo ç˜»æ–‚ä¿‚ìˆ­
 		{
 			g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
 			const int change = pDualData->GetConsumeLadder();
@@ -482,7 +482,7 @@ void CDualManager::Change(BYTE nStep, CHARLIST* pMaster)
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CDualManager::IsLevelUp(BYTE nStep, CHARLIST* pMaster)
-{	// µà¾ó Å¬·¡½º ´Ü°è »ó½ÂÀÌ °¡´ÉÇÑÁö ¿©ºÎ
+{	// ë“€ì–¼ í´ë˜ìŠ¤ ë‹¨ê³„ ìƒìŠ¹ì´ ê°€ëŠ¥í•œì§€ ì—¬ë¶€
 	CDualDataInfo* pDualData = GetDualDataInfo(nStep);
 
 	if (pDualData == NULL)
@@ -531,7 +531,7 @@ bool CDualManager::IsLevelUp(BYTE nStep, CHARLIST* pMaster)
 			
 			break;
 		}
-	case 6:  //coromo ×ªÖ°Ìõ¼ş
+	case 6:  //coromo ç˜»æ–‚ä¿‚ìˆ­
 		{
 			if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
 			{
@@ -562,12 +562,12 @@ void CDualManager::RecvResetAbilityItem(WORD idMaster)
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
 	
-	// Âø¿ëÇÑ ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎÇØ¾ß ÇÑ´Ù.
+	// ì°©ìš©í•œ ì•„ì´í…œì´ ìˆëŠ”ì§€ í™•ì¸í•´ì•¼ í•œë‹¤.
 	if ( !IsThereEquipedItem( pMaster ) )
 	{	//< CSD-030806
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;
-		// ¾îºô¸®Æ¼ ÃÊ±âÈ­
+		// ì–´ë¹Œë¦¬í‹° ì´ˆê¸°í™”
 		pMaster->Str = BASIC_ABILITY[nClass][STR];
 		pMaster->Dex = BASIC_ABILITY[nClass][DEX];
 		pMaster->Con = BASIC_ABILITY[nClass][CON];
@@ -590,7 +590,7 @@ void CDualManager::RecvResetAbilityItem(WORD idMaster)
 		{
 			nMinus += BASIC_ABILITY[nClass][i];
 		}
-		// ¾îºô¸®Æ¼ Æ÷ÀÎÅÍ Àç¼³Á¤
+		// ì–´ë¹Œë¦¬í‹° í¬ì¸í„° ì¬ì„¤ì •
 		pMaster->SetReservedPoint(nTotal - nMinus - nFirst - nSecond);
 		::SendCharInfo(idMaster);
 
@@ -605,9 +605,9 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if(pMaster == NULL)  return;
 	
-	// Âø¿ëÇÑ ¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎÇØ¾ß ÇÑ´Ù.
+	// ì°©ìš©í•œ ì•„ì´í…œì´ ìˆëŠ”ì§€ í™•ì¸í•´ì•¼ í•œë‹¤.
 	if ( !IsThereEquipedItem( pMaster ) )
-	{//½ºÅİÀ» È®ÀÎ ÇØ º¸°í//¾ÆÀÌÅÛÀÌ ÀÖ´ÂÁö È®ÀÎ ÇÏ°í 
+	{//ìŠ¤í…Ÿì„ í™•ì¸ í•´ ë³´ê³ //ì•„ì´í…œì´ ìˆëŠ”ì§€ í™•ì¸ í•˜ê³  
 		short int AfterReserve = 0;
 		const short int nClass = pMaster->Class;
 		const short int iBase = BASIC_ABILITY[nClass][Statkind];
@@ -634,7 +634,7 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 			}break;
 		}
 
-		AfterReserve = (*pAbility)  - iBase;//³²À» ¸®Àúºê Æ÷ÀÎÆ®¸¦ °è»êÇÏ°í
+		AfterReserve = (*pAbility)  - iBase;//ë‚¨ì„ ë¦¬ì €ë¸Œ í¬ì¸íŠ¸ë¥¼ ê³„ì‚°í•˜ê³ 
 
 		const int nFirst = 3;
 		const int nSecond = 2;
@@ -651,11 +651,11 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 
 		if( BonusAddOn >= AfterReserve )
 		{
-			::OutMessage(pMaster,2,996);//ÀÓ½Ã,,¹Ì´Ï¸Ø »óÅÂ ÀÔ´Ï´Ù.
+			::OutMessage(pMaster,2,996);//ì„ì‹œ,,ë¯¸ë‹ˆë©ˆ ìƒíƒœ ì…ë‹ˆë‹¤.
 			return;
 		}
 
-		//¾ÆÀÌÅÛ È®ÀÎ ->
+		//ì•„ì´í…œ í™•ì¸ ->
 		const int Lv = pMaster->GetLevel();
 		int need_count = 1;
 		if( Lv	>	104	){ need_count = 5; }
@@ -663,23 +663,23 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 		if( 80	>=	Lv	){ need_count = 2; }
 		if( 50	>=	Lv	){ need_count = 1; }
 
-		const int iNowCt = ::CheckInventory(pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count);//³»°¡ ¿øÇÑ °ª¿¡¼­ ÇöÀç °á°ú¸¦ ÁÖ´Ï±î -°ªÀÌ ³ª¿Ã ¼ö ÀÖ´Ù
-		if( 0 <= iNowCt )//°¹¼ö°¡ ¸ÂÀ¸¸é Áö¿ö¶ó
+		const int iNowCt = ::CheckInventory(pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count);//ë‚´ê°€ ì›í•œ ê°’ì—ì„œ í˜„ì¬ ê²°ê³¼ë¥¼ ì£¼ë‹ˆê¹Œ -ê°’ì´ ë‚˜ì˜¬ ìˆ˜ ìˆë‹¤
+		if( 0 <= iNowCt )//ê°¯ìˆ˜ê°€ ë§ìœ¼ë©´ ì§€ì›Œë¼
 		{
-			::SendDeleteItemQuantity( pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count );		// Æ¯Á¤ ¾ÆÀÌÅÛÀ» Æ¯Á¤ °¹¼ö¸¸Å­ »èÁ¦ ÇÑ´Ù.
+			::SendDeleteItemQuantity( pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count );		// íŠ¹ì • ì•„ì´í…œì„ íŠ¹ì • ê°¯ìˆ˜ë§Œí¼ ì‚­ì œ í•œë‹¤.
 		}
 		else
 		{
-			::OutMessage(pMaster, 2,994);//ÀÓ½Ã,,ÀçºĞ¹è ¾ÆÀÌÅÛÀÌ ¸ğÀÚ¶ø´Ï´Ù.
+			::OutMessage(pMaster, 2,994);//ì„ì‹œ,,ì¬ë¶„ë°° ì•„ì´í…œì´ ëª¨ìëë‹ˆë‹¤.
 			return;
 		}
-		//¾ÆÀÌÅÛ È®ÀÎ <-
+		//ì•„ì´í…œ í™•ì¸ <-
 
-		(*pAbility) = iBase;//¾îºô¸®Æ¼ º£ÀÌ½º¸¦ ¼ÂÆÃ ÇØÁØ´Ù. 
+		(*pAbility) = iBase;//ì–´ë¹Œë¦¬í‹° ë² ì´ìŠ¤ë¥¼ ì…‹íŒ… í•´ì¤€ë‹¤. 
 		
 		if( Statkind == ADD_ABILITY[nClass][0] )
 		{
-			::AddAbility(pMaster, ADD_ABILITY[nClass][0], nFirst);//ÁÖ»çÀ§ ±¼¸° ¾îºô Áö±Ş
+			::AddAbility(pMaster, ADD_ABILITY[nClass][0], nFirst);//ì£¼ì‚¬ìœ„ êµ´ë¦° ì–´ë¹Œ ì§€ê¸‰
 			AfterReserve -= nFirst;
 		}
 		
@@ -689,7 +689,7 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 			AfterReserve -= nSecond;
 		}
 
-		const int iBeforeReservePoint = pMaster->GetReservedPoint();//¸®Àúºê Æ÷ÀÎÆ®¿¡ ´õÇØÁà¾ß ÇÑ´Ù.
+		const int iBeforeReservePoint = pMaster->GetReservedPoint();//ë¦¬ì €ë¸Œ í¬ì¸íŠ¸ì— ë”í•´ì¤˜ì•¼ í•œë‹¤.
 			
 		pMaster->SetReservedPoint( iBeforeReservePoint + AfterReserve );
 		::SendCharInfo(idMaster);
@@ -698,6 +698,6 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 	}
 	else
 	{
-		::OutMessage(pMaster,0,500);//ÀÓ½Ã,,ÀÎº¥Åä¸® °ø°£ÀÌ ÃæºĞÄ¡ ¾Ê½À´Ï´Ù.
+		::OutMessage(pMaster,0,500);//ì„ì‹œ,,ì¸ë²¤í† ë¦¬ ê³µê°„ì´ ì¶©ë¶„ì¹˜ ì•ŠìŠµë‹ˆë‹¤.
 	}//> CSD-030806
 }

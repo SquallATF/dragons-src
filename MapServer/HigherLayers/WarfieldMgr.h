@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	WarfieldMgr.h.
  *			interface for the CWarfieldMgr class.
  */
@@ -8,8 +8,8 @@
 
 /**
  * @class	CWarfieldMgr.
- * @brief	ÀüÀï °ü¸®ÀÚ ¸ðµâÀÇ ¿ÜºÎÅë·Î.
- *			¸Ê¼­¹öÀÇ ÀüÀï °ü¸®ÀÚ ¸ðµâÀÇ ¿ÜºÎ·ÎºÎÅÍ ÇÏ³ªÀÇ Åë·Î¸¦ Á¦°øÇÏ´Â Å¬·¡½º.
+ * @brief	ì „ìŸ ê´€ë¦¬ìž ëª¨ë“ˆì˜ ì™¸ë¶€í†µë¡œ.
+ *			ë§µì„œë²„ì˜ ì „ìŸ ê´€ë¦¬ìž ëª¨ë“ˆì˜ ì™¸ë¶€ë¡œë¶€í„° í•˜ë‚˜ì˜ í†µë¡œë¥¼ ì œê³µí•˜ëŠ” í´ëž˜ìŠ¤.
  */
 //< LTH-031219-KO.
 class CWarfieldMgr  
@@ -26,23 +26,23 @@ public:
 		WPM_CREATE_WARFIELD = 1,		/**< Create Warfield MapServer. */
 		WPM_GET_WARFIELD_STATE = 2,		/**< Get Current Warfield Status. */
 		WPM_SET_WARFIELD_STATE = 3,		/**< Set Current Warfield Status. */
-		WPM_SET_REMAINTIME = 4,			/**< ÇöÀç stateÀÇ ³²Àº ½Ã°£À» ¼³Á¤ÇÑ´Ù. */
-		WPM_GET_REMAINTIME = 5,			/**< ÇöÀç stateÀÇ ³²Àº ½Ã°£À» ¹ÝÈ¯ÇÑ´Ù. */
+		WPM_SET_REMAINTIME = 4,			/**< í˜„ìž¬ stateì˜ ë‚¨ì€ ì‹œê°„ì„ ì„¤ì •í•œë‹¤. */
+		WPM_GET_REMAINTIME = 5,			/**< í˜„ìž¬ stateì˜ ë‚¨ì€ ì‹œê°„ì„ ë°˜í™˜í•œë‹¤. */
 		WPM_UPDATE = 6,					/**< Warfield MapServer Update routine. */
-		WPM_GET_SQUAD_MEMBER_COUNT = 7,	/**< ºÎ´ë ÀÎ¿ø¼ö¸¦ ¹ÝÈ¯ÇÑ´Ù. */
-		WPM_CAN_ATTACK_GUARD = 8,		/**< ¼öÈ£¼®ÀÌ³ª ¼º¹®ÀÌ °ø°ÝÇÒ ¼öÀÖ´Â´ë»óÀÎ°¡ ¹ÝÈ¯. */
-		WPM_INSERT_SQUAD_MEMBER = 9,	/**< À¯Àú¸¦ ºÎ´ë ¸â¹ö·Î »ðÀÔÇÑ´Ù. */
-		WPM_DELETE_SQUAD_MEMBER = 10,	/**< À¯Àú¸¦ ºÎ´ë ¸â¹ö¿¡¼­ Á¦°ÅÇÑ´Ù. */
-		WPM_GET_WARFIELDDATA = 11,		/**< Guardµé(¼º¹®, ¼öÈ£¼®µî)ÀÇ Á¤º¸ ¹× Team Á¤º¸¸¦ ¹ÝÈ¯. */
-		WPM_GET_TEAM_MEMBER_COUNT = 12,	/**< °¢ ÆÀ¸¶´ÙÀÇ À¯Àú ¼ýÀÚ¸¦ ¼¾´Ù. */
-		WPM_SEND_SQUAD_CHAT = 13,		/**< ºÎ´ë Ã¤ÆÃ Àü¼Û. */
-		WPM_GET_LIVE_POINT = 14,		/**< ºÎÈ° À§Ä¡ ¹ÝÈ¯. */
-		WPM_GET_DONT_DATA = 15,			/**< Dont Tile Data ¹ÝÈ¯. */
-		WPM_CHECK_AND_KICK_USER = 16,	/**< À¯Àú¸¦ Ã¼Å©ÇÏ¿© ÆÐ¹è Çß´Ù¸é ¸¶À»·Î µ¹·Áº¸³½´Ù. */
-		WPM_SET_LOOPTIME_CHANGE = 17,	/**< ÇöÀç »óÅÂÀÇ Áö¼Ó½Ã°£À» Àç¼³Á¤ÇÑ´Ù. */
-		WPM_UPDATE_GUARD_STATUS = 18,	/**< ¼öÈ£¼®ÀÌ³ª ¼º¹®ÀÇ ÇöÀç »óÅÂ¸¦ °»½ÅÇÑ´Ù. */
-		WPM_INC_DEATH_MEMBER = 19,		/**< ±¹°¡º° Á×Àº ÀÎ¿øÀ» Áõ°¡ ½ÃÅ²´Ù. */
-		WPM_CHECK_JOIN_NATION = 20,		/**< ±¹°¡Àü¿¡ Âü¿©ÇÒ ±¹°¡ Á¤º¸ Ã¼Å©. */
+		WPM_GET_SQUAD_MEMBER_COUNT = 7,	/**< ë¶€ëŒ€ ì¸ì›ìˆ˜ë¥¼ ë°˜í™˜í•œë‹¤. */
+		WPM_CAN_ATTACK_GUARD = 8,		/**< ìˆ˜í˜¸ì„ì´ë‚˜ ì„±ë¬¸ì´ ê³µê²©í•  ìˆ˜ìžˆëŠ”ëŒ€ìƒì¸ê°€ ë°˜í™˜. */
+		WPM_INSERT_SQUAD_MEMBER = 9,	/**< ìœ ì €ë¥¼ ë¶€ëŒ€ ë©¤ë²„ë¡œ ì‚½ìž…í•œë‹¤. */
+		WPM_DELETE_SQUAD_MEMBER = 10,	/**< ìœ ì €ë¥¼ ë¶€ëŒ€ ë©¤ë²„ì—ì„œ ì œê±°í•œë‹¤. */
+		WPM_GET_WARFIELDDATA = 11,		/**< Guardë“¤(ì„±ë¬¸, ìˆ˜í˜¸ì„ë“±)ì˜ ì •ë³´ ë° Team ì •ë³´ë¥¼ ë°˜í™˜. */
+		WPM_GET_TEAM_MEMBER_COUNT = 12,	/**< ê° íŒ€ë§ˆë‹¤ì˜ ìœ ì € ìˆ«ìžë¥¼ ì„¼ë‹¤. */
+		WPM_SEND_SQUAD_CHAT = 13,		/**< ë¶€ëŒ€ ì±„íŒ… ì „ì†¡. */
+		WPM_GET_LIVE_POINT = 14,		/**< ë¶€í™œ ìœ„ì¹˜ ë°˜í™˜. */
+		WPM_GET_DONT_DATA = 15,			/**< Dont Tile Data ë°˜í™˜. */
+		WPM_CHECK_AND_KICK_USER = 16,	/**< ìœ ì €ë¥¼ ì²´í¬í•˜ì—¬ íŒ¨ë°° í–ˆë‹¤ë©´ ë§ˆì„ë¡œ ëŒë ¤ë³´ë‚¸ë‹¤. */
+		WPM_SET_LOOPTIME_CHANGE = 17,	/**< í˜„ìž¬ ìƒíƒœì˜ ì§€ì†ì‹œê°„ì„ ìž¬ì„¤ì •í•œë‹¤. */
+		WPM_UPDATE_GUARD_STATUS = 18,	/**< ìˆ˜í˜¸ì„ì´ë‚˜ ì„±ë¬¸ì˜ í˜„ìž¬ ìƒíƒœë¥¼ ê°±ì‹ í•œë‹¤. */
+		WPM_INC_DEATH_MEMBER = 19,		/**< êµ­ê°€ë³„ ì£½ì€ ì¸ì›ì„ ì¦ê°€ ì‹œí‚¨ë‹¤. */
+		WPM_CHECK_JOIN_NATION = 20,		/**< êµ­ê°€ì „ì— ì°¸ì—¬í•  êµ­ê°€ ì •ë³´ ì²´í¬. */
 		WPM_MAX_WARFIELD_PROC_MSG,		/**< Max Value of number of message. */
 	} eWARFIELD_PROC_MSG;				/**< CWarfieldMgr::eWARFIELD_PROC_MSG. */
 	//> LTH-031222-KO

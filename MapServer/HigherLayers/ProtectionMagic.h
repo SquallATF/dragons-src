@@ -1,4 +1,4 @@
-// ProtectionMagic.h: interface for the CProtectionMagic class.
+ï»¿// ProtectionMagic.h: interface for the CProtectionMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// º¸È£°è¿­ ¸¶¹ı
+// ë³´í˜¸ê³„ì—´ ë§ˆë²•
 class CProtectionMagic : public TBinder<CMagic, CProtectionMagic>
 {
 public:
@@ -33,7 +33,7 @@ public:
   }
 
 public:
-  bool DragonScale();        // ÀÏ¹İ º¸È£ °è¿­ ¸¶¹ı
+  bool DragonScale();        // ì¼ë°˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²•
   bool ProtectRangeWeapon();
   bool FireResist();
   bool IceResist();
@@ -45,10 +45,10 @@ public:
   bool ProtectDanger();
   bool GreatShield();
   bool AuthorityLethy();     // CSD-021015
-  bool NullityMagic();       // Æ¯¼ö º¸È£ °è¿­ ¸¶¹ı
+  bool NullityMagic();       // íŠ¹ìˆ˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²•
   bool CancelDivine();
   bool RecurrenceDivine();
-  bool PerfectProtect();     // ¿¹¿Ü º¸È£ °è¿­ ¸¶¹ı 
+  bool PerfectProtect();     // ì˜ˆì™¸ ë³´í˜¸ ê³„ì—´ ë§ˆë²• 
    bool AuthorityOfAthyas();	// 030415 kyo 
 };
 //

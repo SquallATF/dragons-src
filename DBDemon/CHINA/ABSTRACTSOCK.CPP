@@ -1,4 +1,4 @@
-// AbstractSock.cpp: implementation of the CAbstractSock class.
+﻿// AbstractSock.cpp: implementation of the CAbstractSock class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-#ifndef _DRAGON_CHARLIST_
+ï»¿#ifndef _DRAGON_CHARLIST_
 #define _DRAGON_CHARLIST_
 
 #if _MSC_VER > 1000
@@ -6,7 +6,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ¿¡ °üÇÑ Å¬·¡½º
+// ìºë¦­í„°ì— ê´€í•œ í´ë˜ìŠ¤
 template<class T1, class T2, class T3> 
 class TCharList : public T1, public T2, public T3
 { 
@@ -32,7 +32,7 @@ public:
 	bool IsCurseAvoid(BYTE nType) const; // CSD-021024
 	bool IsDoubleExpUp() const; // CSD-040803
 	
-	int GetExtPoisonByItem() const;//¾ÆÀÌÅÛ¿¡ ÀÇÇØ ´õÇØÁö´Â ¸¶¹ı¹æ¾î·Â
+	int GetExtPoisonByItem() const;//ì•„ì´í…œì— ì˜í•´ ë”í•´ì§€ëŠ” ë§ˆë²•ë°©ì–´ë ¥
 	int GetExtCurseByItem() const;
 	int GetExtHolyByItem() const;
 	int GetExtFireByItem() const;
@@ -40,7 +40,7 @@ public:
 	int GetExtElectByItem() const;
 	
 protected:  
-	int GetExtPoison() const;//ÃÖÁ¾ ¸¶¹ı¹æ¾î·ÂÀÇ ÇÕ( GetBasicResist(RT_XXX) + GetExtPoisonByItem())
+	int GetExtPoison() const;//ìµœì¢… ë§ˆë²•ë°©ì–´ë ¥ì˜ í•©( GetBasicResist(RT_XXX) + GetExtPoisonByItem())
 	int GetExtCurse() const;
 	int GetExtHoly() const;
 	int GetExtFire() const;
@@ -54,24 +54,24 @@ protected:
 
 template<class T1, class T2, class T3> 
 void TCharList<T1, T2, T3>::CorrectRiseFall(BYTE nType, int nX, int nY, int& rDamage)
-{	// ³ô³·ÀÌ¿¡ µû¸¥ º¸Á¤
+{	// ë†’ë‚®ì´ì— ë”°ë¥¸ ë³´ì •
 	const BYTE nRiseFall = GetRiseFall(nX, nY);	
-	const int nTemp = rDamage*0.2; // ³ô³·ÀÌ¿¡ µû¶ó 20% µ¥¹ÌÁö Â÷ÀÌ
+	const int nTemp = rDamage*0.2; // ë†’ë‚®ì´ì— ë”°ë¼ 20% ë°ë¯¸ì§€ ì°¨ì´
 	
 	switch (nType)
 	{
-    case 0: // °í->Àú, Àú->°í, °°Àº ³ôÀÌ ¸ğµç °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+    case 0: // ê³ ->ì €, ì €->ê³ , ê°™ì€ ë†’ì´ ëª¨ë“  ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 		{
 			if (nRiseFall == 1)  rDamage += nTemp; 
 			if (nRiseFall == 2)  rDamage -= nTemp;
 			break;
 		}
-    case 2: // °í->Àú¿Í °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+    case 2: // ê³ ->ì €ì™€ ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 		{
 			if (nRiseFall == 1)  rDamage += nTemp; 
 			break;
 		}
-    case 3: // Àú->°í¿Í °°Àº ³ôÀÌ¸¸ °ø°İÀÌ °¡´ÉÇÑ °æ¿ì
+    case 3: // ì €->ê³ ì™€ ê°™ì€ ë†’ì´ë§Œ ê³µê²©ì´ ê°€ëŠ¥í•œ ê²½ìš°
 		{
 			if (nRiseFall == 2)  rDamage -= nTemp;
 			break;
@@ -81,7 +81,7 @@ void TCharList<T1, T2, T3>::CorrectRiseFall(BYTE nType, int nX, int nY, int& rDa
 
 template<class T1, class T2, class T3> 
 void TCharList<T1, T2, T3>::CorrectStrikeRange(int nDistance, int& rDamage)
-{	// ¹°¸®Àû °ø°İÀÇ °Å¸®¿¡ µû¸¥ º¸Á¤
+{	// ë¬¼ë¦¬ì  ê³µê²©ì˜ ê±°ë¦¬ì— ë”°ë¥¸ ë³´ì •
 	int nPlus = RareEM.GetStaticRareDistant(StaticRare);
 	
 	if (nPlus > 0)
@@ -101,14 +101,14 @@ void TCharList<T1, T2, T3>::CorrectStrikeRange(int nDistance, int& rDamage)
 		
 		if (nDistance < nMin)  nPlus = 0;
 		else if (nDistance < nMid)	 nPlus = (nPlus>>1);
-		// µ¥¹ÌÁö º¸Á¤
+		// ë°ë¯¸ì§€ ë³´ì •
 		rDamage = rDamage*(100 + nPlus)/100;
 	}
 }
 
 template<class T1, class T2, class T3> 
 void TCharList<T1, T2, T3>::CorrectMagicRange(int nDistance, int& rDamage)
-{	// °ø°İ ¸¶¹ıÀÇ °Å¸®¿¡ µû¸¥ º¸Á¤
+{	// ê³µê²© ë§ˆë²•ì˜ ê±°ë¦¬ì— ë”°ë¥¸ ë³´ì •
 	switch (nDistance/6)
 	{
     case 0:  rDamage = rDamage;        break;
@@ -119,7 +119,7 @@ void TCharList<T1, T2, T3>::CorrectMagicRange(int nDistance, int& rDamage)
 
 template<class T1, class T2, class T3> 
 void TCharList<T1, T2, T3>::CorrectCombatRange(int nDistance, int& rDamage)
-{	// ÀüÅõ½ºÅ³ÀÇ °Å¸®¿¡ µû¸¥ º¸Á¤
+{	// ì „íˆ¬ìŠ¤í‚¬ì˜ ê±°ë¦¬ì— ë”°ë¥¸ ë³´ì •
 	switch (nDistance/6)
 	{
     case 0:  rDamage = rDamage;        break;
@@ -130,9 +130,9 @@ void TCharList<T1, T2, T3>::CorrectCombatRange(int nDistance, int& rDamage)
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcAttackSuccessRate(int nStatic, int nDynamic)
-{	// ¹°¸®Àû °ø°İÀÌ ¼º°øÇÒ È®·ü °è»ê
+{	// ë¬¼ë¦¬ì  ê³µê²©ì´ ì„±ê³µí•  í™•ë¥  ê³„ì‚°
 	if (dwDontMiss > 0)  return 100;
-	// ±â´É ¾ÆÀÌÅÛ »ó¼â
+	// ê¸°ëŠ¥ ì•„ì´í…œ ìƒì‡„
 	const int nForceValue = RareEM.GetDynamicRareValue(FITEM_STROKE, DynamicRare);
 	
 	if (nDynamic <= 0 && nForceValue > 0)
@@ -144,7 +144,7 @@ int TCharList<T1, T2, T3>::CalcAttackSuccessRate(int nStatic, int nDynamic)
 	const int nDex = __min(GetAbility(DEX)/60, 5);
 	const int nAttack = nDex + nItem + ((GetActiveCombat()) ? 85:75);
 	const int nDefence = __max(nStatic, nDynamic);
-	// ¼º°ø·ü °è»ê
+	// ì„±ê³µë¥  ê³„ì‚°
 	int nResult = nAttack - nDefence;
 	if (nResult < 0)    nResult = 0;
 	if (nResult > 100)  nResult = 100;
@@ -153,7 +153,7 @@ int TCharList<T1, T2, T3>::CalcAttackSuccessRate(int nStatic, int nDynamic)
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcMagicSuccessRate(int nDefence)
-{	//< CSD-030306 : ¸¶¹ıÀÌ ¼º°øÇÒ È®·ü °è»ê
+{	//< CSD-030306 : ë§ˆë²•ì´ ì„±ê³µí•  í™•ë¥  ê³„ì‚°
 	if (dwDontMiss > 0)  return 100;
 	
 	const int nInt = GetAbility(INT_);
@@ -162,7 +162,7 @@ int TCharList<T1, T2, T3>::CalcMagicSuccessRate(int nDefence)
 	int nAttack = (nInt + nWis + nWsPs)*0.3 + 80;
 	if (nAttack < 0)    nAttack = 0;
 	if (nAttack > 100)  nAttack = 100;
-	// ¼º°ø·ü °è»ê
+	// ì„±ê³µë¥  ê³„ì‚°
 	int nResult = nAttack - nDefence;
 	if (nResult < 0)    nResult = 0;
 	if (nResult > 100)  nResult = 100;
@@ -171,31 +171,31 @@ int TCharList<T1, T2, T3>::CalcMagicSuccessRate(int nDefence)
 
 template<class T1, class T2, class T3>
 int TCharList<T1, T2, T3>::CalcPhysicalStrikingPower(int nPercent, int nAdd)
-{	// ¹°¸®Àû °ø°İ·Â °è»ê
+{	// ë¬¼ë¦¬ì  ê³µê²©ë ¥ ê³„ì‚°
 	if (IsNpc())		
-	{	// NPCÀÎ °æ¿ì´Â µ¥ÀÌºí¿¡¼­ Á÷Á¢ ÂüÁ¶
+	{	// NPCì¸ ê²½ìš°ëŠ” ë°ì´ë¸”ì—ì„œ ì§ì ‘ ì°¸ì¡°
 		const int nTemp = GetNpcAttack();
 		return (nTemp*(rand()%3 + 9))/10;
 	} 
 	
-	const int nWeapon =	CalcWeaponHit()*GetWeaponSkill(); // ¹«±â °ø°İ·Â °è»ê
-	const int nBase = (GetLevel()<<2) + (nWeapon>>3) + Str/5 + 20 + rand()%20; // CSD-030806 : ±âº» °ø°İ·Â °è»ê
+	const int nWeapon =	CalcWeaponHit()*GetWeaponSkill(); // ë¬´ê¸° ê³µê²©ë ¥ ê³„ì‚°
+	const int nBase = (GetLevel()<<2) + (nWeapon>>3) + Str/5 + 20 + rand()%20; // CSD-030806 : ê¸°ë³¸ ê³µê²©ë ¥ ê³„ì‚°
 	const int nActive = GetActiveCombat();
 	const int nPassive = GetPassiveCombat();
-	const int nCritial = CalcCriticalHit(nActive, nPassive); // Å©¸®Æ¼Ä® È÷Æ®¿¡ ÀÇÇÑ º¸Á¤
-	const int nVigor = RareEM.GetStaticRareVigor(StaticRare); // ºñ°Å ¾ÆÀÌÅÛ ¼Ó¼º¿¡ ÀÇÇÑ º¸Á¤
-	const int nSum = 100 + nPercent + nCritial + nVigor; // º¸Á¤°ªµéÀÇ ÇÕ(´ÜÀ§ %)
+	const int nCritial = CalcCriticalHit(nActive, nPassive); // í¬ë¦¬í‹°ì¹¼ íˆíŠ¸ì— ì˜í•œ ë³´ì •
+	const int nVigor = RareEM.GetStaticRareVigor(StaticRare); // ë¹„ê±° ì•„ì´í…œ ì†ì„±ì— ì˜í•œ ë³´ì •
+	const int nSum = 100 + nPercent + nCritial + nVigor; // ë³´ì •ê°’ë“¤ì˜ í•©(ë‹¨ìœ„ %)
 	const int nPlus = RareEM.GetStaticRarePower(StaticRare) +
 					  RareEM.GetDynamicRareValue(FITEM_POWER_UP, DynamicRare) +
 					  RareEM.GetStaticRareHighPower(StaticRare);
 	const int nPower = nAdd + ((GetWeaponSkill()*nPlus)>>3);
-	// »ó¼ö¿¡ ÀÇÇÑ º¸Á¤
+	// ìƒìˆ˜ì— ì˜í•œ ë³´ì •
 	return (nBase*nSum/100 + nPower)*1.4;
 }
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcPhysicalDefensivePower(int nAttack, int nPercent)
-{	// ¹°¸®Àû ¹æ¾î·Â °è»ê
+{	// ë¬¼ë¦¬ì  ë°©ì–´ë ¥ ê³„ì‚°
 	if (IsNpc())
 	{
 		const int nAc = __min(GetNpcDefence(), 100);
@@ -207,15 +207,15 @@ int TCharList<T1, T2, T3>::CalcPhysicalDefensivePower(int nAttack, int nPercent)
 					RareEM.GetStaticRareHighShield(StaticRare) +
 					RareEM.GetDynamicRareValue(FITEM_HEAVY_ARMOR, DynamicRare);
 	const int nParrying = (!IsShield()) ? 0:Skill[TACTICS_Parrying]/25;
-	const int nBase = __min(nAc, 282); // ÃÖ´ë 235/250 ºñÀ²·Î °è»ê
-	const int nSum = 100 + nPercent;               // Ãß°¡ ¹æ¾î·Â(%)
-	const int nMax = nAttack*0.95;                 // ÃÖ´ë ¹æ¾î·Â
+	const int nBase = __min(nAc, 282); // ìµœëŒ€ 235/250 ë¹„ìœ¨ë¡œ ê³„ì‚°
+	const int nSum = 100 + nPercent;               // ì¶”ê°€ ë°©ì–´ë ¥(%)
+	const int nMax = nAttack*0.95;                 // ìµœëŒ€ ë°©ì–´ë ¥
 	return __min((nAttack*nBase/300)*nSum/100, nMax);
 }
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcMagicStrikingPower(int nHD, int nPercent, int nAdd)
-{	// °ø°İ°è¿­ ¸¶¹ı °ø°İ·Â °è»ê
+{	// ê³µê²©ê³„ì—´ ë§ˆë²• ê³µê²©ë ¥ ê³„ì‚°
 	if (IsNpc())
 	{
 		return GetNpcMagic() + nHD;
@@ -226,7 +226,7 @@ int TCharList<T1, T2, T3>::CalcMagicStrikingPower(int nHD, int nPercent, int nAd
 	switch (Spell)
 	{
     case WIZARD_SPELL:
-		{	// ¸¶¹ı»ç¶ó¸é
+		{	// ë§ˆë²•ì‚¬ë¼ë©´
 			const int nItem = RareEM.GetStaticRareMagic_vigor(StaticRare) + 
 							  RareEM.GetDynamicRareValue(FITEM_SPELL_UP, DynamicRare)+
 							  RareEM.GetStaticRareHighMagic(StaticRare);//027030 lsw
@@ -235,7 +235,7 @@ int TCharList<T1, T2, T3>::CalcMagicStrikingPower(int nHD, int nPercent, int nAd
 			break;
 		}
     case PRIEST_SPELL:
-		{	// ¼ºÁ÷ÀÚ¶ó¸é
+		{	// ì„±ì§ìë¼ë©´
 			const int nItem = RareEM.GetStaticRareNature_vigor(StaticRare) + 
 						      RareEM.GetDynamicRareValue(FITEM_SPELL_UP, DynamicRare)+
 							  RareEM.GetStaticRareHighNature(StaticRare);//027030 lsw
@@ -246,14 +246,14 @@ int TCharList<T1, T2, T3>::CalcMagicStrikingPower(int nHD, int nPercent, int nAd
 	}
 	
 	const int nBase = (GetLevel()<<2) + (nTactics>>3) + (nAbility/5) + 30 + rand()%10; // CSD-030806
-	const int nSum = 100 + nPercent; // º¸Á¤°ªµéÀÇ ÇÕ(´ÜÀ§ %)
+	const int nSum = 100 + nPercent; // ë³´ì •ê°’ë“¤ì˜ í•©(ë‹¨ìœ„ %)
 	const int nPlus = nAdd;
 	return (nBase*nSum/100 + nPlus)*1.4;
 }
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcMagicDefensivePower(BYTE nType, int nAttack, int nPercent)
-{	// °ø°İ°è¿­ ¸¶¹ı º¡¾î·Â °è»ê
+{	// ê³µê²©ê³„ì—´ ë§ˆë²• ë²™ì–´ë ¥ ê³„ì‚°
 	if (IsNpc())
 	{
 		const int nAc = __min(GetNpcDefence(nType), 100);
@@ -271,18 +271,18 @@ int TCharList<T1, T2, T3>::CalcMagicDefensivePower(BYTE nType, int nAttack, int 
     case RESIST_IGNORE: nResist = 0;              break;
 	}
 	
-	const int nMax = nAttack*0.95;           // ÃÖ´ë ¹æ¾î·Â
-	const int nAc = Ac*5/6;                  // ÃÖÁ¾ AC
-	const int nEndu = (GetAbility(ENDU)>>2); // ÃÖÁ¾ ENDU
-	// ÃÖ´ë 235/250 ºñÀ²·Î °è»ê
+	const int nMax = nAttack*0.95;           // ìµœëŒ€ ë°©ì–´ë ¥
+	const int nAc = Ac*5/6;                  // ìµœì¢… AC
+	const int nEndu = (GetAbility(ENDU)>>2); // ìµœì¢… ENDU
+	// ìµœëŒ€ 235/250 ë¹„ìœ¨ë¡œ ê³„ì‚°
 	const int nBase = __min(nResist + nAc + nEndu, 235);
-	const int nSum = 100 + nPercent; // Ãß°¡ ¹æ¾î·Â(%)
+	const int nSum = 100 + nPercent; // ì¶”ê°€ ë°©ì–´ë ¥(%)
 	return __min((nAttack*nBase/250)*nSum/100, nMax);
 }
 
 template<class T1, class T2, class T3>
 int TCharList<T1, T2, T3>::CalcMagicCastReady(BYTE nMagic)
-{	// ¸¶¹ı ½ÃÀü½Ã°£ °è»ê
+{	// ë§ˆë²• ì‹œì „ì‹œê°„ ê³„ì‚°
 	const int nMinus = RareEM.GetStaticRareWise(StaticRare) + 
 		RareEM.GetDynamicRareValue(FITEM_SLIGHT, DynamicRare); 
 	const int nReady = GetCastReady(nMagic)*(100 - nMinus)/100;
@@ -290,12 +290,12 @@ int TCharList<T1, T2, T3>::CalcMagicCastReady(BYTE nMagic)
 	switch (Spell)
 	{
     case WIZARD_SPELL: 
-		{ // ¸¶¹ı»çÀÎ °æ¿ì
+		{ // ë§ˆë²•ì‚¬ì¸ ê²½ìš°
 			const int nTime = nReady*(750 - GetAbility(INT_))/650; 
 			return __max(nTime, 300);
 		}
     case PRIEST_SPELL: 
-		{ // ¼ºÁ÷ÀÚÀÎ °æ¿ì
+		{ // ì„±ì§ìì¸ ê²½ìš°
 			const int nTime = nReady*(1000 - GetAbility(WIS))/1500 + (nReady>>1);
 			return __max(nTime, 600);
 		}
@@ -306,7 +306,7 @@ int TCharList<T1, T2, T3>::CalcMagicCastReady(BYTE nMagic)
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcMagicPeriod(BYTE nType, int nContinue)
-{	// ¸¶¹ı À¯Áö½Ã°£ °è»ê
+{	// ë§ˆë²• ìœ ì§€ì‹œê°„ ê³„ì‚°
 	if (IsNpc())
 	{
 		return nContinue + rand()%5;
@@ -317,7 +317,7 @@ int TCharList<T1, T2, T3>::CalcMagicPeriod(BYTE nType, int nContinue)
 	switch (Spell)
 	{
     case WIZARD_SPELL: 
-		{	// ¸¶¹ı»ç¶ó¸é
+		{	// ë§ˆë²•ì‚¬ë¼ë©´
 			switch (nType/10)
 			{
 			case MT_PROTECTION: 
@@ -343,7 +343,7 @@ int TCharList<T1, T2, T3>::CalcMagicPeriod(BYTE nType, int nContinue)
 			break;
 		}
     case PRIEST_SPELL: 
-		{	// ¼ºÁ÷ÀÚ¶ó¸é
+		{	// ì„±ì§ìë¼ë©´
 			switch (nType/10)
 			{
 			case MT_PROTECTION: 
@@ -374,8 +374,8 @@ int TCharList<T1, T2, T3>::CalcMagicPeriod(BYTE nType, int nContinue)
 	const int nWis = GetAbility(WIS);
 	const int nWsPs = GetAbility(WSPS);
 	const int nBase = nContinue*(nInt + nWis + nWsPs)/1000 + (nContinue>>1);
-	const int nSum = 100 + nItem; // º¸Á¤°ªµéÀÇ ÇÕ(´ÜÀ§ %)
-	// ·¹¾î ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ ½Ã°£ Áõ°¡
+	const int nSum = 100 + nItem; // ë³´ì •ê°’ë“¤ì˜ í•©(ë‹¨ìœ„ %)
+	// ë ˆì–´ ì•„ì´í…œì— ì˜í•œ ì‹œê°„ ì¦ê°€
 	int nAdd = 0;
 	
 	switch (nType/10)
@@ -402,17 +402,17 @@ int TCharList<T1, T2, T3>::CalcMagicPeriod(BYTE nType, int nContinue)
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcResistPeriod(BYTE nType, int nContinue)
-{	// ÀúÇ×·Â¿¡ µû¸¥ À¯Áö½Ã°£ °è»ê
+{	// ì €í•­ë ¥ì— ë”°ë¥¸ ìœ ì§€ì‹œê°„ ê³„ì‚°
 	int nResist = RareEM.GetDynamicRareValue(FITEM_RESIST_UP, DynamicRare);
 	
 	switch (nType)
 	{
-    case RESIST_POISON: // µ¶°è¿­ ÀúÁÖ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â 
+    case RESIST_POISON: // ë…ê³„ì—´ ì €ì£¼ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥ 
 		{ 
 			nResist += GetExtPoison();
 			return (__min(nResist, 235)*nContinue)/250;
 		}
-    case RESIST_CURSE:  // ¸¶ºñ°è¿­ ÀúÁÖ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+    case RESIST_CURSE:  // ë§ˆë¹„ê³„ì—´ ì €ì£¼ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 		{ 
 			nResist += GetExtCurse();
 			return (__min(nResist, 235)*nContinue)/250;
@@ -424,18 +424,18 @@ int TCharList<T1, T2, T3>::CalcResistPeriod(BYTE nType, int nContinue)
 
 template<class T1, class T2, class T3> 
 int TCharList<T1, T2, T3>::CalcMovePower()
-{	// ÀÌµ¿·Â °è»ê
-	if (dwDontMove > 0)       return 0;  // ÀÌµ¿ºÒ°¡ »óÅÂÀÎ °æ¿ì
-	if (nCurrentAction == 1)  return 0;  // ¾É¾Æ ÀÖ´Â °æ¿ì
-	// ±Ø¾Ç NKÀÎ °æ¿ì Ã³¸®
+{	// ì´ë™ë ¥ ê³„ì‚°
+	if (dwDontMove > 0)       return 0;  // ì´ë™ë¶ˆê°€ ìƒíƒœì¸ ê²½ìš°
+	if (nCurrentAction == 1)  return 0;  // ì•‰ì•„ ìˆëŠ” ê²½ìš°
+	// ê·¹ì•… NKì¸ ê²½ìš° ì²˜ë¦¬
 	const int nNation = MapInfo[MapNumber].nation;
 	if (GetNK(nNation) >= 100)  return 10;
 	if (GetNK(nNation) >= 10)   return 25;
-	// ÀÌµ¿ ¼Óµµ ±¸ÇÏ±â
+	// ì´ë™ ì†ë„ êµ¬í•˜ê¸°
 	int nMove = GetMovePower(HorseNo), nPlus = 0, nMinus = 0;
-	// ¸»À» Å¸°í ÀÖ´ÂÁö ¿©ºÎ
+	// ë§ì„ íƒ€ê³  ìˆëŠ”ì§€ ì—¬ë¶€
 	const bool bHorse = (HorseNo <= 0) ? false:true;
-	// ¸»À» Åº °æ¿ì´Â ÀÌµ¿Ä¡¿¡ °üÇÑ ÀüÅõ½ºÅ³, ¸¶¹ı ¹«½Ã
+	// ë§ì„ íƒ„ ê²½ìš°ëŠ” ì´ë™ì¹˜ì— ê´€í•œ ì „íˆ¬ìŠ¤í‚¬, ë§ˆë²• ë¬´ì‹œ
 	if (!bHorse)
 	{	//< CSD-020710
 		switch (GetPassiveCombat())
@@ -444,18 +444,18 @@ int TCharList<T1, T2, T3>::CalcMovePower()
 		}
 		
 		CorrectMovePlus(nMove, nPlus);
-		// ·¹¾î¿¡ ´ëÇÑ º¸Á¤
+		// ë ˆì–´ì— ëŒ€í•œ ë³´ì •
 		nMove += (RareEM.GetStaticRareSpeed(StaticRare)>>1);
 		nMove += RareEM.GetDynamicRareValue(FITEM_SPEED_UP, DynamicRare);
 	}	//> CSD-020710
 	
 	if (IsFreeze())
-	{	//< CSD-021024 : ¾ó¸² »óÅÂÀÎ °æ¿ì¶ó¸é
+	{	//< CSD-021024 : ì–¼ë¦¼ ìƒíƒœì¸ ê²½ìš°ë¼ë©´
 		nMinus = 50;
 	}	//> CSD-021024
 	
 	CorrectMoveMinus(nMove, nMinus);
-	// ¹è°íÇÄ ¼öÄ¡°¡ 0°Å³ª À¯·ÉÀÎ °æ¿ì  ¿òÁ÷ÀÓÀº 1/2·Î ÁÙ¾îµë
+	// ë°°ê³ í”” ìˆ˜ì¹˜ê°€ 0ê±°ë‚˜ ìœ ë ¹ì¸ ê²½ìš°  ì›€ì§ì„ì€ 1/2ë¡œ ì¤„ì–´ë“¬
 	return (IsHungry()) ? (nMove>>1):nMove;
 }
 

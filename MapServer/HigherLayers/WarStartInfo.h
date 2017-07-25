@@ -1,4 +1,4 @@
-// WarStartInfo.h: interface for the CWarStartInfo class.
+О╩©// WarStartInfo.h: interface for the CWarStartInfo class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// а╒╪сюз ╟Э╦╝ е╛╥║╫╨
+// Л═▒Л├█Л·░ Й╢─К╕╛ М│╢К·≤Л┼╓
 class CWarStartInfo  
 {
 	typedef vector<START_UP_INFO*> VECTOR_TIME;

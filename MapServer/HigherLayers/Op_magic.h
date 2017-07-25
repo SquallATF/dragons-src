@@ -1,17 +1,17 @@
-#if !defined(AFX_OP_MAGIC_H__9E46C0B2_FD86_4EBD_B107_B9D8B67B0669__INCLUDED_)
+ï»¿#if !defined(AFX_OP_MAGIC_H__9E46C0B2_FD86_4EBD_B107_B9D8B67B0669__INCLUDED_)
 #define AFX_OP_MAGIC_H__9E46C0B2_FD86_4EBD_B107_B9D8B67B0669__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define		SET_LOSTSIGHT	1			//½Ã·Â»ó½Ç
-#define		LIGHTNESS		2			//ºû¿¡ ÀÇÇÑ ¾îµÒÇØ¼Ò
-#define		SET_CUREBLIND	3			//½Ã·ÂÈ¸º¹ Ã³¸®
-#define		SET_INFORMATION	4			//¼ºÁ÷ÀÚ-¹Ù¸¥ ±ú´ßÀ½(»ó´ë Á¤º¸¸¦ ¾ò¾î¿È)
+#define		SET_LOSTSIGHT	1			//ì‹œë ¥ìƒì‹¤
+#define		LIGHTNESS		2			//ë¹›ì— ì˜í•œ ì–´ë‘ í•´ì†Œ
+#define		SET_CUREBLIND	3			//ì‹œë ¥íšŒë³µ ì²˜ë¦¬
+#define		SET_INFORMATION	4			//ì„±ì§ìž-ë°”ë¥¸ ê¹¨ë‹­ìŒ(ìƒëŒ€ ì •ë³´ë¥¼ ì–»ì–´ì˜´)
 
-////////////////////////// lkh 0725 ¼öÁ¤ ///////////////////////////
-#define		TRAP_TIME		60			//¸¶¹ý µ£ À¯Áö½Ã°£ : 60000¹Ð¸®ÃÊ->1ºÐ
+////////////////////////// lkh 0725 ìˆ˜ì • ///////////////////////////
+#define		TRAP_TIME		60			//ë§ˆë²• ë« ìœ ì§€ì‹œê°„ : 60000ë°€ë¦¬ì´ˆ->1ë¶„
 
 enum eT_TYPE
 {
@@ -39,7 +39,7 @@ extern MAGICTRAP	g_MagicTrap;
 extern LPMAGICTRAP	g_lpMagicTrap[8][8];
 extern int			g_Condition_Table[8][8];
 
-/////////////////////////// 0320 lkh Ãß°¡ //////////////////////////////
+/////////////////////////// 0320 lkh ì¶”ê°€ //////////////////////////////
 extern void	LoadConditionTable(void);
 extern void InitTrap();
 extern BOOL	InsertTrap(short int tile_X, short int tile_Y, short int trap_Type, DWORD continue_Time);

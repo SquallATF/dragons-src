@@ -1,8 +1,8 @@
-#ifndef __SCRP_EXE_H__
+ï»¿#ifndef __SCRP_EXE_H__
 #define __SCRP_EXE_H__
 
-#define QUEST_SPY			56			// ½ºÆÄÀÌ Äù½ºÆ® ¹øÈ£
-#define QUEST_SPY_END_STEP	200			// Á¾·á Á¶°Ç
+#define QUEST_SPY			56			// ìŠ¤íŒŒì´ í€˜ìŠ¤íŠ¸ ë²ˆí˜¸
+#define QUEST_SPY_END_STEP	200			// ì¢…ë£Œ ì¡°ê±´
 
 #define _SCRIPT_VARABLE_POINT_      300
 #define _SCRIPT_FUNCTION_POINT_     150
@@ -32,10 +32,10 @@
 #define s_PcMoney				(var[EventPC][6])
 #define s_Nation				(var[EventPC][7])		// 010530 YGI
 
-#define DUAL_FAME_FIELD		10 // ½ºÆÄÀÌ°ÔÀÓ ½ºÅ©¸³Æ® º¯¼ö 
+#define DUAL_FAME_FIELD		10 // ìŠ¤íŒŒì´ê²Œì„ ìŠ¤í¬ë¦½íŠ¸ ë³€ìˆ˜ 
 #define s_GhostLvDef		64
 #define s_GhostEndCountDef	65
-#define VAR_RESET			47 // DB Demon¿¡¼­ Ä³¸¯ÅÍµ¥ÀÌÅÍ ÃÊ±âÈ­À¸·Î »ç¿ë 
+#define VAR_RESET			47 // DB Demonì—ì„œ ìºë¦­í„°ë°ì´í„° ì´ˆê¸°í™”ìœ¼ë¡œ ì‚¬ìš© 
 
 struct QT 
 {
@@ -62,16 +62,16 @@ extern int MapMove(int idUser, const char* pMapName, int nX, int nY);
 extern int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY);
 extern int SearchItemByInv( int item_no, CHARLIST *ch );
 extern int SearchItemByInv( int item_no, CHARLIST *ch, int &a, int &b, int &c );
-extern int SendDial( short int cn, int npc_index, char *msg, int length );// npc¿¡°Ô ´ëÈ­¸¦ º¸³½´Ù.
+extern int SendDial( short int cn, int npc_index, char *msg, int length );// npcì—ê²Œ ëŒ€í™”ë¥¼ ë³´ë‚¸ë‹¤.
 
 enum eLDF_TYPE //enum Log Dual Fame
 {
-	LDF_LOCALWAR				=0,			// ±¹ÁöÀü
-	LDF_QUEST					=1,			// Äù½ºÆ®
-	LDF_NEOWAR					=2,			// LTH-040226-KO 1.4 ÀÌÈÄ ½Å±Ô±¹°¡Àü¿ë
+	LDF_LOCALWAR				=0,			// êµ­ì§€ì „
+	LDF_QUEST					=1,			// í€˜ìŠ¤íŠ¸
+	LDF_NEOWAR					=2,			// LTH-040226-KO 1.4 ì´í›„ ì‹ ê·œêµ­ê°€ì „ìš©
 };
 
-/*040719_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸® ¸ñÀû)
+/*040719_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ ëª©ì )
 extern void SaveLogChange_DualFame(CHARLIST *ch, const int nOldDualFame, const int nNewDualFame, eLDF_TYPE type); //030226 lsw
 */
 

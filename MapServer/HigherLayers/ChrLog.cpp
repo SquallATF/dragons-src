@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include <mmsystem.h>
 #include "DefaultHeader.h"
 #include "Scrp_int.h"
@@ -62,7 +62,7 @@ void LogCharacterStatusBasic( t_connection c[], int id, int state )
 	tp->Luck 				= ch->Luck;
 	tp->wsps 				= ch->wsps;
 
-	tp->Tactics 			= ch->Tactics;				// ¼±ÅÃÇÑ ÀüÅõ±â¼ú (º¸¿©ÁÖ±â À§ÇÔ)
+	tp->Tactics 			= ch->Tactics;				// ì„ íƒí•œ ì „íˆ¬ê¸°ìˆ  (ë³´ì—¬ì£¼ê¸° ìœ„í•¨)
 	memcpy( &tp->nation, &ch->name_status, sizeof( DWORD ) );		// 1004 YGI
 
 	tp->Money			= ch->Money;
@@ -73,12 +73,12 @@ void LogCharacterStatusBasic( t_connection c[], int id, int state )
 
 	tp->HungryMax = ch->HungryMax;
 	//030227 lsw
-	tp->nPoison = ch->GetBasicResist(RT_POISON); // ÀúÁÖ°è¿­ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nCurse	= ch->GetBasicResist(RT_CURSE);	 //	ÀúÁÖ°è¿­ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nHoly	= ch->GetBasicResist(RT_HOLY);    // ½Å·Â°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nFire	= ch->GetBasicResist(RT_FIRE);     //	ºÒ°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nIce	= ch->GetBasicResist(RT_ICE);       //	¾óÀ½°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â
-	tp->nElect	= ch->GetBasicResist(RT_ELECT);   //	Àü°Ý°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â
+	tp->nPoison = ch->GetBasicResist(RT_POISON); // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nCurse	= ch->GetBasicResist(RT_CURSE);	 //	ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nHoly	= ch->GetBasicResist(RT_HOLY);    // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nFire	= ch->GetBasicResist(RT_FIRE);     //	ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nIce	= ch->GetBasicResist(RT_ICE);       //	ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	tp->nElect	= ch->GetBasicResist(RT_ELECT);   //	ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 	
 	tp->X = ch->X;
 	tp->Y = ch->Y;

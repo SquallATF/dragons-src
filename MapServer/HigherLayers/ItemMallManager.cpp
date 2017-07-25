@@ -1,4 +1,4 @@
-// ItemMallManager.cpp: implementation of the CItemMallManager class.
+ï»¿// ItemMallManager.cpp: implementation of the CItemMallManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -37,7 +37,7 @@ CItemMallManager::~CItemMallManager()
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 int GetItemMallItemKind_ItemNo(const int nItemIdx)
 {
@@ -48,7 +48,7 @@ int GetItemMallItemKind_ItemNo(const int nItemIdx)
 	}
 	return -1;
 }
-//±â°£Á¦ÇÑÀÌ Áö³­ ¾ÆÀÌÅÛÀº »ç¿ë¸¸±âÃ¼Å©ÈÄ ¹é¾÷Å×ÀÌºí·Î ¿Å±ä´Ù.(±â°£Á¦ÇÑ¸¸±â½Ã Á¦°Å)
+//ê¸°ê°„ì œí•œì´ ì§€ë‚œ ì•„ì´í…œì€ ì‚¬ìš©ë§Œê¸°ì²´í¬í›„ ë°±ì—…í…Œì´ë¸”ë¡œ ì˜®ê¸´ë‹¤.(ê¸°ê°„ì œí•œë§Œê¸°ì‹œ ì œê±°)
 void CItemMallManager::Process_Item_to_game_TBL()
 {
 
@@ -62,19 +62,19 @@ void CItemMallManager::Process_Item_to_game_TBL()
 
 	int	nCnt_IsUseItemMallItem = 0;	
 	GetRowLineOfSQL(TOTAL_DB, ITEM_TO_GAME, "*", &nCnt_IsUseItemMallItem, condition);
-	if( nCnt_IsUseItemMallItem <= 0 )	//»ç¿ëÁßÀÎ ¸¶ÀÏ¸®Áö ±â°£Á¦ÇÑ ¾ÆÀÌÅÛÀÇ °¹¼ö°¡ ¸î°³³ª µÇ³ª?
+	if( nCnt_IsUseItemMallItem <= 0 )	//ì‚¬ìš©ì¤‘ì¸ ë§ˆì¼ë¦¬ì§€ ê¸°ê°„ì œí•œ ì•„ì´í…œì˜ ê°¯ìˆ˜ê°€ ëª‡ê°œë‚˜ ë˜ë‚˜?
 	{
 //			SendPutMenuString( cn, KM_FAIL, 218, _GetItemToGameTBL.server_id );
 		m_IsActiveProcess_byPer1Min = false;
-		return;	//¾ÆÀÌÅÛ ¸ô¿¡¼­ ±¸ÀÔÇÑ ±â°£ Á¦ÇÑ ¾ÆÀÌÅÛÀÌ ¾ø´Ù.	SKIP
+		return;	//ì•„ì´í…œ ëª°ì—ì„œ êµ¬ì…í•œ ê¸°ê°„ ì œí•œ ì•„ì´í…œì´ ì—†ë‹¤.	SKIP
 	}
 
-	m_IsActiveProcess_byPer1Min = true;	//flag°ªÀ¸·Î Process_Item_to_game_TBL Ã³¸®ÁßÀÎ¶§, ´Ù½Ã ¸øµé¾î¿À°Ô ¼¼ÆÃ.
+	m_IsActiveProcess_byPer1Min = true;	//flagê°’ìœ¼ë¡œ Process_Item_to_game_TBL ì²˜ë¦¬ì¤‘ì¸ë•Œ, ë‹¤ì‹œ ëª»ë“¤ì–´ì˜¤ê²Œ ì„¸íŒ….
 
 	ZeroMemory(&m_ItemToGame_TBL,sizeof(m_ItemToGame_TBL));
 	m_nCnt_ItemToGame_TBL	= 0;
 	
-	//¾ÆÀÌÅÛ¸ô¾ÆÀÌÅÛÀ» ¼ÒÀ¯ÇÑ À¯Àú¶ó¸é..½Ã°£Á¦ ¾ÆÀÌÅÛÀ» È®ÀÎÇØ¼­ »èÁ¦ Ã³¸®ÇÏµµ·Ï ÇÏÀÚ.
+	//ì•„ì´í…œëª°ì•„ì´í…œì„ ì†Œìœ í•œ ìœ ì €ë¼ë©´..ì‹œê°„ì œ ì•„ì´í…œì„ í™•ì¸í•´ì„œ ì‚­ì œ ì²˜ë¦¬í•˜ë„ë¡ í•˜ì.
 	SDWORD		cbValue;
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -88,7 +88,7 @@ void CItemMallManager::Process_Item_to_game_TBL()
 		nRandomFind = 1;
 	}
 
-	//050304_KCH EndUseTime¿¡ Á¾·á½Ã°£ÀÌ µé¾î ÀÖ¾î¾ß ÇÑ´Ù.
+	//050304_KCH EndUseTimeì— ì¢…ë£Œì‹œê°„ì´ ë“¤ì–´ ìˆì–´ì•¼ í•œë‹¤.
 	sprintf(szQuerry,"select top %d idx,itemid,item_limit,recv_loginid,recv_name,EndUseTime from Item_to_Game where recv_type='%d' AND EndUseTime IS NOT NULL AND getdate()>=EndUseTime AND idx>(select max(idx) from (select top %d idx from item_to_game)s)",
 MAX_GET_ITEM_TO_GAME_TBL,
 Progressive_TIMESTAMP_ItemMallItem,
@@ -121,18 +121,18 @@ nRandomFind);
 	{ 
 		m_IsActiveProcess_byPer1Min = false;
 		return; 
-	}	//¸¸¾à ´Ù¸¥°÷¿¡¼­ ±×µ¿¾È ¾ÆÀÌÅÛÀ» Áö¿ö¹ö·È´Ù¸é, Skip
+	}	//ë§Œì•½ ë‹¤ë¥¸ê³³ì—ì„œ ê·¸ë™ì•ˆ ì•„ì´í…œì„ ì§€ì›Œë²„ë ¸ë‹¤ë©´, Skip
 	Dbg_Assert(0 < m_nCnt_ItemToGame_TBL && MAX_GET_ITEM_TO_GAME_TBL >= m_nCnt_ItemToGame_TBL);
 
 	k_Delete_Item_Mall_ARRAY	_DeleteARRAY;
 	ZeroMemory(&_DeleteARRAY,sizeof(_DeleteARRAY));
-	int nFixCnt = -999;	//¹è¿­¾È¿¡ °è¼Ó ¿øÇüÅ¥Ã³·³ ³Ö¾îÁØ´Ù.
+	int nFixCnt = -999;	//ë°°ì—´ì•ˆì— ê³„ì† ì›í˜•íì²˜ëŸ¼ ë„£ì–´ì¤€ë‹¤.
 	
 	for (int j=0;j<m_nCnt_ItemToGame_TBL;++j)
 	{
 		CTime curr_time;
 		curr_time = CTime::GetCurrentTime();
-		if( m_ItemToGame_TBL[j].EndUseTime > curr_time) { continue; }	//Á¾·á½Ã°£ÀÌ ¾ÆÁ÷ ³²¾Ò´Ù¸é, Skip
+		if( m_ItemToGame_TBL[j].EndUseTime > curr_time) { continue; }	//ì¢…ë£Œì‹œê°„ì´ ì•„ì§ ë‚¨ì•˜ë‹¤ë©´, Skip
 		
 		const int nItemNo = GetItemMallItemKind_ItemNo(m_ItemToGame_TBL[j].itemMallItemKind_index);
 
@@ -141,7 +141,7 @@ nRandomFind);
 		{
 			nFixCnt = j%Size_Delete_Item_Mall_ARRAY;
 
-			if (0 == nFixCnt) { nFixCnt = Size_Delete_Item_Mall_ARRAY; }		//¹è¿­¿¡ ÃÖ´ë°ª±îÁö Ã¤¿üÀ½.
+			if (0 == nFixCnt) { nFixCnt = Size_Delete_Item_Mall_ARRAY; }		//ë°°ì—´ì— ìµœëŒ€ê°’ê¹Œì§€ ì±„ì› ìŒ.
 		}
 
 		_DeleteARRAY._DelItemMall_ARRAY[nFixCnt].itemmall_index			= m_ItemToGame_TBL[j].itemmall_index;
@@ -150,41 +150,41 @@ nRandomFind);
 		_DeleteARRAY._DelItemMall_ARRAY[nFixCnt].EndUseTime				= m_ItemToGame_TBL[j].EndUseTime.GetTime();
 		_DeleteARRAY._DelItemMall_ARRAY[nFixCnt].ItemNo					= nItemNo;
 		strcpy( _DeleteARRAY._DelItemMall_ARRAY[nFixCnt].recv_name, m_ItemToGame_TBL[j].recv_name);
-		_DeleteARRAY.nCnt_DelItemMall = nFixCnt+1;		//¹è¿­ÀÌ 0ºÎÅÍ ½ÃÀÛÇÏ¹Ç·Î.
-															//v ÆĞÅ¶À» ¸î¹ø º¸³¾°ÍÀÎ°¡.
-		if ((Size_Delete_Item_Mall_ARRAY-1) <= j && 0 < (m_nCnt_ItemToGame_TBL /Size_Delete_Item_Mall_ARRAY))	//ÇÑ¹øÀÌ»ó º¸³»¾ßÇÏ°í, Size_Delete_Item_Mall_ARRAY°¡ ³Ñ¾î°¥¶§ 
+		_DeleteARRAY.nCnt_DelItemMall = nFixCnt+1;		//ë°°ì—´ì´ 0ë¶€í„° ì‹œì‘í•˜ë¯€ë¡œ.
+															//v íŒ¨í‚·ì„ ëª‡ë²ˆ ë³´ë‚¼ê²ƒì¸ê°€.
+		if ((Size_Delete_Item_Mall_ARRAY-1) <= j && 0 < (m_nCnt_ItemToGame_TBL /Size_Delete_Item_Mall_ARRAY))	//í•œë²ˆì´ìƒ ë³´ë‚´ì•¼í•˜ê³ , Size_Delete_Item_Mall_ARRAYê°€ ë„˜ì–´ê°ˆë•Œ 
 		{
-			if (0 == (j+1)%Size_Delete_Item_Mall_ARRAY)	//¹è¿­ÀÌ ²Ë Ã¡±â ¶§¹®¿¡, ÆĞÅ¶À» ³¯¸°´Ù.
+			if (0 == (j+1)%Size_Delete_Item_Mall_ARRAY)	//ë°°ì—´ì´ ê½‰ ì°¼ê¸° ë•Œë¬¸ì—, íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
 			{
-				//Size_Delete_Item_Mall_ARRAY±îÁö Àû´çÈ÷ Ã¤¿îµÚ, ÇÑ²¨¹ø¿¡ ÆĞÅ¶À» ³¯¸®ÀÚ.
-				//ÀüÃ¼ ¸Ê¼­¹ö¿¡ ¾ÆÀÌÅÛ»èÁ¦¸¦ ¿äÃ»ÇÏ°í, »ç¿ë¸¸±âÀÓÀ» Åëº¸ÇÏÀÚ.
-				// ÀüÃ¼ ¸Ş½ÃÁö ³¯¸®±â
+				//Size_Delete_Item_Mall_ARRAYê¹Œì§€ ì ë‹¹íˆ ì±„ìš´ë’¤, í•œêº¼ë²ˆì— íŒ¨í‚·ì„ ë‚ ë¦¬ì.
+				//ì „ì²´ ë§µì„œë²„ì— ì•„ì´í…œì‚­ì œë¥¼ ìš”ì²­í•˜ê³ , ì‚¬ìš©ë§Œê¸°ì„ì„ í†µë³´í•˜ì.
+				// ì „ì²´ ë©”ì‹œì§€ ë‚ ë¦¬ê¸°
 				t_packet packet;
 				packet.h.header.type = CMD_DELETE_ITEM_MALL_ITEM_PER_1MIN;
 				packet.u.kein.delete_item_mall_array = _DeleteARRAY;
 				packet.h.header.size = sizeof( k_Delete_Item_Mall_ARRAY );
 
-				//ÇØ´ç¸Ê¿¡¼­ Å¬¶óÀÌ¾ğÆ® »èÁ¦ Ã³¸®ÇÏ°í, totalDB item_to_game TBL¿¡µµ ¼¼ÆÃÇÑ´Ù.
+				//í•´ë‹¹ë§µì—ì„œ í´ë¼ì´ì–¸íŠ¸ ì‚­ì œ ì²˜ë¦¬í•˜ê³ , totalDB item_to_game TBLì—ë„ ì„¸íŒ…í•œë‹¤.
 				SendPacket2Maps( &packet );
 //				g_pUserManager->SendPacket(&packet); // CSD-CN-031213
-				RecvItemMallItemDelete_Per1Min(&packet, 0);	//Á÷Á¢ Local Map¿¡µµ º¸³½´Ù. cnÀº »ç¿ë¾ÈÇÔ
+				RecvItemMallItemDelete_Per1Min(&packet, 0);	//ì§ì ‘ Local Mapì—ë„ ë³´ë‚¸ë‹¤. cnì€ ì‚¬ìš©ì•ˆí•¨
 			}
 		}
 
-		if(j == m_nCnt_ItemToGame_TBL-1)	//³²ÀºÆĞÅ¶À» ¸¶Áö¸·À¸·Î ÇÑ¹ø¿¡ º¸³½´Ù.
+		if(j == m_nCnt_ItemToGame_TBL-1)	//ë‚¨ì€íŒ¨í‚·ì„ ë§ˆì§€ë§‰ìœ¼ë¡œ í•œë²ˆì— ë³´ë‚¸ë‹¤.
 		{
-			//Size_Delete_Item_Mall_ARRAY±îÁö Àû´çÈ÷ Ã¤¿îµÚ, ÇÑ²¨¹ø¿¡ ÆĞÅ¶À» ³¯¸®ÀÚ.
-			//ÀüÃ¼ ¸Ê¼­¹ö¿¡ ¾ÆÀÌÅÛ»èÁ¦¸¦ ¿äÃ»ÇÏ°í, »ç¿ë¸¸±âÀÓÀ» Åëº¸ÇÏÀÚ.
-			// ÀüÃ¼ ¸Ş½ÃÁö ³¯¸®±â
+			//Size_Delete_Item_Mall_ARRAYê¹Œì§€ ì ë‹¹íˆ ì±„ìš´ë’¤, í•œêº¼ë²ˆì— íŒ¨í‚·ì„ ë‚ ë¦¬ì.
+			//ì „ì²´ ë§µì„œë²„ì— ì•„ì´í…œì‚­ì œë¥¼ ìš”ì²­í•˜ê³ , ì‚¬ìš©ë§Œê¸°ì„ì„ í†µë³´í•˜ì.
+			// ì „ì²´ ë©”ì‹œì§€ ë‚ ë¦¬ê¸°
 			t_packet packet;
 			packet.h.header.type = CMD_DELETE_ITEM_MALL_ITEM_PER_1MIN;
 			packet.u.kein.delete_item_mall_array = _DeleteARRAY;
 			packet.h.header.size = sizeof( k_Delete_Item_Mall_ARRAY );
 
-			//ÇØ´ç¸Ê¿¡¼­ Å¬¶óÀÌ¾ğÆ® »èÁ¦ Ã³¸®ÇÏ°í, totalDB item_to_game TBL¿¡µµ ¼¼ÆÃÇÑ´Ù.  cnÀº »ç¿ë¾ÈÇÔ
+			//í•´ë‹¹ë§µì—ì„œ í´ë¼ì´ì–¸íŠ¸ ì‚­ì œ ì²˜ë¦¬í•˜ê³ , totalDB item_to_game TBLì—ë„ ì„¸íŒ…í•œë‹¤.  cnì€ ì‚¬ìš©ì•ˆí•¨
 			SendPacket2Maps( &packet );
 //			g_pUserManager->SendPacket(&packet); // CSD-CN-031213
-			RecvItemMallItemDelete_Per1Min(&packet, 0);	//Á÷Á¢ Local Map¿¡µµ º¸³½´Ù.
+			RecvItemMallItemDelete_Per1Min(&packet, 0);	//ì§ì ‘ Local Mapì—ë„ ë³´ë‚¸ë‹¤.
 		}
 	}
 

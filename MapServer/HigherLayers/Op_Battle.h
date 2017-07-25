@@ -1,4 +1,4 @@
-#ifndef __OP_BATTLE__
+﻿#ifndef __OP_BATTLE__
 #define __OP_BATTLE__
 
 inline int IsHeNK(LPCHARLIST ch, int nation);

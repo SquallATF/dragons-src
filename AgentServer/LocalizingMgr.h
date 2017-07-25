@@ -1,4 +1,4 @@
-// LocalizingMgr.h: interface for the CLocalizingMgr class.
+ï»¿// LocalizingMgr.h: interface for the CLocalizingMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ enum MY_CODE
 
 enum NationCode
 {
-	NOTSET	= 0x00000000,//NOTSETÀÏ °æ¿ì´Â ¹«Á¶°Ç ¿¡·¯Ã³¸®ÇÕ´Ï´Ù.
+	NOTSET	= 0x00000000,//NOTSETì¼ ê²½ìš°ëŠ” ë¬´ì¡°ê±´ ì—ëŸ¬ì²˜ë¦¬í•©ë‹ˆë‹¤.
 	KOREA	= 0x00000001,
 	CHINA	= 0x00000002,
 	TAIWAN	= 0x00000004,
@@ -60,7 +60,7 @@ enum NationCode
 	JAPAN	= 0x00000040
 };
 
-enum DBType//DBÅ¸ÀÔ
+enum DBType//DBíƒ€ì…
 {
 	TOTAL_DB	= 1,
 	DRAGON_DB	= 2,	
@@ -74,7 +74,7 @@ class CLocalizingMgr
 {
 private:
 	int ConvertNameToCode(const char* szNationName);
-	int m_iNationCode;//±¹°¡ÄÚµå ÀúÀå¼Ò
+	int m_iNationCode;//êµ­ê°€ì½”ë“œ ì €ì¥ì†Œ
 	char *m_pszNationName;
 	
 	char *m_pszTotalDbID;
@@ -84,11 +84,11 @@ private:
 	char *m_pszChrlogDbID;
 	char *m_pszChrlogDbPW;
 
-	int m_iMyCode;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
-	int m_iIsFreeBeta;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+	int m_iMyCode;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
+	int m_iIsFreeBeta;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 private:
-	CLocalizingMgr operator=(const CLocalizingMgr &old);//´ëÀÔ¿¬»êÀÚ »ç¿ë ºÒ°¡.
-	CLocalizingMgr(const CLocalizingMgr &old);//º¹»ç»ı¼ºÀÚ »ç¿ë ºÒ°¡.
+	CLocalizingMgr operator=(const CLocalizingMgr &old);//ëŒ€ì…ì—°ì‚°ì ì‚¬ìš© ë¶ˆê°€.
+	CLocalizingMgr(const CLocalizingMgr &old);//ë³µì‚¬ìƒì„±ì ì‚¬ìš© ë¶ˆê°€.
 
 private:
 	void SetNationName(const char* szNationName);
@@ -96,34 +96,34 @@ private:
 public:
 	CLocalizingMgr();
 	virtual ~CLocalizingMgr();
-public://SetNationCode ·ùÀÇ ÇÔ¼ö´Â ¸¸µéÁö ¾Ê½À´Ï´Ù. °ÔÀÓ ¼­ºñ½º Áß¿¡ ¾µÀÏÀÌ ¾ø±â ¶§¹®ÀÔ´Ï´Ù.
-	const int GetNationCode()const{return m_iNationCode;}//±¹°¡ ÄÚµå¸¦ ¹Ş¾Æ¿É´Ï´Ù.
-	const char* GetNationName()const{return m_pszNationName;}//±¹°¡ ÀÌ¸§À» ¹Ş¾Æ ¿É´Ï´Ù.
-	const int IsFreeBeta()const{return (m_iIsFreeBeta)?1:0;}//ÀÌ°ÍÀÌ ÇÁ¸®º£Å¸ÀÎÁö ¾Ë¾Æ³À´Ï´Ù.
+public://SetNationCode ë¥˜ì˜ í•¨ìˆ˜ëŠ” ë§Œë“¤ì§€ ì•ŠìŠµë‹ˆë‹¤. ê²Œì„ ì„œë¹„ìŠ¤ ì¤‘ì— ì“¸ì¼ì´ ì—†ê¸° ë•Œë¬¸ì…ë‹ˆë‹¤.
+	const int GetNationCode()const{return m_iNationCode;}//êµ­ê°€ ì½”ë“œë¥¼ ë°›ì•„ì˜µë‹ˆë‹¤.
+	const char* GetNationName()const{return m_pszNationName;}//êµ­ê°€ ì´ë¦„ì„ ë°›ì•„ ì˜µë‹ˆë‹¤.
+	const int IsFreeBeta()const{return (m_iIsFreeBeta)?1:0;}//ì´ê²ƒì´ í”„ë¦¬ë² íƒ€ì¸ì§€ ì•Œì•„ëƒ…ë‹ˆë‹¤.
 
-	int InitVersion(const int iNationCode,const int iIsFreeBeta = false);//´Ü ÇÑ¹ø¸¸ È£Ãâ ÇÏµµ·Ï ÇÏ½Ê½Ã¿ä.
-	int InitVersion(const char* szNationName,const int iIsFreeBeta = false);//´Ü ÇÑ¹ø¸¸ È£Ãâ ÇÏµµ·Ï ÇÏ½Ê½Ã¿ä.
+	int InitVersion(const int iNationCode,const int iIsFreeBeta = false);//ë‹¨ í•œë²ˆë§Œ í˜¸ì¶œ í•˜ë„ë¡ í•˜ì‹­ì‹œìš”.
+	int InitVersion(const char* szNationName,const int iIsFreeBeta = false);//ë‹¨ í•œë²ˆë§Œ í˜¸ì¶œ í•˜ë„ë¡ í•˜ì‹­ì‹œìš”.
 	
-	void DisplayLocalizingSet()const;//ÇöÀç ·ÎÄÃ¶óÀÌÂ¡ ¼ÂÆÃÀ» º¸¿©Áİ´Ï´Ù.
+	void DisplayLocalizingSet()const;//í˜„ì¬ ë¡œì»¬ë¼ì´ì§• ì…‹íŒ…ì„ ë³´ì—¬ì¤ë‹ˆë‹¤.
 
-	int IsChangeMoney(){return (IsAbleNation(TAIWAN|CHINA|HONGKONG))?0:1; }//´ë¸¸ Ãæ±¹ È«ÄáÀº ¿¾³¯µ· ¾´´Ù
+	int IsChangeMoney(){return (IsAbleNation(TAIWAN|CHINA|HONGKONG))?0:1; }//ëŒ€ë§Œ ì¶©êµ­ í™ì½©ì€ ì˜›ë‚ ëˆ ì“´ë‹¤
 	
-	int IsAbleMyCode(const int iMyCode)const;//ºÒ°¡´ÉÇÑ ¸¶ÀÌÄÚµå¶ó¸é 0À» ¸®ÅÏ °¡´ÉÇÏ¸é 1À» ¸®ÅÏ
-	int IsAbleNation(const int iNationCode)const;//ºÒ°¡´ÉÇÑ ±¹°¡¶ó¸é 0À» ¸®ÅÏ °¡´ÉÇÏ¸é 1À» ¸®ÅÏ
+	int IsAbleMyCode(const int iMyCode)const;//ë¶ˆê°€ëŠ¥í•œ ë§ˆì´ì½”ë“œë¼ë©´ 0ì„ ë¦¬í„´ ê°€ëŠ¥í•˜ë©´ 1ì„ ë¦¬í„´
+	int IsAbleNation(const int iNationCode)const;//ë¶ˆê°€ëŠ¥í•œ êµ­ê°€ë¼ë©´ 0ì„ ë¦¬í„´ ê°€ëŠ¥í•˜ë©´ 1ì„ ë¦¬í„´
 /*	
-	void example()//IsAbleNation()ÀÇ »ùÇÃ ÄÚµå
+	void example()//IsAbleNation()ì˜ ìƒ˜í”Œ ì½”ë“œ
 	{
 		if(IsAbleNation(KOREA||TAIWAN)
-		{//ÇÑ±¹ÀÌ°Å³ª ´ë¸¸ÀÌ¸é ½ÇÇà µË´Ï´Ù.
+		{//í•œêµ­ì´ê±°ë‚˜ ëŒ€ë§Œì´ë©´ ì‹¤í–‰ ë©ë‹ˆë‹¤.
 		}
 		else
-		{//³ª¸ÓÁö ±¹°¡¿¡¼­ ½ÇÇà µË´Ï´Ù.
+		{//ë‚˜ë¨¸ì§€ êµ­ê°€ì—ì„œ ì‹¤í–‰ ë©ë‹ˆë‹¤.
 		}
 	}
 */
-	const char *GetDBAccount(const int iType, bool bIsID);//iType TOTAL_DB,µîÀÇ Å¸ÀÔÀÔ´Ï´Ù.bIsID ID, PASS µÑÁß¿¡ ÇÏ³ª¸¦ ¾µ ¼ö ÀÖ½À´Ï´Ù. °á°ú´Â const char*·Î ³Ñ¾î¿É´Ï´Ù. ½ºÆ®¸µÄ«ÇÇ³ª ¸âÄ«ÇÇ¸¦ »ç¿ëÇØ ÁÖ½Ê½Ã¿ä.
+	const char *GetDBAccount(const int iType, bool bIsID);//iType TOTAL_DB,ë“±ì˜ íƒ€ì…ì…ë‹ˆë‹¤.bIsID ID, PASS ë‘˜ì¤‘ì— í•˜ë‚˜ë¥¼ ì“¸ ìˆ˜ ìˆìŠµë‹ˆë‹¤. ê²°ê³¼ëŠ” const char*ë¡œ ë„˜ì–´ì˜µë‹ˆë‹¤. ìŠ¤íŠ¸ë§ì¹´í”¼ë‚˜ ë©¤ì¹´í”¼ë¥¼ ì‚¬ìš©í•´ ì£¼ì‹­ì‹œìš”.
 /*	
-	void example()//GetDBAccount()ÀÇ »ùÇÃ ÄÚµå
+	void example()//GetDBAccount()ì˜ ìƒ˜í”Œ ì½”ë“œ
 	{
 		char id[30],pw[30];
 

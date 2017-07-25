@@ -1,4 +1,4 @@
-// ExtraMagic.cpp: implementation of the CExtraMagic class.
+ï»¿// ExtraMagic.cpp: implementation of the CExtraMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -67,14 +67,14 @@ bool CExtraMagic::Bind()
 } 
 
 bool CExtraMagic::Phasing()
-{	// [64]Àå¼ÒÀÌµ¿ : ÀÓÀÇÀûÀ¸·Î À§Ä¡°¡ ¼ø°£ÀûÀ¸·Î ÀÌµ¿
+{	// [64]ì¥ì†Œì´ë™ : ì„ì˜ì ìœ¼ë¡œ ìœ„ì¹˜ê°€ ìˆœê°„ì ìœ¼ë¡œ ì´ë™
 	int nCount = 0;
 	
 	do	
 	{
 		m_nX = (m_pCaster->X>>5);
 		m_nY = (m_pCaster->Y>>5);
-		// À§Ä¡ ¾ò±â
+		// ìœ„ì¹˜ ì–»ê¸°
 		GetArea(m_nX, m_nY);
 		//< CSD-030930
 		if (m_nX < 0)
@@ -88,15 +88,15 @@ bool CExtraMagic::Phasing()
 		}
 		//> CSD-030930
 		if (++nCount > MAX_COUNT)
-		{	// 10È¸ ÀÌ»ó ½Ãµµ½Ã ½ÇÆĞÇß´Ù¸é ¸¶¹ıÀÌ ½ÇÆĞÇÑ °ÍÀ¸·Î °£ÁÖ
+		{	// 10íšŒ ì´ìƒ ì‹œë„ì‹œ ì‹¤íŒ¨í–ˆë‹¤ë©´ ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²ƒìœ¼ë¡œ ê°„ì£¼
 			return false;
 		}
 	} 
 	while (!::IsMovable(m_nX, m_nY));
 	
 	::TransArea(PT_PHASING, m_pCaster, m_nX, m_nY);
-	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -107,16 +107,16 @@ bool CExtraMagic::Phasing()
 }
 
 bool CExtraMagic::Teleport()
-{	// [66]¼ø°£ÀÌµ¿ : ¼±ÅÃÇÑ Àå¼Ò·Î ¼ø°£ÀûÀ¸·Î ÀÌµ¿
+{	// [66]ìˆœê°„ì´ë™ : ì„ íƒí•œ ì¥ì†Œë¡œ ìˆœê°„ì ìœ¼ë¡œ ì´ë™
 	if (::IsMovable(m_nX, m_nY) == false)  
-	{ // ÀÌµ¿À» ÇÒ ¼ö ¾ø´Â °÷ÀÌ¶ó¸é
+	{ // ì´ë™ì„ í•  ìˆ˜ ì—†ëŠ” ê³³ì´ë¼ë©´
 		return false;
 	}
 	
 	::TransArea(PT_TELEPORT, m_pCaster, m_nX, m_nY);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -127,17 +127,17 @@ bool CExtraMagic::Teleport()
 }
 
 bool CExtraMagic::MemorizingLocation()
-{ // [65]ÀÌµ¿Àå¼Ò±â¾ï : Â÷¿øÀÌµ¿ÀÌ³ª º¹¼öÂ÷¿øÀ¸·Î ÀÌµ¿µÉ Àå¼Ò(¸ÊÀÌ¸§, ÁÂÇ¥°ª)¸¦ ±â¾ï½ÃÅ´
+{ // [65]ì´ë™ì¥ì†Œê¸°ì–µ : ì°¨ì›ì´ë™ì´ë‚˜ ë³µìˆ˜ì°¨ì›ìœ¼ë¡œ ì´ë™ë  ì¥ì†Œ(ë§µì´ë¦„, ì¢Œí‘œê°’)ë¥¼ ê¸°ì–µì‹œí‚´
 	if (::IsMovable(m_nX, m_nY) == false)  
-	{ // ÀÌµ¿À» ÇÒ ¼ö ¾ø´Â °÷ÀÌ¶ó¸é
+	{ // ì´ë™ì„ í•  ìˆ˜ ì—†ëŠ” ê³³ì´ë¼ë©´
 		return false;
 	}
-	// ÀÌµ¿ÇÒ Àå¼Ò¿¡ ´ëÇÑ Á¤º¸(¸ÊÀÌ¸§, À§Ä¡) ¼³Á¤
+	// ì´ë™í•  ì¥ì†Œì— ëŒ€í•œ ì •ë³´(ë§µì´ë¦„, ìœ„ì¹˜) ì„¤ì •
 	const int nPort = ::MapPort(m_pCaster->MapName);
 	m_pCaster->SetTransMap(nPort, m_nX, m_nY);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -148,16 +148,16 @@ bool CExtraMagic::MemorizingLocation()
 }
 
 bool CExtraMagic::TownPortal()
-{ // [68]Â÷¿øÀÌµ¿ : ÀÚ±âÀÚ½ÅÀ» ±â¾ïµÈ Àå¼Ò(¸ÊÀÌ¸§, ÁÂÇ¥°ª)·Î ÀÌµ¿
+{ // [68]ì°¨ì›ì´ë™ : ìê¸°ìì‹ ì„ ê¸°ì–µëœ ì¥ì†Œ(ë§µì´ë¦„, ì¢Œí‘œê°’)ë¡œ ì´ë™
 	if (!m_pCaster->IsTransMap())
-	{ // ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸°¡ ¾ø´Ù¸é
+	{ // ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ê°€ ì—†ë‹¤ë©´
 		return false;
 	}
 	
 	::TransMap(m_pCaster);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -168,16 +168,16 @@ bool CExtraMagic::TownPortal()
 }
 
 bool CExtraMagic::MultiPort()
-{ // [67]º¹¼öÂ÷¿øÀÌµ¿ : ÀÏÁ¤ ¿µ¿ª¿¡ ÀÖ´Â »ç¶÷µéÀ» ±â¾ïµÈ Àå¼Ò(¸ÊÀÌ¸§, ÁÂÇ¥°ª)·Î ÀÌµ¿
+{ // [67]ë³µìˆ˜ì°¨ì›ì´ë™ : ì¼ì • ì˜ì—­ì— ìˆëŠ” ì‚¬ëŒë“¤ì„ ê¸°ì–µëœ ì¥ì†Œ(ë§µì´ë¦„, ì¢Œí‘œê°’)ë¡œ ì´ë™
 	if (m_pCaster->IsTransMap() == false)  
-	{ // ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸°¡ ¾ø´Ù¸é ½ÇÆĞ
+	{ // ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ê°€ ì—†ë‹¤ë©´ ì‹¤íŒ¨
 		return false;
 	}
 	
 	::TransMap(m_pCaster);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -188,16 +188,16 @@ bool CExtraMagic::MultiPort()
 }
 
 bool CExtraMagic::VampireDodge()        
-{ // [91]¹ìÆÄÀÌ¾î È¸ÇÇ
+{ // [91]ë±€íŒŒì´ì–´ íšŒí”¼
 	int nCount = 0;
 	
 	do	
 	{
 		m_nX = (m_pCaster->X>>5);
 		m_nY = (m_pCaster->Y>>5);
-		// À§Ä¡ ¾ò±â
+		// ìœ„ì¹˜ ì–»ê¸°
 		GetArea(m_nX, m_nY);    
-		// 10È¸ ÀÌ»ó ½Ãµµ½Ã ½ÇÆĞÇß´Ù¸é ¸¶¹ıÀÌ ½ÇÆĞÇÑ °ÍÀ¸·Î °£ÁÖ
+		// 10íšŒ ì´ìƒ ì‹œë„ì‹œ ì‹¤íŒ¨í–ˆë‹¤ë©´ ë§ˆë²•ì´ ì‹¤íŒ¨í•œ ê²ƒìœ¼ë¡œ ê°„ì£¼
 		if (++nCount > MAX_COUNT)	 
 		{
 			return false;
@@ -206,8 +206,8 @@ bool CExtraMagic::VampireDodge()
 	while (!::IsMovable(m_nX, m_nY));
 	
 	::TransArea(PT_DODGE, m_pCaster, m_nX, m_nY);
-	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -218,9 +218,9 @@ bool CExtraMagic::VampireDodge()
 }
 
 bool CExtraMagic::LowMonsterRecall()
-{	// [55]Àú±Ş ¸ó½ºÅÍ ¼ÒÈ¯
+{	// [55]ì €ê¸‰ ëª¬ìŠ¤í„° ì†Œí™˜
 	if (m_pCaster->m_xSummon.IsExist() == true)
-	{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é
+	{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´
 		m_pCaster->m_xSummon.Remove(KillMonster);
 	}
 	
@@ -228,19 +228,19 @@ bool CExtraMagic::LowMonsterRecall()
 	
 	switch (rand()%3)
 	{
-    case 0:  nCreate = 14; break; // ¶óÀÌÄ­½º·Ó
-    case 1:  nCreate = 47; break; // µµ¸¶¹ìÀÎ°£
-    case 2:  nCreate = 42; break; // ¹«Áö³ª
+    case 0:  nCreate = 14; break; // ë¼ì´ì¹¸ìŠ¤ë¡­
+    case 1:  nCreate = 47; break; // ë„ë§ˆë±€ì¸ê°„
+    case 2:  nCreate = 42; break; // ë¬´ì§€ë‚˜
     default: nCreate = -1; break;
 	}
 	
 	if (::SummonMonster(m_pCaster, nCreate, m_nX, m_nY) == false)  
-	{ // ¼ÒÈ¯¿¡ ½ÇÆĞÇß´Ù¸é
+	{ // ì†Œí™˜ì— ì‹¤íŒ¨í–ˆë‹¤ë©´
 		return false;
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -251,9 +251,9 @@ bool CExtraMagic::LowMonsterRecall()
 }
 
 bool CExtraMagic::MiddleMonsterRecall()
-{ // [58]Áß±Ş ¸ó½ºÅÍ ¼ÒÈ¯
+{ // [58]ì¤‘ê¸‰ ëª¬ìŠ¤í„° ì†Œí™˜
 	if (m_pCaster->m_xSummon.IsExist() == true)
-	{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é
+	{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´
 		m_pCaster->m_xSummon.Remove(KillMonster);
 	}
 	
@@ -261,18 +261,18 @@ bool CExtraMagic::MiddleMonsterRecall()
 	
 	switch (rand()%2)
 	{
-    case 0:  nCreate = 34; break; // ºê·çµå
-    case 1:  nCreate = 38; break; // ½ºÅæ°ñ·½
+    case 0:  nCreate = 34; break; // ë¸Œë£¨ë“œ
+    case 1:  nCreate = 38; break; // ìŠ¤í†¤ê³¨ë ˜
     default: nCreate = -1; break;
 	}
 	
 	if (::SummonMonster(m_pCaster, nCreate, m_nX, m_nY) == false)  
-	{ // ¼ÒÈ¯¿¡ ½ÇÆĞÇß´Ù¸é
+	{ // ì†Œí™˜ì— ì‹¤íŒ¨í–ˆë‹¤ë©´
 		return false;
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -283,19 +283,19 @@ bool CExtraMagic::MiddleMonsterRecall()
 }
 
 bool CExtraMagic::SummoningSkeleton()
-{ // [88]½ºÄÌ·¹ÅæÅ· ¼ÒÈ¯
+{ // [88]ìŠ¤ì¼ˆë ˆí†¤í‚¹ ì†Œí™˜
 	if (m_pCaster->m_xSummon.Count() >= GetSummonMax(m_nIndex))
-	{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é
+	{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´
 		return false;
 	}
 	
 	if (::SummonMonster(m_pCaster, 49, m_nX, m_nY) == false)  
-	{ // ¼ÒÈ¯¿¡ ½ÇÆĞÇß´Ù¸é
+	{ // ì†Œí™˜ì— ì‹¤íŒ¨í–ˆë‹¤ë©´
 		return false;
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -306,17 +306,17 @@ bool CExtraMagic::SummoningSkeleton()
 }
 
 bool CExtraMagic::SummoningUndead()
-{ // [92]¾ğµ¥µå ¼ÒÈ¯
+{ // [92]ì–¸ë°ë“œ ì†Œí™˜
 	if (m_pCaster->m_xSummon.Count() >= GetSummonMax(m_nIndex))
-	{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é
+	{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´
 		return false;
 	}
 	
 	if (!::IsMovable(m_nX, m_nY))  return false;
 	if (!::SummonMonster(m_pCaster, 81, m_nX, m_nY))  return false;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -327,16 +327,16 @@ bool CExtraMagic::SummoningUndead()
 }
 
 bool CExtraMagic::RecallFollow()
-{	// [95]ºÎÇÏ ¼ÒÈ¯
+{	// [95]ë¶€í•˜ ì†Œí™˜
 	/*
 	if (m_pCaster->m_xSummon.Count() >= GetSummonMax(m_nIndex))
-	{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é
+	{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´
 		return false;
 	}
 	*/
 	//< CSD-030324
 	int nX = 0, nY = 0;
-	// ¼ÒÈ¯ÇÒ À§Ä¡ ±¸ÇÏ±â
+	// ì†Œí™˜í•  ìœ„ì¹˜ êµ¬í•˜ê¸°
 	if (!GetRecallPlace(m_nX, m_nY, nX, nY))
 	{
 		return false;
@@ -349,9 +349,9 @@ bool CExtraMagic::RecallFollow()
 		return false;
 	}
 	//> CSD-030324
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -362,15 +362,15 @@ bool CExtraMagic::RecallFollow()
 }
 
 bool CExtraMagic::MagicalTrap()
-{	// [20]¸¶¹ıÆ®·¦ : ÁöÁ¤µÈ À§Ä¡¿¡ È­¿°, ¾óÀ½, º¹ÇÕ ¸¶¹ı È¿°ú¸¦ °¡Áø µ£ ¼³Ä¡
-	// 30ÃÊ(1 ·¹º§) ~ 150ÃÊ(99 ·¹º§)
+{	// [20]ë§ˆë²•íŠ¸ë© : ì§€ì •ëœ ìœ„ì¹˜ì— í™”ì—¼, ì–¼ìŒ, ë³µí•© ë§ˆë²• íš¨ê³¼ë¥¼ ê°€ì§„ ë« ì„¤ì¹˜
+	// 30ì´ˆ(1 ë ˆë²¨) ~ 150ì´ˆ(99 ë ˆë²¨)
 	const WORD	wDuration = TRAP_TIME + ((m_pCaster->GetLevel()/5 - 5)*TRAP_TIME/10); // CSD-030806
 	const int nX = m_nX;
 	const int nY = m_nY;
-	// µ£ÀÇ Á¾·ù Á¤ÀÇ(0->X/1->+/2->º¹ÇÕ)
+	// ë«ì˜ ì¢…ë¥˜ ì •ì˜(0->X/1->+/2->ë³µí•©)
 	switch (rand()%3)
 	{
-	case 0:	// ¤±Çü Æ®·¦	(È­¿°) - µ¥¹ÌÁö:°æ
+	case 0:	// ã…í˜• íŠ¸ë©	(í™”ì—¼) - ë°ë¯¸ì§€:ê²½
 		{
 			::InsertTrap(nX,     nY,     0, g_curr_time + wDuration);
 			::InsertTrap(nX + 1, nY,     0, g_curr_time + wDuration);
@@ -378,7 +378,7 @@ bool CExtraMagic::MagicalTrap()
 			::InsertTrap(nX + 1, nY + 1, 0, g_curr_time + wDuration);
 			break;
 		}
-	case 1:	// +Çü Æ®·¦	(¾óÀ½) - µ¥¹ÌÁö:Áß
+	case 1:	// +í˜• íŠ¸ë©	(ì–¼ìŒ) - ë°ë¯¸ì§€:ì¤‘
 		{
 			::InsertTrap(nX,     nY - 1, 1, g_curr_time + wDuration);
 			::InsertTrap(nX,     nY,     1, g_curr_time + wDuration);
@@ -387,7 +387,7 @@ bool CExtraMagic::MagicalTrap()
 			::InsertTrap(nX + 1, nY,     1, g_curr_time + wDuration);
 			break;
 		}
-	case 2:	// ¤±Çü Æ®·¦ (º¹ÇÕÃ¼) - µ¥¹ÌÁö:°­
+	case 2:	// ã…í˜• íŠ¸ë© (ë³µí•©ì²´) - ë°ë¯¸ì§€:ê°•
 		{
 			::InsertTrap(nX,     nY,     2, g_curr_time + wDuration);
 			::InsertTrap(nX + 1, nY,     2, g_curr_time + wDuration);
@@ -396,9 +396,9 @@ bool CExtraMagic::MagicalTrap()
 			break;
 		}
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -410,14 +410,14 @@ bool CExtraMagic::MagicalTrap()
 }
 
 bool CExtraMagic::MagicDetect()
-{ // [75]¸¶¹ıÅ½Áö : ¸¶¹ıµ£ Å½Áö
+{ // [75]ë§ˆë²•íƒì§€ : ë§ˆë²•ë« íƒì§€
 	if (::SearchTrap(m_pCaster, m_nX, m_nY) == false)
-	{ // ¸¶¹ıµ£¸¦ Ã£±â¿¡ ½ÇÆĞÇß´Ù¸é
+	{ // ë§ˆë²•ë«ë¥¼ ì°¾ê¸°ì— ì‹¤íŒ¨í–ˆë‹¤ë©´
 		return false;
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -428,19 +428,19 @@ bool CExtraMagic::MagicDetect()
 }
 
 bool CExtraMagic::Anthem()
-{	// [163]¼º°¡ : ´ë»óÀÇ NK¼öÄ¡¸¦ °¨¼Ò½ÃÅ°°í ´ë½Å °æÇèÄ¡¸¦ ÁÙÀÓ
+{	// [163]ì„±ê°€ : ëŒ€ìƒì˜ NKìˆ˜ì¹˜ë¥¼ ê°ì†Œì‹œí‚¤ê³  ëŒ€ì‹  ê²½í—˜ì¹˜ë¥¼ ì¤„ì„
 	if (::IsHeNK(m_pTarget, MapInfo[MapNumber].nation) <= 0)  
-	{ // ÇöÀçÀÖ´Â ¸ÊÀÇ NK ¼öÄ¡ °Ë»ç
+	{ // í˜„ì¬ìˆëŠ” ë§µì˜ NK ìˆ˜ì¹˜ ê²€ì‚¬
 		return false;
 	}
-	//< CSD-030314 : °æÇèÄ¡ °¨¼Ò
+	//< CSD-030314 : ê²½í—˜ì¹˜ ê°ì†Œ
 	const bool bNK = (IsHeNK(m_pTarget, MapInfo[MapNumber].nation) > 0) ? true: false; 
 	m_pTarget->DecExperience(bNK);
-	//> CSD-030314 : NK ¼öÄ¡ 10 °¨¼Ò
+	//> CSD-030314 : NK ìˆ˜ì¹˜ 10 ê°ì†Œ
 	::InNK(m_pTarget, MapInfo[MapNumber].nation, -10); 
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -451,10 +451,10 @@ bool CExtraMagic::Anthem()
 }
 
 bool CExtraMagic::InfluenceDivine()
-{	// [168]½Å¿¡ÀÇ °¨È­ : ¹Ì°áÁ¤
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+{	// [168]ì‹ ì—ì˜ ê°í™” : ë¯¸ê²°ì •
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -465,12 +465,12 @@ bool CExtraMagic::InfluenceDivine()
 }
 
 bool CExtraMagic::VoiceSoul()
-{ // [169]¿µÈ¥ÀÇ ¼Ò¸® : 1ºĞ¿¡¼­ 1ºĞ30ÃÊ°£ À¯·ÉÀ» º¸°í µéÀ» ¼ö ÀÖÀ½
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{ // [169]ì˜í˜¼ì˜ ì†Œë¦¬ : 1ë¶„ì—ì„œ 1ë¶„30ì´ˆê°„ ìœ ë ¹ì„ ë³´ê³  ë“¤ì„ ìˆ˜ ìˆìŒ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	SkillMgr.SetCanViewGhost(m_pCaster, wPeriod);
 	::SendSkillResult(m_pCaster->GetServerID(), 1, m_pTarget->GetServerID(), 0, 0, wPeriod);
-	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -482,12 +482,12 @@ bool CExtraMagic::VoiceSoul()
 }
 
 bool CExtraMagic::Appreciate()
-{	// [167]¹Ù¸¥ ±ú´ŞÀ½ : »ó´ë¹æÀÇ wis¸¦ ¾Ë ¼ö ÀÖÀ½
-	// »ó´ëÀÇ ¸ğµç Á¤º¸(»óÅÂ/´É·Â)¸¦ È®ÀÎ
+{	// [167]ë°”ë¥¸ ê¹¨ë‹¬ìŒ : ìƒëŒ€ë°©ì˜ wisë¥¼ ì•Œ ìˆ˜ ìˆìŒ
+	// ìƒëŒ€ì˜ ëª¨ë“  ì •ë³´(ìƒíƒœ/ëŠ¥ë ¥)ë¥¼ í™•ì¸
 	::SendMagicCommand(m_pCaster, SET_INFORMATION, m_pTarget->GetServerID(), 0);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -498,11 +498,11 @@ bool CExtraMagic::Appreciate()
 }
 
 bool CExtraMagic::Pray()
-	{	//< CSD-TW-030606 : [178]±âµµ : ¸¶³ª¸¦ PRAY_RECOVER_DIVINE_TIME(5)ÃÊ ´õ »¡¸® Ã¤¿î´Ù. // 030415 kyo
+	{	//< CSD-TW-030606 : [178]ê¸°ë„ : ë§ˆë‚˜ë¥¼ PRAY_RECOVER_DIVINE_TIME(5)ì´ˆ ë” ë¹¨ë¦¬ ì±„ìš´ë‹¤. // 030415 kyo
 	const WORD wPeriod = CalcMaintain(); // 030521 kyo
 	m_pCaster->dwUpDivineMana = m_dwNow + wPeriod;
-	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â	
+	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°	
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -538,7 +538,7 @@ void CExtraMagic::GetArea(int& rX, int& rY)
 }
 
 bool CExtraMagic::GetRecallPlace(int nSrcX, int nSrcY, int& rDstX, int& rDstY)
-{	//< CSD-030324 : ¼ÒÈ¯ÇÒ °÷ÀÇ À§Ä¡ ±¸ÇÏ±â
+{	//< CSD-030324 : ì†Œí™˜í•  ê³³ì˜ ìœ„ì¹˜ êµ¬í•˜ê¸°
 	const int nDir = m_pCaster->Direction;
 	int nX = nSrcX + s_aPlace[nDir][rand()%5].x;
 	int nY = nSrcY - s_aPlace[nDir][rand()%5].y;
@@ -549,7 +549,7 @@ bool CExtraMagic::GetRecallPlace(int nSrcX, int nSrcY, int& rDstX, int& rDstY)
 		rDstY = nY;
 		return true;
 	}
-	// ¼ÒÈ¯ÇÏ´Â ÀÚÀÇ ÁÖº¯À» °Ë»ö
+	// ì†Œí™˜í•˜ëŠ” ìì˜ ì£¼ë³€ì„ ê²€ìƒ‰
 	for (int i = DIRECTION_DOWN; i <= DIRECTION_RIGHTDOWN; ++i)
 	{
 		nX = nSrcX + s_aPlace[i][rand()%5].x;

@@ -1,4 +1,4 @@
-// ItemMgr.h: interface for the CItemMgr class.
+ï»¿// ItemMgr.h: interface for the CItemMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,8 +24,8 @@ enum eSpellType
 	RECOVERY_COMBAT= 5,// 030415 kyo
 };
 
-const int  MAX_MONEY		= 1000000000;  // ĞŞ¸ÄÒ»ÍÆÇ®×ÜÊı
-const int  MAX_DIVIDE_ITEM	= 1000000000;  // ĞŞ¸ÄÒ»ÍÆÇ®×ÜÊı
+const int  MAX_MONEY		= 1000000000;  // éŒ¦ë§£å¯§è‚¡í’€æ‚§é‘’
+const int  MAX_DIVIDE_ITEM	= 1000000000;  // éŒ¦ë§£å¯§è‚¡í’€æ‚§é‘’
 
 enum eDefinedItemNo
 {
@@ -37,19 +37,19 @@ enum eDefinedItemNo
 
 	IN_RED_SIGNET		= 10058,
 	IN_BLUE_SIGNET		= 10059,
-	IN_STEAL_RESULT		= 10180,//¹éÀå¹Ì
+	IN_STEAL_RESULT		= 10180,//ë°±ì¥ë¯¸
 };
 
 
-//give rare item ¿¡¼­ ¾²´Â°Å
-#define RARE_ABLE					0x0001	//±¸Çö µÇ¾î ÀÖ³ª? 
-#define RARE_ABLE_SQUAD				0x0002	//ºÎ´ë·¹¾î
-#define RARE_ABLE_GAMBLE_ROOM_4		0x0004	//°×ºí 4¹ø
-#define RARE_ABLE_GAMBLE_ROOM_5		0x0008	//°×ºí 5¹ø
+//give rare item ì—ì„œ ì“°ëŠ”ê±°
+#define RARE_ABLE					0x0001	//êµ¬í˜„ ë˜ì–´ ìˆë‚˜? 
+#define RARE_ABLE_SQUAD				0x0002	//ë¶€ëŒ€ë ˆì–´
+#define RARE_ABLE_GAMBLE_ROOM_4		0x0004	//ê²œë¸” 4ë²ˆ
+#define RARE_ABLE_GAMBLE_ROOM_5		0x0008	//ê²œë¸” 5ë²ˆ
 #define RARE_ABLE_OTHER				0x0010	//
 
 ////////////////////////////////////////////////////////////////////////////////////////
-//				CharacterItemMgr ¿¡¼­ »ç¿ë
+//				CharacterItemMgr ì—ì„œ ì‚¬ìš©
 ////////////////////////////////////////////////////////////////////////////////////////
 const int ITEM_EQUIP_MAX	=8;
 const int ITEM_QUICK_MAX	=6;
@@ -66,12 +66,12 @@ enum eHighLv
 };
 
 ///////////////////////////////////////////////////////////////////////////
-//			ITEMATTR °ü·Ã ±¸Á¶Ã¼
+//			ITEMATTR ê´€ë ¨ êµ¬ì¡°ì²´
 ///////////////////////////////////////////////////////////////////////////
 typedef struct ITEMATTR//011130 lsw
 {
 	short int		item_no;
-	unsigned int	attr[6];//ÀÌ°Å unsigned »¬°Í .. ³ªÁß¿¡
+	unsigned int	attr[6];//ì´ê±° unsigned ëº„ê²ƒ .. ë‚˜ì¤‘ì—
 } ItemAttr, *lpItemAttr;
 
 const int SIZE_OF_INV			=(ITEM_INV_MAX		* sizeof( ITEMATTR ));
@@ -81,17 +81,17 @@ const int SIZE_OF_BANKITEM		=(ITEM_BANK_MAX		* sizeof( ITEMATTR ));
 const int SIZE_OF_HAND			=(ITEM_HAND_MAX		* sizeof( ITEMATTR ));
 const int SIZE_OF_BUFFER		=(ITEM_BUFFER_MAX	* sizeof( ITEMATTR )); 
 
-#define	BASIC_ANI_MAX			4//¾ÆÀÌÅÛ¿¡ ÀÇÇØ¼­ º¸ÀÌ´Â ¾Ö´Ï¸ŞÀÌ¼Ç °¹¼ö WT_ARMOR, WT_HELMET, WT_WEAPON, WT_SHIELD 4°¡Áö
-#define	EXTENSION_ANI_MAX		3//¾ÆÀÌÅÛ¿¡ ÀÇÇØ¼­ º¸ÀÌ´Â ¾Ö´Ï¸ŞÀÌ¼Ç È®ÀåÆÑ ¤Ñ¤Ñ;; ¸Á¶Ç¿Í Âô..
+#define	BASIC_ANI_MAX			4//ì•„ì´í…œì— ì˜í•´ì„œ ë³´ì´ëŠ” ì• ë‹ˆë©”ì´ì…˜ ê°¯ìˆ˜ WT_ARMOR, WT_HELMET, WT_WEAPON, WT_SHIELD 4ê°€ì§€
+#define	EXTENSION_ANI_MAX		3//ì•„ì´í…œì— ì˜í•´ì„œ ë³´ì´ëŠ” ì• ë‹ˆë©”ì´ì…˜ í™•ì¥íŒ© ã…¡ã…¡;; ë§ë˜ì™€ ì°¡..
 
 typedef struct ITEMRAREMAIN
 {
-	DWORD	grade			: 4;//µî±Ş
-	DWORD	soksung1		: 8;//¼Ó¼º1
-	DWORD	soksung2		: 8;//¼Ó¼º2 ¸ÖÆ¼ ¼Ó¼º
-	DWORD	soksung3		: 8;//½Ã°£µî±Ş
-	DWORD	iHighLevel		: 3;//ÇÃ·¯½º Å¸ÀÔ °ªÀÌ ÀÖ´Ù¸é IsDynamicRare-->´Â ¹İµå½Ã 0 ÀÌ¾î¾ß ÇÑ´Ù
-	DWORD	IsDynamicRare	: 1;//1 ÀÌ¸é ±â´É ¾ÆÀÌÅÛ 0 ÀÌ¸é ·¹¾î ¾ÆÀÌÅÛ
+	DWORD	grade			: 4;//ë“±ê¸‰
+	DWORD	soksung1		: 8;//ì†ì„±1
+	DWORD	soksung2		: 8;//ì†ì„±2 ë©€í‹° ì†ì„±
+	DWORD	soksung3		: 8;//ì‹œê°„ë“±ê¸‰
+	DWORD	iHighLevel		: 3;//í”ŒëŸ¬ìŠ¤ íƒ€ì… ê°’ì´ ìˆë‹¤ë©´ IsDynamicRare-->ëŠ” ë°˜ë“œì‹œ 0 ì´ì–´ì•¼ í•œë‹¤
+	DWORD	IsDynamicRare	: 1;//1 ì´ë©´ ê¸°ëŠ¥ ì•„ì´í…œ 0 ì´ë©´ ë ˆì–´ ì•„ì´í…œ
 }RareMain, *LPRareMain;
 
 typedef struct t_POS
@@ -105,107 +105,107 @@ typedef struct tag_K_ITEM
 	ITEMATTR	item_attr;
 	POS			item_pos;
 }K_ITEM, *lpITEM;
-// 040105 YGI º¸¹°
+// 040105 YGI ë³´ë¬¼
 ///////////////////////////////////////////////////////
 struct CTreasureMapItem
 {
 	DWORD mapnumber	:7;
 	DWORD x			:10;
 	DWORD y			:10;
-//	DWORD use		:1;	// »ç¿ëÇß´Â°¡?
-	DWORD isChecked	:1;	// »ı¼ºÇÑ ÈÄ¿¡ ÁÂÇ¥¸¦ ¾ò¾î ¿Ô´Â°¡?
+//	DWORD use		:1;	// ì‚¬ìš©í–ˆëŠ”ê°€?
+	DWORD isChecked	:1;	// ìƒì„±í•œ í›„ì— ì¢Œí‘œë¥¼ ì–»ì–´ ì™”ëŠ”ê°€?
 	DWORD offset	:2;
 	DWORD offset2	:2;
 };
 
 extern CTreasureMapItem GetTreasureAttr( ItemAttr *item );
 ///////////////////////////////////////////////////////////////////////////
-//		½ºÅ³ °ü·Ã
+//		ìŠ¤í‚¬ ê´€ë ¨
 ///////////////////////////////////////////////////////////////////////////
 const int	MAX_SKILL_EXP	=	45;
 typedef struct SkillExp
 {
-	DWORD	skillexp:	20 ;//½ºÅ³ °æÇèÄ¡
-	DWORD	rare	:	12 ;//·¹¾î ¼º°ø·ü
+	DWORD	skillexp:	20 ;//ìŠ¤í‚¬ ê²½í—˜ì¹˜
+	DWORD	rare	:	12 ;//ë ˆì–´ ì„±ê³µë¥ 
 }t_skillexp, *LPSKILLEXP;
 
 typedef struct SkillExp2
 {
-	DWORD	skillexp	:	20	;//½ºÅ³ °æÇèÄ¡
-	DWORD	makecount	:	6	;//¸¸µç °¹¼ö
-	DWORD	day 		:	3	;//ÀúÀåµÈ ³¯Â¥
-	DWORD	month 		:	3	;//ÀúÀåµÈ ³¯Â¥
+	DWORD	skillexp	:	20	;//ìŠ¤í‚¬ ê²½í—˜ì¹˜
+	DWORD	makecount	:	6	;//ë§Œë“  ê°¯ìˆ˜
+	DWORD	day 		:	3	;//ì €ì¥ëœ ë‚ ì§œ
+	DWORD	month 		:	3	;//ì €ì¥ëœ ë‚ ì§œ
 }t_skillexp2, *LPSKILLEXP2;
 
 typedef struct SkillExp3//021030 lsw
 {
-	DWORD	skillType	:	8	;//½ºÅ³Å¸ÀÔ
-	DWORD	year		:	12	;//³âµµ
-	DWORD	day 		:	12	;//³¯Â¥
+	DWORD	skillType	:	8	;//ìŠ¤í‚¬íƒ€ì…
+	DWORD	year		:	12	;//ë…„ë„
+	DWORD	day 		:	12	;//ë‚ ì§œ
 }t_SkillExp3,*LPSKILLEXP3;
 
 ///////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////
-//		·¹¾î ÀÌÆåÆ®
+//		ë ˆì–´ ì´í™íŠ¸
 ///////////////////////////////////////////////////////////////////////////
 typedef struct STATICRAREEFFECT	
 {	
-	short	nPower				;//¾ÆÀÌÅÛÀÇ ¹°¸®Àû Damage Áõ°¡	
-	short	nAccurate			;//¹°¸®Àû °ø°İ ¼º°ø·ü Áõ°¡ (Å¸°İ½Ã miss È®·ü °¨¼Ò)	
-	short	nWise				;//¸¶¹ı Ä³½ºÆÃ ½Ã°£ 00¸¸Å­ ´ÜÃà		short	nPhysicDmg			;//µ¥¹ÌÁö ¹Ì¸® ±¸ÇÏ±â
-	short	nBear				;//Ä³½ºÆÃ À¯Áö ½Ã°£ 00¸¸Å­ Áõ°¡		short	nPhysicDmgPlusRate	;//010607 lsw µ¥¹ÌÁö ÆÛ¼¾Æ® Áõ°¡À²
-	short	nDistant			;//°ø°İ ¹üÀ§°¡ ¸Ö¾úÀ» ¶§ÀÇ µ¥¹ÌÁö Áõ°¡ (ÇöÀç 100%/90%/85%·Î °¨¼Ò)		
-	short	nVigor				;//¾ÆÀÌÅÛÀÇ ¹°¸®Àû Damage % Áõ°¡		short	nPhysicAttackRate	;	
-	short	nCurse				;//ÀÚ½ÅÀÌ ½ÃÀüÇÑ ÀúÁÖ °è¿­ ¸¶¹ı È¿°ú Áö¼Ó ½Ã°£ 00 Áõ°¡		short	nPhysicDefenceRate	;	
-	short	nAid				;//ÀÚ½ÅÀÌ ½ÃÀüÇÑ º¸Á¶ °è¿­ ¸¶¹ı È¿°ú Áö¼Ó ½Ã°£ 00 Áõ°¡		
-	short	nMasking			;//ÀÚ½ÅÀÌ ½ÃÀüÇÑ º¸È£ °è¿­ ¸¶¹ı È¿°ú Áö¼Ó ½Ã°£ 00 Áõ°¡		short	nAc					;
-	short	nPiercing			;//00% È®·ü·Î »ó´ëÀÇ º¸È£ °è¿­ ¸¶¹ıÀ» ¹«½ÃÇÏ¿© ¹°¸®Àû µ¥¹ÌÁö¸¦ ÀÔÈû		short	nMoveSpeed			;
-	short	nBasicResist		;//00% È®·ü·Î »ó´ëÀÇ ¸¶¹ı ÀúÇ×·ÂÀ» ¹«½Ã(±âº»ÀúÇ×·Â)ÇÏ¿© ¸¶¹ı µ¥¹ÌÁö¸¦ ÀÔÈû		
-	short	nHardest			;//ac Áõ°¡		int		iHpMax				;
-	short	nSmart				;//¹°¸®Àû °ø°İ È¸ÇÇÀ² Áõ°¡ (»ó´ë°¡ ¹°¸®Àû Å¸°İ½Ã miss È®·ü Áõ°¡)		int		iManaMax			;
-	short	nResist_freeze		;//¾óÀ½ÀúÇ×·Â Áõ°¡		int		iDivineMax			;
-	short	nResist_venom		;//µ¶ÀúÇ×·Â Áõ°¡		int		iHealthMax			;
-	short	nResist_lightning	;//Àü°İÀúÇ×·Â Áõ°¡			
-	short	nResist_blaze		;//ºÒÀúÇ×·Â Áõ°¡		short	nHpMaxPlusRate		;
-	short	nResist_paralysis	;//¸¶ºñÀúÇ×·Â Áõ°¡		short	nManaMaxPlusRate	;
-	short	nResist_holy		;//½Å¹ıÀúÇ×·Â Áõ°¡		short	nDivineMaxPlusRate	;
-	short	nResist_all			;//¸ğµç ÀúÇ×·Â Áõ°¡
-	short	nSpeed				;//ÀÌµ¿ ¼Óµµ Áõ°¡	
-	short	nLife				;//Life max Áõ°¡		short	nStr	;
-	short	nMana				;//Mana max Áõ°¡		short	nDex	;
-	short	nDivine				;//Divine max Áõ°¡		short	nCon	;
-	short	nHealth				;//Health max Áõ°¡		short	nWis	;
-	short	nBrood				;//Life max % Áõ°¡		short	nInt	;
-	short	nMind				;//Mana max % Áõ°¡		short	nChar	;
-	short	nSpirit				;//Divine max % Áõ°¡		short	nEndu	;
-	short	nYouth				;//Health max % Áõ°¡		short	nMoveP	;
-	short	nFatal				;//Life 1È¸ ÀÚµ¿ È¸º¹·® Áõ°¡		short	nMoral	;
-	short	nMagic				;//Mana 1È¸ ÀÚµ¿ È¸º¹·® Áõ°¡		short	nLuck	;
-	short	nNature				;//Divine 1È¸ ÀÚµ¿ È¸º¹·® Áõ°¡		short	nWs		;	
-	short	nStrength			;//str Áõ°¡		short	nPs		;	
-	short	nDexterity			;//dex Áõ°¡	
-	short	nConstitution		;//con Áõ°¡		short	nResistIce	;
-	short	nWisdom				;//wis Áõ°¡		short	nResistElect	;
-	short	nIntelligence		;//int Áõ°¡		short	nResistFire	;
-	short	nCharisma			;//cha Áõ°¡		short	nResistHoly	;
-	short	nEndurance			;//endu Áõ°¡		short	nResistPoison;
-	short	nMovement			;//movp Áõ°¡		short	nResistCurse ;
-	short	nMoral				;//mor Áõ°¡	
-	short	nLucky				;//luck Áõ°¡	////////////////////////////
-	short	nWizard				;//WS Áõ°¡	// ¸¶¹ı ÁõÆø ¼Ó¼º
-	short	nPriest				;//PS Áõ°¡		char	cAmpIce		;
-//	short	nMagic_power		;//À§ÀÚµå °è¿­ ¸¶¹ı µ¥¹ÌÁö ÁõÆø		char	cAmpElect	;
-	short	nMagic_vigor		;//À§ÀÚµå °è¿­ ¸¶¹ı µ¥¹ÌÁö 00% ÁõÆø		char	cAmpFire		;
-	short	nMagic_stay			;//À§ÀÚµå °è¿­ ¸¶¹ı Áö¼Ó ½Ã°£ ÁõÆø		char	cAmpHoly		;
-//	short	nNature_power		;//ÇÁ¸®½ºÆ® °è¿­ ¸¶¹ı µ¥¹ÌÁö ÁõÆø		char	cAmpPoison	;
-	short	nNature_vigor		;//ÇÁ¸®½ºÆ® °è¿­ ¸¶¹ı µ¥¹ÌÁö 00% ÁõÆø		char	cAmpCurse	;
-	short	nNature_stay		;//ÇÁ¸®½ºÆ® °è¿­ ¸¶¹ı Áö¼Ó½Ã°£ ÁõÆø	
-	short	nLife_recovery		;//Life ÀÚµ¿ È¸º¹·® ÃÖ´ëÄ¡ Áõ°¡ (ÀüÃ¼ÀÇ 00%±îÁö ÀÚµ¿ È¸º¹)////////////////////////////
-	short	nMana_recovery		;//Mana ÀÚµ¿ È¸º¹·® ÃÖ´ëÄ¡ Áõ°¡ (ÀüÃ¼ÀÇ 00%±îÁö ÀÚµ¿ È¸º¹)// ÈíÇ÷ ¼Ó¼º
-	short	nCritical			;//Å©¸®Æ¼ÄÃ µ¥¹ÌÁö ³ª¿Ã È®·ü 00% Áõ°¡		short	HpSteal;
-//	short	nGuardian			;//Ä³¸¯ÅÍÀÇ ¹°¸®Àû ¹æ¾î·Â Áõ°¡		short	ManaSteal;
-	short	nEvasion			;//°ø°İ ¸¶¹ı È¸ÇÇÀ² Áõ°¡ (»ó´ëÀÇ °ø°İ ¸¶¹ı ¹«È¿È­ È®·ü)		short	DivineSteal;
+	short	nPower				;//ì•„ì´í…œì˜ ë¬¼ë¦¬ì  Damage ì¦ê°€	
+	short	nAccurate			;//ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µë¥  ì¦ê°€ (íƒ€ê²©ì‹œ miss í™•ë¥  ê°ì†Œ)	
+	short	nWise				;//ë§ˆë²• ìºìŠ¤íŒ… ì‹œê°„ 00ë§Œí¼ ë‹¨ì¶•		short	nPhysicDmg			;//ë°ë¯¸ì§€ ë¯¸ë¦¬ êµ¬í•˜ê¸°
+	short	nBear				;//ìºìŠ¤íŒ… ìœ ì§€ ì‹œê°„ 00ë§Œí¼ ì¦ê°€		short	nPhysicDmgPlusRate	;//010607 lsw ë°ë¯¸ì§€ í¼ì„¼íŠ¸ ì¦ê°€ìœ¨
+	short	nDistant			;//ê³µê²© ë²”ìœ„ê°€ ë©€ì—ˆì„ ë•Œì˜ ë°ë¯¸ì§€ ì¦ê°€ (í˜„ì¬ 100%/90%/85%ë¡œ ê°ì†Œ)		
+	short	nVigor				;//ì•„ì´í…œì˜ ë¬¼ë¦¬ì  Damage % ì¦ê°€		short	nPhysicAttackRate	;	
+	short	nCurse				;//ìì‹ ì´ ì‹œì „í•œ ì €ì£¼ ê³„ì—´ ë§ˆë²• íš¨ê³¼ ì§€ì† ì‹œê°„ 00 ì¦ê°€		short	nPhysicDefenceRate	;	
+	short	nAid				;//ìì‹ ì´ ì‹œì „í•œ ë³´ì¡° ê³„ì—´ ë§ˆë²• íš¨ê³¼ ì§€ì† ì‹œê°„ 00 ì¦ê°€		
+	short	nMasking			;//ìì‹ ì´ ì‹œì „í•œ ë³´í˜¸ ê³„ì—´ ë§ˆë²• íš¨ê³¼ ì§€ì† ì‹œê°„ 00 ì¦ê°€		short	nAc					;
+	short	nPiercing			;//00% í™•ë¥ ë¡œ ìƒëŒ€ì˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²•ì„ ë¬´ì‹œí•˜ì—¬ ë¬¼ë¦¬ì  ë°ë¯¸ì§€ë¥¼ ì…í˜		short	nMoveSpeed			;
+	short	nBasicResist		;//00% í™•ë¥ ë¡œ ìƒëŒ€ì˜ ë§ˆë²• ì €í•­ë ¥ì„ ë¬´ì‹œ(ê¸°ë³¸ì €í•­ë ¥)í•˜ì—¬ ë§ˆë²• ë°ë¯¸ì§€ë¥¼ ì…í˜		
+	short	nHardest			;//ac ì¦ê°€		int		iHpMax				;
+	short	nSmart				;//ë¬¼ë¦¬ì  ê³µê²© íšŒí”¼ìœ¨ ì¦ê°€ (ìƒëŒ€ê°€ ë¬¼ë¦¬ì  íƒ€ê²©ì‹œ miss í™•ë¥  ì¦ê°€)		int		iManaMax			;
+	short	nResist_freeze		;//ì–¼ìŒì €í•­ë ¥ ì¦ê°€		int		iDivineMax			;
+	short	nResist_venom		;//ë…ì €í•­ë ¥ ì¦ê°€		int		iHealthMax			;
+	short	nResist_lightning	;//ì „ê²©ì €í•­ë ¥ ì¦ê°€			
+	short	nResist_blaze		;//ë¶ˆì €í•­ë ¥ ì¦ê°€		short	nHpMaxPlusRate		;
+	short	nResist_paralysis	;//ë§ˆë¹„ì €í•­ë ¥ ì¦ê°€		short	nManaMaxPlusRate	;
+	short	nResist_holy		;//ì‹ ë²•ì €í•­ë ¥ ì¦ê°€		short	nDivineMaxPlusRate	;
+	short	nResist_all			;//ëª¨ë“  ì €í•­ë ¥ ì¦ê°€
+	short	nSpeed				;//ì´ë™ ì†ë„ ì¦ê°€	
+	short	nLife				;//Life max ì¦ê°€		short	nStr	;
+	short	nMana				;//Mana max ì¦ê°€		short	nDex	;
+	short	nDivine				;//Divine max ì¦ê°€		short	nCon	;
+	short	nHealth				;//Health max ì¦ê°€		short	nWis	;
+	short	nBrood				;//Life max % ì¦ê°€		short	nInt	;
+	short	nMind				;//Mana max % ì¦ê°€		short	nChar	;
+	short	nSpirit				;//Divine max % ì¦ê°€		short	nEndu	;
+	short	nYouth				;//Health max % ì¦ê°€		short	nMoveP	;
+	short	nFatal				;//Life 1íšŒ ìë™ íšŒë³µëŸ‰ ì¦ê°€		short	nMoral	;
+	short	nMagic				;//Mana 1íšŒ ìë™ íšŒë³µëŸ‰ ì¦ê°€		short	nLuck	;
+	short	nNature				;//Divine 1íšŒ ìë™ íšŒë³µëŸ‰ ì¦ê°€		short	nWs		;	
+	short	nStrength			;//str ì¦ê°€		short	nPs		;	
+	short	nDexterity			;//dex ì¦ê°€	
+	short	nConstitution		;//con ì¦ê°€		short	nResistIce	;
+	short	nWisdom				;//wis ì¦ê°€		short	nResistElect	;
+	short	nIntelligence		;//int ì¦ê°€		short	nResistFire	;
+	short	nCharisma			;//cha ì¦ê°€		short	nResistHoly	;
+	short	nEndurance			;//endu ì¦ê°€		short	nResistPoison;
+	short	nMovement			;//movp ì¦ê°€		short	nResistCurse ;
+	short	nMoral				;//mor ì¦ê°€	
+	short	nLucky				;//luck ì¦ê°€	////////////////////////////
+	short	nWizard				;//WS ì¦ê°€	// ë§ˆë²• ì¦í­ ì†ì„±
+	short	nPriest				;//PS ì¦ê°€		char	cAmpIce		;
+//	short	nMagic_power		;//ìœ„ìë“œ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ ì¦í­		char	cAmpElect	;
+	short	nMagic_vigor		;//ìœ„ìë“œ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ 00% ì¦í­		char	cAmpFire		;
+	short	nMagic_stay			;//ìœ„ìë“œ ê³„ì—´ ë§ˆë²• ì§€ì† ì‹œê°„ ì¦í­		char	cAmpHoly		;
+//	short	nNature_power		;//í”„ë¦¬ìŠ¤íŠ¸ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ ì¦í­		char	cAmpPoison	;
+	short	nNature_vigor		;//í”„ë¦¬ìŠ¤íŠ¸ ê³„ì—´ ë§ˆë²• ë°ë¯¸ì§€ 00% ì¦í­		char	cAmpCurse	;
+	short	nNature_stay		;//í”„ë¦¬ìŠ¤íŠ¸ ê³„ì—´ ë§ˆë²• ì§€ì†ì‹œê°„ ì¦í­	
+	short	nLife_recovery		;//Life ìë™ íšŒë³µëŸ‰ ìµœëŒ€ì¹˜ ì¦ê°€ (ì „ì²´ì˜ 00%ê¹Œì§€ ìë™ íšŒë³µ)////////////////////////////
+	short	nMana_recovery		;//Mana ìë™ íšŒë³µëŸ‰ ìµœëŒ€ì¹˜ ì¦ê°€ (ì „ì²´ì˜ 00%ê¹Œì§€ ìë™ íšŒë³µ)// í¡í˜ˆ ì†ì„±
+	short	nCritical			;//í¬ë¦¬í‹°ì»¬ ë°ë¯¸ì§€ ë‚˜ì˜¬ í™•ë¥  00% ì¦ê°€		short	HpSteal;
+//	short	nGuardian			;//ìºë¦­í„°ì˜ ë¬¼ë¦¬ì  ë°©ì–´ë ¥ ì¦ê°€		short	ManaSteal;
+	short	nEvasion			;//ê³µê²© ë§ˆë²• íšŒí”¼ìœ¨ ì¦ê°€ (ìƒëŒ€ì˜ ê³µê²© ë§ˆë²• ë¬´íš¨í™” í™•ë¥ )		short	DivineSteal;
 //		56					//
 //		57					//
 //		58					//
@@ -218,27 +218,27 @@ typedef struct STATICRAREEFFECT
 //		65					//
 //		66					//
 //		67					//
-	short	nWitch				;//Å¸°İ ½Ã »ó´ëÀÇ Mana¸¦ 00¸¸Å­ »¯¾î¿È		short	CastingTimeReduceRate;
-	short	nDevil				;//Å¸°İ ½Ã »ó´ëÀÇ Mana¸¦ 00% ¸¸Å­ »¯¾î¿È		short	CastingTimeKeepRate;
-	short	nDesire				;//Å¸°İ ½Ã »ó´ëÀÇ Life¸¦ ºÎ°¡ÀûÀ¸·Î 00¸¸Å­ »¯¾î¿È		short	MagicContinueTimeRate;
-	short	nRobber				;//Å¸°İ ½Ã »ó´ëÀÇ Life¸¦ ºÎ°¡ÀûÀ¸·Î 00% ¸¸Å­ »¯¾î¿È	////////////////////////////
-	short	nEvil				;//Å¸°İ ½Ã »ó´ëÀÇ DivineÀ» ºÎ°¡ÀûÀ¸·Î 00¸¸Å­ »¯¾î¿È	// È¸º¹ ¼Ó¼º
-	short	nSatan				;//Å¸°İ ½Ã »ó´ëÀÇ DivineÀ» ºÎ°¡ÀûÀ¸·Î 00% ¸¸Å­ »¯¾î¿È		short	HpRecoverSpeed; 
-	short	nWeary				;//Å¸°İ ½Ã »ó´ëÀÇ Health¸¦ ºÎ°¡ÀûÀ¸·Î 00¸¸Å­ »¯¾î¿È		short	ManaRecoverSpeed; 
-	short	nFatigue			;//Å¸°İ ½Ã »ó´ëÀÇ Health¸¦ ºÎ°¡ÀûÀ¸·Î 00% ¸¸Å­ »¯¾î¿È		short	DivineRecoverSpeed; 
-	short	nCounterattack		;//°ø°İÀÚ¿¡°Ô 00ÀÇ µ¥¹ÌÁö¸¦ µ¹·ÁÁÜ	////////////////////////////
-	short	nStrike				;//°ø°İÀÚÀÇ µ¥¹ÌÁö¿¡¼­ 00%¸¦ µ¹·ÁÁÜ	// ¹İ°İ ¼Ó¼º
-	short	nSnag				;//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È ¸¶ºñ½ÃÅ´		short	DmgReturn;
-	short	nVertigly			;//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È È¥¶õ¿¡ °É¸®°Ô ÇÔ		short	DmgReturnRate;
-	short	nPoison				;//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È Áßµ¶¿¡ °É¸®°Ô ÇÔ	
-	short	nStiff				;//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È ¼®È­¿¡ °É¸®°Ô ÇÔ	
-	short	nSlack				;//Å¸°İ ½Ã »ó´ë¸¦ 00(½Ã°£)µ¿¾È ¼ÓµµÀúÇÏ¿¡ °É¸®°Ô ÇÔ	//011025 lsw <
+	short	nWitch				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Manaë¥¼ 00ë§Œí¼ ëºì–´ì˜´		short	CastingTimeReduceRate;
+	short	nDevil				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Manaë¥¼ 00% ë§Œí¼ ëºì–´ì˜´		short	CastingTimeKeepRate;
+	short	nDesire				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Lifeë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00ë§Œí¼ ëºì–´ì˜´		short	MagicContinueTimeRate;
+	short	nRobber				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Lifeë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00% ë§Œí¼ ëºì–´ì˜´	////////////////////////////
+	short	nEvil				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Divineì„ ë¶€ê°€ì ìœ¼ë¡œ 00ë§Œí¼ ëºì–´ì˜´	// íšŒë³µ ì†ì„±
+	short	nSatan				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Divineì„ ë¶€ê°€ì ìœ¼ë¡œ 00% ë§Œí¼ ëºì–´ì˜´		short	HpRecoverSpeed; 
+	short	nWeary				;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Healthë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00ë§Œí¼ ëºì–´ì˜´		short	ManaRecoverSpeed; 
+	short	nFatigue			;//íƒ€ê²© ì‹œ ìƒëŒ€ì˜ Healthë¥¼ ë¶€ê°€ì ìœ¼ë¡œ 00% ë§Œí¼ ëºì–´ì˜´		short	DivineRecoverSpeed; 
+	short	nCounterattack		;//ê³µê²©ìì—ê²Œ 00ì˜ ë°ë¯¸ì§€ë¥¼ ëŒë ¤ì¤Œ	////////////////////////////
+	short	nStrike				;//ê³µê²©ìì˜ ë°ë¯¸ì§€ì—ì„œ 00%ë¥¼ ëŒë ¤ì¤Œ	// ë°˜ê²© ì†ì„±
+	short	nSnag				;//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ë§ˆë¹„ì‹œí‚´		short	DmgReturn;
+	short	nVertigly			;//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ í˜¼ë€ì— ê±¸ë¦¬ê²Œ í•¨		short	DmgReturnRate;
+	short	nPoison				;//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ì¤‘ë…ì— ê±¸ë¦¬ê²Œ í•¨	
+	short	nStiff				;//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ì„í™”ì— ê±¸ë¦¬ê²Œ í•¨	
+	short	nSlack				;//íƒ€ê²© ì‹œ ìƒëŒ€ë¥¼ 00(ì‹œê°„)ë™ì•ˆ ì†ë„ì €í•˜ì— ê±¸ë¦¬ê²Œ í•¨	//011025 lsw <
 //		83					//	
 //		84					//	
-	short	nGhost				;//Âø¿ëÇÏ°Ô µÇ¸é À¯·ÉÀ» º¼ ¼ö ÀÖÀ½	
-	short	nLandmine			;//ÀÏ¹İ Æ®·¦À» °¨ÁöÇÒ ¼ö ÀÖÀ½		
-	short	nTraping			;//¸¶¹ı Æ®·¦À» °¨ÁöÇÒ ¼ö ÀÖÀ½		
-	short	nDetect				;//¸ğµç Æ®·¦À» °¨ÁöÇÒ ¼ö ÀÖÀ½	//À§¿¡²¨ µû´Ù ¾¸ 	
+	short	nGhost				;//ì°©ìš©í•˜ê²Œ ë˜ë©´ ìœ ë ¹ì„ ë³¼ ìˆ˜ ìˆìŒ	
+	short	nLandmine			;//ì¼ë°˜ íŠ¸ë©ì„ ê°ì§€í•  ìˆ˜ ìˆìŒ		
+	short	nTraping			;//ë§ˆë²• íŠ¸ë©ì„ ê°ì§€í•  ìˆ˜ ìˆìŒ		
+	short	nDetect				;//ëª¨ë“  íŠ¸ë©ì„ ê°ì§€í•  ìˆ˜ ìˆìŒ	//ìœ„ì—êº¼ ë”°ë‹¤ ì”€ 	
 	
 	short	nHighPower;
 	short	nHighShield;
@@ -271,7 +271,7 @@ struct k_item_limit_number
 
 ///////////////////////////////////////////////////////////////////////////
 
-const int MULTIPLE_USE_ONE_TIME_DEC_DUR =10;//¿©·¯¹ø ¸Ô´Â ¾ÆÀÌÅÛ ÇÑ¹ø¿¡ ±ğÀÌ´Â ³»±¸µµ
+const int MULTIPLE_USE_ONE_TIME_DEC_DUR =10;//ì—¬ëŸ¬ë²ˆ ë¨¹ëŠ” ì•„ì´í…œ í•œë²ˆì— ê¹ì´ëŠ” ë‚´êµ¬ë„
 class CItem;
 // 031009 CI YGI
 class CItemLimitMgr
@@ -279,31 +279,31 @@ class CItemLimitMgr
 public :
 	enum
 	{
-		LIMIT_OF_NO_HAVE_LIMIT_ITEM = 1004,			// ¸®¹ÌÆ® ³Ñ¹ö¸¦ °¡Áú ¼ö ¾ø´Â ¾ÆÀÌÅÛµéÀÇ ¸®¹ÌÆ® ¹øÈ£
+		LIMIT_OF_NO_HAVE_LIMIT_ITEM = 1004,			// ë¦¬ë¯¸íŠ¸ ë„˜ë²„ë¥¼ ê°€ì§ˆ ìˆ˜ ì—†ëŠ” ì•„ì´í…œë“¤ì˜ ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸
 	};
 private :
-	int		m_nItemLimitCount;	// °íÀ¯ ¸®¹ÌÆ® ³Ñ¹ö // Ä«¿îÆ® µÇ´Â °ª
-	map<int, int> m_mapHaveLimitItem;		//  ¸®¹ÌÆ® °ªÀ» °¡Á®¾ß ÇÏ´Â ¾ÆÀÌÅÛ ¹øÈ£ ¸ğÀ½
+	int		m_nItemLimitCount;	// ê³ ìœ  ë¦¬ë¯¸íŠ¸ ë„˜ë²„ // ì¹´ìš´íŠ¸ ë˜ëŠ” ê°’
+	map<int, int> m_mapHaveLimitItem;		//  ë¦¬ë¯¸íŠ¸ ê°’ì„ ê°€ì ¸ì•¼ í•˜ëŠ” ì•„ì´í…œ ë²ˆí˜¸ ëª¨ìŒ
 
 public :
 	CItemLimitMgr() {}
 	~CItemLimitMgr() { m_mapHaveLimitItem.clear(); }
 
-	int	GetLimitNumber( int item_no );	// ¸Ê¼­¹ö´ç °¡Áö°í ÀÖ´Â °íÀ¯ÀÇ ¸®¹ÌÆ® ³Ñ¹ö °ª
-	int	GetLimitNumberDontCount() { return m_nItemLimitCount; };	// Ä«¿îÆ® ÇÏÁö ¾Ê´Â´Ù.
+	int	GetLimitNumber( int item_no );	// ë§µì„œë²„ë‹¹ ê°€ì§€ê³  ìˆëŠ” ê³ ìœ ì˜ ë¦¬ë¯¸íŠ¸ ë„˜ë²„ ê°’
+	int	GetLimitNumberDontCount() { return m_nItemLimitCount; };	// ì¹´ìš´íŠ¸ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	void SetLimitCount( int count )
 	{
 		m_nItemLimitCount = count;
 	}
-	int	LoadHaveLimitItem();		// µğºñ¿¡¼­ ·ÎµùÇØ¿Â´Ù.
-	bool IsCanHaveLimitItem( int item_no )	// ¸®¹ÌÆ® ¹øÈ£¸¦ °¡Áú¼ö ¾ø´Â ¾ÆÀÌÅÛ ÀÎ°¡?
+	int	LoadHaveLimitItem();		// ë””ë¹„ì—ì„œ ë¡œë”©í•´ì˜¨ë‹¤.
+	bool IsCanHaveLimitItem( int item_no )	// ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸ë¥¼ ê°€ì§ˆìˆ˜ ì—†ëŠ” ì•„ì´í…œ ì¸ê°€?
 	{
 		map<int, int>::iterator itor;
 		if( m_mapHaveLimitItem.find( item_no ) == m_mapHaveLimitItem.end() )
 		{
-			return false;	// ¸®¹ÌÆ® ¹øÈ£¸¦ °¡Áú ¼ö ¾ø´Â ¾ÆÀÌÅÛÀÌ´Ù.
+			return false;	// ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸ë¥¼ ê°€ì§ˆ ìˆ˜ ì—†ëŠ” ì•„ì´í…œì´ë‹¤.
 		}
-		return true;		// ¸®¹ÌÆ® ¹øÈ£¸¦ °¡Áú ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀÌ´Ù.
+		return true;		// ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸ë¥¼ ê°€ì§ˆ ìˆ˜ ìˆëŠ” ì•„ì´í…œì´ë‹¤.
 	}
 };
 /////////////////////////////////////////////////
@@ -327,14 +327,14 @@ public:
 	int			DeleteItem(ITEMATTR &item);
 	
 	ITEMATTR	GenerateItem(const int iItemNo);
-	ITEMATTR	GenerateItem(const int iItemNo, const int iType , const int iCustomValue);//dwCustomDuration µà·¹ÀÌ¼Ç
+	ITEMATTR	GenerateItem(const int iItemNo, const int iType , const int iCustomValue);//dwCustomDuration ë“€ë ˆì´ì…˜
 
-//	int			CheckFaultItem(){return 0;}//ÀüÃ¼ ¸®½ºÆ® Áß¿¡ ÀÌ»óÇÑ ¾ÖµéÀ» Áö¿ö³½´Ù ³»ºÎ¿¡´Â CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)ÀÌ µ¹¾Æ°£´Ù
-	int			CheckFaultItem(ITEMATTR &item,bool bDeleteFlag);//iDeleteFlag 1À» ³ÖÀ¸¸é Àß¸øµÈ ¾ÆÀÌÅÛÀÏ °æ¿ì »èÁ¦ ½ÃÄÑ¹ö¸°´Ù, 0À» ³ÖÀ¸¸é »èÁ¦´Â ½ÃÅ°Áö ¾Ê´Â´Ù.
+//	int			CheckFaultItem(){return 0;}//ì „ì²´ ë¦¬ìŠ¤íŠ¸ ì¤‘ì— ì´ìƒí•œ ì• ë“¤ì„ ì§€ì›Œë‚¸ë‹¤ ë‚´ë¶€ì—ëŠ” CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)ì´ ëŒì•„ê°„ë‹¤
+	int			CheckFaultItem(ITEMATTR &item,bool bDeleteFlag);//iDeleteFlag 1ì„ ë„£ìœ¼ë©´ ì˜ëª»ëœ ì•„ì´í…œì¼ ê²½ìš° ì‚­ì œ ì‹œì¼œë²„ë¦°ë‹¤, 0ì„ ë„£ìœ¼ë©´ ì‚­ì œëŠ” ì‹œí‚¤ì§€ ì•ŠëŠ”ë‹¤.
 	
 	int			CheckAddAbleItem(const ITEMATTR SourceItem,const ITEMATTR TargetItem);
 
-	int			CombineItem(ITEMATTR &SourceItem,ITEMATTR &TargetItem);//¾ÆÀÌÅÛ ¼ö·® ÇÕÄ¡±â
+	int			CombineItem(ITEMATTR &SourceItem,ITEMATTR &TargetItem);//ì•„ì´í…œ ìˆ˜ëŸ‰ í•©ì¹˜ê¸°
 
 	bool		SwapItem(ITEMATTR &src,ITEMATTR &target);
 
@@ -345,19 +345,19 @@ public:
 	virtual int	FindEmptyPosition(){return 0;}//const;
 	
 	virtual int	ItemListLineUp(int iType, int iLineUpStandard){return 0;}//const;
-	virtual int	ItemListEmpty(int iType){return 0;} //const;//¾ÆÀÌÅÛ ¸®½ºÆ® ±ò²ûÇÏ°Ô ºñ¿ì±â
+	virtual int	ItemListEmpty(int iType){return 0;} //const;//ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ê¹”ë”í•˜ê²Œ ë¹„ìš°ê¸°
 	
 	virtual ITEMATTR	SearchItemByItemNo(int iType, int &iPos, int iItemNo){return NULLITEM;}//const;
 	virtual ITEMATTR	SearchItemByItemKind(int iType, int &iPos, int iItemKind){return NULLITEM;}//const;
 	virtual ITEMATTR	SearchItemByItemStruct(int iType, int &iPos, ItemAttr compare){return NULLITEM;}// const;
 
-public://¾ÆÀÌÅÛ Á¤º¸ ¾ò´Â Å¬·¡½º
+public://ì•„ì´í…œ ì •ë³´ ì–»ëŠ” í´ë˜ìŠ¤
 	
-	int	GetItemWeight(const int iItemNo);//¾ÆÀÌÅÛ Å×ÀÌºíÀÇ ÇØ´ç ¹øÈ£ÀÇ ±âº» ¹«°Ô ¹Ì±¸Çö
-	int	GetItemWeight(const ITEMATTR item);//¾ÆÀÌÅÛ ±¸Á¶Ã¼ ÀÚÃ¼°¡ °¡Áö´Â ¹«°Ô
+	int	GetItemWeight(const int iItemNo);//ì•„ì´í…œ í…Œì´ë¸”ì˜ í•´ë‹¹ ë²ˆí˜¸ì˜ ê¸°ë³¸ ë¬´ê²Œ ë¯¸êµ¬í˜„
+	int	GetItemWeight(const ITEMATTR item);//ì•„ì´í…œ êµ¬ì¡°ì²´ ìì²´ê°€ ê°€ì§€ëŠ” ë¬´ê²Œ
 	
-	int	GetItemDur(const ITEMATTR item, unsigned short &NowDur,unsigned short &MaxDur);//³»±¸µµ¿ë ¾ÆÀÌÅÛ
-	int	GetItemMuch(const ITEMATTR item, int &NowMuch);//³ª´©¾î Áö´Â ¾ÆÀÌÅÛÀÏ °æ¿ì
+	int	GetItemDur(const ITEMATTR item, unsigned short &NowDur,unsigned short &MaxDur);//ë‚´êµ¬ë„ìš© ì•„ì´í…œ
+	int	GetItemMuch(const ITEMATTR item, int &NowMuch);//ë‚˜ëˆ„ì–´ ì§€ëŠ” ì•„ì´í…œì¼ ê²½ìš°
 
 	int	GetItemKind(const int iItemNo);
 	int	GetItemKind(const ITEMATTR item){return GetItemKind(item.item_no);}
@@ -372,7 +372,7 @@ public://¾ÆÀÌÅÛ Á¤º¸ ¾ò´Â Å¬·¡½º
 	int	GetItemMaxMuch(const ITEMATTR item){return GetItemMaxMuch(item.item_no);}
 
 	int DecItemDur(ITEMATTR &item,const DWORD iValue);
-	int DecItemDur_ForEquip(ITEMATTR &item,const DWORD iValue);	//<050425_KCH ³»±¸µµ µ©ÁãÁõ°¡ ¹ö±×¼öÁ¤
+	int DecItemDur_ForEquip(ITEMATTR &item,const DWORD iValue);	//<050425_KCH ë‚´êµ¬ë„ ë€ì¥ì¦ê°€ ë²„ê·¸ìˆ˜ì •
 	
 	ItemAttr	GiveRareItem(const int item_no, const int iDur,const int iCallType,const int iTryMulti, const int iGradeMin, const int iGradeMax, RareMain &RareAttr,const int iHighLevel);//020725 lsw
 	ItemAttr	GiveLegendItem(const int item_no, const int iDur = 0);

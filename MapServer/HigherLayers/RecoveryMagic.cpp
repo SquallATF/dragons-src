@@ -1,4 +1,4 @@
-// RecoveryMagic.cpp: implementation of the CRecoveryMagic class.
+ï»¿// RecoveryMagic.cpp: implementation of the CRecoveryMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -46,9 +46,9 @@ bool CRecoveryMagic::Bind()
 }
 
 bool CRecoveryMagic::Healing()
-{ // [1]Ã¼·ÂÈ¸º¹ : HP Áõ°¡
+{ // [1]ì²´ë ¥íšŒë³µ : HP ì¦ê°€
 	if (m_pTarget->IsFullLife())
-	{ // MP°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // MPê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
 	const int nInt = m_pCaster->GetAbility(INT_);
@@ -56,7 +56,7 @@ bool CRecoveryMagic::Healing()
 	const int nPlus = ((nInt + nWsPs)>>1)*(m_pCaster->Skill[TACTICS_Magery]>>1) + 100;
 	const int nReal = m_pTarget->IncLife(nPlus);
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex, nReal);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;
@@ -68,11 +68,11 @@ bool CRecoveryMagic::Healing()
 }
 
 bool CRecoveryMagic::Decipher()
-{ // [4]ÇØµ¶ ¸¶¹ý : ÀúÁÖ°è¿­ ¸¶¹ýÀÎ Áßµ¶, µ¶±¸¸§ »óÅÂ¸¦ ÇØÁ¦
+{ // [4]í•´ë… ë§ˆë²• : ì €ì£¼ê³„ì—´ ë§ˆë²•ì¸ ì¤‘ë…, ë…êµ¬ë¦„ ìƒíƒœë¥¼ í•´ì œ
 	m_pTarget->ClearCurse(3);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -83,18 +83,18 @@ bool CRecoveryMagic::Decipher()
 }
 
 bool CRecoveryMagic::HealDisease()
-{ // [5]Áúº´Ä¡·á : Health(¹è°íÇÄ »óÅÂ) Áõ°¡
+{ // [5]ì§ˆë³‘ì¹˜ë£Œ : Health(ë°°ê³ í”” ìƒíƒœ) ì¦ê°€
 	if (m_pTarget->IsFullHungry() == true)
-	{ // ¹è°íÇÄ ¼öÄ¡°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // ë°°ê³ í”” ìˆ˜ì¹˜ê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
 	
 	const int nPlus = m_pTarget->HungryMax/5;
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -105,9 +105,9 @@ bool CRecoveryMagic::HealDisease()
 }
 
 bool CRecoveryMagic::GreatHeal()
-{ // [6]´ëÃ¼·ÂÈ¸º¹ : HP¸¦ ÃÖ´ë±îÁö Áõ°¡, ÀúÁÖ 1, 2°è¿­ÀÇ ¸¶¹ý »óÅÂ È¸º¹
+{ // [6]ëŒ€ì²´ë ¥íšŒë³µ : HPë¥¼ ìµœëŒ€ê¹Œì§€ ì¦ê°€, ì €ì£¼ 1, 2ê³„ì—´ì˜ ë§ˆë²• ìƒíƒœ íšŒë³µ
 	if (m_pTarget->IsFullLife())
-	{ // MP°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // MPê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
 	
@@ -115,12 +115,12 @@ bool CRecoveryMagic::GreatHeal()
 	const int nWsPs = m_pCaster->GetAbility(WSPS);
 	const int nPlus = ((nInt + nWsPs)>>1)*((m_pCaster->Skill[TACTICS_Magery]*3)>>1) + 600;
 	const int nReal = m_pTarget->IncLife(nPlus);
-	// ÀúÁÖ 1, 2°è¿­ ¸¶¹ý »óÅÂ È¸º¹
+	// ì €ì£¼ 1, 2ê³„ì—´ ë§ˆë²• ìƒíƒœ íšŒë³µ
 	m_pTarget->ClearCurse(1);
 	m_pTarget->ClearCurse(2);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex, nReal);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;
@@ -132,15 +132,15 @@ bool CRecoveryMagic::GreatHeal()
 }
 
 bool CRecoveryMagic::RemoveCurse()
-{ // [78]ÀúÁÖÇØÁ¦ : ÀúÁÖ 1, 2, 3, 4°è¿­ ¸¶¹ý ÇØÁ¦
+{ // [78]ì €ì£¼í•´ì œ : ì €ì£¼ 1, 2, 3, 4ê³„ì—´ ë§ˆë²• í•´ì œ
 	m_pTarget->ClearCurse(1);
 	m_pTarget->ClearCurse(2);
 	m_pTarget->ClearCurse(3);
 	m_pTarget->ClearCurse(4);
-	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//½Ã·Â»ó½Ç È¸º¹
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//ì‹œë ¥ìƒì‹¤ íšŒë³µ
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -151,9 +151,9 @@ bool CRecoveryMagic::RemoveCurse()
 }
 
 bool CRecoveryMagic::RestoreAuthority()
-{ // [151]È¸º¹ÀÇ±Ç´É : ÃÖ´ëÀÇ HP·Î Ã¤¿öÁÜ
+{ // [151]íšŒë³µì˜ê¶ŒëŠ¥ : ìµœëŒ€ì˜ HPë¡œ ì±„ì›Œì¤Œ
 	if (m_pTarget->IsFullLife())
-	{ // MP°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // MPê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
 	
@@ -161,9 +161,9 @@ bool CRecoveryMagic::RestoreAuthority()
 	const int nWsPs = m_pCaster->GetAbility(WSPS);
 	const int nPlus = ((nWis + nWsPs)>>1)*(m_pCaster->Skill[TACTICS_Orison]) + 400;
 	const int nReal = m_pTarget->IncLife(nPlus);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex, nReal);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;
@@ -175,16 +175,16 @@ bool CRecoveryMagic::RestoreAuthority()
 }
 
 bool CRecoveryMagic::MiracleRecover()
-{ // [156]¿ÏÄ¡ÀÇ ±âÀû : ½ÃÀüÀÚ¿Í ÁÖº¯ÀÇ ÀÏÁ¤ °Å¸® ³»¿¡ ÀÖ´Â Ä³¸¯ÅÍµéÀÇ HPÀ» 50000±îÁö ¿Ã·ÁÁÜ
+{ // [156]ì™„ì¹˜ì˜ ê¸°ì  : ì‹œì „ìžì™€ ì£¼ë³€ì˜ ì¼ì • ê±°ë¦¬ ë‚´ì— ìžˆëŠ” ìºë¦­í„°ë“¤ì˜ HPì„ 50000ê¹Œì§€ ì˜¬ë ¤ì¤Œ
 	if (m_pTarget->IsFullLife())
-	{ // HP°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // HPê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
-	// Life Áõ°¡
+	// Life ì¦ê°€
 	const int nReal = m_pTarget->IncLife(50000);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex, nReal);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;
@@ -196,20 +196,20 @@ bool CRecoveryMagic::MiracleRecover()
 }
 
 bool CRecoveryMagic::ReliefAuthority()
-{ // [164]±¸¿øÀÇ ±Ç´É : ´ë»óÀÚ¸¦ À¯·É »óÅÂ¿¡¼­ Á¤»ó »óÅÂ·Î ¸¸µé°í HP¿Í ¸¶³ª¸¦ ÃÖ´ë±îÁö ¹è°íÇÄ ¼öÄ¡¸¦ Àý¹Ý ¿Ã·ÁÁÜ
-	//020501 lsw »ì¸®±âÂÊ °íÄ§
-	if(!m_pCaster->bCanViewGhost)//À¯·ÉÀ» º¼ ¼ö ¾ø´Â »óÅÂ¶ó¸é
+{ // [164]êµ¬ì›ì˜ ê¶ŒëŠ¥ : ëŒ€ìƒìžë¥¼ ìœ ë ¹ ìƒíƒœì—ì„œ ì •ìƒ ìƒíƒœë¡œ ë§Œë“¤ê³  HPì™€ ë§ˆë‚˜ë¥¼ ìµœëŒ€ê¹Œì§€ ë°°ê³ í”” ìˆ˜ì¹˜ë¥¼ ì ˆë°˜ ì˜¬ë ¤ì¤Œ
+	//020501 lsw ì‚´ë¦¬ê¸°ìª½ ê³ ì¹¨
+	if(!m_pCaster->bCanViewGhost)//ìœ ë ¹ì„ ë³¼ ìˆ˜ ì—†ëŠ” ìƒíƒœë¼ë©´
 	{
 		return false;
 	}
 	if(m_pTarget->viewtype != VIEWTYPE_GHOST_) 
-	{ // À¯·É »óÅÂ°¡ ¾Æ´Ï¶ó¸é
+	{ // ìœ ë ¹ ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´
 		return false;
 	}
-	SkillMgr.CharacterToAlive(m_pTarget, 1); //¹è°íÇÄ Àý¹ÝÀÎµ¥ Ç®·Î Ã¤¿ó´Ï´Ù.
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	SkillMgr.CharacterToAlive(m_pTarget, 1); //ë°°ê³ í”” ì ˆë°˜ì¸ë° í’€ë¡œ ì±„ì›ë‹ˆë‹¤.
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_M);
 	m_packet.u.magic.server_magic_result_m.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_m.idTarget = m_idTarget;
@@ -222,11 +222,11 @@ bool CRecoveryMagic::ReliefAuthority()
 }
 
 bool CRecoveryMagic::RecoverPoison()
-{ // [154]ÇØµ¶ÀÇ ±Ç´É : ÀúÁÖ°è¿­ ¸¶¹ýÀÎ Áßµ¶, µ¶±¸¸§ »óÅÂ¸¦ ÇØÁ¦
+{ // [154]í•´ë…ì˜ ê¶ŒëŠ¥ : ì €ì£¼ê³„ì—´ ë§ˆë²•ì¸ ì¤‘ë…, ë…êµ¬ë¦„ ìƒíƒœë¥¼ í•´ì œ
 	m_pTarget->ClearCurse(3);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -237,12 +237,12 @@ bool CRecoveryMagic::RecoverPoison()
 }
 
 bool CRecoveryMagic::AuthorityRecoverSight()
-{ // [173]½Ã·ÂÈ¸º¹ÀÇ ±Ç´É : ÀúÁÖ°è¿­ ¸¶¹ýÀÎ ½Ã·Â»ó½ÇÀ» ÇØÁ¦
+{ // [173]ì‹œë ¥íšŒë³µì˜ ê¶ŒëŠ¥ : ì €ì£¼ê³„ì—´ ë§ˆë²•ì¸ ì‹œë ¥ìƒì‹¤ì„ í•´ì œ
 	m_pTarget->ClearCurse(4);
-	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//½Ã·Â»ó½Ç È¸º¹
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//ì‹œë ¥ìƒì‹¤ íšŒë³µ
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -253,18 +253,18 @@ bool CRecoveryMagic::AuthorityRecoverSight()
 }
 
 bool CRecoveryMagic::CureDisease()
-{ // [155]Áúº´Ä¡·áÀÇ ±Ç´É : Health(¹è°íÇÄ »óÅÂ) Áõ°¡
+{ // [155]ì§ˆë³‘ì¹˜ë£Œì˜ ê¶ŒëŠ¥ : Health(ë°°ê³ í”” ìƒíƒœ) ì¦ê°€
 	if (m_pTarget->IsFullHungry()) 
-	{ // ¹è°íÇÄ ¼öÄ¡°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // ë°°ê³ í”” ìˆ˜ì¹˜ê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
 	
 	const int nPlus = m_pTarget->HungryMax/4;
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic( SP, m_pTarget->Hungry);//020704 lsw
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -275,18 +275,18 @@ bool CRecoveryMagic::CureDisease()
 }
 
 bool CRecoveryMagic::AuthoritySimunian()
-{ // [181]½Ã¹«´Ï¾ÈÀÇ ±Ç´É
+{ // [181]ì‹œë¬´ë‹ˆì•ˆì˜ ê¶ŒëŠ¥
 	if (m_pTarget->IsFullHungry()) 
-	{ // ¹è°íÇÄ ¼öÄ¡°¡ ÀüºÎ Â÷ÀÖ´Ù¸é
+	{ // ë°°ê³ í”” ìˆ˜ì¹˜ê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´
 		return false;
 	}
 	
 	const int nPlus = m_pTarget->HungryMax/4;
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -297,24 +297,24 @@ bool CRecoveryMagic::AuthoritySimunian()
 }
 
 bool CRecoveryMagic::HolyCure()
-{ // [179]½Å¼ºÇÑ Ä¡À¯ = ÀúÁÖÇØÁ¦+¿ÏÄ¡ÀÇ±âÀû+ÇÁ¸®Áð ÇØÁ¦ // 030415 kyo
+{ // [179]ì‹ ì„±í•œ ì¹˜ìœ  = ì €ì£¼í•´ì œ+ì™„ì¹˜ì˜ê¸°ì +í”„ë¦¬ì¦Œ í•´ì œ // 030415 kyo
 	
 	m_pTarget->ClearCurse(1);
 	m_pTarget->ClearCurse(2);
 	m_pTarget->ClearCurse(3);
 	m_pTarget->ClearCurse(4);
-	m_pTarget->ClearCurse(6);//Freezn ÇØÁ¦
+	m_pTarget->ClearCurse(6);//Freezn í•´ì œ
 	
 	const int nPlus = m_pTarget->HungryMax; // 030516 kyo
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
 	
-	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//½Ã·Â»ó½Ç È¸º¹
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//ì‹œë ¥ìƒì‹¤ íšŒë³µ
+	// ì‹œì „ìžì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â	
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìžì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°	
 	if (m_pTarget->IsFullLife())
-	{ // HP°¡ ÀüºÎ Â÷ÀÖ´Ù¸é ¹«Á¶°Ç »«´Ù. 
+	{ // HPê°€ ì „ë¶€ ì°¨ìžˆë‹¤ë©´ ë¬´ì¡°ê±´ ëº€ë‹¤. 
 		m_pTarget->DecLife(1);
 		//return false;
 	}

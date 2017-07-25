@@ -1,4 +1,4 @@
-// TalkWithGM.h: interface for the CTalkWithGM class.
+﻿// TalkWithGM.h: interface for the CTalkWithGM class.
 //
 //////////////////////////////////////////////////////////////////////
 

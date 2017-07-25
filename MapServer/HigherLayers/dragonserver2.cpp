@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "Scrp_int.h"
 #include "Scrp_Exe.h"
@@ -10,7 +10,7 @@
 #include "ArenaManager.h"
 #include "UserManager.h"
 
-//< LTH-040722-KO 1.04p °¨¿Á½Ã½ºÅÛ
+//< LTH-040722-KO 1.04p ê°ì˜¥ì‹œìŠ¤í…œ
 #include "Prison.h"
 
 extern CPrison* g_cpPrison;
@@ -65,7 +65,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_SEND_BANK_INV				:	{for( int i=0; i<15; i++ ) SendBankInventory( i, c, cn ); break; }
 	case CMD_DO_PARTY					:	RecvDoParty( &p->u.kein.client_do_party, c, cn ); break;
 	case CMD_DELETE_PARTY				:	RecvDeleteParty( &p->u.kein.client_delete_party, c, cn ); break;
-	case CMD_REQ_PARTY_MEMBER			:	break; RecvCharInfoPlus(CMD_PARTY , c, cn); break;		// ÀÏ´Ü »©°í »ı°¢
+	case CMD_REQ_PARTY_MEMBER			:	break; RecvCharInfoPlus(CMD_PARTY , c, cn); break;		// ì¼ë‹¨ ë¹¼ê³  ìƒê°
 	case CMD_PREVENTING					:	RecvPreventing( p->u.kein.client_disease.disease_num, c, cn ); break;
 	case CMD_CURE_DISEASE				:	RecvCureDisease( p->u.kein.client_disease.disease_num, c, cn );break;
 	case CMD_REQ_ITEM_VALUE				:	SendItemValue( p->u.kein.client_item_no.item_no, cn );	break;
@@ -97,9 +97,9 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_REQ_AC						:	SendServerAc( cn ); break;
 	case CMD_REQ_DMG					:	SendServerDmg( cn ); break;
 	case CMD_SERVER_KILLMON				:	SendServerKillMon( cn ); break;
-	case CMD_PARTY_ACCESS				:	RecvPartyInfoServerToServer( &p->u.kein.server_server_party_info ); break;		// loginserver¿¡¼­ Àü¼Û¹Ş´Â´Ù.
+	case CMD_PARTY_ACCESS				:	RecvPartyInfoServerToServer( &p->u.kein.server_server_party_info ); break;		// loginserverì—ì„œ ì „ì†¡ë°›ëŠ”ë‹¤.
 	case CMD_REQ_PARTY_TOGETHER			:	RecvPartyTogetherByLoginServer( p->u.kein.rep_party_together.server_id, p->u.kein.rep_party_together.party_name ); break;
-	case CMD_PARTY_NO_NAME				:	RecvNoParty( p->u.kein.cmd_party_no_name.name, p->u.kein.cmd_party_no_name.server_id ); break;	//Àß ¸øµÈ ÀÌ¸§À» °¡Áö°í ÀÖÀ»¶§... Áö¿î´Ù.
+	case CMD_PARTY_NO_NAME				:	RecvNoParty( p->u.kein.cmd_party_no_name.name, p->u.kein.cmd_party_no_name.server_id ); break;	//ì˜ ëª»ëœ ì´ë¦„ì„ ê°€ì§€ê³  ìˆì„ë•Œ... ì§€ìš´ë‹¤.
 	case CMD_REQ_MAGERY					:	SendServerMagery( cn ); break;
 	case CMD_PUBLIC_NOTICE_BBS_REQ		:	
 	case CMD_RANK_BBS_REQ				:
@@ -107,7 +107,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_EVENT_BBS_REQ				:
 	case CMD_MYDIARY_BBS_REQ			:
 	case CMD_BBS_BBS_REQ				:
-	case CMD_ETC_BBS_REQ				:	RecvBbsMessageReq( p->h.header.type, p->u.kein.req_bbs_title.count, cn ); break;// ³»¿ë Àü¼Û ¿äÃ» ÀÀ´ä
+	case CMD_ETC_BBS_REQ				:	RecvBbsMessageReq( p->h.header.type, p->u.kein.req_bbs_title.count, cn ); break;// ë‚´ìš© ì „ì†¡ ìš”ì²­ ì‘ë‹µ
 	case CMD_PREACH_NAME				:	SendLoginServerPreachName( &p->u.kein.server_preach_name, cn ); break;
 	case CMD_LOGIN_PREACH_NAME			:	RecvAndSendPreachName( &p->u.kein.loginserver_preach_name_result ); break;
 	case CMD_GOD_REGIST_OK				:	RecvGodRegistOk( p->u.kein.client_god_regist_ok.type, cn ); break;
@@ -115,12 +115,12 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_PREACH_NAME_OK				:	SendLoginServePreachNameOk( &p->u.kein.server_preach_name, cn ); break;
 	case CMD_TOOL_PASSWORD				:	RecvToolPassword( p->u.kein.tool_password.password , cn); break;
 	case CMD_GET_CHARINFO_BY_KEIN		:	RecvLoginServerGetCharInfoByKein( &p->u.kein.get_char_info ); break;
-	case CMD_CAN_MEMORIZE				:	RecvCanMemorize( c, cn ); break;		// ¸Ş¸ğ¶óÀÌÁî ÇÒ ¼ö ÀÖ´ÂÁö ÆÇ´Ü
+	case CMD_CAN_MEMORIZE				:	RecvCanMemorize( c, cn ); break;		// ë©”ëª¨ë¼ì´ì¦ˆ í•  ìˆ˜ ìˆëŠ”ì§€ íŒë‹¨
 	case CMD_SEND_EAR_MESSAGE			:	RecvEarMessage( p->u.kein.send_ear_message.name, p->u.kein.send_ear_message.message, cn ); break;	//1
-	case CMD_SEND_EAR_MESSAGE_OTHER		:	FindWhoEarMessageTarget( &p->u.kein.login_to_gameserver_ear_message ); break;		// ±Í¼Ó¸»À» ¹ŞÀ» »ç¶÷ÀÌ ÀÌ °ÔÀÓ ¼­¹ö¿¡ Á¸ÀçÇÏ´ÂÁö ÆÇ´Ü
+	case CMD_SEND_EAR_MESSAGE_OTHER		:	FindWhoEarMessageTarget( &p->u.kein.login_to_gameserver_ear_message ); break;		// ê·€ì†ë§ì„ ë°›ì„ ì‚¬ëŒì´ ì´ ê²Œì„ ì„œë²„ì— ì¡´ì¬í•˜ëŠ”ì§€ íŒë‹¨
 	case CMD_SEND_EAR_MESSAGE_OK		:	SendEarMessageResult( CMD_SEND_EAR_MESSAGE_OK, p->u.kein.loginserver_to_gameserver_ear_message.name, p->u.kein.loginserver_to_gameserver_ear_message.server_id); break;
-	case CMD_SEND_EAR_MESSAGE_RESULT	:	SendLoginEarMessageResult( &p->u.kein.send_ear_message_result, cn ); break;		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹ŞÀº ¸Ş½ÃÁö º¸³½ °á°ú
-	case CMD_LOGIN2GAME_EAR_MESSAGE_RESULT	:	RecvLoginToGameEarMessageResult( p->u.kein.login2game_ear_message_result.send_server_id, p->u.kein.login2game_ear_message_result.ret ); break;		// È¸½ÅÀÌ µåµ® ¿Ô´Ù.
+	case CMD_SEND_EAR_MESSAGE_RESULT	:	SendLoginEarMessageResult( &p->u.kein.send_ear_message_result, cn ); break;		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë°›ì€ ë©”ì‹œì§€ ë³´ë‚¸ ê²°ê³¼
+	case CMD_LOGIN2GAME_EAR_MESSAGE_RESULT	:	RecvLoginToGameEarMessageResult( p->u.kein.login2game_ear_message_result.send_server_id, p->u.kein.login2game_ear_message_result.ret ); break;		// íšŒì‹ ì´ ë“œëŒ ì™”ë‹¤.
 	case CMD_ISTHERE_CHARNAME				:	SendGameToLoginExistName( p->u.client_isthere_charname.name, cn ); break;
 	case CMD_GAME2LOGIN_CHECK_NAME			:	CallClient( p->u.kein.login2game_ear_message_result.send_server_id, p->u.kein.login2game_ear_message_result.send_server_id ); break;
 	case CMD_REQ_SKILL_ALL					:	SendSkillAll( cn ); break;
@@ -138,7 +138,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 			break;
 		}	//> CSD-CN-031213
 	case CMD_START_GAME_MAIL				:	CallClient( p->u.kein.server_id.server_id, CMD_START_GAME_MAIL ); break;
-	case CMD_CALL_PUBLIC_BBS				:	SendToLoginserver( cn ); break;		// ·Î±×ÀÎ ¼­¹ö·Î ±×³É º¸³½´Ù.
+	case CMD_CALL_PUBLIC_BBS				:	SendToLoginserver( cn ); break;		// ë¡œê·¸ì¸ ì„œë²„ë¡œ ê·¸ëƒ¥ ë³´ë‚¸ë‹¤.
 	case CMD_CALL_PUBLIC_BBS_ONLY_ONE		:	SendLoginToClientPublicBbsOnlyOne( p ); break;
 	case CMD_HUNTER_REGIST					:	SendLoginServerHunterRegist( &p->u.kein.hunter_regist, p->h.header.size, cn ); break;
 	case CMD_GET_HUNTER_LIST				:	SendLoginServerReqHunterList( p->u.kein.get_hunter_list.list_id, cn ); break;
@@ -163,23 +163,23 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_THIS_MAN_IS_CANDIDATE_NOT		:
 	case CMD_THEREIS_CHARNAME				:	
 	case CMD_THEREIS_NO_CHARNAME			:	CallClient( p->u.kein.default_short_int, p->h.header.type ); break;
-	case CMD_CHECK_VOTE_NOT					:	ReturnCheckVoteNot( p->u.kein.default_short_int, -3 ); break;		// ÀÌ¹Ì ¼±°Å Çß´Ù.
+	case CMD_CHECK_VOTE_NOT					:	ReturnCheckVoteNot( p->u.kein.default_short_int, -3 ); break;		// ì´ë¯¸ ì„ ê±° í–ˆë‹¤.
 	case CMD_ISSAME_MY_NATION				:	SendCheckNameForNation( p->u.kein.default_name, cn ); break;
 	case CMD_IS_THIS_MAN_CANDIDATE			:	RecvAndSendLoginCheckRegistCandidate( cn ); break;
 	case CMD_CHECK_VOTE						:	CheckVote( cn ); break;
 	case CMD_CHECK_VOTE_OK					:	RecvAndSendCheckVote_Ok( p, cn ); break;
-	case CMD_REGIST_CANDIDATE				:	RecvRegistCandidate( cn ); break;	// ¼­¹ö·Î µî·ÏÇÒ¼ö ÀÖ´ÂÁö¸¦ º¸³½´Ù.
+	case CMD_REGIST_CANDIDATE				:	RecvRegistCandidate( cn ); break;	// ì„œë²„ë¡œ ë“±ë¡í• ìˆ˜ ìˆëŠ”ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 	case CMD_REGIST_CANDIDATE_NOT			:	RecvAndSendRegistCandidateResult( p ); break;
-	case CMD_SET_VALUE_OF_VOTE				:	RecvSetValueOfVote( p ); break;		// µğºñ µ¥¸ó¿¡°Ô¼­ ÅõÇ¥°ü·Ã º¯¼ö °ªÀ» °¡Á®¿Â´Ù.
-	case CMD_RESET_VOTE_VALUE				:	CallClient( DB_DEMON, CMD_SET_VALUE_OF_VOTE ); break;	// È¯°æ ´Ù½Ã ÀĞ±â
+	case CMD_SET_VALUE_OF_VOTE				:	RecvSetValueOfVote( p ); break;		// ë””ë¹„ ë°ëª¬ì—ê²Œì„œ íˆ¬í‘œê´€ë ¨ ë³€ìˆ˜ ê°’ì„ ê°€ì ¸ì˜¨ë‹¤.
+	case CMD_RESET_VOTE_VALUE				:	CallClient( DB_DEMON, CMD_SET_VALUE_OF_VOTE ); break;	// í™˜ê²½ ë‹¤ì‹œ ì½ê¸°
 	case CMD_VOTE_GAME2LOGIN				:	SendVoteGame2Login( p, cn ); break;
 	case CMD_REQ_VOTE_SCORE					:	ReqVoteScore( cn); break;
 	case CMD_REP_VOTE_SCORE					:	SendClientRepVoteScore( p ); break;
 	case CMD_GET_SKILL_INFO					:	RecvGetSkillInfo( p, cn ); break;
-	case CMD_SEND_ALL_MSG					:	RecvClienNationMassage( p, cn ); break;	// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹Ş¾Æ¼­ ·Î±×ÀÎ ¼­¹ö·Î
-	case CMD_RECV_ALL_MSG					:	RecvAndSendNationMassage( p ); break;	// ·Î±×ÀÎ¼­¹ö¿¡¼­ ¹Ş¾Æ¼­ Å¬¶óÀÌ¾ğÆ®·Î
-	case CMD_YOU_ARE_KING_LOG2LOG			:	RecvDemonYouAreKing( p, CMD_YOU_ARE_KING_LOG2CLIENT ); break;		// 5000¹ø Æ÷Æ®·Î º¸³»¹ö¸°´Ù.
-	case CMD_YOU_ARE_KING_LOG2CLIENT		:	RecvLoginYouAreKing( p, CMD_YOU_ARE_KING_LOG2CLIENT ); break;		// Ã£¾Æ¼­ ÀÖÀ¸¸é Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù.
+	case CMD_SEND_ALL_MSG					:	RecvClienNationMassage( p, cn ); break;	// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë°›ì•„ì„œ ë¡œê·¸ì¸ ì„œë²„ë¡œ
+	case CMD_RECV_ALL_MSG					:	RecvAndSendNationMassage( p ); break;	// ë¡œê·¸ì¸ì„œë²„ì—ì„œ ë°›ì•„ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ
+	case CMD_YOU_ARE_KING_LOG2LOG			:	RecvDemonYouAreKing( p, CMD_YOU_ARE_KING_LOG2CLIENT ); break;		// 5000ë²ˆ í¬íŠ¸ë¡œ ë³´ë‚´ë²„ë¦°ë‹¤.
+	case CMD_YOU_ARE_KING_LOG2CLIENT		:	RecvLoginYouAreKing( p, CMD_YOU_ARE_KING_LOG2CLIENT ); break;		// ì°¾ì•„ì„œ ìˆìœ¼ë©´ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤.
 	case CMD_YOU_ARE_NO_KING_LOG2LOG		:	RecvDemonYouAreKing( p, CMD_YOU_ARE_NO_KING_LOG2CLIENT ); break;
 	case CMD_YOU_ARE_NO_KING_LOG2CLIENT		:	RecvLoginYouAreKing( p, CMD_YOU_ARE_NO_KING_LOG2CLIENT ); break;
 	case CMD_GUILD_EXIT_COMMAND				:	RecvGuildExit( p, cn ); break;
@@ -198,13 +198,13 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_BBS_ALL						:	DirectSend( p ); break;
 	case CMD_COME_OUT_GM_FROM_LOGIN			:	DirectSend( p, p->h.header.type ); break;
 	case CMD_REQ_STOP_WAR_TO_LOGIN			:	RecvReqStopWarGame2Login( p, cn ); break;
-	case CMD_REQ_STOP_WAR_TO_CLIENT			:	RecvReqStopWarGame2Client( p ); break;		// ·Î±×ÀÎ¼­¹ö¿¡¼­ ¹ŞÀº ÇüÅÂ
-	case CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	:	RecvRepStopWarRefusal( p ); break;		// ÈŞÀü ¿äÃ»ÀÌ °ÅÀı´çÇß´Ù.
-	case CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT : 	CallClient( p->u.kein.default_short_int, CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT ); break;		// Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù.
-	case CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN	:	RecvRepStopWarAccept( p, cn ); break;		// ÈŞÀü ¿äÃ» ½Â³«
-	case CMD_REP_STOP_WAR_ACCEPT_TO_CLIENT	:	RecvRepStopWarGame2Client( p ); break;		// ¸ğµÎ¿¡°Ô »Ñ·ÁÁÖÀÚ
-	case CMD_REQ_SALVATION_MONEY			:	RecvAndReqSalvation( cn ); break;			// Å¬¶óÀÌ¾ğÆ®¿¡¼­ db·Î
-	case CMD_SALVATION_MONEY				:	RecvAndSaveSalvation( p, cn ); break;		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ db·Î
+	case CMD_REQ_STOP_WAR_TO_CLIENT			:	RecvReqStopWarGame2Client( p ); break;		// ë¡œê·¸ì¸ì„œë²„ì—ì„œ ë°›ì€ í˜•íƒœ
+	case CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	:	RecvRepStopWarRefusal( p ); break;		// íœ´ì „ ìš”ì²­ì´ ê±°ì ˆë‹¹í–ˆë‹¤.
+	case CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT : 	CallClient( p->u.kein.default_short_int, CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT ); break;		// í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤.
+	case CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN	:	RecvRepStopWarAccept( p, cn ); break;		// íœ´ì „ ìš”ì²­ ìŠ¹ë‚™
+	case CMD_REP_STOP_WAR_ACCEPT_TO_CLIENT	:	RecvRepStopWarGame2Client( p ); break;		// ëª¨ë‘ì—ê²Œ ë¿Œë ¤ì£¼ì
+	case CMD_REQ_SALVATION_MONEY			:	RecvAndReqSalvation( cn ); break;			// í´ë¼ì´ì–¸íŠ¸ì—ì„œ dbë¡œ
+	case CMD_SALVATION_MONEY				:	RecvAndSaveSalvation( p, cn ); break;		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ dbë¡œ
 	case CMD_DB2GAME_SALVATION				:	Game2ClinetSalvation( p ); break;
 	case CMD_MSG_ALL_SALVATION_TOTAL_MONEY	:	DirectSend( p ); break;
 	case CMD_SERVER_EACH_ITEM				:	RecvDB2MapItem( p ); break;
@@ -267,7 +267,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_MERCHANT_BBS_ALL				:	RecvMerchantBBSAllMap( p, cn ); break;
 	case CMD_MERCHANT_BBS_MAP_TO_MAP:	
 		{	//< CSD-031213
-			p->h.header.type = CMD_MERCHANT_BBS;		// Å¸ÀÔ¸¸ º¯È¯ÇÏ¿© ¸ğµç Å¬¶óÀÌ¾ğÆ®·Î º¸³½´Ù.
+			p->h.header.type = CMD_MERCHANT_BBS;		// íƒ€ì…ë§Œ ë³€í™˜í•˜ì—¬ ëª¨ë“  í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¸ë‹¤.
 			g_pUserManager->SendPacket(p);
 			break;
 		}	//> CSD-031213
@@ -283,7 +283,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_REQ_RANK_LADDER				:	RecvReqRankLadder( p, cn ); break;
 	case CMD_DIRECT_CLIENT					:	RecvDirectClient( p ); break;
 	case CMD_DIRECT_CLIENT_TO_DB			:	RecvDirectDB( p, cn ); break;
-	case CMD_TODAY_ITEM_GET_WHO				:	RecvDeleteTodayGambleItem();// ¾Æ·¡ ·çÆ¾ ¼öÇà
+	case CMD_TODAY_ITEM_GET_WHO				:	RecvDeleteTodayGambleItem();// ì•„ë˜ ë£¨í‹´ ìˆ˜í–‰
 	case CMD_OX_SET_TIME					:
 	case CMD_OX_QUESTION					:	
 	case CMD_PUT_MENU_STRING				:
@@ -303,8 +303,8 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_TEST							:	RecvTest( p, cn ); break;	
 	case CMD_GUILD_INFO1_REQ				:	RecvGuildInfo( p, cn ); break;
 	case CMD_GUILD_NUMBER_INFO_DB_TO_MAP	:	RecvGuildNumberInfo( p ); break;
-	case CMD_GUILD_DEGREE_INFO			:	RecvGuildDegreeInfo( p ); break;		// Á¤½Ä ±æµå µî·Ï ¼º°ø
-	case CMD_GUILD_DEGREE_INFO2			: RecvGuildDegreeInfo2( p ); break;		// Á÷Ã¥ º¯°æ
+	case CMD_GUILD_DEGREE_INFO			:	RecvGuildDegreeInfo( p ); break;		// ì •ì‹ ê¸¸ë“œ ë“±ë¡ ì„±ê³µ
+	case CMD_GUILD_DEGREE_INFO2			: RecvGuildDegreeInfo2( p ); break;		// ì§ì±… ë³€ê²½
 	case CMD_REQ_GUILD_INTRODUCTION			:	RecvGuildIntroduction( cn ); break;
 	case CMD_UPDATE_GUILD_MAIL_ID			:	TransDbGuildMailId( p, cn ); break;
 	case CMD_CHECK_MY_GUILD					:	RecvCheckGuild( p, cn ); break;
@@ -360,10 +360,10 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )
 	case CMD_SERVER_KILLPC				:	break;
 	case CMD_SEND_EVENT_NO					:	RecvEventNumber( p, cn ); break;	
 	case CMD_SEND_DUNGEON_HISTORY			:	RecvDungeonHistory( p ); break;
-	case CMD_GET_SCENARIO_INFO				:	RecvGetScenarioInfo( p, cn ); break;	// À¯ÀúÇÑÅ× ¿Â ¿äÃ»
-	case CMD_GET_SCENARIO_INFO_MAP			:	RecvGetScenarioInfoMap( p ); break;	// ¸Ê¼­¹öÇÑÅ× ¿Â ¿äÃ»
+	case CMD_GET_SCENARIO_INFO				:	RecvGetScenarioInfo( p, cn ); break;	// ìœ ì €í•œí…Œ ì˜¨ ìš”ì²­
+	case CMD_GET_SCENARIO_INFO_MAP			:	RecvGetScenarioInfoMap( p ); break;	// ë§µì„œë²„í•œí…Œ ì˜¨ ìš”ì²­
 	case CMD_SCENARIO_COMMAND				:	RecvScenarioCommand( p ); break;
-	//< LTH-040810-KO 1.04p °¨¿Á ½Ã½ºÅÛ
+	//< LTH-040810-KO 1.04p ê°ì˜¥ ì‹œìŠ¤í…œ
 	case CMD_BAD_USER_IMPRISON:
 		g_cpPrison->RecvBadUserImprison(p, cn);
 		break;
@@ -447,7 +447,7 @@ void SetMenuFunctionsAll()
 	SetMenuFunctions( CMD_CHECK_DOUBLE_NAME_DB_TO_MAP, RecvCheckDoubleNameDB2Map );
 	SetMenuFunctions( CMD_CHECK_DOUBLE_NAME_WHERE_FIRST, RecvCheckDoubleNameWhenFirst );
 	SetMenuFunctions( CMD_CHECK_DOUBLE_NAME_WHERE_OK, RecvCheckDoubleNameWhenFirstOk );
-	// 040105 YGI º¸¹°
+	// 040105 YGI ë³´ë¬¼
 	SetMenuFunctions( CMD_CHECK_TREASURE_XY, RecvCheckTreasureXY );
 	SetMenuFunctions( CMD_GET_TREASURE_MAP_DETAIL, RecvGetTreasureMapDetail );
 	SetMenuFunctions( CMD_GET_TREASURE_MAP_DETAIL_DB, RecvGetTreasureMapDetailDB );
@@ -458,13 +458,13 @@ void SetMenuFunctionsAll()
 	// 040621 YGI
 	SetMenuFunctions( CMD_ITEM_REPAIR_BY_ITEM, RecvItemRepairByItem );
 
-	//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 	SetMenuFunctions(CMD_GET_ITEM_MALL_AB_FIRST, RecvGetItemMallItem_ABFirst);
 	SetMenuFunctions(CMD_GET_ITEM_MALL_AB, RecvGetItemMallItem_AB);
-	//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 	SetMenuFunctions(CMD_DELETE_ITEM_MALL_ITEM_PER_1MIN, RecvItemMallItemDelete_Per1Min);
 	SetMenuFunctions(CMD_GET_ITEM_MALL_CLIENT, RecvGetItemMalltoDB);
 	SetMenuFunctions(CMD_DELETE_ITEM_MALL_ITEM_CLIENT, RecvItemMallItemDelete_Client);
-	//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 }

@@ -1,4 +1,4 @@
-#include "struct.h"
+﻿#include "struct.h"
 
 CHAT_CLIENT_SEND::CHAT_CLIENT_SEND(char* msg)
 {

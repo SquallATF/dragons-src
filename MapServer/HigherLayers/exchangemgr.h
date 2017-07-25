@@ -1,4 +1,4 @@
-// ExchangeMgr.h: interface for the CExchangeMgr class.
+ï»¿// ExchangeMgr.h: interface for the CExchangeMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,20 +9,20 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-const int MAX_EXCHANGE_ITEM = 20;//Àı´ë 20À¸·Î ³öµÑ°Í
+const int MAX_EXCHANGE_ITEM = 20;//ì ˆëŒ€ 20ìœ¼ë¡œ ë†”ë‘˜ê²ƒ
 
 enum ExchangeStateType
 {
-	EXCHANGE_STATE_READY = 0,//°Å·¡ ´ë±â »óÅÂ
-	EXCHANGE_STATE_EXCHANGE_NOW_SIGN_NO = 2,	//°Å·¡Áß »óÅÂ GetExchangeState¿¡¼­ ¾¸
-	EXCHANGE_STATE_EXCHANGE_NOW_SIGN_YES= 3,	//°Å·¡Áß »óÅÂ GetExchangeState¿¡¼­ ¾¸
+	EXCHANGE_STATE_READY = 0,//ê±°ë˜ ëŒ€ê¸° ìƒíƒœ
+	EXCHANGE_STATE_EXCHANGE_NOW_SIGN_NO = 2,	//ê±°ë˜ì¤‘ ìƒíƒœ GetExchangeStateì—ì„œ ì”€
+	EXCHANGE_STATE_EXCHANGE_NOW_SIGN_YES= 3,	//ê±°ë˜ì¤‘ ìƒíƒœ GetExchangeStateì—ì„œ ì”€
 };
 
 enum ExchangeType
 {
-	EXCHANGE_TYPE_NO = 0,//°Å·¡¾Æ´Ô 
-	EXCHANGE_TYPE_NORMAL = 1,		//º¸Åë °Å·¡
-	EXCHANGE_TYPE_MERCHANT_DIRECT = 2,	//»óÀÎ°ú Á÷Á¢ °Å·¡
+	EXCHANGE_TYPE_NO = 0,//ê±°ë˜ì•„ë‹˜ 
+	EXCHANGE_TYPE_NORMAL = 1,		//ë³´í†µ ê±°ë˜
+	EXCHANGE_TYPE_MERCHANT_DIRECT = 2,	//ìƒì¸ê³¼ ì§ì ‘ ê±°ë˜
 };
 
 class CExchangeMgr  
@@ -33,7 +33,7 @@ public:
 
 };
 
-/* 040715_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+/* 040715_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 extern void SaveLogChange_BankMoney(const int idTarget, const DWORD nOldBankMoney, const DWORD nNewBankMoney , const eBankMoneyChangeType BMCT); // CSD-040324
 */
 

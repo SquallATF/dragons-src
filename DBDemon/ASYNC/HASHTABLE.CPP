@@ -1,4 +1,4 @@
-#include "hashtable.h"
+﻿#include "hashtable.h"
 
 bool CHashTable::Initialize(DWORD dwMaxBucketNum)
 {	

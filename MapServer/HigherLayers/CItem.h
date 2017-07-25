@@ -1,4 +1,4 @@
-#if !defined(AFX_CITEM_H__3DCF6E55_A881_498E_9E4E_A342F8E62D81__INCLUDED_)
+ï»¿#if !defined(AFX_CITEM_H__3DCF6E55_A881_498E_9E4E_A342F8E62D81__INCLUDED_)
 #define AFX_CITEM_H__3DCF6E55_A881_498E_9E4E_A342F8E62D81__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -22,7 +22,7 @@
 
 
 ////////////////////////////////////////////
-// ¹«±â ÀåÂø (equip) 
+// ë¬´ê¸° ì¥ì°© (equip) 
 enum eWTTypes
 {
 	WT_WEAPON	= 0,
@@ -61,7 +61,7 @@ enum WearTypeGroup
 #define	DISPOSABLE		7
 #define	ARMOR			8
 #define	ACCESSORY		9
-#define	ETC				10	//±âÅ¸ ¹°Ç°
+#define	ETC				10	//ê¸°íƒ€ ë¬¼í’ˆ
 
 #define OBJECTITEM		13
 
@@ -114,11 +114,11 @@ const int IATTR_MUCH			= IATTR_DURATION;
 const int IATTR_SEAL_STONE_NO	= IATTR_LIMIT; 
 const int IATTR_SPRITE_TYPE		= IATTR_LIMIT;
 const int IATTR_RARE_MAIN		= IATTR_ID;
-const int IATTR_TREASURE_MAP	= IATTR_RESERVED0;	// 040105 YGI º¸¹°
+const int IATTR_TREASURE_MAP	= IATTR_RESERVED0;	// 040105 YGI ë³´ë¬¼
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
-const int IATTR_ITEM_MALL_IDX			= IATTR_RESERVED0;	//TotalDBÀÇ Item_to_gameÀÇ idx°ªÀ¸·Î LimitÁßº¹°ªÀ» ±¸º°ÇÏ±â À§ÇØ »ç¿ë(º¹ÅÛ±¸º°).
-const int IATTR_ITEM_MALL_EndUseTime	= IATTR_RESERVED1;	//¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛÀÇ ±â°£Á¦ÇÑÀ» Ç¥½Ã
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
+const int IATTR_ITEM_MALL_IDX			= IATTR_RESERVED0;	//TotalDBì˜ Item_to_gameì˜ idxê°’ìœ¼ë¡œ Limitì¤‘ë³µê°’ì„ êµ¬ë³„í•˜ê¸° ìœ„í•´ ì‚¬ìš©(ë³µí…œêµ¬ë³„).
+const int IATTR_ITEM_MALL_EndUseTime	= IATTR_RESERVED1;	//ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œì˜ ê¸°ê°„ì œí•œì„ í‘œì‹œ
 enum _eRT_INV_ITEMMALL
 {
 	FULL_INV			= -1,
@@ -127,7 +127,7 @@ enum _eRT_INV_ITEMMALL
 };
 //>050224_KCH
 
-// ¾ÆÀÌÅÛ TypeÀÌ 13ÀÌ»óÀÎ °æ¿ì ÇØ´ç
+// ì•„ì´í…œ Typeì´ 13ì´ìƒì¸ ê²½ìš° í•´ë‹¹
 #define ITEMTYPE_NORMAL		0
 #define ITEMTYPE_CHAIR		1
 #define ITEMTYPE_TABLE		2
@@ -158,13 +158,13 @@ enum _eRT_INV_ITEMMALL
 #define Num_Of_CItem_Etc		47
                                   
 
-//########### ¿À¸¥ÂÊ ¸¶¿ì½º ¹öÆ° Å¬¸¯ÈÄ ½ÇÇàÇÏ´Â Á¾·ù Á¤ÀÇ ###########
-#define		USE_ITEM			1		// ¼ÒºñµÇ¾î »ç¶óÁø´Ù.
-#define		DIVIDE_ITEM			3		// ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ºĞ¸®ÇÑ´Ù.
-#define		REMAIN_ITEM			4		// ºóº´ Ã³¸®
-#define		MAGIC_BOOK_ITEM		5		// ¸¶¹ıÃ¥ÀÌ ¶á´Ù
-#define		DIARY_ITEM			6		// ÀÏ±âÃ¥ÀÌ ¶á´Ù.
-#define		BOX_ITEM			7		// ¹Ú½º°¡ ¿­¸°´Ù.
+//########### ì˜¤ë¥¸ìª½ ë§ˆìš°ìŠ¤ ë²„íŠ¼ í´ë¦­í›„ ì‹¤í–‰í•˜ëŠ” ì¢…ë¥˜ ì •ì˜ ###########
+#define		USE_ITEM			1		// ì†Œë¹„ë˜ì–´ ì‚¬ë¼ì§„ë‹¤.
+#define		DIVIDE_ITEM			3		// ì•„ì´í…œì˜ ê°¯ìˆ˜ë¥¼ ë¶„ë¦¬í•œë‹¤.
+#define		REMAIN_ITEM			4		// ë¹ˆë³‘ ì²˜ë¦¬
+#define		MAGIC_BOOK_ITEM		5		// ë§ˆë²•ì±…ì´ ëœ¬ë‹¤
+#define		DIARY_ITEM			6		// ì¼ê¸°ì±…ì´ ëœ¬ë‹¤.
+#define		BOX_ITEM			7		// ë°•ìŠ¤ê°€ ì—´ë¦°ë‹¤.
 #define		DUAL_CHANGE_ITEM	8
 #define		ITEM_MALL_ITEM		10		// 040621 YGI
 
@@ -966,7 +966,7 @@ public:
 	virtual int GetObjectNumber() { return object; }
 	virtual int Getmouse_MRD(){ return Mouse_MRD; }
 	virtual int Getmouse_MR_Effect(){ return Mouse_MR_Effect;}
-	/////////////////////// 0611 lkh Ãß°¡ ///////////////////////
+	/////////////////////// 0611 lkh ì¶”ê°€ ///////////////////////
 	virtual int GetDamage() { return Damage; }
 	virtual int GetAR_or_DH() { return  ArorDH; }		// 0915 YGI
 	virtual int GetImunityCure2(){ return Imunity_Cure_2; }//020610 lsw
@@ -1075,7 +1075,7 @@ public:
 	virtual int Getmouse_MRD(){ return Mouse_MRD;}
 	virtual int Getmouse_MR_Effect(){ return Mouse_MR_Effect;}
 	virtual int GetItemQuantity(){ return Quantity; }
-	//////////////// 0612 LKH Ãß°¡ ///////////////////
+	//////////////// 0612 LKH ì¶”ê°€ ///////////////////
 	virtual int GetDamage		() { return  Damage			; }
 	virtual int GetNeed3Lv(){ return Need3_lv; }//0201014 lsw
 };
@@ -1813,7 +1813,7 @@ enum ItemPosType
 	BOX			=5,
 	MAKE		=6,
 	OTHER_CH	=7,
-	AUCTION_DB	=8//¾ÆÀÌÅÛ À§Ä¡°¡ ¿Á¼Ç µğºñ¿¡ ÀÖ´Ù 021030 lsw
+	AUCTION_DB	=8//ì•„ì´í…œ ìœ„ì¹˜ê°€ ì˜¥ì…˜ ë””ë¹„ì— ìˆë‹¤ 021030 lsw
 };
 
 #define CHARACTER	124
@@ -1837,11 +1837,11 @@ extern CItem *ItemUnit( int item_no );//011030 lsw
 extern CItem *ItemUnit( ItemAttr item );//021015 lsw
 extern CItem *ItemUnit( int type, int item_no );
 extern bool SearchInv( ItemAttr inv[3][3][8], int &a, int &b, int &c );
-extern _eRT_INV_ITEMMALL SearchInvForItemMall( CHARLIST *pCh, int &a, int &b, int &c ,const ItemAttr _UserItem);	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+extern _eRT_INV_ITEMMALL SearchInvForItemMall( CHARLIST *pCh, int &a, int &b, int &c ,const ItemAttr _UserItem);	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 extern void CheckItemTimeElapsed( void );
 extern void SendItemFoot_On_Trap0( t_connection c[], int cn, int itemid );
 extern void SendItemFoot_On_Trap1( t_connection c[], int cn, int itemid );
-extern DWORD CalcDurByUseItem( DWORD dur, int luck );		// ¾ÆÀÌÅÛ ÇÑ¹ø »ç¿ë¿¡ µû¸¥ ³»±¸·Â °è»ê
+extern DWORD CalcDurByUseItem( DWORD dur, int luck );		// ì•„ì´í…œ í•œë²ˆ ì‚¬ìš©ì— ë”°ë¥¸ ë‚´êµ¬ë ¥ ê³„ì‚°
 extern int SearchInv_invert( ItemAttr inv[3][3][8], int &a, int &b, int &c );
 
 extern int SearchMoneyItem( ItemAttr inv[3][3][8], int &a, int &b, int &c );		// 001030 YGI
@@ -1860,8 +1860,8 @@ extern CItem_Etc			CEtc		[MAX_ITEM_NUM];
 extern CItem_List Item_Ref ;
 
 extern int SearchInvEmptyCount( ItemAttr inv[3][3][8]);//021014 lsw
-extern int ConvBondMoneyCount(const DWORD dwMoney,const int iaBondIndex = 0);//µ·À» ³ÖÀ¸¸é ¹ŞÀ» º»µå¸Ó´Ï¿Í µ· ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ¸®ÅÏ// iaBondIndex aBondMoneyÀÇ ÀÎµ¦½º¸¦ ÀÇ¹Ì
-extern int GiveMoney(CHARLIST *ch, const DWORD dwMoney,const int iaBondIndex = 0);// iaBondIndex aBondMoneyÀÇ ÀÎµ¦½º¸¦ ÀÇ¹Ì
-extern int GiveMoneyAble(CHARLIST *ch, const DWORD dwMoney,const int iaBondIndex = 0);//µ·À» ¹ŞÀ» ¼ö ÀÖ´Â »óÈ²ÀÎ°¡
+extern int ConvBondMoneyCount(const DWORD dwMoney,const int iaBondIndex = 0);//ëˆì„ ë„£ìœ¼ë©´ ë°›ì„ ë³¸ë“œë¨¸ë‹ˆì™€ ëˆ ì•„ì´í…œì˜ ê°¯ìˆ˜ë¥¼ ë¦¬í„´// iaBondIndex aBondMoneyì˜ ì¸ë±ìŠ¤ë¥¼ ì˜ë¯¸
+extern int GiveMoney(CHARLIST *ch, const DWORD dwMoney,const int iaBondIndex = 0);// iaBondIndex aBondMoneyì˜ ì¸ë±ìŠ¤ë¥¼ ì˜ë¯¸
+extern int GiveMoneyAble(CHARLIST *ch, const DWORD dwMoney,const int iaBondIndex = 0);//ëˆì„ ë°›ì„ ìˆ˜ ìˆëŠ” ìƒí™©ì¸ê°€
 
 #endif// AFX_CITEM_H__3DCF6E55_A881_498E_9E4E_A342F8E62D81__INCLUDED_

@@ -1,4 +1,4 @@
-// BaseArena.h: interface for the CBaseArena class.
+﻿// BaseArena.h: interface for the CBaseArena class.
 //
 //////////////////////////////////////////////////////////////////////
 

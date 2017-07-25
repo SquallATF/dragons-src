@@ -1,4 +1,4 @@
-#define SCRIPT_OLD 0
+ï»¿#define SCRIPT_OLD 0
 #define SCRIPT_NEW 1
 
 #ifndef __SCRIPT_INT_H__
@@ -31,7 +31,7 @@ enum
     and2_     =  0xf5,
 };
 
-const int MAX_SCRIPT_FUNCTION = 109;	// 040601 YGI  //coromo ×î´ó½Å±¾Êý
+const int MAX_SCRIPT_FUNCTION = 109;	// 040601 YGI  //coromo æœ€å¤§è„šæœ¬æ•°
 
 #ifndef __SCRIPT_C__
 
@@ -45,48 +45,48 @@ const int MAX_SCRIPT_FUNCTION = 109;	// 040601 YGI  //coromo ×î´ó½Å±¾Êý
 
 void Incode( char *s );
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetByte
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : 1¹ÙÀÌÆ®ÀÇ °ª
- ¼³  ¸í : prog¿¡ ±â·ÏµÈ ³»¿ë¿¡¼­ 1¹ÙÀÌÆ®¸¦ ¸®ÅÏÇÏ°í progÆ÷ÀÎÅÍ¸¦ 1Áõ°¡
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetByte
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : 1å®˜æžé£˜ç‹¼ è”¼
+ æ±²  ç–™ : progä¿Š æ‰åºŸç­‰ éƒ´ä¾©ä¿Šè¾‘ 1å®˜æžé£˜ç”« åºœç•”çªç»Š progå™¨ç‰¢ç£ç”« 1åˆ˜å•Š
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 BYTE GetByte( void );
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetInt
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : 4¹ÙÀÌÆ®ÀÇ °ª
- ¼³  ¸í : prog¿¡ ±â·ÏµÈ ³»¿ë¿¡¼­ 4¹ÙÀÌÆ®¸¦ ¸®ÅÏÇÏ°í progÆ÷ÀÎÅÍ¸¦ 4Áõ°¡
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetInt
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : 4å®˜æžé£˜ç‹¼ è”¼
+ æ±²  ç–™ : progä¿Š æ‰åºŸç­‰ éƒ´ä¾©ä¿Šè¾‘ 4å®˜æžé£˜ç”« åºœç•”çªç»Š progå™¨ç‰¢ç£ç”« 4åˆ˜å•Š
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int GetInt( void );
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetString
- ÀÎ  ÀÚ :
- ¸®ÅÏ°ª : ¹®ÀÚ¿­À» ÀúÀåÇÏ°í ÀÖ´Â ¹è¿­ÀÇ ½ÃÀÛ Æ÷ÀÎÅÍ
- ¼³  ¸í : ½ºÅ©¸³Æ® µ¥ÀÌÅ¸¿¡¼­ ¹®ÀÚ¿­À» ÀÐ¾îµéÀÎ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetString
+ ç‰¢  ç£Š :
+ åºœç•”è”¼ : å·©ç£Šå‡¯é˜‘ åŽ†åŽ˜çªç»Š ä¹ç»° ç¡…å‡¯ç‹¼ çŸ«ç´¯ å™¨ç‰¢ç£
+ æ±²  ç–™ : èƒ¶å†œèµ‹é£˜ å•æžé¸¥ä¿Šè¾‘ å·©ç£Šå‡¯é˜‘ ä½¬ç»¢ç”¸ç‰¢ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void GetString( char *buf );
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Script
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ½ºÅ©¸³Æ® ÁÖ ½ÇÇà±â
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Script
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : èƒ¶å†œèµ‹é£˜ æž— è§’é’æ‰
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void Script( int num );
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : LoadScript
- ÀÎ  ÀÚ : name - ÀÐ¾îµéÀÌ°íÀÚ ÇÏ´Â ½ºÅ©¸³Æ® µ¥ÀÌÅ¸ È­ÀÏ¸íÀÌ ¾Æ´Ï¶ó ÀÏ·Ã¹øÈ£.
- ¸®ÅÏ°ª :
- ¼³  ¸í : Á¤»óÀûÀ¸·Î ÀÐ¾îµéÀÌ¸é 1À» ¸®ÅÏÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : LoadScript
+ ç‰¢  ç£Š : name - ä½¬ç»¢ç”¸æžç»Šç£Š çªç»° èƒ¶å†œèµ‹é£˜ å•æžé¸¥ æ‹³è€ç–™æž é…’èªæ‰¼ è€è®¿é”…é¾‹.
+ åºœç•”è”¼ :
+ æ±²  ç–™ : æ²¥æƒ‘åˆ©æ è‚º ä½¬ç»¢ç”¸æžæ 1é˜‘ åºœç•”èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int LoadScript( char *scriptname );
 int LoadScriptText( char *scrname );
 

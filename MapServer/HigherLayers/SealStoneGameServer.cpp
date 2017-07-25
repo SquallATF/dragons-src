@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "SealStone.h"
 #include "UserManager.h"
@@ -61,8 +61,8 @@ void Recv_CMD_SEALSTONE_STATUS( t_sealstone_status *tp )
 	}
 }	//> CSD-CN-031213
 	
-//	LoginServer¿¡¼­ ÀüÀïÀÌ ½ÃÀÛµÈ´Ù´Â ¾ê±â¸¦ µé¾ú´Ù. 
-//	°°Àº ³ª¶ó ¾ÖµéÇÑÅ× »Ñ·ÁÁØ´Ù. 
+//	LoginServerì—ì„œ ì „ìŸì´ ì‹œìž‘ëœë‹¤ëŠ” ì–˜ê¸°ë¥¼ ë“¤ì—ˆë‹¤. 
+//	ê°™ì€ ë‚˜ë¼ ì• ë“¤í•œí…Œ ë¿Œë ¤ì¤€ë‹¤. 
 extern void	SendPacket2NationClients(const int Nation,t_packet* p);	// CSD-030415
 
 void Recv_CMD_SEALSTONE_WAR_START( int nation )
@@ -73,8 +73,8 @@ void Recv_CMD_SEALSTONE_WAR_START( int nation )
 	SendPacket2NationClients(nation, &p);
 }	//> CSD-030415	
 					
-//	·Î±ä¼·¿¡¼­ Àü»ýÀÇ °á°ú¸¦ º¸³»ÁÖ¾ú´Ù. 
-//	´ç»çÀÚ Ä³¸¯ÅÍ¿¡°Ô »Ñ·ÁÁØ´Ù. 
+//	ë¡œê¸´ì„­ì—ì„œ ì „ìƒì˜ ê²°ê³¼ë¥¼ ë³´ë‚´ì£¼ì—ˆë‹¤. 
+//	ë‹¹ì‚¬ìž ìºë¦­í„°ì—ê²Œ ë¿Œë ¤ì¤€ë‹¤. 
 void Recv_CMD_SEALSTONE_RESULT( t_sealstone_result *tp )
 {	//< CSD-CN-031213
 	t_packet ap;
@@ -168,15 +168,15 @@ void SendSealStoneFromKing( int cn )
 {	
 	return;
 	
-	//if( connections[cn].chrlst.name_status.king == 0 )  //coromo 2005/05/06 È¥³ýKINGÌØÈ¨
+	//if( connections[cn].chrlst.name_status.king == 0 )  //coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 	//{	
-	//	// ³×°¡ ¿ÕÀÌ³Ä...
+	//	// ë„¤ê°€ ì™•ì´ëƒ...
 	//	return;
 	//}
 
 	t_packet p;
 		
-	if( KingCommandBlock ) // ÇöÀç´Â °ø°Ý¸í·ÉÀ» ³»¸±¼ö ¾ø´Ù. 
+	if( KingCommandBlock ) // í˜„ìž¬ëŠ” ê³µê²©ëª…ë ¹ì„ ë‚´ë¦´ìˆ˜ ì—†ë‹¤. 
 	{	
 		p.h.header.type = CMD_WAR_START_BLOCK;
 		p.h.header.size = 0;
@@ -226,15 +226,15 @@ void Send_CMD_SEALSTONE_STATUS( LPCHARLIST d, int status )
 	
 	
 	
-/********************************************************************************************°×¼·(¸Ê¼·)¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼ö
-±â	´É :	±¹°¡°£ÀÇ °ü°è¸¦ Loginserver·Î º¸³» °ÔÀÓ¼­¹ö¿¡ º¸³»¾î ¸ðµç °ÔÀÓ¼·(¸Ê¼·)ÀÌ ¾Ë°Ô ÇÑ´Ù. 
+/********************************************************************************************ê²œì„­(ë§µì„­)ì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
+ê¸°	ëŠ¥ :	êµ­ê°€ê°„ì˜ ê´€ê³„ë¥¼ Loginserverë¡œ ë³´ë‚´ ê²Œìž„ì„œë²„ì— ë³´ë‚´ì–´ ëª¨ë“  ê²Œìž„ì„­(ë§µì„­)ì´ ì•Œê²Œ í•œë‹¤. 
 			
-ÀÎ	ÀÚ : int a_nation, b_nation : °ü°è¸¦ ¼³Á¤ÇÒ ±¹°¡ ( ±¹°¡ÄÚµå,  3: ¹ÙÀÌ¼­½º, 4:ÀÚÀÌÆÝ ... )
-		int relation           : 0 : ¹«°ü°è    1: Àû´ë°ü°è     2: Çù·Â°ü°è    3: ÁÖÁ¾°ü°è( a:ÁÖ b:Á¾)
-		DWORD relationstart		:	¸îÃÊµÚ¿¡ ½ÃÀÛÇÒ°ÍÀÎ°¡
-		DWORD relationhowlong	:	¸îÃÊµ¿¾È À¯ÁöµÉ°ÍÀÎ°¡? ( 0ÀÌ¸é ¹«ÇÑ )
+ì¸	ìž : int a_nation, b_nation : ê´€ê³„ë¥¼ ì„¤ì •í•  êµ­ê°€ ( êµ­ê°€ì½”ë“œ,  3: ë°”ì´ì„œìŠ¤, 4:ìžì´íŽ€ ... )
+		int relation           : 0 : ë¬´ê´€ê³„    1: ì ëŒ€ê´€ê³„     2: í˜‘ë ¥ê´€ê³„    3: ì£¼ì¢…ê´€ê³„( a:ì£¼ b:ì¢…)
+		DWORD relationstart		:	ëª‡ì´ˆë’¤ì— ì‹œìž‘í• ê²ƒì¸ê°€
+		DWORD relationhowlong	:	ëª‡ì´ˆë™ì•ˆ ìœ ì§€ë ê²ƒì¸ê°€? ( 0ì´ë©´ ë¬´í•œ )
 			
-°á	°ú : LoginServer¿¡ º¸³»Áö¸é, ´Ù½Ã °ÔÀÓ¼·(¸Ê¼·)À¸·Î º¸³»Áö¸ç, ´Ù½Ã Client±îÁö °á°ú¸¦ º¸³»ÁÖ°Ô µÈ´Ù. 
+ê²°	ê³¼ : LoginServerì— ë³´ë‚´ì§€ë©´, ë‹¤ì‹œ ê²Œìž„ì„­(ë§µì„­)ìœ¼ë¡œ ë³´ë‚´ì§€ë©°, ë‹¤ì‹œ Clientê¹Œì§€ ê²°ê³¼ë¥¼ ë³´ë‚´ì£¼ê²Œ ëœë‹¤. 
 *******************************************************************************************************/
 int SendNation2NationRelation( int a_nation, int b_nation, int relation, int year = 0, int yday = 0, int hour = 0, DWORD howlong = 0 )
 {			
@@ -242,7 +242,7 @@ int SendNation2NationRelation( int a_nation, int b_nation, int relation, int yea
 			
 	if( relation == NATION_RELATION_FRIEND_ )
 	{		
-		if( year == 0 ) // ±¹°¡°£ÀÇ 1ÀÏ°£ÀÇ ÈÞÀüÀ» ÇÑ´Ù. 
+		if( year == 0 ) // êµ­ê°€ê°„ì˜ 1ì¼ê°„ì˜ íœ´ì „ì„ í•œë‹¤. 
 		{	
 			year  = g_year;
 			yday  = g_yday;
@@ -284,8 +284,8 @@ void RecvNation2NationRelationResult(t_packet *p)
 {	//< CSD-CN-031213
 	switch (p->u.nation2nation_relation_result.why)
 	{	
-	case NATION_RELATION_SAME_FAIL_: // ÇöÀç ÀÌ¹Ì ±×·¸°Ô ¼³Á¤ÀÌ µÇ¾î ÀÖ´Â»óÅÂÀÔ´Ï´Ù. 
-	case NATION_RELATION_FAIL_:	     // ÈÞÀüÀÌ °á·ÄµÇ¾ú½À´Ï´Ù.
+	case NATION_RELATION_SAME_FAIL_: // í˜„ìž¬ ì´ë¯¸ ê·¸ë ‡ê²Œ ì„¤ì •ì´ ë˜ì–´ ìžˆëŠ”ìƒíƒœìž…ë‹ˆë‹¤. 
+	case NATION_RELATION_FAIL_:	     // íœ´ì „ì´ ê²°ë ¬ë˜ì—ˆìŠµë‹ˆë‹¤.
 		{
 			CUserManager::HASH_USER mpUser = g_pUserManager->GetUserSet();
 
@@ -302,7 +302,7 @@ void RecvNation2NationRelationResult(t_packet *p)
 			
 			break;
 		}
-	case NATION_RELATION_SUCCESS_ :	// ÈÞÀüÀÌ ¼º¸³µÇ¾ú½À´Ï´Ù. 
+	case NATION_RELATION_SUCCESS_ :	// íœ´ì „ì´ ì„±ë¦½ë˜ì—ˆìŠµë‹ˆë‹¤. 
 		{
 			g_pUserManager->SendPacket(p);
 			break;

@@ -1,4 +1,4 @@
-//#define _GAME_SERVER_
+ï»¿//#define _GAME_SERVER_
 
 
 //#define _SERVER_MAKE_MODE_
@@ -96,63 +96,63 @@ extern char		StartMapPosition[ 5][20][20];
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-typedef struct tagMAGICTABLE							//¸¶¹ı Å×ÀÌºí ±¸Á¶Ã¼
+typedef struct tagMAGICTABLE							//ë§ˆë²• í…Œì´ë¸” êµ¬ì¡°ì²´
 {
-	//	int				grouping;		//»ç¿ë°¡´ÉÇÑ »ç¶÷ ºĞ·ù(0->´©±¸³ª/1->¸¶¹ı»ç°è¸¸/2->¼ºÁ÷ÀÚ°è¸¸)	
-	int				serial_Num;		//°íÀ¯¹øÈ£(1~)
-	int				order_Type;		//°è¿­(1->»ı/2->»ç/3->ÀÏ¹İ/4->È­¿°/5->¾óÀ½/6->Àü°İ/7->¼ÒÈ¯/8->½Ã°ø/9->½Å¼º/10->Á¤µ¿/11->Á¤³ä/12->Æ¯¼ö)
-	int				appoint_Type;		//´ë»ó ÁöÁ¤¹æ½Ä Å¸ÀÔ(0->³ªÀÚ½Å/1->´ë»óÁöÁ¤(´ÜÀÏ´ë»ó)/2->´ë»óÁöÁ¤(º¹¼ö´ë»ó)/3->Áö¿ª¸¶¹ı)
-	int				basic_Level;		//»ç¿ë ±âº» ·¹º§(1~9)
+	//	int				grouping;		//ì‚¬ìš©ê°€ëŠ¥í•œ ì‚¬ëŒ ë¶„ë¥˜(0->ëˆ„êµ¬ë‚˜/1->ë§ˆë²•ì‚¬ê³„ë§Œ/2->ì„±ì§ìê³„ë§Œ)	
+	int				serial_Num;		//ê³ ìœ ë²ˆí˜¸(1~)
+	int				order_Type;		//ê³„ì—´(1->ìƒ/2->ì‚¬/3->ì¼ë°˜/4->í™”ì—¼/5->ì–¼ìŒ/6->ì „ê²©/7->ì†Œí™˜/8->ì‹œê³µ/9->ì‹ ì„±/10->ì •ë™/11->ì •ë…/12->íŠ¹ìˆ˜)
+	int				appoint_Type;		//ëŒ€ìƒ ì§€ì •ë°©ì‹ íƒ€ì…(0->ë‚˜ìì‹ /1->ëŒ€ìƒì§€ì •(ë‹¨ì¼ëŒ€ìƒ)/2->ëŒ€ìƒì§€ì •(ë³µìˆ˜ëŒ€ìƒ)/3->ì§€ì—­ë§ˆë²•)
+	int				basic_Level;		//ì‚¬ìš© ê¸°ë³¸ ë ˆë²¨(1~9)
 	int				point_MS;		//Magic S point 
-	int		        before_Magic;		//Àü ´Ü°è ¸¶¹ı(¸ÕÀú ÀÍÇô¾ß ÇÒ ¸¶¹ı)
-	int				cast_Time;		//Ä³½ºÆÃ ½Ã°£(Àı´ë½Ã°£)
-	int				cast_Continue;	//Ä³½ºÆÃ Áö¼Ó ½Ã°£(Àı´ë½Ã°£)
-	int				continue_Time;	//Áö¼Ó½Ã°£(0->¿µ¿øÈ÷/1~Àı´ë½Ã°£)
-	int				avail_Type;		//È¿¿ë Å¸ÀÔ(0->ÀÚ½Å/1->ÀÚ½Å ¾Æ´Ñ 1¸í/2~->À¯È¿¹üÀ§³» ´Ù¼ö)
-	int				avail_Range;	//»çÁ¤°Å¸®(Å¸ÀÏ´ÜÀ§/0->ÀÚ½Å/99->¹«ÇÑ)
-	int				exhaust_MP;		//¼Ò¸ğ MP
-	int				exhaust_MS;		//¼Ò¸ğ MS
-	int				require_IT;		//¿ä±¸ Áö´É
-	int				require_WP;		//¿ä±¸ ÁöÇı
-	int				point_Hit;		//¸íÁß·ü(0->100%,1~->ÇØ´ç ¸íÁß·ü)
-	int				point_Attract;	//¸Å·Â Æ÷ÀÎÆ®(0->not available/1~)
-	int				point_WS;		//WS Æ÷ÀÎÆ®(0->not available/1~)
-	int				point_Move;		//ÀÌµ¿Æ÷ÀÎÆ®(0->not available/1~)
-	bool			invalid_MagicZone;	//¸¶·Â¹«È¿Áö¿ª
-	bool			invalid_SpriteZone;	//½Å·Â¹«È¿Áö¿ª
-	bool			invalid_SummonZone;	//¼ÒÈ¯ºÒ°¡Áö¿ª
-	bool			invalid_HolyZone;	//½Å¼ºÁö¿ª
-	int				invalid_TargetIT;	//¸¶¹ı ¹«È¿È­ ´ë»óÃ¼ Áö´ÉÄ¡
-	int				invalid_TargetWP;	//¸¶¹ı ¹«È¿È­ ´ë»óÃ¼ ÁöÇıÄ¡	
-	int				invalid_TargetHP;	//¸¶¹ı ¹«È¿È­ ´ë»óÃ¼ °Ç°­Ä¡
-	int				invalid_TargetSP;	//¸¶¹ı ¹«È¿È­ ´ë»óÃ¼ SP
-	bool			invalid_Night;		//¸¶¹ı ¹«È¿È­ -> ¹ã
-	bool			invalid_Day;		//¸¶¹ı ¹«È¿È­ -> ³·
-	bool			invalid_Fire;		//¸¶¹ı ¹«È¿È­ -> ºÒ
-	int				difference_IT;		//´ë»óÃ¼¿ÍÀÇ Áö´É Â÷ÀÌ
-	int				difference_WP;		//´ë»óÃ¼¿ÍÀÇ ÁöÇı Â÷ÀÌ
-	bool			invalid_Rain;		//¸¶¹ı ¹«È¿È­ -> ºñ
-	bool			invalid_Snow;		//¸¶¹ı ¹«È¿È­ -> ´«
-	bool			invalid_Fog;		//¸¶¹ı ¹«È¿È­ -> ¾È°³
-	bool			invalid_IceMagic;	//¸¶¹ı ¹«È¿È­ -> ¾óÀ½¸¶¹ı
-	bool			invalid_FireMagic;	//¸¶¹ı ¹«È¿È­ -> È­¿°¸¶¹ı
-	bool			invalid_BoltMagic;	//¸¶¹ı ¹«È¿È­ -> Àü°İ¸¶¹ı
-	char			startMagic_Word[8];	//¸¶¹ı½Ãµ¿¾î
+	int		        before_Magic;		//ì „ ë‹¨ê³„ ë§ˆë²•(ë¨¼ì € ìµí˜€ì•¼ í•  ë§ˆë²•)
+	int				cast_Time;		//ìºìŠ¤íŒ… ì‹œê°„(ì ˆëŒ€ì‹œê°„)
+	int				cast_Continue;	//ìºìŠ¤íŒ… ì§€ì† ì‹œê°„(ì ˆëŒ€ì‹œê°„)
+	int				continue_Time;	//ì§€ì†ì‹œê°„(0->ì˜ì›íˆ/1~ì ˆëŒ€ì‹œê°„)
+	int				avail_Type;		//íš¨ìš© íƒ€ì…(0->ìì‹ /1->ìì‹  ì•„ë‹Œ 1ëª…/2~->ìœ íš¨ë²”ìœ„ë‚´ ë‹¤ìˆ˜)
+	int				avail_Range;	//ì‚¬ì •ê±°ë¦¬(íƒ€ì¼ë‹¨ìœ„/0->ìì‹ /99->ë¬´í•œ)
+	int				exhaust_MP;		//ì†Œëª¨ MP
+	int				exhaust_MS;		//ì†Œëª¨ MS
+	int				require_IT;		//ìš”êµ¬ ì§€ëŠ¥
+	int				require_WP;		//ìš”êµ¬ ì§€í˜œ
+	int				point_Hit;		//ëª…ì¤‘ë¥ (0->100%,1~->í•´ë‹¹ ëª…ì¤‘ë¥ )
+	int				point_Attract;	//ë§¤ë ¥ í¬ì¸íŠ¸(0->not available/1~)
+	int				point_WS;		//WS í¬ì¸íŠ¸(0->not available/1~)
+	int				point_Move;		//ì´ë™í¬ì¸íŠ¸(0->not available/1~)
+	bool			invalid_MagicZone;	//ë§ˆë ¥ë¬´íš¨ì§€ì—­
+	bool			invalid_SpriteZone;	//ì‹ ë ¥ë¬´íš¨ì§€ì—­
+	bool			invalid_SummonZone;	//ì†Œí™˜ë¶ˆê°€ì§€ì—­
+	bool			invalid_HolyZone;	//ì‹ ì„±ì§€ì—­
+	int				invalid_TargetIT;	//ë§ˆë²• ë¬´íš¨í™” ëŒ€ìƒì²´ ì§€ëŠ¥ì¹˜
+	int				invalid_TargetWP;	//ë§ˆë²• ë¬´íš¨í™” ëŒ€ìƒì²´ ì§€í˜œì¹˜	
+	int				invalid_TargetHP;	//ë§ˆë²• ë¬´íš¨í™” ëŒ€ìƒì²´ ê±´ê°•ì¹˜
+	int				invalid_TargetSP;	//ë§ˆë²• ë¬´íš¨í™” ëŒ€ìƒì²´ SP
+	bool			invalid_Night;		//ë§ˆë²• ë¬´íš¨í™” -> ë°¤
+	bool			invalid_Day;		//ë§ˆë²• ë¬´íš¨í™” -> ë‚®
+	bool			invalid_Fire;		//ë§ˆë²• ë¬´íš¨í™” -> ë¶ˆ
+	int				difference_IT;		//ëŒ€ìƒì²´ì™€ì˜ ì§€ëŠ¥ ì°¨ì´
+	int				difference_WP;		//ëŒ€ìƒì²´ì™€ì˜ ì§€í˜œ ì°¨ì´
+	bool			invalid_Rain;		//ë§ˆë²• ë¬´íš¨í™” -> ë¹„
+	bool			invalid_Snow;		//ë§ˆë²• ë¬´íš¨í™” -> ëˆˆ
+	bool			invalid_Fog;		//ë§ˆë²• ë¬´íš¨í™” -> ì•ˆê°œ
+	bool			invalid_IceMagic;	//ë§ˆë²• ë¬´íš¨í™” -> ì–¼ìŒë§ˆë²•
+	bool			invalid_FireMagic;	//ë§ˆë²• ë¬´íš¨í™” -> í™”ì—¼ë§ˆë²•
+	bool			invalid_BoltMagic;	//ë§ˆë²• ë¬´íš¨í™” -> ì „ê²©ë§ˆë²•
+	char			startMagic_Word[8];	//ë§ˆë²•ì‹œë™ì–´
 	
-	int				reserve1;		//¿¹ºñ ¸É¹ö º¯¼ö
+	int				reserve1;		//ì˜ˆë¹„ ë§´ë²„ ë³€ìˆ˜
 	int				reserve2;		//      "
-	bool			flag;			//¿¹ºñ ÇÃ·¹±×
+	bool			flag;			//ì˜ˆë¹„ í”Œë ˆê·¸
 	
 	int				basic_magery ;		//
-	int				Rain_Corr ;			// º¸Á¤°ªµé... ´ÜÀ§(%)
+	int				Rain_Corr ;			// ë³´ì •ê°’ë“¤... ë‹¨ìœ„(%)
 	int				Fog_Corr ;
 	int				Night_Corr ;
-	int				Spell_Type ;		// 0 Wizard, 1~13 priest(Godº° typeµé ¶§¹®¿¡ ´Ù¾ç
+	int				Spell_Type ;		// 0 Wizard, 1~13 priest(Godë³„ typeë“¤ ë•Œë¬¸ì— ë‹¤ì–‘
 	int				Appoint_Type ;
 } MAGICTABLE;
 
 typedef struct tagNPC_Info 
-{ // 153°³ ÀÓ.
+{ // 153ê°œ ì„.
 	short int	sprno ;
 	short int	face ;
 	short int	race ;
@@ -194,12 +194,12 @@ typedef struct tagNPC_Info
 	short int	moralold ;
 	short int	luckold ;
 	short int	condition ;
-	__int16 nPoison; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nCurse; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â	
-	__int16 nFire;	 // ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nIce;		 // ¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nElect;	 // Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇâ·Â
-	__int16 nHoly;	 // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+	__int16 nPoison; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nCurse; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥	
+	__int16 nFire;	 // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nIce;		 // ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nElect;	 // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í–¥ë ¥
+	__int16 nHoly;	 // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 	short int	ws[10] ;
 	short int	ps[10] ;
 	int	acc_equip[6] ;
@@ -278,31 +278,31 @@ typedef struct tagNPCName_by_Gender
 
 struct NPCLev_to_Exp
 {	//< CSD-TW-030606
-	int nMinExp;         // ÇöÀç ·¹º§ÀÇ ÃÖ¼Ò °æÇèÄ¡
-	int nMaxExp;         // ÇöÀç ·¹º§ÀÇ ÃÖ´ë °æÇèÄ¡
-	int nNeedExp;        // ´ÙÀ½ ·¹º§·Î ¿Ã¶ó°¡±â À§ÇØ È¹µæÇØ¾ßµÉ °æÇèÄ¡
-	int nTrainingExp;    // ÅÃÆ½ ¼ö·ÃÀå¿¡¼­ ¾ò´Â °æÇèÄ¡
-	float fExpReduction; // »ç³É½Ã Á×¾úÀ» °æ¿ì °æÇèÄ¡ »è°¨·ü
-	float fNKReduction;	 // NK¿¡ Á×¾úÀ» °æ¿ì °æÇèÄ¡ »è°¨·ü
-	int nTacRate;		 // ÅÃÆ½ º¸Á¤Ä¡
-	int nMaxTactic;	     // ·¹º§¿¡ µû¸¥ ÅÃÆ½ ¼ö·ÃÀå¿¡¼­ ¿Ã¸± ¼ö ÀÖ´Â ÃÖ´ë ÅÃÆ½ ·¹º§
-	int	nDyeingPrice;    // ¿°»ö °¡°İ
-	int nLessRate;       // ³·Àº ·¹º§ º¸Á¤Ä¡  
-	int nGreatRate;      // ³ôÀº ·¹º§ º¸Á¤Ä¡  
-	int nCspMax;         // ÃÖ´ë ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ È¹µæ¼ö
-	int nBaseCP;         // ÀüÅõ½ºÅ³ ±âº»·®
+	int nMinExp;         // í˜„ì¬ ë ˆë²¨ì˜ ìµœì†Œ ê²½í—˜ì¹˜
+	int nMaxExp;         // í˜„ì¬ ë ˆë²¨ì˜ ìµœëŒ€ ê²½í—˜ì¹˜
+	int nNeedExp;        // ë‹¤ìŒ ë ˆë²¨ë¡œ ì˜¬ë¼ê°€ê¸° ìœ„í•´ íšë“í•´ì•¼ë  ê²½í—˜ì¹˜
+	int nTrainingExp;    // íƒí‹± ìˆ˜ë ¨ì¥ì—ì„œ ì–»ëŠ” ê²½í—˜ì¹˜
+	float fExpReduction; // ì‚¬ëƒ¥ì‹œ ì£½ì—ˆì„ ê²½ìš° ê²½í—˜ì¹˜ ì‚­ê°ë¥ 
+	float fNKReduction;	 // NKì— ì£½ì—ˆì„ ê²½ìš° ê²½í—˜ì¹˜ ì‚­ê°ë¥ 
+	int nTacRate;		 // íƒí‹± ë³´ì •ì¹˜
+	int nMaxTactic;	     // ë ˆë²¨ì— ë”°ë¥¸ íƒí‹± ìˆ˜ë ¨ì¥ì—ì„œ ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ìµœëŒ€ íƒí‹± ë ˆë²¨
+	int	nDyeingPrice;    // ì—¼ìƒ‰ ê°€ê²©
+	int nLessRate;       // ë‚®ì€ ë ˆë²¨ ë³´ì •ì¹˜  
+	int nGreatRate;      // ë†’ì€ ë ˆë²¨ ë³´ì •ì¹˜  
+	int nCspMax;         // ìµœëŒ€ ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° íšë“ìˆ˜
+	int nBaseCP;         // ì „íˆ¬ìŠ¤í‚¬ ê¸°ë³¸ëŸ‰
 	int bank_loan;	     // 010314 YGI
-	int nStep;           // °æÇèÄ¡ ´Ü°è
-	int nWarriorLife;    // Àü»çÀÇ ±âº» Life
-	int nThiefLife;      // µµµÏÀÇ ±âº» Life
-	int nArcherLife;     // ±Ã¼öÀÇ ±âº» Life
-	int nWizardLife;     // ¸¶¹ı»çÀÇ ±âº» Life
-	int nPriestLife;     // ¼ºÁ÷ÀÚÀÇ ±âº» Life
-	int nWarriorExpRate; // Àü»çÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nThiefExpRate;   // µµµÏÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nArcherExpRate;  // ±Ã¼öÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nWizardExpRate;  // ¸¶¹ı»çÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nPriestExpRate;  // ¼ºÁ÷ÀÚÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
+	int nStep;           // ê²½í—˜ì¹˜ ë‹¨ê³„
+	int nWarriorLife;    // ì „ì‚¬ì˜ ê¸°ë³¸ Life
+	int nThiefLife;      // ë„ë‘‘ì˜ ê¸°ë³¸ Life
+	int nArcherLife;     // ê¶ìˆ˜ì˜ ê¸°ë³¸ Life
+	int nWizardLife;     // ë§ˆë²•ì‚¬ì˜ ê¸°ë³¸ Life
+	int nPriestLife;     // ì„±ì§ìì˜ ê¸°ë³¸ Life
+	int nWarriorExpRate; // ì „ì‚¬ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nThiefExpRate;   // ë„ë‘‘ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nArcherExpRate;  // ê¶ìˆ˜ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nWizardExpRate;  // ë§ˆë²•ì‚¬ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nPriestExpRate;  // ì„±ì§ìì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
 };	//> CSD-TW-030606
 
 typedef struct tagNPC_Generation 
@@ -420,12 +420,12 @@ typedef struct tagNPC_Generation
 	short int Luck;
 	short int WS_PS;
 	short int Fullpoint;
-	__int16 nPoison; // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nCurse;  // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â	
-	__int16 nFire;	 // ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nIce;		 // ¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	__int16 nElect;	 // Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇâ·Â
-	__int16 nHoly;	 // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+	__int16 nPoison; // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nCurse;  // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥	
+	__int16 nFire;	 // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nIce;		 // ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	__int16 nElect;	 // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í–¥ë ¥
+	__int16 nHoly;	 // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 	short int DivideLv;
 	short int Resist_Range;
 	short int Tamingable;
@@ -466,7 +466,7 @@ typedef struct tagNPC_Generation
 
 
 
-//######## tactics ¿¡ »ç¿ë #############
+//######## tactics ì— ì‚¬ìš© #############
 #define		CRAPPLE_			0
 #define		SWORD_				1
 #define		ARCHERY_			2		
@@ -484,7 +484,7 @@ typedef struct tagNPC_Generation
 
 
 
-/// CHARLIST ch->type ¿¡¼­ »ç¿ë...
+/// CHARLIST ch->type ì—ì„œ ì‚¬ìš©...
 #define	SPRITETYPE_NONE				0
 #define	SPRITETYPE_CHARACTER		1
 #define	SPRITETYPE_NPC				2
@@ -579,19 +579,19 @@ typedef struct tagNPC_Generation
 #define  N_HEGEMONIA	5
 #define  N_YILSE		6 
 
-///////////////////////// ÀÌ±ÔÈÆ 1228 //////////////////////////
-/////////////////// »óÅÂ¸¦ ³ªÅ¸³»´Â ºñÆ® Á¤ÀÇ ///////////////////
-#define		CON_NORMAL		0x00		//Á¤»ó»óÅÂ			0
-#define		CON_ACTIVE		0x01		//È°µ¿Àû»óÅÂ		1
-#define		CON_SLUGGISH	0x02		//¹«±â·Â»óÅÂ	   10		
-#define		CON_SLOW		0x04		//½½·Î¿ì»óÅÂ	  100	
-#define		CON_DAZE		0x08		//È¥¶õ»óÅÂ		 1000	
-#define		CON_POISON		0x10		//Áßµ¶»óÅÂ		10000
-#define		CON_STONE		0x20		//¼®È­»óÅÂ	   100000
-#define     CON_DEATH		0x40		//Á×À½»óÅÂ	  1000000
+///////////////////////// ì´ê·œí›ˆ 1228 //////////////////////////
+/////////////////// ìƒíƒœë¥¼ ë‚˜íƒ€ë‚´ëŠ” ë¹„íŠ¸ ì •ì˜ ///////////////////
+#define		CON_NORMAL		0x00		//ì •ìƒìƒíƒœ			0
+#define		CON_ACTIVE		0x01		//í™œë™ì ìƒíƒœ		1
+#define		CON_SLUGGISH	0x02		//ë¬´ê¸°ë ¥ìƒíƒœ	   10		
+#define		CON_SLOW		0x04		//ìŠ¬ë¡œìš°ìƒíƒœ	  100	
+#define		CON_DAZE		0x08		//í˜¼ë€ìƒíƒœ		 1000	
+#define		CON_POISON		0x10		//ì¤‘ë…ìƒíƒœ		10000
+#define		CON_STONE		0x20		//ì„í™”ìƒíƒœ	   100000
+#define     CON_DEATH		0x40		//ì£½ìŒìƒíƒœ	  1000000
 
 const int MAX_UPDATE_CHARACTER_	= 30000; // CSD-030320
-const int MIN_GUILD_COUNT = 1;  // CSD-030320  coromo ¹¤»á×ªÕıĞèÒªÈËÊı
+const int MIN_GUILD_COUNT = 1;  // CSD-030320  coromo ë¬ì‚”ç˜»æ”£çŸœï¤«í›™é‘’
 //Skill No
 enum eSkillNoIndex
 {	//< CSD-030306
@@ -663,10 +663,10 @@ enum eSkillNoIndex
 	SKILL_SNOOPING							=65,	
 //	SKILL_SEARCH							=66,	
 	SKILL_MERCHANT							=67,	
-	SKILL_BLACKSMITHY_MASTER				=68,	//´ëÀåÀåÀÌ ±â¼º	
-	SKILL_CARPENTRY_MASTER					=69,	//¸ñ¼ö ±â¼º	
-	SKILL_BOWCRAFTING_MASTER				=70,	//È°Á¦ÀÛ»ç ±â¼º	
-	SKILL_TAILORING_MASTER					=71,	//Àç´Ü»ç ±â¼º
+	SKILL_BLACKSMITHY_MASTER				=68,	//ëŒ€ì¥ì¥ì´ ê¸°ì„±	
+	SKILL_CARPENTRY_MASTER					=69,	//ëª©ìˆ˜ ê¸°ì„±	
+	SKILL_BOWCRAFTING_MASTER				=70,	//í™œì œì‘ì‚¬ ê¸°ì„±	
+	SKILL_TAILORING_MASTER					=71,	//ì¬ë‹¨ì‚¬ ê¸°ì„±
 //	SKILL_HIDE								=72,	
 //	SKILL_CAMPING							=73,	
 	SKILL_MAKEFIRE							=74,	

@@ -1,4 +1,4 @@
-#ifndef _DRAGON_ITEMLIST_
+ï»¿#ifndef _DRAGON_ITEMLIST_
 #define _DRAGON_ITEMLIST_
 
 #define MAX_ITEM_LIST 10000
@@ -25,8 +25,8 @@ typedef struct tagITEMLIST
 
 	short int		dsx, dsy, ddx,ddy;
 
-	DWORD			birthday; // ItemÀÌ ¶¥¿¡ ¶³¾îÁø ½Ã±â...
-	char			bObject;		// toi ·Î »ı¼ºµÈ ¾ÆÀÌÅÛ		//021030 YGI
+	DWORD			birthday; // Itemì´ ë•…ì— ë–¨ì–´ì§„ ì‹œê¸°...
+	char			bObject;		// toi ë¡œ ìƒì„±ëœ ì•„ì´í…œ		//021030 YGI
 
 } ITEMLIST, *LPITEMLIST;
 

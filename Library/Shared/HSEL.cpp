@@ -1,4 +1,4 @@
-#include "HSEL.h"
+﻿#include "HSEL.h"
 
 CHSEL_STREAM::CHSEL_STREAM(void)
 {

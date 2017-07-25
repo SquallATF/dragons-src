@@ -1,4 +1,4 @@
-// UserManager.cpp: implementation of the CUserManager class.
+﻿// UserManager.cpp: implementation of the CUserManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

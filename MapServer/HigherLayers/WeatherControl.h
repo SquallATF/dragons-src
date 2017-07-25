@@ -1,4 +1,4 @@
-// WheatherControl.h: interface for the CWheatherControl class.
+﻿// WheatherControl.h: interface for the CWheatherControl class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// SymbolItemMgr.cpp: implementation of the CSymbolItemMgr class.
+ï»¿// SymbolItemMgr.cpp: implementation of the CSymbolItemMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -26,7 +26,7 @@ void CSymbolItemMgr::Init(HDBC hDragonDB, HDBC hChrLogDB)
 {
 	InitDBHandle(hDragonDB,hChrLogDB);
 	m_vtSymbolItemList.clear();
-	m_vtSymbolItemList.reserve(MAX_SYMBOL_ITEM); // Á¤ÀÇµÈ ½Éº¼¾ÆÀÌÅÛÀÇ °¹¼ö¸¸Å­¸¸ ÇÒ´çÇØÁØ´Ù.
+	m_vtSymbolItemList.reserve(MAX_SYMBOL_ITEM); // ì •ì˜ëœ ì‹¬ë³¼ì•„ì´í…œì˜ ê°¯ìˆ˜ë§Œí¼ë§Œ í• ë‹¹í•´ì¤€ë‹¤.
 	m_nAttrMaxCount = 0;
 }
 
@@ -62,7 +62,7 @@ bool CSymbolItemMgr::LoadTable()
 		return false;
 	}
 
-//< Item_Symbol Å×ÀÌºí ·Îµå
+//< Item_Symbol í…Œì´ë¸” ë¡œë“œ
 	for(int nItemCount = 0;nItemCount < MAX_SYMBOL_ITEM; nItemCount++)
 	{
 		retCode = SQLFetch(hStmt);
@@ -114,7 +114,7 @@ bool CSymbolItemMgr::LoadTable()
 				return false;
 			}
 			
-			if(Item.anAplly_Attr[nAttrIndex] > 0) //¼Ó¼ºÇÊµå¿¡ °ªÀÌ ÀÖÀ¸¸é.
+			if(Item.anAplly_Attr[nAttrIndex] > 0) //ì†ì„±í•„ë“œì— ê°’ì´ ìˆìœ¼ë©´.
 			{
 				m_nAttrMaxCount = __max(m_nAttrMaxCount,nAttrIndex+1);
 			}
@@ -124,11 +124,11 @@ bool CSymbolItemMgr::LoadTable()
 	}
 
 	SQLFreeStmt(hStmt, SQL_DROP);
-//> Item_Symbol Å×ÀÌºí ·Îµå	³¡.
+//> Item_Symbol í…Œì´ë¸” ë¡œë“œ	ë.
 
 
-//< Item_Symbol_AbilityX Å×ÀÌºíµé ·Îµå
-	for(int i = 0;i < m_nAttrMaxCount;i++)//¼Ó¼ºÀÇ ¾²ÀÎ ¼Ó¼ºÅ×ÀÌºíÀÇ °¹¼ö ¸¸Å­ Å×ÀÌºíÀÌ ÇÊ¿äÇÏ´Ù.
+//< Item_Symbol_AbilityX í…Œì´ë¸”ë“¤ ë¡œë“œ
+	for(int i = 0;i < m_nAttrMaxCount;i++)//ì†ì„±ì˜ ì“°ì¸ ì†ì„±í…Œì´ë¸”ì˜ ê°¯ìˆ˜ ë§Œí¼ í…Œì´ë¸”ì´ í•„ìš”í•˜ë‹¤.
 	{
 		sprintf(szQuerry, "SELECT * FROM Item_Symbol_Ability%d",i+1);
 		SQLAllocStmt(m_hDragonDB, &hStmt);
@@ -168,7 +168,7 @@ bool CSymbolItemMgr::LoadTable()
 		
 		SQLFreeStmt(hStmt, SQL_DROP);
 	}
-//> Item_Symbol_AbilityX Å×ÀÌºíµé ·Îµå ³¡.
+//> Item_Symbol_AbilityX í…Œì´ë¸”ë“¤ ë¡œë“œ ë.
 	
 	return true;
 }
@@ -181,13 +181,13 @@ void CSymbolItemMgr::DestroyAllObject()
 
 bool CSymbolItemMgr::ExChangeSymbol(CHARLIST *pCharactor,int nFirstClass,int nSecondClass ,int nDualGrade)
 {
-	if(pCharactor->quick[5].item_no && nDualGrade == 1) //¾ÆÀÌÅÛÀ» Ã³À½ ¾ò¾ú´Ù.
+	if(pCharactor->quick[5].item_no && nDualGrade == 1) //ì•„ì´í…œì„ ì²˜ìŒ ì–»ì—ˆë‹¤.
 	{
 		for(int i = 0;i < m_nAttrMaxCount;i++)
 		{
 			int nAttr = GetRareNum(nFirstClass,nSecondClass,i);
 
-			if(nAttr < 0)// ErrorÀÌ´Ù.
+			if(nAttr < 0)// Errorì´ë‹¤.
 			{
 				return false;
 			}
@@ -195,7 +195,7 @@ bool CSymbolItemMgr::ExChangeSymbol(CHARLIST *pCharactor,int nFirstClass,int nSe
 			pCharactor->quick[6].attr[i] = nAttr;
 		}
 	}
-	else // ¾ÆÀÌÅÛ ¾÷±×·¹ÀÌµå ÀÌ´Ù.
+	else // ì•„ì´í…œ ì—…ê·¸ë ˆì´ë“œ ì´ë‹¤.
 	{
 				
 	}	
@@ -240,7 +240,7 @@ int CSymbolItemMgr::GetRareNum(int nFirstClass, int nSecondClass, int nRareIndex
 int CSymbolItemMgr::AddSymbolEffect(CHARLIST *pChar)
 {
 	int nItemNumber = pChar->quick[5].item_no;
-	int	nDualGrade	= pChar->quick[5].attr[0];	//¾ÆÀÌÅÛÀÇ µî±ŞÀÌ´Ù.
+	int	nDualGrade	= pChar->quick[5].attr[0];	//ì•„ì´í…œì˜ ë“±ê¸‰ì´ë‹¤.
 	int	n1StClass	= pChar->Class;
 	int	n2StClass	= pChar->GetDualClass();
 	
@@ -254,12 +254,12 @@ int CSymbolItemMgr::AddSymbolEffect(CHARLIST *pChar)
 //			::MyLog(0,"NAME : %s SymbolNum
 			return 0;
 		}		
-		if(nKind == 107) continue;//19¹ø ½É¹ú¿¡ ¸¶¹ı ¼Ó¼º Ãß°¡ ¹®Á¦. ¼öÁ¤.//soto-030520
+		if(nKind == 107) continue;//19ë²ˆ ì‹¬ë²Œì— ë§ˆë²• ì†ì„± ì¶”ê°€ ë¬¸ì œ. ìˆ˜ì •.//soto-030520
 
 
 		if(i >= m_vtSymbolApplyAttrList.size() || nDualGrade > m_vtSymbolApplyAttrList[i].size()|| nItemNumber > MAX_SYMBOL_ITEM)
 		{
-			::MyLog(0,"½É¹ú AddSymbolEffect()!!!!ERROR!!!!   NAME : %s --> AttrNum: %d, nDualGrade: %d, ItemNumber: %d",i,nDualGrade,nItemNumber);
+			::MyLog(0,"ì‹¬ë²Œ AddSymbolEffect()!!!!ERROR!!!!   NAME : %s --> AttrNum: %d, nDualGrade: %d, ItemNumber: %d",i,nDualGrade,nItemNumber);
 			return 0;
 		}
 
@@ -292,11 +292,11 @@ void CSymbolItemMgr::MakeSymbolItem(CHARLIST*	pChar,int nGrade)
 	
 	if(nItemNumber)
 	{
-		//¼­¹ö¿¡¼­ÀÇ ¸¸µé±â.
+		//ì„œë²„ì—ì„œì˜ ë§Œë“¤ê¸°.
 		pChar->quick[5].item_no = nItemNumber;
 		pChar->quick[5].attr[0] = nGrade;
 		
-		//Å¬¶óÀÌ¾ğÆ®·Î ¸¸µé¾ú´Ù´Â ¸Ş¼¼Áö¸¦ º¸³½´Ù.
+		//í´ë¼ì´ì–¸íŠ¸ë¡œ ë§Œë“¤ì—ˆë‹¤ëŠ” ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 		t_packet	packet;memset(&packet,0,sizeof(t_packet));
 		packet.h.header.type = CMD_SYMBOL_MAKE;
 		packet.h.header.size = sizeof(t_SYMBOL_ITEM_MSG);
@@ -308,18 +308,18 @@ void CSymbolItemMgr::MakeSymbolItem(CHARLIST*	pChar,int nGrade)
 	}
 }
 
-//¼öµ¿ ¾÷±×·¹ÀÌµå
+//ìˆ˜ë™ ì—…ê·¸ë ˆì´ë“œ
 void CSymbolItemMgr::UpGradeSymbol(CHARLIST *pChar, int nGrade)
 {
 	int nItemNumber = pChar->quick[5].item_no;
 	
 	if(nItemNumber)
 	{
-		//¼­¹ö¿¡¼­ÀÇ ¾÷±×·¹ÀÌµå..
+		//ì„œë²„ì—ì„œì˜ ì—…ê·¸ë ˆì´ë“œ..
 		pChar->quick[5].item_no = nItemNumber;
 		pChar->quick[5].attr[0] = nGrade;
 		
-		//Å¬¶óÀÌ¾ğÆ®·Î ¾÷±×·¹ÀÌµåÇß´Ù´Â ¸Ş¼¼Áö¸¦ º¸³½´Ù.
+		//í´ë¼ì´ì–¸íŠ¸ë¡œ ì—…ê·¸ë ˆì´ë“œí–ˆë‹¤ëŠ” ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 		t_packet	packet;memset(&packet,0,sizeof(t_packet));
 		packet.h.header.type = CMD_SYMBOL_UPGRADE;
 		packet.h.header.size = sizeof(t_SYMBOL_ITEM_MSG);
@@ -332,19 +332,19 @@ void CSymbolItemMgr::UpGradeSymbol(CHARLIST *pChar, int nGrade)
 }
 
 
-//ÀÚµ¿ ¾÷±×·¹ÀÌµå.
+//ìë™ ì—…ê·¸ë ˆì´ë“œ.
 void CSymbolItemMgr::UpGradeSymbol(CHARLIST *pChar)
 {
 	int nGrade		= pChar->quick[5].attr[0]+1;
 	UpGradeSymbol(pChar,nGrade);
 }
 
-//ÀÌ°÷¿¡¼­´Â..Rare¼Ó¼º¿¡ ¾ø´Â ¼Ó¼º.À» Àû¿ë½ÃÅ³¶§ ¾²ÀÎ´Ù.´ÜÇÏ³ª¸¸.
-//ÀÎÀÚ ¼³¸í ( pChar : ÇØ´ç Ä³¸¯ÅÍ, i : ½Éº¼¿¡ ´Ş¸° ¼Ó¼º ¸î¹øÂ° ¼Ó¼º ÀÎ°¡. i+1¹øÂ° ¼Ó¼º.
+//ì´ê³³ì—ì„œëŠ”..Rareì†ì„±ì— ì—†ëŠ” ì†ì„±.ì„ ì ìš©ì‹œí‚¬ë•Œ ì“°ì¸ë‹¤.ë‹¨í•˜ë‚˜ë§Œ.
+//ì¸ì ì„¤ëª… ( pChar : í•´ë‹¹ ìºë¦­í„°, i : ì‹¬ë³¼ì— ë‹¬ë¦° ì†ì„± ëª‡ë²ˆì§¸ ì†ì„± ì¸ê°€. i+1ë²ˆì§¸ ì†ì„±.
 int CSymbolItemMgr::GetMagicAttr(CHARLIST *pChar)
 {
 	int nItemNumber = pChar->quick[5].item_no;
-	int	nDualGrade	= pChar->quick[5].attr[0];	//¾ÆÀÌÅÛÀÇ µî±ŞÀÌ´Ù.
+	int	nDualGrade	= pChar->quick[5].attr[0];	//ì•„ì´í…œì˜ ë“±ê¸‰ì´ë‹¤.
 	int	n1StClass	= pChar->Class;
 	int	n2StClass	= pChar->GetDualClass();
 

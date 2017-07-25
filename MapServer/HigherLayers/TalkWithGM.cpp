@@ -1,4 +1,4 @@
-// TalkWithGM.cpp: implementation of the CTalkWithGM class.
+﻿// TalkWithGM.cpp: implementation of the CTalkWithGM class.
 //
 //////////////////////////////////////////////////////////////////////
 

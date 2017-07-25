@@ -1,4 +1,4 @@
-// EventTreasureBoxMgr.h: interface for the CEventTreasureBoxMgr class.
+ï»¿// EventTreasureBoxMgr.h: interface for the CEventTreasureBoxMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -47,12 +47,12 @@ public:
 
 	static enum
 	{
-		ITEM_TREASURE_BOX_KIND = 146//º¸¹° »óÀÚÀÌ´Ù.//KIND·Î Ã¼Å©ÇÑ´Ù.
+		ITEM_TREASURE_BOX_KIND = 146//ë³´ë¬¼ ìƒìì´ë‹¤.//KINDë¡œ ì²´í¬í•œë‹¤.
 	};
 
 	static void Create()
 	{
-		if(m_bEvent && (NULL == m_pClass)) //Áßº¹ »ı¼ºÀº µÇ¾î¼± ¾ÈµÈ´Ù.
+		if(m_bEvent && (NULL == m_pClass)) //ì¤‘ë³µ ìƒì„±ì€ ë˜ì–´ì„  ì•ˆëœë‹¤.
 		{
 			m_pClass = new CEventTreasureBoxMgr;
 		}

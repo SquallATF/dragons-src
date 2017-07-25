@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 //#include <Windows.h>
 #include <Stdio.h>
 #include <MmSystem.h>
@@ -158,7 +158,7 @@ int YesOrNo( char *s, char *title )
 
 
 
-// ¿À´Ã Á¢¼ÓÇÑ »ç¶÷µéÀÇ ¸ğÀÓ 
+// ì˜¤ëŠ˜ ì ‘ì†í•œ ì‚¬ëŒë“¤ì˜ ëª¨ì„ 
 void Log_LogIn( int mon, int day, int hour, int min, int sec, char *id )
 {	
 	char temp[ FILENAME_MAX];
@@ -180,7 +180,7 @@ AGAIN_:
 	fp = fopen( temp, "at+" );
 	if( fp == NULL )
 	{	
-		if( c == 0 ) // Ã³À½ µé¾î¿Ô´Ù. 
+		if( c == 0 ) // ì²˜ìŒ ë“¤ì–´ì™”ë‹¤. 
 		{
 			_mkdir( dir );
 			c = 1;

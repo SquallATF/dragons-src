@@ -1,4 +1,4 @@
-// BattleManager.h: interface for the CBattleManager class.
+﻿// BattleManager.h: interface for the CBattleManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// ������ ���� Ŭ����
+// 전투에 관한 클래스
 class CBattle;
 class CBattleManager : public TSingleton<CBattleManager>
 {
@@ -121,18 +121,18 @@ protected:
 private:
 	enum 
 	{
-		CRAPPLE = 0,              // �ָ�
-		SWORDMANSHIP = 1,         // �Ѽհ�
-		ARCHERY = 2,              // Ȱ
-		FENCING = 3,              // �ҽ̰�
-		MACE_FIGHTING = 4,        // �Ѽյ���, ���̽�
-		PIERCE = 5,               // â
-		WHIRL = 6,                // ��
-		HURL = 7,                 // ��
-		PARRYING = 8,             // ���� 
-		DOUBLE_SWORDMANSHIP = 9,  // ��հ�
-		DOUBLE_MACEFIGHTING = 10, // ��յ���, ���̽�
-		ALL_WEAPON = 11           // ��� ����
+		CRAPPLE = 0,              // 주먹
+		SWORDMANSHIP = 1,         // 한손검
+		ARCHERY = 2,              // 활
+		FENCING = 3,              // 팬싱검
+		MACE_FIGHTING = 4,        // 한손도끼, 메이스
+		PIERCE = 5,               // 창
+		WHIRL = 6,                // 봉
+		HURL = 7,                 // 비도
+		PARRYING = 8,             // 방패 
+		DOUBLE_SWORDMANSHIP = 9,  // 양손검
+		DOUBLE_MACEFIGHTING = 10, // 양손도끼, 메이스
+		ALL_WEAPON = 11           // 모든 무기
 	};
 	
 	VECTOR   m_vtBuffer;

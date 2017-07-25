@@ -1,4 +1,4 @@
-#define MAX_MONEY	1000000
+ï»¿#define MAX_MONEY	1000000
 
 
 #define IN_COIN		10029
@@ -9,7 +9,7 @@
 #define PRIEST_SPELL 1
 
 //###########################################################
-#define CIA_DURATION		101		// ¾ÆÀÌÅÛ ¼Ó¼º ¹Ù²Ù±â 
+#define CIA_DURATION		101		// ì•„ì´í…œ ì†ì„± ë°”ê¾¸ê¸° 
 #define CIA_VIEW_CHANGE		102
 #define CIA_MUCH			103
 
@@ -35,10 +35,10 @@ extern int SubtractMoney( DWORD money, CHARLIST *ch );
 extern int AddMoney( DWORD money, CHARLIST *ch );
 extern ItemAttr *SearchInv( CHARLIST *ch );
 extern int IsEqualPosByPos( POS first, POS second );
-extern void SendServerKillMon( short int cn );		// op_battle ¿¡¼­ »ç¿ë
+extern void SendServerKillMon( short int cn );		// op_battle ì—ì„œ ì‚¬ìš©
 extern int GetTotalItemWeight( CHARLIST *ch );
 extern int calcAttackPowerMax( CHARLIST *a );
 
-extern void CheckItem( short int cn ); // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö 
-extern int CheckAutoDivideMoney( ItemAttr *item, short int cn );		// 100000À» ³ÑÀº ¾ÆÀÌÅÛ Ã³¸®
+extern void CheckItem( short int cn ); // ì˜ëª»ëœ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ 
+extern int CheckAutoDivideMoney( ItemAttr *item, short int cn );		// 100000ì„ ë„˜ì€ ì•„ì´í…œ ì²˜ë¦¬
 extern void GetItemDuration( ItemAttr item, WORD &d_curr, WORD &d_max );

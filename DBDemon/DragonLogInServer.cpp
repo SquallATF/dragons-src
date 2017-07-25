@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "packed.h"
 #include "servertable.h"
 #include "MAIN.H"
@@ -35,9 +35,9 @@ extern int	CheckGameMakeTool(char *id, char ip[40]);	// 020830 YGI
 extern int GetUserAge(const char* szID);	// 030929 kyo 
 extern bool IsLimitedTime();				// 030929 kyo 
 ////////////////////////////////////////////////////////////
-extern char SQLerrorS[200];/////////////////////////////////////¶¨Òå·¢ËÍÍâ¹Ò´íÎóµÄ×Ö·û´®
-extern void HackLog( int type, char *logmsg, ... );//¼ÇÂ¼Íâ¹ÒµÄLOG
-////////////////////////////////////½Ø»ñÉùÃ÷
+extern char SQLerrorS[200];/////////////////////////////////////å®šä¹‰å‘é€å¤–æŒ‚é”™è¯¯çš„å­—ç¬¦ä¸²
+extern void HackLog( int type, char *logmsg, ... );//è®°å½•å¤–æŒ‚çš„LOG
+////////////////////////////////////æˆªè·å£°æ˜
 extern int i,len1,len2,len3,len4;
 extern char s1[100],s2[100],s3[100],s4[100],*str;
 //char hackID[100],hackname[100];
@@ -143,7 +143,7 @@ int HandleReading(t_connection c[], int cn)
 }
 
 //---------------------------------------------------------------------------------
-int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUserID, int cn)  //½ÓÊÜ
+int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUserID, int cn)  //æ¥å—
 {
 	const int ttype	= packet->h.header.type;
 	switch(ttype)
@@ -162,9 +162,9 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			const int server_id = packet->u.server_access_char_db.server_id;
 			memcpy(c[cn].id, packet->u.server_access_char_db.id, ID_LENGTH);
 			memcpy(c[cn].name, packet->u.server_access_char_db.name, NM_LENGTH);
-			LPCHARLIST ch = &c[cn].chrlst; //»»Î»
+			LPCHARLIST ch = &c[cn].chrlst; //æ¢ä½
 
-////////////////////////////////////////////////////////////////////////////////////////·¢ÏÖ×¢²áÂ©¶´	
+////////////////////////////////////////////////////////////////////////////////////////å‘ç°æ³¨å†Œæ¼æ´	
 	if(ch->Class>4	||	ch->Class<0)
 	{
 //		HackLog(0,ch->Class);
@@ -174,7 +174,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 
 			if(GetCharDB_SQL(c, cn) != 1) break;
 			if(GetCharGameDB_SQL(c, cn) != 1 )  break;
-//			LPCHARLIST ch = &c[cn].chrlst; //»»Î»
+//			LPCHARLIST ch = &c[cn].chrlst; //æ¢ä½
 			if(!CheckRookieServerAble(ch->Level))//021230 lsw
 			{
 				break;
@@ -202,7 +202,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			/////////////////////////////
 			ResetCharInfo(var[cn], ch);
 
-//			PutEventItem( 2, &c[cn] );		// ÀÌº¥Æ®¿ë ¾ÆÀÌÅÛ ³Ö¾î ÁÖ±â	// BBD 040308	Map¼­¹ö°¡ ÁÖ±â·Î ÇßÀ½
+//			PutEventItem( 2, &c[cn] );		// æäº¥é£˜ä¾© é…’æè¢ æŒç»¢ æ—æ‰	// BBD 040308	Mapè¾‘æ»šå•Š æ—æ‰è‚º æ²æ¾œ
 
 			int refresh_inventory = CheckEventITem( ch );
 
@@ -292,7 +292,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			tp->viewtype		= ch->viewtype;		// 0212 YGI
 			tp->social_status	= ch->social_status;
 			tp->fame			= ch->fame;
-			tp->fame_pk			= ch->fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+			tp->fame_pk			= ch->fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacterè‚º èƒŒçœ‰ DBä¿Šç»° è§’åŠ›è‚º NWCharacterç‹¼ è”¼æ ç”¸ç»¢ç™Œèªä¿ƒ.		
 			tp->NWCharacter		= ch->NWCharacter;	// 010915 LTS
 			tp->EventJoin		= ch->EventJoin;	// 020115 LTS
 			tp->nUserAge		= GetUserAge(c[cn].id); // 030929 kyo
@@ -409,17 +409,17 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			::SendPartyInfoOfOtherCharToGameserver( packet->u.kein.server_req_party_together.party_name, packet->u.kein.server_req_party_together.my_name, packet->u.kein.server_req_party_together.server_id, c, cn );
 		}break;
 
-case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
+case CMD_CONNECT_INFO :							// 4ä¿ºåç‹¼ çªå”±ç‹¼ æŸè…ç£ç”« æ€¥ç¶æ²ä¿ƒ
 	{	
-		// Ä³¸¯ÅÍÃÊ±âÈ­ÀÌÈÄ½ÇÇà 0405 KHS 
+		// æŸè…ç£æª¬æ‰æ‹³æé¥¶è§’é’ 0405 KHS 
 		// 0405 YGI	new char
 		int is_new_char = 0;
-		if( ::GetCharNew(is_new_char, packet->u.client_connect_info.name ) )			// 4¿ù 1ÀÏ »õ·Ó°Ô ¸¸µç Ä³¸¯ÅÍ ÀÎ°¡?
+		if( ::GetCharNew(is_new_char, packet->u.client_connect_info.name ) )			// 4å²¿ 1è€ è´§é…šéœ¸ çˆ¶ç”µ æŸè…ç£ ç‰¢å•Š?
 		{
 			if( is_new_char )
 			{
 				break;
-			}// 1: ¿¹Àü Ä³¸¯ÅÍ	0: »õ·Î¿î Ä³¸¯ÅÍ
+			}// 1: æŠ—å‚ˆ æŸè…ç£	0: è´§è‚ºæ¬¾ æŸè…ç£
 		}
 		else 
 		{
@@ -471,7 +471,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 			c[cn].chrlst.viewtype	= VIEWTYPE_NORMAL_;
 		}		
 			
-		if( c[cn].chrlst.startposition != 99 ) // ¿ø·¡ÀÇ À§Ä¡¿¡ µé¾î°£´Ù. 
+		if( c[cn].chrlst.startposition != 99 ) // ç›”è´°ç‹¼ å›°æ‘¹ä¿Š ç”¸ç»¢åŸƒä¿ƒ. 
 		{	
 			strcpy( c[cn].mapname, StartMapPosition[ StartMap][ StartPosition ] );
 			strcpy( c[cn].chrlst.MapName, StartMapPosition[ StartMap][ StartPosition ] );
@@ -521,10 +521,10 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 											(UCHAR *)c[cn].chrlst.employment, 
 											(UCHAR *)c[cn].chrlst.Item, 
 											c[cn].id, c[cn].name ) ;
-//			PutEventItem( 1, &c[cn] );		// ÀÌº¥Æ®¿ë ¾ÆÀÌÅÛ ³Ö¾î ÁÖ±â	// BBD 040308	Map¼­¹ö°¡ ÁÖ±â·Î ÇßÀ½
+//			PutEventItem( 1, &c[cn] );		// æäº¥é£˜ä¾© é…’æè¢ æŒç»¢ æ—æ‰	// BBD 040308	Mapè¾‘æ»šå•Š æ—æ‰è‚º æ²æ¾œ
 			SendItemQuick( c, cn ); 
 
-			// ¸¶¹ıÀ» ¹è¿ìÁö ¾Ê°í ¸ğµç ¸¶¹ıÀ» »ç¿ëÇÏ·Á¸é ÀÌ°÷¿¡¼­  Ws/Ps¸¦ SettingÇØÁÖ¸é µÈ´Ù. 
+			// ä»˜è¿‡é˜‘ ç¡…å¿«ç˜¤ è‡¼ç»Š è‘›ç”µ ä»˜è¿‡é˜‘ è¤ä¾©çªå¦¨æ æé•‘ä¿Šè¾‘  Ws/Psç”« Settingç§¦æ—æ ç­‰ä¿ƒ. 
 			for( int i = 0 ; i < 1000 ; i ++)
 			{
 				if( c[cn].chrlst.Item[i] == 0) break;
@@ -614,7 +614,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 			break;
 		}
 			
-	case CMD_CREATE_CHAR : //È·¶¨É¸×Óºó
+	case CMD_CREATE_CHAR : //ç¡®å®šç­›å­å
 	{		
 		int ret = CreateChar_SQL(c, cn, packet);
 		if(ret == 1)
@@ -634,7 +634,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 			{
 			case -100 : ::MyLog( 0, "Fail:Character Generation ( Already character %s, ID:%s :%d)", packet->u.client_create_char.name, c[cn].id, ret );
 						RecvHackingUser( c[cn].id, packet->u.client_create_char.name, 20009, " ", "Not his Char" );
-						is_delete = 0;		// Áö¿ìÁö ¾Ê´Â´Ù.
+						is_delete = 0;		// ç˜¤å¿«ç˜¤ è‡¼ç»°ä¿ƒ.
 				break;
 			case -30 : ::MyLog( 0, "Fail : Try to make Character but NO ID in chr_log_info ( %s, ID:%s )", packet->u.client_create_char.name, c[cn].id );
 				break;
@@ -686,13 +686,13 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 	}		
 	case CMD_ISTHERE_CHARNAME : 
 		{
-										strcpy(s1,packet->u.client_isthere_charname.name  );	//¹«»áÃû³Æ
+										strcpy(s1,packet->u.client_isthere_charname.name  );	//å…¬ä¼šåç§°
 										//gets(pMailSend->szSender);
 										len1 = (int)strlen(s1);
 
-										str="·¢ÏÖSQLÂ©¶´¹¥»÷!·Ç·¨ÄÚÈİ:[%s],  ×¢²áÈËÎïÃû³Æ:[%s]";
+										str="å‘ç°SQLæ¼æ´æ”»å‡»!éæ³•å†…å®¹:[%s],  æ³¨å†Œäººç‰©åç§°:[%s]";
 
-										for(i = 0; i < len1; i++)		//¹«»áÃû³Æ
+										for(i = 0; i < len1; i++)		//å…¬ä¼šåç§°
 										{
 										if(s1[i]==39 || s1[i]=='-')
 										{
@@ -705,12 +705,12 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 										}
 										} 
 										
-										/*   if(pMailSend->szSender == 'ÔÂÉñÒ¹')
+										/*   if(pMailSend->szSender == 'æœˆç¥å¤œ')
 										{
-										pMailSend->szSender = 'ÔÂÉñÒ¹';
+										pMailSend->szSender = 'æœˆç¥å¤œ';
 										}*/
 										//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		RecvIsThereCharName( cn, packet->u.client_isthere_charname.name ); //×¢²áID
+		RecvIsThereCharName( cn, packet->u.client_isthere_charname.name ); //æ³¨å†ŒID
 		}
 		break;
 			
@@ -789,7 +789,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 			
 			t_packet tp;
 			gs_req_insert_userid* pGRIU = &packet->u.gs_req_insert_userid;
-			if( ::UpdateLogintablebyChangeMap( pGRIU->id, pGRIU->mapname ))	// LoginTable¿¡ ¾øÀ½.. Áï, µé¾î°¥¼ö ÀÖÀ½..
+			if( ::UpdateLogintablebyChangeMap( pGRIU->id, pGRIU->mapname ))	// LoginTableä¿Š ç»æ¾œ.. æºœ, ç”¸ç»¢å“è ä¹æ¾œ..
 			{	
 				tp.h.header.type = CMD_JOINABLE;
 				tp.u.ls_joinable.server_id = packet->u.gs_req_insert_userid.server_id;
@@ -804,9 +804,9 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 			::QueuePacket( c, cn, &tp, 1 );
 		}break;		
 			
-	///////////// network2.hÀ» À§ÇØ..  0224 YGI ///////////////
-	case CMD_CREATE_ABILITY :	SendCreateAbility( cn ); break;//µ½É¸×ÓÄÇÀï
-	case CMD_THROW_DICE		:	SendThrowDice( packet->u.kein.client_throw_dice.type, cn ); break;//É¸×Ó
+	///////////// network2.hé˜‘ å›°ç§¦..  0224 YGI ///////////////
+	case CMD_CREATE_ABILITY :	SendCreateAbility( cn ); break;//åˆ°ç­›å­é‚£é‡Œ
+	case CMD_THROW_DICE		:	SendThrowDice( packet->u.kein.client_throw_dice.type, cn ); break;//ç­›å­
 			
 	case CMD_HOW_MANY_IN_MAP :	UpdateTotalMapConnections( packet->u.how_many_in_map.map, packet->u.how_many_in_map.how );
 		break;
@@ -868,7 +868,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 		{
 			if (LottoDBMgr())
 			{
-				LottoDBMgr()->RecvDelUser(&packet->u.Check_Winner, cn);	// BBD 040127 ÀÎÀÚÃß°¡
+				LottoDBMgr()->RecvDelUser(&packet->u.Check_Winner, cn);	// BBD 040127 ç‰¢ç£Šçœ å•Š
 			}
 
 			break;
@@ -925,7 +925,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 						}
 		break;
 //>soto-HK
-//<soto-LottoÃß°¡
+//<soto-Lottoçœ å•Š
 	case CMD_LOTTO_SEEK:
 		{
 			if(LottoDBMgr())
@@ -934,7 +934,7 @@ case CMD_CONNECT_INFO :							// 4°³ÁßÀÇ ÇÏ³ªÀÇ Ä³¸¯ÅÍ¸¦ ¼±ÅÃÇß´Ù
 			}
 		}
 		break;
-//>soto-LottoÃß°¡.
+//>soto-Lottoçœ å•Š.
 	default : 
 		{		// 0308 YGI
 			int msg = CheckHandleByKein( packet, c, cn );
@@ -1037,8 +1037,8 @@ void SendCMD_USED_ID(const int cn, const int iCallType)
 	DWORD dwID = 0;	
 	DWORD dwServerSetNum = 0;
 	if( CheckUsedID_SQL(pCN->id, &wPort, &dwID, &dwServerSetNum ) == 1 )
-	{	//	Modified by chan78 at 2000/02/19 :: ¼­¹ö¼¼Æ®°¡ ÀÏÄ¡ÇÏ´Â °æ¿ì¿¡¸¸ ¿¡ÀÌÀüÆ®·Î Á¢¼ÓÁ¾·á¸¦ ¿ä±¸ÇÑ´Ù.
-		//	¼­¹ö¼¼Æ®°¡ ÀÏÄ¡ÇÏÁö ¾Ê´Â °æ¿ì¿¡´Â ±× »ç¿ëÀÚ°¡ ´Ù¸¥ ¼­¹ö¼¼Æ®¿¡¼­ ³ª°¥¶§±îÁö Á¢¼ÓÀÌ ºÒ°¡´ÉÇØÁø´Ù.
+	{	//	Modified by chan78 at 2000/02/19 :: è¾‘æ»šæŠ€é£˜å•Š è€æ‘¹çªç»° ç‰ˆå¿«ä¿Šçˆ¶ ä¿Šæå‚ˆé£˜è‚º ç«‹åŠ è¾†ä¸°ç”« å¤¸å¤‡èŒ„ä¿ƒ.
+		//	è¾‘æ»šæŠ€é£˜å•Š è€æ‘¹çªç˜¤ è‡¼ç»° ç‰ˆå¿«ä¿Šç»° å¼Š è¤ä¾©ç£Šå•Š ä¿ƒå¼— è¾‘æ»šæŠ€é£˜ä¿Šè¾‘ å”±å“é”­é³–ç˜¤ ç«‹åŠ æ é˜‚å•Šç“·ç§¦æŸ³ä¿ƒ.
 		if( dwServerSetNum == g_pServerTable->GetServerSetNum() )
 		{
 			if( !SendRemoveUserToAgent( pCN->id, wPort, dwID )  )
@@ -1054,7 +1054,7 @@ bool isUserLockd(const char* szID);
 
 int CheckIDAutherizing(t_packet &packet, const int cn)
 {
-	if(cn >= LOGIN_MAX_CONNECTIONS){return 0;}//Ä¿³Ø¼Ç
+	if(cn >= LOGIN_MAX_CONNECTIONS){return 0;}//ç›®æ± è®°
 
 	t_connection *pCN = &connections[cn];
 
@@ -1070,7 +1070,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 	pCN->myconnectedagentport	= port;
 
 	const bool bIsGMTool = ((version != GM_TOOL_VERSION)?true:false);
-	if(bIsGMTool)   //coromo GMµÇÂ½Æ÷±ØĞëÑéÖ¤IDºÍIP
+	if(bIsGMTool)   //coromo GMç™»é™†å™¨å¿…é¡»éªŒè¯IDå’ŒIP
 	{
 		/*
 		packet.h.header.type = CMD_INVALID_VERSION;
@@ -1140,7 +1140,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 	// 030929 kyo >>
 	
 	OUTPUT Output		=	onepass.OnePassID(cn,in,bIsGMTool);
-	int ret				=	Output.nRet;//·Î±×ÀÎ ÇÒ ¼ö ÀÖ´Ù ¾ø´ÙÀÇ ÆÇº°
+	int ret				=	Output.nRet;//è‚ºå¼Šç‰¢ ä¸” è ä¹ä¿ƒ ç»ä¿ƒç‹¼ é­„å–Š
 	const int iBillType	=	Output.nType;
 	
 	if(LocalMgr.IsFreeBeta())//021007 lsw
@@ -1171,7 +1171,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 			::QueuePacket(connections, cn, &packet, 1);
 			::closeconnection( connections, cn, CCT_WRONG_PASSWORD ); 
 		}break;
-	case COnePass::BT_NEED_PAY: // -3 : µ·³»!...		//2001/01/28 ZHH
+	case COnePass::BT_NEED_PAY: // -3 : æ£éƒ´!...		//2001/01/28 ZHH
 		{
 			::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Called by CheckIDAutherizing()", pCN->id, pCN->pw);
 
@@ -1182,14 +1182,14 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 			::closeconnection( connections, cn, CCT_PAYMENT_NEED );
 		}break;
 	case COnePass::BT_WAIT_BILLING_MSG:
-		{	//ºô¸µ ¸Ş¼¼Áö¸¦ ±â´Ù¸³´Ï´Ù. ¾Æ¹« Ã³¸®µµ ÇÏÁö ¾Ê½À´Ï´Ù.
+		{	//å‘¼å‚… çš‹æŠ€ç˜¤ç”« æ‰ä¿ƒèµ‹èªä¿ƒ. é…’å…¬ è´¸åºœæ¡£ çªç˜¤ è‡¼åš¼èªä¿ƒ.
 			break;
 		}
 	case COnePass::BT_FREE:
 		default:
 		{
 			const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
-			if( !ret_checkusedid )//»ç¿ëÁßÀÎ À¯Àú
+			if( !ret_checkusedid )//è¤ä¾©åç‰¢ èœ¡å†
 			{			
 				::SendCMD_USED_ID(cn,0);
 				return 0;
@@ -1201,7 +1201,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 			}
 		}break;
 
-/*   //coromo ×¢ÊÍµôÔ­ÏÈµÇÂ½ÅĞ¶ÏID IS LOGIN  2007/04/29
+/*   //coromo æ³¨é‡Šæ‰åŸå…ˆç™»é™†åˆ¤æ–­ID IS LOGIN  2007/04/29
 	default:
 		{
 			WORD wPort = 0;	
@@ -1220,7 +1220,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 				}
 			}
 			const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
-			if( !ret_checkusedid )//»ç¿ëÁßÀÎ À¯Àú
+			if( !ret_checkusedid )//è¤ä¾©åç‰¢ èœ¡å†
 			{			
 				//::SendCMD_USED_ID(cn,0);
 				::MyLog( 0, "ID('%s'):IP('%s') is Using Now!!", pCN->id, pCN->ip_address);
@@ -1271,7 +1271,7 @@ int	SendYesorNo( char *ID,			//[11]; //user'ID
 
 	t_connection *pCN = &connections[cn];
 
-	if(success==1)		//·Î±×ÀÎ ¼º°ø.( ´©±º°¡ ¾²Áö ¾Ê´Â´Ù¸é)
+	if(success==1)		//è‚ºå¼Šç‰¢ å·±å‚.( ç©¿ç„™å•Š é™ç˜¤ è‡¼ç»°ä¿ƒæ)
 	{
 		const int port = pCN->myconnectedagentport;
 		const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", pCN->id, pCN->ip_address , "  " , (int)type, port, pCN->dwUserID );
@@ -1287,20 +1287,20 @@ int	SendYesorNo( char *ID,			//[11]; //user'ID
 			return 1;	
 		}
 	}
-	else//·Î±×ÀÎ ½ÇÆĞ. ¾ÆÀÌµğ¿Í ÆĞ½º¿öµå´Â ¸ÂÀ¸¹Ç·Î ³²Àº°ÍÀº µ·³»´Â °Í »Ó.
+	else//è‚ºå¼Šç‰¢ è§’è©. é…’æå¼å®¢ è©èƒ¶å†µé›ç»° å˜æ éª¨è‚º å·¢ç¯®å·´ç¯® æ£éƒ´ç»° å·´ æŒ¥.
 	{			
 		::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Cause = '%d' Called by SendYesorNo()", pCN->id, pCN->pw, success);
 		
 		packet.h.header.type = CMD_LOGIN_FAIL_MASSAGE;
 		packet.h.header.size = sizeof( client_login_fail_reason );
-		packet.u.client_login_fail_reason.cPaytype = memicmp("P",type,2) == 0 ? 0 : 1;	//Point¸é 0 Á¤¾×ÀÌ¸é 1
+		packet.u.client_login_fail_reason.cPaytype = memicmp("P",type,2) == 0 ? 0 : 1;	//Pointæ 0 æ²¥å’€ææ 1
 		packet.u.client_login_fail_reason.cReserverdData = 0;
 		packet.u.client_login_fail_reason.dwType = success;
 		packet.u.client_login_fail_reason.dwPoint = point;
 		
 		::sprintf( packet.u.client_login_fail_reason.szExpireDate, expiredata);
 		::QueuePacket(connections, cn, &packet, 1);
-		::closeconnection( connections, cn, CCT_PAYMENT_NEED ); // µ· ¾È³ÂÀ½ 
+		::closeconnection( connections, cn, CCT_PAYMENT_NEED ); // æ£ æ•‘é™ˆæ¾œ 
 		return 0;
 	}
 }

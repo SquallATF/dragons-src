@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "protocol.h"
 
 #pragma pack(push,1)
 //
-// ¸Ş½ÃÁö ±¸Á¶Ã¼´Â ¿©±â´Ù Á¤ÀÇÇÑ´Ù.
+// ë©”ì‹œì§€ êµ¬ì¡°ì²´ëŠ” ì—¬ê¸°ë‹¤ ì •ì˜í•œë‹¤.
 //
 #pragma pack(pop)

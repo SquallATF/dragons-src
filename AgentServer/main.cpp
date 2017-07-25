@@ -1,4 +1,4 @@
-// -------------------------------
+ï»¿// -------------------------------
 // ReWrite by chan78 at 2001/01/11
 // -------------------------------
 #include "stdafx.h"
@@ -16,13 +16,13 @@
 void Paythread( void *pVoid );	// 030205 kyo
 extern void SendConnectServerCount( DWORD dwConnectionIndex );
 extern void SendCurrServerPort( DWORD dwConnectionIndex );
-extern void SendPbs( char *temp, int len );						//ÒıÈë·¢ËÍ¹«¸æº¯Êı
+extern void SendPbs( char *temp, int len );						//å¼•å…¥å‘é€å…¬å‘Šå‡½æ•°
 
-//-----------------------------×Ô¶¯¹«¸æ¶¨Òå
+//-----------------------------è‡ªåŠ¨å…¬å‘Šå®šä¹‰
 int MsgCount;
-bool isMsg;//·¢ËÍÅĞ¶Ï±êÊ¶
-char MsgBufs[255][255];//»¶Ó­¹«¸æ
-char MsgBuf[255][255];//ÊÂÎñ×Ô¶¯¹«¸æ
+bool isMsg;//å‘é€åˆ¤æ–­æ ‡è¯†
+char MsgBufs[255][255];//æ¬¢è¿å…¬å‘Š
+char MsgBuf[255][255];//äº‹åŠ¡è‡ªåŠ¨å…¬å‘Š
 //-------------------------------
 
 
@@ -39,8 +39,8 @@ void ProcessEnd(const int iDestroyType) // 030514 kyo
 HANDLE hIn;
 
 HWND m_hProcWnd; // 030422 kyo
-DWORD WINAPI PubMsg(LPVOID lpParameter);//ÊÂÎñ×Ô¶¯·¢ËÍ¹«¸æÏß³Ì
-DWORD WINAPI PubMsgs(LPVOID lpParameter);//»¶Ó­×Ô¶¯·¢ËÍ¹«¸æÏß³Ì
+DWORD WINAPI PubMsg(LPVOID lpParameter);//äº‹åŠ¡è‡ªåŠ¨å‘é€å…¬å‘Šçº¿ç¨‹
+DWORD WINAPI PubMsgs(LPVOID lpParameter);//æ¬¢è¿è‡ªåŠ¨å‘é€å…¬å‘Šçº¿ç¨‹
 
 void MainLoop()
 {
@@ -62,7 +62,7 @@ void MainLoop()
 	__try// 030514 kyo
 	{
 		if (LocalMgr.IsAbleNation(THAI) && !LocalMgr.IsFreeBeta())
-		{	//030129 lsw ¿©±â°¡ Gump ¼­¹ö°¡ ºÙÀ» ºÎºĞ.
+		{	//030129 lsw å’¯æ‰å•Š Gump è¾‘æ»šå•Š å˜¿é˜‘ ä½•ç›’.
 			/////////////////////////////////////////
 			if (0 < g_cAsyncPay.InitConnectPayServer())
 			{
@@ -113,85 +113,85 @@ void MainLoop()
 						break;
 
 
-						//---------------------------------------//ÊÂÎñ×Ô¶¯¹«¸æ
+						//---------------------------------------//äº‹åŠ¡è‡ªåŠ¨å…¬å‘Š
 						case VK_F11:
 						{
 
-							// ---------------------------------------------//´´½¨¼ÇÂ¼ÎÄ¼ş¼Ğ
+							// ---------------------------------------------//åˆ›å»ºè®°å½•æ–‡ä»¶å¤¹
 
-							DWORD   dwAttr = GetFileAttributes(".\\ÊÂÎñ¹«¸æ");
-							if (dwAttr == 0xFFFFFFFF)     //ÎÄ¼ş¼Ğ²»´æÔÚ   
+							DWORD   dwAttr = GetFileAttributes(".\\äº‹åŠ¡å…¬å‘Š");
+							if (dwAttr == 0xFFFFFFFF)     //æ–‡ä»¶å¤¹ä¸å­˜åœ¨   
 							{
-								CreateDirectory(".\\ÊÂÎñ¹«¸æ", NULL);
+								CreateDirectory(".\\äº‹åŠ¡å…¬å‘Š", NULL);
 							}
-							/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //ÊÇÎÄ¼ş¼Ğ
+							/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //æ˜¯æ–‡ä»¶å¤¹
 							{
 							//do   something
 							}*/
-							DWORD   dwAttrtxt = GetFileAttributes(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt");
-							if (dwAttrtxt == 0xFFFFFFFF)     //ÎÄ¼ş¼Ğ²»´æÔÚ   
+							DWORD   dwAttrtxt = GetFileAttributes(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt");
+							if (dwAttrtxt == 0xFFFFFFFF)     //æ–‡ä»¶å¤¹ä¸å­˜åœ¨   
 							{
-								HANDLE   hFile = CreateFile(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt", GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_NEW,
+								HANDLE   hFile = CreateFile(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt", GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_NEW,
 									FILE_ATTRIBUTE_NORMAL, NULL);
 								//	DWORD   ByteWritten;   
-								//	WriteFile(hFile,"²âÊÔ,ÊäÈë¹«¸æÄÚÈİ!",38,&ByteWritten,NULL);
-								//WriteText(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt");
+								//	WriteFile(hFile,"æµ‹è¯•,è¾“å…¥å…¬å‘Šå†…å®¹!",38,&ByteWritten,NULL);
+								//WriteText(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt");
 							}
 
 							//----------------------------------------------
 
-							if (!isMsg)//Èç¹ûµ±Ç°×´Ì¬Ã»ÓĞÔÚ·¢ËÍ¹«¸æ
+							if (!isMsg)//å¦‚æœå½“å‰çŠ¶æ€æ²¡æœ‰åœ¨å‘é€å…¬å‘Š
 							{
-								//ÎÒÃÇ´ò¿ªÎÄ¼ş²¢¶Á³öÄÚÈİ,ºÜ¼òµ¥,²»¶®¿´ÏÂCÓïÑÔµÄÊé£»
+								//æˆ‘ä»¬æ‰“å¼€æ–‡ä»¶å¹¶è¯»å‡ºå†…å®¹,å¾ˆç®€å•,ä¸æ‡‚çœ‹ä¸‹Cè¯­è¨€çš„ä¹¦ï¼›
 								FILE *fp;
-								fp = fopen(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt", "r");	//ÒÔÖ»¶Á·½Ê½´ò¿ª,ÒòÎªÎÒÃÇ²»Òª¶ÔÎÄ¼ş½øĞĞĞŞ¸Ä£»
+								fp = fopen(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt", "r");	//ä»¥åªè¯»æ–¹å¼æ‰“å¼€,å› ä¸ºæˆ‘ä»¬ä¸è¦å¯¹æ–‡ä»¶è¿›è¡Œä¿®æ”¹ï¼›
 								if (!fp)
 								{
-									//Èç¹ûÃ»´ò¿ªMSG.TXTÎÒÃÇÊä³öÈÕÖ¾£»
-									MyLog(0, "´ò¿ª¹«¸æÎÄ¼ş ÊÂÎñ¹«¸æ.txtÊ§°Ü!Çë¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ»òÊÇ·ñĞ´ÈëÁË¹«¸æÄÚÈİ!");
+									//å¦‚æœæ²¡æ‰“å¼€MSG.TXTæˆ‘ä»¬è¾“å‡ºæ—¥å¿—ï¼›
+									MyLog(0, "æ‰“å¼€å…¬å‘Šæ–‡ä»¶ äº‹åŠ¡å…¬å‘Š.txtå¤±è´¥!è¯·æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨æˆ–æ˜¯å¦å†™å…¥äº†å…¬å‘Šå†…å®¹!");
 								}
 								else
 								{
-									//Èç¹ûÕıÈ·´ò¿ª,ÎÒÃÇ´òÎÄ±¾ÎÄ¼şÄÚÈİ¶Á³ö²¢´æ´¢½ø¸Õ²Å¶¨ÒåµÄMSGBUFÊı×éÖĞ£»
-									MsgCount = 0;		//ÎÒÃÇÏÈ°Ñ¹«¸æ¼ÇÂ¼ÉèÎª0£»
-									while (fgets(MsgBuf[MsgCount], 255, fp))//Ò»ĞĞÒ»ĞĞ¶Á,Ö±µ½ÎÄ¼ş½áÊø£»
+									//å¦‚æœæ­£ç¡®æ‰“å¼€,æˆ‘ä»¬æ‰“æ–‡æœ¬æ–‡ä»¶å†…å®¹è¯»å‡ºå¹¶å­˜å‚¨è¿›åˆšæ‰å®šä¹‰çš„MSGBUFæ•°ç»„ä¸­ï¼›
+									MsgCount = 0;		//æˆ‘ä»¬å…ˆæŠŠå…¬å‘Šè®°å½•è®¾ä¸º0ï¼›
+									while (fgets(MsgBuf[MsgCount], 255, fp))//ä¸€è¡Œä¸€è¡Œè¯»,ç›´åˆ°æ–‡ä»¶ç»“æŸï¼›
 									{
-										MsgCount++;	//¹«¸æÌõÊı¼Ó1£»
+										MsgCount++;	//å…¬å‘Šæ¡æ•°åŠ 1ï¼›
 									}
-									fclose(fp);	//¹Ø±Õ´ò¿ªµÄÎÄ¼ş£»
-												//°ÑISMSGÉèÖÃ³ÉTRUE,²¢Æô¶¯Ïß³Ì£»
+									fclose(fp);	//å…³é—­æ‰“å¼€çš„æ–‡ä»¶ï¼›
+												//æŠŠISMSGè®¾ç½®æˆTRUE,å¹¶å¯åŠ¨çº¿ç¨‹ï¼›
 									isMsg = true;
 									CreateThread(NULL, 0, PubMsg, NULL, 0, 0);
-									MyLog(0, "ÊÂÎñ×Ô¶¯·¢ËÍ¹«¸æÆô¶¯!");//Êä³öÈÕÖ¾£»
+									MyLog(0, "äº‹åŠ¡è‡ªåŠ¨å‘é€å…¬å‘Šå¯åŠ¨!");//è¾“å‡ºæ—¥å¿—ï¼›
 								}
 							}
 							else
 							{
-								//ÍË³öÊ±°ÑISMSGÉèÎªFALSE,Ïß³Ì×Ô¶¯½áÊø £»
+								//é€€å‡ºæ—¶æŠŠISMSGè®¾ä¸ºFALSE,çº¿ç¨‹è‡ªåŠ¨ç»“æŸ ï¼›
 								isMsg = false;
-								MyLog(0, "ÊÂÎñ×Ô¶¯·¢ËÍ¹«¸æ½áÊø!");
+								MyLog(0, "äº‹åŠ¡è‡ªåŠ¨å‘é€å…¬å‘Šç»“æŸ!");
 							}
 						}
 						break;
 
 
 						//--------------------------------------------------------------------
-						case VK_F12://»¶Ó­×Ô¶¯¹«¸æ
+						case VK_F12://æ¬¢è¿è‡ªåŠ¨å…¬å‘Š
 						{
-							if (!isMsg)//Èç¹ûµ±Ç°×´Ì¬Ã»ÓĞÔÚ·¢ËÍ¹«¸æ
+							if (!isMsg)//å¦‚æœå½“å‰çŠ¶æ€æ²¡æœ‰åœ¨å‘é€å…¬å‘Š
 							{
-								MsgCount = 0;		//ÎÒÃÇÏÈ°Ñ¹«¸æ¼ÇÂ¼ÉèÎª0£»
-								MsgCount++;	//¹«¸æÌõÊı¼Ó1£»
+								MsgCount = 0;		//æˆ‘ä»¬å…ˆæŠŠå…¬å‘Šè®°å½•è®¾ä¸º0ï¼›
+								MsgCount++;	//å…¬å‘Šæ¡æ•°åŠ 1ï¼›
 								isMsg = true;
 								CreateThread(NULL, 0, PubMsgs, NULL, 0, 0);
-								MyLog(0, "»¶Ó­×Ô¶¯·¢ËÍ¹«¸æÆô¶¯!");//Êä³öÈÕÖ¾£»
+								MyLog(0, "æ¬¢è¿è‡ªåŠ¨å‘é€å…¬å‘Šå¯åŠ¨!");//è¾“å‡ºæ—¥å¿—ï¼›
 							}
 							//	}
 							else
 							{
-								//ÍË³öÊ±°ÑISMSGÉèÎªFALSE,Ïß³Ì×Ô¶¯½áÊø £»
+								//é€€å‡ºæ—¶æŠŠISMSGè®¾ä¸ºFALSE,çº¿ç¨‹è‡ªåŠ¨ç»“æŸ ï¼›
 								isMsg = false;
-								MyLog(0, "»¶Ó­×Ô¶¯·¢ËÍ¹«¸æ½áÊø!");
+								MyLog(0, "æ¬¢è¿è‡ªåŠ¨å‘é€å…¬å‘Šç»“æŸ!");
 							}
 						}
 
@@ -214,7 +214,7 @@ void MainLoop()
 		//DumpException( pException, "Exception Raised on main()" );
 		ProcessEnd(FINISH_TYPE_UNKNOWN_ERROR);
 	}
-	// ¼ø¼­ ÁöÅ³ °Í.
+	// é‰´è¾‘ ç˜¤æ‡¦ å·´.
 FinishAgentServer:
 	MyLog(LOG_NORMAL, "-- AgentServer ShutDown :: Now Release INetwork Module, ServerTable");
 	EndAgentServer();
@@ -285,7 +285,7 @@ int main()
 //	__try// 030514 kyo
 //	{
 //		if(LocalMgr.IsAbleNation(THAI) && !LocalMgr.IsFreeBeta() )
-//		{	//030129 lsw ¿©±â°¡ Gump ¼­¹ö°¡ ºÙÀ» ºÎºĞ.
+//		{	//030129 lsw å’¯æ‰å•Š Gump è¾‘æ»šå•Š å˜¿é˜‘ ä½•ç›’.
 //			/////////////////////////////////////////
 //			if( 0 < g_cAsyncPay.InitConnectPayServer() )
 //			{
@@ -336,83 +336,83 @@ int main()
 //							break;
 //
 //
-////---------------------------------------//ÊÂÎñ×Ô¶¯¹«¸æ
+////---------------------------------------//äº‹åŠ¡è‡ªåŠ¨å…¬å‘Š
 //						case VK_F11:
 //							{
 //							
-//							// ---------------------------------------------//´´½¨¼ÇÂ¼ÎÄ¼ş¼Ğ
+//							// ---------------------------------------------//åˆ›å»ºè®°å½•æ–‡ä»¶å¤¹
 //		
-//							DWORD   dwAttr   =   GetFileAttributes(".\\ÊÂÎñ¹«¸æ");   
-//							if(dwAttr   ==   0xFFFFFFFF)     //ÎÄ¼ş¼Ğ²»´æÔÚ   
-//							{ CreateDirectory(".\\ÊÂÎñ¹«¸æ",NULL);  } 
-//							/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //ÊÇÎÄ¼ş¼Ğ   
+//							DWORD   dwAttr   =   GetFileAttributes(".\\äº‹åŠ¡å…¬å‘Š");   
+//							if(dwAttr   ==   0xFFFFFFFF)     //æ–‡ä»¶å¤¹ä¸å­˜åœ¨   
+//							{ CreateDirectory(".\\äº‹åŠ¡å…¬å‘Š",NULL);  } 
+//							/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //æ˜¯æ–‡ä»¶å¤¹   
 //							{   
 //							//do   something   
 //							}*/
-//							DWORD   dwAttrtxt   =   GetFileAttributes(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt");   
-//							if(dwAttrtxt   ==   0xFFFFFFFF)     //ÎÄ¼ş¼Ğ²»´æÔÚ   
+//							DWORD   dwAttrtxt   =   GetFileAttributes(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt");   
+//							if(dwAttrtxt   ==   0xFFFFFFFF)     //æ–‡ä»¶å¤¹ä¸å­˜åœ¨   
 //							{ 
-//							HANDLE   hFile =	CreateFile(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt",GENERIC_READ|GENERIC_WRITE,0,NULL,CREATE_NEW,   
+//							HANDLE   hFile =	CreateFile(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt",GENERIC_READ|GENERIC_WRITE,0,NULL,CREATE_NEW,   
 //							FILE_ATTRIBUTE_NORMAL,NULL);
 //							//	DWORD   ByteWritten;   
-//						//	WriteFile(hFile,"²âÊÔ,ÊäÈë¹«¸æÄÚÈİ!",38,&ByteWritten,NULL);
-//					//WriteText(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt");
+//						//	WriteFile(hFile,"æµ‹è¯•,è¾“å…¥å…¬å‘Šå†…å®¹!",38,&ByteWritten,NULL);
+//					//WriteText(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt");
 //							}
 //
 //							//----------------------------------------------
 //
-//								if(!isMsg)//Èç¹ûµ±Ç°×´Ì¬Ã»ÓĞÔÚ·¢ËÍ¹«¸æ
+//								if(!isMsg)//å¦‚æœå½“å‰çŠ¶æ€æ²¡æœ‰åœ¨å‘é€å…¬å‘Š
 //								{
-//									//ÎÒÃÇ´ò¿ªÎÄ¼ş²¢¶Á³öÄÚÈİ,ºÜ¼òµ¥,²»¶®¿´ÏÂCÓïÑÔµÄÊé£»
+//									//æˆ‘ä»¬æ‰“å¼€æ–‡ä»¶å¹¶è¯»å‡ºå†…å®¹,å¾ˆç®€å•,ä¸æ‡‚çœ‹ä¸‹Cè¯­è¨€çš„ä¹¦ï¼›
 //									FILE *fp;
-//									fp = fopen(".\\ÊÂÎñ¹«¸æ\\ÊÂÎñ¹«¸æ.txt","r");	//ÒÔÖ»¶Á·½Ê½´ò¿ª,ÒòÎªÎÒÃÇ²»Òª¶ÔÎÄ¼ş½øĞĞĞŞ¸Ä£»
+//									fp = fopen(".\\äº‹åŠ¡å…¬å‘Š\\äº‹åŠ¡å…¬å‘Š.txt","r");	//ä»¥åªè¯»æ–¹å¼æ‰“å¼€,å› ä¸ºæˆ‘ä»¬ä¸è¦å¯¹æ–‡ä»¶è¿›è¡Œä¿®æ”¹ï¼›
 //								if(!fp)
 //								{
-//									//Èç¹ûÃ»´ò¿ªMSG.TXTÎÒÃÇÊä³öÈÕÖ¾£»
-//									MyLog(0,"´ò¿ª¹«¸æÎÄ¼ş ÊÂÎñ¹«¸æ.txtÊ§°Ü!Çë¼ì²éÎÄ¼şÊÇ·ñ´æÔÚ»òÊÇ·ñĞ´ÈëÁË¹«¸æÄÚÈİ!");
+//									//å¦‚æœæ²¡æ‰“å¼€MSG.TXTæˆ‘ä»¬è¾“å‡ºæ—¥å¿—ï¼›
+//									MyLog(0,"æ‰“å¼€å…¬å‘Šæ–‡ä»¶ äº‹åŠ¡å…¬å‘Š.txtå¤±è´¥!è¯·æ£€æŸ¥æ–‡ä»¶æ˜¯å¦å­˜åœ¨æˆ–æ˜¯å¦å†™å…¥äº†å…¬å‘Šå†…å®¹!");
 //								}
 //								else
 //								{
-//									//Èç¹ûÕıÈ·´ò¿ª,ÎÒÃÇ´òÎÄ±¾ÎÄ¼şÄÚÈİ¶Á³ö²¢´æ´¢½ø¸Õ²Å¶¨ÒåµÄMSGBUFÊı×éÖĞ£»
-//									MsgCount=0;		//ÎÒÃÇÏÈ°Ñ¹«¸æ¼ÇÂ¼ÉèÎª0£»
-//									while(fgets(MsgBuf[MsgCount],255,fp))//Ò»ĞĞÒ»ĞĞ¶Á,Ö±µ½ÎÄ¼ş½áÊø£»
+//									//å¦‚æœæ­£ç¡®æ‰“å¼€,æˆ‘ä»¬æ‰“æ–‡æœ¬æ–‡ä»¶å†…å®¹è¯»å‡ºå¹¶å­˜å‚¨è¿›åˆšæ‰å®šä¹‰çš„MSGBUFæ•°ç»„ä¸­ï¼›
+//									MsgCount=0;		//æˆ‘ä»¬å…ˆæŠŠå…¬å‘Šè®°å½•è®¾ä¸º0ï¼›
+//									while(fgets(MsgBuf[MsgCount],255,fp))//ä¸€è¡Œä¸€è¡Œè¯»,ç›´åˆ°æ–‡ä»¶ç»“æŸï¼›
 //									{
-//									MsgCount ++;	//¹«¸æÌõÊı¼Ó1£»
+//									MsgCount ++;	//å…¬å‘Šæ¡æ•°åŠ 1ï¼›
 //									}
-//									fclose(fp);	//¹Ø±Õ´ò¿ªµÄÎÄ¼ş£»
-//									//°ÑISMSGÉèÖÃ³ÉTRUE,²¢Æô¶¯Ïß³Ì£»
+//									fclose(fp);	//å…³é—­æ‰“å¼€çš„æ–‡ä»¶ï¼›
+//									//æŠŠISMSGè®¾ç½®æˆTRUE,å¹¶å¯åŠ¨çº¿ç¨‹ï¼›
 //									isMsg=true;
 //									CreateThread(NULL,0,PubMsg,NULL,0,0);
-//									MyLog(0,"ÊÂÎñ×Ô¶¯·¢ËÍ¹«¸æÆô¶¯!");//Êä³öÈÕÖ¾£»
+//									MyLog(0,"äº‹åŠ¡è‡ªåŠ¨å‘é€å…¬å‘Šå¯åŠ¨!");//è¾“å‡ºæ—¥å¿—ï¼›
 //								}
 //								}
 //								else
 //								{
-//									//ÍË³öÊ±°ÑISMSGÉèÎªFALSE,Ïß³Ì×Ô¶¯½áÊø £»
+//									//é€€å‡ºæ—¶æŠŠISMSGè®¾ä¸ºFALSE,çº¿ç¨‹è‡ªåŠ¨ç»“æŸ ï¼›
 //									isMsg=false;
-//									MyLog(0,"ÊÂÎñ×Ô¶¯·¢ËÍ¹«¸æ½áÊø!");
+//									MyLog(0,"äº‹åŠ¡è‡ªåŠ¨å‘é€å…¬å‘Šç»“æŸ!");
 //								}
 //							}							
 //							break;
 //
 //
 //				//--------------------------------------------------------------------
-//						case VK_F12://»¶Ó­×Ô¶¯¹«¸æ
+//						case VK_F12://æ¬¢è¿è‡ªåŠ¨å…¬å‘Š
 //							{
-//								if(!isMsg)//Èç¹ûµ±Ç°×´Ì¬Ã»ÓĞÔÚ·¢ËÍ¹«¸æ
+//								if(!isMsg)//å¦‚æœå½“å‰çŠ¶æ€æ²¡æœ‰åœ¨å‘é€å…¬å‘Š
 //								{
-//									MsgCount=0;		//ÎÒÃÇÏÈ°Ñ¹«¸æ¼ÇÂ¼ÉèÎª0£»
-//									MsgCount ++;	//¹«¸æÌõÊı¼Ó1£»
+//									MsgCount=0;		//æˆ‘ä»¬å…ˆæŠŠå…¬å‘Šè®°å½•è®¾ä¸º0ï¼›
+//									MsgCount ++;	//å…¬å‘Šæ¡æ•°åŠ 1ï¼›
 //									isMsg=true;
 //									CreateThread(NULL,0,PubMsgs,NULL,0,0);
-//									MyLog(0,"»¶Ó­×Ô¶¯·¢ËÍ¹«¸æÆô¶¯!");//Êä³öÈÕÖ¾£»
+//									MyLog(0,"æ¬¢è¿è‡ªåŠ¨å‘é€å…¬å‘Šå¯åŠ¨!");//è¾“å‡ºæ—¥å¿—ï¼›
 //								}
 //							//	}
 //								else
 //								{
-//									//ÍË³öÊ±°ÑISMSGÉèÎªFALSE,Ïß³Ì×Ô¶¯½áÊø £»
+//									//é€€å‡ºæ—¶æŠŠISMSGè®¾ä¸ºFALSE,çº¿ç¨‹è‡ªåŠ¨ç»“æŸ ï¼›
 //									isMsg=false;
-//									MyLog(0,"»¶Ó­×Ô¶¯·¢ËÍ¹«¸æ½áÊø!");
+//									MyLog(0,"æ¬¢è¿è‡ªåŠ¨å‘é€å…¬å‘Šç»“æŸ!");
 //								}
 //							}
 //
@@ -435,7 +435,7 @@ int main()
 //		//DumpException( pException, "Exception Raised on main()" );
 //		ProcessEnd(FINISH_TYPE_UNKNOWN_ERROR);
 //	}
-//	// ¼ø¼­ ÁöÅ³ °Í.
+//	// é‰´è¾‘ ç˜¤æ‡¦ å·´.
 //FinishAgentServer:
 //	MyLog( LOG_NORMAL, "-- AgentServer ShutDown :: Now Release INetwork Module, ServerTable" );
 //	EndAgentServer();
@@ -474,7 +474,7 @@ void Paythread( void *pVoid )
 							g_pServerTable->DestroyServer( FINISH_TYPE_NORMAL );
 							MyLog(LOG_NORMAL, "-- AgentServer Shutdown " );
 							g_cAsyncPay.LogoutAllUser(); // 030626 kyo
-							PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // ½º·¹µå Á¾·á
+							PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // èƒ¶é¥­é› è¾†ä¸°
 						}
 					}
 					break;
@@ -497,30 +497,30 @@ void Paythread( void *pVoid )
 	return;
 }
 
-DWORD WINAPI PubMsgs(LPVOID lpParameter)//Õâ¸öÊÇ·¢ËÍ »¶Ó­¹«¸æ µÄÏß³Ì
+DWORD WINAPI PubMsgs(LPVOID lpParameter)//è¿™ä¸ªæ˜¯å‘é€ æ¬¢è¿å…¬å‘Š çš„çº¿ç¨‹
 {
-	int i = 0;				//¶¨ÒåÒ»¸ö±äÁ¿À´´æ´¢µ±Ç°·¢ËÍµÄĞÅÏ¢ÊÇµÚ¼¸Ìõ£»
-	while(isMsg)			//ÓÃisMsgÀ´¿ØÖÆ·¢ËÍ,Èç¹ûÎªTRUE¾ÍÒ»Ö±·¢ËÍ£»
+	int i = 0;				//å®šä¹‰ä¸€ä¸ªå˜é‡æ¥å­˜å‚¨å½“å‰å‘é€çš„ä¿¡æ¯æ˜¯ç¬¬å‡ æ¡ï¼›
+	while(isMsg)			//ç”¨isMsgæ¥æ§åˆ¶å‘é€,å¦‚æœä¸ºTRUEå°±ä¸€ç›´å‘é€ï¼›
 	{
-	sprintf(MsgBufs[i],"[Ğ¡ÁÁÁú×å]ÌáÊ¾£ºÖ÷¶¯¶Å¾ø·Ç·¨Íâ¹Ò,ÌåÑéÁú×åÖ®ÂÃ! µ±Ç°ÔÚÏßÈËÊı: %d ÈË!",g_pServerTable->GetNumOfUsers());//Õâ¸öº¯ÊıÊÇÈ¡µÃµ±Ç°ÔÚÏßÓÃ»§ÊıµÄ
-	SendPbs(MsgBufs[i],255);	//µ÷ÓÃAGENTÀïµÄ·¢ËÍ¹«¸æµÄº¯ÊıÀ´·¢ËÍ¹«¸æ£»
-	i++;					//µ±Ç°·¢ËÍµÄĞÅÏ¢+1,ÓÃÓÚ·¢ËÍÏÂÒ»Ìõ£»
-	if(i>100) i=0;		//Èç¹û·¢ËÍµÄĞÅÏ¢´óÓÚ×ÜĞÅÏ¢Êı,¾ÍÊÇ·¢ÍêÁË,´ÓÍ·¿ªÊ¼£»
-	Sleep(300*1000);			//µÈ´ı30ÃëÔÙÖ´ĞĞ,¾ÍÊÇ·¢ÁËÒ»Ìõ¹«¸æÒªµÈ5ÃëÔÙ·¢ÏÂÒ»Ìõ£»
+	sprintf(MsgBufs[i],"[å°äº®é¾™æ—]æç¤ºï¼šä¸»åŠ¨æœç»éæ³•å¤–æŒ‚,ä½“éªŒé¾™æ—ä¹‹æ—…! å½“å‰åœ¨çº¿äººæ•°: %d äºº!",g_pServerTable->GetNumOfUsers());//è¿™ä¸ªå‡½æ•°æ˜¯å–å¾—å½“å‰åœ¨çº¿ç”¨æˆ·æ•°çš„
+	SendPbs(MsgBufs[i],255);	//è°ƒç”¨AGENTé‡Œçš„å‘é€å…¬å‘Šçš„å‡½æ•°æ¥å‘é€å…¬å‘Šï¼›
+	i++;					//å½“å‰å‘é€çš„ä¿¡æ¯+1,ç”¨äºå‘é€ä¸‹ä¸€æ¡ï¼›
+	if(i>100) i=0;		//å¦‚æœå‘é€çš„ä¿¡æ¯å¤§äºæ€»ä¿¡æ¯æ•°,å°±æ˜¯å‘å®Œäº†,ä»å¤´å¼€å§‹ï¼›
+	Sleep(300*1000);			//ç­‰å¾…30ç§’å†æ‰§è¡Œ,å°±æ˜¯å‘äº†ä¸€æ¡å…¬å‘Šè¦ç­‰5ç§’å†å‘ä¸‹ä¸€æ¡ï¼›
 	}
-	ExitThread(0);			//ÍË³öÑ­»·Ê±ÍË³öÏß³Ì£»
+	ExitThread(0);			//é€€å‡ºå¾ªç¯æ—¶é€€å‡ºçº¿ç¨‹ï¼›
 	return 0;
 }
-DWORD WINAPI PubMsg(LPVOID lpParameter)//Õâ¸öÊÇ·¢ËÍÊÂÎñ¹«¸æµÄ,¾ÍÊÇÎ¬»¤Ê²Ã´µÄ
+DWORD WINAPI PubMsg(LPVOID lpParameter)//è¿™ä¸ªæ˜¯å‘é€äº‹åŠ¡å…¬å‘Šçš„,å°±æ˜¯ç»´æŠ¤ä»€ä¹ˆçš„
 {
-	int i = 0;				//¶¨ÒåÒ»¸ö±äÁ¿À´´æ´¢µ±Ç°·¢ËÍµÄĞÅÏ¢ÊÇµÚ¼¸Ìõ£»
-	while(isMsg)			//ÓÃisMsgÀ´¿ØÖÆ·¢ËÍ,Èç¹ûÎªTRUE¾ÍÒ»Ö±·¢ËÍ£»
+	int i = 0;				//å®šä¹‰ä¸€ä¸ªå˜é‡æ¥å­˜å‚¨å½“å‰å‘é€çš„ä¿¡æ¯æ˜¯ç¬¬å‡ æ¡ï¼›
+	while(isMsg)			//ç”¨isMsgæ¥æ§åˆ¶å‘é€,å¦‚æœä¸ºTRUEå°±ä¸€ç›´å‘é€ï¼›
 	{
-	SendPbs(MsgBuf[i],255);	//µ÷ÓÃAGENTÀïµÄ·¢ËÍ¹«¸æµÄº¯ÊıÀ´·¢ËÍ¹«¸æ£»
-	i++;					//µ±Ç°·¢ËÍµÄĞÅÏ¢+1,ÓÃÓÚ·¢ËÍÏÂÒ»Ìõ£»
-	if(i>MsgCount) i=0;		//Èç¹û·¢ËÍµÄĞÅÏ¢´óÓÚ×ÜĞÅÏ¢Êı,¾ÍÊÇ·¢ÍêÁË,´ÓÍ·¿ªÊ¼£»
-	Sleep(5000);			//µÈ´ı5ÃëÔÙÖ´ĞĞ,¾ÍÊÇ·¢ÁËÒ»Ìõ¹«¸æÒªµÈ5ÃëÔÙ·¢ÏÂÒ»Ìõ£»
+	SendPbs(MsgBuf[i],255);	//è°ƒç”¨AGENTé‡Œçš„å‘é€å…¬å‘Šçš„å‡½æ•°æ¥å‘é€å…¬å‘Šï¼›
+	i++;					//å½“å‰å‘é€çš„ä¿¡æ¯+1,ç”¨äºå‘é€ä¸‹ä¸€æ¡ï¼›
+	if(i>MsgCount) i=0;		//å¦‚æœå‘é€çš„ä¿¡æ¯å¤§äºæ€»ä¿¡æ¯æ•°,å°±æ˜¯å‘å®Œäº†,ä»å¤´å¼€å§‹ï¼›
+	Sleep(5000);			//ç­‰å¾…5ç§’å†æ‰§è¡Œ,å°±æ˜¯å‘äº†ä¸€æ¡å…¬å‘Šè¦ç­‰5ç§’å†å‘ä¸‹ä¸€æ¡ï¼›
 	}
-	ExitThread(0);			//ÍË³öÑ­»·Ê±ÍË³öÏß³Ì£»
+	ExitThread(0);			//é€€å‡ºå¾ªç¯æ—¶é€€å‡ºçº¿ç¨‹ï¼›
 	return 0;
 }

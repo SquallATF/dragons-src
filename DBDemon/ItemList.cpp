@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+﻿#include "StdAfx.h"
 #include "MAIN.H"
 
 ITEMLIST ItemList[MAX_ITEM_LIST];

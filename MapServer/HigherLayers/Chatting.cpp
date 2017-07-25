@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "Chatting.h"
 #include "UserManager.h"
@@ -26,7 +26,7 @@ void RecvChatSet( int cn, t_chat_set *p )
 				if( connections[cn].chrlst.party[i].On ) break;
 			}
 
-			if( i != MAX_PARTY_MEMBER ) // partyÀÖÀ½. 
+			if( i != MAX_PARTY_MEMBER ) // partyìˆìŒ. 
 			{
 				connections[cn].chrlst.chattype = p->chattype;
 				SendChatSetResult( cn, 10 );
@@ -62,11 +62,11 @@ void RecvChatSet( int cn, t_chat_set *p )
 			{	
 				if (p->chatname[0] == 0)	
 				{
-					SendChatSetResult(cn, 2); // ±âº»¼³Á¤À¸·Î ¹Ù²î¾ú½À´Ï´Ù. 
+					SendChatSetResult(cn, 2); // ê¸°ë³¸ì„¤ì •ìœ¼ë¡œ ë°”ë€Œì—ˆìŠµë‹ˆë‹¤. 
 				}
 				else
 				{
-					SendChatSetResult(cn, 0);	// '%s'¶õ ÀÌ¸§À» °¡Áø»ç¶÷ÀÌ ¾ø½À´Ï´Ù. 
+					SendChatSetResult(cn, 0);	// '%s'ë€ ì´ë¦„ì„ ê°€ì§„ì‚¬ëŒì´ ì—†ìŠµë‹ˆë‹¤. 
 				}
 
 				connections[cn].chrlst.chattype = CHATTYPE_NORMAL;
@@ -77,13 +77,13 @@ void RecvChatSet( int cn, t_chat_set *p )
 	case CHATTYPE_NORMAL:	
 		{
 			connections[cn].chrlst.chattype = p->chattype;
-			SendChatSetResult(cn, 2);// ±âº»¼³Á¤À¸·Î ¹Ù²î¾ú½À´Ï´Ù. 
+			SendChatSetResult(cn, 2);// ê¸°ë³¸ì„¤ì •ìœ¼ë¡œ ë°”ë€Œì—ˆìŠµë‹ˆë‹¤. 
 			break;
 		}
 	}								
 }	//> CSD-030415								
 									
-// ÇöÀç ±Ó¼Ó¸»·Î ¼³Á¤ÀÌ µÇ¾î ÀÖ´Ù¸é......
+// í˜„ì¬ ê·“ì†ë§ë¡œ ì„¤ì •ì´ ë˜ì–´ ìˆë‹¤ë©´......
 void SendWhisper(t_connection c[], int cn, t_packet *packet)
 {				
 	const int range	= (int)packet->u.client_chat_data.range;

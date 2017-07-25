@@ -1,4 +1,4 @@
-#ifndef	__RECV__MSG_H
+﻿#ifndef	__RECV__MSG_H
 #define	__RECV__MSG_H
 
 #include "..\stdafx.h"

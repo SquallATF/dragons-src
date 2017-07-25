@@ -1,9 +1,9 @@
-/* 
+ï»¿/* 
 	filename:	jNpcEnum.h
 	coder	:	Cho Wook Rea (4MLMman@hitel.net)(icq:74456993) 
 	comp.	:	esofnet 
 	compiler:	vc++ 6.0
-	date	:	2000-06-22¿ÀÈÄ 2:13:29
+	date	:	2000-06-22ì˜¤í›„ 2:13:29
 	title	:	
 */
 
@@ -14,28 +14,28 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-enum { // »ç¿ë¾ÈÇÔ. ¿¹³¯¼Ò½º¶û È£È¯À» À§ÇØ ¸¸µé¾î ³µÀ½.
-	NPC_PATTERN_HOSTILE_			,		// Àû´ëÀûÀ¸·Î ¹Ù²ï´Ù. 
-	NPC_PATTERN_PEACE_				,		// ÆòÈ­ÀûÀ¸·Î ¹Ù²ï´Ù.
-	NPC_PATTERN_FIND_CLOSE_PC_		,		// °¡±î¿î pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-	NPC_PATTERN_FIND_WEAK_PC_		,		// ¾àÇÑ  pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-	NPC_PATTERN_FIND_STRONG_PC_		,		// °­ÇÑ  pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-	NPC_PATTERN_ACCESS_PC_			,		// Ã£Àº PC¿¡ Àû±ÙÇÑ´Ù. ( HostileÀÏ°æ¿ì °ø°Ý¹üÀ§¿¡ ÀÖÀ¸¸é °ø°ÝÇÑ´Ù. peaceÀÏ°æ¿ì Á¢±ÙÇØµµ °¡¸¸È÷ Á¢±ÙÇÏ´Â³ðÀ» ¹Ù¶óº»´Ù.  
-	NPC_PATTERN_ACCESS_PC_ATTACKED_	,		// ³ª¸¦ °ø°ÝÇÑ Pc¿¡ Á¢±ÙÇÑ´Ù. 
+enum { // ì‚¬ìš©ì•ˆí•¨. ì˜ˆë‚ ì†ŒìŠ¤ëž‘ í˜¸í™˜ì„ ìœ„í•´ ë§Œë“¤ì–´ ë‚¬ìŒ.
+	NPC_PATTERN_HOSTILE_			,		// ì ëŒ€ì ìœ¼ë¡œ ë°”ë€ë‹¤. 
+	NPC_PATTERN_PEACE_				,		// í‰í™”ì ìœ¼ë¡œ ë°”ë€ë‹¤.
+	NPC_PATTERN_FIND_CLOSE_PC_		,		// ê°€ê¹Œìš´ pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+	NPC_PATTERN_FIND_WEAK_PC_		,		// ì•½í•œ  pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+	NPC_PATTERN_FIND_STRONG_PC_		,		// ê°•í•œ  pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+	NPC_PATTERN_ACCESS_PC_			,		// ì°¾ì€ PCì— ì ê·¼í•œë‹¤. ( Hostileì¼ê²½ìš° ê³µê²©ë²”ìœ„ì— ìžˆìœ¼ë©´ ê³µê²©í•œë‹¤. peaceì¼ê²½ìš° ì ‘ê·¼í•´ë„ ê°€ë§Œížˆ ì ‘ê·¼í•˜ëŠ”ë†ˆì„ ë°”ë¼ë³¸ë‹¤.  
+	NPC_PATTERN_ACCESS_PC_ATTACKED_	,		// ë‚˜ë¥¼ ê³µê²©í•œ Pcì— ì ‘ê·¼í•œë‹¤. 
 	NPC_PATTERN_ATTACK_PC_			,
-	NPC_PATTERN_WANDER_RANGE_1_	,// ¹èÈ¸ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 1ÀÌ´Ù. )
-	NPC_PATTERN_WANDER_RANGE_2_	,// ¹èÈ­ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 2ÀÌ´Ù. )
-	NPC_PATTERN_WANDER_RANGE_3_		,// ¹èÈ­ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 3ÀÌ´Ù. )
-	NPC_PATTERN_ESCAPE_PC_			,// Ã£Àº PC·Î ºÎÅÍ µµ¸Á°£´Ù. 
-	NPC_PATTERN_ESCAPE_BATTLE_PC_	,// ±ÙÃ³¿¡ °ø°Ý PC°¡ ÀÖÀ¸¸é ¸Ö¸® µµ¸Á°£´Ù. 
-	NPC_PATTERN_RETURN_				,// patterntypeÀ» 0À¸·Î SettingÇÑ´Ù.
-	NPC_PATTERN_BACKDRAW_			,// °ø°ÝÇÏ·Á´Â ³ðµÚ·Î 3Å¸ÀÏ ºüÁø´Ù.
+	NPC_PATTERN_WANDER_RANGE_1_	,// ë°°íšŒí•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 1ì´ë‹¤. )
+	NPC_PATTERN_WANDER_RANGE_2_	,// ë°°í™”í•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 2ì´ë‹¤. )
+	NPC_PATTERN_WANDER_RANGE_3_		,// ë°°í™”í•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 3ì´ë‹¤. )
+	NPC_PATTERN_ESCAPE_PC_			,// ì°¾ì€ PCë¡œ ë¶€í„° ë„ë§ê°„ë‹¤. 
+	NPC_PATTERN_ESCAPE_BATTLE_PC_	,// ê·¼ì²˜ì— ê³µê²© PCê°€ ìžˆìœ¼ë©´ ë©€ë¦¬ ë„ë§ê°„ë‹¤. 
+	NPC_PATTERN_RETURN_				,// patterntypeì„ 0ìœ¼ë¡œ Settingí•œë‹¤.
+	NPC_PATTERN_BACKDRAW_			,// ê³µê²©í•˜ë ¤ëŠ” ë†ˆë’¤ë¡œ 3íƒ€ì¼ ë¹ ì§„ë‹¤.
 };
 
 enum ENpcPattern
 {
 	eNPC_PATTERN_BEGIN,
-	NPC_PATTERN_NO_MOVE_			 =eNPC_PATTERN_BEGIN ,		// °¡¸¸È÷ ÀÖ´Â´Ù.
+	NPC_PATTERN_NO_MOVE_			 =eNPC_PATTERN_BEGIN ,		// ê°€ë§Œížˆ ìžˆëŠ”ë‹¤.
 
 	eNPC8_BEGIN,
 	NPC_PATTERN_IAM_BOSS_8_			=eNPC8_BEGIN,
@@ -120,12 +120,12 @@ struct sNPCgeneratePosition
 
 enum ENpcAni
 {
-	eMON1_NONE ,		// ±âº»µ¿ÀÛ
-	eMON1_BATTLE_NONE,	// ÀüÅõ±âº»
-	eMON1_ATTACKED,		// ¸Â±â
-	eMON1_DIE,			// Á×±â....
-	eMON1_BATTLE_WALK_,	// ±âº»°È±â
-	eMON1_BATTLE_ATTACK, // ÇÑ¼Õ°ø°Ý
+	eMON1_NONE ,		// ê¸°ë³¸ë™ìž‘
+	eMON1_BATTLE_NONE,	// ì „íˆ¬ê¸°ë³¸
+	eMON1_ATTACKED,		// ë§žê¸°
+	eMON1_DIE,			// ì£½ê¸°....
+	eMON1_BATTLE_WALK_,	// ê¸°ë³¸ê±·ê¸°
+	eMON1_BATTLE_ATTACK, // í•œì†ê³µê²©
 	eMAX_ENpcAni
 };
 

@@ -1,4 +1,4 @@
-// DarkCombat.cpp: implementation of the CDarkCombat class.
+ï»¿// DarkCombat.cpp: implementation of the CDarkCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -76,17 +76,17 @@ bool CDarkCombat::Elapse(CHARLIST* pTarget)
 
 bool CDarkCombat::PoisoningNova()
 {
-	const int nCaster = m_pCaster->GetActiveCombat(); // ½ÃÀüÀÚÀÇ ÀüÅõ¼Ó¼º
-	const int nTarget = m_pTarget->GetActiveCombat(); // ´ë»óÀÚÀÇ ÀüÅõ¼Ó¼º
-	const int nResult = Relation(nCaster, nTarget);   // ½ÂÆĞ, ´ë¸³ °ü°è
+	const int nCaster = m_pCaster->GetActiveCombat(); // ì‹œì „ìì˜ ì „íˆ¬ì†ì„±
+	const int nTarget = m_pTarget->GetActiveCombat(); // ëŒ€ìƒìì˜ ì „íˆ¬ì†ì„±
+	const int nResult = Relation(nCaster, nTarget);   // ìŠ¹íŒ¨, ëŒ€ë¦½ ê´€ê³„
 	const int nPercent = m_pCaster->CorrectCombatAttack(nCaster, nResult);
 	const int nDamage = m_pTarget->HpMax*nPercent/100;
 	WORD wRemain = CalcMaintain();
 	m_pTarget->SetPoisonedPoint(nDamage);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wRemain);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result_t packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -99,7 +99,7 @@ bool CDarkCombat::PoisoningNova()
 
 bool CDarkCombat::CherroyShade()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -110,7 +110,7 @@ bool CDarkCombat::CherroyShade()
 
 bool CDarkCombat::DarkBlade()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -123,7 +123,7 @@ bool CDarkCombat::TybernGift()
 {
 	m_pCaster->dwCombatState = m_dwNow + CalcMaintain();
 	m_pCaster->ResetAbility(m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -134,9 +134,9 @@ bool CDarkCombat::TybernGift()
 
 bool CDarkCombat::AcuquireDark()
 {	//< CSD-TW-030606
-	const WORD wPeriod = CalcMaintain(); // À¯Áö½Ã°£ °è»ê
+	const WORD wPeriod = CalcMaintain(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pCaster->dwCombatRecovery = m_dwNow + wPeriod;
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result_t packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -148,17 +148,17 @@ bool CDarkCombat::AcuquireDark()
 
 bool CDarkCombat::DarkExtreme()
 {
-	const int nCaster = m_pCaster->GetActiveCombat(); // ½ÃÀüÀÚÀÇ ÀüÅõ¼Ó¼º
-	const int nTarget = m_pTarget->GetActiveCombat(); // ´ë»óÀÚÀÇ ÀüÅõ¼Ó¼º
-	const int nResult = Relation(nCaster, nTarget);   // ½ÂÆĞ, ´ë¸³ °ü°è
+	const int nCaster = m_pCaster->GetActiveCombat(); // ì‹œì „ìì˜ ì „íˆ¬ì†ì„±
+	const int nTarget = m_pTarget->GetActiveCombat(); // ëŒ€ìƒìì˜ ì „íˆ¬ì†ì„±
+	const int nResult = Relation(nCaster, nTarget);   // ìŠ¹íŒ¨, ëŒ€ë¦½ ê´€ê³„
 	const int nPercent = m_pCaster->CorrectCombatAttack(nCaster, nResult);
 	const int nDamage = m_pTarget->HpMax*nPercent/100;
 	WORD wRemain = CalcMaintain();
 	m_pTarget->SetPoisonedPoint(nDamage);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wRemain);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result_t packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;

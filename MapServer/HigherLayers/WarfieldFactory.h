@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	WarfieldFactory.h
  *			interface for the CWarfieldFactory class.
  */
@@ -9,8 +9,8 @@
 
 /**
  * @class	CWarfieldFactory.
- * @brief	IWarfieldDefine interface¸¦ Æ¯Á¤ ÀüÀïÅÍ·Î »ı¼º ½ÃÅ°´Â Factory class.
- *			¿ª½Ã IFactoryDefine¿¡°Ô¼­ »ó¼Ó ¹Ş¾Ò´Ù ³ªÁß¿¡ Factory Manager class¸¦ À§ÇØ.
+ * @brief	IWarfieldDefine interfaceë¥¼ íŠ¹ì • ì „ìŸí„°ë¡œ ìƒì„± ì‹œí‚¤ëŠ” Factory class.
+ *			ì—­ì‹œ IFactoryDefineì—ê²Œì„œ ìƒì† ë°›ì•˜ë‹¤ ë‚˜ì¤‘ì— Factory Manager classë¥¼ ìœ„í•´.
  */
 //< LTH-040419-KO.
 class CWarfieldFactory : public IFactoryDefine  
@@ -26,7 +26,7 @@ public:
 
 /**
  * @def		CWarfieldFactory * LPWARFIELDFACTORY.
- * @brief	Æ÷ÀÎÅÍ º¯¼öÀÇ Æí¸®ÇÑ »ç¿ëÀ» À§ÇØ Á¤ÀÇ.
+ * @brief	í¬ì¸í„° ë³€ìˆ˜ì˜ í¸ë¦¬í•œ ì‚¬ìš©ì„ ìœ„í•´ ì •ì˜.
  */
 //< LTH-040419-KO.
 typedef CWarfieldFactory * LPWARFIELDFACTORY;

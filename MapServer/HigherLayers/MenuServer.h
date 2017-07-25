@@ -1,4 +1,4 @@
-#ifndef __MenuServer_h__
+ï»¿#ifndef __MenuServer_h__
 #define __MenuServer_h__
 
 
@@ -10,25 +10,25 @@
 #define QUEST_START			51
 
 /////////////////////////////////////////
-// BBS °æ¿ì.. ÁÖ·Î ÃßÄ«ÇÏ´Âµ¥ »ç¿ëÇÏ°Ô µÉµí ( ÀÌ¸§ÇÏ°í¸¸ °°ÀÌ ³Ñ¾î°£´Ù. )
-#define BA_GM_REGIST	1	// gm ÃßÄ« ÀüÃ¼ °øÁö
+// BBS ê²½ìš°.. ì£¼ë¡œ ì¶”ì¹´í•˜ëŠ”ë° ì‚¬ìš©í•˜ê²Œ ë ë“¯ ( ì´ë¦„í•˜ê³ ë§Œ ê°™ì´ ë„˜ì–´ê°„ë‹¤. )
+#define BA_GM_REGIST	1	// gm ì¶”ì¹´ ì „ì²´ ê³µì§€
 
-#include "CItem.h"			////050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ ItemPosType ±¸Á¶Ã¼
+#include "CItem.h"			////050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… ItemPosType êµ¬ì¡°ì²´
 
 
 //###########################################################
-// SendServerResult¿¡¼­ »ç¿ëÇÒ define
+// SendServerResultì—ì„œ ì‚¬ìš©í•  define
 #define CM_REPAIR			0		//	CM_ (Client Menu)
 #define CM_LEARNSKILL		1
 #define CM_LEARN_MAGIC		2
-#define CM_PREVENTING		3		// ¿¹¹æ
-#define CM_CURE_DISEASE		4		// Ä¡·á
-#define CM_INN_SLEEP		5		// ½¬±â
-#define CM_INN_REST			6		// ÀáÀÚ±â
-#define CM_OPEN_SUPPER		7		// ½ÅÀü¿¡¼­ À½½Ä Á¦°ø
+#define CM_PREVENTING		3		// ì˜ˆë°©
+#define CM_CURE_DISEASE		4		// ì¹˜ë£Œ
+#define CM_INN_SLEEP		5		// ì‰¬ê¸°
+#define CM_INN_REST			6		// ì ìê¸°
+#define CM_OPEN_SUPPER		7		// ì‹ ì „ì—ì„œ ìŒì‹ ì œê³µ
  
 //###########################################################
-// ½ÅÀü¿¡¼­ »ç¿ëÇÒ ¿¹¹è Å¸ÀÔ
+// ì‹ ì „ì—ì„œ ì‚¬ìš©í•  ì˜ˆë°° íƒ€ì…
 #define DAY_MEETING			100
 #define MONTH_MEETING		200
 #define YEAR_MEETING		300
@@ -46,12 +46,12 @@
 #define LETTY			3
 ///////////////////////////////////////////////////////////
 
-/////////////////// store item type /////////////////////// »óÁ¡ÀÇ ÀÔÀå¿¡¼­
+/////////////////// store item type /////////////////////// ìƒì ì˜ ì…ì¥ì—ì„œ
 #define	SIT_NULL				0		// null
-#define SIT_SELL_BUY			1		// »ç°í ÆÈ±â °¡´É
-#define SIT_ONLY_SELL			2		// »óÁ¡¿¡¼­ ÆÈ±â¸¸
-#define SIT_ONLY_BUY			3		// »óÁ¡¿¡¼­ »çÁÖ±â¸¸
-#define SIT_EVENT_ITEM			4		// ÀÌº¥Æ®¿ë
+#define SIT_SELL_BUY			1		// ì‚¬ê³  íŒ”ê¸° ê°€ëŠ¥
+#define SIT_ONLY_SELL			2		// ìƒì ì—ì„œ íŒ”ê¸°ë§Œ
+#define SIT_ONLY_BUY			3		// ìƒì ì—ì„œ ì‚¬ì£¼ê¸°ë§Œ
+#define SIT_EVENT_ITEM			4		// ì´ë²¤íŠ¸ìš©
 
 
 //////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@
 
 
 ///////////////////////////////////////////////////////
-// »ì¾Æ³ª´Â ¸Ê Á¤ÀÇ
+// ì‚´ì•„ë‚˜ëŠ” ë§µ ì •ì˜
 #define MAX_ALIVE_MAP		50
 struct AliveMapZone
 {
@@ -106,12 +106,12 @@ class CAliveMapZoneAll
 {
 public :
 	AliveMapZone m_Map[MAX_ALIVE_MAP];
-	int m_Max;		// ÃÖ´ë
+	int m_Max;		// ìµœëŒ€
 public : 
 	CAliveMapZoneAll() { m_Max = 0; }
 	int IsPossableAlive( int map_number, CHARLIST *ch  );
 	int LoadAliveMapZone();
-	int CheckAlive( int ch_x, int ch_y, int map_number, int word_type );		// »ì¾Æ ³¯¼ö ÀÖ´ÂÁö
+	int CheckAlive( int ch_x, int ch_y, int map_number, int word_type );		// ì‚´ì•„ ë‚ ìˆ˜ ìˆëŠ”ì§€
 };
 
 
@@ -144,21 +144,21 @@ extern void SendOtherInv( int type, int other_id, t_connection c[], int cn );
 extern int	RecvDivideItem( kein_item_attr_pos *item, t_connection c[], int cn );
 extern void RecvBankInfoDeposit( DWORD dwMoney, t_connection c[], int cn );
 extern void SendBankRepayment( t_connection c[], int cn );
-extern void RecvCharInfoBasic( t_char_info_basic *p, t_connection c[], int cn ) ; // Å¬¶óÀÌ¾ğÆ®¿¡¼­ º¸³»ÁØ ´É·ÂÄ¡
+extern void RecvCharInfoBasic( t_char_info_basic *p, t_connection c[], int cn ) ; // í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë³´ë‚´ì¤€ ëŠ¥ë ¥ì¹˜
 extern void RecvBoxOpen( lpITEM box, t_connection c[], int cn );
-extern void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  );		//###1213 ¼öÁ¤
+extern void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  );		//###1213 ìˆ˜ì •
 
 
 extern void SendOtherInv( int type, CHARLIST *npc, t_connection c[], int cn );					//####1213_2
 extern void RecvLearnItemByGuild( t_server_learn_skillitem *p, t_connection c[], int cn );		//####1213_2
 // 020428 YGI acer		//####1213_2
-extern int SendDeleteItem( ItemAttr *pItem, POS *pos, CHARLIST *ch, int broken = 0 );		//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ broken 0:±×³É »èÁ¦, 1:³»±¸µµ°¨¼Ò·Î»èÁ¦, 2:¾ÆÀÌÅÛ¸ô»ç¿ë¸¸±â·Î »èÁ¦.
-extern void SendDecreaseItem( POS item_pos, DWORD dur, t_connection c[], int cn );	// ¾ÆÀÌÅÛ °¨¼Ò ³»±¸·Â Àü¼Û ÇÔ¼ö
+extern int SendDeleteItem( ItemAttr *pItem, POS *pos, CHARLIST *ch, int broken = 0 );		//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… broken 0:ê·¸ëƒ¥ ì‚­ì œ, 1:ë‚´êµ¬ë„ê°ì†Œë¡œì‚­ì œ, 2:ì•„ì´í…œëª°ì‚¬ìš©ë§Œê¸°ë¡œ ì‚­ì œ.
+extern void SendDecreaseItem( POS item_pos, DWORD dur, t_connection c[], int cn );	// ì•„ì´í…œ ê°ì†Œ ë‚´êµ¬ë ¥ ì „ì†¡ í•¨ìˆ˜
 
 extern void RecvLvUpPointEach( unsigned char type, t_connection c[], int cn );
 extern void RecvLvDownPointEach( unsigned char type, t_connection c[], int cn );
-extern void RecvLearnItem( k_client_learn_item *i, t_connection c[], int cn );		// ¾ÆÀÌÅÛ ¹è¿ì±â 		
-extern void SendServerResult( BYTE type, BYTE result, int cn );		// ¾î¶² °á°ú¸¦ º¸³»ÁÙ¶§..
+extern void RecvLearnItem( k_client_learn_item *i, t_connection c[], int cn );		// ì•„ì´í…œ ë°°ìš°ê¸° 		
+extern void SendServerResult( BYTE type, BYTE result, int cn );		// ì–´ë–¤ ê²°ê³¼ë¥¼ ë³´ë‚´ì¤„ë•Œ..
 extern void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn );
 
 
@@ -166,7 +166,7 @@ extern void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn );
 // global function extern
 
 extern int DeleteItem( ItemAttr *item );
-extern void GetItemDuration( ItemAttr &rItem, WORD &d_curr, WORD &d_max );	// ¾ÆÀÌÅÛ ³»±¸·Â »Ì¾Æ ¿À±â
+extern void GetItemDuration( ItemAttr &rItem, WORD &d_curr, WORD &d_max );	// ì•„ì´í…œ ë‚´êµ¬ë ¥ ë½‘ì•„ ì˜¤ê¸°
 extern void SendStatusOpen( t_connection c[], int cn );
 extern void RecvCharInfoPlus( int type, t_connection c[], int cn );
 extern void RecvBankInfoDefrayal( DWORD dwMoney, t_connection c[], int cn );
@@ -175,7 +175,7 @@ extern void RecvDoParty( k_client_do_party *p, t_connection c[], int cn, int par
 extern void RecvDeleteParty( k_client_delete_party *p, t_connection c[], int cn );
 
 extern int GetMagicNumBySerial( int serial );
-extern int CanLearnMagic( int num, CHARLIST *ch );		// ±× ¸¶¹ıÀ» ¹è¿ï¼ö ÀÖ³ª?
+extern int CanLearnMagic( int num, CHARLIST *ch );		// ê·¸ ë§ˆë²•ì„ ë°°ìš¸ìˆ˜ ìˆë‚˜?
 extern void RecvLearnMagic( short int num, t_connection c[], int cn );
 extern void SendLearnMagicOk( int num , int cn);
 extern void RecvPreventing( short int num, t_connection c[], int cn );
@@ -186,13 +186,13 @@ extern void SendItemValue( int item_no, int cn );
 extern void SendItemValue_Sell( POS *pos, int cn );
 extern void SendItemValue_Repair( int item_no, int cn );	
 extern CHARLIST* SearchIdByName(const char* pName); // CSD-030320
-//extern int SendPartyInfo( int type, int ct, t_connection c[], int cn );	// ÆÄÆ¼ Á¾·ù, ÆÄÆ¼ ¹è¿­ ¹øÈ£ 
-extern int SendPartyInfo( int type, int ct, t_connection c[], const char* szName);	// ÆÄÆ¼ Á¾·ù, ÆÄÆ¼ ¹è¿­ ¹øÈ£
+//extern int SendPartyInfo( int type, int ct, t_connection c[], int cn );	// íŒŒí‹° ì¢…ë¥˜, íŒŒí‹° ë°°ì—´ ë²ˆí˜¸ 
+extern int SendPartyInfo( int type, int ct, t_connection c[], const char* szName);	// íŒŒí‹° ì¢…ë¥˜, íŒŒí‹° ë°°ì—´ ë²ˆí˜¸
 extern void RecvClientInn( char type, int cn );
 extern void SendServerWeakUp( int cn );
 extern void SendJoinGameWho( int cn );
 extern void SendExitGameWho( int cn );
-extern void SendMyPartyExist( int cn );			// »õ·Îµé¾î¿Â Ä³¸¯ÅÍ¿¡°Ô ÆÄÆ¼¿øÀÌ ÀÖ´Â Áö¸¦ º¸³»ÁØ´Ù.
+extern void SendMyPartyExist( int cn );			// ìƒˆë¡œë“¤ì–´ì˜¨ ìºë¦­í„°ì—ê²Œ íŒŒí‹°ì›ì´ ìˆëŠ” ì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 extern void RecvReleaseParty( char *name, int cn );
 extern void SendPartyJoinOkSet( int cn );
 extern void SendAbilityOpen( const int cn );
@@ -204,18 +204,18 @@ extern void RecvLearnAllNot( int cn );
 
 extern int RecvItemExchange( K_ITEM *k_item, int you_id, int cn , const int iExchangeType);
 extern void SendExchangeItemResult( int cn, int result );
-extern void SendExchangeItemReq( int you_id, int cn, const K_ITEM *item ,const int iExchangeType);	// cnÀÌ ³Ê¿¡°Ô ¾ÆÀÌÅÛÀ» ±³È¯ÇÏÀÚ°í ¿äÃ»Çß´Ù.
-extern void SendExchangeItemOk( int you_id, int cn, const K_ITEM *item ,const int iExchangeType);	// ¾ÆÀÌÅÛ ±³È¯ ¸Ş´º¸¦ ¶ç¿ö¶ó...
+extern void SendExchangeItemReq( int you_id, int cn, const K_ITEM *item ,const int iExchangeType);	// cnì´ ë„ˆì—ê²Œ ì•„ì´í…œì„ êµí™˜í•˜ìê³  ìš”ì²­í–ˆë‹¤.
+extern void SendExchangeItemOk( int you_id, int cn, const K_ITEM *item ,const int iExchangeType);	// ì•„ì´í…œ êµí™˜ ë©”ë‰´ë¥¼ ë„ì›Œë¼...
 extern void SendExchangeCancel( short int you, short int me );
 extern void RecvExchangeStateSign( short int you, short int me , bool bIsOkSign);//030108 lsw
 
-extern void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn );		// ¿Ã·Á ³õ±â ½ÃÀÛÇÑ ¹°°Çµé
+extern void RecvExchangeEach( K_ITEM *k_item, int you_id, int cn );		// ì˜¬ë ¤ ë†“ê¸° ì‹œì‘í•œ ë¬¼ê±´ë“¤
 extern void RecvExchange( short int you, short int me );
 extern void RecvExchangeItemDel( POS pos, short int you_id, short int me );
-extern int CheckCurrStats( CHARLIST *ch );			// ÃÊ±â Ä³¸¯ÅÍ Á¢¼ÓÈÄ Ä³¸¯ÅÍ »óÅÂ°è»ê
+extern int CheckCurrStats( CHARLIST *ch );			// ì´ˆê¸° ìºë¦­í„° ì ‘ì†í›„ ìºë¦­í„° ìƒíƒœê³„ì‚°
 extern void SendServerAc( int cn );
 
-extern int ChangeItemAttr( short int cn, int type, POS pos, int change );		// chagne°ª¿£ ºÎÈ£¸¦ È®½ÇÈ÷ ÇÑ´Ù.
+extern int ChangeItemAttr( short int cn, int type, POS pos, int change );		// chagneê°’ì—” ë¶€í˜¸ë¥¼ í™•ì‹¤íˆ í•œë‹¤.
 extern inline void CallClient( short int id, short int type );
 extern void SendPacketDefault( int type, void *msg, int size, short int cn );
 extern void SendServerDmg( int cn );
@@ -233,19 +233,19 @@ extern int IsMySightInWho( char *name, short int cn)		;
 extern int IsMySightInWhoById( short int check_id, short int cn );
 extern void SendReqPartyInfoOfOtherChar( char *party_name, char *my_name, short int server_id );
 extern void RecvPartyTogetherByLoginServer( short int server_id, char *name );
-extern int InitPartyMemberServerToServer( CHARLIST *ch ); // CSD-HK-030829 //  ÀÌ¸§¸¸ µğºñ¿¡ ÀúÀåÇÏ°í ÀÌ¸§¸¸ ²¨³»¿Â´Ù.
+extern int InitPartyMemberServerToServer( CHARLIST *ch ); // CSD-HK-030829 //  ì´ë¦„ë§Œ ë””ë¹„ì— ì €ì¥í•˜ê³  ì´ë¦„ë§Œ êº¼ë‚´ì˜¨ë‹¤.
 extern int EndsetPartyMenberForUpdate(CHARLIST *ch); // CSD-HK-030829
-extern int RecvNoParty(char *name, short int server_id); // CSD-HK-030829 //Àß ¸øµÈ ÀÌ¸§À» °¡Áö°í ÀÖÀ»¶§... Áö¿î´Ù.
+extern int RecvNoParty(char *name, short int server_id); // CSD-HK-030829 //ì˜ ëª»ëœ ì´ë¦„ì„ ê°€ì§€ê³  ìˆì„ë•Œ... ì§€ìš´ë‹¤.
 extern void SendServerMagery( short int cn );
-extern void SendExchangeItemDel( const short int you, const K_ITEM item );		// »ó´ëÆí¿¡°Ô ³Ñ¾î°¥ ¾ÆÀÌÅÛÁß »èÁ¦ÇÒ ¾ÆÀÌÅÛ..
-extern void RecvBbsMessageReq( int type, char ct, short int cn );	// °øÁö»çÇ×µî ³»¿ë Àü¼Û
+extern void SendExchangeItemDel( const short int you, const K_ITEM item );		// ìƒëŒ€í¸ì—ê²Œ ë„˜ì–´ê°ˆ ì•„ì´í…œì¤‘ ì‚­ì œí•  ì•„ì´í…œ..
+extern void RecvBbsMessageReq( int type, char ct, short int cn );	// ê³µì§€ì‚¬í•­ë“± ë‚´ìš© ì „ì†¡
 //extern void SendLoginPutBoxItem( DWORD box_id, int para, ItemAttr *lpItem );//020303 lsw
 
 extern void SendLoginServerPreachName( k_server_preach_name *p, short int cn );
-extern void RecvAndSendPreachName( k_loginserver_preach_name_result *p);	// °á°ú¸¦ ¹Ş¾Æ¼­ Å¬¶óÀÌ¾ğÆ®·Î º¸³½´Ù.
-extern void RecvGodRegistOk( char believe_god, short int cn );		// µî·Ï
-extern void RecvGodRegistCancel( short int cn );	// ÆÄ°è
-extern void SendLoginServePreachNameOk( k_server_preach_name *p, short int cn );		// ÀÌ ÇÔ¼ö´Â ÀüµµÇÑ »ç¶÷¿¡°Ô ½Å¾Ó¼öÄ¡¸¦ ¿Ã·ÁÁÖ´Â ·çÆ¾ÀÌ´Ù.
+extern void RecvAndSendPreachName( k_loginserver_preach_name_result *p);	// ê²°ê³¼ë¥¼ ë°›ì•„ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¸ë‹¤.
+extern void RecvGodRegistOk( char believe_god, short int cn );		// ë“±ë¡
+extern void RecvGodRegistCancel( short int cn );	// íŒŒê³„
+extern void SendLoginServePreachNameOk( k_server_preach_name *p, short int cn );		// ì´ í•¨ìˆ˜ëŠ” ì „ë„í•œ ì‚¬ëŒì—ê²Œ ì‹ ì•™ìˆ˜ì¹˜ë¥¼ ì˜¬ë ¤ì£¼ëŠ” ë£¨í‹´ì´ë‹¤.
 extern void SendLoginEvangelistCreate( char *my_name, char *eva_name );
 extern void SendLoginEvangelistDelete( char *my_name );
 
@@ -262,15 +262,15 @@ extern void SendServerKillPc( short int cn );
 
 extern void RecvCanMemorize( t_connection c[], short int cn );
 extern void RecvEarMessage( char *name, char *message, short int cn );
-extern void FindWhoEarMessageTarget( k_login_to_gameserver_ear_message *p ); // ±Í¼Ó¸»À» ¹ŞÀ» »ç¶÷ÀÌ ÀÌ °ÔÀÓ ¼­¹ö¿¡ Á¸ÀçÇÏ´ÂÁö ÆÇ´Ü
+extern void FindWhoEarMessageTarget( k_login_to_gameserver_ear_message *p ); // ê·€ì†ë§ì„ ë°›ì„ ì‚¬ëŒì´ ì´ ê²Œì„ ì„œë²„ì— ì¡´ì¬í•˜ëŠ”ì§€ íŒë‹¨
 extern void SendEarMessageResult( int type, char *name, short int cn );
 extern void SendEarMessageResult2( int type, int ret, short int cn );
 
-extern void SendLoginEarMessageResult( k_send_ear_message_result *p, short int cn );		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ º¸³½ ´ä½ÅÀ» ·Î±×ÀÎÀ¸·Î º¸³»°í
-extern void RecvLoginToGameEarMessageResult( short int server_id, char ret );		// ·Î±×ÀÎ¼­¹ö¿¡¼­ º¸³»¿Â ´äÀåÀ» Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù.
+extern void SendLoginEarMessageResult( k_send_ear_message_result *p, short int cn );		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë³´ë‚¸ ë‹µì‹ ì„ ë¡œê·¸ì¸ìœ¼ë¡œ ë³´ë‚´ê³ 
+extern void RecvLoginToGameEarMessageResult( short int server_id, char ret );		// ë¡œê·¸ì¸ì„œë²„ì—ì„œ ë³´ë‚´ì˜¨ ë‹µì¥ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤.
 extern void SendGameToLoginExistName( char *name, short int cn );
 extern void CheckMoveItem( char *name, int source_type, int dest_type, ItemAttr item, DWORD money);
-extern void CheckEarChatingData( char *send_name, char *recv_name, char *message );		// Ã¤ÆÃÇÏ´Â ¸» ÀúÀå ÇÏ±â
+extern void CheckEarChatingData( char *send_name, char *recv_name, char *message );		// ì±„íŒ…í•˜ëŠ” ë§ ì €ì¥ í•˜ê¸°
 extern void closeconnection_kein(t_connection c[], int cn, int errnum);
 
 bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD wTargetServerID);
@@ -284,25 +284,25 @@ void NewRecvChangeMapData7( k_change_map7 *p, DWORD dwNewCN );
 void NewRecvChangeMapData8( k_change_map8 *p, DWORD dwNewCN );
 void NewRecvChangeMapData9( k_change_map9 *p, DWORD dwNewCN );
 
-extern int CalcCharAbilityByChangemap( CHARLIST *ch );	// Ä³¸¯ÅÍ ÃÊ±â ¼³Á¤
+extern int CalcCharAbilityByChangemap( CHARLIST *ch );	// ìºë¦­í„° ì´ˆê¸° ì„¤ì •
 
-extern void RecvChangeMapData9( k_change_map9 *p );		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 8 ¹Ş±â
+extern void RecvChangeMapData9( k_change_map9 *p );		// ìºë¦­í„° ë°ì´íƒ€ 8 ë°›ê¸°
 extern int  LoadFilterWord( );
-extern void ConvString( char *szStr ); // ¿å¼³ ÇÊÅÍ
-extern int CompPartyBoth( CHARLIST *ch_1, CHARLIST *ch_2 );		// ¼­·Î ÆÄÆ¼¸¦ ¸Î¾ú´Â°¡...
+extern void ConvString( char *szStr ); // ìš•ì„¤ í•„í„°
+extern int CompPartyBoth( CHARLIST *ch_1, CHARLIST *ch_2 );		// ì„œë¡œ íŒŒí‹°ë¥¼ ë§ºì—ˆëŠ”ê°€...
 extern void SendSkillAll( short int cn );
 extern void RecvAndSendFaithUp( char *name, short int up_point );
-extern void RecvDivineUp( short int cn );			// ±âµµ¹®¿¡ ÀÇÇÑ ¸¶³ª ÃæÁ·
+extern void RecvDivineUp( short int cn );			// ê¸°ë„ë¬¸ì— ì˜í•œ ë§ˆë‚˜ ì¶©ì¡±
 extern void LoadMeetingMessage();
-extern int GetMeetMessageRandomNumber( int god_type, int meet_type );		// ¿¹¹è ¸Ş½ÃÁö ¹øÈ£ °¡Á®¿À±â ( ³»¿ëÀÖ´Â °ÍÁß¿¡¼­ ·£´ıÀ¸·Î )
+extern int GetMeetMessageRandomNumber( int god_type, int meet_type );		// ì˜ˆë°° ë©”ì‹œì§€ ë²ˆí˜¸ ê°€ì ¸ì˜¤ê¸° ( ë‚´ìš©ìˆëŠ” ê²ƒì¤‘ì—ì„œ ëœë¤ìœ¼ë¡œ )
 extern void RecvOpenSupper( short int cn );
 extern void RecvGetItemOfSupper( short int item_no, short int cn );
 extern void RecvChangeMapConfirm( short int cn );
-extern void CheckInitSkill( CHARLIST *ch );		 // Å¬·¹½º ½ºÅ³Àº È®½ÇÇÏ°Ô...
+extern void CheckInitSkill( CHARLIST *ch );		 // í´ë ˆìŠ¤ ìŠ¤í‚¬ì€ í™•ì‹¤í•˜ê²Œ...
 extern void RecvReqCharInfo( int cn, int target );
 extern void RecvOhMyParty( char *my_name, char *party_name );
 extern void SetShape( unsigned char *equip, short int cn );
-extern void MoveEmptyInv( ItemAttr *item, CHARLIST *ch );		// ¾ÆÀÌÅÛÀ» ºñ¾î ÀÖ´Â °÷¿¡ ¿Å±â°í Áö¿î´Ù.
+extern void MoveEmptyInv( ItemAttr *item, CHARLIST *ch );		// ì•„ì´í…œì„ ë¹„ì–´ ìˆëŠ” ê³³ì— ì˜®ê¸°ê³  ì§€ìš´ë‹¤.
 extern int GetItemJoinNumber( int item_num );
 extern void SortingItem( ItemAttr *item_list, int *list_int, int &max );
 extern void MakeFileItemList( ItemAttr *data, int max, char *filename );
@@ -310,8 +310,8 @@ extern void SetTacSkillLevel( CHARLIST *ch );
 extern void CheckAndSendChangeEquip( CHARLIST *ch, int send = 0  );
 extern void RecvRepPartyInfo( char *party_name, short int cn );
 extern void CheckBackupItemForCharacter( CHARLIST *ch );
-extern void ReturnResultByName( char *name, int cmd_type );		// ÀÌ¸§À¸·Î ¾ÆÀÌµğ¸¦ Ã£¾Æ¼­ ÇÁ·ÎÅäÄİÀ» Àü¼ÛÇØÁØ´Ù.
-extern void CheckMyMailOnStartGame( short int cn );				// ¾ÆÀÌÅÛ 
+extern void ReturnResultByName( char *name, int cmd_type );		// ì´ë¦„ìœ¼ë¡œ ì•„ì´ë””ë¥¼ ì°¾ì•„ì„œ í”„ë¡œí† ì½œì„ ì „ì†¡í•´ì¤€ë‹¤.
+extern void CheckMyMailOnStartGame( short int cn );				// ì•„ì´í…œ 
 extern void makemyjobexpsetting( int skillno , CHARLIST *ch );
 extern void SendToLoginserver( short int cn );
 extern void SendLoginToClientPublicBbsOnlyOne( t_packet *p );
@@ -337,9 +337,9 @@ extern CHARLIST* GetCharListPtr(WORD idObject);
 extern CHARLIST* CheckNpcId(short int cn); // CSD-031014
 extern CHARLIST* CheckNpcName(const char* pName); // CSD-031014
 extern bool CheckServerIndex( short int id );
-//extern void RecvManToManItemEach( short int target_id, short int cn );//021030 lsw ÀÌÁ¦ ¾ÆÀÌÅÛÀ» ¿Ã¸®Áö ¸øÇÕ´Ï´Ù.
-extern int SendServerItemEachAuto( CHARLIST *ch, ItemAttr *item );		// ºó°÷À» Ã£¾Æ º¸³»ÁØ´Ù. ºó°÷ÀÌ ÀÖÀ¸¸é 1À» ¸®ÅÏ ¾øÀ¸¸é 0À» ¸®ÅÏ
-extern void ResultManToMan( short int cn, short int target_id, int flag );					// 1:1 ¿¡¼­ °á°ú°¡ ³ª¿ÔÀ» °æ¿ì ¾ÆÀÌÅÛ ¼ÂÆÃ~
+//extern void RecvManToManItemEach( short int target_id, short int cn );//021030 lsw ì´ì œ ì•„ì´í…œì„ ì˜¬ë¦¬ì§€ ëª»í•©ë‹ˆë‹¤.
+extern int SendServerItemEachAuto( CHARLIST *ch, ItemAttr *item );		// ë¹ˆê³³ì„ ì°¾ì•„ ë³´ë‚´ì¤€ë‹¤. ë¹ˆê³³ì´ ìˆìœ¼ë©´ 1ì„ ë¦¬í„´ ì—†ìœ¼ë©´ 0ì„ ë¦¬í„´
+extern void ResultManToMan( short int cn, short int target_id, int flag );					// 1:1 ì—ì„œ ê²°ê³¼ê°€ ë‚˜ì™”ì„ ê²½ìš° ì•„ì´í…œ ì…‹íŒ…~
 extern void SendTeamBattleMessageAddCharOk( char team_num, short int cn );
 extern void CheckFightMap( char *mapname, short int &x, short int &y, CHARLIST *ch );
 extern void ResetManToManItemWhenCloseConnect( CHARLIST *you );
@@ -353,7 +353,7 @@ extern int	BreakItemByDuration( ItemAttr *item, CHARLIST *ch, POS pos );
 extern void SendItemAttrDurationChange( t_connection c[], int cn, int pos );
 extern void SendChangeDurationByKein( POS *pos, DWORD dur, int cn );
 extern void CheckBoxAndDownDuration( );
-extern void SendCheckName( short int cn, char *name );		// µğºñ µ¥¸óÀ¸·Î Ä³¸¯ÅÍ Á¸Àç ¿©ºÎ ¿äÃ» ·çÆ¾
+extern void SendCheckName( short int cn, char *name );		// ë””ë¹„ ë°ëª¬ìœ¼ë¡œ ìºë¦­í„° ì¡´ì¬ ì—¬ë¶€ ìš”ì²­ ë£¨í‹´
 extern void SendCheckNameForNation( char *name, short int cn );
 extern void RecvAndSendLoginCheckRegistCandidate( short int cn );
 extern void CheckVote( short int cn );
@@ -371,7 +371,7 @@ extern void RecvClienNationMassage( t_packet *p, short int cn );
 extern void RecvAndSendNationMassage( t_packet *p );
 extern void RecvDemonYouAreKing( t_packet *p, int type );
 extern void RecvLoginYouAreKing( t_packet *p, int type );
-extern void RecvGuildExit( t_packet *p, short int cn );		// ±æµå Å»Åğ ¸í·É
+extern void RecvGuildExit( t_packet *p, short int cn );		// ê¸¸ë“œ íƒˆí‡´ ëª…ë ¹
 extern void RecvGuildJoin( t_packet *p, short int cn );
 extern void RecvGuildJoinResult( t_packet *p );
 extern void RecvGuildJoinConfirmOk( t_packet *p, short int cn );
@@ -384,10 +384,10 @@ extern void SendBbsAll( char *name, int type );
 extern void RecvGmRegist( t_packet *p, short int cn, int makemode = 0 );
 extern void DirectSend( t_packet *p, int type = 0 );
 extern void RecvReqStopWarGame2Login( t_packet *p, short int cn );
-extern void RecvRepStopWarAccept( t_packet *p, short int cn );		// ½Â³«ÇÑ »ç½ÇÀ» ·Î±×ÀÎ ¼­¹ö·Î ³¯·Á¸ğµÎ¿¡°Ô ±ÛÀ» »Ñ·ÁÁÖ°Ô ÇÑ´Ù.
+extern void RecvRepStopWarAccept( t_packet *p, short int cn );		// ìŠ¹ë‚™í•œ ì‚¬ì‹¤ì„ ë¡œê·¸ì¸ ì„œë²„ë¡œ ë‚ ë ¤ëª¨ë‘ì—ê²Œ ê¸€ì„ ë¿Œë ¤ì£¼ê²Œ í•œë‹¤.
 extern void RecvRepStopWarRefusal( t_packet *p );
-extern void RecvReqStopWarGame2Client( t_packet *p );		// ÈŞÀüÇÒ »ó´ë±¹ÀÇ ¿Õ¿¡°Ô ÀÇÇâÀ» ¹°¾îº»´Ù.
-extern void RecvRepStopWarGame2Client( t_packet *p );		// ¸ğµÎ¿¡°Ô ÈŞÀüÀÇ »ç½ÇÀ» º¸³»ÁØ´Ù.
+extern void RecvReqStopWarGame2Client( t_packet *p );		// íœ´ì „í•  ìƒëŒ€êµ­ì˜ ì™•ì—ê²Œ ì˜í–¥ì„ ë¬¼ì–´ë³¸ë‹¤.
+extern void RecvRepStopWarGame2Client( t_packet *p );		// ëª¨ë‘ì—ê²Œ íœ´ì „ì˜ ì‚¬ì‹¤ì„ ë³´ë‚´ì¤€ë‹¤.
 
 extern void SendServerItemAttr( short int cn, int type, POS pos, ItemAttr *item );
 
@@ -422,7 +422,7 @@ extern void RecvMerchantBBS( t_packet *p, short int cn );
 extern void RecvMerchantBBS( t_packet *p, short int cn );
 extern void RecvMerchantBBSAllMap( t_packet *p, short int cn );
 extern void RecvPartyAllFree( short int cn );
-extern void InitJoinGameWho( CHARLIST *ch );		// ´©±º°¡ ÀÌ ¸ÊÀ¸·Î µé¾î¿Ô´Ù.		// 010410 YGI
+extern void InitJoinGameWho( CHARLIST *ch );		// ëˆ„êµ°ê°€ ì´ ë§µìœ¼ë¡œ ë“¤ì–´ì™”ë‹¤.		// 010410 YGI
 extern void RecvMerchantItemBBS( t_packet *p, short int cn );
 extern void RecvMerchantItemBBSAllMap( t_packet *p, short int cn );
 extern int UpdateLadderScore( CHARLIST *ch );
@@ -434,12 +434,12 @@ extern inline int GetOwnPort();
 extern void RecvReqVisa( t_packet *p, short int cn );
 extern void RecvBuyVisa( t_packet *p, short int cn );
 
-extern void RecvNationInfo( t_packet *p );		// ÀÌ cnÀº °ÔÀÓ¼­¹ö
+extern void RecvNationInfo( t_packet *p );		// ì´ cnì€ ê²Œì„ì„œë²„
 extern inline int GetNationByMapName( char *mapname );
 extern void RecvReqManToManRefusal( short int target_id, short int cn );
 extern void RecvReqManToManRefusal( short int target_id, CHARLIST *ch );
 
-extern void RecvExitGuildHimSelf( short int cn );		// ½º½º·Î ±æµå Å»Åğ ¸í·É¾î // 010613 YGI
+extern void RecvExitGuildHimSelf( short int cn );		// ìŠ¤ìŠ¤ë¡œ ê¸¸ë“œ íƒˆí‡´ ëª…ë ¹ì–´ // 010613 YGI
 extern void RecvReqistGuildImsi( t_packet *p, short int cn );
 extern void RecvReqistGuildImsiOk( t_packet *p );
 extern void RecvReqistGuild( t_packet *p, short int cn );
@@ -487,7 +487,7 @@ struct k_money_to_fame_basic
 	int fame;
 };
 
-class CMoneyToFame	// ±âºÎ¾×¿¡ µû¸¥ ¸í¼º Áõ°¡Ä¡
+class CMoneyToFame	// ê¸°ë¶€ì•¡ì— ë”°ë¥¸ ëª…ì„± ì¦ê°€ì¹˜
 {
 	int m_nCount;
 	k_money_to_fame_basic	data[10];
@@ -515,8 +515,8 @@ extern ItemAttr MakeGambleItem( int house, int grade, int item_no );
 struct k_GambleRateDataBasic
 {
 	int rune2band[8];
-	int lv2band[10];		// ·¹º§¿¡ µû¸¥ ¹êµå ´õÇØÁü¼ö
-	int choice_house[10][5];	// ¹æÀ» ¼±ÅÃÇÒ È®·ü
+	int lv2band[10];		// ë ˆë²¨ì— ë”°ë¥¸ ë°´ë“œ ë”í•´ì§ìˆ˜
+	int choice_house[10][5];	// ë°©ì„ ì„ íƒí•  í™•ë¥ 
 	int house_band_class[5][11][6];
 	int item2house_type[10][6];
 	int give_gamble_item_rate[16][2];
@@ -533,7 +533,7 @@ public :
 };
 
 extern CGambleRateData g_game_rate_data;
-/* 040715_KJHuNs °×ºí·Î±×¸¦ g_pLogManager·Î ¿Å°Ü¼­ »ç¿ë.(Á¤¸®¸ñÀû)
+/* 040715_KJHuNs ê²œë¸”ë¡œê·¸ë¥¼ g_pLogManagerë¡œ ì˜®ê²¨ì„œ ì‚¬ìš©.(ì •ë¦¬ëª©ì )
 extern void SaveLogRoot_GambleLogFile( CHARLIST *ch, int house, int class_type, int user_count, ItemAttr *item, int resource_type, int lv_band );
 */
 extern void RecvGambleItem( t_packet *p, short int cn );
@@ -594,7 +594,7 @@ public :
 		if( num < 0 || num >= MAX_POTAL_MAP ) return NULL;
 		return m_MapNation[num].m_MapFile;
 	}
-	int GetCount() { return m_Count; } // Å¬¶óÀÌ¾ğÆ® Àü¼ÛÀ» À§ÇØ
+	int GetCount() { return m_Count; } // í´ë¼ì´ì–¸íŠ¸ ì „ì†¡ì„ ìœ„í•´
 	int GetMapNumber( int num )
 	{
 		if( num < 0 || num >= MAX_POTAL_MAP ) return 0;
@@ -651,18 +651,18 @@ extern void RecvCheckGuildChange( t_packet *p, short int cn );
 
 
  // guild_degree_power
-#define GDP_JOINING				0	// ±æµå °¡ÀÔ				
-#define GDP_BBS					1	// ±æµå ÀüÃ¼ ¸Ş½ÃÁö			
-#define GDP_CHANGE_DEGREE		2	// ±æµå¿ø Á÷Ã¥º¯°æ			
-#define GDP_GUILD_BOX			3	// ±æµå Ã¢°í ÀÌ¿ë			
-#define GDP_EXIT_GUILD_HIM		4	// °­Á¦ ±æµå Å»Åğ ½ÃÅ°±â	
-#define GDP_CHANGE_MARK			5	// ±æµå ¸¶Å© º¯°æ			
-#define GDP_CHANGE_DEGREE_INFO	6	// ±æµå Á÷Ã¥ ¸í º¯°æ		
-#define GDP_GUILD_CHANGE_MASTER	7	// ±æµå ¸¶½ºÅÍ º¯°æ			
-#define GDP_GUILD_BREAK			8	// ±æµå Á¦°Å				
-#define GDP_REGIST_SUB_MASTER	9	// ºÎ±æ¸¶ µî·Ï				
-#define GDP_EXIT_GUILD_SELF		10	// ½º½º·Î ±æµå Å»Åğ			
-#define GDP_BUY_GUILD_HOUSE		11	// ¿¥Æ÷¸®¾Æ ±¸ÀÔ
+#define GDP_JOINING				0	// ê¸¸ë“œ ê°€ì…				
+#define GDP_BBS					1	// ê¸¸ë“œ ì „ì²´ ë©”ì‹œì§€			
+#define GDP_CHANGE_DEGREE		2	// ê¸¸ë“œì› ì§ì±…ë³€ê²½			
+#define GDP_GUILD_BOX			3	// ê¸¸ë“œ ì°½ê³  ì´ìš©			
+#define GDP_EXIT_GUILD_HIM		4	// ê°•ì œ ê¸¸ë“œ íƒˆí‡´ ì‹œí‚¤ê¸°	
+#define GDP_CHANGE_MARK			5	// ê¸¸ë“œ ë§ˆí¬ ë³€ê²½			
+#define GDP_CHANGE_DEGREE_INFO	6	// ê¸¸ë“œ ì§ì±… ëª… ë³€ê²½		
+#define GDP_GUILD_CHANGE_MASTER	7	// ê¸¸ë“œ ë§ˆìŠ¤í„° ë³€ê²½			
+#define GDP_GUILD_BREAK			8	// ê¸¸ë“œ ì œê±°				
+#define GDP_REGIST_SUB_MASTER	9	// ë¶€ê¸¸ë§ˆ ë“±ë¡				
+#define GDP_EXIT_GUILD_SELF		10	// ìŠ¤ìŠ¤ë¡œ ê¸¸ë“œ íƒˆí‡´			
+#define GDP_BUY_GUILD_HOUSE		11	// ì— í¬ë¦¬ì•„ êµ¬ì…
 #define GDP_MAX					11
 
 extern bool CheckGuildPower( int type, CHARLIST *ch );
@@ -670,7 +670,7 @@ extern void RecvGetNationItem( short int cn );
 extern void RecvBuyNationItem( short int cn );
 extern void RecvCheckColossusMap( t_packet *p, short int cn );
 
-#define ST_SEND_MAP_ALL	0		// ¸ğµç ¸Ê¿¡ º¸³¾¶§
+#define ST_SEND_MAP_ALL	0		// ëª¨ë“  ë§µì— ë³´ë‚¼ë•Œ
 extern void SendPacket2Map( t_packet *p, int port );
 
 
@@ -739,12 +739,12 @@ public:
 
 	int UseItem();
 	int DeleteItem();
-	void SaveData();		// ¾ÆÀÌÅÛÀ» »ç¿ë, º¸°üÇÑÈÄ  ÀúÀåÇÑ´Ù.
+	void SaveData();		// ì•„ì´í…œì„ ì‚¬ìš©, ë³´ê´€í•œí›„  ì €ì¥í•œë‹¤.
 	int GetData()
 	{
 		return hero->Sight;
 	}
-	int PutItem( ItemAttr *item );		// ¾ÆÀÌÅÛÀ» ÁÖ¸Ó´Ï¼Ó¿¡ ³Ö´Â´Ù.
+	int PutItem( ItemAttr *item );		// ì•„ì´í…œì„ ì£¼ë¨¸ë‹ˆì†ì— ë„£ëŠ”ë‹¤.
 };
 
 
@@ -771,19 +771,19 @@ enum SILT_Type
 	SILT_PUT_STORE					=8,
 	SILT_GET_STORE					=9,
 	SILT_DELETE_BY_DURATION			=10,
-	SILT_DELETE_BY_ATTR				=11,		// ¼Ó¼ºÀÌ ÀÌ»óÇØ¼­ Áö¿ò
-	SILT_DELETE_BY_RARE_ATTR		=12,		// ·¹¾î ¼Ó¼ºÀÌ ÀÌ»óÇØ¼­ Áö¿ò
+	SILT_DELETE_BY_ATTR				=11,		// ì†ì„±ì´ ì´ìƒí•´ì„œ ì§€ì›€
+	SILT_DELETE_BY_RARE_ATTR		=12,		// ë ˆì–´ ì†ì„±ì´ ì´ìƒí•´ì„œ ì§€ì›€
 	SILT_USE						=13,
-	SILT_GET_OTHER_CH_INVEN			=14,		// ¹è³¶ µÚÁö±â·Î »¯¾î ¿ÔÀ»¶§
-	SILT_MAKE_BY_DB					=15,		// ÀÌº¥Æ®·Î ³Ö¾îÁØ ¾ÆÀÌÅÛ
-	SILT_MAKE_BY_SCRIPT				=16,		// ÀÌº¥Æ®·Î ³Ö¾îÁØ ¾ÆÀÌÅÛ
-	SILT_RESOURCE_BY_SKILL			=17,		// ½ºÅ³ »ç¿ë½Ã Àç·á·Î¼­ »ç¶óÁø´Ù.
+	SILT_GET_OTHER_CH_INVEN			=14,		// ë°°ë‚­ ë’¤ì§€ê¸°ë¡œ ëºì–´ ì™”ì„ë•Œ
+	SILT_MAKE_BY_DB					=15,		// ì´ë²¤íŠ¸ë¡œ ë„£ì–´ì¤€ ì•„ì´í…œ
+	SILT_MAKE_BY_SCRIPT				=16,		// ì´ë²¤íŠ¸ë¡œ ë„£ì–´ì¤€ ì•„ì´í…œ
+	SILT_RESOURCE_BY_SKILL			=17,		// ìŠ¤í‚¬ ì‚¬ìš©ì‹œ ì¬ë£Œë¡œì„œ ì‚¬ë¼ì§„ë‹¤.
 	SILT_GET_GUILD_WAR				=18,
 	SILT_GET_GAMBLE_ITEM			=19,
 	SILT_GET_TODAY_ITEM				=20,
 	SILT_GET_STOLEN					=21,
 	SILT_PUT_STOLEN					=22,
-	SILT_PUT_GROUND_MAX_INVEN		=23,		// BBD 040226 ÁÖ¼®Ãß°¡: ÀÎº¥ÀÌ ²ËÂ÷¼­ ¹Ù´Ú¿¡ ¶³±À, µ·ÀÏ¶§¸¸ ¾²´Âµí...
+	SILT_PUT_GROUND_MAX_INVEN		=23,		// BBD 040226 ì£¼ì„ì¶”ê°€: ì¸ë²¤ì´ ê½‰ì°¨ì„œ ë°”ë‹¥ì— ë–¨êµ¼, ëˆì¼ë•Œë§Œ ì“°ëŠ”ë“¯...
 	SILT_GET_MEN_TO_MEN				=24,
 	SILT_PUT_MEN_TO_MEN				=25,
 	SILT_NEED_ITEM					=26,
@@ -808,7 +808,7 @@ enum SILT_Type
 	// 040601 YGI
 	SILT_RECEIVE_ITEM_MALL			=42,
 
-	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 	SILT_DELETE_ITEM_MALL			=43,
 
 	SILT_DELETE_ITEM_MALL_DUPE		=44,
@@ -889,8 +889,8 @@ extern void RecvSearchCharMap( t_packet *p );
 extern void RecvUseGmTool_SaveLog( t_packet *p, short int cn );
 const int MM_TODAY_GAMBLE_ITEM_MAIN_MAP_PORT	= 5190;
 const int MM_SAVE_LOG_FILE_MAP					= 5999;
-const int MN_SCENARIO_MAP						= 5720;		// ½Ã³ª¸®¿À °ü¸®¸Ê
-const int nITEM_MALL_MANAGER_PORT				= 5410;		////050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ ÀÓÀÇ·Î 5410(DESERT2)È²¹«Áö MapÀ» ItemMallMgr·Î ¼¼ÆÃ
+const int MN_SCENARIO_MAP						= 5720;		// ì‹œë‚˜ë¦¬ì˜¤ ê´€ë¦¬ë§µ
+const int nITEM_MALL_MANAGER_PORT				= 5410;		////050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… ì„ì˜ë¡œ 5410(DESERT2)í™©ë¬´ì§€ Mapì„ ItemMallMgrë¡œ ì„¸íŒ…
 
 extern WORD FindMannagementMap( WORD port );
 extern WORD GetManagementMapPort( WORD port );
@@ -907,7 +907,7 @@ extern void Fight_Stone_End(int cn, int flag);
 extern bool IsManToManFight( CHARLIST *attack, CHARLIST *defence );
 extern bool IsArenaFight(CHARLIST* pMember); // CSD-030506
 
-/* 040720_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+/* 040720_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 extern void SaveLogChange_Ladder( CHARLIST *ch, int old_ladder, int new_ladder, int type );
 extern void SaveLogChange_ObtainCombat(CHARLIST* ch, int nOld, int nNew);
 extern void SaveLogChange_Combat(CHARLIST *ch, int nCombat, int nOld, int nNew);
@@ -922,7 +922,7 @@ extern void RecvSetInstallVersion ( t_packet *p, short int cn );	// 021117 YGI
 extern void RecvResendItem( short int cn );//021030 YGI
 extern void RecvScriptItem( t_packet *p, short int cn );
 extern void RecvEventMoveMap( t_packet *p, short int cn );
-extern void RecvEventMoveMapCheckMap( t_packet *p, short int cn );		// ´Ù¸¥ ¸Ê¿¡¼­ ¿Ã°æ¿ì
+extern void RecvEventMoveMapCheckMap( t_packet *p, short int cn );		// ë‹¤ë¥¸ ë§µì—ì„œ ì˜¬ê²½ìš°
 extern void RecvEventMoveMapOk( t_packet *p, short int cn );
 
 extern void CheckDoubleName( CHARLIST *ch, short int cn );
@@ -932,7 +932,7 @@ extern void RecvCheckDoubleNameDB2Map( t_packet *p, short int cn );
 extern void RecvCheckDoubleNameWhenFirst( t_packet *p, short int cn );
 extern void RecvCheckDoubleNameWhenFirstOk( t_packet *p, short int cn );
 extern void CheckDoubleNameWhenFirst( char *pName, short int server_id );
-// 040105 YGI º¸¹°
+// 040105 YGI ë³´ë¬¼
 extern void RecvCheckTreasureXY( t_packet *p, short int cn );
 extern void RecvGetTreasureMapDetail( t_packet *p, short int cn );
 extern void RecvGetTreasureMapDetailDB( t_packet *p, short int cn );
@@ -947,7 +947,7 @@ extern int InitItemLimitCountFromDB( );
 extern void RecvGetItemMallItem_ABFirst( t_packet *p, short int cn );
 extern void RecvGetItemMallItem_AB( t_packet *p, short int cn );	
 	//>050408_KCH
-extern void RecvGetItemMalltoDB( t_packet *p, short int cn );		//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+extern void RecvGetItemMalltoDB( t_packet *p, short int cn );		//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 extern void RecvItemMallItemList( t_packet *p, short int cn );
 
 // 040602-3 YGI
@@ -957,7 +957,7 @@ extern void SendItemDropMessage( short int cn, short int item_no );
 extern void RecvItemRepairByItem( t_packet *p, short int cn );
 extern void RecvItemMallItemDelete_Client( t_packet *p, short int cn);
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 const static char* ITEM_TO_GAME = _T("Item_to_Game");
 
 struct _DeleteToExpireItemMallItem
@@ -987,7 +987,7 @@ struct _DeleteToExpireItemMallItem
 extern void RecvItemMallItemDelete_Per1Min(t_packet *p,short int cn );
 extern bool DeleteToExpireItemMallItem( _DeleteToExpireItemMallItem& _ItemMall );
 extern void DeleteToExpireItemMallItem_byINV(CHARLIST& _CharList);
-//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 
 

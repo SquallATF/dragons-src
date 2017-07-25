@@ -1,11 +1,11 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\recvmsg.h"
 #include "..\LowerLayers\mylog.h"
 #include "DefaultHeader.h"
 #include "MenuDefine.h"
 #include "ItemList.h"
-//#include "CItem.h"		//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//#include "CItem.h"		//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "teambattle.h"
 #include "scrp_exe.h"
 #include "chatting.h"
@@ -60,21 +60,21 @@ int CEventTime::CheckActive()
 int CEventNpcItem::DropNpcItem( CHARLIST *pNpc )
 {
 	if( !m_nItemNo ) return 0;
-	if( m_nAmount >= m_nMax ) return 0;		// ´õÀÌ»ó ¾ÆÀÌÅÛÀÌ ³ª¿À¸é ¾ÈµÈ´Ù.
+	if( m_nAmount >= m_nMax ) return 0;		// ë”ì´ìƒ ì•„ì´í…œì´ ë‚˜ì˜¤ë©´ ì•ˆëœë‹¤.
 	if( !m_nPercent ) return 0;
 	if( m_nPercent != -1 )
 	{
 		if( rand()%m_nPercent != m_nPercent/2 ) return 0;
 	}
-	// ¾ÆÀÌÅÛÀ» ¸¸µéÀÚ..
+	// ì•„ì´í…œì„ ë§Œë“¤ì..
 	ItemAttr item;
 	if( ItemMgr.MakeDefaultRareItem( &item, m_nItemNo, m_nItemMutant, m_nItemGrade ) )
 	{
-		// ¼º°ø, ÀúÀå¹× ¶³±ÅÁØ´Ù.
+		// ì„±ê³µ, ì €ì¥ë° ë–¨ê¶ˆì¤€ë‹¤.
 		DropItem( pNpc->X + (rand()%100)-50, pNpc->Y +(rand()%100)-50, &item);
 		m_nAmount++;
 		
-		// µğºñµ¥¸óÀ¸·Î »ç½ÇÀ» º¸³»ÁØ´Ù.
+		// ë””ë¹„ë°ëª¬ìœ¼ë¡œ ì‚¬ì‹¤ì„ ë³´ë‚´ì¤€ë‹¤.
 		SendSaveAmountEventNpcItem( m_nEventNo, m_nAmount );
 		return 1;
 	}
@@ -91,7 +91,7 @@ bool CEventNpcCreate::IsCreateAble()
 	int after_dead = g_curr_time - m_nDeadTime;
 	if( after_dead < m_nRegenTime ) return false;
 	
-	m_nFirst = 0;	// ÀÌÁ¨ Ã³À½ÀÌ ¾Æ´Ï´Ù.
+	m_nFirst = 0;	// ì´ì   ì²˜ìŒì´ ì•„ë‹ˆë‹¤.
 
 	return true;
 }
@@ -102,11 +102,11 @@ int CEventNpcCreate::CreateNpc()
 
 	const int nId = ::GetDeleteAbleNPC();
 	if(0 <= nId)
-	{//ÀÏ¹İ ¸÷ÀÌ ÀÖ´Ù¸é
+	{//ì¼ë°˜ ëª¹ì´ ìˆë‹¤ë©´
 		::DeleteNpc( nId );
 	}
 	else
-	{//Áö¿ï ¼ö ÀÖ´Â ¸ó½ºÅÍ°¡ ¾ø´Ù¸é
+	{//ì§€ìš¸ ìˆ˜ ìˆëŠ” ëª¬ìŠ¤í„°ê°€ ì—†ë‹¤ë©´
 		::MyLog(0,"Critical Error Can't Get Normal Monster(CEventNpcCreate::CreateNpc())");
 		return 0;
 	}
@@ -129,11 +129,11 @@ int CEventNpcCreate::CheckKillMonster( CHARLIST *pNpc )
 	return 1;
 }
 
-// ÀÌº¥Æ®°¡ ³¡³µ´Âµ¥ ³²¾Æ ÀÖ´Â npc´Â ¾ø¿£´Ù.
+// ì´ë²¤íŠ¸ê°€ ëë‚¬ëŠ”ë° ë‚¨ì•„ ìˆëŠ” npcëŠ” ì—†ì—”ë‹¤.
 int CEventNpcCreate::CheckClearCreatedNpc()
 {
-	if( IsEventActive() ) return 0;	// ÀÌº¥Æ®°¡ È°¼ºÈ­ µÇ¾î ÀÖÀ¸¸é ¾ÈµÊ
-	if( !IsAlive() ) return 0;		// »ì¾Æ ÀÖ´Â ³ğÀÌ ÀÖÀ¸¸é...
+	if( IsEventActive() ) return 0;	// ì´ë²¤íŠ¸ê°€ í™œì„±í™” ë˜ì–´ ìˆìœ¼ë©´ ì•ˆë¨
+	if( !IsAlive() ) return 0;		// ì‚´ì•„ ìˆëŠ” ë†ˆì´ ìˆìœ¼ë©´...
 	if( m_nNpcIndex && NPCList[m_nNpcIndex].generationtype == GT_EVENT_NPC )
 	{
 		DeleteEventNpc();
@@ -143,7 +143,7 @@ int CEventNpcCreate::CheckClearCreatedNpc()
 
 int CEventNpcCreate::DeleteEventNpc()
 {
-	// °Á Á×ÀÎ´Ù. ¾ÆÀÌÅÛÀº ¶³±¸Áö ¾Ê´Â´Ù.
+	// ê± ì£½ì¸ë‹¤. ì•„ì´í…œì€ ë–¨êµ¬ì§€ ì•ŠëŠ”ë‹¤.
 	if( !m_nNpcIndex ) return 0;
 	::DeleteNpc( m_nNpcIndex );
 
@@ -174,21 +174,21 @@ int CEventMessage::CheckEvent()
 	{
 		switch( m_nNation )
 		{
-			case 1 :	// ¹ÙÀÌ¼­½º
+			case 1 :	// ë°”ì´ì„œìŠ¤
 				if( MapInfo[MapNumber].nation != N_VYSEUS ) 
 				{
-					m_nTime = 0;		// ºñ±³¸¦ °£´ÜÇÏ°Ô ³¡³»±â À§ÇØ
+					m_nTime = 0;		// ë¹„êµë¥¼ ê°„ë‹¨í•˜ê²Œ ëë‚´ê¸° ìœ„í•´
 					return 0;
 				}
 				break;
-			case 2 :	// ÀÚÀÌÆİ
+			case 2 :	// ìì´í€
 				if( MapInfo[MapNumber].nation != N_ZYPERN ) 
 				{
 					m_nTime = 0;
 					return 0;
 				}
 				break;
-			case 3 :	// ÀÏ½º
+			case 3 :	// ì¼ìŠ¤
 				if( MapInfo[MapNumber].nation != N_YILSE ) 
 				{
 					m_nTime = 0;
@@ -215,7 +215,7 @@ int CEventNpcScript::CheckEvent( int npc_index, short int cn )
 
 	if( m_nNumber )
 	{
-		// µğºñ µ¥¸óÀ¸·Î º¸³Â´Ù°¡ È®ÀÎÈÄ Ã³¸®
+		// ë””ë¹„ ë°ëª¬ìœ¼ë¡œ ë³´ëƒˆë‹¤ê°€ í™•ì¸í›„ ì²˜ë¦¬
 		//
 		k_event_script_item	data;
 		data.event_no = m_nEventNo;
@@ -227,13 +227,13 @@ int CEventNpcScript::CheckEvent( int npc_index, short int cn )
 		data.script_no = m_nScriptNo;
 		data.result = 0;
 		int size = sizeof( k_event_script_item );
-		::SendPacketDefault( CMD_CHECK_EVENT_SCRIPT_ITEM, &data, size, DB_DEMON );		// µğºñ µ¥¸óÀ¸·Î º¸³» º¸ÀÚ
+		::SendPacketDefault( CMD_CHECK_EVENT_SCRIPT_ITEM, &data, size, DB_DEMON );		// ë””ë¹„ ë°ëª¬ìœ¼ë¡œ ë³´ë‚´ ë³´ì
 
 		return 1;
 	}
 	else
 	{
-		// ¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁÖ°í ¸Ş¼¼Áö¸¦ º¸³½´Ù.
+		// ì•„ì´í…œì„ ë§Œë“¤ì–´ ì£¼ê³  ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
 		::SendEventNpcScriptItem( cn, npc_index, m_nEventNpcItemBag, m_lpszMessage, m_nMessageSize );
 	}
 	return 1;
@@ -251,15 +251,15 @@ int SendEventNpcScriptItem( short int cn, int npc_index, int bag_num, char *mess
 
 	int a, b, c;
 	int ret = SearchInv( ch->inv, a, b, c );
-	if( !ret ) return 0;		// ºóÀÚ¸®°¡ ¾ø´Ù.
+	if( !ret ) return 0;		// ë¹ˆìë¦¬ê°€ ì—†ë‹¤.
 
-	// ¾ÆÀÌÅÛÀ» ³Ö¾î ÁØ´Ù.
+	// ì•„ì´í…œì„ ë„£ì–´ ì¤€ë‹¤.
 	POS pos;
 	SetItemPos( INV, a, b, c, &pos );
 	ch->inv[a][b][c] = item;
 	SendServerEachItem( &pos, &item, ch->GetServerID());
 
-	if( message && size )		// npcÀÇ ´ëÈ­¸¦ º¸³»ÁØ´Ù.
+	if( message && size )		// npcì˜ ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 		SendDial( cn, npc_index, message, size );
 
 	return 1;
@@ -302,12 +302,12 @@ int CEventMgr::CheckNpcItem( CHARLIST *pNpc )
 		int index = m_eventNpcItem.m_listActive.GetFind();
 		if( m_eventNpcItem.GetNpcNo(index) == pNpc->npc_index )
 		{
-			// ¾ÆÀÌÅÛ °ü·Ã
+			// ì•„ì´í…œ ê´€ë ¨
 			m_eventNpcItem.m_pEvent[index].DropNpcItem( pNpc );
 		}
 	}
 
-	// ¾×Æ¼ºê µÇ¾î ÀÖ´Â ÀÌº¥Æ®¸¦ Ã£¾Æ¼­ ÇØ´ç npc°¡ Á×¾úÀ½À» ¼¼ÆÃÇÑ´Ù.
+	// ì•¡í‹°ë¸Œ ë˜ì–´ ìˆëŠ” ì´ë²¤íŠ¸ë¥¼ ì°¾ì•„ì„œ í•´ë‹¹ npcê°€ ì£½ì—ˆìŒì„ ì„¸íŒ…í•œë‹¤.
 	if( pNpc->generationtype == GT_EVENT_NPC )
 	{
 		m_eventNpcCreate.m_listActive.SetFind();
@@ -349,7 +349,7 @@ int CEventMgr::IsActive( int type )
 	return 0;
 }
 
-// ÀÌº¥Æ®°¡ ³¡³­ °æ¿ì Ã³¸®
+// ì´ë²¤íŠ¸ê°€ ëë‚œ ê²½ìš° ì²˜ë¦¬
 int CEventMgr::CheckCloseEvent( int type )
 {
 	if( type & ET_EVENT_NPC_CREATE )
@@ -390,7 +390,7 @@ void *CEventMgr::GetActiveEvent( int type )
 
 int CEventMgr::Proc()
 {
-	// ¸ó½ºÅÍ »ı¼ºÈ®ÀÎ
+	// ëª¬ìŠ¤í„° ìƒì„±í™•ì¸
 	m_eventNpcCreate.m_listActive.SetFind();
 	while( m_eventNpcCreate.m_listActive.FindNext() )
 	{
@@ -398,7 +398,7 @@ int CEventMgr::Proc()
 		m_eventNpcCreate.GetEventPoint( index )->CreateNpc();
 	}
 
-	// ÀÌº¥Æ® ¸Ş½ÃÁö È®ÀÎ
+	// ì´ë²¤íŠ¸ ë©”ì‹œì§€ í™•ì¸
 	m_eventMessage.m_listActive.SetFind();
 	while( m_eventMessage.m_listActive.FindNext() )
 	{
@@ -408,7 +408,7 @@ int CEventMgr::Proc()
 
 	// 021128 YGI
 	static DWORD dwCheckTime = g_curr_time;
-	if( g_curr_time - dwCheckTime > 600 )	// 10ºĞ¸¶´Ù Ã¼Å©ÇÑ´Ù.
+	if( g_curr_time - dwCheckTime > 600 )	// 10ë¶„ë§ˆë‹¤ ì²´í¬í•œë‹¤.
 	{
 		CheckActiveEvent( ET_EVENT_NPC_CREATE );
 		CheckCloseEvent( ET_EVENT_NPC_CREATE );
@@ -418,7 +418,7 @@ int CEventMgr::Proc()
 	return 1;
 }
 
-// ÇØ´ç ÀÌº¥Æ®¸¦ ¼öÇàÇßÀ¸¸é 1À» ¸®ÅÏÇÑ´Ù.
+// í•´ë‹¹ ì´ë²¤íŠ¸ë¥¼ ìˆ˜í–‰í–ˆìœ¼ë©´ 1ì„ ë¦¬í„´í•œë‹¤.
 int CEventMgr::CheckScriptNo( int npc_index, short int cn )
 {
 	if( !NPCList[npc_index].eventno ) return 0;
@@ -473,7 +473,7 @@ void CheckEventWhenKillMonster( CHARLIST *pKiller, CHARLIST *pNpc )
 		KilledScenarioBoss( pKiller, pNpc );
 	}
 	g_EventMgr.CheckNpcItem( pNpc );
-	// 040105 YGI º¸¹°
+	// 040105 YGI ë³´ë¬¼
 	if( pNpc->generationtype == GT_TREASUER_GUARD )
 	{
 		g_TreasureGuardMgr.KilledTreasureGuard( pKiller, pNpc );
@@ -508,7 +508,7 @@ int CLightVersion::LoadLightVersionMap()
 	fp = fopen( filename, "rt" );
 	if( !fp ) return 0;
 
-	Clear();		// º¯¼ö Å¬¸®¾î
+	Clear();		// ë³€ìˆ˜ í´ë¦¬ì–´
 
 	char temp[255];
 	while( fgets( temp, 255, fp ) )
@@ -566,8 +566,8 @@ bool InitEventFlag()
 	g_EventFlagMgr.SetMoveMapWhenDie( (nRow<=0)?0:1 );
 
 	g_EventFlagMgr.InitSaveLogFlag();	// 030919 HK YGI
-	// 040105 YGI º¸¹°
-	// º¸¹° Ã£±â ÀÌº¥Æ®¿ë
+	// 040105 YGI ë³´ë¬¼
+	// ë³´ë¬¼ ì°¾ê¸° ì´ë²¤íŠ¸ìš©
 	LoadEventTreasureXY();
 	LoadEventTreasureGuard();
 	return true;
@@ -578,16 +578,16 @@ bool InitEventFlag()
 //CEventFlagMgr member functions
 void CEventFlagMgr ::InitSaveLogFlag()
 {
-	// 040715_KJHuNs TypeCasting Warning Á¦°Å (int) -> (!=0·Î bool ·çÆ¾À¸·Î º¯È¯ MSDNÂü°íC4800)
+	// 040715_KJHuNs TypeCasting Warning ì œê±° (int) -> (!=0ë¡œ bool ë£¨í‹´ìœ¼ë¡œ ë³€í™˜ MSDNì°¸ê³ C4800)
 	m_bSaveLogAboutSaveUserData = ( GetPrivateProfileInt("option", "savelogflag_when_save_user_data" ,0,MapServerConfigFileName)!=0 );
 }
 
 /////////////////////////////////////////////////////////////
-// 040105 YGI º¸¹°
+// 040105 YGI ë³´ë¬¼
 int CTreasureGuardMgr::CreateGuard( int index, int treasure_class, int x, int y, int cn )
-{// º¸¹° ÁöÅ´ÀÌ Ãâµ¿
+{// ë³´ë¬¼ ì§€í‚´ì´ ì¶œë™
 	if( treasure_class<0 || treasure_class>=5 ) return 0;
-	int count = 0;		// ÃÑ ÃâÇö °³¼ö
+	int count = 0;		// ì´ ì¶œí˜„ ê°œìˆ˜
 	for( int i=0; i<g_TreasureGuardTBL[treasure_class].m_nCount; i++ )
 	{
 		int spr_no = g_TreasureGuardTBL[treasure_class].m_pNpcNo[i];
@@ -601,7 +601,7 @@ int CTreasureGuardMgr::CreateGuard( int index, int treasure_class, int x, int y,
 				::DeleteNpc( id );
 			}
 			else
-			{//Áö¿ï ¼ö ÀÖ´Â ¸ó½ºÅÍ°¡ ¾ø´Ù¸é
+			{//ì§€ìš¸ ìˆ˜ ìˆëŠ” ëª¬ìŠ¤í„°ê°€ ì—†ë‹¤ë©´
 				::MyLog(0,"Critical Error Can't Get Normal Monster(CTreasureGuardMgr::CreateGuard())");
 				break;
 			}
@@ -612,12 +612,12 @@ int CTreasureGuardMgr::CreateGuard( int index, int treasure_class, int x, int y,
 			count++;
 		}
 	}
-	if( count <= 0 ) return 0;		// »ı¼º ½ÇÆĞ
+	if( count <= 0 ) return 0;		// ìƒì„± ì‹¤íŒ¨
 	POINTS data;
-	data.x = treasure_class+1;	// º¸¹° »óÀÚ¿¡ ³Ö¾îÁÙ°ª. 1ºÎÅÍ ½ÃÀÛ
+	data.x = treasure_class+1;	// ë³´ë¬¼ ìƒìì— ë„£ì–´ì¤„ê°’. 1ë¶€í„° ì‹œì‘
 	data.y = count;
 	AddNew( index, data );
-	return 1;						// »ı¼º ¼º°ø
+	return 1;						// ìƒì„± ì„±ê³µ
 }
 /////////////////////////////////////////////////////////////
 CEventFindTreasure g_EventFindTreasure;
@@ -626,14 +626,14 @@ CTreasureGuardMgr g_TreasureGuardMgr;
 #include "LogManager.h"
 int CTreasureGuardMgr::KilledTreasureGuard( CHARLIST *user, CHARLIST *boss )
 {
-	int index = boss->generationpos;		// Æ¢¾î ³ª¿Â ±×·ì ¹øÈ£
+	int index = boss->generationpos;		// íŠ€ì–´ ë‚˜ì˜¨ ê·¸ë£¹ ë²ˆí˜¸
 	ITOR_MAP_GUARD itor = m_Data.find(index);
 	if (itor == m_Data.end()) return 0;
 
 	itor->second.y--;
-	if( itor->second.y == 0 )		// ¸ğµÎ ´Ù Á×¿´´Ù.
+	if( itor->second.y == 0 )		// ëª¨ë‘ ë‹¤ ì£½ì˜€ë‹¤.
 	{
-		// º¸¹° ¹ß°ß
+		// ë³´ë¬¼ ë°œê²¬
 		ItemAttr item = ::GenerateItem( TREASURE_BOX );
 		item.attr[IATTR_TREASURE_MAP] = itor->second.x;
 		::DropItem( boss->X, boss->Y, &item );
@@ -652,12 +652,12 @@ int CTreasureGuardMgr::KilledTreasureGuard( CHARLIST *user, CHARLIST *boss )
 			MyLog( 0, "SaveTreasureLogFile fail");
 		}
 		MyLog( 0, temp );
-		m_Data.erase(itor);	// ¸®½ºÆ®(¸Ê)¿¡¼­ »èÁ¦
+		m_Data.erase(itor);	// ë¦¬ìŠ¤íŠ¸(ë§µ)ì—ì„œ ì‚­ì œ
 	}	
 	return 1;
 }
 
-// º¸¹° Áöµµ ¾ÆÀÌÅÛÀÎ°¡?
+// ë³´ë¬¼ ì§€ë„ ì•„ì´í…œì¸ê°€?
 int IsTreasureMapItem( int item_no )
 {
 	int level = 0;

@@ -1,4 +1,4 @@
-
+﻿
 extern int KingCommandBlock;
 extern int SealStoneBreakable;
 

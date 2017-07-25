@@ -1,4 +1,4 @@
-// MailMgr.h: interface for the CMailMgr class.
+ï»¿// MailMgr.h: interface for the CMailMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,9 +12,9 @@
 
 
 enum eMAIL_VIEW_TYPE
-{//ÀÎÅÍÆäÀÌ½ºÀÇ nWillDo¿¡µµ »ç¿ë µË´Ï´Ù.
-	MVT_RECV_LIST,//¹ŞÀºÆíÁöÇÔ
-	MVT_DELETE_LIST,//Áö¿î ÆíÁöÇÔ
+{//ì¸í„°í˜ì´ìŠ¤ì˜ nWillDoì—ë„ ì‚¬ìš© ë©ë‹ˆë‹¤.
+	MVT_RECV_LIST,//ë°›ì€í¸ì§€í•¨
+	MVT_DELETE_LIST,//ì§€ìš´ í¸ì§€í•¨
 };
 
 class CMailMgr  
@@ -39,23 +39,23 @@ public:
 	virtual ~CMailMgr();
 
 public:
-	bool Recv(const int cn,t_packet *p);//º¸³»±â
-	void RecvDelete(const int cn,t_packet *p);//Áö¿ì±â(¸®½ºÆ® ¹øÈ£¸¦ º¸³À´Ï´Ù.)
-	void RecvRepair(const int cn,t_packet *p);//º¹¿øÇÏ±â(¸®½ºÆ® ¹øÈ£¸¦ º¸³À´Ï´Ù.)
+	bool Recv(const int cn,t_packet *p);//ë³´ë‚´ê¸°
+	void RecvDelete(const int cn,t_packet *p);//ì§€ìš°ê¸°(ë¦¬ìŠ¤íŠ¸ ë²ˆí˜¸ë¥¼ ë³´ëƒ…ë‹ˆë‹¤.)
+	void RecvRepair(const int cn,t_packet *p);//ë³µì›í•˜ê¸°(ë¦¬ìŠ¤íŠ¸ ë²ˆí˜¸ë¥¼ ë³´ëƒ…ë‹ˆë‹¤.)
 
-	void RecvRequestBody(const int cn,t_packet *p);//ÇØ´ç ¸ŞÀÏÀÇ ³»¿ë ¹Ş±â
+	void RecvRequestBody(const int cn,t_packet *p);//í•´ë‹¹ ë©”ì¼ì˜ ë‚´ìš© ë°›ê¸°
 	void RecvBody(const int cn,t_packet *p);
 
-	void SaveMailToLocal(const int cn,t_packet *p);//¼±ÅÃµÈ ¸ŞÀÏ ÀúÀå ÇÏ±â.
+	void SaveMailToLocal(const int cn,t_packet *p);//ì„ íƒëœ ë©”ì¼ ì €ì¥ í•˜ê¸°.
 	void RecvRequestBodyResult(const int cn,t_packet *p);
 public:
-	void SelectAll();//¸ğµÎ ¼±ÅÃÇÏ±â
-	void SendReqOtherPage(const int cn,t_packet *p);//´Ù¸¥ ÆäÀÌÁö ¿äÃ»
-	void RecvReqMailList(const int cn,t_packet *p);//¸®½ºÆ® ¿äÃ»À» ¹ŞÀ½
+	void SelectAll();//ëª¨ë‘ ì„ íƒí•˜ê¸°
+	void SendReqOtherPage(const int cn,t_packet *p);//ë‹¤ë¥¸ í˜ì´ì§€ ìš”ì²­
+	void RecvReqMailList(const int cn,t_packet *p);//ë¦¬ìŠ¤íŠ¸ ìš”ì²­ì„ ë°›ìŒ
 	
-	void RecvMailListFromDBDEMON(const int cn,t_packet *p);//µ¥¸óÀ¸·Î ºÎÅÍ ¸®½ºÆ®¸¦ ÀüÇØ ¹ŞÀ½ 
+	void RecvMailListFromDBDEMON(const int cn,t_packet *p);//ë°ëª¬ìœ¼ë¡œ ë¶€í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ì „í•´ ë°›ìŒ 
 	
-	void SendReqMailList(const int cn,t_packet *p);//¸ŞÀÏ ¸®½ºÆ® ¿äÃ»
+	void SendReqMailList(const int cn,t_packet *p);//ë©”ì¼ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
 };
 
 extern CMailMgr g_MailMgr;

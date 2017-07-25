@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 
 #define __SEALSTONE__
@@ -25,10 +25,10 @@ extern cNation*	g_pNation;						// LTS NEW LOCALWAR
 //	
 	
 /*---------------------------------------------------------------------
-	µ¹ÀÌ ¸®Á¨µÇ°Å³ª 
-    µ¹ÀÌ ºÎ¼­Áö¸é °ÔÀÓ¼­¹ö¿¡¼­ º¸³»ÁØ´Ù. 
+	ëŒì´ ë¦¬ì  ë˜ê±°ë‚˜ 
+    ëŒì´ ë¶€ì„œì§€ë©´ ê²Œì„ì„œë²„ì—ì„œ ë³´ë‚´ì¤€ë‹¤. 
 	
-  status : 0 --> ºÎ¼­Áü   1 : ¸®Á¨µÊ..
+  status : 0 --> ë¶€ì„œì§   1 : ë¦¬ì  ë¨..
 ---------------------------------------------------------------------*/
 void RecvSealStoneStatus( t_packet *p )			// LTS LCOALWAR
 {	
@@ -40,18 +40,18 @@ void RecvSealStoneStatus( t_packet *p )			// LTS LCOALWAR
 
 	switch( tp->status )
 	{
-		// Á×¾ú´Ù. 
+		// ì£½ì—ˆë‹¤. 
 	case 0 :		status = 0;		break;
-		// µÇ»ì¾Æ³µ´Ù. 
+		// ë˜ì‚´ì•„ë‚¬ë‹¤. 
 	case 1 :		status = 1;		break;
-		// Å¸°İÀ» ¹Ş¾Ò´Ù. 
+		// íƒ€ê²©ì„ ë°›ì•˜ë‹¤. 
 	case 2 :		status = 2;		break;		// LTS LOCALWAR
 
 	}
 
 	switch( tp->sealstonesprno )//<<< // 030516 kyo
 	{
-	case 98 :	// ¹ÙÀÌ¼­½º
+	case 98 :	// ë°”ì´ì„œìŠ¤
 		{
 			SealStone[ N_VYSEUS].status[tp->id] = status;
 			if (g_pNation!=NULL) 
@@ -60,7 +60,7 @@ void RecvSealStoneStatus( t_packet *p )			// LTS LCOALWAR
 			}
 			break;
 		}	
-	case 99 :// ÀÚÀÌÆİ
+	case 99 :// ìì´í€
 		{
 			SealStone[ N_ZYPERN].status[tp->id] = status;
 			if (g_pNation!=NULL)
@@ -69,7 +69,7 @@ void RecvSealStoneStatus( t_packet *p )			// LTS LCOALWAR
 			}
 			break;
 		}
-	case 91 :// ÀÏ½º
+	case 91 :// ì¼ìŠ¤
 		{
 			SealStone[ N_YILSE ].status[tp->id] = status;
 			
@@ -95,7 +95,7 @@ void RecvSealStoneStatus( t_packet *p )			// LTS LCOALWAR
 				if( connections[i].server_check ) QueuePacket( connections, i, p, 1 );
 			}
 		}
-				// ¿©±â¼­ ÀüÃ¼¸Ş¼¼Áö¸¦ º¸³½´Ù.
+				// ì—¬ê¸°ì„œ ì „ì²´ë©”ì„¸ì§€ë¥¼ ë³´ë‚¸ë‹¤.
  		SendCMD_SEALSTONE_BROKED((SealStoneStatus*)tp);
 	}
 
@@ -104,12 +104,12 @@ void RecvSealStoneStatus( t_packet *p )			// LTS LCOALWAR
 }	
 	
 /*---------------------------------------------------------------------
-	¿ÕÀÌ ¼±ÀüÆ÷°í¸¦ Çß´Ù.	->  °á°è¼®ÀÌ ¸®Á¨µÉ¶§¿¡´Â ÇÒ¼ö ¾øÀ¸¸ç
-	¼³°øÇÏ¸é ¼±ÀüÆ÷°í Çß´Ù´Â ¸Ş½ÃÁö°¡ ¶á´Ù
+	ì™•ì´ ì„ ì „í¬ê³ ë¥¼ í–ˆë‹¤.	->  ê²°ê³„ì„ì´ ë¦¬ì  ë ë•Œì—ëŠ” í• ìˆ˜ ì—†ìœ¼ë©°
+	ì„¤ê³µí•˜ë©´ ì„ ì „í¬ê³  í–ˆë‹¤ëŠ” ë©”ì‹œì§€ê°€ ëœ¬ë‹¤
 ---------------------------------------------------------------------*/
 void RecvSealStoneFromKing( int nation )
 {	
-	if( SealStone[ nation].regentime ||  SealStone[ nation].waraftertime ) return; // ¸®Á¨ÇÏ´Âµ¿¾È¿¡´Â ´Ù½Ã ¼±ÀüÆ÷°í°¡ µÇÁö ¾Ê´Â´Ù. 
+	if( SealStone[ nation].regentime ||  SealStone[ nation].waraftertime ) return; // ë¦¬ì  í•˜ëŠ”ë™ì•ˆì—ëŠ” ë‹¤ì‹œ ì„ ì „í¬ê³ ê°€ ë˜ì§€ ì•ŠëŠ”ë‹¤. 
 	SealStone[ nation].warlefttime = g_curr_time + SEALSTONE_WARTIME_;
 	
 	t_packet p;
@@ -143,7 +143,7 @@ void SendResultNationWar( int aresult, int anation, int bresult, int bnation )
 				QueuePacket( connections, i, &p, 1 );
 }	
 	
-// ÀÌÁ¦ °á°è¼®À» ¸®Á¨µÉ°ÍÀÌ°í ´çºĞ°£ °á°è¼®À» ºÎ¼ú¼ö ¾ø´Ù. 
+// ì´ì œ ê²°ê³„ì„ì„ ë¦¬ì  ë ê²ƒì´ê³  ë‹¹ë¶„ê°„ ê²°ê³„ì„ì„ ë¶€ìˆ ìˆ˜ ì—†ë‹¤. 
 void SendSealStoneReGenStart( void )
 {	
 	int i;		
@@ -159,7 +159,7 @@ void SendSealStoneReGenStart( void )
 }	
 	
 	
-// ÀÌÁ¦ ¼±ÀüÆ÷°í¸¦ ÇÒ¼ö ÀÖÀ½À» Client±îÁö ¾Ë¸°´Ù. 	
+// ì´ì œ ì„ ì „í¬ê³ ë¥¼ í• ìˆ˜ ìˆìŒì„ Clientê¹Œì§€ ì•Œë¦°ë‹¤. 	
 void SendEndOfReGenTime( void )
 {	
 	int i;		
@@ -174,7 +174,7 @@ void SendEndOfReGenTime( void )
 				QueuePacket( connections, i, &p, 1 );
 }	
 	
-//	ÇöÀç ³²Àº ½Ã°£À» Client±îÁö »Ñ·ÁÁØ´Ù.
+//	í˜„ì¬ ë‚¨ì€ ì‹œê°„ì„ Clientê¹Œì§€ ë¿Œë ¤ì¤€ë‹¤.
 void SendWarLeftTime_sub( int nation )
 {				
 	int i;		
@@ -190,9 +190,9 @@ void SendWarLeftTime_sub( int nation )
 				QueuePacket( connections, i, &p, 1 );
 }				
 
-// int nationÀÇ ³ª¶ó°¡ »ó´ëÀÇ °á°Ô¼®À» ¸ğµÎ ºÎ¼Ì´Â°¡?
-// 1 : ¸ğµÎ ºÎ¼Ì´Ù. 
-// 0 : ¾ÆÁ÷ ³²Àº°Ô ÀÖ´Ù. 
+// int nationì˜ ë‚˜ë¼ê°€ ìƒëŒ€ì˜ ê²°ê²Œì„ì„ ëª¨ë‘ ë¶€ì…¨ëŠ”ê°€?
+// 1 : ëª¨ë‘ ë¶€ì…¨ë‹¤. 
+// 0 : ì•„ì§ ë‚¨ì€ê²Œ ìˆë‹¤. 
 int CheckVictory( int nation )
 {	
 	int i;
@@ -203,10 +203,10 @@ int CheckVictory( int nation )
 	}
 	if( i == MAX_SEALSTONE_NATION_ )
 	{	
-		return 1;	// ¸ğµç°Ô ºÎ¼ÅÁ³´Ù. 
+		return 1;	// ëª¨ë“ ê²Œ ë¶€ì…”ì¡Œë‹¤. 
 	}	
 
-	return 0; // ¾ÆÁ÷ ³²Àº°Ô ÀÖ´Ù. 
+	return 0; // ì•„ì§ ë‚¨ì€ê²Œ ìˆë‹¤. 
 
 }	
 	
@@ -238,11 +238,11 @@ void CheckWarLeftTime( void )
 			SealStone[				nation].waraftertime	= g_curr_time + SEALSTONE_WAR_AFTERTIME_;
 			SealStone[	antination[nation]].waraftertime	= g_curr_time + SEALSTONE_WAR_AFTERTIME_;
 				
-			if( CheckVictory( nation ) == 1 ) // nationÀÌ ÀÌ°å´Ù. 
+			if( CheckVictory( nation ) == 1 ) // nationì´ ì´ê²¼ë‹¤. 
 			{	
 				SendResultNationWar( SSR_VICTORY, nation, SSR_FAIL, antination[ nation]  );
 			}	
-			else	//ºÎ½ÂºÎ´Ù. 
+			else	//ë¶€ìŠ¹ë¶€ë‹¤. 
 			{	
 				SendResultNationWar( SSR_DRAW, nation, SSR_DRAW, antination[ nation]  );				
 			}	
@@ -251,7 +251,7 @@ void CheckWarLeftTime( void )
 }				
 				
 				
-// ÀüÀïÀÌ ³¡³ª°í Àá½ÃÁ¶¿ëÇÑ ½Ã°£À» °®´Â´Ù.
+// ì „ìŸì´ ëë‚˜ê³  ì ì‹œì¡°ìš©í•œ ì‹œê°„ì„ ê°–ëŠ”ë‹¤.
 void CheckSealStoneWarAfterTime( void )
 {
 	int nation;	
@@ -282,7 +282,7 @@ void CheckSealStoneWarAfterTime( void )
 	}	
 }
 
-// ÀÌ½Ã°£ÀÌ Áö³ª¸é ´Ù½Ã °á°èÀûÀ» ºÎ¼ú¼ö ÀÖ´Ù. 
+// ì´ì‹œê°„ì´ ì§€ë‚˜ë©´ ë‹¤ì‹œ ê²°ê³„ì ì„ ë¶€ìˆ ìˆ˜ ìˆë‹¤. 
 void CheckReGenTime( void )
 {	
 	static DWORD t;
@@ -315,7 +315,7 @@ void CheckReGenTime( void )
 	}
 }	
 	
-//	ÀüÀüÆ÷°í°¡ µÈµÚ¿¡ ,¸ğµç °á°è¼®ÀÌ ±úÁ³´Â°¡?
+//	ì „ì „í¬ê³ ê°€ ëœë’¤ì— ,ëª¨ë“  ê²°ê³„ì„ì´ ê¹¨ì¡ŒëŠ”ê°€?
 void CheckSealStoneStatus( void )
 {		
 	int nation, j;	
@@ -329,15 +329,15 @@ void CheckSealStoneStatus( void )
 		
 	for( nation = N_VYSEUS ; nation <= N_ZYPERN ; nation ++ )
 	{			
-		if( SealStone[ nation].warlefttime ) // ÀüÀï¼±Æ÷¸¦ ÇÑ»óÅÂ¿¡¼­ .
+		if( SealStone[ nation].warlefttime ) // ì „ìŸì„ í¬ë¥¼ í•œìƒíƒœì—ì„œ .
 		{		
 			for( j = 0 ; j < MAX_SEALSTONE_NATION_ ; j ++)
 			{	
 				if( SealStone[ antination[ nation]].status[ j] ) break;
 			}	
-			if( j == MAX_SEALSTONE_NATION_ ) // »ó´ë¹æÀÇ °á°è¼®ÀÌ ¸ğµÎ ºÎ¼ÅÁ³´Ù¸é.
+			if( j == MAX_SEALSTONE_NATION_ ) // ìƒëŒ€ë°©ì˜ ê²°ê³„ì„ì´ ëª¨ë‘ ë¶€ì…”ì¡Œë‹¤ë©´.
 			{	
-				// ½Â¸®...
+				// ìŠ¹ë¦¬...
 				SendResultNationWar( SSR_VICTORY, nation, SSR_FAIL, antination[ nation]  );
 
 				SealStone[				nation].warlefttime	= 0;
@@ -463,7 +463,7 @@ void CheckSealStoneBlock( void )
 	}
 }	//> CSD-030804
 	
-extern bool UpdateNationWarData();	// 010904 LTS // ÀüÀïÅÍ ¸ÊÀÇ ¾÷µ¥ÀÌÆ® 
+extern bool UpdateNationWarData();	// 010904 LTS // ì „ìŸí„° ë§µì˜ ì—…ë°ì´íŠ¸ 
 extern void UpdateEventLocalWarTime();	// 020115 LTS
 	
 // 020620 YGI
@@ -479,9 +479,9 @@ void CheckNationWar( void )
 //////////////////////////////////////////////////////////////////////////////
 	
 /******************************************************************************************************
-±â ´É : ÃÖ¼ÒÀÇ ±¹°¡»óÅÂ¸¦ ¼³Á¤ÇÑ´Ù.  ±âº»ÀûÀ¸·Î ¸ğµç±¹°¡´Â Àû´ë±¹°¡ÀÌ´Ù.
-ÀÎ ÀÚ : ¾øÀ½
-°á °ú : 
+ê¸° ëŠ¥ : ìµœì†Œì˜ êµ­ê°€ìƒíƒœë¥¼ ì„¤ì •í•œë‹¤.  ê¸°ë³¸ì ìœ¼ë¡œ ëª¨ë“ êµ­ê°€ëŠ” ì ëŒ€êµ­ê°€ì´ë‹¤.
+ì¸ ì : ì—†ìŒ
+ê²° ê³¼ : 
 *******************************************************************************************************/
 int InitNationRelation( void )
 {
@@ -501,10 +501,10 @@ int InitNationRelation( void )
 				
 				
 /******************************************************************************************************
-±â	´É : ÇöÀç ±¹°¡°£ÀÇ °ü°è¸¦ ¸®ÅÏÇÑ´Ù. 
-ÀÎ	ÀÚ : int a_nation, b_nation : °ü°è¸¦ ¼³Á¤ÇÒ ±¹°¡ ( ±¹°¡ÄÚµå,  3: ¹ÙÀÌ¼­½º, 4:ÀÚÀÌÆİ ... )
+ê¸°	ëŠ¥ : í˜„ì¬ êµ­ê°€ê°„ì˜ ê´€ê³„ë¥¼ ë¦¬í„´í•œë‹¤. 
+ì¸	ì : int a_nation, b_nation : ê´€ê³„ë¥¼ ì„¤ì •í•  êµ­ê°€ ( êµ­ê°€ì½”ë“œ,  3: ë°”ì´ì„œìŠ¤, 4:ìì´í€ ... )
 			
-°á	°ú : 0 : ¹«°ü°è    1: Àû´ë°ü°è     2: Çù·Â°ü°è    3: ÁÖÁ¾°ü°è( a:ÁÖ b:Á¾)
+ê²°	ê³¼ : 0 : ë¬´ê´€ê³„    1: ì ëŒ€ê´€ê³„     2: í˜‘ë ¥ê´€ê³„    3: ì£¼ì¢…ê´€ê³„( a:ì£¼ b:ì¢…)
 *******************************************************************************************************/
 int ReturnNation2NationRelation( int anation, int bnation )		// 011217 LTS
 {	//< CSD-030723
@@ -578,15 +578,15 @@ int SetNation2NationRelation( int a_nation, int b_nation, int relation, int year
 	return NATION_RELATION_SUCCESS_;
 }	//> CSD-030723
 		
-/********************************************************************************************°×¼·(¸Ê¼·)¿¡¼­ »ç¿ëÇÏ´Â ÇÔ¼ö
-±â	´É : ±¹°¡°£ÀÇ °ü°è¸¦ Loginserver·Î º¸³» °ÔÀÓ¼­¹ö¿¡ º¸³»¾î ¸ğµç °ÔÀÓ¼·(¸Ê¼·)ÀÌ ¾Ë°Ô ÇÑ´Ù. 
+/********************************************************************************************ê²œì„­(ë§µì„­)ì—ì„œ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜
+ê¸°	ëŠ¥ : êµ­ê°€ê°„ì˜ ê´€ê³„ë¥¼ Loginserverë¡œ ë³´ë‚´ ê²Œì„ì„œë²„ì— ë³´ë‚´ì–´ ëª¨ë“  ê²Œì„ì„­(ë§µì„­)ì´ ì•Œê²Œ í•œë‹¤. 
 		  
-ÀÎ	ÀÚ : int a_nation, b_nation : °ü°è¸¦ ¼³Á¤ÇÒ ±¹°¡ ( ±¹°¡ÄÚµå,  3: ¹ÙÀÌ¼­½º, 4:ÀÚÀÌÆİ ... )
-		int relation           : 0 : ¹«°ü°è    1: Àû´ë°ü°è     2: Çù·Â°ü°è    3: ÁÖÁ¾°ü°è( a:ÁÖ b:Á¾)
-		DWORD relationstart		:	¸îÃÊµÚ¿¡ ½ÃÀÛÇÒ°ÍÀÎ°¡
-		DWORD relationhowlong	:	¸îÃÊµ¿¾È À¯ÁöµÉ°ÍÀÎ°¡? ( 0ÀÌ¸é ¹«ÇÑ )
+ì¸	ì : int a_nation, b_nation : ê´€ê³„ë¥¼ ì„¤ì •í•  êµ­ê°€ ( êµ­ê°€ì½”ë“œ,  3: ë°”ì´ì„œìŠ¤, 4:ìì´í€ ... )
+		int relation           : 0 : ë¬´ê´€ê³„    1: ì ëŒ€ê´€ê³„     2: í˜‘ë ¥ê´€ê³„    3: ì£¼ì¢…ê´€ê³„( a:ì£¼ b:ì¢…)
+		DWORD relationstart		:	ëª‡ì´ˆë’¤ì— ì‹œì‘í• ê²ƒì¸ê°€
+		DWORD relationhowlong	:	ëª‡ì´ˆë™ì•ˆ ìœ ì§€ë ê²ƒì¸ê°€? ( 0ì´ë©´ ë¬´í•œ )
 
-°á	°ú : LoginServer¿¡ º¸³»Áö¸é, ´Ù½Ã °ÔÀÓ¼·(¸Ê¼·)À¸·Î º¸³»Áö¸ç, ´Ù½Ã Client±îÁö °á°ú¸¦ º¸³»ÁÖ°Ô µÈ´Ù. 
+ê²°	ê³¼ : LoginServerì— ë³´ë‚´ì§€ë©´, ë‹¤ì‹œ ê²Œì„ì„­(ë§µì„­)ìœ¼ë¡œ ë³´ë‚´ì§€ë©°, ë‹¤ì‹œ Clientê¹Œì§€ ê²°ê³¼ë¥¼ ë³´ë‚´ì£¼ê²Œ ëœë‹¤. 
 *******************************************************************************************************/
 void RecvNation2NationRelation( int cn, t_nation2nation_relation *tp )
 {										

@@ -1,4 +1,4 @@
-// MapInfo.cpp: implementation of the CMapInfo class.
+﻿// MapInfo.cpp: implementation of the CMapInfo class.
 //
 //////////////////////////////////////////////////////////////////////
 

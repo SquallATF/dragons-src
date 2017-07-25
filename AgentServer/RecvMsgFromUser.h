@@ -1,4 +1,4 @@
-//
+﻿//
 // Updated by chan78 at 2000/11/28
 //
 #pragma once

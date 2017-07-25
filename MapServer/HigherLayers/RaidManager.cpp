@@ -1,4 +1,4 @@
-// RaidManager.cpp: implementation of the CRaidManager class.
+﻿// RaidManager.cpp: implementation of the CRaidManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,4 @@
-// GameDefine.h: interface for the CGameDefine class.
+ï»¿// GameDefine.h: interface for the CGameDefine class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ class CItemMallManager;
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//	Game Factory Ãß»ó Å¬·¡½º
+//	Game Factory ì¶”ìƒ í´ë˜ìŠ¤
 class IGameFactory
 {
 public:
@@ -66,7 +66,7 @@ public:
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-//050224_KCH //050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//050224_KCH //050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 enum eGAME_SYSTEM
 {
 	LogManager		=	0,
@@ -82,7 +82,7 @@ enum eGAME_SYSTEM
 	ItemMallManager	=	10
 };
 ///////////////////////////////////////////////////////////////////////////////
-// Game System Ãß»ó Å¬·¡½º
+// Game System ì¶”ìƒ í´ë˜ìŠ¤
 class IGameSystem
 {
 public:

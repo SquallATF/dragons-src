@@ -1,4 +1,4 @@
-// DebugExt.cpp: implementation of the CDebugExt class.
+ï»¿// DebugExt.cpp: implementation of the CDebugExt class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 void Dbg_Message(const char* pContext, const char* pFile, unsigned int nLine)
-{	// ¿øµµ¿ì ¸Ş¼¼Áö ¹Ú½º Ãâ·Â
+{	// ì›ë„ìš° ë©”ì„¸ì§€ ë°•ìŠ¤ ì¶œë ¥
 	static char szBuffer[MAX_BUFFER_LINE][MAX_PATH];
 	sprintf(szBuffer[0], "%s", pContext);
 	sprintf(szBuffer[1], "%s(%d Line)", pFile, nLine);

@@ -1,4 +1,4 @@
-// Utility.h: interface for the Utillity.
+ï»¿// Utility.h: interface for the Utillity.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// BEGIN : ¹®ÀÚ¿­ °ü·Ã ¸ÅÅ©·Î
+// BEGIN : ë¬¸ìì—´ ê´€ë ¨ ë§¤í¬ë¡œ
 #define VA Str_Format
 #define CS(str) #str
 #define SA(a) (sizeof(a)/sizeof((a)[0]))

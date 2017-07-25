@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "inetwork.h"
 #include "RMTable.h"
 #include "ServerTable.h"
@@ -8,7 +8,7 @@
 
 extern I4DyuchiNET* g_pINet;
 extern CServerTable* g_pServerTable;
-extern EchoBucket g_EchoBucket[ MAX_SERVER_NUM ];	//Echo ¸Þ¼¼Áö ¹ÞÀ» Bucket
+extern EchoBucket g_EchoBucket[ MAX_SERVER_NUM ];	//Echo ë©”ì„¸ì§€ ë°›ì„ Bucket
 extern DWORD g_dwEchoID;
 
 void ForceLogoffUser( const char* szUserID ); // 030224 kyo
@@ -42,7 +42,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	BYTE header;
 	memcpy(&header,pMsg+1, 1);
 
-	static bool s_bKickOffState = false;	// BBD 040110	Å±¿ÀÇÁ »óÅÂ¸¦ RM¿¡¼­ ¾Ë±âÀ§ÇØ¼­
+	static bool s_bKickOffState = false;	// BBD 040110	í‚¥ì˜¤í”„ ìƒíƒœë¥¼ RMì—ì„œ ì•Œê¸°ìœ„í•´ì„œ
 
 	switch(header)
 	{
@@ -56,24 +56,24 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 			if(g_pRMTable->CheckCertainIP(dwConnectionIndex, packet->IP))
 			{
-				//·Î±×ÀÎ ½ÂÀÎ ¸Þ¼¼Áö..   ÀÚ½ÅÀÌ ¼­¹ö¼Â ³Ñ¹ö¿Í ÇÔ²²..
+				//ë¡œê·¸ì¸ ìŠ¹ì¸ ë©”ì„¸ì§€..   ìžì‹ ì´ ì„œë²„ì…‹ ë„˜ë²„ì™€ í•¨ê»˜..
 				PACKET_RM_LOGIN_OK pck(g_pServerTable->m_dwServerSetNumber);
 				MgrSend(dwConnectionIndex, &pck, pck.GetPacketSize());
 
 			}
 			else
 			{
-				//µî·ÏµÈ IP°¡ ¾Æ´ÑÀÚ¸®¿¡¼­ ·Î±×ÀÎ ÇÑ °æ¿ì 
+				//ë“±ë¡ëœ IPê°€ ì•„ë‹Œìžë¦¬ì—ì„œ ë¡œê·¸ì¸ í•œ ê²½ìš° 
 				PACKET_RM_LOGIN_FAIL pck;
 				MgrSend(dwConnectionIndex, &pck, pck.GetPacketSize());
 			}
 
 			g_pRMTable->AddClient(dwConnectionIndex, packet);
 			
-			if(g_pRMTable->GetClientNum() == 1)	//RMClient°¡ ÇÏ³ª¶óµµ Á¢¼ÓµÈ »óÅÂ¸é Ã¼Å© ½ÃÀÛ!
+			if(g_pRMTable->GetClientNum() == 1)	//RMClientê°€ í•˜ë‚˜ë¼ë„ ì ‘ì†ëœ ìƒíƒœë©´ ì²´í¬ ì‹œìž‘!
 			{
 				StopWaitTimer();
-				StartEchoTimer();			//¼­¹ö ´Ù¿îµÆ³ª ¾ÈµÆ³ª Ã¼Å© ÀÛ¾÷ ½ÃÀÛ
+				StartEchoTimer();			//ì„œë²„ ë‹¤ìš´ëë‚˜ ì•ˆëë‚˜ ì²´í¬ ìž‘ì—… ì‹œìž‘
 			}
 		}
 		break;
@@ -83,28 +83,28 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		{
 			PACKET_REQUEST_ALL_SUBSERVER_INFO *packet = (PACKET_REQUEST_ALL_SUBSERVER_INFO*)pMsg;
 			
-			WORD wServerNum = g_pServerTable->GetNumOfServers();	// ÀÚ±â ÀÚ½Å(Proxy)¸¦ Á¦¿ÜÇÑ ÀüÃ¼ Server ÀÇ ¼ö.
+			WORD wServerNum = g_pServerTable->GetNumOfServers();	// ìžê¸° ìžì‹ (Proxy)ë¥¼ ì œì™¸í•œ ì „ì²´ Server ì˜ ìˆ˜.
 			int nSize = 1/*header*/ + 1 + 1 + 4 + 4 + 2/*num*/ + (sizeof(ServerStatusInfo) * wServerNum); 
-			//1 + 1 + 1 + 4 + 2 +(ServerÁ¤º¸µé).......
+			//1 + 1 + 1 + 4 + 2 +(Serverì •ë³´ë“¤).......
 
 			char *pPacket = new char[ nSize ];
 			int offset = 0;
 			
-			pPacket[0] = MSG_RM_REPLY_ALL_SEBSERVER_INFO;			//¸Þ¼¼Áö Çì´õ 
-			pPacket[1] = g_pServerTable->m_dwServerSetNumber;		//¼­¹ö ¼ÂÆ® ³Ñ¹ö  
-			pPacket[2] = packet->bOpenTemplate;						//ÀÌ ¸Þ¼¼Áö¸¦ ¹Þ¾ÒÀ»¶§ »õ·Î¿î ¼­¹ö ÅÛÇÃ¸´À» ·ÎµåÇÏ´À³Ä ¸¶´À³Ä ¿©ºÎ 
-			memcpy(pPacket + 3, &packet->dwFrameID, sizeof(DWORD));	//¸Þ¼¼Áö¸¦ ¹ÞÀ» FrameID
-			memcpy(pPacket + 7, &g_pServerTable->m_dwNumOfUsersInServerSet, sizeof(DWORD));	//Proxy¼­¹ö¿¡ Á¢¼ÓµÇ¾îÀÖ´Â ÃÑ À¯Àú¼ö 
-			memcpy(pPacket + 11, &wServerNum, sizeof(WORD));			//ÀÌ ¼­¹ö¼Â¿¡ ¹°·ÁÀÖ´Â ÃÑ ¼­¹ö°¹¼ö 
+			pPacket[0] = MSG_RM_REPLY_ALL_SEBSERVER_INFO;			//ë©”ì„¸ì§€ í—¤ë” 
+			pPacket[1] = g_pServerTable->m_dwServerSetNumber;		//ì„œë²„ ì…‹íŠ¸ ë„˜ë²„  
+			pPacket[2] = packet->bOpenTemplate;						//ì´ ë©”ì„¸ì§€ë¥¼ ë°›ì•˜ì„ë•Œ ìƒˆë¡œìš´ ì„œë²„ í…œí”Œë¦¿ì„ ë¡œë“œí•˜ëŠëƒ ë§ˆëŠëƒ ì—¬ë¶€ 
+			memcpy(pPacket + 3, &packet->dwFrameID, sizeof(DWORD));	//ë©”ì„¸ì§€ë¥¼ ë°›ì„ FrameID
+			memcpy(pPacket + 7, &g_pServerTable->m_dwNumOfUsersInServerSet, sizeof(DWORD));	//Proxyì„œë²„ì— ì ‘ì†ë˜ì–´ìžˆëŠ” ì´ ìœ ì €ìˆ˜ 
+			memcpy(pPacket + 11, &wServerNum, sizeof(WORD));			//ì´ ì„œë²„ì…‹ì— ë¬¼ë ¤ìžˆëŠ” ì´ ì„œë²„ê°¯ìˆ˜ 
 			offset = 13;
 
 			LP_SERVER_DATA pServerData;
 			for( pServerData = g_pServerTable->m_pServerListHead; pServerData; pServerData = pServerData->pNextServerData )
 			{
 				ServerStatusInfo info;
-				info.wPort = pServerData->wPort;				//Æ÷Æ®¹øÈ£·Î ±¸ºÐÇÏ±â À§ÇØ 
-				info.dwStatus = pServerData->dwStatus;			//¼­¹ö ÇöÀç »óÅÂ 
-				info.dwNumOfUsers = pServerData->dwNumOfUsers;	//Á¢¼Ó À¯Àú¼ö 
+				info.wPort = pServerData->wPort;				//í¬íŠ¸ë²ˆí˜¸ë¡œ êµ¬ë¶„í•˜ê¸° ìœ„í•´ 
+				info.dwStatus = pServerData->dwStatus;			//ì„œë²„ í˜„ìž¬ ìƒíƒœ 
+				info.dwNumOfUsers = pServerData->dwNumOfUsers;	//ì ‘ì† ìœ ì €ìˆ˜ 
 			
 				memcpy(pPacket + offset, &info, sizeof(info));
 				offset += sizeof(info);
@@ -133,10 +133,10 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			char *pPacket = new char[ nSize ];
 			int offset = 0;
 
-			pPacket[0] = MSG_RM_REPLY_ALL_LISTENER_INFO;			//¸Þ¼¼Áö Çì´õ 
-			pPacket[1] = g_pServerTable->m_dwServerSetNumber;		//¼­¹ö ¼ÂÆ® ³Ñ¹ö  
-			memcpy(pPacket + 2, &packet->dwFrameID, 4);	//¸Þ¼¼Áö¸¦ ¹ÞÀ» FrameID
-			memcpy(pPacket + 6, &wListenerNum, 2);					//¸®½ºÅÍ °¹¼ö 
+			pPacket[0] = MSG_RM_REPLY_ALL_LISTENER_INFO;			//ë©”ì„¸ì§€ í—¤ë” 
+			pPacket[1] = g_pServerTable->m_dwServerSetNumber;		//ì„œë²„ ì…‹íŠ¸ ë„˜ë²„  
+			memcpy(pPacket + 2, &packet->dwFrameID, 4);	//ë©”ì„¸ì§€ë¥¼ ë°›ì„ FrameID
+			memcpy(pPacket + 6, &wListenerNum, 2);					//ë¦¬ìŠ¤í„° ê°¯ìˆ˜ 
 			offset = 8;
 
 			RM_LISTENER_INFO* cur = NULL;
@@ -149,7 +149,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 					next = cur->pNextInfo;
 					
 					
-					pPacket[ offset ] = i;			//Listener°¡ Proxy¿¡ Á¢¼Ó µÇ¾îÀÖ³ª ¾ÈµÇ¾îÀÖ³ª ¿©ºÎ 1ÀÌ¸é Á¢¼Ó µÇÀÖ´Â°Í 0ÀÌ¸é Á¢¼Ó ¾ÈµÇ¾îÀÖ´Â°Í 
+					pPacket[ offset ] = i;			//Listenerê°€ Proxyì— ì ‘ì† ë˜ì–´ìžˆë‚˜ ì•ˆë˜ì–´ìžˆë‚˜ ì—¬ë¶€ 1ì´ë©´ ì ‘ì† ë˜ìžˆëŠ”ê²ƒ 0ì´ë©´ ì ‘ì† ì•ˆë˜ì–´ìžˆëŠ”ê²ƒ 
 					offset += 1;
 					ip = inet_addr(cur->szIP);
 
@@ -177,7 +177,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			
 			RM_LISTENER_INFO* cur = NULL;
 			RM_LISTENER_INFO* next = NULL;
-			cur = g_pRMTable->m_ListenerTable.m_ppInfoTable[ 1 ];		//1ÀÌ Á¢¼Ó ÇÑ »óÅÂÀÌ´Ï...
+			cur = g_pRMTable->m_ListenerTable.m_ppInfoTable[ 1 ];		//1ì´ ì ‘ì† í•œ ìƒíƒœì´ë‹ˆ...
 			while (cur)
 			{
 				next = cur->pNextInfo;
@@ -209,7 +209,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		break;
 
 
-	//ÁöÁ¤ÇÑ ¼­¹ö·Î ShutDown ¸Þ¼¼Áö ³¯¸² ..
+	//ì§€ì •í•œ ì„œë²„ë¡œ ShutDown ë©”ì„¸ì§€ ë‚ ë¦¼ ..
 	case MSG_RM_SHUTDOWN_SERVER:
 		{
 			BYTE bCount = pMsg[2];
@@ -449,7 +449,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				if(!pServerData) continue;
 				if(pServerData->dwConnectionIndex == 0)	continue;
 					
-				//BBS ÆÐÅ¶ Àü¼ÛºÎºÐ 
+				//BBS íŒ¨í‚· ì „ì†¡ë¶€ë¶„ 
 				MANAGER_TO_MAP_PACKET PacketToMap;
 				char dummy[2048];
 				int len;
@@ -476,8 +476,8 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			
 	case MSG_RM_CHANGE_WEATHER:
 		{
-			BYTE	bWeather	= pMsg[2];	//³¯¾¾ 
-			int		num			= pMsg[8];	//¼­¹ö °¹¼ö 
+			BYTE	bWeather	= pMsg[2];	//ë‚ ì”¨ 
+			int		num			= pMsg[8];	//ì„œë²„ ê°¯ìˆ˜ 
 			BYTE	bStop		= pMsg[7];
 			DWORD	dwAmount;
 			memcpy(&dwAmount, pMsg+3, 4);
@@ -542,7 +542,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 
 /*
-	//Tool¿¡¼­ ¼­¹öµé Á¤º¸ ¿ä±¸ ~
+	//Toolì—ì„œ ì„œë²„ë“¤ ì •ë³´ ìš”êµ¬ ~
 	case MSG_RM_REQUEST_SERVER_STATUS:
 		{
 			LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( pPacket->b.MgrSubServerRequestPacket.wPort );
@@ -586,8 +586,8 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	case MSG_LISTENER_LOGIN:
 		{
 
-			// ÂÁ ÀÌ·¸°Ô ÇØ¼­ ¾ò´Â ¼­¹ö ÀÌ¸§Àº .. ¼Óµµ°¡ ³Ê¹« ´À·Á..  ¼­¹ö ºÎÇÏ°¡ µÈ´Ù..
-			// ¹«½ÄÇÏ´õ¶óµµ.. ·Î±×ÀÎ ÆÐÅ¶¿¡ ¼­¹ö ÀÌ¸§À» º¸³»ÀÚ..
+			// ì© ì´ë ‡ê²Œ í•´ì„œ ì–»ëŠ” ì„œë²„ ì´ë¦„ì€ .. ì†ë„ê°€ ë„ˆë¬´ ëŠë ¤..  ì„œë²„ ë¶€í•˜ê°€ ëœë‹¤..
+			// ë¬´ì‹í•˜ë”ë¼ë„.. ë¡œê·¸ì¸ íŒ¨í‚·ì— ì„œë²„ ì´ë¦„ì„ ë³´ë‚´ìž..
 			/*
 			in_addr addr;
 			addr.S_un = g_pINet->GetServerAddress( dwConnectionIndex )->sin_addr.S_un;
@@ -618,15 +618,15 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 
-	case MSG_RM_KICKOFF_USER:	// ÇØ´ç À¯Àú¸¦ Agent¿¡¼­ ¹Ù·Î Àß¶ó¹ö¸°´Ù. 
+	case MSG_RM_KICKOFF_USER:	// í•´ë‹¹ ìœ ì €ë¥¼ Agentì—ì„œ ë°”ë¡œ ìž˜ë¼ë²„ë¦°ë‹¤. 
 		{
 			ForceLogoffUser( (pMsg+2) );
 			break;
 		}
-	//<! BBD 040110	RMÀ¸·Î ÀüÁ¦Á¢¼Ó Á¾·á½ÃÀÛ ¸Þ½ÃÁö
+	//<! BBD 040110	RMìœ¼ë¡œ ì „ì œì ‘ì† ì¢…ë£Œì‹œìž‘ ë©”ì‹œì§€
 	case MSG_RM_KICKOFF_USER_ALL: 
 		{
-			// À¯Àú·Î±×ÀÎÀ» ¸·´Â ·çÆ¾
+			// ìœ ì €ë¡œê·¸ì¸ì„ ë§‰ëŠ” ë£¨í‹´
 //<! BBD 040401
 			//User Accept Control
 			if(!s_bKickOffState)
@@ -635,7 +635,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				if(g_pServerTable->IsUserAcceptAllowed() == false)
 				{
 					s_bKickOffState = true;
-					ForceLogoffUserAllStart();		// À¯Àú°­Åð¸¦ ½ÃÀÛÇÏ¶ó°í ¸Ê¼­¹ö¿¡ ¸Þ½ÃÁö¸¦ ³¯¸°´Ù
+					ForceLogoffUserAllStart();		// ìœ ì €ê°•í‡´ë¥¼ ì‹œìž‘í•˜ë¼ê³  ë§µì„œë²„ì— ë©”ì‹œì§€ë¥¼ ë‚ ë¦°ë‹¤
 					MyLog( LOG_NORMAL, "USER ACCEPT STOPED BY RMTool" );
 					MyLog( LOG_NORMAL, "KickOff All User Started" );
 					MyLog( LOG_NORMAL, "Start Blocking Agent -> Map Join" );
@@ -643,7 +643,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 				else if ( g_pServerTable->ToggleUserAcceptAllowed() == false )
 				{
 					s_bKickOffState = true;
-					ForceLogoffUserAllStart();		// À¯Àú°­Åð¸¦ ½ÃÀÛÇÏ¶ó°í ¸Ê¼­¹ö¿¡ ¸Þ½ÃÁö¸¦ ³¯¸°´Ù
+					ForceLogoffUserAllStart();		// ìœ ì €ê°•í‡´ë¥¼ ì‹œìž‘í•˜ë¼ê³  ë§µì„œë²„ì— ë©”ì‹œì§€ë¥¼ ë‚ ë¦°ë‹¤
 					MyLog( LOG_NORMAL, "USER ACCEPT STOPED BY RMTool" );
 					MyLog( LOG_NORMAL, "KickOff All User Started" );
 					MyLog( LOG_NORMAL, "Start Blocking Agent -> Map Join" );
@@ -653,18 +653,18 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 //> BBD 040401
 			break;
 		}
-	//> BBD 040110	RMÀ¸·Î ÀüÁ¦Á¢¼Ó Á¾·á½ÃÀÛ ¸Þ½ÃÁö
+	//> BBD 040110	RMìœ¼ë¡œ ì „ì œì ‘ì† ì¢…ë£Œì‹œìž‘ ë©”ì‹œì§€
 
-	//<! BBD 040110 RMÀ¸·Î ÀÏÁ¤ ¸í¼ö¸¦ ÀÚ¸£´Â ¸Þ½ÃÁö
+	//<! BBD 040110 RMìœ¼ë¡œ ì¼ì • ëª…ìˆ˜ë¥¼ ìžë¥´ëŠ” ë©”ì‹œì§€
 	case MSG_RM_KICKOFF_USER_SEVERAL:
 		{
 			if(s_bKickOffState)
 				ForceLogoffUserSeveral();
 			break;
 		}
-	//> BBD 040110 RMÀ¸·Î ÀÏÁ¤ ¸í¼ö¸¦ ÀÚ¸£´Â ¸Þ½ÃÁö
+	//> BBD 040110 RMìœ¼ë¡œ ì¼ì • ëª…ìˆ˜ë¥¼ ìžë¥´ëŠ” ë©”ì‹œì§€
 	
-	//<! BBD 040110 ÇöÀçÀÇ Agent¿¡¼­ ¸Ê¼­¹ö·Î Á¶ÀÎÀÌ °¡´ÉÅä·Ï ¸Þ½ÃÁö¸¦ »Ñ·ÁÁØ´Ù
+	//<! BBD 040110 í˜„ìž¬ì˜ Agentì—ì„œ ë§µì„œë²„ë¡œ ì¡°ì¸ì´ ê°€ëŠ¥í† ë¡ ë©”ì‹œì§€ë¥¼ ë¿Œë ¤ì¤€ë‹¤
 	case MSG_RM_KICKOFF_AGENTCANJOIN:
 		{
 //<! BBD 040401
@@ -683,8 +683,8 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 //> BBD 040401
 			break;
 		}
-	//> BBD 040110 ÇöÀçÀÇ Agent¿¡¼­ ¸Ê¼­¹ö·Î Á¶ÀÎÀÌ °¡´ÉÅä·Ï ¸Þ½ÃÁö¸¦ »Ñ·ÁÁØ´Ù
-//<! BBD 040412	RMÀ¸·ÎºÎÅÍÀÇ ÇöÀç Kickoff»óÅÂ ¿äÃ»
+	//> BBD 040110 í˜„ìž¬ì˜ Agentì—ì„œ ë§µì„œë²„ë¡œ ì¡°ì¸ì´ ê°€ëŠ¥í† ë¡ ë©”ì‹œì§€ë¥¼ ë¿Œë ¤ì¤€ë‹¤
+//<! BBD 040412	RMìœ¼ë¡œë¶€í„°ì˜ í˜„ìž¬ Kickoffìƒíƒœ ìš”ì²­
 	case MSG_RM_KICKOFF_STATE_REQ:
 		{
 			ReplyKickOffState(dwConnectionIndex, pMsg, s_bKickOffState);
@@ -717,7 +717,7 @@ void ForceLogoffUser( const char* szUserID ) // 030224 kyo
 		}	
 	}
 }
-//<! BBD 040110		ÀüÃ¼ °­Åð½ÃÀÛÀ» ÀüÃ¼ ¸Ê¼­¹ö¿¡ º¸³½´Ù
+//<! BBD 040110		ì „ì²´ ê°•í‡´ì‹œìž‘ì„ ì „ì²´ ë§µì„œë²„ì— ë³´ë‚¸ë‹¤
 void ForceLogoffUserAllStart()
 {
 	PACKET_KICKOFF_USER_ALL packet;
@@ -733,9 +733,9 @@ void ForceLogoffUserAllStart()
 		}	
 	}
 }
-//> BBD 040110		ÀüÃ¼ °­Åð½ÃÀÛÀ» ÀüÃ¼ ¸Ê¼­¹ö¿¡ º¸³½´Ù
+//> BBD 040110		ì „ì²´ ê°•í‡´ì‹œìž‘ì„ ì „ì²´ ë§µì„œë²„ì— ë³´ë‚¸ë‹¤
 
-//<! BBD 040110		¸Ê¼­¹ö¿¡ ÀÏÁ¤ ¸í¼öÀÇ °­Åð¸Þ½ÃÁö¸¦ º¸³½´Ù
+//<! BBD 040110		ë§µì„œë²„ì— ì¼ì • ëª…ìˆ˜ì˜ ê°•í‡´ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤
 void ForceLogoffUserSeveral()
 {
 	PACKET_KICKOFF_USER_SEVERAL packet;
@@ -751,9 +751,9 @@ void ForceLogoffUserSeveral()
 		}	
 	}
 }
-//> BBD 040110		¸Ê¼­¹ö¿¡ ÀÏÁ¤ ¸í¼öÀÇ °­Åð¸Þ½ÃÁö¸¦ º¸³½´Ù
+//> BBD 040110		ë§µì„œë²„ì— ì¼ì • ëª…ìˆ˜ì˜ ê°•í‡´ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤
 
-//<! BBD 040110		¿¡ÀÌÀüÆ®¿¡¼­ ¸Ê¼­¹ö·Î Á¶ÀÎ Çã¿ë
+//<! BBD 040110		ì—ì´ì „íŠ¸ì—ì„œ ë§µì„œë²„ë¡œ ì¡°ì¸ í—ˆìš©
 void AllowedAgentJoin()
 {
 	PACKET_KICKOFF_AGENTCANJOIN packet;
@@ -769,9 +769,9 @@ void AllowedAgentJoin()
 		}	
 	}
 }
-//> BBD 040110		¿¡ÀÌÀüÆ®¿¡¼­ ¸Ê¼­¹ö·Î Á¶ÀÎ Çã¿ë
+//> BBD 040110		ì—ì´ì „íŠ¸ì—ì„œ ë§µì„œë²„ë¡œ ì¡°ì¸ í—ˆìš©
 
-//<! BBD 040412		KickOff User All »óÅÂ¸¦ ¸®ÅÏÇØÁÖ´Â ÇÔ¼ö
+//<! BBD 040412		KickOff User All ìƒíƒœë¥¼ ë¦¬í„´í•´ì£¼ëŠ” í•¨ìˆ˜
 void ReplyKickOffState(DWORD dwConnectionIndex, char* pMsg, bool bKickOffState)
 {
 	int nSize = 2 + sizeof(DWORD);
@@ -789,9 +789,9 @@ void ReplyKickOffState(DWORD dwConnectionIndex, char* pMsg, bool bKickOffState)
 	}
 	
 	PACKET_KICKOFF_STATE *packet = (PACKET_KICKOFF_STATE*)pMsg;
-	memcpy(pPacket + 2, &packet->dwFrameID, sizeof(DWORD));	//¸Þ¼¼Áö¸¦ ¹ÞÀ» FrameID
+	memcpy(pPacket + 2, &packet->dwFrameID, sizeof(DWORD));	//ë©”ì„¸ì§€ë¥¼ ë°›ì„ FrameID
 
 	MgrSend(dwConnectionIndex, pPacket, nSize);
 	delete pPacket;
 }
-//> BBD 040412		KickOff User All »óÅÂ¸¦ ¸®ÅÏÇØÁÖ´Â ÇÔ¼ö
+//> BBD 040412		KickOff User All ìƒíƒœë¥¼ ë¦¬í„´í•´ì£¼ëŠ” í•¨ìˆ˜

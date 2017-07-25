@@ -1,4 +1,4 @@
-//
+ï»¿//
 //
 //
 
@@ -24,7 +24,7 @@ typedef struct client_access_login
 
 } t_client_access_login;
 
-// Added by chan78 at 2000/12/07 :: °ú±İ
+// Added by chan78 at 2000/12/07 :: ê³¼ê¸ˆ
 typedef struct client_access_login_zoung
 {
 	short int		key;
@@ -45,8 +45,8 @@ typedef struct client_access_pay_per_min
 	short int		version;
 	short int		mycode;
 	//1115 zhh_edited
-	short int		Corp_Code;	//¾÷Ã¼ ÄÚµå
-	char			User_ID[ID_LENGTH];	//Á¾·®Á¦ ¾÷Ã¼¿ë ID
+	short int		Corp_Code;	//ì—…ì²´ ì½”ë“œ
+	char			User_ID[ID_LENGTH];	//ì¢…ëŸ‰ì œ ì—…ì²´ìš© ID
 	char			GateWayIP[20];
 	int				GateWayPORT;
 } t_client_access_pay_per_min;
@@ -59,8 +59,8 @@ typedef struct client_access_pay_per_min_zoung
 	short int		version;
 	short int		mycode;
 	//1115 zhh_edited
-	short int		Corp_Code;	//¾÷Ã¼ ÄÚµå
-	char			User_ID[ID_LENGTH];	//Á¾·®Á¦ ¾÷Ã¼¿ë ID
+	short int		Corp_Code;	//ì—…ì²´ ì½”ë“œ
+	char			User_ID[ID_LENGTH];	//ì¢…ëŸ‰ì œ ì—…ì²´ìš© ID
 	char			GateWayIP[20];
 	int				GateWayPORT;
 	char			ip[20];		//Added by zoung
@@ -119,7 +119,7 @@ typedef struct client_access_join
 	char			id[ID_LENGTH];
 	char			pw[PW_LENGTH];
 	char			name[NM_LENGTH];
-	char			startposition;		// 99ÀÌ¸é ¸Ç ¸¶Áö¸·¿¡ LogOutÇÑÀÚ¸®¿¡¼­ ³ªÅ¸³­´Ù. 
+	char			startposition;		// 99ì´ë©´ ë§¨ ë§ˆì§€ë§‰ì— LogOutí•œìë¦¬ì—ì„œ ë‚˜íƒ€ë‚œë‹¤. 
 	
 } t_client_access_join;
 
@@ -162,8 +162,8 @@ typedef struct login_bbs		// 010110 YGI
 struct t_send_map_change_date
 {
 	BYTE		server_header;	//PTCL
-	t_header	cmd_header;		//Raja PacketÀÇ t_header
-	BYTE		bChanged;		//³¯(Day)°¡ º¯°æµÇ¾úÀ¸¸é 1, ´Ş(Month)°ú ³¯Â¥°¡ °°ÀÌ º¯°æµÇ¾úÀ¸¸é 2
+	t_header	cmd_header;		//Raja Packetì˜ t_header
+	BYTE		bChanged;		//ë‚ (Day)ê°€ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 1, ë‹¬(Month)ê³¼ ë‚ ì§œê°€ ê°™ì´ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 2
 	WORD		wDay;			//Day
 	WORD		wMonth;			//Month
 
@@ -186,7 +186,7 @@ struct t_rm_change_weather
 {
 	BYTE	server_header;
 	t_header cmd_header;
-	BYTE	bWeather;		//0ÀÌ¸é Á¤»ó, 1ÀÌ¸é ºñ, 2ÀÌ¸é ´« 
+	BYTE	bWeather;		//0ì´ë©´ ì •ìƒ, 1ì´ë©´ ë¹„, 2ì´ë©´ ëˆˆ 
 	DWORD	dwAmount;
 
 	DWORD GetPacketSize() { return (DWORD)11;	}
@@ -258,7 +258,7 @@ typedef struct connection
 	DWORD			monitor_time;
 	DWORD			send_bytes;
 	DWORD			receive_bytes;
-	int				send_try;		// º¸³»±â È½¼ö...
+	int				send_try;		// ë³´ë‚´ê¸° íšŸìˆ˜...
 
 	int				send_addlen;
 
@@ -295,9 +295,9 @@ typedef struct connection
 	char			mapname[NM_LENGTH];
 
 	int				server_check;
-	char			*SendBuf;				// send()·Î º¸³¾ ³»¿ëÀ» ´ÙÀ½¿¡ ´ã¾Æ ³õ´Â´Ù. 
-	int				SendBufSize;			// send()·Î º¸³¾ ³»¿ëÀÇ Å©±â. 
-	int				SendErr;				// send()·Î º¸³¾ ³»¿ëÀÇ Å©±â. 
+	char			*SendBuf;				// send()ë¡œ ë³´ë‚¼ ë‚´ìš©ì„ ë‹¤ìŒì— ë‹´ì•„ ë†“ëŠ”ë‹¤. 
+	int				SendBufSize;			// send()ë¡œ ë³´ë‚¼ ë‚´ìš©ì˜ í¬ê¸°. 
+	int				SendErr;				// send()ë¡œ ë³´ë‚¼ ë‚´ìš©ì˜ í¬ê¸°. 
 
 } t_connection;
 */
@@ -398,11 +398,11 @@ typedef struct tag_K_ITEM
 typedef struct tag_CharRank
 {
 //public :
-	DWORD	nation		: 4 ;		// ¼ÓÇÑ³ª¶ó	0 : ¾øÀ½, 1, 2, 3: ¹ÙÀÌ¼­½º 4: ÀÚÀÌÆİ 5:Çì°Ô¸ğ´Ï¾Æ 6: ÀÏ½º
-	DWORD	counselor	: 2 ;		// 0 : ¾øÀ½, 1: È¸»ç ¿î¿µÀÚ, 2: °ÔÀÓ³» ¿î¿µÀÚ
-	DWORD	king		: 1 ;		// ³ª¶ó ¿Õ
-	DWORD	guild_code	: 9 ;		// ±æµå ÄÚµå ( 512°³ )
-	DWORD	guild_master: 3 ;		// ±æµå ¸¶½ºÅÍ
+	DWORD	nation		: 4 ;		// ì†í•œë‚˜ë¼	0 : ì—†ìŒ, 1, 2, 3: ë°”ì´ì„œìŠ¤ 4: ìì´í€ 5:í—¤ê²Œëª¨ë‹ˆì•„ 6: ì¼ìŠ¤
+	DWORD	counselor	: 2 ;		// 0 : ì—†ìŒ, 1: íšŒì‚¬ ìš´ì˜ì, 2: ê²Œì„ë‚´ ìš´ì˜ì
+	DWORD	king		: 1 ;		// ë‚˜ë¼ ì™•
+	DWORD	guild_code	: 9 ;		// ê¸¸ë“œ ì½”ë“œ ( 512ê°œ )
+	DWORD	guild_master: 3 ;		// ê¸¸ë“œ ë§ˆìŠ¤í„°
 
 //public :
 //	CCharRank() { memset( this, 0, sizeof( CCharRank) ); }

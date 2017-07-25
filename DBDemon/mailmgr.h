@@ -1,4 +1,4 @@
-// MailMgr.h: interface for the CMailMgr class.
+ï»¿// MailMgr.h: interface for the CMailMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,9 +10,9 @@
 #endif // _MSC_VER > 1000
 
 enum eMAIL_VIEW_TYPE
-{//ÀÎÅÍÆäÀÌ½ºÀÇ nWillDo¿¡µµ »ç¿ë µË´Ï´Ù.
-	MVT_RECV_LIST = 0,//¹ŞÀºÆíÁöÇÔ
-	MVT_DELETE_LIST = 1,//Áö¿î ÆíÁöÇÔ
+{//ì¸í„°í˜ì´ìŠ¤ì˜ nWillDoì—ë„ ì‚¬ìš© ë©ë‹ˆë‹¤.
+	MVT_RECV_LIST = 0,//ë°›ì€í¸ì§€í•¨
+	MVT_DELETE_LIST = 1,//ì§€ìš´ í¸ì§€í•¨
 };
 
 class CMailMgr  
@@ -32,23 +32,23 @@ public:
 	CMailMgr();
 	virtual ~CMailMgr();
 
-public://½ÇÁ¦ ÄÚµù
+public://ì‹¤ì œ ì½”ë”©
 	void Recv(const int cn, t_packet *p);
-	void RecvReqMailList(const int cn, t_packet *p);//¸®½ºÆ® ¿äÃ»À» ¹ŞÀ½ //¹ŞÀº ¸Ê¼­¹ö·Î µÇµ¹¸²
+	void RecvReqMailList(const int cn, t_packet *p);//ë¦¬ìŠ¤íŠ¸ ìš”ì²­ì„ ë°›ìŒ //ë°›ì€ ë§µì„œë²„ë¡œ ë˜ëŒë¦¼
 
 	bool InsertMail( const int iType, const char *szSender, const char *szReceiver, char *title, char *body );
 	bool InsertMail2( const int iType, const char *szSender, const char *szReceiver, char *title, char *body );
 
-	void SendAlert(const char *szName);//¸ŞÀÏÀÌ Ãß°¡ µÉ °æ¿ì À¯Àú¿¡°Ô ¸Ş¼¼Áö¸¦ ³¯¸².
-	void SendInsertMailResult( const char *szName, const int cn, const int cmd_type );//¸ŞÀÏÀÌ Ãß°¡ µÉ °æ¿ì À¯Àú¿¡°Ô ¸Ş¼¼Áö¸¦ ³¯¸².
+	void SendAlert(const char *szName);//ë©”ì¼ì´ ì¶”ê°€ ë  ê²½ìš° ìœ ì €ì—ê²Œ ë©”ì„¸ì§€ë¥¼ ë‚ ë¦¼.
+	void SendInsertMailResult( const char *szName, const int cn, const int cmd_type );//ë©”ì¼ì´ ì¶”ê°€ ë  ê²½ìš° ìœ ì €ì—ê²Œ ë©”ì„¸ì§€ë¥¼ ë‚ ë¦¼.
 
-	bool RecvDelete(const int cn, t_packet *p);//¸ŞÀÏÀÌ Áö¿öÁü 
-	bool RecvRepair(const int cn, t_packet *p);//¸ŞÀÏÀÌ º¹±¸µÊ 
+	bool RecvDelete(const int cn, t_packet *p);//ë©”ì¼ì´ ì§€ì›Œì§ 
+	bool RecvRepair(const int cn, t_packet *p);//ë©”ì¼ì´ ë³µêµ¬ë¨ 
 
-public://¼³°è½Ã
-	void RecvRequestList();//½ÃÀÛÁ¡À» °¡Áö°í ¹ŞÀ½ ÇÑÆäÀÌÁö ¸¸Å­ º¸³»ÁÜ.
-	void RecvRequestBody(const int cn,t_packet *p);//Index ¸¦ °¡Áö°í ÂüÁ¶
-	bool IsExistNotRead(const int cn,t_packet *p);//¾ÈÀĞÀº ¸ŞÀÏÀÌ ÀÖ´Â°¡?
+public://ì„¤ê³„ì‹œ
+	void RecvRequestList();//ì‹œì‘ì ì„ ê°€ì§€ê³  ë°›ìŒ í•œí˜ì´ì§€ ë§Œí¼ ë³´ë‚´ì¤Œ.
+	void RecvRequestBody(const int cn,t_packet *p);//Index ë¥¼ ê°€ì§€ê³  ì°¸ì¡°
+	bool IsExistNotRead(const int cn,t_packet *p);//ì•ˆì½ì€ ë©”ì¼ì´ ìˆëŠ”ê°€?
 };
 
 extern CMailMgr g_MailMgr;

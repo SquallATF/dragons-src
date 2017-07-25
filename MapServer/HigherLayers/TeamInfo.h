@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	TeamInfo.h.
  *			interface for the CTeamInfo class.
  */
@@ -8,20 +8,20 @@
 
 /**
  * @def		enum _eTEAM.
- * @brief	ÀüÀï¿¡¼­ ¾²ÀÏ team ÀÎ½ÄÀÚ.
+ * @brief	ì „ìŸì—ì„œ ì“°ì¼ team ì¸ì‹ìž.
  */
 //< LTH-040419-KO.
 typedef enum _eTEAM
 {
-	TEAM1		= 0,	/**< ¾Æ±º ¹× Attacker. */
-	TEAM2		= 1,	/**< Àû±º ¹× Deffenser. */
-	MAX_TEAM	= 2,	/**< ÃÑ ÆÀÀÇ °³¼ö. */
+	TEAM1		= 0,	/**< ì•„êµ° ë° Attacker. */
+	TEAM2		= 1,	/**< ì êµ° ë° Deffenser. */
+	MAX_TEAM	= 2,	/**< ì´ íŒ€ì˜ ê°œìˆ˜. */
 } eTEAM;
 //> LTH-040419-KO.
 
 /**
  * @class	CSquad.
- * @brief	ÀüÀïÅÍ¿¡¼­ ¾²ÀÏ ºÎ´ë¿¡ °üÇÑ Á¤º¸ °ü·Ã class.
+ * @brief	ì „ìŸí„°ì—ì„œ ì“°ì¼ ë¶€ëŒ€ì— ê´€í•œ ì •ë³´ ê´€ë ¨ class.
  */
 //< LTH-040419-KO.
 typedef class CSquad
@@ -46,8 +46,8 @@ public:
 
 	/**
 	 * @fn		CSquad::SetLivePoint().
-	 * @brief	ÀÌ ºÎ´ëÀÇ ·Îµù Æ÷ÀÎÆ® ¼³Á¤.
-	 * @param	POINT xyLivePoint. ¼³Á¤ µÉ ·Îµù Æ÷ÀÎÆ®.
+	 * @brief	ì´ ë¶€ëŒ€ì˜ ë¡œë”© í¬ì¸íŠ¸ ì„¤ì •.
+	 * @param	POINT xyLivePoint. ì„¤ì • ë  ë¡œë”© í¬ì¸íŠ¸.
 	 * @return	VOID.
 	 */
 	//< LTH-040419-KO.
@@ -56,8 +56,8 @@ public:
 
 	/**
 	 * @fn		CSquad::GetLivePoint().
-	 * @brief	ÀÌ ºÎ´ëÀÇ ·Îµù Æ÷ÀÎÆ®.
-	 * @return	POINT. ·ÎµùÆ÷ÀÎÆ® ¹ÝÈ¯.
+	 * @brief	ì´ ë¶€ëŒ€ì˜ ë¡œë”© í¬ì¸íŠ¸.
+	 * @return	POINT. ë¡œë”©í¬ì¸íŠ¸ ë°˜í™˜.
 	 */
 	//< LTH-040419-KO.
 	POINT GetLivePoint() { return m_xyLoadingPoint; }
@@ -65,8 +65,8 @@ public:
 
 	/**
 	 * @fn		CSquad::SetSquadNo().
-	 * @brief	ÀÌ ºÎ´ë¹øÈ£ ¼³Á¤.
-	 * @param	INT nSquadNo. ¼³Á¤ ÇÒ ºÎ´ë ¹øÈ£.
+	 * @brief	ì´ ë¶€ëŒ€ë²ˆí˜¸ ì„¤ì •.
+	 * @param	INT nSquadNo. ì„¤ì • í•  ë¶€ëŒ€ ë²ˆí˜¸.
 	 * @return	VOID.
 	 */
 	//< LTH-040419-KO.
@@ -76,31 +76,31 @@ public:
 protected:
 	/**
 	 * @def		std::list<SquadMember*> LTSQUAD;.
-	 * @brief	ºÎ´ë¿øÀ» °ü¸® ÇÒ ¸®½ºÆ® Á¤ÀÇ.
+	 * @brief	ë¶€ëŒ€ì›ì„ ê´€ë¦¬ í•  ë¦¬ìŠ¤íŠ¸ ì •ì˜.
 	 */
 	//< LTH-040419-KO.
 	typedef std::list<SquadMember*> LTSQUAD;
 	//> LTH-040419-KO.
 	/**
 	 * @def		LTSQUAD::iterator LTSQUADIT;.
-	 * @brief	ºÎ´ë¿øÀ» °ü¸® ÇÒ ¸®½ºÆ®ÀÇ ¹Ýº¹ÀÚ.
+	 * @brief	ë¶€ëŒ€ì›ì„ ê´€ë¦¬ í•  ë¦¬ìŠ¤íŠ¸ì˜ ë°˜ë³µìž.
 	 */
 	//< LTH-040419-KO.
 	typedef LTSQUAD::iterator LTSQUADIT;
 	//> LTH-040419-KO.
 
-	INT m_nSquadNo;					/**< ÀÌ ºÎ´ëÀÇ ¹øÈ£. */
-	LTSQUAD m_ltSquad;				/**< ºÎ´ë¿øÀ» °ü¸® ÇÒ ¸®½ºÆ® */
-	INT m_nSquadLeader;				/**< ºÎ´ëÀå. */
-	POINT m_xyLoadingPoint;			/**< ÀÌ ºÎ´ëÀÇ ·Îµù Æ÷ÀÎÆ®. */
-	INT m_naNumOfDeathNation[3];	/**< °¢ ±¹°¡º° Á×Àº »ç¶÷ ¼ö. */
-	INT m_naNumOfJoinNation[3];		/**< °¢ ±¹°¡º° Âü¿© ÀÎ¿ø ¼ö. */
-} *LPSQUAD;							/**< Æ÷ÀÎÅÍ Çü º¯¼ö Á¤ÀÇ. */
+	INT m_nSquadNo;					/**< ì´ ë¶€ëŒ€ì˜ ë²ˆí˜¸. */
+	LTSQUAD m_ltSquad;				/**< ë¶€ëŒ€ì›ì„ ê´€ë¦¬ í•  ë¦¬ìŠ¤íŠ¸ */
+	INT m_nSquadLeader;				/**< ë¶€ëŒ€ìž¥. */
+	POINT m_xyLoadingPoint;			/**< ì´ ë¶€ëŒ€ì˜ ë¡œë”© í¬ì¸íŠ¸. */
+	INT m_naNumOfDeathNation[3];	/**< ê° êµ­ê°€ë³„ ì£½ì€ ì‚¬ëžŒ ìˆ˜. */
+	INT m_naNumOfJoinNation[3];		/**< ê° êµ­ê°€ë³„ ì°¸ì—¬ ì¸ì› ìˆ˜. */
+} *LPSQUAD;							/**< í¬ì¸í„° í˜• ë³€ìˆ˜ ì •ì˜. */
 //> LTH-040419-KO.
 
 /**
  * @class	CTeamInfo.
- * @brief	ÀüÀï¿¡¼­ÀÇ ÆÀÀ» °ü¸® ÇÏ±â À§ÇÑ class.
+ * @brief	ì „ìŸì—ì„œì˜ íŒ€ì„ ê´€ë¦¬ í•˜ê¸° ìœ„í•œ class.
  */
 //< LTH-040419-KO.
 typedef class CTeamInfo  
@@ -127,9 +127,9 @@ public:
 
 	/**
 	 * @fn		CTeamInfo::SetLivePoint().
-	 * @brief	°¢ ºÎ´ë ·ÎµùÆ÷ÀÎÆ® ¼³Á¤.
-	 * @param	INT nSquadNo. ºÎ´ë ¹øÈ£.
-	 * @param	POINT xyLivePoint. ·Îµù Æ÷ÀÎÆ®.
+	 * @brief	ê° ë¶€ëŒ€ ë¡œë”©í¬ì¸íŠ¸ ì„¤ì •.
+	 * @param	INT nSquadNo. ë¶€ëŒ€ ë²ˆí˜¸.
+	 * @param	POINT xyLivePoint. ë¡œë”© í¬ì¸íŠ¸.
 	 * @return	VOID.
 	 */
 	//< LTH-040419-KO.
@@ -138,9 +138,9 @@ public:
 
 	/**
 	 * @fn		CTeamInfo::AddDeathCount().
-	 * @brief	Á×Àº »ç¶÷ ¼ö.
-	 * @param	INT nNationNo. Á×Àº »ç¶÷ÀÇ ±¹°¡.
-	 * @param	INT nSquadNo. Á×Àº »ç¶÷ÀÇ ºÎ´ë.
+	 * @brief	ì£½ì€ ì‚¬ëžŒ ìˆ˜.
+	 * @param	INT nNationNo. ì£½ì€ ì‚¬ëžŒì˜ êµ­ê°€.
+	 * @param	INT nSquadNo. ì£½ì€ ì‚¬ëžŒì˜ ë¶€ëŒ€.
 	 * @return	VOID.
 	 */
 	//< LTH-040419-KO.
@@ -149,8 +149,8 @@ public:
 
 	/**
 	 * @fn		CTeamInfo::SetTeamNo().
-	 * @brief	ÀÌ ÆÀÀÇ ¹øÈ£ ¼³Á¤.
-	 * @param	INT nTeamNo. ¼³Á¤ ÇÒ ¹øÈ£.
+	 * @brief	ì´ íŒ€ì˜ ë²ˆí˜¸ ì„¤ì •.
+	 * @param	INT nTeamNo. ì„¤ì • í•  ë²ˆí˜¸.
 	 * @return	VOID.
 	 */
 	//< LTH-040419-KO.
@@ -159,8 +159,8 @@ public:
 
 	/**
 	 * @fn		CTeamInfo::GetNumOfSquad().
-	 * @brief	ºÎ´ë ¼ö ¹ÝÈ¯.
-	 *			¹Ýµå½Ã ÇÊ¿äÇÏ´Ù. ºÎ´ë ¼ö¸¦ ¾Ë¾Æ³»¾î ±×¸¸Å­ ·çÇÁ¸¦ µ¹¾Æ¾ßÇÏ´Ï±î...
+	 * @brief	ë¶€ëŒ€ ìˆ˜ ë°˜í™˜.
+	 *			ë°˜ë“œì‹œ í•„ìš”í•˜ë‹¤. ë¶€ëŒ€ ìˆ˜ë¥¼ ì•Œì•„ë‚´ì–´ ê·¸ë§Œí¼ ë£¨í”„ë¥¼ ëŒì•„ì•¼í•˜ë‹ˆê¹Œ...
 	 * @return	INT.
 	 */
 	//< LTH-040304-KO.
@@ -168,9 +168,9 @@ public:
 	//> LTH-040304-KO.
 	
 protected:
-	INT m_nTeamNo;		/**< ÀÌ ÆÀÀÇ ¹øÈ£. ÁÖ·Î enum eTEAM °ªÀ» »ç¿ë ÇÑ´Ù. */
-	INT m_nNumOfSquad;	/**< ÀÌ ÆÀÀÇ ºÎ´ë ¼ö. ¾ÈÀüÇÏµµ·Ï Àû¾îµµ ÇÑ ÆÀ ÀÌ»óÀ¸·Î ÇÑ´Ù. */
-	INT m_nCommander;	/**< ÀÌ ÆÀÀÇ »ç·É°ü. */
-	LPSQUAD m_lpSquad;	/**< ÀÌ ÆÀÀÇ ºÎ´ëµéÀ» °ü¸® ÇÏ±â À§ÇÑ ¸®½ºÆ®. */
-} *LPTEAMINFO;			/**< Æ÷ÀÎÅÍ Çü º¯¼ö Á¤ÀÇ. */
+	INT m_nTeamNo;		/**< ì´ íŒ€ì˜ ë²ˆí˜¸. ì£¼ë¡œ enum eTEAM ê°’ì„ ì‚¬ìš© í•œë‹¤. */
+	INT m_nNumOfSquad;	/**< ì´ íŒ€ì˜ ë¶€ëŒ€ ìˆ˜. ì•ˆì „í•˜ë„ë¡ ì ì–´ë„ í•œ íŒ€ ì´ìƒìœ¼ë¡œ í•œë‹¤. */
+	INT m_nCommander;	/**< ì´ íŒ€ì˜ ì‚¬ë ¹ê´€. */
+	LPSQUAD m_lpSquad;	/**< ì´ íŒ€ì˜ ë¶€ëŒ€ë“¤ì„ ê´€ë¦¬ í•˜ê¸° ìœ„í•œ ë¦¬ìŠ¤íŠ¸. */
+} *LPTEAMINFO;			/**< í¬ì¸í„° í˜• ë³€ìˆ˜ ì •ì˜. */
 //< LTH-040419-KO.

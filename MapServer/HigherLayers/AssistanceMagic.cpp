@@ -1,4 +1,4 @@
-// AssistanceMagic.cpp: implementation of the CAssistanceMagic class.
+ï»¿// AssistanceMagic.cpp: implementation of the CAssistanceMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -42,24 +42,24 @@ bool CAssistanceMagic::Bind()
 }
 
 bool CAssistanceMagic::SpeedUp()
-{	// [83]¼ÓµµÁõ°¡ : ÀÌµ¿¼Óµµ¸¦ 20 ~ 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// Áõ°¡·ü °è»ê
+{	// [83]ì†ë„ì¦ê°€ : ì´ë™ì†ë„ë¥¼ 20 ~ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì¦ê°€ë¥  ê³„ì‚°
 	const int nInt = m_pCaster->GetAbility(INT_);
 	const int nTactics = m_pCaster->Skill[TACTICS_Magery];
 	int nBasic = (nInt + nTactics)/20;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 30)  nBasic = 30;
-	// ÀÌµ¿¼Óµµ 20 ~ 50% Áõ°¡
+	// ì´ë™ì†ë„ 20 ~ 50% ì¦ê°€
 	m_pTarget->speedUp.SetState(m_dwNow + wPeriod, nBasic + 20);
 	
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -71,18 +71,18 @@ bool CAssistanceMagic::SpeedUp()
 }
 
 bool CAssistanceMagic::EnchantWeapon()
-{	// [21]ÀÎÃ¾Æ®¿şÆù : ¹°¸®Àû °ø°İ µ¥¹ÌÁöÀ» 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû °ø°İ·Â 50% Áõ°¡
+{	// [21]ì¸ì²¸íŠ¸ì›¨í° : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ì„ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ê³µê²©ë ¥ 50% ì¦ê°€
 	m_pTarget->SetPhysicalAttack(m_dwNow + wPeriod, 50, 50, 50);
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex; 
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -94,18 +94,18 @@ bool CAssistanceMagic::EnchantWeapon()
 }
 
 bool CAssistanceMagic::PrayPower()
-{	// [161]±âµµÀÇ ¿ª»ç : ¹°¸®Àû °ø°İ µ¥¹ÌÁö¸¦ 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû °ø°İ·Â 50% Áõ°¡
+{	// [161]ê¸°ë„ì˜ ì—­ì‚¬ : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ë¥¼ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ê³µê²©ë ¥ 50% ì¦ê°€
 	m_pTarget->SetPhysicalAttack(m_dwNow + wPeriod, 50, 50, 50);
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -117,18 +117,18 @@ bool CAssistanceMagic::PrayPower()
 }
 
 bool CAssistanceMagic::GreatPray()
-{	// [166]À§´ëÇÑ ±âµµ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû °ø°İ·Â 50% Áõ°¡
+{	// [166]ìœ„ëŒ€í•œ ê¸°ë„
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ê³µê²©ë ¥ 50% ì¦ê°€
 	m_pTarget->SetPhysicalAttack(m_dwNow + wPeriod, 50, 50, 50);
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -140,13 +140,13 @@ bool CAssistanceMagic::GreatPray()
 }
 
 bool CAssistanceMagic::MinorAmplify()
-{	// [25]¼ÒÁõÆø : °ø°İ ¸¶¹ıÀÇ µ¥¹ÌÁö¸¦ 20% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// °ø°İ ¸¶¹ıÀÇ µ¥¹ÌÁö¸¦ 20% Áõ°¡
+{	// [25]ì†Œì¦í­ : ê³µê²© ë§ˆë²•ì˜ ë°ë¯¸ì§€ë¥¼ 20% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ê³µê²© ë§ˆë²•ì˜ ë°ë¯¸ì§€ë¥¼ 20% ì¦ê°€
 	m_pTarget->amplify.SetState(m_dwNow + wPeriod, 20);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -158,13 +158,13 @@ bool CAssistanceMagic::MinorAmplify()
 }
 
 bool CAssistanceMagic::MagicAmplify()
-{	// [26]¸¶¹ıÁõÆø : °ø°İ ¸¶¹ıÀÇ µ¥¹ÌÁö¸¦ 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// °ø°İ ¸¶¹ıÀÇ µ¥¹ÌÁö¸¦ 50% Áõ°¡
+{	// [26]ë§ˆë²•ì¦í­ : ê³µê²© ë§ˆë²•ì˜ ë°ë¯¸ì§€ë¥¼ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ê³µê²© ë§ˆë²•ì˜ ë°ë¯¸ì§€ë¥¼ 50% ì¦ê°€
 	m_pTarget->amplify.SetState(m_dwNow + wPeriod, 50);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -176,20 +176,20 @@ bool CAssistanceMagic::MagicAmplify()
 }
 
 bool CAssistanceMagic::Transparency()
-{	// [22]Åõ¸íÁÖ¹® : ÀÚ½ÅÀÇ ¸öÀ» Åõ¸íÇÏ°Ô ¸¸µé¾î ÁÜ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [22]íˆ¬ëª…ì£¼ë¬¸ : ìì‹ ì˜ ëª¸ì„ íˆ¬ëª…í•˜ê²Œ ë§Œë“¤ì–´ ì¤Œ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->dwTransparency = m_dwNow + wPeriod; 
-	// Åõ¸íÃ¼ Ãâ·ÂÀ» À§ÇÑ VIEWTYPE ¼³Á¤(transparency)
+	// íˆ¬ëª…ì²´ ì¶œë ¥ì„ ìœ„í•œ VIEWTYPE ì„¤ì •(transparency)
 	m_pTarget->viewtype = VIEWTYPE_TRANSPARENCY_;
 	::SendViewType(m_pTarget, VIEWTYPE_TRANSPARENCY_, m_pTarget->dwTransparency);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
 	m_packet.u.magic.server_magic_result_t.nState = m_pTarget->GetState();
-	// ÀÏ¹İ ¼º°øÀ¸·Î º¸³»´Â °æ¿ì Å¬¶óÀÌ¾ğÆ®¿¡¼­ ´Ù½Ã Á¤»ó»óÅÂ·Î ¼ÂÆÃÇÏ¹Ç·Î ½ÇÆĞ·Î º¸³¿
+	// ì¼ë°˜ ì„±ê³µìœ¼ë¡œ ë³´ë‚´ëŠ” ê²½ìš° í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë‹¤ì‹œ ì •ìƒìƒíƒœë¡œ ì…‹íŒ…í•˜ë¯€ë¡œ ì‹¤íŒ¨ë¡œ ë³´ëƒ„
 	m_packet.u.magic.server_magic_result_t.nResult = HIT_FAILED;
 	m_packet.u.magic.server_magic_result_t.wDuration = wPeriod;
 	SendMagicResult();
@@ -197,10 +197,10 @@ bool CAssistanceMagic::Transparency()
 }
 
 bool CAssistanceMagic::Light()
-{	// [46]ºû : ÁÖÀ§¸¦ È¯ÇÏ°Ô ÇØÁÜ(¹ã¿¡ ½Ã¾ß°¡ ¾îµÎ¿öÁö´Â °ÍÀ» À§ÇØ)
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [46]ë¹› : ì£¼ìœ„ë¥¼ í™˜í•˜ê²Œ í•´ì¤Œ(ë°¤ì— ì‹œì•¼ê°€ ì–´ë‘ì›Œì§€ëŠ” ê²ƒì„ ìœ„í•´)
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->dwLight = m_dwNow + wPeriod;
-	// ÁÖÀ§¸¦ È¯ÇÏ°Ô ÇÔ
+	// ì£¼ìœ„ë¥¼ í™˜í•˜ê²Œ í•¨
 	WeatherControl.SetChLight(m_pCaster, nMaximumLight, wPeriod);
 	
 	for (int i = 0; i < MAX_PARTY_MEMBER; ++i)
@@ -213,9 +213,9 @@ bool CAssistanceMagic::Light()
 			WeatherControl.SetChLight(Target,nMaximumLight/2,5*60);
 		}
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -227,12 +227,12 @@ bool CAssistanceMagic::Light()
 }
 
 bool CAssistanceMagic::AuthorityLuck()
-{	// [175]Àı´ë Çà¿îÀÇ ±Ç´É : ¸ğµç ¹°¸®Àû °ø°İ°ú ¸¶¹ıÀÌ ¼º°ø
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [175]ì ˆëŒ€ í–‰ìš´ì˜ ê¶ŒëŠ¥ : ëª¨ë“  ë¬¼ë¦¬ì  ê³µê²©ê³¼ ë§ˆë²•ì´ ì„±ê³µ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->dwDontMiss = m_dwNow + wPeriod;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;

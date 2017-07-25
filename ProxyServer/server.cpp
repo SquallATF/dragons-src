@@ -1,4 +1,4 @@
-#include "server.h"
+Ôªø#include "server.h"
 #include "typedef.h"
 #include "usertable.h"
 #include "servertable.h"
@@ -16,8 +16,8 @@
 I4DyuchiNET* g_pINet = NULL;
 char buffer1[512];
 
-WORD g_wCurDay;			//«ˆ¿Á ≥Ø¬•∏¶ ¿˙¿Â «œ¥¬ ¿¸ø™∫Øºˆ 
-WORD g_wCurMonth;		//«ˆ¿Á ¥ﬁ(month)¿ª  ¿˙¿Â «œ¥¬ ¿¸ø™∫Øºˆ 
+WORD g_wCurDay;			//ÌòÑÏû¨ ÎÇ†ÏßúÎ•º Ï†ÄÏû• ÌïòÎäî Ï†ÑÏó≠Î≥ÄÏàò 
+WORD g_wCurMonth;		//ÌòÑÏû¨ Îã¨(month)ÏùÑ  Ï†ÄÏû• ÌïòÎäî Ï†ÑÏó≠Î≥ÄÏàò 
 
 extern CUserManager g_mgrUser;
 
@@ -110,7 +110,7 @@ void __stdcall ShowServerStatusDetail(DWORD dwValue)//020511 lsw
 	}
 }
 
-// DB Demon ∑ŒµÂ∏¶ ¡÷±‚¿˚¿∏∑Œ ¡∂¡§«—¥Ÿ
+// DB Demon Î°úÎìúÎ•º Ï£ºÍ∏∞Ï†ÅÏúºÎ°ú Ï°∞Ï†ïÌïúÎã§
 void __stdcall ReBalanceDBLoad(DWORD dwValue)//020511 lsw
 {
 	if( g_pServerTable )
@@ -124,7 +124,7 @@ void __stdcall ReBalanceDBLoad(DWORD dwValue)//020511 lsw
 	return;
 }
 
-// ∏µÁ º≠πˆø°∞‘ ªÛ≈¬ ∫∏∞Ì∏¶ ø‰±∏«—¥Ÿ.
+// Î™®Îì† ÏÑúÎ≤ÑÏóêÍ≤å ÏÉÅÌÉú Î≥¥Í≥†Î•º ÏöîÍµ¨ÌïúÎã§.
 void __stdcall OrderToReportServerStatus(DWORD dwValue)//020511 lsw
 {
 	// add by slowboat
@@ -138,7 +138,7 @@ void __stdcall OrderToReportServerStatus(DWORD dwValue)//020511 lsw
 
 	while( pCur )
 	{
-		// Target¿∫ ¡¢º”µ» ∏µÁ º≠πˆ.
+		// TargetÏùÄ Ï†ëÏÜçÎêú Î™®Îì† ÏÑúÎ≤Ñ.
 		if( pCur->dwConnectionIndex )
 		{
 			dwTotal++;
@@ -228,11 +228,11 @@ void __stdcall TimerForUserTable(DWORD dwValue)//020511 lsw
 
 	if( g_pUserTable )
 	{
-		// ¡¢º”¡æ∑· ¥Î±‚ √≥∏ÆøÎ.
+		// Ï†ëÏÜçÏ¢ÖÎ£å ÎåÄÍ∏∞ Ï≤òÎ¶¨Ïö©.
 		DWORD dwCount = g_pUserTable->CloseConnectionWithAwaitingToDisconnect();
 		if( dwCount )
 		{
-			// ∏¬¥¬¥Ÿ∞Ì ª˝∞¢«œ∞Ì ∑Œ±◊«œ¡ˆ æ ¥¬¥Ÿ.
+			// ÎßûÎäîÎã§Í≥† ÏÉùÍ∞ÅÌïòÍ≥† Î°úÍ∑∏ÌïòÏßÄ ÏïäÎäîÎã§.
 //			MyLog( LOG_NORMAL, "TimerForUserTable() :: (%d/%d) Timed out connections are cleared.", dwCount, g_pUserTable->GetUserNum() );
 		}
 	}
@@ -270,24 +270,24 @@ void __stdcall DecreseMaxUser(DWORD dwValue)//020511 lsw
 	MyLog( LOG_NORMAL, "MAX USER ADJUST: %d users can login this set. F3 -, F4 +",g_pProxy->dwMaxUser);
 }
 
-// 011012 KBS ; ≥Ø¬• ∫Ø∞Ê Check «‘ºˆ 
+// 011012 KBS ; ÎÇ†Ïßú Î≥ÄÍ≤Ω Check Ìï®Ïàò 
 void __stdcall CheckDay(DWORD dwValue)//020511 lsw
 {
 	SYSTEMTIME time;
 	GetLocalTime(&time);
-	BYTE	bChanged = 1;		//≥Ø(day)∏∏ ∫Ø∞Êµ«æ˙¿∏∏È 1, ≥Ø∞˙ ¥ﬁ(month) µ—¥Ÿ ∫Ø∞Ê µ«æ˙¿∏∏È 2
+	BYTE	bChanged = 1;		//ÎÇ†(day)Îßå Î≥ÄÍ≤ΩÎêòÏóàÏúºÎ©¥ 1, ÎÇ†Í≥º Îã¨(month) ÎëòÎã§ Î≥ÄÍ≤Ω ÎêòÏóàÏúºÎ©¥ 2
 
-	//¥ﬁ¿Ã πŸ≤Óæ˙¿ª∂ß	
+	//Îã¨Ïù¥ Î∞îÎÄåÏóàÏùÑÎïå	
 	if(time.wMonth != g_wCurMonth)
 	{
-		g_wCurMonth = time.wMonth;		//¥ﬁ(month) ∞ªΩ≈ 
+		g_wCurMonth = time.wMonth;		//Îã¨(month) Í∞±Ïã† 
 		bChanged++;
 	}
 	
-	//≥Ø¬•∞° πŸ≤Óæ˙¿ª∂ß 
+	//ÎÇ†ÏßúÍ∞Ä Î∞îÎÄåÏóàÏùÑÎïå 
 	if(time.wDay != g_wCurDay)
 	{
-		g_wCurDay = time.wDay;			//≥Ø¬• ∞ªΩ≈ 
+		g_wCurDay = time.wDay;			//ÎÇ†Ïßú Í∞±Ïã† 
 		
 		t_send_map_change_date packet(bChanged, g_wCurDay, g_wCurMonth);
 		//g_pServerTable->BroadCastToEveryServer((char*)&packet, packet.GetPacketSize(), SERVER_TYPE_MAP);
@@ -298,7 +298,7 @@ void __stdcall CheckDay(DWORD dwValue)//020511 lsw
 }
 //
 
-// 011012 KBS ; º≠πˆ StartΩ√ø° «ˆ¿Á ¥ﬁ∞˙ ≥Ø¬•∏¶ º¬∆√«œ¥¬ «‘ºˆ 
+// 011012 KBS ; ÏÑúÎ≤Ñ StartÏãúÏóê ÌòÑÏû¨ Îã¨Í≥º ÎÇ†ÏßúÎ•º ÏÖãÌåÖÌïòÎäî Ìï®Ïàò 
 void SetCurrentDate()
 {
 	SYSTEMTIME time;
@@ -317,13 +317,13 @@ void StopEchoTimer()	{	g_pINet->PauseTimer(4);		}
 void StartWaitTimer()	{	g_pINet->ResumeTimer(5);	}
 void StopWaitTimer()	{	g_pINet->PauseTimer(5);		}
 
-EchoBucket g_EchoBucket[ MAX_SERVER_NUM ];	//Echo ∏ﬁºº¡ˆ πﬁ¿ª Bucket
+EchoBucket g_EchoBucket[ MAX_SERVER_NUM ];	//Echo Î©îÏÑ∏ÏßÄ Î∞õÏùÑ Bucket
 DWORD g_dwEchoID = 0;
 
 void __stdcall SendEcho(DWORD dwValue)//020511 lsw
 {
-	g_dwEchoID++;									//Echo ID ¡ı∞° 
-	memset(g_EchoBucket, 0, sizeof(EchoBucket));	//Bucket √ ±‚»≠ 	
+	g_dwEchoID++;									//Echo ID Ï¶ùÍ∞Ä 
+	memset(g_EchoBucket, 0, sizeof(EchoBucket));	//Bucket Ï¥àÍ∏∞Ìôî 	
 	
 	LP_SERVER_DATA pTargetServerData;
 	DWORD dwFailCounter = 0;	int count=0;
@@ -342,7 +342,7 @@ void __stdcall SendEcho(DWORD dwValue)//020511 lsw
 				dwFailCounter++;
 			}
 
-			count++;	//Bucket Index ¡ı∞° 
+			count++;	//Bucket Index Ï¶ùÍ∞Ä 
 		}
 	}
 	
@@ -356,9 +356,9 @@ void __stdcall CheckEchoMessage(DWORD dwValue)//020511 lsw
 	DWORD dwShit = 0;
 	for(int i=0; i<MAX_SERVER_NUM ; i++)
 	{
-		if(g_EchoBucket[ i ].bSended && !g_EchoBucket[ i ].bReceived)	//¿¿¥‰ ∏ﬁºº¡ˆ ∏¯πﬁ¿∫ º≠πˆ..  Down ∞£¡÷!!
+		if(g_EchoBucket[ i ].bSended && !g_EchoBucket[ i ].bReceived)	//ÏùëÎãµ Î©îÏÑ∏ÏßÄ Î™ªÎ∞õÏùÄ ÏÑúÎ≤Ñ..  Down Í∞ÑÏ£º!!
 		{
-			//ø©±‚º≠ RMClientø° æÀ∏≤ ¿€æ˜ 
+			//Ïó¨Í∏∞ÏÑú RMClientÏóê ÏïåÎ¶º ÏûëÏóÖ 
 			PACKET_DOWN_SERVER packet( g_pServerTable->m_dwServerSetNumber, g_EchoBucket[ i ].wPort);
 			g_pRMTable->BroadcastAllRMClient((char*)&packet, packet.GetPacketSize());	
 			
@@ -374,7 +374,7 @@ void __stdcall CheckEchoMessage(DWORD dwValue)//020511 lsw
 
 bool StartProxyServer()
 {
-	// 011012 KBS ; «ˆ¿Á Day º¬∆√
+	// 011012 KBS ; ÌòÑÏû¨ Day ÏÖãÌåÖ
 	SetCurrentDate();
 	//
 
@@ -385,22 +385,22 @@ bool StartProxyServer()
 	ev[0].dwPeriodicTime = CONNECTION_CHECK_INTERVAL;
 	ev[0].pEventFunc = OrderToReportServerStatus;
 
-	ev[1].dwPeriodicTime = 300000;	// 5∫–
+	ev[1].dwPeriodicTime = 300000;	// 5Î∂Ñ
 	ev[1].pEventFunc = ReBalanceDBLoad;
 
-	ev[2].dwPeriodicTime = 1000;	// 1∫–
+	ev[2].dwPeriodicTime = 1000;	// 1Î∂Ñ
 	ev[2].pEventFunc = TimerForUserTable;
 
-	// 011012 KBS ; ≥Ø¬• ∫Ø∞Ê √º≈© Event 5∫– 
+	// 011012 KBS ; ÎÇ†Ïßú Î≥ÄÍ≤Ω Ï≤¥ÌÅ¨ Event 5Î∂Ñ 
 	ev[3].dwPeriodicTime = 300000;	
 	ev[3].pEventFunc = CheckDay;
 	//
 
 	//011213 KBS
-	ev[4].dwPeriodicTime = 60000;	//1∫–∏∂¥Ÿ 
+	ev[4].dwPeriodicTime = 60000;	//1Î∂ÑÎßàÎã§ 
 	ev[4].pEventFunc = SendEcho;
 
-	ev[5].dwPeriodicTime = 15000;	//15√  ∏∂¥Ÿ		Modified by KBS 020330
+	ev[5].dwPeriodicTime = 15000;	//15Ï¥à ÎßàÎã§		Modified by KBS 020330
 	ev[5].pEventFunc = CheckEchoMessage;
 	//KBS
 
@@ -446,10 +446,10 @@ bool StartProxyServer()
 	ev[4].dwPeriodicTime = CONNECTION_CHECK_INTERVAL;
 	ev[4].pEventFunc = OrderToReportServerStatus;
 
-	ev[5].dwPeriodicTime = 300000;	// 5∫–
+	ev[5].dwPeriodicTime = 300000;	// 5Î∂Ñ
 	ev[5].pEventFunc = ReBalanceDBLoad;
 
-	ev[6].dwPeriodicTime = 1000;	// 1∫–
+	ev[6].dwPeriodicTime = 1000;	// 1Î∂Ñ
 	ev[6].pEventFunc = TimerForUserTable;
 	
 	ev[7].dwPeriodicTime = 0;	// By Key
@@ -461,7 +461,7 @@ bool StartProxyServer()
 	ev[10].dwPeriodicTime = 0;	// By Key
 	ev[10].pEventFunc = DecreseMaxUser;
 
-	// 011012 KBS ; ≥Ø¬• ∫Ø∞Ê √º≈© Event 5∫– 
+	// 011012 KBS ; ÎÇ†Ïßú Î≥ÄÍ≤Ω Ï≤¥ÌÅ¨ Event 5Î∂Ñ 
 	ev[11].dwPeriodicTime = 300000;	
 	ev[11].pEventFunc = CheckDay;
 	//
@@ -481,7 +481,7 @@ bool StartProxyServer()
 	desc.dwUserMaxTransferSize = 8192;
 	desc.OnRecvFromServerTCP = ReceivedMsgServer;
 	desc.OnRecvFromUserTCP = ReceivedMsgUser;
-	desc.dwCustomDefineEventNum = 14;	// 011012 KBS	; Event ∞πºˆ 14∞≥∑Œ ∫Ø∞Ê 
+	desc.dwCustomDefineEventNum = 14;	// 011012 KBS	; Event Í∞ØÏàò 14Í∞úÎ°ú Î≥ÄÍ≤Ω 
 	desc.pEvent = ev;
 	desc.dwConnectNumAtSameTime = 200;	//Modified at 020111
 //	desc.dwFlag = NETDDSC_DEBUG_LOG;
@@ -504,7 +504,7 @@ bool StartProxyServer()
 		return false;
 	}
 
-	// ¿Ø¡Æ≈◊¿Ã∫Ì ª˝º∫ ∫Œ∫–.π´Ω√«œ¿⁄.
+	// Ïú†Ï†∏ÌÖåÏù¥Î∏î ÏÉùÏÑ± Î∂ÄÎ∂Ñ.Î¨¥ÏãúÌïòÏûê.
 	g_pUserTable = new CUserTable(MAX_USER_NUM);
 	g_pServerTable = new CServerTable(PROXY_SERVER_INI_,MAX_SERVER_NUM,g_pINet);//021007 lsw
 	

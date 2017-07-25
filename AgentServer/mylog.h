@@ -1,4 +1,4 @@
-
+ï»¿
 #define MAX_LOG_LENGTH		256
 #define LOG_FATAL			0
 #define LOG_IMPORTANT		1
@@ -12,6 +12,6 @@
 #define NUM_OF_LOG_TYPE		7
 
 void MyLog( int type, char *logmsg, ... );
-void HackLog( int type, char *logmsg, ... );//¼ÇÂ¼Íâ¹ÒµÄLOG
+void HackLog( int type, char *logmsg, ... );//è®°å½•å¤–æŒ‚çš„LOG
 void InitMyLog( void );
 void FreeMyLog( void );

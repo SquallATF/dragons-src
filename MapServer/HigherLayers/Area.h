@@ -1,4 +1,4 @@
-#ifndef _DRAGON_AREA_
+ï»¿#ifndef _DRAGON_AREA_
 #define _DRAGON_AREA_
 
 #define ADD_AREA_X (18*32)
@@ -8,7 +8,7 @@
 #define REM_AREA_Y (17*32)
 
 //----------------------------------------------------------------------------------------------
-#define MAX_CMD_AREA			1000	// ÇÏ³ªÀÇ Area¿¡ 1000°³±îÁö µé¾î°¥¼ö ÀÖ´Ù. 
+#define MAX_CMD_AREA			1000	// í•˜ë‚˜ì˜ Areaì— 1000ê°œê¹Œì§€ ë“¤ì–´ê°ˆìˆ˜ ìˆë‹¤. 
 
 #define	ADD_PC_AREA				1
 #define	MOVE_PC_AREA			2									

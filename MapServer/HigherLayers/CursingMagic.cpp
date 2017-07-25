@@ -1,4 +1,4 @@
-// CursingMagic.cpp: implementation of the CCursingMagic class.
+ï»¿// CursingMagic.cpp: implementation of the CCursingMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -66,18 +66,18 @@ bool CCursingMagic::Elapse(CHARLIST* pTarget)
 			break;
 		}
     default:
-		{ // °¢ ÀúÁÖ»óÅÂ °Ë»ç
+		{ // ê° ì €ì£¼ìƒíƒœ ê²€ì‚¬
 			CheckStun(pTarget);
 			CheckSlow(pTarget);
 			CheckPoison(pTarget);
 			CheckBlind(pTarget);
 			CheckFreeze(pTarget);
-			// »óÅÂº¯°æ
+			// ìƒíƒœë³€ê²½
 			if (nState != pTarget->GetState())
 			{
 				::SendCharacterCondition(pTarget, 0);
 			}
-			// 10ÃÊ¿¡ ÇÑ¹ø¾¿ HP°¨¼Ò
+			// 10ì´ˆì— í•œë²ˆì”© HPê°ì†Œ
 			if (pTarget->GetPoisonedCount() >= 10)
 			{
 				const int nPoison = pTarget->GetPoisonedPoint();
@@ -99,15 +99,15 @@ bool CCursingMagic::Elapse(CHARLIST* pTarget)
 }
 
 bool CCursingMagic::Confusion()
-{	// [11]È¥¶õ : »ó´ë¹æÀÌ ¸¶¿ì½º Å¬¸¯ÇÑ °÷°ú ´Ù¸¥ °÷À¸·Î ÀÌµ¿, ¸¶¹ı »ç¿ë ºÒ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [11]í˜¼ë€ : ìƒëŒ€ë°©ì´ ë§ˆìš°ìŠ¤ í´ë¦­í•œ ê³³ê³¼ ë‹¤ë¥¸ ê³³ìœ¼ë¡œ ì´ë™, ë§ˆë²• ì‚¬ìš© ë¶ˆê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
-	{ // ½ÃÀüÀÚ°¡ È¸±ÍÀÇ ±Ç´É ¸¶¹ı »óÅÂ¶ó¸é
+	{ // ì‹œì „ìê°€ íšŒê·€ì˜ ê¶ŒëŠ¥ ë§ˆë²• ìƒíƒœë¼ë©´
 		m_pCaster->dwDontCasting = m_dwNow + wPeriod;
-		// ´ë»óÀÚÀÇ »óÅÂ ¼³Á¤
+		// ëŒ€ìƒìì˜ ìƒíƒœ ì„¤ì •
 		m_pCaster->ApplyCurse(1, CON_DAZE, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -119,13 +119,13 @@ bool CCursingMagic::Confusion()
 	}
 	
 	m_pTarget->dwDontCasting = m_dwNow + wPeriod;
-	// ´ë»óÀÚÀÇ »óÅÂ ¼³Á¤
+	// ëŒ€ìƒìì˜ ìƒíƒœ ì„¤ì •
 	m_pTarget->ApplyCurse(1, CON_DAZE, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -137,8 +137,8 @@ bool CCursingMagic::Confusion()
 }
 
 bool CCursingMagic::AbsoluteParalysis()
-{	// [14]Àı´ë¸¶ºñ : ¸¶¹ı »ç¿ë ºÒ°¡, ¹°¸®Àû °ø°İ ºÒ°¡, À§Ä¡ ÀÌµ¿ ºÒ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [14]ì ˆëŒ€ë§ˆë¹„ : ë§ˆë²• ì‚¬ìš© ë¶ˆê°€, ë¬¼ë¦¬ì  ê³µê²© ë¶ˆê°€, ìœ„ì¹˜ ì´ë™ ë¶ˆê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
@@ -146,7 +146,7 @@ bool CCursingMagic::AbsoluteParalysis()
 		m_pCaster->dwDontAttack = m_dwNow + wPeriod;
 		m_pCaster->dwDontMove = m_dwNow + wPeriod;
 		m_pCaster->ApplyCurse(1, CON_STONE, m_dwNow + wPeriod); 
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -161,11 +161,11 @@ bool CCursingMagic::AbsoluteParalysis()
 	m_pTarget->dwDontAttack = m_dwNow + wPeriod;
 	m_pTarget->dwDontMove = m_dwNow + wPeriod;
 	m_pTarget->ApplyCurse(1, CON_STONE, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -177,8 +177,8 @@ bool CCursingMagic::AbsoluteParalysis()
 }
 
 bool CCursingMagic::Stonely()
-{	// [13]¼®È­ : ¸öÀÌ ±»¾î¼­ ¿òÁ÷ÀÏ ¼ö ¾ø´Â »óÅÂ(¹°¸®Àû °ø°İÀÌ³ª ¸¶¹ı »ç¿ëÀÌ ºÒ°¡,ÀúÁÖÇØÁ¦¸¦ Á¦¿ÜÇÑ ¸ğµç ¸¶¹ıÀÇ Àû¿ëÀÌ ¾ÈµÊ, ¾î¶°ÇÑ µ¥¹ÌÁöµµ ¹ŞÁö ¸øÇÔ)
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [13]ì„í™” : ëª¸ì´ êµ³ì–´ì„œ ì›€ì§ì¼ ìˆ˜ ì—†ëŠ” ìƒíƒœ(ë¬¼ë¦¬ì  ê³µê²©ì´ë‚˜ ë§ˆë²• ì‚¬ìš©ì´ ë¶ˆê°€,ì €ì£¼í•´ì œë¥¼ ì œì™¸í•œ ëª¨ë“  ë§ˆë²•ì˜ ì ìš©ì´ ì•ˆë¨, ì–´ë– í•œ ë°ë¯¸ì§€ë„ ë°›ì§€ ëª»í•¨)
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
@@ -187,7 +187,7 @@ bool CCursingMagic::Stonely()
 		m_pCaster->dwDontMove = m_dwNow + wPeriod;
 		m_pCaster->dwBlocking = m_dwNow + wPeriod;
 		m_pCaster->ApplyCurse(1, CON_STONE, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -203,11 +203,11 @@ bool CCursingMagic::Stonely()
 	m_pTarget->dwDontMove = m_dwNow + wPeriod;
 	m_pTarget->dwBlocking = m_dwNow + wPeriod;
 	m_pTarget->ApplyCurse(1, CON_STONE, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -219,14 +219,14 @@ bool CCursingMagic::Stonely()
 }
 
 bool CCursingMagic::Curse()
-{	// [172]½ÅÀÇ ÀúÁÖ : ¸¶¹ı »ç¿ë ºÒ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [172]ì‹ ì˜ ì €ì£¼ : ë§ˆë²• ì‚¬ìš© ë¶ˆê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
 		m_pCaster->dwDontCasting = m_dwNow + wPeriod;
 		m_pCaster->ApplyCurse(1, CON_CURSE, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -239,12 +239,12 @@ bool CCursingMagic::Curse()
 	
 	m_pTarget->dwDontCasting = m_dwNow + wPeriod;
 	m_pTarget->ApplyCurse(1, CON_CURSE, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ª ¼³Á¤
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ ì„¤ì •
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -256,17 +256,17 @@ bool CCursingMagic::Curse()
 }
 
 bool CCursingMagic::AreaParalysis()
-{	// [112]Áö¿ª ¸¶ºñ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [112]ì§€ì—­ ë§ˆë¹„
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->dwDontCasting = m_dwNow + wPeriod;
 	m_pTarget->dwDontAttack = m_dwNow + wPeriod;
 	m_pTarget->dwDontMove = m_dwNow + wPeriod;
 	m_pTarget->ApplyCurse(1, CON_STONE, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -278,16 +278,16 @@ bool CCursingMagic::AreaParalysis()
 }
 
 bool CCursingMagic::AreaConfusion()
-{	// [114]Áö¿ª È¥¶õ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [114]ì§€ì—­ í˜¼ë€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->dwDontCasting = m_dwNow + wPeriod;
-	// ´ë»óÀÚÀÇ »óÅÂ ¼³Á¤
+	// ëŒ€ìƒìì˜ ìƒíƒœ ì„¤ì •
 	m_pTarget->ApplyCurse(1, CON_DAZE, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -299,14 +299,14 @@ bool CCursingMagic::AreaConfusion()
 }
 
 bool CCursingMagic::Slow()
-{	// [10]¼ÓµµÀúÇÏ : »ó´ë¹æÀÇ ÀÌµ¿¼Óµµ(MovP)¸¦ 1/2·Î °¨¼Ò
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [10]ì†ë„ì €í•˜ : ìƒëŒ€ë°©ì˜ ì´ë™ì†ë„(MovP)ë¥¼ 1/2ë¡œ ê°ì†Œ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
 		m_pCaster->speedDown.SetState(m_dwNow + wPeriod, 50);
 		m_pCaster->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -319,11 +319,11 @@ bool CCursingMagic::Slow()
 	
 	m_pTarget->speedDown.SetState(m_dwNow + wPeriod, 50);
 	m_pTarget->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -335,14 +335,14 @@ bool CCursingMagic::Slow()
 }
 
 bool CCursingMagic::SpiderWeb()
-{	// [19]°Å¹ÌÁÙ	: »ó´ë¹æÀÇ ÀÌµ¿¼Óµµ(MovP) 1/3 ÁÙÀÌ°í, °ø°İ ¼º°ø·ü °¨¼Ò                                
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [19]ê±°ë¯¸ì¤„	: ìƒëŒ€ë°©ì˜ ì´ë™ì†ë„(MovP) 1/3 ì¤„ì´ê³ , ê³µê²© ì„±ê³µë¥  ê°ì†Œ                                
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{ 
 		m_pCaster->speedDown.SetState(m_dwNow + wPeriod, 30);
 		m_pCaster->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -355,11 +355,11 @@ bool CCursingMagic::SpiderWeb()
 	
 	m_pTarget->speedDown.SetState(m_dwNow + wPeriod, 30);
 	m_pTarget->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -371,15 +371,15 @@ bool CCursingMagic::SpiderWeb()
 }
 
 bool CCursingMagic::AreaSlow()
-{	// [115]Áö¿ª ¼ÓµµÀúÇÏ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [115]ì§€ì—­ ì†ë„ì €í•˜
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->speedDown.SetState(m_dwNow + wPeriod, 30);
 	m_pTarget->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -391,14 +391,14 @@ bool CCursingMagic::AreaSlow()
 }
 
 bool CCursingMagic::FeatherOfCurse()
-{	// [93]¸¶ºñÀÇ ±êÅĞ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [93]ë§ˆë¹„ì˜ ê¹ƒí„¸
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
 		m_pCaster->speedDown.SetState(m_dwNow + wPeriod, 50);
 		m_pCaster->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -411,11 +411,11 @@ bool CCursingMagic::FeatherOfCurse()
 	
 	m_pTarget->speedDown.SetState(m_dwNow + wPeriod, 50);
 	m_pTarget->ApplyCurse(2, CON_SLOW, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -427,8 +427,8 @@ bool CCursingMagic::FeatherOfCurse()
 }
 
 bool CCursingMagic::Intoxication()
-{	// [12]Áßµ¶ : ¸¶¹ıÀÇ ±âº» µ¥¹ÌÁö°ª¸¸Å­ HP °¨¼Ò ÈÄ ÀÏÁ¤·®ÀÇ HP°¡ ¼­¼­È÷ °¨¼Ò
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [12]ì¤‘ë… : ë§ˆë²•ì˜ ê¸°ë³¸ ë°ë¯¸ì§€ê°’ë§Œí¼ HP ê°ì†Œ í›„ ì¼ì •ëŸ‰ì˜ HPê°€ ì„œì„œíˆ ê°ì†Œ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	const int nBase = 100 + m_pTarget->HpMax*0.05 + (m_pCaster->Skill[TACTICS_Magery]>>2);
 	const int nPoison = __min(nBase, 2000);
 	
@@ -436,7 +436,7 @@ bool CCursingMagic::Intoxication()
 	{
 		m_pCaster->SetPoisonedPoint(nPoison);
 		m_pCaster->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -449,11 +449,11 @@ bool CCursingMagic::Intoxication()
 	
 	m_pTarget->SetPoisonedPoint(nPoison);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -465,16 +465,16 @@ bool CCursingMagic::Intoxication()
 }
 
 bool CCursingMagic::ToxicCloud()
-{	// [15]µ¶±¸¸§ : ÀÏÁ¤Áö¿ª ³»¿¡ Áßµ¶ÀÌ ¹ß»ı
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [15]ë…êµ¬ë¦„ : ì¼ì •ì§€ì—­ ë‚´ì— ì¤‘ë…ì´ ë°œìƒ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	const int nBase = 100 + m_pTarget->HpMax*0.04 + (m_pCaster->Skill[TACTICS_Magery]>>1);
 	const int nPoison = __min(nBase, 2000);
-	// ±âº» ¸¶¹ı µ¥¹ÌÁö
+	// ê¸°ë³¸ ë§ˆë²• ë°ë¯¸ì§€
 	if (IsReturn(m_pTarget))
 	{
 		m_pCaster->SetPoisonedPoint(nPoison);
 		m_pCaster->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -487,11 +487,11 @@ bool CCursingMagic::ToxicCloud()
 	
 	m_pTarget->SetPoisonedPoint(nPoison);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -503,16 +503,16 @@ bool CCursingMagic::ToxicCloud()
 }
 
 bool CCursingMagic::VampirePoison()
-{	//< CSD-TW-030627 : [90]¹ìÆÄÀÌ¾îÀÇ µ¶
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	//< CSD-TW-030627 : [90]ë±€íŒŒì´ì–´ì˜ ë…
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	const int nPoison = m_pTarget->HpMax*0.1;
 	m_pTarget->SetPoisonedPoint(nPoison);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -524,16 +524,16 @@ bool CCursingMagic::VampirePoison()
 }	//> CSD-TW-030627
 
 bool CCursingMagic::CurseOfHell()
-{	//< CSD-TW-030627 : [94]ÇïÀÇ ÀúÁÖ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	//< CSD-TW-030627 : [94]í—¬ì˜ ì €ì£¼
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	const int nPoison = m_pTarget->HpMax*0.1;
 	m_pTarget->SetPoisonedPoint(nPoison);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -545,16 +545,16 @@ bool CCursingMagic::CurseOfHell()
 }	//> CSD-TW-030627
 
 bool CCursingMagic::AreaPoison()
-{	// [113]Áö¿ª Áßµ¶
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [113]ì§€ì—­ ì¤‘ë…
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	const int nPoison = m_pTarget->HpMax*0.05;
 	m_pTarget->SetPoisonedPoint(nPoison);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wPeriod);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -566,15 +566,15 @@ bool CCursingMagic::AreaPoison()
 }
 
 bool CCursingMagic::LostSight()
-{	// [82] ½Ã·Â»ó½Ç : ½Ã¾ß¸¦ 2Å¸ÀÏ·Î Á¼Èû
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [82] ì‹œë ¥ìƒì‹¤ : ì‹œì•¼ë¥¼ 2íƒ€ì¼ë¡œ ì¢í˜
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
 		m_pCaster->ApplyCurse(4, CON_DARKNESS, m_dwNow + wPeriod);
-		// ½Ã¾ß»ó½Ç »óÅÂ¸¦ Å¬¶óÀÌ¾ğÆ®·Î Àü¼Û
+		// ì‹œì•¼ìƒì‹¤ ìƒíƒœë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡
 		::SendMagicCommand(m_pCaster, SET_LOSTSIGHT, 0, wPeriod);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -588,18 +588,18 @@ bool CCursingMagic::LostSight()
 	m_pTarget->ApplyCurse(4, CON_DARKNESS, m_dwNow + wPeriod);
 	
 	if (m_pTarget->IsNpc())
-	{	// NPC ¹× ¸ó½ºÅÍÀÇ ½Ã¾ß»ó½Ç È¿°ú ¿¬ÃâÇÔ¼ö È£Ãâ
+	{	// NPC ë° ëª¬ìŠ¤í„°ì˜ ì‹œì•¼ìƒì‹¤ íš¨ê³¼ ì—°ì¶œí•¨ìˆ˜ í˜¸ì¶œ
 		::NPCLostSight(m_pTarget, m_dwNow + wPeriod);
 	}
 	else
-	{	// ½Ã¾ß»ó½Ç »óÅÂ¸¦ Å¬¶óÀÌ¾ğÆ®·Î Àü¼Û
+	{	// ì‹œì•¼ìƒì‹¤ ìƒíƒœë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡
 		::SendMagicCommand(m_pTarget, SET_LOSTSIGHT, 0, wPeriod);
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -611,15 +611,15 @@ bool CCursingMagic::LostSight()
 }
 
 bool CCursingMagic::AuthorityLostSight()
-{	// [177] ½Ã·Â»ó½ÇÀÇ ±Ç´É : ½Ã¾ß¸¦ 2Å¸ÀÏ·Î Á¼Èû
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+{	// [177] ì‹œë ¥ìƒì‹¤ì˜ ê¶ŒëŠ¥ : ì‹œì•¼ë¥¼ 2íƒ€ì¼ë¡œ ì¢í˜
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	
 	if (IsReturn(m_pTarget))
 	{
 		m_pCaster->ApplyCurse(4, CON_DARKNESS, m_dwNow + wPeriod);
-		// ½Ã¾ß»ó½Ç »óÅÂ¸¦ Å¬¶óÀÌ¾ğÆ®·Î Àü¼Û
+		// ì‹œì•¼ìƒì‹¤ ìƒíƒœë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡
 		::SendMagicCommand(m_pCaster, SET_LOSTSIGHT, 0, wPeriod);		
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_T);
 		m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_t.idTarget = m_idCaster;
@@ -633,18 +633,18 @@ bool CCursingMagic::AuthorityLostSight()
 	m_pTarget->ApplyCurse(4, CON_DARKNESS, m_dwNow + wPeriod);
 	
 	if (m_pTarget->IsNpc())
-	{ // NPC ¹× ¸ó½ºÅÍÀÇ ½Ã¾ß»ó½Ç È¿°ú ¿¬ÃâÇÔ¼ö È£Ãâ
+	{ // NPC ë° ëª¬ìŠ¤í„°ì˜ ì‹œì•¼ìƒì‹¤ íš¨ê³¼ ì—°ì¶œí•¨ìˆ˜ í˜¸ì¶œ
 		::NPCLostSight(m_pTarget, m_dwNow  + wPeriod);
 	}
 	else
-	{ // ½Ã¾ß»ó½Ç »óÅÂ¸¦ Å¬¶óÀÌ¾ğÆ®·Î Àü¼Û
+	{ // ì‹œì•¼ìƒì‹¤ ìƒíƒœë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡
 		::SendMagicCommand(m_pTarget, SET_LOSTSIGHT, 0, wPeriod);
 	}
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -656,7 +656,7 @@ bool CCursingMagic::AuthorityLostSight()
 }
 
 bool CCursingMagic::DiseaseInduce()
-{	//< CSD-031007 : [16]Áúº´À¯¹ß : Health(¹è°íÇÄ Á¤µµ) °¨¼Ò
+{	//< CSD-031007 : [16]ì§ˆë³‘ìœ ë°œ : Health(ë°°ê³ í”” ì •ë„) ê°ì†Œ
 	if (m_pTarget->IsNpc())
 	{
 		return true;
@@ -664,7 +664,7 @@ bool CCursingMagic::DiseaseInduce()
 
 	if (IsReturn(m_pTarget))
 	{
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT);
 		m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result.idTarget = m_idCaster;
@@ -677,12 +677,12 @@ bool CCursingMagic::DiseaseInduce()
 	if (m_pTarget->DecHungry(m_pTarget->HungryMax/2) > 0)
 	{
 		m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);
-		// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+		// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 		::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
 	}
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT);
 	m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result.idTarget = m_idTarget;
@@ -693,20 +693,20 @@ bool CCursingMagic::DiseaseInduce()
 }	//> CSD-031007
 
 bool CCursingMagic::VampireTouch()
-{	// [17]¹ìÆÄÀÌ¾îÀÇ ¼Õ±æ : ´ë»óÀÚÀÇ HP¸¦ »©¾Ñ¾Æ ½ÃÀüÀÚÀÇ HP¿¡ ´õÇÔ(´ë»óÀÚ°¡ Á×Áö´Â ¾ÊÀ½)
+{	// [17]ë±€íŒŒì´ì–´ì˜ ì†ê¸¸ : ëŒ€ìƒìì˜ HPë¥¼ ë¹¼ì•—ì•„ ì‹œì „ìì˜ HPì— ë”í•¨(ëŒ€ìƒìê°€ ì£½ì§€ëŠ” ì•ŠìŒ)
 	const int nDiff = m_pCaster->GetLevel() - m_pTarget->GetLevel(); // CSD-030806
-	// HP¸¦ »©¾ÑÀ» % °è»ê
+	// HPë¥¼ ë¹¼ì•—ì„ % ê³„ì‚°
 	int nPercent = (35 + nDiff) + m_pCaster->Skill[TACTICS_Magery]/4;
 	if (nPercent > 80)  nPercent = 80;
 	if (nPercent < 10)  nPercent = 10;
 	
 	if (IsReturn(m_pTarget))
 	{
-		const int nTemp = m_pTarget->GetPureLife()*nPercent/100; // Hp¸¦ »©¾Ò´Â ·®
-		const int nMinus = m_pCaster->DecLife(nTemp, 1);    // ½ÇÁ¦ HP¸¦ »©¾Ò´Â ·®
-		const int nPlus = m_pTarget->IncLife(nMinus);       // ½ÇÁ¦ HP¸¦ ´õÇÏ´Â ·®
+		const int nTemp = m_pTarget->GetPureLife()*nPercent/100; // Hpë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+		const int nMinus = m_pCaster->DecLife(nTemp, 1);    // ì‹¤ì œ HPë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+		const int nPlus = m_pTarget->IncLife(nMinus);       // ì‹¤ì œ HPë¥¼ ë”í•˜ëŠ” ëŸ‰
 		::SendCharacterCondition(m_pTarget, nPlus);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_H);
 		m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_h.idTarget = m_idCaster;
@@ -717,15 +717,15 @@ bool CCursingMagic::VampireTouch()
 		return true;
 	}
 	
-	const int nTemp = m_pCaster->GetPureLife()*nPercent/100; // Hp¸¦ »©¾Ò´Â ·®
-	const int nMinus = m_pTarget->DecLife(nTemp, 1);    // ½ÇÁ¦ HP¸¦ »©¾Ò´Â ·®
-	const int nPlus = m_pCaster->IncLife(nMinus);       // ½ÇÁ¦ HP¸¦ ´õÇÏ´Â ·®
+	const int nTemp = m_pCaster->GetPureLife()*nPercent/100; // Hpë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+	const int nMinus = m_pTarget->DecLife(nTemp, 1);    // ì‹¤ì œ HPë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+	const int nPlus = m_pCaster->IncLife(nMinus);       // ì‹¤ì œ HPë¥¼ ë”í•˜ëŠ” ëŸ‰
 	::SendCharacterCondition(m_pCaster, nPlus);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 1, abs(nMinus));
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;
@@ -737,20 +737,20 @@ bool CCursingMagic::VampireTouch()
 }
 
 bool CCursingMagic::LifeDrain()
-{	// [190]»ı¸í·Â Å»Ãë : ´ë»óÀÚÀÇ HP¸¦ »©¾Ñ¾Æ ½ÃÀüÀÚÀÇ HP¿¡ ´õÇÔ(·¹º§¿¡ µû¸¥ Ã¼·ÂÄ¡ Èí¼ö·® Â÷µî Àû¿ë
+{	// [190]ìƒëª…ë ¥ íƒˆì·¨ : ëŒ€ìƒìì˜ HPë¥¼ ë¹¼ì•—ì•„ ì‹œì „ìì˜ HPì— ë”í•¨(ë ˆë²¨ì— ë”°ë¥¸ ì²´ë ¥ì¹˜ í¡ìˆ˜ëŸ‰ ì°¨ë“± ì ìš©
 	const int nDiff = m_pCaster->GetLevel() - m_pTarget->GetLevel(); // CSD-030806
-	// HP¸¦ »©¾ÑÀ» % °è»ê
+	// HPë¥¼ ë¹¼ì•—ì„ % ê³„ì‚°
 	int nPercent = (50 + nDiff) + m_pCaster->Skill[TACTICS_Orison]/3;
-	if (nPercent > 90)  nPercent = 103;  // ¼ÀìëÎüÑª¹¥»÷Ô­Ê¼90
+	if (nPercent > 90)  nPercent = 103;  // ì…ˆä½¾ä¿±æ²‚ë¬‘ìƒŒè¦©è¿¦90
 	if (nPercent < 10)  nPercent = 10;
 	
 	if (IsReturn(m_pTarget))
 	{
-		const int nTemp = m_pTarget->GetPureLife()*nPercent/100; // Hp¸¦ »©¾Ò´Â ·®
-		const int nMinus = m_pCaster->DecLife(nTemp, 1);    // ½ÇÁ¦ HP¸¦ »©¾Ò´Â ·®
-		const int nPlus = m_pTarget->IncLife(nMinus);       // ½ÇÁ¦ HP¸¦ ´õÇÏ´Â ·®
+		const int nTemp = m_pTarget->GetPureLife()*nPercent/100; // Hpë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+		const int nMinus = m_pCaster->DecLife(nTemp, 1);    // ì‹¤ì œ HPë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+		const int nPlus = m_pTarget->IncLife(nMinus);       // ì‹¤ì œ HPë¥¼ ë”í•˜ëŠ” ëŸ‰
 		::SendCharacterCondition(m_pTarget, nPlus);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT_H);
 		m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result_h.idTarget = m_idCaster;
@@ -761,15 +761,15 @@ bool CCursingMagic::LifeDrain()
 		return true;
 	}
 	
-	const int nTemp = m_pCaster->GetPureLife()*nPercent/100; // Hp¸¦ »©¾Ò´Â ·®
-	const int nMinus = m_pTarget->DecLife(nTemp, 1);    // ½ÇÁ¦ HP¸¦ »©¾Ò´Â ·®
-	const int nPlus = m_pCaster->IncLife(nMinus);       // ½ÇÁ¦ HP¸¦ ´õÇÏ´Â ·®
+	const int nTemp = m_pCaster->GetPureLife()*nPercent/100; // Hpë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+	const int nMinus = m_pTarget->DecLife(nTemp, 1);    // ì‹¤ì œ HPë¥¼ ë¹¼ì•˜ëŠ” ëŸ‰
+	const int nPlus = m_pCaster->IncLife(nMinus);       // ì‹¤ì œ HPë¥¼ ë”í•˜ëŠ” ëŸ‰
 	::SendCharacterCondition(m_pCaster, nPlus);
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Áö ¾ÊÀº °æ¿ì
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì§€ ì•Šì€ ê²½ìš°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 1, abs(nMinus));
-	// NK¿¡ °è»ê
+	// NKì— ê³„ì‚°
 	::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;
@@ -781,13 +781,13 @@ bool CCursingMagic::LifeDrain()
 }
 
 bool CCursingMagic::Gazer()
-{	// [109]30%ÀÇ È®·ü·Î ½ÅÀÇ ÀúÁÖ(¸¶¹ı»ç¿ëºÒ°¡)¸¦ ½ÇÇàÇÑ´Ù
-	if( rand()%2 == 0 ) // 030514 kyo 50%È®·ü
+{	// [109]30%ì˜ í™•ë¥ ë¡œ ì‹ ì˜ ì €ì£¼(ë§ˆë²•ì‚¬ìš©ë¶ˆê°€)ë¥¼ ì‹¤í–‰í•œë‹¤
+	if( rand()%2 == 0 ) // 030514 kyo 50%í™•ë¥ 
 	{
 		return false;
 	}
 
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pTarget->dwDontCasting = m_dwNow + wPeriod;
 	m_pTarget->ApplyCurse(1, CON_CURSE, m_dwNow + wPeriod);
 	InitMagicResult(CMD_MAGIC_RESULT_T);
@@ -808,7 +808,7 @@ bool CCursingMagic::Gazer()
 bool CCursingMagic::CheckDeath(int nDamage)
 {	//< CSD-TW-030627
 	if (IsReturn(m_pCaster))    return false;
-	// Life °¨¼Ò
+	// Life ê°ì†Œ
 	const int nLife = m_pTarget->DecLife(nDamage); 
 
 	if (nLife > 0)
@@ -829,11 +829,11 @@ bool CCursingMagic::CheckDeath(int nDamage)
 		}
 		
 		::killCharacter(m_pCaster, m_pTarget);
-		// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê : °ø°İ¸¶¹ıÀ¸·Î °£ÁÖÇØ¼­ Á×Àº °æ¿ì
+		// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚° : ê³µê²©ë§ˆë²•ìœ¼ë¡œ ê°„ì£¼í•´ì„œ ì£½ì€ ê²½ìš°
 		::AddCasterEXP(m_pCaster, m_pTarget, 1, 1, abs(nDamage));
-		// NK¿¡ °è»ê
+		// NKì— ê³„ì‚°
 		::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
-		// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+		// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 		InitMagicResult(CMD_MAGIC_RESULT);
 		m_packet.u.magic.server_magic_result.nMagic = m_nIndex;
 		m_packet.u.magic.server_magic_result.idTarget = m_idTarget;

@@ -1,4 +1,4 @@
-//////////////////////////////////////////////////////////////////////////////////////
+ï»¿//////////////////////////////////////////////////////////////////////////////////////
 //				  CRMConnectTable Class by Byung-soo Koo		                    //
 //																					//
 //                                                      Last Update: 2001.11.09		//
@@ -19,8 +19,8 @@ class CRMListenerTable
 public:								  
 	DWORD					m_dwMaxBucketNum;
 	RM_LISTENER_INFO**		m_ppInfoTable;
-	WORD					m_wConnect;								//Á¢¼Ó¿¡ ¼º°øÇÑ Listner¼ö 
-	WORD					m_wNotConnect;							//¾ÆÁ÷ Á¢¼ÓÇÏÁö ¸øÇÑ Listener..
+	WORD					m_wConnect;								//ì ‘ì†ì— ì„±ê³µí•œ Listnerìˆ˜ 
+	WORD					m_wNotConnect;							//ì•„ì§ ì ‘ì†í•˜ì§€ ëª»í•œ Listener..
 	RM_LISTENER_INFO*		GetInfo(char *ip, BYTE type);
 	bool					Add(char* ip, BYTE type, DWORD dwConnectionIndex = 0);
 	void					Remove(char *ip, BYTE type);

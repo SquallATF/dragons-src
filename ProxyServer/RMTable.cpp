@@ -1,4 +1,4 @@
-#include "inetwork.h"
+ï»¿#include "inetwork.h"
 #include "RMTable.h"
 
 
@@ -15,10 +15,10 @@ CRMTable::CRMTable(DWORD num)
 
 	m_ppInfoTable = NULL;
 
-	m_ppInfoTable = new RMCLIENT_INFO*[num];	//m_ppInfoTableÀº (À¯ÀúÀÎÆ÷ ³»¿ëÀÇ ÁÖ¼Ò°ª)ÀÇ ÁÖ¼Ò°ªÀ» °¡¸£Å²´ç.. 
+	m_ppInfoTable = new RMCLIENT_INFO*[num];	//m_ppInfoTableì€ (ìœ ì €ì¸í¬ ë‚´ìš©ì˜ ì£¼ì†Œê°’)ì˜ ì£¼ì†Œê°’ì„ ê°€ë¥´í‚¨ë‹¹.. 
 	memset(m_ppInfoTable,0,sizeof(RMCLIENT_INFO*)*num);
 
-	m_ListenerTable.Create(2);		//ConnectTable »ı¼ºÇÏ°í..   2°³..   ÇÏ³ª´Â Á¢¼Ó ¾ÈÇÑ Listener, ÇÏ³ª´Â Á¢¼ÓÇÑ Listener
+	m_ListenerTable.Create(2);		//ConnectTable ìƒì„±í•˜ê³ ..   2ê°œ..   í•˜ë‚˜ëŠ” ì ‘ì† ì•ˆí•œ Listener, í•˜ë‚˜ëŠ” ì ‘ì†í•œ Listener
 
 	m_bClientConnect = 0;
 	m_CertainIPNum = 0;
@@ -44,7 +44,7 @@ bool CRMTable::AddClient(DWORD dwConnectionIndex, PACKET_RM_LOGIN* packet)
 	RMCLIENT_INFO* info = new RMCLIENT_INFO;	
 	memset(info, 0, sizeof(RMCLIENT_INFO));		
 
-	//Á¢¼ÓÁ¤º¸ ÀÔ·Â 
+	//ì ‘ì†ì •ë³´ ì…ë ¥ 
 	info->bConnectType = RM_TYPE_TOOL;
 	info->ConnectionIndex = dwConnectionIndex;
 	//Modified by KBS 020330
@@ -55,13 +55,13 @@ bool CRMTable::AddClient(DWORD dwConnectionIndex, PACKET_RM_LOGIN* packet)
 	strcpy(info->szName, packet->Name);
 
 		
-	g_pINet->SetServerInfo(dwConnectionIndex,(void*)info);	//DLL¿¡ Listener Á¤º¸ ÁÖ¼Ò°ª setting ½ÃÅ´...
+	g_pINet->SetServerInfo(dwConnectionIndex,(void*)info);	//DLLì— Listener ì •ë³´ ì£¼ì†Œê°’ setting ì‹œí‚´...
 
-	AddClientInfo(info);		//HashTable¿¡ Ãß°¡
+	AddClientInfo(info);		//HashTableì— ì¶”ê°€
 	return true;
 }
 
-BYTE CRMTable::GetClientNum()	//Á¢¼ÓÇÑ Å¬¶óÀÌ¾ğÆ® ¼ıÀÚ¸¦ ¸®ÅÏ 
+BYTE CRMTable::GetClientNum()	//ì ‘ì†í•œ í´ë¼ì´ì–¸íŠ¸ ìˆ«ìë¥¼ ë¦¬í„´ 
 {
 	return m_bClientConnect;
 }
@@ -73,7 +73,7 @@ void CRMTable::AddClientInfo(RMCLIENT_INFO* info)
 
 	m_bClientConnect++;
 
-	if (!m_ppInfoTable[index])	//m_ppInfoTable[index] ¿¡ ³»¿ëÀÌ ¾øÀ¸¸é °ıÈ£ ¾ÈÀ¸·Î.
+	if (!m_ppInfoTable[index])	//m_ppInfoTable[index] ì— ë‚´ìš©ì´ ì—†ìœ¼ë©´ ê´„í˜¸ ì•ˆìœ¼ë¡œ.
 	{
 		m_ppInfoTable[index] = info;
 		info->pNextUserInfo = NULL;
@@ -173,7 +173,7 @@ void CRMTable::RemoveAllClientTable()
 		m_ppInfoTable[i] = NULL;
 	}
 
-	m_bClientConnect = 0;	//Client Á¢¼Ó¼ö 
+	m_bClientConnect = 0;	//Client ì ‘ì†ìˆ˜ 
 }
 
 
@@ -195,19 +195,19 @@ void CRMTable::BroadcastAllRMClient(char* pMsg, DWORD dwLength)
 }
 
 
-//DisconnectµÈ ¸ğµç Listener¿¡ Á¢¼ÓÀ» ½ÃµµÇÑ´Ù.
+//Disconnectëœ ëª¨ë“  Listenerì— ì ‘ì†ì„ ì‹œë„í•œë‹¤.
 void CRMTable::ConnectAllDisconnectedListener()
 {
 	RM_LISTENER_INFO* cur = NULL;
 	RM_LISTENER_INFO* next = NULL;
 	
-	cur = m_ListenerTable.m_ppInfoTable[0];		//0ÀÌ Á¢¼Ó ¾ÈÇÑ »óÅÂÀÌ´Ï...
+	cur = m_ListenerTable.m_ppInfoTable[0];		//0ì´ ì ‘ì† ì•ˆí•œ ìƒíƒœì´ë‹ˆ...
 	while (cur)
 	{
 		next = cur->pNextInfo;
 		
-		if(!m_ListenerTable.CheckDuplicateIP(cur->szIP, 0))	//Áßº¹µÇ´Â°Å°ÍÀÌ ¾Æ´Ò¶§¸¸.. 
-			m_ListenerTable.Add( cur->szIP , 0);	//Á¢¼Ó ¾ÈÇÑ»óÅÂ´Â µÎ¹øÂ° ÀÎÀÚ°ª 0À¸·Î Add
+		if(!m_ListenerTable.CheckDuplicateIP(cur->szIP, 0))	//ì¤‘ë³µë˜ëŠ”ê±°ê²ƒì´ ì•„ë‹ë•Œë§Œ.. 
+			m_ListenerTable.Add( cur->szIP , 0);	//ì ‘ì† ì•ˆí•œìƒíƒœëŠ” ë‘ë²ˆì§¸ ì¸ìê°’ 0ìœ¼ë¡œ Add
 		
 		g_pINet->ConnectToServerWithServerSide( cur->szIP , PROXY_SERVER_CONNECTION_PORT, OnConnectListenerSuccess, OnConnectListenerFail, cur->szIP ); 
 		//}
@@ -220,7 +220,7 @@ BOOL CRMTable::BroadcastAllListener(char *packet, DWORD dwLength)
 	RM_LISTENER_INFO* cur = NULL;
 	RM_LISTENER_INFO* next = NULL;
 	
-	cur = m_ListenerTable.m_ppInfoTable[ 1 ];		//1ÀÌ Á¢¼Ó ÇÑ »óÅÂÀÌ´Ï...
+	cur = m_ListenerTable.m_ppInfoTable[ 1 ];		//1ì´ ì ‘ì† í•œ ìƒíƒœì´ë‹ˆ...
 	while (cur)
 	{
 		next = cur->pNextInfo;
@@ -234,7 +234,7 @@ BOOL CRMTable::BroadcastAllListener(char *packet, DWORD dwLength)
 }
 
 /*
-//¸Å°³º¯¼ö¿¡ ÁöÁ¤ÇÑ Á¾·ùÀÇ ¼­¹öListener·Î¸¸ Broadcast
+//ë§¤ê°œë³€ìˆ˜ì— ì§€ì •í•œ ì¢…ë¥˜ì˜ ì„œë²„Listenerë¡œë§Œ Broadcast
 BOOL CRMTable::BroadcastEachListener(DWORD dwServerType, char *packet, DWORD dwLength)
 {
 	LP_SERVER_DATA pServerData;
@@ -249,7 +249,7 @@ BOOL CRMTable::BroadcastEachListener(DWORD dwServerType, char *packet, DWORD dwL
 }
 */
 
-//iniÆÄÀÏ·Î ºÎÅÍ RMTool Login°¡´ÉÇÑ IP¸¦ ¹Ş¾Æ¿Â´Ù..
+//iniíŒŒì¼ë¡œ ë¶€í„° RMTool Loginê°€ëŠ¥í•œ IPë¥¼ ë°›ì•„ì˜¨ë‹¤..
 BOOL CRMTable::GetCertainIPFromIni()
 {
 	char path[ MAX_PATH ];
@@ -269,12 +269,12 @@ BOOL CRMTable::GetCertainIPFromIni()
 	return TRUE;
 }
 
-//Á¢¼Ó °¡´ÉÇÑ IPÀÎÁö Ã¼Å©..
+//ì ‘ì† ê°€ëŠ¥í•œ IPì¸ì§€ ì²´í¬..
 BOOL CRMTable::CheckCertainIP(DWORD dwConnectionIndex, char* ip)
 {
-	// YGI		// ÀÌÁß ºñ±³
+	// YGI		// ì´ì¤‘ ë¹„êµ
 	return true;
-	//Connection¿¡¼­ ¾òÀº IP
+	//Connectionì—ì„œ ì–»ì€ IP
 	char szConnectionIP[16];	memset(szConnectionIP , 0, 16);
 	WORD wPort;
 	g_pINet->GetUserAddress(dwConnectionIndex, szConnectionIP, &wPort);
@@ -291,7 +291,7 @@ BOOL CRMTable::CheckCertainIP(DWORD dwConnectionIndex, char* ip)
 	return FALSE;
 }
 
-//ÇØ´ç IP°¡ Listener table¿¡ Á¸Àç ÇÏ´Â°¡¸¦ Ã¼Å©ÇÑ´Ù...    Áßº¹ ¾ÈµÇ°Ô..
+//í•´ë‹¹ IPê°€ Listener tableì— ì¡´ì¬ í•˜ëŠ”ê°€ë¥¼ ì²´í¬í•œë‹¤...    ì¤‘ë³µ ì•ˆë˜ê²Œ..
 BOOL CRMTable::CheckExistIP(char *szIp)
 {
 	RM_LISTENER_INFO* cur = NULL;
@@ -314,10 +314,10 @@ BOOL CRMTable::CheckExistIP(char *szIp)
 }
 
 
-//°ÔÀÓ ¼­¹ö Æ÷Æ®¸¦ ÀÌ¿ëÇØ ListenerÀÇ ConnectionIndex¸¦ ¾ò¾î¿Â´Ù. 
+//ê²Œì„ ì„œë²„ í¬íŠ¸ë¥¼ ì´ìš©í•´ Listenerì˜ ConnectionIndexë¥¼ ì–»ì–´ì˜¨ë‹¤. 
 DWORD CRMTable::GetListenerConnectionIndex( WORD wGameServerPort )
 {
-	//°ÔÀÓ ¼­¹öÀÇ Data¸¦ Ã£¾Æ³¿..
+	//ê²Œì„ ì„œë²„ì˜ Dataë¥¼ ì°¾ì•„ëƒ„..
 	LP_SERVER_DATA pServerData;
 	for( pServerData = g_pServerTable->m_pServerListHead; pServerData; pServerData = pServerData->pNextServerData )
 	{
@@ -331,13 +331,13 @@ DWORD CRMTable::GetListenerConnectionIndex( WORD wGameServerPort )
 
 	RM_LISTENER_INFO* cur = NULL;
 	RM_LISTENER_INFO* next = NULL;
-	cur = m_ListenerTable.m_ppInfoTable[ 1 ];		//1ÀÌ Á¢¼Ó ÇÑ »óÅÂÀÌ´Ï...
+	cur = m_ListenerTable.m_ppInfoTable[ 1 ];		//1ì´ ì ‘ì† í•œ ìƒíƒœì´ë‹ˆ...
 	while (cur)
 	{
 		next = cur->pNextInfo;
-		if( !strcmp(cur->szIP, pServerData->szIP) )	//°ÔÀÓ¼­¹ö IP¿Í ListenerIP°¡ °°À¸¸é 
+		if( !strcmp(cur->szIP, pServerData->szIP) )	//ê²Œì„ì„œë²„ IPì™€ ListenerIPê°€ ê°™ìœ¼ë©´ 
 		{
-			return cur->dwConnectionIndex;			//ListenerÀÇ dwConnectionIndex¸¦ ¸®ÅÏ 
+			return cur->dwConnectionIndex;			//Listenerì˜ dwConnectionIndexë¥¼ ë¦¬í„´ 
 		}
 		cur = next;
 	}

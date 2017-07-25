@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include <mmsystem.h>
 #include "DefaultHeader.h"
 #include "Scrp_int.h"
@@ -37,11 +37,11 @@
 // 030329 kyo << //just using in thailand
 #include "..\HigherLayers\QuestFunction.h"
 
-#include "LogManager.h"	//040720_KJHuNs g_pLogManager¸¦ »ç¿ë.
+#include "LogManager.h"	//040720_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©.
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "ItemMallManager.h"
-//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 extern void CheckLimitedAge();
 int g_nLimitedStartTime=0;
@@ -55,11 +55,11 @@ extern void RecvCMD_SKILL_RARE_UPGRADE(int cn, t_packet *p);
 extern int HandleCommand2( t_packet *p, t_connection c[], int cn );
 
 extern int g_LocalWarBegin;			// 011215 LTS
-#define MELEE			0	// ´Ü°Å¸®.
-#define RANGE_BOW		1	// Àå°Å¸®..
-#define RANGE_HURL		2	// Áß°Å¸®.
-#define RANGE_DEFAULT	3	// ´Ü°Å¸®..
-#define MAGIC			4	// ¸¶¹ı.
+#define MELEE			0	// ë‹¨ê±°ë¦¬.
+#define RANGE_BOW		1	// ì¥ê±°ë¦¬..
+#define RANGE_HURL		2	// ì¤‘ê±°ë¦¬.
+#define RANGE_DEFAULT	3	// ë‹¨ê±°ë¦¬..
+#define MAGIC			4	// ë§ˆë²•.
 
 t_connection connections[ DRAGON_MAX_CONNECTIONS_+1];
 
@@ -193,10 +193,10 @@ void updateBinaryDataToLoaginServer( t_connection c[], int id );
 void UpdateCharacterData(t_connection c[], int cn, bool bDirect)
 {	//< CSD-HK-030829
 
-	//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
-	//±âÅ¸ »ç¿ë±â°£ÀÌ ³¡³­ ¾ÆÀÌÅÛ¸ô¾ÆÀÌÅÛÀÌ ÀÎº¥¿¡ ÀÖÀ»°æ¿ì¿¡, Áö¿ì°í ·Î±×¸¦ ³²±ä´Ù.
+	//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
+	//ê¸°íƒ€ ì‚¬ìš©ê¸°ê°„ì´ ëë‚œ ì•„ì´í…œëª°ì•„ì´í…œì´ ì¸ë²¤ì— ìˆì„ê²½ìš°ì—, ì§€ìš°ê³  ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 	DeleteToExpireItemMallItem_byINV(connections[cn].chrlst);
-	//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+	//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 	if (g_pServerTable == NULL)
 	{
@@ -216,25 +216,25 @@ void UpdateCharacterData(t_connection c[], int cn, bool bDirect)
 
 	updateCharacterStatusToLoginServer(connections, cn);
 	updateBinaryDataToLoaginServer(c, cn);
-	SendLoginServerForCharUpdate(cn); //  Ãß°¡ Ä³¸¯ÅÍ Á¤º¸ ÀúÀå
-	UpdateLadderScore(&c[cn].chrlst); // ·¡´õ ·©Å·¿¡ ÀúÀå
+	SendLoginServerForCharUpdate(cn); //  ì¶”ê°€ ìºë¦­í„° ì •ë³´ ì €ì¥
+	UpdateLadderScore(&c[cn].chrlst); // ë˜ë” ë­í‚¹ì— ì €ì¥
 	return;
 
 SAVE_MAP:
 	updateCharacterStatus(connections, cn);
-	UpdateCharStatusByKein(c, cn); // Ãß°¡ Ä³¸¯ÅÍ Á¤º¸ ÀúÀå
+	UpdateCharStatusByKein(c, cn); // ì¶”ê°€ ìºë¦­í„° ì •ë³´ ì €ì¥
 }	//> CSD-HK-030829
 
-extern void DeleteSquadMember(const int cn); // 010904 LTS		// ±¹°¡Àü ºÎ´ëÁ¤º¸¸¦ »èÁ¦ÇÑ´Ù.//020903 lsw
+extern void DeleteSquadMember(const int cn); // 010904 LTS		// êµ­ê°€ì „ ë¶€ëŒ€ì •ë³´ë¥¼ ì‚­ì œí•œë‹¤.//020903 lsw
 extern void DecLocalWarfieldMemberCount(const int cn);		// LTS LOCALWAR//020903 lsw
 extern cDragonLordWar		g_pDragonLordWar;					// LTS DRAGONLORD
 //---------------------------------------------------------------------------------
 // Re-Wrote by chan78 at 2000/11/09 :: New closeconnection()
-// º¯°æ»çÇ×: socketÀ» Á÷Á¢ ´Ù·çÁö ¾Ê´Â´Ù. Server°£ Ä¿³Ø¼ÇÀº ÀÌ ÇÔ¼ö¸¦ »ç¿ëÇÏÁö ¾Ê´Â´Ù.
-//<! BBD 040110	ÀÎÀÚ Ãß°¡
+// ë³€ê²½ì‚¬í•­: socketì„ ì§ì ‘ ë‹¤ë£¨ì§€ ì•ŠëŠ”ë‹¤. Serverê°„ ì»¤ë„¥ì…˜ì€ ì´ í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
+//<! BBD 040110	ì¸ì ì¶”ê°€
 //void closeconnection(t_connection c[], int cn, int errnum)
 void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon)
-//> BBD 040110 ÀÎÀÚ Ãß°¡
+//> BBD 040110 ì¸ì ì¶”ê°€
 {	
 	if (cn < DRAGON_CONNECTIONS_START || cn >= DRAGON_MAX_CONNECTIONS)	
 	{	//< CSD-030322	
@@ -255,7 +255,7 @@ void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon)
 	QTickData[cn].Func = 0;
 
 	if (ch->IsPlayer())
-	{	// ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é ÀüºÎ Á¦°Å
+	{	// ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´ ì „ë¶€ ì œê±°
 		ch->m_xSummon.Remove(KillMonster);
 
 		if (ch->DragonLordWarTeam>0)					// LTS DRAGONLORDWAR
@@ -264,11 +264,11 @@ void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon)
 		}
 	}
 
-	SendExitGameWho(cn);		// ÆÄÆ¼¿ø¿¡°Ô ³ª ³ª°£´Ù°í ¾Ë¸°´Ù. // 0116 YGI
+	SendExitGameWho(cn);		// íŒŒí‹°ì›ì—ê²Œ ë‚˜ ë‚˜ê°„ë‹¤ê³  ì•Œë¦°ë‹¤. // 0116 YGI
 	SetArea(REMOVE_PC_AREA, cn);
 	ResetManToManItemWhenCloseConnect(ch);		// 0911 YGI
 
-	if( ch->reporter_mode )		// ±âÀÚ´Ü ¸ğµåÀÌ¸é
+	if( ch->reporter_mode )		// ê¸°ìë‹¨ ëª¨ë“œì´ë©´
 	{
 		ch->Hp		= ch->HpMax		* 20 / 100;
 		ch->Hungry  = ch->HungryMax * 30 / 100;
@@ -308,7 +308,7 @@ void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon)
 		}
 	}
 	
-	if( connections[cn].state >= CONNECT_JOIN ) // ¿¬°áÇÏÀÚ¸¶ÀÚ ³¡¾îÁ³´Ù°í ÀĞÁöµµ ¾Ê´Â Data¸¦ °»½ÅÇÒ¼ö´Â ¾ø´Ù.
+	if( connections[cn].state >= CONNECT_JOIN ) // ì—°ê²°í•˜ìë§ˆì ëì–´ì¡Œë‹¤ê³  ì½ì§€ë„ ì•ŠëŠ” Dataë¥¼ ê°±ì‹ í• ìˆ˜ëŠ” ì—†ë‹¤.
 	{
 		packet.h.header.type = CMD_USER_REMOVE;
 		packet.u.server_user_remove.server_id = cn;
@@ -320,15 +320,15 @@ void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon)
 	DecLocalWarfieldMemberCount(cn);									// LTS LOCALWAR
 
 	// 011210 YGI
-	// DB¿¡°Ô ³ª ³ª°£´Ù°í ¾Ë¸°´Ù.
+	// DBì—ê²Œ ë‚˜ ë‚˜ê°„ë‹¤ê³  ì•Œë¦°ë‹¤.
 	SendPacketDefault( CMD_SERVER_EXIT_GAME , ch->Name, strlen( ch->Name), DB_DEMON );
-	//<! BBD 040110 ÇÃ·¡±×¸¦ ÀÌ¿ë
+	//<! BBD 040110 í”Œë˜ê·¸ë¥¼ ì´ìš©
 	//	UpdateCharacterData(c, cn, false);
 	UpdateCharacterData(c, cn, bUseDemon);
 	//> BBD 040110
 	SendLog2ChrLogDB( c, cn, CHR_LOG_LOGOUT_ );
 	// Modified by chan78 at 2000/12/17
-	// Á¢¼ÓÁ¾·á ¿ä±¸ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+	// ì ‘ì†ì¢…ë£Œ ìš”êµ¬ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
 	char szMsg[32];
 	// Connected User Counter
 	// Added by chan78 at 2000/12/17
@@ -357,18 +357,18 @@ void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon)
 		}
 	case -203:  // CMD_CLOSE_LOGIN_ID
 	case -220:  // Death Connections
-	case -205:  // Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¿Â Á¤»óÁ¾·á.
-	case -33 :  // ¿î¿µÀÚ¿¡ ÀÇÇÑ °­Á¦Á¾·á.
-	case -204:  // Å©·¡Å·½Ãµµ¿¡ ÀÇÇÑ Á¾·á (Å¬¶óÀÌ¾ğÆ®¿¡¼­ ³¯¾Æ¿Â)
+	case -205:  // í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì˜¨ ì •ìƒì¢…ë£Œ.
+	case -33 :  // ìš´ì˜ìì— ì˜í•œ ê°•ì œì¢…ë£Œ.
+	case -204:  // í¬ë˜í‚¹ì‹œë„ì— ì˜í•œ ì¢…ë£Œ (í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë‚ ì•„ì˜¨)
 		{
 			MyLog( LOG_NORMAL, "Forced Disconnect ! (%d): %s:%s( %s )", errnum, connections[cn].id,  connections[cn].name, connections[cn].ip_address );
 			break;
 		}
-	case 1:		//50117_KCH_Á¢¼ÓÁ¾·áÃ³¸® PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER
+	case 1:		//50117_KCH_ì ‘ì†ì¢…ë£Œì²˜ë¦¬ PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER
 		{
 			break;
 		}
-	default:	//050113_KCH_ºÒ¾ÈÁ¤ÇÑMapDown¿¡´ëÇÑ ·Î±×¹× ÃßÀû
+	default:	//050113_KCH_ë¶ˆì•ˆì •í•œMapDownì—ëŒ€í•œ ë¡œê·¸ë° ì¶”ì 
 		{
 			MyLog( LOG_NORMAL, "Forced Disconnect ! (By KCH_MapServerDown Log) erro(%d): %s:%s( %s )", errnum, connections[cn].id,  connections[cn].name, connections[cn].ip_address );
 			break;
@@ -397,7 +397,7 @@ int SettingMoveData_( int j, CHARLIST *c, t_packet *p )
 	t->server_id		= j;
 	t->length			= (unsigned char)( c->MoveLength - c->MovePathCount );
 
-	if( c->MovePathCount % 2 )  t->length += 1000; // ¸¸¾à 1000º¸´Ù Å«¼ö°¡ °¡¸é ¸ÕÀú 1¹ÙÀÌÆ®ÀÇ ÇÏÀ§4Bit¸¦ ÀÌ¿ëÇÑ´Ù.
+	if( c->MovePathCount % 2 )  t->length += 1000; // ë§Œì•½ 1000ë³´ë‹¤ í°ìˆ˜ê°€ ê°€ë©´ ë¨¼ì € 1ë°”ì´íŠ¸ì˜ í•˜ìœ„4Bitë¥¼ ì´ìš©í•œë‹¤.
 	
 	t->sx				= (short int)c->MoveSx;
 	t->sy				= (short int)c->MoveSy;
@@ -440,7 +440,7 @@ void SendEnvironment( t_connection c[], int cn)
 		tp->rainstart		= today_rainstart[ today_weathercount];
 		tp->rainend			= today_rainend[ today_weathercount];
 		tp->amount			= today_rainamount[ today_weathercount];
-		tp->temperature		= getWeatherCorrection();		// ÇöÀç ¿ù, ÀÏ, ½Ã°£À» º¸³»ÁØ´Ù. 
+		tp->temperature		= getWeatherCorrection();		// í˜„ì¬ ì›”, ì¼, ì‹œê°„ì„ ë³´ë‚´ì¤€ë‹¤. 
 		memcpy(tp->mapname, MapName, NM_LENGTH);
 	}
 	packet.h.header.size = sizeof(t_server_envir_info);
@@ -524,7 +524,7 @@ int HandleCommand( int cn, t_packet *packet)
 			{
 				connections[cn].chrlst.SetBillingType(BT_COMMERCIAL_IP);
 			}
-			//DB¿¡°Ô ¹Ş¾Æµµ ÁÁÀºÁö ¿äÃ»ÇÑ´Ù.  ¶Ç´Â MapÀÌµ¿ÇØµµ ÁÁÀºÁö ¿äÃ»ÇÑ´Ù. 
+			//DBì—ê²Œ ë°›ì•„ë„ ì¢‹ì€ì§€ ìš”ì²­í•œë‹¤.  ë˜ëŠ” Mapì´ë™í•´ë„ ì¢‹ì€ì§€ ìš”ì²­í•œë‹¤. 
 			// Mapserver->DBDemon
 			t_packet tp;
 			tp.h.header.type = CMD_REQ_INSERT_USERID;
@@ -538,7 +538,7 @@ int HandleCommand( int cn, t_packet *packet)
 
 			break;
 		}	//> CSD-HK-030829
-	case CMD_JOINABLE: // DB_DEMON ¿¡¼­ ¹Ş¾Æµµ ÁÁ´Ù´Â Çã¶ôÀ» ¹Ş¾Ò´Ù. 
+	case CMD_JOINABLE: // DB_DEMON ì—ì„œ ë°›ì•„ë„ ì¢‹ë‹¤ëŠ” í—ˆë½ì„ ë°›ì•˜ë‹¤. 
 		{	//< CSD-HK-030829
 			const int server_id = packet->u.ls_joinable.server_id;
 
@@ -557,8 +557,8 @@ int HandleCommand( int cn, t_packet *packet)
 			packet->u.server_assign_server_id.server_id	= server_id;
 			connections[server_id].chrlst.SetServerID(server_id);
 			QueuePacket(connections, server_id, packet, 1);
-			// DBÂÊ¿¡ Çã¶ô¹ŞÀº Ä³¸¯¿¡ ´ëÇÑ Data¸¦ ¿äÃ»ÇÑ´Ù. 
-			// ÃÖÃÊ¿¡ ¸Ê¿¡ µé¾î¿Ã°æ¿ì, ¸ÊÀÌµ¿ÀÌ ¾Æ´Ò°æ¿ì...
+			// DBìª½ì— í—ˆë½ë°›ì€ ìºë¦­ì— ëŒ€í•œ Dataë¥¼ ìš”ì²­í•œë‹¤. 
+			// ìµœì´ˆì— ë§µì— ë“¤ì–´ì˜¬ê²½ìš°, ë§µì´ë™ì´ ì•„ë‹ê²½ìš°...
 			if( connections[server_id].state == CONNECT_LOGIN )			
 			{	
 				packet->h.header.type = CMD_ACCESS_CHAR_DB;
@@ -568,7 +568,7 @@ int HandleCommand( int cn, t_packet *packet)
 				packet->h.header.size = sizeof(t_server_access_char_db);
 				::QueuePacket(connections, DB_DEMON, packet, 1);
 				
-				t_packet	GuildPacket;//ÁöÅ°¹Ì ±æµå¸®½ºÆ® º¸³¿.
+				t_packet	GuildPacket;//ì§€í‚¤ë¯¸ ê¸¸ë“œë¦¬ìŠ¤íŠ¸ ë³´ëƒ„.
 				GuildPacket.h.header.type = CMD_GUARDIANLIST;
 				GuildPacket.h.header.size = sizeof(t_GUARDIANLIST);
 				const int count = GuildPacket.u.GuardianList.nCount = g_CGuardianGuild.GetCount();
@@ -578,7 +578,7 @@ int HandleCommand( int cn, t_packet *packet)
 				}
 				::QueuePacket( connections, server_id, &GuildPacket, 1 );
 				
-				::SendReqGetCharInfoEtc( server_id, connections[server_id].name );	// 0410 YGI	// Ä³¸¯ÅÍ Ãß°¡ Á¤º¸¸¦ ¹Ş¾Æ ¿Â´Ù.
+				::SendReqGetCharInfoEtc( server_id, connections[server_id].name );	// 0410 YGI	// ìºë¦­í„° ì¶”ê°€ ì •ë³´ë¥¼ ë°›ì•„ ì˜¨ë‹¤.
 				connections[server_id].chrlst.updatable = 0;			// 030919 HK YGI
 			}
 
@@ -679,31 +679,31 @@ int HandleCommand( int cn, t_packet *packet)
 			ch->accessory[1] = tt->accessory[1];
 			ch->accessory[2] = tt->accessory[2];
 			ch->accessory[3] = tt->accessory[3];
-			ch->mantle		 = tt->mantle;// 011018 KHS ¸Á¶Ç 
+			ch->mantle		 = tt->mantle;// 011018 KHS ë§ë˜ 
 			
 			ch->openhouse	= tt->openhouse;
 			ch->total_id	= tt->total_id;
 			ch->viewtype	 = tt->viewtype;
 			
-			ch->SetBasicResist(RT_POISON,tt->nPoison); // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â//030227 lsw
-			ch->SetBasicResist(RT_CURSE,tt->nCurse); //	ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-			ch->SetBasicResist(RT_HOLY,tt->nHoly); // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-			ch->SetBasicResist(RT_FIRE,tt->nFire); //	ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-			ch->SetBasicResist(RT_ICE,tt->nIce); //	¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-			ch->SetBasicResist(RT_ELECT,tt->nElect); //	Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+			ch->SetBasicResist(RT_POISON,tt->nPoison); // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥//030227 lsw
+			ch->SetBasicResist(RT_CURSE,tt->nCurse); //	ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+			ch->SetBasicResist(RT_HOLY,tt->nHoly); // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+			ch->SetBasicResist(RT_FIRE,tt->nFire); //	ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+			ch->SetBasicResist(RT_ICE,tt->nIce); //	ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+			ch->SetBasicResist(RT_ELECT,tt->nElect); //	ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 			
 			ch->social_status	= tt->social_status;
 			ch->fame			= tt->fame;
-			ch->fame_pk			= tt->fame_pk;	// 010915 LTS	//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+			ch->fame_pk			= tt->fame_pk;	// 010915 LTS	//Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.		
 			ch->NWCharacter		= tt->NWCharacter;	// 010915 LTS
-			// ÀÚµ¿ UpdateÇÏ±â À§ÇÑ ±âº» Data Setting.
+			// ìë™ Updateí•˜ê¸° ìœ„í•œ ê¸°ë³¸ Data Setting.
 			ch->timetoupdate	= g_curr_time;
 			ch->SetStepInfo(tt->aStepInfo, sizeof(tt->aStepInfo));
 
 			ch->m_nUserAge		= tt->nUserAge;			// 030929 kyo
 			ch->EventJoin		= tt->EventJoin;		// 020115 LTS
 			// 030923 HK YGI
-			/* 040720_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+			/* 040720_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 			extern void SaveLogChange_LoginLogoutByKein( CHARLIST *ch, int type, int );
 			*/
 			g_pLogManager->SaveLogChange_LoginLogoutByKein( ch, 1, 0 );
@@ -735,7 +735,7 @@ int HandleCommand( int cn, t_packet *packet)
 			ch->killpc 		= tt->killpc;
 			ch->SetReservedPoint(tt->reserved_point);
 			ch->Tactics		= tt->Tactics;
-			// °ÔÀÓ¿¡ µé¾î¿Í ¼­ ±âº»ÀûÀ¸·Î  SettingÇØ¾ß ÇÒ°Í...
+			// ê²Œì„ì— ë“¤ì–´ì™€ ì„œ ê¸°ë³¸ì ìœ¼ë¡œ  Settingí•´ì•¼ í• ê²ƒ...
 			ch->itemweight		= GetTotalItemWeight( ch );
 			
 			if( ch->Peacests < 0 || ch->Peacests > 1 ) ch->Peacests = 0;
@@ -754,11 +754,11 @@ int HandleCommand( int cn, t_packet *packet)
 				px = ch->X>>5;
 				py = ch->Y>>5;
 				// 010414 KHS
-				// ½ÇÁ¦ÀûÀÎ Ä³¸¯ÅÍÀÇ ÁÂÇ¥°¡ ¹Ù²î´Â°÷.  --> ¸¸¾à, ¸ÊÀ» ¼±ÅÃÇÏ¿© 
-				// DB Demon¿¡¼­ ³Ñ¾î¿À´Â Ä³¸¯ÅÍÀÇ ÁÂÇ¥´Â DBÀÇ ³»¿ëÀÌ°í
-				// ÀÌ°÷¿¡¼­´Â Client¿¡¼­ ¼±ÅÃÇÑ MapÀÇ ½ÃÀÛÁÂÇ¥·Î SettingÇÑ´Ù. 
-				// Recent¸¦ ¼±ÅÃÇßÀ» °æ¿ì¿¡´Â DB¿¡¼­ º¸³»¿Â ÁÂÇ¥¸¦ º¸³»ÁØ´Ù.
-				// ( ¶Ç´Â DB_Demon:CheckStartMap()¿¡ ÀÇÇØ MapNameÀÌ ¹Ù²ğ¼ö ÀÖ´Ù.. )
+				// ì‹¤ì œì ì¸ ìºë¦­í„°ì˜ ì¢Œí‘œê°€ ë°”ë€ŒëŠ”ê³³.  --> ë§Œì•½, ë§µì„ ì„ íƒí•˜ì—¬ 
+				// DB Demonì—ì„œ ë„˜ì–´ì˜¤ëŠ” ìºë¦­í„°ì˜ ì¢Œí‘œëŠ” DBì˜ ë‚´ìš©ì´ê³ 
+				// ì´ê³³ì—ì„œëŠ” Clientì—ì„œ ì„ íƒí•œ Mapì˜ ì‹œì‘ì¢Œí‘œë¡œ Settingí•œë‹¤. 
+				// Recentë¥¼ ì„ íƒí–ˆì„ ê²½ìš°ì—ëŠ” DBì—ì„œ ë³´ë‚´ì˜¨ ì¢Œí‘œë¥¼ ë³´ë‚´ì¤€ë‹¤.
+				// ( ë˜ëŠ” DB_Demon:CheckStartMap()ì— ì˜í•´ MapNameì´ ë°”ë€”ìˆ˜ ìˆë‹¤.. )
 				
 				if( strcmp( MAPNAME, "MA-IN" ) == 0 )
 				{
@@ -884,7 +884,7 @@ int HandleCommand( int cn, t_packet *packet)
 			
 			::SetTileOccupied(ch->MoveSx,ch->MoveSy,true);
 			
-			sRECALL_SCRP_NO = 0; // ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¸é ÀÌ°ªÀº 0ÀÌ ¾Æ´Ñ°ªÀ¸·Î µÈ´Ù.  µé¾î¿À¸é ´Ù½Ã Setting..
+			sRECALL_SCRP_NO = 0; // ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ì´ê°’ì€ 0ì´ ì•„ë‹Œê°’ìœ¼ë¡œ ëœë‹¤.  ë“¤ì–´ì˜¤ë©´ ë‹¤ì‹œ Setting..
 			break;
 		}	
 		case CMD_ACCEPT_BINARY_DATA_ERROR:
@@ -918,7 +918,7 @@ int HandleCommand( int cn, t_packet *packet)
 				memcpy((UCHAR *)connections[server_id].chrlst.employment_str,	(UCHAR *)packet->u.server_accept_binary_data.employment,	SIZE_OF_EMPLOYMENT);
 				
 				SetTacSkillLevel( &connections[server_id].chrlst );		// 0711 YGI
-				SetMySkill( &connections[server_id].chrlst );		// ÀÏ´Ü ±âº»ÀûÀ¸·Î ¾Ë¾Æ¾ßÇÏ´Â ½ºÅ³ ¼Â
+				SetMySkill( &connections[server_id].chrlst );		// ì¼ë‹¨ ê¸°ë³¸ì ìœ¼ë¡œ ì•Œì•„ì•¼í•˜ëŠ” ìŠ¤í‚¬ ì…‹
 				break;
 			}
 		case CMD_ACCEPT_SCRIPT_DATA:
@@ -939,7 +939,7 @@ int HandleCommand( int cn, t_packet *packet)
 				memcpy((UCHAR *)connections[server_id].chrlst.inv, (UCHAR *)packet->u.server_accept_inv_data.inv, SIZE_OF_INV);
 				
 				if( packet->u.server_accept_inv_data.refresh_inventory ) 
-				{	// Å¬¶óÀÌ¾ğÆ®·Î ´Ù½Ã °ªÀ» º¸³»ÁÖÀÚ...
+				{	// í´ë¼ì´ì–¸íŠ¸ë¡œ ë‹¤ì‹œ ê°’ì„ ë³´ë‚´ì£¼ì...
 					RecvResendItem( server_id );
 				}
 
@@ -973,17 +973,17 @@ int HandleCommand( int cn, t_packet *packet)
 				}
 
 				connections[server_id].chrlst.ItemMax = i;
-				// ¸Ê¿¡ µé¾î¿À´Â ÁÂÇ¥¸¦ º¸³»ÁØ´Ù..
+				// ë§µì— ë“¤ì–´ì˜¤ëŠ” ì¢Œí‘œë¥¼ ë³´ë‚´ì¤€ë‹¤..
 				packet->h.header.type = CMD_ACCEPT_JOIN;
 				packet->u.server_accept_join.x = connections[server_id].chrlst.X;
 				packet->u.server_accept_join.y = connections[server_id].chrlst.Y;
 				packet->h.header.size = sizeof( t_server_accept_join );
 				QueuePacket(connections, server_id, packet, 1);
-				CheckCharacterWhenJoinGame( &connections[server_id].chrlst );		// Ä³¸¯ÅÍ¿¡ Ã³À½ Á¶ÀÎ ÇßÀ»¶§ÀÇ Ã¼Å©ÇÒ°Íµé
+				CheckCharacterWhenJoinGame( &connections[server_id].chrlst );		// ìºë¦­í„°ì— ì²˜ìŒ ì¡°ì¸ í–ˆì„ë•Œì˜ ì²´í¬í• ê²ƒë“¤
 				break;
 			}
 		case CMD_ALL_READY:
-			{	//< CSD-HK-030829 : ÀÌ°÷Àº CMD_CHANGE_MAP ´Ù½Ã µé¾î ¿À´Â ºÎºĞ.
+			{	//< CSD-HK-030829 : ì´ê³³ì€ CMD_CHANGE_MAP ë‹¤ì‹œ ë“¤ì–´ ì˜¤ëŠ” ë¶€ë¶„.
 				if (connections[cn].state == CONNECT_JOIN)
 				{
 					break;
@@ -991,7 +991,7 @@ int HandleCommand( int cn, t_packet *packet)
 				
 				LPCHARLIST ch = &connections[cn].chrlst;
 				CheckCurrStats(ch);
-				//ResetAbility(ch);		//050425_KCH Malaysia Áßº¹È£Ãâ Á¦°Å(checkCurrStatsÀÇ Equip ÇÔ¼ö¿¡¼­ È£Ãâ)
+				//ResetAbility(ch);		//050425_KCH Malaysia ì¤‘ë³µí˜¸ì¶œ ì œê±°(checkCurrStatsì˜ Equip í•¨ìˆ˜ì—ì„œ í˜¸ì¶œ)
 				
 				ch->MoveGox = ch->X	= packet->u.all_ready.x;
 				ch->MoveGoy = ch->Y	= packet->u.all_ready.y;
@@ -1022,9 +1022,9 @@ int HandleCommand( int cn, t_packet *packet)
 					}	//> CSD-031129
 				}
 
-				DeleteToExpireItemMallItem_byINV(*ch);	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+				DeleteToExpireItemMallItem_byINV(*ch);	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
-				CheckItem(cn);		// 0218 YGI//020228 lsw	//050331_KCH Memory Direct Hacking¿¡ µû¸¥ ¾ÆÀÌÅÛ Ã¼Å© °­È­.(¸Ê ÀÌµ¿½Ã)
+				CheckItem(cn);		// 0218 YGI//020228 lsw	//050331_KCH Memory Direct Hackingì— ë”°ë¥¸ ì•„ì´í…œ ì²´í¬ ê°•í™”.(ë§µ ì´ë™ì‹œ)
 
 				//< CSD-031107
 				SendEnvironment(connections, cn);
@@ -1055,24 +1055,24 @@ int HandleCommand( int cn, t_packet *packet)
 			{		
 				CHARLIST *ch = CheckServerId( cn );
 				if( !ch ) break;
-				// ItemÀÌ Á¤¸»·Î °¡Áö°í ÀÖ´Â ItemÀÎÁö È®ÀÎÇØ¾ß ÇÑ´Ù. 
+				// Itemì´ ì •ë§ë¡œ ê°€ì§€ê³  ìˆëŠ” Itemì¸ì§€ í™•ì¸í•´ì•¼ í•œë‹¤. 
 				t_client_item_drop *pi = &packet->u.client_item_drop;
 				ItemAttr *item = &(pi->item);
 				*item = ch->handheld;
-				CItem *ii = ItemUnit( item->item_no );	// ±×·± ItemÀÌ Table¿¡ ÀÖ´Â°¡?
+				CItem *ii = ItemUnit( item->item_no );	// ê·¸ëŸ° Itemì´ Tableì— ìˆëŠ”ê°€?
 				if( ii == NULL ) break;//021030 lsw
 
 				// 040601 YGI
 				if( GetAttr2( item->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) )
 				{
-					// ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀº ¶³¾î¶ß¸®Áö ¸øÇÕ´Ï´Ù.
-					MoveEmptyInv( &ch->handheld, ch );		// ÀÎº¥Åä¸®·Î ¿Å°Ü ÁÖÀÚ..
+					// ì•„ì´í…œ ëª° ì•„ì´í…œì€ ë–¨ì–´ëœ¨ë¦¬ì§€ ëª»í•©ë‹ˆë‹¤.
+					MoveEmptyInv( &ch->handheld, ch );		// ì¸ë²¤í† ë¦¬ë¡œ ì˜®ê²¨ ì£¼ì..
 					break;
 				}
 
 				const int item_id = AddItemList( item->item_no, ch->handheld.attr, 0, pi->x, pi->y, 0, 0 );
 				if(item_id < 0) break;
-				//	¼Õ¿¡ µéÀº ¾ÆÀÌÅÛÀ» Áö¿ö¹ö¸°´Ù.
+				//	ì†ì— ë“¤ì€ ì•„ì´í…œì„ ì§€ì›Œë²„ë¦°ë‹¤.
 				memset( &ch->handheld, 0, sizeof( ItemAttr ) );
 				ch->Money = GetMoneyByItem( ch );		// 0430 YGI
 				//CheckMoveItem( ch->Name, HAND, GROUND, pi->item, ch->Money);
@@ -1084,7 +1084,7 @@ int HandleCommand( int cn, t_packet *packet)
 				CHARLIST *ch = ::CheckServerId( cn );
 				if( !ch ) break;
 				
-				if(VIEWTYPE_OBSERVE_  == ch->viewtype)//°üÀü¸ğµå ÀÌ¸é ¾ÆÀÌÅÛ ¾È Áı¾îÁü
+				if(VIEWTYPE_OBSERVE_  == ch->viewtype)//ê´€ì „ëª¨ë“œ ì´ë©´ ì•„ì´í…œ ì•ˆ ì§‘ì–´ì§
 				{
 					break;
 				}
@@ -1094,24 +1094,24 @@ int HandleCommand( int cn, t_packet *packet)
 				if( item_id < 0 || item_id >= MAX_ITEM_LIST ) break;
 				if( ItemList[item_id].bAlive != ALIVE_ )	break;
 				if( ItemList[item_id].attr[IATTR_ATTR] & IA2_NOTMOVE ) break;
-				//<soto-030711 º¸¹°»óÀÚ Ãß°¡ ÄÚµå.(¿ŞÂÊ ¹öÆ°À» ¾ÆÀÌÅÛ¿¡ ´ë°í ´Ù¿î½Ã¿¡ ¹ß»ı.)
-				//´Ü¼øÈ÷ º¸¹° »óÀÚÀÎ°¡¸¦ Ã¼Å©.
+				//<soto-030711 ë³´ë¬¼ìƒì ì¶”ê°€ ì½”ë“œ.(ì™¼ìª½ ë²„íŠ¼ì„ ì•„ì´í…œì— ëŒ€ê³  ë‹¤ìš´ì‹œì— ë°œìƒ.)
+				//ë‹¨ìˆœíˆ ë³´ë¬¼ ìƒìì¸ê°€ë¥¼ ì²´í¬.
 				CItem *pCItem = ItemUnit(ItemList[item_id].item_no);
-				if(TreasureBoxMgr()->IsTreasureBox(pCItem->GetItemKind()))//º¸¹° »óÀÚ ¸Â±¸¿ä~
+				if(TreasureBoxMgr()->IsTreasureBox(pCItem->GetItemKind()))//ë³´ë¬¼ ìƒì ë§êµ¬ìš”~
 				{
 					TreasureBoxMgr()->CreatTreasure(item_id, cn);		
-					break; // º¸ºÒ»óÀÚ ºÎºĞÀ» Ã³¸® ÇßÀ¸¹Ç·Î.´Ù¸¥ °ÍÀº Ã³¸® ÇÏÁö ¾Ê¾Æµµ µÈ´Ù.
+					break; // ë³´ë¶ˆìƒì ë¶€ë¶„ì„ ì²˜ë¦¬ í–ˆìœ¼ë¯€ë¡œ.ë‹¤ë¥¸ ê²ƒì€ ì²˜ë¦¬ í•˜ì§€ ì•Šì•„ë„ ëœë‹¤.
 				}
-				//º¸¹°»óÀÚ ¾Æ´Ï¸é ÁøÇà.
+				//ë³´ë¬¼ìƒì ì•„ë‹ˆë©´ ì§„í–‰.
 				//>soto-030711
 				//acer5
 				int gab_x = abs( ch->X-ItemList[item_id].x );
 				int gab_y = abs( ch->Y-ItemList[item_id].y );
 				int total_gab = gab_x/16+1 + gab_y/16+1;
-				if( total_gab > 8 ) break;		// ÇÔÀÌ 9Å¸ÀÏ ÀÌ»óÀÌ¸é ³Ê¹« ¸Ö¸® ¶³¾îÁ® ÀÖ´Ù.
-				// Ãß°¡µÈ ºÎºĞ	//1214
+				if( total_gab > 8 ) break;		// í•¨ì´ 9íƒ€ì¼ ì´ìƒì´ë©´ ë„ˆë¬´ ë©€ë¦¬ ë–¨ì–´ì ¸ ìˆë‹¤.
+				// ì¶”ê°€ëœ ë¶€ë¶„	//1214
 				if( ch->handheld.item_no ) MoveEmptyInv( &ch->handheld, ch );
-				// ¾Æ¾ÆÅÛÀ» ¼ÕÀ¸·Î ¼ÂÆÃ	
+				// ì•„ì•„í…œì„ ì†ìœ¼ë¡œ ì…‹íŒ…	
 				ch->handheld.item_no = ItemList[item_id].item_no ;
 				memcpy(ch->handheld.attr, ItemList[item_id].attr, 6 * sizeof( DWORD )) ;
 				ch->Money = GetMoneyByItem( ch );		// 0430 YGI
@@ -1212,7 +1212,7 @@ int HandleCommand( int cn, t_packet *packet)
 				break; // 0713 YKI
 				
 				unsigned char equip[4] = {0, } ;							// 0623 YGI
-				SetShape( equip, cn );										// 0623 YGI		// ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ® ÀåÂøÈ­¸éÀ» º¸³»ÁØ´Ù.
+				SetShape( equip, cn );										// 0623 YGI		// ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ ì¥ì°©í™”ë©´ì„ ë³´ë‚´ì¤€ë‹¤.
 				
 				//					memcpy(equip, packet->u.client_change_equip.equip, 4);
 				memcpy(connections[cn].chrlst.accessory, equip, 4);
@@ -1315,7 +1315,7 @@ int HandleCommand( int cn, t_packet *packet)
 						break;
 					} 
 				}		
-				// ½ÇÆĞ
+				// ì‹¤íŒ¨
 				packet->h.header.type= CMD_ITEM_EXCHANGE_REFUSE ;
 				packet->h.header.size = sizeof(t_header) ;
 				QueuePacket(connections, cn, packet, 1) ;
@@ -1423,18 +1423,18 @@ int HandleCommand( int cn, t_packet *packet)
 
 				break;
 			}
-		//<! BBD 040127		·Î¶ÇÈ®ÀÎ ÀıÂ÷ÀÇ ¸¶Áö¸· ÇÁ·Î¼¼½º	
+		//<! BBD 040127		ë¡œë˜í™•ì¸ ì ˆì°¨ì˜ ë§ˆì§€ë§‰ í”„ë¡œì„¸ìŠ¤	
 		case CMD_DEL_LOTTO_USER_OK:
 			{
 				if(LottoSystem())
 				{
-					// 040715_KJHuNs TypeCasting Warning Á¦°Å ->&¸¦ Á¦°Å (bool*)
+					// 040715_KJHuNs TypeCasting Warning ì œê±° ->&ë¥¼ ì œê±° (bool*)
 					LottoSystem()->CheckIsDelOk(packet->u.Lotto_Del_Ok.bIsDelOK);
 				}
 
 				break;
 			}
-		//> BBD 040127		·Î¶ÇÈ®ÀÎ ÀıÂ÷ÀÇ ¸¶Áö¸· ÇÁ·Î¼¼½º	
+		//> BBD 040127		ë¡œë˜í™•ì¸ ì ˆì°¨ì˜ ë§ˆì§€ë§‰ í”„ë¡œì„¸ìŠ¤	
 		case CMD_LOTTERY_INFO:
 			{
 				if(LottoSystem())
@@ -1577,7 +1577,7 @@ int HandleCommand( int cn, t_packet *packet)
 				break;	// 010502 YGI
 			}
 		case CMD_QUEST_JOB_FINISH:	
-			{	// lhs 0810 Äù½ºÆ® Àâ ÇÇ´Ï½¬ Á÷¾÷ÀÎÀÇ ¼­¾à
+			{	// lhs 0810 í€˜ìŠ¤íŠ¸ ì¡ í”¼ë‹ˆì‰¬ ì§ì—…ì¸ì˜ ì„œì•½
 				Recv_CMD_QUEST_JOB_FINISH( cn,1 );
 				break;
 			}	
@@ -1586,7 +1586,7 @@ int HandleCommand( int cn, t_packet *packet)
 				RecvSmileFace( cn, packet->u.client_smile_face.smileno );
 				break;
 			}
-		// -----------------¿î¿µÀÚ¿ë ¸í·É packet-> //acer7
+		// -----------------ìš´ì˜ììš© ëª…ë ¹ packet-> //acer7
 		case CMD_BLOCK_ATTACK_START:
 			{
 				RecvBlockAttack( cn, 1 );
@@ -1786,7 +1786,7 @@ int HandleCommand( int cn, t_packet *packet)
 				connections[ cn].chrlst.installType = packet->u.client_install_type.type;
 				break;
 			}
-		//<050421_KCH Accelerate Ã¼Å© ·çÆ¾ Á¦°Å(È¿°ú¹Ì¹Ì,AMDPCÁ¢¼Ó Â÷´Ü¹®Á¦)
+		//<050421_KCH Accelerate ì²´í¬ ë£¨í‹´ ì œê±°(íš¨ê³¼ë¯¸ë¯¸,AMDPCì ‘ì† ì°¨ë‹¨ë¬¸ì œ)
 		/*
 		case CMD_CHECK_ACCEL:
 			{
@@ -1836,7 +1836,7 @@ int HandleCommand( int cn, t_packet *packet)
 				g_pUserManager->SendPacket(packet);
 				break;
 			}	//> CSD-CN-031213
-//<soto-LottoÃß°¡.
+//<soto-Lottoì¶”ê°€.
 		case CMD_LOTTO_SEEK:
 			{
 				if(cn == DB_DEMON)
@@ -1858,7 +1858,7 @@ int HandleCommand( int cn, t_packet *packet)
 				}
 			}
 			break;
-//>soto-LottoÃß°¡.
+//>soto-Lottoì¶”ê°€.
 		default:
 			{
 				if (1 == CheckHandleByKein(packet, connections, cn))
@@ -1904,8 +1904,8 @@ void RecvEvent( t_client_event *pEvent, short int cn )
 	
 	if (sRECALL_SCRP_NO) 
 	{
-		SendPutMenuString( KM_FAIL, 216, cn );	// 031110 YGI // ¿ë¿À¿Í »óÀÇ
-		return; // ÇöÀç ½ºÅ©¸³Æ®°¡ ÁøÇàÁßÀÌ´Ù. 
+		SendPutMenuString( KM_FAIL, 216, cn );	// 031110 YGI // ìš©ì˜¤ì™€ ìƒì˜
+		return; // í˜„ì¬ ìŠ¤í¬ë¦½íŠ¸ê°€ ì§„í–‰ì¤‘ì´ë‹¤. 
 	}
 	
 	EventPC = cn;
@@ -1918,7 +1918,7 @@ void RecvEvent( t_client_event *pEvent, short int cn )
 			if (ttt < NPC_LIST_START || ttt >= MAX_NPC_LIST) break;
 			if (NPCList[ ttt].Race == SEALSTONE)  break;
 			if (NPCList[ ttt].IsTamedNpc())  break;
-			if (g_EventMgr.CheckScriptNo(ttt, cn)) break;		// ÀÌº¥Æ®¿¡¼­ ¸ÕÀú Àû¿ëµÊ
+			if (g_EventMgr.CheckScriptNo(ttt, cn)) break;		// ì´ë²¤íŠ¸ì—ì„œ ë¨¼ì € ì ìš©ë¨
 			
 			EventNPC[EventPC] = ttt;
 			const int eventno = NPCList[EventNPC[EventPC]].eventno;
@@ -1955,7 +1955,7 @@ void RecvNewDay( t_packet *packet )
 {
 	WORD wDay =	packet->u.send_map_change_date.wDay;
 	WORD wMonth = packet->u.send_map_change_date.wMonth;
-	//³¯(Day)°¡ º¯°æµÇ¾úÀ¸¸é 1, ´Ş(Month)°¡ º¯°æµÇ¾úÀ¸¸é 2, µÑ´Ù º¯°æµÇ¾úÀ¸¸é 3
+	//ë‚ (Day)ê°€ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 1, ë‹¬(Month)ê°€ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 2, ë‘˜ë‹¤ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 3
 	BYTE bChanged = packet->u.send_map_change_date.bChanged;
 
 	static int save_day = 0;
@@ -1975,8 +1975,8 @@ void RecvNewDay( t_packet *packet )
 	MyLog(0, "Start New Day ^^ : by kein " );
 }
 
-WORD g_wCurDay;			//ÇöÀç ³¯Â¥¸¦ ÀúÀå ÇÏ´Â Àü¿ªº¯¼ö 
-WORD g_wCurMonth;		//ÇöÀç ´Ş(month)À»  ÀúÀå ÇÏ´Â Àü¿ªº¯¼ö 
+WORD g_wCurDay;			//í˜„ì¬ ë‚ ì§œë¥¼ ì €ì¥ í•˜ëŠ” ì „ì—­ë³€ìˆ˜ 
+WORD g_wCurMonth;		//í˜„ì¬ ë‹¬(month)ì„  ì €ì¥ í•˜ëŠ” ì „ì—­ë³€ìˆ˜ 
 
 void SetCurrentDate()
 {
@@ -1996,18 +1996,18 @@ void CheckDay()
 	}
 	
 	static int curr_time = g_curr_time;
-	if( g_curr_time - curr_time < 300 ) return;		// 5ºĞ
+	if( g_curr_time - curr_time < 300 ) return;		// 5ë¶„
 
 	curr_time = g_curr_time;
 
 	SYSTEMTIME time;
 	GetLocalTime(&time);
-	BYTE	bChanged = 1;		//³¯(day)¸¸ º¯°æµÇ¾úÀ¸¸é 1, ³¯°ú ´Ş(month) µÑ´Ù º¯°æ µÇ¾úÀ¸¸é 2
+	BYTE	bChanged = 1;		//ë‚ (day)ë§Œ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 1, ë‚ ê³¼ ë‹¬(month) ë‘˜ë‹¤ ë³€ê²½ ë˜ì—ˆìœ¼ë©´ 2
 
-	//´ŞÀÌ ¹Ù²î¾úÀ»¶§
+	//ë‹¬ì´ ë°”ë€Œì—ˆì„ë•Œ
 	if(time.wMonth != g_wCurMonth)
 	{
-		g_wCurMonth = time.wMonth;		//´Ş(month) °»½Å 
+		g_wCurMonth = time.wMonth;		//ë‹¬(month) ê°±ì‹  
 		bChanged++;
 	}
 
@@ -2025,7 +2025,7 @@ void CheckDay()
 	}
 	// 030929 kyo >>
 
-	//³¯Â¥°¡ ¹Ù²î¾úÀ»¶§ 
+	//ë‚ ì§œê°€ ë°”ë€Œì—ˆì„ë•Œ 
 	if(time.wDay != g_wCurDay)
 	{
 		t_packet packet;
@@ -2033,18 +2033,18 @@ void CheckDay()
 
 		packet.u.send_map_change_date.wDay = time.wDay;
 		packet.u.send_map_change_date.wMonth = time.wMonth;
-		RecvNewDay( &packet );		// ³¯ÀÚ ¸®ÇÃ·¹½Ã
+		RecvNewDay( &packet );		// ë‚ ì ë¦¬í”Œë ˆì‹œ
 	}
 }
 void KickOffLimitedUser( const int cn)	// 030929 kyo
-{//¸Ş½ÃÁö¸¦ ³²±â°í À¯Àú Á¢¼ÓÀ» Á¾·áÇÑ´Ù.
+{//ë©”ì‹œì§€ë¥¼ ë‚¨ê¸°ê³  ìœ ì € ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
 	//leave log // add plz......
 	g_QuestInMap.ShowStateMsg( cn, g_szLimitedUser_Message, 255, 255, 0 ); //yellow
 	::closeconnection( connections, cn, 100 );
 }
 
 void CheckLimitedAge()	// 030929 kyo
-{	//< CSD-CN-031213 : ¸ğµç À¯ÀúÀÇ Á¢¼ÓÀ» È®ÀÎÇØ¼­ Á¦ÇÑ³ªÀÌ ¹Ì¸¸ÀÌ¸é Á¢¼ÓÀ» Á¾·á½ÃÅ²´Ù.
+{	//< CSD-CN-031213 : ëª¨ë“  ìœ ì €ì˜ ì ‘ì†ì„ í™•ì¸í•´ì„œ ì œí•œë‚˜ì´ ë¯¸ë§Œì´ë©´ ì ‘ì†ì„ ì¢…ë£Œì‹œí‚¨ë‹¤.
 	CUserManager::HASH_USER mpUser = g_pUserManager->GetUserSet();
 
 	for (CUserManager::ITOR_USER i = mpUser.begin(); i != mpUser.end(); ++i)
@@ -2059,7 +2059,7 @@ void CheckLimitedAge()	// 030929 kyo
 }	//> CSD-CN-031213
 
 void InitLimitedTimeAndAge() // 030929 kyo
-{// Á¦ÇÑ³ªÀÌ¿Í ½Ã°£, Ãâ·Â½ÃÅ³ ¸Ş½ÃÁö¸¦ °¡Á®¿Â´Ù.
+{// ì œí•œë‚˜ì´ì™€ ì‹œê°„, ì¶œë ¥ì‹œí‚¬ ë©”ì‹œì§€ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 	char	NetworkDir[MAX_PATH];
 	char	MapServerConfigFileName[MAX_PATH];
 

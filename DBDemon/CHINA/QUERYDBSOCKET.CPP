@@ -1,4 +1,4 @@
-// QueryDBSocket.cpp: implementation of the CQueryDBSocket class.
+ï»¿// QueryDBSocket.cpp: implementation of the CQueryDBSocket class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -68,7 +68,7 @@ BOOL CQueryDBSocket::Connsock(const char *ipaddr,LONG port)
 	// TODO: Add your command handler code here
 //		if (!m_AcceptSock[0].Create()) 
 //		{
-//			DebugPrintf("µLªk¶}±Ò¸ê®Æ socket_create");
+//			DebugPrintf("ç„¡æ³•é–‹å•Ÿè³‡æ–™ socket_create");
 			//delete mysession[ID].player;
 			//mysession[ID].player=NULL;
 //			return FALSE;
@@ -77,7 +77,7 @@ BOOL CQueryDBSocket::Connsock(const char *ipaddr,LONG port)
 //		{
 //			m_AcceptSock[0].PrintfSockError(m_AcceptSock[0].GetLastError());
 		
-//			DebugPrintf("µLªk¶}±Ò¸ê®Æ socket_Socket");
+//			DebugPrintf("ç„¡æ³•é–‹å•Ÿè³‡æ–™ socket_Socket");
 			//delete mysession[ID].player;
 			//mysession[ID].player=NULL;
 //			return FALSE;
@@ -106,7 +106,7 @@ int CQueryDBSocket::Send_Data_To_Server(int protocolID, void *databuf, int size)
 
     if (m_AcceptSock->WritePacket(GameCmd, size+4) <= 0 ) 
 	{
-        DebugPrintf("Send_Data_To_ServerµLªk°e¥Xrequest");
+        DebugPrintf("Send_Data_To_Serverç„¡æ³•é€å‡ºrequest");
     } else
         oRet = OK;
 

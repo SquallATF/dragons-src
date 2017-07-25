@@ -1,4 +1,4 @@
-// StepMigration.h: interface for the CStepMigration class.
+﻿// StepMigration.h: interface for the CStepMigration class.
 //
 //////////////////////////////////////////////////////////////////////
 

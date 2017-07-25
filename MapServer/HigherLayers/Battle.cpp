@@ -1,11 +1,11 @@
-// Battle.cpp: implementation of the CBattle class.
+ï»¿// Battle.cpp: implementation of the CBattle class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "..\stdafx.h"
 #include "Battle.h"
 
-//#include "CItem.h"	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//#include "CItem.h"	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "OP_Magic.h"
 #include "Op_Battle.h"
 #include "MenuServer.h"
@@ -22,12 +22,12 @@ extern void Send_CMD_SEALSTONE_STATUS(LPCHARLIST ch, int status);
 ///////////////////////////////////////////////////////////////////////////////
 
 static int RATE_BY_CLASS[5][4] = 
-{ // Å¬·¡½ºÀÇ ¹«±âº° º¸Á¤°ª
-	{100, 100,  90,  90}, // Àü  »ç : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90,  90, 100, 100}, // µµ  Àû : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90,  90, 100, 100}, // ±Ã  ¼ö : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90, 100,  90, 100}, // ¸¶¹ı»ç : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90, 100,  90, 100}  // ¼ºÁ÷ÀÚ : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
+{ // í´ë˜ìŠ¤ì˜ ë¬´ê¸°ë³„ ë³´ì •ê°’
+	{100, 100,  90,  90}, // ì „  ì‚¬ : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90,  90, 100, 100}, // ë„  ì  : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90,  90, 100, 100}, // ê¶  ìˆ˜ : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90, 100,  90, 100}, // ë§ˆë²•ì‚¬ : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90, 100,  90, 100}  // ì„±ì§ì : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ CBattle::~CBattle()
 ///////////////////////////////////////////////////////////////////////////////
 
 int CBattle::Relation(int nCaster, int nTarget) const
-{ // ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ »ó¼º °ü°è
+{ // ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ìƒì„± ê´€ê³„
 	const int nSrcHigh = Magic_Ref[nCaster].order_Type/10;
 	const int nSrcLow = Magic_Ref[nCaster].order_Type%10;
 	const int nDstHigh = Magic_Ref[nTarget].order_Type/10;
@@ -95,14 +95,14 @@ void CBattle::SendBattleDamage(WORD idTarget, BYTE nKind, int nDamage)
 } //> CSD-021019
 
 void CBattle::SendPacket(WORD idTarget)
-{ // Packet Àü¼Û
+{ // Packet ì „ì†¡
 	if (idTarget < 10000)
-	{ // ´ë»óÀÚ°¡ PC¶ó¸é
+	{ // ëŒ€ìƒìê°€ PCë¼ë©´
 		::QueuePacket(connections, idTarget, &m_packet, 1);
 		::CastMe2Other(idTarget, &m_packet);
 	}
 	else
-	{ // ´ë»óÀÚ°¡ NPC¶ó¸é
+	{ // ëŒ€ìƒìê°€ NPCë¼ë©´
 		::CastNPC2Other(idTarget - 10000, &m_packet);
 	}
 }
@@ -125,7 +125,7 @@ int CStrike::CalcAttack(BYTE nType) const
 	
 	if (!m_pTarget->IsIgnorePhysicalAttack())
 	{
-		// ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+		// ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nCaster)
 		{ //< CSD-021127
 		case THUNDER_BLOW:
@@ -138,24 +138,24 @@ int CStrike::CalcAttack(BYTE nType) const
 				nPercent += m_pCaster->CorrectCombatAttack(nCaster, nResult);
 				break;
 			}
-		case MULTIPLE_FIRE://¶àÖØ»ğ
-		case ICING_BLAST: //±ù±©
+		case MULTIPLE_FIRE://ëœ©è·¯ì‚½
+		case ICING_BLAST: //ê¹¥ê´¬
 			{
-				nPercent -= (100 - m_pCaster->CorrectCombatAttack(nCaster, nResult));  //100 - m_pCaster ÕâÀïÊÇ¹¥»÷
+				nPercent -= (100 - m_pCaster->CorrectCombatAttack(nCaster, nResult));  //100 - m_pCaster ä¾¶ìŸè§’ë¬‘ìƒŒ
 				break;
 			}
-		case SWORD_N_ROSES: //½£ÓëÃµ¹å
+		case SWORD_N_ROSES: //ìˆ²å®…ì²œë°§
 			{
-				nPercent -= (75 - m_pCaster->CorrectCombatAttack(nCaster, nResult));  //100 - m_pCaster ÕâÀïÊÇ¹¥»÷
+				nPercent -= (75 - m_pCaster->CorrectCombatAttack(nCaster, nResult));  //100 - m_pCaster ä¾¶ìŸè§’ë¬‘ìƒŒ
 				break;
 			}
-		case DOUBLE_ATTACK: //Ë«ÖØ¹¥»÷
+		case DOUBLE_ATTACK: //å´—è·¯ë¬‘ìƒŒ
 			{
-				nPercent -= (90 - m_pCaster->CorrectCombatAttack(nCaster, nResult));  //100 - m_pCaster ÕâÀïÊÇ¹¥»÷
+				nPercent -= (90 - m_pCaster->CorrectCombatAttack(nCaster, nResult));  //100 - m_pCaster ä¾¶ìŸè§’ë¬‘ìƒŒ
 				break;
 			}
 		case CHERROY_SHADE:
-			{ // Å¸°İ ´ë»óÀÚ´Â Áúº´ÀÇ È¿°ú
+			{ // íƒ€ê²© ëŒ€ìƒìëŠ” ì§ˆë³‘ì˜ íš¨ê³¼
 				if (!IsCurseEnable(m_pTarget))
 				{
 					break;
@@ -177,7 +177,7 @@ int CStrike::CalcAttack(BYTE nType) const
 				break;
 			}
 		case DARK_BLADE:
-			{ // Å¸°İ ´ë»óÀÚ´Â ¼ÓµµÀúÇÏÀÇ È¿°ú
+			{ // íƒ€ê²© ëŒ€ìƒìëŠ” ì†ë„ì €í•˜ì˜ íš¨ê³¼
 				if (!IsCurseEnable(m_pTarget))
 				{
 					break;
@@ -201,7 +201,7 @@ int CStrike::CalcAttack(BYTE nType) const
 				break;
 			}
 		case HORN_OF_ICEBERG:
-			{ // Å¸°İ ´ë»óÀÚ´Â ¾ó¸²ÀÇ È¿°ú
+			{ // íƒ€ê²© ëŒ€ìƒìëŠ” ì–¼ë¦¼ì˜ íš¨ê³¼
 				if (!IsCurseEnable(m_pTarget))
 				{
 					break;
@@ -224,7 +224,7 @@ int CStrike::CalcAttack(BYTE nType) const
 				break;
 			}
 		} //> CSD-021127
-		// ¸¶¹ı¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+		// ë§ˆë²•ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nType)
 		{	//< CSD-030723
 		case WR_SHORT:  nPercent += m_pCaster->GetShortAttack();  break;
@@ -240,7 +240,7 @@ int CStrike::CalcAttack(BYTE nType) const
 int CStrike::CalcDefense(int nAttack) const
 {
 	int nPercent = 0;
-	// ¹æ¾î·Â °è»ê
+	// ë°©ì–´ë ¥ ê³„ì‚°
 	return m_pTarget->CalcPhysicalDefensivePower(nAttack, nPercent);
 }
 
@@ -253,7 +253,7 @@ int CStrike::CalcDamage(BYTE nType, int nDamage) const
 	int nPlus = 0, nMinus = 0;
 	
 	if (!m_pCaster->IsStrikePiercing())
-	{	// ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ µ¥¹ÌÁö º¸Á¤
+	{	// ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ë°ë¯¸ì§€ ë³´ì •
 		switch (nCaster)
 		{
 		case LIGHTNING_SHOCK:
@@ -293,10 +293,10 @@ int CStrike::CalcDamage(BYTE nType, int nDamage) const
 					return 0;
 				}
 				else
-				{	//< CSD-TW-030623 : ÀüÅõ½ºÅ³ ÃÊ±âÈ­
+				{	//< CSD-TW-030623 : ì „íˆ¬ìŠ¤í‚¬ ì´ˆê¸°í™”
 					m_pTarget->InitActiveCombat();
 					m_pTarget->ClearActiveState();
-					// °ü·Ã Packet Àü¼Û  
+					// ê´€ë ¨ Packet ì „ì†¡  
 					t_packet packet;
 					packet.h.header.type = CMD_COMBAT_INIT;
 					packet.h.header.size = sizeof(t_combat_init);
@@ -308,7 +308,7 @@ int CStrike::CalcDamage(BYTE nType, int nDamage) const
 				break;
 			}
 		}
-		// ¸¶¹ı¿¡ ÀÇÇÑ µ¥¹ÌÁö º¸Á¤
+		// ë§ˆë²•ì— ì˜í•œ ë°ë¯¸ì§€ ë³´ì •
 		switch (nType)
 		{	//< CSD-030723
 		case WR_SHORT:  m_pTarget->CorrectShortDamage(nDamage, nPlus, nMinus);  break;
@@ -349,7 +349,7 @@ bool CStrike::IsCurseEnable(CHARLIST* pTarget) const
 ///////////////////////////////////////////////////////////////////////////////
 
 void CMagic::InitMagicResult(int nType)
-{	//< CSD-TW-030606 : Packet ÃÊ±âÈ­
+{	//< CSD-TW-030606 : Packet ì´ˆê¸°í™”
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = nType;
 	
@@ -381,7 +381,7 @@ void CMagic::InitMagicResult(int nType)
 }	//> CSD-TW-030606
 
 void CMagic::SendMagicResult()
-{	//< CSD-TW-030606 : ´ë»óÀÚ¿¡°Ô Packet º¸³»±â
+{	//< CSD-TW-030606 : ëŒ€ìƒìì—ê²Œ Packet ë³´ë‚´ê¸°
 	const int nMagic = m_pCaster->GetMagic();
 	WORD idTarget = 0;
 	
@@ -428,7 +428,7 @@ int CMagic::CalcPeriod() const
 	const int nContinue = GetContinueTime(m_nIndex);
 	const int nType = GetMagicType(m_nIndex);
 	const int nResist = GetResistType(m_nIndex);
-	// °íÀ¯ À¯Áö ½Ã°£ °è»ê
+	// ê³ ìœ  ìœ ì§€ ì‹œê°„ ê³„ì‚°
 	int nPlus = 0, nMinus = 0;
 	
 	if ( m_nContinue > 0)
@@ -466,7 +466,7 @@ int CMagic::CalcAttack(int nBase) const
 	int nPercent = 0, nAdd = 0;
 	
 	if (!m_pTarget->IsIgnoreMagicAmplify())
-	{ // ¸¶¹ı¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{ // ë§ˆë²•ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		nPercent += m_pCaster->GetMagicAmplify();
 	}
 	
@@ -481,7 +481,7 @@ int CMagic::CalcDefense(int nAttack) const
 	{ //< CSD-021128
 		nResist = Magic_Ref[m_nIndex].nResist;
 	} //> CSD-021128
-	// ¹æ¾î·Â °è»ê
+	// ë°©ì–´ë ¥ ê³„ì‚°
 	return m_pTarget->CalcMagicDefensivePower(nResist, nAttack, nPercent);
 }
 
@@ -547,10 +547,10 @@ bool CCombat::AttackShort()
 	
 	const int nAttack = CalcAttack(WR_SHORT); 
 	const int nDefense = CalcDefense(nAttack);
-	// ´Ü°Å¸® ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ë‹¨ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(WR_SHORT, nAttack - nDefense);
 	Correct(WR_SHORT, nDamage); 
-	// »ç¿ë ¹«±âÀÇ ³»±¸µµ °¨¼Ò
+	// ì‚¬ìš© ë¬´ê¸°ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pCaster, nDamage, WT_WEAPON, m_pTarget->SprNo);
 	return Result(nDamage);
 }	//> CSD-030723
@@ -566,10 +566,10 @@ bool CCombat::AttackMiddle()
 	
 	const int nAttack = CalcAttack(WR_MIDDLE); 
 	const int nDefense = CalcDefense(nAttack);
-	// Áß°Å¸® ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ì¤‘ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(WR_MIDDLE, nAttack - nDefense);
 	Correct(WR_MIDDLE, nDamage); 
-	// »ç¿ë ¹«±âÀÇ ³»±¸µµ °¨¼Ò
+	// ì‚¬ìš© ë¬´ê¸°ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pCaster, nDamage, WT_WEAPON, m_pTarget->SprNo);
 	return Result(nDamage);
 }	//> CSD-030723
@@ -585,19 +585,19 @@ bool CCombat::AttackLong(BYTE nType)
 	
 	const int nAttack = CalcAttack(nType);
 	const int nDefense = CalcDefense(nAttack);
-	// Àå°Å¸® ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ì¥ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(m_nIndex, nAttack - nDefense);
 	Correct(nType, nDamage); 
-	// »ç¿ë ¹«±âÀÇ ³»±¸µµ °¨¼Ò
+	// ì‚¬ìš© ë¬´ê¸°ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	switch (nType)
 	{
-    case WR_LONG1: // È°
+    case WR_LONG1: // í™œ
 		{
 			::DecreaseEquipDuration(m_pCaster, nDamage, WT_WEAPON, m_pTarget->SprNo);
 			::DecreaseEquipDuration(m_pCaster, 1, WT_SHIELD, m_pTarget->SprNo);
 			break;
 		}
-    case WR_LONG2: // ºñµµ
+    case WR_LONG2: // ë¹„ë„
 		{
 			::DecreaseEquipDuration(m_pCaster, 1, WT_WEAPON, m_pTarget->SprNo);
 			break;
@@ -606,7 +606,7 @@ bool CCombat::AttackLong(BYTE nType)
 	
 	if (m_pTarget->IsNpc() == true)				// LTS AI
 	{
-		if (m_pTarget->ChairNum)		// ¼­¹ö AIÀÌ¸é 	// LTS AI2	
+		if (m_pTarget->ChairNum)		// ì„œë²„ AIì´ë©´ 	// LTS AI2	
 		{
 			if (rand()%10 > 5)							// LTS AI2
 			{
@@ -714,7 +714,7 @@ int CCombat::CalcAttack(BYTE nType) const
 	int nPercent = 0, nAdd = 0;
 	
 	if (!m_pTarget->IsIgnorePhysicalAttack())
-	{	// ¸¶¹ı¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{	// ë§ˆë²•ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nType)
 		{	//< CSD-030723	
 		case WR_SHORT:  nPercent += m_pCaster->GetShortAttack();  break;
@@ -727,7 +727,7 @@ int CCombat::CalcAttack(BYTE nType) const
 	int nAttack = m_pCaster->CalcPhysicalStrikingPower(nPercent, nAdd);
 	
 	if (!m_pTarget->IsIgnorePhysicalAttack())
-	{ // ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{ // ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nCaster)
 		{
 		case LIGHTNING_BOOM:
@@ -735,53 +735,53 @@ int CCombat::CalcAttack(BYTE nType) const
 		case GROUND_ATTACK:
 		case TWISTER:
 			{
-				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/100;   //¹¥»÷Êı×ÖĞ¡·´¶ø¸ß
+				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/100;   //ë¬‘ìƒŒé‘’ä¿šé¬¼ëŸ½ëë©•
 				break;
 			}
 		}
 	}
 		if (!m_pTarget->IsIgnorePhysicalAttack())
-	{ // ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{ // ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nCaster)
 		{
 
 		case LIGHTNING_EXTREME:
 			{
-				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/65;  //¹¥»÷Êı×ÖĞ¡·´¶ø¸ß ÕâÀïĞŞ¸ÄÁË¾¿¼«Ö®µç
+				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/65;  //ë¬‘ìƒŒé‘’ä¿šé¬¼ëŸ½ëë©• ä¾¶ìŸéŒ¦ë§£ì£„ì”©ì„è£‚ë“ 
 				break;
 			}
 		}
 	}
 		if (!m_pTarget->IsIgnorePhysicalAttack())
-	{ // ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{ // ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nCaster)
 		{
 		case WIND_EXTREME:
 			{
-				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/200;  //¹¥»÷Êı×ÖĞ¡·´¶ø¸ß ÕâÀïĞŞ¸ÄÁË ¾¿¼«Ö®·ç70
+				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/200;  //ë¬‘ìƒŒé‘’ä¿šé¬¼ëŸ½ëë©• ä¾¶ìŸéŒ¦ë§£ì£„ ì”©ì„è£‚ë£¨70
 				break;
 			}
 		}
 	}
 	
 		if (!m_pTarget->IsIgnorePhysicalAttack())
-	{ // ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{ // ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nCaster)
 		{
 		case EARTH_EXTREME:
 			{
-				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/37;  //¹¥»÷Êı×ÖĞ¡·´¶ø¸ß ÕâÀïĞŞ¸ÄÁË ¾¿¼«´óµØ
+				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/37;  //ë¬‘ìƒŒé‘’ä¿šé¬¼ëŸ½ëë©• ä¾¶ìŸéŒ¦ë§£ì£„ ì”©ì„ëŒ•ë’ˆ
 				break;
 			}
 		}
 	}
 		if (!m_pTarget->IsIgnorePhysicalAttack())
-	{ // ÀüÅõ½ºÅ³¿¡ ÀÇÇÑ °ø°İ·Â º¸Á¤
+	{ // ì „íˆ¬ìŠ¤í‚¬ì— ì˜í•œ ê³µê²©ë ¥ ë³´ì •
 		switch (nCaster)
 		{
 		case WHILWIND:
 			{
-				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/200;   //¹¥»÷Êı×ÖĞ¡·´¶ø¸ß ÕâÀïĞŞ¸ÄÁË »Ø·ç45
+				nAttack = nAttack*m_pCaster->CorrectCombatAttack(nCaster, nResult)/200;   //ë¬‘ìƒŒé‘’ä¿šé¬¼ëŸ½ëë©• ä¾¶ìŸéŒ¦ë§£ì£„ ì€¼ë£¨45
 				break;
 			}
 		}
@@ -792,7 +792,7 @@ int CCombat::CalcAttack(BYTE nType) const
 int CCombat::CalcDefense(int nAttack) const
 {
 	int nPercent = 0;
-	// ¹æ¾î·Â °è»ê
+	// ë°©ì–´ë ¥ ê³„ì‚°
 	return m_pTarget->CalcPhysicalDefensivePower(nAttack, nPercent);
 }
 
@@ -817,10 +817,10 @@ int CCombat::CalcDamage(BYTE nType, int nDamage) const
 					return 0;
 				}
 				else
-				{	//< CSD-TW-030623 : ÀüÅõ½ºÅ³ ÃÊ±âÈ­
+				{	//< CSD-TW-030623 : ì „íˆ¬ìŠ¤í‚¬ ì´ˆê¸°í™”
 					m_pTarget->InitActiveCombat();
 					m_pTarget->ClearActiveState();
-					// °ü·Ã Packet Àü¼Û  
+					// ê´€ë ¨ Packet ì „ì†¡  
 					t_packet packet;
 					packet.h.header.type = CMD_COMBAT_INIT;
 					packet.h.header.size = sizeof(t_combat_init);
@@ -832,7 +832,7 @@ int CCombat::CalcDamage(BYTE nType, int nDamage) const
 				break;
 			}
 		}
-		// ¸¶¹ı¿¡ ÀÇÇÑ µ¥¹ÌÁö º¸Á¤
+		// ë§ˆë²•ì— ì˜í•œ ë°ë¯¸ì§€ ë³´ì •
 		switch (nType)
 		{	//< CSD-030723
 		case WR_SHORT:  m_pTarget->CorrectShortDamage(nDamage, nPercent);  break;
@@ -847,24 +847,24 @@ int CCombat::CalcDamage(BYTE nType, int nDamage) const
 
 void CCombat::Correct(BYTE nType, int& rDamage)
 { 
-	// ¾ÆÀÌÅÛ ¼Ó¼º¿¡ ÀÇÇÑ º¸Á¤
+	// ì•„ì´í…œ ì†ì„±ì— ì˜í•œ ë³´ì •
 	RareEM.CorrectByStaticRare(m_pCaster, m_pTarget,rDamage); //020303 lsw
-	// Å¬·¡½º¿¡ ´ëÇÑ º¸Á¤
+	// í´ë˜ìŠ¤ì— ëŒ€í•œ ë³´ì •
 	if (m_pCaster->IsPlayer())
 	{ //< CSD-021024
 		rDamage = rDamage*RATE_BY_CLASS[m_pCaster->Class][nType]/100;
 	} //> CSD-021024
-	// °Å¸®¿¡ ´ëÇÑ º¸Á¤
+	// ê±°ë¦¬ì— ëŒ€í•œ ë³´ì •
 	const int nDistance = ::getDistance(m_pCaster, m_pTarget);
 	m_pCaster->CorrectStrikeRange(nDistance, rDamage);
-	// ³ô³·ÀÌ¿¡ µû¸¥ º¸Á¤
+	// ë†’ë‚®ì´ì— ë”°ë¥¸ ë³´ì •
 	const int nX = m_pTarget->MoveSx; 
 	const int nY = m_pTarget->MoveSy;
 	m_pCaster->CorrectRiseFall(0, nX, nY, rDamage);
-	// ¿ÕÀÌ³ª Ä«¿î¼¿·¯¿¡ ´ëÇÑ º¸Á¤
+	// ì™•ì´ë‚˜ ì¹´ìš´ì…€ëŸ¬ì— ëŒ€í•œ ë³´ì •
 	if (m_pCaster->name_status.nation == m_pTarget->name_status.nation)
 	{	
-		//if (m_pTarget->name_status.king || m_pTarget->IsCounselor())  //coromo 2005/05/06 È¥³ıKINGÌØÈ¨
+		//if (m_pTarget->name_status.king || m_pTarget->IsCounselor())  //coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 		//{
 		//	rDamage /= 30;
 		//}
@@ -888,19 +888,19 @@ bool CCombat::Result(int nDamage, bool bAni)
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ¹°¸®Àû µ¥ÀÌÁöµµ ¹ŞÁö ¸øÇÔ
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ë¬¼ë¦¬ì  ë°ì´ì§€ë„ ë°›ì§€ ëª»í•¨
 	if (m_pTarget->IsStone())
 	{		
 		nDamage = 0;
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¸¸¾à °ø°İÀ» ¹ŞÀ¸¸é ÀÚ¸®¿¡ ¸ØÃß°Ô ÇÔ
+	// ë§Œì•½ ê³µê²©ì„ ë°›ìœ¼ë©´ ìë¦¬ì— ë©ˆì¶”ê²Œ í•¨
 	if (m_pTarget->IsNpc())
 	{ 
 		m_pTarget->MoveLength = m_pTarget->MovePathCount = 0;
 	}
-	// ¸¸¾à ROOKIE_LEVEL ÀÌÇÏÀÌ¸é µ·ÀÌ ³ª¿À°Ô ÇÔ
+	// ë§Œì•½ ROOKIE_LEVEL ì´í•˜ì´ë©´ ëˆì´ ë‚˜ì˜¤ê²Œ í•¨
 	if (m_pCaster->IsPlayer() && m_pTarget->IsNpc())
 	{
 		if (m_pCaster->GetLevel() <= ROOKIE_LEVEL && m_pTarget->Race == DUMMY)
@@ -921,7 +921,7 @@ bool CCombat::Result(int nDamage, bool bAni)
 			}
 		}	//> CSD-030806
 	}
-	// ¹æ¾î±¸ÀÇ ³»±¸µµ °¨¼Ò
+	// ë°©ì–´êµ¬ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pTarget, nDamage, ::getEquipRandomPos(), m_pTarget->SprNo,false);//020401 lsw
 	::HungryMuchAdd(m_pCaster, HT_ATTACK);
 	
@@ -932,9 +932,9 @@ bool CCombat::Result(int nDamage, bool bAni)
 		case DUMMY:
 			{	//< CSD-040803
 				if (m_pCaster->GetLevel() <= ENABLE_DUMMY_LEVEL)
-				{	// °æÇèÄ¡°¡ 10 ÀÌÇÏ¸é¼­ ´õ¹Ì¸¦ °ø°İÇÑ °æ¿ì¸¸ °æÇèÄ¡ »ó½Â  
+				{	// ê²½í—˜ì¹˜ê°€ 10 ì´í•˜ë©´ì„œ ë”ë¯¸ë¥¼ ê³µê²©í•œ ê²½ìš°ë§Œ ê²½í—˜ì¹˜ ìƒìŠ¹  
 					const int nExp = ::addEXP(m_pCaster, m_pTarget, HIT_AND_NOTDEAD, nDamage);
-					const int nTemp = (rand()%10 < 3) ? 3:4; // ÀÏ¹İ °æÇèÄ¡¿¡¼­ ÅÃÆ½ °æÇèÄ¡·Î º¯È¯»ó¼ö
+					const int nTemp = (rand()%10 < 3) ? 3:4; // ì¼ë°˜ ê²½í—˜ì¹˜ì—ì„œ íƒí‹± ê²½í—˜ì¹˜ë¡œ ë³€í™˜ìƒìˆ˜
 					const bool bDoubleExpUp = m_pCaster->IsDoubleExpUp();
 					m_pCaster->ChangeUpTacExp(0, nExp*nTemp, bDoubleExpUp);
 				}	
@@ -949,14 +949,14 @@ bool CCombat::Result(int nDamage, bool bAni)
 				break;
 			}
 		case GUARDSTONE:
-		//case GUARDTOWER:	// LTH-040403-KO ¹æ¾îÅ¾Àº ¹Ø¿¡ ÀÖ´Ù
+		//case GUARDTOWER:	// LTH-040403-KO ë°©ì–´íƒ‘ì€ ë°‘ì— ìˆë‹¤
 			{	//< CSD-040202
 				if (::IsWar() && ::CanDestroyTarget(m_pCaster, m_pTarget))
-				{ // ÀüÀïÀÎ °æ¿ì º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇ¾ú´Ù¸é
+				{ // ì „ìŸì¸ ê²½ìš° ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì—ˆë‹¤ë©´
 					m_pTarget->DecLife(nDamage);
 				}
 				else
-				{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì³ª ÀüÀï Áß º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇÁö ¾Ê¾Ò´Ù¸é
+				{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°ë‚˜ ì „ìŸ ì¤‘ ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì§€ ì•Šì•˜ë‹¤ë©´
 					nDamage = 0;
 					nResult = HIT_AND_NOTDEAD;
 					goto SEND;
@@ -965,13 +965,13 @@ bool CCombat::Result(int nDamage, bool bAni)
 				break;
 			}	//> CSD-040202
 		case GUARDTOWER:
-			{	//< LTH-040403-KO ¹æ¾îÅ¾ÀÇ °æ¿ì ¼öÈ£¼®°ú´Â »ó°ü ¾ø´Ù.
+			{	//< LTH-040403-KO ë°©ì–´íƒ‘ì˜ ê²½ìš° ìˆ˜í˜¸ì„ê³¼ëŠ” ìƒê´€ ì—†ë‹¤.
 				if (::IsWar())
-				{ // ÀüÀïÀÎ °æ¿ì
+				{ // ì „ìŸì¸ ê²½ìš°
 					m_pTarget->DecLife(nDamage);
 				}
 				else
-				{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì
+				{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°
 					nDamage = 0;
 					nResult = HIT_AND_NOTDEAD;
 					goto SEND;
@@ -1014,7 +1014,7 @@ bool CCombat::Result(int nDamage, bool bAni)
 		//> CSD-040803
 		
 		::KillWho(m_pTarget, m_pCaster);
-		// NK¿¡ °è»ê
+		// NKì— ê³„ì‚°
 		if(LocalMgr.IsAbleNation(TAIWAN))//030102 lsw Local
 		{
 			if (m_pCaster->IsTamedNpc())
@@ -1041,7 +1041,7 @@ bool CCombat::Result(int nDamage, bool bAni)
 		
 		goto SEND;
 	}				
-	else // Á×Áö ¾ÊÀº °æ¿ì
+	else // ì£½ì§€ ì•Šì€ ê²½ìš°
 	{		
 		//< CSD-040803		
 		const int nExp = ::addEXP(m_pCaster, m_pTarget, HIT_AND_NOTDEAD, nDamage);
@@ -1061,7 +1061,7 @@ bool CCombat::Result(int nDamage, bool bAni)
 		{
 			m_pTarget->ChangeUpTacExp(4, m_pCaster->GetLevel()*2); // CSD-030806
 
-			if( m_pTarget != m_pCaster ) // 030430 kyo //ÀÚ±âÀÚ½Å¿¡ °üÇÑ ÀÏÀÏ¶§´Â pk¸¦ ¾È¿Ã¸°´Ù.
+			if( m_pTarget != m_pCaster ) // 030430 kyo //ìê¸°ìì‹ ì— ê´€í•œ ì¼ì¼ë•ŒëŠ” pkë¥¼ ì•ˆì˜¬ë¦°ë‹¤.
 			{
 				::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
 			}

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define DEFAULT_HEADER_SIZE_	1
 #define DEFAULT_MESSAGE_LENGTH_	2

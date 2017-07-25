@@ -1,4 +1,4 @@
-// MonsterArena.cpp: implementation of the CMonsterArena class.
+ï»¿// MonsterArena.cpp: implementation of the CMonsterArena class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -81,7 +81,7 @@ void CMonsterArena::StartGame(DWORD dwTime)
 
 void CMonsterArena::EndGame(CArenaInfo* pArena)
 {
-	//¸ó½ºÅÍ ¾Æ·¹³ª ÃÖ°­ÀÚÀü ÀÌº¥Æ® soto-030605
+	//ëª¬ìŠ¤í„° ì•„ë ˆë‚˜ ìµœê°•ìì „ ì´ë²¤íŠ¸ soto-030605
 	for (ITOR_TEAM t = m_ltTeam.begin(); t != m_ltTeam.end(); ++t)
 	{
 		CArenaTeam* pTeam = *t;

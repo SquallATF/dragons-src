@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	WarfieldInfo.h
  *			interface for the CWarfieldInfo class.
  */
@@ -7,13 +7,13 @@
 #include "IWarfieldDefine.h"
 #include "LogManager.h"
 
-#define LIMITNATIONPOINT	30		/**< LTH-040412-KO ¸ó½ºÅÍ ±¹°¡Àü Âü°¡ °¡´É Æ÷ÀÎÆ®. */
+#define LIMITNATIONPOINT	30		/**< LTH-040412-KO ëª¬ìŠ¤í„° êµ­ê°€ì „ ì°¸ê°€ ê°€ëŠ¥ í¬ì¸íŠ¸. */
 
 extern WORD g_wMapServerPort;
 
 /**
  * @def		enum _eSQUAD.
- * @brief	°¢ ºÎ´ë¸¦ ½Äº°ÇÏ±â À§ÇÑ ½Äº°ÀÚ.
+ * @brief	ê° ë¶€ëŒ€ë¥¼ ì‹ë³„í•˜ê¸° ìœ„í•œ ì‹ë³„ìž.
  */
 //< LTH-040414-KO.
 typedef enum _eSQUAD
@@ -29,7 +29,7 @@ typedef enum _eSQUAD
 
 /**
  * @class	CWarfieldInfo.
- * @brief	ÀüÀï °ü·Ã °¢Á¾ ¼³Á¤À» ÀúÀå ¹× Ã³¸® ÇÏ´Â class.
+ * @brief	ì „ìŸ ê´€ë ¨ ê°ì¢… ì„¤ì •ì„ ì €ìž¥ ë° ì²˜ë¦¬ í•˜ëŠ” class.
  */
 //< LTH-040414-KO.
 typedef class CWarfieldInfo  
@@ -52,10 +52,10 @@ public:
 
 	/**
 	 * @fn		CWarfieldInfo::GetHowManyTimesWeek().
-	 * @brief	ÇØ´ç ÇÑ ÁÖ¿¡ ¸î¹ø ¿­¸®´Â Áö ¾ò¾î¿À´Â ÇÔ¼ö.
+	 * @brief	í•´ë‹¹ í•œ ì£¼ì— ëª‡ë²ˆ ì—´ë¦¬ëŠ” ì§€ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜.
 	 * @return	BYTE.
-	 * @Warning	ÇöÀç ÇÏ³ªÀÇ ÀüÀïÅÍ¸¸ ´Ù·ç±â¶§¹®¿¡ m_btHowManyTimesWeek ¸â¹ö º¯¼ö°¡ ¹è¿­ÀÌ ¾Æ´ÏÁö¸¸
-	 *			¶Ç´Ù¸¥ TypeÀÇ ÀüÀïÅÍ°¡ »ý±ä´Ù¸é ¹Ýµå½Ã º¯°æµÇ¾î¾ßÇÏ´Â º¯¼ö¿Í ÇÔ¼öÀÌ´ç... -_-;.
+	 * @Warning	í˜„ìž¬ í•˜ë‚˜ì˜ ì „ìŸí„°ë§Œ ë‹¤ë£¨ê¸°ë•Œë¬¸ì— m_btHowManyTimesWeek ë©¤ë²„ ë³€ìˆ˜ê°€ ë°°ì—´ì´ ì•„ë‹ˆì§€ë§Œ
+	 *			ë˜ë‹¤ë¥¸ Typeì˜ ì „ìŸí„°ê°€ ìƒê¸´ë‹¤ë©´ ë°˜ë“œì‹œ ë³€ê²½ë˜ì–´ì•¼í•˜ëŠ” ë³€ìˆ˜ì™€ í•¨ìˆ˜ì´ë‹¹... -_-;.
 	 */
 	//< LTH-040419-KO.
 	BYTE GetHowManyTimesWeek() { return m_btHowManyTimesWeek; }
@@ -63,10 +63,10 @@ public:
 
 	/**
 	 * @fn		CWarfieldInfo::GetWarTimeInfo().
-	 * @brief	ÀüÀï ½Ã°£ ¼³Á¤À» ¾ò¾î¿À´Â ÇÔ¼ö.
-	 * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
-	 * @param	BYTE btIndex. ÇØ´ç ÀüÀïÀÇ ¸î¹øÂ° ÀüÀïÀÎ°¡ ÀÏÁÖÀÏ¿¡µµ ¸î¹ø ÀÏ¾î³¯ ¼ö ÀÖÀ¸¹Ç·Î.
-	 * @return	CWarTimeInfo. ÅëÂ°·Î ¹ÝÈ¯.
+	 * @brief	ì „ìŸ ì‹œê°„ ì„¤ì •ì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜.
+	 * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
+	 * @param	BYTE btIndex. í•´ë‹¹ ì „ìŸì˜ ëª‡ë²ˆì§¸ ì „ìŸì¸ê°€ ì¼ì£¼ì¼ì—ë„ ëª‡ë²ˆ ì¼ì–´ë‚  ìˆ˜ ìžˆìœ¼ë¯€ë¡œ.
+	 * @return	CWarTimeInfo. í†µì§¸ë¡œ ë°˜í™˜.
 	 */
 	//< LTH-040419-KO.
 	CWarTimeInfo GetWarTimeInfo(INT nWarfieldNo, BYTE btIndex) { return m_atagWarTimeInfo[nWarfieldNo][btIndex]; }
@@ -74,9 +74,9 @@ public:
 
 	/**
 	 * @fn		GetSoldierSet().
-	 * @brief	ÀüÀïÅÍ ºÎ´ë ¼³Á¤À» ¾ò¾î¿À´Â ÇÔ¼ö.
-	 * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
-	 * @return	CSoldierSet. ÅëÂ°·Î ¹ÝÈ¯.
+	 * @brief	ì „ìŸí„° ë¶€ëŒ€ ì„¤ì •ì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜.
+	 * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
+	 * @return	CSoldierSet. í†µì§¸ë¡œ ë°˜í™˜.
 	 */
 	//< LTH-040419-KO.
 	CSoldierSet GetSoldierSet(INT nWarfieldNo) { return m_acSoldierSet[nWarfieldNo]; }
@@ -84,9 +84,9 @@ public:
 
 	/**
 	 * @fn		GetMapSetting().
-	 * @brief	ÀüÀïÅÍ ¸ÊÀÇ Á¦ÇÑ»çÇ× ¼³Á¤À» ¾ò¾î¿À´Â ÇÔ¼ö.
-	 * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
-	 * @return	CMapSetting. ÅëÂ°·Î ¹ÝÈ¯.
+	 * @brief	ì „ìŸí„° ë§µì˜ ì œí•œì‚¬í•­ ì„¤ì •ì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜.
+	 * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
+	 * @return	CMapSetting. í†µì§¸ë¡œ ë°˜í™˜.
 	 */
 	//< LTH-040419-KO.
 	CMapSetting GetMapSetting(INT nWarfieldNo) { return m_acMapSetting[nWarfieldNo]; }
@@ -94,7 +94,7 @@ public:
 	
 	/**
 	 * @fn		CWarfieldInfo::GetYlseWarfieldMoveMoney().
-	 * @brief	ÀÏ½º±¹°¡ À¯ÀúÀÇ ÆòÈ­ ±â°£ ÀüÀïÅÍ ÀÌµ¿ ¿ä±Ý ¹ÝÈ¯.
+	 * @brief	ì¼ìŠ¤êµ­ê°€ ìœ ì €ì˜ í‰í™” ê¸°ê°„ ì „ìŸí„° ì´ë™ ìš”ê¸ˆ ë°˜í™˜.
 	 * @return	DWORD.
 	 */
 	//< LTH-040429-KO.
@@ -103,8 +103,8 @@ public:
 
 	/**
 	 * @fn		CWarfieldInfo::GetGoOutsideBBSTime().
-	 * @brief	ÅõÇ¥ ±â°£¿¡ ÀüÀïÅÍÀÇ À¯Àú ¹æÃâ °øÁö °£°Ý.
-	 * @return	int. À¯Àú ¹æÃâ °øÁö °£°Ý.
+	 * @brief	íˆ¬í‘œ ê¸°ê°„ì— ì „ìŸí„°ì˜ ìœ ì € ë°©ì¶œ ê³µì§€ ê°„ê²©.
+	 * @return	int. ìœ ì € ë°©ì¶œ ê³µì§€ ê°„ê²©.
 	 */
 	//< LTH-040507-KO.
 	int CWarfieldInfo::GetGoOutsideBBSTime() { return m_nGoOutsideBBSTime; }
@@ -112,7 +112,7 @@ public:
 
 	/**
 	 * @fn		CWarfieldInfo::GetNumOfGoOutsideUser().
-	 * @brief	ÀüÀïÅÍ¿¡¼­ ÇÑ¹ø¿¡ ¹æÃâÇÒ À¯ÀúÀÇ ¼ö.
+	 * @brief	ì „ìŸí„°ì—ì„œ í•œë²ˆì— ë°©ì¶œí•  ìœ ì €ì˜ ìˆ˜.
 	 * @return	int.
 	 */
 	//< LTH-040507-KO.
@@ -120,13 +120,13 @@ public:
 	//> LTH-040507-KO.
 	
 protected:
-	INT m_nNumOfWarfield;								/**< ÀüÀïÅÍÀÇ ÃÑ °³¼ö. */
-	BYTE m_btHowManyTimesWeek;							/**< ÇÑ ÁÖ¿¡ ¸î¹ø ¿­¸®´ÂÁö. */
-	CWarTimeInfo* m_atagWarTimeInfo[WI_MAX_WARFIELD];	/**< ÀüÀï ½Ã°£ ¼³Á¤. */
-	CSoldierSet	m_acSoldierSet[WI_MAX_WARFIELD];		/**< ÀüÀïÅÍ ºÎ´ë ¼³Á¤. */
-	CMapSetting	m_acMapSetting[WI_MAX_WARFIELD];		/**< ÀüÀïÅÍ ¸Ê ¼³Á¤. */
-	DWORD m_dwYlWarfieldMoveMoney;						/**< LTH-040429-KO ÀÏ½º À¯ÀúÀÇ ÆòÈ­°£ ÀüÀïÅÍ ÀÌµ¿ ¿ä±Ý. */
-	int m_nGoOutsideBBSTime;							/**< LTH-040507-KO ÅõÇ¥±â°£ ÀüÀïÅÍ À¯Àú ¹æÃâ °øÁö Ç¥½Ã °£°Ý. */
-	int m_nNumOfGoOutsideUser;							/**< LTH-040507-KO ÇÑ¹ø¿¡ ÀüÀïÅÍ¿¡¼­ ¹æÃâ½ÃÅ³ À¯ÀúÀÇ ¼ö. */
-} *LPWARFIELDINFO;	/**< CWarfieldInfo classÀÇ PointerÇü Á¤ÀÇ. */
+	INT m_nNumOfWarfield;								/**< ì „ìŸí„°ì˜ ì´ ê°œìˆ˜. */
+	BYTE m_btHowManyTimesWeek;							/**< í•œ ì£¼ì— ëª‡ë²ˆ ì—´ë¦¬ëŠ”ì§€. */
+	CWarTimeInfo* m_atagWarTimeInfo[WI_MAX_WARFIELD];	/**< ì „ìŸ ì‹œê°„ ì„¤ì •. */
+	CSoldierSet	m_acSoldierSet[WI_MAX_WARFIELD];		/**< ì „ìŸí„° ë¶€ëŒ€ ì„¤ì •. */
+	CMapSetting	m_acMapSetting[WI_MAX_WARFIELD];		/**< ì „ìŸí„° ë§µ ì„¤ì •. */
+	DWORD m_dwYlWarfieldMoveMoney;						/**< LTH-040429-KO ì¼ìŠ¤ ìœ ì €ì˜ í‰í™”ê°„ ì „ìŸí„° ì´ë™ ìš”ê¸ˆ. */
+	int m_nGoOutsideBBSTime;							/**< LTH-040507-KO íˆ¬í‘œê¸°ê°„ ì „ìŸí„° ìœ ì € ë°©ì¶œ ê³µì§€ í‘œì‹œ ê°„ê²©. */
+	int m_nNumOfGoOutsideUser;							/**< LTH-040507-KO í•œë²ˆì— ì „ìŸí„°ì—ì„œ ë°©ì¶œì‹œí‚¬ ìœ ì €ì˜ ìˆ˜. */
+} *LPWARFIELDINFO;	/**< CWarfieldInfo classì˜ Pointerí˜• ì •ì˜. */
 //> LTH-040414-KO.

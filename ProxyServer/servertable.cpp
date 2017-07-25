@@ -1,4 +1,4 @@
-// -------------------------------
+ï»¿// -------------------------------
 // New Server Table
 //
 // Rewrote By chan78 at 2000/12/27
@@ -44,7 +44,7 @@ BYTE szMsg[MM_MAX_PACKET_SIZE+1+4];
 
 
 // 011109 KBS
-//Listener·Î  ConnectionÀÌ µÇ¾úÀ»¶§ 
+//Listenerë¡œ  Connectionì´ ë˜ì—ˆì„ë•Œ 
 void __stdcall OnConnectListenerSuccess( DWORD dwConnectionIndex, void *pData )
 {
 	in_addr addr;
@@ -210,8 +210,8 @@ DWORD CServerTable::BatchConnect()
 	LP_AWAITING_CONNECTION_RESULT_DATA pResult = this->GetConnectionResultData();
 	LP_SERVER_DATA pToConnectServer;
 
-	// Added by chan78 at 2001/03/16 :: this->m_ConnectionResultData °¡ »ç¿ëÁßÀÏ¶© ¹«½Ã.
-	// ÀÌ·± »óÈ²Àº ½É°¢ÇÏ´Ù. ¹ß»ıÇØ¼± ¾ÈµÊ.
+	// Added by chan78 at 2001/03/16 :: this->m_ConnectionResultData ê°€ ì‚¬ìš©ì¤‘ì¼ë• ë¬´ì‹œ.
+	// ì´ëŸ° ìƒí™©ì€ ì‹¬ê°í•˜ë‹¤. ë°œìƒí•´ì„  ì•ˆë¨.
 	if( pResult->dwConnectionType != CONNECT_TYPE_NONE )
 	{
 		MyLog( LOG_FATAL, "BatchConnect() :: this->m_ConnectionResultData is Already Using!!!(%d)", this->GetConnectionResultData()->dwConnectionType );
@@ -230,23 +230,23 @@ DWORD CServerTable::BatchConnect()
 	for( pToConnectServer = this->m_pServerListHead; pToConnectServer; pToConnectServer = pToConnectServer->pNextServerData )
 	{
 		// 011108 KBS
-		// °¢¼­¹öÀÇ Listener·Î Á¢¼ÓÇÑ´Ù. 
+		// ê°ì„œë²„ì˜ Listenerë¡œ ì ‘ì†í•œë‹¤. 
 		if(!g_pRMTable->CheckExistIP( pToConnectServer->szIP ) )
 		{
-			g_pRMTable->m_ListenerTable.Add( pToConnectServer->szIP , 0);	//Á¢¼Ó ¾ÈÇÑ»óÅÂ´Â µÎ¹øÂ° ÀÎÀÚ°ª 0À¸·Î Add
+			g_pRMTable->m_ListenerTable.Add( pToConnectServer->szIP , 0);	//ì ‘ì† ì•ˆí•œìƒíƒœëŠ” ë‘ë²ˆì§¸ ì¸ìê°’ 0ìœ¼ë¡œ Add
 			g_pINet->ConnectToServerWithServerSide( pToConnectServer->szIP , PROXY_SERVER_CONNECTION_PORT, OnConnectListenerSuccess, OnConnectListenerFail, pToConnectServer->szIP ); 
 		}
 		
 		//
 		if( !this->ConnectToServer( pToConnectServer, CONNECT_TYPE_BATCH ) )
 		{
-			// ½É°¢. ¼­¹ö Á×ÀÎ´Ù.
+			// ì‹¬ê°. ì„œë²„ ì£½ì¸ë‹¤.
 			MyLog( LOG_FATAL, "INETWORK::ConnectToServer() returned NULL!!!(port:%d)", pToConnectServer->wPort );
 			this->DestroyServer( FINISH_TYPE_UNKNOWN_ERROR );
 			return 0;
 		}
 
-		// Á¢¼Ó°á°ú Ã³¸®´Â Äİ¹éÇÔ¼ö¿¡¼­.
+		// ì ‘ì†ê²°ê³¼ ì²˜ë¦¬ëŠ” ì½œë°±í•¨ìˆ˜ì—ì„œ.
 		pResult->dwToConnectServers++;
 	}
 
@@ -470,7 +470,7 @@ void CServerTable::SetServerStatus( DWORD dwStatus )
 {
 	this->m_pOwnServerData->dwStatus = dwStatus;
 
-	// ServerStatus º¯°æ ¾Ë¸².
+	// ServerStatus ë³€ê²½ ì•Œë¦¼.
 	this->NotifyServerStatus();
 	return;
 }
@@ -486,7 +486,7 @@ void CServerTable::SetServerStatus( LP_SERVER_DATA pServerData, DWORD dwStatus )
 // Must be Thread-Safe
 void CServerTable::DestroyServer( DWORD dwFinishType )
 {
-	// PROXY¿¡ ¾Ë¸°´Ù.
+	// PROXYì— ì•Œë¦°ë‹¤.
 	char szDummy[1+4];
 	szDummy[0] = (BYTE)PTCL_REPORT_SERVER_DESTROY;
 	memcpy( szDummy+1, &dwFinishType, sizeof(DWORD) );
@@ -516,24 +516,24 @@ void CServerTable::DestroyServer( DWORD dwFinishType )
 	m_bIsServerRunning = false;
 
 	// Added by chan78 at 2001/07/16 :: Rise console event.
-	// HANDLE hIn : main() ¿¡ ¼±¾ğµÇ¾î ÀÖ½À´Ï´Ù.
-	// " "        : °£´ÜÇÏ°Ô ½ºÆäÀÌ½º¸¦ ÀÔ·ÂÇÑ°É·Î ÇÕ´Ï´Ù.
-	// 1          : ÇÑ¹ÙÀÌÆ®¸¦ ¾¹´Ï´Ù.
-	// &dwResult  : Write ÇÑ °á°ú°ªÀ» ¾ò¾î¿É´Ï´Ù.
+	// HANDLE hIn : main() ì— ì„ ì–¸ë˜ì–´ ìˆìŠµë‹ˆë‹¤.
+	// " "        : ê°„ë‹¨í•˜ê²Œ ìŠ¤í˜ì´ìŠ¤ë¥¼ ì…ë ¥í•œê±¸ë¡œ í•©ë‹ˆë‹¤.
+	// 1          : í•œë°”ì´íŠ¸ë¥¼ ì”ë‹ˆë‹¤.
+	// &dwResult  : Write í•œ ê²°ê³¼ê°’ì„ ì–»ì–´ì˜µë‹ˆë‹¤.
 	DWORD dwResult;
 	DWORD dwTries = 0;
 	do
 	{
 		if( dwTries )
 		{
-			// Input buffer ¿¡ Write¸¦ ½ÇÆĞÇÑ °æ¿ì Àá½Ã ´ë±âÇß´Ù ´Ù½Ã ½ÃµµÇÕ´Ï´Ù.
-			// ´Ü Ã¹¹øÂ° ½ÃµµÀÎ °æ¿ì¿£ ´ë±âÇÏÁö ¾Ê½À´Ï´Ù.
+			// Input buffer ì— Writeë¥¼ ì‹¤íŒ¨í•œ ê²½ìš° ì ì‹œ ëŒ€ê¸°í–ˆë‹¤ ë‹¤ì‹œ ì‹œë„í•©ë‹ˆë‹¤.
+			// ë‹¨ ì²«ë²ˆì§¸ ì‹œë„ì¸ ê²½ìš°ì—” ëŒ€ê¸°í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 			Sleep( 1000 );
 		}
 		dwTries++;
 		WriteConsoleInput( hIn, (INPUT_RECORD *)" ", 1, &dwResult );
 
-		// ¹«ÇÑÈ÷ ¹İº¹ÇÒ¼ö´Â ¾øÀ¸¹Ç·Î ´Ù¼¸¹ø ½ÃµµÇÏ°í Æ÷±âÇÕ´Ï´Ù.
+		// ë¬´í•œíˆ ë°˜ë³µí• ìˆ˜ëŠ” ì—†ìœ¼ë¯€ë¡œ ë‹¤ì„¯ë²ˆ ì‹œë„í•˜ê³  í¬ê¸°í•©ë‹ˆë‹¤.
 	} while( (dwResult != 1) && (dwTries <= 5) );
 
 	LeaveCriticalSection( &this->m_IsRunningCriticalSection );
@@ -546,14 +546,14 @@ void CServerTable::CheckServerConnections()
 	LP_SERVER_DATA pDummyServer;
 	DWORD NowTime = GetTickCount();
 
-	// ¼­¹ö¿Í ¿¬°áµÈ ¸ğµç ¼­¹öÀÇ Á¢¼Ó»óÅÂ¸¦ °Ë»çÇÑ´Ù.
+	// ì„œë²„ì™€ ì—°ê²°ëœ ëª¨ë“  ì„œë²„ì˜ ì ‘ì†ìƒíƒœë¥¼ ê²€ì‚¬í•œë‹¤.
 	for( pDummyServer = this->GetServerListHead(); pDummyServer; pDummyServer = pDummyServer->pNextServerData )
 	{
-		// ÀÌ ÆĞÅ¶À» ¹ŞÀº ¼­¹öµéÀº PTCL_SERVER_CONNECTION_OK ·Î ÀÀ´äÇÏ°í,
-		// ÀÌ ¼­¹ö´Â ±× ÆĞÅ¶À» ¹ŞÀº ½ÃÁ¡ÀÇ ½Ã°£À» ±× ¼­¹öÀÇ dwLastCheckAliveTimeÀ¸·Î °»½ÅÇÑ´Ù.
+		// ì´ íŒ¨í‚·ì„ ë°›ì€ ì„œë²„ë“¤ì€ PTCL_SERVER_CONNECTION_OK ë¡œ ì‘ë‹µí•˜ê³ ,
+		// ì´ ì„œë²„ëŠ” ê·¸ íŒ¨í‚·ì„ ë°›ì€ ì‹œì ì˜ ì‹œê°„ì„ ê·¸ ì„œë²„ì˜ dwLastCheckAliveTimeìœ¼ë¡œ ê°±ì‹ í•œë‹¤.
 		if( pDummyServer->dwConnectionIndex )
 		{
-			// ÀÏ´Ü Á¢¼Ó È®ÀÎ ÆĞÅ¶À» ³¯¸°´Ù.
+			// ì¼ë‹¨ ì ‘ì† í™•ì¸ íŒ¨í‚·ì„ ë‚ ë¦°ë‹¤.
 			szDummyMsg[0] = (BYTE)PTCL_SERVER_TRY_TO_CHECK_CONNECTION;
 			if( !this->Send( pDummyServer->dwConnectionIndex, szDummyMsg, sizeof(BYTE) ) )
 			{
@@ -562,7 +562,7 @@ void CServerTable::CheckServerConnections()
 
 			if( NowTime < pDummyServer->dwLastCheckAliveTime )
 			{
-				// GetTickCount()°ªÀÌ ¸®¼ÂµÇ¾ú°Å³ª ¼­¹ö°¡ ½ÃÀÛµÈ ÈÄ Ã³À½ Ã¼Å©ÇÑ °æ¿ì.
+				// GetTickCount()ê°’ì´ ë¦¬ì…‹ë˜ì—ˆê±°ë‚˜ ì„œë²„ê°€ ì‹œì‘ëœ í›„ ì²˜ìŒ ì²´í¬í•œ ê²½ìš°.
 				continue;
 			}
 			else
@@ -682,14 +682,14 @@ bool CServerTable::OnRecvServerUpMsg( DWORD dwConnectionIndex, WORD wPort )
 
 	pServerData = this->GetServerData( wPort );
 
-	// Modified by chan78 at 2001/02/21, ¸®½ºÆ®¿¡ ¾ø´Â ³à¼®.
+	// Modified by chan78 at 2001/02/21, ë¦¬ìŠ¤íŠ¸ì— ì—†ëŠ” ë…€ì„.
 	if( !pServerData )
 	{
 		this->m_pINet->CompulsiveDisconnectServer( dwConnectionIndex );
 		return false;
 	}
 
-	// IP°¡ ´Ù¸¥ °æ¿ì, ÀÎÁ¤ÇÏÁö ¾Ê´Â´Ù.
+	// IPê°€ ë‹¤ë¥¸ ê²½ìš°, ì¸ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if( strcmp( pServerData->szIP, szIP ) )
 	{
 		MyLog( LOG_NORMAL, "OnRecvServerUp() :: SERVER(%d) has wrong IP(%s/%s)", wPort, szIP, pServerData->szIP );
@@ -697,11 +697,11 @@ bool CServerTable::OnRecvServerUpMsg( DWORD dwConnectionIndex, WORD wPort )
 		return false;
 	}
 
-	// Ä¡¸íÀûÀÎ ¿À·ù.
-	// ÀÌ¹Ì Á¢¼ÓµÇ¾îÀÖ´Â ¼­¹ö°¡ SERVER_UP À» ÇÑ¹ø ´õ º¸³Â´Ù. È¤Àº ´õ ³ª»Û »óÈ². ²¿¿´´Ù.
+	// ì¹˜ëª…ì ì¸ ì˜¤ë¥˜.
+	// ì´ë¯¸ ì ‘ì†ë˜ì–´ìˆëŠ” ì„œë²„ê°€ SERVER_UP ì„ í•œë²ˆ ë” ë³´ëƒˆë‹¤. í˜¹ì€ ë” ë‚˜ìœ ìƒí™©. ê¼¬ì˜€ë‹¤.
 	if( pServerData->dwConnectionIndex )
 	{
-		// ÀÌ·±°Ç ³ª¿À¸é ¾ÈµÅ~~~~~~ NEVER!!!
+		// ì´ëŸ°ê±´ ë‚˜ì˜¤ë©´ ì•ˆë¼~~~~~~ NEVER!!!
 #ifdef __ON_DEBUG
 //		_asm int 3;
 #endif
@@ -710,7 +710,7 @@ bool CServerTable::OnRecvServerUpMsg( DWORD dwConnectionIndex, WORD wPort )
 		return false;
 	}
 
-	// Á¢¼Ó ¿£Æ®¸®¿¡ Ãß°¡.
+	// ì ‘ì† ì—”íŠ¸ë¦¬ì— ì¶”ê°€.
 	if( !this->AddConnectedServerDataToHashTable( pServerData, dwConnectionIndex ) )
 	{
 		MyLog( LOG_FATAL, "OnRecvServerUp() :: SERVER(%d) - AddConnectedServerDataToHashTable() has Failed", wPort );
@@ -719,7 +719,7 @@ bool CServerTable::OnRecvServerUpMsg( DWORD dwConnectionIndex, WORD wPort )
 	}
 
 	// Added by KBS 011205
-	// »õ·Î¿î ¼­¹ö Á¢¼Ó »ç½ÇÀ» RMClient¿¡°Ô ¾Ë¸°´Ù. 
+	// ìƒˆë¡œìš´ ì„œë²„ ì ‘ì† ì‚¬ì‹¤ì„ RMClientì—ê²Œ ì•Œë¦°ë‹¤. 
 	PACKET_RM_SERVER_UP packet((BYTE)g_pServerTable->m_dwServerSetNumber, 
 											pServerData->wPort);
 	g_pRMTable->BroadcastAllRMClient((char*)&packet, packet.GetPacketSize());
@@ -727,10 +727,10 @@ bool CServerTable::OnRecvServerUpMsg( DWORD dwConnectionIndex, WORD wPort )
 
 
 
-	// Á¤»óÀûÀÎ Server UP
+	// ì •ìƒì ì¸ Server UP
 	MyLog( LOG_FATAL, "New Server Connection... %s(%d/%d)", GetTypedServerText(pServerData->dwServerType), dwConnectionIndex, wPort );
 
-	// ÇöÀç ³» Server Status ¾Ë¸².
+	// í˜„ì¬ ë‚´ Server Status ì•Œë¦¼.
 	this->NotifyServerStatus( pServerData );
 
 #ifndef __IS_PROXY_SERVER
@@ -769,12 +769,12 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		case PTCL_SERVER_TRY_TO_CHECK_CONNECTION:
 		case PTCL_SERVER_CONNECTION_OK:
 			{
-				// ¿¹¿Ü.
+				// ì˜ˆì™¸.
 			}
 			break;
 		default:
 			{
-				// ÆĞÅ¶ ¹«½Ã
+				// íŒ¨í‚· ë¬´ì‹œ
 				return false;
 			}
 		}
@@ -787,7 +787,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 	switch( bID )
 	{
 	// --------------
-	// ¸ğµç ¼­¹ö °øÅë
+	// ëª¨ë“  ì„œë²„ ê³µí†µ
 	// --------------
 	case PTCL_ORDER_DESTROY_SERVER:
 		{
@@ -841,22 +841,22 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		break;
 	case PTCL_SERVER_CONNECTION_OK:
 		{
-			// ½Ã°£°»½Å
+			// ì‹œê°„ê°±ì‹ 
 			pSender->dwLastCheckAliveTime = GetTickCount();
 		}
 		break;
 	// ---------------------
-	// ºñ PROXY SERVER Àü¿ë 
+	// ë¹„ PROXY SERVER ì „ìš© 
 	// ---------------------
 #ifndef __IS_PROXY_SERVER
 	// ---------------------
-	// SERVER LIST ¼¼ÆÃ ÆĞÅ¶
+	// SERVER LIST ì„¸íŒ… íŒ¨í‚·
 	// ---------------------
 	case PTCL_ORDER_SET_SERVER_LIST:
 		{
 			if( this->GetServerStatus() > STATUS_AWAITING_SERVER_LIST )
 			{
-				// ¹ŞÀ¸¸é ¾ÈµÈ´Ù.
+				// ë°›ìœ¼ë©´ ì•ˆëœë‹¤.
 				MyLog( LOG_FATAL, "PTCL_ORDER_SET_SERVER_LIST :: PROXY Sent this Packet AGAIN!" );
 				this->DestroyServer( FINISH_TYPE_UNKNOWN_ERROR );
 #ifdef __ON_DEBUG
@@ -864,7 +864,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 #endif
 			}
 
-			// Server List Accept´Â ´Ü ÇÑ¹ø¸¸ Çã¿ëÇÑ´Ù.
+			// Server List AcceptëŠ” ë‹¨ í•œë²ˆë§Œ í—ˆìš©í•œë‹¤.
 			LP_SERVER_CINFO_LIST_PACKET pServerList = (LP_SERVER_CINFO_LIST_PACKET)pMsg;
 			LP_SERVER_CINFO_LIST_PACKET pFailedServerList = (LP_SERVER_CINFO_LIST_PACKET)(szDummyMsg+1);
 			LP_SERVER_DATA pDummyServerData = NULL;
@@ -896,7 +896,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 			{
 // ---------------------------------------------------------------------------------------------
 #ifndef __IS_PROXY_SERVER
-				// SERVER SIDE SocketÀ» ¹ÙÀÎµå ÇÑ´Ù.(Áö±İºÎÅÍ ´Ù¸¥ ¼­¹öÀÇ Ä¿³Ø¼ÇÀ» ¹ŞÀ» ¼ö ÀÖ´Ù.
+				// SERVER SIDE Socketì„ ë°”ì¸ë“œ í•œë‹¤.(ì§€ê¸ˆë¶€í„° ë‹¤ë¥¸ ì„œë²„ì˜ ì»¤ë„¥ì…˜ì„ ë°›ì„ ìˆ˜ ìˆë‹¤.
 				if( !this->StartServer( TYPE_SERVER_SIDE ) )
 				{
 					MyLog( LOG_FATAL, "SERVER_SIDE Socket Bind Failed!!!" );
@@ -904,7 +904,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 				}
 				MyLog( LOG_NORMAL, "SERVER_SIDE Socket Binded." );
 #ifdef __IS_AGENT_SERVER
-				// USER SIDE Socket ¹ÙÀÎµå.
+				// USER SIDE Socket ë°”ì¸ë“œ.
 				if( !this->StartServer( TYPE_USER_SIDE ) )
 				{
 					MyLog( LOG_NORMAL, "USER_SIDE Socket Bind Failed!!!" );
@@ -914,7 +914,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 #endif
 #endif
 // ---------------------------------------------------------------------------------------------
-				// ¼º°ø. Á¢¼ÓÇÒ ¼­¹öÀÇ ¸®½ºÆ®¸¦ ¿ä±¸ÇÑ´Ù.
+				// ì„±ê³µ. ì ‘ì†í•  ì„œë²„ì˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ìš”êµ¬í•œë‹¤.
 				szDummyMsg[0] = (BYTE)PTCL_REQUEST_TO_CONNECT_SERVER_LIST;
 				if( !this->Send( pSender->dwConnectionIndex, szDummyMsg, 1 ) )
 				{
@@ -927,18 +927,18 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 			}
 			else
 			{
-				// ½ÇÆĞ.
+				// ì‹¤íŒ¨.
 #ifdef __ON_DEBUG
 //				_asm int 3;
 #endif
-				// ÀÌ ¼­¹ö´Â Á¾·áµÈ´Ù.
+				// ì´ ì„œë²„ëŠ” ì¢…ë£Œëœë‹¤.
 				MyLog( LOG_FATAL, "CServerTable::OnRecvMsgNegotiationMsgs() - Failed To accept Server List" );
 				this->DestroyServer( FINISH_TYPE_SERVER_LIST_ACCEPT_FAIL );
 			}
 		}
 		break;
 	// ---------------------
-	// Á¢¼Ó ¸í·É ÆĞÅ¶ 
+	// ì ‘ì† ëª…ë ¹ íŒ¨í‚· 
 	// ---------------------
 	case PTCL_ORDER_CONNECT_TO_SERVERS:
 		{
@@ -947,8 +947,8 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 			LP_SERVER_PORT_LIST_PACKET pConnectedList = (LP_SERVER_PORT_LIST_PACKET)(pResult->szAnswer+1);
 			LP_SERVER_DATA pTargetServer;
 
-			// Added by chan78 at 2001/03/16 :: this->m_ConnectionResultData °¡ »ç¿ëÁßÀÏ¶© ¹«½Ã.
-			// ÀÌ·± »óÈ²Àº ½É°¢ÇÏ´Ù. ¹ß»ıÇØ¼± ¾ÈµÊ.
+			// Added by chan78 at 2001/03/16 :: this->m_ConnectionResultData ê°€ ì‚¬ìš©ì¤‘ì¼ë• ë¬´ì‹œ.
+			// ì´ëŸ° ìƒí™©ì€ ì‹¬ê°í•˜ë‹¤. ë°œìƒí•´ì„  ì•ˆë¨.
 			if( this->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE )
 			{
 				MyLog( LOG_FATAL, "PTCL_ORDER_SET_SERVER_LIST :: this->m_ConnectionResultData is Already Using!!!(%d)", this->GetConnectionResultData()->dwConnectionType );
@@ -972,7 +972,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 
 				if( pTargetServer && pTargetServer->dwConnectionIndex )
 				{
-					// ÀÌ¹Ì Á¢¼ÓµÇ¾î ÀÖ´Â °æ¿ì.
+					// ì´ë¯¸ ì ‘ì†ë˜ì–´ ìˆëŠ” ê²½ìš°.
 
 					pConnectedList->wPort[pConnectedList->wNum++] = pTargetServer->wPort;
 				}
@@ -980,8 +980,8 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 				{
 					if( pTargetServer && this->ConnectToServer( pTargetServer, CONNECT_TYPE_BY_PROXY_ORDER ) )
 					{
-						// ½Ãµµ´Â ¼º°ø...
-						// °á°ú Ã³¸®´Â Äİ¹éÇÔ¼ö¿¡¼­.
+						// ì‹œë„ëŠ” ì„±ê³µ...
+						// ê²°ê³¼ ì²˜ë¦¬ëŠ” ì½œë°±í•¨ìˆ˜ì—ì„œ.
 						pResult->dwToConnectServers++;
 					}
 					else
@@ -999,7 +999,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 				}
 			}
 
-			// Á¢¼Ó °á°ú¸¦ ±â´Ù¸± ¼­¹ö°¡ ¾ø´Â °æ¿ì.
+			// ì ‘ì† ê²°ê³¼ë¥¼ ê¸°ë‹¤ë¦´ ì„œë²„ê°€ ì—†ëŠ” ê²½ìš°.
 			if( pResult->dwToConnectServers == 0 )
 			{
 				this->ReportOrderedConnectionResult();
@@ -1007,7 +1007,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// ------------------
-	// DB Demon ¹èÁ¤ ÆĞÅ¶
+	// DB Demon ë°°ì • íŒ¨í‚·
 	// ------------------
 	case PTCL_ORDER_SET_DB_DEMON:
 		{
@@ -1022,17 +1022,17 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 			{
 				if( pDBDemon->dwConnectionIndex )
 				{
-					// ¼¼ÆÃ
+					// ì„¸íŒ…
 					this->m_pOwnDBDemonData = pDBDemon;
 
-					// ¼º°ø ¾Ë¸².
+					// ì„±ê³µ ì•Œë¦¼.
 					pPacket->dwResult = RESULT_DB_DEMON_SETTING_SUCCESSED;
 					this->SetServerStatus( STATUS_ACTIVATED );
 				}
 				else
 				{
 					pPacket->dwResult = RESULT_DB_DEMON_IS_NOT_CONNECTED;
-					// Àç¿äÃ».
+					// ì¬ìš”ì²­.
 					this->RequestToSetDBDemon();
 				}
 			}
@@ -1052,7 +1052,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// ---------------
-	// ¼­¹ö¸®½ºÆ® º¸°í
+	// ì„œë²„ë¦¬ìŠ¤íŠ¸ ë³´ê³ 
 	// ---------------
 	case PTCL_ORDER_TO_REPORT_SERVER_DATAS:
 		{
@@ -1065,7 +1065,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 
 			for( pDummyServerData = this->GetServerListHead(); pDummyServerData; pDummyServerData = pDummyServerData->pNextServerData )
 			{
-				// Own Proxy´Â Á¦¿Ü.
+				// Own ProxyëŠ” ì œì™¸.
 				if( pDummyServerData == pSender )
 					continue;
 
@@ -1088,14 +1088,14 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// ------------------
-	// ÀÎÁõÈ®ÀÎ ÆĞÅ¶ Ã³¸®
+	// ì¸ì¦í™•ì¸ íŒ¨í‚· ì²˜ë¦¬
 	// ------------------
 	case PTCL_NOTIFY_YOU_ARE_CERTIFIED:
 		{
 			// Proxy Is Activated
 			this->SetServerStatus( pSender, STATUS_ACTIVATED );
 
-			// Á¢¼ÓÇÒ ¼­¹öÀÇ ¸ñ·ÏÀ» ¿ä±¸ÇÑ´Ù.
+			// ì ‘ì†í•  ì„œë²„ì˜ ëª©ë¡ì„ ìš”êµ¬í•œë‹¤.
 			szDummyMsg[0] = (BYTE)PTCL_REQUEST_TO_CONNECT_SERVER_LIST;
 
 			if( !this->Send( pSender->dwConnectionIndex, szDummyMsg, (sizeof(BYTE))) )
@@ -1108,11 +1108,11 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		break;
 #endif
 // ----------------------------------------------------------------------------
-// PROXY Àü¿ë Packetµé
+// PROXY ì „ìš© Packetë“¤
 // ----------------------------------------------------------------------------
 #ifdef __IS_PROXY_SERVER
 	// -----------------------------------
-	// SERVER LIST ¹èÁ¤ ÆĞÅ¶ ¿äÃ»À» Ã³¸®ÇÔ
+	// SERVER LIST ë°°ì • íŒ¨í‚· ìš”ì²­ì„ ì²˜ë¦¬í•¨
 	// -----------------------------------
 	case PTCL_REQUEST_SET_SERVER_LIST:
 		{
@@ -1123,7 +1123,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 			pPacket->wNum = 0;
 			for( pDummyServer = this->GetServerListHead(); pDummyServer; pDummyServer = pDummyServer->pNextServerData )
 			{
-				// Àü¼ÛÀÚÀÇ Á¤º¸´Â ¹èÁ¤ÇÏÁö ¾Ê´Â´Ù.
+				// ì „ì†¡ìì˜ ì •ë³´ëŠ” ë°°ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				if( pDummyServer->wPort == pSender->wPort )
 					continue;
 
@@ -1149,7 +1149,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// ------------------------------------------
-	// Á¢¼ÓÇÒ ¼­¹öÀÇ ¸ñ·Ï ¹èÁ¤ ÆĞÅ¶ ¿äÃ»À» Ã³¸®ÇÔ
+	// ì ‘ì†í•  ì„œë²„ì˜ ëª©ë¡ ë°°ì • íŒ¨í‚· ìš”ì²­ì„ ì²˜ë¦¬í•¨
 	// ------------------------------------------
 	case PTCL_REQUEST_TO_CONNECT_SERVER_LIST:
 		{
@@ -1159,7 +1159,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 			pPacket->wNum = 0;
 			for( pDummyServer = this->GetServerListHead(); pDummyServer; pDummyServer = pDummyServer->pNextServerData )
 			{
-				// Àü¼ÛÀÚÀÇ Á¤º¸´Â ¹èÁ¤ÇÏÁö ¾Ê´Â´Ù.
+				// ì „ì†¡ìì˜ ì •ë³´ëŠ” ë°°ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				if( pDummyServer->wPort == pSender->wPort )
 					continue;
 
@@ -1170,13 +1170,13 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 						this->SetServerConnectionStatus( pSender, pDummyServer, (BYTE)CONNECTION_STATUS_TRYING_TO_CONNECT );
 					}
 			}
-			MyLog( LOG_DEBUG, "%s(%d) ¿¡°Ô %d°³ÀÇ ¼­¹ö¿¡ Á¢¼ÓÇÏµµ·Ï ¹èÁ¤ÇÔ", GetTypedServerText(pSender->dwServerType), pSender->wPort, pPacket->wNum );
+			MyLog( LOG_DEBUG, "%s(%d) ì—ê²Œ %dê°œì˜ ì„œë²„ì— ì ‘ì†í•˜ë„ë¡ ë°°ì •í•¨", GetTypedServerText(pSender->dwServerType), pSender->wPort, pPacket->wNum );
 
-			// º¸³½´Ù
+			// ë³´ë‚¸ë‹¤
 			szDummyMsg[0] = (BYTE)PTCL_ORDER_CONNECT_TO_SERVERS;
 			if( !this->Send( pSender->dwConnectionIndex, szDummyMsg, sizeof(BYTE)+sizeof(WORD)+(sizeof(WORD)*pPacket->wNum) ) )
 			{
-				// ½ÇÆĞ.
+				// ì‹¤íŒ¨.
 #ifdef __ON_DEBUG
 //				_asm int 3;
 
@@ -1189,7 +1189,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// -----------------------------------
-	// Á¢¼Ó°á°ú ÆĞÅ¶À» ¹Ş¾Æ Ã³¸®.
+	// ì ‘ì†ê²°ê³¼ íŒ¨í‚·ì„ ë°›ì•„ ì²˜ë¦¬.
 	// -----------------------------------
 	case PTCL_SERVER_CONNECTING_RESULT:
 		{
@@ -1241,7 +1241,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// -----------------------------------
-	// DB DEMON ¹èÁ¤ ÆĞÅ¶ ¿äÃ»À» Ã³¸®ÇÔ
+	// DB DEMON ë°°ì • íŒ¨í‚· ìš”ì²­ì„ ì²˜ë¦¬í•¨
 	// -----------------------------------
 	case PTCL_REQUEST_SET_DB_DEMON:
 		{
@@ -1257,7 +1257,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// -----------------------------------
-	// DB DEMON ¹èÁ¤ °á°ú ÆĞÅ¶À» Ã³¸®ÇÔ
+	// DB DEMON ë°°ì • ê²°ê³¼ íŒ¨í‚·ì„ ì²˜ë¦¬í•¨
 	// -----------------------------------
 	case PTCL_DB_DEMON_SETTING_RESULT:
 		{
@@ -1297,7 +1297,7 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 		}
 		break;
 	// -------------------------------
-	// PROXY SERVER ÀÇ Á¤º¸¼öÁı
+	// PROXY SERVER ì˜ ì •ë³´ìˆ˜ì§‘
 	// -------------------------------
 	case PTCL_REPORT_SERVER_DATAS:
 		{
@@ -1306,19 +1306,19 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 
 			if( pPacket->dwServerSetNumber != this->m_dwServerSetNumber )
 			{
-				// Server Set Number°¡ ¸ÂÁö ¾ÊÀ¸¸é ÀÎÁ¤ÇÏÁö ¾Ê´Â´Ù.
+				// Server Set Numberê°€ ë§ì§€ ì•Šìœ¼ë©´ ì¸ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				goto ServerDatasAreDiffrent;
 			}
 
-			if( pPacket->wNum != (this->m_dwNumOfServers-2) )	// ÀÚ±âÀÚ½Å, pSenderÁ¦¿Ü.
+			if( pPacket->wNum != (this->m_dwNumOfServers-2) )	// ìê¸°ìì‹ , pSenderì œì™¸.
 			{
-				// ¼ö°¡ ¾È¸ÂÀ¸¸é ´õ º¼°Íµµ ¾ø´Ù.
+				// ìˆ˜ê°€ ì•ˆë§ìœ¼ë©´ ë” ë³¼ê²ƒë„ ì—†ë‹¤.
 				goto ServerDatasAreDiffrent;
 			}
 
 			for( i = 0; i < pPacket->wNum; i++ )
 			{
-				// ÇöÀç PROXY ÀÎ °æ¿ì Continue;
+				// í˜„ì¬ PROXY ì¸ ê²½ìš° Continue;
 				if( pPacket->pServerData[i].wPort == this->GetOwnServerData()->wPort )
 					continue;
 
@@ -1345,14 +1345,14 @@ bool CServerTable::OnRecvNegotiationMsgs( LP_SERVER_DATA pSender, BYTE bID, char
 				// Not Vertified.
 
 ServerDatasAreDiffrent:
-				// ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ±× ¼­¹ö¸¦ °­Á¦·Î Á¾·á½ÃÅ²´Ù.
+				// ì¼ì¹˜í•˜ì§€ ì•Šìœ¼ë©´ ê·¸ ì„œë²„ë¥¼ ê°•ì œë¡œ ì¢…ë£Œì‹œí‚¨ë‹¤.
 				this->DestroyOtherServer(pSender);
 
 				return true;
 			}
 			this->SetServerStatus( pSender, STATUS_SERVER_LIST_CERTIFIED );
 
-			// ÇöÀç ¶°ÀÖ´Â ¸ğµç ¼­¹öÀÇ µ¥ÀÌÅÍ °ËÁõÀÌ ³¡³µ´ÂÁö È®ÀÎ ÈÄ PROXY¸¦ µ¿ÀÛ½ÃÅ²´Ù.
+			// í˜„ì¬ ë– ìˆëŠ” ëª¨ë“  ì„œë²„ì˜ ë°ì´í„° ê²€ì¦ì´ ëë‚¬ëŠ”ì§€ í™•ì¸ í›„ PROXYë¥¼ ë™ì‘ì‹œí‚¨ë‹¤.
 			DWORD dwNumOfCertifiedServer = 0;
 			for( pDummyServerData = this->GetServerListHead(); pDummyServerData; pDummyServerData = pDummyServerData->pNextServerData )
 			{
@@ -1363,7 +1363,7 @@ ServerDatasAreDiffrent:
 				}
 			}
 
-			// ¸ğµç ¼­¹ö°¡ ÀÎÁõµÇ¾ú´Ù.
+			// ëª¨ë“  ì„œë²„ê°€ ì¸ì¦ë˜ì—ˆë‹¤.
 			if( dwNumOfCertifiedServer == this->m_dwNumOfConnectedServers )
 			{
 				szDummyMsg[0] = (BYTE)PTCL_NOTIFY_YOU_ARE_CERTIFIED;
@@ -1383,7 +1383,7 @@ ServerDatasAreDiffrent:
 			}
 		}
 	// ------------------
-	// ¼­¹öÁ¾·á ¾Ë¸² ÆĞÅ¶
+	// ì„œë²„ì¢…ë£Œ ì•Œë¦¼ íŒ¨í‚·
 	// ------------------
 		break;
 	case PTCL_REPORT_SERVER_DESTROY:
@@ -1394,25 +1394,25 @@ ServerDatasAreDiffrent:
 		}
 		break;
 	// ------------------
-	// ¼­¹ö»óÅÂ º¸°í ÆĞÅ¶
+	// ì„œë²„ìƒíƒœ ë³´ê³  íŒ¨í‚·
 	// ------------------
 	case PTCL_REPORT_SERVER_STATUS:
-		// ¼­¹ö »óÅÂ(STATUS, »ç¿ëÀÚ ¼ö) º¸°í ÆĞÅ¶.
+		// ì„œë²„ ìƒíƒœ(STATUS, ì‚¬ìš©ì ìˆ˜) ë³´ê³  íŒ¨í‚·.
 		{
 			LP_REPORT_SERVER_STATUS_PACKET pPacket = (LP_REPORT_SERVER_STATUS_PACKET)pMsg;
 
-			// ½Ã°£ °»½Å.
+			// ì‹œê°„ ê°±ì‹ .
 			pSender->dwLastCheckAliveTime = GetTickCount();
 
 			// Status...
 			this->SetServerStatus( pSender, pPacket->dwServerStatus );
 
-			// »ç¿ëÀÚ ¼ö..
+			// ì‚¬ìš©ì ìˆ˜..
 			pSender->dwNumOfUsers = pPacket->dwNumOfUsers;
 		}
 		break;
 	// ----------------------------
-	// ¼­¹ö°£ Á¢¼Ó»óÅÂ ¾Ë¸² ÆĞÅ¶.
+	// ì„œë²„ê°„ ì ‘ì†ìƒíƒœ ì•Œë¦¼ íŒ¨í‚·.
 	// ----------------------------
 	case PTCL_REPORT_SERVER_CONNECTION_STATUS_CHANGE:
 		{
@@ -1502,7 +1502,7 @@ bool CServerTable::RemoveConnectedServerDataFromHashTable( DWORD dwConnectionInd
 
 
 #if defined(__IS_AGENT_SERVER) || defined(__IS_MAP_SERVER)
-	// ³»°Ô ¹èÁ¤µÈ DB DemonÀÌ¸é.
+	// ë‚´ê²Œ ë°°ì •ëœ DB Demonì´ë©´.
 	if( pServerData == this->m_pOwnDBDemonData )
 	{
 		SetServerStatus( STATUS_AWAITING_DB_DEMON_SETTING );
@@ -1518,7 +1518,7 @@ bool CServerTable::RemoveConnectedServerDataFromHashTable( DWORD dwConnectionInd
 #ifdef __IS_PROXY_SERVER
 	if( pServerData->dwServerType == SERVER_TYPE_DB )
 	{
-		// DBÀÇ °æ¿ì ÀÌ ¼­¹ö¿¡ ¹èÁ¤µÈ ¸ğµç ¼­¹öµéÀÇ DB ¹èÁ¤ »óÅÂ¸¦ ¹Ù²Û´Ù.
+		// DBì˜ ê²½ìš° ì´ ì„œë²„ì— ë°°ì •ëœ ëª¨ë“  ì„œë²„ë“¤ì˜ DB ë°°ì • ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
 		LP_SERVER_DATA pDummyToReset = NULL;
 		for( WORD i = 0; i< MAX_SERVER_NUM; i++ )
 		{
@@ -1538,7 +1538,7 @@ bool CServerTable::RemoveConnectedServerDataFromHashTable( DWORD dwConnectionInd
 	}
 	else
 	{
-		// ±âÅ¸ ¼­¹öÀÇ °æ¿ì ¹èÁ¤µÈ DB DemonÀÇ ¸®½ºÆ®·ÎºÎÅÍ Á¦°ÅÇÑ´Ù.
+		// ê¸°íƒ€ ì„œë²„ì˜ ê²½ìš° ë°°ì •ëœ DB Demonì˜ ë¦¬ìŠ¤íŠ¸ë¡œë¶€í„° ì œê±°í•œë‹¤.
 		if( pServerData->pUsingDBDemon )
 		{
 			LP_SERVER_DATA pDummyToReset = NULL;
@@ -1571,7 +1571,7 @@ bool CServerTable::RemoveConnectedServerDataFromHashTable( DWORD dwConnectionInd
 		this->SetServerConnectionStatus( pDummyServer, pServerData, (BYTE)CONNECTION_STATUS_NOT_CONNECTED );
 	}
 	
-	// Added by chan78 at 2001/02/22 :: »ç¿ëÀÚ¼ö Å¬¸®¾î.
+	// Added by chan78 at 2001/02/22 :: ì‚¬ìš©ììˆ˜ í´ë¦¬ì–´.
 	pServerData->dwNumOfUsers = 0;
 
 #endif
@@ -1672,11 +1672,11 @@ bool CServerTable::ConnectToServer( LP_SERVER_DATA pServerData, DWORD dwConnectT
 {
 	if( !this->m_pINet->ConnectToServerWithServerSide( pServerData->szIP, pServerData->wPort, OnConnectServerSuccess, OnFailedToConnectServer, (void *)pServerData ) )
 	{
-		// ½ÇÆĞÇÑ °æ¿ì!?
+		// ì‹¤íŒ¨í•œ ê²½ìš°!?
 		return false;
 	}
 
-	// ¼º°ø
+	// ì„±ê³µ
 	this->SetServerStatus( pServerData, STATUS_TRYING_TO_CONNECT );
 	pServerData->dwConnectType = dwConnectType;
 
@@ -1695,7 +1695,7 @@ bool CServerTable::StartServer( DWORD dwType )
 	{
 	case TYPE_SERVER_SIDE:
 		{
-			if ( !(this->m_pINet->StartServerWithServerSide( m_pOwnServerData->szIP, m_pOwnServerData->wPort)) ) // ¼­¹ö °¡µ¿
+			if ( !(this->m_pINet->StartServerWithServerSide( m_pOwnServerData->szIP, m_pOwnServerData->wPort)) ) // ì„œë²„ ê°€ë™
 				return false;
 		}
 		break;
@@ -1776,7 +1776,7 @@ bool CServerTable::ConnectToProxyServer()
 
 	}
 
-	// ¼º°ø? ½ÇÆĞ?
+	// ì„±ê³µ? ì‹¤íŒ¨?
 	if( dwCount )
 	{
 		return true;
@@ -1791,14 +1791,14 @@ bool CServerTable::BeginNegotiationWithProxyServer( LP_SERVER_DATA pServerData )
 {
 	char szSendMsg[32];
 
-	// Proxy Server ´Â Á¢¼Ó¸¸ µÇ¸é ´Ã ÀÌ¿ëÇÒ ¼ö ÀÖ´Â »óÅÂ·Î °¡Á¤ÇÑ´Ù.
+	// Proxy Server ëŠ” ì ‘ì†ë§Œ ë˜ë©´ ëŠ˜ ì´ìš©í•  ìˆ˜ ìˆëŠ” ìƒíƒœë¡œ ê°€ì •í•œë‹¤.
 	this->SetServerStatus( pServerData, STATUS_ACTIVATED );
 
-	// PTCL_NOTIFY_SERVER_UP ÆĞÅ¶À» ¸¸µç´Ù.
+	// PTCL_NOTIFY_SERVER_UP íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
 	szSendMsg[0] = (BYTE)PTCL_NOTIFY_SERVER_UP;
 	memcpy( szSendMsg+1, &this->GetOwnServerData()->wPort, 2 );
 
-	// PTCL_NOTIFY_SERVER_UP ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+	// PTCL_NOTIFY_SERVER_UP íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
 	if( !this->Send( pServerData->dwConnectionIndex, szSendMsg, 3 ) )
 	{
 		this->SetServerStatus( pServerData, STATUS_INACTIVATED );
@@ -1807,10 +1807,10 @@ bool CServerTable::BeginNegotiationWithProxyServer( LP_SERVER_DATA pServerData )
 		return false;
 	}
 
-	// PTCL_REQUEST_SET_SERVER_LIST ÆĞÅ¶À» ¸¸µç´Ù.
+	// PTCL_REQUEST_SET_SERVER_LIST íŒ¨í‚·ì„ ë§Œë“ ë‹¤.
 	szSendMsg[0] = (BYTE)PTCL_REQUEST_SET_SERVER_LIST;
 
-	// PTCL_REQUEST_SET_SERVER_LIST ÆĞÅ¶À» Àü¼ÛÇÑ´Ù.
+	// PTCL_REQUEST_SET_SERVER_LIST íŒ¨í‚·ì„ ì „ì†¡í•œë‹¤.
 	if( !this->Send( pServerData->dwConnectionIndex, szSendMsg, 1 ) )
 	{
 		this->SetServerStatus( pServerData, STATUS_INACTIVATED );
@@ -1819,8 +1819,8 @@ bool CServerTable::BeginNegotiationWithProxyServer( LP_SERVER_DATA pServerData )
 		return false;
 	}
 
-	// ¿©±â±îÁö ¼º°øÇÏ¸é ÀÏ´Ü Á¢¼ÓÀÌ Á¤»óÀûÀ¸·Î ÀÌ·ç¾îÁø°ÍÀ¸·Î º»´Ù.
-	// ³» »óÅÂ¸¦ ¼­¹ö¸®½ºÆ® ¹èÁ¤ ´ë±â»óÅÂ·Î ¹Ù²Û´Ù.
+	// ì—¬ê¸°ê¹Œì§€ ì„±ê³µí•˜ë©´ ì¼ë‹¨ ì ‘ì†ì´ ì •ìƒì ìœ¼ë¡œ ì´ë£¨ì–´ì§„ê²ƒìœ¼ë¡œ ë³¸ë‹¤.
+	// ë‚´ ìƒíƒœë¥¼ ì„œë²„ë¦¬ìŠ¤íŠ¸ ë°°ì • ëŒ€ê¸°ìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
 	this->SetServerStatus( STATUS_AWAITING_SERVER_LIST );
 
 	return true;
@@ -1830,11 +1830,11 @@ bool CServerTable::BeginNegotiationWithNormalServer( LP_SERVER_DATA pServerData 
 {
 	char szSendMsg[32];
 
-	// PTCL_NOTIFY_SERVER_UP ¸¸µé±â.
+	// PTCL_NOTIFY_SERVER_UP ë§Œë“¤ê¸°.
 	szSendMsg[0] = (BYTE)PTCL_NOTIFY_SERVER_UP;
 	memcpy( szSendMsg+1, &this->GetOwnServerData()->wPort, 2 );
 
-	// PTCL_NOTIFY_SERVER_UP Àü¼Û.
+	// PTCL_NOTIFY_SERVER_UP ì „ì†¡.
 	if( !this->Send( pServerData->dwConnectionIndex, szSendMsg, 3 ) )
 	{
 		MyLog( LOG_IMPORTANT, "ConnectToServer() :: Failed To Send PTCL_NOTIFY_SERVER_UP to %s(%d)", GetTypedServerText(pServerData->dwServerType), pServerData->wPort);
@@ -1844,7 +1844,7 @@ bool CServerTable::BeginNegotiationWithNormalServer( LP_SERVER_DATA pServerData 
 		return false;
 	}
 
-	// Server Status ¾Ë¸².
+	// Server Status ì•Œë¦¼.
 	if( !this->NotifyServerStatus( pServerData ) )
 	{
 		MyLog( LOG_IMPORTANT, "ConnectToServer() :: Failed to Notify Server Status to %s(%d)", GetTypedServerText(pServerData->dwServerType), pServerData->wPort );
@@ -1866,7 +1866,7 @@ bool CServerTable::InitServerTable(const char *sFileName )
 	WORD	wDummyPort;
 	WORD	wDummyExternalPort;
 
-	// ±âº» ServerÁ¤º¸ (Own Server, Proxy Server)¸¦ ÀĞ´Â´Ù.
+	// ê¸°ë³¸ Serverì •ë³´ (Own Server, Proxy Server)ë¥¼ ì½ëŠ”ë‹¤.
 	char keyname_list[8][80+1] = {
 		"own_server_ip_for_server",			// 0
 		"own_server_port_for_server",
@@ -1962,8 +1962,8 @@ bool CServerTable::InitServerTable(const char *sFileName )
 		case 6:			// Secondary Proxy Server IP/Port
 			{
 				// 2001/02/01
-				// ÇöÀç µÎ°³ÀÇ PROXY°¡ ¶¹À»¶§ »óÈ²Ã³¸®°¡ ¿Ïº®ÇÏÁö ¾ÊÀ¸¹Ç·Î
-				// ÇÏ³ªÀÇ ÇÁ¶ô½Ã¸¸ Çã¿ëÇÑ´Ù.
+				// í˜„ì¬ ë‘ê°œì˜ PROXYê°€ ë–´ì„ë•Œ ìƒí™©ì²˜ë¦¬ê°€ ì™„ë²½í•˜ì§€ ì•Šìœ¼ë¯€ë¡œ
+				// í•˜ë‚˜ì˜ í”„ë½ì‹œë§Œ í—ˆìš©í•œë‹¤.
 
 				/* pServerData = this->GetNewServerData( sDummyIP, wDummyPort );
 				this->m_pOwnProxyServerData[SECONDARY_SERVER] = pServerData;
@@ -2011,7 +2011,7 @@ bool CServerTable::InitServerTable(const char *sFileName )
 		pServerData->wServerIndex = i;
 
 		// Added by chan78 at 2001/02/24
-		// ¿ÜºÎ Æ÷Æ®Á¤º¸¸¦ ÀĞ´Â´Ù
+		// ì™¸ë¶€ í¬íŠ¸ì •ë³´ë¥¼ ì½ëŠ”ë‹¤
 		if( pServerData->dwServerType == SERVER_TYPE_AGENT )
 		{
 			// Read IP
@@ -2132,7 +2132,7 @@ bool CServerTable::SendToDBDemon( char *pMsg, DWORD dwLength )
 	return false;
 }
 
-// Æ¯Á¤ DB Demon¿¡°Ô º¸³½´Ù. Entry¸¦ °¡Áø UserÀÇ Ã³¸®´Â ÀÌ·¸°Ô ÇÑ´Ù.
+// íŠ¹ì • DB Demonì—ê²Œ ë³´ë‚¸ë‹¤. Entryë¥¼ ê°€ì§„ Userì˜ ì²˜ë¦¬ëŠ” ì´ë ‡ê²Œ í•œë‹¤.
 bool CServerTable::SendToDBDemon( DWORD dwConnectionIndex, char *pMsg, DWORD dwLength )
 {
 	LP_SERVER_DATA pDBDemon = this->GetServerData( dwConnectionIndex );
@@ -2225,7 +2225,7 @@ void CServerTable::ReBalanceDBDemonSettings()
 	DWORD dwNumOfServers1 = 0;
 	DWORD dwNumOfServers2 = 0;
 
-	// ¸ğµç ¼­¹ö¸¦ DB DemonÀ¸·ÎºÎÅÍ ºĞ¸®ÇÔ.
+	// ëª¨ë“  ì„œë²„ë¥¼ DB Demonìœ¼ë¡œë¶€í„° ë¶„ë¦¬í•¨.
 	pDummyServerData = this->GetServerListHead();
 	for(; pDummyServerData; pDummyServerData = pDummyServerData->pNextServerData )
 	{
@@ -2239,7 +2239,7 @@ void CServerTable::ReBalanceDBDemonSettings()
 		}
 	}
 
-	// ÀüºÎ ´Ù Àç ¹èÁ¤.
+	// ì „ë¶€ ë‹¤ ì¬ ë°°ì •.
 	pDummyServerData = this->GetServerListHead();
 	for(; pDummyServerData; pDummyServerData = pDummyServerData->pNextServerData )
 	{
@@ -2431,7 +2431,7 @@ bool CServerTable::SetDBDemon( LP_SERVER_DATA pTarget )
 		}
 	}
 
-	// ¹èÁ¤ÇÒ ¼ö ÀÖ´Â DB DemonÀÌ ÀÖÀ» ¶§¿¡¸¸ ¹èÁ¤ÇÑ´Ù.
+	// ë°°ì •í•  ìˆ˜ ìˆëŠ” DB Demonì´ ìˆì„ ë•Œì—ë§Œ ë°°ì •í•œë‹¤.
 	if( pToSetDBDemon )
 	{
 		return this->SetDBDemon( pTarget, pToSetDBDemon );
@@ -2450,16 +2450,16 @@ bool CServerTable::SetDBDemon( LP_SERVER_DATA pTargetServer, LP_SERVER_DATA pDBD
 	szDummyMsg[0] = PTCL_ORDER_SET_DB_DEMON;
 	pSendPacket->wDBDemonPort = pDBDemon->wPort;
 
-	// ¹èÁ¤
+	// ë°°ì •
 	if( this->Send( pTargetServer->dwConnectionIndex, szDummyMsg, sizeof(BYTE) + sizeof(WORD) ) )
 	{
-		// ±âÁ¸¿¡ ¹èÁ¤µÈ DB Á¤º¸ Á¦°Å.
+		// ê¸°ì¡´ì— ë°°ì •ëœ DB ì •ë³´ ì œê±°.
 		if( !this->ClearDBDemonSetting( pTargetServer ) )
 		{
 //			MyLog( LOG_FATAL, "CServerTable::ClearDBDemonSetting() Failed!!!" );
 		}
 
-		// ¹èÁ¤µÈ DB Á¤º¸¸¦ ¸µÅ©.
+		// ë°°ì •ëœ DB ì •ë³´ë¥¼ ë§í¬.
 		if( !this->LinkDBDemonSetting( pTargetServer, pDBDemon ) )
 		{
 			MyLog( LOG_FATAL, "CServerTable::LinkDBDemonSetting() Failed!!!" );
@@ -2470,7 +2470,7 @@ bool CServerTable::SetDBDemon( LP_SERVER_DATA pTargetServer, LP_SERVER_DATA pDBD
 	}
 
 FailedToDBSetting:
-	// ½ÇÆĞÇÑ °æ¿ì ¼­¹öÀÇ »óÅÂ´Â DB DEMON ¹èÁ¤ ´ë±â.
+	// ì‹¤íŒ¨í•œ ê²½ìš° ì„œë²„ì˜ ìƒíƒœëŠ” DB DEMON ë°°ì • ëŒ€ê¸°.
 	this->SetServerStatus( pTargetServer, STATUS_AWAITING_DB_DEMON_SETTING );
 
 	return false;
@@ -3038,8 +3038,8 @@ DWORD dwBaseWeight[NUM_OF_SERVER_TYPES] =
 
 
 
-// Áß¿äÇÑ ÇÔ¼ö...
-// ÄÚµå°¡ Á» º¹ÀâÇØµµ ²À ÀĞ¾îµÎÀÚ.
+// ì¤‘ìš”í•œ í•¨ìˆ˜...
+// ì½”ë“œê°€ ì¢€ ë³µì¡í•´ë„ ê¼­ ì½ì–´ë‘ì.
 void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTypedServerData )
 {
 	LP_SERVER_DATA pServerData = (LP_SERVER_DATA)pVoidTypedServerData;
@@ -3050,7 +3050,7 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 
 	if( pServerData->dwConnectionIndex != 0 )
 	{
-		// ÀÌ¹Ì Á¢¼ÓµÈ °æ¿ì. ÀÖ¾î¼± ¾ÈµÈ´Ù.
+		// ì´ë¯¸ ì ‘ì†ëœ ê²½ìš°. ìˆì–´ì„  ì•ˆëœë‹¤.
 		MyLog( LOG_FATAL, "SERVER DATA(%s/%d) has already dwConnectionIndex (%d)", pServerData->szIP, pServerData->wPort, pServerData->dwConnectionIndex );
 #ifdef __ON_DEBUG
 		_asm int 3;
@@ -3075,7 +3075,7 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 		return;
 	}
 
-	// Á¢¼Ó¹æ½ÄÀÌ ÀÏÄ¡ÇÏ´ÂÁö Ã¼Å©ÇÑ´Ù.
+	// ì ‘ì†ë°©ì‹ì´ ì¼ì¹˜í•˜ëŠ”ì§€ ì²´í¬í•œë‹¤.
 	if( (pServerData->dwConnectType != CONNECT_TYPE_WITH_PROXY) && (pServerData->dwConnectType != pResult->dwConnectionType ) )
 	{
 		MyLog( LOG_FATAL, "OnConnectServerSuccess() :: dwConnectType does not match(%d:%d)", pServerData->dwConnectType, pResult->dwConnectionType );
@@ -3087,7 +3087,7 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 	}
 
 	// -------------------------------------------------------------
-	// ¿©±â¼­ºÎÅÍ´Â ÃÖÃÊ Á¢¼Ó ÈÄ Negotiation °ü·Ã ÄÚµåµéÀÌ µé¾î°£´Ù.
+	// ì—¬ê¸°ì„œë¶€í„°ëŠ” ìµœì´ˆ ì ‘ì† í›„ Negotiation ê´€ë ¨ ì½”ë“œë“¤ì´ ë“¤ì–´ê°„ë‹¤.
 	// -------------------------------------------------------------
 	switch( pServerData->dwConnectType )
 	{
@@ -3096,12 +3096,12 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 	// -----------------------
 	case CONNECT_TYPE_WITH_PROXY:
 		{
-			// PROXY¿¡ Á¢¼ÓÇßÀ¸¹Ç·Î ´õÀÌ»ó PROXY Á¢¼Ó¿ë TIMER°¡ ½ÇÇàµÉ ÇÊ¿ä ¾ø´Ù.
+			// PROXYì— ì ‘ì†í–ˆìœ¼ë¯€ë¡œ ë”ì´ìƒ PROXY ì ‘ì†ìš© TIMERê°€ ì‹¤í–‰ë  í•„ìš” ì—†ë‹¤.
 #if defined(__IS_AGENT_SERVER) || defined(__IS_MAP_SERVER) || defined(__IS_DB_DEMON)
 			g_pINet->PauseTimer( 0 );
 #endif
 
-			// PTCL_NOTIFY_SERVER_UP Àü¼Û.
+			// PTCL_NOTIFY_SERVER_UP ì „ì†¡.
 			szDummyMsg[0] = (BYTE)PTCL_NOTIFY_SERVER_UP;
 			memcpy( szDummyMsg+1, &g_pServerTable->GetOwnServerData()->wPort, 2 );
 
@@ -3118,7 +3118,7 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 				pResult->dwResultCheckedServers = 0;
 				pResult->dwToConnectServers = 0;
 
-				// PTCL_REQUEST_SET_SERVER_LIST Àü¼Û
+				// PTCL_REQUEST_SET_SERVER_LIST ì „ì†¡
 				szDummyMsg[0] = (BYTE)PTCL_REQUEST_SET_SERVER_LIST;
 
 				if( !g_pServerTable->SendToProxyServer( szDummyMsg, 1 ) )
@@ -3144,12 +3144,12 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 				g_pServerTable->CloseServerConnection( pServerData->dwConnectionIndex );
 			}
 
-			// ¸ğµç Batch Connect°¡ ³¡³µÀ¸¸é BIND ÇÑ´Ù.
+			// ëª¨ë“  Batch Connectê°€ ëë‚¬ìœ¼ë©´ BIND í•œë‹¤.
 			if( (++pResult->dwResultCheckedServers) == pResult->dwToConnectServers )
 			{
 				MyLog( LOG_NORMAL, "BatchConnect() Finished... %d(Total:%d) Servers are Tryied", pResult->dwToConnectServers, g_pServerTable->GetNumOfServers());
 
-				if( !g_pServerTable->StartServer( TYPE_SERVER_SIDE ) )	// SERVER SIDE Socket ¹ÙÀÎµå.
+				if( !g_pServerTable->StartServer( TYPE_SERVER_SIDE ) )	// SERVER SIDE Socket ë°”ì¸ë“œ.
 				{
 					MyLog( LOG_FATAL, "SERVER_SIDE Socket Bind Failed!!!" );
 					g_pServerTable->DestroyServer( FINISH_TYPE_BIND_FAILED );
@@ -3157,7 +3157,7 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 				}
 				MyLog( LOG_NORMAL, "SERVER_SIDE Socket Binded" );	
 	
-				if( !g_pServerTable->StartServer( TYPE_USER_SIDE ) )	// USER SIDE Socket ¹ÙÀÎµå.
+				if( !g_pServerTable->StartServer( TYPE_USER_SIDE ) )	// USER SIDE Socket ë°”ì¸ë“œ.
 				{
 					MyLog( LOG_NORMAL, "USER_SIDE Socket Bind Failed!!!" );
 					g_pServerTable->DestroyServer( FINISH_TYPE_BIND_FAILED );
@@ -3178,7 +3178,7 @@ void __stdcall OnConnectServerSuccess( DWORD dwConnectionIndex, void *pVoidTyped
 				// Answer Packet build
 				pConnectedList->wPort[pConnectedList->wNum++] = pServerData->wPort;
 
-				// ¸ğµç Ordered Connect°¡ ³¡³µÀ¸¸é PTCL_SERVER_CONNECTING_RESULT ¸¦ ¸¸µé¾î º¸³½´Ù.
+				// ëª¨ë“  Ordered Connectê°€ ëë‚¬ìœ¼ë©´ PTCL_SERVER_CONNECTING_RESULT ë¥¼ ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
 				if( (++pResult->dwResultCheckedServers) == pResult->dwToConnectServers )
 				{
 					g_pServerTable->ReportOrderedConnectionResult();
@@ -3208,16 +3208,16 @@ void __stdcall OnFailedToConnectServer( void *pVoidTypedServerData )
 	LP_SERVER_DATA pServerData = (LP_SERVER_DATA)pVoidTypedServerData;
 	LP_AWAITING_CONNECTION_RESULT_DATA pResult = g_pServerTable->GetConnectionResultData();
 
-	// Message ºÎÅÍ »Ñ·ÁÁØ´Ù.
+	// Message ë¶€í„° ë¿Œë ¤ì¤€ë‹¤.
 	MyLog( LOG_NORMAL, "[FAILED TO CONNECT] %s Server %s(%d)", GetTypedServerText(pServerData->dwServerType), pServerData->szIP, pServerData->wPort );
 
-	// ConnectType¿¡ µû¸¥ Ã³¸®.
+	// ConnectTypeì— ë”°ë¥¸ ì²˜ë¦¬.
 	switch( pServerData->dwConnectType )
 	{
 	case CONNECT_TYPE_WITH_PROXY:
 		{
-			// Proxy Server Á¢¼Ó¿¡ ½ÇÆĞÇß´Ù.
-			// Å¸ÀÌ¸Ó°¡ ÀçÁ¢¼ÓÀ» ½ÃµµÇÏ¹Ç·Î, Á¢¼Ó»óÅÂ¸¸ º¯°æÇÑ´Ù.
+			// Proxy Server ì ‘ì†ì— ì‹¤íŒ¨í–ˆë‹¤.
+			// íƒ€ì´ë¨¸ê°€ ì¬ì ‘ì†ì„ ì‹œë„í•˜ë¯€ë¡œ, ì ‘ì†ìƒíƒœë§Œ ë³€ê²½í•œë‹¤.
 			if( (++pResult->dwResultCheckedServers) == pResult->dwToConnectServers )
 			{
 				pResult->dwConnectionType = CONNECT_TYPE_NONE;
@@ -3238,7 +3238,7 @@ void __stdcall OnFailedToConnectServer( void *pVoidTypedServerData )
 #endif
 			}
 
-			// ¸ğµç ¹èÄ¡Ä¿³ØÆ® °á°ú°¡ ¸®ÅÏµÇ¾úÀ¸¸é ¹ÙÀÎµåÇÑ´Ù.
+			// ëª¨ë“  ë°°ì¹˜ì»¤ë„¥íŠ¸ ê²°ê³¼ê°€ ë¦¬í„´ë˜ì—ˆìœ¼ë©´ ë°”ì¸ë“œí•œë‹¤.
 			if( (++pResult->dwResultCheckedServers) == pResult->dwToConnectServers )
 			{
 				MyLog( LOG_NORMAL, "BatchConnect() Finished... %d(Total:%d) Servers are Tryied", pResult->dwToConnectServers, g_pServerTable->GetNumOfServers());
@@ -3252,7 +3252,7 @@ void __stdcall OnFailedToConnectServer( void *pVoidTypedServerData )
 				}
 				MyLog( LOG_NORMAL, "SERVER_SIDE Socket Binded" );	
 	
-				// USER SIDE Socket ¹ÙÀÎµå.
+				// USER SIDE Socket ë°”ì¸ë“œ.
 				if( !g_pServerTable->StartServer( TYPE_USER_SIDE ) )
 				{
 					MyLog( LOG_NORMAL, "USER_SIDE Socket Bind Failed!!!" );
@@ -3274,7 +3274,7 @@ void __stdcall OnFailedToConnectServer( void *pVoidTypedServerData )
 #endif
 			}
 
-			// ¸ğµç ¼­¹öÀÇ °á°ú Ã¼Å©°¡ ³¡³µÀ¸¸é °á°ú¸¦ ÇÁ¶ô½Ã ¼­¹ö¿¡ ¾Ë¸².
+			// ëª¨ë“  ì„œë²„ì˜ ê²°ê³¼ ì²´í¬ê°€ ëë‚¬ìœ¼ë©´ ê²°ê³¼ë¥¼ í”„ë½ì‹œ ì„œë²„ì— ì•Œë¦¼.
 			if( (++pResult->dwResultCheckedServers) == pResult->dwToConnectServers )
 			{
 				g_pServerTable->ReportOrderedConnectionResult();
@@ -3364,7 +3364,7 @@ void CServerTable::ShowListenerStatus()
 	MyLog( LOG_JUST_DISPLAY, "                 Proxy Server - RMListener Connection Status                      " );
 	MyLog( LOG_JUST_DISPLAY, "----------------------------------------------------------------------------------" );
 	MyLog( LOG_JUST_DISPLAY, "_No_________ Type __________________ IP ________ Port _ Status _______ Warning ___" );
-    //                       "[10] SERVER_TYPE_RMLISTENER / 203.248.248.250 / 24694 /  (¡Û)     <<Disconnected!!>>
+    //                       "[10] SERVER_TYPE_RMLISTENER / 203.248.248.250 / 24694 /  (â—‹)     <<Disconnected!!>>
 	
 	RM_LISTENER_INFO* cur = NULL;
 	RM_LISTENER_INFO* next = NULL;
@@ -3377,7 +3377,7 @@ void CServerTable::ShowListenerStatus()
 	{
 		next = cur->pNextInfo;
 	
-		MyLog( LOG_JUST_DISPLAY, "[%2d] SERVER_TYPE_RMLISTENER / %15s / %5d /  (¡Û)"      //£Ø¡Û
+		MyLog( LOG_JUST_DISPLAY, "[%2d] SERVER_TYPE_RMLISTENER / %15s / %5d /  (â—‹)"      //ï¼¸â—‹
 			, ncount , cur->szIP , PROXY_SERVER_CONNECTION_PORT); 
 			
 		cur = next;
@@ -3390,7 +3390,7 @@ void CServerTable::ShowListenerStatus()
 	{
 		next = cur->pNextInfo;
 	
-		MyLog( LOG_JUST_DISPLAY, "[%2d] SERVER_TYPE_RMLISTENER / %15s / %5d /  (£Ø)     <<Disconnected!!>>"   
+		MyLog( LOG_JUST_DISPLAY, "[%2d] SERVER_TYPE_RMLISTENER / %15s / %5d /  (ï¼¸)     <<Disconnected!!>>"   
 			, ncount , cur->szIP , PROXY_SERVER_CONNECTION_PORT); 
 			
 		cur = next;

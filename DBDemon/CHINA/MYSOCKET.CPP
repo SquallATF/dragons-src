@@ -1,4 +1,4 @@
-// MySocket.cpp : implementation file
+ï»¿// MySocket.cpp : implementation file
 //
 
 #include "..\stdafx.h"
@@ -91,7 +91,7 @@ void CMySocket::OnClose(int nErrorCode)
 	// TODO: Add your specialized code here and/or call the base class
 	
 //	CSocket::OnClose(nErrorCode);
-    DebugPrintf("³s½uÃö³¬");
+    DebugPrintf("é€£ç·šé—œé–‰");
 	//((CGSession *)parent)->MyClose(this);		
 }
 
@@ -123,7 +123,7 @@ void CMySocket::OnReceive(int nErrorCode)
 	else 
 	{
 //		((CAbstractSock   *)parent)->MyError(this);		
-        DebugPrintf("Network Error: µLªkÅª¨ìdata(iRet=%d)",iRet);
+        DebugPrintf("Network Error: ç„¡æ³•è®€åˆ°data(iRet=%d)",iRet);
     }
 	
 }
@@ -136,7 +136,7 @@ void CMySocket::OnSend(int nErrorCode)
     if ( iRet == -1 ) 
 	{
 //		((CAbstractSock   *)parent)->MyError(this);		
-        DebugPrintf("Network Error: µLªk¼g¥Xdata");
+        DebugPrintf("Network Error: ç„¡æ³•å¯«å‡ºdata");
     }
 	
 }
@@ -216,7 +216,7 @@ int CMySocket::Read()
 			}
 			offset+=len;
 		} 
-		else /* ªø«×¤£¨¬ */
+		else /* é•·åº¦ä¸è¶³ */
 			break;
   }
 
@@ -227,8 +227,8 @@ int CMySocket::Read()
 
 
 	if (offset)
-	{ /* ¤wÅª¥X¹Lpacket */
-		for (i=0; i<ReadOffset-offset; i++) /* ¦V«e¶ñº¡ */
+	{ /* å·²è®€å‡ºépacket */
+		for (i=0; i<ReadOffset-offset; i++) /* å‘å‰å¡«æ»¿ */
 			tmpReadBuf[i] = tmpReadBuf[i+offset];
 		tmpReadBuf[i]=0;
 		ReadOffset-=offset;
@@ -285,7 +285,7 @@ int CMySocket::Write()
 		}
 
 		DebugPrintf("Actually send %d bytes", iRet);
-		for (i=0; i<WriteOffset-iRet; i++) /* ¦V«e¶ñº¡ */
+		for (i=0; i<WriteOffset-iRet; i++) /* å‘å‰å¡«æ»¿ */
 		
 			tmpWriteBuf[i] = tmpWriteBuf[i+iRet];
 		WriteOffset-=iRet;

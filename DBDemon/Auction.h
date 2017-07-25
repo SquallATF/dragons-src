@@ -1,4 +1,4 @@
-// Auction.h: interface for the CAuction class.
+ï»¿// Auction.h: interface for the CAuction class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,12 +13,12 @@ class CAuction
 {
 	enum IsEndType
 	{
-		IS_END_ALL_RIGHT	= 0,	//¹¹µç ÇÒ ¼ö ÀÖ´Â »óÅÂ
-		IS_END_DELETING		= 1,	//»èÁ¦Áß
-		IS_END_BUYING		= 3,	//±¸¸ÅÁß
-		IS_END_WAIT_TAKE	= 4,		//°¡Á®°¡±â¸¦ ¹Ù¶ó´Â »óÅÂ
+		IS_END_ALL_RIGHT	= 0,	//ë­ë“  í•  ìˆ˜ ìžˆëŠ” ìƒíƒœ
+		IS_END_DELETING		= 1,	//ì‚­ì œì¤‘
+		IS_END_BUYING		= 3,	//êµ¬ë§¤ì¤‘
+		IS_END_WAIT_TAKE	= 4,		//ê°€ì ¸ê°€ê¸°ë¥¼ ë°”ë¼ëŠ” ìƒíƒœ
 		IS_END_DELETE_COMPLETE = 5,
-		IS_END_GIVIING		= 6,	// BBD 040303 Áö±ÞÇÁ·Î¼¼½º¿¡ µé¾î°¡ÀÖ´Ù
+		IS_END_GIVIING		= 6,	// BBD 040303 ì§€ê¸‰í”„ë¡œì„¸ìŠ¤ì— ë“¤ì–´ê°€ìžˆë‹¤
 	};
 	enum ItemType
 	{
@@ -62,37 +62,37 @@ class CAuction
 public:
 	CAuction();
 	virtual ~CAuction();
-private://°Ë»ö°á°ú¹°
+private://ê²€ìƒ‰ê²°ê³¼ë¬¼
 	void Clear();
 	int SearchAuctionItem(SEARCHRESULTLIST *List, const char* szQuery);
 public:
-	//<!  BBD 040303 ¹é¾÷Å×ÀÌºíÀÇ »ç¿ëÀ¸·Î Ãß°¡µÈ ÇÔ¼ö
+	//<!  BBD 040303 ë°±ì—…í…Œì´ë¸”ì˜ ì‚¬ìš©ìœ¼ë¡œ ì¶”ê°€ëœ í•¨ìˆ˜
 	void MerchantBackup_Check_and_Delete(int iIndex);
 	void RecvCMD_MERCHANT_BACKUP_TAKE_RESPONSE(const int iCn,t_packet &p);
 	void RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(const int iCn,t_packet &p);
-	void RecvCMD_MERCHANT_BACKUP_LIST_REQUEST(const int iCn,t_packet &p);	// ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ ¸®½ºÆ® ¿äÃ»
-	//>  BBD 040303 ¹é¾÷Å×ÀÌºíÀÇ »ç¿ëÀ¸·Î Ãß°¡µÈ ÇÔ¼ö
-	//<! BBD 040226	°Å·¡°¡ Á¾·áµÇ°Å³ª µî·ÏÃë¼Ò·Î ÇÊ¿ä¾ø´Â ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ±â´É Ãß°¡
+	void RecvCMD_MERCHANT_BACKUP_LIST_REQUEST(const int iCn,t_packet &p);	// ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
+	//>  BBD 040303 ë°±ì—…í…Œì´ë¸”ì˜ ì‚¬ìš©ìœ¼ë¡œ ì¶”ê°€ëœ í•¨ìˆ˜
+	//<! BBD 040226	ê±°ëž˜ê°€ ì¢…ë£Œë˜ê±°ë‚˜ ë“±ë¡ì·¨ì†Œë¡œ í•„ìš”ì—†ëŠ” ë ˆì½”ë“œë¥¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥ ì¶”ê°€
 	void RecvCMD_MERCHANT_RECORD_DEL_CANCLE(const int iCn,t_packet &p);
 	void RecvCMD_MERCHANT_RECORD_DEL_COMPLETE(const int iCn,t_packet &p);
-	//> BBD 040226	°Å·¡°¡ Á¾·áµÇ°Å³ª µî·ÏÃë¼Ò·Î ÇÊ¿ä¾ø´Â ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ±â´É Ãß°¡
+	//> BBD 040226	ê±°ëž˜ê°€ ì¢…ë£Œë˜ê±°ë‚˜ ë“±ë¡ì·¨ì†Œë¡œ í•„ìš”ì—†ëŠ” ë ˆì½”ë“œë¥¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥ ì¶”ê°€
 
-//---->±¸¸ÅÀÚ¿ë
-	int RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn,t_packet &p);//¸®½ºÆ® ¿äÃ»(±¸¸ÅÀÚ°¡ º¸´Â°Í//°Ë»ö±â°¡ È£Ãâ
+//---->êµ¬ë§¤ìžìš©
+	int RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn,t_packet &p);//ë¦¬ìŠ¤íŠ¸ ìš”ì²­(êµ¬ë§¤ìžê°€ ë³´ëŠ”ê²ƒ//ê²€ìƒ‰ê¸°ê°€ í˜¸ì¶œ
 
-	void RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p);//¸Ê¼­¹ö°¡ ÀÌ°Å»ì ¼ö ÀÖ´ÂÁö ¹°¾îº»´Ù
-	void RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &p);//¸Ê¼­¹ö°¡ ÀÔ±ÝÀ» ÇÑ´Ù
+	void RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p);//ë§µì„œë²„ê°€ ì´ê±°ì‚´ ìˆ˜ ìžˆëŠ”ì§€ ë¬¼ì–´ë³¸ë‹¤
+	void RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &p);//ë§µì„œë²„ê°€ ìž…ê¸ˆì„ í•œë‹¤
 //<----
-//---->ÆÇ¸ÅÀÚ¿ë
-	void RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int iCn,t_packet &p);//¸®½ºÆ® ¿äÃ»(ÆÇ¸ÅÀÚ°¡ º¸´Â°Í
+//---->íŒë§¤ìžìš©
+	void RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int iCn,t_packet &p);//ë¦¬ìŠ¤íŠ¸ ìš”ì²­(íŒë§¤ìžê°€ ë³´ëŠ”ê²ƒ
 
-	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM(const int cn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦
-	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦
+	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM(const int cn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ
+	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ
 	
-	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM(const int iCn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» µî·Ï(°¹¼öÃ¼Å©)
-	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(const int iCn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» µî·Ï(½ÇÁú µî·Ï)
+	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM(const int iCn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ë“±ë¡(ê°¯ìˆ˜ì²´í¬)
+	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(const int iCn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ë“±ë¡(ì‹¤ì§ˆ ë“±ë¡)
 //<----
-//---->°Å·¡°á°ú
+//---->ê±°ëž˜ê²°ê³¼
 	void RecvCMD_MERCHANT_RESULT_LIST_REQUEST(const int iCn,t_packet &p);
 
 	void RecvCMD_MERCHANT_RESULT_TAKE_COMFORM(const int iCn,t_packet &p);

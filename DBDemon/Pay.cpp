@@ -1,4 +1,4 @@
-#include "pay.h"
+ï»¿#include "pay.h"
 //#include "StdAfx.h"
 
 #include "MAIN.H"
@@ -8,7 +8,7 @@
 #include "monitor.h"
 #include "servertable.h"
 //#include "Id.h"
-//ÉÌµêÏµÍ³
+//å•†åº—ç³»ç»Ÿ
 const int month_tbl[12] = { 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334 };	
 extern HDBC  hDBC_TotalDB;
 		
@@ -97,7 +97,7 @@ extern CQueryDBSocket *ConQ;
 OUTPUT COnePass::OnePassID(const short nCn,LoginInfoPay &LIP,const bool bIsGMTool)
 {
 	OUTPUT Output = {0,};
-	if(LocalMgr.IsAbleNation(JAPAN) && !bIsGMTool)//ÀÏº»ÀÎµ¥ ÀÏ¹İ À¯ÀúÀÏ °æ¿ì
+	if(LocalMgr.IsAbleNation(JAPAN) && !bIsGMTool)//è€å¤¯ç‰¢å• è€é¦† èœ¡å†è€ ç‰ˆå¿«
 	{
 		Output.nRet		=	CheckLoginIDForJapan(nCn,LIP);
 		Output.nType	=	LIP.type;
@@ -105,17 +105,17 @@ OUTPUT COnePass::OnePassID(const short nCn,LoginInfoPay &LIP,const bool bIsGMToo
 	}
 	else
 	{
-		Output.nRet		=	CheckPW_TotalDB_SQL(nCn,LIP);//·Î±×ÀÎ °¡´ÉÇÑÁö¿¡ ´ëÇÑ º¯¼ö ÀÔ´Ï´Ù.
-		Output.nType	=	LIP.type;//°áÁ¦ Å¸ÀÔÀÔ´Ï´Ù.
+		Output.nRet		=	CheckPW_TotalDB_SQL(nCn,LIP);//è‚ºå¼Šç‰¢ å•Šç“·èŒ„ç˜¤ä¿Š æªèŒ„ å‡½è æ¶èªä¿ƒ.
+		Output.nType	=	LIP.type;//æ¬åŠ› é¸¥æ¶æ¶èªä¿ƒ.
 		Output.dwIndex	=	LIP.index;//
-		// Áß±¹ÀÇ °ú±İ¿¡¼­ IP´ÜÀ§ÀÇ °ú±İÀÌ µé¾î°¡¸é ÀÌºÎºĞ¿¡ Ãß°¡µÈ´Ù. 
+		// åæƒ«ç‹¼ è‹é™›ä¿Šè¾‘ IPçªœå›°ç‹¼ è‹é™›æ ç”¸ç»¢å•Šæ æä½•ç›’ä¿Š çœ å•Šç­‰ä¿ƒ. 
 /* //coromo 2007/5/2  disable pay
-		if(LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG))//021007 lsw//Áß±¹È«Äá´ë¸¸ ¸ğµÎ ¾ÆÀÌÇÇ¸¦ Ãß°¡ÇÑ´Ù. 
+		if(LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG))//021007 lsw//åæƒ«å…¨å°¼æªçˆ¶ è‘›æ»´ é…’æä¹”ç”« çœ å•ŠèŒ„ä¿ƒ. 
 		{
-			if( Output.nRet > 0 || Output.nRet == BT_NEED_PAY )//0º¸´Ù Å¬ °æ¿ì´Â ³²Àº ³¯Â¥°¡ ÀÖ´Â °ÍÀÌ°í
+			if( Output.nRet > 0 || Output.nRet == BT_NEED_PAY )//0ç„Šä¿ƒ åŠª ç‰ˆå¿«ç»° å·¢ç¯® æœæ¥¼å•Š ä¹ç»° å·´æç»Š
 			{
 				ConQ->AskCheckLoginWithIP( LIP.id, LIP.ip );
-				Output.nRet = COnePass::BT_WAIT_BILLING_MSG;//Áß±¹ÀÇ °æ¿ì´Â
+				Output.nRet = COnePass::BT_WAIT_BILLING_MSG;//åæƒ«ç‹¼ ç‰ˆå¿«ç»°
 			}
 		}
 */
@@ -124,11 +124,11 @@ OUTPUT COnePass::OnePassID(const short nCn,LoginInfoPay &LIP,const bool bIsGMToo
 }
 
 
-// ÇÁ¸® º£Å¸ÀÏ °æ¿ì Á¢¼Ó °¡´ÉÇÑ ¾ÆÀÌµğ ÀÎÁö ³¯ÀÚ·Î È®ÀÎ ÇÒ¶§ »ç¿ë
+// æ©‡åºœ æµ·é¸¥è€ ç‰ˆå¿« ç«‹åŠ  å•Šç“·èŒ„ é…’æå¼ ç‰¢ç˜¤ æœç£Šè‚º çŠ¬ç‰¢ ä¸”é”­ è¤ä¾©
 int GetAccessPossableDay( int &year, int &month, int &day )
 {
 	char szRegistDate[50]= {0,};
-	// YYYY/MM/DD Çü½ÄÀÌ¾î¾ß ÇÔ
+	// YYYY/MM/DD å±ˆä¾¥æç»¢å…· çªƒ
 	if( GetPrivateProfileString( "nation_set", "RegistDate", "" , szRegistDate, 50,DB_DEMON_INI_ ) )
 	{
 		char *token = strtok( szRegistDate, "/" );
@@ -149,13 +149,13 @@ int GetAccessPossableDay( int &year, int &month, int &day )
 	return 0;
 }
 
-// ¸®ÅÏ°ª..
-// -1 : ID ¾øÀ½. 
-// -2 : PW Æ²¸²..
-// -3 : µ·³»¾ßÇÔ..
-//      ³²Àº ³¯Â¥..
+// åºœç•”è”¼..
+// -1 : ID ç»æ¾œ. 
+// -2 : PW æ’‡è¦†..
+// -3 : æ£éƒ´å…·çªƒ..
+//      å·¢ç¯® æœæ¥¼..
 extern bool IsFreeLevel( char *szUID );
-int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//»ç¿ë °¡´ÉÇÑ ³¯Â¥¸¦ ¸®ÅÏ ÇÕ´Ï´Ù.
+int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//è¤ä¾© å•Šç“·èŒ„ æœæ¥¼ç”« åºœç•” é’¦èªä¿ƒ.
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode= 0;
@@ -182,7 +182,7 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//»ç¿ë °¡´ÉÇ
 		retCode = ::SQLFetch(hStmt);
 		if( retCode != SQL_SUCCESS) 
 		{
-			goto ERROR_NO_ID_;	// µî·ÏµÇÁö ¾ÊÀº IDÀÔ´Ï´Ù. 
+			goto ERROR_NO_ID_;	// æ®¿åºŸç™»ç˜¤ è‡¼ç¯® IDæ¶èªä¿ƒ. 
 		}
 		
 		while(retCode == SQL_SUCCESS)
@@ -203,12 +203,12 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//»ç¿ë °¡´ÉÇ
 		}
 		::SQLFreeStmt(hStmt, SQL_DROP);
 
-		if(!bIsPwRight){return(BT_WRONG_PW);}// password Æ²¸²..
+		if(!bIsPwRight){return(BT_WRONG_PW);}// password æ’‡è¦†..
 
 		if(LocalMgr.IsFreeBeta())//021007 lsw
 		{
 			int year = 0, month = 0, day = 0;
-			if( ::GetAccessPossableDay( year, month, day ) )//µî·Ï ³¯Â¥·Î ÇÁ¸®º£Å¸°¡ °¡´É ÇÑÁö Ã¼Å©
+			if( ::GetAccessPossableDay( year, month, day ) )//æ®¿åºŸ æœæ¥¼è‚º æ©‡åºœæµ·é¸¥å•Š å•Šç“· èŒ„ç˜¤ çœ‰å†œ
 			{
 				sprintf(szQuerry, "login_id = '%s' AND d_regday > '%d-%d-%d' ", LIP.id, year, month, day);
 				int nCount = 0;
@@ -223,9 +223,9 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//»ç¿ë °¡´ÉÇ
 
 		const int iLimitDay = date.year * 365 + month_tbl[ date.month-1] + date.day; 
 		const int iToday = g_year * 365 + g_yday;	
-		if( iLimitDay >= iToday )// 1´Ü°è : À¯Àú³¯Â¥ Ã¼Å©.
+		if( iLimitDay >= iToday )// 1çªœæ‹Œ : èœ¡å†æœæ¥¼ çœ‰å†œ.
 		{
-			return 1 + iLimitDay - iToday;// ¾ÕÀ¸·Î »ç¿ë°¡´ÉÇÑ ³¯Â¥¼ö 
+			return 1 + iLimitDay - iToday;// èŠæ è‚º è¤ä¾©å•Šç“·èŒ„ æœæ¥¼è 
 		}
 		//< CSD-040127
 		if (LocalMgr.IsAbleNation(TAIWAN|HONGKONG))
@@ -249,33 +249,33 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//»ç¿ë °¡´ÉÇ
 
 		LIP.type = 0;
 		
-		if( ret > 0 )// 2´Ü°è : IP³¯Â¥ Ã¼Å©..
+		if( ret > 0 )// 2çªœæ‹Œ : IPæœæ¥¼ çœ‰å†œ..
 		{	
 			this->d_kyulje=0;
 			return BT_COMMERCIAL_IP;
 		}
-		if(IP_TimeRemain>0)// 3´Ü°è : IP ¼±ºÒÁ¾·®Á¦ Ã¼Å©..
+		if(IP_TimeRemain>0)// 3çªœæ‹Œ : IP æ€¥é˜‚è¾†æ¨ŠåŠ› çœ‰å†œ..
 		{
-			this->d_kyulje=0;	//ip¿Í °ü·ÃµÉ °æ¿ì 0À¸·Î ³Ö¾î´Ş¶ó´Â °­ÇØ¿ø ÆÀÀå´ÔÀÇ ¿ä±¸¿¡ µû¶ó 0À¸·Î ¼¼ÆÃ.
+			this->d_kyulje=0;	//ipå®¢ åŒ…è®¿çª ç‰ˆå¿« 0æ è‚º æŒç»¢å´”æ‰¼ç»° ç¢ç§¦ç›” è¯„å˜ä¸›ç‹¼ å¤¸å¤‡ä¿Š è¶æ‰¼ 0æ è‚º æŠ€æ³¼.
 			LIP.type = ip_idx + 50000;
 			return BT_COMMERCIAL_IP;
 		}
-		else if(User_TimeReamin>0)// 4´Ü°è : À¯Àú ¼±ºÒÁ¾·®Á¦ Ã¼Å©..
+		else if(User_TimeReamin>0)// 4çªœæ‹Œ : èœ¡å† æ€¥é˜‚è¾†æ¨ŠåŠ› çœ‰å†œ..
 		{
 			this->d_kyulje=4000;	
-			LIP.type = 4000; // À¯Àú ½Ã°£ Á¾·®Á¦ Å¸ÀÔ
-			return BT_COMMERCIAL_TIME_REMAIN; // 4ÀÏ ÀÌ»ó³²Àº°ÍÀ¸·Î °£ÁÖ. 
+			LIP.type = 4000; // èœ¡å† çŸ«åŸƒ è¾†æ¨ŠåŠ› é¸¥æ¶
+			return BT_COMMERCIAL_TIME_REMAIN; // 4è€ ææƒ‘å·¢ç¯®å·´æ è‚º åŸƒæ—. 
 		}
 
-		if (LocalMgr.IsAbleNation(KOREA))//µ·À» ¾È³½ »ç¶÷ÀÌ´Ù
+		if (LocalMgr.IsAbleNation(KOREA))//æ£é˜‘ æ•‘è¾° è¤æ©æä¿ƒ
 		{	//< CSD-040127
 			if( ::IsFreeLevel( LIP.id ) )
 			{
 				return BT_FREE;
-			}// ÇÁ¸®·¹º§À¯ÀúÀÌ¹Ç·Î Åë°ú
+			}// æ©‡åºœé¥­éª‡èœ¡å†æéª¨è‚º çƒ¹è‹
 		}	//> CSD-040127
 
-		return BT_NEED_PAY;	// µ·³»¾ßÇÔ..
+		return BT_NEED_PAY;	// æ£éƒ´å…·çªƒ..
 	}
 	else
 	{
@@ -283,7 +283,7 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//»ç¿ë °¡´ÉÇ
 	}
 ERROR_NO_ID_:
 	::SQLFreeStmt(hStmt, SQL_DROP);	
-	return BT_WRONG_ID;							// ±×·± ID¾øÀ½.
+	return BT_WRONG_ID;							// å¼Šç¹ IDç»æ¾œ.
 }
 
 
@@ -317,7 +317,7 @@ int COnePass::CheckGameBangIP_SQL( DWORD *can_use, LPSTR ip ,int &type, int &IP_
 	{		
 		retCode = SQLFetch(hStmt);
 			
-		if( retCode == SQL_SUCCESS ) // µî·ÏµÈ IP°¡ Á¸ÀçÇÔ. 
+		if( retCode == SQL_SUCCESS ) // æ®¿åºŸç­‰ IPå•Š ç²®çŠçªƒ. 
 		{	
 			SQLGetData(hStmt, 1, SQL_C_ULONG, can_use, 0, &cbValue);
 			SQLGetData(hStmt, 2, SQL_C_TIMESTAMP, &date,  sizeof( TIMESTAMP_STRUCT ), &cbValue);
@@ -329,14 +329,14 @@ int COnePass::CheckGameBangIP_SQL( DWORD *can_use, LPSTR ip ,int &type, int &IP_
 			SQLFreeStmt(hStmt, SQL_DROP);
 			
 			this->CheckGameBangIPAccount_SQL( ip_idx, IP_TimeRemain);
-			//	³¯Â¥ °è»ê.. 
-			if( *can_use == 1 ) // »ç¿ë°¡´ÉÇÑ IP..
+			//	æœæ¥¼ æ‹Œé­‚.. 
+			if( *can_use == 1 ) // è¤ä¾©å•Šç“·èŒ„ IP..
 			{	
 				rt = date.year * 365 + month_tbl[ date.month-1] + date.day;
 				ct = g_year * 365 + g_yday;
 				
 				if( rt < ct )	return BT_NEED_PAY;
-				else			return 1 + rt - ct;	// ¾ÕÀ¸·Î »ç¿ë°¡´ÉÇÑ ³¯Â¥¿¡ 
+				else			return 1 + rt - ct;	// èŠæ è‚º è¤ä¾©å•Šç“·èŒ„ æœæ¥¼ä¿Š 
 			}	
 			else
 			{	
@@ -352,7 +352,7 @@ int COnePass::CheckGameBangIP_SQL( DWORD *can_use, LPSTR ip ,int &type, int &IP_
 	else
 	{
 		SQLFreeStmt(hStmt, SQL_DROP);	
-		return -1;							// ±×·± °×¹æIP¾øÀ½.
+		return -1;							// å¼Šç¹ ç™½è§„IPç»æ¾œ.
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);			// 0414 YGI
 	return(-2);
@@ -369,7 +369,7 @@ int COnePass::CheckLoginIDForJapan(const short nCn, LoginInfoPay &LIP)
 	EatRearWhiteChar( LIP.id );
 	EatRearWhiteChar( LIP.pw );
 
-	sprintf(szQuerry, "SELECT   Memidx,Uid FROM NgcTempUser WHERE (Utid = '%s%s')", LIP.id,LIP.pw);//ÀÏº» DBÂüÁ¶//TID·Î ID °¡Á®¿À±â.
+	sprintf(szQuerry, "SELECT   Memidx,Uid FROM NgcTempUser WHERE (Utid = '%s%s')", LIP.id,LIP.pw);//è€å¤¯ DBæ›¼ç‚¼//TIDè‚º ID å•Šå»‰å·æ‰.
 
 	SQLAllocStmt(hDBC_NGCDB, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
@@ -378,7 +378,7 @@ int COnePass::CheckLoginIDForJapan(const short nCn, LoginInfoPay &LIP)
 		retCode = SQLFetch(hStmt);
 		if( retCode != SQL_SUCCESS) 
 		{
-			goto ERROR_NO_ID_;	// µî·ÏµÇÁö ¾ÊÀº IDÀÔ´Ï´Ù. 
+			goto ERROR_NO_ID_;	// æ®¿åºŸç™»ç˜¤ è‡¼ç¯® IDæ¶èªä¿ƒ. 
 		}
 		retCode = ::SQLGetData(hStmt, 1, SQL_C_LONG,	&LIP.index,	ID_LENGTH, &cbValue);
 		
@@ -389,12 +389,12 @@ int COnePass::CheckLoginIDForJapan(const short nCn, LoginInfoPay &LIP)
 		::strcpy(connections[nCn].id,szID);
 		::strcpy(LIP.id,szID);
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		return 100;//ÀÏº»ÀÎ °æ¿ì °øÂ¥ÀÔ´Ï´Ù. NGC¿¡¼­ °ú±İÀ» ÇÏ±â ¶§¹®¿¡.
+		return 100;//è€å¤¯ç‰¢ ç‰ˆå¿« å‚æ¥¼æ¶èªä¿ƒ. NGCä¿Šè¾‘ è‹é™›é˜‘ çªæ‰ é”­å·©ä¿Š.
 	}
 ERROR_NO_ID_:
 
 	::SQLFreeStmt(hStmt, SQL_DROP);	
-	return BT_WRONG_ID;							// ±×·± ID¾øÀ½.
+	return BT_WRONG_ID;							// å¼Šç¹ IDç»æ¾œ.
 }
 
 int COnePass::CheckGameBangIPAccount_SQL( DWORD ip_idx, int &IP_TimeRemain)
@@ -419,7 +419,7 @@ int COnePass::CheckGameBangIPAccount_SQL( DWORD ip_idx, int &IP_TimeRemain)
 	{		
 		retCode = SQLFetch(hStmt);
 			
-		if( retCode == SQL_SUCCESS ) // µî·ÏµÈ IP°¡ Á¸ÀçÇÔ. 
+		if( retCode == SQL_SUCCESS ) // æ®¿åºŸç­‰ IPå•Š ç²®çŠçªƒ. 
 		{	
 			SQLGetData(hStmt, 1, SQL_C_ULONG, &IP_TimeRemain, 0, &cbValue);
 			SQLFreeStmt(hStmt, SQL_DROP);			

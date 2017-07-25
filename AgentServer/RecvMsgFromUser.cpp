@@ -1,4 +1,4 @@
-// -------------------------------
+ï»¿// -------------------------------
 // ReWrite by chan78 at 2001/01/11
 // -------------------------------
 #include "dr_agent_structures.h"
@@ -11,7 +11,7 @@
 #include "RecvMsgFromServer.h"
 #include <crtdbg.h>
 #include <time.h>
-#include "CUseMoney.h" // 030325 kyo ÅÂ±¹ °ú±İ¿ë
+#include "CUseMoney.h" // 030325 kyo íƒœêµ­ ê³¼ê¸ˆìš©
 
 extern char szMsg[MAX_PACKET_SIZE];
 
@@ -26,15 +26,15 @@ void __stdcall OnAcceptUser( DWORD dwConnectionIndex )
 	WORD wPort;
 	DWORD dwUserID;
 
-	// ÀÌ ¼­¹ö°¡ ¸Ş½ÃÁö¸¦ Á¤»óÀûÀ¸·Î ¹Ş¾Æ¼­ Ã³¸®ÇÒ ¼ö ÀÖ´Â »óÈ²ÀÎÁö °Ë»ç.
+	// ì´ ì„œë²„ê°€ ë©”ì‹œì§€ë¥¼ ì •ìƒì ìœ¼ë¡œ ë°›ì•„ì„œ ì²˜ë¦¬í•  ìˆ˜ ìˆëŠ” ìƒí™©ì¸ì§€ ê²€ì‚¬.
 	if( !g_pServerTable->IsServerActivated( g_pServerTable->GetOwnServerData() ) )
 	{
-		// ¼­¹ö°¡ Ã³¸®ºÒ´É»óÅÂÀÌ¹Ç·Î °¡Â÷¾øÀÌ ²÷´Â´Ù.
+		// ì„œë²„ê°€ ì²˜ë¦¬ë¶ˆëŠ¥ìƒíƒœì´ë¯€ë¡œ ê°€ì°¨ì—†ì´ ëŠëŠ”ë‹¤.
 		g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
 		return;
 	}
 
-	// Address ¾ò±â.
+	// Address ì–»ê¸°.
 	{
 		pSockAddrIn = g_pINet->GetUserAddress( dwConnectionIndex );
 		_ASSERT( pSockAddrIn );
@@ -47,11 +47,11 @@ void __stdcall OnAcceptUser( DWORD dwConnectionIndex )
 		wPort = pSockAddrIn->sin_port;
 	}
 
-	// Ãß°¡ ½Ãµµ.
+	// ì¶”ê°€ ì‹œë„.
 	dwUserID = g_pUserTable->AddUser( dwConnectionIndex );
 
 
-	// °á°ú Ã³¸®.
+	// ê²°ê³¼ ì²˜ë¦¬.
 	if( dwUserID )
 	{
 //		MyLog( LOG_IGNORE, "NEW USER(dwID:%d, dwConnectionIndex:%d, FromIP:%s, FromPort:%d) Added to CUserTable", dwUserID, dwConnectionIndex, szIP, wPort );
@@ -87,7 +87,7 @@ void __stdcall OnAcceptUser( DWORD dwConnectionIndex )
 
 		if( !g_pUserTable->SendToUserNoEncode( pUser, (char *)&packet, sizeof(t_OnConnectHselInit)+5 ) )
 		{
-			//ÀÎÀÕ µÇ¾î ÀÖ´Â ÆĞÅ¶À» ³¯·Á ÁØ´Ù.
+			//ì¸ì‡ ë˜ì–´ ìˆëŠ” íŒ¨í‚·ì„ ë‚ ë ¤ ì¤€ë‹¤.
 			MyLog( LOG_FATAL, "User(%s:%d) Can't Recv Packet ", szIP, wPort );
 		}
 		///////////////////////////////////////////////////////////
@@ -105,10 +105,10 @@ void __stdcall OnAcceptUser( DWORD dwConnectionIndex )
 
 void __stdcall OnDisconnectUser( DWORD dwConnectionIndex )
 {
-	// »ç¿ëÀÚ°¡ ´Ù¸¥ Server¿¡ Entry¸¦ °®°í ÀÖ´Â °æ¿ì Á¦°ÅÇØÁÖ´Â Ã³¸®¸¦ ÇÑ´Ù.
+	// ì‚¬ìš©ìê°€ ë‹¤ë¥¸ Serverì— Entryë¥¼ ê°–ê³  ìˆëŠ” ê²½ìš° ì œê±°í•´ì£¼ëŠ” ì²˜ë¦¬ë¥¼ í•œë‹¤.
 	USERINFO *pUserInfo = (USERINFO*)g_pINet->GetUserInfo(dwConnectionIndex);
 
-	// pUserInfo °ËÁõ.
+	// pUserInfo ê²€ì¦.
 #ifdef __ON_DEBUG
 	ASSERT( pUserInfo );
 #endif
@@ -117,7 +117,7 @@ void __stdcall OnDisconnectUser( DWORD dwConnectionIndex )
 		MyLog(LOG_IGNORE, "Connection Closed Not Authed User Index %d", dwConnectionIndex );
 		return;
 	}
-	// Map Server¿¡ ¿¬°áµÈ °æ¿ì.
+	// Map Serverì— ì—°ê²°ëœ ê²½ìš°.
 	if( pUserInfo->dwMapServerConnectionIndex )
 	{
 		szMsg[0] = (BYTE)PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER;
@@ -149,14 +149,14 @@ void __stdcall OnDisconnectUser( DWORD dwConnectionIndex )
 		}
 	}
 #ifdef __ON_DEBUG
-	// DB Demon°ú Map SERVER¿¡ µ¿½Ã¿¡ Entry¸¦ °®°í ÀÖ´Â °æ¿ì. ¹ß»ıÇÏ¸é ¾ÈµÇ´Â ¿¹¿Ü»óÈ².
+	// DB Demonê³¼ Map SERVERì— ë™ì‹œì— Entryë¥¼ ê°–ê³  ìˆëŠ” ê²½ìš°. ë°œìƒí•˜ë©´ ì•ˆë˜ëŠ” ì˜ˆì™¸ìƒí™©.
 	else if( pUserInfo->dwDBDemonConnectionIndex && pUserInfo->dwMapServerConnectionIndex )
 	{
 //		_asm int 3;
 	}
 #endif
 
-	// DBÀÇ Log-in Table Entry¿¡¼­ Á¦°ÅÇÑ´Ù.
+	// DBì˜ Log-in Table Entryì—ì„œ ì œê±°í•œë‹¤.
 	if( pUserInfo->bAmILogon )
 	{
 		// --------------
@@ -221,7 +221,7 @@ void __stdcall OnDisconnectUser( DWORD dwConnectionIndex )
 	//g_cAsyncPay.LogoutUser( pUserInfo );
 	g_cAsyncPay.LogoutUser( dwConnectionIndex, pUserInfo->szName );
 
-	// ½ÇÁ¦·Î Clear.
+	// ì‹¤ì œë¡œ Clear.
 	g_pUserTable->RemoveUser(dwConnectionIndex);
 	return;
 }
@@ -232,7 +232,7 @@ void SendCMD_CONNECT_AGENT_SERVER_CONFORM(const DWORD dwUserID, const char* szUs
 	
 	if(!pUser){return;}
 
-	if(::stricmp(szUserName,pUser->szName))//¾Æ±î¿Í ´Ù¸¥ À¯Àú ¶ó¸é
+	if(::stricmp(szUserName,pUser->szName))//ì•„ê¹Œì™€ ë‹¤ë¥¸ ìœ ì € ë¼ë©´
 	{
 		return;
 	}
@@ -254,9 +254,9 @@ __try{
 }
 
 void RecvCMD_CONNECT_AGENT_SERVER_CONFORM(USERINFO *pUser, t_packet *p)//
-{// ÅÂ±¹ °ú±İ ºÙ´Â °÷
+{// íƒœêµ­ ê³¼ê¸ˆ ë¶™ëŠ” ê³³
 	__try // 030626 kyo
-	{	//030703 lsw ¾ÆÀÌµğ ±æÀÌ 20 ÀÔ´Ï´Ù. Àú°Å ¹Ù²ÙÁö ¸¶¼¼¿ä -_-..
+	{	//030703 lsw ì•„ì´ë”” ê¸¸ì´ 20 ì…ë‹ˆë‹¤. ì €ê±° ë°”ê¾¸ì§€ ë§ˆì„¸ìš” -_-..
 		::memcpy( pUser->szName, p->u.ConnectAgentServerConform.szUserID,ID_LENGTH); // 030626 kyo //change size ID_LENGTH -> 40
 		pUser->bAmILogon = false;
 
@@ -306,26 +306,26 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 	char sMsg[MAX_PACKET_SIZE];
 	spacket = (t_packet *)(sMsg+1+4);
 	
-	// ÀÌ ¼­¹ö°¡ ¸Ş½ÃÁö¸¦ Á¤»óÀûÀ¸·Î ¹Ş¾Æ¼­ Ã³¸®ÇÒ ¼ö ÀÖ´Â »óÈ²ÀÎÁö °Ë»ç.
+	// ì´ ì„œë²„ê°€ ë©”ì‹œì§€ë¥¼ ì •ìƒì ìœ¼ë¡œ ë°›ì•„ì„œ ì²˜ë¦¬í•  ìˆ˜ ìˆëŠ” ìƒí™©ì¸ì§€ ê²€ì‚¬.
 	if( !g_pServerTable->IsServerActivated( g_pServerTable->GetOwnServerData() ) )
 	{
-		// ¼­¹ö°¡ STATUS_SERVER_ACTIVATED ÀÌ¿ÜÀÇ »óÈ²ÀÌ¸é ÀÌ¹Ì Á¤»óÀûÀÎ Ã³¸®°¡ ºÒ°¡´ÉÇÑ °æ¿ìÀÌ´Ù.
-		// ¼­¹ö°¡ ºÎÆÃÁßÀÎ °æ¿ì¿¡´Â USERÃø ¼ÒÄÏÀ» ¾Æ¿¹ ¹ÙÀÎµåÇÏÁö ¾Ê°Å³ª, ¹ÙÀÎµå¸¦ ÇÏ´õ¶óµµ Á¢¼Ó ºÒ°¡
-		// ÆĞÅ¶À» º¸³½ ÈÄ ±Ç°í Á¢¼ÓÁ¾·á¸¦ ½ÃÅ°°í, ¼­¹ö°¡ Á¤»óÀÛµ¿Áß¿¡ INACTIVATED µÈ °æ¿ì¶ó¸é ¸ğµç »ç
-		// ¿ëÀÚ¿¡°Ô ±Ç°í Á¢¼ÛÁ¾·á¸¦ ½ÃÅ°¹Ç·Î ÀÌ ¸Ş½ÃÁö¸¦ ¹Ş´Â °æ¿ì´Â ´ÙÀ½°ú °°´Ù.
+		// ì„œë²„ê°€ STATUS_SERVER_ACTIVATED ì´ì™¸ì˜ ìƒí™©ì´ë©´ ì´ë¯¸ ì •ìƒì ì¸ ì²˜ë¦¬ê°€ ë¶ˆê°€ëŠ¥í•œ ê²½ìš°ì´ë‹¤.
+		// ì„œë²„ê°€ ë¶€íŒ…ì¤‘ì¸ ê²½ìš°ì—ëŠ” USERì¸¡ ì†Œì¼“ì„ ì•„ì˜ˆ ë°”ì¸ë“œí•˜ì§€ ì•Šê±°ë‚˜, ë°”ì¸ë“œë¥¼ í•˜ë”ë¼ë„ ì ‘ì† ë¶ˆê°€
+		// íŒ¨í‚·ì„ ë³´ë‚¸ í›„ ê¶Œê³  ì ‘ì†ì¢…ë£Œë¥¼ ì‹œí‚¤ê³ , ì„œë²„ê°€ ì •ìƒì‘ë™ì¤‘ì— INACTIVATED ëœ ê²½ìš°ë¼ë©´ ëª¨ë“  ì‚¬
+		// ìš©ìì—ê²Œ ê¶Œê³  ì ‘ì†¡ì¢…ë£Œë¥¼ ì‹œí‚¤ë¯€ë¡œ ì´ ë©”ì‹œì§€ë¥¼ ë°›ëŠ” ê²½ìš°ëŠ” ë‹¤ìŒê³¼ ê°™ë‹¤.
 
-		// 1) ¾ÆÁ÷ Á¢¼ÓÁ¾·á ÆĞÅ¶À» ¹Ş±â Àü¿¡ º¸³½ ÆĞÅ¶ÀÎ °æ¿ì.
-		// 2) ¼­¹ö/Å¬¶óÀÌ¾ğÆ®ÂÊ ÄÚµå°¡ Àß¸øµÈ °æ¿ì.
-		// 3) Á¤»óÀûÀÎ Å¬¶óÀÌ¾ğÆ®°¡ ¾Æ´Ñ °æ¿ì.
+		// 1) ì•„ì§ ì ‘ì†ì¢…ë£Œ íŒ¨í‚·ì„ ë°›ê¸° ì „ì— ë³´ë‚¸ íŒ¨í‚·ì¸ ê²½ìš°.
+		// 2) ì„œë²„/í´ë¼ì´ì–¸íŠ¸ìª½ ì½”ë“œê°€ ì˜ëª»ëœ ê²½ìš°.
+		// 3) ì •ìƒì ì¸ í´ë¼ì´ì–¸íŠ¸ê°€ ì•„ë‹Œ ê²½ìš°.
 
-		// ÆÇ´ÜÇÒ ¹æ¹ıÀÌ ¾øÀ¸¹Ç·Î ÆĞÅ¶À» ¹«½ÃÇÏ´Â ¹æ½ÄÀ¸·Î ´ëÃ³ÇÑ´Ù.
-		// ¾îÂ÷ÇÇ ¼­¹ö°¡ Á¾·áµÇ¸é ´Ù Àß¸°´Ù.
+		// íŒë‹¨í•  ë°©ë²•ì´ ì—†ìœ¼ë¯€ë¡œ íŒ¨í‚·ì„ ë¬´ì‹œí•˜ëŠ” ë°©ì‹ìœ¼ë¡œ ëŒ€ì²˜í•œë‹¤.
+		// ì–´ì°¨í”¼ ì„œë²„ê°€ ì¢…ë£Œë˜ë©´ ë‹¤ ì˜ë¦°ë‹¤.
 		return;
 	}
 
-	// ¼Û½ÅÀÚÀÇ Identity ±¸ÇÏ±â.
+	// ì†¡ì‹ ìì˜ Identity êµ¬í•˜ê¸°.
 	USERINFO *pUserInfo = (USERINFO*)g_pINet->GetUserInfo(dwConnectionIndex);
-	// ¼Û½ÅÀÚÀÇ Identity´Â ¹«Á¶°Ç Á¤»ó°ª. ±×¿ÜÀÇ °æ¿ì ÇÁ·Î±×·¥ÀÇ ¹ö±×.
+	// ì†¡ì‹ ìì˜ IdentityëŠ” ë¬´ì¡°ê±´ ì •ìƒê°’. ê·¸ì™¸ì˜ ê²½ìš° í”„ë¡œê·¸ë¨ì˜ ë²„ê·¸.
 	_ASSERT( pUserInfo );
 
 	g_pUserTable->SetTickForSleptTimeProcess( pUserInfo );
@@ -335,12 +335,12 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 #define IUD_PACKET_KEY_CODE_				11
 #define IUD_STATUS_USER_NOT_CERTIFIED_		12
 
-	// ±âº»»çÀÌÁî Ã¼Å©
+	// ê¸°ë³¸ì‚¬ì´ì¦ˆ ì²´í¬
 	if( dwLength < sizeof(t_header) )
 	{
 //		MyLog( LOG_FATAL, "User(%d) :: Illegal Packet size(smaller than sizeof(t_header)) has received", dwConnectionIndex );
-		// »ç¿ëÀÚ°¡ ±Ô°İ¿¡ ¾î±ß³ª´Â ÆĞÅ¶À» º¸³Â´Ù.
-		// °­Á¦·Î ²÷´Â´Ù.
+		// ì‚¬ìš©ìê°€ ê·œê²©ì— ì–´ê¸‹ë‚˜ëŠ” íŒ¨í‚·ì„ ë³´ëƒˆë‹¤.
+		// ê°•ì œë¡œ ëŠëŠ”ë‹¤.
 		MyLog( LOG_NORMAL, "** Too Small Packet From User" );
 		cause = IUD_PACKET_WRONG_SIZE_;
 		goto DISCONNECT_USER_FOR_ERROR_;
@@ -349,7 +349,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 	// Build Packet Header from string
 	packet = (t_packet *)pMsg;
 
-	// Á¤»óÀûÀÎ Ä¿³Ø¼ÇÀÎÁö È®ÀÎ.
+	// ì •ìƒì ì¸ ì»¤ë„¥ì…˜ì¸ì§€ í™•ì¸.
 	if( pUserInfo->dwStatus == STATUS_USER_NOT_CERTIFIED )
 	{
 		if( packet->h.header.type != CMD_ACCESS_LOGIN )
@@ -360,12 +360,12 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 	}
 	else if( !g_pUserTable->IsUserAvailable( pUserInfo ) )
 	{		
-		// ºñÁ¤»óÀûÀÎ Ä¿³Ø¼Ç.
-		// ¸Ş½ÃÁö Ã³¸®¸¦ ÇÏÁö ¾Ê´Â´Ù.
+		// ë¹„ì •ìƒì ì¸ ì»¤ë„¥ì…˜.
+		// ë©”ì‹œì§€ ì²˜ë¦¬ë¥¼ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 		return;
 	}		
 	
-	//ÆĞÅ¶ Å° µğÄÚµùÀÌ µé¾î°¥ ÀÚ¸®	
+	//íŒ¨í‚· í‚¤ ë””ì½”ë”©ì´ ë“¤ì–´ê°ˆ ìë¦¬	
 	//if(pUserInfo->bAmILogon)
 	{
 		if(!RAJADecodePacket(pUserInfo, packet, dwLength))
@@ -387,7 +387,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 	if( packet->h.header.size != (WORD)(dwLength-sizeof(t_header)) )
 	{		
 		MyLog( LOG_FATAL, "User(%d) :: Illegal Packet(%d) has received", dwConnectionIndex, packet->h.header.type );
-		// »ç¿ëÀÚ°¡ ±Ô°İ¿¡ ¾î±ß³ª´Â ÆĞÅ¶À» º¸³Â´Ù. ÇÊ¿äÇÏ¸é ¿©±â¼­ ²÷¾îÁØ´Ù.
+		// ì‚¬ìš©ìê°€ ê·œê²©ì— ì–´ê¸‹ë‚˜ëŠ” íŒ¨í‚·ì„ ë³´ëƒˆë‹¤. í•„ìš”í•˜ë©´ ì—¬ê¸°ì„œ ëŠì–´ì¤€ë‹¤.
 		//MyLog( LOG_NORMAL, "Invalid Packet From User(Size is not Valid) - Close It" );
 
 		char cause[ FILENAME_MAX];
@@ -406,14 +406,14 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 		
 		
 	// ----------------------------------------------
-	// ÀÌ°÷¿¡ ¶óÀÚ Agent ServerÀÇ ÆĞÅ¶Ã³¸®°¡ µé¾î°£´Ù.
+	// ì´ê³³ì— ë¼ì Agent Serverì˜ íŒ¨í‚·ì²˜ë¦¬ê°€ ë“¤ì–´ê°„ë‹¤.
 	// ----------------------------------------------
 	switch( packet->h.header.type )
 	{
 	
-	// Á÷Á¢ Ã³¸®ÇÒ Packetµé 
+	// ì§ì ‘ ì²˜ë¦¬í•  Packetë“¤ 
 	case CMD_CONNECT_AGENT_SERVER_CONFORM:
-		{//ÅÂ±¹ °ú±İ ¹Ş´Â°÷
+		{//íƒœêµ­ ê³¼ê¸ˆ ë°›ëŠ”ê³³
 			::RecvCMD_CONNECT_AGENT_SERVER_CONFORM(pUserInfo,packet);//
 		}break;	
 	case CMD_ALL_READY:
@@ -469,13 +469,13 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 		// 010109 KHS
 	case CMD_SV_SEND_MESSAGE_ALL :		// 010110 YGI
 		{	
-			SendPbs( packet->u.default_msg, packet->h.header.size ); //·¢ËÍ¹«¸æ,ÎÒÔÚÕâÀï
-			HackLog( 0,  packet->u.default_msg);//½«Ê¹ÓÃÍâ¹ÒÕßµÄĞÅÏ¢±£´æµ½HackLogÖĞ.
+			SendPbs( packet->u.default_msg, packet->h.header.size ); //ë™ç®‡ë¬´ë©©,ä¹–ç³ä¾¶ìŸ
+			HackLog( 0,  packet->u.default_msg);//ì‰¥è³ˆç—°æ£ë°ˆè«’ë¨æ–¤å£ê´ë‹¸ë•HackLogæ«“.
 			break;
 		}
 		
 		//--------------------------------------------
-		// Á¤º¸¸¦ °¥ÃëÇÏ°í µ¥ÀÌÅÍ¸¦ º¯°æÇØ º¸³¾ ÆĞÅ¶µé
+		// ì •ë³´ë¥¼ ê°ˆì·¨í•˜ê³  ë°ì´í„°ë¥¼ ë³€ê²½í•´ ë³´ë‚¼ íŒ¨í‚·ë“¤
 		//--------------------------------------------
 	case CMD_ACCESS_LOGIN:
 		{	
@@ -488,7 +488,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 			
 			pUserInfo->bAmILogon = false;
 			
-			// IP ºÙÈ÷±â..
+			// IP ë¶™íˆê¸°..
 			::memcpy( &to_send, packet, length );
 			paddr = g_pINet->GetUserAddress(dwConnectionIndex);
 			::sprintf( to_send.u.ClientAccessLogin.ip, "%d.%d.%d.%d", paddr->sin_addr.S_un.S_un_b.s_b1
@@ -498,7 +498,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 
 			to_send.u.ClientAccessLogin.wPort = g_pServerTable->GetOwnServerData()->wPort;
 			
-			// ÆĞÅ¶Àü¼Û
+			// íŒ¨í‚·ì „ì†¡
 			if( !pUserInfo->dwMapServerConnectionIndex )
 			{
 				// Build Packet
@@ -508,10 +508,10 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 				::memcpy( sMsg+1+4, to_send.h.data, sizeof(t_header) );
 				::memcpy( sMsg+1+4+sizeof(t_header), to_send.u.data, to_send.h.header.size );
 				
-				// ÃÖÃÊ·Î DB Demon¿¡ ¸Ş½ÃÁö¸¦ º¸³»´Â ºÎºĞ.
+				// ìµœì´ˆë¡œ DB Demonì— ë©”ì‹œì§€ë¥¼ ë³´ë‚´ëŠ” ë¶€ë¶„.
 				if( g_pServerTable->GetOwnDBDemonData() && g_pServerTable->GetOwnDBDemonData()->dwConnectionIndex )
 				{
-					// ÇöÀç AGENT°¡ »ç¿ëÇÏ´Â DB DEMONÀ» ÀÌ »ç¿ëÀÚ°¡ ¿£Æ®¸®¸¦ º¸À¯ÇÑ DB DemonÀ¸·Î ¼³Á¤ÇÑ´Ù.
+					// í˜„ì¬ AGENTê°€ ì‚¬ìš©í•˜ëŠ” DB DEMONì„ ì´ ì‚¬ìš©ìê°€ ì—”íŠ¸ë¦¬ë¥¼ ë³´ìœ í•œ DB Demonìœ¼ë¡œ ì„¤ì •í•œë‹¤.
 					pUserInfo->dwDBDemonConnectionIndex = g_pServerTable->GetOwnDBDemonData()->dwConnectionIndex;
 					
 					if( !g_pServerTable->Send( pUserInfo->dwDBDemonConnectionIndex, (char*)&sMsg, (1+4+sizeof(t_header)+to_send.h.header.size)) )
@@ -529,7 +529,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 		}
 		break;
 		//-------------------------------------
-		// DB DemonÀ¸·Î redirection ÇÒ Packetµé
+		// DB Demonìœ¼ë¡œ redirection í•  Packetë“¤
 		//-------------------------------------
 	case CMD_SELECTED_CHAR_RESULT_CLIENT_BOTH_DB_DEMON:
 	case CMD_GLOBAL_CHAT_DATA:
@@ -551,7 +551,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 	case CMD_RESET_JOB :
 ToMapServer_:
 		// Modified by chan78 at 2000/11/28
-		// À§¿¡ ÇØ´çÇÏ´Â Ä¿¸Çµå¶óµµ dwMapServerConnectionIndex°¡ ÀÖÀ¸¸é MapServer·Î º¸³½´Ù.
+		// ìœ„ì— í•´ë‹¹í•˜ëŠ” ì»¤ë§¨ë“œë¼ë„ dwMapServerConnectionIndexê°€ ìˆìœ¼ë©´ MapServerë¡œ ë³´ë‚¸ë‹¤.
 		if( !pUserInfo->dwMapServerConnectionIndex )
 		{
 			// Build Packet
@@ -580,9 +580,9 @@ ToMapServer_:
 			break;					
 		}						
 		// ----------------------	
-		// Map Server·Î °¥ ÆĞÅ¶µé	
+		// Map Serverë¡œ ê°ˆ íŒ¨í‚·ë“¤	
 		// ----------------------	
-		// ÀÌ°÷¿¡¼­ MAP Server·Î °¥ PacketÀÇ ¹«°á¼ºÀ» °ËÁõÇØ °É·¯ÁÖ´Â°ÍÀÌ ÁÁ´Ù.
+		// ì´ê³³ì—ì„œ MAP Serverë¡œ ê°ˆ Packetì˜ ë¬´ê²°ì„±ì„ ê²€ì¦í•´ ê±¸ëŸ¬ì£¼ëŠ”ê²ƒì´ ì¢‹ë‹¤.
 	default :					
 		{						
 			if( DWORD ToServ = pUserInfo->dwMapServerConnectionIndex ) 
@@ -612,7 +612,7 @@ ToMapServer_:
 			else 
 			{			
 				::MyLog( LOG_FATAL, "Client(%d) has not MapServer Index(%d)", pUserInfo->dwID, ToServ);
-			}	//	Å¬¶óÀÌ¾ğÆ®¿¡°Ô ²÷À¸¶ó´Â ÆĞÅ¶À» º¸³»ÁØ´Ù.				
+			}	//	í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ëŠìœ¼ë¼ëŠ” íŒ¨í‚·ì„ ë³´ë‚´ì¤€ë‹¤.				
 		}						
 		break;					
 	}		

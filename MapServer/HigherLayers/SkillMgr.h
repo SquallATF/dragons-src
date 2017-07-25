@@ -1,4 +1,4 @@
-// SkillMgr.h: interface for the CSkillMgr class.
+ï»¿// SkillMgr.h: interface for the CSkillMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,11 +13,11 @@
 #define		SKILL_ABILITY_FIX_				10000
 #define		NPC_ITEM_TABLE_X				61
 #define		NPC_ITEM_TABLE_Y				64
-#define		NPC_ITEM_TABLE_TOTAL_ITEM		60							//»óÀÚ ¾È¿¡ ÀÖ´Â ¾ÆÀÌÅÛÀÇ ¼ö// 
-#define		NPC_ITEM_TABLE_START_ITEM_POS	2							//¹è¿­¾ÈÀÇ À§Ä¡
-#define		NPC_ITEM_TABLE_PROBABILITY_POS	62							//¹è¿­¾ÈÀÇ À§Ä¡.½ÇÁ¦·Î´Â 50¹øÂ° À§Ä¡.
-#define		NPC_ITEM_TABLE_BETWEEN_POS		63							//¹è¿­¾ÈÀÇ À§Ä¡.
-#define		NPC_ITEM_TABLE_LEVEL_POS		1							//¹è¿­¾ÈÀÇ À§Ä¡.
+#define		NPC_ITEM_TABLE_TOTAL_ITEM		60							//ìƒì ì•ˆì— ìˆëŠ” ì•„ì´í…œì˜ ìˆ˜// 
+#define		NPC_ITEM_TABLE_START_ITEM_POS	2							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜
+#define		NPC_ITEM_TABLE_PROBABILITY_POS	62							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜.ì‹¤ì œë¡œëŠ” 50ë²ˆì§¸ ìœ„ì¹˜.
+#define		NPC_ITEM_TABLE_BETWEEN_POS		63							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜.
+#define		NPC_ITEM_TABLE_LEVEL_POS		1							//ë°°ì—´ì•ˆì˜ ìœ„ì¹˜.
 
 const int	MAX_ITEM_SKILL_COUNT	=	10000;//020527 lsw
 const int	SADONIX_NO				=	1046;
@@ -25,36 +25,36 @@ const int	BLESSLEAF_NO			=	1047;
 
 const int	STATIC_RARE_VIEW_FORCE_TIME = 60;
 
-#define		SKILLFAIL_NO_TOOL			1	// ÇÊ¿ä µµ±¸°¡ ¾ø½¿.
-#define		SKILLFAIL_NO_MATTER			2	// ÇÊ¿ä Àç·á°¡ ¾ø½¿.
+#define		SKILLFAIL_NO_TOOL			1	// í•„ìš” ë„êµ¬ê°€ ì—†ìŠ´.
+#define		SKILLFAIL_NO_MATTER			2	// í•„ìš” ì¬ë£Œê°€ ì—†ìŠ´.
 
 #define		SKILL_LEVEL_EXP_TABLE_MAX_	100
 #define		SKILL_EXP_TABLE_MAX_		100
 
-const int	HP_RECOVER_RATE						=	5		;//1È¸ ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_HP_MAX_PERCENT		=	50		;//ÃÖ´ë ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_HP_TIME				=	25000	;//¹Ğ¸®¼¼ÄÁµå
+const int	HP_RECOVER_RATE						=	5		;//1íšŒ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_HP_MAX_PERCENT		=	50		;//ìµœëŒ€ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_HP_TIME				=	25000	;//ë°€ë¦¬ì„¸ì»¨ë“œ
 
-const int	MANA_RECOVER_RATE					=	5		;//1È¸ ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_MANA_MAX_PERCENT	=	50		;//ÃÖ´ë ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_MANA_TIME			=	30000	;//¹Ğ¸®¼¼ÄÁµå
+const int	MANA_RECOVER_RATE					=	5		;//1íšŒ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_MANA_MAX_PERCENT	=	50		;//ìµœëŒ€ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_MANA_TIME			=	30000	;//ë°€ë¦¬ì„¸ì»¨ë“œ
 
-const int	DIVINE_RECOVER_RATE					=	5		;//1È¸ ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_DIVINE_MAX_PERCENT	=	100		;//ÃÖ´ë ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_DIVINE_TIME			=	20000	;//¹Ğ¸®¼¼ÄÁµå ¼ºÁ÷ÀÚ°¡ ¾à°£´õ ºü¸£´Ù
+const int	DIVINE_RECOVER_RATE					=	5		;//1íšŒ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_DIVINE_MAX_PERCENT	=	100		;//ìµœëŒ€ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_DIVINE_TIME			=	20000	;//ë°€ë¦¬ì„¸ì»¨ë“œ ì„±ì§ìê°€ ì•½ê°„ë” ë¹ ë¥´ë‹¤
 
-const int	HUNGRY_CHANGE_RATE					=	5		;//1È¸ ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_CHANGE_HUNGRY_MAX_PERCENT	=	100		;//ÃÖ´ë ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_CHANGE_HUNGRY_TIME			=	10000	;//¹Ğ¸®¼¼ÄÁµå
+const int	HUNGRY_CHANGE_RATE					=	5		;//1íšŒ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_CHANGE_HUNGRY_MAX_PERCENT	=	100		;//ìµœëŒ€ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_CHANGE_HUNGRY_TIME			=	10000	;//ë°€ë¦¬ì„¸ì»¨ë“œ
 
-const int	CP_CHANGE_RATE				    	=	2		;//1È¸ ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_CHANGE_CP_MAX_PERCENT		=	100		;//ÃÖ´ë ÀÚµ¿ È¸º¹ ÆÛ¼¾Å×ÀÌÁö
-const int	DEFAULT_RECOVER_CP_TIME				=	10000	;//¹Ğ¸®¼¼ÄÁµå
+const int	CP_CHANGE_RATE				    	=	2		;//1íšŒ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_CHANGE_CP_MAX_PERCENT		=	100		;//ìµœëŒ€ ìë™ íšŒë³µ í¼ì„¼í…Œì´ì§€
+const int	DEFAULT_RECOVER_CP_TIME				=	10000	;//ë°€ë¦¬ì„¸ì»¨ë“œ
 
-const int	COMBAT_RECOVERY_TIME				=	5000	;//5ÃÊ »¡¸® cp ¿Ã¸² // 030415 kyo 
+const int	COMBAT_RECOVERY_TIME				=	5000	;//5ì´ˆ ë¹¨ë¦¬ cp ì˜¬ë¦¼ // 030415 kyo 
 
 ////////////////////////////////////////////////////////////////
-// ½ºÅ³ ½ÇÆĞ ¿Ö ÇÏ´Â°¡ °ü·ÃµÈ°Å
+// ìŠ¤í‚¬ ì‹¤íŒ¨ ì™œ í•˜ëŠ”ê°€ ê´€ë ¨ëœê±°
 #define ITEMMAKE_YOUCAN					10000
 #define ITEMMAKE_UNKNOWN				-1
 #define ITEMMAKE_NOT_RESOURCE			-2	
@@ -62,9 +62,9 @@ const int	COMBAT_RECOVERY_TIME				=	5000	;//5ÃÊ »¡¸® cp ¿Ã¸² // 030415 kyo
 #define ITEMMAKE_NOT_FLATFORM			-4
 #define ITEMMAKE_TIRED					-5
 #define ITEM_MAKE_NO_JOIN				-6
-#define ITEMMAKE_GOGOGO					-7		// »ı¼ºÈ®·ü 100%  ÀÛ¾÷À» À§ÇØ Àá½Ã ¸¸µç¾îµĞ Definition...
+#define ITEMMAKE_GOGOGO					-7		// ìƒì„±í™•ë¥  100%  ì‘ì—…ì„ ìœ„í•´ ì ì‹œ ë§Œë“ ì–´ë‘” Definition...
 #define ITEMMAKE_NO						-8
-#define SKILLFAIL_NOT_PROPER_PLACE		-9  // ±â¼úÀ» À§ÇÑ Àû´çÇÑ Àå¼Ò°¡ ¾Æ´Õ´Ï´Ù. 
+#define SKILLFAIL_NOT_PROPER_PLACE		-9  // ê¸°ìˆ ì„ ìœ„í•œ ì ë‹¹í•œ ì¥ì†Œê°€ ì•„ë‹™ë‹ˆë‹¤. 
 #define SKILLFAIL_UNKNOWN_ITEM			-10
 #define SKILLFAIL_NOT_RESOURCE			-20	
 #define SKILLFAIL_NOT_FLATFORM			-40
@@ -111,22 +111,22 @@ const int	COMBAT_RECOVERY_TIME				=	5000	;//5ÃÊ »¡¸® cp ¿Ã¸² // 030415 kyo
 #define SKILLFAIL_NOT_TOOL87			-87
 #define SKILLFAIL_NO_SHEAR				-100
 #define SKILLFAIL_NO_MEET				-101
-#define SKILLFAIL_NO_MINING				-102	// ´õÀÌ»ó ÆÄ³¾°ÍÀÌ ¾ø¾î¿©..
-#define SKILLFAIL_NO_DIGGING			-103	// ´õÀÌ»ó Ä³³¾ ¾àÃÊ°¡ ¾ø¾î¿©.
-#define SKILLFAIL_NO_CUTTING			-104	// ´õÀÌ»ó Àß¶ó³¾ ³ª¹«°¡ ¾ø¾î¿©. 
-#define SKILLFAIL_NO_SEED				-105	// ÀÛ¹°ÀÌ ¾Æ´Ï¶ó¼­ ¼öÈ®ÇÒ¼ö ¾ø½À´Ï´Ù. 
-#define SKILLFAIL_NOT_YET_HARVEST		-106	// ¾ÆÀÛ ¼öÈ®ÇÒ¶§°¡ µÇÁö ¾Ê¾Ò½À´Ï´Ù. 
-#define SKILLFAIL_NOT_YET_SOW			-107	// ¶¥ÀÌ Ã´¹ÚÇÏ°Å³ª ÇÑ±º´ë¿¡ ³Ê¹« ¸¹ÀÌ ½É¾ú½À´Ï´Ù. 
-#define SKILLFAIL_NO_MORE_RACLAIM		-108	// ±×¸¸ °³°£ÇØµµ µË´Ï´Ù. 
-#define SKILLFAIL_NO_FISHING			-109	// ´õÀÌ»ó ¹°°í±â°¡ ¾ø½À´Ï´Ù
-#define SKILLFAIL_LOW_LEVEL_TO_TAMING	-110	//tamingÇÒ ¼ö ¾ø´Â ´É·ÂÄ¡¸¦ À¯Àú°¡ °¡Áö°í ÀÖ´Ù
-#define SKILLFAIL_NO_TAMING_ALLOWED		-111	//tamingÇÒ ¼ö ¾ø´Â ´ë»ó
-#define SKILLFAIL_TARGET_IS_NOT_NPC		-112	//tamingÇÒ ½º ÀÖ´Â NPC°¡ ¾Æ´Ï´Ù
+#define SKILLFAIL_NO_MINING				-102	// ë”ì´ìƒ íŒŒë‚¼ê²ƒì´ ì—†ì–´ì—¬..
+#define SKILLFAIL_NO_DIGGING			-103	// ë”ì´ìƒ ìºë‚¼ ì•½ì´ˆê°€ ì—†ì–´ì—¬.
+#define SKILLFAIL_NO_CUTTING			-104	// ë”ì´ìƒ ì˜ë¼ë‚¼ ë‚˜ë¬´ê°€ ì—†ì–´ì—¬. 
+#define SKILLFAIL_NO_SEED				-105	// ì‘ë¬¼ì´ ì•„ë‹ˆë¼ì„œ ìˆ˜í™•í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤. 
+#define SKILLFAIL_NOT_YET_HARVEST		-106	// ì•„ì‘ ìˆ˜í™•í• ë•Œê°€ ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤. 
+#define SKILLFAIL_NOT_YET_SOW			-107	// ë•…ì´ ì²™ë°•í•˜ê±°ë‚˜ í•œêµ°ëŒ€ì— ë„ˆë¬´ ë§ì´ ì‹¬ì—ˆìŠµë‹ˆë‹¤. 
+#define SKILLFAIL_NO_MORE_RACLAIM		-108	// ê·¸ë§Œ ê°œê°„í•´ë„ ë©ë‹ˆë‹¤. 
+#define SKILLFAIL_NO_FISHING			-109	// ë”ì´ìƒ ë¬¼ê³ ê¸°ê°€ ì—†ìŠµë‹ˆë‹¤
+#define SKILLFAIL_LOW_LEVEL_TO_TAMING	-110	//tamingí•  ìˆ˜ ì—†ëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ìœ ì €ê°€ ê°€ì§€ê³  ìˆë‹¤
+#define SKILLFAIL_NO_TAMING_ALLOWED		-111	//tamingí•  ìˆ˜ ì—†ëŠ” ëŒ€ìƒ
+#define SKILLFAIL_TARGET_IS_NOT_NPC		-112	//tamingí•  ìŠ¤ ìˆëŠ” NPCê°€ ì•„ë‹ˆë‹¤
 
 #define MAX_EARTHSKILL				5000
 
 ////////////////////////////////////////////////////////////////////////
-// ½ºÅ³ Åø Á¾·ù
+// ìŠ¤í‚¬ íˆ´ ì¢…ë¥˜
 #define	TOOL_FARMING				1
 #define	TOOL_MINING					2
 #define	TOOL_FISHING				3
@@ -198,16 +198,16 @@ extern LEARNITEMCONVERT LIC[MAX_LEARN_ITEM_CONVERT];
 
 typedef struct  tagMAPSKILLTABLE
 {
-	int type;							//ÀÏ¹İÀûÀÎ ±â¼ú°ü·Ã Å¸ÀÏÀÎ °æ¿ì->0 / NPC »ı¼º À§Ä¡ Á¤ÀÇ->1
-	int x, y;							//ÇØ´ç ±â¼ú¼Ó¼ºÀ» Áö´Ñ Å¸ÀÏÀÇ ÁÂÇ¥(Å¸ÀÏ´ÜÀ§) //±âÈ¹¿ä±¸->ÀÎÅÍÆäÀÌ½ºÀÇ »ç¿ëÆíÀÇ Áõ´ë
-	int skillno;						//±â¼ú¼Ó¼º °íÀ¯¹øÈ£
-	int tile_Range;						//ÇØ´çÅ¸ÀÏ·ÎºÎÅÍ È¿°ú°¡ À¯È¿ÇÑ Å¸ÀÏ °Å¸®(¹İÁö¸§)
-	int probability;						//ÇØ´ç±â¼úÀÌ ¼º°øÇÒ È®·ü
-	int type_Num;					//NPC °íÀ¯ Å¸ÀÔ ¹øÈ£(0~99) // NPCÀÏ°æ¿ì¿¡¸¸ »ç¿ë...
-	int subType;						//ÇØ´ç ±â¼úÀÇ ÇÏÀ§ °ü·Ã µ¥ÀÌÅÍ°ª
+	int type;							//ì¼ë°˜ì ì¸ ê¸°ìˆ ê´€ë ¨ íƒ€ì¼ì¸ ê²½ìš°->0 / NPC ìƒì„± ìœ„ì¹˜ ì •ì˜->1
+	int x, y;							//í•´ë‹¹ ê¸°ìˆ ì†ì„±ì„ ì§€ë‹Œ íƒ€ì¼ì˜ ì¢Œí‘œ(íƒ€ì¼ë‹¨ìœ„) //ê¸°íšìš”êµ¬->ì¸í„°í˜ì´ìŠ¤ì˜ ì‚¬ìš©í¸ì˜ ì¦ëŒ€
+	int skillno;						//ê¸°ìˆ ì†ì„± ê³ ìœ ë²ˆí˜¸
+	int tile_Range;						//í•´ë‹¹íƒ€ì¼ë¡œë¶€í„° íš¨ê³¼ê°€ ìœ íš¨í•œ íƒ€ì¼ ê±°ë¦¬(ë°˜ì§€ë¦„)
+	int probability;						//í•´ë‹¹ê¸°ìˆ ì´ ì„±ê³µí•  í™•ë¥ 
+	int type_Num;					//NPC ê³ ìœ  íƒ€ì… ë²ˆí˜¸(0~99) // NPCì¼ê²½ìš°ì—ë§Œ ì‚¬ìš©...
+	int subType;						//í•´ë‹¹ ê¸°ìˆ ì˜ í•˜ìœ„ ê´€ë ¨ ë°ì´í„°ê°’
 	
-	struct  tagMAPSKILLTABLE *prev;		//ÀÌÀü ½ºÅ³ ¼Ó¼º Å×ÀÌºí Æ÷ÀÎÅÍ	
-	struct  tagMAPSKILLTABLE *next;		//´ÙÀ½ ½ºÅ³ ¼Ó¼º Æ÷ÀÎÅÍ
+	struct  tagMAPSKILLTABLE *prev;		//ì´ì „ ìŠ¤í‚¬ ì†ì„± í…Œì´ë¸” í¬ì¸í„°	
+	struct  tagMAPSKILLTABLE *next;		//ë‹¤ìŒ ìŠ¤í‚¬ ì†ì„± í¬ì¸í„°
 }	MAPSKILLTABLE, *lpMAPSKILLTABLE;
 
 typedef struct
@@ -235,7 +235,7 @@ typedef struct RAREITEMBAG
 	int iRareItemBagPercentTableNo;
 	int iGradeMin;
 	int iGradeMax;
-	int ItemNo[21];//0 ¹øÀº ¾ø´Â °ª
+	int ItemNo[21];//0 ë²ˆì€ ì—†ëŠ” ê°’
 }t_RareItemBag;
 const int MAX_RAREITEMBAG = 1000;
 
@@ -243,21 +243,21 @@ typedef struct BASICITEMBAG
 {
 	int iNo;
 	int iBasicItemPercentTableNo;
-	int ItemNo[21];//0¹øÀº ¾ø´Â°ª
+	int ItemNo[21];//0ë²ˆì€ ì—†ëŠ”ê°’
 }t_BasicItemBag;
 const int MAX_BASICITEMBAG = 1000;
 
 typedef struct ItemControlPercent
 {
 	int iNo	;
-	int	per[8];//0¹øÀº ÅäÅ»°ª 1~5´Â º£ÀÌÁ÷ ±×·ì 6~7Àº ·¹¾î ±×·ì
+	int	per[8];//0ë²ˆì€ í† íƒˆê°’ 1~5ëŠ” ë² ì´ì§ ê·¸ë£¹ 6~7ì€ ë ˆì–´ ê·¸ë£¹
 }t_ItemControlPercent;
 const int MAX_ITEMCONTROLPERCENT = 1000;
 
 typedef struct ITEMFALLPERCENT
 {
 	int iNo;
-	int per[21];//0 ¹øÀº ÅäÅ» °ª ÀÌ´Ù
+	int per[21];//0 ë²ˆì€ í† íƒˆ ê°’ ì´ë‹¤
 }t_ItemFallPercent;
 const int MAX_ITEMFALLPERCENT = 1000;
 
@@ -265,8 +265,8 @@ typedef struct ITEMCONTROL
 {
 	int iNo;
 	int ItemControlPercentNo;
-	int ItemGroup[8];//0¹øÀº ¾ø´Â°ª 1~5´Â º£ÀÌÁ÷ ±×·ì 6~7Àº ·¹¾î ±×·ì
-	int	iFallItemCount;//¶³¾îÁú °¹¼ö, Áï, ¹İº¹¹® È£Ãâ È½¼ö
+	int ItemGroup[8];//0ë²ˆì€ ì—†ëŠ”ê°’ 1~5ëŠ” ë² ì´ì§ ê·¸ë£¹ 6~7ì€ ë ˆì–´ ê·¸ë£¹
+	int	iFallItemCount;//ë–¨ì–´ì§ˆ ê°¯ìˆ˜, ì¦‰, ë°˜ë³µë¬¸ í˜¸ì¶œ íšŸìˆ˜
 }t_ItemControl;
 const int MAX_ITEMCONTROL = 1000;
 
@@ -287,11 +287,11 @@ public:
 	void	CharacterToAlive(CHARLIST *ch, const int iType = 0);
 	void	CharacterToGhost(CHARLIST *ch, const int iType = 0);
 	
-	bool	SetCanViewGhost(CHARLIST *ch, const int iTime);//ÃÊ´ÜÀ§
-	bool	SetCanViewBomb(CHARLIST *ch, const int iTime);//ÃÊ´ÜÀ§
-	bool	SetCanViewTrap(CHARLIST *ch, const int iTime);//ÃÊ´ÜÀ§
+	bool	SetCanViewGhost(CHARLIST *ch, const int iTime);//ì´ˆë‹¨ìœ„
+	bool	SetCanViewBomb(CHARLIST *ch, const int iTime);//ì´ˆë‹¨ìœ„
+	bool	SetCanViewTrap(CHARLIST *ch, const int iTime);//ì´ˆë‹¨ìœ„
 
-  bool  IncSkillCount(CHARLIST *ch, const int iType, const int iKind, const int iPoint);//ÃÊ´ÜÀ§
+  bool  IncSkillCount(CHARLIST *ch, const int iType, const int iKind, const int iPoint);//ì´ˆë‹¨ìœ„
 	void	SendSkillExp( const int iType, const t_skillexp exp, const int cn);
 
 	int		FallItemWhenNPCDie(CHARLIST *NPC);
@@ -300,8 +300,8 @@ public:
 
 	void	RecvCMD_CONFORM_SADONIX(const t_packet &p);
 private:
-	void	SendCMD_CONFORM_SADONIX(const int cn, const int iItemNo,const int kind,const int x , const int y);//Àı´ë private
-	bool	IsRecoverAble(const int iNow,const int iMax)const;//ÇöÀç °ª°ú ÃÖ´ë·®À» ºñ±³ÇØ¼­ ÃÖ´ë·®ÀÌ ÇöÀçº¸´Ù ¸¹À¸¸é °¡´ÉÇÏ´Ù¸¦ ¸®ÅÏÇÑ´Ù
+	void	SendCMD_CONFORM_SADONIX(const int cn, const int iItemNo,const int kind,const int x , const int y);//ì ˆëŒ€ private
+	bool	IsRecoverAble(const int iNow,const int iMax)const;//í˜„ì¬ ê°’ê³¼ ìµœëŒ€ëŸ‰ì„ ë¹„êµí•´ì„œ ìµœëŒ€ëŸ‰ì´ í˜„ì¬ë³´ë‹¤ ë§ìœ¼ë©´ ê°€ëŠ¥í•˜ë‹¤ë¥¼ ë¦¬í„´í•œë‹¤
 	
 	int		GetItemFallPercentPos(const int iFallNo);
 	int		SetNPCInventory(CHARLIST *NPC, const int iItemControlNo,ItemAttr* pItem, const int iCallType = 0);
@@ -311,12 +311,12 @@ private:
 public:
 	void	AutoRecoverHp(CHARLIST *ch);
 	void	AutoRecoverMp(CHARLIST *ch);
-	void	AutoChangeHungry(CHARLIST *ch );//¹è°íÇÄ °ÔÀÌÁö´Â ±×³É Â÷Áö ¾Ê´Â´Ù Æ¯º°ÇÑ »óÈ²¿¡¼­¸¸ Âù´Ù(ex>ÀÇÀÚ)
+	void	AutoChangeHungry(CHARLIST *ch );//ë°°ê³ í”” ê²Œì´ì§€ëŠ” ê·¸ëƒ¥ ì°¨ì§€ ì•ŠëŠ”ë‹¤ íŠ¹ë³„í•œ ìƒí™©ì—ì„œë§Œ ì°¬ë‹¤(ex>ì˜ì)
 	void	AutoRecoverCp(CHARLIST *ch);
 	void	AutoRefreshRareMakeCount(CHARLIST *ch);
 	int		CheckYouCanSkillIt( const int cn, CItem_Join &join, const int skillno, const int x, const int y, const int target_id );
 	int 	CheckSkillTool( LPCHARLIST ch, CItem_Join &join, const int iSkillNo, const int target_id );
-	int		FindLearnItem( CHARLIST *ch, const int item_no );		// ¹è¿î°Ô ÀÖÀ¸¸é -1À» ¸®ÅÏ, ¾øÀ¸¸é item_max¸¦ ¸®ÅÏ
+	int		FindLearnItem( CHARLIST *ch, const int item_no );		// ë°°ìš´ê²Œ ìˆìœ¼ë©´ -1ì„ ë¦¬í„´, ì—†ìœ¼ë©´ item_maxë¥¼ ë¦¬í„´
 	bool	CanLearnItem( CHARLIST *ch, const int join_num )const;
 
 	void	SkillMapper( const int cn, const int iSkillNo, const int x, const int y, const int targettype, const int target_id, const POS s );
@@ -394,7 +394,7 @@ extern lpMAPSKILLTABLE	Header[8][8];
 extern t_earthpower EarthPower;
 extern int GiveSpecialItem(int NPCno,int dx,int dy,int MapNo,int How);
 extern void SendCharacterCondition( CHARLIST* lpChar, int change_HP );
-extern int Npc_Item_Table[NPC_ITEM_TABLE_X][NPC_ITEM_TABLE_Y];	//npc°¡ Á×À»¶§ ³ª¿Ã ¾ÆÀÌÅÛµéÀÌ ¸ğ¿©ÀÖ´Â Å×ÀÌºí
+extern int Npc_Item_Table[NPC_ITEM_TABLE_X][NPC_ITEM_TABLE_Y];	//npcê°€ ì£½ì„ë•Œ ë‚˜ì˜¬ ì•„ì´í…œë“¤ì´ ëª¨ì—¬ìˆëŠ” í…Œì´ë¸”
 extern void RecvSkillInfo( int cn, t_client_skill_info *sp);
 extern void RecvSkillCursorView( int cn, t_client_skill_cursor_view  *p);
 extern BOOL LoadSkillMapTable(void);
@@ -421,8 +421,8 @@ extern void DecreaseEquipDuration( CHARLIST *ch, const DWORD dwDecValue, const i
 extern bool exist(int, int, POS &) ;
 extern int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS source, const POS dest);
 extern void aliveCharacter(CHARLIST *d);
-extern void SendServerEachItem( const POS *pos, const ItemAttr *item, const int cn );			// ±×ÀÚ¸®¿¡ ÄÛ Âó¾î¼­ °ªÀ» º¸³»ÁØ´Ù.
-extern void SendServerEachItem( const ItemAttr *item, const CHARLIST *ch );	// Æ÷ÀÎÅÍ·Î Ã£À»¶§
+extern void SendServerEachItem( const POS *pos, const ItemAttr *item, const int cn );			// ê·¸ìë¦¬ì— ì½• ì°ì–´ì„œ ê°’ì„ ë³´ë‚´ì¤€ë‹¤.
+extern void SendServerEachItem( const ItemAttr *item, const CHARLIST *ch );	// í¬ì¸í„°ë¡œ ì°¾ì„ë•Œ
 extern bool LoadItemTable( void );
 extern bool LoadRareItemBag();
 extern bool LoadItemControlPercent();

@@ -1,4 +1,4 @@
-// ArenaDef.cpp: implementation of the CArenaDef class.
+ï»¿// ArenaDef.cpp: implementation of the CArenaDef class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -8,7 +8,7 @@
 #include "TeamBattle.h"
 #include "BaseArena.h"
 
-//040715_KJHuNs g_pLogManager¸¦ »ç¿ëÇÏ±âÀ§ÇÔ.
+//040715_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©í•˜ê¸°ìœ„í•¨.
 #include "LogManager.h"
 
 extern CGambleItem g_GambleItem;
@@ -18,7 +18,7 @@ extern void SendViewType(CHARLIST *target, int view_Type, int continue_Time);
 extern int SubtractMoney( DWORD money, CHARLIST *ch );
 extern bool isLevelUp(CHARLIST*);
 
-/* 040715_KJHuNs g_pLogManager·Î  ÀÌµ¿(Á¤¸®¸ñÀû)
+/* 040715_KJHuNs g_pLogManagerë¡œ  ì´ë™(ì •ë¦¬ëª©ì )
 extern void SaveLogChange_BattingMoney(CHARLIST* pTarget, DWORD dwOldMoney, DWORD dwNewMoney);
 extern void SaveLogChange_DividendMoney(CHARLIST* pTarget, DWORD dwOldMoney, DWORD dwNewMoney, bool bBank);
 */

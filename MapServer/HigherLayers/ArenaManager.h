@@ -1,4 +1,4 @@
-// ArenaManager.h: interface for the CArenaManager class.
+﻿// ArenaManager.h: interface for the CArenaManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

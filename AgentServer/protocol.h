@@ -1,4 +1,4 @@
-#ifndef PROTOCOL_H
+ï»¿#ifndef PROTOCOL_H
 #define PROTOCOL_H
 
 #pragma once
@@ -96,9 +96,9 @@ enum PTCL
 	PTCL_RM_FROM_PROXY							=   101,    //RM Message
 	//
 	//< CSD-030322
-	PTCL_PROXY_TO_ACCESS 						=	102, // PROXY·Î ÀÎÁõ
-	PTCL_AGENT_TO_COMMIT						=	103, // AGENT·Î Çã°¡
-	PTCL_PROXY_TO_LOGOUT						=	104  // AGENT·Î Çã°¡
+	PTCL_PROXY_TO_ACCESS 						=	102, // PROXYë¡œ ì¸ì¦
+	PTCL_AGENT_TO_COMMIT						=	103, // AGENTë¡œ í—ˆê°€
+	PTCL_PROXY_TO_LOGOUT						=	104  // AGENTë¡œ í—ˆê°€
 	//> CSD-030322
 };
 

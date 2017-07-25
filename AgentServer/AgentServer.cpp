@@ -1,4 +1,4 @@
-// -------------------------------
+ï»¿// -------------------------------
 // ReWrite by chan78 at 2001/01/11
 // -------------------------------
 
@@ -23,7 +23,7 @@ bool StartAgentServer()
 	return Init();
 }
 
-void __stdcall ShowAgentServerStatus(DWORD dwValue)//020511 ÈÕÖ¾¼ÇÂ¼
+void __stdcall ShowAgentServerStatus(DWORD dwValue)//020511 æ—¥å¿—è®°å½•
 {
 	if( !g_pServerTable )
 	{
@@ -31,14 +31,14 @@ void __stdcall ShowAgentServerStatus(DWORD dwValue)//020511 ÈÕÖ¾¼ÇÂ¼
 	}
 	else
 	{
-		LocalMgr.DisplayLocalizingSet();//±¾µØÉèÖÃ¹ÜÀí
+		LocalMgr.DisplayLocalizingSet();//æœ¬åœ°è®¾ç½®ç®¡ç†
 		g_pServerTable->ShowServerStatus();
 	}
 	return;
 }
 
 
-void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//Á¬½Ó
+void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//è¿æ¥
 {
 
 	LP_SERVER_DATA pProxy = NULL;
@@ -48,20 +48,20 @@ void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//Á¬½Ó
 		pProxy = g_pServerTable->GetOwnProxyServerData();
 		if( pProxy )
 		{
-			// Á¬½Ó×´Ì¬.
+			// è¿æ¥çŠ¶æ€.
 			if( g_pServerTable->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE )
 			{
 				return;
 			}
 			
-			// Proxy Á¬½Ó×´Ì¬.
+			// Proxy è¿æ¥çŠ¶æ€.
 			if( !g_pServerTable->GetOwnProxyServerData()->dwConnectionIndex )
 			{
 				MyLog( LOG_NORMAL, "@@ Trying to connect PROXY Server ..." );
-				// ÒÑ¾­Á¬½Ó.
+				// å·²ç»è¿æ¥.
 				if( g_pServerTable->ConnectToProxyServer() )
 				{
-					// Ö±½ÓË¢ĞÂÁ¬½Ó×´Ì¬0ÊÇÊ±¼ä.
+					// ç›´æ¥åˆ·æ–°è¿æ¥çŠ¶æ€0æ˜¯æ—¶é—´.
 					return;
 				}
 			}
@@ -79,9 +79,9 @@ void __stdcall TimerForUserTable(DWORD dwValue)//020511 lsw
 {
 	if( g_pUserTable )
 	{
-		// Á¢¼ÓÁ¾·á ´ë±â Ã³¸®¿ë.
+		// ç«‹åŠ è¾†ä¸° æªæ‰ è´¸åºœä¾©.
 		g_pUserTable->CloseConnectionWithAwaitingToDisconnect();
-		// ¿À·£½Ã°£ ½¬´Â »ç¿ëÀÚ Ã³¸®¿ë.
+		// å·ç½šçŸ«åŸƒ æµ†ç»° è¤ä¾©ç£Š è´¸åºœä¾©.
 		g_pUserTable->CloseConnectionWithSleepingUsers();
 	}
 }	
@@ -134,13 +134,13 @@ bool Init()
 	if (!g_pINet->CreateNetwork(&desc, 10, 10))
 		return false;
 	
-	// ÀÏ´Ü Á¤Áö...
+	// è€çªœ æ²¥ç˜¤...
 	g_pINet->PauseTimer( 0 ); // 040406 kyo
 	g_pINet->PauseTimer( 2 ); // 040406 kyo
 	
 	hKeyEvent[0] = g_pINet->GetCustomEventHandle(1);
 	
-	// CUserTable / CServerTable »ı¼º.
+	// CUserTable / CServerTable ç§¯å·±.
 	g_pUserTable = new CUserTable((WORD)65535);
 	g_pServerTable = new CServerTable(AGENT_SERVER_INI_,MAX_SERVER_NUM, g_pINet);//021007 lsw
 	
@@ -149,21 +149,21 @@ bool Init()
 	
 void EndAgentServer()
 {	
-	// INetwork Á¦°Å.
+	// INetwork åŠ›èŠ­.
 	if (g_pINet)
 	{
 		g_pINet->Release();
 		g_pINet = NULL;
 	}
 	
-	// CServerTable Á¦°Å
+	// CServerTable åŠ›èŠ­
 	if (g_pServerTable)
 	{
 		delete g_pServerTable;
 		g_pServerTable = NULL;
 	}
 	
-	// CUserTable Á¦°Å
+	// CUserTable åŠ›èŠ­
 	if (g_pUserTable)
 	{
 		delete g_pUserTable;

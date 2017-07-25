@@ -1,4 +1,4 @@
-// ShopDemon.cpp: implementation of the CShopDemon class.
+ï»¿// ShopDemon.cpp: implementation of the CShopDemon class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -26,8 +26,8 @@ CShopDemon::~CShopDemon()
 	m_pClass = NULL;
 }
 
-//¼¥½Ã½ºÅÛÀº. À¯ÀúÀÇ º¹±Ç»ç±â ¿äÃ»Á¤º¸¸¦ °ú±Ý ½Ã½ºÅÛÀÇ ÀÎÁõÀ» ±â´Ù¸®±â À§ÇØ ÀÓ½Ã º¸°ü ÇØµÐ´Ù.
-//ÀÌ¸Þ¼¼Áö´Â ¸ã¼­¹ö¿¡¼­ ¹Þ´Â´Ù.
+//ìƒµì‹œìŠ¤í…œì€. ìœ ì €ì˜ ë³µê¶Œì‚¬ê¸° ìš”ì²­ì •ë³´ë¥¼ ê³¼ê¸ˆ ì‹œìŠ¤í…œì˜ ì¸ì¦ì„ ê¸°ë‹¤ë¦¬ê¸° ìœ„í•´ ìž„ì‹œ ë³´ê´€ í•´ë‘”ë‹¤.
+//ì´ë©”ì„¸ì§€ëŠ” ë©¥ì„œë²„ì—ì„œ ë°›ëŠ”ë‹¤.
 void CShopDemon::RecvCanBuyLotto(t_BUY_LOTTO *pCanBuy, int cn)
 {
 
@@ -47,11 +47,11 @@ void CShopDemon::RecvCanBuyLotto(t_BUY_LOTTO *pCanBuy, int cn)
 	
 
 	DebugPrintf("ShopSytem Push LottoUser char : %s , UserID : %s",LottoBuySave.Buy_Lotto.strCharName,LottoBuySave.szUserID);
-	m_ltLottoBuySaveList.push_back(LottoBuySave);//ÀÓ½Ã¸®½ºÆ®¿¡ ÀúÀå.
+	m_ltLottoBuySaveList.push_back(LottoBuySave);//ìž„ì‹œë¦¬ìŠ¤íŠ¸ì— ì €ìž¥.
 	
 
-	//¿©±â¼­ °ú±Ý ¼­¹ö·Î ¾ó¸¶³ª µ·ÀÌ ÀÖ´ÂÁö ¾Ë¾Æ º¸±â À§ÇØ º¸³½´Ù.
-	//»ç¿ëÀÚ ¾ÆÀÌµð¿Í µ·À» ´ãÀ»¼ö ÀÖ´Â º¯¼ö¿Í ¾î¶² Ç°¸ñÀ» »ç±âÀ§ÇÑ Á¤º¸ÀÎÁö ´ãÀ»¼ö ÀÖ´Â º¯¼ö¸¦ ¸¸µé¾î¾ßÁö.^^
+	//ì—¬ê¸°ì„œ ê³¼ê¸ˆ ì„œë²„ë¡œ ì–¼ë§ˆë‚˜ ëˆì´ ìžˆëŠ”ì§€ ì•Œì•„ ë³´ê¸° ìœ„í•´ ë³´ë‚¸ë‹¤.
+	//ì‚¬ìš©ìž ì•„ì´ë””ì™€ ëˆì„ ë‹´ì„ìˆ˜ ìžˆëŠ” ë³€ìˆ˜ì™€ ì–´ë–¤ í’ˆëª©ì„ ì‚¬ê¸°ìœ„í•œ ì •ë³´ì¸ì§€ ë‹´ì„ìˆ˜ ìžˆëŠ” ë³€ìˆ˜ë¥¼ ë§Œë“¤ì–´ì•¼ì§€.^^
 	st_SHOP_SYSTEM_POINT stPoint = {0,};
 	stPoint.nPoint = -1;
 	stPoint.nShoppingType = LOTTO_SYSTEM;
@@ -60,7 +60,7 @@ void CShopDemon::RecvCanBuyLotto(t_BUY_LOTTO *pCanBuy, int cn)
 	::EatRearWhiteChar(stPoint.szID);
 
 	
-	//¿©±â¼­ °ú±Ý ¼­¹ö·Î º¸³½´Ù.
+	//ì—¬ê¸°ì„œ ê³¼ê¸ˆ ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
 	if(ConQ != NULL)
 	{
 		DebugPrintf("ShopSystem Send : ConQ->Send_Data_To_Server ======> RecvCanBuyLotto()");
@@ -82,7 +82,7 @@ void CShopDemon::RecvShopProcess(int nProtocol, void *data, int datasize)
 			memcpy(&stPoint,data,datasize);
 			::EatRearWhiteChar(stPoint.szID);
 
-			if(stPoint.nSuccess == SHOP_OK)//¼º°ø Çß´Ù.
+			if(stPoint.nSuccess == SHOP_OK)//ì„±ê³µ í–ˆë‹¤.
 			{
 				switch(stPoint.nShoppingType)
 				{
@@ -90,9 +90,9 @@ void CShopDemon::RecvShopProcess(int nProtocol, void *data, int datasize)
 					{
 						for(ITOR_BUYSAVE i = m_ltLottoBuySaveList.begin();i != m_ltLottoBuySaveList.end();++i)
 						{
-							if(strcmp((*i).szUserID,stPoint.szID) == 0)//¸®½ºÆ®¿¡ ÀÖ´Ù.
+							if(strcmp((*i).szUserID,stPoint.szID) == 0)//ë¦¬ìŠ¤íŠ¸ì— ìžˆë‹¤.
 							{
-								if( stPoint.nPoint >= LottoDBMgr()->GetLottoPay() )//µ·Àº ÃæºÐÇÏ´Ù.
+								if( stPoint.nPoint >= LottoDBMgr()->GetLottoPay() )//ëˆì€ ì¶©ë¶„í•˜ë‹¤.
 								{
 									t_packet p;
 									p.h.header.type = CMD_CAN_BUY;
@@ -104,32 +104,32 @@ void CShopDemon::RecvShopProcess(int nProtocol, void *data, int datasize)
 									int nBuyCount = LottoDBMgr()->GetBuyCountByUser((*i).szUserID, (*i).Buy_Lotto.nLottoID);
 									
 	
-									if(nBuyCount == 0)//¹«Á¶°Ç »ì¼ö ÀÖ´Ù.
+									if(nBuyCount == 0)//ë¬´ì¡°ê±´ ì‚´ìˆ˜ ìžˆë‹¤.
 									{
 										memcpy(p.u.Lotto_Buy.anLottoNumber,(*i).Buy_Lotto.anLottoNumber,sizeof(int)*10);
 									}
-									else//soto-LottoÃß°¡ if(nBuyCount < 5)// Áßº¹ ¹øÈ£ °Ë»ç¸¦ ÇØ¾ßÇÑ´Ù.
+									else//soto-Lottoì¶”ê°€ if(nBuyCount < 5)// ì¤‘ë³µ ë²ˆí˜¸ ê²€ì‚¬ë¥¼ í•´ì•¼í•œë‹¤.
 									{
-										if(!LottoDBMgr()->ExistLottoNumber((*i).Buy_Lotto.anLottoNumber,(*i).szUserID,(*i).Buy_Lotto.nLottoID))//Áßº¹ µÇÁö ¾Ê¾Ò´Ù.
+										if(!LottoDBMgr()->ExistLottoNumber((*i).Buy_Lotto.anLottoNumber,(*i).szUserID,(*i).Buy_Lotto.nLottoID))//ì¤‘ë³µ ë˜ì§€ ì•Šì•˜ë‹¤.
 										{
 											memcpy(p.u.Lotto_Buy.anLottoNumber,(*i).Buy_Lotto.anLottoNumber,sizeof(int)*10);
 										}
-										else//Áßº¹ µÇ´Â ¹øÈ£°¡ ÀÖ´Ù.
+										else//ì¤‘ë³µ ë˜ëŠ” ë²ˆí˜¸ê°€ ìžˆë‹¤.
 										{
-											p.u.Lotto_Buy.anLottoNumber[0] = -3; // -3 Áßº¹ µÇ´Â ¹øÈ£.
+											p.u.Lotto_Buy.anLottoNumber[0] = -3; // -3 ì¤‘ë³µ ë˜ëŠ” ë²ˆí˜¸.
 										}
 									}
-//soto-Lotto Ãß°¡
+//soto-Lotto ì¶”ê°€
 /*
-									else//»ì¼ö ÀÖ´Â ¸¸Å­ ´Ù»ò´Ù.
+									else//ì‚´ìˆ˜ ìžˆëŠ” ë§Œí¼ ë‹¤ìƒ€ë‹¤.
 									{
-										p.u.Lotto_Buy.anLottoNumber[0] = -2; // -2 º¹±ÇÀ» ¸¹ÀÌ »ò´Ù.
+										p.u.Lotto_Buy.anLottoNumber[0] = -2; // -2 ë³µê¶Œì„ ë§Žì´ ìƒ€ë‹¤.
 									}
 */
 
 									QueuePacket(connections,(*i).cn,&p,1);
 								}
-								else// µ·ÀÌ ¸ðÀÚ¶ó´Ù.
+								else// ëˆì´ ëª¨ìžë¼ë‹¤.
 								{
 									DebugPrintf("ShopSystem : Less Money");
 									t_packet p2;
@@ -138,12 +138,12 @@ void CShopDemon::RecvShopProcess(int nProtocol, void *data, int datasize)
 									strcpy(p2.u.Lotto_Buy.strCharName,(*i).Buy_Lotto.strCharName);
 									p2.u.Lotto_Buy.nLottoID = (*i).Buy_Lotto.nLottoID;
 
-									p2.u.Lotto_Buy.anLottoNumber[0] = 0;//¹øÈ£ÀÇ ¸Ç¾ÕÀÌ 0ÀÌ¸é µ·ÀÌ ¸ðÀÚ¶ó´Ù.
+									p2.u.Lotto_Buy.anLottoNumber[0] = 0;//ë²ˆí˜¸ì˜ ë§¨ì•žì´ 0ì´ë©´ ëˆì´ ëª¨ìžë¼ë‹¤.
 									QueuePacket(connections,(*i).cn,&p2,1);
 								}
 								
 								m_ltLottoBuySaveList.erase(i);
-								break;//for ¹®À» ºüÁ® ³ª°£´Ù.
+								break;//for ë¬¸ì„ ë¹ ì ¸ ë‚˜ê°„ë‹¤.
 							}
 							
 						}
@@ -178,7 +178,7 @@ void CShopDemon::RecvShopProcess(int nProtocol, void *data, int datasize)
 				}
 */
 			}
-			else//¼º°ø ÇÏÁö ¸øÇß´Ù. //point DB ¿¡ ¾ø°Å³ª..//µ·ÀÌ ¸ðÀÚ¶ó´Ù.
+			else//ì„±ê³µ í•˜ì§€ ëª»í–ˆë‹¤. //point DB ì— ì—†ê±°ë‚˜..//ëˆì´ ëª¨ìžë¼ë‹¤.
 			{
 				switch(stRecvPointReturn.stShopSystemPoint.nShoppingType)
 				{
@@ -200,7 +200,7 @@ void CShopDemon::RecvShopProcess(int nProtocol, void *data, int datasize)
 
 void CShopDemon::RecvLottoBuy(t_BUY_LOTTO *pBuyLotto, int cn)
 {
-	LottoDBMgr()->RecvLottoBuy(pBuyLotto);//µðºñ¿¡ ±â·ÏÀ» ÇÑ´Ù.
+	LottoDBMgr()->RecvLottoBuy(pBuyLotto);//ë””ë¹„ì— ê¸°ë¡ì„ í•œë‹¤.
 
 	char LogInID[20] = {NULL,};
 
@@ -213,7 +213,7 @@ void CShopDemon::RecvLottoBuy(t_BUY_LOTTO *pBuyLotto, int cn)
 	stLottoBuy.stShopSystemPoint.nShoppingType = LOTTO_SYSTEM;
 	stLottoBuy.stShopSystemPoint.nSuccess = 0;
 	stLottoBuy.nDeductPoint = LottoDBMgr()->GetLottoPay();
-	stLottoBuy.szKey[0] = (char)pBuyLotto->anLottoNumber[0];//¿©±â¿¡ ·Î¶Ç ¹øÈ£°¡ µé¾î°£´Ù.
+	stLottoBuy.szKey[0] = (char)pBuyLotto->anLottoNumber[0];//ì—¬ê¸°ì— ë¡œë˜ ë²ˆí˜¸ê°€ ë“¤ì–´ê°„ë‹¤.
 	stLottoBuy.szKey[1] = (char)pBuyLotto->anLottoNumber[1];
 	stLottoBuy.szKey[2] = (char)pBuyLotto->anLottoNumber[2];
 	stLottoBuy.szKey[3] = (char)pBuyLotto->anLottoNumber[3];

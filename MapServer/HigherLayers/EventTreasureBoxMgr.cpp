@@ -1,4 +1,4 @@
-// EventTreasureBoxMgr.cpp: implementation of the CEventTreasureBoxMgr class.
+ï»¿// EventTreasureBoxMgr.cpp: implementation of the CEventTreasureBoxMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,7 @@ extern ItemAttr GenerateItem(const int iItemFullNo);
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 CEventTreasureBoxMgr* CEventTreasureBoxMgr::m_pClass = NULL;
-bool CEventTreasureBoxMgr::m_bEvent = true; // m_bEvent°¡ true¿©Áö¸¸.»ı¼º½ÃÅ³¼öÀÖ´Ù.
+bool CEventTreasureBoxMgr::m_bEvent = true; // m_bEventê°€ trueì—¬ì§€ë§Œ.ìƒì„±ì‹œí‚¬ìˆ˜ìˆë‹¤.
 
 CEventTreasureBoxMgr::CEventTreasureBoxMgr()
 {
@@ -107,7 +107,7 @@ bool CEventTreasureBoxMgr::IsTreasureBox(const int nItemKind)
 
 int CEventTreasureBoxMgr::CreatTreasure(const int nBoxItemId , int cn)
 {
-	const int nItemLevel = ItemList[nBoxItemId].attr[4]; //¹Ú½ºÀÇ  ·¹º§À» ³ªÅ¸³½´Ù// 1~4
+	const int nItemLevel = ItemList[nBoxItemId].attr[4]; //ë°•ìŠ¤ì˜  ë ˆë²¨ì„ ë‚˜íƒ€ë‚¸ë‹¤// 1~4
 	if(nItemLevel > m_vtMake_DropItem_Info_List.size() || nItemLevel <= 0)
 	{
 		return 0;
@@ -128,7 +128,7 @@ int CEventTreasureBoxMgr::CreatTreasure(const int nBoxItemId , int cn)
 	CreateItemRandomPosition(10254,0,nGoldCoin,ItemList[nBoxItemId].x,ItemList[nBoxItemId].y,300);
 	nItemCreateCount += nGoldCoin;
 
-//CoinÀº µû·Î °è»ê ÇÏ¿©¾ß ÇÑ´Ù. 100¸¸ÀÌ ÇÑ°èÀÌ´Ù.
+//Coinì€ ë”°ë¡œ ê³„ì‚° í•˜ì—¬ì•¼ í•œë‹¤. 100ë§Œì´ í•œê³„ì´ë‹¤.
 	{
 		if(nCoins > 1000000)
 		{
@@ -172,8 +172,8 @@ int CEventTreasureBoxMgr::CreatTreasure(const int nBoxItemId , int cn)
 		}
 	}
 
-//Coins ³¡.
-	for(int i = 0;i < 6;i++) //ÇÊµåÀÇ ³ë¸Ö ¾ÆÀÌÅÛ.
+//Coins ë.
+	for(int i = 0;i < 6;i++) //í•„ë“œì˜ ë…¸ë©€ ì•„ì´í…œ.
 	{
 		const int nNumber = m_vtMake_DropItem_Info_List[nItemLevel-1].stItem[i].nItem;
 		const int nRate = m_vtMake_DropItem_Info_List[nItemLevel-1].stItem[i].nItem_Rate;
@@ -190,11 +190,11 @@ int CEventTreasureBoxMgr::CreatTreasure(const int nBoxItemId , int cn)
 			}
 			else continue;
 		}
-		else break;//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ¾øÀ¸¸é..±× µÚÀÇ ÇÊµåÀÇ ³ë¸Ö¾ÆÀÌÅÛµµ ¾ø´Ù.
+		else break;//ì•„ì´í…œ ë„˜ë²„ê°€ ì—†ìœ¼ë©´..ê·¸ ë’¤ì˜ í•„ë“œì˜ ë…¸ë©€ì•„ì´í…œë„ ì—†ë‹¤.
 	}
 
 	
-	for(int i = 0; i < 4;i++)//ÇÊµåÀÇ ·¹¾î ¾ÆÀÌÅÛ.
+	for(int i = 0; i < 4;i++)//í•„ë“œì˜ ë ˆì–´ ì•„ì´í…œ.
 	{
 		const int nNumber = m_vtMake_DropItem_Info_List[nItemLevel-1].stRareItem[i].nItem;
 		const int nRate = m_vtMake_DropItem_Info_List[nItemLevel-1].stRareItem[i].nItem_Rate;
@@ -211,7 +211,7 @@ int CEventTreasureBoxMgr::CreatTreasure(const int nBoxItemId , int cn)
 			}
 			else continue;
 		}
-		else break;//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ¾øÀ¸¸é..±× µÚÀÇ ÇÊµåÀÇ ·¹¾î¾ÆÀÌÅÛµµ ¾ø´Ù.		
+		else break;//ì•„ì´í…œ ë„˜ë²„ê°€ ì—†ìœ¼ë©´..ê·¸ ë’¤ì˜ í•„ë“œì˜ ë ˆì–´ì•„ì´í…œë„ ì—†ë‹¤.		
 	}
 
 	t_packet packet;
@@ -233,7 +233,7 @@ int CEventTreasureBoxMgr::CreatTreasure(const int nBoxItemId , int cn)
 	return	nItemCreateCount;
 }
 
-//º¸Åë¾ÆÀÌÅÛÀ» ·»´ı À§Ä¡¿¡ ¸¸µç´Ù.
+//ë³´í†µì•„ì´í…œì„ ë Œë¤ ìœ„ì¹˜ì— ë§Œë“ ë‹¤.
 void CEventTreasureBoxMgr::CreateItemRandomPosition(const int nItemNumber, const int nDuration, const int nCreateCount,const int Xpos,const int Ypos, const int nRange)
 {
 	for(int i = 0; i < nCreateCount;i++)
@@ -244,7 +244,7 @@ void CEventTreasureBoxMgr::CreateItemRandomPosition(const int nItemNumber, const
 		int nRandY = Ypos + nRandRange;
 		ItemAttr	stItem;		
 
-		//ItemÀ» ¸¸µé°í.
+		//Itemì„ ë§Œë“¤ê³ .
 		if(nDuration > 0)
 		{
 			stItem = GenerateItem(nItemNumber,IATTR_MUCH,nDuration);
@@ -254,7 +254,7 @@ void CEventTreasureBoxMgr::CreateItemRandomPosition(const int nItemNumber, const
 			stItem = GenerateItem(nItemNumber);
 		}
 
-		//¶¥¿¡´Ù ¶³¾î ¶ß¸°´Ù.
+		//ë•…ì—ë‹¤ ë–¨ì–´ ëœ¨ë¦°ë‹¤.
 		::DropItem(nRandX,nRandY,&stItem);
 	}
 }

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	IWarfieldDefine.h
  *			IWarfieldDefine interface Define.
  */
@@ -6,7 +6,7 @@
 
 /**
  * @class	CWarTimeInfo.
- * @brief	ÀüÀïÅÍ °ü·Ã ¼³Á¤À» °ü¸®ÇÏ´Â class.
+ * @brief	ì „ìŸí„° ê´€ë ¨ ì„¤ì •ì„ ê´€ë¦¬í•˜ëŠ” class.
  */
 //< LTH-040419-KO.
 class CWarTimeInfo
@@ -22,11 +22,11 @@ public:
 	~CWarTimeInfo() {}
 
 public:
-	DWORD m_dwPrepareTime;			/**< ÀüÀï ÁØºñ±â°£ ½Ã°£. */
-	DWORD m_dwWarTime;				/**< ÀüÀï ±â°£ ½Ã°£. */
-	DWORD m_dwSecretAreaOpenTime;	/**< ºñ¹ĞÁö¿ª ¿ÀÇÂ ½Ã°£. */
-	BYTE m_btStartDay;				/**< ½ÃÀÛ ¿äÀÏ. */
-	BYTE m_btStartHour;				/**< ½ÃÀÛ ½Ã°£. */
+	DWORD m_dwPrepareTime;			/**< ì „ìŸ ì¤€ë¹„ê¸°ê°„ ì‹œê°„. */
+	DWORD m_dwWarTime;				/**< ì „ìŸ ê¸°ê°„ ì‹œê°„. */
+	DWORD m_dwSecretAreaOpenTime;	/**< ë¹„ë°€ì§€ì—­ ì˜¤í”ˆ ì‹œê°„. */
+	BYTE m_btStartDay;				/**< ì‹œì‘ ìš”ì¼. */
+	BYTE m_btStartHour;				/**< ì‹œì‘ ì‹œê°„. */
 };
 //> LTH-040419-KO.
 
@@ -34,37 +34,37 @@ typedef CWarTimeInfo* LPWARTIMEINFO;
 
 /**
  * @struct	_tagCommanderSet.
- * @brief	»ç·É°ü ¼³Á¤ ±¸Á¶Ã¼.
+ * @brief	ì‚¬ë ¹ê´€ ì„¤ì • êµ¬ì¡°ì²´.
  */
 //< LTH-040419-KO.
 typedef struct _tagCommanderSet
 {
-	INT nLevelMin;		/**< ÃÖ¼Ò ·¹º§. */
-	INT nLadderMin;		/**< ÃÖ¼Ò ·¹´õ Á¡¼ö. */
-	INT nFameMin;		/**< ÃÖ¼Ò ¸í¼ºÄ¡. */
+	INT nLevelMin;		/**< ìµœì†Œ ë ˆë²¨. */
+	INT nLadderMin;		/**< ìµœì†Œ ë ˆë” ì ìˆ˜. */
+	INT nFameMin;		/**< ìµœì†Œ ëª…ì„±ì¹˜. */
 } tagCommander, *LPCOMMANDER;
 //> LTH-040419-KO.
 
 /**
  * @struct	_tagSquadSet.
- * @brief	ºÎ´ë ¼³Á¤ ±¸Á¶Ã¼.
+ * @brief	ë¶€ëŒ€ ì„¤ì • êµ¬ì¡°ì²´.
  */
 //< LTH-040419-KO.
 typedef struct _tagSquadSet
 {
-	INT nLeaderLevelMin;	/**< ºÎ´ëÀå ÃÖ¼Ò ·¹º§. */
-	INT nLeaderLadderMin;	/**< ºÎ´ëÀå ÃÖ¼Ò ·¹´õ Á¡¼ö. */
-	INT nLevelMin;			/**< ÃÖ¼Ò ·¹º§. */
-	INT nLevelMax;			/**< ÃÖ´ë ·¹º§. */
-	INT nPersonMin;			/**< ÃÖ¼Ò ÀÎ¿ø. */
-	INT nPersonMax;			/**< ÃÖ´ë ÀÎ¿ø. */
-	POINT xyStartingPoint;	/**< ·Îµù Æ÷ÀÎÆ®. */
+	INT nLeaderLevelMin;	/**< ë¶€ëŒ€ì¥ ìµœì†Œ ë ˆë²¨. */
+	INT nLeaderLadderMin;	/**< ë¶€ëŒ€ì¥ ìµœì†Œ ë ˆë” ì ìˆ˜. */
+	INT nLevelMin;			/**< ìµœì†Œ ë ˆë²¨. */
+	INT nLevelMax;			/**< ìµœëŒ€ ë ˆë²¨. */
+	INT nPersonMin;			/**< ìµœì†Œ ì¸ì›. */
+	INT nPersonMax;			/**< ìµœëŒ€ ì¸ì›. */
+	POINT xyStartingPoint;	/**< ë¡œë”© í¬ì¸íŠ¸. */
 } tagSquad, *LPSQUADSET;
 //> LTH-040419-KO.
 
 /**
  * @class	CSoldierSet.
- * @brief	ºÎ´ë ¼³Á¤ class.
+ * @brief	ë¶€ëŒ€ ì„¤ì • class.
  */
 //< LTH-040419-KO.
 class CSoldierSet
@@ -74,9 +74,9 @@ public:
 	~CSoldierSet() {}
 
 public:
-	INT m_nNumOfSquad;				/**< ºÎ´ë ¼ö. */
-	tagCommander m_tagCommander;	/**< »ç·É°ü ¼³Á¤ ±¸Á¶Ã¼. */
-	tagSquad m_tagaSquad[5];		/**< ºÎ´ë ¼³Á¤ ±¸Á¶Ã¼. */
+	INT m_nNumOfSquad;				/**< ë¶€ëŒ€ ìˆ˜. */
+	tagCommander m_tagCommander;	/**< ì‚¬ë ¹ê´€ ì„¤ì • êµ¬ì¡°ì²´. */
+	tagSquad m_tagaSquad[5];		/**< ë¶€ëŒ€ ì„¤ì • êµ¬ì¡°ì²´. */
 };
 //> LTH-040419-KO.
 
@@ -84,7 +84,7 @@ typedef CSoldierSet* LPSOLDIERSET;
 
 /**
  * @class	CMapSetting.
- * @brief	ÀüÀïÅÍ ¸Ê ¼³Á¤ class.
+ * @brief	ì „ìŸí„° ë§µ ì„¤ì • class.
  */
 //< LTH-040419-KO.
 class CMapSetting
@@ -94,9 +94,9 @@ public:
 	~CMapSetting() {}
 
 public:
-	int m_nUserEntranceLimitTime;	/**< LTH-040510-KO À¯Àú ÀüÀïÅÍ ÀÌµ¿ Á¦ÇÑ ½Ã°£. */
-	INT m_nMoveLevelMin;	/**< ÀÌµ¿°¡´É ÃÖ¼Ò·¹º§. */
-	INT m_nMoveLevelMax;	/**< ÀÌµ¿°¡´É ÃÖ´ë·¹º§. */
+	int m_nUserEntranceLimitTime;	/**< LTH-040510-KO ìœ ì € ì „ìŸí„° ì´ë™ ì œí•œ ì‹œê°„. */
+	INT m_nMoveLevelMin;	/**< ì´ë™ê°€ëŠ¥ ìµœì†Œë ˆë²¨. */
+	INT m_nMoveLevelMax;	/**< ì´ë™ê°€ëŠ¥ ìµœëŒ€ë ˆë²¨. */
 };
 //> LTH-040419-KO.
 
@@ -105,7 +105,7 @@ typedef CMapSetting* LPMAPSETTING;
 //-----------------------------------------------------------
 /**
  * @interface	IWarfieldStateDefine
- * @brief		ÀüÀïÅÍ »óÅÂ classÀÇ ±âÃÊ°¡ µÇ´Â interface.
+ * @brief		ì „ìŸí„° ìƒíƒœ classì˜ ê¸°ì´ˆê°€ ë˜ëŠ” interface.
  */
 //< LTH-040419-KO.
 interface IWarfieldStateDefine
@@ -118,10 +118,10 @@ interface IWarfieldStateDefine
 	STDMETHOD(Update)(THIS) PURE;
 
 protected:
-	DWORD m_dwTerm;				/**< ÇöÀç »óÅÂÀÇ Áö¼Ó ±â°£. */
-	DWORD m_dwLoopTime;			/**< ÇöÀç »óÅÂ°¡ ³¡³ª´Â ½ÇÁúÀûÀÎ ½Ã°£. */
-	__int64 m_n64RemainTime;	/**< ÇöÀç »óÅÂÀÇ ³²Àº ½Ã°£. */
-	INT m_nWarfieldNo;			/**< ÀüÀïÅÍ ¹øÈ£. */
+	DWORD m_dwTerm;				/**< í˜„ì¬ ìƒíƒœì˜ ì§€ì† ê¸°ê°„. */
+	DWORD m_dwLoopTime;			/**< í˜„ì¬ ìƒíƒœê°€ ëë‚˜ëŠ” ì‹¤ì§ˆì ì¸ ì‹œê°„. */
+	__int64 m_n64RemainTime;	/**< í˜„ì¬ ìƒíƒœì˜ ë‚¨ì€ ì‹œê°„. */
+	INT m_nWarfieldNo;			/**< ì „ìŸí„° ë²ˆí˜¸. */
 };
 //> LTH-040419-KO.
 
@@ -134,55 +134,55 @@ typedef IWarfieldStateDefine * LPWARFIELDSTATEDEFINE;
 
 /**
  * @struct	_tagGetLivePoint.
- * @brief	ºÎ´ë ·Îµù Æ÷ÀÎÆ® °ü·Ã ±¸Á¶Ã¼. ¸Ş½ÃÁö Àü´Ş¿¡ »ç¿ë µÈ´Ù.
+ * @brief	ë¶€ëŒ€ ë¡œë”© í¬ì¸íŠ¸ ê´€ë ¨ êµ¬ì¡°ì²´. ë©”ì‹œì§€ ì „ë‹¬ì— ì‚¬ìš© ëœë‹¤.
  */
 //< LTH-040419-KO.
 typedef struct _tagGetLivePoint
 {
-	LPCHARLIST lpChar;	/**< ÇØ´ç ·Îµù Æ÷ÀÎÆ®¸¦ Ã£±âÀ§ÇÑ Ä³¸¯ÅÍ. */
-	LPPOINT lpPoint;	/**< ·Îµù Æ÷ÀÎÆ®. */
+	LPCHARLIST lpChar;	/**< í•´ë‹¹ ë¡œë”© í¬ì¸íŠ¸ë¥¼ ì°¾ê¸°ìœ„í•œ ìºë¦­í„°. */
+	LPPOINT lpPoint;	/**< ë¡œë”© í¬ì¸íŠ¸. */
 } tagGetLivePoint;
 //> LTH-040419-KO.
 
 /**
  * @struct	_tagSendSquadChat.
- * @brief	ºÎ´ë Ã¤ÆÃ Àü¼Û °ü·Ã ±¸Á¶Ã¼. ¸Ş½ÃÁö Àü´Ş¿¡ »ç¿ë µÈ´Ù.
+ * @brief	ë¶€ëŒ€ ì±„íŒ… ì „ì†¡ ê´€ë ¨ êµ¬ì¡°ì²´. ë©”ì‹œì§€ ì „ë‹¬ì— ì‚¬ìš© ëœë‹¤.
  */
 //< LTH-040419-KO.
 typedef struct _tagSendSquadChat
 {
-	LPCHARLIST lpChar;	/**< ¸Ş½ÃÁö¸¦ º¸³½ Ä³¸¯ÅÍ. */
-	t_packet* p;		/**< ÆĞÅ¶ º¯¼ö. */
+	LPCHARLIST lpChar;	/**< ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ ìºë¦­í„°. */
+	t_packet* p;		/**< íŒ¨í‚· ë³€ìˆ˜. */
 } tagSendSquadChat;
 //> LTH-040419-KO.
 
 /**
  * @struct	_tagOpponent.
- * @brief	ÀûÀÎÁö ÆÇº°ÇÏ±â À§ÇÑ ±¸Á¶Ã¼. ¸Ş½ÃÁö Àü´Ş¿¡ »ç¿ë µÈ´Ù.
+ * @brief	ì ì¸ì§€ íŒë³„í•˜ê¸° ìœ„í•œ êµ¬ì¡°ì²´. ë©”ì‹œì§€ ì „ë‹¬ì— ì‚¬ìš© ëœë‹¤.
  */
 //< LTH-040419-KO.
 typedef struct _tagOpponent
 {
-	LPCHARLIST lpCaster;	/**< ºñ±³ÇÏ±â À§ÇÑ Ä³¸¯ÅÍ. */
-	LPCHARLIST lpTarget;	/**< ºñ±³ ´ë»ó Ä³¸¯ÅÍ. */
+	LPCHARLIST lpCaster;	/**< ë¹„êµí•˜ê¸° ìœ„í•œ ìºë¦­í„°. */
+	LPCHARLIST lpTarget;	/**< ë¹„êµ ëŒ€ìƒ ìºë¦­í„°. */
 } tagOpponent;
 //> LTH-040419-KO.
 
 /**
  * @struct	_tagSquadCount.
- * @brief	ºÎ´ë ÀÎ¿ø ÀúÀåÀ» À§ÇÑ ±¸Á¶Ã¼. ¸Ş½ÃÁö Àü´Ş¿¡ »ç¿ë µÈ´Ù.
+ * @brief	ë¶€ëŒ€ ì¸ì› ì €ì¥ì„ ìœ„í•œ êµ¬ì¡°ì²´. ë©”ì‹œì§€ ì „ë‹¬ì— ì‚¬ìš© ëœë‹¤.
  */
 //< LTH-040419-KO.
 typedef struct _tagSquadCount
 {
-	INT nSquadNo;					/**< ºÎ´ë ¹øÈ£. */
-	INT nCurrentSquadMemberCount;	/**< ÇØ´ç ºÎ´ëÀÇ ºÎ´ë¿ø ¼ö. */
+	INT nSquadNo;					/**< ë¶€ëŒ€ ë²ˆí˜¸. */
+	INT nCurrentSquadMemberCount;	/**< í•´ë‹¹ ë¶€ëŒ€ì˜ ë¶€ëŒ€ì› ìˆ˜. */
 } tagSquadCount;
 //> LTH-040419-KO.
 
 /**
  * @interface	IWarfieldDefine
- * @brief		ÀüÀïÅÍ classÀÇ ±âÃÊ°¡ µÇ´Â interface.
+ * @brief		ì „ìŸí„° classì˜ ê¸°ì´ˆê°€ ë˜ëŠ” interface.
  */
 //< LTH-040419-KO.
 interface IWarfieldDefine

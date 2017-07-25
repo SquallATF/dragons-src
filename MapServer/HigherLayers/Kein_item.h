@@ -1,5 +1,5 @@
-//###########################################################
-//#define CIA_DURATION		101		// ¾ÆÀÌÅÛ ¼Ó¼º ¹Ù²Ù±â 
+ï»¿//###########################################################
+//#define CIA_DURATION		101		// ì•„ì´í…œ ì†ì„± ë°”ê¾¸ê¸° 
 //#define CIA_VIEW_CHANGE		102
 //#define CIA_MUCH			103
 
@@ -25,12 +25,12 @@ extern int SubtractMoney( DWORD money, CHARLIST *ch );
 extern int SubtractOldMoney( DWORD money, CHARLIST *ch );		// 010210 YGI
 extern ItemAttr *SearchInv( CHARLIST *ch );
 extern int IsEqualPosByPos( POS first, POS second );
-extern void SendServerKillMon( short int cn );		// op_battle ¿¡¼­ »ç¿ë
+extern void SendServerKillMon( short int cn );		// op_battle ì—ì„œ ì‚¬ìš©
 extern int GetTotalItemWeight( CHARLIST *ch );
 
-extern void CheckItem( short int cn ); // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö 
-extern int CheckAutoDivideMoney( ItemAttr *item, const short int cn );		// 100000À» ³ÑÀº ¾ÆÀÌÅÛ Ã³¸®
-extern bool ExistItem( short int cn, ItemAttr item, POS pos );		// Á¤¸» Á¸ÀçÇÏ´Â °¡?
+extern void CheckItem( short int cn ); // ì˜ëª»ëœ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ 
+extern int CheckAutoDivideMoney( ItemAttr *item, const short int cn );		// 100000ì„ ë„˜ì€ ì•„ì´í…œ ì²˜ë¦¬
+extern bool ExistItem( short int cn, ItemAttr item, POS pos );		// ì •ë§ ì¡´ì¬í•˜ëŠ” ê°€?
 extern int CalcMovpByItem( CHARLIST *ch, int movp );
 extern void CheckEquipItem( CHARLIST *ch );
 extern void KillWho( CHARLIST *death_ch, CHARLIST *attack_ch );

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file	GuardInfo.h
  *			interface for the CGuardInfo class.
  */

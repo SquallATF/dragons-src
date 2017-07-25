@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "NationSys.h"
 #include "..\LowerLayers\//MyLog.h"
@@ -18,12 +18,12 @@
 cWarfield*		g_pWarfield=NULL;
 cNation*		g_pNation=NULL;
 CNewWarfield*	g_pNewWarfield=NULL;
-__int64			g_WarTime=0;		// ÀüÀï½Ã°£			// 011015 LTS	// g_curr_timeÀÇ ¹ö±×·Î ±³Ã¼ ¿¹Á¤
+__int64			g_WarTime=0;		// ì „ìŸì‹œê°„			// 011015 LTS	// g_curr_timeì˜ ë²„ê·¸ë¡œ êµì²´ ì˜ˆì •
 
 WORD			g_wMapServerPort=0;
 
-int				g_pLoadingPoint[NW_WARFIELD_COUNT][NW_SQUAD_MAX];			// g_pWarfield, g_pNationÀÌ ¾ø´Â °æ¿ì
-t_Warfield		g_pWarfieldStatus[NW_WARFIELD_COUNT];						// g_pWarfield, g_pNationÀÌ ¾ø´Â °æ¿ì
+int				g_pLoadingPoint[NW_WARFIELD_COUNT][NW_SQUAD_MAX];			// g_pWarfield, g_pNationì´ ì—†ëŠ” ê²½ìš°
+t_Warfield		g_pWarfieldStatus[NW_WARFIELD_COUNT];						// g_pWarfield, g_pNationì´ ì—†ëŠ” ê²½ìš°
 int*			g_pNationWar_Exp=NULL;										// LTS NEW LOCALWAR
 int				g_pNewWarfieldStatus[MAX_NEW_WARFIELD];
 //int				bMoveLevelMax[MAX_NEW_WARFIELD];		// MAX_NEW_WARFIELD
@@ -33,10 +33,10 @@ int				MoveLevelMin[MAX_NEW_WARFIELD];		// MAX_NEW_WARFIELD
 
 //< LTH-040206-KO
 DWORD			g_dwCurrWeekElapsedSec = 0;		// LTH-040206-KO Elapsed Time from This Sunday to Current day
-LPWARFIELDINFO	g_pcWarfieldInfo;					// LTH-040206-KO °ü¸® ¸Ê¼­¹öµµ ¾Æ´Ï°í ÀüÀïÅÍ ¸Ê¼­¹öµµ ¾Æ´Ò¶§ »ç¿ë
-int				g_naWarfieldState[WI_MAX_WARFIELD];	// LTH-040206-KO °¢ ÀüÀïÅÍ »óÈ²
-int				g_aJoinNation[NW_NATION_COUNT];			// LTH-040309-KO ÀüÀï Âü¿© °¡´É±¹°¡.
-CWarfieldMgr*	g_pcWarfieldMgr = NULL;				// LTH-040210-KO ÀüÀïÅÍ °ü¸®ÀÚ. °ü¸®¼­¹ö°¡ ¾Æ´Ï´Ù. °¢ ÀüÀïÅÍ·Î ÅëÇÏ´Â ÇÏ³ªÀÇ Åë·Î
+LPWARFIELDINFO	g_pcWarfieldInfo;					// LTH-040206-KO ê´€ë¦¬ ë§µì„œë²„ë„ ì•„ë‹ˆê³  ì „ìŸí„° ë§µì„œë²„ë„ ì•„ë‹ë•Œ ì‚¬ìš©
+int				g_naWarfieldState[WI_MAX_WARFIELD];	// LTH-040206-KO ê° ì „ìŸí„° ìƒí™©
+int				g_aJoinNation[NW_NATION_COUNT];			// LTH-040309-KO ì „ìŸ ì°¸ì—¬ ê°€ëŠ¥êµ­ê°€.
+CWarfieldMgr*	g_pcWarfieldMgr = NULL;				// LTH-040210-KO ì „ìŸí„° ê´€ë¦¬ì. ê´€ë¦¬ì„œë²„ê°€ ì•„ë‹ˆë‹¤. ê° ì „ìŸí„°ë¡œ í†µí•˜ëŠ” í•˜ë‚˜ì˜ í†µë¡œ
 //< LTH-040206-KO
 
 
@@ -194,9 +194,9 @@ const POINT  NEW_BYPoint={20,20};
 const POINT  NEW_ZYPoint={231,20};
 // Extern Function________________________________________________________________________________
 
-extern tagNationInfo	NationInfo[MAX_NATION];			//±¹°¡Á¤º¸ ±¸Á¶Ã¼..
-extern bool			g_MainNationMap[MAX_NATION];			// ´ã´çÇÏ´Â ³ª¶ó ¹øÈ£
-extern void SaveNationInfo( int nation );		// µğºñ µ¥¸ó¿¡ ÀúÀåÇÑ´Ù.
+extern tagNationInfo	NationInfo[MAX_NATION];			//êµ­ê°€ì •ë³´ êµ¬ì¡°ì²´..
+extern bool			g_MainNationMap[MAX_NATION];			// ë‹´ë‹¹í•˜ëŠ” ë‚˜ë¼ ë²ˆí˜¸
+extern void SaveNationInfo( int nation );		// ë””ë¹„ ë°ëª¬ì— ì €ì¥í•œë‹¤.
 extern int ExistHe( char *name );//020903 lsw
 extern void MakeSealStoneNumber(char* SrcString,int SealNo[4]);		// LTS NEW LOCALWAR
 extern void LoadAIConfig();										// LTS AI
@@ -219,7 +219,7 @@ extern void			DecLocalWarfieldMemberCount(const int cn);
 extern void			SendCMD_LOCALWAR_END();
 extern void ClearAIData();		// LTS NEW AI
 extern void SendCMD_REQUEST_DELIVERY(const WORD Port,t_packet *p, t_connection c[], const int cn);//020903 lsw
-extern void ProcessCMD_REQUEST_WARFIELD_STATUS(t_packet *ReturnPacket,t_packet* ReceivePacket);		// ¹Ø¿¡¼±¾ğ 
+extern void ProcessCMD_REQUEST_WARFIELD_STATUS(t_packet *ReturnPacket,t_packet* ReceivePacket);		// ë°‘ì—ì„ ì–¸ 
 
 extern int CheckMaxPoint(int nPoint1, int nPoint2); // 030506 kyo
 extern int CheckMaxArrayPoint(int nIndex1, int nIndex2, unsigned short Array_1[3] ,unsigned short Array_2[3], unsigned short Array_3[3]);// 030506 kyo
@@ -334,7 +334,7 @@ void InitNationValues()
 		NW_COMMANDER_LADDER_MIN		=	2000;
 		NW_COMMANDER_FAME_MIN		=	1200;
 
-		//< LTH-040421-KO ¹ë·±½º¸¦ À§ÇØ ºÎ´ë ·¹º§Á¦ÇÑÀ» ¼öÁ¤
+		//< LTH-040421-KO ë°¸ëŸ°ìŠ¤ë¥¼ ìœ„í•´ ë¶€ëŒ€ ë ˆë²¨ì œí•œì„ ìˆ˜ì •
 		NW_SQUAD1_LEVEL_MIN			=	20;
 		NW_SQUAD1_LEVEL_MAX			=	60;
 		NW_SQUAD2_LEVEL_MIN			=	50;
@@ -423,7 +423,7 @@ bool isNewWarfieldServer()
 	return true;
 }
 
-//< LTH-040207-KO 1.4 ÆĞÄ¡ ÀÌÈÄ »õ·Î¿î ÀüÀïÅÍÀÎ°¡?
+//< LTH-040207-KO 1.4 íŒ¨ì¹˜ ì´í›„ ìƒˆë¡œìš´ ì „ìŸí„°ì¸ê°€?
 BOOL IsNeoWarfieldServer()
 {
 	if ((WP_HADES_WARFIELD > g_wMapServerPort) || (WP_MAX_WARFIELD_PORT <= g_wMapServerPort))
@@ -432,7 +432,7 @@ BOOL IsNeoWarfieldServer()
 	return TRUE;
 }
 
-// LTH-040207-KO  1.4 ÆĞÄ¡ ÀÌÈÄ »õ·Î¿î ÀüÀïÅÍ ¹øÈ£ÀÎ°¡?
+// LTH-040207-KO  1.4 íŒ¨ì¹˜ ì´í›„ ìƒˆë¡œìš´ ì „ìŸí„° ë²ˆí˜¸ì¸ê°€?
 BOOL IsNeoWarfield(INT nWarfieldNo)
 {
 	if ((WI_HADES_WARFIELD > nWarfieldNo) || (WI_MAX_WARFIELD <= nWarfieldNo))
@@ -441,7 +441,7 @@ BOOL IsNeoWarfield(INT nWarfieldNo)
 }
 //> LTH-040207-KO
 
-int CheckJoinReinforce(bool type=true)			// ÀÏ¹İÀüÀï true
+int CheckJoinReinforce(bool type=true)			// ì¼ë°˜ì „ìŸ true
 {
 	if (!type)
 		return 0;
@@ -485,7 +485,7 @@ int CheckNationStatus(const int type,const int StatusNo) // type 0 : EveryServer
     return WarfieldNo;
 }
 
-bool CheckWarLoopProcess()		// ÀüÀï ·çÇÁ°¡ ÁøÇàµÇ´ÂÁö È®ÀÎÇÑ´Ù.
+bool CheckWarLoopProcess()		// ì „ìŸ ë£¨í”„ê°€ ì§„í–‰ë˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
 {
 	if (isNationManageServer())
 	{
@@ -506,7 +506,7 @@ bool CheckWarLoopProcess()		// ÀüÀï ·çÇÁ°¡ ÁøÇàµÇ´ÂÁö È®ÀÎÇÑ´Ù.
 	return false;
 }
 
-int ReturnWarfieldNoByWarLoopProcess()		// CheckWarLoopProcess¿Í ½ÖÀ¸·Î ¾²ÀÎ´Ù.. Æ÷ÇÔÇØµµ µÈ´Ù..
+int ReturnWarfieldNoByWarLoopProcess()		// CheckWarLoopProcessì™€ ìŒìœ¼ë¡œ ì“°ì¸ë‹¤.. í¬í•¨í•´ë„ ëœë‹¤..
 {
 	int nWarfieldNo = -1;
 	if (isNationManageServer())
@@ -568,12 +568,12 @@ int ReturnWarfieldNoByWarLoopProcess()		// CheckWarLoopProcess¿Í ½ÖÀ¸·Î ¾²ÀÎ´Ù..
 	return nWarfieldNo;
 }
 
-bool isAttacker(int WarfieldNo,t_connection c[],int cn)		// ¾îÅÂÄ¿¿Í µğÆæ¼­¸¦ ÆÇ´ÜÇÏ´Â ±Ù°Å´Â ¸ğµç ¸Ê¼­¹öÀÇ g_pWarfieldStatus[].Possession¿¡ ÀÖ´Ù.
+bool isAttacker(int WarfieldNo,t_connection c[],int cn)		// ì–´íƒœì»¤ì™€ ë””íœì„œë¥¼ íŒë‹¨í•˜ëŠ” ê·¼ê±°ëŠ” ëª¨ë“  ë§µì„œë²„ì˜ g_pWarfieldStatus[].Possessionì— ìˆë‹¤.
 {
-	int Nationality=c[cn].chrlst.name_status.nation;		// À½.. ¿ëº´ÀÇ Âü¿©¿¡ µû¶ó...
-	if (NW_YL==Nationality)									// ÀÏ½ºÀÌ¸é..
+	int Nationality=c[cn].chrlst.name_status.nation;		// ìŒ.. ìš©ë³‘ì˜ ì°¸ì—¬ì— ë”°ë¼...
+	if (NW_YL==Nationality)									// ì¼ìŠ¤ì´ë©´..
 	{
-		Nationality=c[cn].chrlst.NWCharacter.YL_JoinNation; //³ª¶ó¹øÈ£°¡ ³¯¾Æ¿Â´Ù
+		Nationality=c[cn].chrlst.NWCharacter.YL_JoinNation; //ë‚˜ë¼ë²ˆí˜¸ê°€ ë‚ ì•„ì˜¨ë‹¤
 	}
 	if (g_pWarfieldStatus[WarfieldNo].Possession==Nationality) return false;
 	return true;
@@ -581,16 +581,16 @@ bool isAttacker(int WarfieldNo,t_connection c[],int cn)		// ¾îÅÂÄ¿¿Í µğÆæ¼­¸¦ ÆÇ
 
 bool isAttacker(CHARLIST* pCaster)
 {
-	int Nationality=pCaster->name_status.nation;			// À½.. ¿ëº´ÀÇ Âü¿©¿¡ µû¶ó...
-	if (NW_YL==Nationality)									// ÀÏ½ºÀÌ¸é..
+	int Nationality=pCaster->name_status.nation;			// ìŒ.. ìš©ë³‘ì˜ ì°¸ì—¬ì— ë”°ë¼...
+	if (NW_YL==Nationality)									// ì¼ìŠ¤ì´ë©´..
 	{
-		Nationality=pCaster->NWCharacter.YL_JoinNation;		//³ª¶ó¹øÈ£°¡ ³¯¾Æ¿Â´Ù
+		Nationality=pCaster->NWCharacter.YL_JoinNation;		//ë‚˜ë¼ë²ˆí˜¸ê°€ ë‚ ì•„ì˜¨ë‹¤
 	}
 	if (g_pWarfieldStatus[g_wMapServerPort-BASE_WARFIELD_PORT].Possession==Nationality) return false;
 	return true;
 }
 
-bool isAttacker(int WarfieldNo,int Nation)					// ÀÏ½ºÀÇ °æ¿ì ¹«Á¶°Ç °ø°İÀÚ·Î ÆÇÁ¤À» ¹Ş´Â´Ù.
+bool isAttacker(int WarfieldNo,int Nation)					// ì¼ìŠ¤ì˜ ê²½ìš° ë¬´ì¡°ê±´ ê³µê²©ìë¡œ íŒì •ì„ ë°›ëŠ”ë‹¤.
 {
 	if (g_pWarfieldStatus[WarfieldNo].Possession==Nation) return false;
 	return true;
@@ -599,7 +599,7 @@ bool isAttacker(int WarfieldNo,int Nation)					// ÀÏ½ºÀÇ °æ¿ì ¹«Á¶°Ç °ø°İÀÚ·Î ÆÇ
 bool IsWar()
 {
 	if (isNationWarfieldServer())
-	{	//< LTH-040528-KO »ı¼ºµÇÁö ¾ÊÀº Æ÷ÀÎÅÍ º¯¼ö¸¦ ÂüÁ¶ÇÏÁö ¸øÇÏµµ·Ï!!
+	{	//< LTH-040528-KO ìƒì„±ë˜ì§€ ì•Šì€ í¬ì¸í„° ë³€ìˆ˜ë¥¼ ì°¸ì¡°í•˜ì§€ ëª»í•˜ë„ë¡!!
 		if (NULL != g_pWarfield)
 		{
 			if (g_pWarfield->GetStatus() == NW_WAR)
@@ -610,7 +610,7 @@ bool IsWar()
 	}	//> LTH-040528-KO
 
 	if (isNewWarfieldServer())
-	{	//< LTH-040528-KO »ı¼ºµÇÁö ¾ÊÀº Æ÷ÀÎÅÍ º¯¼ö¸¦ ÂüÁ¶ÇÏÁö ¸øÇÏµµ·Ï!!
+	{	//< LTH-040528-KO ìƒì„±ë˜ì§€ ì•Šì€ í¬ì¸í„° ë³€ìˆ˜ë¥¼ ì°¸ì¡°í•˜ì§€ ëª»í•˜ë„ë¡!!
 		if (NULL != g_pNewWarfield)
 		{
 			if (g_pNewWarfield->GetWarfieldStatus() == NW_WAR)
@@ -620,10 +620,10 @@ bool IsWar()
 		}
 	}	//> LTH-040528-KO
 
-	//< LTH-040209-KO 1.4 ÆĞÄ¡ ÀÌÈÄ »õÀüÀïÅÍ´Â ¸Å´ÏÀú¿¡°Ô ÁúÀÇ¸¦ ÅëÇØ °ªÀ» ¾ò´Â´Ù
-	// »óÅÂ¸¦ ¾ò¾î¿À´Â ¸Ş½ÃÁö CWarfieldMgr::WPM_GET_WARFIELD_STATE¸¦ º¸³»¾î Àü´Ş¹Ş´Â´Ù.
+	//< LTH-040209-KO 1.4 íŒ¨ì¹˜ ì´í›„ ìƒˆì „ìŸí„°ëŠ” ë§¤ë‹ˆì €ì—ê²Œ ì§ˆì˜ë¥¼ í†µí•´ ê°’ì„ ì–»ëŠ”ë‹¤
+	// ìƒíƒœë¥¼ ì–»ì–´ì˜¤ëŠ” ë©”ì‹œì§€ CWarfieldMgr::WPM_GET_WARFIELD_STATEë¥¼ ë³´ë‚´ì–´ ì „ë‹¬ë°›ëŠ”ë‹¤.
 	if (IsNeoWarfieldServer())
-	{	//< LTH-040528-KO »ı¼ºµÇÁö ¾ÊÀº Æ÷ÀÎÅÍ º¯¼ö¸¦ ÂüÁ¶ÇÏÁö ¸øÇÏµµ·Ï!!
+	{	//< LTH-040528-KO ìƒì„±ë˜ì§€ ì•Šì€ í¬ì¸í„° ë³€ìˆ˜ë¥¼ ì°¸ì¡°í•˜ì§€ ëª»í•˜ë„ë¡!!
 		if (NULL != g_pcWarfieldMgr)
 		{
 			INT nStatus = 0;
@@ -641,9 +641,9 @@ bool isMySquad(CHARLIST* pCaster,CHARLIST* pTarget)
 {
 	if (!isNationWarfieldServer()) return false;
 	if (g_pWarfield->GetStatus()!=NW_WAR) return false;
-	if (pCaster->name_status.nation==pTarget->name_status.nation)	// °°Àº ³ª¶óÀÌ´Ù 
+	if (pCaster->name_status.nation==pTarget->name_status.nation)	// ê°™ì€ ë‚˜ë¼ì´ë‹¤ 
 	{
-		if (pCaster->NWCharacter.SquadNo==pTarget->NWCharacter.SquadNo)		// ºÎ´ë ¹øÈ£°¡ °°´Ù.
+		if (pCaster->NWCharacter.SquadNo==pTarget->NWCharacter.SquadNo)		// ë¶€ëŒ€ ë²ˆí˜¸ê°€ ê°™ë‹¤.
 		{
 			if (pCaster->NWCharacter.SquadNo!=0) return true;
 		}
@@ -686,7 +686,7 @@ bool LoadNationWar_Exp()		// LTS NEW LOCALWAR
 		SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
 	}
-	ret=SQLGetData(hStmt,1,SQL_C_SLONG,&FieldCount,sizeof(int),&cbValue);	// ÇÊµåÄ«¿îÆ® ±¸ÇÏ±â
+	ret=SQLGetData(hStmt,1,SQL_C_SLONG,&FieldCount,sizeof(int),&cbValue);	// í•„ë“œì¹´ìš´íŠ¸ êµ¬í•˜ê¸°
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"NationWar_Exp Table SQL Return Error(%d)!!",ret);
@@ -697,7 +697,7 @@ bool LoadNationWar_Exp()		// LTS NEW LOCALWAR
 
 	SQLAllocStmt(g_hDBC_DragonDB,&hStmt);
 
-	g_pNationWar_Exp=new int[FieldCount+1];					// ¸Ş¸ğ¸® ÇÒ´ç	// 0ºÎÅÍ ½ÃÀÛÇÏ¹Ç·Î 
+	g_pNationWar_Exp=new int[FieldCount+1];					// ë©”ëª¨ë¦¬ í• ë‹¹	// 0ë¶€í„° ì‹œì‘í•˜ë¯€ë¡œ 
 	if (!g_pNationWar_Exp) 
 	{
 		MyLog(0,"Memory Allocation Error for NationWar Exp Table!!");
@@ -751,38 +751,38 @@ bool CanDestroyTarget(CHARLIST* pCaster,CHARLIST* pTarget)		// CAttackMagic::Res
 {
 	if (isNationWarfieldServer())
 	{
-		if (isAttacker(pCaster))								// Attacker	// ¼öÈ£¼® ¼º¹®ÀÇ °æ¿ì
+		if (isAttacker(pCaster))								// Attacker	// ìˆ˜í˜¸ì„ ì„±ë¬¸ì˜ ê²½ìš°
 		{
-			if (64==pTarget->SprNo)								// º¸½º ¼öÈ£¼® 
+			if (64==pTarget->SprNo)								// ë³´ìŠ¤ ìˆ˜í˜¸ì„ 
 			{
-				for (int i=0;i<NW_MAX_NPC;i++)					// NPCÀüÃ¼¸¦ ¼øÈ¸ (20°³)
+				for (int i=0;i<NW_MAX_NPC;i++)					// NPCì „ì²´ë¥¼ ìˆœíšŒ (20ê°œ)
 				{
-					if (63==g_pWarfield->GetWeaponIndex(i))		//º¸Á¶ ¼öÈ£¼®
+					if (63==g_pWarfield->GetWeaponIndex(i))		//ë³´ì¡° ìˆ˜í˜¸ì„
 					{
 						if (1==g_pWarfield->GetWeaponStatus(i)) 
 						{
-							return false;  //»ì¾Æ ÀÖ´Ù¸é 
+							return false;  //ì‚´ì•„ ìˆë‹¤ë©´ 
 						}
 					}
 				}
-				return true;									//´ÙÁ×¾ú´Ù¸é..
+				return true;									//ë‹¤ì£½ì—ˆë‹¤ë©´..
 			}
 			else 
 			{
 				return	true;
-			}// º¸½º ¼öÈ£¼®ÀÌ ¾Æ´Ï¸é ±ı¼ö ÀÖ´Ù.
+			}// ë³´ìŠ¤ ìˆ˜í˜¸ì„ì´ ì•„ë‹ˆë©´ ê¹°ìˆ˜ ìˆë‹¤.
 		}
 		else 
 		{
 			return false;
-		}// Defencer     //¼öÈ£¼® ¼º¹®ÀÇ  °æ¿ì ±ı¼ö ¾ø´Ù
+		}// Defencer     //ìˆ˜í˜¸ì„ ì„±ë¬¸ì˜  ê²½ìš° ê¹°ìˆ˜ ì—†ë‹¤
 	}
 	if (isNewWarfieldServer())
 	{
 		return g_pNewWarfield->CanAttackGuard(pCaster,pTarget);
 	}
 
-	//< LTH-040210-KO 1.4 ÆĞÄ¡ ÀÌÈÄ »õÀüÀïÅÍÀÌ¸é
+	//< LTH-040210-KO 1.4 íŒ¨ì¹˜ ì´í›„ ìƒˆì „ìŸí„°ì´ë©´
 	if (IsNeoWarfieldServer())
 	{
 		tagOpponent tagOpp;
@@ -861,7 +861,7 @@ bool CheckDefence(int cn)
 {
 	if (!isNationWarfieldServer()) 
 	{
-		return false;			//¹®Á¦°¡ ÀÖ´Ù. °ø°İÀÚ°¡ ¾Æ´Ï´Ù.
+		return false;			//ë¬¸ì œê°€ ìˆë‹¤. ê³µê²©ìê°€ ì•„ë‹ˆë‹¤.
 	}
 	
 	if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,connections,cn)) 
@@ -890,8 +890,8 @@ bool CanGoBonus()
 		}
 	}
 
-	//< LTH-040210-KO 1.4 ÆĞÄ¡ ÀÌÈÄ »õÀüÀïÅÍ´Â ¸Å´ÏÀú¿¡°Ô ÁúÀÇ¸¦ ÅëÇØ °ªÀ» ¾ò´Â´Ù
-	// »óÅÂ¸¦ ¾ò¾î¿À´Â ¸Ş½ÃÁö CWarfieldMgr::WPM_GET_WARFIELD_STATE¸¦ º¸³»¾î Àü´Ş¹Ş´Â´Ù.
+	//< LTH-040210-KO 1.4 íŒ¨ì¹˜ ì´í›„ ìƒˆì „ìŸí„°ëŠ” ë§¤ë‹ˆì €ì—ê²Œ ì§ˆì˜ë¥¼ í†µí•´ ê°’ì„ ì–»ëŠ”ë‹¤
+	// ìƒíƒœë¥¼ ì–»ì–´ì˜¤ëŠ” ë©”ì‹œì§€ CWarfieldMgr::WPM_GET_WARFIELD_STATEë¥¼ ë³´ë‚´ì–´ ì „ë‹¬ë°›ëŠ”ë‹¤.
 	if (IsNeoWarfieldServer())
 	{
 		INT nStatus = 0;
@@ -941,14 +941,14 @@ int CheckNationStatus(const int StatusNo)
     return WarfieldNo;
 }
 
-void InitConnectionsSquadData(const int cn)// Ä¿³¼¼ÇÀÇ NWCharacter¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+void InitConnectionsSquadData(const int cn)// ì»¤ë‚µì…˜ì˜ NWCharacterë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 {
-	if (connections[cn].chrlst.name_status.nation!=NW_YL)				// 011020 LTS	// ÀÏ½ºÀÌ¸é AM_I_DEFEAT¿¡¼­ ÃÊ±âÈ­ ÇÑ´Ù 
+	if (connections[cn].chrlst.name_status.nation!=NW_YL)				// 011020 LTS	// ì¼ìŠ¤ì´ë©´ AM_I_DEFEATì—ì„œ ì´ˆê¸°í™” í•œë‹¤ 
 	memset(&connections[cn].chrlst.NWCharacter,0,sizeof(DWORD));		// 010915 LTS
 }
 
 
-void DeleteSquadMember(const int cn)    // DragonServer.cpp ExternÀÌ±â ¶§¹®¿¡ Å¬·¡½º¿¡ Æ÷ÇÔ½ÃÅ°Áö ¾Ê¾Ò´Ù.
+void DeleteSquadMember(const int cn)    // DragonServer.cpp Externì´ê¸° ë•Œë¬¸ì— í´ë˜ìŠ¤ì— í¬í•¨ì‹œí‚¤ì§€ ì•Šì•˜ë‹¤.
 {
 	if (isNationWarfieldServer())
 	{
@@ -970,7 +970,7 @@ void DeleteSquadMember(const int cn)    // DragonServer.cpp ExternÀÌ±â ¶§¹®¿¡ Å¬
 }
 
 
-bool LoadWarfieldPossession()		// ½ºÅ¸Æ®¾÷½Ã DB¿¡¼­ WarfieldPossessionÀÇ °ªÀ» ÀĞ¾î¿Â´Ù.
+bool LoadWarfieldPossession()		// ìŠ¤íƒ€íŠ¸ì—…ì‹œ DBì—ì„œ WarfieldPossessionì˜ ê°’ì„ ì½ì–´ì˜¨ë‹¤.
 {
 	HSTMT	hStmt=NULL;
 	RETCODE	ret;
@@ -1030,9 +1030,9 @@ bool InitNationSystem()
 	SERVER_DATA	*pData=g_pServerTable->GetOwnServerData();
 	g_wMapServerPort=pData->wPort;
 
-	//< LTH-040206-KO 1.4 PatchÀÌÈÄ ÀüÀïÅÍ Á¤º¸ Àü´ŞÀÚ Å¬·¡½º »ı¼º.
+	//< LTH-040206-KO 1.4 Patchì´í›„ ì „ìŸí„° ì •ë³´ ì „ë‹¬ì í´ë˜ìŠ¤ ìƒì„±.
 	g_pcWarfieldInfo = new CWarfieldInfo;
-	g_pcWarfieldInfo->Init(WI_MAX_WARFIELD);	// ¸ÊÀÌµ¿ ·¹º§ Á¦ÇÑÀÌ³ª ºÎ´ëÁ¦ÇÑ Á¤º¸ ·Îµù
+	g_pcWarfieldInfo->Init(WI_MAX_WARFIELD);	// ë§µì´ë™ ë ˆë²¨ ì œí•œì´ë‚˜ ë¶€ëŒ€ì œí•œ ì •ë³´ ë¡œë”©
 	//> LTH-040206-KO
 
 	if (isNationManageServer())
@@ -1065,7 +1065,7 @@ bool InitNationSystem()
 
 	}
 
-	//< LTH-040325-KO 1.4 ÆĞÄ¡ ÀÌÈÄ »õ ÀüÀïÅÍ¸¦ »ı¼ºÇÑ´Ù
+	//< LTH-040325-KO 1.4 íŒ¨ì¹˜ ì´í›„ ìƒˆ ì „ìŸí„°ë¥¼ ìƒì„±í•œë‹¤
 	if (IsNeoWarfieldServer())
 	{
 		if (NULL == g_pcWarfieldMgr)
@@ -1177,13 +1177,13 @@ bool UpdateNationWarData()
 
 // Where : Call From MapServer.cpp EndMapServer()
 // Usage : Close Nation War System
-void CloseNationSystem()		// LTS ´ë¸¸//020205 lsw
+void CloseNationSystem()		// LTS ëŒ€ë§Œ//020205 lsw
 {
 	SAFE_DELETE(g_pWarfield);
 	SAFE_DELETE(g_pNation);
 	SAFE_DELETE(g_pNewWarfield);
-	SAFE_DELETE(g_pcWarfieldInfo);	// LTH-040206-KO ÀüÀïÅÍ Á¤º¸ Àü´ŞÀÚ Á¦°Å
-	SAFE_DELETE(g_pcWarfieldMgr);	// LTH-040210-KO ÀüÀïÅÍ °ü¸®ÀÚ. °ü¸®¼­¹ö°¡ ¾Æ´Ï´Ù.
+	SAFE_DELETE(g_pcWarfieldInfo);	// LTH-040206-KO ì „ìŸí„° ì •ë³´ ì „ë‹¬ì ì œê±°
+	SAFE_DELETE(g_pcWarfieldMgr);	// LTH-040210-KO ì „ìŸí„° ê´€ë¦¬ì. ê´€ë¦¬ì„œë²„ê°€ ì•„ë‹ˆë‹¤.
 
 	ClearNationWar_Exp();			// LTS NEW LOCALWAR
 	ClearAIData();					// LTS NEW AI
@@ -1192,7 +1192,7 @@ void CloseNationSystem()		// LTS ´ë¸¸//020205 lsw
 void SendCMD_NW_MAP_MOVE_FAIL(t_connection c[],const int cn,const int Type)		// 011213 LTS
 {
 	t_packet packet;
-	packet.h.header.type=CMD_NW_MAP_MOVE_FAIL;   // ¸ÊÀÌµ¿ÀÌ ¾ÈµË´Ï´Ù.
+	packet.h.header.type=CMD_NW_MAP_MOVE_FAIL;   // ë§µì´ë™ì´ ì•ˆë©ë‹ˆë‹¤.
 	packet.u.NationWar.CommonDataC.Data=Type;
 	packet.h.header.size=sizeof(t_CommonDataC);
 	QueuePacket(c,cn,&packet,1);
@@ -1214,7 +1214,7 @@ void SendCMD_CHECK_WARFIELD_NATION_MEMBERCOUNT(t_packet *p,t_connection c[],cons
 		SendCMD_REQUEST_DELIVERY(BASE_NEW_WARFIELD_PORT+WarfieldNo-3,&packet,c,cn);
 }
 
-//< LTH-040209-KO ÇöÀç ºÎ´ëÀÇ ÀÎ¿øÀ» Ä«¿îÆ® ÇØ¶ó...
+//< LTH-040209-KO í˜„ì¬ ë¶€ëŒ€ì˜ ì¸ì›ì„ ì¹´ìš´íŠ¸ í•´ë¼...
 void SendCMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT(t_packet *p,t_connection c[],const int cn)
 {
 	t_packet packet;
@@ -1228,7 +1228,7 @@ void SendCMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT(t_packet *p,t_connection c[],const
 }
 //> LTH-040209-KO
 
-//< LTH-040313-KO ¸ó½ºÅÍ ±¹°¡Àü Âü¿©±¹°¡ ÆÇ´Ü
+//< LTH-040313-KO ëª¬ìŠ¤í„° êµ­ê°€ì „ ì°¸ì—¬êµ­ê°€ íŒë‹¨
 extern void GetSumNationPoint(INT nSumPoint[NW_NATION_COUNT]);
 extern void CheckWarStartNation(INT nSumPoint[NW_NATION_COUNT], BOOL bJoinNation[NW_NATION_COUNT]);
 //> LTH-040313-KO
@@ -1244,15 +1244,15 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 	{
 		if (WarfieldNo>=0&&WarfieldNo<=2)
 		{
-			WarfieldStatus=g_pNation->GetWarfieldStatus(WarfieldNo);	// ÀüÀïÅÍ »óÅÂ¸¦ ¾ò¾î¿Â´Ù.
+			WarfieldStatus=g_pNation->GetWarfieldStatus(WarfieldNo);	// ì „ìŸí„° ìƒíƒœë¥¼ ì–»ì–´ì˜¨ë‹¤.
 		}
 		else if (WarfieldNo>=3)
 		{
-			//< LTH-040207-KO ÁöÇÏ ÀüÀïÅÍÀÇ Ãß°¡·Î ¼³¿øÀüÀïÅÍ¸¦ µû·Î Ã³¸®
+			//< LTH-040207-KO ì§€í•˜ ì „ìŸí„°ì˜ ì¶”ê°€ë¡œ ì„¤ì›ì „ìŸí„°ë¥¼ ë”°ë¡œ ì²˜ë¦¬
 			if (IsNeoWarfield(WarfieldNo))
 				WarfieldStatus=g_pNation->GetNewWarfieldStatus(WarfieldNo);
 			else
-				WarfieldStatus=g_pNation->GetNewWarfieldStatus(WarfieldNo - 3);	// ÀüÀïÅÍ »óÅÂ¸¦ ¾ò¾î¿Â´Ù.LTH-040207-KO ¼³¿øÀÌ¶ó¼­ -3À» ÇØÁÜ
+				WarfieldStatus=g_pNation->GetNewWarfieldStatus(WarfieldNo - 3);	// ì „ìŸí„° ìƒíƒœë¥¼ ì–»ì–´ì˜¨ë‹¤.LTH-040207-KO ì„¤ì›ì´ë¼ì„œ -3ì„ í•´ì¤Œ
 			//> LTH-040207-KO
 		}
 	}
@@ -1265,13 +1265,13 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 		else if (WarfieldNo>=3)
 		{
 			/* // 030515 kyo
-			if (isNewWarfieldServer())	// 030509 kyo		//ÀüÀï¼­¹öÀÌ¸é
+			if (isNewWarfieldServer())	// 030509 kyo		//ì „ìŸì„œë²„ì´ë©´
 			{
 				WarfieldStatus=g_pNewWarfield->GetWarfieldStatus();				
 			}
 			else
 			*/
-			//< LTH-040206-KO ÁöÇÏ ÀüÀïÅÍ Ãß°¡·Î ¼³¿ø ÀüÀïÅÍ¸¦ µû·Î Ã³¸®
+			//< LTH-040206-KO ì§€í•˜ ì „ìŸí„° ì¶”ê°€ë¡œ ì„¤ì› ì „ìŸí„°ë¥¼ ë”°ë¡œ ì²˜ë¦¬
 			if (IsNeoWarfield(WarfieldNo))
 				WarfieldStatus = g_naWarfieldState[WarfieldNo];
 			else
@@ -1281,35 +1281,35 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 	}
 
 	if (ch->GetLevel() <= ENABLE_NATIONWAR_LEVEL)
-	{	//< CSD-030806 : ÀüÀïÅÍ ÀÌµ¿ ·¹º§Á¦ÇÑ
+	{	//< CSD-030806 : ì „ìŸí„° ì´ë™ ë ˆë²¨ì œí•œ
 		SendCMD_NW_MAP_MOVE_FAIL(c,cn,1); 
 		return; 
 	}	//> CSD-030806
 
-	if (WarfieldStatus!=NW_WAR) {SendCMD_NW_MAP_MOVE_FAIL(c,cn,4); return; }	// ÀüÀï ÁØºñ±â°£ÀÌ ¾Æ´Ï¸é
+	if (WarfieldStatus!=NW_WAR) {SendCMD_NW_MAP_MOVE_FAIL(c,cn,4); return; }	// ì „ìŸ ì¤€ë¹„ê¸°ê°„ì´ ì•„ë‹ˆë©´
 
 	if (WarfieldNo>=0&&WarfieldNo<=2)
 	{
 		if (ch->name_status.nation!=NW_YL)
 		{
-			if (!ch->IsReporter())											// ¸®Æ÷ÅÍ°¡ ¾Æ´Ï¸é
+			if (!ch->IsReporter())											// ë¦¬í¬í„°ê°€ ì•„ë‹ˆë©´
 			{
-				if (!ch->NWCharacter.SquadNo)										//ºÎ´ë¹øÈ£°¡ ¾ø´Ù¸é
+				if (!ch->NWCharacter.SquadNo)										//ë¶€ëŒ€ë²ˆí˜¸ê°€ ì—†ë‹¤ë©´
 				{ 
-					if (!ch->NWCharacter.isCommander) {SendCMD_NW_MAP_MOVE_FAIL(c,cn,2); return; }	// »ç·É°ü¸® ¾Æ´Ï¶ó¸é ¸®ÅÏ
+					if (!ch->NWCharacter.isCommander) {SendCMD_NW_MAP_MOVE_FAIL(c,cn,2); return; }	// ì‚¬ë ¹ê´€ë¦¬ ì•„ë‹ˆë¼ë©´ ë¦¬í„´
 				}
 			}
-		}  //Á¶°Ç °Ë»ç°¡ ³¡³µ´Ù.
+		}  //ì¡°ê±´ ê²€ì‚¬ê°€ ëë‚¬ë‹¤.
 	}
 	else
 	if (WarfieldNo>=3)
 	{
-		//< LTH-040206-KO ch->GetLevel()ÀÇ ÀæÀº È£ÃâÀ» ¸·±â À§ÇØ º¯¼ö·Î ´ëÃ¼Çß´Ù
+		//< LTH-040206-KO ch->GetLevel()ì˜ ì¦ì€ í˜¸ì¶œì„ ë§‰ê¸° ìœ„í•´ ë³€ìˆ˜ë¡œ ëŒ€ì²´í–ˆë‹¤
 		INT nCharacterLv = ch->GetLevel();
 		if (IsNeoWarfield(WarfieldNo))
 		{
-			// »õÀüÀïÅÍÁß ¼³¿øÀüÀïÅÍ°¡ ¾Æ´Ï¸é Á¤º¸ Àü´ŞÀÚ·Î ºÎÅÍ Á¦ÇÑ»çÇ×À» ¹Ş´Â´Ù
-			//< LTH-040226-KO ¸Ê ÀÌµ¿ ·¹º§Á¦ÇÑ
+			// ìƒˆì „ìŸí„°ì¤‘ ì„¤ì›ì „ìŸí„°ê°€ ì•„ë‹ˆë©´ ì •ë³´ ì „ë‹¬ìë¡œ ë¶€í„° ì œí•œì‚¬í•­ì„ ë°›ëŠ”ë‹¤
+			//< LTH-040226-KO ë§µ ì´ë™ ë ˆë²¨ì œí•œ
 			CMapSetting cMapSet = g_pcWarfieldInfo->GetMapSetting(WarfieldNo);
 			if ((nCharacterLv < cMapSet.m_nMoveLevelMin) || (nCharacterLv > cMapSet.m_nMoveLevelMax))
 			{
@@ -1318,7 +1318,7 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 			}
 			//> LTH-040226-KO
 
-			//< LTH-040309-KO ÀüÀï Âü¿© °¡´É±¹°¡¸¸ ÀÌµ¿À» Çã¶ôÇÑ´Ù.
+			//< LTH-040309-KO ì „ìŸ ì°¸ì—¬ ê°€ëŠ¥êµ­ê°€ë§Œ ì´ë™ì„ í—ˆë½í•œë‹¤.
 			int aSumNationPoint[NW_NATION_COUNT] = {0,};
 			GetSumNationPoint(aSumNationPoint);
 			CheckWarStartNation(aSumNationPoint, g_aJoinNation);
@@ -1336,7 +1336,7 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 			}
 			//> LTH-040309-KO
 
-			//< LTH-040226-KO ÁöÇÏÀüÀïÅÍ´Â ÀÚµ¿À¸·Î ºÎ´ë°¡ ÁöÁ¤µÈ´Ù
+			//< LTH-040226-KO ì§€í•˜ì „ìŸí„°ëŠ” ìë™ìœ¼ë¡œ ë¶€ëŒ€ê°€ ì§€ì •ëœë‹¤
 			CSoldierSet cSoldier = g_pcWarfieldInfo->GetSoldierSet(WarfieldNo);
 			INT nSquadNo = -1;
 			INT nI;
@@ -1353,7 +1353,7 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 			c[cn].chrlst.NWCharacter.SquadNo = nSquadNo;
 			//> LTH-040226-KO
 
-			//< LTH-040226-KO 1.4 ÁöÇÏÀüÀïÅÍ´Â ±¹°¡ÀÎ¿øÀÌ ¾Æ´Ñ ºÎ´ë ÀÎ¿øÀÌ Á¦ÇÑÀÌ´Ù
+			//< LTH-040226-KO 1.4 ì§€í•˜ì „ìŸí„°ëŠ” êµ­ê°€ì¸ì›ì´ ì•„ë‹Œ ë¶€ëŒ€ ì¸ì›ì´ ì œí•œì´ë‹¤
 			SendCMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT(p, c, cn);
 			//> LTH-040226-KO
 			return;
@@ -1372,14 +1372,14 @@ void RecvCMD_NW_MAP_MOVE(t_packet *p,t_connection c[],const int cn)
 	SendCMD_CHECK_WARFIELD_NATION_MEMBERCOUNT(p,c,cn);
 }
 
-void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ¾ğÆ®ÀÇ ÀÎÅÍÆäÀÌ½º ¸ÊÀÌµ¿ // 011217 LTS
+void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //í´ë¼ì´ì–¸íŠ¸ì˜ ì¸í„°í˜ì´ìŠ¤ ë§µì´ë™ // 011217 LTS
 {
 	char tempMapName[20] = {0,};
 	int WarfieldStatus;
 	if (isNationManageServer())
 	{
 		if (WarfieldNo>=0&&WarfieldNo<=2)
-			WarfieldStatus=g_pNation->GetWarfieldStatus(WarfieldNo);	// ÀüÀïÅÍ »óÅÂ¸¦ ¾ò¾î¿Â´Ù.
+			WarfieldStatus=g_pNation->GetWarfieldStatus(WarfieldNo);	// ì „ìŸí„° ìƒíƒœë¥¼ ì–»ì–´ì˜¨ë‹¤.
 		else
 		if (WarfieldNo>=3)
 		{
@@ -1387,7 +1387,7 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 			if (IsNeoWarfield(WarfieldNo))
 				WarfieldStatus=g_pNation->GetNewWarfieldStatus(WarfieldNo);
 			else
-				WarfieldStatus=g_pNation->GetNewWarfieldStatus(WarfieldNo-3);	// ÀüÀïÅÍ »óÅÂ¸¦ ¾ò¾î¿Â´Ù.
+				WarfieldStatus=g_pNation->GetNewWarfieldStatus(WarfieldNo-3);	// ì „ìŸí„° ìƒíƒœë¥¼ ì–»ì–´ì˜¨ë‹¤.
 			//> LTH-040207-KO
 		}
 
@@ -1400,13 +1400,13 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 		if (WarfieldNo>=3)
 		{
 			/* // 030515 kyo
-			if (isNewWarfieldServer())	// 030509 kyo		//ÀüÀï¼­¹öÀÌ¸é
+			if (isNewWarfieldServer())	// 030509 kyo		//ì „ìŸì„œë²„ì´ë©´
 			{
 				WarfieldStatus=g_pNewWarfield->GetWarfieldStatus();
 			}
 			else
 			*/
-			//< LTH-040206-KO ÁöÇÏ ÀüÀïÅÍÀÇ Ãß°¡·Î ¼³¿øÀüÀïÅÍ µû·Î Ã³¸®
+			//< LTH-040206-KO ì§€í•˜ ì „ìŸí„°ì˜ ì¶”ê°€ë¡œ ì„¤ì›ì „ìŸí„° ë”°ë¡œ ì²˜ë¦¬
 			if (IsNeoWarfield(WarfieldNo))
 				WarfieldStatus = g_naWarfieldState[WarfieldNo];
 			else
@@ -1424,7 +1424,7 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 
 	if (WarfieldStatus!=NW_WAR)
 	{
-		if(WarfieldNo>=3)			// ÆòÈ­½Ã ¾î¶»°Ô ÇÏÁö??? ¤Ñ.¤Ñ
+		if(WarfieldNo>=3)			// í‰í™”ì‹œ ì–´ë–»ê²Œ í•˜ì§€??? ã…¡.ã…¡
 		{
 			/*int Nation=connections[cn].chrlst.name_status.nation;
 			if (Nation==NW_YL)
@@ -1434,9 +1434,9 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 			case NW_BY : MapMove(cn,tempMapName,NEW_BYPoint.x,NEW_BYPoint.y); break;
 			case NW_ZY : MapMove(cn,tempMapName,NEW_ZYPoint.x,NEW_ZYPoint.y); break;
 			}*/
-			//< LTH-040225-KO 1.4 ÆĞÄ¡ ÀÌÈÄ¿£ ÀüÀï»óÈ²ÀÌ ¾Æ´Ï¸é ´ÙÀ½ ¸Ş½ÃÁö¸¦ ¶ç¿î´Ù
+			//< LTH-040225-KO 1.4 íŒ¨ì¹˜ ì´í›„ì—” ì „ìŸìƒí™©ì´ ì•„ë‹ˆë©´ ë‹¤ìŒ ë©”ì‹œì§€ë¥¼ ë„ìš´ë‹¤
 			if (IsNeoWarfield(WarfieldNo))
-				SendCMD_NW_MAP_MOVE_FAIL(c, cn, 4);	// ´ÙÀ½ ÀüÀïÀ» À§ÇØ ¹æ¾î ÁØºñ ÁßÀÌ¹Ç·Î ÃâÀÔÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.
+				SendCMD_NW_MAP_MOVE_FAIL(c, cn, 4);	// ë‹¤ìŒ ì „ìŸì„ ìœ„í•´ ë°©ì–´ ì¤€ë¹„ ì¤‘ì´ë¯€ë¡œ ì¶œì…ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.
 			else
 				SendCMD_NW_MAP_MOVE_FAIL(c,cn,3);	// 011213 LTS
 			//> LTH-040225-KO
@@ -1455,7 +1455,7 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 	{
 		if (WarfieldNo>=3)
 		{
-			//< LTH-040213-KO ½Å±ÔÀüÀïÅÍÁß ¼³¿øÀüÀïÅÍ¸¸ µû·Î Ã³¸®
+			//< LTH-040213-KO ì‹ ê·œì „ìŸí„°ì¤‘ ì„¤ì›ì „ìŸí„°ë§Œ ë”°ë¡œ ì²˜ë¦¬
 			if (IsNeoWarfield(WarfieldNo))
 			{
 				INT nSquadNo = connections[cn].chrlst.NWCharacter.SquadNo;
@@ -1484,11 +1484,11 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 			{
 				int LoadPoint=g_pLoadingPoint[WarfieldNo][c[cn].chrlst.NWCharacter.SquadNo]-1;	
 				if (LoadPoint<0||LoadPoint>3) LoadPoint=0;
-				POINTS tempPoint = AttackPoint[WarfieldNo][LoadPoint];	// ·ÎµùÆ÷ÀÎÆ®°¡ 1¿¡¼­ ½ÃÀÛµÈ´Ù¸é ¿¡·¯ ¹ß»ı
+				POINTS tempPoint = AttackPoint[WarfieldNo][LoadPoint];	// ë¡œë”©í¬ì¸íŠ¸ê°€ 1ì—ì„œ ì‹œì‘ëœë‹¤ë©´ ì—ëŸ¬ ë°œìƒ
 				MapMove(cn,tempMapName,tempPoint.x,tempPoint.y);
 			}
 			else
-			{		//¹æ¾îÀÚÀÌ´Ù...
+			{		//ë°©ì–´ìì´ë‹¤...
 				POINTS tempPoint = DefencePoint[WarfieldNo];
 				MapMove(cn,tempMapName,tempPoint.x,tempPoint.y);
 			}
@@ -1496,14 +1496,14 @@ void CallNWMapMove(const int WarfieldNo,t_connection c[],const int cn)  //Å¬¶óÀÌ
 	}
 }
 
-//< LTH-040429-KO ÀÚ¸® ÀÌµ¿
+//< LTH-040429-KO ìë¦¬ ì´ë™
 void SendPacket2NWManager(t_packet* p)
 {
 	g_pServerTable->SendRajaPacketToOtherMapServer( NATION_MANAGE_SERVER, (char *)p, p->h.header.size+sizeof(t_header) );
 }	//> LTH-040429-KO
 
 // Send Packet to Special Map Server
-//< LTH-040504-KO ÀÚ¸® ÀÌµ¿
+//< LTH-040504-KO ìë¦¬ ì´ë™
 void SendPacket2NWMap(const WORD Port,t_packet* p)				
 {
 	g_pServerTable->SendRajaPacketToOtherMapServer( Port, (char *)p, p->h.header.size+sizeof(t_header) );
@@ -1511,9 +1511,9 @@ void SendPacket2NWMap(const WORD Port,t_packet* p)
 
 /**
  * @fn		SendCMD_WARFIELD_INFO().
- * @brief	ÀüÀï °ü¸® ¼­¹ö¿¡°Ô ÀüÀïÅÍ ¼ÒÀ¯±¹°¡¿Í ÀüÀïÅÍ »óÅÂ¸¦ ¿äÃ»ÇÑ´Ù.
- * @param	const int nWarfieldNo. »óÅÂ¸¦ ¿äÃ»ÇÒ ÀüÀïÅÍ ¹øÈ£
- * @param	const WORD wPort. ¿äÃ»ÇÑ ¸Ê¼­¹ö Æ÷Æ®
+ * @brief	ì „ìŸ ê´€ë¦¬ ì„œë²„ì—ê²Œ ì „ìŸí„° ì†Œìœ êµ­ê°€ì™€ ì „ìŸí„° ìƒíƒœë¥¼ ìš”ì²­í•œë‹¤.
+ * @param	const int nWarfieldNo. ìƒíƒœë¥¼ ìš”ì²­í•  ì „ìŸí„° ë²ˆí˜¸
+ * @param	const WORD wPort. ìš”ì²­í•œ ë§µì„œë²„ í¬íŠ¸
  * @return	void.
  */
 //< LTH-040504-KO.
@@ -1530,8 +1530,8 @@ void SendCMD_WARFIELD_INFO(const int nWarfieldNo, const WORD wPort, const int nU
 
 /**
  * @fn		RecvCMD_WARFIELD_INFO().
- * @brief	°ü¸®¼­¹ö¿¡¼­ ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í »óÅÂ¸¦ ¹°¾îº» ³à¼®¿¡°Ô Àü¼ÛÇØÁØ´ç.
- * @param	t_packet* p. ÆĞÅ¶º¯¼ö
+ * @brief	ê´€ë¦¬ì„œë²„ì—ì„œ ì „ìŸí„° ì†Œìœ ìì™€ ìƒíƒœë¥¼ ë¬¼ì–´ë³¸ ë…€ì„ì—ê²Œ ì „ì†¡í•´ì¤€ë‹¹.
+ * @param	t_packet* p. íŒ¨í‚·ë³€ìˆ˜
  * @param	t_connection c[].
  * @param	const int cn.
  * @return	void.
@@ -1564,9 +1564,9 @@ void RecvCMD_WARFIELD_INFO(t_packet* p, t_connection c[], const int cn)
 
 /**
  * @fn		ProcessCMD_NW_MAP_PEACE_MOVE().
- * @brief	ÆòÈ­ ±â°£¿¡ ÀüÀïÅÍ ÀÌµ¿ ¿äÃ»½Ã¿¡ Ã³¸®ÇÏ´Â ÇÔ¼ö.
- * @param	t_packet* tagReceivePacket. ¹ŞÀº ÆĞÅ¶.
- * @param	t_packet* tagReturnPacket. ¹İÈ¯ÇÒ ÆĞÅ¶.
+ * @brief	í‰í™” ê¸°ê°„ì— ì „ìŸí„° ì´ë™ ìš”ì²­ì‹œì— ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜.
+ * @param	t_packet* tagReceivePacket. ë°›ì€ íŒ¨í‚·.
+ * @param	t_packet* tagReturnPacket. ë°˜í™˜í•  íŒ¨í‚·.
  * @return	void.
  */
 //< LTH-040503-KO.
@@ -1588,33 +1588,33 @@ void ProcessCMD_NW_MAP_PEACE_MOVE(t_packet* tagReceivePacket, t_packet* tagRetur
 	tagReturnPacket->u.NationWar.WarfieldPeaceMoveR.nPossessionNation = -1;
 	tagReturnPacket->u.NationWar.WarfieldPeaceMoveR.dwYlMoveMoney = -1;
 	
-	// °°Àº ÀüÀïÅÍ¿¡¼­ °°Àº ÀüÀïÅÍ·Î ÀÌµ¿ÇÏ·Á°í ÇÏ´Â°¡
+	// ê°™ì€ ì „ìŸí„°ì—ì„œ ê°™ì€ ì „ìŸí„°ë¡œ ì´ë™í•˜ë ¤ê³  í•˜ëŠ”ê°€
 	if (g_wMapServerPort != BASE_WARFIELD_PORT + nWarfieldNo)
 	{
-		// ÀÌµ¿ ÇÏ·Á´Â ÀüÀïÅÍ°¡ ÆòÈ­ ±â°£ÀÎ°¡
+		// ì´ë™ í•˜ë ¤ëŠ” ì „ìŸí„°ê°€ í‰í™” ê¸°ê°„ì¸ê°€
 		if (NW_PEACE == nWarfieldStatus)
 		{
-			// ÀÌµ¿ ÇÏ·Á´Â ÀüÀïÅÍ°¡ ÀÌµ¿ ÇÏ·Á´Â À¯ÀúÀÇ ±¹°¡ ¼ÒÀ¯ÀÎ°¡
+			// ì´ë™ í•˜ë ¤ëŠ” ì „ìŸí„°ê°€ ì´ë™ í•˜ë ¤ëŠ” ìœ ì €ì˜ êµ­ê°€ ì†Œìœ ì¸ê°€
 			if (nWarfieldPossession == (int)nNation)
 			{
 				tagReturnPacket->u.NationWar.WarfieldPeaceMoveR.nResult = NPM_OK;
 				tagReturnPacket->u.NationWar.WarfieldPeaceMoveR.nWarfieldNo = nWarfieldNo;
 				
-				//< LTH-040514-KO ·Î±× °­È­
+				//< LTH-040514-KO ë¡œê·¸ ê°•í™”
 				g_pLogManager->SaveMoveToWarfield(MTWT_CHARACTER_INFO, "User Name : %s, Nation : %d, Warfield : %d, Possesstion : %d Move!!", \
 					lpChar->Name, lpChar->name_status.nation, nWarfieldNo, nWarfieldPossession);
 				//> LTH-040514-KO
 			}
-			else if (nNation == NW_YL)	// ÀÏ½º ±¹°¡ À¯ÀúÀÎ°¡
+			else if (nNation == NW_YL)	// ì¼ìŠ¤ êµ­ê°€ ìœ ì €ì¸ê°€
 			{
-				// ÀºÇà¿¡ µ·ÀÌ ÀÖ´Â°¡? ÀÖ´Ù¸é ÁöºÒ!!
+				// ì€í–‰ì— ëˆì´ ìˆëŠ”ê°€? ìˆë‹¤ë©´ ì§€ë¶ˆ!!
 				DWORD dwMoveMoney = g_pcWarfieldInfo->GetYlseWarfieldMoveMoney();
 				if (lpChar->DecBankMoney(dwMoveMoney, BMCT_YL_WARFIELD_MOVE))
 				{
 					tagReturnPacket->u.NationWar.WarfieldPeaceMoveR.nResult = NPM_OK;
 					tagReturnPacket->u.NationWar.WarfieldPeaceMoveR.nWarfieldNo = nWarfieldNo;
 
-					//< LTH-040514-KO ·Î±× °­È­
+					//< LTH-040514-KO ë¡œê·¸ ê°•í™”
 					g_pLogManager->SaveMoveToWarfield(MTWT_CHARACTER_INFO, "UserName : %s, Nation : Ylse, Move Money : %d, Warfield : %d, Possession : %d", \
 						lpChar->Name, dwMoveMoney, nWarfieldNo, nWarfieldPossession);
 					//> LTH-040514-KO
@@ -1650,7 +1650,7 @@ void ProcessCMD_NW_MAP_PEACE_MOVE(t_packet* tagReceivePacket, t_packet* tagRetur
 
 /**
  * @fn		RecvCMD_WARFIELD_INFO_RESULT().
- * @brief	ÀüÀï °ü¸®¼­¹ö·ÎºÎÅÍ ÀüÀïÅÍ ¼ÒÀ¯±¹°¡¿Í »óÅÂ¸¦ Àü´Ş ¹Ş¾Æ Ã³¸®.
+ * @brief	ì „ìŸ ê´€ë¦¬ì„œë²„ë¡œë¶€í„° ì „ìŸí„° ì†Œìœ êµ­ê°€ì™€ ìƒíƒœë¥¼ ì „ë‹¬ ë°›ì•„ ì²˜ë¦¬.
  * @param	t_packet* p.
  * @param	t_connection c[].
  * @param	const int cn.
@@ -1663,7 +1663,7 @@ void RecvCMD_WARFIELD_INFO_RESULT(t_packet* p, t_connection c[], const int cn)
 	int nCn = p->u.NationWar.WarfieldInfoFromManager.nUserID;
 	
 	char szTempMapName[10] = {0,};
-	//< LTH-040623-KO ±¸Á¶ÀûÀ¸·Î ¹Ù²Ş
+	//< LTH-040623-KO êµ¬ì¡°ì ìœ¼ë¡œ ë°”ê¿ˆ
 	switch(nWarfieldNo)
 	{
 	case WI_MOUNTAIN_WARFIELD:	sprintf(szTempMapName, "Nation1");	break;
@@ -1679,12 +1679,12 @@ void RecvCMD_WARFIELD_INFO_RESULT(t_packet* p, t_connection c[], const int cn)
 	LPCHARLIST lpChar = ::CheckServerId(nCn);
 	if (packet.u.NationWar.WarfieldPeaceMoveR.nResult == NPM_OK)
 	{
-		POINTS xyTempPoint = AttackPoint[nWarfieldNo][0];		// LTH-040817-KO À¯Àú ·Îµù À§Ä¡¸¦ °ø°İÀÚ À§Ä¡·Î º¯°æ
+		POINTS xyTempPoint = AttackPoint[nWarfieldNo][0];		// LTH-040817-KO ìœ ì € ë¡œë”© ìœ„ì¹˜ë¥¼ ê³µê²©ì ìœ„ì¹˜ë¡œ ë³€ê²½
 		::MapMove(nCn, szTempMapName, xyTempPoint.x, xyTempPoint.y);
 	}
 	else
 	{
-		//< LTH-0406-23-KO ·Î±× °­È­!!
+		//< LTH-0406-23-KO ë¡œê·¸ ê°•í™”!!
 		char szTempReason[128] = {0,};
 		switch(packet.u.NationWar.WarfieldPeaceMoveR.nResult)
 		{
@@ -1703,10 +1703,10 @@ void RecvCMD_WARFIELD_INFO_RESULT(t_packet* p, t_connection c[], const int cn)
 
 /**
  * @fn		RecvCMD_NW_MAP_PEACE_MOVE().
- * @brief	ÆòÈ­ ±â°£¿¡ ÀüÀïÅÍ ÀÌµ¿À» Å¬¶óÀÌ¾ğÆ®°¡ ¿äÃ»ÇßÀ»¶§ÀÇ Ã³¸®.
- * @param	t_packet* p. ÆĞÅ¶.
- * @param	t_connection c[]. ¼­¹ö ¿¬°á Á¤º¸.
- * @param	const int cn. À¯Àú ID.
+ * @brief	í‰í™” ê¸°ê°„ì— ì „ìŸí„° ì´ë™ì„ í´ë¼ì´ì–¸íŠ¸ê°€ ìš”ì²­í–ˆì„ë•Œì˜ ì²˜ë¦¬.
+ * @param	t_packet* p. íŒ¨í‚·.
+ * @param	t_connection c[]. ì„œë²„ ì—°ê²° ì •ë³´.
+ * @param	const int cn. ìœ ì € ID.
  * @return	void.
  */
 //< LTH-040423-KO.
@@ -1715,11 +1715,11 @@ void RecvCMD_NW_MAP_PEACE_MOVE(t_packet* p, t_connection c[], const int cn)
 	int nWarfield = p->u.NationWar.WarfieldPeaceMove.nWarfieldNo - 1;
 	int nUserID = p->u.NationWar.WarfieldPeaceMove.nUserID;
 
-	// °ü¸®¼­¹ö¿¡°Ô ÀüÀïÅÍ »óÅÂ¿Í ¼ÒÀ¯±¹°¡¸¦ ¿äÃ». ³ª¸ÓÁö ÀÌµ¿Àº °ü¸®¼­¹ö·Î ºÎÅÍ ¹Ş´Â °÷¿¡¼­ ÇØ°á
+	// ê´€ë¦¬ì„œë²„ì—ê²Œ ì „ìŸí„° ìƒíƒœì™€ ì†Œìœ êµ­ê°€ë¥¼ ìš”ì²­. ë‚˜ë¨¸ì§€ ì´ë™ì€ ê´€ë¦¬ì„œë²„ë¡œ ë¶€í„° ë°›ëŠ” ê³³ì—ì„œ í•´ê²°
 	::SendCMD_WARFIELD_INFO(nWarfield, g_wMapServerPort, nUserID);
 }	//> LTH-040423-KO.
 
-void FindCommander(const char* CommanderName) // ¸Ê¼­¹ö¿¡ ÇØ´çÀÌ¸§ÀÇ À¯Àú°¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+void FindCommander(const char* CommanderName) // ë§µì„œë²„ì— í•´ë‹¹ì´ë¦„ì˜ ìœ ì €ê°€ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 {	//< CSD-CN-031213
 	CUserManager::HASH_USER mpUser = g_pUserManager->GetUserSet();
 
@@ -1880,7 +1880,7 @@ void SendWarBBS2NationMaps(const int Nation,t_WarBBS* WarBBS)
 
 // Send War BBS to Map Servers 
 
-void SendWarBBS2NationMaps(const int DefenceNation,t_WarBBS* WarBBSAttack,t_WarBBS* WarBBSDefence,t_WarBBS* WarBBSReinforce) //¹æ¾î±¹ , °ø°İ±¹ , Áß¸³±¹ ¿¡ ¸Ş½ÃÁö¸¦ º¸³¿..
+void SendWarBBS2NationMaps(const int DefenceNation,t_WarBBS* WarBBSAttack,t_WarBBS* WarBBSDefence,t_WarBBS* WarBBSReinforce) //ë°©ì–´êµ­ , ê³µê²©êµ­ , ì¤‘ë¦½êµ­ ì— ë©”ì‹œì§€ë¥¼ ë³´ëƒ„..
 {
 	t_packet AttackerPacket,DefencerPacket,ReinforcePacket;
 
@@ -2005,7 +2005,7 @@ void SendCMD_REQUEST_DELIVERY(const WORD Port,t_packet *p, t_connection c[], con
 	packet.u.NationWar.Delivery_R.UserID=cn;
 	packet.u.NationWar.Delivery_R.Size=sizeof(t_header)+p->h.header.size;
 	memcpy(packet.u.NationWar.Delivery_R.Data,(char*)p,packet.u.NationWar.Delivery_R.Size);
-	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.NationWar.Delivery_R.Size;  //100Àº ¹öÆÛÀÇ ¼öÀÌ´Ù. MAX_STRING_PK (NetWork4.h)//020903 lsw
+	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.NationWar.Delivery_R.Size;  //100ì€ ë²„í¼ì˜ ìˆ˜ì´ë‹¤. MAX_STRING_PK (NetWork4.h)//020903 lsw
 	g_pServerTable->SendRajaPacketToOtherMapServer(Port, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
@@ -2023,7 +2023,7 @@ void SendCMD_ANSWER_DELIVERY(const int UserID,const WORD MapServerPort,t_packet*
 
 void SendCMD_REQUEST_CHECK_WARNO(const int cn)			// MenuServer.cpp SendJoinGameWho() Call	// 011028 LTS
 {
-	// Ã³À½ ·Î±äÇß´Ù.
+	// ì²˜ìŒ ë¡œê¸´í–ˆë‹¤.
 	LPCHARLIST ch = ::CheckServerId(cn);
 	if(!ch){return;}
 	t_packet packet;
@@ -2031,24 +2031,24 @@ void SendCMD_REQUEST_CHECK_WARNO(const int cn)			// MenuServer.cpp SendJoinGameW
 	{
 		DWORD tempCount=g_pNation->GetWarCount();								// LTS NEW_NATION_WAR
 
-		if (tempCount!=ch->NWCharacter.WarNo)		// ÀüÀï¹øÈ£°¡ Æ²¸®´Ù¸é 
+		if (tempCount!=ch->NWCharacter.WarNo)		// ì „ìŸë²ˆí˜¸ê°€ í‹€ë¦¬ë‹¤ë©´ 
 		{
-			memset(&ch->NWCharacter,0,sizeof(NW_Character));			// Ä³¸¯ÅÍÀÇ NWCHaracter¸¦ ÃÊ±âÈ­ ÇØ¶ó.
+			memset(&ch->NWCharacter,0,sizeof(NW_Character));			// ìºë¦­í„°ì˜ NWCHaracterë¥¼ ì´ˆê¸°í™” í•´ë¼.
 			ch->NWCharacter.WarNo=tempCount;						// LTS NEW_NATION_WAR
-			packet.h.header.type=CMD_CLEAR_WAR_CHARACTER_DATA;						// Å¬¶ó¸®¾ğÆ®µµ ÃÊ±âÈ­ ÇÑ´Ù.
+			packet.h.header.type=CMD_CLEAR_WAR_CHARACTER_DATA;						// í´ë¼ë¦¬ì–¸íŠ¸ë„ ì´ˆê¸°í™” í•œë‹¤.
 			packet.u.NationWar.CommonDataC.Data=tempCount;							// LTS NEW_NATION_WAR
 			packet.h.header.size=sizeof(t_CommonDataC);
 			QueuePacket(connections,cn,&packet,1);
 		}
-		else // ÀüÀï ¹øÈ£°¡ °°´Ù¸é // ±Ùµ¥ ÆòÈ­±â°£ÀÌ¸é // ºÎ´ë¸¶Å©¸¦ Áö¿ìµµ·Ï ÇÑ´Ù.
+		else // ì „ìŸ ë²ˆí˜¸ê°€ ê°™ë‹¤ë©´ // ê·¼ë° í‰í™”ê¸°ê°„ì´ë©´ // ë¶€ëŒ€ë§ˆí¬ë¥¼ ì§€ìš°ë„ë¡ í•œë‹¤.
 		{
 			if ((g_pWarfieldStatus[0].Status<2)&&
 				(g_pWarfieldStatus[1].Status<2)&&
 				(g_pWarfieldStatus[2].Status<2))
 			{
-				memset(&ch->NWCharacter,0,sizeof(DWORD));			// Ä³¸¯ÅÍÀÇ NWCHaracter¸¦ ÃÊ±âÈ­ ÇØ¶ó.
+				memset(&ch->NWCharacter,0,sizeof(DWORD));			// ìºë¦­í„°ì˜ NWCHaracterë¥¼ ì´ˆê¸°í™” í•´ë¼.
 				ch->NWCharacter.WarNo=tempCount;						// LTS NEW_NATION_WAR
-				packet.h.header.type=CMD_CLEAR_WAR_CHARACTER_DATA;						// Å¬¶ó¸®¾ğÆ®µµ ÃÊ±âÈ­ ÇÑ´Ù.
+				packet.h.header.type=CMD_CLEAR_WAR_CHARACTER_DATA;						// í´ë¼ë¦¬ì–¸íŠ¸ë„ ì´ˆê¸°í™” í•œë‹¤.
 				packet.u.NationWar.CommonDataC.Data=tempCount;							// LTS NEW_NATION_WAR
 				packet.h.header.size=sizeof(t_CommonDataC);
 				QueuePacket(connections,cn,&packet,1);
@@ -2057,16 +2057,16 @@ void SendCMD_REQUEST_CHECK_WARNO(const int cn)			// MenuServer.cpp SendJoinGameW
 	}
 	else
 	{
-		packet.h.header.type=CMD_REQUEST_CHECK_WARNO;								// ÀüÀï¹øÈ£¸¦ °ü¸®¼­¹ö¿¡°Ô ¿ä±¸ÇÏ°í 
+		packet.h.header.type=CMD_REQUEST_CHECK_WARNO;								// ì „ìŸë²ˆí˜¸ë¥¼ ê´€ë¦¬ì„œë²„ì—ê²Œ ìš”êµ¬í•˜ê³  
 		packet.h.header.size=sizeof(t_RequestCheckWarNo);
 
-		packet.u.NationWar.RequestCheckWarNo.Port=g_wMapServerPort;					// RecvCMD_ANSWER_CHECK_WARNO¿¡¼­ Ã³¸®ÇÑ´Ù.
+		packet.u.NationWar.RequestCheckWarNo.Port=g_wMapServerPort;					// RecvCMD_ANSWER_CHECK_WARNOì—ì„œ ì²˜ë¦¬í•œë‹¤.
 		packet.u.NationWar.RequestCheckWarNo.ServerID=cn;
 		SendPacket2NWManager(&packet);
 	}
 }
 
-void SendCMD_SQUAD_LODING_POINT(const int WarfieldNo)			// °ü¸®¼­¹ö¿¡¼­ ÀüÀï¼­¹ö·Î ÀüÀï½ÃÀÛÇÏ¶ó°í ÇÒ¶§ º¸³»´Â ÆĞÅ¶ 
+void SendCMD_SQUAD_LODING_POINT(const int WarfieldNo)			// ê´€ë¦¬ì„œë²„ì—ì„œ ì „ìŸì„œë²„ë¡œ ì „ìŸì‹œì‘í•˜ë¼ê³  í• ë•Œ ë³´ë‚´ëŠ” íŒ¨í‚· 
 {
 	t_packet packet;
 	if (!isNationManageServer()) return;
@@ -2101,7 +2101,7 @@ void SendCMD_SQUAD_RARE(const WORD WarfieldNo)
 
 	const int WFieldNo=WarfieldNo-BASE_WARFIELD_PORT;
 
-	for (int i=0;i<NW_SQUAD_KIND;i++)		// LOOP UNROLLÀÌ ¼Óµµ°¡ ºü¸£³ª º¸±â Èûµé´Ù. 
+	for (int i=0;i<NW_SQUAD_KIND;i++)		// LOOP UNROLLì´ ì†ë„ê°€ ë¹ ë¥´ë‚˜ ë³´ê¸° í˜ë“¤ë‹¤. 
 	{
 		for (int j=0;j<NW_SQUAD_MAX;j++)
 		{
@@ -2118,7 +2118,7 @@ void SendCMD_SQUAD_RARE(const WORD WarfieldNo)
 	g_pServerTable->SendRajaPacketToOtherMapServer(WarfieldNo,(char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
-void RecvCMD_REQUEST_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)				// ¿ÀÁ÷ °ü¸®¼­¹ö¸¸..
+void RecvCMD_REQUEST_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)				// ì˜¤ì§ ê´€ë¦¬ì„œë²„ë§Œ..
 {
 	t_packet packet;
 
@@ -2134,7 +2134,7 @@ void RecvCMD_REQUEST_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)				/
 }
 
 void RecvCMD_ANSWER_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)			// 011028 LTS
-{// °ü¸®¼­¹ö¿¡¼­ ÀüÀï¹øÈ£°¡ ¿Ô´Ù.
+{// ê´€ë¦¬ì„œë²„ì—ì„œ ì „ìŸë²ˆí˜¸ê°€ ì™”ë‹¤.
 	const int iUserCn	= p->u.NationWar.AnswerCheckWarNo.ServerID;
 	const int iWarNo	= p->u.NationWar.AnswerCheckWarNo.WarNo;
 
@@ -2147,8 +2147,8 @@ void RecvCMD_ANSWER_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)			// 
 
 	t_packet packet;
 	if (iWarNo != ch->NWCharacter.WarNo)		
-	{																				// ÀüÀï¹øÈ£°¡ Æ²¸®´Ù¸é 
-		::memset(&ch->NWCharacter,0,sizeof(NW_Character));				// ÀüÀïÀ» ÃÊ±âÈ­ ÇØ¶ó.
+	{																				// ì „ìŸë²ˆí˜¸ê°€ í‹€ë¦¬ë‹¤ë©´ 
+		::memset(&ch->NWCharacter,0,sizeof(NW_Character));				// ì „ìŸì„ ì´ˆê¸°í™” í•´ë¼.
 		ch->NWCharacter.WarNo=iWarNo;
 		packet.h.header.type=CMD_CLEAR_WAR_CHARACTER_DATA;
 		packet.u.NationWar.CommonDataC.Data=iWarNo;
@@ -2161,7 +2161,7 @@ void RecvCMD_ANSWER_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)			// 
 			(g_pWarfieldStatus[1].Status<2)&&
 			(g_pWarfieldStatus[2].Status<2))
 		{
-			::memset(&ch->NWCharacter,0,sizeof(NW_Character));				// ÀüÀïÀ» ÃÊ±âÈ­ ÇØ¶ó.
+			::memset(&ch->NWCharacter,0,sizeof(NW_Character));				// ì „ìŸì„ ì´ˆê¸°í™” í•´ë¼.
 			ch->NWCharacter.WarNo=iWarNo;
 			packet.h.header.type=CMD_CLEAR_WAR_CHARACTER_DATA;
 			packet.u.NationWar.CommonDataC.Data=iWarNo;
@@ -2171,9 +2171,9 @@ void RecvCMD_ANSWER_CHECK_WARNO(t_packet* p,t_connection c[],const int cn)			// 
 	}
 }
 
-void SendCMD_CLEAR_SQUAD_DATA(t_connection c[],const int cn)								// NWCharacter ¸¦ ÃÊ±âÈ­ ÇÏ¶ó°í ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+void SendCMD_CLEAR_SQUAD_DATA(t_connection c[],const int cn)								// NWCharacter ë¥¼ ì´ˆê¸°í™” í•˜ë¼ê³  ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
 {
-	// ÀüÀïÀÌ ³¡³µÀ»¶§.
+	// ì „ìŸì´ ëë‚¬ì„ë•Œ.
 	t_packet packet;
 	packet.h.header.type=CMD_CLEAR_SQUAD_DATA;
 	packet.h.header.size=0;
@@ -2189,7 +2189,7 @@ void SendCMD_CLEAR_SQUAD_DATA(const int Nation)		// 0: ALL 3,4 : WarfieldNo
 
 	if (0==Nation)
 	{
-		SendPacket2Maps(&packet); //ÀüÀï ÈÄ 
+		SendPacket2Maps(&packet); //ì „ìŸ í›„ 
 	}
 	else 
 	{
@@ -2214,7 +2214,7 @@ void SendWarBeginEndMessage2Client(const int type)
 	p.h.header.size=0;
 	g_pUserManager->SendPacket(&p); // CSD-CN-031213
 
-	if (!type)				//ÀüÀïÀÌ ³¡³µÀ¸¸é.. ¿ÊÀ» °¥¾ÆÀÔ¾î¶ó...
+	if (!type)				//ì „ìŸì´ ëë‚¬ìœ¼ë©´.. ì˜·ì„ ê°ˆì•„ì…ì–´ë¼...
 	{
 		for( int i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 		{
@@ -2262,7 +2262,7 @@ void RecvCMD_WARFIELD_STATUS(t_packet *p,t_connection c[],const int cn)
 	{
 		int temp=p->u.NationWar.WarfieldStatusChange.WarfieldNo-BASE_WARFIELD_PORT;
 		g_pNation->SetWarFieldStatus(temp,p->u.NationWar.WarfieldStatusChange.Status);
-		if (p->u.NationWar.WarfieldStatusChange.Status==NW_VOTE) g_pNation->InitVoteData(temp); //ÀüÀïÂü¿© ÅõÇ¥µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
+		if (p->u.NationWar.WarfieldStatusChange.Status==NW_VOTE) g_pNation->InitVoteData(temp); //ì „ìŸì°¸ì—¬ íˆ¬í‘œë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
 	}
 }
 
@@ -2287,14 +2287,14 @@ void RecvCMD_WARBBS(t_packet *p)
 void RecvCMD_REQUEST_WARFIELD_STATUS(t_packet *p, t_connection c[], const int cn)
 {
 	t_packet packet;
-	if (isNationManageServer())  //°ü¸®¼­¹öÀÌ¹Ç·Î Áï½Ã Å¬¶óÀÌ¾ğÆ®¿¡ ÇØ´ç ÆĞÅ¶À» º¸³½´Ù.
+	if (isNationManageServer())  //ê´€ë¦¬ì„œë²„ì´ë¯€ë¡œ ì¦‰ì‹œ í´ë¼ì´ì–¸íŠ¸ì— í•´ë‹¹ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 	{
 		ProcessCMD_REQUEST_WARFIELD_STATUS(&packet,p);
 		QueuePacket(c,cn,&packet,1);
 	}
 	else 
 	{
-		SendCMD_REQUEST_DELIVERY(NATION_MANAGE_SERVER,p,c,cn);	//°ü¸®¼­¹ö°¡ ¾Æ´Ï¹Ç·Î Map¿ëÆĞÅ¶À¸·Î ¹Ù²Ù°í Àü¼ÛÇÑ´Ù.
+		SendCMD_REQUEST_DELIVERY(NATION_MANAGE_SERVER,p,c,cn);	//ê´€ë¦¬ì„œë²„ê°€ ì•„ë‹ˆë¯€ë¡œ Mapìš©íŒ¨í‚·ìœ¼ë¡œ ë°”ê¾¸ê³  ì „ì†¡í•œë‹¤.
 	}
 }
 
@@ -2318,7 +2318,7 @@ void SendCMD_WARFIELD_WAR_DATA1(t_packet* p)
 	for (i=0;i<NW_MAX_NPC;i++)
 	{
 		tempIndex=g_pWarfield->GetWeaponIndex(i);
-		if (tempIndex==63)		//¼öÈ£¼® //º¸½º´Â Á×À¸¸é ³¡ÀÌ´Ù ¹«Á¶°Ç »ì¾ÆÀÖ´Ù°í!!
+		if (tempIndex==63)		//ìˆ˜í˜¸ì„ //ë³´ìŠ¤ëŠ” ì£½ìœ¼ë©´ ëì´ë‹¤ ë¬´ì¡°ê±´ ì‚´ì•„ìˆë‹¤ê³ !!
 		{			
 			GuardStoneStatus[GuardStoneCount]=g_pWarfield->GetWeaponStatus(i);
 			GuardStoneCount++;
@@ -2371,7 +2371,7 @@ void SendCMD_WARFIELD_WAR_DATA2(t_packet* p)
 	p->h.header.size=sizeof(t_WarfieldData2);
 }
 
-void SendCMD_WARFIELD_WAR_DATA3(t_packet* p,int WarfieldNo,int Nation)			// ±¹ÀûÀÌ ÇÊ¿äÇÏ´Ù.
+void SendCMD_WARFIELD_WAR_DATA3(t_packet* p,int WarfieldNo,int Nation)			// êµ­ì ì´ í•„ìš”í•˜ë‹¤.
 {
 	if (!isNationWarfieldServer()) 
 	{
@@ -2421,7 +2421,7 @@ bool CheckCharSquadLeaderCondition(t_connection c[], const int cn )		// 011016 L
 
 bool CheckJoinSquadCondition(const int SquadNo,const int MemberCount)			// 011028 LTS
 {	//< CSD-030806
-	switch (SquadNo)		//°ø°İÀÚ¿Í ¹æ¾îÀÚÀÇ ±¸¼ºÀÌ °°´Ù.
+	switch (SquadNo)		//ê³µê²©ìì™€ ë°©ì–´ìì˜ êµ¬ì„±ì´ ê°™ë‹¤.
 	{
 	case 1:
 		{
@@ -2514,7 +2514,7 @@ bool CheckJoinLevel(const int SquadNo,t_connection c[],const int cn)	// 011016 L
 // Where : Call From DragonServer.cpp HandleCommand()
 // Usage : Packet Process
 
-void ProcessCMD_REQUEST_WARFIELD_STATUS(t_packet *ReturnPacket,t_packet* ReceivePacket)		// ÀüÀïÅÍ»óÅÂ
+void ProcessCMD_REQUEST_WARFIELD_STATUS(t_packet *ReturnPacket,t_packet* ReceivePacket)		// ì „ìŸí„°ìƒíƒœ
 {
 	ReturnPacket->h.header.type=CMD_ANSWER_WARFIELD_STATUS;
 	ReturnPacket->u.NationWar.WarfieldStatus.PacketStatus=ReceivePacket->u.NationWar.WarfieldStatus.PacketStatus;
@@ -2524,7 +2524,7 @@ void ProcessCMD_REQUEST_WARFIELD_STATUS(t_packet *ReturnPacket,t_packet* Receive
 	ReturnPacket->h.header.size=sizeof(t_WarfieldStatus);
 }
 
-void ProcessCMD_REQUEST_VOTE_DATA(t_packet *ReturnPacket,t_packet* ReceivePacket)			// ÀüÀïÅÍÂü¿©
+void ProcessCMD_REQUEST_VOTE_DATA(t_packet *ReturnPacket,t_packet* ReceivePacket)			// ì „ìŸí„°ì°¸ì—¬
 {
 	ReturnPacket->h.header.type=CMD_ANSWER_VOTE_DATA;
 	ReturnPacket->u.NationWar.VoteData.WarfieldNo=ReceivePacket->u.NationWar.CommonDataC.Data;
@@ -2532,7 +2532,7 @@ void ProcessCMD_REQUEST_VOTE_DATA(t_packet *ReturnPacket,t_packet* ReceivePacket
 	ReturnPacket->h.header.size=sizeof(t_VoteData);
 }
 
-void ProcessCMD_REQUEST_SQUAD_INFO(t_packet *ReturnPacket,t_packet* ReceivePacket)			// ºÎ´ëÁ¤º¸
+void ProcessCMD_REQUEST_SQUAD_INFO(t_packet *ReturnPacket,t_packet* ReceivePacket)			// ë¶€ëŒ€ì •ë³´
 {
 	const int Nation=ReceivePacket->u.NationWar.RequestSquadInfo.Nation;
 	const int WarfieldNo=ReceivePacket->u.NationWar.RequestSquadInfo.WarfieldNo;
@@ -2570,14 +2570,14 @@ void ProcessCMD_REQUEST_SQUAD_INFO2(t_packet *ReturnPacket,t_packet* ReceivePack
 	ReturnPacket->h.header.size=sizeof(t_SquadInfo2);
 }
 
-void ProcessCMD_REQUEST_COMMANDER_VOTE_DATA(t_packet *ReturnPacket,t_packet* ReceivePacket)	// »ç·É°ü ÅõÇ¥ 
+void ProcessCMD_REQUEST_COMMANDER_VOTE_DATA(t_packet *ReturnPacket,t_packet* ReceivePacket)	// ì‚¬ë ¹ê´€ íˆ¬í‘œ 
 {
 	const int Nation=ReceivePacket->u.NationWar.RequestCommanderVoteData.Nation;
 	const int WarfieldNo=ReceivePacket->u.NationWar.RequestCommanderVoteData.WarfieldNo;
 	const int CandidaterNo=ReceivePacket->u.NationWar.RequestCommanderVoteData.CandidaterNo;
 	t_CommanderInformation* tempCandidaterInfo;
 
-	tempCandidaterInfo=g_pNation->GetCandidaterInfo(Nation,WarfieldNo,CandidaterNo); //½ºÄõµå¹øÈ£¸¦ ³ªÅ¸³»´Â ±¸Á¶Ã¼°¡ ¾ø´Ù.. µÇ¸é ¸¸µéÀÚ..
+	tempCandidaterInfo=g_pNation->GetCandidaterInfo(Nation,WarfieldNo,CandidaterNo); //ìŠ¤ì¿¼ë“œë²ˆí˜¸ë¥¼ ë‚˜íƒ€ë‚´ëŠ” êµ¬ì¡°ì²´ê°€ ì—†ë‹¤.. ë˜ë©´ ë§Œë“¤ì..
 	ReturnPacket->h.header.type=CMD_ANSWER_COMMANDER_VOTE_DATA;
 	ReturnPacket->u.NationWar.CommanderVoteData.VoteNo=CandidaterNo;
 	ReturnPacket->u.NationWar.CommanderVoteData.CandidaterID=tempCandidaterInfo->CO_ID;
@@ -2656,14 +2656,14 @@ bool CheckJoinLevel(const int SquadNo,const int Level)	// 011028 LTS
 
 }
 
-void ProcessCMD_REG_SQUAD_LEADER(t_packet *ReturnPacket,t_packet* ReceivePacket)	// ºÎ´ëÀå µî·Ï	// 011028 LTS
+void ProcessCMD_REG_SQUAD_LEADER(t_packet *ReturnPacket,t_packet* ReceivePacket)	// ë¶€ëŒ€ì¥ ë“±ë¡	// 011028 LTS
 {
 	const int Nation=ReceivePacket->u.NationWar.RegSquadLeader.Nation;
 	const int WarfieldNo=ReceivePacket->u.NationWar.RegSquadLeader.WarfieldNo;
 	const int SquadNo=ReceivePacket->u.NationWar.RegSquadLeader.SquadNo;
 	const int Level=ReceivePacket->u.NationWar.RegSquadLeader.Level;
 
-	if(	!CheckJoinLevel(SquadNo,Level))//·¹º§ÀÌ µÇÁö ¾Ê´Â´Ù.
+	if(	!CheckJoinLevel(SquadNo,Level))//ë ˆë²¨ì´ ë˜ì§€ ì•ŠëŠ”ë‹¤.
 	{
 		ReturnPacket->h.header.type=CMD_SQUAD_JOIN_RESULT;
 		ReturnPacket->u.NationWar.CommonDataC.Data=2;
@@ -2672,14 +2672,14 @@ void ProcessCMD_REG_SQUAD_LEADER(t_packet *ReturnPacket,t_packet* ReceivePacket)
 	}
 
 	int SquadMemberCount=SquadMemberCount=g_pNation->GetSquadMemberCount(Nation,WarfieldNo,SquadNo);
-																					//ÀÏ½ºÀÇ °æ¿ì ¹ŞÀ» ¶§ ÀÏ½ºÀÇ ±¹°¡¹øÈ£¸¦ ¹Ş´Â´Ù.
-	if (SquadMemberCount>0)															// ÀÌ¹Ì ºÎ´ëÀåÀÌ Á¸Àç 
+																					//ì¼ìŠ¤ì˜ ê²½ìš° ë°›ì„ ë•Œ ì¼ìŠ¤ì˜ êµ­ê°€ë²ˆí˜¸ë¥¼ ë°›ëŠ”ë‹¤.
+	if (SquadMemberCount>0)															// ì´ë¯¸ ë¶€ëŒ€ì¥ì´ ì¡´ì¬ 
 	{
-		if (CheckJoinSquadCondition(SquadNo,SquadMemberCount))		// ´Ü¼øÈ÷ ºÎ´ëÀÇ Æí¼º Á¶°ÇÀ» µûÁø´Ù.
+		if (CheckJoinSquadCondition(SquadNo,SquadMemberCount))		// ë‹¨ìˆœíˆ ë¶€ëŒ€ì˜ í¸ì„± ì¡°ê±´ì„ ë”°ì§„ë‹¤.
 		{
 			g_pNation->IncSquadMemberCount(Nation,WarfieldNo,SquadNo);
 			ReturnPacket->h.header.type=CMD_JOIN_SQUAD;
-			if (Nation==NW_YL) ReturnPacket->u.NationWar.JoinSquad.Nation=GetYL_JoinNation();		// 011020 LTS															// ÀÏ½º ºÎ´ë Æí¼ºÀ» À§ÇÑ 
+			if (Nation==NW_YL) ReturnPacket->u.NationWar.JoinSquad.Nation=GetYL_JoinNation();		// 011020 LTS															// ì¼ìŠ¤ ë¶€ëŒ€ í¸ì„±ì„ ìœ„í•œ 
 			else ReturnPacket->u.NationWar.JoinSquad.Nation=Nation;
 			ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=WarfieldNo;
 			ReturnPacket->u.NationWar.JoinSquad.SquadNo=SquadNo;
@@ -2692,7 +2692,7 @@ void ProcessCMD_REG_SQUAD_LEADER(t_packet *ReturnPacket,t_packet* ReceivePacket)
 			ReturnPacket->h.header.size=sizeof(t_CommonDataC);
 		}
 	}
-	else																			// ºÎ´ëÀå 
+	else																			// ë¶€ëŒ€ì¥ 
 	{
 		t_CommanderInformation SquadLeaderInfo;
 
@@ -2710,34 +2710,34 @@ void ProcessCMD_REG_SQUAD_LEADER(t_packet *ReturnPacket,t_packet* ReceivePacket)
 		SquadLeaderInfo.LadderScore=ReceivePacket->u.NationWar.RegSquadLeader.LadderScore;
 		g_pNation->SetSquadLeader(Nation,WarfieldNo,SquadNo,&SquadLeaderInfo);
 
-		ReturnPacket->h.header.type=CMD_YOU_ARE_SQUAD_LEADER;							//ÀüÀï¹øÈ£°¡ ÇÊ¿äÇÏ´Ù..
-		if (Nation==NW_YL)	// ÀÏ½º ºÎ´ë Æí¼ºÀ» À§ÇÑ //ÀÏ½ºÀÇ °æ¿ì ¹ŞÀ» ¶§ ÀÏ½ºÀÇ ±¹°¡¹øÈ£¸¦ ¹Ş´Â´Ù.
+		ReturnPacket->h.header.type=CMD_YOU_ARE_SQUAD_LEADER;							//ì „ìŸë²ˆí˜¸ê°€ í•„ìš”í•˜ë‹¤..
+		if (Nation==NW_YL)	// ì¼ìŠ¤ ë¶€ëŒ€ í¸ì„±ì„ ìœ„í•œ //ì¼ìŠ¤ì˜ ê²½ìš° ë°›ì„ ë•Œ ì¼ìŠ¤ì˜ êµ­ê°€ë²ˆí˜¸ë¥¼ ë°›ëŠ”ë‹¤.
 		{
 			ReturnPacket->u.NationWar.JoinSquad.Nation=GetYL_JoinNation();	// 011020 LTS
 		}
-		else ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=Nation;	// ÀÏ½ºÀÇ ºÎ´ëÆí¼º ¶§ºĞÀÌ´Ù.
+		else ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=Nation;	// ì¼ìŠ¤ì˜ ë¶€ëŒ€í¸ì„± ë•Œë¶„ì´ë‹¤.
 		ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=WarfieldNo;
 		ReturnPacket->u.NationWar.JoinSquad.SquadNo=SquadNo;
 		ReturnPacket->h.header.size=sizeof(t_JoinSquad);
 	}	
 }
 
-void ProcessCMD_CHANGE_SQUAD(t_packet *ReturnPacket,t_packet* ReceivePacket)		// ºÎ´ë º¯°æ
+void ProcessCMD_CHANGE_SQUAD(t_packet *ReturnPacket,t_packet* ReceivePacket)		// ë¶€ëŒ€ ë³€ê²½
 {
 	const int Nation=ReceivePacket->u.NationWar.ChangeSquad.Nation;
 	const int WarfieldNo=ReceivePacket->u.NationWar.ChangeSquad.WarfieldNo;
 	const int NewSquadNo=ReceivePacket->u.NationWar.ChangeSquad.NewSquadNo;
 	const int OldSquadNo=ReceivePacket->u.NationWar.ChangeSquad.OldSquadNo;
 
-//	g_pNation->DecSquadMemberCount(Nation,WarfieldNo,OldSquadNo);	// ºÎ´ëÀÇ Á¾·ù¿¡ µû¶ó Æ²·ÁÁø´Ù.	// 011020 LTS
-	g_pNation->IncSquadMemberCount(Nation,WarfieldNo,NewSquadNo);	// ºÎ´ëÀÇ Á¾·ù¿¡ µû¶ó Æ²·ÁÁø´Ù.
+//	g_pNation->DecSquadMemberCount(Nation,WarfieldNo,OldSquadNo);	// ë¶€ëŒ€ì˜ ì¢…ë¥˜ì— ë”°ë¼ í‹€ë ¤ì§„ë‹¤.	// 011020 LTS
+	g_pNation->IncSquadMemberCount(Nation,WarfieldNo,NewSquadNo);	// ë¶€ëŒ€ì˜ ì¢…ë¥˜ì— ë”°ë¼ í‹€ë ¤ì§„ë‹¤.
 				
 	ReturnPacket->h.header.type=CMD_JOIN_SQUAD;
-	if (Nation==NW_YL)	// ÀÏ½º ºÎ´ë Æí¼ºÀ» À§ÇÑ //ÀÏ½ºÀÇ °æ¿ì ¹ŞÀ» ¶§ ÀÏ½ºÀÇ ±¹°¡¹øÈ£¸¦ ¹Ş´Â´Ù.
+	if (Nation==NW_YL)	// ì¼ìŠ¤ ë¶€ëŒ€ í¸ì„±ì„ ìœ„í•œ //ì¼ìŠ¤ì˜ ê²½ìš° ë°›ì„ ë•Œ ì¼ìŠ¤ì˜ êµ­ê°€ë²ˆí˜¸ë¥¼ ë°›ëŠ”ë‹¤.
 	{
 		ReturnPacket->u.NationWar.JoinSquad.Nation=GetYL_JoinNation();		// 011020 LTS
 	}
-	else ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=Nation;	// ÀÏ½ºÀÇ ºÎ´ëÆí¼º ¶§ºĞÀÌ´Ù.
+	else ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=Nation;	// ì¼ìŠ¤ì˜ ë¶€ëŒ€í¸ì„± ë•Œë¶„ì´ë‹¤.
 	ReturnPacket->u.NationWar.JoinSquad.WarfieldNo=WarfieldNo;
 	ReturnPacket->u.NationWar.JoinSquad.SquadNo=NewSquadNo;
 	ReturnPacket->h.header.size=sizeof(t_JoinSquad);
@@ -2757,8 +2757,8 @@ void ProcessCMD_SET_SQUAD_LOADING_POINT(t_packet *ReturnPacket,t_packet* Receive
 	ReturnPacket->u.NationWar.SetLoadingPoint.SquadNo=ReceivePacket->u.NationWar.SetLoadingPoint.SquadNo;
 	ReturnPacket->u.NationWar.SetLoadingPoint.LoadingPoint=ReceivePacket->u.NationWar.SetLoadingPoint.LoadingPoint;
 	ReturnPacket->h.header.size=sizeof(t_SetLoadingPoint);
-	SendPacket2NationMaps(NW_BY,ReturnPacket);    //¿ì¾¯ ³ªÁß¿¡ °íÄ¡ÀÚ..   //¹ÙÀÌ¼­½º ÀÏ½º ÀÚÀÌ¹ø¿¡ ´Ù ÆĞÅ¶À» º¸³½´Ù...
-	SendPacket2NationMaps(NW_ZY,ReturnPacket);    // ºÎÇÏ°¡ °É¸®¸é.. ·ÎµùÁ¡Àº ÇÑ¹ø¸¸.. ¼öÁ¤ÀÌ °¡´ÉÇÏµµ·Ï ÇÏÀÚ.. ¤Ì.¤Ì 
+	SendPacket2NationMaps(NW_BY,ReturnPacket);    //ìš°ì’¸ ë‚˜ì¤‘ì— ê³ ì¹˜ì..   //ë°”ì´ì„œìŠ¤ ì¼ìŠ¤ ìì´ë²ˆì— ë‹¤ íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤...
+	SendPacket2NationMaps(NW_ZY,ReturnPacket);    // ë¶€í•˜ê°€ ê±¸ë¦¬ë©´.. ë¡œë”©ì ì€ í•œë²ˆë§Œ.. ìˆ˜ì •ì´ ê°€ëŠ¥í•˜ë„ë¡ í•˜ì.. ã…œ.ã…œ 
 	SendPacket2NationMaps(NW_YL,ReturnPacket);
 }
 
@@ -2771,7 +2771,7 @@ void ProcessCMD_REQUEST_NATION_WAR_COUNT(t_packet *ReturnPacket,t_packet* Receiv
 
 void ProcessCMD_REQUEST_WARFIELD_INFO(t_packet *ReturnPacket,t_packet* ReceivePacket)
 {
-	ReturnPacket->h.header.type=CMD_ANSWER_WARFIELD_INFO;			// ÇöÀç »óÅÂ°¡ 2 ÀÌ»óÀÎ ¿öÇÊµåÀÇ ¹æ¾î±¹°ú °ø°İ±¹À» ±¸ÇÑ´Ù.
+	ReturnPacket->h.header.type=CMD_ANSWER_WARFIELD_INFO;			// í˜„ì¬ ìƒíƒœê°€ 2 ì´ìƒì¸ ì›Œí•„ë“œì˜ ë°©ì–´êµ­ê³¼ ê³µê²©êµ­ì„ êµ¬í•œë‹¤.
 	ReturnPacket->u.NationWar.WarfieldInfo.DefenceWarfieldNo=g_pNation->GetWarfieldNationCode(ReceivePacket->u.NationWar.CommonDataC.Data);
 	if (ReturnPacket->u.NationWar.WarfieldInfo.DefenceWarfieldNo==NW_BY) 
 	{
@@ -2792,9 +2792,9 @@ void ProcessCMD_REQUEST_COMMANDER_REG_DATA(t_packet *ReturnPacket,t_packet* Rece
 	const int CandidaterNo=ReceivePacket->u.NationWar.RequestCommanderRegData.CandidaterNo;
 	const bool bCanReg=g_pNation->CanRegCommanderCandidater(Nation,WarfieldNo,CandidaterNo);
 
-	if (bCanReg) // µî·ÏÇÒ ¼ö ÀÖ´Ù¸é.... ·£¿¡¼­´Â ÀÌ¹Ì ´©°¡ Á¤º¸¸¦ °»½ÅÇßÀ» ¼ö ÀÖ´Ù. 
+	if (bCanReg) // ë“±ë¡í•  ìˆ˜ ìˆë‹¤ë©´.... ëœì—ì„œëŠ” ì´ë¯¸ ëˆ„ê°€ ì •ë³´ë¥¼ ê°±ì‹ í–ˆì„ ìˆ˜ ìˆë‹¤. 
 	{
-		tempCommanderInformation.CO_ID=1;					//³»¿ëÀúÀå
+		tempCommanderInformation.CO_ID=1;					//ë‚´ìš©ì €ì¥
 		memcpy(tempCommanderInformation.CO_Name,ReceivePacket->u.NationWar.RequestCommanderRegData.Name,NW_NAME_MAX);
 		tempCommanderInformation.btLevel=ReceivePacket->u.NationWar.RequestCommanderRegData.Level;
 		tempCommanderInformation.Fame=ReceivePacket->u.NationWar.RequestCommanderRegData.Fame;
@@ -2807,12 +2807,12 @@ void ProcessCMD_REQUEST_COMMANDER_REG_DATA(t_packet *ReturnPacket,t_packet* Rece
 		g_pNation->SetCandidaterInfo(Nation,WarfieldNo,CandidaterNo,&tempCommanderInformation);
 
 		ReturnPacket->h.header.type=CMD_ANSWER_COMMANDER_REG_DATA;  
-		ReturnPacket->u.NationWar.CommonDataC.Data=1;				//µî·ÏÇß´Ù´Â ¸Ş½ÃÁö Àü¼Û
+		ReturnPacket->u.NationWar.CommonDataC.Data=1;				//ë“±ë¡í–ˆë‹¤ëŠ” ë©”ì‹œì§€ ì „ì†¡
 		ReturnPacket->h.header.size=sizeof(t_CommonDataC);
 	}
 	else
 	{
-		ReturnPacket->h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; //ÀÌ¹Ì µî·ÏµÇ¾ú´Ù°í ¹İ¼Û
+		ReturnPacket->h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; //ì´ë¯¸ ë“±ë¡ë˜ì—ˆë‹¤ê³  ë°˜ì†¡
 		ReturnPacket->u.NationWar.CommonDataC.Data=0;
 		ReturnPacket->h.header.size=sizeof(t_CommonDataC);
 	}
@@ -2870,7 +2870,7 @@ void ProcessJoinVote(const int WarfieldNo, const int UserNation,t_packet* Return
 
 void ProcessElectCommanderBefore(const int WarfieldNo,const int UserNation,t_packet* ReturnPacket )
 {
-	if (UserNation==NW_YL)	// ÀÏ½ºÀÌ¸é 
+	if (UserNation==NW_YL)	// ì¼ìŠ¤ì´ë©´ 
 	{
 		ReturnPacket->h.header.type=CMD_ANSWER_NOTICE;
 		ReturnPacket->u.NationWar.NoticePrepare1Reinforce.Type=NW_NOTICE_PREPARE1_REINFORCE;
@@ -2899,7 +2899,7 @@ void ProcessElectCommanderBefore(const int WarfieldNo,const int UserNation,t_pac
 
 void ProcessElectCommanderAfter(const int WarfieldNo,const int UserNation,t_packet* ReturnPacket  )
 {
-	if (UserNation==NW_YL)	// ÀÏ½ºÀÌ¸é 
+	if (UserNation==NW_YL)	// ì¼ìŠ¤ì´ë©´ 
 	{
 		ReturnPacket->h.header.type=CMD_ANSWER_NOTICE;
 		ReturnPacket->u.NationWar.NoticePrepare2Reinforce.Type=NW_NOTICE_PREPARE2_REINFORCE;
@@ -2914,7 +2914,7 @@ void ProcessElectCommanderAfter(const int WarfieldNo,const int UserNation,t_pack
 	ReturnPacket->h.header.type=CMD_ANSWER_NOTICE;
 	ReturnPacket->u.NationWar.NoticePrepare2.Type=NW_NOTICE_PREPARE2;
 	ReturnPacket->u.NationWar.NoticePrepare2.WarfieldNo=WarfieldNo;
-	memcpy(ReturnPacket->u.NationWar.NoticePrepare2.CommanderName,g_pNation->GetCommanderName(WarfieldNo,UserNation),NW_NAME_MAX);	// ÀÇ½É
+	memcpy(ReturnPacket->u.NationWar.NoticePrepare2.CommanderName,g_pNation->GetCommanderName(WarfieldNo,UserNation),NW_NAME_MAX);	// ì˜ì‹¬
 	ReturnPacket->u.NationWar.NoticePrepare2.RemainTime=g_pNation->GetRemainTime(WarfieldNo);;
 	ReturnPacket->h.header.size=sizeof(t_NoticePrepare2);
 }
@@ -2922,7 +2922,7 @@ void ProcessElectCommanderAfter(const int WarfieldNo,const int UserNation,t_pack
 
 void ProcessElectCommanderBeforeAll(const int WarfieldNo,const int UserNation,t_packet* ReturnPacket  )
 {
-	if (UserNation==NW_YL)	// ÀÏ½ºÀÌ¸é 
+	if (UserNation==NW_YL)	// ì¼ìŠ¤ì´ë©´ 
 	{
 		ReturnPacket->h.header.type=CMD_ANSWER_NOTICE;
 		ReturnPacket->u.NationWar.NoticePrepare3Reinforce.Type=NW_NOTICE_PREPARE3_REINFORCE;
@@ -2943,7 +2943,7 @@ void ProcessElectCommanderBeforeAll(const int WarfieldNo,const int UserNation,t_
 
 void ProcessElectCommanderAfterAll(const int WarfieldNo,const int UserNation,t_packet* ReturnPacket  )
 {
-	if (UserNation==NW_YL)	// ÀÏ½ºÀÌ¸é 
+	if (UserNation==NW_YL)	// ì¼ìŠ¤ì´ë©´ 
 	{
 		ReturnPacket->h.header.type=CMD_ANSWER_NOTICE;
 		ReturnPacket->u.NationWar.NoticePrepare4Reinforce.Type=NW_NOTICE_PREPARE4_REINFORCE;
@@ -2956,7 +2956,7 @@ void ProcessElectCommanderAfterAll(const int WarfieldNo,const int UserNation,t_p
 	ReturnPacket->h.header.type=CMD_ANSWER_NOTICE;
 	ReturnPacket->u.NationWar.NoticePrepare4.Type=NW_NOTICE_PREPARE4;
 	ReturnPacket->u.NationWar.NoticePrepare4.WarfieldNo=WarfieldNo;
-	memcpy(ReturnPacket->u.NationWar.NoticePrepare4.CommanderName,g_pNation->GetCommanderName(WarfieldNo,UserNation),NW_NAME_MAX);	// ÀÇ½É
+	memcpy(ReturnPacket->u.NationWar.NoticePrepare4.CommanderName,g_pNation->GetCommanderName(WarfieldNo,UserNation),NW_NAME_MAX);	// ì˜ì‹¬
 	ReturnPacket->u.NationWar.NoticePrepare4.RemainTime=g_pNation->GetRemainTime(WarfieldNo);;
 	ReturnPacket->h.header.size=sizeof(t_NoticePrepare4);
 }
@@ -3003,7 +3003,7 @@ void ProcessWar(const int WarfieldNo,const int UserNation,t_packet* ReturnPacket
 		ReturnPacket->u.NationWar.NoticeWar1D.WarfieldNo=WarfieldNo;
 		ReturnPacket->u.NationWar.NoticeWar1D.AttackNation=0;
 		
-		if (isNewWarfieldServer()) // 030509 kyo ¼³¿øÀüÀïÅÍÀÏ¶§´Â ¼³¿øÀüÀïÅÍ ½Ã°£À» ¸®ÅÏÇÑ´Ù. 
+		if (isNewWarfieldServer()) // 030509 kyo ì„¤ì›ì „ìŸí„°ì¼ë•ŒëŠ” ì„¤ì›ì „ìŸí„° ì‹œê°„ì„ ë¦¬í„´í•œë‹¤. 
 			ReturnPacket->u.NationWar.NoticeWar1D.RemainTime=g_pNewWarfield->GetRemainTime();
 		else		
 			ReturnPacket->u.NationWar.NoticeWar1D.RemainTime=g_pNation->GetRemainTime(WarfieldNo);		
@@ -3047,15 +3047,15 @@ void ProcessWarAll(const int WarfieldNo,const int UserNation,t_packet* ReturnPac
 
 void ProcessPrepare(const int WarfieldNo,const int UserNation,t_packet* ReturnPacket)
 {
-	if (CheckJoinReinforce())	//ÀüÀïÅÍ°¡ ÇÑ±¹°¡¿¡ Á¡·ÉµÇ¾ú´Ù	// ¸®ÅÏ°ª 0,3,4,6
+	if (CheckJoinReinforce())	//ì „ìŸí„°ê°€ í•œêµ­ê°€ì— ì ë ¹ë˜ì—ˆë‹¤	// ë¦¬í„´ê°’ 0,3,4,6
 	{
-		if (!g_pNation->ElectCommander(WarfieldNo))	ProcessElectCommanderBeforeAll(WarfieldNo,UserNation,ReturnPacket);//»ç·É°ü ¼±Ãâ ÀüÀÌ´Ù
-		else ProcessElectCommanderAfterAll(WarfieldNo,UserNation,ReturnPacket);	// »ç·É°üÀÌ ¼±ÃâµÇ¾ú´Ù
+		if (!g_pNation->ElectCommander(WarfieldNo))	ProcessElectCommanderBeforeAll(WarfieldNo,UserNation,ReturnPacket);//ì‚¬ë ¹ê´€ ì„ ì¶œ ì „ì´ë‹¤
+		else ProcessElectCommanderAfterAll(WarfieldNo,UserNation,ReturnPacket);	// ì‚¬ë ¹ê´€ì´ ì„ ì¶œë˜ì—ˆë‹¤
 	}
-    else	// ¸ğµç ÀüÀïÅÍ°¡ ÇÑ±¹°¡¿¡ Á¡·ÉµÇÁö ¾Ê¾Ò´Ù.
+    else	// ëª¨ë“  ì „ìŸí„°ê°€ í•œêµ­ê°€ì— ì ë ¹ë˜ì§€ ì•Šì•˜ë‹¤.
 	{
-		if (!g_pNation->ElectCommander(WarfieldNo))	ProcessElectCommanderBefore(WarfieldNo,UserNation,ReturnPacket);//»ç·É°ü ¼±Ãâ ÀüÀÌ´Ù
-		else ProcessElectCommanderAfter(WarfieldNo,UserNation,ReturnPacket);	// »ç·É°üÀÌ ¼±ÃâµÇ¾ú´Ù
+		if (!g_pNation->ElectCommander(WarfieldNo))	ProcessElectCommanderBefore(WarfieldNo,UserNation,ReturnPacket);//ì‚¬ë ¹ê´€ ì„ ì¶œ ì „ì´ë‹¤
+		else ProcessElectCommanderAfter(WarfieldNo,UserNation,ReturnPacket);	// ì‚¬ë ¹ê´€ì´ ì„ ì¶œë˜ì—ˆë‹¤
 	}
 }
 
@@ -3065,17 +3065,17 @@ void ProcessWarMan(const int WarfieldNo,const int UserNation,t_packet* ReturnPac
 	{
 		if (CheckJoinReinforce((WarfieldNo) ? true:false)) // CSD-030314
 		{
-			ProcessWarAll(WarfieldNo,UserNation,ReturnPacket);	//ÀüÀïÅÍ¸¦ ÅëÀÏÇß´Ù¸é
+			ProcessWarAll(WarfieldNo,UserNation,ReturnPacket);	//ì „ìŸí„°ë¥¼ í†µì¼í–ˆë‹¤ë©´
 		}
 		else 
 		{
-			ProcessWar(WarfieldNo,UserNation,ReturnPacket);			// ÀüÀïÅÍ¸¦ ÅëÀÏÇÏÁö ¸øÇß´Ù
+			ProcessWar(WarfieldNo,UserNation,ReturnPacket);			// ì „ìŸí„°ë¥¼ í†µì¼í•˜ì§€ ëª»í–ˆë‹¤
 		}
 	}
 	else
 	if (WarfieldNo>=3)
 	{
-		ProcessWar(WarfieldNo,UserNation,ReturnPacket);			// ÀüÀïÅÍ¸¦ ÅëÀÏÇÏÁö ¸øÇß´Ù
+		ProcessWar(WarfieldNo,UserNation,ReturnPacket);			// ì „ìŸí„°ë¥¼ í†µì¼í•˜ì§€ ëª»í–ˆë‹¤
 	}
 }
 
@@ -3111,12 +3111,12 @@ void ProcessPeace(const int UserNation,t_packet* ReturnPacket)			// 011025 LTS
 		g_pNation->GetNewWarRemainTime(ReturnV);
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[2][0]=ReturnV[0];
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[2][1]=ReturnV[1];
-		//< LTH-040302-KO 1.4 Patch. ½Å ÀüÀïÅÍ Á¤º¸Àü¼Û
+		//< LTH-040302-KO 1.4 Patch. ì‹  ì „ìŸí„° ì •ë³´ì „ì†¡
 		g_pNation->GetNeoWarRemainTime(ReturnV);
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[3][0]=ReturnV[0];
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[3][1]=ReturnV[1];
 		//> LTH-040302-KO
-		//< LTH-040316-KO ±¹ÁöÀü Æ÷ÀÎÆ®µµ Æò»ó½Ã ½Ç¾îº¸³½´Ù
+		//< LTH-040316-KO êµ­ì§€ì „ í¬ì¸íŠ¸ë„ í‰ìƒì‹œ ì‹¤ì–´ë³´ë‚¸ë‹¤
 		int aSumPoint[NW_NATION_COUNT] = {0,};
 		::GetSumNationPoint(aSumPoint);
 		int nI;
@@ -3140,12 +3140,12 @@ void ProcessPeace(const int UserNation,t_packet* ReturnPacket)			// 011025 LTS
 		g_pNation->GetNewWarRemainTime(ReturnV);
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[2][0]=ReturnV[0];
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[2][1]=ReturnV[1];
-		//< LTH-040302-KO 1.4 Patch. ½Å ÀüÀïÅÍ Á¤º¸Àü¼Û
+		//< LTH-040302-KO 1.4 Patch. ì‹  ì „ìŸí„° ì •ë³´ì „ì†¡
 		g_pNation->GetNeoWarRemainTime(ReturnV);
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[3][0]=ReturnV[0];
 		ReturnPacket->u.NationWar.NoticeWarPeace.RemainTime[3][1]=ReturnV[1];
 		//> LTH-040302-KO
-		//< LTH-040316-KO ±¹ÁöÀü Æ÷ÀÎÆ®µµ Æò»ó½Ã ½Ç¾îº¸³½´Ù
+		//< LTH-040316-KO êµ­ì§€ì „ í¬ì¸íŠ¸ë„ í‰ìƒì‹œ ì‹¤ì–´ë³´ë‚¸ë‹¤
 		int aSumPoint[NW_NATION_COUNT] = {0,};
 		::GetSumNationPoint(aSumPoint);
 		int nI;
@@ -3174,7 +3174,7 @@ void ProcessWarControl(t_packet* ReceivedPacket,t_packet* ReturnPacket)
 	{
 		ReturnPacket->h.header.type=CMD_WAR_CONTROL;
 		ReturnPacket->u.NationWar.WarControl.Type=0;	
-		ReturnPacket->u.NationWar.WarControl.WarfieldNo=0;	//ÇÊ¿ä¾ø´Â Á¤º¸ 
+		ReturnPacket->u.NationWar.WarControl.WarfieldNo=0;	//í•„ìš”ì—†ëŠ” ì •ë³´ 
 		ReturnPacket->u.NationWar.WarControl.Status=g_pWarfield->GetStatus();
 		ReturnPacket->u.NationWar.WarControl.Active=g_pWarfield->GetLoopActive();
 		ReturnPacket->h.header.size=sizeof(t_WarControl);
@@ -3199,11 +3199,11 @@ void ProcessWarControl(t_packet* ReceivedPacket,t_packet* ReturnPacket)
 				ReceivedPacket->u.NationWar.WarControl.Status,
 				ReceivedPacket->u.NationWar.WarControl.Active);
 			break;
-		case 2 : break;	// ÇöÀç ±â´É ¾øÀ½ 
+		case 2 : break;	// í˜„ì¬ ê¸°ëŠ¥ ì—†ìŒ 
 		}
 		ReturnPacket->h.header.type=CMD_WAR_CONTROL;
 		ReturnPacket->u.NationWar.WarControl.Type=0;	
-		ReturnPacket->u.NationWar.WarControl.WarfieldNo=0;	//ÇÊ¿ä¾ø´Â Á¤º¸ 
+		ReturnPacket->u.NationWar.WarControl.WarfieldNo=0;	//í•„ìš”ì—†ëŠ” ì •ë³´ 
 		ReturnPacket->u.NationWar.WarControl.Status=g_pWarfield->GetStatus();
 		ReturnPacket->u.NationWar.WarControl.Active=g_pWarfield->GetLoopActive();
 		ReturnPacket->h.header.size=sizeof(t_WarControl);
@@ -3221,8 +3221,8 @@ void ProcessWarLoopTime(t_packet* ReceivedPacket,t_packet* SendPacket)
 	if (!ReceivedPacket->u.NationWar.WarLoopTime.Type)		// == 0
 	{
 /*		SendPacket->h.header.type=CMD_WAR_LOOP_TIME;
-		SendPacket->u.NationWar.WarLoopTime.Type=0;			// ÇÊ¿ä¾ø´Â Á¤º¸ 
-		SendPacket->u.NationWar.WarLoopTime.WarfieldNo=0;	// ÇÊ¿ä¾ø´Â Á¤º¸ 
+		SendPacket->u.NationWar.WarLoopTime.Type=0;			// í•„ìš”ì—†ëŠ” ì •ë³´ 
+		SendPacket->u.NationWar.WarLoopTime.WarfieldNo=0;	// í•„ìš”ì—†ëŠ” ì •ë³´ 
 		SendPacket->u.NationWar.WarLoopTime.Status=g_pWarfield->GetStatus();
 		SendPacket->u.NationWar.WarLoopTime.LoopTime=g_pWarfield->GetWarLoopTime();
 		SendPacket->h.header.size=sizeof(t_WarLoopTime);*/
@@ -3231,8 +3231,8 @@ void ProcessWarLoopTime(t_packet* ReceivedPacket,t_packet* SendPacket)
 	{
 		g_pNation->CheckAndSendWarStart(ReceivedPacket);
 /*		SendPacket->h.header.type=CMD_WAR_LOOP_TIME;
-		SendPacket->u.NationWar.WarLoopTime.Type=0;			// ÇÊ¿ä¾ø´Â Á¤º¸ 
-		SendPacket->u.NationWar.WarLoopTime.WarfieldNo=0;	// ÇÊ¿ä¾ø´Â Á¤º¸ 
+		SendPacket->u.NationWar.WarLoopTime.Type=0;			// í•„ìš”ì—†ëŠ” ì •ë³´ 
+		SendPacket->u.NationWar.WarLoopTime.WarfieldNo=0;	// í•„ìš”ì—†ëŠ” ì •ë³´ 
 		SendPacket->u.NationWar.WarLoopTime.Status=g_pWarfield->GetStatus();
 		SendPacket->u.NationWar.WarLoopTime.LoopTime=g_pWarfield->GetWarLoopTime();
 		SendPacket->h.header.size=sizeof(t_WarLoopTime);*/
@@ -3284,7 +3284,7 @@ void ProcessNationMemberCount(t_packet* ReceivedPacket,t_packet* SendPacket)
 	} 
 }
 
-//< LTH-040209-KO ºÎ´ë ÀÎ¿ø¼ö Ã¼Å©
+//< LTH-040209-KO ë¶€ëŒ€ ì¸ì›ìˆ˜ ì²´í¬
 void ProcessSquadMemberCount(t_packet* ReceivedPacket,t_packet* SendPacket)
 {
 	if (IsNeoWarfieldServer()) 
@@ -3292,8 +3292,8 @@ void ProcessSquadMemberCount(t_packet* ReceivedPacket,t_packet* SendPacket)
 		INT nSquadNo = (INT)(ReceivedPacket->u.NationWar.CheckSquadMemberCount.cSquad);
 		INT nWarfieldNo = (INT)(ReceivedPacket->u.NationWar.CheckSquadMemberCount.cWarfieldNo);
 		tagSquadCount tSquadCount;
-		tSquadCount.nSquadNo = nSquadNo;	// ÀÏ´Ü ÇöÀç ¸É¹ö¼ö Ã¼Å©¿¡ ºÎ´ë¹øÈ£¸¦ ³Ö°í
-		// ÇØ´ç ºÎ´ë¹øÈ£ÀÇ ÀÎ¿ø¼ö¸¦ ±¸Á¶Ã¼¿¡ ¹Ş¾Æ¿Â´Ù
+		tSquadCount.nSquadNo = nSquadNo;	// ì¼ë‹¨ í˜„ì¬ ë§´ë²„ìˆ˜ ì²´í¬ì— ë¶€ëŒ€ë²ˆí˜¸ë¥¼ ë„£ê³ 
+		// í•´ë‹¹ ë¶€ëŒ€ë²ˆí˜¸ì˜ ì¸ì›ìˆ˜ë¥¼ êµ¬ì¡°ì²´ì— ë°›ì•„ì˜¨ë‹¤
 		g_pcWarfieldMgr->ExecMsg(CWarfieldMgr::WPM_GET_SQUAD_MEMBER_COUNT, (LPVOID)&tSquadCount);
 		INT nCurrentSquadMemberCount = tSquadCount.nCurrentSquadMemberCount;
 		CSoldierSet cSoldier = g_pcWarfieldInfo->GetSoldierSet(nWarfieldNo);
@@ -3306,7 +3306,7 @@ void ProcessSquadMemberCount(t_packet* ReceivedPacket,t_packet* SendPacket)
 		}
 		else
 		{
-			//< LTH-040510-KO ÀüÀï½ÃÀÛÈÄ 30ºĞÀÌ Áö³µ´Ù¸é ÀÌµ¿ ºÒ°¡
+			//< LTH-040510-KO ì „ìŸì‹œì‘í›„ 30ë¶„ì´ ì§€ë‚¬ë‹¤ë©´ ì´ë™ ë¶ˆê°€
 			__int64 n64RemainTime;
 			g_pcWarfieldMgr->ExecMsg(CWarfieldMgr::WPM_GET_REMAINTIME, (LPVOID)&n64RemainTime);
 			INT nIndex = g_pcWarfieldInfo->GetThisWarIndex(nWarfieldNo, g_dwCurrWeekElapsedSec);
@@ -3317,7 +3317,7 @@ void ProcessSquadMemberCount(t_packet* ReceivedPacket,t_packet* SendPacket)
 
 			SendPacket->h.header.type = CMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT;
 			SendPacket->u.NationWar.CheckSquadMemberCountR.cWarfieldNo = nWarfieldNo;
-			//< ÁöÇÏ ÀüÀïÅÍ ÀÌµ¿ Á¦ÇÑ ½Ã°£À» Mapserverconfig.ini¿¡¼­ ÀĞ¾î¿Í ºñ±³
+			//< ì§€í•˜ ì „ìŸí„° ì´ë™ ì œí•œ ì‹œê°„ì„ Mapserverconfig.iniì—ì„œ ì½ì–´ì™€ ë¹„êµ
 			CMapSetting cMapSetting = g_pcWarfieldInfo->GetMapSetting(nWarfieldNo);
 			int nLimitTime = cMapSetting.m_nUserEntranceLimitTime;
 			if ((nStatus != NW_WAR) || (dwTemp > nLimitTime))
@@ -3335,7 +3335,7 @@ void ProcessSquadMemberCount(t_packet* ReceivedPacket,t_packet* SendPacket)
 void ProcessNewWarfieldStatus(t_packet* ReceivedPacket,t_packet* SendPacket)
 {
 	SendPacket->h.header.type=CMD_ANSWER_NEW_WARFIELD_STATUS;
-	//< LTH-040209-KO ÁöÇÏÀüÀïÅÍ°¡ Ãß°¡µÇ¾î ºñ±³´ë»óÀ» ÇÏ³ª´õ ´Ã·È´Ù
+	//< LTH-040209-KO ì§€í•˜ì „ìŸí„°ê°€ ì¶”ê°€ë˜ì–´ ë¹„êµëŒ€ìƒì„ í•˜ë‚˜ë” ëŠ˜ë ¸ë‹¤
 	for (int i=0;MAX_NEW_WARFIELD + 1 > i ;i++)
 	{
 		if (i == 0)
@@ -3349,7 +3349,7 @@ void ProcessNewWarfieldStatus(t_packet* ReceivedPacket,t_packet* SendPacket)
 
 void ProcessNewWarfieldData(t_packet* ReceivedPacket,t_packet* SendPacket)
 {
-	//< LTH-040217-KO »õÀüÀïÅÍ¿¡¼­ ¼³¿øÀüÀïÅÍ¸¦ Á¦¿ÜÇÏ°í ´Ù¸¥ ÆĞÅ¶±¸Á¶Ã¼¸¦ Ã¤¿ö º¸³½´Ù
+	//< LTH-040217-KO ìƒˆì „ìŸí„°ì—ì„œ ì„¤ì›ì „ìŸí„°ë¥¼ ì œì™¸í•˜ê³  ë‹¤ë¥¸ íŒ¨í‚·êµ¬ì¡°ì²´ë¥¼ ì±„ì›Œ ë³´ë‚¸ë‹¤
 	INT nWarfieldNo = ReceivedPacket->u.NationWar.CommonDataC.Data;
 	if (IsNeoWarfield(nWarfieldNo))
 	{
@@ -3368,7 +3368,7 @@ void ProcessNewWarfieldData(t_packet* ReceivedPacket,t_packet* SendPacket)
 		SendPacket->h.header.type=CMD_ANSWER_NEW_WARFIELD_DATA;
 		
 		SendPacket->u.NationWar.NWarfieldData1.RemainTime=g_pNewWarfield->GetRemainTime();
-		SendPacket->u.NationWar.NWarfieldData1.nWarfieldNo = nWarfieldNo;	// LTH-040311-KO ÇÊ¿äÇØ¼­ ½Ç¾îº¸³½´Ù.
+		SendPacket->u.NationWar.NWarfieldData1.nWarfieldNo = nWarfieldNo;	// LTH-040311-KO í•„ìš”í•´ì„œ ì‹¤ì–´ë³´ë‚¸ë‹¤.
 		lpGuard=g_pNewWarfield->GetGuard(0);
 		lpGuard->GetStatus((char*)&SendPacket->u.NationWar.NWarfieldData1.GuardStatus[0]);
 		lpGuard=g_pNewWarfield->GetGuard(1);
@@ -3403,7 +3403,7 @@ void RecvCMD_REQUEST_DELIVERY(t_packet *p, t_connection c[], const int cn)
 			SendCMD_ANSWER_DELIVERY(UserID,MapServerPort,&SendPacket);
 			break;
 		
-		case CMD_VOTING_DATA :						//¼±°Å±â°£ÀÌ ¾Æ´Ï¶ó¸é? LTS TEMP
+		case CMD_VOTING_DATA :						//ì„ ê±°ê¸°ê°„ì´ ì•„ë‹ˆë¼ë©´? LTS TEMP
 			g_pNation->IncVoteData(tempPacket.u.NationWar.CommonDataC.Data);
 			break;
 		
@@ -3513,20 +3513,20 @@ void RecvCMD_ANSWER_DELIVERY(t_packet *p, t_connection c[], const int cn)
 	t_packet	tempPacket;
 	memcpy((char*)&tempPacket,p->u.NationWar.Delivery_A.Data,p->u.NationWar.Delivery_A.Size);
 
-	switch (tempPacket.h.header.type)		// ¸Ê¼­¹ö¿¡ ¼¼ÆÃÇØ¾ß µÇ´Â Á¤º¸°¡ ÀÖ´Â °æ¿ì 
+	switch (tempPacket.h.header.type)		// ë§µì„œë²„ì— ì„¸íŒ…í•´ì•¼ ë˜ëŠ” ì •ë³´ê°€ ìˆëŠ” ê²½ìš° 
 	{
 	case CMD_YOU_ARE_SQUAD_LEADER :
 		{
 			t_WarBBS WarBBS;
 			c[UserID].chrlst.NWCharacter.isSquadLeader=1;
-			if (c[UserID].chrlst.name_status.nation==NW_YL)		// ÀÏ½ºÀÇ °æ¿ì ¸ÊÀÌµ¿½Ã °ø°İÀÚ¿Í ¹æ¾îÀÚ¸¦ ±¸ºĞÇÏ±â À§ÇØ.
+			if (c[UserID].chrlst.name_status.nation==NW_YL)		// ì¼ìŠ¤ì˜ ê²½ìš° ë§µì´ë™ì‹œ ê³µê²©ìì™€ ë°©ì–´ìë¥¼ êµ¬ë¶„í•˜ê¸° ìœ„í•´.
 			{
-				c[UserID].chrlst.NWCharacter.YL_JoinNation=tempPacket.u.NationWar.JoinSquad.Nation;	// Á¶ÀÎÇØ¾ßÇÒ ±¹ÀûÀ» ¹Ş¾Ò´Ù.
+				c[UserID].chrlst.NWCharacter.YL_JoinNation=tempPacket.u.NationWar.JoinSquad.Nation;	// ì¡°ì¸í•´ì•¼í•  êµ­ì ì„ ë°›ì•˜ë‹¤.
 			}
 			c[UserID].chrlst.NWCharacter.WarfieldNo=tempPacket.u.NationWar.JoinSquad.WarfieldNo;
 			c[UserID].chrlst.NWCharacter.SquadNo=tempPacket.u.NationWar.JoinSquad.SquadNo;
 
-			WarBBS.WarfieldNo=p->u.NationWar.JoinSquad.WarfieldNo;			// ÀüÀï¼­¹ö¿¡ ÀÖÀ¸¸é ºÎ´ëÀåÀÌ µÇ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+			WarBBS.WarfieldNo=p->u.NationWar.JoinSquad.WarfieldNo;			// ì „ìŸì„œë²„ì— ìˆìœ¼ë©´ ë¶€ëŒ€ì¥ì´ ë˜ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
 			WarBBS.BBSType=BBS_SQUADLEADER_ELECT;
 			WarBBS.LanNo=0;
 			WarBBS.ArgType=BBS_ALPHA;
@@ -3535,34 +3535,34 @@ void RecvCMD_ANSWER_DELIVERY(t_packet *p, t_connection c[], const int cn)
 			SendWarBBS2Clients(&WarBBS);
 		}
 		break;
-	//case CMD_CHANGE_SQUAD :	//ÆĞÅ¶ÀÌ ¿ÀÁö ¾Ê´Â´Ù.. Changeµµ JoinÀ¸·Î º¯È¯µÇ¾î ¿Â´Ù.
+	//case CMD_CHANGE_SQUAD :	//íŒ¨í‚·ì´ ì˜¤ì§€ ì•ŠëŠ”ë‹¤.. Changeë„ Joinìœ¼ë¡œ ë³€í™˜ë˜ì–´ ì˜¨ë‹¤.
 	case CMD_JOIN_SQUAD :
-		if (c[UserID].chrlst.name_status.nation==NW_YL)		// ÀÏ½ºÀÇ °æ¿ì ¸ÊÀÌµ¿½Ã °ø°İÀÚ¿Í ¹æ¾îÀÚ¸¦ ±¸ºĞÇÏ±â À§ÇØ.
+		if (c[UserID].chrlst.name_status.nation==NW_YL)		// ì¼ìŠ¤ì˜ ê²½ìš° ë§µì´ë™ì‹œ ê³µê²©ìì™€ ë°©ì–´ìë¥¼ êµ¬ë¶„í•˜ê¸° ìœ„í•´.
 		{
-			c[UserID].chrlst.NWCharacter.YL_JoinNation=tempPacket.u.NationWar.JoinSquad.Nation; // Á¶ÀÎÇØ¾ßÇÒ ±¹ÀûÀ» ¹Ş¾Ò´Ù.
+			c[UserID].chrlst.NWCharacter.YL_JoinNation=tempPacket.u.NationWar.JoinSquad.Nation; // ì¡°ì¸í•´ì•¼í•  êµ­ì ì„ ë°›ì•˜ë‹¤.
 		}
 		c[UserID].chrlst.NWCharacter.WarfieldNo=tempPacket.u.NationWar.JoinSquad.WarfieldNo;
 		c[UserID].chrlst.NWCharacter.SquadNo=tempPacket.u.NationWar.JoinSquad.SquadNo;
 		break;
 	case CMD_CHECK_WARFIELD_NATION_MEMBERCOUNT :
-		if (tempPacket.u.NationWar.CheckNationMemberCountR.Result)	// ¸ÊÀÌµ¿ Çã¶ô 
+		if (tempPacket.u.NationWar.CheckNationMemberCountR.Result)	// ë§µì´ë™ í—ˆë½ 
 		{
 			CallNWMapMove(tempPacket.u.NationWar.CheckNationMemberCountR.WarfieldNo,c,UserID);
 		}
-		else														// ¸ÊÀÌµ¿ ºÒ°¡
+		else														// ë§µì´ë™ ë¶ˆê°€
 		{
-			SendCMD_NW_MAP_MOVE_FAIL(c,UserID,5);	// ¸ÊÀÌµ¿ ÀÎ¿øÀÌ ÃÊ°úµÇ¾úÀ½	
+			SendCMD_NW_MAP_MOVE_FAIL(c,UserID,5);	// ë§µì´ë™ ì¸ì›ì´ ì´ˆê³¼ë˜ì—ˆìŒ	
 		}
 		break;
 
 	//< LTH-040209-KO
 	case CMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT:
-		if (tempPacket.u.NationWar.CheckSquadMemberCountR.cResult)	// ¸ÊÀÌµ¿ Çã¶ô
+		if (tempPacket.u.NationWar.CheckSquadMemberCountR.cResult)	// ë§µì´ë™ í—ˆë½
 		{
 			CallNWMapMove(tempPacket.u.NationWar.CheckSquadMemberCountR.cWarfieldNo, c, UserID);
 		}
-		else														// ¸ÊÀÌµ¿ ºÒ°¡
-			SendCMD_NW_MAP_MOVE_FAIL(c, UserID, 7);	// "ÀüÀïÀÌ ½ÃÀÛµÈÁö 30ºĞÀÌ Áö³ª ÀÌµ¿ÇÒ ¼ö ¾ø½À´Ï´Ù"
+		else														// ë§µì´ë™ ë¶ˆê°€
+			SendCMD_NW_MAP_MOVE_FAIL(c, UserID, 7);	// "ì „ìŸì´ ì‹œì‘ëœì§€ 30ë¶„ì´ ì§€ë‚˜ ì´ë™í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤"
 		break;
 	//> LTH-040209-KO
 	}
@@ -3579,7 +3579,7 @@ void SendCMD_REQUEST_DELIVERY(t_packet *p, t_connection c[], const int cn)
 	packet.u.NationWar.Delivery_R.UserID=cn;
 	packet.u.NationWar.Delivery_R.Size=sizeof(t_header)+p->h.header.size;
 	memcpy(packet.u.NationWar.Delivery_R.Data,(char*)p,packet.u.NationWar.Delivery_R.Size);
-	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.NationWar.Delivery_R.Size;  //100Àº ¹öÆÛÀÇ ¼öÀÌ´Ù. MAX_STRING_PK (NetWork4.h)//020903 lsw
+	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.NationWar.Delivery_R.Size;  //100ì€ ë²„í¼ì˜ ìˆ˜ì´ë‹¤. MAX_STRING_PK (NetWork4.h)//020903 lsw
 	g_pServerTable->SendRajaPacketToOtherMapServer( NATION_MANAGE_SERVER, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
@@ -3593,7 +3593,7 @@ void SendCMD_REQUEST_DELIVERY_NOTICE(t_packet *p, t_connection c[], const int cn
 	packet.u.NationWar.Delivery_Notice.Nation=c[cn].chrlst.name_status.nation;
 	packet.u.NationWar.Delivery_Notice.Size=sizeof(t_header)+p->h.header.size;
 	memcpy(packet.u.NationWar.Delivery_Notice.Data,(char*)p,packet.u.NationWar.Delivery_Notice.Size);
-	packet.h.header.size=sizeof(t_Delivery_Notice)-MAX_STRING_PK+packet.u.NationWar.Delivery_Notice.Size;  //100Àº ¹öÆÛÀÇ ¼öÀÌ´Ù. MAX_STRING_PK (NetWork4.h)//020903 lsw
+	packet.h.header.size=sizeof(t_Delivery_Notice)-MAX_STRING_PK+packet.u.NationWar.Delivery_Notice.Size;  //100ì€ ë²„í¼ì˜ ìˆ˜ì´ë‹¤. MAX_STRING_PK (NetWork4.h)//020903 lsw
 	g_pServerTable->SendRajaPacketToOtherMapServer( NATION_MANAGE_SERVER, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
@@ -3621,12 +3621,12 @@ void RecvCMD_VOTING_DATA(t_packet *p, t_connection c[], const int cn)
 		return;
 	}
 	
-	ch->NWCharacter.DoWarJoinVote=true; // ÅõÇ¥Çß´Ù°í ±â·Ï
+	ch->NWCharacter.DoWarJoinVote=true; // íˆ¬í‘œí–ˆë‹¤ê³  ê¸°ë¡
 
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		g_pNation->IncVoteData(p->u.NationWar.CommonDataC.Data);
-		//MyLog(1,"%d¹ø ±¹°¡ÀÇ ÀüÀïÅõÇ¥°¡ %dÀÔ´Ï´Ù.",p->u.NationWar.CommonDataC.Data,g_pNation->GetVoteData(p->u.NationWar.CommonDataC.Data));
+		//MyLog(1,"%dë²ˆ êµ­ê°€ì˜ ì „ìŸíˆ¬í‘œê°€ %dì…ë‹ˆë‹¤.",p->u.NationWar.CommonDataC.Data,g_pNation->GetVoteData(p->u.NationWar.CommonDataC.Data));
 	}
 	else 
 	{
@@ -3637,7 +3637,7 @@ void RecvCMD_VOTING_DATA(t_packet *p, t_connection c[], const int cn)
 void RecvCMD_REQUEST_VOTE_RESULT(t_packet *p, t_connection c[], const int cn )
 {
 	t_packet packet;
-	WORD MapServerPort=p->u.NationWar.CommonDataC.Data+5991; //³ªÁß¿¡ ¹Ù²ÙÀÚ. 
+	WORD MapServerPort=p->u.NationWar.CommonDataC.Data+5991; //ë‚˜ì¤‘ì— ë°”ê¾¸ì. 
 
 	packet.h.header.type=CMD_ANSWER_VOTE_RESULT;
 	packet.u.NationWar.VoteData.WarfieldNo=p->u.NationWar.CommonDataC.Data;
@@ -3650,7 +3650,7 @@ void RecvCMD_REQUEST_SQUAD_INFO(t_packet *p, t_connection c[], const int cn )
 {
 	t_packet packet;
 
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		ProcessCMD_REQUEST_SQUAD_INFO(&packet,p);
 		QueuePacket(c,cn,&packet,1);
@@ -3670,10 +3670,10 @@ void RecvCMD_REQUEST_COMMANDER_VOTE_DATA( t_packet *p, t_connection c[], const i
 	const int WarfieldNo=p->u.NationWar.RequestCommanderVoteData.WarfieldNo;
 	const int CandidaterNo=p->u.NationWar.RequestCommanderVoteData.CandidaterNo;
 
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		t_CommanderInformation* tempCandidaterInfo;
-		tempCandidaterInfo=g_pNation->GetCandidaterInfo(Nation,WarfieldNo,CandidaterNo); //½ºÄõµå¹øÈ£¸¦ ³ªÅ¸³»´Â ±¸Á¶Ã¼°¡ ¾ø´Ù.. µÇ¸é ¸¸µéÀÚ..
+		tempCandidaterInfo=g_pNation->GetCandidaterInfo(Nation,WarfieldNo,CandidaterNo); //ìŠ¤ì¿¼ë“œë²ˆí˜¸ë¥¼ ë‚˜íƒ€ë‚´ëŠ” êµ¬ì¡°ì²´ê°€ ì—†ë‹¤.. ë˜ë©´ ë§Œë“¤ì..
 		packet1.h.header.type=CMD_ANSWER_COMMANDER_VOTE_DATA;
         packet1.u.NationWar.CommanderVoteData.VoteNo=CandidaterNo;
 		packet1.u.NationWar.CommanderVoteData.CandidaterID=tempCandidaterInfo->CO_ID;
@@ -3727,7 +3727,7 @@ void RecvCMD_COMMANDER_VOTING_DATA(t_packet *p, t_connection c[], const int cn )
 		return;
 	}
 	ch->NWCharacter.DoCommanderVote=true;
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		g_pNation->IncCommanderVoteData(
 			p->u.NationWar.RequestCommanderVoteData.Nation,
@@ -3740,7 +3740,7 @@ void RecvCMD_COMMANDER_VOTING_DATA(t_packet *p, t_connection c[], const int cn )
 	}
 }
 
-void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸®¾ğÆ®¿¡°Ô¼­ ¹Ş¾Ò´Ù.
+void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// í´ë¼ë¦¬ì–¸íŠ¸ì—ê²Œì„œ ë°›ì•˜ë‹¤.
 {
 	t_packet packet;
 
@@ -3748,18 +3748,18 @@ void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸
 	const int WarfieldNo=p->u.NationWar.JoinSquad.WarfieldNo;
 	const int SquadNo=p->u.NationWar.JoinSquad.SquadNo;
 
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
-		if (!CheckJoinLevel(SquadNo,c,cn)) return;		// 011015 LTS //Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¸·¾Ò´Ù.
+		if (!CheckJoinLevel(SquadNo,c,cn)) return;		// 011015 LTS //í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë§‰ì•˜ë‹¤.
 
 		const int SquadMemberCount=g_pNation->GetSquadMemberCount(Nation,WarfieldNo,SquadNo);
 
 		if (SquadMemberCount>0)
 		{
-			if (CheckJoinSquadCondition(SquadNo,SquadMemberCount))		// ´Ü¼øÈ÷ ºÎ´ëÀÇ Æí¼º Á¶°ÇÀ» µûÁø´Ù.
+			if (CheckJoinSquadCondition(SquadNo,SquadMemberCount))		// ë‹¨ìˆœíˆ ë¶€ëŒ€ì˜ í¸ì„± ì¡°ê±´ì„ ë”°ì§„ë‹¤.
 			{
 				g_pNation->IncSquadMemberCount(Nation,WarfieldNo,SquadNo);
-				if (c[cn].chrlst.name_status.nation==NW_YL)	c[cn].chrlst.NWCharacter.YL_JoinNation=GetYL_JoinNation();// À¯Àú°¡ Áö¿ø±ºÀÌ¸é..	// 011020 LTS
+				if (c[cn].chrlst.name_status.nation==NW_YL)	c[cn].chrlst.NWCharacter.YL_JoinNation=GetYL_JoinNation();// ìœ ì €ê°€ ì§€ì›êµ°ì´ë©´..	// 011020 LTS
 				c[cn].chrlst.NWCharacter.WarfieldNo=WarfieldNo;
 				c[cn].chrlst.NWCharacter.SquadNo=SquadNo;
 			}
@@ -3771,14 +3771,14 @@ void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸
 				QueuePacket(c,cn,&packet,1);
 			}
 		}
-		else //ºÎ´ëÀåÀÌµÈ´Ù // ºÎ´ëÀåÀÌ µÇ¾ú´Ù°í ÆĞÅ¶À» º¸³½´Ù.
+		else //ë¶€ëŒ€ì¥ì´ëœë‹¤ // ë¶€ëŒ€ì¥ì´ ë˜ì—ˆë‹¤ê³  íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 		{
-			if (!CheckJoinLevel(SquadNo,c,cn)) return;		// 011015 LTS //Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¸·¾Ò´Ù.
+			if (!CheckJoinLevel(SquadNo,c,cn)) return;		// 011015 LTS //í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë§‰ì•˜ë‹¤.
 			if (CheckCharSquadLeaderCondition(c,cn))
 			{
 				t_WarBBS WarBBS;
 				t_CommanderInformation SquadLeaderInfo;
-				g_pNation->IncSquadMemberCount(Nation,WarfieldNo,SquadNo);					// ºÎ´ëÀÇ Á¾·ù¿¡ µû¸¥´Ù °ø°İÀÚ, ¹æ¾îÀÚ, Áö¿ø±º 
+				g_pNation->IncSquadMemberCount(Nation,WarfieldNo,SquadNo);					// ë¶€ëŒ€ì˜ ì¢…ë¥˜ì— ë”°ë¥¸ë‹¤ ê³µê²©ì, ë°©ì–´ì, ì§€ì›êµ° 
 
 				SquadLeaderInfo.CO_ID=1;
 				memcpy(SquadLeaderInfo.CO_Name,c[cn].name,NW_NAME_MAX);
@@ -3790,15 +3790,15 @@ void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸
 				SquadLeaderInfo.nDual=c[cn].chrlst.GetDualClass();			// 011020 LTS
 				SquadLeaderInfo.nStep=c[cn].chrlst.GetClassStep();			// 011020 LTS
 				SquadLeaderInfo.LadderScore=c[cn].chrlst.LadderScore;
-				g_pNation->SetSquadLeader(Nation,WarfieldNo,SquadNo,&SquadLeaderInfo);		// ºÎ´ëÀÇ Á¾·ù¿¡ ¸Â°Ô ½ºÄõµå ¸®´õ¸¦ Á¤ÇÑ´Ù.
+				g_pNation->SetSquadLeader(Nation,WarfieldNo,SquadNo,&SquadLeaderInfo);		// ë¶€ëŒ€ì˜ ì¢…ë¥˜ì— ë§ê²Œ ìŠ¤ì¿¼ë“œ ë¦¬ë”ë¥¼ ì •í•œë‹¤.
 
-				packet.h.header.type=CMD_YOU_ARE_SQUAD_LEADER; //ÀüÀï¹øÈ£°¡ ÇÊ¿äÇÏ´Ù..
+				packet.h.header.type=CMD_YOU_ARE_SQUAD_LEADER; //ì „ìŸë²ˆí˜¸ê°€ í•„ìš”í•˜ë‹¤..
 				if (c[cn].chrlst.name_status.nation==NW_YL) // 011020 LTS
 				{
 					packet.u.NationWar.JoinSquad.Nation=GetYL_JoinNation();	// 011020 LTS
 					c[cn].chrlst.NWCharacter.YL_JoinNation=packet.u.NationWar.JoinSquad.Nation;
 				}
-				else packet.u.NationWar.JoinSquad.Nation=Nation;		// ÀÏ½ºÀÇ ºÎ´ëÆí¼º ¶§¹®ÀÌ´Ù.
+				else packet.u.NationWar.JoinSquad.Nation=Nation;		// ì¼ìŠ¤ì˜ ë¶€ëŒ€í¸ì„± ë•Œë¬¸ì´ë‹¤.
 				packet.u.NationWar.JoinSquad.WarfieldNo=WarfieldNo;
 				packet.u.NationWar.JoinSquad.SquadNo=SquadNo;
 				packet.h.header.size=sizeof(t_JoinSquad);
@@ -3808,7 +3808,7 @@ void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸
 				c[cn].chrlst.NWCharacter.WarfieldNo=WarfieldNo;
 				c[cn].chrlst.NWCharacter.SquadNo=SquadNo;
 
-				WarBBS.WarfieldNo=p->u.NationWar.JoinSquad.WarfieldNo;			// ÀüÀï¼­¹ö¿¡ ÀÖÀ¸¸é ºÎ´ëÀåÀÌ µÇ¾ú´Ù°í ¾Ë·ÁÁØ´Ù.
+				WarBBS.WarfieldNo=p->u.NationWar.JoinSquad.WarfieldNo;			// ì „ìŸì„œë²„ì— ìˆìœ¼ë©´ ë¶€ëŒ€ì¥ì´ ë˜ì—ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
 				WarBBS.BBSType=BBS_SQUADLEADER_ELECT;
 				WarBBS.LanNo=0;
 				WarBBS.ArgType=BBS_ALPHA;
@@ -3816,7 +3816,7 @@ void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸
 				memcpy(WarBBS.Arg,c[cn].name,WarBBS.Size);
 				SendWarBBS2Clients(&WarBBS);
 			}
-			else			//ºÎ´ëÀå µî·Ï Á¶°ÇÀÌ ¾ÈµÃ´Ù
+			else			//ë¶€ëŒ€ì¥ ë“±ë¡ ì¡°ê±´ì´ ì•ˆë¤ë‹¤
 			{
 				packet.h.header.type=CMD_SQUAD_JOIN_RESULT;
 				packet.u.NationWar.CommonDataC.Data=2;
@@ -3859,7 +3859,7 @@ void RecvCMD_JOIN_SQUAD( t_packet *p, t_connection c[], const int cn )		// Å¬¶ó¸
 
 void RecvCMD_CHANGE_SQUAD(t_packet *p, t_connection c[], const int cn )
 {
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		g_pNation->IncSquadMemberCount(
 			p->u.NationWar.ChangeSquad.Nation,
@@ -3887,7 +3887,7 @@ void RecvCMD_CHANGE_SQUAD(t_packet *p, t_connection c[], const int cn )
 
 void RecvCMD_SET_SQUAD_LOADING_POINT(t_packet *p, t_connection c[], const int cn )
 {
-	if (isNationManageServer())	//ÆĞÅ¶ ÀÚµ¿ º¸³»±â¿¡ ÀÇÇØ ¹«Áö¸·Áö ¿Ã¶ó°¥¼ö ÀÖ´Ù.
+	if (isNationManageServer())	//íŒ¨í‚· ìë™ ë³´ë‚´ê¸°ì— ì˜í•´ ë¬´ì§€ë§‰ì§€ ì˜¬ë¼ê°ˆìˆ˜ ìˆë‹¤.
 	{
 		t_packet packet;
 		ProcessCMD_SET_SQUAD_LOADING_POINT(&packet,p);
@@ -3918,20 +3918,20 @@ void RecvCMD_REQUEST_COMMANDER_REG_DATA(t_packet *p, t_connection c[], const int
 	t_packet packet;
 	t_packet SendPacket;
 
-	if (isNationManageServer())			//±¹°¡Àü°ü¸® ¼­¹öÀÎ°¡?
+	if (isNationManageServer())			//êµ­ê°€ì „ê´€ë¦¬ ì„œë²„ì¸ê°€?
 	{
 		if (CheckCharCommanderCondition(c,cn))
 		{
-			const int Nation=p->u.NationWar.RequestCommanderVoteData.Nation;			// ¿ø·¡ Voteµ¥ÀÌÅÍ·Î µé¾î¿Â´Ù
+			const int Nation=p->u.NationWar.RequestCommanderVoteData.Nation;			// ì›ë˜ Voteë°ì´í„°ë¡œ ë“¤ì–´ì˜¨ë‹¤
 			const int WarfieldNo=p->u.NationWar.RequestCommanderVoteData.WarfieldNo;
 			const int CandidaterNo=p->u.NationWar.RequestCommanderVoteData.CandidaterNo;
 
 			const bool bCanReg=g_pNation->CanRegCommanderCandidater(Nation,WarfieldNo,CandidaterNo);
 
-			if (bCanReg) // µî·ÏÇÒ ¼ö ÀÖ´Ù¸é.... ·£¿¡¼­´Â ÀÌ¹Ì ´©°¡ Á¤º¸¸¦ °»½ÅÇßÀ» ¼ö ÀÖ´Ù. 
+			if (bCanReg) // ë“±ë¡í•  ìˆ˜ ìˆë‹¤ë©´.... ëœì—ì„œëŠ” ì´ë¯¸ ëˆ„ê°€ ì •ë³´ë¥¼ ê°±ì‹ í–ˆì„ ìˆ˜ ìˆë‹¤. 
 			{
 				t_CommanderInformation		tempCommanderInformation;
-				tempCommanderInformation.CO_ID=1;					//³»¿ëÀúÀå
+				tempCommanderInformation.CO_ID=1;					//ë‚´ìš©ì €ì¥
 				strcpy(tempCommanderInformation.CO_Name,c[cn].chrlst.Name);
 				tempCommanderInformation.btLevel=c[cn].chrlst.GetLevel(); // CSD-030806
 				tempCommanderInformation.Fame=c[cn].chrlst.fame;
@@ -3944,14 +3944,14 @@ void RecvCMD_REQUEST_COMMANDER_REG_DATA(t_packet *p, t_connection c[], const int
 				g_pNation->SetCandidaterInfo(Nation,WarfieldNo,CandidaterNo,&tempCommanderInformation);
 
 				packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA;  
-				packet.u.NationWar.CommonDataC.Data=1;				//µî·ÏÇß´Ù´Â ¸Ş½ÃÁö Àü¼Û
+				packet.u.NationWar.CommonDataC.Data=1;				//ë“±ë¡í–ˆë‹¤ëŠ” ë©”ì‹œì§€ ì „ì†¡
 				packet.h.header.size=sizeof(t_CommonDataC);
 				QueuePacket(c,cn,&packet,1);
 				c[cn].chrlst.NWCharacter.isCommanderCandidater=true;
 			}
 			else
 			{
-				packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; //ÀÌ¹Ì µî·ÏµÇ¾ú´Ù°í ¹İ¼Û
+				packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; //ì´ë¯¸ ë“±ë¡ë˜ì—ˆë‹¤ê³  ë°˜ì†¡
 				packet.u.NationWar.CommonDataC.Data=0;
 				packet.h.header.size=sizeof(t_CommonDataC);
 				QueuePacket(c,cn,&packet,1);
@@ -3960,7 +3960,7 @@ void RecvCMD_REQUEST_COMMANDER_REG_DATA(t_packet *p, t_connection c[], const int
 		}
 		else
 		{
-			packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; // ´É·ÂÄ¡ ºÎÁ·ÀÌ¶ó°í Àü¼Û 
+			packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; // ëŠ¥ë ¥ì¹˜ ë¶€ì¡±ì´ë¼ê³  ì „ì†¡ 
 			packet.u.NationWar.CommonDataC.Data=2;				
 			packet.h.header.size=sizeof(t_CommonDataC);
 			QueuePacket(c,cn,&packet,1);
@@ -3990,7 +3990,7 @@ void RecvCMD_REQUEST_COMMANDER_REG_DATA(t_packet *p, t_connection c[], const int
 			}
 			else
 			{
-				packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; // ´É·ÂÄ¡ ºÎÁ·ÀÌ¶ó°í Àü¼Û 
+				packet.h.header.type=CMD_ANSWER_COMMANDER_REG_DATA; // ëŠ¥ë ¥ì¹˜ ë¶€ì¡±ì´ë¼ê³  ì „ì†¡ 
 				packet.u.NationWar.CommonDataC.Data=2;				
 				packet.h.header.size=sizeof(t_CommonDataC);
 				QueuePacket(c,cn,&packet,1);
@@ -4028,7 +4028,7 @@ void RecvCMD_NATION_WAR_COUNT(t_packet *p, t_connection c[], const int cn )
 	else SendCMD_REQUEST_DELIVERY(p,c,cn);
 }
 
-void SendCMD_CHANGED_WARFIELD_STATUS()   // Nation Manage Server-> ¸Ê¼­¹ö ¸¸ º¸³½´Ù.
+void SendCMD_CHANGED_WARFIELD_STATUS()   // Nation Manage Server-> ë§µì„œë²„ ë§Œ ë³´ë‚¸ë‹¤.
 {
 	t_packet packet;
 	int i = 0, WarCount= 0;
@@ -4042,14 +4042,14 @@ void SendCMD_CHANGED_WARFIELD_STATUS()   // Nation Manage Server-> ¸Ê¼­¹ö ¸¸ º¸³
 	packet.u.NationWar.WarfieldStatusM.WarNo=WarCount;
 	for (i=0;i<NW_WARFIELD_COUNT;i++)
 	{
-		g_pWarfieldStatus[i].Status=g_pNation->GetWarfieldStatus(i);  //³»°Í ¼¼ÆÃ...
+		g_pWarfieldStatus[i].Status=g_pNation->GetWarfieldStatus(i);  //ë‚´ê²ƒ ì„¸íŒ…...
 		packet.u.NationWar.WarfieldStatusM.Status[i]=g_pNation->GetWarfieldStatus(i);
 	}
 	packet.h.header.size=sizeof(t_WarfieldStatus);
 
 	g_pServerTable->BroadCastToEveryServer( (char*)&packet, (sizeof(t_header)+packet.h.header.size), SERVER_TYPE_MAP );
 
-	for(i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )			// °ü¸®¼­¹ö¿¡ ÀÖ´Â À¯Àú¸¦ À§ÇÑ ÀüÀï¹øÈ£ ¼¼ÆÃ 
+	for(i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )			// ê´€ë¦¬ì„œë²„ì— ìˆëŠ” ìœ ì €ë¥¼ ìœ„í•œ ì „ìŸë²ˆí˜¸ ì„¸íŒ… 
 	{
 		if (WarCount!=connections[i].chrlst.NWCharacter.WarNo)
 		{
@@ -4059,7 +4059,7 @@ void SendCMD_CHANGED_WARFIELD_STATUS()   // Nation Manage Server-> ¸Ê¼­¹ö ¸¸ º¸³
 	}
 }
 
-void RecvCMD_CHANGED_WARFIELD_STATUS(t_packet *p, t_connection c[], const int cn )	// ÀÏ¹İ¼­¹ö¿¡¼­ ¹Ş´Â´Ù.. ¸Ş´º ·ÎµùÆ÷ÀÎÆ® ¶«½Ã ±×·±´Ù..
+void RecvCMD_CHANGED_WARFIELD_STATUS(t_packet *p, t_connection c[], const int cn )	// ì¼ë°˜ì„œë²„ì—ì„œ ë°›ëŠ”ë‹¤.. ë©”ë‰´ ë¡œë”©í¬ì¸íŠ¸ ë•œì‹œ ê·¸ëŸ°ë‹¤..
 {	
 	int i = 0;
 	for (;i<NW_WARFIELD_COUNT;i++)
@@ -4067,7 +4067,7 @@ void RecvCMD_CHANGED_WARFIELD_STATUS(t_packet *p, t_connection c[], const int cn
 		g_pWarfieldStatus[i].Status=p->u.NationWar.WarfieldStatusM.Status[i];
 	}
 
-	for(i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )			// ÀüÀï¹øÈ£¸¦ °»½ÅÇÑ´Ù. ·Î±äÇØ ÀÖ´Â À¯Àú 
+	for(i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )			// ì „ìŸë²ˆí˜¸ë¥¼ ê°±ì‹ í•œë‹¤. ë¡œê¸´í•´ ìˆëŠ” ìœ ì € 
 	{
 		if (connections[i].chrlst.NWCharacter.WarNo!=p->u.NationWar.WarfieldStatusM.WarNo)
 		{
@@ -4077,13 +4077,13 @@ void RecvCMD_CHANGED_WARFIELD_STATUS(t_packet *p, t_connection c[], const int cn
 	}
 }
 
-void RecvCMD_MAP_NATION_CODE_CHANGED(t_packet *p, t_connection c[], const int cn )	// ¼­¹öÀÇ µ¿±âÈ­ ºÎºĞÀÌ´Ù.. MapInfo
+void RecvCMD_MAP_NATION_CODE_CHANGED(t_packet *p, t_connection c[], const int cn )	// ì„œë²„ì˜ ë™ê¸°í™” ë¶€ë¶„ì´ë‹¤.. MapInfo
 {
 	t_packet packet;
 
 	int i = 0;
 
-	if (isNationManageServer())   //°ü¸®¼­¹öÀÌ¸é.. ´Ù¸¥ ¸Ê¼­¹ö ¸ğµÎ¿¡°Ô º¸³½´Ù.
+	if (isNationManageServer())   //ê´€ë¦¬ì„œë²„ì´ë©´.. ë‹¤ë¥¸ ë§µì„œë²„ ëª¨ë‘ì—ê²Œ ë³´ë‚¸ë‹¤.
 	{
 		g_pNation->SetWarfieldNationCode(p->u.NationWar.WarfieldStatusChange.WarfieldNo,p->u.NationWar.WarfieldStatusChange.Status);
 		g_pWarfieldStatus[p->u.NationWar.WarfieldStatusChange.WarfieldNo].Possession=p->u.NationWar.WarfieldStatusChange.Status;
@@ -4099,7 +4099,7 @@ void RecvCMD_MAP_NATION_CODE_CHANGED(t_packet *p, t_connection c[], const int cn
 		QueuePacket(connections, DB_DEMON, &packet, 1);
 
 	}
-	else  //°ü¸®¼­¹ö·Î ºÎÅÍ ¹Ş¾Ò´Ù.
+	else  //ê´€ë¦¬ì„œë²„ë¡œ ë¶€í„° ë°›ì•˜ë‹¤.
 	{
 		g_pWarfieldStatus[p->u.NationWar.WarfieldStatusChange.WarfieldNo].Possession=p->u.NationWar.WarfieldStatusChange.Status;
 		for(i = 0 ;  i< MAX_MAP_ ; i ++ )
@@ -4112,17 +4112,17 @@ void RecvCMD_MAP_NATION_CODE_CHANGED(t_packet *p, t_connection c[], const int cn
 	}
 }
 
-void RecvCMD_REQUEST_TILE_DONT(t_packet *p, t_connection c[], const int cn ) //ÀüÀï¼­¼­¸¸ ÆĞÅ¶À» ¹Ş´Â´Ù. // ¸ÊÀÌµ¿À» Çß´Âµ¥ ÀüÀï¼­¹öÀÌ¸é ¹Ş´Â´Ù.
+void RecvCMD_REQUEST_TILE_DONT(t_packet *p, t_connection c[], const int cn ) //ì „ìŸì„œì„œë§Œ íŒ¨í‚·ì„ ë°›ëŠ”ë‹¤. // ë§µì´ë™ì„ í–ˆëŠ”ë° ì „ìŸì„œë²„ì´ë©´ ë°›ëŠ”ë‹¤.
 {
 	if (!isNationWarfieldServer()) return;
-	g_pWarfield->SendTileDont(p,c,cn); //ÀüÀï¼­¹ö¿¡ µé¾î¿À¸é ÇÑ¹ø º¸³»°í ±×ÈÄ CMD_TILE_DONT_CHANGED¸¦ ½ÇÇà 
+	g_pWarfield->SendTileDont(p,c,cn); //ì „ìŸì„œë²„ì— ë“¤ì–´ì˜¤ë©´ í•œë²ˆ ë³´ë‚´ê³  ê·¸í›„ CMD_TILE_DONT_CHANGEDë¥¼ ì‹¤í–‰ 
 	if (g_pWarfield->GetStatus()==NW_WAR) 
 	{
-		SendWarBeginEndMessage2Client(1,c,cn);		//ÀÌµ¿Çß´Âµ¥..ÀüÀïÁßÀÌ¸é.. ÀüÀïÀÌ ½ÃÀÛµÇ¾ú´Ù°í ¾Ë¸²..(°ø°İÀÚ, ¸ÊÀÌµ¿ ¹æ¾îÀÚ)
-		g_pWarfield->InsertSquadMember(cn,c[cn].chrlst.bAlive);	// ºÎ´ë¿¡ »ğÀÔÇÑ´Ù.		// ÀüÀï½ÃÀÛ ½ÃÁ¡¿¡ ºÎ´ë¿¡ Æí¼ºÀÌ µÇÁö ¾ÊÀº À¯Àú´Â 
+		SendWarBeginEndMessage2Client(1,c,cn);		//ì´ë™í–ˆëŠ”ë°..ì „ìŸì¤‘ì´ë©´.. ì „ìŸì´ ì‹œì‘ë˜ì—ˆë‹¤ê³  ì•Œë¦¼..(ê³µê²©ì, ë§µì´ë™ ë°©ì–´ì)
+		g_pWarfield->InsertSquadMember(cn,c[cn].chrlst.bAlive);	// ë¶€ëŒ€ì— ì‚½ì…í•œë‹¤.		// ì „ìŸì‹œì‘ ì‹œì ì— ë¶€ëŒ€ì— í¸ì„±ì´ ë˜ì§€ ì•Šì€ ìœ ì €ëŠ” 
 		g_pWarfield->IncNationMemberCount(c[cn].chrlst.name_status.nation);
-	}																					// ºÎ´ë ¸®½ºÆ®¿¡¼­µµ Áö¿öÁöÁö ¾Ê´Â´Ù(¾ø´Ù)
-	//< LTH-040528-KO ÆòÈ­±â°£ Áß¿¡ ÀÌµ¿ÇÑ´Ù¸é µ·Æ®¸¦ ¸ğµå ¾ø¾Ø´Ù.
+	}																					// ë¶€ëŒ€ ë¦¬ìŠ¤íŠ¸ì—ì„œë„ ì§€ì›Œì§€ì§€ ì•ŠëŠ”ë‹¤(ì—†ë‹¤)
+	//< LTH-040528-KO í‰í™”ê¸°ê°„ ì¤‘ì— ì´ë™í•œë‹¤ë©´ ëˆíŠ¸ë¥¼ ëª¨ë“œ ì—†ì•¤ë‹¤.
 	else
 		g_pWarfield->ClearCastleGateDont();
 	//> LTH-040528-KO
@@ -4139,19 +4139,19 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 	{
 		return;
 	}
-	char szAddExplain[20]={0,};	//»ç·É°ü ºÎ´ë¿ø ºÙÀ»²¨. 
+	char szAddExplain[20]={0,};	//ì‚¬ë ¹ê´€ ë¶€ëŒ€ì› ë¶™ì„êº¼. 
 
 	if (isNationWarfieldServer())
 	{
 		switch (p->u.NationWar.SquadChat.Type)
 		{
 		case 0 :	// "/*1"
-			if (!(ch->NWCharacter.isCommander||ch->NWCharacter.isSquadLeader)) return; //ºÎÀûÀıÇÑ »ç¿ë
+			if (!(ch->NWCharacter.isCommander||ch->NWCharacter.isSquadLeader)) return; //ë¶€ì ì ˆí•œ ì‚¬ìš©
 			if (ch->NWCharacter.isCommander) 
 			{
 				if(LocalMgr.IsAbleNation(KOREA))//030102 lsw Local
 				{
-					::sprintf(szAddExplain,"(»ç·É°ü)");
+					::sprintf(szAddExplain,"(ì‚¬ë ¹ê´€)");
 				}
 				else
 				{
@@ -4162,7 +4162,7 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 			{
 				if(LocalMgr.IsAbleNation(KOREA))//030102 lsw Local
 				{
-					::sprintf(szAddExplain,"(ºÎ´ëÀå)");
+					::sprintf(szAddExplain,"(ë¶€ëŒ€ì¥)");
 				}
 				else
 				{
@@ -4176,11 +4176,11 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 			{
 				if (!ch->NWCharacter.isCommander ) 
 				{
-					return;	// ºÎÀûÀı
+					return;	// ë¶€ì ì ˆ
 				}
 				if(LocalMgr.IsAbleNation(KOREA))//030102 lsw Local
 				{
-					::sprintf(szAddExplain,"(»ç·É°ü)");
+					::sprintf(szAddExplain,"(ì‚¬ë ¹ê´€)");
 				}
 				else
 				{
@@ -4191,11 +4191,11 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 			{
 				if (0 == ch->NWCharacter.SquadNo) 
 				{
-					return;	// 0¹øºÎ´ë´Â ºÎ´ë°¡ ¾Æ´Ô À¯ÀúÀÇ ¸ğÀÓÀÌ´Ù.
+					return;	// 0ë²ˆë¶€ëŒ€ëŠ” ë¶€ëŒ€ê°€ ì•„ë‹˜ ìœ ì €ì˜ ëª¨ì„ì´ë‹¤.
 				}
 				if(LocalMgr.IsAbleNation(KOREA))//030102 lsw Local
 				{
-					::sprintf(szAddExplain,"(ºÎ´ë¿ø)");
+					::sprintf(szAddExplain,"(ë¶€ëŒ€ì›)");
 				}
 				else
 				{
@@ -4204,7 +4204,7 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 			}break;
 		default:
 			{
-				return;//ÀÌ·± ½ºÅ¸ÀÏÀº ¾ø´Ù//020903 lsw
+				return;//ì´ëŸ° ìŠ¤íƒ€ì¼ì€ ì—†ë‹¤//020903 lsw
 			}break;
 		}
 	}
@@ -4212,7 +4212,7 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 	{
 		if(LocalMgr.IsAbleNation(KOREA))//030102 lsw Local
 		{
-			::sprintf(szAddExplain,"(ºÎ´ë¿ø)");
+			::sprintf(szAddExplain,"(ë¶€ëŒ€ì›)");
 		}
 		else
 		{
@@ -4223,11 +4223,11 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 	char tempMessage[MAX_STRING_PK+100] = {0,};
 
 	p->u.NationWar.SquadChat.Message[MAX_STRING_PK-1]= 0;
-	sprintf(tempMessage,"%s %s:%s",c[cn].name,szAddExplain, p->u.NationWar.SquadChat.Message);//ÀÌ¸§ Á÷Ã¥
+	sprintf(tempMessage,"%s %s:%s",c[cn].name,szAddExplain, p->u.NationWar.SquadChat.Message);//ì´ë¦„ ì§ì±…
 	
-	const int iMaxSize = MAX_STRING_PK;//ÀÌ°Ô ÆĞÅ¶¿¡ char ¹è¿­ Å©±â ÀÌ±â ¶§¹®ÀÌ´Ù
-	const int iNowSize = strlen(tempMessage)+1;//+1Àº ³Î ¹®ÀÚ
-	if( iMaxSize <= iNowSize)//±æÀÌ ±æ¸é ¸®ÅÏÀÌ´Ù
+	const int iMaxSize = MAX_STRING_PK;//ì´ê²Œ íŒ¨í‚·ì— char ë°°ì—´ í¬ê¸° ì´ê¸° ë•Œë¬¸ì´ë‹¤
+	const int iNowSize = strlen(tempMessage)+1;//+1ì€ ë„ ë¬¸ì
+	if( iMaxSize <= iNowSize)//ê¸¸ì´ ê¸¸ë©´ ë¦¬í„´ì´ë‹¤
 	{
 		return;
 	}
@@ -4243,7 +4243,7 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 	{
 		switch(packet.u.NationWar.SquadChat.Type)
 		{
-		case 0 : // "/*1" // »ç·É°ü,ºÎ´ëÀå¿¡°Ô.. º¸³¿..
+		case 0 : // "/*1" // ì‚¬ë ¹ê´€,ë¶€ëŒ€ì¥ì—ê²Œ.. ë³´ëƒ„..
 			if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,c,cn)) 
 			{
 				g_pWarfield->SendSquadMessage(NW_COMMANDER,NW_ATTACKER,&packet);
@@ -4253,7 +4253,7 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 				g_pWarfield->SendSquadMessage(NW_COMMANDER,NW_DEFENCER,&packet);
 			}
 			break;
-		case 1 : // "/*2" // ºÎ´ë ÀüÃ¼¿¡°Ô º¸³¿.. 0¹ø ºÎ´ë Á¦¿Ü
+		case 1 : // "/*2" // ë¶€ëŒ€ ì „ì²´ì—ê²Œ ë³´ëƒ„.. 0ë²ˆ ë¶€ëŒ€ ì œì™¸
 			if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,c,cn))
 			{
 				for (int i=1;i<NW_SQUAD_MAX;i++) 
@@ -4269,7 +4269,7 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 				}
 			}
 			break;
-		case 2 : // "/*3" // ÀüÀïÅÍ¿¡ ÀÖ´Â ÀÚ±¹¹Î ÀüÃ¼¿¡°Ô º¸³¿
+		case 2 : // "/*3" // ì „ìŸí„°ì— ìˆëŠ” ìêµ­ë¯¼ ì „ì²´ì—ê²Œ ë³´ëƒ„
 			if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,c,cn))
 			{
 				for (int i=0;i<NW_SQUAD_MAX;i++) 
@@ -4285,20 +4285,20 @@ void RecvCMD_SQUAD_CHAT(t_packet *p, t_connection c[], const int cn )
 				}
 			}
 			break;
-		case 3 : // "/*4" // ÀÚ±¹¹Î ÀüÃ¼¿¡°Ô º¸³½´Ù. 
+		case 3 : // "/*4" // ìêµ­ë¯¼ ì „ì²´ì—ê²Œ ë³´ë‚¸ë‹¤. 
 			{
 				t_WarBBS tempWarBBS;
 
 				tempWarBBS.WarfieldNo=g_wMapServerPort-BASE_WARFIELD_PORT;
 				tempWarBBS.BBSType=BBS_COMMANDER_CHAT;
 				tempWarBBS.LanNo=0;
-				tempWarBBS.ArgType=BBS_ALPHA;	//¹®ÀÚ¿­
+				tempWarBBS.ArgType=BBS_ALPHA;	//ë¬¸ìì—´
 				tempWarBBS.Size=strlen(tempMessage);
 				memcpy(tempWarBBS.Arg,tempMessage,tempWarBBS.Size);
 				SendWarBBS2NationMaps(c[cn].chrlst.name_status.nation,&tempWarBBS);
 			}
 			break;
-		case 4 :	// "/*"	//ºÎ´ë¿ø Ã¤ÆÃ 
+		case 4 :	// "/*"	//ë¶€ëŒ€ì› ì±„íŒ… 
 			packet.u.NationWar.SquadChat.Type=4;
 			if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,c,cn)) 
 			{
@@ -4339,7 +4339,7 @@ void RecvCMD_CLEAR_SQUAD_DATA( t_packet *p, t_connection c[], const int cn )
 {	//< CSD-CN-031213
 	if (isNationManageServer())
 	{
-		SendPacket2Maps(p);				// ¸Ê¼­¹ö¿¡°Ô º¸³»°í 
+		SendPacket2Maps(p);				// ë§µì„œë²„ì—ê²Œ ë³´ë‚´ê³  
 	}
 
 	ClearSquadData();
@@ -4380,7 +4380,7 @@ void SendCMD_ANSWER_COMMANDER_VOTING_RESULT(const int WarfieldNo,const int Kind,
 	
 	if (Commander->CO_ID==1)
 	{
-		sprintf(tempMessage,"%s",Commander->CO_Name);			// »ç·É°üÀÇ ¸§¸¸ º¹»çÇØ ÁØ´Ù.
+		sprintf(tempMessage,"%s",Commander->CO_Name);			// ì‚¬ë ¹ê´€ì˜ ë¦„ë§Œ ë³µì‚¬í•´ ì¤€ë‹¤.
 		
 		DemonPacket.h.header.type=CMD_SET_COMMANDER;
 		strcpy(DemonPacket.u.NationWar.SetCommander.CommanderName,Commander->CO_Name);
@@ -4388,7 +4388,7 @@ void SendCMD_ANSWER_COMMANDER_VOTING_RESULT(const int WarfieldNo,const int Kind,
 		QueuePacket(connections, DB_DEMON, &DemonPacket, 1);
 	}
 	else 
-		sprintf(tempMessage,"");								// »ç·É°üÀÇ ÀÌ¸§ÀÌ ¾ø´Ù¸é ³ÎÀ» º¹»çÇÑ´Ù.
+		sprintf(tempMessage,"");								// ì‚¬ë ¹ê´€ì˜ ì´ë¦„ì´ ì—†ë‹¤ë©´ ë„ì„ ë³µì‚¬í•œë‹¤.
 
 	packet.h.header.type=CMD_ANSWER_COMMANDER_VOTING_RESULT;	
 	packet.u.NationWar.CommanderVotingResult.Type=Kind;
@@ -4421,10 +4421,10 @@ void CheckCommanderVotingResult(const int WarfieldNo,const int Kind)
 			CandidaterNo=i;
 		}
 	}
-	g_pNation->SetCommander(WarfieldNo,Kind,CandidaterNo);	// Á¦ÀÏ ÅõÇ¥¼ö°¡ ¸¹Àº »ç·É°üÀ» ÁöÁ¤ÇÑ´Ù.
+	g_pNation->SetCommander(WarfieldNo,Kind,CandidaterNo);	// ì œì¼ íˆ¬í‘œìˆ˜ê°€ ë§ì€ ì‚¬ë ¹ê´€ì„ ì§€ì •í•œë‹¤.
 }
 
-void RecvCMD_REQUEST_COMMANDER_VOTING_RESULT(t_packet *p, t_connection c[], const int cn ) //»ç·É°üÅõÇ¥°á°ú
+void RecvCMD_REQUEST_COMMANDER_VOTING_RESULT(t_packet *p, t_connection c[], const int cn ) //ì‚¬ë ¹ê´€íˆ¬í‘œê²°ê³¼
 {
 	int BYCandidaterNo=-1,ZYCandidaterNo=-1,YLCandidaterNo=-1;
 	int BY_Squad,ZY_Squad,YL_Squad;
@@ -4444,9 +4444,9 @@ void RecvCMD_REQUEST_COMMANDER_VOTING_RESULT(t_packet *p, t_connection c[], cons
 		CheckCommanderVotingResult(WarfieldNo,ZY_Squad);
 		CheckCommanderVotingResult(WarfieldNo,YL_Squad);
 
-		SendCMD_ANSWER_COMMANDER_VOTING_RESULT(WarfieldNo,BY_Squad,tempMessage[BY_Squad]);		// tempMessage¿¡ °ªÀ» ÀúÀåÇÏ°í µ¹¾Æ¿Â´Ù.
+		SendCMD_ANSWER_COMMANDER_VOTING_RESULT(WarfieldNo,BY_Squad,tempMessage[BY_Squad]);		// tempMessageì— ê°’ì„ ì €ì¥í•˜ê³  ëŒì•„ì˜¨ë‹¤.
 		SendCMD_ANSWER_COMMANDER_VOTING_RESULT(WarfieldNo,ZY_Squad,tempMessage[ZY_Squad]);
-		if (CheckJoinReinforce()>0) SendCMD_ANSWER_COMMANDER_VOTING_RESULT(WarfieldNo,YL_Squad,tempMessage[YL_Squad]); // ¿ëº´ºÎ´ë Æí¼ºÀÏ¶§ º¸³½´Ù // 011020 LTS
+		if (CheckJoinReinforce()>0) SendCMD_ANSWER_COMMANDER_VOTING_RESULT(WarfieldNo,YL_Squad,tempMessage[YL_Squad]); // ìš©ë³‘ë¶€ëŒ€ í¸ì„±ì¼ë•Œ ë³´ë‚¸ë‹¤ // 011020 LTS
 
 		WarBBS[NW_ATTACKER].WarfieldNo=WarfieldNo;
 		WarBBS[NW_ATTACKER].BBSType=BBS_COMMANDER_ELECT;
@@ -4469,7 +4469,7 @@ void RecvCMD_REQUEST_COMMANDER_VOTING_RESULT(t_packet *p, t_connection c[], cons
 		WarBBS[NW_REINFORCE].Size=strlen(tempMessage[NW_REINFORCE]);
 		memcpy(WarBBS[NW_REINFORCE].Arg,tempMessage[NW_REINFORCE],WarBBS[NW_REINFORCE].Size);
 
-		if (CheckJoinReinforce()>0) SendWarBBS2NationMaps(g_pNation->GetDefender(WarfieldNo),&WarBBS[NW_ATTACKER],&WarBBS[NW_DEFENCER],&WarBBS[NW_REINFORCE]); //¸Ê¿¡ ¹æ¼ÛÀ» º¸³½´Ù.	// 011020 LTS
+		if (CheckJoinReinforce()>0) SendWarBBS2NationMaps(g_pNation->GetDefender(WarfieldNo),&WarBBS[NW_ATTACKER],&WarBBS[NW_DEFENCER],&WarBBS[NW_REINFORCE]); //ë§µì— ë°©ì†¡ì„ ë³´ë‚¸ë‹¤.	// 011020 LTS
 		else // 011020 LTS
 		{
 			SendWarBBS2NationMaps(g_pNation->GetAttacker(WarfieldNo),&WarBBS[NW_ATTACKER]);	// 011020 LTS
@@ -4486,7 +4486,7 @@ void RecvCMD_ANSWER_COMMANDER_VOTING_RESULT(t_packet *p, t_connection c[], const
 {
 	t_CommanderInformation Commander;
 
-	if (p->u.NationWar.CommanderVotingResult.ID==1)		// µî·ÏµÈ À¯ÀúÀÌ´Ù.
+	if (p->u.NationWar.CommanderVotingResult.ID==1)		// ë“±ë¡ëœ ìœ ì €ì´ë‹¤.
 	{
 		Commander.CO_ID=p->u.NationWar.CommanderVotingResult.ID;
 		memcpy(Commander.CO_Name,p->u.NationWar.CommanderVotingResult.Name,NW_NAME_MAX);
@@ -4521,14 +4521,14 @@ void RecvCMD_REQUEST_CHECK_WARFIELD_POSSESSION(t_packet *p, t_connection c[], co
 
 void RecvCMD_FREELANCER_SQUAD_JOIN(t_packet *p, t_connection c[], const int cn )		// 011019 LTS
 {
-	if (CheckJoinReinforce()>0) return;	// ¿ëº´ºÎ´ë Æí¼ºÀ» ÇÒ¼ö ÀÖ´Â Á¶°ÇÀÌ¸é ¹«½ÃÇÑ´Ù.
+	if (CheckJoinReinforce()>0) return;	// ìš©ë³‘ë¶€ëŒ€ í¸ì„±ì„ í• ìˆ˜ ìˆëŠ” ì¡°ê±´ì´ë©´ ë¬´ì‹œí•œë‹¤.
 	CHARLIST* ch = CheckServerId(cn);
 	if(!ch)
 	{
 		return;
 	}
-	if (ch->name_status.nation!=NW_YL) return;			// ÀÏ½º°¡ ¾Æ´Ï¸é ¹«½ÃÇÑ´Ù.
-	if (ch->NWCharacter.YL_JoinNation>0) return;		// 011020 LTS		// ÀÌ¹Ì ºÎ´ëÆí¼ºÀÌ µÇ¾úÀÖ´Â À¯ÀúÀÌ´Ù.
+	if (ch->name_status.nation!=NW_YL) return;			// ì¼ìŠ¤ê°€ ì•„ë‹ˆë©´ ë¬´ì‹œí•œë‹¤.
+	if (ch->NWCharacter.YL_JoinNation>0) return;		// 011020 LTS		// ì´ë¯¸ ë¶€ëŒ€í¸ì„±ì´ ë˜ì—ˆìˆëŠ” ìœ ì €ì´ë‹¤.
 	ch->NWCharacter.YL_JoinNation=p->u.NationWar.CommonDataC.Data; // Nationality
 }
 
@@ -4556,7 +4556,7 @@ void SendCMD_WARFIELD_WAR_DATA(t_packet *p, t_connection c[], const int cn )
 }
 
 
-void RecvCMD_REQUEST_WARFIELD_WAR_DATA(t_packet *p, t_connection c[], const int cn )		//ÀüÀïÅÍ·Î ÆĞÅ¶À» º¸³»¼­ ¹ŞÀº´ÙÀ½.. Ã³¸®ÇÑ´Ù.
+void RecvCMD_REQUEST_WARFIELD_WAR_DATA(t_packet *p, t_connection c[], const int cn )		//ì „ìŸí„°ë¡œ íŒ¨í‚·ì„ ë³´ë‚´ì„œ ë°›ì€ë‹¤ìŒ.. ì²˜ë¦¬í•œë‹¤.
 {
 	const int MapServerPort=p->u.NationWar.CommonDataC.Data+BASE_WARFIELD_PORT;
 	
@@ -4566,7 +4566,7 @@ void RecvCMD_REQUEST_WARFIELD_WAR_DATA(t_packet *p, t_connection c[], const int 
 	{
 		if (g_wMapServerPort==MapServerPort)
 		{
-			//ÇØ´ç ¸Ê¼­¹öÀÌ´Ù.
+			//í•´ë‹¹ ë§µì„œë²„ì´ë‹¤.
 			SendCMD_WARFIELD_WAR_DATA(p,c, cn );
 		}
 		else 
@@ -4576,9 +4576,9 @@ void RecvCMD_REQUEST_WARFIELD_WAR_DATA(t_packet *p, t_connection c[], const int 
 			packet.u.NationWar.RequestWarfieldWarData.Nation=c[cn].chrlst.name_status.nation;
 			packet.h.header.size=sizeof(t_RequestWarfieldWarData);
 
-			SendCMD_REQUEST_DELIVERY(MapServerPort,p,c,cn);	// Àü¼ÛÇÑ´Ù. // ºÎÇÏ°¡ °É¸®¸é.. NationManageServer·Î º¯°æ.. 
+			SendCMD_REQUEST_DELIVERY(MapServerPort,p,c,cn);	// ì „ì†¡í•œë‹¤. // ë¶€í•˜ê°€ ê±¸ë¦¬ë©´.. NationManageServerë¡œ ë³€ê²½.. 
 		}
-	}																		// ÆĞÅ¶·®ÀÌ ¸¹¾ÆÁø´Ù. (Warfield->NationManage Report)		
+	}																		// íŒ¨í‚·ëŸ‰ì´ ë§ì•„ì§„ë‹¤. (Warfield->NationManage Report)		
 	else 
 	{
 		packet.h.header.type=p->h.header.type;
@@ -4586,15 +4586,15 @@ void RecvCMD_REQUEST_WARFIELD_WAR_DATA(t_packet *p, t_connection c[], const int 
 		packet.u.NationWar.RequestWarfieldWarData.Nation=c[cn].chrlst.name_status.nation;
 		packet.h.header.size=sizeof(t_RequestWarfieldWarData);
 
-		SendCMD_REQUEST_DELIVERY(MapServerPort,&packet,c,cn);	// Àü¼ÛÇÑ´Ù.
+		SendCMD_REQUEST_DELIVERY(MapServerPort,&packet,c,cn);	// ì „ì†¡í•œë‹¤.
 	}
 }
 
-void RecvCMD_STARTUP_NATION_CODE_CHANGE(t_packet *p, t_connection c[], const int cn )	// ¸Ê¼­¹öÀÇ StartUP½ÃÀÇ ¿öÇÊµåÀÇ ¼ÒÀ¯¿¡ ´ëÇÑ °ÍÀÌ´Ù.
+void RecvCMD_STARTUP_NATION_CODE_CHANGE(t_packet *p, t_connection c[], const int cn )	// ë§µì„œë²„ì˜ StartUPì‹œì˜ ì›Œí•„ë“œì˜ ì†Œìœ ì— ëŒ€í•œ ê²ƒì´ë‹¤.
 {
 	int i = 0;
 
-	if (isNationManageServer())   //°ü¸®¼­¹öÀÌ¸é.. ´Ù¸¥ ¸Ê¼­¹ö ¸ğµÎ¿¡°Ô º¸³½´Ù.
+	if (isNationManageServer())   //ê´€ë¦¬ì„œë²„ì´ë©´.. ë‹¤ë¥¸ ë§µì„œë²„ ëª¨ë‘ì—ê²Œ ë³´ë‚¸ë‹¤.
 	{
 		g_pNation->SetWarfieldNationCode(p->u.NationWar.WarfieldStatusChange.WarfieldNo,p->u.NationWar.WarfieldStatusChange.Status);
 		for(i = 0 ;  i< MAX_MAP_ ; i ++ )
@@ -4603,7 +4603,7 @@ void RecvCMD_STARTUP_NATION_CODE_CHANGE(t_packet *p, t_connection c[], const int
 			g_pServerTable->SendRajaPacketToOtherMapServer( (WORD)MapInfo[i].port, (char *)p, p->h.header.size+sizeof(t_header) );
 		}
 	}
-	else  //°ü¸®¼­¹ö·Î ºÎÅÍ ¹Ş¾Ò´Ù.
+	else  //ê´€ë¦¬ì„œë²„ë¡œ ë¶€í„° ë°›ì•˜ë‹¤.
 	{
 		g_pWarfieldStatus[p->u.NationWar.WarfieldStatusChange.WarfieldNo].Possession=p->u.NationWar.WarfieldStatusChange.Status;
 		for(i = 0 ;  i< MAX_MAP_ ; i ++ )
@@ -4659,11 +4659,11 @@ void RecvCMD_REQUEST_SUBSTRACT_MONEY( t_packet *p, t_connection c[], const int c
 	const DWORD Money=(DWORD)p->u.NationWar.RequestSubstractMoney.Money;
 	char temp[100]= {0,};
 
-	t_WarBBS WarBBS;	// µ·¿ï ½è´Ù°í ¾Ë¸² 
+	t_WarBBS WarBBS;	// ëˆìš¸ ì¼ë‹¤ê³  ì•Œë¦¼ 
 
-	if( g_MainNationMap[Nation] )		// ÀÌ°÷¿¡¼­ ´ã´çÇÏ´Â °÷ÀÌ¶ó¸é
+	if( g_MainNationMap[Nation] )		// ì´ê³³ì—ì„œ ë‹´ë‹¹í•˜ëŠ” ê³³ì´ë¼ë©´
 	{
-		if (NationInfo[Nation].nation_money>Money)		//µ·ÀÌ Å©´Ù 
+		if (NationInfo[Nation].nation_money>Money)		//ëˆì´ í¬ë‹¤ 
 		{
 			NationInfo[Nation].nation_money-=Money;
 			SaveNationInfo(Nation);
@@ -4709,8 +4709,8 @@ void RecvCMD_REQUEST_SUBSTRACT_MONEY( t_packet *p, t_connection c[], const int c
 			MyLog(0,"Money Spread : Can not Substract Money : %d",Money);
 		}
 	}
-	else								// ¾Æ´Ï¸é
-	{									// ´ã´ç ¸ÊÀ¸·Î º¸³½´Ù.
+	else								// ì•„ë‹ˆë©´
+	{									// ë‹´ë‹¹ ë§µìœ¼ë¡œ ë³´ë‚¸ë‹¤.
 		g_pServerTable->SendRajaPacketToOtherMapServer( (WORD)NationInfo[Nation].main_map_port, (char *)p, p->h.header.size+sizeof(t_header) );
 	}
 }
@@ -4720,26 +4720,26 @@ void RecvCMD_ANSWER_SUBSTRACT_MONEY( t_packet *p, t_connection c[], const int cn
 	MyLog(0,"Money spread : RecvCMD_ANSWER_SUBSTRACT_MONEY Type : %d , Result : %d",p->u.NationWar.AnswerSubstractMoney.Type,p->u.NationWar.AnswerSubstractMoney.Result);
 	switch(p->u.NationWar.AnswerSubstractMoney.Type)
 	{
-	case 0 :	// ÀüÀï¿¡¼­ Á®¼­
+	case 0 :	// ì „ìŸì—ì„œ ì ¸ì„œ
 		MyLog(0,"Money Spread : Switch 0 Type : %d , Result : %d",p->u.NationWar.AnswerSubstractMoney.Type,p->u.NationWar.AnswerSubstractMoney.Result);
 		if (p->u.NationWar.AnswerSubstractMoney.Result)			// 010927 LTS
 		{
-			if (isNationWarfieldServer())	//ÀüÀï ¼­¹öÀÌ¸é µ·À» »Ñ¸®·Á°í ÇÑ»óÅÂ.
+			if (isNationWarfieldServer())	//ì „ìŸ ì„œë²„ì´ë©´ ëˆì„ ë¿Œë¦¬ë ¤ê³  í•œìƒíƒœ.
 			{
 				g_pWarfield->MoneySpread(15000000);				// 010927 LTS
 			}
 		}
 		break;
 
-	case 1 :	// »ç·É°üÀÌ ¾ÆÀÌÅÛ ±¸¸Å	// ¿©±â·Î µé¾î¿ÀÁö ¾Ê´Â´Ù. // Delivery packet Ã³¸® ¿¹Á¤
-	case 2 :	// »ç·É°üÀÌ ¹«±â ±¸¸Å
+	case 1 :	// ì‚¬ë ¹ê´€ì´ ì•„ì´í…œ êµ¬ë§¤	// ì—¬ê¸°ë¡œ ë“¤ì–´ì˜¤ì§€ ì•ŠëŠ”ë‹¤. // Delivery packet ì²˜ë¦¬ ì˜ˆì •
+	case 2 :	// ì‚¬ë ¹ê´€ì´ ë¬´ê¸° êµ¬ë§¤
 		break;
 	}
 }
 
 void RecvCMD_REQUEST_WAR_GIVE_LIFE( t_packet *p, t_connection c[], const int cn )			// 011015 LTS
 {
-	//< LTH-040225-KO 1.4 Patch. ½Å ÀüÀïÅÍ ¼­¹ö Ãß°¡!!
+	//< LTH-040225-KO 1.4 Patch. ì‹  ì „ìŸí„° ì„œë²„ ì¶”ê°€!!
 	if (!isNationWarfieldServer()&&!isNewWarfieldServer()&&!IsNeoWarfieldServer()) return;
 	//> LTH-040225-KO
 	
@@ -4748,7 +4748,7 @@ void RecvCMD_REQUEST_WAR_GIVE_LIFE( t_packet *p, t_connection c[], const int cn 
 	if (isNewWarfieldServer())
 		if (g_pNewWarfield->GetWarfieldStatus()!=NW_WAR) return;
 
-	//< LTH-040217-KO 1.4 ÆĞÄ¡ ½Å±Ô±¹°¡Àü
+	//< LTH-040217-KO 1.4 íŒ¨ì¹˜ ì‹ ê·œêµ­ê°€ì „
 	if (IsNeoWarfieldServer())
 	{
 		INT nState = NW_PEACE;
@@ -4762,12 +4762,12 @@ void RecvCMD_REQUEST_WAR_GIVE_LIFE( t_packet *p, t_connection c[], const int cn 
 
 	if (isNationWarfieldServer())
 	{
-		if (isAttacker(g_pWarfield->GetWarfieldCode(),c,cn))	//°ø°İÀÚ
+		if (isAttacker(g_pWarfield->GetWarfieldCode(),c,cn))	//ê³µê²©ì
 		{
 			POINTS AttackerGiveLifePoint=g_pWarfield->GetLivePoints(NW_ATTACKER);
 			MovePc(cn,AttackerGiveLifePoint.x,AttackerGiveLifePoint.y);
 		}
-		else	// ¹æ¾îÀÚ 
+		else	// ë°©ì–´ì 
 		{
 			POINTS DefencerGiveLifePoint=g_pWarfield->GetLivePoints(NW_DEFENCER);
 			MovePc(cn,DefencerGiveLifePoint.x,DefencerGiveLifePoint.y);
@@ -4778,7 +4778,7 @@ void RecvCMD_REQUEST_WAR_GIVE_LIFE( t_packet *p, t_connection c[], const int cn 
 		//< LTH-040217-KO
 		if (IsNeoWarfieldServer())
 		{
-			// ±¸Á¶Ã¼¸¦ ¸¸µé¾î ÀÏ´Ü Ä³¸¯ Á¤º¸ ½Ç¾îº¸³»°í °°Àº ±¸Á¶Ã¼·Î Æ÷ÀÎÆ®¸¦ ¹Ş´Â´Ù
+			// êµ¬ì¡°ì²´ë¥¼ ë§Œë“¤ì–´ ì¼ë‹¨ ìºë¦­ ì •ë³´ ì‹¤ì–´ë³´ë‚´ê³  ê°™ì€ êµ¬ì¡°ì²´ë¡œ í¬ì¸íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 			tagGetLivePoint tGetLivePoint;
 			tGetLivePoint.lpChar = &c[cn].chrlst;
 			g_pcWarfieldMgr->ExecMsg(CWarfieldMgr::WPM_GET_LIVE_POINT, (LPVOID)&tGetLivePoint);
@@ -4793,7 +4793,7 @@ void RecvCMD_REQUEST_WAR_GIVE_LIFE( t_packet *p, t_connection c[], const int cn 
 		//> LTH-040217-KO
 	}
 
-	SkillMgr.CharacterToAlive(&c[cn].chrlst, 1);// »ì·ÁÁØ´Ù.//020501 lsw
+	SkillMgr.CharacterToAlive(&c[cn].chrlst, 1);// ì‚´ë ¤ì¤€ë‹¤.//020501 lsw
 }
 
 void RecvCMD_WAR_GIVE_LIFE2(t_packet *p, t_connection c[], int cn )				// 011213 LTS
@@ -4806,12 +4806,12 @@ void RecvCMD_WAR_GIVE_LIFE2(t_packet *p, t_connection c[], int cn )				// 011213
 	if (g_pWarfield->GetStatus()!=NW_WAR) return;
 	if (c[cn].chrlst.Hp>0) return;
 
-	if (isAttacker(g_pWarfield->GetWarfieldCode(),c,cn))	//°ø°İÀÚ
+	if (isAttacker(g_pWarfield->GetWarfieldCode(),c,cn))	//ê³µê²©ì
 	{
 		POINTS AttackerGiveLifePoint=AttackPoint[g_pWarfield->GetWarfieldCode()][GiveLifePoint];
 		MovePc(cn,AttackerGiveLifePoint.x,AttackerGiveLifePoint.y);
 	}
-	else	// ¹æ¾îÀÚ 
+	else	// ë°©ì–´ì 
 	{
 		POINTS DefencerGiveLifePoint=DefencePoint[g_pWarfield->GetWarfieldCode()];
 		MovePc(cn,DefencerGiveLifePoint.x,DefencerGiveLifePoint.y);
@@ -4836,21 +4836,21 @@ void RecvCMD_CHECK_AM_I_DEFEAT(t_packet *p, t_connection c[], const int cn )		//
 
 	if (!isNationWarfieldServer()) 
 	{
-		if (ch->name_status.nation==NW_YL) // 011020 LTS				// ÀüÀïÅÍ ¸Ê¿¡ ¾ø´Â À¯ÀúÀÌ¸é ÃÊ±âÈ­ ÇØÁØ´Ù.
-			memset(&ch->NWCharacter,0,sizeof(DWORD));		// 011020 LTS	//¹öÆ°À» ´©¸¥ÈÄ ÃÊ±âÈ­ ÇÑ´Ù.
+		if (ch->name_status.nation==NW_YL) // 011020 LTS				// ì „ìŸí„° ë§µì— ì—†ëŠ” ìœ ì €ì´ë©´ ì´ˆê¸°í™” í•´ì¤€ë‹¤.
+			memset(&ch->NWCharacter,0,sizeof(DWORD));		// 011020 LTS	//ë²„íŠ¼ì„ ëˆ„ë¥¸í›„ ì´ˆê¸°í™” í•œë‹¤.
 		return;
 	}
 
-	//< LTH-040623-KO ÀüÀïÅÍ ÀÌµ¿ÀÌ °¡´ÉÇÒ¶§ ÀüÀïÀÌ ³¡³­ ÈÄ¿¡ ÀÏ½º ±¹¹ÎÀÌ¸é ¹«Á¶°Ç ¸¶À»·Î ³»º¸³½´Ù.
-	// ÀÌ°ÍÀº ÀÏÁ¤ ºñ¿ëÀ» ÁöºÒÇÏ°í ÀüÀïÅÍ·Î ÀÌµ¿ÇØ¾ßÇÏ´Â ÀÏ½º ±¹¹ÎµéÀÎµ¥ ÀüÀï¿¡ Âü¿©ÇÏÁö ¾Ê°í ÀÌµ¿ÇÏ´Â
-	// »ç¶÷µéÀ» »ı°¢ÇØº» °ÍÀÓ.
+	//< LTH-040623-KO ì „ìŸí„° ì´ë™ì´ ê°€ëŠ¥í• ë•Œ ì „ìŸì´ ëë‚œ í›„ì— ì¼ìŠ¤ êµ­ë¯¼ì´ë©´ ë¬´ì¡°ê±´ ë§ˆì„ë¡œ ë‚´ë³´ë‚¸ë‹¤.
+	// ì´ê²ƒì€ ì¼ì • ë¹„ìš©ì„ ì§€ë¶ˆí•˜ê³  ì „ìŸí„°ë¡œ ì´ë™í•´ì•¼í•˜ëŠ” ì¼ìŠ¤ êµ­ë¯¼ë“¤ì¸ë° ì „ìŸì— ì°¸ì—¬í•˜ì§€ ì•Šê³  ì´ë™í•˜ëŠ”
+	// ì‚¬ëŒë“¤ì„ ìƒê°í•´ë³¸ ê²ƒì„.
 	if (ch->name_status.nation==NW_YL)
 	{
 		//if (ch->NWCharacter.YL_JoinNation!=g_pWarfield->GetNationCode()) 
 		//{
 			KickDefeatUser2Home(c,cn);
 		//}
-		memset(&ch->NWCharacter,0,sizeof(DWORD));		// 011020 LTS	//¹öÆ°À» ´©¸¥ÈÄ ÃÊ±âÈ­ ÇÑ´Ù.
+		memset(&ch->NWCharacter,0,sizeof(DWORD));		// 011020 LTS	//ë²„íŠ¼ì„ ëˆ„ë¥¸í›„ ì´ˆê¸°í™” í•œë‹¤.
 		return;			// 011020 LTS
 	}
 	//> LTH-040623-KO
@@ -4863,7 +4863,7 @@ void RecvCMD_CHECK_AM_I_DEFEAT(t_packet *p, t_connection c[], const int cn )		//
 
 void RecvCMD_SQUAD_LOADING_POINT( t_packet *p, t_connection c[], const int cn )	// NW_MAN -> NW_WAR
 {
-	if (!isNationWarfieldServer()) return;			//ºÎ´ë ·ÎµùÆ÷ÀÎÆ®¸¦ ÀúÀåÇÑ´Ù	// LOOP UNROLLÀÌ ºü¸£´Ù 
+	if (!isNationWarfieldServer()) return;			//ë¶€ëŒ€ ë¡œë”©í¬ì¸íŠ¸ë¥¼ ì €ì¥í•œë‹¤	// LOOP UNROLLì´ ë¹ ë¥´ë‹¤ 
 
 	g_pWarfield->SetSquadLoadingPoint(NW_ATTACKER,0,p->u.NationWar.SquadLoadingPoint.SquadLoadingPoint[NW_ATTACKER][0]);
 	g_pWarfield->SetSquadLoadingPoint(NW_ATTACKER,1,p->u.NationWar.SquadLoadingPoint.SquadLoadingPoint[NW_ATTACKER][1]);
@@ -4889,7 +4889,7 @@ void RecvCMD_SQUAD_RARE(t_packet *p, t_connection c[], const int cn )
 {
 	if (!isNationWarfieldServer()) return;
 
-	for (int i=0;i<NW_SQUAD_KIND;i++)		// LOOP UNROLLÀÌ ¼Óµµ°¡ ºü¸£³ª º¸±â Èûµé´Ù. 
+	for (int i=0;i<NW_SQUAD_KIND;i++)		// LOOP UNROLLì´ ì†ë„ê°€ ë¹ ë¥´ë‚˜ ë³´ê¸° í˜ë“¤ë‹¤. 
 	{
 		for (int j=0;j<NW_SQUAD_MAX;j++)
 		{
@@ -4907,7 +4907,7 @@ void RecvCMD_REQUEST_NOTICE(t_packet *p, t_connection c[], const int cn )
 	{
 		t_packet SendPacket;
 		int Nation=c[cn].chrlst.name_status.nation;
-		if (CheckWarLoopProcess())	//ÀüÀï·çÇÁ°¡ ÁøÇàÁßÀÌ¸é ÆòÈ­»óÅÂ°¡ ¾Æ´Ï´Ù.
+		if (CheckWarLoopProcess())	//ì „ìŸë£¨í”„ê°€ ì§„í–‰ì¤‘ì´ë©´ í‰í™”ìƒíƒœê°€ ì•„ë‹ˆë‹¤.
 		{
 			int WarfieldNo=ReturnWarfieldNoByWarLoopProcess();
 			int Status=g_pNation->GetWarfieldStatus(WarfieldNo);
@@ -4919,7 +4919,7 @@ void RecvCMD_REQUEST_NOTICE(t_packet *p, t_connection c[], const int cn )
 			}
 		}
 		else
-			ProcessPeace(Nation,&SendPacket);						// ÆòÈ­»óÅÂÀÌ´Ù.
+			ProcessPeace(Nation,&SendPacket);						// í‰í™”ìƒíƒœì´ë‹¤.
 
 		QueuePacket(c,cn,&SendPacket,1);
 
@@ -4946,7 +4946,7 @@ void RecvCMD_REQUEST_DELIVERY_NOTICE( t_packet *p, t_connection c[], const int c
 	{
 	case CMD_REQUEST_NOTICE :
 			{
-				if (CheckWarLoopProcess())	//ÀüÀï·çÇÁ°¡ ÁøÇàÁßÀÌ¸é ÆòÈ­»óÅÂ°¡ ¾Æ´Ï´Ù.
+				if (CheckWarLoopProcess())	//ì „ìŸë£¨í”„ê°€ ì§„í–‰ì¤‘ì´ë©´ í‰í™”ìƒíƒœê°€ ì•„ë‹ˆë‹¤.
 				{
 					int WarfieldNo=ReturnWarfieldNoByWarLoopProcess();
 					int Status;
@@ -4972,7 +4972,7 @@ void RecvCMD_REQUEST_DELIVERY_NOTICE( t_packet *p, t_connection c[], const int c
 					}
 				}
 				else
-					ProcessPeace(Nation,&SendPacket);						// ÆòÈ­»óÅÂÀÌ´Ù.
+					ProcessPeace(Nation,&SendPacket);						// í‰í™”ìƒíƒœì´ë‹¤.
 
 				SendCMD_ANSWER_DELIVERY(ServerID,Port,&SendPacket);
 			}
@@ -4995,10 +4995,10 @@ void RecvCMD_WAR_CONTROL(t_packet *p, t_connection c[], const int cn )		// 01102
 	t_packet packet;
 	const int Port=BASE_WARFIELD_PORT+p->u.NationWar.WarControl.WarfieldNo;
 
-//	if (!isNationWarfieldServer()) return;				//ÀüÀï¼­¹ö°¡ ¾Æ´Ï¸é ¸®ÅÏ
-//	if (g_pWarfield->GetWarfieldCode()!=p->u.NationWar.WarControl.WarfieldNo) return;	// ÇØ´ç ÀüÀïÅÍ°¡ ¾Æ´Ï¸é ¸®ÅÏ
+//	if (!isNationWarfieldServer()) return;				//ì „ìŸì„œë²„ê°€ ì•„ë‹ˆë©´ ë¦¬í„´
+//	if (g_pWarfield->GetWarfieldCode()!=p->u.NationWar.WarControl.WarfieldNo) return;	// í•´ë‹¹ ì „ìŸí„°ê°€ ì•„ë‹ˆë©´ ë¦¬í„´
 
-	if (p->u.NationWar.WarControl.WarfieldNo==3)	// °á°è¼® µğ¹ö±×¿ë
+	if (p->u.NationWar.WarControl.WarfieldNo==3)	// ê²°ê³„ì„ ë””ë²„ê·¸ìš©
 	{
 		if (!isNationWarfieldServer()) 
       return;
@@ -5055,22 +5055,22 @@ void RecvCMD_START_WAR_LOOP(t_packet *p, t_connection c[], const int cn )		// LT
 	if (!isNationWarfieldServer())
 		return;
 
-	g_pWarfield->SetStatusVote();												// Warfield ¸¦ ÅõÇ¥»óÅÂ·Î ¸¸µç´Ù.
+	g_pWarfield->SetStatusVote();												// Warfield ë¥¼ íˆ¬í‘œìƒíƒœë¡œ ë§Œë“ ë‹¤.
 }
 
 void RecvCMD_NWARFIELD_START_WAR(t_packet *p, t_connection c[], const int cn )		// New Warfield Start Packet
 {	//< CSD-CN-031213
-	if (isNewWarfieldServer() && (WI_SNOWY_WARFIELD == p->u.NationWar.NewWarStart.WarfieldNo + 3))			//ÀüÀï¼­¹öÀÌ¸é
-	{	// ÀüÀï°ü·Ã ÃÊ±âÈ­¸¦ ÇÑ´Ù.
+	if (isNewWarfieldServer() && (WI_SNOWY_WARFIELD == p->u.NationWar.NewWarStart.WarfieldNo + 3))			//ì „ìŸì„œë²„ì´ë©´
+	{	// ì „ìŸê´€ë ¨ ì´ˆê¸°í™”ë¥¼ í•œë‹¤.
 		g_pNewWarfield->SetWarfieldStatus(NW_WAR);									// War Start
 		g_pNewWarfieldStatus[p->u.NationWar.NewWarStart.WarfieldNo]=NW_WAR;
 	}
 	else if (IsNeoWarfieldServer() && IsNeoWarfield(p->u.NationWar.NewWarStart.WarfieldNo))
-	{	//< LTH-040206-KO »õ·Î¿î ÀüÀïÅÍ ÀüÀï ½ÃÀÛ ¸Ş½ÃÁö Áß¿¡ ¼³¿øÀüÀïÅÍ¿Í ±¸ºĞÇÏ¿© »óÅÂ º¯È¯
+	{	//< LTH-040206-KO ìƒˆë¡œìš´ ì „ìŸí„° ì „ìŸ ì‹œì‘ ë©”ì‹œì§€ ì¤‘ì— ì„¤ì›ì „ìŸí„°ì™€ êµ¬ë¶„í•˜ì—¬ ìƒíƒœ ë³€í™˜
 		INT nState = NW_WAR;
 		g_pcWarfieldMgr->ExecMsg(CWarfieldMgr::WPM_SET_WARFIELD_STATE, (LPVOID)&nState);
 		g_naWarfieldState[p->u.NationWar.NewWarStart.WarfieldNo] = NW_WAR;
-		//< LTH-040324-KO ·Î±× °­È­
+		//< LTH-040324-KO ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "[Nation Manager] Warfield No. = %d, Change State = NW_WAR", p->u.NationWar.NewWarStart.WarfieldNo);
 		//> LTH-040324-KO
 		//> LTH-040206-KO
@@ -5112,9 +5112,9 @@ void RecvCMD_REQUEST_NEW_WARFIELD_TILE_DONT(t_packet *p, t_connection c[], const
 		g_pcWarfieldMgr->ExecMsg(CWarfieldMgr::WPM_GET_WARFIELD_STATE, (LPVOID)&nState);
 		if (nState == NW_WAR)
 		{
-			//ÀÌµ¿Çß´Âµ¥..ÀüÀïÁßÀÌ¸é.. ÀüÀïÀÌ ½ÃÀÛµÇ¾ú´Ù°í ¾Ë¸²..(°ø°İÀÚ, ¸ÊÀÌµ¿ ¹æ¾îÀÚ)
-			// LTH-040225-KO ÆÀÀÌ ³ª´µ°Ô µÇ¸é ÆÀÁ¤º¸µµ ¸Ş½ÃÁö¿¡ ½Ç¾îº¸³»ÀÚ
-			//< LTH-040505-KO ¿î¿µÀÚ Ä³¸¯Àº »êÅ¸¿Ê ±×´ë·Î...
+			//ì´ë™í–ˆëŠ”ë°..ì „ìŸì¤‘ì´ë©´.. ì „ìŸì´ ì‹œì‘ë˜ì—ˆë‹¤ê³  ì•Œë¦¼..(ê³µê²©ì, ë§µì´ë™ ë°©ì–´ì)
+			// LTH-040225-KO íŒ€ì´ ë‚˜ë‰˜ê²Œ ë˜ë©´ íŒ€ì •ë³´ë„ ë©”ì‹œì§€ì— ì‹¤ì–´ë³´ë‚´ì
+			//< LTH-040505-KO ìš´ì˜ì ìºë¦­ì€ ì‚°íƒ€ì˜· ê·¸ëŒ€ë¡œ...
 			if (!connections[cn].chrlst.IsCounselor())
 				SendWarBeginEndMessage2Client(1, c, cn);
 			//> LTH-040505-KO
@@ -5123,11 +5123,11 @@ void RecvCMD_REQUEST_NEW_WARFIELD_TILE_DONT(t_packet *p, t_connection c[], const
 	}
 	else
 	{
-		// ºÎ´ë¿¡ Á¶ÀÎ½ÃÅ²´Ù.
-		// ÀüÀïÀÌ »çÀÛÇß´Ù´Â ¸Ş¼¼Áö¸¦ º¸³»ÁØ´Ù.
+		// ë¶€ëŒ€ì— ì¡°ì¸ì‹œí‚¨ë‹¤.
+		// ì „ìŸì´ ì‚¬ì‘í–ˆë‹¤ëŠ” ë©”ì„¸ì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 		if (g_pNewWarfield->GetWarfieldStatus() == NW_WAR)
 		{
-			//ÀÌµ¿Çß´Âµ¥..ÀüÀïÁßÀÌ¸é.. ÀüÀïÀÌ ½ÃÀÛµÇ¾ú´Ù°í ¾Ë¸²..(°ø°İÀÚ, ¸ÊÀÌµ¿ ¹æ¾îÀÚ)
+			//ì´ë™í–ˆëŠ”ë°..ì „ìŸì¤‘ì´ë©´.. ì „ìŸì´ ì‹œì‘ë˜ì—ˆë‹¤ê³  ì•Œë¦¼..(ê³µê²©ì, ë§µì´ë™ ë°©ì–´ì)
 			SendWarBeginEndMessage2Client(1, c, cn); 
 			
 			switch (c[cn].chrlst.name_status.nation)
@@ -5163,15 +5163,15 @@ void RecvCMD_REQUEST_NEW_WARFIELD_TILE_DONT(t_packet *p, t_connection c[], const
 
 void RecvCMD_NWARFIELD_END_WAR(t_packet *p, t_connection c[], const int cn )
 {
-	//< LTH-040206-KO »õ ÀüÀïÅÍÁß¿¡ ¼³¿øÀüÀïÅÍ°¡ ¾Æ´Ï¸é ¸Ê¼­¹ö »óÅÂ º¯È¯ÇÏ°í Àü¿ª »óÅÂ º¯¼öµµ ±¸ºĞÇÏ¿© º¯È¯
+	//< LTH-040206-KO ìƒˆ ì „ìŸí„°ì¤‘ì— ì„¤ì›ì „ìŸí„°ê°€ ì•„ë‹ˆë©´ ë§µì„œë²„ ìƒíƒœ ë³€í™˜í•˜ê³  ì „ì—­ ìƒíƒœ ë³€ìˆ˜ë„ êµ¬ë¶„í•˜ì—¬ ë³€í™˜
 	if (IsNeoWarfield(p->u.NationWar.CommonDataC.Data))
 	{
-		// 1.4 Patch. ½Å ÀüÀïÅÍ´Â ÀüÀïÀÌ ³¡³ª¸é µà¾ó5Â÷ Äù½ºÆ®¸¦ À§ÇØ ºñ¹ĞÁö¿ª ¿ÀÇÂ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+		// 1.4 Patch. ì‹  ì „ìŸí„°ëŠ” ì „ìŸì´ ëë‚˜ë©´ ë“€ì–¼5ì°¨ í€˜ìŠ¤íŠ¸ë¥¼ ìœ„í•´ ë¹„ë°€ì§€ì—­ ì˜¤í”ˆ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
 		g_naWarfieldState[p->u.NationWar.CommonDataC.Data] = NW_SOPEN;
-		//< LTH-040324-KO ·Î±× °­È­
+		//< LTH-040324-KO ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "[Nation Manager] Warfield No. = %d, Change State = NW_SOPEN", p->u.NationWar.CommonDataC.Data);
 		//> LTH-040324-KO
-		//< LTH-040312-KO ±¹°¡Àü Âü°¡ ÀÚ°İµµ ÃÊ±âÈ­ÇÑ´Ù
+		//< LTH-040312-KO êµ­ê°€ì „ ì°¸ê°€ ìê²©ë„ ì´ˆê¸°í™”í•œë‹¤
 		INT nI;
 		for (nI = 0; nI < NW_NATION_COUNT; ++nI)
 			g_aJoinNation[nI] = FALSE;
@@ -5222,11 +5222,11 @@ void RecvCMD_WAR_RESULT( t_packet *p, t_connection c[], const int cn )
 
 void RecvCMD_NWARFIELD_STATUS_CHANGE(t_packet *p, t_connection c[], const int cn )
 {
-	//< LTH-040206-KO »õ·Î¿î ÀüÀïÅÍÁß¿¡ ¼³¿øÀüÀïÅÍ¸¦ Á¦¿ÜÇÏ°í ÁöÇÏ ÀüÀïÅÍ¿Í °°Àº ³ª¸ÓÁö ÀüÀïÅÍÀÇ »óÅÂ¸¦ µû·Î º¯È¯ÇÑ´Ù
+	//< LTH-040206-KO ìƒˆë¡œìš´ ì „ìŸí„°ì¤‘ì— ì„¤ì›ì „ìŸí„°ë¥¼ ì œì™¸í•˜ê³  ì§€í•˜ ì „ìŸí„°ì™€ ê°™ì€ ë‚˜ë¨¸ì§€ ì „ìŸí„°ì˜ ìƒíƒœë¥¼ ë”°ë¡œ ë³€í™˜í•œë‹¤
 	if (IsNeoWarfield(p->u.NationWar.WarfieldStatusChange.WarfieldNo))
 	{
 		g_naWarfieldState[p->u.NationWar.WarfieldStatusChange.WarfieldNo] = p->u.NationWar.WarfieldStatusChange.Status;
-		//< LTH-040324-KO ·Î±× °­È­
+		//< LTH-040324-KO ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "[Nation Manager] Warfield No. = %d, Change State = %d", \
 			p->u.NationWar.WarfieldStatusChange.WarfieldNo, p->u.NationWar.WarfieldStatusChange.Status);
 		//> LTH-040324-KO
@@ -5256,14 +5256,14 @@ void RecvCMD_REQUEST_NEW_WARFIELD_STATUS(t_packet *p, t_connection c[], const in
 void RecvCMD_REQUEST_NEW_WARFIELD_DATA(t_packet *p, t_connection c[], const int cn )
 {
 	if (isNewWarfieldServer() || IsNeoWarfieldServer())
-	{	//< LTH-040225-KO 1.4 ÆĞÄ¡ ½Å±Ô±¹°¡Àüµµ °°Àº°÷¿¡¼­ Ã³¸®
+	{	//< LTH-040225-KO 1.4 íŒ¨ì¹˜ ì‹ ê·œêµ­ê°€ì „ë„ ê°™ì€ê³³ì—ì„œ ì²˜ë¦¬
 		t_packet packet;
 		ProcessNewWarfieldData(p,&packet);
 		QueuePacket(c,cn,&packet,1);
 	}	//> LTH-040225-KO
 	else
-	{	//< LTH-040225-KO ÀüÀï ¹øÈ£¸¦ ´Ù·ç´Â °ÍÀÌ ´Ù¸£±â¶§¹®¿¡ ±¸º°ÇÑ´Ù
-		if (p->u.NationWar.CommonDataC.Data == 3)	// ¼³¿øÀüÀïÅÍ ÀüÀï¹øÈ£ÀÌ¸é
+	{	//< LTH-040225-KO ì „ìŸ ë²ˆí˜¸ë¥¼ ë‹¤ë£¨ëŠ” ê²ƒì´ ë‹¤ë¥´ê¸°ë•Œë¬¸ì— êµ¬ë³„í•œë‹¤
+		if (p->u.NationWar.CommonDataC.Data == 3)	// ì„¤ì›ì „ìŸí„° ì „ìŸë²ˆí˜¸ì´ë©´
 			SendCMD_REQUEST_DELIVERY(BASE_NEW_WARFIELD_PORT+p->u.NationWar.CommonDataC.Data-3,p,c,cn);
 		else
 			SendCMD_REQUEST_DELIVERY(WP_BASE_PORT + p->u.NationWar.CommonDataC.Data - 1, p, c, cn);	// 5991 + 4 - 1 = 5994
@@ -5325,7 +5325,7 @@ int CheckHandleByNationWar( t_packet *p, t_connection c[], const int cn )
 											RecvCMD_REQUEST_VOTE_RESULT(p,c,cn);
 											break;
 	case CMD_ANSWER_VOTE_RESULT :
-											g_pWarfield->RecvCMD_ANSWER_VOTE_RESULT(p,c,cn); //ÀüÀï¼­¹ö°¡ ¿ä±¸ÇÏ´Â ÆĞÅ¶ 
+											g_pWarfield->RecvCMD_ANSWER_VOTE_RESULT(p,c,cn); //ì „ìŸì„œë²„ê°€ ìš”êµ¬í•˜ëŠ” íŒ¨í‚· 
 											break;
 	case CMD_REQUEST_SQUAD_INFO :
 											RecvCMD_REQUEST_SQUAD_INFO(p,c,cn);
@@ -5480,17 +5480,17 @@ int CheckHandleByNationWar( t_packet *p, t_connection c[], const int cn )
 	case CMD_GUARD_BROKE :			
 											RecvCMD_GUARD_BROKE(p,c,cn);
 											break;
-	//< LTH-040423-KO ÆòÈ­ ±â°£¿¡ ÀüÀïÅÍ ÀÌµ¿
+	//< LTH-040423-KO í‰í™” ê¸°ê°„ì— ì „ìŸí„° ì´ë™
 	case CMD_NW_MAP_PEACE_MOVE:
 		RecvCMD_NW_MAP_PEACE_MOVE(p, c, cn);
 		break;
 	//> LTH-040423-KO
-	//< LTH-040504-KO °ü¸® ¼­¹ö¿¡°Ô ÀüÀïÅÍ ¼ÒÀ¯±¹°¡¿Í »óÅÂ ¿äÃ»
+	//< LTH-040504-KO ê´€ë¦¬ ì„œë²„ì—ê²Œ ì „ìŸí„° ì†Œìœ êµ­ê°€ì™€ ìƒíƒœ ìš”ì²­
 	case CMD_WARFIELD_INFO:
 		RecvCMD_WARFIELD_INFO(p, c, cn);
 		break;
 	//> LTH-040504-KO.
-	//< LTH-040504-KO °ü¸® ¼­¹ö°¡ ÀüÀïÅÍ ¼ÒÀ¯±¹°¡¿Í »óÅÂ¸¦ ¿äÃ»ÇÑ ¸Ê¼­¹ö¿¡°Ô ¹İÈ¯
+	//< LTH-040504-KO ê´€ë¦¬ ì„œë²„ê°€ ì „ìŸí„° ì†Œìœ êµ­ê°€ì™€ ìƒíƒœë¥¼ ìš”ì²­í•œ ë§µì„œë²„ì—ê²Œ ë°˜í™˜
 	case CMD_WARFIELD_INFO_RESULT:
 		RecvCMD_WARFIELD_INFO_RESULT(p, c, cn);
 		break;
@@ -5506,36 +5506,36 @@ int CheckHandleByNationWar( t_packet *p, t_connection c[], const int cn )
 cWarfield::cWarfield()
 {
 	int i,j=0;
-	InitWarfield();								// ¸â¹öº¯¼ö¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
-	InitSquad();								// ºÎ´ëÆí¼ºÁ¤º¸¸¦ ÃÊ±âÈ­ÇÑ´Ù. 
-	InitCommanderCandidater();					//  »ç·É°ü ÈÄº¸µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ÇÑ´Ù.
-	ClearCommander();							//»ç·É°üµ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+	InitWarfield();								// ë©¤ë²„ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
+	InitSquad();								// ë¶€ëŒ€í¸ì„±ì •ë³´ë¥¼ ì´ˆê¸°í™”í•œë‹¤. 
+	InitCommanderCandidater();					//  ì‚¬ë ¹ê´€ í›„ë³´ë°ì´í„°ë¥¼ ì´ˆê¸°í™”í•œë‹¤.
+	ClearCommander();							//ì‚¬ë ¹ê´€ë°ì´í„°ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 	for (i=0;i<MAX_MONSTER_POINT;i++)
 	{	
-		m_tMonsterPoint[i].Points=NULL;			// Å¸ÀÏµ·Æ® °ü·Ã ÁöÁ¡ÀÌ´Ù..
+		m_tMonsterPoint[i].Points=NULL;			// íƒ€ì¼ëˆíŠ¸ ê´€ë ¨ ì§€ì ì´ë‹¤..
 	}
 
-	if (!isNationManageServer())				// °ü¸®¼­¹ö°¡ ¾Æ´Ï°í ±¹°¡Àü ÀüÀïÅÍÀÌ¸é ½ÇÇàÇÑ´Ù.
+	if (!isNationManageServer())				// ê´€ë¦¬ì„œë²„ê°€ ì•„ë‹ˆê³  êµ­ê°€ì „ ì „ìŸí„°ì´ë©´ ì‹¤í–‰í•œë‹¤.
 	{
-		ClearSquadCount();						// ºÎ´ëÀÇ ÀÎ¿ø¼ö Ä«¿îÆ®¸¦  ÃÊ±âÈ­ ÇÑ´Ù.
-		LoadWarfieldData(g_wMapServerPort);  //°ü¸®¼­¹öÀÌ¸é.. ÀÚµ¿À¸·Î ¸¸µé¾î ÁÖ¾î¾ß ÇÑ´Ù.
-		LoadWarfieldPossession();					// ÀüÀïÅÍ Å×ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù.	¹Ù·ÎÀ§¿Í °°Àº°Å´Ù.
-		LoadWarfieldWeaponData(g_wMapServerPort); //°ü¸®¼­¹öµµ ÇÊ¿äÇÑ°¡?		
-		//LoadWarfieldMonsterData(g_wMapServerPort);	//¸ó½ºÅÍ µ¥ÀÌÅÍ¸¦ ·ÎµåÇÑ´Ù. LTH-040512-KO Hunt Table·Î ¹Ù²Û´Ù.
-		LoadNationWar_Exp();						// ÀüÀï °æÇèÄ¡¸¦ ¾ò¾î¿Â´Ù.			// 020115 LTS
-		FirstMakeWeaponData();		// ÀüÀï¹«±â, ¼º¹®,¼öÈ£¼® µîÀ» ¹èÄ¡ÇÑ´Ù. ¼ÒÈ¯¸ó½ºÅÍÀÌ´Ù.
+		ClearSquadCount();						// ë¶€ëŒ€ì˜ ì¸ì›ìˆ˜ ì¹´ìš´íŠ¸ë¥¼  ì´ˆê¸°í™” í•œë‹¤.
+		LoadWarfieldData(g_wMapServerPort);  //ê´€ë¦¬ì„œë²„ì´ë©´.. ìë™ìœ¼ë¡œ ë§Œë“¤ì–´ ì£¼ì–´ì•¼ í•œë‹¤.
+		LoadWarfieldPossession();					// ì „ìŸí„° í…Œì´í„°ë¥¼ ì½ì–´ì˜¨ë‹¤.	ë°”ë¡œìœ„ì™€ ê°™ì€ê±°ë‹¤.
+		LoadWarfieldWeaponData(g_wMapServerPort); //ê´€ë¦¬ì„œë²„ë„ í•„ìš”í•œê°€?		
+		//LoadWarfieldMonsterData(g_wMapServerPort);	//ëª¬ìŠ¤í„° ë°ì´í„°ë¥¼ ë¡œë“œí•œë‹¤. LTH-040512-KO Hunt Tableë¡œ ë°”ê¾¼ë‹¤.
+		LoadNationWar_Exp();						// ì „ìŸ ê²½í—˜ì¹˜ë¥¼ ì–»ì–´ì˜¨ë‹¤.			// 020115 LTS
+		FirstMakeWeaponData();		// ì „ìŸë¬´ê¸°, ì„±ë¬¸,ìˆ˜í˜¸ì„ ë“±ì„ ë°°ì¹˜í•œë‹¤. ì†Œí™˜ëª¬ìŠ¤í„°ì´ë‹¤.
 		for (i=2;i<m_cNpcCount+2;i++)
 		{
-			if (NPCList[i].SprNo==63) m_cGuardStoneCount++;			// °¡µå½ºÅæÀÇ ¼ö¸¦ ¼¾´Ù
-			if (NPCList[i].SprNo==64) m_cGuardStoneBossCount++;		// °¡µå½ºÅæ º¸½ºÀÇ ¼ö¸¦ ¼¾´Ù
-			if (NPCList[i].SprNo>=65&&NPCList[i].SprNo<=67) m_cCastleDoorCount++;	// ¼º¹®ÀÇ ¼ö¸¦ ¼¾´Ù.
+			if (NPCList[i].SprNo==63) m_cGuardStoneCount++;			// ê°€ë“œìŠ¤í†¤ì˜ ìˆ˜ë¥¼ ì„¼ë‹¤
+			if (NPCList[i].SprNo==64) m_cGuardStoneBossCount++;		// ê°€ë“œìŠ¤í†¤ ë³´ìŠ¤ì˜ ìˆ˜ë¥¼ ì„¼ë‹¤
+			if (NPCList[i].SprNo>=65&&NPCList[i].SprNo<=67) m_cCastleDoorCount++;	// ì„±ë¬¸ì˜ ìˆ˜ë¥¼ ì„¼ë‹¤.
 		}
 
-		LoadMonsterPoint();						// ¼º¹®ÀÇ Å¸ÀÏµ·Æ®¸¦ ¸Ş¸ğ¸®¿¡ ³Ö´Â´Ù. // ÃßÈÄ ÆÄÀÏ¿¡¼­ ÀĞ¾î¿Â´Ù.
+		LoadMonsterPoint();						// ì„±ë¬¸ì˜ íƒ€ì¼ëˆíŠ¸ë¥¼ ë©”ëª¨ë¦¬ì— ë„£ëŠ”ë‹¤. // ì¶”í›„ íŒŒì¼ì—ì„œ ì½ì–´ì˜¨ë‹¤.
 //		LoadMonsterPoint2();
 	}
-	if (isNationWarfieldServer())	InitWarLoop(); // ±¹°¡Àü ¼­¹öÀÌ¸é ·çÇÁ ÃÊ±â ½ÃÀÛ ½Ã°£À» ±¸ÇÑ´Ù.
-	else m_Status=1;								// °ü¸®¼­¹öÀÌ¸é ¹«Á¶°Ç ÇöÀçÀÇ »óÅÂ¸¦ 1·Î¼¼Æ®ÇÑ´Ù.
+	if (isNationWarfieldServer())	InitWarLoop(); // êµ­ê°€ì „ ì„œë²„ì´ë©´ ë£¨í”„ ì´ˆê¸° ì‹œì‘ ì‹œê°„ì„ êµ¬í•œë‹¤.
+	else m_Status=1;								// ê´€ë¦¬ì„œë²„ì´ë©´ ë¬´ì¡°ê±´ í˜„ì¬ì˜ ìƒíƒœë¥¼ 1ë¡œì„¸íŠ¸í•œë‹¤.
 }
 
 
@@ -5575,10 +5575,10 @@ bool cWarfield::InitWarfield()
 	m_cGuardStoneBossCount=0;
 	m_bAttackerWin=false;
 	m_bRequestCommanderVotingResult=false;
-	m_bFirstMakeMonster=true;						//¸ó½ºÅÍ°¡ ¸¸µé¾î Áø ÀûÀÌ ¾ø´Ù.
+	m_bFirstMakeMonster=true;						//ëª¬ìŠ¤í„°ê°€ ë§Œë“¤ì–´ ì§„ ì ì´ ì—†ë‹¤.
 	m_bBonusActive=false;
 	m_dRemainTime=0;
-	memset(&m_tWeaponData,0,sizeof(m_tWeaponData));   // WeaponDataÀÇ ÃÊ±âÈ­ 
+	memset(&m_tWeaponData,0,sizeof(m_tWeaponData));   // WeaponDataì˜ ì´ˆê¸°í™” 
 	memset(&m_bCommanderExist,0,sizeof(bool)*2);	// LTS TEMP
 	memset(&m_bSquadLeaderExist,0,sizeof(bool)*NW_SQUAD_KIND*NW_SQUAD_MAX);
 	InitWarLoopDefine();
@@ -5598,40 +5598,40 @@ void cWarfield::InitWarLoopDefine()	// 011105 LTS
 
 	sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir);
 */// 030919 HK YGI
-	m_LoopTimeDefine.NWPeaceTime1=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime1",0,MapServerConfigFileName);		// ÀüÀïÈÄÀÇ ÆòÈ­½Ã°£ 
+	m_LoopTimeDefine.NWPeaceTime1=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime1",0,MapServerConfigFileName);		// ì „ìŸí›„ì˜ í‰í™”ì‹œê°„ 
 	if (!m_LoopTimeDefine.NWPeaceTime1) m_LoopTimeDefine.NWPeaceTime1=NW_PEACETIME1;
 
-	m_LoopTimeDefine.NWPeaceTime2=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime2",0,MapServerConfigFileName);		// »êÁßÀüÀïÅÍÀÇ ÃÖÃÊ ÀüÀï·çÇÁ ½ÃÀÛ½Ã°£ 
+	m_LoopTimeDefine.NWPeaceTime2=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime2",0,MapServerConfigFileName);		// ì‚°ì¤‘ì „ìŸí„°ì˜ ìµœì´ˆ ì „ìŸë£¨í”„ ì‹œì‘ì‹œê°„ 
 	if (!m_LoopTimeDefine.NWPeaceTime2) m_LoopTimeDefine.NWPeaceTime2=NW_PEACETIME2;
 
-	m_LoopTimeDefine.NWPeaceTime3=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime3",0,MapServerConfigFileName);		// Æò¿øÀüÀïÅÍÀÇ ÃÖÃÊ ÀüÀï·çÇÁ ½ÃÀÛ½Ã°£ 
+	m_LoopTimeDefine.NWPeaceTime3=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime3",0,MapServerConfigFileName);		// í‰ì›ì „ìŸí„°ì˜ ìµœì´ˆ ì „ìŸë£¨í”„ ì‹œì‘ì‹œê°„ 
 	if (!m_LoopTimeDefine.NWPeaceTime3) m_LoopTimeDefine.NWPeaceTime3=NW_PEACETIME3;
 
-	m_LoopTimeDefine.NWPeaceTime4=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime4",0,MapServerConfigFileName);		// ¼¶  ÀüÀïÅÍÀÇ ÃÖÃÊ ÀüÀï·çÇÁ ½ÃÀÛ½Ã°£ 
+	m_LoopTimeDefine.NWPeaceTime4=(DWORD)GetPrivateProfileInt("WarLoopDefine","PeaceTime4",0,MapServerConfigFileName);		// ì„¬  ì „ìŸí„°ì˜ ìµœì´ˆ ì „ìŸë£¨í”„ ì‹œì‘ì‹œê°„ 
 	if (!m_LoopTimeDefine.NWPeaceTime4) m_LoopTimeDefine.NWPeaceTime4=NW_PEACETIME4;
 
-	m_LoopTimeDefine.NWVoteTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","VoteTime",0,MapServerConfigFileName);		// ÀüÀï ÅõÇ¥ ½Ã°£
+	m_LoopTimeDefine.NWVoteTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","VoteTime",0,MapServerConfigFileName);		// ì „ìŸ íˆ¬í‘œ ì‹œê°„
 	if (!m_LoopTimeDefine.NWVoteTime) m_LoopTimeDefine.NWVoteTime=NW_VOTETIME;
 
-	m_LoopTimeDefine.NWPrepareTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","PrepareTime",0,MapServerConfigFileName);		// ÀüÀï ÁØºñ ½Ã°£ 
+	m_LoopTimeDefine.NWPrepareTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","PrepareTime",0,MapServerConfigFileName);		// ì „ìŸ ì¤€ë¹„ ì‹œê°„ 
 	if (!m_LoopTimeDefine.NWPrepareTime) m_LoopTimeDefine.NWPrepareTime=NW_PREPARETIME;
 
-	m_LoopTimeDefine.NWWarTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","WarTime",0,MapServerConfigFileName);			// ÀüÀï ½Ã°£ 
+	m_LoopTimeDefine.NWWarTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","WarTime",0,MapServerConfigFileName);			// ì „ìŸ ì‹œê°„ 
 	if (!m_LoopTimeDefine.NWWarTime) m_LoopTimeDefine.NWWarTime=NW_WARTIME;
 
-	m_LoopTimeDefine.NWBonusTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","BonusTime",0,MapServerConfigFileName);;		// ºñ¹ĞÁö¿ª ¿ÀÇÂ½Ã°£
+	m_LoopTimeDefine.NWBonusTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","BonusTime",0,MapServerConfigFileName);;		// ë¹„ë°€ì§€ì—­ ì˜¤í”ˆì‹œê°„
 	if (!m_LoopTimeDefine.NWBonusTime) m_LoopTimeDefine.NWBonusTime=NW_BONUS;
 
-	m_LoopTimeDefine.NWVoteMin=(DWORD)GetPrivateProfileInt("WarLoopDefine","VoteMin",0,MapServerConfigFileName);;		// ÀüÀï Âü¿© ÅõÇ¥ ÀÎ¿ø // LTS LOCALWAR
+	m_LoopTimeDefine.NWVoteMin=(DWORD)GetPrivateProfileInt("WarLoopDefine","VoteMin",0,MapServerConfigFileName);;		// ì „ìŸ ì°¸ì—¬ íˆ¬í‘œ ì¸ì› // LTS LOCALWAR
 	if (!m_LoopTimeDefine.NWVoteMin) m_LoopTimeDefine.NWVoteMin=NW_NATION_VOTE_MIN;
 
-	m_LoopTimeDefine.NWBYJoinMAX=(WORD)GetPrivateProfileInt("WarLoopDefine","BYJoinMax",0,MapServerConfigFileName);;		// ÀüÀï Âü¿© ÅõÇ¥ ÀÎ¿ø // LTS LOCALWAR
+	m_LoopTimeDefine.NWBYJoinMAX=(WORD)GetPrivateProfileInt("WarLoopDefine","BYJoinMax",0,MapServerConfigFileName);;		// ì „ìŸ ì°¸ì—¬ íˆ¬í‘œ ì¸ì› // LTS LOCALWAR
 	if (!m_LoopTimeDefine.NWBYJoinMAX) m_LoopTimeDefine.NWBYJoinMAX=NW_BY_JOIN_MAX;
 
-	m_LoopTimeDefine.NWZYJoinMAX=(WORD)GetPrivateProfileInt("WarLoopDefine","ZYJoinMax",0,MapServerConfigFileName);;		// ÀüÀï Âü¿© ÅõÇ¥ ÀÎ¿ø // LTS LOCALWAR
+	m_LoopTimeDefine.NWZYJoinMAX=(WORD)GetPrivateProfileInt("WarLoopDefine","ZYJoinMax",0,MapServerConfigFileName);;		// ì „ìŸ ì°¸ì—¬ íˆ¬í‘œ ì¸ì› // LTS LOCALWAR
 	if (!m_LoopTimeDefine.NWZYJoinMAX) m_LoopTimeDefine.NWZYJoinMAX=NW_BY_JOIN_MAX;
 
-	m_LoopTimeDefine.NWYLJoinMAX=(WORD)GetPrivateProfileInt("WarLoopDefine","YLJoinMax",0,MapServerConfigFileName);;		// ÀüÀï Âü¿© ÅõÇ¥ ÀÎ¿ø // LTS LOCALWAR
+	m_LoopTimeDefine.NWYLJoinMAX=(WORD)GetPrivateProfileInt("WarLoopDefine","YLJoinMax",0,MapServerConfigFileName);;		// ì „ìŸ ì°¸ì—¬ íˆ¬í‘œ ì¸ì› // LTS LOCALWAR
 	if (!m_LoopTimeDefine.NWYLJoinMAX) m_LoopTimeDefine.NWYLJoinMAX=NW_YL_JOIN_MAX;
 
 }
@@ -5639,20 +5639,20 @@ void cWarfield::InitWarLoopDefine()	// 011105 LTS
 void cWarfield::InitWarLoop()	// 011023 LTS
 {
 	m_cLoopActive=1;
-//	m_LoopTime=g_WarTime+NW_FIRST_TIME;	// ÀüÀï·çÇÁ ÃÊ±â ½ÃÀÛ½Ã°£À» ±¸ÇÑ´Ù.			// LTS NEW_NATION_WAR
+//	m_LoopTime=g_WarTime+NW_FIRST_TIME;	// ì „ìŸë£¨í”„ ì´ˆê¸° ì‹œì‘ì‹œê°„ì„ êµ¬í•œë‹¤.			// LTS NEW_NATION_WAR
 	m_LoopTime=0;																	// LTS NEW_NATION_WAR	
 //	m_dRemainTime=m_LoopTime-g_WarTime;												// LTS NEW_NATION_WAR
 	m_dRemainTime=0;																// LTS NEW_NATION_WAR
 	m_Status=NW_PEACE;																// LTS NEW_NATION_WAR
-	ClearCastleGateDont();	// LTH-040622-KO ¼º¹®ÀÇ µ·Æ®µµ ¾ø¾Ø´Ù.
-	ClearAllGuard();		// LTH-040528-KO ¸ğµç °¡µåµéÀÌ ÆòÈ­±â°£¿£ ¾ø¾îÁø´Ù.
-	m_bBonusActive=false;										//º¸³Ê½º »óÅÂ¸¦ ÃÊ±âÈ­
-	m_dBonusLoopTime=0;											// º¸³Ê½º ·çÇÁ ÃÊ±âÈ­ 
+	ClearCastleGateDont();	// LTH-040622-KO ì„±ë¬¸ì˜ ëˆíŠ¸ë„ ì—†ì•¤ë‹¤.
+	ClearAllGuard();		// LTH-040528-KO ëª¨ë“  ê°€ë“œë“¤ì´ í‰í™”ê¸°ê°„ì—” ì—†ì–´ì§„ë‹¤.
+	m_bBonusActive=false;										//ë³´ë„ˆìŠ¤ ìƒíƒœë¥¼ ì´ˆê¸°í™”
+	m_dBonusLoopTime=0;											// ë³´ë„ˆìŠ¤ ë£¨í”„ ì´ˆê¸°í™” 
 }
 
 void cWarfield::ClearCommander()
 {
-	// »ç·É°ü Á¤º¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù. ¹ÙÀÌ¼­½º,ÀÚÀÌÆİ,ÀÏ½º
+	// ì‚¬ë ¹ê´€ ì •ë³´ë¥¼ ì´ˆê¸°í™” í•œë‹¤. ë°”ì´ì„œìŠ¤,ìì´í€,ì¼ìŠ¤
 	memset(&m_tSquad[NW_ATTACKER].Commander,0,sizeof(t_CommanderInformation));	// LOOP UNROLL
 	memset(&m_tSquad[NW_DEFENCER].Commander,0,sizeof(t_CommanderInformation));	
 	memset(&m_tSquad[NW_REINFORCE].Commander,0,sizeof(t_CommanderInformation));	
@@ -5691,14 +5691,14 @@ void cWarfield::ClearSquadCount()
 	m_NationMemberCount[2]=0;
 }
 
-void cWarfield::ClearCommander(int Kind)						// ¼±ÅÃµÈ ³ª¶óÀÇ Á¾·ù¿¡ µû¶ó »ç·É°ü Á¤º¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+void cWarfield::ClearCommander(int Kind)						// ì„ íƒëœ ë‚˜ë¼ì˜ ì¢…ë¥˜ì— ë”°ë¼ ì‚¬ë ¹ê´€ ì •ë³´ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 {
 	memset(&m_tSquad[Kind].Commander,0,sizeof(t_CommanderInformation));
 }
 
-bool cWarfield::LoadMonsterPoint()				// ¼öÈ£¼®,¼º¹®¿¡ ÀÇÇÑ µ·Æ®ÀÇ Ã³¸® 
+bool cWarfield::LoadMonsterPoint()				// ìˆ˜í˜¸ì„,ì„±ë¬¸ì— ì˜í•œ ëˆíŠ¸ì˜ ì²˜ë¦¬ 
 {
-	//ÃßÈÄ ÆÄÀÏ¿¡¼­ ÀĞ¾î ¿Â´Ù. 
+	//ì¶”í›„ íŒŒì¼ì—ì„œ ì½ì–´ ì˜¨ë‹¤. 
 	switch (m_WarfieldCode)
 	{
 	case 0 :
@@ -5785,32 +5785,32 @@ bool cWarfield::LoadMonsterPoint()				// ¼öÈ£¼®,¼º¹®¿¡ ÀÇÇÑ µ·Æ®ÀÇ Ã³¸®
 	return true;
 }
 
-void cWarfield::CheckCastleGateWay()		// ÀüÀï¼­¹öÀüÃ¼ÀÇ NPC(WaeponTable) ·çÇÁ¸¦ µ¹¸ç		// 011105 LTS
+void cWarfield::CheckCastleGateWay()		// ì „ìŸì„œë²„ì „ì²´ì˜ NPC(WaeponTable) ë£¨í”„ë¥¼ ëŒë©°		// 011105 LTS
 {
-	for (int i=2;i<m_cNpcCount+2;i++)						// ÀÌÀü¿¡ »ì¾ÆÀÖ´Â³ğÀÌ Á×¾ú´Ù¸é.. Ã³¸®¸¦ ÇØÁØ´Ù. WarUpdate¿¡¼­ È£ÃâµÈ´Ù.
+	for (int i=2;i<m_cNpcCount+2;i++)						// ì´ì „ì— ì‚´ì•„ìˆëŠ”ë†ˆì´ ì£½ì—ˆë‹¤ë©´.. ì²˜ë¦¬ë¥¼ í•´ì¤€ë‹¤. WarUpdateì—ì„œ í˜¸ì¶œëœë‹¤.
 	{
-		if (NPCList[i].SprNo>=65&&NPCList[i].SprNo<=67)		// ¼º¹®ÀÎ°¡?
+		if (NPCList[i].SprNo>=65&&NPCList[i].SprNo<=67)		// ì„±ë¬¸ì¸ê°€?
 		{
-			if (NPCList[i].bAlive>1)						// Á×¾îÀÖ´Ù.
+			if (NPCList[i].bAlive>1)						// ì£½ì–´ìˆë‹¤.
 			{				
-				if (m_tWeaponData[i-2].Status)				// »ì¾ÆÀÖ´Ù°í Ã¼Å©µÇ¾îÀÖ´Ù.
-				{ //ÀÌÀü¿£ »ì¾ÆÀÖ¾ú´Ù.				//¼º¹®¸¸ Ã¼Å©ÇÑ´Ù..
+				if (m_tWeaponData[i-2].Status)				// ì‚´ì•„ìˆë‹¤ê³  ì²´í¬ë˜ì–´ìˆë‹¤.
+				{ //ì´ì „ì—” ì‚´ì•„ìˆì—ˆë‹¤.				//ì„±ë¬¸ë§Œ ì²´í¬í•œë‹¤..
 					t_WarBBS WarBBS;
-					m_tWeaponData[i-2].Status=0;						// Á×¾ú´Ù°í Ã¼Å©ÇÑ´Ù.
-					InsertKiller(NPCList[i].KillerName,NPCList[i].SprNo);	//  Á×ÀÎ À¯Àú¸¦ ±â·ÏÇÑ´Ù.
+					m_tWeaponData[i-2].Status=0;						// ì£½ì—ˆë‹¤ê³  ì²´í¬í•œë‹¤.
+					InsertKiller(NPCList[i].KillerName,NPCList[i].SprNo);	//  ì£½ì¸ ìœ ì €ë¥¼ ê¸°ë¡í•œë‹¤.
 					MyLog(0,"<_________________________________________________");
 					MyLog(0,"GatwWay : SprNo : %d, Killed By User : %s",NPCList[i].SprNo,NPCList[i].KillerName);
 					MyLog(0,"__________________________________________________>");
 
-					SetTileDont(m_tWeaponData[i-2].MonPointIndex,0);	// µ·Æ®¸¦ Ç¬´Ù.
-					SendTileDontChange(m_tWeaponData[i-2].MonPointIndex,0);		// µ·Æ®°¡ º¯°æµÇ¾ú´Ù°í Å¬¶óÀÌ¾ğÆ®¿¡°Ô º¸³½´Ù.
+					SetTileDont(m_tWeaponData[i-2].MonPointIndex,0);	// ëˆíŠ¸ë¥¼ í‘¼ë‹¤.
+					SendTileDontChange(m_tWeaponData[i-2].MonPointIndex,0);		// ëˆíŠ¸ê°€ ë³€ê²½ë˜ì—ˆë‹¤ê³  í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚¸ë‹¤.
 
 					WarBBS.WarfieldNo=m_WarfieldCode;
 					WarBBS.BBSType=BBS_CASTLEGATEWAY_BROKED;
 					WarBBS.LanNo=0;
 					WarBBS.ArgType=BBS_NUM;
-					//WarBBS.Size=1;		// ÀÎÀÚÀÇ °¹¼ö 
-					WarBBS.Size=10;		// ÀÎÀÚÀÇ °¹¼ö			// 011022 LTS <
+					//WarBBS.Size=1;		// ì¸ìì˜ ê°¯ìˆ˜ 
+					WarBBS.Size=10;		// ì¸ìì˜ ê°¯ìˆ˜			// 011022 LTS <
 					WarBBS.Arg[0]=i-2;	// LTS TEMP
 					int ServerID=NPCList[i].GetServerID();
 					memcpy(&WarBBS.Arg[1],&ServerID,sizeof(int));
@@ -5822,29 +5822,29 @@ void cWarfield::CheckCastleGateWay()		// ÀüÀï¼­¹öÀüÃ¼ÀÇ NPC(WaeponTable) ·çÇÁ¸¦ 
 					memcpy(&WarBBS.Arg[7],&Locationy,sizeof(WORD));
 					memcpy(&WarBBS.Arg[9],&Index,sizeof(WORD));	// 011022 LTS >
 
-					SendWarBBS2Maps(&WarBBS);	// ¼º¹®ÀÌ ±ú¾îÁ³´Ù°í ¸ğµç ¸Ê¼­¹ö¿¡°Ô ¾Ë¸°´Ù.
-					SendWarBBS2Clients(&WarBBS);		// ¼º¹®ÀÌ ±ú¾îÁ³´Ù°í ¹æ¼ÛÀ» º¸³½´Ù. // ÀÎÀÚ´Â ÀÇ¹Ì°¡ ¾ø´Ù.				
+					SendWarBBS2Maps(&WarBBS);	// ì„±ë¬¸ì´ ê¹¨ì–´ì¡Œë‹¤ê³  ëª¨ë“  ë§µì„œë²„ì—ê²Œ ì•Œë¦°ë‹¤.
+					SendWarBBS2Clients(&WarBBS);		// ì„±ë¬¸ì´ ê¹¨ì–´ì¡Œë‹¤ê³  ë°©ì†¡ì„ ë³´ë‚¸ë‹¤. // ì¸ìëŠ” ì˜ë¯¸ê°€ ì—†ë‹¤.				
 
 					WarBBS.WarfieldNo=m_WarfieldCode;
 					WarBBS.BBSType=BBS_KILLER;
-					WarBBS.LanNo=1;				// 1 : ¼º¹®, 2 : ¼öÈ£¼®, 3 : »ç·É°ü, 4 : ºÎ´ëÀå
+					WarBBS.LanNo=1;				// 1 : ì„±ë¬¸, 2 : ìˆ˜í˜¸ì„, 3 : ì‚¬ë ¹ê´€, 4 : ë¶€ëŒ€ì¥
 					WarBBS.ArgType=BBS_ALPHA;
 					WarBBS.Size=strlen(NPCList[i].KillerName);
 					memcpy(WarBBS.Arg,NPCList[i].KillerName,WarBBS.Size);
-					SendWarBBS2Clients(&WarBBS);		// ¼º¹®À» ±ü »ç¶÷ÀÇ ÀÌ¸§À» º¸³½´Ù.
+					SendWarBBS2Clients(&WarBBS);		// ì„±ë¬¸ì„ ê¹¬ ì‚¬ëŒì˜ ì´ë¦„ì„ ë³´ë‚¸ë‹¤.
 
 				}
 			}
 		}
-		if (NPCList[i].SprNo==63||NPCList[i].SprNo==64)	// ¼öÈ£¼®ÀÎ°¡?
+		if (NPCList[i].SprNo==63||NPCList[i].SprNo==64)	// ìˆ˜í˜¸ì„ì¸ê°€?
 		{
 			if (NPCList[i].bAlive>1)
 			{
-				if (m_tWeaponData[i-2].Status)				// »ì¾ÆÀÖ´Ù°í Ã¼Å©µÇ¾îÀÖ´Ù.
-				{ //ÀÌÀü¿£ »ì¾ÆÀÖ¾ú´Ù.				
+				if (m_tWeaponData[i-2].Status)				// ì‚´ì•„ìˆë‹¤ê³  ì²´í¬ë˜ì–´ìˆë‹¤.
+				{ //ì´ì „ì—” ì‚´ì•„ìˆì—ˆë‹¤.				
 					t_WarBBS WarBBS;
-					m_tWeaponData[i-2].Status=0;						// Á×¾ú´Ù°í Ã¼Å©ÇÑ´Ù.
-					InsertKiller(NPCList[i].KillerName,NPCList[i].SprNo);	// Á×ÀÎ À¯Àú¸¦ ±â·ÏÇÑ´Ù. 
+					m_tWeaponData[i-2].Status=0;						// ì£½ì—ˆë‹¤ê³  ì²´í¬í•œë‹¤.
+					InsertKiller(NPCList[i].KillerName,NPCList[i].SprNo);	// ì£½ì¸ ìœ ì €ë¥¼ ê¸°ë¡í•œë‹¤. 
 					MyLog(0,"<_________________________________________________");
 					MyLog(0,"GuardStone : Sprite No : %d, Killed By User : %s",NPCList[i].SprNo,NPCList[i].KillerName);
 					MyLog(0,"__________________________________________________>");
@@ -5853,8 +5853,8 @@ void cWarfield::CheckCastleGateWay()		// ÀüÀï¼­¹öÀüÃ¼ÀÇ NPC(WaeponTable) ·çÇÁ¸¦ 
 					WarBBS.BBSType=BBS_GUARDSTONE_BROKED;
 					WarBBS.LanNo=0;
 					WarBBS.ArgType=BBS_NUM;
-					//WarBBS.Size=1;		// ÀÎÀÚÀÇ °¹¼ö 
-					WarBBS.Size=10;		// ÀÎÀÚÀÇ °¹¼ö			// 011022 LTS <
+					//WarBBS.Size=1;		// ì¸ìì˜ ê°¯ìˆ˜ 
+					WarBBS.Size=10;		// ì¸ìì˜ ê°¯ìˆ˜			// 011022 LTS <
 					WarBBS.Arg[0]=i-2;	// LTS TEMP
 					int ServerID=NPCList[i].GetServerID();
 					memcpy(&WarBBS.Arg[1],&ServerID,sizeof(int));
@@ -5866,16 +5866,16 @@ void cWarfield::CheckCastleGateWay()		// ÀüÀï¼­¹öÀüÃ¼ÀÇ NPC(WaeponTable) ·çÇÁ¸¦ 
 					memcpy(&WarBBS.Arg[7],&Locationy,sizeof(WORD));
 					memcpy(&WarBBS.Arg[9],&Index,sizeof(WORD));	// 011022 LTS >
 
-					SendWarBBS2Maps(&WarBBS);				// ¼öÈ£¼®ÀÌ ±ú¾îÁ³´Ù°í ¸ğµç ¸Ê¼­¹ö¿¡°Ô ¾Ë¸°´Ù.
-					SendWarBBS2Clients(&WarBBS);		// ¼öÈ£¼®ÀÌ ±ú¾îÁ³´Ù°í ¹æ¼ÛÀ» º¸³½´Ù. // ÀÎÀÚ´Â ÀÇ¹Ì°¡ ¾ø´Ù.
+					SendWarBBS2Maps(&WarBBS);				// ìˆ˜í˜¸ì„ì´ ê¹¨ì–´ì¡Œë‹¤ê³  ëª¨ë“  ë§µì„œë²„ì—ê²Œ ì•Œë¦°ë‹¤.
+					SendWarBBS2Clients(&WarBBS);		// ìˆ˜í˜¸ì„ì´ ê¹¨ì–´ì¡Œë‹¤ê³  ë°©ì†¡ì„ ë³´ë‚¸ë‹¤. // ì¸ìëŠ” ì˜ë¯¸ê°€ ì—†ë‹¤.
 
 					WarBBS.WarfieldNo=m_WarfieldCode;
 					WarBBS.BBSType=BBS_KILLER;
-					WarBBS.LanNo=2;				// 1 : ¼º¹®, 2 : ¼öÈ£¼®, 3 : »ç·É°ü, 4 : ºÎ´ëÀå
+					WarBBS.LanNo=2;				// 1 : ì„±ë¬¸, 2 : ìˆ˜í˜¸ì„, 3 : ì‚¬ë ¹ê´€, 4 : ë¶€ëŒ€ì¥
 					WarBBS.ArgType=BBS_ALPHA;
 					WarBBS.Size=strlen(NPCList[i].KillerName);
 					memcpy(WarBBS.Arg,NPCList[i].KillerName,WarBBS.Size);
-					SendWarBBS2Clients(&WarBBS);		// ¼öÈ£¼®À» ±ü »ç¶÷ÀÇ ÀÌ¸§À» º¸³½´Ù.
+					SendWarBBS2Clients(&WarBBS);		// ìˆ˜í˜¸ì„ì„ ê¹¬ ì‚¬ëŒì˜ ì´ë¦„ì„ ë³´ë‚¸ë‹¤.
 				}
 			}
 		}
@@ -5887,9 +5887,9 @@ void cWarfield::CheckGroup(SquadList* g_SquadList)
 	for (SquadListItor itor=g_SquadList->begin();itor!=g_SquadList->end();itor++)
 	{
 		if (connections[(*itor)->GetData()].chrlst.bAlive==1)	(*itor)->SetStatus(1);
-		if (connections[(*itor)->GetData()].chrlst.bAlive>1)	//Á×¾îÀÖ´Ù.
+		if (connections[(*itor)->GetData()].chrlst.bAlive>1)	//ì£½ì–´ìˆë‹¤.
 		{
-			if ((*itor)->GetStatus()==1)					// ¿¹Àü»óÅÂ°¡ »ì¾ÆÀÖ´Â »óÅÂ¸é, ¹æ±İ Á×¾ú´Ù´Â ¼Ò¸®.
+			if ((*itor)->GetStatus()==1)					// ì˜ˆì „ìƒíƒœê°€ ì‚´ì•„ìˆëŠ” ìƒíƒœë©´, ë°©ê¸ˆ ì£½ì—ˆë‹¤ëŠ” ì†Œë¦¬.
 			{
 				t_WarBBS WarBBS;
 				int ServerID=(*itor)->GetData();
@@ -5899,29 +5899,29 @@ void cWarfield::CheckGroup(SquadList* g_SquadList)
 				WarBBS.WarfieldNo=m_WarfieldCode;
 				WarBBS.BBSType=BBS_COMMANDER_DEATH;
 				if (isAttacker(m_WarfieldCode,connections,ServerID))
-				{											//¹Ş´Â °÷¿¡¼­´Â ´Ü¼øÇÏ°Ô LanNo¿¡ µû¶ó.. Ç¥½Ã¸¸ ´Ù¸£°Ô ÇÏ¸éµÈ´Ù.	
+				{											//ë°›ëŠ” ê³³ì—ì„œëŠ” ë‹¨ìˆœí•˜ê²Œ LanNoì— ë”°ë¼.. í‘œì‹œë§Œ ë‹¤ë¥´ê²Œ í•˜ë©´ëœë‹¤.	
 					if (connections[ServerID].chrlst.NWCharacter.isCommander) WarBBS.LanNo=0;
-					else WarBBS.LanNo=1;					//°ø°İ±¹ »ç·É°ü , ºÎ´ëÀå, ¹æ¾î±¹ »ç·É°ü,ºÎ´ëÀå, Áö¿ø±º »ç·É°ü,ºÎ´ëÀåÀ¸·Î ³ª´¸
+					else WarBBS.LanNo=1;					//ê³µê²©êµ­ ì‚¬ë ¹ê´€ , ë¶€ëŒ€ì¥, ë°©ì–´êµ­ ì‚¬ë ¹ê´€,ë¶€ëŒ€ì¥, ì§€ì›êµ° ì‚¬ë ¹ê´€,ë¶€ëŒ€ì¥ìœ¼ë¡œ ë‚˜ë‰¨
 				}
 				else
 				{
 					if (connections[ServerID].chrlst.NWCharacter.isCommander) WarBBS.LanNo=2;
-					else WarBBS.LanNo=3;					//°ø°İ±¹ »ç·É°ü , ºÎ´ëÀå, ¹æ¾î±¹ »ç·É°ü,ºÎ´ëÀå, Áö¿ø±º »ç·É°ü,ºÎ´ëÀåÀ¸·Î ³ª´¸
+					else WarBBS.LanNo=3;					//ê³µê²©êµ­ ì‚¬ë ¹ê´€ , ë¶€ëŒ€ì¥, ë°©ì–´êµ­ ì‚¬ë ¹ê´€,ë¶€ëŒ€ì¥, ì§€ì›êµ° ì‚¬ë ¹ê´€,ë¶€ëŒ€ì¥ìœ¼ë¡œ ë‚˜ë‰¨
 				}
 				WarBBS.ArgType=BBS_ALPHA;
 				WarBBS.Size=strlen(connections[ServerID].name);
 				memcpy(WarBBS.Arg,connections[ServerID].name,WarBBS.Size);
 
-				SendWarBBS2Maps(&WarBBS);	// ¹Ş´Â ÂÊ¿¡¼­ Ã³¸®ÇÑ´Ù.
+				SendWarBBS2Maps(&WarBBS);	// ë°›ëŠ” ìª½ì—ì„œ ì²˜ë¦¬í•œë‹¤.
 				SendWarBBS2Clients(&WarBBS);
 
-				WarBBS.WarfieldNo=m_WarfieldCode;			// »ç·É°ü ºÎ´ëÀåÀ» Á×ÀÎ³ğÀÌ¶ó°í ¸Ş½ÃÁö¸¦ º¸³½´Ù.	
+				WarBBS.WarfieldNo=m_WarfieldCode;			// ì‚¬ë ¹ê´€ ë¶€ëŒ€ì¥ì„ ì£½ì¸ë†ˆì´ë¼ê³  ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.	
 				WarBBS.BBSType=BBS_KILLER;
-				WarBBS.LanNo=3;				// 1 : ¼º¹®, 2 : ¼öÈ£¼®, 3 : »ç·É°ü, 4 : ºÎ´ëÀå
+				WarBBS.LanNo=3;				// 1 : ì„±ë¬¸, 2 : ìˆ˜í˜¸ì„, 3 : ì‚¬ë ¹ê´€, 4 : ë¶€ëŒ€ì¥
 				WarBBS.ArgType=BBS_ALPHA;
 				WarBBS.Size=strlen(connections[ServerID].chrlst.KillerName);
 				memcpy(WarBBS.Arg,connections[ServerID].chrlst.KillerName,WarBBS.Size);
-				SendWarBBS2Clients(&WarBBS);		// ¼öÈ£¼®À» ±ü »ç¶÷ÀÇ ÀÌ¸§À» º¸³½´Ù.
+				SendWarBBS2Clients(&WarBBS);		// ìˆ˜í˜¸ì„ì„ ê¹¬ ì‚¬ëŒì˜ ì´ë¦„ì„ ë³´ë‚¸ë‹¤.
 			}
 		}
 	}
@@ -5929,10 +5929,10 @@ void cWarfield::CheckGroup(SquadList* g_SquadList)
 
 void cWarfield::CheckCommanderGroup()
 {
-	for(int i=0;i<NW_SQUAD_KIND;i++)	CheckGroup(&g_CommanderList[i]);	 // »ç·É°ü ½ºÄõµå¸®´õÀÇ »óÅÂ¸¦ °üÂûÇÑ´Ù.
+	for(int i=0;i<NW_SQUAD_KIND;i++)	CheckGroup(&g_CommanderList[i]);	 // ì‚¬ë ¹ê´€ ìŠ¤ì¿¼ë“œë¦¬ë”ì˜ ìƒíƒœë¥¼ ê´€ì°°í•œë‹¤.
 }
 
-void cWarfield::SendTileDontChange(int Mono,int type)	// ¸ó½ºÅÍ ¹øÈ£¿¡ ÀÇÇØ Å¸ÀÏµ·Æ®°¡ Ç®·È´Ù ÃÆ´Ù¸¦ Å¬¶óÀÌ¾ğÆ®°Ô ¾Ë·ÁÁØ´Ù.
+void cWarfield::SendTileDontChange(int Mono,int type)	// ëª¬ìŠ¤í„° ë²ˆí˜¸ì— ì˜í•´ íƒ€ì¼ëˆíŠ¸ê°€ í’€ë ¸ë‹¤ ì³¤ë‹¤ë¥¼ í´ë¼ì´ì–¸íŠ¸ê²Œ ì•Œë ¤ì¤€ë‹¤.
 {
 	t_packet packet;
 
@@ -5944,9 +5944,9 @@ void cWarfield::SendTileDontChange(int Mono,int type)	// ¸ó½ºÅÍ ¹øÈ£¿¡ ÀÇÇØ Å¸ÀÏ
 	g_pUserManager->SendPacket(&packet); // CSD-CN-031213
 }
 
-void cWarfield::SetTileDont(int MonNo,int type) //¸ó½ºÅÍ SQL ÇÊµå INDEX, 0,1 : 
+void cWarfield::SetTileDont(int MonNo,int type) //ëª¬ìŠ¤í„° SQL í•„ë“œ INDEX, 0,1 : 
 {
-	for (int i=0;i<MAX_MONSTER_POINT;i++)				// Mono NPC¹øÈ£¿¡ ÀÇÇØ.. Å¸ÀÏ µ·Æ®¸¦ Ä¡°í Ç¬´Ù.
+	for (int i=0;i<MAX_MONSTER_POINT;i++)				// Mono NPCë²ˆí˜¸ì— ì˜í•´.. íƒ€ì¼ ëˆíŠ¸ë¥¼ ì¹˜ê³  í‘¼ë‹¤.
 	{
 		if (m_tMonsterPoint[i].MonsterIndex==MonNo)
 		{
@@ -5958,7 +5958,7 @@ void cWarfield::SetTileDont(int MonNo,int type) //¸ó½ºÅÍ SQL ÇÊµå INDEX, 0,1 :
 	}
 }
 
-void cWarfield::SendAllTileDont(int type)   // ¸ğµç Å¸ÀÏ µ·Æ®¸¦ Ç®¾ú´Ù ÃÆ´Ù ÇÑ´Ù.
+void cWarfield::SendAllTileDont(int type)   // ëª¨ë“  íƒ€ì¼ ëˆíŠ¸ë¥¼ í’€ì—ˆë‹¤ ì³¤ë‹¤ í•œë‹¤.
 {
 	int i,j;
 
@@ -5975,9 +5975,9 @@ void cWarfield::SendAllTileDont(int type)   // ¸ğµç Å¸ÀÏ µ·Æ®¸¦ Ç®¾ú´Ù ÃÆ´Ù ÇÑ´Ù
 }
 
 
-void cWarfield::SendTileDont(t_packet *p, t_connection c[], int cn )	// ¿äÃ»ÇÑ À¯Àú¿¡°Ô ¸ğµç ¸ó½ºÅÍÀÇ »óÅÂ¸¦ º¸³»ÁØ´Ù
+void cWarfield::SendTileDont(t_packet *p, t_connection c[], int cn )	// ìš”ì²­í•œ ìœ ì €ì—ê²Œ ëª¨ë“  ëª¬ìŠ¤í„°ì˜ ìƒíƒœë¥¼ ë³´ë‚´ì¤€ë‹¤
 {
-	// Å¬¶óÀÌ¾ğÆ®´Â ¸ó½ºÅÍÀÇ »óÅÂ¿¡ µû¶ó Å¸ÀÏµ·Æ®¸¦ Ç®°í ´İ´Â´Ù.
+	// í´ë¼ì´ì–¸íŠ¸ëŠ” ëª¬ìŠ¤í„°ì˜ ìƒíƒœì— ë”°ë¼ íƒ€ì¼ëˆíŠ¸ë¥¼ í’€ê³  ë‹«ëŠ”ë‹¤.
 	t_packet packet;
 	int i,j;
 
@@ -5998,7 +5998,7 @@ void cWarfield::SendTileDont(t_packet *p, t_connection c[], int cn )	// ¿äÃ»ÇÑ À
 	}
 }
 
-void cWarfield::SetCommander(int Kind,int CandidaterNo)				// ÈÄº¸¸¦ »ç·É°üÀ¸·Î ÀÓ¸íÇÑ´Ù.		// 011016 LTS
+void cWarfield::SetCommander(int Kind,int CandidaterNo)				// í›„ë³´ë¥¼ ì‚¬ë ¹ê´€ìœ¼ë¡œ ì„ëª…í•œë‹¤.		// 011016 LTS
 {
 	m_tSquad[Kind].Commander.CO_ID=m_tSquad[Kind].Candidater[CandidaterNo].CO_ID;
 	strcpy(m_tSquad[Kind].Commander.CO_Name,m_tSquad[Kind].Candidater[CandidaterNo].CO_Name);
@@ -6012,7 +6012,7 @@ void cWarfield::SetCommander(int Kind,int CandidaterNo)				// ÈÄº¸¸¦ »ç·É°üÀ¸·Î 
 	m_tSquad[Kind].Commander.LadderScore=m_tSquad[Kind].Candidater[CandidaterNo].LadderScore;
 }
 
-void cWarfield::SetCommander(int Kind,t_CommanderInformation* Commander)	// ÈÄº¸¸¦ »ç·É°üÀ¸·Î ÀÓ¸íÇÑ´Ù.
+void cWarfield::SetCommander(int Kind,t_CommanderInformation* Commander)	// í›„ë³´ë¥¼ ì‚¬ë ¹ê´€ìœ¼ë¡œ ì„ëª…í•œë‹¤.
 {
 	memcpy(&m_tSquad[Kind].Commander,Commander,sizeof(t_CommanderInformation));
 }
@@ -6053,7 +6053,7 @@ bool cWarfield::LoadWarfieldData(WORD PortNum)
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}                //WarFieldTBLÀÇ Name
+	}                //WarFieldTBLì˜ Name
 	ret=SQLGetData(hStmt,3,SQL_C_CHAR,&m_pWarfieldName,sizeof(m_pWarfieldName),&cbValue);
 	EatRearWhiteChar(m_pWarfieldName);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
@@ -6061,56 +6061,56 @@ bool cWarfield::LoadWarfieldData(WORD PortNum)
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}                //WarFieldTBLÀÇ NationCode 
+	}                //WarFieldTBLì˜ NationCode 
 	ret=SQLGetData(hStmt,4,SQL_C_SLONG,&m_NationCode,sizeof(int),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}               //WarFieldTBLÀÇ Port          
+	}               //WarFieldTBLì˜ Port          
 	ret=SQLGetData(hStmt,5,SQL_C_SLONG,&m_MapPortNum,sizeof(int),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}               //WarFieldTBLÀÇ Attacker Live Point X
+	}               //WarFieldTBLì˜ Attacker Live Point X
 	ret=SQLGetData(hStmt,7,SQL_C_SLONG,&m_LivePoints[NW_ATTACKER].x,sizeof(DWORD),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}				//WarFieldTBLÀÇ Attacker Live Point Y
+	}				//WarFieldTBLì˜ Attacker Live Point Y
 	ret=SQLGetData(hStmt,8,SQL_C_SLONG,&m_LivePoints[NW_ATTACKER].y,sizeof(DWORD),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}				//WarFieldTBLÀÇ Defencer Live Point X
+	}				//WarFieldTBLì˜ Defencer Live Point X
 	ret=SQLGetData(hStmt,9,SQL_C_SLONG,&m_LivePoints[NW_DEFENCER].x,sizeof(DWORD),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}				//WarFieldTBLÀÇ Defencer Live Point Y
+	}				//WarFieldTBLì˜ Defencer Live Point Y
 	ret=SQLGetData(hStmt,10,SQL_C_SLONG,&m_LivePoints[NW_DEFENCER].y,sizeof(DWORD),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}				//WarFieldTBLÀÇ Reinforce Live Point X
+	}				//WarFieldTBLì˜ Reinforce Live Point X
 	ret=SQLGetData(hStmt,11,SQL_C_SLONG,&m_LivePoints[NW_REINFORCE].x,sizeof(DWORD),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
 		MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return false;
-	}				//WarFieldTBLÀÇ Reinforce Live Point Y
+	}				//WarFieldTBLì˜ Reinforce Live Point Y
 	ret=SQLGetData(hStmt,12,SQL_C_SLONG,&m_LivePoints[NW_REINFORCE].y,sizeof(DWORD),&cbValue);
 	if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 	{
@@ -6124,7 +6124,7 @@ bool cWarfield::LoadWarfieldData(WORD PortNum)
 	return true;
 }
 
-bool cWarfield::LoadWarfieldWeaponData(WORD PortNum)			// 011022 LTS ÇÔ¼ö ±³Ã¼ 
+bool cWarfield::LoadWarfieldWeaponData(WORD PortNum)			// 011022 LTS í•¨ìˆ˜ êµì²´ 
 {
 	HSTMT	hStmt=NULL;
 	RETCODE	ret;
@@ -6171,7 +6171,7 @@ bool cWarfield::LoadWarfieldWeaponData(WORD PortNum)			// 011022 LTS ÇÔ¼ö ±³Ã¼
 		    SQLFreeStmt(hStmt,SQL_DROP);
 			return false;
 		}                
-		ret=SQLGetData(hStmt,4,SQL_C_SLONG,&m_tWeaponData[index].Phase,sizeof(int),&cbValue);	// Ãß°¡ ¸ó½ºÅÍ ÀÎµ¦½º 
+		ret=SQLGetData(hStmt,4,SQL_C_SLONG,&m_tWeaponData[index].Phase,sizeof(int),&cbValue);	// ì¶”ê°€ ëª¬ìŠ¤í„° ì¸ë±ìŠ¤ 
 		if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 		{
 			MyLog(0,"Warfield Table SQL Return Error(%d)!!",ret);
@@ -6307,7 +6307,7 @@ bool cWarfield::LoadWarfieldMonsterData(WORD PortNum)
 			return false;
 		}       
 		
-		InsertMonsterData(Monster);		// Monster List¿¡ Æ÷ÇÔ ½ÃÅ²´Ù.
+		InsertMonsterData(Monster);		// Monster Listì— í¬í•¨ ì‹œí‚¨ë‹¤.
 
 		ret=SQLFetch(hStmt);
 	}
@@ -6315,7 +6315,7 @@ bool cWarfield::LoadWarfieldMonsterData(WORD PortNum)
 	return true;
 }
 
-void cWarfield::InitSquad()							// ºÎ´ëÁ¤º¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù
+void cWarfield::InitSquad()							// ë¶€ëŒ€ì •ë³´ë¥¼ ì´ˆê¸°í™” í•œë‹¤
 {
 	int i,j;
 
@@ -6335,7 +6335,7 @@ void cWarfield::InitSquad()							// ºÎ´ëÁ¤º¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù
 	}	
 }
 
-void cWarfield::InitCommanderCandidater()	// memsetÀ¸·Î ¹Ù²Û´Ù.	// »ç·É°ü ÈÄº¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+void cWarfield::InitCommanderCandidater()	// memsetìœ¼ë¡œ ë°”ê¾¼ë‹¤.	// ì‚¬ë ¹ê´€ í›„ë³´ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 {
 	int i,j;
 
@@ -6354,33 +6354,33 @@ void cWarfield::InitCommanderCandidater()	// memsetÀ¸·Î ¹Ù²Û´Ù.	// »ç·É°ü ÈÄº¸¸¦
 	}
 }
 
-void cWarfield::SetStatus(char Status)		// ÀüÀï¼­¹öÀÇ »óÅÂ¸¦ ¼³Á¤ÇÑ´Ù.		
+void cWarfield::SetStatus(char Status)		// ì „ìŸì„œë²„ì˜ ìƒíƒœë¥¼ ì„¤ì •í•œë‹¤.		
 {
 	m_Status=Status; 
-	if (Status==1)							// ÀüÀï¼­¹öÀÇ »óÅÂ°¡ ÆòÈ­»óÅÂÀÌ¸é
+	if (Status==1)							// ì „ìŸì„œë²„ì˜ ìƒíƒœê°€ í‰í™”ìƒíƒœì´ë©´
 	{
-		InitSquad();						//	ºÎ´ëÁ¤º¸¸¦ ÃÊ±âÈ­ ÇÏ°í »ç·É°ü ÈÄº¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+		InitSquad();						//	ë¶€ëŒ€ì •ë³´ë¥¼ ì´ˆê¸°í™” í•˜ê³  ì‚¬ë ¹ê´€ í›„ë³´ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 		InitCommanderCandidater();
 	}
 }
 
-t_SquadInformation* cWarfield::GetSquadInfo(int Kind,int SquadNo)	//	LTS SQUAD CHANGED	// ºÎ´ëÁ¤º¸¸¦ ¸®ÅÏÇÑ´Ù.
+t_SquadInformation* cWarfield::GetSquadInfo(int Kind,int SquadNo)	//	LTS SQUAD CHANGED	// ë¶€ëŒ€ì •ë³´ë¥¼ ë¦¬í„´í•œë‹¤.
 {
 	return &m_tSquad[Kind].SquadInfo[SquadNo];
 }
 
-void cWarfield::SetSquadLeader(int Kind,int SquadNo,t_CommanderInformation* SquadLeaderInfo)	// ºÎ´ëÀåÀ» ¼³Á¤ÇÑ´Ù.
+void cWarfield::SetSquadLeader(int Kind,int SquadNo,t_CommanderInformation* SquadLeaderInfo)	// ë¶€ëŒ€ì¥ì„ ì„¤ì •í•œë‹¤.
 {
 	m_tSquad[Kind].SquadInfo[SquadNo].CO_ID=SquadLeaderInfo->CO_ID;
     memcpy(m_tSquad[Kind].SquadInfo[SquadNo].CO_Name,SquadLeaderInfo->CO_Name,NW_NAME_MAX);
 	m_tSquad[Kind].SquadInfo[SquadNo].SquadNo=SquadNo;
-	m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint=0;  //·ÎµùÆ÷ÀÎÆ®ÀÇ ÃÊ±âÈ­ 
-//	m_tSquad[Kind].SquadInfo[SquadNo].Sok[0]=0; //¼Ó¼º°áÁ¤.. DICEÁ¶Á¤..
-//	m_tSquad[Kind].SquadInfo[SquadNo].Sok[1]=0; //¼Ó¼º°áÁ¤.. DICEÁ¶Á¤..
-//	m_tSquad[Kind].SquadInfo[SquadNo].Sok[2]=0; //¼Ó¼º°áÁ¤.. DICEÁ¶Á¤..
+	m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint=0;  //ë¡œë”©í¬ì¸íŠ¸ì˜ ì´ˆê¸°í™” 
+//	m_tSquad[Kind].SquadInfo[SquadNo].Sok[0]=0; //ì†ì„±ê²°ì •.. DICEì¡°ì •..
+//	m_tSquad[Kind].SquadInfo[SquadNo].Sok[1]=0; //ì†ì„±ê²°ì •.. DICEì¡°ì •..
+//	m_tSquad[Kind].SquadInfo[SquadNo].Sok[2]=0; //ì†ì„±ê²°ì •.. DICEì¡°ì •..
 }
 
-void cWarfield::FirstMakeWeaponData()		// ÀüÀï¼­¹öÀÇ NPC¸¦ »ı¼ºÇÑ´Ù. »ì¾ÆÀÖ´Ù¸é... Give Life µÈ´Ù.
+void cWarfield::FirstMakeWeaponData()		// ì „ìŸì„œë²„ì˜ NPCë¥¼ ìƒì„±í•œë‹¤. ì‚´ì•„ìˆë‹¤ë©´... Give Life ëœë‹¤.
 {
 	int Num;
 	int CreateResult;
@@ -6392,12 +6392,12 @@ void cWarfield::FirstMakeWeaponData()		// ÀüÀï¼­¹öÀÇ NPC¸¦ »ı¼ºÇÑ´Ù. »ì¾ÆÀÖ´Ù¸é.
 		if (!CreateResult)
 		{
 			MyLog(0,"NPC CREATE FAILED!!, Set Dead!! NPC Index : %d",m_tWeaponData[i].NPC_Index);
-			m_tWeaponData[i].Status=0; //Á×¾îÀÖ´Ù
+			m_tWeaponData[i].Status=0; //ì£½ì–´ìˆë‹¤
 			SetTileDont(m_tWeaponData[i].MonPointIndex,0);		
 		}
 		else
 		{
-			m_tWeaponData[i].Status=1; //»ì¾ÆÀÖ´Ù.
+			m_tWeaponData[i].Status=1; //ì‚´ì•„ìˆë‹¤.
 			SetTileDont(m_tWeaponData[i].MonPointIndex,1);
 		}
 	}
@@ -6411,7 +6411,7 @@ void cWarfield::FirstMakeWeaponData()		// ÀüÀï¼­¹öÀÇ NPC¸¦ »ı¼ºÇÑ´Ù. »ì¾ÆÀÖ´Ù¸é.
 	MyLog(0,"GUARD STONE AND CASTLE GATEWAY LIST COMPLETE___________________");
 }
 
-void cWarfield::MakeWeaponData()		// ÀüÀï¼­¹öÀÇ ¸ğµç NPC¸¦ ´Ù½Ã »ı¼ºÇÑ´Ù. »ì¾ÆÀÖÀ¸¸é GiveLifeµÈ´Ù.
+void cWarfield::MakeWeaponData()		// ì „ìŸì„œë²„ì˜ ëª¨ë“  NPCë¥¼ ë‹¤ì‹œ ìƒì„±í•œë‹¤. ì‚´ì•„ìˆìœ¼ë©´ GiveLifeëœë‹¤.
 {
 	int CreateResult;
 	for (int i=0;i<m_cNpcCount;i++)
@@ -6424,7 +6424,7 @@ void cWarfield::MakeWeaponData()		// ÀüÀï¼­¹öÀÇ ¸ğµç NPC¸¦ ´Ù½Ã »ı¼ºÇÑ´Ù. »ì¾ÆÀÖ
 		}
 		SendCharacterCondition(&NPCList[m_tWeaponData[i].NPC_ID],0);
 	}
-	SendAllTileDont(1);					// ÀüÀï¼­¹ö¿¡ ÀÖ´Â ¸ğµç À¯Àú¿¡°Ô Å¸ÀÏ µ·Æ®°¡ º¯°æµÇ¾úÀ½À» ¾Ë¸°´Ù.
+	SendAllTileDont(1);					// ì „ìŸì„œë²„ì— ìˆëŠ” ëª¨ë“  ìœ ì €ì—ê²Œ íƒ€ì¼ ëˆíŠ¸ê°€ ë³€ê²½ë˜ì—ˆìŒì„ ì•Œë¦°ë‹¤.
 
 	MyLog(0,"GUARD STONE AND CASTLE GATEWAY LIST___________________________");
 	for (int i=0;i<m_cNpcCount;i++)
@@ -6436,7 +6436,7 @@ void cWarfield::MakeWeaponData()		// ÀüÀï¼­¹öÀÇ ¸ğµç NPC¸¦ ´Ù½Ã »ı¼ºÇÑ´Ù. »ì¾ÆÀÖ
 
 }
 
-void cWarfield::WeaponDataList()		// ÀüÀï¼­¹öÀÇ ¸ğµç NPC¸¦ ´Ù½Ã »ı¼ºÇÑ´Ù. »ì¾ÆÀÖÀ¸¸é GiveLifeµÈ´Ù.
+void cWarfield::WeaponDataList()		// ì „ìŸì„œë²„ì˜ ëª¨ë“  NPCë¥¼ ë‹¤ì‹œ ìƒì„±í•œë‹¤. ì‚´ì•„ìˆìœ¼ë©´ GiveLifeëœë‹¤.
 {
 	MyLog(0,"GUARD STONE AND CASTLE GATEWAY DEBUG LIST__________________________");
 	for (int i=0;i<m_cNpcCount;i++)
@@ -6459,7 +6459,7 @@ void cWarfield::WeaponDataList()		// ÀüÀï¼­¹öÀÇ ¸ğµç NPC¸¦ ´Ù½Ã »ı¼ºÇÑ´Ù. »ì¾ÆÀÖ
 	MyLog(0,"GUARD STONE AND CASTLE GATEWAY DEBUG LIST COMPLETE___________________");
 }
 
-void cWarfield::SendCheckWarfieldStatus()	// ÀüÀï¼­¹ö -> °ü¸®¼­¹ö ´Ù¸¥¼­¹öÀÇ »óÅÂ Áï, ³ªÀÇ »óÅÂ¸¦ ¹Ù²Ù·ÁÇÔÀ» Ã¼Å©ÇÑ´Ù.
+void cWarfield::SendCheckWarfieldStatus()	// ì „ìŸì„œë²„ -> ê´€ë¦¬ì„œë²„ ë‹¤ë¥¸ì„œë²„ì˜ ìƒíƒœ ì¦‰, ë‚˜ì˜ ìƒíƒœë¥¼ ë°”ê¾¸ë ¤í•¨ì„ ì²´í¬í•œë‹¤.
 {
 	t_packet packet;
 
@@ -6472,7 +6472,7 @@ void cWarfield::SendCheckWarfieldStatus()	// ÀüÀï¼­¹ö -> °ü¸®¼­¹ö ´Ù¸¥¼­¹öÀÇ »óÅ
 
 }
 
-void cWarfield::SendWarfieldStatus()		// ÀüÀï¼­¹ö -> °ü¸®¼­¹ö ³» »óÅÂ¸¦ º¸³½´Ù.
+void cWarfield::SendWarfieldStatus()		// ì „ìŸì„œë²„ -> ê´€ë¦¬ì„œë²„ ë‚´ ìƒíƒœë¥¼ ë³´ë‚¸ë‹¤.
 {
 	t_packet packet;
 
@@ -6486,7 +6486,7 @@ void cWarfield::SendWarfieldStatus()		// ÀüÀï¼­¹ö -> °ü¸®¼­¹ö ³» »óÅÂ¸¦ º¸³½´Ù.
 
 /**
  * @fn		cWarfield::ClearCastleGateDont().
- * @brief	¼º¹®ÀÇ µ·Æ®¸¦ Ç¬´Ù.
+ * @brief	ì„±ë¬¸ì˜ ëˆíŠ¸ë¥¼ í‘¼ë‹¤.
  * @return	void.
  */
 //< LTH-040818-KO.
@@ -6496,44 +6496,44 @@ void cWarfield::ClearCastleGateDont()
 
 	for (nI = 0; nI < m_cNpcCount; ++nI)
 	{
-		if ((m_tWeaponData[nI].NPC_Index >= 63) && (m_tWeaponData[nI].NPC_Index <= 67))		// °¡µåÀÎ°¡?
+		if ((m_tWeaponData[nI].NPC_Index >= 63) && (m_tWeaponData[nI].NPC_Index <= 67))		// ê°€ë“œì¸ê°€?
 		{
-			m_tWeaponData[nI].Status = 0;		// ±×·³ Á×¿©¶ó -_-;
+			m_tWeaponData[nI].Status = 0;		// ê·¸ëŸ¼ ì£½ì—¬ë¼ -_-;
 		}
 
-		if ((m_tWeaponData[nI].NPC_Index >= 65) && (m_tWeaponData[nI].NPC_Index <= 67))		// ¼º¹®ÀÎ°¡?
+		if ((m_tWeaponData[nI].NPC_Index >= 65) && (m_tWeaponData[nI].NPC_Index <= 67))		// ì„±ë¬¸ì¸ê°€?
 		{
-			SetTileDont(m_tWeaponData[nI].MonPointIndex, 0);			// µ·Æ®¸¦ Ç¬´Ù.
-			SendTileDontChange(m_tWeaponData[nI].MonPointIndex, 0);		// LTH-040528-KO µ·Æ®°¡ º¯°æµÇ¾ú´Ù°í Å¬¶óÀÌ¾ğÆ®¿¡°Ô º¸³½´Ù.
+			SetTileDont(m_tWeaponData[nI].MonPointIndex, 0);			// ëˆíŠ¸ë¥¼ í‘¼ë‹¤.
+			SendTileDontChange(m_tWeaponData[nI].MonPointIndex, 0);		// LTH-040528-KO ëˆíŠ¸ê°€ ë³€ê²½ë˜ì—ˆë‹¤ê³  í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚¸ë‹¤.
 		}
 	}
 }	//> LTH-040818-KO.
 
 /**
  * @fn		cWarfield::ClearAllGuard().
- * @brief	¸ğµç ¼º¹®°ú ¼öÈ£¼®À» Á×¿© ¹ö¸°´Ù.
+ * @brief	ëª¨ë“  ì„±ë¬¸ê³¼ ìˆ˜í˜¸ì„ì„ ì£½ì—¬ ë²„ë¦°ë‹¤.
  * @return	void.
  */
 //< LTH-040818-KO.
 void cWarfield::ClearAllGuard()
 {
 	int nI;
-	LPCHARLIST lpChar = NULL;	// LTH-040528-KO °¡µå Á¦°Å¸¦ À§ÇØ
+	LPCHARLIST lpChar = NULL;	// LTH-040528-KO ê°€ë“œ ì œê±°ë¥¼ ìœ„í•´
 
 	for (nI = 0; nI < m_cNpcCount; ++nI)
 	{
-		if ((m_tWeaponData[nI].NPC_Index >= 65) && (m_tWeaponData[nI].NPC_Index <= 67))		// ¼º¹®ÀÎ°¡?
+		if ((m_tWeaponData[nI].NPC_Index >= 65) && (m_tWeaponData[nI].NPC_Index <= 67))		// ì„±ë¬¸ì¸ê°€?
 		{
-			SetTileDont(m_tWeaponData[nI].MonPointIndex, 0);			// µ·Æ®¸¦ Ç¬´Ù.
-			SendTileDontChange(m_tWeaponData[nI].MonPointIndex, 0);		// LTH-040528-KO µ·Æ®°¡ º¯°æµÇ¾ú´Ù°í Å¬¶óÀÌ¾ğÆ®¿¡°Ô º¸³½´Ù.
+			SetTileDont(m_tWeaponData[nI].MonPointIndex, 0);			// ëˆíŠ¸ë¥¼ í‘¼ë‹¤.
+			SendTileDontChange(m_tWeaponData[nI].MonPointIndex, 0);		// LTH-040528-KO ëˆíŠ¸ê°€ ë³€ê²½ë˜ì—ˆë‹¤ê³  í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚¸ë‹¤.
 		}
 
-		//< LTH-040528-KO °¡µå Á¦°Å!!
+		//< LTH-040528-KO ê°€ë“œ ì œê±°!!
 		if ((m_tWeaponData[nI].NPC_Index >= 63) && (m_tWeaponData[nI].NPC_Index <= 67))
 		{
 			lpChar = &(NPCList[nI + 2]);
 			::killCharacter(NULL, lpChar);
-			g_pLogManager->SaveMoveToWarfield(MTWT_GUARD_INFO, "Delete Guard!! NPC Index : %d", m_tWeaponData[nI].NPC_Index);	// LTH-040524-KO ·Î±× °­È­
+			g_pLogManager->SaveMoveToWarfield(MTWT_GUARD_INFO, "Delete Guard!! NPC Index : %d", m_tWeaponData[nI].NPC_Index);	// LTH-040524-KO ë¡œê·¸ ê°•í™”
 		}
 
 		lpChar = NULL;
@@ -6542,66 +6542,66 @@ void cWarfield::ClearAllGuard()
 }
 //> LTH-040818-KO.
 
-void cWarfield::ChangeWarfieldStatus(int Result)		//°á°ú¿¡ ÀÇÇØ »óÅÂ¸¦ ¹Ù²Û´Ù.
+void cWarfield::ChangeWarfieldStatus(int Result)		//ê²°ê³¼ì— ì˜í•´ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.
 {
 	char tempNationCode = 0;
 
-	if (m_NationCode==NW_BY) tempNationCode=NW_ZY;		// ¹æ¾îÀÚ°¡ ¹ÙÀÌ¼­½ºÀÌ¸é °ø°İÀÚ´Â ÀÚÀÌÆİÀÌ´Ù.
-	else tempNationCode=NW_BY;							// À§ »óÈ²°ú ¹İ´ëÀÌ´Ù,
+	if (m_NationCode==NW_BY) tempNationCode=NW_ZY;		// ë°©ì–´ìê°€ ë°”ì´ì„œìŠ¤ì´ë©´ ê³µê²©ìëŠ” ìì´í€ì´ë‹¤.
+	else tempNationCode=NW_BY;							// ìœ„ ìƒí™©ê³¼ ë°˜ëŒ€ì´ë‹¤,
 
 	switch (m_Status)
 	{
-	case NW_WAIT_VOTE :									// ÅõÇ¥¸¦ ±â´Ù¸®´Â »óÅÂÀÎµ¥..
-		if (Result)										// °á°ú°¡ ÅõÇ¥·Î µé¾î°¡µµ ÁÁ´Ù¸é...	
+	case NW_WAIT_VOTE :									// íˆ¬í‘œë¥¼ ê¸°ë‹¤ë¦¬ëŠ” ìƒíƒœì¸ë°..
+		if (Result)										// ê²°ê³¼ê°€ íˆ¬í‘œë¡œ ë“¤ì–´ê°€ë„ ì¢‹ë‹¤ë©´...	
 		{
 			t_WarBBS WarBBS;
 
-			m_Status=NW_VOTE;							// »óÅÂ¸¦ ÅõÇ¥»óÅÂ·Î ¹Ù²Û´Ù.
-			m_LoopTime=g_WarTime+m_LoopTimeDefine.NWVoteTime;			// ÅõÇ¥½Ã°£À» ¼¼Æ®ÇÑ´Ù.	// 011101 LTS
+			m_Status=NW_VOTE;							// ìƒíƒœë¥¼ íˆ¬í‘œìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
+			m_LoopTime=g_WarTime+m_LoopTimeDefine.NWVoteTime;			// íˆ¬í‘œì‹œê°„ì„ ì„¸íŠ¸í•œë‹¤.	// 011101 LTS
 			m_dRemainTime=m_LoopTime-g_WarTime;
 
-			WarBBS.WarfieldNo=m_WarfieldCode;			//"%d±¹ÀÇ %dÀüÀïÅÍ·Î Ã³µé¾î°¥ ÀÇ°ßÀ» ¸ğÀ¸°í ÀÖ½À´Ï´Ù."
+			WarBBS.WarfieldNo=m_WarfieldCode;			//"%dêµ­ì˜ %dì „ìŸí„°ë¡œ ì²˜ë“¤ì–´ê°ˆ ì˜ê²¬ì„ ëª¨ìœ¼ê³  ìˆìŠµë‹ˆë‹¤."
 			WarBBS.BBSType=BBS_WAR_JOIN_VOTE;
 			WarBBS.LanNo=0;
 			WarBBS.ArgType=BBS_NUM;
 			WarBBS.Size=1;
 			WarBBS.Arg[0]=m_NationCode;
 
-			SendWarBBS2NationMaps(tempNationCode,&WarBBS);			// °ø°İÀÚ ¸Ê¿¡¸¸ º¸³½´Ù. ÀÌ¶§... ÀüÀï »óÈ²¹öÆ°À» Å¬¶óÀÌ¾ğÆ®¿¡¼­ °¨ºıÀÌ°Ô ÇÏ¸é µÈ´Ù.
-			SendWarBBS2NationClients(tempNationCode,&WarBBS);		// ÀüÀï¸Ê¿¡ ÀÖ´Â °ø°İ±¹ À¯Àú¿¡°Ôµµ º¸³½´Ù.
+			SendWarBBS2NationMaps(tempNationCode,&WarBBS);			// ê³µê²©ì ë§µì—ë§Œ ë³´ë‚¸ë‹¤. ì´ë•Œ... ì „ìŸ ìƒí™©ë²„íŠ¼ì„ í´ë¼ì´ì–¸íŠ¸ì—ì„œ ê°ë¹¡ì´ê²Œ í•˜ë©´ ëœë‹¤.
+			SendWarBBS2NationClients(tempNationCode,&WarBBS);		// ì „ìŸë§µì— ìˆëŠ” ê³µê²©êµ­ ìœ ì €ì—ê²Œë„ ë³´ë‚¸ë‹¤.
 		}
-		else											// °á°ú°¡ ÅõÇ¥·Î µé¾î°¡¸é ¾ÈµÈ´ÙÀÌ¸é Áö±İ ´Ù¸¥ ÀüÀï·çÇÁ°¡ µ¹°í ÀÖ´Ù.
+		else											// ê²°ê³¼ê°€ íˆ¬í‘œë¡œ ë“¤ì–´ê°€ë©´ ì•ˆëœë‹¤ì´ë©´ ì§€ê¸ˆ ë‹¤ë¥¸ ì „ìŸë£¨í”„ê°€ ëŒê³  ìˆë‹¤.
 		{
-			m_Status=NW_PEACE;							// »óÅÂ¸¦ ÆòÈ­»óÅÂ·Î ¹Ù²Û´Ù.
-			ClearAllGuard();		// LTH-040514-KO ¸ğµç °¡µåµéÀÌ ÆòÈ­±â°£¿£ ¾ø¾îÁø´Ù.
+			m_Status=NW_PEACE;							// ìƒíƒœë¥¼ í‰í™”ìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
+			ClearAllGuard();		// LTH-040514-KO ëª¨ë“  ê°€ë“œë“¤ì´ í‰í™”ê¸°ê°„ì—” ì—†ì–´ì§„ë‹¤.
 
-			//< LTH-040531-KO ¸ó½ºÅÍ ÃâÇö
+			//< LTH-040531-KO ëª¬ìŠ¤í„° ì¶œí˜„
 			if (m_bFirstMakeMonster == false)
 			{
 				g_pRegenManager->Ready(CGroupInfo::ET_NORMAL);
 				m_bFirstMakeMonster = true;
-				g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, "Create Warfield Monster!!");	// LTH-040524-KO 1.04+ ·Î±× °­È­.
+				g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, "Create Warfield Monster!!");	// LTH-040524-KO 1.04+ ë¡œê·¸ ê°•í™”.
 			}
 			//> LTH-040531-KO
 
-			m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPeaceTime1;		// ÆòÈ­½Ã°£À¸·Î ¼¼Æ®ÇÑ´Ù.	// 011101 LTS
+			m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPeaceTime1;		// í‰í™”ì‹œê°„ìœ¼ë¡œ ì„¸íŠ¸í•œë‹¤.	// 011101 LTS
 			m_dRemainTime=m_LoopTime-g_WarTime;
 		}
 		break;
 	case NW_WAIT_PREPARE :
-		m_Status=NW_PREPARE;							// ÀüÀï ÁØºñ»óÅÂ·Î ¼¼Æ®ÇÑ´Ù.
+		m_Status=NW_PREPARE;							// ì „ìŸ ì¤€ë¹„ìƒíƒœë¡œ ì„¸íŠ¸í•œë‹¤.
 
-		//< LTH-040622-KO ÀüÀï ÁØºñ ±â°£ÀÌ µÇ¾ú±â ¶§¹®¿¡ ¸ó½ºÅÍµéÀ» ¸ğµÎ ¾ø¾Ø´Ù
+		//< LTH-040622-KO ì „ìŸ ì¤€ë¹„ ê¸°ê°„ì´ ë˜ì—ˆê¸° ë•Œë¬¸ì— ëª¬ìŠ¤í„°ë“¤ì„ ëª¨ë‘ ì—†ì•¤ë‹¤
 		if (m_bFirstMakeMonster == true)
 		{
 			NPC_AutoCreate();
 			g_pRegenManager->Remove(CGroupInfo::ET_NORMAL);
 			m_bFirstMakeMonster = false;
-			g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, " Delete Warfield Monster!!");	// LTH-040524-KO 1.04+ ·Î±× °­È­.
+			g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, " Delete Warfield Monster!!");	// LTH-040524-KO 1.04+ ë¡œê·¸ ê°•í™”.
 		}
 		//> LTH-040622-KO
 		
-		m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPrepareTime;			// ÁØºñ ½Ã°£À» ¼¼Æ®ÇÑ´Ù.	// 011101 LTS
+		m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPrepareTime;			// ì¤€ë¹„ ì‹œê°„ì„ ì„¸íŠ¸í•œë‹¤.	// 011101 LTS
 		m_dRemainTime=m_LoopTime-g_WarTime;
 
 		break;
@@ -6609,22 +6609,22 @@ void cWarfield::ChangeWarfieldStatus(int Result)		//°á°ú¿¡ ÀÇÇØ »óÅÂ¸¦ ¹Ù²Û´Ù.
 		{
 			t_WarBBS WarBBS;
 			
-			m_Status=NW_WAR;							// ÀüÀï»óÅÂ·Î ¼¼Æ®ÇÑ´Ù.
-			m_LoopTime=g_WarTime+m_LoopTimeDefine.NWWarTime;			// ÀüÀï½Ã°£À» ¼¼Æ®ÇÑ´Ù.	// 011101 LTS
+			m_Status=NW_WAR;							// ì „ìŸìƒíƒœë¡œ ì„¸íŠ¸í•œë‹¤.
+			m_LoopTime=g_WarTime+m_LoopTimeDefine.NWWarTime;			// ì „ìŸì‹œê°„ì„ ì„¸íŠ¸í•œë‹¤.	// 011101 LTS
 			m_dRemainTime=m_LoopTime-g_WarTime;
 
-			ClearSquadCount();							//½ºÄõµåÄ«¿îÆ®¸¦ ÃÊ±âÈ­ÇÑ´Ù. // 011016 LTS
+			ClearSquadCount();							//ìŠ¤ì¿¼ë“œì¹´ìš´íŠ¸ë¥¼ ì´ˆê¸°í™”í•œë‹¤. // 011016 LTS
 
-			PrepareSquadForWar();						// ÀüÀïÅÍ¿¡ ÀÌ¹Ì ÀÖ´Â À¯Àú¸¦ ºÎ´ë¿¡ Æí¼º½ÃÅ²´Ù.
+			PrepareSquadForWar();						// ì „ìŸí„°ì— ì´ë¯¸ ìˆëŠ” ìœ ì €ë¥¼ ë¶€ëŒ€ì— í¸ì„±ì‹œí‚¨ë‹¤.
 
-			WarBBS.WarfieldNo=m_WarfieldCode;			// "%d±¹ÀÇ %dÀüÀïÅÍ¿¡ ÀüÀïÀÌ ½ÃÀÛµÇ¾ú½À´Ï´Ù."
+			WarBBS.WarfieldNo=m_WarfieldCode;			// "%dêµ­ì˜ %dì „ìŸí„°ì— ì „ìŸì´ ì‹œì‘ë˜ì—ˆìŠµë‹ˆë‹¤."
 			WarBBS.BBSType=BBS_WAR_BEGIN;
 			WarBBS.LanNo=0;
 			WarBBS.ArgType=BBS_NUM;
 			WarBBS.Size=16;
 			WarBBS.Arg[0]=m_NationCode;
-			WarBBS.Arg[1]=GetSquadLoadingPoint(NW_ATTACKER,0);		//Ä³¸¯ÀÇ ·ÎµùÆ÷ÀÎÆ® Á¤º¸ 
-			WarBBS.Arg[2]=GetSquadLoadingPoint(NW_ATTACKER,1);		// ¸Ê¼­¹ö ºÎÇÏ¸¦ ÇÇÇÏ±â À§ÇØ Å¬¶óÀÌ¾ğÆ®¿¡°Ô º¸³½´Ù
+			WarBBS.Arg[1]=GetSquadLoadingPoint(NW_ATTACKER,0);		//ìºë¦­ì˜ ë¡œë”©í¬ì¸íŠ¸ ì •ë³´ 
+			WarBBS.Arg[2]=GetSquadLoadingPoint(NW_ATTACKER,1);		// ë§µì„œë²„ ë¶€í•˜ë¥¼ í”¼í•˜ê¸° ìœ„í•´ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚¸ë‹¤
 			WarBBS.Arg[3]=GetSquadLoadingPoint(NW_ATTACKER,2);
 			WarBBS.Arg[4]=GetSquadLoadingPoint(NW_ATTACKER,3);
 			WarBBS.Arg[5]=GetSquadLoadingPoint(NW_ATTACKER,4);
@@ -6638,58 +6638,58 @@ void cWarfield::ChangeWarfieldStatus(int Result)		//°á°ú¿¡ ÀÇÇØ »óÅÂ¸¦ ¹Ù²Û´Ù.
 			WarBBS.Arg[13]=GetSquadLoadingPoint(NW_REINFORCE,2);
 			WarBBS.Arg[14]=GetSquadLoadingPoint(NW_REINFORCE,3);
 			WarBBS.Arg[15]=GetSquadLoadingPoint(NW_REINFORCE,4);
-			SendWarBBS2Maps(&WarBBS);					// ¹æ¾î±¹ ,°ø°İ±¹,Áö¿ø±º±¹¿¡°Ô ¸ğµÎ ÀüÀï½ÃÀÛ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
-			SendWarBBS2Clients(&WarBBS);				// ¸Ê¿¡ ÀÖ´Â À¯Àú¿¡°Ô ÀüÀïÀÌ ½ÃÀÛµÊÀ» ¾Ë·ÁÁØ´Ù.. // ¿ÊÀ» °¥¾ÆÀÔ´Â ºÎºĞÀÌ ÀÖ´Ù.
+			SendWarBBS2Maps(&WarBBS);					// ë°©ì–´êµ­ ,ê³µê²©êµ­,ì§€ì›êµ°êµ­ì—ê²Œ ëª¨ë‘ ì „ìŸì‹œì‘ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
+			SendWarBBS2Clients(&WarBBS);				// ë§µì— ìˆëŠ” ìœ ì €ì—ê²Œ ì „ìŸì´ ì‹œì‘ë¨ì„ ì•Œë ¤ì¤€ë‹¤.. // ì˜·ì„ ê°ˆì•„ì…ëŠ” ë¶€ë¶„ì´ ìˆë‹¤.
 			SendWarBeginEndMessage2Client(1);			// LTS TEMP
 		}
 		break;
 	case NW_WAIT_PEACE :
-		m_Status=NW_PEACE;								// ÆòÈ­»óÅÂ·Î ¼¼Æ®ÇÑ´Ù.
-		ClearAllGuard();		// LTH-040514-KO ¸ğµç °¡µåµéÀÌ ÆòÈ­±â°£¿£ ¾ø¾îÁø´Ù.
-		//< LTH-040531-KO ¸ó½ºÅÍ ÃâÇö
+		m_Status=NW_PEACE;								// í‰í™”ìƒíƒœë¡œ ì„¸íŠ¸í•œë‹¤.
+		ClearAllGuard();		// LTH-040514-KO ëª¨ë“  ê°€ë“œë“¤ì´ í‰í™”ê¸°ê°„ì—” ì—†ì–´ì§„ë‹¤.
+		//< LTH-040531-KO ëª¬ìŠ¤í„° ì¶œí˜„
 		if (m_bFirstMakeMonster == false)
 		{
 			g_pRegenManager->Ready(CGroupInfo::ET_NORMAL);
 			m_bFirstMakeMonster = true;
-			g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, "Create Warfield Monster!!");	// LTH-040524-KO 1.04+ ·Î±× °­È­.
+			g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, "Create Warfield Monster!!");	// LTH-040524-KO 1.04+ ë¡œê·¸ ê°•í™”.
 		}
 		//> LTH-040531-KO
-		m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPeaceTime1;			//ÆòÈ­½Ã°£À» ¼¼Æ®ÇÑ´Ù.		// 011101 LTS
+		m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPeaceTime1;			//í‰í™”ì‹œê°„ì„ ì„¸íŠ¸í•œë‹¤.		// 011101 LTS
 		m_dRemainTime=m_LoopTime-g_WarTime;
-		InitSquad();									// ºÎ´ëÁ¤º¸¸¦ Å¬¸®¾î
-		InitCommanderCandidater();						// »ç·É°ü ÈÄº¸ µ¥ÀÌÅÍ¸¦ Å¬¸®¾î
+		InitSquad();									// ë¶€ëŒ€ì •ë³´ë¥¼ í´ë¦¬ì–´
+		InitCommanderCandidater();						// ì‚¬ë ¹ê´€ í›„ë³´ ë°ì´í„°ë¥¼ í´ë¦¬ì–´
 		break;
 	}
 	SendWarfieldStatus();
 }
 
-void cWarfield::SetStatusVote()								// °ü¸®¼­¹ö¿¡¼­ ¾ğÁ¦½ÃÀÛÇÒÁö¸¦ Ã¼Å©ÇÏ´Ù. º¸³»ÁØ´Ù.
+void cWarfield::SetStatusVote()								// ê´€ë¦¬ì„œë²„ì—ì„œ ì–¸ì œì‹œì‘í• ì§€ë¥¼ ì²´í¬í•˜ë‹¤. ë³´ë‚´ì¤€ë‹¤.
 {
 	t_WarBBS WarBBS;
 	char tempNationCode = 0;
 
-	if (m_NationCode==NW_BY) tempNationCode=NW_ZY;			// ¹æ¾îÀÚ°¡ ¹ÙÀÌ¼­½ºÀÌ¸é °ø°İÀÚ´Â ÀÚÀÌÆİÀÌ´Ù.
-	else tempNationCode=NW_BY;								// À§ »óÈ²°ú ¹İ´ëÀÌ´Ù,
+	if (m_NationCode==NW_BY) tempNationCode=NW_ZY;			// ë°©ì–´ìê°€ ë°”ì´ì„œìŠ¤ì´ë©´ ê³µê²©ìëŠ” ìì´í€ì´ë‹¤.
+	else tempNationCode=NW_BY;								// ìœ„ ìƒí™©ê³¼ ë°˜ëŒ€ì´ë‹¤,
 
 	UpdateWarTime(); 
 	
-	m_Status=NW_VOTE;										// »óÅÂ¸¦ ÅõÇ¥»óÅÂ·Î ¹Ù²Û´Ù.
-	m_LoopTime=g_WarTime+m_LoopTimeDefine.NWVoteTime;		// ÅõÇ¥½Ã°£À» ¼¼Æ®ÇÑ´Ù.	// 011101 LTS
+	m_Status=NW_VOTE;										// ìƒíƒœë¥¼ íˆ¬í‘œìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
+	m_LoopTime=g_WarTime+m_LoopTimeDefine.NWVoteTime;		// íˆ¬í‘œì‹œê°„ì„ ì„¸íŠ¸í•œë‹¤.	// 011101 LTS
 	m_dRemainTime=m_LoopTime-g_WarTime;
 	
-	WarBBS.WarfieldNo=m_WarfieldCode;						//"%d±¹ÀÇ %dÀüÀïÅÍ·Î Ã³µé¾î°¥ ÀÇ°ßÀ» ¸ğÀ¸°í ÀÖ½À´Ï´Ù."
+	WarBBS.WarfieldNo=m_WarfieldCode;						//"%dêµ­ì˜ %dì „ìŸí„°ë¡œ ì²˜ë“¤ì–´ê°ˆ ì˜ê²¬ì„ ëª¨ìœ¼ê³  ìˆìŠµë‹ˆë‹¤."
 	WarBBS.BBSType=BBS_WAR_JOIN_VOTE;
 	WarBBS.LanNo=0;
 	WarBBS.ArgType=BBS_NUM;
 	WarBBS.Size=1;
 	WarBBS.Arg[0]=m_NationCode;
 
-	SendWarBBS2NationMaps(tempNationCode,&WarBBS);			// °ø°İÀÚ ¸Ê¿¡¸¸ º¸³½´Ù. ÀÌ¶§... ÀüÀï »óÈ²¹öÆ°À» Å¬¶óÀÌ¾ğÆ®¿¡¼­ °¨ºıÀÌ°Ô ÇÏ¸é µÈ´Ù.
-	SendWarBBS2NationClients(tempNationCode,&WarBBS);		// ÀüÀï¸Ê¿¡ ÀÖ´Â °ø°İ±¹ À¯Àú¿¡°Ôµµ º¸³½´Ù.	
-	SendUserGoOutsideBBS(NGOB_DEMEND_GO_OUT);			// LTH-040507-KO ÀüÀïÅÍ¿¡¼­ ¹æÃâÇÑ´Ù´Â °øÁö »Ñ¸®±â.
+	SendWarBBS2NationMaps(tempNationCode,&WarBBS);			// ê³µê²©ì ë§µì—ë§Œ ë³´ë‚¸ë‹¤. ì´ë•Œ... ì „ìŸ ìƒí™©ë²„íŠ¼ì„ í´ë¼ì´ì–¸íŠ¸ì—ì„œ ê°ë¹¡ì´ê²Œ í•˜ë©´ ëœë‹¤.
+	SendWarBBS2NationClients(tempNationCode,&WarBBS);		// ì „ìŸë§µì— ìˆëŠ” ê³µê²©êµ­ ìœ ì €ì—ê²Œë„ ë³´ë‚¸ë‹¤.	
+	SendUserGoOutsideBBS(NGOB_DEMEND_GO_OUT);			// LTH-040507-KO ì „ìŸí„°ì—ì„œ ë°©ì¶œí•œë‹¤ëŠ” ê³µì§€ ë¿Œë¦¬ê¸°.
 }
 
-void cWarfield::SendCMD_REQUEST_VOTE_RESULT()			// ÀüÀï¼­¹ö -> °ü¸®¼­¹ö ,ÀüÀï ÅõÇ¥ °á°ú¸¦ ¿äÃ»ÇÑ´Ù.
+void cWarfield::SendCMD_REQUEST_VOTE_RESULT()			// ì „ìŸì„œë²„ -> ê´€ë¦¬ì„œë²„ ,ì „ìŸ íˆ¬í‘œ ê²°ê³¼ë¥¼ ìš”ì²­í•œë‹¤.
 {
 	t_packet packet;
 	
@@ -6700,73 +6700,73 @@ void cWarfield::SendCMD_REQUEST_VOTE_RESULT()			// ÀüÀï¼­¹ö -> °ü¸®¼­¹ö ,ÀüÀï Åõ
 	g_pServerTable->SendRajaPacketToOtherMapServer( NATION_MANAGE_SERVER, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
-void cWarfield::RecvCMD_ANSWER_VOTE_RESULT(t_packet *p, t_connection c[], int cn )		// °ü¸®¼­¹ö·Î ºÎÅÍ ÀüÀï ÅõÇ¥ °á°ú¸¦ ¹Ş¾Ò´Ù.
+void cWarfield::RecvCMD_ANSWER_VOTE_RESULT(t_packet *p, t_connection c[], int cn )		// ê´€ë¦¬ì„œë²„ë¡œ ë¶€í„° ì „ìŸ íˆ¬í‘œ ê²°ê³¼ë¥¼ ë°›ì•˜ë‹¤.
 {
 	char tempNationCode = 0;								
 
 	if (m_NationCode==NW_BY) 
 	{
-		tempNationCode=NW_ZY;		//¹æ¾î±¹Àû °ø°İ±¹ÀÛÀÇ ÆÇº°
+		tempNationCode=NW_ZY;		//ë°©ì–´êµ­ì  ê³µê²©êµ­ì‘ì˜ íŒë³„
 	}
 	else
 	{
 		tempNationCode=NW_BY;
 	}
 
-	if (p->u.NationWar.VoteData.VoteCount>=m_LoopTimeDefine.NWVoteMin)// LTS LOCALWAR			//ÅõÇ¥¸¦ ÇßÀ¸¹Ç·Î ÇØ´ç Á¶°ÇÀÌ µÇ¾ú´Ù. ÀüÀïÀ» ¼±Æ÷ÇÑ´Ù //ÃßÈÄ Á¶°ÇÁ¶Á¤	// 011016 LTS
+	if (p->u.NationWar.VoteData.VoteCount>=m_LoopTimeDefine.NWVoteMin)// LTS LOCALWAR			//íˆ¬í‘œë¥¼ í–ˆìœ¼ë¯€ë¡œ í•´ë‹¹ ì¡°ê±´ì´ ë˜ì—ˆë‹¤. ì „ìŸì„ ì„ í¬í•œë‹¤ //ì¶”í›„ ì¡°ê±´ì¡°ì •	// 011016 LTS
 	{
-		t_WarBBS WarBBS;								//ÀüÀïÅõÇ¥ Á¶°Ç
+		t_WarBBS WarBBS;								//ì „ìŸíˆ¬í‘œ ì¡°ê±´
 
-		m_Status=NW_WAIT_PREPARE;						// ÀüÀï ÁØºñ ´ë±â »óÅÂ·Î ¼¼Æ® 
-		SendCheckWarfieldStatus();						// °ü¸®¼­¹ö¿¡ ÀüÀï ÁØºñ·Î µé¾î°£´Ù°í È®ÀÎÀ» ¹Ş´Â´Ù.
+		m_Status=NW_WAIT_PREPARE;						// ì „ìŸ ì¤€ë¹„ ëŒ€ê¸° ìƒíƒœë¡œ ì„¸íŠ¸ 
+		SendCheckWarfieldStatus();						// ê´€ë¦¬ì„œë²„ì— ì „ìŸ ì¤€ë¹„ë¡œ ë“¤ì–´ê°„ë‹¤ê³  í™•ì¸ì„ ë°›ëŠ”ë‹¤.
 
-		WarBBS.WarfieldNo=m_WarfieldCode;				// ÀüÀïÅÍ ¹øÈ£ 
+		WarBBS.WarfieldNo=m_WarfieldCode;				// ì „ìŸí„° ë²ˆí˜¸ 
 		WarBBS.BBSType=BBS_WAR_PREPARE;
 		WarBBS.LanNo=0;
 		WarBBS.ArgType=BBS_NUM;
 		WarBBS.Size=2;
-		WarBBS.Arg[0]=tempNationCode;					// °ø°İ±¹ 
-		WarBBS.Arg[1]=m_NationCode;						// ¹æ¾î±¹ 	
+		WarBBS.Arg[0]=tempNationCode;					// ê³µê²©êµ­ 
+		WarBBS.Arg[1]=m_NationCode;						// ë°©ì–´êµ­ 	
 
-		SendWarBBS2Maps(&WarBBS);						// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹ŞÀº ´ÙÀ½ ¹ø¿ªÇØ¼­ ¾´´Ù.
+		SendWarBBS2Maps(&WarBBS);						// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë°›ì€ ë‹¤ìŒ ë²ˆì—­í•´ì„œ ì“´ë‹¤.
 		SendWarBBS2Clients(&WarBBS);
 	}
-	else												// ÀüÀïÀ» ¼±Æ÷ÇÏÁö ¸øÇß´Ù. //ÆòÈ­»óÅÂ 
+	else												// ì „ìŸì„ ì„ í¬í•˜ì§€ ëª»í–ˆë‹¤. //í‰í™”ìƒíƒœ 
 	{
 		t_WarBBS WarBBS;
 
-		m_Status=NW_PEACE;								// ÅõÇ¥°á°ú°¡ ±âÁØÄ¡ ÀÌÇÏ¿©¼­ ÆòÈ­»óÅÂ·Î ¼¼Æ®
-		m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPeaceTime1;			// ÆòÈ­½Ã°£ ¼¼Æ®	// 011101 LTS
+		m_Status=NW_PEACE;								// íˆ¬í‘œê²°ê³¼ê°€ ê¸°ì¤€ì¹˜ ì´í•˜ì—¬ì„œ í‰í™”ìƒíƒœë¡œ ì„¸íŠ¸
+		m_LoopTime=g_WarTime+m_LoopTimeDefine.NWPeaceTime1;			// í‰í™”ì‹œê°„ ì„¸íŠ¸	// 011101 LTS
 		m_dRemainTime=m_LoopTime-g_WarTime;
 		SendCheckWarfieldStatus();					
-		ClearAllSquad(tempNationCode);					// ÅõÇ¥ÇÑ°É Áö¿ì¶ó°í ÇÑ´Ù. //ÅõÇ¥ÇÑ ³ª¶ó¿¡°Ô¸¸ º¸³½´Ù. 
+		ClearAllSquad(tempNationCode);					// íˆ¬í‘œí•œê±¸ ì§€ìš°ë¼ê³  í•œë‹¤. //íˆ¬í‘œí•œ ë‚˜ë¼ì—ê²Œë§Œ ë³´ë‚¸ë‹¤. 
 
 		WarBBS.WarfieldNo=m_WarfieldCode;
 		WarBBS.BBSType=BBS_PEACE;
 		WarBBS.LanNo=0;
 		WarBBS.ArgType=BBS_NUM;
-		WarBBS.Size=0;									// LTS TEMP		// Arg°¡ ÇÊ¿ä ¾ø´Ù.
+		WarBBS.Size=0;									// LTS TEMP		// Argê°€ í•„ìš” ì—†ë‹¤.
 
-		SendWarBBS2NationMaps(tempNationCode,&WarBBS);			// ÅõÇ¥±¹¿¡ ¸Ş½ÃÁö Àü¼Û 
-		SendWarBBS2NationClients(tempNationCode,&WarBBS);		// ÇöÀç¸ÊÀÇ °ø°İ±¹ À¯Àú¿¡°Ô º¸³½´Ù.
+		SendWarBBS2NationMaps(tempNationCode,&WarBBS);			// íˆ¬í‘œêµ­ì— ë©”ì‹œì§€ ì „ì†¡ 
+		SendWarBBS2NationClients(tempNationCode,&WarBBS);		// í˜„ì¬ë§µì˜ ê³µê²©êµ­ ìœ ì €ì—ê²Œ ë³´ë‚¸ë‹¤.
 
-		ActiveBonusTime();										// º¸³Ê½º Å¸ÀÓÀ» ½ÃÀÛÇÑ´Ù.
-		ClearAllGuard();		// LTH-040514-KO ¸ğµç °¡µåµéÀÌ ÆòÈ­±â°£¿£ ¾ø¾îÁø´Ù.
+		ActiveBonusTime();										// ë³´ë„ˆìŠ¤ íƒ€ì„ì„ ì‹œì‘í•œë‹¤.
+		ClearAllGuard();		// LTH-040514-KO ëª¨ë“  ê°€ë“œë“¤ì´ í‰í™”ê¸°ê°„ì—” ì—†ì–´ì§„ë‹¤.
 
 		WarBBS.BBSType=BBS_BONUS_OPEN;
 		WarBBS.LanNo=0;
 		WarBBS.ArgType=BBS_NUM;
 		WarBBS.Size=0;
-		SendWarBBS2NationMaps(m_NationCode,&WarBBS);			// º¸³Ê½º Å¸ÀÓÀÌ ½ÃÀÛµÇ¾ú´Ù°í ¾Ë¸²
-		SendWarBBS2NationClients(m_NationCode,&WarBBS);			// º¸³Ê½º Å¸ÀÓÀÌ ½ÃÀÛµÇ¾ú´Ù°í ¾Ë¸²
+		SendWarBBS2NationMaps(m_NationCode,&WarBBS);			// ë³´ë„ˆìŠ¤ íƒ€ì„ì´ ì‹œì‘ë˜ì—ˆë‹¤ê³  ì•Œë¦¼
+		SendWarBBS2NationClients(m_NationCode,&WarBBS);			// ë³´ë„ˆìŠ¤ íƒ€ì„ì´ ì‹œì‘ë˜ì—ˆë‹¤ê³  ì•Œë¦¼
 	}
 }
 
-void cWarfield::AllGuardStoneWasBroked() //°¡µå½ºÅæÀÌ ¸ğµå ±úÁ³´Ù¸é... ÀüÀïÀ» Á¾·á½ÃÅ²´Ù.
+void cWarfield::AllGuardStoneWasBroked() //ê°€ë“œìŠ¤í†¤ì´ ëª¨ë“œ ê¹¨ì¡Œë‹¤ë©´... ì „ìŸì„ ì¢…ë£Œì‹œí‚¨ë‹¤.
 {
 	bool CheckGuardStone=true;
 
-	for (int i=2;i<m_cNpcCount+2;i++)		// NPC·çÇÁ¸¦ µ¹°í.. °¡µå½ºÅæÀÌ ´Ù±úÁ³À¸¸é..
+	for (int i=2;i<m_cNpcCount+2;i++)		// NPCë£¨í”„ë¥¼ ëŒê³ .. ê°€ë“œìŠ¤í†¤ì´ ë‹¤ê¹¨ì¡Œìœ¼ë©´..
 	{
 		if (NPCList[i].SprNo==63||NPCList[i].SprNo==64)
 		{
@@ -6776,20 +6776,20 @@ void cWarfield::AllGuardStoneWasBroked() //°¡µå½ºÅæÀÌ ¸ğµå ±úÁ³´Ù¸é... ÀüÀïÀ» Á¾
 
 	if (CheckGuardStone)
 	{
-		m_LoopTime=g_WarTime;   // ½Ã°£À» ÃÊ±âÈ­..
+		m_LoopTime=g_WarTime;   // ì‹œê°„ì„ ì´ˆê¸°í™”..
 		m_dRemainTime=m_LoopTime-g_WarTime;
-		m_bAttackerWin=true;		// °ø°İÀÚ ½Â¸®¸¦ ¼¼Æ®ÇÑ´Ù.
+		m_bAttackerWin=true;		// ê³µê²©ì ìŠ¹ë¦¬ë¥¼ ì„¸íŠ¸í•œë‹¤.
 	}
 }
 
 void cWarfield::WarUpdate()
 {
-	CheckCommanderGroup();			// »ç·É°ü, ºÎ´ëÀåµéÀÇ »óÅÂ¸¦ Á¶»çÇÑ´Ù.
+	CheckCommanderGroup();			// ì‚¬ë ¹ê´€, ë¶€ëŒ€ì¥ë“¤ì˜ ìƒíƒœë¥¼ ì¡°ì‚¬í•œë‹¤.
 	CheckCastleGateWay();
-	AllGuardStoneWasBroked();		// ¸ğµç ¼öÈ£¼®ÀÌ ±ú¾î Á³´ÂÁö °Ë»çÇÑ´Ù.
+	AllGuardStoneWasBroked();		// ëª¨ë“  ìˆ˜í˜¸ì„ì´ ê¹¨ì–´ ì¡ŒëŠ”ì§€ ê²€ì‚¬í•œë‹¤.
 }
 
-void cWarfield::KickDefeatUser2Home()		// ÆĞ¹èÇÑ À¯ÀúµéÀ» °íÇâÀ¸·Î ¦m´Â´Ù.
+void cWarfield::KickDefeatUser2Home()		// íŒ¨ë°°í•œ ìœ ì €ë“¤ì„ ê³ í–¥ìœ¼ë¡œ ?ëŠ”ë‹¤.
 {
 	for( int i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 	{
@@ -6810,7 +6810,7 @@ void cWarfield::KickDefeatUser2Home()		// ÆĞ¹èÇÑ À¯ÀúµéÀ» °íÇâÀ¸·Î ¦m´Â´Ù.
 	}
 }
 
-void cWarfield::MoneySpread(double TotalMoney)		// µ·À» »Ñ¸°´Ù.		// »çÀü¿¡ ±¹°í¿¡¼­ È®ÀÎÇØ¾ß ÇÑ´Ù.
+void cWarfield::MoneySpread(double TotalMoney)		// ëˆì„ ë¿Œë¦°ë‹¤.		// ì‚¬ì „ì— êµ­ê³ ì—ì„œ í™•ì¸í•´ì•¼ í•œë‹¤.
 {
 	int Money=TotalMoney/50;
 
@@ -6847,7 +6847,7 @@ void cWarfield::MoneySpread(double TotalMoney)		// µ·À» »Ñ¸°´Ù.		// »çÀü¿¡ ±¹°í¿
 
 /**
  * @fn		cWarfield::SendUserGoOutsideBBS().
- * @brief	ÀüÀïÅÍÀÇ À¯Àú¸¦ ¹æÃâÇÑ´Ù´Â ¸Ş½ÃÁö¸¦ »Ñ¸°´Ù.
+ * @brief	ì „ìŸí„°ì˜ ìœ ì €ë¥¼ ë°©ì¶œí•œë‹¤ëŠ” ë©”ì‹œì§€ë¥¼ ë¿Œë¦°ë‹¤.
  * @return	void.
  */
 //< LTH-040507-KO.
@@ -6862,7 +6862,7 @@ void cWarfield::SendUserGoOutsideBBS(int nMsg)
 
 	SendWarBBS2Clients(&WarBBS);
 
-	//< LTH-040514-KO ·Î±× °­È­
+	//< LTH-040514-KO ë¡œê·¸ ê°•í™”
 	if (nMsg == NGOB_DEMEND_GO_OUT)
 		g_pLogManager->SaveMoveToWarfield(MTWT_STATE_INFO, "User Go Out BBS!!!");
 	//> LTH-040514-KO.
@@ -6871,7 +6871,7 @@ void cWarfield::SendUserGoOutsideBBS(int nMsg)
 
 /**
  * @fn		cWarfield::UserGoOutside().
- * @brief	ÀüÀïÅÍÀÇ À¯Àú ¹æÃâ, 1ºĞ ¸¶´Ù Á¤ÇØÁø ¼ıÀÚÀÇ À¯Àú¸¦ ³»º¸³½´Ù.
+ * @brief	ì „ìŸí„°ì˜ ìœ ì € ë°©ì¶œ, 1ë¶„ ë§ˆë‹¤ ì •í•´ì§„ ìˆ«ìì˜ ìœ ì €ë¥¼ ë‚´ë³´ë‚¸ë‹¤.
  * @return	void.
  */
 //< LTH-040512-KO.
@@ -6880,28 +6880,28 @@ void cWarfield::UserGoOutside()
 	if (!isNationWarfieldServer())
 		return;
 
-	// 1ÃÊ ¸¶´Ù
+	// 1ì´ˆ ë§ˆë‹¤
 	if (m_dRemainTime % 60)
 	{
 		int nNumOfUser = g_pcWarfieldInfo->GetNumOfGoOutsideUser();
 		INT nI;
 		int nUserCount = 0;
 
-		// ÇöÀç ÀüÀïÅÍ¿¡ ÀÖ´Â À¯Àú¸¦
+		// í˜„ì¬ ì „ìŸí„°ì— ìˆëŠ” ìœ ì €ë¥¼
 		for(nI = DRAGON_CONNECTIONS_START; nI < DRAGON_MAX_CONNECTIONS; ++nI)
 		{
 			if (::CheckServerId(nI))
 			{
-				// ÇÑ¹ø¿¡ ³»º¸³»´Â ¼öº¸´Ù ÀÛÀ¸¸é
+				// í•œë²ˆì— ë‚´ë³´ë‚´ëŠ” ìˆ˜ë³´ë‹¤ ì‘ìœ¼ë©´
 				if (nUserCount < nNumOfUser)
 				{
-					SendUserGoOutsideBBS(NGOB_RETURN_VILLAGE);	// LTH-040507-KO ¸¶À»·Î µ¹·Áº¸³½´Ù´Â °øÁö
-					//< LTH-040524-KO ·Î±× °­È­
+					SendUserGoOutsideBBS(NGOB_RETURN_VILLAGE);	// LTH-040507-KO ë§ˆì„ë¡œ ëŒë ¤ë³´ë‚¸ë‹¤ëŠ” ê³µì§€
+					//< LTH-040524-KO ë¡œê·¸ ê°•í™”
 					g_pLogManager->SaveMoveToWarfield(MTWT_CHARACTER_INFO, " User Name : %s, Nation : %d Move to village!!", \
 						connections[nI].chrlst.Name, connections[nI].chrlst.name_status.nation);
 					//> LTH-040524-KO
 
-					// °¢ ¸¶À»·Î ³»º¸³½´Ù
+					// ê° ë§ˆì„ë¡œ ë‚´ë³´ë‚¸ë‹¤
 					switch (connections[nI].chrlst.name_status.nation)
 					{
 					case NW_BY:
@@ -6917,7 +6917,7 @@ void cWarfield::UserGoOutside()
 
 					++nUserCount;
 				}
-				else	// Å©¸é ºüÁ®³ª¿Â´Ù
+				else	// í¬ë©´ ë¹ ì ¸ë‚˜ì˜¨ë‹¤
 					break;
 			}
 		}
@@ -6927,15 +6927,15 @@ void cWarfield::UserGoOutside()
 
 void cWarfield::UpdateProgressofWar()
 {
-	m_dRemainTime=m_LoopTime-g_WarTime;				// ³²Àº ½Ã°£ Á¶Á¤
+	m_dRemainTime=m_LoopTime-g_WarTime;				// ë‚¨ì€ ì‹œê°„ ì¡°ì •
 	
-	switch (m_Status)								// today NoticeÁ¤º¸¿ë...
+	switch (m_Status)								// today Noticeì •ë³´ìš©...
 	{
 	case NW_VOTE :
 		{
 			if (m_dRemainTime%NW_REMAIN_TIME_UPDATE==0) { SendCMD_UPDATE_WARTIME(m_WarfieldCode,m_Status,m_dRemainTime); }
 
-			//< LTH-040507-KO Á¤ÇØÁø ½Ã°£¿¡ µû¶ó À¯Àú¸¦ ¹æÃâÇÑ´Ù´Â ¸Ş½ÃÁö¸¦ »Ñ¸°´Ù.
+			//< LTH-040507-KO ì •í•´ì§„ ì‹œê°„ì— ë”°ë¼ ìœ ì €ë¥¼ ë°©ì¶œí•œë‹¤ëŠ” ë©”ì‹œì§€ë¥¼ ë¿Œë¦°ë‹¤.
 			int nGoOutsideUserBBSTime = g_pcWarfieldInfo->GetGoOutsideBBSTime();
 			if ((m_dRemainTime % nGoOutsideUserBBSTime) == 0)
 				SendUserGoOutsideBBS(NGOB_DEMEND_GO_OUT);
@@ -6943,28 +6943,28 @@ void cWarfield::UpdateProgressofWar()
 		}
 		break;
 		
-	case NW_PREPARE :								// ÀüÀï ÁØºñ »óÅÂ°¡ ÁøÇàÁßÀÌ´Ù.
+	case NW_PREPARE :								// ì „ìŸ ì¤€ë¹„ ìƒíƒœê°€ ì§„í–‰ì¤‘ì´ë‹¤.
 		{
 			if (m_dRemainTime%NW_REMAIN_TIME_UPDATE==0) SendCMD_UPDATE_WARTIME(m_WarfieldCode,m_Status,m_dRemainTime);
-			if (!m_bRequestCommanderVotingResult)		//»ç·É°ü ÅõÇ¥ º¸³»Áà ÆĞÅ¶À» º¸³»Áö ¾Ê¾Ò´Ù¸é..
-			{											//ÀüÀï Á¾·á½Ã ÃÊ±âÈ­µÈ´Ù.
+			if (!m_bRequestCommanderVotingResult)		//ì‚¬ë ¹ê´€ íˆ¬í‘œ ë³´ë‚´ì¤˜ íŒ¨í‚·ì„ ë³´ë‚´ì§€ ì•Šì•˜ë‹¤ë©´..
+			{											//ì „ìŸ ì¢…ë£Œì‹œ ì´ˆê¸°í™”ëœë‹¤.
 				__int64 CommanderElectTime=m_LoopTimeDefine.NWPrepareTime;		// 011101 LTS
-				CommanderElectTime>>=1; // 50%			//»ç·É°ü ÅõÇ¥¸¦ ¸¶¹«¸® ÇÑ´Ù. 
+				CommanderElectTime>>=1; // 50%			//ì‚¬ë ¹ê´€ íˆ¬í‘œë¥¼ ë§ˆë¬´ë¦¬ í•œë‹¤. 
 				if ((m_LoopTime-g_WarTime)<CommanderElectTime) 
 				{
-					SendCMD_REQUEST_COMMANDER_VOTING_RESULT();		// ÀüÀïÁØºñ ±â°£ÀÇ 50%°¡ Áö³µ´Ù¸é..
-					m_bRequestCommanderVotingResult=true;			// »ç·É°ü ÅõÇ¥ÀÇ °á°ú¸¦ ¿äÃ»ÇÑ´Ù.
+					SendCMD_REQUEST_COMMANDER_VOTING_RESULT();		// ì „ìŸì¤€ë¹„ ê¸°ê°„ì˜ 50%ê°€ ì§€ë‚¬ë‹¤ë©´..
+					m_bRequestCommanderVotingResult=true;			// ì‚¬ë ¹ê´€ íˆ¬í‘œì˜ ê²°ê³¼ë¥¼ ìš”ì²­í•œë‹¤.
 				}
 			}
 
-			UserGoOutside();		// LTH-040512-KO ÀüÀïÅÍÀÇ À¯Àú ¹æÃâ.
+			UserGoOutside();		// LTH-040512-KO ì „ìŸí„°ì˜ ìœ ì € ë°©ì¶œ.
 		}
 		break;
 		
 	case NW_WAR :
 		{
 			if (m_dRemainTime%NW_REMAIN_TIME_UPDATE==0) SendCMD_UPDATE_WARTIME(m_WarfieldCode,m_Status,m_dRemainTime);
-			WarUpdate();			// ÀüÀï ÁßÀÌ¸é.. ÀüÀïÀÇ »óÅÂ¸¦ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.				
+			WarUpdate();			// ì „ìŸ ì¤‘ì´ë©´.. ì „ìŸì˜ ìƒíƒœë¥¼ ì—…ë°ì´íŠ¸ í•œë‹¤.				
 		}
 		break;
 	}
@@ -6977,40 +6977,40 @@ void cWarfield::UpdateStatusofWar()
 	if (pData==NULL)
 		return;
 
-	switch (m_Status)		// »óÅÂ°¡ ÁøÇàÁßÀÌ ¾Æ´Ï¸é.. ´ë±â»óÅÂÀÌ´Ù.
+	switch (m_Status)		// ìƒíƒœê°€ ì§„í–‰ì¤‘ì´ ì•„ë‹ˆë©´.. ëŒ€ê¸°ìƒíƒœì´ë‹¤.
 	{
 	case NW_VOTE :
 			SendCMD_REQUEST_VOTE_RESULT();
 		break;
 	case NW_PREPARE :
-			MakeWeaponData();		// ÀüÀï¹«±âÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù.  // °á°è¼® ¹ö±× ¶§¹®¿¡... // LTH-040512-KO 1.04+ºÎÅÍ ÀüÀïÅÍ¿¡ ÀüÀïÀÌ ½ÃÀÛÇÏ¸é ¼º¹®/¼öÈ£¼®À» ¸¸µç´Ù.
+			MakeWeaponData();		// ì „ìŸë¬´ê¸°ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤.  // ê²°ê³„ì„ ë²„ê·¸ ë•Œë¬¸ì—... // LTH-040512-KO 1.04+ë¶€í„° ì „ìŸí„°ì— ì „ìŸì´ ì‹œì‘í•˜ë©´ ì„±ë¬¸/ìˆ˜í˜¸ì„ì„ ë§Œë“ ë‹¤.
 			m_Status=NW_WAIT_WAR;
 			SendCheckWarfieldStatus();
 		break;
 	case NW_WAR :
-			if (m_bAttackerWin)	SendCMD_REQUEST_SUBSTRACT_MONEY(m_NationCode,0,g_wMapServerPort,50000000);	// ±¹°¡¼¼ÆÃÀÌ µÇ±â ÀüÀÌ¹Ç·Î 
+			if (m_bAttackerWin)	SendCMD_REQUEST_SUBSTRACT_MONEY(m_NationCode,0,g_wMapServerPort,50000000);	// êµ­ê°€ì„¸íŒ…ì´ ë˜ê¸° ì „ì´ë¯€ë¡œ 
 		    else
 			{
-				if (m_NationCode==NW_ZY) SendCMD_REQUEST_SUBSTRACT_MONEY(NW_BY,0,g_wMapServerPort,50000000);	//°ø°İ±¹ÀÇ ÆĞ¹èÀÌ¸é 
+				if (m_NationCode==NW_ZY) SendCMD_REQUEST_SUBSTRACT_MONEY(NW_BY,0,g_wMapServerPort,50000000);	//ê³µê²©êµ­ì˜ íŒ¨ë°°ì´ë©´ 
 				else SendCMD_REQUEST_SUBSTRACT_MONEY(NW_ZY,0,g_wMapServerPort,50000000);	
 			}
-			//MoneySpread(m_bAttackerWin);			// µ·À» »Ñ·ÁÁØ´Ù.
-			ProcessNationWarEnd(m_bAttackerWin);	// ÀüÀïÁ¾·áÃ³¸®¸¦ ÇÑ´Ù.
-			//MakeWeaponData();						// ÀüÀï¹«±âÀÇ »óÅÂ¸¦ ¹Ù²Û´Ù. // LTH-040512-KO 1.04+ÀÇ ÀüÀïÅÍ¿¡¼­ ¸ó½ºÅÍ ÃâÇöÀ» À§ÇØ ¼º¹®/¼öÈ£¼®À» ³ªÁß¿¡ ¸¸µéÀÚ!!
-			DeleteAllSquadMember();					// ºÎ´ë ÇØ½¬¸¦ Áö¿î´Ù.
-			ClearCommander();						// »ç·É°ü Á¤º¸¸¦ Áö¿î´Ù.
-//			KickDefeatUser2Home();					// ÆĞ¹èÇÑ À¯Àú¸¦ ¸Ê¿¡¼­ ³»º¸³½´Ù.		// 011015 LTS
-			m_cGuardStoneBrokenCount=0;				// °ü·Ã Å¬·¡½º º¯¼ö¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+			//MoneySpread(m_bAttackerWin);			// ëˆì„ ë¿Œë ¤ì¤€ë‹¤.
+			ProcessNationWarEnd(m_bAttackerWin);	// ì „ìŸì¢…ë£Œì²˜ë¦¬ë¥¼ í•œë‹¤.
+			//MakeWeaponData();						// ì „ìŸë¬´ê¸°ì˜ ìƒíƒœë¥¼ ë°”ê¾¼ë‹¤. // LTH-040512-KO 1.04+ì˜ ì „ìŸí„°ì—ì„œ ëª¬ìŠ¤í„° ì¶œí˜„ì„ ìœ„í•´ ì„±ë¬¸/ìˆ˜í˜¸ì„ì„ ë‚˜ì¤‘ì— ë§Œë“¤ì!!
+			DeleteAllSquadMember();					// ë¶€ëŒ€ í•´ì‰¬ë¥¼ ì§€ìš´ë‹¤.
+			ClearCommander();						// ì‚¬ë ¹ê´€ ì •ë³´ë¥¼ ì§€ìš´ë‹¤.
+//			KickDefeatUser2Home();					// íŒ¨ë°°í•œ ìœ ì €ë¥¼ ë§µì—ì„œ ë‚´ë³´ë‚¸ë‹¤.		// 011015 LTS
+			m_cGuardStoneBrokenCount=0;				// ê´€ë ¨ í´ë˜ìŠ¤ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 			m_cCastleDoorBrokenCount=0;
 			m_bRequestCommanderVotingResult=false;
 			m_bAttackerWin=false;
-			ClearSquadCount();						// ºÎ´ë ÀÎ¿ø¼ö Ä«¿îÆ®¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
-			DeleteAllKiller();						// ¼º¹®, ¼öÈ£¼®À» ºÎ¼ø À¯Àú¸®½ºÆ® »èÁ¦
-			m_Status=NW_WAIT_PEACE;					// ÆòÈ­ »óÅÂ·Î ¹Ù²Û´Ù.
-			SendCheckWarfieldStatus();				// °ü¸®¼­¹ö¿¡ »óÅÂº¯°æ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
-			ActiveBonusTime();						//º¸³Ê½º Å¸ÀÓÀ» ¿ÀÇÂÇÑ´Ù.
+			ClearSquadCount();						// ë¶€ëŒ€ ì¸ì›ìˆ˜ ì¹´ìš´íŠ¸ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
+			DeleteAllKiller();						// ì„±ë¬¸, ìˆ˜í˜¸ì„ì„ ë¶€ìˆœ ìœ ì €ë¦¬ìŠ¤íŠ¸ ì‚­ì œ
+			m_Status=NW_WAIT_PEACE;					// í‰í™” ìƒíƒœë¡œ ë°”ê¾¼ë‹¤.
+			SendCheckWarfieldStatus();				// ê´€ë¦¬ì„œë²„ì— ìƒíƒœë³€ê²½ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
+			ActiveBonusTime();						//ë³´ë„ˆìŠ¤ íƒ€ì„ì„ ì˜¤í”ˆí•œë‹¤.
 
-			ClearAllGuard();								// LTH-040513-KO ¸ğµç °¡µåµéÀ» Á¦°ÅÇÑ´Ù.
+			ClearAllGuard();								// LTH-040513-KO ëª¨ë“  ê°€ë“œë“¤ì„ ì œê±°í•œë‹¤.
 		break;
 	}
 
@@ -7019,27 +7019,27 @@ void cWarfield::UpdateStatusofWar()
 void cWarfield::UpdateWarfieldStatus()					// LTS NEW_NATION_WAR
 {	//< CSD-030804
 
-	UpdateWarTime(); // ÀüÀï ½Ã°£À» °»½Å
+	UpdateWarTime(); // ì „ìŸ ì‹œê°„ì„ ê°±ì‹ 
 
 	if (m_Status == NW_PEACE)
-	{	// ÆòÈ­»óÅÂÀÌ¸é ½ºÅµ
+	{	// í‰í™”ìƒíƒœì´ë©´ ìŠ¤í‚µ
 		return; 
 	}
 
 	if (m_LoopTime > g_WarTime)
-	{	// »óÅÂ°¡ ÁøÇàÁßÀÌ¸é
+	{	// ìƒíƒœê°€ ì§„í–‰ì¤‘ì´ë©´
 		UpdateProgressofWar();
 	}
 	else
-	{	// »óÅÂ°¡ ¹Ù²î¾ú´Ù¸é..
+	{	// ìƒíƒœê°€ ë°”ë€Œì—ˆë‹¤ë©´..
 		UpdateStatusofWar();
 	}
 }	//> CSD-030804
 
-void cWarfield::SendStartUpMapPossession()		// ½ºÅ¸Æ®¾÷½Ã 
+void cWarfield::SendStartUpMapPossession()		// ìŠ¤íƒ€íŠ¸ì—…ì‹œ 
 {
 	t_packet packet;
-	if (g_pWarfield->GetNationCode()==NW_BY)	// µ¥ÀÌÅÍ º£ÀÌ½º¿¡¼­ ÀĞ¾î¿Ô´Ù.
+	if (g_pWarfield->GetNationCode()==NW_BY)	// ë°ì´í„° ë² ì´ìŠ¤ì—ì„œ ì½ì–´ì™”ë‹¤.
 	{
 		g_pWarfieldStatus[m_WarfieldCode].Possession=NW_BY;
 	}
@@ -7048,7 +7048,7 @@ void cWarfield::SendStartUpMapPossession()		// ½ºÅ¸Æ®¾÷½Ã
 		g_pWarfieldStatus[m_WarfieldCode].Possession=NW_ZY;
 	}
 
-	MapInfo[MapNumber].nation=g_pWarfield->GetNationCode(); //ÀÚ±â ÀÚ½ÅÀ» À§ÇÑ ¼¼ÆÃ 
+	MapInfo[MapNumber].nation=g_pWarfield->GetNationCode(); //ìê¸° ìì‹ ì„ ìœ„í•œ ì„¸íŒ… 
 
 	packet.h.header.type=CMD_STARTUP_NATION_CODE_CHANGE;
 	packet.u.NationWar.WarfieldStatusChange.WarfieldNo=g_wMapServerPort-BASE_WARFIELD_PORT;
@@ -7058,22 +7058,22 @@ void cWarfield::SendStartUpMapPossession()		// ½ºÅ¸Æ®¾÷½Ã
 	g_pServerTable->SendRajaPacketToOtherMapServer( NATION_MANAGE_SERVER, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
-void cWarfield::SendMapPossessChanged()		//ÀüÀï¿¡ ÀÇÇØ ¸ÊÀÇ ¼ÒÀ¯°¡ ¹Ù²î¾ú´Ù°í Àü´Ş.. 
+void cWarfield::SendMapPossessChanged()		//ì „ìŸì— ì˜í•´ ë§µì˜ ì†Œìœ ê°€ ë°”ë€Œì—ˆë‹¤ê³  ì „ë‹¬.. 
 {
 	t_packet packet;
 
-	if (g_pWarfield->GetNationCode()==NW_BY) //ÀÌÀüÀÇ ¼ÒÀ¯ÀÚ°¡ ¹ÙÀÌ¼­½º¸é.. ÀÚÀÌÆİÀ¸·Î ¼ÒÀ¯¸¦ ¹Ù²Û´Ù.
+	if (g_pWarfield->GetNationCode()==NW_BY) //ì´ì „ì˜ ì†Œìœ ìê°€ ë°”ì´ì„œìŠ¤ë©´.. ìì´í€ìœ¼ë¡œ ì†Œìœ ë¥¼ ë°”ê¾¼ë‹¤.
 	{
-		g_pWarfield->SetNationCode(NW_ZY);   //±¹ÀûÀ» ¼¼ÆÃÇÏ°í °ü¸®¼­¹ö·Î º¸³½´Ù.
+		g_pWarfield->SetNationCode(NW_ZY);   //êµ­ì ì„ ì„¸íŒ…í•˜ê³  ê´€ë¦¬ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
 		g_pWarfieldStatus[m_WarfieldCode].Possession=NW_ZY;
 	}
-	else									//ÀÌÀüÀÇ ¼ÒÀ¯ÀÚ°¡ ÀÚÀÌÆİÀÌ¸é ¹ÙÀÌ¼­½º·Î ¹Ù²Û´Ù.
+	else									//ì´ì „ì˜ ì†Œìœ ìê°€ ìì´í€ì´ë©´ ë°”ì´ì„œìŠ¤ë¡œ ë°”ê¾¼ë‹¤.
 	{
 		g_pWarfield->SetNationCode(NW_BY);
 		g_pWarfieldStatus[m_WarfieldCode].Possession=NW_BY;
 	}
 
-	MapInfo[MapNumber].nation=g_pWarfield->GetNationCode(); //ÀÚ±â ÀÚ½ÅÀ» À§ÇÑ ¼¼ÆÃ 
+	MapInfo[MapNumber].nation=g_pWarfield->GetNationCode(); //ìê¸° ìì‹ ì„ ìœ„í•œ ì„¸íŒ… 
 
 	packet.h.header.type=CMD_MAP_NATION_CODE_CHANGED;
 	packet.u.NationWar.WarfieldStatusChange.WarfieldNo=g_wMapServerPort-BASE_WARFIELD_PORT;
@@ -7090,17 +7090,17 @@ void cWarfield::ClearAllSquad(int Nation)
 	for (int i=DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 	{
 		if (CheckServerId(i))
-		{								// À¯ÀúÀÇ NWCharacterÁ¤º¸¸¦ ÃÊ±âÈ­ ÇÑ´Ù.	
-			InitConnectionsSquadData(i); //¸ÕÀú ÇØÁà¾ß ÇÑ´Ù.. ´ÙÀ½¿¡ ¶ÇÇÏ´õ¶óµµ.. // À¯Àú°¡ ¸ÊÀÌµ¿À» ÇÏ±âÀü¿¡..
+		{								// ìœ ì €ì˜ NWCharacterì •ë³´ë¥¼ ì´ˆê¸°í™” í•œë‹¤.	
+			InitConnectionsSquadData(i); //ë¨¼ì € í•´ì¤˜ì•¼ í•œë‹¤.. ë‹¤ìŒì— ë˜í•˜ë”ë¼ë„.. // ìœ ì €ê°€ ë§µì´ë™ì„ í•˜ê¸°ì „ì—..
 			SendCMD_CLEAR_SQUAD_DATA(connections,i); // All Clients
 		}
 	}
 }
 
-void cWarfield::GiveSquadPoint2Other(int cn,int Point)	// À¯ÀúÀÇ ºÎ´ë¿ø¿¡°Ô Á¡¼ö¸¦ ÁØ´Ù.			// 011101 LTS // ÇÔ¼ö±³Ã¼ 
+void cWarfield::GiveSquadPoint2Other(int cn,int Point)	// ìœ ì €ì˜ ë¶€ëŒ€ì›ì—ê²Œ ì ìˆ˜ë¥¼ ì¤€ë‹¤.			// 011101 LTS // í•¨ìˆ˜êµì²´ 
 {
 	SquadList* g_SquadList;
-	if (connections[cn].chrlst.NWCharacter.SquadNo==0) return;	// ºÎ´ë¹øÈ£°¡ 0ÀÌ¸é ³ª´©¾î ÁÙ¼ö ¾ø´Ù.
+	if (connections[cn].chrlst.NWCharacter.SquadNo==0) return;	// ë¶€ëŒ€ë²ˆí˜¸ê°€ 0ì´ë©´ ë‚˜ëˆ„ì–´ ì¤„ìˆ˜ ì—†ë‹¤.
 
 	if (isAttacker(m_WarfieldCode,connections,cn)) g_SquadList=&g_AttackSquadList[connections[cn].chrlst.NWCharacter.SquadNo];
 	else g_SquadList=&g_DefenceSquadList[connections[cn].chrlst.NWCharacter.SquadNo];
@@ -7109,17 +7109,17 @@ void cWarfield::GiveSquadPoint2Other(int cn,int Point)	// À¯ÀúÀÇ ºÎ´ë¿ø¿¡°Ô Á¡¼ö
 	{
 		if (cn!=(*itor)->GetData())	
 		{
-//			MyLog(0,"ºÎ´ë Á¡¼ö ºÎ¿© ÀÌ¸§ : %s, ºÎ´ëÄÚµå : %d,  OldFame : %d, NewFame : %d",connections[(*itor)->GetData()].name,connections[(*itor)->GetData()].chrlst.NWCharacter.SquadNo,connections[(*itor)->GetData()].chrlst.fame,connections[(*itor)->GetData()].chrlst.fame+Point);
+//			MyLog(0,"ë¶€ëŒ€ ì ìˆ˜ ë¶€ì—¬ ì´ë¦„ : %s, ë¶€ëŒ€ì½”ë“œ : %d,  OldFame : %d, NewFame : %d",connections[(*itor)->GetData()].name,connections[(*itor)->GetData()].chrlst.NWCharacter.SquadNo,connections[(*itor)->GetData()].chrlst.fame,connections[(*itor)->GetData()].chrlst.fame+Point);
 			connections[(*itor)->GetData()].chrlst.GainedFame+=Point;
 		}
 	}
 }
 
-void cWarfield::GiveGuildPoint2Other(int cn,int Point)	// À¯ÀúÀÇ ±æµå¿ø¿¡°Ô Á¡¼ö¸¦ ÁØ´Ù.		// 011110 LTS // ÇÔ¼ö±³Ã¼ 
+void cWarfield::GiveGuildPoint2Other(int cn,int Point)	// ìœ ì €ì˜ ê¸¸ë“œì›ì—ê²Œ ì ìˆ˜ë¥¼ ì¤€ë‹¤.		// 011110 LTS // í•¨ìˆ˜êµì²´ 
 {	//< CSD-030324
 	int GuildCode=connections[cn].chrlst.GetGuildCode();
 
-	if (GuildCode==0) return;	// ±æµåÄÚµå°¡ 0ÀÌ¸é ³ª´©¾î ÁÙ¼ö ¾ø´Ù
+	if (GuildCode==0) return;	// ê¸¸ë“œì½”ë“œê°€ 0ì´ë©´ ë‚˜ëˆ„ì–´ ì¤„ìˆ˜ ì—†ë‹¤
 
 	for (int i=DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 	{
@@ -7127,16 +7127,16 @@ void cWarfield::GiveGuildPoint2Other(int cn,int Point)	// À¯ÀúÀÇ ±æµå¿ø¿¡°Ô Á¡¼ö
 		{					
 			if (connections[i].chrlst.GetGuildCode()==GuildCode) 
 			{
-//				MyLog(0,"±æµå Á¡¼ö ºÎ¿© ÀÌ¸§ : %s, ±æµåÄÚµå : %d,  OldFame : %d, NewFame : %d",connections[i].name,GuildCode,connections[i].chrlst.fame,connections[i].chrlst.fame+Point);
+//				MyLog(0,"ê¸¸ë“œ ì ìˆ˜ ë¶€ì—¬ ì´ë¦„ : %s, ê¸¸ë“œì½”ë“œ : %d,  OldFame : %d, NewFame : %d",connections[i].name,GuildCode,connections[i].chrlst.fame,connections[i].chrlst.fame+Point);
 				connections[i].chrlst.GainedFame+=Point;
 			}
 		}
 	}
 }	//> CSD-030324
 
-void cWarfield::ReturnFame()		// ¸í¼ºÄ¡¸¦ °è»êÇØ ÁØ´Ù.		// 011105 LTS // ÇÔ¼ö±³Ã¼ 
+void cWarfield::ReturnFame()		// ëª…ì„±ì¹˜ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.		// 011105 LTS // í•¨ìˆ˜êµì²´ 
 {	//< CSD-030324
-//	MyLog(0,"¸í¼ºÄ¡ °è»ê_____________________________________________________");
+//	MyLog(0,"ëª…ì„±ì¹˜ ê³„ì‚°_____________________________________________________");
 	for (KillerListItor itor=g_KillerList.begin();itor!=g_KillerList.end();itor++)
 	{
 		int ServerID=ExistHe((char*)(*itor)->GetUserName());
@@ -7144,70 +7144,70 @@ void cWarfield::ReturnFame()		// ¸í¼ºÄ¡¸¦ °è»êÇØ ÁØ´Ù.		// 011105 LTS // ÇÔ¼ö±³Ã
 		{
 			switch((*itor)->GetKillSprNo())
 			{
-			case 65	:						// ¼º¹®, ÀÏ¹İ ¼öÈ£¼®ÀÌ¸é..
+			case 65	:						// ì„±ë¬¸, ì¼ë°˜ ìˆ˜í˜¸ì„ì´ë©´..
 			case 66 :
 			case 67 : 
 			case 63 : 
-				switch(connections[ServerID].chrlst.NWCharacter.SquadNo)	//ºÎ´ë ¹øÈ£¿¡ µû¶ó Æ²¸®´Ù.
+				switch(connections[ServerID].chrlst.NWCharacter.SquadNo)	//ë¶€ëŒ€ ë²ˆí˜¸ì— ë”°ë¼ í‹€ë¦¬ë‹¤.
 				{	
-				case 0 :												// ºÎ´ëÆí¼ºÀÌ µÇÁö ¾ÊÀº À¯ÀúÀÌ¸é
-					if (connections[ServerID].chrlst.GetGuildCode())	// ±æµå ÄÚµå¸¦ °¡Áö°í ÀÖ´Ù¸é..
+				case 0 :												// ë¶€ëŒ€í¸ì„±ì´ ë˜ì§€ ì•Šì€ ìœ ì €ì´ë©´
+					if (connections[ServerID].chrlst.GetGuildCode())	// ê¸¸ë“œ ì½”ë“œë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´..
 					{
-//						MyLog(0," ¼º¹®,¼öÈ£¼® Á×ÀÎ À¯Àú(±æµå¹øÈ£ : %d) : %s OldFame : %d, NewFame : %d ½ÃÀÛ _________________________",connections[ServerID].chrlst.GetGuildCode(),connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+6);
-//						MyLog(0," ±æµå¿¡°Ô ³ª´²ÁÜ ½ÃÀÛ _________________________");
-						connections[ServerID].chrlst.GainedFame+=6;					// ÀÚ½ÅÀº 6 Æ÷ÀÎÆ®¸¦ °¡Áö°í 
-						GiveGuildPoint2Other(ServerID,4);						// ´Ù¸¥ ±æµå¿¡°Ô´Â 4¸¦ ÁØ´Ù.
-//						MyLog(0," ±æµå¿¡°Ô ³ª´²ÁÜ ³¡ ___________________________");
+//						MyLog(0," ì„±ë¬¸,ìˆ˜í˜¸ì„ ì£½ì¸ ìœ ì €(ê¸¸ë“œë²ˆí˜¸ : %d) : %s OldFame : %d, NewFame : %d ì‹œì‘ _________________________",connections[ServerID].chrlst.GetGuildCode(),connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+6);
+//						MyLog(0," ê¸¸ë“œì—ê²Œ ë‚˜ëˆ ì¤Œ ì‹œì‘ _________________________");
+						connections[ServerID].chrlst.GainedFame+=6;					// ìì‹ ì€ 6 í¬ì¸íŠ¸ë¥¼ ê°€ì§€ê³  
+						GiveGuildPoint2Other(ServerID,4);						// ë‹¤ë¥¸ ê¸¸ë“œì—ê²ŒëŠ” 4ë¥¼ ì¤€ë‹¤.
+//						MyLog(0," ê¸¸ë“œì—ê²Œ ë‚˜ëˆ ì¤Œ ë ___________________________");
 					}
 					else 
 					{
-//						MyLog(0," ±æµå¹øÈ£ ¾ø´Â À¯Àú ½ÃÀÛ ___________________________");
-//						MyLog(0," ¼º¹®,¼öÈ£¼® Á×ÀÎ À¯Àú : %s OldFame : %d, NewFame : %d ½ÃÀÛ _________________________",connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+10);
-						connections[ServerID].chrlst.GainedFame+=10;					// °³ÀÎÀÌ¹Ç·Î 10À» °¡Áø´Ù.
-//						MyLog(0," ±æµå¹øÈ£ ¾ø´Â À¯Àú ³¡   ___________________________");
+//						MyLog(0," ê¸¸ë“œë²ˆí˜¸ ì—†ëŠ” ìœ ì € ì‹œì‘ ___________________________");
+//						MyLog(0," ì„±ë¬¸,ìˆ˜í˜¸ì„ ì£½ì¸ ìœ ì € : %s OldFame : %d, NewFame : %d ì‹œì‘ _________________________",connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+10);
+						connections[ServerID].chrlst.GainedFame+=10;					// ê°œì¸ì´ë¯€ë¡œ 10ì„ ê°€ì§„ë‹¤.
+//						MyLog(0," ê¸¸ë“œë²ˆí˜¸ ì—†ëŠ” ìœ ì € ë   ___________________________");
 					}
 					break;
 				case 1 :
 				case 2 :
 				case 3 :
 				case 4 :
-//					MyLog(0," ¼º¹®,¼öÈ£¼® Á×ÀÎ À¯Àú(ºÎ´ë¹øÈ£ : %d) : %s OldFame : %d, NewFame : %d ½ÃÀÛ _________________________",connections[ServerID].chrlst.NWCharacter.SquadNo,connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+5);
-//					MyLog(0," ºÎ´ë¿¡°Ô ³ª´²ÁÜ ½ÃÀÛ _________________________");
-					connections[ServerID].chrlst.GainedFame+=5;						// ÀÚ½ÅÀº 5¸¦ °¡Áö°í 	
-					GiveSquadPoint2Other(ServerID,4);							// ºÎ´ë¿¡°Ô´Â 4¸¦ ³ª´©¾î ÁØ´Ù.
-//					MyLog(0," ºÎ´ë¿¡°Ô ³ª´²ÁÜ ³¡ _________________________");
+//					MyLog(0," ì„±ë¬¸,ìˆ˜í˜¸ì„ ì£½ì¸ ìœ ì €(ë¶€ëŒ€ë²ˆí˜¸ : %d) : %s OldFame : %d, NewFame : %d ì‹œì‘ _________________________",connections[ServerID].chrlst.NWCharacter.SquadNo,connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+5);
+//					MyLog(0," ë¶€ëŒ€ì—ê²Œ ë‚˜ëˆ ì¤Œ ì‹œì‘ _________________________");
+					connections[ServerID].chrlst.GainedFame+=5;						// ìì‹ ì€ 5ë¥¼ ê°€ì§€ê³  	
+					GiveSquadPoint2Other(ServerID,4);							// ë¶€ëŒ€ì—ê²ŒëŠ” 4ë¥¼ ë‚˜ëˆ„ì–´ ì¤€ë‹¤.
+//					MyLog(0," ë¶€ëŒ€ì—ê²Œ ë‚˜ëˆ ì¤Œ ë _________________________");
 					break;
 				}
 				break;
-			case 64 :					// º¸½º ¼öÈ£¼®À» ²£´Ù.
-				switch(connections[ServerID].chrlst.NWCharacter.SquadNo)	//ºÎ´ë ¹øÈ£¿¡ µû¶ó Æ²¸®´Ù.
+			case 64 :					// ë³´ìŠ¤ ìˆ˜í˜¸ì„ì„ ê¹¼ë‹¤.
+				switch(connections[ServerID].chrlst.NWCharacter.SquadNo)	//ë¶€ëŒ€ ë²ˆí˜¸ì— ë”°ë¼ í‹€ë¦¬ë‹¤.
 				{	
-				case 0 :												// ºÎ´ëÆí¼ºÀÌ µÇÁö ¾ÊÀº À¯ÀúÀÌ¸é
-					if (connections[ServerID].chrlst.GetGuildCode())	// ±æµå ÄÚµå¸¦ °¡Áö°í ÀÖ´Ù¸é..
+				case 0 :												// ë¶€ëŒ€í¸ì„±ì´ ë˜ì§€ ì•Šì€ ìœ ì €ì´ë©´
+					if (connections[ServerID].chrlst.GetGuildCode())	// ê¸¸ë“œ ì½”ë“œë¥¼ ê°€ì§€ê³  ìˆë‹¤ë©´..
 					{
-//						MyLog(0," ÃÖÁ¾ ¼öÈ£¼® Á×ÀÎ À¯Àú(±æµå¹øÈ£ : %d) : %s OldFame : %d, NewFame : %d ½ÃÀÛ _________________________",connections[ServerID].chrlst.GetGuildCode(),connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+12);
-//						MyLog(0," ±æµå¿¡°Ô ³ª´²ÁÜ ½ÃÀÛ _________________________");
-						connections[ServerID].chrlst.GainedFame+=12;					// ÀÚ½ÅÀº 12 Æ÷ÀÎÆ®¸¦ °¡Áö°í 
-						GiveGuildPoint2Other(ServerID,8);						// ´Ù¸¥ ±æµå¿¡°Ô´Â 8¸¦ ÁØ´Ù.
-//						MyLog(0," ±æµå¿¡°Ô ³ª´²ÁÜ ³¡ ___________________________");
+//						MyLog(0," ìµœì¢… ìˆ˜í˜¸ì„ ì£½ì¸ ìœ ì €(ê¸¸ë“œë²ˆí˜¸ : %d) : %s OldFame : %d, NewFame : %d ì‹œì‘ _________________________",connections[ServerID].chrlst.GetGuildCode(),connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+12);
+//						MyLog(0," ê¸¸ë“œì—ê²Œ ë‚˜ëˆ ì¤Œ ì‹œì‘ _________________________");
+						connections[ServerID].chrlst.GainedFame+=12;					// ìì‹ ì€ 12 í¬ì¸íŠ¸ë¥¼ ê°€ì§€ê³  
+						GiveGuildPoint2Other(ServerID,8);						// ë‹¤ë¥¸ ê¸¸ë“œì—ê²ŒëŠ” 8ë¥¼ ì¤€ë‹¤.
+//						MyLog(0," ê¸¸ë“œì—ê²Œ ë‚˜ëˆ ì¤Œ ë ___________________________");
 					}
 					else 
 					{
-//						MyLog(0," ±æµå¹øÈ£ ¾ø´Â À¯Àú ½ÃÀÛ ___________________________");
-//						MyLog(0," ÃÖÁ¾ ¼öÈ£¼® Á×ÀÎ À¯Àú : %s OldFame : %d, NewFame : %d ½ÃÀÛ _________________________",connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+20);
-						connections[ServerID].chrlst.GainedFame+=20;					// °³ÀÎÀÌ¹Ç·Î 20À» °¡Áø´Ù.
-//						MyLog(0," ±æµå¹øÈ£ ¾ø´Â À¯Àú ³¡   ___________________________");
+//						MyLog(0," ê¸¸ë“œë²ˆí˜¸ ì—†ëŠ” ìœ ì € ì‹œì‘ ___________________________");
+//						MyLog(0," ìµœì¢… ìˆ˜í˜¸ì„ ì£½ì¸ ìœ ì € : %s OldFame : %d, NewFame : %d ì‹œì‘ _________________________",connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+20);
+						connections[ServerID].chrlst.GainedFame+=20;					// ê°œì¸ì´ë¯€ë¡œ 20ì„ ê°€ì§„ë‹¤.
+//						MyLog(0," ê¸¸ë“œë²ˆí˜¸ ì—†ëŠ” ìœ ì € ë   ___________________________");
 					}
 					break;
 				case 1 :
 				case 2 :
 				case 3 :
 				case 4 :
-//					MyLog(0," ÃÖÁ¾,¼öÈ£¼® Á×ÀÎ À¯Àú(ºÎ´ë¹øÈ£ : %d) : %s OldFame : %d, NewFame : %d ½ÃÀÛ _________________________",connections[ServerID].chrlst.NWCharacter.SquadNo,connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+10);
-//					MyLog(0," ºÎ´ë¿¡°Ô ³ª´²ÁÜ ½ÃÀÛ _________________________");
-					connections[ServerID].chrlst.GainedFame+=10;						// ÀÚ½ÅÀº 10¸¦ °¡Áö°í 	
-					GiveSquadPoint2Other(ServerID,8);							// ºÎ´ë¿¡°Ô´Â 8¸¦ ³ª´©¾î ÁØ´Ù.
-//					MyLog(0," ºÎ´ë¿¡°Ô ³ª´²ÁÜ ³¡ _________________________");
+//					MyLog(0," ìµœì¢…,ìˆ˜í˜¸ì„ ì£½ì¸ ìœ ì €(ë¶€ëŒ€ë²ˆí˜¸ : %d) : %s OldFame : %d, NewFame : %d ì‹œì‘ _________________________",connections[ServerID].chrlst.NWCharacter.SquadNo,connections[ServerID].name,connections[ServerID].chrlst.fame,connections[ServerID].chrlst.fame+10);
+//					MyLog(0," ë¶€ëŒ€ì—ê²Œ ë‚˜ëˆ ì¤Œ ì‹œì‘ _________________________");
+					connections[ServerID].chrlst.GainedFame+=10;						// ìì‹ ì€ 10ë¥¼ ê°€ì§€ê³  	
+					GiveSquadPoint2Other(ServerID,8);							// ë¶€ëŒ€ì—ê²ŒëŠ” 8ë¥¼ ë‚˜ëˆ„ì–´ ì¤€ë‹¤.
+//					MyLog(0," ë¶€ëŒ€ì—ê²Œ ë‚˜ëˆ ì¤Œ ë _________________________");
 					break;
 				}
 				break;
@@ -7215,12 +7215,12 @@ void cWarfield::ReturnFame()		// ¸í¼ºÄ¡¸¦ °è»êÇØ ÁØ´Ù.		// 011105 LTS // ÇÔ¼ö±³Ã
 		}
 		else
 		{
-//			MyLog(0," ÀüÀïÅÍ¿¡ ¾ø´Â À¯Àú ½ÃÀÛ _________________________");
-//			MyLog(0," ÀüÀïÅÍ ¾ø´Â À¯Àú ÀÌ¸§ : %s, Á×ÀÎ ½ºÇÁ¶óÀÌÆ® ¹øÈ£ : %d",(*itor)->GetUserName(),(*itor)->GetKillSprNo());
-//			MyLog(0," ÀüÀïÅÍ¿¡ ¾ø´Â À¯Àú ³¡   _________________________");
+//			MyLog(0," ì „ìŸí„°ì— ì—†ëŠ” ìœ ì € ì‹œì‘ _________________________");
+//			MyLog(0," ì „ìŸí„° ì—†ëŠ” ìœ ì € ì´ë¦„ : %s, ì£½ì¸ ìŠ¤í”„ë¼ì´íŠ¸ ë²ˆí˜¸ : %d",(*itor)->GetUserName(),(*itor)->GetKillSprNo());
+//			MyLog(0," ì „ìŸí„°ì— ì—†ëŠ” ìœ ì € ë   _________________________");
 		}
 	}
-//	MyLog(0,"¸í¼ºÄ¡ °è»ê ³¡__________________________________________________");
+//	MyLog(0,"ëª…ì„±ì¹˜ ê³„ì‚° ë__________________________________________________");
 }	//> CSD-030324
 
 void cWarfield::ClearGainedFame()				// 020115 LTS
@@ -7231,7 +7231,7 @@ void cWarfield::ClearGainedFame()				// 020115 LTS
 	}
 }
 
-void cWarfield::CalcNationWar_Exp()			// 020115 LTS		// ±¹°¡Àü ¹ö±×
+void cWarfield::CalcNationWar_Exp()			// 020115 LTS		// êµ­ê°€ì „ ë²„ê·¸
 {
 	for (int i=DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 	{
@@ -7253,7 +7253,7 @@ void cWarfield::CalcNationWar_Exp()			// 020115 LTS		// ±¹°¡Àü ¹ö±×
 			default :	{ Exp_Grade+=4; }break;	// 30 -
 			}
 
-			if (ch->NWCharacter.isCommander) {Exp_Grade+=5;}	//»ç·É°ü ,ºÎ´ëÀå Áßº¹
+			if (ch->NWCharacter.isCommander) {Exp_Grade+=5;}	//ì‚¬ë ¹ê´€ ,ë¶€ëŒ€ì¥ ì¤‘ë³µ
 			if (ch->NWCharacter.isSquadLeader) {Exp_Grade+=2;}
 			
 			::MyLog(0,"FameChange Name : %s, OLD : %d, NEW : %d, Gap : %d, Exp_Grade : %d",
@@ -7286,7 +7286,7 @@ void cWarfield::CalcNationWar_Exp()			// 020115 LTS		// ±¹°¡Àü ¹ö±×
 				packet.h.header.size=sizeof(t_FameExpChange);
 				QueuePacket(connections,i,&packet,1);
 			}
-			ch->GainedFame=0;								//´Ù½Ã ÃÊ±âÈ­ 
+			ch->GainedFame=0;								//ë‹¤ì‹œ ì´ˆê¸°í™” 
 		}
 		else
 		{
@@ -7307,7 +7307,7 @@ void cWarfield::CalcNationWar_Exp()			// 020115 LTS		// ±¹°¡Àü ¹ö±×
 					default : Exp_Grade+=4;		// 30 -
 					}
 					
-					if (ch->NWCharacter.isCommander) {Exp_Grade+=5;}	//»ç·É°ü ,ºÎ´ëÀå Áßº¹
+					if (ch->NWCharacter.isCommander) {Exp_Grade+=5;}	//ì‚¬ë ¹ê´€ ,ë¶€ëŒ€ì¥ ì¤‘ë³µ
 					if (ch->NWCharacter.isSquadLeader) {Exp_Grade+=2;}
 					
 					MyLog(0,"FameChange Name : %s, OLD : %d, NEW : %d, Gap : %d, Exp_Grade : %d",
@@ -7339,50 +7339,50 @@ void cWarfield::CalcNationWar_Exp()			// 020115 LTS		// ±¹°¡Àü ¹ö±×
 						packet.h.header.size=sizeof(t_FameExpChange);
 						QueuePacket(connections,i,&packet,1);
 					}
-					ch->GainedFame=0;								//´Ù½Ã ÃÊ±âÈ­ 
+					ch->GainedFame=0;								//ë‹¤ì‹œ ì´ˆê¸°í™” 
 				}
 			}
 		}
 	}
 }
 
-void cWarfield::CalcFame(bool AttackerWin)		// ¸í¼ºÄ¡¸¦ °è»êÇØ ÁØ´Ù.	// 020115 LTS // ÇÔ¼ö±³Ã¼ 
+void cWarfield::CalcFame(bool AttackerWin)		// ëª…ì„±ì¹˜ë¥¼ ê³„ì‚°í•´ ì¤€ë‹¤.	// 020115 LTS // í•¨ìˆ˜êµì²´ 
 {
-	ClearGainedFame();	// ÀÓ½Ã ¸í¼ºÄ¡ ÃÊ±âÈ­
+	ClearGainedFame();	// ì„ì‹œ ëª…ì„±ì¹˜ ì´ˆê¸°í™”
 
 	for (int i=DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 	{
 		CHARLIST *ch = ::CheckServerId(i);
 		if(!ch){continue;}
 
-		if (AttackerWin)	// °ø°İ±¹ÀÇ ½Â¸®
+		if (AttackerWin)	// ê³µê²©êµ­ì˜ ìŠ¹ë¦¬
 		{
 			switch (ch->name_status.nation)
 			{
 			case NW_BY : 
-				if (m_NationCode==NW_BY) ch->GainedFame+=3;		// ¹æ¾î±¹ ¹ÙÀÌ¼­½º°¡ ÆĞ¹èÇßÀ¸¹Ç·Î 0
-				else ch->GainedFame+=0;							// °ø°İ±¹ÀÇ ½Â¸® 
+				if (m_NationCode==NW_BY) ch->GainedFame+=3;		// ë°©ì–´êµ­ ë°”ì´ì„œìŠ¤ê°€ íŒ¨ë°°í–ˆìœ¼ë¯€ë¡œ 0
+				else ch->GainedFame+=0;							// ê³µê²©êµ­ì˜ ìŠ¹ë¦¬ 
 				break;
-			case NW_ZY :										// ¹æ¾î±¹ ÀÚÀÌÆİÀÌ ÆĞ¹è ÇßÀ¸¹Ç·Î 0
+			case NW_ZY :										// ë°©ì–´êµ­ ìì´í€ì´ íŒ¨ë°° í–ˆìœ¼ë¯€ë¡œ 0
 				if (m_NationCode==NW_ZY) ch->GainedFame+=3;
-				else ch->GainedFame+=0;							// °ø°İ±¹ÀÇ ½Â¸®
+				else ch->GainedFame+=0;							// ê³µê²©êµ­ì˜ ìŠ¹ë¦¬
 				break;
-			case NW_YL :										// ÀÏ½ºÀÌ¸é
+			case NW_YL :										// ì¼ìŠ¤ì´ë©´
 				switch (ch->NWCharacter.YL_JoinNation)
 				{
 				case NW_BY : 
-					if (m_NationCode==NW_BY) ch->GainedFame+=3;	// ¹æ¾î±¹ ¹ÙÀÌ¼­½º°¡ ÆĞ¹è ÇßÀ¸¹Ç·Î °¡´ãÀÚÀÌ¸é 0
-					else ch->GainedFame+=0;						// °ø°İ±¹ÀÌ ½Â¸®	
+					if (m_NationCode==NW_BY) ch->GainedFame+=3;	// ë°©ì–´êµ­ ë°”ì´ì„œìŠ¤ê°€ íŒ¨ë°° í–ˆìœ¼ë¯€ë¡œ ê°€ë‹´ìì´ë©´ 0
+					else ch->GainedFame+=0;						// ê³µê²©êµ­ì´ ìŠ¹ë¦¬	
 					break;
 				case NW_ZY : 
-					if (m_NationCode==NW_ZY) ch->GainedFame+=3;	// ¹æ¾î±¹ ÀÚÀÌÆİÀÌ ÆĞ¹èÇßÀ¸¹Ç·Î °¡´ãÀÚ 0
-					else ch->GainedFame+=0;						// °ø°İ±¹ÀÇ ½Â¸®
+					if (m_NationCode==NW_ZY) ch->GainedFame+=3;	// ë°©ì–´êµ­ ìì´í€ì´ íŒ¨ë°°í–ˆìœ¼ë¯€ë¡œ ê°€ë‹´ì 0
+					else ch->GainedFame+=0;						// ê³µê²©êµ­ì˜ ìŠ¹ë¦¬
 					break;
 				}
 				break;
 			}
 		}
-		else		//¹æ¾î±¹ÀÇ ½Â¸® 
+		else		//ë°©ì–´êµ­ì˜ ìŠ¹ë¦¬ 
 		{
 			switch (ch->name_status.nation)
 			{
@@ -7413,22 +7413,22 @@ void cWarfield::CalcFame(bool AttackerWin)		// ¸í¼ºÄ¡¸¦ °è»êÇØ ÁØ´Ù.	// 020115 L
 
 	if (AttackerWin) 
 	{
-//		MyLog(0,"°ø°İÀÚ°¡ ÀÌ°å½À´Ï´Ù. ¸í¼ºÄ¡ °è»ê·çÆ¾À» ¼öÇà ÇÕ´Ï´Ù.__________");
-		ReturnFame(); //°ê°è¼®, ¼öÈ£¼® Á×ÀÎ³ğ °è»ê..  // ½Â¸®ÇßÀ»¶§¸¸ °è»êÇÑ´Ù.	// 
-//		MyLog(0,"¸í¼ºÄ¡ °è»ê·çÆ¾À» Á¾·á ÇÕ´Ï´Ù._______________________________");
+//		MyLog(0,"ê³µê²©ìê°€ ì´ê²¼ìŠµë‹ˆë‹¤. ëª…ì„±ì¹˜ ê³„ì‚°ë£¨í‹´ì„ ìˆ˜í–‰ í•©ë‹ˆë‹¤.__________");
+		ReturnFame(); //ê³Œê³„ì„, ìˆ˜í˜¸ì„ ì£½ì¸ë†ˆ ê³„ì‚°..  // ìŠ¹ë¦¬í–ˆì„ë•Œë§Œ ê³„ì‚°í•œë‹¤.	// 
+//		MyLog(0,"ëª…ì„±ì¹˜ ê³„ì‚°ë£¨í‹´ì„ ì¢…ë£Œ í•©ë‹ˆë‹¤._______________________________");
 	}
 
 	CalcNationWar_Exp();
 
 }
 
-void cWarfield::ProcessNationWarEnd(bool AttackerWin)	//ÀüÀïÀÇ Á¾·á¸¦ Ã³¸®ÇÑ´Ù.	// ¾ÆÁ÷¼ÒÀ¯°¡ ¹Ù²îÁö ¾Ê¾Ò´Ù	// 011016 LTS
+void cWarfield::ProcessNationWarEnd(bool AttackerWin)	//ì „ìŸì˜ ì¢…ë£Œë¥¼ ì²˜ë¦¬í•œë‹¤.	// ì•„ì§ì†Œìœ ê°€ ë°”ë€Œì§€ ì•Šì•˜ë‹¤	// 011016 LTS
 {
 	t_WarBBS WarBBS;
-	ClearAllSquad(0); // ¸ğµç ³ª¶ó..
+	ClearAllSquad(0); // ëª¨ë“  ë‚˜ë¼..
 	short BYCount,ZYCount,BYDeathCount,ZYDeathCount,YL_BYCount,YL_ZYCount;
 
-	if (m_NationCode==NW_BY)	// ¼ÒÀ¯ÀÚ°¡ ¹ÙÀÌ¿´´Ù
+	if (m_NationCode==NW_BY)	// ì†Œìœ ìê°€ ë°”ì´ì˜€ë‹¤
 	{
 		BYCount=g_SquadCount[NW_DEFENCER][0]+g_SquadCount[NW_DEFENCER][1]+g_SquadCount[NW_DEFENCER][2]+
 			    g_SquadCount[NW_DEFENCER][3]+g_SquadCount[NW_DEFENCER][4];
@@ -7439,7 +7439,7 @@ void cWarfield::ProcessNationWarEnd(bool AttackerWin)	//ÀüÀïÀÇ Á¾·á¸¦ Ã³¸®ÇÑ´Ù.	
 		YL_BYCount=m_JoinSquadCount[NW_DEFENCER];
 		YL_ZYCount=m_JoinSquadCount[NW_ATTACKER];
 	}
-	else						// ¼ÒÀ¯ÀÚ°¡ ÀÚÀÌ¿´´Ù
+	else						// ì†Œìœ ìê°€ ìì´ì˜€ë‹¤
 	{
 		ZYCount=g_SquadCount[NW_DEFENCER][0]+g_SquadCount[NW_DEFENCER][1]+g_SquadCount[NW_DEFENCER][2]+
 				g_SquadCount[NW_DEFENCER][3]+g_SquadCount[NW_DEFENCER][4];
@@ -7451,46 +7451,46 @@ void cWarfield::ProcessNationWarEnd(bool AttackerWin)	//ÀüÀïÀÇ Á¾·á¸¦ Ã³¸®ÇÑ´Ù.	
 		YL_BYCount=m_JoinSquadCount[NW_ATTACKER];
 	}
 	
-	if (AttackerWin) SendMapPossessChanged();				// °ø°İ±¹ÀÌ ½Â¸®¸¦ ÇßÀ¸¸é..		// ¸Ê¼ÒÀ¯º¯°æÀ» °ü¸®¼­¹ö¿¡°Ô ¾Ë·ÁÁØ´Ù.
+	if (AttackerWin) SendMapPossessChanged();				// ê³µê²©êµ­ì´ ìŠ¹ë¦¬ë¥¼ í–ˆìœ¼ë©´..		// ë§µì†Œìœ ë³€ê²½ì„ ê´€ë¦¬ì„œë²„ì—ê²Œ ì•Œë ¤ì¤€ë‹¤.
 
-	SendWarBeginEndMessage2Client(0);						// ¸Ê¿¡ ÀÖ´Â ³à¼®µé¿¡°Ô À¯Àú¿¡°Ô ÀüÀïÀÌ ³¡³µÀ½À» ¾Ë¸°´Ù.	// ¿Ê °¥¾ÆÀÔ¾î¶ó
-	CalcFame(AttackerWin);									// ¸í¼ºÄ¡¸¦ °è»êÇÑ´Ù. 
-	SendCMD_WAR_END(m_WarfieldCode,NATION_MANAGE_SERVER);	// °ü¸®¼­¹ö¿¡°Ô ¿öÇÊµåÃÊ±âÈ­¸¦ ¿äÃ»
+	SendWarBeginEndMessage2Client(0);						// ë§µì— ìˆëŠ” ë…€ì„ë“¤ì—ê²Œ ìœ ì €ì—ê²Œ ì „ìŸì´ ëë‚¬ìŒì„ ì•Œë¦°ë‹¤.	// ì˜· ê°ˆì•„ì…ì–´ë¼
+	CalcFame(AttackerWin);									// ëª…ì„±ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤. 
+	SendCMD_WAR_END(m_WarfieldCode,NATION_MANAGE_SERVER);	// ê´€ë¦¬ì„œë²„ì—ê²Œ ì›Œí•„ë“œì´ˆê¸°í™”ë¥¼ ìš”ì²­
 											
-	WarBBS.WarfieldNo=m_WarfieldCode;						// "%d±¹ÀÌ %dÀüÀïÅÍ¿¡¼­ ½Â¸®ÇÏ¿´½À´Ï´Ù."
+	WarBBS.WarfieldNo=m_WarfieldCode;						// "%dêµ­ì´ %dì „ìŸí„°ì—ì„œ ìŠ¹ë¦¬í•˜ì˜€ìŠµë‹ˆë‹¤."
 	WarBBS.BBSType=BBS_WAR_VICTORY;
 	WarBBS.LanNo=0;											// 010924 LST
 	WarBBS.ArgType=BBS_NUM;
 	WarBBS.Size=14;
-	WarBBS.Arg[0]=m_NationCode;								// ÀüÀï¿¡ ½Â¸®ÇÑ ³ª¶ó..
+	WarBBS.Arg[0]=m_NationCode;								// ì „ìŸì— ìŠ¹ë¦¬í•œ ë‚˜ë¼..
 	WarBBS.Arg[1]=AttackerWin;
 	if (BYCount<0) BYCount=0;
-	memcpy(&WarBBS.Arg[2],&BYCount,sizeof(short));	// °ø°İÀÚ Ä«¿îÆ®
+	memcpy(&WarBBS.Arg[2],&BYCount,sizeof(short));	// ê³µê²©ì ì¹´ìš´íŠ¸
 	if (ZYCount<0) ZYCount=0;
-	memcpy(&WarBBS.Arg[4],&ZYCount,sizeof(short));	// °ø°İÀÚ Ä«¿îÆ®
+	memcpy(&WarBBS.Arg[4],&ZYCount,sizeof(short));	// ê³µê²©ì ì¹´ìš´íŠ¸
 	if (YL_BYCount<0) YL_BYCount=0;
-	memcpy(&WarBBS.Arg[6],&YL_BYCount,sizeof(short));	// °ø°İÀÚ Ä«¿îÆ®
+	memcpy(&WarBBS.Arg[6],&YL_BYCount,sizeof(short));	// ê³µê²©ì ì¹´ìš´íŠ¸
 	if (BYDeathCount<0) BYDeathCount=0;
-	memcpy(&WarBBS.Arg[8],&BYDeathCount,sizeof(short));	// °ø°İÀÚ Ä«¿îÆ®
+	memcpy(&WarBBS.Arg[8],&BYDeathCount,sizeof(short));	// ê³µê²©ì ì¹´ìš´íŠ¸
 	if (ZYDeathCount<0) ZYDeathCount=0;
-	memcpy(&WarBBS.Arg[10],&ZYDeathCount,sizeof(short));	// °ø°İÀÚ Ä«¿îÆ®
+	memcpy(&WarBBS.Arg[10],&ZYDeathCount,sizeof(short));	// ê³µê²©ì ì¹´ìš´íŠ¸
 	if (YL_ZYCount<0) YL_ZYCount=0;
-	memcpy(&WarBBS.Arg[12],&YL_ZYCount,sizeof(short));	// °ø°İÀÚ Ä«¿îÆ®
+	memcpy(&WarBBS.Arg[12],&YL_ZYCount,sizeof(short));	// ê³µê²©ì ì¹´ìš´íŠ¸
 
-	SendWarBBS2Maps(&WarBBS);								// °ø°İ±¹, ¹æ¾î±¹, Áß¸³±¹ ¸Ê¿¡ ¸Ş½ÃÁö¸¦ º¸³½´Ù,
-	SendWarBBS2Clients(&WarBBS);							// ÀüÀï¼­¹ö À¯Àú¿¡°Ô º¸³½´Ù.
+	SendWarBBS2Maps(&WarBBS);								// ê³µê²©êµ­, ë°©ì–´êµ­, ì¤‘ë¦½êµ­ ë§µì— ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤,
+	SendWarBBS2Clients(&WarBBS);							// ì „ìŸì„œë²„ ìœ ì €ì—ê²Œ ë³´ë‚¸ë‹¤.
 	
 }
 
-bool cWarfield::CanRegCommanderCandidater(int Kind,int CandidaterNo)		// »ç·É°ü ÈÄº¸¿¡ µî·ÏÇÒ¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+bool cWarfield::CanRegCommanderCandidater(int Kind,int CandidaterNo)		// ì‚¬ë ¹ê´€ í›„ë³´ì— ë“±ë¡í• ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 {
-	if (m_tSquad[Kind].Commander.CO_ID>0) return false;				// »ç·É°üÀÌ ÀÖ´Ù.
+	if (m_tSquad[Kind].Commander.CO_ID>0) return false;				// ì‚¬ë ¹ê´€ì´ ìˆë‹¤.
 	if (m_tSquad[Kind].Candidater[CandidaterNo].CO_ID>0) return false;	
 	else return true;
 }
 
 
-void cWarfield::SetCandidaterInfo(int Kind,int CandidaterNo,t_CommanderInformation* CandidaterInfo)	// »ç·É°ü ÈÄº¸¸¦ ¼¼Æ®ÇÑ´Ù.
+void cWarfield::SetCandidaterInfo(int Kind,int CandidaterNo,t_CommanderInformation* CandidaterInfo)	// ì‚¬ë ¹ê´€ í›„ë³´ë¥¼ ì„¸íŠ¸í•œë‹¤.
 {
 	m_tSquad[Kind].Candidater[CandidaterNo].CO_ID=CandidaterInfo->CO_ID;
 	memcpy(m_tSquad[Kind].Candidater[CandidaterNo].CO_Name,CandidaterInfo->CO_Name,NW_NAME_MAX);
@@ -7507,7 +7507,7 @@ void cWarfield::SetCandidaterInfo(int Kind,int CandidaterNo,t_CommanderInformati
 
 void cWarfield::CommanderEnter(int Type)
 {
-	// Type : NW_ATTACKER : °ø°İÀÚ, NW_DEFENCER : ¹æ¾îÀÚ, NW_REINFORCE : Áö¿ø±º
+	// Type : NW_ATTACKER : ê³µê²©ì, NW_DEFENCER : ë°©ì–´ì, NW_REINFORCE : ì§€ì›êµ°
 	m_bCommanderExist[Type]=true;				// LTS TEMP
 }
 void cWarfield::CommanderLeave(int Type)
@@ -7516,8 +7516,8 @@ void cWarfield::CommanderLeave(int Type)
 }
 void cWarfield::SquadLeaderEnter(int Type,int SquadNo)
 {
-	// SquadNo : 0:ºÎ´ë¾øÀ½ 1:1¹øºÎ´ë, 2:2¹øºÎ´ë.... 4:4¹øºÎ´ë
-	// ÂüÁ¶ 
+	// SquadNo : 0:ë¶€ëŒ€ì—†ìŒ 1:1ë²ˆë¶€ëŒ€, 2:2ë²ˆë¶€ëŒ€.... 4:4ë²ˆë¶€ëŒ€
+	// ì°¸ì¡° 
 	m_bSquadLeaderExist[Type][SquadNo]=true;
 }
 void cWarfield::SquadLeaderLeave(int Type,int SquadNo)
@@ -7536,7 +7536,7 @@ void cWarfield::DisplaySquadMember(int Type,int SquadNo)		//
 	case NW_COMMANDER :	DisplayMember(&g_CommanderList[SquadNo]);		break;
 	}
 }
-void cWarfield::DisplayMember(SquadList* g_SquadList)	// ½ºÄõµåÀÇ ¸â¹ö¸¦ º¸¿©ÁØ´Ù. // µğ¹ö±×¿ë
+void cWarfield::DisplayMember(SquadList* g_SquadList)	// ìŠ¤ì¿¼ë“œì˜ ë©¤ë²„ë¥¼ ë³´ì—¬ì¤€ë‹¤. // ë””ë²„ê·¸ìš©
 {
 	MyLog(0,"Squad Member List-----------------------");
 	for (SquadListItor itor=g_SquadList->begin();itor!=g_SquadList->end();itor++)
@@ -7546,9 +7546,9 @@ void cWarfield::DisplayMember(SquadList* g_SquadList)	// ½ºÄõµåÀÇ ¸â¹ö¸¦ º¸¿©ÁØ´
 	MyLog(0,"Squad Member List End--------------------");
 }
 
-void cWarfield::DeleteSquadMember(const int cn)    // Ä³¸¯ÅÍÀÇ Ä¿³Ø¼Ç ID·Î ¾Ë¸Â°Ô SQUAD HASH¿¡¼­ »èÁ¦ÇÑ´Ù.	// 011016 LTS//020903 lsw
+void cWarfield::DeleteSquadMember(const int cn)    // ìºë¦­í„°ì˜ ì»¤ë„¥ì…˜ IDë¡œ ì•Œë§ê²Œ SQUAD HASHì—ì„œ ì‚­ì œí•œë‹¤.	// 011016 LTS//020903 lsw
 {
-	if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,connections,cn))		// ºÎ´ë ÇØ½¬¿¡¼­ Áö¿î´Ù.
+	if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,connections,cn))		// ë¶€ëŒ€ í•´ì‰¬ì—ì„œ ì§€ìš´ë‹¤.
 	{
 		CHARLIST * ch = CheckServerId(cn);
 		if(!ch)
@@ -7558,7 +7558,7 @@ void cWarfield::DeleteSquadMember(const int cn)    // Ä³¸¯ÅÍÀÇ Ä¿³Ø¼Ç ID·Î ¾Ë¸Â°
 		DeleteSquadMember(NW_ATTACKER,ch->NWCharacter.SquadNo,cn);
 		if (ch->name_status.nation!=NW_YL) 
 		{
-			g_SquadCount[NW_ATTACKER][ch->NWCharacter.SquadNo]--;	//ºÎ´ë ÀÎ¿ø¼ö¸¦ °¨¼Ò½ÃÅ²´Ù.
+			g_SquadCount[NW_ATTACKER][ch->NWCharacter.SquadNo]--;	//ë¶€ëŒ€ ì¸ì›ìˆ˜ë¥¼ ê°ì†Œì‹œí‚¨ë‹¤.
 		}
 		else
 		{
@@ -7566,11 +7566,11 @@ void cWarfield::DeleteSquadMember(const int cn)    // Ä³¸¯ÅÍÀÇ Ä¿³Ø¼Ç ID·Î ¾Ë¸Â°
 		}
 		if (ch->NWCharacter.isCommander||ch->NWCharacter.isSquadLeader)
 		{
-			DeleteSquadMember(NW_COMMANDER,NW_ATTACKER,cn);		// »ç·É°ü ÇØ½¬¿¡¼­µµ Áö¿î´Ù.
+			DeleteSquadMember(NW_COMMANDER,NW_ATTACKER,cn);		// ì‚¬ë ¹ê´€ í•´ì‰¬ì—ì„œë„ ì§€ìš´ë‹¤.
 		}
 		if (ch->NWCharacter.isCommander) 
 		{
-			CommanderLeave(NW_ATTACKER);		// »ç·É°üÀÌ ¶°³ª¸é È£ÃâÇØÁÖ´Â ÇÔ¼ö 
+			CommanderLeave(NW_ATTACKER);		// ì‚¬ë ¹ê´€ì´ ë– ë‚˜ë©´ í˜¸ì¶œí•´ì£¼ëŠ” í•¨ìˆ˜ 
 		}
 
 		if (ch->NWCharacter.isSquadLeader) 
@@ -7589,7 +7589,7 @@ void cWarfield::DeleteSquadMember(const int cn)    // Ä³¸¯ÅÍÀÇ Ä¿³Ø¼Ç ID·Î ¾Ë¸Â°
 		DeleteSquadMember(NW_DEFENCER,ch->NWCharacter.SquadNo,cn);
 		if (ch->name_status.nation!=NW_YL) 
 		{
-			g_SquadCount[NW_DEFENCER][ch->NWCharacter.SquadNo]--;	// ºÎ´ëÀÎ¿ø¼ö¸¦ °¨¼Ò½ÃÅ²´Ù.
+			g_SquadCount[NW_DEFENCER][ch->NWCharacter.SquadNo]--;	// ë¶€ëŒ€ì¸ì›ìˆ˜ë¥¼ ê°ì†Œì‹œí‚¨ë‹¤.
 		}
 		else 
 		{
@@ -7598,7 +7598,7 @@ void cWarfield::DeleteSquadMember(const int cn)    // Ä³¸¯ÅÍÀÇ Ä¿³Ø¼Ç ID·Î ¾Ë¸Â°
 
 		if (ch->NWCharacter.isCommander||ch->NWCharacter.isSquadLeader)
 		{
-			DeleteSquadMember(NW_COMMANDER,NW_DEFENCER,cn);					// »ç·É°ü ÇØ½¬¿¡¼­µµ Áö¿î´Ù.
+			DeleteSquadMember(NW_COMMANDER,NW_DEFENCER,cn);					// ì‚¬ë ¹ê´€ í•´ì‰¬ì—ì„œë„ ì§€ìš´ë‹¤.
 		}
 		if (ch->NWCharacter.isCommander) 
 		{
@@ -7666,13 +7666,13 @@ void cWarfield::DeleteSquadHash(SquadList* g_SquadList)
 
 void cWarfield::DeleteAllSquadMember()
 {
-	for (int i=0;i<NW_SQUAD_MAX;i++)			// Squad Hash¸¦ Áö¿î´Ù.
+	for (int i=0;i<NW_SQUAD_MAX;i++)			// Squad Hashë¥¼ ì§€ìš´ë‹¤.
 	{
 		DeleteSquadHash(&g_AttackSquadList[i]);
 		DeleteSquadHash(&g_DefenceSquadList[i]);
 		DeleteSquadHash(&g_ReinforceSquadList[i]);
 	}
-	for (int i=0;i<NW_SQUAD_KIND;i++)				// ºÎ´ëÀå, Ä¿¸Ç´õÀÇ Squad hash¸¦ Áö¿î´Ù.
+	for (int i=0;i<NW_SQUAD_KIND;i++)				// ë¶€ëŒ€ì¥, ì»¤ë§¨ë”ì˜ Squad hashë¥¼ ì§€ìš´ë‹¤.
 	{
 		DeleteSquadHash(&g_CommanderList[i]);
 	}
@@ -7683,15 +7683,15 @@ void cWarfield::InsertSquadMember(int cn,int Status)	// 011016 LTS
 	CHARLIST *ch = CheckServerId(cn);
 	if(!ch) {return;}
 
-	if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,connections,cn))		// ºÎ´ë ÇØ½¬¿¡¼­ Áö¿î´Ù.
+	if (isAttacker(g_wMapServerPort-BASE_WARFIELD_PORT,connections,cn))		// ë¶€ëŒ€ í•´ì‰¬ì—ì„œ ì§€ìš´ë‹¤.
 	{
-		InsertSquadMember(NW_ATTACKER,ch->NWCharacter.SquadNo,cn);	//ÀÏ½ºµç ,°ø°İ±¹ÀÌµç ºÎ´ë¿¡ Áı¾î³Ö´Â´Ù.
-		if (ch->name_status.nation!=NW_YL) g_SquadCount[NW_ATTACKER][ch->NWCharacter.SquadNo]++;	// ºÎ´ë ÀÎ¿ø¼ö Ä«¿îÆ®¸¦ Áõ°¡½ÃÅ²´Ù.
-		else m_JoinSquadCount[NW_ATTACKER]++;	//ÀÏ¼ö¿ëº´¼ö¸¦ ¼¾´Ù 
+		InsertSquadMember(NW_ATTACKER,ch->NWCharacter.SquadNo,cn);	//ì¼ìŠ¤ë“  ,ê³µê²©êµ­ì´ë“  ë¶€ëŒ€ì— ì§‘ì–´ë„£ëŠ”ë‹¤.
+		if (ch->name_status.nation!=NW_YL) g_SquadCount[NW_ATTACKER][ch->NWCharacter.SquadNo]++;	// ë¶€ëŒ€ ì¸ì›ìˆ˜ ì¹´ìš´íŠ¸ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
+		else m_JoinSquadCount[NW_ATTACKER]++;	//ì¼ìˆ˜ìš©ë³‘ìˆ˜ë¥¼ ì„¼ë‹¤ 
 		if (ch->NWCharacter.isCommander||ch->NWCharacter.isSquadLeader)
 			InsertSquadMember(NW_COMMANDER,NW_ATTACKER,cn,Status);	
-		// »ç·É°ü ÇØ½¬¿¡¼­µµ Áö¿î´Ù.
-		if (ch->NWCharacter.isCommander) CommanderEnter(NW_ATTACKER);	//»ç·É°üÀÌ µé¾î¿À¸é ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
+		// ì‚¬ë ¹ê´€ í•´ì‰¬ì—ì„œë„ ì§€ìš´ë‹¤.
+		if (ch->NWCharacter.isCommander) CommanderEnter(NW_ATTACKER);	//ì‚¬ë ¹ê´€ì´ ë“¤ì–´ì˜¤ë©´ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œë‹¤.
 		if (ch->NWCharacter.isSquadLeader) SquadLeaderEnter(NW_ATTACKER,ch->NWCharacter.SquadNo);
 
 		SquadRareReSet(NW_ATTACKER, cn,0 );
@@ -7699,11 +7699,11 @@ void cWarfield::InsertSquadMember(int cn,int Status)	// 011016 LTS
 	else
 	{
 		InsertSquadMember(NW_DEFENCER,ch->NWCharacter.SquadNo,cn);
-		if (ch->name_status.nation!=NW_YL) g_SquadCount[NW_DEFENCER][ch->NWCharacter.SquadNo]++;	// ºÎ´ë ÀÎ¿ø¼ö Ä«¿îÆ®¸¦ Áõ°¡½ÃÅ²´Ù.
-		else m_JoinSquadCount[NW_DEFENCER]++;	//ÀÏ¼ö¿ëº´¼ö¸¦ ¼¾´Ù 
+		if (ch->name_status.nation!=NW_YL) g_SquadCount[NW_DEFENCER][ch->NWCharacter.SquadNo]++;	// ë¶€ëŒ€ ì¸ì›ìˆ˜ ì¹´ìš´íŠ¸ë¥¼ ì¦ê°€ì‹œí‚¨ë‹¤.
+		else m_JoinSquadCount[NW_DEFENCER]++;	//ì¼ìˆ˜ìš©ë³‘ìˆ˜ë¥¼ ì„¼ë‹¤ 
 		if (ch->NWCharacter.isCommander||ch->NWCharacter.isSquadLeader)
-			InsertSquadMember(NW_COMMANDER,NW_DEFENCER,cn,Status);					// »ç·É°ü ÇØ½¬¿¡¼­µµ Áö¿î´Ù.
-		if (ch->NWCharacter.isCommander) CommanderEnter(NW_DEFENCER);	//»ç·É°üÀÌ µé¾î¿À¸é ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
+			InsertSquadMember(NW_COMMANDER,NW_DEFENCER,cn,Status);					// ì‚¬ë ¹ê´€ í•´ì‰¬ì—ì„œë„ ì§€ìš´ë‹¤.
+		if (ch->NWCharacter.isCommander) CommanderEnter(NW_DEFENCER);	//ì‚¬ë ¹ê´€ì´ ë“¤ì–´ì˜¤ë©´ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œë‹¤.
 		if (ch->NWCharacter.isSquadLeader) SquadLeaderEnter(NW_DEFENCER,ch->NWCharacter.SquadNo);
 		
 		SquadRareReSet(NW_DEFENCER, cn,0);
@@ -7768,7 +7768,7 @@ void cWarfield::DeleteAllMonsterData()
 	}
 }
 
-void cWarfield::FirstMakeMonster()		// ¸ğµç  NPC (¼º¹®, ¼öÈ£¼®ÀÌ »ì¾ÆÀÖÀ»¶§ ¸¸µé¾îÁø´Ù.)
+void cWarfield::FirstMakeMonster()		// ëª¨ë“   NPC (ì„±ë¬¸, ìˆ˜í˜¸ì„ì´ ì‚´ì•„ìˆì„ë•Œ ë§Œë“¤ì–´ì§„ë‹¤.)
 {
 	int Num;
 	t_WeaponStruct Monster;
@@ -7779,7 +7779,7 @@ void cWarfield::FirstMakeMonster()		// ¸ğµç  NPC (¼º¹®, ¼öÈ£¼®ÀÌ »ì¾ÆÀÖÀ»¶§ ¸¸µé
 		Monster=(*itor)->GetMonsterData();
 		NPC_Create(Monster.NPC_ID,Monster.NPC_Index,Monster.Locationx,Monster.Locationy,Monster.EventNo,Monster.GenerationPos,Monster.GenerationType);
 	}
-	//m_bFirstMakeMonster=true;	// LTH-040528-KO »ç¿ë ¾ÈÇÏ±â·ç...
+	//m_bFirstMakeMonster=true;	// LTH-040528-KO ì‚¬ìš© ì•ˆí•˜ê¸°ë£¨...
 }
 
 void cWarfield::MakeMonster()
@@ -7792,7 +7792,7 @@ void cWarfield::MakeMonster()
 	}
 }
 
-void cWarfield::PrepareSquadForWar()			// ÀüÀïÅÍ¿¡ »óÁÖÇØ ÀÖ´Â ÀÎ¿øÀ» ºÎ´ë¿¡ Æí¼ºÇÑ´Ù.
+void cWarfield::PrepareSquadForWar()			// ì „ìŸí„°ì— ìƒì£¼í•´ ìˆëŠ” ì¸ì›ì„ ë¶€ëŒ€ì— í¸ì„±í•œë‹¤.
 {
 	for( int i = DRAGON_CONNECTIONS_START; i<DRAGON_MAX_CONNECTIONS; i++ )
 	{
@@ -7834,7 +7834,7 @@ void cWarfield::SendSecretActiveMessage2Manager()
 {
 	t_packet packet;
 
-	packet.h.header.type=CMD_SECRET_OPEN;			//ºñ¹ĞÁö¿ªÀÌ ¿­·È´Ù°í º¸³½´Ù.
+	packet.h.header.type=CMD_SECRET_OPEN;			//ë¹„ë°€ì§€ì—­ì´ ì—´ë ¸ë‹¤ê³  ë³´ë‚¸ë‹¤.
 	packet.u.NationWar.SecretOpen.WarfieldNo=m_WarfieldCode;
 	packet.u.NationWar.SecretOpen.isOpen=m_bBonusActive;
 	packet.h.header.size=sizeof(t_SecretOpen);
@@ -7846,12 +7846,12 @@ void cWarfield::ActiveBonusTime()
 { 
 	m_bBonusActive=true; 
 	m_dBonusLoopTime=0; 
-	//< LTH-040528-KO Hunt table·Î º¯°æÇÏ°í 1.4+¿¡¼­´Â ¼ÒÀ¯±¹°¡ÀÇ ÀüÀïÅÍ ÀÌµ¿ ½Ã¿¡ ¸ó½ºÅÍ ÃâÇöÀ» À§ÇØ »èÁ¦!!
+	//< LTH-040528-KO Hunt tableë¡œ ë³€ê²½í•˜ê³  1.4+ì—ì„œëŠ” ì†Œìœ êµ­ê°€ì˜ ì „ìŸí„° ì´ë™ ì‹œì— ëª¬ìŠ¤í„° ì¶œí˜„ì„ ìœ„í•´ ì‚­ì œ!!
 	if (m_bFirstMakeMonster == false)
 	{
 		g_pRegenManager->Ready(CGroupInfo::ET_NORMAL);
 		m_bFirstMakeMonster = true;
-		g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, "Create Warfield Monster!!");	// LTH-040524-KO 1.04+ ·Î±× °­È­.
+		g_pLogManager->SaveMoveToWarfield(MTWT_MONSTER_INFO, "Create Warfield Monster!!");	// LTH-040524-KO 1.04+ ë¡œê·¸ ê°•í™”.
 	}
 	//if (m_bFirstMakeMonster) MakeMonster();
 	//else FirstMakeMonster();
@@ -7917,13 +7917,13 @@ cNation::cNation()
 	m_pWarStartInfo = NULL; // CSD-030715
 	InitNation();
 	ClearLocalWarPoint();
-	LoadWarfieldPossession();					// ÀüÀïÅÍ Å×ÀÌÅÍ¸¦ ÀĞ¾î¿Â´Ù.
+	LoadWarfieldPossession();					// ì „ìŸí„° í…Œì´í„°ë¥¼ ì½ì–´ì˜¨ë‹¤.
 	ClearLocalWarResult();						// LTS NEW LOCALWAR
 }
 
 cNation::~cNation()
 {
-	// ¿öÇÊµå¸ÕÀú µ¥½ºÆ®·ÎÀÌ ½ÃÅ°°í ÇÑ´Ù.
+	// ì›Œí•„ë“œë¨¼ì € ë°ìŠ¤íŠ¸ë¡œì´ ì‹œí‚¤ê³  í•œë‹¤.
 	for (int i=0;i<NW_WARFIELD_COUNT;i++)
 	{
 		Warfield[i].Destroy();
@@ -7942,16 +7942,16 @@ void cNation::ClearLocalWarResult()				// LTS NEW LOCALWAR
 		m_LocalWarResult[i]=TRUE;
 	}
 
-	//< 040712-kjy ±¹ÁöÀü ÀÏ½º »èÁ¦ 
+	//< 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì‚­ì œ 
 	if ( g_preventSelectYilse == 1 )
 		m_LocalWarResult[2]=false;  
-	//< 040712-kjy ±¹ÁöÀü ÀÏ½º »èÁ¦ 
+	//< 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì‚­ì œ 
 }
 
 bool cNation::InitNation()						// 011028 LTS
 {
-	Warfield=new cWarfield[NW_WARFIELD_COUNT];	// ÀüÀïÅÍ¸¦ »ı¼ºÇÑ´Ù. ¸Ş¸ğ¸®°¡ Áßº¹ µÈ´Ù.
-	if (Warfield==NULL) return false;			// ÃßÈÄ °£¼Ò Å¬·¡½º·Î ¹Ù²ÙÀÚ.	
+	Warfield=new cWarfield[NW_WARFIELD_COUNT];	// ì „ìŸí„°ë¥¼ ìƒì„±í•œë‹¤. ë©”ëª¨ë¦¬ê°€ ì¤‘ë³µ ëœë‹¤.
+	if (Warfield==NULL) return false;			// ì¶”í›„ ê°„ì†Œ í´ë˜ìŠ¤ë¡œ ë°”ê¾¸ì.	
 
 	for (int i = 0; i < NW_WARFIELD_COUNT; ++i)
 	{	//< CSD-TW-030702
@@ -7977,7 +7977,7 @@ bool cNation::InitNation()						// 011028 LTS
 		return false;
 	}
 
-	if (!InitLocalWarfield()) {return false;}		// ±¹ÁöÀü ÃÊ±âÈ­ 
+	if (!InitLocalWarfield()) {return false;}		// êµ­ì§€ì „ ì´ˆê¸°í™” 
 	if (!InitNewWarfield()){return false;}
 	ClearAllLocalSealStoneHP();// 030516 kyo
 	return true;
@@ -7989,13 +7989,13 @@ bool cNation::LoadWarfieldData()
 	{
 		if (!Warfield[i].LoadWarfieldData(BASE_WARFIELD_PORT+i)) 
 		{
-			return false;	// DB¿¡¼­ ·ÎµùÇÑ´Ù.
+			return false;	// DBì—ì„œ ë¡œë”©í•œë‹¤.
 		}
 	}
 	return true;
 }
 
-void ReLoadLocalWarfieldData()	// ¸®·Îµå ÇÑ´Ù.
+void ReLoadLocalWarfieldData()	// ë¦¬ë¡œë“œ í•œë‹¤.
 {
 	if (isNationManageServer()) 
 	{
@@ -8017,7 +8017,7 @@ bool cNation::InitLocalWarfield()		// LTS NEW LOCALWAR
 	/*
 	if (GetPrivateProfileString("Network","path","",NetworkDir,MAX_PATH,MAP_SERVER_INI_)<=0)
 	{
-		MyLog(0,"Mapserver.iniÀÇ  Path¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.");
+		MyLog(0,"Mapserver.iniì˜  Pathì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		return false;
 	}
 	sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir);
@@ -8026,7 +8026,7 @@ bool cNation::InitLocalWarfield()		// LTS NEW LOCALWAR
 	m_LocalWarfieldSize=(DWORD)GetPrivateProfileInt("LocalWarfield","LocalWarfieldSize",0,MapServerConfigFileName);
 	if (!m_LocalWarfieldSize)
 	{
-		MyLog(0,"%sÀÇ [LocalWarfield],LocalWarfieldSizeÀÇ ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [LocalWarfield],LocalWarfieldSizeì˜ ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		return false;
 	}
 
@@ -8066,11 +8066,11 @@ bool cNation::InitLocalWarfield()		// LTS NEW LOCALWAR
 		
 		MakeSealStoneNumber(tempString,tempLF.SealNo[0]);
 
-		for (j=0;j<4;j++)		// ±¹ÁöÀü °ü¸®¼­¹ö ±¹ÁöÀü ½ÂÆĞ¸¦ È®ÀÎÇÏ±â À§ÇÑ µ¥ÀÌÅÍ¸¦ È®ÀÎÇÑ´Ù.
+		for (j=0;j<4;j++)		// êµ­ì§€ì „ ê´€ë¦¬ì„œë²„ êµ­ì§€ì „ ìŠ¹íŒ¨ë¥¼ í™•ì¸í•˜ê¸° ìœ„í•œ ë°ì´í„°ë¥¼ í™•ì¸í•œë‹¤.
 		{
 			if (tempLF.SealNo[0][j]!=0)
 			{
-				LocalWarSealStoneStatus[0][BYIndex].Status=TRUE;						// ±âº»ÀûÀ¸·Î »ì¾ÆÀÖ´Ù°í ¼¼ÆÃ
+				LocalWarSealStoneStatus[0][BYIndex].Status=TRUE;						// ê¸°ë³¸ì ìœ¼ë¡œ ì‚´ì•„ìˆë‹¤ê³  ì„¸íŒ…
 				LocalWarSealStoneStatus[0][BYIndex++].SealStoneNo=tempLF.SealNo[0][j];
 			}
 
@@ -8089,7 +8089,7 @@ bool cNation::InitLocalWarfield()		// LTS NEW LOCALWAR
 		{
 			if (tempLF.SealNo[1][j]!=0)
 			{
-				LocalWarSealStoneStatus[1][ZYIndex].Status=TRUE;						// ±âº»ÀûÀ¸·Î »ì¾ÆÀÖ´Ù°í ¼¼ÆÃ
+				LocalWarSealStoneStatus[1][ZYIndex].Status=TRUE;						// ê¸°ë³¸ì ìœ¼ë¡œ ì‚´ì•„ìˆë‹¤ê³  ì„¸íŒ…
 				LocalWarSealStoneStatus[1][ZYIndex++].SealStoneNo=tempLF.SealNo[1][j];
 			}
 
@@ -8108,38 +8108,38 @@ bool cNation::InitLocalWarfield()		// LTS NEW LOCALWAR
 		{
 			if (tempLF.SealNo[2][j]!=0)
 			{
-				LocalWarSealStoneStatus[2][YLIndex].Status=TRUE;						// ±âº»ÀûÀ¸·Î »ì¾ÆÀÖ´Ù°í ¼¼ÆÃ
+				LocalWarSealStoneStatus[2][YLIndex].Status=TRUE;						// ê¸°ë³¸ì ìœ¼ë¡œ ì‚´ì•„ìˆë‹¤ê³  ì„¸íŒ…
 				LocalWarSealStoneStatus[2][YLIndex++].SealStoneNo=tempLF.SealNo[2][j];
 			}
 
 		}
 		
-		LocalWarfield[i].SetLocalWarfieldInfo(tempLF);		// ±¹°¡°ü¸®¼­¹ö¿¡´Â °á°è¼®ÀÇ »óÅÂÁ¤º¸°¡ ¾Èµé¾î°¡µµ µÈ´Ù.
+		LocalWarfield[i].SetLocalWarfieldInfo(tempLF);		// êµ­ê°€ê´€ë¦¬ì„œë²„ì—ëŠ” ê²°ê³„ì„ì˜ ìƒíƒœì •ë³´ê°€ ì•ˆë“¤ì–´ê°€ë„ ëœë‹¤.
 	}
 
   	return true;
 }	//> CSD-030715
 
-void cNation::SetWarFieldStatus(int WarfieldNo,int Status)				// 011028 LTS	// ÇÔ¼ö±³Ã¼ 
+void cNation::SetWarFieldStatus(int WarfieldNo,int Status)				// 011028 LTS	// í•¨ìˆ˜êµì²´ 
 {
-	if (Warfield==NULL) return;		// ¿¹¿ÜÃ³¸®.	¸ã¹öº¯¼ö...	
-	if (WarfieldNo>NW_WARFIELD_COUNT) return;		// »óÅÂ°¡ Àß¸ø µé¾î¿Ô´Ù¸é.. ¸®ÅÏ..	
+	if (Warfield==NULL) return;		// ì˜ˆì™¸ì²˜ë¦¬.	ë©¥ë²„ë³€ìˆ˜...	
+	if (WarfieldNo>NW_WARFIELD_COUNT) return;		// ìƒíƒœê°€ ì˜ëª» ë“¤ì–´ì™”ë‹¤ë©´.. ë¦¬í„´..	
 	if (!((Status==1) || (Status==2) || (Status==3) || (Status==4) || (Status==7) || (Status==8) ||  (Status==9) || (Status==10))) return;
 	//if (Warfield[WarfieldNo].GetStatus()==NW_WAR)
 	//{
-	//	m_WarNo++;							// ÀüÀï ¹øÈ£¸¦ Áõ°¡ ½ÃÅ²´Ù.
-	//	if (m_WarNo>126) m_WarNo=0;			// ÀüÀï¹øÈ£´Â 0..126ÀÌ ÃÖ°í´Ù.. 7Bit NW_Character¿¡ ÀÇÁ¸..
-	//	MyLog(1,"ÀüÀï¹øÈ£ : %d",m_WarNo);
+	//	m_WarNo++;							// ì „ìŸ ë²ˆí˜¸ë¥¼ ì¦ê°€ ì‹œí‚¨ë‹¤.
+	//	if (m_WarNo>126) m_WarNo=0;			// ì „ìŸë²ˆí˜¸ëŠ” 0..126ì´ ìµœê³ ë‹¤.. 7Bit NW_Characterì— ì˜ì¡´..
+	//	MyLog(1,"ì „ìŸë²ˆí˜¸ : %d",m_WarNo);
 	//}
-	Warfield[WarfieldNo].SetStatus((char)Status); // »óÅÂ¸¦ ¼¼Æ®ÇÑ´Ù.
+	Warfield[WarfieldNo].SetStatus((char)Status); // ìƒíƒœë¥¼ ì„¸íŠ¸í•œë‹¤.
 	if (Warfield[WarfieldNo].GetStatus()==NW_VOTE)
 	{
-		m_WarNo++;							// ÀüÀï ¹øÈ£¸¦ Áõ°¡ ½ÃÅ²´Ù.
-		if (m_WarNo>126) m_WarNo=0;			// ÀüÀï¹øÈ£´Â 0..126ÀÌ ÃÖ°í´Ù.. 7Bit NW_Character¿¡ ÀÇÁ¸..
+		m_WarNo++;							// ì „ìŸ ë²ˆí˜¸ë¥¼ ì¦ê°€ ì‹œí‚¨ë‹¤.
+		if (m_WarNo>126) m_WarNo=0;			// ì „ìŸë²ˆí˜¸ëŠ” 0..126ì´ ìµœê³ ë‹¤.. 7Bit NW_Characterì— ì˜ì¡´..
 		MyLog(1,"WarNo : %d",m_WarNo);
 	}
-	SendCMD_CHANGED_WARFIELD_STATUS();		// ÀüÀïÅÍÀÇ »óÅÂ°¡ ¹Ù²î¾ú´Ù°í ¸Ê¼­¹öµé¿¡°Ô ¾Ë¸°´Ù.
-											// ¸ÕÀú ¼ÒÀ¯°¡ º¯°æµÈ´ÙÀ½ º¸³»¾ß ÇÑ´Ù. cWarfield::Update
+	SendCMD_CHANGED_WARFIELD_STATUS();		// ì „ìŸí„°ì˜ ìƒíƒœê°€ ë°”ë€Œì—ˆë‹¤ê³  ë§µì„œë²„ë“¤ì—ê²Œ ì•Œë¦°ë‹¤.
+											// ë¨¼ì € ì†Œìœ ê°€ ë³€ê²½ëœë‹¤ìŒ ë³´ë‚´ì•¼ í•œë‹¤. cWarfield::Update
 }
 
 void cNation::CheckWarFieldStatus(int WarfieldNo,int Status)
@@ -8165,19 +8165,19 @@ void cNation::CheckWarFieldStatus(int WarfieldNo,int Status)
 		break;
 	}
 
-	if (checkok)	//»óÈ²À» ¹Ù²Ü¼ö ÀÖ´Âµ¥...
+	if (checkok)	//ìƒí™©ì„ ë°”ê¿€ìˆ˜ ìˆëŠ”ë°...
 	{
 		if (Status==NW_WAIT_WAR) 
 		{
-			SendCMD_SQUAD_LODING_POINT(WarfieldNo);			// ÀüÀïÀ» ±â´Ù¸®´Â ÁßÀÌ¸é.. ºÎ´ëÀÇ ·ÎµùÆ÷ÀÎÆ® Á¤º¸¸¦ º¸³½´Ù.
-			SendCMD_SQUAD_RARE(WarfieldNo);					// ºÎ´ë¼Ó¼ºÀ» º¸³½´Ù 
+			SendCMD_SQUAD_LODING_POINT(WarfieldNo);			// ì „ìŸì„ ê¸°ë‹¤ë¦¬ëŠ” ì¤‘ì´ë©´.. ë¶€ëŒ€ì˜ ë¡œë”©í¬ì¸íŠ¸ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
+			SendCMD_SQUAD_RARE(WarfieldNo);					// ë¶€ëŒ€ì†ì„±ì„ ë³´ë‚¸ë‹¤ 
 		}
 
 		switch(Status)
 		{
 //		case NW_WAIT_VOTE : Warfield[WarfieldNo-BASE_WARFIELD_PORT].SetStatus(NW_VOTE); break;
 		case NW_WAIT_PREPARE:	
-			{	// ºÎ´ëÀÇ ·¹¾î¼Ó¼ºÀ» °áÁ¤ÇÑ´Ù.
+			{	// ë¶€ëŒ€ì˜ ë ˆì–´ì†ì„±ì„ ê²°ì •í•œë‹¤.
 				Warfield[nFieldNo].SetStatus(NW_PREPARE);
 				
 				GetSquadRare(GetSquadRareSok2(nFieldNo,NW_ATTACKER,1),1);
@@ -8287,17 +8287,17 @@ void cNation::ClearLocalWarfieldManCount()
 
 
 
-void cNation::SetLocalWarStatus2(int isStart)	// SendSealStoneBlock()¿¡¼­ µé¾î¿Â´Ù ½Ã°£¿¡ ÀÇÇÑ	// LTS NEW LOCALWAR
+void cNation::SetLocalWarStatus2(int isStart)	// SendSealStoneBlock()ì—ì„œ ë“¤ì–´ì˜¨ë‹¤ ì‹œê°„ì— ì˜í•œ	// LTS NEW LOCALWAR
 {
 	static int Start=0;
-	if (Start==isStart) return;					// ½Ã°£¿¡ ÀÇÇÑ Status°¡ º¯ÇÔÀÌ ¾ø´Ù.
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	if (Start==isStart) return;					// ì‹œê°„ì— ì˜í•œ Statusê°€ ë³€í•¨ì´ ì—†ë‹¤.
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	MyLog(0,"LOCALWAR:: SetLocalWarStatus2   Now = %d,  After = %d", Start, isStart); // 030518 kyo
 	*/
 	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LOCALWAR:: SetLocalWarStatus2   Now = %d,  After = %d"
 								, Start, isStart);
 	
-	Start=isStart;								// ½Ã°£¿¡ ÀÇÇÑ Status°¡ º¯Çß´Ù.
+	Start=isStart;								// ì‹œê°„ì— ì˜í•œ Statusê°€ ë³€í–ˆë‹¤.
 	SetLocalWarStatus(Start);
 }
 
@@ -8309,7 +8309,7 @@ void cNation::SetLocalWarStatus(int isStart)
 	}
 
 	g_LocalWarBegin=m_LocalWarStart=isStart; 
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	MyLog(0,"LocalWar Status : %d",g_LocalWarBegin);
 	*/
 	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LocalWar Status : %d",g_LocalWarBegin);
@@ -8337,7 +8337,7 @@ void cNation::SetLocalWarStatus(int isStart)
 	}
 	else
 	{
-		SendCMD_LOCALWAR_END();	//°á°ú¸¦ º¸³½ÈÄ ¾Æ·¡¿¡ Æ÷ÀÎÅÍ¸¦ Å¬¸®¾îÇÑ´Ù.
+		SendCMD_LOCALWAR_END();	//ê²°ê³¼ë¥¼ ë³´ë‚¸í›„ ì•„ë˜ì— í¬ì¸í„°ë¥¼ í´ë¦¬ì–´í•œë‹¤.
 		ClearLocalWarfieldManCount();
 		ClearLocalWarPoint();
 		ClearLocalWarResult();
@@ -8362,7 +8362,7 @@ void cNation::SetSealStoneStatus(int NationIndex,int SealNo,int Status, int nHP)
 	if (!isNationManageServer()) return;
 	if (NationIndex<0||NationIndex>3) return;
 
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	MyLog(0,"SealStone Status NationIndex : %d, SealNo : %d, Status : %d, HP : %d",NationIndex,SealNo,Status,nHP); // 030516 kyo
 	*/
 	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"SealStone Status NationIndex : %d, SealNo : %d, Status : %d, HP : %d",
@@ -8379,23 +8379,23 @@ void cNation::SetSealStoneStatus(int NationIndex,int SealNo,int Status, int nHP)
 
 	CalcDefencePoint(NationIndex);
 
-	if (m_LocalWarDefencePoint[NationIndex]==0)			// ÇØ´ç ³ª¶óÀÇ °á°è¼®ÀÌ ¸ğµÎ ±ú¾îÁ³´Ù¸é..
+	if (m_LocalWarDefencePoint[NationIndex]==0)			// í•´ë‹¹ ë‚˜ë¼ì˜ ê²°ê³„ì„ì´ ëª¨ë‘ ê¹¨ì–´ì¡Œë‹¤ë©´..
 	{
 		SetLocalWarResult(NationIndex,FALSE);
 	}
 
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	MyLog(0,"Nation Index :%d, Defence Point : %d",NationIndex,m_LocalWarDefencePoint[NationIndex]);
 	*/
 	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"Nation Index :%d, Defence Point : %d",
 					NationIndex,m_LocalWarDefencePoint[NationIndex]);
 
-	switch(CheckLocalWarResult())						// ½Ã°£ÀÌ ³²¾ÆÀÖÁö¸¸... ³¡³µÀ»¶§...
+	switch(CheckLocalWarResult())						// ì‹œê°„ì´ ë‚¨ì•„ìˆì§€ë§Œ... ëë‚¬ì„ë•Œ...
 	{
 	case 0 :	MyLog(0,"LocalWar Nation Was Same Time Defeat!!"); break;
-	case 1 :	SetLocalWarStatus(FALSE); break;// ÀüÀï Á¾·áÇÏ°í ½Â¸®Ã³¸®ÇÑ´Ù.
-	case 2 :	// ¾ÆÁ÷ ³²¾Ò´Ù.
-	case 3 :	break;// ¾ÆÁ÷³²¾Ò´Ù. 
+	case 1 :	SetLocalWarStatus(FALSE); break;// ì „ìŸ ì¢…ë£Œí•˜ê³  ìŠ¹ë¦¬ì²˜ë¦¬í•œë‹¤.
+	case 2 :	// ì•„ì§ ë‚¨ì•˜ë‹¤.
+	case 3 :	break;// ì•„ì§ë‚¨ì•˜ë‹¤. 
 	}
 
 
@@ -8426,7 +8426,7 @@ void cNation::SetLocalWarResult(int NationIndex,int Result)						// LTS NEW LOCA
 	packet.h.header.size=sizeof(t_LocalWarResult);
 	CheckAndFreeLocalWar(NationIndex,Result);
 	g_pUserManager->SendPacket(&packet); // CSD-CN-031213
-	SendPacket2Maps(&packet);													// ÆĞÅ¶À» ´Ù¸¥¸Ê¼­¹ö¿¡ º¸³½´Ù.
+	SendPacket2Maps(&packet);													// íŒ¨í‚·ì„ ë‹¤ë¥¸ë§µì„œë²„ì— ë³´ë‚¸ë‹¤.
 }
 
 void cNation::CheckSealStoneStatus()											// LTS NEW LOCALWAR
@@ -8438,14 +8438,14 @@ void cNation::CheckSealStoneStatus()											// LTS NEW LOCALWAR
 		if (CheckAllSealStoneBroked(i))
 		{
 			SetLocalWarResult(i,FALSE);
-//			SendNationWarStatus(); 	// ÆĞÇß´Ù´Â Á¤º¸¸¦ º¸³½´Ù.
+//			SendNationWarStatus(); 	// íŒ¨í–ˆë‹¤ëŠ” ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
 		}
 /*		int ReturnValue=CheckAllSealStoneBroked(i);
 
 		switch(ReturnValue)
 		{
 		//case -1		: MyLog(
-		case TRUE	:	SendNationWarStatus(); break;	// ÆĞÇß´Ù´Â Á¤º¸¸¦ º¸³½´Ù.
+		case TRUE	:	SendNationWarStatus(); break;	// íŒ¨í–ˆë‹¤ëŠ” ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
 		case FALSE	:
 		}*/
 	}
@@ -8485,80 +8485,80 @@ void cNation::CalcDefencePoint(int NationIndex)			// LTS NEW LOCALWAR
 	SendCMD_LOCALWAR_DEFENCE_POINT(m_LocalWarDefencePoint[0],m_LocalWarDefencePoint[1],m_LocalWarDefencePoint[2]);
 }
 
-//< LTH-040308-KO ÀÏ½ºÀÇ ÆÇÁ¤ ºñÁ¤»óÀ¸·Î ¼öÁ¤
-// 7:¾ÕÀÇ ±¹°¡½Â¸®, 8:µÚÀÇ ±¹°¡½Â¸®, 9:µÎ³ª¶ó °°À½
+//< LTH-040308-KO ì¼ìŠ¤ì˜ íŒì • ë¹„ì •ìƒìœ¼ë¡œ ìˆ˜ì •
+// 7:ì•ì˜ êµ­ê°€ìŠ¹ë¦¬, 8:ë’¤ì˜ êµ­ê°€ìŠ¹ë¦¬, 9:ë‘ë‚˜ë¼ ê°™ìŒ
 int cNation::GetPointMAXIndex()
-{//0:¹ÙÀÌ¼­½º 1:ÀÚÀÌÆİ 2:ÀÏ½º 3:¹ÙÀÌ¼­½º<(ÀÚÀÌÆİ=ÀÏ½º) 4:ÀÚÀÌÆİ<(¹ÙÀÌ¼­½º=ÀÏ½º) 5:ÀÏ½º<(ÀÚÀÌÆİ=¹ÙÀÌ¼­½º) 6: ¸ğµÎµ¿ÀÏ
-	//< 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦
+{//0:ë°”ì´ì„œìŠ¤ 1:ìì´í€ 2:ì¼ìŠ¤ 3:ë°”ì´ì„œìŠ¤<(ìì´í€=ì¼ìŠ¤) 4:ìì´í€<(ë°”ì´ì„œìŠ¤=ì¼ìŠ¤) 5:ì¼ìŠ¤<(ìì´í€=ë°”ì´ì„œìŠ¤) 6: ëª¨ë‘ë™ì¼
+	//< 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œ
 	if ( g_preventSelectYilse == 1 )
 	{
 		int nIndex=0;
 		nIndex= CheckMaxArrayPoint(0,1,m_LocalWarDefencePoint,m_LocalWarPoint,m_nAllLocalWarSealStoneHP);
 		if( nIndex == 7 )
-		{//¹ÙÀÌ¼­½º > ÀÚÀÌÆİ
+		{//ë°”ì´ì„œìŠ¤ > ìì´í€
 			return 0;
 		}
 		else if( nIndex == 8 )
-		{//ÀÚÀÌÆİ > ¹ÙÀÌ¼­½º
+		{//ìì´í€ > ë°”ì´ì„œìŠ¤
 			return 1;
 		}
 		else if( nIndex == 9)
-		{//¹ÙÀÌ¼­½º == ÀÚÀÌÆİ
+		{//ë°”ì´ì„œìŠ¤ == ìì´í€
 			return 6;
 		}
 		return nIndex;
-	} //> 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦
+	} //> 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œ
 	else  
 	{
 		int nIndex=0;
 		nIndex= CheckMaxArrayPoint(0,1,m_LocalWarDefencePoint,m_LocalWarPoint,m_nAllLocalWarSealStoneHP);
 		if( nIndex == 7 )
-		{//¹ÙÀÌ¼­½º > ÀÚÀÌÆİ
+		{//ë°”ì´ì„œìŠ¤ > ìì´í€
 			nIndex = CheckMaxArrayPoint(0,2,m_LocalWarDefencePoint,m_LocalWarPoint,m_nAllLocalWarSealStoneHP);
 			if( nIndex == 7 )
-			{//¹ÙÀÌ¼­½º > ÀÚÀÌÆİ > ÀÏ½º
-				return 0;	// LTH-040308-KO Á÷Á¢ ¼öÀÚ¸¦ ³Ö¾ú´Ù ¹ÙÀÌ¼­½º ½Â¸®
+			{//ë°”ì´ì„œìŠ¤ > ìì´í€ > ì¼ìŠ¤
+				return 0;	// LTH-040308-KO ì§ì ‘ ìˆ˜ìë¥¼ ë„£ì—ˆë‹¤ ë°”ì´ì„œìŠ¤ ìŠ¹ë¦¬
 			}
 			else if( nIndex == 8 )
-			{//ÀÏ½º > ¹ÙÀÌ¼­½º > ÀÚÀÌÆİ
-				return 2;	// LTH-040308-KO ÀÏ½ºÀÇ ½Â¸®
+			{//ì¼ìŠ¤ > ë°”ì´ì„œìŠ¤ > ìì´í€
+				return 2;	// LTH-040308-KO ì¼ìŠ¤ì˜ ìŠ¹ë¦¬
 			}
 			else if( nIndex == 9)
-			{//(ÀÏ½º == ¹ÙÀÌ¼­½º) > ÀÚÀÌÆİ
+			{//(ì¼ìŠ¤ == ë°”ì´ì„œìŠ¤) > ìì´í€
 				return 4;
 			}
 
 		}
 		else if( nIndex == 8 )
-		{//ÀÚÀÌÆİ > ¹ÙÀÌ¼­½º
+		{//ìì´í€ > ë°”ì´ì„œìŠ¤
 			nIndex = CheckMaxArrayPoint(1,2,m_LocalWarDefencePoint,m_LocalWarPoint,m_nAllLocalWarSealStoneHP);
 			if( nIndex == 7 )
-			{//ÀÚÀÌÆİ >ÀÏ½º> ¹ÙÀÌ¼­½º
+			{//ìì´í€ >ì¼ìŠ¤> ë°”ì´ì„œìŠ¤
 				return 1;
 			}
 			else if( nIndex == 8 )
-			{//ÀÏ½º > ÀÚÀÌÆİ > ¹ÙÀÌ¼­½º
+			{//ì¼ìŠ¤ > ìì´í€ > ë°”ì´ì„œìŠ¤
 				return 2;
 			}
 			else if( nIndex == 9)
-			{//(ÀÏ½º==ÀÚÀÌÆİ) > ¹ÙÀÌ¼­½º
+			{//(ì¼ìŠ¤==ìì´í€) > ë°”ì´ì„œìŠ¤
 				return 3;
 			}
 
 		}
 		else if( nIndex == 9)
-		{//¹ÙÀÌ¼­½º == ÀÚÀÌÆİ 
+		{//ë°”ì´ì„œìŠ¤ == ìì´í€ 
 			nIndex = CheckMaxArrayPoint(2,1,m_LocalWarDefencePoint,m_LocalWarPoint,m_nAllLocalWarSealStoneHP);
 			if( nIndex == 7 )
-			{//ÀÏ½º > (¹ÙÀÌ¼­½º == ÀÚÀÌÆİ)
+			{//ì¼ìŠ¤ > (ë°”ì´ì„œìŠ¤ == ìì´í€)
 				return 2;
 			}
 			else if( nIndex == 8 )
-			{//¹ÙÀÌ¼­½º == ÀÚÀÌÆİ > ÀÏ½º
+			{//ë°”ì´ì„œìŠ¤ == ìì´í€ > ì¼ìŠ¤
 				return 5;
 			}
 			else if( nIndex == 9)
-			{//¹ÙÀÌ¼­½º == ÀÚÀÌÆİ == ÀÏ½º
+			{//ë°”ì´ì„œìŠ¤ == ìì´í€ == ì¼ìŠ¤
 				return 6;
 			}
 		}
@@ -8613,7 +8613,7 @@ int cNation::GetLPointEqual(int Index,unsigned short Point[3],unsigned short DPo
 }
 
 void cNation::GetAllLocalSealStoneHP()
-{//¸ğµç °á°è¼®ÀÇ HPÇÕ // 300509 kyo
+{//ëª¨ë“  ê²°ê³„ì„ì˜ HPí•© // 300509 kyo
 	// 030517 kyo
 	for( int nNation=0; nNation <= NW_NATION_COUNT; nNation++)
 	{
@@ -8638,15 +8638,15 @@ void cNation::ClearAllLocalSealStoneHP()
 
 int cNation::CheckWinNation()
 {
-	//1.¹æ¾îµµ¸¦ °è»êÇØ¼­ ³ôÀº ±¹°¡¸®ÅÏ 
-	//2.¹æ¾îµµ°¡ °°À¸¸é ±¹°¡Àü Á¡¼ö ³ôÀº ±¹°¡¸®ÅÏ 
-	//3.±¹°¡Á¡ÀÌ °°À¸¸é hpÀÜ¿©·® °è»ê ³ôÀº ±¹°¡¸®ÅÏ 
+	//1.ë°©ì–´ë„ë¥¼ ê³„ì‚°í•´ì„œ ë†’ì€ êµ­ê°€ë¦¬í„´ 
+	//2.ë°©ì–´ë„ê°€ ê°™ìœ¼ë©´ êµ­ê°€ì „ ì ìˆ˜ ë†’ì€ êµ­ê°€ë¦¬í„´ 
+	//3.êµ­ê°€ì ì´ ê°™ìœ¼ë©´ hpì”ì—¬ëŸ‰ ê³„ì‚° ë†’ì€ êµ­ê°€ë¦¬í„´ 
 
 	//<< 030506 kyo
 	//ClearAllLocalSealStoneHP(); // 030516 kyo
 	GetAllLocalSealStoneHP();
 
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	MyLog(0, "LocalWar End :::: BY DefencePoint = %d, WarPoint = %d, Seal All HP = %d", \
 		m_LocalWarDefencePoint[0], m_LocalWarPoint[0],  m_nAllLocalWarSealStoneHP[0] );
 	MyLog(0, "LocalWar End :::: ZY DefencePoint = %d, WarPoint = %d, Seal All HP = %d", \
@@ -8675,8 +8675,8 @@ int cNation::CheckWinNation()
 
 	switch(Count)
 	{
-	case 0 : return Index; break; //ÇÑ ±¹°¡°¡½Â¸®Çß´Ù. µ¿Á¡¾ø½¿.
-	case 1 : //2±¹°¡ÀÇ ¹æ¾îµµ°¡ °°À»¶§
+	case 0 : return Index; break; //í•œ êµ­ê°€ê°€ìŠ¹ë¦¬í–ˆë‹¤. ë™ì ì—†ìŠ´.
+	case 1 : //2êµ­ê°€ì˜ ë°©ì–´ë„ê°€ ê°™ì„ë•Œ
 			 LIndex=GetPointMAXIndex(m_LocalWarPoint);
 			 Count=GetLPointEqual(Index,m_LocalWarPoint,m_LocalWarDefencePoint);
 			 switch(Count)
@@ -8686,7 +8686,7 @@ int cNation::CheckWinNation()
 			 }
 
 		break;
-	case 2 : //3±¹°¡°¡ ´Ù °°À»¶§
+	case 2 : //3êµ­ê°€ê°€ ë‹¤ ê°™ì„ë•Œ
 			 Index=GetPointMAXIndex(m_LocalWarPoint);
 			 //printf("LocalWar Point MAX Index : %d\n",Index);
 		     Count=GetPointEqual(Index,m_LocalWarPoint);
@@ -8698,21 +8698,21 @@ int cNation::CheckWinNation()
 			 }
 			 break;
 	}
-	return Index;	// ¿©±â±îÁö ¾È¿Â´Ù.
+	return Index;	// ì—¬ê¸°ê¹Œì§€ ì•ˆì˜¨ë‹¤.
 	*/
 }
 
-//< LTH-040220-KO ¼¼±¹°¡ÀÇ ±¹°¡Àü Æ÷ÀÎÆ®¿¡ µû¸¥ È¹µæ Á¡¼ö Á¤ÀÇ
+//< LTH-040220-KO ì„¸êµ­ê°€ì˜ êµ­ê°€ì „ í¬ì¸íŠ¸ì— ë”°ë¥¸ íšë“ ì ìˆ˜ ì •ì˜
 typedef enum _eLOCALWAR_RANK_SCORE
 {
-	LRC_FIRST = 4,		// 1µî
-	LRC_SECOUND = 3,	// 2µî
-	LRC_THIRD = 2,		// 3µî
+	LRC_FIRST = 4,		// 1ë“±
+	LRC_SECOUND = 3,	// 2ë“±
+	LRC_THIRD = 2,		// 3ë“±
 } eLOCALWAR_RANK_SCORE;
 //> LTH-040220-KO
 
-//< LTH-040219-KO ±¹°¡Àü Á¾·á ÈÄ¿¡ ±¹°¡Àü Æ÷ÀÎÆ®¿¡ µû¶ó ¼øÀ§¸¦ ¸Å°Ü Á¡¼ö¸¦ ¹İÈ¯ÇÑ´Ù
-// °°Àº ±¹°¡´Â °°Àº Á¡¼öÀÌ´Ù
+//< LTH-040219-KO êµ­ê°€ì „ ì¢…ë£Œ í›„ì— êµ­ê°€ì „ í¬ì¸íŠ¸ì— ë”°ë¼ ìˆœìœ„ë¥¼ ë§¤ê²¨ ì ìˆ˜ë¥¼ ë°˜í™˜í•œë‹¤
+// ê°™ì€ êµ­ê°€ëŠ” ê°™ì€ ì ìˆ˜ì´ë‹¤
 VOID cNation::CheckWinNationPoint(INT aPoint[NW_NATION_COUNT])
 {
 	std::list <INT> ltNationScore;
@@ -8723,14 +8723,14 @@ VOID cNation::CheckWinNationPoint(INT aPoint[NW_NATION_COUNT])
 		ltNationScore.push_back(m_LocalWarPoint[nI]);
 
 	ltNationScore.unique();
-	//< LTH-040326-KO Å«¼ö ¼øÀ¸·Î º¯°æ
+	//< LTH-040326-KO í°ìˆ˜ ìˆœìœ¼ë¡œ ë³€ê²½
 	ltNationScore.sort( greater<int>());
 	//> LTH-040326-KO
 
 	INT nJ, nScore = 0;
 	INT nRankCount = 0;
 	INT nRank = 1;
-	//< LTH-040326-KO ¼ÒÆ®¹æ¹ı ¹Ù²°´Ù
+	//< LTH-040326-KO ì†ŒíŠ¸ë°©ë²• ë°”ê»ë‹¤
 	std::list<INT>::iterator ltScoreCount = ltNationScore.begin();
 	std::list<INT>::iterator ltScoreCountEnd = ltNationScore.end();
 	for (;ltScoreCount != ltScoreCountEnd; ltScoreCount++)
@@ -8738,7 +8738,7 @@ VOID cNation::CheckWinNationPoint(INT aPoint[NW_NATION_COUNT])
 		nScore = *(ltScoreCount);
 		for (nJ = 0; nJ < NW_NATION_COUNT; ++nJ)
 		{
-			//< LTH-040316-KO ±¹ÁöÀü Æ÷ÀÎÆ®°¡ ¾ø´Ù¸é ¼øÀ§ Á¡¼öµµ ¾ø´å!!!! ¾îµô!!
+			//< LTH-040316-KO êµ­ì§€ì „ í¬ì¸íŠ¸ê°€ ì—†ë‹¤ë©´ ìˆœìœ„ ì ìˆ˜ë„ ì—†ë‹·!!!! ì–´ë”œ!!
 			if (m_LocalWarPoint[nJ] == 0)
 			{
 				aPoint[nJ] = 0;
@@ -8751,13 +8751,13 @@ VOID cNation::CheckWinNationPoint(INT aPoint[NW_NATION_COUNT])
 				++nRankCount;
 				switch (nRank)
 				{
-				case 1:		// 1µî
+				case 1:		// 1ë“±
 					aPoint[nJ] = LRC_FIRST;
 					break;
-				case 2:		// 2µî
+				case 2:		// 2ë“±
 					aPoint[nJ] = LRC_SECOUND;
 					break;
-				case 3:		// 3µî
+				case 3:		// 3ë“±
 					aPoint[nJ] = LRC_THIRD;
 					break;
 				}
@@ -8844,9 +8844,9 @@ void cNation::CheckAndActive(int Index)
 	MyLog(0,"WarNo : %d, %d Warfield War Started by DayofWeek And Time",m_WarNo,WarfieldNo);
 	m_VoteData[WarfieldNo]=0;
 	SaveWarNo();
-	m_WarNo++; 			//ÀüÀï¹øÈ£¸¦ ¹Ù²Ù¾îÁØ´Ù.
+	m_WarNo++; 			//ì „ìŸë²ˆí˜¸ë¥¼ ë°”ê¾¸ì–´ì¤€ë‹¤.
 
-	t_packet packet;											// ½ÃÀÛÇÏ¶ó°í ÆĞÅ¶À» º¸³½´Ù.
+	t_packet packet;											// ì‹œì‘í•˜ë¼ê³  íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 
 	packet.h.header.type=CMD_START_WAR_LOOP;
 	packet.h.header.size=0;
@@ -8886,7 +8886,7 @@ void cNation::NewCheckAndActive(int Index)
 
 	MyLog(0,"New Warfield Start Nation War by DB");
 
-	t_packet packet;											// ½ÃÀÛÇÏ¶ó°í ÆĞÅ¶À» º¸³½´Ù.
+	t_packet packet;											// ì‹œì‘í•˜ë¼ê³  íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 
 	packet.h.header.type=CMD_NWARFIELD_START_WAR;
 	packet.u.NationWar.NewWarStart.WarfieldNo=WarfieldNo;
@@ -8894,7 +8894,7 @@ void cNation::NewCheckAndActive(int Index)
 	packet.u.NationWar.NewWarStart.LevelMax=MoveLevelMax[WarfieldNo];
 	packet.h.header.size=sizeof(NEWWAR_START);
 
-	SendPacket2Maps(&packet);									// ¸ğµç ¸Ê¿¡¼­ º¸³½´Ù.
+	SendPacket2Maps(&packet);									// ëª¨ë“  ë§µì—ì„œ ë³´ë‚¸ë‹¤.
 }
 
 //< LTH-040128-KO Hades War...
@@ -8902,9 +8902,9 @@ VOID cNation::NeoCheckAndActive(INT nIndex)
 {
 	::UpdateWarTime();
 
-	INT nWarfieldNo = WP_HADES_WARFIELD - WP_BASE_PORT + 1;	// ÀüÀïÅÍ°¡ Ãß°¡µÇ¸é eWARFIELD_PORT¿¡ WP_MAX_PORT¸¦ ¸¸µé°í for·çÇÁ¸¦ µ¹¸ç Ã¼Å©
-	BYTE btDayOfWeek = (BYTE)(g_dwCurrWeekElapsedSec / 86400);	// ¿À´Ã ¿äÀÏ (0 : Sunday ~ 6 : Saturday)
-	BYTE btHour = (BYTE)((g_dwCurrWeekElapsedSec % 86400) / 3600);		// ÇöÀç ¸î½Ã? (0 ~ 23½Ã)
+	INT nWarfieldNo = WP_HADES_WARFIELD - WP_BASE_PORT + 1;	// ì „ìŸí„°ê°€ ì¶”ê°€ë˜ë©´ eWARFIELD_PORTì— WP_MAX_PORTë¥¼ ë§Œë“¤ê³  forë£¨í”„ë¥¼ ëŒë©° ì²´í¬
+	BYTE btDayOfWeek = (BYTE)(g_dwCurrWeekElapsedSec / 86400);	// ì˜¤ëŠ˜ ìš”ì¼ (0 : Sunday ~ 6 : Saturday)
+	BYTE btHour = (BYTE)((g_dwCurrWeekElapsedSec % 86400) / 3600);		// í˜„ì¬ ëª‡ì‹œ? (0 ~ 23ì‹œ)
 	CWarTimeInfo cWarTime = g_pcWarfieldInfo->GetWarTimeInfo(nWarfieldNo, nIndex);
 	BYTE btStartDay = cWarTime.m_btStartDay;
 	BYTE btStartHour = cWarTime.m_btStartHour;
@@ -8926,11 +8926,11 @@ VOID cNation::NeoCheckAndActive(INT nIndex)
 		return;
 	}
 
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "Hades Warfield Start Nation War by DB");
 	//> LTH-040323-KO
 
-	t_packet packet;											// ½ÃÀÛÇÏ¶ó°í ÆĞÅ¶À» º¸³½´Ù.
+	t_packet packet;											// ì‹œì‘í•˜ë¼ê³  íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 
 	packet.h.header.type=CMD_NWARFIELD_START_WAR;
 	packet.u.NationWar.NewWarStart.WarfieldNo = nWarfieldNo;
@@ -8938,11 +8938,11 @@ VOID cNation::NeoCheckAndActive(INT nIndex)
 	packet.u.NationWar.NewWarStart.btNationPoint = LIMITNATIONPOINT;
 	packet.h.header.size=sizeof(NEWWAR_START);
 
-	SendPacket2Maps(&packet);									// ¸ğµç ¸Ê¿¡¼­ º¸³½´Ù.
+	SendPacket2Maps(&packet);									// ëª¨ë“  ë§µì—ì„œ ë³´ë‚¸ë‹¤.
 }
 //> LTH-040128-KO
 
-//< LTH-040206-KO 1.4 ÆĞÄ¡ÈÄ »õ ÀüÀïÅÍ ¶§¹®¿¡ Çì´õÆÄÀÏ¿¡¼­ ÀÌÀü
+//< LTH-040206-KO 1.4 íŒ¨ì¹˜í›„ ìƒˆ ì „ìŸí„° ë•Œë¬¸ì— í—¤ë”íŒŒì¼ì—ì„œ ì´ì „
 bool cNation::CheckSecretPlaceOpen()
 {
 	if (Warfield[0].CheckSecretPlaceOpen()) return true;
@@ -8993,7 +8993,7 @@ void cNation::SetRemainTime(int WarfieldNo,DWORD RemainTime)
 	{
 		//< LTH-040207-KO
 		if (IsNeoWarfield(WarfieldNo))
-		{	//< LTH-040326-KO m_dwWarRemainTimeÀÌ ¼¼ÆÃµÇ±âµµ Àü¿¡ CMD_SET_REMAIN_TIMEÀ» ¹Ş¾Æ ¼¼ÆÃÇÏ·Á Çß´Ù.
+		{	//< LTH-040326-KO m_dwWarRemainTimeì´ ì„¸íŒ…ë˜ê¸°ë„ ì „ì— CMD_SET_REMAIN_TIMEì„ ë°›ì•„ ì„¸íŒ…í•˜ë ¤ í–ˆë‹¤.
 			if (NULL != m_dwWarRemainTime)
 				m_dwWarRemainTime[WarfieldNo] = RemainTime;
 			//> LTH-040326-KO
@@ -9002,7 +9002,7 @@ void cNation::SetRemainTime(int WarfieldNo,DWORD RemainTime)
 			m_NewWarfieldRemainTime[WarfieldNo-3]=RemainTime;
 		//> LTH-040207-KO
 	}
-	//< LTH-040324-KO ³²Àº ½Ã°£ ·Î±× °­È­
+	//< LTH-040324-KO ë‚¨ì€ ì‹œê°„ ë¡œê·¸ ê°•í™”
 	if ((RemainTime % 600) == 0)
 		g_pLogManager->SaveLogNeoNationWar(NNT_TIME_INFO, "[Nation Manager] [WarfieldNo] = %d [Remain Time] = %ld", \
 			WarfieldNo, RemainTime);
@@ -9010,7 +9010,7 @@ void cNation::SetRemainTime(int WarfieldNo,DWORD RemainTime)
 }
 DWORD cNation::GetRemainTime(int WarfieldNo) 
 { 
-	switch(WarfieldNo)//030116 lsw ¿ö´× Á¦°Å
+	switch(WarfieldNo)//030116 lsw ì›Œë‹ ì œê±°
 	{
 	case 0:
 	case 1:
@@ -9044,7 +9044,7 @@ void cNation::CheckStartWarfieldWar()
 	GetDayofWeek();
 	oldHour=g_hour;
 
-	for (int i=0;i<m_iStartWarTimeCount;i++)			// ÀüÀï½ÃÀÛÇÑ´Ù.
+	for (int i=0;i<m_iStartWarTimeCount;i++)			// ì „ìŸì‹œì‘í•œë‹¤.
 	{
 		CheckAndActive(i);
 	}
@@ -9054,7 +9054,7 @@ void cNation::CheckStartWarfieldWar()
 		NewCheckAndActive(i);
 	}
 
-	//< LTH-040206-KO ÀÏÁÖÀÏ¿¡ ÀÏ¾î³ª´Â ÀüÀïµéÀÌ ÇöÀç ÀÏ¾î³µ´ÂÁö¸¦ ÆÇº°
+	//< LTH-040206-KO ì¼ì£¼ì¼ì— ì¼ì–´ë‚˜ëŠ” ì „ìŸë“¤ì´ í˜„ì¬ ì¼ì–´ë‚¬ëŠ”ì§€ë¥¼ íŒë³„
 	INT nHowManyTimesWeek = (INT)(g_pcWarfieldInfo->GetHowManyTimesWeek());
 	for (int i = 0; i < nHowManyTimesWeek; ++i)
 	{
@@ -9316,7 +9316,7 @@ bool cNation::LoadNewWarStartupData()				// LTS NEW_NATION_WAR
 
     SQLFreeStmt(hStmt,SQL_DROP);
 
-	//< LTH-040206-KO ÀüÀï ½Ã°£ Á¦ÇÑ »çÇ×À» Àü¿ªÀûÀ¸·Î È£ÃâÇÑ´Ù
+	//< LTH-040206-KO ì „ìŸ ì‹œê°„ ì œí•œ ì‚¬í•­ì„ ì „ì—­ì ìœ¼ë¡œ í˜¸ì¶œí•œë‹¤
 	g_pcWarfieldInfo->LoadWarTimeInfo(WI_HADES_WARFIELD);
 	//> LTH-040206-KO
 
@@ -9371,7 +9371,7 @@ bool cNation::CheckWarStart()
 
 int cNation::GetNewWarfieldStatus(int Index)
 {
-	//< LTH-040213-KO ½Å±ÔÀüÀïÅÍÁß¿¡ ¼³¿øÀüÀïÅÍ¸¸ µû·Î Ã³¸®
+	//< LTH-040213-KO ì‹ ê·œì „ìŸí„°ì¤‘ì— ì„¤ì›ì „ìŸí„°ë§Œ ë”°ë¡œ ì²˜ë¦¬
 	if (IsNeoWarfield(Index))
 		return g_naWarfieldState[Index];
 	else
@@ -9387,7 +9387,7 @@ int cNation::GetNewWarfieldStatus(int Index)
 
 void cNation::SetNewWarfieldStatus(int Index,int Status)
 {
-	//< LTH-040213-KO ½Å±ÔÀüÀïÅÍÁß¿¡ ¼³¿øÀüÀïÅÍ¸¸ µû·Î Ã³¸®
+	//< LTH-040213-KO ì‹ ê·œì „ìŸí„°ì¤‘ì— ì„¤ì›ì „ìŸí„°ë§Œ ë”°ë¡œ ì²˜ë¦¬
 	if (IsNeoWarfield(Index))
 		g_naWarfieldState[Index] = Status;
 	else
@@ -9402,13 +9402,13 @@ void cNation::SetNewWarfieldStatus(int Index,int Status)
 bool cNation::InitNewWarfield()
 {
 	m_NewWarfieldStatus[0]=NW_PEACE;
-	//< LTH-040209-KO °Á Àü¿ªÀ¸·Î ¼³Á¤µÈ ÀüÀïÅÍ »óÅÂ¸¦ ¸ğµÎ ÆòÈ­ »óÅÂ·Î ÃÊ±âÈ­ ÇÑ´Ù.
+	//< LTH-040209-KO ê± ì „ì—­ìœ¼ë¡œ ì„¤ì •ëœ ì „ìŸí„° ìƒíƒœë¥¼ ëª¨ë‘ í‰í™” ìƒíƒœë¡œ ì´ˆê¸°í™” í•œë‹¤.
 	INT nI;
 	INT nEnd = (INT)WI_MAX_WARFIELD;
 	for (nI = 0; nI < nEnd; ++nI)
 	{
 		g_naWarfieldState[nI] = NW_PEACE;
-		//< LTH-040324-KO ·Î±× °­È­
+		//< LTH-040324-KO ë¡œê·¸ ê°•í™”
 		g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "[Nation Manager] Warfield No. = %d, Change State = NW_PEACE", nI);
 		//> LTH-040324-KO
 	}
@@ -9422,7 +9422,7 @@ void cNation::CheckAndSendWarStart(t_packet* p)
 	int WarfieldNo=p->u.NationWar.WarLoopTime.WarfieldNo;
 	int Status;
 	int Port;
-	t_packet packet;											// ½ÃÀÛÇÏ¶ó°í ÆĞÅ¶À» º¸³½´Ù.
+	t_packet packet;											// ì‹œì‘í•˜ë¼ê³  íŒ¨í‚·ì„ ë³´ë‚¸ë‹¤.
 	SERVER_DATA	*pData=NULL;
 
 	switch (WarfieldNo)
@@ -9438,7 +9438,7 @@ void cNation::CheckAndSendWarStart(t_packet* p)
 			Port=BASE_NEW_WARFIELD_PORT+WarfieldNo-3;
 			break;
 
-	//< LTH-040207-KO 1.4 ÆĞÄ¡ÀÌÈÄ ¸ğµç ÀüÀïÅÍ¸¦ ¿©±â¿¡¼­ Ã³¸®
+	//< LTH-040207-KO 1.4 íŒ¨ì¹˜ì´í›„ ëª¨ë“  ì „ìŸí„°ë¥¼ ì—¬ê¸°ì—ì„œ ì²˜ë¦¬
 	case WI_HADES_WARFIELD:
 		Status = g_naWarfieldState[WarfieldNo];
 		Port = WP_BASE_PORT + WarfieldNo - 1;
@@ -9466,7 +9466,7 @@ void cNation::CheckAndSendWarStart(t_packet* p)
 			{
 				m_VoteData[WarfieldNo]=0;
 				SaveWarNo();
-				m_WarNo++; 											//ÀüÀï¹øÈ£¸¦ ¹Ù²Ù¾îÁØ´Ù.
+				m_WarNo++; 											//ì „ìŸë²ˆí˜¸ë¥¼ ë°”ê¾¸ì–´ì¤€ë‹¤.
 			}
 
 			if (WarfieldNo>=0&&WarfieldNo<=2)
@@ -9478,10 +9478,10 @@ void cNation::CheckAndSendWarStart(t_packet* p)
 			}
 			else
 			{
-				//< LTH-040207-KO »õ ÀüÀïÅÍÁß¿¡ ¼³¿øÀüÀïÅÍ¸¸ µû·Î Ã³¸®
+				//< LTH-040207-KO ìƒˆ ì „ìŸí„°ì¤‘ì— ì„¤ì›ì „ìŸí„°ë§Œ ë”°ë¡œ ì²˜ë¦¬
 				if (IsNeoWarfield(WarfieldNo))
 				{
-					// ¼³¿øÀüÀïÅÍ¿Í °°Àº ÀüÀï½ÃÀÛ ¸Ş½ÃÁö¸¦ º¸³½´Ù
+					// ì„¤ì›ì „ìŸí„°ì™€ ê°™ì€ ì „ìŸì‹œì‘ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤
 					packet.h.header.type=CMD_NWARFIELD_START_WAR;
 					packet.u.NationWar.NewWarStart.WarfieldNo = WarfieldNo;
 					::UpdateWarTime();
@@ -9492,7 +9492,7 @@ void cNation::CheckAndSendWarStart(t_packet* p)
 					packet.h.header.size=sizeof(NEWWAR_START);
 					SendPacket2Maps(&packet);
 					g_naWarfieldState[WarfieldNo] = NW_WAR;
-					//< LTH-040324-KO ·Î±× °­È­
+					//< LTH-040324-KO ë¡œê·¸ ê°•í™”
 					g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "[Nation Manager] Warfield No. = %d, Change State = NW_WAR", \
 						WarfieldNo);
 					//> LTH-040324-KO
@@ -9504,7 +9504,7 @@ void cNation::CheckAndSendWarStart(t_packet* p)
 					packet.u.NationWar.NewWarStart.LevelMin=MoveLevelMin[WarfieldNo-3];
 					packet.u.NationWar.NewWarStart.LevelMax=MoveLevelMax[WarfieldNo-3];
 					packet.h.header.size=sizeof(NEWWAR_START);
-					SendPacket2Maps(&packet);									// ¸ğµç ¸Ê¿¡¼­ º¸³½´Ù.
+					SendPacket2Maps(&packet);									// ëª¨ë“  ë§µì—ì„œ ë³´ë‚¸ë‹¤.
 					m_NewWarfieldStatus[Port-BASE_NEW_WARFIELD_PORT]=NW_WAR;
 				}
 				//> LTH-040207-KO
@@ -9528,13 +9528,13 @@ void cNation::GetWarRemainTime(char* ReturnStr)
 {
 	GetDayofWeek();
 	int WriteCount=0;
-	for (int i=0;i<m_iStartWarTimeCount;i++)				// ¼ø¼­´ë·Î Á¤·ÄÇÑ´Ù.
+	for (int i=0;i<m_iStartWarTimeCount;i++)				// ìˆœì„œëŒ€ë¡œ ì •ë ¬í•œë‹¤.
 	{
 		if (m_tTimeData.DayofWeek==m_pStartWarTime[i].DayofWeek)
 		{
 			if (g_hour<=m_pStartWarTime[i].DHour)
 			{
-				if ((i+1)==m_iStartWarTimeCount)		// ¸¶Áö¸·¿¡ À§Ä¡ÇÑ°æ¿ì 
+				if ((i+1)==m_iStartWarTimeCount)		// ë§ˆì§€ë§‰ì— ìœ„ì¹˜í•œê²½ìš° 
 				{
 					ReturnStr[0]=m_pStartWarTime[i].DayofWeek;
 					ReturnStr[1]=m_pStartWarTime[i].DHour;
@@ -9542,7 +9542,7 @@ void cNation::GetWarRemainTime(char* ReturnStr)
 					ReturnStr[3]=m_pStartWarTime[0].DHour;
 					return;
 				}
-				else									// ¾Æ´Ñ°æ¿ì
+				else									// ì•„ë‹Œê²½ìš°
 				{
 					ReturnStr[0]=m_pStartWarTime[i].DayofWeek;
 					ReturnStr[1]=m_pStartWarTime[i].DHour;
@@ -9555,7 +9555,7 @@ void cNation::GetWarRemainTime(char* ReturnStr)
 		else
 			if (m_tTimeData.DayofWeek<m_pStartWarTime[i].DayofWeek)
 			{
-				if ((i+1)==m_iStartWarTimeCount)		// ¸¶Áö¸·¿¡ À§Ä¡ÇÑ°æ¿ì 
+				if ((i+1)==m_iStartWarTimeCount)		// ë§ˆì§€ë§‰ì— ìœ„ì¹˜í•œê²½ìš° 
 				{
 					ReturnStr[0]=m_pStartWarTime[i].DayofWeek;
 					ReturnStr[1]=m_pStartWarTime[i].DHour;
@@ -9563,7 +9563,7 @@ void cNation::GetWarRemainTime(char* ReturnStr)
 					ReturnStr[3]=m_pStartWarTime[0].DHour;
 					return;
 				}
-				else									// ¾Æ´Ñ°æ¿ì
+				else									// ì•„ë‹Œê²½ìš°
 				{
 					ReturnStr[0]=m_pStartWarTime[i].DayofWeek;
 					ReturnStr[1]=m_pStartWarTime[i].DHour;
@@ -9572,16 +9572,16 @@ void cNation::GetWarRemainTime(char* ReturnStr)
 					return;
 				}
 			}
-			else											// ÀÛÀº°æ¿ì
+			else											// ì‘ì€ê²½ìš°
 			{
-				if ((i+1)==m_iStartWarTimeCount)				// ³¡±îÁö °¬´Âµ¥µÎ ¾øÀ¸¸é 
+				if ((i+1)==m_iStartWarTimeCount)				// ëê¹Œì§€ ê°”ëŠ”ë°ë‘ ì—†ìœ¼ë©´ 
 				{
-					if (m_iStartWarTimeCount==1)			// µ¥ÀÌÅÍ°¡ ÇÑ°³»Ó ¾øÀ¸¸é 
+					if (m_iStartWarTimeCount==1)			// ë°ì´í„°ê°€ í•œê°œë¿ ì—†ìœ¼ë©´ 
 					{
 					ReturnStr[0]=m_pStartWarTime[0].DayofWeek;
 					ReturnStr[1]=m_pStartWarTime[0].DHour;
 					ReturnStr[2]=9;								// NONE
-					ReturnStr[3]=0;								// ´ëÁß ¾øÀ½
+					ReturnStr[3]=0;								// ëŒ€ì¤‘ ì—†ìŒ
 					}
 					else
 					{
@@ -9603,11 +9603,11 @@ void cNation::GetNewWarRemainTime(char* ReturnStr)
 {
 	GetDayofWeek();
 	int WriteCount=0;
-	for (int i=0;i<m_iNewStartWarTimeCount;i++)				// ¼ø¼­´ë·Î Á¤·ÄÇÑ´Ù.
+	for (int i=0;i<m_iNewStartWarTimeCount;i++)				// ìˆœì„œëŒ€ë¡œ ì •ë ¬í•œë‹¤.
 	{
-		if (m_tTimeData.DayofWeek==m_pNewStartWarTime[i].DayofWeek)					// °°Àº ³¯ÀÌ¸é
+		if (m_tTimeData.DayofWeek==m_pNewStartWarTime[i].DayofWeek)					// ê°™ì€ ë‚ ì´ë©´
 		{
-			if (g_hour<=m_pNewStartWarTime[i].DHour)								// ÀÌ¹Ì Áö³­ ÀüÀïÀÎÁö È®ÀÎ
+			if (g_hour<=m_pNewStartWarTime[i].DHour)								// ì´ë¯¸ ì§€ë‚œ ì „ìŸì¸ì§€ í™•ì¸
 			{
 				ReturnStr[0]=m_pNewStartWarTime[i].DayofWeek;
 				ReturnStr[1]=m_pNewStartWarTime[i].DHour;
@@ -9615,15 +9615,15 @@ void cNation::GetNewWarRemainTime(char* ReturnStr)
 			}	
 		}
 		else
-		if (m_tTimeData.DayofWeek<m_pNewStartWarTime[i].DayofWeek)				// ³ôÀº ³¯ÀÌ¸é 
+		if (m_tTimeData.DayofWeek<m_pNewStartWarTime[i].DayofWeek)				// ë†’ì€ ë‚ ì´ë©´ 
 		{
 			ReturnStr[0]=m_pNewStartWarTime[i].DayofWeek;
 			ReturnStr[1]=m_pNewStartWarTime[i].DHour;
 			return;
 		}
-		else											// ÀÛÀº°æ¿ì
+		else											// ì‘ì€ê²½ìš°
 		{
-			if ((i+1)==m_iNewStartWarTimeCount)				// ³¡±îÁö °¬´Âµ¥µÎ ¾øÀ¸¸é 
+			if ((i+1)==m_iNewStartWarTimeCount)				// ëê¹Œì§€ ê°”ëŠ”ë°ë‘ ì—†ìœ¼ë©´ 
 			{
 				ReturnStr[0]=m_pNewStartWarTime[0].DayofWeek;
 				ReturnStr[1]=m_pNewStartWarTime[0].DHour;
@@ -9638,9 +9638,9 @@ VOID cNation::GetNeoWarRemainTime(char* ReturnStr)
 	::UpdateWarTime();
 	INT nHowManyTimesWeek = g_pcWarfieldInfo->GetHowManyTimesWeek();
 
-	INT nWarfieldNo = WP_HADES_WARFIELD - WP_BASE_PORT + 1;	// ÀüÀïÅÍ°¡ Ãß°¡µÇ¸é eWARFIELD_PORT¿¡ WP_MAX_PORT¸¦ ¸¸µé°í for·çÇÁ¸¦ µ¹¸ç Ã¼Å©
-	BYTE btDayOfWeek = (BYTE)(g_dwCurrWeekElapsedSec / 86400);	// ¿À´Ã ¿äÀÏ (0 : Sunday ~ 6 : Saturday)
-	BYTE btHour = (BYTE)(g_dwCurrWeekElapsedSec % 86400);		// ÇöÀç ¸î½Ã? (0 ~ 23½Ã)
+	INT nWarfieldNo = WP_HADES_WARFIELD - WP_BASE_PORT + 1;	// ì „ìŸí„°ê°€ ì¶”ê°€ë˜ë©´ eWARFIELD_PORTì— WP_MAX_PORTë¥¼ ë§Œë“¤ê³  forë£¨í”„ë¥¼ ëŒë©° ì²´í¬
+	BYTE btDayOfWeek = (BYTE)(g_dwCurrWeekElapsedSec / 86400);	// ì˜¤ëŠ˜ ìš”ì¼ (0 : Sunday ~ 6 : Saturday)
+	BYTE btHour = (BYTE)(g_dwCurrWeekElapsedSec % 86400);		// í˜„ì¬ ëª‡ì‹œ? (0 ~ 23ì‹œ)
 	CWarTimeInfo cWarTime;
 	BYTE btStartDay;
 	BYTE btStartHour;
@@ -9788,7 +9788,7 @@ bool CTeam::CheckTeam(int cn)
 }
 
 // 030624 YGI
-// °¢ÀÚ ¸¶À»·Î »ì·Á¼­ º¸³½´Ù.
+// ê°ì ë§ˆì„ë¡œ ì‚´ë ¤ì„œ ë³´ë‚¸ë‹¤.
 bool MoveToVillage(int server_id)
 {	//< CSD-030804
 	CHARLIST *ch=CheckServerId( server_id );
@@ -9952,7 +9952,7 @@ void CGuardStone::Clear()
 	m_iTypeCount[0]	= 0;
 	m_iTypeCount[1]	= 0;
 	m_iTypeCount[2]	= 0;
-	m_iTypeCount[3] = 0; // LTH-040311-KO ¿Ü¼º¼öÈ£¼®ÀÌ Ãß°¡
+	m_iTypeCount[3] = 0; // LTH-040311-KO ì™¸ì„±ìˆ˜í˜¸ì„ì´ ì¶”ê°€
 
 	if (m_pGData)
 	{
@@ -10017,7 +10017,7 @@ int CGuardStone::SetGDataSize()
 		MyLog(0,"NewWeaponDataTBL Table SQL Return Error(%d)!!",ret);
 	    SQLFreeStmt(hStmt,SQL_DROP);
 		return 0;
-	}                //WarFieldTBLÀÇ Name
+	}                //WarFieldTBLì˜ Name
 
     SQLFreeStmt(hStmt,SQL_DROP);
 
@@ -10112,10 +10112,10 @@ bool CGuardStone::LoadData()
 	return true;
 }
 
-bool CGuardStone::MakeGuardStone(const int iIndex, const int iCallType)//030102 lsw //FirstMakeNPCPtr() MakeNPCPtr() ¿¡¼­¸¸ È£Ãâ ÇÕ´Ï´Ù.
+bool CGuardStone::MakeGuardStone(const int iIndex, const int iCallType)//030102 lsw //FirstMakeNPCPtr() MakeNPCPtr() ì—ì„œë§Œ í˜¸ì¶œ í•©ë‹ˆë‹¤.
 {
 	if( iIndex < 0 
-	||	iIndex >= m_iGDataCount)//ÀÎµ¦½º°¡ ÀÌ»óÇÏ´Ù¸é
+	||	iIndex >= m_iGDataCount)//ì¸ë±ìŠ¤ê°€ ì´ìƒí•˜ë‹¤ë©´
 	{
 		JustMsg("Class CGuardStone,MakeGuardStone() Error, Index Error(%d In = %d Cmp = %d)!!", 
 			iCallType,iIndex,m_iGDataCount);
@@ -10127,7 +10127,7 @@ bool CGuardStone::MakeGuardStone(const int iIndex, const int iCallType)//030102 
 	pGData->Status = ALIVE_;
 	
 	const int iGuardStoneId = pGData->NPC_ID;
-	//< LTH-040331-KO °á°è¼®°ú ¼º¹® »ı¼ºÀ» summon¿¡¼­ ¹Ù²å´Ù skb·Î...
+	//< LTH-040331-KO ê²°ê³„ì„ê³¼ ì„±ë¬¸ ìƒì„±ì„ summonì—ì„œ ë°”ê¿¨ë‹¤ skbë¡œ...
 	const int iGenResult	= ::NPC_Create(	iGuardStoneId,pGData->NpcIndex,
 											pGData->GenPosX,pGData->GenPosY,
 											0,0,GT_SKB_FILE);
@@ -10145,14 +10145,14 @@ bool CGuardStone::MakeGuardStone(const int iIndex, const int iCallType)//030102 
 		return false;
 	}
 
-	//< LTH-040322-KO °¡µå »ı¼ºÀ» ·Î±×·Î ³²±âÀÚ±¸
+	//< LTH-040322-KO ê°€ë“œ ìƒì„±ì„ ë¡œê·¸ë¡œ ë‚¨ê¸°ìêµ¬
 	g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, "[Guard Loading] NPC Index(%d), NPC Type(%d), Position(%d, %d) Count(%d)", \
 		pGData->NpcIndex, pGData->NPCType, pGData->GenPosX, pGData->GenPosY, iIndex);
 	//> LTH-040322-KO
 
 	//< CSD-030211
-	//< LTH-040322-KO ¼³¿øÀüÀïÅÍ¿Í ¸ó½ºÅÍ ±¹°¡ÀüÀÇ °¡µåµéÀÇ ¿¡³ÊÁö¸¦ ³ôÀÎ´Ù. 1/10 Á¦ÇÑÀ» ¾ø¾Ø´Ù. ÇÑ±¹¿¡µµ Àû¿ë
-	//int iRookieNationWarSealStoneHp = (pGuardStone->HpMax*10)/100;  // 021216 kyo ¼³¿øÀüÀïÅÍ¿¡¼­ ¼º¹®, ¼öÈ£¼®, ÃÖÈÄ°á°è¼® hp¸¦ ±âÁ¸ÀÇ 1/10À¸·Î
+	//< LTH-040322-KO ì„¤ì›ì „ìŸí„°ì™€ ëª¬ìŠ¤í„° êµ­ê°€ì „ì˜ ê°€ë“œë“¤ì˜ ì—ë„ˆì§€ë¥¼ ë†’ì¸ë‹¤. 1/10 ì œí•œì„ ì—†ì•¤ë‹¤. í•œêµ­ì—ë„ ì ìš©
+	//int iRookieNationWarSealStoneHp = (pGuardStone->HpMax*10)/100;  // 021216 kyo ì„¤ì›ì „ìŸí„°ì—ì„œ ì„±ë¬¸, ìˆ˜í˜¸ì„, ìµœí›„ê²°ê³„ì„ hpë¥¼ ê¸°ì¡´ì˜ 1/10ìœ¼ë¡œ
 
 	//if (LocalMgr.IsAbleNation(TAIWAN))
 	//{
@@ -10259,12 +10259,12 @@ bool CGuardStone::CheckAndUpdateStatus(LPCHARLIST lpChar)
 			m_pGData[i].Status=0;
 			switch(lpChar->SprNo)
 			{
-			case 64 :		// ÃÖÁ¾
+			case 64 :		// ìµœì¢…
 				break;
-			case 63 :		// ¼öÈ£¼®
+			case 63 :		// ìˆ˜í˜¸ì„
 				SendBrokeBBS(GetTeamNo(),0,i,lpChar);
 				break;
-			case 65 :		// ¼º¹® 
+			case 65 :		// ì„±ë¬¸ 
 			case 66 :
 			case 67 :
 				SendBrokeBBS(GetTeamNo(),1,i,lpChar);
@@ -10282,7 +10282,7 @@ bool CGuardStone::CheckAndUpdateStatus(LPCHARLIST lpChar)
 
 void CGuardStone::MakeDontTable()
 {
-	return;													// µ¥ÀÌÅÍ¸¦ ¸¸µé±â À§ÇØ¼­ ÇÊ¿äÇÑ ÄÚµå
+	return;													// ë°ì´í„°ë¥¼ ë§Œë“¤ê¸° ìœ„í•´ì„œ í•„ìš”í•œ ì½”ë“œ
 	HSTMT	hStmt=NULL;
 	RETCODE	ret;
 	SWORD	nClos;
@@ -10375,12 +10375,12 @@ void CGuardStone::MakeDontTable()
 	}
 
 	//FILE* fp=fopen("Output/LTS000.Dat","wb");
-	FILE* fp=fopen("Output/LTS000.Dat","ab");	// LTH-040314-KO 1.4 ÆĞÄ¡ ÀüÀïÅÍ µ·Æ®¸¦ »ı¼ºÇÏ±â À§ÇØ º¯°æ
+	FILE* fp=fopen("Output/LTS000.Dat","ab");	// LTH-040314-KO 1.4 íŒ¨ì¹˜ ì „ìŸí„° ëˆíŠ¸ë¥¼ ìƒì„±í•˜ê¸° ìœ„í•´ ë³€ê²½
 	if (fp)
 	{
 		//fwrite(&Size,sizeof(int),1,fp);
 		long temp = 1 + ((sizeof(int) + (sizeof(POINT) * 28)) * 2) + ((sizeof(int) + (sizeof(POINT) * 16)) * 2);
-		fseek(fp, temp, SEEK_SET);				// LTH-040314-KO µ·Æ® Á¾·ù´Â Á÷Á¢¼öÁ¤ÇÏ°í ¼³¿ø¸¸Å­ °Ç³Ê¶Ú´Ù
+		fseek(fp, temp, SEEK_SET);				// LTH-040314-KO ëˆíŠ¸ ì¢…ë¥˜ëŠ” ì§ì ‘ìˆ˜ì •í•˜ê³  ì„¤ì›ë§Œí¼ ê±´ë„ˆë›´ë‹¤
 		for (int i=0;i<Size;i++)
 		{
 			fwrite(&FieldSize[i],sizeof(int),1,fp);
@@ -10412,7 +10412,7 @@ void CGuardStone::GetTileDont(DONT_DATA* lpDontData)
 	lpDontData->Size=Size;
 }
 
-void CGuardStone::GetStatus(char* lpStatus)				// ¹«¸®°¡ ÀÖ´Ù.  // Á¤ÇØÁ® ÀÖ´Ù´Â °¡Á¤
+void CGuardStone::GetStatus(char* lpStatus)				// ë¬´ë¦¬ê°€ ìˆë‹¤.  // ì •í•´ì ¸ ìˆë‹¤ëŠ” ê°€ì •
 {
 	for (int i=0;i<m_iGDataCount;i++)
 	{
@@ -10466,14 +10466,14 @@ long CNewWarfield::GetAllGDataTypeHP(const int nTeamNum , const int nType)
 {// 030506 kyo 
 	long lAllHP=0;
 	for (int i=0;i<m_pGuard[nTeamNum].GetCount();i++)
-	{//¸ğµç °á°è¿¡°üÇÑ °ÍµéÁß¿¡¼­
+	{//ëª¨ë“  ê²°ê³„ì—ê´€í•œ ê²ƒë“¤ì¤‘ì—ì„œ
 		if( m_pGuard[nTeamNum].GetGData(i) )
-		{//¸®½ºÆ®¿¡ Á¸ÀçÇÏ¸ç
+		{//ë¦¬ìŠ¤íŠ¸ì— ì¡´ì¬í•˜ë©°
 			if( nType == m_pGuard[nTeamNum].GetGData(i)->NPCType )
-			{//ÇØ´çÅ¸ÀÔÀÎ°ÍÀÇ
+			{//í•´ë‹¹íƒ€ì…ì¸ê²ƒì˜
 				CHARLIST *pGuardStone = ::CheckNpcId(m_pGuard[nTeamNum].GetGData(i)->NPC_ID) ;
 				if( pGuardStone )
-				{//¸ğµç HP°è»ê
+				{//ëª¨ë“  HPê³„ì‚°
 					lAllHP += pGuardStone->Hp;
 				}
 			}
@@ -10578,7 +10578,7 @@ bool CNewWarfield::LoadSMonster(WORD WarfieldNo)
 			return false;
 		}       
 		
-		InsertMonsterData(Monster);		// Monster List¿¡ Æ÷ÇÔ ½ÃÅ²´Ù.
+		InsertMonsterData(Monster);		// Monster Listì— í¬í•¨ ì‹œí‚¨ë‹¤.
 
 		ret=SQLFetch(hStmt);
 	}
@@ -10647,15 +10647,15 @@ void CNewWarfield::LoadTimeData()
 	sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir);
 */// 030919 HK YGI
 
-	m_Time.WarTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","WarTime",7200,MapServerConfigFileName);		// ÀüÀï½Ã°£
-	m_Time.SOpenTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","BonusTime",3600,MapServerConfigFileName);		// ºñ¹ĞÁö¿ª ¿­¸®´Â ½Ã°£
+	m_Time.WarTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","WarTime",7200,MapServerConfigFileName);		// ì „ìŸì‹œê°„
+	m_Time.SOpenTime=(DWORD)GetPrivateProfileInt("WarLoopDefine","BonusTime",3600,MapServerConfigFileName);		// ë¹„ë°€ì§€ì—­ ì—´ë¦¬ëŠ” ì‹œê°„
 
 	MemberMAX[0]=(DWORD)GetPrivateProfileInt("NewWarMove","BYJoinMax",50,MapServerConfigFileName);
 	MemberMAX[1]=(DWORD)GetPrivateProfileInt("NewWarMove","ZYJoinMax",50,MapServerConfigFileName);
 	MemberMAX[2]=(DWORD)GetPrivateProfileInt("NewWarMove","YLJoinMax",50,MapServerConfigFileName);
 }
 
-//< LTH-040303-KO 1.4 Patch. ½ÅÀüÀïÅÍÀÇ Á¾·áÁ¶°ÇÀ» ¸¸µé±â À§ÇØ ÀÎÀÚ Ãß°¡
+//< LTH-040303-KO 1.4 Patch. ì‹ ì „ìŸí„°ì˜ ì¢…ë£Œì¡°ê±´ì„ ë§Œë“¤ê¸° ìœ„í•´ ì¸ì ì¶”ê°€
 void SendNewWarEnd(INT nWarfieldNo)
 {
 	t_packet packet;
@@ -10680,7 +10680,7 @@ void CNewWarfield::SetWarfieldStatus(int Status)			// Packet Concern....
 	{
 	case NW_PEACE	:	
 		{
-			//< LTH-040324-KO µÎ¹ø Á÷È÷´Â °Í °°¾Æ¼­ »°´Ù
+			//< LTH-040324-KO ë‘ë²ˆ ì§íˆëŠ” ê²ƒ ê°™ì•„ì„œ ëºë‹¤
 			//m_pGuard[0].MakeNPCPtr(); 
 			//m_pGuard[1].MakeNPCPtr();
 			//> LTH-040324-KO
@@ -10691,7 +10691,7 @@ void CNewWarfield::SetWarfieldStatus(int Status)			// Packet Concern....
 	case NW_WAR		:	
 		{
 			m_64LoopTime=g_curr_time+m_Time.WarTime;
-			::SendCMD_UPDATE_WARTIME(m_iWarfieldNo + 3, m_iStatus, GetRemainTime());	// LTH-040426-KO ³²Àº ½Ã°£À» Á¦´ë·Î Ç¥½ÃÇÏ±â À§ÇØ...
+			::SendCMD_UPDATE_WARTIME(m_iWarfieldNo + 3, m_iStatus, GetRemainTime());	// LTH-040426-KO ë‚¨ì€ ì‹œê°„ì„ ì œëŒ€ë¡œ í‘œì‹œí•˜ê¸° ìœ„í•´...
 			m_pGuard[0].MakeNPCPtr(); 
 			m_pGuard[1].MakeNPCPtr();
 			KickAllUser2Home();
@@ -10701,7 +10701,7 @@ void CNewWarfield::SetWarfieldStatus(int Status)			// Packet Concern....
 		{
 			if (m_iStatus==NW_WAR)
 			{
-				//< LTH-040303-KO 1.4 Patch. ÀÎÀÚ Ãß°¡
+				//< LTH-040303-KO 1.4 Patch. ì¸ì ì¶”ê°€
 				SendNewWarEnd(m_iWarfieldNo);// End Process
 				//> LTH-040303-KO
 				m_pTeam[0].RemoveArmor();
@@ -10811,7 +10811,7 @@ void CNewWarfield::CheckWinTeam()
 	//int nIndex = CheckMaxPoint<long>( GetFinalGStoneHP(0), GetFinalGStoneHP(1) );
 	int nIndex = CheckMaxPoint( GetFinalGStoneHP(0), GetFinalGStoneHP(1) );
 	if( nIndex == 0 )
-	{//0ÆÀ½Â¸®
+	{//0íŒ€ìŠ¹ë¦¬
 		goto WIN_TEAM_0;
 	}
 	else if( nIndex == 1)
@@ -10843,7 +10843,7 @@ void CNewWarfield::CheckWinTeam()
 				goto WIN_TEAM_1;
 			}
 			else 
-			{//¸ğµç °æ¿ì°¡ °°Àº °æ¿ì
+			{//ëª¨ë“  ê²½ìš°ê°€ ê°™ì€ ê²½ìš°
 				goto WIN_TEAM_DEFAULT;
 			}	
 		}
@@ -10964,7 +10964,7 @@ void CNewWarfield::KickAllUser2Home()
 
 int CNewWarfield::GetTeamNo(LPCHARLIST lpChar)
 {
-/*	if (m_pTeam[0].CheckTeam(cn))					// Á¤±ÔÈ­, ¼ÓµµÀúÇÏ
+/*	if (m_pTeam[0].CheckTeam(cn))					// ì •ê·œí™”, ì†ë„ì €í•˜
 		return 0;
 	if (m_pTeam[1].CheckTeam(cn))
 		return 1;*/
@@ -11059,7 +11059,7 @@ bool CNewWarfield::CanAttackGuard(LPCHARLIST pCaster,LPCHARLIST pTarget)
 	if (m_pGuard[1].CheckNPC(pTarget->GetServerID())) 
 		TargetTeamNo=1;
 
-	if (CasterTeamNo==TargetTeamNo)		// °°Àº ÆÀÀÌ´Ù.. 
+	if (CasterTeamNo==TargetTeamNo)		// ê°™ì€ íŒ€ì´ë‹¤.. 
 		return false;
 
 	switch (pTarget->SprNo)
@@ -11150,7 +11150,7 @@ void CNewWarfield::UpdateGuardStatus(LPCHARLIST pCaster,LPCHARLIST pTarget)
 
 void UpdateGuardStoneStatus(LPCHARLIST pCaster,LPCHARLIST pTarget)				// Kill Character Call
 {
-	//< LTH-040225-KO 1.4 Patch ÈÄ¿¡ »õ·Î¿î ÀüÀïÅÍÀÎÁö ºñ±³¸¦ ´õ ÇÑ´Ù
+	//< LTH-040225-KO 1.4 Patch í›„ì— ìƒˆë¡œìš´ ì „ìŸí„°ì¸ì§€ ë¹„êµë¥¼ ë” í•œë‹¤
 	if (!isNewWarfieldServer()&&!IsNeoWarfieldServer())
 		return;
 
@@ -11174,7 +11174,7 @@ void CNewWarfield::CountDeath(LPCHARLIST lpChar)
 
 void CountNewWarfieldDeath(LPCHARLIST Attacker,LPCHARLIST Defencer)
 {
-	//< LTH-040225-KO 1.4 ÆĞÄ¡ ½Å±Ô±¹°¡Àü Ãß°¡·Î if¹® Áõ°¡
+	//< LTH-040225-KO 1.4 íŒ¨ì¹˜ ì‹ ê·œêµ­ê°€ì „ ì¶”ê°€ë¡œ ifë¬¸ ì¦ê°€
 	if (!isNewWarfieldServer()&&!IsNeoWarfieldServer())
 		return;
 
@@ -11294,7 +11294,7 @@ int CNewWarfield::GetNationMemberCount(int Nation)
 DWORD CNewWarfield::GetRemainTime()
 {
  	//return m_64LoopTime-g_WarTime;//-g_curr_time;
-	// 030508 kyo g_WarTime°¡ ¸ÕÁø Àß ¸ô¸£°ÔÂî¸¸ Æ²¸°½Ã°£À» ³ªÅ¸³»¾úµû.
+	// 030508 kyo g_WarTimeê°€ ë¨¼ì§„ ì˜ ëª°ë¥´ê²Œì°Œë§Œ í‹€ë¦°ì‹œê°„ì„ ë‚˜íƒ€ë‚´ì—ˆë”°.
 	if( m_64LoopTime<g_curr_time)
 	{
 		m_64LoopTime=0;

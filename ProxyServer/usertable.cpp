@@ -1,4 +1,4 @@
-// ----------------------------------
+ï»¿// ----------------------------------
 // CUserTable by chan78 at 2001/01/20
 // ----------------------------------
 
@@ -70,7 +70,7 @@ DWORD CUserTable::AddUser(DWORD dwConnectionIndex)
 		return false;
 
 #ifdef __ON_DEBUG
-	// dwConnectionIndex °¡ È¤½Ã Áßº¹µÇÁö ¾Ê´ÂÁö Check
+	// dwConnectionIndex ê°€ í˜¹ì‹œ ì¤‘ë³µë˜ì§€ ì•ŠëŠ”ì§€ Check
 	if( g_pINet->GetUserInfo( dwConnectionIndex ) )
 	{
 		_asm int 3;
@@ -94,7 +94,7 @@ DWORD CUserTable::AddUser(DWORD dwConnectionIndex)
 	info->dwStatus = STATUS_USER_ACTIVATED;
 
 #ifdef __IS_AGENT_SERVER
-	// memset ÇÏ¹Ç·Î ±»ÀÌ ÇØÁÙ ÇÊ¿ä´Â ¾øÁö¸¸...
+	// memset í•˜ë¯€ë¡œ êµ³ì´ í•´ì¤„ í•„ìš”ëŠ” ì—†ì§€ë§Œ...
 	info->dwDBDemonConnectionIndex = 0;
 	info->dwMapServerConnectionIndex = 0;
 #endif
@@ -104,10 +104,10 @@ DWORD CUserTable::AddUser(DWORD dwConnectionIndex)
 	info->dwAddress = g_pINet->GetUserAddress(dwConnectionIndex)->sin_addr.S_un.S_addr;
 	info->bNameLength = 0;
 
-	// g_pINet ¿¡ ¼ÂÆÃ.
+	// g_pINet ì— ì…‹íŒ….
 	g_pINet->SetUserInfo(dwConnectionIndex,(void*)info);
 
-	// Á¤º¸ ¾ò±â
+	// ì •ë³´ ì–»ê¸°
 	sockaddr_in* pSockAddrIn;
 
 	pSockAddrIn = g_pINet->GetUserAddress(info->dwConnectionIndex);
@@ -189,7 +189,7 @@ void CUserTable::RemoveUser( DWORD dwConnectionIndex )
 #else
 	if( !pInfo )
 	{
-		// ÀÌÁ¨ Àý´ë·Î »ý°Ü¼± ¾ÈµÇ´Â »óÈ²ÀÌ´Ù.
+		// ì´ì   ì ˆëŒ€ë¡œ ìƒê²¨ì„  ì•ˆë˜ëŠ” ìƒí™©ì´ë‹¤.
 		MyLog( LOG_FATAL, "RemoveUser() :: pInfo is NULL!!! Notify to SERVER TEAM" );
 		return;
 	}
@@ -212,10 +212,10 @@ void CUserTable::RemoveUserID( DWORD dwID )
 		if (cur->dwID == dwID)
 		{
 			// Modified by chan78 at 2001/02/28
-			// Á¢¼ÓÁ¾·á ´ë±âÁßÀÎ °æ¿ìÀÇ Ã³¸®.
+			// ì ‘ì†ì¢…ë£Œ ëŒ€ê¸°ì¤‘ì¸ ê²½ìš°ì˜ ì²˜ë¦¬.
 			this->RemoveUserFromAwaitingDisconnectUserList( cur );
 
-			// Hashtable ¿¡¼­ Á¦°Å.
+			// Hashtable ì—ì„œ ì œê±°.
 			if (!prv)	// if head
 				m_ppInfoTable[index] = next;
 			else 
@@ -229,7 +229,7 @@ void CUserTable::RemoveUserID( DWORD dwID )
 
 //			MyLog( LOG_IGNORE, "User (dwID:%d, szID:%s, dwConnectionIndex:%d) Removed From CUserTable", cur->dwID, cur->szName, cur->dwConnectionIndex );
 
-			// g_pINet ¿¡ ¼ÂÆÃµÈ UserInfo ¸¦ Á¦°Å
+			// g_pINet ì— ì…‹íŒ…ëœ UserInfo ë¥¼ ì œê±°
 			g_pINet->SetUserInfo( cur->dwConnectionIndex, NULL );
 
 			delete cur;
@@ -331,7 +331,7 @@ bool CUserTable::DisconnectUserBySuggest( USERINFO* pUserInfo )
 
 	if( pUserInfo->dwConnectionIndex == 0 )
 	{
-		// dwConnectionIndex°¡ 0ÀÎ pUserInfo´Â ÀÖÀ» ¼ö ¾ø´Ù. 
+		// dwConnectionIndexê°€ 0ì¸ pUserInfoëŠ” ìžˆì„ ìˆ˜ ì—†ë‹¤. 
 #ifdef __ON_DEBUG
 		_asm int 3;
 #endif
@@ -345,16 +345,16 @@ bool CUserTable::DisconnectUserBySuggest( USERINFO* pUserInfo )
 	pUserInfoList = new USERINFO_LIST;
 	memset( pUserInfoList, 0, sizeof( USERINFO_LIST ) );
 
-	// pUserInfoList °ªÀ» Ã¤¿î´Ù.
+	// pUserInfoList ê°’ì„ ì±„ìš´ë‹¤.
 	pUserInfoList->pUserInfo = pUserInfo;
 	pUserInfoList->dwTick = this->m_dwDisconnectTick;
 
-	// pUserInfo ¿Í ¿¬°áÇÑ´Ù.
+	// pUserInfo ì™€ ì—°ê²°í•œë‹¤.
 	pUserInfo->pAwaitingDisconnectUserInfoList = pUserInfoList;
 
 	if( this->m_pAwaitingDisconnectUserList[this->m_dwDisconnectTick] )
 	{
-		// Çìµå¿¡ »õ USERINFO_LIST ¸¦ ³Ö´Â´Ù.
+		// í—¤ë“œì— ìƒˆ USERINFO_LIST ë¥¼ ë„£ëŠ”ë‹¤.
 		pUserInfoList->pNextUserInfoList = this->m_pAwaitingDisconnectUserList[this->m_dwDisconnectTick];
 		this->m_pAwaitingDisconnectUserList[this->m_dwDisconnectTick]->pPrvUserInfoList = pUserInfoList;
 	}
@@ -380,7 +380,7 @@ bool CUserTable::DisconnectUserBySuggest( USERINFO* pUserInfo, WORD wRajaCmdNum 
 
 	if( pUserInfo->dwConnectionIndex == 0 )
 	{
-		// dwConnectionIndex°¡ 0ÀÎ pUserInfo´Â ÀÖÀ» ¼ö ¾ø´Ù. 
+		// dwConnectionIndexê°€ 0ì¸ pUserInfoëŠ” ìžˆì„ ìˆ˜ ì—†ë‹¤. 
 		_asm int 3;
 		MyLog( LOG_FATAL, "DisconnectUserBySuggest() :: pUserInfo->dwConnectionIndex is NULL!!!!" );
 		g_pUserTable->RemoveUserID( pUserInfo->dwID );
@@ -397,7 +397,7 @@ bool CUserTable::DisconnectUserBySuggest( USERINFO* pUserInfo, WORD wRajaCmdNum 
 }
 
 
-// Á¢¼ÓÁ¾·á ´ë±âÀÚµéÀ» À§ÇÑ Ã³¸®.
+// ì ‘ì†ì¢…ë£Œ ëŒ€ê¸°ìžë“¤ì„ ìœ„í•œ ì²˜ë¦¬.
 DWORD CUserTable::CloseConnectionWithAwaitingToDisconnect()
 {
 	DWORD dwTargetTick = IncreaseDisconnectTick();
@@ -425,7 +425,7 @@ DWORD CUserTable::CloseConnectionWithAwaitingToDisconnect()
 
 #ifdef __IS_AGENT_SERVER
 
-// ¿À·£½Ã°£ ¸Þ½ÃÁö Àü¼ÛÀÌ ¾ø´Â »ç¿ëÀÚµéÀ» À§ÇÑ Ã³¸®.
+// ì˜¤ëžœì‹œê°„ ë©”ì‹œì§€ ì „ì†¡ì´ ì—†ëŠ” ì‚¬ìš©ìžë“¤ì„ ìœ„í•œ ì²˜ë¦¬.
 void CUserTable::SetTickForSleptTimeProcess( USERINFO *pUserInfo )
 {
 	pUserInfo->dwSleepProcessTick = this->m_dwSleepProcessTick;
@@ -444,7 +444,7 @@ DWORD CUserTable::RemoveAllUserByMapServerConnectionIndex( DWORD dwMapServerConn
 		{
 			if( cur->dwMapServerConnectionIndex == dwMapServerConnectionIndex )
 			{
-				// ¿¬°á ²÷±â.
+				// ì—°ê²° ëŠê¸°.
 				g_pUserTable->DisconnectUserBySuggest( cur, CMD_CLOSE_CONNECTION_ABNORMAL );
 				counter++;
 			}
@@ -466,7 +466,7 @@ DWORD CUserTable::RemoveAllUserByDBDemonConnectionIndex( DWORD dwDBDemonConnecti
 		{
 			if( cur->dwDBDemonConnectionIndex == dwDBDemonConnectionIndex )
 			{
-				// ¿¬°á ²÷±â.
+				// ì—°ê²° ëŠê¸°.
 				g_pINet->CompulsiveDisconnectUser( cur->dwConnectionIndex );
 				counter++;
 			}
@@ -486,7 +486,7 @@ DWORD CUserTable::CloseConnectionWithSleepingUsers( void )
 	if( (++dwCounter) == 15 )
 		dwCounter = 0;
 
-	// 1ÃÊ¸¶´Ù µé¾î¿À¹Ç·Î 15ÃÊ¿¡ ÇÑ¹ø¾¿ ÁøÀÔÇÏµµ·Ï ÇÑ´Ù.
+	// 1ì´ˆë§ˆë‹¤ ë“¤ì–´ì˜¤ë¯€ë¡œ 15ì´ˆì— í•œë²ˆì”© ì§„ìž…í•˜ë„ë¡ í•œë‹¤.
 	if( dwCounter == 0 )
 	{
 		this->m_dwSleepProcessTick++;

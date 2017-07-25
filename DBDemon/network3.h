@@ -1,4 +1,4 @@
-
+﻿
 
 
 #define		CMD_SERVER_MAGIC_POSITION		20000

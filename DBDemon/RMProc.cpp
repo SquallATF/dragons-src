@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "inetwork.h"
 #include "ServerTable.h"
 #include "RMDefine.h"

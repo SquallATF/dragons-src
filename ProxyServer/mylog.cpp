@@ -1,4 +1,4 @@
-// ---------------------------
+ï»¿// ---------------------------
 // Wrote By chan78@esofnet.com
 // Last Updated at 2001/10/22
 // ---------------------------
@@ -52,7 +52,7 @@ void MyLog( int type, char *logmsg, ... )
 	static char sLogFileName[80+1];
 
 	
-//¿©±â¼­ºÎÅÍ ÇÊÅÍ¸µ ½ÃÀÛ~
+//ì—¬ê¸°ì„œë¶€í„° í•„í„°ë§ ì‹œì‘~
 	// Filtering unlogable things
 	if( (type < 0) && (type >= NUM_OF_LOG_TYPE ) )
 	{
@@ -65,7 +65,7 @@ void MyLog( int type, char *logmsg, ... )
 	{
 		return;
 	}
-//ÇÊÅÍ¸µ ³¡ 
+//í•„í„°ë§ ë 
 
 	// Argument Processing
 	va_start( vargs, logmsg );

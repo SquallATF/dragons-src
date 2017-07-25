@@ -1,4 +1,4 @@
-// CharInfo.cpp: implementation of the CCharInfo class.
+ï»¿// CharInfo.cpp: implementation of the CCharInfo class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -14,9 +14,9 @@
 #include "DualManager.h"
 
 
-// 040715_KJHuNs g_pLogManager¸¦ »ç¿ëÇÏ±â À§ÇÔ.
+// 040715_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨.
 #include "LogManager.h"
-#include "../LowerLayers/servertable.h"	//050413_KCH g_pServerTable->GetOwnServerData()->wPort ¸ÊÆ÷Æ®¹øÈ£ ¾Ë±âÀ§ÇÔ
+#include "../LowerLayers/servertable.h"	//050413_KCH g_pServerTable->GetOwnServerData()->wPort ë§µí¬íŠ¸ë²ˆí˜¸ ì•Œê¸°ìœ„í•¨
 
 extern int NPC_MaleName_Count;
 extern cLocalWarfield* g_pLocalWarfield;
@@ -31,7 +31,7 @@ int MAX_TIME_USE_GUILD_ITEM_MENU = 30;		// 040623 YGI
 ///////////////////////////////////////////////////////////////////////////////
 
 int CStatePoint::Increase(int nPoint, int nPercent = 100) 
-{	// Áõ°¡
+{	// ì¦ê°€
 	const int nOldPoint = m_nCurPoint;
 	m_nCurPoint += nPoint; 
 
@@ -46,7 +46,7 @@ int CStatePoint::Increase(int nPoint, int nPercent = 100)
 }
 
 int CStatePoint::Decrease(int nPoint, int nPercent = 0) 
-{	// °¨¼Ò
+{	// ê°ì†Œ
 	const int nOldPoint = m_nCurPoint;
 	m_nCurPoint -= nPoint; 
 
@@ -81,8 +81,8 @@ CCharInfo::CCharInfo()
 		m_aTacStep[i] = 0;
 	}
 	
-	m_gnAbility.Clear(); // ¿Ã¸± ¼ö ÀÖ´Â ¾îºô·¯Æ¼ Æ÷ÀÎÅÍ ÃÊ±âÈ­
-	m_gnCombat.Clear();  // ¿Ã¸± ¼ö ÀÖ´Â ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ ÃÊ±âÈ­
+	m_gnAbility.Clear(); // ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ì–´ë¹ŒëŸ¬í‹° í¬ì¸í„° ì´ˆê¸°í™”
+	m_gnCombat.Clear();  // ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° ì´ˆê¸°í™”
 	m_pArenaGame = NULL; // CSD-030509
 	m_pArenaTeam = NULL; // CSD-030509
 }
@@ -159,78 +159,78 @@ void CCharInfo::DecAbility(BYTE nType)
 
 void CCharInfo::ResetAbility(BYTE nCombat)
 {
-	// ÃÖ´ë Life·® °è»ê
+	// ìµœëŒ€ LifeëŸ‰ ê³„ì‚°
 	const int nMaxHp = CalcNewLife(nCombat);
 	
 	if (HpMax != nMaxHp)
 	{
 		HpMax = nMaxHp;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(MAX_HP, HpMax);
 	}
-	// ÃÖ´ë Mana·® °è»ê
+	// ìµœëŒ€ ManaëŸ‰ ê³„ì‚°
 	const int nMaxMp = CalcNewMana(nCombat);
 	
 	if (ManaMax != nMaxMp)
 	{
 		ManaMax = nMaxMp;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(MAX_MP, ManaMax);
 	}
-	// ÃÖ´ë Hungry·® °è»ê
+	// ìµœëŒ€ HungryëŸ‰ ê³„ì‚°
 	const int nMaxSp = CalcNewHungry(nCombat);
 	
 	if (HungryMax != nMaxSp)
 	{
 		HungryMax = nMaxSp;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(MAX_SP, HungryMax);
 	}
-	// ÃÖ´ë ÀüÅõ½ºÅ³ »ç¿ë°¡´É·® °è»ê
+	// ìµœëŒ€ ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ëŸ‰ ê³„ì‚°
 	const int nMaxCp = CalcNewCombat();
 	
 	if (CpMax != nMaxCp)
 	{
 		CpMax = nMaxCp;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(MAX_CP, CpMax);
 	}
-	// º¯È­µÈ ÃÖ´ë Life¿¡ µû¸¥ Life Àç¼³Á¤
+	// ë³€í™”ëœ ìµœëŒ€ Lifeì— ë”°ë¥¸ Life ì¬ì„¤ì •
 	if (Hp > HpMax)  
 	{
 		Hp = HpMax;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(HP, Hp);
 	}
-	// º¯È­µÈ ÃÖ´ë Mana¿¡ µû¸¥ Mana Àç¼³Á¤
+	// ë³€í™”ëœ ìµœëŒ€ Manaì— ë”°ë¥¸ Mana ì¬ì„¤ì •
 	if (Mana > ManaMax)  
 	{
 		Mana = ManaMax;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(MP, Mana);
 	}
-	// º¯È­µÈ ÃÖ´ë Hungry¿¡ µû¸¥ Hungry Àç¼³Á¤
+	// ë³€í™”ëœ ìµœëŒ€ Hungryì— ë”°ë¥¸ Hungry ì¬ì„¤ì •
 	if (Hungry > HungryMax)	 
 	{
 		Hungry = HungryMax;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(SP, Hungry); 
 	}
-	// º¯È­µÈ ÃÖ´ë ÀüÅõ½ºÅ³ »ç¿ë°¡´É·®¿¡ µû¸¥ Cp Àç¼³Á¤
+	// ë³€í™”ëœ ìµœëŒ€ ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ëŸ‰ì— ë”°ë¥¸ Cp ì¬ì„¤ì •
 	if (Cp > CpMax)
 	{
 		Cp = CpMax;
-		// PlayerÀÎ °æ¿ì °ªÀÌ º¯°æµÇ¸é Client¿¡ Àü¼Û
+		// Playerì¸ ê²½ìš° ê°’ì´ ë³€ê²½ë˜ë©´ Clientì— ì „ì†¡
 		if (IsPlayer())  SendCharInfoBasic(CP, Cp);
 	}
-	// AC °è»ê
+	// AC ê³„ì‚°
 	Ac = CalcNewAc();
 }
 
 void CCharInfo::DivideAbility(BYTE nNext)
-{	// µà¾ó ¾îºô¸®Æ¼ ÀçºĞ¹è
+{	// ë“€ì–¼ ì–´ë¹Œë¦¬í‹° ì¬ë¶„ë°°
 	CAbilityDivide* pDivide = g_mgrDivide.GetCell(Class, nNext);
-	// µà¾ó ¾îºô¸®Æ¼ ºĞ¹è
+	// ë“€ì–¼ ì–´ë¹Œë¦¬í‹° ë¶„ë°°
 	Str += pDivide->GetStr();
 	Con += pDivide->GetCon();
 	Dex += pDivide->GetDex();
@@ -247,9 +247,9 @@ void CCharInfo::DivideAbility(BYTE nNext)
     case WIZARD_SPELL: wsps += pDivide->GetWs(); break; 
     case PRIEST_SPELL: wsps += pDivide->GetPs(); break;
 	}
-	// µà¾ó Å¬·¡½º ´Ü°è »ó½Â
+	// ë“€ì–¼ í´ë˜ìŠ¤ ë‹¨ê³„ ìƒìŠ¹
 	++m_nClsStep; 
-	// Reserved Point °è»ê
+	// Reserved Point ê³„ì‚°
 	int nPoint = GetRemainStr();
 	nPoint += GetRemainCon();
 	nPoint += GetRemainDex();
@@ -266,9 +266,9 @@ void CCharInfo::DivideAbility(BYTE nNext)
     case WIZARD_SPELL: nPoint += GetRemainWs(); break; 
     case PRIEST_SPELL: nPoint += GetRemainPs(); break;
 	}
-	// Reserved Point Ãß°¡
+	// Reserved Point ì¶”ê°€
 	IncReservedPoint(nPoint);
-	// ¾îºô¸®Æ¼ Àç¼³Á¤
+	// ì–´ë¹Œë¦¬í‹° ì¬ì„¤ì •
 	Str -= GetRemainStr();
 	Con -= GetRemainCon();
 	Dex -= GetRemainDex();
@@ -323,7 +323,7 @@ bool CCharInfo::IncExperience(int nExp)
 
 	if ( name_status.king == 1 )
 	{
-		Exp += nExp * 3;  //coromo µÈ¼¶¾­Ñé
+		Exp += nExp * 3;  //coromo ëœì„¬ì’”ï¤š
 	}
 	Exp += nExp * 2;
 
@@ -368,7 +368,7 @@ bool CCharInfo::IncTacticExp(BYTE nKind, int nExp)
 
 	if ( name_status.king == 1)
 	{	
-		tac_skillEXP[nKind] += nPlus * 4;  //coromo Õ½¼¨¾­Ñé
+		tac_skillEXP[nKind] += nPlus * 4;  //coromo æ¿«ì„€ì’”ï¤š
 	}
 		tac_skillEXP[nKind] += nPlus * 3;
 
@@ -434,7 +434,7 @@ int CCharInfo::GetAbility(BYTE nType) const
 }
 
 int CCharInfo::GetWeaponSkill()
-{	// ±â¼ú¼÷·Ãµµ ±¸ÇÏ±â
+{	// ê¸°ìˆ ìˆ™ë ¨ë„ êµ¬í•˜ê¸°
 	const int nIndex = GetTacticsKind();
 	
 	if (nIndex >= TACTICS_Crapple && nIndex <= TACTICS_Orison)
@@ -450,7 +450,7 @@ int CCharInfo::GetWeaponSkill()
 }
 
 int CCharInfo::GetNpcAttack() const
-{	//< CSD-031007 : NPC ¹°¸®Àû °ø°İ·Â
+{	//< CSD-031007 : NPC ë¬¼ë¦¬ì  ê³µê²©ë ¥
 	int nRandom = 0;
 	
 	if (NPC_Gen_Ref[npc_index].nStrikeRandom != 0)
@@ -468,12 +468,12 @@ int CCharInfo::GetNpcAttack() const
 }	//> CSD-031007
 
 int CCharInfo::GetNpcDefence() const
-{	//< CSD-021019 : NPC ¹°¸®Àû ¹æ¾î·Â
+{	//< CSD-021019 : NPC ë¬¼ë¦¬ì  ë°©ì–´ë ¥
 	return NPC_Gen_Ref[npc_index].nPhysical;
 }	//> CSD-021019
 
 int CCharInfo::GetNpcMagic() const
-{	//< CSD-020822 : NPC ¸¶¹ı °ø°İ·Â
+{	//< CSD-020822 : NPC ë§ˆë²• ê³µê²©ë ¥
 	int nRandom = 0;
 	
 	if (NPC_Gen_Ref[npc_index].nMagicRandom != 0)
@@ -485,28 +485,28 @@ int CCharInfo::GetNpcMagic() const
 }	//> CSD-020822
 
 int CCharInfo::GetNpcDefence(BYTE nType) const
-{	//< CSD-021019 : NPC ¸¶¹ı ¹æ¾î·Â
-	int nResist = 0; // ¸ó½ºÅÍÀÇ ±âº» ¸¶¹ıÀúÇ×·Â
+{	//< CSD-021019 : NPC ë§ˆë²• ë°©ì–´ë ¥
+	int nResist = 0; // ëª¬ìŠ¤í„°ì˜ ê¸°ë³¸ ë§ˆë²•ì €í•­ë ¥
 	
 	switch (nType)
 	{    
     case RESIST_FIRE: 
-		{ // ºÒ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+		{ // ë¶ˆê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 			nResist += NPC_Gen_Ref[npc_index].nFire;  
 			break;
 		}
     case RESIST_ICE: 
-		{ // ¾óÀ½°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+		{ // ì–¼ìŒê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 			nResist += NPC_Gen_Ref[npc_index].nIce;   
 			break;
 		}
     case RESIST_ELECT: 
-		{ // Àü°İ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+		{ // ì „ê²©ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 			nResist += NPC_Gen_Ref[npc_index].nElect; 
 			break;
 		}
     case RESIST_HOLY: 
-		{ // ½Å·Â°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+		{ // ì‹ ë ¥ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 			nResist += NPC_Gen_Ref[npc_index].nHoly;  
 			break;
 		}
@@ -556,12 +556,12 @@ int CCharInfo::GetNpcFreezeAvoid() const
 }	//> CSD-021024
 
 int CCharInfo::GetMovePower(BYTE nType) const
-{	// ÀÌµ¿·Â ±¸ÇÏ±â
+{	// ì´ë™ë ¥ êµ¬í•˜ê¸°
 	const int nMax = __min(MoveP, 310);
 	if (IsNpc())  return nMax;
 	
 	int nBase = 0, nMove = 50;
-	// ¾ÆÀÌÅÛÀÇ ÀÌµ¿·Â °¡Áö°í ¿À±â
+	// ì•„ì´í…œì˜ ì´ë™ë ¥ ê°€ì§€ê³  ì˜¤ê¸°
 	CItem* pItem = ::ItemUnit(equip[WT_SHOES]);
 	
 	if (pItem != NULL)
@@ -604,7 +604,7 @@ int CCharInfo::GetDistance(int nX, int nY) const
 }
 
 int CCharInfo::GetRiseFall(int nX, int nY) const
-{	// 0 : ½ÇÆĞ,  1 : °í -> Àú, 2 : Àú -> °í, 3 : °°Àº ³ôÀÌ
+{	// 0 : ì‹¤íŒ¨,  1 : ê³  -> ì €, 2 : ì € -> ê³ , 3 : ê°™ì€ ë†’ì´
 	if (TileMap[MoveSx][MoveSy].empty__4 && !TileMap[nX][nY].empty__4)  return 1;
 	if (!TileMap[MoveSx][MoveSy].empty__4 && TileMap[nX][nY].empty__4)  return 2;
 	if (TileMap[MoveSx][MoveSy].empty__4 && TileMap[nX][nY].empty__4)  return 3;
@@ -625,8 +625,8 @@ int CCharInfo::GetTacticsKind() const
 	CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);	
 	
 	if (pItem == NULL)
-	{	// 030116 kyo ¿À¸¥¼Õ¿¡ ÀÖ´Â ¹«±â°¡ ¾ø´Ù. 
-		return SKILL_UNKNOWN;	// 030117 ¸Ç¼ÕÀÏ¶§´Â taticÀÌ ¿À¸£Áö ¾Ê´Â´Ù. 
+	{	// 030116 kyo ì˜¤ë¥¸ì†ì— ìˆëŠ” ë¬´ê¸°ê°€ ì—†ë‹¤. 
+		return SKILL_UNKNOWN;	// 030117 ë§¨ì†ì¼ë•ŒëŠ” taticì´ ì˜¤ë¥´ì§€ ì•ŠëŠ”ë‹¤. 
 	}
 	
 	const int nTactic = pItem->GetSkill_Ability();
@@ -672,7 +672,7 @@ int CCharInfo::GetExtendAc() const
 }
 
 int CCharInfo::GetItemEffectNumber() const
-{	//< CSD-031101 : ¹°¸®Àû °ø°İ ¼º°ø ¿©ºÎ ÆÇ´Ü
+{	//< CSD-031101 : ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µ ì—¬ë¶€ íŒë‹¨
 	CItem_Weapon* pWeapon = static_cast<CItem_Weapon*>(::ItemUnit(equip[WT_WEAPON]));
 	
 	if (pWeapon == NULL)
@@ -697,7 +697,7 @@ int CCharInfo::GetItemEffectNumber() const
 }	//> CSD-031101
 
 void CCharInfo::GetStepInfo(unsigned char* pData, int nSize)
-{	// ´Ü°è µ¥ÀÌÅ¸ ±¸ÇÏ±â
+{	// ë‹¨ê³„ ë°ì´íƒ€ êµ¬í•˜ê¸°
 	if (nSize < MAX_STEP)  return;
 	
 	pData[CLS_STEP] = unsigned char(m_nClsStep);
@@ -714,7 +714,7 @@ void CCharInfo::GetStepInfo(unsigned char* pData, int nSize)
 }
 
 void CCharInfo::SetStepInfo(unsigned char* pData, int nSize)
-{	//< CSD-030806 : ´Ü°è µ¥ÀÌÅ¸ Àç¼³Á¤
+{	//< CSD-030806 : ë‹¨ê³„ ë°ì´íƒ€ ì¬ì„¤ì •
 	if (nSize < MAX_STEP)  return;
 	
 	m_nClsStep = unsigned __int8(pData[CLS_STEP]);
@@ -744,7 +744,7 @@ void CCharInfo::SetStepInfo(unsigned char* pData, int nSize)
 }	//> CSD-030806
 
 int CCharInfo::CorrectCombatAttack(int nCombat, int nResult) const
-{	// °ø°İ ÀüÅõ½ºÅ³ ¼Ó¼º º¸Á¤
+{	// ê³µê²© ì „íˆ¬ìŠ¤í‚¬ ì†ì„± ë³´ì •
 	const int nLevel = GetCombatLevel(nCombat);
 	
 	switch (nResult)
@@ -775,7 +775,7 @@ int CCharInfo::CorrectCombatAttack(int nCombat, int nResult) const
 }
 
 int CCharInfo::CorrectCombatDefense(int nCombat, int nResult) const
-{	// ¹æ¾î ÀüÅõ½ºÅ³ ¼Ó¼º º¸Á¤
+{	// ë°©ì–´ ì „íˆ¬ìŠ¤í‚¬ ì†ì„± ë³´ì •
 	const int nLevel = GetCombatLevel(nCombat);
 	
 	switch (nResult)
@@ -818,7 +818,7 @@ int CCharInfo::CorrectItemEffect() const
 }	//> CSD-031007
 
 bool CCharInfo::LevelUpAbility()
-{	//< CSD-030806 : °æÇèÄ¡ ·¹º§¾÷
+{	//< CSD-030806 : ê²½í—˜ì¹˜ ë ˆë²¨ì—…
 	if (!IsPlayer())
 	{
 		return false;
@@ -847,7 +847,7 @@ bool CCharInfo::LevelUpAbility()
 }	//> CSD-030806
 
 bool CCharInfo::LevelUpTactics(int nKind)
-{	//< CSD-030314 : ÅÃÆ½ °æÇèÄ¡ ·¹º§¾÷
+{	//< CSD-030314 : íƒí‹± ê²½í—˜ì¹˜ ë ˆë²¨ì—…
 	int nLevel = Skill[TACTICS_Crapple + nKind];
 	if (!IsPlayer())                                         return false;
 	if (!IsLevelUp(nLevel))                                  return false;
@@ -861,7 +861,7 @@ bool CCharInfo::LevelUpTactics(int nKind)
 }	//> CSD-030314
 
 bool CCharInfo::LevelUpCombat(int nKind, int nPoint)
-{	// ÀüÅõ½ºÅ³ ·¹º§¾÷
+{	// ì „íˆ¬ìŠ¤í‚¬ ë ˆë²¨ì—…
 	if (!m_gnCombat.IsEnough(nPoint))  return false;
 	
 	int nLevel = GetCombatLevel(nKind);
@@ -942,18 +942,18 @@ bool CCharInfo::ChangeUpTacExp(int nType, int nExp, bool bDoubleExpUp)
 
 	switch (nType)
 	{
-	case 0: // ÀÏ¹İ Tactics
+	case 0: // ì¼ë°˜ Tactics
 		{	
 			const int nKind = GetTacticsKind();
 			
-			if (SKILL_UNKNOWN == nKind) break; // 030116 kyo ¸Ç¼ÕÀÏ¶© ÅÂÆ½ÀÌ ¿Ã¸£Áö ¾È´Â´Ù. 
+			if (SKILL_UNKNOWN == nKind) break; // 030116 kyo ë§¨ì†ì¼ë• íƒœí‹±ì´ ì˜¬ë¥´ì§€ ì•ˆëŠ”ë‹¤. 
 			AddPhysicalTacExp1(nKind - TACTICS_Crapple, nExp);
 			
 			if (IsShield())
 			{
 				const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
 				AddPhysicalTacExp1(nParrying, nExp);
-				// °æÇèÄ¡ º¯È­¸¦ À§ÇÑ Packet Àü¼Û
+				// ê²½í—˜ì¹˜ ë³€í™”ë¥¼ ìœ„í•œ Packet ì „ì†¡
 				t_packet packet;
 				packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
 				packet.h.header.size = sizeof(t_tactics_parrying_exp);
@@ -964,17 +964,17 @@ bool CCharInfo::ChangeUpTacExp(int nType, int nExp, bool bDoubleExpUp)
 			
 			break;
 		}
-	case 1:	// ÅÃÆ½¼ö·Ã¿¡¼­ Tactics
+	case 1:	// íƒí‹±ìˆ˜ë ¨ì—ì„œ Tactics
 		{
 			const int nKind = GetTacticsKind();
-			if( SKILL_UNKNOWN == nKind ) break; // 030116 kyo ¸Ç¼ÕÀÏ¶© ÅÂÆ½ÀÌ ¿Ã¸£Áö ¾È´Â´Ù. 				
+			if( SKILL_UNKNOWN == nKind ) break; // 030116 kyo ë§¨ì†ì¼ë• íƒœí‹±ì´ ì˜¬ë¥´ì§€ ì•ˆëŠ”ë‹¤. 				
 			AddPhysicalTacExp2(nKind - TACTICS_Crapple, nExp);
 			
 			if (IsShield())
 			{
 				const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
 				AddPhysicalTacExp2(nParrying , nExp);
-				// °æÇèÄ¡ º¯È­¸¦ À§ÇÑ Packet Àü¼Û
+				// ê²½í—˜ì¹˜ ë³€í™”ë¥¼ ìœ„í•œ Packet ì „ì†¡
 				t_packet packet;
 				packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
 				packet.h.header.size = sizeof(t_tactics_parrying_exp);
@@ -985,27 +985,27 @@ bool CCharInfo::ChangeUpTacExp(int nType, int nExp, bool bDoubleExpUp)
 			
 			break;
 		}
-    case 2: // ÀÏ¹İ Tactics
+    case 2: // ì¼ë°˜ Tactics
 		{
 			const int nKind = (Spell == 0) ? TACTICS_Magery - TACTICS_Crapple:
 			TACTICS_Orison - TACTICS_Crapple;
 			AddMagicTacExp1(nKind, nExp);
 			break;
 		}
-    case 3:	// ÅÃÆ½¼ö·Ã¿¡¼­ Tactics
+    case 3:	// íƒí‹±ìˆ˜ë ¨ì—ì„œ Tactics
 		{
 			const int nKind = (Spell == 0) ? TACTICS_Magery - TACTICS_Crapple:
 			TACTICS_Orison - TACTICS_Crapple;
 			AddMagicTacExp2(nKind, nExp);
 			break;
 		}
-    case 4: // ¸Â¾ÒÀ» °æ¿ì ¹æÆĞ ÅÃÆ½
+    case 4: // ë§ì•˜ì„ ê²½ìš° ë°©íŒ¨ íƒí‹±
 		{
 			if (IsShield() && Peacests)
 			{
 				const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
 				AddPhysicalTacExp1(nParrying, nExp);
-				// °æÇèÄ¡ º¯È­¸¦ À§ÇÑ Packet Àü¼Û
+				// ê²½í—˜ì¹˜ ë³€í™”ë¥¼ ìœ„í•œ Packet ì „ì†¡
 				t_packet packet;
 				packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
 				packet.h.header.size = sizeof(t_tactics_parrying_exp);
@@ -1016,10 +1016,10 @@ bool CCharInfo::ChangeUpTacExp(int nType, int nExp, bool bDoubleExpUp)
 			
 			break;
 		}
-    case 5: // ÆÄÆ¼½Ã ¹°¸®Àû °ø°İ ÅÃÆ½
+    case 5: // íŒŒí‹°ì‹œ ë¬¼ë¦¬ì  ê³µê²© íƒí‹±
 		{
 			const int nKind = GetTacticsKind();
-			if( SKILL_UNKNOWN == nKind ) break; // 030116 kyo ¸Ç¼ÕÀÏ¶© ÅÂÆ½ÀÌ ¿Ã¸£Áö ¾È´Â´Ù. 
+			if( SKILL_UNKNOWN == nKind ) break; // 030116 kyo ë§¨ì†ì¼ë• íƒœí‹±ì´ ì˜¬ë¥´ì§€ ì•ˆëŠ”ë‹¤. 
 			AddPhysicalTacExp3(nKind - TACTICS_Crapple, nExp);
 			break; 
 		}
@@ -1039,7 +1039,7 @@ void CCharInfo::GenerateNpcName()
 }	//> CSD-030408
 
 void CCharInfo::AutoAttribute()
-{	//< CSD-021024 : ÀÚµ¿ ¼Ó¼º ¼³Á¤
+{	//< CSD-021024 : ìë™ ì†ì„± ì„¤ì •
 	const int nBasicResist = RareEM.GetStaticRareBasicResist(StaticRare) +
 							 RareEM.GetDynamicRareValue(FITEM_INVALID_RESIST, DynamicRare);
 	if (nBasicResist > 0)
@@ -1060,11 +1060,11 @@ void CCharInfo::AutoAttribute()
 }	//> CSD-021024
 
 void CCharInfo::SetAttribute(int nRace)
-{	//< CSD-030408 : NPC ¼Ó¼º ¼³Á¤
+{	//< CSD-030408 : NPC ì†ì„± ì„¤ì •
 	switch (nRace)
 	{	
 	case GUARD:
-		{	// °æºñ¿øÀÎ °æ¿ì
+		{	// ê²½ë¹„ì›ì¸ ê²½ìš°
 			m_bsAttr.set(IGNORE_STRIKE_ATTACK);
 			m_bsAttr.set(IGNORE_MAGIC_AMPLIFY);
 			
@@ -1076,7 +1076,7 @@ void CCharInfo::SetAttribute(int nRace)
 			break;
 		}
 	case NORM_MON:
-		{	// ¸ó½ºÅÍµéÀº Áı¾È¿¡ µé¾î°¥¼ö ¾ø´Ù. 
+		{	// ëª¬ìŠ¤í„°ë“¤ì€ ì§‘ì•ˆì— ë“¤ì–´ê°ˆìˆ˜ ì—†ë‹¤. 
 			notcomeinside = true;
 			break;
 		}
@@ -1090,7 +1090,7 @@ bool CCharInfo::IsShield() const
 	
 	CItem* pShield = ItemUnit(shield);
 	if (pShield == NULL)  return false;
-	//  ¹æ¾î±¸°¡ ¹æÆĞÀÌ¸é
+	//  ë°©ì–´êµ¬ê°€ ë°©íŒ¨ì´ë©´
 	return (pShield->GetItemKind() == IK_SHIELD || pShield->GetItemKind() == IK_IRON_SHIELD)	? true:false;
 }
 
@@ -1101,7 +1101,7 @@ bool CCharInfo::IsArrow() const
 	
 	CItem* pArrow = ItemUnit(arrow);
 	if (pArrow == NULL)  return false;
-	//  È­»ìÀÌ ÀÖ´Ù¸é
+	//  í™”ì‚´ì´ ìˆë‹¤ë©´
 	return (pArrow->GetItemKind() == IK_TWO_ARROW || pArrow->GetItemKind() == IK_DUAL_ARROW) ? true:false;//030102 lsw Arrow
 }
 
@@ -1284,7 +1284,7 @@ int CCharInfo::GetRemainPs() const
 }
 
 int CCharInfo::CalcNewLife(BYTE nCombat) const
-{	// ÃÖ´ë Life·® °è»ê
+{	// ìµœëŒ€ LifeëŸ‰ ê³„ì‚°
 	if (IsNpc())
 	{
 		return NPC_Gen_Ref[npc_index].nHpMax;
@@ -1326,17 +1326,17 @@ int CCharInfo::CalcNewLife(BYTE nCombat) const
 	}
 	
 	if (nNew <= 0 )  nNew = 1;
-	if (nNew >= 200000)  nNew = 200000; // CSD-030306  //coromo ×î¸ßÑªÁ¿20Íò
+	if (nNew >= 200000)  nNew = 200000; // CSD-030306  //coromo é›¢ë©•æ²‚ì¢†20æ‹±
 	return nNew;
 }
 
 int CCharInfo::CalcNewMana(BYTE nCombat) const
-{	// ÃÖ´ë Mana·® °è»ê 
+{	// ìµœëŒ€ ManaëŸ‰ ê³„ì‚° 
 	if (IsNpc() == true)  return 0;
 	
 	int nNew = GetAbility(WSPS)*5.3;
 	
-	if (Spell == PRIEST_SPELL)//¼ºÁ÷ÀÚ
+	if (Spell == PRIEST_SPELL)//ì„±ì§ì
 	{
 		nNew += nNew * RareEM.GetStaticRareSpirit(StaticRare)/100; //020214 lsw
 		nNew += RareEM.GetStaticRareDivine(StaticRare);
@@ -1346,7 +1346,7 @@ int CCharInfo::CalcNewMana(BYTE nCombat) const
 		nNew += nNew * RareEM.GetStaticRareMind(StaticRare)/100;	 //020214 lsw
 		nNew += RareEM.GetStaticRareMana(StaticRare);
 	}
-	// ÀåÂøÇÑ ÀåºñÀÇ Mana ¼Ó¼º°ªÀ» ´õÇÔ
+	// ì¥ì°©í•œ ì¥ë¹„ì˜ Mana ì†ì„±ê°’ì„ ë”í•¨
 	for (int i = 0 ; i < 8 ; ++i)	
 	{
 		const int nItem = equip[i].item_no;
@@ -1366,10 +1366,10 @@ int CCharInfo::CalcNewMana(BYTE nCombat) const
 }
 
 int CCharInfo::CalcNewHungry(BYTE nCombat) const
-{	// ÃÖ´ë Hungry·® °è»ê
+{	// ìµœëŒ€ HungryëŸ‰ ê³„ì‚°
 	const int nCon = GetAbility(CON)*20;
 	int nNew = (nCon + GetLevel()*100 + 3000)/100; // CSD-030806
-	// ÀåÂøÇÑ ÀåºñÀÇ Hungry ¼Ó¼º°ªÀ» ´õÇÔ
+	// ì¥ì°©í•œ ì¥ë¹„ì˜ Hungry ì†ì„±ê°’ì„ ë”í•¨
 	for (int i = 0 ; i < 8 ; ++i)	
 	{
 		const int nItem = equip[i].item_no;
@@ -1400,7 +1400,7 @@ int CCharInfo::CalcNewAc() const
 {
 	int nAc = 1;
 	
-	for (int i = 0 ; i < 8 ; i ++)	// ÀåÂøÇÑ ÀåºñÀÇ ¹æ¾î·Â °¡Ä¡¸¦ ´õÇÑ´Ù. 
+	for (int i = 0 ; i < 8 ; i ++)	// ì¥ì°©í•œ ì¥ë¹„ì˜ ë°©ì–´ë ¥ ê°€ì¹˜ë¥¼ ë”í•œë‹¤. 
 	{
 		const int nItem = equip[i].item_no;
 		
@@ -1432,7 +1432,7 @@ int CCharInfo::CalcWeaponHit() const
 }
 
 int CCharInfo::CalcCriticalHit(BYTE nActive, BYTE nPassive) const
-{	//< CSD-031007 : ¹°¸®Àû °ø°İ¿¡¼­ Å©¸®Æ¼ÄÃ È÷Æ® º¸Á¤
+{	//< CSD-031007 : ë¬¼ë¦¬ì  ê³µê²©ì—ì„œ í¬ë¦¬í‹°ì»¬ íˆíŠ¸ ë³´ì •
 	const int nItem = RareEM.GetStaticRareCritical(StaticRare);
 	int nRate = __max(50 - (nItem*50/100 + 20) + rand()%10, 5);
 	
@@ -1453,7 +1453,7 @@ int CCharInfo::CalcCriticalHit(BYTE nActive, BYTE nPassive) const
 	if (++m_nCriticalCount > nRate)
 	{ 
 		const int nRandom = Hp*100/HpMax;
-		m_nCriticalCount = 0; // Å©¸®Æ¼ÄÃ È÷Æ® ÃÊ±âÈ­
+		m_nCriticalCount = 0; // í¬ë¦¬í‹°ì»¬ íˆíŠ¸ ì´ˆê¸°í™”
 		return (nRandom <= 0) ? 50:50 + rand()%nRandom;
 	}
 	
@@ -1468,7 +1468,7 @@ int CCharInfo::CalcTacticExp(BYTE nKind, DWORD dwExp) const
 }   //> CSD-020821
 
 void CCharInfo::SendCharInfoBasic(BYTE nKind, DWORD dwData) const
-{	//< CSD-TW-030624 : ÇÃ·¹ÀÌ¾î°¡ ¾Æ´Ï¸é ¾Èº¸³½´Ù
+{	//< CSD-TW-030624 : í”Œë ˆì´ì–´ê°€ ì•„ë‹ˆë©´ ì•ˆë³´ë‚¸ë‹¤
 	if (IsPlayer())
 	{
 		t_packet packet;
@@ -1495,7 +1495,7 @@ void CCharInfo::SendCharInfoTactic(BYTE nKind) const
 }	//> CSD-TW-030624
 
 void CCharInfo::AddPhysicalTacExp1(int nKind, int nExp)
-{	//< CSD-TW-030624 : »ç³É½Ã ÅÃÆ½ °æÇèÄ¡
+{	//< CSD-TW-030624 : ì‚¬ëƒ¥ì‹œ íƒí‹± ê²½í—˜ì¹˜
 	if (!IsLimitTac(nKind))  return;
 	
 	if (Tactics_para == nKind)  
@@ -1510,7 +1510,7 @@ void CCharInfo::AddPhysicalTacExp1(int nKind, int nExp)
 }	//> CSD-TW-030624
 
 void CCharInfo::AddPhysicalTacExp2(int nKind, int nExp)
-{	//< CSD-030806 : ÅÃÆ½ ¼ö·Ã½Ã ÅÃÆ½ °æÇèÄ¡
+{	//< CSD-030806 : íƒí‹± ìˆ˜ë ¨ì‹œ íƒí‹± ê²½í—˜ì¹˜
 	if (!IsLimitTac(nKind))
 	{
 		return;
@@ -1519,7 +1519,7 @@ void CCharInfo::AddPhysicalTacExp2(int nKind, int nExp)
 	const int nLevel = GetLevel();
 	
 	if (NPC_Lev_Ref[nLevel].nMaxTactic > Skill[TACTICS_Crapple + nKind])
-	{	// ÅÃÆ½ ¼ö·Ã¿¡¼­ ¿Ã¸± ¼ö ÀÖ´Â °æÇèÄ¡ Á¦ÇÑ
+	{	// íƒí‹± ìˆ˜ë ¨ì—ì„œ ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ê²½í—˜ì¹˜ ì œí•œ
 		if (Tactics_para == nKind)
 		{
 			nExp = (NPC_Lev_Ref[nLevel].nTrainingExp*nExp/HpMax)/7;
@@ -1545,7 +1545,7 @@ void CCharInfo::AddPhysicalTacExp3(int nKind, int nExp)
 	const int nLevel = GetLevel();
 	
 	if (NPC_Lev_Ref[nLevel].nMaxTactic > Skill[TACTICS_Crapple + nKind])
-	{	// ÅÃÆ½ ¼ö·Ã¿¡¼­ ¿Ã¸± ¼ö ÀÖ´Â °æÇèÄ¡ Á¦ÇÑ
+	{	// íƒí‹± ìˆ˜ë ¨ì—ì„œ ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ê²½í—˜ì¹˜ ì œí•œ
 		cur_tac_skill = nKind;
 		IncTacticExp(nKind, nExp);
 		LevelUpTactics(nKind);
@@ -1553,7 +1553,7 @@ void CCharInfo::AddPhysicalTacExp3(int nKind, int nExp)
 }	//> CSD-030806
 
 void CCharInfo::AddMagicTacExp1(int nKind, int nExp)
-{	//< CSD-TW-030624 : »ç³É½Ã ÅÃÆ½ °æÇèÄ¡
+{	//< CSD-TW-030624 : ì‚¬ëƒ¥ì‹œ íƒí‹± ê²½í—˜ì¹˜
 	if (!IsLimitTac(nKind))  return;
 	
 	cur_tac_skill = nKind;
@@ -1562,7 +1562,7 @@ void CCharInfo::AddMagicTacExp1(int nKind, int nExp)
 }	//> CSD-TW-030624
 
 void CCharInfo::AddMagicTacExp2(int nKind, int nExp)
-{	//< CSD-030806 : ÅÃÆ½ ¼ö·Ã½Ã ÅÃÆ½ °æÇèÄ¡
+{	//< CSD-030806 : íƒí‹± ìˆ˜ë ¨ì‹œ íƒí‹± ê²½í—˜ì¹˜
 	if (!IsLimitTac(nKind))
 	{
 		return;
@@ -1571,24 +1571,24 @@ void CCharInfo::AddMagicTacExp2(int nKind, int nExp)
 	const int nLevel = GetLevel();
 	
 	if (NPC_Lev_Ref[nLevel].nMaxTactic > Skill[TACTICS_Crapple + nKind])
-	{	// ÅÃÆ½ ¼ö·Ã¿¡¼­ ¿Ã¸± ¼ö ÀÖ´Â °æÇèÄ¡ Á¦ÇÑ
+	{	// íƒí‹± ìˆ˜ë ¨ì—ì„œ ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ê²½í—˜ì¹˜ ì œí•œ
 		cur_tac_skill = nKind;
 		IncTacticExp(nKind, nExp);
 		LevelUpTactics(nKind);
 	}
 }	//> CSD-030806
 
-bool CCharInfo::SetChangeGender()//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ ±¸Çö
-{	//0:¿©ÀÚ, 1:³²ÀÚ
+bool CCharInfo::SetChangeGender()//050413_KCH ì„±ì „í™˜ ì•„ì´í…œ êµ¬í˜„
+{	//0:ì—¬ì, 1:ë‚¨ì
 	char szLog[256] = {0.};
 	if (FEMALE == Gender)
 	{
 		SprNo	= 1;
 		Gender	= 1;
-		Face	= 0;	//Face´Â °íÁ¤À¸·Î ¼¼ÆÃ, Â÷ÈÄ¿¡ ¾ó±¼ÀÌ¹ÌÁö º¯È¯ ¾ÆÀÌÅÛÀ» ÆÇ¸Å.
+		Face	= 0;	//FaceëŠ” ê³ ì •ìœ¼ë¡œ ì„¸íŒ…, ì°¨í›„ì— ì–¼êµ´ì´ë¯¸ì§€ ë³€í™˜ ì•„ì´í…œì„ íŒë§¤.
 
 		sprintf(szLog ,
-			"[%d][%s]´ÔÀÌ ¼ºÀüÈ¯ ¾ÆÀÌÅÛÀ» »ç¿ëÇØ¼­, '³²¼º'Ä³¸¯ º¯È¯¿¡ ¼º°øÇß½À´Ï´Ù.",
+			"[%d][%s]ë‹˜ì´ ì„±ì „í™˜ ì•„ì´í…œì„ ì‚¬ìš©í•´ì„œ, 'ë‚¨ì„±'ìºë¦­ ë³€í™˜ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.",
 			g_pServerTable->GetOwnServerData()->wPort,
 			Name);
 		g_pLogManager->ItemMall_Use_Log(szLog);
@@ -1600,10 +1600,10 @@ bool CCharInfo::SetChangeGender()//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ ±¸Çö
 	{
 		SprNo	= 0;
 		Gender	= 0;
-		Face	= 5;	//Face´Â °íÁ¤À¸·Î ¼¼ÆÃ, Â÷ÈÄ¿¡ ¾ó±¼ÀÌ¹ÌÁö º¯È¯ ¾ÆÀÌÅÛÀ» ÆÇ¸Å.
+		Face	= 5;	//FaceëŠ” ê³ ì •ìœ¼ë¡œ ì„¸íŒ…, ì°¨í›„ì— ì–¼êµ´ì´ë¯¸ì§€ ë³€í™˜ ì•„ì´í…œì„ íŒë§¤.
 
 		sprintf(szLog ,
-			"[%d][%s]´ÔÀÌ ¼ºÀüÈ¯ ¾ÆÀÌÅÛÀ» »ç¿ëÇØ¼­, '¿©¼º'Ä³¸¯ º¯È¯¿¡ ¼º°øÇß½À´Ï´Ù.",
+			"[%d][%s]ë‹˜ì´ ì„±ì „í™˜ ì•„ì´í…œì„ ì‚¬ìš©í•´ì„œ, 'ì—¬ì„±'ìºë¦­ ë³€í™˜ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.",
 			g_pServerTable->GetOwnServerData()->wPort,
 			Name);
 		g_pLogManager->ItemMall_Use_Log(szLog);
@@ -1612,7 +1612,7 @@ bool CCharInfo::SetChangeGender()//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ ±¸Çö
 	}
 
 	sprintf(szLog ,
-			" [%d][%s]´ÔÀÌ ¼ºÀüÈ¯ ¾ÆÀÌÅÛÀ» »ç¿ëÇØ¼­, 'XXX'Ä³¸¯ º¯È¯¿¡ ½ÇÆĞÇß½À´Ï´Ù. "
+			" [%d][%s]ë‹˜ì´ ì„±ì „í™˜ ì•„ì´í…œì„ ì‚¬ìš©í•´ì„œ, 'XXX'ìºë¦­ ë³€í™˜ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. "
 			" (SprNo:%d ,Gender:%d, Face:%d ) ",
 			g_pServerTable->GetOwnServerData()->wPort,
 			Name,
@@ -1630,7 +1630,7 @@ bool CCharInfo::SetChangeGender()//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ ±¸Çö
 bool CCharInfo::IsLimitExp(int nLevel)
 {	//< CSD-030415
 	const int nStep = GetClassStep();  
-	// Å¬·¡½º ´Ü°è¿¡ µû¸¥ Á¦ÇÑ
+	// í´ë˜ìŠ¤ ë‹¨ê³„ì— ë”°ë¥¸ ì œí•œ
 	CDualDataInfo* pDualData = g_pDualManager->GetDualDataInfo(nStep);
 
 	if (pDualData == NULL)

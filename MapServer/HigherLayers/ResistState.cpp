@@ -1,4 +1,4 @@
-// ResistState.cpp: implementation of the CResistState class.
+﻿// ResistState.cpp: implementation of the CResistState class.
 //
 //////////////////////////////////////////////////////////////////////
 

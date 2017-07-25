@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\recvmsg.h"
 #include "..\LowerLayers\mylog.h"
@@ -19,10 +19,10 @@
 #include "ArenaManager.h"
 #include "UserManager.h"
 #include <direct.h>						//mkdir()
-#include "ItemMallManager.h"			//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+#include "ItemMallManager.h"			//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "..\HigherLayers/ItemMgr.h"	//ItemMgr.MakeRareAttr(...)
 
-//Ìì»ú
+//è–ìƒ™
 #define BEGIN_SELECT(e) switch (e) {
 #define CASE_SELECT(e)  case(e): return CS(e);
 #define END_SELECT(e)   } return CS(e);
@@ -89,8 +89,8 @@ void RecvOXAnser( t_packet *p, short int cn )
 	}
 }	//> CSD-CN-031213
 
-// ÀÌ ¸Ê¿¡ ÀÖ´Â ¸ğµç À¯Àú¸¦ ÁöÁ¤ÇÑ °÷À¸·Î ¸ÊÀÌµ¿ ½ÃÅ²´Ù.
-// type == 1 ÀÌ¸é ±âÀÚ³ª, ¿î¿µÀÚ´Â ³²±ä´Ù.
+// ì´ ë§µì— ìˆëŠ” ëª¨ë“  ìœ ì €ë¥¼ ì§€ì •í•œ ê³³ìœ¼ë¡œ ë§µì´ë™ ì‹œí‚¨ë‹¤.
+// type == 1 ì´ë©´ ê¸°ìë‚˜, ìš´ì˜ìëŠ” ë‚¨ê¸´ë‹¤.
 int UserAllMapMove( int type, char *map_name, int x, int y )
 {	//< CSD-CN-031213
 	if (strcmp(map_name, MapName) == 0)
@@ -99,7 +99,7 @@ int UserAllMapMove( int type, char *map_name, int x, int y )
 	}
 
 	if (GetMapMoveType(map_name) == MMT_FAIL)
-	{	// ¾ø´Â ¸ÊÀÌ´Ù.
+	{	// ì—†ëŠ” ë§µì´ë‹¤.
 		return 0;
 	}
 
@@ -132,12 +132,12 @@ void RecvCheckSkill( short int cn )
 	CHARLIST *ch= CheckServerId( cn );
 	if( !ch ) return;
 
-	// ¿°»ö ±â¼úÀ» ¹è¿üÀ¸¸é µ·À» ÁØ´Ù.
+	// ì—¼ìƒ‰ ê¸°ìˆ ì„ ë°°ì› ìœ¼ë©´ ëˆì„ ì¤€ë‹¤.
 	if( ch->Skill[46] )
 	{
 		ch->IncBankMoney(50000, BMCT_SKILL_RESET); // CSD-030723
 		ch->Skill[46] = 0;
-		SendPutMenuString( KM_BBS, 121, cn ); // ¿°»öÇÏ±â ½ºÅ³À» »èÁ¦Çß½À´Ï´Ù.
+		SendPutMenuString( KM_BBS, 121, cn ); // ì—¼ìƒ‰í•˜ê¸° ìŠ¤í‚¬ì„ ì‚­ì œí–ˆìŠµë‹ˆë‹¤.
 	}	
 }
 
@@ -145,7 +145,7 @@ void RecvCheckSkill( short int cn )
 void DeleteMenuData()
 {
 
-	// Á¾·á½Ã ÇÁ¸®½ÃÅ°´Â °÷..
+	// ì¢…ë£Œì‹œ í”„ë¦¬ì‹œí‚¤ëŠ” ê³³..
 
 }
 
@@ -158,13 +158,13 @@ void RecvPutGuildItem( t_packet *p, short int cn )
 	ItemAttr *pItem = GetItemByPOS( ch, pos );
 	if( !pItem ) return;
 	if( !pItem->item_no ) return;
-	if( !ch->GetGuildCode() ) return;		// ±æµå°¡ ¾ø´Ù.
-	//if( ch->name_status.guild_master ) return;		// ±æµå³» µî±Ş Á¦¾àÀ» ÇÏ·Á¸é ¿©±â¼­
+	if( !ch->GetGuildCode() ) return;		// ê¸¸ë“œê°€ ì—†ë‹¤.
+	//if( ch->name_status.guild_master ) return;		// ê¸¸ë“œë‚´ ë“±ê¸‰ ì œì•½ì„ í•˜ë ¤ë©´ ì—¬ê¸°ì„œ
 
 	// 040601 YGI
 	if( GetAttr2( pItem->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) )
 	{
-		// ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀº ±æµå Ã¢°í¿¡ ÀúÀåÇÒ ¼ö ¾ø´Ù.
+		// ì•„ì´í…œ ëª° ì•„ì´í…œì€ ê¸¸ë“œ ì°½ê³ ì— ì €ì¥í•  ìˆ˜ ì—†ë‹¤.
 		return;
 	}
 
@@ -174,15 +174,15 @@ void RecvPutGuildItem( t_packet *p, short int cn )
 		packet.u.kein.put_guild_item.guild_code = ch->GetGuildCode();
 		strcpy( packet.u.kein.put_guild_item.name, ch->Name );
 	packet.h.header.size = sizeof( k_put_guild_item );
-	QueuePacket( connections, DB_DEMON, &packet, 1 );	// DB¿¡ ÀúÀåÇÑ´Ù.
+	QueuePacket( connections, DB_DEMON, &packet, 1 );	// DBì— ì €ì¥í•œë‹¤.
 
 	//021030 YGI
 	SendItemEventLog( pItem, cn, SN_NOT_USER, SILT_PUT_GUILD_BOX, 1 ); // 021018 YGI
 
-	// ¾ÆÀÌÅÛÀ» Áö¿ì°í
+	// ì•„ì´í…œì„ ì§€ìš°ê³ 
 	memset( pItem, 0, sizeof( ItemAttr ) );
-	// ÀúÀåÇÑ »ç½ÇÀ» Å¬¶óÀÌ¾ğÆ®¿¡ º¸³»ÁØ´Ù.
-	SendPutMenuString( KM_OK, 132, cn );		// º¸°üµÇ¾ú½À´Ï´Ù.
+	// ì €ì¥í•œ ì‚¬ì‹¤ì„ í´ë¼ì´ì–¸íŠ¸ì— ë³´ë‚´ì¤€ë‹¤.
+	SendPutMenuString( KM_OK, 132, cn );		// ë³´ê´€ë˜ì—ˆìŠµë‹ˆë‹¤.
 }	//> CSD-030324
 
 void RecvGetGuildItemClient( t_packet *p, short int cn )
@@ -192,7 +192,7 @@ void RecvGetGuildItemClient( t_packet *p, short int cn )
 
 //	if( !ch->GetGuildCode() ) return;
 //	int degree = ch->name_status.guild_master;
-//	if( !degree || degree > 2 ) return;		// 1°ú 2¸¸ »ç¿ë °¡´É
+//	if( !degree || degree > 2 ) return;		// 1ê³¼ 2ë§Œ ì‚¬ìš© ê°€ëŠ¥
 	if( !CheckGuildPower( GDP_GUILD_BOX, ch ) ) return;
 
 	DWORD index = p->u.kein.default_dword;
@@ -204,10 +204,10 @@ void RecvGetGuildItemClient( t_packet *p, short int cn )
 		packet.u.kein.get_guild_item_map.index = index;
 
 	packet.h.header.size = sizeof( k_get_guild_item_map );
-	QueuePacket( connections, DB_DEMON, &packet, 1 );	// DB¿¡¼­ ÇØ°á
+	QueuePacket( connections, DB_DEMON, &packet, 1 );	// DBì—ì„œ í•´ê²°
 }	//> CSD-030324
 
-// µğºñ µ¥¸ó¿¡¼­ ¾ÆÀÌÅÛÀ» ²¨³» ¿Ô´Ù.
+// ë””ë¹„ ë°ëª¬ì—ì„œ ì•„ì´í…œì„ êº¼ë‚´ ì™”ë‹¤.
 void RecvGetGuildItemMap( t_packet *p )
 {
 	int server_id = p->u.kein.get_guild_item_db.server_id;
@@ -231,16 +231,16 @@ void RecvChangeGuildMaster(short int cn)
 	
 	if (guild_code <= 0 || guild_master != 1) 
 	{
-		return;		// ±æµå ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.
+		return;		// ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.
 	}
 
 	SendPacketDefault(CMD_CHANGE_GUILD_MASTER, &guild_code, sizeof(short int), DB_DEMON);
-	ch->name_status.guild_master = 0;		// ±æµå ¸¶½ºÅÍ
+	ch->name_status.guild_master = 0;		// ê¸¸ë“œ ë§ˆìŠ¤í„°
 	SendChangeGuildDegree(cn, guild_code, 0, cn);
 	SendPutMenuString(KM_OK, 178, cn);
 }	//> CSD-030326
 
-// ±æµå¿ø Á¤º¸¸¦ º¯°æ
+// ê¸¸ë“œì› ì •ë³´ë¥¼ ë³€ê²½
 void SendChangeGuildDegree( int server_id, int guild_code, int guild_degree, short int cn )
 {
 	t_packet packet;
@@ -254,7 +254,7 @@ void SendChangeGuildDegree( int server_id, int guild_code, int guild_degree, sho
 	CastMe2Other( cn, &packet );
 }
 
-// ±æ¸¶°¡ ¹Ù²¼´Ù.
+// ê¸¸ë§ˆê°€ ë°”ê¼ˆë‹¤.
 void RecvChangeGuildMasterAllMap( t_packet *p )
 {	//< CSD-030324
 	char *name = p->u.kein.default_name;
@@ -268,7 +268,7 @@ void RecvChangeGuildMasterAllMap( t_packet *p )
 	SendChangeGuildDegree( cn, ch->GetGuildCode(), ch->name_status.guild_master, cn );
 }	//> CSD-030324
 
-int GetDegree2Param( int degree )		// degree °ªÀ» ÆÄ¶ó¸ŞÅÍ·Î º¯°æÇÑ´Ù.
+int GetDegree2Param( int degree )		// degree ê°’ì„ íŒŒë¼ë©”í„°ë¡œ ë³€ê²½í•œë‹¤.
 {
 	static int degree2param[] = { 4, 0, 1, 2, 3 };
 	return degree2param[degree];
@@ -283,18 +283,18 @@ bool CheckGuildPower( int type, CHARLIST *ch )
 	
 	static int power_table[][5] =
 	{
-		{ 1, 1, 0, 0, 0 },		// ±æµå °¡ÀÔ				// GDP_JOINING
-		{ 1, 1, 0, 0, 0 },		// ±æµå ÀüÃ¼ ¸Ş½ÃÁö			// GDP_BBS
-		{ 1, 0, 0, 0, 0 },		// ±æµå¿ø Á÷Ã¥º¯°æ			// GDP_CHANGE_DEGREE  // 020620 YGI
-		{ 1, 1, 0, 0, 0 },		// ±æµå Ã¢°í ÀÌ¿ë			// GDP_GUILD_BOX
-		{ 1, 1, 0, 0, 0 },		// °­Á¦ ±æµå Å»Åğ ½ÃÅ°±â	// GDP_EXIT_GUILD_HIM
-		{ 1, 0, 0, 0, 0 },		// ±æµå ¸¶Å© º¯°æ			// GDP_CHANGE_MARK
-		{ 1, 0, 0, 0, 0 },		// ±æµå Á÷Ã¥ ¸í º¯°æ		// GDP_CHANGE_DEGREE_INFO
-		{ 1, 0, 0, 0, 0 },		// ±æµå ¸¶½ºÅÍ º¯°æ			// GDP_GUILD_CHANGE_MASTER
-		{ 1, 0, 0, 0, 0 },		// ±æµå Á¦°Å				// GDP_GUILD_BREAK
-		{ 1, 0, 0, 0, 0 },		// ºÎ±æ¸¶ µî·Ï				// GDP_REGIST_SUB_MASTER
-		{ 0, 1, 1, 1, 1 },		// ½º½º·Î ±æµå Å»Åğ			// GDP_EXIT_GUILD_SELF
-		{ 1, 0, 0, 0, 0 },		// ¿¥Æ÷¸®¾Æ ±¸ÀÔ			// GDP_BUY_GUILD_HOUSE
+		{ 1, 1, 0, 0, 0 },		// ê¸¸ë“œ ê°€ì…				// GDP_JOINING
+		{ 1, 1, 0, 0, 0 },		// ê¸¸ë“œ ì „ì²´ ë©”ì‹œì§€			// GDP_BBS
+		{ 1, 0, 0, 0, 0 },		// ê¸¸ë“œì› ì§ì±…ë³€ê²½			// GDP_CHANGE_DEGREE  // 020620 YGI
+		{ 1, 1, 0, 0, 0 },		// ê¸¸ë“œ ì°½ê³  ì´ìš©			// GDP_GUILD_BOX
+		{ 1, 1, 0, 0, 0 },		// ê°•ì œ ê¸¸ë“œ íƒˆí‡´ ì‹œí‚¤ê¸°	// GDP_EXIT_GUILD_HIM
+		{ 1, 0, 0, 0, 0 },		// ê¸¸ë“œ ë§ˆí¬ ë³€ê²½			// GDP_CHANGE_MARK
+		{ 1, 0, 0, 0, 0 },		// ê¸¸ë“œ ì§ì±… ëª… ë³€ê²½		// GDP_CHANGE_DEGREE_INFO
+		{ 1, 0, 0, 0, 0 },		// ê¸¸ë“œ ë§ˆìŠ¤í„° ë³€ê²½			// GDP_GUILD_CHANGE_MASTER
+		{ 1, 0, 0, 0, 0 },		// ê¸¸ë“œ ì œê±°				// GDP_GUILD_BREAK
+		{ 1, 0, 0, 0, 0 },		// ë¶€ê¸¸ë§ˆ ë“±ë¡				// GDP_REGIST_SUB_MASTER
+		{ 0, 1, 1, 1, 1 },		// ìŠ¤ìŠ¤ë¡œ ê¸¸ë“œ íƒˆí‡´			// GDP_EXIT_GUILD_SELF
+		{ 1, 0, 0, 0, 0 },		// ì— í¬ë¦¬ì•„ êµ¬ì…			// GDP_BUY_GUILD_HOUSE
 	};
 
 	int para = GetDegree2Param( ch->name_status.guild_master );
@@ -323,7 +323,7 @@ void RecvGetNationItem( short int cn )
 	QueuePacket( connections, cn, &packet, 1 );
 }
 
-/*040720_KJHuNs g_pLogManager·Î ÀÌµ¿.(Á¤¸®¸ñÀû)
+/*040720_KJHuNs g_pLogManagerë¡œ ì´ë™.(ì •ë¦¬ëª©ì )
 extern void SaveLogChange_NationItem(CHARLIST* pTarget, int type, ItemAttr* item); // CSD-040224
 */
 
@@ -337,7 +337,7 @@ void RecvBuyNationItem( short int cn )
 	{
 		if( ch->Money< g_nation_item.money )
 		{
-			// µ·ÀÌ ºÎÁ·ÇÏ´Ù. 
+			// ëˆì´ ë¶€ì¡±í•˜ë‹¤. 
 			ret = 2;
 		}
 		else
@@ -349,7 +349,7 @@ void RecvBuyNationItem( short int cn )
 				SendItemEventLog( &item, cn, SN_NOT_USER, SILT_BUY_NATION_ITEM_MONEY, 100 );
 				g_pLogManager->SaveLogChange_NationItem(ch, 0, &item);	// CSD-040224
 				MoveEmptyInv( &item, ch );
-				SendNationMoney( NM_ADD, ch->name_status.nation, g_nation_item.money); // ±¹°í¸¦ º¯È­½ÃÅ²´Ù.
+				SendNationMoney( NM_ADD, ch->name_status.nation, g_nation_item.money); // êµ­ê³ ë¥¼ ë³€í™”ì‹œí‚¨ë‹¤.
 				ret = 1;
 			}
 			else
@@ -362,7 +362,7 @@ void RecvBuyNationItem( short int cn )
 	{
 		if( ch->fame - g_nation_item.fame < 1000 )
 		{
-			// ¸í¼ºÄ¡°¡ ºÎÁ·ÇÏ´Ù.
+			// ëª…ì„±ì¹˜ê°€ ë¶€ì¡±í•˜ë‹¤.
 			ret = 3;
 		}
 		else
@@ -415,7 +415,7 @@ void SendPacket2Map( t_packet *p, int port )
 {
 	if( port != ST_SEND_MAP_ALL	)
 	{
-		if( port == GetOwnPort() )	// °°Àº ¸ÊÀ¸·Î º¸³¾ °æ¿ì
+		if( port == GetOwnPort() )	// ê°™ì€ ë§µìœ¼ë¡œ ë³´ë‚¼ ê²½ìš°
 		{
 			HandleCommand( CN_FROM_OTHER_MAPSERVER_MSG, p );
 		}
@@ -443,7 +443,7 @@ void RecvInviteColossus( t_packet *p, short int cn )
 	{
 		return;
 	}
-	// ¹æÀå¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Â ¸í·É¾î
+	// ë°©ì¥ë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ëª…ë ¹ì–´
 	if (pGame->GetLeader() != ch) 
 	{
 		return;		
@@ -543,7 +543,7 @@ void RecvAttackColossusItem( t_packet *p, short int cn )
 	packet.u.kein.attack_colossus_stone_result.attr = ItemList[nItem].attr[IATTR_ATTR];
 	QueuePacket(connections, cn, &packet, 1);
 	CastMe2Other(cn, &packet);
-	// ÇöÀç µ¹ÀÇ ¼ö¸¦ Ä«¿îÆ® ÇØ¼­ º¸³»ÁØ´Ù.
+	// í˜„ì¬ ëŒì˜ ìˆ˜ë¥¼ ì¹´ìš´íŠ¸ í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
 	int team_stone[4] = {0,};
 	g_ColossusStone.GetTeamCount( team_stone );
 	
@@ -558,7 +558,7 @@ void RecvAttackColossusItem( t_packet *p, short int cn )
 
 		pGame->SendGameMessage(i, 2, team_stone[i]);
 	}	//> CSD-030520
-	// ÀüÃ¼¿¡°Ô ´©°¡ ½ºÅæÀ» Â÷Áö Çß´ÂÁö ¾Ë·ÁÁØ´Ù.
+	// ì „ì²´ì—ê²Œ ëˆ„ê°€ ìŠ¤í†¤ì„ ì°¨ì§€ í–ˆëŠ”ì§€ ì•Œë ¤ì¤€ë‹¤.
 	CBaseArena* pGame = ch->GetJoinArenaGame();
 
 	if (pGame != NULL)
@@ -566,9 +566,9 @@ void RecvAttackColossusItem( t_packet *p, short int cn )
 		pGame->SendGameMessage(ch, 5, ItemList[nItem].dumno+1);
 	}	//> CSD-030520
 
-	// ÀüºÎ Â÷Áö Çß´ÂÁö ¾Ë¾Æº»´Ù.
+	// ì „ë¶€ ì°¨ì§€ í–ˆëŠ”ì§€ ì•Œì•„ë³¸ë‹¤.
 	int time = 0;
-	int got_stone_team = 0;		// µ¹À» µ¶Á¡ÇÑ ÆÀ
+	int got_stone_team = 0;		// ëŒì„ ë…ì í•œ íŒ€
 	for(int i=0; i<2; i++ )
 	{
 		if( team_stone[i] == g_ColossusStone.GetMaxStone() )
@@ -620,7 +620,7 @@ void RecvRevivalColossus(t_packet *p, short int cn)
 	case AT_MONSTER:
 		{
 			if (ch->viewtype != VIEWTYPE_GHOST_ && ch->Hp > 0) 
-			{	// À¯·ÉÀÌ ¾Æ´Ï´Ù.
+			{	// ìœ ë ¹ì´ ì•„ë‹ˆë‹¤.
 				return;
 			}
 
@@ -628,7 +628,7 @@ void RecvRevivalColossus(t_packet *p, short int cn)
 			pTeam->GetBasePosition(nX, nY);
 			MovePc(cn, nX, nY);
 			SkillMgr.CharacterToAlive(ch);
-			// ÀüÃ¼ °øÁö ¸Ş½ÃÁö
+			// ì „ì²´ ê³µì§€ ë©”ì‹œì§€
 			pGame->SendGameMessage(ch, 4, 0); // CSD-030520
 			break;
 		}
@@ -684,7 +684,7 @@ void RecvGuildHouseInfo( t_packet *p, short int cn )
 	//if( check_day != g_day )
 	{
 		check_day = g_day;
-		CallClient( DB_DEMON, CMD_CHECK_GUILD_HOUSE );		// ¾ø¾îÁ®¾ß ÇÒ ±æµå°¡ ÀÖ´ÂÁö Ã¼Å©ÇÑ´Ù. // º¯°æ »çÇ×À» Àü ¸Ê¿¡ »Ñ·ÁÁØ´Ù.
+		CallClient( DB_DEMON, CMD_CHECK_GUILD_HOUSE );		// ì—†ì–´ì ¸ì•¼ í•  ê¸¸ë“œê°€ ìˆëŠ”ì§€ ì²´í¬í•œë‹¤. // ë³€ê²½ ì‚¬í•­ì„ ì „ ë§µì— ë¿Œë ¤ì¤€ë‹¤.
 	}
 }	//> CSD-030324
 
@@ -696,19 +696,19 @@ void RecvBuyGuildHouse( t_packet *p, short int cn )
 	int house_id = p->u.kein.default_char;
 	int guild_code = ch->GetGuildCode();
 
-	if( !CheckGuildPower( GDP_BUY_GUILD_HOUSE, ch ) ) return;		// ±æ¸¶¸¸ »ç¿ëÇÒ ¼ö ÀÖ´Ù.
+	if( !CheckGuildPower( GDP_BUY_GUILD_HOUSE, ch ) ) return;		// ê¸¸ë§ˆë§Œ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤.
 
-	CGuildHouseUnit	*pHouse = g_GuildHouse.GetHouseByIndex( house_id );		// ±âÁ¸ ±æµå°¡ ÀÖ´Ù.
+	CGuildHouseUnit	*pHouse = g_GuildHouse.GetHouseByIndex( house_id );		// ê¸°ì¡´ ê¸¸ë“œê°€ ìˆë‹¤.
 	if( !pHouse  || !pHouse->id ) return;
 	if( pHouse->nation != ch->name_status.nation ) return;
 
 
-	if( GetItemMuchByMuchItem( ch, IN_BLUE_SIGNET ) < pHouse->blue ) return;		// ½Ã±×³İÀÌ ºÎÁ·ÇÏ´Ù.
-	if( GetItemMuchByMuchItem( ch, IN_RED_SIGNET ) < pHouse->red ) return;		// ½Ã±×³İÀÌ ºÎÁ·ÇÏ´Ù.
+	if( GetItemMuchByMuchItem( ch, IN_BLUE_SIGNET ) < pHouse->blue ) return;		// ì‹œê·¸ë„·ì´ ë¶€ì¡±í•˜ë‹¤.
+	if( GetItemMuchByMuchItem( ch, IN_RED_SIGNET ) < pHouse->red ) return;		// ì‹œê·¸ë„·ì´ ë¶€ì¡±í•˜ë‹¤.
 
 	k_change_guild_house_info data;
 	data.guild_code = guild_code;
-	data.id = pHouse->id;		// ¿¥Æ÷¸®¾Æ ÀÎµ¦½º
+	data.id = pHouse->id;		// ì— í¬ë¦¬ì•„ ì¸ë±ìŠ¤
 	if( pHouse->guild_code )
 	{
 		if( pHouse->guild_code != guild_code ) return;
@@ -722,22 +722,22 @@ void RecvBuyGuildHouse( t_packet *p, short int cn )
 		}
 		if( time < 0 || time > 5 )
 		{
-			// ÇÑ¹ø¸¸ ¿¬Àå ÇÒ ¼ö ÀÖ´Ù.
+			// í•œë²ˆë§Œ ì—°ì¥ í•  ìˆ˜ ìˆë‹¤.
 			SendPutMenuString( KM_FAIL, 174, cn );
 			return;
 		}
-		// ÀÌ°æ¿ì¿£ µğºñ µ¥¸óÀÌ ¸ğµç¼­¹ö·Î º¸³»ÁÖ°Ô ÇÏÀÚ..
-		data.day_type = 2;		// ¿¬Àå
+		// ì´ê²½ìš°ì—” ë””ë¹„ ë°ëª¬ì´ ëª¨ë“ ì„œë²„ë¡œ ë³´ë‚´ì£¼ê²Œ í•˜ì..
+		data.day_type = 2;		// ì—°ì¥
 	}
 	else
 	{
 		CGuildHouseUnit	*pData = g_GuildHouse.GetHouseByGuildCode( guild_code );
-		if( pData ) return;		// ÀÌ¹Ì °¡Áö°í ÀÖ´Â ¿¥Æ÷¸®¾Æ°¡ ÀÖ´Ù.
-		// »õ·Î ½ÅÃ»
-		data.day_type = 1;		// ½Å±Ô ½ÅÃ»
+		if( pData ) return;		// ì´ë¯¸ ê°€ì§€ê³  ìˆëŠ” ì— í¬ë¦¬ì•„ê°€ ìˆë‹¤.
+		// ìƒˆë¡œ ì‹ ì²­
+		data.day_type = 1;		// ì‹ ê·œ ì‹ ì²­
 	}
 
-	// »èÁ¦ // Ãë¼Ò µÆÀ» °æ¿ì »èÁ¦ µÇ¹Ç·Î DB-demon¿¡¼­ Ãë¼Ò µÇ¸é ¾ÈµÈ´Ù.
+	// ì‚­ì œ // ì·¨ì†Œ ëì„ ê²½ìš° ì‚­ì œ ë˜ë¯€ë¡œ DB-demonì—ì„œ ì·¨ì†Œ ë˜ë©´ ì•ˆëœë‹¤.
 	SendDeleteMuchItemQuantity( ch, IN_BLUE_SIGNET, pHouse->blue );
 	SendDeleteMuchItemQuantity( ch, IN_RED_SIGNET, pHouse->red );
 
@@ -746,7 +746,7 @@ void RecvBuyGuildHouse( t_packet *p, short int cn )
 
 void RecvChangeGuildHouse( t_packet *p, short int cn )
 {
-	// ¿¥Æ÷¸®¾Æ Á¤º¸ °»½Å
+	// ì— í¬ë¦¬ì•„ ì •ë³´ ê°±ì‹ 
 	int house_id = p->u.kein.change_guild_house_info_db2map.house_id;
 	CGuildHouseUnit	*pHouse = g_GuildHouse.GetHouseByIndex( house_id );
 	if( !pHouse  || !pHouse->id ) return;
@@ -781,7 +781,7 @@ int CPotionBox::PutItem( ItemAttr *item )
 
 	switch( t->GetItemKind())
 	{
-	case IK_POTION_BAG:		// BBD 040213	Æ÷¼Ç¹éµµ Æ÷¼Ç¹Ú½º¿¡ µé¾î°¡¹È ¾ÊµÈ´Ù
+	case IK_POTION_BAG:		// BBD 040213	í¬ì…˜ë°±ë„ í¬ì…˜ë°•ìŠ¤ì— ë“¤ì–´ê°€ë¯„ ì•Šëœë‹¤
 	case IK_POTION_BOX:
 	case IK_CANDLE:
 	case IK_GOOD_CANDLE:
@@ -792,7 +792,7 @@ int CPotionBox::PutItem( ItemAttr *item )
 	}
 	if( t->GetRbutton() != USE_ITEM ) {return 0;}
 
-	if(item->attr[IATTR_RARE_MAIN])//±â´É ¾ÆÀÌÅÛÀº ¸ø¸Ô¾î
+	if(item->attr[IATTR_RARE_MAIN])//ê¸°ëŠ¥ ì•„ì´í…œì€ ëª»ë¨¹ì–´
 	{
 		return 0;
 	}
@@ -800,7 +800,7 @@ int CPotionBox::PutItem( ItemAttr *item )
 	if( much )
 	{
 		if( item_no != item->item_no ) {return 0;}
-		if( 100<= much){return 0;}//020520 lsw 50°³·Î Á¦ÇÑ   //coromo Ò©Ë®ÏäÊıÁ¿
+		if( 100<= much){return 0;}//020520 lsw 50ê°œë¡œ ì œí•œ   //coromo ï¤ªå½ŠèŠé‘’ì¢†
 	}
 	else
 	{
@@ -816,7 +816,7 @@ int CPotionBox::PutItem( ItemAttr *item )
 
 int CPotionBox::DeleteItem()
 {
-	if( !much ) return 0;		// »¬°Å ¾øÀ½
+	if( !much ) return 0;		// ëº„ê±° ì—†ìŒ
 	much--;
 	SaveData();
 	return 1;
@@ -824,16 +824,16 @@ int CPotionBox::DeleteItem()
 
 int CPotionBox::UseItem()
 {
-	if( !DeleteItem() ) return 0;		// ¾ø´Ù.
+	if( !DeleteItem() ) return 0;		// ì—†ë‹¤.
 	CItem *t = ::ItemUnit( item_no );
 	if( !t ) 
 	{
 		return 0;
 	}
 	
-	switch( t->GetItemKind())//¾çÃÊ³ª Æ÷¼Ç »óÀÚÀÏ °æ¿ì Áö¿ö ¹ö¸°´Ù
+	switch( t->GetItemKind())//ì–‘ì´ˆë‚˜ í¬ì…˜ ìƒìì¼ ê²½ìš° ì§€ì›Œ ë²„ë¦°ë‹¤
 	{
-	case IK_POTION_BAG:		// BBD 040213	Æ÷¼Ç¹éµµ Æ÷¼Ç¹Ú½º¿¡ µé¾î°¡¹È ¾ÊµÈ´Ù, ´ç±Ù »ç¿ëµµ ¾ÊµÊ
+	case IK_POTION_BAG:		// BBD 040213	í¬ì…˜ë°±ë„ í¬ì…˜ë°•ìŠ¤ì— ë“¤ì–´ê°€ë¯„ ì•Šëœë‹¤, ë‹¹ê·¼ ì‚¬ìš©ë„ ì•Šë¨
 	case IK_POTION_BOX:
 	case IK_CANDLE:
 	case IK_GOOD_CANDLE:
@@ -848,12 +848,12 @@ int CPotionBox::UseItem()
 	return add_hp;
 }
 
-void CPotionBox::SaveData( )		// ¾ÆÀÌÅÛÀ» »ç¿ëÇÑÈÄ  ÀúÀåÇÑ´Ù.
+void CPotionBox::SaveData( )		// ì•„ì´í…œì„ ì‚¬ìš©í•œí›„  ì €ì¥í•œë‹¤.
 {
 	DWORD temp;
 	temp = MAKELONG( item_no, much );
 	hero->Sight = temp;
-	hero->SendCharInfoBasic( CIB_POTION_BOX, GetData() );		// º¯°æ »çÇ×À» ¾Ë·ÁÁØ´Ù.////020704 lsw
+	hero->SendCharInfoBasic( CIB_POTION_BOX, GetData() );		// ë³€ê²½ ì‚¬í•­ì„ ì•Œë ¤ì¤€ë‹¤.////020704 lsw
 }
 
 void RecvPkOnOff( t_packet *p, short int cn )
@@ -967,22 +967,22 @@ void CItemLog::Load( int port )
 
 bool CItemLog::IsSave( ItemAttr *item, int event_type, int lv )
 {
-	if( lv == 100 ) return true;		// ¹«Á¶°Ç ÀúÀå // 030506 YGI
+	if( lv == 100 ) return true;		// ë¬´ì¡°ê±´ ì €ì¥ // 030506 YGI
 
 	if( !item ) return false;
-	if( item->attr[IATTR_RARE_MAIN] ) return true;			// ·¹¾î ÀúÀå
+	if( item->attr[IATTR_RARE_MAIN] ) return true;			// ë ˆì–´ ì €ì¥
 	
-	if( m_NoItemList.Search( item->item_no ) ) return false;		// ÀúÀåÇÏÁö ¸»¾Æ¶ó ¸ñ·Ï¿¡ ÀÖÀ¸¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù.
-	if( item->item_no/1000 == ACCESSORY ) return true;		// À¯´ÏÅ©¸é ÀúÀå
+	if( m_NoItemList.Search( item->item_no ) ) return false;		// ì €ì¥í•˜ì§€ ë§ì•„ë¼ ëª©ë¡ì— ìˆìœ¼ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	if( item->item_no/1000 == ACCESSORY ) return true;		// ìœ ë‹ˆí¬ë©´ ì €ì¥
 	
 	CItem *t = ::ItemUnit( item->item_no );
 	if( !t ) return false;
 
-	if( t->GetLevel() < m_nItemLv ) return false;			// ¾ÆÀÌÅÛ ·¹º§ÀÌ ³·À¸¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù.
-	if( !m_aType2Lv[event_type] ) return false;				// 0 ÀÏ°æ¿ì ÀúÀåÇÏÁö ¾Ê´Â´Ù.
-	if( m_nSaveLv && m_aType2Lv[event_type] > m_nSaveLv ) return false;	// ÀÌº¥Æ® Å¸ÀÔÀÌ ³·À¸¸é ÀúÀåÇÏÁö ¾Ê´Â´Ù.
+	if( t->GetLevel() < m_nItemLv ) return false;			// ì•„ì´í…œ ë ˆë²¨ì´ ë‚®ìœ¼ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	if( !m_aType2Lv[event_type] ) return false;				// 0 ì¼ê²½ìš° ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	if( m_nSaveLv && m_aType2Lv[event_type] > m_nSaveLv ) return false;	// ì´ë²¤íŠ¸ íƒ€ì…ì´ ë‚®ìœ¼ë©´ ì €ì¥í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	
-	return true;		// ¾ÆÀÌÅÛ ·¹º§°ú Å¸ÀÔÀÌ ³ô¾Æ¾ßÁö¸¸ ÀúÀåÇÑ´Ù.
+	return true;		// ì•„ì´í…œ ë ˆë²¨ê³¼ íƒ€ì…ì´ ë†’ì•„ì•¼ì§€ë§Œ ì €ì¥í•œë‹¤.
 }
 
 // 020620 YGI
@@ -1062,7 +1062,7 @@ int RecvSaveItemLogByEvent( t_packet *p )
 		k_item_log *pData = &p->u.kein.item_log;
 		if( g_item_log.GetSaveLv() )
 		{
-			//¹Ş´Âµ¥¿¡¼­´Â ´Ù ÀúÀåÇÏÀÚ.
+			//ë°›ëŠ”ë°ì—ì„œëŠ” ë‹¤ ì €ì¥í•˜ì.
 			//if( pData->lv > g_item_log.GetSaveLv()  ) return 0;
 		}
 		return SaveItemLog( pData );
@@ -1072,7 +1072,7 @@ int RecvSaveItemLogByEvent( t_packet *p )
 
 void SendItemEventLog( ItemAttr *item, short int hero_cn, short int target, int event_type, int lv )
 {
-	if( !g_item_log.IsSave( item, event_type, lv ) ) return;		// ÀúÀå µî±ŞÀÌ ¾ÈµÇ¸é ¸®ÅÏÇÏÀÚ.. // 030506 YGI
+	if( !g_item_log.IsSave( item, event_type, lv ) ) return;		// ì €ì¥ ë“±ê¸‰ì´ ì•ˆë˜ë©´ ë¦¬í„´í•˜ì.. // 030506 YGI
 
 	CHARLIST *hero = CheckServerId( hero_cn );
 	if( !hero ) return;
@@ -1104,7 +1104,7 @@ void SendItemEventLog( ItemAttr *item, short int hero_cn, short int target, int 
 			}
 			else
 			{
-				memcpy( pData->name2, target_ch->Name, 20 );//020510 lsw //È¤½Ã ¸ğ¸¦ Garbage Value
+				memcpy( pData->name2, target_ch->Name, 20 );//020510 lsw //í˜¹ì‹œ ëª¨ë¥¼ Garbage Value
 			}
 		}
 		else
@@ -1155,24 +1155,24 @@ void SendItemEventLog( ItemAttr *item, short int hero_cn, short int target, int 
 			case SILT_DELETE_BY_RARE_ATTR	:
 				strcpy( pData->name2, _T("<_SERVER_>") );
 				break;
-			//<! BBD 040226	¿Á¼Ç °Å·¡½Ã ·Î±×¶ó´Â°É ¾Ë¼ö ÀÖµµ·Ï Ãß°¡
-			case SILT_REGISTER_AUCTION_ITEM		:	// ¿Á¼Ç µî·Ï½Ã
-			case SILT_CANCEL_AUCTION_SELL_ITEM	:	// µî·Ï Ãë¼Ò½Ã
-			case SILT_TAKE_AUCTION_RESULT_ITEM	:	// ±¸ÀÔÇÑ ¹°°Ç Ã£À»½Ã
+			//<! BBD 040226	ì˜¥ì…˜ ê±°ë˜ì‹œ ë¡œê·¸ë¼ëŠ”ê±¸ ì•Œìˆ˜ ìˆë„ë¡ ì¶”ê°€
+			case SILT_REGISTER_AUCTION_ITEM		:	// ì˜¥ì…˜ ë“±ë¡ì‹œ
+			case SILT_CANCEL_AUCTION_SELL_ITEM	:	// ë“±ë¡ ì·¨ì†Œì‹œ
+			case SILT_TAKE_AUCTION_RESULT_ITEM	:	// êµ¬ì…í•œ ë¬¼ê±´ ì°¾ì„ì‹œ
 				strcpy( pData->name2, _T("<_AUCTION_>") );
 				break;
-			//> BBD 040226	¿Á¼Ç °Å·¡½Ã ·Î±×¶ó´Â°É ¾Ë¼ö ÀÖµµ·Ï Ãß°¡
-			//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+			//> BBD 040226	ì˜¥ì…˜ ê±°ë˜ì‹œ ë¡œê·¸ë¼ëŠ”ê±¸ ì•Œìˆ˜ ìˆë„ë¡ ì¶”ê°€
+			//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 			case SILT_RECEIVE_ITEM_MALL	:
 				strcpy( pData->name2, _T("<_IM_RECEIVE_>") );
 				break;
-			case SILT_DELETE_ITEM_MALL	:	//¸¶ÀÏ¸®Áö¸ô ¾ÆÀÌÅÛ Á¦°Å.
+			case SILT_DELETE_ITEM_MALL	:	//ë§ˆì¼ë¦¬ì§€ëª° ì•„ì´í…œ ì œê±°.
 				strcpy( pData->name2, _T("<_IM_DELETE_>") );
 				break;
-			case SILT_DELETE_ITEM_MALL_DUPE	:	//º¹»çµÈ ¸¶ÀÏ¸®Áö¸ô ¾ÆÀÌÅÛ Á¦°Å.
+			case SILT_DELETE_ITEM_MALL_DUPE	:	//ë³µì‚¬ëœ ë§ˆì¼ë¦¬ì§€ëª° ì•„ì´í…œ ì œê±°.
 				strcpy( pData->name2, _T("<_IM_DELETE_DUPE_>") );
 				break;
-			//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+			//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 		}
 	}
 	SendDirectMap( &packet, GetManagementMapPort( MM_SAVE_LOG_FILE_MAP ) );
@@ -1183,7 +1183,7 @@ int GetServerSetNum()
 	return g_pServerTable->GetServerSetNum();
 }
 
-// GM ±â´É, ¸Ê °­Á¦ ÀÌµ¿
+// GM ê¸°ëŠ¥, ë§µ ê°•ì œ ì´ë™
 //acer7
 void RecvDirectMapMove( t_packet *p, short int cn )
 {
@@ -1197,11 +1197,11 @@ void RecvDirectMapMove( t_packet *p, short int cn )
 
 	if( name[0] )
 	{
-		int temp = ExistHe( name );		// cn °ªÀÌ ÀÖ´Ù¸é...
+		int temp = ExistHe( name );		// cn ê°’ì´ ìˆë‹¤ë©´...
 		if( temp == -1 ) 
 		{
-			SendPutMenuString( KM_FAIL, 181, cn );		// °°Àº ¸Ê¿¡ ¾ø´Â Ä³¸¯ÅÍ ÀÔ´Ï´Ù.
-			return;		// »ó´ëÆí ÀÌ¸§ÀÌ Àß ¸øµÆ´Ù.
+			SendPutMenuString( KM_FAIL, 181, cn );		// ê°™ì€ ë§µì— ì—†ëŠ” ìºë¦­í„° ì…ë‹ˆë‹¤.
+			return;		// ìƒëŒ€í¸ ì´ë¦„ì´ ì˜ ëª»ëë‹¤.
 		}
 		target_id = temp;
 	}
@@ -1231,7 +1231,7 @@ void RecvSearchChar( t_packet *p, short int cn )
 		QueuePacket( connections, cn, &packet, 1 );
 		return;
 	}
-	else		// ´Ù¸¥ ¸ÊÀ¸·Î ¿äÃ»ÇÑ´Ù.
+	else		// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ìš”ì²­í•œë‹¤.
 	{
 		packet.h.header.type = CMD_SEARCH_OTHER_CHAR_MAP;
 		packet.u.kein.char_info_map.port = GetOwnPort(); 
@@ -1355,7 +1355,7 @@ void SaveLogChange_Ladder(CHARLIST* pTarget, int old_ladder, int new_ladder, int
 	fclose( fp );
 }	//> CSD-040224
 
-/* 040720_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+/* 040720_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 void SaveLogChange_ObtainCombat(CHARLIST* pTarget, int nOld, int nNew)
 {	//< CSD-040224
 }	//> CSD-040224
@@ -1404,9 +1404,9 @@ void RecvScriptItem( t_packet *p, short int cn )
 		SendEventNpcScriptItem( pData->server_id, pData->npc_index, pEvent->m_nEventNpcItemBag, 
 			pEvent->m_lpszMessage, pEvent->m_nMessageSize );
 	}
-	else		// ¾ÆÀÌÅÛÀ» ¸¸µéÁö ¸»°í ½ÇÆĞÇÑ ÀÌ¾ß±â¸¦ µé·ÁÁÖÀÚ
+	else		// ì•„ì´í…œì„ ë§Œë“¤ì§€ ë§ê³  ì‹¤íŒ¨í•œ ì´ì•¼ê¸°ë¥¼ ë“¤ë ¤ì£¼ì
 	{
-		if( pEvent->m_lpszMessage2 && pEvent->m_nMessageSize2 )		// npcÀÇ ´ëÈ­¸¦ º¸³»ÁØ´Ù.
+		if( pEvent->m_lpszMessage2 && pEvent->m_nMessageSize2 )		// npcì˜ ëŒ€í™”ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 			SendDial( pData->server_id, pData->npc_index, pEvent->m_lpszMessage2, pEvent->m_nMessageSize2 );
 
 	}
@@ -1421,7 +1421,7 @@ void RecvEventMoveMap( t_packet *p, short int cn )
 	CEventMoveMap *pEvent = g_EventMgr.GetEventMoveMapPoint( event_no );
 	if( !pEvent ) return;
 
-	// ÀÌº¥Æ® Âü¿© Á¶°Ç È®ÀÎ --------------------
+	// ì´ë²¤íŠ¸ ì°¸ì—¬ ì¡°ê±´ í™•ì¸ --------------------
 	if( !pEvent->m_bAll )
 	{
 		static int sex2sex[] = { 2, 1 };
@@ -1456,17 +1456,17 @@ void RecvEventMoveMap( t_packet *p, short int cn )
 	SendPacket2Map( &packet, port );
 }
 
-void RecvEventMoveMapCheckMap( t_packet *p, short int cn )		// ´Ù¸¥ ¸Ê¿¡¼­ ¿Ã°æ¿ì
+void RecvEventMoveMapCheckMap( t_packet *p, short int cn )		// ë‹¤ë¥¸ ë§µì—ì„œ ì˜¬ê²½ìš°
 {
 	k_event_move_map_check_map *pData = (k_event_move_map_check_map *)p->u.data;
 	CEventMoveMap *pEvent = g_EventMgr.GetEventMoveMapPoint( pData->event_no );
 	if( !pEvent ) return;
-	if( _stricmp( pEvent->m_szMap, MapName ) != 0 ) return;		// ÀÌº¥Æ® ¹øÈ£°¡ ²¿¿´´Ù. 
+	if( _stricmp( pEvent->m_szMap, MapName ) != 0 ) return;		// ì´ë²¤íŠ¸ ë²ˆí˜¸ê°€ ê¼¬ì˜€ë‹¤. 
 
 	int user_count = g_pServerTable->GetNumOfUsers();
 	if( user_count >= pEvent->m_nMax )
 	{
-		// ´õÀÌ»ó Âü°¡ÇÒ ¼ö ¾ø´Ù.
+		// ë”ì´ìƒ ì°¸ê°€í•  ìˆ˜ ì—†ë‹¤.
 		k_put_menu_string msg;
 		msg.type = KM_FAIL;
 		msg.str_num = 212;
@@ -1486,7 +1486,7 @@ void RecvEventMoveMapCheckMap( t_packet *p, short int cn )		// ´Ù¸¥ ¸Ê¿¡¼­ ¿Ã°æ¿
 
 		SendPacket2Map( &packet, pData->server_port );
 
-		// ¼­¹ö¿¡ ÀúÀåÇÑ´Ù.
+		// ì„œë²„ì— ì €ì¥í•œë‹¤.
 		k_save_event_move_map save_data;
 		save_data.event_no = pData->event_no;
 		save_data.max = pEvent->m_nMax;	// 021128 YGI
@@ -1506,12 +1506,12 @@ void CheckDoubleName( CHARLIST *ch, short int cn )
 	char name[20]={0,};
 	::strcpy( name, ch->Name );
 	int target_id = ExistHe( ch->Name );
-	if( target_id > 0 )		// ´©±º°¡ °°Àº ÀÌ¸§À» °¡Áö°í ÀÖ´Ù.
+	if( target_id > 0 )		// ëˆ„êµ°ê°€ ê°™ì€ ì´ë¦„ì„ ê°€ì§€ê³  ìˆë‹¤.
 	{
 		MyLog(1,"CheckDoubleName() name = %s", ch->Name );
-		closeconnection( connections, target_id, -101 );		// ÀÏ´Ü ´Ù¸¥ ³ğÀ» ²÷°í --> ÀúÀå
+		closeconnection( connections, target_id, -101 );		// ì¼ë‹¨ ë‹¤ë¥¸ ë†ˆì„ ëŠê³  --> ì €ì¥
 		ch->updatable = 0; // CSD-TW-030620
-		closeconnection( connections, cn, -102 );				// µ¿½Ã Á¢¼Ó ÇÑ ³ğÀº ÀúÀåÇÏÁö ¸»¸é¼­ ²÷ÀÚ...
+		closeconnection( connections, cn, -102 );				// ë™ì‹œ ì ‘ì† í•œ ë†ˆì€ ì €ì¥í•˜ì§€ ë§ë©´ì„œ ëŠì...
 	}
 	else
 	{
@@ -1519,13 +1519,13 @@ void CheckDoubleName( CHARLIST *ch, short int cn )
 		if( target_id > 0 )
 		{
 			connections[target_id].chrlst.updatable = 1; // CSD-TW-030620
-			closeconnection( connections, target_id, -103 );		// ÀÏ´Ü ´Ù¸¥ ³ğÀ» ²÷°í --> ÀúÀå
+			closeconnection( connections, target_id, -103 );		// ì¼ë‹¨ ë‹¤ë¥¸ ë†ˆì„ ëŠê³  --> ì €ì¥
 			ch->updatable = 0; // CSD-TW-030620
-			closeconnection( connections, cn, -104 );				// µ¿½Ã Á¢¼Ó ÇÑ ³ğÀº ÀúÀåÇÏÁö ¸»¸é¼­ ²÷ÀÚ...
+			closeconnection( connections, cn, -104 );				// ë™ì‹œ ì ‘ì† í•œ ë†ˆì€ ì €ì¥í•˜ì§€ ë§ë©´ì„œ ëŠì...
 		}
 	}
 
-	// ´Ù¸¥ °÷¿¡ ÀÖ´Â ³ğµµ ²÷ÀÚ..
+	// ë‹¤ë¥¸ ê³³ì— ìˆëŠ” ë†ˆë„ ëŠì..
 	t_packet packet;
 	packet.h.header.type = CMD_CHECK_DOUBLE_NAME;
 		strcpy( packet.u.kein.invite_colossus_map.name, name );
@@ -1534,7 +1534,7 @@ void CheckDoubleName( CHARLIST *ch, short int cn )
 	SendPacket2Map( &packet, ST_SEND_MAP_ALL );
 }
 
-// ÇØ´ç ÀÌ¸§ÀÌ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+// í•´ë‹¹ ì´ë¦„ì´ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 void RecvCheckDoubleName( t_packet *p, short int cn )
 {
 	char *name = p->u.kein.invite_colossus_map.name;
@@ -1543,8 +1543,8 @@ void RecvCheckDoubleName( t_packet *p, short int cn )
 	int target_id = ExistHe( name );
 	if( target_id > 0 )
 	{
-		closeconnection( connections, target_id, -105 );		// ÀÏ´Ü ´Ù¸¥ ³ğÀ» ²÷°í --> ÀúÀå
-		// ±× »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+		closeconnection( connections, target_id, -105 );		// ì¼ë‹¨ ë‹¤ë¥¸ ë†ˆì„ ëŠê³  --> ì €ì¥
+		// ê·¸ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
 		t_packet packet;
 		packet.h.header.type = CMD_CHECK_DOUBLE_NAME_OK;
 			strcpy( packet.u.kein.default_name, name );
@@ -1557,9 +1557,9 @@ void RecvCheckDoubleName( t_packet *p, short int cn )
 		if( target_id > 0 )
 		{
 			connections[target_id].chrlst.updatable = 1; // CSD-TW-030620
-			closeconnection( connections, target_id, -106 );		// ÀÏ´Ü ´Ù¸¥ ³ğÀ» ²÷°í --> ÀúÀå
+			closeconnection( connections, target_id, -106 );		// ì¼ë‹¨ ë‹¤ë¥¸ ë†ˆì„ ëŠê³  --> ì €ì¥
 
-			// ±× »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+			// ê·¸ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
 			t_packet packet;
 			packet.h.header.type = CMD_CHECK_DOUBLE_NAME_OK;
 				strcpy( packet.u.kein.default_name, name );
@@ -1574,7 +1574,7 @@ void RecvCheckDoubleNameOk( t_packet *p, short int cn )
 	char *name = p->u.kein.default_name;
 	int target_id = ExistHe(name );
 	if( target_id > 0 )
-	{	// ´Ù¸¥ ¸Ê¿¡ °°Àº ³ğÀÌ ÀÖ´Ù´Â ¼Ò½ÄÀÌ ¿Ô±â ¶§¹®¿¡ ÀúÀåÇÏÁö ¸»°í »èÁ¦ÇÏÀÚ
+	{	// ë‹¤ë¥¸ ë§µì— ê°™ì€ ë†ˆì´ ìˆë‹¤ëŠ” ì†Œì‹ì´ ì™”ê¸° ë•Œë¬¸ì— ì €ì¥í•˜ì§€ ë§ê³  ì‚­ì œí•˜ì
 		connections[target_id].chrlst.updatable = 0; // CSD-TW-030620
 		closeconnection( connections, target_id, -102 );
 	}
@@ -1585,7 +1585,7 @@ void RecvCheckDoubleNameOk( t_packet *p, short int cn )
 		if( target_id > 0 )
 		{
 			connections[target_id].chrlst.updatable = 0; // CSD-TW-030620
-			closeconnection( connections, target_id, -102 );		// ÀÏ´Ü ´Ù¸¥ ³ğÀ» ²÷°í --> ÀúÀå
+			closeconnection( connections, target_id, -102 );		// ì¼ë‹¨ ë‹¤ë¥¸ ë†ˆì„ ëŠê³  --> ì €ì¥
 		}
 	}
 }
@@ -1704,7 +1704,7 @@ void CheckDoubleNameWhenFirst( char *pName, short int server_id )
 	SendPacket2Map( &packet, ST_SEND_MAP_ALL );
 }
 
-//040720_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+//040720_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 // 030923 HK YGI
 void SaveLogChange_LoginLogoutByKein(CHARLIST* pTarget, int type, int call_function_id )
 {
@@ -1751,7 +1751,7 @@ int InitItemLimitCountFromDB( )
 	ItemMgr.SetLimitCount( limit_number );
 
 	ret = ItemMgr.LoadHaveLimitItem();
-	if( !ret )		// ½ÇÆĞ
+	if( !ret )		// ì‹¤íŒ¨
 	{
 		JustMsg( "Error!!! check please ItemList_HaveLimit table" );
 		return 0;
@@ -1759,7 +1759,7 @@ int InitItemLimitCountFromDB( )
 	return 1;
 }
 
-// 040105 YGI º¸¹° ----------------
+// 040105 YGI ë³´ë¬¼ ----------------
 int GetTreasureMining( int lv )
 {
 	switch( lv )
@@ -1781,7 +1781,7 @@ void RecvCheckTreasureXY( t_packet *p, short int cn )
 	int tile_x = pData->x/TILE_SIZE;
 	int tile_y = pData->y/TILE_SIZE;
 	int lv = 0;
-	bool mining = false;		// ±â¼úÀÌ ºÎÁ·ÇÏ´Ù
+	bool mining = false;		// ê¸°ìˆ ì´ ë¶€ì¡±í•˜ë‹¤
 
 	for( int a=0; a<3; a++ )
 	{
@@ -1791,7 +1791,7 @@ void RecvCheckTreasureXY( t_packet *p, short int cn )
 			{
 				ItemAttr *pItem = &ch->inv[a][b][c];
 				lv = IsTreasureMapItem( pItem->item_no );
-				if( !lv ) continue;		// º¸¹° Áöµµ°¡ ¾Æ´Ï´Ù.
+				if( !lv ) continue;		// ë³´ë¬¼ ì§€ë„ê°€ ì•„ë‹ˆë‹¤.
 				CTreasureMapItem *pAttr = (CTreasureMapItem *)&pItem->attr[IATTR_TREASURE_MAP];
 				if( !pAttr->isChecked || pAttr->mapnumber != MapNumber ) continue;
 				if( ch->skillexp[MINING].skillexp/10000 < GetTreasureMining( lv ) )
@@ -1802,10 +1802,10 @@ void RecvCheckTreasureXY( t_packet *p, short int cn )
 				if( pAttr->x != tile_x || pAttr->y != tile_y ) continue;
 				event_index = g_EventFindTreasure.CheckXY( tile_x, tile_y );
 				if( event_index == -1 ) continue;
-				// ¸¶ÀÌ³Ê ·¹º§
+				// ë§ˆì´ë„ˆ ë ˆë²¨
 				mining = true;
 				
-				// »ç¿ëÇÑ°ÍÀº ´Ù½Ã »ç¿ëÇÏÁö ¸øÇÏ°Ô »èÁ¦ ÇÑ´Ù.
+				// ì‚¬ìš©í•œê²ƒì€ ë‹¤ì‹œ ì‚¬ìš©í•˜ì§€ ëª»í•˜ê²Œ ì‚­ì œ í•œë‹¤.
 				//pAttr->use = 1;
 				POS pos;
 				SetItemPos( INV, a, b, c, &pos );
@@ -1825,8 +1825,8 @@ find_stop :
 		return;
 	}
 
-	if( g_TreasureGuardMgr.IsEvent( event_index ) ) return;	// ÀÌ¹Ì µîÀåÇß¾ú´ÂÁö È®ÀÎ
-	int treasure_class = lv-1;		// Æ¢¾î ³ª¿Í¾ß ÇÒ ¸÷°ú ³ªÁß¿¡ º¸¹° »óÀÚÀÇ µî±Ş
+	if( g_TreasureGuardMgr.IsEvent( event_index ) ) return;	// ì´ë¯¸ ë“±ì¥í–ˆì—ˆëŠ”ì§€ í™•ì¸
+	int treasure_class = lv-1;		// íŠ€ì–´ ë‚˜ì™€ì•¼ í•  ëª¹ê³¼ ë‚˜ì¤‘ì— ë³´ë¬¼ ìƒìì˜ ë“±ê¸‰
 	int ret = g_TreasureGuardMgr.CreateGuard( event_index, treasure_class, tile_x, tile_y, cn );
 	if( ret )
 	{
@@ -1845,7 +1845,7 @@ void RecvGetTreasureMapDetail( t_packet *p, short int cn )
 	if( !item ) return;
 
 	int lv = IsTreasureMapItem( item->item_no );
-	if( !lv ) return;		// º¸¹° Áöµµ°¡ ¾Æ´Ï´Ù.
+	if( !lv ) return;		// ë³´ë¬¼ ì§€ë„ê°€ ì•„ë‹ˆë‹¤.
 
 	CTreasureMapItem *pAttr = (CTreasureMapItem *)&item->attr[IATTR_TREASURE_MAP];
 	if( pAttr->isChecked) return;
@@ -1867,14 +1867,14 @@ void RecvGetTreasureMapDetailDB( t_packet *p, short int cn )
 	ItemAttr *item = GetItemByPOS( ch, pData->pos );
 	if( !item ) return;
 	int lv = IsTreasureMapItem( item->item_no );
-	if( !lv ) return;		// º¸¹° Áöµµ°¡ ¾Æ´Ï´Ù.
+	if( !lv ) return;		// ë³´ë¬¼ ì§€ë„ê°€ ì•„ë‹ˆë‹¤.
 	CTreasureMapItem *pAttr = (CTreasureMapItem *)&item->attr[IATTR_TREASURE_MAP];
 	if( pAttr->isChecked ) return;
 
 	pAttr->isChecked = 1;
 	pAttr->mapnumber = pData->map_number;
 	//pAttr->use = 0;
-	// lv¿¡ µû¶ó ·£´ıÇÏ°Ô...
+	// lvì— ë”°ë¼ ëœë¤í•˜ê²Œ...
 	pAttr->x = pData->x;
 	pAttr->y = pData->y;
 	switch( lv )
@@ -1889,10 +1889,10 @@ void RecvGetTreasureMapDetailDB( t_packet *p, short int cn )
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛ ¸ô °ü·Ã ÇÔ¼öµé // 040601 YGI
+// ì•„ì´í…œ ëª° ê´€ë ¨ í•¨ìˆ˜ë“¤ // 040601 YGI
 
 //<050408_KCH
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷	//ÇØ´ç°èÁ¤ÀÇ ¹Ş¾Æ¾ßÇÏ´Â ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀÇ ¸ñ·Ï
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…	//í•´ë‹¹ê³„ì •ì˜ ë°›ì•„ì•¼í•˜ëŠ” ì•„ì´í…œëª° ì•„ì´í…œì˜ ëª©ë¡
 int GetItemMallItemIndexAndCount( const char* pLogin_Id, int &max, DWORD *index )
 {
 	char		szQuerry[1024];
@@ -1907,12 +1907,12 @@ int GetItemMallItemIndexAndCount( const char* pLogin_Id, int &max, DWORD *index 
 	GetRowLineOfSQL(TOTAL_DB, "Item_to_Game", "*", &max, condition);
 	if( max <= 0 )
 	{
-//		SendPutMenuString( cn, KM_FAIL, 218, pLogin_Id );	//Áö±Ş ¹ŞÀ» ¾ÆÀÌÅÛÀÌ ¾ø½À´Ï´Ù.
-		return -1;		// ¾ÆÀÌÅÛ ¸ô¿¡¼­ ±¸ÀÔÇÑ ¾ÆÀÌÅÛÀÌ ¾ø´Ù.
+//		SendPutMenuString( cn, KM_FAIL, 218, pLogin_Id );	//ì§€ê¸‰ ë°›ì„ ì•„ì´í…œì´ ì—†ìŠµë‹ˆë‹¤.
+		return -1;		// ì•„ì´í…œ ëª°ì—ì„œ êµ¬ì…í•œ ì•„ì´í…œì´ ì—†ë‹¤.
 	}
 
 	const int MAX_TOP_GET_ITEM_MALL = 30;
-	if( max > MAX_TOP_GET_ITEM_MALL ) max = MAX_TOP_GET_ITEM_MALL; //ÃÖ´ë 30°³±îÁö °¡Áú¼ö ÀÖ´Ù.
+	if( max > MAX_TOP_GET_ITEM_MALL ) max = MAX_TOP_GET_ITEM_MALL; //ìµœëŒ€ 30ê°œê¹Œì§€ ê°€ì§ˆìˆ˜ ìˆë‹¤.
 	
 	sprintf( szQuerry, "SELECT top %d idx FROM Item_to_Game WHERE recv_loginid = '%s' AND recv_type = '%d' ORDER BY idx", MAX_TOP_GET_ITEM_MALL,pLogin_Id,Wait_ItemMallItem );
 	SQLAllocStmt(g_hDBC_TotalDB, &hStmt);
@@ -1966,10 +1966,10 @@ int GetItemMallItem_AB( k_ItemMall *pItemList, const char *pLogin_Id, int nIdx)
 	return cItemCount;
 }
 
-//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ ÃÊ±â ÇØ´ç ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀÇ ÀÎµ¦°ª¸¸ º¸³»ÁØ´Ù.
+//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… ì´ˆê¸° í•´ë‹¹ ì•„ì´í…œëª° ì•„ì´í…œì˜ ì¸ë±ê°’ë§Œ ë³´ë‚´ì¤€ë‹¤.
 void RecvGetItemMallItem_ABFirst( t_packet *p, short int cn )
 {
-	//±æµå ¾ÆÀÌÅÛÀ» Âü°í·Î ÇßÀ½.(ÇÏÁö¸¸, DBDemon°ú ClientÀÇ Á÷Á¢¿¬°áÀº ½Å·ÚÇÒ¼ö¾ø´Â ÆĞÅ¶ÀÌ¹Ç·Î, Map¿¡¼­ ´ã´ç½ÃÅ´)
+	//ê¸¸ë“œ ì•„ì´í…œì„ ì°¸ê³ ë¡œ í–ˆìŒ.(í•˜ì§€ë§Œ, DBDemonê³¼ Clientì˜ ì§ì ‘ì—°ê²°ì€ ì‹ ë¢°í• ìˆ˜ì—†ëŠ” íŒ¨í‚·ì´ë¯€ë¡œ, Mapì—ì„œ ë‹´ë‹¹ì‹œí‚´)
 	t_packet packet;
 	ZeroMemory(&packet.u.kein.get_item_mall_first,sizeof(k_get_item_mall_first));
 	k_get_item_mall_first* pData = &packet.u.kein.get_item_mall_first;
@@ -1983,7 +1983,7 @@ void RecvGetItemMallItem_ABFirst( t_packet *p, short int cn )
 	}
 }
 
-// Æ¯Á¤ ÀÎÅØ½º °ª¿¡¼­ ÇØ´ç ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀÇ ´ÙÀ½ 15°³ÀÇ ¾ÆÀÌÅÛÀ» º¸³»ÁØ´Ù.
+// íŠ¹ì • ì¸í…ìŠ¤ ê°’ì—ì„œ í•´ë‹¹ ì•„ì´í…œëª° ì•„ì´í…œì˜ ë‹¤ìŒ 15ê°œì˜ ì•„ì´í…œì„ ë³´ë‚´ì¤€ë‹¤.
 void RecvGetItemMallItem_AB( t_packet *p, short int cn )
 {
 	const k_req_guild_item *pItemMallItem_AB = &p->u.kein.req_item_mall_item;
@@ -1994,7 +1994,7 @@ void RecvGetItemMallItem_AB( t_packet *p, short int cn )
 	k_get_item_mall_item* pData = &packet.u.kein.get_item_mall_item;
 
 	vector<k_ItemMall> vtItemMall;
-	vtItemMall.reserve(15);			//ItemMall AccountBox¿¡ ÇÑÆäÀÌÁö¿£ 15°³ÀÇ ¾ÆÀÌÅÛ¸¸ º¸¿©ÁÙ¼ö ÀÖÀ½.
+	vtItemMall.reserve(15);			//ItemMall AccountBoxì— í•œí˜ì´ì§€ì—” 15ê°œì˜ ì•„ì´í…œë§Œ ë³´ì—¬ì¤„ìˆ˜ ìˆìŒ.
 	//pData->count = GetItemMallItem_AB(vtItemMall.begin(), connections[cn].id, pItemMallItem_AB->index);
 	pData->count = GetItemMallItem_AB(vtItemMall.data(), connections[cn].id, pItemMallItem_AB->index);
 	_ASSERT(15 >= pData->count);
@@ -2004,40 +2004,40 @@ void RecvGetItemMallItem_AB( t_packet *p, short int cn )
 		for( int i=0; i<pData->count; ++i )
 		{
 			int nIM_IK_Idx = vtItemMall[i].itemMallItemKind_index;
-			if(!nIM_IK_Idx)	{ continue; }	// ÀÎµ¦½º°¡ 0ÀÌ¸é ³»¿ë¾ø´Â ¾ÆÀÌÅÛÀÌ ¸®ÅÏ
+			if(!nIM_IK_Idx)	{ continue; }	// ì¸ë±ìŠ¤ê°€ 0ì´ë©´ ë‚´ìš©ì—†ëŠ” ì•„ì´í…œì´ ë¦¬í„´
 
-			if(nIM_IK_Idx != g_ItemMallItem[nIM_IK_Idx-1].iIndex)	// EventRareItem Å×ÀÌºíÀÇ ÀÎµ¦½º°¡ Àß¸ø Á¤·ÄµÇ¾îÀÖ´Ù
+			if(nIM_IK_Idx != g_ItemMallItem[nIM_IK_Idx-1].iIndex)	// EventRareItem í…Œì´ë¸”ì˜ ì¸ë±ìŠ¤ê°€ ì˜ëª» ì •ë ¬ë˜ì–´ìˆë‹¤
 			{
-				// ¿©±â¼­ Å×ÀÌºíÀÌ Àß¸øµÇ¾ú´Ù´Â ·Î±×¸¦ ³²°ÜÁÖÀÚ
+				// ì—¬ê¸°ì„œ í…Œì´ë¸”ì´ ì˜ëª»ë˜ì—ˆë‹¤ëŠ” ë¡œê·¸ë¥¼ ë‚¨ê²¨ì£¼ì
 				MyLog(0,"ItemMall: ItemMallItemKind Table is ERROR!!! Check plz [MakeItemMallItem]");
-				continue;		// ¿ª½Ã ºó ¾ÆÀÌÅÛ ¸®ÅÏ
+				continue;		// ì—­ì‹œ ë¹ˆ ì•„ì´í…œ ë¦¬í„´
 			}
 
 			LPItemMallItem pEI = &g_ItemMallItem[nIM_IK_Idx-1];
-			if( !pEI->iItemNo) 	{ continue; }	//Å×ÀÌºí ÀÚÃ¼¿¡ °ªÀÌ ¾ø³×..
+			if( !pEI->iItemNo) 	{ continue; }	//í…Œì´ë¸” ìì²´ì— ê°’ì´ ì—†ë„¤..
 
-			ItemAttr item = GenerateItem( pEI->iItemNo );//¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁÖ°í
-			if( !item.item_no) { continue; }	//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ¾ø³×? ¤Ñ¤Ñ;;
+			ItemAttr item = GenerateItem( pEI->iItemNo );//ì•„ì´í…œì„ ë§Œë“¤ì–´ ì£¼ê³ 
+			if( !item.item_no) { continue; }	//ì•„ì´í…œ ë„˜ë²„ê°€ ì—†ë„¤? ã…¡ã…¡;;
 
 
-			// ¾ÆÀÌÅÛ ¸ô¿¡¼­ ¹Ş¾Æ¿Â ¼Ó¼ºÀ» ³Ö¾î ÁØ´Ù.
+			// ì•„ì´í…œ ëª°ì—ì„œ ë°›ì•„ì˜¨ ì†ì„±ì„ ë„£ì–´ ì¤€ë‹¤.
 			SetAttr2( item.attr[IATTR_ATTR], IA2_ITEMMALL_ITEM);
 
-			// ¾ÆÀÌÅÛ ¸ô Æ¯À¯ÀÇ ¼Ó¼º ³Ö¾î ÁÖ±â
-			if(pEI->iRareKind1)//1¹øÂ° ¼Ó¼ºÀÌ ÀÖ´Â °ÍÀÌ¶ó¸é////·¹¾î¶ó¸é ·¹¾î¸¦ ÁÖ°í
-			{//·¹¾î¸¦ »ı¼ºÇØ º»´Ù
-				//040909_KCH C4800 Warning Á¦°Å 
+			// ì•„ì´í…œ ëª° íŠ¹ìœ ì˜ ì†ì„± ë„£ì–´ ì£¼ê¸°
+			if(pEI->iRareKind1)//1ë²ˆì§¸ ì†ì„±ì´ ìˆëŠ” ê²ƒì´ë¼ë©´////ë ˆì–´ë¼ë©´ ë ˆì–´ë¥¼ ì£¼ê³ 
+			{//ë ˆì–´ë¥¼ ìƒì„±í•´ ë³¸ë‹¤
+				//040909_KCH C4800 Warning ì œê±° 
 				ItemMgr.MakeRareAttr(item.attr[IATTR_RARE_MAIN],pEI->iGrade,pEI->iRareKind1,pEI->iRareKind2,pEI->iRareKind3,
 					pEI->iHighRare,( (pEI->isDynamic) !=0));
 			}
 
-			//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ DBÀÇ ÀÎµ¦½º°ªÀ» ³Ö¾îÁØ´Ù.(³ªÁß¿¡ Limit°ª°ú °°ÀÌ º¹ÅÛ±¸º°¿ë.)
+			//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… DBì˜ ì¸ë±ìŠ¤ê°’ì„ ë„£ì–´ì¤€ë‹¤.(ë‚˜ì¤‘ì— Limitê°’ê³¼ ê°™ì´ ë³µí…œêµ¬ë³„ìš©.)
 			item.attr[IATTR_ITEM_MALL_IDX] = vtItemMall[i].itemmall_index;
 			pData->index[i] = vtItemMall[i].itemmall_index;
 
 			char szQuerry[2048] = {0,};
 
-			//¸¸¾à ItemMallItemKind¿¡ ½Ã°£ÀÌ ¼¼ÆÃµÇ¾î ÀÖ´Ù¸é, Item_to_Game Å×ÀÌºí¿¡ ¼¼ÆÃÇÒ¶§, »ç¿ë½ÃÀÛ,»ç¿ëÁ¾·á ½Ã°£À» ¼¼ÆÃÇØÁÖ¾î¾ßÇÑ´Ù.
+			//ë§Œì•½ ItemMallItemKindì— ì‹œê°„ì´ ì„¸íŒ…ë˜ì–´ ìˆë‹¤ë©´, Item_to_Game í…Œì´ë¸”ì— ì„¸íŒ…í• ë•Œ, ì‚¬ìš©ì‹œì‘,ì‚¬ìš©ì¢…ë£Œ ì‹œê°„ì„ ì„¸íŒ…í•´ì£¼ì–´ì•¼í•œë‹¤.
 			sprintf( szQuerry, "UPDATE Item_to_Game SET item_limit = '%d' WHERE [idx] = '%d'",
 				item.attr[IATTR_LIMIT], 
 				item.attr[IATTR_ITEM_MALL_IDX]  );
@@ -2045,7 +2045,7 @@ void RecvGetItemMallItem_AB( t_packet *p, short int cn )
 			if (-1 == Querry_SQL(szQuerry, g_hDBC_TotalDB ))
 				MyLog(0,"ItemMall: UPDATE Item_to_Game's [Query] ERROR!!! Check plz (RecvGetItemMallItem_AB)");
 
-			// ¾ÆÀÌÅÛÀÌ ¿Ï¼ºµÇ¾ú´Ù
+			// ì•„ì´í…œì´ ì™„ì„±ë˜ì—ˆë‹¤
 			memcpy(&pData->item[i],&item,sizeof(ItemAttr));
 			
 		}
@@ -2077,9 +2077,9 @@ void RecvGetItemMalltoDB( t_packet *p, short int cn )
 // 040602 YGI
 void SendReturnResultForItemMall( k_send_item_mall_item_kind *pData, const char success_type )
 {
-	// DB TBL¿¡ °á°ú¸¦ ÀúÀåÇÑ´Ù.
+	// DB TBLì— ê²°ê³¼ë¥¼ ì €ì¥í•œë‹¤.
 
-	// DB·Î º¸³½´Ù.
+	// DBë¡œ ë³´ë‚¸ë‹¤.
 	t_packet packet;
 	packet.h.header.type = CMD_ITEM_MALL_RESULT;
 		packet.u.kein.item_mall_result_to_db.itemmall_index			= pData->itemmall_index;
@@ -2090,10 +2090,10 @@ void SendReturnResultForItemMall( k_send_item_mall_item_kind *pData, const char 
 
 	QueuePacket( connections, DB_DEMON, &packet, 1 );
 
-	// Å¬¶óÀÌ¾ğÆ®·Î º¸³½´Ù.
+	// í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¸ë‹¤.
 }
 
-//050408_KCH Äõ¸® ¿¡·¯½Ã º¸¿©ÁØ´Ù.
+//050408_KCH ì¿¼ë¦¬ ì—ëŸ¬ì‹œ ë³´ì—¬ì¤€ë‹¤.
 void displaySQLError(SQLHSTMT hStmt, char *szQuery = NULL)
 {
 	SQLCHAR err[80] = {0, } ;
@@ -2124,33 +2124,33 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 	
 	if (NULL == pData->name) 
 	{
-		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		// ½ÇÆĞ
+		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		// ì‹¤íŒ¨
 		return ;
-	}	//Á¢¼ÓÁßÀÎ ¸Ê¿¡ ÇØ´çÀ¯Àú°¡ ¾ø´Ù¸é.. Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+	}	//ì ‘ì†ì¤‘ì¸ ë§µì— í•´ë‹¹ìœ ì €ê°€ ì—†ë‹¤ë©´.. ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 	CHARLIST *pCh = CheckServerName(pData->name);
 	if( !pCh || strcmp( pData->name, pCh->Name ) != 0 )
 	{
-		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		// ½ÇÆĞ
+		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		// ì‹¤íŒ¨
 		return;
 	}
 
-	// ¾ÆÀÌÅÛ ¸ô¿¡¼­ ¹Ş¾Æ¿Â ¼Ó¼ºÀ» ³Ö¾î ÁØ´Ù.
+	// ì•„ì´í…œ ëª°ì—ì„œ ë°›ì•„ì˜¨ ì†ì„±ì„ ë„£ì–´ ì¤€ë‹¤.
 	SetAttr2( pData->item.attr[IATTR_ATTR], IA2_ITEMMALL_ITEM);
 
 	int a, b, c;
 	a=b=c=0;
 	CItem *pItemCls = ::ItemUnit( pData->item.item_no);
-	//ÀÎº¥Åä¸®¿¡ Limit¹øÈ£¿Í, ItemMall_Idx¿Í ¶È°°Àº ³à¼®ÀÌ ÀÖ´ÂÁö Ã¼Å©ÇÏÀÚ.(º¹ÅÛ»èÁ¦)
-	//ºó ÀÎº¥Åä¸®¸¦ Ã£¾Æ¼­ ¹İÈ¯ ÇÑ´Ù.
+	//ì¸ë²¤í† ë¦¬ì— Limitë²ˆí˜¸ì™€, ItemMall_Idxì™€ ë˜‘ê°™ì€ ë…€ì„ì´ ìˆëŠ”ì§€ ì²´í¬í•˜ì.(ë³µí…œì‚­ì œ)
+	//ë¹ˆ ì¸ë²¤í† ë¦¬ë¥¼ ì°¾ì•„ì„œ ë°˜í™˜ í•œë‹¤.
 	_eRT_INV_ITEMMALL ret = SearchInvForItemMall( pCh, a, b, c, pData->item );
 	if( FULL_INV == ret ) 
 	{
-		SendReturnResultForItemMall( pData, Wait_ItemMallItem );	// ½ÇÆĞ
-		SendPutMenuString( KM_FAIL, 216, pCh->GetServerID());		//216	ÀÎº¥Åä¸®¿¡ ºó ÀÚ¸®°¡ ¾ø½À´Ï´Ù.
+		SendReturnResultForItemMall( pData, Wait_ItemMallItem );	// ì‹¤íŒ¨
+		SendPutMenuString( KM_FAIL, 216, pCh->GetServerID());		//216	ì¸ë²¤í† ë¦¬ì— ë¹ˆ ìë¦¬ê°€ ì—†ìŠµë‹ˆë‹¤.
 		return;
 	}
-	else if (DUPE_ITEM_INV == ret)	//¾ÆÀÌÅÛ¸ô º¹ÅÛÀÌ ÀÎº¥¿¡ Á¸ÀçÇÑ´Ù¸é..
+	else if (DUPE_ITEM_INV == ret)	//ì•„ì´í…œëª° ë³µí…œì´ ì¸ë²¤ì— ì¡´ì¬í•œë‹¤ë©´..
 	{
 		POS pos;
 		SetItemPos( INV, a, b, c, &pos );
@@ -2158,11 +2158,11 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		SendItemEventLog( &pCh->inv[a][b][c], cn, SN_NOT_USER, SILT_DELETE_ITEM_MALL_DUPE, 100 );
 		SendDeleteItem( &pCh->inv[a][b][c], &pos, pCh, 0 );
 
-		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		//¾ÆÀÌÅÛ Áö±Ş ½ÇÆĞ(Ã³À½ºÎÅÍ)
+		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		//ì•„ì´í…œ ì§€ê¸‰ ì‹¤íŒ¨(ì²˜ìŒë¶€í„°)
 		
 		char szLog[256] = {0.};
 		sprintf(szLog ,
-			"[%d]DupeItem Delete [%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
+			"[%d]DupeItem Delete [%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
 %s[%d](itemmall_index:%d) Is Delete",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
@@ -2173,15 +2173,15 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		return;
 	}
 
-	//¾û¶×ÇÑ °á°ú°ªÀÌ µé¾î¿À¸é Ã³¸®ÇÏÁö ¾Ê´Â´Ù.
+	//ì—‰ëš±í•œ ê²°ê³¼ê°’ì´ ë“¤ì–´ì˜¤ë©´ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	if (HOLD_ON_SUPPLY_INV_ItemMallItem != pData->result_type && HOLD_ON_Progressive_ItemMallItem != pData->result_type)
 	{
-		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		// ½ÇÆĞ
+		SendReturnResultForItemMall( pData, Wait_ItemMallItem );		// ì‹¤íŒ¨
 
 		char szLog[256] = {0.};
 		sprintf(szLog ,
-			"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-%s[%d](itemmall_index:%d)À» [%s] type Is Wrong",
+			"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+%s[%d](itemmall_index:%d)ì„ [%s] type Is Wrong",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pItemCls->GetHanName(),
 			pData->name,
@@ -2193,7 +2193,7 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		return;
 	}
 
-	//ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» ³Ö¾îÁÖÀÚ.
+	//ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì„ ë„£ì–´ì£¼ì.
 	POS pos;
 	SetItemPos( INV, a, b, c, &pos );
 	pCh->inv[a][b][c] = pData->item;
@@ -2201,15 +2201,15 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 
 	SendItemEventLog( &pData->item, pCh->GetServerID(), SN_NOT_USER , SILT_RECEIVE_ITEM_MALL, 100 ); //YGI acer
 
-	//ÀÌ µÎ°¡Áö Å¸ÀÔÀÌ µé¾î¿À°Ô µÈ´Ù. HOLD_ON_SUPPLY_INV_ItemMallItem,HOLD_ON_Progressive_ItemMallItem
-	SendReturnResultForItemMall( pData, pData->result_type);		// ¼º°ø
+	//ì´ ë‘ê°€ì§€ íƒ€ì…ì´ ë“¤ì–´ì˜¤ê²Œ ëœë‹¤. HOLD_ON_SUPPLY_INV_ItemMallItem,HOLD_ON_Progressive_ItemMallItem
+	SendReturnResultForItemMall( pData, pData->result_type);		// ì„±ê³µ
 	
-	SendPutMenuString( KM_OK, 217, pCh->GetServerID(),pItemCls->GetHanName() );	//¾ÆÀÌÅÛ ¸ô¿¡¼­ ±¸ÀÔÇÑ ¾ÆÀÌÅÛÀ» ¹Ş¾Ò½À´Ï´Ù.
+	SendPutMenuString( KM_OK, 217, pCh->GetServerID(),pItemCls->GetHanName() );	//ì•„ì´í…œ ëª°ì—ì„œ êµ¬ì…í•œ ì•„ì´í…œì„ ë°›ì•˜ìŠµë‹ˆë‹¤.
 
 	char szLog[256] = {0.};
 	sprintf(szLog ,
-		"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-%s[%d](itemmall_index:%d)À» ¼º°øÀûÀ¸·Î ¹Ş¾Ò½À´Ï´Ù.",
+		"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+%s[%d](itemmall_index:%d)ì„ ì„±ê³µì ìœ¼ë¡œ ë°›ì•˜ìŠµë‹ˆë‹¤.",
 		g_pServerTable->GetOwnServerData()->wPort,
 		pData->name,
 		pItemCls->GetHanName(),
@@ -2217,13 +2217,13 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		pData->itemmall_index);
 	g_pLogManager->ItemMallLog(szLog);
 	
-	//050408_KCH ¸¸¾à Áö±ŞÈÄ, ¸ÊÀÌ ´Ù¿îµÇ¾î¼­ Á¤º¸¸¦ ÀúÀå¸øÇÑ´Ù¸é, ¾ÆÀÌÅÛÀÌ ³¯¾Æ°¡¹ö¸²,±×·¡¼­ ¾ÆÀÌÅÛ Áö±Ş ¹Ş´Â ½ÃÁ¡¿¡ Á¤º¸¸¦ DB¿¡ ÀúÀåÇÏÀÚ.
+	//050408_KCH ë§Œì•½ ì§€ê¸‰í›„, ë§µì´ ë‹¤ìš´ë˜ì–´ì„œ ì •ë³´ë¥¼ ì €ì¥ëª»í•œë‹¤ë©´, ì•„ì´í…œì´ ë‚ ì•„ê°€ë²„ë¦¼,ê·¸ë˜ì„œ ì•„ì´í…œ ì§€ê¸‰ ë°›ëŠ” ì‹œì ì— ì •ë³´ë¥¼ DBì— ì €ì¥í•˜ì.
 	if(!::CanSaveUserData(pCh,1))
 	{
 		char szLog[256] = {0.};
 		sprintf(szLog ,
-			"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-	%s[%d](itemmall_index:%d)À» ÀúÀå½Ã ERROR[CanSaveUserData ½ÇÆĞ.]",
+			"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+	%s[%d](itemmall_index:%d)ì„ ì €ì¥ì‹œ ERROR[CanSaveUserData ì‹¤íŒ¨.]",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
 			pItemCls->GetHanName(),
@@ -2242,8 +2242,8 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		MyLog( LOG_NORMAL, "Error :(a) chr->Name = %s   c[ char_id].name = %s", pCh->Name, connections[ pCh->GetServerID()].name );
 		char szLog[256] = {0.};
 		sprintf(szLog ,
-			"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-	%s[%d](itemmall_index:%d)À» ÀúÀå½Ã ERROR[connectionÀÇ Ä³¸¯¸íÀÌ ´Ù¸§]",
+			"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+	%s[%d](itemmall_index:%d)ì„ ì €ì¥ì‹œ ERROR[connectionì˜ ìºë¦­ëª…ì´ ë‹¤ë¦„]",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
 			pItemCls->GetHanName(),
@@ -2286,8 +2286,8 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		printf("\n Update Character: Update BIN Error") ;
 		char szLog[256] = {0.};
 		sprintf(szLog ,
-			"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-	%s[%d](itemmall_index:%d)À» ÀúÀå½Ã ERROR[Update Character: Update chr_info BIN Error]",
+			"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+	%s[%d](itemmall_index:%d)ì„ ì €ì¥ì‹œ ERROR[Update Character: Update chr_info BIN Error]",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
 			pItemCls->GetHanName(),
@@ -2302,8 +2302,8 @@ void RecvItemMallItemList( t_packet *p, short int cn )
 		{
 			char szLog[256] = {0.};
 			sprintf(szLog ,
-				"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-		%s[%d](itemmall_index:%d)À» ÀúÀå½Ã ERROR[Update Character: Update chr_info2 BIN Error]",
+				"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+		%s[%d](itemmall_index:%d)ì„ ì €ì¥ì‹œ ERROR[Update Character: Update chr_info2 BIN Error]",
 				g_pServerTable->GetOwnServerData()->wPort,
 				pData->name,
 				pItemCls->GetHanName(),
@@ -2334,24 +2334,24 @@ void RecvItemRepairByItem( t_packet *p, short int cn )
 	CHARLIST *pCh = CheckServerId( cn );
 	if( !pCh ) return;
 
-	CItem *pSourceItemUnit;		// ³»±¸µµ ¼ö¸®¿ë ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀÇ ¼Ó¼º°¡Á®¿À±â À§ÇØ¼­
-	CItem *pTargetItemUnit;		// ¼ö¸®ÇÏ±â À§ÇÑ Å¸°Ù ¾ÆÀÌÅÛÀÇ ¼Ó¼ºÀ» °¡Á®¿À±â À§ÇØ¼­
+	CItem *pSourceItemUnit;		// ë‚´êµ¬ë„ ìˆ˜ë¦¬ìš© ì•„ì´í…œ ëª° ì•„ì´í…œì˜ ì†ì„±ê°€ì ¸ì˜¤ê¸° ìœ„í•´ì„œ
+	CItem *pTargetItemUnit;		// ìˆ˜ë¦¬í•˜ê¸° ìœ„í•œ íƒ€ê²Ÿ ì•„ì´í…œì˜ ì†ì„±ì„ ê°€ì ¸ì˜¤ê¸° ìœ„í•´ì„œ
 
-	// ´ë»ó ¾ÆÀÌÅÛÀÌ ¼ö¸® °¡´ÉÇÑ ¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÏÀÚ
+	// ëŒ€ìƒ ì•„ì´í…œì´ ìˆ˜ë¦¬ ê°€ëŠ¥í•œ ì•„ì´í…œì¸ì§€ í™•ì¸í•˜ì
 	POS *pPos = &p->u.kein.default_pos;
 	ItemAttr *pTargetItem = GetItemByPOS( pCh, *pPos );
 	if( !pTargetItem->item_no ) return;
 
 	pTargetItemUnit = ItemUnit( *pTargetItem );
 	if( !pTargetItemUnit ) return;
-	if( !pTargetItemUnit->GetRepairAble() ) return;		// ¼ö¸® °¡´ÉÇÑ ¾ÆÀÌÅÛÀÌ ¾Æ´Ï´Ù.
+	if( !pTargetItemUnit->GetRepairAble() ) return;		// ìˆ˜ë¦¬ ê°€ëŠ¥í•œ ì•„ì´í…œì´ ì•„ë‹ˆë‹¤.
 
-	// ¼ö¸® ±â´ÉÀ» »ç¿ëÇÒ ¼ö ÀÖ´Â ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö Ã£±â
+	// ìˆ˜ë¦¬ ê¸°ëŠ¥ì„ ì‚¬ìš©í•  ìˆ˜ ìˆëŠ” ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ì°¾ê¸°
 	bool bFind = false;
 	
 	_DeleteToExpireItemMallItem _ItemMall;
 	_ItemMall.pCharList		= pCh;
-	_ItemMall._ItemPosType	= INV;			//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
+	_ItemMall._ItemPosType	= INV;			//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
 
 	int a, b, c;
 	for( a=0; a<3; a++ )
@@ -2369,8 +2369,8 @@ void RecvItemRepairByItem( t_packet *p, short int cn )
 
 				_ItemMall.PosA	= a;
 				_ItemMall.PosB	= b;
-				_ItemMall.PosC	= c;		//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
-				if (DeleteToExpireItemMallItem(_ItemMall)) {	break;	}		//¸¸¾à ±â°£¸¸·áµÈ ¾ÆÀÌÅÛÀÌ¶ó¸é Áö¿î´Ù.
+				_ItemMall.PosC	= c;		//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
+				if (DeleteToExpireItemMallItem(_ItemMall)) {	break;	}		//ë§Œì•½ ê¸°ê°„ë§Œë£Œëœ ì•„ì´í…œì´ë¼ë©´ ì§€ìš´ë‹¤.
 
 				bFind = true;
 				break;
@@ -2380,20 +2380,20 @@ void RecvItemRepairByItem( t_packet *p, short int cn )
 		if( bFind ) break;
 	}
 
-	if( !bFind ) return;		// ÇØ´ç ¾ÆÀÌÅÛÀÌ ¾ø´Ù.
+	if( !bFind ) return;		// í•´ë‹¹ ì•„ì´í…œì´ ì—†ë‹¤.
 
 
-	// È¸º¹¿ë ¾ÆÀÌÅÛÀº »èÁ¦ÇÏ°í
+	// íšŒë³µìš© ì•„ì´í…œì€ ì‚­ì œí•˜ê³ 
 	POS source_pos;
 	SetItemPos( INV, a, b, c, &source_pos );
 	SendItemEventLog( &pCh->inv[a][b][c], cn, SN_NOT_USER, SILT_DELETE_ITEM_MALL, 100 );
 	SendDeleteItem( &pCh->inv[a][b][c], &source_pos, pCh, 0 );
 	
-	// ´ë»ó ¾ÆÀÌÅÛÀÇ ÃÖ´ë ³»±¸µµ¸¦ º¹±¸ ½ÃÄÑÁØ´Ù.
+	// ëŒ€ìƒ ì•„ì´í…œì˜ ìµœëŒ€ ë‚´êµ¬ë„ë¥¼ ë³µêµ¬ ì‹œì¼œì¤€ë‹¤.
 	pTargetItem->attr[IATTR_DURATION] = MAKELONG( pTargetItemUnit->GetDuration(), pTargetItemUnit->GetDuration() );
 	SendServerEachItem( pPos, pTargetItem, cn );
 
-	SendPutMenuString( KM_OK, 224, cn );		//³»±¸µµ°¡ È¸º¹ µÆ½À´Ï´Ù.
+	SendPutMenuString( KM_OK, 224, cn );		//ë‚´êµ¬ë„ê°€ íšŒë³µ ëìŠµë‹ˆë‹¤.
 }
 
 const char* ConvertToItemMallKind(int nRet)
@@ -2407,15 +2407,15 @@ const char* ConvertToItemMallKind(int nRet)
 }
 
 //////////////////////////////////////////////////////////////////////////
-//	Return value: 0(Å×ÀÌºíÀÌ ÀÌ¹Ì Á¸Àç) 1(Å×ÀÌºíÀ»»ı¼º) -1(Å×ÀÌºí»ı¼º½ÇÆĞ)
-//	1³âÀ» ÁÖ±â·Î Å×ÀÌºíÀ» »ı¼ºÇÑ´Ù.(ex) item_to_game_2005 Å×ÀÌºí »ı¼º.
+//	Return value: 0(í…Œì´ë¸”ì´ ì´ë¯¸ ì¡´ì¬) 1(í…Œì´ë¸”ì„ìƒì„±) -1(í…Œì´ë¸”ìƒì„±ì‹¤íŒ¨)
+//	1ë…„ì„ ì£¼ê¸°ë¡œ í…Œì´ë¸”ì„ ìƒì„±í•œë‹¤.(ex) item_to_game_2005 í…Œì´ë¸” ìƒì„±.
 int CreateBackUPatYearTBL(const char *table_name)
 {
 	char		szQuerry[1024*2];
 	HSTMT		hStmt;
 	RETCODE		retCode;
 
-	//1³â¿¡ ÇÑ¹ø¾¿ Å×ÀÌºíÀ» »ı¼ºÇÏ±âÀ§ÇØ¼­ Å×ÀÌºíÀÌ ÀÖ´ÂÁö È®ÀÎÇÏ´ÂºÎºĞ.
+	//1ë…„ì— í•œë²ˆì”© í…Œì´ë¸”ì„ ìƒì„±í•˜ê¸°ìœ„í•´ì„œ í…Œì´ë¸”ì´ ìˆëŠ”ì§€ í™•ì¸í•˜ëŠ”ë¶€ë¶„.
 	sprintf( szQuerry, "select * from dbo.sysobjects where id = object_id(N'[dbo].[%s]') ", table_name);
 	
 	SQLAllocStmt(g_hDBC_TotalDB, &hStmt);
@@ -2456,7 +2456,7 @@ int CreateBackUPatYearTBL(const char *table_name)
 	return retCode;
 }
 
-//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷	»ç¿ë±â°£ÀÌ ³¡³­ ¾ÆÀÌÅÛÀº ¹é¾÷Å×ÀÌºí·Î ¿Å±ä´Ù.
+//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…	ì‚¬ìš©ê¸°ê°„ì´ ëë‚œ ì•„ì´í…œì€ ë°±ì—…í…Œì´ë¸”ë¡œ ì˜®ê¸´ë‹¤.
 int ExpireToItem_to_GameTBL(const char *pOrginalTBLName,const int& itemmall_index)
 {
 	char		szQuerry[1024];
@@ -2473,9 +2473,9 @@ int ExpireToItem_to_GameTBL(const char *pOrginalTBLName,const int& itemmall_inde
 
 	nRetResult	= CreateBackUPatYearTBL(szDestTBLName);
 	if (0 > nRetResult)
-		return FailedCreateTBL;	//Å×ÀÌºí »ı¼ºFailed ºñÁ¤»óÀûÀÎ ½ÇÆĞ
+		return FailedCreateTBL;	//í…Œì´ë¸” ìƒì„±Failed ë¹„ì •ìƒì ì¸ ì‹¤íŒ¨
 	
-	//1. ¿øº» Å×ÀÌºíÀÇ ±â°£¸¸·áÀÓÀ» ¼¼ÆÃÇÏÀÚ.
+	//1. ì›ë³¸ í…Œì´ë¸”ì˜ ê¸°ê°„ë§Œë£Œì„ì„ ì„¸íŒ…í•˜ì.
 	sprintf( szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\
 	  BEGIN																		\
 		UPDATE [dbo].[%s] SET recv_type = '%d' WHERE idx = '%d'					\
@@ -2483,9 +2483,9 @@ int ExpireToItem_to_GameTBL(const char *pOrginalTBLName,const int& itemmall_inde
 		pOrginalTBLName,itemmall_index,
 		pOrginalTBLName,Expire_TIMESTAMP_ItemMallItem,itemmall_index );
 	if (!Querry_SQL( szQuerry, g_hDBC_TotalDB ))
-		return FailedEditTBL;	//Å×ÀÌºí ¼öÁ¤ ½ÇÆĞ.
+		return FailedEditTBL;	//í…Œì´ë¸” ìˆ˜ì • ì‹¤íŒ¨.
 
-	//2. ¹é¾÷Å×ÀÌºí(item_to_game_2005)¿¡ ¸ÕÀú Insert ÇÏ°í.
+	//2. ë°±ì—…í…Œì´ë¸”(item_to_game_2005)ì— ë¨¼ì € Insert í•˜ê³ .
 	sprintf( szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\
 	  BEGIN																		\
 		insert  [dbo].[%s] select * from  Item_to_Game where idx = '%d'			\
@@ -2499,10 +2499,10 @@ int ExpireToItem_to_GameTBL(const char *pOrginalTBLName,const int& itemmall_inde
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	SQLFreeStmt(hStmt, SQL_DROP);
 	if( !SQL_SUCCEEDED(retCode) )
-		return FailedMoveTBL;	//»ç¿ë±â°£ÀÌ ¸¸·áµÈ ItemMallItem ÀÌµ¿¸¦ À§ÇÑ Insert ½ÇÆĞ.
+		return FailedMoveTBL;	//ì‚¬ìš©ê¸°ê°„ì´ ë§Œë£Œëœ ItemMallItem ì´ë™ë¥¼ ìœ„í•œ Insert ì‹¤íŒ¨.
 
 	
-	//3. ±âÁ¸ Å×ÀÌºí(item_to_game)¿¡¼­´Â »èÁ¦ÇÑ´Ù.
+	//3. ê¸°ì¡´ í…Œì´ë¸”(item_to_game)ì—ì„œëŠ” ì‚­ì œí•œë‹¤.
 	sprintf( szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\
 	  BEGIN																		\
 		delete  [dbo].[%s] where idx = '%d'										\
@@ -2516,7 +2516,7 @@ int ExpireToItem_to_GameTBL(const char *pOrginalTBLName,const int& itemmall_inde
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	SQLFreeStmt(hStmt, SQL_DROP);
 	if( !SQL_SUCCEEDED(retCode) )
-		return FailedDeleteTBL;	//»ç¿ë±â°£ÀÌ ¸¸·áµÈ ItemMallItem ÀÌµ¿¸¦ À§ÇÑ delete ½ÇÆĞ.
+		return FailedDeleteTBL;	//ì‚¬ìš©ê¸°ê°„ì´ ë§Œë£Œëœ ItemMallItem ì´ë™ë¥¼ ìœ„í•œ delete ì‹¤íŒ¨.
 
 	return SucessedTBL;
 }
@@ -2535,12 +2535,12 @@ const char* ConvertToRet(int nRet)
 void ExpireToItemMall(const char* pTBLName, const int nItemMall_Index,
 					  const char* ItemClsName,const time_t& _EndUseTime, const char* pRecvName )
 {
-	//TotalDBÀÇ item_to_game TBL¿¡ °á°ú¸¦ ¼¼ÆÃÇÑ´Ù.
+	//TotalDBì˜ item_to_game TBLì— ê²°ê³¼ë¥¼ ì„¸íŒ…í•œë‹¤.
 	int nRet = -999;
-	//»ç¿ë±â°£ ¸¸·á ¾ÆÀÌÅÛ Ã³¸®
+	//ì‚¬ìš©ê¸°ê°„ ë§Œë£Œ ì•„ì´í…œ ì²˜ë¦¬
 	nRet = ExpireToItem_to_GameTBL(ITEM_TO_GAME,nItemMall_Index);
 
-	//°á°ú´Â »ó°ü¾øÀÌ, ¹«Á¶°Ç ·Î±×¸¦ ³²±ä´Ù.
+	//ê²°ê³¼ëŠ” ìƒê´€ì—†ì´, ë¬´ì¡°ê±´ ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 	FILE*	pFP = NULL;
 	char szFileName[512] = {0,};
 	mkdir("ItemMallItem_Log");
@@ -2549,8 +2549,8 @@ void ExpireToItemMall(const char* pTBLName, const int nItemMall_Index,
 	Dbg_Assert(pFP != NULL);
 
 	CTime curTime(_EndUseTime);
-	//±â°£Á¦ÇÑ ¾ÆÀÌÅÛÀ» Ã³¸®ÇÑ °ü·Ã·Î±×¸¦ ³²±âÀÚ.
-	fprintf(pFP ,"[%s]±â°£¸¸±â¾ÆÀÌÅÛ»èÁ¦[%s], \
+	//ê¸°ê°„ì œí•œ ì•„ì´í…œì„ ì²˜ë¦¬í•œ ê´€ë ¨ë¡œê·¸ë¥¼ ë‚¨ê¸°ì.
+	fprintf(pFP ,"[%s]ê¸°ê°„ë§Œê¸°ì•„ì´í…œì‚­ì œ[%s], \
 itemMall[%6d], EndUseTime:[%2d:%2d:%2d] (%s)\n",
 		ItemClsName,
 		ConvertToRet(nRet),
@@ -2562,23 +2562,23 @@ itemMall[%6d], EndUseTime:[%2d:%2d:%2d] (%s)\n",
 	fclose(pFP);
 }
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷	À¯ÀúÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛÀÇ »ç¿ë±â°£À» Ã¼Å©ÇØ¼­ Á¦°ÅÇÑ´Ù.
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…	ìœ ì €ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œì˜ ì‚¬ìš©ê¸°ê°„ì„ ì²´í¬í•´ì„œ ì œê±°í•œë‹¤.
 void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn )
 {
 	k_Delete_Item_Mall_ARRAY *pData_ARRAY = &p->u.kein.delete_item_mall_array;
-	if (0 > pData_ARRAY->nCnt_DelItemMall) return ;	//ÃÊ±â°ª -999 ÀÎ À½¼öÀÏ°æ¿ì´Â °ªÀÌ ¾øÀ½À¸·Î Skip
+	if (0 > pData_ARRAY->nCnt_DelItemMall) return ;	//ì´ˆê¸°ê°’ -999 ì¸ ìŒìˆ˜ì¼ê²½ìš°ëŠ” ê°’ì´ ì—†ìŒìœ¼ë¡œ Skip
 
 	for( int i=0;i<pData_ARRAY->nCnt_DelItemMall;++i)
 	{
 		k_Delete_Item_Mall* pData = &pData_ARRAY->_DelItemMall_ARRAY[i];
 		CHARLIST* pUser = g_pUserManager->GetCharList(pData->recv_name);
-		if (NULL == pUser)	//ÀÌ ¸Ê¿¡¼­´Â ¾ø´Â À¯ÀúÀÌ´Ù.
+		if (NULL == pUser)	//ì´ ë§µì—ì„œëŠ” ì—†ëŠ” ìœ ì €ì´ë‹¤.
 		{
 			continue;
 		}
 
 		CItem *pItemCls = ::ItemUnit( pData->ItemNo );
-		//ÀÎº¥Åä¸®¸¦ °Ë»öÇØ¼­ ¾ÆÀÌÅÛ »èÁ¦.	//±â°£Á¦ÇÑ ¾ÆÀÌÅÛÀÇ Á¤»óÀûÀÎ »èÁ¦.
+		//ì¸ë²¤í† ë¦¬ë¥¼ ê²€ìƒ‰í•´ì„œ ì•„ì´í…œ ì‚­ì œ.	//ê¸°ê°„ì œí•œ ì•„ì´í…œì˜ ì •ìƒì ì¸ ì‚­ì œ.
 		int a, b, c;
 		for( a=0; a<3; ++a )
 		for( b=0; b<3; ++b )
@@ -2597,8 +2597,8 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn )
 
 					char szLog[256] = {0.};
 					sprintf(szLog ,
-						"[%d][%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-	%s[%d](itemmall_index:%d)ÀÇ »ç¿ë±â°£ÀÌ ³¡³µ½À´Ï´Ù.",
+						"[%d][%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+	%s[%d](itemmall_index:%d)ì˜ ì‚¬ìš©ê¸°ê°„ì´ ëë‚¬ìŠµë‹ˆë‹¤.",
 						g_pServerTable->GetOwnServerData()->wPort,
 						pData->recv_name,
 						pItemCls->GetHanName(),
@@ -2608,11 +2608,11 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn )
 				}
 				else
 				{
-					//ºñÁ¤»óÀûÀÎ Å×ÀÌºí ¼¼ÆÃ°ª.
+					//ë¹„ì •ìƒì ì¸ í…Œì´ë¸” ì„¸íŒ…ê°’.
 					char szLog[256] = {0.};
 					sprintf(szLog ,
-						"[%d][%s](ItemKind:%d) attr[IATTR_ATTR][%d]ÀÌ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
-	%s[%d](itemmall_index:%d)ÀÌ ¾Æ´Õ´Ï´Ù. ¾ÆÀÌÅÛ¹øÈ£ Áßº¹ CRITICAL ERR",
+						"[%d][%s](ItemKind:%d) attr[IATTR_ATTR][%d]ì´ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
+	%s[%d](itemmall_index:%d)ì´ ì•„ë‹™ë‹ˆë‹¤. ì•„ì´í…œë²ˆí˜¸ ì¤‘ë³µ CRITICAL ERR",
 						g_pServerTable->GetOwnServerData()->wPort,
 						ConvertToItemMallKind(pItemCls->GetItemKind()),
 						pItemCls->GetItemKind(),
@@ -2628,7 +2628,7 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn )
 			//Skip
 		}
 
-		//DBÀÇ Å×ÀÌºíÀ» Á¦°Å¹× ÀÌµ¿ Ã³¸®.
+		//DBì˜ í…Œì´ë¸”ì„ ì œê±°ë° ì´ë™ ì²˜ë¦¬.
 		ExpireToItemMall(ITEM_TO_GAME, pData->itemmall_index,
 			pItemCls->GetHanName(),pData->EndUseTime,pData->recv_name);
 	}
@@ -2641,28 +2641,28 @@ bool DeleteToExpireItemMallItem( _DeleteToExpireItemMallItem& _ItemMall )
 
 	if (GetAttr2( pItem->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM) )
 	{
-		//				'SQl DB TBL¿¡ 1ºÎÅÍ ¼øÂ÷ÀûÀ¸·Î ÀÎµ¦½º°¡ UniqueÇÏ°Ô ¼¼ÆÃµÇ¾î ÀÖ´Ù´Â ÀüÁ¦.
+		//				'SQl DB TBLì— 1ë¶€í„° ìˆœì°¨ì ìœ¼ë¡œ ì¸ë±ìŠ¤ê°€ Uniqueí•˜ê²Œ ì„¸íŒ…ë˜ì–´ ìˆë‹¤ëŠ” ì „ì œ.
 		if (0 < pItem->attr[IATTR_ITEM_MALL_IDX] )
 		{
 			CTime curTime	=	CTime::GetCurrentTime();
 			LP_ITEM_MALL_TIME lpTime = reinterpret_cast<LP_ITEM_MALL_TIME>(&pItem->attr[IATTR_ITEM_MALL_EndUseTime]);
 
-			if (lpTime->month)	//»ç¿ë±â°£ÀÌ ¼¼ÆÃµÇ¾î ÀÖ´Â ¾ÆÀÌÅÛÀÌ¶ó¸é..
+			if (lpTime->month)	//ì‚¬ìš©ê¸°ê°„ì´ ì„¸íŒ…ë˜ì–´ ìˆëŠ” ì•„ì´í…œì´ë¼ë©´..
 			{
 				CTime ItemMallEndTime(2000+lpTime->year,lpTime->month,lpTime->day,lpTime->hour,lpTime->minute,0 );
 				CTimeSpan ItemMallUseTime = ItemMallEndTime - curTime;
 				
-				//½Ã°£ ¼¼ÆÃÀÌ Àß¸øµÇ¾î ÀÖ°Å³ª, ±â°£ÀÌ Áö³­ ¾ÆÀÌÅÛÀÏ °æ¿ì, »èÁ¦ÈÄ, ·Î±×¸¦ ³²±âÀÚ.
+				//ì‹œê°„ ì„¸íŒ…ì´ ì˜ëª»ë˜ì–´ ìˆê±°ë‚˜, ê¸°ê°„ì´ ì§€ë‚œ ì•„ì´í…œì¼ ê²½ìš°, ì‚­ì œí›„, ë¡œê·¸ë¥¼ ë‚¨ê¸°ì.
 				if (0 >ItemMallUseTime.GetTotalMinutes())
 				{
 					CItem *pItemCls = ::ItemUnit( pItem->item_no );
 
-					//¾Æ·¡ÀÇ ¼ø¼­ ÁöÅ³°Í.(ÇöÀç Ä³¸¯ÀÇ ÀÎº¥¿¡¼­ ¾ÆÅÛÁ¤º¸¸¦ ¾ò¾î¿À±â ¶§¹®¿¡, ¸ÕÀú ÀÎº¥¾ÆÅÛÀ» Áö¿ì¸é ¾ÈµÊ)
-					//1.DB¿¡µµ È®ÀÎÇØ¼­ ÀÖÀ¸¸é ¸ÕÀú TBLÀ» Á¦°Å ÇÏÀÚ.
+					//ì•„ë˜ì˜ ìˆœì„œ ì§€í‚¬ê²ƒ.(í˜„ì¬ ìºë¦­ì˜ ì¸ë²¤ì—ì„œ ì•„í…œì •ë³´ë¥¼ ì–»ì–´ì˜¤ê¸° ë•Œë¬¸ì—, ë¨¼ì € ì¸ë²¤ì•„í…œì„ ì§€ìš°ë©´ ì•ˆë¨)
+					//1.DBì—ë„ í™•ì¸í•´ì„œ ìˆìœ¼ë©´ ë¨¼ì € TBLì„ ì œê±° í•˜ì.
 					ExpireToItemMall(ITEM_TO_GAME,pItem->attr[IATTR_ITEM_MALL_IDX],
 						pItemCls->GetHanName(),ItemMallEndTime.GetTime(),pChar->Name);
 
-					//2.ItemMall_Idx°¡ °°´Ù¸é º¹ÅÛÀÌ ÀÎº¥¿¡ Á¸ÀçÇÑ´Ù.(Limit´Â Áö±Ş ½Ã°£À» ±âÁØÀ¸·Î ÇÏ¹Ç·Î Å×ÀÌºí¼öÁ¤¿¡ µû¶ó ´Ş¶óÁú¼öµµ ÀÖ´Ù.
+					//2.ItemMall_Idxê°€ ê°™ë‹¤ë©´ ë³µí…œì´ ì¸ë²¤ì— ì¡´ì¬í•œë‹¤.(LimitëŠ” ì§€ê¸‰ ì‹œê°„ì„ ê¸°ì¤€ìœ¼ë¡œ í•˜ë¯€ë¡œ í…Œì´ë¸”ìˆ˜ì •ì— ë”°ë¼ ë‹¬ë¼ì§ˆìˆ˜ë„ ìˆë‹¤.
 					POS pos;
 					SetItemPos( INV, _ItemMall.PosA, _ItemMall.PosB, _ItemMall.PosC, &pos );
 
@@ -2670,7 +2670,7 @@ bool DeleteToExpireItemMallItem( _DeleteToExpireItemMallItem& _ItemMall )
 					SendDeleteItem( pItem, &pos, pChar,2 );
 
 					char szLog[256] = {0.};
-					sprintf(szLog ,	"[%d]DupeItem Delete [%s]´ÔÀÇ ¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛ	\
+					sprintf(szLog ,	"[%d]DupeItem Delete [%s]ë‹˜ì˜ ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œ	\
 	%s[%d](itemmall_Idx:%d) Is Delete(Time Stuff Problem)",
 						g_pServerTable->GetOwnServerData()->wPort,
 						pChar->Name,
@@ -2689,10 +2689,10 @@ bool DeleteToExpireItemMallItem( _DeleteToExpireItemMallItem& _ItemMall )
 
 void DeleteToExpireItemMallItem_byINV(CHARLIST& _CharList)
 {
-	//±âÅ¸ »ç¿ë±â°£ÀÌ ³¡³­ ¾ÆÀÌÅÛ¸ô¾ÆÀÌÅÛÀÌ ÀÎº¥¿¡ ÀÖÀ»°æ¿ì¿¡, Áö¿ì°í ·Î±×¸¦ ³²±ä´Ù.
+	//ê¸°íƒ€ ì‚¬ìš©ê¸°ê°„ì´ ëë‚œ ì•„ì´í…œëª°ì•„ì´í…œì´ ì¸ë²¤ì— ìˆì„ê²½ìš°ì—, ì§€ìš°ê³  ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 	_DeleteToExpireItemMallItem _ItemMall;
 	_ItemMall.pCharList		= &_CharList;
-	_ItemMall._ItemPosType	= INV;			//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
+	_ItemMall._ItemPosType	= INV;			//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
 
 	for( int i=0; i<3; ++i)
 	for( int j=0; j<3; ++j)
@@ -2700,7 +2700,7 @@ void DeleteToExpireItemMallItem_byINV(CHARLIST& _CharList)
 	{
 		_ItemMall.PosA	= i;
 		_ItemMall.PosB	= j;
-		_ItemMall.PosC	= k;		//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
+		_ItemMall.PosC	= k;		//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
 
 		DeleteToExpireItemMallItem(_ItemMall);
 	}
@@ -2711,7 +2711,7 @@ void RecvItemMallItemDelete_Client( t_packet *p, short int cn )
 	CHARLIST *pCh = CheckServerId( cn );
 	if( !pCh ) return;
 
-	// ´ë»ó ¾ÆÀÌÅÛÀÌ ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛÀÎÁö È®ÀÎÇÏÀÚ
+	// ëŒ€ìƒ ì•„ì´í…œì´ ì•„ì´í…œëª° ì•„ì´í…œì¸ì§€ í™•ì¸í•˜ì
 	POS *pPos = &p->u.kein.default_pos;
 	ItemAttr *pTargetItem = GetItemByPOS( pCh, *pPos );
 	if( !pTargetItem->item_no ) return;
@@ -2722,15 +2722,15 @@ void RecvItemMallItemDelete_Client( t_packet *p, short int cn )
 
 	_DeleteToExpireItemMallItem _ItemMall;
 	_ItemMall.pCharList		= pCh;
-	_ItemMall._ItemPosType	= static_cast<ItemPosType>(atoi(&pPos->type));	//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
+	_ItemMall._ItemPosType	= static_cast<ItemPosType>(atoi(&pPos->type));	//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
 
 	if( GetAttr2( pTargetItem->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) ) 
 	{
 		_ItemMall.PosA	= a;
 		_ItemMall.PosB	= b;
-		_ItemMall.PosC	= c;		//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
+		_ItemMall.PosC	= c;		//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
 
-		DeleteToExpireItemMallItem(_ItemMall);	//¸¸¾à ±â°£¸¸·áµÈ ¾ÆÀÌÅÛÀÌ¶ó¸é Áö¿î´Ù.
+		DeleteToExpireItemMallItem(_ItemMall);	//ë§Œì•½ ê¸°ê°„ë§Œë£Œëœ ì•„ì´í…œì´ë¼ë©´ ì§€ìš´ë‹¤.
 	}
 }
-//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…

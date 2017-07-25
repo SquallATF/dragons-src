@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #ifndef _DRAGON_PROTOCOL_
 #include "network.h"
 #endif
@@ -34,7 +34,7 @@
 
 
 ////////////////////////////////////////////
-// ¹«±â ÀåÂø (equip) 
+// ë¬´ê¸° ì¥ì°© (equip) 
 #define WT_WEAPON					0
 #define WT_SHIELD					1
 #define WT_HELMET					2
@@ -73,7 +73,7 @@ enum WearTypeGroup
 #define	DISPOSABLE		7
 #define	ARMOR			8
 #define	ACCESSORY		9
-#define	ETC				10	//±âÅ¸ ¹°Ç°
+#define	ETC				10	//ê¸°íƒ€ ë¬¼í’ˆ
 
 #define OBJECTITEM		13
 
@@ -116,7 +116,7 @@ enum IA2_TYPE
 
 
 
-// ¾ÆÀÌÅÛ TypeÀÌ 13ÀÌ»óÀÎ °æ¿ì ÇØ´ç
+// ì•„ì´í…œ Typeì´ 13ì´ìƒì¸ ê²½ìš° í•´ë‹¹
 #define ITEMTYPE_NORMAL		0
 #define ITEMTYPE_CHAIR		1
 #define ITEMTYPE_TABLE		2
@@ -141,59 +141,59 @@ enum IA2_TYPE
 #define Num_Of_CItem_Etc		47
 
 
-//########### ¿À¸¥ÂÊ ¸¶¿ì½º ¹öÆ° Å¬¸¯ÈÄ ½ÇÇàÇÏ´Â Á¾·ù Á¤ÀÇ ###########
-#define		USE_ITEM			1		// ¼ÒºñµÇ¾î »ç¶óÁø´Ù.
-#define		DIVIDE_ITEM			3		// ¾ÆÀÌÅÛÀÇ °¹¼ö¸¦ ºĞ¸®ÇÑ´Ù.
-#define		REMAIN_ITEM			4		// ºóº´ Ã³¸®
-#define		MAGIC_BOOK_ITEM		5		// ¸¶¹ıÃ¥ÀÌ ¶á´Ù
-#define		DIARY_ITEM			6		// ÀÏ±âÃ¥ÀÌ ¶á´Ù.
-#define		BOX_ITEM			7		// ¹Ú½º°¡ ¿­¸°´Ù.
+//########### ì˜¤ë¥¸ìª½ ë§ˆìš°ìŠ¤ ë²„íŠ¼ í´ë¦­í›„ ì‹¤í–‰í•˜ëŠ” ì¢…ë¥˜ ì •ì˜ ###########
+#define		USE_ITEM			1		// ì†Œë¹„ë˜ì–´ ì‚¬ë¼ì§„ë‹¤.
+#define		DIVIDE_ITEM			3		// ì•„ì´í…œì˜ ê°¯ìˆ˜ë¥¼ ë¶„ë¦¬í•œë‹¤.
+#define		REMAIN_ITEM			4		// ë¹ˆë³‘ ì²˜ë¦¬
+#define		MAGIC_BOOK_ITEM		5		// ë§ˆë²•ì±…ì´ ëœ¬ë‹¤
+#define		DIARY_ITEM			6		// ì¼ê¸°ì±…ì´ ëœ¬ë‹¤.
+#define		BOX_ITEM			7		// ë°•ìŠ¤ê°€ ì—´ë¦°ë‹¤.
 
 //////////////////////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛ kind
+// ì•„ì´í…œ kind
 #define		IK_NONE				0	//	non					
-#define		IK_GON				1	//	°ï			
-#define		IK_PENCING			2	//	Ææ½Ì°Ë		
-#define		IK_ONE_SWORD		3	//	ÇÑ¼Õ°Ë
-#define		IK_ONE_AXE			4	//	ÇÑ¼Õµµ³¢
-#define		IK_ONE_MACE			5	//	ÇÑ¼ÕÃ¶Åğ
-#define		IK_CLUB				6	//	¸ùµÕÀÌ
-#define		IK_WHIRL			7	//	ºÀ
-#define		IK_STAFE			8	//	ÁöÆÎÀÌ
-#define		IK_SPEAR			9	//	º¸ÅëÃ¢
-#define		IK_FORK				10	//	Æ÷Å©
-#define		IK_HURL				11	//	ºñ°Ë,´øÁö´Â¹«±â
-#define		IK_SHORT_BOW		12	//	¼ÒÇüÈ°
-#define		IK_TWO_SWORD		13	//	¾ç¼Õ°Ë
-#define		IK_TWO_AXE			14	//	¾ç¼Õµµ³¢
-#define		IK_TWO_MACE			15	//	¾ç¼Õ Ã¶Åğ
-#define		IK_TWO_ARROW		16	//	È­»ì
-#define		IK_IRON_ARMOR		17	//	¼è°©¿Ê
-#define		IK_LEATHER_ARMOR	18	//	°¡Á×°©¿Ê
-#define		IK_RING				19	//	¹İÁö
-#define		IK_SHIELD			20	//	¹æÆĞ
-#define		IK_SHOES			21	//	½Å¹ß
-#define		IK_ROBE				22	//	·Îºê
-#define		IK_FULL_HELMET		23	//	ÇÃÇï¸ä
-#define		IK_HALF_HELMET		24	//	ÇÏÇÁÇï¸ä
-#define		IK_NORMAL_CLOTHE	25	//	º¸Åë¿Ê
-#define		IK_AMULET			26	//	¸ñ°Å¸®
-#define		IK_ARMLET			27	//	ÆÈÂî
-#define		IK_MUSIC			28	//	¾Ç±â
-#define		IK_SCROLL			29	//	½ºÅ©·Ñ
-#define		IK_LONG_BOW			30	//	´ëÇüÈ°
-#define		IK_BOX				31	//	»óÀÚ
-#define		IK_GRAIN			32	//	°î½Ä
-#define		IK_POTION			33	//	Æ÷¼Ç
-#define		IK_FOOD_MASS		34	//	µ¢¾î¸® À½½Ä
-#define		IK_PLATE_FOOD		35	//	Àï¹İ À½½Ä
-#define		IK_DRINK			36	//	À½·á
-#define		IK_ARROW_POINT		37	//	È­»ì ÃË
-#define		IK_FEATHER			38	//	±êÅĞ		
-#define		IK_SEED				39	//  ¾¾¾Ñ.
-#define		IK_MONEY			40	//	µ·
-#define		IK_MINERAL			41	//	±¤¼®
-#define		IK_MINERAL_LUMP		42	//	°¡°øÇÑ ±¤¼®( Ã¶±«, ±İ±«... )
+#define		IK_GON				1	//	ê³¤			
+#define		IK_PENCING			2	//	íœì‹±ê²€		
+#define		IK_ONE_SWORD		3	//	í•œì†ê²€
+#define		IK_ONE_AXE			4	//	í•œì†ë„ë¼
+#define		IK_ONE_MACE			5	//	í•œì†ì² í‡´
+#define		IK_CLUB				6	//	ëª½ë‘¥ì´
+#define		IK_WHIRL			7	//	ë´‰
+#define		IK_STAFE			8	//	ì§€íŒ¡ì´
+#define		IK_SPEAR			9	//	ë³´í†µì°½
+#define		IK_FORK				10	//	í¬í¬
+#define		IK_HURL				11	//	ë¹„ê²€,ë˜ì§€ëŠ”ë¬´ê¸°
+#define		IK_SHORT_BOW		12	//	ì†Œí˜•í™œ
+#define		IK_TWO_SWORD		13	//	ì–‘ì†ê²€
+#define		IK_TWO_AXE			14	//	ì–‘ì†ë„ë¼
+#define		IK_TWO_MACE			15	//	ì–‘ì† ì² í‡´
+#define		IK_TWO_ARROW		16	//	í™”ì‚´
+#define		IK_IRON_ARMOR		17	//	ì‡ ê°‘ì˜·
+#define		IK_LEATHER_ARMOR	18	//	ê°€ì£½ê°‘ì˜·
+#define		IK_RING				19	//	ë°˜ì§€
+#define		IK_SHIELD			20	//	ë°©íŒ¨
+#define		IK_SHOES			21	//	ì‹ ë°œ
+#define		IK_ROBE				22	//	ë¡œë¸Œ
+#define		IK_FULL_HELMET		23	//	í”Œí—¬ë©§
+#define		IK_HALF_HELMET		24	//	í•˜í”„í—¬ë©§
+#define		IK_NORMAL_CLOTHE	25	//	ë³´í†µì˜·
+#define		IK_AMULET			26	//	ëª©ê±°ë¦¬
+#define		IK_ARMLET			27	//	íŒ”ì°Œ
+#define		IK_MUSIC			28	//	ì•…ê¸°
+#define		IK_SCROLL			29	//	ìŠ¤í¬ë¡¤
+#define		IK_LONG_BOW			30	//	ëŒ€í˜•í™œ
+#define		IK_BOX				31	//	ìƒì
+#define		IK_GRAIN			32	//	ê³¡ì‹
+#define		IK_POTION			33	//	í¬ì…˜
+#define		IK_FOOD_MASS		34	//	ë©ì–´ë¦¬ ìŒì‹
+#define		IK_PLATE_FOOD		35	//	ìŸë°˜ ìŒì‹
+#define		IK_DRINK			36	//	ìŒë£Œ
+#define		IK_ARROW_POINT		37	//	í™”ì‚´ ì´‰
+#define		IK_FEATHER			38	//	ê¹ƒí„¸		
+#define		IK_SEED				39	//  ì”¨ì•—.
+#define		IK_MONEY			40	//	ëˆ
+#define		IK_MINERAL			41	//	ê´‘ì„
+#define		IK_MINERAL_LUMP		42	//	ê°€ê³µí•œ ê´‘ì„( ì² ê´´, ê¸ˆê´´... )
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1730,7 +1730,7 @@ int SearchInv( ItemAttr inv[3][3][8], int &a, int &b, int &c );
 extern void CheckItemTimeElapsed( void );
 extern void SendItemFoot_On_Trap0( t_connection c[], int cn, int itemid );
 extern void SendItemFoot_On_Trap1( t_connection c[], int cn, int itemid );
-extern DWORD CalcDurByUseItem( DWORD dur, int luck );		// ¾ÆÀÌÅÛ ÇÑ¹ø »ç¿ë¿¡ µû¸¥ ³»±¸·Â °è»ê
+extern DWORD CalcDurByUseItem( DWORD dur, int luck );		// ì•„ì´í…œ í•œë²ˆ ì‚¬ìš©ì— ë”°ë¥¸ ë‚´êµ¬ë ¥ ê³„ì‚°
 extern int SearchInv_invert( ItemAttr inv[3][3][8], int &a, int &b, int &c );
 
 extern CItem *ItemUnit( ItemAttr item );		// 0415_2
@@ -1741,7 +1741,7 @@ extern void CheckEventJoin(CHARLIST *ch);	// 020115 LTS
 
 extern int ichangeItemCount;
 //010625 lsw
-// ITEMCHANGE itemchange[µğÆÄÀÎ]
+// ITEMCHANGE itemchange[ë””íŒŒì¸]
 #define MAX_CHANGE_ITEM_COUNT 2000
 #define IATTR_SOKSUNG			3
 
@@ -1756,10 +1756,10 @@ typedef struct ITEMCHANGE
 //010708 lsw
 typedef struct itemattr3_
 {
-	DWORD	grade: 4 ;		//µî±Ş
-	DWORD	soksung1: 8 ;	//¼Ó¼º1
-	DWORD	soksung2: 8 ;	//¼Ó¼º2 ¸ÖÆ¼ ¼Ó¼º
-	DWORD	timegrade: 4 ;	//½Ã°£µî±Ş
+	DWORD	grade: 4 ;		//ë“±ê¸‰
+	DWORD	soksung1: 8 ;	//ì†ì„±1
+	DWORD	soksung2: 8 ;	//ì†ì„±2 ë©€í‹° ì†ì„±
+	DWORD	timegrade: 4 ;	//ì‹œê°„ë“±ê¸‰
 	DWORD	gradegrade: 4 ;	
 	DWORD	temp: 3 ;		
 	DWORD	indentify: 1;		

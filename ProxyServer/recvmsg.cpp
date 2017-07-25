@@ -1,4 +1,4 @@
-#include "struct.h"
+ï»¿#include "struct.h"
 #include "servertable.h"
 #include "usertable.h"
 #include "recvmsg.h"
@@ -29,7 +29,7 @@ extern void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
 // Added by chan78 at 2000/12/17
 bool RequestClearPayTable( DWORD dwConnectionIndex )
 {
-	// ¸ÕÀú ÇØ´ç AGENTÀÇ Á¤º¸¸¦ ±¸ÇÔ.
+	// ë¨¼ì € í•´ë‹¹ AGENTì˜ ì •ë³´ë¥¼ êµ¬í•¨.
 	LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( dwConnectionIndex );
 
 	if( !pServerData )
@@ -41,7 +41,7 @@ bool RequestClearPayTable( DWORD dwConnectionIndex )
 		return false;
 	}
 
-	// Ã³¸®ÇÒ DB DemonÀ» ¼±Á¤
+	// ì²˜ë¦¬í•  DB Demonì„ ì„ ì •
 	LP_SERVER_DATA pDBDemon = g_pServerTable->GetServerListHead();
 	DWORD dwTargetDBDemonCI = 0;
 	for(; pDBDemon; pDBDemon = pDBDemon->pNextServerData )
@@ -58,7 +58,7 @@ bool RequestClearPayTable( DWORD dwConnectionIndex )
 		return false;
 	}
 
-	// ÆÐÅ¶¸¸µë
+	// íŒ¨í‚·ë§Œë“¬
 	char szMsg[64+1];
 
 	szMsg[0] = (BYTE)PTCL_ORDER_TO_CLEAR_PAY_TABLE;
@@ -70,7 +70,7 @@ bool RequestClearPayTable( DWORD dwConnectionIndex )
 		return false;
 	}
 
-	// ¼º°øÀûÀ¸·Î Á¾·á.
+	// ì„±ê³µì ìœ¼ë¡œ ì¢…ë£Œ.
 	return true;
 }
 
@@ -108,7 +108,7 @@ void __stdcall OnAcceptUser(DWORD dwConnectionIndex)
 			buffer.type = 10174;
 		buffer.size = 0;
 
-		// ÇöÀç Á¢¼ÓÇÒ ¼­¹ö°¡ ¾øÀ½À» º¸³½´Ù.
+		// í˜„ìž¬ ì ‘ì†í•  ì„œë²„ê°€ ì—†ìŒì„ ë³´ë‚¸ë‹¤.
 		g_pINet->SendToUser(dwConnectionIndex,(char*)&buffer,5,FLAG_SEND_NOT_ENCRYPTION);
 
 		if ( g_pServerTable->IsUserAcceptAllowed() )
@@ -127,7 +127,7 @@ void __stdcall OnAcceptUser(DWORD dwConnectionIndex)
 	}
 	else
 	{
-       // Á¢¼ÓÇÑ À¯Àú¿¡°Ô AgentÀÇ IP¸¦ º¸³»ÁØ´Ù. 
+       // ì ‘ì†í•œ ìœ ì €ì—ê²Œ Agentì˜ IPë¥¼ ë³´ë‚´ì¤€ë‹¤. 
 		t_header buffer;
 		buffer.type = 8930;
 		buffer.size = 21;
@@ -148,7 +148,7 @@ void __stdcall OnAcceptUser(DWORD dwConnectionIndex)
 		g_pServerTable->AddNumOfUsersInServerSet();
 	}
 
-	// List¿¡ Ãß°¡.
+	// Listì— ì¶”ê°€.
 	DWORD dwNewUserID = g_pUserTable->AddUser( dwConnectionIndex );
 	if( dwNewUserID )
 	{
@@ -165,12 +165,12 @@ void __stdcall OnAcceptUser(DWORD dwConnectionIndex)
 			{
 				MyLog( 0, "CLIENT at (CI:%d, IP:%s, PORT:%d)", dwConnectionIndex, pNewUserInfo->szIP, pNewUserInfo->wPort );
 			}
-			g_pUserTable->DisconnectUserBySuggest( pNewUserInfo );// 5ÃÊÈÄ¿¡ ²÷±âµµ·Ï ÇÑ´Ù.
+			g_pUserTable->DisconnectUserBySuggest( pNewUserInfo );// 5ì´ˆí›„ì— ëŠê¸°ë„ë¡ í•œë‹¤.
 		}
 	}
 	else
 	{
-		// CUserTable¿¡ Ãß°¡ÇÏÁö ¸øÇÑ °æ¿ì.
+		// CUserTableì— ì¶”ê°€í•˜ì§€ ëª»í•œ ê²½ìš°.
 		g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
 	}
 	return;
@@ -225,9 +225,9 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 	switch (bID)
 	{
 	// -------------
-	// ±âº»ÆÐÅ¶ 
+	// ê¸°ë³¸íŒ¨í‚· 
 	// -------------
-		// PROXY Àü¿ë
+		// PROXY ì „ìš©
 	case PTCL_REQUEST_SET_SERVER_LIST:
 	case PTCL_REQUEST_TO_CONNECT_SERVER_LIST:
 	case PTCL_REQUEST_SET_DB_DEMON:
@@ -239,7 +239,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 	case PTCL_REPORT_SERVER_STATUS:
 	case PTCL_REPORT_SERVER_CONNECTION_STATUS_CHANGE:
 
-		// °øÅë
+		// ê³µí†µ
 	case PTCL_ORDER_DESTROY_SERVER:
 	case PTCL_NOTIFY_SERVER_STATUS:
 	case PTCL_SERVER_TRY_TO_CHECK_CONNECTION:
@@ -259,7 +259,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 	// -----------------------------
 	case PTCL_MANAGER_QUERY:
 		{
-			// ÀÖÀ» ¼ö ¾ø´Ù.
+			// ìžˆì„ ìˆ˜ ì—†ë‹¤.
 			MyLog( LOG_FATAL, "PTCL_MANAGER_QUERY :: has received!!!(%d)", pSender->wPort );
 			g_pServerTable->DestroyServer( FINISH_TYPE_UNKNOWN_ERROR);
 		}
@@ -319,7 +319,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 
 			break;
 		}	//> CSD-030509
-//<! BBD 040311	¸ÊÀ¸·ÎºÎÅÍÀÇ µ¿Á¢¼ö ¿äÃ»
+//<! BBD 040311	ë§µìœ¼ë¡œë¶€í„°ì˜ ë™ì ‘ìˆ˜ ìš”ì²­
 	case PTCL_SERVERSET_USERNUM_REQUEST:
 		{
 			pMsg[0] = BYTE(PTCL_SERVERSET_USERNUM_REQUEST);
@@ -330,7 +330,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 			g_pServerTable->Send(dwConnectionIndex, pMsg, 1 + sizeof(count));
 			break;
 		}
-//> BBD 040311	¸ÊÀ¸·ÎºÎÅÍÀÇ µ¿Á¢¼ö ¿äÃ»
+//> BBD 040311	ë§µìœ¼ë¡œë¶€í„°ì˜ ë™ì ‘ìˆ˜ ìš”ì²­
 	default:
 		{
 			MyLog( LOG_FATAL, "Unknown bID(%d) Received. From %s(wPort:%d) Size(%d) ConnectionID(%d)", bID, GetTypedServerText(pSender->dwServerType), pSender->wPort, dwLength, dwConnectionIndex);
@@ -348,31 +348,31 @@ extern void MgrSend(DWORD dwConnectionIndex, void* pMsg, DWORD dwLength);
 void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength)
 {
 	// Added by chan78 at 2001/03/16
-	// Á¢¼ÓµÈ Å¬¶óÀÌ¾ðÆ®°¡ PacketÀ» º¸³»´Â °æ¿ì, CONTROL_CLIENTÀÇ ÀÎÁõ ½Ãµµ ÆÐÅ¶ÀÌ ¾Æ´Ñ°æ¿ì
-	// ¼­¹ö¿¡ À§ÇØ¸¦ ³¢Ä¡·Á´Â ½Ãµµ·Î °¡Á¤, ÇÊ¿äÇÑ ±â·ÏÀ» ³²±ä ÈÄ Á¢¼ÓÀ» ²÷´Â´Ù.
+	// ì ‘ì†ëœ í´ë¼ì´ì–¸íŠ¸ê°€ Packetì„ ë³´ë‚´ëŠ” ê²½ìš°, CONTROL_CLIENTì˜ ì¸ì¦ ì‹œë„ íŒ¨í‚·ì´ ì•„ë‹Œê²½ìš°
+	// ì„œë²„ì— ìœ„í•´ë¥¼ ë¼ì¹˜ë ¤ëŠ” ì‹œë„ë¡œ ê°€ì •, í•„ìš”í•œ ê¸°ë¡ì„ ë‚¨ê¸´ í›„ ì ‘ì†ì„ ëŠëŠ”ë‹¤.
 
 	USERINFO *pUserInfo = NULL;
 
 	if( !(pUserInfo = (USERINFO *)g_pINet->GetUserInfo( dwConnectionIndex )) )
 	{
 		MyLog( LOG_FATAL, "RecvMsgUser() :: pUserInfo is NULL!!!" );
-		// ÀÖ¾î¼­´Â ¾ÈµÇ´Â »óÈ².
+		// ìžˆì–´ì„œëŠ” ì•ˆë˜ëŠ” ìƒí™©.
 		return;
 	}
 
-	// ÀÎÁõ »óÅÂ¿¡ µû¸¥ Ã³¸®.
+	// ì¸ì¦ ìƒíƒœì— ë”°ë¥¸ ì²˜ë¦¬.
 	switch( pUserInfo->dwType )
 	{
 	case CLIENT_TYPE_ILLEGAL:
 		{
-			// ºÒ·® Å¬¶óÀÌ¾ðÆ®·ÎºÎÅÍ ÆÐÅ¶ÀÌ ³¯¾Æ¿À¸é ¹«½ÃÇÑ´Ù.
-			// ÀÌ °æ¿ì ºÒ·® Å¬¶óÀÌ¾ðÆ®·Î Á¤ÀÇÇÒ¶§ CompulsiveDisconnect() ÇØ µÐ »óÅÂÀÌ°í.
-			// ÀÌ ºÐ·ù´Â Á¢¼ÓÁ¾·á Ã³¸®°¡ µÇ±â Àü±îÁö ³¯¾Æ¿Ã ¼ö ÀÖ´Â ÆÐÅ¶µéÀ» Ã³¸®ÇÑ´Ù.
-			// ·Î±×ÀÇ ¾çÀ» ÁÙÀÌ±â À§ÇØ ÇÑ¹ø ºÒ·® Å¬¶óÀÌ¾ðÆ®·Î Ã³¸®µÈ°Í µéÀº ¹«½ÃÇÑ´Ù.
+			// ë¶ˆëŸ‰ í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„° íŒ¨í‚·ì´ ë‚ ì•„ì˜¤ë©´ ë¬´ì‹œí•œë‹¤.
+			// ì´ ê²½ìš° ë¶ˆëŸ‰ í´ë¼ì´ì–¸íŠ¸ë¡œ ì •ì˜í• ë•Œ CompulsiveDisconnect() í•´ ë‘” ìƒíƒœì´ê³ .
+			// ì´ ë¶„ë¥˜ëŠ” ì ‘ì†ì¢…ë£Œ ì²˜ë¦¬ê°€ ë˜ê¸° ì „ê¹Œì§€ ë‚ ì•„ì˜¬ ìˆ˜ ìžˆëŠ” íŒ¨í‚·ë“¤ì„ ì²˜ë¦¬í•œë‹¤.
+			// ë¡œê·¸ì˜ ì–‘ì„ ì¤„ì´ê¸° ìœ„í•´ í•œë²ˆ ë¶ˆëŸ‰ í´ë¼ì´ì–¸íŠ¸ë¡œ ì²˜ë¦¬ëœê²ƒ ë“¤ì€ ë¬´ì‹œí•œë‹¤.
 			return;
 		}
 		break;
-	case CLIENT_TYPE_MANAGER:			// ÀÎÁõµÈ MANAGER
+	case CLIENT_TYPE_MANAGER:			// ì¸ì¦ëœ MANAGER
 		{
 			//Modified 020330 KBS
 			BYTE bID;
@@ -387,10 +387,10 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 			
 			
 	/*		
-			// ¿©±â¼­ µðÄÚµùÇÑ´Ù.
+			// ì—¬ê¸°ì„œ ë””ì½”ë”©í•œë‹¤.
 			// Not Yet.
 
-			// µðÄÚµùÇØ¼­ ¾òÀº °ªÀº...
+			// ë””ì½”ë”©í•´ì„œ ì–»ì€ ê°’ì€...
 			LP_MANAGER_PACKET pPacket = (LP_MANAGER_PACKET)pMsg;
 
 			if( dwLength < sizeof(MANAGER_PACKET_HEADER) )
@@ -405,7 +405,7 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 
 			if( !OnRecvMsgFromManager( pUserInfo, pPacket, dwLength ) )
 			{
-				// ºÒ·® CLIENT·Î ºÐ·ù. ÀÌ °æ¿ì´Â Å©·¡Å·ÀÌ¶ó±âº¸´Ù´Â ¹ö±×ÀÏ È®·üÀÌ ³ô°í, ÇØÅ·ÀÌ¶ó¸é ¾öÃ» ½É°¢ÇÏ´Ù.
+				// ë¶ˆëŸ‰ CLIENTë¡œ ë¶„ë¥˜. ì´ ê²½ìš°ëŠ” í¬ëž˜í‚¹ì´ë¼ê¸°ë³´ë‹¤ëŠ” ë²„ê·¸ì¼ í™•ë¥ ì´ ë†’ê³ , í•´í‚¹ì´ë¼ë©´ ì—„ì²­ ì‹¬ê°í•˜ë‹¤.
 				MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER :: Illegal Packet(wCMD:%d, CRC:%d, dwLength:%d)", pPacket->h.wCMD, pPacket->h.dwCRC, dwLength );
 				MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
 
@@ -414,7 +414,7 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 				return;
 			}
 */
-			// Á¤»óÃ³¸®µÊ.
+			// ì •ìƒì²˜ë¦¬ë¨.
 			return;
 		}
 		break;
@@ -438,17 +438,17 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 						pUserInfo->dwType = CLIENT_TYPE_MANAGER;
 						pUserInfo->dwStatus = STATUS_USER_ACTIVATED;
 
-						// Á¢¼ÓÁ¾·á ´ë±â ¸®½ºÆ®¿¡¼­ »©ÁØ´Ù.
+						// ì ‘ì†ì¢…ë£Œ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸ì—ì„œ ë¹¼ì¤€ë‹¤.
 						g_pUserTable->RemoveUserFromAwaitingDisconnectUserList( pUserInfo );
 
-						//·Î±×ÀÎ ½ÂÀÎ ¸Þ¼¼Áö..   ÀÚ½ÅÀÌ ¼­¹ö¼Â ³Ñ¹ö¿Í ÇÔ²²..
+						//ë¡œê·¸ì¸ ìŠ¹ì¸ ë©”ì„¸ì§€..   ìžì‹ ì´ ì„œë²„ì…‹ ë„˜ë²„ì™€ í•¨ê»˜..
 						PACKET_RM_LOGIN_OK pck(g_pServerTable->m_dwServerSetNumber);
 						MgrSend(dwConnectionIndex, &pck, pck.GetPacketSize());
 
 					}
 					else
 					{
-						//µî·ÏµÈ IP°¡ ¾Æ´ÑÀÚ¸®¿¡¼­ ·Î±×ÀÎ ÇÑ °æ¿ì 
+						//ë“±ë¡ëœ IPê°€ ì•„ë‹Œìžë¦¬ì—ì„œ ë¡œê·¸ì¸ í•œ ê²½ìš° 
 						PACKET_RM_LOGIN_FAIL pck;
 						MgrSend(dwConnectionIndex, &pck, pck.GetPacketSize());
 
@@ -461,10 +461,10 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 
 					g_pRMTable->AddClient(dwConnectionIndex, packet);
 					
-					if(g_pRMTable->GetClientNum() == 1)	//RMClient°¡ ÇÏ³ª¶óµµ Á¢¼ÓµÈ »óÅÂ¸é Ã¼Å© ½ÃÀÛ!
+					if(g_pRMTable->GetClientNum() == 1)	//RMClientê°€ í•˜ë‚˜ë¼ë„ ì ‘ì†ëœ ìƒíƒœë©´ ì²´í¬ ì‹œìž‘!
 					{
 						StopWaitTimer();
-						StartEchoTimer();			//¼­¹ö ´Ù¿îµÆ³ª ¾ÈµÆ³ª Ã¼Å© ÀÛ¾÷ ½ÃÀÛ
+						StartEchoTimer();			//ì„œë²„ ë‹¤ìš´ëë‚˜ ì•ˆëë‚˜ ì²´í¬ ìž‘ì—… ì‹œìž‘
 					}
 				}
 				break;
@@ -473,12 +473,12 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 			//
 /*
 
-			// ÀÌ°÷¿¡¼­ SSL(Secure Socket Layer)¸¦ ±¸¼ºÇÏ°í,
+			// ì´ê³³ì—ì„œ SSL(Secure Socket Layer)ë¥¼ êµ¬ì„±í•˜ê³ ,
 
-			// ÀÏ´Ü MANAGER CLIENTÀÏ °¡´É¼ºÀÌ ÀÖ´Ù°í ÀÎÁ¤µÈ CLIENT ·Î¼­.
-			// ÀÏ·ÃÀÇ ÀÎÁõ °úÁ¤À» °ÅÃÄ CLIENT_TYPE_MANAGER ·Î ÀÎÁõµÇ¸é MANAGER ·Î¼­ ¿ªÇÒÀ» ¼öÇàÇÒ ¼ö ÀÖ°ÔµÈ´Ù.
+			// ì¼ë‹¨ MANAGER CLIENTì¼ ê°€ëŠ¥ì„±ì´ ìžˆë‹¤ê³  ì¸ì •ëœ CLIENT ë¡œì„œ.
+			// ì¼ë ¨ì˜ ì¸ì¦ ê³¼ì •ì„ ê±°ì³ CLIENT_TYPE_MANAGER ë¡œ ì¸ì¦ë˜ë©´ MANAGER ë¡œì„œ ì—­í• ì„ ìˆ˜í–‰í•  ìˆ˜ ìžˆê²Œëœë‹¤.
 
-			// ÀÎÁõ¿ë ÆÐÅ¶À» ¹Þ´Â´Ù.
+			// ì¸ì¦ìš© íŒ¨í‚·ì„ ë°›ëŠ”ë‹¤.
 			if( !OnRecvAuthMsgFromManager( pUserInfo, (LP_MANAGER_PACKET)pMsg, dwLength ) )
 			{
 				MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER_UNDER_AUTHENTICATION :: Illegal Packet(%d)", dwLength );
@@ -489,25 +489,25 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 			}
 			else
 			{
-				// ÀÎÁõ µÇ¾ú´Ù.
+				// ì¸ì¦ ë˜ì—ˆë‹¤.
 				pUserInfo->dwType = CLIENT_TYPE_MANAGER;
 				pUserInfo->dwStatus = STATUS_USER_ACTIVATED;
 
-				// Á¢¼ÓÁ¾·á ´ë±â ¸®½ºÆ®¿¡¼­ »©ÁØ´Ù.
+				// ì ‘ì†ì¢…ë£Œ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸ì—ì„œ ë¹¼ì¤€ë‹¤.
 				g_pUserTable->RemoveUserFromAwaitingDisconnectUserList( pUserInfo );
 
-				// 20010508 Add Proxy-OwnPort ÇÊ¿ä
+				// 20010508 Add Proxy-OwnPort í•„ìš”
 				AnswerAuthPacket( pUserInfo );
 			}
 */
 
 		}
 		break;
-	case CLIENT_TYPE_NORMAL: // ÀÏ¹Ý À¯Àú.
+	case CLIENT_TYPE_NORMAL: // ì¼ë°˜ ìœ ì €.
 		{
-			// Á¤»óÀûÀÎ Å¬¶óÀÌ¾ðÆ®´Â PROXY¿¡ ¸Þ½ÃÁö¸¦ º¸³»Áö ¾Ê´Â´Ù.
-			// ÇÏÁö¸¸ MANAGER CLIENT ÀÏ °¡´É¼ºÀÌ ÀÖÀ¸¹Ç·Î,
-			// °¡Àå Ã³À½ ³¯¾Æ¿Â PACKET À¸·Î ºÒ·® CLIENT ¿Í MANAGER CLIENT¸¦ 1Â÷ÀûÀ¸·Î ºÐ·ùÇÑ´Ù.
+			// ì •ìƒì ì¸ í´ë¼ì´ì–¸íŠ¸ëŠ” PROXYì— ë©”ì‹œì§€ë¥¼ ë³´ë‚´ì§€ ì•ŠëŠ”ë‹¤.
+			// í•˜ì§€ë§Œ MANAGER CLIENT ì¼ ê°€ëŠ¥ì„±ì´ ìžˆìœ¼ë¯€ë¡œ,
+			// ê°€ìž¥ ì²˜ìŒ ë‚ ì•„ì˜¨ PACKET ìœ¼ë¡œ ë¶ˆëŸ‰ CLIENT ì™€ MANAGER CLIENTë¥¼ 1ì°¨ì ìœ¼ë¡œ ë¶„ë¥˜í•œë‹¤.
 			// --------------------------------
 
 //			MyLog( LOG_IMPORTANT, "RecvPacket Size : %d, %d", dwLength, sizeof(MANAGER_PACKET_HEADER));
@@ -520,17 +520,17 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 				{
 					if( pPacket->h.dwCRC == MANAGER_CLIENT_FIRST_PACKET_CRC )
 					{
-						// ÀÏ´Ü MANAGER CLIENT ÀÏ °¡´É¼ºÀ» ÀÎÁ¤ÇÑ´Ù.
+						// ì¼ë‹¨ MANAGER CLIENT ì¼ ê°€ëŠ¥ì„±ì„ ì¸ì •í•œë‹¤.
 						// pUserInfo->dwType = CLIENT_TYPE_MANAGER_UNDER_AUTHENTICATION;
-						pUserInfo->dwType = CLIENT_TYPE_MANAGER_UNDER_AUTHENTICATION;	//  ÀÏ´Ü ¹«Á¶°Ç ÀÎÁõ.
+						pUserInfo->dwType = CLIENT_TYPE_MANAGER_UNDER_AUTHENTICATION;	//  ì¼ë‹¨ ë¬´ì¡°ê±´ ì¸ì¦.
 						return;
 					}
 				}
 			}
 			// --------------------------------
 
-			// À§ Á¶°Ç¿¡¼­ °É·¯ÁöÁö ¾ÊÀº CLIENT µéÀº ºÒ·®.
-			// ºÒ·® Á¢¼Ó½Ãµµ·Î ±â·ÏÇÏ°í Á¢¼ÓÀ» ²÷´Â´Ù.
+			// ìœ„ ì¡°ê±´ì—ì„œ ê±¸ëŸ¬ì§€ì§€ ì•Šì€ CLIENT ë“¤ì€ ë¶ˆëŸ‰.
+			// ë¶ˆëŸ‰ ì ‘ì†ì‹œë„ë¡œ ê¸°ë¡í•˜ê³  ì ‘ì†ì„ ëŠëŠ”ë‹¤.
 			MyLog( LOG_IMPORTANT, "--- ILLEGAL CLIENT at (CI:%d, IP:%s, PORT:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
 			
 			pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
@@ -539,9 +539,9 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 		}
 	default:
 		{
-			// ¹üÀ§¸¦ ¹þ¾î³ª´Â Å¸ÀÔÀ» °¡Á®¼­´Â ¾ÈµÈ´Ù.
-			// Çã¿ëÇÒ ¼ö ÀÖ´Â °áÇÔÀ¸·Î ºÐ·ùÇÏ¸é ´õ Å« ¹ö±×¸¦ ¸¸µé¼öµµ ÀÖÀ¸¹Ç·Î
-			// ¼­¹ö¸¦ Á×ÀÎ´Ù.
+			// ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ëŠ” íƒ€ìž…ì„ ê°€ì ¸ì„œëŠ” ì•ˆëœë‹¤.
+			// í—ˆìš©í•  ìˆ˜ ìžˆëŠ” ê²°í•¨ìœ¼ë¡œ ë¶„ë¥˜í•˜ë©´ ë” í° ë²„ê·¸ë¥¼ ë§Œë“¤ìˆ˜ë„ ìžˆìœ¼ë¯€ë¡œ
+			// ì„œë²„ë¥¼ ì£½ì¸ë‹¤.
 			MyLog( LOG_FATAL, "RecvMsgUser() :: UNKNOWN 'CLIENT_TYPE'(%d)", pUserInfo->dwType );
 #ifdef __ON_DEBUG
 			_asm int 3;
@@ -564,7 +564,7 @@ void __stdcall OnDisconnectUser(DWORD dwConnectionIndex)
 	{
 		g_pRMTable->RemoveClient( dwConnectionIndex );
 
-		if(g_pRMTable->GetClientNum() == 0)	//RMClient°¡ ¸ðµÎ Á¢¼Ó ÇØÁ¦ µÇ¾úÀ¸¸é Ã¼Å© ±×¸¸ 
+		if(g_pRMTable->GetClientNum() == 0)	//RMClientê°€ ëª¨ë‘ ì ‘ì† í•´ì œ ë˜ì—ˆìœ¼ë©´ ì²´í¬ ê·¸ë§Œ 
 		{
 			StopWaitTimer();
 			StopEchoTimer();	
@@ -622,7 +622,7 @@ void __stdcall OnDisconnectServer(DWORD dwConnectionIndex)
 				//Modified by KBS 011213
 				g_pRMTable->RemoveClient( dwConnectionIndex );
 
-				if(g_pRMTable->GetClientNum() == 0)	//RMClient°¡ ¸ðµÎ Á¢¼Ó ÇØÁ¦ µÇ¾úÀ¸¸é Ã¼Å© ±×¸¸ 
+				if(g_pRMTable->GetClientNum() == 0)	//RMClientê°€ ëª¨ë‘ ì ‘ì† í•´ì œ ë˜ì—ˆìœ¼ë©´ ì²´í¬ ê·¸ë§Œ 
 				{
 					StopWaitTimer();
 					StopEchoTimer();	
@@ -635,7 +635,7 @@ void __stdcall OnDisconnectServer(DWORD dwConnectionIndex)
 				//Modified by KBS 0112
 				if(CheckValidConnection( dwConnectionIndex, 1 ))
 				{
-					//Listener°¡ Á¢¼Ó ²÷¾îÁü..
+					//Listenerê°€ ì ‘ì† ëŠì–´ì§..
 					in_addr addr;
 					addr.S_un = g_pINet->GetServerAddress( dwConnectionIndex )->sin_addr.S_un;
 		
@@ -655,7 +655,7 @@ void __stdcall OnDisconnectServer(DWORD dwConnectionIndex)
 			break;
 		}
 	}
-	else	//ÀÏ¹Ý ¼­¹ö 
+	else	//ì¼ë°˜ ì„œë²„ 
 	{	
 		//Added by KBS 011205
 		LP_SERVER_DATA pServerData;

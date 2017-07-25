@@ -1,4 +1,4 @@
-// ArenaDef.h: interface for the CArenaDef class.
+﻿// ArenaDef.h: interface for the CArenaDef class.
 //
 //////////////////////////////////////////////////////////////////////
 

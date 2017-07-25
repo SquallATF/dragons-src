@@ -1,4 +1,4 @@
-// ExtraMagic.h: interface for the CExtraMagic class.
+ï»¿// ExtraMagic.h: interface for the CExtraMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ±âÅ¸°è¿­ ¸¶¹ý 
+// ê¸°íƒ€ê³„ì—´ ë§ˆë²• 
 class CExtraMagic : public TBinder<CMagic, CExtraMagic>
 { 
 public:
@@ -33,24 +33,24 @@ public:
 	}
 	
 public:
-	bool Phasing();             // ½Ã°ø °è¿­ ¸¶¹ý
+	bool Phasing();             // ì‹œê³µ ê³„ì—´ ë§ˆë²•
 	bool Teleport();
 	bool MemorizingLocation();
 	bool TownPortal();
 	bool MultiPort();
 	bool VampireDodge();
-	bool LowMonsterRecall();    // ¼ÒÈ¯ °è¿­ ¸¶¹ý
+	bool LowMonsterRecall();    // ì†Œí™˜ ê³„ì—´ ë§ˆë²•
 	bool MiddleMonsterRecall();
 	bool SummoningSkeleton();
 	bool SummoningUndead();
 	bool RecallFollow();
-	bool MagicalTrap();         // ±âÅ¸ °è¿­ ¸¶¹ý
+	bool MagicalTrap();         // ê¸°íƒ€ ê³„ì—´ ë§ˆë²•
 	bool MagicDetect();
 	bool Anthem();
 	bool InfluenceDivine();
 	bool VoiceSoul();
 	bool Appreciate();
-	bool Pray();				// ¸¶³ª ¿Ã¸®´Â °è¿­ ¸¶¹ý // 030415 kyo
+	bool Pray();				// ë§ˆë‚˜ ì˜¬ë¦¬ëŠ” ê³„ì—´ ë§ˆë²• // 030415 kyo
 	
 protected:
 	enum {MAX_COUNT = 10};

@@ -1,4 +1,4 @@
-// FileMgr.h: interface for the CFileMgr class.
+ï»¿// FileMgr.h: interface for the CFileMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// È­ÀÏ °ü·Ã Å¬·¡½º
+// í™”ì¼ ê´€ë ¨ í´ë˜ìŠ¤
 template <typename T, int N> class TFileMgr
 {
   typedef map<int, T*>           hash;
@@ -152,25 +152,25 @@ template <typename T, int N>
 bool TFileMgr<T, N>::Load(const char* pFile)
 {
   ifstream fin(pFile, ios::in|ios::binary);
-  // Çì´õ ÀĞ¾î¿À±â
+  // í—¤ë” ì½ì–´ì˜¤ê¸°
   int nVersion = 0;
   fin.read((char*)(&nVersion), sizeof(nVersion)); 
   if (m_hsel.GetVersion() != nVersion)  return false;
   HselInit deinit;
   fin.read((char*)(&deinit), sizeof(HselInit));
   if (!m_hsel.Initial(deinit))  return false;
-  // ÆÄÀÏ ÀĞ¾î¿À±â
+  // íŒŒì¼ ì½ì–´ì˜¤ê¸°
   T* pT = NULL;
 
   for (int i = 0; i < N; ++i)	
   { 
     pT = GetBuffer(i);
     if (pT == NULL)  return false;
-    // µ¥ÀÌÅ¸¸¦ ÀĞ¾î¿Í ¾ÏÈ£ÇØÁ¦
+    // ë°ì´íƒ€ë¥¼ ì½ì–´ì™€ ì•”í˜¸í•´ì œ
     fin.read((char*)(pT), sizeof(T));
     fin.read((char*)(&m_dwHandle), sizeof(m_dwHandle));
     Decode((char*)(pT), sizeof(T));
-    // ÇØÅ·¿©ºÎ °Ë»ç
+    // í•´í‚¹ì—¬ë¶€ ê²€ì‚¬
     if (m_hsel.GetCRCConvertShort() != m_nIndex)  return false;
     if (pT->Check() != m_nMagic)  return false;
 
@@ -181,7 +181,7 @@ bool TFileMgr<T, N>::Load(const char* pFile)
 	{
 		pSource[j] ^= m_pMark[j];
 	}
-    // ·¹ÄÚÆ® Ãß°¡
+    // ë ˆì½”íŠ¸ ì¶”ê°€
     AddNew(i, check);
 	//--------------------------------
   }
@@ -194,27 +194,27 @@ template <typename T, int N>
 bool TFileMgr<T, N>::Save(const char* pFile)
 {
   ofstream fout(pFile, ios::out|ios::binary);
-  // CRC ±¸ÇÏ±â
+  // CRC êµ¬í•˜ê¸°
   HselInit eninit;
 	eninit.iEncryptType	=	HSEL_ENCRYPTTYPE_RAND;
 	eninit.iDesCount = HSEL_DES_TRIPLE;
 	eninit.iCustomize	=	HSEL_KEY_TYPE_DEFAULT;
 	eninit.iSwapFlag = HSEL_SWAP_FLAG_ON;
 	if (!m_hsel.Initial(eninit))  return false;
-  // Çì´õ ÀúÀåÇÏ±â
+  // í—¤ë” ì €ì¥í•˜ê¸°
   HselInit deinit;
   deinit = m_hsel.GetHSELCustomizeOption();
   const int nVersion = m_hsel.GetVersion();
   fout.write((char*)(&nVersion), sizeof(nVersion));
   fout.write((char*)(&deinit), sizeof(HselInit)); 
-  // ÆÄÀÏ ÀúÀåÇÏ±â
+  // íŒŒì¼ ì €ì¥í•˜ê¸°
   T* pT = NULL;
 
   for (int i = 0; i < N; ++i)	
   {
     pT = (m_mpBank[i] != NULL) ? m_mpBank[i]:GetBuffer(i);
     if (pT == NULL)  return false;
-    // µ¥ÀÌÅ¸ ¾ÏÈ£È­ ¹× ÀúÀå
+    // ë°ì´íƒ€ ì•”í˜¸í™” ë° ì €ì¥
     m_nMagic = pT->Check();
     Encode((char*)pT, sizeof(T));
     fout.write((char*)(pT), sizeof(T));

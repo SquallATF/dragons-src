@@ -1,4 +1,4 @@
-// ArenaManager.cpp: implementation of the CArenaManager class.
+ï»¿// ArenaManager.cpp: implementation of the CArenaManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -290,7 +290,7 @@ void CArenaManager::RecvEnterTeam(WORD idMember, t_arena_enter_team* pPacket)
 	const int nTeam = pPacket->nArenaTeam;
 	
 	if (pGame->AddTeam(nTeam, pMember))
-	{	// ÆÀ¿¡¼­ µî·ÏµÈ »ç¶÷ÀÌ ÀÖÀ½À» ¾Ë¸°´Ù.
+	{	// íŒ€ì—ì„œ ë“±ë¡ëœ ì‚¬ëžŒì´ ìžˆìŒì„ ì•Œë¦°ë‹¤.
 		SendTeamBattleMessageAddCharOk((char)nTeam, idMember);
 		pGame->RequestRegisterLeader(pMember);
 		pGame->RequestProbability();

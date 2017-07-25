@@ -1,4 +1,4 @@
-#ifndef _NATION_SYS_H_
+ï»¿#ifndef _NATION_SYS_H_
 #define _NATION_SYS_H_
 
 #include "NationSys_Define.h"
@@ -169,18 +169,18 @@ typedef MonsterList::iterator MonsterListItor;
 
 struct LoopTimeDefine						// 011101 LTS
 {
-	DWORD	NWPeaceTime1;		// ÀüÀïÈÄÀÇ ÆòÈ­½Ã°£ 
-	DWORD	NWPeaceTime2;		// »êÁßÀüÀïÅÍÀÇ ÃÖÃÊ ÀüÀï·çÇÁ ½ÃÀÛ½Ã°£ 
-	DWORD	NWPeaceTime3;		// Æò¿øÀüÀïÅÍÀÇ ÃÖÃÊ ÀüÀï·çÇÁ ½ÃÀÛ½Ã°£ 
-	DWORD	NWPeaceTime4;		// ¼¶  ÀüÀïÅÍÀÇ ÃÖÃÊ ÀüÀï·çÇÁ ½ÃÀÛ½Ã°£ 
-	DWORD	NWVoteTime;			// ÀüÀï ÅõÇ¥ ½Ã°£
-	DWORD	NWPrepareTime;		// ÀüÀï ÁØºñ ½Ã°£ 
-	DWORD	NWWarTime;			// ÀüÀï ½Ã°£ 
-	DWORD	NWBonusTime;		// ºñ¹ĞÁö¿ª ¿ÀÇÂ½Ã°£
-	DWORD	NWVoteMin;			// ÅõÇ¥ ÃÖ¼ÒÀÎ¿ø			// LTS LOCALWAR
-	WORD	NWBYJoinMAX;		// ÀüÀïÅÍ Âü¿©ÀÎ¿ø ¹ÙÀÌ ¸Æ½º
-	WORD	NWZYJoinMAX;		// ÀüÀïÅÍ Âü¿©ÀÎ¿ø ÀÚÀÌ ¸Æ½º
-	WORD	NWYLJoinMAX;		// ÀüÀïÅÍ Âü¿©ÀÎ¿ø ÀÏ½º ¸Æ½º
+	DWORD	NWPeaceTime1;		// ì „ìŸí›„ì˜ í‰í™”ì‹œê°„ 
+	DWORD	NWPeaceTime2;		// ì‚°ì¤‘ì „ìŸí„°ì˜ ìµœì´ˆ ì „ìŸë£¨í”„ ì‹œì‘ì‹œê°„ 
+	DWORD	NWPeaceTime3;		// í‰ì›ì „ìŸí„°ì˜ ìµœì´ˆ ì „ìŸë£¨í”„ ì‹œì‘ì‹œê°„ 
+	DWORD	NWPeaceTime4;		// ì„¬  ì „ìŸí„°ì˜ ìµœì´ˆ ì „ìŸë£¨í”„ ì‹œì‘ì‹œê°„ 
+	DWORD	NWVoteTime;			// ì „ìŸ íˆ¬í‘œ ì‹œê°„
+	DWORD	NWPrepareTime;		// ì „ìŸ ì¤€ë¹„ ì‹œê°„ 
+	DWORD	NWWarTime;			// ì „ìŸ ì‹œê°„ 
+	DWORD	NWBonusTime;		// ë¹„ë°€ì§€ì—­ ì˜¤í”ˆì‹œê°„
+	DWORD	NWVoteMin;			// íˆ¬í‘œ ìµœì†Œì¸ì›			// LTS LOCALWAR
+	WORD	NWBYJoinMAX;		// ì „ìŸí„° ì°¸ì—¬ì¸ì› ë°”ì´ ë§¥ìŠ¤
+	WORD	NWZYJoinMAX;		// ì „ìŸí„° ì°¸ì—¬ì¸ì› ìì´ ë§¥ìŠ¤
+	WORD	NWYLJoinMAX;		// ì „ìŸí„° ì°¸ì—¬ì¸ì› ì¼ìŠ¤ ë§¥ìŠ¤
 };
 
 typedef struct StartWarTime
@@ -192,68 +192,68 @@ typedef struct StartWarTime
 class cWarfield
 {
 	// Lopp Concern
-	char			m_cLoopActive;										//ÀüÀïÀÇ ·çÇÁ¸¦ ÄÁÆ®·Ñ ÇÑ´Ù.
-	__int64			m_LoopTime;										// ÀüÀïÀÇ ÁÖ·çÇÁ Å¸ÀÓ
-	char			m_Status;										// ÀüÀïÅÍÀÇ »óÅÂ
-	bool			m_bRequestCommanderVotingResult;				// »ç·É°ü ÅõÇ¥ °á°ú¸¦ ¿äÃ»Çß³ª?
+	char			m_cLoopActive;										//ì „ìŸì˜ ë£¨í”„ë¥¼ ì»¨íŠ¸ë¡¤ í•œë‹¤.
+	__int64			m_LoopTime;										// ì „ìŸì˜ ì£¼ë£¨í”„ íƒ€ì„
+	char			m_Status;										// ì „ìŸí„°ì˜ ìƒíƒœ
+	bool			m_bRequestCommanderVotingResult;				// ì‚¬ë ¹ê´€ íˆ¬í‘œ ê²°ê³¼ë¥¼ ìš”ì²­í–ˆë‚˜?
 
-	bool			m_bBonusActive;									// º¸³Ê½º¸ÊÀÇ ¾×Æ®ºê »óÅÂ 
-	__int64			m_dBonusLoopTime;								// º¸³Ê½º ¸ÊÀÇ ·çÇÁÅ¸ÀÓ 
+	bool			m_bBonusActive;									// ë³´ë„ˆìŠ¤ë§µì˜ ì•¡íŠ¸ë¸Œ ìƒíƒœ 
+	__int64			m_dBonusLoopTime;								// ë³´ë„ˆìŠ¤ ë§µì˜ ë£¨í”„íƒ€ì„ 
 	DWORD			m_dRemainTime;
 
-	LoopTimeDefine	m_LoopTimeDefine;							// ÀüÀï·çÇÁÀÇ Á¤ÀÇ MapServer.ini¿¡ Á¤ÀÇ // 011101 LTS
+	LoopTimeDefine	m_LoopTimeDefine;							// ì „ìŸë£¨í”„ì˜ ì •ì˜ MapServer.iniì— ì •ì˜ // 011101 LTS
 
-	// Data Concern //·Îµù½Ã DB¿¡¼­ ÀĞ¾î¿À´Â ºÎºĞÀÌ´Ù. 
+	// Data Concern //ë¡œë”©ì‹œ DBì—ì„œ ì½ì–´ì˜¤ëŠ” ë¶€ë¶„ì´ë‹¤. 
 
-	int				m_WarfieldCode;									// ÀüÀïÅÍ ¹øÈ£
-	int				m_MapPortNum;									// Æ÷Æ®¹øÈ£
-	char			m_pWarfieldName[NW_NAME_MAX];					// ÀüÀïÅÍ ÀÌ¸§
-	int				m_NationCode;									// ¼ÒÀ¯ ±¹°¡
-	DWORD			m_dwStartDateTime;								// ÀüÀï½ÃÀÛ½Ã°£
-	DWORD			m_dwEndDateTime;								// ÀüÀïÁ¾·á½Ã°£
-	DWORD			m_dwNextDateTime;								// ´ÙÀ½ ÀüÀï½ÃÀÛ½Ã°£
+	int				m_WarfieldCode;									// ì „ìŸí„° ë²ˆí˜¸
+	int				m_MapPortNum;									// í¬íŠ¸ë²ˆí˜¸
+	char			m_pWarfieldName[NW_NAME_MAX];					// ì „ìŸí„° ì´ë¦„
+	int				m_NationCode;									// ì†Œìœ  êµ­ê°€
+	DWORD			m_dwStartDateTime;								// ì „ìŸì‹œì‘ì‹œê°„
+	DWORD			m_dwEndDateTime;								// ì „ìŸì¢…ë£Œì‹œê°„
+	DWORD			m_dwNextDateTime;								// ë‹¤ìŒ ì „ìŸì‹œì‘ì‹œê°„
 
-	char			m_cNpcCount;									// ¼º¹®, ¼öÈ£¼®ÀÇ Ä«¿îÆ®
+	char			m_cNpcCount;									// ì„±ë¬¸, ìˆ˜í˜¸ì„ì˜ ì¹´ìš´íŠ¸
 
-	char			m_cGuardStoneCount;								// ¼öÈ£¼® Ä«¿îÆ®
-	char			m_cCastleDoorCount;								// ¼º¹®Ä«¿îÆ®
+	char			m_cGuardStoneCount;								// ìˆ˜í˜¸ì„ ì¹´ìš´íŠ¸
+	char			m_cCastleDoorCount;								// ì„±ë¬¸ì¹´ìš´íŠ¸
 
-	char			m_cGuardStoneBossCount;							// ¿Õ¼öÈ£¼® Ä«¿îÆ®
+	char			m_cGuardStoneBossCount;							// ì™•ìˆ˜í˜¸ì„ ì¹´ìš´íŠ¸
 
-	char			m_cGuardStoneBrokenCount;						// ºÎ¼­Áø ¼öÈ£¼® Ä«¿îÆ®
-	char			m_cCastleDoorBrokenCount;						// ºÎ¼­Áø ¼º¹® Ä«¿îÆ®
+	char			m_cGuardStoneBrokenCount;						// ë¶€ì„œì§„ ìˆ˜í˜¸ì„ ì¹´ìš´íŠ¸
+	char			m_cCastleDoorBrokenCount;						// ë¶€ì„œì§„ ì„±ë¬¸ ì¹´ìš´íŠ¸
 
-	bool			m_bAttackerWin;									// °ø°İÀÚ°¡ ÀÌ°å´Â°¡?
-	bool			m_bFirstMakeMonster;							// ¸ó½ºÅÍ°¡ Àü¿¡ ¸¸µé¾î Á³´Â°¡?
+	bool			m_bAttackerWin;									// ê³µê²©ìê°€ ì´ê²¼ëŠ”ê°€?
+	bool			m_bFirstMakeMonster;							// ëª¬ìŠ¤í„°ê°€ ì „ì— ë§Œë“¤ì–´ ì¡ŒëŠ”ê°€?
 
-	POINTS			m_LivePoints[NW_SQUAD_KIND];					// °ø°İÀÚ ¹æ¾îÀÚÀÇ À¯·É »ì¾Æ³ª´Â Æ÷ÀÎÆ®		// 011015 LTS
+	POINTS			m_LivePoints[NW_SQUAD_KIND];					// ê³µê²©ì ë°©ì–´ìì˜ ìœ ë ¹ ì‚´ì•„ë‚˜ëŠ” í¬ì¸íŠ¸		// 011015 LTS
 
 
 	// Squad Concern
 
-	t_Squad			m_tSquad[NW_SQUAD_KIND];						// NW_ATTACKER, NW_DEFENCER, NW_REINFORCE		// ºÎ´ë°ü·Ã
-	t_WeaponStruct	m_tWeaponData[NW_MAX_NPC];						// ¼º¹®,¼öÈ£¼® °ü·Ã
-	t_MonPoint		m_tMonsterPoint[MAX_MONSTER_POINT];				// ¼º¹®ÀÇ À§Ä¡ ¹× µ·Æ®ÀÇ À§Ä¡ 	
+	t_Squad			m_tSquad[NW_SQUAD_KIND];						// NW_ATTACKER, NW_DEFENCER, NW_REINFORCE		// ë¶€ëŒ€ê´€ë ¨
+	t_WeaponStruct	m_tWeaponData[NW_MAX_NPC];						// ì„±ë¬¸,ìˆ˜í˜¸ì„ ê´€ë ¨
+	t_MonPoint		m_tMonsterPoint[MAX_MONSTER_POINT];				// ì„±ë¬¸ì˜ ìœ„ì¹˜ ë° ëˆíŠ¸ì˜ ìœ„ì¹˜ 	
 
-	SquadList		g_AttackSquadList[NW_SQUAD_MAX];				// ÇöÀç ¸Ê¿¡ ÀÖ´Â °ø°İÀÚ ¸®½ºÆ®
-	SquadList		g_DefenceSquadList[NW_SQUAD_MAX];				// ¹æ¾îÀÚ ¸®½ºÆ®
-	SquadList		g_ReinforceSquadList[NW_SQUAD_MAX];				// Áö¿ø±º ¸®½ºÆ®
-	SquadList		g_CommanderList[NW_SQUAD_KIND];					// ºÎ´ëÀå , »ç·É°ü ¸®½ºÆ®
+	SquadList		g_AttackSquadList[NW_SQUAD_MAX];				// í˜„ì¬ ë§µì— ìˆëŠ” ê³µê²©ì ë¦¬ìŠ¤íŠ¸
+	SquadList		g_DefenceSquadList[NW_SQUAD_MAX];				// ë°©ì–´ì ë¦¬ìŠ¤íŠ¸
+	SquadList		g_ReinforceSquadList[NW_SQUAD_MAX];				// ì§€ì›êµ° ë¦¬ìŠ¤íŠ¸
+	SquadList		g_CommanderList[NW_SQUAD_KIND];					// ë¶€ëŒ€ì¥ , ì‚¬ë ¹ê´€ ë¦¬ìŠ¤íŠ¸
 
-	KillerList		g_KillerList;									// ¼º¹®, ¼öÈ£¼®À» ºÎ¼ø »ç¶÷ ¸®½ºÆ®	
-	MonsterList		m_MonsterList;									// ÀÏ½ÃÀûÀ¸·Î »ı¼ºµÇ´Â ¸ó½ºÆ®ÀÇ ¸®½ºÆ® º¸³Ê½º Å¸ÀÓ¿¡..
+	KillerList		g_KillerList;									// ì„±ë¬¸, ìˆ˜í˜¸ì„ì„ ë¶€ìˆœ ì‚¬ëŒ ë¦¬ìŠ¤íŠ¸	
+	MonsterList		m_MonsterList;									// ì¼ì‹œì ìœ¼ë¡œ ìƒì„±ë˜ëŠ” ëª¬ìŠ¤íŠ¸ì˜ ë¦¬ìŠ¤íŠ¸ ë³´ë„ˆìŠ¤ íƒ€ì„ì—..
 
-	int				g_SquadCount[NW_SQUAD_KIND][NW_SQUAD_MAX];		// ºÎ´ëº° ¸Ê ÀÎ¿ø Ä«¿îÆ® 
-	int				m_JoinSquadCount[NW_SQUAD_KIND];				// ÀÏ½ºÀÇ ºÎ´ë Ä«¿îÆ®		// 011016 LTS
+	int				g_SquadCount[NW_SQUAD_KIND][NW_SQUAD_MAX];		// ë¶€ëŒ€ë³„ ë§µ ì¸ì› ì¹´ìš´íŠ¸ 
+	int				m_JoinSquadCount[NW_SQUAD_KIND];				// ì¼ìŠ¤ì˜ ë¶€ëŒ€ ì¹´ìš´íŠ¸		// 011016 LTS
 
 
-	MonsterPoints2	m_MonsterPoint2;								//¸ó½ºÅÍ Æ÷ÀÎÆ® È®Àå¿ë
+	MonsterPoints2	m_MonsterPoint2;								//ëª¬ìŠ¤í„° í¬ì¸íŠ¸ í™•ì¥ìš©
 
-	bool			m_bCommanderExist[NW_SQUAD_KIND];					// ÀüÀïÅÍ¿¡ ºÎ´ëÀåÀÌ Á¸Àç
-	bool			m_bSquadLeaderExist[NW_SQUAD_KIND][NW_SQUAD_MAX];	// ÀüÀïÅÍ¿¡ »ç·É°üÀÌ Á¸Àç À§¾Æ·¡ ¹Ù²ñ
+	bool			m_bCommanderExist[NW_SQUAD_KIND];					// ì „ìŸí„°ì— ë¶€ëŒ€ì¥ì´ ì¡´ì¬
+	bool			m_bSquadLeaderExist[NW_SQUAD_KIND][NW_SQUAD_MAX];	// ì „ìŸí„°ì— ì‚¬ë ¹ê´€ì´ ì¡´ì¬ ìœ„ì•„ë˜ ë°”ë€œ
 	DWORD			m_KilledCount[NW_SQUAD_KIND];
 
-	WORD			m_NationMemberCount[3];							// ¹ÙÀÌ ÀÚÀÌ ÀÏ½ºÀÇ ¸â¹öÄ«¿îÆ®	// 011218 LTS
+	WORD			m_NationMemberCount[3];							// ë°”ì´ ìì´ ì¼ìŠ¤ì˜ ë©¤ë²„ì¹´ìš´íŠ¸	// 011218 LTS
 
 
 public :
@@ -265,7 +265,7 @@ public :
 	bool			LoadWarfieldData(WORD PortNum);
 	bool			LoadWarfieldWeaponData(WORD PortNum);
 	bool			LoadWarfieldMonsterData(WORD PortNum);
-	bool			LoadMonsterPoint();								//ÆÄÀÏ¶Ç´Â µ¥ÀÌÅÍ º£ÀÌ½º..
+	bool			LoadMonsterPoint();								//íŒŒì¼ë˜ëŠ” ë°ì´í„° ë² ì´ìŠ¤..
 //	bool			LoadNationWar_Exp();							// LTS NEW LOCALWAR
 	void			InitWarLoop();
 	void			Destroy();
@@ -323,9 +323,9 @@ public :
 
 	void			InitSquad();
 
-    inline void		IncSquadMemberCount(int Kind, int SquadNo)			// ºÎ´ëÆí¼º½Ã (ÀüÀï»óÈ²ÀÌ ¾Æ´Ò¶§..) Æí¼ºÀÎ¿ø Áõ°¡
+    inline void		IncSquadMemberCount(int Kind, int SquadNo)			// ë¶€ëŒ€í¸ì„±ì‹œ (ì „ìŸìƒí™©ì´ ì•„ë‹ë•Œ..) í¸ì„±ì¸ì› ì¦ê°€
 												{m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount++;}
-	inline void		DecSquadMemberCount(int Kind, int SquadNo)			// ºÎ´ëÆí¼º½Ã (ÀüÀï»óÈ²ÀÌ ¾Æ´Ò¶§..) Æí¼ºÀÎ¿ø °¨¼Ò
+	inline void		DecSquadMemberCount(int Kind, int SquadNo)			// ë¶€ëŒ€í¸ì„±ì‹œ (ì „ìŸìƒí™©ì´ ì•„ë‹ë•Œ..) í¸ì„±ì¸ì› ê°ì†Œ
 												{m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount--;}
 	inline int		GetSquadMemberCount(int Kind,int SquadNo) 
 												{ return m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount; }
@@ -349,17 +349,17 @@ public :
 	bool			CanRegCommanderCandidater(int Kind,int CandidaterNo);
 	void			SetCandidaterInfo(int Kind,int CandidaterNo,t_CommanderInformation* CandidaterInfo);
 
-	void			AllGuardStoneWasBroked(); // ÀüÀï½ÂÆĞÀÇ °áÁ¤..
-	void			ProcessNationWarEnd(bool AttackerWin);    //ÀüÀïÀÇ Ã³¸® //ÀÎÀÚ ÄİÅ¸ÀÔ.. ½Ã°£, ¼öÈ£¼®..
+	void			AllGuardStoneWasBroked(); // ì „ìŸìŠ¹íŒ¨ì˜ ê²°ì •..
+	void			ProcessNationWarEnd(bool AttackerWin);    //ì „ìŸì˜ ì²˜ë¦¬ //ì¸ì ì½œíƒ€ì….. ì‹œê°„, ìˆ˜í˜¸ì„..
 
 	void			FirstMakeWeaponData();
-	void			MakeWeaponData();   //NPC»ı¼º
-  void      WeaponDataList();   // µğ¹ö±×¿ë
+	void			MakeWeaponData();   //NPCìƒì„±
+  void      WeaponDataList();   // ë””ë²„ê·¸ìš©
 
 	void			GiveSquadPoint2Other(int cn,int Point);
 	void			GiveGuildPoint2Other(int cn,int Point);
-	void			ReturnFame();		// Ä¿³Ø¼ÇÀÌ ¹» ºÎ¼Ì´Ù¸é °ªÀ» ¸®ÅÏÇÑ´Ù.
-	void			CalcFame(bool AttackerWin);		// FAME°è»ê 
+	void			ReturnFame();		// ì»¤ë„¥ì…˜ì´ ë­˜ ë¶€ì…¨ë‹¤ë©´ ê°’ì„ ë¦¬í„´í•œë‹¤.
+	void			CalcFame(bool AttackerWin);		// FAMEê³„ì‚° 
 
 	void			SendCheckWarfieldStatus();
 	void			SendWarfieldStatus();
@@ -432,8 +432,8 @@ public :
 	inline char		GetSquadLoadingPoint(int Kind,int SquadNo) 
 															{ return m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint; }
 	inline char		GetSquadRareSok(int Kind,int SquadNo,int SokNo) 
-															{ return m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo]; } //¹üÀ§¿¡·¯ 
-	inline char*	GetSquadRareSok2(int Kind,int SquadNo)	{ return m_tSquad[Kind].SquadInfo[SquadNo].Sok; } //¹üÀ§¿¡·¯ 
+															{ return m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo]; } //ë²”ìœ„ì—ëŸ¬ 
+	inline char*	GetSquadRareSok2(int Kind,int SquadNo)	{ return m_tSquad[Kind].SquadInfo[SquadNo].Sok; } //ë²”ìœ„ì—ëŸ¬ 
 	inline void		SetSquadRareSok(int Kind,int SquadNo,int SokNo,int Sok) 
 															{ m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo]=Sok; }
 	char*			GetLeadCandidaterName(int Kind);
@@ -485,7 +485,7 @@ class cNation
 
 	int							m_LocalWarfieldSize;				
 
-	int							m_LocalWarStart;					//±¹ÁöÀüÀÌ ½ÃÀÛµÇ¾ú´Ù.
+	int							m_LocalWarStart;					//êµ­ì§€ì „ì´ ì‹œì‘ë˜ì—ˆë‹¤.
 	int							m_WarStart;
 	unsigned short				m_LocalWarPoint[NW_NATION_COUNT];	// BY,ZY,YL LocalWar Point	// 020130 LTS
 	__int64						g_LocalWarRemainTime;				// 020115 LTS
@@ -493,7 +493,7 @@ class cNation
 	tSealStoneIndex				LocalWarSealStoneStatus[3][9];					// LTS NEW LOCALWAR
 	unsigned short				m_LocalWarDefencePoint[3];							// LTS NEW LOCALWAR
 	int							m_LocalWarResult[3];								// LTS NEW LOCALWAR
-	unsigned short				m_nAllLocalWarSealStoneHP[3];		// ±¹ÁöÀü ¸ğµç °á°è¼®HP¼ö
+	unsigned short				m_nAllLocalWarSealStoneHP[3];		// êµ­ì§€ì „ ëª¨ë“  ê²°ê³„ì„HPìˆ˜
 
 	LP_START_WAR_TIME			m_pStartWarTime;									// LTS NEW_NATION_WAR
 	int							m_iStartWarTimeCount;								// LTS NEW_NATION_WAR
@@ -505,10 +505,10 @@ class cNation
 	int							m_NewWarfieldStatus[MAX_NEW_WARFIELD];				// LTS NEW_NATION_WAR
 	DWORD						m_NewWarfieldRemainTime[MAX_NEW_WARFIELD];
 
-	DWORD						m_dwWarRemainTime[WI_MAX_WARFIELD];	// LTH-040212-KO °¢ ÀüÀï ³²Àº ½Ã°£
+	DWORD						m_dwWarRemainTime[WI_MAX_WARFIELD];	// LTH-040212-KO ê° ì „ìŸ ë‚¨ì€ ì‹œê°„
 
 	inline int		GetPointMAXIndex(unsigned short Point[3]);										// LTS NEW LOCALWAR	
-	inline int		GetPointMAXIndex();										//030505 kyo ÇÑ¹ø¸¸¿¡ ±¹ÁöÀü½Â¸®±¹°¡¸¦ ¸®ÅÏÇÑ´Ù.
+	inline int		GetPointMAXIndex();										//030505 kyo í•œë²ˆë§Œì— êµ­ì§€ì „ìŠ¹ë¦¬êµ­ê°€ë¥¼ ë¦¬í„´í•œë‹¤.
 	inline int		GetPointEqual(int Index,unsigned short Point[3]);								// LTS NEW LOCALWAR	
 	inline int		GetLPointEqual(int Index,unsigned short Point[3],unsigned short DPoint[3]);				// LTS NEW LOCALWAR	
 
@@ -529,7 +529,7 @@ public :
 	void			CheckAndActive(int Index);
 	void			NewCheckAndActive(int Index);
 	void			GetDayofWeek();
-	VOID NeoCheckAndActive(INT nIndex);	// LTH-040206-KO »õ ÀüÀïÅÍÁß¿¡ ¼³¿øÀüÀïÅÍ¸¦ Á¦¿ÜÇÏ°í Àû¿ë
+	VOID NeoCheckAndActive(INT nIndex);	// LTH-040206-KO ìƒˆ ì „ìŸí„°ì¤‘ì— ì„¤ì›ì „ìŸí„°ë¥¼ ì œì™¸í•˜ê³  ì ìš©
 
 	int  GetVoteData(int WarfieldNo) { return m_VoteData[WarfieldNo]; }
 	void IncVoteData(int WarfieldNo) { m_VoteData[WarfieldNo]++; }
@@ -672,7 +672,7 @@ public :
 
 	bool ElectCommander(int WarfieldNo) { return Warfield[WarfieldNo].ElectCommander(); }
 	bool CheckSecretPlaceOpen(int WarfieldNo) { return Warfield[WarfieldNo].CheckSecretPlaceOpen(); }
-	//< LTH-040206-KO 1.4 ÆĞÄ¡ ÈÄ »õ ÀüÀïÅÍ ´öºĞ¿¡ cpp ÆÄÀÏ·Î ÀÌÀü
+	//< LTH-040206-KO 1.4 íŒ¨ì¹˜ í›„ ìƒˆ ì „ìŸí„° ë•ë¶„ì— cpp íŒŒì¼ë¡œ ì´ì „
 	bool CheckSecretPlaceOpen();
 	int GetSecretOpenedWarfieldNo();
 	void SetRemainTime(int WarfieldNo,DWORD RemainTime);
@@ -736,8 +736,8 @@ public :
 
 	void			CheckAndSendWarStart(t_packet* p);
 
-	void			ClearAllLocalSealStoneHP();			//030506 kyo // m_nAllLocalWarSealStoneHPÃÊ±âÈ­
-	void			GetAllLocalSealStoneHP();			//030506 kyo // ±¹ÁöÀü¿¡¼­ ¸ğµç °á°è¼®ÀÇ HP·®
+	void			ClearAllLocalSealStoneHP();			//030506 kyo // m_nAllLocalWarSealStoneHPì´ˆê¸°í™”
+	void			GetAllLocalSealStoneHP();			//030506 kyo // êµ­ì§€ì „ì—ì„œ ëª¨ë“  ê²°ê³„ì„ì˜ HPëŸ‰
 
 	unsigned long	GetLocalWarAllSealStoneHP(const int nNationIndex) const { return m_nAllLocalWarSealStoneHP[nNationIndex]; };
 	
@@ -761,7 +761,7 @@ private:
 
 
 typedef void	*LPVOID,**LP2VOID;
-typedef class CTeam															// Team Class ´Â ºĞ¸®...
+typedef class CTeam															// Team Class ëŠ” ë¶„ë¦¬...
 {
 	typedef list<SquadMember*>		TeamList;				
 	typedef TeamList::iterator		TeamItor;
@@ -820,7 +820,7 @@ typedef struct GDATA
 
 typedef class CGuardStone
 {
-protected:	// LTH-040216-KO »ó¼Ó ¹Ş±â À§ÇØ
+protected:	// LTH-040216-KO ìƒì† ë°›ê¸° ìœ„í•´
 	int				m_iWarfieldNo;
 	int				m_iTeamNo;
 
@@ -828,7 +828,7 @@ protected:	// LTH-040216-KO »ó¼Ó ¹Ş±â À§ÇØ
 	int				m_iGDataCount;
 
 	//int				m_iTypeCount[3];
-	int				m_iTypeCount[4];	// 0 : º¸½º, 1 : °¡µå, 2 ¼º¹®, 3 : ¿Ü¼º¼öÈ£¼® LTH-040311-KO
+	int				m_iTypeCount[4];	// 0 : ë³´ìŠ¤, 1 : ê°€ë“œ, 2 ì„±ë¬¸, 3 : ì™¸ì„±ìˆ˜í˜¸ì„ LTH-040311-KO
 
 public :
 
@@ -847,14 +847,14 @@ public :
 	bool			LoadData();
 	void			FirstMakeNPCPtr();
 	void			MakeNPCPtr();
-	bool			MakeGuardStone(const int iIndex, const int iCallType);//030102 lsw //FirstMakeNPCPtr() MakeNPCPtr() ¿¡¼­¸¸ È£Ãâ ÇÕ´Ï´Ù.
+	bool			MakeGuardStone(const int iIndex, const int iCallType);//030102 lsw //FirstMakeNPCPtr() MakeNPCPtr() ì—ì„œë§Œ í˜¸ì¶œ í•©ë‹ˆë‹¤.
 
 	void			SetDontData();
 	// XXX			GetDontData();
 	//int			GetDontSize(int No)
 
 	bool			CheckTypeAllBroke(int Type);
-	int				GetBrokeStatus();							// 3->1 ¼º¹® ¶Ç´Â °¡µå½ºÅæ... º¸½º½ºÅæ..
+	int				GetBrokeStatus();							// 3->1 ì„±ë¬¸ ë˜ëŠ” ê°€ë“œìŠ¤í†¤... ë³´ìŠ¤ìŠ¤í†¤..
 	bool			CheckNPC(int NpcNo);
 	bool			CheckAndUpdateStatus(LPCHARLIST lpChar);
 
@@ -896,7 +896,7 @@ class CNewWarfield
 
 	int				MemberMAX[3];
 
-	MonsterList		m_MonsterList;					// ÀÏ½ÃÀûÀ¸·Î »ı¼ºµÇ´Â ¸ó½ºÆ®ÀÇ ¸®½ºÆ® º¸³Ê½º Å¸ÀÓ¿¡..
+	MonsterList		m_MonsterList;					// ì¼ì‹œì ìœ¼ë¡œ ìƒì„±ë˜ëŠ” ëª¬ìŠ¤íŠ¸ì˜ ë¦¬ìŠ¤íŠ¸ ë³´ë„ˆìŠ¤ íƒ€ì„ì—..
 
 	long			m_nFinalGStoneHP[2];			// 030506 kyo
 	long			m_nAllNormalGStoneHP[2];		// 030506 kyo
@@ -964,7 +964,7 @@ public :
 	//<< 030506 kyo
 	long			GetAllGDataTypeHP(const int nTeamNum , const int nType); // 030506 kyo
 	void			GetAllGuardsHP(); // 030506 kyo
-	void			CheckWinTeam(); //030506 kyo //°è»êÇØ¼­ ÀÌ±äÆÀÀÌ ¾îµòÁö ¾Ë¾Æº¸±¸.. °á°úµµ ¼³Á¤ÇÑ´Ù.
+	void			CheckWinTeam(); //030506 kyo //ê³„ì‚°í•´ì„œ ì´ê¸´íŒ€ì´ ì–´ë”˜ì§€ ì•Œì•„ë³´êµ¬.. ê²°ê³¼ë„ ì„¤ì •í•œë‹¤.
 
 	
 	long			GetFinalGStoneHP(const int nTeamNum );			
@@ -979,24 +979,24 @@ public :
 	//>> 030506 kyo
 };
 
-//< LTH-040429-KO ÆòÈ­ ±â°£ ÀüÀïÅÍ ¸Ê ÀÌµ¿ °á°ú
+//< LTH-040429-KO í‰í™” ê¸°ê°„ ì „ìŸí„° ë§µ ì´ë™ ê²°ê³¼
 enum eNW_PEACE_MOVE_RESULT
 {
-	NPM_OK					= 0,	// ÀÌµ¿ °¡´É
-	NPM_FAIL_NOT_PEACE		= 1,	// ÆòÈ­ »óÅÂ°¡ ¾Æ´Ï´Ù
-	NPM_FAIL_NO_POSSESSION	= 2,	// ¼ÒÀ¯ ÀüÀïÅÍ°¡ ¾Æ´Ï´Ù
-	NPM_FAIL_NOT_BANK_MONEY	= 3,	// ÀºÇà¿¡ µ·ÀÌ ¾ø´Ù
-	NPM_FAIL_SAME_WARFIELD	= 4,	// ÀüÀïÅÍ¿¡¼­ °°Àº ÀüÀïÅÍ·Î ÀÌµ¿
-	NPM_MAX,						// ÃÖ´ë °á°ú °ª
+	NPM_OK					= 0,	// ì´ë™ ê°€ëŠ¥
+	NPM_FAIL_NOT_PEACE		= 1,	// í‰í™” ìƒíƒœê°€ ì•„ë‹ˆë‹¤
+	NPM_FAIL_NO_POSSESSION	= 2,	// ì†Œìœ  ì „ìŸí„°ê°€ ì•„ë‹ˆë‹¤
+	NPM_FAIL_NOT_BANK_MONEY	= 3,	// ì€í–‰ì— ëˆì´ ì—†ë‹¤
+	NPM_FAIL_SAME_WARFIELD	= 4,	// ì „ìŸí„°ì—ì„œ ê°™ì€ ì „ìŸí„°ë¡œ ì´ë™
+	NPM_MAX,						// ìµœëŒ€ ê²°ê³¼ ê°’
 };
 //> LTH-040429-KO 
  
-//< LTH-040507-KO ÀüÀïÅÍ À¯Àú ¹æÃâ BBS°øÁö Á¾·ù
+//< LTH-040507-KO ì „ìŸí„° ìœ ì € ë°©ì¶œ BBSê³µì§€ ì¢…ë¥˜
 enum eNW_GO_OUTSIDE_BBS
 {
 	NGOB_ERROR				= 0,	// Error Message.
-	NGOB_DEMEND_GO_OUT		= 1,	// ÀüÀïÅÍ¿¡¼­ ³ª°¡ ÁÖ¼¼¿ä¶ó°í Á¤ÁßÇÏ°Ô ¾ê±âÇØº¸´Â °Í.
-	NGOB_RETURN_VILLAGE		= 2,	// ¸¶À»·Î ÀÌµ¿ÇÕ´Ï´Ù ÇÏ´Â °øÁö
+	NGOB_DEMEND_GO_OUT		= 1,	// ì „ìŸí„°ì—ì„œ ë‚˜ê°€ ì£¼ì„¸ìš”ë¼ê³  ì •ì¤‘í•˜ê²Œ ì–˜ê¸°í•´ë³´ëŠ” ê²ƒ.
+	NGOB_RETURN_VILLAGE		= 2,	// ë§ˆì„ë¡œ ì´ë™í•©ë‹ˆë‹¤ í•˜ëŠ” ê³µì§€
 	NGOB_MAX,
 };
 //> LTH-040507-KO

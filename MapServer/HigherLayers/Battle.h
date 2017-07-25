@@ -1,4 +1,4 @@
-// Battle.h: interface for the CBattle class.
+ï»¿// Battle.h: interface for the CBattle class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 extern MAGICTABLE Magic_Ref[Num_Of_Magic];
 ///////////////////////////////////////////////////////////////////////////////
-// ÂüÁ¶ Å×ÀÌºí Å¬·¡½º
+// ì°¸ì¡° í…Œì´ë¸” í´ë˜ìŠ¤
 class ISymbol
 { 
 public:
@@ -30,7 +30,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ı¿¡ °üÇÑ Å¬·¡½º
+// ë§ˆë²•ì— ê´€í•œ í´ë˜ìŠ¤
 class CBattle : protected ISymbol
 { 
 public:
@@ -70,20 +70,20 @@ protected:
 protected:
 	t_packet  m_packet;
 	BYTE      m_nIndex;    
-	WORD      m_idCaster;  // °ø°İÀÚ ID
-	WORD      m_idTarget;  // ¹æ¾îÀÚ ID
-	CHARLIST* m_pCaster;   // °ø°İÀÚ
-	CHARLIST* m_pTarget;   // ¹æ¾îÀÚ
-	DWORD     m_dwNow;     // ÇöÀç½Ã°£
-	int       m_nContinue; // À¯Áö½Ã°£          
-	int       m_nX;        // ¸¶¹ıÀÌ Àû¿ëµÇ´Â À§Ä¡ÀÇ XÁÂÇ¥
-	int       m_nY;        // ¸¶¹ıÀÌ Àû¿ëµÇ´Â À§Ä¡ÀÇ YÁÂÇ¥
+	WORD      m_idCaster;  // ê³µê²©ì ID
+	WORD      m_idTarget;  // ë°©ì–´ì ID
+	CHARLIST* m_pCaster;   // ê³µê²©ì
+	CHARLIST* m_pTarget;   // ë°©ì–´ì
+	DWORD     m_dwNow;     // í˜„ì¬ì‹œê°„
+	int       m_nContinue; // ìœ ì§€ì‹œê°„          
+	int       m_nX;        // ë§ˆë²•ì´ ì ìš©ë˜ëŠ” ìœ„ì¹˜ì˜ Xì¢Œí‘œ
+	int       m_nY;        // ë§ˆë²•ì´ ì ìš©ë˜ëŠ” ìœ„ì¹˜ì˜ Yì¢Œí‘œ
 };
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ı¿¡ °üÇÑ Å¬·¡½º
+// ë§ˆë²•ì— ê´€í•œ í´ë˜ìŠ¤
 class CStrike : public CBattle
 { 
 public:
@@ -105,7 +105,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ı¿¡ °üÇÑ Å¬·¡½º
+// ë§ˆë²•ì— ê´€í•œ í´ë˜ìŠ¤
 class CMagic : public CBattle
 { 
 public:
@@ -131,7 +131,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÀüÅõ½ºÅ³¿¡ °üÇÑ Å¬·¡½º
+// ì „íˆ¬ìŠ¤í‚¬ì— ê´€í•œ í´ë˜ìŠ¤
 class CCombat : public CBattle
 {
 public:
@@ -139,9 +139,9 @@ public:
   virtual ~CCombat() {}
 
 public:
-  bool AttackShort();          // ´Ü°Å¸® ¹°¸®Àû °ø°İ
-  bool AttackMiddle();         // Áß°Å¸® ¹°¸®Àû °ø°İ
-  bool AttackLong(BYTE nType); // Àå°Å¸® ¹°¸®Àû °ø°İ
+  bool AttackShort();          // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©
+  bool AttackMiddle();         // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©
+  bool AttackLong(BYTE nType); // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©
 
   void SendInit(BYTE nType, WORD idMaster); // CSD-TW-030606
   void SendResult(int nCmd, t_server_combat_result* pPacket);
@@ -158,13 +158,13 @@ protected:
   int CalcDamage(BYTE nType, int nDamage) const;
 
   void Correct(BYTE nType, int& rDamage);
-  bool Result(int nDamage, bool bAni=true); // 030415 kyo Å¸°İÈÄ Çàµ¿¿©ºÎ
+  bool Result(int nDamage, bool bAni=true); // 030415 kyo íƒ€ê²©í›„ í–‰ë™ì—¬ë¶€
 };
 //
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÀüÅõ¿¡ °üÇÑ Å¬·¡½º
+// ì „íˆ¬ì— ê´€í•œ í´ë˜ìŠ¤
 template<typename T1, typename T2> class TBinder : public T1
 { 
   typedef bool (T2::*LPFUNCTION)();

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define MSG_SHUT_DOWN				100	//ShutDown
 #define MSG_RELOAD_GAMESERVER_DATA  101 //Reload Gameserver data

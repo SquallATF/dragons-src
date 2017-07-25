@@ -1,4 +1,4 @@
-// WindCombat.cpp: implementation of the CWindCombat class.
+ï»¿// WindCombat.cpp: implementation of the CWindCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -60,7 +60,7 @@ bool CWindCombat::Charging()
 	{
 		return false;
 	}
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -71,7 +71,7 @@ bool CWindCombat::Charging()
 
 bool CWindCombat::DoubleAttack()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -109,7 +109,7 @@ bool CWindCombat::Twister()
 bool CWindCombat::Gust()
 {
 	m_pCaster->dwCombatState = m_dwNow + CalcMaintain();
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;

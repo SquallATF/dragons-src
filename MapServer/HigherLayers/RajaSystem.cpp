@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 
 #define __RAJASYSTEM_H__
@@ -42,11 +42,11 @@ void SetGlobalBlockValues()
 }
 
 // ------------------------------------------------------------------------------------------------------------------------------
-// ±â  ´É : °ÔÀÓ¼­¹öÀÇ ÃÊ±âÈ­¸¦ À§ÇÑ InitÈ­ÀÏÀ» ÀĞ¾îµéÀÎ´Ù. 
-//            ÀÌÈ­ÀÏÀº ½ÇÇàµğ·ºÅä¸®¿¡ ÀÖ¾î¾ß ÇÑ´Ù. 
-// ÀÎ  ÀÚ : 'dargon.ini'
-// °á  °ú : ¼º°ø return 1;
-//			½ÍÆĞ reutrn < 0 :
+// ê¸°  ëŠ¥ : ê²Œì„ì„œë²„ì˜ ì´ˆê¸°í™”ë¥¼ ìœ„í•œ Inití™”ì¼ì„ ì½ì–´ë“¤ì¸ë‹¤. 
+//            ì´í™”ì¼ì€ ì‹¤í–‰ë””ë ‰í† ë¦¬ì— ìˆì–´ì•¼ í•œë‹¤. 
+// ì¸  ì : 'dargon.ini'
+// ê²°  ê³¼ : ì„±ê³µ return 1;
+//			ì‹¶íŒ¨ reutrn < 0 :
 // ------------------------------------------------------------------------------------------------------------------------------
 int InitGameMakeModeSetting(const char *filename)
 {
@@ -137,11 +137,11 @@ void LoadGameServerStatus( void )
 }			
 
 /*----------------------------------------------------------------------------------------------------------
-// ±â  ´É : Ä³¸¯ÅÍÀÇ ÀÚµ¿ Update ÀÚµ¿ Upate ¤¾
-			15ºĞ ¸¶´Ù ÀúÀå.. 
-			·¹º§ÀÌ ¹Ù²î°Å³ª Exp¿¡ º¯È­°¡ ÀÖÀ¸¸é ÀúÀåÇÑ´Ù. 
-// ÀÎ  ÀÚ : ¾ø½¿ 
-// °á°ú°ª : ¾÷½¿ 
+// ê¸°  ëŠ¥ : ìºë¦­í„°ì˜ ìë™ Update ìë™ Upate ã…
+			15ë¶„ ë§ˆë‹¤ ì €ì¥.. 
+			ë ˆë²¨ì´ ë°”ë€Œê±°ë‚˜ Expì— ë³€í™”ê°€ ìˆìœ¼ë©´ ì €ì¥í•œë‹¤. 
+// ì¸  ì : ì—†ìŠ´ 
+// ê²°ê³¼ê°’ : ì—…ìŠ´ 
 ----------------------------------------------------------------------------------------------------------*/
 // 010301 khs    15MIN -> 20MIN...
 extern void UpdateCharacterData(t_connection c[], int cn, bool bDirect = false);
@@ -153,7 +153,7 @@ void CharacterAutoUpdate()
 
 	static DWORD time;
 	
-	if (g_curr_time - time > 600)	//050422_KCH (60*10) 10ºĞ¸¶´Ù Ã¼Å©ÇÏ´Â ºÎºĞ. (¹é¼·¶§¹®¿¡ Ãß°¡.)
+	if (g_curr_time - time > 600)	//050422_KCH (60*10) 10ë¶„ë§ˆë‹¤ ì²´í¬í•˜ëŠ” ë¶€ë¶„. (ë°±ì„­ë•Œë¬¸ì— ì¶”ê°€.)
 	{
 		time = g_curr_time;
 	}
@@ -171,7 +171,7 @@ void CharacterAutoUpdate()
 		
 		if (pUser != NULL)
 		{
-			if (g_curr_time - pUser->timetoupdate > 1200) // 20ºĞ. 
+			if (g_curr_time - pUser->timetoupdate > 1200) // 20ë¶„. 
 			{	
 				pUser->timetoupdate = g_curr_time;
 				UpdateCharacterData(connections, idUser);
@@ -223,7 +223,7 @@ void RecvAbsoluteLogOut( short int cn, short id )
 	if( !CheckServerId( id ) ) return;
 
 	CrackMgr.SendHackingUser( cn, USE_GM_TOOL, "absolute LogOut" );
-	closeconnection( connections, id, -33 ); // ¿î¿µÀÚ¿¡ ÀÇÇÑ °­Á¦Á¾·á..
+	closeconnection( connections, id, -33 ); // ìš´ì˜ìì— ì˜í•œ ê°•ì œì¢…ë£Œ..
 }
 
 void RecvBlockSkill( short int cn, bool flag )//020821 lsw
@@ -278,7 +278,7 @@ void Recv_CMD_ABSOLUTE_MOVE_DUNGEON_KEEPER( t_packet *p )
 	int area_cmd;
 	int id;
 
-	//Å¬¶óÀÌ¾ğÆ®·Î º¸³¾ ÆĞÅ¶ ¼ÂÆÃ
+	//í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¼ íŒ¨í‚· ì…‹íŒ…
   smp.nType =	PT_ABSOL_MOVE_BY_COUNSELLER;
   smp.idTarget = WORD(target_id);
 	smp.nX =	p->u.angra.server_magic_position.nX;
@@ -310,7 +310,7 @@ void Recv_CMD_ABSOLUTE_MOVE_DUNGEON_KEEPER( t_packet *p )
 }	
 
 extern NPC_Generation		NPC_Gen_Ref[Num_Of_NPC_Generation] ;
-// ÀÚÀÌÆİÀÇ ºĞ³ë ÀÌº¥Æ®( 0720 )
+// ìì´í€ì˜ ë¶„ë…¸ ì´ë²¤íŠ¸( 0720 )
 void GuardEvent( void )
 {	
 	static DWORD ttime;
@@ -333,17 +333,17 @@ void GuardEvent( void )
 			case 20 :	NPCList[i].MoveP = NPC_Gen_Ref[NPCList[i].SprNo].Movp / 2;
 						switch( rand()%7 )
 						{
-						case 0 : SendNPCChatArea( i, "Å©~~¾ï.. ¼ÓÀÌ ÀÌ»óÇØ.. ¹Ì½Ä°Å·Á.. ¸Ó¸®µµ ¾îÁö·´°í..ÀÌ·±¶§ <ÀÚÀÌÆİ>³ğµé ³ªÅ¸³ª¸é ¾ÈµÇ´Âµ¥..." );
+						case 0 : SendNPCChatArea( i, "í¬~~ì–µ.. ì†ì´ ì´ìƒí•´.. ë¯¸ì‹ê±°ë ¤.. ë¨¸ë¦¬ë„ ì–´ì§€ëŸ½ê³ ..ì´ëŸ°ë•Œ <ìì´í€>ë†ˆë“¤ ë‚˜íƒ€ë‚˜ë©´ ì•ˆë˜ëŠ”ë°..." );
 							break;
-						case 1 : SendNPCChatArea( i, "¾Æ¿ì·¡µµ ¹«½¼ Å«º´ÀÌ¶óµµ °É¸°°Í °°Àºµ¥.. ÀÚÀÌÆİ °£Ã¸µéÀÌ Ä§ÅõÇÑ´Ù´øµ¥.. ¸ö±îÁö ÀÌ·¯´Ï.." );
+						case 1 : SendNPCChatArea( i, "ì•„ìš°ë˜ë„ ë¬´ìŠ¨ í°ë³‘ì´ë¼ë„ ê±¸ë¦°ê²ƒ ê°™ì€ë°.. ìì´í€ ê°„ì²©ë“¤ì´ ì¹¨íˆ¬í•œë‹¤ë˜ë°.. ëª¸ê¹Œì§€ ì´ëŸ¬ë‹ˆ.." );
 							break;
-						case 2 : SendNPCChatArea( i, "¾Æ~ ¾Æ~~ ¸çÄ¥ÀüºÎÅÍ ÀÚ²Ù ´«¾ÕÀÌ ¾îÁö·´°í ¸Ó¸®¼ÓÀÌ ºù±Û µµ´Â°ÍÀÌ ÀÌ»óÇÑ°É..." );
+						case 2 : SendNPCChatArea( i, "ì•„~ ì•„~~ ë©°ì¹ ì „ë¶€í„° ìê¾¸ ëˆˆì•ì´ ì–´ì§€ëŸ½ê³  ë¨¸ë¦¬ì†ì´ ë¹™ê¸€ ë„ëŠ”ê²ƒì´ ì´ìƒí•œê±¸..." );
 							break;
-						case 3 : SendNPCChatArea( i, "<ÀÚÀÌÆİ>³ğµé ¶§¹®¿¡ ºñ»óÀÎÅ× ¸ö»óÅÂ°¡ ¾È ÁÁ¾Æ" );
+						case 3 : SendNPCChatArea( i, "<ìì´í€>ë†ˆë“¤ ë•Œë¬¸ì— ë¹„ìƒì¸í…Œ ëª¸ìƒíƒœê°€ ì•ˆ ì¢‹ì•„" );
 							break;
-						case 4 : SendNPCChatArea( i, "ÀÚ²Ù ¸Ö¸®¼­ Çê°Ô º¸ÀÌ°í ¾îÁö·¯¿î°Ô ´Ä¾ú³ª?" );
+						case 4 : SendNPCChatArea( i, "ìê¾¸ ë©€ë¦¬ì„œ í—›ê²Œ ë³´ì´ê³  ì–´ì§€ëŸ¬ìš´ê²Œ ëŠ™ì—ˆë‚˜?" );
 							break;
-						case 5 : SendNPCChatArea( i, "ÀÚÀÌÆİ°£Ã¸Àº '<ÀÚÀÌÆİ>'ÀÌ¶õ ¸¶Å©¸¦ ÇÏ°í ÀÖ¾î.. Ã£À¸¸é ½Å°íÇØÁà.." );
+						case 5 : SendNPCChatArea( i, "ìì´í€ê°„ì²©ì€ '<ìì´í€>'ì´ë€ ë§ˆí¬ë¥¼ í•˜ê³  ìˆì–´.. ì°¾ìœ¼ë©´ ì‹ ê³ í•´ì¤˜.." );
 							break;
 						}
 					break;
@@ -362,15 +362,15 @@ void GuardEvent( void )
 			case 20 :	NPCList[i].MoveP = NPC_Gen_Ref[NPCList[i].SprNo].Movp / 4;
 						switch( rand()%7 )
 						{
-						case 0 : SendNPCChatArea( i, "Å©~~¾ï.. ¼ÓÀÌ ÀÌ»óÇØ.. ¹Ì½Ä°Å·Á.. ¸Ó¸®µµ ¾îÁö·´°í..¾îÁ¦º¸´Ù »óÅÂ°¡ ´õ ¾ÈÁÁÀº°Í °°¾Æ.." );
+						case 0 : SendNPCChatArea( i, "í¬~~ì–µ.. ì†ì´ ì´ìƒí•´.. ë¯¸ì‹ê±°ë ¤.. ë¨¸ë¦¬ë„ ì–´ì§€ëŸ½ê³ ..ì–´ì œë³´ë‹¤ ìƒíƒœê°€ ë” ì•ˆì¢‹ì€ê²ƒ ê°™ì•„.." );
 							break;
-						case 1 : SendNPCChatArea( i, "¾Æ¿ì·¡µµ ¹«½¼ Å«º´ÀÌ¶óµµ °É¸°°Í °°Àºµ¥.. <ÀÚÀÌÆİ> °£Ã¸µéÀÌ Ä§ÅõÇÑ´Ù´øµ¥.. ¸ö±îÁö ÀÌ·¯´Ï.." );
+						case 1 : SendNPCChatArea( i, "ì•„ìš°ë˜ë„ ë¬´ìŠ¨ í°ë³‘ì´ë¼ë„ ê±¸ë¦°ê²ƒ ê°™ì€ë°.. <ìì´í€> ê°„ì²©ë“¤ì´ ì¹¨íˆ¬í•œë‹¤ë˜ë°.. ëª¸ê¹Œì§€ ì´ëŸ¬ë‹ˆ.." );
 							break;
-						case 2 : SendNPCChatArea( i, "¾Æ~ ¾Æ~~ ¸çÄ¥ÀüºÎÅÍ ÀÚ²Ù ´«¾ÕÀÌ ¾îÁö·´°í ¸Ó¸®¼ÓÀÌ ºù±Ûºù±Û...." );
+						case 2 : SendNPCChatArea( i, "ì•„~ ì•„~~ ë©°ì¹ ì „ë¶€í„° ìê¾¸ ëˆˆì•ì´ ì–´ì§€ëŸ½ê³  ë¨¸ë¦¬ì†ì´ ë¹™ê¸€ë¹™ê¸€...." );
 							break;
-						case 3 : SendNPCChatArea( i, "<ÀÚÀÌÆİ>³ğµé ¶§¹®¿¡ ºñ»óÀÎÅ× ¸ö»óÅÂ°¡ ¾È ÁÁ¾Æ" );
+						case 3 : SendNPCChatArea( i, "<ìì´í€>ë†ˆë“¤ ë•Œë¬¸ì— ë¹„ìƒì¸í…Œ ëª¸ìƒíƒœê°€ ì•ˆ ì¢‹ì•„" );
 							break;
-						case 4 : SendNPCChatArea( i, "ÀÚ²Ù ¸Ö¸®¼­ Çê°Ô º¸ÀÌ°í ¾îÁö·¯¿î°Ô ´Ä¾ú³ª?  ÀÌ·²¶§ <ÀÚÀÌÆİ> ³ğµéÀÌ ³ªÅ¸³ª¸é ¾ÈµÇ´Âµ¥.." );
+						case 4 : SendNPCChatArea( i, "ìê¾¸ ë©€ë¦¬ì„œ í—›ê²Œ ë³´ì´ê³  ì–´ì§€ëŸ¬ìš´ê²Œ ëŠ™ì—ˆë‚˜?  ì´ëŸ´ë•Œ <ìì´í€> ë†ˆë“¤ì´ ë‚˜íƒ€ë‚˜ë©´ ì•ˆë˜ëŠ”ë°.." );
 							break;
 						}
 					break;
@@ -474,7 +474,7 @@ void RecvHexaEditing(int cn, t_client_editing_table *p)
 			wsprintf(filename, "effect_table.bin");
 			break;
 		case HACKING_011106_:
-			wsprintf(filename, "011106.spr");// 0822 YJS ¼öÁ¤
+			wsprintf(filename, "011106.spr");// 0822 YJS ìˆ˜ì •
 			break;
 		case HACKING_CONDITIONTABLE_:
 			wsprintf(filename, "condition_table.bin");

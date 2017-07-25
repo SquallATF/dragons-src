@@ -1,4 +1,4 @@
-// LocalizingMgr.cpp: implementation of the CLocalizingMgr class.
+ï»¿// LocalizingMgr.cpp: implementation of the CLocalizingMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -89,7 +89,7 @@ int CLocalizingMgr::SetDBAccount(const int iType, const char* szId,const char* s
 	return 1;
 }
 
-int CLocalizingMgr::InitVersion(const char* szNationName,const int iIsFreeBeta)//´Ü ÇÑ¹ø¸¸ È£Ãâ ÇÏµµ·Ï ÇÏ½Ê½Ã¿ä.
+int CLocalizingMgr::InitVersion(const char* szNationName,const int iIsFreeBeta)//ë‹¨ í•œë²ˆë§Œ í˜¸ì¶œ í•˜ë„ë¡ í•˜ì‹­ì‹œìš”.
 {
 	return InitVersion(ConvertNameToCode(szNationName),iIsFreeBeta);
 }
@@ -104,7 +104,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"Rainbow7","ehdwjsqud");
 			SetDBAccount(DRAGON_DB,"badaro","tkrhkaorwn");
 			SetDBAccount(CHRLOG_DB,"pony","speakercoin");
-			m_iMyCode		= KOREA_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+			m_iMyCode		= KOREA_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 		}break;
 	case CHINA	:
 		{	
@@ -112,7 +112,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"tasha_gulian","hoskins");
 			SetDBAccount(DRAGON_DB,"umbar_ector","shute");
 			SetDBAccount(CHRLOG_DB,"golush_starr","voight");
-			m_iMyCode		= CHINA_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+			m_iMyCode		= CHINA_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 		}break;
 	case TAIWAN	:
 		{
@@ -120,7 +120,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"xera_cyrus","muller");
 			SetDBAccount(DRAGON_DB,"adina_kyle","bragin");
 			SetDBAccount(CHRLOG_DB,"newit_quix","hacket");
-			m_iMyCode		= TAIWAN_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò	
+			m_iMyCode		= TAIWAN_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ	
 		}break;
 	case THAI:
 		{
@@ -128,7 +128,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"Rainbow7","ehdwjsqud");
 			SetDBAccount(DRAGON_DB,"badaro","tkrhkaorwn");
 			SetDBAccount(CHRLOG_DB,"pony","speakercoin");			
-			m_iMyCode		= THAI_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+			m_iMyCode		= THAI_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 		}break;
 	case HONGKONG:
 		{
@@ -136,7 +136,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"fargo_trion","swann");
 			SetDBAccount(DRAGON_DB,"yali_brann","logan");			
 			SetDBAccount(CHRLOG_DB,"wenck_daron","palmer");
-			m_iMyCode		= HONGKONG_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+			m_iMyCode		= HONGKONG_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 		}break;
 	case USA:
 		{
@@ -144,7 +144,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"Rainbow7","ehdwjsqud");
 			SetDBAccount(DRAGON_DB,"badaro","tkrhkaorwn");
 			SetDBAccount(CHRLOG_DB,"pony","speakercoin");
-			m_iMyCode		= USA_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+			m_iMyCode		= USA_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 		}break;
 	case JAPAN	:
 		{
@@ -152,7 +152,7 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			SetDBAccount(TOTAL_DB ,"Rainbow7","ehdwjsqud");
 			SetDBAccount(DRAGON_DB,"badaro","tkrhkaorwn");
 			SetDBAccount(CHRLOG_DB,"pony","speakercoin");
-			m_iMyCode		= JAPAN_MYCODE;//¸¶ÀÌÄÚµå ÀúÀå¼Ò
+			m_iMyCode		= JAPAN_MYCODE;//ë§ˆì´ì½”ë“œ ì €ì¥ì†Œ
 		}break;
 	default:
 	case NOTSET	:
@@ -161,8 +161,8 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 			return 0;
 		}break;
 	}
-	m_iNationCode	= iNationCode;//±¹°¡ÄÚµå ÀúÀå¼Ò
-	m_iIsFreeBeta	= iIsFreeBeta;//ÀÌ°Ô ÇÁ¸®º£Å¸ÀÎÁö Ã¼Å©ÇÔ
+	m_iNationCode	= iNationCode;//êµ­ê°€ì½”ë“œ ì €ì¥ì†Œ
+	m_iIsFreeBeta	= iIsFreeBeta;//ì´ê²Œ í”„ë¦¬ë² íƒ€ì¸ì§€ ì²´í¬í•¨
 	m_iMyCode= 1114;
 	return 1;
 }
@@ -180,7 +180,7 @@ int CLocalizingMgr::ConvertNameToCode(const char* szNationName)
 	return NOTSET;	
 }
 
-void CLocalizingMgr::DisplayLocalizingSet()const//ÇöÀç ·ÎÄÃ¶óÀÌÂ¡ ¼ÂÆÃÀ» º¸¿©Áİ´Ï´Ù.
+void CLocalizingMgr::DisplayLocalizingSet()const//í˜„ì¬ ë¡œì»¬ë¼ì´ì§• ì…‹íŒ…ì„ ë³´ì—¬ì¤ë‹ˆë‹¤.
 {
 	switch(m_iNationCode)
 	{
@@ -207,12 +207,12 @@ void CLocalizingMgr::DisplayLocalizingSet()const//ÇöÀç ·ÎÄÃ¶óÀÌÂ¡ ¼ÂÆÃÀ» º¸¿©Áİ´
 	MyLog( LOG_NORMAL, "########---------------------------------------########" );
 }
 
-int CLocalizingMgr::IsAbleNation(const int iNationCode)const//ºÒ°¡´ÉÇÑ ±¹°¡¶ó¸é 0À» ¸®ÅÏ °¡´ÉÇÏ¸é 1À» ¸®ÅÏ
+int CLocalizingMgr::IsAbleNation(const int iNationCode)const//ë¶ˆê°€ëŠ¥í•œ êµ­ê°€ë¼ë©´ 0ì„ ë¦¬í„´ ê°€ëŠ¥í•˜ë©´ 1ì„ ë¦¬í„´
 {
 	return (m_iNationCode & iNationCode)?1:0;
 }
 
-int CLocalizingMgr::IsAbleMyCode(const int iMyCode)const//ºÒ°¡´ÉÇÑ ¸¶ÀÌÄÚµå¶ó¸é 0À» ¸®ÅÏ °¡´ÉÇÏ¸é 1À» ¸®ÅÏ
+int CLocalizingMgr::IsAbleMyCode(const int iMyCode)const//ë¶ˆê°€ëŠ¥í•œ ë§ˆì´ì½”ë“œë¼ë©´ 0ì„ ë¦¬í„´ ê°€ëŠ¥í•˜ë©´ 1ì„ ë¦¬í„´
 {
 	return (m_iMyCode == iMyCode)?1:0;
 }

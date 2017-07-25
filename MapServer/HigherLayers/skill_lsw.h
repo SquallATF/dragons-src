@@ -1,18 +1,18 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "Dr_NetWork.h"
 #include <mmsystem.h>
 
 #pragma once
 
-#define MAX_UPGRADE_RARE		20//½ÃµµÇÒ¶§ º¸³»´Â ¾ÆÀÌÅÛ Æ÷Áö¼Ç °¹¼ö
+#define MAX_UPGRADE_RARE		20//ì‹œë„í• ë•Œ ë³´ë‚´ëŠ” ì•„ì´í…œ í¬ì§€ì…˜ ê°¯ìˆ˜
 
-#define MAX_RARE_GROUP			18	//·¹¾î±×·ì ÃÖ´ëÄ¡
-#define MAX_RARE_PROBABILIY		110	//·¹¾î ÇÁ·Î¹öºô¸®Æ¼ ÃÖ´ëÄ¡
+#define MAX_RARE_GROUP			18	//ë ˆì–´ê·¸ë£¹ ìµœëŒ€ì¹˜
+#define MAX_RARE_PROBABILIY		110	//ë ˆì–´ í”„ë¡œë²„ë¹Œë¦¬í‹° ìµœëŒ€ì¹˜
 
-#define TRAP_DELETE_TIME		600	//µ£ Áö¿öÁö´Â ½Ã°£
+#define TRAP_DELETE_TIME		600	//ë« ì§€ì›Œì§€ëŠ” ì‹œê°„
 
-#define DIVIDE_ITEM_UPGRDEABLE_MIN	2000	//¾÷±×·¹ÀÌµå ÇÒ¶§ ÇÊ¿ä °¹¼ö
-#define DIVIDE_ITEM_UPGRDEABLE_MAX	5000	//¾÷±×·¹ÀÌµå ÇÒ¶§ ÃÖ´ë °¹¼ö
+#define DIVIDE_ITEM_UPGRDEABLE_MIN	2000	//ì—…ê·¸ë ˆì´ë“œ í• ë•Œ í•„ìš” ê°¯ìˆ˜
+#define DIVIDE_ITEM_UPGRDEABLE_MAX	5000	//ì—…ê·¸ë ˆì´ë“œ í• ë•Œ ìµœëŒ€ ê°¯ìˆ˜
 
 extern int LoadRareProbability();
 extern int LoadRaregroup();
@@ -72,7 +72,7 @@ typedef struct item_function
 	int		iNo;
 	char	Name[40];
 	char	NameAdd[40];
-	char	Exp[50];//Ãß°¡ ¼³¸í
+	char	Exp[50];//ì¶”ê°€ ì„¤ëª…
 	int		ExpMark;
 	int		iEffectNo;
 	int		iUpgradeAble;
@@ -104,7 +104,7 @@ typedef struct ITEMGRADE
 	int ResourceAmount[4];
 	int InsuranceAmount[4];
 }t_ItemGrade,*LPITEM_GRADE;
-const int MAX_ITEM_GRADE = 18;//MAX_ITEM_GRADE¸¦ availÀ¸·Î Ã¼Å©ÇÑ °ªÀ¸·Î ¹Ş¾Æ ¿Ã¼ö ÀÖµµ·Ï ÄÚµù ÇÒ°Í//item_gradeÅ×ÀÌºí¿¡¼­ ¾²´Â°Í
+const int MAX_ITEM_GRADE = 18;//MAX_ITEM_GRADEë¥¼ availìœ¼ë¡œ ì²´í¬í•œ ê°’ìœ¼ë¡œ ë°›ì•„ ì˜¬ìˆ˜ ìˆë„ë¡ ì½”ë”© í• ê²ƒ//item_gradeí…Œì´ë¸”ì—ì„œ ì“°ëŠ”ê²ƒ
 extern t_ItemGrade ItemGrade[MAX_ITEM_GRADE];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct ITEMRARE
@@ -115,12 +115,12 @@ typedef struct ITEMRARE
 	char	LocalName[100];
 	char	Explain[100];
 	char	ExplainAdd[100];
-	int		iExpMark;// + - ±âÈ£ Ç¥½Ã
+	int		iExpMark;// + - ê¸°í˜¸ í‘œì‹œ
 	int		iMakeAble;
-	int		RaisePro[8];// 0¹øÀº DefaultRaisePro
+	int		RaisePro[8];// 0ë²ˆì€ DefaultRaisePro
 	int		iUpgradeAble;
 	int		iAbleNation;//
-	int		GRADE[16];//0¹øÀº MAX ³ª¸ÓÁö´Â ±×·¹ÀÌµåº° °ª
+	int		GRADE[16];//0ë²ˆì€ MAX ë‚˜ë¨¸ì§€ëŠ” ê·¸ë ˆì´ë“œë³„ ê°’
 	int		Buffer1;
 	int		Buffer2;
 	int		Buffer3;
@@ -135,9 +135,9 @@ extern t_ItemRare ItemRare[MAX_ITEM_RARE];
 #define CMD_ADD_EFFECT	9115
 typedef struct ADD_EFFECT
 {
-	WORD wEffectNo;	// »ç¿ëµÈ ¸¶¹ıÀÇ ¹øÈ£
-	WORD idTarget;	// ¸¶¹ıÀ» »ç¿ëÇÑ ´ë»óÀÚ
-	WORD wDuration;	// À¯Áö½Ã°£
+	WORD wEffectNo;	// ì‚¬ìš©ëœ ë§ˆë²•ì˜ ë²ˆí˜¸
+	WORD idTarget;	// ë§ˆë²•ì„ ì‚¬ìš©í•œ ëŒ€ìƒì
+	WORD wDuration;	// ìœ ì§€ì‹œê°„
 }t_AddEffect,*LPADDEFFECT;
 
 extern void Send_RareItemMakeLog(	const int cn,					const int itemno,
@@ -182,10 +182,10 @@ enum eMotherSkillIndex
 	REUTILIZING				=22,
 	MUSICIANSHIP			=23,
 	DETECT					=24,
-	MERCHANT				=25,//»óÀÎµ¥ÀÌÅ¸ ÀúÀåµÊ
+	MERCHANT				=25,//ìƒì¸ë°ì´íƒ€ ì €ì¥ë¨
 	CAMPING					=26,
 	TAIMING					=27,
-	SKILL_MASTER			=28,//±â¼º
+	SKILL_MASTER			=28,//ê¸°ì„±
 	ANIMAL_LORE				=29,
 	ARMS_LORE				=30,
 	EVALUATE_INTELIGENCE	=31,
@@ -193,7 +193,7 @@ enum eMotherSkillIndex
 	ANATOMY_JUDGEMENT		=33,
 	ITEM_IDENTIFICATION		=34,
 	TASTE_IDENTIFICATION	=35,
-	APPRAISAL				=36, // °¨Á¤( º¸¼®·ù )
+	APPRAISAL				=36, // ê°ì •( ë³´ì„ë¥˜ )
 	HEALING					=37,
 	JUMP					=38,
 	RIDING					=39
@@ -201,38 +201,38 @@ enum eMotherSkillIndex
 
 enum eGmQuestIndex
 {
-	GM_QUEST_FARMER				=1,		//	³óºÎ 
-	GM_QUEST_MINDER				=2,		//	±¤ºÎ         
-	GM_QUEST_FISHER				=3,		//¾îºÎ         
-	GM_QUEST_CUTTER				=4,		//³ª¹«²Û       
-	GM_QUEST_BUTCHER			=5,		//µµ»ìÀÚ       
-	GM_QUEST_DIGGER				=6,		//½É¸¶´Ï       
-	GM_QUEST_CARPENTER			=7,		//¸ñ¼ö         
-	GM_QUEST_BLACKSMITH			=8,		//´ëÀåÀåÀÌ     
-	GM_QUEST_COOKER				=9,		//¿ä¸®»ç       
-	GM_QUEST_TAILOR				=10,	//Àç´Ü»ç       
-	GM_QUEST_BOWCRAFT			=11,	//È°Á¦ÀÛ»ç     
-	GM_QUEST_ALCHEME			=12,	//¿¬±İ¼ú»ç     
-	GM_QUEST_CANDLEMAKER		=13,	//ÃÊÀïÀÌ       
-	GM_QUEST_MERCHANT			=14,	//»óÀÎ         
-	GM_QUEST_BLACKSMITH_MASTER	=15,	//´ëÀåÀåÀÌ ±â¼º
-	GM_QUEST_CARPENTER_MASTER	=16,	//¸ñ¼ö ±â¼º    
-	GM_QUEST_BOWCRAFT_MASTER	=17,	//È°Á¦ÀÛ»ç ±â¼º
-	GM_QUEST_TAILOR_MASTER		=18,	//Àç´Ü»ç ±â¼º
+	GM_QUEST_FARMER				=1,		//	ë†ë¶€ 
+	GM_QUEST_MINDER				=2,		//	ê´‘ë¶€         
+	GM_QUEST_FISHER				=3,		//ì–´ë¶€         
+	GM_QUEST_CUTTER				=4,		//ë‚˜ë¬´ê¾¼       
+	GM_QUEST_BUTCHER			=5,		//ë„ì‚´ì       
+	GM_QUEST_DIGGER				=6,		//ì‹¬ë§ˆë‹ˆ       
+	GM_QUEST_CARPENTER			=7,		//ëª©ìˆ˜         
+	GM_QUEST_BLACKSMITH			=8,		//ëŒ€ì¥ì¥ì´     
+	GM_QUEST_COOKER				=9,		//ìš”ë¦¬ì‚¬       
+	GM_QUEST_TAILOR				=10,	//ì¬ë‹¨ì‚¬       
+	GM_QUEST_BOWCRAFT			=11,	//í™œì œì‘ì‚¬     
+	GM_QUEST_ALCHEME			=12,	//ì—°ê¸ˆìˆ ì‚¬     
+	GM_QUEST_CANDLEMAKER		=13,	//ì´ˆìŸì´       
+	GM_QUEST_MERCHANT			=14,	//ìƒì¸         
+	GM_QUEST_BLACKSMITH_MASTER	=15,	//ëŒ€ì¥ì¥ì´ ê¸°ì„±
+	GM_QUEST_CARPENTER_MASTER	=16,	//ëª©ìˆ˜ ê¸°ì„±    
+	GM_QUEST_BOWCRAFT_MASTER	=17,	//í™œì œì‘ì‚¬ ê¸°ì„±
+	GM_QUEST_TAILOR_MASTER		=18,	//ì¬ë‹¨ì‚¬ ê¸°ì„±
 };
 
 const int  MAX_GM_NEED_ITEM_COUNT	=3;
-typedef struct tag_gm_quest		// ±×·£µå ¸¶½ºÅÍ¿¡ µî·ÏÇÏ±â À§ÇÑ Á¶°Çµî...
+typedef struct tag_gm_quest		// ê·¸ëœë“œ ë§ˆìŠ¤í„°ì— ë“±ë¡í•˜ê¸° ìœ„í•œ ì¡°ê±´ë“±...
 {//021030 lsw
 	char	name[20];		
 	int		skill;
-	int		job_level;		// 1Â÷ 2Â÷ Á÷¾÷
-	int		need_money;		// ÇÊ¿ä µ·
+	int		job_level;		// 1ì°¨ 2ì°¨ ì§ì—…
+	int		need_money;		// í•„ìš” ëˆ
 	
-	int		need_item[MAX_GM_NEED_ITEM_COUNT];		// ÇÊ¿äÇÑ ¾ÆÀÌÅÛ No
-	int		need_quantity[MAX_GM_NEED_ITEM_COUNT];	// ÇÊ¿ä ¼ö·®
+	int		need_item[MAX_GM_NEED_ITEM_COUNT];		// í•„ìš”í•œ ì•„ì´í…œ No
+	int		need_quantity[MAX_GM_NEED_ITEM_COUNT];	// í•„ìš” ìˆ˜ëŸ‰
 	
-	int		need_questnum1;	// ¿ì¼± Ã³¸®µÇ¾î¾ßÇÒ Äù½ºÆ®
+	int		need_questnum1;	// ìš°ì„  ì²˜ë¦¬ë˜ì–´ì•¼í•  í€˜ìŠ¤íŠ¸
 	int		need_questnum2; 
 }GM_QUEST;
 const int  MAX_GM_MAIN	=20;

@@ -1,4 +1,4 @@
-// LogManager.h: interface for the CLogManager class.
+ï»¿// LogManager.h: interface for the CLogManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,11 +9,11 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#include "Scrp_exe.h"		//040719_KJHuNs eLDF_TYPE(DualFame¿¡¼­ »ç¿ë).
-#include "LTSSupport.h"		//040719_KJHuNs eLF_TYPE(ChangeFame¿¡¼­ »ç¿ë).
+#include "Scrp_exe.h"		//040719_KJHuNs eLDF_TYPE(DualFameì—ì„œ ì‚¬ìš©).
+#include "LTSSupport.h"		//040719_KJHuNs eLF_TYPE(ChangeFameì—ì„œ ì‚¬ìš©).
 
 ///////////////////////////////////////////////////////////////////////////////
-// ·Î±× °ü¸® À§ÇÑ °ü¸® Å¬·¡½º
+// ë¡œê·¸ ê´€ë¦¬ ìœ„í•œ ê´€ë¦¬ í´ë˜ìŠ¤
 class CLogManager : public TSingleton<CLogManager>
 {
 	typedef map<int, string>     HASH_LOG;
@@ -28,24 +28,24 @@ public:
 	void CreateMainPath(const char* pPath);
 	void CreateSubPath(int nType, const char* pDir);
 
-	//< 040715_KJHuNs RootÆú´õ
+	//< 040715_KJHuNs Rootí´ë”
 	void SaveLogRoot_DeadEventNpc(CHARLIST* pTarget);
 	void SaveLogRoot_GambleLogFile(CHARLIST *ch, int house, int class_type, 
 						int user_count, ItemAttr *item, int resource_type, int lv_band );
 	void SaveLogRoot_PK(LPTSTR lpMsg);
-	//> 040715_KJHuNs RootÆú´õ
+	//> 040715_KJHuNs Rootí´ë”
 
-	// 040715_KJHuNs AccelaterÆú´õ
+	// 040715_KJHuNs Accelaterí´ë”
 	void SaveLogAccelater(CHARLIST* pTarget, const char* pType, const int cn);
 
-	// 040715_KJHuNs AutionLogÆú´õ
-	void SaveLogAuction(int type,t_SellerItemDelete * pRecordInfo);	// BBD 040226 ¿Á¼Ç·Î±×
+	// 040715_KJHuNs AutionLogí´ë”
+	void SaveLogAuction(int type,t_SellerItemDelete * pRecordInfo);	// BBD 040226 ì˜¥ì…˜ë¡œê·¸
 
-	// 040715_KJHuNs BattleÆú´õ
+	// 040715_KJHuNs Battleí´ë”
 	void SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, 
 					int mana, int attack, int attacktype, int tac );
 
-	//< 040715_KJHuNs ChangeÆú´õ
+	//< 040715_KJHuNs Changeí´ë”
 	void SaveLogChange_BankMoney(const int idTarget, const DWORD nOldBankMoney, 
 					const DWORD nNewBankMoney , const eBankMoneyChangeType BMCT);
 	void SaveLogChange_BattingMoney(CHARLIST* pTarget, DWORD dwOldMoney, DWORD dwNewMoney);
@@ -63,31 +63,31 @@ public:
 	void SaveLogChange_ObtainCombat(CHARLIST* pTarget, int nOld, int nNew);
 	void SaveLogChange_Combat(CHARLIST* pTarget, int nCombat, int nOld, int nNew);
 	void SaveLogChange_LoginLogoutByKein(CHARLIST* pTarget, int type, int call_function_id );
-	//> 040715_KJHuNs ChangeÆú´õ
+	//> 040715_KJHuNs Changeí´ë”
 
-	//< 040721_KJHuNs CheckÆú´õ
+	//< 040721_KJHuNs Checkí´ë”
 	void SaveLogCheck_StrikeAttack(CHARLIST* pCaster, CHARLIST* pTarget);
 	void SaveLogCheck_ThrowAttack(CHARLIST* pCaster, CHARLIST* pTarget);
 	void SaveLogCheck_MagicExecute(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTarget, int nX, int nY);
 	void SaveLogCheck_CombatExecute(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTarget, int nX, int nY);
-	//> 040721_KJHuNs CheckÆú´õ	
+	//> 040721_KJHuNs Checkí´ë”	
 
-	// 040721_KJHuNs EventItemÆú´õ
-	void SaveLogEventItem_Lost(int type, char * szName, int nIndex);		// BBD 040308 ÀÌº¥Æ® ¾ÆÀÌÅÛ ·Î½ºÆ® ·Î±×
+	// 040721_KJHuNs EventItemí´ë”
+	void SaveLogEventItem_Lost(int type, char * szName, int nIndex);		// BBD 040308 ì´ë²¤íŠ¸ ì•„ì´í…œ ë¡œìŠ¤íŠ¸ ë¡œê·¸
 
-	// 040721_KJHuNs LevelUpÆú´õ
+	// 040721_KJHuNs LevelUpí´ë”
 	void SaveLogLevelUp(LPCHARLIST pTarget);
 
-	//< 040721_KJHuNs LocalWarÆú´õ
+	//< 040721_KJHuNs LocalWarí´ë”
 	void SaveLogLocalWar_SealStoneInfo(CHARLIST* pSource, CHARLIST* pTarget, int nDamage); // CSD-040316
 	void SaveLogLocalWar_Info(CHARLIST* pTarget); // CSD-040407
 	void SaveLog_List(const LOG_TYPE eLogType, LPCSTR lpLogMsg, ... );
-	//> 040721_KJHuNs LocalWarÆú´õ
+	//> 040721_KJHuNs LocalWarí´ë”
 
 	//040721_KJHuNs NeoNationWar
-	void SaveLogNeoNationWar(const int nType, char * szLogMsg, ...);	// LTH-040322-KO 1.04 ÆĞÄ¡ ·Î±×. ÁöÇÏ ÀüÀïÅÍ °ü·Ã.
+	void SaveLogNeoNationWar(const int nType, char * szLogMsg, ...);	// LTH-040322-KO 1.04 íŒ¨ì¹˜ ë¡œê·¸. ì§€í•˜ ì „ìŸí„° ê´€ë ¨.
 
-	void SaveMoveToWarfield(const int nType, char* szLogMsg, ...);	// LTH-040515-KO 1.04+ ÆĞÄ¡ ·Î±×. ÆòÈ­ ±â°£ ÀüÀïÅÍ ÀÌµ¿ °ü·Ã.
+	void SaveMoveToWarfield(const int nType, char* szLogMsg, ...);	// LTH-040515-KO 1.04+ íŒ¨ì¹˜ ë¡œê·¸. í‰í™” ê¸°ê°„ ì „ìŸí„° ì´ë™ ê´€ë ¨.
 
 	//040721_KJHuNs Script
 	void SaveLogScriptLog(CHARLIST* pTarget, const int nQuestNo, const int nQuestStep, 

@@ -1,4 +1,4 @@
-// PacketQ.cpp: implementation of the PacketQ class.
+ï»¿// PacketQ.cpp: implementation of the PacketQ class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -135,7 +135,7 @@ int PacketQ::put(char *buf, int len, bool encode)
     int morespaces;
 
     memcpy(code,buf+1,len-1);
-    morespaces=4-(len-1)%4; /* ¦©±¼'-'«ámode 4 */
+    morespaces=4-(len-1)%4; /* Î™å¥”'-'î‚žmode 4 */
     for (i=0;i<morespaces;i++)
         code[len+i]=0;
 

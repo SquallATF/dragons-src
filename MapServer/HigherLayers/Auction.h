@@ -1,4 +1,4 @@
-// Auction.h: interface for the CAuction class.
+ï»¿// Auction.h: interface for the CAuction class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -12,12 +12,12 @@
 
 enum BondMoneyNo
 {
-	BOND_MONEY_1000 = 10219,	//10¾ï Å©¸´ º»µå	
-	BOND_MONEY_500	= 10220,	//5¾ï Å©¸´ º»µå	
-	BOND_MONEY_100	= 10221,	//1¾ï Å©¸´ º»µå	
-	BOND_MONEY_50	= 10222,	//5Ãµ¸¸ Å©¸´ º»µå	
-	BOND_MONEY_10	= 10223,	//1Ãµ¸¸ Å©¸´ º»µå	
-	BOND_MONEY_5	= 10224,	//5¹é¸¸ Å©¸´ º»µå	
+	BOND_MONEY_1000 = 10219,	//10ì–µ í¬ë¦¿ ë³¸ë“œ	
+	BOND_MONEY_500	= 10220,	//5ì–µ í¬ë¦¿ ë³¸ë“œ	
+	BOND_MONEY_100	= 10221,	//1ì–µ í¬ë¦¿ ë³¸ë“œ	
+	BOND_MONEY_50	= 10222,	//5ì²œë§Œ í¬ë¦¿ ë³¸ë“œ	
+	BOND_MONEY_10	= 10223,	//1ì²œë§Œ í¬ë¦¿ ë³¸ë“œ	
+	BOND_MONEY_5	= 10224,	//5ë°±ë§Œ í¬ë¦¿ ë³¸ë“œ	
 };
 
 typedef struct SUPERMONEY
@@ -36,12 +36,12 @@ extern const SUPERMONEY aBondMoney[BOND_MONEY_MAX];
 
 enum IsEndType
 {
-	IS_END_ALL_RIGHT	= 0,	//¹¹µç ÇÒ ¼ö ÀÖ´Â »óÅÂ
-	IS_END_DELETING		= 1,	//»èÁ¦Áß
-	IS_END_BUYING		= 3,	//±¸¸ÅÁß
-	IS_END_WAIT_TAKE	= 4	,	//°¡Á®°¡±â¸¦ ¹Ù¶ó´Â »óÅÂ
+	IS_END_ALL_RIGHT	= 0,	//ë­ë“  í•  ìˆ˜ ìžˆëŠ” ìƒíƒœ
+	IS_END_DELETING		= 1,	//ì‚­ì œì¤‘
+	IS_END_BUYING		= 3,	//êµ¬ë§¤ì¤‘
+	IS_END_WAIT_TAKE	= 4	,	//ê°€ì ¸ê°€ê¸°ë¥¼ ë°”ë¼ëŠ” ìƒíƒœ
 	IS_END_DELETE_COMPLETE = 5,	// BBD 040303
-	IS_END_GIVING		= 6,	// BBD 040303 Áö±ÞÇÁ·Î¼¼½º¿¡ µé¾î°¡ÀÖ´Ù
+	IS_END_GIVING		= 6,	// BBD 040303 ì§€ê¸‰í”„ë¡œì„¸ìŠ¤ì— ë“¤ì–´ê°€ìžˆë‹¤
 };
 
 const int AUCTION_CANCEL_MONEY = 100000;
@@ -79,32 +79,32 @@ class CAuction
 public:
 	CAuction();
 	virtual ~CAuction();
-private://°Ë»ö°á°ú¹°
+private://ê²€ìƒ‰ê²°ê³¼ë¬¼
 	void Clear();
 public:
-//---->±¸¸ÅÀÚ¿ë
-	void RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int cn,t_packet &p);//¸®½ºÆ® ¿äÃ»(±¸¸ÅÀÚ°¡ º¸´Â°Í//°Ë»ö±â°¡ È£Ãâ
-	void RecvCMD_MERCHANT_BUY_LIST_REQUEST_RESULT(t_packet &p);//¸®½ºÆ® °á°ú(±¸¸ÅÀÚ°¡ º¸´Â°Í(DB_DEMONÀÌ º¸³»¿À´Â°ÍÀ» Å¬¶óÀÌ¾ðÆ®·Î Àü¼Û
+//---->êµ¬ë§¤ìžìš©
+	void RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int cn,t_packet &p);//ë¦¬ìŠ¤íŠ¸ ìš”ì²­(êµ¬ë§¤ìžê°€ ë³´ëŠ”ê²ƒ//ê²€ìƒ‰ê¸°ê°€ í˜¸ì¶œ
+	void RecvCMD_MERCHANT_BUY_LIST_REQUEST_RESULT(t_packet &p);//ë¦¬ìŠ¤íŠ¸ ê²°ê³¼(êµ¬ë§¤ìžê°€ ë³´ëŠ”ê²ƒ(DB_DEMONì´ ë³´ë‚´ì˜¤ëŠ”ê²ƒì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡
 
-	void RecvCMD_MERCHANT_ITEM_BUY(const int cn,t_packet &p);//±¸¸ÅÇÏ±â(±¸¸ÅÀÚ°¡ ¼±ÅÃ
+	void RecvCMD_MERCHANT_ITEM_BUY(const int cn,t_packet &p);//êµ¬ë§¤í•˜ê¸°(êµ¬ë§¤ìžê°€ ì„ íƒ
 	void RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &p);
-	void RecvCMD_MERCHANT_ITEM_BUY_RESULT(t_packet &p);//±¸¸ÅÇÏ±â(±¸¸ÅÀÚ°¡ ¼±ÅÃ
+	void RecvCMD_MERCHANT_ITEM_BUY_RESULT(t_packet &p);//êµ¬ë§¤í•˜ê¸°(êµ¬ë§¤ìžê°€ ì„ íƒ
 	void SendCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(CHARLIST *ch,const int iIndex, const ITEMATTR &Item, const bool bSuccess);
 //<----
-//---->ÆÇ¸ÅÀÚ¿ë
-	void RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int cn,t_packet &p);//¸®½ºÆ® ¿äÃ»(ÆÇ¸ÅÀÚ°¡ º¸´Â°Í
-	void RecvCMD_MERCHANT_SELL_LIST_REQUEST_RESULT(t_packet &p);//¸®½ºÆ® °á°ú(ÆÇ¸ÅÀÚ°¡ º¸´Â°Í//µðºñµ¥¸ó¿¡°Ô¸¸ ¹ÞÀ½
+//---->íŒë§¤ìžìš©
+	void RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int cn,t_packet &p);//ë¦¬ìŠ¤íŠ¸ ìš”ì²­(íŒë§¤ìžê°€ ë³´ëŠ”ê²ƒ
+	void RecvCMD_MERCHANT_SELL_LIST_REQUEST_RESULT(t_packet &p);//ë¦¬ìŠ¤íŠ¸ ê²°ê³¼(íŒë§¤ìžê°€ ë³´ëŠ”ê²ƒ//ë””ë¹„ë°ëª¬ì—ê²Œë§Œ ë°›ìŒ
 
-	void RecvCMD_MERCHANT_SELL_ITEM_DELETE(const int cn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦//º¸³½»ç¶÷ Å¬¶óÀÌ¾ðÆ®(C)
-	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦//º¸³½»ç¶÷ µðºñ(D)
-	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_RESULT(const int cn,t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦//º¸³½»ç¶÷ µðºñ(D)
+	void RecvCMD_MERCHANT_SELL_ITEM_DELETE(const int cn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ//ë³´ë‚¸ì‚¬ëžŒ í´ë¼ì´ì–¸íŠ¸(C)
+	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ//ë³´ë‚¸ì‚¬ëžŒ ë””ë¹„(D)
+	void RecvCMD_MERCHANT_SELL_ITEM_DELETE_RESULT(const int cn,t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ//ë³´ë‚¸ì‚¬ëžŒ ë””ë¹„(D)
 	
-	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER(const int iCn, t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» µî·Ï//C
+	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER(const int iCn, t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ë“±ë¡//C
 	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(const int iCn, t_packet &p);//D
-	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_RESULT(t_packet &p);//ÆÇ¸Å ¾ÆÀÌÅÛÀ» µî·Ï//D
+	void RecvCMD_MERCHANT_SELL_ITEM_REGISTER_RESULT(t_packet &p);//íŒë§¤ ì•„ì´í…œì„ ë“±ë¡//D
 //<----
-//---->°Å·¡°á°ú
-	//¸®½ºÆ® °Ë»ö
+//---->ê±°ëž˜ê²°ê³¼
+	//ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰
 	void RecvCMD_MERCHANT_RESULT_LIST_REQUEST(const int cn,t_packet &p);
 	void RecvCMD_MERCHANT_RESULT_LIST_REQUEST_RESULT(t_packet &p);
 
@@ -112,14 +112,14 @@ public:
 	void RecvCMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT(const int cn,t_packet &p);
 	void RecvCMD_MERCHANT_RESULT_TAKE_RESULT(t_packet &p);
 //<----
-//---->°³ÀÎÀû ¾ÆÀÌÅÛ ±¸¸Å ¸®½ºÆ®
+//---->ê°œì¸ì  ì•„ì´í…œ êµ¬ë§¤ ë¦¬ìŠ¤íŠ¸
 	void RecvCMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUSET(const int cn,t_packet &p);
 	void RecvCMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUSET_RESULT(t_packet &p);
 //<----
 	void RecvCMD_EXCHANGE_BOND_MONEY(const int cn,t_packet &p);
-//<! BBD 040303		¸ÓÃµÆ®¹é¾÷ Å×ÀÌºí·ÎÀ» »ç¿ëÇÏ´Â ÇÔ¼ö±º
+//<! BBD 040303		ë¨¸ì²œíŠ¸ë°±ì—… í…Œì´ë¸”ë¡œì„ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜êµ°
 	void RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(const int cn,t_packet &p);
-//> BBD 040303		¸ÓÃµÆ®¹é¾÷ Å×ÀÌºí·ÎÀ» »ç¿ëÇÏ´Â ÇÔ¼ö±º
+//> BBD 040303		ë¨¸ì²œíŠ¸ë°±ì—… í…Œì´ë¸”ë¡œì„ ì‚¬ìš©í•˜ëŠ” í•¨ìˆ˜êµ°
 };
 extern CAuction Auction;
 #endif // !defined(AFX_AUCTION_H__65C7ED7E_9020_467F_AB76_8528EE975EC8__INCLUDED_)

@@ -1,4 +1,4 @@
-
+ï»¿
 #include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "CItem.h"
@@ -24,9 +24,9 @@ extern inline int IsHeNK(  LPCHARLIST ch , int nation );
 ///		User Functions Declaration...
 ///
 
-int InitPartyMemberServerToServer( CHARLIST *ch );		//  ÀÌ¸§¸¸ µğºñ¿¡ ÀúÀåÇÏ°í ÀÌ¸§¸¸ ²¨³»¿Â´Ù.
+int InitPartyMemberServerToServer( CHARLIST *ch );		//  ì´ë¦„ë§Œ ë””ë¹„ì— ì €ì¥í•˜ê³  ì´ë¦„ë§Œ êº¼ë‚´ì˜¨ë‹¤.
 int EndsetPartyMenberForUpdate( CHARLIST *ch );
-int SetMySkill( CHARLIST *ch );		// ÀÏ´Ü ±âº»ÀûÀ¸·Î ¾Ë¾Æ¾ßÇÏ´Â ½ºÅ³ ¼Â
+int SetMySkill( CHARLIST *ch );		// ì¼ë‹¨ ê¸°ë³¸ì ìœ¼ë¡œ ì•Œì•„ì•¼í•˜ëŠ” ìŠ¤í‚¬ ì…‹
 
 
 
@@ -62,17 +62,17 @@ void RecvLevelUpPoint(int cn, t_client_levelup_point *p)
 	
 	if (t == ch->GetReservedPoint())
 	{	
-		ch->Str		+= p->aPoint[0];				//  Èû
-		ch->Dex		+= p->aPoint[1];				//  °Ç°­
-		ch->Con		+= p->aPoint[2];				//	¹ÎÃ¸¼º
-		ch->Wis		+= p->aPoint[3];				//	ÁöÇı
-		ch->Int		+= p->aPoint[4];				//	Áö´É
-		ch->Char	+= p->aPoint[5];				//	ÀÌµ¿·Â
-		ch->MoveP	+= p->aPoint[6];				//	¸Å·Â
-		ch->Endu	+= p->aPoint[7];				//  ÀúÇâ·Â
-		ch->Moral	+= p->aPoint[8];				//	Ã¼·Â
-		ch->wsps	+= p->aPoint[9];				//	»ç±â
-		ch->Luck	+= p->aPoint[10];			  //	Çà¿î
+		ch->Str		+= p->aPoint[0];				//  í˜
+		ch->Dex		+= p->aPoint[1];				//  ê±´ê°•
+		ch->Con		+= p->aPoint[2];				//	ë¯¼ì²©ì„±
+		ch->Wis		+= p->aPoint[3];				//	ì§€í˜œ
+		ch->Int		+= p->aPoint[4];				//	ì§€ëŠ¥
+		ch->Char	+= p->aPoint[5];				//	ì´ë™ë ¥
+		ch->MoveP	+= p->aPoint[6];				//	ë§¤ë ¥
+		ch->Endu	+= p->aPoint[7];				//  ì €í–¥ë ¥
+		ch->Moral	+= p->aPoint[8];				//	ì²´ë ¥
+		ch->wsps	+= p->aPoint[9];				//	ì‚¬ê¸°
+		ch->Luck	+= p->aPoint[10];			  //	í–‰ìš´
 		
 		packet.h.header.type = CMD_LEVELUP_POINT_OK;
 		packet.h.header.size = 0;
@@ -96,9 +96,9 @@ void DropItem(CHARLIST* pTarget)
 		ItemAttr* pItem = &pTarget->inv[t1][t2][t3];
 		ItemAttr	SaveItem = *pItem;
 
-		//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷	¸¶ÀÏ¸®Áö ¾ÆÀÌÅÛÀº ¸Ê¿¡ ¶³¾î¶ß¸®Áö ¸øÇÑ´Ù.
+		//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…	ë§ˆì¼ë¦¬ì§€ ì•„ì´í…œì€ ë§µì— ë–¨ì–´ëœ¨ë¦¬ì§€ ëª»í•œë‹¤.
 		if (GetAttr2( pItem->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM)) { return ; }
-		//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+		//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 		if (pItem->item_no)
 		{
@@ -139,7 +139,7 @@ void ExpDown(CHARLIST* pCaster, CHARLIST* pTarget, bool bDrop)
 			return;
 		}
 
-		//< LTH-040419-KO °æÇèÄ¡°¡ ±ğÀÌ´ÂÁö ·Î±×·Î ³²°Üº¸ÀÚ!!
+		//< LTH-040419-KO ê²½í—˜ì¹˜ê°€ ê¹ì´ëŠ”ì§€ ë¡œê·¸ë¡œ ë‚¨ê²¨ë³´ì!!
 		g_pLogManager->SaveLogNeoNationWar(NNT_CHARACTER_INFO, "***!!! %s Exp Down!! Current War State : %d (4 = War)", pTarget->Name, nState);
 		//> LTH-040419-KO
 	}
@@ -162,9 +162,9 @@ void ExpDown(CHARLIST* pCaster, CHARLIST* pTarget, bool bDrop)
 	if (pTarget->IsPlayer())
 	{
 		if (pCaster == NULL)
-		{	// °ø°İÀÚ°¡ ¾øÀÌ Á×Àº °æ¿ì
+		{	// ê³µê²©ìê°€ ì—†ì´ ì£½ì€ ê²½ìš°
 			if (IsHeNK(pTarget, MapInfo[MapNumber].nation))
-			{	// NKÀÎ °æ¿ì¿¡ Á×¾úÀ» °æ¿ì 
+			{	// NKì¸ ê²½ìš°ì— ì£½ì—ˆì„ ê²½ìš° 
 				if (bDrop)
 				{	
 					DropItem(pTarget);
@@ -189,7 +189,7 @@ void ExpDown(CHARLIST* pCaster, CHARLIST* pTarget, bool bDrop)
 		}	
 
 		if (IsHeNK(pTarget, MapInfo[MapNumber].nation))
-		{	// NKÀÎ °æ¿ì¿¡ Á×¾úÀ» °æ¿ì 
+		{	// NKì¸ ê²½ìš°ì— ì£½ì—ˆì„ ê²½ìš° 
 			if (bDrop)
 			{	
 				DropItem(pTarget);
@@ -225,7 +225,7 @@ bool isLevelUp(CHARLIST *chr)
 	return false;
 }	//> CSD-020809	
 
-//  to¿¡°Ô fromÀÇ Data¸¦ º¸³½´Ù..
+//  toì—ê²Œ fromì˜ Dataë¥¼ ë³´ë‚¸ë‹¤..
 void UserAddBasicData( t_connection c[], int from, int to, t_server_user_add *p )
 {
 	CHARLIST *ch = &c[ from].chrlst;
@@ -250,7 +250,7 @@ void UserAddBasicData( t_connection c[], int from, int to, t_server_user_add *p 
 	p->equip1		= ch->accessory[1];
 	p->equip2		= ch->accessory[2];
 	p->equip3		= ch->accessory[3];
-	p->mantle		= ch->mantle;   // 011018 KHS ¸Á¶Ç 
+	p->mantle		= ch->mantle;   // 011018 KHS ë§ë˜ 
 	p->jjing        = ((RareMain*)&(ch->equip[ WT_ARMOR].attr[ IATTR_RARE_MAIN]))->grade; // 011030 KHS JJING
 	
 	p->peacests		= ch->Peacests;
@@ -288,7 +288,7 @@ void UserAddBasicData( t_connection c[], int from, int to, t_server_user_add *p 
 	
 	p->reporter = ch->name_status.reporter;
 	p->nCurrentAction	=	ch->nCurrentAction;
-	p->ChairNum			=	ch->ChairNum; //¾É±â ÃßÈÄ ¸»Å¸±â ÃãÃß±âµî..			// LTS SITDOWN BUG
+	p->ChairNum			=	ch->ChairNum; //ì•‰ê¸° ì¶”í›„ ë§íƒ€ê¸° ì¶¤ì¶”ê¸°ë“±..			// LTS SITDOWN BUG
 	p->JoinLocalWar		=	ch->JoinLocalWar;						// 011214 LTS
 	
 	p->HorseNo			=	ch->HorseNo;							// LTS HORSERIDER
@@ -390,7 +390,7 @@ void SendItemInventory( int count, t_connection c[], int cn )		//1218
 	QueuePacket( c, cn, &packet, 1);
 }
 
-// 8°³..
+// 8ê°œ..
 void SendItemEquip( t_connection c[], int cn )
 {
 	t_packet packet;
@@ -469,7 +469,7 @@ void CheckCharacterWhenJoinGame( CHARLIST *ch )
 	return;
 }
 
-int InitPartyMemberServerToServer( CHARLIST *ch )		//  ÀÌ¸§¸¸ µğºñ¿¡ ÀúÀåÇÏ°í ÀÌ¸§¸¸ ²¨³»¿Â´Ù.		// 0620 YGI
+int InitPartyMemberServerToServer( CHARLIST *ch )		//  ì´ë¦„ë§Œ ë””ë¹„ì— ì €ì¥í•˜ê³  ì´ë¦„ë§Œ êº¼ë‚´ì˜¨ë‹¤.		// 0620 YGI
 {
 	for( int i=0; i<MAX_PARTY_MEMBER; i++ )
 	{
@@ -520,9 +520,9 @@ int EndsetPartyMenberForUpdate( CHARLIST *ch )
 
 
 
-//######################## login server ¿ë ##########################
+//######################## login server ìš© ##########################
 
-void SendItemIndex( t_connection c[], int cn )		// ¹è¿î ¾ÆÀÌÅÛ º¸³»ÁÖ±â
+void SendItemIndex( t_connection c[], int cn )		// ë°°ìš´ ì•„ì´í…œ ë³´ë‚´ì£¼ê¸°
 {
 	CHARLIST *ch = &c[cn].chrlst;
 	t_packet packet;
@@ -534,16 +534,16 @@ void SendItemIndex( t_connection c[], int cn )		// ¹è¿î ¾ÆÀÌÅÛ º¸³»ÁÖ±â
 	QueuePacket(c, cn, &packet, 1);
 }
 
-void SendEmployment( t_connection c[], int cn )		// employment º¸³»ÁÖ±â //1229
+void SendEmployment( t_connection c[], int cn )		// employment ë³´ë‚´ì£¼ê¸° //1229
 {
 	return;
 }
 
-void SendRelation( t_connection c[], int cn )		// »çÁ¦ °ü°èº¸³»ÁÖ±â		//1229
+void SendRelation( t_connection c[], int cn )		// ì‚¬ì œ ê´€ê³„ë³´ë‚´ì£¼ê¸°		//1229
 {
 	return;
 }
-void SendParty( t_connection c[], int cn )			// ÆÄÆ¼¿ø º¸³»ÁÖ±â	//0213 YGI
+void SendParty( t_connection c[], int cn )			// íŒŒí‹°ì› ë³´ë‚´ì£¼ê¸°	//0213 YGI
 {
 	CHARLIST *ch = &c[cn].chrlst;
 	t_packet packet;
@@ -580,7 +580,7 @@ void makemyjobexpsetting( int skillno , CHARLIST *ch )
 
 
 /// 0212 YGI
-int SetMySkill( CHARLIST *ch )		// ÀÏ´Ü ±âº»ÀûÀ¸·Î ¾Ë¾Æ¾ßÇÏ´Â ½ºÅ³ ¼Â
+int SetMySkill( CHARLIST *ch )		// ì¼ë‹¨ ê¸°ë³¸ì ìœ¼ë¡œ ì•Œì•„ì•¼í•˜ëŠ” ìŠ¤í‚¬ ì…‹
 {
 	int i;
 	switch( ch->Class ) 
@@ -663,7 +663,7 @@ void SendCreateAbility( short int cn )
 
 
 // 0410
-int GetDiceAbility( int DiceNumber )		// ´ÙÀÌ½º µ¹¸®±â
+int GetDiceAbility( int DiceNumber )		// ë‹¤ì´ìŠ¤ ëŒë¦¬ê¸°
 {
 	int dice_count, dice_max;
 	dice_count = DiceNumber / 1000;
@@ -750,13 +750,13 @@ void SendThrowDice( char type, short int cn )
 
 ///////////////////////////////////////////////////////////////////////////////
 //		
-//		½Ã°£¿¡ ÀÇÇÑ Ä³¸¯ÅÍÀÇ ¹è°íÇÄ ¼öÄ¡ ÁÙÀÌ±â	//###1213_2 ¼öÁ¤
+//		ì‹œê°„ì— ì˜í•œ ìºë¦­í„°ì˜ ë°°ê³ í”” ìˆ˜ì¹˜ ì¤„ì´ê¸°	//###1213_2 ìˆ˜ì •
 //		
 ///////////////////////////////////////////////////////////////////////////////
 void HungryMuchAdd( CHARLIST *ch, const int iType)//020214 lsw
 {		
 	double iValue	= 0	;		
-	if( ch->bAlive != ALIVE_ ) //Á×¾ú±â ¶§¹®¿¡
+	if( ch->bAlive != ALIVE_ ) //ì£½ì—ˆê¸° ë•Œë¬¸ì—
 	{
 		ch->Hungry = 0;	
 		return;

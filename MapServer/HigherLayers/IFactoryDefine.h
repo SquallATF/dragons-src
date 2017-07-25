@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	IFactoryDefine.h
  *			IFactorydDefine interface Define.
  */
@@ -6,7 +6,7 @@
 
 /**
  * @interface	IFactoryDefine
- * @brief		ÀüÀïÅÍ Factory classÀÇ ±âÃÊ°¡ µÇ´Â interface.
+ * @brief		ì „ìŸí„° Factory classì˜ ê¸°ì´ˆê°€ ë˜ëŠ” interface.
  */
 //< LTH-040419-KO.
 interface IFactoryDefine

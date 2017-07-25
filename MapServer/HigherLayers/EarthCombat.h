@@ -1,4 +1,4 @@
-// EarthCombat.h: interface for the CEarthCombat class.
+ï»¿// EarthCombat.h: interface for the CEarthCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ´ëÁö¼Ó¼º ÀüÅõ½ºÅ³
+// ëŒ€ì§€ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 class CEarthCombat : public TBinder<CCombat, CEarthCombat>  
 {
 public:

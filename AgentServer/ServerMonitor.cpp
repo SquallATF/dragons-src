@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------
+﻿// ----------------------------------------------------------------------
 //    File Name: ServerMonitor.cpp
 // Last Updated: 2000/11/28 (by chan78)
 //  Description: Functions to handle commands that from Monitoring Client

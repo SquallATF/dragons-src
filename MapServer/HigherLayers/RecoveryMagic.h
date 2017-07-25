@@ -1,4 +1,4 @@
-// RecoveryMagic.h: interface for the CRecoveryMagic class.
+ï»¿// RecoveryMagic.h: interface for the CRecoveryMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// È¸º¹°è¿­ ¸¶¹ý
+// íšŒë³µê³„ì—´ ë§ˆë²•
 class CRecoveryMagic : public TBinder<CMagic, CRecoveryMagic>
 {
 public:
@@ -33,13 +33,13 @@ public:
   }
 
 public:
-  bool Healing();               // ¸¶¹ý È¸º¹ °è¿­ ¸¶¹ý
+  bool Healing();               // ë§ˆë²• íšŒë³µ ê³„ì—´ ë§ˆë²•
   bool Decipher();
   bool HealDisease();
   bool GreatHeal();
   bool AutoHeal();
   bool RemoveCurse();
-  bool RestoreAuthority();      // ½Å·Â È¸º¹ °è¿­ ¸¶¹ý
+  bool RestoreAuthority();      // ì‹ ë ¥ íšŒë³µ ê³„ì—´ ë§ˆë²•
   bool MiracleRecover();
   bool ReliefAuthority();
   bool RecoverPoison();

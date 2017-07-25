@@ -1,21 +1,21 @@
+ï»¿
 
 
-
-#define NPC_PATTERN_NO_MOVE_			 0		// °¡¸¸È÷ ÀÖ´Â´Ù.
-#define NPC_PATTERN_HOSTILE_			10		// Àû´ëÀûÀ¸·Î ¹Ù²ï´Ù. 
-#define NPC_PATTERN_PEACE_				20		// ÆòÈ­ÀûÀ¸·Î ¹Ù²ï´Ù.
-#define NPC_PATTERN_FIND_CLOSE_PC_		30		// °¡±î¿î pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-#define NPC_PATTERN_FIND_WEAK_PC_		40		// ¾àÇÑ  pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-#define NPC_PATTERN_FIND_STRONG_PC_		50		// °­ÇÑ  pc¸¦ Ã£´Â´Ù.(±×ÂÊÀ» ¹Ù¶óº»´Ù. )
-#define NPC_PATTERN_ACCESS_PC_			60		// Ã£Àº PC¿¡ Àû±ÙÇÑ´Ù. ( HostileÀÏ°æ¿ì °ø°Ý¹üÀ§¿¡ ÀÖÀ¸¸é °ø°ÝÇÑ´Ù. peaceÀÏ°æ¿ì Á¢±ÙÇØµµ °¡¸¸È÷ Á¢±ÙÇÏ´Â³ðÀ» ¹Ù¶óº»´Ù.  
-#define NPC_PATTERN_ACCESS_PC_ATTACKED_	70		// ³ª¸¦ °ø°ÝÇÑ Pc¿¡ Á¢±ÙÇÑ´Ù. 
+#define NPC_PATTERN_NO_MOVE_			 0		// ê°€ë§Œížˆ ìžˆëŠ”ë‹¤.
+#define NPC_PATTERN_HOSTILE_			10		// ì ëŒ€ì ìœ¼ë¡œ ë°”ë€ë‹¤. 
+#define NPC_PATTERN_PEACE_				20		// í‰í™”ì ìœ¼ë¡œ ë°”ë€ë‹¤.
+#define NPC_PATTERN_FIND_CLOSE_PC_		30		// ê°€ê¹Œìš´ pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+#define NPC_PATTERN_FIND_WEAK_PC_		40		// ì•½í•œ  pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+#define NPC_PATTERN_FIND_STRONG_PC_		50		// ê°•í•œ  pcë¥¼ ì°¾ëŠ”ë‹¤.(ê·¸ìª½ì„ ë°”ë¼ë³¸ë‹¤. )
+#define NPC_PATTERN_ACCESS_PC_			60		// ì°¾ì€ PCì— ì ê·¼í•œë‹¤. ( Hostileì¼ê²½ìš° ê³µê²©ë²”ìœ„ì— ìžˆìœ¼ë©´ ê³µê²©í•œë‹¤. peaceì¼ê²½ìš° ì ‘ê·¼í•´ë„ ê°€ë§Œížˆ ì ‘ê·¼í•˜ëŠ”ë†ˆì„ ë°”ë¼ë³¸ë‹¤.  
+#define NPC_PATTERN_ACCESS_PC_ATTACKED_	70		// ë‚˜ë¥¼ ê³µê²©í•œ Pcì— ì ‘ê·¼í•œë‹¤. 
 #define NPC_PATTERN_ATTACK_PC_			71
-#define NPC_PATTERN_WANDER_RANGE_1_		80		// ¹èÈ¸ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 1ÀÌ´Ù. )
-#define NPC_PATTERN_WANDER_RANGE_2_		90		// ¹èÈ­ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 2ÀÌ´Ù. )
-#define NPC_PATTERN_WANDER_RANGE_3_		100  	// ¹èÈ­ÇÑ´Ù. ( 1¹ø ¹èÈ¸¹üÀ§°¡ 3ÀÌ´Ù. )
-#define NPC_PATTERN_ESCAPE_PC_			110		// Ã£Àº PC·Î ºÎÅÍ µµ¸Á°£´Ù. 
-#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// ±ÙÃ³¿¡ °ø°Ý PC°¡ ÀÖÀ¸¸é ¸Ö¸® µµ¸Á°£´Ù. 
-#define NPC_PATTERN_RETURN_				130		// patterntypeÀ» 0À¸·Î SettingÇÑ´Ù.
+#define NPC_PATTERN_WANDER_RANGE_1_		80		// ë°°íšŒí•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 1ì´ë‹¤. )
+#define NPC_PATTERN_WANDER_RANGE_2_		90		// ë°°í™”í•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 2ì´ë‹¤. )
+#define NPC_PATTERN_WANDER_RANGE_3_		100  	// ë°°í™”í•œë‹¤. ( 1ë²ˆ ë°°íšŒë²”ìœ„ê°€ 3ì´ë‹¤. )
+#define NPC_PATTERN_ESCAPE_PC_			110		// ì°¾ì€ PCë¡œ ë¶€í„° ë„ë§ê°„ë‹¤. 
+#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// ê·¼ì²˜ì— ê³µê²© PCê°€ ìžˆìœ¼ë©´ ë©€ë¦¬ ë„ë§ê°„ë‹¤. 
+#define NPC_PATTERN_RETURN_				130		// patterntypeì„ 0ìœ¼ë¡œ Settingí•œë‹¤.
 
 
 

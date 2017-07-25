@@ -1,4 +1,4 @@
-#include "define.h"
+ï»¿#include "define.h"
 #include "network.h"
 #include "msgproc.h"
 
@@ -73,7 +73,7 @@ bool CNetwork::StartServer(char* ip,WORD port)
 		return false;
 	}
 
-	// ¸®½¼ ¼ÒÄÏÀ» ºñµ¿±âÀûÀ¸·Î ±¸µ¿.
+	// ë¦¬ìŠ¨ ì†Œì¼“ì„ ë¹„ë™ê¸°ì ìœ¼ë¡œ êµ¬ë™.
 	WSAAsyncSelect(m_socketBase,m_hProcWnd,WM_SOCKET_EVENT,FD_ACCEPT);
 
 	return true;

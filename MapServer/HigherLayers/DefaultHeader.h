@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -15,8 +15,8 @@
 #define _NATION_APPLY_
 
 #define ATTACKPOWER_PRO_	140
-#define GET_EXP_PC_AND_PC_	30// PC°£¿¡´Â °æÇèÄ¡¸¦ NPC¿¡ ÀÇÇØ ¾ò´Â ¼öÄ¡¿¡ ¾Æ·¡¼öÄ¡·Ñ ³ª´©¾î ÁØ´Ù. ( µÇ°Ô ÂÉ±ÝÁØ´Ù. )
-#define ULTRA_PK_NUM_		100// ±Ø¾ÇPKÀÎ°æ¿ì ¾Æ·¡ ¼öÄ¡¸¦ ³Ñ°ÔµÇ¸é name_status.ultra_pk == 1ÀÌµÇ°í °ø°ÝÀ» ¸øÇÏ°Ô µÈ´Ù. 
+#define GET_EXP_PC_AND_PC_	30// PCê°„ì—ëŠ” ê²½í—˜ì¹˜ë¥¼ NPCì— ì˜í•´ ì–»ëŠ” ìˆ˜ì¹˜ì— ì•„ëž˜ìˆ˜ì¹˜ë¡¤ ë‚˜ëˆ„ì–´ ì¤€ë‹¤. ( ë˜ê²Œ ìª¼ê¸ˆì¤€ë‹¤. )
+#define ULTRA_PK_NUM_		100// ê·¹ì•…PKì¸ê²½ìš° ì•„ëž˜ ìˆ˜ì¹˜ë¥¼ ë„˜ê²Œë˜ë©´ name_status.ultra_pk == 1ì´ë˜ê³  ê³µê²©ì„ ëª»í•˜ê²Œ ëœë‹¤. 
 
 ///////////////////////////////////////////////////////////////////////////////
 //< CSD-030517
@@ -49,35 +49,35 @@ const int MAX_RESIST_TYPE = 6; // CSD-030723
 const int MAX_GENERATE_POSITION_ = 100; // CSD-031106
 const DWORD MAX_BANK_MONEY = 4000000000; // CSD-030723
 
-const double HT_NORMAL_CHANGE_VALUE = 0.003;	//°¡¸¸È÷ ÀÖÀ»¶§ ±ðÀÏ °ª
-const double HT_WALK_CHANGE_VALUE = 0.013;	//ÇÇ½º¸ðµå °ÉÀ»¶§
-const double HT_RUN_CHANGE_VALUE = 0.030;	//ÇÇ½º¸ðµå ¶Û¶§
-const double HT_BATTLE_WALK_CHANGE_VALUE = 0.020;	//¹èÆ²¸ðµå °ÉÀ»¶§
-const double HT_BATTLE_RUN_CHANGE_VALUE = 0.040;	//¹èÆ²¸ðµå ¶Û¶§
-const double HT_ATTACK_CHANGE_VALUE = 0.030;	//¹°¸®°ø°Ý½Ã
-const double HT_MAGIC_CHANGE_VALUE = 0.030;	//¸¶¹ý»ç¿ë½Ã
-const double HT_SKILL_CHANGE_VALUE = 0.050;	//Á÷¾÷½Ã
-// Á×¾úÀ»¶§ ¾à 5ÃÊ¸¶´Ù CheckÇÑ´Ù. 
+const double HT_NORMAL_CHANGE_VALUE = 0.003;	//ê°€ë§Œížˆ ìžˆì„ë•Œ ê¹Žì¼ ê°’
+const double HT_WALK_CHANGE_VALUE = 0.013;	//í”¼ìŠ¤ëª¨ë“œ ê±¸ì„ë•Œ
+const double HT_RUN_CHANGE_VALUE = 0.030;	//í”¼ìŠ¤ëª¨ë“œ ë›¸ë•Œ
+const double HT_BATTLE_WALK_CHANGE_VALUE = 0.020;	//ë°°í‹€ëª¨ë“œ ê±¸ì„ë•Œ
+const double HT_BATTLE_RUN_CHANGE_VALUE = 0.040;	//ë°°í‹€ëª¨ë“œ ë›¸ë•Œ
+const double HT_ATTACK_CHANGE_VALUE = 0.030;	//ë¬¼ë¦¬ê³µê²©ì‹œ
+const double HT_MAGIC_CHANGE_VALUE = 0.030;	//ë§ˆë²•ì‚¬ìš©ì‹œ
+const double HT_SKILL_CHANGE_VALUE = 0.050;	//ì§ì—…ì‹œ
+// ì£½ì—ˆì„ë•Œ ì•½ 5ì´ˆë§ˆë‹¤ Checkí•œë‹¤. 
 const int DEAD_CHARACTER_CHECK_TIME = 5;
-// Á×Àº´ÙÀ½ »ç¶ó½Ã°Å³ª, Ghost·Î ¹Ù²î´Â ½Ã°£À» Á¤ÇÑ´Ù. 
-// ´ÜÀ§´Â DEAD_CHARACTER_CHECK_TIME(ÃÊ)ÀÌ´Ù. 
+// ì£½ì€ë‹¤ìŒ ì‚¬ë¼ì‹œê±°ë‚˜, Ghostë¡œ ë°”ë€ŒëŠ” ì‹œê°„ì„ ì •í•œë‹¤. 
+// ë‹¨ìœ„ëŠ” DEAD_CHARACTER_CHECK_TIME(ì´ˆ)ì´ë‹¤. 
 const int DEAD_PC_COUNT_ = 65;
-const int DEAD_NPC_COUNT_BOTTOM_ = 5; // NPC : ((DEAD_PC_COUNT_ - DEAD_NPC_COUNT_BOTTOM_ ) * DEAD_CHARACTER_CHECK_TIME )ÃÊ°£ ½ÃÃ¼ÀÎ»óÅÂ°¡ Áö¼ÓµÈ´Ù. 
-const int DEAD_PC_COUNT_BOTTOM_ = DEAD_PC_COUNT_ - 5;	// PC´Â ½ÃÃ¼ÀÎ»óÅÂ¸¦ (5 * DEAD_CHARACTER_CHECK_TIME)ÃÊ°£¸¸ Áö¼ÓµÈ´Ù. 
+const int DEAD_NPC_COUNT_BOTTOM_ = 5; // NPC : ((DEAD_PC_COUNT_ - DEAD_NPC_COUNT_BOTTOM_ ) * DEAD_CHARACTER_CHECK_TIME )ì´ˆê°„ ì‹œì²´ì¸ìƒíƒœê°€ ì§€ì†ëœë‹¤. 
+const int DEAD_PC_COUNT_BOTTOM_ = DEAD_PC_COUNT_ - 5;	// PCëŠ” ì‹œì²´ì¸ìƒíƒœë¥¼ (5 * DEAD_CHARACTER_CHECK_TIME)ì´ˆê°„ë§Œ ì§€ì†ëœë‹¤. 
 const int DEAD_NPC_ANIMAL_COUNT_ = 25;
 const int DEAD_NPC_HUNT_MONSTER_COUNT_ = 6; // CSD-040407
 const int DEAD_NPC_MONSTER_COUNT_ = 15;
 const int DEAD_SEALSTONE_COUNT_ = (2*60*60)/5;		// LTS NEW LOCALWAR
 
-//const int CIB_POTION_BOX = 70; // CSD-030723	//050413_KCH REDEFINEÁ¦°Å
-const int LOTTO_PAY = 20000; // CSD-TW-030704 : ·Î¶Ç ±¸ÀÔ ºñ¿ë
-const int GUILD_WEAR01	   = 102; // ÁöÅ°¹Ì ±æµåº¹
+//const int CIB_POTION_BOX = 70; // CSD-030723	//050413_KCH REDEFINEì œê±°
+const int LOTTO_PAY = 20000; // CSD-TW-030704 : ë¡œë˜ êµ¬ìž… ë¹„ìš©
+const int GUILD_WEAR01	   = 102; // ì§€í‚¤ë¯¸ ê¸¸ë“œë³µ
 
-const int PS_EXP		= 10;  // ±×³É °æÇèÄ¡
-const int PS_TACTIC	= 20;  // ÅÃÆ½ °æÇèÄ¡
-const int PS_MAGIC_TAC	= 30;  // ¸¶¹ý ÅÃÆ½ °æÇèÄ¡
-const int NO_TAC		= 13;  // ÀüÅõ¿¡ »ç¿ëµÇ´Â ÅÃÆ½¼ö
-const int ULTRA_NK     = 100; // Ultra NK ¼öÄ¡
+const int PS_EXP		= 10;  // ê·¸ëƒ¥ ê²½í—˜ì¹˜
+const int PS_TACTIC	= 20;  // íƒí‹± ê²½í—˜ì¹˜
+const int PS_MAGIC_TAC	= 30;  // ë§ˆë²• íƒí‹± ê²½í—˜ì¹˜
+const int NO_TAC		= 13;  // ì „íˆ¬ì— ì‚¬ìš©ë˜ëŠ” íƒí‹±ìˆ˜
+const int ULTRA_NK     = 100; // Ultra NK ìˆ˜ì¹˜
 const int ENABLE_DUMMY_LEVEL = 10; // CSD-030806
 const int ENABLE_DUEL_LEVEL = 10; // CSD-030806
 const int ENABLE_GM_LEVEL = 20; // CSD-030806
@@ -85,7 +85,7 @@ const int ENABLE_NATIONWAR_LEVEL = 10; // CSD-030806
 const int ENABLE_PARTY_LEVEL = 35; // CSD-030806
 const int ENABLE_FREE_LEVEL = 50; // CSD-030806
 const int ENABLE_HOMETOWN_LEVEL = 20; // CSD-030806
-const int ENABLE_DOUBLE_LEVEL = 141; // CSD-040818 : µÎ¹è °æÇèÄ¡°¡ °¡´ÉÇÑ ·¹º§
+const int ENABLE_DOUBLE_LEVEL = 141; // CSD-040818 : ë‘ë°° ê²½í—˜ì¹˜ê°€ ê°€ëŠ¥í•œ ë ˆë²¨
 
 const int BUILD_GUILD_LEVEL = 40; // CSD-030806
 const int CROSSING_CLASS_LEVEL = 101; // CSD-030806
@@ -102,54 +102,54 @@ enum LOG_TYPE
 	LT_AUCTION	= 7,	// BBD 040226
 	LT_EVENTITEM = 8,	// BBD 040308
 	LT_LOCAL_WAR = 9,    // CSD-040407
-	LT_NEONATIONWAR = 10,	// LTH-040322-KO 1.04 ½Å±Ô ±¹°¡ÀüÀ» À§ÇÑ ·Î±×
-	LT_MOVETOWARFIELD = 11,	// LTH-040515-KO 1.04+ ÆòÈ­ ±â°£ ÀüÀïÅÍ ÀÌµ¿ °ü·Ã ·Î±×
-	KCH_ITEM_MALL_ITEM = 12,	//¸Ê¿¡¼­ ¾ÆÀÌÅÛ¸ô ¾ÆÀÌÅÛ »èÁ¦½Ã ¿¡·¯ ¸Þ¼¼Áö.
-	KCH_SKILL_RARE_UPGRADE_FAIL = 13, //·¹¾î ¾÷±×·¹ÀÌµå ½ÇÆÐ½Ã ³²±â´Â ·Î±×
-	KCH_ITEM_MALL_ITEM_USE = 14,	//¾ÆÀÌÅÛ¸ôÀÇ ¾ÆÀÌÅÛÀ» »ç¿ëÇÒ¶§, ³²±â´Â ·Î±×
+	LT_NEONATIONWAR = 10,	// LTH-040322-KO 1.04 ì‹ ê·œ êµ­ê°€ì „ì„ ìœ„í•œ ë¡œê·¸
+	LT_MOVETOWARFIELD = 11,	// LTH-040515-KO 1.04+ í‰í™” ê¸°ê°„ ì „ìŸí„° ì´ë™ ê´€ë ¨ ë¡œê·¸
+	KCH_ITEM_MALL_ITEM = 12,	//ë§µì—ì„œ ì•„ì´í…œëª° ì•„ì´í…œ ì‚­ì œì‹œ ì—ëŸ¬ ë©”ì„¸ì§€.
+	KCH_SKILL_RARE_UPGRADE_FAIL = 13, //ë ˆì–´ ì—…ê·¸ë ˆì´ë“œ ì‹¤íŒ¨ì‹œ ë‚¨ê¸°ëŠ” ë¡œê·¸
+	KCH_ITEM_MALL_ITEM_USE = 14,	//ì•„ì´í…œëª°ì˜ ì•„ì´í…œì„ ì‚¬ìš©í• ë•Œ, ë‚¨ê¸°ëŠ” ë¡œê·¸
 };	//> CSD-030808
 
-//< LTH-040322-KO 1.04 ½Å±Ô ±¹°¡ÀüÀ» À§ÇÑ ·Î±× Á¾·ù
+//< LTH-040322-KO 1.04 ì‹ ê·œ êµ­ê°€ì „ì„ ìœ„í•œ ë¡œê·¸ ì¢…ë¥˜
 enum NEO_NATIONWAR_TYPE
 {
-	NNT_TIME_INFO = 0,			// ½Ã°£ Á¤º¸ °ü·Ã
-	NNT_STATE_INFO = 1,			// »óÅÂ Á¤º¸ °ü·Ã
-	NNT_FAME_INFO = 2,			// Fame Á¤º¸ °ü·Ã
-	NNT_CHARACTER_INFO = 3,		// Character Á¤º¸ °ü·Ã
-	NNT_WAR_INFO = 4,			// ÀüÀï Á¤º¸ °ü·Ã
+	NNT_TIME_INFO = 0,			// ì‹œê°„ ì •ë³´ ê´€ë ¨
+	NNT_STATE_INFO = 1,			// ìƒíƒœ ì •ë³´ ê´€ë ¨
+	NNT_FAME_INFO = 2,			// Fame ì •ë³´ ê´€ë ¨
+	NNT_CHARACTER_INFO = 3,		// Character ì •ë³´ ê´€ë ¨
+	NNT_WAR_INFO = 4,			// ì „ìŸ ì •ë³´ ê´€ë ¨
 };
 //> LTH-040322-KO
 
-//< LTH-040515-KO 1.04p ÆòÈ­±â°£ ÀüÀïÅÍ ÀÌµ¿ °ü·Ã ·Î±× Á¾·ù
+//< LTH-040515-KO 1.04p í‰í™”ê¸°ê°„ ì „ìŸí„° ì´ë™ ê´€ë ¨ ë¡œê·¸ ì¢…ë¥˜
 enum MOVE_TO_WARFIELD_TYPE
 {
-	MTWT_GUARD_INFO = 0,		// °¡µå Á¤º¸ °ü·Ã
-	MTWT_STATE_INFO = 1,		// »óÅÂ Á¤º¸ °ü·Ã
-	MTWT_MONSTER_INFO = 2,		// ÀüÀïÅÍ ¸®Á¨ ¸ó½ºÅÍ °ü·Ã
-	MTWT_CHARACTER_INFO = 3,	// Character Á¤º¸ °ü·Ã
+	MTWT_GUARD_INFO = 0,		// ê°€ë“œ ì •ë³´ ê´€ë ¨
+	MTWT_STATE_INFO = 1,		// ìƒíƒœ ì •ë³´ ê´€ë ¨
+	MTWT_MONSTER_INFO = 2,		// ì „ìŸí„° ë¦¬ì   ëª¬ìŠ¤í„° ê´€ë ¨
+	MTWT_CHARACTER_INFO = 3,	// Character ì •ë³´ ê´€ë ¨
 };
 //> LTH-040515-KO
 
-//<! BBD 040308 ÀÌº¥Æ® ¾ÆÀÌÅÛ ·Î±× Å¸ÀÔ
+//<! BBD 040308 ì´ë²¤íŠ¸ ì•„ì´í…œ ë¡œê·¸ íƒ€ìž…
 enum EVENTITEM_LOG_TYPE
 {
 	// EILT = Event Item Log Type
-	EILT_INVALID_CONNECTION = 0,		// ÄÜ³Ø¼ÇÀÌ ²÷¾îÁ³´Ù
-	EILT_INVALID_NAME = 1,				// ÀÌ¸§ÀÌ ´Ù¸£´Ù
-	EILT_NOTENOUGH_INVENTORY = 2,		// ¿äÃ»ÇÑ »çÀÌ ÀÎº¥À» Ã¤¿ü´Ù.
+	EILT_INVALID_CONNECTION = 0,		// ì½˜ë„¥ì…˜ì´ ëŠì–´ì¡Œë‹¤
+	EILT_INVALID_NAME = 1,				// ì´ë¦„ì´ ë‹¤ë¥´ë‹¤
+	EILT_NOTENOUGH_INVENTORY = 2,		// ìš”ì²­í•œ ì‚¬ì´ ì¸ë²¤ì„ ì±„ì› ë‹¤.
 };
-//> BBD 040308 ÀÌº¥Æ® ¾ÆÀÌÅÛ ·Î±× Å¸ÀÔ
+//> BBD 040308 ì´ë²¤íŠ¸ ì•„ì´í…œ ë¡œê·¸ íƒ€ìž…
 
-//<! BBD 040226 ¿Á¼Ç·Î±× Å¸ÀÔ
+//<! BBD 040226 ì˜¥ì…˜ë¡œê·¸ íƒ€ìž…
 enum AUCTION_LOG_TYPE
 {
-	// °Å·¡°¡ ¿ÏÀüÈ÷ Á¾·áµÉ¶§¿¡ ·Î±×°¡ »ý°Ü¾ß ÇÔ
-	ACLT_SELLER_REGIST = 0,			// ÆÄ´Â ³ðÀÌ µî·ÏÇÒ¶§ »ý±â´Â ·Î±×
-	ACLT_SELLER_CANCLE = 1,			// ÆÄ´Â ³ðÀÌ Ãë¼ÒÇÒ¶§ »ý±â´Â ·Î±×
-	ACLT_BUYER_TAKE = 2,			// »ç´Â ³ðÀÌ ¹°°ÇÀ» °¡Á®°¨À¸·Î °Å·¡°¡ Á¾·áµÉ¶§ »ý±â´Â ·Î±×
-	ACLT_SELLER_TAKE = 3,			// ÆÄ´Â ³ðÀÌ ´ë±ÝÀ» È¸¼öÇÔÀ¸·Î °Å·¡°¡ Á¾·áµÉ¶§ »ý±â´Â ·Î±× 
+	// ê±°ëž˜ê°€ ì™„ì „ížˆ ì¢…ë£Œë ë•Œì— ë¡œê·¸ê°€ ìƒê²¨ì•¼ í•¨
+	ACLT_SELLER_REGIST = 0,			// íŒŒëŠ” ë†ˆì´ ë“±ë¡í• ë•Œ ìƒê¸°ëŠ” ë¡œê·¸
+	ACLT_SELLER_CANCLE = 1,			// íŒŒëŠ” ë†ˆì´ ì·¨ì†Œí• ë•Œ ìƒê¸°ëŠ” ë¡œê·¸
+	ACLT_BUYER_TAKE = 2,			// ì‚¬ëŠ” ë†ˆì´ ë¬¼ê±´ì„ ê°€ì ¸ê°ìœ¼ë¡œ ê±°ëž˜ê°€ ì¢…ë£Œë ë•Œ ìƒê¸°ëŠ” ë¡œê·¸
+	ACLT_SELLER_TAKE = 3,			// íŒŒëŠ” ë†ˆì´ ëŒ€ê¸ˆì„ íšŒìˆ˜í•¨ìœ¼ë¡œ ê±°ëž˜ê°€ ì¢…ë£Œë ë•Œ ìƒê¸°ëŠ” ë¡œê·¸ 
 };
-//> BBD 040226 ¿Á¼Ç·Î±× Å¸ÀÔ
+//> BBD 040226 ì˜¥ì…˜ë¡œê·¸ íƒ€ìž…
 
 enum DAY_TYPE
 {	//< CSD-030804
@@ -175,21 +175,21 @@ enum NATION_TYPE
 
 enum HOUSE_TYPE
 {	//< CSD-030723
-	BLACKSMITH = 0,	 // ´ëÀå°£
-	FARM = 1,		 // ³óÀå
-	RESTAURANT = 2,	 // À½½ÄÁ¡
-	HERBSHOP = 3,	 // ¾àÃÊÁ¡
-	SHAMBLES = 4,	 // ÇªÁÖ°£
-	CANDLE = 5,		 // ¾çÃÊÁ¡
-	SLOPSHOP = 6,	 // ¿Ê°¡°Ô 
-	ALCHEMY = 7,	 // È° È­»ì
-	WOODWORKING = 8, // ¸ñ°ø¼Ò
-	BOWCRAFT = 9,	 // È° È­»ì
-	SHIPYARD = 10,	 // Á¶¼±¼Ò
-	PUB = 11,	     // ÁÖÁ¡
-	HOSPITAL = 12,	 // º´¿ø
-	STORE = 13,		 // ÀâÈ­Á¡
-	INN = 14,		 // ¿©°ü
+	BLACKSMITH = 0,	 // ëŒ€ìž¥ê°„
+	FARM = 1,		 // ë†ìž¥
+	RESTAURANT = 2,	 // ìŒì‹ì 
+	HERBSHOP = 3,	 // ì•½ì´ˆì 
+	SHAMBLES = 4,	 // í‘¸ì£¼ê°„
+	CANDLE = 5,		 // ì–‘ì´ˆì 
+	SLOPSHOP = 6,	 // ì˜·ê°€ê²Œ 
+	ALCHEMY = 7,	 // í™œ í™”ì‚´
+	WOODWORKING = 8, // ëª©ê³µì†Œ
+	BOWCRAFT = 9,	 // í™œ í™”ì‚´
+	SHIPYARD = 10,	 // ì¡°ì„ ì†Œ
+	PUB = 11,	     // ì£¼ì 
+	HOSPITAL = 12,	 // ë³‘ì›
+	STORE = 13,		 // ìž¡í™”ì 
+	INN = 14,		 // ì—¬ê´€
 	MAGIC_GUILD = 15,
 	STORE_TOTAL = 17
 };	//> CSD-030723
@@ -221,9 +221,9 @@ enum CLASS_TYPE
 
 enum CHAR_STATUS_TYPE
 {	//< CSD-030723
-	CS_NOMAL = 0,	// Á¤»ó »óÅÂ
-	CS_REST = 1,	// ÈÞ½Ä »óÅÂ
-	CS_SLEEP = 2	// ³·¿¡ ÀÚ±â »óÅÂ
+	CS_NOMAL = 0,	// ì •ìƒ ìƒíƒœ
+	CS_REST = 1,	// íœ´ì‹ ìƒíƒœ
+	CS_SLEEP = 2	// ë‚®ì— ìžê¸° ìƒíƒœ
 };	//> CSD-030723
 
 enum VIEW_TYPE
@@ -246,15 +246,15 @@ enum VIEW_TYPE
 
 enum CONDITION_TYPE
 {	//< CSD-030723
-	CON_NORMAL = 0x00,	// Á¤»óÀÇ »óÅÂ	 00000000
-	CON_CURSE = 0x01,	// ÀúÁÖÀÇ »óÅÂ	 00000001
-	CON_FROZEN = 0x02,	// ³Ãµ¿ÀÇ »óÅÂ   00000010
-	CON_SLOW = 0x04,	// °¨¼ÓÀÇ »óÅÂ   00000100
-	CON_DAZE = 0x08,	// È¥¶õÀÇ »óÅÂ	 00001000
-	CON_POISON = 0x10,	// Áßµ¶ÀÇ »óÅÂ	 00010000
-	CON_STONE = 0x20,	// ¼®È­ÀÇ »óÅÂ	 00100000
-	CON_DEATH = 0x40,	// Á×À½ÀÇ »óÅÂ	 01000000
-	CON_DARKNESS = 0x80 // ¾îµÒÀÇ »óÅÂ   10000000
+	CON_NORMAL = 0x00,	// ì •ìƒì˜ ìƒíƒœ	 00000000
+	CON_CURSE = 0x01,	// ì €ì£¼ì˜ ìƒíƒœ	 00000001
+	CON_FROZEN = 0x02,	// ëƒ‰ë™ì˜ ìƒíƒœ   00000010
+	CON_SLOW = 0x04,	// ê°ì†ì˜ ìƒíƒœ   00000100
+	CON_DAZE = 0x08,	// í˜¼ëž€ì˜ ìƒíƒœ	 00001000
+	CON_POISON = 0x10,	// ì¤‘ë…ì˜ ìƒíƒœ	 00010000
+	CON_STONE = 0x20,	// ì„í™”ì˜ ìƒíƒœ	 00100000
+	CON_DEATH = 0x40,	// ì£½ìŒì˜ ìƒíƒœ	 01000000
+	CON_DARKNESS = 0x80 // ì–´ë‘ ì˜ ìƒíƒœ   10000000
 };	//> CSD-030723
 
 enum HUNGRY_TYPE
@@ -360,10 +360,10 @@ enum MAGIC_TYPE
 
 enum CHAR_STEP_TYPE
 {	//< CSD-TW-030620
-	CLS_STEP = 0,  // µà¾ó Å¬·¡½º ´Ü°è
-	DUAL_CLS = 1,  // µà¾ó Å¬·¡½º Á¾·ù
-	EXP_STEP = 2,  // °æÇèÄ¡ ´Ü°è
-	T01_STEP = 3,  // ÅÃÆ½ °æÇèÄ¡ ´Ü°è
+	CLS_STEP = 0,  // ë“€ì–¼ í´ëž˜ìŠ¤ ë‹¨ê³„
+	DUAL_CLS = 1,  // ë“€ì–¼ í´ëž˜ìŠ¤ ì¢…ë¥˜
+	EXP_STEP = 2,  // ê²½í—˜ì¹˜ ë‹¨ê³„
+	T01_STEP = 3,  // íƒí‹± ê²½í—˜ì¹˜ ë‹¨ê³„
 	T02_STEP = 4,
 	T03_STEP = 5,
 	T04_STEP = 6,
@@ -376,8 +376,8 @@ enum CHAR_STEP_TYPE
 	T11_STEP = 13,
 	T12_STEP = 14,
 	T13_STEP = 15,
-	CSP_STEP = 16, // ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ
-	MAX_STEP = 17  // ÃÖ´ë µ¥ÀÌÅ¸¼ö
+	CSP_STEP = 16, // ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„°
+	MAX_STEP = 17  // ìµœëŒ€ ë°ì´íƒ€ìˆ˜
 };	//> CSD-TW-030620
 
 enum WEAPON_RANGE_TYPE
@@ -392,196 +392,196 @@ enum WEAPON_RANGE_TYPE
 
 enum BATTLE_TYPE
 {	//< CSD-031007
-	// ¹°¸®Àû °ø°Ý 
+	// ë¬¼ë¦¬ì  ê³µê²© 
 	PHYSICAL = 0,                  
-	// ¸¶¹ý
-	LIFE_UP = 1,                   // Ã¼·ÂÈ¸º¹ 
-	PROTECTION = 2,                // º¸È£
-	SHIELD = 3,                    // º¸È£¸·
-	DECIPHER = 4,                  // ÇØµ¶ ¸¶¹ý
-	HEAL_DISEASE = 5,              // Áúº´Ä¡·á
-	GREAT_HEAL = 6,                // ´ëÃ¼·ÂÈ¸º¹
-	SLOW = 10,                     // ¼ÓµµÀúÇÏ
-	CONFUSION = 11,                // È¥¶õ
-	INTOXICATION = 12,             // Áßµ¶
-	STONELY =	13,                // ¼®È­
-	ABSOLUTE_PARALYSIS = 14,       // Àý´ë¸¶ºñ
-	TOXIC_CLOUD = 15,              // µ¶±¸¸§  
-	DISEASE_INDUCE = 16,           // Áúº´À¯¹ß 
-	VAMPIRE_TOUCH = 17,            // ¹ìÆÄÀÌ¾îÀÇ ¼Õ±æ
-	SPIDER_WEB = 19,               // °Å¹ÌÁÙ  
-	MAGICAL_TRAP = 20,             // ¸¶¹ýÆ®·¦
-	ENCHANT_WEAPON = 21,           // ÀÎÃ¾Æ®¿þÆù
-	TRANSPARENCY = 22,             // Åõ¸íÁÖ¹®
-	NULLITY_MAGIC = 24,            // ¸¶¹ý¹«È¿È­  
-	MINOR_AMPLIFY = 25,            // ¼ÒÁõÆø
-	MAGIC_AMPLIFY = 26,            // ¸¶¹ýÁõÆø
-	FIRE_RESIST = 28,              // ºÒ¿¡ ´ëÇÑ ÀúÇ×  
-	FIRE_ARROW = 29,               // È­¿°È­»ì 
-	FIRE_BALL= 30,                 // È­¿°±¸
-	SCORCHER = 31,                 // È­¿°±º(È­¿°¹æ»ç)
-	CIRCLE_FLAME= 33,              // ¹æ»çÈ­¿°
-	FIRE_WALL = 34,                // È­¿°º®
-	FLAME_WAVE = 35,               // ¿òÁ÷ÀÌ´Â È­¿°º®
-	APOCALYPSE = 36,               // Áö¿ÁÀÇ ºÒ
-	ICE_RESIST = 37,               // ºù°è ÀúÇ×
-	ICE_ARROW = 38,                // ¾óÀ½È­»ì
-	ICE_BALL = 39,                 // ¾óÀ½±¸ 
-	FREEZE_5TILE_RADIUS = 41,      // ¹Ý°æ 5Å¸ÀÏ ¾ó¸²	
-	ICE_WALL = 42,                 // ¾óÀ½º®  	
-	CIRCLE_ICE = 43,               // ¿øÇü¾óÀ½ °ø°Ý
-	ICE_STORM = 44,                // ¾óÀ½ÆøÇ³
-	FREEZE_9TILE_RADIUS = 45,      // ¹Ý°æ 9Å¸ÀÏ ¾ó¸®±â	
-	LIGHT = 46,                    // ºû
-	ELECT_RESIST = 47,             // Àü°Ý¿¡ ´ëÇÑ ÀúÇ×
-	LIGHTNING_BOLT = 48,           // º­¶ô
-	CHAIN_LIGHTNING = 50,          // À¯µµ Àü°Ý
-	CIRCLE_LIGHTNING = 51,         // ¿øÇü Àü°Ý 
-	LIGHTNING = 52,                // Á÷¼± Àü°Ý
-	TWINKLE_STAR = 53,             // ¼öÈ£¼º
-	LIGHTNING_5TILE_RADIUS = 54,   // ¹Ý°æ 5Å¸ÀÏ Àü°Ý
-	LOW_MONSTER_RECALL = 55,       // Àú±Þ ¸ó½ºÅÍ ¼ÒÈ¯
-	MIDDLE_MONSTER_RECALL = 58,    // Áß±Þ ¸ó½ºÅÍ ¼ÒÈ¯
-	SNOWSTORM	= 59,			   // ´«º¸¶óÀÇ ÆøÇ³
-	ICE_BREATH2	= 60,			   // ¾ÆÀÌ½º ºê·¹½º2
-	BLOOD_LIGHTNING = 61,		   // ºí·¯µå ¶óÀÌÆ®´×
-	PHASING = 64,                  // Àå¼ÒÀÌµ¿
-	MEMORIZING_LOCATION = 65,      // ÀÌµ¿Àå¼Ò±â¾ï
-	TELEPORT = 66,                 // ¼ø°£ÀÌµ¿
-	MULTI_PORT = 67,               // º¹¼öÂ÷¿øÀÌµ¿
-	TOWN_PORTAL = 68,              // Â÷¿øÀÌµ¿
-	MAGIC_DETECT = 75,             // ¸¶¹ýÅ½Áö
-	REMOVE_CURSE = 78,             // ÀúÁÖÇØÁ¦
-	PROTECT_RANGE_WEAPON = 79,     // Àå°Å¸® ¹«±â·ÎºÎÅÍ º¸È£
-	PHEONIX = 80,				   // ºÒ»õ
-	METEOR_STRIKE = 81,			   // ¿î¼® // 030509 kyo //030506ÀÌÀü 110
-	LOST_SIGHT = 82,               // ½Ã·Â»ó½Ç   
-	SPEED_UP = 83,                 // ¼ÓµµÁõ°¡
-	GREAT_THUNDER_BOLT = 84,       // ´ëÀü°Ý
-	GREAT_METEOR = 85,             // ´ë¿î¼® 
-	DRAGON_SCALE = 86,             // µå·¡°ïÀÇ ºñ´Ã
-	DEATH_FIRE = 87,               // µ¥¾²ÆÄÀÌ¾î
-	SUMMONING_SKELETON = 88,       // µ¥¾²³ªÀÌÆ® ¼ÒÈ¯
-	FLYING_SPARK = 89,             // ÇÃ¶óÀ× ½ºÆÄÅ©
-	VAMPIRE_POISON = 90,           // ¹ìÆÄÀÌ¾îÀÇ µ¶
-	VAMPIRE_DODGE = 91,            // ¹ìÆÄÀÌ¾î È¸ÇÇ
-	SUMMONING_UNDEAD = 92,         // ¾ðµ¥µå ¼ÒÈ¯
-	FEATHER_OF_CURSE = 93,         // ¸¶ºñÀÇ ±êÅÐ
-	CURSE_OF_HELL = 94,            // ÇïÀÇ ÀúÁÖ
-	RECALL_FOLLOW = 95,            // ºÎÇÏ ¼ÒÈ¯
-	FIRE_EXPLOSION = 96,           // È­¿°Æø¹ß
-	FIRE_STORM = 97,               // ÆÄÀÌ¾î½ºÅè
-	SHADOW_OF_EVIL = 98,           // ¾ÇÀÇ ±×¸²ÀÚ
-	FREEZING = 99,                 // ÁÖÀ§ ¾ó¸²
-	BLITZ_SPEAR = 100,             // ¹ø°³Ã¢
-	LIGHTNING_CLOUD = 101,         // Àü°Ý ±¸¸§
-	FIRE_BREATH = 102,             // È­¿° ºê·¹¾²
-	ICE_BREATH = 103,              // ¾óÀ½ ºê·¹¾²
-	LIGHTNING_BREATH = 104,        // Àü°Ý ºê·¹¾²
-	FLAME_PILLAR = 105,            // È­¿° ±âµÕ
-	FLAME_POUR = 106,              // È­¿° ÆøÇ³ 
-	OCTA_LIGHTNING = 107,          // ¹æ»ç Àü°Ý
-	BLOOD_SPRINKLE = 108,          // ÇÇ»Ñ¸®±â
-	GAZER	= 109,				   // °ÔÀÌÀú
-	FLAME_ARROW = 110,             // È­¿°È­»ì 
+	// ë§ˆë²•
+	LIFE_UP = 1,                   // ì²´ë ¥íšŒë³µ 
+	PROTECTION = 2,                // ë³´í˜¸
+	SHIELD = 3,                    // ë³´í˜¸ë§‰
+	DECIPHER = 4,                  // í•´ë… ë§ˆë²•
+	HEAL_DISEASE = 5,              // ì§ˆë³‘ì¹˜ë£Œ
+	GREAT_HEAL = 6,                // ëŒ€ì²´ë ¥íšŒë³µ
+	SLOW = 10,                     // ì†ë„ì €í•˜
+	CONFUSION = 11,                // í˜¼ëž€
+	INTOXICATION = 12,             // ì¤‘ë…
+	STONELY =	13,                // ì„í™”
+	ABSOLUTE_PARALYSIS = 14,       // ì ˆëŒ€ë§ˆë¹„
+	TOXIC_CLOUD = 15,              // ë…êµ¬ë¦„  
+	DISEASE_INDUCE = 16,           // ì§ˆë³‘ìœ ë°œ 
+	VAMPIRE_TOUCH = 17,            // ë±€íŒŒì´ì–´ì˜ ì†ê¸¸
+	SPIDER_WEB = 19,               // ê±°ë¯¸ì¤„  
+	MAGICAL_TRAP = 20,             // ë§ˆë²•íŠ¸ëž©
+	ENCHANT_WEAPON = 21,           // ì¸ì²¸íŠ¸ì›¨í°
+	TRANSPARENCY = 22,             // íˆ¬ëª…ì£¼ë¬¸
+	NULLITY_MAGIC = 24,            // ë§ˆë²•ë¬´íš¨í™”  
+	MINOR_AMPLIFY = 25,            // ì†Œì¦í­
+	MAGIC_AMPLIFY = 26,            // ë§ˆë²•ì¦í­
+	FIRE_RESIST = 28,              // ë¶ˆì— ëŒ€í•œ ì €í•­  
+	FIRE_ARROW = 29,               // í™”ì—¼í™”ì‚´ 
+	FIRE_BALL= 30,                 // í™”ì—¼êµ¬
+	SCORCHER = 31,                 // í™”ì—¼êµ°(í™”ì—¼ë°©ì‚¬)
+	CIRCLE_FLAME= 33,              // ë°©ì‚¬í™”ì—¼
+	FIRE_WALL = 34,                // í™”ì—¼ë²½
+	FLAME_WAVE = 35,               // ì›€ì§ì´ëŠ” í™”ì—¼ë²½
+	APOCALYPSE = 36,               // ì§€ì˜¥ì˜ ë¶ˆ
+	ICE_RESIST = 37,               // ë¹™ê³„ ì €í•­
+	ICE_ARROW = 38,                // ì–¼ìŒí™”ì‚´
+	ICE_BALL = 39,                 // ì–¼ìŒêµ¬ 
+	FREEZE_5TILE_RADIUS = 41,      // ë°˜ê²½ 5íƒ€ì¼ ì–¼ë¦¼	
+	ICE_WALL = 42,                 // ì–¼ìŒë²½  	
+	CIRCLE_ICE = 43,               // ì›í˜•ì–¼ìŒ ê³µê²©
+	ICE_STORM = 44,                // ì–¼ìŒí­í’
+	FREEZE_9TILE_RADIUS = 45,      // ë°˜ê²½ 9íƒ€ì¼ ì–¼ë¦¬ê¸°	
+	LIGHT = 46,                    // ë¹›
+	ELECT_RESIST = 47,             // ì „ê²©ì— ëŒ€í•œ ì €í•­
+	LIGHTNING_BOLT = 48,           // ë²¼ë½
+	CHAIN_LIGHTNING = 50,          // ìœ ë„ ì „ê²©
+	CIRCLE_LIGHTNING = 51,         // ì›í˜• ì „ê²© 
+	LIGHTNING = 52,                // ì§ì„  ì „ê²©
+	TWINKLE_STAR = 53,             // ìˆ˜í˜¸ì„±
+	LIGHTNING_5TILE_RADIUS = 54,   // ë°˜ê²½ 5íƒ€ì¼ ì „ê²©
+	LOW_MONSTER_RECALL = 55,       // ì €ê¸‰ ëª¬ìŠ¤í„° ì†Œí™˜
+	MIDDLE_MONSTER_RECALL = 58,    // ì¤‘ê¸‰ ëª¬ìŠ¤í„° ì†Œí™˜
+	SNOWSTORM	= 59,			   // ëˆˆë³´ë¼ì˜ í­í’
+	ICE_BREATH2	= 60,			   // ì•„ì´ìŠ¤ ë¸Œë ˆìŠ¤2
+	BLOOD_LIGHTNING = 61,		   // ë¸”ëŸ¬ë“œ ë¼ì´íŠ¸ë‹
+	PHASING = 64,                  // ìž¥ì†Œì´ë™
+	MEMORIZING_LOCATION = 65,      // ì´ë™ìž¥ì†Œê¸°ì–µ
+	TELEPORT = 66,                 // ìˆœê°„ì´ë™
+	MULTI_PORT = 67,               // ë³µìˆ˜ì°¨ì›ì´ë™
+	TOWN_PORTAL = 68,              // ì°¨ì›ì´ë™
+	MAGIC_DETECT = 75,             // ë§ˆë²•íƒì§€
+	REMOVE_CURSE = 78,             // ì €ì£¼í•´ì œ
+	PROTECT_RANGE_WEAPON = 79,     // ìž¥ê±°ë¦¬ ë¬´ê¸°ë¡œë¶€í„° ë³´í˜¸
+	PHEONIX = 80,				   // ë¶ˆìƒˆ
+	METEOR_STRIKE = 81,			   // ìš´ì„ // 030509 kyo //030506ì´ì „ 110
+	LOST_SIGHT = 82,               // ì‹œë ¥ìƒì‹¤   
+	SPEED_UP = 83,                 // ì†ë„ì¦ê°€
+	GREAT_THUNDER_BOLT = 84,       // ëŒ€ì „ê²©
+	GREAT_METEOR = 85,             // ëŒ€ìš´ì„ 
+	DRAGON_SCALE = 86,             // ë“œëž˜ê³¤ì˜ ë¹„ëŠ˜
+	DEATH_FIRE = 87,               // ë°ì“°íŒŒì´ì–´
+	SUMMONING_SKELETON = 88,       // ë°ì“°ë‚˜ì´íŠ¸ ì†Œí™˜
+	FLYING_SPARK = 89,             // í”Œë¼ìž‰ ìŠ¤íŒŒí¬
+	VAMPIRE_POISON = 90,           // ë±€íŒŒì´ì–´ì˜ ë…
+	VAMPIRE_DODGE = 91,            // ë±€íŒŒì´ì–´ íšŒí”¼
+	SUMMONING_UNDEAD = 92,         // ì–¸ë°ë“œ ì†Œí™˜
+	FEATHER_OF_CURSE = 93,         // ë§ˆë¹„ì˜ ê¹ƒí„¸
+	CURSE_OF_HELL = 94,            // í—¬ì˜ ì €ì£¼
+	RECALL_FOLLOW = 95,            // ë¶€í•˜ ì†Œí™˜
+	FIRE_EXPLOSION = 96,           // í™”ì—¼í­ë°œ
+	FIRE_STORM = 97,               // íŒŒì´ì–´ìŠ¤í†°
+	SHADOW_OF_EVIL = 98,           // ì•…ì˜ ê·¸ë¦¼ìž
+	FREEZING = 99,                 // ì£¼ìœ„ ì–¼ë¦¼
+	BLITZ_SPEAR = 100,             // ë²ˆê°œì°½
+	LIGHTNING_CLOUD = 101,         // ì „ê²© êµ¬ë¦„
+	FIRE_BREATH = 102,             // í™”ì—¼ ë¸Œë ˆì“°
+	ICE_BREATH = 103,              // ì–¼ìŒ ë¸Œë ˆì“°
+	LIGHTNING_BREATH = 104,        // ì „ê²© ë¸Œë ˆì“°
+	FLAME_PILLAR = 105,            // í™”ì—¼ ê¸°ë‘¥
+	FLAME_POUR = 106,              // í™”ì—¼ í­í’ 
+	OCTA_LIGHTNING = 107,          // ë°©ì‚¬ ì „ê²©
+	BLOOD_SPRINKLE = 108,          // í”¼ë¿Œë¦¬ê¸°
+	GAZER	= 109,				   // ê²Œì´ì €
+	FLAME_ARROW = 110,             // í™”ì—¼í™”ì‚´ 
 
-	AREA_BAT_ATTACK = 111,         // Áö¿ª ¹ÚÁã°ø°Ý
-	AREA_PARALYSIS = 112,          // Áö¿ª ¸¶ºñ
-	AREA_POISON = 113,             // Áö¿ª Áßµ¶
-	AREA_CONFUSION = 114,          // Áö¿ª È¥¶õ
-	AREA_SLOW = 115,               // Áö¿ª ¼ÓµµÀúÇÏ
+	AREA_BAT_ATTACK = 111,         // ì§€ì—­ ë°•ì¥ê³µê²©
+	AREA_PARALYSIS = 112,          // ì§€ì—­ ë§ˆë¹„
+	AREA_POISON = 113,             // ì§€ì—­ ì¤‘ë…
+	AREA_CONFUSION = 114,          // ì§€ì—­ í˜¼ëž€
+	AREA_SLOW = 115,               // ì§€ì—­ ì†ë„ì €í•˜
 
-	RESTORE_AUTHORITY = 151,       // È¸º¹ÀÇ±Ç´É  
-	PROTECT_DANGER = 152,          // À§ÇèÀ¸·ÎºÎÅÍ º¸È£
-	BLESS = 153,                   // ½ÅÀÇ Ãàº¹
-	RECOVER_POISON = 154,          // ÇØµ¶ÀÇ ±Ç´É
-	CURE_DISEASE = 155,            // Áúº´Ä¡·áÀÇ ±Ç´É
-	MIRACLE_RECOVER = 156,     	   // ¿ÏÄ¡ÀÇ ±âÀû
-	PERFECT_PROTECT = 157,         // ¿ÏÀüÇÑ °á°è  
-	GREAT_SHIELD = 158,            // º¸È£ÀÇ ±âÀû
-	CANCEL_DIVINE = 159,           // ¹Ý½Å·Â ¹«È¿È­
-	RECURRENCE_DIVINE = 160,       // È¸±ÍÀÇ ±Ç´É
-	PRAY_POWER = 161,              // ±âµµÀÇ ¿ª»ç
-	HOLY_LIGHT = 162,              // ¼º½º·¯¿î ºû  
-	ANTHEM = 163,                  // ¼º°¡
-	RELIEF_AUTHORITY = 164,        // ±¸¿øÀÇ ºû 
-	HOLY_FIRE = 165,               // ¼º½º·¯¿î ºÒ
-	GREAT_PRAY = 166,              // À§´ëÇÑ ±âµµ  
-	APPRECIATE = 167,              // ¹Ù¸¥ ±ú´ÞÀ½
-	INFLUENCE_DIVINE = 168,        // ½Å¿¡ÀÇ °¨È­
-	VOICE_SOUL = 169,              // ¿µÈ¥ÀÇ ¼Ò¸®
-	HOLY_RAGE = 170,               // ¼º½º·± ºÐ³ë
-	TURN_UNDEAD = 171,             // ÅÏ ¾ðµ¥µå
-	CURSE = 172,                   // ½ÅÀÇ ÀúÁÖ 
-	AUTHORITY_RECOVER_SIGHT = 173, // ½Ã·ÂÈ¸º¹ÀÇ ±Ç´É	
-	DIVINE_POWER = 174,            // µð¹ÙÀÎ ÆÄ¿ö
-	AUTHORITY_LUCK = 175,          // Àý´ë Çà¿îÀÇ ±Ç´É	
-	AUTHORITY_LOST_SIGHT = 177,    // ½Ã·Â»ó½ÇÀÇ ±Ç´É
-	PRAY = 178,	                   // ±âµµ
-	HOLY_CURE = 179,               // ½Å¼ºÇÑ Ä¡À¯
-	AUTHORITY_SIMUNIAN = 181,      // ½Ã¹«´Ï¾ÈÀÇ ±Ç´É
-	AUTHORITY_CHARISNUMEN = 182,   // Ä«¸®½º ´©¸àÀÇ ±Ç´É
-	AUTHORITY_LETHY = 183,         // ·¹Æ¼ÀÇ ±Ç´É
-	AUTHORITY_OF_ATHYAS	= 185,     // ¾Æ»þ½ºÀÇ ±Ç´É
-	AUTHORITY_OF_WHOARENCHA	= 187, // È­·»Â÷ÀÇ ±Ç´É
-	DEATH_FIREE = 188,             // °µçüÓÄ»ð
-	RAGE_STONE = 189,              // ´ëÁöÀÇ ºÐ³ë
-	LIFE_DRAIN = 190,              // »ý¸í·Â Å»Ãë  
-	RAGE_BLAST = 191,              // È­½ÅÀÇ ºÐ³ë
-	RAGE_LIGHT_BALL = 192,         // ¼º·ÉÀÇ ºÐ³ë
-	THROW_ARROW = 194,             // È­»ì
-	THROW_KNIFE = 195,             // ºñµµ
-	// ¹ø°³ ¼Ó¼º ÀüÅõ½ºÅ³
+	RESTORE_AUTHORITY = 151,       // íšŒë³µì˜ê¶ŒëŠ¥  
+	PROTECT_DANGER = 152,          // ìœ„í—˜ìœ¼ë¡œë¶€í„° ë³´í˜¸
+	BLESS = 153,                   // ì‹ ì˜ ì¶•ë³µ
+	RECOVER_POISON = 154,          // í•´ë…ì˜ ê¶ŒëŠ¥
+	CURE_DISEASE = 155,            // ì§ˆë³‘ì¹˜ë£Œì˜ ê¶ŒëŠ¥
+	MIRACLE_RECOVER = 156,     	   // ì™„ì¹˜ì˜ ê¸°ì 
+	PERFECT_PROTECT = 157,         // ì™„ì „í•œ ê²°ê³„  
+	GREAT_SHIELD = 158,            // ë³´í˜¸ì˜ ê¸°ì 
+	CANCEL_DIVINE = 159,           // ë°˜ì‹ ë ¥ ë¬´íš¨í™”
+	RECURRENCE_DIVINE = 160,       // íšŒê·€ì˜ ê¶ŒëŠ¥
+	PRAY_POWER = 161,              // ê¸°ë„ì˜ ì—­ì‚¬
+	HOLY_LIGHT = 162,              // ì„±ìŠ¤ëŸ¬ìš´ ë¹›  
+	ANTHEM = 163,                  // ì„±ê°€
+	RELIEF_AUTHORITY = 164,        // êµ¬ì›ì˜ ë¹› 
+	HOLY_FIRE = 165,               // ì„±ìŠ¤ëŸ¬ìš´ ë¶ˆ
+	GREAT_PRAY = 166,              // ìœ„ëŒ€í•œ ê¸°ë„  
+	APPRECIATE = 167,              // ë°”ë¥¸ ê¹¨ë‹¬ìŒ
+	INFLUENCE_DIVINE = 168,        // ì‹ ì—ì˜ ê°í™”
+	VOICE_SOUL = 169,              // ì˜í˜¼ì˜ ì†Œë¦¬
+	HOLY_RAGE = 170,               // ì„±ìŠ¤ëŸ° ë¶„ë…¸
+	TURN_UNDEAD = 171,             // í„´ ì–¸ë°ë“œ
+	CURSE = 172,                   // ì‹ ì˜ ì €ì£¼ 
+	AUTHORITY_RECOVER_SIGHT = 173, // ì‹œë ¥íšŒë³µì˜ ê¶ŒëŠ¥	
+	DIVINE_POWER = 174,            // ë””ë°”ì¸ íŒŒì›Œ
+	AUTHORITY_LUCK = 175,          // ì ˆëŒ€ í–‰ìš´ì˜ ê¶ŒëŠ¥	
+	AUTHORITY_LOST_SIGHT = 177,    // ì‹œë ¥ìƒì‹¤ì˜ ê¶ŒëŠ¥
+	PRAY = 178,	                   // ê¸°ë„
+	HOLY_CURE = 179,               // ì‹ ì„±í•œ ì¹˜ìœ 
+	AUTHORITY_SIMUNIAN = 181,      // ì‹œë¬´ë‹ˆì•ˆì˜ ê¶ŒëŠ¥
+	AUTHORITY_CHARISNUMEN = 182,   // ì¹´ë¦¬ìŠ¤ ëˆ„ë©˜ì˜ ê¶ŒëŠ¥
+	AUTHORITY_LETHY = 183,         // ë ˆí‹°ì˜ ê¶ŒëŠ¥
+	AUTHORITY_OF_ATHYAS	= 185,     // ì•„ìƒ¤ìŠ¤ì˜ ê¶ŒëŠ¥
+	AUTHORITY_OF_WHOARENCHA	= 187, // í™”ë Œì°¨ì˜ ê¶ŒëŠ¥
+	DEATH_FIREE = 188,             // ê° æ¢§èƒì‚½
+	RAGE_STONE = 189,              // ëŒ€ì§€ì˜ ë¶„ë…¸
+	LIFE_DRAIN = 190,              // ìƒëª…ë ¥ íƒˆì·¨  
+	RAGE_BLAST = 191,              // í™”ì‹ ì˜ ë¶„ë…¸
+	RAGE_LIGHT_BALL = 192,         // ì„±ë ¹ì˜ ë¶„ë…¸
+	THROW_ARROW = 194,             // í™”ì‚´
+	THROW_KNIFE = 195,             // ë¹„ë„
+	// ë²ˆê°œ ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 	LIGHTNING_BOOM = 215,          
 	THUNDER_BLOW = 216,
 	LIGHTNING_SHOCK = 217,
 	THUNDER_STRIKE = 218,
 	LIGHTNING_SHIELD = 219,
 	LIGHTNING_EXTREME = 220,
-	// ´ëÁö ¼Ó¼º ÀüÅõ½ºÅ³
+	// ëŒ€ì§€ ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 	BLOOD_EARTH = 221,             
 	GROUND_ATTACK = 222, 
 	BLOOD_WILL = 223,
 	STONE_ARMOR = 224,
 	SIMUNIAN_BOSOM = 225,
 	EARTH_EXTREME = 226,
-	// È­¿° ¼Ó¼º ÀüÅõ½ºÅ³ 
+	// í™”ì—¼ ì†ì„± ì „íˆ¬ìŠ¤í‚¬ 
 	SWORD_N_ROSES = 227,
 	MULTIPLE_FIRE = 228, 
 	FLEET_MISSILE = 229,
 	CONVERTING_ARMOR = 230, 
 	BURNING_BLOODY= 231,
 	FIRE_EXTREME = 232,
-	// ¾îµÒ ¼Ó¼º ÀüÅõ½ºÅ³
+	// ì–´ë‘  ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 	POISONING_NOVA = 233,
 	CHERROY_SHADE = 234, 
 	DARK_BLADE = 235, 
 	TYBERN_GIFT = 236,
 	ACUQUIRE_DARK = 237,
 	DARK_EXTREME = 238,
-	// ¾óÀ½ ¼Ó¼º ÀüÅõ½ºÅ³
+	// ì–¼ìŒ ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 	ICING_BLAST = 239,
 	CRITICAL_HIDING = 240, 
 	SHARK_MISSILE = 241, 
 	HORN_OF_ICEBERG = 242, 
 	ICE_SHIELD = 243,
 	ICE_EXTREME = 244,
-	// ¹Ù¶÷ ¼Ó¼º ÀüÅõ½ºÅ³
+	// ë°”ëžŒ ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 	CHARGING = 245,
 	DOUBLE_ATTACK = 246, 
 	WHILWIND = 247,
 	TWISTER = 248, 
 	GUST = 249, 
 	WIND_EXTREME = 250,
-	// ÀÌÆåÆ® ¾ÆÀÌÅÛ
+	// ì´íŽ™íŠ¸ ì•„ì´í…œ
 	ITEM_FIRE_EFFECT = 610, // CSD-030916
 	ITEM_ICE_EFFECT = 611, // CSD-030916
 	ITEM_LIGHTNING_EFFECT = 612, // CSD-030916	
-	// ÀÌº¥Æ®
+	// ì´ë²¤íŠ¸
 	THROW_SNOW = 193,
 	THROW_WATER_BALL = 661,
 	THROW_BIG_GULP = 663,
-	// ¾ÆÀÌÅÛ È¿°ú
+	// ì•„ì´í…œ íš¨ê³¼
 	ITEM_EFFECT_FIRE = 605,
 	ITEM_EFFECT_ICE = 606,
 	ITEM_EFFECT_LIGHTNING = 607
@@ -589,18 +589,18 @@ enum BATTLE_TYPE
 
 enum COMBAT_RESULT
 {
-	CSR_NORMAL,    // Á¤»óÀûÀÎ °ü°è
-	CSR_PRIOR,     // ½ÂÆÐ°ü°è¿¡¼­ ½Â
-	CSR_POSTERIOR, // ½ÂÆÐ°ü°è¿¡¼­ ÆÐ
-	CSR_CONFLICT,  // ´ë¸³ÀûÀÎ °ü°è
-	CSR_EQUAL      // µ¿µîÇÑ °ü°è
+	CSR_NORMAL,    // ì •ìƒì ì¸ ê´€ê³„
+	CSR_PRIOR,     // ìŠ¹íŒ¨ê´€ê³„ì—ì„œ ìŠ¹
+	CSR_POSTERIOR, // ìŠ¹íŒ¨ê´€ê³„ì—ì„œ íŒ¨
+	CSR_CONFLICT,  // ëŒ€ë¦½ì ì¸ ê´€ê³„
+	CSR_EQUAL      // ë™ë“±í•œ ê´€ê³„
 };
 
 enum VEHICLE_KIND
 {
-	HORSE = 1,  // ¸»
-	BULL = 2,   // È²¼Ò
-	PHANTOM = 3 // ÆÒÅÒ
+	HORSE = 1,  // ë§
+	BULL = 2,   // í™©ì†Œ
+	PHANTOM = 3 // íŒ¬í…€
 };
 
 enum NPC_KIND
@@ -636,7 +636,7 @@ enum ATTR_TYPE
 };	//> CSD-031027
 
 enum NPC_PARAMETER_TYPE
-{	//< CSD-031106 : Client¿¡¼­ º¯È­µÈ NPC ÆÄ¶ó¸ÞÅÍ¸¦ Server·Î º¸³»ÁØ´Ù. 
+{	//< CSD-031106 : Clientì—ì„œ ë³€í™”ëœ NPC íŒŒë¼ë©”í„°ë¥¼ Serverë¡œ ë³´ë‚´ì¤€ë‹¤. 
 	NPC_PARAMETER_TARGETID = 0,
 	NPC_PARAMETER_TARGETNAME = 1,
 	NPC_PARAMETER_BOSSID = 2,
@@ -657,9 +657,9 @@ enum ARENA_TYPE
 
 enum ARENA_STATE
 {
-	CS_NOW_PEACE	= 0, // ÆòÈ­·Î¿î »óÅÂ(º¸Åë¸Ê°ú ´Ù¸¦°Ô ¾ø´Â »óÅÂ
-	CS_NOW_REGISTER	= 1, // °¢°¢ ÆÀ¿¡ µî·ÏÇÏ´Â »óÅÂ. 
-	CS_NOW_FIGHT	= 2  // ÀüÅõ ½ÃÀÛ »óÅÂ
+	CS_NOW_PEACE	= 0, // í‰í™”ë¡œìš´ ìƒíƒœ(ë³´í†µë§µê³¼ ë‹¤ë¥¼ê²Œ ì—†ëŠ” ìƒíƒœ
+	CS_NOW_REGISTER	= 1, // ê°ê° íŒ€ì— ë“±ë¡í•˜ëŠ” ìƒíƒœ. 
+	CS_NOW_FIGHT	= 2  // ì „íˆ¬ ì‹œìž‘ ìƒíƒœ
 };
 
 enum ARENA_RESULT
@@ -688,17 +688,17 @@ struct AREA
 ///////////////////////////////////////////////////////////////////////////////
 //< CSD-030723
 enum eBillingType
-{	//-°ªÀ¸·Î ±¸¼º ÇØ¾ß ÇÕ´Ï´Ù. CheckPW_TotalDB_SQLÀÌ ³²Àº ³¯Â¥(¾ç¼ö)¸¦ ¸®ÅÏÇÏ±â ¶§¹®ÀÔ´Ï´Ù.
-	BT_WRONG_ID					= -1,//ID Æ²¸²
-	BT_WRONG_PW					= -2,//PW Æ²¸²
+{	//-ê°’ìœ¼ë¡œ êµ¬ì„± í•´ì•¼ í•©ë‹ˆë‹¤. CheckPW_TotalDB_SQLì´ ë‚¨ì€ ë‚ ì§œ(ì–‘ìˆ˜)ë¥¼ ë¦¬í„´í•˜ê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤.
+	BT_WRONG_ID					= -1,//ID í‹€ë¦¼
+	BT_WRONG_PW					= -2,//PW í‹€ë¦¼
 
-	BT_NEED_PAY					= -3,//µ· ºÎÁ·
+	BT_NEED_PAY					= -3,//ëˆ ë¶€ì¡±
 
-	BT_COMMERCIAL_TIME_REMAIN	= -4,//³²Àº ½Ã°£ ÀÖ´Â³ð
-	BT_COMMERCIAL_IP			= -20,//IP Á¾·®Á¦
-	BT_FREE						= -100,//°øÂ¥
-	BT_WAIT_BILLING_MSG			= -200,//´ë¸¸ °°Àº °÷ÀÇ Ã³¸® ¹æ½Ä ºô¸µÀ» ±â´Ù¸®µµ·Ï Ã³¸®
-};	//DBDemon°ú Ç×»ó µ¿±âÈ­ ½ÃÅ°½Ê½Ã¿ä
+	BT_COMMERCIAL_TIME_REMAIN	= -4,//ë‚¨ì€ ì‹œê°„ ìžˆëŠ”ë†ˆ
+	BT_COMMERCIAL_IP			= -20,//IP ì¢…ëŸ‰ì œ
+	BT_FREE						= -100,//ê³µì§œ
+	BT_WAIT_BILLING_MSG			= -200,//ëŒ€ë§Œ ê°™ì€ ê³³ì˜ ì²˜ë¦¬ ë°©ì‹ ë¹Œë§ì„ ê¸°ë‹¤ë¦¬ë„ë¡ ì²˜ë¦¬
+};	//DBDemonê³¼ í•­ìƒ ë™ê¸°í™” ì‹œí‚¤ì‹­ì‹œìš”
 
 enum eBankMoneyChangeType
 {
@@ -714,7 +714,7 @@ enum eBankMoneyChangeType
 	BMCT_RECV_MAP_CHANGE		=	10,
 	BMCT_RECV_CHAR_INFO_BASIC	=	11,
 	BMCT_SKILL_RESET			=	12,
-	BMCT_YL_WARFIELD_MOVE		=	13,	// LTH-040429-KO ÆòÈ­±â°£¿¡ ÀüÀïÅÍ·Î ÀÌµ¿ÇÏ±â À§ÇØ ÀÏ½º°¡ ÁöºÒÇÏ´Â µ·.
+	BMCT_YL_WARFIELD_MOVE		=	13,	// LTH-040429-KO í‰í™”ê¸°ê°„ì— ì „ìŸí„°ë¡œ ì´ë™í•˜ê¸° ìœ„í•´ ì¼ìŠ¤ê°€ ì§€ë¶ˆí•˜ëŠ” ëˆ.
 };
 
 enum eSendCharInfoType//021030 lsw 
@@ -790,15 +790,15 @@ enum eSendCharInfoType//021030 lsw
 	VIEWBOMB	=68,
 	VIEWTRAP	=69,
 	CIB_POTION_BOX	=70,		// YGI 020418
-	CHANGE_GENDER = 71,			//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ
+	CHANGE_GENDER = 71,			//050413_KCH ì„±ì „í™˜ ì•„ì´í…œ
 };
 
 enum eMkType//021030 lsw 
 {
-	MK_NORMAL      =0,	// ÀÏ¹ÝÀûÀÎ °æ¿ì
-	MK_WARNING     =1,	// À§Çè, °æ°í
-	MK_SHORTAGE    =2,	// ºÎÁ·
-	MK_INFORMATION =3,	// Á¤º¸
+	MK_NORMAL      =0,	// ì¼ë°˜ì ì¸ ê²½ìš°
+	MK_WARNING     =1,	// ìœ„í—˜, ê²½ê³ 
+	MK_SHORTAGE    =2,	// ë¶€ì¡±
+	MK_INFORMATION =3,	// ì •ë³´
 };
 
 enum eSpriteType
@@ -878,10 +878,10 @@ enum eSkillNoIndex
 	SKILL_SNOOPING							=65,	
 	//	SKILL_SEARCH							=66,	
 	SKILL_MERCHANT							=67,	
-	SKILL_BLACKSMITHY_MASTER				=68,	//´ëÀåÀåÀÌ ±â¼º	
-	SKILL_CARPENTRY_MASTER					=69,	//¸ñ¼ö ±â¼º	
-	SKILL_BOWCRAFTING_MASTER				=70,	//È°Á¦ÀÛ»ç ±â¼º	
-	SKILL_TAILORING_MASTER					=71,	//Àç´Ü»ç ±â¼º
+	SKILL_BLACKSMITHY_MASTER				=68,	//ëŒ€ìž¥ìž¥ì´ ê¸°ì„±	
+	SKILL_CARPENTRY_MASTER					=69,	//ëª©ìˆ˜ ê¸°ì„±	
+	SKILL_BOWCRAFTING_MASTER				=70,	//í™œì œìž‘ì‚¬ ê¸°ì„±	
+	SKILL_TAILORING_MASTER					=71,	//ìž¬ë‹¨ì‚¬ ê¸°ì„±
 	//	SKILL_HIDE								=72,	
 	//	SKILL_CAMPING							=73,	
 	SKILL_MAKEFIRE							=74,	
@@ -924,120 +924,120 @@ enum eSkillNoIndex
 	SKILL_GM_ALCHEMIST						=111,	
 	SKILL_GM_CANDLEMAKER					=112,	
 };
-// ¾ÆÀÌÅÛ kind
+// ì•„ì´í…œ kind
 typedef enum eItemKindType
 {
 	IK_NONE							=0,	//	non
-	IK_GON							=1,	//	°ï			
-	IK_PENCING						=2,	//	Ææ½Ì°Ë		
-	IK_ONE_SWORD					=3,	//	ÇÑ¼Õ°Ë
-	IK_ONE_AXE						=4,	//	ÇÑ¼Õµµ³¢
-	IK_ONE_MACE						=5,	//	ÇÑ¼ÕÃ¶Åð
-	IK_CLUB							=6,	//	¸ùµÕÀÌ
-	IK_WHIRL						=7,	//	ºÀ
-	IK_STAFE						=8,	//	ÁöÆÎÀÌ
-	IK_SPEAR						=9,	//	º¸ÅëÃ¢
-	IK_FORK							=10,	//	Æ÷Å©
-	IK_HURL							=11,	//	ºñ°Ë,´øÁö´Â¹«±â
-	IK_SHORT_BOW					=12,	//	¼ÒÇüÈ°
-	IK_TWO_SWORD					=13,	//	¾ç¼Õ°Ë
-	IK_TWO_AXE						=14,	//	¾ç¼Õµµ³¢
-	IK_TWO_MACE						=15,	//	¾ç¼Õ Ã¶Åð
-	IK_TWO_ARROW					=16,	//	È­»ì
-	IK_IRON_ARMOR					=17,	//	¼è°©¿Ê
-	IK_LEATHER_ARMOR				=18,	//	°¡Á×°©¿Ê
-	IK_RING							=19,	//	¹ÝÁö
-	IK_SHIELD						=20,	//	¹æÆÐ
-	IK_SHOES						=21,	//	½Å¹ß
-	IK_ROBE							=22,	//	·Îºê
-	IK_FULL_HELMET					=23,	//	ÇÃÇï¸ä
-	IK_HALF_HELMET					=24,	//	ÇÏÇÁÇï¸ä
-	IK_NORMAL_CLOTHE				=25,	//	º¸Åë¿Ê
-	IK_AMULET						=26,	//	¸ñ°Å¸®
-	IK_ARMLET						=27,	//	ÆÈÂî
-	IK_MUSIC						=28,	//	¾Ç±â
-	IK_SCROLL						=29,	//	½ºÅ©·Ñ
-	IK_LONG_BOW						=30,	//	´ëÇüÈ°
-	IK_BOX							=31,	//	»óÀÚ
-	IK_GRAIN						=32,	//	°î½Ä
-	IK_POTION						=33,	//	Æ÷¼Ç
-	IK_FOOD_MASS					=34,	//	µ¢¾î¸® À½½Ä
-	IK_PLATE_FOOD					=35,	//	Àï¹Ý À½½Ä
-	IK_DRINK						=36,	//	À½·á
-	IK_ARROW_POINT					=37,	//	È­»ì ÃË
-	IK_FEATHER						=38,	//	±êÅÐ		
-	IK_SEED							=39,	//  ¾¾¾Ñ.
-	IK_MONEY						=40,	//	µ·
-	IK_MINERAL						=41,	//	±¤¼®
-	IK_MINERAL_LUMP					=42,	//	°¡°øÇÑ ±¤¼®( Ã¶±«, ±Ý±«... )
-	IK_HERB							=43,	//	¾àÃÊ					// 0626 YGI
-	IK_HERB_POWDER					=44,	//	¾àÃÊ °¡·ç
-	IK_WOOD_BEFOR_USE				=45,		//°¡°øÀüÀÇ ³ª¹«
-	IK_WOOD_AFTER_USE				=46,		//°¡°øÈÄÀÇ ³ª¹«
-	IK_TENT							=47,		//ÅÙÆ®·ù
-	IK_TOOL_RECLAI					=48,		//µµ±¸ °³°£¿ë
-	IK_TOOL_HAVEST					=49,		//µµ±¸ Ãß¼ö¿ë
-	IK_TOOL_MINING					=50,		//µµ±¸ Ã¤±¤¿ë
-	IK_TOOL_REFINE					=51,		//µµ±¸ Á¦·Ã¿ë
-	IK_TOOL_FISH_HOOKING			=52,		//µµ±¸ ³¬½Ã¿ë
-	IK_TOOL_CUTTING					=53,		//µµ±¸ ¹ú¸ñ¿ë
-	IK_TOOL_LUMBERING				=54,		//µµ±¸ ¸ñÀç°¡°ø¿ë
-	IK_TOOL_BUTCHERING				=55,		//µµ±¸ µµÃà¿ë
-	IK_TOOL_DIGGING					=56,		//µµ±¸ ¾àÃÊÃ¤Áý¿ë
-	IK_TOOL_MAKEPOWDER				=57,		//µµ±¸ ¾àÀç¸¸µé±â¿ë
-	IK_TOOL_SHEAR					=58,		//µµ±¸ °¡À§·ù
-	IK_TOOL_CARPENTRY				=59,		//µµ±¸ ¸ñ°ø¿ë
-	IK_TOOL_BLACKSMITHY				=60,		//µµ±¸ Ã¶°ø¿ë
-	IK_TOOL_COOKING_FIRE			=61,		//µµ±¸ ´ë¿ì´Â¿ä¸®¿ë
-	IK_TOOL_COOKING_CUT				=62,		//µµ±¸ ½á´Â¿ä¸®¿ë
-	IK_TOOL_PIN						=63,		//µµ±¸ ¹Ù´Ã·ù
-	IK_TOOL_BOWCRAFTING				=64,		//µµ±¸ È°Á¦ÀÛ¿ë
-	IK_TOOL_FIRE_BOAD				=65,		//µµ±¸ ºÒ´ë
-	IK_TOOL_CANDLEMAKING			=66,		//µµ±¸ ¾çÃÊÁ¦ÀÛ¿ë
-	IK_TOOL_OILING					=67,		//µµ±¸ ¹Ð³³°¡°ø¿ë
-	IK_TOOL_TAMING					=68,		//µµ±¸ Å×ÀÌ¹Ö¿ë
-	IK_TOOL_NETTING					=69,		//µµ±¸ ±×¹°·ù
-	IK_TOOL_MAKEFIRE				=70,		//µµ±¸ ºÎ½Ëµ¹·ù
-	IK_WORK_BOAD_BLAST_FURNACE 		=71,		//ÀÛ¾÷´ë ¿ë±¤·Î
-	IK_WORK_BOAD_BAETLE				=72,		//ÀÛ¾÷´ë ¹èÆ²
-	IK_WORK_BOAD_BLOCK				=73,		//ÀÛ¾÷´ë ¼±¹Ý
-	IK_WORK_BOAD_ANVIL				=74,		//ÀÛ¾÷´ë ¸ð·ç
-	IK_WORK_BOAD_BRAZIER			=75,		//ÀÛ¾÷´ë È­´ö
-	IK_WORK_BOAD_TEST_TUBE			=76,		//ÀÛ¾÷´ë ½ÃÇè°ü·ù
-	IK_WORK_BOAD_SPINNING_WHEEL		=77,		//ÀÛ¾÷´ë ¹°·¹
-	IK_WORK_BOAD_FIRE_BOAD			=78,		//ÀÛ¾÷´ë ºÒ´ë
-	IK_TOOL_BUCKET					=79,		//µµ±¸ ¾çµ¿ÀÌ
-	IK_TOOL_RECYCLE					=80,		//µµ±¸ ÀçÈ°¿ë
-	IK_TOOL_REPAIR					=81,		//µµ±¸ ¼ö¸®¿ë
-	IK_IRON_SHIELD					=82,		//¼è¹æÆÐ	
-	IK_IRON_SHOES					=83,		//¼è ½Å¹ß	
-	IK_CAP							=84,		//¸ðÀÚ	
-	IK_GOKAL						=85,		//µÎ°Ç	
-	IK_PRIEST_ROBE					=86,		//¼ºÁ÷·Îºê	
-	IK_CANDLE						=87,		//¾çÃÊ	
-	IK_MAN_TO_MAN					=88,		//°áÅõ¼­	
-	IK_CRACKER						=89,		// ÆøÁ×			// 010210 YGI
-	IK_RAJA_EMBLEM					=90,		// ¶óÀÚ ¿¥ºí·½
-	IK_POTION_CHANGE_COLOR_CLOTHES	=91,	// ¿Ê ¿°»ö¾à
-	IK_POTION_CHANGE_COLOR_HAIR		=92,	// ÇÇºÎ ¿°»ö¾à
-	IK_NEW_MONEY					=93,	// ½Å±Çµ·
-	IK_LOCK_STEAL					=94,	// µµµÏ¹æÁö µ£
-	IK_MAP							=95,	//	Áöµµ
-	IK_GAUNTLET						=96,		//°ÇÆ²·¿
-	IK_GOOD_FOOD					=97,		//°í±ÞÀ½½Ä
-	IK_GOOD_POTION					=98,		//°í±ÞÆ÷¼Ç
-	IK_GOOD_CANDLE					=99,		//°í±Þ¾çÃÊ
-	IK_UNIQ_RESOURCE				=100,		//À¯´ÏÅ©Àç·á
-	IK_GENERAL_GAMBLE				=101,		//ÀÏ¹Ý°×ºí¾ÆÀÌÅÛ
-	IK_GRADE_GAMBLE					=102,		//±×·¹ÀÌµå°×ºí¾ÆÀÌÅÛ
-	IK_CLOAK						=103,		//¸ÁÅä
-	IK_CHAIR						=104,		//ÀÇÀÚ			// LTS SITDOWN
+	IK_GON							=1,	//	ê³¤			
+	IK_PENCING						=2,	//	íŽœì‹±ê²€		
+	IK_ONE_SWORD					=3,	//	í•œì†ê²€
+	IK_ONE_AXE						=4,	//	í•œì†ë„ë¼
+	IK_ONE_MACE						=5,	//	í•œì†ì² í‡´
+	IK_CLUB							=6,	//	ëª½ë‘¥ì´
+	IK_WHIRL						=7,	//	ë´‰
+	IK_STAFE						=8,	//	ì§€íŒ¡ì´
+	IK_SPEAR						=9,	//	ë³´í†µì°½
+	IK_FORK							=10,	//	í¬í¬
+	IK_HURL							=11,	//	ë¹„ê²€,ë˜ì§€ëŠ”ë¬´ê¸°
+	IK_SHORT_BOW					=12,	//	ì†Œí˜•í™œ
+	IK_TWO_SWORD					=13,	//	ì–‘ì†ê²€
+	IK_TWO_AXE						=14,	//	ì–‘ì†ë„ë¼
+	IK_TWO_MACE						=15,	//	ì–‘ì† ì² í‡´
+	IK_TWO_ARROW					=16,	//	í™”ì‚´
+	IK_IRON_ARMOR					=17,	//	ì‡ ê°‘ì˜·
+	IK_LEATHER_ARMOR				=18,	//	ê°€ì£½ê°‘ì˜·
+	IK_RING							=19,	//	ë°˜ì§€
+	IK_SHIELD						=20,	//	ë°©íŒ¨
+	IK_SHOES						=21,	//	ì‹ ë°œ
+	IK_ROBE							=22,	//	ë¡œë¸Œ
+	IK_FULL_HELMET					=23,	//	í”Œí—¬ë©§
+	IK_HALF_HELMET					=24,	//	í•˜í”„í—¬ë©§
+	IK_NORMAL_CLOTHE				=25,	//	ë³´í†µì˜·
+	IK_AMULET						=26,	//	ëª©ê±°ë¦¬
+	IK_ARMLET						=27,	//	íŒ”ì°Œ
+	IK_MUSIC						=28,	//	ì•…ê¸°
+	IK_SCROLL						=29,	//	ìŠ¤í¬ë¡¤
+	IK_LONG_BOW						=30,	//	ëŒ€í˜•í™œ
+	IK_BOX							=31,	//	ìƒìž
+	IK_GRAIN						=32,	//	ê³¡ì‹
+	IK_POTION						=33,	//	í¬ì…˜
+	IK_FOOD_MASS					=34,	//	ë©ì–´ë¦¬ ìŒì‹
+	IK_PLATE_FOOD					=35,	//	ìŸë°˜ ìŒì‹
+	IK_DRINK						=36,	//	ìŒë£Œ
+	IK_ARROW_POINT					=37,	//	í™”ì‚´ ì´‰
+	IK_FEATHER						=38,	//	ê¹ƒí„¸		
+	IK_SEED							=39,	//  ì”¨ì•—.
+	IK_MONEY						=40,	//	ëˆ
+	IK_MINERAL						=41,	//	ê´‘ì„
+	IK_MINERAL_LUMP					=42,	//	ê°€ê³µí•œ ê´‘ì„( ì² ê´´, ê¸ˆê´´... )
+	IK_HERB							=43,	//	ì•½ì´ˆ					// 0626 YGI
+	IK_HERB_POWDER					=44,	//	ì•½ì´ˆ ê°€ë£¨
+	IK_WOOD_BEFOR_USE				=45,		//ê°€ê³µì „ì˜ ë‚˜ë¬´
+	IK_WOOD_AFTER_USE				=46,		//ê°€ê³µí›„ì˜ ë‚˜ë¬´
+	IK_TENT							=47,		//í…íŠ¸ë¥˜
+	IK_TOOL_RECLAI					=48,		//ë„êµ¬ ê°œê°„ìš©
+	IK_TOOL_HAVEST					=49,		//ë„êµ¬ ì¶”ìˆ˜ìš©
+	IK_TOOL_MINING					=50,		//ë„êµ¬ ì±„ê´‘ìš©
+	IK_TOOL_REFINE					=51,		//ë„êµ¬ ì œë ¨ìš©
+	IK_TOOL_FISH_HOOKING			=52,		//ë„êµ¬ ë‚šì‹œìš©
+	IK_TOOL_CUTTING					=53,		//ë„êµ¬ ë²Œëª©ìš©
+	IK_TOOL_LUMBERING				=54,		//ë„êµ¬ ëª©ìž¬ê°€ê³µìš©
+	IK_TOOL_BUTCHERING				=55,		//ë„êµ¬ ë„ì¶•ìš©
+	IK_TOOL_DIGGING					=56,		//ë„êµ¬ ì•½ì´ˆì±„ì§‘ìš©
+	IK_TOOL_MAKEPOWDER				=57,		//ë„êµ¬ ì•½ìž¬ë§Œë“¤ê¸°ìš©
+	IK_TOOL_SHEAR					=58,		//ë„êµ¬ ê°€ìœ„ë¥˜
+	IK_TOOL_CARPENTRY				=59,		//ë„êµ¬ ëª©ê³µìš©
+	IK_TOOL_BLACKSMITHY				=60,		//ë„êµ¬ ì² ê³µìš©
+	IK_TOOL_COOKING_FIRE			=61,		//ë„êµ¬ ëŒ€ìš°ëŠ”ìš”ë¦¬ìš©
+	IK_TOOL_COOKING_CUT				=62,		//ë„êµ¬ ì¨ëŠ”ìš”ë¦¬ìš©
+	IK_TOOL_PIN						=63,		//ë„êµ¬ ë°”ëŠ˜ë¥˜
+	IK_TOOL_BOWCRAFTING				=64,		//ë„êµ¬ í™œì œìž‘ìš©
+	IK_TOOL_FIRE_BOAD				=65,		//ë„êµ¬ ë¶ˆëŒ€
+	IK_TOOL_CANDLEMAKING			=66,		//ë„êµ¬ ì–‘ì´ˆì œìž‘ìš©
+	IK_TOOL_OILING					=67,		//ë„êµ¬ ë°€ë‚©ê°€ê³µìš©
+	IK_TOOL_TAMING					=68,		//ë„êµ¬ í…Œì´ë°ìš©
+	IK_TOOL_NETTING					=69,		//ë„êµ¬ ê·¸ë¬¼ë¥˜
+	IK_TOOL_MAKEFIRE				=70,		//ë„êµ¬ ë¶€ì‹¯ëŒë¥˜
+	IK_WORK_BOAD_BLAST_FURNACE 		=71,		//ìž‘ì—…ëŒ€ ìš©ê´‘ë¡œ
+	IK_WORK_BOAD_BAETLE				=72,		//ìž‘ì—…ëŒ€ ë°°í‹€
+	IK_WORK_BOAD_BLOCK				=73,		//ìž‘ì—…ëŒ€ ì„ ë°˜
+	IK_WORK_BOAD_ANVIL				=74,		//ìž‘ì—…ëŒ€ ëª¨ë£¨
+	IK_WORK_BOAD_BRAZIER			=75,		//ìž‘ì—…ëŒ€ í™”ë•
+	IK_WORK_BOAD_TEST_TUBE			=76,		//ìž‘ì—…ëŒ€ ì‹œí—˜ê´€ë¥˜
+	IK_WORK_BOAD_SPINNING_WHEEL		=77,		//ìž‘ì—…ëŒ€ ë¬¼ë ˆ
+	IK_WORK_BOAD_FIRE_BOAD			=78,		//ìž‘ì—…ëŒ€ ë¶ˆëŒ€
+	IK_TOOL_BUCKET					=79,		//ë„êµ¬ ì–‘ë™ì´
+	IK_TOOL_RECYCLE					=80,		//ë„êµ¬ ìž¬í™œìš©
+	IK_TOOL_REPAIR					=81,		//ë„êµ¬ ìˆ˜ë¦¬ìš©
+	IK_IRON_SHIELD					=82,		//ì‡ ë°©íŒ¨	
+	IK_IRON_SHOES					=83,		//ì‡  ì‹ ë°œ	
+	IK_CAP							=84,		//ëª¨ìž	
+	IK_GOKAL						=85,		//ë‘ê±´	
+	IK_PRIEST_ROBE					=86,		//ì„±ì§ë¡œë¸Œ	
+	IK_CANDLE						=87,		//ì–‘ì´ˆ	
+	IK_MAN_TO_MAN					=88,		//ê²°íˆ¬ì„œ	
+	IK_CRACKER						=89,		// í­ì£½			// 010210 YGI
+	IK_RAJA_EMBLEM					=90,		// ë¼ìž ì— ë¸”ë ˜
+	IK_POTION_CHANGE_COLOR_CLOTHES	=91,	// ì˜· ì—¼ìƒ‰ì•½
+	IK_POTION_CHANGE_COLOR_HAIR		=92,	// í”¼ë¶€ ì—¼ìƒ‰ì•½
+	IK_NEW_MONEY					=93,	// ì‹ ê¶Œëˆ
+	IK_LOCK_STEAL					=94,	// ë„ë‘‘ë°©ì§€ ë«
+	IK_MAP							=95,	//	ì§€ë„
+	IK_GAUNTLET						=96,		//ê±´í‹€ë ›
+	IK_GOOD_FOOD					=97,		//ê³ ê¸‰ìŒì‹
+	IK_GOOD_POTION					=98,		//ê³ ê¸‰í¬ì…˜
+	IK_GOOD_CANDLE					=99,		//ê³ ê¸‰ì–‘ì´ˆ
+	IK_UNIQ_RESOURCE				=100,		//ìœ ë‹ˆí¬ìž¬ë£Œ
+	IK_GENERAL_GAMBLE				=101,		//ì¼ë°˜ê²œë¸”ì•„ì´í…œ
+	IK_GRADE_GAMBLE					=102,		//ê·¸ë ˆì´ë“œê²œë¸”ì•„ì´í…œ
+	IK_CLOAK						=103,		//ë§í† 
+	IK_CHAIR						=104,		//ì˜ìž			// LTS SITDOWN
 	IK_BOMB							=105,		//011212 lsw 
 	IK_TRAP							=106,		//011212 lsw 
-	IK_THROW_EVENT					=107,		//CSD-030723 : ÀÌº¥Æ®¿ë ´øÁö±â ¹°°Ç ´«µ¢ÀÌ(IK_SNOW_BALL)
-	IK_POTION_BOX					=108,		// Æ÷¼Ç ÁÖ¸Ó´Ï		020418 YGI
-	IK_FALG							=109,		// ±ê¹ß
-	IK_SADDLE						=110,		// ¸»¾ÈÀå
+	IK_THROW_EVENT					=107,		//CSD-030723 : ì´ë²¤íŠ¸ìš© ë˜ì§€ê¸° ë¬¼ê±´ ëˆˆë©ì´(IK_SNOW_BALL)
+	IK_POTION_BOX					=108,		// í¬ì…˜ ì£¼ë¨¸ë‹ˆ		020418 YGI
+	IK_FALG							=109,		// ê¹ƒë°œ
+	IK_SADDLE						=110,		// ë§ì•ˆìž¥
 	IK_DUAL_GAUNTLET				=111,	
 	IK_DUAL_SWORD					=112,	
 	IK_DUAL_BOW						=113,	
@@ -1067,98 +1067,98 @@ typedef enum eItemKindType
 	IK_DUAL_PRIEST_ROBE				=137,	
 	IK_DUAL_THIEF_SHIELD			=138,	
 	IK_DUAL_ARROW					=139,	
-	IK_ABYSS_MAZE					=140,	//¾Æºñ½º ¹Ì±Ã¿ë ¾ÆÀÌÅÛ	
-	IK_UNDEAD_DUNGEON				=141,	//¾ðµ¥µå ´øÀü¿ë ¾ÆÀÌÅÛ	
-	IK_GREAT_MAZE					=142,	//´ë¹Ì±Ã ¿ë ¾ÆÀÌÅÛ	
-	IK_TREASURE_MAP					=145,	// º¸¹°Áöµµ	// 040105 YGI
-	IK_TREASURE_BOX					=146,	// BBD 040213 º¸¹°Áöµµ // ÇÊ¿äÇÒ°Í °°¾Æ ÀÏ´Ü Ãß°¡ÇØµÒ
-	IK_POTION_BAG					=147,	// BBD 040213 Æ÷¼Ç¹é
-	IK_CP_POTION					=148,	// 040622 YGI cpÆ÷¼Ç
-	IK_ABILITY_RESET				=149,	//< kjy-040805	¾îºô¸®Æ¼ ÀçºÐ¹è >
-	IK_DOUBLE_EXP_UP                =150,	// CSD-040810 : °æÇèÄ¡ µÎ¹è
-	IK_CHANGE_GENDER				=151,	// KCH_050412 : ¼ºÀüÈ¯ ¾ÆÀÌÅÛ
+	IK_ABYSS_MAZE					=140,	//ì•„ë¹„ìŠ¤ ë¯¸ê¶ìš© ì•„ì´í…œ	
+	IK_UNDEAD_DUNGEON				=141,	//ì–¸ë°ë“œ ë˜ì „ìš© ì•„ì´í…œ	
+	IK_GREAT_MAZE					=142,	//ëŒ€ë¯¸ê¶ ìš© ì•„ì´í…œ	
+	IK_TREASURE_MAP					=145,	// ë³´ë¬¼ì§€ë„	// 040105 YGI
+	IK_TREASURE_BOX					=146,	// BBD 040213 ë³´ë¬¼ì§€ë„ // í•„ìš”í• ê²ƒ ê°™ì•„ ì¼ë‹¨ ì¶”ê°€í•´ë‘ 
+	IK_POTION_BAG					=147,	// BBD 040213 í¬ì…˜ë°±
+	IK_CP_POTION					=148,	// 040622 YGI cpí¬ì…˜
+	IK_ABILITY_RESET				=149,	//< kjy-040805	ì–´ë¹Œë¦¬í‹° ìž¬ë¶„ë°° >
+	IK_DOUBLE_EXP_UP                =150,	// CSD-040810 : ê²½í—˜ì¹˜ ë‘ë°°
+	IK_CHANGE_GENDER				=151,	// KCH_050412 : ì„±ì „í™˜ ì•„ì´í…œ
 	IK_INSURANCE_NORMAL				=152,
 	IK_INSURANCE_MULTI				=153, 
 	IK_ABILITY_RESET_EACH_STAT		=154, 
 }E_ITEM_KIND_TYPE;
 
 enum ItemMallFunction		// 040621 YGI
-{	//Item_ETC TBLÀÇ Mouse_MR_Wave Ç×¸ñ°ú ÀÏÄ¡.
-	IMF_REPAIR_ITEM = 1,		// ³»±¸µµ ÃÖ´ëÄ¡ ¿Ã·ÁÁÖ±â
-//	IMF_TIME_ITEM	= 2,		//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷À¸·Î ±â°£Á¦ÇÑ ¾ÆÀÌÅÛÀÓÀ» ³ªÅ¸³½´Ù.(ÇöÀç ¹Ì»ç¿ë)
+{	//Item_ETC TBLì˜ Mouse_MR_Wave í•­ëª©ê³¼ ì¼ì¹˜.
+	IMF_REPAIR_ITEM = 1,		// ë‚´êµ¬ë„ ìµœëŒ€ì¹˜ ì˜¬ë ¤ì£¼ê¸°
+//	IMF_TIME_ITEM	= 2,		//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ìž‘ì—…ìœ¼ë¡œ ê¸°ê°„ì œí•œ ì•„ì´í…œìž„ì„ ë‚˜íƒ€ë‚¸ë‹¤.(í˜„ìž¬ ë¯¸ì‚¬ìš©)
 };
 
 enum eFuntionItemIndex
 {
-	FITEM_MOVABLE			=1,	//¸¶ºñ,¼®È­,È¥¶õ ÇØÁ¦	¸¶ºñ°è¿­ÇØÁ¦	
-	FITEM_RECOVERY			=2,	//¼ÓµµÀúÇÏ ÇØÁ¦	¼ÓµµÀúÇÏ ÇØÁ¦	
-	FITEM_DETOX				=3,	//ÇØµ¶ÀÛ¿ë	ÇØµ¶	
-	FITEM_ENLIGHT			=4,	//½Ã·Â È¸º¹	½Ã·Â»ó½Ç	
+	FITEM_MOVABLE			=1,	//ë§ˆë¹„,ì„í™”,í˜¼ëž€ í•´ì œ	ë§ˆë¹„ê³„ì—´í•´ì œ	
+	FITEM_RECOVERY			=2,	//ì†ë„ì €í•˜ í•´ì œ	ì†ë„ì €í•˜ í•´ì œ	
+	FITEM_DETOX				=3,	//í•´ë…ìž‘ìš©	í•´ë…	
+	FITEM_ENLIGHT			=4,	//ì‹œë ¥ íšŒë³µ	ì‹œë ¥ìƒì‹¤	
 	//FITEM_NULL			=5,	NULL	NULL	
 	//FITEM_NULL			=6,	NULL	NULL	
-	FITEM_REVIVAL			=7,	//ÀÚµ¿ ºÎÈ°	ÀÚµ¿ ºÎÈ°	
-	FITEM_COME_BACK			=8,	//¸¶À»·ÎÀÇ ±ÍÈ¯	ÀÚ½ÅÀÌ ¼ÓÇÑ ±¹°¡ÀÇ ¸¶À»·Î µ¹¾Æ¿È 	
-	FITEM_RESIST_UP			=9,	//¸ðµç °è¿­ ÀúÇ×·Â »ó½Â	¸ðµç °è¿­ ¸¶¹ý ÀúÇ×·Â »ó½Â	
-	FITEM_STEALTH			=10,	//Åõ¸í »óÅÂ À¯Áö	ÀÏÁ¤ ½Ã°£ Åõ¸í »óÅÂ À¯Áö	
-	FITEM_INVALID_CURSE		=11,	//ÀúÁÖ °è¿­ ¸¶¹ý ¹«È¿È­	»ó´ëÀÇ ÀúÁÖ °è¿­ ¸¶¹ý ¹«È¿È­	
-	FITEM_INVALID_OFFENCE	=12,	//°ø°Ý °è¿­ ¸¶¹ý ¹«È¿È­	»ó´ëÀÇ °ø°Ý °è¿­ ¸¶¹ý ¹«È¿È­	
-	FITEM_POWER_UP			=13,	//¹°¸®Àû °ø°Ý·Â Áõ°¡	¹°¸®Àû °ø°Ý·Â Áõ°¡(%)	
-	FITEM_SPEED_UP			=14,	//ÀÌµ¿ ¼Óµµ Áõ°¡	ÀÌµ¿ ¼Óµµ (ÀÌµ¿·Â) Áõ°¡	
-	FITEM_HEAVY_ARMOR		=15,	//AC Áõ°¡	AC ¼öÄ¡ Áõ°¡	
-	FITEM_SPELL_UP			=16,	//¸¶¹ý µ¥¹ÌÁö ÁõÆø	¸¶¹ý µ¥¹ÌÁö ÁõÆø(%)	
-	FITEM_SPELL_TIME_UP		=17,	//¸¶¹ý Áö¼Ó ½Ã°£ ÁõÆø	¸¶¹ý Áö¼Ó ½Ã°£ ÁõÆø(msec)	
-	FITEM_CRITICAL			=18,	//CRITICAL DAMAGE 	Å©¸®Æ¼ÄÃ µ¥¹ÌÁö·Î ¹°¸®Àû °ø°Ý	
-	FITEM_STROKE			=19,	//¹°¸®Àû °ø°Ý ¼º°ø·ü 100%	¹°¸®Àû °ø°Ý ¼º°ø·ü 100%	
-	FITEM_AGILITY			=20,	//¹°¸®Àû °ø°Ý È¸ÇÇÀ² 70%	¹°¸®Àû °ø°Ý È¸ÇÇÀ² 70%	
-	FITEM_INVALID_PROTECT	=21,	//»ó´ëÀÇ º¸È£ °è¿­ ¸¶¹ý ¹«½Ã	»ó´ëÀÇ º¸È£ °è¿­ ¸¶¹ýÀ» ¹«Á¶°Ç ¹«½ÃÇÏ¿© °ø°Ý(¹°¸®/¸¶¹ý ¸ðµÎ)	
-	FITEM_INVALID_RESIST	=22,	//»ó´ëÀÇ ¸¶¹ý ÀúÇ×·Â ¹«½Ã	»ó´ëÀÇ ¸¶¹ý ÀúÇ×·Â ¹«Á¶°Ç ¹«½Ã (¸¶¹ý ÀúÇ×·Â 0À¸·Î Àû¿ë)	
-	FITEM_GHOST				=23,	//À¯·ÉÀ» º¼ ¼ö ÀÖÀ½	À¯·ÉÀ» º¼ ¼ö ÀÖÀ½	
-	FITEM_SAMARITAN			=24,	//NKÀÇ °ø°ÝÀ» ¹«½Ã	NKÀÇ ¹°¸®Àû/¸¶¹ý °ø°Ý ¸ðµÎ ¹«½Ã	
-	FITEM_SLIGHT			=25,	//¸¶¹ý Ä³½ºÆÃ ½Ã°£ ´ÜÃà	¸¶¹ý Ä³½ºÆÃ ½Ã°£ ´ÜÃà(%)	
+	FITEM_REVIVAL			=7,	//ìžë™ ë¶€í™œ	ìžë™ ë¶€í™œ	
+	FITEM_COME_BACK			=8,	//ë§ˆì„ë¡œì˜ ê·€í™˜	ìžì‹ ì´ ì†í•œ êµ­ê°€ì˜ ë§ˆì„ë¡œ ëŒì•„ì˜´ 	
+	FITEM_RESIST_UP			=9,	//ëª¨ë“  ê³„ì—´ ì €í•­ë ¥ ìƒìŠ¹	ëª¨ë“  ê³„ì—´ ë§ˆë²• ì €í•­ë ¥ ìƒìŠ¹	
+	FITEM_STEALTH			=10,	//íˆ¬ëª… ìƒíƒœ ìœ ì§€	ì¼ì • ì‹œê°„ íˆ¬ëª… ìƒíƒœ ìœ ì§€	
+	FITEM_INVALID_CURSE		=11,	//ì €ì£¼ ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	ìƒëŒ€ì˜ ì €ì£¼ ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	
+	FITEM_INVALID_OFFENCE	=12,	//ê³µê²© ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	ìƒëŒ€ì˜ ê³µê²© ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	
+	FITEM_POWER_UP			=13,	//ë¬¼ë¦¬ì  ê³µê²©ë ¥ ì¦ê°€	ë¬¼ë¦¬ì  ê³µê²©ë ¥ ì¦ê°€(%)	
+	FITEM_SPEED_UP			=14,	//ì´ë™ ì†ë„ ì¦ê°€	ì´ë™ ì†ë„ (ì´ë™ë ¥) ì¦ê°€	
+	FITEM_HEAVY_ARMOR		=15,	//AC ì¦ê°€	AC ìˆ˜ì¹˜ ì¦ê°€	
+	FITEM_SPELL_UP			=16,	//ë§ˆë²• ë°ë¯¸ì§€ ì¦í­	ë§ˆë²• ë°ë¯¸ì§€ ì¦í­(%)	
+	FITEM_SPELL_TIME_UP		=17,	//ë§ˆë²• ì§€ì† ì‹œê°„ ì¦í­	ë§ˆë²• ì§€ì† ì‹œê°„ ì¦í­(msec)	
+	FITEM_CRITICAL			=18,	//CRITICAL DAMAGE 	í¬ë¦¬í‹°ì»¬ ë°ë¯¸ì§€ë¡œ ë¬¼ë¦¬ì  ê³µê²©	
+	FITEM_STROKE			=19,	//ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µë¥  100%	ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µë¥  100%	
+	FITEM_AGILITY			=20,	//ë¬¼ë¦¬ì  ê³µê²© íšŒí”¼ìœ¨ 70%	ë¬¼ë¦¬ì  ê³µê²© íšŒí”¼ìœ¨ 70%	
+	FITEM_INVALID_PROTECT	=21,	//ìƒëŒ€ì˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²• ë¬´ì‹œ	ìƒëŒ€ì˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²•ì„ ë¬´ì¡°ê±´ ë¬´ì‹œí•˜ì—¬ ê³µê²©(ë¬¼ë¦¬/ë§ˆë²• ëª¨ë‘)	
+	FITEM_INVALID_RESIST	=22,	//ìƒëŒ€ì˜ ë§ˆë²• ì €í•­ë ¥ ë¬´ì‹œ	ìƒëŒ€ì˜ ë§ˆë²• ì €í•­ë ¥ ë¬´ì¡°ê±´ ë¬´ì‹œ (ë§ˆë²• ì €í•­ë ¥ 0ìœ¼ë¡œ ì ìš©)	
+	FITEM_GHOST				=23,	//ìœ ë ¹ì„ ë³¼ ìˆ˜ ìžˆìŒ	ìœ ë ¹ì„ ë³¼ ìˆ˜ ìžˆìŒ	
+	FITEM_SAMARITAN			=24,	//NKì˜ ê³µê²©ì„ ë¬´ì‹œ	NKì˜ ë¬¼ë¦¬ì /ë§ˆë²• ê³µê²© ëª¨ë‘ ë¬´ì‹œ	
+	FITEM_SLIGHT			=25,	//ë§ˆë²• ìºìŠ¤íŒ… ì‹œê°„ ë‹¨ì¶•	ë§ˆë²• ìºìŠ¤íŒ… ì‹œê°„ ë‹¨ì¶•(%)	
 };
 //< CSD-030723
 ///////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ý Å×ÀÌºí ±¸Á¶Ã¼
+// ë§ˆë²• í…Œì´ë¸” êµ¬ì¡°ì²´
 struct MAGICTABLE
 {
-	int	serial_Num;		    // °íÀ¯¹øÈ£ : ¸¶¹ý(1 ~ 200), ÀüÅõ½ºÅ³(215 ~ 250)
-	int	order_Type;		    // °è¿­ : ¸¶¹ý»ç(1 ~ 12), ¼ºÁ÷ÀÚ(21 ~ 31), ÀüÅõ½ºÅ³(61 ~ 66)
+	int	serial_Num;		    // ê³ ìœ ë²ˆí˜¸ : ë§ˆë²•(1 ~ 200), ì „íˆ¬ìŠ¤í‚¬(215 ~ 250)
+	int	order_Type;		    // ê³„ì—´ : ë§ˆë²•ì‚¬(1 ~ 12), ì„±ì§ìž(21 ~ 31), ì „íˆ¬ìŠ¤í‚¬(61 ~ 66)
 	char Han_Name[30];
-	int	appoint_Type;		  // ´ë»ó ÁöÁ¤¹æ½Ä Å¸ÀÔ(0->³ªÀÚ½Å/1->´ë»óÁöÁ¤(´ÜÀÏ´ë»ó)/2->´ë»óÁöÁ¤(º¹¼ö´ë»ó)/3->Áö¿ª¸¶¹ý)
-	int	basic_Level;		  // »ç¿ë ±âº» ·¹º§(1~9)
+	int	appoint_Type;		  // ëŒ€ìƒ ì§€ì •ë°©ì‹ íƒ€ìž…(0->ë‚˜ìžì‹ /1->ëŒ€ìƒì§€ì •(ë‹¨ì¼ëŒ€ìƒ)/2->ëŒ€ìƒì§€ì •(ë³µìˆ˜ëŒ€ìƒ)/3->ì§€ì—­ë§ˆë²•)
+	int	basic_Level;		  // ì‚¬ìš© ê¸°ë³¸ ë ˆë²¨(1~9)
 	int	point_MS;		      // Magic S point 
-	int before_Magic;		  // Àü ´Ü°è ¸¶¹ý(¸ÕÀú ÀÍÇô¾ß ÇÒ ¸¶¹ý)
+	int before_Magic;		  // ì „ ë‹¨ê³„ ë§ˆë²•(ë¨¼ì € ìµí˜€ì•¼ í•  ë§ˆë²•)
 	int	basic_magery ;		//
-	int	cast_Time;		    // Ä³½ºÆÃ ½Ã°£(Àý´ë½Ã°£)
-	int	cast_Continue;	  // Ä³½ºÆÃ Áö¼Ó ½Ã°£(Àý´ë½Ã°£)
-	int	continue_Time;	  // Áö¼Ó½Ã°£(0->¿µ¿øÈ÷/1~Àý´ë½Ã°£)
-	int	avail_Type;		    // È¿¿ë Å¸ÀÔ(0->ÀÚ½Å/1->ÀÚ½Å ¾Æ´Ñ 1¸í/2~->À¯È¿¹üÀ§³» ´Ù¼ö)
-	int	avail_Range;	    // »çÁ¤°Å¸®(Å¸ÀÏ´ÜÀ§/0->ÀÚ½Å/99->¹«ÇÑ)
-	int	exhaust_MP;		    // ¼Ò¸ð MP
-	int	exhaust_MS;		    // ¼Ò¸ð MS
-	int	require_IT;		    // ¿ä±¸ Áö´É
-	int	require_WP;		    // ¿ä±¸ ÁöÇý
-	int nHDPoint; // CSD-030314 : ¸¶¹ý µ¥¹ÌÁö ±âÁØ°ª
-	int nHDLimit; // CSD-030314 : ¸¶¹ý µ¥¹ÌÁö ±âÁØ°ª Á¦ÇÑÄ¡(Àý´ë°ª)
-	int	point_WS;		      // WS Æ÷ÀÎÆ®(0->not available/1~)
-	int	point_Move;		    // ÀÌµ¿Æ÷ÀÎÆ®(0->not available/1~)
-	int	invalid_TargetIT;	// ¸¶¹ý »ç¿ë°¡´É ¹üÀ§
-	int nClass;           // ÀüÅõ½ºÅ³ »ç¿ë°¡´É Å¬·¡½º  
-	int nTactics;         // ÀüÅõ½ºÅ³ »ç¿ë°¡´É ¹«±âÅÃÆ½
-	int nAddition;        // ÀüÅõ½ºÅ³ »ç¿ë½Ã ¼Ò¸ðµÇ´Â ¼Ò¸ð·®
-	int aLevel[4];        // ÀüÅõ½ºÅ³ ·¹º§
-	int aRandom[4];       // ÀüÅõ½ºÅ³ ·¹º§ ÆíÂ÷
-	int Spell_Type ;		  // 0 Wizard, 1~13 priest(Godº° typeµé ¶§¹®¿¡ ´Ù¾ç
+	int	cast_Time;		    // ìºìŠ¤íŒ… ì‹œê°„(ì ˆëŒ€ì‹œê°„)
+	int	cast_Continue;	  // ìºìŠ¤íŒ… ì§€ì† ì‹œê°„(ì ˆëŒ€ì‹œê°„)
+	int	continue_Time;	  // ì§€ì†ì‹œê°„(0->ì˜ì›ížˆ/1~ì ˆëŒ€ì‹œê°„)
+	int	avail_Type;		    // íš¨ìš© íƒ€ìž…(0->ìžì‹ /1->ìžì‹  ì•„ë‹Œ 1ëª…/2~->ìœ íš¨ë²”ìœ„ë‚´ ë‹¤ìˆ˜)
+	int	avail_Range;	    // ì‚¬ì •ê±°ë¦¬(íƒ€ì¼ë‹¨ìœ„/0->ìžì‹ /99->ë¬´í•œ)
+	int	exhaust_MP;		    // ì†Œëª¨ MP
+	int	exhaust_MS;		    // ì†Œëª¨ MS
+	int	require_IT;		    // ìš”êµ¬ ì§€ëŠ¥
+	int	require_WP;		    // ìš”êµ¬ ì§€í˜œ
+	int nHDPoint; // CSD-030314 : ë§ˆë²• ë°ë¯¸ì§€ ê¸°ì¤€ê°’
+	int nHDLimit; // CSD-030314 : ë§ˆë²• ë°ë¯¸ì§€ ê¸°ì¤€ê°’ ì œí•œì¹˜(ì ˆëŒ€ê°’)
+	int	point_WS;		      // WS í¬ì¸íŠ¸(0->not available/1~)
+	int	point_Move;		    // ì´ë™í¬ì¸íŠ¸(0->not available/1~)
+	int	invalid_TargetIT;	// ë§ˆë²• ì‚¬ìš©ê°€ëŠ¥ ë²”ìœ„
+	int nClass;           // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ í´ëž˜ìŠ¤  
+	int nTactics;         // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ ë¬´ê¸°íƒí‹±
+	int nAddition;        // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ì‹œ ì†Œëª¨ë˜ëŠ” ì†Œëª¨ëŸ‰
+	int aLevel[4];        // ì „íˆ¬ìŠ¤í‚¬ ë ˆë²¨
+	int aRandom[4];       // ì „íˆ¬ìŠ¤í‚¬ ë ˆë²¨ íŽ¸ì°¨
+	int Spell_Type ;		  // 0 Wizard, 1~13 priest(Godë³„ typeë“¤ ë•Œë¬¸ì— ë‹¤ì–‘
 	int	Appoint_Type ;
 	int	Excute_Type;
 	int	magic_Type;
 	int	Price;
 	int	Exp;
 	int	Learnable;
-	int	nSummonMax;   // CSD-030314 : ¼ÒÈ¯¸¶¹ý½Ã ¼ÒÈ¯°¡´É ÃÖ´ë ¸ó½ºÅÍÀÇ ¼ö
-	int nCombatCount; // CSD-030314 : »ç¿ë°¡´ÉÇÑ ÀüÅõ½ºÅ³ ¼ö
+	int	nSummonMax;   // CSD-030314 : ì†Œí™˜ë§ˆë²•ì‹œ ì†Œí™˜ê°€ëŠ¥ ìµœëŒ€ ëª¬ìŠ¤í„°ì˜ ìˆ˜
+	int nCombatCount; // CSD-030314 : ì‚¬ìš©ê°€ëŠ¥í•œ ì „íˆ¬ìŠ¤í‚¬ ìˆ˜
 	int nResist;
 	int nRiseFall;
 	int nDualStep;	// 030415 kyo
@@ -1167,7 +1167,7 @@ struct MAGICTABLE
 /////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
-// 020808 YGI(º¯¼öÀÇ À§Ä¡¿Í ±¸Á¶¸¦ ¹Ù²åÀ½)
+// 020808 YGI(ë³€ìˆ˜ì˜ ìœ„ì¹˜ì™€ êµ¬ì¡°ë¥¼ ë°”ê¿¨ìŒ)
 class CEffectTbl
 { 
 public:
@@ -1225,26 +1225,26 @@ public:
 	}
 	
 public:
-	short int	end_Time;			//Á¾·á±îÁöÀÇ ÃÑ ÇÁ·¹ÀÓ¼ö
-	short int	light;				//±¤¿øÈ¿°ú ³ÖÀ»±î?(0->³ÖÁö ¾ÊÀ½/100ÀÚ¸®¼öÄ¡->0ÀÌ¸é Á¤»óÀû Ãâ·Â/1ÀÌ¸é ³ôÀÌ°ª ´õÇØ¼­ Ãâ·Â(1~20 »çÀÌÀÇ ±¤¿ø ´Ü°è)
-	short int	sound_Volume;		//ÀÌÆåÆ®¿Í ¿¬°áµÈ »ç¿îµåÀÇ º¼·ý·¹º§	
-	char		static_Effect;		//½ºÇÁ¶óÀÌÆ®ÀÇ ½ºÅ¸Æ½ ¿©ºÎ
-	short int	sprite_Num;			//½ºÇÁ¶óÀÌÆ®ÀÇ °íÀ¯ ¹øÈ£
-	short int	pattern_Num;		//ÆÐÅÏ(ÇÔ¼ö)ÀÇ ¹øÈ£	
-	char		send_result;		//È¿°ú°¡ ¼­¹ö¿¡ °á°ú¸¦ ¿äÃ»ÇÏ´ÂÁö ¿©ºÎ
-	short int	spr_Height;			//ÀÌÆÑÆ®ÀÇ ³ôÀÌ
-	short int	sound_Num;			//ÀÌÆåÆ®¿Í ¿¬°áµÉ »ç¿îµåÀÇ °íÀ¯¹øÈ£
-	short int	spr_Speed;			//ÀÌÆÑÆ®ÀÇ ÀÌµ¿Ä¡
-	short int	impect_Effect_Num;	//Å¸°Ý½Ã ¿¬°áµÇ´Â ÀÌÆÑÆ®ÀÇ ¹øÈ£
-	short int	sort_Type;			//È­¸é sorting ¹æ¹ý(9(9+0)->ÀÏ¹ÝÀû ¼ÒÆÃ/10(9+1)->¹«Á¶°Ç ÃÖ»ó/11(9+2)->¹«Á¶°Ç ÃÖÇÏ/12(9+3)->¿¡´Ï¸ÞÀÌ¼Ç È­ÀÏ ÂüÁ¶ÇÏ¿© °¡º¯¼ÒÆÃ/13(9+4)->½ÃÀüÀÚ ¾ÕµÚ¿¡ 2ÀåÀÇ ½ºÇÁ¶óÀÌÆ® ÂïÀ½)
-	short int	trans_Level;		//Æ®·»½º Á¤µµ
-	short int	effect_Num;			//ÀÌÆÑÆ®ÀÇ °íÀ¯(ÀÏ·Ã) ¹øÈ£
-	short int	object_Num;			//ÀÌÆÑÆ® ¼Ò½ºÀÇ µ¿½ÃÃâ·Â °¹¼ö
-	short int	link_Frame;			//´ÙÀ½ ÀÌÆåÆ®°¡ ½ÃÀÛµÉ ÇÁ·¹ÀÓ
-	char		fallow;				//ÀÎ¹°À» µû¶ó°¥Áö->1/¸»Áö->0
-	short int	next_Effect;		//´ÙÀ½ ÀÌÆåÆ® ¹øÈ£
-	short int	sound_loop;			//»ç¿îµå Ãâ·Â È½¼ö
-	short int	trans_Type;			//Æ®·»½º ¹æ¹ý
+	short int	end_Time;			//ì¢…ë£Œê¹Œì§€ì˜ ì´ í”„ë ˆìž„ìˆ˜
+	short int	light;				//ê´‘ì›íš¨ê³¼ ë„£ì„ê¹Œ?(0->ë„£ì§€ ì•ŠìŒ/100ìžë¦¬ìˆ˜ì¹˜->0ì´ë©´ ì •ìƒì  ì¶œë ¥/1ì´ë©´ ë†’ì´ê°’ ë”í•´ì„œ ì¶œë ¥(1~20 ì‚¬ì´ì˜ ê´‘ì› ë‹¨ê³„)
+	short int	sound_Volume;		//ì´íŽ™íŠ¸ì™€ ì—°ê²°ëœ ì‚¬ìš´ë“œì˜ ë³¼ë¥¨ë ˆë²¨	
+	char		static_Effect;		//ìŠ¤í”„ë¼ì´íŠ¸ì˜ ìŠ¤íƒ€í‹± ì—¬ë¶€
+	short int	sprite_Num;			//ìŠ¤í”„ë¼ì´íŠ¸ì˜ ê³ ìœ  ë²ˆí˜¸
+	short int	pattern_Num;		//íŒ¨í„´(í•¨ìˆ˜)ì˜ ë²ˆí˜¸	
+	char		send_result;		//íš¨ê³¼ê°€ ì„œë²„ì— ê²°ê³¼ë¥¼ ìš”ì²­í•˜ëŠ”ì§€ ì—¬ë¶€
+	short int	spr_Height;			//ì´íŒ©íŠ¸ì˜ ë†’ì´
+	short int	sound_Num;			//ì´íŽ™íŠ¸ì™€ ì—°ê²°ë  ì‚¬ìš´ë“œì˜ ê³ ìœ ë²ˆí˜¸
+	short int	spr_Speed;			//ì´íŒ©íŠ¸ì˜ ì´ë™ì¹˜
+	short int	impect_Effect_Num;	//íƒ€ê²©ì‹œ ì—°ê²°ë˜ëŠ” ì´íŒ©íŠ¸ì˜ ë²ˆí˜¸
+	short int	sort_Type;			//í™”ë©´ sorting ë°©ë²•(9(9+0)->ì¼ë°˜ì  ì†ŒíŒ…/10(9+1)->ë¬´ì¡°ê±´ ìµœìƒ/11(9+2)->ë¬´ì¡°ê±´ ìµœí•˜/12(9+3)->ì—ë‹ˆë©”ì´ì…˜ í™”ì¼ ì°¸ì¡°í•˜ì—¬ ê°€ë³€ì†ŒíŒ…/13(9+4)->ì‹œì „ìž ì•žë’¤ì— 2ìž¥ì˜ ìŠ¤í”„ë¼ì´íŠ¸ ì°ìŒ)
+	short int	trans_Level;		//íŠ¸ë ŒìŠ¤ ì •ë„
+	short int	effect_Num;			//ì´íŒ©íŠ¸ì˜ ê³ ìœ (ì¼ë ¨) ë²ˆí˜¸
+	short int	object_Num;			//ì´íŒ©íŠ¸ ì†ŒìŠ¤ì˜ ë™ì‹œì¶œë ¥ ê°¯ìˆ˜
+	short int	link_Frame;			//ë‹¤ìŒ ì´íŽ™íŠ¸ê°€ ì‹œìž‘ë  í”„ë ˆìž„
+	char		fallow;				//ì¸ë¬¼ì„ ë”°ë¼ê°ˆì§€->1/ë§ì§€->0
+	short int	next_Effect;		//ë‹¤ìŒ ì´íŽ™íŠ¸ ë²ˆí˜¸
+	short int	sound_loop;			//ì‚¬ìš´ë“œ ì¶œë ¥ íšŸìˆ˜
+	short int	trans_Type;			//íŠ¸ë ŒìŠ¤ ë°©ë²•
 };
 
 class CEffectTbl2
@@ -1252,7 +1252,7 @@ class CEffectTbl2
 public:
 	CEffectTbl2()
 	{
-		ZeroMemory(sprite_Name,sizeof(sprite_Name));	//050329_KCH ÃÊ±âÈ­
+		ZeroMemory(sprite_Name,sizeof(sprite_Name));	//050329_KCH ì´ˆê¸°í™”
 	}
 	int Check() const 
 	{
@@ -1316,35 +1316,35 @@ public:
 	}
 	
 public:
-	int	order_Type;			     // °è¿­(1->»ý/2->»ç/3->ÀÏ¹Ý/4->È­¿°/5->¾óÀ½/6->Àü°Ý/7->¼ÒÈ¯/8->½Ã°ø/9->½Å¼º/10->Á¤µ¿/11->Á¤³ä/12->Æ¯¼ö)
-	int	serial_Num;			     // °íÀ¯¹øÈ£(1~)
-	int	basic_Level;		     // »ç¿ë ±âº» ·¹º§(1~9)
+	int	order_Type;			     // ê³„ì—´(1->ìƒ/2->ì‚¬/3->ì¼ë°˜/4->í™”ì—¼/5->ì–¼ìŒ/6->ì „ê²©/7->ì†Œí™˜/8->ì‹œê³µ/9->ì‹ ì„±/10->ì •ë™/11->ì •ë…/12->íŠ¹ìˆ˜)
+	int	serial_Num;			     // ê³ ìœ ë²ˆí˜¸(1~)
+	int	basic_Level;		     // ì‚¬ìš© ê¸°ë³¸ ë ˆë²¨(1~9)
 	int	WS;					         // wizwrd spell(or priest spell) point 
-	int	before_Magic;		     // Àü ´Ü°è ¸¶¹ý(¸ÕÀú ÀÍÇô¾ß ÇÒ ¸¶¹ý)
-	int	basic_Magery ;		   // ±âº» ¸¶¹ý·Â
-	int	cast_Time;			     // Ä³½ºÆÃ ½Ã°£(Àý´ë½Ã°£)
-	int	cast_Continue;		   // Ä³½ºÆÃ Áö¼Ó ½Ã°£(Àý´ë½Ã°£)
-	int	continue_Time;		   // Áö¼Ó½Ã°£(0->¼ø°£,¿µ¿øÈ÷/1~Àý´ë½Ã°£)	
-	int	avail_Type;			     // È¿¿ë Å¸ÀÔ(0->ÀÚ½Å/1->ÀÚ½Å ¾Æ´Ñ 1¸í/2~->À¯È¿¹üÀ§³» ´Ù¼ö)
-	int	avail_Range;		     // »çÁ¤°Å¸®(Å¸ÀÏ´ÜÀ§/0->ÀÚ½Å/99->¹«ÇÑ)		
-	int	exhaust_MP;			     // ¼Ò¸ð MP
-	int	exhaust_WS;			     // ¼Ò¸ð WS
-	int	require_WP;			     // ¿ä±¸ ÁöÇý					
-	int	require_IT;			     // ¿ä±¸ Áö´É
-	int	point_WS;			       // WS Æ÷ÀÎÆ®(0->not available/1~)
-	int	invalid_TargetIT;	   // ¸¶¹ý »ç¿ë°¡´É ¹üÀ§
-	int	spell_Type ;		     // 0 Wizard, 1~13 priest(Godº° typeµé ¶§¹®¿¡ ´Ù¾ç)
-	int	appoint_Type;		     // ´ë»ó ÁöÁ¤¹æ½Ä Å¸ÀÔ(0->³ªÀÚ½Å/1->´ë»óÁöÁ¤(´ÜÀÏ/º¹¼ö´ë»ó)/2->Æ¯Á¤ÁöÁ¡(Å¬¸¯À§Ä¡)/3->Áö¿ª¸¶¹ý)
-	int	excute_Type;		     // ¸¶¹ý Ä³½ºÆÃ À¯Áö½Ã ½ÃÇàµÉ¼ö ÀÖ´Â È½¼ö(0->¿©·¯¹ø/1->ÇÑ¹ø¸¸)
-	int	magic_Type;			     // ¸¶¹ý ´ëºÐ·ù(0->ºñ°ø°Ý¸¶¹ý/1->´ë»ó°ø°Ý¸¶¹ý/2->Áö¿ªº¹¼ö°ø°Ý¸¶¹ý)
-	int	Price;		  // ¸¶¹ýÀ» ¹è¿ì´Âµ¥ ÇÊ¿äÇÑ ºñ¿ë
-	int	Exp;		  // ÀÏ¹Ý¸¶¹ýÀÇ °æ¿ì °æÇèÇÇ
-	int	Learnable;	  // °¢ ½ÅºÀ½ÅÀÇ Å¸ÀÔ¿¡ µû¶ó ¹è¿ï¼ö ÀÖ´Â °æ¿ì
-	int	nSummonMax;   // CSD-030314 : ¼ÒÈ¯¸¶¹ý½Ã ¼ÒÈ¯°¡´É ÃÖ´ë ¸ó½ºÅÍÀÇ ¼ö
-	int nCombatCount; // CSD-030314 : »ç¿ë°¡´ÉÇÑ ÀüÅõ½ºÅ³ ¼ö
-	int nResist;      // ¸·À» ¼ö ÀÖ´Â ÀúÇ×·Â
-	int nRiseFall;    // ³ô³·ÀÌ Àû¿ë ¹üÀ§
-	int nDualStep;	  //¸¶¹ýÀÇ µà¾ó ´Ü°è // 030415 kyo
+	int	before_Magic;		     // ì „ ë‹¨ê³„ ë§ˆë²•(ë¨¼ì € ìµí˜€ì•¼ í•  ë§ˆë²•)
+	int	basic_Magery ;		   // ê¸°ë³¸ ë§ˆë²•ë ¥
+	int	cast_Time;			     // ìºìŠ¤íŒ… ì‹œê°„(ì ˆëŒ€ì‹œê°„)
+	int	cast_Continue;		   // ìºìŠ¤íŒ… ì§€ì† ì‹œê°„(ì ˆëŒ€ì‹œê°„)
+	int	continue_Time;		   // ì§€ì†ì‹œê°„(0->ìˆœê°„,ì˜ì›ížˆ/1~ì ˆëŒ€ì‹œê°„)	
+	int	avail_Type;			     // íš¨ìš© íƒ€ìž…(0->ìžì‹ /1->ìžì‹  ì•„ë‹Œ 1ëª…/2~->ìœ íš¨ë²”ìœ„ë‚´ ë‹¤ìˆ˜)
+	int	avail_Range;		     // ì‚¬ì •ê±°ë¦¬(íƒ€ì¼ë‹¨ìœ„/0->ìžì‹ /99->ë¬´í•œ)		
+	int	exhaust_MP;			     // ì†Œëª¨ MP
+	int	exhaust_WS;			     // ì†Œëª¨ WS
+	int	require_WP;			     // ìš”êµ¬ ì§€í˜œ					
+	int	require_IT;			     // ìš”êµ¬ ì§€ëŠ¥
+	int	point_WS;			       // WS í¬ì¸íŠ¸(0->not available/1~)
+	int	invalid_TargetIT;	   // ë§ˆë²• ì‚¬ìš©ê°€ëŠ¥ ë²”ìœ„
+	int	spell_Type ;		     // 0 Wizard, 1~13 priest(Godë³„ typeë“¤ ë•Œë¬¸ì— ë‹¤ì–‘)
+	int	appoint_Type;		     // ëŒ€ìƒ ì§€ì •ë°©ì‹ íƒ€ìž…(0->ë‚˜ìžì‹ /1->ëŒ€ìƒì§€ì •(ë‹¨ì¼/ë³µìˆ˜ëŒ€ìƒ)/2->íŠ¹ì •ì§€ì (í´ë¦­ìœ„ì¹˜)/3->ì§€ì—­ë§ˆë²•)
+	int	excute_Type;		     // ë§ˆë²• ìºìŠ¤íŒ… ìœ ì§€ì‹œ ì‹œí–‰ë ìˆ˜ ìžˆëŠ” íšŸìˆ˜(0->ì—¬ëŸ¬ë²ˆ/1->í•œë²ˆë§Œ)
+	int	magic_Type;			     // ë§ˆë²• ëŒ€ë¶„ë¥˜(0->ë¹„ê³µê²©ë§ˆë²•/1->ëŒ€ìƒê³µê²©ë§ˆë²•/2->ì§€ì—­ë³µìˆ˜ê³µê²©ë§ˆë²•)
+	int	Price;		  // ë§ˆë²•ì„ ë°°ìš°ëŠ”ë° í•„ìš”í•œ ë¹„ìš©
+	int	Exp;		  // ì¼ë°˜ë§ˆë²•ì˜ ê²½ìš° ê²½í—˜í”¼
+	int	Learnable;	  // ê° ì‹ ë´‰ì‹ ì˜ íƒ€ìž…ì— ë”°ë¼ ë°°ìš¸ìˆ˜ ìžˆëŠ” ê²½ìš°
+	int	nSummonMax;   // CSD-030314 : ì†Œí™˜ë§ˆë²•ì‹œ ì†Œí™˜ê°€ëŠ¥ ìµœëŒ€ ëª¬ìŠ¤í„°ì˜ ìˆ˜
+	int nCombatCount; // CSD-030314 : ì‚¬ìš©ê°€ëŠ¥í•œ ì „íˆ¬ìŠ¤í‚¬ ìˆ˜
+	int nResist;      // ë§‰ì„ ìˆ˜ ìžˆëŠ” ì €í•­ë ¥
+	int nRiseFall;    // ë†’ë‚®ì´ ì ìš© ë²”ìœ„
+	int nDualStep;	  //ë§ˆë²•ì˜ ë“€ì–¼ ë‹¨ê³„ // 030415 kyo
 };
 //
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -1358,31 +1358,31 @@ struct NPCName_by_Gender
 
 struct NPCLev_to_Exp
 {	//< CSD-030430
-	int nMinExp;         // ÇöÀç ·¹º§ÀÇ ÃÖ¼Ò °æÇèÄ¡
-	int nMaxExp;         // ÇöÀç ·¹º§ÀÇ ÃÖ´ë °æÇèÄ¡
-	int nNeedExp;        // ´ÙÀ½ ·¹º§·Î ¿Ã¶ó°¡±â À§ÇØ È¹µæÇØ¾ßµÉ °æÇèÄ¡
-	int nTrainingExp;    // ÅÃÆ½ ¼ö·ÃÀå¿¡¼­ ¾ò´Â °æÇèÄ¡
-	float fExpReduction; // »ç³É½Ã Á×¾úÀ» °æ¿ì °æÇèÄ¡ »è°¨·ü
-	float fNKReduction;	 // NK¿¡ Á×¾úÀ» °æ¿ì °æÇèÄ¡ »è°¨·ü
-	int nTacRate;		 // ÅÃÆ½ º¸Á¤Ä¡
-	int nMaxTactic;	     // ·¹º§¿¡ µû¸¥ ÅÃÆ½ ¼ö·ÃÀå¿¡¼­ ¿Ã¸± ¼ö ÀÖ´Â ÃÖ´ë ÅÃÆ½ ·¹º§
-	int	nDyeingPrice;    // ¿°»ö °¡°Ý
-	int nLessRate;       // ³·Àº ·¹º§ º¸Á¤Ä¡  
-	int nGreatRate;      // ³ôÀº ·¹º§ º¸Á¤Ä¡  
-	int nCspMax;         // ÃÖ´ë ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ È¹µæ¼ö
-	int nBaseCP;         // ÀüÅõ½ºÅ³ ±âº»·®
+	int nMinExp;         // í˜„ìž¬ ë ˆë²¨ì˜ ìµœì†Œ ê²½í—˜ì¹˜
+	int nMaxExp;         // í˜„ìž¬ ë ˆë²¨ì˜ ìµœëŒ€ ê²½í—˜ì¹˜
+	int nNeedExp;        // ë‹¤ìŒ ë ˆë²¨ë¡œ ì˜¬ë¼ê°€ê¸° ìœ„í•´ íšë“í•´ì•¼ë  ê²½í—˜ì¹˜
+	int nTrainingExp;    // íƒí‹± ìˆ˜ë ¨ìž¥ì—ì„œ ì–»ëŠ” ê²½í—˜ì¹˜
+	float fExpReduction; // ì‚¬ëƒ¥ì‹œ ì£½ì—ˆì„ ê²½ìš° ê²½í—˜ì¹˜ ì‚­ê°ë¥ 
+	float fNKReduction;	 // NKì— ì£½ì—ˆì„ ê²½ìš° ê²½í—˜ì¹˜ ì‚­ê°ë¥ 
+	int nTacRate;		 // íƒí‹± ë³´ì •ì¹˜
+	int nMaxTactic;	     // ë ˆë²¨ì— ë”°ë¥¸ íƒí‹± ìˆ˜ë ¨ìž¥ì—ì„œ ì˜¬ë¦´ ìˆ˜ ìžˆëŠ” ìµœëŒ€ íƒí‹± ë ˆë²¨
+	int	nDyeingPrice;    // ì—¼ìƒ‰ ê°€ê²©
+	int nLessRate;       // ë‚®ì€ ë ˆë²¨ ë³´ì •ì¹˜  
+	int nGreatRate;      // ë†’ì€ ë ˆë²¨ ë³´ì •ì¹˜  
+	int nCspMax;         // ìµœëŒ€ ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° íšë“ìˆ˜
+	int nBaseCP;         // ì „íˆ¬ìŠ¤í‚¬ ê¸°ë³¸ëŸ‰
 	int bank_loan;	     // 010314 YGI
-	int nStep;           // °æÇèÄ¡ ´Ü°è
-	int nWarriorLife;    // Àü»çÀÇ ±âº» Life
-	int nThiefLife;      // µµµÏÀÇ ±âº» Life
-	int nArcherLife;     // ±Ã¼öÀÇ ±âº» Life
-	int nWizardLife;     // ¸¶¹ý»çÀÇ ±âº» Life
-	int nPriestLife;     // ¼ºÁ÷ÀÚÀÇ ±âº» Life
-	int nWarriorExpRate; // Àü»çÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nThiefExpRate;   // µµµÏÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nArcherExpRate;  // ±Ã¼öÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nWizardExpRate;  // ¸¶¹ý»çÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
-	int nPriestExpRate;  // ¼ºÁ÷ÀÚÀÇ °æÇèÄ¡ º¸Á¤·ü(´ÜÀ§%)
+	int nStep;           // ê²½í—˜ì¹˜ ë‹¨ê³„
+	int nWarriorLife;    // ì „ì‚¬ì˜ ê¸°ë³¸ Life
+	int nThiefLife;      // ë„ë‘‘ì˜ ê¸°ë³¸ Life
+	int nArcherLife;     // ê¶ìˆ˜ì˜ ê¸°ë³¸ Life
+	int nWizardLife;     // ë§ˆë²•ì‚¬ì˜ ê¸°ë³¸ Life
+	int nPriestLife;     // ì„±ì§ìžì˜ ê¸°ë³¸ Life
+	int nWarriorExpRate; // ì „ì‚¬ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nThiefExpRate;   // ë„ë‘‘ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nArcherExpRate;  // ê¶ìˆ˜ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nWizardExpRate;  // ë§ˆë²•ì‚¬ì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nPriestExpRate;  // ì„±ì§ìžì˜ ê²½í—˜ì¹˜ ë³´ì •ë¥ (ë‹¨ìœ„%)
 };	//> CSD-030430
 
 struct NPC_Generation
@@ -1394,25 +1394,25 @@ struct NPC_Generation
 	int Sel_gender;
 	//char Sel_FirstName[31];
 	//char Sel_LastName[31] ;
-	int nNpcRace;        // NPC Á¾Á·
-	int nNpcNK;          // NPC¸¦ Á×¾úÀ» ¶§ NKÃ³¸® ¿©ºÎ
-	int nStep;           // Å¬·¡½º ´Ü°è
-	int nAttr;           // ¸ó½ºÅÍ ¼Ó¼º
-	int nHpMax;          // ¸ó½ºÅÍ HP
-	int nEpMax;          // ¸ó½ºÅÍ EP
-	int nStrikeDamage;   // ¹°¸®Àû °ø°Ý µ¥¹ÌÁö
-	int nStrikeRandom;   // ¹°¸®Àû °ø°Ý µ¥¹ÌÁö º¯È­·®
-	int nMagicDamage;    // °ø°Ý ¸¶¹ý µ¥¹ÌÁö
-	int nMagicRandom;    // °ø°Ý ¸¶¹ý µ¥¹ÌÁö º¯È­·®
-	int nCriticalRate;   // Å©¸®Æ¼Ä® È®·ü
-	int nCriticalDamage; // Å©¸®Æ¼Ä® µ¥¹ÌÁö
-	int nPiercingStrike; // ¹°¸®°ø°Ý ÇÇ¾î½Ì È®·ü
-	int nPiercingMagic;  // ¸¶¹ý°ø°Ý ÇÇ¾î½Ì È®·ü
+	int nNpcRace;        // NPC ì¢…ì¡±
+	int nNpcNK;          // NPCë¥¼ ì£½ì—ˆì„ ë•Œ NKì²˜ë¦¬ ì—¬ë¶€
+	int nStep;           // í´ëž˜ìŠ¤ ë‹¨ê³„
+	int nAttr;           // ëª¬ìŠ¤í„° ì†ì„±
+	int nHpMax;          // ëª¬ìŠ¤í„° HP
+	int nEpMax;          // ëª¬ìŠ¤í„° EP
+	int nStrikeDamage;   // ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€
+	int nStrikeRandom;   // ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ ë³€í™”ëŸ‰
+	int nMagicDamage;    // ê³µê²© ë§ˆë²• ë°ë¯¸ì§€
+	int nMagicRandom;    // ê³µê²© ë§ˆë²• ë°ë¯¸ì§€ ë³€í™”ëŸ‰
+	int nCriticalRate;   // í¬ë¦¬í‹°ì¹¼ í™•ë¥ 
+	int nCriticalDamage; // í¬ë¦¬í‹°ì¹¼ ë°ë¯¸ì§€
+	int nPiercingStrike; // ë¬¼ë¦¬ê³µê²© í”¼ì–´ì‹± í™•ë¥ 
+	int nPiercingMagic;  // ë§ˆë²•ê³µê²© í”¼ì–´ì‹± í™•ë¥ 
 	int Sel_Job_Alchemist;
-	int nAIBase;         // ±âº»ÀûÀÎ Npc AI ÆÐÅÏ 
-	int nAppearType;     // º¸½º¸ó½ºÅÍ µîÀå°ü·Ã Å¸ÀÔ
-	int nAIType;         // Npc AI Á¦¾î À§Ä¡
-	int nAINo;           // Npc AI ÆÐÅÏ ¹øÈ£
+	int nAIBase;         // ê¸°ë³¸ì ì¸ Npc AI íŒ¨í„´ 
+	int nAppearType;     // ë³´ìŠ¤ëª¬ìŠ¤í„° ë“±ìž¥ê´€ë ¨ íƒ€ìž…
+	int nAIType;         // Npc AI ì œì–´ ìœ„ì¹˜
+	int nAINo;           // Npc AI íŒ¨í„´ ë²ˆí˜¸
 	int nLvMin;
 	int nLvMax;
 	int Money_min;						
@@ -1421,23 +1421,23 @@ struct NPC_Generation
 	int AccessDelay;	// 0811 NPC KHS	
 	int BackDelay;		// 0811 NPC KHS	
 	int PCfindDelay;	
-	int nRvAp;	      // °ø°Ý·Â º¸Á¤(´ÜÀ§%)
-	int nRvLife;	    // Life º¸Á¤(´ÜÀ§%)
-	int nRvExp;       // °æÇèÄ¡ º¸Á¤(´ÜÀ§%) 
-	int nAc;          // ÀÏ¹Ý ¹æ¾î·Â(´ÜÀ§%)
-	int nDpRate;      // µà¾ó ¹æ¾î·Â º¸Á¤·ü(´ÜÀ§%)
-	int nApRate;      // µà¾ó °ø°Ý·Â º¸Á¤·ü(´ÜÀ§%)
-	int nPhysical;    // ¹°¸®Àû °ø°Ý¿¡ ´ëÇÑ ¹æ¾î·Â(´ÜÀ§%)
-	int nFire;	      // ºÒ°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nIce;		      // ¾óÀ½°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nElect;	      // Àü°Ý°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇâ·Â(´ÜÀ§%)
-	int nHoly;	      // ½Å·Â°è¿­ °ø°Ý ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nStun;        // ¸¶ºñ°è¿­ ÀúÁÖ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nSlow;        // ¼ÓµµÀúÇÏ°è¿­ ÀúÁÖ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nPoison;      // Áßµ¶°è¿­ ÀúÁÖ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nBlind;       // ½Ã·Â»ó½Ç°è¿­ ÀúÁÖ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nDrain;       // ÈíÅ»°è¿­ ÀúÁÖ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
-	int nFreeze;      // ³Ãµ¿°è¿­ ÀúÁÖ ¸¶¹ý¿¡ ´ëÇÑ ÀúÇ×·Â(´ÜÀ§%)
+	int nRvAp;	      // ê³µê²©ë ¥ ë³´ì •(ë‹¨ìœ„%)
+	int nRvLife;	    // Life ë³´ì •(ë‹¨ìœ„%)
+	int nRvExp;       // ê²½í—˜ì¹˜ ë³´ì •(ë‹¨ìœ„%) 
+	int nAc;          // ì¼ë°˜ ë°©ì–´ë ¥(ë‹¨ìœ„%)
+	int nDpRate;      // ë“€ì–¼ ë°©ì–´ë ¥ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nApRate;      // ë“€ì–¼ ê³µê²©ë ¥ ë³´ì •ë¥ (ë‹¨ìœ„%)
+	int nPhysical;    // ë¬¼ë¦¬ì  ê³µê²©ì— ëŒ€í•œ ë°©ì–´ë ¥(ë‹¨ìœ„%)
+	int nFire;	      // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nIce;		      // ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nElect;	      // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í–¥ë ¥(ë‹¨ìœ„%)
+	int nHoly;	      // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nStun;        // ë§ˆë¹„ê³„ì—´ ì €ì£¼ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nSlow;        // ì†ë„ì €í•˜ê³„ì—´ ì €ì£¼ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nPoison;      // ì¤‘ë…ê³„ì—´ ì €ì£¼ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nBlind;       // ì‹œë ¥ìƒì‹¤ê³„ì—´ ì €ì£¼ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nDrain;       // í¡íƒˆê³„ì—´ ì €ì£¼ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
+	int nFreeze;      // ëƒ‰ë™ê³„ì—´ ì €ì£¼ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥(ë‹¨ìœ„%)
 	//int SpiritValue;
 	//int SpiritValue_Range;
 	//int PS[15];
@@ -1615,7 +1615,7 @@ typedef struct tag_LottoEventInfo
 	tm		StartDate;
 	tm		LotteryDate;
 	int		nWinNumCount;
-	int		anWinNumbers[10]; // 10°³ Áö¸¸ ÇöÀç´Â 4°³¸¸ ¾²ÀÎ´Ù.
+	int		anWinNumbers[10]; // 10ê°œ ì§€ë§Œ í˜„ìž¬ëŠ” 4ê°œë§Œ ì“°ì¸ë‹¤.
 }LOTTO_EVENT_INFO;
 
 typedef	struct	tag_DateCheck
@@ -1657,14 +1657,14 @@ struct WINLOSEPOINT
 
 struct Event_Join							// 020115 LTS
 {	//< CSD-030723
-	unsigned char Event1 : 1;				// ÀÌº¥Æ® 1ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event2 : 1;				// ÀÌº¥Æ® 2ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event3 : 1;				// ÀÌº¥Æ® 3ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event4 : 1;				// ÀÌº¥Æ® 4ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event5 : 1;				// ÀÌº¥Æ® 5ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event6 : 1;				// ÀÌº¥Æ® 6ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event7 : 1;				// ÀÌº¥Æ® 7ÀÇ Âü¿©¿©ºÎ	
-	unsigned char Event8 : 1;				// ÀÌº¥Æ® 8ÀÇ Âü¿©¿©ºÎ	
+	unsigned char Event1 : 1;				// ì´ë²¤íŠ¸ 1ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event2 : 1;				// ì´ë²¤íŠ¸ 2ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event3 : 1;				// ì´ë²¤íŠ¸ 3ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event4 : 1;				// ì´ë²¤íŠ¸ 4ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event5 : 1;				// ì´ë²¤íŠ¸ 5ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event6 : 1;				// ì´ë²¤íŠ¸ 6ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event7 : 1;				// ì´ë²¤íŠ¸ 7ì˜ ì°¸ì—¬ì—¬ë¶€	
+	unsigned char Event8 : 1;				// ì´ë²¤íŠ¸ 8ì˜ ì°¸ì—¬ì—¬ë¶€	
 };	//> CSD-030723
 
 struct DiseaseTable
@@ -1743,28 +1743,28 @@ struct GodTable
 
 struct NW_Character	// 010904 LTS		// LTS CHAR		
 {	//< CSD-030723
-	DWORD WarNo						:	7;	//	ÀüÀï¹øÈ£
-	DWORD WarfieldNo					:	3;	//	ÀüÀïÅÍ ¹øÈ£
-	DWORD SquadNo						:	3;	//	ºÎ´ë¹øÈ£
-	DWORD isSquadLeader				:	1;	//	ºÎ´ëÀåÀÎ°¡?	
-	DWORD isCommander					:	1;	//	»ç·É°üÀÎ°¡?
-	DWORD isCommanderCandidater		:	1;	//  »ç·É°ü ÈÄº¸ÀÎ°¡?		// 010915 LTS
-	DWORD DoWarJoinVote				:	1;	//	ÀüÀïÅÍ Âü¿© ÅõÇ¥¸¦ Çß³ª?
-	DWORD DoCommanderVote				:	1;	//	»ç·É°ü ÅõÇ¥¸¦ Çß´Ù
-	DWORD YL_JoinNation				:	4;	//	ÀÏ½ºÀÎ°æ¿ì ÀÚÀÌÆÝ¿¡Çß³ª? ¹ÙÀÌ¼­½º¿¡ Çß³ª?  // ±¹°¡¹øÈ£
-	DWORD Reserved					:	10;	//	¿¹¾à..
+	DWORD WarNo						:	7;	//	ì „ìŸë²ˆí˜¸
+	DWORD WarfieldNo					:	3;	//	ì „ìŸí„° ë²ˆí˜¸
+	DWORD SquadNo						:	3;	//	ë¶€ëŒ€ë²ˆí˜¸
+	DWORD isSquadLeader				:	1;	//	ë¶€ëŒ€ìž¥ì¸ê°€?	
+	DWORD isCommander					:	1;	//	ì‚¬ë ¹ê´€ì¸ê°€?
+	DWORD isCommanderCandidater		:	1;	//  ì‚¬ë ¹ê´€ í›„ë³´ì¸ê°€?		// 010915 LTS
+	DWORD DoWarJoinVote				:	1;	//	ì „ìŸí„° ì°¸ì—¬ íˆ¬í‘œë¥¼ í–ˆë‚˜?
+	DWORD DoCommanderVote				:	1;	//	ì‚¬ë ¹ê´€ íˆ¬í‘œë¥¼ í–ˆë‹¤
+	DWORD YL_JoinNation				:	4;	//	ì¼ìŠ¤ì¸ê²½ìš° ìžì´íŽ€ì—í–ˆë‚˜? ë°”ì´ì„œìŠ¤ì— í–ˆë‚˜?  // êµ­ê°€ë²ˆí˜¸
+	DWORD Reserved					:	10;	//	ì˜ˆì•½..
 };	//> CSD-030723
 
 struct CCharRank
 {	//< CSD-030723
-	DWORD nation	  :3;  // ¼ÓÇÑ³ª¶ó - 0:¾øÀ½, 1, 2, 3:¹ÙÀÌ¼­½º, 4:ÀÚÀÌÆÝ, 5:Çì°Ô¸ð´Ï¾Æ, 6:ÀÏ½º
-	DWORD guild_master:3;  // ±æµå ¸¶½ºÅÍ
-	DWORD king		  :1;  // ³ª¶ó ¿Õ
-	DWORD dwReserved  :9;  // »ç¿ëµÇÁö ¾ÊÀ½
-	DWORD counselor	  :2;  // 0 : ¾øÀ½, 1: È¸»ç ¿î¿µÀÚ, 2: °ÔÀÓ³» ¿î¿µÀÚ
-	DWORD ultra_nk3	  :1;  // ±Ø¾ÇÇÇÄÉÀÌ	1004 YGI
-	DWORD ultra_nk4	  :1;  // ±Ø¾ÇÇÇÄÉÀÌ	1004 YGI
-	DWORD ultra_nk6	  :1;  // ±Ø¾ÇÇÇÄÉÀÌ	1004 YGI
+	DWORD nation	  :3;  // ì†í•œë‚˜ë¼ - 0:ì—†ìŒ, 1, 2, 3:ë°”ì´ì„œìŠ¤, 4:ìžì´íŽ€, 5:í—¤ê²Œëª¨ë‹ˆì•„, 6:ì¼ìŠ¤
+	DWORD guild_master:3;  // ê¸¸ë“œ ë§ˆìŠ¤í„°
+	DWORD king		  :1;  // ë‚˜ë¼ ì™•
+	DWORD dwReserved  :9;  // ì‚¬ìš©ë˜ì§€ ì•ŠìŒ
+	DWORD counselor	  :2;  // 0 : ì—†ìŒ, 1: íšŒì‚¬ ìš´ì˜ìž, 2: ê²Œìž„ë‚´ ìš´ì˜ìž
+	DWORD ultra_nk3	  :1;  // ê·¹ì•…í”¼ì¼€ì´	1004 YGI
+	DWORD ultra_nk4	  :1;  // ê·¹ì•…í”¼ì¼€ì´	1004 YGI
+	DWORD ultra_nk6	  :1;  // ê·¹ì•…í”¼ì¼€ì´	1004 YGI
 	DWORD reporter	  :1;
 	DWORD imsi		  :10; // 1004 YGI
 };	//> CSD-030723
@@ -1811,7 +1811,7 @@ extern bool g_block_attack;
 extern bool g_block_magic;
 extern bool g_block_steal;//030102 lsw
 extern bool g_stop_please_give_life;
-// ¸ÖÆ¼½º·¹Æ®¸¦ À§ÇÑ Setting.
+// ë©€í‹°ìŠ¤ë ˆíŠ¸ë¥¼ ìœ„í•œ Setting.
 extern HANDLE g_hSema;
 
 #include "../LowerLayers/MyLog.h"
@@ -1830,7 +1830,7 @@ extern HANDLE g_hSema;
 #include "Object.h"
 #include "NPC_Pattern.h"
 #include "AREA.H"
-#include "SkillMgr.h" //020214 lsw skill.h »èÁ¦
+#include "SkillMgr.h" //020214 lsw skill.h ì‚­ì œ
 #include "CrackMgr.h"
 #include "Map.h"
 #include "RajaSystem.h"
@@ -1838,7 +1838,7 @@ extern HANDLE g_hSema;
 #include "RareEffectMgr.h"
 #include "menuserver.h"
 #include "Nationsys_define.h"
-//#include "LocalizingMgr.h"	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ (À§ÀÇ MYSQL.H)¿¡ Æ÷ÇÔµÇ¾î ÀÖÀ½.
+//#include "LocalizingMgr.h"	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ìž‘ì—… (ìœ„ì˜ MYSQL.H)ì— í¬í•¨ë˜ì–´ ìžˆìŒ.
 #include "LottoSystem.h" // CSD-TW-030704
 
 extern CRareEffectMgr RareEM;

@@ -1,4 +1,4 @@
-// Shared.h: interface for the Shared Define.
+﻿// Shared.h: interface for the Shared Define.
 //
 //////////////////////////////////////////////////////////////////////
 

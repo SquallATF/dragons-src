@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ServerTable.h"
 
 #if defined(__IS_AGENT_SERVER) || defined(__IS_PROXY_SERVER)

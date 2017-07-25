@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "main.h"
 
 
@@ -30,7 +30,7 @@ int initNPCGenerationTable(void) ;
 
 extern HDBC hDBC ;
 
-// DB¿¡ ÀÖ´Â 3°³ÀÇ NPC Å×ÀÌºíÀ» ¸Ş¸ğ¸®·Î ÀĞ¾î¿Â´Ù.
+// DBì— ìˆëŠ” 3ê°œì˜ NPC í…Œì´ë¸”ì„ ë©”ëª¨ë¦¬ë¡œ ì½ì–´ì˜¨ë‹¤.
 int initNPCTable(void)
 {
 	if(initNPCInfoTable() < 0) return -1 ;
@@ -39,7 +39,7 @@ int initNPCTable(void)
 	return 1 ;
 }
 
-// NPCÀÌ¸§ »ı¼ºÀ» À§ÇÑ Å×ÀÌºíÀ» DB¿¡¼­ ÀĞ¾î¿À´Â ÇÔ¼ö
+// NPCì´ë¦„ ìƒì„±ì„ ìœ„í•œ í…Œì´ë¸”ì„ DBì—ì„œ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜
 int initNPCNameTable(void)
 {
 	if(Num_Of_NPC_Name <= 0) {
@@ -112,8 +112,8 @@ int initNPCNameTable(void)
 	return c ;
 }
 
-// NPCÁ¤º¸(»óÅÂÁ¤º¸, Èû/Áö´É µîÀÇ °¢Á¾ ¼öÄ¡)¸¦ ´ã°í ÀÖ´Â Å×ÀÌºíÀ» 
-// DB¿¡¼­ ÀĞ¾î¿À´Â ÇÔ¼ö
+// NPCì •ë³´(ìƒíƒœì •ë³´, í˜/ì§€ëŠ¥ ë“±ì˜ ê°ì¢… ìˆ˜ì¹˜)ë¥¼ ë‹´ê³  ìˆëŠ” í…Œì´ë¸”ì„ 
+// DBì—ì„œ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜
 int initNPCInfoTable(void)
 {
 	if(Num_Of_NPC_Type <= 0) {
@@ -355,9 +355,9 @@ int initNPCInfoTable(void)
 	return c ;
 }
 
-// NPCÁ¤º¸(»óÅÂÁ¤º¸, Èû/Áö´É µîÀÇ °¢Á¾ ¼öÄ¡)¸¦ ´ã°í ÀÖ´Â Å×ÀÌºíÀ» 
+// NPCì •ë³´(ìƒíƒœì •ë³´, í˜/ì§€ëŠ¥ ë“±ì˜ ê°ì¢… ìˆ˜ì¹˜)ë¥¼ ë‹´ê³  ìˆëŠ” í…Œì´ë¸”ì„ 
 
-// DB¿¡¼­ ÀĞ¾î¿À´Â ÇÔ¼ö
+// DBì—ì„œ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜
 int initNPCGenerationTable(void)
 {
 	if(Num_Of_NPC_Generation <= 0) {

@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "CItem.h"
 
@@ -98,7 +98,7 @@ int  AddItemList(int item_no, unsigned int attr[6], int dumno, int x, int y, int
 	i->birthday		= g_curr_time;
 	i->bObject		= 0;	//021030 YGI
 	
-	// BoxÀÏ°æ¿ì ¹Ú½º¸¦ ºÎ½Ç¶§, »ı¼ºµÉ Item°ú µ·À» ³Ö¾îµĞ´Ù.
+	// Boxì¼ê²½ìš° ë°•ìŠ¤ë¥¼ ë¶€ì‹¤ë•Œ, ìƒì„±ë  Itemê³¼ ëˆì„ ë„£ì–´ë‘”ë‹¤.
 	if( i->attr[ IATTR_ATTR] & IA2_BOX )									
 	{
 		int n = i->dumno;
@@ -245,7 +245,7 @@ ERROR_:
 
 
 
-// ÇöÀç »ç¿ë ¾ÈÇÔ.
+// í˜„ì¬ ì‚¬ìš© ì•ˆí•¨.
 void SendItemExplotion( int cn, int id ) 
 {	
 	t_packet p;
@@ -271,7 +271,7 @@ void SendItemExplotion( int cn, int id )
 	
 
 	
-// BoxÀ» ºÎ¼ö°í ³­µÚ ItemÀ» ¹ß»ı½ÃÅ°°Å³ª ÆøÆÄ½ÃÅ°´Â Ã³¸®¸¦ ÇÑ´Ù. 
+// Boxì„ ë¶€ìˆ˜ê³  ë‚œë’¤ Itemì„ ë°œìƒì‹œí‚¤ê±°ë‚˜ í­íŒŒì‹œí‚¤ëŠ” ì²˜ë¦¬ë¥¼ í•œë‹¤. 
 /*void ProcessItemsInBox( int boxitemid )
 {		
 	if( boxitemid < 0  || boxitemid >= MAX_ITEM_LIST ) return;
@@ -281,7 +281,7 @@ void SendItemExplotion( int cn, int id )
 	int n = i->dum;
 	if( n < 0 || n >= MAX_TABLE_ITEMS_IN_BOX ) return;
 		
-	if( !(i->attr[IATTR_ATTR] & IA2_BOX ) ) return; // Box°¡ ¾Æ´Ï¸é....
+	if( !(i->attr[IATTR_ATTR] & IA2_BOX ) ) return; // Boxê°€ ì•„ë‹ˆë©´....
 		
 	ItemAttr	item;
 	int itemno	= Itemsinbox[n].item[rand()%40];
@@ -289,7 +289,7 @@ void SendItemExplotion( int cn, int id )
 	int q		= Itemsinbox[n].quantity;
 	int	attrbroadcast = 0;
 		
-	//	¾ÆÀÌÅÛÀ» ¹ß»ı½ÃÅ²´Ù. 
+	//	ì•„ì´í…œì„ ë°œìƒì‹œí‚¨ë‹¤. 
 	if( itemno != -1 )
 	{	
 		for( int j  = 0 ; j < q ; j ++)
@@ -306,11 +306,11 @@ void SendItemExplotion( int cn, int id )
 	{	
 		SetArea(	ITEM_EXPLOTION_AREA,	boxitemid );
 		SetArea(	REMOVE_ITEM_AREA,		boxitemid );
-		// ÆøÆÄ...
+		// í­íŒŒ...
 		return;
 	}	
 		
-	//	µ·À» ¹ß»ı½ÃÅ²´Ù. 
+	//	ëˆì„ ë°œìƒì‹œí‚¨ë‹¤. 
 	if( m > 0 ) 
 	{	
 		item = GenerateItem( itemno/ 1000, itemno%1000, m, 0, 100 );
@@ -326,14 +326,14 @@ void SendItemExplotion( int cn, int id )
 }		*/
 
 
-// È­»ì·Î BoxItemÀ» ½î´Â ºÎºĞ¶§¹®¿¡ ³ª¿Â Packet... 0209 KHS
+// í™”ì‚´ë¡œ BoxItemì„ ì˜ëŠ” ë¶€ë¶„ë•Œë¬¸ì— ë‚˜ì˜¨ Packet... 0209 KHS
 void RecvCMD_JUST_ATTACK_ANIMATION( int cn, t_client_just_attack_animation *p )
 {
 	t_packet packet;
 	int boxitemid = p->item_id;
 	
 	if( boxitemid < 0 || boxitemid >= MAX_ITEM_LIST ) return;
-	if( ItemList[boxitemid].attr[ IATTR_ATTR] & IA2_OPENED ) return; // ¿­·Á ÀÖÀ¸¸é ¸®ÅÏ.
+	if( ItemList[boxitemid].attr[ IATTR_ATTR] & IA2_OPENED ) return; // ì—´ë ¤ ìˆìœ¼ë©´ ë¦¬í„´.
 
 
 	packet.h.header.type = CMD_ITEM_BOX_BREAK;
@@ -360,7 +360,7 @@ void RecvCMD_ITEM_BOX_BREAK( int cn, t_client_item_box_break *p )
 
 	
 	if( boxitemid < 0 || boxitemid >= MAX_ITEM_LIST ) return;
-	if( ItemList[boxitemid].attr[ IATTR_ATTR] & IA2_OPENED ) return; // ¿­·Á ÀÖÀ¸¸é ¸®ÅÏ.
+	if( ItemList[boxitemid].attr[ IATTR_ATTR] & IA2_OPENED ) return; // ì—´ë ¤ ìˆìœ¼ë©´ ë¦¬í„´.
 
 	if( ItemList[boxitemid].dum[0] == -1 || 
 		ItemList[boxitemid].dum[1] == -1 ||
@@ -394,7 +394,7 @@ void RecvCMD_ITEM_BOX_BREAK_RESULT( int cn, t_client_item_box_break_result *p )
 	
 	i = &ItemList[boxitemid];
 
-	if( !(i->attr[ IATTR_ATTR] & IA2_OPENED) ) return; // ¿­·Á ÀÖÀ¸¸é ¸®ÅÏ.
+	if( !(i->attr[ IATTR_ATTR] & IA2_OPENED) ) return; // ì—´ë ¤ ìˆìœ¼ë©´ ë¦¬í„´.
 		
 	int attrbroadcast = 0;
 	ItemAttr item;
@@ -409,7 +409,7 @@ void RecvCMD_ITEM_BOX_BREAK_RESULT( int cn, t_client_item_box_break_result *p )
 		AddItemList( item.item_no, item.attr, 0, i->x + 30 + (rand()%32),  i->y + 30 + (rand()%32), 0,0 );
 	}	
 		
-	//	µ·À» ¹ß»ı½ÃÅ²´Ù. 
+	//	ëˆì„ ë°œìƒì‹œí‚¨ë‹¤. 
 	if( i->money > 0 ) 
 	{	
 		if(LocalMgr.IsChangeMoney())//030102 lsw
@@ -441,11 +441,11 @@ void RecvCMD_ITEM_BOX_MAGIC_BREAK( int cn, t_client_item_box_magic_break	*p )
 	ITEMLIST *i;
 	
 	if( boxitemid < 0 || boxitemid >= MAX_ITEM_LIST ) return;
-	if( ItemList[boxitemid].attr[ IATTR_ATTR] & IA2_OPENED ) return; // ¿­·Á ÀÖÀ¸¸é ¸®ÅÏ.
+	if( ItemList[boxitemid].attr[ IATTR_ATTR] & IA2_OPENED ) return; // ì—´ë ¤ ìˆìœ¼ë©´ ë¦¬í„´.
 	i = &ItemList[boxitemid];
 
-	if( i->dum[0] == -1 || i->dum[1] == -1 ||i->money  == -1  ) type = 0;	// ÆøÆÄ½ÃÅ²´Ù. 
-	else type = 1;	// µ·ÀÌ³ª ¾ÆÀÌÅÛÀ» ÁØ´Ù. 
+	if( i->dum[0] == -1 || i->dum[1] == -1 ||i->money  == -1  ) type = 0;	// í­íŒŒì‹œí‚¨ë‹¤. 
+	else type = 1;	// ëˆì´ë‚˜ ì•„ì´í…œì„ ì¤€ë‹¤. 
 
 	ItemList[boxitemid].attr[ IATTR_ATTR] |= IA2_OPENED;
 	ItemList[boxitemid].attr[ IATTR_LIMIT] = g_curr_time + 300 + (rand()%100);
@@ -476,7 +476,7 @@ void RecvCMD_ITEM_BOX_MAGIC_BREAK( int cn, t_client_item_box_magic_break	*p )
 		AddItemList( item.item_no, item.attr, 0, i->x + 30 + (rand()%32),  i->y + 30 + (rand()%32), 0,0 );
 	}	
 		
-	//	µ·À» ¹ß»ı½ÃÅ²´Ù. 
+	//	ëˆì„ ë°œìƒì‹œí‚¨ë‹¤. 
 	if( i->money > 0 ) 
 	{	
 		if(LocalMgr.IsChangeMoney())//030102 lsw

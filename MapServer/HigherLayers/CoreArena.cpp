@@ -1,4 +1,4 @@
-// CoreArena.cpp: implementation of the CCoreArena class.
+ï»¿// CoreArena.cpp: implementation of the CCoreArena class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -65,13 +65,13 @@ bool CCoreArena::PlayGame(DWORD dwTime)
 	if (dwRemainTime <= 0)
 	{
 		/////////////////////////////////////////////////////////////////////////////
-		//	½ÂÆÐ °áÁ¤Àº °¡Àå ¸¹ÀÌ »ì¾Æ ÀÖ´Â ÆÀÀÌ ¿ì½ÂÇÏ°í È¤½Ã 
-		// »ì¾Æ ÀÖ´Â ¼ö°¡ °°À» °æ¿ì °¡Àå ³·Àº ·¹º§ ÆÀÀÌ ¿ì½ÂÇÑ´Ù.
-		// °¡Àå ¸¹ÀÌ »ì¾Æ ÀÖ´Â ÆÀÀÇ »ì¾Æ ³²Àº ¼ö¿Í ·¹º§À» ÀúÀåÇØµÎ°í ³ªÁß¿¡ Ã³¸®ÇÑ´Ù.
+		//	ìŠ¹íŒ¨ ê²°ì •ì€ ê°€ìž¥ ë§Žì´ ì‚´ì•„ ìžˆëŠ” íŒ€ì´ ìš°ìŠ¹í•˜ê³  í˜¹ì‹œ 
+		// ì‚´ì•„ ìžˆëŠ” ìˆ˜ê°€ ê°™ì„ ê²½ìš° ê°€ìž¥ ë‚®ì€ ë ˆë²¨ íŒ€ì´ ìš°ìŠ¹í•œë‹¤.
+		// ê°€ìž¥ ë§Žì´ ì‚´ì•„ ìžˆëŠ” íŒ€ì˜ ì‚´ì•„ ë‚¨ì€ ìˆ˜ì™€ ë ˆë²¨ì„ ì €ìž¥í•´ë‘ê³  ë‚˜ì¤‘ì— ì²˜ë¦¬í•œë‹¤.
 		/////////////////////////////////////////////////////////////////////////////
-		int top = -1;		// °¡Àå ¸¹ÀÌ »ì¾Æ ÀÖ´Â ÆÀÀÇ ¼ö 
-		int bottom_level = 1000000;		// °¡Àå ³·Àº ·¹º§
-		bool is_over = false;	// °¡Àå ¸¹ÀÌ »ì¾Æ ÀÖ´Â ÆÀÀÌ 2ÆÀ ÀÌ»óÀÎ°¡?
+		int top = -1;		// ê°€ìž¥ ë§Žì´ ì‚´ì•„ ìžˆëŠ” íŒ€ì˜ ìˆ˜ 
+		int bottom_level = 1000000;		// ê°€ìž¥ ë‚®ì€ ë ˆë²¨
+		bool is_over = false;	// ê°€ìž¥ ë§Žì´ ì‚´ì•„ ìžˆëŠ” íŒ€ì´ 2íŒ€ ì´ìƒì¸ê°€?
 
 		for (ITOR_TEAM j = m_ltTeam.begin(); j != m_ltTeam.end(); ++j)
 		{
@@ -93,7 +93,7 @@ bool CCoreArena::PlayGame(DWORD dwTime)
 			}			
 		}
 
-		if (is_over) // ³²Àº ¼ö°¡ °°Àº °æ¿ì ·¹º§±îÁö Ã¼Å©ÇÑ´Ù.
+		if (is_over) // ë‚¨ì€ ìˆ˜ê°€ ê°™ì€ ê²½ìš° ë ˆë²¨ê¹Œì§€ ì²´í¬í•œë‹¤.
 		{
 			for (ITOR_TEAM k = m_ltTeam.begin(); k != m_ltTeam.end(); ++k)
 			{
@@ -105,11 +105,11 @@ bool CCoreArena::PlayGame(DWORD dwTime)
 				if (nCount == top && nTotal == bottom_level)
 				{
 					pTeam->SetGameResult(FST_WIN);
-					pTeam->GiveBonus(); // °×ºí ¾ÆÀÌÅÛÀ» ÁØ´Ù.
+					pTeam->GiveBonus(); // ê²œë¸” ì•„ì´í…œì„ ì¤€ë‹¤.
 
 					const DWORD dwFlowTime = m_pState->GetFlowTime(dwTime);
 					
-					if (dwFlowTime < 300)		// 5ºÐ ÀÌ³»¶ó¸é
+					if (dwFlowTime < 300)		// 5ë¶„ ì´ë‚´ë¼ë©´
 					{
 						MyLog(LOG_NORMAL, "Team Battle End!!! time = %d", dwFlowTime);
 					}

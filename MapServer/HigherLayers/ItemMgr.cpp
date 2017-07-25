@@ -1,4 +1,4 @@
-// ItemMgr.cpp: implementation of the CItemMgr class.
+ï»¿// ItemMgr.cpp: implementation of the CItemMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -51,7 +51,7 @@ bool CItemMgr::SwapItem(ITEMATTR &src,ITEMATTR &target)
 {
 	ITEMATTR temp;
 
-// ÀÌ°Å´Â ³ªÁß¿¡ ³ÖÀ¾½Ã´Ù..
+// ì´ê±°ëŠ” ë‚˜ì¤‘ì— ë„£ìì‹œë‹¤..
 	if(!CheckFaultItem(src,true))	{return false;}
 	if(!CheckFaultItem(target,true)){return false;}
 
@@ -93,15 +93,15 @@ int CItemMgr::GetItemValue(const ITEMATTR item)
 	const int	iType = item.item_no/1000;
 	const int	iBase	= t->GetValue();
 	
-	if( t->GetRbutton()==DIVIDE_ITEM )		// ¼ö·®À» ÀÇ¹Ì...
+	if( t->GetRbutton()==DIVIDE_ITEM )		// ìˆ˜ëŸ‰ì„ ì˜ë¯¸...
 	{
 		if( iType == DISPOSABLE ) 
 		{
-			iMuch = t->GetItemQuantity();	// dispoableÀÏ °æ¿ì
+			iMuch = t->GetItemQuantity();	// dispoableì¼ ê²½ìš°
 		}
 		else
 		{
-			iMuch = t->GetItemDuration();		// 10°³ ´ÜÀ§
+			iMuch = t->GetItemDuration();		// 10ê°œ ë‹¨ìœ„
 		}
 		if( !iMuch ){ iMuch = 1;}
 		iPrice = (unsigned int)((iBase * .9+.5)*(item.attr[IATTR_MUCH]/(float)iMuch));
@@ -118,13 +118,13 @@ int CItemMgr::GetItemValue(const ITEMATTR item)
 	if( wMax )
 	{	
 		/*
-		if( (item->attr[IATTR_LIMIT]-g_curr_time) > 0 )		// À¯Åë±âÇÑÀÌ ³²¾Æ ÀÖ¾î¾ß ÇÑ´Ù. ÀÌ °³³ä »ç¶óÁü ³ªÁßÀ» À§ÇØ¼­ ÁÖ¼® Ã³¸®
+		if( (item->attr[IATTR_LIMIT]-g_curr_time) > 0 )		// ìœ í†µê¸°í•œì´ ë‚¨ì•„ ìˆì–´ì•¼ í•œë‹¤. ì´ ê°œë… ì‚¬ë¼ì§ ë‚˜ì¤‘ì„ ìœ„í•´ì„œ ì£¼ì„ ì²˜ë¦¬
 		{
 			price = (int)( (float)(base*.9)*d_curr/(float)d_max+.5 );
 			return price;
 		}
 		*/
-		iPrice = (unsigned int)( (float)(iBase*.9)*wNow/(float)wMax+.5 );		// ÀÓ½Ã 
+		iPrice = (unsigned int)( (float)(iBase*.9)*wNow/(float)wMax+.5 );		// ì„ì‹œ 
 		return iPrice;
 	}
 	return 0;
@@ -136,26 +136,26 @@ int	CItemMgr::GetItemDur(const ITEMATTR item, unsigned short &NowDur,unsigned sh
 	MaxDur = 0;
 	CItem *t = ConvertItemNoToCItem(item.item_no);
 	if(!t){return 0;}
-	if( t->GetRbutton()==DIVIDE_ITEM ){return 0;}//³ª´©¾îÁö´Â ¾ÆÀÌÅÛ ÀÌ¹Ç·Î µà·¹ÀÌ¼ÇÀÌ ¾Æ´Ï´Ù
+	if( t->GetRbutton()==DIVIDE_ITEM ){return 0;}//ë‚˜ëˆ„ì–´ì§€ëŠ” ì•„ì´í…œ ì´ë¯€ë¡œ ë“€ë ˆì´ì…˜ì´ ì•„ë‹ˆë‹¤
 	
 	NowDur = LOWORD( item.attr[IATTR_DURATION] );
 	MaxDur = HIWORD( item.attr[IATTR_DURATION] );
 	return 1;
 }
 
-int	CItemMgr::GetItemMuch(const ITEMATTR item, int &NowMuch)//³ª´©¾î Áö´Â ¾ÆÀÌÅÛÀÏ °æ¿ì
+int	CItemMgr::GetItemMuch(const ITEMATTR item, int &NowMuch)//ë‚˜ëˆ„ì–´ ì§€ëŠ” ì•„ì´í…œì¼ ê²½ìš°
 {
 	NowMuch = 0;
 	CItem *t = ConvertItemNoToCItem(item.item_no);
 	if(!t){return 0;}
-	if( t->GetRbutton()!=DIVIDE_ITEM ){return 0;}//³ª´©¾îÁö´Â ¾ÆÀÌÅÛÀÌ ¾Æ´Ï´Ï±î °ªÀ» ¹ŞÁö ¸øÇÔ
+	if( t->GetRbutton()!=DIVIDE_ITEM ){return 0;}//ë‚˜ëˆ„ì–´ì§€ëŠ” ì•„ì´í…œì´ ì•„ë‹ˆë‹ˆê¹Œ ê°’ì„ ë°›ì§€ ëª»í•¨
 	NowMuch = item.attr[IATTR_MUCH];
 	return 1;
 }
 
 int CItemMgr::ChangeItemAttribute(ITEMATTR &TargetItem, const int iType, const int iAttr)
 {
-	if(!(&TargetItem)){return 0;}//´ë»óÀÇ ÁÖ¼Ò°¡ ¿ÇÀºÁö °Ë»ç
+	if(!(&TargetItem)){return 0;}//ëŒ€ìƒì˜ ì£¼ì†Œê°€ ì˜³ì€ì§€ ê²€ì‚¬
 
 	switch(iType)
 	{
@@ -168,17 +168,17 @@ int CItemMgr::ChangeItemAttribute(ITEMATTR &TargetItem, const int iType, const i
 	case IATTR_RESERVED1:	{	TargetItem.attr[IATTR_RESERVED1]= iAttr;	}	break;
 	default :				{	return 0;	}									break;
 	}
-	return CheckFaultItem(TargetItem,true);//¹Ù²Ù°í ³ª¼­ ÀÌ»óÇÑ ³ğÀº Áö¿ö ¹ö¸°´Ù Áö¿öÁö¸é 0 ¸®ÅÏ ¾ÈÁö¿öÁö¸é 1 ¸®ÅÏ
+	return CheckFaultItem(TargetItem,true);//ë°”ê¾¸ê³  ë‚˜ì„œ ì´ìƒí•œ ë†ˆì€ ì§€ì›Œ ë²„ë¦°ë‹¤ ì§€ì›Œì§€ë©´ 0 ë¦¬í„´ ì•ˆì§€ì›Œì§€ë©´ 1 ë¦¬í„´
 }
 
 int CItemMgr::ChangeItemAttribute(ITEMATTR &TargetItem, const ITEMATTR SourceItem)
 {	
-	if(!(&TargetItem)){return 0;}//´ë»óÀÇ ÁÖ¼Ò°¡ ¿ÇÀºÁö °Ë»ç
+	if(!(&TargetItem)){return 0;}//ëŒ€ìƒì˜ ì£¼ì†Œê°€ ì˜³ì€ì§€ ê²€ì‚¬
 	TargetItem = SourceItem;
 	return 1;
 }
 
-int	CItemMgr::GetItemTactic(const int iItemNo)//¾øÀ¸¸é ÁÖ¸ÔÀÌ ±âº» ÅÃÆ½
+int	CItemMgr::GetItemTactic(const int iItemNo)//ì—†ìœ¼ë©´ ì£¼ë¨¹ì´ ê¸°ë³¸ íƒí‹±
 {
 	CItem *t = ConvertItemNoToCItem(iItemNo);
 	if(!t)	{return TACTICS_Crapple;}
@@ -204,7 +204,7 @@ int	CItemMgr::GenerateItemLimitNumber( int item_no )
 	limit_number.who_make = MapNumber+1;
 	limit_number.number = GetLimitNumber( item_no );
 
-	if( limit_number.number == LIMIT_OF_NO_HAVE_LIMIT_ITEM )		// ¸®¹ÌÆ® ¹øÈ£°¡ ¾ø´Â°Å
+	if( limit_number.number == LIMIT_OF_NO_HAVE_LIMIT_ITEM )		// ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸ê°€ ì—†ëŠ”ê±°
 	{
 		limit_number.who_make = 255;
 		limit_number.number = g_curr_time_with_out_year;
@@ -224,7 +224,7 @@ int	CItemMgr::GenerateItemDuration(const int iItemNo)
 	CItem *t = ConvertItemNoToCItem(iItemNo);
 	if( t == NULL ) return 0;
 
-	if( t->GetRbutton() == DIVIDE_ITEM ) //³ª´² Áö´Â °Å´Â MAKELONG ¾ÈÇÔ
+	if( t->GetRbutton() == DIVIDE_ITEM ) //ë‚˜ëˆ  ì§€ëŠ” ê±°ëŠ” MAKELONG ì•ˆí•¨
 	{
 		switch (iItemNo/1000)
 		{
@@ -242,13 +242,13 @@ int	CItemMgr::GenerateItemDuration(const int iItemNo)
 	}
 	else 
 	{
-		iDuration = MAKELONG( t->GetDuration(), t->GetDuration() );//´Ù¸¥ ÀÏ¹İÀû ¾ÆÀÌÅÛÀº 
+		iDuration = MAKELONG( t->GetDuration(), t->GetDuration() );//ë‹¤ë¥¸ ì¼ë°˜ì  ì•„ì´í…œì€ 
 	}
 
 	return iDuration;
 }
 
-#include "eventmgr.h"	// 040105 YGI º¸¹°
+#include "eventmgr.h"	// 040105 YGI ë³´ë¬¼
 
 ITEMATTR CItemMgr::GenerateItem(const int iItemNo)
 {
@@ -269,20 +269,20 @@ ITEMATTR CItemMgr::GenerateItem(const int iItemNo)
 	{
 		MyLog( 0, "GenerateItem() : Can't generatie Item [%d] because wrong ObjectNumber", iItemNo );
 		return item;
-	}//¿ÀºêÁ§Æ® ÀÌ¹ÌÁö ³Ñ¹ö ¾øÀ¸¸é Áö¿öÁü
+	}//ì˜¤ë¸Œì íŠ¸ ì´ë¯¸ì§€ ë„˜ë²„ ì—†ìœ¼ë©´ ì§€ì›Œì§
 	
 	item.item_no = iItemNo;
 
 	int iDuration = GenerateItemDuration(iItemNo); 
 
-	if( iDuration )		// durÀÌ 0ÀÏ°æ¿ì »ı¼º½ÃÅ°Áö ¾Ê´Â´Ù.
+	if( iDuration )		// durì´ 0ì¼ê²½ìš° ìƒì„±ì‹œí‚¤ì§€ ì•ŠëŠ”ë‹¤.
 	{
 		item.attr[IATTR_DURATION]	= iDuration;
 		item.attr[IATTR_LIMIT]		= GenerateItemLimitNumber( item.item_no );	// 031009 CI YGI
 	}
 	else 
 	{
-		DeleteItem(item);//Å¬·¡½º ³»ºÎ²¨ÀÓ
+		DeleteItem(item);//í´ë˜ìŠ¤ ë‚´ë¶€êº¼ì„
 		return item;
 	}
 
@@ -291,7 +291,7 @@ ITEMATTR CItemMgr::GenerateItem(const int iItemNo)
 
 	if( item.item_no == IN_NEW_COINS && item.attr[IATTR_MUCH] <= 5 ) item.item_no = IN_NEW_COIN;			// 010210 YGI
 	else if( item.item_no == IN_NEW_COIN && item.attr[IATTR_MUCH] > 5 ) item.item_no = IN_NEW_COINS;
-	// 040105 YGI º¸¹°
+	// 040105 YGI ë³´ë¬¼
 	if( IsTreasureMapItem( item.item_no ) )
 	{
 		CTreasureMapItem treasure_attr = {0, };
@@ -313,7 +313,7 @@ ITEMATTR CItemMgr::GenerateItem(const int iItemNo, const int iType , const int i
 	if(!t){return item;}
 
 	if( iType == IATTR_MUCH)
-	{//¼ö·® ºÎºĞÀº Ä¿½ºÅÒ ÇÏ°Ô ¼ÂÆÃ ÇÑ´Ù//iCustomValueResult ¸¦ º¯È­ ½ÃÅ²°É·Î
+	{//ìˆ˜ëŸ‰ ë¶€ë¶„ì€ ì»¤ìŠ¤í…€ í•˜ê²Œ ì…‹íŒ… í•œë‹¤//iCustomValueResult ë¥¼ ë³€í™” ì‹œí‚¨ê±¸ë¡œ
 		if(t->GetRbutton() == DIVIDE_ITEM ) {iCustomValueResult = iCustomValue;}
 		else								{iCustomValueResult = MAKELONG( iCustomValue, iCustomValue);}
 	}
@@ -330,36 +330,36 @@ int	CItemMgr::CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)//020205 lsw
 	WORD dmax=0;
 
 	if(!t)							{goto _DELETE_ITEM;}
-	if(!t->GetItemImage())			{goto _DELETE_ITEM;}//¾ÆÀÌÅÛ ÀÌ¹ÌÁö ³Ñ¹ö ¾øÀ¸¸é Áö¿öÁü
-	if(!t->GetObjectNumber())		{goto _DELETE_ITEM;}//¿ÀºêÁ§Æ® ÀÌ¹ÌÁö ³Ñ¹ö ¾øÀ¸¸é Áö¿öÁü
+	if(!t->GetItemImage())			{goto _DELETE_ITEM;}//ì•„ì´í…œ ì´ë¯¸ì§€ ë„˜ë²„ ì—†ìœ¼ë©´ ì§€ì›Œì§
+	if(!t->GetObjectNumber())		{goto _DELETE_ITEM;}//ì˜¤ë¸Œì íŠ¸ ì´ë¯¸ì§€ ë„˜ë²„ ì—†ìœ¼ë©´ ì§€ì›Œì§
 
-	if(!item.item_no)				{goto _DELETE_ITEM;}//¾ÆÀÌÅÛ ¹øÈ£ ¾øÀ¸¸é Áö¿öÁü
-	if(!item.attr[IATTR_DURATION])	{goto _DELETE_ITEM;}//¾ÆÀÌÅÛ ³»±¸µµ ¾øÀ¸¸é Áö¿öÁü
+	if(!item.item_no)				{goto _DELETE_ITEM;}//ì•„ì´í…œ ë²ˆí˜¸ ì—†ìœ¼ë©´ ì§€ì›Œì§
+	if(!item.attr[IATTR_DURATION])	{goto _DELETE_ITEM;}//ì•„ì´í…œ ë‚´êµ¬ë„ ì—†ìœ¼ë©´ ì§€ì›Œì§
 	
 	if(DIVIDE_ITEM == t->GetRbutton())
-	{	//-°ªÀ» °¡Áø°ÍÀº Áö¿ìÀÚ
+	{	//-ê°’ì„ ê°€ì§„ê²ƒì€ ì§€ìš°ì
 		if( 0 > ((int)item.attr[IATTR_MUCH]) ){ goto _DELETE_ITEM; }
-		if( MAX_DIVIDE_ITEM < (item.attr[IATTR_MUCH]) )//ÃÖ´ë °ª º¸´Ù ¸¹À¸¸é 100 ¸¸°³·Î Á¦ÇÑ
+		if( MAX_DIVIDE_ITEM < (item.attr[IATTR_MUCH]) )//ìµœëŒ€ ê°’ ë³´ë‹¤ ë§ìœ¼ë©´ 100 ë§Œê°œë¡œ ì œí•œ
 		{
 			item.attr[IATTR_MUCH] = MAX_DIVIDE_ITEM;
-		}//100¸¸°³ º¸´Ù ¸¹À¸¸é
+		}//100ë§Œê°œ ë³´ë‹¤ ë§ìœ¼ë©´
 	}
 	else
 	{
-		if(!GetItemDur( item, ddur, dmax ))	{	goto _DELETE_ITEM;	}//³»±¸µµ¸¦ ¹ŞÀ» ¼ö ¾ø´Ù?
-		if( ddur > dmax)					{	goto _DELETE_ITEM;	}//¸Æ½º º¸´Ù ÇöÀç°¡ ¸¹¾Æ?
+		if(!GetItemDur( item, ddur, dmax ))	{	goto _DELETE_ITEM;	}//ë‚´êµ¬ë„ë¥¼ ë°›ì„ ìˆ˜ ì—†ë‹¤?
+		if( ddur > dmax)					{	goto _DELETE_ITEM;	}//ë§¥ìŠ¤ ë³´ë‹¤ í˜„ì¬ê°€ ë§ì•„?
 	}
 
-	if(item.attr[IATTR_RARE_MAIN])	//·¹¾îÀÎµ¥
+	if(item.attr[IATTR_RARE_MAIN])	//ë ˆì–´ì¸ë°
 	{
 		RareMain *pRare = (RareMain*)&item.attr[IATTR_RARE_MAIN];
 		switch(pRare->iHighLevel)
 		{
 		case H_LV_NO_HIGH_ITEM:
-			{//±â´É¾ÆÀÌÅÛµµ ¿©±â¿¡ µé¾î¿À´Ï±î Á¶½É.  MAX_STATIC_RARE ¸¦ ³Ñ´Â Item_Fuction ÀÌ ÀÖ´Ù¸é Áö¿öÁú °ÍÀÔ´Ï´Ù.
+			{//ê¸°ëŠ¥ì•„ì´í…œë„ ì—¬ê¸°ì— ë“¤ì–´ì˜¤ë‹ˆê¹Œ ì¡°ì‹¬.  MAX_STATIC_RARE ë¥¼ ë„˜ëŠ” Item_Fuction ì´ ìˆë‹¤ë©´ ì§€ì›Œì§ˆ ê²ƒì…ë‹ˆë‹¤.
 				if(pRare->soksung1)
 				{
-					if( MAX_STATIC_RARE < pRare->soksung1)//½ºÅÂÆ½ ·¹¾î  ÃÖ´ëÄ¡ º¸´Ù Å©´Ù¸é
+					if( MAX_STATIC_RARE < pRare->soksung1)//ìŠ¤íƒœí‹± ë ˆì–´  ìµœëŒ€ì¹˜ ë³´ë‹¤ í¬ë‹¤ë©´
 					{
 						rareresult = 7;
 					}
@@ -368,36 +368,36 @@ int	CItemMgr::CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)//020205 lsw
 				{
 					rareresult = 8;
 				}
-				if(	!pRare->grade//µî±ŞÀÌ ¾ø°Å³ª
-				||	!pRare->soksung1)//¼Ó¼º ¸ŞÀÎÀÌ ¾ø³×..
-				{	rareresult = 5;	}//±×·³ Áö¿ö¾ßÁö
+				if(	!pRare->grade//ë“±ê¸‰ì´ ì—†ê±°ë‚˜
+				||	!pRare->soksung1)//ì†ì„± ë©”ì¸ì´ ì—†ë„¤..
+				{	rareresult = 5;	}//ê·¸ëŸ¼ ì§€ì›Œì•¼ì§€
 			}break;
 		case H_LV_HIGH_ITEM:
 			{
 				if(pRare->soksung1)
 				{
-					if( START_HIGH_RARE > pRare->soksung1)//ÇÏÀÌ·¹¾î ½ÃÀÛÁ¡ º¸´Ù ¼Ó¼ºÀÌ ³·´Ù¸é
+					if( START_HIGH_RARE > pRare->soksung1)//í•˜ì´ë ˆì–´ ì‹œì‘ì  ë³´ë‹¤ ì†ì„±ì´ ë‚®ë‹¤ë©´
 					{
 						rareresult = 7;
 					}
-					if(pRare->soksung2 || pRare->soksung3)//ÇÏÀÌ¾ÆÀÌÅÛÀÎµ¥ ¸ÖÆ¼ ¼Ó¼ºÀÌ¶ó¸é
+					if(pRare->soksung2 || pRare->soksung3)//í•˜ì´ì•„ì´í…œì¸ë° ë©€í‹° ì†ì„±ì´ë¼ë©´
 					{
 						rareresult = 11;
 					}
 				}
-				else//ÇÏÀÌÀÎµ¥ ¼Ó¼ºÀÌ ¾ø´Ù¸é
+				else//í•˜ì´ì¸ë° ì†ì„±ì´ ì—†ë‹¤ë©´
 				{
 					rareresult = 8;
 				}
-				if(	!pRare->grade//µî±ŞÀÌ ¾ø°Å³ª
-				||	!pRare->soksung1)//¼Ó¼º ¸ŞÀÎÀÌ ¾ø³×..
-				{	rareresult = 5;	}//±×·³ Áö¿ö¾ßÁö
+				if(	!pRare->grade//ë“±ê¸‰ì´ ì—†ê±°ë‚˜
+				||	!pRare->soksung1)//ì†ì„± ë©”ì¸ì´ ì—†ë„¤..
+				{	rareresult = 5;	}//ê·¸ëŸ¼ ì§€ì›Œì•¼ì§€
 			}break;
 		case H_LV_LEGEND_ITEM:
 			{
-				if(	!pRare->soksung2//·¹Àüµå ±×·ì ³Ñ¹ö
-				&& 	!pRare->soksung3)//·¹Àüµå ±×·ì ÀÎµ¦½º ¾ø´Ù
-				{	rareresult = 10;	}//±×·³ Áö¿ö¾ßÁö
+				if(	!pRare->soksung2//ë ˆì „ë“œ ê·¸ë£¹ ë„˜ë²„
+				&& 	!pRare->soksung3)//ë ˆì „ë“œ ê·¸ë£¹ ì¸ë±ìŠ¤ ì—†ë‹¤
+				{	rareresult = 10;	}//ê·¸ëŸ¼ ì§€ì›Œì•¼ì§€
 			}break;
 		default:
 			{
@@ -407,7 +407,7 @@ int	CItemMgr::CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)//020205 lsw
 
 		if(rareresult)
 		{
-			item.attr[IATTR_RARE_MAIN] = 0;//·¹¾î Å¬¸®¾î
+			item.attr[IATTR_RARE_MAIN] = 0;//ë ˆì–´ í´ë¦¬ì–´
 		}
 
 		switch(item.item_no)
@@ -417,7 +417,7 @@ int	CItemMgr::CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)//020205 lsw
 		case IN_NEW_COIN:
 		case IN_NEW_COINS:
 			{
-				item.attr[IATTR_RARE_MAIN] = 0;//·¹¾î Å¬¸®¾î
+				item.attr[IATTR_RARE_MAIN] = 0;//ë ˆì–´ í´ë¦¬ì–´
 			}break;
 		default:
 			{	
@@ -451,7 +451,7 @@ int	CItemMgr::CheckAddAbleItem(const ITEMATTR SourceItem,const ITEMATTR TargetIt
 	return 1;
 }
 
-int	CItemMgr::CombineItem(ITEMATTR &SourceItem,ITEMATTR &TargetItem)//¾ÆÀÌÅÛ ¼ö·® ÇÕÄ¡±â
+int	CItemMgr::CombineItem(ITEMATTR &SourceItem,ITEMATTR &TargetItem)//ì•„ì´í…œ ìˆ˜ëŸ‰ í•©ì¹˜ê¸°
 {
 	if(!CheckAddAbleItem(SourceItem,TargetItem)){return 0;}
 
@@ -467,20 +467,20 @@ int	CItemMgr::DeleteItem(ITEMATTR &item)
 	return ::DeleteItem( &item );
 }
 
-int CItemMgr::DecItemDur(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³ÖÀ»°Í À½¼ö·Î ³ÖÀ¸¸é ³»±¸µµ Áõ°¡
+int CItemMgr::DecItemDur(ITEMATTR &item, const DWORD iValue)//ì–‘ìˆ˜ë¡œ ë„£ì„ê²ƒ ìŒìˆ˜ë¡œ ë„£ìœ¼ë©´ ë‚´êµ¬ë„ ì¦ê°€
 {
 	CItem* t = ConvertItemNoToCItem(item.item_no);
 	if(!t){return 0;}
 
 	if(t->GetRbutton() == DIVIDE_ITEM)
 	{
-		if(item.attr[IATTR_MUCH] <= iValue)//»¬ ¼ö·®ÀÌ Àû°Å³ª °°´Ù.
+		if(item.attr[IATTR_MUCH] <= iValue)//ëº„ ìˆ˜ëŸ‰ì´ ì ê±°ë‚˜ ê°™ë‹¤.
 		{
-			item.attr[IATTR_MUCH]  =0;//¾ø¾îÁ³À¸¸é	
+			item.attr[IATTR_MUCH]  =0;//ì—†ì–´ì¡Œìœ¼ë©´	
 			return 1;
-		}//À§Á¶°Ç¿¡¼­ ³Ñ¾î ¿ÔÀ¸¸é »©µµ µÈ´Ù
+		}//ìœ„ì¡°ê±´ì—ì„œ ë„˜ì–´ ì™”ìœ¼ë©´ ë¹¼ë„ ëœë‹¤
 		item.attr[IATTR_MUCH] -=iValue;
-		return 2;// ¼ö·®ÀÌ º¯Çß´Ù
+		return 2;// ìˆ˜ëŸ‰ì´ ë³€í–ˆë‹¤
 	}
 	else
 	{
@@ -492,11 +492,11 @@ int CItemMgr::DecItemDur(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³ÖÀ»°Í À½¼ö
 
 		WORD dOld = wNow;
 
-		if(wNow <= iValue)//»¬ °ªÀÌ ³²Àº°Å º¸´Ù ¸¹´Ù¸é
+		if(wNow <= iValue)//ëº„ ê°’ì´ ë‚¨ì€ê±° ë³´ë‹¤ ë§ë‹¤ë©´
 		{
 			DeleteItem( item );
 			return 1;
-		}//»©µµ µÇ´Â °Å¶ó¸é
+		}//ë¹¼ë„ ë˜ëŠ” ê±°ë¼ë©´
 		else
 		{
 			wNow -= iValue;
@@ -505,11 +505,11 @@ int CItemMgr::DecItemDur(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³ÖÀ»°Í À½¼ö
 			
 			item.attr[IATTR_DURATION] = MAKELONG( wNow, wMax );
 
-			if( wNow/10 == 0 ) // DurationÀÌ 0ÀÌ µÇ¾ú´Ù.
+			if( wNow/10 == 0 ) // Durationì´ 0ì´ ë˜ì—ˆë‹¤.
 			{
 				return 1;
 			}
-			if( wNow/10 != dOld/10 )  // ¹øÈ­µÈ ¼Ó¼ºÀ» PC¿¡°Ô º¸³»ÁØ´Ù.
+			if( wNow/10 != dOld/10 )  // ë²ˆí™”ëœ ì†ì„±ì„ PCì—ê²Œ ë³´ë‚´ì¤€ë‹¤.
 			{
 				return 2;
 			}
@@ -518,22 +518,22 @@ int CItemMgr::DecItemDur(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³ÖÀ»°Í À½¼ö
 	return 0;
 }
 
-//<050425_KCH (¸Ş¸ğ¸® ÇØÅ·)¿¡¼­ Item ³»±¸µµ °¨¼Ò·Î ±úÁú¶§ Ä³¸¯¿¡ Àû¿ëµÈ µ¥¹ÌÁö°¡ °¨¼ÒµÇÁö ¾Ê´Â ¹ö±× À¯¹ßµÊ
-// ±âÁ¸ÀÇ DecItemDur´Â ¿©·¯°¡Áö·Î È¥¶õ½º·´°Ô »ç¿ëµÇ°í ÀÖÀ½, ±×·¡¼­ Âø¿ë¾ÆÀÌÅÛÀÇ ³»±¸µµ °¨¼ÒÇÔ¼ö¸¸ µû·Î »­.
-int CItemMgr::DecItemDur_ForEquip(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³ÖÀ»°Í À½¼ö·Î ³ÖÀ¸¸é ³»±¸µµ Áõ°¡
+//<050425_KCH (ë©”ëª¨ë¦¬ í•´í‚¹)ì—ì„œ Item ë‚´êµ¬ë„ ê°ì†Œë¡œ ê¹¨ì§ˆë•Œ ìºë¦­ì— ì ìš©ëœ ë°ë¯¸ì§€ê°€ ê°ì†Œë˜ì§€ ì•ŠëŠ” ë²„ê·¸ ìœ ë°œë¨
+// ê¸°ì¡´ì˜ DecItemDurëŠ” ì—¬ëŸ¬ê°€ì§€ë¡œ í˜¼ë€ìŠ¤ëŸ½ê²Œ ì‚¬ìš©ë˜ê³  ìˆìŒ, ê·¸ë˜ì„œ ì°©ìš©ì•„ì´í…œì˜ ë‚´êµ¬ë„ ê°ì†Œí•¨ìˆ˜ë§Œ ë”°ë¡œ ëºŒ.
+int CItemMgr::DecItemDur_ForEquip(ITEMATTR &item, const DWORD iValue)//ì–‘ìˆ˜ë¡œ ë„£ì„ê²ƒ ìŒìˆ˜ë¡œ ë„£ìœ¼ë©´ ë‚´êµ¬ë„ ì¦ê°€
 {
 	CItem* t = ConvertItemNoToCItem(item.item_no);
 	if(!t){return 0;}
 
 	if(t->GetRbutton() == DIVIDE_ITEM)
 	{
-		if(item.attr[IATTR_MUCH] <= iValue)//»¬ ¼ö·®ÀÌ Àû°Å³ª °°´Ù.
+		if(item.attr[IATTR_MUCH] <= iValue)//ëº„ ìˆ˜ëŸ‰ì´ ì ê±°ë‚˜ ê°™ë‹¤.
 		{
-			item.attr[IATTR_MUCH]  =0;//¾ø¾îÁ³À¸¸é	
+			item.attr[IATTR_MUCH]  =0;//ì—†ì–´ì¡Œìœ¼ë©´	
 			return 1;
-		}//À§Á¶°Ç¿¡¼­ ³Ñ¾î ¿ÔÀ¸¸é »©µµ µÈ´Ù
+		}//ìœ„ì¡°ê±´ì—ì„œ ë„˜ì–´ ì™”ìœ¼ë©´ ë¹¼ë„ ëœë‹¤
 		item.attr[IATTR_MUCH] -=iValue;
-		return 2;// ¼ö·®ÀÌ º¯Çß´Ù
+		return 2;// ìˆ˜ëŸ‰ì´ ë³€í–ˆë‹¤
 	}
 	else
 	{
@@ -545,15 +545,15 @@ int CItemMgr::DecItemDur_ForEquip(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³Ö
 
 		WORD dOld = wNow;
 
-		if(wNow <= iValue)//»¬ °ªÀÌ ³²Àº°Å º¸´Ù ¸¹´Ù¸é
+		if(wNow <= iValue)//ëº„ ê°’ì´ ë‚¨ì€ê±° ë³´ë‹¤ ë§ë‹¤ë©´
 		{
-			//<050425_KCH ÀÌºÎºĞÀÌ ÀÏ¹İ³»±¸µµ °¨¼Ò¿Í ´Ù¸£°Ô Àû¿ë. 
-			//Âø¿ë¾ÆÀÌÅÛÀº ¸®ÅÏ°ª¿¡ µû¶ó¼­ ÇØ´ç¾ÆÀÌÅÛÁ¤º¸¸¦ Åä´ë·Î Ä³¸¯¿¡ Àû¿ëµÈ µ©Áã¸¦ ¸ÕÀú»©°í, ¾ÆÅÛ»èÁ¦Ã³¸®
-			// ¾ÆÅÛ»èÁ¦ÈÄ, Ä³¸¯Àû¿ëµÈ µ©Áã´Â SkipµÇ´Â ¹ö±×.
+			//<050425_KCH ì´ë¶€ë¶„ì´ ì¼ë°˜ë‚´êµ¬ë„ ê°ì†Œì™€ ë‹¤ë¥´ê²Œ ì ìš©. 
+			//ì°©ìš©ì•„ì´í…œì€ ë¦¬í„´ê°’ì— ë”°ë¼ì„œ í•´ë‹¹ì•„ì´í…œì •ë³´ë¥¼ í† ëŒ€ë¡œ ìºë¦­ì— ì ìš©ëœ ë€ì¥ë¥¼ ë¨¼ì €ë¹¼ê³ , ì•„í…œì‚­ì œì²˜ë¦¬
+			// ì•„í…œì‚­ì œí›„, ìºë¦­ì ìš©ëœ ë€ì¥ëŠ” Skipë˜ëŠ” ë²„ê·¸.
 			//DeleteItem( item );
 			//>050425_KCH
 			return 1;
-		}//»©µµ µÇ´Â °Å¶ó¸é
+		}//ë¹¼ë„ ë˜ëŠ” ê±°ë¼ë©´
 		else
 		{
 			wNow -= iValue;
@@ -562,11 +562,11 @@ int CItemMgr::DecItemDur_ForEquip(ITEMATTR &item, const DWORD iValue)//¾ç¼ö·Î ³Ö
 			
 			item.attr[IATTR_DURATION] = MAKELONG( wNow, wMax );
 
-			if( wNow/10 == 0 ) // DurationÀÌ 0ÀÌ µÇ¾ú´Ù.
+			if( wNow/10 == 0 ) // Durationì´ 0ì´ ë˜ì—ˆë‹¤.
 			{
 				return 1;
 			}
-			if( wNow/10 != dOld/10 )  // ¹øÈ­µÈ ¼Ó¼ºÀ» PC¿¡°Ô º¸³»ÁØ´Ù.
+			if( wNow/10 != dOld/10 )  // ë²ˆí™”ëœ ì†ì„±ì„ PCì—ê²Œ ë³´ë‚´ì¤€ë‹¤.
 			{
 				return 2;
 			}
@@ -585,18 +585,18 @@ ItemAttr CItemMgr::GiveLegendItem(const int item_no, const int iDur)
 	const int iLegendAble = t->GetLegendAble();
 	if(!iLegendAble){return Item;}
 
-	//iDurÀÌ 0ÀÌ¸é ±âº»À¸·Î ¸¸µé¾î ÁÖ°í ¾Æ´Ñ °æ¿ì´Â ±×´ë·Î ¼¼ÆÃÇÑ´Ù À½¼öÀÌ¸é ¸®ÅÏ
+	//iDurì´ 0ì´ë©´ ê¸°ë³¸ìœ¼ë¡œ ë§Œë“¤ì–´ ì£¼ê³  ì•„ë‹Œ ê²½ìš°ëŠ” ê·¸ëŒ€ë¡œ ì„¸íŒ…í•œë‹¤ ìŒìˆ˜ì´ë©´ ë¦¬í„´
 	if( iDur > 0)		{	Item = GenerateItem( item_no, IATTR_MUCH ,iDur); }
 	else if	(iDur==0)	{	Item = GenerateItem( item_no);}
 	else if	(iDur<0)	{	return Item;	}
 
 	const int iLegendGroupNo = t->GetLegendGroup();
 	if(!iLegendGroupNo){return Item;}
-	//s1 --> ³ë¸» , s2 --> ±×·ì³Ñ¹ö --> s3-->±×·ìÀÎµ¦½º
+	//s1 --> ë…¸ë§ , s2 --> ê·¸ë£¹ë„˜ë²„ --> s3-->ê·¸ë£¹ì¸ë±ìŠ¤
 	const int iGroupIndex = RareEM.GetAbleGroupIndex(iLegendGroupNo);
 	const int iRareKind = RareEM.GetLegendBasicRareKind(iLegendGroupNo,iGroupIndex,t->GetWearAble());
 
-	const int aSucessRate[6] = {5,10,15,30,40,60};//ÃÑÇÕÀÌ 160
+	const int aSucessRate[6] = {5,10,15,30,40,60};//ì´í•©ì´ 160
 	const int iNow = rand()%160;//
 	
 	int iTemp = 0;
@@ -606,7 +606,7 @@ ItemAttr CItemMgr::GiveLegendItem(const int item_no, const int iDur)
 		iTemp += aSucessRate[i];
 		if(iTemp> iNow)
 		{
-			iResultGrade = i+3;//0~5 ÀÌ±â ¶§¹®¿¡
+			iResultGrade = i+3;//0~5 ì´ê¸° ë•Œë¬¸ì—
 			break;
 		}
 	}
@@ -633,28 +633,28 @@ ItemAttr CItemMgr::GiveRareItem(const int item_no, const int iDur,const int iCal
 	
 	const int iRareAble = ItemMutantKind[iItemKind].upgrade_type;
 	
-	//iDurÀÌ 0ÀÌ¸é ±âº»À¸·Î ¸¸µé¾î ÁÖ°í ¾Æ´Ñ °æ¿ì´Â ±×´ë·Î ¼¼ÆÃÇÑ´Ù À½¼öÀÌ¸é ¸®ÅÏ
+	//iDurì´ 0ì´ë©´ ê¸°ë³¸ìœ¼ë¡œ ë§Œë“¤ì–´ ì£¼ê³  ì•„ë‹Œ ê²½ìš°ëŠ” ê·¸ëŒ€ë¡œ ì„¸íŒ…í•œë‹¤ ìŒìˆ˜ì´ë©´ ë¦¬í„´
 	if( iDur > 0)		{	Item = GenerateItem( item_no, IATTR_MUCH ,iDur); }
 	else if	(iDur==0)	{	Item = GenerateItem( item_no);}
 	else if	(iDur<0)	{	return Item;	}
 
-	//¸Æ½º°¡ ÀÛÀ» °æ¿ì´Â ¸®ÅÏ, °°À¸¸é MinÀ» ³Ö¾îÁÖ°í Â÷ÀÌ°¡ ¾ç¼ö¸é ·£´ı
+	//ë§¥ìŠ¤ê°€ ì‘ì„ ê²½ìš°ëŠ” ë¦¬í„´, ê°™ìœ¼ë©´ Minì„ ë„£ì–´ì£¼ê³  ì°¨ì´ê°€ ì–‘ìˆ˜ë©´ ëœë¤
 	if(iGradeMax > iGradeMin)
 	{
-		iNowGrade = iGradeMin+rand()%(iGradeMax-iGradeMin+1);//·£´ı ÇÏ¸é ÃÖ°í°ªÀº ¾È³ª¿À´Ï±î.+1À» ÇÑ°ÍÀ¸·Î
+		iNowGrade = iGradeMin+rand()%(iGradeMax-iGradeMin+1);//ëœë¤ í•˜ë©´ ìµœê³ ê°’ì€ ì•ˆë‚˜ì˜¤ë‹ˆê¹Œ.+1ì„ í•œê²ƒìœ¼ë¡œ
 	}
 	else if( iGradeMax == iGradeMin )
 	{
 		iNowGrade= iGradeMin;
 	}
-	else //µî±Ş ÃÖ´ë°¡ ÃÖÇÏº¸´Ù ÀÛÀº°Ô ¾îµ÷³Ä
+	else //ë“±ê¸‰ ìµœëŒ€ê°€ ìµœí•˜ë³´ë‹¤ ì‘ì€ê²Œ ì–´ë”§ëƒ
 	{
 		memset(&Item,0,sizeof(ItemAttr)); return Item;
 	}
 	
 	int iRare1 = 0, iRare2 = 0, iRare3 = 0;
 	
-	if( iRareAble )//·¹¾î °¡´É ÀÏ¶§
+	if( iRareAble )//ë ˆì–´ ê°€ëŠ¥ ì¼ë•Œ
 	{
 		switch( iTryMulti )
 		{
@@ -686,7 +686,7 @@ ItemAttr CItemMgr::GiveRareItem(const int item_no, const int iDur,const int iCal
 							0,0,0,0,
 							item.attr[IATTR_LIMIT],
 							item.attr[IATTR_MUCH],
-							0,type,kind,//Æ÷Æ®
+							0,type,kind,//í¬íŠ¸
 							0,0,0,0,
 							3000,0
 							);*/
@@ -721,7 +721,7 @@ int CItemMgr::AbleMakeOnThisMap(const int iMapNation, const int iNo)
 		}break;
 	case 0:
 		{
-			if((iAbleNation%10000)/1000)//Áß¸³±¹
+			if((iAbleNation%10000)/1000)//ì¤‘ë¦½êµ­
 			{
 				return true;
 			}
@@ -737,8 +737,8 @@ int CItemMgr::AbleMakeOnThisMap(const int iMapNation, const int iNo)
 
 int CItemMgr::GetAbleRareKind(const int iCallType,const int iHighLevel)
 {
-	int oklist[MAX_ITEM_RARE+1] = {0,};//±âÁØÀÌµÇ´Â ¸®½ºÆ® No·Îµé¾î ÀÖ´Â°Å.
-	int gamble[MAX_ITEM_RARE+1] = {0,};//³ª¿Ã È®·ü °è»êÀ» À§ÇØ¼­
+	int oklist[MAX_ITEM_RARE+1] = {0,};//ê¸°ì¤€ì´ë˜ëŠ” ë¦¬ìŠ¤íŠ¸ Noë¡œë“¤ì–´ ìˆëŠ”ê±°.
+	int gamble[MAX_ITEM_RARE+1] = {0,};//ë‚˜ì˜¬ í™•ë¥  ê³„ì‚°ì„ ìœ„í•´ì„œ
 	int iNo = 0;
 	int iMax = 0;
 
@@ -764,8 +764,8 @@ int CItemMgr::GetAbleRareKind(const int iCallType,const int iHighLevel)
 	int iList= 0;
 	for( ;iNo < iMax ; iNo++)
 	{
-		if(! (ItemRare[iNo].iMakeAble & iCallType))					{continue;} //¸¸µé±â°¡ °¡´É ÇÑ°¡? 
-		if(! AbleMakeOnThisMap(MapInfo[MapNumber].nation,iNo))		{continue;} //ÀÌ±¹°¡¿¡¼­ ³ª¿À³ª??
+		if(! (ItemRare[iNo].iMakeAble & iCallType))					{continue;} //ë§Œë“¤ê¸°ê°€ ê°€ëŠ¥ í•œê°€? 
+		if(! AbleMakeOnThisMap(MapInfo[MapNumber].nation,iNo))		{continue;} //ì´êµ­ê°€ì—ì„œ ë‚˜ì˜¤ë‚˜??
 
 		if( iCallType & RARE_ABLE )
 		{
@@ -773,15 +773,15 @@ int CItemMgr::GetAbleRareKind(const int iCallType,const int iHighLevel)
 			{
 				gamble[iList] = ItemRare[iNo].RaisePro[0];	
 			}
-			else if	(iCallType & RARE_ABLE_SQUAD)//±¹°¡
+			else if	(iCallType & RARE_ABLE_SQUAD)//êµ­ê°€
 			{	
 				gamble[iList] = ItemRare[iNo].RaisePro[1];	
-			}//ºÎ´ë ·¹¾î
-			else if	(iCallType & RARE_ABLE_GAMBLE_ROOM_4)//°×ºí4¹ø¹æ 
+			}//ë¶€ëŒ€ ë ˆì–´
+			else if	(iCallType & RARE_ABLE_GAMBLE_ROOM_4)//ê²œë¸”4ë²ˆë°© 
 			{	
 				gamble[iList] = ItemRare[iNo].RaisePro[2];	
 			}
-			else if	(iCallType & RARE_ABLE_GAMBLE_ROOM_5)//°×ºí5¹ø¹æ
+			else if	(iCallType & RARE_ABLE_GAMBLE_ROOM_5)//ê²œë¸”5ë²ˆë°©
 			{	
 				gamble[iList] = ItemRare[iNo].RaisePro[3];	
 			}
@@ -789,15 +789,15 @@ int CItemMgr::GetAbleRareKind(const int iCallType,const int iHighLevel)
 
 		if( gamble[iList] )
 		{
-			oklist[iList] = ItemRare[iNo].iNo;// ¸®½ºÆ®¿¡ °¡´É ¼Ó¼º ³Ñ¹ö Ãß°¡	
-			gamble[MAX_ITEM_RARE] += gamble[iList];//È®·ü ÅäÅ» °è»ê
+			oklist[iList] = ItemRare[iNo].iNo;// ë¦¬ìŠ¤íŠ¸ì— ê°€ëŠ¥ ì†ì„± ë„˜ë²„ ì¶”ê°€	
+			gamble[MAX_ITEM_RARE] += gamble[iList];//í™•ë¥  í† íƒˆ ê³„ì‚°
 			iList++;
 		}
 	}				
 
 	if(gamble[MAX_ITEM_RARE]<=0)
 	{
-		return 0;//ÀÌ·²ÀÏÀº °ÅÀÇ ¾ø´Ù..¾Æ´Ï.. ¾Æ¿¹.. ±×·¯³ª.. 
+		return 0;//ì´ëŸ´ì¼ì€ ê±°ì˜ ì—†ë‹¤..ì•„ë‹ˆ.. ì•„ì˜ˆ.. ê·¸ëŸ¬ë‚˜.. 
 	}
 
 	int NowRating= rand()%gamble[MAX_ITEM_RARE];
@@ -846,7 +846,7 @@ int CItemMgr::MakeDefaultRareItem( ItemAttr *item, const int iItemNo, const int 
 	if( !t ) {	return -1;	}
 
 	*item = GenerateItem( iItemNo );
-	if( !item->item_no ){ return -1;}		// ¾ÆÀÌÅÛ ¹øÈ£°¡ ÀÌ»óÇÏ´Ù.
+	if( !item->item_no ){ return -1;}		// ì•„ì´í…œ ë²ˆí˜¸ê°€ ì´ìƒí•˜ë‹¤.
 
 	if( iSok1 >= START_HIGH_RARE )
 	{
@@ -854,7 +854,7 @@ int CItemMgr::MakeDefaultRareItem( ItemAttr *item, const int iItemNo, const int 
 	}
 	else
 	{
-		if( t->GetRbutton() == USE_ITEM )		// ´ÙÀÌ³ª¹Í ¾ÆÀÌÅÛ...
+		if( t->GetRbutton() == USE_ITEM )		// ë‹¤ì´ë‚˜ë¯¹ ì•„ì´í…œ...
 		{
 			bIsDynamic = true;
 			iHighLv = H_LV_NO_HIGH_ITEM;
@@ -922,7 +922,7 @@ int	CItemLimitMgr::GetLimitNumber( int item_no )
 	//sprintf( str_number, "%d", m_nItemLimitCount );
 	//WritePrivateProfileString( "option","limit", str_number, MAP_SERVER_INI_ );
 
-	// Áö±İ±îÁöÀÇ ¸®¹ÌÆ® ¹øÈ£¸¦ DB·Î º¸³½´Ù.
+	// ì§€ê¸ˆê¹Œì§€ì˜ ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸ë¥¼ DBë¡œ ë³´ë‚¸ë‹¤.
 	t_packet packet;
 	packet.h.header.type = CMD_WRITE_LIMIT_NUMBER;
 		packet.u.kein.save_limit_number.port = ::GetOwnPort();

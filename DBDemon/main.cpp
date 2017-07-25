@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "network_base.h"
 #include "monitor.h"
 #include "mainheader.h"
@@ -16,7 +16,7 @@
 #include <process.h>
 
 			
-bool g_bTaiwanMainOn = true;		// ÇÑ±¹ÀÌÈ¸ÀÇ ÇÁ·Î±×·¥¿¡¼­ Á¾·á½ÃÅ³¶§ false ÇÑ´Ù.
+bool g_bTaiwanMainOn = true;		// í•œêµ­ì´íšŒì˜ í”„ë¡œê·¸ë¨ì—ì„œ ì¢…ë£Œì‹œí‚¬ë•Œ false í•œë‹¤.
 void diethread(void *a);
 HANDLE hIn;
 #include "./China/QueryDBSocket.h"

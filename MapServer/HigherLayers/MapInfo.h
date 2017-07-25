@@ -1,4 +1,4 @@
-// MapInfo.h: interface for the CMapInfo class.
+ï»¿// MapInfo.h: interface for the CMapInfo class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -9,14 +9,14 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-#define MAX_MAP_		200		// ¼­¹öÇÏ°í ¶È°°¾Æ¾ß ÇÑ´Ù. // 031013 kyo 100 -> 200À¸·Î 
+#define MAX_MAP_		200		// ì„œë²„í•˜ê³  ë˜‘ê°™ì•„ì•¼ í•œë‹¤. // 031013 kyo 100 -> 200ìœ¼ë¡œ 
 #define MAP_INFO_MYCODE	040503	// YGI 040510
 
 // map_move_type
 
-#define MMT_FAIL		-1		// ¾ø´Â ¸ÊÀÌ´Ù.
-#define MMT_NORMAL		0		// ÀÌµ¿ÇÏ´Âµ¥ ¾Æ¹«·± Á¦¾àÀÌ ¾ø´Ù.
-#define MMT_NOT_MOVE	1		// ÀÌµ¿ ¸øÇÏ°Ô ¸·¾ÆµĞ ¸ÊÀÌ´Ù.
+#define MMT_FAIL		-1		// ì—†ëŠ” ë§µì´ë‹¤.
+#define MMT_NORMAL		0		// ì´ë™í•˜ëŠ”ë° ì•„ë¬´ëŸ° ì œì•½ì´ ì—†ë‹¤.
+#define MMT_NOT_MOVE	1		// ì´ë™ ëª»í•˜ê²Œ ë§‰ì•„ë‘” ë§µì´ë‹¤.
 
 #pragma pack(push,1)
 typedef struct MAPINFO
@@ -26,10 +26,10 @@ typedef struct MAPINFO
 	char cPosType; // CSD-030509
 	int  nSaveX;   // CSD-030509
 	int  nSaveY;   // CSD-030509
-	char daylightcontrol;	// ÁöºØÀÌ ÀÖÀ¸¸é 0     // ¾øÀ¸¸é  ( ¾Æ·¡°Í°ú °ÅÀÇ °°´Ù ) 
-	char rain;		//  1 :ÀÌ¸é ºñ°¡ ¿À´Â°÷ÀÌ´Ù.	0 : ºñ°¡ ¿ÀÁö ¾Ê´Â µ¿±¼°°Àº °÷ÀÌ´Ù. 
-	char nation;	//  ±¹°¡ÄÚµå. 
-	char forrookie;//0 -> PK µÇ°í HPÈ¸º¹ Á¤»ó 1-> PK¾ÈµÊ 2->PK ¾ÈµÇ°í HP ºü¸¥ È¸º¹ 3->PK µÇ°í HP »¡¸® È¸º¹
+	char daylightcontrol;	// ì§€ë¶•ì´ ìˆìœ¼ë©´ 0     // ì—†ìœ¼ë©´  ( ì•„ë˜ê²ƒê³¼ ê±°ì˜ ê°™ë‹¤ ) 
+	char rain;		//  1 :ì´ë©´ ë¹„ê°€ ì˜¤ëŠ”ê³³ì´ë‹¤.	0 : ë¹„ê°€ ì˜¤ì§€ ì•ŠëŠ” ë™êµ´ê°™ì€ ê³³ì´ë‹¤. 
+	char nation;	//  êµ­ê°€ì½”ë“œ. 
+	char forrookie;//0 -> PK ë˜ê³  HPíšŒë³µ ì •ìƒ 1-> PKì•ˆë¨ 2->PK ì•ˆë˜ê³  HP ë¹ ë¥¸ íšŒë³µ 3->PK ë˜ê³  HP ë¹¨ë¦¬ íšŒë³µ
 	int  ghostguide3x, ghostguide3y;	// nation code 3
 	int  ghostguide4x, ghostguide4y;	// nation code 4..
 
@@ -39,18 +39,18 @@ typedef struct MAPINFO
 	int  LvMin;//020420 lsw
 	int  LvMax;//021113 lsw
 	int  nDisableMagicType; // CSD-030516
-	int  bEncode;		// ¾ÏÈ£È­ À¯¹«	// YGI-040510
+	int  bEncode;		// ì•”í˜¸í™” ìœ ë¬´	// YGI-040510
 
-	int	 m_MoveType;//GMÀÌ ¼ÂÆÃ ÇÏ´Â µ¥ÀÌÅ¸, Å×ÀÌºí¿¡´Â ÀÌ·± ÇÊµå°¡ ¾øÀ½
+	int	 m_MoveType;//GMì´ ì…‹íŒ… í•˜ëŠ” ë°ì´íƒ€, í…Œì´ë¸”ì—ëŠ” ì´ëŸ° í•„ë“œê°€ ì—†ìŒ
 
 	MAPINFO()
 	{
 		cPosType = 0; // CSD-030509
 		nSaveX= 0;    // CSD-030509
 		nSaveY= 0;    // CSD-030509
-		daylightcontrol= 0;	// ÁöºØÀÌ ÀÖÀ¸¸é 0     // ¾øÀ¸¸é  ( ¾Æ·¡°Í°ú °ÅÀÇ °°´Ù ) 
-		rain= 0;		//  1 :ÀÌ¸é ºñ°¡ ¿À´Â°÷ÀÌ´Ù.	0 : ºñ°¡ ¿ÀÁö ¾Ê´Â µ¿±¼°°Àº °÷ÀÌ´Ù. 
-		nation= 0;	//  ±¹°¡ÄÚµå. 
+		daylightcontrol= 0;	// ì§€ë¶•ì´ ìˆìœ¼ë©´ 0     // ì—†ìœ¼ë©´  ( ì•„ë˜ê²ƒê³¼ ê±°ì˜ ê°™ë‹¤ ) 
+		rain= 0;		//  1 :ì´ë©´ ë¹„ê°€ ì˜¤ëŠ”ê³³ì´ë‹¤.	0 : ë¹„ê°€ ì˜¤ì§€ ì•ŠëŠ” ë™êµ´ê°™ì€ ê³³ì´ë‹¤. 
+		nation= 0;	//  êµ­ê°€ì½”ë“œ. 
 		forrookie= 0;
 		ghostguide3x= 0, ghostguide3y= 0;	// nation code 3
 		ghostguide4x= 0, ghostguide4y= 0;	// nation code 4..

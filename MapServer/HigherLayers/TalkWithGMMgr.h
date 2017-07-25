@@ -1,4 +1,4 @@
-// TalkWithGMMgr.h: interface for the CTalkWithGMMgr class.
+ï»¿// TalkWithGMMgr.h: interface for the CTalkWithGMMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -15,8 +15,8 @@ public:
 	CTalkWithGMMgr();
 	virtual ~CTalkWithGMMgr();
 	void Clear();
-	//½ÅÃ» ¹ŞÀ½
-	//¸®½ºÆ® ¿äÃ» ¹ŞÀ½
+	//ì‹ ì²­ ë°›ìŒ
+	//ë¦¬ìŠ¤íŠ¸ ìš”ì²­ ë°›ìŒ
 	//
 
 private:

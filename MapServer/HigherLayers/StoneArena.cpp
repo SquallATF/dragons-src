@@ -1,4 +1,4 @@
-// StoneArena.cpp: implementation of the CStoneArena class.
+ï»¿// StoneArena.cpp: implementation of the CStoneArena class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -27,14 +27,14 @@ CStoneArena::~CStoneArena()
 
 void CStoneArena::StartGame(DWORD dwTime)
 {
-	//< KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//< KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 	MyLog( 0, "############# Stone Arena EndGame #############" );
-	//> KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//> KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 
 	CBaseArena::StartGame(dwTime);
 
 	g_ColossusStone.SetStoneFirst();
-	// ÇöÀç µ¹ÀÇ ¼ö¸¦ Ä«¿îÆ® ÇØ¼­ º¸³»ÁØ´Ù.
+	// í˜„ì¬ ëŒì˜ ìˆ˜ë¥¼ ì¹´ìš´íŠ¸ í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
 	g_ColossusStone.GetTeamCount(m_aStone);
 
 	for (int i = 0; i < 2; ++i)
@@ -45,9 +45,9 @@ void CStoneArena::StartGame(DWORD dwTime)
 
 void CStoneArena::EndGame(CArenaInfo* pArena)
 {
-	//< KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//< KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 	MyLog( 0, "############# Stone Arena EndGame #############" );
-	//> KJY-040909 ¾Æ·¹³ª ·Î±×°­È­
+	//> KJY-040909 ì•„ë ˆë‚˜ ë¡œê·¸ê°•í™”
 
 	CBaseArena::EndGame(pArena);
 }
@@ -65,7 +65,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 	
 	if (dwRemainTime <= 0 || g_ColossusStone.IsEnd())
 	{
-		int bottom_level = 1000000;		// °¡Àå ³·Àº ·¹º§
+		int bottom_level = 1000000;		// ê°€ì¥ ë‚®ì€ ë ˆë²¨
 		int top = -1, nIndex = 0;
 		int the_end = 0;
 
@@ -78,7 +78,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 				top = m_aStone[nIndex];
 				the_end = 1;
 			}
-			else if (top == m_aStone[nIndex])		// µ¿Á¡	 // ÆÀÀÌ 2°³ ÀÏ¶§¸¸ Àû¿ë
+			else if (top == m_aStone[nIndex])		// ë™ì 	 // íŒ€ì´ 2ê°œ ì¼ë•Œë§Œ ì ìš©
 			{
 				if (bottom_level > nTotal) 
 				{
@@ -100,7 +100,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 				top = m_aStone[nIndex];
 				the_end = 1;
 			}
-			else if (top == m_aStone[nIndex])	// µ¿Á¡	 // ÆÀÀÌ 2°³ ÀÏ¶§¸¸ Àû¿ë
+			else if (top == m_aStone[nIndex])	// ë™ì 	 // íŒ€ì´ 2ê°œ ì¼ë•Œë§Œ ì ìš©
 			{
 				if (bottom_level > nTotal) 
 				{
@@ -111,7 +111,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 			++nIndex;
 		}
 
-		if (the_end)		// ½ÂÆĞ°¡ °¥·È´Ù.
+		if (the_end)		// ìŠ¹íŒ¨ê°€ ê°ˆë ¸ë‹¤.
 		{
 			nIndex = 0;
 
@@ -119,7 +119,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 			{
 				CArenaTeam* pTeam = *k;
 
-				if (top == m_aStone[nIndex++]) // ÀÌ±äÆÀ
+				if (top == m_aStone[nIndex++]) // ì´ê¸´íŒ€
 				{
 					pTeam->SetGameResult(FST_WIN);
 				}

@@ -1,1 +1,1 @@
-extern void CloseAllUser(DWORD dwValue);
+﻿extern void CloseAllUser(DWORD dwValue);

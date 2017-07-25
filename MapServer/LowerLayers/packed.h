@@ -1,4 +1,4 @@
-#ifndef PACKED_H
+﻿#ifndef PACKED_H
 #define PACKED_H
 
 #include "..\stdafx.h"

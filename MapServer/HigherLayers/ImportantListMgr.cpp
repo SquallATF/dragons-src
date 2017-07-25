@@ -1,4 +1,4 @@
-// ImportantListMgr.cpp: implementation of the CImportantListMgr class.
+﻿// ImportantListMgr.cpp: implementation of the CImportantListMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 

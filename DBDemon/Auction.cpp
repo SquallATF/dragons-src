@@ -1,4 +1,4 @@
-// Auction.cpp: implementation of the CAuction class.
+ï»¿// Auction.cpp: implementation of the CAuction class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -109,10 +109,10 @@ __SUCCESS:
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ¸®½ºÆ® °Ë»ö ÇÏ±â ½ÃÀÛ (±¸¸ÅÀÚ
+// ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰ í•˜ê¸° ì‹œì‘ (êµ¬ë§¤ì
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //soto-030514
-int CAuction::RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn, t_packet &p)//¸®½ºÆ® ¿äÃ»(±¸¸ÅÀÚ°¡ º¸´Â°Í//°Ë»ö±â°¡ È£Ãâ
+int CAuction::RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn, t_packet &p)//ë¦¬ìŠ¤íŠ¸ ìš”ì²­(êµ¬ë§¤ìê°€ ë³´ëŠ”ê²ƒ//ê²€ìƒ‰ê¸°ê°€ í˜¸ì¶œ
 {
 	SEARCHRESULTLIST FindResult;
 	memset(&FindResult ,0, sizeof(SEARCHRESULTLIST));
@@ -129,13 +129,13 @@ int CAuction::RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn, t_packet &p)//¸®½
 	switch(p.u.SearchPacketServer.ClientMsg.nPeriod)
 	{
 	case 0:
-		nDay = 2;//1ÀÏ.
+		nDay = 2;//1ì¼.
 		break;
 	case 1:
-		nDay = 4;//3ÀÏ
+		nDay = 4;//3ì¼
 		break;
 	case 2:
-		nDay = 8;//1ÁÖÀÏ
+		nDay = 8;//1ì£¼ì¼
 		break;
 	}
 
@@ -145,35 +145,35 @@ int CAuction::RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn, t_packet &p)//¸®½
 	
 	if(FindResult.iKey)
 	{
-		if(strlen(szKeyWord))//Å°¿öµå°¡ ÀÖÀ¸¸é.
+		if(strlen(szKeyWord))//í‚¤ì›Œë“œê°€ ìˆìœ¼ë©´.
 		{
-			if(strlen(szMerchant))//»óÀÎ ÀÌ¸§ÀÌ ÀÖÀ¸¸é.
+			if(strlen(szMerchant))//ìƒì¸ ì´ë¦„ì´ ìˆìœ¼ë©´.
 			{
-				//¿©±â´Â Å°¿öµå¿Í »óÀÎ ÀÌ¸§°ú ±â°£ÀÌ Á¶°ÇÀÌ´Ù.
+				//ì—¬ê¸°ëŠ” í‚¤ì›Œë“œì™€ ìƒì¸ ì´ë¦„ê³¼ ê¸°ê°„ì´ ì¡°ê±´ì´ë‹¤.
 				sprintf(szQuery,"EXEC MerchantItemSearch_Key_Merchant_Day '%s', '%s', %d, %d, %d, %d, %d",
 					szKeyWord,szMerchant,nDay,
 					IS_END_ALL_RIGHT, 0, 0,iIndex);
 			}
 			else
 			{
-				//¿©±â´Â Å°¿öµå¿Í ±â°£ ¸¸ÀÌ Á¶°ÇÀÌ´Ù.
+				//ì—¬ê¸°ëŠ” í‚¤ì›Œë“œì™€ ê¸°ê°„ ë§Œì´ ì¡°ê±´ì´ë‹¤.
 				sprintf(szQuery,"EXEC MerchantItemSearch_Key_Day '%s', %d, %d, %d, %d, %d",
 					szKeyWord,nDay,
 					IS_END_ALL_RIGHT, 0, 0,iIndex);
 
 			}
 		}
-		else//Å°¿öµå°¡ ¾øÀ¸¸é.
+		else//í‚¤ì›Œë“œê°€ ì—†ìœ¼ë©´.
 		{
-			if(strlen(szMerchant))//»óÀÎ ÀÌ¸§ÀÌ ÀÖÀ¸¸é.
+			if(strlen(szMerchant))//ìƒì¸ ì´ë¦„ì´ ìˆìœ¼ë©´.
 			{
-				//¿©±â´Â »óÀÎÀÌ¸§°ú ±â°£ÀÌ Á¶°ÇÀÌ´Ù.
+				//ì—¬ê¸°ëŠ” ìƒì¸ì´ë¦„ê³¼ ê¸°ê°„ì´ ì¡°ê±´ì´ë‹¤.
 				sprintf(szQuery,"EXEC MerchantItemSearch_Merchant_Day '%s',%d, %d, %d, %d, %d",
 					szMerchant,nDay,
 					IS_END_ALL_RIGHT, 0, 0,iIndex);
 
 			}
-			else//¿©±â´Â ´Ü¼øÈ÷ ±â°£¸¸ÀÌ Á¶°ÇÀÌ´Ù.
+			else//ì—¬ê¸°ëŠ” ë‹¨ìˆœíˆ ê¸°ê°„ë§Œì´ ì¡°ê±´ì´ë‹¤.
 			{
 				sprintf(szQuery,"EXEC MerchantItemSearch_Day %d, %d, %d, %d, %d",
 					nDay,
@@ -183,35 +183,35 @@ int CAuction::RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn, t_packet &p)//¸®½
 	}
 	else
 	{
-		if(strlen(szKeyWord))//Å°¿öµå°¡ ÀÖÀ¸¸é.
+		if(strlen(szKeyWord))//í‚¤ì›Œë“œê°€ ìˆìœ¼ë©´.
 		{
-			if(strlen(szMerchant))//»óÀÎ ÀÌ¸§ÀÌ ÀÖÀ¸¸é.
+			if(strlen(szMerchant))//ìƒì¸ ì´ë¦„ì´ ìˆìœ¼ë©´.
 			{
-				//¿©±â´Â Å°¿öµå¿Í »óÀÎ ÀÌ¸§°ú ±â°£ÀÌ Á¶°ÇÀÌ´Ù.
+				//ì—¬ê¸°ëŠ” í‚¤ì›Œë“œì™€ ìƒì¸ ì´ë¦„ê³¼ ê¸°ê°„ì´ ì¡°ê±´ì´ë‹¤.
 				sprintf(szQuery,"EXEC MerchantItemSearch_Key_Merchant_Day_Inverse '%s', '%s', %d, %d, %d, %d, %d",
 					szKeyWord,szMerchant,nDay,
 					IS_END_ALL_RIGHT, 0, 0,iIndex);
 			}
 			else
 			{
-				//¿©±â´Â Å°¿öµå¿Í ±â°£ ¸¸ÀÌ Á¶°ÇÀÌ´Ù.
+				//ì—¬ê¸°ëŠ” í‚¤ì›Œë“œì™€ ê¸°ê°„ ë§Œì´ ì¡°ê±´ì´ë‹¤.
 				sprintf(szQuery,"EXEC MerchantItemSearch_Key_Day_Inverse '%s', %d, %d, %d, %d, %d",
 					szKeyWord,nDay,
 					IS_END_ALL_RIGHT, 0, 0,iIndex);
 
 			}
 		}
-		else//Å°¿öµå°¡ ¾øÀ¸¸é.
+		else//í‚¤ì›Œë“œê°€ ì—†ìœ¼ë©´.
 		{
-			if(strlen(szMerchant))//»óÀÎ ÀÌ¸§ÀÌ ÀÖÀ¸¸é.
+			if(strlen(szMerchant))//ìƒì¸ ì´ë¦„ì´ ìˆìœ¼ë©´.
 			{
-				//¿©±â´Â »óÀÎÀÌ¸§°ú ±â°£ÀÌ Á¶°ÇÀÌ´Ù.
+				//ì—¬ê¸°ëŠ” ìƒì¸ì´ë¦„ê³¼ ê¸°ê°„ì´ ì¡°ê±´ì´ë‹¤.
 				sprintf(szQuery,"EXEC MerchantItemSearch_Merchant_Day_Inverse '%s',%d, %d, %d, %d, %d",
 					szMerchant,nDay,
 					IS_END_ALL_RIGHT, 0, 0,iIndex);
 
 			}
-			else//¿©±â´Â ´Ü¼øÈ÷ ±â°£¸¸ÀÌ Á¶°ÇÀÌ´Ù.
+			else//ì—¬ê¸°ëŠ” ë‹¨ìˆœíˆ ê¸°ê°„ë§Œì´ ì¡°ê±´ì´ë‹¤.
 			{
 				sprintf(szQuery,"EXEC MerchantItemSearch_Day_Inverse %d, %d, %d, %d, %d",
 					nDay,
@@ -247,11 +247,11 @@ int CAuction::RecvCMD_MERCHANT_BUY_LIST_REQUEST(const int iCn, t_packet &p)//¸®½
 	return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ¸®½ºÆ® °Ë»ö ÇÏ±â ³¡ (±¸¸ÅÀÚ
+// ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰ í•˜ê¸° ë (êµ¬ë§¤ì
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ±¸¸Å ÇÏ±â ½ÃÀÛ(±¸¸ÅÀÚ)
+// êµ¬ë§¤ í•˜ê¸° ì‹œì‘(êµ¬ë§¤ì)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 {
@@ -287,11 +287,11 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 	([SellItemAttr6 ]=@ItemAttr6) 
 
 
-	MerchantItemBuyComform 1,'È­¶û»ó¿ì', 3,1
+	MerchantItemBuyComform 1,'í™”ë‘ìƒìš°', 3,1
 */
-	//isend ¸¦ °Å·¡ÁßÀ¸·Î ÇØÁØ´Ù
-	//±¸¸Å °¡´É ÇÑ°¡? //ÀÎµ¦½º,ÆÄ´Â³ğ,¾ÆÀÌÅÛ,isEnd == 0(±¸¸Å°¡´É) À¸·Î °Ë»öÇÑ´Ù
-	//Ä«¿îÆ®¸¦ ¹Ş¾Æ¼­ °Ë»ç ÇÏÀÚ 0 ÀÌ¸é ¾ÈÆÇ´Ù°í 1 ÀÌ¸é ÆÇ´Ù °ÚÁö.
+	//isend ë¥¼ ê±°ë˜ì¤‘ìœ¼ë¡œ í•´ì¤€ë‹¤
+	//êµ¬ë§¤ ê°€ëŠ¥ í•œê°€? //ì¸ë±ìŠ¤,íŒŒëŠ”ë†ˆ,ì•„ì´í…œ,isEnd == 0(êµ¬ë§¤ê°€ëŠ¥) ìœ¼ë¡œ ê²€ìƒ‰í•œë‹¤
+	//ì¹´ìš´íŠ¸ë¥¼ ë°›ì•„ì„œ ê²€ì‚¬ í•˜ì 0 ì´ë©´ ì•ˆíŒë‹¤ê³  1 ì´ë©´ íŒë‹¤ ê² ì§€.
 
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -299,14 +299,14 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 	::SQLAllocStmt(hDBC, &hStmt);
 	char szQuery[255] ={0,};
 	MERCHANT_ITEM_BUY *pMIB = &p.u.MerchantItemBuy;
-	MERCHANT_ITEM_BUY QueryResult = *pMIB;//¹ŞÀº°É·Î ÃÊ±âÈ­¸¦ ½ÃÅ²´Ù
-	sprintf(szQuery,"EXEC MerchantItemBuyComform %d, '%s' , '%s', "//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
+	MERCHANT_ITEM_BUY QueryResult = *pMIB;//ë°›ì€ê±¸ë¡œ ì´ˆê¸°í™”ë¥¼ ì‹œí‚¨ë‹¤
+	sprintf(szQuery,"EXEC MerchantItemBuyComform %d, '%s' , '%s', "//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
 		" %d, %d, "
 		"%d, %d, %d, %d, %d, %d, %d",
 	pMIB->iIndex,
 	pMIB->szSellerName,
 	pMIB->szBuyerName,
-	IS_END_BUYING,//±¸¸ÅÁß »óÅÂ·Î ¸¸µç´Ù
+	IS_END_BUYING,//êµ¬ë§¤ì¤‘ ìƒíƒœë¡œ ë§Œë“ ë‹¤
 	IS_END_ALL_RIGHT,
 	pMIB->SellItem.item_no,
 	pMIB->SellItem.attr[0],
@@ -316,7 +316,7 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 	pMIB->SellItem.attr[4],
 	pMIB->SellItem.attr[5]);
 
-	//IS_END_ALL_RIGHT »óÅÂ¿¡¼­¸¸ Áö¿ï ¼ö ÀÖ´Ù ¿©·¯¹ø Áö¿ì´Â°Ç ºÒ°¡´É ÇÏ´Ù
+	//IS_END_ALL_RIGHT ìƒíƒœì—ì„œë§Œ ì§€ìš¸ ìˆ˜ ìˆë‹¤ ì—¬ëŸ¬ë²ˆ ì§€ìš°ëŠ”ê±´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
@@ -327,7 +327,7 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iIndex,			0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_CHAR,	QueryResult.szSellerName,		20, &cbValue);
 			::EatRearWhiteChar(QueryResult.szSellerName);
-			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEnd°ªÀÌ µé¾î¿Â´Ù
+			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEndê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.dwSellValue,		0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.item_no,	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[0],	0, &cbValue);
@@ -338,7 +338,7 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[5],	0, &cbValue);
 
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-			{	//¿©±â ¿ÔÀ½Àº µ¥ÀÌÅ¸°¡ ¸ÖÂÄÇÏ´Ù´Â Áõ°Å.(¾÷µ¥ÀÌÆ®¿¡ ¼º°ø Çß´Ù.
+			{	//ì—¬ê¸° ì™”ìŒì€ ë°ì´íƒ€ê°€ ë©€ì©¡í•˜ë‹¤ëŠ” ì¦ê±°.(ì—…ë°ì´íŠ¸ì— ì„±ê³µ í–ˆë‹¤.
 				if(QueryResult.dwSellValue != pMIB->dwSellValue)
 				{
 					MyLog(0,"Auction Critical Warning!! Type => CMD_MERCHANT_ITEM_BUY_COMFORM SellValue NotMatch = DB %d, Client %d",QueryResult.dwSellValue, pMIB->dwSellValue);
@@ -347,8 +347,8 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM(const int iCn,t_packet &p)
 				}
 				goto __SUCCESS;
 			}
-			else //¸ğµç ¿¹¿Ü »óÈ²Àº ¾ø´Ù.
-			{	//ÀÌ·± ¸»µµ ¾ÈµÇ´Â »óÈ²
+			else //ëª¨ë“  ì˜ˆì™¸ ìƒí™©ì€ ì—†ë‹¤.
+			{	//ì´ëŸ° ë§ë„ ì•ˆë˜ëŠ” ìƒí™©
 				goto __FAIL;
 			}
 		}
@@ -369,40 +369,40 @@ __FAIL:
 __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);		
-		p.h.header.type = CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT;//Å¸ÀÔÀ» ±³Ã¼ ÇÑ´Ù
-		(*pMIB) = QueryResult;//º¸³¾ ÆĞÅ¶¿¡ °á°ú¹°À» ½Ç¾î º¸³½´Ù////±¸¸ÅÁß »óÅÂ·Î ¸¸µé¾î Á³À» °ÍÀÌ´Ù ¾Æ´Ï¶ó¸é ¸Ê¼­¹ö¿¡¼­ ±¸ÀÔ ºÒ°¡´ÉÀÌ¶ó°í Ã³¸® ÇÏ¶ó
+		p.h.header.type = CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT;//íƒ€ì…ì„ êµì²´ í•œë‹¤
+		(*pMIB) = QueryResult;//ë³´ë‚¼ íŒ¨í‚·ì— ê²°ê³¼ë¬¼ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤////êµ¬ë§¤ì¤‘ ìƒíƒœë¡œ ë§Œë“¤ì–´ ì¡Œì„ ê²ƒì´ë‹¤ ì•„ë‹ˆë¼ë©´ ë§µì„œë²„ì—ì„œ êµ¬ì… ë¶ˆê°€ëŠ¥ì´ë¼ê³  ì²˜ë¦¬ í•˜ë¼
 		::QueuePacket(connections,iCn,&p,1);	
 		return;
 	}
 }
 
 void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &p)
-{	//isend ¸¦ °Å·¡ Á¾·á·Î ÇØÁØ´Ù ÀÔ±İ ¿Ï·á´Ù
+{	//isend ë¥¼ ê±°ë˜ ì¢…ë£Œë¡œ í•´ì¤€ë‹¤ ì…ê¸ˆ ì™„ë£Œë‹¤
 	const int iKey = p.u.MerchantItemBuy.iKey;
-	if(	IS_END_WAIT_TAKE	!= iKey//µ· »¯¾ÒÀ¸¸é 
-	&&	IS_END_ALL_RIGHT	!= iKey)//µ· ¾øÀ¸¸é
-	{//ÀÌ°Å µÎ°³°¡ ¾Æ´Ï´Ù
+	if(	IS_END_WAIT_TAKE	!= iKey//ëˆ ëºì•˜ìœ¼ë©´ 
+	&&	IS_END_ALL_RIGHT	!= iKey)//ëˆ ì—†ìœ¼ë©´
+	{//ì´ê±° ë‘ê°œê°€ ì•„ë‹ˆë‹¤
 		MyLog(0,"Auction Critical Error!! Type => CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT");
 		return;
 	}
-	//isend ¸¦ °Å·¡³¡À¸·Î ÇØÁØ´Ù
-	//±¸¸Å °¡´É ÇÑ°¡? //ÀÎµ¦½º,ÆÄ´Â³ğ,¾ÆÀÌÅÛ,isEnd == 0(±¸¸Å°¡´É) À¸·Î °Ë»öÇÑ´Ù
-	//Ä«¿îÆ®¸¦ ¹Ş¾Æ¼­ °Ë»ç ÇÏÀÚ 0 ÀÌ¸é ¾ÈÆÇ´Ù°í 1 ÀÌ¸é ÆÇ´Ù °ÚÁö.
+	//isend ë¥¼ ê±°ë˜ëìœ¼ë¡œ í•´ì¤€ë‹¤
+	//êµ¬ë§¤ ê°€ëŠ¥ í•œê°€? //ì¸ë±ìŠ¤,íŒŒëŠ”ë†ˆ,ì•„ì´í…œ,isEnd == 0(êµ¬ë§¤ê°€ëŠ¥) ìœ¼ë¡œ ê²€ìƒ‰í•œë‹¤
+	//ì¹´ìš´íŠ¸ë¥¼ ë°›ì•„ì„œ ê²€ì‚¬ í•˜ì 0 ì´ë©´ ì•ˆíŒë‹¤ê³  1 ì´ë©´ íŒë‹¤ ê² ì§€.
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SDWORD		cbValue;
 	::SQLAllocStmt(hDBC, &hStmt);
 	char szQuery[255] ={0,};
 	MERCHANT_ITEM_BUY *pMIB = &p.u.MerchantItemBuy;
-	MERCHANT_ITEM_BUY QueryResult = *pMIB;//¹ŞÀº°É·Î ÃÊ±âÈ­¸¦ ½ÃÅ²´Ù
-	sprintf(szQuery,"EXEC MerchantItemBuyComform %d, '%s' , '%s', "//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
+	MERCHANT_ITEM_BUY QueryResult = *pMIB;//ë°›ì€ê±¸ë¡œ ì´ˆê¸°í™”ë¥¼ ì‹œí‚¨ë‹¤
+	sprintf(szQuery,"EXEC MerchantItemBuyComform %d, '%s' , '%s', "//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
 		" %d, %d, "
 		"%d, %d, %d, %d, %d, %d, %d",
 	pMIB->iIndex,
 	pMIB->szSellerName,
 	pMIB->szBuyerName,
-	iKey,//¸Ê¼­¹ö°¡ ¼ÂÆÃÇÑ °ªÀ¸·Î ÇØÁØ´Ù
-	IS_END_BUYING,//±¸¸ÅÁß »óÅÂ¿©¾ß ÇÏ°í
+	iKey,//ë§µì„œë²„ê°€ ì…‹íŒ…í•œ ê°’ìœ¼ë¡œ í•´ì¤€ë‹¤
+	IS_END_BUYING,//êµ¬ë§¤ì¤‘ ìƒíƒœì—¬ì•¼ í•˜ê³ 
 	pMIB->SellItem.item_no,
 	pMIB->SellItem.attr[0],
 	pMIB->SellItem.attr[1],
@@ -411,7 +411,7 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &
 	pMIB->SellItem.attr[4],
 	pMIB->SellItem.attr[5] );
 
-	//IS_END_ALL_RIGHT »óÅÂ¿¡¼­¸¸ Áö¿ï ¼ö ÀÖ´Ù ¿©·¯¹ø Áö¿ì´Â°Ç ºÒ°¡´É ÇÏ´Ù
+	//IS_END_ALL_RIGHT ìƒíƒœì—ì„œë§Œ ì§€ìš¸ ìˆ˜ ìˆë‹¤ ì—¬ëŸ¬ë²ˆ ì§€ìš°ëŠ”ê±´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
@@ -422,7 +422,7 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iIndex,			0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_CHAR,	QueryResult.szSellerName,		20, &cbValue);
 			::EatRearWhiteChar(QueryResult.szSellerName);
-			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEnd°ªÀÌ µé¾î¿Â´Ù
+			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEndê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.dwSellValue,		0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.item_no,	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[0],	0, &cbValue);
@@ -432,7 +432,7 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[4],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[5],	0, &cbValue);
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-			{	//¿©±â ¿ÔÀ½Àº µ¥ÀÌÅ¸°¡ ¸ÖÂÄÇÏ´Ù´Â Áõ°Å.(¾÷µ¥ÀÌÆ®¿¡ ¼º°ø Çß´Ù.
+			{	//ì—¬ê¸° ì™”ìŒì€ ë°ì´íƒ€ê°€ ë©€ì©¡í•˜ë‹¤ëŠ” ì¦ê±°.(ì—…ë°ì´íŠ¸ì— ì„±ê³µ í–ˆë‹¤.
 				if(QueryResult.dwSellValue != pMIB->dwSellValue)
 				{
 					MyLog(0,"Auction Critical Warning!! Type => CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT SellValue NotMatch = DB %d, Client %d",QueryResult.dwSellValue, pMIB->dwSellValue);
@@ -441,8 +441,8 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(const int iCn,t_packet &
 				}
 				goto __SUCCESS;
 			}
-			else //¸ğµç ¿¹¿Ü »óÈ²Àº ¾ø´Ù.
-			{	//ÀÌ·± ¸»µµ ¾ÈµÇ´Â »óÈ²
+			else //ëª¨ë“  ì˜ˆì™¸ ìƒí™©ì€ ì—†ë‹¤.
+			{	//ì´ëŸ° ë§ë„ ì•ˆë˜ëŠ” ìƒí™©
 				goto __FAIL;
 			}
 		}
@@ -463,20 +463,20 @@ __FAIL:
 __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		p.h.header.type = CMD_MERCHANT_ITEM_BUY_RESULT;//Å¸ÀÔÀ» ±³Ã¼ ÇÑ´Ù
-		(*pMIB) = QueryResult;//º¸³¾ ÆĞÅ¶¿¡ °á°ú¹°À» ½Ç¾î º¸³½´Ù
+		p.h.header.type = CMD_MERCHANT_ITEM_BUY_RESULT;//íƒ€ì…ì„ êµì²´ í•œë‹¤
+		(*pMIB) = QueryResult;//ë³´ë‚¼ íŒ¨í‚·ì— ê²°ê³¼ë¬¼ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤
 		::QueuePacket(connections,iCn,&p,1);
 		return;
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ±¸¸Å ÇÏ±â ³¡(±¸¸ÅÀÚ)
+// êµ¬ë§¤ í•˜ê¸° ë(êµ¬ë§¤ì)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ¸®½ºÆ® °Ë»ö ÇÏ±â ½ÃÀÛ(ÆÇ¸ÅÀÚ
+// ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰ í•˜ê¸° ì‹œì‘(íŒë§¤ì
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void CAuction::RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int iCn,t_packet &p)//¸®½ºÆ® ¿äÃ»(ÆÇ¸ÅÀÚ°¡ º¸´Â°Í
+void CAuction::RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int iCn,t_packet &p)//ë¦¬ìŠ¤íŠ¸ ìš”ì²­(íŒë§¤ìê°€ ë³´ëŠ”ê²ƒ
 {
 	const char* szName = p.u.SellerItemRequest.szName;
 	
@@ -489,12 +489,12 @@ void CAuction::RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int iCn,t_packet &p)//¸®
 	if(p.u.SellerItemRequest.iKey)
 	{
 	sprintf(szQuery,"EXEC MerchantItemSearchSellerSide %d, '%s',%d",
-		p.u.SellerItemRequest.iIndex, szName,IS_END_ALL_RIGHT);//ÀÎµ¦½º º¸´Ù Å©°í ÀÌ¸§°ú IsEnd ´Â 0 ÀÎ°ÍÀ» °¡Á®¿É´Ï´Ù.
+		p.u.SellerItemRequest.iIndex, szName,IS_END_ALL_RIGHT);//ì¸ë±ìŠ¤ ë³´ë‹¤ í¬ê³  ì´ë¦„ê³¼ IsEnd ëŠ” 0 ì¸ê²ƒì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	}
 	else
 	{
 	sprintf(szQuery,"EXEC MerchantItemSearchSellerSideInverse %d, '%s',%d",
-		p.u.SellerItemRequest.iIndex, szName,IS_END_ALL_RIGHT);//ÀÎµ¦½º º¸´Ù Å©°í ÀÌ¸§°ú IsEnd ´Â 0 ÀÎ°ÍÀ» °¡Á®¿É´Ï´Ù.
+		p.u.SellerItemRequest.iIndex, szName,IS_END_ALL_RIGHT);//ì¸ë±ìŠ¤ ë³´ë‹¤ í¬ê³  ì´ë¦„ê³¼ IsEnd ëŠ” 0 ì¸ê²ƒì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	}
 
 	if(SearchAuctionItem(&FindResult,szQuery))
@@ -507,15 +507,15 @@ void CAuction::RecvCMD_MERCHANT_SELL_LIST_REQUEST(const int iCn,t_packet &p)//¸®
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// ¸®½ºÆ® °Ë»ö ÇÏ±â ³¡ (ÆÇ¸ÅÀÚ
+// ë¦¬ìŠ¤íŠ¸ ê²€ìƒ‰ í•˜ê¸° ë (íŒë§¤ì
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// »èÁ¦ ÇÏ±â ½ÃÀÛ(ÆÇ¸Å Ãë¼Ò)
+// ì‚­ì œ í•˜ê¸° ì‹œì‘(íŒë§¤ ì·¨ì†Œ)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM(const int cn,t_packet &p)//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦
-{	//ÀÌ¸§¹× ÀÎµ¦½º¿Í ±×¿¡µû¸¥ ¾ÆÀÌÅÛÀ» ¹Ş¾Æ¿Àµµ·Ï ÇÑ´Ù.
-	//¾ÆÀÌÅÛÀÌ ÀÖÀ» °æ¿ì ±× Á¤º¸¸¦ ºñ±³ ÇØºÁ¾ß ÇÑ´Ù
+void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM(const int cn,t_packet &p)//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ
+{	//ì´ë¦„ë° ì¸ë±ìŠ¤ì™€ ê·¸ì—ë”°ë¥¸ ì•„ì´í…œì„ ë°›ì•„ì˜¤ë„ë¡ í•œë‹¤.
+	//ì•„ì´í…œì´ ìˆì„ ê²½ìš° ê·¸ ì •ë³´ë¥¼ ë¹„êµ í•´ë´ì•¼ í•œë‹¤
 /*	
 CREATE PROC MerchantItemCancelComform
 (
@@ -528,18 +528,18 @@ as
 
 UPDATE MerchantSeller SET [IsEnd] = @SetIsEnd WHERE   ([SellerName] =@SellerName) AND ([No] = @No)AND ([IsEnd] = @BeforeIsEnd)
 SELECT   [No], [SellerName], [IsEnd],[SellItemNo],[SellItemAttr1],[SellItemAttr2],[SellItemAttr3],[SellItemAttr4],[SellItemAttr5],[SellItemAttr6] FROM      MerchantSeller WHERE  ([SellerName] =@SellerName) AND ([No] = @No)
-MerchantItemCancelComform 1,'È­¶û»ó¿ì', 1,1 //ÀÚµ¿À¸·Î °ª Ã¼Å©ÇØ¼­ °á°ú ¹Ş¾Æ¿À´Â°ÍÀÌ´ç.. ^^ IsEnd°¡ ¹İµå½Ã ¸®ÅÏµÈ´Ù.
-*/// ÇÑ¹ø ¼ÂÆÃ µÇ¸é µÎ¹øÂ° ÇÏ´õ¶óµµ ¼ÂÆÃÀÌ ºÒ°¡´É ÇÏ´Ù
+MerchantItemCancelComform 1,'í™”ë‘ìƒìš°', 1,1 //ìë™ìœ¼ë¡œ ê°’ ì²´í¬í•´ì„œ ê²°ê³¼ ë°›ì•„ì˜¤ëŠ”ê²ƒì´ë‹¹.. ^^ IsEndê°€ ë°˜ë“œì‹œ ë¦¬í„´ëœë‹¤.
+*/// í•œë²ˆ ì…‹íŒ… ë˜ë©´ ë‘ë²ˆì§¸ í•˜ë”ë¼ë„ ì…‹íŒ…ì´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SDWORD		cbValue;
 	::SQLAllocStmt(hDBC, &hStmt);
 	char szQuery[255] ={0,};
 	SELLERITEMDELETE *pSID = &p.u.SellerItemDelete;
-	SELLERITEMDELETE QueryResult = *pSID;//¹ŞÀº°É·Î ÃÊ±âÈ­¸¦ ½ÃÅ²´Ù
-	sprintf(szQuery,"EXEC MerchantItemCancelComform %d, '%s' , %d , %d ",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-	pSID->iIndex ,pSID->szName ,IS_END_DELETING,IS_END_ALL_RIGHT );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
-	//IS_END_ALL_RIGHT »óÅÂ¿¡¼­¸¸ Áö¿ï ¼ö ÀÖ´Ù ¿©·¯¹ø Áö¿ì´Â°Ç ºÒ°¡´É ÇÏ´Ù
+	SELLERITEMDELETE QueryResult = *pSID;//ë°›ì€ê±¸ë¡œ ì´ˆê¸°í™”ë¥¼ ì‹œí‚¨ë‹¤
+	sprintf(szQuery,"EXEC MerchantItemCancelComform %d, '%s' , %d , %d ",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+	pSID->iIndex ,pSID->szName ,IS_END_DELETING,IS_END_ALL_RIGHT );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
+	//IS_END_ALL_RIGHT ìƒíƒœì—ì„œë§Œ ì§€ìš¸ ìˆ˜ ìˆë‹¤ ì—¬ëŸ¬ë²ˆ ì§€ìš°ëŠ”ê±´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 	int iSellerCount = 0;
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -551,7 +551,7 @@ MerchantItemCancelComform 1,'È­¶û»ó¿ì', 1,1 //ÀÚµ¿À¸·Î °ª Ã¼Å©ÇØ¼­ °á°ú ¹Ş¾Æ¿À´Â
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iIndex,			0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_CHAR,	QueryResult.szName,				20, &cbValue);
 			::EatRearWhiteChar(QueryResult.szName);
-			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEnd°ªÀÌ µé¾î¿Â´Ù
+			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEndê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.item_no,	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[0],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[1],	0, &cbValue);
@@ -560,11 +560,11 @@ MerchantItemCancelComform 1,'È­¶û»ó¿ì', 1,1 //ÀÚµ¿À¸·Î °ª Ã¼Å©ÇØ¼­ °á°ú ¹Ş¾Æ¿À´Â
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[4],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[5],	0, &cbValue);
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-			{	//¿©±â ¿ÔÀ½Àº µ¥ÀÌÅ¸°¡ ¸ÖÂÄÇÏ´Ù´Â Áõ°Å.(¾÷µ¥ÀÌÆ®¿¡ ¼º°ø Çß´Ù.
+			{	//ì—¬ê¸° ì™”ìŒì€ ë°ì´íƒ€ê°€ ë©€ì©¡í•˜ë‹¤ëŠ” ì¦ê±°.(ì—…ë°ì´íŠ¸ì— ì„±ê³µ í–ˆë‹¤.
 				goto __SUCCESS;
 			}
-			else //¸ğµç ¿¹¿Ü »óÈ²Àº ¾ø´Ù.
-			{	//ÀÌ·± ¸»µµ ¾ÈµÇ´Â »óÈ²
+			else //ëª¨ë“  ì˜ˆì™¸ ìƒí™©ì€ ì—†ë‹¤.
+			{	//ì´ëŸ° ë§ë„ ì•ˆë˜ëŠ” ìƒí™©
 				goto __FAIL;
 			}
 		}
@@ -588,20 +588,20 @@ __FAIL:
 __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		p.h.header.type = CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT;//Å¸ÀÔÀ» ±³Ã¼ ÇÑ´Ù
-		*pSID = QueryResult;//º¸³¾ ÆĞÅ¶¿¡ °á°ú¹°À» ½Ç¾î º¸³½´Ù
+		p.h.header.type = CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT;//íƒ€ì…ì„ êµì²´ í•œë‹¤
+		*pSID = QueryResult;//ë³´ë‚¼ íŒ¨í‚·ì— ê²°ê³¼ë¬¼ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤
 		::QueuePacket(connections,cn,&p,1);	
 		return;
 	}	
 }
 
-void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_packet &p)//ÆÇ¸Å ¾ÆÀÌÅÛÀ» »èÁ¦
-{	//¸Ê¼­¹ö°¡ Áö±Ş ÇßÀ¸¸é IS_END_DELETE_COMPLETE °¡ Ã¼Å© µÇ¾î ÀÖÀ» °ÍÀÌ°í 
-	//¾Æ´Ï¸é IS_END_ALL_RIGHT°¡ Ã¼Å© µÇ¾î ÀÖÀ» °ÍÀÌ´Ù
+void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_packet &p)//íŒë§¤ ì•„ì´í…œì„ ì‚­ì œ
+{	//ë§µì„œë²„ê°€ ì§€ê¸‰ í–ˆìœ¼ë©´ IS_END_DELETE_COMPLETE ê°€ ì²´í¬ ë˜ì–´ ìˆì„ ê²ƒì´ê³  
+	//ì•„ë‹ˆë©´ IS_END_ALL_RIGHTê°€ ì²´í¬ ë˜ì–´ ìˆì„ ê²ƒì´ë‹¤
 	const int iKey = p.u.SellerItemDelete.iKey;
 	if(	IS_END_DELETE_COMPLETE  != iKey
 	&&	IS_END_ALL_RIGHT		!= iKey)
-	{//ÀÌ°Å µÎ°³°¡ ¾Æ´Ï´Ù
+	{//ì´ê±° ë‘ê°œê°€ ì•„ë‹ˆë‹¤
 		MyLog(0,"Auction Critical Error!! Type => CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT");
 		return;
 	}
@@ -612,9 +612,9 @@ void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_p
 	::SQLAllocStmt(hDBC, &hStmt);
 	char szQuery[255] ={0,};
 	SELLERITEMDELETE *pSID = &p.u.SellerItemDelete;
-	SELLERITEMDELETE QueryResult = *pSID;//¹ŞÀº°É·Î ÃÊ±âÈ­¸¦ ½ÃÅ²´Ù
-	sprintf(szQuery,"EXEC MerchantItemCancelComform %d, '%s' , %d , %d ",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-	pSID->iIndex,pSID->szName ,p.u.SellerItemDelete.iKey, IS_END_DELETING );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+	SELLERITEMDELETE QueryResult = *pSID;//ë°›ì€ê±¸ë¡œ ì´ˆê¸°í™”ë¥¼ ì‹œí‚¨ë‹¤
+	sprintf(szQuery,"EXEC MerchantItemCancelComform %d, '%s' , %d , %d ",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+	pSID->iIndex,pSID->szName ,p.u.SellerItemDelete.iKey, IS_END_DELETING );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 	int iSellerCount = 0;
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -626,7 +626,7 @@ void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_p
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iIndex,			0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_CHAR,	QueryResult.szName,				20, &cbValue);
 			::EatRearWhiteChar(QueryResult.szName);
-			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEnd°ªÀÌ µé¾î¿Â´Ù
+			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iKey,				0, &cbValue);//IsEndê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.item_no,	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[0],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[1],	0, &cbValue);
@@ -636,11 +636,11 @@ void CAuction::RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(const int cn,t_p
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[5],	0, &cbValue);
 			
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-			{	//¿©±â ¿ÔÀ½Àº µ¥ÀÌÅ¸°¡ ¸ÖÂÄÇÏ´Ù´Â Áõ°Å.(¾÷µ¥ÀÌÆ®¿¡ ¼º°ø Çß´Ù.
+			{	//ì—¬ê¸° ì™”ìŒì€ ë°ì´íƒ€ê°€ ë©€ì©¡í•˜ë‹¤ëŠ” ì¦ê±°.(ì—…ë°ì´íŠ¸ì— ì„±ê³µ í–ˆë‹¤.
 				goto __SUCCESS;
 			}
-			else //¸ğµç ¿¹¿Ü »óÈ²Àº ¾ø´Ù.
-			{	//ÀÌ·± ¸»µµ ¾ÈµÇ´Â »óÈ²
+			else //ëª¨ë“  ì˜ˆì™¸ ìƒí™©ì€ ì—†ë‹¤.
+			{	//ì´ëŸ° ë§ë„ ì•ˆë˜ëŠ” ìƒí™©
 				goto __FAIL;
 			}
 		}
@@ -657,22 +657,22 @@ __FAIL:
 __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		p.h.header.type = CMD_MERCHANT_SELL_ITEM_DELETE_RESULT;//Å¸ÀÔÀ» ±³Ã¼ ÇÑ´Ù
-		*pSID = QueryResult;//º¸³¾ ÆĞÅ¶¿¡ °á°ú¹°À» ½Ç¾î º¸³½´Ù
+		p.h.header.type = CMD_MERCHANT_SELL_ITEM_DELETE_RESULT;//íƒ€ì…ì„ êµì²´ í•œë‹¤
+		*pSID = QueryResult;//ë³´ë‚¼ íŒ¨í‚·ì— ê²°ê³¼ë¬¼ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤
 		::QueuePacket(connections,cn,&p,1);	
 		return;
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// »èÁ¦ ÇÏ±â ³¡(ÆÇ¸Å Ãë¼Ò)
+// ì‚­ì œ í•˜ê¸° ë(íŒë§¤ ì·¨ì†Œ)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// µî·Ï ÇÏ±â
+// ë“±ë¡ í•˜ê¸°
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void CAuction::RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM(const int iCn,t_packet &p)//ÆÇ¸Å ¾ÆÀÌÅÛÀ» µî·Ï
-{	//°¹¼ö¸¦ Ã¼Å©ÇÏ°í //°á°ú°ªÀ» ¸ÊÀ¸·Î º¸³½´Ù
-	//µî·Ï ÇÒ ¼ö ÀÖ´ÂÁö ÀÚ½ÅÀÌ µî·ÏÇÑ °¹¼ö Ã¼Å©
+void CAuction::RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM(const int iCn,t_packet &p)//íŒë§¤ ì•„ì´í…œì„ ë“±ë¡
+{	//ê°¯ìˆ˜ë¥¼ ì²´í¬í•˜ê³  //ê²°ê³¼ê°’ì„ ë§µìœ¼ë¡œ ë³´ë‚¸ë‹¤
+	//ë“±ë¡ í•  ìˆ˜ ìˆëŠ”ì§€ ìì‹ ì´ ë“±ë¡í•œ ê°¯ìˆ˜ ì²´í¬
 /*
 CREATE PROC MerchantItemRegistCountComform
 (
@@ -682,14 +682,14 @@ as
 
 select count(*) FROM      MerchantSeller where SellerName = @SellerName
 
-MerchantItemRegistCountComform 'ÀÌ¸§'
+MerchantItemRegistCountComform 'ì´ë¦„'
 */
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SDWORD		cbValue;
 	::SQLAllocStmt(hDBC, &hStmt);
 	char szQuery[255] ={0,};
-	sprintf(szQuery,"EXEC MerchantItemRegistCountComform '%s'",p.u.SellerItemRegister.szName);//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+	sprintf(szQuery,"EXEC MerchantItemRegistCountComform '%s'",p.u.SellerItemRegister.szName);//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 	int iSellerCount = 0;
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -717,18 +717,18 @@ __FAIL:
 __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		p.h.header.type	= CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT;//ÄÄÆû °á°ú´Ù
-		p.u.SellerItemRegister.iKey = (iSellerCount <MAX_SEARCH_RESULT_LIST)?1:0;//ÆÈ ¼ö ÀÖÀ¸¸é 1 ¾Æ´Ï¸é 0//MAX_SEARCH_RESULT_LIST ¹Ù²ÙÁö ¸»°í °ªÀ» ´Ù¸¥°Å ³Ö¾î¶ó
-		::QueuePacket(connections,iCn,&p,1);//¹ŞÀº ¸Ê¼­¹ö·Î ´Ù½Ã Àü¼Û
-		return;//ÆÄ´Â °¹¼ö ¹®Á¦
+		p.h.header.type	= CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT;//ì»´í¼ ê²°ê³¼ë‹¤
+		p.u.SellerItemRegister.iKey = (iSellerCount <MAX_SEARCH_RESULT_LIST)?1:0;//íŒ” ìˆ˜ ìˆìœ¼ë©´ 1 ì•„ë‹ˆë©´ 0//MAX_SEARCH_RESULT_LIST ë°”ê¾¸ì§€ ë§ê³  ê°’ì„ ë‹¤ë¥¸ê±° ë„£ì–´ë¼
+		::QueuePacket(connections,iCn,&p,1);//ë°›ì€ ë§µì„œë²„ë¡œ ë‹¤ì‹œ ì „ì†¡
+		return;//íŒŒëŠ” ê°¯ìˆ˜ ë¬¸ì œ
 	}
 }
 
-void CAuction::RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(const int iCn,t_packet &p)//ÆÇ¸Å ¾ÆÀÌÅÛÀ» µî·Ï
+void CAuction::RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(const int iCn,t_packet &p)//íŒë§¤ ì•„ì´í…œì„ ë“±ë¡
 {
-	//µî·ÏÀ» ÇÏ°í IsEnd¸¦ °Å·¡Á¾·á·Î ¸¸µç´Ù. ÀÌ°Å ÄÚµùµµ ³ÖÀ» °Í
-	//	p.u.SellerItemRegister.	//Key¸¦ Á¶Àı ÇÕ½Ã´Ù 
-	//ÆÇ¸Å¹°Ç° µî·Ï
+	//ë“±ë¡ì„ í•˜ê³  IsEndë¥¼ ê±°ë˜ì¢…ë£Œë¡œ ë§Œë“ ë‹¤. ì´ê±° ì½”ë”©ë„ ë„£ì„ ê²ƒ
+	//	p.u.SellerItemRegister.	//Keyë¥¼ ì¡°ì ˆ í•©ì‹œë‹¤ 
+	//íŒë§¤ë¬¼í’ˆ ë“±ë¡
 /*
 	CREATE PROC MerchantItemRegist
 (
@@ -765,8 +765,8 @@ INSERT into  MerchantSeller(
 ) VALUES ( @SellerName, @ExchangeMoney, @RareType, @ItemLevel, @TacticType, @WearKind, 
 @ItemNo, @ItemAttr1,@ItemAttr2,@ItemAttr3,@ItemAttr4,@ItemAttr5,@ItemAttr6 )
 
-½ÇÇà¹æ¹ı.
-exec MerchantItemRegist '»ç¶÷ÀÌ¸§',µ·,Å¬·¡½º,·¹¾î,¾ÆÀÌÅÛ·¹º§,ÅÃÆ½,ÀÔ´ÂÀå¼Ò,¾ÆÀÌÅÛ ,attr1~6
+ì‹¤í–‰ë°©ë²•.
+exec MerchantItemRegist 'ì‚¬ëŒì´ë¦„',ëˆ,í´ë˜ìŠ¤,ë ˆì–´,ì•„ì´í…œë ˆë²¨,íƒí‹±,ì…ëŠ”ì¥ì†Œ,ì•„ì´í…œ ,attr1~6
 
 */
 	lpSELLERITEMREGISTER lpSIR = &p.u.SellerItemRegister;
@@ -793,23 +793,23 @@ exec MerchantItemRegist '»ç¶÷ÀÌ¸§',µ·,Å¬·¡½º,·¹¾î,¾ÆÀÌÅÛ·¹º§,ÅÃÆ½,ÀÔ´ÂÀå¼Ò,¾ÆÀÌÅ
 	(int)lpSIR->SellItem.attr[5]
 	);
 		
-	if( 1 == ::Querry_SQL(szQuery,hDBC))//µå·¡°ï µğºñ·Î ³¯¸²
-	{//¼º°ø//µî·Ï ¿Ï·á
+	if( 1 == ::Querry_SQL(szQuery,hDBC))//ë“œë˜ê³¤ ë””ë¹„ë¡œ ë‚ ë¦¼
+	{//ì„±ê³µ//ë“±ë¡ ì™„ë£Œ
 		p.u.SellerItemRegister.iKey = 1;
 	}
 	else
-	{//½ÇÆĞ
+	{//ì‹¤íŒ¨
 		p.u.SellerItemRegister.iKey = 0;
 	}
-	p.h.header.type = CMD_MERCHANT_SELL_ITEM_REGISTER_RESULT;//°á°ú¸¦ ³¯¸°´Ù
+	p.h.header.type = CMD_MERCHANT_SELL_ITEM_REGISTER_RESULT;//ê²°ê³¼ë¥¼ ë‚ ë¦°ë‹¤
 	::QueuePacket(connections,iCn,&p,1);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// µî·Ï ÇÏ±â ³¡
+// ë“±ë¡ í•˜ê¸° ë
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// °Å·¡ °á°ú ¸®½ºÆ® ¹Ş±â ½ÃÀÛ
+// ê±°ë˜ ê²°ê³¼ ë¦¬ìŠ¤íŠ¸ ë°›ê¸° ì‹œì‘
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void CAuction::RecvCMD_MERCHANT_RESULT_LIST_REQUEST(const int iCn,t_packet &p)
 {
@@ -825,12 +825,12 @@ void CAuction::RecvCMD_MERCHANT_RESULT_LIST_REQUEST(const int iCn,t_packet &p)
 	if(p.u.SellerItemRequest.iKey)
 	{
 		sprintf(szQuery,"EXEC MerchantResultItemSearch %d,'%s',%d",
-			p.u.SellerItemRequest.iIndex, szName,IS_END_WAIT_TAKE);//ÀÌ¸§°ú IsEnd ´Â 0 ÀÎ°ÍÀ» °¡Á®¿É´Ï´Ù.
+			p.u.SellerItemRequest.iIndex, szName,IS_END_WAIT_TAKE);//ì´ë¦„ê³¼ IsEnd ëŠ” 0 ì¸ê²ƒì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	}
 	else
 	{
 		sprintf(szQuery,"EXEC MerchantResultItemSearchInverse %d,'%s',%d",
-			p.u.SellerItemRequest.iIndex, szName,IS_END_WAIT_TAKE);//ÀÌ¸§°ú IsEnd ´Â 0 ÀÎ°ÍÀ» °¡Á®¿É´Ï´Ù.
+			p.u.SellerItemRequest.iIndex, szName,IS_END_WAIT_TAKE);//ì´ë¦„ê³¼ IsEnd ëŠ” 0 ì¸ê²ƒì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	}
 	if(SearchAuctionItem(&FindResult,szQuery))
 	{
@@ -842,40 +842,40 @@ void CAuction::RecvCMD_MERCHANT_RESULT_LIST_REQUEST(const int iCn,t_packet &p)
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// °Å·¡ °á°ú ¸®½ºÆ® ¹Ş±â ³¡
+// ê±°ë˜ ê²°ê³¼ ë¦¬ìŠ¤íŠ¸ ë°›ê¸° ë
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// °Å·¡ °á°ú¹° °¡Á®°¡±â ½ÃÀÛ
+// ê±°ë˜ ê²°ê³¼ë¬¼ ê°€ì ¸ê°€ê¸° ì‹œì‘
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void CAuction::RecvCMD_MERCHANT_RESULT_TAKE_COMFORM(const int iCn,t_packet &p)
-{	//ÀÌ¸§¹× ÀÎµ¦½º¿Í ±×¿¡µû¸¥ ¾ÆÀÌÅÛÀ» ¹Ş¾Æ¿Àµµ·Ï ÇÑ´Ù.
-	//¾ÆÀÌÅÛÀÌ ÀÖÀ» °æ¿ì ±× Á¤º¸¸¦ ºñ±³ ÇØºÁ¾ß ÇÑ´Ù
-	//SellerTake BuyerTake Ã¼Å©¸¦ ÇÑ´Ù
+{	//ì´ë¦„ë° ì¸ë±ìŠ¤ì™€ ê·¸ì—ë”°ë¥¸ ì•„ì´í…œì„ ë°›ì•„ì˜¤ë„ë¡ í•œë‹¤.
+	//ì•„ì´í…œì´ ìˆì„ ê²½ìš° ê·¸ ì •ë³´ë¥¼ ë¹„êµ í•´ë´ì•¼ í•œë‹¤
+	//SellerTake BuyerTake ì²´í¬ë¥¼ í•œë‹¤
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SDWORD		cbValue;
 	char szQuery[255] ={0,};
 	MERCHANTRESULTTAKE *pMRT = &p.u.MerchantResultTake;
-	MERCHANTRESULTTAKE QueryResult = *pMRT;//¹ŞÀº°É·Î ÃÊ±âÈ­¸¦ ½ÃÅ²´Ù
+	MERCHANTRESULTTAKE QueryResult = *pMRT;//ë°›ì€ê±¸ë¡œ ì´ˆê¸°í™”ë¥¼ ì‹œí‚¨ë‹¤
 
 COMMENT	::MyLog(0,"O Index %d ItemNo %d",pMRT->iIndex , pMRT->SellItem);
 COMMENT	::MyLog(0,"N Index %d ItemNo %d",QueryResult.iIndex , QueryResult.SellItem);
 
-	if(pMRT->iKey)//ÆÇ¸ÅÀÚ ÀÌ¸é
+	if(pMRT->iKey)//íŒë§¤ì ì´ë©´
 	{
-		sprintf(szQuery,"EXEC MerchantResultItemTakeSellerSideComform %d, '%s' , %d , %d, %d ",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-		pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETING, IS_END_ALL_RIGHT );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+		sprintf(szQuery,"EXEC MerchantResultItemTakeSellerSideComform %d, '%s' , %d , %d, %d ",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+		pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETING, IS_END_ALL_RIGHT );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 	}
 	else
 	{
-		sprintf(szQuery,"EXEC MerchantResultItemTakeBuyerSideComform %d, '%s' , %d , %d , %d",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-		pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETING, IS_END_ALL_RIGHT );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+		sprintf(szQuery,"EXEC MerchantResultItemTakeBuyerSideComform %d, '%s' , %d , %d , %d",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+		pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETING, IS_END_ALL_RIGHT );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 	}
 COMMENT	MyLog(0,"RecvCMD_MERCHANT_RESULT_TAKE_COMFORM %s",szQuery);
 
 	::SQLAllocStmt(hDBC, &hStmt);
-	//IS_END_ALL_RIGHT »óÅÂ¿¡¼­¸¸ Áö¿ï ¼ö ÀÖ´Ù ¿©·¯¹ø Áö¿ì´Â°Ç ºÒ°¡´É ÇÏ´Ù
+	//IS_END_ALL_RIGHT ìƒíƒœì—ì„œë§Œ ì§€ìš¸ ìˆ˜ ìˆë‹¤ ì—¬ëŸ¬ë²ˆ ì§€ìš°ëŠ”ê±´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 	int iSellerCount = 0;
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -891,7 +891,7 @@ COMMENT	MyLog(0,"RecvCMD_MERCHANT_RESULT_TAKE_COMFORM %s",szQuery);
 			::EatRearWhiteChar(QueryResult.szBuyerName);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iSellerTake,		0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iBuyerTake,		0, &cbValue);
-			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.dwSellValue,		0, &cbValue);//IsEnd°ªÀÌ µé¾î¿Â´Ù
+			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.dwSellValue,		0, &cbValue);//IsEndê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.item_no,	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[0],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[1],	0, &cbValue);
@@ -901,12 +901,12 @@ COMMENT	MyLog(0,"RecvCMD_MERCHANT_RESULT_TAKE_COMFORM %s",szQuery);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[5],	0, &cbValue);
 			
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-			{	//¿©±â ¿ÔÀ½Àº µ¥ÀÌÅ¸°¡ ¸ÖÂÄÇÏ´Ù´Â Áõ°Å.(¾÷µ¥ÀÌÆ®¿¡ ¼º°ø Çß´Ù.
+			{	//ì—¬ê¸° ì™”ìŒì€ ë°ì´íƒ€ê°€ ë©€ì©¡í•˜ë‹¤ëŠ” ì¦ê±°.(ì—…ë°ì´íŠ¸ì— ì„±ê³µ í–ˆë‹¤.
 COMMENT			MyLog(0,"Update Complete");
 				goto __SUCCESS;
 			}
-			else //¸ğµç ¿¹¿Ü »óÈ²Àº ¾ø´Ù.
-			{	//ÀÌ·± ¸»µµ ¾ÈµÇ´Â »óÈ²
+			else //ëª¨ë“  ì˜ˆì™¸ ìƒí™©ì€ ì—†ë‹¤.
+			{	//ì´ëŸ° ë§ë„ ì•ˆë˜ëŠ” ìƒí™©
 COMMENT			MyLog(0,"Update Failed");
 				goto __FAIL;
 			}
@@ -914,7 +914,7 @@ COMMENT			MyLog(0,"Update Failed");
 		else
 		{
 COMMENT		MyLog(0,"Non Select Result");
-			QueryResult.iKey = -1;//ÁÖ¸é ¾ÈµÈ´Ù!!
+			QueryResult.iKey = -1;//ì£¼ë©´ ì•ˆëœë‹¤!!
 			goto __SUCCESS;
 		}
 	}
@@ -932,8 +932,8 @@ __FAIL:
 __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		p.h.header.type = CMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT;//Å¸ÀÔÀ» ±³Ã¼ ÇÑ´Ù
-		*pMRT = QueryResult;//º¸³¾ ÆĞÅ¶¿¡ °á°ú¹°À» ½Ç¾î º¸³½´Ù
+		p.h.header.type = CMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT;//íƒ€ì…ì„ êµì²´ í•œë‹¤
+		*pMRT = QueryResult;//ë³´ë‚¼ íŒ¨í‚·ì— ê²°ê³¼ë¬¼ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤
 COMMENT	::MyLog(0,"O Index %d ItemNo %d",pMRT->iIndex , pMRT->SellItem);
 COMMENT	::MyLog(0,"N Index %d ItemNo %d",QueryResult.iIndex , QueryResult.SellItem);
 		::QueuePacket(connections,iCn,&p,1);
@@ -948,34 +948,34 @@ void CAuction::RecvCMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT(const int iCn,t_packe
 	SDWORD		cbValue;
 	char szQuery[255] ={0,};
 	MERCHANTRESULTTAKE *pMRT = &p.u.MerchantResultTake;
-	MERCHANTRESULTTAKE QueryResult = *pMRT;//¹ŞÀº°É·Î ÃÊ±âÈ­¸¦ ½ÃÅ²´Ù
+	MERCHANTRESULTTAKE QueryResult = *pMRT;//ë°›ì€ê±¸ë¡œ ì´ˆê¸°í™”ë¥¼ ì‹œí‚¨ë‹¤
 
 COMMENT	::MyLog(0,"O Index %d ItemNo %d",pMRT->iIndex , pMRT->SellItem);
 COMMENT	::MyLog(0,"N Index %d ItemNo %d",QueryResult.iIndex , QueryResult.SellItem);
 
 	switch(pMRT->iKey)
 	{
-	case 101://ÆÇ¸ÅÀÚ Áö±Ş ¼º°ø
+	case 101://íŒë§¤ì ì§€ê¸‰ ì„±ê³µ
 		{
-			sprintf(szQuery,"EXEC MerchantResultItemTakeSellerSideComform %d, '%s' , %d , %d , %d",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETE_COMPLETE,IS_END_DELETING );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+			sprintf(szQuery,"EXEC MerchantResultItemTakeSellerSideComform %d, '%s' , %d , %d , %d",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETE_COMPLETE,IS_END_DELETING );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 		}break;
-	case 100://±¸¸ÅÀÚ Áö±Ş ¼º°ø
+	case 100://êµ¬ë§¤ì ì§€ê¸‰ ì„±ê³µ
 		{
-			sprintf(szQuery,"EXEC MerchantResultItemTakeBuyerSideComform %d, '%s' , %d , %d , %d ",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETE_COMPLETE,IS_END_DELETING );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+			sprintf(szQuery,"EXEC MerchantResultItemTakeBuyerSideComform %d, '%s' , %d , %d , %d ",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_DELETE_COMPLETE,IS_END_DELETING );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 		}break;
-	case 11://ÆÇ¸ÅÀÚ Áö±Ş ½ÇÆĞ
+	case 11://íŒë§¤ì ì§€ê¸‰ ì‹¤íŒ¨
 		{
-			sprintf(szQuery,"EXEC MerchantResultItemTakeSellerSideComform %d, '%s' , %d , %d ",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_ALL_RIGHT ,IS_END_DELETING);//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+			sprintf(szQuery,"EXEC MerchantResultItemTakeSellerSideComform %d, '%s' , %d , %d ",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_ALL_RIGHT ,IS_END_DELETING);//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 			::Querry_SQL(szQuery);
 			return;
 		}break;
-	case 10://±¸¸ÅÀÚ Áö±Ş ½ÇÆĞ
+	case 10://êµ¬ë§¤ì ì§€ê¸‰ ì‹¤íŒ¨
 		{
-			sprintf(szQuery,"EXEC MerchantResultItemTakeBuyerSideComform %d, '%s' , %d , %d ",//ÀÎµ¦½º,ÀÌ¸§,¹Ù²Ü°ª,ÀÌÀü°ª
-			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_ALL_RIGHT,IS_END_DELETING );//ÀÌ¸§À¸·Î Ä«¿îÆ®¸¦ ¹Ş´Â´Ù
+			sprintf(szQuery,"EXEC MerchantResultItemTakeBuyerSideComform %d, '%s' , %d , %d ",//ì¸ë±ìŠ¤,ì´ë¦„,ë°”ê¿€ê°’,ì´ì „ê°’
+			pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE,IS_END_ALL_RIGHT,IS_END_DELETING );//ì´ë¦„ìœ¼ë¡œ ì¹´ìš´íŠ¸ë¥¼ ë°›ëŠ”ë‹¤
 			::Querry_SQL(szQuery);
 			return;
 		}break;
@@ -1004,7 +1004,7 @@ COMMENT	::MyLog(0,"RecvCMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT %s",szQuery);
 			::EatRearWhiteChar(QueryResult.szBuyerName);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iSellerTake,		0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.iBuyerTake,		0, &cbValue);
-			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.dwSellValue,		0, &cbValue);//IsEnd°ªÀÌ µé¾î¿Â´Ù
+			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.dwSellValue,		0, &cbValue);//IsEndê°’ì´ ë“¤ì–´ì˜¨ë‹¤
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.item_no,	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[0],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[1],	0, &cbValue);
@@ -1013,12 +1013,12 @@ COMMENT	::MyLog(0,"RecvCMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT %s",szQuery);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[4],	0, &cbValue);
 			retCode = ::SQLGetData(hStmt, ++column, SQL_C_LONG,	&QueryResult.SellItem.attr[5],	0, &cbValue);
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-			{	//¿©±â ¿ÔÀ½Àº µ¥ÀÌÅ¸°¡ ¸ÖÂÄÇÏ´Ù´Â Áõ°Å.(¾÷µ¥ÀÌÆ®¿¡ ¼º°ø Çß´Ù.
+			{	//ì—¬ê¸° ì™”ìŒì€ ë°ì´íƒ€ê°€ ë©€ì©¡í•˜ë‹¤ëŠ” ì¦ê±°.(ì—…ë°ì´íŠ¸ì— ì„±ê³µ í–ˆë‹¤.
 COMMENT			MyLog(0,"Update Complete");				
 				goto __SUCCESS;
 			}
-			else //¸ğµç ¿¹¿Ü »óÈ²Àº ¾ø´Ù.
-			{	//ÀÌ·± ¸»µµ ¾ÈµÇ´Â »óÈ²
+			else //ëª¨ë“  ì˜ˆì™¸ ìƒí™©ì€ ì—†ë‹¤.
+			{	//ì´ëŸ° ë§ë„ ì•ˆë˜ëŠ” ìƒí™©
 COMMENT			MyLog(0,"Non Select Result");
 				goto __FAIL;
 			}
@@ -1044,8 +1044,8 @@ __SUCCESS:
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
 		
-		p.h.header.type = CMD_MERCHANT_RESULT_TAKE_RESULT;//Å¸ÀÔÀ» ±³Ã¼ ÇÑ´Ù
-		*pMRT = QueryResult;//º¸³¾ ÆĞÅ¶¿¡ °á°ú¹°À» ½Ç¾î º¸³½´Ù
+		p.h.header.type = CMD_MERCHANT_RESULT_TAKE_RESULT;//íƒ€ì…ì„ êµì²´ í•œë‹¤
+		*pMRT = QueryResult;//ë³´ë‚¼ íŒ¨í‚·ì— ê²°ê³¼ë¬¼ì„ ì‹¤ì–´ ë³´ë‚¸ë‹¤
 
 COMMENT	::MyLog(0,"RO Index %d ItemNo %d",pMRT->iIndex , pMRT->SellItem);
 COMMENT	::MyLog(0,"RN Index %d ItemNo %d",QueryResult.iIndex , QueryResult.SellItem);
@@ -1055,11 +1055,11 @@ COMMENT	::MyLog(0,"RN Index %d ItemNo %d",QueryResult.iIndex , QueryResult.SellI
 	}	
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// °Å·¡ °á°ú¹° °¡Á®°¡±â ³¡
+// ê±°ë˜ ê²°ê³¼ë¬¼ ê°€ì ¸ê°€ê¸° ë
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//°³ÀÎÀû °Å·¡ ¸®½ºÆ® ½ÃÀÛ
+//ê°œì¸ì  ê±°ë˜ ë¦¬ìŠ¤íŠ¸ ì‹œì‘
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void CAuction::RecvCMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUEST(const int iCn,t_packet &p)
 {
@@ -1070,7 +1070,7 @@ void CAuction::RecvCMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUEST(const int iCn,t_pac
 	memcpy(FindResult.szName,p.u.MerchantExchangeRequest.szMyName,20);
 	char szQuery[1000] ={0,};
 
-	if(p.u.MerchantExchangeRequest.iKey)//ÀÎµ¦½º À§ÀÎ°¡ ¾Æ·¡ÀÎ°¡.
+	if(p.u.MerchantExchangeRequest.iKey)//ì¸ë±ìŠ¤ ìœ„ì¸ê°€ ì•„ë˜ì¸ê°€.
 	{
 	sprintf(szQuery,"EXEC MerchantItemSearchDirectExchage '%s', %d, %d, %d, %d",
 		p.u.MerchantExchangeRequest.szSellerName,
@@ -1099,11 +1099,11 @@ void CAuction::RecvCMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUEST(const int iCn,t_pac
 	return;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//°³ÀÎÀû °Å·¡ ¸®½ºÆ® ³¡
+//ê°œì¸ì  ê±°ë˜ ë¦¬ìŠ¤íŠ¸ ë
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//<! BBD 040226	°Å·¡°¡ Á¾·áµÇ°Å³ª µî·ÏÃë¼Ò·Î ÇÊ¿ä¾ø´Â ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ±â´É Ãß°¡
+//<! BBD 040226	ê±°ë˜ê°€ ì¢…ë£Œë˜ê±°ë‚˜ ë“±ë¡ì·¨ì†Œë¡œ í•„ìš”ì—†ëŠ” ë ˆì½”ë“œë¥¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥ ì¶”ê°€
 void CAuction::RecvCMD_MERCHANT_RECORD_DEL_CANCLE(const int iCn,t_packet &p)
 {
 	HSTMT		hStmt = NULL;
@@ -1111,8 +1111,8 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_CANCLE(const int iCn,t_packet &p)
 	SDWORD		cbValue;
 	char szQuery[255] ={0,};
 	SELLERITEMDELETE *pSID = &p.u.SellerItemDelete;
-	// ´ÙÀ½ ÀÎÀÚ¸¦ ¸Å°³º¯¼ö·Î ÇÏ´Â ÀúÀåÇÁ·Î½ÃÀú¸¦ ¹ßµ¿ÇÏ¿© Áö¿î´Ù
-	// (No, name = ÆÄ´Â³ğ, IsEnd = IS_END_DELETE_COMPLETE)
+	// ë‹¤ìŒ ì¸ìë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ í•˜ëŠ” ì €ì¥í”„ë¡œì‹œì €ë¥¼ ë°œë™í•˜ì—¬ ì§€ìš´ë‹¤
+	// (No, name = íŒŒëŠ”ë†ˆ, IsEnd = IS_END_DELETE_COMPLETE)
 	::SQLAllocStmt(hDBC, &hStmt);
 	::memset(szQuery, 0L, sizeof(szQuery));
 	sprintf(szQuery,"EXEC MerchantDelbyCancel %d, '%s' , %d", pSID->iIndex, pSID->szName , IS_END_DELETE_COMPLETE);
@@ -1120,24 +1120,24 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_CANCLE(const int iCn,t_packet &p)
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
-		// Äõ¸® ¼º°ø
-		// Áö¿öÁø°ÇÁö ¾Æ´ÑÁö¿¡ µû¶ó Áö¿öÁ³À¸¸é ¸Ê¼­¹öÇÑÅ× ¾Ë·Á¾ß ÇÑ´Ù
+		// ì¿¼ë¦¬ ì„±ê³µ
+		// ì§€ì›Œì§„ê±´ì§€ ì•„ë‹Œì§€ì— ë”°ë¼ ì§€ì›Œì¡Œìœ¼ë©´ ë§µì„œë²„í•œí…Œ ì•Œë ¤ì•¼ í•œë‹¤
 		retCode = SQLFetch(hStmt);
 		if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 		{
 			int count;
 			retCode = ::SQLGetData(hStmt, 1, SQL_C_LONG,	&count,			0, &cbValue);
 
-			if(count == 1)		// 1°³ÀÇ ·¹ÄÚµå°¡ »èÁ¦ µÇ¾ú´Ù
+			if(count == 1)		// 1ê°œì˜ ë ˆì½”ë“œê°€ ì‚­ì œ ë˜ì—ˆë‹¤
 			{
-				// È¤ »èÁ¦Çß´Ù°í ¸Ê¼­¹ö¿¡°Ô ¾Ë·Á¾ß ÇÒ±î? ·Î±×µµ ³²±â°í ¿Ô´Âµ¥?
-//				p.h.header.type = CMD_MERCHANT_RECORD_DEL_CANCLE; //·¹ÄÚµå »èÁ¦Çß´Ù°í ¾Ë¸°´Ù
+				// í˜¹ ì‚­ì œí–ˆë‹¤ê³  ë§µì„œë²„ì—ê²Œ ì•Œë ¤ì•¼ í• ê¹Œ? ë¡œê·¸ë„ ë‚¨ê¸°ê³  ì™”ëŠ”ë°?
+//				p.h.header.type = CMD_MERCHANT_RECORD_DEL_CANCLE; //ë ˆì½”ë“œ ì‚­ì œí–ˆë‹¤ê³  ì•Œë¦°ë‹¤
 //				::QueuePacket(connections,cn,&p,1);
 			}
 			else
 			{
-				// ÇØ´ç ·¹ÄÚµå°¡ ¾ø´Ù BBD°¡ Ãß°¡ÇÏ±â ÀÌÀüºÎºĞ¿¡¼­ ÀÌ¹Ì ¹®Á¦°¡ ¹ß»ıÇß´Ù
-				// ÆÇ¸ÅÃë¼ÒÇÏ´Ù°¡ ³ª°¬´Ù°Å³ª ±âÅ¸µîµîÀÇ ÀÌÀ¯·Î Á¦´ë·Î Ãë¼Ò°¡ ¾Ê‰ç´Ù
+				// í•´ë‹¹ ë ˆì½”ë“œê°€ ì—†ë‹¤ BBDê°€ ì¶”ê°€í•˜ê¸° ì´ì „ë¶€ë¶„ì—ì„œ ì´ë¯¸ ë¬¸ì œê°€ ë°œìƒí–ˆë‹¤
+				// íŒë§¤ì·¨ì†Œí•˜ë‹¤ê°€ ë‚˜ê°”ë‹¤ê±°ë‚˜ ê¸°íƒ€ë“±ë“±ì˜ ì´ìœ ë¡œ ì œëŒ€ë¡œ ì·¨ì†Œê°€ ì•ŠÂ‰æ¦®?
 			}
 
 			::SQLFreeStmt(hStmt, SQL_DROP);
@@ -1146,7 +1146,7 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_CANCLE(const int iCn,t_packet &p)
 	}
 	else
 	{
-		// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
+		// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
 		MyLog(0,"Query Failed");
 		::SQLFreeStmt(hStmt, SQL_DROP);
 		return;
@@ -1163,35 +1163,35 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_COMPLETE(const int iCn,t_packet &p)
 	char szQuery[255] ={0,};
 	MERCHANTRESULTTAKE *pMRT = &p.u.MerchantResultTake;
 
-	// ´ÙÀ½ ÀÎÀÚ¸¦ ¸Å°³º¯¼ö·Î ÇÏ´Â ÀúÀåÇÁ·Î½ÃÀú¸¦ ¹ßµ¿ÇÏ¿© Áö¿î´Ù
-	// (No, name = ÆÄ´Â³ğÀÌ³ª »ç´Â³ğ, IsEnd = IS_END_WAIT_TAKE, SellerTake = IS_END_DELETE_COMPLETE, BuyerTake = IS_END_DELETE_COMPLETE)
+	// ë‹¤ìŒ ì¸ìë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ í•˜ëŠ” ì €ì¥í”„ë¡œì‹œì €ë¥¼ ë°œë™í•˜ì—¬ ì§€ìš´ë‹¤
+	// (No, name = íŒŒëŠ”ë†ˆì´ë‚˜ ì‚¬ëŠ”ë†ˆ, IsEnd = IS_END_WAIT_TAKE, SellerTake = IS_END_DELETE_COMPLETE, BuyerTake = IS_END_DELETE_COMPLETE)
 	if(pMRT->iKey == 100|| pMRT->iKey == 101)
 	{
 		::SQLAllocStmt(hDBC, &hStmt);
 		::memset(szQuery, 0L, sizeof(szQuery));
-		sprintf(szQuery,"EXEC MerchantDelbyComplete %d, '%s', %d, %d, %d"//ÀÎµ¦½º,ÀÌ¸§, 
+		sprintf(szQuery,"EXEC MerchantDelbyComplete %d, '%s', %d, %d, %d"//ì¸ë±ìŠ¤,ì´ë¦„, 
 			,pMRT->iIndex, pMRT->szMyName, IS_END_WAIT_TAKE, IS_END_DELETE_COMPLETE, IS_END_DELETE_COMPLETE);
 
         retCode = SQLExecDirect(hStmt, (UCHAR *)szQuery, SQL_NTS);
 		if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 		{
-			// Äõ¸® ¼º°ø
+			// ì¿¼ë¦¬ ì„±ê³µ
 			retCode = SQLFetch(hStmt);
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 			{
 				int count;
 				retCode = ::SQLGetData(hStmt, 1, SQL_C_LONG,	&count,			0, &cbValue);
 
-				if(count == 1)		// 1°³ÀÇ ·¹ÄÚµå°¡ »èÁ¦ µÇ¾ú´Ù
+				if(count == 1)		// 1ê°œì˜ ë ˆì½”ë“œê°€ ì‚­ì œ ë˜ì—ˆë‹¤
 				{
-					// È¤ »èÁ¦Çß´Ù°í ¸Ê¼­¹ö¿¡°Ô ¾Ë·Á¾ß ÇÒ±î? ·Î±×µµ ³²±â°í ¿Ô´Âµ¥?
-//					p.h.header.type = CMD_MERCHANT_RECORD_DEL_COMPLETE; //·¹ÄÚµå »èÁ¦Çß´Ù°í ¾Ë¸°´Ù
+					// í˜¹ ì‚­ì œí–ˆë‹¤ê³  ë§µì„œë²„ì—ê²Œ ì•Œë ¤ì•¼ í• ê¹Œ? ë¡œê·¸ë„ ë‚¨ê¸°ê³  ì™”ëŠ”ë°?
+//					p.h.header.type = CMD_MERCHANT_RECORD_DEL_COMPLETE; //ë ˆì½”ë“œ ì‚­ì œí–ˆë‹¤ê³  ì•Œë¦°ë‹¤
 //					::QueuePacket(connections,cn,&p,1);
 				}
 				else
 				{
-					// ÇØ´ç ·¹ÄÚµå°¡ ¾ø´Ù
-					// ¾ÆÁ÷ Áö¿ì±â¿¡´Â Á¶°ÇÀÌ ÃæºĞÄ¡ ¸øÇÏ´Ù
+					// í•´ë‹¹ ë ˆì½”ë“œê°€ ì—†ë‹¤
+					// ì•„ì§ ì§€ìš°ê¸°ì—ëŠ” ì¡°ê±´ì´ ì¶©ë¶„ì¹˜ ëª»í•˜ë‹¤
 				}
 
 				::SQLFreeStmt(hStmt, SQL_DROP);
@@ -1199,7 +1199,7 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_COMPLETE(const int iCn,t_packet &p)
 			}
 			else
 			{
-				// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
+				// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
 				MyLog(0,"Query Failed");
 				::SQLFreeStmt(hStmt, SQL_DROP);
 				return;
@@ -1207,7 +1207,7 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_COMPLETE(const int iCn,t_packet &p)
 		}
 		else
 		{
-			// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
+			// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
 			MyLog(0,"Query Failed");
 			::SQLFreeStmt(hStmt, SQL_DROP);
 			return;
@@ -1215,8 +1215,8 @@ void CAuction::RecvCMD_MERCHANT_RECORD_DEL_COMPLETE(const int iCn,t_packet &p)
 	}
 
 }
-//> BBD 040226	°Å·¡°¡ Á¾·áµÇ°Å³ª µî·ÏÃë¼Ò·Î ÇÊ¿ä¾ø´Â ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ±â´É Ãß°¡
-//<!  BBD 040303 ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ ¸®½ºÆ® ¿äÃ»
+//> BBD 040226	ê±°ë˜ê°€ ì¢…ë£Œë˜ê±°ë‚˜ ë“±ë¡ì·¨ì†Œë¡œ í•„ìš”ì—†ëŠ” ë ˆì½”ë“œë¥¼ ì‚­ì œí•˜ëŠ” ê¸°ëŠ¥ ì¶”ê°€
+//<!  BBD 040303 ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
 void CAuction::RecvCMD_MERCHANT_BACKUP_LIST_REQUEST(const int iCn,t_packet &p)
 {
 	short int server_id = p.u.kein.send_db_direct_map.server_id;
@@ -1238,15 +1238,15 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_LIST_REQUEST(const int iCn,t_packet &p)
 	else
 	{
 //		sprintf(szQuery,"EXEC MerchantResultItemSearchInverse %d,'%s',%d",
-//			p.u.SellerItemRequest.iIndex, szName,IS_END_WAIT_TAKE);//ÀÌ¸§°ú IsEnd ´Â 0 ÀÎ°ÍÀ» °¡Á®¿É´Ï´Ù.
+//			p.u.SellerItemRequest.iIndex, szName,IS_END_WAIT_TAKE);//ì´ë¦„ê³¼ IsEnd ëŠ” 0 ì¸ê²ƒì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
 	}
 	if(SearchAuctionItem(&FindResult,szQuery))
 	{
 		DirectClient( CMD_MERCHANT_BACKUP_LIST_RESPONSE, server_id, iCn, &FindResult, sizeof( SEARCHRESULTLIST ) );
 	}
 }
-//>  BBD 040303 ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ ¸®½ºÆ® ¿äÃ»
-//<! BBD 040303 ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ Áö±Ş ¿äÃ»
+//>  BBD 040303 ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
+//<! BBD 040303 ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ì§€ê¸‰ ìš”ì²­
 void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(const int iCn,t_packet &p)
 {
 	short int server_id = p.u.kein.send_db_direct_map.server_id;
@@ -1259,39 +1259,39 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(const int iCn,t_packet &p)
 	SEARCHRESULTLIST FindResult;
 	memset(&FindResult, 0L, sizeof(FindResult));
 
-	if(!SearchAuctionItem(&FindResult,szQuery))	// ¹ŞÀº Á¤º¸Áß index³Ñ¹ö¿Í ÀÌ¸§¿¡ ÀÇÁ¸ÇÏ¿© °Ë»öÇÑµÚ
+	if(!SearchAuctionItem(&FindResult,szQuery))	// ë°›ì€ ì •ë³´ì¤‘ indexë„˜ë²„ì™€ ì´ë¦„ì— ì˜ì¡´í•˜ì—¬ ê²€ìƒ‰í•œë’¤
 	{
-		MyLog(0,"This Query Failed : %s", szQuery);		// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
-		return;	// Äõ¸® ½ÇÆĞ´Ù
+		MyLog(0,"This Query Failed : %s", szQuery);		// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
+		return;	// ì¿¼ë¦¬ ì‹¤íŒ¨ë‹¤
 	}
 	SEARCHRESULT * pRecord = &(FindResult.ResultList[0]);
 
-	// µî·ÏÃë¼Ò°¡´Éµµ ¾Æ´Ï°í ¹°°ÇÃ£±â ´ë±â»óÅÂµµ ¾Æ´Ï¶ó¸é
+	// ë“±ë¡ì·¨ì†Œê°€ëŠ¥ë„ ì•„ë‹ˆê³  ë¬¼ê±´ì°¾ê¸° ëŒ€ê¸°ìƒíƒœë„ ì•„ë‹ˆë¼ë©´
 	if(pRecord->iIsEnd != IS_END_ALL_RIGHT && pRecord->iIsEnd != IS_END_WAIT_TAKE)
 	{
-		return;		// ÀÌ·±³ğÀÌ ¾îÄÉ ¿©±îÁö ¿Ô³ª?
+		return;		// ì´ëŸ°ë†ˆì´ ì–´ì¼€ ì—¬ê¹Œì§€ ì™”ë‚˜?
 	}
 
-	pMRT->iKey = pRecord->iIsEnd;	// ÀÌ¶§´Â iKey¸¦ IsEnd¿ëµµ·Î ¾²ÀÚ
+	pMRT->iKey = pRecord->iIsEnd;	// ì´ë•ŒëŠ” iKeyë¥¼ IsEndìš©ë„ë¡œ ì“°ì
 
 	memset(szQuery, 0L, sizeof(szQuery));
-	if(strcmp(pData->szMyName, pRecord->szSellerName))		// ÀÌ¸§À¸·Î buyerÀÎÀÚ sellerÀÎÁö ±¸ºĞÇÏ°í
-	{		// Buyer±º...
+	if(strcmp(pData->szMyName, pRecord->szSellerName))		// ì´ë¦„ìœ¼ë¡œ buyerì¸ì sellerì¸ì§€ êµ¬ë¶„í•˜ê³ 
+	{		// Buyerêµ°...
 		if(pRecord->iBuyerTake != IS_END_ALL_RIGHT)
 		{
-			return;			// ¾²¹ú ¸Ô±¸ ¶Ç ÃÄ¸ÔÀ¸·Á±¸?
+			return;			// ì“°ë²Œ ë¨¹êµ¬ ë˜ ì³ë¨¹ìœ¼ë ¤êµ¬?
 		}
 		sprintf(szQuery, "Exec MerchantBackupTakeUpdate %d, 1, %d", pRecord->iIndex, IS_END_GIVIING);
 	}
 	else
-	{		// Seller±º...
+	{		// Sellerêµ°...
 		if(pRecord->iSellerTake != IS_END_ALL_RIGHT)
 		{
-			return;			// ¾²¹ú ¸Ô±¸ ¶Ç ÃÄ¸ÔÀ¸·Á±¸?
+			return;			// ì“°ë²Œ ë¨¹êµ¬ ë˜ ì³ë¨¹ìœ¼ë ¤êµ¬?
 		}
 		sprintf(szQuery, "Exec MerchantBackupTakeUpdate %d, 0, %d", pRecord->iIndex, IS_END_GIVIING);
 	}
-	// ÇÊµå¸¦ ¾÷µ¥ÀÌÆ® ½ÃÄÑ³õÀÚ	...Take ÇÊµå¿¡ IS_END_GIVIING·Î ÀÌ³ğÀÌ Áö±ŞÁßÀÌ¶ó´Â Ç¥½Ã ¼ÂÆÃÈÄ
+	// í•„ë“œë¥¼ ì—…ë°ì´íŠ¸ ì‹œì¼œë†“ì	...Take í•„ë“œì— IS_END_GIVIINGë¡œ ì´ë†ˆì´ ì§€ê¸‰ì¤‘ì´ë¼ëŠ” í‘œì‹œ ì…‹íŒ…í›„
 	{
 		HSTMT		hStmt = NULL;
 		RETCODE		retCode;
@@ -1302,11 +1302,11 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(const int iCn,t_packet &p)
 		}
 		else
 		{
-			MyLog(0,"This Query Failed : %s", szQuery);		// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
+			MyLog(0,"This Query Failed : %s", szQuery);		// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
 		}
 		::SQLFreeStmt(hStmt, SQL_DROP);
 	}
-	// µ¥ÀÌÅ¸ ¼ÂÆÃÈÄ
+	// ë°ì´íƒ€ ì…‹íŒ…í›„
 	pMRT->dwSellValue = pRecord->iSellValue;
 	pMRT->iBuyerTake = pRecord->iBuyerTake;
 	pMRT->iCn = pData->iCn;
@@ -1317,7 +1317,7 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(const int iCn,t_packet &p)
 	memcpy(pMRT->szMyName , pData->szMyName, sizeof(pMRT->szMyName));
 	memcpy(pMRT->szSellerName , pRecord->szSellerName, sizeof(pMRT->szMyName));
 
-	// ¸Ê¼­¹ö·Î Áö±ŞÇÏ¶ó°í ¾Ë¸°´Ù
+	// ë§µì„œë²„ë¡œ ì§€ê¸‰í•˜ë¼ê³  ì•Œë¦°ë‹¤
 	p.h.header.type = CMD_MERCHANT_BACKUP_TAKE_REQUEST;
 	p.h.header.size	= sizeof(MERCHANTRESULTTAKE);		// BBD 040308
 	::QueuePacket(connections,iCn,&p,1);
@@ -1331,19 +1331,19 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_RESPONSE(const int iCn,t_packet &p)
 	char szQuery[255] ={0,};
 	switch(pMRT->iKey)
 	{
-	case 101://ÆÇ¸ÅÀÚ Áö±Ş ¼º°ø
+	case 101://íŒë§¤ì ì§€ê¸‰ ì„±ê³µ
 		{
 			sprintf(szQuery, "Exec MerchantBackupTakeUpdate %d, 0, %d", pMRT->iIndex, IS_END_DELETE_COMPLETE);
 		}break;
-	case 100://±¸¸ÅÀÚ Áö±Ş ¼º°ø
+	case 100://êµ¬ë§¤ì ì§€ê¸‰ ì„±ê³µ
 		{
 			sprintf(szQuery, "Exec MerchantBackupTakeUpdate %d, 1, %d", pMRT->iIndex, IS_END_DELETE_COMPLETE);
 		}break;
-	case 11://ÆÇ¸ÅÀÚ Áö±Ş ½ÇÆĞ
+	case 11://íŒë§¤ì ì§€ê¸‰ ì‹¤íŒ¨
 		{
 			sprintf(szQuery, "Exec MerchantBackupTakeUpdate %d, 0, %d", pMRT->iIndex, IS_END_ALL_RIGHT);
 		}break;
-	case 10://±¸¸ÅÀÚ Áö±Ş ½ÇÆĞ
+	case 10://êµ¬ë§¤ì ì§€ê¸‰ ì‹¤íŒ¨
 		{
 			sprintf(szQuery, "Exec MerchantBackupTakeUpdate %d, 1, %d", pMRT->iIndex, IS_END_ALL_RIGHT);
 		}break;
@@ -1352,7 +1352,7 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_RESPONSE(const int iCn,t_packet &p)
 		}break;
 	}
 
-	// ¾îÂîµÇ¾ú°Ç Äõ¸®´Â ½ÇÇàÇÏ°í
+	// ì–´ì°Œë˜ì—ˆê±´ ì¿¼ë¦¬ëŠ” ì‹¤í–‰í•˜ê³ 
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	::SQLAllocStmt(hDBC, &hStmt);
@@ -1362,17 +1362,17 @@ void CAuction::RecvCMD_MERCHANT_BACKUP_TAKE_RESPONSE(const int iCn,t_packet &p)
 	}
 	else
 	{
-		MyLog(0,"This Query Failed : %s", szQuery);		// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
+		MyLog(0,"This Query Failed : %s", szQuery);		// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
 	}
 	::SQLFreeStmt(hStmt, SQL_DROP);
 
-	if(pMRT->iKey >= 100)	// ÀÌ³ğµéÀº ¼º°øÇÑ³ğµé ·¹ÄÚµåÈ®ÀÎÀÌ ÇÊ¿äÇÏ´Ù
+	if(pMRT->iKey >= 100)	// ì´ë†ˆë“¤ì€ ì„±ê³µí•œë†ˆë“¤ ë ˆì½”ë“œí™•ì¸ì´ í•„ìš”í•˜ë‹¤
 	{
-		// ÀÌ ·¹ÄÚµå°¡ Áö¿ï¼ö ÀÖ´ÂÁö È®ÀÎÇÑ´Ù
+		// ì´ ë ˆì½”ë“œê°€ ì§€ìš¸ìˆ˜ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤
 		MerchantBackup_Check_and_Delete(pMRT->iIndex);
 	}
 
-	// Å¬¶óÀÌ¾ğÆ®¿¡°Ô ¸®½ºÆ® ´Ù½Ãº¸°Ô ³¯¸®°í
+	// í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë¦¬ìŠ¤íŠ¸ ë‹¤ì‹œë³´ê²Œ ë‚ ë¦¬ê³ 
 	SELLERITEMREQUEST data;
 	data.iCn = pMRT->iCn;
 	strcpy(data.szName, pMRT->szMyName);
@@ -1399,10 +1399,10 @@ void CAuction::MerchantBackup_Check_and_Delete(int iIndex)
 	}
 	else
 	{
-		MyLog(0,"This Query Failed : %s", szQuery);		// ÀÌ»óÈ²Àº Äõ¸® ¿¡·¯
+		MyLog(0,"This Query Failed : %s", szQuery);		// ì´ìƒí™©ì€ ì¿¼ë¦¬ ì—ëŸ¬
 	}
 	::SQLFreeStmt(hStmt, SQL_DROP);
 }
 
 
-//> BBD 040303 ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ Áö±Ş ¿äÃ»
+//> BBD 040303 ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ì§€ê¸‰ ìš”ì²­

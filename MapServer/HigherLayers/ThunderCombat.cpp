@@ -1,4 +1,4 @@
-// ThunderCombat.cpp: implementation of the CThunderCombat class.
+ï»¿// ThunderCombat.cpp: implementation of the CThunderCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -55,7 +55,7 @@ bool CThunderCombat::Elapse(CHARLIST* pTarget)
 }	//> CSD-TW-030623
 
 bool CThunderCombat::LightningBoom()
-{	// [215]¶óÀÌÆ®´× ºÕ
+{	// [215]ë¼ì´íŠ¸ë‹ ë¶
 	switch (GetKind(m_pCaster))
 	{	//< CSD-030723
     case WR_SHORT:  return AttackShort();
@@ -68,8 +68,8 @@ bool CThunderCombat::LightningBoom()
 }
 
 bool CThunderCombat::ThunderBlow()
-{ // [216]½ã´õ ºí·Î¿ì
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+{ // [216]ì¬ë” ë¸”ë¡œìš°
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -79,8 +79,8 @@ bool CThunderCombat::ThunderBlow()
 }
 
 bool CThunderCombat::LightningShock()
-{ // [217]¶óÀÌÆ®´× ¼îÅ©
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+{ // [217]ë¼ì´íŠ¸ë‹ ì‡¼í¬
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -90,8 +90,8 @@ bool CThunderCombat::LightningShock()
 }
 
 bool CThunderCombat::ThunderStrike()
-{ // [218]¶óÀÌÆ®´× Àª
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+{ // [218]ë¼ì´íŠ¸ë‹ ìœŒ
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -101,11 +101,11 @@ bool CThunderCombat::ThunderStrike()
 }
 
 bool CThunderCombat::LightningShield()
-{ // [219]¶óÀÌÆ®´× ½¯µå
+{ // [219]ë¼ì´íŠ¸ë‹ ì‰´ë“œ
 	m_pCaster->dwCombatState = m_dwNow + CalcMaintain();
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pCaster->dwNormalProtect = m_dwNow + CalcMaintain();
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;

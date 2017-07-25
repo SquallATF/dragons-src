@@ -1,4 +1,4 @@
-// Singleton.h: definition of the Singleton function.
+О╩©// Singleton.h: definition of the Singleton function.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// BEGIN : Singleton ╩Щ╪╨ фпеою╩ ю╖гя е╛╥║╫╨
+// BEGIN : Singleton Л┐²Л└╠ М▄╗М└╢Л²└ Л°└М∙° М│╢К·≤Л┼╓
 template<typename T>
 class TSingleton
 {

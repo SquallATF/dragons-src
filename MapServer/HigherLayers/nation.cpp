@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\recvmsg.h"
 #include "..\LowerLayers\mylog.h"
@@ -9,7 +9,7 @@
 #include "map.h"
 
 tagNationInfo	NationInfo[MAX_NATION];
-bool			g_MainNationMap[MAX_NATION];			// ´ã´çÇÏ´Â ³ª¶ó ¹øÈ£
+bool			g_MainNationMap[MAX_NATION];			// ë‹´ë‹¹í•˜ëŠ” ë‚˜ë¼ ë²ˆí˜¸
 
 void CheckMainMap()
 {	//< CSD-030506
@@ -18,7 +18,7 @@ void CheckMainMap()
 		if (NationInfo[i].main_map_port == g_MapPort)
 		{
 			g_MainNationMap[i] = true;
-			LoadNationInfoOfMainMap(i);	// ¸ŞÀÎ ¸Ş´º¿¡¼­ ´ã´çÇÒ ³»¿ëµéÀ» ·ÎµåÇØ¿Â´Ù.
+			LoadNationInfoOfMainMap(i);	// ë©”ì¸ ë©”ë‰´ì—ì„œ ë‹´ë‹¹í•  ë‚´ìš©ë“¤ì„ ë¡œë“œí•´ì˜¨ë‹¤.
 		}
 	}
 }	//> CSD-030506
@@ -35,23 +35,23 @@ void SendNationMoney( int type, int nation, double money )
 
 	packet.h.header.size = sizeof( k_nation_info_money );
 
-	if( type != N_NATION_ALL && g_MainNationMap[nation] )		// ÀÌ°÷¿¡¼­ ´ã´çÇÏ´Â °÷ÀÌ¶ó¸é
+	if( type != N_NATION_ALL && g_MainNationMap[nation] )		// ì´ê³³ì—ì„œ ë‹´ë‹¹í•˜ëŠ” ê³³ì´ë¼ë©´
 	{
-		RecvNationInfo( &packet );		// Á÷Á¢ Ã³¸®ÇÏ°í
+		RecvNationInfo( &packet );		// ì§ì ‘ ì²˜ë¦¬í•˜ê³ 
 	}
-	else								// ¾Æ´Ï¸é
-	{									// ´ã´ç ¸ÊÀ¸·Î º¸³½´Ù.
+	else								// ì•„ë‹ˆë©´
+	{									// ë‹´ë‹¹ ë§µìœ¼ë¡œ ë³´ë‚¸ë‹¤.
 		g_pServerTable->SendRajaPacketToOtherMapServer( (WORD)NationInfo[nation].main_map_port, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 	}
 }
 
-void SaveNationInfo( int nation )		// µğºñ µ¥¸ó¿¡ ÀúÀåÇÑ´Ù.
+void SaveNationInfo( int nation )		// ë””ë¹„ ë°ëª¬ì— ì €ì¥í•œë‹¤.
 {
 	static int save_time = g_curr_time;
-	if( (g_curr_time - save_time) < 600 )	return;	// 10ºĞ¿¡ ÇÑ¹ø¾¿
+	if( (g_curr_time - save_time) < 600 )	return;	// 10ë¶„ì— í•œë²ˆì”©
 	save_time = g_curr_time;
 
-	if( !g_MainNationMap[nation] ) // ¸ŞÀÎ ¸ÊÀÌ ¾Æ´Ï´Ù.	
+	if( !g_MainNationMap[nation] ) // ë©”ì¸ ë§µì´ ì•„ë‹ˆë‹¤.	
 		return;
 
 	t_packet packet;
@@ -69,7 +69,7 @@ void SaveNationInfo( int nation )		// µğºñ µ¥¸ó¿¡ ÀúÀåÇÑ´Ù.
 	QueuePacket( connections, DB_DEMON, &packet,1 );
 
 
-	// ¸ğµç ¸Ê¿¡ »Ñ·Á ÁØ´Ù.
+	// ëª¨ë“  ë§µì— ë¿Œë ¤ ì¤€ë‹¤.
 	packet.h.header.type = CMD_NATION_INFO_MAP_TO_MAP;
 
 		packet.u.kein.nation_info_money.type = N_NATION_ALL;

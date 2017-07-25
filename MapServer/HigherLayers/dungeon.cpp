@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 
 #include "defaultheader.h"
 #include "Citem.h"
@@ -20,7 +20,7 @@ bool CDungeonObject::IsDragonLoad()
 	return 0;
 }
 
-bool CDungeonObject::SetActive( CHARLIST *ch )		// Ã³À½ ¾×Æ¼ºê µÉ ¶§
+bool CDungeonObject::SetActive( CHARLIST *ch )		// ì²˜ìŒ ì•¡í‹°ë¸Œ ë  ë•Œ
 {
 	if (IsActive())
 	{
@@ -35,11 +35,11 @@ bool CDungeonObject::SetActive( CHARLIST *ch )		// Ã³À½ ¾×Æ¼ºê µÉ ¶§
 		Execute(ch->GetServerID());
 	}
 	
-	// Ã³À½ ÇÑ¹ø¸¸ ÇØ¾ß ÇÏ´Â Çàµ¿ Ã³¸®
+	// ì²˜ìŒ í•œë²ˆë§Œ í•´ì•¼ í•˜ëŠ” í–‰ë™ ì²˜ë¦¬
 	CDungeonObject *pNewDOb;
 	switch( m_nExecuteType )
 	{
-	case OET_NORMAL_TRAP :		// ´Ù¸¥ ³ğÀ» ¾×Æ¼ºê ½ÃÄÑ º¸ÀÚ
+	case OET_NORMAL_TRAP :		// ë‹¤ë¥¸ ë†ˆì„ ì•¡í‹°ë¸Œ ì‹œì¼œ ë³´ì
 		{
 			for( int i=0; i<pDungeonMap->m_nObjectCount; i++ )
 			{
@@ -61,7 +61,7 @@ bool CDungeonObject::SetActive( CHARLIST *ch )		// Ã³À½ ¾×Æ¼ºê µÉ ¶§
 		g_pDungeonMap->InitPotalMember();
 		CreateScenarioBoss();
 		break;
-	case OET_POTAL_DRAGON :		// µå·¡°ï ·Îµå °ü·Ã
+	case OET_POTAL_DRAGON :		// ë“œë˜ê³¤ ë¡œë“œ ê´€ë ¨
 		{
 			if( pDungeonMap->IsDragonRoad() )
 			{
@@ -89,7 +89,7 @@ bool CDungeonObject::TryActive( CHARLIST *ch )
 	CDungeonObject *pNewDOb;
 	switch( m_nNeedType )
 	{
-	case ONT_NEED_ITEM :		// ¾ÆÀÌÅÛ ÆÇº°·Î ÀÛµ¿½ÃÅ°´Â Æ®·¦ÀÏ °æ¿ì
+	case ONT_NEED_ITEM :		// ì•„ì´í…œ íŒë³„ë¡œ ì‘ë™ì‹œí‚¤ëŠ” íŠ¸ë©ì¼ ê²½ìš°
 		{
 			if( m_nActiveItemNo ) 
 			{
@@ -115,7 +115,7 @@ bool CDungeonObject::TryActive( CHARLIST *ch )
 				pNewDOb = &pDungeonMap->m_pObject[i];
 				if( pNewDOb->m_nExecuteType == OET_NORMAL_TRAP )
 				{
-					if( !pNewDOb->IsActive() )		// ¿ÀÇÂ ½ÇÆĞ
+					if( !pNewDOb->IsActive() )		// ì˜¤í”ˆ ì‹¤íŒ¨
 					{
 						ret = 0;
 						break;
@@ -172,7 +172,7 @@ bool CDungeonObject::TryActive( CHARLIST *ch )
 
 int CDungeonObject::DeleteObjectImage()
 {
-	if( m_ObjectId != -1 )//»ı¼º½ÃÅ² ¿ÀºêÁ§Æ®°¡ ÀÖÀ¸¸é »èÁ¦ ½ÃÅ²´Ù.
+	if( m_ObjectId != -1 )//ìƒì„±ì‹œí‚¨ ì˜¤ë¸Œì íŠ¸ê°€ ìˆìœ¼ë©´ ì‚­ì œ ì‹œí‚¨ë‹¤.
 	{
 		if( GetAttr2( ItemList[m_ObjectId].attr[IATTR_ATTR], IA2_SCENARIO_POTAL ) )
 		{		
@@ -203,7 +203,7 @@ void CDungeonObject::ActiveObject()
 		DWORD attr = IA2_NOTMOVE | IA2_SCENARIO_POTAL | IA2_OPENED;
 		if( m_nActiveObjectType )
 		{
-			attr |= IA2_POISONED;		// Æ®·£½º·Î Âï´Â´Ù.
+			attr |= IA2_POISONED;		// íŠ¸ëœìŠ¤ë¡œ ì°ëŠ”ë‹¤.
 		}
 		int new_object_id = CreateMapObject( m_nActiveObjectImage, attr, m_nInputX, m_nInputY );
 		DeleteObjectImage();
@@ -212,7 +212,7 @@ void CDungeonObject::ActiveObject()
 		{
 			::SendDeleteScenarioEventBox( m_Index );
 		}
-		else		// »õ·Î ¼Ó¼ºÀÌ ¸¸µé¾î Á³´Ù¸é ±× »ç½ÇÀ» ÀüºÎ¿¡°Ô ¾Ë¸®ÀÚ...
+		else		// ìƒˆë¡œ ì†ì„±ì´ ë§Œë“¤ì–´ ì¡Œë‹¤ë©´ ê·¸ ì‚¬ì‹¤ì„ ì „ë¶€ì—ê²Œ ì•Œë¦¬ì...
 		{
 			// 021108 YGI		new tile attr
 			if( m_eTileType2 )
@@ -225,7 +225,7 @@ void CDungeonObject::ActiveObject()
 	{
 		if( DeleteObjectImage() )
 		{
-			// Áö¿î°Ô ÀÖ´Âµ¥ »õ·Î ¸¸µç°Ô ¾ø´Ù¸é ÀüºÎ¿¡°Ô ±× »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+			// ì§€ìš´ê²Œ ìˆëŠ”ë° ìƒˆë¡œ ë§Œë“ ê²Œ ì—†ë‹¤ë©´ ì „ë¶€ì—ê²Œ ê·¸ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
 			::SendDeleteScenarioEventBox( m_Index );
 		}
 	}
@@ -288,7 +288,7 @@ void CDungeonObject::CloseObject( int npc_create_type )
 		else
 		{
 			// 021108 YGI		new tile attr
-			if( m_eTileType1 )		// »õ·Î ¼Ó¼ºÀÌ »ı°å´Ù¸é... ÀÏ´Ü ÀüºÎ¿¡°Ô º¸³½´Ù.
+			if( m_eTileType1 )		// ìƒˆë¡œ ì†ì„±ì´ ìƒê²¼ë‹¤ë©´... ì¼ë‹¨ ì „ë¶€ì—ê²Œ ë³´ë‚¸ë‹¤.
 			{
 				::SendTileAttr( m_Index, m_eTileType1, m_nEventNo1, m_nInputX, m_nInputY, m_nRange1, SEND_ALL );
 			}
@@ -303,11 +303,11 @@ void CDungeonObject::CloseObject( int npc_create_type )
 	{
 		if( DeleteObjectImage() )
 		{
-			// Áö¿î°Ô ÀÖ´Âµ¥ »õ·Î ¸¸µç°Ô ¾ø´Ù¸é ÀüºÎ¿¡°Ô ±× »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
+			// ì§€ìš´ê²Œ ìˆëŠ”ë° ìƒˆë¡œ ë§Œë“ ê²Œ ì—†ë‹¤ë©´ ì „ë¶€ì—ê²Œ ê·¸ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
 			::SendDeleteScenarioEventBox(m_Index);
 		}
 	}
-	//  È¤½Ã ÇØ¾ß ´İÀÏ¶§ ¾î¶² ÀÏÀ» ÇØ¾ß ÇÒ °æ¿ì°¡ ÀÖ´Ù¸é CheckCloseTime() ¿¡¼­
+	//  í˜¹ì‹œ í•´ì•¼ ë‹«ì¼ë•Œ ì–´ë–¤ ì¼ì„ í•´ì•¼ í•  ê²½ìš°ê°€ ìˆë‹¤ë©´ CheckCloseTime() ì—ì„œ
 }
 
 int CDungeonObject::Execute( short int cn )
@@ -331,19 +331,19 @@ int CDungeonObject::Execute( short int cn )
 		break;
 	case OET_POTAL_OUT_LAYER :
 		{
-			// ±â·Ï ÇÊ¿ä
+			// ê¸°ë¡ í•„ìš”
 			DeleteScenarioItem( ch );
 			
 			int going_time = g_curr_time - m_dwOpenTime;
 			going_time = m_nTime - going_time;
-			short int data = going_time/60;		// ³²Àº ½Ã°£ (ºĞ)
-			::SendScenarioMessage( SEND_ALL, SMT_LAYER_POTAL_MESSAGE, &data, sizeof( short ) );		// ¸îºĞ ÈÄ¿¡ ´ÙÀ½ ÃşÀÌ ¿­¸³´Ï´Ù.
+			short int data = going_time/60;		// ë‚¨ì€ ì‹œê°„ (ë¶„)
+			::SendScenarioMessage( SEND_ALL, SMT_LAYER_POTAL_MESSAGE, &data, sizeof( short ) );		// ëª‡ë¶„ í›„ì— ë‹¤ìŒ ì¸µì´ ì—´ë¦½ë‹ˆë‹¤.
 			ret = GotoUser( m_szOutputMap, m_nOutputX, m_nOutputY, cn );
 			MyLog( 0, "Dungeon Scenario : move user by layer potal [%s]<%s:%d:%d>", ch->Name, m_szOutputMap, m_nOutputX, m_nOutputY );
 			break;
 		}
 	case OET_POTAL_OUT_DUNGEON :
-		// ±â·Ï ÇÊ¿ä
+		// ê¸°ë¡ í•„ìš”
 		DeleteScenarioItem( ch );
 		ret = GotoUser( m_szOutputMap, m_nOutputX, m_nOutputY, cn );
 		MyLog( 0, "Dungeon Scenario : move user by last layer potal [%s]<%s:%d:%d>", ch->Name, m_szOutputMap, m_nOutputX, m_nOutputY );
@@ -354,7 +354,7 @@ int CDungeonObject::Execute( short int cn )
 			ret = GotoUser( m_szOutputMap, m_nOutputX, m_nOutputY, cn );
 			if( pDungeonMap->IsDragonRoad() )
 			{
-				::SendScenarioMessage( cn, SMT_DRAGONROAD_MESSAGE1 );		// µå·¡°ï ·ÎµåÀÇ ¸»°ú ÇÔ²² Âù¹İ ¸Ş´º ¶ç¿î´Ù.
+				::SendScenarioMessage( cn, SMT_DRAGONROAD_MESSAGE1 );		// ë“œë˜ê³¤ ë¡œë“œì˜ ë§ê³¼ í•¨ê»˜ ì°¬ë°˜ ë©”ë‰´ ë„ìš´ë‹¤.
 				MyLog( 0, "Dungeon Scenario : move user by Red Dragon [%s]<%s:%d:%d>", ch->Name, m_szOutputMap, m_nOutputX, m_nOutputY );
 			}
 			else
@@ -371,14 +371,14 @@ int CDungeonObject::CheckCloseTime()
 {
 	if( !m_bActive ) 
 	{
-		if( !m_pBoss )		// ¸®Á¨ ½ÃÄÑº¸ÀÚ
+		if( !m_pBoss )		// ë¦¬ì   ì‹œì¼œë³´ì
 		{
 			if( m_nResenTime != -1 )
 			{
 				m_nResenTime --;
 				if( m_nResenTime == 0 )
 				{
-					CreateNormalBoss();		// Áß°£ º¸½º¸¦ ¸®Á¨ ½ÃÅ°ÀÚ..
+					CreateNormalBoss();		// ì¤‘ê°„ ë³´ìŠ¤ë¥¼ ë¦¬ì   ì‹œí‚¤ì..
 					m_nResenTime = -1;
 				}
 			}
@@ -400,7 +400,7 @@ int CDungeonObject::CheckCloseTime()
 			break;
 		case OET_POTAL_OUT_LAYER :
 			{
-				// ´ÙÀ½ ÃşÀ» active ½ÃÄÑÁØ´Ù.
+				// ë‹¤ìŒ ì¸µì„ active ì‹œì¼œì¤€ë‹¤.
 				char data[4];
 				data[0] = m_nLayer+1;
 				data[1] = 1;
@@ -408,7 +408,7 @@ int CDungeonObject::CheckCloseTime()
 				memcpy( &data[2], &port, 2 );
 				
 				SendRegistDungeonMgrServer( CDungeonBasic::TYPE_STATUS_REGIST, data, 4 );
-				g_pDungeonMap->GetOutDugeon( CDungeonMapMgr::GOT_END_LAYER );		// ´Ù ÆÃ°Ü ¹ö¸°´Ù.
+				g_pDungeonMap->GetOutDugeon( CDungeonMapMgr::GOT_END_LAYER );		// ë‹¤ íŒ…ê²¨ ë²„ë¦°ë‹¤.
 				break;
 			}
 		case OET_POTAL_OUT_DUNGEON :
@@ -417,7 +417,7 @@ int CDungeonObject::CheckCloseTime()
 			g_pDungeonMap->ScenarioFightProc( this );
 			break;
 		}
-		if( m_nNeedType != ONT_NEED_DRAGON  )		// ONT_NEED_DRAGON Àº ½Ã°£¿¡ ÀÇÇØ close µÇ´Â°Ô ¾Æ´Ï´Ù.
+		if( m_nNeedType != ONT_NEED_DRAGON  )		// ONT_NEED_DRAGON ì€ ì‹œê°„ì— ì˜í•´ close ë˜ëŠ”ê²Œ ì•„ë‹ˆë‹¤.
 		{
 			CloseObject();
 			pDungeonMap->SetHistory( NULL, this, 0 );
@@ -427,7 +427,7 @@ int CDungeonObject::CheckCloseTime()
 	return 0;
 }
 
-int CDungeonObject::Start() // ¸ÇÃ³À½ ¼¼ÆÃ
+int CDungeonObject::Start() // ë§¨ì²˜ìŒ ì„¸íŒ…
 {
 	CloseObject( 0 );
 	return 1;
@@ -451,7 +451,7 @@ CDungeonObject::~CDungeonObject()
 
 int CDungeonObject::KillBoss( CHARLIST *user, CHARLIST *boss )
 {
-	// ½Ã³ª¸®¿À ¸ó½ºÅÍ°¡ Á×¾ú´Ù¸é... ¿¢Æ¼ºê¸¦ ³ë·Áº»´Ù.
+	// ì‹œë‚˜ë¦¬ì˜¤ ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆë‹¤ë©´... ì—‘í‹°ë¸Œë¥¼ ë…¸ë ¤ë³¸ë‹¤.
 	CDungeonMap* pDungeonMap = (CDungeonMap *)m_pMother;
 	for( int i=0; i<pDungeonMap->m_nObjectCount; i++ )
 	{
@@ -463,7 +463,7 @@ int CDungeonObject::KillBoss( CHARLIST *user, CHARLIST *boss )
 	
 	if (m_pBoss && m_pBoss->m_nNpcIndex == boss->GetServerID())
 	{
-		// ¸Ş½ÃÁö
+		// ë©”ì‹œì§€
 		switch( m_pBoss->GetBossType() )
 		{
 		case m_pBoss->BT_LAYER_BOSS :
@@ -489,18 +489,18 @@ int CDungeonObject::KillBoss( CHARLIST *user, CHARLIST *boss )
 				
 				if( pDungeonMap->IsDragonRoad() )
 				{
-					// µå·¡°ï ·Îµå°¡ Á×¾ú´Ù.
+					// ë“œë˜ê³¤ ë¡œë“œê°€ ì£½ì—ˆë‹¤.
 					SendScenarioMessage(SEND_ALL, SMT_DRAGONROAD_MESSAGE6 );
-					// ÇÑ ³ğÀ» °ñ¶ó¼­ µå·¡°ï ½½·¹ÀÌ¾î·Î ¸¸µéÀÚ...
+					// í•œ ë†ˆì„ ê³¨ë¼ì„œ ë“œë˜ê³¤ ìŠ¬ë ˆì´ì–´ë¡œ ë§Œë“¤ì...
 				}
 				
-				pDungeonMap->SetDragonRoad();		// ´ÙÀ½¹ø¿£ µå·¡°ï ·ÎµåÀÎÁö ¼³Á¤ ÇÏÀÚ..
+				pDungeonMap->SetDragonRoad();		// ë‹¤ìŒë²ˆì—” ë“œë˜ê³¤ ë¡œë“œì¸ì§€ ì„¤ì • í•˜ì..
 				break;
 			}
 		default : 
 			{
-				// ¸®Á¦ Á¶Á¤
-				m_nResenTime = 3;		// 3ºĞ
+				// ë¦¬ì œ ì¡°ì •
+				m_nResenTime = 3;		// 3ë¶„
 				break;
 			}
 		}
@@ -512,7 +512,7 @@ int CDungeonObject::KillBoss( CHARLIST *user, CHARLIST *boss )
 		{
 			ItemAttr item = ::GenerateItem( m_nBossItem );
 			if( !item.item_no ) return 0;
-			for( int i=0; i<3; i++ )		// 3°³ ¶³±Å ÁØ´Ù.
+			for( int i=0; i<3; i++ )		// 3ê°œ ë–¨ê¶ˆ ì¤€ë‹¤.
 				DropItem( boss->X + (rand()%100)-50, boss->Y +(rand()%100)-50, &item);	
 			return 1;
 		}
@@ -621,14 +621,14 @@ void CDungeonObject::SendObjectTileAttr( short int cn )
 
 ///////////////////////////////////////////////////////////////////////////
 
-// ¸Ê¿¡¼­ ÂïÀº°Ô ¾Æ´Ñ°É »ı¼º½ÃÅ³¶§....
+// ë§µì—ì„œ ì°ì€ê²Œ ì•„ë‹Œê±¸ ìƒì„±ì‹œí‚¬ë•Œ....
 int CreateMapObject( int object_no, DWORD attr, int x, int y )
 {
 	ItemAttr object;
 	object.item_no = 25000+object_no;
 	object.attr[0] =  1;
 	object.attr[1] =  1;
-	if( object_no == 1 ) attr |= IA2_HIDE;		// ¾Èº¸¿©ÁØ´Ù.
+	if( object_no == 1 ) attr |= IA2_HIDE;		// ì•ˆë³´ì—¬ì¤€ë‹¤.
 	object.attr[IATTR_ATTR] = attr;	
 	object.attr[3] =  1;
 	object.attr[4] =  1;
@@ -638,7 +638,7 @@ int CreateMapObject( int object_no, DWORD attr, int x, int y )
 	return id;
 }
 
-// ³ªÁß¿¡ Áö¿ï¶§¸¦ ´ëºñÇØ¼­ index¸¦ Á¤ÇØ ÁØ´Ù. 
+// ë‚˜ì¤‘ì— ì§€ìš¸ë•Œë¥¼ ëŒ€ë¹„í•´ì„œ indexë¥¼ ì •í•´ ì¤€ë‹¤. 
 void SendTileAttr( int index, int type, int number, int x, int y, int range, short int cn )
 {
 	t_packet packet;
@@ -663,11 +663,11 @@ void SendTileAttr( int index, int type, int number, int x, int y, int range, sho
 
 ////////////////////////////////////////////////////////////////
 // class CDungeonMap functions
-int CDungeonMap::NewJoin( short int cn )		// ¸ÇÃ³À½ ÀÌ ¸Ê¿¡ µé¾î¿Â »ç¶÷¿¡°Ô º¸³»ÁÙ²¨..
+int CDungeonMap::NewJoin( short int cn )		// ë§¨ì²˜ìŒ ì´ ë§µì— ë“¤ì–´ì˜¨ ì‚¬ëŒì—ê²Œ ë³´ë‚´ì¤„êº¼..
 {
 	for( int i=0; i<m_nObjectCount; i++ )
 	{
-		m_pObject[i].SendObjectTileAttr( cn );		// Å¸ÀÏ ¼Ó¼ºÀ» º¸³»ÁØ´Ù.
+		m_pObject[i].SendObjectTileAttr( cn );		// íƒ€ì¼ ì†ì„±ì„ ë³´ë‚´ì¤€ë‹¤.
 	}
 	return 1;
 }
@@ -687,7 +687,7 @@ int CDungeonMap::SetActive()
 	
 	for( int i=0; i<m_nObjectCount; i++ )
 	{
-		m_pObject[i].CloseObject(1);		// ¸ó½ºÅÍ¸¦ »ı¼º½ÃÅ²´Ù.
+		m_pObject[i].CloseObject(1);		// ëª¬ìŠ¤í„°ë¥¼ ìƒì„±ì‹œí‚¨ë‹¤.
 	}
 	
 	char layer = m_nLayer;
@@ -706,7 +706,7 @@ int CDungeonMap::SetClose()
 	return 1;
 }
 
-// ¸Ş½ÃÁö µî·Ï
+// ë©”ì‹œì§€ ë“±ë¡
 int CDungeonMap::SetHistory( CHARLIST *ch, CDungeonObject *pDO, int type )
 {
 	CDungeonHistory *pData;
@@ -726,11 +726,11 @@ int CDungeonMap::SetHistory( CHARLIST *ch, CDungeonObject *pDO, int type )
 	msg_type+= pDO->IsActive()? 0:1;
 	pData->SetData( msg_type, layer, ch?ch->Name:NULL );
 	
-	if( type )	// ÀüÃ¼ ¸ÊÀ¸·Î º¸³»´Â ¸Ş½ÃÁö
+	if( type )	// ì „ì²´ ë§µìœ¼ë¡œ ë³´ë‚´ëŠ” ë©”ì‹œì§€
 	{
 		::SendDungeonHistory( pData );
 	}
-	else		// ÀÚ±â ¸Ê¸¸ º¸¿©ÁÖ´Â ¸Ş½ÃÁö
+	else		// ìê¸° ë§µë§Œ ë³´ì—¬ì£¼ëŠ” ë©”ì‹œì§€
 	{
 		CDungeonMap *pDungeonMap = g_pDungeonMap->GetDungeonMapByLayer( layer );
 		if( pDungeonMap ) pDungeonMap->m_History.AddNodeLimit( pData, 15 );
@@ -740,7 +740,7 @@ int CDungeonMap::SetHistory( CHARLIST *ch, CDungeonObject *pDO, int type )
 	return 1;
 }
 
-// ¿ÀºêÁ§Æ®¿¡ °ü·ÃµÈ ÀÌº¥Æ® Å¸ÀÏÀ» ¹â¾ÒÀ» °æ¿ì
+// ì˜¤ë¸Œì íŠ¸ì— ê´€ë ¨ëœ ì´ë²¤íŠ¸ íƒ€ì¼ì„ ë°Ÿì•˜ì„ ê²½ìš°
 bool CDungeonMap::CheckObject( int cn, int event_no )
 {
 	CHARLIST *ch = CheckServerId( cn );
@@ -781,7 +781,7 @@ bool CDungeonMap::CheckObject( int cn, int event_no )
 		int menunum = 0;
 		if( m_nDungeonType == DT_PASSWORD )
 		{
-			menunum = 137;		// Å¥ºê ÀÎÆ÷
+			menunum = 137;		// íë¸Œ ì¸í¬
 		}
 		else
 		{
@@ -815,7 +815,7 @@ CDungeonObject *CDungeonMap::GetObjectByEventNo( int event_no )
 	return NULL;
 }
 
-// ¿ÀºêÁ§Æ® º¸¿©ÁÙ¶§ eventµµ º¸³»ÁØ´Ù.
+// ì˜¤ë¸Œì íŠ¸ ë³´ì—¬ì¤„ë•Œ eventë„ ë³´ë‚´ì¤€ë‹¤.
 int CDungeonMap::SendEventWhenAddItem( int item_index, short int cn )
 {
 	for( int i=0; i<m_nObjectCount; i++ )
@@ -863,7 +863,7 @@ void CDungeonMap::Proc()
 			m_nMessageCount = MESSAGE_COUNT;
 			if( m_nDungeonType == DT_PASSWORD )
 			{
-				// ¾ÏÈ£¸¦ °¡¸£ÃÄ ÁØ´Ù.
+				// ì•”í˜¸ë¥¼ ê°€ë¥´ì³ ì¤€ë‹¤.
 				char data = m_nTrapCount;
 				if( m_nMessageOption )
 					::SendScenarioMessage(SEND_ALL,  3, &data, 1 );
@@ -923,8 +923,8 @@ int CDungeonMap::SetTrapKey( int count, CHARLIST *ch )
 	{
 		if( m_nTrapCount == total )
 		{
-			// ¾×Æ¼ºê ½ÃÅ²´Ù.
-			// Á¶ÇÕ¿¡ ¼º°øÇß½À´Ï´Ù.
+			// ì•¡í‹°ë¸Œ ì‹œí‚¨ë‹¤.
+			// ì¡°í•©ì— ì„±ê³µí–ˆìŠµë‹ˆë‹¤.
 			::SendScenarioMessage(SEND_ALL,  4, ch->Name, strlen(ch->Name)+1 );
 			for( int a=0; a<m_nObjectCount; a++ )
 			{
@@ -939,7 +939,7 @@ int CDungeonMap::SetTrapKey( int count, CHARLIST *ch )
 		}
 		else
 		{
-			// Á¶ÇÕ¿¡ Æ²·È±â ¶§¹®¿¡ Ã³À½ºÎÅÍ ´Ù½Ã ½ÃÀÛÇÕ´Ï´Ù.
+			// ì¡°í•©ì— í‹€ë ¸ê¸° ë•Œë¬¸ì— ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì‹œì‘í•©ë‹ˆë‹¤.
 			::SendScenarioMessage(SEND_ALL,  5, ch->Name, strlen(ch->Name)+1 );
 			ResetKey();
 			return 0;
@@ -978,7 +978,7 @@ void CDungeonMap::CloseDragonRoadObject()
 	}
 }
 
-int CDungeonMap::DeleteDragon()		// µå·¡°ïÀ» Ã£¾Æ Á×ÀÎ´Ù.
+int CDungeonMap::DeleteDragon()		// ë“œë˜ê³¤ì„ ì°¾ì•„ ì£½ì¸ë‹¤.
 {
 	for( int i=0; i<m_nObjectCount; i++ )
 	{
@@ -995,7 +995,7 @@ int CDungeonMap::DeleteDragon()		// µå·¡°ïÀ» Ã£¾Æ Á×ÀÎ´Ù.
 ///////////////////////////////////////////////
 void CDungeonMapMgr::GetOutDugeon( int type )
 {
-	// ox_select	// º¯¼ö¸¦ ÀÌ¿ëÇÑ´Ù.
+	// ox_select	// ë³€ìˆ˜ë¥¼ ì´ìš©í•œë‹¤.
 	static char temp[DRAGON_MAX_CONNECTIONS_];
 	ZeroMemory( temp, DRAGON_MAX_CONNECTIONS_ );
 	
@@ -1016,7 +1016,7 @@ void CDungeonMapMgr::GetOutDugeon( int type )
 	}
 	
 	// 030211 YGI -------------
-	static char why_out[5][40]	= // ¿Ö ÆÃ°å´ÂÁö
+	static char why_out[5][40]	= // ì™œ íŒ…ê²¼ëŠ”ì§€
 	{
 		" ",
 			"END_BOSS_POTAL",
@@ -1049,8 +1049,8 @@ int CDungeonMapMgr::DropDragonItem()
 
 int CDungeonMapMgr::EndUserFightByDragon()
 {
-	// count1, count2¸¦ ¼¼º¸°í ³²¾ÆÀÖÀ¸¸é ½Ã°£ÀÌ ´ÙµÇ¼­ ³¡³², ÇÑÂÊÀÌ ¾øÀ¸¸é ³¡
-	// º®À» ¾ø¾ÖÁØ´Ù.
+	// count1, count2ë¥¼ ì„¸ë³´ê³  ë‚¨ì•„ìˆìœ¼ë©´ ì‹œê°„ì´ ë‹¤ë˜ì„œ ëë‚¨, í•œìª½ì´ ì—†ìœ¼ë©´ ë
+	// ë²½ì„ ì—†ì• ì¤€ë‹¤.
 	
 	if( !pVoteFalse || !pVoteTrue ) return 0;
 	
@@ -1058,21 +1058,21 @@ int CDungeonMapMgr::EndUserFightByDragon()
 	int count2 = pVoteTrue->GetCount();
 	CDungeonMap* pDungeonMap = GetActiveDungeonMap();
 	
-	pDungeonMap->OpenDragonRoadObject();		// ¾ÕÀ» ¸·°í ÀÖ´Â ¿ÀºêÁ§Æ®¸¦ ¾ø¾Ø´Ù.
+	pDungeonMap->OpenDragonRoadObject();		// ì•ì„ ë§‰ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ì—†ì•¤ë‹¤.
 	
 	POINTS data;
 	data.x = count2;
 	data.y = count1;
-	if( !count1 && count2 )		// Âù¼ºÀÌ ÀÌ±ä°æ¿ì
+	if( !count1 && count2 )		// ì°¬ì„±ì´ ì´ê¸´ê²½ìš°
 	{
 		pDungeonMap->DeleteDragon();
 		::SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE2 , &data, sizeof( POINTS ));
 	}
-	else if( count1 && count2 )	// ½Ã°£ ³»¿¡ ¸ø ³¡³½ °æ¿ì
+	else if( count1 && count2 )	// ì‹œê°„ ë‚´ì— ëª» ëë‚¸ ê²½ìš°
 	{
-		SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE5 );		// ÀÌ³ğµé ´Ù Á×ÀÌ°Ú´Ù.
+		SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE5 );		// ì´ë†ˆë“¤ ë‹¤ ì£½ì´ê² ë‹¤.
 	}
-	else if( count1 && !count2 )	// ¹İ´ë°¡ ÀÌ±ä°æ¿ì
+	else if( count1 && !count2 )	// ë°˜ëŒ€ê°€ ì´ê¸´ê²½ìš°
 	{
 		::SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE3 , &data, sizeof( POINTS ));		
 	}
@@ -1081,7 +1081,7 @@ int CDungeonMapMgr::EndUserFightByDragon()
 int CDungeonMapMgr::ScenarioFightProc( CDungeonObject *pDO )
 {
 	CDungeonMap* pDungeonMap = GetActiveDungeonMap();
-	if( !pVoteTrue ) // ±×³É µå·¡°ï ÀÏ¶§..
+	if( !pVoteTrue ) // ê·¸ëƒ¥ ë“œë˜ê³¤ ì¼ë•Œ..
 	{
 		pDungeonMap->OpenDragonRoadObject(); 
 		return 0;
@@ -1093,14 +1093,14 @@ int CDungeonMapMgr::ScenarioFightProc( CDungeonObject *pDO )
 	POINTS data;
 	data.x = count2;
 	data.y = count1;
-	if( !count1 && count2 )		// Âù¼º¸¸ ÀÖ´Â °æ¿ì 
+	if( !count1 && count2 )		// ì°¬ì„±ë§Œ ìˆëŠ” ê²½ìš° 
 	{
-		pDungeonMap->OpenDragonRoadObject();		// ¾ÕÀ» ¸·°í ÀÖ´Â ¿ÀºêÁ§Æ®¸¦ ¾ø¾Ø´Ù.
+		pDungeonMap->OpenDragonRoadObject();		// ì•ì„ ë§‰ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ì—†ì•¤ë‹¤.
 		::SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE2 , &data, sizeof( POINTS ));
-		// ¾ÆÀÌÅÛÀ» »Ñ¸®°í µå·¡°ï ·Îµå¸¦ ¾ø¾Ø´Ù.
+		// ì•„ì´í…œì„ ë¿Œë¦¬ê³  ë“œë˜ê³¤ ë¡œë“œë¥¼ ì—†ì•¤ë‹¤.
 		pDO->DeletBoss();
 	}
-	else if( count1 && count2 )	// Âù¹İÀÌ °¥¸°°æ¿ì 
+	else if( count1 && count2 )	// ì°¬ë°˜ì´ ê°ˆë¦°ê²½ìš° 
 	{	//< CSD-030225
 		POINT MovePoint[3];
 		for( int i=0; i<3; i++ )
@@ -1137,15 +1137,15 @@ int CDungeonMapMgr::ScenarioFightProc( CDungeonObject *pDO )
 		
 		::SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE4, &data, sizeof( POINTS ));
 	}	//> CSD-030225
-	else if( count1 && !count2 )	// ¸ğµÎ ¹İ´ëÇÑ °æ¿ì
+	else if( count1 && !count2 )	// ëª¨ë‘ ë°˜ëŒ€í•œ ê²½ìš°
 	{
-		// µå·¡°ï ·ÎµåÇÏ°í ½Î¿î´Ù.
-		pDungeonMap->OpenDragonRoadObject();		// ¾ÕÀ» ¸·°í ÀÖ´Â ¿ÀºêÁ§Æ®¸¦ ¾ø¾Ø´Ù.
+		// ë“œë˜ê³¤ ë¡œë“œí•˜ê³  ì‹¸ìš´ë‹¤.
+		pDungeonMap->OpenDragonRoadObject();		// ì•ì„ ë§‰ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ì—†ì•¤ë‹¤.
 		::SendScenarioMessage(SEND_ALL,  SMT_DRAGONROAD_MESSAGE3 , &data, sizeof( POINTS ));
 	}
 	else
 	{
-		// µå·¡°ï ·Îµå¸¦ ¾ø¾Ø´Ù.
+		// ë“œë˜ê³¤ ë¡œë“œë¥¼ ì—†ì•¤ë‹¤.
 		pDO->DeletBoss();
 	}
 	return 1;
@@ -1245,11 +1245,11 @@ int CDungeonBasic::Proc()
 		
 		if (IsCloseDungeon(m_nIndex))
 		{
-			// ±â·Ï ³²±è
+			// ê¸°ë¡ ë‚¨ê¹€
 			CDungeonHistory data;
 			data.SetData( data.DUNGEON_CLOSE, 1, NULL, ::GetMapName2(m_nDungeonMapPort1) );
 			::SendDungeonHistory(&data);
-			// close ½ÃÅ²´Ù. // ¸ğµÎ ÆÃ±è
+			// close ì‹œí‚¨ë‹¤. // ëª¨ë‘ íŒ…ê¹€
 			m_nStartTime = 0;
 			SetActiveFlag(0);
 			
@@ -1269,7 +1269,7 @@ int CDungeonBasic::Proc()
 		for (int i = 0; i < GetStartUpInfoCount(); ++i)
 		{
 			if (IsOpenDungeon(i))
-			{	// open ½ÃÅ²´Ù.
+			{	// open ì‹œí‚¨ë‹¤.
 				CDungeonHistory data;
 				data.SetData(data.DUNGEON_OPEN, 1, NULL, ::GetMapName2(m_nDungeonMapPort1));
 				::SendDungeonHistory( &data );
@@ -1295,10 +1295,10 @@ int CDungeonBasic::Proc()
 }	//> CSD-030324
 
 /////////////////////////////////////////////////
-CDungeonMapMgr *g_pDungeonMap = NULL;	// ÇØ´ç ¸Ê¿¡ ÀÖ´Â ´øÀüµé( 1Ãş, 2Ãş )ÀÇ °ü¸® Å¬·¡½º
-CDungeonMgr *g_pDungeonMgr = NULL;		// ¸ğµç ´øÀü( ¾Æºñ½º ¹Ì±Ã,.. )ÀÇ °ü¸® Å¬·¡½º
+CDungeonMapMgr *g_pDungeonMap = NULL;	// í•´ë‹¹ ë§µì— ìˆëŠ” ë˜ì „ë“¤( 1ì¸µ, 2ì¸µ )ì˜ ê´€ë¦¬ í´ë˜ìŠ¤
+CDungeonMgr *g_pDungeonMgr = NULL;		// ëª¨ë“  ë˜ì „( ì•„ë¹„ìŠ¤ ë¯¸ê¶,.. )ì˜ ê´€ë¦¬ í´ë˜ìŠ¤
 ////////////////////////////////////////////////////////
-// ¿ÀºêÁ§Æ®¸¦ º¸³»ÁÙ¶§ È®ÀÎÇØ¼­ eventÅ¸ÀÏµµ °°ÀÌ º¸³»ÁØ´Ù.
+// ì˜¤ë¸Œì íŠ¸ë¥¼ ë³´ë‚´ì¤„ë•Œ í™•ì¸í•´ì„œ eventíƒ€ì¼ë„ ê°™ì´ ë³´ë‚´ì¤€ë‹¤.
 void CheckDungeonObject( int id, short int cn )
 {
 	if( g_pDungeonMap ) g_pDungeonMap->SendEventWhenAddItem( id, cn );
@@ -1326,7 +1326,7 @@ int SendDungeonHistory( CDungeonHistory *pHistory )
 		MyLog( 0, "[Scenario message] Manage, type:%d, layer:%d, name:[%s]", 
 			pHistory->m_nType, pHistory->m_nLayer, pHistory->m_szName?pHistory->m_szName:" " );
 	}
-	else	// °ü¸® ¼­¹ö·Î º¸³½´Ù.
+	else	// ê´€ë¦¬ ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
 	{
 		t_packet packet;
 		packet.h.header.type = CMD_SEND_DUNGEON_HISTORY;
@@ -1365,7 +1365,7 @@ void RecvGetScenarioInfo( t_packet *p, short int cn )
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 	
-	if( g_pDungeonMap )//³»°¡ ´øÀü¸ÊÀÌ¸é È÷½ºÅä¸®¸¦ º¸³»ÁØ´Ù.
+	if( g_pDungeonMap )//ë‚´ê°€ ë˜ì „ë§µì´ë©´ íˆìŠ¤í† ë¦¬ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 	{
 		CDungeonMap *pDMap = g_pDungeonMap->GetActiveDungeonMap();
 		if( pDMap )
@@ -1393,7 +1393,7 @@ void RecvGetScenarioInfo( t_packet *p, short int cn )
 		return;
 	}
 	else
-	{//³»°¡ ´øÀü¸ÊÀÌ ¾Æ´Ï¸é ´øÀü¸Å´ÏÀú ¼­¹ö·Î ¿äÃ» ÆĞÅ¶À» º¸³¿
+	{//ë‚´ê°€ ë˜ì „ë§µì´ ì•„ë‹ˆë©´ ë˜ì „ë§¤ë‹ˆì € ì„œë²„ë¡œ ìš”ì²­ íŒ¨í‚·ì„ ë³´ëƒ„
 		t_packet packet;
 		packet.h.header.type = CMD_GET_SCENARIO_INFO_MAP;
 		packet.h.header.size = sizeof( k_direct_map_req );
@@ -1404,9 +1404,9 @@ void RecvGetScenarioInfo( t_packet *p, short int cn )
 	}
 }
 
-void RecvGetScenarioInfoMap( t_packet *p, int type )//´Ù¸¥¸Ê¿¡¼­ ¿äÃ»ÇÑ »çÇ×ÀÌ¶ó¸é ¾ğÁ¦¿­¸®´ÂÁö¸¸ ¾Ë·ÁÁÖ¸é µÈ´Ù.
+void RecvGetScenarioInfoMap( t_packet *p, int type )//ë‹¤ë¥¸ë§µì—ì„œ ìš”ì²­í•œ ì‚¬í•­ì´ë¼ë©´ ì–¸ì œì—´ë¦¬ëŠ”ì§€ë§Œ ì•Œë ¤ì£¼ë©´ ëœë‹¤.
 {
-	if( !g_pDungeonMgr ){return;}//¸Å´ÏÀú°¡ ¾Æ´Ï¸é ¸®ÅÏ 
+	if( !g_pDungeonMgr ){return;}//ë§¤ë‹ˆì €ê°€ ì•„ë‹ˆë©´ ë¦¬í„´ 
 	
 	const int port = p->u.kein.direct_map_req.port;
 	const int server_id = p->u.kein.direct_map_req.server_id;
@@ -1427,7 +1427,7 @@ void RecvGetScenarioInfoMap( t_packet *p, int type )//´Ù¸¥¸Ê¿¡¼­ ¿äÃ»ÇÑ »çÇ×ÀÌ¶ó
 			START_UP_INFO *pSUI= pTemp->GetStartUpInfo(k);
 			if(!pSUI){continue;}
 
-			if(pSUI->nApplyDay < g_wday){continue;}//Áö³ª°£³¯Àº ¾Èº¸¿©ÁÜ
+			if(pSUI->nApplyDay < g_wday){continue;}//ì§€ë‚˜ê°„ë‚ ì€ ì•ˆë³´ì—¬ì¤Œ
 
 			k_get_scenario_info_basic *pSUIB = &scenario_info.data[i];
 			i++;
@@ -1436,19 +1436,19 @@ void RecvGetScenarioInfoMap( t_packet *p, int type )//´Ù¸¥¸Ê¿¡¼­ ¿äÃ»ÇÑ »çÇ×ÀÌ¶ó
 			pSUIB->SMin		= pSUI->nStartMinute;
 			pSUIB->EHour	= pSUI->nEndHour;
 			pSUIB->EMin		= pSUI->nEndMinute;
-			pSUIB->layer	= j;//´øÀü ½Ã³ª¸®¿À Å¸ÀÔ
+			pSUIB->layer	= j;//ë˜ì „ ì‹œë‚˜ë¦¬ì˜¤ íƒ€ì…
 			pSUIB->type		= CDungeonHistory::DUNGEON_WHEN_OPEN_CLOSE_NOTICE;
 			::strcpy( pSUIB->dungeon_map, ::GetMapName2(pTemp->m_nDungeonMapPort1));
-			break;//ÃÖÃÊÀÇ ÇÑ°³¸¸ º¸¿©ÁÜ
+			break;//ìµœì´ˆì˜ í•œê°œë§Œ ë³´ì—¬ì¤Œ
 		}
 	}
 	scenario_info.count = i;
 	int size = sizeof(char) + sizeof( k_get_scenario_info_basic )*i;
-	if( !type )//´Ù¸¥¸Ê¿¡¼­ ¿äÃ»ÀÌ µé¾î¿ÔÀ» °æ¿ì
+	if( !type )//ë‹¤ë¥¸ë§µì—ì„œ ìš”ì²­ì´ ë“¤ì–´ì™”ì„ ê²½ìš°
 	{
 		SendDirectClientOtherMap( CMD_GET_SCENARIO_INFO, server_id, port, &scenario_info, size );
 	}
-	else//¼­¹ö³»ºÎ¿¡¼­ ºÎ¸¦ °æ¿ì
+	else//ì„œë²„ë‚´ë¶€ì—ì„œ ë¶€ë¥¼ ê²½ìš°
 	{
 		SendPacketDefault( CMD_GET_SCENARIO_INFO, &scenario_info, size, server_id );
 	}
@@ -1555,7 +1555,7 @@ void RecvCheckGotoScenarioDungeon( t_packet *p, short int cn )
 	}
 	else
 	{
-		// ½ÇÆĞ½Ã ¸Ş½ÃÁö
+		// ì‹¤íŒ¨ì‹œ ë©”ì‹œì§€
 	}
 }
 
@@ -1569,7 +1569,7 @@ void RecvCheckGotoScenarioDungeonResult( t_packet *p, short int cn )
 	CHARLIST *ch = CheckServerId( server_id );
 	if( !ch ) return;
 	
-	if( strcmp( ch->Name, name ) !=  0 ) return;		// ´Ù¸¥ ³ğÀÌ´Ù.
+	if( strcmp( ch->Name, name ) !=  0 ) return;		// ë‹¤ë¥¸ ë†ˆì´ë‹¤.
 	MapMove( server_id, dungeon_name, x, y );
 }
 
@@ -1659,7 +1659,7 @@ void RecvScenarioDetailInfoMap( t_packet *p, short int cn )
 	}
 }
 
-// ¸Ê¼­¹ö°¡ ²÷¾î Á³¾úÀ» ¶§, ±× ¸ÊÀÌ ÇöÀç ¾×Æ¼ºê µÇ¾î ÀÖ´ø »óÈ²ÀÌ¸é
+// ë§µì„œë²„ê°€ ëŠì–´ ì¡Œì—ˆì„ ë•Œ, ê·¸ ë§µì´ í˜„ì¬ ì•¡í‹°ë¸Œ ë˜ì–´ ìˆë˜ ìƒí™©ì´ë©´
 void ScenarioServerNewStart( WORD port )
 {
 	if( !g_pDungeonMgr ) {return;}
@@ -1687,7 +1687,7 @@ void ScenarioServerClear( WORD port )
 	pDungeon->SaveDungeonStatus();
 }
 
-void ScenarioServerReset( WORD port )		// ´øÀü ¸ÊÀÌ »õ·Î ¿ÀÇÂ µÇ¸é ±× ¸ÊÀÇ ¾×Æ¼ºê¸¦ ¹Ù²ãÁØ´Ù.
+void ScenarioServerReset( WORD port )		// ë˜ì „ ë§µì´ ìƒˆë¡œ ì˜¤í”ˆ ë˜ë©´ ê·¸ ë§µì˜ ì•¡í‹°ë¸Œë¥¼ ë°”ê¿”ì¤€ë‹¤.
 {
 	if( !g_pDungeonMgr ) return;
 	CDungeonBasic *pDungeon = g_pDungeonMgr->GetDungeonByPort( port );
@@ -1738,7 +1738,7 @@ void SendScenarioMessage( short int cn, int type, void *data, int size )
 	}
 }
 
-// ½Ã³ª¸®¿À ¿ë ¾ÆÀÌÅÛ ÀüºÎ Áö¿ì±â
+// ì‹œë‚˜ë¦¬ì˜¤ ìš© ì•„ì´í…œ ì „ë¶€ ì§€ìš°ê¸°
 void DeleteScenarioItem( CHARLIST *ch )
 {
 	//	return ;		// test
@@ -1815,7 +1815,7 @@ int CScenarioBoss::CreateBoss( int npc_type, int npc_num, int x, int y )
 		::DeleteNpc( id );
 	}
 	else
-	{//Áö¿ï ¼ö ÀÖ´Â ¸ó½ºÅÍ°¡ ¾ø´Ù¸é
+	{//ì§€ìš¸ ìˆ˜ ìˆëŠ” ëª¬ìŠ¤í„°ê°€ ì—†ë‹¤ë©´
 		::MyLog(0,"Critical Error Can't Get Normal Monster(CreateBoss())");
 		return 0;
 	}
@@ -1881,7 +1881,7 @@ int CScenarioBoss::CreateBoss( int npc_type, int npc_num, int x, int y )
 
 //////////////////////////////////////////////////////
 
-int KilledScenarioBoss( CHARLIST *user, CHARLIST *npc )		// ½Ã³ª¶ó¸®¿À ¸ó½ºÅÍ°¡ Á×¾ú´Ù.
+int KilledScenarioBoss( CHARLIST *user, CHARLIST *npc )		// ì‹œë‚˜ë¼ë¦¬ì˜¤ ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆë‹¤.
 {
 	if( !g_pDungeonMap ) return 0;
 	return g_pDungeonMap->KilledScenarioBoss( user, npc );
@@ -1893,7 +1893,7 @@ void RecvDragonVote( t_packet *p, short int cn )
 	if( !ch ) return;
 	if( !g_pDungeonMap ) return;
 	
-	int true_false = p->u.data[0];		// Âù¼º ¹İ´ë
+	int true_false = p->u.data[0];		// ì°¬ì„± ë°˜ëŒ€
 	if( !g_pDungeonMap->pVoteTrue ) return;
 	int *pData;
 	pData = new int;
@@ -1902,7 +1902,7 @@ void RecvDragonVote( t_packet *p, short int cn )
 	else g_pDungeonMap->pVoteFalse->AddNode( pData );
 } 
 
-// Âù¹İ °áÅõ
+// ì°¬ë°˜ ê²°íˆ¬
 void ScenarioDragonEndWar()
 {
 	g_pDungeonMap->EndUserFightByDragon();
@@ -1929,10 +1929,10 @@ int CScenarioDragonItem::MakeDragonItem( int total )
 	return 1;
 }
 /////////////////////////////////////////////
-// µå·¡°ïÀÌ Á×À» ¶§ È£Ãâ
-// Âù¼ºÇÑ Ä³¸¯ÅÍ ¸®½ºÆ®¿Í ¹İ´ëÇÑ Ä³¸¯ÅÍ ¸®½ºÆ®¸¦ ÀÎÀÚ·Î ¹Ş´Â´Ù.
+// ë“œë˜ê³¤ì´ ì£½ì„ ë•Œ í˜¸ì¶œ
+// ì°¬ì„±í•œ ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ì™€ ë°˜ëŒ€í•œ ìºë¦­í„° ë¦¬ìŠ¤íŠ¸ë¥¼ ì¸ìë¡œ ë°›ëŠ”ë‹¤.
 //
-// Âü¿© À¯Àú ¼ö * 2 + 2¸¦ ÇÑ ¼ö ¸¸Å­ ¾ÆÀÌÅÛÀ» ¸¸µç´Ù.
+// ì°¸ì—¬ ìœ ì € ìˆ˜ * 2 + 2ë¥¼ í•œ ìˆ˜ ë§Œí¼ ì•„ì´í…œì„ ë§Œë“ ë‹¤.
 int CScenarioDragonItem::DropDragonItem( TKeinList<int> *pLink1, TKeinList<int> *pLink2 )
 {
 	int max_ch = 0;
@@ -1947,11 +1947,11 @@ int CScenarioDragonItem::DropDragonItem( TKeinList<int> *pLink1, TKeinList<int> 
 	pServerIDBuf = new short int[max_ch];
 	
 	
-	int man_count = 0;		// »ç¶÷ Ä«¿îÆ® ÇÑ´Ù.( ¾ÆÀÌµğ ¹öÆÛ¿¡ ´ã±â À§ÇØ )
-	int item_count = 0;		// ¶³¾îÁø ¾ÆÀÌÅÛ ¼ö¸¦ Ä«¿îÆ®ÇÑ´Ù.
+	int man_count = 0;		// ì‚¬ëŒ ì¹´ìš´íŠ¸ í•œë‹¤.( ì•„ì´ë”” ë²„í¼ì— ë‹´ê¸° ìœ„í•´ )
+	int item_count = 0;		// ë–¨ì–´ì§„ ì•„ì´í…œ ìˆ˜ë¥¼ ì¹´ìš´íŠ¸í•œë‹¤.
 	CHARLIST *ch;
 	
-	// ÇÑ»ç¶÷ ¾Õ¿¡ ÇÏ³ª¿¡¼­ µÑ Á¤µµÀÇ ¾ÆÀÌÅÛÀ» ¶³¾î ¶ß¸°´Ù.
+	// í•œì‚¬ëŒ ì•ì— í•˜ë‚˜ì—ì„œ ë‘˜ ì •ë„ì˜ ì•„ì´í…œì„ ë–¨ì–´ ëœ¨ë¦°ë‹¤.
 	TKeinList<int> *pTarget;
 	for( int i=0; i<2; i++ )
 	{
@@ -1979,7 +1979,7 @@ int CScenarioDragonItem::DropDragonItem( TKeinList<int> *pLink1, TKeinList<int> 
 		}
 	}
 	
-	// ³²´Â ¾ÆÀÌÅÛÀ» ·£´ıÀ¸·Î »ç¶÷À» »Ì¾Æ¼­ »Ñ¸°´Ù.
+	// ë‚¨ëŠ” ì•„ì´í…œì„ ëœë¤ìœ¼ë¡œ ì‚¬ëŒì„ ë½‘ì•„ì„œ ë¿Œë¦°ë‹¤.
 	for( ; item_count<item_count_max; item_count++ )
 	{
 		ch = CheckServerId( pServerIDBuf[rand()%man_count] );
@@ -2039,17 +2039,17 @@ void RecvGetScenarioTime( t_packet *p, short int cn )
 	{
 		int port = p->u.kein.client_scenario_time_info.nPort;
 		int server_id = p->u.kein.client_scenario_time_info.nServer_Id;
-		SendGetScenarioTime(port, server_id, &p->u.kein.client_scenario_time_info);	// ÇØ´ç¸ÊÀ» ÅëÇØ¼­ º¸³»ÁØ´Ù.
+		SendGetScenarioTime(port, server_id, &p->u.kein.client_scenario_time_info);	// í•´ë‹¹ë§µì„ í†µí•´ì„œ ë³´ë‚´ì¤€ë‹¤.
 	}
 	else
 	{
 		if( g_pDungeonMgr )
 		{
-			SendGetScenarioTime(GetOwnPort(), cn, &p->u.kein.client_scenario_time_info); // ¹Ù·Î º¸³»ÁØ´Ù.
+			SendGetScenarioTime(GetOwnPort(), cn, &p->u.kein.client_scenario_time_info); // ë°”ë¡œ ë³´ë‚´ì¤€ë‹¤.
 		}
 		else
 		{
-			// ¿©±â¼­ ¿äÃ»ÇÏ´Â ¼­¹ö¿Í À¯Àú¸¦ ´ã¾Æ¼­ º¸³» ÁØ´Ù.
+			// ì—¬ê¸°ì„œ ìš”ì²­í•˜ëŠ” ì„œë²„ì™€ ìœ ì €ë¥¼ ë‹´ì•„ì„œ ë³´ë‚´ ì¤€ë‹¤.
 			p->u.kein.client_scenario_time_info.nPort = GetOwnPort();
 			p->u.kein.client_scenario_time_info.nServer_Id = cn;
 

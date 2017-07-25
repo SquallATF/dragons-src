@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef _CUSEMONEY_H
 #define _CUSEMONEY_H
 
@@ -12,7 +12,7 @@ public:
 
 	
 private:
-	bool m_bServer;	//¼­¹öÀÎÁö Å¬¶óÀÌ¾ğÆ®ÀÎÁö
+	bool m_bServer;	//ì„œë²„ì¸ì§€ í´ë¼ì´ì–¸íŠ¸ì¸ì§€
 	SOCKET	m_sSocket;
 
 };
@@ -33,12 +33,12 @@ using namespace std;
 #pragma pack(push,1)
 typedef struct userinfo_pay
 	{
-		//AgentÁ¤º¸
+		//Agentì •ë³´
 		unsigned long	dwConnectionIndex;
 		char szUserPass[32];
 		//char	szName[21];
 
-		//PayServerÁ¤º¸
+		//PayServerì •ë³´
 		//unsigned long	dwGameId;
 		char	szGameId[32];
 		char	szUserId[32];
@@ -97,7 +97,7 @@ enum eMSG_TYPE
 	GUM_MSG_USER_DIS_TIMEOVER	= 61,
 	GUM_MSG_USER_DIS_TIMEOV_1D	= 62,
 	GUM_MSG_USER_DIS_TIMEOV_1D2	= 63,
-	GUM_MSG_USER_DIS_OUSER_REQ	= 64,	//´Ù¸¥ À¯ÀúÀÇ ¿ä±¸·Î 
+	GUM_MSG_USER_DIS_OUSER_REQ	= 64,	//ë‹¤ë¥¸ ìœ ì €ì˜ ìš”êµ¬ë¡œ 
 	
 }EMSG_TYPE;
 
@@ -115,7 +115,7 @@ public:
 	~CAsyncClient();
 
 	SOCKET	InitSocket( const char* strIP, const int nPort );		//
-	int		InitConnectPayServer();						// °ú±İ¼­¹ö¶û Initialized Message¸¦ ÁÖ°í ¹Ş´Â´Ù.
+	int		InitConnectPayServer();						// ê³¼ê¸ˆì„œë²„ë‘ Initialized Messageë¥¼ ì£¼ê³  ë°›ëŠ”ë‹¤.
 	void	CloseConnection();
 	int		SendInitialMsg2PayServer();					
 	void	SetAgentInfo( const char* szName, const int nGroup, const char* szServerNum, const int nZone );
@@ -133,38 +133,38 @@ public:
 					return false;
 				};
 	//Analysys
-	int		AnalysysMessage( char* szMsg );			// ¹ŞÀº ¸Ş½ÃÁö¸¦ ºĞ¼®ÇØ¼­ ¸®ÅÏÇÑ´Ù.
-	int		AnalysysMsgHeader( char* szMsg );			//Seq¸®ÅÏÇÏ±â
-	char*	AnalysysMsgHeader( char* szMsg, int& nSeq );	//MsgbodyºÎºĞ¸¸ ¸®ÅÏÇÏ±â
+	int		AnalysysMessage( char* szMsg );			// ë°›ì€ ë©”ì‹œì§€ë¥¼ ë¶„ì„í•´ì„œ ë¦¬í„´í•œë‹¤.
+	int		AnalysysMsgHeader( char* szMsg );			//Seqë¦¬í„´í•˜ê¸°
+	char*	AnalysysMsgHeader( char* szMsg, int& nSeq );	//Msgbodyë¶€ë¶„ë§Œ ë¦¬í„´í•˜ê¸°
 	char*	AnalysysMsgType( char* szMsgBody, int& nType );	
 	
 	int		AnalysysMsgBody( char* szMsgBody , USERINFOPAY& userInfo, int& nRestTime);	// analysys Body
 	//int		AnalysysMsgBody_User( char* szMsgBody , USERINFO& userInfo, int& nRestTime)
 
 	HWND	CreateMsgWindow( WNDPROC messageproc);
-	int		AddPayUser( USERINFOPAY& stUser );					// list¿¡ À¯Àú ÀúÀå
+	int		AddPayUser( USERINFOPAY& stUser );					// listì— ìœ ì € ì €ì¥
 	void	DisconnectUser( USERINFOPAY& stUser );				
-	bool	DeletePayUser( USERINFOPAY& stUser );				// list¿¡¼­ À¯Àú »èÁ¦
+	bool	DeletePayUser( USERINFOPAY& stUser );				// listì—ì„œ ìœ ì € ì‚­ì œ
 	//list<USERINFOPAY>::iterator
-	//	FindUserIterator(const char* szUserName);			// list¿¡¼­ ÇØ´ç À¯ÀúÀÇ ¹İº¹ÀÚ ¸®ÅÏ
-	USERINFOPAY* FindUserIterator(const char* szUserName);			// list¿¡¼­ ÇØ´ç À¯ÀúÀÇ ¹İº¹ÀÚ ¸®ÅÏ
+	//	FindUserIterator(const char* szUserName);			// listì—ì„œ í•´ë‹¹ ìœ ì €ì˜ ë°˜ë³µì ë¦¬í„´
+	USERINFOPAY* FindUserIterator(const char* szUserName);			// listì—ì„œ í•´ë‹¹ ìœ ì €ì˜ ë°˜ë³µì ë¦¬í„´
 
 	//030703 YGI
 	void	CheckAliveUser();
 	void	SendAliveMessage( USERINFOPAY& userInfo );
 
-	void	SendMsgToPayServer( int nType , USERINFOPAY& stUser);	//Çü½Ä¿¡ ¸ÂÃá ³»¿ëÀ» º¸³»ÁØ´Ù. 
-	int		SendPayFormatMessage( char* strMsg );				// GUM¿¡¼­ Á¦½ÃÇÑ Çü½Ä¿¡ ¸Â´Â ¹®ÀÚ¿­À» sendÇÑ´Ù.
-	void	SendKeepaliveMsg();									//À¯Áö ¸Ş½ÃÁö. 1ºĞ°£°İÀ¸·Î º¸³»µµ·Ï ÇÑ´Ù. 
+	void	SendMsgToPayServer( int nType , USERINFOPAY& stUser);	//í˜•ì‹ì— ë§ì¶˜ ë‚´ìš©ì„ ë³´ë‚´ì¤€ë‹¤. 
+	int		SendPayFormatMessage( char* strMsg );				// GUMì—ì„œ ì œì‹œí•œ í˜•ì‹ì— ë§ëŠ” ë¬¸ìì—´ì„ sendí•œë‹¤.
+	void	SendKeepaliveMsg();									//ìœ ì§€ ë©”ì‹œì§€. 1ë¶„ê°„ê²©ìœ¼ë¡œ ë³´ë‚´ë„ë¡ í•œë‹¤. 
 	void	SendUserLogin( USERINFOPAY& userInfo, const char* szRIP, const char* szVIP , const int nReConnect);
-	void	SendUserLogout( USERINFOPAY& userInfo);				//·Î±×¾Æ¿ôÇØ´Ş¶ó
-	void	RecvUserLogin( USERINFOPAY& userInfo);				// ·Î±×ÀÎ ¼º°ø
-	void	RecvUserLoginFail( USERINFOPAY& userInfo, int nType);	//·Î±×ÀÎ ½ÇÆĞ
-	void	RecvUserLogout( USERINFOPAY& userInfo);					//·Î±×¾Æ¿ô ¿äÃ»
-	void	RecvUserLogoutFail( USERINFOPAY& userInfo );			//·Î±×¾Æ¿ô½ÇÆĞ
-	void	RecvUserAlert( USERINFOPAY& userInfo, int nTime);		//À¯Àú °æ°í¸Ş½ÃÁö
-	void	RecvUserDisconnect( USERINFOPAY& userInfo, int nMsgType);	//À¯Àú Á¢¼Ó °­Á¦ Á¾·á	
-	void 	RecvResponsMessage( SOCKET socket , char* szBuf); 			//¹öÆÛ¿¡¼­ ¸Ş½ÃÁö¸¦ ÀĞ´Â´Ù. 
+	void	SendUserLogout( USERINFOPAY& userInfo);				//ë¡œê·¸ì•„ì›ƒí•´ë‹¬ë¼
+	void	RecvUserLogin( USERINFOPAY& userInfo);				// ë¡œê·¸ì¸ ì„±ê³µ
+	void	RecvUserLoginFail( USERINFOPAY& userInfo, int nType);	//ë¡œê·¸ì¸ ì‹¤íŒ¨
+	void	RecvUserLogout( USERINFOPAY& userInfo);					//ë¡œê·¸ì•„ì›ƒ ìš”ì²­
+	void	RecvUserLogoutFail( USERINFOPAY& userInfo );			//ë¡œê·¸ì•„ì›ƒì‹¤íŒ¨
+	void	RecvUserAlert( USERINFOPAY& userInfo, int nTime);		//ìœ ì € ê²½ê³ ë©”ì‹œì§€
+	void	RecvUserDisconnect( USERINFOPAY& userInfo, int nMsgType);	//ìœ ì € ì ‘ì† ê°•ì œ ì¢…ë£Œ	
+	void 	RecvResponsMessage( SOCKET socket , char* szBuf); 			//ë²„í¼ì—ì„œ ë©”ì‹œì§€ë¥¼ ì½ëŠ”ë‹¤. 
 	USERINFO*	FindPayUser( const char* szUserId);	
 
 	//DB connect
@@ -174,23 +174,23 @@ public:
 
 	void	LoginUser( const int nCn, const char* szUserId, const char* szUserPass , const char* szGameId, const char* szUserType, const char* szUserRealIp, const char* szUserVrIp);
 	void	LogoutUser( const int nCn, const char* szUserName );
-	void	LogoutUser( USERINFO *pUser );					// ÇØ´ç À¯Àú¸¦ °ú±İ¼­ºñ½º¶û Á¢¼Ó Á¾·á½ÃÅ´
+	void	LogoutUser( USERINFO *pUser );					// í•´ë‹¹ ìœ ì €ë¥¼ ê³¼ê¸ˆì„œë¹„ìŠ¤ë‘ ì ‘ì† ì¢…ë£Œì‹œí‚´
 	void	LogoutAllUser();
 
-	list<USERINFOPAY>	GetAllUser(){ return m_vtUser;	};		//¸ğµç À¯Àú³»¿ëÀ» ´Ù ÁØ´Ù. 
+	list<USERINFOPAY>	GetAllUser(){ return m_vtUser;	};		//ëª¨ë“  ìœ ì €ë‚´ìš©ì„ ë‹¤ ì¤€ë‹¤. 
 	void	ShowError( int nError );
 	bool	IsRightType( int nType );
 	
 protected:
-	//list<USERINFOPAY*> m_vtUser;		//À¯Àú¹øÈ£ Å×ÀÌºí
+	//list<USERINFOPAY*> m_vtUser;		//ìœ ì €ë²ˆí˜¸ í…Œì´ë¸”
 	void	SetGumHeader( const char* szHeader, const char* szVer )
 				{ 
 					sprintf( m_szGumHeader, "%s/%s", szHeader, szVer); 
 					sprintf( m_szKeepaliveMsg, "%s\t0\0352\theart_beat\t\0", m_szGumHeader );
 				};
 //	void	SetDivided( const char* szHeaderDivided, const char* szWordDivided, const char* szNULL ){};
-	LISTUSER m_vtUser;		//À¯Àú¹øÈ£ Å×ÀÌºí
-	char	m_szGumHeader[16];	//ÇØ´õÆ÷¸Ë
+	LISTUSER m_vtUser;		//ìœ ì €ë²ˆí˜¸ í…Œì´ë¸”
+	char	m_szGumHeader[16];	//í•´ë”í¬ë§·
 	char	m_szKeepaliveMsg[128];
 
 private:
@@ -198,12 +198,12 @@ private:
 	static const char dvWord;
 	static const char* dvNull;
 
-	SOCKET	m_sSocket;			//°ú±İ¼­¹ö¶û Åë½ÅÇÏ´Â ¼ÒÄ¹
-	char	m_strServerName[24];		//¼­¹öÀÌ¸§
-	int		m_nServerGroupNum;	//¼­¹ö±×·ì¹øÈ£ ¼­¹ö¼Â ¹øÈ£
-	char	m_szServerNum[24];			//¼­¹ö¹øÈ£ IP
-	int		m_nZoneNum;			//Á¸ ¹øÈ£ Æ÷Æ®¹øÈ£
-	int		m_nState;			//»óÅÂ
+	SOCKET	m_sSocket;			//ê³¼ê¸ˆì„œë²„ë‘ í†µì‹ í•˜ëŠ” ì†Œìº£
+	char	m_strServerName[24];		//ì„œë²„ì´ë¦„
+	int		m_nServerGroupNum;	//ì„œë²„ê·¸ë£¹ë²ˆí˜¸ ì„œë²„ì…‹ ë²ˆí˜¸
+	char	m_szServerNum[24];			//ì„œë²„ë²ˆí˜¸ IP
+	int		m_nZoneNum;			//ì¡´ ë²ˆí˜¸ í¬íŠ¸ë²ˆí˜¸
+	int		m_nState;			//ìƒíƒœ
 
 	CRITICAL_SECTION		m_cs;
 };

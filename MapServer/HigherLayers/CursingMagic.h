@@ -1,4 +1,4 @@
-// CursingMagic.h: interface for the CCursingMagic class.
+ï»¿// CursingMagic.h: interface for the CCursingMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ÀúÁÖ°è¿­ ¸¶¹ý
+// åŽ†æž—æ‹Œå‡¯ ä»˜è¿‡
 class CCursingMagic : public TBinder<CMagic, CCursingMagic>
 {
 public:
@@ -29,24 +29,24 @@ public:
 	}
 	
 public:
-	bool Confusion();          // ÀúÁÖ 1°è¿­ ¸¶¹ý
+	bool Confusion();          // åŽ†æž— 1æ‹Œå‡¯ ä»˜è¿‡
 	bool AbsoluteParalysis();
 	bool Stonely();
 	bool Curse();
 	bool AreaParalysis();
 	bool AreaConfusion();
-	bool Slow();               // ÀúÁÖ 2°è¿­ ¸¶¹ý  
+	bool Slow();               // åŽ†æž— 2æ‹Œå‡¯ ä»˜è¿‡  
 	bool SpiderWeb(); 
 	bool AreaSlow();
 	bool FeatherOfCurse();
-	bool Intoxication();       // ÀúÁÖ 3°è¿­ ¸¶¹ý
+	bool Intoxication();       // åŽ†æž— 3æ‹Œå‡¯ ä»˜è¿‡
 	bool ToxicCloud();
 	bool VampirePoison();
 	bool CurseOfHell();
 	bool AreaPoison();
-	bool LostSight();          // ÀúÁÖ 4°è¿­ ¸¶¹ý
+	bool LostSight();          // åŽ†æž— 4æ‹Œå‡¯ ä»˜è¿‡
 	bool AuthorityLostSight();
-	bool DiseaseInduce();      // ÀúÁÖ 5°è¿­ ¸¶¹ý
+	bool DiseaseInduce();      // åŽ†æž— 5æ‹Œå‡¯ ä»˜è¿‡
 	bool VampireTouch();
 	bool LifeDrain();
 	bool Gazer(); // 030509 kyo

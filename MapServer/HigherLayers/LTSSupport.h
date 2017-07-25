@@ -1,4 +1,4 @@
-#ifndef	_LTS_SUPPORT_H_
+ï»¿#ifndef	_LTS_SUPPORT_H_
 #define	_LTS_SUPPORT_H_
 
 
@@ -8,12 +8,12 @@
 
 enum eLF_TYPE//enum Log Fame
 {
-	LF_DUAL						=0,			// µà¾ó¼Òºñ
-	LF_LOCALWAR					=1,			// ±¹ÁöÀü
-	LF_ITEMBUY					=2,			// ±¹°¡°í±Ş¾ÆÀÌÅÛ
-	LF_DONATION					=3,			// ±¹°¡±âºÎ
-	LF_NATIONWAR				=4,			// ±¹°¡Àü
-	LF_SCRIPT					=5			// ½ºÅ©¸³Æ®
+	LF_DUAL						=0,			// ë“€ì–¼ì†Œë¹„
+	LF_LOCALWAR					=1,			// êµ­ì§€ì „
+	LF_ITEMBUY					=2,			// êµ­ê°€ê³ ê¸‰ì•„ì´í…œ
+	LF_DONATION					=3,			// êµ­ê°€ê¸°ë¶€
+	LF_NATIONWAR				=4,			// êµ­ê°€ì „
+	LF_SCRIPT					=5			// ìŠ¤í¬ë¦½íŠ¸
 };
 
 #include <list>						// LTS DRAGONLORD
@@ -21,8 +21,8 @@ using namespace std;
 
 struct LocalWarfield_Info			// LTS NEW LOCALWAR	
 {
-	int				Index;			// ¹è¿­¿¡ µé¾î°¥ À§Ä¡
-	int				Phase;			// ¸Ê¿¡¼­ ¸ÊÀ¸·ÎÀÇ À§Ä¡ 
+	int				Index;			// ë°°ì—´ì— ë“¤ì–´ê°ˆ ìœ„ì¹˜
+	int				Phase;			// ë§µì—ì„œ ë§µìœ¼ë¡œì˜ ìœ„ì¹˜ 
 	char			MapName[20];
 	int				Port;
 	int				SealNo[3][4];		
@@ -75,26 +75,26 @@ public :
 	int				CheckAllSealStonebroked(int NationIndex);						// LTS NEW LOCALWAR
 	void			CheckSealStonePtr(CHARLIST* ch);								// LTS NEW LOCALWAR
 	void			ClearSealStonePtr();											// LTS NEW LOCALWAR
-	CHARLIST*		GetSealStonePtr( const int nNation, const int nStoneNum );		// 030506 kyo //ÇØ´ç °á°è¼®ÀÇ Æ÷ÀÎÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+	CHARLIST*		GetSealStonePtr( const int nNation, const int nStoneNum );		// 030506 kyo //í•´ë‹¹ ê²°ê³„ì„ì˜ í¬ì¸í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 	void			RecoveryAllSealStone(); // 030520 kyo
 };
 
 
 struct EventMapData					// 020115 LTS				// LTS BUG
 {
-	char			EventActive;			// ÀÌº¥Æ® ·çÇÁÀÇ ÁøÇà ÇØÁ¦
-	char			EventStartTime;			// ÀÌº¥Æ® ·çÇÁÀÇ ÁøÇà ½ÃÀÛ½Ã°£(¸ÅÀÏ)
+	char			EventActive;			// ì´ë²¤íŠ¸ ë£¨í”„ì˜ ì§„í–‰ í•´ì œ
+	char			EventStartTime;			// ì´ë²¤íŠ¸ ë£¨í”„ì˜ ì§„í–‰ ì‹œì‘ì‹œê°„(ë§¤ì¼)
 	char			EventRegTime;
 	char			EventMapMoveTime;
 	char			EventTime;
-	char			EventDelayTime;			// ÀÌº¥Æ® »çÀÌÀÇ ÈŞ½Ä½Ã°£
-	unsigned short	EventUserLevelMin[3];	// ÀÌº¥Æ® 1,2,3ÀÇ Á¶ÀÎ·¹º§ MIN
-	unsigned short	EventUserLevelMax[3];	// ÀÌº¥Æ® 1,2,3ÀÇ Á¶ÀÎ·¹º§ MAX
-	POINTS			StartPoint[6];		// ³ª¶óº° 2°³¾¿								// LTS BUG
-	unsigned short	EventRegMax[3][3];		// ³ª¶óº°, ÀÌº¥Æ® ¹øÈ£º° Âü¿©ÀÎ¿ø Á¦ÇÑ
-	POINTS			OutPoint[3];			// ³ª¶óº° ÇÏ³ª¾¿
-	char			EventMessageTime;		//ÀÌº¥Æ® ½ÃÀÛ½Ã ¸Ş¼¼Áö Àü¼Û ÁÖ±â
-	POINTS			EventJoinLocation[3];	// ¸¶À»º° ÀÌº¥Æ® Á¢¼ö´ë x,y
+	char			EventDelayTime;			// ì´ë²¤íŠ¸ ì‚¬ì´ì˜ íœ´ì‹ì‹œê°„
+	unsigned short	EventUserLevelMin[3];	// ì´ë²¤íŠ¸ 1,2,3ì˜ ì¡°ì¸ë ˆë²¨ MIN
+	unsigned short	EventUserLevelMax[3];	// ì´ë²¤íŠ¸ 1,2,3ì˜ ì¡°ì¸ë ˆë²¨ MAX
+	POINTS			StartPoint[6];		// ë‚˜ë¼ë³„ 2ê°œì”©								// LTS BUG
+	unsigned short	EventRegMax[3][3];		// ë‚˜ë¼ë³„, ì´ë²¤íŠ¸ ë²ˆí˜¸ë³„ ì°¸ì—¬ì¸ì› ì œí•œ
+	POINTS			OutPoint[3];			// ë‚˜ë¼ë³„ í•˜ë‚˜ì”©
+	char			EventMessageTime;		//ì´ë²¤íŠ¸ ì‹œì‘ì‹œ ë©”ì„¸ì§€ ì „ì†¡ ì£¼ê¸°
+	POINTS			EventJoinLocation[3];	// ë§ˆì„ë³„ ì´ë²¤íŠ¸ ì ‘ìˆ˜ëŒ€ x,y
 };
 
 
@@ -110,13 +110,13 @@ struct EventMapData					// 020115 LTS				// LTS BUG
 
 class cEventLocalWarfield			// 020115 LTS
 {
-	int				m_EventStep;			// 1¹øÀÌº¥Æ®, 2¹øÀÌº¥Æ®, 3¹øÀÌº¥Æ® 
-	int				m_EventStatus;				// 0 : »ç¿ë¾ÈÇÔ // 1 :Âü¿© 2 : ÀÌµ¿ // 3 : ½ÃÀÛ //4 :ÈŞ½Ä
-	__int64			m_EventEndTime;			// TimeUpdate ½Ã°£ 
-	EventMapData	m_tData;					// ÀÌº¥Æ® ¸Êµ¥ÀÌÅ¸
-	int				m_CheckLoadData;			// µ¥ÀÌÅÍ ·Îµù ÀÌ»ó¾ø³ª Ã¼Å©
+	int				m_EventStep;			// 1ë²ˆì´ë²¤íŠ¸, 2ë²ˆì´ë²¤íŠ¸, 3ë²ˆì´ë²¤íŠ¸ 
+	int				m_EventStatus;				// 0 : ì‚¬ìš©ì•ˆí•¨ // 1 :ì°¸ì—¬ 2 : ì´ë™ // 3 : ì‹œì‘ //4 :íœ´ì‹
+	__int64			m_EventEndTime;			// TimeUpdate ì‹œê°„ 
+	EventMapData	m_tData;					// ì´ë²¤íŠ¸ ë§µë°ì´íƒ€
+	int				m_CheckLoadData;			// ë°ì´í„° ë¡œë”© ì´ìƒì—†ë‚˜ ì²´í¬
 	WORD			m_ManCount[3];				
-	int				m_nEventPoint;				// LTH-040729-CN ÀÌº¥Æ® ±¹ÁöÀü ¼öÁ¤. MapServerConfig.ini¿¡¼­ ÀĞ¾î¿Â´Ù.
+	int				m_nEventPoint;				// LTH-040729-CN ì´ë²¤íŠ¸ êµ­ì§€ì „ ìˆ˜ì •. MapServerConfig.iniì—ì„œ ì½ì–´ì˜¨ë‹¤.
 public :
 	cEventLocalWarfield();
 	~cEventLocalWarfield();
@@ -146,7 +146,7 @@ public :
 	inline bool		IncManCount(int Nation);
 	inline void		ClearManCount()				{ m_ManCount[0]=0;m_ManCount[1]=0;m_ManCount[2]=0; }
 
-	inline int		GetEventPointSetting()		{ return m_nEventPoint; }		// LTH-040729-CN ¼¼ÆÃµÈ ÀÌº¥Æ® Æ÷ÀÎÆ® ºÒ·¯¿À±â.
+	inline int		GetEventPointSetting()		{ return m_nEventPoint; }		// LTH-040729-CN ì„¸íŒ…ëœ ì´ë²¤íŠ¸ í¬ì¸íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°.
 };
 
 typedef list<int>					MemberList;
@@ -217,11 +217,11 @@ public :
 	void			ReturnWinMemerList(int* Member);
 };
 
-//< 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦ÇÏ±â À§ÇÑ Àü¿ª º¯¼ö Ãß°¡
+//< 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œí•˜ê¸° ìœ„í•œ ì „ì—­ ë³€ìˆ˜ ì¶”ê°€
 extern int					g_preventSelectYilse;
-//> 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦ÇÏ±â À§ÇÑ Àü¿ª º¯¼ö Ãß°¡
+//> 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œí•˜ê¸° ìœ„í•œ ì „ì—­ ë³€ìˆ˜ ì¶”ê°€
 extern cDragonLordWar		g_pDragonLordWar;					// LTS DRAGONLORD
-/*<040719_KJHuNs g_pLogManager·Î ÀÌµ¿
+/*<040719_KJHuNs g_pLogManagerë¡œ ì´ë™
 extern void SaveLogChange_ClassQuest(CHARLIST* pTarget, const char* pMsg, int nQuestNo, int nQcount, int nStart); // CSD-TW-030618
 extern void SaveLogChange_ClassStep(CHARLIST* pTarget, int nPrevStep, int nNextStep); // CSD-TW-030606
 extern void SaveLogChange_Fame( CHARLIST *ch, int old_fame, int new_fame, eLF_TYPE type );

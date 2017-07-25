@@ -1,4 +1,4 @@
-// FlameCombat.h: interface for the CFlameCombat class.
+ï»¿// FlameCombat.h: interface for the CFlameCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// È­¿°¼Ó¼º ÀüÅõ½ºÅ³
+// í™”ì—¼ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 class CFlameCombat : public TBinder<CCombat, CFlameCombat>  
 {
 public:

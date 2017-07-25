@@ -1,4 +1,4 @@
-#include "..\stdafx.h"//021007 lsw
+ï»¿#include "..\stdafx.h"//021007 lsw
 #include "Async.h"
 #include "msgproc.h"
 #include "network.h"
@@ -99,7 +99,7 @@ read_bill_ip:
 
 	MyLog( LOG_NORMAL, "[BILL] Try to connect [%s, %d] ( %d ) !!!!", sBillServerIP, BillServerPort, BillServerIndex );
 
-	g_pConnection = g_pNetwork->ConnectToServer(sBillServerIP, BillServerPort );	//client·Î¼­Á¢¼Ó½Ã	//2001/01/30 zhh ¿©±âµµ
+	g_pConnection = g_pNetwork->ConnectToServer(sBillServerIP, BillServerPort );	//clientë¡œì„œì ‘ì†ì‹œ	//2001/01/30 zhh ì—¬ê¸°ë„
 
 //	MyLog( LOG_NORMAL, "g_pConnection = %p", g_pConnection );
 
@@ -134,7 +134,7 @@ int ReadBillingText
 */
 
 
-//2001/01/30 zhh ¿©±â±îÁö
+//2001/01/30 zhh ì—¬ê¸°ê¹Œì§€
 
 void OnDestroyForAsync()
 {
@@ -150,6 +150,6 @@ void OnDestroyForAsync()
 void SendQuit()
 {
 	if( g_pNetwork )
-		PostMessage( g_pNetwork->m_hProcWnd, WM_QUIT, 0, 0 );		// ½º·¹µå Á¾·á
+		PostMessage( g_pNetwork->m_hProcWnd, WM_QUIT, 0, 0 );		// ìŠ¤ë ˆë“œ ì¢…ë£Œ
 }
 

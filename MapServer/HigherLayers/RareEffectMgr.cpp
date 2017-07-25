@@ -1,4 +1,4 @@
-// RareEffectMgr.cpp: implementation of the CRareEffectMgr class.
+ï»¿// RareEffectMgr.cpp: implementation of the CRareEffectMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -30,24 +30,24 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 	CHARLIST *Target = (CHARLIST*)d;
 	if(!Caster) {return 0;}
 	if(!Target) {return 0;}
-  if(!Caster->IsPlayer()) {return 0;}//ÇÃ·¹ÀÌ¾î°¡ ¾Æ´Ï¸é Àû¿ë ºÒ°¡
-	if(!Target->IsPlayer()) {return 0;}//ÇÃ·¹ÀÌ¾î°¡ ¾Æ´Ï¸é Àû¿ë ºÒ°¡
-	//µÑ´Ù »ì¾Æ ÀÖ¾î¾ß(hp°¡ 0ÀÌ»ó ÀÌ¾î¾ß) È£Ãâ µÈ´Ù
-	if( Caster->IsDead() || Target->IsDead() || !iDmg)	{ return 0;	}//µÑµÕ¿¡ ÇÏ³ª¶óµµ Á×¾úÀ¸¸é //µ¥¹ÌÁö°¡ ¾øÀ¸¸é (¹Ì½º°¡ ³µÀ¸¸é)
+  if(!Caster->IsPlayer()) {return 0;}//í”Œë ˆì´ì–´ê°€ ì•„ë‹ˆë©´ ì ìš© ë¶ˆê°€
+	if(!Target->IsPlayer()) {return 0;}//í”Œë ˆì´ì–´ê°€ ì•„ë‹ˆë©´ ì ìš© ë¶ˆê°€
+	//ë‘˜ë‹¤ ì‚´ì•„ ìˆì–´ì•¼(hpê°€ 0ì´ìƒ ì´ì–´ì•¼) í˜¸ì¶œ ëœë‹¤
+	if( Caster->IsDead() || Target->IsDead() || !iDmg)	{ return 0;	}//ë‘˜ë‘¥ì— í•˜ë‚˜ë¼ë„ ì£½ì—ˆìœ¼ë©´ //ë°ë¯¸ì§€ê°€ ì—†ìœ¼ë©´ (ë¯¸ìŠ¤ê°€ ë‚¬ìœ¼ë©´)
 	
 	const int iTempDmg = iDmg;	
 	bool bManaSend = false, bHpSend = false, bHungrySend = false;
 ////////////////////////////////////////////////////////////////////////////////////////////////
-// ¶§¸°ÀÚ¿¡ ÀÇÇÑ Ã³¸®
+// ë•Œë¦°ìì— ì˜í•œ ì²˜ë¦¬
 {
-	if( Target->Spell  == WIZARD_SPELL &&  (0 < Target->Mana) )//¸¶³ª°¡ ÀÖ¾î¾ß »¯´Â´Ù
+	if( Target->Spell  == WIZARD_SPELL &&  (0 < Target->Mana) )//ë§ˆë‚˜ê°€ ìˆì–´ì•¼ ëºëŠ”ë‹¤
 	{
-		const int nWitch = __min(iTempDmg	*	GetStaticRareWitch(Caster->StaticRare) / 1000 ,Caster->ManaMax-Caster->Mana);//µ¥¹ÌÁö¿¡ ºñ·Ê ÇØ¼­
+		const int nWitch = __min(iTempDmg	*	GetStaticRareWitch(Caster->StaticRare) / 1000 ,Caster->ManaMax-Caster->Mana);//ë°ë¯¸ì§€ì— ë¹„ë¡€ í•´ì„œ
 		const int nDevil = __min(Target->Mana*	GetStaticRareDevil(Caster->StaticRare) / 100 ,Caster->ManaMax-Caster->Mana);
 		if (nWitch > 0 && rand()%101 < RARE_MP_STEAL_RAND)
 		{
-			//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
-			//Èí¼ö ÇÒ ¼ö ÀÖÀ» ¶§
+			//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
+			//í¡ìˆ˜ í•  ìˆ˜ ìˆì„ ë•Œ
 		//	if(nWitch < Target->Mana )//&& Caster->Mana < Caster->ManaMax )
 			{
 				Target->DecMana(nWitch);
@@ -58,7 +58,7 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 
 		if (nDevil > 0 && rand()%101 < RARE_MP_STEAL_RAND)
 		{
-		//	if(nDevil < Target->Mana )//&& Caster->Mana < Caster->ManaMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nDevil < Target->Mana )//&& Caster->Mana < Caster->ManaMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecMana(nDevil);
 				Caster->IncMana(nDevil);
@@ -67,14 +67,14 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 		}
 	}
 
-	if( Target->Spell  == PRIEST_SPELL && (0 < Target->Mana) )//¸¶³ª°¡ ÀÖ¾î¾ß »¯´Â´Ù
+	if( Target->Spell  == PRIEST_SPELL && (0 < Target->Mana) )//ë§ˆë‚˜ê°€ ìˆì–´ì•¼ ëºëŠ”ë‹¤
 	{
 		const int nEvil		=	__min(iTempDmg		*	GetStaticRareEvil(Caster->StaticRare)  /1000,Caster->ManaMax-Caster->Mana);
 		const int nSatan	=	__min(Target->Mana	*	GetStaticRareSatan(Caster->StaticRare) /100,Caster->ManaMax-Caster->Mana);
 		
 		if (nEvil > 0 && rand()%101 < RARE_DIVINE_STEAL_RAND)
 		{
-		//	if(nEvil < Target->Mana )//&& Caster->Mana < Caster->ManaMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nEvil < Target->Mana )//&& Caster->Mana < Caster->ManaMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecMana(nEvil);
 				Caster->IncMana(nEvil);
@@ -84,7 +84,7 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 
 		if (nSatan > 0 && rand()%101 < RARE_DIVINE_STEAL_RAND)
 		{
-		//	if(nSatan < Target->Mana )//&& Caster->Mana < Caster->ManaMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nSatan < Target->Mana )//&& Caster->Mana < Caster->ManaMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecMana(nSatan);
 				Caster->IncMana(nSatan);
@@ -93,14 +93,14 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 		}
 	}
 	
-	if( 0 < Target->Hp )//Ã¼·ÂÀÌ ÀÖ¾î¾ß »¯´Â´Ù
-	{	//HP »¯´Â ¼Ó¼º
+	if( 0 < Target->Hp )//ì²´ë ¥ì´ ìˆì–´ì•¼ ëºëŠ”ë‹¤
+	{	//HP ëºëŠ” ì†ì„±
 		const int nDesire = __min(iTempDmg	 *GetStaticRareDesire(Caster->StaticRare) /100,	Caster->HpMax-Caster->Hp	);
 		const int nRobber = __min(Target->Hp *GetStaticRareRobber(Caster->StaticRare) /100,	Caster->HpMax-Caster->Hp	);
 
 		if (nDesire > 0 && rand()%101 < RARE_HP_STEAL_RAND)
 		{
-		//	if(nDesire < Target->Hp )//&& Caster->Hp < Caster->HpMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nDesire < Target->Hp )//&& Caster->Hp < Caster->HpMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecLife(nDesire);
 				Caster->IncLife(nDesire);
@@ -110,7 +110,7 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 
 		if (nRobber > 0 && rand()%101 < RARE_HP_STEAL_RAND)
 		{
-		//	if(nRobber < Target->Hp )//&& Caster->Hp < Caster->HpMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nRobber < Target->Hp )//&& Caster->Hp < Caster->HpMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecLife(nRobber);
 				Caster->IncLife(nRobber);
@@ -118,14 +118,14 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 			}
 		}
 	}
-	if( 0 < Target->Hungry )//¹è°íÇÄÀÌ ÀÖ¾î¾ß »¯´Â´Ù 
-	{//¹è°íÇÄ °ÔÀÌÁö
+	if( 0 < Target->Hungry )//ë°°ê³ í””ì´ ìˆì–´ì•¼ ëºëŠ”ë‹¤ 
+	{//ë°°ê³ í”” ê²Œì´ì§€
 		const int nWeary	=	__min(iTempDmg		*GetStaticRareWeary(Caster->StaticRare)	/1000,Caster->HungryMax - Caster->Hungry); 
 		const int nFatigue	=	__min(Target->Hungry*GetStaticRareFatigue(Caster->StaticRare)/100,Caster->HungryMax - Caster->Hungry);
 		
 		if (nWeary > 0 && rand()%101 < RARE_HUNGRY_STEAL_RAND)
 		{
-		//	if(nWeary < Target->Hungry )//&& Caster->Hungry < Caster->HungryMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nWeary < Target->Hungry )//&& Caster->Hungry < Caster->HungryMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecHungry(nWeary);
 				Caster->IncHungry(nWeary);
@@ -135,7 +135,7 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 
 		if (nFatigue > 0 && rand()%101 < RARE_HUNGRY_STEAL_RAND)
 		{
-		//	if(nFatigue < Target->Hungry )//&& Caster->Hungry < Caster->HungryMax)//»¯À» ¾çÀÌ ÀûÀÌ °¡Áø°Å º¸´Ù ÀûÀ»¶§
+		//	if(nFatigue < Target->Hungry )//&& Caster->Hungry < Caster->HungryMax)//ëºì„ ì–‘ì´ ì ì´ ê°€ì§„ê±° ë³´ë‹¤ ì ì„ë•Œ
 			{
 				Target->DecHungry(nFatigue);
 				Caster->IncHungry(nFatigue);
@@ -145,19 +145,19 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//	¸ÂÀºÀÚ¿¡ ÀÇÇÑ Ã³¸® (¹İ°İÀÌ¹Ç·Î CasterÀÇ °ªÀ» ÁÙ¿© ÁØ´Ù)
+//	ë§ì€ìì— ì˜í•œ ì²˜ë¦¬ (ë°˜ê²©ì´ë¯€ë¡œ Casterì˜ ê°’ì„ ì¤„ì—¬ ì¤€ë‹¤)
 {
 //	if( 0 < Caster->Hp )//&& Caster->Spell  == PRIEST_SPELL)
-	{	//¹İ°İ
+	{	//ë°˜ê²©
 	//	const int nCounterattack	=	(Caster->Hp*GetStaticRareCounterattack(Target->StaticRare))/100;
-		const int nCounterattack	=	Caster->HpMax	* GetStaticRareCounterattack(Target->StaticRare)/100;//HpMax¿¡¼­
+		const int nCounterattack	=	Caster->HpMax	* GetStaticRareCounterattack(Target->StaticRare)/100;//HpMaxì—ì„œ
 		const int nStrike			=	(iTempDmg		* GetStaticRareStrike(Target->StaticRare))/100;
 		
 		if (nCounterattack > 0 && rand()%101 < RARE_COUNTERATTCK_RAND)
 		{
-		//	if(nCounterattack < Caster->Hp )//¹İ°İ·®ÀÌ hp º¸´Ù ÀûÀ»¶§//¶§¸°³ğ
+		//	if(nCounterattack < Caster->Hp )//ë°˜ê²©ëŸ‰ì´ hp ë³´ë‹¤ ì ì„ë•Œ//ë•Œë¦°ë†ˆ
 			{
-				Caster->DecLife(nCounterattack);//¶§¸°³ğÀÌ ±ğÀÌ°í
+				Caster->DecLife(nCounterattack);//ë•Œë¦°ë†ˆì´ ê¹ì´ê³ 
 			//	Target->IncLife(nCounterattack);
 				bHpSend = true;
 			}
@@ -165,7 +165,7 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 
 		if (nStrike > 0 && rand()%101 < RARE_COUNTERATTCK_RAND)
 		{
-		//	if(nStrike < Caster->Hp )//¹İ°İ·®ÀÌ hp º¸´Ù ÀûÀ»¶§//¶§¸°³ğ
+		//	if(nStrike < Caster->Hp )//ë°˜ê²©ëŸ‰ì´ hp ë³´ë‹¤ ì ì„ë•Œ//ë•Œë¦°ë†ˆ
 			{
 				Caster->DecLife(nStrike);
 			//	Target->IncLife(nStrike);
@@ -175,9 +175,9 @@ int CRareEffectMgr::CorrectByStaticRare(void *a, void *d, int &iDmg)
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
-//	º¸³»±â
+//	ë³´ë‚´ê¸°
 {
-	if(bHpSend)//hpÂÊ¿¡ º¯È­°¡ ÀÖ´Âµ¥ ÀÌ°Å ¶§¹®¿¡ Á×ÀÌÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­
+	if(bHpSend)//hpìª½ì— ë³€í™”ê°€ ìˆëŠ”ë° ì´ê±° ë•Œë¬¸ì— ì£½ì´ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œ
 	{	
 		if( !Caster->Hp )	{	Caster->Hp = 1;	}
 		if( !Target->Hp )	{	Target->Hp = 1;	}
@@ -212,43 +212,43 @@ void CRareEffectMgr::ClearRareEffect(void* ch)
 	return;
 }
 
-int CRareEffectMgr::ResetRareEffect(void* ch)//¿©±â¿¡.. Âø¿ë ÀÎº¥ ÀÌ·± ·¹¾î¸¦ ³Ö¾î ÁÙ ¼ö°¡ ÀÖ´Ù .
+int CRareEffectMgr::ResetRareEffect(void* ch)//ì—¬ê¸°ì—.. ì°©ìš© ì¸ë²¤ ì´ëŸ° ë ˆì–´ë¥¼ ë„£ì–´ ì¤„ ìˆ˜ê°€ ìˆë‹¤ .
 {
 	CHARLIST *caster = (CHARLIST*)ch;
 	bool bCanViewGhost	=false;
 	bool bCanViewTrap	=false;
 	bool bCanViewBomb	=false;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Å¬¸®¾î Àü¿¡ Ã³¸® ÇÒ°Í
-	if(GetStaticRareGhost(caster->StaticRare)){bCanViewGhost	= true;}//º¼¼ö ¾øÁö¸¸ ·¹¾î¶§¹®¿¡ º»´Ù
+// í´ë¦¬ì–´ ì „ì— ì²˜ë¦¬ í• ê²ƒ
+	if(GetStaticRareGhost(caster->StaticRare)){bCanViewGhost	= true;}//ë³¼ìˆ˜ ì—†ì§€ë§Œ ë ˆì–´ë•Œë¬¸ì— ë³¸ë‹¤
 	if(GetStaticRareLandmine(caster->StaticRare)){bCanViewBomb	= true;}
 	if(GetStaticRareTraping(caster->StaticRare)){bCanViewTrap	= true;}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-	ClearRareEffect(caster);//Å¬¸®¾î 
+	ClearRareEffect(caster);//í´ë¦¬ì–´ 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// Âø¿ë ÇÏ°í ÀÖ´Â ·¹¾î ÀÌÆåÆ®
+// ì°©ìš© í•˜ê³  ìˆëŠ” ë ˆì–´ ì´í™íŠ¸
 {
 	for(int i = 0; i <ITEM_EQUIP_MAX; i++)
 	{
 		const LPRareMain pRare = (LPRareMain)&caster->equip[i].attr[IATTR_RARE_MAIN];
 		const int	iGrade		=	pRare->grade;
-		if(	!iGrade 	||	pRare->IsDynamicRare){continue;}//±â´É ¾ÆÀÌÅÛ ºÙÀº°Å
+		if(	!iGrade 	||	pRare->IsDynamicRare){continue;}//ê¸°ëŠ¥ ì•„ì´í…œ ë¶™ì€ê±°
 		const int	iHighLv		=	pRare->iHighLevel;
 		const int	iPri		=	pRare->soksung1;
 		const int	iSec		=	pRare->soksung2;
 		const int	iThi		=	pRare->soksung3;
 		switch(iHighLv)
 		{
-		case H_LV_NO_HIGH_ITEM://ÇÏÀÌ³ª º¸Åë ·¹¾î
+		case H_LV_NO_HIGH_ITEM://í•˜ì´ë‚˜ ë³´í†µ ë ˆì–´
 			{
 				ApplyStaticRareEffect(caster->StaticRare, iPri,	iGrade);
 				ApplyStaticRareEffect(caster->StaticRare, iSec,	iGrade);
 				ApplyStaticRareEffect(caster->StaticRare, iThi,	iGrade);
 			}break;
-		case H_LV_HIGH_ITEM://ÇÏÀÌ
-		case H_LV_LEGEND_ITEM://·¹Àüµå 1
-			{//ÇÏÀÌ³ª ·¹Àüµå´Â Ã¹ ¼Ó¼ºÀ» Àû¿ë ½ÃÅ²´Ù
+		case H_LV_HIGH_ITEM://í•˜ì´
+		case H_LV_LEGEND_ITEM://ë ˆì „ë“œ 1
+			{//í•˜ì´ë‚˜ ë ˆì „ë“œëŠ” ì²« ì†ì„±ì„ ì ìš© ì‹œí‚¨ë‹¤
 				ApplyStaticRareEffect(caster->StaticRare, iPri,	iGrade);
 			}break;
 		default:{}break;
@@ -256,7 +256,7 @@ int CRareEffectMgr::ResetRareEffect(void* ch)//¿©±â¿¡.. Âø¿ë ÀÎº¥ ÀÌ·± ·¹¾î¸¦ ³Ö
 	}
 }	
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//	ºÎ´ë·¹¾î
+//	ë¶€ëŒ€ë ˆì–´
 	const int iSqaudGrade	=	caster->SquadRare.grade;
 	if(iSqaudGrade)
 	{
@@ -268,29 +268,29 @@ int CRareEffectMgr::ResetRareEffect(void* ch)//¿©±â¿¡.. Âø¿ë ÀÎº¥ ÀÌ·± ·¹¾î¸¦ ³Ö
 		ApplyStaticRareEffect(caster->StaticRare, iSqaudThiType	,	iSqaudGrade);
 	}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//·¹Àüµå Ã¼Å©
+//ë ˆì „ë“œ ì²´í¬
 {
 	int aLegendGNo[ITEM_EQUIP_MAX] = {0,};
 	int aLegendGIndex[ITEM_EQUIP_MAX] = {0,};
 	for(int i = 0; i <ITEM_EQUIP_MAX; i++)
 	{
 		const LPRareMain pRare = (LPRareMain)&caster->equip[i].attr[IATTR_RARE_MAIN];
-		if( H_LV_LEGEND_ITEM != pRare->iHighLevel){continue;}//·¹Àüµå°¡ ¾Æ´Ò °æ¿ì
+		if( H_LV_LEGEND_ITEM != pRare->iHighLevel){continue;}//ë ˆì „ë“œê°€ ì•„ë‹ ê²½ìš°
 		aLegendGNo[i]	= pRare->soksung2;
 		aLegendGIndex[i]= pRare->soksung3;
 	}
 
-	for(int i = 0; i <ITEM_EQUIP_MAX; i++)//Ã¼Å©ÇØ¼­ Â÷°í ÀÖ´Â°Ô ·¹Àüµå ¾ÆÀÌÅÛ ÀÌ¶ó¸é
+	for(int i = 0; i <ITEM_EQUIP_MAX; i++)//ì²´í¬í•´ì„œ ì°¨ê³  ìˆëŠ”ê²Œ ë ˆì „ë“œ ì•„ì´í…œ ì´ë¼ë©´
 	{
 		const int iGNo		= aLegendGNo[i];
 		const int iGIndex	= aLegendGIndex[i];
 		if(!iGNo || !iGIndex){continue;}
 		const int iNeeds = m_aItemLegend[iGNo].aSub[iGIndex].iNeeds;
 		int iLegendResult = 0;
-		for(int aa = 0; aa <ITEM_EQUIP_MAX; aa++)//	needs Ã¼Å©ÈÄ ´Ù½Ã 8°³¸¦ °Ë»öÇØ¼­ ¼ÂÆ®°¡ µÇ¾ú´ÂÁö º»´Ù
+		for(int aa = 0; aa <ITEM_EQUIP_MAX; aa++)//	needs ì²´í¬í›„ ë‹¤ì‹œ 8ê°œë¥¼ ê²€ìƒ‰í•´ì„œ ì…‹íŠ¸ê°€ ë˜ì—ˆëŠ”ì§€ ë³¸ë‹¤
 		{
-			if( aLegendGNo[aa]		== iGNo	//³» ¹«±â°¡ iGNo°¡ °°°í
-			&&	aLegendGIndex[aa]	== iGIndex)//ÀÎµ¦½ºµµ ÀÏÄ¡ ÇÑ´Ù¸é
+			if( aLegendGNo[aa]		== iGNo	//ë‚´ ë¬´ê¸°ê°€ iGNoê°€ ê°™ê³ 
+			&&	aLegendGIndex[aa]	== iGIndex)//ì¸ë±ìŠ¤ë„ ì¼ì¹˜ í•œë‹¤ë©´
 			{
 				int iCmpKey = 0;
 				switch(aa)
@@ -304,19 +304,19 @@ int CRareEffectMgr::ResetRareEffect(void* ch)//¿©±â¿¡.. Âø¿ë ÀÎº¥ ÀÌ·± ·¹¾î¸¦ ³Ö
 				case WT_UNIQUE1:{iCmpKey = LEGEND_NEED_UNIQUE;}break;
 				case WT_UNIQUE2:{iCmpKey = LEGEND_NEED_UNIQUE;}break;
 				}
-				if( iNeeds & iCmpKey)//ÇöÀç ´Ïµå°¡ aa¸¦ ¿ä±¸ ÇÏ¸é
+				if( iNeeds & iCmpKey)//í˜„ì¬ ë‹ˆë“œê°€ aaë¥¼ ìš”êµ¬ í•˜ë©´
 				{
-					iLegendResult |= iCmpKey;//·¹Àüµå¿¡ ¼ÂÆÃÀ» Çß´Ù
-					aLegendGNo[aa] = 0;//Áßº¹ Ã¼Å©°¡ ¾ÈµÇ°Ô ÇÏ±â À§ÇØ¼­ Áö¿î´Ù
-					aLegendGIndex[aa] = 0;//Áßº¹ Ã¼Å©°¡ ¾ÈµÇ°Ô ÇÏ±â À§ÇØ¼­ Áö¿î´Ù
+					iLegendResult |= iCmpKey;//ë ˆì „ë“œì— ì…‹íŒ…ì„ í–ˆë‹¤
+					aLegendGNo[aa] = 0;//ì¤‘ë³µ ì²´í¬ê°€ ì•ˆë˜ê²Œ í•˜ê¸° ìœ„í•´ì„œ ì§€ìš´ë‹¤
+					aLegendGIndex[aa] = 0;//ì¤‘ë³µ ì²´í¬ê°€ ì•ˆë˜ê²Œ í•˜ê¸° ìœ„í•´ì„œ ì§€ìš´ë‹¤
 				}
 			}
 		}//for(int aa = 0; aa <ITEM_EQUIP_MAX; aa++)
 		if(iNeeds == iLegendResult)
-		{//´Ù Ã¡³×.. ±Â.
+		{//ë‹¤ ì°¼ë„¤.. êµ¿.
 			for(int a= 0; MAX_ITEM_LEGEND_SUB_BONUS_MAX>a;a++)
 			{
-				const int iBonus = m_aItemLegend[iGNo].aSub[iGIndex].aiBonus[a];//º¸³Ê½º 1ÀÇ °ÍÀ» Ã¤¿î´Ù
+				const int iBonus = m_aItemLegend[iGNo].aSub[iGIndex].aiBonus[a];//ë³´ë„ˆìŠ¤ 1ì˜ ê²ƒì„ ì±„ìš´ë‹¤
 				for(int b = 0; MAX_ITEM_LEGEND_BONUS_KIND>b;b++)
 				{
 					ApplyStaticRareEffect(
@@ -326,35 +326,35 @@ int CRareEffectMgr::ResetRareEffect(void* ch)//¿©±â¿¡.. Âø¿ë ÀÎº¥ ÀÌ·± ·¹¾î¸¦ ³Ö
 				}
 			}
 		}//(iNeeds == iLegendResult)
-	}//for(i = 0; i <ITEM_EQUIP_MAX; i++)//Ã¼Å©ÇØ¼­ Â÷°í ÀÖ´Â°Ô ·¹Àüµå ¾ÆÀÌÅÛ ÀÌ¶ó¸é
+	}//for(i = 0; i <ITEM_EQUIP_MAX; i++)//ì²´í¬í•´ì„œ ì°¨ê³  ìˆëŠ”ê²Œ ë ˆì „ë“œ ì•„ì´í…œ ì´ë¼ë©´
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//	¼ø°£ ÀûÀ¸·Î ¼ÂÆÃ µÇ¾î¾ß ÇÏ´Â°Í
-	if( bCanViewGhost )//¾Æ±î º¼ ¼ö ÀÖ¾ú¾ú´Ù
+//	ìˆœê°„ ì ìœ¼ë¡œ ì…‹íŒ… ë˜ì–´ì•¼ í•˜ëŠ”ê²ƒ
+	if( bCanViewGhost )//ì•„ê¹Œ ë³¼ ìˆ˜ ìˆì—ˆì—ˆë‹¤
 	{
-		if(!GetStaticRareGhost(caster->StaticRare))//Áö±İÀº °í½ºÆ® ·¹¾î°¡ ¾ø´Ù
-		{//±×·¡¼­ ¸øº»´Ù
-			SkillMgr.SetCanViewGhost(caster,1);//³»ºÎ ¿¡¼­ bCanViewGhost¸¦ false·Î
+		if(!GetStaticRareGhost(caster->StaticRare))//ì§€ê¸ˆì€ ê³ ìŠ¤íŠ¸ ë ˆì–´ê°€ ì—†ë‹¤
+		{//ê·¸ë˜ì„œ ëª»ë³¸ë‹¤
+			SkillMgr.SetCanViewGhost(caster,1);//ë‚´ë¶€ ì—ì„œ bCanViewGhostë¥¼ falseë¡œ
 		}
 	}
 	else
 	{
-		if(GetStaticRareGhost(caster->StaticRare))//Áö±İÀº °í½ºÆ® ·¹¾î°¡ ¾ø´Ù
+		if(GetStaticRareGhost(caster->StaticRare))//ì§€ê¸ˆì€ ê³ ìŠ¤íŠ¸ ë ˆì–´ê°€ ì—†ë‹¤
 		{
-			SkillMgr.SetCanViewGhost(caster,5);//³»ºÎ ¿¡¼­ bCanViewGhost¸¦ true·Î
+			SkillMgr.SetCanViewGhost(caster,5);//ë‚´ë¶€ ì—ì„œ bCanViewGhostë¥¼ trueë¡œ
 		}
 	}
 
 	if( bCanViewBomb )
 	{
-		if(!GetStaticRareLandmine(caster->StaticRare))//Áö±İÀº º¼ ¼ö ¾ø´Ù
+		if(!GetStaticRareLandmine(caster->StaticRare))//ì§€ê¸ˆì€ ë³¼ ìˆ˜ ì—†ë‹¤
 		{
 			SkillMgr.SetCanViewBomb(caster,0);
 		}
 	}
-	else	//¾Æ±î ¸ø ºÃ´Ù
+	else	//ì•„ê¹Œ ëª» ë´¤ë‹¤
 	{
-		if(GetStaticRareLandmine(caster->StaticRare))//Áö±İÀº º¼ ¼ö ÀÖ´Ù
+		if(GetStaticRareLandmine(caster->StaticRare))//ì§€ê¸ˆì€ ë³¼ ìˆ˜ ìˆë‹¤
 		{
 			SkillMgr.SetCanViewBomb(caster,5);
 		}
@@ -379,21 +379,21 @@ int CRareEffectMgr::ResetRareEffect(void* ch)//¿©±â¿¡.. Âø¿ë ÀÎº¥ ÀÌ·± ·¹¾î¸¦ ³Ö
 
 inline int	CRareEffectMgr::CheckFaultStaticRareType(const int iKind)const
 {
-	//Á¦ÀÛ °¡´É µîµîÀÇ Á¶°ÇÀ» ³Ö¾îÁØ´Ù
+	//ì œì‘ ê°€ëŠ¥ ë“±ë“±ì˜ ì¡°ê±´ì„ ë„£ì–´ì¤€ë‹¤
 	if( iKind	> MAX_ITEM_RARE	|| iKind	<	1	)	{ return 0; }
 	return 1;
 }
 
 inline int	CRareEffectMgr::CheckFaultDynamicRareType(const int iKind)const
 {
-	//Á¦ÀÛ °¡´É µîµîÀÇ Á¶°ÇÀ» ³Ö¾îÁØ´Ù
+	//ì œì‘ ê°€ëŠ¥ ë“±ë“±ì˜ ì¡°ê±´ì„ ë„£ì–´ì¤€ë‹¤
 	if( iKind	> MAX_ITEM_FUNCTION	|| iKind	<	1	)	{ return 0; }
 	return 1;
 }
 
 inline int	CRareEffectMgr::CheckFaultRareGrade(const int iGrade)const
 {
-	//Á¦ÀÛ °¡´É µîµîÀÇ Á¶°ÇÀ» ³Ö¾îÁØ´Ù
+	//ì œì‘ ê°€ëŠ¥ ë“±ë“±ì˜ ì¡°ê±´ì„ ë„£ì–´ì¤€ë‹¤
 	if( iGrade	> MAX_ITEM_GRADE		|| iGrade	<	1	)	{ return 0; }
 	return 1;
 }
@@ -427,7 +427,7 @@ inline short CRareEffectMgr::GetStaticRareMaxValue(const int iKind)const
 {
 	if(!CheckFaultStaticRareType(iKind)){ return 0;}
 
-	const short nMax = (short)ItemRare[iKind].GRADE[0];//0¹øÀÌ ¸Æ½º´Ù
+	const short nMax = (short)ItemRare[iKind].GRADE[0];//0ë²ˆì´ ë§¥ìŠ¤ë‹¤
 
 	return nMax;
 }
@@ -449,12 +449,12 @@ inline int	CRareEffectMgr::AddANDCheckStaticRareMaxValue(const int iKind,short &
 	else
 	{
 		iMax		= GetStaticRareMaxValue(iKind);
-		iAdded	= nNow+iAddValue;//´õÇØÁø °ª 
-		if( !iMax ) { return 0; }//¸Æ½º°ªÀÌ 0 ÀÎ°Å´Â ±â´É ¾ø´Ù.
+		iAdded	= nNow+iAddValue;//ë”í•´ì§„ ê°’ 
+		if( !iMax ) { return 0; }//ë§¥ìŠ¤ê°’ì´ 0 ì¸ê±°ëŠ” ê¸°ëŠ¥ ì—†ë‹¤.
 
-		if( iMax <= iAdded )//¸Æ½º º¸´Ù ´õÇØ ³õÀº °ªÀÌ ´õ ¸¹À¸¸é
+		if( iMax <= iAdded )//ë§¥ìŠ¤ ë³´ë‹¤ ë”í•´ ë†“ì€ ê°’ì´ ë” ë§ìœ¼ë©´
 		{
-			nNow = iMax;//¸Æ½º·Î ¼ÂÆÃ
+			nNow = iMax;//ë§¥ìŠ¤ë¡œ ì…‹íŒ…
 		}
 		else
 		{
@@ -476,7 +476,7 @@ inline int	CRareEffectMgr::ApplyStaticRareEffect(STATICRAREEFFECT	&SR, const int
 	int iValue  = 0;
 	if(bSymbol)
 	{
-		iValue = iGrade; //½Éº¼ ¾ÆÀÌÅÛÀÏ¶§´Â. iGrade º¯¼ö°¡ ½ÇÁ¦ Àû¿ë°ªÀ¸·Î ¾²ÀÎ´Ù.
+		iValue = iGrade; //ì‹¬ë³¼ ì•„ì´í…œì¼ë•ŒëŠ”. iGrade ë³€ìˆ˜ê°€ ì‹¤ì œ ì ìš©ê°’ìœ¼ë¡œ ì“°ì¸ë‹¤.
 	}
 	else
 	{
@@ -493,7 +493,7 @@ inline int	CRareEffectMgr::ApplyStaticRareEffect(STATICRAREEFFECT	&SR, const int
 	case  RARE_BEAR				:{AddANDCheckStaticRareMaxValue(iKind, SR.nBear				, iValue);	}break;	
 	case  RARE_DISTANT			:{AddANDCheckStaticRareMaxValue(iKind, SR.nDistant			, iValue);	}break;	
 //	case  RARE_VIGOR			:{AddANDCheckStaticRareMaxValue(iKind, SR.nVigor			, iValue);	}break;	
-	case  RARE_VIGOR			:{AddANDCheckStaticRareMaxValue(iKind, SR.nPower			, iValue);	}break;	//ºñ°Å¿Í ÆÄ¿ö ÅëÇÕ
+	case  RARE_VIGOR			:{AddANDCheckStaticRareMaxValue(iKind, SR.nPower			, iValue);	}break;	//ë¹„ê±°ì™€ íŒŒì›Œ í†µí•©
 	case  RARE_CURSE			:{AddANDCheckStaticRareMaxValue(iKind, SR.nCurse			, iValue);	}break;	
 	case  RARE_AID				:{AddANDCheckStaticRareMaxValue(iKind, SR.nAid				, iValue);	}break;	
 	case  RARE_MASKING			:{AddANDCheckStaticRareMaxValue(iKind, SR.nMasking			, iValue);	}break;	
@@ -576,7 +576,7 @@ inline int	CRareEffectMgr::ApplyStaticRareEffect(STATICRAREEFFECT	&SR, const int
 	case  RARE_GHOST			:{AddANDCheckStaticRareMaxValue(iKind, SR.nGhost			, iValue);	}break;	
 	case  RARE_LANDMINE			:{AddANDCheckStaticRareMaxValue(iKind, SR.nLandmine			, iValue);	}break;	
 	case  RARE_TRAPING			:{AddANDCheckStaticRareMaxValue(iKind, SR.nTraping			, iValue);	}break;	
-	case  RARE_DETECT			://µÎ°¡Áö¸¦ ÇÕÄ£ È¿°ú
+	case  RARE_DETECT			://ë‘ê°€ì§€ë¥¼ í•©ì¹œ íš¨ê³¼
 		{	
 			AddANDCheckStaticRareMaxValue(RARE_LANDMINE, SR.nLandmine		, iValue);
 			AddANDCheckStaticRareMaxValue(RARE_TRAPING, SR.nTraping		, iValue);
@@ -605,58 +605,58 @@ int	CRareEffectMgr::ApplyDynamicRareEffect(void* ch, const int iKind, const int 
 	const DWORD dwTime  = GetDynamicRareEffectTime(iKind,iGrade);
 	CHARLIST *Caster = (CHARLIST*)ch;
 	if( !iValue ) {return 0;}
-	switch(iKind)//³ªÁß¿¡ ¿µ¾îÀÌ¸§ µğÆÄÀÎÀ¸·Î ¹Ù²Ü°Í  g_curr_time; À» »ç¿ë ÇÑ´Ù
+	switch(iKind)//ë‚˜ì¤‘ì— ì˜ì–´ì´ë¦„ ë””íŒŒì¸ìœ¼ë¡œ ë°”ê¿€ê²ƒ  g_curr_time; ì„ ì‚¬ìš© í•œë‹¤
 	{
 	case FITEM_MOVABLE			:	
 		{
 			Caster->ClearCurse(1);	
 			::SendCharacterCondition(Caster, 0);
-		}break;	//¸¶ºñ,¼®È­,È¥¶õ ÇØÁ¦	¸¶ºñ°è¿­ÇØÁ¦	
+		}break;	//ë§ˆë¹„,ì„í™”,í˜¼ë€ í•´ì œ	ë§ˆë¹„ê³„ì—´í•´ì œ	
 	case FITEM_RECOVERY			:	
 		{
 			Caster->ClearCurse(2);	
 			Caster->ClearCurse(6);
 			::SendCharacterCondition(Caster, 0);
-		}break;	//¼ÓµµÀúÇÏ ÇØÁ¦	¼ÓµµÀúÇÏ ÇØÁ¦	
+		}break;	//ì†ë„ì €í•˜ í•´ì œ	ì†ë„ì €í•˜ í•´ì œ	
 	case FITEM_DETOX			:	
 		{	
 			Caster->ClearCurse(3);	
 			::SendCharacterCondition(Caster, 0);
-		}break;	//ÇØµ¶ÀÛ¿ë	ÇØµ¶	
+		}break;	//í•´ë…ì‘ìš©	í•´ë…	
 	case FITEM_ENLIGHT			:	
 		{	
 			Caster->ClearCurse(4);	
-			SendMagicCommand(Caster, SET_CUREBLIND, 0, 0);	//½Ã·Â»ó½Ç È¸º¹
-		}break;	//½Ã·Â È¸º¹	½Ã·Â»ó½Ç	
+			SendMagicCommand(Caster, SET_CUREBLIND, 0, 0);	//ì‹œë ¥ìƒì‹¤ íšŒë³µ
+		}break;	//ì‹œë ¥ íšŒë³µ	ì‹œë ¥ìƒì‹¤	
 	//case FITEM_NULL			:	//	5	NULL	NULL	
 	//case FITEM_NULL			:	//	6	NULL	NULL	
-	//case FITEM_REVIVAL			:	//	7	//ÀÚµ¿ ºÎÈ°	KillCharacter ¿¡ ÀÖÀ½ case ¹®¿¡¼­ »¬°Í
-	case FITEM_COME_BACK		:	//	8	//¸¶À»·ÎÀÇ ±ÍÈ¯	ÀÚ½ÅÀÌ ¼ÓÇÑ ±¹°¡ÀÇ ¸¶À»·Î µ¹¾Æ¿È 	
+	//case FITEM_REVIVAL			:	//	7	//ìë™ ë¶€í™œ	KillCharacter ì— ìˆìŒ case ë¬¸ì—ì„œ ëº„ê²ƒ
+	case FITEM_COME_BACK		:	//	8	//ë§ˆì„ë¡œì˜ ê·€í™˜	ìì‹ ì´ ì†í•œ êµ­ê°€ì˜ ë§ˆì„ë¡œ ëŒì•„ì˜´ 	
 		{
 			MoveToHomeTown(Caster);
 		}break;
-	case FITEM_GHOST			:	//	23	//À¯·ÉÀ» º¼ ¼ö ÀÖÀ½	À¯·ÉÀ» º¼ ¼ö ÀÖÀ½	
+	case FITEM_GHOST			:	//	23	//ìœ ë ¹ì„ ë³¼ ìˆ˜ ìˆìŒ	ìœ ë ¹ì„ ë³¼ ìˆ˜ ìˆìŒ	
 		{
-			SkillMgr.SetCanViewGhost(Caster,dwTime);//³»ºÎ ¿¡¼­ bCanViewGhost¸¦ true·Î
+			SkillMgr.SetCanViewGhost(Caster,dwTime);//ë‚´ë¶€ ì—ì„œ bCanViewGhostë¥¼ trueë¡œ
 		}break;
-	//¾÷±×·¹ÀÌµå °¡´É·ù´Â ÀÌ°Å Ã¼Å©
+	//ì—…ê·¸ë ˆì´ë“œ ê°€ëŠ¥ë¥˜ëŠ” ì´ê±° ì²´í¬
 	//CheckDynamicRareMaxValue
-	case FITEM_RESIST_UP		://	9	//¸ğµç °è¿­ ÀúÇ×·Â »ó½Â	¸ğµç °è¿­ ¸¶¹ı ÀúÇ×·Â »ó½Â	
-	case FITEM_STEALTH			://	10	//Åõ¸í »óÅÂ À¯Áö	ÀÏÁ¤ ½Ã°£ Åõ¸í »óÅÂ À¯Áö	
-	case FITEM_INVALID_CURSE	://	11	//ÀúÁÖ °è¿­ ¸¶¹ı ¹«È¿È­	»ó´ëÀÇ ÀúÁÖ °è¿­ ¸¶¹ı ¹«È¿È­	
-	case FITEM_INVALID_OFFENCE	://	12	//°ø°İ °è¿­ ¸¶¹ı ¹«È¿È­	»ó´ëÀÇ °ø°İ °è¿­ ¸¶¹ı ¹«È¿È­	
-	case FITEM_POWER_UP			://	13	//¹°¸®Àû °ø°İ·Â Áõ°¡	¹°¸®Àû °ø°İ·Â Áõ°¡(%)	
-	case FITEM_SPEED_UP			://	14	//ÀÌµ¿ ¼Óµµ Áõ°¡	ÀÌµ¿ ¼Óµµ (ÀÌµ¿·Â) Áõ°¡	
-	case FITEM_HEAVY_ARMOR		://	15	//AC Áõ°¡	AC ¼öÄ¡ Áõ°¡	
-	case FITEM_SPELL_UP			://	16	//¸¶¹ı µ¥¹ÌÁö ÁõÆø	¸¶¹ı µ¥¹ÌÁö ÁõÆø(%)	
-	//case FITEM_					://	17	//¸¶¹ı Áö¼Ó ½Ã°£ ÁõÆø	¸¶¹ı Áö¼Ó ½Ã°£ ÁõÆø(msec)	
-	case FITEM_CRITICAL			://	18	//CRITICAL DAMAGE 	Å©¸®Æ¼ÄÃ µ¥¹ÌÁö·Î ¹°¸®Àû °ø°İ	
-	case FITEM_STROKE			:	//	19	//¹°¸®Àû °ø°İ ¼º°ø·ü 100%	¹°¸®Àû °ø°İ ¼º°ø·ü 100%	
-	case FITEM_AGILITY			://	20	//¹°¸®Àû °ø°İ È¸ÇÇÀ² 90%	¹°¸®Àû °ø°İ È¸ÇÇÀ² 90%	
-	case FITEM_INVALID_PROTECT	://	21	//»ó´ëÀÇ º¸È£ °è¿­ ¸¶¹ı ¹«½Ã	»ó´ëÀÇ º¸È£ °è¿­ ¸¶¹ıÀ» ¹«Á¶°Ç ¹«½ÃÇÏ¿© °ø°İ(¹°¸®/¸¶¹ı ¸ğµÎ)	
-	case FITEM_INVALID_RESIST	://	22	//»ó´ëÀÇ ¸¶¹ı ÀúÇ×·Â ¹«½Ã	»ó´ëÀÇ ¸¶¹ı ÀúÇ×·Â ¹«Á¶°Ç ¹«½Ã (¸¶¹ı ÀúÇ×·Â 0À¸·Î Àû¿ë)	
-	case FITEM_SAMARITAN		:	//	24	//NKÀÇ °ø°İÀ» ¹«½Ã	NKÀÇ ¹°¸®Àû/¸¶¹ı °ø°İ ¸ğµÎ ¹«½Ã	
-	case FITEM_SLIGHT			://25	//¸¶¹ı Ä³½ºÆÃ ½Ã°£ ´ÜÃà	¸¶¹ı Ä³½ºÆÃ ½Ã°£ ´ÜÃà(%)	
+	case FITEM_RESIST_UP		://	9	//ëª¨ë“  ê³„ì—´ ì €í•­ë ¥ ìƒìŠ¹	ëª¨ë“  ê³„ì—´ ë§ˆë²• ì €í•­ë ¥ ìƒìŠ¹	
+	case FITEM_STEALTH			://	10	//íˆ¬ëª… ìƒíƒœ ìœ ì§€	ì¼ì • ì‹œê°„ íˆ¬ëª… ìƒíƒœ ìœ ì§€	
+	case FITEM_INVALID_CURSE	://	11	//ì €ì£¼ ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	ìƒëŒ€ì˜ ì €ì£¼ ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	
+	case FITEM_INVALID_OFFENCE	://	12	//ê³µê²© ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	ìƒëŒ€ì˜ ê³µê²© ê³„ì—´ ë§ˆë²• ë¬´íš¨í™”	
+	case FITEM_POWER_UP			://	13	//ë¬¼ë¦¬ì  ê³µê²©ë ¥ ì¦ê°€	ë¬¼ë¦¬ì  ê³µê²©ë ¥ ì¦ê°€(%)	
+	case FITEM_SPEED_UP			://	14	//ì´ë™ ì†ë„ ì¦ê°€	ì´ë™ ì†ë„ (ì´ë™ë ¥) ì¦ê°€	
+	case FITEM_HEAVY_ARMOR		://	15	//AC ì¦ê°€	AC ìˆ˜ì¹˜ ì¦ê°€	
+	case FITEM_SPELL_UP			://	16	//ë§ˆë²• ë°ë¯¸ì§€ ì¦í­	ë§ˆë²• ë°ë¯¸ì§€ ì¦í­(%)	
+	//case FITEM_					://	17	//ë§ˆë²• ì§€ì† ì‹œê°„ ì¦í­	ë§ˆë²• ì§€ì† ì‹œê°„ ì¦í­(msec)	
+	case FITEM_CRITICAL			://	18	//CRITICAL DAMAGE 	í¬ë¦¬í‹°ì»¬ ë°ë¯¸ì§€ë¡œ ë¬¼ë¦¬ì  ê³µê²©	
+	case FITEM_STROKE			:	//	19	//ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µë¥  100%	ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µë¥  100%	
+	case FITEM_AGILITY			://	20	//ë¬¼ë¦¬ì  ê³µê²© íšŒí”¼ìœ¨ 90%	ë¬¼ë¦¬ì  ê³µê²© íšŒí”¼ìœ¨ 90%	
+	case FITEM_INVALID_PROTECT	://	21	//ìƒëŒ€ì˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²• ë¬´ì‹œ	ìƒëŒ€ì˜ ë³´í˜¸ ê³„ì—´ ë§ˆë²•ì„ ë¬´ì¡°ê±´ ë¬´ì‹œí•˜ì—¬ ê³µê²©(ë¬¼ë¦¬/ë§ˆë²• ëª¨ë‘)	
+	case FITEM_INVALID_RESIST	://	22	//ìƒëŒ€ì˜ ë§ˆë²• ì €í•­ë ¥ ë¬´ì‹œ	ìƒëŒ€ì˜ ë§ˆë²• ì €í•­ë ¥ ë¬´ì¡°ê±´ ë¬´ì‹œ (ë§ˆë²• ì €í•­ë ¥ 0ìœ¼ë¡œ ì ìš©)	
+	case FITEM_SAMARITAN		:	//	24	//NKì˜ ê³µê²©ì„ ë¬´ì‹œ	NKì˜ ë¬¼ë¦¬ì /ë§ˆë²• ê³µê²© ëª¨ë‘ ë¬´ì‹œ	
+	case FITEM_SLIGHT			://25	//ë§ˆë²• ìºìŠ¤íŒ… ì‹œê°„ ë‹¨ì¶•	ë§ˆë²• ìºìŠ¤íŒ… ì‹œê°„ ë‹¨ì¶•(%)	
 		{
 		switch(iOrder)
 			{
@@ -693,7 +693,7 @@ void ResetAbility(CHARLIST *ch)
 	if(!ch){return;}
 
 	RareEM.ResetRareEffect(ch);	
-	g_CSymbolMgr.AddSymbolEffect(ch);//soto-1.02 ½Éº¼ÀÇ ´É·ÂÀ» Àû¿ë½ÃÅ²´Ù.
+	g_CSymbolMgr.AddSymbolEffect(ch);//soto-1.02 ì‹¬ë³¼ì˜ ëŠ¥ë ¥ì„ ì ìš©ì‹œí‚¨ë‹¤.
 	const int nPassive = ch->GetPassiveCombat();
 	ch->ResetAbility(nPassive);
 	::SendAbilityOpen(ch->GetServerID());
@@ -719,7 +719,7 @@ int	CRareEffectMgr::GetDynamicRareValue(const int iDRType,const	DYNAMICRAREEFFEC
 }
 
 void CRareEffectMgr::AutoCheckDynamicRare(DYNAMICRAREEFFECT	&DR)
-{	//È¿¿ë ½Ã°£ÀÌ Á¸ÀçÇÏ´Âµ¥ ¼­¹ö ½Ã°£º¸´Ù ÂªÀ¸¸é
+{	//íš¨ìš© ì‹œê°„ì´ ì¡´ì¬í•˜ëŠ”ë° ì„œë²„ ì‹œê°„ë³´ë‹¤ ì§§ìœ¼ë©´
 	if( DR.iRareTime1 && (g_curr_time > DR.iRareTime1))
 	{
 		DR.iRareTime1	= 0;
@@ -741,7 +741,7 @@ void CRareEffectMgr::AutoCheckDynamicRare(DYNAMICRAREEFFECT	&DR)
 	return;
 }
 
-int	 CRareEffectMgr::GetRareDisplayEffectNo(const bool bIsDynamicRare,const DYNAMICRAREEFFECT &DR)const	// »ç¿ëµÈ ÀÌÆåÆ® ¹øÈ£
+int	 CRareEffectMgr::GetRareDisplayEffectNo(const bool bIsDynamicRare,const DYNAMICRAREEFFECT &DR)const	// ì‚¬ìš©ëœ ì´í™íŠ¸ ë²ˆí˜¸
 {
 	if(bIsDynamicRare)
 	{
@@ -749,7 +749,7 @@ int	 CRareEffectMgr::GetRareDisplayEffectNo(const bool bIsDynamicRare,const DYNA
 	}
 	return 0;
 }
-int	 CRareEffectMgr::GetRareDisplayEffectTime(const DYNAMICRAREEFFECT &DR)const	// À¯Áö½Ã°£
+int	 CRareEffectMgr::GetRareDisplayEffectTime(const DYNAMICRAREEFFECT &DR)const	// ìœ ì§€ì‹œê°„
 {
 	if( DR.iRareTime1 && g_curr_time <= DR.iRareTime1)
 	{
@@ -771,7 +771,7 @@ bool CRareEffectMgr::IsHaveRivaval(void *ch)
 		{
 			::SendItemEventLog( &rItem, Caster->GetServerID(), SN_NOT_USER, SILT_USE, 3 ); //YGI acer
 			
-			const int iResult = ItemMgr.DecItemDur(rItem,MULTIPLE_USE_ONE_TIME_DEC_DUR);// »ç¿ëÇÑ°Ç ³»±¸µµ¸¦ ±ğ´Â´Ù
+			const int iResult = ItemMgr.DecItemDur(rItem,MULTIPLE_USE_ONE_TIME_DEC_DUR);// ì‚¬ìš©í•œê±´ ë‚´êµ¬ë„ë¥¼ ê¹ëŠ”ë‹¤
 			POS pos={0,};
 			::SetItemPos( QUICK, i, &pos );
 			::SendServerEachItem(&pos,&rItem,Caster->GetServerID());
@@ -799,8 +799,8 @@ int CRareEffectMgr::LoadItem_Multi_Rare_Table()
 		{
 			int iGrade;
 			int iAble;
-			int aItemNo[7];//0 ¹ÙÀÌ, 1 ÀÚÀÌ, ÀÏ½º
-			int aItemCt[7];//0 ¹ÙÀÌ, 1 ÀÚÀÌ, ÀÏ½º
+			int aItemNo[7];//0 ë°”ì´, 1 ìì´, ì¼ìŠ¤
+			int aItemCt[7];//0 ë°”ì´, 1 ìì´, ì¼ìŠ¤
 			int	iAddCt;
 		}t_ItemSkillMaster,*LPITEMSKILLMASTER;
 */

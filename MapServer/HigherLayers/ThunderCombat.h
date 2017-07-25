@@ -1,4 +1,4 @@
-// ThunderCombat.h: interface for the CThunderCombat class.
+ï»¿// ThunderCombat.h: interface for the CThunderCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ¹ø°³¼Ó¼º ÀüÅõ½ºÅ³
+// ë²ˆê°œì†ì„± ì „íˆ¬ìŠ¤í‚¬
 class CThunderCombat : public TBinder<CCombat, CThunderCombat>
 {
 public:

@@ -1,4 +1,4 @@
-// SharedDefine.h: interface for the Type Define.
+﻿// SharedDefine.h: interface for the Type Define.
 //
 //////////////////////////////////////////////////////////////////////
 

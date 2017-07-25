@@ -1,4 +1,4 @@
-// MagicState.cpp: implementation of the CMagicState class.
+ï»¿// MagicState.cpp: implementation of the CMagicState class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -22,77 +22,77 @@ CMagicState::CMagicState()
 
 void CMagicState::Clear()
 {	//< CSD-TW-030623
-	ClearTransMap();          // Àå¼Ò ±â¾ï Á¤º¸ ÃÊ±âÈ­
-	ClearMagic();             // ¸¶¹ı ¹øÈ£ ÃÊ±âÈ­
+	ClearTransMap();          // ì¥ì†Œ ê¸°ì–µ ì •ë³´ ì´ˆê¸°í™”
+	ClearMagic();             // ë§ˆë²• ë²ˆí˜¸ ì´ˆê¸°í™”
 
 	ClearActiveState();
 	ClearPassiveState();
 	ClearRecoveryState();
 	
-	m_nAttack = 0;            // ¹°¸®Àû °ø°İ È¸¼ö 
-	m_nNature = NAT_NORMAL;   // ¼ºÁú »óÅÂ ÃÊ±âÈ­
-	m_nState = CON_NORMAL;    // ¸¶¹ı »óÅÂ ÃÊ±âÈ­
-	m_bTamed = false;         // Å×ÀÌ¹Ö ¿©ºÎ ÃÊ±âÈ­  
-	m_bSummon = false;        // ¼ÒÈ¯ ¸ó½ºÅÍ ¿©ºÎ ÃÊ±âÈ­
-	m_wPoisonedPoint = 0;     // Áßµ¶µÇ¾úÀ» ¶§ HP°¡ °¨¼ÒµÇ´Â ¾ç ÃÊ±âÈ­
-	m_wPoisonedCount = 0;     // Áßµ¶µÇ¾úÀ» ¶§ HP°¡ °¨¼ÒµÇ´Â ÃÊ ÃÊ±âÈ­
-	m_nLifeUp = 0;            // Life Áõ°¡·®
+	m_nAttack = 0;            // ë¬¼ë¦¬ì  ê³µê²© íšŒìˆ˜ 
+	m_nNature = NAT_NORMAL;   // ì„±ì§ˆ ìƒíƒœ ì´ˆê¸°í™”
+	m_nState = CON_NORMAL;    // ë§ˆë²• ìƒíƒœ ì´ˆê¸°í™”
+	m_bTamed = false;         // í…Œì´ë° ì—¬ë¶€ ì´ˆê¸°í™”  
+	m_bSummon = false;        // ì†Œí™˜ ëª¬ìŠ¤í„° ì—¬ë¶€ ì´ˆê¸°í™”
+	m_wPoisonedPoint = 0;     // ì¤‘ë…ë˜ì—ˆì„ ë•Œ HPê°€ ê°ì†Œë˜ëŠ” ì–‘ ì´ˆê¸°í™”
+	m_wPoisonedCount = 0;     // ì¤‘ë…ë˜ì—ˆì„ ë•Œ HPê°€ ê°ì†Œë˜ëŠ” ì´ˆ ì´ˆê¸°í™”
+	m_nLifeUp = 0;            // Life ì¦ê°€ëŸ‰
 	
-	m_dwAttack = 0;           // ¹°¸®Àû °ø°İ ½Ã°£ ÃÊ±âÈ­
-	m_dwCasting = 0;          // ¸¶¹ı ½ÃÀü ½ÃÀÛ ½Ã°£ ÃÊ±âÈ­
-	m_dwContinue = 0;         // ¸¶¹ı ½ÃÀü À¯Áö ½Ã°£ ÃÊ±âÈ­
-	m_bLock = true;           // ¸¶¹ı ½ÃÀü ¼³Á¤ ÃÊ±âÈ­
+	m_dwAttack = 0;           // ë¬¼ë¦¬ì  ê³µê²© ì‹œê°„ ì´ˆê¸°í™”
+	m_dwCasting = 0;          // ë§ˆë²• ì‹œì „ ì‹œì‘ ì‹œê°„ ì´ˆê¸°í™”
+	m_dwContinue = 0;         // ë§ˆë²• ì‹œì „ ìœ ì§€ ì‹œê°„ ì´ˆê¸°í™”
+	m_bLock = true;           // ë§ˆë²• ì‹œì „ ì„¤ì • ì´ˆê¸°í™”
 	
-	apShort.Clear();          // ´Ü°Å¸® ¹°¸®Àû °ø°İ·Â
-	apMiddle.Clear();         // Áß°Å¸® ¹°¸®Àû °ø°İ·Â
-	apLong.Clear();           // Àå°Å¸® ¹°¸®Àû °ø°İ·Â
+	apShort.Clear();          // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
+	apMiddle.Clear();         // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
+	apLong.Clear();           // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
 	
-	dpShort.Clear();          // ´Ü°Å¸® ¹°¸®Àû ¹æ¾î·Â
-	dpMiddle.Clear();         // Áß°Å¸® ¹°¸®Àû ¹æ¾î·Â
-	dpLong.Clear();           // Àå°Å¸® ¹°¸®Àû ¹æ¾î·Â
+	dpShort.Clear();          // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
+	dpMiddle.Clear();         // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
+	dpLong.Clear();           // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
 	
-	dpFire.Clear();           // ºÒ°è¿­ °ø°İ¸¶¹ı  ¹æ¾î·Â
-	dpIce.Clear();            // ¾óÀ½°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	dpElect.Clear();          // Àü°İ°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	dpHoly.Clear();           // ½Å·Â°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
+	dpFire.Clear();           // ë¶ˆê³„ì—´ ê³µê²©ë§ˆë²•  ë°©ì–´ë ¥
+	dpIce.Clear();            // ì–¼ìŒê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	dpElect.Clear();          // ì „ê²©ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	dpHoly.Clear();           // ì‹ ë ¥ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
 	
-	dpCurse1.Clear();         // ÀúÁÖ 1°è¿­ ¸¶¹ı ¹æ¾î·Â
-	dpCurse2.Clear();         // ÀúÁÖ 2°è¿­ ¸¶¹ı ¹æ¾î·Â
-	dpCurse3.Clear();         // ÀúÁÖ 3°è¿­ ¸¶¹ı ¹æ¾î·Â
-	dpCurse4.Clear();         // ÀúÁÖ 4°è¿­ ¸¶¹ı ¹æ¾î·Â
-	dpCurse5.Clear();         // ÀúÁÖ 5°è¿­ ¸¶¹ı ¹æ¾î·Â
-	dpFreeze.Clear();         // CSD-021216 : ¾ó¸² ÀúÁÖ ¸¶¹ı ¹æ¾î·Â
+	dpCurse1.Clear();         // ì €ì£¼ 1ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	dpCurse2.Clear();         // ì €ì£¼ 2ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	dpCurse3.Clear();         // ì €ì£¼ 3ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	dpCurse4.Clear();         // ì €ì£¼ 4ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	dpCurse5.Clear();         // ì €ì£¼ 5ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	dpFreeze.Clear();         // CSD-021216 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²• ë°©ì–´ë ¥
     
-	amplify.Clear();          // °ø°İ ¸¶¹ı µ¥¹ÌÁö
-	speedUp.Clear();          // ÀÌµ¿¼Óµµ Áõ°¡   
-	speedDown.Clear();        // ÀÌµ¿¼Óµµ °¨¼Ò  
+	amplify.Clear();          // ê³µê²© ë§ˆë²• ë°ë¯¸ì§€
+	speedUp.Clear();          // ì´ë™ì†ë„ ì¦ê°€   
+	speedDown.Clear();        // ì´ë™ì†ë„ ê°ì†Œ  
 	
-	avoid.Clear();            // È¸ÇÇÀ²
-	agility.Clear();          // ¹ÎÃ¸¼º
+	avoid.Clear();            // íšŒí”¼ìœ¨
+	agility.Clear();          // ë¯¼ì²©ì„±
 	
-	dwCurse1 = 0;             // ÀúÁÖ 1°è¿­ ¸¶¹ı »óÅÂ 
-	dwCurse2 = 0;             // ÀúÁÖ 2°è¿­ ¸¶¹ı »óÅÂ 
-	dwCurse3 = 0;             // ÀúÁÖ 3°è¿­ ¸¶¹ı »óÅÂ 
-	dwCurse4 = 0;             // ÀúÁÖ 4°è¿­ ¸¶¹ı »óÅÂ 
-	dwFreeze = 0;             // CSD-021024 : ¾ó¸² ÀúÁÖ ¸¶¹ı »óÅÂ
+	dwCurse1 = 0;             // ì €ì£¼ 1ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	dwCurse2 = 0;             // ì €ì£¼ 2ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	dwCurse3 = 0;             // ì €ì£¼ 3ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	dwCurse4 = 0;             // ì €ì£¼ 4ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	dwFreeze = 0;             // CSD-021024 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²• ìƒíƒœ
 	
-	dwNormalProtect = 0;      // ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂ
-	dwSpecialProtect = 0;     // Æ¯¼ö º¸È£°è¿­ ¸¶¹ı »óÅÂ 
-	dwExceptProtect = 0;      // ¿¹¿Ü º¸È£°è¿­ ¸¶¹ı »óÅÂ (¸ğµç ¸¶¹ıÀÌ ½ÇÆĞ)
+	dwNormalProtect = 0;      // ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœ
+	dwSpecialProtect = 0;     // íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	dwExceptProtect = 0;      // ì˜ˆì™¸ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœ (ëª¨ë“  ë§ˆë²•ì´ ì‹¤íŒ¨)
 	
-	dwAttackDelay = 0;	      // °ø°İ ¼Óµµ °¨¼Ò(Ä³¸¯ÅÍ°¡ °ø°İ ÇÒ¼ö ÀÖ´Â ¿©ºÎ)
-	dwDontMove = 0;           // ÀÌµ¿ÀÌ µÇÁö ¾ÊÀ½
-	dwDontAttack = 0;		      // ÀÏ¹İÀûÀÎ °ø°İÀÌ µÇÁö ¾ÊÀ½
-	dwDontCasting = 0;		    // ¸¶¹ı Ä³½ºÆÃÀÌ µÇÁö ¾ÊÀ½
-	dwDontMiss = 0;           // ¸ğµç ¹°¸®Àû °ø°İ°ú ¸¶¹ıÀÌ ¼º°ø
-	dwBlocking = 0;           // ¿ÜºÎ¿Í Â÷´ÜµÈ »óÅÂ
-	dwLight = 0;              // ÁÖÀ§¿¡ ºûÀ» ¹àÈ÷´Â »óÅÂ  
-	dwMagicDamageToMana = 0;  // »ó´ëÀÇ °ø°İ ¸¶¹ıÀ» ¸¶³ª¸¦ ¼Ò¸ğÇÏ¿© ¸·¾Æ³¿
-	dwReturnMagic = 0;		    // ¸¶¹ıÀÇ È¿°ú¸¦ ½ÃÀüÀÚ¿¡°Ô µÇµ¹¸²
-	dwTransparency = 0;		    // Ä³¸¯ÅÍ°¡ Åõ¸íÇÏ°Ô µÊ 
-	dwLifeUp = 0;             // ÀÏÁ¤ ½Ã°£µ¿¾È Life°¡ ¿Ã¶ó°¨
-	dwStrikeReflect = 0;      // CSD-021015 : ¹°¸®°ø°İ µ¥¹ÌÁö ¹İ»ç
-	dwMagicReflect = 0;       // CSD-021015 : ¸¶¹ı°ø°İ µ¥¹ÌÁö ¹İ»ç
+	dwAttackDelay = 0;	      // ê³µê²© ì†ë„ ê°ì†Œ(ìºë¦­í„°ê°€ ê³µê²© í• ìˆ˜ ìˆëŠ” ì—¬ë¶€)
+	dwDontMove = 0;           // ì´ë™ì´ ë˜ì§€ ì•ŠìŒ
+	dwDontAttack = 0;		      // ì¼ë°˜ì ì¸ ê³µê²©ì´ ë˜ì§€ ì•ŠìŒ
+	dwDontCasting = 0;		    // ë§ˆë²• ìºìŠ¤íŒ…ì´ ë˜ì§€ ì•ŠìŒ
+	dwDontMiss = 0;           // ëª¨ë“  ë¬¼ë¦¬ì  ê³µê²©ê³¼ ë§ˆë²•ì´ ì„±ê³µ
+	dwBlocking = 0;           // ì™¸ë¶€ì™€ ì°¨ë‹¨ëœ ìƒíƒœ
+	dwLight = 0;              // ì£¼ìœ„ì— ë¹›ì„ ë°íˆëŠ” ìƒíƒœ  
+	dwMagicDamageToMana = 0;  // ìƒëŒ€ì˜ ê³µê²© ë§ˆë²•ì„ ë§ˆë‚˜ë¥¼ ì†Œëª¨í•˜ì—¬ ë§‰ì•„ëƒ„
+	dwReturnMagic = 0;		    // ë§ˆë²•ì˜ íš¨ê³¼ë¥¼ ì‹œì „ìì—ê²Œ ë˜ëŒë¦¼
+	dwTransparency = 0;		    // ìºë¦­í„°ê°€ íˆ¬ëª…í•˜ê²Œ ë¨ 
+	dwLifeUp = 0;             // ì¼ì • ì‹œê°„ë™ì•ˆ Lifeê°€ ì˜¬ë¼ê°
+	dwStrikeReflect = 0;      // CSD-021015 : ë¬¼ë¦¬ê³µê²© ë°ë¯¸ì§€ ë°˜ì‚¬
+	dwMagicReflect = 0;       // CSD-021015 : ë§ˆë²•ê³µê²© ë°ë¯¸ì§€ ë°˜ì‚¬
 	dwUpDivineMana = 0;		// 030415 kyo
 	dwDoubleExpUp = 0; // CSD-040803
 	dwProtectionContinue = 0; // CSD-040826
@@ -107,8 +107,8 @@ void CMagicState::Clear()
 }	//> CSD-TW-030623
 
 void CMagicState::Recovery(DWORD dwNow)
-{	//< CSD-TW-030623 : À¯Áö½Ã°£ÀÌ Áö³­ ¸¶¹ı¿¡ ´ëÇÏ¿© »óÅÂ¸¦ È¸º¹
-	// ¸¶¹ı »óÅÂ °Ë»ç
+{	//< CSD-TW-030623 : ìœ ì§€ì‹œê°„ì´ ì§€ë‚œ ë§ˆë²•ì— ëŒ€í•˜ì—¬ ìƒíƒœë¥¼ íšŒë³µ
+	// ë§ˆë²• ìƒíƒœ ê²€ì‚¬
 	if (apShort.IsContinue(dwNow) == false)  apShort.Clear();
 	if (apMiddle.IsContinue(dwNow) == false)  apMiddle.Clear();
 	if (apLong.IsContinue(dwNow) == false)  apLong.Clear();
@@ -206,21 +206,21 @@ bool CMagicState::CheckStart(BYTE nMagic, DWORD dwNow)
 	{
 		return false;
 	}
-	// È­¿°º®ÀÎ °æ¿ì À¯Áö ½Ã°£ ¼³Á¤
+	// í™”ì—¼ë²½ì¸ ê²½ìš° ìœ ì§€ ì‹œê°„ ì„¤ì •
 	if (nMagic == FIRE_WALL)  
 	{
 		m_dwFireWall = dwNow + Magic_Ref[nMagic].continue_Time;
 	}
-	// ¾óÀ½º®ÀÎ °æ¿ì À¯Áö ½Ã°£ ¼³Á¤
+	// ì–¼ìŒë²½ì¸ ê²½ìš° ìœ ì§€ ì‹œê°„ ì„¤ì •
 	if (nMagic == ICE_WALL)  
 	{
 		m_dwIceWall = dwNow + Magic_Ref[nMagic].continue_Time;
 	}
 	
-	m_nMagic = nMagic;                              // ½ÃÀüÇÒ ¸¶¹ı ¹øÈ£ ¼³Á¤
-	m_dwCasting = dwNow + DELAY;                    // ¸¶¹ı ½ÃÀü ½ÃÀÛ ½Ã°£
-	m_dwContinue = dwNow + GetCastContinue(nMagic); // Ä³½ºÆÃ À¯Áö ½Ã°£ ¼³Á¤
-	m_bLock = true;                                 // ¸¶¹ı ½ÃÀü ¼³Á¤
+	m_nMagic = nMagic;                              // ì‹œì „í•  ë§ˆë²• ë²ˆí˜¸ ì„¤ì •
+	m_dwCasting = dwNow + DELAY;                    // ë§ˆë²• ì‹œì „ ì‹œì‘ ì‹œê°„
+	m_dwContinue = dwNow + GetCastContinue(nMagic); // ìºìŠ¤íŒ… ìœ ì§€ ì‹œê°„ ì„¤ì •
+	m_bLock = true;                                 // ë§ˆë²• ì‹œì „ ì„¤ì •
 	return true;
 }	//> CSD-TW-030606
 
@@ -228,19 +228,19 @@ bool CMagicState::CheckDoing(BYTE nMagic, DWORD dwNow)
 { //
 	switch (Magic_Ref[nMagic].Excute_Type)
 	{
-    case 0: // ÇÑ¹ø ½ÃÀü¿¡ Ä³½ºÆÃ À¯Áö ½Ã°£µ¿¾È ¸¶¹ı »ç¿ë
+    case 0: // í•œë²ˆ ì‹œì „ì— ìºìŠ¤íŒ… ìœ ì§€ ì‹œê°„ë™ì•ˆ ë§ˆë²• ì‚¬ìš©
 		{
 			if (m_dwContinue < dwNow)  
-			{ // À¯È¿ÇÑ ¸¶¹ı ½ÃÀü °¡´É ½Ã°£ÀÎÁö °Ë»ç
+			{ // ìœ íš¨í•œ ë§ˆë²• ì‹œì „ ê°€ëŠ¥ ì‹œê°„ì¸ì§€ ê²€ì‚¬
 				return false;
 			}
 			
 			break;
 		}
-    case 1: // ÇÑ¹ø ½ÃÀü¿¡ ÇÑ¹ø ¸¶¹ı »ç¿ë
+    case 1: // í•œë²ˆ ì‹œì „ì— í•œë²ˆ ë§ˆë²• ì‚¬ìš©
 		{
 			if (m_bLock == false)  
-			{ // ½ÃÀüÀ» Çß´ÂÁö °Ë»ç
+			{ // ì‹œì „ì„ í–ˆëŠ”ì§€ ê²€ì‚¬
 				return false;
 			}
 			
@@ -249,43 +249,43 @@ bool CMagicState::CheckDoing(BYTE nMagic, DWORD dwNow)
     default: return false;
 	}
 	
-	m_nMagic = nMagic; // »ç¿ëÇÒ ¸¶¹ı ¹øÈ£ ¼³Á¤
+	m_nMagic = nMagic; // ì‚¬ìš©í•  ë§ˆë²• ë²ˆí˜¸ ì„¤ì •
 	return true;
 }
 
 bool CMagicState::CheckEnd(BYTE nMagic, DWORD dwNow)
 { //
-	// È­¿°º® À¯Áö ½Ã°£ °Ë»ç
+	// í™”ì—¼ë²½ ìœ ì§€ ì‹œê°„ ê²€ì‚¬
 	if (nMagic == FIRE_WALL && m_dwFireWall < dwNow)  
 	{ 
 		return false;
 	}
-	// ¾óÀ½º® À¯Áö ½Ã°£ °Ë»ç
+	// ì–¼ìŒë²½ ìœ ì§€ ì‹œê°„ ê²€ì‚¬
 	if (nMagic == ICE_WALL && m_dwIceWall < dwNow)  
 	{ 
 		return false;
 	}
 	
-	m_nMagic = nMagic; // »ç¿ëÇÒ ¸¶¹ı ¹øÈ£ ¼³Á¤
+	m_nMagic = nMagic; // ì‚¬ìš©í•  ë§ˆë²• ë²ˆí˜¸ ì„¤ì •
 	return true;
 }
 
 bool CMagicState::CheckDelay(BYTE nMagic, DWORD dwNow)
-{ // À¯È¿ÇÑ ¸¶¹ı ½ÃÀü °¡´É ½Ã°£ÀÎÁö °Ë»ç
+{ // ìœ íš¨í•œ ë§ˆë²• ì‹œì „ ê°€ëŠ¥ ì‹œê°„ì¸ì§€ ê²€ì‚¬
 	if (m_dwCasting > dwNow)  
-	{ // À¯È¿ÇÑ ¸¶¹ı ½ÃÀü °¡´É ½Ã°£ÀÎÁö °Ë»ç
+	{ // ìœ íš¨í•œ ë§ˆë²• ì‹œì „ ê°€ëŠ¥ ì‹œê°„ì¸ì§€ ê²€ì‚¬
 		return false;
 	}
 	
-	m_nMagic = nMagic;                             // »ç¿ëÇÒ ¸¶¹ı ¹øÈ£ ¼³Á¤
-	m_dwCasting = dwNow + GetCastContinue(nMagic); // Ä³½ºÆÃ À¯Áö ½Ã°£ ¼³Á¤ 
+	m_nMagic = nMagic;                             // ì‚¬ìš©í•  ë§ˆë²• ë²ˆí˜¸ ì„¤ì •
+	m_dwCasting = dwNow + GetCastContinue(nMagic); // ìºìŠ¤íŒ… ìœ ì§€ ì‹œê°„ ì„¤ì • 
 	return true;
 }
 
 bool CMagicState::CheckCombat(BYTE nCombat, DWORD dwNow)
 {
 	if (dwCombatState > dwNow)  
-	{ // À¯È¿ÇÑ ¸¶¹ı ½ÃÀü °¡´É ½Ã°£ÀÎÁö °Ë»ç
+	{ // ìœ íš¨í•œ ë§ˆë²• ì‹œì „ ê°€ëŠ¥ ì‹œê°„ì¸ì§€ ê²€ì‚¬
 		return false;
 	}
 	
@@ -293,7 +293,7 @@ bool CMagicState::CheckCombat(BYTE nCombat, DWORD dwNow)
 }
 
 void CMagicState::InitCurse()
-{ //< CSD-021024 : ÀúÁÖ°è¿­ ¸¶¹ı »óÅÂ¿¡ ´ëÇÑ ÃÊ±âÈ­
+{ //< CSD-021024 : ì €ì£¼ê³„ì—´ ë§ˆë²• ìƒíƒœì— ëŒ€í•œ ì´ˆê¸°í™”
 	dwCurse1 = 0;
 	dwCurse2 = 0;
 	dwCurse3 = 0;
@@ -346,7 +346,7 @@ void CMagicState::ClearCurse(BYTE nType)
 }
 
 void CMagicState::ApplyCurse(BYTE nType, BYTE nState, DWORD dwTime)
-{ //< CSD-021024 : ÀúÁÖ°è¿­ ¸¶¹ı »óÅÂ·Î Àû¿ë
+{ //< CSD-021024 : ì €ì£¼ê³„ì—´ ë§ˆë²• ìƒíƒœë¡œ ì ìš©
 	switch (nType)
 	{
     case 1: dwCurse1 = dwTime; AddState(nState); break;
@@ -379,19 +379,19 @@ int CMagicState::GetDualStep(BYTE nMagic) const // 030415 kyo
 }
 
 void CMagicState::ClearTransMap()
-{ // ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸ ÃÊ±âÈ­
+{ // ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ ì´ˆê¸°í™”
 	m_nTransPort = m_nTransX = m_nTransY = 0;
 }
 
 void CMagicState::GetTransMap(int& rPort, int& rX, int& rY) const
-{ // ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸ ±¸ÇÏ±â
+{ // ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ êµ¬í•˜ê¸°
 	rPort = m_nTransPort;
 	rX = m_nTransX;
 	rY = m_nTransY;
 }
 
 void CMagicState::SetTransMap(int nPort, int nX, int nY)
-{ // ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸ ¼³Á¤
+{ // ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ ì„¤ì •
 	m_nTransPort = nPort;
 	m_nTransX = nX;
 	m_nTransY = nY;
@@ -441,29 +441,29 @@ void CMagicState::SetRecoveryCombat(BYTE nCombat, DWORD dwPeriod) // 030415 kyo
 }
 
 void CMagicState::SetPhysicalAttack(DWORD dwTime, BYTE nShort, BYTE nMiddle, BYTE nLong)
-{ // ¹°¸®Àû °ø°İ·Â Áõ°¡ ¼³Á¤
-	if (nShort > 0)   apShort.SetState(dwTime, nShort);   // ´Ü°Å¸® ¹°¸®Àû °ø°İ·Â
-	if (nMiddle > 0)  apMiddle.SetState(dwTime, nMiddle); // Áß°Å¸® ¹°¸®Àû °ø°İ·Â
-	if (nLong > 0)    apLong.SetState(dwTime, nLong);     // Àå°Å¸® ¹°¸®Àû °ø°İ·Â
+{ // ë¬¼ë¦¬ì  ê³µê²©ë ¥ ì¦ê°€ ì„¤ì •
+	if (nShort > 0)   apShort.SetState(dwTime, nShort);   // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
+	if (nMiddle > 0)  apMiddle.SetState(dwTime, nMiddle); // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
+	if (nLong > 0)    apLong.SetState(dwTime, nLong);     // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
 }
 
 void CMagicState::SetPhysicalDefense(DWORD dwTime, BYTE nShort, BYTE nMiddle, BYTE nLong)
-{ // ¹°¸®Àû ¹æ¾î·Â Áõ°¡ ¼³Á¤   
-	if (nShort > 0)   dpShort.SetState(dwTime, nShort);   // ´Ü°Å¸® ¹°¸®Àû ¹æ¾î·Â
-	if (nMiddle > 0)  dpMiddle.SetState(dwTime, nMiddle); // Áß°Å¸® ¹°¸®Àû ¹æ¾î·Â
-	if (nLong > 0)    dpLong.SetState(dwTime, nLong);     // Àå°Å¸® ¹°¸®Àû ¹æ¾î·Â
+{ // ë¬¼ë¦¬ì  ë°©ì–´ë ¥ ì¦ê°€ ì„¤ì •   
+	if (nShort > 0)   dpShort.SetState(dwTime, nShort);   // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
+	if (nMiddle > 0)  dpMiddle.SetState(dwTime, nMiddle); // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
+	if (nLong > 0)    dpLong.SetState(dwTime, nLong);     // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
 }
 
 void CMagicState::SetMagicalDefense(DWORD dwTime, BYTE nFire, BYTE nIce, BYTE nElect, BYTE nHoly)
-{ // °ø°İ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â Áõ°¡ ¼³Á¤
-	if (nFire > 0)   dpFire.SetState(dwTime, nFire);   // ºÒ°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	if (nIce > 0)    dpIce.SetState(dwTime, nIce);     // ¾óÀ½°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	if (nElect > 0)  dpElect.SetState(dwTime, nElect); // Àü°İ°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	if (nHoly > 0)   dpHoly.SetState(dwTime, nHoly);   // È¦¸®°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
+{ // ê³µê²©ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ ì¦ê°€ ì„¤ì •
+	if (nFire > 0)   dpFire.SetState(dwTime, nFire);   // ë¶ˆê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	if (nIce > 0)    dpIce.SetState(dwTime, nIce);     // ì–¼ìŒê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	if (nElect > 0)  dpElect.SetState(dwTime, nElect); // ì „ê²©ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	if (nHoly > 0)   dpHoly.SetState(dwTime, nHoly);   // í™€ë¦¬ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
 }
 
 void CMagicState::SetCurseDefense(DWORD dwTime, BYTE nSet)
-{ // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î ¼³Á¤
+{ // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ ì„¤ì •
 	if (nSet&CURSE_1)  dpCurse1.SetState(dwTime, 100);
 	if (nSet&CURSE_2)  dpCurse2.SetState(dwTime, 100);
 	if (nSet&CURSE_3)  dpCurse3.SetState(dwTime, 100);
@@ -483,18 +483,18 @@ void CMagicState::ClearNpcStatusUp()
 { //
 	m_nNature = NAT_NORMAL;
 	dwNature[NAT_STATUS_UP] = 0;
-	apShort.Clear();  // ¹°¸®Àû °ø°İ ÃÊ±âÈ­  
+	apShort.Clear();  // ë¬¼ë¦¬ì  ê³µê²© ì´ˆê¸°í™”  
 	apMiddle.Clear();
 	apLong.Clear();
-	dpShort.Clear();  // ¹°¸®Àû ¹æ¾î·Â ÃÊ±âÈ­
+	dpShort.Clear();  // ë¬¼ë¦¬ì  ë°©ì–´ë ¥ ì´ˆê¸°í™”
 	dpMiddle.Clear();
 	dpLong.Clear();
-	amplify.Clear();  // ¸¶¹ıÁõÆø ÃÊ±âÈ­
-	dpFire.Clear();   // ¸¶¹ı ¹æ¾î·Â ÃÊ±âÈ­
+	amplify.Clear();  // ë§ˆë²•ì¦í­ ì´ˆê¸°í™”
+	dpFire.Clear();   // ë§ˆë²• ë°©ì–´ë ¥ ì´ˆê¸°í™”
 	dpIce.Clear();
 	dpElect.Clear();
 	dpHoly.Clear();
-	speedUp.Clear();  // ¼ÓµµÁõ°¡ ÃÊ±âÈ­
+	speedUp.Clear();  // ì†ë„ì¦ê°€ ì´ˆê¸°í™”
 }
 
 void CMagicState::ClearNpcRecovery()
@@ -516,13 +516,13 @@ void CMagicState::SetNpcStatusUp(DWORD dwTime, int nAttack, int nDefense, int nS
 { //
 	m_nNature = NAT_STATUS_UP;
 	dwNature[NAT_STATUS_UP] = dwTime;
-	// ¹°¸®Àû ¹æ¾î ¹× °ø°İ
+	// ë¬¼ë¦¬ì  ë°©ì–´ ë° ê³µê²©
 	SetPhysicalAttack(dwTime, nAttack, nAttack, nAttack);
 	SetPhysicalDefense(dwTime, nDefense, nDefense, nDefense);
-	// ¸¶¹ı ¹æ¾î ¹× °ø°İ
+	// ë§ˆë²• ë°©ì–´ ë° ê³µê²©
 	amplify.SetState(dwTime, nAttack);
 	SetMagicalDefense(dwTime, nDefense, nDefense, nDefense, nDefense);
-	// ¼Óµµ Áõ°¡
+	// ì†ë„ ì¦ê°€
 	speedUp.SetState(dwTime, nSpeed);
 }
 
@@ -535,12 +535,12 @@ void CMagicState::SetNpcRecovery(DWORD dwTime, int nLife)
 }
 
 void CMagicState::SetDoubleExpUp(DWORD dwTime)
-{	//< CSD-040803 : 5ºĞ °£
+{	//< CSD-040803 : 5ë¶„ ê°„
 	dwDoubleExpUp = dwTime + 5*60;
 }	//> CSD-040803
 
 void CMagicState::CorrectShortDamage(int& rDamage, int nPlus, int nMinus) const
-{ // ´Ü°Å¸® ¹«±â¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ë‹¨ê±°ë¦¬ ë¬´ê¸°ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpShort.GetRatio();
 	
 	if (nPlus > 0)
@@ -558,7 +558,7 @@ void CMagicState::CorrectShortDamage(int& rDamage, int nPlus, int nMinus) const
 }
 
 void CMagicState::CorrectMiddleDamage(int& rDamage, int nPlus, int nMinus) const
-{ // Áß°Å¸® ¹«±â¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ì¤‘ê±°ë¦¬ ë¬´ê¸°ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpMiddle.GetRatio();
 	
 	if (nPlus > 0)
@@ -576,7 +576,7 @@ void CMagicState::CorrectMiddleDamage(int& rDamage, int nPlus, int nMinus) const
 }
 
 void CMagicState::CorrectLongDamage(int& rDamage, int nPlus, int nMinus) const
-{ // Àå°Å¸® ¹«±â¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ì¥ê±°ë¦¬ ë¬´ê¸°ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpLong.GetRatio();
 	
 	if (nPlus > 0)
@@ -594,7 +594,7 @@ void CMagicState::CorrectLongDamage(int& rDamage, int nPlus, int nMinus) const
 }
 
 void CMagicState::CorrectFireDamage(int& rDamage, int nPlus, int nMinus) const
-{ // ºÒ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ë¶ˆê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpFire.GetRatio();
 	
 	if (nPlus > 0)
@@ -612,7 +612,7 @@ void CMagicState::CorrectFireDamage(int& rDamage, int nPlus, int nMinus) const
 }
 
 void CMagicState::CorrectIceDamage(int& rDamage, int nPlus, int nMinus) const
-{ // ¾óÀ½°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ì–¼ìŒê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpIce.GetRatio();
 	
 	if (nPlus > 0)
@@ -630,7 +630,7 @@ void CMagicState::CorrectIceDamage(int& rDamage, int nPlus, int nMinus) const
 }
 
 void CMagicState::CorrectElectDamage(int& rDamage, int nPlus, int nMinus) const
-{ // Àü°İ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ì „ê²©ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpElect.GetRatio();
 	
 	if (nPlus > 0)
@@ -648,7 +648,7 @@ void CMagicState::CorrectElectDamage(int& rDamage, int nPlus, int nMinus) const
 }
 
 void CMagicState::CorrectHolyDamage(int& rDamage, int nPlus, int nMinus) const
-{ // ½Å·Â°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â º¸Á¤
+{ // ì‹ ë ¥ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ ë³´ì •
 	int nRatio = dpHoly.GetRatio();
 	
 	if (nPlus > 0)
@@ -684,7 +684,7 @@ void CMagicState::CorrectMoveMinus(int& rMove, int nMinus) const
 	const int nCorrent = rMove;
 	
 	if (speedDown.GetRatio() > nMinus)
-	{ // ¾ó¸² »óÅÂÀÎ °æ¿ì¶ó¸é
+	{ // ì–¼ë¦¼ ìƒíƒœì¸ ê²½ìš°ë¼ë©´
 		rMove -= speedDown.Convert(nCorrent);
 	}
 	else
@@ -694,7 +694,7 @@ void CMagicState::CorrectMoveMinus(int& rMove, int nMinus) const
 } //> CSD-021024
 
 int CMagicState::GetRecoveryCombatDecHPRate(int nLevel) 
-{// 030514 kyo // cpÈ¸º¹ ÀüÅõ½ºÅ³¿¡ ´ëÇÑ HP¶³¾îÁö´Â %
+{// 030514 kyo // cpíšŒë³µ ì „íˆ¬ìŠ¤í‚¬ì— ëŒ€í•œ HPë–¨ì–´ì§€ëŠ” %
 	if( nLevel <= 0 )
 	{
 		return 0;

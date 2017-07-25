@@ -1,4 +1,4 @@
-#include "struct.h"
+ï»¿#include "struct.h"
 #include "servertable.h"
 #include "recvmsg.h"
 #include "packed.h"
@@ -51,7 +51,7 @@ int GetUserCN( LP_SERVER_DATA pServer, DWORD dwUniqID, short int MsgID)
 		{		
 			if ((pCN+i)->dwUserID == dwUniqID)
 			{	
-				return (pCN+i)->cn;// ÀÌ¹Ì Á¢¼ÓÇÑ ³ðÀÌ¶ó¸é.
+				return (pCN+i)->cn;// ì´ë¯¸ ì ‘ì†í•œ ë†ˆì´ë¼ë©´.
 			}	
 		}		
 		for (int k = DRAGON_CONNECTIONS_START; k <MAX_USER_NUM; k++)
@@ -73,7 +73,7 @@ int GetUserCN( LP_SERVER_DATA pServer, DWORD dwUniqID, short int MsgID)
 		}		
 		MyLog( LOG_FATAL, "Error: OVERFLOW USER CN");
 	}			
-	else //¾ÆÁ÷ ·Î±ä°ü·Ã ³ª¸ÓÁö ¸Þ¼¼Áö
+	else //ì•„ì§ ë¡œê¸´ê´€ë ¨ ë‚˜ë¨¸ì§€ ë©”ì„¸ì§€
 	{		
 		pCN = pServer->dwUSERCN;
 		for (int i = 0; i<MAX_USER_NUM;i++)
@@ -147,16 +147,16 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 		switch (bID)
 		{
 		// -------------
-		// ±âº»ÆÐÅ¶ 
+		// ê¸°ë³¸íŒ¨í‚· 
 		// -------------
-		// Àü¿ë
+		// ì „ìš©
 		case PTCL_ORDER_SET_SERVER_LIST:
 		case PTCL_ORDER_CONNECT_TO_SERVERS:
 		case PTCL_ORDER_SET_DB_DEMON:
 		case PTCL_ORDER_TO_REPORT_SERVER_DATAS:
 		case PTCL_NOTIFY_YOU_ARE_CERTIFIED:
 
-		//°øÅë
+		//ê³µí†µ
 		case PTCL_ORDER_DESTROY_SERVER:
 		case PTCL_NOTIFY_SERVER_STATUS:
 		case PTCL_SERVER_TRY_TO_CHECK_CONNECTION:
@@ -266,7 +266,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 		// Added by chan78 at 2001/03/16
 		case PTCL_MANAGER_ANSWER:
 			{
-				// ÀÖÀ» ¼ö ¾ø´Ù.
+				// ìžˆì„ ìˆ˜ ì—†ë‹¤.
 				MyLog( LOG_FATAL, "PTCL_MANAGER_ANSWER :: has received!!!(%d)", pSender->wPort );
 				g_pServerTable->DestroyServer( FINISH_TYPE_UNKNOWN_ERROR);
 			}

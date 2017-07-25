@@ -1,4 +1,4 @@
-// Utility.cpp: implementation of the Utility.
+ï»¿// Utility.cpp: implementation of the Utility.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,12 +10,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 char* Str_Format(char* pFormat, ...)
-{	// ¹®ÀÚ¿­ Çü½Ä ¸¸µé±â ÇÔ¼ö
+{	// ë¬¸ìì—´ í˜•ì‹ ë§Œë“¤ê¸° í•¨ìˆ˜
 	static char szBuffer[MAX_BUFFER_LINE][MAX_PATH];
 	static int nIndex = 0;
-	// µÎ°³ÀÇ ¹öÆÛ¸¦ ¸¸µé¾î ±³´ë·Î »ç¿ë
+	// ë‘ê°œì˜ ë²„í¼ë¥¼ ë§Œë“¤ì–´ êµëŒ€ë¡œ ì‚¬ìš©
 	char* pBuffer = szBuffer[nIndex++&1];
-	// °¡º¯ÀÎÀÚ°ªÀ» ¹öÆÛ¿¡ ÀúÀå
+	// ê°€ë³€ì¸ìê°’ì„ ë²„í¼ì— ì €ì¥
 	va_list vaList;
 	va_start(vaList, pFormat);
 	vsprintf(pBuffer, pFormat, vaList);

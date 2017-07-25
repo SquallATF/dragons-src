@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "CItem.h"
 #include "Op_Magic.h"
@@ -7,12 +7,12 @@
 #include "DualManager.h"
 //> kjy-040804
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "../LowerLayers/servertable.h"
 #include "UserManager.h"
 #include "LogManager.h"
 #include "ItemMallManager.h"
-//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 extern CItem_List Item_Ref ;
 extern t_connection	connections[DRAGON_MAX_CONNECTIONS_+1];
@@ -21,13 +21,13 @@ void getItemIndex(int, int &, int &) ;
 const char const equip_able[9]={2, 3, 4, 5, 6, 7, 8, 8, 9 } ;
 //////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö¼³¸í: ÇØ´çÀ§Ä¡¿¡ itemÀÌ Á¤¸»·Î ÀÖ´ÂÁö ÆÇº°ÇÏ´Â ÇÔ¼ö(Ä¡ÆÃÀÌ³ª ¿¡·¯
-//				¿¡ ´ëºñÇÑ Ã³¸®)
-// ÆÄ¶ó¹ÌÅÍ:	item_no; ¾ÆÀÌÅÛ ¹øÈ£
-//				char_id; ÇàÀ§¸¦ ÇÑ Ä³¸¯ÅÍÀÇ id(index)			
-//				source; ¾ÆÀÌÅÛÀÌ À§Ä¡ÇÑ Àå¼Ò Á¤º¸
+// í•¨ìˆ˜ì„¤ëª…: í•´ë‹¹ìœ„ì¹˜ì— itemì´ ì •ë§ë¡œ ìˆëŠ”ì§€ íŒë³„í•˜ëŠ” í•¨ìˆ˜(ì¹˜íŒ…ì´ë‚˜ ì—ëŸ¬
+//				ì— ëŒ€ë¹„í•œ ì²˜ë¦¬)
+// íŒŒë¼ë¯¸í„°:	item_no; ì•„ì´í…œ ë²ˆí˜¸
+//				char_id; í–‰ìœ„ë¥¼ í•œ ìºë¦­í„°ì˜ id(index)			
+//				source; ì•„ì´í…œì´ ìœ„ì¹˜í•œ ì¥ì†Œ ì •ë³´
 //
-// ¸®ÅÏ°ª: ¾ÆÀÌÅÛ Á¸Àç ¿©ºÎ
+// ë¦¬í„´ê°’: ì•„ì´í…œ ì¡´ì¬ ì—¬ë¶€
 //
 //////////////////////////////////////////////////////////////////////////
 bool exist(int item_no, int char_id, POS &source)
@@ -71,7 +71,7 @@ bool exist(int item_no, int char_id, POS &source)
 			if(connections[char_id].chrlst.bank[source.p1][source.p2][source.p3].item_no == item_no) return OK ;
 			else return NOT ;
 		
-		case BOX://¹Ú½º´Â ¹«Á¶°Ç ¾ø¾î//021030 lsw
+		case BOX://ë°•ìŠ¤ëŠ” ë¬´ì¡°ê±´ ì—†ì–´//021030 lsw
 			return NOT ;
 
 		case GROUND:
@@ -124,12 +124,12 @@ bool exist(int item_no, int char_id, POS &source)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö¼³¸í: ÀÎº¥Åä¸®¿¡¿¡¼­ ºóÀÚ¸®¸¦ Ã£¾Æ ±× °á°ú¸¦ ¾Ë·ÁÁÖ´Â ÇÔ¼ö
+// í•¨ìˆ˜ì„¤ëª…: ì¸ë²¤í† ë¦¬ì—ì—ì„œ ë¹ˆìë¦¬ë¥¼ ì°¾ì•„ ê·¸ ê²°ê³¼ë¥¼ ì•Œë ¤ì£¼ëŠ” í•¨ìˆ˜
 //
-// ÆÄ¶ó¹ÌÅÍ:	chr; ÇØ´ç Ä³¸¯ÅÍÀÇ *
-//				p1, p2, p3; ÀÎº¥Åä¸® ¹è¿­ÀÇ Ã¹¹øÂ°, µÎ¹øÂ° ¸¶Áö¸· index
+// íŒŒë¼ë¯¸í„°:	chr; í•´ë‹¹ ìºë¦­í„°ì˜ *
+//				p1, p2, p3; ì¸ë²¤í† ë¦¬ ë°°ì—´ì˜ ì²«ë²ˆì§¸, ë‘ë²ˆì§¸ ë§ˆì§€ë§‰ index
 //			
-// ¸®ÅÏ°ª: ºóÀÚ¸®ÀÇ Á¸Àç ¿©ºÎ(Á¸Àç½Ã¿¡´Â p1,p2,p3¿¡ ¼ÂÆÃ)
+// ë¦¬í„´ê°’: ë¹ˆìë¦¬ì˜ ì¡´ì¬ ì—¬ë¶€(ì¡´ì¬ì‹œì—ëŠ” p1,p2,p3ì— ì…‹íŒ…)
 //
 //////////////////////////////////////////////////////////////////////////////
 void SendRareDisplayEffect(CHARLIST *ch, const int iDyRareType)
@@ -141,8 +141,8 @@ void SendRareDisplayEffect(CHARLIST *ch, const int iDyRareType)
 
 	const int iSendDisplayNo	= ItemFunction[iDyRareType].iEffectNo;
 	const int iSendDisplayTime	= 5;
-	if(iSendDisplayTime && iSendDisplayNo)//ÀÌÆåÆ® º¸³»ÁÜ//ÀÓ½Ã·Î ¸·¾Æ³ùÀ½ Å×½ºÆ®¸¦ À§ÇØ¼­
-	{//ÀÌÆåÆ® Å×ÀÌºí ÆíÁı ÇØ¼­ »ç¿ë ÇÏÀÚ
+	if(iSendDisplayTime && iSendDisplayNo)//ì´í™íŠ¸ ë³´ë‚´ì¤Œ//ì„ì‹œë¡œ ë§‰ì•„ë†¨ìŒ í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•´ì„œ
+	{//ì´í™íŠ¸ í…Œì´ë¸” í¸ì§‘ í•´ì„œ ì‚¬ìš© í•˜ì
 		t_packet p;
 		const short cn = ch->GetServerID();
 		p.h.header.type		= CMD_ADD_EFFECT;
@@ -159,10 +159,10 @@ void SendRareDisplayEffect(CHARLIST *ch, const int iDyRareType)
 
 void SendRareDisplayEffect(CHARLIST *ch)
 {
-	const int iSendDisplayNo	= RareEM.GetRareDisplayEffectNo(DYNAMICRARE,ch->DynamicRare);	// »ç¿ëµÈ ¸¶¹ıÀÇ ¹øÈ£
+	const int iSendDisplayNo	= RareEM.GetRareDisplayEffectNo(DYNAMICRARE,ch->DynamicRare);	// ì‚¬ìš©ëœ ë§ˆë²•ì˜ ë²ˆí˜¸
 	const int iSendDisplayTime	= RareEM.GetRareDisplayEffectTime(ch->DynamicRare);
-	if(iSendDisplayTime && iSendDisplayNo)//ÀÌÆåÆ® º¸³»ÁÜ//ÀÓ½Ã·Î ¸·¾Æ³ùÀ½ Å×½ºÆ®¸¦ À§ÇØ¼­
-	{//ÀÌÆåÆ® Å×ÀÌºí ÆíÁı ÇØ¼­ »ç¿ë ÇÏÀÚ
+	if(iSendDisplayTime && iSendDisplayNo)//ì´í™íŠ¸ ë³´ë‚´ì¤Œ//ì„ì‹œë¡œ ë§‰ì•„ë†¨ìŒ í…ŒìŠ¤íŠ¸ë¥¼ ìœ„í•´ì„œ
+	{//ì´í™íŠ¸ í…Œì´ë¸” í¸ì§‘ í•´ì„œ ì‚¬ìš© í•˜ì
 		t_packet p;
 		const short cn = ch->GetServerID();
 		p.h.header.type		= CMD_ADD_EFFECT;
@@ -183,27 +183,27 @@ void SendRareDisplayEffect(CHARLIST *ch)
 
 //////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö¼³¸í: ¾ÆÀÌÅÛÀÇ À§Ä¡¸¦ ¹Ù²Û´Ù. NULL¾ÆÀÌÅÛ °³³äÀ» Ãß°¡ÇÏ¿© ¾ÆÀÌÅÛÀÇ
-//				À§Ä¡ÀÌµ¿ ¹× ÀÚ¸®¹Ù²Ş, »ç¿ë, ÀåÂøµî °¢Á¾ ¾ÆÀÌÅÛ ÀÌµ¿¿¡ 
-//				°ü°èµÈ ¸ğµç ¿¬»ê¿¡ »ç¿ë.(´Ü ÇöÀç, ÀÎº¥Åä¸®³»¿¡¼­¸¸)
+// í•¨ìˆ˜ì„¤ëª…: ì•„ì´í…œì˜ ìœ„ì¹˜ë¥¼ ë°”ê¾¼ë‹¤. NULLì•„ì´í…œ ê°œë…ì„ ì¶”ê°€í•˜ì—¬ ì•„ì´í…œì˜
+//				ìœ„ì¹˜ì´ë™ ë° ìë¦¬ë°”ê¿ˆ, ì‚¬ìš©, ì¥ì°©ë“± ê°ì¢… ì•„ì´í…œ ì´ë™ì— 
+//				ê´€ê³„ëœ ëª¨ë“  ì—°ì‚°ì— ì‚¬ìš©.(ë‹¨ í˜„ì¬, ì¸ë²¤í† ë¦¬ë‚´ì—ì„œë§Œ)
 //
-// ÆÄ¶ó¹ÌÅÍ:	char_id ; ÇàÀ§¸¦ ÇÑ Ä³¸¯ÅÍ id(index)
-//				cstauts ; Ä³¸¯ÅÍÀÇ »óÅÂº¯È­¸¦ Å¬¶óÀÌ¾ğÆ®¿¡ ¾Ë·ÁÁÖ±â À§ÇØ	
-//						  packet¿¡ Æ÷ÇÔµÉ structure. ´Ü¼øÈ÷, equipÀÌ³ª 
-//						  useÇÔ¼ö¿¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î°£´Ù.
-//				source, dest ; ¿ø/¸ñÇ¥ Àå¼Ò Á¤º¸(POS STRUCTURE¼³¸í ÂüÁ¶)
+// íŒŒë¼ë¯¸í„°:	char_id ; í–‰ìœ„ë¥¼ í•œ ìºë¦­í„° id(index)
+//				cstauts ; ìºë¦­í„°ì˜ ìƒíƒœë³€í™”ë¥¼ í´ë¼ì´ì–¸íŠ¸ì— ì•Œë ¤ì£¼ê¸° ìœ„í•´	
+//						  packetì— í¬í•¨ë  structure. ë‹¨ìˆœíˆ, equipì´ë‚˜ 
+//						  useí•¨ìˆ˜ì— íŒŒë¼ë¯¸í„°ë¡œ ë„˜ì–´ê°„ë‹¤.
+//				source, dest ; ì›/ëª©í‘œ ì¥ì†Œ ì •ë³´(POS STRUCTUREì„¤ëª… ì°¸ì¡°)
 //
-// ¸®ÅÏ°ª: ÇØ´ç ¿¬»ê(ÀÌµ¿/ÀåÂø/»ç¿ëµîÀÇ)ÀÇ °¡´É ¿©ºÎ
+// ë¦¬í„´ê°’: í•´ë‹¹ ì—°ì‚°(ì´ë™/ì¥ì°©/ì‚¬ìš©ë“±ì˜)ì˜ ê°€ëŠ¥ ì—¬ë¶€
 //											
 //////////////////////////////////////////////////////////////////////////
 // *************************************************************************************
 //												
-//				Ä³¸¯ÅÍ°£ÀÇ ÀÌµ¿ ¾ÆÁ÷ Áö¿ø ¾ÈµÊ. ¸Ê°úÀÇ ÀÌµ¿ Áö¿ø ¾ÈµÊ.
+//				ìºë¦­í„°ê°„ì˜ ì´ë™ ì•„ì§ ì§€ì› ì•ˆë¨. ë§µê³¼ì˜ ì´ë™ ì§€ì› ì•ˆë¨.
 //											
 // ************************************************************************************
 								
-// Ä³¸¯ÅÍ°£ÀÇ ¾ÆÀÌÅÛ ÀÌµ¿À» Áö¿øÇÏ±â À§ÇØ¼­´Â destÀÇ p1¿¡ charlist¿¡¼­ÀÇ index°¡ ³Ñ¾î¿Í¾ß ÇÑ´Ù.
-// ¸Ê°úÀÇ ¾ÆÀÌÅÛ ÀÌµ¿À» Áö¿øÇÏ±â À§ÇØ¼­´Â destÀÇ p1, p2¿¡ x,y°¡ µé¾î¿Í¾ß ÇÑ´Ù.
+// ìºë¦­í„°ê°„ì˜ ì•„ì´í…œ ì´ë™ì„ ì§€ì›í•˜ê¸° ìœ„í•´ì„œëŠ” destì˜ p1ì— charlistì—ì„œì˜ indexê°€ ë„˜ì–´ì™€ì•¼ í•œë‹¤.
+// ë§µê³¼ì˜ ì•„ì´í…œ ì´ë™ì„ ì§€ì›í•˜ê¸° ìœ„í•´ì„œëŠ” destì˜ p1, p2ì— x,yê°€ ë“¤ì–´ì™€ì•¼ í•œë‹¤.
 int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS SourcePos, const POS DestPos)		// 0624 YGI
 {
 	CHARLIST *hero = CheckServerId( char_id );
@@ -238,7 +238,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 		case HAND:	
 			{
 				pSourceItem= &hero->handheld;
-			}break ;//021030 lsw ¹Ú½º ¾ø½À´Ï´Ù.
+			}break ;//021030 lsw ë°•ìŠ¤ ì—†ìŠµë‹ˆë‹¤.
 		case GROUND: 
 			{
 				tu.item_no = ItemList[SourcePos.p3].item_no; 
@@ -257,7 +257,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 				{
 					ch = ::NPC_ReturnCharListPoint(SourcePos.p3);
 				}
-				if(!ch)//´ë»óÀÌ ¾ø´Ù
+				if(!ch)//ëŒ€ìƒì´ ì—†ë‹¤
 				{
 					return 0;
 				}
@@ -315,14 +315,14 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 				if( SourcePos.type == HAND && ii->GetRbutton() == DIVIDE_ITEM )
 				{
 					int sum_able = 0 ;
-					if( tu.item_no == DestItem.item_no	//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ÀÏÄ¡ÇÏ°í
-					 &&	tu.attr[IATTR_RARE_MAIN] == DestItem.attr[IATTR_RARE_MAIN] ) //·¹¾î ¼Ó¼ºÀÌ °°À¸¸é
+					if( tu.item_no == DestItem.item_no	//ì•„ì´í…œ ë„˜ë²„ê°€ ì¼ì¹˜í•˜ê³ 
+					 &&	tu.attr[IATTR_RARE_MAIN] == DestItem.attr[IATTR_RARE_MAIN] ) //ë ˆì–´ ì†ì„±ì´ ê°™ìœ¼ë©´
 					{
 						sum_able = 1;		// 010522 YGI
 					}
 
 					CItem *t = ItemUnit( DestItem );
-					if(	( t && t->GetItemKind() == IK_MONEY		&& ii->GetItemKind() == IK_MONEY )		//°°Àº µ¿Àü
+					if(	( t && t->GetItemKind() == IK_MONEY		&& ii->GetItemKind() == IK_MONEY )		//ê°™ì€ ë™ì „
 					 ||	( t && t->GetItemKind() == IK_NEW_MONEY && ii->GetItemKind() == IK_NEW_MONEY ) ) 
 					{
 						sum_able = 1;				// 010210 YGI
@@ -337,20 +337,20 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 
 					if( sum_able )
 					{
-						DestItem.attr[IATTR_MUCH]+=tu.attr[IATTR_MUCH];	// ¾ÆÀÌÅÛ ¼ö·® ÇÕÄ¡±â
+						DestItem.attr[IATTR_MUCH]+=tu.attr[IATTR_MUCH];	// ì•„ì´í…œ ìˆ˜ëŸ‰ í•©ì¹˜ê¸°
 						::CheckAutoDivideMoney( &DestItem, char_id );				// 0415_2 YGI
 						::SendServerItemAttr( char_id, IATTR_DURATION, DestPos, &DestItem );
 						::DeleteItem( pSourceItem );
 						goto OK_;
 					}
 				}
-				// Æ÷¼Ç ÁÖ¸Ó´Ï ±¸Çö
-				else if( SourcePos.type == HAND && ii->GetRbutton() == USE_ITEM && tu.item_no/1000 == POTION )	// µé°í ÀÖ´Â ¾ÆÀÌÅÛÀÌ Æ÷¼ÇÀÌ°í
+				// í¬ì…˜ ì£¼ë¨¸ë‹ˆ êµ¬í˜„
+				else if( SourcePos.type == HAND && ii->GetRbutton() == USE_ITEM && tu.item_no/1000 == POTION )	// ë“¤ê³  ìˆëŠ” ì•„ì´í…œì´ í¬ì…˜ì´ê³ 
 				{
 					CItem *t = ItemUnit( DestItem );
-					if( t && t->GetItemKind() == IK_POTION_BOX )		// ´ë»óÀÌ ÁÖ¸Ó´ÏÀÌ¸é
+					if( t && t->GetItemKind() == IK_POTION_BOX )		// ëŒ€ìƒì´ ì£¼ë¨¸ë‹ˆì´ë©´
 					{
-						// Æ÷¼Ç ÀúÀå
+						// í¬ì…˜ ì €ì¥
 						CPotionBox potion_box( hero );
 						if(potion_box.PutItem( pSourceItem ))
 						{
@@ -378,18 +378,18 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 				ItemAttr &DestItem = hero->equip[DestPos.p3];
 				int dest_type, dest_index;
 				::getItemIndex( DestItem.item_no, dest_type, dest_index );
-				CItem *t = ItemUnit( dest_type, dest_index );		// ¾Æ¹«°Íµµ ¾øÀ» ¼ö ÀÖ´Ù. 
+				CItem *t = ItemUnit( dest_type, dest_index );		// ì•„ë¬´ê²ƒë„ ì—†ì„ ìˆ˜ ìˆë‹¤. 
 				if( t )		// 010604 YGI
 				{
 					// 040601 YGI
 					if( GetAttr2( DestItem.attr[IATTR_ATTR], IA2_ITEMMALL_ITEM) )
 					{
-						// ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀÌ ÀåÂø µÇ¾î ÀÖÀ» °æ¿ì
-						// ºóÄ­ÀÌ ÇÏ³ªµµ ¾øÀ» °æ¿ì¿£ ¿Å±âÁö ¾Êµµ·Ï ÇÑ´Ù.
+						// ì•„ì´í…œ ëª° ì•„ì´í…œì´ ì¥ì°© ë˜ì–´ ìˆì„ ê²½ìš°
+						// ë¹ˆì¹¸ì´ í•˜ë‚˜ë„ ì—†ì„ ê²½ìš°ì—” ì˜®ê¸°ì§€ ì•Šë„ë¡ í•œë‹¤.
 						ItemAttr *temp_item = SearchInv( hero );
 						if( !temp_item ) 
 						{
-							// ºó°÷ÀÌ Àû¾îµµ 2°³ ÀÌ»ó ÇÊ¿äÇÕ´Ï´Ù.
+							// ë¹ˆê³³ì´ ì ì–´ë„ 2ê°œ ì´ìƒ í•„ìš”í•©ë‹ˆë‹¤.
 							return 0;
 						}
 					}
@@ -397,7 +397,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 					t->ReleaseItem( hero );
 					::MoveEmptyInv( &DestItem, hero );
 					// acer4
-					// È°À» ¿Å°åÀ» °æ¿ì È­»ìµµ ¿Å±ä´Ù.
+					// í™œì„ ì˜®ê²¼ì„ ê²½ìš° í™”ì‚´ë„ ì˜®ê¸´ë‹¤.
 					if( DestPos.p3 == WT_WEAPON && t->GetSkill_Ability() == TACTICS_Archery )
 					{
 						ItemAttr *arrow_item = &hero->equip[WT_SHIELD];
@@ -441,15 +441,15 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 				ItemAttr &DestItem = hero->bank[DestPos.p1][DestPos.p2][DestPos.p3];
 				if( DestItem.item_no )		
 				{
-					// ÀºÇà¿¡¼­ °¡Á®¿Ô´Ù.
+					// ì€í–‰ì—ì„œ ê°€ì ¸ì™”ë‹¤.
 					::SendItemEventLog( &DestItem, char_id, SN_NOT_USER, SILT_GET_BANK, 2 ); //YGI acer
 					::MoveEmptyInv( &DestItem, hero );
 				}
 
 				if( SourcePos.type == HAND && tu.item_no == DestItem.item_no && ii->GetRbutton() == DIVIDE_ITEM 
-					&& tu.attr[IATTR_RARE_MAIN] == DestItem.attr[IATTR_RARE_MAIN])//010604//°°Àº¼Ó¼º¸¸ ÇÕÄ¡±â
+					&& tu.attr[IATTR_RARE_MAIN] == DestItem.attr[IATTR_RARE_MAIN])//010604//ê°™ì€ì†ì„±ë§Œ í•©ì¹˜ê¸°
 				{
-					DestItem.attr[IATTR_MUCH]+=tu.attr[IATTR_MUCH];	// ¾ÆÀÌÅÛ ¼ö·® ÇÕÄ¡±â
+					DestItem.attr[IATTR_MUCH]+=tu.attr[IATTR_MUCH];	// ì•„ì´í…œ ìˆ˜ëŸ‰ í•©ì¹˜ê¸°
 					::DeleteItem( pSourceItem );
 					goto OK_;
 				}
@@ -466,7 +466,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 		case HAND:			
 			{
 				ItemAttr &DestItem = hero->handheld;
-				if( DestItem.item_no )		// ¼Õ¿¡ ¹º°¡¸¦ µé°í ÀÖÀ¸¸é ºñ¾îÀÖ´Â ÀÎº¥À¸·Î º¸³»¹ö¸°´Ù. 
+				if( DestItem.item_no )		// ì†ì— ë­”ê°€ë¥¼ ë“¤ê³  ìˆìœ¼ë©´ ë¹„ì–´ìˆëŠ” ì¸ë²¤ìœ¼ë¡œ ë³´ë‚´ë²„ë¦°ë‹¤. 
 					::MoveEmptyInv( &DestItem, hero );
 
 				int release = false;
@@ -509,17 +509,17 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 			{		
 				if( hero->IsDead() ){return 0;}
 				
-				//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
-				//±âÅ¸ »ç¿ë±â°£ÀÌ ³¡³­ ¾ÆÀÌÅÛ¸ô¾ÆÀÌÅÛÀÌ ÀÎº¥¿¡ ÀÖÀ»°æ¿ì¿¡, Áö¿ì°í ·Î±×¸¦ ³²±ä´Ù.
+				//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
+				//ê¸°íƒ€ ì‚¬ìš©ê¸°ê°„ì´ ëë‚œ ì•„ì´í…œëª°ì•„ì´í…œì´ ì¸ë²¤ì— ìˆì„ê²½ìš°ì—, ì§€ìš°ê³  ë¡œê·¸ë¥¼ ë‚¨ê¸´ë‹¤.
 				_DeleteToExpireItemMallItem _ItemMall;
 				_ItemMall.pCharList		= hero;
-				_ItemMall._ItemPosType	= INV;			//±¸Á¶Ã¼¿¡ ¼¼ÆÃÈÄ¿¡, È£Ãâ.
+				_ItemMall._ItemPosType	= INV;			//êµ¬ì¡°ì²´ì— ì„¸íŒ…í›„ì—, í˜¸ì¶œ.
 				_ItemMall.PosA			= SourcePos.p1;
 				_ItemMall.PosB			= SourcePos.p2;
 				_ItemMall.PosC			= SourcePos.p3;
 
 				if (DeleteToExpireItemMallItem(_ItemMall)) { return 0; }
-				//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+				//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 				
 				switch( ii->GetRbutton() )
 				{
@@ -546,7 +546,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 						}
 					}break;
 				case 3105:
-					{//< CSD-021003 : ÀüÅõ½ºÅ³ Æ÷ÀÎÆ® È¹µæ
+					{//< CSD-021003 : ì „íˆ¬ìŠ¤í‚¬ í¬ì¸íŠ¸ íšë“
 						if (!hero->IsLimit(1))
 						{
 								  hero->IncCombatPoint(1);
@@ -557,7 +557,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 					}break;
 				}
 
-				int no_delete = 0;// Áö¿ìÁö ¾ÊÀ» °æ¿ìµµ ÀÖ´Ù.//1 ÀÌ¸é Áö¿ìÁö¸¸ ¾ÊÀ½ // 2 ³»±¸µµ ±ğÀ½
+				int no_delete = 0;// ì§€ìš°ì§€ ì•Šì„ ê²½ìš°ë„ ìˆë‹¤.//1 ì´ë©´ ì§€ìš°ì§€ë§Œ ì•ŠìŒ // 2 ë‚´êµ¬ë„ ê¹ìŒ
 				if(SourcePos.type != GROUND && SourcePos.type != EQUIP)		
 				{
 					int add_hp = 0;
@@ -570,10 +570,10 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 							hero->SetDoubleExpUp(g_curr_time);
 							break;
 						}	//> CSD-040803
-					//< kjy-040804  ¾îºô¸®Æ¼ ÀçºĞ¹è ¾ÆÀÌÅÛ »ç¿ë
+					//< kjy-040804  ì–´ë¹Œë¦¬í‹° ì¬ë¶„ë°° ì•„ì´í…œ ì‚¬ìš©
 					case IK_ABILITY_RESET :	
 						{
-							no_delete = 0;		// 0 ÀÌ¸é »ç¿ë ÈÄ ¾ø¾Ø´Ù.
+							no_delete = 0;		// 0 ì´ë©´ ì‚¬ìš© í›„ ì—†ì•¤ë‹¤.
 								
 							// add execute code here
 							g_pDualManager->RecvResetAbilityItem( char_id );
@@ -582,36 +582,36 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 						}
 					//> kjy-040804
 					case IK_CHANGE_GENDER :
-						{//<050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ
+						{//<050413_KCH ì„±ì „í™˜ ì•„ì´í…œ
 							if (hero->SetChangeGender())
 							{
-								no_delete = 0;		// 0 ÀÌ¸é »ç¿ë ÈÄ ¾ø¾Ø´Ù.
+								no_delete = 0;		// 0 ì´ë©´ ì‚¬ìš© í›„ ì—†ì•¤ë‹¤.
 							}
 							else
 							{
 								no_delete = 1;
 							}
 							
-						}//>050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ
+						}//>050413_KCH ì„±ì „í™˜ ì•„ì´í…œ
 						break;
 
 					case IK_CP_POTION :	// 040622 YGI
 						{
 							no_delete = 2;
-									// cp Æ÷ÀÎÆ®¸¦ ¿Ã·ÁÁØ´Ù.
+									// cp í¬ì¸íŠ¸ë¥¼ ì˜¬ë ¤ì¤€ë‹¤.
 							if( hero->IncCombat( 3000 ) )
 								hero->SendCharInfoBasic(CP, hero->Cp);
 							break;
 						}
 						
-					//<! BBD 040213 ³»±¸µµ ÀÖ´Â Æ÷¼Ç
+					//<! BBD 040213 ë‚´êµ¬ë„ ìˆëŠ” í¬ì…˜
 					case IK_POTION_BAG:
 						{
 							no_delete = 2;
 							add_hp = ii->EatItem( hero );
 						}break;
-					//> BBD 040213 ³»±¸µµ ÀÖ´Â Æ÷¼Ç
-					case IK_POTION_BOX:// ÁÖ¸Ó´Ï¸¦ Å¬¸¯Çß´Ù.
+					//> BBD 040213 ë‚´êµ¬ë„ ìˆëŠ” í¬ì…˜
+					case IK_POTION_BOX:// ì£¼ë¨¸ë‹ˆë¥¼ í´ë¦­í–ˆë‹¤.
 						{
 							CPotionBox potion_box( hero );
 							add_hp = potion_box.UseItem();
@@ -622,8 +622,8 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 						{
 							no_delete = 2;
 							add_hp = ii->EatItem( hero );
-							if(ii->GetImunityCure3())//ÆÄÆ¼¿ø ¿µÇâ ÇÊµå
-							{	// ´ë»óÀÚ°¡ ÆÄÆ¼¿øÀÎ °æ¿ì
+							if(ii->GetImunityCure3())//íŒŒí‹°ì› ì˜í–¥ í•„ë“œ
+							{	// ëŒ€ìƒìê°€ íŒŒí‹°ì›ì¸ ê²½ìš°
 								for (int i = 0; i < MAX_PARTY_MEMBER; ++i)
 								{
 									if (hero->party[i].On)
@@ -661,11 +661,11 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 						const int iSec	= ((RareMain*)&(pSourceItem->attr[IATTR_RARE_MAIN]))->soksung2;
 						const int iThi	= ((RareMain*)&(pSourceItem->attr[IATTR_RARE_MAIN]))->soksung3;
 
-						// ¸ÕÀú ¾ø¾Ø´Ù. // YGI 020527
+						// ë¨¼ì € ì—†ì•¤ë‹¤. // YGI 020527
 						if( !no_delete ) 
 						{
 							::SendItemEventLog( pSourceItem, char_id, SN_NOT_USER, SILT_USE, 3 ); //YGI acer
-							::DeleteItem( pSourceItem );		// »ç¿ëÇÑ°Ç ¾îÂ·µç ¾ø¾îÁø´Ù.
+							::DeleteItem( pSourceItem );		// ì‚¬ìš©í•œê±´ ì–´ì¨Œë“  ì—†ì–´ì§„ë‹¤.
 							::SendServerEachItem(&SourcePos,pSourceItem,char_id);
 							no_delete = 1;
 						}
@@ -677,10 +677,10 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 							iSendDyRareDisplayEffect = true;
 						}
 						
-						if( (iUseitemKind ==	IK_GOOD_CANDLE 	||	iUseitemKind ==	IK_CANDLE )// ¾çÃÊ¸é
-							&& ii->GetImunityCure3() )//ÆÄÆ¼¿ø ¿µÇâ ÇÊµå
+						if( (iUseitemKind ==	IK_GOOD_CANDLE 	||	iUseitemKind ==	IK_CANDLE )// ì–‘ì´ˆë©´
+							&& ii->GetImunityCure3() )//íŒŒí‹°ì› ì˜í–¥ í•„ë“œ
 						{
-							// ´ë»óÀÚ°¡ ÆÄÆ¼¿øÀÎ °æ¿ì
+							// ëŒ€ìƒìê°€ íŒŒí‹°ì›ì¸ ê²½ìš°
 							for (int i = 0; i < MAX_PARTY_MEMBER; ++i)
 							{
 								if (hero->party[i].On)
@@ -700,7 +700,7 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 					case 0:
 						{
 							::SendItemEventLog( pSourceItem, char_id, SN_NOT_USER, SILT_USE, 3 ); //YGI acer
-							::DeleteItem( pSourceItem );		// »ç¿ëÇÑ°Ç ¾îÂ·µç ¾ø¾îÁø´Ù.
+							::DeleteItem( pSourceItem );		// ì‚¬ìš©í•œê±´ ì–´ì¨Œë“  ì—†ì–´ì§„ë‹¤.
 							::SendServerEachItem(&SourcePos,pSourceItem,char_id);
 						}break;
 					case 1:
@@ -709,20 +709,20 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 					case 2:
 						{
 							::SendItemEventLog( pSourceItem, char_id, SN_NOT_USER, SILT_USE, 3 ); //YGI acer
-							const int iResult = ItemMgr.DecItemDur(*pSourceItem,MULTIPLE_USE_ONE_TIME_DEC_DUR);		// »ç¿ëÇÑ°Ç ³»±¸µµ¸¦ ±ğ´Â´Ù
+							const int iResult = ItemMgr.DecItemDur(*pSourceItem,MULTIPLE_USE_ONE_TIME_DEC_DUR);		// ì‚¬ìš©í•œê±´ ë‚´êµ¬ë„ë¥¼ ê¹ëŠ”ë‹¤
 							::SendServerEachItem(&SourcePos,pSourceItem,char_id);
 						}break;
 					}
-					if(iSendDyRareDisplayEffect)//¼±ÅÃ±â´É ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ°Í
+					if(iSendDyRareDisplayEffect)//ì„ íƒê¸°ëŠ¥ ì•„ì´í…œì— ì˜í•œê²ƒ
 					{
 						::SendRareDisplayEffect(hero);
 					}
-					//¾ÆÀÌÅÛÀ» Áö¿ì°í È¿°ú¸¦ ¹ßÈÖ ÇÑ´Ù//À§¶û ¾Æ·¡¶û ´Ù¸£´Ù ÀÏ¹İ±â´É ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ°Í //ÀÌ ºÎºĞÀº EatItemCommon¿¡ ³ÖÁö ¸»°Í
-					if	(RareEM.ApplyDynamicRareEffect(hero,ii->GetCureDisease1(),1,0))//¿©±â¼­ ½Ã°£ÀÌ ¼ÂÆÃ µÇ¾î ÀÖ´Ù
+					//ì•„ì´í…œì„ ì§€ìš°ê³  íš¨ê³¼ë¥¼ ë°œíœ˜ í•œë‹¤//ìœ„ë‘ ì•„ë˜ë‘ ë‹¤ë¥´ë‹¤ ì¼ë°˜ê¸°ëŠ¥ ì•„ì´í…œì— ì˜í•œê²ƒ //ì´ ë¶€ë¶„ì€ EatItemCommonì— ë„£ì§€ ë§ê²ƒ
+					if	(RareEM.ApplyDynamicRareEffect(hero,ii->GetCureDisease1(),1,0))//ì—¬ê¸°ì„œ ì‹œê°„ì´ ì…‹íŒ… ë˜ì–´ ìˆë‹¤
 					{
 						::SendRareDisplayEffect(hero,ii->GetCureDisease1());
 						return 0;
-					}//OK °¡ È£Ãâ µÇÁö ¾ÊÀ» ¼öµµ ÀÖ½À´Ï´Ù.(¸ÊÀÌµ¿ ¾ÆÀÌÅÛÀÇ °æ¿ì
+					}//OK ê°€ í˜¸ì¶œ ë˜ì§€ ì•Šì„ ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.(ë§µì´ë™ ì•„ì´í…œì˜ ê²½ìš°
 					goto OK_;
 				}
 			 }break;
@@ -757,20 +757,20 @@ int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS
 			}
 
 			if(ret) 
-			{ // »ó´ë¹æ Ä³¸¯ÅÍ ÀÎº¥Åä¸®¿¡ ºó°÷ÀÌ ÀÖÀ¸¸é
+			{ // ìƒëŒ€ë°© ìºë¦­í„° ì¸ë²¤í† ë¦¬ì— ë¹ˆê³³ì´ ìˆìœ¼ë©´
 				
 				target_ch->inv[p1][p2][p3]= tu ;
 				POS pos;
 				::SetItemPos( INV, p1,p2,p3, &pos );
 				::SendServerEachItem( &pos, &tu, DestPos.p3 );			// 001028 YGI
 
-				// SourcePos¸¦ Áö¿î´Ù.
+				// SourcePosë¥¼ ì§€ìš´ë‹¤.
 				::SendItemEventLog( pSourceItem, char_id, DestPos.p3, SILT_PUT_OTHER_CH, 1 );
 				::SendItemEventLog( pSourceItem, DestPos.p3, char_id, SILT_GET_OTHER_CH, 1 );
 				::DeleteItem( pSourceItem );
 				goto OK_;
 			}
-			else // ´Ù½Ã µÇµ¹·ÁÁØ´Ù.
+			else // ë‹¤ì‹œ ë˜ëŒë ¤ì¤€ë‹¤.
 			{
 				::MoveEmptyInv( pSourceItem, &connections[char_id].chrlst );
 			}
@@ -792,7 +792,7 @@ OK_:
 //																				//
 //																				//
 //																				//
-//	ItemÀÌ »ç¿ëÀ» Ã³¸®ÇØÁÖ´Â ¸Ş¼Òµåµé											//
+//	Itemì´ ì‚¬ìš©ì„ ì²˜ë¦¬í•´ì£¼ëŠ” ë©”ì†Œë“œë“¤											//
 //																				//
 //																				//
 //																				//
@@ -832,11 +832,11 @@ int CItem_Potion::use(int char_id, t_chr_status_info *cstatus, POS source, POS d
 /************************************************************************************/
 //
 //
-//								¹ü¿ë ÇÔ¼öµé
+//								ë²”ìš© í•¨ìˆ˜ë“¤
 //
 //
 /************************************************************************************/
-// ¾ÆÀÌÅÛ ÀÎµ¦½º ¾Ë¾Æ³»´Â ÇÔ¼ö
+// ì•„ì´í…œ ì¸ë±ìŠ¤ ì•Œì•„ë‚´ëŠ” í•¨ìˆ˜
 void getItemIndex(int item_no, int &type, int &index)
 {
 	type= item_no / 1000 ;
@@ -878,13 +878,13 @@ void getItemIndex(int char_id, POS source, int &type, int &index)
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// ÇÔ¼ö¼³¸í: ¾ÆÀÌÅÛ ºĞ¸®(°³¼ö°¡ ÀÖ´Â ¾ÆÀÌÅÛÀÏ °æ¿ì; µ·, ¾¾¾ÑµîÀÇ)
-//				ÇöÀç ÇØ´ç Ä³¸¯ÅÍÀÇ ÀÎº¥Åä¸®³»¿¡¼­¸¸ °¡´É
+// í•¨ìˆ˜ì„¤ëª…: ì•„ì´í…œ ë¶„ë¦¬(ê°œìˆ˜ê°€ ìˆëŠ” ì•„ì´í…œì¼ ê²½ìš°; ëˆ, ì”¨ì•—ë“±ì˜)
+//				í˜„ì¬ í•´ë‹¹ ìºë¦­í„°ì˜ ì¸ë²¤í† ë¦¬ë‚´ì—ì„œë§Œ ê°€ëŠ¥
 //
-// ÆÄ¶ó¹ÌÅÍ:	char_id; ÇØ´ç Ä³¸¯ÅÍÀÇ id(index)
-//				source, dest; ¾ÆÀÌÅÛÀÇ À§Ä¡Á¤º¸
+// íŒŒë¼ë¯¸í„°:	char_id; í•´ë‹¹ ìºë¦­í„°ì˜ id(index)
+//				source, dest; ì•„ì´í…œì˜ ìœ„ì¹˜ì •ë³´
 //
-// ¸®ÅÏ°ª: ¾ÆÀÌÅÛ ºĞ¸®ÀÇ ¼º°ø¿©ºÎ
+// ë¦¬í„´ê°’: ì•„ì´í…œ ë¶„ë¦¬ì˜ ì„±ê³µì—¬ë¶€
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -928,8 +928,8 @@ int departItem(int char_id, POS source, POS dest, int dec_val)
 
 		/*
 		case HAND:
-			// ¼ÕÀÌ ºñ¾îÀÖ´Â°¡¸¦ Ã¼Å©ÇØ¾ß ÇÏ´Â°¡????
-			// »ı°¢ÇØ º¸ÀÚ~
+			// ì†ì´ ë¹„ì–´ìˆëŠ”ê°€ë¥¼ ì²´í¬í•´ì•¼ í•˜ëŠ”ê°€????
+			// ìƒê°í•´ ë³´ì~
 			if(source.type == EQUIP) { // Unequip
 				//getItemIndex(char_id, source, type, index) ;
 				Item_Ref.Item_Info[type][index]->unequip(char_id, cstatus, source, dest) ;
@@ -951,9 +951,9 @@ int departItem(int char_id, POS source, POS dest, int dec_val)
 
 //////////////////////////////////////////////////////////////////////////////////
 //																				//
-//	¼³¸í:   item  »ç¿ë¿¡ µû¸¥ Ä³¸¯ÅÍ ¼öÄ¡ º¯È­  								//
+//	ì„¤ëª…:   item  ì‚¬ìš©ì— ë”°ë¥¸ ìºë¦­í„° ìˆ˜ì¹˜ ë³€í™”  								//
 //																				//
-//			virtual ÇÔ¼öµé														//
+//			virtual í•¨ìˆ˜ë“¤														//
 //																				//
 //////////////////////////////////////////////////////////////////////////////////
 int CItem_Potion::UseItem( CHARLIST *ch)
@@ -984,7 +984,7 @@ int CItem_Cook::UseItem( CHARLIST *ch)
 
 /////////////////////////////////////////////////////////////////////////////////
 // 
-//		¾ÆÀÌÅÛÀ» ¸ÔÀ» ¶§ÀÇ Ä³¸¯ÅÍ ´É·ÂÄ¡ º¯È­½ÃÅ°´Â ¾ÆÀÌÅÛ ¹öÃ¶ ÇÔ¼ö 
+//		ì•„ì´í…œì„ ë¨¹ì„ ë•Œì˜ ìºë¦­í„° ëŠ¥ë ¥ì¹˜ ë³€í™”ì‹œí‚¤ëŠ” ì•„ì´í…œ ë²„ì²  í•¨ìˆ˜ 
 //
 /////////////////////////////////////////////////////////////////////////////////
 //011218 lsw
@@ -1031,7 +1031,7 @@ bool	IsEquipAbleItemKind(const int iItemKind, const CHARLIST *ch)
 {
 	switch(iItemKind)
 	{
-	case IK_FALG://±ê¹ßÀÏ¶§ ¸» ¾ÈÀåÀ» Â÷°í ÀÖ¾î¾ß ÇÑ´Ù
+	case IK_FALG://ê¹ƒë°œì¼ë•Œ ë§ ì•ˆì¥ì„ ì°¨ê³  ìˆì–´ì•¼ í•œë‹¤
 		{
 			CItem * t = ItemUnit( ch->equip[WT_SHOES].item_no);
 			if(!t)
@@ -1061,22 +1061,22 @@ bool	IsEquipAbleAbilityCheck	(const int iNeedAbility, const int iMyAbility)
 }
 bool	IsEquipAbleCheckWisInt	(const int iNeedWis, const int iNeedInt, const int iMyWis, const int iMyInt)
 {
-	if( iNeedWis && (!iNeedInt))//Wis¸¸ ¿ä±¸ ÇÏ¸é
+	if( iNeedWis && (!iNeedInt))//Wisë§Œ ìš”êµ¬ í•˜ë©´
 	{
 		return IsEquipAbleAbilityCheck(iNeedWis,iMyWis);
 	}
-	if( (!iNeedWis) && iNeedInt)//Int¸¸ ¿ä±¸ ÇÏ¸é
+	if( (!iNeedWis) && iNeedInt)//Intë§Œ ìš”êµ¬ í•˜ë©´
 	{
 		return IsEquipAbleAbilityCheck(iNeedInt,iMyInt);
 	}
-	if( (!iNeedWis) && (!iNeedInt))//µÑ´Ù ÇÊ¿ä ÇÏÁö ¾Ê´Ù
+	if( (!iNeedWis) && (!iNeedInt))//ë‘˜ë‹¤ í•„ìš” í•˜ì§€ ì•Šë‹¤
 	{
 		return true;
 	}
 
-	if( iNeedWis && iNeedInt )//µÑ´Ù ¿ä±¸ ÇÏ¸é
+	if( iNeedWis && iNeedInt )//ë‘˜ë‹¤ ìš”êµ¬ í•˜ë©´
 	{
-		if(IsEquipAbleAbilityCheck(iNeedWis,iMyWis) || IsEquipAbleAbilityCheck(iNeedInt,iMyInt))//µÑ´Ù ¸¸Á· ÇØ¾ß ÇÔ
+		if(IsEquipAbleAbilityCheck(iNeedWis,iMyWis) || IsEquipAbleAbilityCheck(iNeedInt,iMyInt))//ë‘˜ë‹¤ ë§Œì¡± í•´ì•¼ í•¨
 		{
 			return true;
 		}
@@ -1137,7 +1137,7 @@ bool	IsEquipAbleCheckGender	(const int iNeedGender, const int iMyGender)
 	}
 	return false;
 }
-bool	IsEquipAbleCheckMouseMRD	(const int iNeedMouseMRD, const int iMyMouseMRD)// ÅÃÆ½Ã¼Å©
+bool	IsEquipAbleCheckMouseMRD	(const int iNeedMouseMRD, const int iMyMouseMRD)// íƒí‹±ì²´í¬
 {
 	if( (iNeedMouseMRD <= 1) || (iNeedMouseMRD <= iMyMouseMRD) )
 	{
@@ -1148,8 +1148,8 @@ bool	IsEquipAbleCheckMouseMRD	(const int iNeedMouseMRD, const int iMyMouseMRD)//
 
 bool IsEquipAbleCheckAbleDay(const int start, const int end)
 {	//< CSD-030812
-	if(!start)	{return true;}//Á¦ÇÑ ¾øÀ½ 
-	if(!end)	{return true;}//Á¦ÇÑ ¾øÀ½ 
+	if(!start)	{return true;}//ì œí•œ ì—†ìŒ 
+	if(!end)	{return true;}//ì œí•œ ì—†ìŒ 
 
 	int mon = g_mon+1;
 	int day = g_day+1;
@@ -1160,7 +1160,7 @@ bool IsEquipAbleCheckAbleDay(const int start, const int end)
 	{
 		if( start <= FullToday && end >= FullToday)
 		{
-			return true;//Âø¿ë±â°£ÀÌ´Ù.
+			return true;//ì°©ìš©ê¸°ê°„ì´ë‹¤.
 		}
 	}
 	//< 040102 kyo
@@ -1180,7 +1180,7 @@ bool IsEquipAbleCheckAbleDay(const int start, const int end)
 	return false;
 }	//> CSD-030812
 
-inline bool IsEquipAbleCheckNation(const int iAbleNation, const CHARLIST *ch)//000  100 ¹ÙÀÌ 10 ÀÚÀÌ 1 ÀÏ½º
+inline bool IsEquipAbleCheckNation(const int iAbleNation, const CHARLIST *ch)//000  100 ë°”ì´ 10 ìì´ 1 ì¼ìŠ¤
 {
 	switch(ch->name_status.nation)
 	{
@@ -1230,7 +1230,7 @@ inline bool IsEquipAbleCheckLv(const int iAbleLv, const CHARLIST *ch)
 
 inline bool IsEquipAbleCheckFame(const int iAbleFame, const CHARLIST *ch)
 {
-	if(!iAbleFame){return true;}//¤·±¸ 
+	if(!iAbleFame){return true;}//ã…‡êµ¬ 
 	if( iAbleFame <= ch->fame)
 	{
 		return true;
@@ -1240,7 +1240,7 @@ inline bool IsEquipAbleCheckFame(const int iAbleFame, const CHARLIST *ch)
 
 __inline int EatItemCommon(CHARLIST *ch,const int iHp, const int iMp, const int iHungry,const int iLight)
 {
-//	if	(RareEM.ApplyDynamicRareEffect(ch,DyRare,1,0))//¿©±â¼­ ½Ã°£ÀÌ ¼ÂÆÃ µÇ¾î ÀÖ´Ù
+//	if	(RareEM.ApplyDynamicRareEffect(ch,DyRare,1,0))//ì—¬ê¸°ì„œ ì‹œê°„ì´ ì…‹íŒ… ë˜ì–´ ìˆë‹¤
 //	{
 //		SendRareDisplayEffect(ch);
 //	}
@@ -1253,7 +1253,7 @@ __inline int EatItemCommon(CHARLIST *ch,const int iHp, const int iMp, const int 
 	if(iMp && ch->Spell == WIZARD_SPELL)
 	{
 		ch->IncMana(iMp);
-		ch->SendCharInfoBasic(MP, ch->Mana);//Æ÷¼Ç ¸Ô¾úÀ»¶§ ·¢À¸·Î ¸¶³ª°¡ ¸¹ÀÌ ´Ã¾î³ª´Â Çö»ó ¼öÁ¤
+		ch->SendCharInfoBasic(MP, ch->Mana);//í¬ì…˜ ë¨¹ì—ˆì„ë•Œ ë™ìœ¼ë¡œ ë§ˆë‚˜ê°€ ë§ì´ ëŠ˜ì–´ë‚˜ëŠ” í˜„ìƒ ìˆ˜ì •
 	}
 	if(iHungry)
 	{
@@ -1262,14 +1262,14 @@ __inline int EatItemCommon(CHARLIST *ch,const int iHp, const int iMp, const int 
 	if(iLight)
 	{
 		WeatherControl.SetChLight(ch,iLight,5*60);
-	}//5ºĞ
+	}//5ë¶„
 	return iReturnValue;
 }
 
 /*
-cure_disease1;//°íÀ¯ ±â´É ³Ñ¹ö
-cure_disease2;//±¤¿ø ¹üÀ§ 
-cure_disease3;//ÆÄÆ¼¿¡ ¿µÇâ
+cure_disease1;//ê³ ìœ  ê¸°ëŠ¥ ë„˜ë²„
+cure_disease2;//ê´‘ì› ë²”ìœ„ 
+cure_disease3;//íŒŒí‹°ì— ì˜í–¥
 */
 
 int CItem_Etc::EatItem( CHARLIST *ch )
@@ -1299,22 +1299,22 @@ int CItem_Potion::EatItem(CHARLIST *ch)
 
 /////////////////////////////////////////////////////////////////////////////////
 //	
-// ¾ÆÀÌÅÛ ÀåÂø¿¡ µû¸¥ Ä³¸¯ÅÍ ´É·ÂÄ¡ º¯È­¸¦ °è»êÇÏ´Â ¸â¹ö ÇÔ¼ö
+// ì•„ì´í…œ ì¥ì°©ì— ë”°ë¥¸ ìºë¦­í„° ëŠ¥ë ¥ì¹˜ ë³€í™”ë¥¼ ê³„ì‚°í•˜ëŠ” ë©¤ë²„ í•¨ìˆ˜
 //	
 /////////////////////////////////////////////////////////////////////////////////
 
 __inline int	IsEquipAbleCommon(const CHARLIST *ch)//020314 lsw
-{	//°øÅëÀûÀ¸·Î È£Ãâ
+{	//ê³µí†µì ìœ¼ë¡œ í˜¸ì¶œ
 	return 1;
 }
 
 __inline int	EquipItemCommon(const CHARLIST *ch)//020314 lsw
-{	//°øÅëÀûÀ¸·Î È£Ãâ
+{	//ê³µí†µì ìœ¼ë¡œ í˜¸ì¶œ
 	return 1;
 }
 
 __inline int	ReleaseItemCommon(const CHARLIST *ch)//020314 lsw
-{	//°øÅëÀûÀ¸·Î È£Ãâ
+{	//ê³µí†µì ìœ¼ë¡œ í˜¸ì¶œ
 	return 1;
 }
 
@@ -1346,13 +1346,13 @@ __inline int ReleaseItemSetAbility(CHARLIST *ch,const int iStr	, const int iCon	
 __inline int EquipItemCalcAttackPower(CHARLIST *ch,const int iItem_table_damage)
 {
 	int iTempDmg =iItem_table_damage;
-	if( 100000000 < iTempDmg  ) // ¸¶ÀÌ³Ê½º µ¥¹ÌÁöÀÏ °æ¿ì
+	if( 100000000 < iTempDmg  ) // ë§ˆì´ë„ˆìŠ¤ ë°ë¯¸ì§€ì¼ ê²½ìš°
 	{
 		iTempDmg %= 100000000;
 		ch->iPhysicalTotalDamage	-= iTempDmg / 10000 ;
 		ch->iPhysicalRandomDamage	-= iTempDmg % 10000 ;
 	}
-	else if ( 100000000 > iTempDmg ) //ÇÃ·¯½º µ¥¹ÌÁö ÀÏ °æ¿ì
+	else if ( 100000000 > iTempDmg ) //í”ŒëŸ¬ìŠ¤ ë°ë¯¸ì§€ ì¼ ê²½ìš°
 	{
 		ch->iPhysicalTotalDamage	+= iTempDmg / 10000 ;
 		ch->iPhysicalRandomDamage	+= iTempDmg % 10000 ;
@@ -1363,13 +1363,13 @@ __inline int EquipItemCalcAttackPower(CHARLIST *ch,const int iItem_table_damage)
 __inline int ReleaseItemCalcAttackPower(CHARLIST *ch,const int iItem_table_damage)
 {
 	int iTempDmg =iItem_table_damage;
-	if( 100000000 < iTempDmg  ) // ¸¶ÀÌ³Ê½º µ¥¹ÌÁöÀÏ °æ¿ì
+	if( 100000000 < iTempDmg  ) // ë§ˆì´ë„ˆìŠ¤ ë°ë¯¸ì§€ì¼ ê²½ìš°
 	{
 		iTempDmg %= 100000000;
 		ch->iPhysicalTotalDamage	+= iTempDmg / 10000 ;
 		ch->iPhysicalRandomDamage	+= iTempDmg % 10000 ;
 	}
-	else if ( 100000000 > iTempDmg ) //ÇÃ·¯½º µ¥¹ÌÁö ÀÏ °æ¿ì
+	else if ( 100000000 > iTempDmg ) //í”ŒëŸ¬ìŠ¤ ë°ë¯¸ì§€ ì¼ ê²½ìš°
 	{
 		ch->iPhysicalTotalDamage	-= iTempDmg / 10000 ;
 		ch->iPhysicalRandomDamage	-= iTempDmg % 10000 ;
@@ -1430,16 +1430,16 @@ int CItem_Weapon::EquipItem(CHARLIST *ch )
 //010604 lsw	
 int CItem_Disposable::EquipItem(CHARLIST *ch )	// 010605_2 YGI
 {	
-	EquipItemHitAndDefenceRate(ch, Hit_rate, 0);//020314 lsw//µğÆæ½º ·¹ÀÌÆ® ¾ø´Ù µğ½ºÆ÷ÀúºíÀº
+	EquipItemHitAndDefenceRate(ch, Hit_rate, 0);//020314 lsw//ë””íœìŠ¤ ë ˆì´íŠ¸ ì—†ë‹¤ ë””ìŠ¤í¬ì €ë¸”ì€
 	EquipItemCalcAttackPower(ch,GetDamage());//020303 lsw
 	return EquipItemCommon( ch );			// 001219_2 YGI
 }
 
 //#####################################################
-// ¾Æ¸Ó ÀåÂø
+// ì•„ë¨¸ ì¥ì°©
 ////010604 lsw
 int CItem_Armor::EquipItem(CHARLIST *ch)//020303 lsw
-{	//ch ³»ºÎ¿¡ CalcNew ½Ã¸®Áî ÇÔ¼öµéÀÌ hp¹× Mp hungry °ªÀ» Àâ¾ÆÁØ´Ù
+{	//ch ë‚´ë¶€ì— CalcNew ì‹œë¦¬ì¦ˆ í•¨ìˆ˜ë“¤ì´ hpë° Mp hungry ê°’ì„ ì¡ì•„ì¤€ë‹¤
 	EquipItemSetAbility(ch,	Change_str,	Change_con,	Change_dex,	Change_wis,
 	Change_int,	Change_Movp, Change_cha, Change_end,	Change_mor,	Change_luc);
 
@@ -1453,7 +1453,7 @@ int CItem_Armor::EquipItem(CHARLIST *ch)//020303 lsw
 }
 
 //#####################################################
-// ¾Ç¼¼»ç¸® ÀåÂø
+// ì•…ì„¸ì‚¬ë¦¬ ì¥ì°©
 //010604 lsw
 int CItem_Accessory::EquipItem(CHARLIST *ch)
 {
@@ -1471,12 +1471,12 @@ int CItem_Accessory::EquipItem(CHARLIST *ch)
 }
 
 //#####################################################
-// ETC ÀåÂø
+// ETC ì¥ì°©
 //010604 lsw
 int CItem_Etc::EquipItem(CHARLIST *ch)
 {
 	EquipItemSetAbility(ch,	Change_str,	Change_con,	Change_dex,	Change_wis,
-	Change_int,	0, Change_cha, Change_end,	Change_mor,	Change_luc);//Movp°¡ ¾ø´Ù
+	Change_int,	0, Change_cha, Change_end,	Change_mor,	Change_luc);//Movpê°€ ì—†ë‹¤
 
 	EquipItemHitAndDefenceRate(ch,Hit_rate,Defense_rate);//020314 lsw
 
@@ -1489,10 +1489,10 @@ int CItem_Etc::EquipItem(CHARLIST *ch)
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-// ¾ÆÀÌÅÛ ÇØÁ¦½Ã Ä³¸¯ÅÍ ´É·ÂÄ¡ °¨¼Ò Ã¼Å© 
+// ì•„ì´í…œ í•´ì œì‹œ ìºë¦­í„° ëŠ¥ë ¥ì¹˜ ê°ì†Œ ì²´í¬ 
 //
 /////////////////////////////////////////////////////////////////////////////////
-// ¹«±â ÇØÁ¦		// 0206
+// ë¬´ê¸° í•´ì œ		// 0206
 
 //010604 lsw
 int CItem_Weapon::ReleaseItem( CHARLIST *ch )
@@ -1516,7 +1516,7 @@ int CItem_Disposable::ReleaseItem( CHARLIST *ch )		// 010605_2 YGI
 }
 
 //#####################################################
-// °©¿Ê ¹æÆĞ ÇØÁ¦
+// ê°‘ì˜· ë°©íŒ¨ í•´ì œ
 ////010604 lsw
 int CItem_Armor::ReleaseItem( CHARLIST *ch )
 {
@@ -1532,7 +1532,7 @@ int CItem_Armor::ReleaseItem( CHARLIST *ch )
 }
 
 //#####################################################
-// ¾Ç¼¼»ç¸® ÇØÁ¦
+// ì•…ì„¸ì‚¬ë¦¬ í•´ì œ
 ////010604 lsw
 int CItem_Accessory::ReleaseItem(CHARLIST *ch )
 {
@@ -1550,7 +1550,7 @@ int CItem_Accessory::ReleaseItem(CHARLIST *ch )
 }
 
 //#####################################################
-// ETC ÇØÁ¦
+// ETC í•´ì œ
 ////010604 lsw
 int CItem_Etc::ReleaseItem( CHARLIST *ch )
 {
@@ -1570,13 +1570,13 @@ int CItem_Etc::ReleaseItem( CHARLIST *ch )
 
 //////////////////////////////////////////////////////////////////////////////////
 //																				//
-//	¼³¸í: ItemÀÌ Equip°¡´ÉÇÑÁö checkÇÏ´Â ¸Ş¼Òµåµé								//
-//			³ª¸ÓÁö ¸Ş¼Òµåµéµµ ÄÚµåµéÀº ¸ğµÎ µ¿ÀÏÇÔ.								//
-//			virtual ÇÔ¼öµé														//
+//	ì„¤ëª…: Itemì´ Equipê°€ëŠ¥í•œì§€ checkí•˜ëŠ” ë©”ì†Œë“œë“¤								//
+//			ë‚˜ë¨¸ì§€ ë©”ì†Œë“œë“¤ë„ ì½”ë“œë“¤ì€ ëª¨ë‘ ë™ì¼í•¨.								//
+//			virtual í•¨ìˆ˜ë“¤														//
 //																				//
-//	ÆÄ¶ó¹ÌÅÍ:	char_id; ÀåÂø ÇàÀ§¸¦ ÇÏ´Â ÇØ´ç Ä³¸¯ÅÍÀÇ id(index)				//
-//				cstatus; Ä³¸¯ÅÍÀÇ »óÅÂº¯È­¸¦ Å¬¶óÀÌ¾ğÆ®¿¡ ¾Ë·ÁÁÙ STRUCTURE *	//
-//				source, dest; POS¼³¸í ÂüÁ¶										//
+//	íŒŒë¼ë¯¸í„°:	char_id; ì¥ì°© í–‰ìœ„ë¥¼ í•˜ëŠ” í•´ë‹¹ ìºë¦­í„°ì˜ id(index)				//
+//				cstatus; ìºë¦­í„°ì˜ ìƒíƒœë³€í™”ë¥¼ í´ë¼ì´ì–¸íŠ¸ì— ì•Œë ¤ì¤„ STRUCTURE *	//
+//				source, dest; POSì„¤ëª… ì°¸ì¡°										//
 //																				//
 //////////////////////////////////////////////////////////////////////////////////
 int CItem_Weapon::is_equipable(int char_id, t_chr_status_info *cstatus, POS source, POS dest)
@@ -1598,7 +1598,7 @@ int CItem_Weapon::is_equipable(int char_id, t_chr_status_info *cstatus, POS sour
 				}break;
 			default:
 				{
-					return NOT;		// È°ÀÌ ¾Æ´Ñ°æ¿ì
+					return NOT;		// í™œì´ ì•„ë‹Œê²½ìš°
 				}
 			}
 				
@@ -1613,7 +1613,7 @@ int CItem_Weapon::is_equipable(int char_id, t_chr_status_info *cstatus, POS sour
 					}break;
 				default:
 					{
-						return NOT;// È°ÀÌ±ä ÇÑµ¥ È°ÀÌ¿ÜÀÇ °ÍÀ» µé°í ÀÖ´Â °æ¿ì 
+						return NOT;// í™œì´ê¸´ í•œë° í™œì´ì™¸ì˜ ê²ƒì„ ë“¤ê³  ìˆëŠ” ê²½ìš° 
 					}
 				}
 			}
@@ -1707,7 +1707,7 @@ int CItem_Potion::is_equipable(int char_id, t_chr_status_info *cstatus, POS sour
 {
 	const CHARLIST *ch =CheckServerId(char_id);
 	if( !ch ) {	return 0;}
-	return 0;//Æ÷¼ÇÀº Âø¿ë ±İÁö
+	return 0;//í¬ì…˜ì€ ì°©ìš© ê¸ˆì§€
 }
 
 int CItem_Armor::is_equipable(int char_id, t_chr_status_info *cstatus, POS source, POS dest)
@@ -1715,14 +1715,14 @@ int CItem_Armor::is_equipable(int char_id, t_chr_status_info *cstatus, POS sourc
 	const CHARLIST *ch =CheckServerId(char_id);
 	if( !ch ) {	return 0;}
 
-	if( wear_able != equip_able[dest.p3] )			// À§Ä¡°¡ ¾È ¸ÂÀ» °æ¿ì // 0621 YGI
+	if( wear_able != equip_able[dest.p3] )			// ìœ„ì¹˜ê°€ ì•ˆ ë§ì„ ê²½ìš° // 0621 YGI
 	{
 		if( (wear_able != WEAR_TWO_HAND) ) return NOT;
 		if( ch->equip[WT_SHIELD].item_no ) return NOT;
 		if( dest.p3 != WT_WEAPON ) return NOT;
 	}
 	
-	if( wear_able == WEAR_LEFT_HAND )						// ¾ç¼Õ°ËÀ» »ç¿ëÇÒ¶§ ¹æÆĞ¸¦ Âø¿ëÇÏ¸é...
+	if( wear_able == WEAR_LEFT_HAND )						// ì–‘ì†ê²€ì„ ì‚¬ìš©í• ë•Œ ë°©íŒ¨ë¥¼ ì°©ìš©í•˜ë©´...
 	{
 		CItem *t = ItemUnit( ch->equip[0] );
 		if( t && t->GetWearAble() == WEAR_TWO_HAND ) return NOT;
@@ -1757,11 +1757,11 @@ int CItem_Disposable::is_equipable(int char_id, t_chr_status_info *cstatus, POS 
 	const CHARLIST *ch =CheckServerId(char_id);
 	if( !ch ) {	return 0;}
 
-	if( wear_able != equip_able[dest.p3] )// À§Ä¡°¡ ¾È ¸ÂÀ» °æ¿ì // 0621 YGI
+	if( wear_able != equip_able[dest.p3] )// ìœ„ì¹˜ê°€ ì•ˆ ë§ì„ ê²½ìš° // 0621 YGI
 	{
-		if( (wear_able != WEAR_TWO_HAND) ) return NOT;		// ¾ç¼Õ¹«±â°¡ ¾Æ´Ò¶§
-		if( ch->equip[WT_SHIELD].item_no ) return NOT;		// ¹æÆĞÀÚ¸®¿¡ ¹º°¡ ÀÖ´Ù¸é
-		if( dest.p3 != WT_WEAPON ) return NOT;				// À§Ä¡°¡ ¹«±â ÀÚ¸®°¡ ¾Æ´Ï¸é NOT¸¦ ¸®ÅÏ
+		if( (wear_able != WEAR_TWO_HAND) ) return NOT;		// ì–‘ì†ë¬´ê¸°ê°€ ì•„ë‹ë•Œ
+		if( ch->equip[WT_SHIELD].item_no ) return NOT;		// ë°©íŒ¨ìë¦¬ì— ë­”ê°€ ìˆë‹¤ë©´
+		if( dest.p3 != WT_WEAPON ) return NOT;				// ìœ„ì¹˜ê°€ ë¬´ê¸° ìë¦¬ê°€ ì•„ë‹ˆë©´ NOTë¥¼ ë¦¬í„´
 	}
 	else 
 	{
@@ -1780,13 +1780,13 @@ int CItem_Disposable::is_equipable(int char_id, t_chr_status_info *cstatus, POS 
 					}break;
 				default:
 					{
-						return NOT;		// È°ÀÌ ¾Æ´Ñ°æ¿ì
+						return NOT;		// í™œì´ ì•„ë‹Œê²½ìš°
 					}
 				}
 			}
 			else
 			{
-				return NOT;		// È°ÀÌ ¾Æ´Ñ°æ¿ì
+				return NOT;		// í™œì´ ì•„ë‹Œê²½ìš°
 			}
 		}
 	}
@@ -1802,7 +1802,7 @@ int CItem_Disposable::is_equipable(int char_id, t_chr_status_info *cstatus, POS 
 	if(!IsEquipAbleCheckWisInt	(Need3_wis	, Need3_int, ch->GetAbility(WIS),ch->GetAbility(INT_)) ){return 0;}
 	if(!IsEquipAbleCheckWsPs	(Need3_ws	, Need3_ps, ch->GetAbility(WSPS), ch->Spell) ){return 0;}
 	if(!IsEquipAbleCheckGender	(Need3_gender, ch->Gender) )		{return 0;}
-//	if(!IsEquipAbleCheckAbleDay	(Repair_Skill2_min,Repair_Res1) ){return 0;}//DisPosableÀº Repair_Skill2_min¾ø´Ù
+//	if(!IsEquipAbleCheckAbleDay	(Repair_Skill2_min,Repair_Res1) ){return 0;}//DisPosableì€ Repair_Skill2_minì—†ë‹¤
 //	if(!IsEquipAbleCheckNation(Imunity_Cure_4, ch))		{return 0;}
 //	if(!IsEquipAbleCheckLv(Imunity_Cure_5, ch))			{return 0;}
 //	if(!IsEquipAbleCheckFame(Imunity_Cure_6, ch))		{return 0;}
@@ -1816,7 +1816,7 @@ int CItem_Accessory::is_equipable(int char_id, t_chr_status_info *cstatus, POS s
 	const CHARLIST *ch =CheckServerId(char_id);
 	if( !ch ) {	return 0;}
 
-	if( wear_able != equip_able[dest.p3] ) return NOT;		// À§Ä¡°¡ ¾È ¸ÂÀ» °æ¿ì
+	if( wear_able != equip_able[dest.p3] ) return NOT;		// ìœ„ì¹˜ê°€ ì•ˆ ë§ì„ ê²½ìš°
     if(!IsEquipAbleAbilityCheck	(Need3_str	, ch->GetAbility(STR)))		{return 0;}
 	if(!IsEquipAbleAbilityCheck	(Need3_con	, ch->GetAbility(CON)))		{return 0;}
 	if(!IsEquipAbleAbilityCheck	(Need3_dex	, ch->GetAbility(DEX)))		{return 0;}
@@ -1829,7 +1829,7 @@ int CItem_Accessory::is_equipable(int char_id, t_chr_status_info *cstatus, POS s
 	if(!IsEquipAbleCheckWisInt	(Need3_wis	, Need3_int, ch->GetAbility(WIS),ch->GetAbility(INT_)) ){return 0;}
 	if(!IsEquipAbleCheckWsPs	(Need3_ws	, Need3_ps, ch->GetAbility(WSPS), ch->Spell) ){return 0;}
 	if(!IsEquipAbleCheckGender	(Need3_gender, ch->Gender) )		{return 0;}
-	if(!IsEquipAbleCheckAbleDay	(Repair_Skill2_min,Repair_Res1) ){return 0;}//DisPosableÀº Repair_Skill2_min¾ø´Ù
+	if(!IsEquipAbleCheckAbleDay	(Repair_Skill2_min,Repair_Res1) ){return 0;}//DisPosableì€ Repair_Skill2_minì—†ë‹¤
 	if(!IsEquipAbleCheckNation(Imunity_Cure_4, ch))		{return 0;}
 	if(!IsEquipAbleCheckLv(Imunity_Cure_5, ch))		{return 0;}
 	if(!IsEquipAbleCheckFame(Imunity_Cure_6, ch))		{return 0;}
@@ -1847,7 +1847,7 @@ int CItem_Etc::is_equipable(int char_id, t_chr_status_info *cstatus, POS source,
 	const CHARLIST *ch =CheckServerId(char_id);
 	if( !ch ) {	return 0;}
 
-	if( wear_able != equip_able[dest.p3] ) return NOT;		// À§Ä¡°¡ ¾È ¸ÂÀ» °æ¿ì
+	if( wear_able != equip_able[dest.p3] ) return NOT;		// ìœ„ì¹˜ê°€ ì•ˆ ë§ì„ ê²½ìš°
     if(!IsEquipAbleAbilityCheck	(Need3_str	, ch->GetAbility(STR)))		{return 0;}
 	if(!IsEquipAbleAbilityCheck	(Need3_con	, ch->GetAbility(CON)))		{return 0;}
 	if(!IsEquipAbleAbilityCheck	(Need3_dex	, ch->GetAbility(DEX)))		{return 0;}
@@ -1860,7 +1860,7 @@ int CItem_Etc::is_equipable(int char_id, t_chr_status_info *cstatus, POS source,
 	if(!IsEquipAbleCheckWisInt	(Need3_wis	, Need3_int, ch->GetAbility(WIS),ch->GetAbility(INT_)) ){return 0;}
 	if(!IsEquipAbleCheckWsPs	(Need3_ws	, Need3_ps, ch->GetAbility(WSPS), ch->Spell) ){return 0;}
 	if(!IsEquipAbleCheckGender	(Need3_gender, ch->Gender) )		{return 0;}
-	if(!IsEquipAbleCheckAbleDay	(Repair_Skill2_min,Repair_Res1) ){return 0;}//DisPosableÀº Repair_Skill2_min¾ø´Ù
+	if(!IsEquipAbleCheckAbleDay	(Repair_Skill2_min,Repair_Res1) ){return 0;}//DisPosableì€ Repair_Skill2_minì—†ë‹¤
 	if(!IsEquipAbleCheckNation(Imunity_Cure_4, ch))		{return 0;}
 	if(!IsEquipAbleCheckLv(Imunity_Cure_5, ch))		{return 0;}
 	if(!IsEquipAbleCheckFame(Imunity_Cure_6, ch))		{return 0;}

@@ -1,4 +1,4 @@
-// RaidManager.h: interface for the CRaidManager class.
+﻿// RaidManager.h: interface for the CRaidManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

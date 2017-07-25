@@ -1,4 +1,4 @@
-#include "dungeon.h"
+ï»¿#include "dungeon.h"
 
 
 #ifndef __EVENTMGR_H__
@@ -6,7 +6,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 #define MAX_SCRIPT_ITEM	15
-class CEventScriptItemBag		// npc°¡ ³ª´²ÁÙ ¾ÆÀÌÅÛ °¡¹æ, CEventMgr¿¡¼­ »ç¿ëÇÑ´Ù.
+class CEventScriptItemBag		// npcê°€ ë‚˜ëˆ ì¤„ ì•„ì´í…œ ê°€ë°©, CEventMgrì—ì„œ ì‚¬ìš©í•œë‹¤.
 {
 public :
 	int m_nBagNumber;
@@ -70,17 +70,17 @@ public :
 	virtual void RunEvent() { return; }
 };
 
-class CEventNpcItem	: public CEventTime		// ¾ÆÀÌÅÛÀ» Ãß°¡·Î ¶³¾î¶ß·Á ÁØ´Ù.
+class CEventNpcItem	: public CEventTime		// ì•„ì´í…œì„ ì¶”ê°€ë¡œ ë–¨ì–´ëœ¨ë ¤ ì¤€ë‹¤.
 {
 public :
-	int m_nNpcNo;			// ¾ÆÀÌÅÛÀ» ¶³±¼ ¸ó½ºÅÍ ¹øÈ£
-	int m_nPercent;			// ¾ÆÀÌÅÛÀ» ¶³¾î ¶ß¸± È®·ü
-	int m_nMax;				// ÃÑ ÀÌº¥Æ® ¾ÆÀÌÅÛ ( ÀÌ ÀÌ»ó ¾ÆÀÌÅÛÀÌ ³ª¿À¸é ¾ÈµÈ´Ù.
+	int m_nNpcNo;			// ì•„ì´í…œì„ ë–¨êµ´ ëª¬ìŠ¤í„° ë²ˆí˜¸
+	int m_nPercent;			// ì•„ì´í…œì„ ë–¨ì–´ ëœ¨ë¦´ í™•ë¥ 
+	int m_nMax;				// ì´ ì´ë²¤íŠ¸ ì•„ì´í…œ ( ì´ ì´ìƒ ì•„ì´í…œì´ ë‚˜ì˜¤ë©´ ì•ˆëœë‹¤.
 	int m_nItemNo;
 	int m_nItemMutant;
 	int m_nItemGrade;
 
-	int m_nAmount;		// ÇöÀç±îÁö µîÀåÇÑ ¾ÆÀÌÅÛ ¼ö
+	int m_nAmount;		// í˜„ì¬ê¹Œì§€ ë“±ì¥í•œ ì•„ì´í…œ ìˆ˜
 
 public :
 	CEventNpcItem()
@@ -98,7 +98,7 @@ public :
 };
 
 
-class CEventNpcCreate : public CEventTime	// ÀÌº¥Æ®¿ë npc¸¦ »ı¼º½ÃÅ²´Ù.
+class CEventNpcCreate : public CEventTime	// ì´ë²¤íŠ¸ìš© npcë¥¼ ìƒì„±ì‹œí‚¨ë‹¤.
 {
 public :
 	int m_nMapX;
@@ -106,14 +106,14 @@ public :
 	int m_nNpcNo;
 	int m_nNpcScriptNo;
 	int m_nNpcMany;
-	int m_nRegen;			// ¸®Á¨ÇÒ ÃÑ È½¼ö --> ÀÏ´Ü ¸®Á¨ ÇÏ³Ä ¾ÈÇÏ³Ä¸¸ ³²°ÜµĞ´Ù.
-	//int m_nRegenCount;		// ÇöÀç±îÁö ¸®Á¨µÈ Ä«¿îÆ®
+	int m_nRegen;			// ë¦¬ì  í•  ì´ íšŸìˆ˜ --> ì¼ë‹¨ ë¦¬ì   í•˜ëƒ ì•ˆí•˜ëƒë§Œ ë‚¨ê²¨ë‘”ë‹¤.
+	//int m_nRegenCount;		// í˜„ì¬ê¹Œì§€ ë¦¬ì  ëœ ì¹´ìš´íŠ¸
 	int m_nRegenTime;
 
 	int m_nFirst;
-	bool m_bAlive;			// »ì¾Æ ÀÖ´ÂÁö Á×¾ú´ÂÁö
-	int m_nDeadTime;		// Á×Àº °æ°ú ½Ã°£
-	int m_nNpcIndex;		// »ı¼ºµÈ ÀÎµ¦½º... ÀÌº¥Æ®°¡ ³¡³ª¸é Áö¿öÁØ´Ù.
+	bool m_bAlive;			// ì‚´ì•„ ìˆëŠ”ì§€ ì£½ì—ˆëŠ”ì§€
+	int m_nDeadTime;		// ì£½ì€ ê²½ê³¼ ì‹œê°„
+	int m_nNpcIndex;		// ìƒì„±ëœ ì¸ë±ìŠ¤... ì´ë²¤íŠ¸ê°€ ëë‚˜ë©´ ì§€ì›Œì¤€ë‹¤.
 
 public :
 	CEventNpcCreate()
@@ -127,7 +127,7 @@ public :
 		m_nRegenTime = 0;
 		m_nDeadTime = 0;
 		m_bAlive = 0;
-		m_nFirst = 1;		// ¸ÇÃ³À½À¸·Î ¸¸µå´Â °Å³Ä?
+		m_nFirst = 1;		// ë§¨ì²˜ìŒìœ¼ë¡œ ë§Œë“œëŠ” ê±°ëƒ?
 		m_nNpcIndex = 0;
 	}
 	~CEventNpcCreate()
@@ -144,7 +144,7 @@ public :
 };
 
 
-class CEventObject: public CEventTime	// ÀÌº¥Æ® ¸Ê
+class CEventObject: public CEventTime	// ì´ë²¤íŠ¸ ë§µ
 {
 public :
 	static enum 
@@ -166,7 +166,7 @@ public :
 };
 
 
-class CEventSound: public CEventTime	// ÀÌº¥Æ® ¸Ê
+class CEventSound: public CEventTime	// ì´ë²¤íŠ¸ ë§µ
 {
 public :
 	static enum 
@@ -186,12 +186,12 @@ public :
 class CEventMessage : public CEventTime
 {
 public :
-	int m_bAll;				// Á¶°Ç
-	int m_nNation;			// ±¹°¡ Á¶°Ç
-	int m_nTime;			// ¸Ş½ÃÁö ÁÖ±â
-	char *m_lpszMessage;	// º¸³¾ ¸Ş¼¼Áö
+	int m_bAll;				// ì¡°ê±´
+	int m_nNation;			// êµ­ê°€ ì¡°ê±´
+	int m_nTime;			// ë©”ì‹œì§€ ì£¼ê¸°
+	char *m_lpszMessage;	// ë³´ë‚¼ ë©”ì„¸ì§€
 	int m_nMessageSize;
-	DWORD m_nLastTime;		// ¸¶Áö¸·À¸·Î ¸Ş¼¼Áö º¸³½ ½Ã°£
+	DWORD m_nLastTime;		// ë§ˆì§€ë§‰ìœ¼ë¡œ ë©”ì„¸ì§€ ë³´ë‚¸ ì‹œê°„
 
 public :
 	CEventMessage()
@@ -225,18 +225,18 @@ public :
 };
 
 
-class CEventNpcScript : public CEventTime		// ½ºÅ©¸³Æ®¸¦ ÅëÇÑ ¾ÆÀÌÅÛ ¹Ş±â
+class CEventNpcScript : public CEventTime		// ìŠ¤í¬ë¦½íŠ¸ë¥¼ í†µí•œ ì•„ì´í…œ ë°›ê¸°
 {
 public :
 	int m_nScriptNo;
-	int m_nNumber;				// ÇÑ °èÁ¤´ç ÇÑ°³ÀÎÁö ¾Æ´ÑÁö..
-	int m_nEventNpcItemBag;		// Á¦°øÇÒ ¾ÆÀÌÅÛ Å×ÀÌºí ¹øÈ£
+	int m_nNumber;				// í•œ ê³„ì •ë‹¹ í•œê°œì¸ì§€ ì•„ë‹Œì§€..
+	int m_nEventNpcItemBag;		// ì œê³µí•  ì•„ì´í…œ í…Œì´ë¸” ë²ˆí˜¸
 
 	int m_nMessageSize;			
 	int m_nMessageSize2;
 
-	char *m_lpszMessage;		// NPC°¡ ÇØ¾ß ÇÏ´Â ¸»
-	char *m_lpszMessage2;		// ¾ÆÀÌÅÛÀ» ¸ø ÁÙ¶§ npc°¡ ÇØ¾ß ÇÒ ¸»
+	char *m_lpszMessage;		// NPCê°€ í•´ì•¼ í•˜ëŠ” ë§
+	char *m_lpszMessage2;		// ì•„ì´í…œì„ ëª» ì¤„ë•Œ npcê°€ í•´ì•¼ í•  ë§
 
 public :
 	CEventNpcScript()
@@ -273,10 +273,10 @@ public :
 		strcpy( m_lpszMessage2, msg );
 		m_nMessageSize2 = size;
 	}
-	int CheckEvent( int npc_index, short int cn );		// ÇØ´ç ½ºÅ©¸³Æ® ¹øÈ£¸¦ °¡Áö°í Ã¼Å©ÇÑ´Ù.	
+	int CheckEvent( int npc_index, short int cn );		// í•´ë‹¹ ìŠ¤í¬ë¦½íŠ¸ ë²ˆí˜¸ë¥¼ ê°€ì§€ê³  ì²´í¬í•œë‹¤.	
 };
 
-class CEventMoveMap	: public CEventTime		// ÀÌº¥Æ® ¸ÊÀ¸·Î ÀÌµ¿
+class CEventMoveMap	: public CEventTime		// ì´ë²¤íŠ¸ ë§µìœ¼ë¡œ ì´ë™
 {
 public :
 	int m_bAll;
@@ -370,7 +370,7 @@ public :
 	{
 		return &m_pEvent[index];
 	}
-	T1 *GetActiveEvent()		// ¸ÇÃ³À½ ¾×Æ¼ºê µÈ Æ÷ÀÎÆ®¸¦ ¾ò¾î ¿Â´Ù.
+	T1 *GetActiveEvent()		// ë§¨ì²˜ìŒ ì•¡í‹°ë¸Œ ëœ í¬ì¸íŠ¸ë¥¼ ì–»ì–´ ì˜¨ë‹¤.
 	{
 		if( !IsActive() ) return 0;
 		m_listActive.SetFind();
@@ -418,7 +418,7 @@ public :
 	}
 	~CEventMgr()
 	{
-		SAFE_DELETE_ARRAY(m_pItemBag);	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷ ¸Ş¸ğ¸®¸¯
+		SAFE_DELETE_ARRAY(m_pItemBag);	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—… ë©”ëª¨ë¦¬ë¦­
 	}
 	
 	int LoadNpcItem();
@@ -450,7 +450,7 @@ public :
 	void *GetActiveEvent( int type );
 	int CheckScriptNo( int item_index, short int cn );
 
-	// ¾ÆÀÌÅÛ °¡¹æ¿¡ °ü·ÃµÈ ÇÔ¼öµé
+	// ì•„ì´í…œ ê°€ë°©ì— ê´€ë ¨ëœ í•¨ìˆ˜ë“¤
 	void SetItemBagCount( int count )
 	{
 		if( m_pItemBag ) delete [] m_pItemBag;
@@ -488,7 +488,7 @@ public :
 class CLightVersion
 {
 public :
-	// ¸Ê ÀÌµ¿ °ü·Ã	// ¸Ê°ü·ÃÀº ¼­¹ö·Î ¿Å±ä´Ù.
+	// ë§µ ì´ë™ ê´€ë ¨	// ë§µê´€ë ¨ì€ ì„œë²„ë¡œ ì˜®ê¸´ë‹¤.
 	string *m_szlpMap;
 	int m_nCount;
 
@@ -514,10 +514,10 @@ public :
 
 ///////////////////////////////////////////////////////////////////////////
 // 030624 YGI
-class CEventFlagMgr		// ÀÌº¥Æ® °ü·Ã ÇÃ·¹±×µé
+class CEventFlagMgr		// ì´ë²¤íŠ¸ ê´€ë ¨ í”Œë ˆê·¸ë“¤
 {
 public : 
-	bool m_bMoveMapWhenDie;		// Á×À» °æ¿ì ¹Ù±ùÀ¸·Î ÆÃ±ä´Ù.
+	bool m_bMoveMapWhenDie;		// ì£½ì„ ê²½ìš° ë°”ê¹¥ìœ¼ë¡œ íŒ…ê¸´ë‹¤.
 	bool m_bSaveLogAboutSaveUserData;	// 030919 HK YGI
 
 public :
@@ -541,7 +541,7 @@ public :
 		return m_bSaveLogAboutSaveUserData;
 	}
 };
-/* 040720_KJHuNs °°ÀºÇì´õ¿¡ Áßº¹¼±¾ğµÇ¾î ÀÖ´Ù.
+/* 040720_KJHuNs ê°™ì€í—¤ë”ì— ì¤‘ë³µì„ ì–¸ë˜ì–´ ìˆë‹¤.
 extern CEventFlagMgr g_EventFlagMgr;
 */
 
@@ -556,11 +556,11 @@ extern int SendEventNpcScriptItem( short int cn, int npc_index, int bag_num, cha
 extern bool CheckContinueLine( char check );
 
 ///////////////////////////////////////////////////////////////////////////
-// 040105 YGI º¸¹°
+// 040105 YGI ë³´ë¬¼
 class CEventFindTreasure
 {
-	POINTS *m_pXY;		// º¸¹° ÁÂÇ¥
-	int m_nXYCount;		// ¼ö·®
+	POINTS *m_pXY;		// ë³´ë¬¼ ì¢Œí‘œ
+	int m_nXYCount;		// ìˆ˜ëŸ‰
 
 public :
 	CEventFindTreasure()
@@ -593,11 +593,11 @@ public :
 		m_pXY[index].y = y;
 		return true;
 	}
-	int IsEvent()		// ÀÌº¥Æ® ÁßÀÎ°¡?
+	int IsEvent()		// ì´ë²¤íŠ¸ ì¤‘ì¸ê°€?
 	{
 		return m_nXYCount;
 	}
-	int CheckXY( int x, int y )		// º¸¹°ÀÌ ¹¯Èù°÷ÀÎ°¡?
+	int CheckXY( int x, int y )		// ë³´ë¬¼ì´ ë¬»íŒê³³ì¸ê°€?
 	{
 		if( !IsEvent() ) return -1;
 		for( int i=0; i<m_nXYCount; i++ )
@@ -611,7 +611,7 @@ public :
 	}
 };
 
-class CTreasureGuardTBL		// µîÀåÇØ¾ß ÇÏ´Â ¸ó½ºÅÍ
+class CTreasureGuardTBL		// ë“±ì¥í•´ì•¼ í•˜ëŠ” ëª¬ìŠ¤í„°
 {
 public :
 	int *m_pNpcNo;
@@ -655,17 +655,17 @@ public :
 
 enum TREASURE_MAP_ITEM
 {
-	LOW_LEVEL_MAP = 10276, // ÃÊ±Ş Áöµµ
+	LOW_LEVEL_MAP = 10276, // ì´ˆê¸‰ ì§€ë„
 	MIDDLE_LEVEL_MAP = 10277,
 	HIGH_LEVEL_MAP = 10278,
 	UNKNOWN_MAP = 10279,
-	TREASURE_BOX = 10280,	// º¸¹°»óÀÚ
+	TREASURE_BOX = 10280,	// ë³´ë¬¼ìƒì
 };
 
 class CTreasureGuardMgr
 {
 public :
-	typedef map< int, POINTS > MAP_GUARD;	// points.x --> º¸¹° µî±Ş, points.y --> ÃÑ ¸ó½ºÅÍ ¼ö
+	typedef map< int, POINTS > MAP_GUARD;	// points.x --> ë³´ë¬¼ ë“±ê¸‰, points.y --> ì´ ëª¬ìŠ¤í„° ìˆ˜
 	typedef MAP_GUARD::iterator ITOR_MAP_GUARD;
 
 	MAP_GUARD m_Data;
@@ -676,7 +676,7 @@ public :
 	{
 		m_Data.clear();
 	}
-	bool IsEvent( int index )		// ÀÌº¥Æ® ÁøÇà ÁßÀÎ°¡?
+	bool IsEvent( int index )		// ì´ë²¤íŠ¸ ì§„í–‰ ì¤‘ì¸ê°€?
 	{
 		ITOR_MAP_GUARD itor = m_Data.find(index);
 		if (itor != m_Data.end())

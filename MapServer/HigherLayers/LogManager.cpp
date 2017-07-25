@@ -1,19 +1,19 @@
-// LogManager.cpp: implementation of the CLogManager class.
+ï»¿// LogManager.cpp: implementation of the CLogManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "..\stdafx.h"
 #include "LogManager.h"
 
-#include "eventmgr.h" //040720_KJHuNs g_EventFlagMgr»ç¿ëÇÏ±â À§ÇÔ.
+#include "eventmgr.h" //040720_KJHuNs g_EventFlagMgrì‚¬ìš©í•˜ê¸° ìœ„í•¨.
 
 #include <direct.h>
 
-//Ìì»ú
+//è–ìƒ™
 #define BEGIN_SELECT(e) switch (e) {
 #define CASE_SELECT(e)  case(e): return CS(e);
 #define END_SELECT(e)   } return CS(e);
-//040715_KJHuNs SaveLogBattle_Ballancing, Ballancing2¿¡¼­ »ç¿ëÇÏ±â À§ÇÔ.
+//040715_KJHuNs SaveLogBattle_Ballancing, Ballancing2ì—ì„œ ì‚¬ìš©í•˜ê¸° ìœ„í•¨.
 #include "CItem.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ CLogManager::~CLogManager()
 ///////////////////////////////////////////////////////////////////////////////
 
 void CLogManager::CreateMainPath(const char* pPath)
-{	// ±âº» µğ·ºÅä¸® »ı¼º
+{	// ê¸°ë³¸ ë””ë ‰í† ë¦¬ ìƒì„±
 	mkdir(pPath);
 
 	time_t nowTime;
@@ -44,7 +44,7 @@ void CLogManager::CreateMainPath(const char* pPath)
 	tm* pNow = localtime(&nowTime);
 	const int nYear = pNow->tm_year + 1900;
 	const int nMon = pNow->tm_mon + 1;
-	// ¿ùº° µğ·ºÅä¸® »ı¼º
+	// ì›”ë³„ ë””ë ‰í† ë¦¬ ìƒì„±
 	char szBuffer[MAX_PATH];
 	memset(szBuffer, 0, MAX_PATH);
 	sprintf(szBuffer,"%s\\%04d_%02d", pPath, nYear, nMon);
@@ -63,7 +63,7 @@ void CLogManager::CreateSubPath(int nType, const char* pPath)
 	m_mpBuffer.insert(PAIR_LOG(nType, strTemp));
 }
 
-//< 040715_KJHuNs Root Æú´õ ÀúÀå
+//< 040715_KJHuNs Root í´ë” ì €ì¥
 void CLogManager::SaveLogRoot_DeadEventNpc(CHARLIST* pTarget)
 {	//< CSD-031013
 	string strPath;
@@ -90,7 +90,7 @@ void CLogManager::SaveLogRoot_DeadEventNpc(CHARLIST* pTarget)
 	fclose(pFile);
 }	//> CSD-031013
 
-// 040715_KJHuNs Menuserver.cpp ÀÇ GambleLogÇÔ¼ö¸¦ ¿©±â·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+// 040715_KJHuNs Menuserver.cpp ì˜ GambleLogí•¨ìˆ˜ë¥¼ ì—¬ê¸°ë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 void CLogManager::SaveLogRoot_GambleLogFile( CHARLIST *ch, int house, int class_type,
 											int user_count, ItemAttr *item, int resource_type, 
 											int lv_band )
@@ -114,7 +114,7 @@ void CLogManager::SaveLogRoot_GambleLogFile( CHARLIST *ch, int house, int class_
 	fclose( fp );
 }
 
-// 040715_KJHuNs Op_Battle.cpp ÀÇ pk·çÆ¾À» ¿©±â·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+// 040715_KJHuNs Op_Battle.cpp ì˜ pkë£¨í‹´ì„ ì—¬ê¸°ë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 void CLogManager::SaveLogRoot_PK(LPTSTR lpMsg)
 {
 	// 030506 YGI
@@ -129,9 +129,9 @@ void CLogManager::SaveLogRoot_PK(LPTSTR lpMsg)
 
 	}	//> CSD-TW-030701
 }
-//> 040715_KJHuNs Root Æú´õ ÀúÀå
+//> 040715_KJHuNs Root í´ë” ì €ì¥
 
-//< 040715_KJHuNs AccelaterÆú´õ¿¡ ÀúÀå
+//< 040715_KJHuNs Accelaterí´ë”ì— ì €ì¥
 void CLogManager::SaveLogAccelater(CHARLIST* pTarget, const char* pType, const int cn)
 {	//< CSD-030808
 	string strPath;
@@ -142,7 +142,7 @@ void CLogManager::SaveLogAccelater(CHARLIST* pTarget, const char* pType, const i
 	}
 	//< CSD-040224
 
-	//050328_KCH Ä³¸¯¸íÀ¸·Î¸¸ ³²À¸´Ï±î, ¹®Á¦°¡ »ı°Ü¼­, ·Î±×°¡ ³Ê¹« ¸¹ÀÌ »ı°Ü¼­ ÇØ´ç ³¯Â¥º°·Î ³²°ÔÇÔ.
+	//050328_KCH ìºë¦­ëª…ìœ¼ë¡œë§Œ ë‚¨ìœ¼ë‹ˆê¹Œ, ë¬¸ì œê°€ ìƒê²¨ì„œ, ë¡œê·¸ê°€ ë„ˆë¬´ ë§ì´ ìƒê²¨ì„œ í•´ë‹¹ ë‚ ì§œë³„ë¡œ ë‚¨ê²Œí•¨.
 //	FILE* pFile = fopen(VA("%s/%s.txt", strPath.c_str(), pTarget->Name), "at+");
 	FILE* pFile = fopen(VA("%s/%02d_%02d_%02d.txt", strPath.c_str(), g_year-2000, g_mon + 1, g_day), "at+");
 	Dbg_Assert(NULL != pFile);
@@ -170,14 +170,14 @@ void CLogManager::SaveLogAccelater(CHARLIST* pTarget, const char* pType, const i
 	}
 	fclose(pFile);
 }	//> CSD-030808
-//> 040715_KJHuNs AccelaterÆú´õ¿¡ ÀúÀå
+//> 040715_KJHuNs Accelaterí´ë”ì— ì €ì¥
 
-//< 040715_KJHuNs AuctionÆú´õ¿¡ ÀúÀå
-//<! BBD 040226	¿Á¼Ç·Î±×¸¦ À§ÇØ»ı¼ºÇÑ ÇÔ¼ö
+//< 040715_KJHuNs Auctioní´ë”ì— ì €ì¥
+//<! BBD 040226	ì˜¥ì…˜ë¡œê·¸ë¥¼ ìœ„í•´ìƒì„±í•œ í•¨ìˆ˜
 void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 {
 
-	// ·Î±× Å¸ÀÔ ºĞ·ù
+	// ë¡œê·¸ íƒ€ì… ë¶„ë¥˜
 	char szType[64];
 	switch(type)
 	{
@@ -197,7 +197,7 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 		return;
 	}
 
-	// Å¸ÀÔÀÌ Á¤»óÀÓ
+	// íƒ€ì…ì´ ì •ìƒì„
 	string strPath;
 
 	if (!GetLogPath(LT_AUCTION, strPath))
@@ -205,7 +205,7 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 		return;
 	}
 
-	// °æ·Î¿¡ ÆÄÀÏÀ» ¿¬´Ù
+	// ê²½ë¡œì— íŒŒì¼ì„ ì—°ë‹¤
 	const char* pPath = VA("%s\\AuctionLog_%02d_%02d_%02d.txt", strPath.c_str(), g_year-2000, g_mon + 1, g_day);
 	FILE* pFile = fopen(pPath, "at+");
 	
@@ -215,10 +215,10 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 	}
 
 
-	//·Î±×¸¦ ÇÑÁÙ¾¿ ³²±ä´Ù
+	//ë¡œê·¸ë¥¼ í•œì¤„ì”© ë‚¨ê¸´ë‹¤
 	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]\t", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 
-	// ÁöÀúºĞÇÏ´Ï±ñ ¿©±â¼­ ¹Ş¾Æ¿ÀÀÚ
+	// ì§€ì €ë¶„í•˜ë‹ˆê¹ ì—¬ê¸°ì„œ ë°›ì•„ì˜¤ì
 	char * Seller = pRecordInfo->szSellerName;
 	char * Buyer = pRecordInfo->szName;
 	int money = pRecordInfo->dwSellValue;
@@ -226,20 +226,20 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 	int limit = pRecordInfo->SellItem.attr[1];
 	RareMain *pRare = (RareMain *)&(pRecordInfo->SellItem.attr[3]);
 
-	// º»°İÀûÀ¸·Î ·Î±×¸¦ ³²°Üº¸ÀÚ
+	// ë³¸ê²©ì ìœ¼ë¡œ ë¡œê·¸ë¥¼ ë‚¨ê²¨ë³´ì
 	fprintf(pFile, "Type:%s\tSeller:%s\tBuyer:%s\tMoney:%d\tItemNo:%d\tLimit:%d\tGrade:%d\tSok1:%d\tSok2:%d\tSok3:%d\tHigh:%d\tDynamic:%d\t\n",
 		szType, Seller, Buyer, money, item_no, limit, pRare->grade, pRare->soksung1, pRare->soksung2, pRare->soksung3, pRare->iHighLevel, pRare->IsDynamicRare);
 
 	fclose(pFile);
 }
-//> BBD 040226	¿Á¼Ç·Î±×¸¦ À§ÇØ»ı¼ºÇÑ ÇÔ¼ö
-//> 040715_KJHuNs AuctionÆú´õ¿¡ ÀúÀå
+//> BBD 040226	ì˜¥ì…˜ë¡œê·¸ë¥¼ ìœ„í•´ìƒì„±í•œ í•¨ìˆ˜
+//> 040715_KJHuNs Auctioní´ë”ì— ì €ì¥
 
-//< 040715_KJHuNs BattleÆú´õ¿¡ ÀúÀå
+//< 040715_KJHuNs Battleí´ë”ì— ì €ì¥
 void SaveBallancing2( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int mana, int attack, int attacktype, int tac  )
 {   //< CSD-030324
 	if(a->IsNpc()){return;}
-	if( a->balancingtest/20  == (a->balancingtest-1)/20)//20 ¹ø¿¡ ÇÑ¹ø
+	if( a->balancingtest/20  == (a->balancingtest-1)/20)//20 ë²ˆì— í•œë²ˆ
 	{
 		return;
 	}
@@ -311,7 +311,7 @@ void SaveBallancing2( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int m
 
 		switch( itemkind )
 		{			
-			//	Àå°Å¸® ¹«±â....
+			//	ì¥ê±°ë¦¬ ë¬´ê¸°....
 		case IK_DUAL_BOW:		at = "DUAL_BOW";	break;//030102 lsw Dual BOW
 		case IK_SHORT_BOW	:	at = "SHORT_BOW";	break;
 		case IK_TWO_ARROW	:	at = "TWO_ARROW";	break;
@@ -319,9 +319,9 @@ void SaveBallancing2( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int m
 		case IK_LONG_BOW	:	at = "LONG_BOW";	break;
 		case IK_ARROW_POINT	:	at = "ARROW_POINT";	break;
 		case IK_FEATHER		:	at = "FEATHER";	break;
-			// ÁßÀå°Å¸®.. 
+			// ì¤‘ì¥ê±°ë¦¬.. 
 		case IK_HURL		:	at = "THROWING WEAPON"; break;
-			//	´Ü°Å¸®¹«±â..
+			//	ë‹¨ê±°ë¦¬ë¬´ê¸°..
 		default             :   at = "MELEE WEAPON";    break;
 		}			
 		
@@ -344,7 +344,7 @@ void SaveBallancing2( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int m
 		fprintf( fp, " AttackType :    %s      \n",    at );
 	}
 //	
-	const int iTacKind = a->GetTacticsKind();// == SKILL_UNKNOWN ÀÌ¸é ±â·Ï ÇÏ¸é ¾ÈµÇÁö.
+	const int iTacKind = a->GetTacticsKind();// == SKILL_UNKNOWN ì´ë©´ ê¸°ë¡ í•˜ë©´ ì•ˆë˜ì§€.
 	switch(iTacKind)
 	{
 	case TACTICS_Crapple						:
@@ -429,7 +429,7 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 		return;
 	}
 
-	//char temp[ FILENAME_MAX];	// LTH-040227-KO »ç¿ëµÇÁö ¾Ê¾Æ¼­ »èÁ¦
+	//char temp[ FILENAME_MAX];	// LTH-040227-KO ì‚¬ìš©ë˜ì§€ ì•Šì•„ì„œ ì‚­ì œ
 	a->balancingtest --;
 	if( a->balancingtest > 0 )
 	{
@@ -487,7 +487,7 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 		fprintf( fp, " Luck  %3d    ->  Luck  %3d                                   \n",    a->Luck , d->Luck ); 
 		fprintf( fp, " wsps  %3d    ->  wsps  %3d                                   \n",    a->wsps , d->wsps ); 
 		
-		fprintf( fp, "¹æ¾îÀÚÀÇ ¸¶¹ıÀúÇ×Ä¡ \n" );
+		fprintf( fp, "ë°©ì–´ìì˜ ë§ˆë²•ì €í•­ì¹˜ \n" );
 		fprintf(fp, "Resist Poison  %3d\n", d->GetBasicResist(RT_POISON));//030227 lsw
 		fprintf(fp, "Resist Curse   %3d\n", d->GetBasicResist(RT_CURSE));
 		fprintf(fp, "Resist Fire    %3d\n", d->GetBasicResist(RT_FIRE));
@@ -513,7 +513,7 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 		
 		switch( itemkind )
 		{			
-			//	Àå°Å¸® ¹«±â....
+			//	ì¥ê±°ë¦¬ ë¬´ê¸°....
 		case IK_DUAL_BOW:		at = "DUAL_BOW";	break;//030102 lsw Dual BOW
 		case IK_SHORT_BOW	:	at = "SHORT_BOW";	break;
 		case IK_TWO_ARROW	:	at = "TWO_ARROW";	break;
@@ -521,9 +521,9 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 		case IK_LONG_BOW	:	at = "LONG_BOW";	break;
 		case IK_ARROW_POINT	:	at = "ARROW_POINT";	break;
 		case IK_FEATHER		:	at = "FEATHER";	break;
-			// ÁßÀå°Å¸®.. 
+			// ì¤‘ì¥ê±°ë¦¬.. 
 		case IK_HURL		:	at = "THROWING WEAPON"; break;
-			//	´Ü°Å¸®¹«±â..
+			//	ë‹¨ê±°ë¦¬ë¬´ê¸°..
 		default             :   at = "MELEE WEAPON";    break;
 		}			
 		
@@ -584,9 +584,9 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 	fprintf(fp, "\n");
 	fclose(fp);
 }	//> CSD-TW-030622
-//> 040715_KJHuNs BattleÆú´õ¿¡ ÀúÀå
+//> 040715_KJHuNs Battleí´ë”ì— ì €ì¥
 
-//< 040715_KJHuNs ChangeÆú´õ¿¡ ÀúÀå
+//< 040715_KJHuNs Changeí´ë”ì— ì €ì¥
 void CLogManager::SaveLogChange_BankMoney(const int idTarget, 
 											const DWORD nOldBankMoney, 
 											const DWORD nNewBankMoney ,
@@ -829,18 +829,18 @@ void CLogManager::SaveLogChange_DualFame(CHARLIST* pTarget, const int nOldDualFa
 	switch (type)
 	{
 	case LDF_LOCALWAR: 
-		{	// µà¾ó ¼Òºñ
+		{	// ë“€ì–¼ ì†Œë¹„
 			::strcpy(why, "LocalWar");
 			break;
 		}
 	case LDF_QUEST:
-		{	// ±¹ÁöÀü
+		{	// êµ­ì§€ì „
 			::strcpy(why, "Quest");
 			break;
 		}
 	case LDF_NEOWAR:	//< LTH-040226-KO
 		{
-			::strcpy( why, "NeoWar" );			// 1.4 ½Å±Ô±¹°¡Àü 
+			::strcpy( why, "NeoWar" );			// 1.4 ì‹ ê·œêµ­ê°€ì „ 
 		}
 		break;			//> LTH-040226-KO
 	default : 	
@@ -884,32 +884,32 @@ void CLogManager::SaveLogChange_Fame(CHARLIST* pTarget, int old_fame, int new_fa
 	switch (type)
 	{
 	case LF_DUAL: 
-		{	// µà¾ó ¼Òºñ
+		{	// ë“€ì–¼ ì†Œë¹„
 			strcpy(why, "upgrade dual");
 			break;
 		}
 	case LF_LOCALWAR:
-		{	// ±¹ÁöÀü
+		{	// êµ­ì§€ì „
 			strcpy(why, "LocalWar");
 			break;
 		}
 	case LF_ITEMBUY:
-		{	// ±¹°¡ °í±Ş ¾ÆÀÌÅÛ
+		{	// êµ­ê°€ ê³ ê¸‰ ì•„ì´í…œ
 			strcpy(why, "Nation Item Buy");
 			break;
 		}
 	case LF_DONATION:
-		{	// ±¹°¡ ±âºÎ
+		{	// êµ­ê°€ ê¸°ë¶€
 			strcpy(why, "Nation Doantion");
 			break;
 		}
 	case LF_NATIONWAR:
-		{	// ±¹°¡Àü
+		{	// êµ­ê°€ì „
 			strcpy(why, "Nation War");
 			break;
 		}
 	case LF_SCRIPT:
-		{	// ½ºÅ©¸³Æ® Æã¼Ç
+		{	// ìŠ¤í¬ë¦½íŠ¸ í‘ì…˜
 			strcpy(why, "Script Func");
 			break;
 		}
@@ -1130,9 +1130,9 @@ void CLogManager::SaveLogChange_LoginLogoutByKein(CHARLIST* pTarget, int type, i
 		SaveLogDefault2(temp, log);
 	}
 }
-//> 040715_KJHuNs ChangeÆú´õ¿¡ ÀúÀå
+//> 040715_KJHuNs Changeí´ë”ì— ì €ì¥
 
-//< 040715_KJHuNs CheckÆú´õ¿¡ ÀúÀå
+//< 040715_KJHuNs Checkí´ë”ì— ì €ì¥
 void CLogManager::SaveLogCheck_StrikeAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 {	//< CSD-030804
 	return;
@@ -1323,11 +1323,11 @@ void CLogManager::SaveLogCheck_CombatExecute(BYTE nCombat, CHARLIST* pCaster, CH
 	fclose(pFile);
 }	//> CSD-030804
 
-//<! BBD 040308 ÀÌº¥Æ® ¾ÆÀÌÅÛ ·Î½ºÆ® ·Î±×
-// ¸Ê¼­¹ö°¡ ÀÌº¥Æ® ¾ÆÀÌÅÛ Áö±Ş¿¡ ½ÇÆĞÇßÀ»¶§ ³²±â´Â ·Î±×
+//<! BBD 040308 ì´ë²¤íŠ¸ ì•„ì´í…œ ë¡œìŠ¤íŠ¸ ë¡œê·¸
+// ë§µì„œë²„ê°€ ì´ë²¤íŠ¸ ì•„ì´í…œ ì§€ê¸‰ì— ì‹¤íŒ¨í–ˆì„ë•Œ ë‚¨ê¸°ëŠ” ë¡œê·¸
 void CLogManager::SaveLogEventItem_Lost(int type, char * szName, int nIndex)
 {
-	// ·Î±× Å¸ÀÔ ºĞ·ù
+	// ë¡œê·¸ íƒ€ì… ë¶„ë¥˜
 	char szReason[64];
 	switch(type)
 	{
@@ -1351,7 +1351,7 @@ void CLogManager::SaveLogEventItem_Lost(int type, char * szName, int nIndex)
 		return;
 	}
 
-	// °æ·Î¿¡ ÆÄÀÏÀ» ¿¬´Ù
+	// ê²½ë¡œì— íŒŒì¼ì„ ì—°ë‹¤
 	const char* pPath = VA("%s\\EventItemLog_%02d_%02d_%02d.txt", strPath.c_str(), g_year-2000, g_mon + 1, g_day);
 	FILE* pFile = fopen(pPath, "at+");
 	
@@ -1360,16 +1360,16 @@ void CLogManager::SaveLogEventItem_Lost(int type, char * szName, int nIndex)
 		return;
 	}
 
-	//·Î±×¸¦ ÇÑÁÙ¾¿ ³²±ä´Ù
+	//ë¡œê·¸ë¥¼ í•œì¤„ì”© ë‚¨ê¸´ë‹¤
 	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]\t", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 
 	fprintf(pFile, "Reason : %s\tName : %s\tItemIndex : %d\t\n", szReason, szName, nIndex);
 	
 	fclose(pFile);
 }
-//> BBD 040308 ÀÌº¥Æ® ¾ÆÀÌÅÛ ·Î½ºÆ® ·Î±×
+//> BBD 040308 ì´ë²¤íŠ¸ ì•„ì´í…œ ë¡œìŠ¤íŠ¸ ë¡œê·¸
 
-// 040721_KJHuNs LevelUpÆú´õ
+// 040721_KJHuNs LevelUpí´ë”
 void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 {	//< CSD-TW-030622
 	string strPath;
@@ -1463,7 +1463,7 @@ void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 	fclose(fp);
 }	//> CSD-TW-030622
 
-//< 04721_KJHuNs LocalWarÆú´õ
+//< 04721_KJHuNs LocalWarí´ë”
 void CLogManager::SaveLogLocalWar_SealStoneInfo(CHARLIST* pSource, CHARLIST* pTarget, int nDamage)
 {	//< CSD-040316
 	if (nDamage <= 0)
@@ -1501,8 +1501,8 @@ void CLogManager::SaveLogLocalWar_SealStoneInfo(CHARLIST* pSource, CHARLIST* pTa
 void CLogManager::SaveLogLocalWar_Info(CHARLIST* pTarget)
 {	//< CSD-040407
 
-	/* 040721_KJHuNs SaveLog_List()¿¡¼­ ºÒ·¯µéÀÌ´Â °ÍÀ¸·Î ÅëÀÏ(Á¤¸®¸ñÀû)
-		//%s\\%02d%02d%02d.txt °°Àº ÆÄÀÏ¿¡ ÀúÀåµÈ´Ù.
+	/* 040721_KJHuNs SaveLog_List()ì—ì„œ ë¶ˆëŸ¬ë“¤ì´ëŠ” ê²ƒìœ¼ë¡œ í†µì¼(ì •ë¦¬ëª©ì )
+		//%s\\%02d%02d%02d.txt ê°™ì€ íŒŒì¼ì— ì €ì¥ëœë‹¤.
 	string strPath;
 
 	if (!GetLogPath(LT_LOCAL_WAR,strPath))
@@ -1546,8 +1546,8 @@ void CLogManager::SaveLogLocalWar_Info(CHARLIST* pTarget)
 		}
 	}
 	
-	/* 040721_KJHuNs SaveLog_List()¿¡¼­ ºÒ·¯µéÀÌ´Â °ÍÀ¸·Î ÅëÀÏ(Á¤¸®¸ñÀû)
-	//ÆÄÀÏÀ» ¿­°í´İ±â¶§¹®¿¡ ºñÈ¿À²ÀûÀÌÁö¸¸, ÅëÀÏ½ÃÄÑ¼­ ÀÌÇØÇÏ±â ÆíÇÏ°Ô ¼öÁ¤ÇÏ¿´´Ù.
+	/* 040721_KJHuNs SaveLog_List()ì—ì„œ ë¶ˆëŸ¬ë“¤ì´ëŠ” ê²ƒìœ¼ë¡œ í†µì¼(ì •ë¦¬ëª©ì )
+	//íŒŒì¼ì„ ì—´ê³ ë‹«ê¸°ë•Œë¬¸ì— ë¹„íš¨ìœ¨ì ì´ì§€ë§Œ, í†µì¼ì‹œì¼œì„œ ì´í•´í•˜ê¸° í¸í•˜ê²Œ ìˆ˜ì •í•˜ì˜€ë‹¤.
 	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 	fprintf(pFile, "Nation(%s), Map(%d), %s(%3d, %3d)\n", strNation.c_str(),
 		                                                  g_MapPort,
@@ -1630,7 +1630,7 @@ const char* CLogManager::GetTargetName(CHARLIST* pTarget) const
 	return NPC_Gen_Ref[pTarget->npc_index].Name;
 }	//> CSD-030804
 
-//< LTH-040322-KO 1.4 ÆĞÄ¡. ½Å±Ô ±¹°¡Àü °ü·Ã ·Î±×
+//< LTH-040322-KO 1.4 íŒ¨ì¹˜. ì‹ ê·œ êµ­ê°€ì „ ê´€ë ¨ ë¡œê·¸
 void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 {
 	va_list vargs;
@@ -1655,7 +1655,7 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 	char szTime[64] = {0,};
 	sprintf(szTime, "[%02d:%02d:%02d] ", hour, min, sec);
 
-	// ·Î±× Å¸ÀÔ ºĞ·ù
+	// ë¡œê·¸ íƒ€ì… ë¶„ë¥˜
 	char szType[64] = {0,};
 	switch(nType)
 	{
@@ -1694,7 +1694,7 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 		return;
 	}
 
-	// °æ·Î¿¡ ÆÄÀÏÀ» ¿¬´Ù
+	// ê²½ë¡œì— íŒŒì¼ì„ ì—°ë‹¤
 	const char* pPath = VA("%s\\NeoNationWarLog_%02d_%02d_%02d.txt", strPath.c_str(), year-2000, mon, day);
 	FILE* pFile = fopen(pPath, "at+");
 	
@@ -1722,10 +1722,10 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 
 /**
  * @fn		CLogManager::SaveMoveToWarfield().
- * @brief	ÆòÈ­ ±â°£¿¡ ÀüÀïÅÍ ÀÌµ¿ °ü·Ã ·Î±×.
- * @param	const int nType. ·Î±× Å¸ÀÔ.
- * @param	char * szLogMsg. ·Î±× ¸Ş½ÃÁö.
- * @param	... .... °¡º¯ ÀÎÀÚ.
+ * @brief	í‰í™” ê¸°ê°„ì— ì „ìŸí„° ì´ë™ ê´€ë ¨ ë¡œê·¸.
+ * @param	const int nType. ë¡œê·¸ íƒ€ì….
+ * @param	char * szLogMsg. ë¡œê·¸ ë©”ì‹œì§€.
+ * @param	... .... ê°€ë³€ ì¸ì.
  * @return	void.
  */
 //< LTH-040515-KO.
@@ -1753,7 +1753,7 @@ void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 	char szTime[64] = {0,};
 	sprintf(szTime, "[%02d:%02d:%02d] ", hour, min, sec);
 
-	// ·Î±× Å¸ÀÔ ºĞ·ù
+	// ë¡œê·¸ íƒ€ì… ë¶„ë¥˜
 	char szType[64] = {0,};
 	switch(nType)
 	{
@@ -1789,7 +1789,7 @@ void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 		return;
 	}
 
-	// °æ·Î¿¡ ÆÄÀÏÀ» ¿¬´Ù
+	// ê²½ë¡œì— íŒŒì¼ì„ ì—°ë‹¤
 	const char* pPath = VA("%s\\MoveToWarfieldLog_%04d_%02d_%02d.txt", strPath.c_str(), year, mon, day);
 	FILE* pFile = fopen(pPath, "at+");
 	
@@ -1815,7 +1815,7 @@ void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 }
 //> LTH-040515-KO.
 
-//040721_KJHuNs ScriptÆú´õ
+//040721_KJHuNs Scriptí´ë”
 void CLogManager::SaveLogScriptLog(CHARLIST* pTarget, const int nQuestNo, 
 								   const int nQuestStep, const char* msg) //kyo
 {	//< CSD-040224
@@ -1847,15 +1847,15 @@ void CLogManager::SaveLogScriptLog(CHARLIST* pTarget, const int nQuestNo,
 }	//> CSD-040224
 
 void CLogManager::ItemMallLog(char* pString)
-{	//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+{	//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 	SaveLog_List(KCH_ITEM_MALL_ITEM,"[%02d.%02d.%02d %02d:%02d:%02d] ",	\
 					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 	SaveLog_List(KCH_ITEM_MALL_ITEM,"%s \n",	pString);
-}	//>050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+}	//>050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 void CLogManager::SKILL_RARE_UPGRADE_FAIL_Log(char* pString)
-{	//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+{	//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 	SaveLog_List(KCH_SKILL_RARE_UPGRADE_FAIL,"[%02d.%02d.%02d %02d:%02d:%02d] ",	\
 					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
@@ -1863,7 +1863,7 @@ void CLogManager::SKILL_RARE_UPGRADE_FAIL_Log(char* pString)
 }
 
 void CLogManager::ItemMall_Use_Log(char* pString)
-{	//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+{	//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 
 	SaveLog_List(KCH_ITEM_MALL_ITEM_USE,"[%02d.%02d.%02d %02d:%02d:%02d] ",	\
 					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);

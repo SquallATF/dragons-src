@@ -1,4 +1,4 @@
-// QueryDBSocket.h: interface for the CQueryDBSocket class.
+﻿// QueryDBSocket.h: interface for the CQueryDBSocket class.
 //
 //////////////////////////////////////////////////////////////////////
 

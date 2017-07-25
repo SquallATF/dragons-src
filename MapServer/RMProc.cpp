@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "LowerLayers\\inetwork.h"
 #include "LowerLayers\\ServerTable.h"
 #include "RMDefine.h"
@@ -25,7 +25,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			ReLoadGameServerDataByKeyInput(0);
 			break;
 		}
-	case MSG_CHANGE_WEATHER:	//Å¬¶óÀÌ¾ğÆ®µé¿¡°Ô ¸Ş¼¼Áö »Ñ·Á¶ó~
+	case MSG_CHANGE_WEATHER:	//í´ë¼ì´ì–¸íŠ¸ë“¤ì—ê²Œ ë©”ì„¸ì§€ ë¿Œë ¤ë¼~
 		{
 			PACKET_CHANGE_WEATHER *rcvPacket = (PACKET_CHANGE_WEATHER*)pMsg;
 
@@ -55,10 +55,10 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			
 			break;
 		}
-	//<! BBD 040110	RMÀ¸·Î ÀüÁ¦Á¢¼ÓÀ» Á¾·á½ÃÀÛ
-	case MSG_RM_KICKOFF_USER_ALL:	// ÀüÃ¼ À¯Àú¸¦ ¸Ê¼­¹ö°¡ Â÷·Ê´ë·Î Àß¶óÁØ´Ù
+	//<! BBD 040110	RMìœ¼ë¡œ ì „ì œì ‘ì†ì„ ì¢…ë£Œì‹œì‘
+	case MSG_RM_KICKOFF_USER_ALL:	// ì „ì²´ ìœ ì €ë¥¼ ë§µì„œë²„ê°€ ì°¨ë¡€ëŒ€ë¡œ ì˜ë¼ì¤€ë‹¤
 		{
-			if(!g_KickMgr.IsKicking())				// ÁøÇàÁß ´Ù½Ã µé¾î¿À¸é ¹«½ÃÇÑ´Ù
+			if(!g_KickMgr.IsKicking())				// ì§„í–‰ì¤‘ ë‹¤ì‹œ ë“¤ì–´ì˜¤ë©´ ë¬´ì‹œí•œë‹¤
 			{
 				//<! BBD 040401
 				if(g_KickMgr.InitKickOffUserAll())
@@ -70,21 +70,21 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			}
 			break;
 		}
-	//> BBD 040110	RMÀ¸·Î ÀüÁ¦Á¢¼ÓÀ» Á¾·á½ÃÀÛ
+	//> BBD 040110	RMìœ¼ë¡œ ì „ì œì ‘ì†ì„ ì¢…ë£Œì‹œì‘
 
-	//<! BBD 040110 RMÀ¸·Î ÀÏÁ¤¼öÀÇ Á¢¼ÓÀ¯Àú¸¦ ÀÚ¸¥´Ù
+	//<! BBD 040110 RMìœ¼ë¡œ ì¼ì •ìˆ˜ì˜ ì ‘ì†ìœ ì €ë¥¼ ìë¥¸ë‹¤
 	case MSG_RM_KICKOFF_USER_SEVERAL:
 		{
 			g_KickMgr.KickOffSeverlUser();
 			break;
 		}
-	//> BBD 040110 RMÀ¸·Î ÀÏÁ¤¼öÀÇ Á¢¼ÓÀ¯Àú¸¦ ÀÚ¸¥´Ù
+	//> BBD 040110 RMìœ¼ë¡œ ì¼ì •ìˆ˜ì˜ ì ‘ì†ìœ ì €ë¥¼ ìë¥¸ë‹¤
 
-	//<! BBD 040110 AgentÀÇ ¸Ê¼­¹ö Á¶ÀÎ Çã¿ë
+	//<! BBD 040110 Agentì˜ ë§µì„œë²„ ì¡°ì¸ í—ˆìš©
 	case MSG_RM_KICKOFF_AGENTCANJOIN:
 		{
 			//<! BBD 040401
-			if(g_KickMgr.IsKicking())	// Å±ÁßÀÏ¶§¸¸ Ã³¸®
+			if(g_KickMgr.IsKicking())	// í‚¥ì¤‘ì¼ë•Œë§Œ ì²˜ë¦¬
 			{
 				g_KickMgr.StopKicking();
 				MyLog( LOG_NORMAL, "End Blocking Agent -> Map Join" );
@@ -93,6 +93,6 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			//> BBD 040401
 			break;
 		}
-	//> BBD 040110 AgentÀÇ ¸Ê¼­¹ö Á¶ÀÎ Çã¿ë
+	//> BBD 040110 Agentì˜ ë§µì„œë²„ ì¡°ì¸ í—ˆìš©
 	}
 }

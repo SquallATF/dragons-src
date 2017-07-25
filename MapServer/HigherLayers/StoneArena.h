@@ -1,4 +1,4 @@
-// StoneArena.h: interface for the CStoneArena class.
+﻿// StoneArena.h: interface for the CStoneArena class.
 //
 //////////////////////////////////////////////////////////////////////
 

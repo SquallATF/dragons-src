@@ -1,4 +1,4 @@
-#ifndef NW_PACKET_DEFINE_
+ï»¿#ifndef NW_PACKET_DEFINE_
 #define NW_PACKET_DEFINE_
 
 // Packet Define _________________________________________
@@ -46,39 +46,39 @@
 #define		CMD_ANSWER_TILE_DONT					26045
 #define		CMD_TILE_DONT_CHANGED					26046
 #define		CMD_SQUAD_CHAT							26047
-#define		CMD_CLEAR_SQUAD_DATA					26048			// ºÎ´ë¼Ó¼º Å¬¸®¾î 
-#define		CMD_REQUEST_WARFIELD_INFO				26049			// °ø°İÀÚ¿Í ¹æ¾îÀÚÀÇ È®ÀÎ 
+#define		CMD_CLEAR_SQUAD_DATA					26048			// ë¶€ëŒ€ì†ì„± í´ë¦¬ì–´ 
+#define		CMD_REQUEST_WARFIELD_INFO				26049			// ê³µê²©ìì™€ ë°©ì–´ìì˜ í™•ì¸ 
 #define		CMD_ANSWER_WARFIELD_INFO				26050
-#define		CMD_WAR_BEGIN							26051			// ÀüÀï¸Ê¿¡ ÀÖ´Â »ç¶÷ÀÇ ÀüÀï½ÃÀÛ ¸Ş¼¼Áö..
-#define		CMD_WAR_END								26052			// ¹æ¼Ûµµ ÀÖÁö¸¸.. ¾ÈµÈ´Ù.
-#define		CMD_REG_SQUAD_LEADER					26053			// ¼­¹ö°£ 
+#define		CMD_WAR_BEGIN							26051			// ì „ìŸë§µì— ìˆëŠ” ì‚¬ëŒì˜ ì „ìŸì‹œì‘ ë©”ì„¸ì§€..
+#define		CMD_WAR_END								26052			// ë°©ì†¡ë„ ìˆì§€ë§Œ.. ì•ˆëœë‹¤.
+#define		CMD_REG_SQUAD_LEADER					26053			// ì„œë²„ê°„ 
 #define		CMD_REQUEST_CHECK_WARFIELD_POSSESSION	26054
 #define		CMD_ANSWER_CHECK_WARFIELD_POSSESSION	26055
 #define		CMD_FREELANCER_SQUAD_JOIN				26056
 #define		CMD_REQUEST_WARFIELD_POSSESSION			26057
 #define		CMD_ANSWER_WARFIELD_POSSESSION			26058
 #define		CMD_REQUEST_WARFIELD_WAR_DATA			26059
-#define		CMD_WARFIELD_WAR_DATA1					26060			// ¼º¹® ¼öÈ£¼® µ¥ÀÌÅ¸
-#define		CMD_WARFIELD_WAR_DATA2					26061			// ³²Àº½Ã°£, ¸â¹öÄ«¿îÆ® 
-#define		CMD_WARFIELD_WAR_DATA3					26062			// ¹æ¾îºÎ´ë Á¤º¸
-#define		CMD_WARFIELD_WAR_DATA4					26063			// °ø°İºÎ´ë Á¤º¸
-#define		CMD_WARFIELD_WAR_DATA5					26064			// Áö¿ø±º ºÎ´ë Á¤º¸
-#define		CMD_REQUEST_CHECK_WARNO					26065			// ÀüÀï¹øÈ£¸¦ ÆÇ´ÜÇÑ´Ù.
+#define		CMD_WARFIELD_WAR_DATA1					26060			// ì„±ë¬¸ ìˆ˜í˜¸ì„ ë°ì´íƒ€
+#define		CMD_WARFIELD_WAR_DATA2					26061			// ë‚¨ì€ì‹œê°„, ë©¤ë²„ì¹´ìš´íŠ¸ 
+#define		CMD_WARFIELD_WAR_DATA3					26062			// ë°©ì–´ë¶€ëŒ€ ì •ë³´
+#define		CMD_WARFIELD_WAR_DATA4					26063			// ê³µê²©ë¶€ëŒ€ ì •ë³´
+#define		CMD_WARFIELD_WAR_DATA5					26064			// ì§€ì›êµ° ë¶€ëŒ€ ì •ë³´
+#define		CMD_REQUEST_CHECK_WARNO					26065			// ì „ìŸë²ˆí˜¸ë¥¼ íŒë‹¨í•œë‹¤.
 #define		CMD_ANSWER_CHECK_WARNO					26066
-#define		CMD_CLEAR_WAR_CHARACTER_DATA			26067			// Å¬¶óÀÌ¾ğÆ®
-#define		CMD_SET_COMMANDER						26068			// DBµ¥¸ó 
-#define		CMD_STARTUP_NATION_CODE_CHANGE			26069			// ÀüÀï¼­¹ö->°ü¸®¼­¹ö->¸Ê¼­¹ö
-#define		CMD_ANSWER_SQUAD_INFO2					26070			// ºÎ´ëÁ¤º¸ ÆÄÆ®2
+#define		CMD_CLEAR_WAR_CHARACTER_DATA			26067			// í´ë¼ì´ì–¸íŠ¸
+#define		CMD_SET_COMMANDER						26068			// DBë°ëª¬ 
+#define		CMD_STARTUP_NATION_CODE_CHANGE			26069			// ì „ìŸì„œë²„->ê´€ë¦¬ì„œë²„->ë§µì„œë²„
+#define		CMD_ANSWER_SQUAD_INFO2					26070			// ë¶€ëŒ€ì •ë³´ íŒŒíŠ¸2
 #define		CMD_ANSWER_COMMANDER_VOTE_DATA2			26071
 #define		CMD_SET_WARFIELD_POSSESSION				26072			// 020115 LTS
-#define		CMD_REQUEST_SUBSTRACT_MONEY				26073			// ÀüÀï Á¾·á½Ã.. µ· ¶³±â.
-#define		CMD_ANSWER_SUBSTRACT_MONEY				26074			// ÀüÀï Á¾·á½Ã µ·¶³±â ÆĞÅ¶
-#define		CMD_SQUAD_JOIN_RESULT					26075			// ºÎ´ë ÇÕ·ù½ÇÆĞ 
+#define		CMD_REQUEST_SUBSTRACT_MONEY				26073			// ì „ìŸ ì¢…ë£Œì‹œ.. ëˆ ë–¨ê¸°.
+#define		CMD_ANSWER_SUBSTRACT_MONEY				26074			// ì „ìŸ ì¢…ë£Œì‹œ ëˆë–¨ê¸° íŒ¨í‚·
+#define		CMD_SQUAD_JOIN_RESULT					26075			// ë¶€ëŒ€ í•©ë¥˜ì‹¤íŒ¨ 
 
-#define		CMD_REQUEST_WAR_GIVE_LIFE				26076			// À¯·É »ì¸®±â ¿äÃ»	// 011015 LTS
-#define		CMD_ANSWER_WAR_GIVE_LIFE				26077			// À¯·É »ì¸®±â ÀÀ´ä 
-#define		CMD_CHECK_AM_I_DEFEAT					26078			// ÀüÀïÀÌ ³¡ÀÌ ³µÀ»¶§ Æ¨±â±â	
-#define		CMD_SQUAD_LOADING_POINT					26079			// °ü¸®¼­¹ö -> ÀüÀï¼­¹ö ·ÎµùÆ÷ÀÎÆ® Á¤º¸ 
+#define		CMD_REQUEST_WAR_GIVE_LIFE				26076			// ìœ ë ¹ ì‚´ë¦¬ê¸° ìš”ì²­	// 011015 LTS
+#define		CMD_ANSWER_WAR_GIVE_LIFE				26077			// ìœ ë ¹ ì‚´ë¦¬ê¸° ì‘ë‹µ 
+#define		CMD_CHECK_AM_I_DEFEAT					26078			// ì „ìŸì´ ëì´ ë‚¬ì„ë•Œ íŠ•ê¸°ê¸°	
+#define		CMD_SQUAD_LOADING_POINT					26079			// ê´€ë¦¬ì„œë²„ -> ì „ìŸì„œë²„ ë¡œë”©í¬ì¸íŠ¸ ì •ë³´ 
 #define		CMD_SQUAD_RARE							26080
 #define		CMD_REQUEST_NOTICE						26081
 #define		CMD_ANSWER_NOTICE						26082
@@ -142,8 +142,8 @@
 #define		CMD_LOCALWAR_FAME_EXP					26348		// LTS NEW LOCALWAR
 #define		CMD_LOCALWAR_DEFENCE_POINT				26349		// LTS NEW LOCALWAR
 
-#define		CMD_GOTO_GUILD_HOUSE_RESULT				26350			// ±è¿µÁÖ
-#define		CMD_CHECK_GUILD_HOUSE_RESULT			26351			// ±è¿µÁÖ
+#define		CMD_GOTO_GUILD_HOUSE_RESULT				26350			// ê¹€ì˜ì£¼
+#define		CMD_CHECK_GUILD_HOUSE_RESULT			26351			// ê¹€ì˜ì£¼
 
 #define		CMD_AI_FOG								26352		// LTS NEW AI
 #define		CMD_AI_SOUND							26353		// LTS NEW AI
@@ -189,11 +189,11 @@
 #define		CMD_OPEN_WINNER_MENU					26403 //soto-030502
 
 
-#define		CMD_INSERT_LOTTO_INFO					26404 //soto-030503 //DBµ¥¸ó
-#define		CMD_DELETE_LOTTO_ALL_USER				26405 //soto-030503 //DBµ¥¸ó
-#define		CMD_CUR_LOTTO_INFO						26406 //soto-030503 //DBµ¥¸ó
-#define		CMD_LOTTERY_INFO						26407 //soto-030503 //DBµ¥¸ó
-#define		CMD_NEW_EVENT							20408 //soto-030504 //DBµ¥¸ó
+#define		CMD_INSERT_LOTTO_INFO					26404 //soto-030503 //DBë°ëª¬
+#define		CMD_DELETE_LOTTO_ALL_USER				26405 //soto-030503 //DBë°ëª¬
+#define		CMD_CUR_LOTTO_INFO						26406 //soto-030503 //DBë°ëª¬
+#define		CMD_LOTTERY_INFO						26407 //soto-030503 //DBë°ëª¬
+#define		CMD_NEW_EVENT							20408 //soto-030504 //DBë°ëª¬
 #define		CMD_LOTTO_BUY							20409 //soto-030504
 #define		CMD_CAN_BUY								20410 //soto-030504
 #define		CMD_WINNER_CHECK						20411 //soto-030505
@@ -204,43 +204,43 @@
 
 #define		CMD_OPEN_LOTTOMENU						20415 //soto-030520
 #define		CMD_LOTTERY_BROADCAST					20416 //soto-HK030924
-#define		CMD_LOTTO_SEEK							20417 //soto-LottoÃß°¡
+#define		CMD_LOTTO_SEEK							20417 //soto-Lottoì¶”ê°€
 
-#define		CMD_DEL_LOTTO_USER_OK					20418	// BBD 040127	·Î¶ÇÇÁ·Î¼¼½º º¯°æ
+#define		CMD_DEL_LOTTO_USER_OK					20418	// BBD 040127	ë¡œë˜í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 
 //<soto-HK030924
 typedef struct	tag_LOTTERY_INFO
 {
 	int	nLottoID;
 	int nWinNumCount;
-	int	anWinNumbers[10]; // ´çÃ· ¹øÈ£.
+	int	anWinNumbers[10]; // ë‹¹ì²¨ ë²ˆí˜¸.
 }t_LOTTERY_INFO;
 //>soto-HK030924
 
 
 typedef	struct tag_OPEN_LOTTO_MENU
 {
-	int	nMaxNumberCount; //¸îÀÚ¸®ÀÇ ¼ö·Î ·Î¶Ç¸¦  ¸¸µå´À³Ä.
+	int	nMaxNumberCount; //ëª‡ìë¦¬ì˜ ìˆ˜ë¡œ ë¡œë˜ë¥¼  ë§Œë“œëŠëƒ.
 }t_OPEN_LOTTO_MENU;
 
 typedef struct tag_CHECK_WINNER
 {
 	int		nLottoID;//soto-LottoADD
 	char	strCharName[21];
-	int		nWinItemCount;// 0ÀÌ¸é ´çÃ· µÇÁö ¾Ê¾Ò½¿. -1ÀÌ¸é ºó°÷ÀÌ ÃæºĞÄ¡ ¾ÊÀ½.
+	int		nWinItemCount;// 0ì´ë©´ ë‹¹ì²¨ ë˜ì§€ ì•Šì•˜ìŠ´. -1ì´ë©´ ë¹ˆê³³ì´ ì¶©ë¶„ì¹˜ ì•ŠìŒ.
 	int		anWinNumbers[10];
-	int		anWinItemsCount[5];//¿©±â¿¡ µî¼öº° Áö±Ş µÇ´Â ¾ÆÀÌÅÛ °¹¼ö°¡ µé¾î°£´Ù.//soto-LottoÃß°¡.
+	int		anWinItemsCount[5];//ì—¬ê¸°ì— ë“±ìˆ˜ë³„ ì§€ê¸‰ ë˜ëŠ” ì•„ì´í…œ ê°¯ìˆ˜ê°€ ë“¤ì–´ê°„ë‹¤.//soto-Lottoì¶”ê°€.
 }t_CHECK_WINNER;
 
-//<! BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
+//<! BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 typedef struct tag_DEL_LOTTO_USER_OK
 {
 	bool	bIsDelOK;
 
 }t_DEL_LOTTO_USER_OK;
-//> BBD 040127	·Î¶Ç ÇÁ·Î¼¼½º º¯°æ
+//> BBD 040127	ë¡œë˜ í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 
-//<! BBD 040308		ÀÌº¥Æ® ·¹¾î ¾ÆÀÌÅÛ Áö±Ş¿ë ±¸Á¶Ã¼
+//<! BBD 040308		ì´ë²¤íŠ¸ ë ˆì–´ ì•„ì´í…œ ì§€ê¸‰ìš© êµ¬ì¡°ì²´
 typedef struct tag_EVENT_RARE_ITEM_LIST
 {
 	int			nCn;
@@ -250,48 +250,48 @@ typedef struct tag_EVENT_RARE_ITEM_LIST
 	ITEMATTR	item[10];
 
 }t_EVENT_RARE_ITEM_LIST;
-//> BBD 040308		ÀÌº¥Æ® ·¹¾î ¾ÆÀÌÅÛ Áö±Ş¿ë ±¸Á¶Ã¼
+//> BBD 040308		ì´ë²¤íŠ¸ ë ˆì–´ ì•„ì´í…œ ì§€ê¸‰ìš© êµ¬ì¡°ì²´
 
 typedef	struct tag_BUY_LOTTO
 {
 	int	nLottoID;//soto-LottoADD
 	char strCharName[21];
 	int	anLottoNumber[10];
-	int	m_nLottoPay;//·Î¶Ç¿¡ ÁöºÒµÇ´Â µ·.
+	int	m_nLottoPay;//ë¡œë˜ì— ì§€ë¶ˆë˜ëŠ” ëˆ.
 }t_BUY_LOTTO;
 
 
-//<soto-LottoÃß°¡.
+//<soto-Lottoì¶”ê°€.
 typedef struct tag_WINNER_MENU
 {
 	int	nLottoID;//soto-LottoADD
-	int	 nMaxLottoCount;//¸îÀÚ¸® ±îÁö ·Î¶Ç ¹øÈ£¸¦ ¾µ°ÍÀÌ³Ä?	
+	int	 nMaxLottoCount;//ëª‡ìë¦¬ ê¹Œì§€ ë¡œë˜ ë²ˆí˜¸ë¥¼ ì“¸ê²ƒì´ëƒ?	
 	char strCharName[21];
 	int	anWinNumbers[10];
-	int	nViewCount;//ÇöÀç È­¸é¿¡ ³ª¿À´Â ·Î¶ÇÀÇ Ä«¿îÆ®. 0ÃÊ°ú.
+	int	nViewCount;//í˜„ì¬ í™”ë©´ì— ë‚˜ì˜¤ëŠ” ë¡œë˜ì˜ ì¹´ìš´íŠ¸. 0ì´ˆê³¼.
 	int	anLottoNumber[5][10];
 	int	nTotalLottoCount;
 }t_WINNER_MENU;
-//>soto-LottoÃß°¡.
+//>soto-Lottoì¶”ê°€.
 
-//< soto-030418 // ½Éº¼ ¾ÆÀÌÅÛ°ü·Ã ÆĞÅ¶. ¸¸µé±â¿Í ¾÷±×·¡ÀÌµå¿¡ ¾²ÀÎ´Ù.
+//< soto-030418 // ì‹¬ë³¼ ì•„ì´í…œê´€ë ¨ íŒ¨í‚·. ë§Œë“¤ê¸°ì™€ ì—…ê·¸ë˜ì´ë“œì— ì“°ì¸ë‹¤.
 typedef struct tag_SYMBOL_ITEM_MSG
 {
 	int m_nItemNumber;
-	int	m_nGrade; // 1ÀÌ °íÁ¤.
+	int	m_nGrade; // 1ì´ ê³ ì •.
 } t_SYMBOL_ITEM_MSG;
 //> soto-030418
 
-//<soto-LottoÃß°¡.
+//<soto-Lottoì¶”ê°€.
 typedef struct tag_LOTTOPAPER_SEEK
 {
 	char	strChrName[20];
-	int		nPage;//¿øÇÏ´Â ÆäÀÌÁö°¡ µé¾î°£´Ù.
-	int		nViewCount;//ÇöÀç Ãâ·ÂµÇ´Â º¹±ÇÀÇ °¹¼ö.
-	int		anLottoNumber[5][10];//¸®½ºÆ®¿¡ ÀÖ´Â ·Î¶Ç ¹øÈ£µéÀÌ µé¾î°£´Ù.
-	int		nLottoID;//·Î¶ÇÀÇ È¸Â÷°¡ µé¾î°£´Ù.
+	int		nPage;//ì›í•˜ëŠ” í˜ì´ì§€ê°€ ë“¤ì–´ê°„ë‹¤.
+	int		nViewCount;//í˜„ì¬ ì¶œë ¥ë˜ëŠ” ë³µê¶Œì˜ ê°¯ìˆ˜.
+	int		anLottoNumber[5][10];//ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” ë¡œë˜ ë²ˆí˜¸ë“¤ì´ ë“¤ì–´ê°„ë‹¤.
+	int		nLottoID;//ë¡œë˜ì˜ íšŒì°¨ê°€ ë“¤ì–´ê°„ë‹¤.
 }t_LOTTOPAPER_SEEK;
-//>soto-LottoÃß°¡.
+//>soto-Lottoì¶”ê°€.
 
 
 
@@ -302,7 +302,7 @@ const int 	NW_WARFIELD_COUNT				=3;
 const int 	MAX_NEW_WARFIELD				=1;
 
 const int 	NW_NAME_MAX						=31;
-const int 	NW_SQUAD_MAX					=5;		// 0ºÎ´ë : ºÎ´ë Æí¼ºÀÌ µÇÁö ¾ÊÀº ÀÎ¿øÀÇ ¸ğÀÓ.
+const int 	NW_SQUAD_MAX					=5;		// 0ë¶€ëŒ€ : ë¶€ëŒ€ í¸ì„±ì´ ë˜ì§€ ì•Šì€ ì¸ì›ì˜ ëª¨ì„.
 const int 	NW_CANDIDATE_MAX				=6;
 const int 	NW_SQUAD_KIND					=3;
 const int 	MAX_STRING_PK					=600;
@@ -311,18 +311,18 @@ const int 	FOG_MAX							=30;	// LTS DRAGON MODIFY
 const int 	MAX_DONT_DATA					=10;
 
 //<------------------------------- 1.04 addition ------------------------------------------
-#define CMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT	26501	// LTH-040220-KO ºÎ´ë ÀÎ¿ø ¼ö¸¦ Å×Å©ÇÑ´Ù. ÆĞÅ¶
-#define CMD_MONSTER_RAID_START					26502	// LTH-040224-KO ¸ó½ºÅÍ ¸¶À» ½À°İÀ» ½ÃÀÛÇÑ´Ù ½Å±ÔÀüÀïÅÍ¸Ê¼­¹ö->ÇØ´ç ¸Ê¼­¹ö
-#define CMD_MONSTER_RAID_END					26503	// LTH-040224-KO ¸ó½ºÅÍ ¸¶À» ½À°İÀ» ³¡³½´Ù. ½Å±ÔÀüÀïÅÍ ¸Ê¼­¹ö-> ÇØ´ç ¸Ê¼­¹ö.
-#define CMD_GUARD_CAN_NOT_BROKE					26504	// LTH-040317-KO ¼º¹®ÀÌ³ª ¼öÈ£¼®À» ºÎ¼ú ¼ö ¾ø´Ù
-#define CMD_CHECK_REMAIN_GUARD					26505	// LTH-040318-KO ³²Àº ¼º¹®ÀÌ³ª ¼öÈ£¼®À» ¹İÈ¯ÇÑ´Ù.
+#define CMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT	26501	// LTH-040220-KO ë¶€ëŒ€ ì¸ì› ìˆ˜ë¥¼ í…Œí¬í•œë‹¤. íŒ¨í‚·
+#define CMD_MONSTER_RAID_START					26502	// LTH-040224-KO ëª¬ìŠ¤í„° ë§ˆì„ ìŠµê²©ì„ ì‹œì‘í•œë‹¤ ì‹ ê·œì „ìŸí„°ë§µì„œë²„->í•´ë‹¹ ë§µì„œë²„
+#define CMD_MONSTER_RAID_END					26503	// LTH-040224-KO ëª¬ìŠ¤í„° ë§ˆì„ ìŠµê²©ì„ ëë‚¸ë‹¤. ì‹ ê·œì „ìŸí„° ë§µì„œë²„-> í•´ë‹¹ ë§µì„œë²„.
+#define CMD_GUARD_CAN_NOT_BROKE					26504	// LTH-040317-KO ì„±ë¬¸ì´ë‚˜ ìˆ˜í˜¸ì„ì„ ë¶€ìˆ  ìˆ˜ ì—†ë‹¤
+#define CMD_CHECK_REMAIN_GUARD					26505	// LTH-040318-KO ë‚¨ì€ ì„±ë¬¸ì´ë‚˜ ìˆ˜í˜¸ì„ì„ ë°˜í™˜í•œë‹¤.
 
-// LTH-040207-KO ±âÁ¸ ÀüÀïÅÍ3°³ + ¼³¿øÀüÀïÅÍ1°³ + ÁöÇÏÀüÀïÅÍ 1°³ ÃÑ 5°³ÀÇ ÀüÀïÅÍ
+// LTH-040207-KO ê¸°ì¡´ ì „ìŸí„°3ê°œ + ì„¤ì›ì „ìŸí„°1ê°œ + ì§€í•˜ì „ìŸí„° 1ê°œ ì´ 5ê°œì˜ ì „ìŸí„°
 const INT MAX_WARFIELD = NW_WARFIELD_COUNT + MAX_NEW_WARFIELD + 1;
 
 /**
  * @struct	CheckSquadMemberCount_.
- * @brief	ºÎ´ë ÀÎ¿ø Ä«¿îÆ®.
+ * @brief	ë¶€ëŒ€ ì¸ì› ì¹´ìš´íŠ¸.
  */
 //< LTH-040209-KO.
 typedef struct CheckSquadMemberCount_
@@ -334,7 +334,7 @@ typedef struct CheckSquadMemberCount_
 
 /**
  * @struct	CheckSquadMemberCountR_.
- * @brief	ºÎ´ë ÀÎ¿ø Ã¼Å© °á°ú.
+ * @brief	ë¶€ëŒ€ ì¸ì› ì²´í¬ ê²°ê³¼.
  */
 //< LTH-040209-KO.
 typedef struct CheckSquadMemberCountR_
@@ -348,21 +348,21 @@ typedef struct CheckSquadMemberCountR_
 
 /**
  * @struct	NEO_WARFIELD_DATA.
- * @brief	½Å±Ô ÀüÀïÅÍ Á¤º¸ Àü¼Û¿ë.
+ * @brief	ì‹ ê·œ ì „ìŸí„° ì •ë³´ ì „ì†¡ìš©.
  */
 //< LTH-040212-KO.
 struct NEO_WARFIELD_DATA
 {
 	DWORD dwRemainTime;
-	INT nWarfieldNo;				// LTH-040311-KO ÀüÀï¹øÈ£¸¦ ½Ç¾îº¸³½´Ù.
+	INT nWarfieldNo;				// LTH-040311-KO ì „ìŸë²ˆí˜¸ë¥¼ ì‹¤ì–´ë³´ë‚¸ë‹¤.
 	INT nTeamCount[2];
-	INT nRemainGuardCount[2][4];		// °¢°¢ÀÇ ³²Àº Guard ¼ö 0 : ÃÖÁ¾¼öÈ£¼®, 1 : ³»¼º¼öÈ£¼®, 2 : ¼º¹® 3 : ¿Ü¼º¼öÈ£¼®
-	CHAR cGuardStatus[2][NEO_NUMOFGUARD];	// Hades War¿¡ ¸ÂÃçÁ®ÀÖ´Ù. ¿Ü¼º : 4, ¼º¹®(ÁÂ) : 4, ¼º¹®(¿ì) : 4, ³»¼º : 4, ÃÖÁ¾ : 1
+	INT nRemainGuardCount[2][4];		// ê°ê°ì˜ ë‚¨ì€ Guard ìˆ˜ 0 : ìµœì¢…ìˆ˜í˜¸ì„, 1 : ë‚´ì„±ìˆ˜í˜¸ì„, 2 : ì„±ë¬¸ 3 : ì™¸ì„±ìˆ˜í˜¸ì„
+	CHAR cGuardStatus[2][NEO_NUMOFGUARD];	// Hades Warì— ë§ì¶°ì ¸ìˆë‹¤. ì™¸ì„± : 4, ì„±ë¬¸(ì¢Œ) : 4, ì„±ë¬¸(ìš°) : 4, ë‚´ì„± : 4, ìµœì¢… : 1
 };	//> LTH-040212-KO.
 
 /**
  * @struct	NEO_WAR_RESULT.
- * @brief	ÀüÀï °á°ú Àü¼Û¿ë.
+ * @brief	ì „ìŸ ê²°ê³¼ ì „ì†¡ìš©.
  */
 //< LTH-040225-KO.
 struct NEO_WAR_RESULT
@@ -373,14 +373,14 @@ struct NEO_WAR_RESULT
 	INT nBYDeathCount;
 	INT nZYDeathCount;
 	INT nYLDeathCount;
-	bool bAllNationJoin;	// LTH-040413-KO ¸ğµç ³ª¶ó°¡ ½À°İÀ» ¹ŞÀ¸¸é ÀüÀï °á°ú Ã¢À» ¶ç¿ìÁö ¾Ê±â À§ÇØ
+	bool bAllNationJoin;	// LTH-040413-KO ëª¨ë“  ë‚˜ë¼ê°€ ìŠµê²©ì„ ë°›ìœ¼ë©´ ì „ìŸ ê²°ê³¼ ì°½ì„ ë„ìš°ì§€ ì•Šê¸° ìœ„í•´
 	WORD wWarfieldPort;
 	CHAR cVictoryTeam;
 };	//> LTH-040225-KO.
 
 /**
  * @struct	GUARD_CAN_NOT_BROKE.
- * @brief	°¡µå¸¦ ºÎ¼ú¼ö ¾ø´Â ÀÌÀ¯Àü¼Û.
+ * @brief	ê°€ë“œë¥¼ ë¶€ìˆ ìˆ˜ ì—†ëŠ” ì´ìœ ì „ì†¡.
  */
 //< LTH-040317-KO.
 struct GUARD_CAN_NOT_BROKE
@@ -391,73 +391,73 @@ struct GUARD_CAN_NOT_BROKE
 
 /**
  * @struct	REMAIN_GUARD.
- * @brief	³²Àº °¡µå(¼º¹®, ¼öÈ£¼®)ÀÇ ¼ö¸¦ ¹İÈ¯ÇÑ´Ù.
+ * @brief	ë‚¨ì€ ê°€ë“œ(ì„±ë¬¸, ìˆ˜í˜¸ì„)ì˜ ìˆ˜ë¥¼ ë°˜í™˜í•œë‹¤.
  */
 //< LTH-040318-KO.
 struct REMAIN_GUARD
 {
-	DWORD dwRemainTime;				// °Á ÀüÀï ³²Àº ½Ã°£±îÁö º¸³»ÀÚ±¸
-	int nWarfieldNo;				// ÀüÀïÅÍ ¹øÈ£¸¦ º¸³»ÀÚ±¸!!
-	int aRemainGuardCount[2][4];	// ´çµ¹ ³²Àº °¡µå ¼öµµ º¸³»¾ßÁã~!
+	DWORD dwRemainTime;				// ê± ì „ìŸ ë‚¨ì€ ì‹œê°„ê¹Œì§€ ë³´ë‚´ìêµ¬
+	int nWarfieldNo;				// ì „ìŸí„° ë²ˆí˜¸ë¥¼ ë³´ë‚´ìêµ¬!!
+	int aRemainGuardCount[2][4];	// ë‹¹ëŒ ë‚¨ì€ ê°€ë“œ ìˆ˜ë„ ë³´ë‚´ì•¼ì¥~!
 };	//> LTH-040318-KO
 //>------------------------------- 1.04 addition ------------------------------------------
 
 //<------------------------------- 1.04+ addition ------------------------------------------
-#define CMD_NW_MAP_PEACE_MOVE			26506	// LTH-040421-KO ÆòÈ­ ±â°£ÀÇ ÀüÀïÅÍ ÀÌµ¿ ¿äÃ» C -> M
-#define CMD_NW_MAP_PEACE_MOVE_RESULT	26507	// LTH-040421-KO ÆòÈ­ ±â°£¿¡ ¿äÃ»ÇÑ ÀüÀïÅÍ ÀÌµ¿ °á°ú M -> C
-#define CMD_WARFIELD_INFO				26508	// LTH-040504-KO ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í ÀüÀïÅÍ »óÅÂ ¿äÃ» M -> WM
-#define CMD_WARFIELD_INFO_RESULT		26509	// LTH-040504-KO ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í ÀüÀïÅÍ »óÅÂ ¿äÃ» WM -> M
+#define CMD_NW_MAP_PEACE_MOVE			26506	// LTH-040421-KO í‰í™” ê¸°ê°„ì˜ ì „ìŸí„° ì´ë™ ìš”ì²­ C -> M
+#define CMD_NW_MAP_PEACE_MOVE_RESULT	26507	// LTH-040421-KO í‰í™” ê¸°ê°„ì— ìš”ì²­í•œ ì „ìŸí„° ì´ë™ ê²°ê³¼ M -> C
+#define CMD_WARFIELD_INFO				26508	// LTH-040504-KO ì „ìŸí„° ì†Œìœ ìì™€ ì „ìŸí„° ìƒíƒœ ìš”ì²­ M -> WM
+#define CMD_WARFIELD_INFO_RESULT		26509	// LTH-040504-KO ì „ìŸí„° ì†Œìœ ìì™€ ì „ìŸí„° ìƒíƒœ ìš”ì²­ WM -> M
 
 /**
  * @struct	tagWarfieldPeaceMove.
- * @brief	ÆòÈ­ ±â°£¿¡ ÀüÀïÅÍ¿¡ ÀÌµ¿ ¿äÃ» ÇÒ¶§¿¡ ÇÊ¿ä.
+ * @brief	í‰í™” ê¸°ê°„ì— ì „ìŸí„°ì— ì´ë™ ìš”ì²­ í• ë•Œì— í•„ìš”.
  */
 //< LTH-040422-KO.
 typedef struct tagWARFIELD_PEACE_MOVE
 {
-	int nWarfieldNo;		// ÀÌµ¿ÇÒ ÀüÀïÅÍ ¹øÈ£.
-	int nUserID;			// ÀÌµ¿ÇÒ À¯ÀúÀÇ ID.
+	int nWarfieldNo;		// ì´ë™í•  ì „ìŸí„° ë²ˆí˜¸.
+	int nUserID;			// ì´ë™í•  ìœ ì €ì˜ ID.
 } tagWarfieldPeaceMove;
 //> LTH-040422-KO.
 
 /**
  * @struct	tagWarfieldPeaceMoveResult.
- * @brief	ÆòÈ­ ±â°£¿¡ ÀüÀïÅÍ¿¡ ÀÌµ¿ ¿äÃ»¿¡ ´ëÇÑ °á°ú.
+ * @brief	í‰í™” ê¸°ê°„ì— ì „ìŸí„°ì— ì´ë™ ìš”ì²­ì— ëŒ€í•œ ê²°ê³¼.
  */
 //< LTH-040503-KO.
 typedef struct tagWARFIELD_PEACE_MOVE_RESULT
 {
-	DWORD dwYlMoveMoney;		// ÀÏ½ºÀÇ ÀÌµ¿ ¿ä±İ
-	int nResult;				// ÀüÀïÅÍ ÀÌµ¿ ¿äÃ» °á°ú. ÀÏÁ¾ÀÇ °á°ú ÄÚµå Çü½ÄÀÌ´Ù.
-	int nWarfieldNo;			// ÀüÀïÅÍ ¹øÈ£
-	int nPossessionNation;		// ¼ÒÀ¯±¹°¡ ¹øÈ£
+	DWORD dwYlMoveMoney;		// ì¼ìŠ¤ì˜ ì´ë™ ìš”ê¸ˆ
+	int nResult;				// ì „ìŸí„° ì´ë™ ìš”ì²­ ê²°ê³¼. ì¼ì¢…ì˜ ê²°ê³¼ ì½”ë“œ í˜•ì‹ì´ë‹¤.
+	int nWarfieldNo;			// ì „ìŸí„° ë²ˆí˜¸
+	int nPossessionNation;		// ì†Œìœ êµ­ê°€ ë²ˆí˜¸
 } tagWarfieldPeaceMoveResult;
 //> LTH-040503-KO.
 
 /**
  * @struct	tagWarfieldInfo.
- * @brief	ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í ÀüÀïÅÍ »óÅÂ ¿äÃ».
+ * @brief	ì „ìŸí„° ì†Œìœ ìì™€ ì „ìŸí„° ìƒíƒœ ìš”ì²­.
  */
 //< LTH-040504-KO.
 typedef struct tagWARFIELD_INFO
 {
-	int nWarfieldNo;			// ¿äÃ»ÇÒ ÀüÀïÅÍ
-	int nUserID;				// ÀÌµ¿ÇÒ À¯ÀúÀÇ ID.
-	WORD wPort;					// ¿äÃ»ÇÑ ¸Ê¼­¹ö Æ÷Æ®
+	int nWarfieldNo;			// ìš”ì²­í•  ì „ìŸí„°
+	int nUserID;				// ì´ë™í•  ìœ ì €ì˜ ID.
+	WORD wPort;					// ìš”ì²­í•œ ë§µì„œë²„ í¬íŠ¸
 } tagWarfieldInfo;
 //> LTH-040504-KO.
 
 /**
  * @struct	tagWarfieldInfoResult.
- * @brief	ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í ÀüÀïÅÍ »óÅÂ ¿äÃ» °á°ú.
+ * @brief	ì „ìŸí„° ì†Œìœ ìì™€ ì „ìŸí„° ìƒíƒœ ìš”ì²­ ê²°ê³¼.
  */
 //< LTH-040504-KO.
 typedef struct tagWARFIELD_INFO_RESULT
 {
-	int nWarfieldNo;			// ÀÌµ¿ÇÒ ÀüÀïÅÍ ¹øÈ£.
-	int nUserID;				// ÀÌµ¿ÇÒ À¯ÀúÀÇ ID.
-	int nWarfieldPossession;	// ÀüÀïÅÍ ¼ÒÀ¯ÀÚ
-	int nWarfieldStatus;		// ÀüÀïÅÍ »óÅÂ
+	int nWarfieldNo;			// ì´ë™í•  ì „ìŸí„° ë²ˆí˜¸.
+	int nUserID;				// ì´ë™í•  ìœ ì €ì˜ ID.
+	int nWarfieldPossession;	// ì „ìŸí„° ì†Œìœ ì
+	int nWarfieldStatus;		// ì „ìŸí„° ìƒíƒœ
 } tagWarfieldInfoResult;
 //> LTH-040504-KO.
 //>------------------------------- 1.04+ addition ------------------------------------------
@@ -489,9 +489,9 @@ typedef struct WarBBS_P
 {
 	char	WarfieldNo;
 	char	BBSType;
-	char	LanNo;				//·©±ÍÁöÆÑ ¹øÈ£
-	char	ArgType;			// 0 :¹®ÀÚ¿­ 1: ¼ıÀÚ 
-	char	Size;				// ArgTypeÀÌ ¹®ÀÚ¿­ÀÌ¸é ¹®ÀÚ¿­ÀÇ Å©±â 1:¼öÀÚÀÌ¸é ÀÎÀÚÀÇ °¹¼ö 
+	char	LanNo;				//ë­ê·€ì§€íŒ© ë²ˆí˜¸
+	char	ArgType;			// 0 :ë¬¸ìì—´ 1: ìˆ«ì 
+	char	Size;				// ArgTypeì´ ë¬¸ìì—´ì´ë©´ ë¬¸ìì—´ì˜ í¬ê¸° 1:ìˆ˜ìì´ë©´ ì¸ìì˜ ê°¯ìˆ˜ 
 	char	Arg[MAX_STRING_PK];
 }	t_WarBBS;
 
@@ -511,7 +511,7 @@ typedef struct WarfieldStatusM_P
 typedef struct VoteData_P
 {
 	char	WarfieldNo;
-	short	VoteCount;				//¿öµå³ª Á¤¼öÇüÀ¸·Î º¯È¯ ÇÊ¿ä // 011028 LTS
+	short	VoteCount;				//ì›Œë“œë‚˜ ì •ìˆ˜í˜•ìœ¼ë¡œ ë³€í™˜ í•„ìš” // 011028 LTS
 }	t_VoteData;
 
 typedef struct RequestSquadInfo_P
@@ -527,7 +527,7 @@ typedef struct SquadInfo_P
 	int		ChipID;
 	char	ChipName[NW_NAME_MAX];
 	int		SoldierCount;
-	char	Sok[NW_SQUAD_RARE_MAX];					//·¹¾î¼Ó¼º //ºñÆ®¿¬»ê	
+	char	Sok[NW_SQUAD_RARE_MAX];					//ë ˆì–´ì†ì„± //ë¹„íŠ¸ì—°ì‚°	
 	char	LoadingPoint;
 }	t_SquadInfo;
 
@@ -537,7 +537,7 @@ typedef struct SquadInfo2_P
 	short	SquadCount[NW_SQUAD_MAX];				// 011028 LTS
 }	t_SquadInfo2;
 
-typedef struct RegSquadLeader_P			// ¼­¹ö°£ ÆĞÅ¶ 
+typedef struct RegSquadLeader_P			// ì„œë²„ê°„ íŒ¨í‚· 
 {
 	char		Nation;
 	char		WarfieldNo;
@@ -575,7 +575,7 @@ typedef struct CommanderVoteData_P
 	unsigned __int8		nDual;					// 011020 LTS
 	unsigned __int8		nStep;					// 011020 LTS
 	DWORD		LadderScore;
-	short		VoteCount;				//¿öµå³ª Á¤¼öÇüÀ¸·Î º¯È¯ ÇÊ¿ä		// 011028 LTS
+	short		VoteCount;				//ì›Œë“œë‚˜ ì •ìˆ˜í˜•ìœ¼ë¡œ ë³€í™˜ í•„ìš”		// 011028 LTS
 }	t_CommanderVoteData;
 
 typedef struct CommanderVoteData2_P
@@ -693,7 +693,7 @@ typedef struct WarfieldPossession_P
 	char	Possession[NW_WARFIELD_COUNT];
 }	t_WarfieldPossession;
 
-typedef struct WarfieldData1_P			//¼º¹®, ¼öÈ£¼® 
+typedef struct WarfieldData1_P			//ì„±ë¬¸, ìˆ˜í˜¸ì„ 
 {
 	char	GuardStoneCount;
 	char*   GuardStoneStatus;
@@ -701,7 +701,7 @@ typedef struct WarfieldData1_P			//¼º¹®, ¼öÈ£¼®
 	char*	CastleGateWayStatus;
 }	t_WarfieldData1;
 
-typedef struct WarfieldData2_P			// ÀüÀï ³²Àº ½Ã°£, ¹æ¾î,°ø°İ,Áö¿ø±º ¼ö
+typedef struct WarfieldData2_P			// ì „ìŸ ë‚¨ì€ ì‹œê°„, ë°©ì–´,ê³µê²©,ì§€ì›êµ° ìˆ˜
 {
 	DWORD	RemainTime;
 	int		DefencerCount;				// 010927 LTS
@@ -709,7 +709,7 @@ typedef struct WarfieldData2_P			// ÀüÀï ³²Àº ½Ã°£, ¹æ¾î,°ø°İ,Áö¿ø±º ¼ö
 	int		ReinforceCount;
 }	t_WarfieldData2;
 
-typedef struct WarfieldData3_P			//ºÎ´ëÁ¤º¸ 
+typedef struct WarfieldData3_P			//ë¶€ëŒ€ì •ë³´ 
 {
 	char	Type;						// Attacker, Defencer, Reinforce
 	WORD	MemberCount[NW_SQUAD_MAX];
@@ -963,20 +963,20 @@ typedef struct RemainTime_
 	DWORD	RemainTime;
 }	t_RemainTime;
 
-typedef struct WarControl_				// 011025 LTS			// ÀüÀï¼­¹ö¿¡¼­¸¸ ½ÇÇàµÇ°Ô ÇÑ´Ù.	
+typedef struct WarControl_				// 011025 LTS			// ì „ìŸì„œë²„ì—ì„œë§Œ ì‹¤í–‰ë˜ê²Œ í•œë‹¤.	
 {
 	char	Type;			// 0 : Set	 1 : View
 	char	WarfieldNo;		// 0 : 5991, 1 : 5992, 2 : 5993
-	char	Status;			// 1 : ÆòÈ­, 2 : ÅõÇ¥, 3 : ÀüÀïÁØºñ, 4 : ÀüÀï 
-	char	Active;			// 0 : ÁßÁö, 1 : ½ÇÇà, 2 : Å¬¸®¾î 
+	char	Status;			// 1 : í‰í™”, 2 : íˆ¬í‘œ, 3 : ì „ìŸì¤€ë¹„, 4 : ì „ìŸ 
+	char	Active;			// 0 : ì¤‘ì§€, 1 : ì‹¤í–‰, 2 : í´ë¦¬ì–´ 
 }	t_WarControl;
 
 typedef struct WarLoopTime_				// 011025 LTS
 {
 	char	Type;			// 0 : Set,  1 : View	
 	char	WarfieldNo;		// 0 : 5991, 1 : 5992, 2 : 5993
-	char	Status;			// 1 : ÆòÈ­, 2 : ÅõÇ¥, 3 : ÀüÀïÁØºñ, 4 : ÀüÀï 
-	DWORD	LoopTime;		// SetLoopTime, CurrentLoopTime			//½Ã°£´ÜÀ§
+	char	Status;			// 1 : í‰í™”, 2 : íˆ¬í‘œ, 3 : ì „ìŸì¤€ë¹„, 4 : ì „ìŸ 
+	DWORD	LoopTime;		// SetLoopTime, CurrentLoopTime			//ì‹œê°„ë‹¨ìœ„
 }	t_WarLoopTime;
 
 typedef struct SecretOpen_				// 011025 LTS
@@ -1010,8 +1010,8 @@ struct WAR_RESULT
 	int			YLZYCount;
 	int			BYDeathCount;
 	int			ZYDeathCount;
-	WORD		WarfieldPort;   // 030509 kyo charÀ» ¸Ç ¹ØÀ¸·Î.
-	char		VictoryTeam;	// 030509 kyo charÀ» ¸Ç ¹ØÀ¸·Î.
+	WORD		WarfieldPort;   // 030509 kyo charì„ ë§¨ ë°‘ìœ¼ë¡œ.
+	char		VictoryTeam;	// 030509 kyo charì„ ë§¨ ë°‘ìœ¼ë¡œ.
 };
 
 struct DONT_DATA
@@ -1036,41 +1036,41 @@ struct GUARD_KILLER
 struct NEW_WARFIELD_STATUS
 {
 	//char	Status[MAX_NEW_WARFIELD];
-	char	Status[MAX_NEW_WARFIELD + 1];	// LTH-040212-KO ÁöÇÏÀüÀïÅÍ Ãß°¡...
+	char	Status[MAX_NEW_WARFIELD + 1];	// LTH-040212-KO ì§€í•˜ì „ìŸí„° ì¶”ê°€...
 };
 
 struct NEW_WARFIELD_DATA1
 {
 	DWORD	RemainTime;
-	int		nWarfieldNo;	// LTH-040311-KO ÀüÀïÅÍ ¹øÈ£¸¦ ½Ç¾îº¸³½´Ù.
-	int		TeamCount[2]; // 030509 kyo charÀ» ¸Ç ¹ØÀ¸·Î.
+	int		nWarfieldNo;	// LTH-040311-KO ì „ìŸí„° ë²ˆí˜¸ë¥¼ ì‹¤ì–´ë³´ë‚¸ë‹¤.
+	int		TeamCount[2]; // 030509 kyo charì„ ë§¨ ë°‘ìœ¼ë¡œ.
 	char	GuardStatus[2][5];
 };
 
 struct NOTICE_WAR_PEACE
 {
 	char	Type;
-	int     WarNo;					// ÇöÀç ÀüÀï¹øÈ£
-	char    RemainTime[4][2];		// ÀÏ¹İÀüÀïÅÍ 2°³ , ¼³¿øÀüÀïÅÍ 1°³, ÁöÇÏÀüÀïÅÍ 1°³ LTH-040207-KO
-	char	SOpenWarfieldNo;		// ºñ¹ĞÁö¿ªÀÌ ¿­¸° ÀüÀïÅÍ
-	int		aLocalWarPoint[3];		// LTH-040316-KO ±¹ÁöÀü Æ÷ÀÎÆ®.
+	int     WarNo;					// í˜„ì¬ ì „ìŸë²ˆí˜¸
+	char    RemainTime[4][2];		// ì¼ë°˜ì „ìŸí„° 2ê°œ , ì„¤ì›ì „ìŸí„° 1ê°œ, ì§€í•˜ì „ìŸí„° 1ê°œ LTH-040207-KO
+	char	SOpenWarfieldNo;		// ë¹„ë°€ì§€ì—­ì´ ì—´ë¦° ì „ìŸí„°
+	int		aLocalWarPoint[3];		// LTH-040316-KO êµ­ì§€ì „ í¬ì¸íŠ¸.
 };
 
 struct NEWWAR_START
 {
-	DWORD			dwTerm;			// LTH-040313-KO ¸îºĞµ¿¾È ¿­¸®´ÂÁö
+	DWORD			dwTerm;			// LTH-040313-KO ëª‡ë¶„ë™ì•ˆ ì—´ë¦¬ëŠ”ì§€
 	char			WarfieldNo;
 	unsigned char	LevelMin;
 	unsigned char	LevelMax;
-	unsigned char	btNationPoint;	// LTH-040313-KO ±¹ÁöÀü ±¹°¡ Æ÷ÀÎÆ®
+	unsigned char	btNationPoint;	// LTH-040313-KO êµ­ì§€ì „ êµ­ê°€ í¬ì¸íŠ¸
 };
 
 struct GUARD_BROKE
 {
 	int				nWarfieldNo;	// LTH-040303-KO 1.4 Patch.
-	int				aRemainGuard[2][4];	// LTH-040314-KO Á¤º¸ Ç¥½Ã¸¦ À§ÇØ
+	int				aRemainGuard[2][4];	// LTH-040314-KO ì •ë³´ í‘œì‹œë¥¼ ìœ„í•´
 	char			BrokeTeamNo;
-	char			Type;							// 0 : ¼º¹® 1 : ¼öÈ£¼®
+	char			Type;							// 0 : ì„±ë¬¸ 1 : ìˆ˜í˜¸ì„
 	char			GuardNo;
 	short			X;
 	short			Y;
@@ -1104,7 +1104,7 @@ typedef union NationWar_P
 	t_TileDont					TileDont;
 	t_SquadChat					SquadChat;
 	t_WarfieldInfo				WarfieldInfo;
-	t_RegSquadLeader			RegSquadLeader;			//¼­¹ö°£ ÆĞÅ¶ 
+	t_RegSquadLeader			RegSquadLeader;			//ì„œë²„ê°„ íŒ¨í‚· 
 	t_WarfieldPossession		WarfieldPossession;
 	t_WarfieldData1				WarfieldData1;
 	t_WarfieldData2				WarfieldData2;
@@ -1156,16 +1156,16 @@ typedef union NationWar_P
 	NEWWAR_START				NewWarStart;
 	NOTICE_SOPEN				NoticeSOpen;
 	GUARD_BROKE					GuardBroke;
-	t_CheckSquadMemberCount		CheckSquadMemberCount;	// LTH-040209-KO Hades War ºÎ´ë ÀÎ¿ø¼ö
-	t_CheckSquadMemberCountR	CheckSquadMemberCountR;	// LTH-040209-KO Hades War ºÎ´ë ÀÎ¿øÃ¼Å© °á°ú
-	NEO_WARFIELD_DATA			NeoWarfieldData;		// LTH-040212-KO	ÀüÀïÅÍ µ¥ÀÌÅÍ Àü¼Û¿ë
-	NEO_WAR_RESULT				NeoWarResult;			// LTH-040225-KO 1.4 »õ ÀüÀïÅÍ °á°ú Á¤º¸
-	GUARD_CAN_NOT_BROKE			GuardCanNotBroke;		// LTH-040317-KO °¡µå¸¦ ºÎ¼ú ¼ö ¾ø´Â ÀÌÀ¯ Àü¼Û
-	REMAIN_GUARD				RemainGuard;			// LTH-040318-KO ³²Àº °¡µåµéÀÇ ¼ö¸¦ ¹İÈ¯
-	tagWarfieldPeaceMove		WarfieldPeaceMove;		// LTH-040423-KO 1.4+ ÆòÈ­±â°£ ÀüÀïÅÍ ÀÌµ¿.
-	tagWarfieldPeaceMoveResult	WarfieldPeaceMoveR;		// LTH-040423-KO 1.4+ ÆòÈ­±â°£ ÀüÀïÅÍ ÀÌµ¿ °á°ú.
-	tagWarfieldInfo				WarfieldInfoToManager;	// LTH-040504-KO 1.4+ ÀüÀï °ü¸®¼­¹ö¿¡°Ô ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í »óÅÂ¸¦ ¿äÃ».
-	tagWarfieldInfoResult		WarfieldInfoFromManager;	// LTH-040504-KO 1.4+ ÀüÀï °ü¸®¼­¹ö°¡ ÀüÀïÅÍ ¼ÒÀ¯ÀÚ¿Í »óÅÂ¸¦ ¹İÈ¯.
+	t_CheckSquadMemberCount		CheckSquadMemberCount;	// LTH-040209-KO Hades War ë¶€ëŒ€ ì¸ì›ìˆ˜
+	t_CheckSquadMemberCountR	CheckSquadMemberCountR;	// LTH-040209-KO Hades War ë¶€ëŒ€ ì¸ì›ì²´í¬ ê²°ê³¼
+	NEO_WARFIELD_DATA			NeoWarfieldData;		// LTH-040212-KO	ì „ìŸí„° ë°ì´í„° ì „ì†¡ìš©
+	NEO_WAR_RESULT				NeoWarResult;			// LTH-040225-KO 1.4 ìƒˆ ì „ìŸí„° ê²°ê³¼ ì •ë³´
+	GUARD_CAN_NOT_BROKE			GuardCanNotBroke;		// LTH-040317-KO ê°€ë“œë¥¼ ë¶€ìˆ  ìˆ˜ ì—†ëŠ” ì´ìœ  ì „ì†¡
+	REMAIN_GUARD				RemainGuard;			// LTH-040318-KO ë‚¨ì€ ê°€ë“œë“¤ì˜ ìˆ˜ë¥¼ ë°˜í™˜
+	tagWarfieldPeaceMove		WarfieldPeaceMove;		// LTH-040423-KO 1.4+ í‰í™”ê¸°ê°„ ì „ìŸí„° ì´ë™.
+	tagWarfieldPeaceMoveResult	WarfieldPeaceMoveR;		// LTH-040423-KO 1.4+ í‰í™”ê¸°ê°„ ì „ìŸí„° ì´ë™ ê²°ê³¼.
+	tagWarfieldInfo				WarfieldInfoToManager;	// LTH-040504-KO 1.4+ ì „ìŸ ê´€ë¦¬ì„œë²„ì—ê²Œ ì „ìŸí„° ì†Œìœ ìì™€ ìƒíƒœë¥¼ ìš”ì²­.
+	tagWarfieldInfoResult		WarfieldInfoFromManager;	// LTH-040504-KO 1.4+ ì „ìŸ ê´€ë¦¬ì„œë²„ê°€ ì „ìŸí„° ì†Œìœ ìì™€ ìƒíƒœë¥¼ ë°˜í™˜.
 } t_NationWar;
 
 typedef struct LocalWarInfo1_							// LTS LOCALWAR
@@ -1191,7 +1191,7 @@ typedef struct LocalWarPointChanged_
 
 typedef struct LocalWarInfo_
 {
-	t_LocalWarInfo1				LocalWarInfo1[7];			// ÃÖ¾ÇÀÇ ¹æ¹ı
+	t_LocalWarInfo1				LocalWarInfo1[7];			// ìµœì•…ì˜ ë°©ë²•
 	t_LocalWarInfo2				LocalWarInfo2;
 	t_LocalWarPointChanged		LocalWarPointChanged;	
 	char						LocalWarDefencePoint[3];
@@ -1259,7 +1259,7 @@ typedef	struct EventJoin_
 	unsigned char	Level;
 }	t_EventJoin;
 
-typedef struct DeleteEventJoin_				// DBµ¥¸ó¿¡´Â NationWar¿¡ Á¤ÀÇ µÇ¾îÀÖÀ¸³ª »ó°ü¾ø´Ù.	// 020115 LTS
+typedef struct DeleteEventJoin_				// DBë°ëª¬ì—ëŠ” NationWarì— ì •ì˜ ë˜ì–´ìˆìœ¼ë‚˜ ìƒê´€ì—†ë‹¤.	// 020115 LTS
 {
 	char	UserName[20];
 	char	EventNo;
@@ -1275,7 +1275,7 @@ typedef struct EventRemainTime_				// LTS BUG
 	DWORD	RemainTime;
 }	t_EventRemainTime;
 
-typedef struct AI_Status_					// LTS AI2 TEMP			// µğ¹ö±×¿ë
+typedef struct AI_Status_					// LTS AI2 TEMP			// ë””ë²„ê·¸ìš©
 {
 	int		ID;
 	int		PatternType;
@@ -1371,7 +1371,7 @@ typedef union LocalWar_
 	t_DeleteEventJoin			DeleteEventJoin;		// 020115 LTS
 	t_EventPoint				EventPoint;				// 020115 LTS
 	t_EventRemainTime			EventRemainTime;		// LTS BUG
-	t_AI_Status					AI_Status;				// LTS AI2 TEMP				// µğ¹ö±×¿ë
+	t_AI_Status					AI_Status;				// LTS AI2 TEMP				// ë””ë²„ê·¸ìš©
 	t_EVMonster					EVMonster;				// LTS AI2 TEMP
 	t_CommunityAction			CommunityAction;		// LTS ACTION
 	t_CommunityActionS			CommunityActionS;		// LTS ACTION

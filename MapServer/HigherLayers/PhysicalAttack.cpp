@@ -1,4 +1,4 @@
-// PhysicalAttack.cpp: implementation of the CPhysicalAttack class.
+ï»¿// PhysicalAttack.cpp: implementation of the CPhysicalAttack class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -23,12 +23,12 @@ extern void Send_CMD_SEALSTONE_STATUS(LPCHARLIST ch, int status);
 ///////////////////////////////////////////////////////////////////////////////
 
 static int RATE_BY_CLASS[5][4] = 
-{ // Å¬·¡½ºÀÇ ¹«±âº° º¸Á¤°ª
-	{100, 100,  90,  90}, // Àü  »ç : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90,  90, 100, 100}, // µµ  Àû : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90,  90, 100, 100}, // ±Ã  ¼ö : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90, 100,  90, 100}, // ¸¶¹ı»ç : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
-	{ 90, 100,  90, 100}  // ¼ºÁ÷ÀÚ : ´Ü°Å¸®, Áß°Å¸®, Àå°Å¸®(È°), Àå°Å¸®(ºñµµ)
+{ // í´ë˜ìŠ¤ì˜ ë¬´ê¸°ë³„ ë³´ì •ê°’
+	{100, 100,  90,  90}, // ì „  ì‚¬ : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90,  90, 100, 100}, // ë„  ì  : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90,  90, 100, 100}, // ê¶  ìˆ˜ : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90, 100,  90, 100}, // ë§ˆë²•ì‚¬ : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
+	{ 90, 100,  90, 100}  // ì„±ì§ì : ë‹¨ê±°ë¦¬, ì¤‘ê±°ë¦¬, ì¥ê±°ë¦¬(í™œ), ì¥ê±°ë¦¬(ë¹„ë„)
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -51,12 +51,12 @@ CPhysicalAttack::~CPhysicalAttack()
 
 bool CPhysicalAttack::Bind() 
 {	//< CSD-030723
-	Resist(WR_SHORT,  &CPhysicalAttack::AttackShort);  // ´Ü°Å¸®
-	Resist(WR_MIDDLE, &CPhysicalAttack::AttackMiddle); // Áß°Å¸®
-	Resist(WR_LONG1,  &CPhysicalAttack::AttackLong);   // Àå°Å¸®(È°)
-	Resist(WR_LONG2,  &CPhysicalAttack::AttackLong);   // Àå°Å¸®(ºñµµ)
-	Resist(WR_LONG3,  &CPhysicalAttack::AttackEvent);  // Àå°Å¸®(ÀÌº¥Æ®)
-	Resist(WR_EFFECT, &CPhysicalAttack::AttackEffect); // ¾ÆÀÌÅÛ È¿°ú
+	Resist(WR_SHORT,  &CPhysicalAttack::AttackShort);  // ë‹¨ê±°ë¦¬
+	Resist(WR_MIDDLE, &CPhysicalAttack::AttackMiddle); // ì¤‘ê±°ë¦¬
+	Resist(WR_LONG1,  &CPhysicalAttack::AttackLong);   // ì¥ê±°ë¦¬(í™œ)
+	Resist(WR_LONG2,  &CPhysicalAttack::AttackLong);   // ì¥ê±°ë¦¬(ë¹„ë„)
+	Resist(WR_LONG3,  &CPhysicalAttack::AttackEvent);  // ì¥ê±°ë¦¬(ì´ë²¤íŠ¸)
+	Resist(WR_EFFECT, &CPhysicalAttack::AttackEffect); // ì•„ì´í…œ íš¨ê³¼
 	return true; 
 }	//> CSD-030723
 
@@ -69,10 +69,10 @@ bool CPhysicalAttack::AttackShort()
 	
 	const int nAttack = CalcAttack(m_nIndex);
 	const int nDefense = CalcDefense(nAttack);
-	// ´Ü°Å¸® ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ë‹¨ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(m_nIndex, nAttack - nDefense);
 	Correct(nDamage); 
-	// °Å¸® °Ë»ç
+	// ê±°ë¦¬ ê²€ì‚¬
 	switch (m_pCaster->GetActiveCombat())
 	{
     case CHARGING:
@@ -86,7 +86,7 @@ bool CPhysicalAttack::AttackShort()
 		}
 	}
 	
-	// »ç¿ë ¹«±âÀÇ ³»±¸µµ °¨¼Ò
+	// ì‚¬ìš© ë¬´ê¸°ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pCaster, nDamage, WT_WEAPON, m_pTarget->SprNo);
 	return Result(nDamage);
 }
@@ -100,12 +100,12 @@ bool CPhysicalAttack::AttackMiddle()
 	
 	const int nAttack = CalcAttack(m_nIndex);
 	const int nDefense = CalcDefense(nAttack);
-	// Áß°Å¸® ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ì¤‘ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(m_nIndex, nAttack - nDefense);
 	Correct(nDamage); 
-	// °Å¸® °Ë»ç
+	// ê±°ë¦¬ ê²€ì‚¬
 	if (!IsRange())  nDamage = 0;
-	// »ç¿ë ¹«±âÀÇ ³»±¸µµ °¨¼Ò
+	// ì‚¬ìš© ë¬´ê¸°ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pCaster, nDamage, WT_WEAPON, m_pTarget->SprNo);
 	return Result(nDamage);
 }
@@ -119,19 +119,19 @@ bool CPhysicalAttack::AttackLong()
 	
 	const int nAttack = CalcAttack(m_nIndex);
 	const int nDefense = CalcDefense(nAttack);
-	// Àå°Å¸® ¹«±â¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ì¥ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(m_nIndex, nAttack - nDefense);
 	Correct(nDamage); 
-	// »ç¿ë ¹«±âÀÇ ³»±¸µµ °¨¼Ò
+	// ì‚¬ìš© ë¬´ê¸°ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	switch (m_nIndex)
 	{	//< CSD-030723
-    case WR_LONG1: // È°
+    case WR_LONG1: // í™œ
 		{
 			::DecreaseEquipDuration(m_pCaster, nDamage, WT_WEAPON, m_pTarget->SprNo);
 			::DecreaseEquipDuration(m_pCaster, 1, WT_SHIELD, m_pTarget->SprNo);
 			break;
 		}
-    case WR_LONG2: // ºñµµ
+    case WR_LONG2: // ë¹„ë„
 		{
 			::DecreaseEquipDuration(m_pCaster, 1, WT_WEAPON, m_pTarget->SprNo);
 			break;
@@ -140,7 +140,7 @@ bool CPhysicalAttack::AttackLong()
 	
 	if (m_pTarget->IsNpc()) // LTS AI
 	{
-		if (m_pTarget->ChairNum)		// ¼­¹ö AIÀÌ¸é 	// LTS AI2	
+		if (m_pTarget->ChairNum)		// ì„œë²„ AIì´ë©´ 	// LTS AI2	
 		{
 			if (m_pTarget->patterntype>=NPC_PATTERN_WANDER&&m_pTarget->patterntype<NPC_PATTERN_BOSS_WANDER)  // LTS DRAGON MODIFY
 			{
@@ -165,7 +165,7 @@ bool CPhysicalAttack::AttackEvent()
 	
 	switch (m_nIndex)
 	{	
-    case WR_LONG3: // ´«½Î¿ò
+    case WR_LONG3: // ëˆˆì‹¸ì›€
 		{
 			::DecreaseEquipDuration(m_pCaster, 1, WT_WEAPON, m_pTarget->SprNo);
 			break;
@@ -174,39 +174,39 @@ bool CPhysicalAttack::AttackEvent()
 	
 	BYTE nResult = HIT_AND_NOTDEAD;
 	int nDamage = 1;
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ¹°¸®Àû µ¥ÀÌÁöµµ ¹ŞÁö ¸øÇÔ
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ë¬¼ë¦¬ì  ë°ì´ì§€ë„ ë°›ì§€ ëª»í•¨
 	if (m_pTarget->IsStone())
 	{		
 		nDamage = 0;
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¸¸¾à °ø°İÀ» ¹ŞÀ¸¸é ÀÚ¸®¿¡ ¸ØÃß°Ô ÇÔ
+	// ë§Œì•½ ê³µê²©ì„ ë°›ìœ¼ë©´ ìë¦¬ì— ë©ˆì¶”ê²Œ í•¨
 	if (m_pTarget->IsNpc())
 	{ 
 		m_pTarget->MoveLength = m_pTarget->MovePathCount = 0;
 	}
-	// ¹æ¾î±¸ÀÇ ³»±¸µµ °¨¼Ò
+	// ë°©ì–´êµ¬ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pTarget, nDamage, ::getEquipRandomPos(), m_pTarget->SprNo, false);
 	::HungryMuchAdd(m_pCaster, HT_ATTACK);
 	
 	switch (m_pTarget->Race)
 	{
-    case SEALSTONE:  // °á°è¼®ÀÎ °æ¿ì
+    case SEALSTONE:  // ê²°ê³„ì„ì¸ ê²½ìš°
 		{
 			m_pTarget->DecLife(nDamage);
 			g_pLogManager->SaveLogLocalWar_SealStoneInfo(m_pCaster, m_pTarget, nDamage); // CSD-040316
 			break;
 		}
-    case GUARDSTONE: // ¼öÈ£¼®ÀÎ °æ¿ì
+    case GUARDSTONE: // ìˆ˜í˜¸ì„ì¸ ê²½ìš°
 	//case GUARDTOWER:
 		{	//< CSD-040202
 			if (::IsWar() && ::CanDestroyTarget(m_pCaster, m_pTarget))
-			{ // ÀüÀïÀÎ °æ¿ì º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇ¾ú´Ù¸é
+			{ // ì „ìŸì¸ ê²½ìš° ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì—ˆë‹¤ë©´
 				m_pTarget->DecLife(nDamage);
 			}
 			else
-			{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì³ª ÀüÀï Áß º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇÁö ¾Ê¾Ò´Ù¸é
+			{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°ë‚˜ ì „ìŸ ì¤‘ ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì§€ ì•Šì•˜ë‹¤ë©´
 				nDamage = 0;
 				nResult = HIT_AND_NOTDEAD;
 				goto SEND;
@@ -215,13 +215,13 @@ bool CPhysicalAttack::AttackEvent()
 			break;
 		}	//> CSD-040202
 	case GUARDTOWER:
-		{	//< LTH-040403-KO ¹æ¾îÅ¾ÀÇ °æ¿ì ¼öÈ£¼®°ú´Â »ó°ü ¾ø´Ù.
+		{	//< LTH-040403-KO ë°©ì–´íƒ‘ì˜ ê²½ìš° ìˆ˜í˜¸ì„ê³¼ëŠ” ìƒê´€ ì—†ë‹¤.
 			if (::IsWar())
-			{ // ÀüÀïÀÎ °æ¿ì º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇ¾ú´Ù¸é
+			{ // ì „ìŸì¸ ê²½ìš° ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì—ˆë‹¤ë©´
 				m_pTarget->DecLife(nDamage);
 			}
 			else
-			{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì³ª ÀüÀï Áß º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇÁö ¾Ê¾Ò´Ù¸é
+			{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°ë‚˜ ì „ìŸ ì¤‘ ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì§€ ì•Šì•˜ë‹¤ë©´
 				nDamage = 0;
 				nResult = HIT_AND_NOTDEAD;
 				goto SEND;
@@ -233,16 +233,16 @@ bool CPhysicalAttack::AttackEvent()
 	
 	switch (m_pTarget->SprNo)
 	{
-	case 92:	// ±âµÕ..
-	case 93:	// ±âµÕ..
-	case 94:	// °ú³á..
-	case 95:	// Çã¼ö¾Æºñ.
-    case 96:	// ÅÂÆ½¼ö·Ã¿ë.
+	case 92:	// ê¸°ë‘¥..
+	case 93:	// ê¸°ë‘¥..
+	case 94:	// ê³¼ë…..
+	case 95:	// í—ˆìˆ˜ì•„ë¹„.
+    case 96:	// íƒœí‹±ìˆ˜ë ¨ìš©.
 		{ 
 			nResult = HIT_AND_NOTDEAD;
 			goto SEND;
 		}	
-	case 97:	// Ãà±¸°ø
+	case 97:	// ì¶•êµ¬ê³µ
 		{
 			nDamage = 0;
 			nResult = HIT_AND_NOTDEAD;
@@ -316,12 +316,12 @@ bool CPhysicalAttack::AttackEffect()
 {	//< CSD-031007
 	const int nAttack = CalcAttack(m_nIndex);
 	const int nDefense = CalcDefense(nAttack);
-	// ¾ÆÀÌÅÛ È¿°ú¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ì•„ì´í…œ íš¨ê³¼ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	int nDamage = CalcDamage(m_nIndex, nAttack - nDefense)*m_pCaster->CorrectItemEffect()/100;
 	Correct(nDamage);
 	
 	if (!IsRange())
-	{	// °Å¸® °Ë»ç
+	{	// ê±°ë¦¬ ê²€ì‚¬
 		nDamage = 0;
 	}
 
@@ -333,7 +333,7 @@ bool CPhysicalAttack::AttackEffect()
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CPhysicalAttack::IsRange() const
-{	// ÀûÀıÇÑ ¹üÀ§ÀÎÁö °Ë»ç
+{	// ì ì ˆí•œ ë²”ìœ„ì¸ì§€ ê²€ì‚¬
 	if (m_pCaster->IsPlayer() && m_pTarget->IsNpc())
 	{
 		const int nDistX = pow(m_pCaster->X - m_pTarget->X, 2.0);
@@ -349,11 +349,11 @@ bool CPhysicalAttack::IsRange() const
 }
 
 bool CPhysicalAttack::IsMiss() const
-{	// ¹°¸®Àû °ø°İ ¼º°ø ¿©ºÎ ÆÇ´Ü
+{	// ë¬¼ë¦¬ì  ê³µê²© ì„±ê³µ ì—¬ë¶€ íŒë‹¨
 	if( m_pTarget && m_pTarget->IsDead() ) return true;
 	const int nStatic = RareEM.GetStaticRareSmart(m_pTarget->StaticRare);
 	const int nDynamic = RareEM.GetDynamicRareValue(FITEM_AGILITY, m_pTarget->DynamicRare);
-	// È¸ÇÇÀ² °è»ê
+	// íšŒí”¼ìœ¨ ê³„ì‚°
 	const int nRate = m_pCaster->CalcAttackSuccessRate(nStatic, nDynamic);
 	return (nRate < rand()%101) ? true:false;
 }
@@ -363,24 +363,24 @@ bool CPhysicalAttack::IsMiss() const
 ///////////////////////////////////////////////////////////////////////////////
 
 void CPhysicalAttack::Correct(int& rDamage)
-{ 	// ¾ÆÀÌÅÛ ¼Ó¼º¿¡ ÀÇÇÑ º¸Á¤
+{ 	// ì•„ì´í…œ ì†ì„±ì— ì˜í•œ ë³´ì •
 	RareEM.CorrectByStaticRare(m_pCaster, m_pTarget, rDamage);
-	// Å¬·¡½º¿¡ ´ëÇÑ º¸Á¤
+	// í´ë˜ìŠ¤ì— ëŒ€í•œ ë³´ì •
 	if (m_pCaster->IsPlayer())
 	{ 
 		rDamage = rDamage*RATE_BY_CLASS[m_pCaster->Class][m_nIndex]/100;
 	} 
-	// °Å¸®¿¡ ´ëÇÑ º¸Á¤
+	// ê±°ë¦¬ì— ëŒ€í•œ ë³´ì •
 	const int nDistance = ::getDistance(m_pCaster, m_pTarget);
 	m_pCaster->CorrectStrikeRange(nDistance, rDamage);
-	// ³ô³·ÀÌ¿¡ µû¸¥ º¸Á¤
+	// ë†’ë‚®ì´ì— ë”°ë¥¸ ë³´ì •
 	const int nX = m_pTarget->MoveSx; 
 	const int nY = m_pTarget->MoveSy;
 	m_pCaster->CorrectRiseFall(0, nX, nY, rDamage);
-	// ¿ÕÀÌ³ª Ä«¿î¼¿·¯¿¡ ´ëÇÑ º¸Á¤
+	// ì™•ì´ë‚˜ ì¹´ìš´ì…€ëŸ¬ì— ëŒ€í•œ ë³´ì •
 	if (m_pCaster->name_status.nation == m_pTarget->name_status.nation)
 	{	
-		//if (m_pTarget->name_status.king || m_pTarget->IsCounselor())    //coromo 2005/05/06 È¥³ıKINGÌØÈ¨
+		//if (m_pTarget->name_status.king || m_pTarget->IsCounselor())    //coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 		//{
 		//	rDamage /= 30;
 		//}
@@ -404,19 +404,19 @@ bool CPhysicalAttack::Result(int nDamage)
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ ¹°¸®Àû µ¥ÀÌÁöµµ ¹ŞÁö ¸øÇÔ
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ë¬¼ë¦¬ì  ë°ì´ì§€ë„ ë°›ì§€ ëª»í•¨
 	if (m_pTarget->IsStone())
 	{		
 		nDamage = 0;
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¸¸¾à °ø°İÀ» ¹ŞÀ¸¸é ÀÚ¸®¿¡ ¸ØÃß°Ô ÇÔ
+	// ë§Œì•½ ê³µê²©ì„ ë°›ìœ¼ë©´ ìë¦¬ì— ë©ˆì¶”ê²Œ í•¨
 	if (m_pTarget->IsNpc())
 	{ 
 		m_pTarget->MoveLength = m_pTarget->MovePathCount = 0;
 	}
-	// ¸¸¾à ROOKIE_LEVEL ÀÌÇÏÀÌ¸é µ·ÀÌ ³ª¿À°Ô ÇÔ
+	// ë§Œì•½ ROOKIE_LEVEL ì´í•˜ì´ë©´ ëˆì´ ë‚˜ì˜¤ê²Œ í•¨
 	if (m_pCaster->IsPlayer() && m_pTarget->IsNpc())
 	{
 		if (m_pCaster->GetLevel() <= ROOKIE_LEVEL && m_pTarget->Race == DUMMY)
@@ -439,10 +439,10 @@ bool CPhysicalAttack::Result(int nDamage)
 			}
 		}
 	}
-	// ¹æ¾î±¸ÀÇ ³»±¸µµ °¨¼Ò
+	// ë°©ì–´êµ¬ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pTarget, nDamage, ::getEquipRandomPos(), m_pTarget->SprNo, false);
 	::HungryMuchAdd(m_pCaster, HT_ATTACK);
-	// NPC Á¾·ù¿¡ µû¸¥ º¸Á¤  
+	// NPC ì¢…ë¥˜ì— ë”°ë¥¸ ë³´ì •  
 	if (m_pTarget->IsNpc())
 	{
 		switch (m_pTarget->Race)
@@ -450,9 +450,9 @@ bool CPhysicalAttack::Result(int nDamage)
 		case DUMMY:
 			{
 				if (m_pCaster->GetLevel() <= ENABLE_DUMMY_LEVEL)
-				{	//< CSD-040803 : °æÇèÄ¡°¡ 10 ÀÌÇÏ¸é¼­ ´õ¹Ì¸¦ °ø°İÇÑ °æ¿ì¸¸ °æÇèÄ¡ »ó½Â  
+				{	//< CSD-040803 : ê²½í—˜ì¹˜ê°€ 10 ì´í•˜ë©´ì„œ ë”ë¯¸ë¥¼ ê³µê²©í•œ ê²½ìš°ë§Œ ê²½í—˜ì¹˜ ìƒìŠ¹  
 					const int nExp = ::addEXP(m_pCaster, m_pTarget, HIT_AND_NOTDEAD, nDamage);
-					const int nTemp = (rand()%10 < 3) ? 3:4; // ÀÏ¹İ °æÇèÄ¡¿¡¼­ ÅÃÆ½ °æÇèÄ¡·Î º¯È¯»ó¼ö
+					const int nTemp = (rand()%10 < 3) ? 3:4; // ì¼ë°˜ ê²½í—˜ì¹˜ì—ì„œ íƒí‹± ê²½í—˜ì¹˜ë¡œ ë³€í™˜ìƒìˆ˜
 					const bool bDoubleExpUp = m_pCaster->IsDoubleExpUp();
 					m_pCaster->ChangeUpTacExp(0, nExp*nTemp, bDoubleExpUp);
 				}	//> CSD-040803
@@ -467,14 +467,14 @@ bool CPhysicalAttack::Result(int nDamage)
 				break;
 			}
 		case GUARDSTONE:
-		//case GUARDTOWER:	// LTH-040403-KO ¹æ¾îÅ¾Àº ¹Ø¿¡ ÀÖ´Ù
+		//case GUARDTOWER:	// LTH-040403-KO ë°©ì–´íƒ‘ì€ ë°‘ì— ìˆë‹¤
 			{	//< CSD-040202
 				if (::IsWar() && ::CanDestroyTarget(m_pCaster, m_pTarget))
-				{ // ÀüÀïÀÎ °æ¿ì º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇ¾ú´Ù¸é
+				{ // ì „ìŸì¸ ê²½ìš° ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì—ˆë‹¤ë©´
 					m_pTarget->DecLife(nDamage);
 				}
 				else
-				{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì³ª ÀüÀï Áß º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇÁö ¾Ê¾Ò´Ù¸é
+				{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°ë‚˜ ì „ìŸ ì¤‘ ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì§€ ì•Šì•˜ë‹¤ë©´
 					nDamage = 0;
 					nResult = HIT_AND_NOTDEAD;
 					goto SEND;
@@ -483,13 +483,13 @@ bool CPhysicalAttack::Result(int nDamage)
 				break;
 			}	//> CSD-040202
 		case GUARDTOWER:
-			{	//< LTH-040403-KO ¹æ¾îÅ¾ÀÇ °æ¿ì ¼öÈ£¼®°ú´Â »ó°ü ¾ø´Ù.
+			{	//< LTH-040403-KO ë°©ì–´íƒ‘ì˜ ê²½ìš° ìˆ˜í˜¸ì„ê³¼ëŠ” ìƒê´€ ì—†ë‹¤.
 				if (::IsWar())
-				{ // ÀüÀïÀÎ °æ¿ì º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇ¾ú´Ù¸é
+				{ // ì „ìŸì¸ ê²½ìš° ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì—ˆë‹¤ë©´
 					m_pTarget->DecLife(nDamage);
 				}
 				else
-				{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì³ª ÀüÀï Áß º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇÁö ¾Ê¾Ò´Ù¸é
+				{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°ë‚˜ ì „ìŸ ì¤‘ ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì§€ ì•Šì•˜ë‹¤ë©´
 					nDamage = 0;
 					nResult = HIT_AND_NOTDEAD;
 					goto SEND;
@@ -531,7 +531,7 @@ bool CPhysicalAttack::Result(int nDamage)
 		m_pCaster->ChangeUpTacExp(0, nExp*3, bDoubleExpUp);
 		//> CSD-040803
 		::KillWho(m_pTarget, m_pCaster);
-		// NK¿¡ °è»ê
+		// NKì— ê³„ì‚°
 		if (LocalMgr.IsAbleNation(TAIWAN))
 		{
 			if (m_pCaster->IsTamedNpc())
@@ -558,7 +558,7 @@ bool CPhysicalAttack::Result(int nDamage)
 		
 		goto SEND;
 	}				
-	else // Á×Áö ¾ÊÀº °æ¿ì
+	else // ì£½ì§€ ì•Šì€ ê²½ìš°
 	{	//< CSD-040803	
 		const int nExp = ::addEXP(m_pCaster, m_pTarget, HIT_AND_NOTDEAD, nDamage);
 		const bool bDoubleExpUp = m_pCaster->IsDoubleExpUp();

@@ -1,17 +1,17 @@
-#ifndef __DUNGEON_H__
+ï»¿#ifndef __DUNGEON_H__
 #define __DUNGEON_H__
 //////////////////////////////////////////////////////////
 // template <class T1> class TKeinList
-//class CDungeonHistory		// ¸Ş½ÃÁö Ã³¸®¸¦ À§ÇØ 
+//class CDungeonHistory		// ë©”ì‹œì§€ ì²˜ë¦¬ë¥¼ ìœ„í•´ 
 
-// °¢ ´øÀü ¸Ê ¼­¹ö¿¡¼­ Ã³¸®
-//class CDungeonObject		// ´øÀü¿¡ ÀÖ´Â ¿ÀºêÁ§Æ® Å¬·¡½º
-//class CDungeonMap			// ¸Ê´ÜÀ§( 2°³ÀÇ ÃşÀÌ Á¸ÀçÇÑ´Ù. )
-//class CDungeonMapMgr		// 2°³ÀÇ ÃşÀ» °ü¸®
+// ê° ë˜ì „ ë§µ ì„œë²„ì—ì„œ ì²˜ë¦¬
+//class CDungeonObject		// ë˜ì „ì— ìˆëŠ” ì˜¤ë¸Œì íŠ¸ í´ë˜ìŠ¤
+//class CDungeonMap			// ë§µë‹¨ìœ„( 2ê°œì˜ ì¸µì´ ì¡´ì¬í•œë‹¤. )
+//class CDungeonMapMgr		// 2ê°œì˜ ì¸µì„ ê´€ë¦¬
 
-// °ü¸®¼­¹ö
-//class CDungeonBasic		// ´øÀü ( 4°³ÀÇ ÃşÀÌ Á¸ÀçÇÑ´Ù. )
-//class CDungeonMgr			// 4°³ÀÇ ´øÀüÀ» °ü¸®
+// ê´€ë¦¬ì„œë²„
+//class CDungeonBasic		// ë˜ì „ ( 4ê°œì˜ ì¸µì´ ì¡´ì¬í•œë‹¤. )
+//class CDungeonMgr			// 4ê°œì˜ ë˜ì „ì„ ê´€ë¦¬
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -26,15 +26,15 @@
 
 #define SMT_CREATE_DRAGON		7
 #define SMT_CREATE_BOSS			8
-#define SMT_DRAGONROAD_MESSAGE1	10		// ¸ÇÃ³À½ µå·¡°ï ·Îµå¸¦ ¸¸³µÀ»¶§ 
-#define SMT_DRAGONROAD_MESSAGE2	11		// ¸ğµÎ Âù¼ºÇßÀ»¶§
-#define SMT_DRAGONROAD_MESSAGE3	12		// ¸ğµÎ ¹İ´ë ÇßÀ»¶§
-#define SMT_DRAGONROAD_MESSAGE4	13		// °áÅõ ½ÃÀÛ
-#define SMT_DRAGONROAD_MESSAGE5	14		// °áÅõ°¡ 20ºĞÀÌ ¾ÈÁö³ªµµ ¾È³¡³¯¶§
-#define SMT_DRAGONROAD_MESSAGE6	15		// µå·¡°ï ·ÎµåÀÇ ÆĞ¹è
+#define SMT_DRAGONROAD_MESSAGE1	10		// ë§¨ì²˜ìŒ ë“œë˜ê³¤ ë¡œë“œë¥¼ ë§Œë‚¬ì„ë•Œ 
+#define SMT_DRAGONROAD_MESSAGE2	11		// ëª¨ë‘ ì°¬ì„±í–ˆì„ë•Œ
+#define SMT_DRAGONROAD_MESSAGE3	12		// ëª¨ë‘ ë°˜ëŒ€ í–ˆì„ë•Œ
+#define SMT_DRAGONROAD_MESSAGE4	13		// ê²°íˆ¬ ì‹œì‘
+#define SMT_DRAGONROAD_MESSAGE5	14		// ê²°íˆ¬ê°€ 20ë¶„ì´ ì•ˆì§€ë‚˜ë„ ì•ˆëë‚ ë•Œ
+#define SMT_DRAGONROAD_MESSAGE6	15		// ë“œë˜ê³¤ ë¡œë“œì˜ íŒ¨ë°°
 #define SMT_LAYER_POTAL_MESSAGE	16		// 
-#define SMT_START_LAYER			17		// ¸î¹ø ÃşÀÌ È°¼ºÈ­ µÆ´Ù.
-#define SMT_KILL_BOSS			18		// º¸½º ¸ó½ºÅÍ¸¦ Á×¿´´Ù.
+#define SMT_START_LAYER			17		// ëª‡ë²ˆ ì¸µì´ í™œì„±í™” ëë‹¤.
+#define SMT_KILL_BOSS			18		// ë³´ìŠ¤ ëª¬ìŠ¤í„°ë¥¼ ì£½ì˜€ë‹¤.
 
 
 
@@ -187,22 +187,22 @@ class CDungeonHistory
 public :
 	enum eDungeonHistoryType
 	{
-		NORMAL_TRAP_OPEN	= 1,		// º¸ÅëÀÇ Æ®·¦
+		NORMAL_TRAP_OPEN	= 1,		// ë³´í†µì˜ íŠ¸ë©
 		NORMAL_TRAP_CLOSE	= 2,			
-		MIDDLE_BOSS_OPEN	= 3,			// Áß°£ º¸½º·Î °¡´Â Æ÷Å»
+		MIDDLE_BOSS_OPEN	= 3,			// ì¤‘ê°„ ë³´ìŠ¤ë¡œ ê°€ëŠ” í¬íƒˆ
 		MIDDLE_BOSS_CLOSE	= 4,			
-		LAYER_POTAL_OPEN	= 5,			// ´ÙÀ½ ÃşÀ¸·Î °¡´Â Æ÷Å»
+		LAYER_POTAL_OPEN	= 5,			// ë‹¤ìŒ ì¸µìœ¼ë¡œ ê°€ëŠ” í¬íƒˆ
 		LAYER_POTAL_CLOSE	= 6,			
-		DUNGEON_POTAL_OPEN	= 7,			// ¹ÛÀ¸·Î ³ª°¡´Â Æ÷Å»
+		DUNGEON_POTAL_OPEN	= 7,			// ë°–ìœ¼ë¡œ ë‚˜ê°€ëŠ” í¬íƒˆ
 		DUNGEON_POTAL_CLOSE	= 8,
-		DUNGEON_OPEN		= 9,				// ½Ã³ª¸®¿À¿¡ ÀÇÇØ¼­ ´øÀüÀÌ ¿ÀÇÂµÇ°í ¾ÈµÇ°í
+		DUNGEON_OPEN		= 9,				// ì‹œë‚˜ë¦¬ì˜¤ì— ì˜í•´ì„œ ë˜ì „ì´ ì˜¤í”ˆë˜ê³  ì•ˆë˜ê³ 
 		DUNGEON_CLOSE		= 10,
-		DUNGEON_WHEN_OPEN_CLOSE_NOTICE = 11,//½Ã³ª¸®¿À°¡ ¾ğÁ¦ ¿­¸®´ÂÁö
+		DUNGEON_WHEN_OPEN_CLOSE_NOTICE = 11,//ì‹œë‚˜ë¦¬ì˜¤ê°€ ì–¸ì œ ì—´ë¦¬ëŠ”ì§€
 	};
 	
 public :
-	int m_nType;			// °øÁö Å¸ÀÔ
-	int m_nMonth;			// ½Ã°£
+	int m_nType;			// ê³µì§€ íƒ€ì…
+	int m_nMonth;			// ì‹œê°„
 	int m_nDay;
 	int m_nHour;
 	int m_nMin;
@@ -247,7 +247,7 @@ public :
 			NT_DRAGON_LOAD = 2,
 			NT_DRAGON_HEART = 3,
 			NT_NORMAL_BOSS = 4,
-			NT_FOLLOWER = 5,		// Á¹º´
+			NT_FOLLOWER = 5,		// ì¡¸ë³‘
 	};
 	enum
 	{
@@ -258,9 +258,9 @@ public :
 	};
 public :
 	int m_nNpcType;
-	int m_nSprNum;		// ½ºÇÁ¶óÀÌÆ® ³Ñ¹ö
-	int m_nNpcIndex;	// NPCLIST ¿¡¼­ »ç¿ëÇÏ´Â ÀÎµ¦½º
-	int m_nBossType;		// ±× ÃşÀÇ º¸½º³Ä?
+	int m_nSprNum;		// ìŠ¤í”„ë¼ì´íŠ¸ ë„˜ë²„
+	int m_nNpcIndex;	// NPCLIST ì—ì„œ ì‚¬ìš©í•˜ëŠ” ì¸ë±ìŠ¤
+	int m_nBossType;		// ê·¸ ì¸µì˜ ë³´ìŠ¤ëƒ?
 	
 public :
 	CScenarioBoss()
@@ -294,69 +294,69 @@ public:
 			TILE_DONT = 1,
 			TILE_EVENT = 2,
 	};
-	enum	// m_nNeedType		// ¾×Æ¼ºê µÇ´Â Á¶°Ç
+	enum	// m_nNeedType		// ì•¡í‹°ë¸Œ ë˜ëŠ” ì¡°ê±´
 	{
-		ONT_NEED_ITEM	= 1,		// ¾×Æ¼ºê µÉ¶§ ¾ÆÀÌÅÛÀÌ ÇÊ¿ä
-			ONT_NEED_TRAP	= 2,		// ¾×Æ¼ºê½Ã ´Ù¸¥ Æ®·¦ÀÌ ÇÊ¿ä ( OET_NORMAL_TRAP ÀÌ ÀüºÎ ¾×Æ¼ºê µÇ¾ß ÇÑ´Ù. )
-			ONT_NEED_TRAP2	= 3,		// ¾×Æ¼ºê½Ã ´Ù¸¥ Æ®·¦ÀÌ ÇÊ¿ä ( ¹Ù·ÎÀü ÀÎµ¦½ºÀÇ °ªÀÌ ¾×Æ¼ºê µÇ¾ß ÇÑ´Ù. )
-			ONT_NEED_QUBE	= 4,		// ¾Æ¾ÆÅÛÀ¸·Î ¹øÈ£¸¦ ¸ÂÃç¾ß ÇÑ´Ù.
-			ONT_NEED_QUBE2	= 5,		// Å¥ºê°¡ ´Ù ¾×Æ¼ºê µÉ¶§ ¾×Æ¼ºê µÈ´Ù.
-			ONT_NEED_DRAGON	= 6,		// µå·¡°ïÀÌ ³ªÅ¸³¯¶§ ¾×Æ¼ºê ( µå·¡°ï ·Îµå°¡ ³ªÅ¸³ª¸é close )
-			ONT_NEED_MONSTER = 7,		// ¸ó½ºÅÍ°¡ Á×À»¶§ ¾×Æ¼ºê µÈ´Ù.
+		ONT_NEED_ITEM	= 1,		// ì•¡í‹°ë¸Œ ë ë•Œ ì•„ì´í…œì´ í•„ìš”
+			ONT_NEED_TRAP	= 2,		// ì•¡í‹°ë¸Œì‹œ ë‹¤ë¥¸ íŠ¸ë©ì´ í•„ìš” ( OET_NORMAL_TRAP ì´ ì „ë¶€ ì•¡í‹°ë¸Œ ë˜ì•¼ í•œë‹¤. )
+			ONT_NEED_TRAP2	= 3,		// ì•¡í‹°ë¸Œì‹œ ë‹¤ë¥¸ íŠ¸ë©ì´ í•„ìš” ( ë°”ë¡œì „ ì¸ë±ìŠ¤ì˜ ê°’ì´ ì•¡í‹°ë¸Œ ë˜ì•¼ í•œë‹¤. )
+			ONT_NEED_QUBE	= 4,		// ì•„ì•„í…œìœ¼ë¡œ ë²ˆí˜¸ë¥¼ ë§ì¶°ì•¼ í•œë‹¤.
+			ONT_NEED_QUBE2	= 5,		// íë¸Œê°€ ë‹¤ ì•¡í‹°ë¸Œ ë ë•Œ ì•¡í‹°ë¸Œ ëœë‹¤.
+			ONT_NEED_DRAGON	= 6,		// ë“œë˜ê³¤ì´ ë‚˜íƒ€ë‚ ë•Œ ì•¡í‹°ë¸Œ ( ë“œë˜ê³¤ ë¡œë“œê°€ ë‚˜íƒ€ë‚˜ë©´ close )
+			ONT_NEED_MONSTER = 7,		// ëª¬ìŠ¤í„°ê°€ ì£½ì„ë•Œ ì•¡í‹°ë¸Œ ëœë‹¤.
 	};
-	enum	// m_nExecuteType	// ¾×Æ¼ºê½Ã ÇØ¾ß ÇÒ Çàµ¿
+	enum	// m_nExecuteType	// ì•¡í‹°ë¸Œì‹œ í•´ì•¼ í•  í–‰ë™
 	{
 		OET_NORMAL_TRAP			= 1,
 			OET_POTAL_BOSS			= 2,
 			OET_POTAL_OUT_LAYER		= 3,
 			OET_POTAL_OUT_DUNGEON	= 4,
-			OET_POTAL_DRAGON		= 5,		// µå·¡°ïÀ¸·Î °¡´Â Æ÷Å»
+			OET_POTAL_DRAGON		= 5,		// ë“œë˜ê³¤ìœ¼ë¡œ ê°€ëŠ” í¬íƒˆ
 			
-			//OET_OTHER_ACTIVE_TRAP	= 5,	// ÀÚ±â°¡ ¾×Æ¼ºê µÉ¶§ ´Ù¸¥ ³ğµµ ¾×Æ¼ºê ½ÃÄÑÁØ´Ù.
+			//OET_OTHER_ACTIVE_TRAP	= 5,	// ìê¸°ê°€ ì•¡í‹°ë¸Œ ë ë•Œ ë‹¤ë¥¸ ë†ˆë„ ì•¡í‹°ë¸Œ ì‹œì¼œì¤€ë‹¤.
 	};
 	
 public:
-	int m_Index;					// Æ®·¦ ¹øÈ£ 0¹øÀº »ç¿ëÇÏÁö ¾Ê´Â´Ù.
-	int m_nLayer;					// ÇØ´ç Ãş
-	int m_nCloseObjectImage;		// Å©·ÎÁî µÆÀ»¶§ ÂïÀ» ÀÌ¹ÌÁö ¹øÈ£
-	int m_nActiveObjectImage;		// ¾×Æ¼ºê µÆÀ»¶§ ÂïÀ» ÀÌ¹ÌÁö ¹øÈ£
-	int m_nActiveObjectType;		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ Âï´Â ¹æ¹ı
+	int m_Index;					// íŠ¸ë© ë²ˆí˜¸ 0ë²ˆì€ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤.
+	int m_nLayer;					// í•´ë‹¹ ì¸µ
+	int m_nCloseObjectImage;		// í¬ë¡œì¦ˆ ëì„ë•Œ ì°ì„ ì´ë¯¸ì§€ ë²ˆí˜¸
+	int m_nActiveObjectImage;		// ì•¡í‹°ë¸Œ ëì„ë•Œ ì°ì„ ì´ë¯¸ì§€ ë²ˆí˜¸
+	int m_nActiveObjectType;		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ì°ëŠ” ë°©ë²•
 	int m_nInputX;
 	int m_nInputY;
 	int m_nOutputX;
 	int m_nOutputY;
-	int m_nTime;					// ÃÊ
-	int m_nNeedType;					// active µÇ´Â Á¶°Ç( 1:¾ÆÀÌÅÛ, 2:m_nType2ÀÇ °ªÀÌ 1ÀÎ ÀüºÎ ¾×Æ¼ºê µÆÀ»¶§ ¾×Æ¼ºê µÈ´Ù. )
-	int m_nExecuteType;					// active µÆÀ»¶§ ÇÏ´Â Çàµ¿( 1: m_nType1 ÀÇ °ªÀÌ 2ÀÎ ¿ÀºêÁ§Æ®¸¦ ¿ÀÇÂ ½ÃÄÑ¶ó, 2:Æ÷Å»±â´É
-	bool m_bActive;					// ¿­·È´Â°¡ ¾È ¿­·È´Â°¡		// active ¿Í °°Àº °³³ä
+	int m_nTime;					// ì´ˆ
+	int m_nNeedType;					// active ë˜ëŠ” ì¡°ê±´( 1:ì•„ì´í…œ, 2:m_nType2ì˜ ê°’ì´ 1ì¸ ì „ë¶€ ì•¡í‹°ë¸Œ ëì„ë•Œ ì•¡í‹°ë¸Œ ëœë‹¤. )
+	int m_nExecuteType;					// active ëì„ë•Œ í•˜ëŠ” í–‰ë™( 1: m_nType1 ì˜ ê°’ì´ 2ì¸ ì˜¤ë¸Œì íŠ¸ë¥¼ ì˜¤í”ˆ ì‹œì¼œë¼, 2:í¬íƒˆê¸°ëŠ¥
+	bool m_bActive;					// ì—´ë ¸ëŠ”ê°€ ì•ˆ ì—´ë ¸ëŠ”ê°€		// active ì™€ ê°™ì€ ê°œë…
 	DWORD m_dwOpenTime;
-	int m_ObjectId;					// »ı¼º½ÃÅ² ¿ÀºêÁ§Æ® ¹øÈ£	// -1Àº ¾øÀ½
-	int m_nActiveItemNo;			// ÀÛµ¿½ÃÅ°´Â ¾ÆÀÌÅÛ
+	int m_ObjectId;					// ìƒì„±ì‹œí‚¨ ì˜¤ë¸Œì íŠ¸ ë²ˆí˜¸	// -1ì€ ì—†ìŒ
+	int m_nActiveItemNo;			// ì‘ë™ì‹œí‚¤ëŠ” ì•„ì´í…œ
 	char m_szOutputMap[20];
 	
-	// Å¸ÀÏ¿¡ °ü·ÃµÈ
-	// close ¿ë
-	int m_eTileType1;		// 0ÀÌ¸é ¾ø´Ù.	enum »ç¿ë
-	int m_nRange1;			// ¼Ó¼ºÀ» Ä¥ ¹üÀ§
-	int m_nEventNo1;		// ¹â¾Æ¾ß ÇÏ´Â ÀÌº¥Æ® ¹øÈ£
+	// íƒ€ì¼ì— ê´€ë ¨ëœ
+	// close ìš©
+	int m_eTileType1;		// 0ì´ë©´ ì—†ë‹¤.	enum ì‚¬ìš©
+	int m_nRange1;			// ì†ì„±ì„ ì¹  ë²”ìœ„
+	int m_nEventNo1;		// ë°Ÿì•„ì•¼ í•˜ëŠ” ì´ë²¤íŠ¸ ë²ˆí˜¸
 	
-	// active¿ë
-	int m_eTileType2;		// 0ÀÌ¸é ¾ø´Ù.	enum »ç¿ë
-	int m_nRange2;			// ¼Ó¼ºÀ» Ä¥ ¹üÀ§
-	int m_nEventNo2;		// ¹â¾Æ¾ß ÇÏ´Â ÀÌº¥Æ® ¹øÈ£
+	// activeìš©
+	int m_eTileType2;		// 0ì´ë©´ ì—†ë‹¤.	enum ì‚¬ìš©
+	int m_nRange2;			// ì†ì„±ì„ ì¹  ë²”ìœ„
+	int m_nEventNo2;		// ë°Ÿì•„ì•¼ í•˜ëŠ” ì´ë²¤íŠ¸ ë²ˆí˜¸
 	
-	// º¸½º »ı¼º
-	CScenarioBoss	*m_pBoss;			// º¸½º
-	int				m_nBossCount;		// ¿ëÀÏ °æ¿ì 2°³ÀÌ´Ù.
-	CScenarioBoss	*m_pFollower;		// ÂÌº´
-	int m_nBoss;				// »ı¼º½ÃÅ³ Áß°£º¸½º
+	// ë³´ìŠ¤ ìƒì„±
+	CScenarioBoss	*m_pBoss;			// ë³´ìŠ¤
+	int				m_nBossCount;		// ìš©ì¼ ê²½ìš° 2ê°œì´ë‹¤.
+	CScenarioBoss	*m_pFollower;		// ì«„ë³‘
+	int m_nBoss;				// ìƒì„±ì‹œí‚¬ ì¤‘ê°„ë³´ìŠ¤
 	int m_nBossX;
 	int m_nBossY;
 	int m_nBossItem;
 	int m_nResenTime;
 	
-	int m_nFollower;			// ÁÖº¯¿¡ °°ÀÌ ³ª¿À´Â ÂÌº´
-	int m_nFollowerCount;		// ÂÌº´ ¼ö
+	int m_nFollower;			// ì£¼ë³€ì— ê°™ì´ ë‚˜ì˜¤ëŠ” ì«„ë³‘
+	int m_nFollowerCount;		// ì«„ë³‘ ìˆ˜
 	
 	
 public:
@@ -389,7 +389,7 @@ public:
 	int CheckCloseTime();
 	int IsActive() { return m_bActive; }
 	void CloseObject( int npc_create_type = 1 );
-	int CreateNormalBoss();		// Áß°£ º¸½º »ı¼º
+	int CreateNormalBoss();		// ì¤‘ê°„ ë³´ìŠ¤ ìƒì„±
 	void ActiveObject();
 	int Execute( short int cn );
 	bool TryActive( CHARLIST *ch );
@@ -397,15 +397,15 @@ public:
 	int DeleteObjectImage();
 	int Start();
 	int CreateScenarioBoss( int boss_type = CScenarioBoss::NT_NORMAL_BOSS);
-	int KillBoss( CHARLIST *user, CHARLIST *boss );		// npc°¡ Á×¾úÀ»¶§ ±× npc°¡ ½Ã³ª¸®¿À º¸½ºÀÏ°æ¿ì Ã³¸®
-	int DeletBoss();									// °­Á¦·Î º¸½º¸¦ ¾ø¾Ù °æ¿ì
+	int KillBoss( CHARLIST *user, CHARLIST *boss );		// npcê°€ ì£½ì—ˆì„ë•Œ ê·¸ npcê°€ ì‹œë‚˜ë¦¬ì˜¤ ë³´ìŠ¤ì¼ê²½ìš° ì²˜ë¦¬
+	int DeletBoss();									// ê°•ì œë¡œ ë³´ìŠ¤ë¥¼ ì—†ì•¨ ê²½ìš°
 	bool IsDragonLoad();
 	void SendObjectTileAttr( short int cn );
 };
 
 //#define _KEIN_TEST_
 const int MESSAGE_COUNT = 2;
-class CDungeonMap		// ¸Ê´ÜÀ§
+class CDungeonMap		// ë§µë‹¨ìœ„
 {
 public : 
 	enum	// m_nDungeonType 
@@ -420,7 +420,7 @@ public:
 	int m_nObjectCount;
 	
 	int m_nLayer;
-	int m_nTrapCount;			// ´ë¹Ì±Ã¿¡¼­ ¾ÏÈ£·Î »ç¿ëÇÑ´Ù.
+	int m_nTrapCount;			// ëŒ€ë¯¸ê¶ì—ì„œ ì•”í˜¸ë¡œ ì‚¬ìš©í•œë‹¤.
 	int m_nDungeonType;			// 
 	
 	bool m_bActive;
@@ -456,7 +456,7 @@ public :
 		#endif
 		return m_bDragonRoad; 
 		*/
-		return false; // ¹«Á¶°Ç ·¹µå µå·¡°ïÀÌ ³ª¿Àµµ·Ï ¼³Á¤
+		return false; // ë¬´ì¡°ê±´ ë ˆë“œ ë“œë˜ê³¤ì´ ë‚˜ì˜¤ë„ë¡ ì„¤ì •
 	}	//> CSD-030304
 	
 	int SetTrapKey( int item_no, CHARLIST *ch );
@@ -504,11 +504,11 @@ public :
 	int SetHistory( CHARLIST *ch, CDungeonObject *pDO, int type ); 
 	void Proc();
 	int GetTrapCount( int &count, int &intctive_count , int &aactive_time);
-	int KillBoss( CHARLIST *user, CHARLIST *boss );		// º¸½º°¡ Á×¾ú´Ù.
+	int KillBoss( CHARLIST *user, CHARLIST *boss );		// ë³´ìŠ¤ê°€ ì£½ì—ˆë‹¤.
 	void OpenDragonRoadObject();
 	void CloseDragonRoadObject();
 	int DeleteDragon();
-	int SendTileAttrToNewUser( short int cn );		// »õ·Î µé¾î¿Â ³ğ¿¡°Ô ÀÌ¹Ì ¸¸µé¾î Á® ÀÖ´Â ¼Ó¼ºÀ» ¸ğµÎ º¸³½´Ù.
+	int SendTileAttrToNewUser( short int cn );		// ìƒˆë¡œ ë“¤ì–´ì˜¨ ë†ˆì—ê²Œ ì´ë¯¸ ë§Œë“¤ì–´ ì ¸ ìˆëŠ” ì†ì„±ì„ ëª¨ë‘ ë³´ë‚¸ë‹¤.
 };
 
 class CDungeonMapMgr
@@ -516,19 +516,19 @@ class CDungeonMapMgr
 public :
 	enum		// GET_OUT_TYPE
 	{
-		GOT_END_BOSS_POTAL	= 1,	// º¸½º Æ÷Å»ÀÌ ´İÀÏ¶§, º¸½º Æ÷Å» ¾È Åº³ğ
-			GOT_END_LAYER		= 2,	// Ãş Æ÷Å»ÀÌ ´İÀÏ¶§, ÆÃ±â±â
-			GOT_END_SCENARIO	= 3,	// ½Ã³ª¸®¿À Á¾·á
-			GOT_END_VOTE		= 4,	// Âù¹İ ³¡³µÀ»¶§
-			// ´Ã¾î³ª¸é GetOutDugeon() ¿¡ ¹è¿­À» ´Ã·Á¾ß ÇÑ´Ù.
+		GOT_END_BOSS_POTAL	= 1,	// ë³´ìŠ¤ í¬íƒˆì´ ë‹«ì¼ë•Œ, ë³´ìŠ¤ í¬íƒˆ ì•ˆ íƒ„ë†ˆ
+			GOT_END_LAYER		= 2,	// ì¸µ í¬íƒˆì´ ë‹«ì¼ë•Œ, íŒ…ê¸°ê¸°
+			GOT_END_SCENARIO	= 3,	// ì‹œë‚˜ë¦¬ì˜¤ ì¢…ë£Œ
+			GOT_END_VOTE		= 4,	// ì°¬ë°˜ ëë‚¬ì„ë•Œ
+			// ëŠ˜ì–´ë‚˜ë©´ GetOutDugeon() ì— ë°°ì—´ì„ ëŠ˜ë ¤ì•¼ í•œë‹¤.
 	};
 	
 public :
 	int m_nCount;
 	CDungeonMap* m_pData;
-	TKeinList< int > *pVoteTrue;		// Âù¼º
-	TKeinList< int > *pVoteFalse;		// ¹İ´ë
-	TKeinList< int > *pPotalList;		// º¸½º Æ÷Å»À» °ÅÄ£ »ç¶÷ µî·Ï
+	TKeinList< int > *pVoteTrue;		// ì°¬ì„±
+	TKeinList< int > *pVoteFalse;		// ë°˜ëŒ€
+	TKeinList< int > *pPotalList;		// ë³´ìŠ¤ í¬íƒˆì„ ê±°ì¹œ ì‚¬ëŒ ë“±ë¡
 	
 public :
 	CDungeonMapMgr( int N )
@@ -567,7 +567,7 @@ public :
 		if( pPotalList ) delete pPotalList;
 		pPotalList = 0;
 	}
-	void InitPotalMember()		// Æ÷Å»ÀÌ »ı¼º µÉ¶§ »ç¿ë
+	void InitPotalMember()		// í¬íƒˆì´ ìƒì„± ë ë•Œ ì‚¬ìš©
 	{
 		DeletePotalMember();
 		pPotalList = new TKeinList< int >;
@@ -617,7 +617,7 @@ public :
 			}
 		}
 		
-		if( scenario_end )		// ÀüºÎ ÆÃ±âÀÚ..
+		if( scenario_end )		// ì „ë¶€ íŒ…ê¸°ì..
 			GetOutDugeon( CDungeonMapMgr::GOT_END_SCENARIO );
 	}
 	CDungeonMap* GetDungeonMapByLayer( int layer )
@@ -636,7 +636,7 @@ public :
 		}
 		return NULL;
 	}
-	CDungeonMap* GetDungeonMap()		// Ã³À½²¬ °¡Á®¿Â´Ù.
+	CDungeonMap* GetDungeonMap()		// ì²˜ìŒê»„ ê°€ì ¸ì˜¨ë‹¤.
 	{
 		return &m_pData[0];
 	}
@@ -688,7 +688,7 @@ public :
 	int DropDragonItem();
 	void NewJoin( short int cn )
 	{
-		// ¾ğµ¥µå ³¢ÀÓ Çö»ó ÇØ°á // 030811
+		// ì–¸ë°ë“œ ë¼ì„ í˜„ìƒ í•´ê²° // 030811
 		for( int i=0; i<m_nCount; i++ )
 		{
 			m_pData[i].NewJoin( cn );
@@ -723,9 +723,9 @@ protected:
 	VECTOR_START_UP m_vtStartUpInfo;
 	
 public:
-	int m_nContinueTime; // ¾×Æ¼ºê µÇ¾î ÀÖ´Â ½Ã°£ - 2½Ã°£
-	int m_nStartTime;	 // ÇöÀç »óÅÂ ÁøÇàµÈ ½Ã°£
-	int m_nWaitTime;	 // ±â´Ş·Á¾ß ÇÏ´Â ½Ã°£
+	int m_nContinueTime; // ì•¡í‹°ë¸Œ ë˜ì–´ ìˆëŠ” ì‹œê°„ - 2ì‹œê°„
+	int m_nStartTime;	 // í˜„ì¬ ìƒíƒœ ì§„í–‰ëœ ì‹œê°„
+	int m_nWaitTime;	 // ê¸°ë‹¬ë ¤ì•¼ í•˜ëŠ” ì‹œê°„
 	
 public :
 	CDungeonBasic()
@@ -913,7 +913,7 @@ public :
 	}
 };
 
-class CDungeonMgr		// 4°³ÀÇ ´øÀüÀ» °ü¸®
+class CDungeonMgr		// 4ê°œì˜ ë˜ì „ì„ ê´€ë¦¬
 {
 	CDungeonBasic** m_pData;
 	int m_nCount;
@@ -989,7 +989,7 @@ public :
 	
 	int GetCount() { return m_nCount; }
 	int Proc();
-	int CheckActive( int port )		// ±× ¸Ê¿¡ µé¾î°¥ ¼ö ÀÖ´ÂÁö ¾ø´ÂÁö
+	int CheckActive( int port )		// ê·¸ ë§µì— ë“¤ì–´ê°ˆ ìˆ˜ ìˆëŠ”ì§€ ì—†ëŠ”ì§€
 	{
 		CDungeonBasic* temp = GetDungeonByPort(port);
 		if( temp ) 
@@ -1048,8 +1048,8 @@ extern int LoadDungeonTrap( CDungeonObject *pData, int layer );
 extern int LoadDungeonMapEach( int port, int *temp );
 
 
-extern CDungeonMapMgr *g_pDungeonMap;		// ÇØ´ç ¸Ê¿¡ ÀÖ´Â ´øÀüµé( 1Ãş, 2Ãş )ÀÇ °ü¸® Å¬·¡½º
-extern CDungeonMgr *g_pDungeonMgr;				// ¸ğµç ´øÀü( ¾Æºñ½º ¹Ì±Ã,.. )ÀÇ °ü¸® Å¬·¡½º
+extern CDungeonMapMgr *g_pDungeonMap;		// í•´ë‹¹ ë§µì— ìˆëŠ” ë˜ì „ë“¤( 1ì¸µ, 2ì¸µ )ì˜ ê´€ë¦¬ í´ë˜ìŠ¤
+extern CDungeonMgr *g_pDungeonMgr;				// ëª¨ë“  ë˜ì „( ì•„ë¹„ìŠ¤ ë¯¸ê¶,.. )ì˜ ê´€ë¦¬ í´ë˜ìŠ¤
 
 extern CScenarioDragonItem	*g_pDragonItem;
 
@@ -1076,7 +1076,7 @@ extern void ScenarioDragonMsgFunc();
 extern void RecvGetScenarioTime( t_packet *p, short int cn );
 extern void SendGetScenarioTime(int port, int cn, k_client_scenario_time_info* pPacket); // CSD-030306
 extern void RecvChangeScenarioTime( t_packet *p, short int cn );
-extern int KilledScenarioBoss( CHARLIST *user, CHARLIST *npc );		// ½Ã³ª¶ó¸®¿À ¸ó½ºÅÍ°¡ Á×¾ú´Ù.
+extern int KilledScenarioBoss( CHARLIST *user, CHARLIST *npc );		// ì‹œë‚˜ë¼ë¦¬ì˜¤ ëª¬ìŠ¤í„°ê°€ ì£½ì—ˆë‹¤.
 
 
 #endif

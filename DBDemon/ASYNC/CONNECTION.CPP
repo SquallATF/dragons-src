@@ -1,4 +1,4 @@
-#include "connection.h"
+﻿#include "connection.h"
 
 CConnection::CConnection(SOCKET s,DWORD size)
 {

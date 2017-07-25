@@ -1,4 +1,4 @@
-// CrackMgr.h: interface for the CCrackMgr class.
+﻿// CrackMgr.h: interface for the CCrackMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 

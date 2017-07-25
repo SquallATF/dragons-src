@@ -1,4 +1,4 @@
-
+﻿
 #define IT_NORMAL_VERSION	0
 #define IT_LIGHT_VERSION	1
 

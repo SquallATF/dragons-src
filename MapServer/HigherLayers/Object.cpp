@@ -1,4 +1,4 @@
-/*****************************************************************************\
+ï»¿/*****************************************************************************\
 * Copyright (c), Future Entertainment World / Seoul, Republic of Korea        *
 * All Rights Reserved.                                                        *
 *                                                                             *
@@ -37,11 +37,11 @@ int					DoorNum;
 	
 	
 	
-/* OriginÀ» ÀâÀ»¶§, 
+/* Originì„ ì¡ì„ë•Œ, 
 
-  ±âº»ÀÇ Saf´Â BMP¿¡¼­ offsetx, offsety¸¦ ¿ŞÂÊÀ§¿¡¼­ ÀĞÀº image¸¦ toiÀÇ 
+  ê¸°ë³¸ì˜ SafëŠ” BMPì—ì„œ offsetx, offsetyë¥¼ ì™¼ìª½ìœ„ì—ì„œ ì½ì€ imageë¥¼ toiì˜ 
   
-	¸¦ ÂïÀ»¶§,,,,
+	ë¥¼ ì°ì„ë•Œ,,,,
 */
 
 
@@ -111,7 +111,7 @@ void LoadItemDoorLine( MAPOBJECT *mo, int *dsx, int *dsy, int *ddx, int *ddy, ch
 	}		
 }			
 			
-// TableÀÇ °ªÀ» °Ë»çÇÑ´Ù. 			
+// Tableì˜ ê°’ì„ ê²€ì‚¬í•œë‹¤. 			
 void CheckItemsBox( void )
 {
 	int j,i;
@@ -245,11 +245,11 @@ int LoadTOI( int type, char *filename1, char *filename2 )
 			switch( mo.objectoritem )
 			{					
 											
-				// ÀÌÁ¤Ç¥ °£ÆÇ.					
+				// ì´ì •í‘œ ê°„íŒ.					
 			case 5 :						
 			case 6 :							
 												
-				//	±â¼ú¿ë ÀÛ¾÷´ë..				
+				//	ê¸°ìˆ ìš© ì‘ì—…ëŒ€..				
 			case 71 :						
 			case 72 :				
 			case 73 :						

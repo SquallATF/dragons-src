@@ -1,4 +1,4 @@
-/*****************************************************************************\
+ï»¿/*****************************************************************************\
 * Copyright (c), Future Entertainment World / Seoul, Republic of Korea        *
 * All Rights Reserved.                                                        *
 *                                                                             *
@@ -328,7 +328,7 @@ ReadEventList( char* lpszFileName )
 
 
 
-// ---------------------------------------¸¶¿ì½º¿¡ ÀÇÇÑ Map Scroll...
+// ---------------------------------------ë§ˆìš°ìŠ¤ì— ì˜í•œ Map Scroll...
 
 int ReturnEventNo( int mx, int my )
 {
@@ -451,12 +451,12 @@ int GetMapPortByName( char *map_name )
 
 int GotoUser( char *map_name, int x, int y, short int cn )
 {
-	if( strcmp( map_name, MapName ) == 0 )		// °°Àº °÷¿¡ ÀÖ´Ù.
+	if( strcmp( map_name, MapName ) == 0 )		// ê°™ì€ ê³³ì— ìˆë‹¤.
 	{
 		MovePc( cn, x, y );
 		return 1;
 	}
-	else		// ´Ù¸¥ ¸Ê¿¡ ÀÖ´Ù. ¸ÊÀÌµ¿À» ½ÃÄÑÁØ´Ù.
+	else		// ë‹¤ë¥¸ ë§µì— ìˆë‹¤. ë§µì´ë™ì„ ì‹œì¼œì¤€ë‹¤.
 	{
 		 return MapMove( cn, map_name, x, y );
 	}

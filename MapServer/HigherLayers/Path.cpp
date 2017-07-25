@@ -1,4 +1,4 @@
-/*****************************************************************************\
+ï»¿/*****************************************************************************\
 * Copyright (c), Future Entertainment World / Seoul, Republic of Korea        *
 * All Rights Reserved.                                                        *
 \*****************************************************************************/
@@ -55,12 +55,12 @@ void InitPathBuild( void )
 }		
 
 
-// ±æÃ£±â ÇÒ¶§...
-// wis ==   0  ¶È¶ÈÇÑ°Í. 
+// ê¸¸ì°¾ê¸° í• ë•Œ...
+// wis ==   0  ë˜‘ë˜‘í•œê²ƒ. 
 //		  100	
 //		  200
 //		  300
-//		  399  ¸íÃ»ÇÑ°Í. 
+//		  399  ëª…ì²­í•œê²ƒ. 
 
 BOOL PathBuildWis( CHARLIST *n, int dx, int dy, int wis )
 {
@@ -68,11 +68,11 @@ BOOL PathBuildWis( CHARLIST *n, int dx, int dy, int wis )
 }
 
 
-// ÀÌµ¿¸ñÇ¥Á¡±îÁö¸¦ Á÷¼±À¸·Î ±×¾î Ãæµ¹»ý±â´Â°ÍÀÌ ÀÖ³ª ¾Ë¾Æº»´Ù. 
-//  TileMap[][]À» Ã¼Å©ÇÏ¿© Ãæµ¹µÇ¸é 0À» ¸®ÅÏ.
+// ì´ë™ëª©í‘œì ê¹Œì§€ë¥¼ ì§ì„ ìœ¼ë¡œ ê·¸ì–´ ì¶©ëŒìƒê¸°ëŠ”ê²ƒì´ ìžˆë‚˜ ì•Œì•„ë³¸ë‹¤. 
+//  TileMap[][]ì„ ì²´í¬í•˜ì—¬ ì¶©ëŒë˜ë©´ 0ì„ ë¦¬í„´.
 
 
-int				TempPath[ MAX_SHORTPATH][2];		// PathBuild()¸¦ À§ÇÑ º¯¼ö..
+int				TempPath[ MAX_SHORTPATH][2];		// PathBuild()ë¥¼ ìœ„í•œ ë³€ìˆ˜..
 int				TempPathCount;
 
 int CheckLineCollision( LPCHARLIST ch, int sx, int sy, int ex, int ey )
@@ -226,8 +226,8 @@ PathDestroy( void )
 	
 	
 	
-////////////////// 0730 yjs ¼öÁ¤ ////////////////////
-////////////////// Ãà±¸°øÀÎ °æ¿ì ³ªÀÚ½ÅÀº Ã¼Å© ¾ÈÇÏ±â À§ÇØ µðÆúÆ® ÀÎÀÚ°ªÀ» ³ÖÀ½....
+////////////////// 0730 yjs ìˆ˜ì • ////////////////////
+////////////////// ì¶•êµ¬ê³µì¸ ê²½ìš° ë‚˜ìžì‹ ì€ ì²´í¬ ì•ˆí•˜ê¸° ìœ„í•´ ë””í´íŠ¸ ì¸ìžê°’ì„ ë„£ìŒ....
 int FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My, LPCHARLIST attacker )
 ///////////////////////////////////////////////////////////////////////
 {	
@@ -239,8 +239,8 @@ int FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My, LPCH
 	
 	if( TileMap[ x][ y].attr_dont )	goto FAIL_;
 	
-///////////////// 0730 yjs ¼öÁ¤ /////////////////////////////////////
-///////////////// ¿©±â¼­ ³ªÀÚ½ÅÀ» Ã¼Å© ¾ÈÇÏ±â À§ÇØ //////////////////
+///////////////// 0730 yjs ìˆ˜ì • /////////////////////////////////////
+///////////////// ì—¬ê¸°ì„œ ë‚˜ìžì‹ ì„ ì²´í¬ ì•ˆí•˜ê¸° ìœ„í•´ //////////////////
 	if(notCheck_My && attacker)
 		if( !(attacker->X/32 == x && attacker->Y/32 == y) )
 			if( TileMap[ x][ y].occupied  )	goto FAIL_;
@@ -290,7 +290,7 @@ int FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My, LPCH
 				case 	27 :
 				
 				case 	37 :
-				case 	38 :// µ¹°ñ·¥..
+				case 	38 :// ëŒê³¨ëž¨..
 				case 	40 :
 				case 	41 :
 				case 	42 :
@@ -302,7 +302,7 @@ int FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My, LPCH
 			}
 		}
 		
-		// Áý¾È¿¡ µé¾î°¥¼ö ¾ø´Ù. 
+		// ì§‘ì•ˆì— ë“¤ì–´ê°ˆìˆ˜ ì—†ë‹¤. 
 		if( c->notcomeinside ) if( TileMap[ x][ y].attr_inside ) goto FAIL_;
 	}		
 			
@@ -314,7 +314,7 @@ int FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My, LPCH
 	{		
 		id = Doors[i];
 			
-		if( ItemList[id].attr[IATTR_ATTR] & IA2_OPENED == 0 ) // ˆ«Çû´Ù. 
+		if( ItemList[id].attr[IATTR_ATTR] & IA2_OPENED == 0 ) // Âˆãƒ‡æ…§? 
 		{	
 			ITEMLIST *ii = &ItemList[id];
 			if( CheckIntersect( ii->dsx, ii->dsy, ii->ddx, ii->ddy, (sx<<5) + 16, (sy<<5) + 16, (x<<5) + 16, (y<<5) + 16 ) > 0)

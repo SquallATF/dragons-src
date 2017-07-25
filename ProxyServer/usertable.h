@@ -1,4 +1,4 @@
-#ifndef USERTABLE_H
+Ôªø#ifndef USERTABLE_H
 #define USERTABLE_H
 
 #include "stdafx.h"
@@ -6,7 +6,7 @@
 #include "servertable.h"
 
 #define SIZE_OF_USER_DISCONNECT_TICK		5
-#define MAX_ALLOWED_SLEEP_TIME				5			// x*15, 75√ .
+#define MAX_ALLOWED_SLEEP_TIME				5			// x*15, 75Ï¥à.
 
 enum USER_STATUS
 {
@@ -67,7 +67,7 @@ struct USERINFO
 	WORD			wPort;
 
 	//2001/01/29 zhh
-	char			logintime[15];		//∑Œ±◊¿Œ «— Ω√∞£ ¿˙¿Â
+	char			logintime[15];		//Î°úÍ∑∏Ïù∏ Ìïú ÏãúÍ∞Ñ Ï†ÄÏû•
 
 	USERINFO*		pPrvUserInfo;
 	USERINFO*		pNextUserInfo;

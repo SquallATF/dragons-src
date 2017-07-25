@@ -1,4 +1,4 @@
-// ProtectionMagic.cpp: implementation of the CProtectionMagic class.
+ï»¿// ProtectionMagic.cpp: implementation of the CProtectionMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,7 +32,7 @@ bool CProtectionMagic::Bind()
 	Resist(ICE_RESIST , &CProtectionMagic::IceResist);
 	Resist(ELECT_RESIST, &CProtectionMagic::ElectResist);
 	Resist(TWINKLE_STAR, &CProtectionMagic::TwinkleStar);
-	Resist(PROTECT_RANGE_WEAPON, &CProtectionMagic::ProtectRangeWeapon); // Àå°Å¸® ¹«±â·ÎºÎÅÍ º¸È£
+	Resist(PROTECT_RANGE_WEAPON, &CProtectionMagic::ProtectRangeWeapon); // ì¥ê±°ë¦¬ ë¬´ê¸°ë¡œë¶€í„° ë³´í˜¸
 	Resist(DRAGON_SCALE, &CProtectionMagic::DragonScale);
 	Resist(BLESS, &CProtectionMagic::Bless);
 	Resist(PROTECT_DANGER, &CProtectionMagic::ProtectDanger);
@@ -47,11 +47,11 @@ bool CProtectionMagic::Bind()
 } 
 
 bool CProtectionMagic::DragonScale()
-{ // [86]µå·¡°ïÀÇ ºñ´Ã : ¹°¸®Àû °ø°İ µ¥¹ÌÁö 60% ¹æ¾î
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû ¹æ¾î·Â 60% Áõ°¡
+{ // [86]ë“œë˜ê³¤ì˜ ë¹„ëŠ˜ : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ 60% ë°©ì–´
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ë°©ì–´ë ¥ 60% ì¦ê°€
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, 60, 60, 60);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
@@ -59,9 +59,9 @@ bool CProtectionMagic::DragonScale()
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
 	
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -73,12 +73,12 @@ bool CProtectionMagic::DragonScale()
 }
 
 bool CProtectionMagic::ProtectRangeWeapon()
-{ // [79]Àå°Å¸® ¹«±â·ÎºÎÅÍ º¸È£ : Àå°Å¸® °ø°İ µ¥¹ÌÁö 90% ¹æ¾î
-	// À¯Áö½Ã°£ °è»ê
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// Àå°Å¸® °ø°İ µ¥¹ÌÁö 90% ¹æ¾î
+{ // [79]ì¥ê±°ë¦¬ ë¬´ê¸°ë¡œë¶€í„° ë³´í˜¸ : ì¥ê±°ë¦¬ ê³µê²© ë°ë¯¸ì§€ 90% ë°©ì–´
+	// ìœ ì§€ì‹œê°„ ê³„ì‚°
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì¥ê±°ë¦¬ ê³µê²© ë°ë¯¸ì§€ 90% ë°©ì–´
 	m_pTarget->dpLong.SetState(m_dwNow + wPeriod, 90);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
@@ -86,9 +86,9 @@ bool CProtectionMagic::ProtectRangeWeapon()
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
 
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -100,15 +100,15 @@ bool CProtectionMagic::ProtectRangeWeapon()
 }
 
 bool CProtectionMagic::FireResist()
-{ // [28]ºÒ¿¡ ´ëÇÑ ÀúÇ× : ºÒ°è¿­ °ø°İ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ºÒ°è¿­ °ø°İ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â 50% Áõ°¡
+{ // [28]ë¶ˆì— ëŒ€í•œ ì €í•­ : ë¶ˆê³„ì—´ ê³µê²©ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¶ˆê³„ì—´ ê³µê²©ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ 50% ì¦ê°€
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, 50, 0, 0, 0);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -120,17 +120,17 @@ bool CProtectionMagic::FireResist()
 }
 
 bool CProtectionMagic::IceResist()
-{ // [37]ºù°è ÀúÇ× : ¾óÀ½°è¿­ °ø°İ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¾óÀ½°è¿­ °ø°İ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â 50% Áõ°¡
+{ // [37]ë¹™ê³„ ì €í•­ : ì–¼ìŒê³„ì—´ ê³µê²©ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì–¼ìŒê³„ì—´ ê³µê²©ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ 50% ì¦ê°€
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, 0, 50, 0, 0);
-	// CSD-021216 : ¾ó¸² ÀúÁÖ ¸¶¹ı ¹æ¾î
+	// CSD-021216 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, CMagicState::CURSE_FREEZE);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -142,15 +142,15 @@ bool CProtectionMagic::IceResist()
 }
 
 bool CProtectionMagic::ElectResist()
-{ // [47]Àü°İ¿¡ ´ëÇÑ ÀúÇ× : Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â 50% Áõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ¹æ¾î·Â 50% Áõ°¡
+{ // [47]ì „ê²©ì— ëŒ€í•œ ì €í•­ : ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ 50% ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ë°©ì–´ë ¥ 50% ì¦ê°€
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, 0, 0, 50, 0);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -162,22 +162,22 @@ bool CProtectionMagic::ElectResist()
 }
 
 bool CProtectionMagic::TwinkleStar()
-{ // [53]¼öÈ£¼º : ¹°¸®Àû °ø°İ µ¥¹ÌÁö 40% ¹æ¾î, ÀúÁÖ 1°è¿­ÀÇ ¸¶¹ı 100% ¹æ¾î
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû ¹æ¾î·Â 30% Áõ°¡
+{ // [53]ìˆ˜í˜¸ì„± : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ 40% ë°©ì–´, ì €ì£¼ 1ê³„ì—´ì˜ ë§ˆë²• 100% ë°©ì–´
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ë°©ì–´ë ¥ 30% ì¦ê°€
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, 40, 40, 40);
-	// ÀúÁÖ 1°è¿­ ¸¶¹ı ¹æ¾î
+	// ì €ì£¼ 1ê³„ì—´ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, CMagicState::CURSE_1);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -189,23 +189,23 @@ bool CProtectionMagic::TwinkleStar()
 }
 
 bool CProtectionMagic::Protection()
-{ // [2]º¸È£ : ¹°¸®Àû °ø°İ µ¥¹ÌÁö 30% ¹æ¾î, ÀúÁÖ 1, 3, 5°è¿­ÀÇ ¸¶¹ı 100% ¹æ¾î
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû ¹æ¾î·Â 30% Áõ°¡
+{ // [2]ë³´í˜¸ : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ 30% ë°©ì–´, ì €ì£¼ 1, 3, 5ê³„ì—´ì˜ ë§ˆë²• 100% ë°©ì–´
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ë°©ì–´ë ¥ 30% ì¦ê°€
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, 30, 30, 30);
-	// ÀúÁÖ 3, 4, 5°è¿­ ¸¶¹ı ¹æ¾î
+	// ì €ì£¼ 3, 4, 5ê³„ì—´ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
 		CMagicState::CURSE_1|CMagicState::CURSE_3|CMagicState::CURSE_4);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -217,22 +217,22 @@ bool CProtectionMagic::Protection()
 }
 
 bool CProtectionMagic::Shield()
-{ // [3]º¸È£¸· : ¹°¸®Àû °ø°İ µ¥¹ÌÁö, ºÒ, ¾óÀ½, Àü°İ°è¿­ÀÇ °ø°İ¸¶¹ı 40% ¹æ¾î
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû ¹æ¾î·Â 40% Áõ°¡
+{ // [3]ë³´í˜¸ë§‰ : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€, ë¶ˆ, ì–¼ìŒ, ì „ê²©ê³„ì—´ì˜ ê³µê²©ë§ˆë²• 40% ë°©ì–´
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ë°©ì–´ë ¥ 40% ì¦ê°€
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, 40, 40, 40);
-	// ºÒ, ¾óÀ½, Àü°İ°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â 40 Áõ°¡
+	// ë¶ˆ, ì–¼ìŒ, ì „ê²©ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥ 40 ì¦ê°€
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, 40, 40, 40, 0);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -244,24 +244,24 @@ bool CProtectionMagic::Shield()
 }
 
 bool CProtectionMagic::Bless()
-{ // [153]½ÅÀÇ Ãàº¹ : ÀúÁÖ°è¿­(1, 2, 3, 4) ¸¶¹ıÀ» 100% ¹æ¾î
-	// À¯Áö½Ã°£ °è»ê
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ÀúÁÖ 1, 2, 3, 4°è¿­ ¸¶¹ı ¹æ¾î
+{ // [153]ì‹ ì˜ ì¶•ë³µ : ì €ì£¼ê³„ì—´(1, 2, 3, 4) ë§ˆë²•ì„ 100% ë°©ì–´
+	// ìœ ì§€ì‹œê°„ ê³„ì‚°
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì €ì£¼ 1, 2, 3, 4ê³„ì—´ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
 		CMagicState::CURSE_1|CMagicState::CURSE_2|CMagicState::CURSE_3|CMagicState::CURSE_4);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
     m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;   //¼ÓÁËÕâ¾äÏÔÊ¾µÄÊÇ±£»¤Ä§·¨  ¸ÄÁË×£¸£¿ÉÒÔ·À½^Œ¦ÕÏ±Ú
-	m_pTarget->dwSpecialProtect = m_dwNow + wPeriod;  //¼ÓÁËÕâ¾äÏÔÊ¾µÄÊÇ±£»¤Ä§·¨  ¸ÄÁË×£¸£¿ÉÒÔ·À½^Œ¦ÕÏ±Ú
+	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;   //ì†ì£„ä¾¶ì–Œé«åˆ»ë¨è§’ê´ë¹±ì¹¨ë¬  ë§£ì£„é¾ë¥´ì˜µï¥€ë ?ÂŒâ”µæ­?
+	m_pTarget->dwSpecialProtect = m_dwNow + wPeriod;  //ì†ì£„ä¾¶ì–Œé«åˆ»ë¨è§’ê´ë¹±ì¹¨ë¬  ë§£ì£„é¾ë¥´ì˜µï¥€ë ?ÂŒâ”µæ­?
 
 	if (m_pCaster == m_pTarget) 
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	  // ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	  // ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -273,28 +273,28 @@ bool CProtectionMagic::Bless()
 }
 
 bool CProtectionMagic::ProtectDanger()
-{	// [152]À§ÇèÀ¸·ÎºÎÅÍ º¸È£ : ¹°¸®Àû °ø°İ µ¥¹ÌÁö 40 ~ 50% ¹æ¾î, ÀúÁÖ°è¿­(1, 2) ¹æ¾î
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹æ¾î·ü °è»ê
+{	// [152]ìœ„í—˜ìœ¼ë¡œë¶€í„° ë³´í˜¸ : ë¬¼ë¦¬ì  ê³µê²© ë°ë¯¸ì§€ 40 ~ 50% ë°©ì–´, ì €ì£¼ê³„ì—´(1, 2) ë°©ì–´
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë°©ì–´ë¥  ê³„ì‚°
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
 	int nBasic = (nWis + nTactics)/10 + 40;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 50)  nBasic = 50;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic);
-	// ÀúÁÖ 1, 2°è¿­ ¸¶¹ı ¹æ¾î
+	// ì €ì£¼ 1, 2ê³„ì—´ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
 		CMagicState::CURSE_1|CMagicState::CURSE_2);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -306,28 +306,28 @@ bool CProtectionMagic::ProtectDanger()
 }
 
 bool CProtectionMagic::GreatShield()
-{ // [158]À§´ëÇÑ ±âµµ
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹æ¾î·ü °è»ê
+{ // [158]ìœ„ëŒ€í•œ ê¸°ë„
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë°©ì–´ë¥  ê³„ì‚°
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
 	int nBasic = (nWis + nTactics)/10 + 40;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 50)  nBasic = 50;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic);
-	// ÀúÁÖ 1, 2°è¿­ ¸¶¹ı ¹æ¾î
+	// ì €ì£¼ 1, 2ê³„ì—´ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
 		CMagicState::CURSE_1|CMagicState::CURSE_2);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -339,23 +339,23 @@ bool CProtectionMagic::GreatShield()
 }
 
 bool CProtectionMagic::AuthorityLethy()
-{ //< CSD-021019 : [184]·¹Æ¼ÀÇ ±Ç´É
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû °ø°İ ¹æ¾î·Â °è»ê
+{ //< CSD-021019 : [184]ë ˆí‹°ì˜ ê¶ŒëŠ¥
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ê³µê²© ë°©ì–´ë ¥ ê³„ì‚°
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
 	int nBasic = (nWis + nTactics)/10;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 10)  nBasic = 10;
-	// ¹°¸® °ø°İ ¹æ¾î·Â 40 - 50% Áõ°¡
+	// ë¬¼ë¦¬ ê³µê²© ë°©ì–´ë ¥ 40 - 50% ì¦ê°€
 	const int nStrike = 40 + nBasic;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nStrike, nStrike, nStrike);
-	// °ø°İ ¸¶¹ı ¹æ¾î·Â 20 - 30% Áõ°¡
+	// ê³µê²© ë§ˆë²• ë°©ì–´ë ¥ 20 - 30% ì¦ê°€
 	const int nMagic = 20 + nBasic;
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, nMagic, nMagic, nMagic, nMagic);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	// ¹°¸®, ¸¶¹ı °ø°İ µ¥¹ÌÁö ¹İ»ç »óÅÂÀÓÀ» ¼³Á¤
+	// ë¬¼ë¦¬, ë§ˆë²• ê³µê²© ë°ë¯¸ì§€ ë°˜ì‚¬ ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwStrikeReflect = m_dwNow + wPeriod;
 	m_pTarget->dwMagicReflect = m_dwNow + wPeriod;
 
@@ -363,9 +363,9 @@ bool CProtectionMagic::AuthorityLethy()
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -377,20 +377,20 @@ bool CProtectionMagic::AuthorityLethy()
 } //> CSD-021019
 
 bool CProtectionMagic::NullityMagic()
-{ // [24]¸¶¹ı¹«È¿È­ : ÀÏÁ¤ ½Ã°£µ¿¾È °ø°İ°è¿­ ¸¶¹ıÀ» 100% ¹æ¾î(µ¥¹ÌÁö¸¸Å­ ¸¶³ª ¼Òºñ)
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// °ø°İ°è¿­ ¸¶¹ıÀ» 100% ¹æ¾î(µ¥¹ÌÁö¸¸Å­ ¸¶³ª ¼Òºñ)
+{ // [24]ë§ˆë²•ë¬´íš¨í™” : ì¼ì • ì‹œê°„ë™ì•ˆ ê³µê²©ê³„ì—´ ë§ˆë²•ì„ 100% ë°©ì–´(ë°ë¯¸ì§€ë§Œí¼ ë§ˆë‚˜ ì†Œë¹„)
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ê³µê²©ê³„ì—´ ë§ˆë²•ì„ 100% ë°©ì–´(ë°ë¯¸ì§€ë§Œí¼ ë§ˆë‚˜ ì†Œë¹„)
 	m_pTarget->dwMagicDamageToMana = m_dwNow + wPeriod;
-	// Æ¯¼ö º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwSpecialProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -402,16 +402,16 @@ bool CProtectionMagic::NullityMagic()
 }
 
 bool CProtectionMagic::CancelDivine()
-{ // [159]¹İ½Å·Â ¹«È¿È­ : ÀúÁÖ°è¿­(1, 2, 3, 4, 5)  ¸¶¹ıÀ» 100% ¹æ¾î
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ÀúÁÖ 1, 2, 3, 4, 5°è¿­ ¸¶¹ı ¹æ¾î
+{ // [159]ë°˜ì‹ ë ¥ ë¬´íš¨í™” : ì €ì£¼ê³„ì—´(1, 2, 3, 4, 5)  ë§ˆë²•ì„ 100% ë°©ì–´
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì €ì£¼ 1, 2, 3, 4, 5ê³„ì—´ ë§ˆë²• ë°©ì–´
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
 		CMagicState::CURSE_1|CMagicState::CURSE_2|CMagicState::CURSE_3|CMagicState::CURSE_4|CMagicState::CURSE_5);
-	// Æ¯¼ö º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -423,15 +423,15 @@ bool CProtectionMagic::CancelDivine()
 }
 
 bool CProtectionMagic::RecurrenceDivine()
-{ // [160]È¸±ÍÀÇ ±Ç´É : ÀúÁÖ 1, 2, 3, 4°è¿­ ¸¶¹ıÀ» ½ÃÀüÀÚ¿¡°Ô µÇµ¹¸²
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ÀúÁÖ°è¿­(1, 2, 3, 4) ¸¶¹ıÀ» ½ÃÀüÀÚ¿¡°Ô µÇµ¹¸²
+{ // [160]íšŒê·€ì˜ ê¶ŒëŠ¥ : ì €ì£¼ 1, 2, 3, 4ê³„ì—´ ë§ˆë²•ì„ ì‹œì „ìì—ê²Œ ë˜ëŒë¦¼
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ì €ì£¼ê³„ì—´(1, 2, 3, 4) ë§ˆë²•ì„ ì‹œì „ìì—ê²Œ ë˜ëŒë¦¼
 	m_pCaster->dwReturnMagic = m_dwNow + wPeriod;
-	// Æ¯¼ö º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pCaster->dwSpecialProtect = m_dwNow + wPeriod;
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -443,21 +443,21 @@ bool CProtectionMagic::RecurrenceDivine()
 }
 
 bool CProtectionMagic::PerfectProtect()
-{	// [157]¿ÏÀüÇÑ °á°è : ¸ğµç ¸¶¹ı ¹æ¾î¿Í ¹°¸®Àû °ø°İ(TacticÀÌ 40ºÎÅÍ´Â 100%)¿¡ ´ëÇÑ 
-	//                    ¹æ¾î½ÃÀüÀÚ´Â È¸º¹°è¿­, º¸È£°è¿­, º¸Á¶°è¿­ ¸¶¹ıµéÀº »ç¿ëÇÒ ¼ö ¾øÀ½
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹°¸®Àû ¹æ¾îÀ² °è»ê
+{	// [157]ì™„ì „í•œ ê²°ê³„ : ëª¨ë“  ë§ˆë²• ë°©ì–´ì™€ ë¬¼ë¦¬ì  ê³µê²©(Tacticì´ 40ë¶€í„°ëŠ” 100%)ì— ëŒ€í•œ 
+	//                    ë°©ì–´ì‹œì „ìëŠ” íšŒë³µê³„ì—´, ë³´í˜¸ê³„ì—´, ë³´ì¡°ê³„ì—´ ë§ˆë²•ë“¤ì€ ì‚¬ìš©í•  ìˆ˜ ì—†ìŒ
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë¬¼ë¦¬ì  ë°©ì–´ìœ¨ ê³„ì‚°
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison];
 	int nBasic = 80 + (nTactics>>1);
 	if (nBasic > 100)  nBasic = 100;
-	// ¹°¸®Àû ¹æ¾î·Â
+	// ë¬¼ë¦¬ì  ë°©ì–´ë ¥
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic);
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic, nBasic);
 	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
 		CMagicState::CURSE_1|CMagicState::CURSE_2|
 		CMagicState::CURSE_3|CMagicState::CURSE_4|
 		CMagicState::CURSE_5);
-	//  ¿¹¿Ü º¸È£ °è¿­ ¸¶¹ıÀº ÀÏ¹İÀÌ¸é¼­ Æ¯¼ö º¸È£°è¿­ ¸¶¹ı »óÅÂ·Î ¼³Á¤
+	//  ì˜ˆì™¸ ë³´í˜¸ ê³„ì—´ ë§ˆë²•ì€ ì¼ë°˜ì´ë©´ì„œ íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœë¡œ ì„¤ì •
 	m_pTarget->dwExceptProtect = m_dwNow + wPeriod;
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 	m_pTarget->dwSpecialProtect = m_dwNow + wPeriod;
@@ -466,9 +466,9 @@ bool CProtectionMagic::PerfectProtect()
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
@@ -479,27 +479,27 @@ bool CProtectionMagic::PerfectProtect()
 	return true;
 }
 bool CProtectionMagic::AuthorityOfAthyas() // 030415 kyo 
-{ // [185] ¾Æ»ş½ºÀÇ ±Ç´É ¹°¸®¹æ¾î20, °ø°İ¸¶¹ı¹æ¾î50, ÀÏ¹İ ¹°¸®,ÀÌµ¿¼Óµµ 30%Áõ°¡
-	// ·¹Æ¼ÀÇ ±Ç´É + º¸È£ + ¼ÓµµÁõ°¡
-	const WORD wPeriod = CalcPeriod(); // À¯Áö½Ã°£ °è»ê
-	// ¹æ¾î·ü °è»ê
+{ // [185] ì•„ìƒ¤ìŠ¤ì˜ ê¶ŒëŠ¥ ë¬¼ë¦¬ë°©ì–´20, ê³µê²©ë§ˆë²•ë°©ì–´50, ì¼ë°˜ ë¬¼ë¦¬,ì´ë™ì†ë„ 30%ì¦ê°€
+	// ë ˆí‹°ì˜ ê¶ŒëŠ¥ + ë³´í˜¸ + ì†ë„ì¦ê°€
+	const WORD wPeriod = CalcPeriod(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
+	// ë°©ì–´ë¥  ê³„ì‚°
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
 	int nBasic = (nWis + nTactics)/10;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 10)  nBasic = 10;
 	
-	//¹°¸®¹æ¾î 10 - 20
+	//ë¬¼ë¦¬ë°©ì–´ 10 - 20
 	const int nStrike = nBasic + 10;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nStrike, nStrike, nBasic);
-	// ÀúÁÖ 1, 2°è¿­ ¸¶¹ı ¹æ¾î
+	// ì €ì£¼ 1, 2ê³„ì—´ ë§ˆë²• ë°©ì–´
 	//m_pTarget->SetCurseDefense(m_dwNow + wPeriod, CMagicState::CURSE_1|CMagicState::CURSE_2);
-	// °ø°İ ¸¶¹ı ¹æ¾î·Â 40 - 50% Áõ°¡
+	// ê³µê²© ë§ˆë²• ë°©ì–´ë ¥ 40 - 50% ì¦ê°€
 	const int nMagic = 40 + nBasic;
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, nMagic, nMagic, nMagic, nMagic);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	// ÀÌµ¿¼Óµµ 20-30%Áõ°¡
+	// ì´ë™ì†ë„ 20-30%ì¦ê°€
 	const int nSpeed = 20 + nBasic;
 	m_pTarget->speedUp.SetState(m_dwNow + wPeriod, nSpeed);
 	
@@ -507,9 +507,9 @@ bool CProtectionMagic::AuthorityOfAthyas() // 030415 kyo
 	{	//< CSD-040826
 		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
 	}	//> CSD-040826
-	// ½ÃÀüÀÚÀÇ °æÇèÄ¡ °è»ê
+	// ì‹œì „ìì˜ ê²½í—˜ì¹˜ ê³„ì‚°
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_T);
 	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;

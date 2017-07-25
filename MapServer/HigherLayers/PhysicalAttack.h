@@ -1,4 +1,4 @@
-// PhysicalAttack.h: interface for the CPhysicalAttack class.
+Ôªø// PhysicalAttack.h: interface for the CPhysicalAttack class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// π∞∏Æ¿˚ ∞¯∞›
+// Î¨ºÎ¶¨Ï†Å Í≥µÍ≤©
 class CPhysicalAttack : public TBinder<CStrike, CPhysicalAttack>
 {
 public:
@@ -33,9 +33,9 @@ public:
 	}
 	
 public:
-	bool AttackShort();  // ¥‹∞≈∏Æ π∞∏Æ¿˚ ∞¯∞›
-	bool AttackMiddle(); // ¡ﬂ∞≈∏Æ π∞∏Æ¿˚ ∞¯∞›
-	bool AttackLong();   // ¿Â∞≈∏Æ π∞∏Æ¿˚ ∞¯∞›
+	bool AttackShort();  // Îã®Í±∞Î¶¨ Î¨ºÎ¶¨Ï†Å Í≥µÍ≤©
+	bool AttackMiddle(); // Ï§ëÍ±∞Î¶¨ Î¨ºÎ¶¨Ï†Å Í≥µÍ≤©
+	bool AttackLong();   // Ïû•Í±∞Î¶¨ Î¨ºÎ¶¨Ï†Å Í≥µÍ≤©
 	bool AttackEvent();  // CSD-030716
 	bool AttackEffect(); // CSD-031007
 	

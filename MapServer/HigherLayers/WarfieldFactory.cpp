@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	WarfieldFactory.cpp.
  *			implementation of the CWarfieldFactory class.
  */
@@ -21,10 +21,10 @@ CWarfieldFactory::~CWarfieldFactory()
 
 /**
  * @fn		CWarfieldFactory::Create().
- * @brief	IWarfieldDefine interface¸¦ ¾ÆÀÌµğ(nObjectID)¿¡ µû¶ó Æ¯Á¤ ÀüÀïÅÍ·Î »ı¼º½ÃÅ°´Â ÇÔ¼ö.
- * @param	INT nObjectID. ÀüÀïÅÍ ½Äº° ID.
- * @param	VOID** ppVoid. ÀüÀïÅÍ¸¦ »ı¼ºÇÏ¿© ¹İÈ¯ ÇÒ Æ÷ÀÎÅÍ.
- * @return	STDMETHODIMP. »ı¼º ¼º°ø ¿©ºÎ ¹İÈ¯.
+ * @brief	IWarfieldDefine interfaceë¥¼ ì•„ì´ë””(nObjectID)ì— ë”°ë¼ íŠ¹ì • ì „ìŸí„°ë¡œ ìƒì„±ì‹œí‚¤ëŠ” í•¨ìˆ˜.
+ * @param	INT nObjectID. ì „ìŸí„° ì‹ë³„ ID.
+ * @param	VOID** ppVoid. ì „ìŸí„°ë¥¼ ìƒì„±í•˜ì—¬ ë°˜í™˜ í•  í¬ì¸í„°.
+ * @return	STDMETHODIMP. ìƒì„± ì„±ê³µ ì—¬ë¶€ ë°˜í™˜.
  */
 //< LTH-040419-KO.
 STDMETHODIMP CWarfieldFactory::Create(INT nObjectID, VOID** ppVoid)
@@ -33,11 +33,11 @@ STDMETHODIMP CWarfieldFactory::Create(INT nObjectID, VOID** ppVoid)
 	
 	switch(nObjectID)
 	{
-	case WI_HADES_WARFIELD:		// LTH-040419-KO ÁöÇÏ ÀüÀïÅÍ.
+	case WI_HADES_WARFIELD:		// LTH-040419-KO ì§€í•˜ ì „ìŸí„°.
 		lpWarfield = new CHadesWarfield;
 		break;
 
-	default:					// LTH-040419-KO ¾ÆÀÌµğ°¡ Æ²¸®¸é »ı¼º ½ÇÆĞ.
+	default:					// LTH-040419-KO ì•„ì´ë””ê°€ í‹€ë¦¬ë©´ ìƒì„± ì‹¤íŒ¨.
 		::JustMsg("NO Warfield ID!! %d", nObjectID);
 		return E_FAIL;
 	}

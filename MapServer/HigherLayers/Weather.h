@@ -1,4 +1,4 @@
-
+﻿
 
 extern int  LoadWeatherTable( void );
 extern void CheckWeatherSystem( void );

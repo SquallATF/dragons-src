@@ -1,4 +1,4 @@
-enum ChatTypes
+﻿enum ChatTypes
 {
 	CHATTYPE_NORMAL				=0,
 	CHATTYPE_WHISPER			=1,

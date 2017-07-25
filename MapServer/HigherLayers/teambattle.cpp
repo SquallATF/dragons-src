@@ -1,11 +1,11 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\recvmsg.h"
 #include "..\LowerLayers\mylog.h"
 #include "DefaultHeader.h"
 #include "MenuDefine.h"
 #include "ItemList.h"
-//#include "CItem.h"		//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//#include "CItem.h"		//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "teambattle.h"
 #include "scrp_exe.h"
 #include "chatting.h"
@@ -14,13 +14,13 @@
 #include "ArenaManager.h"
 
 //////////////////////////////////////////////////////////////////////////
-// Äİ·Î¼¼½º °æ±â ½ÂÆĞ ÀúÀå
+// ì½œë¡œì„¸ìŠ¤ ê²½ê¸° ìŠ¹íŒ¨ ì €ì¥
 void CalcWinLoseScore( WINLOSEPOINT &win_lose, int wintype )
 {
 	switch( wintype )
 	{
-		case FST_WIN:		win_lose.win++;		break;	// ½Â
-		case FST_DEFEAT	:	win_lose.defeat++;	break;	// ÆĞ
+		case FST_WIN:		win_lose.win++;		break;	// ìŠ¹
+		case FST_DEFEAT	:	win_lose.defeat++;	break;	// íŒ¨
 		case FST_DISCONNECT:win_lose.disconnect++;	break;	// disconnect
 	}
 }
@@ -67,7 +67,7 @@ void SendFightMapChatMyTeam( short int cn, t_packet *packet )
 	pTeam->SendPacket(&p);
 }	//> CSD-030509
 
-void SendFightMapChat( short int cn, t_packet *packet )		// ÀüÃ¼¿¡°Ô º¸³½´Ù.
+void SendFightMapChat( short int cn, t_packet *packet )		// ì „ì²´ì—ê²Œ ë³´ë‚¸ë‹¤.
 {	//< CSD-030509
 	CHARLIST* pMember = CheckServerId(cn);
 
@@ -134,7 +134,7 @@ void SendGamblingResult(CHARLIST* pGambler, int nPayment, DWORD dwMoney)
 	::QueuePacket(connections, pGambler->GetServerID(), &packet, 1);
 }	//> CSD-030522
 
-// ³Í ±× ÆÀ¿¡ µî·Ï µÆ´Ù.
+// ë„Œ ê·¸ íŒ€ì— ë“±ë¡ ëë‹¤.
 void SendTeamBattleMessageAddCharOk( char team_num, short int cn )
 {
 	t_packet p;
@@ -161,16 +161,16 @@ inline int GetNationByMapName( char *mapname )
 	return -1;
 }
 
-// recent½Ã »ç¿ëÇÏ´Â ½ÇÁ¦ db ¿¡ ÀúÀåÇÏ´Â mapname°ú x, y¸¦ º¯È¯ ½ÃÅ³¼ö ÀÖ´Ù.
+// recentì‹œ ì‚¬ìš©í•˜ëŠ” ì‹¤ì œ db ì— ì €ì¥í•˜ëŠ” mapnameê³¼ x, yë¥¼ ë³€í™˜ ì‹œí‚¬ìˆ˜ ìˆë‹¤.
 struct k_impossible_map
 {
 	int map_index;
 	POINTS xy[3];
 };
 
-// recent ½Ã xy °ªÀ» ¹Ù²ãÁØ´Ù.	// ÀúÀåÇÒ¶§ ¹Ù²ã¼­ ÀúÀåÇÑ´Ù.
+// recent ì‹œ xy ê°’ì„ ë°”ê¿”ì¤€ë‹¤.	// ì €ì¥í• ë•Œ ë°”ê¿”ì„œ ì €ì¥í•œë‹¤.
 void CheckFightMap( char *mapname, short int &x, short int &y, CHARLIST *ch )
-{	//< CSD-030509 : recent½Ã À§Ä¡°ªÀ» º¯°æ
+{	//< CSD-030509 : recentì‹œ ìœ„ì¹˜ê°’ì„ ë³€ê²½
 	LPMAPINFO pMapInfo = ::GetMapInfoByMapName(mapname);
 
 	if (pMapInfo == NULL)
@@ -205,7 +205,7 @@ void CheckFightMap( char *mapname, short int &x, short int &y, CHARLIST *ch )
 }	//> CSD-030509
 
 ////////////////////////////////////////////////////////////
-// °×ºí ¾ÆÀÌÅÛ CGambleItem // << 011019 ygi
+// ê²œë¸” ì•„ì´í…œ CGambleItem // << 011019 ygi
 int CGambleItem::SetSize( int house, int type, int count )
 {
 	Release( house, type );
@@ -319,18 +319,18 @@ WORD GetManagementMapPort( WORD port )
 	return port;
 }
 
-k_nation_item_data g_nation_item;	// ±¹°¡ °í±Ş ¾ÆÀÌÅÛ
+k_nation_item_data g_nation_item;	// êµ­ê°€ ê³ ê¸‰ ì•„ì´í…œ
 
-extern int IsStartNationWar();		// ÀÌ ¸ÊÀÌ ±¹°¡Àü ¸ÊÀÌ°í ÇöÀç ÀüÅõ ÁßÀÎ°¡?
+extern int IsStartNationWar();		// ì´ ë§µì´ êµ­ê°€ì „ ë§µì´ê³  í˜„ì¬ ì „íˆ¬ ì¤‘ì¸ê°€?
 extern int g_LocalWarBegin;			// 011215 LTS
 extern int g_isLocalWarServer;      // LTS 020725
-// ±æµåÀü Áß, °°Àº ÆÀÀÎÁö °Ë»ç
+// ê¸¸ë“œì „ ì¤‘, ê°™ì€ íŒ€ì¸ì§€ ê²€ì‚¬
 
 // 020620 YGI
 bool IsColleagueWhenColossus( CHARLIST *a, CHARLIST *d )
 {	//< CSD-031013
 	// isPKONOFF
-	if( a->pk_on_off == 0 )		// °ø°İ ºÒ°¡ ¼³Á¤À» ÇØµĞ »óÅÂ¿¡¼­
+	if( a->pk_on_off == 0 )		// ê³µê²© ë¶ˆê°€ ì„¤ì •ì„ í•´ë‘” ìƒíƒœì—ì„œ
 	{
 		if (d->IsTamedNpc())
 		{
@@ -339,23 +339,23 @@ bool IsColleagueWhenColossus( CHARLIST *a, CHARLIST *d )
 
 		if(LocalMgr.IsAbleNation(KOREA))//030102 lsw
 		{
-			if( ! // ¹ØÀÇ »óÈ²Áß ¾î´À°Íµµ ¾Æ´Ò¶§ 
-				( IsStartNationWar()  // ±¹°¡ÀüÀÏ¶§ // ¸ğµÎ Âü¿©ÀÚ
-				|| ( a->fight_flag && a->fight_id == d->GetServerID()) // °áÅõÁßÀÎµ¥ ´ë»óÀÚ¸¦ ¶§·ÈÀ» ¶§ 
-				|| (IsArenaFight(a)) // ±æµåÀü½Ã Âü¿© ÁßÀÏ¶§ 
-				|| ( g_LocalWarBegin && a->JoinLocalWar&&g_isLocalWarServer ) // ±¹ÁöÀü½Ã Âü¿© ÁßÀÏ¶§     // LTS 020725
-				|| ( d->GetNK( a->name_status.nation ) )	// »ó´ë¹æÀÌ nk ÀÏ¶§
+			if( ! // ë°‘ì˜ ìƒí™©ì¤‘ ì–´ëŠê²ƒë„ ì•„ë‹ë•Œ 
+				( IsStartNationWar()  // êµ­ê°€ì „ì¼ë•Œ // ëª¨ë‘ ì°¸ì—¬ì
+				|| ( a->fight_flag && a->fight_id == d->GetServerID()) // ê²°íˆ¬ì¤‘ì¸ë° ëŒ€ìƒìë¥¼ ë•Œë ¸ì„ ë•Œ 
+				|| (IsArenaFight(a)) // ê¸¸ë“œì „ì‹œ ì°¸ì—¬ ì¤‘ì¼ë•Œ 
+				|| ( g_LocalWarBegin && a->JoinLocalWar&&g_isLocalWarServer ) // êµ­ì§€ì „ì‹œ ì°¸ì—¬ ì¤‘ì¼ë•Œ     // LTS 020725
+				|| ( d->GetNK( a->name_status.nation ) )	// ìƒëŒ€ë°©ì´ nk ì¼ë•Œ
 				))
 			{ 
-				// ¸Ş½ÃÁö Ãâ·Â
+				// ë©”ì‹œì§€ ì¶œë ¥
 				CallClient( a->GetServerID(), CMD_FAIL_ATTACK_BY_PK_MODE );
-				return true;		// °ø°İÀÌ ºÒ°¡´É ÇÏ´Ù
+				return true;		// ê³µê²©ì´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 			}
 		}
 		else
 		{
 			CallClient( a->GetServerID(), CMD_FAIL_ATTACK_BY_PK_MODE );
-			return true;		// °ø°İÀÌ ºÒ°¡´É ÇÏ´Ù
+			return true;		// ê³µê²©ì´ ë¶ˆê°€ëŠ¥ í•˜ë‹¤
 		}
 	}
 
@@ -401,7 +401,7 @@ void CColossusStoneMgr::GetTeamCount( int team[4] )
 		}
 	}
 }
-void CColossusStoneMgr::SetStoneByTeam( int id, int team )		// ¾î¶² ÆÀÀÌ ½ºÅæÀ» °Çµå·ÈÀ»¶§
+void CColossusStoneMgr::SetStoneByTeam( int id, int team )		// ì–´ë–¤ íŒ€ì´ ìŠ¤í†¤ì„ ê±´ë“œë ¸ì„ë•Œ
 {
 	ITEMLIST *target = GetList( id );
 	if( target )
@@ -410,7 +410,7 @@ void CColossusStoneMgr::SetStoneByTeam( int id, int team )		// ¾î¶² ÆÀÀÌ ½ºÅæÀ» 
 	}
 }
 
-void CColossusStoneMgr::SetStoneFirst()		// ÃÊ±â ¼¼ÆÃ
+void CColossusStoneMgr::SetStoneFirst()		// ì´ˆê¸° ì„¸íŒ…
 {
 	DWORD attr = 0;
 	SetAttr2( attr, IA2_COLOSSUS_STONE | STONE_SCORE_FIRST );
@@ -438,10 +438,10 @@ int CColossusStoneMgr::GetMaxStone()
 
 
 
-void SetStoneByTeam( ITEMLIST *item, int team )		// ¾î¶² ÆÀÀÌ ½ºÅæÀ» °Çµå·ÈÀ»¶§
+void SetStoneByTeam( ITEMLIST *item, int team )		// ì–´ë–¤ íŒ€ì´ ìŠ¤í†¤ì„ ê±´ë“œë ¸ì„ë•Œ
 {
 	DWORD attr = 0;
-	SetAttr2( attr, IA2_COLOSSUS_STONE );		// or ¿¬»ê 
+	SetAttr2( attr, IA2_COLOSSUS_STONE );		// or ì—°ì‚° 
 	switch( team )
 	{
 		case 0 : break;
@@ -461,13 +461,13 @@ void SetStoneByTeam( ITEMLIST *item, int team )		// ¾î¶² ÆÀÀÌ ½ºÅæÀ» °Çµå·ÈÀ»¶§
 
 int GetTeamByStone( DWORD attr )
 {
-	if( GetAttr2( attr, STONE_SCORE_FIRST )  ) return -1;		// ¾ÆÁ÷ ÆÀÀÌ ¾ø´Ù.
+	if( GetAttr2( attr, STONE_SCORE_FIRST )  ) return -1;		// ì•„ì§ íŒ€ì´ ì—†ë‹¤.
 	return ( GetAttr2( attr, STONE_SCORE_2 )?2:0 + GetAttr2( attr, STONE_SCORE_1 )?1:0 );
 }
 //
 //////////////////////////////////////////////////////////////////////////
 
-// if( !ch->curr_fight_map ) ¶ó´Â Á¶°Ç¹®À» ¹Ì¸® Ã¼Å© ÇØµÎ°í È£ÃâÇØ¾ß ÇÑ´Ù.
+// if( !ch->curr_fight_map ) ë¼ëŠ” ì¡°ê±´ë¬¸ì„ ë¯¸ë¦¬ ì²´í¬ í•´ë‘ê³  í˜¸ì¶œí•´ì•¼ í•œë‹¤.
 int GetFightTeamNumber( CHARLIST *ch )
 {
 	return ( ch->curr_fight_map - 100 );
@@ -478,10 +478,10 @@ int GetFightTeamNumber( CHARLIST *ch )
 CGuildHouse	g_GuildHouse;
 
 CGuildHouseUnit *CGuildHouse::GetPointByEventNo(char *map_name, int event_no)
-{	// ÇØ´ç ¸Ê°ú ÀÌº¥Æ® ¹øÈ£·Î ¿¦Æ÷¸®¾Æ Å¬·¹½º¿¡ Á¢±Ù
+{	// í•´ë‹¹ ë§µê³¼ ì´ë²¤íŠ¸ ë²ˆí˜¸ë¡œ ì—¡í¬ë¦¬ì•„ í´ë ˆìŠ¤ì— ì ‘ê·¼
 	for (int i = 0; i < m_Max; ++i)
 	{
-		// ´ë¹®ÀÚÀÌ¾î¾ß ÇÑ´Ù.
+		// ëŒ€ë¬¸ìì´ì–´ì•¼ í•œë‹¤.
 		if (strcmp( m_aGuildHouse[i].map_name, map_name) == 0)
 		{
 			if (m_aGuildHouse[i].event_no == event_no)
@@ -495,7 +495,7 @@ CGuildHouseUnit *CGuildHouse::GetPointByEventNo(char *map_name, int event_no)
 }
 
 CGuildHouseUnit *CGuildHouse::GetPointByGuildCode(int guild_code)
-{	// ±æµå ÄÚµå·Î ¿¥Æ÷¸®¾Æ Å¬·¹½º¿¡ Á¢±Ù
+{	// ê¸¸ë“œ ì½”ë“œë¡œ ì— í¬ë¦¬ì•„ í´ë ˆìŠ¤ì— ì ‘ê·¼
 	for (int i = 0; i< m_Max; ++i)
 	{
 		if (m_aGuildHouse[i].guild_code == guild_code)
@@ -513,7 +513,7 @@ int CGuildHouseUnit::GoToHouse(short int cn)
 	return GotoUser(map_name, x, y, cn);
 }
 
-int CGuildHouse::GoToHouse( CHARLIST *ch ) // ÇØ´ç ¿¥Æ÷¸®¾Æ·Î ÀÌµ¿
+int CGuildHouse::GoToHouse( CHARLIST *ch ) // í•´ë‹¹ ì— í¬ë¦¬ì•„ë¡œ ì´ë™
 {	//< CSD-030324
 	int guild_code = ch->GetGuildCode();
 	if( !guild_code ) return 0;
@@ -525,7 +525,7 @@ int CGuildHouse::GoToHouse( CHARLIST *ch ) // ÇØ´ç ¿¥Æ÷¸®¾Æ·Î ÀÌµ¿
 }	//> CSD-030324
 
 int CGuildHouse::IsMyGuildHouse(CHARLIST *ch, int event_no)
-{	//< CSD-030806 : ÇØ´ç ¿¥Æ÷¸®¾Æ·Î ÀÌµ¿
+{	//< CSD-030806 : í•´ë‹¹ ì— í¬ë¦¬ì•„ë¡œ ì´ë™
 	CGuildHouseUnit* house = GetPointByEventNo(MapName, event_no);
 	
 	if (house == NULL) 
@@ -539,7 +539,7 @@ int CGuildHouse::IsMyGuildHouse(CHARLIST *ch, int event_no)
 	}
 
 	if (house->guild_code != ch->GetGuildCode())
-	{	// ÆÃ°Ü ¹ö¸®°Ô ÇÑ´Ù.
+	{	// íŒ…ê²¨ ë²„ë¦¬ê²Œ í•œë‹¤.
 		house->GoToHouse(ch->GetServerID());
 		return 0;
 	}
@@ -587,7 +587,7 @@ void GetTimeForFilename( char *filename1 )
 
 void EndManToManFight( CHARLIST *win, CHARLIST *lose )
 {
-	Fight_Stone_End( lose->GetServerID(), 1 );		// Á¤»óÀûÀ¸·Î Á³´Ù.
+	Fight_Stone_End( lose->GetServerID(), 1 );		// ì •ìƒì ìœ¼ë¡œ ì¡Œë‹¤.
 }
 
 extern void SendMagicCommand(CHARLIST* lpChar, short int slot1 = 0, short int slot2 = 0, short int slot3 = 0);
@@ -603,7 +603,7 @@ void Fight_Stone_End(int cn, int flag)
 	{
 		switch(flag)
 		{
-		case 1:	// Áø°æ¿ì
+		case 1:	// ì§„ê²½ìš°
 			{
 				if(lpChar->fight_id)
 				{
@@ -612,7 +612,7 @@ void Fight_Stone_End(int cn, int flag)
 
 				break;
 			}
-		case 2:	// ÀÌ±ä°æ¿ì
+		case 2:	// ì´ê¸´ê²½ìš°
 			{
 				if(lpChar->fight_id)
 				{
@@ -621,7 +621,7 @@ void Fight_Stone_End(int cn, int flag)
 				
 				break;
 			}
-		case 3:	// ºñ±ä°æ¿ì
+		case 3:	// ë¹„ê¸´ê²½ìš°
 			{
 				if(lpChar->fight_id)
 				{

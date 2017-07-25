@@ -1,4 +1,4 @@
-extern void CreateCharacter( t_connection c[], int cn, t_packet *packet);
+ï»¿extern void CreateCharacter( t_connection c[], int cn, t_packet *packet);
 extern void UserAddBasicData(  t_connection c[], int i, t_server_user_add *p );
 extern void PutPacketCharDB( t_connection c[], int cn, t_packet *packet );
 //< CSD-010907
@@ -18,11 +18,11 @@ extern void SendCharInfoBasic( int cn, short int kind, DWORD data );
 
 
 
-extern void SendItemIndex( t_connection c[], int cn );		// ¹è¿î ¾ÆÀÌÅÛ º¸³»ÁÖ±â
-extern void SendDiesease( t_connection c[], int cn );		// diesease º¸³»ÁÖ±â 
-extern void SendEmployment( t_connection c[], int cn );		// employment º¸³»ÁÖ±â 
-extern void SendRelation( t_connection c[], int cn );		// »çÁ¦ °ü°èº¸³»ÁÖ±â
-extern void SendParty( t_connection c[], int cn );			// ÆÄÆ¼¿ø º¸³»ÁÖ±â 
+extern void SendItemIndex( t_connection c[], int cn );		// ë°°ìš´ ì•„ì´í…œ ë³´ë‚´ì£¼ê¸°
+extern void SendDiesease( t_connection c[], int cn );		// diesease ë³´ë‚´ì£¼ê¸° 
+extern void SendEmployment( t_connection c[], int cn );		// employment ë³´ë‚´ì£¼ê¸° 
+extern void SendRelation( t_connection c[], int cn );		// ì‚¬ì œ ê´€ê³„ë³´ë‚´ì£¼ê¸°
+extern void SendParty( t_connection c[], int cn );			// íŒŒí‹°ì› ë³´ë‚´ì£¼ê¸° 
 extern void RecvCharInfoPlus( int type, t_connection c[], int cn );
 
 extern void SendPartyJoinOk( char *name, int cn );
@@ -32,9 +32,9 @@ extern void ReqPartyDB( short int client_id, char para, char *name );		// 0217 Y
 
 
 
-extern int InitPartyMemberServerToServer( CHARLIST *ch );		//  ÀÌ¸§¸¸ µðºñ¿¡ ÀúÀåÇÏ°í ÀÌ¸§¸¸ ²¨³»¿Â´Ù.
+extern int InitPartyMemberServerToServer( CHARLIST *ch );		//  ì´ë¦„ë§Œ ë””ë¹„ì— ì €ìž¥í•˜ê³  ì´ë¦„ë§Œ êº¼ë‚´ì˜¨ë‹¤.
 extern int EndsetPartyMenberForUpdate( CHARLIST *ch );
-extern int SetMySkill( CHARLIST *ch );		// ÀÏ´Ü ±âº»ÀûÀ¸·Î ¾Ë¾Æ¾ßÇÏ´Â ½ºÅ³ ¼Â
+extern int SetMySkill( CHARLIST *ch );		// ì¼ë‹¨ ê¸°ë³¸ì ìœ¼ë¡œ ì•Œì•„ì•¼í•˜ëŠ” ìŠ¤í‚¬ ì…‹
 
 extern int SendPartyInforForGameserver( short int server_id, char para, char *name, t_connection c[], short int cn );
 extern int SendPartyInfoOfOtherCharToGameserver( char *other_name, char *my_name, short int server_id, t_connection c[], short int cn );

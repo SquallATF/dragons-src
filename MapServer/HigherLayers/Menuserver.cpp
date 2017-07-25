@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\recvmsg.h"
 #include "..\LowerLayers\mylog.h"
@@ -28,7 +28,7 @@ const int SIZE_GR_BS = 50; // CSD-030326
 const int SIZE_GR_RS = 100; // CSD-030326
 
 CGambleRateData g_game_rate_data;
-CAliveMapZoneAll g_AliveMap;		// µÇ»ì¾Æ ³¯¼ö ÀÖ´Â ½ÅÀüÅ×ÀÌºí
+CAliveMapZoneAll g_AliveMap;		// ë˜ì‚´ì•„ ë‚ ìˆ˜ ìˆëŠ” ì‹ ì „í…Œì´ë¸”
 
 extern struct CItem_List Item_Ref ;
 extern bool exist(int item_no, int char_id, POS &source);
@@ -42,11 +42,11 @@ void SendCallDualMagicLearnMenu( int cn);//soto-030421
 int LoadGuildItem( char *filename, int num );
 
 char g_szPassWordName[20];
-int		 storelist_attr[ MAX_STORE_LIST][ MAX_STORE_ITEM_LIST];		// »ç´Â ¹°°Ç ÆÄ´Â ¹°°Ç ¼Ó¼º
+int		 storelist_attr[ MAX_STORE_LIST][ MAX_STORE_ITEM_LIST];		// ì‚¬ëŠ” ë¬¼ê±´ íŒŒëŠ” ë¬¼ê±´ ì†ì„±
 ItemAttr storelist[ MAX_STORE_LIST][ MAX_STORE_ITEM_LIST];
 int storelistmax[ MAX_STORE_LIST];
-//  »óÁ¤ÀÇ Item ¼Ó¼ºÀº ¸ÅÀÏ ¹Ù²ï´Ù. 
-//  ÀÌÇÔ¼ö´Â À½.. 1ÀÏ¿¡ ÇÑ¹øÁ¤µµ È£ÃâµÇ¾î¾ß ÇÑ´Ù. 
+//  ìƒì •ì˜ Item ì†ì„±ì€ ë§¤ì¼ ë°”ë€ë‹¤. 
+//  ì´í•¨ìˆ˜ëŠ” ìŒ.. 1ì¼ì— í•œë²ˆì •ë„ í˜¸ì¶œë˜ì–´ì•¼ í•œë‹¤. 
 static inline void swap( int  *a, int *b )
 {
 	int t = *a;
@@ -57,33 +57,33 @@ static inline void swap( int  *a, int *b )
 void MakeStoreList( void )
 {
 	char temp[ FILENAME_MAX];
-	wsprintf( temp, "%s/data/BLACKSMITH.txt", GameServerDataPath );	storelistmax[ BLACKSMITH ] = LoadGuildItem( temp,	BLACKSMITH	);	//´ëÀå°£		
+	wsprintf( temp, "%s/data/BLACKSMITH.txt", GameServerDataPath );	storelistmax[ BLACKSMITH ] = LoadGuildItem( temp,	BLACKSMITH	);	//ëŒ€ì¥ê°„		
 	MyLog( LOG_NORMAL, " Store 'BLACKSMITH' itemlist number   : %d", storelistmax[ BLACKSMITH ] );
-	wsprintf( temp, "%s/data/FARM.txt", GameServerDataPath );		storelistmax[ FARM		 ] = LoadGuildItem( temp,	FARM		);	//³óÀå		
+	wsprintf( temp, "%s/data/FARM.txt", GameServerDataPath );		storelistmax[ FARM		 ] = LoadGuildItem( temp,	FARM		);	//ë†ì¥		
 	MyLog( LOG_NORMAL, " Store 'FARM'       itemlist number   : %d", storelistmax[ FARM] );
-	wsprintf( temp, "%s/data/RESTAURANT.txt", GameServerDataPath );	storelistmax[ RESTAURANT ] = LoadGuildItem( temp,	RESTAURANT	);	//¿ä¸®Á¡		
+	wsprintf( temp, "%s/data/RESTAURANT.txt", GameServerDataPath );	storelistmax[ RESTAURANT ] = LoadGuildItem( temp,	RESTAURANT	);	//ìš”ë¦¬ì 		
 	MyLog( LOG_NORMAL, " Store 'RESTAURANT' itemlist number   : %d", storelistmax[ RESTAURANT] );
-	wsprintf( temp, "%s/data/HERBSHOP.txt", GameServerDataPath );	storelistmax[ HERBSHOP	 ] = LoadGuildItem( temp,	HERBSHOP	);	//¾àÃÊÁ¡		
+	wsprintf( temp, "%s/data/HERBSHOP.txt", GameServerDataPath );	storelistmax[ HERBSHOP	 ] = LoadGuildItem( temp,	HERBSHOP	);	//ì•½ì´ˆì 		
 	MyLog( LOG_NORMAL, " Store 'HERBSHOP'   itemlist number   : %d", storelistmax[ HERBSHOP	 ] );
-	wsprintf( temp, "%s/data/SHAMBLES.txt", GameServerDataPath );	storelistmax[ SHAMBLES	 ] = LoadGuildItem( temp,	SHAMBLES	);	//ÇªÁŞ°£		
+	wsprintf( temp, "%s/data/SHAMBLES.txt", GameServerDataPath );	storelistmax[ SHAMBLES	 ] = LoadGuildItem( temp,	SHAMBLES	);	//í‘¸ì¤ê°„		
 	MyLog( LOG_NORMAL, " Store 'SHAMBLES'   itemlist number   : %d", storelistmax[ SHAMBLES	 ] );
-	wsprintf( temp, "%s/data/CANDLE.txt", GameServerDataPath );		storelistmax[ CANDLE	 ] = LoadGuildItem( temp,	CANDLE		);	//¾çÃÊÁ¡		
+	wsprintf( temp, "%s/data/CANDLE.txt", GameServerDataPath );		storelistmax[ CANDLE	 ] = LoadGuildItem( temp,	CANDLE		);	//ì–‘ì´ˆì 		
 	MyLog( LOG_NORMAL, " Store 'CANDLE'     itemlist number   : %d", storelistmax[ CANDLE	 ] );
-	wsprintf( temp, "%s/data/SLOPSHOP.txt", GameServerDataPath );	storelistmax[ SLOPSHOP	 ] = LoadGuildItem( temp,	SLOPSHOP	);	//ÀÇ»ó½Ç		
+	wsprintf( temp, "%s/data/SLOPSHOP.txt", GameServerDataPath );	storelistmax[ SLOPSHOP	 ] = LoadGuildItem( temp,	SLOPSHOP	);	//ì˜ìƒì‹¤		
 	MyLog( LOG_NORMAL, " Store 'SLOPSHOP'   itemlist number   : %d", storelistmax[ SLOPSHOP  ] );
-	wsprintf( temp, "%s/data/ALCHEMY.txt", GameServerDataPath );	storelistmax[ ALCHEMY	 ] = LoadGuildItem( temp,	ALCHEMY		);	//¿¬±İ¼Ò		
+	wsprintf( temp, "%s/data/ALCHEMY.txt", GameServerDataPath );	storelistmax[ ALCHEMY	 ] = LoadGuildItem( temp,	ALCHEMY		);	//ì—°ê¸ˆì†Œ		
 	MyLog( LOG_NORMAL, " Store 'ALCHEMY'    itemlist number   : %d", storelistmax[ ALCHEMY	 ] );
-	wsprintf( temp, "%s/data/WOODWORKING.txt", GameServerDataPath );storelistmax[ WOODWORKING] = LoadGuildItem( temp,	WOODWORKING	);	//¸ñ°ø¼Ò		
+	wsprintf( temp, "%s/data/WOODWORKING.txt", GameServerDataPath );storelistmax[ WOODWORKING] = LoadGuildItem( temp,	WOODWORKING	);	//ëª©ê³µì†Œ		
 	MyLog( LOG_NORMAL, " Store 'WOODWORKING'itemlist number   : %d", storelistmax[WOODWORKING] );
-	wsprintf( temp, "%s/data/BOWCRAFT.txt", GameServerDataPath);	storelistmax[ BOWCRAFT	 ] = LoadGuildItem( temp,	BOWCRAFT	);		//È°°úÈ­»ì	
+	wsprintf( temp, "%s/data/BOWCRAFT.txt", GameServerDataPath);	storelistmax[ BOWCRAFT	 ] = LoadGuildItem( temp,	BOWCRAFT	);		//í™œê³¼í™”ì‚´	
 	MyLog( LOG_NORMAL, " Store 'BOWCRAFT'   itemlist number   : %d", storelistmax[ BOWCRAFT	 ] );
-	wsprintf( temp, "%s/data/SHIPYARD.txt", GameServerDataPath );	storelistmax[ SHIPYARD	 ] = LoadGuildItem( temp,	SHIPYARD	);	//Á¶¼±¼Ò		
+	wsprintf( temp, "%s/data/SHIPYARD.txt", GameServerDataPath );	storelistmax[ SHIPYARD	 ] = LoadGuildItem( temp,	SHIPYARD	);	//ì¡°ì„ ì†Œ		
 	MyLog( LOG_NORMAL, " Store 'SHIPYARD'   itemlist number   : %d", storelistmax[ SHIPYARD	 ] );
-	wsprintf( temp, "%s/data/PUB.txt", GameServerDataPath );		storelistmax[ PUB		 ] = LoadGuildItem( temp,	PUB			);	//ÁÖÁ¡		
+	wsprintf( temp, "%s/data/PUB.txt", GameServerDataPath );		storelistmax[ PUB		 ] = LoadGuildItem( temp,	PUB			);	//ì£¼ì 		
 	MyLog( LOG_NORMAL, " Store 'PUB'        itemlist number   : %d", storelistmax[ PUB		 ] );
-	wsprintf( temp, "%s/data/STORE.txt", GameServerDataPath );		storelistmax[ STORE		 ] = LoadGuildItem( temp,	STORE		);	//ÀâÈ­»ó		
+	wsprintf( temp, "%s/data/STORE.txt", GameServerDataPath );		storelistmax[ STORE		 ] = LoadGuildItem( temp,	STORE		);	//ì¡í™”ìƒ		
 	MyLog( LOG_NORMAL, " Store 'STORE'      itemlist number   : %d", storelistmax[ STORE	 ] );
-	wsprintf( temp, "%s/data/MAGIC_GUILD.txt", GameServerDataPath );storelistmax[MAGIC_GUILD ] = LoadGuildItem( temp,	MAGIC_GUILD );	//¸¶¹ı»ç		
+	wsprintf( temp, "%s/data/MAGIC_GUILD.txt", GameServerDataPath );storelistmax[MAGIC_GUILD ] = LoadGuildItem( temp,	MAGIC_GUILD );	//ë§ˆë²•ì‚¬		
 	MyLog( LOG_NORMAL, " Store 'MAGIC_GUILD'itemlist number   : %d", storelistmax[ MAGIC_GUILD ] );
 }
 
@@ -161,21 +161,21 @@ void RecvItemBuy( int cn, t_client_item_buy *p )
 			break;
 		}
 	}
-	if( itempos == storelistmax[store_id] ) return;		// ÀÌ »óÁ¡¿¡ ¾ø´Â ¾ÆÀÌÅÛÀÌ´Ù.
+	if( itempos == storelistmax[store_id] ) return;		// ì´ ìƒì ì— ì—†ëŠ” ì•„ì´í…œì´ë‹¤.
 
 	ItemAttr *item = &storelist[ store_id][itempos];	
 	CItem *t = ItemUnit( *item );
 	if( !t ) return;
 
 	const DWORD price = t->GetValue();
-	if( ch->Money < price ) return;			// ÀÏ´Ü µ· ¾øÀ¸¸é ¾ÈµÈ´Ù.
+	if( ch->Money < price ) return;			// ì¼ë‹¨ ëˆ ì—†ìœ¼ë©´ ì•ˆëœë‹¤.
 
-	//Quick À» °Ë»öÇÏ¿© IK_POTION_BOX ÀÎ°¡.. ÇØ¼­
+	//Quick ì„ ê²€ìƒ‰í•˜ì—¬ IK_POTION_BOX ì¸ê°€.. í•´ì„œ
 	const int iItemNo = item->item_no;
 	bool bHavePotionBox = false;
 	for(int i=0; i < ITEM_QUICK_MAX; i++)
 	{
-		if( !ch->quick[i].item_no ){continue;}//¾ÆÀÌÅÛÀÌ ¾øÀ¸¸é ÄÁÆ¼´º
+		if( !ch->quick[i].item_no ){continue;}//ì•„ì´í…œì´ ì—†ìœ¼ë©´ ì»¨í‹°ë‰´
 		CItem *tt = ItemMgr.ConvertItemNoToCItem( ch->quick[i].item_no );
 		if( !tt ) continue;
 		if(IK_POTION_BOX == tt->GetItemKind())
@@ -188,14 +188,14 @@ void RecvItemBuy( int cn, t_client_item_buy *p )
 	if(bHavePotionBox)
 	{
 		CPotionBox potion_box( ch );
-		if( potion_box.PutItem( item ) ) // Æ÷¼Ç »óÀÚ¿¡ µé¾î°¬´Ù.
+		if( potion_box.PutItem( item ) ) // í¬ì…˜ ìƒìì— ë“¤ì–´ê°”ë‹¤.
 		{
-			if( SubtractMoney( price, ch ) == -1 )		// ¼ÒÁö±İ¿¡¼­ °¡°İÀ» »©º¸°í
+			if( SubtractMoney( price, ch ) == -1 )		// ì†Œì§€ê¸ˆì—ì„œ ê°€ê²©ì„ ë¹¼ë³´ê³ 
 			{
-				// ½ÇÆĞÇÏ¸é Æ÷¼Ç ´Ù½Ã »¯´Â´Ù.
+				// ì‹¤íŒ¨í•˜ë©´ í¬ì…˜ ë‹¤ì‹œ ëºëŠ”ë‹¤.
 				potion_box.DeleteItem();
 			}
-			*item = GenerateItem( iItemNo);		// ÆÈ°í ³­ ÈÄ »õ·Î¿î ¾ÆÀÌÅ× »ı¼º ( ÀÌ°Ô »óÁ¡ÀÏ °æ¿ì¸¸À¸·Î ¹Ù²Ù´øÁö ÇØ¾ßÇÔ.. )
+			*item = GenerateItem( iItemNo);		// íŒ”ê³  ë‚œ í›„ ìƒˆë¡œìš´ ì•„ì´í…Œ ìƒì„± ( ì´ê²Œ ìƒì ì¼ ê²½ìš°ë§Œìœ¼ë¡œ ë°”ê¾¸ë˜ì§€ í•´ì•¼í•¨.. )
 			return;	
 		}
 	}
@@ -207,10 +207,10 @@ void RecvItemBuy( int cn, t_client_item_buy *p )
 	}
 	if( !ret )
 	{
-		if( !SearchInv( ch->inv, a, b, c ) ) return;		// ºóÀÚ¸®°¡ ¾ø´Ù¸é
+		if( !SearchInv( ch->inv, a, b, c ) ) return;		// ë¹ˆìë¦¬ê°€ ì—†ë‹¤ë©´
 	}
 
-	// ÀÌÁ¦ ½ÇÁ¦·Î µ·À» »©º»´Ù. ½ÇÆĞÇÏ¸é ¸ø »ê´Ù.
+	// ì´ì œ ì‹¤ì œë¡œ ëˆì„ ë¹¼ë³¸ë‹¤. ì‹¤íŒ¨í•˜ë©´ ëª» ì‚°ë‹¤.
 	if( SubtractMoney( price, ch ) == -1 ) return;	
 	if( ch->inv[a][b][c].item_no )
 	{
@@ -218,15 +218,15 @@ void RecvItemBuy( int cn, t_client_item_buy *p )
 	}
 	else
 	{
-		ch->inv[a][b][c] = *item;		// ¿©±â¼­ generater ÇÔ¼ö¸¦ È£ÃâÇÏÁö ¾Ê´Â ÀÌÀ¯´Â ³ªÁß¿¡ Æ¯º°ÇÑ ¾ÆÀÌÅÛÀ» ÆÈ°æ¿ï ´ëºñÇØ¼­..
+		ch->inv[a][b][c] = *item;		// ì—¬ê¸°ì„œ generater í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ì§€ ì•ŠëŠ” ì´ìœ ëŠ” ë‚˜ì¤‘ì— íŠ¹ë³„í•œ ì•„ì´í…œì„ íŒ”ê²½ìš¸ ëŒ€ë¹„í•´ì„œ..
 	}
 
 	POS pos;
 	SetItemPos( INV, a, b, c, &pos );
-	SendServerEachItem( &pos , &ch->inv[a][b][c], cn );		// »ı¼ºµÈ ¾ÆÀÌÅÛÀ» ²À Âó¾î º¸³»ÁØ´Ù.
+	SendServerEachItem( &pos , &ch->inv[a][b][c], cn );		// ìƒì„±ëœ ì•„ì´í…œì„ ê¼­ ì°ì–´ ë³´ë‚´ì¤€ë‹¤.
 	SendItemEventLog( &ch->inv[a][b][c], cn, SN_NOT_USER, SILT_GET_STORE, 3 ); //YGI acer
 
-	*item = GenerateItem( iItemNo);		// ÆÈ°í ³­ ÈÄ »õ·Î¿î ¾ÆÀÌÅ× »ı¼º ( ÀÌ°Ô »óÁ¡ÀÏ °æ¿ì¸¸À¸·Î ¹Ù²Ù´øÁö ÇØ¾ßÇÔ.. )
+	*item = GenerateItem( iItemNo);		// íŒ”ê³  ë‚œ í›„ ìƒˆë¡œìš´ ì•„ì´í…Œ ìƒì„± ( ì´ê²Œ ìƒì ì¼ ê²½ìš°ë§Œìœ¼ë¡œ ë°”ê¾¸ë˜ì§€ í•´ì•¼í•¨.. )
 	return;
 }
 
@@ -252,7 +252,7 @@ void RecvItemSell( int cn, t_client_item_sell *p )
 	int itempos=0;
 	for( itempos=0; itempos	<	storelistmax[store_id]; itempos++)
 	{
-		// ¾ÈµÇ´Â °æ¿ì³×
+		// ì•ˆë˜ëŠ” ê²½ìš°ë„¤
 		if( storelist_attr[store_id][itempos] == SIT_EVENT_ITEM ||
 			storelist_attr[store_id][itempos] == SIT_NULL ||
 			storelist_attr[store_id][itempos] == SIT_ONLY_SELL ) 
@@ -265,10 +265,10 @@ void RecvItemSell( int cn, t_client_item_sell *p )
 			break;
 		}
 	}
-	if( itempos == storelistmax[store_id] ) return;		//°Å·¡ ºÒ°¡ ÆÇÁ¤
+	if( itempos == storelistmax[store_id] ) return;		//ê±°ë˜ ë¶ˆê°€ íŒì •
 
-	if(::GiveMoney(ch,GetItemValueSell( item )))//021126 lsw// µ·À» ¿Ã·Á ÁØ´Ù.
-	{//µ· ¹ŞÀ» ¼ö ¾ø´Â »óÈ²ÀÌ¸é ÆÇ¸Å°¡ ¾ÈµÈ´Ù
+	if(::GiveMoney(ch,GetItemValueSell( item )))//021126 lsw// ëˆì„ ì˜¬ë ¤ ì¤€ë‹¤.
+	{//ëˆ ë°›ì„ ìˆ˜ ì—†ëŠ” ìƒí™©ì´ë©´ íŒë§¤ê°€ ì•ˆëœë‹¤
 		if(item->attr[IATTR_RARE_MAIN])
 		{
 			const unsigned int uiRare = item->attr[IATTR_RARE_MAIN];
@@ -285,7 +285,7 @@ void RecvItemSell( int cn, t_client_item_sell *p )
 }
 
 
-#define MAX_RUMOR_TO_READ_		5 // ÀĞ´õµéÀÏ ·ç¸ÓÀÇ ÃÖ´ë¼ö. 
+#define MAX_RUMOR_TO_READ_		5 // ì½ë”ë“¤ì¼ ë£¨ë¨¸ì˜ ìµœëŒ€ìˆ˜. 
 char RumorText[ MAX_RUMOR_TO_READ_][ TEXT_LENGTH];
 void InitRumorText( char *filename )
 {
@@ -334,7 +334,7 @@ void SendRumor( t_connection c[],  int cn )
 	
 
 //------------------------------------------------------------
-/*/ÂüÁ¶...
+/*/ì°¸ì¡°...
 	case MN_BLACKSMITH:			
 	case MN_FARM	:	
 	case MN_RESTAURANT:
@@ -349,7 +349,7 @@ void SendRumor( t_connection c[],  int cn )
 	
 
 /********************************************************8
-±æµå Menu 
+ê¸¸ë“œ Menu 
 #define CMD_GUILD_INFO					7000
 typedef struct server_guild_info
 {
@@ -362,7 +362,7 @@ void SendGuildInfo( t_connection c[], int cn, int guildindex, int storeindex, in
   int storeindex, : 
   int repairindex : 
 
-  . ½ºÅ©¸³Æ®¿¡¼­ ½ÇÇàµÇ¾îÁø´Ù. 
+  . ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì‹¤í–‰ë˜ì–´ì§„ë‹¤. 
 
 *********************************************************/
 void SendGuildInfo( t_connection c[], int cn  )
@@ -380,7 +380,7 @@ void SendGuildInfo( t_connection c[], int cn  )
 
 //////////////////////////////////////////////////////////////////////////////////////
 //
-//	¼­¹ö Áö¿ø¿ë ¸Ş¼Òµå
+//	ì„œë²„ ì§€ì›ìš© ë©”ì†Œë“œ
 //
 //////////////////////////////////////////////////////////////////////////////////////
 #define MAX_STR_WRITER		30
@@ -408,7 +408,7 @@ void FreePublicNotice( lpPublicNotice p )
 PublicNotice public_notice[50];
 void LoadPublicNotice( void )
 {
-	for( int i=0; i<50; i++ )		// °»½ÅÀ» À§ÇÑ ÇÁ¸®
+	for( int i=0; i<50; i++ )		// ê°±ì‹ ì„ ìœ„í•œ í”„ë¦¬
 	{
 		if( public_notice[i].no )
 		{
@@ -421,7 +421,7 @@ void LoadPublicNotice( void )
 	FILE	*fp;
 	char	filename[50];
 
-	sprintf(filename, ".\\data\\°øÁö»çÇ×.txt");
+	sprintf(filename, ".\\data\\ê³µì§€ì‚¬í•­.txt");
 
 	if( fp= fopen(filename, "rt") )
 	{
@@ -461,7 +461,7 @@ void LoadPublicNotice( void )
 	}
 	else 
 	{
-		MessageBox(NULL, "È­ÀÏ ¿¡·¯Àİ¾Æ", "¿¡·¯", MB_OK );
+		MessageBox(NULL, "í™”ì¼ ì—ëŸ¬ì–ì•„", "ì—ëŸ¬", MB_OK );
 		return;
 	}
 
@@ -524,7 +524,7 @@ void SendCharInfomation( int type, t_connection c[], int cn )
 	QueuePacket( c, cn, &p, 1 );
 }
 
-void SendOtherInv( int type, int other_id, t_connection c[], int cn )		// pk Ã³¸®´Â? 
+void SendOtherInv( int type, int other_id, t_connection c[], int cn )		// pk ì²˜ë¦¬ëŠ”? 
 {
 	const int GET_ITEM_MAX = 1;
 
@@ -557,11 +557,11 @@ void SendOtherInv( int type, int other_id, t_connection c[], int cn )		// pk Ã³¸
 					{
 						CItem *t = ItemUnit( ch->inv[a][b][c] );
 						if( !t ) continue;
-						if( t->GetLevel() >= 100 ) continue;		// ·¹º§ÀÌ ³ôÀº ¾ÆÀÌÅÛÀº °¡Á®°¥¼ö ¾ø°Ô..
+						if( t->GetLevel() >= 100 ) continue;		// ë ˆë²¨ì´ ë†’ì€ ì•„ì´í…œì€ ê°€ì ¸ê°ˆìˆ˜ ì—†ê²Œ..
 
 						// 040601 YGI
 						if( GetAttr2( ch->inv[a][b][c].attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) ) 
-							continue;	// ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀº °¡Á®°¥ ¼ö ¾øµµ·Ï
+							continue;	// ì•„ì´í…œ ëª° ì•„ì´í…œì€ ê°€ì ¸ê°ˆ ìˆ˜ ì—†ë„ë¡
 
 //soto-tai				item[ct++] = ch->inv[a][b][c].item_no;
 						item[ct++] = ch->inv[a][b][c];
@@ -573,7 +573,7 @@ void SendOtherInv( int type, int other_id, t_connection c[], int cn )		// pk Ã³¸
 
 	ok__ :
 
-	int count = 0;	// ½ÇÁúÀûÀ¸·Î µé¾î°¥ ¹°°Çµé Ä«¿îÆ®
+	int count = 0;	// ì‹¤ì§ˆì ìœ¼ë¡œ ë“¤ì–´ê°ˆ ë¬¼ê±´ë“¤ ì¹´ìš´íŠ¸
 	if( ct < GET_ITEM_MAX) 
 	{
 		for( int i=0; i<ct; i++ )
@@ -621,15 +621,15 @@ int RecvDivideItem( kein_item_attr_pos *item, t_connection c[], int cn )
 	POS &pos_s = item->item_pos;
 	int &much = item->much;
 
-	if( !much ) return OK;		// °ªÀÌ ¾øÀ» °æ¿ì´Â ±×³É ¸®ÅÏ~
+	if( !much ) return OK;		// ê°’ì´ ì—†ì„ ê²½ìš°ëŠ” ê·¸ëƒ¥ ë¦¬í„´~
 
 	ItemAttr *source = GetItemByPOS( cn, pos_s );
 	if( !source ) return NOT;
-	ItemAttr temp = *source;			// Áö¿öÁö´Â  ¾ÆÀÌÅÛ ¹øÈ£¿Í ¼Ó¼º¸¸ °¡Áö°í ÀÖ´Â´Ù.
+	ItemAttr temp = *source;			// ì§€ì›Œì§€ëŠ”  ì•„ì´í…œ ë²ˆí˜¸ì™€ ì†ì„±ë§Œ ê°€ì§€ê³  ìˆëŠ”ë‹¤.
 
 	if( source->item_no != item->item_attr.item_no ) return NOT;
 	
-	if( source->attr[IATTR_MUCH] > MAX_MONEY ) source->attr[IATTR_MUCH] = MAX_MONEY;		// ³ª´­¼ö ÀÖ´Â ¾ÆÀÌÅÛÀº 100000À» ³ÑÁö ¸øÇÑ´Ù.
+	if( source->attr[IATTR_MUCH] > MAX_MONEY ) source->attr[IATTR_MUCH] = MAX_MONEY;		// ë‚˜ëˆŒìˆ˜ ìˆëŠ” ì•„ì´í…œì€ 100000ì„ ë„˜ì§€ ëª»í•œë‹¤.
 	
 	if( source->attr[IATTR_MUCH] > (DWORD) much )
 	{
@@ -639,7 +639,7 @@ int RecvDivideItem( kein_item_attr_pos *item, t_connection c[], int cn )
 	{
 		much = source->attr[IATTR_MUCH];
 		DeleteItem( source );
-//		SendDeleteItem( pos_s, c, cn );		// ¾ÆÀÌÅÛ »èÁ¦ Àü¼Û ÇÔ¼ö 
+//		SendDeleteItem( pos_s, c, cn );		// ì•„ì´í…œ ì‚­ì œ ì „ì†¡ í•¨ìˆ˜ 
 	}
 
 	int x, y, z;
@@ -654,12 +654,12 @@ int RecvDivideItem( kein_item_attr_pos *item, t_connection c[], int cn )
 		else if( target.item_no == IN_NEW_COIN && much > 5 ) target.item_no = IN_NEW_COINS;
 
 		SendItemEventLog( &target, ch->GetServerID(), ch->GetServerID(), SILT_PUT_GROUND_MAX_INVEN, 1 ); //YGI acer
-		DropItem( ch->X, ch->Y, &target );			// ¶¥¹Ù´ÚÀ¸·Î ¶³¾î¶ß¸°´Ù.
+		DropItem( ch->X, ch->Y, &target );			// ë•…ë°”ë‹¥ìœ¼ë¡œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 	}
 	else
 	{
 		ItemAttr &target = ch->inv[x][y][z];
-		target = temp;								// ¾ÆÀÌÅÛ ¹øÈ£¿Í ÀÏ¹İ ¼Ó¼º ³Ñ°Ü ÁÖ±â À§ÇØ
+		target = temp;								// ì•„ì´í…œ ë²ˆí˜¸ì™€ ì¼ë°˜ ì†ì„± ë„˜ê²¨ ì£¼ê¸° ìœ„í•´
 		target.attr[IATTR_MUCH] = much;
 		if( target.item_no == IN_COINS && much <= 5 ) target.item_no = IN_COIN;
 		else if( target.item_no == IN_COIN && much > 5 ) target.item_no = IN_COINS;
@@ -680,8 +680,8 @@ int RecvDivideItem( kein_item_attr_pos *item, t_connection c[], int cn )
 	}
 */
 
-	//<050425_KCH (¸Ş¸ğ¸® ÇØÅ·)¿¡¼­ Item Divide¹ö±×
-	CheckItem(cn);	//050331_KCH Memory Direct Hacking¿¡ µû¸¥ ¾ÆÀÌÅÛ Ã¼Å© °­È­.(¾ÆÀÌÅÛ ³ª´­¶§ Á¤»óÀûÀÎ ¾ÆÀÌÅÛÀÎÁö ¸ÕÀú È®ÀÎ)
+	//<050425_KCH (ë©”ëª¨ë¦¬ í•´í‚¹)ì—ì„œ Item Divideë²„ê·¸
+	CheckItem(cn);	//050331_KCH Memory Direct Hackingì— ë”°ë¥¸ ì•„ì´í…œ ì²´í¬ ê°•í™”.(ì•„ì´í…œ ë‚˜ëˆŒë•Œ ì •ìƒì ì¸ ì•„ì´í…œì¸ì§€ ë¨¼ì € í™•ì¸)
 	//>050425_KCH
 
 	return 1;
@@ -698,13 +698,13 @@ void RecvBankInfoDeposit( DWORD dwMoney, t_connection c[], int cn )
 	const DWORD dwBankMoney = ch->GetBankMoney();
 
 	if(MAX_BANK_MONEY <= dwBankMoney)
-	{//¿¹±İ¾×Àº 40¾ïÀÌ ÃÖ´ë ÀÔ´Ï´Ù.
+	{//ì˜ˆê¸ˆì•¡ì€ 40ì–µì´ ìµœëŒ€ ì…ë‹ˆë‹¤.
 		OutMessage(ch,2,930);
 	}
 	
-	if(1==::SubtractMoney( dwMoney, ch )) //Àü¼Û¹ŞÀº ÀÔ·Â ¿¹±İÀ» ´õÇÑ´Ù.
+	if(1==::SubtractMoney( dwMoney, ch )) //ì „ì†¡ë°›ì€ ì…ë ¥ ì˜ˆê¸ˆì„ ë”í•œë‹¤.
 	{
-		::SendSubtractMoney( dwMoney, cn );			// °»½ÅµÈ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+		::SendSubtractMoney( dwMoney, cn );			// ê°±ì‹ ëœ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 		ch->IncBankMoney(dwMoney, BMCT_BANK_DEPOSIT); // CSD-030723
 	}
 }
@@ -714,9 +714,9 @@ void RecvBankInfoDefrayal( DWORD dwMoney, t_connection c[], int cn )
 	CHARLIST	*ch = CheckServerId( cn );
 	if( !ch ) return;
 
-	if( ch->GetBankMoney() >= dwMoney )//ÀºÇà¿¡ µ·Àº ÀÖ´Â°¡
+	if( ch->GetBankMoney() >= dwMoney )//ì€í–‰ì— ëˆì€ ìˆëŠ”ê°€
 	{
-		if(::GiveMoneyAble(ch,dwMoney))//µ·À» ¹ŞÀ» ¼ö ÀÖ´Â »óÈ²ÀÎ°¡
+		if(::GiveMoneyAble(ch,dwMoney))//ëˆì„ ë°›ì„ ìˆ˜ ìˆëŠ” ìƒí™©ì¸ê°€
 		{
 			ch->DecBankMoney(dwMoney, BMCT_BANK_DEFRAYAL); // CSD-030723
 			GiveMoney(ch,dwMoney);
@@ -872,7 +872,7 @@ void RecvCharInfoBasic( t_char_info_basic *p, t_connection c[], int cn )
 			ch->ConvertTacticsLevel(p->kind- TAC_E1);
 			break;
 		}
-	case CHANGE_GENDER:	//050413_KCH Ä³¸¯ ¼ºÀüÈ¯
+	case CHANGE_GENDER:	//050413_KCH ìºë¦­ ì„±ì „í™˜
 		{
 			ch->SprNo	= d;
 			ch->Gender	= d;
@@ -972,15 +972,15 @@ int LoadGuildItem( char *filename, int num )
 //		if( token == NULL ) break;
 
 		token = strtok(buf, "\t\n\r");
-//		token = strtok(NULL, "\t\n\r");		// ¾ÆÀÌÅÛ ¹øÈ£
+//		token = strtok(NULL, "\t\n\r");		// ì•„ì´í…œ ë²ˆí˜¸
 		if( token == NULL ) break;
 		storelist[num][i].item_no = atoi( token )/100;
-		storelist[num][i] = GenerateItem( storelist[num][i].item_no );		// »óÁ¡Àº µğÆúÆ® ¾ÆÀÌÅÛÀÌ ¸¸µé¾î Áø´Ù.
+		storelist[num][i] = GenerateItem( storelist[num][i].item_no );		// ìƒì ì€ ë””í´íŠ¸ ì•„ì´í…œì´ ë§Œë“¤ì–´ ì§„ë‹¤.
 
-		token = strtok(NULL, "\t\n\r");		// ¾ÆÀÌÅÛ ÀÌ¸§		skip
+		token = strtok(NULL, "\t\n\r");		// ì•„ì´í…œ ì´ë¦„		skip
 		if( token == NULL ) break;
 
-		token = strtok(NULL, "\t\n\r");		// ÆÈ±â »ç±â ¼Ó¼º
+		token = strtok(NULL, "\t\n\r");		// íŒ”ê¸° ì‚¬ê¸° ì†ì„±
 		if( token == NULL ) break;
 		storelist_attr[num][i] = atoi( token );
 
@@ -1079,7 +1079,7 @@ void SortingItem( ItemAttr *item_list, int *list_int, int &max )
 }
 
 
-void SendDecreaseItem( POS item_pos, DWORD dur, t_connection c[], int cn )	// ¾ÆÀÌÅÛ °¨¼Ò ³»±¸·Â Àü¼Û ÇÔ¼ö
+void SendDecreaseItem( POS item_pos, DWORD dur, t_connection c[], int cn )	// ì•„ì´í…œ ê°ì†Œ ë‚´êµ¬ë ¥ ì „ì†¡ í•¨ìˆ˜
 {
 	t_packet p;
 
@@ -1122,7 +1122,7 @@ void RecvLvDownPointEach( unsigned char type, t_connection c[], int cn )
 
 	if (ch->GetReservedPoint() > 0)
 	{
-		if (ch->GetReservedPoint() >= 10)		// ³²¾ÆÀÖ´Â ·¹º§¾÷Æ÷ÀÎÆ®°¡ 10ÀÌ»óÀÌ¸é »©±â´Â ¾ÈµÈ´Ù.
+		if (ch->GetReservedPoint() >= 10)		// ë‚¨ì•„ìˆëŠ” ë ˆë²¨ì—…í¬ì¸íŠ¸ê°€ 10ì´ìƒì´ë©´ ë¹¼ê¸°ëŠ” ì•ˆëœë‹¤.
 		{
 			return;
 		}
@@ -1170,21 +1170,21 @@ void RecvLearnItem( k_client_learn_item *i, t_connection c[], int cn )
 	CItem *t = ItemUnit( type, num );
 	if( !t ) return;
 
-	int join_num = GetItemJoinNumber( i->item_no );		// joinÅ×ÀÌºí¿¡¼­ÀÇ ÆÄ¶ó¸ŞÅ¸ ¹øÈ£
-	if( !item_join[join_num].item_id ) return;					// ¾ø´Â ¾ÆÀÌÅÛ
+	int join_num = GetItemJoinNumber( i->item_no );		// joiní…Œì´ë¸”ì—ì„œì˜ íŒŒë¼ë©”íƒ€ ë²ˆí˜¸
+	if( !item_join[join_num].item_id ) return;					// ì—†ëŠ” ì•„ì´í…œ
 	int value = item_join[join_num].tech_price;
 	
 //	ch->Money = GetMoneyByItem( ch );
-	if( ch->Money < (DWORD)value ) return;				// µ·ÀÌ ºÎÁ·ÇÔ.
+	if( ch->Money < (DWORD)value ) return;				// ëˆì´ ë¶€ì¡±í•¨.
 
 	int ct = SkillMgr.FindLearnItem( ch, i->item_no ) ;
-	if( ct == -1 ) return ;					// ¹è¿î¾ÆÀÌÅÛÀÏ °æ¿ì 0À» ¸®ÅÏÇÑ´Ù.
-	if( ct == MAX_LEARN_ITEM ) return;	// ¸ğµÎ ´Ù ¹è¿üÀ» ¶§...
+	if( ct == -1 ) return ;					// ë°°ìš´ì•„ì´í…œì¼ ê²½ìš° 0ì„ ë¦¬í„´í•œë‹¤.
+	if( ct == MAX_LEARN_ITEM ) return;	// ëª¨ë‘ ë‹¤ ë°°ì› ì„ ë•Œ...
 
-	if( !SkillMgr.CanLearnItem( ch, join_num ) ) return;		// ¹è¿ï ´É·ÂÀÌ ºÎÁ·ÇÏ´Ù.
+	if( !SkillMgr.CanLearnItem( ch, join_num ) ) return;		// ë°°ìš¸ ëŠ¥ë ¥ì´ ë¶€ì¡±í•˜ë‹¤.
 
-	ch->Item[ct] = i->item_no;			// ¹è¿î°Å µî·Ï
-	ch->ItemMax++;						// ¸¸µé¼ö ÀÖ´Â ¾ÆÀÌÅÛ ÃÖ´ëÄ¡ ++
+	ch->Item[ct] = i->item_no;			// ë°°ìš´ê±° ë“±ë¡
+	ch->ItemMax++;						// ë§Œë“¤ìˆ˜ ìˆëŠ” ì•„ì´í…œ ìµœëŒ€ì¹˜ ++
 	SubtractMoney( value, ch );
 
 	t_packet p;
@@ -1219,7 +1219,7 @@ void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn )
 	CItem *t = ItemUnit( type, item_no );
 	if( !t ) 
 	{
-		SendServerResult( CM_REPAIR, 3, cn );	// ¾ÆÀÌÅÛÀÌ ¹üÀ§¸¦ ³Ñ¾î¼¶...
+		SendServerResult( CM_REPAIR, 3, cn );	// ì•„ì´í…œì´ ë²”ìœ„ë¥¼ ë„˜ì–´ì„¬...
 		return;
 	}
 
@@ -1228,13 +1228,13 @@ void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn )
 	{
 		if( storelist[store_id][i].item_no == item.item_no ) 
 		{
-			break;		// Á¤¸»·Î ±× »óÁ¡¿¡¼­ Ãë±ŞÇÏ´Â ¹°Ç°ÀÎ°¡
+			break;		// ì •ë§ë¡œ ê·¸ ìƒì ì—ì„œ ì·¨ê¸‰í•˜ëŠ” ë¬¼í’ˆì¸ê°€
 		}
 	}
 
 	if( i == storeitemno || !t->GetRepairAble() )
 	{
-		SendServerResult( CM_REPAIR, 2, cn );	// Ãë±Ş ¹°Ç°ÀÌ ¾Æ´Ô
+		SendServerResult( CM_REPAIR, 2, cn );	// ì·¨ê¸‰ ë¬¼í’ˆì´ ì•„ë‹˜
 		return;
 	}
 
@@ -1244,15 +1244,15 @@ void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn )
 
 	if(!d_max) 
 	{
-		SendServerResult( CM_REPAIR, 4, cn );		// ³»±¸·ÂÀÌ ÇÏ³ªµµ ¾ø´ç...
+		SendServerResult( CM_REPAIR, 4, cn );		// ë‚´êµ¬ë ¥ì´ í•˜ë‚˜ë„ ì—†ë‹¹...
 		return;
 	}
-	price = (int)( (float)t->GetValue()/d_max * ((d_max - d_curr))*DUR_RATIO +.5); // °¡°İ °è»ê ¹× ÆÇ´Ü 
-	if(item.attr[IATTR_RARE_MAIN])// ·¹¾î´Â ¼ö¸®ºñ ºñ½Ó
+	price = (int)( (float)t->GetValue()/d_max * ((d_max - d_curr))*DUR_RATIO +.5); // ê°€ê²© ê³„ì‚° ë° íŒë‹¨ 
+	if(item.attr[IATTR_RARE_MAIN])// ë ˆì–´ëŠ” ìˆ˜ë¦¬ë¹„ ë¹„ìŒˆ
 	{
-		const int iRepairPoint = (int)( (float)((d_max - d_curr))*RARE_DUR_RATIO +.5); // °¡°İ °è»ê ¹× ÆÇ´Ü 
+		const int iRepairPoint = (int)( (float)((d_max - d_curr))*RARE_DUR_RATIO +.5); // ê°€ê²© ê³„ì‚° ë° íŒë‹¨ 
 		const int iRareGrade  = ((LPRareMain)(&item.attr[IATTR_RARE_MAIN]))->grade;
-		price += (iRepairPoint/2) * ((iRareGrade*iRareGrade)+10) * 100; // °¡°İ °è»ê ¹× ÆÇ´Ü //020815 lsw
+		price += (iRepairPoint/2) * ((iRareGrade*iRareGrade)+10) * 100; // ê°€ê²© ê³„ì‚° ë° íŒë‹¨ //020815 lsw
 	}
 
 	if( !price ) 
@@ -1261,12 +1261,12 @@ void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn )
 	}
 	if(ch->Money < (DWORD) price ) 
 	{
-		SendServerResult( CM_REPAIR, 1, cn );		// µ·ÀÌ ¾øÀ½
+		SendServerResult( CM_REPAIR, 1, cn );		// ëˆì´ ì—†ìŒ
 		return;
 	}
 	SubtractMoney( price, ch );
 
-	if(item.attr[IATTR_RARE_MAIN])// ·¹¾î´Â ¼ö¸®À²ÀÌ ´Ù¸£´Ù
+	if(item.attr[IATTR_RARE_MAIN])// ë ˆì–´ëŠ” ìˆ˜ë¦¬ìœ¨ì´ ë‹¤ë¥´ë‹¤
 	{
 		d_max = (WORD)(d_curr+(d_max-d_curr)*RARE_DUR_RATIO);
 	}
@@ -1290,7 +1290,7 @@ void RecvItemRepair( t_client_item_sell *p, t_connection c[], int cn )
 	}
 }
 
-void SendServerResult( BYTE type, BYTE result, int cn )		// ¾î¶² °á°ú¸¦ º¸³»ÁÙ¶§..
+void SendServerResult( BYTE type, BYTE result, int cn )		// ì–´ë–¤ ê²°ê³¼ë¥¼ ë³´ë‚´ì¤„ë•Œ..
 {
 	t_packet packet;
 	packet.h.header.type = CMD_RESULT;
@@ -1345,7 +1345,7 @@ void SendBankInventory( int count, t_connection c[], int cn )		//1225
 }
 
 
-int IsSameCharOfParty( int type, char *name, CHARLIST *ch )		// °°Àº ÀÌ¸§ÀÌ ÀÖ´ÂÁö ÆÇ´Ü
+int IsSameCharOfParty( int type, char *name, CHARLIST *ch )		// ê°™ì€ ì´ë¦„ì´ ìˆëŠ”ì§€ íŒë‹¨
 {
 	if( !ch ) return 0;
 	int i;
@@ -1361,7 +1361,7 @@ int IsSameCharOfParty( int type, char *name, CHARLIST *ch )		// °°Àº ÀÌ¸§ÀÌ ÀÖ´Â
 	return 0;
 }
 
-// °ü°è¸¦ ¸Î±â¿¡ °¡´ÉÇÑ ·¹º§ÀÎÁö..
+// ê´€ê³„ë¥¼ ë§ºê¸°ì— ê°€ëŠ¥í•œ ë ˆë²¨ì¸ì§€..
 int IsCheckPartyLevel( int type, CHARLIST *target_ch, CHARLIST *ch )		
 {
 	if( !ch ) return 0;
@@ -1381,7 +1381,7 @@ void RecvDoParty( k_client_do_party *p, t_connection c[], int cn, int party_cn, 
 	if( !ch ) return;
 
 	if( !party_cn )
-		party_cn = ExistHe( p->name );		// cn °ªÀÌ ÀÖ´Ù¸é...
+		party_cn = ExistHe( p->name );		// cn ê°’ì´ ìˆë‹¤ë©´...
 
 	if( party_cn == -1 ) return;
 	
@@ -1398,17 +1398,17 @@ void RecvDoParty( k_client_do_party *p, t_connection c[], int cn, int party_cn, 
 		QueuePacket( c, ch->GetServerID(), &packet, 1);
 		return;
 	}
-	//<! BBD 040308		Áß¸³¸Ê¿¡¼­´Â ³ª¶ó°¡ ´Ş¶óµµ Çã¿ëÇÑ´Ù
+	//<! BBD 040308		ì¤‘ë¦½ë§µì—ì„œëŠ” ë‚˜ë¼ê°€ ë‹¬ë¼ë„ í—ˆìš©í•œë‹¤
 	if( check_nation )
 	{
 		if(MapInfo[MapNumber].nation)
 		{
-			if( !IsSameNation( party_ch, ch ) ) return;		// ³ª¶ó°¡ ´Ş¶óµµ ÆÄÆ¼¸¦ ¸Î¾î¾ß ÇÒ °æ¿ì
+			if( !IsSameNation( party_ch, ch ) ) return;		// ë‚˜ë¼ê°€ ë‹¬ë¼ë„ íŒŒí‹°ë¥¼ ë§ºì–´ì•¼ í•  ê²½ìš°
 		}
 	}
-	//> BBD 040308		Áß¸³¸Ê¿¡¼­´Â ³ª¶ó°¡ ´Ş¶óµµ Çã¿ëÇÑ´Ù
+	//> BBD 040308		ì¤‘ë¦½ë§µì—ì„œëŠ” ë‚˜ë¼ê°€ ë‹¬ë¼ë„ í—ˆìš©í•œë‹¤
 
-	switch( p->type )				// »ğÀÔÇÒ °÷¿¡ ´Ù¸¥ ÆÄÆ¼¿øÀÌ ÀÖÀ¸¸é ±× ÆÄÆ¼¿øÀ» ¿Å±â°í »ğÀÔÇÑ´Ù.
+	switch( p->type )				// ì‚½ì…í•  ê³³ì— ë‹¤ë¥¸ íŒŒí‹°ì›ì´ ìˆìœ¼ë©´ ê·¸ íŒŒí‹°ì›ì„ ì˜®ê¸°ê³  ì‚½ì…í•œë‹¤.
 	{
 		case PARTY :		if( ch->party[ct].On ) 
 							{
@@ -1451,7 +1451,7 @@ void RecvDoParty( k_client_do_party *p, t_connection c[], int cn, int party_cn, 
 							}
 							strcpy( ch->employment[ct].Name, p->name ); break;
 	}
-	// ±× Ä³¸¯ÅÍÀÇ Á¤º¸ º¸³»ÁÖ±â
+	// ê·¸ ìºë¦­í„°ì˜ ì •ë³´ ë³´ë‚´ì£¼ê¸°
 	int ret = SendPartyInfo( p->type, p->ct, c, ch->Name );
 	if( ret == -1 )
 	{
@@ -1463,7 +1463,7 @@ void RecvDoParty( k_client_do_party *p, t_connection c[], int cn, int party_cn, 
 		}
 
 	}	
-	else		// »ó´ëÆíÀÌ ÆÄÆ¼ ¸Î¾úÀ½À» ¾Ë·ÁÁØ´Ù.
+	else		// ìƒëŒ€í¸ì´ íŒŒí‹° ë§ºì—ˆìŒì„ ì•Œë ¤ì¤€ë‹¤.
 	{
 		t_packet packet;
 		packet.h.header.type = CMD_DO_PARTY_OK;
@@ -1487,7 +1487,7 @@ inline CharacterParty *GetPartyPointer( CHARLIST *ch, int type, int count )
 	return target_party;
 }
 
-int SendPartyInfo( int type, int ct, t_connection c[], const char* szName )	// ÆÄÆ¼ Á¾·ù, ÆÄÆ¼ ¹è¿­ ¹øÈ£		1ºÎºĞ¸¸ Àü¼Û
+int SendPartyInfo( int type, int ct, t_connection c[], const char* szName )	// íŒŒí‹° ì¢…ë¥˜, íŒŒí‹° ë°°ì—´ ë²ˆí˜¸		1ë¶€ë¶„ë§Œ ì „ì†¡
 {
 	CHARLIST *me = CheckServerName(szName);
 	if( !me ) return 0;
@@ -1497,7 +1497,7 @@ int SendPartyInfo( int type, int ct, t_connection c[], const char* szName )	// Æ
 	if( ct<0 && ct>=6 ) return 0;
 	
 	CharacterParty *target_party = GetPartyPointer( me, type, ct );
-	if( !target_party ||  !target_party->Name[0] ) return 0; // ±× ¹øÈ£¿¡ ¸ÎÀº ÆÄÆ¼¿øÀÌ ¾ø´Ù.
+	if( !target_party ||  !target_party->Name[0] ) return 0; // ê·¸ ë²ˆí˜¸ì— ë§ºì€ íŒŒí‹°ì›ì´ ì—†ë‹¤.
 	CHARLIST *pa = SearchIdByName(target_party->Name); // CSD-030320
 	if( !pa ) return -1; 
 	
@@ -1516,7 +1516,7 @@ int SendPartyInfo( int type, int ct, t_connection c[], const char* szName )	// Æ
 		packet.u.kein.party_info.m_Gender	= (char) pa->Gender;
 		packet.u.kein.party_info.m_ImageNo	= (short) pa->Face;
 		packet.u.kein.party_info.m_Class	= (char) pa->Class;
-		if( sight && CompPartyBoth( me, pa ) )		// ³»½Ã¾ß¿¡ µé¾î¿ÔÀ» ¶§¸¸ ·¹º§°ú Èû Á¤º¸¸¦ º¸³»ÁØ´Ù. °°ÀÌ µ¿¸ÍÀ» ¸ÎÀ» ¶§¸¸..
+		if( sight && CompPartyBoth( me, pa ) )		// ë‚´ì‹œì•¼ì— ë“¤ì–´ì™”ì„ ë•Œë§Œ ë ˆë²¨ê³¼ í˜ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤. ê°™ì´ ë™ë§¹ì„ ë§ºì„ ë•Œë§Œ..
 		{
 			packet.u.kein.party_info.m_Lv = pa->GetLevel(); // CSD-030806
 			packet.u.kein.party_info.m_Str = pa->Str;
@@ -1533,8 +1533,8 @@ int SendPartyInfo( int type, int ct, t_connection c[], const char* szName )	// Æ
 		{
 			if( !strcmp( me->Name, pa->party[j].Name ) ) 
 			{
-				SendPartyJoinOk( target_party->Name, cn );		// ¸ÕÀú ¸Ş½ÃÁö¸¦ º¸³½ ³ğ¿¡°Ô ok¸¦ º¸³»ÁÖ°í
-				SendPartyJoinOk( me->Name, pa->GetServerID());	// »ó´ëÆíµµ °×¿¡ Á¢¼ÓÇØ ÀÖÀ¸¸é ok¸¦ º¸³»ÁØ´Ù.
+				SendPartyJoinOk( target_party->Name, cn );		// ë¨¼ì € ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ ë†ˆì—ê²Œ okë¥¼ ë³´ë‚´ì£¼ê³ 
+				SendPartyJoinOk( me->Name, pa->GetServerID());	// ìƒëŒ€í¸ë„ ê²œì— ì ‘ì†í•´ ìˆìœ¼ë©´ okë¥¼ ë³´ë‚´ì¤€ë‹¤.
 				//pa->party[j].Server_id = cn;
 				break;
 			}
@@ -1562,9 +1562,9 @@ void RecvDeleteParty( k_client_delete_party *p, t_connection c[], int cn )
 	//CHARLIST *party_ch = CheckServerId( target->Server_id );
 	CHARLIST *party_ch = CheckServerName( target->Name );
 
-	if( party_ch && strcmp( party_ch->Name, target->Name )==0 )			// ±× ³ğÀÌ °ÔÀÓ»ó¿¡ Á¸ÀçÇÏ´Â ³ğÀÌ¶ó¸é..
+	if( party_ch && strcmp( party_ch->Name, target->Name )==0 )			// ê·¸ ë†ˆì´ ê²Œì„ìƒì— ì¡´ì¬í•˜ëŠ” ë†ˆì´ë¼ë©´..
 	{
-		if( IsSameCharOfParty( PARTY, ch->Name, party_ch ) )		// ±×³ğÇÑÅ×µµ 
+		if( IsSameCharOfParty( PARTY, ch->Name, party_ch ) )		// ê·¸ë†ˆí•œí…Œë„ 
 		{
 			//SendPacketDefault( CMD_PARTY_JOIN_RELEASE, ch->Name, strlen( ch->Name ), target->Server_id ); 
 			CHARLIST *chTar = CheckServerName( target->Name );
@@ -1584,7 +1584,7 @@ void RecvLearnMagic( short int num, t_connection c[], int cn )
 	{
 		if( ch->Ws[num] )	
 		{
-			SendServerResult( CM_LEARN_MAGIC, 2, cn );	// ÀÌ¹Ì ¹è¿ü´Ù.
+			SendServerResult( CM_LEARN_MAGIC, 2, cn );	// ì´ë¯¸ ë°°ì› ë‹¤.
 			return;
 		}
 	}
@@ -1592,19 +1592,19 @@ void RecvLearnMagic( short int num, t_connection c[], int cn )
 	{
 		if( ch->Ps[num] )	
 		{
-			SendServerResult( CM_LEARN_MAGIC, 2, cn );	// ÀÌ¹Ì ¹è¿ü´Ù.
+			SendServerResult( CM_LEARN_MAGIC, 2, cn );	// ì´ë¯¸ ë°°ì› ë‹¤.
 			return;
 		}
 	}
 
-//	SendServerResult( CM_LEARN_MAGIC, 5, cn );	// µ·ÀÌ ºÎÁ·ÇØ
+//	SendServerResult( CM_LEARN_MAGIC, 5, cn );	// ëˆì´ ë¶€ì¡±í•´
 	int ret = CanLearnMagic( num, ch );
 
 	switch( ret )
 	{
 		case 1  :	SendLearnMagicOk( num, cn );	break;
-		case 3  :	SendServerResult( CM_LEARN_MAGIC, 3, cn );	return ;// ´É·ÂÀÌ ºÎÁ·ÇØ
-		case 4  :	SendServerResult( CM_LEARN_MAGIC, 4, cn );	return ;// ±×·± ¸¶¹ı ¾ø¾î
+		case 3  :	SendServerResult( CM_LEARN_MAGIC, 3, cn );	return ;// ëŠ¥ë ¥ì´ ë¶€ì¡±í•´
+		case 4  :	SendServerResult( CM_LEARN_MAGIC, 4, cn );	return ;// ê·¸ëŸ° ë§ˆë²• ì—†ì–´
 		default :	return;
 	}
 
@@ -1616,10 +1616,10 @@ void RecvLearnMagic( short int num, t_connection c[], int cn )
 	else ch->Ps[num] = true;
 }
 
-int	CanLearnMagic( int num, CHARLIST *ch )		// ±× ¸¶¹ıÀ» ¹è¿ï¼ö ÀÖ³ª?
+int	CanLearnMagic( int num, CHARLIST *ch )		// ê·¸ ë§ˆë²•ì„ ë°°ìš¸ìˆ˜ ìˆë‚˜?
 {
 	if( !ch ) return false;
-//	return true;			// ÀÓ½Ã
+//	return true;			// ì„ì‹œ
 	int sptype=0;
 	int sp;
 	unsigned char *spell;
@@ -1640,12 +1640,12 @@ int	CanLearnMagic( int num, CHARLIST *ch )		// ±× ¸¶¹ıÀ» ¹è¿ï¼ö ÀÖ³ª?
   int Wis  = ch->GetAbility(WIS);
 	int Int  = ch->GetAbility(INT_);
 	int wsps = ch->GetAbility(WSPS);
-	if( Magic_Ref[magic_num].basic_magery> ch->Skill[sp]+1 )	return 3;			// ¸¶¹ı±â¼úÀÌ ÃæºĞÇÑ°¡?
-	if( Magic_Ref[magic_num].require_WP > Wis ) return 3;		// ¿ä±¸ ÁöÇı
-	if( Magic_Ref[magic_num].require_IT > Int ) return 3;		// ¿ä±¸ Áö´É
-	if( Magic_Ref[magic_num].exhaust_MS > wsps ) return 3;		// ¿ä±¸ WSPS
-	if( Magic_Ref[magic_num].point_WS > wsps ) return 3;		// ¿ä±¸ WSPS
-	if( (DWORD) Magic_Ref[magic_num].Price > ch->Money ) return 3;		// ¿ä±¸ WSPS
+	if( Magic_Ref[magic_num].basic_magery> ch->Skill[sp]+1 )	return 3;			// ë§ˆë²•ê¸°ìˆ ì´ ì¶©ë¶„í•œê°€?
+	if( Magic_Ref[magic_num].require_WP > Wis ) return 3;		// ìš”êµ¬ ì§€í˜œ
+	if( Magic_Ref[magic_num].require_IT > Int ) return 3;		// ìš”êµ¬ ì§€ëŠ¥
+	if( Magic_Ref[magic_num].exhaust_MS > wsps ) return 3;		// ìš”êµ¬ WSPS
+	if( Magic_Ref[magic_num].point_WS > wsps ) return 3;		// ìš”êµ¬ WSPS
+	if( (DWORD) Magic_Ref[magic_num].Price > ch->Money ) return 3;		// ìš”êµ¬ WSPS
 
 
 	return 1;	
@@ -1673,7 +1673,7 @@ void SendLearnMagicOk( int num , int cn)
 }
 
 //
-//	Áúº´ ¿¹¹æ, ¼º°ø¿©ºÎ Å¬¶óÀÌ¾ğÆ® Àü¼Û
+//	ì§ˆë³‘ ì˜ˆë°©, ì„±ê³µì—¬ë¶€ í´ë¼ì´ì–¸íŠ¸ ì „ì†¡
 //
 void SendPreventingOk( int num , int cn)
 {
@@ -1693,13 +1693,13 @@ void RecvPreventing( short int num, t_connection c[], int cn )
 //	ch->Money = GetMoneyByItem( ch );
 
 	int money=100;
-	money = disease_tbl[num].price_prevent;	// ¿¹¹æºñ
+	money = disease_tbl[num].price_prevent;	// ì˜ˆë°©ë¹„
 
 	if( num < 0 || num > 5 ) return;
 	if( ch->Money < (DWORD)money ) 
 	{
-		SendServerResult( CM_PREVENTING, 2, cn );			// µ·ÀÌ ºÎÁ·ÇØ...
-		ch->SendCharInfoBasic(MONEY, ch->Money );			// °»½ÅµÈ Á¤º¸¸¦ º¸³»ÁØ´Ù.//020704 lsw
+		SendServerResult( CM_PREVENTING, 2, cn );			// ëˆì´ ë¶€ì¡±í•´...
+		ch->SendCharInfoBasic(MONEY, ch->Money );			// ê°±ì‹ ëœ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.//020704 lsw
 		return;
 	}
 	
@@ -1710,11 +1710,11 @@ void RecvPreventing( short int num, t_connection c[], int cn )
 	
 	SubtractMoney( money, ch );
 
-	SendPreventingOk( num, cn );	// ¼º°øÇßÀ½.
+	SendPreventingOk( num, cn );	// ì„±ê³µí–ˆìŒ.
 }
 
 //
-//	Áúº´ Ä¡·á
+//	ì§ˆë³‘ ì¹˜ë£Œ
 //
 void SendCureDiseaseOk( short int num, int cn )
 {
@@ -1747,7 +1747,7 @@ void RecvCureDisease( short int num, t_connection c[], int cn )
 }
 
 //
-// ¾ÆÀÌÅÛ °³´ç °¡°İ Àü¼Û ¸Ş¼Òµåµé 		
+// ì•„ì´í…œ ê°œë‹¹ ê°€ê²© ì „ì†¡ ë©”ì†Œë“œë“¤ 		
 //
 void SendItemValue( int item_no, int cn )
 {
@@ -1821,12 +1821,12 @@ void RecvClientInn( char type, int cn )
 
 	switch( type )
 	{
-		case 0: return;  // ¿¡·¯..
+		case 0: return;  // ì—ëŸ¬..
 		
-		// ½¯¶§..
+		// ì‰´ë•Œ..
 		case INN_SINGLE :	if( ch->Money < 3 ) 
 							{
-								SendServerResult( CM_INN_REST, 2, cn );		 // µ·ÀÌ ºÎÁ·ÇÕ´Ï´Ù.
+								SendServerResult( CM_INN_REST, 2, cn );		 // ëˆì´ ë¶€ì¡±í•©ë‹ˆë‹¤.
 								return;
 							}
 							ch->Status = CS_REST;	
@@ -1836,14 +1836,14 @@ void RecvClientInn( char type, int cn )
 		case INN_DOUBLE :	ch->Status = CS_REST;	break;
 		case INN_MULTI  :	ch->Status = CS_REST;	break;
 
-		// ÀáÀÚ±â
+		// ì ìê¸°
 		case INN_SINGLE+1 :	ch->Status = CS_SLEEP;	break;
 		case INN_DOUBLE+1 :	ch->Status = CS_SLEEP;	break;
 		case INN_MULTI+1  :	ch->Status = CS_SLEEP;	break;
 	}
 }
 
-int GetItemValueSell( ItemAttr *item )//020925 lsw float ·Î ¹Ù²Ù¾î ³ª´©±â ÇÏ°Ô²û Çß½À´Ï´Ù.
+int GetItemValueSell( ItemAttr *item )//020925 lsw float ë¡œ ë°”ê¾¸ì–´ ë‚˜ëˆ„ê¸° í•˜ê²Œë” í–ˆìŠµë‹ˆë‹¤.
 {
 	int type;
 	int num; 
@@ -1858,14 +1858,14 @@ int GetItemValueSell( ItemAttr *item )//020925 lsw float ·Î ¹Ù²Ù¾î ³ª´©±â ÇÏ°Ô²û
 
 		if( type == DISPOSABLE ) 
 		{
-			much = t->GetItemQuantity();	// dispoableÀÏ °æ¿ì
+			much = t->GetItemQuantity();	// dispoableì¼ ê²½ìš°
 			if( !much ) much = 1;
 			price = (int)(((float)base * .9+.5)*(((float)item->attr[IATTR_MUCH])/((float)much)));
 			return price;
 		}
-		else if( t->GetRbutton()==DIVIDE_ITEM )		// ¼ö·®À» ÀÇ¹Ì...
+		else if( t->GetRbutton()==DIVIDE_ITEM )		// ìˆ˜ëŸ‰ì„ ì˜ë¯¸...
 		{
-			much = t->GetItemDuration();		// 10°³ ´ÜÀ§
+			much = t->GetItemDuration();		// 10ê°œ ë‹¨ìœ„
 			if( !much ) much = 1;
 			price = (int)(((float)base * .9+.5)*(((float)item->attr[IATTR_MUCH])/((float)much)));
 			return price;
@@ -1879,13 +1879,13 @@ int GetItemValueSell( ItemAttr *item )//020925 lsw float ·Î ¹Ù²Ù¾î ³ª´©±â ÇÏ°Ô²û
 
 		if( d_max )
 		{	
-			if( (item->attr[IATTR_LIMIT]-g_curr_time) > 0 )		// À¯Åë±âÇÑÀÌ ³²¾Æ ÀÖ¾î¾ß ÇÑ´Ù.
+			if( (item->attr[IATTR_LIMIT]-g_curr_time) > 0 )		// ìœ í†µê¸°í•œì´ ë‚¨ì•„ ìˆì–´ì•¼ í•œë‹¤.
 			{
 				price = (int)( (float)(base*.9)*(float)d_curr/(float)d_max+.5 );
 				return price;
 			}
-			// À¯Åë±âÇÑÀ» ³Ö¾ß ÇÑ´Ù.
-			price = (int)( (float)(base*.9)*(float)d_curr/(float)d_max+.5 );		// ÀÓ½Ã 
+			// ìœ í†µê¸°í•œì„ ë„£ì•¼ í•œë‹¤.
+			price = (int)( (float)(base*.9)*(float)d_curr/(float)d_max+.5 );		// ì„ì‹œ 
 			return price;
 		}
 	}
@@ -1933,7 +1933,7 @@ void SendServerWeakUp( int cn )
 	QueuePacket(connections, cn, &packet, 1);
 }
 
-void SendJoinGameWho( int cn )		// cnÀÌ¶õ ³ğÀÌ »õ·Î µé¾î¿ÔÀ» °æ¿ì ·Î±×ÀÎ¼­¹ö·Î ³» ÆÄÆ¼µéÀÌ ÀÖ´ÂÁö¸¦ ¿äÃ»ÇÏ°í...
+void SendJoinGameWho( int cn )		// cnì´ë€ ë†ˆì´ ìƒˆë¡œ ë“¤ì–´ì™”ì„ ê²½ìš° ë¡œê·¸ì¸ì„œë²„ë¡œ ë‚´ íŒŒí‹°ë“¤ì´ ìˆëŠ”ì§€ë¥¼ ìš”ì²­í•˜ê³ ...
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -1942,7 +1942,7 @@ void SendJoinGameWho( int cn )		// cnÀÌ¶õ ³ğÀÌ »õ·Î µé¾î¿ÔÀ» °æ¿ì ·Î±×ÀÎ¼­¹ö·Î ³
 	{
 		if(ch->party[a].Name[0])	
 		{
-			ReqPartyDB( cn, a, ch->party[a].Name );		// ³»°¡ ¸Î¾ú´ø ÆÄÆ¼ Á¤º¸¸¦ ÀÏ´Ü ·Î±×ÀÎ ¼­¹ö¿¡ ¿äÃ»ÇÑ´Ù.
+			ReqPartyDB( cn, a, ch->party[a].Name );		// ë‚´ê°€ ë§ºì—ˆë˜ íŒŒí‹° ì •ë³´ë¥¼ ì¼ë‹¨ ë¡œê·¸ì¸ ì„œë²„ì— ìš”ì²­í•œë‹¤.
 		}
 	}
 	SendCMD_REQUEST_CHECK_WARNO(cn);// 010915 LTS
@@ -1957,12 +1957,12 @@ CHARLIST *CheckServerIdAndName( int cn, char *name )
 	return NULL;
 }
 
-void SendExitGameWho( int cn )			// ³ª¶û µ¿¸Í ¸Î°í ÀÖ´Â »ç¶÷ ¸ğµÎ¸¦ Ã£¾Æ¼­ º¸³»Áà¾ß ÇÏ³ª ¾Æ´Ô ³»°¡ ¸Î°í ÀÖ´Â »ç¶÷ 6¸í¿¡¸¸ º¸³»ÁÖ³ª?
+void SendExitGameWho( int cn )			// ë‚˜ë‘ ë™ë§¹ ë§ºê³  ìˆëŠ” ì‚¬ëŒ ëª¨ë‘ë¥¼ ì°¾ì•„ì„œ ë³´ë‚´ì¤˜ì•¼ í•˜ë‚˜ ì•„ë‹˜ ë‚´ê°€ ë§ºê³  ìˆëŠ” ì‚¬ëŒ 6ëª…ì—ë§Œ ë³´ë‚´ì£¼ë‚˜?
 {	//< CSD-030506
 	CHARLIST *ch = &connections[cn].chrlst;
 	
 	if (EXCHANGE_STATE_READY != ch->GetExchangeState())
-	{	// °Å·¡ÁßÀÌ´ø°É Ãë¼Ò ½ÃÅ²´Ù.
+	{	// ê±°ë˜ì¤‘ì´ë˜ê±¸ ì·¨ì†Œ ì‹œí‚¨ë‹¤.
 		SendExchangeCancel(ch->GetExchangeTargetId(), cn);
 	}
 	//< CSD-HK-030828
@@ -1990,7 +1990,7 @@ void SendExitGameWho( int cn )			// ³ª¶û µ¿¸Í ¸Î°í ÀÖ´Â »ç¶÷ ¸ğµÎ¸¦ Ã£¾Æ¼­ º¸³»Á
 		{
 			for( int j=0; j<6; j++ )
 			{
-				if( gammer->party[j].On && !strcmp(gammer->party[j].Name, ch->Name) )	// ±×»ç¶÷µµ ³ª¿Í µ¿¸ÍÀ» ¸ÎÀº »ç¶÷ÀÌ¶ó¸é...
+				if( gammer->party[j].On && !strcmp(gammer->party[j].Name, ch->Name) )	// ê·¸ì‚¬ëŒë„ ë‚˜ì™€ ë™ë§¹ì„ ë§ºì€ ì‚¬ëŒì´ë¼ë©´...
 				{
 					//gammer->party[j].Server_id = 0;
 					t_packet packet;
@@ -2007,7 +2007,7 @@ void SendExitGameWho( int cn )			// ³ª¶û µ¿¸Í ¸Î°í ÀÖ´Â »ç¶÷ ¸ğµÎ¸¦ Ã£¾Æ¼­ º¸³»Á
 	}
 }	//> CSD-030506
 
-void SendMyPartyExist(int cn)			// »õ·Îµé¾î¿Â Ä³¸¯ÅÍ¿¡°Ô ÆÄÆ¼¿øÀÌ ÀÖ´Â Áö¸¦ º¸³»ÁØ´Ù.
+void SendMyPartyExist(int cn)			// ìƒˆë¡œë“¤ì–´ì˜¨ ìºë¦­í„°ì—ê²Œ íŒŒí‹°ì›ì´ ìˆëŠ” ì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 {	//< CSD-030415
 	CHARLIST* ch = CheckServerId(cn);
 	
@@ -2035,7 +2035,7 @@ void SendMyPartyExist(int cn)			// »õ·Îµé¾î¿Â Ä³¸¯ÅÍ¿¡°Ô ÆÄÆ¼¿øÀÌ ÀÖ´Â Áö¸¦ º¸³»
 		}
 	}
 
-	SendPartyJoinOkSet( cn );		// ÆÄÆ¼¿øµé ÀüºÎ Á¶»çÇØ¼­ º¸³»ÁØ´Ù.
+	SendPartyJoinOkSet( cn );		// íŒŒí‹°ì›ë“¤ ì „ë¶€ ì¡°ì‚¬í•´ì„œ ë³´ë‚´ì¤€ë‹¤.
 }	//> CSD-030415
 
 void SendPartyJoinOk( char *name, int cn )
@@ -2079,7 +2079,7 @@ void RecvReleaseParty( char *name, int cn )
 }
 	
 
-void SendPartyJoinOkSet( int cn )		// Á¢¼ÓÇÑ Ä³¸¯ÅÍÀÇ ÆÄÆ¼¿ø ¼Â..
+void SendPartyJoinOkSet( int cn )		// ì ‘ì†í•œ ìºë¦­í„°ì˜ íŒŒí‹°ì› ì…‹..
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -2089,7 +2089,7 @@ void SendPartyJoinOkSet( int cn )		// Á¢¼ÓÇÑ Ä³¸¯ÅÍÀÇ ÆÄÆ¼¿ø ¼Â..
 		if( !ch->party[i].On ) continue;
 
 		int id = ExistHe( ch->party[i].Name );
-		if( id>0 )	// ÇöÀç Á¢¼ÓÇØ ÀÖÀ¸¸é
+		if( id>0 )	// í˜„ì¬ ì ‘ì†í•´ ìˆìœ¼ë©´
 		{
 			CHARLIST *pa = &connections[id].chrlst;
 			if( !pa ) return;
@@ -2098,14 +2098,14 @@ void SendPartyJoinOkSet( int cn )		// Á¢¼ÓÇÑ Ä³¸¯ÅÍÀÇ ÆÄÆ¼¿ø ¼Â..
 			{
 				if( !strcmp( ch->Name, pa->party[j].Name ) ) 
 				{
-					SendPartyJoinOk( ch->party[i].Name, cn );		// ¸ÕÀú ¸Ş½ÃÁö¸¦ º¸³½ ³ğ¿¡°Ô ok¸¦ º¸³»ÁÖ°í
-					SendPartyJoinOk( ch->Name, pa->GetServerID());	// »ó´ëÆíµµ °×¿¡ Á¢¼ÓÇØ ÀÖÀ¸¸é ok¸¦ º¸³»ÁØ´Ù.
+					SendPartyJoinOk( ch->party[i].Name, cn );		// ë¨¼ì € ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ ë†ˆì—ê²Œ okë¥¼ ë³´ë‚´ì£¼ê³ 
+					SendPartyJoinOk( ch->Name, pa->GetServerID());	// ìƒëŒ€í¸ë„ ê²œì— ì ‘ì†í•´ ìˆìœ¼ë©´ okë¥¼ ë³´ë‚´ì¤€ë‹¤.
 					break;
 				}
 			}
-//			if( j==6 ) RecvReleaseParty( ch->party[i], cn );	// ±× ³ğÀº ³ª¿Í µ¿¸ÍÀ» ¸Î°í ÀÖÁö ¾Ê´Ù...
+//			if( j==6 ) RecvReleaseParty( ch->party[i], cn );	// ê·¸ ë†ˆì€ ë‚˜ì™€ ë™ë§¹ì„ ë§ºê³  ìˆì§€ ì•Šë‹¤...
 		}
-//		else		// ÇöÀç Á¢¼ÓÇØ ÀÖÁö ¾Ê´Ù¸é..
+//		else		// í˜„ì¬ ì ‘ì†í•´ ìˆì§€ ì•Šë‹¤ë©´..
 //		{
 //			char you_party[6][31];
 //			get_BinaryData_Party( (UCHAR **)you_party, ch->party[i] );
@@ -2141,7 +2141,7 @@ void SendServerEachItem( const ItemAttr *item, const CHARLIST *ch )
 			}
 }
 
-void SendServerEachItem( const POS *pos, const ItemAttr *item, const int cn )			// ±×ÀÚ¸®¿¡ ÄÛ Âó¾î¼­ °ªÀ» º¸³»ÁØ´Ù.
+void SendServerEachItem( const POS *pos, const ItemAttr *item, const int cn )			// ê·¸ìë¦¬ì— ì½• ì°ì–´ì„œ ê°’ì„ ë³´ë‚´ì¤€ë‹¤.
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -2173,7 +2173,7 @@ void SendAbilityOpen( const int cn )
 		packet.u.kein.server_resist.naBasicResist[RT_ICE] = ch->GetBasicResist(RT_ICE);
 		packet.u.kein.server_resist.naBasicResist[RT_ELECT] = ch->GetBasicResist(RT_ELECT);
 
-		packet.u.kein.server_resist.naExtentionResist[RT_POISON] = ch->GetExtPoisonByItem();//¾ÆÀÌÅÛ¿¡ ÀÇÇØ ´õÇØÁö´Â ¸¶¹ı¹æ¾î·Â
+		packet.u.kein.server_resist.naExtentionResist[RT_POISON] = ch->GetExtPoisonByItem();//ì•„ì´í…œì— ì˜í•´ ë”í•´ì§€ëŠ” ë§ˆë²•ë°©ì–´ë ¥
 		packet.u.kein.server_resist.naExtentionResist[RT_CURSE]	= ch->GetExtCurseByItem() ;
 		packet.u.kein.server_resist.naExtentionResist[RT_HOLY]	= ch->GetExtHolyByItem() ;
 		packet.u.kein.server_resist.naExtentionResist[RT_FIRE]	= ch->GetExtFireByItem() ;
@@ -2237,7 +2237,7 @@ void RecvLearnAllNot( int cn )
 }
 
 ///////////////////////////////////////////////////////////////
-//	Ä³¸¯ÅÍ Ã³À½ Á¢¼ÓÇßÀ»¶§ ÀÔ°í ÀÖ´Â ¾ÆÀÌÅÛ...¹× ¿©·¯°¡Áö Ã³¸®
+//	ìºë¦­í„° ì²˜ìŒ ì ‘ì†í–ˆì„ë•Œ ì…ê³  ìˆëŠ” ì•„ì´í…œ...ë° ì—¬ëŸ¬ê°€ì§€ ì²˜ë¦¬
 int CheckCurrStats( CHARLIST *ch )		// 010521 YGI
 {
 	ch->Money = GetMoneyByItem( ch );
@@ -2258,8 +2258,8 @@ int CheckCurrStats( CHARLIST *ch )		// 010521 YGI
 	}
 
 	EquipItem( ch );
-	ch->pkid = -1; // ³ªÁß¿¡ °¡Ä¡°üÀ¸·Î ¹Ù²ñ...... ÃÖ¼Ò¿¡ PK¸¦ ÇÏ¸é ±×ÀÇ ID¸¦ °¡Áø´Ù. ...
-	ch->can_memorize_time = g_curr_time;		// ¸Ş¸ğ¶óÀÌÁî ÇÒ ¼ö ÀÖ´Â ½Ã°£ ¼¼ÆÃ
+	ch->pkid = -1; // ë‚˜ì¤‘ì— ê°€ì¹˜ê´€ìœ¼ë¡œ ë°”ë€œ...... ìµœì†Œì— PKë¥¼ í•˜ë©´ ê·¸ì˜ IDë¥¼ ê°€ì§„ë‹¤. ...
+	ch->can_memorize_time = g_curr_time;		// ë©”ëª¨ë¼ì´ì¦ˆ í•  ìˆ˜ ìˆëŠ” ì‹œê°„ ì„¸íŒ…
 	return 1;
 }
 
@@ -2289,7 +2289,7 @@ void SendServerItemAttr( short int cn, int type, POS pos, ItemAttr *item )
 }	
 
 // 020428 YGI acer
-// ¾ÆÀÌÅÛ »èÁ¦ Àü¼Û ÇÔ¼ö // ¾ÆÀÌÅÛÀÌ µà·¹ÀÌ¼ÇÀÌ Á¦·Î¿©¼­ ºÎ¼­Áú°æ¿î typeÀ» ¹Ù²Û´Ù.
+// ì•„ì´í…œ ì‚­ì œ ì „ì†¡ í•¨ìˆ˜ // ì•„ì´í…œì´ ë“€ë ˆì´ì…˜ì´ ì œë¡œì—¬ì„œ ë¶€ì„œì§ˆê²½ìš´ typeì„ ë°”ê¾¼ë‹¤.
 int SendDeleteItem( ItemAttr *pItem, POS *pos, CHARLIST *ch, int broken/*=0*/ )
 {
 	if( pItem )
@@ -2387,11 +2387,11 @@ void SendServerKillMon( short int cn )
 
 
 /// 0212 YGI /////////
-int SetTactics( int spell_type, int sex, int tac_type )		// Ä³¸¯ÅÍ ¸ŞÀÌÅ©ÇÒ°æ¿ì ¼±ÅÃÇÑ ÅÃÆ½½º¸¦ ½ÇÁ¦ ¹è¿­Ã·ÀÚ·Î ¹Ù²Ù´Â ·çÆ¾..
+int SetTactics( int spell_type, int sex, int tac_type )		// ìºë¦­í„° ë©”ì´í¬í• ê²½ìš° ì„ íƒí•œ íƒí‹±ìŠ¤ë¥¼ ì‹¤ì œ ë°°ì—´ì²¨ìë¡œ ë°”ê¾¸ëŠ” ë£¨í‹´..
 {
 	int tac_con[2][12] = { 
-		{ CRAPPLE_, SWORD_, ARCHERY_, FENCING_, MACE_, PIERCE_, WHIRL_, HURL_, PARRYING_, MAGERY_, },		 // ¿©ÀÚ
-		{ CRAPPLE_, SWORD_, ARCHERY_, PARRYING_, MACE_, PIERCE_, WHIRL_, HURL_, MAGERY_, D_SWORD_, D_MACE_ },	// ³²ÀÚ
+		{ CRAPPLE_, SWORD_, ARCHERY_, FENCING_, MACE_, PIERCE_, WHIRL_, HURL_, PARRYING_, MAGERY_, },		 // ì—¬ì
+		{ CRAPPLE_, SWORD_, ARCHERY_, PARRYING_, MACE_, PIERCE_, WHIRL_, HURL_, MAGERY_, D_SWORD_, D_MACE_ },	// ë‚¨ì
 	};
 
 	int ret = tac_con[sex][tac_type];
@@ -2439,8 +2439,8 @@ int SendPartyInfo2( short int type, char ct,  short int cn )
 	return 1;
 }
 */
-//int SendPartyInfo3( short int type, char ct,  short int cn )		// ¸ÇÃ³À½ ÆÄÆ¼¿øµéÀÇ Á¤º¸¸¦ º¸³»ÁÖ´Â °÷		// ÇöÀç´Â ÆÄÆ¼¸¸
-int SendPartyInfo3( short int type, char ct,  const char* szName)		// ¸ÇÃ³À½ ÆÄÆ¼¿øµéÀÇ Á¤º¸¸¦ º¸³»ÁÖ´Â °÷		// ÇöÀç´Â ÆÄÆ¼¸¸
+//int SendPartyInfo3( short int type, char ct,  short int cn )		// ë§¨ì²˜ìŒ íŒŒí‹°ì›ë“¤ì˜ ì •ë³´ë¥¼ ë³´ë‚´ì£¼ëŠ” ê³³		// í˜„ì¬ëŠ” íŒŒí‹°ë§Œ
+int SendPartyInfo3( short int type, char ct,  const char* szName)		// ë§¨ì²˜ìŒ íŒŒí‹°ì›ë“¤ì˜ ì •ë³´ë¥¼ ë³´ë‚´ì£¼ëŠ” ê³³		// í˜„ì¬ëŠ” íŒŒí‹°ë§Œ
 {
 	//CHARLIST *ch = CheckServerId( cn );
 	CHARLIST *ch = CheckServerName( szName );
@@ -2462,8 +2462,8 @@ int SendPartyInfo3( short int type, char ct,  const char* szName)		// ¸ÇÃ³À½ ÆÄÆ
 	packet.h.header.size = sizeof(k_party_info);
 	QueuePacket(connections, cn, &packet, 1);
 	
-	//SendPartyInfo( type, ct, connections, cn );				// ¼­·Î µ¿¸Í°ü°è ¿©ºÎ¸¦ º¸³»ÁØ´Ù. 
-	SendPartyInfo( type, ct, connections, szName );				// ¼­·Î µ¿¸Í°ü°è ¿©ºÎ¸¦ º¸³»ÁØ´Ù. 
+	//SendPartyInfo( type, ct, connections, cn );				// ì„œë¡œ ë™ë§¹ê´€ê³„ ì—¬ë¶€ë¥¼ ë³´ë‚´ì¤€ë‹¤. 
+	SendPartyInfo( type, ct, connections, szName );				// ì„œë¡œ ë™ë§¹ê´€ê³„ ì—¬ë¶€ë¥¼ ë³´ë‚´ì¤€ë‹¤. 
 	return 1;
 }
 
@@ -2485,7 +2485,7 @@ void RecvPartyInfoServerToServer( k_server_server_party_info *p )
 	CHARLIST *ch = CheckServerId( p->Server_id );
 	if( !ch ) return;
 
-	if( !(*ch->party[p->ct].Name) ) return;		// ÆÄÆ¼¿øÀÌ ¾ø´Ù¸é
+	if( !(*ch->party[p->ct].Name) ) return;		// íŒŒí‹°ì›ì´ ì—†ë‹¤ë©´
 
 	ch->party[p->ct].Face =		( int ) p->Face;
 	ch->party[p->ct].Level =	( int ) p->Level;
@@ -2493,12 +2493,12 @@ void RecvPartyInfoServerToServer( k_server_server_party_info *p )
 	ch->party[p->ct].Str =		( int ) p->Str;
 	ch->party[p->ct].Class =	( int ) p->Class;
 
-	if( !strcmp( ch->party[p->ct].Name, ch->Name ) ) return;		// ¸ÎÀº ÆÄÆ¼¿øÀÌ ÀÚ±â ÀÚ½ÅÀÏ °æ¿ì ´õÀÌ»ó ÁøÇàÀ» ÇÏÁö ¾Ê´Â´Ù.
+	if( !strcmp( ch->party[p->ct].Name, ch->Name ) ) return;		// ë§ºì€ íŒŒí‹°ì›ì´ ìê¸° ìì‹ ì¼ ê²½ìš° ë”ì´ìƒ ì§„í–‰ì„ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
-	//SendPartyInfo3( PARTY, p->ct, p->Server_id );	// »õ·Î µé¾î ¿Â ³ğ¿¡°Ô ÆÄÆ¼¿øµéÀÇ Á¤º¸¸¦ º¸³»ÁØ´Ù.
-	SendPartyInfo3( PARTY, p->ct, ch->Name );	// »õ·Î µé¾î ¿Â ³ğ¿¡°Ô ÆÄÆ¼¿øµéÀÇ Á¤º¸¸¦ º¸³»ÁØ´Ù.
+	//SendPartyInfo3( PARTY, p->ct, p->Server_id );	// ìƒˆë¡œ ë“¤ì–´ ì˜¨ ë†ˆì—ê²Œ íŒŒí‹°ì›ë“¤ì˜ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
+	SendPartyInfo3( PARTY, p->ct, ch->Name );	// ìƒˆë¡œ ë“¤ì–´ ì˜¨ ë†ˆì—ê²Œ íŒŒí‹°ì›ë“¤ì˜ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 
-	// ±×³ğµµ ³ª¶û ÆÄÆ¼¸¦ ¸Î¾ú´ÂÁö¸¦ ¾Ë¾Æº»´Ù.		// ·Î±×ÀÎ ¼­¹ö ¿äÃ»
+	// ê·¸ë†ˆë„ ë‚˜ë‘ íŒŒí‹°ë¥¼ ë§ºì—ˆëŠ”ì§€ë¥¼ ì•Œì•„ë³¸ë‹¤.		// ë¡œê·¸ì¸ ì„œë²„ ìš”ì²­
 	SendReqPartyInfoOfOtherChar( ch->party[p->ct].Name, ch->Name, p->Server_id );
 }
 
@@ -2513,7 +2513,7 @@ int EqualPosByPos( const POS *pos1, const POS *pos2 )
 }
 
 
-// ³» ½Ã¾ß ¾È¿¡ ±×°¡ ÀÖ´Â Áö ¾ø´ÂÁö¸¦ ÆÇ´Ü.	name->Æ¯Á¤ ±× »ç¶÷ÀÌ¸§, cn->º¸³½ Å¬¶óÀÌ¾ğÆ®ÀÇ ¾ÆÀÌµğ
+// ë‚´ ì‹œì•¼ ì•ˆì— ê·¸ê°€ ìˆëŠ” ì§€ ì—†ëŠ”ì§€ë¥¼ íŒë‹¨.	name->íŠ¹ì • ê·¸ ì‚¬ëŒì´ë¦„, cn->ë³´ë‚¸ í´ë¼ì´ì–¸íŠ¸ì˜ ì•„ì´ë””
 int IsMySightInWho( char *name, short int cn)		
 {
 	for(int i = 0; i < MAX_AREA_BUFFER; i ++)
@@ -2580,7 +2580,7 @@ void RecvPartyTogetherByLoginServer( short int server_id, char *name )
 		
 
 
-void RecvCharInfoPlus( int type, t_connection c[], int cn )		// ÇöÀç´Â ÆÄÆ¼ÀÏ°æ¿ì¸¸...
+void RecvCharInfoPlus( int type, t_connection c[], int cn )		// í˜„ì¬ëŠ” íŒŒí‹°ì¼ê²½ìš°ë§Œ...
 {
 	CHARLIST *ch = &c[cn].chrlst;
 	if( !ch ) return;
@@ -2597,7 +2597,7 @@ void RecvCharInfoPlus( int type, t_connection c[], int cn )		// ÇöÀç´Â ÆÄÆ¼ÀÏ°æ¿
 	}
 }
 
-int RecvNoParty(char *name, short int server_id)	//Àß ¸øµÈ ÀÌ¸§À» °¡Áö°í ÀÖÀ»¶§... Áö¿î´Ù.
+int RecvNoParty(char *name, short int server_id)	//ì˜ ëª»ëœ ì´ë¦„ì„ ê°€ì§€ê³  ìˆì„ë•Œ... ì§€ìš´ë‹¤.
 {	//< CSD-HK-030829
 	CHARLIST* ch = CheckServerId(server_id);
 	
@@ -2618,7 +2618,7 @@ int RecvNoParty(char *name, short int server_id)	//Àß ¸øµÈ ÀÌ¸§À» °¡Áö°í ÀÖÀ»¶§.
 	return 0;
 }	//> CSD-HK-030829
 
-void SendServerMagery( short int cn )			// Å¬¶óÀÌÀÌ¾ğÆ®¿¡¼­ ¿äÃ»ÇÏ´Â ÅÃÆ½½º¸¦ º¸³»ÁØ´Ù.
+void SendServerMagery( short int cn )			// í´ë¼ì´ì´ì–¸íŠ¸ì—ì„œ ìš”ì²­í•˜ëŠ” íƒí‹±ìŠ¤ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -2641,7 +2641,7 @@ void SendServerMagery( short int cn )			// Å¬¶óÀÌÀÌ¾ğÆ®¿¡¼­ ¿äÃ»ÇÏ´Â ÅÃÆ½½º¸¦ º¸
 	QueuePacket(connections, cn, &packet, 1);	
 }
 
-void RecvBbsMessageReq( int type, char ct, short int cn )	// °øÁö»çÇ×µî ³»¿ë Àü¼Û
+void RecvBbsMessageReq( int type, char ct, short int cn )	// ê³µì§€ì‚¬í•­ë“± ë‚´ìš© ì „ì†¡
 {
 	t_packet p;
 	p.h.header.type = CMD_GET_SERVER_TEXT ;
@@ -2655,7 +2655,7 @@ void RecvBbsMessageReq( int type, char ct, short int cn )	// °øÁö»çÇ×µî ³»¿ë Àü¼
 												if( !szTemp )
 												{
 													szTemp = new char[100];
-													sprintf( szTemp, "³»¿ëÀÌ ¾ø½À´Ï´Ù." );
+													sprintf( szTemp, "ë‚´ìš©ì´ ì—†ìŠµë‹ˆë‹¤." );
 												}
 												int len=strlen( szTemp );
 												int max = (len / 512)+1;
@@ -2685,7 +2685,7 @@ void SendLoginPutBoxItem( DWORD box_id, int para, ItemAttr *lpItem )
 {
 	t_packet packet;
 
-	/////////////////////// DB-DEMON ¿¡¼­ DB Á¢±Ù ////////////////////////
+	/////////////////////// DB-DEMON ì—ì„œ DB ì ‘ê·¼ ////////////////////////
 	packet.h.header.type = CMD_PUT_BOX_ITEM;
 	{
 		packet.u.kein.login_put_box_item.box_id = box_id;
@@ -2708,7 +2708,7 @@ void SendLoginPutBoxItem( DWORD box_id, int para, ItemAttr *lpItem )
 }
 */
 
-void SendLoginServerPreachName( k_server_preach_name *p, short int cn )		// ·Î±×ÀÎ ¼­¹ö·Î º¸³½´Ù.
+void SendLoginServerPreachName( k_server_preach_name *p, short int cn )		// ë¡œê·¸ì¸ ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
 {
 	t_packet packet;
 	packet.h.header.type = CMD_LOGIN_PREACH_NAME;
@@ -2721,20 +2721,20 @@ void SendLoginServerPreachName( k_server_preach_name *p, short int cn )		// ·Î±×
 	QueuePacket(connections, DB_DEMON, &packet, 1);
 }
 
-void RecvAndSendPreachName( k_loginserver_preach_name_result *p)	// °á°ú¸¦ ¹Ş¾Æ¼­ Å¬¶óÀÌ¾ğÆ®·Î º¸³½´Ù.
+void RecvAndSendPreachName( k_loginserver_preach_name_result *p)	// ê²°ê³¼ë¥¼ ë°›ì•„ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¸ë‹¤.
 {
 	t_packet packet;
 	packet.h.header.type = CMD_PREACH_NAME;
 	{
-		packet.u.kein.server_client_preach_name.believe_god	= p->believe_god;			// ¹Ï´Â ½Å
-		packet.u.kein.server_client_preach_name.result	= p->result;		// °á°ú 
+		packet.u.kein.server_client_preach_name.believe_god	= p->believe_god;			// ë¯¿ëŠ” ì‹ 
+		packet.u.kein.server_client_preach_name.result	= p->result;		// ê²°ê³¼ 
 		sprintf(packet.u.kein.server_client_preach_name.name, p->name);
 	}
 	packet.h.header.size = sizeof( k_server_client_preach_name );
 	QueuePacket(connections, p->server_id, &packet, 1);
 }
 
-void RecvGodRegistCancel( short int cn )	// ÆÄ°è
+void RecvGodRegistCancel( short int cn )	// íŒŒê³„
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !cn || !ch ) return; 
@@ -2742,13 +2742,13 @@ void RecvGodRegistCancel( short int cn )	// ÆÄ°è
 	ch->believe_god = 0;
 	ch->faith = 0;
 
-	if( *ch->preach_name )		// ÀÚ½ÅÀ» ÀüµµÇÑ »ç¶÷ÀÌ ÀÖ´Ù¸é
+	if( *ch->preach_name )		// ìì‹ ì„ ì „ë„í•œ ì‚¬ëŒì´ ìˆë‹¤ë©´
 	{
 		CHARLIST* preach_ch = SearchIdByName(ch->preach_name); // CSD-030320
 
 		if( !preach_ch )		
 		{
-			// °ÔÀÓ³»¿¡ ¾ø´Ù´Â ¶æ, ·Î±×ÀÎ ¼­¹ö·Î ½Å¾Ó½É ±ïÀ¸¶ó°í Àü¼Û
+			// ê²Œì„ë‚´ì— ì—†ë‹¤ëŠ” ëœ», ë¡œê·¸ì¸ ì„œë²„ë¡œ ì‹ ì•™ì‹¬ ê¹ìœ¼ë¼ê³  ì „ì†¡
 			t_packet packet;
 			packet.h.header.type = CMD_LOGIN_PREACH_NAME_CANCEL;
 			{
@@ -2760,11 +2760,11 @@ void RecvGodRegistCancel( short int cn )	// ÆÄ°è
 		}
 		else
 		{
-			if( preach_ch->believe_god == ch->believe_god )		// °°Àº ½ÅÀü¿¡ µî·ÏµÇ¾î ÀÖ¾î¾ß ÇÑ´Ù.
+			if( preach_ch->believe_god == ch->believe_god )		// ê°™ì€ ì‹ ì „ì— ë“±ë¡ë˜ì–´ ìˆì–´ì•¼ í•œë‹¤.
 			{
 				preach_ch->faith -= 10;
 				if( preach_ch->faith < 0 ) preach_ch->faith = 0;
-				// ±× »ç¶÷ÇÑÅ× Àü¼ÛÇØ¾ß ÇÏ³ª?
+				// ê·¸ ì‚¬ëŒí•œí…Œ ì „ì†¡í•´ì•¼ í•˜ë‚˜?
 			}
 		}
 		SendLoginEvangelistDelete( ch->Name );
@@ -2774,21 +2774,21 @@ void RecvGodRegistCancel( short int cn )	// ÆÄ°è
 	return;
 }
 
-void RecvGodRegistOk( char believe_god, short int cn )		// µî·Ï
+void RecvGodRegistOk( char believe_god, short int cn )		// ë“±ë¡
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !cn || !ch ) return; 
 
 	if( !believe_god ) return;
 	ch->believe_god = believe_god;
-	ch->faith = 10;		//ÃÊ±â ½Å¾Ó ¼öÄ¡
+	ch->faith = 10;		//ì´ˆê¸° ì‹ ì•™ ìˆ˜ì¹˜
 }
 
-void SendLoginServePreachNameOk( k_server_preach_name *p, short int cn )		// ÀÌ ÇÔ¼ö´Â ÀüµµÇÑ »ç¶÷¿¡°Ô ½Å¾Ó¼öÄ¡¸¦ ¿Ã·ÁÁÖ´Â ·çÆ¾ÀÌ´Ù.
+void SendLoginServePreachNameOk( k_server_preach_name *p, short int cn )		// ì´ í•¨ìˆ˜ëŠ” ì „ë„í•œ ì‚¬ëŒì—ê²Œ ì‹ ì•™ìˆ˜ì¹˜ë¥¼ ì˜¬ë ¤ì£¼ëŠ” ë£¨í‹´ì´ë‹¤.
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
-	// ·Î±×ÀÎ ¼­¹ö·Î SQL¹® ¿äÃ»
+	// ë¡œê·¸ì¸ ì„œë²„ë¡œ SQLë¬¸ ìš”ì²­
 	t_packet packet;
 	
 	memset(&packet, 0, sizeof( t_packet));
@@ -2800,14 +2800,14 @@ void SendLoginServePreachNameOk( k_server_preach_name *p, short int cn )		// ÀÌ 
 	QueuePacket(connections, DB_DEMON, &packet, 1);
 
 	memset(&packet, 0, sizeof(t_packet));
-	packet.h.header.type = CMD_REQ_FAITH_UP; // È¤½Ã ¼­¹ö¿¡ ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+	packet.h.header.type = CMD_REQ_FAITH_UP; // í˜¹ì‹œ ì„œë²„ì— ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 	packet.h.header.size = sizeof( k_req_faith_up );
 	strcpy( packet.u.kein.req_faith_up.name,p->name ) ;
-	packet.u.kein.req_faith_up.up_point = 10; // 10 ¿Ã·Á ÁØ´Ù.
+	packet.u.kein.req_faith_up.up_point = 10; // 10 ì˜¬ë ¤ ì¤€ë‹¤.
 	g_pServerTable->BroadCastToEveryServer((char*)&packet, sizeof(t_header) + packet.h.header.size, SERVER_TYPE_MAP);
 
-	strcpy(ch->preach_name, p->name); // ÀüµµÀÚÀÇ ÀÌ¸§À» ³Ö°í
-	SendLoginEvangelistCreate(ch->Name, p->name);	// ÀüµµÇÑ »ç¶÷ ÀÌ¸§ µğºñ¿¡ ÀúÀå
+	strcpy(ch->preach_name, p->name); // ì „ë„ìì˜ ì´ë¦„ì„ ë„£ê³ 
+	SendLoginEvangelistCreate(ch->Name, p->name);	// ì „ë„í•œ ì‚¬ëŒ ì´ë¦„ ë””ë¹„ì— ì €ì¥
 }
 
 
@@ -2841,7 +2841,7 @@ char YearMeetingText[MAX_GOD][4][MAX_GOD_TEXT];
 char MonthMeetingText[MAX_GOD][12][MAX_GOD_TEXT];
 
 
-int g_y, g_mo, g_d, g_h, g_mi, g_se;		// °ÔÀÓ½Ã°£
+int g_y, g_mo, g_d, g_h, g_mi, g_se;		// ê²Œì„ì‹œê°„
 extern void CurrentGameDate( DWORD t, int *y, int *mo, int *d, int *h, int *mi, int *sec );
 
 void LoadGetGodTableForTest( int type )
@@ -2851,7 +2851,7 @@ void LoadGetGodTableForTest( int type )
 	{
 		case YEAR_MEETING:
 			{
-				for( int i=1; i<MAX_GOD; i++ )			// Å×½ºÆ®¿ë		// year
+				for( int i=1; i<MAX_GOD; i++ )			// í…ŒìŠ¤íŠ¸ìš©		// year
 				{
 					g_GodTable[i].meet_year_month	= g_mo+1;
 				}
@@ -2859,7 +2859,7 @@ void LoadGetGodTableForTest( int type )
 
 		case MONTH_MEETING :
 			{
-				for( int i=1; i<MAX_GOD; i++ )			// Å×½ºÆ®¿ë		// year
+				for( int i=1; i<MAX_GOD; i++ )			// í…ŒìŠ¤íŠ¸ìš©		// year
 				{
 					g_GodTable[i].meet_year_day		= g_d+1;
 					g_GodTable[i].meet_year_hour	= g_h;
@@ -2869,13 +2869,13 @@ void LoadGetGodTableForTest( int type )
 			}
 		case DAY_MEETING :
 			{
-				for( int i=1; i<MAX_GOD; i++ )			// Å×½ºÆ®¿ë
+				for( int i=1; i<MAX_GOD; i++ )			// í…ŒìŠ¤íŠ¸ìš©
 					g_GodTable[i].meet_day_hour		= g_h;
 				break;
 			}
 		case MONTH_MEETING_ALAM :
 			{
-				for( int i=1; i<MAX_GOD; i++ )			// Å×½ºÆ®¿ë		// year
+				for( int i=1; i<MAX_GOD; i++ )			// í…ŒìŠ¤íŠ¸ìš©		// year
 				{
 					g_GodTable[i].meet_month_day	= g_d;
 					g_GodTable[i].meet_month_hour	= g_h;
@@ -2932,10 +2932,10 @@ char *GetGodMeetMessage( int god_index, int type, int num )
 extern void DugeonMgrProc();// 020620 YGI
 extern void CheckDay();
 
-void CheckTimeForMenu_Kein()			//	1ºĞ¿¡ ÇÑ¹ø¾¿ µé¾î¿Â´Ù.
+void CheckTimeForMenu_Kein()			//	1ë¶„ì— í•œë²ˆì”© ë“¤ì–´ì˜¨ë‹¤.
 {	//< CSD-CN-031213
 	static DWORD time = g_curr_time;
-	if( (g_curr_time - time) < 30 ) return;		// 30ÃÊ 
+	if( (g_curr_time - time) < 30 ) return;		// 30ì´ˆ 
 	time = g_curr_time;
 
 	CheckDay();
@@ -2947,14 +2947,14 @@ void CheckTimeForMenu_Kein()			//	1ºĞ¿¡ ÇÑ¹ø¾¿ µé¾î¿Â´Ù.
 		LottoSystem()->RunProc();
 	}	//>soto - 030517
 
-	//050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷	(¸ÅºĞ¸¶´Ù »ç¿ë±â°£¿Ï·áµÈ ¾ÆÀÌÅÛÀ» »èÁ¦ÇÑ´Ù.)
+	//050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…	(ë§¤ë¶„ë§ˆë‹¤ ì‚¬ìš©ê¸°ê°„ì™„ë£Œëœ ì•„ì´í…œì„ ì‚­ì œí•œë‹¤.)
 	if(nITEM_MALL_MANAGER_PORT == g_pServerTable->GetOwnServerData()->wPort)
 	{
 		g_pItemMallManager->Process_Item_to_game_TBL();
 	}
 
 	CurrentGameDate( g_curr_time*6, &g_y, &g_mo, &g_d, &g_h, &g_mi, &g_se );
-	// ÀáÀÚ±â »óÅÂ¿¡ ´ëÇÑ Ã³¸®
+	// ì ìê¸° ìƒíƒœì— ëŒ€í•œ ì²˜ë¦¬
 	CUserManager::HASH_USER user = g_pUserManager->GetUserSet();
 
 	for (CUserManager::ITOR_USER i = user.begin(); i != user.end(); ++i)
@@ -2965,8 +2965,8 @@ void CheckTimeForMenu_Kein()			//	1ºĞ¿¡ ÇÑ¹ø¾¿ µé¾î¿Â´Ù.
 		if (pUser != NULL && pUser->Status)
 		{	
 			if (pUser->IsFullLife() && pUser->IsFullMana())
-			{	// ´õÀÌ»ó ½¯ÇÊ¿ä°¡ ¾ø´Ù¸é
-				SendServerWeakUp(idUser);	// ±ú¾î³ª¶ó
+			{	// ë”ì´ìƒ ì‰´í•„ìš”ê°€ ì—†ë‹¤ë©´
+				SendServerWeakUp(idUser);	// ê¹¨ì–´ë‚˜ë¼
 			}
 		}
 	}
@@ -2984,9 +2984,9 @@ void RecvToolPassword( char *password, short int cn )
 	}
 }
 
-void SendCallNoteMeeting( int type, CHARLIST *ch )		// ¿¹¹è½Ã°£ ´Ù µÆ´Ù°í ¾Ë¸®´Â ·çÆ¾
+void SendCallNoteMeeting( int type, CHARLIST *ch )		// ì˜ˆë°°ì‹œê°„ ë‹¤ ëë‹¤ê³  ì•Œë¦¬ëŠ” ë£¨í‹´
 {
-	return;		// ´ÙÀ½¿¡...
+	return;		// ë‹¤ìŒì—...
 
 	t_packet packet;
 	packet.h.header.type = CMD_NOTE_MEETING;
@@ -3007,9 +3007,9 @@ int CheckGodMeetingTime( CHARLIST *ch )
 	if( !ch ) return 0;
 	if( !ch->believe_god ) return 0;
 	
-	static bool year_time, month_time, day_time;		// ½Å¾Ó½É Ã¼Å©¸¦ ÇÑ¹ø¸¸ ÇÏ±â À§ÇØ
+	static bool year_time, month_time, day_time;		// ì‹ ì•™ì‹¬ ì²´í¬ë¥¼ í•œë²ˆë§Œ í•˜ê¸° ìœ„í•´
 
-	/////////////// ¿¹¹è ¸Ş´º¸¦ ¶ç¿ö¾ß ÇÒÁö ÆÇ´ÜÇÏ´Â ·çÆ¾
+	/////////////// ì˜ˆë°° ë©”ë‰´ë¥¼ ë„ì›Œì•¼ í• ì§€ íŒë‹¨í•˜ëŠ” ë£¨í‹´
 	if( g_GodTable[ch->believe_god].meet_year_month	== g_mo+1 &&
 		g_GodTable[ch->believe_god].meet_year_day	== g_d+1 &&
 		g_GodTable[ch->believe_god].meet_year_hour	== g_h ) 
@@ -3033,7 +3033,7 @@ int CheckGodMeetingTime( CHARLIST *ch )
 		month_time = 0;
 		return MONTH_MEETING;
 	}
-	else if( !month_time &&												//		½Ã°£ Àü¿¡ °ø°í
+	else if( !month_time &&												//		ì‹œê°„ ì „ì— ê³µê³ 
 			g_GodTable[ch->believe_god].meet_month_day	== g_d &&
 			g_GodTable[ch->believe_god].meet_month_hour+1	== g_h ) 
 	{
@@ -3044,7 +3044,7 @@ int CheckGodMeetingTime( CHARLIST *ch )
 	if( g_GodTable[ch->believe_god].meet_day_hour == g_h )	return DAY_MEETING;
 	////////////////////////////////////////////////////////////////////
 
-	/////////////// ¿¹¹è ½Ã°£¿¡ Âü¼®ÇÑ »ç¶÷Àº °ÔÀÓ ½Ã°£ 1½Ã°£ ÈÄ¿¡ ÆÇ´ÜÇÏ¿© ½Å¾Ó½ÉÀ» ¿Ã·ÁÁØ´Ù.
+	/////////////// ì˜ˆë°° ì‹œê°„ì— ì°¸ì„í•œ ì‚¬ëŒì€ ê²Œì„ ì‹œê°„ 1ì‹œê°„ í›„ì— íŒë‹¨í•˜ì—¬ ì‹ ì•™ì‹¬ì„ ì˜¬ë ¤ì¤€ë‹¤.
 
 	if( ch->is_god_meeting == YEAR_MEETING )
 	if( g_GodTable[ch->believe_god].meet_year_month	< g_mo+1 ||
@@ -3087,7 +3087,7 @@ int CheckGodMeetingTime( CHARLIST *ch )
 			if( ch->i_go_month_meeting ) 
 			{
 				ch->faith += 20;
-				ch->god_cast_level ++;		// ÀÏ´Ü ¿¹¹è ³»¿ëÀº ÇÏ³ª¹Û¿¡ ¾øÀ¸¹Ç·Î...
+				ch->god_cast_level ++;		// ì¼ë‹¨ ì˜ˆë°° ë‚´ìš©ì€ í•˜ë‚˜ë°–ì— ì—†ìœ¼ë¯€ë¡œ...
 				CallClient( ch->GetServerID(), CMD_DIVINE_UP );
 			}
 			else  
@@ -3142,7 +3142,7 @@ void SendServerMessage( int type, char *szTemp, short int cn )
 	}
 }
 
-void SendLoginServerForCharUpdate( short int cn )		// Ä³¸¯ÅÍ Á¤º¸¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
+void SendLoginServerForCharUpdate( short int cn )		// ìºë¦­í„° ì •ë³´ë¥¼ ì—…ë°ì´íŠ¸í•œë‹¤.
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -3225,16 +3225,16 @@ void RecvCanMemorize( t_connection c[], short int cn )
 	}	
 }
 
-void SendEarMessage( char *name, char *message, short int who, int send_game_server, int send_server_id )		// ´©±º°¡¿¡°Ô ±Ó¼Ó¸»À» º¸³½´Ù.
+void SendEarMessage( char *name, char *message, short int who, int send_game_server, int send_server_id )		// ëˆ„êµ°ê°€ì—ê²Œ ê·“ì†ë§ì„ ë³´ë‚¸ë‹¤.
 {
-	// ´ç»çÀÚ Å¬¶óÀÌ¾ğÆ®·Î ¸Ş½ÃÁö¸¦ º¸³»ÁØ´Ù.
+	// ë‹¹ì‚¬ì í´ë¼ì´ì–¸íŠ¸ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 	t_packet p;
 	p.h.header.type = CMD_SEND_EAR_MESSAGE;
 	{
 		strcpy( p.u.kein.send_ear_message.name, name );
 		strcpy( p.u.kein.send_ear_message.message, message);
-		p.u.kein.send_ear_message.send_game_server = send_game_server;		// º¸³½ »ç¶÷ÀÌ ¼ÓÇÑ °ÔÀÓ ¼­¹ö Æ÷Æ®¹øÈ£
-		p.u.kein.send_ear_message.send_server_id = send_server_id;			// º¸³½ »ç¶÷ÀÇ ¾ÆÀÌµğ
+		p.u.kein.send_ear_message.send_game_server = send_game_server;		// ë³´ë‚¸ ì‚¬ëŒì´ ì†í•œ ê²Œì„ ì„œë²„ í¬íŠ¸ë²ˆí˜¸
+		p.u.kein.send_ear_message.send_server_id = send_server_id;			// ë³´ë‚¸ ì‚¬ëŒì˜ ì•„ì´ë””
 	}
 	p.h.header.size = sizeof( k_send_ear_message )-200+strlen( message );
 	QueuePacket(connections, who, &p, 1);
@@ -3268,7 +3268,7 @@ inline int GetOwnPort( )
 	return pData->wPort;
 }
 
-void RecvEarMessage( char *name, char *message, short int cn )		// 1¹ø 
+void RecvEarMessage( char *name, char *message, short int cn )		// 1ë²ˆ 
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -3288,24 +3288,24 @@ void RecvEarMessage( char *name, char *message, short int cn )		// 1¹ø
 			&& !ch->IsCounselor()
 			&& !pTarget->IsCounselor())//030114 lsw
 			{
-				SendEarMessageResult2( CMD_SEND_EAR_MESSAGE_RESULT_ETC, -1, cn);		// ´Ù¸¥ ³ª¶ó »ç¶÷ÀÌ´Ù.
+				SendEarMessageResult2( CMD_SEND_EAR_MESSAGE_RESULT_ETC, -1, cn);		// ë‹¤ë¥¸ ë‚˜ë¼ ì‚¬ëŒì´ë‹¤.
 				return;
 			}
 		}
 
-		SendEarMessage( ch->Name, message, recv_cn, -1, cn );		// ´©±º°¡¿¡°Ô ±Ó¼Ó¸»À» º¸³½´Ù.
+		SendEarMessage( ch->Name, message, recv_cn, -1, cn );		// ëˆ„êµ°ê°€ì—ê²Œ ê·“ì†ë§ì„ ë³´ë‚¸ë‹¤.
 		SendEarMessageResult( CMD_SEND_EAR_MESSAGE_OK, name, cn);
 		return;
 	}
 	
 	t_packet p;
-	p.h.header.type = CMD_SEND_EAR_MESSAGE_OTHER;				// ´Ù¸¥ ¸Ê¿¡ ÀÖ´ÂÁö Ã¼Å©
+	p.h.header.type = CMD_SEND_EAR_MESSAGE_OTHER;				// ë‹¤ë¥¸ ë§µì— ìˆëŠ”ì§€ ì²´í¬
 	{
 		p.u.kein.login_to_gameserver_ear_message.game_server = GetOwnPort();
 		p.u.kein.login_to_gameserver_ear_message.server_id = cn;
 		if(GMMgr.IsMerchant(ch) || ch->IsCounselor())//030129 lsw
 		{
-			p.u.kein.login_to_gameserver_ear_message.nation = 0;//»óÀÎÀº ±¹°¡°¡ ¾ø°í ¸Ş¼¼Áö ¹ŞÀ»¶§ °Ë»çµµ ¾ÈÇØ
+			p.u.kein.login_to_gameserver_ear_message.nation = 0;//ìƒì¸ì€ êµ­ê°€ê°€ ì—†ê³  ë©”ì„¸ì§€ ë°›ì„ë•Œ ê²€ì‚¬ë„ ì•ˆí•´
 		}
 		else
 		{
@@ -3325,7 +3325,7 @@ void RecvEarMessage( char *name, char *message, short int cn )		// 1¹ø
 	//	SendEarMessageResult( CMD_SEND_EAR_MESSAGE_NOT, name, cn);
 }
 
-void SendEarMessageReturnResult( short int gameserver_port, short int server_id, char *name, int ret  )	// ret 1: Àß ¹ŞÀ½, 2: Á×À½, 3:°ÅÀıÇÔ
+void SendEarMessageReturnResult( short int gameserver_port, short int server_id, char *name, int ret  )	// ret 1: ì˜ ë°›ìŒ, 2: ì£½ìŒ, 3:ê±°ì ˆí•¨
 {
 	t_packet p;
 	p.h.header.type = CMD_SEND_EAR_MESSAGE_OK;
@@ -3341,7 +3341,7 @@ void SendEarMessageReturnResult( short int gameserver_port, short int server_id,
 	g_pServerTable->BroadCastToEveryServer( (char*)&p, (sizeof(t_header)+p.h.header.size), SERVER_TYPE_MAP );
 }
 
-void FindWhoEarMessageTarget( k_login_to_gameserver_ear_message *p )// ±Í¼Ó¸»À» ¹ŞÀ» »ç¶÷ÀÌ ÀÌ °ÔÀÓ ¼­¹ö¿¡ Á¸ÀçÇÏ´ÂÁö ÆÇ´Ü
+void FindWhoEarMessageTarget( k_login_to_gameserver_ear_message *p )// ê·€ì†ë§ì„ ë°›ì„ ì‚¬ëŒì´ ì´ ê²Œì„ ì„œë²„ì— ì¡´ì¬í•˜ëŠ”ì§€ íŒë‹¨
 {
 	const int who = ExistHe( p->recv_name );
 	CHARLIST *ch = CheckServerId( who );
@@ -3351,19 +3351,19 @@ void FindWhoEarMessageTarget( k_login_to_gameserver_ear_message *p )// ±Í¼Ó¸»À» 
 	&&	!ch->IsCounselor()//He is counselor? Can Recv EarMessage
 	&&	p->nation
 	&&	ch->name_status.nation 
-	&&	p->nation != ch->name_status.nation ) // ±¹°¡°¡ Æ²¸®´Ù	// ¸Ş½ÃÁö Ãâ·Â
+	&&	p->nation != ch->name_status.nation ) // êµ­ê°€ê°€ í‹€ë¦¬ë‹¤	// ë©”ì‹œì§€ ì¶œë ¥
 	{
 		k_send_ear_message_result ret;
 		ret.ret = 4;
 		ret.send_game_server = p->game_server;
 		ret.send_server_id = p->server_id;
-		SendLoginEarMessageResult( &ret, -1 );			// Á×¾î ÀÖ´Ù
+		SendLoginEarMessageResult( &ret, -1 );			// ì£½ì–´ ìˆë‹¤
 		return;		
 	}
 
 	if( ch->bAlive == TRUE )
 	{			
-		SendEarMessage( p->send_name, p->message, who, p->game_server, p->server_id );		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ °á°ú¸¦ ¹Ş¾Æ¿Â´Ù. 
+		SendEarMessage( p->send_name, p->message, who, p->game_server, p->server_id );		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ê²°ê³¼ë¥¼ ë°›ì•„ì˜¨ë‹¤. 
 	}
 	else 
 	{
@@ -3372,13 +3372,13 @@ void FindWhoEarMessageTarget( k_login_to_gameserver_ear_message *p )// ±Í¼Ó¸»À» 
 		ret.ret = 2;
 		ret.send_game_server = p->game_server;
 		ret.send_server_id = p->server_id;
-		SendLoginEarMessageResult( &ret, -1 );			// Á×¾î ÀÖ´Ù
+		SendLoginEarMessageResult( &ret, -1 );			// ì£½ì–´ ìˆë‹¤
 	}
 }
 
 void SendLoginEarMessageResult( k_send_ear_message_result *t, short int cn )		
 {
-	// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹ŞÀº ±Ó¼Ó¸» °á°ú Ã³¸® ¿Í ´Ù¸¥ ¼­¹ö¿¡¼­ ¿Â °á°ú¹°( Á¦´ë·Î Àü´ŞÀÌ ¾ÈµÆÀ»°æ¿ì )
+	// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë°›ì€ ê·“ì†ë§ ê²°ê³¼ ì²˜ë¦¬ ì™€ ë‹¤ë¥¸ ì„œë²„ì—ì„œ ì˜¨ ê²°ê³¼ë¬¼( ì œëŒ€ë¡œ ì „ë‹¬ì´ ì•ˆëì„ê²½ìš° )
 
 	if( t->send_server_id == -1 )	// 010607 YGI
 	{
@@ -3386,7 +3386,7 @@ void SendLoginEarMessageResult( k_send_ear_message_result *t, short int cn )
 		t->send_server_id = cn;
 	}
 
-	if( t->send_game_server == -1 )		// °°Àº ¸Ê¿¡ ÀÖÀ» °æ¿ì
+	if( t->send_game_server == -1 )		// ê°™ì€ ë§µì— ìˆì„ ê²½ìš°
 	{
 		RecvLoginToGameEarMessageResult( t->send_server_id, t->ret );
 		return;		
@@ -3403,7 +3403,7 @@ void SendLoginEarMessageResult( k_send_ear_message_result *t, short int cn )
 	//QueuePacket(connections, LOGIN_SERVER_CONNECT, &p, 1);
 }
 
-void RecvLoginToGameEarMessageResult( short int server_id, char ret )		// ·Î±×ÀÎ¼­¹ö¿¡¼­ º¸³»¿Â ´äÀåÀ» Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù.
+void RecvLoginToGameEarMessageResult( short int server_id, char ret )		// ë¡œê·¸ì¸ì„œë²„ì—ì„œ ë³´ë‚´ì˜¨ ë‹µì¥ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤.
 {
 	CHARLIST *ch = CheckServerId( server_id );
 	if( !ch ) return;
@@ -3437,14 +3437,14 @@ void SendGameToLoginExistName( char *name, short int cn )
 
 ///////////////////////////////////////////////////////////////////////////
 //
-//			 ¿©·¯°¡ÁöµéÀ» ÅØ½ºÆ®·Î ÀúÀåÇÏ´Â ÇÔ¼öµéÀÇ ¸ğÀÓ
+//			 ì—¬ëŸ¬ê°€ì§€ë“¤ì„ í…ìŠ¤íŠ¸ë¡œ ì €ì¥í•˜ëŠ” í•¨ìˆ˜ë“¤ì˜ ëª¨ì„
 //
 ////////////////////////////////////////////////////////////////////////////
-void CheckChatingData( char *name, char *message )		// Ã¤ÆÃÇÏ´Â ¸» ÀúÀå ÇÏ±â
+void CheckChatingData( char *name, char *message )		// ì±„íŒ…í•˜ëŠ” ë§ ì €ì¥ í•˜ê¸°
 {
 	FILE *fp;
 	char temp[MAX_PATH];
-	sprintf( temp, ".\\logout_chat\\Ã¤ÆÃ_%s.txt", name);
+	sprintf( temp, ".\\logout_chat\\ì±„íŒ…_%s.txt", name);
 	fp = fopen( temp, "at+" );
 	if( !fp ) return;
 	
@@ -3496,11 +3496,11 @@ void CheckMoveItem( char *name, int source_type, int dest_type, ItemAttr item, D
 	QueuePacket(connections, LOGIN_SERVER_CONNECT, &p, 1);	
 }
 
-void CheckEarChatingData( char *send_name, char *recv_name, char *message )		// Ã¤ÆÃÇÏ´Â ¸» ÀúÀå ÇÏ±â
+void CheckEarChatingData( char *send_name, char *recv_name, char *message )		// ì±„íŒ…í•˜ëŠ” ë§ ì €ì¥ í•˜ê¸°
 {
 	FILE *fp;
 	char temp[MAX_PATH];
-	sprintf( temp, ".\\logout_ear\\±Ó¸»_%s.txt", send_name);
+	sprintf( temp, ".\\logout_ear\\ê·“ë§_%s.txt", send_name);
 	fp = fopen( temp, "at+" );
 	if( !fp ) return;
 	
@@ -3510,14 +3510,14 @@ void CheckEarChatingData( char *send_name, char *recv_name, char *message )		// 
 
 
 
-// ½ÇÁ¦ÀûÀÎ Character Data¸¦ ´Ù¸¥ MapServer·Î ÀÌµ¿½ÃÅ°´Â ÇÔ¼ö...
+// ì‹¤ì œì ì¸ Character Dataë¥¼ ë‹¤ë¥¸ MapServerë¡œ ì´ë™ì‹œí‚¤ëŠ” í•¨ìˆ˜...
 //////////////////////////////////////////////////////////////////////////
 //	
-//	¸Ê°£ ÀÌµ¿ ¸Ş¼Òµå ( ¹Ş±â )  
+//	ë§µê°„ ì´ë™ ë©”ì†Œë“œ ( ë°›ê¸° )  
 // Rewrote by chan78 at 2000/11/25
 //
 //////////////////////////////////////////////////////////////////////////
-bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD wTargetServerID )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 1
+bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD wTargetServerID )		// ìºë¦­í„° ë°ì´íƒ€ 1
 {
 	CHARLIST* ch = CheckServerId(cn);
 	
@@ -3529,7 +3529,7 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 	if(!::CanSaveUserData(ch,0)){return false;}
 
 	if (ch->IsPlayer())
-	{ // ¸ÊÀÌµ¿À» ÇÏ¸é ¼ÒÈ¯¸óÀ» ¾ø¾Ú
+	{ // ë§µì´ë™ì„ í•˜ë©´ ì†Œí™˜ëª¬ì„ ì—†ì•°
 		connections[cn].chrlst.m_xSummon.Remove(KillMonster);
 	}
 
@@ -3542,7 +3542,7 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 	szMsg[0] = BYTE(PTCL_MAP_TO_MAP);
 	//ReleaseItem( ch );			// 010521 YGI
 	if (EXCHANGE_STATE_READY != ch->GetExchangeState())
-	{	// °Å·¡ÁßÀÌ´ø°É Ãë¼Ò ½ÃÅ²´Ù.
+	{	// ê±°ë˜ì¤‘ì´ë˜ê±¸ ì·¨ì†Œ ì‹œí‚¨ë‹¤.
 		SendExchangeCancel(ch->GetExchangeTargetId(), cn);
 	}
 
@@ -3577,7 +3577,7 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 		p->u.change_map_protocol.mapdata9.nk3 =	ch->nk[N_VYSEUS];	
 		p->u.change_map_protocol.mapdata9.nk4 =	ch->nk[N_ZYPERN];
 		p->u.change_map_protocol.mapdata9.nk6 =	ch->nk[N_YILSE];
-		// ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸ ±¸ÇÏ±â
+		// ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ êµ¬í•˜ê¸°
 		ch->GetTransMap(p->u.change_map_protocol.mapdata9.nTransPort,
 						p->u.change_map_protocol.mapdata9.nTransX,
 						p->u.change_map_protocol.mapdata9.nTransY);
@@ -3612,7 +3612,7 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 		tp->nGuildCode = ch->GetGuildCode(); // CSD-030324
 		tp->social_status = ch->social_status;
 		tp->fame = ch->fame;
-		tp->NWCharacter	= ch->NWCharacter; // 010915 LTS	// mapdata9¿Í Áßº¹ 
+		tp->NWCharacter	= ch->NWCharacter; // 010915 LTS	// mapdata9ì™€ ì¤‘ë³µ 
 
 		tp->nk3 = ch->nk[N_VYSEUS];
 		tp->nk4	= ch->nk[N_ZYPERN];
@@ -3631,12 +3631,12 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 		tp->wsps = ch->wsps;
 
 		tp->Money = ch->Money;
-		tp->Tactics	= ch->Tactics;				// ¼±ÅÃÇÑ ÀüÅõ±â¼ú (º¸¿©ÁÖ±â À§ÇÔ)
+		tp->Tactics	= ch->Tactics;				// ì„ íƒí•œ ì „íˆ¬ê¸°ìˆ  (ë³´ì—¬ì£¼ê¸° ìœ„í•¨)
 		memcpy(&tp->nation, &ch->name_status, sizeof(DWORD));		// 1004 YGI
 
 		tp->Hp = ch->Hp;
 		tp->HpMax = ch->HpMax ;
-		tp->Mana = ch->Mana;					// ¸¶¹ı·Â
+		tp->Mana = ch->Mana;					// ë§ˆë²•ë ¥
 		tp->ManaMax	= ch->ManaMax;
 		tp->Hungry = ch->Hungry;	
 		tp->HungryMax = ch->HungryMax;
@@ -3645,18 +3645,18 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 		memcpy(tp->MapName, ch->MapName, 20);
 		tp->Sight = ch->Sight;
 		tp->Age = ch->Age;
-		tp->bAlive = ch->bAlive;					// Ä³¸¯ÅÍÀÇ »ı»ç¿©ºÎ(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
+		tp->bAlive = ch->bAlive;					// ìºë¦­í„°ì˜ ìƒì‚¬ì—¬ë¶€(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
 
-		tp->killmon = ch->killmon;						// 1°è¿­¸ó½ºÅÍ Å³¸µ½º
-		tp->killanimal = ch->killanimal;				// µ¿¹° Å³¸µ¼ö
-		tp->killpc = ch->killpc;						// »ç¶÷,NPC Å³¸µ¼ö
+		tp->killmon = ch->killmon;						// 1ê³„ì—´ëª¬ìŠ¤í„° í‚¬ë§ìŠ¤
+		tp->killanimal = ch->killanimal;				// ë™ë¬¼ í‚¬ë§ìˆ˜
+		tp->killpc = ch->killpc;						// ì‚¬ëŒ,NPC í‚¬ë§ìˆ˜
 		//030227 lsw
-		tp->nPoison = ch->GetBasicResist(RT_POISON); // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		tp->nCurse	= ch->GetBasicResist(RT_CURSE);	 //	ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		tp->nHoly	= ch->GetBasicResist(RT_HOLY);    // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		tp->nFire	= ch->GetBasicResist(RT_FIRE);     //	ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		tp->nIce	= ch->GetBasicResist(RT_ICE);       //	¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-		tp->nElect	= ch->GetBasicResist(RT_ELECT);   //	Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+		tp->nPoison = ch->GetBasicResist(RT_POISON); // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		tp->nCurse	= ch->GetBasicResist(RT_CURSE);	 //	ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		tp->nHoly	= ch->GetBasicResist(RT_HOLY);    // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		tp->nFire	= ch->GetBasicResist(RT_FIRE);     //	ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		tp->nIce	= ch->GetBasicResist(RT_ICE);       //	ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+		tp->nElect	= ch->GetBasicResist(RT_ELECT);   //	ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 
 		tp->X = ch->X;
 		tp->Y = ch->Y;
@@ -3665,7 +3665,7 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 		tp->accessory[1] = ch->accessory[1];
 		tp->accessory[2] = ch->accessory[2];
 		tp->accessory[3] = ch->accessory[3];
-		tp->mantle		 = ch->mantle; // 011018 KHS ¸Á¶Ç
+		tp->mantle		 = ch->mantle; // 011018 KHS ë§ë˜
 		
 		tp->openhouse		= ch->openhouse;
 		tp->reserved_point = ch->GetReservedPoint();
@@ -3682,11 +3682,11 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 		tp->viewtype		= ch->viewtype;
 		ch->GetStepInfo(tp->aStepInfo, sizeof(tp->aStepInfo));
 		tp->nCombatAmount = ch->Cp;
-		//<050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+		//<050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 		tp->gender			= ch->Gender;
 		tp->sprno			= ch->SprNo;
 		tp->face			= ch->Face;
-		//>050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+		//>050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 	}	
 
 	// -------------------------------------------------------------------------------
@@ -3792,11 +3792,11 @@ bool NewSendGameToLoginChangeMapData( short int cn, WORD wMyAgentServerID, WORD 
 
 //////////////////////////////////////////////////////////////////////////
 //	
-//	¸Ê°£ ÀÌµ¿ ¸Ş¼Òµå ( ¹Ş±â )  
+//	ë§µê°„ ì´ë™ ë©”ì†Œë“œ ( ë°›ê¸° )  
 //  2000/11/25, chan78
 //
 //////////////////////////////////////////////////////////////////////////
-void NewRecvChangeMapData1( k_change_map1 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 1
+void NewRecvChangeMapData1( k_change_map1 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 1
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -3825,31 +3825,31 @@ void NewRecvChangeMapData1( k_change_map1 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 1
 	ch->Luck 				= data1->Luck;
 	ch->wsps 				= data1->wsps;
 
-	ch->Tactics 		= data1->Tactics;				// ¼±ÅÃÇÑ ÀüÅõ±â¼ú (º¸¿©ÁÖ±â À§ÇÔ)
+	ch->Tactics 		= data1->Tactics;				// ì„ íƒí•œ ì „íˆ¬ê¸°ìˆ  (ë³´ì—¬ì£¼ê¸° ìœ„í•¨)
 	memcpy( &ch->name_status, &data1->nation, sizeof( DWORD ) );		// 1004 YGI
 	ch->Money			= data1->Money;
 	ch->Hp				= data1->Hp;
 	ch->HpMax			= data1->HpMax ;
-	ch->Mana			= data1->Mana;					// ¸¶¹ı·Â//020214 lsw
+	ch->Mana			= data1->Mana;					// ë§ˆë²•ë ¥//020214 lsw
 	ch->ManaMax			= data1->ManaMax;
     ch->SetState(data1->Condition);
 	memcpy( ch->MapName, MapName, 20 );
 	ch->Sight = data1->Sight;
 	ch->Age = data1->Age;
-	ch->bAlive		= data1->bAlive;					// Ä³¸¯ÅÍÀÇ »ı»ç¿©ºÎ(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
+	ch->bAlive		= data1->bAlive;					// ìºë¦­í„°ì˜ ìƒì‚¬ì—¬ë¶€(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
 
 	ch->Hungry = data1->Hungry;	
 	ch->HungryMax = data1->HungryMax;
-	ch->killmon = data1->killmon;						// 1°è¿­¸ó½ºÅÍ Å³¸µ½º
-	ch->killanimal = data1->killanimal;				// µ¿¹° Å³¸µ¼ö
-	ch->killpc = data1->killpc;						// »ç¶÷,NPC Å³¸µ¼ö
+	ch->killmon = data1->killmon;						// 1ê³„ì—´ëª¬ìŠ¤í„° í‚¬ë§ìŠ¤
+	ch->killanimal = data1->killanimal;				// ë™ë¬¼ í‚¬ë§ìˆ˜
+	ch->killpc = data1->killpc;						// ì‚¬ëŒ,NPC í‚¬ë§ìˆ˜
 
-	ch->SetBasicResist(RT_POISON,70); // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â//030227 lsw
-	ch->SetBasicResist(RT_CURSE,70); //	ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	ch->SetBasicResist(RT_HOLY,70); // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	ch->SetBasicResist(RT_FIRE,70); //	ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	ch->SetBasicResist(RT_ICE,70); //	¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	ch->SetBasicResist(RT_ELECT,70); //	Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+	ch->SetBasicResist(RT_POISON,70); // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥//030227 lsw
+	ch->SetBasicResist(RT_CURSE,70); //	ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	ch->SetBasicResist(RT_HOLY,70); // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	ch->SetBasicResist(RT_FIRE,70); //	ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	ch->SetBasicResist(RT_ICE,70); //	ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	ch->SetBasicResist(RT_ELECT,70); //	ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 
 	ch->X = data1->X;
 	ch->Y = data1->Y;
@@ -3858,7 +3858,7 @@ void NewRecvChangeMapData1( k_change_map1 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 1
 	ch->accessory[1] = data1->accessory[1];
 	ch->accessory[2] = data1->accessory[2];
 	ch->accessory[3] = data1->accessory[3];
-	ch->mantle		 = data1->mantle; // 011018 KHS ¸Á¶Ç 
+	ch->mantle		 = data1->mantle; // 011018 KHS ë§ë˜ 
 		
 	ch->openhouse		= data1->openhouse;
 	ch->SetReservedPoint(data1->reserved_point);
@@ -3875,16 +3875,16 @@ void NewRecvChangeMapData1( k_change_map1 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 1
     ch->SetStepInfo(data1->aStepInfo, sizeof(data1->aStepInfo));
     ch->Cp = data1->nCombatAmount;
 
-	//<050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+	//<050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 	ch->Gender			= data1->gender;
 	ch->SprNo			= data1->sprno;
 	ch->Face			= data1->face;
-	//>050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ¶§¹®¿¡ Ãß°¡.
+	//>050413_KCH ì„±ì „í™˜ ì•„ì´í…œë•Œë¬¸ì— ì¶”ê°€.
 
-	ch->change_map_confirm[0] = 1;		// 1¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[0] = 1;		// 1ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData2( k_change_map2 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 2 ¹Ş±â
+void NewRecvChangeMapData2( k_change_map2 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 2 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -3895,20 +3895,20 @@ void NewRecvChangeMapData2( k_change_map2 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 2 ¹Ş±
 		memcpy(ch->skillexp,	p->ch_data.skillexp,	SIZE_OF_SKILL_EXP );
 		memcpy(ch->tac_skillEXP,p->ch_data.tac_skillEXP, SIZE_OF_TAC_SKILL_EXP );
 
-	ch->change_map_confirm[1] = 1;		// 2¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[1] = 1;		// 2ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData3( k_change_map3 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 3 ¹Ş±â
+void NewRecvChangeMapData3( k_change_map3 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 3 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
 
 	memcpy(var[cn], p->ch_data.script_var,	SIZE_OF_SCRIPT_VAR );
 
-	ch->change_map_confirm[2] = 1;		// 3¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[2] = 1;		// 3ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData4( k_change_map4 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 4 ¹Ş±â
+void NewRecvChangeMapData4( k_change_map4 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 4 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -3920,35 +3920,35 @@ void NewRecvChangeMapData4( k_change_map4 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 4 ¹Ş±
 		memcpy(ch->employment_str,	p->ch_data.employment,		SIZE_OF_EMPLOYMENT);
 
 	// 011030 KHS JJING
-	// ¸ÊÀÌµ¿ÇßÀ»¶§ JJING¿¡ ´ëÇØ SettingÇÑ´Ù. 
+	// ë§µì´ë™í–ˆì„ë•Œ JJINGì— ëŒ€í•´ Settingí•œë‹¤. 
 	ch->jjing = ((RareMain*)&(ch->equip[ WT_ARMOR].attr[ IATTR_RARE_MAIN]))->grade;
 
 	InitPartyMemberServerToServer( ch );
 
-	ch->change_map_confirm[3] = 1;		// 4¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[3] = 1;		// 4ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData5( k_change_map5 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 5 ¹Ş±â
+void NewRecvChangeMapData5( k_change_map5 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 5 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
 
 	memcpy(ch->inv, p->ch_data.inv, SIZE_OF_INV );
 
-	ch->change_map_confirm[4] = 1;		// 5¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[4] = 1;		// 5ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData6( k_change_map6 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 6 ¹Ş±â
+void NewRecvChangeMapData6( k_change_map6 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 6 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
 
 	memcpy(ch->Item, p->ch_data.Item, SIZE_OF_ITEMINDEX );
 
-	ch->change_map_confirm[5] = 1;		// 6¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[5] = 1;		// 6ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData7( k_change_map7 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 7 ¹Ş±â
+void NewRecvChangeMapData7( k_change_map7 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 7 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -3964,10 +3964,10 @@ void NewRecvChangeMapData7( k_change_map7 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 7 ¹Ş±
 	//010607 lsw
 	//	CheckCurrStats( ch );		// 0206 YGI
 
-	ch->change_map_confirm[6] = 1;		// 7¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[6] = 1;		// 7ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 }
 
-void NewRecvChangeMapData8( k_change_map8 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 8 ¹Ş±â
+void NewRecvChangeMapData8( k_change_map8 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 8 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -3976,15 +3976,15 @@ void NewRecvChangeMapData8( k_change_map8 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 8 ¹Ş±
 		ch->faith  = p->ch_data.faith;
 		ch->god_cast_level = p->ch_data.god_cast_level;
 
-	ch->change_map_confirm[7] = 1;		// 8¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[7] = 1;		// 8ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 	ch->now_changing_map = 0;
 
-	CalcCharAbilityByChangemap( ch );					// Ä³¸¯ÅÍ ÃÊ±â ¼ÂÆÃ
-	CallClient( (short int )cn, (short int )CMD_ACCEPT_JOIN_KEIN );				// ¸ğµÎ ¹Ş¾Ò´Ù.
+	CalcCharAbilityByChangemap( ch );					// ìºë¦­í„° ì´ˆê¸° ì…‹íŒ…
+	CallClient( (short int )cn, (short int )CMD_ACCEPT_JOIN_KEIN );				// ëª¨ë‘ ë°›ì•˜ë‹¤.
 	memset( ch->change_map_confirm, 0, sizeof( char ) * 9 );
 }
 
-void NewRecvChangeMapData9( k_change_map9 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 8 ¹Ş±â
+void NewRecvChangeMapData9( k_change_map9 *p, DWORD cn )		// ìºë¦­í„° ë°ì´íƒ€ 8 ë°›ê¸°
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	if( !ch ) return;
@@ -4009,7 +4009,7 @@ void NewRecvChangeMapData9( k_change_map9 *p, DWORD cn )		// Ä³¸¯ÅÍ µ¥ÀÌÅ¸ 8 ¹Ş±
 		ch->nk[N_ZYPERN]		=	p->nk4		;		
 		ch->nk[N_YILSE]			=	p->nk6		;		
     ch->SetTransMap(p->nTransPort, p->nTransX, p->nTransY);
-	ch->change_map_confirm[8] = 1;		// 9¹øÂ° µ¥ÀÌÅ¸ ¹Ş¾Ò´Ù
+	ch->change_map_confirm[8] = 1;		// 9ë²ˆì§¸ ë°ì´íƒ€ ë°›ì•˜ë‹¤
 	ch->JoinLocalWar		=	p->JoinLocalWar;			// LTS LOCALWAR
 	ch->GainedFame			=	p->GainedFame;
 	ch->CurrentPhase		=	p->CurrentPhase;
@@ -4046,7 +4046,7 @@ void closeconnection_kein(t_connection c[], int cn, int errnum)
 	QTickData[cn].Func = 0;
 
 	if (ch->IsPlayer())
-	{	// ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é ÀüºÎ Á¦°Å
+	{	// ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´ ì „ë¶€ ì œê±°
 		ch->m_xSummon.Remove(KillMonster);
 
 		if (ch->DragonLordWarTeam>0)					// LTS DRAGONLORDWAR
@@ -4056,7 +4056,7 @@ void closeconnection_kein(t_connection c[], int cn, int errnum)
 	}
 
 	
-	SendExitGameWho( cn );		// ÆÄÆ¼¿ø¿¡°Ô ³ª ³ª°£´Ù°í ¾Ë¸°´Ù. // 0116 YGI
+	SendExitGameWho( cn );		// íŒŒí‹°ì›ì—ê²Œ ë‚˜ ë‚˜ê°„ë‹¤ê³  ì•Œë¦°ë‹¤. // 0116 YGI
 	SetArea(REMOVE_PC_AREA, cn);
 	ResetManToManItemWhenCloseConnect(ch);		// 0911 YGI
 	if( ch->fight_flag )
@@ -4096,7 +4096,7 @@ void closeconnection_kein(t_connection c[], int cn, int errnum)
 	{
 		updateBinaryDataToLoaginServer( connections, cn );		// YGI 040907
 	}
-	//050113_KCH_ºÒ¾ÈÁ¤ÇÑMapDown¿¡´ëÇÑ ·Î±×¹× ÃßÀû -> À¯Àú°¡ ¸ÊÀÌµ¿ÇÒ¶§, ÀÌÀü¸Ê¿¡¼­ÀÇ ConnectionÀ» ²÷´Â´Ù´Â ÀÇ¹Ì·Î½á »ç¿ëµÇ¾îÁø ÇÔ¼öÀÓ.
+	//050113_KCH_ë¶ˆì•ˆì •í•œMapDownì—ëŒ€í•œ ë¡œê·¸ë° ì¶”ì  -> ìœ ì €ê°€ ë§µì´ë™í• ë•Œ, ì´ì „ë§µì—ì„œì˜ Connectionì„ ëŠëŠ”ë‹¤ëŠ” ì˜ë¯¸ë¡œì¨ ì‚¬ìš©ë˜ì–´ì§„ í•¨ìˆ˜ì„.
 	//MyLog( LOG_NORMAL, "closeconnection_kein cn:%d errnum:%d ChName:%s IP:%d",cn, errnum, connections[cn].name, connections[cn].ip_address);
 	//050401_KCH
 
@@ -4112,7 +4112,7 @@ int CalcCharAbilityByChangemap( CHARLIST *ch )
 		
 	if( ch->Peacests < 0 || ch->Peacests > 1 ) ch->Peacests = 0;
 
-	// È¤½Ã À§Ä¡¿¡ Àå¾Ö¹°ÀÌ ÀÖÀ¸¸é ¿·À¸·Î ¿Å±ä´Ù. 
+	// í˜¹ì‹œ ìœ„ì¹˜ì— ì¥ì• ë¬¼ì´ ìˆìœ¼ë©´ ì˜†ìœ¼ë¡œ ì˜®ê¸´ë‹¤. 
 	px = ch->X / TILE_SIZE;
 	py = ch->Y / TILE_SIZE;
 	NPC_AdjustPosition( ch->SprNo, &px, &py );
@@ -4123,13 +4123,13 @@ int CalcCharAbilityByChangemap( CHARLIST *ch )
 	ch->OldMoveSy = ch->MoveSy = py;
 	::SetTileOccupied(ch->MoveSx,ch->MoveSy,true);
 
-	sRECALL_SCRP_NO = 0; // ÀÌº¥Æ®°¡ ¹ß»ıÇÏ¸é ÀÌ°ªÀº 0ÀÌ ¾Æ´Ñ°ªÀ¸·Î µÈ´Ù.  µé¾î¿À¸é ´Ù½Ã Setting..
+	sRECALL_SCRP_NO = 0; // ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ì´ê°’ì€ 0ì´ ì•„ë‹Œê°’ìœ¼ë¡œ ëœë‹¤.  ë“¤ì–´ì˜¤ë©´ ë‹¤ì‹œ Setting..
 		
 	ch->timetoupdate	= g_curr_time;
 	
 	return 1;
 }		
-//021030 lsw ¹Ú½º ¾ÆÀÌÅÛÀº ¾ø¾î¿ä		
+//021030 lsw ë°•ìŠ¤ ì•„ì´í…œì€ ì—†ì–´ìš”		
 void RecvChangeMapConfirm( short int cn )
 {
 	CHARLIST *ch = CheckServerId( cn );
@@ -4138,21 +4138,21 @@ void RecvChangeMapConfirm( short int cn )
 	for( int i=0; i<9; i++ )
 		if( !ch->change_map_confirm[i] ) 
 		{
-			CallClient( cn, CMD_CHANGE_MAP_FAIL);	// ¹«½¼ ¹®Á¦°¡ ÀÖ¾î ´Ù ³Ñ°Ü ¹ŞÁö ¸øÇß´Ù.
+			CallClient( cn, CMD_CHANGE_MAP_FAIL);	// ë¬´ìŠ¨ ë¬¸ì œê°€ ìˆì–´ ë‹¤ ë„˜ê²¨ ë°›ì§€ ëª»í–ˆë‹¤.
 			return;
 		}
 	
-	CallClient( cn, CMD_ACCEPT_JOIN_KEIN );			// ´Ù ³Ñ°Ü ¹Ş¾ÒÀ¸´Ï±ñ °è¼Ó ÁøÇàÇÏ¶ó
+	CallClient( cn, CMD_ACCEPT_JOIN_KEIN );			// ë‹¤ ë„˜ê²¨ ë°›ì•˜ìœ¼ë‹ˆê¹ ê³„ì† ì§„í–‰í•˜ë¼
 	memset( ch->change_map_confirm, 0, sizeof( char ) * 9 );
 }
 
 ////////////////////////////////////////
 //
-//	Ã¤ÆÃ ´Ü¾î¸¦ °É·¯³»´Â ¸Ş¼Òµåµé
+//	ì±„íŒ… ë‹¨ì–´ë¥¼ ê±¸ëŸ¬ë‚´ëŠ” ë©”ì†Œë“œë“¤
 //
 ///////////////////////////////////////
-char FILTER[MAX_WORD][20];			// ´Ü¾îÁıÇÕ
-int filter_count;				// ¸ğµç ´Ü¾îÀÇ °³¼ö
+char FILTER[MAX_WORD][20];			// ë‹¨ì–´ì§‘í•©
+int filter_count;				// ëª¨ë“  ë‹¨ì–´ì˜ ê°œìˆ˜
 int LoadFilterWord( )
 {
 	filter_count = 0;
@@ -4170,36 +4170,36 @@ int LoadFilterWord( )
 	return filter_count;
 }
 
-void ConvString( char *szStr ) // ¿å¼³ ÇÊÅÍ
+void ConvString( char *szStr ) // ìš•ì„¤ í•„í„°
 {
 	return;
 	char *cut;
-	char str_small[255] = {0,};		// ¸ğµÎ ´ë¹®ÀÚ·Î ¹Ù²Û°ª...
+	char str_small[255] = {0,};		// ëª¨ë‘ ëŒ€ë¬¸ìë¡œ ë°”ê¾¼ê°’...
 
 //	int total_len = strlen( szStr );
-//	str_small = new char[total_len];		// °¡»óÀ¸·Î ¹Ù²Û°ªÀ¸·Î ºñ±³ÇØ¼­ Ã³¸®ÇÏ°Ô²ûÇÏ±â À§ÇØ
+//	str_small = new char[total_len];		// ê°€ìƒìœ¼ë¡œ ë°”ê¾¼ê°’ìœ¼ë¡œ ë¹„êµí•´ì„œ ì²˜ë¦¬í•˜ê²Œë”í•˜ê¸° ìœ„í•´
 
 	strcpy( str_small, szStr );
-	strlwr( str_small );		// ¼Ò¹®ÀÚ·Î ¹Ù²Û´Ù.
+	strlwr( str_small );		// ì†Œë¬¸ìë¡œ ë°”ê¾¼ë‹¤.
 
 	int i=0;
-	while( *FILTER[i] && *FILTER[i] != ' ' )		// ºóÄ­ÀÌ ¾Æ´Ñ ¹®ÀÚ°¡ ÀÖÀ»¶§ ±îÁö¸¸ 
+	while( *FILTER[i] && *FILTER[i] != ' ' )		// ë¹ˆì¹¸ì´ ì•„ë‹Œ ë¬¸ìê°€ ìˆì„ë•Œ ê¹Œì§€ë§Œ 
 	{
 		while( cut = strstr( str_small, FILTER[i] ) )
 		{
-			char *check_cut = cut;		// ÇÑ±ÛÀÇ Ã³À½ÀÎ°¡ Ã¼Å© ·çÆ¾
+			char *check_cut = cut;		// í•œê¸€ì˜ ì²˜ìŒì¸ê°€ ì²´í¬ ë£¨í‹´
 			int count = 0;
 			int ret = 0;
 			while( 1 )
 			{
 				if( str_small >= check_cut )
 				{
-					if( !(count%2) ) ret = 1; // ÇÑ±ÛÀÇ Ã³À½ÀÌ´Ù...
+					if( !(count%2) ) ret = 1; // í•œê¸€ì˜ ì²˜ìŒì´ë‹¤...
 					break;
 				}
 				if( !(*check_cut & 0x80) )
 				{
-					if( count%2 ) ret = 1; // ÇÑ±ÛÀÇ Ã³À½ÀÌ´Ù...
+					if( count%2 ) ret = 1; // í•œê¸€ì˜ ì²˜ìŒì´ë‹¤...
 					break;
 				}
 				check_cut --;
@@ -4208,11 +4208,11 @@ void ConvString( char *szStr ) // ¿å¼³ ÇÊÅÍ
 			if( !ret ) 
 			{
 				*cut = ' ';
-				continue;		// ÇÑ±ÛÀÇ Ã³À½ÀÌ ¾Æ´Ï´Ù.
+				continue;		// í•œê¸€ì˜ ì²˜ìŒì´ ì•„ë‹ˆë‹¤.
 			}
 
 			int len = strlen( FILTER[i] );
-			int point_gab = cut - str_small;			// ÁÖ¼ÒÀÇ Â÷ÀÌ
+			int point_gab = cut - str_small;			// ì£¼ì†Œì˜ ì°¨ì´
 			for( int j=0; j<len; j++ )	
 			{
 				*(cut+j) = ' ';
@@ -4270,12 +4270,12 @@ void RecvAndSendFaithUp( char *name, short int up_point )
 	}
 }
 
-void RecvDivineUp( short int cn )			// ±âµµ¹®¿¡ ÀÇÇÑ ¸¶³ª ÃæÁ·
+void RecvDivineUp( short int cn )			// ê¸°ë„ë¬¸ì— ì˜í•œ ë§ˆë‚˜ ì¶©ì¡±
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
-	if( ch->Spell == PRIEST_SPELL && ch->believe_god && ch->faith>20 && ch->god_cast_level )		// 50Àº ÀÓÀÇÀÇ ¼ö
+	if( ch->Spell == PRIEST_SPELL && ch->believe_god && ch->faith>20 && ch->god_cast_level )		// 50ì€ ì„ì˜ì˜ ìˆ˜
 	{
 		if( ch->Mana < (ch->ManaMax * 0.8) ) 
 		{
@@ -4287,7 +4287,7 @@ void RecvDivineUp( short int cn )			// ±âµµ¹®¿¡ ÀÇÇÑ ¸¶³ª ÃæÁ·
 	}
 }
 
-int GetMeetMessageRandomNumber( int god_type, int meet_type )		// ¿¹¹è ¸Ş½ÃÁö ¹øÈ£ °¡Á®¿À±â ( ³»¿ëÀÖ´Â °ÍÁß¿¡¼­ ·£´ıÀ¸·Î )
+int GetMeetMessageRandomNumber( int god_type, int meet_type )		// ì˜ˆë°° ë©”ì‹œì§€ ë²ˆí˜¸ ê°€ì ¸ì˜¤ê¸° ( ë‚´ìš©ìˆëŠ” ê²ƒì¤‘ì—ì„œ ëœë¤ìœ¼ë¡œ )
 {
 	int num=0;
 	char *message = NULL;
@@ -4311,22 +4311,22 @@ void RecvOpenSupper( short int cn )
 
 	if( !ch->in_temple ) 
 	{
-		SendServerResult( CM_OPEN_SUPPER, 10, cn );	// ½ÅÀü¾ÈÀÌ ¾Æ´Ï´Ù
+		SendServerResult( CM_OPEN_SUPPER, 10, cn );	// ì‹ ì „ì•ˆì´ ì•„ë‹ˆë‹¤
 		return;
 	}
 	if( !ch->is_god_meeting )
 	{
-		SendServerResult( CM_OPEN_SUPPER, 20, cn );	// À½½Ä Á¦°ø ½Ã°£ÀÌ ¾Æ´Ï´Ù
+		SendServerResult( CM_OPEN_SUPPER, 20, cn );	// ìŒì‹ ì œê³µ ì‹œê°„ì´ ì•„ë‹ˆë‹¤
 		return;
 	}
 	if( ch->use_supper )
 	{
-		SendServerResult( CM_OPEN_SUPPER, 30, cn );	// ÀÌ¹Ì Á¦°ø ¹Ş¾Ò´Ù.
+		SendServerResult( CM_OPEN_SUPPER, 30, cn );	// ì´ë¯¸ ì œê³µ ë°›ì•˜ë‹¤.
 		return;				
 	}
 
 	ch->use_supper = true;
-	ch->much_supper = 10;		// Á¦°ø ¹ŞÀ» ¼ö ÀÖ´Â ¼ö·®
+	ch->much_supper = 10;		// ì œê³µ ë°›ì„ ìˆ˜ ìˆëŠ” ìˆ˜ëŸ‰
 
 	t_packet p;
 	p.h.header.type = CMD_OPEN_SUPPER;
@@ -4352,7 +4352,7 @@ void RecvGetItemOfSupper( short int item_no, short int cn )
 		{
 			if( item_no == item_kind[i] ) break;
 		}
-		if( i == max ) return;	// Çã¶ôµÇÁö ¾Ê´Â ¾ÆÀÌÅÛÀÌ´Ù. ÇØÅ·¸·±â
+		if( i == max ) return;	// í—ˆë½ë˜ì§€ ì•ŠëŠ” ì•„ì´í…œì´ë‹¤. í•´í‚¹ë§‰ê¸°
 
 		ItemAttr item = GenerateItem( item_no );
 		if( !item.item_no ) return;
@@ -4366,11 +4366,11 @@ void RecvGetItemOfSupper( short int item_no, short int cn )
 			SendServerEachItem( &pos, &item, cn );
 			ch->much_supper--;
 		}
-		else return;				// ÀÎº¥ Ã¢ÀÌ ²Ë Ã¡´Ù.
+		else return;				// ì¸ë²¤ ì°½ì´ ê½‰ ì°¼ë‹¤.
 	}
 }
 
-void CheckInitSkill( CHARLIST *ch )		 // Å¬·¹½º ½ºÅ³Àº È®½ÇÇÏ°Ô...	// ¾î´ÀÁ¤µµ µé¾î°¡¸é »©¾ß ÇÏ´Â ·çÆ¾...
+void CheckInitSkill( CHARLIST *ch )		 // í´ë ˆìŠ¤ ìŠ¤í‚¬ì€ í™•ì‹¤í•˜ê²Œ...	// ì–´ëŠì •ë„ ë“¤ì–´ê°€ë©´ ë¹¼ì•¼ í•˜ëŠ” ë£¨í‹´...
 {
   const int nCombatStart = LIGHTNING_BOOM - 100;
   const int nCombatEnd = WIND_EXTREME - 100;
@@ -4559,17 +4559,17 @@ void RecvReqCharInfo( int cn, int target )
 //		p.u.kein.server_req_char_info.lv    = n->Level;
 //		p.u.kein.server_req_char_info.exp   = n->Exp; 
 //		p.u.kein.server_req_char_info.ac    = n->Ac;
-//		p.u.kein.server_req_char_info.Str   = n->Str;					//  Èû
-//		p.u.kein.server_req_char_info.Con   = n->Con;				//  °Ç°­
-//		p.u.kein.server_req_char_info.Dex   = n->Dex;				//	¹ÎÃ¸¼º
-//		p.u.kein.server_req_char_info.Wis   = n->Wis;				//	ÁöÇı
-//		p.u.kein.server_req_char_info.Int   = n->Int;				//	Áö´É
-//		p.u.kein.server_req_char_info.MoveP = n->MoveP;				//	ÀÌµ¿·Â
-//		p.u.kein.server_req_char_info.Char  = n->Char;				//	¸Å·Â
-//		p.u.kein.server_req_char_info.Endu  = n->Endu;				//  ÀúÇâ·Â
-//		p.u.kein.server_req_char_info.Moral = n->Moral;				//	»ç±â
-//		p.u.kein.server_req_char_info.Luck  = n->Luck;				//	Çà¿î
-//		p.u.kein.server_req_char_info.wsps  = n->wsps;				//  ¸¶¹ı·Â->¸¶¹ı ¸Ş¸ğ¶óÀÌÁî
+//		p.u.kein.server_req_char_info.Str   = n->Str;					//  í˜
+//		p.u.kein.server_req_char_info.Con   = n->Con;				//  ê±´ê°•
+//		p.u.kein.server_req_char_info.Dex   = n->Dex;				//	ë¯¼ì²©ì„±
+//		p.u.kein.server_req_char_info.Wis   = n->Wis;				//	ì§€í˜œ
+//		p.u.kein.server_req_char_info.Int   = n->Int;				//	ì§€ëŠ¥
+//		p.u.kein.server_req_char_info.MoveP = n->MoveP;				//	ì´ë™ë ¥
+//		p.u.kein.server_req_char_info.Char  = n->Char;				//	ë§¤ë ¥
+//		p.u.kein.server_req_char_info.Endu  = n->Endu;				//  ì €í–¥ë ¥
+//		p.u.kein.server_req_char_info.Moral = n->Moral;				//	ì‚¬ê¸°
+//		p.u.kein.server_req_char_info.Luck  = n->Luck;				//	í–‰ìš´
+//		p.u.kein.server_req_char_info.wsps  = n->wsps;				//  ë§ˆë²•ë ¥->ë§ˆë²• ë©”ëª¨ë¼ì´ì¦ˆ
 		p.u.kein.server_req_char_info.Hp    = n->Hp;    	
 		p.u.kein.server_req_char_info.HpMax = n->HpMax;
 //		p.u.kein.server_req_char_info.Mp    = n->Mana;     
@@ -4583,7 +4583,7 @@ void RecvReqCharInfo( int cn, int target )
 }
 
 
-void RecvOhMyParty( char *my_name, char *party_name )			// my_nameÀÌ Á¢¼ÓÇßÀ»¶§ party_name¿¡°Ô ±× »ç½ÇÀ» °¡¸£ÃÄÁØ´Ù.
+void RecvOhMyParty( char *my_name, char *party_name )			// my_nameì´ ì ‘ì†í–ˆì„ë•Œ party_nameì—ê²Œ ê·¸ ì‚¬ì‹¤ì„ ê°€ë¥´ì³ì¤€ë‹¤.
 {
 	int he = ExistHe( party_name );
 	if( he == -1 ) return;
@@ -4617,7 +4617,7 @@ void SetShape( unsigned char *equip, short int cn )
 }
 
 // 040602-3 YGI
-void MoveEmptyInv( ItemAttr *item, CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ºñ¾î ÀÖ´Â °÷¿¡ ¿Å±â°í Áö¿î´Ù.
+void MoveEmptyInv( ItemAttr *item, CHARLIST *ch )		// ì•„ì´í…œì„ ë¹„ì–´ ìˆëŠ” ê³³ì— ì˜®ê¸°ê³  ì§€ìš´ë‹¤.
 {
 	if( !ch ) return;
 	int a, b, c;
@@ -4629,12 +4629,12 @@ void MoveEmptyInv( ItemAttr *item, CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ºñ¾î ÀÖ´Â °÷¿¡ ¿Å
 		ch->inv[a][b][c] = *item;
 		SendServerEachItem( &pos, item, ch->GetServerID());
 	}
-	else		// ¹è³¶¿¡ ¹°°ÇÀÌ ²Ë Ã¡´Ù¸é 
+	else		// ë°°ë‚­ì— ë¬¼ê±´ì´ ê½‰ ì°¼ë‹¤ë©´ 
 	{
 		if( GetAttr2( item->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) )
-		{ // ¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀÏ °æ¿ì ´Ù¸¥ º¸ÅëÀÇ ¾ÆÀÌÅÛÀ» ´ë½Å ¶³±¸°í ±× ÀÚ¸®¿¡ ³Ö¾î ÁØ´Ù.
+		{ // ì•„ì´í…œ ëª° ì•„ì´í…œì¼ ê²½ìš° ë‹¤ë¥¸ ë³´í†µì˜ ì•„ì´í…œì„ ëŒ€ì‹  ë–¨êµ¬ê³  ê·¸ ìë¦¬ì— ë„£ì–´ ì¤€ë‹¤.
 
-			// ¸¸¾à ±³È¯ÁßÀÌ¿´´Ù¸é Ãë¼Ò ½ÃÅ²´Ù.	// 040901 YGI
+			// ë§Œì•½ êµí™˜ì¤‘ì´ì˜€ë‹¤ë©´ ì·¨ì†Œ ì‹œí‚¨ë‹¤.	// 040901 YGI
 			if (EXCHANGE_STATE_READY != ch->GetExchangeState())
 			{
 				SendExchangeCancel(ch->GetExchangeTargetId(), ch->GetServerID() );
@@ -4651,7 +4651,7 @@ void MoveEmptyInv( ItemAttr *item, CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ºñ¾î ÀÖ´Â °÷¿¡ ¿Å
 							ItemAttr *pTempItem = &ch->inv[a][b][c];
 							SendItemEventLog( pTempItem, ch->GetServerID(), 0, SILT_PUT_GROUND_MAX_INVEN, 1 ); //YGI acer
 							SendItemDropMessage( ch->GetServerID(), pTempItem->item_no );
-							DropItem( ch->X, ch->Y, pTempItem );	// ÀÏ´Ü ÀÏ¹İ ¾ÆÀÌÅÛÀ» ¶¥¹Ù´ÚÀ¸·Î ¶³¾î¶ß¸°´Ù.
+							DropItem( ch->X, ch->Y, pTempItem );	// ì¼ë‹¨ ì¼ë°˜ ì•„ì´í…œì„ ë•…ë°”ë‹¥ìœ¼ë¡œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 
 							POS pos;
 							SetItemPos( INV, a, b, c, &pos );
@@ -4665,14 +4665,14 @@ void MoveEmptyInv( ItemAttr *item, CHARLIST *ch )		// ¾ÆÀÌÅÛÀ» ºñ¾î ÀÖ´Â °÷¿¡ ¿Å
 		}
 
 		SendItemEventLog( item, ch->GetServerID(), 0, SILT_PUT_GROUND_MAX_INVEN, 1 ); //YGI acer
-		DropItem( ch->X, ch->Y, item );	// ¶¥¹Ù´ÚÀ¸·Î ¶³¾î¶ß¸°´Ù.
+		DropItem( ch->X, ch->Y, item );	// ë•…ë°”ë‹¥ìœ¼ë¡œ ë–¨ì–´ëœ¨ë¦°ë‹¤.
 		SendItemDropMessage( ch->GetServerID(), item->item_no );
 	}
 END_FUNCTION :
 	memset( item, 0, sizeof( ItemAttr ) );
 }
 
-// ¾ÆÀÌÅÛ Á¶ÀÎ Å×ÀÌºí¿¡¼­ ¾ÆÀÌÅÛ ¹øÈ£¸¦ Ã¼Å©ÇÏ¿© ±× ÆÄ¶ó¸ŞÅÍ¸¦ ¸®ÅÏÇÑ´Ù.
+// ì•„ì´í…œ ì¡°ì¸ í…Œì´ë¸”ì—ì„œ ì•„ì´í…œ ë²ˆí˜¸ë¥¼ ì²´í¬í•˜ì—¬ ê·¸ íŒŒë¼ë©”í„°ë¥¼ ë¦¬í„´í•œë‹¤.
 int GetItemJoinNumber( int item_num )
 {
 	for( int i=0; i<ITEM_JOIN_MAX; i++ )
@@ -4695,8 +4695,8 @@ extern	int GetRider(CHARLIST* ch);	// LTS HORSERIDER
 extern	int GetRiderGrade(CHARLIST* ch);	// LTS HORSERIDER
 extern	int GetHorseGrade(CHARLIST* ch);	// LTS HORSERIDER
 
-// ¹Ù²¼´ÂÁö È®ÀÎÇØ¼­ ¹Ù²¼À¸¸é º¸³»ÁØ´Ù.
-void CheckAndSendChangeEquip( CHARLIST *ch, int send  )		// send°¡ 1ÀÌ¸é ¹«Á¶°Ç º¸³»ÁØ´Ù.
+// ë°”ê¼ˆëŠ”ì§€ í™•ì¸í•´ì„œ ë°”ê¼ˆìœ¼ë©´ ë³´ë‚´ì¤€ë‹¤.
+void CheckAndSendChangeEquip( CHARLIST *ch, int send  )		// sendê°€ 1ì´ë©´ ë¬´ì¡°ê±´ ë³´ë‚´ì¤€ë‹¤.
 {
 	int cn = ch->GetServerID();
 	if( !cn ) return;
@@ -4716,7 +4716,7 @@ void CheckAndSendChangeEquip( CHARLIST *ch, int send  )		// send°¡ 1ÀÌ¸é ¹«Á¶°Ç 
 			break;
 		}
 
-	//011018 KHS ¸Á¶Ç
+	//011018 KHS ë§ë˜
 	short int mantle = ch->equip[ WT_NECK].item_no;
 	if( mantle != ch->mantle )
 	{
@@ -4756,8 +4756,8 @@ void CheckAndSendChangeEquip( CHARLIST *ch, int send  )		// send°¡ 1ÀÌ¸é ¹«Á¶°Ç 
 		{
 			ch->HorseNo=HorseNo-8040;
 			ch->RiderNo=GetRider(ch);
-			ch->HorseGrade=0;//GetHorseGrade(ch);//020508 LTS ¿ë·® ¹®Á¦
-			ch->RiderGrade=0;//GetRiderGrade(ch);//020508 LTS ¿ë·® ¹®Á¦
+			ch->HorseGrade=0;//GetHorseGrade(ch);//020508 LTS ìš©ëŸ‰ ë¬¸ì œ
+			ch->RiderGrade=0;//GetRiderGrade(ch);//020508 LTS ìš©ëŸ‰ ë¬¸ì œ
 		/*	ch->HorseNo=2;
 			ch->RiderNo=1;
 			ch->HorseGrade=1;
@@ -4778,7 +4778,7 @@ void CheckAndSendChangeEquip( CHARLIST *ch, int send  )		// send°¡ 1ÀÌ¸é ¹«Á¶°Ç 
 	}
 
 	// 011030 KHS JJING
-	// °°Àº °©¿ÊÀÌ´õ¶óµµ grade°¡ ´Ù¸£¸é ¹Ù²ãÁÖ¾î¾ß ÇÑ´Ù. 
+	// ê°™ì€ ê°‘ì˜·ì´ë”ë¼ë„ gradeê°€ ë‹¤ë¥´ë©´ ë°”ê¿”ì£¼ì–´ì•¼ í•œë‹¤. 
 	int cur_jjing = ((RareMain*)&(ch->equip[ WT_ARMOR].attr[ IATTR_RARE_MAIN]))->grade;
 	if( ch->jjing != cur_jjing )
 	{
@@ -4812,7 +4812,7 @@ void CheckAndSendChangeEquip( CHARLIST *ch, int send  )		// send°¡ 1ÀÌ¸é ¹«Á¶°Ç 
 
 
 
-void RecvRepPartyInfo( char *party_name, short int cn )		// ÆÄÆ¼¿øÀÇ xy ÁÂÇ¥¿Í hp, hpmax°ªÀ» º¸³»ÁØ´Ù.
+void RecvRepPartyInfo( char *party_name, short int cn )		// íŒŒí‹°ì›ì˜ xy ì¢Œí‘œì™€ hp, hpmaxê°’ì„ ë³´ë‚´ì¤€ë‹¤.
 {
 	int party_id = ExistHe( party_name );
 	if( party_id == -1 ) return;
@@ -4845,7 +4845,7 @@ void SendLoginToClientPublicBbsOnlyOne( t_packet *p )
 }
 
 
-void ReturnResultByName( char *name,  int cmd_type )		// ÀÌ¸§À¸·Î ¾ÆÀÌµğ¸¦ Ã£¾Æ¼­ ÇÁ·ÎÅäÄİÀ» Àü¼ÛÇØÁØ´Ù.
+void ReturnResultByName( char *name,  int cmd_type )		// ì´ë¦„ìœ¼ë¡œ ì•„ì´ë””ë¥¼ ì°¾ì•„ì„œ í”„ë¡œí† ì½œì„ ì „ì†¡í•´ì¤€ë‹¤.
 {
 	int cn = ExistHe( name );
 	if( cn == -1 ) return;
@@ -4884,7 +4884,7 @@ void SendLoginServerHunterRegist( k_hunter_regist *p, int size, short int cn )		
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
-	if( p->money < 5000000 ) return;		// µ·ÀÌ ºÎÁ·ÇÔ..
+	if( p->money < 5000000 ) return;		// ëˆì´ ë¶€ì¡±í•¨..
 	if( ch->Money < p->money ) return;
 
 	if( SubtractMoney( p->money, ch ) != 1 ) return;
@@ -4977,17 +4977,17 @@ void RecvHunterList( int id, short int cn )
 	QueuePacket(connections, DB_DEMON , &packet, 1);
 } //> CSD-020819
 
-// ¼º°øÀ¸·Î Çö»ó¹ü °á°ú¸¦ ¸¶¹«¸® Áş´Â ·çÆ¾
-// ¼º°øÇßÀ½À» ¾Ë·ÁÁØ´Ù.
+// ì„±ê³µìœ¼ë¡œ í˜„ìƒë²” ê²°ê³¼ë¥¼ ë§ˆë¬´ë¦¬ ì§“ëŠ” ë£¨í‹´
+// ì„±ê³µí–ˆìŒì„ ì•Œë ¤ì¤€ë‹¤.
 void RecvHunterListOk( k_send_kill_hunter_list *p )
 {
 	CHARLIST *ch = ::CheckServerId(p->server_id);
 	if(!ch){return;}
 	if(!ch->IsPlayer())  {return;}
 
-	::AddMoney(p->money,ch);//021126 lsw// µ·À» ¿Ã·Á ÁØ´Ù.
+	::AddMoney(p->money,ch);//021126 lsw// ëˆì„ ì˜¬ë ¤ ì¤€ë‹¤.
 
-	t_packet packet;				// ¼º°øÇß´Ù..
+	t_packet packet;				// ì„±ê³µí–ˆë‹¤..
 	packet.h.header.type = CMD_KILL_HUNTER_LIST_OK;
 	packet.u.kein.kill_hunter_ok.money= p->money;
 	packet.h.header.size = sizeof( k_kill_hunter_ok );
@@ -4996,7 +4996,7 @@ void RecvHunterListOk( k_send_kill_hunter_list *p )
 
 void ReturnDangerByHunter( short int target_id, char type)
 {
-	t_packet packet;				// ¼º°øÇß´Ù..
+	t_packet packet;				// ì„±ê³µí–ˆë‹¤..
 	packet.h.header.type = CMD_DANGER_OF_HUNTER;
 		packet.u.kein.default_char= type;
 	packet.h.header.size = sizeof( char );
@@ -5104,7 +5104,7 @@ CHARLIST* CheckServerId(WORD id)
 	return &connections[id].chrlst;
 }	//> CSD-HK-030829
 
-CHARLIST* CheckServerName( const char* szName )		// 030224 kyo ÀÌ¸§À¸·Î Ã£´Â´Ù. 
+CHARLIST* CheckServerName( const char* szName )		// 030224 kyo ì´ë¦„ìœ¼ë¡œ ì°¾ëŠ”ë‹¤. 
 {	//< CSD-030320
 	return g_pUserManager->GetCharList(szName);
 }	//> CSD-030320
@@ -5131,7 +5131,7 @@ CHARLIST* GetCharListPtr(WORD idObject)
 	return NULL;
 }
 
-int SendServerEachItemAuto( CHARLIST *ch, ItemAttr *item )		// ºó°÷À» Ã£¾Æ º¸³»ÁØ´Ù. ºó°÷ÀÌ ÀÖÀ¸¸é 1À» ¸®ÅÏ ¾øÀ¸¸é 0À» ¸®ÅÏ
+int SendServerEachItemAuto( CHARLIST *ch, ItemAttr *item )		// ë¹ˆê³³ì„ ì°¾ì•„ ë³´ë‚´ì¤€ë‹¤. ë¹ˆê³³ì´ ìˆìœ¼ë©´ 1ì„ ë¦¬í„´ ì—†ìœ¼ë©´ 0ì„ ë¦¬í„´
 {
 	int a, b, c;
 	int ret;
@@ -5144,7 +5144,7 @@ int SendServerEachItemAuto( CHARLIST *ch, ItemAttr *item )		// ºó°÷À» Ã£¾Æ º¸³»Á
 		ch->inv[a][b][c] = *item;
 		ret = 1;
 	}
-	else	// ¶¥¿¡ ¶³¾î ¶ß¸®°í 0À» ¸®ÅÏ
+	else	// ë•…ì— ë–¨ì–´ ëœ¨ë¦¬ê³  0ì„ ë¦¬í„´
 	{
 		SendItemEventLog( item, ch->GetServerID(), 0, SILT_PUT_GROUND_MAX_INVEN, 1 ); //YGI acer
 		DropItem( ch->X, ch->Y, item );
@@ -5179,7 +5179,7 @@ void SendDefaultResult( int type, char ret, short int cn )
 
 
 
-int ServerEachItemAuto( CHARLIST *ch, ItemAttr *item )		// ºó°÷À» Ã£¾Æ ¾ÆÀÌÅÛÀ» ¼ÂÆÃÇÑ´Ù. Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁÖÁø ¾Ê´Â´Ù.
+int ServerEachItemAuto( CHARLIST *ch, ItemAttr *item )		// ë¹ˆê³³ì„ ì°¾ì•„ ì•„ì´í…œì„ ì…‹íŒ…í•œë‹¤. í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì£¼ì§„ ì•ŠëŠ”ë‹¤.
 {
 	int a, b, c;
 	int ret;
@@ -5188,7 +5188,7 @@ int ServerEachItemAuto( CHARLIST *ch, ItemAttr *item )		// ºó°÷À» Ã£¾Æ ¾ÆÀÌÅÛÀ» 
 		ch->inv[a][b][c] = *item;
 		ret = 1;
 	}
-	else	// ¶¥¿¡ ¶³¾î ¶ß¸®°í 0À» ¸®ÅÏ
+	else	// ë•…ì— ë–¨ì–´ ëœ¨ë¦¬ê³  0ì„ ë¦¬í„´
 	{
 		DropItem( ch->X, ch->Y, item );
 		ret = 0;
@@ -5277,7 +5277,7 @@ void SendChangeDurationByKein( POS *pos, DWORD dur, int cn )
 	QueuePacket(connections, cn, &p, 1);
 }
 
-void SendCheckName( short int cn, char *name )		// µğºñ µ¥¸óÀ¸·Î Ä³¸¯ÅÍ Á¸Àç ¿©ºÎ ¿äÃ» ·çÆ¾
+void SendCheckName( short int cn, char *name )		// ë””ë¹„ ë°ëª¬ìœ¼ë¡œ ìºë¦­í„° ì¡´ì¬ ì—¬ë¶€ ìš”ì²­ ë£¨í‹´
 {
 	t_packet p;
 
@@ -5310,13 +5310,13 @@ void SendCheckNameForNation( char *name, short int cn )
 
 //////////////////////////////////////////////////////////////////////
 //
-//		 ÅõÇ¥ ½Ã½ºÅÛ
+//		 íˆ¬í‘œ ì‹œìŠ¤í…œ
 //
 
-// ³ª¶ó º°·Î
-int	g_CurrVote[6];		// ÇöÀç ÅõÇ¥ÁßÀÎ°¡?	0:¾Æ´Ï´Ù.	1:ÈÄº¸ µî·Ï±â°£	2:¼±°Å ±â°£		
-int	g_VoteNumber[6];	// ÅõÇ¥ ¹øÈ£
-int g_vote_reset;		// ÅõÇ¥¿¡ °ü·ÃµÈ °ªÀ» ´Ù½Ã °¡Á® ¿Ã°ÇÁö¸¦ ¼¼ÆÃÇÑ´Ù.
+// ë‚˜ë¼ ë³„ë¡œ
+int	g_CurrVote[6];		// í˜„ì¬ íˆ¬í‘œì¤‘ì¸ê°€?	0:ì•„ë‹ˆë‹¤.	1:í›„ë³´ ë“±ë¡ê¸°ê°„	2:ì„ ê±° ê¸°ê°„		
+int	g_VoteNumber[6];	// íˆ¬í‘œ ë²ˆí˜¸
+int g_vote_reset;		// íˆ¬í‘œì— ê´€ë ¨ëœ ê°’ì„ ë‹¤ì‹œ ê°€ì ¸ ì˜¬ê±´ì§€ë¥¼ ì„¸íŒ…í•œë‹¤.
 typedef struct tag_server_candidate
 {
 	k_candidate	data;
@@ -5328,17 +5328,17 @@ k_server_candidate g_Candidate[6][3];
 int CanResistCandidate( CHARLIST *ch )
 {	//< CSD-030806
 	if (ch->GetLevel() < 74)
-	{	// levelÀÌ ºÎÁ·ÇÏ´Ù
+	{	// levelì´ ë¶€ì¡±í•˜ë‹¤
 		return -1;
 	}
 	
 	if (ch->name_status.guild_master != 1)
-	{	// ±æµå ¸¶½ºÅÍ°¡ ¾Æ´Ï´Ù.
+	{	// ê¸¸ë“œ ë§ˆìŠ¤í„°ê°€ ì•„ë‹ˆë‹¤.
 		return -2;
 	}
 
 	if (ch->nk[ch->name_status.nation] > 0)
-	{	// ÇÇÄÉÀÌ´Ù
+	{	// í”¼ì¼€ì´ë‹¤
 		return -3;
 	}
 
@@ -5350,8 +5350,8 @@ void RecvRegistCandidate( short int cn )
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
-	if( g_CurrVote[ch->name_status.nation] != 1 ) return;		// ¼±°Å µî·ÏÀ» ¹Ş°í ÀÖÁö ¾Ê´Ù.
-	if( CanResistCandidate( ch ) < 0 ) return;		// ÀÚ°İÀÌ ¾ø´Ù.
+	if( g_CurrVote[ch->name_status.nation] != 1 ) return;		// ì„ ê±° ë“±ë¡ì„ ë°›ê³  ìˆì§€ ì•Šë‹¤.
+	if( CanResistCandidate( ch ) < 0 ) return;		// ìê²©ì´ ì—†ë‹¤.
 
 	t_packet p;
 	p.h.header.type = CMD_REGIST_CANDIDATE;
@@ -5382,7 +5382,7 @@ void RecvAndSendLoginCheckRegistCandidate( short int cn )
 		return;
 	}
 
-	//////// ÅõÇ¥°ü·Ã º¯¼ö¸¦ ´Ù½Ã ÀĞ¾î ¿À±â À§ÇÑ ¶§¸¦ À§ÇØ
+	//////// íˆ¬í‘œê´€ë ¨ ë³€ìˆ˜ë¥¼ ë‹¤ì‹œ ì½ì–´ ì˜¤ê¸° ìœ„í•œ ë•Œë¥¼ ìœ„í•´
 	static DWORD old_time = g_curr_time;
 	if( g_vote_reset > 200 ) g_vote_reset= 0;
 	if( g_vote_reset==0 || g_curr_time - old_time > 3600 ) 
@@ -5412,7 +5412,7 @@ void CheckVote( short int cn )
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
-	//////// ÅõÇ¥°ü·Ã º¯¼ö¸¦ ´Ù½Ã ÀĞ¾î ¿À±â À§ÇÑ ¶§¸¦ À§ÇØ
+	//////// íˆ¬í‘œê´€ë ¨ ë³€ìˆ˜ë¥¼ ë‹¤ì‹œ ì½ì–´ ì˜¤ê¸° ìœ„í•œ ë•Œë¥¼ ìœ„í•´
 	static DWORD old_time = g_curr_time;
 	if( g_vote_reset > 400 ) g_vote_reset = 0;
 	if( g_vote_reset==0 || g_curr_time - old_time > 3600 ) 
@@ -5428,21 +5428,21 @@ void CheckVote( short int cn )
 
 	if( !ch->name_status.nation ) 
 	{
-		ReturnCheckVoteNot( cn, -2 );	// ³ª¶ó°¡ ¾ø´Ù.
+		ReturnCheckVoteNot( cn, -2 );	// ë‚˜ë¼ê°€ ì—†ë‹¤.
 		return;
 	}
 	if( g_CurrVote[ch->name_status.nation] != 2 ) 
 	{
-		ReturnCheckVoteNot( cn, -1 );	// ¼±°Å ±â°£ÀÌ ¾Æ´Ï´Ù.
+		ReturnCheckVoteNot( cn, -1 );	// ì„ ê±° ê¸°ê°„ì´ ì•„ë‹ˆë‹¤.
 		return;
 	}
 	if( ch->vote_num >= g_VoteNumber[ch->name_status.nation] )
 	{
-		ReturnCheckVoteNot( cn, -3 );// ÀÌ¹Ì ¼±°Å¸¦ Çß´Ù.
+		ReturnCheckVoteNot( cn, -3 );// ì´ë¯¸ ì„ ê±°ë¥¼ í–ˆë‹¤.
 		return;
 	}
 
-	// DB-DEMONÀ¸·Î ¿äÃ»
+	// DB-DEMONìœ¼ë¡œ ìš”ì²­
 	t_packet p;
 	p.h.header.type = CMD_CHECK_VOTE;
 	{
@@ -5524,7 +5524,7 @@ void SendVoteGame2Login( t_packet *t, short int cn )
 	if( !ch ) return;
 
 	int nation = ch->name_status.nation;
-	if( !nation ) return;		// ³ª¶ó°¡ ¾ø´Ù
+	if( !nation ) return;		// ë‚˜ë¼ê°€ ì—†ë‹¤
 
 	if( g_CurrVote[nation] < 0 ) return;
 	if( g_VoteNumber[nation] < 0 ) return;
@@ -5544,7 +5544,7 @@ void SendVoteGame2Login( t_packet *t, short int cn )
 	QueuePacket(connections, DB_DEMON, &p, 1);
 }
 
-void SendClientVoteScore( int nation, short int server_id )		// Å¬¶óÀÌ¾ğÆ®·Î °ªÀ» º¸³»ÁØ´Ù.
+void SendClientVoteScore( int nation, short int server_id )		// í´ë¼ì´ì–¸íŠ¸ë¡œ ê°’ì„ ë³´ë‚´ì¤€ë‹¤.
 {
 	int i =0;
 	t_packet p;
@@ -5576,7 +5576,7 @@ void ReqVoteScore( short int cn )
 
 	static int old_time = g_curr_time;
 
-	int is_req = 0;		// µğºñ¿¡¼­ ÀĞ¾î¿Í¾ß ÇÏ´Â°¡?
+	int is_req = 0;		// ë””ë¹„ì—ì„œ ì½ì–´ì™€ì•¼ í•˜ëŠ”ê°€?
 	if( g_curr_time - old_time > 360 ) 
 	{
 		is_req = 1;
@@ -5585,7 +5585,7 @@ void ReqVoteScore( short int cn )
 
 	if( is_req || !g_Candidate[nation][0].data.name[0] || !g_Candidate[nation][0].score )
 	{
-		// µğºñ¿¡¼­ ÀĞ¾î ¿Â´Ù. ( ¿äÃ» )
+		// ë””ë¹„ì—ì„œ ì½ì–´ ì˜¨ë‹¤. ( ìš”ì²­ )
 		t_packet p;
 		p.h.header.type = CMD_REQ_VOTE_SCORE;
 		{
@@ -5598,7 +5598,7 @@ void ReqVoteScore( short int cn )
 	}
 	else
 	{
-		// ¿©±â¼­ ±×³É °ªÀ» º¸³»ÁØ´Ù.
+		// ì—¬ê¸°ì„œ ê·¸ëƒ¥ ê°’ì„ ë³´ë‚´ì¤€ë‹¤.
 		SendClientVoteScore( nation, cn);
 	}
 }
@@ -5621,7 +5621,7 @@ void SendClientRepVoteScore( t_packet *p )
 }
 
 ////////////////////////////////////////////////////////////
-// º¸¿©ÁÖ±â Á÷¾÷
+// ë³´ì—¬ì£¼ê¸° ì§ì—…
 void RecvGetSkillInfo( t_packet *p, short int cn )
 {//021113 lsw
 	short int target_id = p->u.kein.default_short_int;
@@ -5629,19 +5629,19 @@ void RecvGetSkillInfo( t_packet *p, short int cn )
 	if( !target_ch ) return;
 
 	const int iSkillMasterType = GMMgr.IsSkillMaster(target_ch);
-	if(iSkillMasterType)//±â¼ºÀÏ °æ¿ìµµ ¹«Á¶°Ç ±â¼ºÀÌ´Ù
-	{//¿ì¼± ¼øÀ§·Î ±â¼ºÀÌ ¸ÕÀú ¿Ã¶ó¿Â´Ù
+	if(iSkillMasterType)//ê¸°ì„±ì¼ ê²½ìš°ë„ ë¬´ì¡°ê±´ ê¸°ì„±ì´ë‹¤
+	{//ìš°ì„  ìˆœìœ„ë¡œ ê¸°ì„±ì´ ë¨¼ì € ì˜¬ë¼ì˜¨ë‹¤
 		::SendSkillInfo( target_id, 1000000, iSkillMasterType, cn );
 		return;
 	}
 	
-	if(GMMgr.IsMerchant(target_ch))//»óÀÎÀÌ¸é ¹«Á¶°Ç »óÀÎ¹Û¿¡ ¾ÈµÈ´Ù
+	if(GMMgr.IsMerchant(target_ch))//ìƒì¸ì´ë©´ ë¬´ì¡°ê±´ ìƒì¸ë°–ì— ì•ˆëœë‹¤
 	{
 		::SendSkillInfo( target_id, 1000000, GM_QUEST_MERCHANT, cn );
 		return;
 	}
 
-	if( target_ch->view_job > 0 )	// ÀÌ¹Ì Á¤ÀÇµÈ Á÷¾÷ÀÌ ÀÖ´Ù¸é
+	if( target_ch->view_job > 0 )	// ì´ë¯¸ ì •ì˜ëœ ì§ì—…ì´ ìˆë‹¤ë©´
 	{
 		const int view_job			= target_ch->view_job;
 		const int iSkillExpIndex	= g_GmMain[view_job].skill;
@@ -5681,7 +5681,7 @@ void SendSkillInfo( short int target_id, int top_exp, int top_job, short int cn 
 	p.h.header.type = CMD_GET_SKILL_INFO;
 	{
 		p.u.kein.get_skill_info.target_id	= target_id;
-		p.u.kein.get_skill_info.job			= top_job;		// 1À» ´õÇØ¼­ º¸³»°í Ãâ·ÂÇÏ´Âµ¥¼­ 1À» »©¼­ Ãâ·ÂÇÑ´Ù.
+		p.u.kein.get_skill_info.job			= top_job;		// 1ì„ ë”í•´ì„œ ë³´ë‚´ê³  ì¶œë ¥í•˜ëŠ”ë°ì„œ 1ì„ ë¹¼ì„œ ì¶œë ¥í•œë‹¤.
 		p.u.kein.get_skill_info.call_lv		= skill_lv;
 	}
 	p.h.header.size = sizeof( k_get_skill_info );
@@ -5692,13 +5692,13 @@ void SendSkillInfo( short int target_id, int top_exp, int top_job, short int cn 
 	}
 }
 
-void RecvClienNationMassage( t_packet *p, short int cn )		// ¿ÕÀÎÁö È®ÀÎÀÌ µÇ¸é ¸Ş½ÃÁö¸¦ ·Î±×ÀÎ ¼­¹ö·Î º¸³½´Ù.
+void RecvClienNationMassage( t_packet *p, short int cn )		// ì™•ì¸ì§€ í™•ì¸ì´ ë˜ë©´ ë©”ì‹œì§€ë¥¼ ë¡œê·¸ì¸ ì„œë²„ë¡œ ë³´ë‚¸ë‹¤.
 {
 	char *text = p->u.kein.default_msg;
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
-//	if( !ch->name_status.king ) return;  coromo 2005/05/06 È¥³ıKINGÌØÈ¨
+//	if( !ch->name_status.king ) return;  coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 
 	t_packet packet;
 	packet.h.header.type = CMD_SEND_ALL_MSG;
@@ -5729,7 +5729,7 @@ void RecvAndSendNationMassage( t_packet *p )
 
 void RecvDemonYouAreKing( t_packet *p, int type )
 {
-	//È¤½Ã ÀÌ°÷¿¡ ÀÖÀ¸¸é 5000¹ø ±îÁö ¾È°¡µµ µÈ´Ù.
+	//í˜¹ì‹œ ì´ê³³ì— ìˆìœ¼ë©´ 5000ë²ˆ ê¹Œì§€ ì•ˆê°€ë„ ëœë‹¤.
 	int ret = ExistHe( p->u.kein.default_name );
 	CHARLIST *ch = CheckServerId( ret );
 	if( ch )
@@ -5739,7 +5739,7 @@ void RecvDemonYouAreKing( t_packet *p, int type )
 		else ch->name_status.king = 0;
 		CallClient( ret, type );
 	}
-	else QueuePacket(connections, LOGIN_SERVER_CONNECT, p, 1);		// ·Î±×ÀÎ ¼­¹ö·Î Àü¼Û
+	else QueuePacket(connections, LOGIN_SERVER_CONNECT, p, 1);		// ë¡œê·¸ì¸ ì„œë²„ë¡œ ì „ì†¡
 }
 
 void RecvLoginYouAreKing( t_packet *p, int type )
@@ -5755,27 +5755,27 @@ void RecvLoginYouAreKing( t_packet *p, int type )
 	}
 }
 
-void RecvGuildExit( t_packet *p, short int cn )		// ±æµå Å»Åğ ¸í·É
+void RecvGuildExit( t_packet *p, short int cn )		// ê¸¸ë“œ íƒˆí‡´ ëª…ë ¹
 {	//< CSD-030326
 	const int target_id = p->u.kein.default_short_int;
-	// ±æµå¿¡ µî·ÏÇÒ Ä³¸¯ÅÍ
+	// ê¸¸ë“œì— ë“±ë¡í•  ìºë¦­í„°
 	CHARLIST* target = CheckServerId(target_id);
 	
 	if (target == NULL)
 	{
 		return;
 	}
-	// ±æµå ¸¶½ºÅÍ
+	// ê¸¸ë“œ ë§ˆìŠ¤í„°
 	CHARLIST* ch = CheckServerId(cn);
 
 	if (ch == NULL)
 	{
 		return;
 	}
-	//  °°Àº ±æµå¿©¾ß ÇÑ´Ù. ( ¹°·Ğ °°Àº ³ª¶ó )
+	//  ê°™ì€ ê¸¸ë“œì—¬ì•¼ í•œë‹¤. ( ë¬¼ë¡  ê°™ì€ ë‚˜ë¼ )
 	if (ch->GetGuildCode() <= 0 || ch->name_status.guild_master != 1) 
 	{
-		return;	// ±æµå ¸¶½ºÅÍ¸¸ »ç¿ëÇÒ¼ö ÀÖ´Â ¸í·É¾î´Ù.
+		return;	// ê¸¸ë“œ ë§ˆìŠ¤í„°ë§Œ ì‚¬ìš©í• ìˆ˜ ìˆëŠ” ëª…ë ¹ì–´ë‹¤.
 	}
 
 	const int nGuildCode = target->GetGuildCode();
@@ -5784,22 +5784,22 @@ void RecvGuildExit( t_packet *p, short int cn )		// ±æµå Å»Åğ ¸í·É
 	{
 		return;
 	}
-	// ±æµå ¸â¹ö ¸®½ºÆ®¿¡¼­ »èÁ¦
+	// ê¸¸ë“œ ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œ
 	g_pGuildManager->DelMember(nGuildCode, target_id);
-	// ±æµå Á¤º¸ ÃÊ±âÈ­
+	// ê¸¸ë“œ ì •ë³´ ì´ˆê¸°í™”
 	target->SetGuildCode(0); // CSD-030806
 	target->name_status.guild_master = 0;
-	// ±æµå ¸â¹ö ¸®½ºÆ® Å×ÀÌºí¿¡¼­ »èÁ¦
+	// ê¸¸ë“œ ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ í…Œì´ë¸”ì—ì„œ ì‚­ì œ
 	SendSaveGuildMemberList(target->Name, nGuildCode, 0, 0);
-	// Å»Åğ´çÇÑ³ğÇÑÅ×
+	// íƒˆí‡´ë‹¹í•œë†ˆí•œí…Œ
 	CallClient(target_id, CMD_GUILD_EXIT_YOU);
-	// °á°ú Àü¼Û
+	// ê²°ê³¼ ì „ì†¡
 	t_packet packet;					
 	packet.h.header.type = CMD_GUILD_EXIT_WHO;
 	packet.u.kein.default_short_int = target_id;
 	packet.h.header.size = sizeof(short int);
-	QueuePacket(connections, cn, &packet, 1); // ±æµå ¸¶½ºÅÍ¿¡°Ô
-	CastMe2Other(target_id, &packet); // ÁÖº¯»ç¶÷¿¡°Ô
+	QueuePacket(connections, cn, &packet, 1); // ê¸¸ë“œ ë§ˆìŠ¤í„°ì—ê²Œ
+	CastMe2Other(target_id, &packet); // ì£¼ë³€ì‚¬ëŒì—ê²Œ
 }	//> CSD-030326
 
 void RecvGuildJoin( t_packet *p, short int cn )
@@ -5807,19 +5807,19 @@ void RecvGuildJoin( t_packet *p, short int cn )
 	int target_id = p->u.kein.default_short_int;
 	if( !target_id ) return;
 
-	CHARLIST *target = CheckServerId( target_id );			// ±æµå¿¡ µî·ÏÇÒ Ä³¸¯ÅÍ
+	CHARLIST *target = CheckServerId( target_id );			// ê¸¸ë“œì— ë“±ë¡í•  ìºë¦­í„°
 	if( !target ) return;
 
-	CHARLIST *ch = CheckServerId( cn );						// ±æµå ¸¶½ºÅÍ
+	CHARLIST *ch = CheckServerId( cn );						// ê¸¸ë“œ ë§ˆìŠ¤í„°
 	if( !ch ) return;
 
 	if( !CheckGuildPower( GDP_JOINING, ch ) ) return;
-	if( target->GetGuildCode() ) return;	// ´Ù¸¥ ±æµå¿¡ °¡ÀÔµÇ¾î ÀÖÀ¸¸é ¾ÈµÈ´Ù.
-	if( target->name_status.nation != ch->name_status.nation ) return;		// °°Àº ³ª¶ó¾ß ÇÑ´Ù.
+	if( target->GetGuildCode() ) return;	// ë‹¤ë¥¸ ê¸¸ë“œì— ê°€ì…ë˜ì–´ ìˆìœ¼ë©´ ì•ˆëœë‹¤.
+	if( target->name_status.nation != ch->name_status.nation ) return;		// ê°™ì€ ë‚˜ë¼ì•¼ í•œë‹¤.
 
 	t_packet packet;					
 
-	packet.h.header.type = CMD_GUILD_JOIN_SERVER;			// DB_DEMON À¸·Î...
+	packet.h.header.type = CMD_GUILD_JOIN_SERVER;			// DB_DEMON ìœ¼ë¡œ...
 		packet.u.kein.guild_join_server.target_id = target_id;
 		packet.u.kein.guild_join_server.server_id = cn;	
 		packet.u.kein.guild_join_server.guild_code = ch->GetGuildCode();
@@ -5840,21 +5840,21 @@ void RecvGuildJoinResult( t_packet *p )
 
 	if( p->h.header.type == CMD_GUILD_JOIN_SERVER_OK )
 	{
-		// ±æµå °¡ÀÔÀÌ µÆ´Ù.
+		// ê¸¸ë“œ ê°€ì…ì´ ëë‹¤.
 
 		t_packet packet;
 		packet.h.header.type = CMD_GUILD_JOIN_CONFIRM;
-			packet.u.kein.default_short_int = server_id;		// ±æ¸¶ÀÇ ¾ÆÀÌµğ¸¦ º¸³»ÁØ´Ù.
+			packet.u.kein.default_short_int = server_id;		// ê¸¸ë§ˆì˜ ì•„ì´ë””ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 		packet.h.header.size = sizeof( short int );
 		QueuePacket(connections, target_id, &packet, 1);
 
-		CallClient(server_id, CMD_GUILD_JOIN_CONFIRM_GUILMA );	// È®ÀÎ ÁßÀÌ¶ó´Â »ç½ÇÀ» ±æ¸¶¿¡°Ô º¸³»ÁØ´Ù.
+		CallClient(server_id, CMD_GUILD_JOIN_CONFIRM_GUILMA );	// í™•ì¸ ì¤‘ì´ë¼ëŠ” ì‚¬ì‹¤ì„ ê¸¸ë§ˆì—ê²Œ ë³´ë‚´ì¤€ë‹¤.
 
 
 		//int guild_code = target->GetGuildCode() = guild_master->GetGuildCode();
 		//target->name_status.guild_master = 0;
 
-		/*	 ´ç»çÀÚ¿¡°Ô ¸ÕÀú ¹°¾î º»´Ù.
+		/*	 ë‹¹ì‚¬ìì—ê²Œ ë¨¼ì € ë¬¼ì–´ ë³¸ë‹¤.
 		t_packet packet;
 		packet.h.header.type = CMD_GUILD_JOIN_SERVER_OK;
 			packet.u.kein.guild_join_ok.guild_code = guild_code;
@@ -5864,7 +5864,7 @@ void RecvGuildJoinResult( t_packet *p )
 		CastMe2Other( target_id, &packet );
 		*/
 	}
-	else		// ±æ¸¶¿¡°Ô¸¸ º¸³»ÁØ´Ù.		// °¡ÀÔ ½ÇÆĞ
+	else		// ê¸¸ë§ˆì—ê²Œë§Œ ë³´ë‚´ì¤€ë‹¤.		// ê°€ì… ì‹¤íŒ¨
 	{
 		t_packet packet;
 		packet.h.header.type = CMD_GUILD_JOIN_SERVER_NOT;
@@ -5883,7 +5883,7 @@ void RecvGuildJoinConfirmOk( t_packet *p, short int cn )
 
 	if( !target || !guild_master ) return;
 
-	if( !CheckGuildPower( GDP_JOINING, guild_master ) ) return;		// ±æµå ¸¶½ºÅÍ¿©¾ß ÇÑ´Ù.// 020620 YGI
+	if( !CheckGuildPower( GDP_JOINING, guild_master ) ) return;		// ê¸¸ë“œ ë§ˆìŠ¤í„°ì—¬ì•¼ í•œë‹¤.// 020620 YGI
 
 	const int nGuildCode = guild_master->GetGuildCode();
 	target->SetGuildCode(nGuildCode);	
@@ -5896,12 +5896,12 @@ void RecvGuildJoinConfirmOk( t_packet *p, short int cn )
 	packet.h.header.size = sizeof( k_guild_join_ok );
 	QueuePacket(connections, cn, &packet, 1);
 	CastMe2Other( cn, &packet );
-	// µğºñ µ¥¸óÀ¸·Î º¸³» guild_member_list Å×ÀÌºí¿¡ ÀúÀåÇÑ´Ù.
+	// ë””ë¹„ ë°ëª¬ìœ¼ë¡œ ë³´ë‚´ guild_member_list í…Œì´ë¸”ì— ì €ì¥í•œë‹¤.
 	SendSaveGuildMemberList( target->Name, nGuildCode, nGuildCode, 0 );
 	g_pGuildManager->AddMember(nGuildCode, cn);
 }	//> CSD-030806
 
-void RecvGuildJoinConfirmNot( t_packet *p, short int cn )		// ±æ¸¶¿¡°Ô ±×°¡ °ÅÀıÇß´Ù´Â °É ¾Ë¸°´Ù.
+void RecvGuildJoinConfirmNot( t_packet *p, short int cn )		// ê¸¸ë§ˆì—ê²Œ ê·¸ê°€ ê±°ì ˆí–ˆë‹¤ëŠ” ê±¸ ì•Œë¦°ë‹¤.
 {
 	int guild_id = p->u.kein.default_short_int;
 
@@ -5918,7 +5918,7 @@ void RecvScanTarget( short int cn )
 	if (!ch->JoinLocalWar) return;				// 011217 LTS
 	if( ch->scan_time )
 	{
-		if( (g_curr_time-ch->scan_time) < 20 ) return;		// ½Ã°£À» Á¶±İ´õ º¸³»¾ß ÇÑ´Ù.
+		if( (g_curr_time-ch->scan_time) < 20 ) return;		// ì‹œê°„ì„ ì¡°ê¸ˆë” ë³´ë‚´ì•¼ í•œë‹¤.
 	}
 	ch->scan_time = g_curr_time;
 
@@ -5989,27 +5989,27 @@ void RecvChangeGuildEachLevel( t_packet *p, short int cn )
 	int each_level = p->u.kein.guild_each_level.each_level;
 	int target_id = p->u.kein.guild_each_level.target_id;
 
-	if( each_level <= 0 || each_level > 5 ) return;		// 1:±æ¸¶, 5: ÀÏ¹İÈ¸¿ø
-	if( each_level == 1 ) return;		// ±æ¸¶¸¦ ¹Ù²Ù´Â °Å¶ó¸é ÀÌ°É Ç®¾îÁØ´Ù.
+	if( each_level <= 0 || each_level > 5 ) return;		// 1:ê¸¸ë§ˆ, 5: ì¼ë°˜íšŒì›
+	if( each_level == 1 ) return;		// ê¸¸ë§ˆë¥¼ ë°”ê¾¸ëŠ” ê±°ë¼ë©´ ì´ê±¸ í’€ì–´ì¤€ë‹¤.
 
-	CHARLIST *target = CheckServerId( target_id );			// µî±ŞÀ» ¹Ù²Ü Ä³¸¯ÅÍ
+	CHARLIST *target = CheckServerId( target_id );			// ë“±ê¸‰ì„ ë°”ê¿€ ìºë¦­í„°
 	if( !target ) return;
 
-	CHARLIST *ch = CheckServerId( cn );						// ±æµå ¸¶½ºÅÍ
+	CHARLIST *ch = CheckServerId( cn );						// ê¸¸ë“œ ë§ˆìŠ¤í„°
 	if( !ch ) return;
 
-//  °°Àº ±æµå¿©¾ß ÇÑ´Ù. ( ¹°·Ğ °°Àº ³ª¶ó )
-	//if( !ch->GetGuildCode() || ch->name_status.guild_master != 1 ) return;	// ±æµå ¸¶½ºÅÍ¸¸ »ç¿ëÇÒ¼ö ÀÖ´Â ¸í·É¾î´Ù.
+//  ê°™ì€ ê¸¸ë“œì—¬ì•¼ í•œë‹¤. ( ë¬¼ë¡  ê°™ì€ ë‚˜ë¼ )
+	//if( !ch->GetGuildCode() || ch->name_status.guild_master != 1 ) return;	// ê¸¸ë“œ ë§ˆìŠ¤í„°ë§Œ ì‚¬ìš©í• ìˆ˜ ìˆëŠ” ëª…ë ¹ì–´ë‹¤.
 	if( !CheckGuildPower( GDP_CHANGE_DEGREE, ch ) ) return;
 	if( ch->GetGuildCode() != target->GetGuildCode() ) return;
 
-	int each_level_to_real_level[] = { 0, 1, 2, 3, 4, 0 };		// 1ÀÌ ±æ¸¶ 5°¡ ÀÏ¹İ
-	target->name_status.guild_master = each_level_to_real_level[each_level];		// ½ÇÁ¦ °ª ´ëÀÔ
+	int each_level_to_real_level[] = { 0, 1, 2, 3, 4, 0 };		// 1ì´ ê¸¸ë§ˆ 5ê°€ ì¼ë°˜
+	target->name_status.guild_master = each_level_to_real_level[each_level];		// ì‹¤ì œ ê°’ ëŒ€ì…
 
 	int guild_code = target->GetGuildCode();
 	SendSaveGuildMemberList( target->Name, guild_code, guild_code, each_level_to_real_level[each_level] );
 
-	QueuePacket(connections, target_id, p, 1);		// ±× ÀÚ½Å°ú ÁÖº¯ »ç¶÷¿¡°Ô ¸ğµÎ ±× °ªÀ» ±×´ë·Î µ¹·ÁÁØ´Ù.
+	QueuePacket(connections, target_id, p, 1);		// ê·¸ ìì‹ ê³¼ ì£¼ë³€ ì‚¬ëŒì—ê²Œ ëª¨ë‘ ê·¸ ê°’ì„ ê·¸ëŒ€ë¡œ ëŒë ¤ì¤€ë‹¤.
 	CastMe2Other( target_id, p );
 }	//> CSD-030324
 
@@ -6025,7 +6025,7 @@ void SendBbsAll( char *name, int type )
 	g_pServerTable->BroadCastToEveryServer( (char*)&packet, (sizeof(t_header)+packet.h.header.size) );
 }
 
-// ·Î±×ÀÎ¼­¹ö¿¡¼­ ¹Ş¾Æ¼­ °í´ë·Î ¸ğµç »ç¶÷¿¡°Ô »Ñ·ÁÁÙ¶§..
+// ë¡œê·¸ì¸ì„œë²„ì—ì„œ ë°›ì•„ì„œ ê³ ëŒ€ë¡œ ëª¨ë“  ì‚¬ëŒì—ê²Œ ë¿Œë ¤ì¤„ë•Œ..
 void DirectSend(t_packet *p, int type)
 {	//< CSD-CN-031213
 	if (type)
@@ -6057,7 +6057,7 @@ CHARLIST* CheckKingByNation(int nation)
 	return NULL;
 }	//> CSD-CN-031213
 
-// ¿äÃ»¹ŞÀ» ¿Õ¿¡°Ô Á¤º¸¸¦ º¸³½´Ù.
+// ìš”ì²­ë°›ì„ ì™•ì—ê²Œ ì •ë³´ë¥¼ ë³´ë‚¸ë‹¤.
 void RecvReqStopWarGame2ClientSetPacket( short int nation, short int game_id, short int target_cn, short int send_cn )
 {
 	t_packet packet;
@@ -6069,21 +6069,21 @@ void RecvReqStopWarGame2ClientSetPacket( short int nation, short int game_id, sh
 	QueuePacket(connections, target_cn, &packet, 1);
 }
 
-// ÇÑ ¿ÕÀÌ ´Ù¸¥ ¿Õ¿¡°Ô ÈŞÀü ¿äÃ»À» ÇØ¿ÔÀ»¶§
+// í•œ ì™•ì´ ë‹¤ë¥¸ ì™•ì—ê²Œ íœ´ì „ ìš”ì²­ì„ í•´ì™”ì„ë•Œ
 void RecvReqStopWarGame2Login( t_packet *p, short int cn )
 {
 	int nation = p->u.kein.default_char;
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 	
-//	if( ch->name_status.king != 1 ) return;  //coromo 2005/05/06 È¥³ıKINGÌØÈ¨
+//	if( ch->name_status.king != 1 ) return;  //coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 	if( ch->name_status.nation == nation ) return;
 	if( nation < N_VYSEUS || nation > N_YILSE ) return;
 	
-	CHARLIST *target_king = CheckKingByNation( nation );		 // »ó´ëÆí ³ª¶óÀÇ ¿ÕÀÌ ÇöÀç ¸Ê¿¡ ÀÖ´Ù¸é
+	CHARLIST *target_king = CheckKingByNation( nation );		 // ìƒëŒ€í¸ ë‚˜ë¼ì˜ ì™•ì´ í˜„ì¬ ë§µì— ìˆë‹¤ë©´
 	if( target_king )
 	{
-		RecvReqStopWarGame2ClientSetPacket( ch->name_status.nation, DRAGON_PORT, target_king->GetServerID(), cn );		// ¹Ù·Î Á¤º¸¸¦ º¸³»¼­ ÀÇÇâÀ» ¹°¾îº»´Ù.
+		RecvReqStopWarGame2ClientSetPacket( ch->name_status.nation, DRAGON_PORT, target_king->GetServerID(), cn );		// ë°”ë¡œ ì •ë³´ë¥¼ ë³´ë‚´ì„œ ì˜í–¥ì„ ë¬¼ì–´ë³¸ë‹¤.
 	}
 	else
 	{
@@ -6099,7 +6099,7 @@ void RecvReqStopWarGame2Login( t_packet *p, short int cn )
 	}
 }
 
-// ¸Ê¿¡ ¿ÕÀÌ ÀÖ´ÂÁö¸¦ ¾Ë¾ÆºÁ¼­ ÀÖÀ¸¸é ÈŞÀü Çù»óÀ» º¸³½´Ù.
+// ë§µì— ì™•ì´ ìˆëŠ”ì§€ë¥¼ ì•Œì•„ë´ì„œ ìˆìœ¼ë©´ íœ´ì „ í˜‘ìƒì„ ë³´ë‚¸ë‹¤.
 void RecvReqStopWarGame2Client( t_packet *p )
 {
 	int target_nation	= p->u.kein.send_game_server_req_stop_war.target_nation;
@@ -6115,12 +6115,12 @@ void RecvReqStopWarGame2Client( t_packet *p )
 void RecvRepStopWarRefusal( t_packet *p )
 {
 	int game_id = p->u.kein.rep_stop_war_login.game_id;		// gameserver_port;
-	if( game_id == DRAGON_PORT )		// ¿©±â °ÔÀÓ ¼­¹ö¶ó¸é
+	if( game_id == DRAGON_PORT )		// ì—¬ê¸° ê²Œì„ ì„œë²„ë¼ë©´
 	{
 		int server_id = p->u.kein.rep_stop_war_login.server_id;
 		CHARLIST *ch = CheckServerId( server_id );
 		if( !ch ) return;
-		CallClient( ch->GetServerID(), CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT );		// °ÅÀı ´çÇß´Ù´Â °ÍÀ» ¾Ë¸°´Ù.
+		CallClient( ch->GetServerID(), CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT );		// ê±°ì ˆ ë‹¹í–ˆë‹¤ëŠ” ê²ƒì„ ì•Œë¦°ë‹¤.
 	}
 	else {
 		// Modified by chan78 at 2000/12/01 BroadCast It to MapServers.
@@ -6128,12 +6128,12 @@ void RecvRepStopWarRefusal( t_packet *p )
 	}
 }
 
-void RecvRepStopWarAccept( t_packet *p, short int cn )				// ½Â³«Çß´Ù.
+void RecvRepStopWarAccept( t_packet *p, short int cn )				// ìŠ¹ë‚™í–ˆë‹¤.
 {	
-	int send_nation = p->u.kein.default_char;				// Ã³À½¿¡ ÈŞÀüÀ» ¿äÃ»Çß´ø ³ª¶ó
+	int send_nation = p->u.kein.default_char;				// ì²˜ìŒì— íœ´ì „ì„ ìš”ì²­í–ˆë˜ ë‚˜ë¼
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
-	if( ch->name_status.king != 1 ) return;  //coromo 2005/05/06 È¥³ıKINGÌØÈ¨
+	if( ch->name_status.king != 1 ) return;  //coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 	int target_nation = ch->name_status.nation;
 
 	SendNation2NationRelation( target_nation, send_nation, NATION_RELATION_FRIEND_ );
@@ -6147,7 +6147,7 @@ void RecvRepStopWarAccept( t_packet *p, short int cn )				// ½Â³«Çß´Ù.
 	QueuePacket(connections, LOGIN_SERVER_CONNECT, &packet, 1);*/
 }
 
-void RecvRepStopWarGame2Client( t_packet *p )		// ¸ğµÎ¿¡°Ô ÈŞÀüÀÇ »ç½ÇÀ» º¸³»ÁØ´Ù.
+void RecvRepStopWarGame2Client( t_packet *p )		// ëª¨ë‘ì—ê²Œ íœ´ì „ì˜ ì‚¬ì‹¤ì„ ë³´ë‚´ì¤€ë‹¤.
 {	//< CSD-CN-031213
 	const int nation1 = p->u.kein.stop_war_all_msg.send_nation ;
 	const int nation2 = p->u.kein.stop_war_all_msg.target_nation;
@@ -6180,7 +6180,7 @@ void RecvRepStopWarGame2Client( t_packet *p )		// ¸ğµÎ¿¡°Ô ÈŞÀüÀÇ »ç½ÇÀ» º¸³»ÁØ´
 	}
 }	//> CSD-CN-031213
 
-void RecvAndReqSalvation( short int cn )		// DB·Î ±âºÎ±İÀ» ¿äÃ»ÇÑ´Ù.
+void RecvAndReqSalvation( short int cn )		// DBë¡œ ê¸°ë¶€ê¸ˆì„ ìš”ì²­í•œë‹¤.
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -6214,9 +6214,9 @@ void RecvAndSaveSalvation( t_packet *p, short int cn )
 	QueuePacket(connections, DB_DEMON, &packet, 1);
 
 	// 011020 YGI
-	// ±¹°í·Î ÀúÀå.. 
-	SendNationMoney( NM_ADD, ch->name_status.nation, money); // ±¹°í¸¦ º¯È­½ÃÅ²´Ù.
-	// fame Àû¿ë
+	// êµ­ê³ ë¡œ ì €ì¥.. 
+	SendNationMoney( NM_ADD, ch->name_status.nation, money); // êµ­ê³ ë¥¼ ë³€í™”ì‹œí‚¨ë‹¤.
+	// fame ì ìš©
 	char add_fame = g_Money_to_Fame.GetFame( money );
 	g_pLogManager->SaveLogChange_Fame(ch,ch->fame,ch->fame+add_fame,LF_DONATION);
 	ch->fame += add_fame;
@@ -6235,7 +6235,7 @@ void Game2ClinetSalvation( t_packet *p )
 	QueuePacket(connections, cn, &packet, 1);
 }
 
-void RecvDB2MapItem( t_packet *p )	// µğºñ¿¡¼­ ¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁÖ¶ó´Â ¸í·ÉÀÌ ¿À¸é Ã³¸®
+void RecvDB2MapItem( t_packet *p )	// ë””ë¹„ì—ì„œ ì•„ì´í…œì„ ë§Œë“¤ì–´ ì£¼ë¼ëŠ” ëª…ë ¹ì´ ì˜¤ë©´ ì²˜ë¦¬
 {
 	short int item_no = p->u.kein.send_db2map_each_item.item_no;
 	short int server_id = p->u.kein.send_db2map_each_item.server_id;
@@ -6268,12 +6268,12 @@ void RecvChangeMoney( t_packet *p, short int cn )
 		old_money = GetMoneyByItem( ch );
 	}
 
-	if( money > old_money ) return;		// µ· µµ ¾ø´Â ³ğÀÌ ³Ê¹« ¸¹ÀÌ ¹Ù²Û´Ù.
+	if( money > old_money ) return;		// ëˆ ë„ ì—†ëŠ” ë†ˆì´ ë„ˆë¬´ ë§ì´ ë°”ê¾¼ë‹¤.
 	
 	DWORD new_money = money * 1;//020730 lsw
 	if( new_money )
 	{
-		if(::GiveMoney(ch,new_money))//Áö±Ş µÇ¾ú´Â°¡
+		if(::GiveMoney(ch,new_money))//ì§€ê¸‰ ë˜ì—ˆëŠ”ê°€
 		{
 			SubtractOldMoney( money, ch );
 			t_packet packet;
@@ -6318,7 +6318,7 @@ void RecvPayRumor( short int cn )
 		return ;
 	}
 
-	t_packet packet;			// DB·Î ¿äÃ»
+	t_packet packet;			// DBë¡œ ìš”ì²­
 	packet.h.header.type = CMD_PAY_RUMOR;
 		packet.u.kein.default_dword = cn;
 	packet.h.header.size = sizeof( DWORD );
@@ -6332,7 +6332,7 @@ void RecvAndSendRumor( t_packet *p )
 	int cn = p->u.kein.login_check_chocolate.server_id;
 
 
-	t_packet packet;			// DB·Î ¿äÃ»
+	t_packet packet;			// DBë¡œ ìš”ì²­
 	packet.h.header.type = CMD_PAY_RUMOR_OK;
 		strcpy( packet.u.kein.check_chocolate.name, name) ;
 		packet.u.kein.check_chocolate.count = count;
@@ -6360,7 +6360,7 @@ void MovePc( short int cn, int x, int y)
 
 	t_server_magic_position	smp;
 
-	//Å¬¶óÀÌ¾ğÆ®·Î º¸³¾ ÆĞÅ¶ ¼ÂÆÃ
+	//í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¼ íŒ¨í‚· ì…‹íŒ…
 	smp.nType =	PT_TELEPORT;
 	smp.idTarget = WORD(cn);
 	smp.nX =	x;
@@ -6374,7 +6374,7 @@ void SendOpenSChoolData( int cn, int item_no, int npc_id )
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 	
-	t_packet packet;			// DB·Î ¿äÃ»
+	t_packet packet;			// DBë¡œ ìš”ì²­
 	packet.h.header.type = CMD_OPENSCHOOL_DATA;
 		strcpy( packet.u.kein.openschool_data.name, ch->Name);
 		packet.u.kein.openschool_data.item_no = item_no;
@@ -6395,7 +6395,7 @@ void RecvOpenSchoolResult( t_packet *p )
 	CHARLIST *ch = CheckServerId( server_id );
 	if( !ch ) return;
 
-	if( no == -1 ) // ´Ù½Ã ¸¸µé¾î ÁØ´Ù.
+	if( no == -1 ) // ë‹¤ì‹œ ë§Œë“¤ì–´ ì¤€ë‹¤.
 	{
 		POS pos;
 		int a, b, c;
@@ -6439,16 +6439,16 @@ void RecvGuildExitGlobalFromDB( t_packet *p )
 	char *name = p->u.kein.default_name;
 	int cn = ExistHe( name );
 	CHARLIST *ch = CheckServerId( cn );
-	if( !ch ) return;		// ±×·±³ğ ¾ø´Ù.
+	if( !ch ) return;		// ê·¸ëŸ°ë†ˆ ì—†ë‹¤.
 
 	g_pGuildManager->DelMember(ch->GetGuildCode(), cn);
 
 	ch->SetGuildCode(0); // CSD-030806
 	ch->name_status.guild_master = 0;
 
-	CallClient( cn, CMD_GUILD_EXIT_YOU );			// Å»Åğ´çÇÑ³ğÇÑÅ×
+	CallClient( cn, CMD_GUILD_EXIT_YOU );			// íƒˆí‡´ë‹¹í•œë†ˆí•œí…Œ
 
-	t_packet packet;								// ÁÖº¯»ç¶÷¿¡°Ô
+	t_packet packet;								// ì£¼ë³€ì‚¬ëŒì—ê²Œ
 	packet.h.header.type = CMD_GUILD_EXIT_WHO;
 		packet.u.kein.default_short_int = cn;
 		packet.h.header.size = sizeof( short int );
@@ -6476,11 +6476,11 @@ void RecvReqLoan( t_packet *p, short int cn )
 		return;
 	}
 
-	DWORD loan_money = p->u.kein.default_dword;			//	¿äÃ»ÇÑ ±İ¾×
+	DWORD loan_money = p->u.kein.default_dword;			//	ìš”ì²­í•œ ê¸ˆì•¡
 	const int nLevel = ch->GetLevel();
 
 	if ((loan_money + ch->LastLoan) > NPC_Lev_Ref[nLevel].bank_loan)
-	{	// ¿ä±¸ ±İ¾×ÀÌ ³Ê¹« Å©´Ù.
+	{	// ìš”êµ¬ ê¸ˆì•¡ì´ ë„ˆë¬´ í¬ë‹¤.
 		return;	
 	}
 
@@ -6526,7 +6526,7 @@ void RecvRepayment( t_packet *p, short int cn )
 }
 
 static int bbs_money[2][2] = { {100, 1000}, {1500, 15000} };
-void RecvMerchantBBS( t_packet *p, short int cn ) // Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹ŞÀº°É ÀÌ¸§À» ³Ö¾î¼­ ÇöÀç ¸Ê ¸ğµÎ¿¡°Ô »Ñ·ÁÁØ´Ù.
+void RecvMerchantBBS( t_packet *p, short int cn ) // í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë°›ì€ê±¸ ì´ë¦„ì„ ë„£ì–´ì„œ í˜„ì¬ ë§µ ëª¨ë‘ì—ê²Œ ë¿Œë ¤ì¤€ë‹¤.
 {	//< CSD-CN-031213
 	CHARLIST* ch = CheckServerId(cn);
 	
@@ -6550,7 +6550,7 @@ void RecvMerchantBBS( t_packet *p, short int cn ) // Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹ŞÀº°É ÀÌ¸§À
 	g_pUserManager->SendPacket(&packet);
 }	//> CSD-CN-031213
 
-void RecvMerchantBBSAllMap( t_packet *p, short int cn )		// Å¬¶óÀÌ¾ğÆ®·Î ¹Ş¾Æ¼­ Å¸ÀÔ°ú ÀÌ¸§À» ³Ö°í ¸ğµç ¼­¹ö·Î »Ñ·ÁÁØ´Ù.
+void RecvMerchantBBSAllMap( t_packet *p, short int cn )		// í´ë¼ì´ì–¸íŠ¸ë¡œ ë°›ì•„ì„œ íƒ€ì…ê³¼ ì´ë¦„ì„ ë„£ê³  ëª¨ë“  ì„œë²„ë¡œ ë¿Œë ¤ì¤€ë‹¤.
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -6576,7 +6576,7 @@ void RecvMerchantBBSAllMap( t_packet *p, short int cn )		// Å¬¶óÀÌ¾ğÆ®·Î ¹Ş¾Æ¼­ 
 	g_pUserManager->SendPacket(&packet); // CSD-031213
 }
 
-void RecvMerchantItemBBS( t_packet *p, short int cn )		// ¾ÆÀÌÅÛ °øÁö
+void RecvMerchantItemBBS( t_packet *p, short int cn )		// ì•„ì´í…œ ê³µì§€
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if(!ch ) return;
@@ -6619,11 +6619,11 @@ void RecvMerchantItemBBSAllMap( t_packet *p, short int cn )
 	packet.h.header.size = sizeof( k_recv_merchant_item_bbs )-20+sizeof(ch->Name);
 
 	SendNationPacket( &packet, nation );	
-	packet.h.header.type = CMD_MERCHANT_ITEM_BBS;		// ÀÚ±â ³ª¶ó
+	packet.h.header.type = CMD_MERCHANT_ITEM_BBS;		// ìê¸° ë‚˜ë¼
 	g_pUserManager->SendPacket(&packet); // CSD-CN-031213
 }
 
-inline void SendNationPacket( t_packet *p, int nation )		// °°Àº ³ª¶óÀÇ ¸Ê¼­¹ö¿¡°Ô ¸ğµÎ º¸³½´Ù.
+inline void SendNationPacket( t_packet *p, int nation )		// ê°™ì€ ë‚˜ë¼ì˜ ë§µì„œë²„ì—ê²Œ ëª¨ë‘ ë³´ë‚¸ë‹¤.
 {
 	for( int i = 0 ;  i< MAX_MAP_ ; i ++ )
 	{
@@ -6642,11 +6642,11 @@ void RecvPartyAllFree( short int cn )
 	for( int i=0; i<6; i++ )
 	{
 		data.ct = i;
-		RecvDeleteParty( &data, connections, cn );		// ¸ğµÎ ÇØÁ¦ ½ÃÅ²´Ù.
+		RecvDeleteParty( &data, connections, cn );		// ëª¨ë‘ í•´ì œ ì‹œí‚¨ë‹¤.
 	}
 }
 
-void InitJoinGameWho(CHARLIST *ch)	// ´©±º°¡ ÀÌ ¸ÊÀ¸·Î µé¾î¿Ô´Ù.		// 010410 YGI
+void InitJoinGameWho(CHARLIST *ch)	// ëˆ„êµ°ê°€ ì´ ë§µìœ¼ë¡œ ë“¤ì–´ì™”ë‹¤.		// 010410 YGI
 {	//< CSD-HK-030829
 	const WORD idUser = ch->GetServerID();
 	g_pUserManager->AddMember(idUser);
@@ -6673,17 +6673,17 @@ int CAliveMapZoneAll::CheckAlive( int ch_x, int ch_y, int map_number, int word_t
 	{
 		if( m_Map[i].map_number != map_number ) continue;		
 		if( m_Map[i].is_all ) return 100;
-		if( ! TileMap[ch_x][ch_y].attr_inside ) // ³»ºÎ ¼Ó¼ºÀÌ ÀÖ´Â °÷ÀÌ ¾Æ´Ï¶ó¸é
+		if( ! TileMap[ch_x][ch_y].attr_inside ) // ë‚´ë¶€ ì†ì„±ì´ ìˆëŠ” ê³³ì´ ì•„ë‹ˆë¼ë©´
 			continue;
 
 		if( BoxAndDotCrash( m_Map[i].x,m_Map[i].y, m_Map[i].xl, m_Map[i].yl, ch_x, ch_y ) )
 		{
 			if( !m_Map[i].alive_word_type || word_type == m_Map[i].alive_word_type ) return 100; // 010612 YGI
-			else return m_Map[i].alive_word_type;	// »ì¾Æ³ª´Â °÷ÀÌ±ä ÇÏÁö¸¸ »ì¾Æ ÁÖ¹®ÀÌ Æ²·Ç´Ù. ±×·³ ÁÖ¹®À» °¡¸£ÃÄ ÁØ´Ù.
+			else return m_Map[i].alive_word_type;	// ì‚´ì•„ë‚˜ëŠ” ê³³ì´ê¸´ í•˜ì§€ë§Œ ì‚´ì•„ ì£¼ë¬¸ì´ í‹€ë ·ë‹¤. ê·¸ëŸ¼ ì£¼ë¬¸ì„ ê°€ë¥´ì³ ì¤€ë‹¤.
 		}
 	}
 
-	return -1;		// ÇØ´çÇÏ´Â °÷ÀÌ ¾Æ´Ï´Ù.
+	return -1;		// í•´ë‹¹í•˜ëŠ” ê³³ì´ ì•„ë‹ˆë‹¤.
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -6735,7 +6735,7 @@ void RecvDirectClient( t_packet *p )
 #define CMD_CHECK_SALVATION_NAME			10388
 void RecvDirectDB( t_packet *p, short int cn )
 {
-	//k_send_db_direct_map ±¸Á¶Ã¼¿Í k_send_db_direct_client ±¸Á¶Ã¼ÀÇ ÇüÅÂ°¡ ¶È°°±â ¶§¹®¿¡ 
+	//k_send_db_direct_map êµ¬ì¡°ì²´ì™€ k_send_db_direct_client êµ¬ì¡°ì²´ì˜ í˜•íƒœê°€ ë˜‘ê°™ê¸° ë•Œë¬¸ì— 
 
 	int type = p->u.kein.send_db_direct_client.type;
 	p->h.header.type = type;
@@ -6800,7 +6800,7 @@ void RecvDirectDB( t_packet *p, short int cn )
 			MyLog( 0, "Try change guild mark!! Name[%s], guild_code[%d], guild_degree[%d], target_guild[%d]", 
 				ch->Name, ch->GetGuildCode(), ch->name_status.guild_master, pGuildData->guild_code );
 			
-			break;		// LTH-040406-KO ¸¸¾àÀ» À§ÇØ ³Ö¾ú´Ù. ¹Ø¿¡ ¶Ç Ãß°¡µÇ¾úÀ»¶§ ºü¶ß¸±±î¹Ù...
+			break;		// LTH-040406-KO ë§Œì•½ì„ ìœ„í•´ ë„£ì—ˆë‹¤. ë°‘ì— ë˜ ì¶”ê°€ë˜ì—ˆì„ë•Œ ë¹ ëœ¨ë¦´ê¹Œë°”...
 
 		}//> 040331-YGI
 
@@ -6821,7 +6821,7 @@ void RecvReqVisa( t_packet *p, short int cn )
 		case N_VYSEUS	:	new_nation_code = 0; break;
 		case N_ZYPERN	:	new_nation_code = 1; break;
 		case N_YILSE	:	new_nation_code = 2; break;
-		default : return;		// ¾ÆÁ÷ Áö¿ø ¾ÈµÇ´Â ³ª¶ó
+		default : return;		// ì•„ì§ ì§€ì› ì•ˆë˜ëŠ” ë‚˜ë¼
 	}
 
 	int visa_item[] = { NationInfo[nation].visa_va, NationInfo[nation].visa_zy, NationInfo[nation].visa_ill};
@@ -6860,7 +6860,7 @@ void RecvBuyVisa( t_packet *p, short int cn )
 	int visa_pri_item[] = { NationInfo[nation].visa_pri_va, NationInfo[nation].visa_pri_zy, NationInfo[nation].visa_pri_ill, 
 							NationInfo[nation].visa_mer_pri_va, NationInfo[nation].visa_mer_pri_zy, NationInfo[nation].visa_mer_pri_ill, };
 
-	static int of_nation[] = { N_VYSEUS, N_ZYPERN, N_YILSE, N_VYSEUS, N_ZYPERN, N_YILSE };		// ºñÀÚÀÇ ¿ø·¡ ±¹°¡
+	static int of_nation[] = { N_VYSEUS, N_ZYPERN, N_YILSE, N_VYSEUS, N_ZYPERN, N_YILSE };		// ë¹„ìì˜ ì›ë˜ êµ­ê°€
 
 	for( int i=0; i<6; i++ )
 	{
@@ -6871,8 +6871,8 @@ void RecvBuyVisa( t_packet *p, short int cn )
 			{
 				ItemAttr item = GenerateItem( visa_item[i] );
 				SendServerEachItemAuto( ch, &item );
-				// ´ã´ç ³ª¶ó ±¹°í¿¡ ++ ½ÃÅ²´Ù.
-				SendNationMoney( NM_ADD, of_nation[i], visa_pri_item[i] );		// ±¹°í¸¦ º¯È­½ÃÅ²´Ù.
+				// ë‹´ë‹¹ ë‚˜ë¼ êµ­ê³ ì— ++ ì‹œí‚¨ë‹¤.
+				SendNationMoney( NM_ADD, of_nation[i], visa_pri_item[i] );		// êµ­ê³ ë¥¼ ë³€í™”ì‹œí‚¨ë‹¤.
 				CallClient( cn, CMD_BUY_VISA_OK );
 			}
 			else
@@ -6884,7 +6884,7 @@ void RecvBuyVisa( t_packet *p, short int cn )
 	}
 }
 
-void RecvExitGuildHimSelf( short int cn )		// ½º½º·Î ±æµå Å»Åğ ¸í·É¾î		// 010613 YGI
+void RecvExitGuildHimSelf( short int cn )		// ìŠ¤ìŠ¤ë¡œ ê¸¸ë“œ íƒˆí‡´ ëª…ë ¹ì–´		// 010613 YGI
 {	//< CSD-030326
 	CHARLIST *ch = CheckServerId( cn );
 	
@@ -6902,9 +6902,9 @@ void RecvExitGuildHimSelf( short int cn )		// ½º½º·Î ±æµå Å»Åğ ¸í·É¾î		// 010613
 
 	if (ch->name_status.guild_master == 1) 
 	{
-		return;	// ±æ¸¶ÀÏ °æ¿ì
+		return;	// ê¸¸ë§ˆì¼ ê²½ìš°
 	}
-	// ±æµå¸¦ Å»Åğ ½ÃÅ²´Ù.
+	// ê¸¸ë“œë¥¼ íƒˆí‡´ ì‹œí‚¨ë‹¤.
 	ch->SetGuildCode(0); // CSD-030806 
 
 	t_packet packet;
@@ -6912,10 +6912,10 @@ void RecvExitGuildHimSelf( short int cn )		// ½º½º·Î ±æµå Å»Åğ ¸í·É¾î		// 010613
 	packet.u.kein.default_short_int = cn;
 	packet.h.header.size = sizeof(short int);
 	QueuePacket(connections, cn, &packet, 1);	
-	CastMe2Other(cn, &packet);		// ¸Ş½ÃÁö¸¦ ³¯¸°´Ù.
-	// ±æµå ¸â¹ö ¸®½ºÆ® Å×ÀÌºí¿¡¼­ »èÁ¦
+	CastMe2Other(cn, &packet);		// ë©”ì‹œì§€ë¥¼ ë‚ ë¦°ë‹¤.
+	// ê¸¸ë“œ ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ í…Œì´ë¸”ì—ì„œ ì‚­ì œ
 	SendSaveGuildMemberList(ch->Name, nGuildCode, 0, 0); 
-	// guild_list ¿¡¼­ »èÁ¦ÇÑ´Ù.
+	// guild_list ì—ì„œ ì‚­ì œí•œë‹¤.
 	g_pGuildManager->DelMember(nGuildCode, cn);
 }	//> CSD-030326
 
@@ -6931,7 +6931,7 @@ int GetItemMuchByMuchItem( CHARLIST *ch, int item_no )
 }
 
 void RecvReqistGuild( t_packet *p, short int cn )
-{	//< CSD-030326 : Á¤½Ä ±æµå µî·Ï
+{	//< CSD-030326 : ì •ì‹ ê¸¸ë“œ ë“±ë¡
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
@@ -6939,7 +6939,7 @@ void RecvReqistGuild( t_packet *p, short int cn )
 
 	if (nGuildCode <= 0) 
 	{
-		return;	// ¸ÕÀú ÀÓ½Ã ±æµå¿¡ µî·ÏÇØ¾ß ÇÑ´Ù.
+		return;	// ë¨¼ì € ì„ì‹œ ê¸¸ë“œì— ë“±ë¡í•´ì•¼ í•œë‹¤.
 	}
 	
 	CGuildInfo* pGuild = g_pGuildManager->GetGuildInfo(nGuildCode);
@@ -6951,18 +6951,18 @@ void RecvReqistGuild( t_packet *p, short int cn )
 
 	if (pGuild->first != 1)
 	{
-		return;		// ÀÓ½Ã ±æµå°¡ ¾Æ´Ï´Ù.
+		return;		// ì„ì‹œ ê¸¸ë“œê°€ ì•„ë‹ˆë‹¤.
 	}
 
-	if( ch->name_status.guild_master != 1 ) return;		// ±æ¸¶°¡ ¾Æ´Ï´Ù.
+	if( ch->name_status.guild_master != 1 ) return;		// ê¸¸ë§ˆê°€ ì•„ë‹ˆë‹¤.
 	//acer7
 	if (GetItemMuchByMuchItem( ch, IN_RED_SIGNET ) < SIZE_GR_RS) 
 	{
-		return;		// ½Ã±×³İÀÌ ºÎÁ·ÇÏ´Ù.
+		return;		// ì‹œê·¸ë„·ì´ ë¶€ì¡±í•˜ë‹¤.
 	}
-	// ¾ÆÀÌÅÛÀ» Áö¿î´Ù. ¸¸µéÁö ¸øÇÏ¸é ³¯¾Æ°¡¹ö¸®´Â ¼ö°¡ ÀÕ´Ù. --> º¹±¸
+	// ì•„ì´í…œì„ ì§€ìš´ë‹¤. ë§Œë“¤ì§€ ëª»í•˜ë©´ ë‚ ì•„ê°€ë²„ë¦¬ëŠ” ìˆ˜ê°€ ì‡ë‹¤. --> ë³µêµ¬
 	SendDeleteMuchItemQuantity(ch, IN_RED_SIGNET, SIZE_GR_RS);
-	p->u.kein.default_short_int = ch->GetGuildCode();		// ±æµå ÄÚµå ÇØÅ·À» ¸·±â À§ÇØ..
+	p->u.kein.default_short_int = ch->GetGuildCode();		// ê¸¸ë“œ ì½”ë“œ í•´í‚¹ì„ ë§‰ê¸° ìœ„í•´..
 
 	t_packet packet;
 	packet.h.header.type = CMD_REGIST_GUILD;
@@ -6976,9 +6976,9 @@ void RecvReqistGuildImsi( t_packet *p, short int cn )
 {	//< CSD-030326
 	CHARLIST *ch = CheckServerId( cn );
 	if (!ch) return;
-	if (ch->GetGuildCode()) return; // ÀÌ¹Ì ±æµå°¡ ÀÖ´Ù.
+	if (ch->GetGuildCode()) return; // ì´ë¯¸ ê¸¸ë“œê°€ ìˆë‹¤.
 	if (ch->GetLevel() < BUILD_GUILD_LEVEL) return; // CSD-030806
-	if (GetItemMuchByMuchItem(ch, IN_BLUE_SIGNET ) < SIZE_GR_BS) return;		// ½Ã±×³İÀÌ ºÎÁ·ÇÏ´Ù.
+	if (GetItemMuchByMuchItem(ch, IN_BLUE_SIGNET ) < SIZE_GR_BS) return;		// ì‹œê·¸ë„·ì´ ë¶€ì¡±í•˜ë‹¤.
 
 	t_packet packet;
 	packet.h.header.type = CMD_REGIST_GUILD_IMSI;
@@ -6992,7 +6992,7 @@ void RecvReqistGuildImsi( t_packet *p, short int cn )
 	QueuePacket( connections, DB_DEMON, &packet,1 );	
 }	//> CSD-030326
 
-void RecvReqistGuildImsiOk( t_packet *p )	// µğºñ¿¡¼­ ÀÓ½Ã ±æµåµî·ÏÀÌ ¼º°øÇß´Ù°í ³¯¾Æ¿Ô´Ù.
+void RecvReqistGuildImsiOk( t_packet *p )	// ë””ë¹„ì—ì„œ ì„ì‹œ ê¸¸ë“œë“±ë¡ì´ ì„±ê³µí–ˆë‹¤ê³  ë‚ ì•„ì™”ë‹¤.
 {	//< CSD-030326
 	const int server_id = p->u.kein.regist_guild_imsi_ok.server_id;
 	const int nGuildCode = p->u.kein.regist_guild_imsi_ok.guild_code;
@@ -7008,12 +7008,12 @@ void RecvReqistGuildImsiOk( t_packet *p )	// µğºñ¿¡¼­ ÀÓ½Ã ±æµåµî·ÏÀÌ ¼º°øÇß´Ù°í
 	{
 		return;
 	}
-	// ±æµå µî·Ï
+	// ê¸¸ë“œ ë“±ë¡
 	ch->SetGuildCode(nGuildCode); // CSD-030806
-	// ±æ¸¶ µî·Ï
+	// ê¸¸ë§ˆ ë“±ë¡
 	ch->name_status.guild_master = 1; 
 	g_pGuildManager->AddMember(nGuildCode, server_id);
-	// ¾ÆÀÌÅÛÀ» Áö¿î´Ù. 
+	// ì•„ì´í…œì„ ì§€ìš´ë‹¤. 
 	SendDeleteMuchItemQuantity(ch, IN_BLUE_SIGNET, SIZE_GR_BS);
 	
 	CGuildInfo* pGuild = g_pGuildManager->GetGuildInfo(nGuildCode);
@@ -7023,7 +7023,7 @@ void RecvReqistGuildImsiOk( t_packet *p )	// µğºñ¿¡¼­ ÀÓ½Ã ±æµåµî·ÏÀÌ ¼º°øÇß´Ù°í
 		return;
 	}
 	
-	// ±æ¸¶ µî·Ï¿¡ °üÇÑ Å¬¶óÀÌ¾ğÆ® ÆĞÅ¶ Àü¼Û
+	// ê¸¸ë§ˆ ë“±ë¡ì— ê´€í•œ í´ë¼ì´ì–¸íŠ¸ íŒ¨í‚· ì „ì†¡
 	t_packet packet;
 	packet.h.header.type = CMD_REGIST_GUILD_IMSI_OK;
 	packet.u.kein.send_regist_imsi_guild_info.server_id = server_id;
@@ -7035,14 +7035,14 @@ void RecvReqistGuildImsiOk( t_packet *p )	// µğºñ¿¡¼­ ÀÓ½Ã ±æµåµî·ÏÀÌ ¼º°øÇß´Ù°í
 	CastMe2Other(server_id, &packet);
 }	//> CSD-030326
 
-void RecvSetGuildInfo(t_packet* p)	// µğºñ¿¡¼­ ³¯¾Æ¿Â ¹Ù²ï Á¤º¸¸¦ ¼ÂÆÃÇÑ´Ù.
+void RecvSetGuildInfo(t_packet* p)	// ë””ë¹„ì—ì„œ ë‚ ì•„ì˜¨ ë°”ë€ ì •ë³´ë¥¼ ì…‹íŒ…í•œë‹¤.
 {	//< CSD-030326
 	k_set_guild_info *guild_info = &p->u.kein.set_guild_info;
 	
 	const int nGuildCode = guild_info->guild_code;
 
 	if (g_pGuildManager->IsExist(nGuildCode))
-	{	// Á¸ÀçÇÏ´Â ±æµå¶ó¸é
+	{	// ì¡´ì¬í•˜ëŠ” ê¸¸ë“œë¼ë©´
 		CGuildInfo* pGuild = g_pGuildManager->GetGuildInfo(nGuildCode);
 		pGuild->on = 1;
 		pGuild->first = guild_info->first;
@@ -7095,9 +7095,9 @@ bool ExitGuild(CHARLIST* ch)
 	{
 		return false;
 	}
-	// ±æµå ¸â¹ö ¸®½ºÆ®¿¡¼­ »èÁ¦
+	// ê¸¸ë“œ ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œ
 	g_pGuildManager->DelMember(nGuildCode, ch->GetServerID());
-	// ±æµå ¸â¹ö ¸®½ºÆ® Å×ÀÌºí¿¡¼­ »èÁ¦
+	// ê¸¸ë“œ ë©¤ë²„ ë¦¬ìŠ¤íŠ¸ í…Œì´ë¸”ì—ì„œ ì‚­ì œ
 	SendSaveGuildMemberList(ch->Name, nGuildCode, 0, 0);
 	ch->SetGuildCode(0); // CSD-030806
 	return true;
@@ -7121,11 +7121,11 @@ void RecvGuildInfo( t_packet *p, short int cn )
 	const int info_num = p->u.kein.req_guild_info1.info_num;
 	const int first = p->u.kein.req_guild_info1.first;
 
-	// ºñ±³ÇØ¼­ º¸³»ÁÙ ÇÊ¿ä°¡ ÀÖÀ¸¸é º¸³»ÁØ´Ù.
+	// ë¹„êµí•´ì„œ ë³´ë‚´ì¤„ í•„ìš”ê°€ ìˆìœ¼ë©´ ë³´ë‚´ì¤€ë‹¤.
 	int is_new = 0;
 
-	if (!pGuild->active)	// »èÁ¦µÈ ±æµåÀÌ´Ù.
-	{	// »èÁ¦µÈ ±æµå´Ù
+	if (!pGuild->active)	// ì‚­ì œëœ ê¸¸ë“œì´ë‹¤.
+	{	// ì‚­ì œëœ ê¸¸ë“œë‹¤
 		if( ch->GetGuildCode() == guild_code )
 		{	
 			if (ExitGuild(ch))
@@ -7135,18 +7135,18 @@ void RecvGuildInfo( t_packet *p, short int cn )
 		}
 		return;
 	}
-	// »õ·Î ¹Ù²ï ±æµåÀÌ´Ù.
+	// ìƒˆë¡œ ë°”ë€ ê¸¸ë“œì´ë‹¤.
 	if (make != pGuild->make || pGuild->first != first)	
 	{
 		SendGuildName(guild_code, cn);
 		is_new = 1;
 	}
-	// ¿¹ºñ±æµå´Â ´õÀÌ»ó Á¤º¸¸¦ º¸³»ÁÖÁö ¾Ê´Â´Ù.
+	// ì˜ˆë¹„ê¸¸ë“œëŠ” ë”ì´ìƒ ì •ë³´ë¥¼ ë³´ë‚´ì£¼ì§€ ì•ŠëŠ”ë‹¤.
 	if (pGuild->first) 
 	{
 		return;						
 	}
-	// ÀÌ¹ÌÁö°¡ ¾÷µ¥ÀÌÆ®°¡ µÈÀûÀÌ ÀÖ´Ù.
+	// ì´ë¯¸ì§€ê°€ ì—…ë°ì´íŠ¸ê°€ ëœì ì´ ìˆë‹¤.
 	if (is_new || mark_num != pGuild->mark_num)	
 	{
 		t_packet packet;
@@ -7156,9 +7156,9 @@ void RecvGuildInfo( t_packet *p, short int cn )
 		packet.h.header.size = sizeof( k_regist_guild_imsi_ok );
 		QueuePacket( connections, DB_DEMON, &packet,1 );	
 	}
-	// ±æµåÀÇ Á¤º¸°¡ ¹Ù²ï°Å´Ù.
+	// ê¸¸ë“œì˜ ì •ë³´ê°€ ë°”ë€ê±°ë‹¤.
 	if (is_new || info_num != pGuild->info_num)
-	{	// ¸Ê¼­¹ö¿¡ º¸³»ÁØ´Ù.
+	{	// ë§µì„œë²„ì— ë³´ë‚´ì¤€ë‹¤.
 		t_packet packet;
 		packet.h.header.type = CMD_GUILD_DEGREE_INFO;
 		packet.u.kein.guild_degree_info.guild_code = guild_code;
@@ -7204,12 +7204,12 @@ void RecvGuildNumberInfo( t_packet *p )
 	
 	switch (type)
 	{
-	case 0:		// ÀÌ¹ÌÁö ¹øÈ£°¡ ¹Ù²¼´Ù.
+	case 0:		// ì´ë¯¸ì§€ ë²ˆí˜¸ê°€ ë°”ê¼ˆë‹¤.
 		{
 			pGuild->mark_num = number;
 			break;
 		}
-	case 1:		// ¸ŞÀÌÅ© ¹øÈ£°¡ ¹Ù²¼´Ù.
+	case 1:		// ë©”ì´í¬ ë²ˆí˜¸ê°€ ë°”ê¼ˆë‹¤.
 		{
 			
 			pGuild->make = number;
@@ -7237,7 +7237,7 @@ void RecvGuildDegreeInfo2( t_packet *p )
 
 	const int info_num = p->u.kein.guild_degree_info.info_num;
 	pGuild->info_num = info_num;
-	// ¸ğµç ±æµå¿ø¿¡°Ô »õ·Î¿î Á¤º¸¸¦ º¸³»ÁØ´Ù.
+	// ëª¨ë“  ê¸¸ë“œì›ì—ê²Œ ìƒˆë¡œìš´ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 	t_packet packet;
 	packet.h.header.type = CMD_REFRESH_GUILD_CODE;
 	packet.h.header.size = sizeof(short int);
@@ -7258,9 +7258,9 @@ void RecvGuildDegreeInfo( t_packet *p )
 	memcpy(pGuild->guild_degree, p->u.kein.guild_degree_info.guild_degree, sizeof(char)*5*20);
 	const int info_num = p->u.kein.guild_degree_info.info_num;	
 	pGuild->info_num = info_num;
-	pGuild->first = 0;	// ÀÓ½Ã±æµå°¡ ¾Æ´Ï´Ù.
+	pGuild->first = 0;	// ì„ì‹œê¸¸ë“œê°€ ì•„ë‹ˆë‹¤.
 	
-	// ¸ğµç ±æµå¿ø¿¡°Ô »õ·Î¿î Á¤º¸¸¦ º¸³»ÁØ´Ù.
+	// ëª¨ë“  ê¸¸ë“œì›ì—ê²Œ ìƒˆë¡œìš´ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
 	t_packet packet;
 	packet.h.header.type = CMD_REGIST_GUILD_OK;
 	packet.h.header.size = sizeof( k_guild_instroduction_basic );
@@ -7399,7 +7399,7 @@ void RecvGuildChat( t_packet *p, short int cn )
 }	//> CSD-030324
 
 ////////////////////////////////////////////////////////////////////////////////////
-// ¾îºô ÀçºĞ¹è ·çÆ¾
+// ì–´ë¹Œ ì¬ë¶„ë°° ë£¨í‹´
 
 extern inline int GetTotalAbility(LPCHARLIST ch);
 inline int GetTotalAbility( LPCHARLIST ch )
@@ -7516,7 +7516,7 @@ void RecvDeleteGuild( t_packet *p, short int cn )
 	QueuePacket(connections, DB_DEMON, &packet, 1);
 }	//> CSD-030324
 
-// ±æµå°¡ »èÁ¦ µÆ´Ù´Â °ÍÀ» ¸ğµç À¯Àú¿¡°Ô ¾Ë·Á ÁØ´Ù.
+// ê¸¸ë“œê°€ ì‚­ì œ ëë‹¤ëŠ” ê²ƒì„ ëª¨ë“  ìœ ì €ì—ê²Œ ì•Œë ¤ ì¤€ë‹¤.
 void RecvDeleteGuildOk( t_packet *p )
 {	//< CSD-CN-031213
 	const int nGuildCode = p->u.kein.default_short_int;
@@ -7540,7 +7540,7 @@ void RecvGetGhostQuestInfo( short int cn )
 }
 
 //////////////////////////////////////////////////////////////
-// °×ºí
+// ê²œë¸”
 int CGambleRateData::LoadData()
 {
 	char file[MAX_PATH];
@@ -7580,7 +7580,7 @@ int CGambleRateData::SaveData()
 /////////////////////////////////////////////////
 
 
-int GetLevelBand( int lv, int map_count, int rune )		// ÀÚ½ÅÀÇ ·¹º§°ú ±× ¸Ê¿¡ Á¢¼ÓÇÑ ¼ö¿¡ µû¸¥ µî±Ş °áÁ¤
+int GetLevelBand( int lv, int map_count, int rune )		// ìì‹ ì˜ ë ˆë²¨ê³¼ ê·¸ ë§µì— ì ‘ì†í•œ ìˆ˜ì— ë”°ë¥¸ ë“±ê¸‰ ê²°ì •
 {
 	int para = (lv-1)/10;
 	if( para > 9 ) para = 9;
@@ -7603,11 +7603,11 @@ int GetLevelBand( int lv, int map_count, int rune )		// ÀÚ½ÅÀÇ ·¹º§°ú ±× ¸Ê¿¡ Á¢
 	return basic;
 }
 
-// 1Â÷¿ø ¹è¿­À» ³Ñ±â°í ±× ÇÑ°è¸¦ ³Ñ°Ü ÁÖ¸é °ªÀ» ºñ±³ÇÏ¿© ±× °ªÀ» ³ÑÁö ¾Ê´Â °¡Àå ÃÖ´ë
-// ÀÇ Ã·ÀÚ °ªÀ» ¹İÈ¯ÇÑ´Ù.
+// 1ì°¨ì› ë°°ì—´ì„ ë„˜ê¸°ê³  ê·¸ í•œê³„ë¥¼ ë„˜ê²¨ ì£¼ë©´ ê°’ì„ ë¹„êµí•˜ì—¬ ê·¸ ê°’ì„ ë„˜ì§€ ì•ŠëŠ” ê°€ì¥ ìµœëŒ€
+// ì˜ ì²¨ì ê°’ì„ ë°˜í™˜í•œë‹¤.
 inline int ChoiceParam( int *arg, int arg_count, int cmp_value )
 {
-	int count = 0;		// ´©Àû º¯¼ö
+	int count = 0;		// ëˆ„ì  ë³€ìˆ˜
 	for( int i=0; i<arg_count; i++ )
 	{
 		count += arg[i];
@@ -7623,17 +7623,17 @@ void ProcGambleItem( int house_type, CHARLIST *ch )
 
 	//int house_max = sizeof(choice_house) / sizeof(int) * 5;
 
-	// 1. house_type ¿¡ µû¸¥ ¹æ¼±ÅÃ
+	// 1. house_type ì— ë”°ë¥¸ ë°©ì„ íƒ
 	int house_rand = rand()%1000;
 	int house = ChoiceParam( g_game_rate_data.choice_house[house_type], 5, house_rand );
 
-	// 2. ·¹º§°ú Á¢¼Ó ¼ö¿¡ µû¸¥ ³ôÀº ¼±ÅÃÀ²À» °¡¸®Å°´Â band¼±ÅÃ
+	// 2. ë ˆë²¨ê³¼ ì ‘ì† ìˆ˜ì— ë”°ë¥¸ ë†’ì€ ì„ íƒìœ¨ì„ ê°€ë¦¬í‚¤ëŠ” bandì„ íƒ
 	int lv_band = GetLevelBand( lv, user_count, (int)ch->select_rune );
 
 	int cls_rand = rand()%100;
 	int cls_param = ChoiceParam( g_game_rate_data.house_band_class[house][lv_band], 6, cls_rand );
 
-	// house º¯¼ö¿Í cls_param º¯¼ö¸¦ ÀÌ¿ëÇÑ µµ¹Ú
+	// house ë³€ìˆ˜ì™€ cls_param ë³€ìˆ˜ë¥¼ ì´ìš©í•œ ë„ë°•
 	const int item_no = g_GambleItem.GetRandItem( house, cls_param );
 
 	if (item_no == -1)
@@ -7661,14 +7661,14 @@ void RecvSearchDualCharacter( t_packet *p, short int cn )
 	char type = 0;
 	if	( !ch->IsDual() ) 
 	{
-		type = 1;		// µà¾óÀÌ ¾Æ´Õ´Ï´Ù.
+		type = 1;		// ë“€ì–¼ì´ ì•„ë‹™ë‹ˆë‹¤.
 		return;
 	}
 	if( ch->GetClassStep() == 1 )
 	{
 		if( !var[cn][s_GhostEndCountDef] ) 
 		{
-			type = 2;	// Äù½ºÆ® ÁøÇàÁßÀÌ ¾Æ´Õ´Ï´Ù.
+			type = 2;	// í€˜ìŠ¤íŠ¸ ì§„í–‰ì¤‘ì´ ì•„ë‹™ë‹ˆë‹¤.
 			return;
 		}
 	}
@@ -7721,13 +7721,13 @@ void RecvChangeColor( t_packet *p, short int cn )
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
 
-	int type1 = p->u.kein.change_color.type1;		// µ·À» ³»´Â°¡ ¾Æ´Ñ°¡
-	int type2 = p->u.kein.change_color.type2;		// ¹ÙµğÄ®¶óÀÎÁö ¿Ê Ä®¶ó ÀÎÁö
+	int type1 = p->u.kein.change_color.type1;		// ëˆì„ ë‚´ëŠ”ê°€ ì•„ë‹Œê°€
+	int type2 = p->u.kein.change_color.type2;		// ë°”ë””ì¹¼ë¼ì¸ì§€ ì˜· ì¹¼ë¼ ì¸ì§€
 	int r = p->u.kein.change_color.r;
 	int g = p->u.kein.change_color.g;
 	int b = p->u.kein.change_color.b;
 
-	if( type1 )		// µ·À» ³»¾ß ÇÑ´Ù¸é
+	if( type1 )		// ëˆì„ ë‚´ì•¼ í•œë‹¤ë©´
 	{	//< CSD-030806
 		const int nLevel = ch->GetLevel();
 		
@@ -7738,7 +7738,7 @@ void RecvChangeColor( t_packet *p, short int cn )
 		
 		SubtractMoney(NPC_Lev_Ref[nLevel].nDyeingPrice, ch);
 	}	//> CSD-030806
-	if( type2 )		// ¿Ê»ö±ò ¹Ù²Ù±â
+	if( type2 )		// ì˜·ìƒ‰ê¹” ë°”ê¾¸ê¸°
 	{
 		ch->BodyR = r;
 		ch->BodyG = g;
@@ -7751,9 +7751,9 @@ void RecvChangeColor( t_packet *p, short int cn )
 		ch->ClothB = b;
 	}
 
-	t_packet packet;		// DB ·Î ÀúÀåÇÑ´Ù. 
+	t_packet packet;		// DB ë¡œ ì €ì¥í•œë‹¤. 
 	packet.h.header.type = CMD_CHANGE_COLOR;
-		packet.u.kein.change_color_db.type = type2;		// ¸öÀÎÁö ¶ì ÀÎÁö ¼±ÅÃ
+		packet.u.kein.change_color_db.type = type2;		// ëª¸ì¸ì§€ ë  ì¸ì§€ ì„ íƒ
 		packet.u.kein.change_color_db.r = r;
 		packet.u.kein.change_color_db.g = g;
 		packet.u.kein.change_color_db.b = b;
@@ -7761,9 +7761,9 @@ void RecvChangeColor( t_packet *p, short int cn )
 	packet.h.header.size = sizeof( k_change_color_db );
 	QueuePacket(connections, DB_DEMON, &packet, 1);
 
-	// À¯Àú¿¡°Ô ¾Ë·Á ÁØ´Ù.
+	// ìœ ì €ì—ê²Œ ì•Œë ¤ ì¤€ë‹¤.
 	packet.h.header.type = CMD_CHANGE_COLOR;
-		packet.u.kein.change_color_map2client.type = type2;		// ¸öÀÎÁö ¶ì ÀÎÁö ¼±ÅÃ
+		packet.u.kein.change_color_map2client.type = type2;		// ëª¸ì¸ì§€ ë  ì¸ì§€ ì„ íƒ
 		packet.u.kein.change_color_map2client.r = r;
 		packet.u.kein.change_color_map2client.g = g;
 		packet.u.kein.change_color_map2client.b = b;
@@ -7783,11 +7783,11 @@ void RecvGetNationMoney( short int cn, int nation )
 		nation = ch->name_status.nation;
 	}
 
-	t_packet packet;		// DB ·Î ÀúÀåÇÑ´Ù. 
+	t_packet packet;		// DB ë¡œ ì €ì¥í•œë‹¤. 
 	packet.h.header.type = CMD_REP_NATION_MONEY;
 		packet.u.kein.nation_money.nation_type = nation;
 
-		if( nation >= N_NATION_ALL )		// ¸ğµç ±¹°¡ÀÇ Á¤º¸¸¦ ¿äÃ»ÇßÀ» °æ¿ì 
+		if( nation >= N_NATION_ALL )		// ëª¨ë“  êµ­ê°€ì˜ ì •ë³´ë¥¼ ìš”ì²­í–ˆì„ ê²½ìš° 
 		{
 			packet.u.kein.nation_money.nation_money[0] = NationInfo[3].nation_money;
 			packet.u.kein.nation_money.nation_money[1] = NationInfo[4].nation_money;
@@ -7841,7 +7841,7 @@ int InitRefreshMenu()
 	return 1;
 }
 
-int InitOnlyStart_kein()		// ¸ÇÃ³À½¿¡¸¸ ·ÎµùÇÒ °Íµé
+int InitOnlyStart_kein()		// ë§¨ì²˜ìŒì—ë§Œ ë¡œë”©í•  ê²ƒë“¤
 {
 	LoadDungeonMap();
 	LoadDungeonMapAll();
@@ -7849,7 +7849,7 @@ int InitOnlyStart_kein()		// ¸ÇÃ³À½¿¡¸¸ ·ÎµùÇÒ °Íµé
 	return 1;
 }
 
-// DB¿¡ ³Ö¾î µÎ±â Èûµç µ¥ÀÌÅ¸¸¦ ¼Ò½º¿¡¼­ »ı¼º½ÃÅ³¶§
+// DBì— ë„£ì–´ ë‘ê¸° í˜ë“  ë°ì´íƒ€ë¥¼ ì†ŒìŠ¤ì—ì„œ ìƒì„±ì‹œí‚¬ë•Œ
 void __stdcall MakeMapDataFile(DWORD dwValue)//020511 lsw	// VK_F7
 {
 	g_game_rate_data.SaveData();
@@ -7876,12 +7876,12 @@ void RecvGambleItem( t_packet *p, short int cn )
 	ItemAttr *item;
 	CItem	*t;
 
-	int gen1=0;			// ÀÏ¹İ °×ºí ¾ÆÀÌÅÛ
-	int gen2=0;			// ÀÏ¹İ °×ºí ¾ÆÀÌÅÛ 2
-	int grade1=0;		// ±×·¡ÀÌµå °×ºí 1
-	int grade2=0;		// ±×·¡ÀÌµå °×ºí 2
-	int gen_item=0;		// ÀÏ¹İ ¾ÆÀÌÅÛ
-	int grade_item=0;	// ·¹¾î ¾ÆÀÌÅÛ
+	int gen1=0;			// ì¼ë°˜ ê²œë¸” ì•„ì´í…œ
+	int gen2=0;			// ì¼ë°˜ ê²œë¸” ì•„ì´í…œ 2
+	int grade1=0;		// ê·¸ë˜ì´ë“œ ê²œë¸” 1
+	int grade2=0;		// ê·¸ë˜ì´ë“œ ê²œë¸” 2
+	int gen_item=0;		// ì¼ë°˜ ì•„ì´í…œ
+	int grade_item=0;	// ë ˆì–´ ì•„ì´í…œ
 	for( int i=0; i<count; i++ )
 	{
 		item = GetItemByPOS( cn, pos[i] );
@@ -7893,11 +7893,11 @@ void RecvGambleItem( t_packet *p, short int cn )
 		// 040601 YGI
 		if( GetAttr2( item->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM ) )
 		{
-			//¾ÆÀÌÅÛ ¸ô ¾ÆÀÌÅÛÀº °×ºí¿¡ »ç¿ëÇÏÁö ¸øÇÑ´Ù.
+			//ì•„ì´í…œ ëª° ì•„ì´í…œì€ ê²œë¸”ì— ì‚¬ìš©í•˜ì§€ ëª»í•œë‹¤.
 			continue;
 		}
 
-		if( item->attr[IATTR_RARE_MAIN] )	grade_item++;// ·¹¾î´Ù..
+		if( item->attr[IATTR_RARE_MAIN] )	grade_item++;// ë ˆì–´ë‹¤..
 		else if( t->GetItemKind() == IK_GRADE_GAMBLE ) grade1++;
 		else if( t->GetItemKind() == IK_GENERAL_GAMBLE ) gen1++;
 		else gen_item++;
@@ -7914,7 +7914,7 @@ void RecvGambleItem( t_packet *p, short int cn )
 			g_pLogManager->SaveLogRoot_GambleLogFile( ch, 100, 100, 100, &today_item, 100, 100);
 			SendMessageGambleItem( ch, &today_item );
 			
-			// ÀüÃ¼ ¸Ş½ÃÁö ³¯¸®±â
+			// ì „ì²´ ë©”ì‹œì§€ ë‚ ë¦¬ê¸°
 			t_packet packet;
 			packet.h.header.type = CMD_TODAY_ITEM_GET_WHO;
 			packet.u.kein.today_gamble_item.item = today_item;
@@ -7947,7 +7947,7 @@ void RecvGambleItem( t_packet *p, short int cn )
 	}
 	if( house_type == -1 )
 	{
-		char result = 1;		// °×ºí¿ë ¾ÆÀÌÅÛÀÌ ¾ø´Ù.
+		char result = 1;		// ê²œë¸”ìš© ì•„ì´í…œì´ ì—†ë‹¤.
 		SendDefaultResult( CMD_GAMBLE_ITEM_RESULT, result, cn );
 		return;
 	}
@@ -7974,7 +7974,7 @@ ItemAttr MakeGambleItem( int house, int grade, int item_no )
 	return item;
 }
 
-/* 040715_KJHuNs °×ºí·Î±×¸¦ g_pLogManager·Î ¿Å°Ü¼­ »ç¿ë.(Á¤¸®¸ñÀû)
+/* 040715_KJHuNs ê²œë¸”ë¡œê·¸ë¥¼ g_pLogManagerë¡œ ì˜®ê²¨ì„œ ì‚¬ìš©.(ì •ë¦¬ëª©ì )
 void SaveGambleLogFile( CHARLIST *ch, int house, int class_type, int user_count, ItemAttr *item, int resource_type, int lv_band )
 	//> CSD-TW-030622
 */
@@ -7992,7 +7992,7 @@ void SendMessageGambleItem( CHARLIST *ch, ItemAttr *item )
 {
 	t_packet packet;
 	packet.h.header.type = CMD_GAMBLE_ITEM_RESULT;
-		packet.u.kein.gamble_item_result.result_type = 2;		// ¾î¶² ¸Ş½ÃÁö ÀÎÁö °á°ú Å¸ÀÔ 
+		packet.u.kein.gamble_item_result.result_type = 2;		// ì–´ë–¤ ë©”ì‹œì§€ ì¸ì§€ ê²°ê³¼ íƒ€ì… 
 		packet.u.kein.gamble_item_result.item_no = item->item_no;
 		strcpy( packet.u.kein.gamble_item_result.name, ch->Name );
 	packet.h.header.size = sizeof( k_gamble_item_result );
@@ -8006,24 +8006,24 @@ void RecvLogoutChar( t_packet *p, short int cn )
 	CHARLIST *target = CheckServerId( who );
 	if( target )
 	{
-		// °­Á¦ ·Î±× ¾Æ¿ô
-		SendPutMenuString( KM_FAIL, 87, who );		// °­Á¦ Á¾·á ´çÇÏ´Â »ç¶÷ÇÑÅ×
-		closeconnection( connections, who, -33 );	// ¿î¿µÀÚ¿¡ ÀÇÇÑ °­Á¦ Á¾·á
+		// ê°•ì œ ë¡œê·¸ ì•„ì›ƒ
+		SendPutMenuString( KM_FAIL, 87, who );		// ê°•ì œ ì¢…ë£Œ ë‹¹í•˜ëŠ” ì‚¬ëŒí•œí…Œ
+		closeconnection( connections, who, -33 );	// ìš´ì˜ìì— ì˜í•œ ê°•ì œ ì¢…ë£Œ
 
-		if( cn == CN_FROM_OTHER_MAPSERVER_MSG )		// ´Ù¸¥ ¸Ê¿¡¼­ ¿Â°Å¶ó¸é
+		if( cn == CN_FROM_OTHER_MAPSERVER_MSG )		// ë‹¤ë¥¸ ë§µì—ì„œ ì˜¨ê±°ë¼ë©´
 		{
 			int server_id = p->u.kein.focuse_logout_map.cn;
 			int port = p->u.kein.focuse_logout_map.map_port;
 			
 			k_put_menu_string msg;
 			msg.type = KM_INFO;
-			msg.str_num = 88;		// °­Á¦ Á¾·á ÇÑ »ç¶÷ÇÑÅ×
+			msg.str_num = 88;		// ê°•ì œ ì¢…ë£Œ í•œ ì‚¬ëŒí•œí…Œ
 			
 			SendDirectClientOtherMap( CMD_PUT_MENU_STRING, server_id, port, &msg, sizeof( k_put_menu_string ) );
 		}
 		else
 		{
-			SendPutMenuString( KM_OK, 88, cn );		// °­Á¦ Á¾·á ´çÇÏ´Â »ç¶÷ÇÑÅ×
+			SendPutMenuString( KM_OK, 88, cn );		// ê°•ì œ ì¢…ë£Œ ë‹¹í•˜ëŠ” ì‚¬ëŒí•œí…Œ
 			//acer7
 			CrackMgr.SendHackingUser( cn, USE_GM_TOOL, "Absolute LogOut by name" );
 		}
@@ -8031,7 +8031,7 @@ void RecvLogoutChar( t_packet *p, short int cn )
 	}
 	else
 	{
-		if( cn == CN_FROM_OTHER_MAPSERVER_MSG )		// ´Ù¸¥ ¸Ê¿¡¼­ ¿Â°Å¶ó¸é
+		if( cn == CN_FROM_OTHER_MAPSERVER_MSG )		// ë‹¤ë¥¸ ë§µì—ì„œ ì˜¨ê±°ë¼ë©´
 		{
 			return;
 		}
@@ -8040,7 +8040,7 @@ void RecvLogoutChar( t_packet *p, short int cn )
 			CHARLIST *ch = CheckServerId( cn );
 			if( !ch ) return;
 
-			// ´Ù¸¥ ¸ÊÀ¸·Î º¸³½´Ù.
+			// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ë³´ë‚¸ë‹¤.
 			t_packet packet;
 			packet.h.header.type = p->h.header.type;
 				strcpy( packet.u.kein.focuse_logout_map.name, name );
@@ -8082,7 +8082,7 @@ void SendDirectClientOtherMap( int type, short int server_id, short int port, vo
 			memcpy( packet.u.kein.direct_map2user.data, msg, size );
 		}		
 	packet.h.header.size = size+4;
-	if( port == GetOwnPort() )		// °°Àº ¸ÊÀ¸·Î º¸³¾ °æ¿ì
+	if( port == GetOwnPort() )		// ê°™ì€ ë§µìœ¼ë¡œ ë³´ë‚¼ ê²½ìš°
 	{
 		HandleCommand( CN_FROM_OTHER_MAPSERVER_MSG, &packet );
 	}
@@ -8110,13 +8110,13 @@ void RecvReporterMode( t_packet *p, short int cn )
 	CHARLIST *ch = CheckServerId( cn ); 
 	if( !ch ) return;
 	
-	if( !ch->IsReporter() ) return;		// ±âÀÚ°¡ ¾Æ´Ï´Ù.
-	if( !ch->reporter_mode && ch->viewtype == VIEWTYPE_GHOST_ ) return;		// À¯·É»óÅÂ¿¡¼­ À¯·É»óÅÂ·Î °¡·Á°í ÇÒ°æ¿ì
+	if( !ch->IsReporter() ) return;		// ê¸°ìê°€ ì•„ë‹ˆë‹¤.
+	if( !ch->reporter_mode && ch->viewtype == VIEWTYPE_GHOST_ ) return;		// ìœ ë ¹ìƒíƒœì—ì„œ ìœ ë ¹ìƒíƒœë¡œ ê°€ë ¤ê³  í• ê²½ìš°
 	ch->reporter_mode = 1 - ch->reporter_mode;
 
-	if( ch->reporter_mode )		// ±âÀÚ´Ü ¸ğµåÀÌ¸é
+	if( ch->reporter_mode )		// ê¸°ìë‹¨ ëª¨ë“œì´ë©´
 	{
-		// À¯·ÉÀ¸·Î ¸¸µé°í.. 
+		// ìœ ë ¹ìœ¼ë¡œ ë§Œë“¤ê³ .. 
 		ch->Hp = 1;
 		ch->bAlive = DEAD_;
 		ch->viewtype = VIEWTYPE_GHOST_;
@@ -8126,8 +8126,8 @@ void RecvReporterMode( t_packet *p, short int cn )
 	}
 	else
 	{
-		// À¯·É¿¡¼­ Á¤»óÀ¸·Î µ¹·Á ÁØ´Ù.
-		SkillMgr.CharacterToAlive(ch,1);// »ì·ÁÁØ´Ù.//020501 lsw
+		// ìœ ë ¹ì—ì„œ ì •ìƒìœ¼ë¡œ ëŒë ¤ ì¤€ë‹¤.
+		SkillMgr.CharacterToAlive(ch,1);// ì‚´ë ¤ì¤€ë‹¤.//020501 lsw
 	}
 	SendPacketDefault( CMD_REPORTER_MODE, &ch->reporter_mode, sizeof( char ), cn );
 }
@@ -8182,7 +8182,7 @@ void RecvChangePartySelectExp( t_packet *p, short int cn )
 // 020111 YGI
 int WinOfRandFunction( int count )
 {
-	// ¸îºĞÀÇ 1 ÀÎ È®·ü °è»ê
+	// ëª‡ë¶„ì˜ 1 ì¸ í™•ë¥  ê³„ì‚°
 	if( !count ) return 0;
 	if( rand()%count == count-1 ) return 1;
 	return 0;
@@ -8204,7 +8204,7 @@ void RecvGetPotalMap( short int cn )
 	if( !max ) return;
 	for( int i=0; i<max; i++ )
 	{
-		//ÆĞÅ¶¿¡ ³»¿ëÀ» ´ã´Â´Ù.
+		//íŒ¨í‚·ì— ë‚´ìš©ì„ ë‹´ëŠ”ë‹¤.
 		packet.u.kein.potal_map.map[i].map_number = g_MapPotal[nation].GetMapNumber( i );
 		packet.u.kein.potal_map.map[i].map_money = g_MapPotal[nation].GetMapMoney( i );
 	}
@@ -8222,12 +8222,12 @@ void RecvGotoPotal( t_packet *p, short int cn )
 	if( !nation ) nation = ch->name_status.nation;
 
 	int money = g_MapPotal[nation].GetMapMoney( para );
-	if( ch->Money < money ) return;// µ·ÀÌ ºÎÁ·
+	if( ch->Money < money ) return;// ëˆì´ ë¶€ì¡±
 
 	int level = g_MapPotal[nation].GetMapLevel( para );
 	if (ch->GetLevel() < level) return; // CSD-030806
 
-	// ¸Ê ÀÌµ¿
+	// ë§µ ì´ë™
 	int map_num = g_MapPotal[nation].GetMapNumber( para );
 	char *map_name = MapInfo[map_num].mapfile;
 	int x, y;
@@ -8238,14 +8238,14 @@ void RecvGotoPotal( t_packet *p, short int cn )
 	CharUpper( temp_name );
 	if( strcmp( map_name, temp_name) == 0 )
 	{
-		// °°Àº Áö¿ªÀ¸·Î´Â ÀÌµ¿À» ÇÒ ¼ö ¾ø´Ù.
+		// ê°™ì€ ì§€ì—­ìœ¼ë¡œëŠ” ì´ë™ì„ í•  ìˆ˜ ì—†ë‹¤.
 		SendPutMenuString( KM_FAIL, 128, cn );
 		return;
 	}
 
 	SubtractMoney( money, ch );
 	if( !MapMove( cn, map_name, x, y ) )
-	{	// ½ÇÆĞ ÇŞÀ» °æ¿ì 
+	{	// ì‹¤íŒ¨ í–‡ì„ ê²½ìš° 
 		::AddMoney(money,ch);//021126 lsw
 	}
 }
@@ -8253,7 +8253,7 @@ void RecvGotoPotal( t_packet *p, short int cn )
 void RecvSetMapType( t_packet *p, short int cn )
 {
 	int map_num;
-	if( cn == CN_FROM_OTHER_MAPSERVER_MSG )		// ¸Ê¿¡¼­ ¿Ô´Ù.
+	if( cn == CN_FROM_OTHER_MAPSERVER_MSG )		// ë§µì—ì„œ ì™”ë‹¤.
 	{
 		map_num = p->u.kein.set_map_type.map_num;
 		MapInfo[map_num].m_MoveType = p->u.kein.set_map_type.type;
@@ -8261,29 +8261,29 @@ void RecvSetMapType( t_packet *p, short int cn )
 		// 030811
 		MyLog( 0, "Change MapMove Type [%s]'s type = %d", MapInfo[map_num].mapfile, MapInfo[map_num].m_MoveType );
 	}
-	else	// Å¬¶óÀÌ¾ğÆ®·Î ÆĞÅ¶ÀÌ ¿ÔÀ» °æ¿ì 
+	else	// í´ë¼ì´ì–¸íŠ¸ë¡œ íŒ¨í‚·ì´ ì™”ì„ ê²½ìš° 
 	{
-		// ÀÌ ¸ÊÀÌ ¸¶À» ¸ÊÀÌ¸é ¼³Á¤ÀÌ µÇÁö ¾Ê°Ô ÇÑ´Ù.
+		// ì´ ë§µì´ ë§ˆì„ ë§µì´ë©´ ì„¤ì •ì´ ë˜ì§€ ì•Šê²Œ í•œë‹¤.
 		if( !strcmp( MapName, "MA-IN" )
 			|| !strcmp( MapName, "RENES_C" )
 			|| !strcmp( MapName, "BARANTAN" ) )
-			return;		// Áß¿ä ¸¶À» ¸ÊÀÌ´Ù.
+			return;		// ì¤‘ìš” ë§ˆì„ ë§µì´ë‹¤.
 
 		int type = p->u.kein.default_char;
 		int real_type = MMT_NORMAL;
 		switch( type )
 		{
-			case 1 : // ½ÃÀÛ
+			case 1 : // ì‹œì‘
 				{
 					real_type = MMT_NORMAL;
 					
-					// ÀÌº¥Æ® ½ÃÀÛÀ» ¾Ë¸°´Ù. // Âü¿© À¯µµ	// ¸Ê ¿ÀÇÂ
+					// ì´ë²¤íŠ¸ ì‹œì‘ì„ ì•Œë¦°ë‹¤. // ì°¸ì—¬ ìœ ë„	// ë§µ ì˜¤í”ˆ
 					t_packet packet;
 					packet.h.header.type = CMD_PUT_MENU_STRING;
 						packet.u.kein.put_menu_string.type = KM_BBS;
 						packet.u.kein.put_menu_string.str_num = 117;
 					packet.h.header.size = sizeof( k_put_menu_string);
-					SendPacket2Maps( &packet );	// ¸ğµç ¸Ê¿¡ »Ñ·ÁÁØ´Ù.
+					SendPacket2Maps( &packet );	// ëª¨ë“  ë§µì— ë¿Œë ¤ì¤€ë‹¤.
 					g_pUserManager->SendPacket(&packet); // CSD-CN-031213
 					break;
 				}
@@ -8291,26 +8291,26 @@ void RecvSetMapType( t_packet *p, short int cn )
 				{
 					real_type = MMT_NOT_MOVE;
 					
-					// ÀÌº¥Æ® ½ÃÀÛµÆÀ½À» ¾Ë¸°´Ù.	// Âü¿© ºÒ°¡
+					// ì´ë²¤íŠ¸ ì‹œì‘ëìŒì„ ì•Œë¦°ë‹¤.	// ì°¸ì—¬ ë¶ˆê°€
 					t_packet packet;
 					packet.h.header.type = CMD_PUT_MENU_STRING;
 						packet.u.kein.put_menu_string.type = KM_BBS;
 						packet.u.kein.put_menu_string.str_num = 118;
 					packet.h.header.size = sizeof( k_put_menu_string);
-					SendPacket2Maps( &packet );	// ¸ğµç ¸Ê¿¡ »Ñ·ÁÁØ´Ù.
+					SendPacket2Maps( &packet );	// ëª¨ë“  ë§µì— ë¿Œë ¤ì¤€ë‹¤.
 					g_pUserManager->SendPacket(&packet); // CSD-CN-031213
 					break;
 				}
 			case 3:
 				{
-					real_type = MMT_NOT_MOVE;		// Âü¿© ºÒ°¡
-					// ¿î¿µÀÚ¸¸ ³²±â°í, ¸ğµÎ ÆÃ±ä´Ù.
+					real_type = MMT_NOT_MOVE;		// ì°¸ì—¬ ë¶ˆê°€
+					// ìš´ì˜ìë§Œ ë‚¨ê¸°ê³ , ëª¨ë‘ íŒ…ê¸´ë‹¤.
 					UserAllMapMove( 1, "G_BATTLE", 111, 116 );
 					break;
 				}
 			case 4:
 				{
-					real_type = MMT_NOT_MOVE;		// Âü¿© ºÒ°¡ ¼³Á¤
+					real_type = MMT_NOT_MOVE;		// ì°¸ì—¬ ë¶ˆê°€ ì„¤ì •
 					break;
 				}
 
@@ -8322,9 +8322,9 @@ void RecvSetMapType( t_packet *p, short int cn )
 		p->h.header.size = sizeof( k_set_map_type );
 			p->u.kein.set_map_type.map_num = MapNumber;
 			p->u.kein.set_map_type.type = real_type ;
-		SendPacket2Maps( p );	// ¸ğµç ¸Ê¿¡ »Ñ·ÁÁØ´Ù.
-		// ¼º°øÇÑ »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
-		// ÀÌº¥Æ® ¸ÊÀ¸·Î ¼±Æ÷Çß½À´Ï´Ù. ÀÌÁ¦ºÎÅÍ´Â ÀÌ ¸ÊÀº ÀÌº¥Æ® ¸ÊÀÌ µÇ°í ¸ÊÀÌµ¿À» ÇÏÁö ¸øÇÕ´Ï´Ù.
+		SendPacket2Maps( p );	// ëª¨ë“  ë§µì— ë¿Œë ¤ì¤€ë‹¤.
+		// ì„±ê³µí•œ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
+		// ì´ë²¤íŠ¸ ë§µìœ¼ë¡œ ì„ í¬í–ˆìŠµë‹ˆë‹¤. ì´ì œë¶€í„°ëŠ” ì´ ë§µì€ ì´ë²¤íŠ¸ ë§µì´ ë˜ê³  ë§µì´ë™ì„ í•˜ì§€ ëª»í•©ë‹ˆë‹¤.
 	}
 }
 void RecvCheckGuildChange( t_packet *p, short int cn )
@@ -8341,23 +8341,23 @@ void RecvCheckGuildChange( t_packet *p, short int cn )
 	packet.u.kein.check_guild_change.type = type;
 	switch( type )
 	{
-		case 1 : // ±æµå ¸¶Å© º¯°æ
-			{	// ÆÄ¶õ ±×³İ 10°³, »¡°£ ½Ã±×³İ 5°³, µ· 200000
+		case 1 : // ê¸¸ë“œ ë§ˆí¬ ë³€ê²½
+			{	// íŒŒë€ ê·¸ë„· 10ê°œ, ë¹¨ê°„ ì‹œê·¸ë„· 5ê°œ, ëˆ 200000
 				//< 040331-YGI 
 				if( !CheckGuildPower( GDP_CHANGE_MARK, ch ) )
 				{
-					packet.u.kein.check_guild_change.ret = 0;		// ½ÇÆĞ
+					packet.u.kein.check_guild_change.ret = 0;		// ì‹¤íŒ¨
 					QueuePacket( connections, cn, &packet, 1 );
 					return;
 				}
 				//> 040331-YGI
 
 				int ret = 0;
-				if( ( GetItemMuchByMuchItem( ch, IN_RED_SIGNET) < 5 )		// »¡°­
-					|| ( GetItemMuchByMuchItem( ch, IN_BLUE_SIGNET) < 10 )		// ÆÄ¶õ
+				if( ( GetItemMuchByMuchItem( ch, IN_RED_SIGNET) < 5 )		// ë¹¨ê°•
+					|| ( GetItemMuchByMuchItem( ch, IN_BLUE_SIGNET) < 10 )		// íŒŒë€
 					|| ( ch->Money < 200000 ) )
 				{
-					packet.u.kein.check_guild_change.ret = 0;		// ½ÇÆĞ
+					packet.u.kein.check_guild_change.ret = 0;		// ì‹¤íŒ¨
 					QueuePacket( connections, cn, &packet, 1 );
 					return;
 				}
@@ -8366,27 +8366,27 @@ void RecvCheckGuildChange( t_packet *p, short int cn )
 				SendDeleteMuchItemQuantity( ch, IN_BLUE_SIGNET, 10 );
 				SubtractMoney( 200000, ch );
 				
-				packet.u.kein.check_guild_change.ret = 1;		// ¼º°ø
+				packet.u.kein.check_guild_change.ret = 1;		// ì„±ê³µ
 				QueuePacket( connections, cn, &packet, 1 );
 				break;
 			}
-		case 2 :	// ±æµå Á÷Ã¥ º¯°æ
-			{	// ÆÄ¶õ ½Ã±×³İ 5°³, »¡°£ ½Ã±×³İ 3°³, µ· 100000
+		case 2 :	// ê¸¸ë“œ ì§ì±… ë³€ê²½
+			{	// íŒŒë€ ì‹œê·¸ë„· 5ê°œ, ë¹¨ê°„ ì‹œê·¸ë„· 3ê°œ, ëˆ 100000
 				//< 040331-YGI
 				if( !CheckGuildPower( GDP_CHANGE_DEGREE_INFO, ch ) )
 				{
-					packet.u.kein.check_guild_change.ret = 0;		// ½ÇÆĞ
+					packet.u.kein.check_guild_change.ret = 0;		// ì‹¤íŒ¨
 					QueuePacket( connections, cn, &packet, 1 );
 					return;
 				}
 				//> 040331-YGI
 
 				int ret = 0;
-				if( ( GetItemMuchByMuchItem( ch, IN_RED_SIGNET ) < 3 )		// »¡°­
-					|| ( GetItemMuchByMuchItem( ch, IN_BLUE_SIGNET) < 5 )		// ÆÄ¶õ
+				if( ( GetItemMuchByMuchItem( ch, IN_RED_SIGNET ) < 3 )		// ë¹¨ê°•
+					|| ( GetItemMuchByMuchItem( ch, IN_BLUE_SIGNET) < 5 )		// íŒŒë€
 					|| ( ch->Money < 100000 ) )
 				{
-					packet.u.kein.check_guild_change.ret = 0;		// ½ÇÆĞ
+					packet.u.kein.check_guild_change.ret = 0;		// ì‹¤íŒ¨
 					QueuePacket( connections, cn, &packet, 1 );
 					return;
 				}
@@ -8395,7 +8395,7 @@ void RecvCheckGuildChange( t_packet *p, short int cn )
 				SendDeleteMuchItemQuantity( ch, IN_BLUE_SIGNET, 5 );
 				SubtractMoney( 100000, ch );
 				
-				packet.u.kein.check_guild_change.ret = 1;		// ¼º°ø
+				packet.u.kein.check_guild_change.ret = 1;		// ì„±ê³µ
 				QueuePacket( connections, cn, &packet, 1 );
 				break;
 			}

@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	HWStateFactory.h.
  *			interface for the CHWStateFactory class.
  */
@@ -8,8 +8,8 @@
 
 /**
  * @class	CHWStateFactory.
- * @brief	ÀüÀïÅÍ »óÅÂ¸¦ »ı¼ºÇÏ±â À§ÇÑ factory class.
- *			IFactoryDefine interface¸¦ »ó¼Ó ¹Ş´Â´Ù.
+ * @brief	ì „ìŸí„° ìƒíƒœë¥¼ ìƒì„±í•˜ê¸° ìœ„í•œ factory class.
+ *			IFactoryDefine interfaceë¥¼ ìƒì† ë°›ëŠ”ë‹¤.
  */
 //< LTH-040419-KO.
 class CHWStateFactory : public IFactoryDefine  

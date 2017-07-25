@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #define __MAIN_H__
 #include "MAIN.H"
 #include "SealStone.h"
@@ -18,8 +18,8 @@ DWORD g_start_time		= 0;
 DWORD g_alive_time		= 0;
 DWORD g_curr_time		= 0;
 
-int g_total_gameserver, g_current_gameserver;	// ÇöÀç Á¢¼ÓµÈ °ÔÀÓ¼­¹öÀÇ ¼ö..
-int g_gameserver_check_start; // 1µÇ¸é °ÔÀÓ¼­¹ö¼ö¸¦ CheckÇÏ±â ½ÃÀÛÇÑ´Ù. 
+int g_total_gameserver, g_current_gameserver;	// í˜„ì¬ ì ‘ì†ëœ ê²Œì„ì„œë²„ì˜ ìˆ˜..
+int g_gameserver_check_start; // 1ë˜ë©´ ê²Œì„ì„œë²„ìˆ˜ë¥¼ Checkí•˜ê¸° ì‹œì‘í•œë‹¤. 
 int g_closed_gameserver;
 int g_year				= 0;
 int g_mon				= 0;
@@ -35,9 +35,9 @@ int		GameServerVersion;
 int     StartMap, StartPosition;
 // 010221_3 YGI
 //020822 lsw
-char	StartMapPosition[ 5][20][20] = {	{ "", "k_sung2","ma-in", "Source",  "Gray",  "color","bis_i", "Renes_c", "","iramus","dep","SCHOLIUM", "tynen", "barantan","SCHOLIUM2", },	// ÂlÅÏÆ®....
-{ "", "k_sung2","ma-in", "Source",  "Gray",  "color","bis_i", "Renes_c", "","iramus","dep","SCHOLIUM", "tynen", "barantan","SCHOLIUM2", },	// ÂlÅÏÆ®....		// 010414 YGI
-{ "", "k_sung2","ma-in", "Hu_Vm",  "Gray",  "color","","Renes_c", },	// ÂlÅÏÆ®....
+char	StartMapPosition[ 5][20][20] = {	{ "", "k_sung2","ma-in", "Source",  "Gray",  "color","bis_i", "Renes_c", "","iramus","dep","SCHOLIUM", "tynen", "barantan","SCHOLIUM2", },	// ?í„´íŠ¸....
+{ "", "k_sung2","ma-in", "Source",  "Gray",  "color","bis_i", "Renes_c", "","iramus","dep","SCHOLIUM", "tynen", "barantan","SCHOLIUM2", },	// ?í„´íŠ¸....		// 010414 YGI
+{ "", "k_sung2","ma-in", "Hu_Vm",  "Gray",  "color","","Renes_c", },	// ?í„´íŠ¸....
 { "", "k_sung2","ma-in", "source", "ma-in", "ma-in","","ma-in", },};
 
 
@@ -142,12 +142,12 @@ bool IncordFile( char *filename, void *pData, int size )
 }
 //---------------------------------------------------------------------------------
 
-// 020808 YGI - ÁÖÀÇ»çÇ× ÂüÁ¶
+// 020808 YGI - ì£¼ì˜ì‚¬í•­ ì°¸ì¡°
 int init_login_main( void )
 {
 	char path[MAX_PATH];
 	ID_PASS id_password;
-	int bIdPassword = 0;		// Á¤È®È÷ ¾ÏÈ£¸¦ ÀĞ¾î ¿Ô´Â°¡?
+	int bIdPassword = 0;		// ì •í™•íˆ ì•”í˜¸ë¥¼ ì½ì–´ ì™”ëŠ”ê°€?
 	int size = GetPrivateProfileString( "option", "path", "", path, 50, DB_DEMON_INI_);//021007 lsw
 	if( size )
 	{

@@ -1,4 +1,4 @@
-/**
+О╩©/**
  * @file	HWStateFactory.cpp.
  *			implementation of the CHWStateFactory class.
  */
@@ -8,9 +8,9 @@
 
 /**
  * @fn		CHWStateFactory::Create().
- * @brief	юЭюОем ╩Себ╦╕ ╩Щ╪╨го╠Бю╖гя гт╪Ж.
- * @param	INT nObjectID. ╩Себ ╫д╨╟ ID.
- * @param	VOID** ppVoid. ф╞а╓ ╩Себ╥н ╩Щ╪╨╣г╬Н ╧щх╞ ╣г╢б фВюнем.
+ * @brief	Л═└Л÷│М└╟ Л┐│М┐°К╔╪ Л┐²Л└╠М∙≤Й╦╟Л°└М∙° М∙╗Л┬≤.
+ * @param	INT nObjectID. Л┐│М┐° Л▀²КЁ└ ID.
+ * @param	VOID** ppVoid. М┼╧Л═∙ Л┐│М┐°К║° Л┐²Л└╠К░≤Л√╢ К╟≤М≥≤ К░≤К┼■ М▐╛Л²╦М└╟.
  * @return	STDMETHODIMP.
  */
 //< LTH-040419-KO.

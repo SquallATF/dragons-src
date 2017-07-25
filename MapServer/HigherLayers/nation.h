@@ -1,33 +1,33 @@
-#ifndef __NATION_H__
+ï»¿#ifndef __NATION_H__
 #define __NATION_H__
 
-#define NM_ADD			1		// ±¹°í¿¡ ´õÇØÁØ´Ù.
-#define NM_SUBTRACT		2		// ±¹°í¿¡¼­ »«´Ù.
+#define NM_ADD			1		// êµ­ê³ ì— ë”í•´ì¤€ë‹¤.
+#define NM_SUBTRACT		2		// êµ­ê³ ì—ì„œ ëº€ë‹¤.
 
 struct tagNationInfo
 {
-//	char	name[30];			// ±¹°¡ ÀÌ¸§
-	int		main_map_port;		// µ¥ÀÌÅ¸¸¦ °ü¸®ÇÒ ¸Ê¼­¹ö
-	char	king_name[20];		// ¿ÕÀÌ¸§
-	double	nation_money;		// ±¹°í
-	int		king_support;		// ¿Õ ÁöÁöµµ
-	int		visa_va;			// ¹ÙÀÌ¼­½º¿¡ ÆÈ ºñÀÚ ¹øÈ£
+//	char	name[30];			// êµ­ê°€ ì´ë¦„
+	int		main_map_port;		// ë°ì´íƒ€ë¥¼ ê´€ë¦¬í•  ë§µì„œë²„
+	char	king_name[20];		// ì™•ì´ë¦„
+	double	nation_money;		// êµ­ê³ 
+	int		king_support;		// ì™• ì§€ì§€ë„
+	int		visa_va;			// ë°”ì´ì„œìŠ¤ì— íŒ” ë¹„ì ë²ˆí˜¸
 	int		visa_zy;
 	int		visa_ill;
 
-	int		visa_pri_va;		// ¹ÙÀÌ¼­½º¿¡ ÆÈ ºñÀÚ °¡°İ
+	int		visa_pri_va;		// ë°”ì´ì„œìŠ¤ì— íŒ” ë¹„ì ê°€ê²©
 	int		visa_pri_zy;
 	int		visa_pri_ill;
 
-	int		visa_mer_va;		// »óÀÎ¿ë ºñÀÚ ¹øÈ£( ¹ÙÀÌ¼­½º ¿ë )
+	int		visa_mer_va;		// ìƒì¸ìš© ë¹„ì ë²ˆí˜¸( ë°”ì´ì„œìŠ¤ ìš© )
 	int		visa_mer_zy;
 	int		visa_mer_ill;
 
-	int		visa_mer_pri_va;	// »óÀÎ¿¡°Ô ÆÈ ºñÀÚ °¡°İ( ¹ÙÀÌ¼­½º ¿ë )
+	int		visa_mer_pri_va;	// ìƒì¸ì—ê²Œ íŒ” ë¹„ì ê°€ê²©( ë°”ì´ì„œìŠ¤ ìš© )
 	int		visa_mer_pri_zy;
 	int		visa_mer_pri_ill;
 
-	int		visit_limit_va;		// ¹ÙÀÌ¼­½ºÀÎ ¹æ¹®ÀÚ¼ö ÃÖ´ë
+	int		visit_limit_va;		// ë°”ì´ì„œìŠ¤ì¸ ë°©ë¬¸ììˆ˜ ìµœëŒ€
 	int		visit_limit_zy;
 	int		visit_limit_ill;
 
@@ -35,25 +35,25 @@ struct tagNationInfo
 	int		friend_zy;
 	int		friend_ill;
 
-	int		cond_va;			// 1: ÀüÀï,		5: ±âº»,	9: µ¿¸Í
+	int		cond_va;			// 1: ì „ìŸ,		5: ê¸°ë³¸,	9: ë™ë§¹
 	int		cond_zy;
 	int		cond_ill;
 
-	int		dec_anti_va;		// °³ÀÎÀÇ Àû´ë°¨À» 1 ÁÙÀÌ±â À§ÇÑ µ·
+	int		dec_anti_va;		// ê°œì¸ì˜ ì ëŒ€ê°ì„ 1 ì¤„ì´ê¸° ìœ„í•œ ëˆ
 	int		dec_anti_zy;
 	int		dec_anti_ill;
 
-	int		dec_max_va;			// °³ÀÎÀÌ ÁÙÀÏ¼ö ÀÖ´Â ÇÏ·ç °¨¼Ò ÃÖ´ë·®
+	int		dec_max_va;			// ê°œì¸ì´ ì¤„ì¼ìˆ˜ ìˆëŠ” í•˜ë£¨ ê°ì†Œ ìµœëŒ€ëŸ‰
 	int		dec_max_zy;
 	int		dec_max_ill;
 
-	int		nation_item[20];		// ±¹°¡°¡ °¡Áú¼ö ÀÖ´Â 20°¡ÁöÀÇ ¾ÆÀÌÅÛÀÇ ¾ç -> ¾ÆÀÌÅÛÀÌ ¹ºÁö´Â µû·Î
+	int		nation_item[20];		// êµ­ê°€ê°€ ê°€ì§ˆìˆ˜ ìˆëŠ” 20ê°€ì§€ì˜ ì•„ì´í…œì˜ ì–‘ -> ì•„ì´í…œì´ ë­”ì§€ëŠ” ë”°ë¡œ
 	
-	int		prize_money_va;			// Ä§ÀÔÀÚ Ã³´Ü Æ÷»ó µ·
+	int		prize_money_va;			// ì¹¨ì…ì ì²˜ë‹¨ í¬ìƒ ëˆ
 	int		prize_money_zy;
 	int		prize_money_ill;
 
-	int		prize_item_va;			// Ä§ÀÔÀÚ Ã³´Ü½Ã Æ÷»ó ¾ÆÀÌÅÛ
+	int		prize_item_va;			// ì¹¨ì…ì ì²˜ë‹¨ì‹œ í¬ìƒ ì•„ì´í…œ
 	int		prize_item_zy;
 	int		prize_item_ill;
 };
@@ -62,7 +62,7 @@ extern tagNationInfo NationInfo[MAX_NATION];
 extern int	 g_MapPort;		// 010522 YGI
 extern void CheckMainMap();
 extern void SendNationMoney( int type, int nation, double moneny );
-extern void SaveNationInfo( int nation );		// µğºñ µ¥¸ó¿¡ ÀúÀåÇÑ´Ù.
+extern void SaveNationInfo( int nation );		// ë””ë¹„ ë°ëª¬ì— ì €ì¥í•œë‹¤.
 extern int LoadNationInfoOfMainMap( int nation );
 
 #endif

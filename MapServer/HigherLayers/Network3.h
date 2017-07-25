@@ -1,15 +1,15 @@
-#define		CCD_ARIGEMENT							1			//°¡Ä¡°ü Á¤º¸ ¿ä±¸
-#define		CCD_PLAYSOUND_EVENT1					851			//Çà»ç¿ë ÀÌº¥Æ®¿ë »ç¿îµå
+ï»¿#define		CCD_ARIGEMENT							1			//ê°€ì¹˜ê´€ ì •ë³´ ìš”êµ¬
+#define		CCD_PLAYSOUND_EVENT1					851			//í–‰ì‚¬ìš© ì´ë²¤íŠ¸ìš© ì‚¬ìš´ë“œ
 #define		CCD_PLAYSOUND_EVENT2					853
-////////////////////////////// 0803 yjs Ãß°¡ ///////////////////////////////////
-#define		CCD_FIGHT_LOSE							10000		//Áø°æ¿ì
-#define		CCD_FIGHT_DRAW							10001		//ºñ±ä°æ¿ì
-#define		CCD_FIGHT_LOGOUT						10002		//»ó´ë°¡ ·Î±×¾Æ¿ôÇÑ °æ¿ì
+////////////////////////////// 0803 yjs ì¶”ê°€ ///////////////////////////////////
+#define		CCD_FIGHT_LOSE							10000		//ì§„ê²½ìš°
+#define		CCD_FIGHT_DRAW							10001		//ë¹„ê¸´ê²½ìš°
+#define		CCD_FIGHT_LOGOUT						10002		//ìƒëŒ€ê°€ ë¡œê·¸ì•„ì›ƒí•œ ê²½ìš°
 
-///////////////////// 0810 lhs Ãß°¡ ////////////////////////
-#define		CCD_START_QUEST							15000			//Äù½ºÆ® ½ÃÀÛ È¿°úÀ½
+///////////////////// 0810 lhs ì¶”ê°€ ////////////////////////
+#define		CCD_START_QUEST							15000			//í€˜ìŠ¤íŠ¸ ì‹œì‘ íš¨ê³¼ìŒ
 #define		CCD_END_QUEST							15001
-#define		CCD_QUEST_SALUTE						15002			//Äù½ºÆ® ÃàÆ÷ È¿°ú
+#define		CCD_QUEST_SALUTE						15002			//í€˜ìŠ¤íŠ¸ ì¶•í¬ íš¨ê³¼
 #define		CCD_QUEST_GETSKILL						15003
 #define		CCD_QUEST_GETITEM						15004
 #define		CCD_QUEST_MONSTER						15005
@@ -25,30 +25,30 @@
 #define		CMD_SERVER_MAGICTRAP_EXPOSE				20005
 #define		CMD_SERVER_MAGICAL_DETECT				20006
 #define		CMD_SERVER_MAGICVIEWTYPE				20007
-////////////////////// 0802 yjs Ãß°¡ //////////////////////
-#define		CMD_SERVER_FIGHT_STONE					20010		//1:1 °áÅõ..
+////////////////////// 0802 yjs ì¶”ê°€ //////////////////////
+#define		CMD_SERVER_FIGHT_STONE					20010		//1:1 ê²°íˆ¬..
 
-////////////////////// 0816 lkh Ãß°¡ //////////////////////
-#define		CMD_HEXAEDITING							20011		//Çí»ç¿¡µğÆÃÀ» ½ÃµµÇÑ °æ¿ì ¼­¹ö¿¡ ¾Ë¸°´Ù.
+////////////////////// 0816 lkh ì¶”ê°€ //////////////////////
+#define		CMD_HEXAEDITING							20011		//í—¥ì‚¬ì—ë””íŒ…ì„ ì‹œë„í•œ ê²½ìš° ì„œë²„ì— ì•Œë¦°ë‹¤.
 
-// ¼­¹ö¿¡¼­ hpÀÇ Â÷ÀÌ°¡ ¾Æ´Ï¶ó ÀüºÎ¸¦ ³¯·Á ÁØ´Ù.
+// ì„œë²„ì—ì„œ hpì˜ ì°¨ì´ê°€ ì•„ë‹ˆë¼ ì „ë¶€ë¥¼ ë‚ ë ¤ ì¤€ë‹¤.
 #define		CMD_SERVER_CHARACTER_CONDITION2			20012			// 010618 YGI
 
 
-///////////////// 0810 lhs Äù½ºÆ®¿ë µğÆÄÀÎ  ///////////////////////////////////
+///////////////// 0810 lhs í€˜ìŠ¤íŠ¸ìš© ë””íŒŒì¸  ///////////////////////////////////
 #define		CMD_BBS_QUEST							25000
 #define		CMD_QSF_COMMAND							25001
 #define		QSF_COMMAND_TELEPORT					1
 /////////////////////////////////////////////////////////////////
 
 
-///////////////////// 0802 yjs Ãß°¡ ////////////////////
+///////////////////// 0802 yjs ì¶”ê°€ ////////////////////
 typedef struct fight_stone
 {
-	BOOL		fight_flag;	//»óÅÂ ÇÃ·¡±×..
+	BOOL		fight_flag;	//ìƒíƒœ í”Œë˜ê·¸..
 	int			fight_id;
-	short int	x;			//xÁÂÇ¥.. 
-	short int	y;			//yÁÂÇ¥.. 
+	short int	x;			//xì¢Œí‘œ.. 
+	short int	y;			//yì¢Œí‘œ.. 
 }	t_fight_stone;
 
 typedef struct  client_character_demand
@@ -80,10 +80,10 @@ struct t_server_character_condition
 
 typedef struct  server_magic_command
 {
-	//short int	target_id;		//´ë»ó ID
-	short int	command;				//´ë»ó Å¬¶óÀÌ¾ğÆ®¿¡ ½ÇÁ¦ È¿·ÂÀ» ¹ÌÄ¡´Â ´ë»ó°ü·Ã ¸í·É(slot1)
-	short int	sub_command;		//                   "									¼­ºê ¸í·É(slot2)
-	short int	sub_term;				//                   "   È¿·ÂÀ» ¹ÌÄ¡´Â ±â°£				(slot3)
+	//short int	target_id;		//ëŒ€ìƒ ID
+	short int	command;				//ëŒ€ìƒ í´ë¼ì´ì–¸íŠ¸ì— ì‹¤ì œ íš¨ë ¥ì„ ë¯¸ì¹˜ëŠ” ëŒ€ìƒê´€ë ¨ ëª…ë ¹(slot1)
+	short int	sub_command;		//                   "									ì„œë¸Œ ëª…ë ¹(slot2)
+	short int	sub_term;				//                   "   íš¨ë ¥ì„ ë¯¸ì¹˜ëŠ” ê¸°ê°„				(slot3)
 }	t_server_magic_command;
 
 typedef struct  server_magictrap_expose
@@ -109,7 +109,7 @@ typedef struct	server_magicviewtype
 }	t_server_magicviewtype;
 
 //////////// 0810 lhs //////////////////
-typedef struct	qsf_command				//Äù½ºÆ®¿¡¼­ ¹ü¿ëÀ¸·Î »ç¿ëÇÏ±â À§ÇÑ ±¸Á¶Ã¼
+typedef struct	qsf_command				//í€˜ìŠ¤íŠ¸ì—ì„œ ë²”ìš©ìœ¼ë¡œ ì‚¬ìš©í•˜ê¸° ìœ„í•œ êµ¬ì¡°ì²´
 {
 	short int	command;
 	short int	target_id;
@@ -118,11 +118,11 @@ typedef struct	qsf_command				//Äù½ºÆ®¿¡¼­ ¹ü¿ëÀ¸·Î »ç¿ëÇÏ±â À§ÇÑ ±¸Á¶Ã¼
 }	t_qsf_command;
 
 
-/////////// 0816 lkh Ãß°¡ ///////////
+/////////// 0816 lkh ì¶”ê°€ ///////////
 typedef struct cilent_editing_table
 {
-	short int	type;					//Ã¼Å©¼¶ ¿¡·¯°¡ ³­ È­ÀÏÀÇ ¹«¾ùÀÎÁö!
-	short int	id;						//¾î¶² ³ğÀÌ Çí»ç¿¡µğÆÃÀ» ½ÃµµÇß´ÂÁö!
+	short int	type;					//ì²´í¬ì„¬ ì—ëŸ¬ê°€ ë‚œ í™”ì¼ì˜ ë¬´ì—‡ì¸ì§€!
+	short int	id;						//ì–´ë–¤ ë†ˆì´ í—¥ì‚¬ì—ë””íŒ…ì„ ì‹œë„í–ˆëŠ”ì§€!
 }	t_client_editing_table;
 
 typedef union	angra_pub
@@ -135,12 +135,12 @@ typedef union	angra_pub
 	t_server_magictrap_expose			server_magictrap_expose;
 	t_server_magical_detect				server_magical_detect;
 	t_server_magicviewtype				server_magicviewtype;
-	////////////////////// 0802 yjs Ãß°¡ /////////////////////////////
+	////////////////////// 0802 yjs ì¶”ê°€ /////////////////////////////
 	t_fight_stone						server_fight_stone;	//
-	///////////////////// Äù½ºÆ® ¿ë ÄÄ¸Çµå... 0810 lhs //////////////////
+	///////////////////// í€˜ìŠ¤íŠ¸ ìš© ì»´ë§¨ë“œ... 0810 lhs //////////////////
 	t_qsf_command						qsf_command;
 
-	////////////////////// Hexa Edit ½ÃµµÇÑ °æ¿ì ¼­¹ö·Î ¾Ë¸®±â À§ÇØ ////////////////////
+	////////////////////// Hexa Edit ì‹œë„í•œ ê²½ìš° ì„œë²„ë¡œ ì•Œë¦¬ê¸° ìœ„í•´ ////////////////////
 	t_client_editing_table				client_editing_table;
 
 }	t_angra;
@@ -161,7 +161,7 @@ typedef union	angra_pub
 // 011012 KBS
 typedef struct send_map_change_date
 {
-	BYTE		bChanged;	//³¯(Day)°¡ º¯°æµÇ¾úÀ¸¸é 1, ´Ş(Month)°¡ º¯°æµÇ¾úÀ¸¸é 2, µÑ´Ù º¯°æµÇ¾úÀ¸¸é 3
+	BYTE		bChanged;	//ë‚ (Day)ê°€ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 1, ë‹¬(Month)ê°€ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 2, ë‘˜ë‹¤ ë³€ê²½ë˜ì—ˆìœ¼ë©´ 3
 	WORD		wDay;
 	WORD		wMonth;
 
@@ -173,8 +173,8 @@ typedef struct send_map_change_date
 // 011212 KBS
 typedef struct rm_change_weather
 {
-	BYTE	bWeather;		//0ÀÌ¸é Á¤»ó, 1ÀÌ¸é ºñ, 2ÀÌ¸é ´« 
-	BYTE	bStopWeather;	//Weather system ÁßÁö ¿©ºÎ 
+	BYTE	bWeather;		//0ì´ë©´ ì •ìƒ, 1ì´ë©´ ë¹„, 2ì´ë©´ ëˆˆ 
+	BYTE	bStopWeather;	//Weather system ì¤‘ì§€ ì—¬ë¶€ 
 	DWORD	dwAmount;
 
 }t_rm_change_weather;

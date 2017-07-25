@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 
 #include <stdio.h>
 #include "../LowerLayers/MyLog.h"
@@ -15,19 +15,19 @@
 #include "UserManager.h"
 #include "RaidManager.h"
 
-#include "LogManager.h"	//040719_KJHuNs g_pLogManager¸¦ »ç¿ëÇÏ±â À§ÇÔ.
+#include "LogManager.h"	//040719_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©í•˜ê¸° ìœ„í•¨.
 
 extern void RecvReqResetAbility( short int cn );
 extern bool isLevelUp(CHARLIST*);
-#define	ABILITY_REDISTRIBUTION_MONEY			1000000000		// 10¾ï Å©¸´
+#define	ABILITY_REDISTRIBUTION_MONEY			1000000000		// 10ì–µ í¬ë¦¿
 
 cLocalWarfield*			g_pLocalWarfield=NULL;
 cEventLocalWarfield*	g_pEventLocalWarfield=NULL;				// 020115 LTS
 cDragonLordWar			g_pDragonLordWar;					// LTS DRAGONLORD
 
-//< 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦ÇÏ±â À§ÇÑ Àü¿ª º¯¼ö Ãß°¡
+//< 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œí•˜ê¸° ìœ„í•œ ì „ì—­ ë³€ìˆ˜ ì¶”ê°€
 int					g_preventSelectYilse;
-//> 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦ÇÏ±â À§ÇÑ Àü¿ª º¯¼ö Ãß°¡
+//> 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œí•˜ê¸° ìœ„í•œ ì „ì—­ ë³€ìˆ˜ ì¶”ê°€
 int					g_isLocalWarServer=0;
 int					g_LocalWarBegin=0;
 int					g_EventLocalWarBegin=0;						// 020115 LTS
@@ -35,7 +35,7 @@ int					g_EventLocalWarStatus=0;					// 020115 LTS
 int					g_EventLocalWarStep=0;						// 020115 LTS
 int					g_isEventLocalWarServer=0;					// 020115 LTS
 int					g_EventMapPort=0;							// 020115 LTS	
-POINTS				g_StartPoint[6];							// ³ª¶óº° 2°³¾¿
+POINTS				g_StartPoint[6];							// ë‚˜ë¼ë³„ 2ê°œì”©
 DWORD				g_AbilityRedistributionMoney[10];
 int					g_LocalWarResult[3]={1,1,1};				// LTS NEW LOCALWAR
 POINTS				g_LocalWarMovePoint[7][3];					// LTS NEW LOCALWAR
@@ -64,7 +64,7 @@ extern void			SendPacket2NWMap(const WORD Port,t_packet* p);			// 020115 LTS//02
 
 extern unsigned short	g_DefensePoint[];	// BBD 040401
 
-int Pos(char* PosString,char KeyChar)					// LTS NEW LOCALWAR		// ¹ü¿ëÀûÀÎ ÇÔ¼ö ¾Æ´Ô
+int Pos(char* PosString,char KeyChar)					// LTS NEW LOCALWAR		// ë²”ìš©ì ì¸ í•¨ìˆ˜ ì•„ë‹˜
 {
 	int StringLength=strlen(PosString);
 	for (int i=0;i<StringLength;i++)
@@ -74,7 +74,7 @@ int Pos(char* PosString,char KeyChar)					// LTS NEW LOCALWAR		// ¹ü¿ëÀûÀÎ ÇÔ¼ö 
 	return -1;
 }
 
-void DeleteString(char* DeleteString,int Pos)			// LTS NEW LOCALWAR		// ¹ü¿ëÀûÀÎ ÇÔ¼ö ¾Æ´Ô
+void DeleteString(char* DeleteString,int Pos)			// LTS NEW LOCALWAR		// ë²”ìš©ì ì¸ í•¨ìˆ˜ ì•„ë‹˜
 {
 	char tempString[MAX_PATH] = {0,};
 	int StringLength=strlen(DeleteString);
@@ -89,7 +89,7 @@ void DeleteString(char* DeleteString,int Pos)			// LTS NEW LOCALWAR		// ¹ü¿ëÀûÀÎ
 	sprintf(DeleteString,tempString);
 }
 
-void CopyString(char* SrcString,char* DestString,int Pos)			// LTS NEW LOCALWAR		// ¹ü¿ëÀûÀÎ ÇÔ¼ö ¾Æ´Ô
+void CopyString(char* SrcString,char* DestString,int Pos)			// LTS NEW LOCALWAR		// ë²”ìš©ì ì¸ í•¨ìˆ˜ ì•„ë‹˜
 {
 	int i = 0;
 	for (;i<Pos;i++)
@@ -109,12 +109,12 @@ int InitMapServerConfigINI()	// 020115 LTS		// LTS NEW LOCALWAR
 
 	SERVER_DATA	*pData=g_pServerTable->GetOwnServerData();
 	short MapServerPort=pData->wPort;
-	//< 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦ÇÏ±â À§ÇÑ Àü¿ª º¯¼ö µ¥ÀÌÅ¸ ÀÔ·Â
+	//< 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œí•˜ê¸° ìœ„í•œ ì „ì—­ ë³€ìˆ˜ ë°ì´íƒ€ ì…ë ¥
 	g_preventSelectYilse = GetPrivateProfileInt( "yilse_prevent", "set", 0, MapServerConfigFileName );
 
 	if ( g_preventSelectYilse == 1 )
 		MyLog( 0, "############### Prevent to select Yilse ################" );
-	//> 040712-kjy ±¹ÁöÀü ÀÏ½º Ã³¸® »èÁ¦ÇÏ±â À§ÇÑ Àü¿ª º¯¼ö Ãß°¡
+	//> 040712-kjy êµ­ì§€ì „ ì¼ìŠ¤ ì²˜ë¦¬ ì‚­ì œí•˜ê¸° ìœ„í•œ ì „ì—­ ë³€ìˆ˜ ì¶”ê°€
 
 /*	if (GetPrivateProfileString("Network","path","",NetworkDir,MAX_PATH, MAP_SERVER_INI_)<=0)
 	{
@@ -212,21 +212,21 @@ void RecvCMD_CHECK_ABILITY_CHANGE_MONEY( t_packet *p, t_connection c[], int cn )
 	packet.h.header.size=sizeof(t_CommonDataC);
 	CHARLIST *ch = CheckServerId(cn);
 	if(!ch){return;}
-	if (!ch->IsDual()) // µà¾óÀÌ ¾Æ´Ï¸é ½ÇÇà
+	if (!ch->IsDual()) // ë“€ì–¼ì´ ì•„ë‹ˆë©´ ì‹¤í–‰
 	{
 		SendCMD_COMFORM_RESET_ABILITY(ch);//020820 lsw
 		return;
 	}
 	else 
 	{
-		packet.u.NationWar.CommonDataC.Data=5;		// µà¾ó½ÇÆĞ
+		packet.u.NationWar.CommonDataC.Data=5;		// ë“€ì–¼ì‹¤íŒ¨
 	}
 		
 	QueuePacket(c,cn,&packet,1);
 }
 
 
-void MakeSealStoneNumber(char* SrcString,int SealNo[4])				// LTS NEW LOCALWAR		// ¹ü¿ëÀûÀÎ ÇÔ¼ö ¾Æ´Ô
+void MakeSealStoneNumber(char* SrcString,int SealNo[4])				// LTS NEW LOCALWAR		// ë²”ìš©ì ì¸ í•¨ìˆ˜ ì•„ë‹˜
 {
 	int Position;
 	char tempString[MAX_PATH];
@@ -265,14 +265,14 @@ bool InitLocalWarSystem()				// LTS NEW LCOALWAR
 
 /*	if (GetPrivateProfileString("Network","path","",NetworkDir,MAX_PATH, MAP_SERVER_INI_)<=0)
 	{
-		MyLog(0,"Mapserver.iniÀÇ  Path¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.");
+		MyLog(0,"Mapserver.iniì˜  Pathì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		return false;
 	}
 	sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir);*/// 030919 HK YGI
 	LocalWarfieldSize=(DWORD)GetPrivateProfileInt("LocalWarfield","LocalWarfieldSize",0,MapServerConfigFileName);
 	if (!LocalWarfieldSize)
 	{
-		MyLog(0,"%sÀÇ [LocalWarfield],LocalWarfieldSizeÀÇ ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [LocalWarfield],LocalWarfieldSizeì˜ ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		return false;
 	}
 
@@ -355,29 +355,29 @@ void CloseLocalWarSystem()
 	SAFE_DELETE(g_pLocalWarfield);
 }
 
-int CanLocalWarAttack(CHARLIST* pAttacker,CHARLIST* pDefencer)		// 020115 LTS ÃÖ¼ºµ¿ ,ÀÓ»ó¿ì°øµ¿ 
+int CanLocalWarAttack(CHARLIST* pAttacker,CHARLIST* pDefencer)		// 020115 LTS ìµœì„±ë™ ,ì„ìƒìš°ê³µë™ 
 {
-	if (!g_LocalWarBegin) return FALSE;				// ±¹ÁöÀüÀÌ ½ÃÀÛµÇÁö ¾Ê¾Ò´Ù¸é °ø°İµÊ
-	if (!g_isLocalWarServer) return FALSE;			// ±¹ÁöÀü ¼­¹ö°¡ ¾Æ´Ï¸é °ø°İµÊ 
+	if (!g_LocalWarBegin) return FALSE;				// êµ­ì§€ì „ì´ ì‹œì‘ë˜ì§€ ì•Šì•˜ë‹¤ë©´ ê³µê²©ë¨
+	if (!g_isLocalWarServer) return FALSE;			// êµ­ì§€ì „ ì„œë²„ê°€ ì•„ë‹ˆë©´ ê³µê²©ë¨ 
 
 	if (pAttacker->JoinLocalWar)
 	{
-		if (pDefencer->JoinLocalWar)	// µÑ´Ù ±¹ÁöÀü¿¡ Âü¿©Çß´Ù¸é
+		if (pDefencer->JoinLocalWar)	// ë‘˜ë‹¤ êµ­ì§€ì „ì— ì°¸ì—¬í–ˆë‹¤ë©´
 		{
-			if (pDefencer->name_status.nation==pAttacker->name_status.nation) return true;	// °°Àº³ª¶óÀÌ¸é °ø°İºÒ°¡
-			else return FALSE;				// °ø°İ°¡´É
-		} else return TRUE;				// ¹æ¾îÀÚ°¡ ±¹ÁöÀü¿¡ Âü¿© ÇÏÁö ¾Ê¾Ò´Ù¸é °ø°İºÒ°¡
+			if (pDefencer->name_status.nation==pAttacker->name_status.nation) return true;	// ê°™ì€ë‚˜ë¼ì´ë©´ ê³µê²©ë¶ˆê°€
+			else return FALSE;				// ê³µê²©ê°€ëŠ¥
+		} else return TRUE;				// ë°©ì–´ìê°€ êµ­ì§€ì „ì— ì°¸ì—¬ í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ê³µê²©ë¶ˆê°€
 	}
 	else 
 	{
-		if (pDefencer->JoinLocalWar)	// ¹æ¾îÀÚ°¡ ±¹ÁöÀü¿¡ Âü¿© Çß´Ù¸é
+		if (pDefencer->JoinLocalWar)	// ë°©ì–´ìê°€ êµ­ì§€ì „ì— ì°¸ì—¬ í–ˆë‹¤ë©´
 		{
-			return TRUE;				// °ø°İ¾ÈµÊ
-		} else return FALSE;			// µÑ´Ù Âü¿©ÇÏÁö ¾Ê¾Ò´Ù¸é °ø°İµÊ
+			return TRUE;				// ê³µê²©ì•ˆë¨
+		} else return FALSE;			// ë‘˜ë‹¤ ì°¸ì—¬í•˜ì§€ ì•Šì•˜ë‹¤ë©´ ê³µê²©ë¨
 	}
 }
 
-int CheckLocalWarAttacker(CHARLIST* pAttacker)						// 020115 LTS ÃÖ¼ºµ¿ °øµ¿
+int CheckLocalWarAttacker(CHARLIST* pAttacker)						// 020115 LTS ìµœì„±ë™ ê³µë™
 {
 	if (!g_LocalWarBegin) return TRUE;
 	if (!g_isLocalWarServer) return TRUE;
@@ -388,7 +388,7 @@ int CheckLocalWarAttacker(CHARLIST* pAttacker)						// 020115 LTS ÃÖ¼ºµ¿ °øµ¿
 void IncGainedFame(CHARLIST* ch,int Value)
 {
 	if (ch->GainedFame>=9) return;
-	MyLog(0,"Gained Fame º¯°æ , ÀÌ¸§ : %s, Old : %d, New : %d",ch->Name,ch->GainedFame,ch->GainedFame+Value);
+	MyLog(0,"Gained Fame ë³€ê²½ , ì´ë¦„ : %s, Old : %d, New : %d",ch->Name,ch->GainedFame,ch->GainedFame+Value);
 	ch->GainedFame+=Value;
 }
 
@@ -410,29 +410,29 @@ void SendPacket2LocalWarJoinClients(t_packet* p)
 
 void CheckLocalWarDeath(CHARLIST* pCaster,CHARLIST* pTarget)	// 011217 LTS
 {
-	const int PointTBL[11] = { 1,1,1,2,2,2,2,2,3,3,4 };			// Á¡¼ö°è»ê		// 011219 LTS
+	const int PointTBL[11] = { 1,1,1,2,2,2,2,2,3,3,4 };			// ì ìˆ˜ê³„ì‚°		// 011219 LTS
 	short tempLevel;
 	short tempIndex;
 	unsigned short NationPoint[3]= {0,0,0};					// 020130 LTS
 	t_packet packet;
 
-	if (!g_isLocalWarServer) return;						// ±¹ÁöÀü¼­¹ö°¡ ¾Æ´Ñ¸é 
-	if (!g_pLocalWarfield->GetLocalWarStatus()) return;		// ÀüÀïÁßÀÌ ¾Æ´Ï¸é 
+	if (!g_isLocalWarServer) return;						// êµ­ì§€ì „ì„œë²„ê°€ ì•„ë‹Œë©´ 
+	if (!g_pLocalWarfield->GetLocalWarStatus()) return;		// ì „ìŸì¤‘ì´ ì•„ë‹ˆë©´ 
 	if (pCaster==NULL||pTarget==NULL) return;				// 011217 LTS
 
 	if (!pCaster->IsPlayer()) return;						// 020130 LTS
 	if (!pTarget->IsPlayer()) return;
 
-	if (pCaster->name_status.nation==pTarget->name_status.nation) return;	//°°Àº ±¹°¡ÀÌ¸é ÀÏ¹İ°ú µ¿ÀÏÃ³¸® 
+	if (pCaster->name_status.nation==pTarget->name_status.nation) return;	//ê°™ì€ êµ­ê°€ì´ë©´ ì¼ë°˜ê³¼ ë™ì¼ì²˜ë¦¬ 
 
 	if (pCaster->JoinLocalWar&&pTarget->JoinLocalWar)
 	{
-		//µÑ´Ù ÀüÀï¿¡ Âü¿©Çß´Ù.
+		//ë‘˜ë‹¤ ì „ìŸì— ì°¸ì—¬í–ˆë‹¤.
 		tempLevel = pTarget->GetLevel() - pCaster->GetLevel(); // CSD-030806
 		tempIndex=(int)tempLevel/10;
-		if (tempLevel>0)	//¹æ¾îÀÚÀÇ ·¹º§ÀÌ ³ô´Ù // °ø°İÀÚÀÇ Á¡¼öÈ¹µæ
+		if (tempLevel>0)	//ë°©ì–´ìì˜ ë ˆë²¨ì´ ë†’ë‹¤ // ê³µê²©ìì˜ ì ìˆ˜íšë“
 		{
-			switch (pCaster->name_status.nation)	// ±¹°¡Á¡¼ö¸¦ ±¸ÇÑ´Ù.
+			switch (pCaster->name_status.nation)	// êµ­ê°€ì ìˆ˜ë¥¼ êµ¬í•œë‹¤.
 			{
 			case NW_BY : NationPoint[0]+=PointTBL[tempIndex]; break;
 			case NW_ZY : NationPoint[1]+=PointTBL[tempIndex]; break;
@@ -453,7 +453,7 @@ void CheckLocalWarDeath(CHARLIST* pCaster,CHARLIST* pTarget)	// 011217 LTS
 			}
 			
 		}
-		else				//°ø°İÀÚÀÇ ·¹º§ÀÌ ³ô´Ù	// ¹æ¾îÀÚÀÇ Á¡¼ö 
+		else				//ê³µê²©ìì˜ ë ˆë²¨ì´ ë†’ë‹¤	// ë°©ì–´ìì˜ ì ìˆ˜ 
 		{
 			if (tempIndex<-1) 
 			{
@@ -474,9 +474,9 @@ void CheckLocalWarDeath(CHARLIST* pCaster,CHARLIST* pTarget)	// 011217 LTS
 	{
 		if (pCaster->JoinLocalWar)
 		{
-			//°ø°İÀÚ°¡ ÀüÀïÂü¿©
-			IncGainedFame(pCaster,-2);	//ÀüÀï¸ğµå°¡ ¾Æ´Ñ»ç¶÷À» Á×ÀÌ¸é -2¸í¼ºÄ¡°¨¼Ò
-			switch (pCaster->name_status.nation)	// ±¹°¡Á¡¼ö¸¦ ±¸ÇÑ´Ù.
+			//ê³µê²©ìê°€ ì „ìŸì°¸ì—¬
+			IncGainedFame(pCaster,-2);	//ì „ìŸëª¨ë“œê°€ ì•„ë‹Œì‚¬ëŒì„ ì£½ì´ë©´ -2ëª…ì„±ì¹˜ê°ì†Œ
+			switch (pCaster->name_status.nation)	// êµ­ê°€ì ìˆ˜ë¥¼ êµ¬í•œë‹¤.
 			{
 			case NW_BY : NationPoint[0]-=5; break;
 			case NW_ZY : NationPoint[1]-=5; break;
@@ -485,8 +485,8 @@ void CheckLocalWarDeath(CHARLIST* pCaster,CHARLIST* pTarget)	// 011217 LTS
 		}
 		else
 		{
-			//¹æ¾îÀÚ°¡ ÀüÀïÂü¿©
-			switch (pCaster->name_status.nation)	// ±¹°¡Á¡¼ö¸¦ ±¸ÇÑ´Ù.
+			//ë°©ì–´ìê°€ ì „ìŸì°¸ì—¬
+			switch (pCaster->name_status.nation)	// êµ­ê°€ì ìˆ˜ë¥¼ êµ¬í•œë‹¤.
 			{
 			case NW_BY : NationPoint[0]-=5; break;
 			case NW_ZY : NationPoint[1]-=5; break;
@@ -568,8 +568,8 @@ void cLocalWarfield::SetLocalWarfieldInfo(LocalWarfield_Info LF)		// LTS NEW LOC
 
 int cLocalWarfield::CheckAllSealStonebroked(int NationIndex)				// LTS NEW LOCALWAR
 {
-	for (int i=0;i<LOCALWAR_SEALSTONE_MAX;i++)								// NPCList[]¿¡¼­ Áö¿öÁø´Ù¸é... ¾ÈµÈ´Ù.
-	{																		// ±¹ÁöÀüÀÇ °á°è¼®Àº RemoveµÇÁö ¾Ê´Â´Ù. È®ÀÎÇØº¸ÀÚ	
+	for (int i=0;i<LOCALWAR_SEALSTONE_MAX;i++)								// NPCList[]ì—ì„œ ì§€ì›Œì§„ë‹¤ë©´... ì•ˆëœë‹¤.
+	{																		// êµ­ì§€ì „ì˜ ê²°ê³„ì„ì€ Removeë˜ì§€ ì•ŠëŠ”ë‹¤. í™•ì¸í•´ë³´ì	
 		if (m_SealStonePtr[NationIndex][i])
 		{
 			if (!m_SealStonePtr[NationIndex][i]->IsDead())
@@ -605,7 +605,7 @@ void cLocalWarfield::CheckSealStonePtr(CHARLIST* ch)			// LTS NEW LOCALWAR BUG
 		
 	for (int i=0;i<LOCALWAR_SEALSTONE_MAX;i++)
 	{
-		if (ch->eventno==m_SealStoneNo[NationIndex][i])				// 0Àº ÀÚµ¿À¸·Î NULLÀÌµÈ´Ù.
+		if (ch->eventno==m_SealStoneNo[NationIndex][i])				// 0ì€ ìë™ìœ¼ë¡œ NULLì´ëœë‹¤.
 		{
 			if (m_SealStonePtr[NationIndex][i]==NULL)
 			{
@@ -630,7 +630,7 @@ CHARLIST* cLocalWarfield::GetSealStonePtr( const int nNation, const int nStoneNu
 
 
 void cLocalWarfield::RecoveryAllSealStone()
-{// 030520 kyo //¸ğµç °á°è¼®ÀÇ HP¸¦ HPMAX·Î Ã¤¿î´Ù. 
+{// 030520 kyo //ëª¨ë“  ê²°ê³„ì„ì˜ HPë¥¼ HPMAXë¡œ ì±„ìš´ë‹¤. 
 	CHARLIST *ch;
 	for (int i=0;i<NW_NATION_COUNT;i++)
 	{
@@ -651,21 +651,21 @@ void GiveSealStonePoint(CHARLIST* ach,CHARLIST* dch)
 	switch (dch->SprNo)
 	{
 	case 91 : 
-		MyLog(0,"Gained Fame º¯°æ , ÀÌ¸§ : %s, Old : %d, New : %d",ach->Name,ach->GainedFame,ach->GainedFame+3);
+		MyLog(0,"Gained Fame ë³€ê²½ , ì´ë¦„ : %s, Old : %d, New : %d",ach->Name,ach->GainedFame,ach->GainedFame+3);
 		if (ach->name_status.nation!=NW_YL) ach->GainedFame+=3; 
 		break;
 	case 98 : 
-		MyLog(0,"Gained Fame º¯°æ , ÀÌ¸§ : %s, Old : %d, New : %d",ach->Name,ach->GainedFame,ach->GainedFame+3);
+		MyLog(0,"Gained Fame ë³€ê²½ , ì´ë¦„ : %s, Old : %d, New : %d",ach->Name,ach->GainedFame,ach->GainedFame+3);
 		if (ach->name_status.nation!=NW_BY) ach->GainedFame+=3; 
 		break;
 	case 99 : 
-		MyLog(0,"Gained Fame º¯°æ , ÀÌ¸§ : %s, Old : %d, New : %d",ach->Name,ach->GainedFame,ach->GainedFame+3);
+		MyLog(0,"Gained Fame ë³€ê²½ , ì´ë¦„ : %s, Old : %d, New : %d",ach->Name,ach->GainedFame,ach->GainedFame+3);
 		if (ach->name_status.nation!=NW_ZY) ach->GainedFame+=3; 
 		break;
 	}
 }
 
-void SendCMD_LOCALWAR_STARTUP_STATUS(CHARLIST* ch)	//¸ÇÃ³À½ ·Î±ä½Ã º¸³½´Ù.
+void SendCMD_LOCALWAR_STARTUP_STATUS(CHARLIST* ch)	//ë§¨ì²˜ìŒ ë¡œê¸´ì‹œ ë³´ë‚¸ë‹¤.
 {
 	t_packet packet;
 
@@ -685,7 +685,7 @@ void SendCMD_ANSWER_LOCAL_DELIVERY(int UserID,int MapServerPort,t_packet* p)
 	DeliveryPacket.u.LocalWar.Delivery_A.Size=sizeof(t_header)+p->h.header.size;
 	//memcpy(DeliveryPacket.u.LocalWar.Delivery_A.Data,(char*)p,DeliveryPacket.u.LocalWar.Delivery_A.Size);
 	DeliveryPacket.u.LocalWar.Delivery_A.nType = p->h.header.type; // 030518 kyo	
-	memcpy(DeliveryPacket.u.LocalWar.Delivery_A.Data,(char*)(p->u.data),DeliveryPacket.u.LocalWar.Delivery_A.Size); // 030518 kyoµ¥ÀÌÅ¸¸¸ º¹»ç
+	memcpy(DeliveryPacket.u.LocalWar.Delivery_A.Data,(char*)(p->u.data),DeliveryPacket.u.LocalWar.Delivery_A.Size); // 030518 kyoë°ì´íƒ€ë§Œ ë³µì‚¬
 	DeliveryPacket.h.header.size=sizeof(t_Delivery_A)-100+DeliveryPacket.u.LocalWar.Delivery_A.Size;
 	g_pServerTable->SendRajaPacketToOtherMapServer(MapServerPort, (char *)&DeliveryPacket, DeliveryPacket.h.header.size+sizeof(t_header) );
 }
@@ -699,7 +699,7 @@ void SendCMD_REQUEST_LOCAL_DELIVERY(t_packet *p, t_connection c[], int cn)
 	packet.u.LocalWar.Delivery_R.UserID=cn;
 	packet.u.LocalWar.Delivery_R.Size=sizeof(t_header)+p->h.header.size;
 	memcpy(packet.u.LocalWar.Delivery_R.Data,(char*)p,packet.u.LocalWar.Delivery_R.Size);
-	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.LocalWar.Delivery_R.Size;  //100Àº ¹öÆÛÀÇ ¼öÀÌ´Ù. MAX_STRING_PK (NetWork4.h)//020903 lsw
+	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.LocalWar.Delivery_R.Size;  //100ì€ ë²„í¼ì˜ ìˆ˜ì´ë‹¤. MAX_STRING_PK (NetWork4.h)//020903 lsw
 	g_pServerTable->SendRajaPacketToOtherMapServer( NATION_MANAGE_SERVER, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
@@ -712,7 +712,7 @@ void SendCMD_REQUEST_LOCAL_DELIVERY(WORD Port,t_packet *p, t_connection c[], int
 	packet.u.LocalWar.Delivery_R.UserID=cn;
 	packet.u.LocalWar.Delivery_R.Size=sizeof(t_header)+p->h.header.size;
 	memcpy(packet.u.LocalWar.Delivery_R.Data,(char*)p,packet.u.LocalWar.Delivery_R.Size);
-	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.LocalWar.Delivery_R.Size;  //100Àº ¹öÆÛÀÇ ¼öÀÌ´Ù. MAX_STRING_PK (NetWork4.h)//020903 lsw
+	packet.h.header.size=sizeof(t_Delivery_R)-MAX_STRING_PK+packet.u.LocalWar.Delivery_R.Size;  //100ì€ ë²„í¼ì˜ ìˆ˜ì´ë‹¤. MAX_STRING_PK (NetWork4.h)//020903 lsw
 	g_pServerTable->SendRajaPacketToOtherMapServer( Port, (char *)&packet, packet.h.header.size+sizeof(t_header) );
 }
 
@@ -789,24 +789,24 @@ void ProcessCMD_EVENT_LOCALWAR_JOIN(t_packet *ReturnPacket,t_packet* ReceivePack
 	int Nation=ReceivePacket->u.LocalWar.EventJoin.Nation;
 	if (!g_isEventLocalWarServer) return;
 
-	if (!g_pEventLocalWarfield->CheckLevel(Level))						// ·¹º§ÀÇ ¹üÀ§°¡ Æ²¸®´Ù¸é
+	if (!g_pEventLocalWarfield->CheckLevel(Level))						// ë ˆë²¨ì˜ ë²”ìœ„ê°€ í‹€ë¦¬ë‹¤ë©´
 	{
 		ReturnPacket->h.header.type=CMD_EVENT_LOCALWAR_JOIN_RESULT;
-		ReturnPacket->u.LocalWar.CommonDataC.Data=2;					// 0 : ½ÇÆĞ 1 : ¼º°ø 2 : ·¹º§½ÇÆĞ 3 : ÀÎ¿ø½ÇÆĞ
+		ReturnPacket->u.LocalWar.CommonDataC.Data=2;					// 0 : ì‹¤íŒ¨ 1 : ì„±ê³µ 2 : ë ˆë²¨ì‹¤íŒ¨ 3 : ì¸ì›ì‹¤íŒ¨
 		ReturnPacket->h.header.size=sizeof(t_CommonDataC);
 		return;
 	}
 
-	if (!g_pEventLocalWarfield->IncManCount(Nation))					// ÀÎ¿øÁ¦ÇÑ¿¡ °É·È´Ù¸é 
+	if (!g_pEventLocalWarfield->IncManCount(Nation))					// ì¸ì›ì œí•œì— ê±¸ë ¸ë‹¤ë©´ 
 	{
 		ReturnPacket->h.header.type=CMD_EVENT_LOCALWAR_JOIN_RESULT;
-		ReturnPacket->u.LocalWar.CommonDataC.Data=3;					// 0 : ½ÇÆĞ 1 : ¼º°ø 2 : ·¹º§½ÇÆĞ 3 : ÀÎ¿ø½ÇÆĞ
+		ReturnPacket->u.LocalWar.CommonDataC.Data=3;					// 0 : ì‹¤íŒ¨ 1 : ì„±ê³µ 2 : ë ˆë²¨ì‹¤íŒ¨ 3 : ì¸ì›ì‹¤íŒ¨
 		ReturnPacket->h.header.size=sizeof(t_CommonDataC);
 		return;
 	}
 
-	ReturnPacket->h.header.type=CMD_EVENT_LOCALWAR_JOIN_RESULT;			// ÀÌ»ó¾ø´Ù¸é 	
-	ReturnPacket->u.LocalWar.CommonDataC.Data=1;						// 0 : ½ÇÆĞ 1 : ¼º°ø 2 : ·¹º§½ÇÆĞ 3 : ÀÎ¿ø½ÇÆĞ
+	ReturnPacket->h.header.type=CMD_EVENT_LOCALWAR_JOIN_RESULT;			// ì´ìƒì—†ë‹¤ë©´ 	
+	ReturnPacket->u.LocalWar.CommonDataC.Data=1;						// 0 : ì‹¤íŒ¨ 1 : ì„±ê³µ 2 : ë ˆë²¨ì‹¤íŒ¨ 3 : ì¸ì›ì‹¤íŒ¨
 	ReturnPacket->h.header.size=sizeof(t_CommonDataC);
 }
 
@@ -937,7 +937,7 @@ void RecvCMD_LOCALWAR_JOIN(t_packet *p, t_connection c[], int cn )
 	if (!ch->JoinLocalWar)
 	{
 		if (ch->name_status.nation!=MapInfo[MapNumber].nation)
-		{	// ±¹ÀûÀÌ ´Ù¸¥ ¸Ê¿¡¼­´Â Âü¿©ÇÒ¼ö ¾ø´Ù.
+		{	// êµ­ì ì´ ë‹¤ë¥¸ ë§µì—ì„œëŠ” ì°¸ì—¬í• ìˆ˜ ì—†ë‹¤.
 			packet.h.header.type=CMD_LOCALWAR_JOIN_RESULT;
 			packet.u.LocalWar.CommonDataC.Data=FALSE;
 			packet.h.header.size=sizeof(t_CommonDataC);
@@ -951,7 +951,7 @@ void RecvCMD_LOCALWAR_JOIN(t_packet *p, t_connection c[], int cn )
 		QueuePacket(c,cn,&packet,1);
 		g_pLogManager->SaveLogLocalWar_Info(ch); // CSD-040407
 
-		packet2.h.header.type=CMD_USER_JOIN_LOCALWAR;			//À¯Àú°¡ ±¹ÁöÀü¿¡ Á¶ÀÎ Çß´Ù°í ¾Ë·ÁÁØ´Ù.
+		packet2.h.header.type=CMD_USER_JOIN_LOCALWAR;			//ìœ ì €ê°€ êµ­ì§€ì „ì— ì¡°ì¸ í–ˆë‹¤ê³  ì•Œë ¤ì¤€ë‹¤.
 		packet2.u.LocalWar.UserJoinLocalWar.ServerID=cn;
 		packet2.h.header.size=sizeof(t_UserJoinLocalWar);
 		CastMe2Other( cn, &packet2);
@@ -1007,10 +1007,10 @@ void RecvCMD_INC_USER_LOCALWARFIELD(t_packet *p, t_connection c[], int cn )
 	int Nation=p->u.LocalWar.LocalWarUserAdd.Nation;
 
 	g_pNation->IncLocalWarfieldManCount(Index,NationIndex);
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
-	MyLog(0,"Âü¿©ÀÎ¿ø º¯µ¿ __ ¹øÈ£ : %d, ±¹Àû : %d , ÀÎ¿ø : %d",Index,Nation,g_pNation->GetLocalWarfieldManCount(Index,NationIndex));
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
+	MyLog(0,"ì°¸ì—¬ì¸ì› ë³€ë™ __ ë²ˆí˜¸ : %d, êµ­ì  : %d , ì¸ì› : %d",Index,Nation,g_pNation->GetLocalWarfieldManCount(Index,NationIndex));
 	*/
-	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"Âü¿©ÀÎ¿ø º¯µ¿ __ ¹øÈ£ : %d, ±¹Àû : %d , ÀÎ¿ø : %d",
+	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"ì°¸ì—¬ì¸ì› ë³€ë™ __ ë²ˆí˜¸ : %d, êµ­ì  : %d , ì¸ì› : %d",
 				Index,Nation,g_pNation->GetLocalWarfieldManCount(Index,NationIndex));
 }
 
@@ -1022,10 +1022,10 @@ void RecvCMD_DEC_USER_LOCALWARFIELD(t_packet *p, t_connection c[], int cn )
 
 	g_pNation->DecLocalWarfieldManCount(Index,NationIndex);
 
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
-	MyLog(0,"Âü¿©ÀÎ¿ø º¯µ¿ __ ¹øÈ£ : %d, ±¹Àû : %d , ÀÎ¿ø : %d",Index,Nation,g_pNation->GetLocalWarfieldManCount(Index,NationIndex));
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
+	MyLog(0,"ì°¸ì—¬ì¸ì› ë³€ë™ __ ë²ˆí˜¸ : %d, êµ­ì  : %d , ì¸ì› : %d",Index,Nation,g_pNation->GetLocalWarfieldManCount(Index,NationIndex));
 	*/
-	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"Âü¿©ÀÎ¿ø º¯µ¿ __ ¹øÈ£ : %d, ±¹Àû : %d , ÀÎ¿ø : %d",
+	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"ì°¸ì—¬ì¸ì› ë³€ë™ __ ë²ˆí˜¸ : %d, êµ­ì  : %d , ì¸ì› : %d",
 				Index,Nation,g_pNation->GetLocalWarfieldManCount(Index,NationIndex));
 }
 
@@ -1053,9 +1053,9 @@ void CalcGainedFame(CHARLIST* ch)// LTS DUAL FAME
 {
 	short OldFame = ch->fame;
 	if (ch->GainedFame>=9) 
-	{//µà¾óÆäÀÓÀÌ 9ÀÌ»óÀÌ¸é ÆäÀÓÀº 12, µà¾óÆäÀÓÀº 8Áõ°¡
+	{//ë“€ì–¼í˜ì„ì´ 9ì´ìƒì´ë©´ í˜ì„ì€ 12, ë“€ì–¼í˜ì„ì€ 8ì¦ê°€
 		g_pLogManager->SaveLogChange_Fame(ch,ch->fame,ch->fame+12,LF_LOCALWAR);// 020909 LTS
-		ch->fame+=12;// ½ºÆÄÀÌ °ÔÀÓÀ» À§ÇÑ °ªÀ» Áõ°¡½ÃÅ²´Ù.
+		ch->fame+=12;// ìŠ¤íŒŒì´ ê²Œì„ì„ ìœ„í•œ ê°’ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
 		MyLog(0,"Fame Changed , Name:[%s], Nation:[%d], OldFame:[%d], NewFame:[%d], Differ:[%d]",ch->Name,ch->name_status.nation,OldFame,ch->fame,ch->fame-OldFame);	
 		const int iOldDF = var[ch->GetServerID()][DUAL_FAME_FIELD];
 		const int iNewDF = iOldDF+8;
@@ -1085,7 +1085,7 @@ void CalcGainedFame(CHARLIST* ch)// LTS DUAL FAME
 		}
 		else
 		{
-			if (tempValue>1)	// ÇÕÀÌ ¾çÀÎ »ç¶÷¿¡°Ô 
+			if (tempValue>1)	// í•©ì´ ì–‘ì¸ ì‚¬ëŒì—ê²Œ 
 			{
 				const int iOldDF = var[ch->GetServerID()][DUAL_FAME_FIELD];
 				const int iNewDF = iOldDF+tempValue;
@@ -1094,7 +1094,7 @@ void CalcGainedFame(CHARLIST* ch)// LTS DUAL FAME
 				g_pLogManager->SaveLogChange_DualFame( ch, iOldDF, iNewDF, LDF_LOCALWAR);
 				::MyLog(0,"Increase User Spy Game Point, User : %s, OldPoint %d, NewPoint %d",ch->Name,iOldDF,iNewDF);
 			}
-			else				// ÇÕÀÌ À½ÀÎ »ç¶÷¿¡°Ô
+			else				// í•©ì´ ìŒì¸ ì‚¬ëŒì—ê²Œ
 			{
 				const int iOldDF = var[ch->GetServerID()][DUAL_FAME_FIELD];
 				const int iNewDF = iOldDF+2;
@@ -1174,7 +1174,7 @@ void CalcMapUsersGainedFame(int Nation)
 			{
 				CalcGainedFame(pUser);
 			}
-			else					// ½ºÆÄÀÌ °ÔÀÓÀ» À§ÇÑ °ªÀ» ¾÷µ¥ÀÌÆ® ÇÑ´Ù.
+			else					// ìŠ¤íŒŒì´ ê²Œì„ì„ ìœ„í•œ ê°’ì„ ì—…ë°ì´íŠ¸ í•œë‹¤.
 			{
 				if (pUser->JoinLocalWar)
 				{
@@ -1191,7 +1191,7 @@ void CalcMapUsersGainedFame(int Nation)
 					}
 					else
 					{
-						if (tempValue>1)		// 0º¸´Ù Å«»ç¶÷¿¡°Ô.... ¾òÀº °ªÀ» 
+						if (tempValue>1)		// 0ë³´ë‹¤ í°ì‚¬ëŒì—ê²Œ.... ì–»ì€ ê°’ì„ 
 						{
 							const int iOldDF = var[i][DUAL_FAME_FIELD];
 							const int iNewDF = iOldDF + tempValue;
@@ -1200,7 +1200,7 @@ void CalcMapUsersGainedFame(int Nation)
 							g_pLogManager->SaveLogChange_DualFame(pUser, iOldDF, iNewDF, LDF_LOCALWAR);
 							::MyLog(0,"Increase User Spy Game Point, User : %s, OldPoint %d, NewPoint %d", pUser->Name, iOldDF, iNewDF);
 						}
-						else					// 0º¸´Ù ÀÛÀº »ç¶÷Àº.. ¹«Á¶°Ç2
+						else					// 0ë³´ë‹¤ ì‘ì€ ì‚¬ëŒì€.. ë¬´ì¡°ê±´2
 						{
 							const int iOldDF = var[i][DUAL_FAME_FIELD];
 							const int iNewDF = iOldDF + 2;
@@ -1217,7 +1217,7 @@ void CalcMapUsersGainedFame(int Nation)
 }	//> CSD-HK-030829
 
 void SendCMD_LOCALWAR_END2Client(t_packet* p)
-{	//< CSD-CN-031213 : ÇöÀç ¸ÊÀÇ ±¹ÁöÀü¿¡ Âü°¡ÇÑ ¸ğµç À¯ÀúÀÇ Âü°¡¸¦ Ãë¼ÒÇÑ´Ù. 
+{	//< CSD-CN-031213 : í˜„ì¬ ë§µì˜ êµ­ì§€ì „ì— ì°¸ê°€í•œ ëª¨ë“  ìœ ì €ì˜ ì°¸ê°€ë¥¼ ì·¨ì†Œí•œë‹¤. 
 	g_pUserManager->SendPacket(p);
 
 	CUserManager::HASH_USER user = g_pUserManager->GetUserSet();
@@ -1244,7 +1244,7 @@ void RecvCMD_LOCALWAR_BEGIN( t_packet *p, t_connection c[], int cn )
 	if (g_isLocalWarServer)
 	{
 		g_pLocalWarfield->SetLocalWarStatus(1);
-		g_pLocalWarfield->RecoveryAllSealStone(); // 030520 kyo //¸ğµç °á°è¼®ÀÇ HP¸¦ È¸º¹
+		g_pLocalWarfield->RecoveryAllSealStone(); // 030520 kyo //ëª¨ë“  ê²°ê³„ì„ì˜ HPë¥¼ íšŒë³µ
 	}
 }
 
@@ -1358,22 +1358,22 @@ int CheckMaxPoint(int nPoint1, int nPoint2)
 {// 030506 kyo
 	if( nPoint1 > nPoint2 )
 	{
-		return 3;	// LTH-040308-KO »óÀ§ ÇÔ¼ö¿Í ±¸ºĞÁş±âÀ§ÇØ. 3:nPoint1>nPoint2, 4:nPoint1<nPoint2, 5:nPoint1=nPoint2
+		return 3;	// LTH-040308-KO ìƒìœ„ í•¨ìˆ˜ì™€ êµ¬ë¶„ì§“ê¸°ìœ„í•´. 3:nPoint1>nPoint2, 4:nPoint1<nPoint2, 5:nPoint1=nPoint2
 	}
 	else if( nPoint1 < nPoint2 )
 	{
-		return 4;	// LTH-040308-KO »óÀ§ ÇÔ¼ö¿Í ±¸ºĞÁş±âÀ§ÇØ
+		return 4;	// LTH-040308-KO ìƒìœ„ í•¨ìˆ˜ì™€ êµ¬ë¶„ì§“ê¸°ìœ„í•´
 	}
 	else
 	{
-		return 5;	// LTH-040308-KO »óÀ§ ÇÔ¼ö¿Í ±¸ºĞÁş±âÀ§ÇØ
+		return 5;	// LTH-040308-KO ìƒìœ„ í•¨ìˆ˜ì™€ êµ¬ë¶„ì§“ê¸°ìœ„í•´
 	}
 }
 
-//< LTH-040308-KO »óÀ§ ÇÔ¼öÀÇ ¼ıÀÚ¿Í ±¸ºĞÁş±â À§ÇØ ¹İÈ¯ÇÏ´Â ¼ö¸¦ ¹Ù²Ù°í ÀÏ½ºµµ Á¦´ë·Î ºñ±³ÇÏ°Ô ¸¸µë
+//< LTH-040308-KO ìƒìœ„ í•¨ìˆ˜ì˜ ìˆ«ìì™€ êµ¬ë¶„ì§“ê¸° ìœ„í•´ ë°˜í™˜í•˜ëŠ” ìˆ˜ë¥¼ ë°”ê¾¸ê³  ì¼ìŠ¤ë„ ì œëŒ€ë¡œ ë¹„êµí•˜ê²Œ ë§Œë“¬
 // 6:nIndex1>nIndex2, 7:nIndex1<nIndex2, 8:nIndex1=nIndex2
 int CheckMaxArrayPoint(int nIndex1, int nIndex2, unsigned short Array_1[3] ,unsigned short Array_2[3], unsigned short Array_3[3])
-{//3¹è¿­ÀÇ nIndex1°ú nIndex2Áß¿¡ Å« °ªÀ» ¸®ÅÏ 0: nIndex1, 1:nIndex2, 2:µÎ °ªÀÌ µ¿ÀÏ
+{//3ë°°ì—´ì˜ nIndex1ê³¼ nIndex2ì¤‘ì— í° ê°’ì„ ë¦¬í„´ 0: nIndex1, 1:nIndex2, 2:ë‘ ê°’ì´ ë™ì¼
 	int rt = CheckMaxPoint( Array_1[nIndex1], Array_1[nIndex2] );
 	
 	switch (rt)
@@ -1417,10 +1417,10 @@ void SendCMD_LOCALWAR_END_WIN( const int nWinNation)
 	packet.h.header.type=CMD_LOCALWAR_END;
 	packet.u.LocalWar.CommonDataC.Data=nWinNation;	
 	packet.h.header.size=sizeof(t_CommonDataC);
-	SendPacket2Maps(&packet);//¸ğµç ¸Ê¿¡ º¸³»¼­ ÆäÀÓ°è»ê	
+	SendPacket2Maps(&packet);//ëª¨ë“  ë§µì— ë³´ë‚´ì„œ í˜ì„ê³„ì‚°	
 }
 
-//< LTH-040220-KO ¼¼ ±¹°¡ÀÇ ¼øÀ§¿¡ µû¸¥ Á¡¼ö¸¦ DB¿¡ ÀúÀåÇÑ´Ù
+//< LTH-040220-KO ì„¸ êµ­ê°€ì˜ ìˆœìœ„ì— ë”°ë¥¸ ì ìˆ˜ë¥¼ DBì— ì €ì¥í•œë‹¤
 extern void UpdateWarTime();
 extern DWORD g_dwCurrWeekElapsedSec;
 extern HDBC g_hDBC_DragonDB;
@@ -1467,8 +1467,8 @@ VOID SaveNationRankPoint(int aPoint[NW_NATION_COUNT])
 
 	SQLFreeStmt(hStmt, SQL_DROP);
 
-	//< LTH-040314-KO ±¹ÁöÀü Æ÷ÀÎÆ® ¼øÀ§ Á¡¼ö¸¦ ·Î±×·Î ³²±âÀÚ±¸!!
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	//< LTH-040314-KO êµ­ì§€ì „ í¬ì¸íŠ¸ ìˆœìœ„ ì ìˆ˜ë¥¼ ë¡œê·¸ë¡œ ë‚¨ê¸°ìêµ¬!!
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	::MyLog(LOG_NORMAL, "<!-- Nation Rank Point Information -->");
 	::MyLog(LOG_NORMAL, "** Previous Sum Nation Rank Point\t- VY : %d, ZY : %d, YL : %d **", nSumPoint[0], nSumPoint[1], nSumPoint[2]);
 	*/
@@ -1483,7 +1483,7 @@ VOID SaveNationRankPoint(int aPoint[NW_NATION_COUNT])
 	//> LTH-040314-KO
 
 	// Update Point
-	//< LTH-040413-KO °ªÀÌ ÀÌ»óÇÏ°Ô µé¾î°£´Ù -_-; ´Ù½Ã ÇÑ¹ø ²À È®ÀÎ!!!
+	//< LTH-040413-KO ê°’ì´ ì´ìƒí•˜ê²Œ ë“¤ì–´ê°„ë‹¤ -_-; ë‹¤ì‹œ í•œë²ˆ ê¼­ í™•ì¸!!!
 	struct tm *today;
 	time_t lTime;
 	int wday;
@@ -1493,7 +1493,7 @@ VOID SaveNationRankPoint(int aPoint[NW_NATION_COUNT])
 	wday = today->tm_wday;
 	wsprintf(szQuery, "EXEC up_set_nation_rank_point_today %d, %d, %d, %d", wday, aPoint[0], aPoint[1], aPoint[2]);
 	//> LTH-040413-KO
-	//< LTH-040409-KO ·Î±× °­È­
+	//< LTH-040409-KO ë¡œê·¸ ê°•í™”
 	char szTemp[10] = "";
 	switch (wday)
 	{
@@ -1505,7 +1505,7 @@ VOID SaveNationRankPoint(int aPoint[NW_NATION_COUNT])
 	case 5: sprintf(szTemp, "Friday"); break;
 	case 6: sprintf(szTemp, "Saturday"); break;
 	}
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	::MyLog(LOG_NORMAL, "** Plus Nation Rank Point\t- %s VY : %d, ZY : %d, YL : %d **", szTemp, aPoint[0], aPoint[1], aPoint[2]);
 	*/
 	g_pLogManager->SaveLog_List(LT_LOCAL_WAR, "** Plus Nation Rank Point\t- %s VY : %d, ZY : %d, YL : %d **", 
@@ -1527,8 +1527,8 @@ VOID SaveNationRankPoint(int aPoint[NW_NATION_COUNT])
 	// Update Point Sum
 	wsprintf(szQuery, "EXEC up_set_nation_rank_point %d, %d, %d, %d", \
 		SUM_TYPE_NUM, nSumPoint[0], nSumPoint[1], nSumPoint[2]);
-	//< LTH-040409-KO ·Î±× °­È­
-	/*040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+	//< LTH-040409-KO ë¡œê·¸ ê°•í™”
+	/*040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 	::MyLog(LOG_NORMAL, "** Current Sum Nation Rank Point\t- VY : %d, ZY : %d, YL : %d **", nSumPoint[0], nSumPoint[1], nSumPoint[2]);
 	*/
 	g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"** Current Sum Nation Rank Point\t- VY : %d, ZY : %d, YL : %d **", \
@@ -1549,7 +1549,7 @@ VOID SaveNationRankPoint(int aPoint[NW_NATION_COUNT])
 }
 //> LTH-040220-KO
 
-void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á 
+void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // êµ­ì§€ì „ ì¢…ë£Œ 
 {	//const NationTBL[3]={ 3,4,6 };
 	const int NationTBL[NW_COMMANDER]={ NW_BY,NW_ZY,NW_YL}; // 03518 kyo
 	const char NationTBLStr[NW_COMMANDER][8]={"NW_BY","NW_ZY","NW_YL"}; // 030515 kyo
@@ -1560,16 +1560,16 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 	//int MAXPointIndex=g_pNation->CheckWinNation();
 	int nWinNation=g_pNation->CheckWinNation();	
 
-	//< LTH-040220-KO ¼øÀ§¿¡ µû¸¥ Á¡¼ö¸¦ ¼¼ ±¹°¡¿¡ ÇÒ´çÇÑ´Ù.
+	//< LTH-040220-KO ìˆœìœ„ì— ë”°ë¥¸ ì ìˆ˜ë¥¼ ì„¸ êµ­ê°€ì— í• ë‹¹í•œë‹¤.
 	INT aPoint[NW_COMMANDER] = {0,};
 	g_pNation->CheckWinNationPoint(aPoint);
 	::SaveNationRankPoint(aPoint);
 	//> LTh-040220-KO
 	
-	// ¸ğµç »óÈ²ÀÌ °°´Ù¸é ¸ğµç ±¹°¡°¡ ½Â¸®ÇÏ°Ô ÇÑ´Ù. 
-	// 0:¹ÙÀÌ¼­½º 1:ÀÚÀÌÆİ 2:ÀÏ½º 3:(ÀÚÀÌÆİ=ÀÏ½º)>¹ÙÀÌ¼­½º 4:(¹ÙÀÌ¼­½º=ÀÏ½º)>ÀÚÀÌÆİ 5:(ÀÚÀÌÆİ=¹ÙÀÌ¼­½º)>ÀÏ½º 6: ¸ğµÎµ¿ÀÏ
-	// ¿©·¯±¹°¡ÀÇ µ¿½Ã ½Â¸®ÀÏ °æ¿ì ±¹°¡¹øÈ£ÀÇ +°ªÀ¸·Î °è»ê 
-	// ex) 3,4,6 : ÇÑ±¹°¡(NationTBL[nWinNation])  7(¹Ù+ÀÚ),9(ÀÚ+ÀÏ),10(¹Ù+ÀÏ),13(´Ù)
+	// ëª¨ë“  ìƒí™©ì´ ê°™ë‹¤ë©´ ëª¨ë“  êµ­ê°€ê°€ ìŠ¹ë¦¬í•˜ê²Œ í•œë‹¤. 
+	// 0:ë°”ì´ì„œìŠ¤ 1:ìì´í€ 2:ì¼ìŠ¤ 3:(ìì´í€=ì¼ìŠ¤)>ë°”ì´ì„œìŠ¤ 4:(ë°”ì´ì„œìŠ¤=ì¼ìŠ¤)>ìì´í€ 5:(ìì´í€=ë°”ì´ì„œìŠ¤)>ì¼ìŠ¤ 6: ëª¨ë‘ë™ì¼
+	// ì—¬ëŸ¬êµ­ê°€ì˜ ë™ì‹œ ìŠ¹ë¦¬ì¼ ê²½ìš° êµ­ê°€ë²ˆí˜¸ì˜ +ê°’ìœ¼ë¡œ ê³„ì‚° 
+	// ex) 3,4,6 : í•œêµ­ê°€(NationTBL[nWinNation])  7(ë°”+ì),9(ì+ì¼),10(ë°”+ì¼),13(ë‹¤)
 	switch( nWinNation )
 	{
 	case 0:
@@ -1578,7 +1578,7 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 		{
 			//packet.u.LocalWar.CommonDataC.Data = NationTBL[nWinNation];
 			SendCMD_LOCALWAR_END_WIN(NationTBL[nWinNation]);// 030518 kyo
-			/* 040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+			/* 040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 			MyLog(0, "LocalWar End:: Win Team %s", NationTBLStr[nWinNation] );// 030515 kyo
 			*/
 			g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LocalWar End:: Win Team %s", 
@@ -1591,7 +1591,7 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 			//packet.u.LocalWar.CommonDataC.Data = NationTBL[1]+NationTBL[2];
 			SendCMD_LOCALWAR_END_WIN(NationTBL[1]);// 030518 kyo 
 			SendCMD_LOCALWAR_END_WIN(NationTBL[2]);// 030518 kyo
-			/* 040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+			/* 040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 			MyLog(0, "LocalWar End:: Win Team=%s && Win Team=%s", NationTBLStr[1], NationTBLStr[2] );// 030515 kyo
 			*/
 			g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LocalWar End:: Win Team=%s && Win Team=%s", 
@@ -1603,7 +1603,7 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 			//packet.u.LocalWar.CommonDataC.Data = NationTBL[0]+NationTBL[2];
 			SendCMD_LOCALWAR_END_WIN(NationTBL[0]);// 030518 kyo 
 			SendCMD_LOCALWAR_END_WIN(NationTBL[2]);// 030518 kyo 
-			/* 040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+			/* 040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 			MyLog(0, "LocalWar End:: Win Team=%s && Win Team=%s", NationTBLStr[0], NationTBLStr[2] );// 030515 kyo
 			*/
 			g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LocalWar End:: Win Team=%s && Win Team=%s", 
@@ -1615,7 +1615,7 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 			//packet.u.LocalWar.CommonDataC.Data = NationTBL[0]+NationTBL[1];
 			SendCMD_LOCALWAR_END_WIN(NationTBL[0]);// 030518 kyo 
 			SendCMD_LOCALWAR_END_WIN(NationTBL[1]);// 030518 kyo 
-			/* 040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+			/* 040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 			MyLog(0, "LocalWar End:: Win Team=%s && Win Team=%s", NationTBLStr[0], NationTBLStr[1] );// 030515 kyo
 			*/
 			g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LocalWar End:: Win Team=%s && Win Team=%s", 
@@ -1627,7 +1627,7 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 			//packet.u.LocalWar.CommonDataC.Data = NationTBL[0]+NationTBL[1]+NationTBL[2];			
 			//MyLog(0, "LocalWar End:: Win Team=%s && Win Team=%s && Win Team=%s", NationTBLStr[0], NationTBLStr[1], NationTBLStr[2] );// 03515 kyo
 			SendCMD_LOCALWAR_END_WIN(0);// 030518 kyo
-			/* 040721_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+			/* 040721_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 			MyLog(0, "LocalWar End:: All Lose ~~~~~ ");
 			*/
 			g_pLogManager->SaveLog_List(LT_LOCAL_WAR,"LocalWar End:: All Lose ~~~~~ ");
@@ -1646,9 +1646,9 @@ void SendCMD_LOCALWAR_END()						// LTS NEW LOCALWAR  // ±¹ÁöÀü Á¾·á
 	packet.u.LocalWar.CommonDataC.Data=NationTBL[nWinNation];	
 	packet.h.header.size=sizeof(t_CommonDataC);
 	//if (MAXPointIndex>=0) CalcMapUsersGainedFame(NationTBL[MAXPointIndex]);
-	//CalcMapUsersGainedFame(NationTBL[nWinNation]); //RecvCMD_LOCALWAR_END()¿¡¼­ ÆäÀÓ°è»êÇÑ´Ù. Áßº¹°è»ê´í´Ù.
-	//SendCMD_LOCALWAR_END2Client(&packet);// ÇöÀç ¸ÊÀÇ ±¹ÁöÀü¿¡ Âü°¡ÇÑ ¸ğµç À¯ÀúÀÇ Âü°¡¸¦ Ãë¼ÒÇÑ´Ù. Áßº¹µÊ
-	SendPacket2Maps(&packet);//¸ğµç ¸Ê¿¡ º¸³»¼­ ÆäÀÓ°è»ê
+	//CalcMapUsersGainedFame(NationTBL[nWinNation]); //RecvCMD_LOCALWAR_END()ì—ì„œ í˜ì„ê³„ì‚°í•œë‹¤. ì¤‘ë³µê³„ì‚°ëŒ„ë‹¤.
+	//SendCMD_LOCALWAR_END2Client(&packet);// í˜„ì¬ ë§µì˜ êµ­ì§€ì „ì— ì°¸ê°€í•œ ëª¨ë“  ìœ ì €ì˜ ì°¸ê°€ë¥¼ ì·¨ì†Œí•œë‹¤. ì¤‘ë³µë¨
+	SendPacket2Maps(&packet);//ëª¨ë“  ë§µì— ë³´ë‚´ì„œ í˜ì„ê³„ì‚°
 	*/	
 }
 
@@ -1677,7 +1677,7 @@ void ReturnLocalwarHome()
 			{
 				continue;
 			}
-			// Àû±¹ÀÎ °æ¿ì¸¸ ÀÚ±âÀÇ ±¹°¡·Î ÀÌµ¿
+			// ì êµ­ì¸ ê²½ìš°ë§Œ ìê¸°ì˜ êµ­ê°€ë¡œ ì´ë™
 			switch (pUser->name_status.nation)
 			{
 			case NW_BY:	
@@ -1783,25 +1783,25 @@ bool LoadStartUpPoint()
 	/*
 	if (GetPrivateProfileString("Network","path","",NetworkDir,MAX_PATH, MAP_SERVER_INI_)<=0)
 	{
-		MyLog(0,"Mapserver.iniÀÇ  Path¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.");
+		MyLog(0,"Mapserver.iniì˜  Pathì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		return false;
 	}
 	sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir); */// 030919 HK YGI
 	
-	for (i=0;i<6;i++)	// ³ª¶ó¹øÈ£
+	for (i=0;i<6;i++)	// ë‚˜ë¼ë²ˆí˜¸
 	{
 		sprintf(tempString,"EventMap%dStartPointX",i);
 		g_StartPoint[i].x=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!g_StartPoint[i].x)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			return false;
 		}
 		sprintf(tempString,"EventMap%dStartPointY",i);
 		g_StartPoint[i].y=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!g_StartPoint[i].y)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			return false;
 		}
 	}
@@ -1823,33 +1823,33 @@ bool InitEventLocalWarSystem()								// 020115 LTS		// LTS BUG
 /*
 	if (GetPrivateProfileString("Network","path","",NetworkDir,MAX_PATH,MAP_SERVER_INI_)<=0)
 	{
-		MyLog(0,"Mapserver.iniÀÇ  Path¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.");
+		MyLog(0,"Mapserver.iniì˜  Pathì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		return false;
 	}
 	sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir);*/
 	EventLocalWarfieldPort=(DWORD)GetPrivateProfileInt("EventLocalWar","EventLocalWarfieldPort",0,MapServerConfigFileName);
 	if (!EventLocalWarfieldPort)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventLocalWarfieldPortÀÇ ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventLocalWarfieldPortì˜ ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		return false;
 	}
 
-	if (MapServerPort==EventLocalWarfieldPort)		// ÀÌº¥Æ® ¸ÊÀÌ¶ó¸é 
+	if (MapServerPort==EventLocalWarfieldPort)		// ì´ë²¤íŠ¸ ë§µì´ë¼ë©´ 
 	{
 		g_isEventLocalWarServer=true;
 		g_pEventLocalWarfield=new cEventLocalWarfield;
 		g_EventMapPort=EventLocalWarfieldPort;
 		if (!g_pEventLocalWarfield->CheckLoadData())
 		{
-			JustMessage("ÀÌº¥Æ® ¸ÊÀÌÁö¸¸ È¯°æÆÄÀÏ(MapseverConfig.ini)¸¦ ÀĞÁö ¸øÇß½À´Ï´Ù.");
+			JustMessage("ì´ë²¤íŠ¸ ë§µì´ì§€ë§Œ í™˜ê²½íŒŒì¼(MapseverConfig.ini)ë¥¼ ì½ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
 		}
 	}
 	else 
 	{
-		g_EventMapPort=EventLocalWarfieldPort;		// Áö±İ ÀÌº¥Æ® ÁøÇàÁßÀÎ°¡? È®ÀÎ½Ã ¶Ç´Â Âü°¡ ½ÅÃ» ÀÎ¿ø ÆÄ¾Ç.
+		g_EventMapPort=EventLocalWarfieldPort;		// ì§€ê¸ˆ ì´ë²¤íŠ¸ ì§„í–‰ì¤‘ì¸ê°€? í™•ì¸ì‹œ ë˜ëŠ” ì°¸ê°€ ì‹ ì²­ ì¸ì› íŒŒì•….
 		if (!LoadStartUpPoint()) 
 		{
-			JustMessage("È¯°æÆÄÀÏ(MapseverConfig.ini)ÀÇ EventLocalWar¸¦ ÀĞÁö ¸øÇß½À´Ï´Ù.");
+			JustMessage("í™˜ê²½íŒŒì¼(MapseverConfig.ini)ì˜ EventLocalWarë¥¼ ì½ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.");
 		}
 	}
 	return true;
@@ -1919,7 +1919,7 @@ void CheckEventLocalWarDeath(CHARLIST* Attacker,CHARLIST* Defencer)
 			Defencer->Name, Defencer->GetLevel(),
 			Defencer->GetLevel() - Attacker->GetLevel()); // CSD-030806
 	MyLog(0," Attacker Old Event Poind : %d",Attacker->EventPoint);
-	//< LTH-040729-CN. ÀÌº¥Æ® ±¹ÁöÀü ¼öÁ¤. ÀÌº¥Æ® Æ÷ÀÎÆ®¸¦ MapServerConfig.ini¿¡¼­ ÀĞ¾î¿Àµµ·Ï ÇÑ´Ù. Á¡¼ö ÀÏ·üÀûÀ¸·Î ÁÜ.
+	//< LTH-040729-CN. ì´ë²¤íŠ¸ êµ­ì§€ì „ ìˆ˜ì •. ì´ë²¤íŠ¸ í¬ì¸íŠ¸ë¥¼ MapServerConfig.iniì—ì„œ ì½ì–´ì˜¤ë„ë¡ í•œë‹¤. ì ìˆ˜ ì¼ë¥ ì ìœ¼ë¡œ ì¤Œ.
 	if (LocalMgr.IsAbleNation(CHINA))
 	{
 		Attacker->EventPoint += g_pEventLocalWarfield->GetEventPointSetting();
@@ -1947,9 +1947,9 @@ bool CanUseRevivalPosion()
 }
 int CheckEventAttack()
 {
-	if (!g_isEventLocalWarServer) return FALSE;        // ÀÌº¥Æ® ¼­¹ö°¡ ¾Æ´Ï¸é °ø°İÇÒ¼ö ÀÖÀ½
-	if (g_pEventLocalWarfield->GetEventStatus()!=3) return TRUE;	// ÀÌº¥Æ® ¼­¹öÀÌ°í ÀÌº¥Æ®ÀÇ »óÅÂ°¡ ÀüÀï½ÃÀÛÀÌ ¾Æ´Ï¸é °ø°İÇÒ¼ö ¾øÀ½
-	return FALSE;										//ÀÌº¥Æ®¼­¹öÀÇ ÀüÀïÁß¿£ °ø°İÇÒ¼ö ÀÖÀ½										
+	if (!g_isEventLocalWarServer) return FALSE;        // ì´ë²¤íŠ¸ ì„œë²„ê°€ ì•„ë‹ˆë©´ ê³µê²©í• ìˆ˜ ìˆìŒ
+	if (g_pEventLocalWarfield->GetEventStatus()!=3) return TRUE;	// ì´ë²¤íŠ¸ ì„œë²„ì´ê³  ì´ë²¤íŠ¸ì˜ ìƒíƒœê°€ ì „ìŸì‹œì‘ì´ ì•„ë‹ˆë©´ ê³µê²©í• ìˆ˜ ì—†ìŒ
+	return FALSE;										//ì´ë²¤íŠ¸ì„œë²„ì˜ ì „ìŸì¤‘ì—” ê³µê²©í• ìˆ˜ ìˆìŒ										
 }
 
 int CheckEventWarDoing()
@@ -2004,7 +2004,7 @@ void ReLoadEventLocalWarData()			// LTS BUG
 }
 
 cEventLocalWarfield::cEventLocalWarfield()
-: m_nEventPoint(0)			// LTH-040729-CN ÀÌº¥Æ® ±¹ÁöÀü ¼öÁ¤.
+: m_nEventPoint(0)			// LTH-040729-CN ì´ë²¤íŠ¸ êµ­ì§€ì „ ìˆ˜ì •.
 {
 	InitEventLocalWarfield();
 	LoadEventLocalWarfieldData();
@@ -2039,7 +2039,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 	/*
 	if (GetPrivateProfileString("Network","path","",NetworkDir,MAX_PATH,MAP_SERVER_INI_)<=0)
 	{
-		MyLog(0,"Mapserver.iniÀÇ  Path¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.");
+		MyLog(0,"Mapserver.iniì˜  Pathì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.");
 		m_CheckLoadData=0;
 		return;
 	}
@@ -2048,42 +2048,42 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 	m_tData.EventActive=(char)GetPrivateProfileInt("EventLocalWar","EventActive",4,MapServerConfigFileName);
 	if (m_tData.EventActive==4)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventActive ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventActive ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
 	m_tData.EventStartTime=(char)GetPrivateProfileInt("EventLocalWar","EventStartTime",0,MapServerConfigFileName);
 	if (!m_tData.EventStartTime)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventStartTime ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventStartTime ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
 	m_tData.EventRegTime=(char)GetPrivateProfileInt("EventLocalWar","EventRegTime",0,MapServerConfigFileName);
 	if (!m_tData.EventRegTime)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventRegTime ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventRegTime ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
 	m_tData.EventMapMoveTime=(char)GetPrivateProfileInt("EventLocalWar","EventMapMoveTime",0,MapServerConfigFileName);
 	if (!m_tData.EventMapMoveTime)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventMapMoveTime ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventMapMoveTime ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
 	m_tData.EventTime=(char)GetPrivateProfileInt("EventLocalWar","EventTime",0,MapServerConfigFileName);
 	if (!m_tData.EventTime)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventTime ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventTime ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
 	m_tData.EventDelayTime=(char)GetPrivateProfileInt("EventLocalWar","EventDelayTime",0,MapServerConfigFileName);
 	if (!m_tData.EventDelayTime)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventDelayTime ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventDelayTime ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
@@ -2093,7 +2093,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.EventUserLevelMin[i]=(unsigned char)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.EventUserLevelMin[i])
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2101,19 +2101,19 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.EventUserLevelMax[i]=(unsigned char)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.EventUserLevelMax[i])
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
 	}
 
-	for (i=0;i<6;i++)	// ³ª¶ó¹øÈ£
+	for (i=0;i<6;i++)	// ë‚˜ë¼ë²ˆí˜¸
 	{
 		sprintf(tempString,"EventMap%dStartPointX",i);
 		m_tData.StartPoint[i].x=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.StartPoint[i].x)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2121,13 +2121,13 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.StartPoint[i].y=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.StartPoint[i].y)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
 	}
 
-	for (i=0;i<3;i++)	// ³ª¶ó¹øÈ£
+	for (i=0;i<3;i++)	// ë‚˜ë¼ë²ˆí˜¸
 	{
 		for (j=0;j<3;j++)
 		{
@@ -2141,7 +2141,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 			m_tData.EventRegMax[i][j]=(unsigned char)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 			if (!m_tData.EventRegMax[i][j])
 			{
-				MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+				MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 				m_CheckLoadData=0;
 				return;
 			}
@@ -2160,7 +2160,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.OutPoint[i].x=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.OutPoint[i].x)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2168,7 +2168,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.OutPoint[i].y=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.OutPoint[i].y)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2186,7 +2186,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.EventJoinLocation[i].x=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.EventJoinLocation[i].x)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2194,7 +2194,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 		m_tData.EventJoinLocation[i].y=(short)GetPrivateProfileInt("EventLocalWar",tempString,0,MapServerConfigFileName);
 		if (!m_tData.EventJoinLocation[i].y)
 		{
-			MyLog(0,"%sÀÇ [EventLocalWar], %s ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName,tempString);
+			MyLog(0,"%sì˜ [EventLocalWar], %s ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName,tempString);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2203,18 +2203,18 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 	m_tData.EventMessageTime=(char)GetPrivateProfileInt("EventLocalWar","EventMessageTime",0,MapServerConfigFileName);
 	if (m_tData.EventMessageTime==0)
 	{
-		MyLog(0,"%sÀÇ [EventLocalWar],EventMessageTime ¼³Á¤ÀÌ Àß¸øµÇ¾îÀÖ½À´Ï´Ù.",MapServerConfigFileName);
+		MyLog(0,"%sì˜ [EventLocalWar],EventMessageTime ì„¤ì •ì´ ì˜ëª»ë˜ì–´ìˆìŠµë‹ˆë‹¤.",MapServerConfigFileName);
 		m_CheckLoadData=0;
 		return;
 	}
 
-	//< LTH-040729-CN ÀÌº¥Æ® ±¹ÁöÀü ¼öÁ¤. Áß±¹¸¸ ÇØ´ç.
+	//< LTH-040729-CN ì´ë²¤íŠ¸ êµ­ì§€ì „ ìˆ˜ì •. ì¤‘êµ­ë§Œ í•´ë‹¹.
 	if (LocalMgr.IsAbleNation(CHINA))
 	{
 		m_nEventPoint = GetPrivateProfileInt("EventLocalWar", "EventPoint", 1, MapServerConfigFileName);
 		if (m_nEventPoint == 0)
 		{
-			::MyLog(LOG_FATAL, "%sÀÇ [EventLocalWar], EventPoint ¼³Á¤ÀÌ Àß¸øµÇ¾î ÀÖ½À´Ï´Ù.", MapServerConfigFileName);
+			::MyLog(LOG_FATAL, "%sì˜ [EventLocalWar], EventPoint ì„¤ì •ì´ ì˜ëª»ë˜ì–´ ìˆìŠµë‹ˆë‹¤.", MapServerConfigFileName);
 			m_CheckLoadData=0;
 			return;
 		}
@@ -2222,7 +2222,7 @@ void cEventLocalWarfield::LoadEventLocalWarfieldData()				// LTS BUG
 	//> LTH-040729-CN.
 }
 
-void cEventLocalWarfield::InitEvent()	// ÇÑÀÌº¥Æ®°¡ Áö³¯¶§¸¶´Ù ÃÊ±âÈ­ ÇÑ´Ù.
+void cEventLocalWarfield::InitEvent()	// í•œì´ë²¤íŠ¸ê°€ ì§€ë‚ ë•Œë§ˆë‹¤ ì´ˆê¸°í™” í•œë‹¤.
 {
 	m_ManCount[0]=0;
 	m_ManCount[1]=0;
@@ -2260,7 +2260,7 @@ void cEventLocalWarfield::SetEventLocalWarStatus(int Status)
 
 //	switch (m_EventStatus)
 //	{
-//	case 3 : m_EventEndTime=g_curr_time+EventTime; break;	//±¹ÁöÀüÀÌ ½ÃÀÛµÇ¾ú´Ù¸é 
+//	case 3 : m_EventEndTime=g_curr_time+EventTime; break;	//êµ­ì§€ì „ì´ ì‹œì‘ë˜ì—ˆë‹¤ë©´ 
 //	case 4 : ClearUserCloth(); break;
 //	}
 }
@@ -2282,7 +2282,7 @@ void cEventLocalWarfield::UpdateEventLocalWarTime()		// LTS BUG
 	static DWORD RemainTime;
 	if (!m_tData.EventActive) return;
 
-	if (!m_EventStatus)				//ÀÌº¥Æ®°¡ ÁøÇàÁßÀÌ ¾Æ´Ï´Ù.
+	if (!m_EventStatus)				//ì´ë²¤íŠ¸ê°€ ì§„í–‰ì¤‘ì´ ì•„ë‹ˆë‹¤.
 	{
 		if (g_hour==m_tData.EventStartTime)
 		{
@@ -2295,7 +2295,7 @@ void cEventLocalWarfield::UpdateEventLocalWarTime()		// LTS BUG
 		else return;
 	}
 
-	if (m_EventStatus==EVENT_DOING)	//¸Ş½ÃÁö¸¦ º¸³½´Ù
+	if (m_EventStatus==EVENT_DOING)	//ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤
 	{
 		if (g_curr_time>RemainTime)
 		{
@@ -2359,8 +2359,8 @@ void cEventLocalWarfield::LogJoinUser()			// LTS HORSERIDER
 		if (pUser != NULL)
 		{
 			fprintf(fp," User Name : %s\n", pUser->Name);
-			ClearEventJoin(pUser, 6);			// ¼­¹ÙÀÌ¹ú ÀÌº¥Æ® ¹øÈ£
-			pUser->EventLocalWarJoin = 0;		// ÃÊ±âÈ­
+			ClearEventJoin(pUser, 6);			// ì„œë°”ì´ë²Œ ì´ë²¤íŠ¸ ë²ˆí˜¸
+			pUser->EventLocalWarJoin = 0;		// ì´ˆê¸°í™”
 		}
 	}	//> CSD-HK-030829
 
@@ -2535,7 +2535,7 @@ inline bool cEventLocalWarfield::IncManCount(int Nation)
 
 	if (m_ManCount[0]>=m_tData.EventRegMax[m_EventStep][0]) return false;
 	m_ManCount[0]++;
-	MyLog(0,"Âü¿© ¿¹¾à ÀÎ¿ø º¯°æ : %d",m_ManCount[0]);
+	MyLog(0,"ì°¸ì—¬ ì˜ˆì•½ ì¸ì› ë³€ê²½ : %d",m_ManCount[0]);
 	return true;
 }
 /*
@@ -2574,7 +2574,7 @@ void RecvCMD_EVENT_LOCALWAR_JOIN(t_packet *p, t_connection c[], int cn )
 
 	if (c[cn].chrlst.EventLocalWarJoin) return;
 
-	if (CheckEventJoin(&connections[cn].chrlst,6))			// ´ÙÀ½¿£ ¿©±â¸¸ ¹«Á¶°Ç ÂüÀ¸·Î ÇØÁÖ¸é ÀÌº¥Æ®¸¦ ÇÒ¼ö ÀÖ´Ù.
+	if (CheckEventJoin(&connections[cn].chrlst,6))			// ë‹¤ìŒì—” ì—¬ê¸°ë§Œ ë¬´ì¡°ê±´ ì°¸ìœ¼ë¡œ í•´ì£¼ë©´ ì´ë²¤íŠ¸ë¥¼ í• ìˆ˜ ìˆë‹¤.
 	{
 		packet.h.header.type=CMD_EVENT_LOCALWAR_JOIN;
 		packet.u.LocalWar.EventJoin.Nation=c[cn].chrlst.name_status.nation;
@@ -2584,7 +2584,7 @@ void RecvCMD_EVENT_LOCALWAR_JOIN(t_packet *p, t_connection c[], int cn )
 	}
 	else
 	{
-		//< LTH-040729-CN. ÀÌº¥Æ® ±¹ÁöÀü ¼öÁ¤. Áß±¹ÀÏ °æ¿ì ÀÌº¥Æ® Á¶°Ç¿¡¸¸ ¸ÂÀ¸¸é ÀÌº¥Æ® ÁøÇà.
+		//< LTH-040729-CN. ì´ë²¤íŠ¸ êµ­ì§€ì „ ìˆ˜ì •. ì¤‘êµ­ì¼ ê²½ìš° ì´ë²¤íŠ¸ ì¡°ê±´ì—ë§Œ ë§ìœ¼ë©´ ì´ë²¤íŠ¸ ì§„í–‰.
 		if (LocalMgr.IsAbleNation(CHINA))
 		{
 			packet.h.header.type=CMD_EVENT_LOCALWAR_JOIN;
@@ -2595,8 +2595,8 @@ void RecvCMD_EVENT_LOCALWAR_JOIN(t_packet *p, t_connection c[], int cn )
 		}
 		else
 		{
-			packet.h.header.type=CMD_EVENT_LOCALWAR_JOIN_RESULT;	//È¨ÆäÀÌÁö¿¡¼­ Âü¿©½ÅÃ»À» ÇÏÁö ¾Ê¾Ò´Ù.
-			packet.u.LocalWar.CommonDataC.Data=0;		// 0 : ½ÇÆĞ 1 : ¼º°ø 2 : ·¹º§½ÇÆĞ 3 : ÀÎ¿ø½ÇÆĞ
+			packet.h.header.type=CMD_EVENT_LOCALWAR_JOIN_RESULT;	//í™ˆí˜ì´ì§€ì—ì„œ ì°¸ì—¬ì‹ ì²­ì„ í•˜ì§€ ì•Šì•˜ë‹¤.
+			packet.u.LocalWar.CommonDataC.Data=0;		// 0 : ì‹¤íŒ¨ 1 : ì„±ê³µ 2 : ë ˆë²¨ì‹¤íŒ¨ 3 : ì¸ì›ì‹¤íŒ¨
 			packet.h.header.size=sizeof(t_CommonDataC);
 			QueuePacket(c,cn,&packet,1);
 		}
@@ -2615,7 +2615,7 @@ void RecvCMD_EVENT_LOCALWAR_MOVE(t_packet *p, t_connection c[], int cn )
 {
 	if (c[cn].chrlst.EventLocalWarJoin)
 	{
-		c[cn].chrlst.EventPoint=0;		//ÀÌº¥Æ® Æ÷ÀÎÆ®¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+		c[cn].chrlst.EventPoint=0;		//ì´ë²¤íŠ¸ í¬ì¸íŠ¸ë¥¼ ì´ˆê¸°í™” í•œë‹¤.
 		int temp=rand()%6;
 		MapMove(cn,"EventLW",g_StartPoint[temp].x,g_StartPoint[temp].y);
 	}
@@ -2671,7 +2671,7 @@ int CheckSendAction(int cn,int Action)		// LTS ACTION
 void RecvCMD_COMMUNITY_ACTION( t_packet *p, t_connection c[], int cn )		// LTS ACTION
 {
 	t_packet packet;
-	if (CheckSendAction(cn,p->u.LocalWar.CommunityActionS.Action))		// Äù½ºÆ® ¼öÇàÇß³ª °Ë»ç
+	if (CheckSendAction(cn,p->u.LocalWar.CommunityActionS.Action))		// í€˜ìŠ¤íŠ¸ ìˆ˜í–‰í–ˆë‚˜ ê²€ì‚¬
 	{
 		packet.h.header.type=CMD_COMMUNITY_ACTION;
 		packet.u.LocalWar.CommunityAction.ID=cn;
@@ -2700,7 +2700,7 @@ void CheckAndFreeLocalWar(int NationIndex,int Result)		// LTS NEW LOCALWAR
 	{
 		return;
 	}
-	// ÇØ´ç¸Ê¼­¹öÀÇ ±¹ÁöÀü Âü¿© À¯ÀúµéÁß ÆĞ¹èÇÑ À¯ÀúµéÀ» ÃÊ±âÈ­ ÇÑ´Ù.
+	// í•´ë‹¹ë§µì„œë²„ì˜ êµ­ì§€ì „ ì°¸ì—¬ ìœ ì €ë“¤ì¤‘ íŒ¨ë°°í•œ ìœ ì €ë“¤ì„ ì´ˆê¸°í™” í•œë‹¤.
 	const int Nation = GetNationFromIndex(NationIndex);
 
 	CUserManager::HASH_USER user = g_pUserManager->GetUserSet();
@@ -2713,9 +2713,9 @@ void CheckAndFreeLocalWar(int NationIndex,int Result)		// LTS NEW LOCALWAR
 		if (pUser != NULL && pUser->name_status.nation == Nation && pUser->JoinLocalWar)
 		{
 			pUser->JoinLocalWar = 0;
-			// º¹Àå º¯°æ
+			// ë³µì¥ ë³€ê²½
 			CheckAndSendChangeEquip(pUser, 1);  
-			// Àû±¹ÀÎ °æ¿ì ÀÚ±â ±¹°¡·Î ÀÌµ¿
+			// ì êµ­ì¸ ê²½ìš° ìê¸° êµ­ê°€ë¡œ ì´ë™
 			LPMAPINFO pMapInfo = GetMapInfoByMapPort(g_MapPort);
 	
 			if (!pMapInfo)
@@ -2763,16 +2763,16 @@ void RecvCMD_LOCALWAR_NATION_RESULT(t_packet *p, t_connection c[], int cn )		// 
 
 void RecvCMD_LOCALWAR_MAPMOVE (t_packet *p, t_connection c[], int cn )	// LTS NEW LOCALWAR
 {
-	const int	Possession[7]={0,3,4,6,3,4,6};		//¸ÊÀÇ ¼ÒÀ¯ 
+	const int	Possession[7]={0,3,4,6,3,4,6};		//ë§µì˜ ì†Œìœ  
 	const char  MapName[7][MAX_PATH]={ "BIG_G","HU_VM","RENES_OUT","BIG_TREE","SOURCE","COLOR","SEDLESS" };
 	int			MoveMap=p->u.LocalWar.CommonDataC.Data;
 	char		tempMapName[MAX_PATH];
 	int			NationIndex=GetNationIndex(c[cn].chrlst.name_status.nation);
 	t_packet	packet;
 
-	if (c[cn].chrlst.name_status.nation!=Possession[MoveMap])	// ¼±ÅÃµÈ ¸ÊÀÌ ±¹ÀûÀÌ ´Ù¸£¸é
+	if (c[cn].chrlst.name_status.nation!=Possession[MoveMap])	// ì„ íƒëœ ë§µì´ êµ­ì ì´ ë‹¤ë¥´ë©´
 	{
-		if (Possession[MoveMap]==0)								// Áß¸³¸ÊÀÏ¶§¸¸..
+		if (Possession[MoveMap]==0)								// ì¤‘ë¦½ë§µì¼ë•Œë§Œ..
 		{
 			if (c[cn].chrlst.JoinLocalWar)
 			{
@@ -2796,7 +2796,7 @@ void RecvCMD_LOCALWAR_MAPMOVE (t_packet *p, t_connection c[], int cn )	// LTS NE
 			
 		}
 	}
-	else														// °°Àº ±¹ÀûÀÇ ¸ÊÀÌ¸é
+	else														// ê°™ì€ êµ­ì ì˜ ë§µì´ë©´
 	{
 		if (c[cn].chrlst.JoinLocalWar)
 		{
@@ -2903,7 +2903,7 @@ int GetHorseGrade(CHARLIST* ch)
 
 void RecvCMD_LOCALWAR_CHAT(t_packet *p, t_connection c[], int cn )	// LTS NEW LOCALWAR
 {	//< CSD-CN-031213
-	if (g_LocalWarBegin)	// ±¹ÁöÀüÀÌ ½ÃÀÛµÇ¾ú°í
+	if (g_LocalWarBegin)	// êµ­ì§€ì „ì´ ì‹œì‘ë˜ì—ˆê³ 
 	{
 		CHARLIST *pCaster = CheckServerId(cn);
 
@@ -2913,7 +2913,7 @@ void RecvCMD_LOCALWAR_CHAT(t_packet *p, t_connection c[], int cn )	// LTS NEW LO
 		}
 
 		if (g_LocalWarResult[GetNationIndex(pCaster->name_status.nation)])	
-		{	// ÇØ´ç±¹°¡°¡ ÆĞ¹èÇÏÁö ¾Ê¾Ò´Ù¸é..
+		{	// í•´ë‹¹êµ­ê°€ê°€ íŒ¨ë°°í•˜ì§€ ì•Šì•˜ë‹¤ë©´..
 			CUserManager::HASH_USER user = g_pUserManager->GetUserSet();
 
 			for (CUserManager::ITOR_USER i = user.begin(); i != user.end(); ++i)
@@ -2965,7 +2965,7 @@ void RecvCMD_LOCALWAR_DEFENCE_POINT(t_packet *p, t_connection c[], int cn )		// 
 {	//< CSD-CN-031213
 
 	//<! BBD 040401
-	// Àü¿ªº¯¼ö¿¡ ¹æ¾î·ÂÀ» ¹Ş¾ÆµĞ´Ù.
+	// ì „ì—­ë³€ìˆ˜ì— ë°©ì–´ë ¥ì„ ë°›ì•„ë‘”ë‹¤.
 	for(int i = 0; i < NW_NATION_COUNT; i++)
 	{
 		g_DefensePoint[i] = p->u.LocalWar.LocalWarDefencePoint.Point[i];
@@ -3146,8 +3146,8 @@ void cDragonLordWar::FindAndDeleteMember(int ID,bool Kick)
 				MyLog(0,"Dragon Lord War BLUE TEAM Defeat User : %s",connections[ID].name);
 				itor=TeamMemberList[BLUETEAM].erase(itor);
 				TeamCount[BLUETEAM]--;
-				connections[ID].chrlst.DragonLordWarTeam=0;				// ÃÊ±âÈ­
-				if (Kick) KickUser(ID);									// MAP MOVE		// ¸Ê¹«ºêÇÒ¶§µµ È£ÃâÇÑ´Ù.
+				connections[ID].chrlst.DragonLordWarTeam=0;				// ì´ˆê¸°í™”
+				if (Kick) KickUser(ID);									// MAP MOVE		// ë§µë¬´ë¸Œí• ë•Œë„ í˜¸ì¶œí•œë‹¤.
 				return;
 			}
 		}
@@ -3162,8 +3162,8 @@ void cDragonLordWar::FindAndDeleteMember(int ID,bool Kick)
 				MyLog(0,"Dragon Lord War RED TEAM Defeat User : %s",connections[ID].name);
 				itor=TeamMemberList[REDTEAM].erase(itor);
 				TeamCount[REDTEAM]--;
-				connections[ID].chrlst.DragonLordWarTeam=0;				// ÃÊ±âÈ­
-				if (Kick) KickUser(ID);									// MAP MOVE		// ¸Ê¹«ºêÇÒ¶§µµ È£ÃâÇÑ´Ù.
+				connections[ID].chrlst.DragonLordWarTeam=0;				// ì´ˆê¸°í™”
+				if (Kick) KickUser(ID);									// MAP MOVE		// ë§µë¬´ë¸Œí• ë•Œë„ í˜¸ì¶œí•œë‹¤.
 				return;
 			}
 		}
@@ -3286,7 +3286,7 @@ void cDragonLordWar::KickUser(int ID)
 	case NW_YL : MapMove(ID,"HEGMONIA",KickPoint[2].x,KickPoint[2].y); break;
 	}
 	
-	if( g_pDungeonMap ) g_pDungeonMap->CloseConnect( ID );		// ¸®½ºÆ®¿¡¼­ »èÁ¦
+	if( g_pDungeonMap ) g_pDungeonMap->CloseConnect( ID );		// ë¦¬ìŠ¤íŠ¸ì—ì„œ ì‚­ì œ
 }
 
 void cDragonLordWar::KickTeam(int Type)
@@ -3414,7 +3414,7 @@ void RecvCMD_REQUEST_CHECK_DUAL_FAME(t_packet *p, t_connection c[], int cn )    
 
 }
 
-/*040719_KJHuNs g_pLogManager ·Î ÀÌµ¿.
+/*040719_KJHuNs g_pLogManager ë¡œ ì´ë™.
 void SaveLogChange_ClassQuest(CHARLIST* pTarget, const char* pMsg, int nQuestNo, int nQcount, int nStart)
 {	//< CSD-TW-030701
 }	//> CSD-TW-030701
@@ -3615,12 +3615,12 @@ int CheckHandleByLTSSupport( t_packet *p, t_connection c[], int cn )
 			break;
 		}
 	case CMD_MONSTER_RAID_START:
-		{	// ½À°İ ½Ã½ºÅÛ ½ÃÀÛ
+		{	// ìŠµê²© ì‹œìŠ¤í…œ ì‹œì‘
 			g_pRaidManager->RecvMonsterRaidStart();
 			break;
 		}
 	case CMD_MONSTER_RAID_END:
-		{	// ½À°İ ½Ã½ºÅÛ Á¾·á
+		{	// ìŠµê²© ì‹œìŠ¤í…œ ì¢…ë£Œ
 			g_pRaidManager->RecvMonsterRaidEnd();
 			break;
 		}
@@ -3633,7 +3633,7 @@ int CheckHandleByLTSSupport( t_packet *p, t_connection c[], int cn )
 }	//> CSD-040310
 
 
-/* 040715_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+/* 040715_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 void SaveChangeBankMoney(const int idTarget, const DWORD nOldBankMoney, const DWORD nNewBankMoney ,const eBankMoneyChangeType BMCT)
 {	//< CSD-040324
 }	//> CSD-040324

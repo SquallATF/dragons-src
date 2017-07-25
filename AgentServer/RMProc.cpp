@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "inetwork.h"
 #include "ServerTable.h"
 #include "RMDefine.h"
@@ -38,13 +38,13 @@ void KickOffUserALL() // 030716 kyo copy to PTCL_BROADCAST_TO_SERVERS:
 		while (cur)
 		{
 			next = cur->pNextUserInfo;
-			// ÇØ´ç À¯Àú¿¡°Ô ²÷µµ·Ï ±Ç°íÇÑ´Ù.
+			// í•´ë‹¹ ìœ ì €ì—ê²Œ ëŠë„ë¡ ê¶Œê³ í•œë‹¤.
 			g_pUserTable->DisconnectUserBySuggest( cur, CMD_CLOSE_CONNECTION_SAME_ID_LOGON );			
 		}
 	}
 }
 
-void KickOffUser( char* szUserID )	// 030224 kyo À¯Àú °­Á¦·Î±×¾Æ¿ô
+void KickOffUser( char* szUserID )	// 030224 kyo ìœ ì € ê°•ì œë¡œê·¸ì•„ì›ƒ
 {
 	if( NULL == szUserID )// 030716 kyo
 	{
@@ -72,7 +72,7 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 			//CServerTable *pVoid = NULL;
 			//	pVoid->StartServer(0);			
 			g_pServerTable->DestroyServer( FINISH_TYPE_NORMAL );
-			PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // ½º·¹µå Á¾·á
+			PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // ìŠ¤ë ˆë“œ ì¢…ë£Œ
 		}
 		break;
 
@@ -86,11 +86,11 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 	case MSG_RM_KICKOFF_USER:
 		{
-			KickOffUser( pMsg+2 );	// 030224 kyo À¯Àú °­Á¦·Î±×¾Æ¿ô
+			KickOffUser( pMsg+2 );	// 030224 kyo ìœ ì € ê°•ì œë¡œê·¸ì•„ì›ƒ
 			break;
 		}
 	case MSG_RM_KICKOFF_USER_ALL: // 030716 kyo KickOff All user
-		{	//À¯Àú¸¦ Á·ÀÌ¸é
+		{	//ìœ ì €ë¥¼ ì¡±ì´ë©´
 			MyLog( 0, "LogOff All user By RMTool" );
 			if( LocalMgr.IsAbleNation(THAI) )
 			{

@@ -1,24 +1,24 @@
-#ifndef _AI_DEFINE_H_
+О╩©#ifndef _AI_DEFINE_H_
 #define _AI_DEFINE_H_
 
 // NPC_AI_CONTROL TABLE FILED DEFINE
 
-#define	FAT_TYPE				1					// AIе╦ют╧Ьхё NPC_GENERATION_SPюг SEL_AGE_MAX╟╘
-#define FATTACK_RANGE			2					// ╧╟╦╝╟Ь╟щ ╧Эю╖
-#define	FSEARCH_RANGE			3					// ╟к╩Ж ╧Эю╖
-#define FWANDER_RATE			4					// ╧Хх╦ ю╡ (%)
-#define	FSTART_AI_PATTERN		5					// ╫цюш AIфпео ╧Ьхё
-#define	FSTATUS01_DELAY			6					// ╩Себ1 ╣Т╥╧юл		PATTERN_WANDER
-#define FSTATUS01_SUBDELAY		7					// ╩Себ1 юШ©К ╥ё╢Щ д║ 
-#define	FSTATUS02_DELAY			8					// ╩Себ2 ╣Т╥╧юл		PATTERN_ACCESS
-#define FSTATUS02_SUBDELAY		9					// ╩Себ2юг юШ©К ╥ё╢Щд║
-#define	FSTATUS03_DELAY			10					// ╩Себ3 ╣Т╥╧юл		PATTERN_ATTACK
-#define FSTATUS03_SUBDELAY		11					// ╩Себ3юг юШ©К ╥ё╢Щд║
-#define	FSTATUS04_DELAY			12					// ╩Себ4 ╣Т╥╧юл		PATTERN_ATTACKED
-#define FSTATUS04_SUBDELAY		13					// ╩Себ4юг юШ©К ╥ё╢Щд║
-#define	FSTATUS05_DELAY			14					// ╩Себ5 ╣Т╥╧юл		PATTERN_MOVE
-#define FSTATUS05_SUBDELAY		15					// ╩Себ5юг юШ©К ╥ё╢Щд║
-#define	FSTATUS06_DELAY			16					// Ё╙╦саЖ ©╧╬Ю
+#define	FAT_TYPE				1					// AIМ┐─Л·┘К╡┬М≤╦ NPC_GENERATION_SPЛ²≤ SEL_AGE_MAXЙ╟▒
+#define FATTACK_RANGE			2					// К╛╪К╕╛ЙЁ╣Й╡╘ К╡■Л°└
+#define	FSEARCH_RANGE			3					// Й╡─Л┐┴ К╡■Л°└
+#define FWANDER_RATE			4					// К╟╟М ▄ Л°╗ (%)
+#define	FSTART_AI_PATTERN		5					// Л▀°Л·▒ AIМ▄╗М└╢ К╡┬М≤╦
+#define	FSTATUS01_DELAY			6					// Л┐│М┐°1 К■°К═┬Л²╢		PATTERN_WANDER
+#define FSTATUS01_SUBDELAY		7					// Л┐│М┐°1 Л═│Л ╘ К·°К█╓ Л╧≤ 
+#define	FSTATUS02_DELAY			8					// Л┐│М┐°2 К■°К═┬Л²╢		PATTERN_ACCESS
+#define FSTATUS02_SUBDELAY		9					// Л┐│М┐°2Л²≤ Л═│Л ╘ К·°К█╓Л╧≤
+#define	FSTATUS03_DELAY			10					// Л┐│М┐°3 К■°К═┬Л²╢		PATTERN_ATTACK
+#define FSTATUS03_SUBDELAY		11					// Л┐│М┐°3Л²≤ Л═│Л ╘ К·°К█╓Л╧≤
+#define	FSTATUS04_DELAY			12					// Л┐│М┐°4 К■°К═┬Л²╢		PATTERN_ATTACKED
+#define FSTATUS04_SUBDELAY		13					// Л┐│М┐°4Л²≤ Л═│Л ╘ К·°К█╓Л╧≤
+#define	FSTATUS05_DELAY			14					// Л┐│М┐°5 К■°К═┬Л²╢		PATTERN_MOVE
+#define FSTATUS05_SUBDELAY		15					// Л┐│М┐°5Л²≤ Л═│Л ╘ К·°К█╓Л╧≤
+#define	FSTATUS06_DELAY			16					// К┌≤К╗╦Л╖─ Л≤┬Л∙╫
 #define FSTATUS06_SUBDELAY		17
 #define	FSTATUS07_DELAY			18
 #define FSTATUS07_SUBDELAY		19
@@ -28,37 +28,37 @@
 #define FSTATUS09_SUBDELAY		23
 #define	FSTATUS10_DELAY			24
 #define FSTATUS10_SUBDELAY		25
-#define	FRECOVERY_DELAY			26					// х╦╨╧ ю╞аЖ╫ц╟ё
-#define FRECOVERY_AMOUNT		27					// х╦╨╧╥╝
-#define FRECOVERY_PERCENT		28					// х╦╨╧ ╥ё╢Щд║
-#define	FRUN_SPEED				29					// ╢ч╦╝╠Б ╪с╣╣ (%)
-#define	FRUN_DELAY				30					// ╢ч╦╝╠Б ю╞аЖ╫ц╟ё
-#define FRUN_PERCENT			31					// ╢ч╦╝╠Б ╥ё╢Щд║
-#define	FSTATUSUP_DELAY			32					// ╠╓фЬ╩Себ ю╞аЖ╫ц╟ё
-#define FSTATUSUP_PERCENT		33					// ╠╓фЬ ╥ё╢Щд║
-#define FSTATUSUP_LIFE_PERCENT	34					// HPюг %©║юггя ╠╓фЬ юЭюл ╪Жд║ (30%)
-#define	FSTATUSUP1				35					// ╧╟╦╝╟Ь╟щ аУ╟║ (%)
-#define	FSTATUSUP2				36					// ╧Ф╬Н╥б аУ╟║ (%)
-#define	FSTATUSUP3				37					// ╪с╣╣ аУ╟║ (%)
-#define	FSTATUSUP4				38					// ©╧╬Ю	
-#define	FSTATUSUP5				39					// ©╧╬Ю
+#define	FRECOVERY_DELAY			26					// М ▄КЁ╣ Л°═Л╖─Л▀°Й╟└
+#define FRECOVERY_AMOUNT		27					// М ▄КЁ╣К÷┴
+#define FRECOVERY_PERCENT		28					// М ▄КЁ╣ К·°К█╓Л╧≤
+#define	FRUN_SPEED				29					// К▀╛К╕╛Й╦╟ Л├█К▐└ (%)
+#define	FRUN_DELAY				30					// К▀╛К╕╛Й╦╟ Л°═Л╖─Л▀°Й╟└
+#define FRUN_PERCENT			31					// К▀╛К╕╛Й╦╟ К·°К█╓Л╧≤
+#define	FSTATUSUP_DELAY			32					// Й╢▒М▐╜Л┐│М┐° Л°═Л╖─Л▀°Й╟└
+#define FSTATUSUP_PERCENT		33					// Й╢▒М▐╜ К·°К█╓Л╧≤
+#define FSTATUSUP_LIFE_PERCENT	34					// HPЛ²≤ %Л≈░Л²≤М∙° Й╢▒М▐╜ Л═└Л²╢ Л┬≤Л╧≤ (30%)
+#define	FSTATUSUP1				35					// К╛╪К╕╛ЙЁ╣Й╡╘ Л╕²Й╟─ (%)
+#define	FSTATUSUP2				36					// К╟╘Л√╢К═╔ Л╕²Й╟─ (%)
+#define	FSTATUSUP3				37					// Л├█К▐└ Л╕²Й╟─ (%)
+#define	FSTATUSUP4				38					// Л≤┬Л∙╫	
+#define	FSTATUSUP5				39					// Л≤┬Л∙╫
 #define FSUMMON_DELAY			40
-#define FSUMMON_PERCENT			41					// ╪рх╞╦С ╥ё╢Щ╪Жд║
-#define	FSUMMON_MAX				42					// ╪рх╞ цж╢Кд║
-#define	FSUMMON_NPC1			43					// ╪рх╞ NPCюн╣╕╫╨1
-#define	FSUMMON_NPC2			44					// ╪рх╞ NPCюн╣╕╫╨2
-#define	FSUMMON_NPC3			45					// ╪рх╞ NPCюн╣╕╫╨3
-#define	FSUMMON_NPC4			46					// ╪рх╞ NPCюн╣╕╫╨4
-#define	FSUMMON_NPC5			47					// ╪рх╞ NPCюн╣╕╫╨5
-#define	FSUMMON_TERM			48					// ╪рх╞ аж╠Б
-#define	FATTACK_METHOD1			49					// ╟Ь╟щ 
-#define FATTACK_RATE1			50					// ╟Ь╟щ ╧Ф╧Щ©║ юггя цжцй ╪╠ец ╨Яю╡1
-#define	FATTACK_METHOD2			51					// ╟Ь╟щ ╧Ф╧Щ2
-#define FATTACK_RATE2			52					// ╟Ь╟щ ╧Ф╬В©║ юггя цжцй ╪╠ец ╨Яю╡2
-#define	FATTACK_METHOD3			53					// ╟Ь╟щ ╧Ф╧Щ3	
-#define FATTACK_RATE3			54					// ╟Ь╟щ ╧Ф╬В©║ юггя цжцй ╪╠ец ╨Яю╡3
-#define	FATTACK_CHANCE			55					// ╟Ь╟щ CHNAGE╟╙
-#define FSPECIAL_ATTACK			56					// ф╞╪Ж╟Ь╟щ ╦╤╧Щ ╧И ╧Ьхё
+#define FSUMMON_PERCENT			41					// Л├▄М≥≤К╙╛ К·°К█╓Л┬≤Л╧≤
+#define	FSUMMON_MAX				42					// Л├▄М≥≤ Л╣°К▄─Л╧≤
+#define	FSUMMON_NPC1			43					// Л├▄М≥≤ NPCЛ²╦К█╠Л┼╓1
+#define	FSUMMON_NPC2			44					// Л├▄М≥≤ NPCЛ²╦К█╠Л┼╓2
+#define	FSUMMON_NPC3			45					// Л├▄М≥≤ NPCЛ²╦К█╠Л┼╓3
+#define	FSUMMON_NPC4			46					// Л├▄М≥≤ NPCЛ²╦К█╠Л┼╓4
+#define	FSUMMON_NPC5			47					// Л├▄М≥≤ NPCЛ²╦К█╠Л┼╓5
+#define	FSUMMON_TERM			48					// Л├▄М≥≤ Лё╪Й╦╟
+#define	FATTACK_METHOD1			49					// ЙЁ╣Й╡╘ 
+#define FATTACK_RATE1			50					// ЙЁ╣Й╡╘ К╟╘К╡∙Л≈░ Л²≤М∙° Л╣°Л╢┬ Л└═М┐² К╧└Л°╗1
+#define	FATTACK_METHOD2			51					// ЙЁ╣Й╡╘ К╟╘К╡∙2
+#define FATTACK_RATE2			52					// ЙЁ╣Й╡╘ К╟╘Л≈┘Л≈░ Л²≤М∙° Л╣°Л╢┬ Л└═М┐² К╧└Л°╗2
+#define	FATTACK_METHOD3			53					// ЙЁ╣Й╡╘ К╟╘К╡∙3	
+#define FATTACK_RATE3			54					// ЙЁ╣Й╡╘ К╟╘Л≈┘Л≈░ Л²≤М∙° Л╣°Л╢┬ Л└═М┐² К╧└Л°╗3
+#define	FATTACK_CHANCE			55					// ЙЁ╣Й╡╘ CHNAGEЙ╟▓
+#define FSPECIAL_ATTACK			56					// М┼╧Л┬≤ЙЁ╣Й╡╘ К╖┬К╡∙ К╟╠ К╡┬М≤╦
 
 // NPC_AI_CONTROL TABLE DEFINE END.........
 
@@ -66,48 +66,48 @@
 
 // AI_BOSSSTATUS TABLE DEFINE
 
-#define FBTYPE_NO				1					// ╣НюЕ╟Э╥ц ╧Ьхё
-#define FBHP_GRADE1				2					// HP╩Себ 1
-#define FBHP_GRADE2				3					// HP╩Себ 2
-#define FBHP_GRADE3				4					// HP╩Себ 3
-#define FBHP_GRADE4				5					// HP╩Себ 4
-#define FBHP_GRADE5				6					// HP╩Себ 5
-#define FBHP_GRADE6				7					// HP╩Себ 6
-#define FBATTACK_METHOD1		8					// HP╩Себ 1юг ╟Ь╟щ╧Ф╧Щ
-#define FBATTACK_METHOD2		9					// HP╩Себ 2юг ╟Ь╟щ╧Ф╧Щ
-#define FBATTACK_METHOD3		10					// HP╩Себ 3юг ╟Ь╟щ╧Ф╧Щ
-#define FBATTACK_METHOD4		11					// HP╩Себ 4юг ╟Ь╟щ╧Ф╧Щ
-#define FBATTACK_METHOD5		12					// HP╩Себ 5юг ╟Ь╟щ╧Ф╧Щ
-#define FBATTACK_METHOD6		13					// HP╩Себ 6юг ╟Ь╟щ╧Ф╧Щ
-#define FBACTION0_METHOD1		14					// HP╩Себ 1©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION0_METHOD2		15					// HP╩Себ 1©║╪╜юг цЁ╦╝╧Ф╧Щ 2
-#define FBACTION0_METHOD3		16					// HP╩Себ 1©║╪╜юг цЁ╦╝╧Ф╧Щ 3
-#define FBACTION1_METHOD1		17					// HP╩Себ 1©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION1_METHOD2		18					// HP╩Себ 1©║╪╜юг цЁ╦╝╧Ф╧Щ 2
-#define FBACTION1_METHOD3		19					// HP╩Себ 1©║╪╜юг цЁ╦╝╧Ф╧Щ 3
-#define FBACTION2_METHOD1		20					// HP╩Себ 2©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION2_METHOD2		21					// HP╩Себ 2©║╪╜юг цЁ╦╝╧Ф╧Щ 2
-#define FBACTION2_METHOD3		22					// HP╩Себ 2©║╪╜юг цЁ╦╝╧Ф╧Щ 3
-#define FBACTION3_METHOD1		23					// HP╩Себ 3©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION3_METHOD2		24					// HP╩Себ 3©║╪╜юг цЁ╦╝╧Ф╧Щ 2
-#define FBACTION3_METHOD3		25					// HP╩Себ 3©║╪╜юг цЁ╦╝╧Ф╧Щ 3
-#define FBACTION4_METHOD1		26					// HP╩Себ 4©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION4_METHOD2		27					// HP╩Себ 4©║╪╜юг цЁ╦╝╧Ф╧Щ 2	
-#define FBACTION4_METHOD3		28					// HP╩Себ 4©║╪╜юг цЁ╦╝╧Ф╧Щ 3
-#define FBACTION5_METHOD1		29					// HP╩Себ 5©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION5_METHOD2		30					// HP╩Себ 5©║╪╜юг цЁ╦╝╧Ф╧Щ 2
-#define FBACTION5_METHOD3		31					// HP╩Себ 5©║╪╜юг цЁ╦╝╧Ф╧Щ 3
-#define FBACTION6_METHOD1		32					// HP╩Себ 6©║╪╜юг цЁ╦╝╧Ф╧Щ 1
-#define FBACTION6_METHOD2		33					// HP╩Себ 6©║╪╜юг цЁ╦╝╧Ф╧Щ 2
-#define FBACTION6_METHOD3		34					// HP╩Себ 6©║╪╜юг цЁ╦╝╧Ф╧Щ 3
+#define FBTYPE_NO				1					// К⌠╠Л·╔Й╢─К═╗ К╡┬М≤╦
+#define FBHP_GRADE1				2					// HPЛ┐│М┐° 1
+#define FBHP_GRADE2				3					// HPЛ┐│М┐° 2
+#define FBHP_GRADE3				4					// HPЛ┐│М┐° 3
+#define FBHP_GRADE4				5					// HPЛ┐│М┐° 4
+#define FBHP_GRADE5				6					// HPЛ┐│М┐° 5
+#define FBHP_GRADE6				7					// HPЛ┐│М┐° 6
+#define FBATTACK_METHOD1		8					// HPЛ┐│М┐° 1Л²≤ ЙЁ╣Й╡╘К╟╘К╡∙
+#define FBATTACK_METHOD2		9					// HPЛ┐│М┐° 2Л²≤ ЙЁ╣Й╡╘К╟╘К╡∙
+#define FBATTACK_METHOD3		10					// HPЛ┐│М┐° 3Л²≤ ЙЁ╣Й╡╘К╟╘К╡∙
+#define FBATTACK_METHOD4		11					// HPЛ┐│М┐° 4Л²≤ ЙЁ╣Й╡╘К╟╘К╡∙
+#define FBATTACK_METHOD5		12					// HPЛ┐│М┐° 5Л²≤ ЙЁ╣Й╡╘К╟╘К╡∙
+#define FBATTACK_METHOD6		13					// HPЛ┐│М┐° 6Л²≤ ЙЁ╣Й╡╘К╟╘К╡∙
+#define FBACTION0_METHOD1		14					// HPЛ┐│М┐° 1Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION0_METHOD2		15					// HPЛ┐│М┐° 1Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2
+#define FBACTION0_METHOD3		16					// HPЛ┐│М┐° 1Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
+#define FBACTION1_METHOD1		17					// HPЛ┐│М┐° 1Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION1_METHOD2		18					// HPЛ┐│М┐° 1Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2
+#define FBACTION1_METHOD3		19					// HPЛ┐│М┐° 1Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
+#define FBACTION2_METHOD1		20					// HPЛ┐│М┐° 2Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION2_METHOD2		21					// HPЛ┐│М┐° 2Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2
+#define FBACTION2_METHOD3		22					// HPЛ┐│М┐° 2Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
+#define FBACTION3_METHOD1		23					// HPЛ┐│М┐° 3Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION3_METHOD2		24					// HPЛ┐│М┐° 3Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2
+#define FBACTION3_METHOD3		25					// HPЛ┐│М┐° 3Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
+#define FBACTION4_METHOD1		26					// HPЛ┐│М┐° 4Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION4_METHOD2		27					// HPЛ┐│М┐° 4Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2	
+#define FBACTION4_METHOD3		28					// HPЛ┐│М┐° 4Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
+#define FBACTION5_METHOD1		29					// HPЛ┐│М┐° 5Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION5_METHOD2		30					// HPЛ┐│М┐° 5Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2
+#define FBACTION5_METHOD3		31					// HPЛ┐│М┐° 5Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
+#define FBACTION6_METHOD1		32					// HPЛ┐│М┐° 6Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 1
+#define FBACTION6_METHOD2		33					// HPЛ┐│М┐° 6Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 2
+#define FBACTION6_METHOD3		34					// HPЛ┐│М┐° 6Л≈░Л└°Л²≤ Л╡≤К╕╛К╟╘К╡∙ 3
 
 // AI_BOSSSTATUS TABLE DEFINE END.....
 
 
 // AI_PHYSICALATTACK_BAG TABLE DEFINE
 
-//#define FPTYPE_NO				1					// ╟Ь╟щ╧Ьхё ╬Нец╧И ╟Мю╞╧Ьхё
-#define FPATTACK1				0					// ╟Ь╟щ╧Ьхё, ╦╤╧Щ╧Ьхё 
+//#define FPTYPE_NO				1					// ЙЁ╣Й╡╘К╡┬М≤╦ Л√╢М┐²К╟╠ ЙЁ═Л°═К╡┬М≤╦
+#define FPATTACK1				0					// ЙЁ╣Й╡╘К╡┬М≤╦, К╖┬К╡∙К╡┬М≤╦ 
 #define FPATTACK2				1					// 
 #define FPATTACK3				2
 #define FPATTACK4				3

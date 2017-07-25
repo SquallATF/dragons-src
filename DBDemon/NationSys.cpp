@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "MAIN.H"
 //#include <sqltypes.h>
 //#include "define.h"
@@ -12,7 +12,7 @@ extern HDBC hDBC ;
 
 extern void MyLog( int type, char *logmsg, ... );
 
-void RecvCMD_SET_COMMANDER(t_packet *p, t_connection c[], int cn )	// »ç·É°üÀÇ µ¥ÀÌÅÍ¸¦ ¼¼Æ®ÇÑ´Ù.
+void RecvCMD_SET_COMMANDER(t_packet *p, t_connection c[], int cn )	// ì‚¬ë ¹ê´€ì˜ ë°ì´í„°ë¥¼ ì„¸íŠ¸í•œë‹¤.
 {
 	NW_Character tempNWCharacter;
 	DWORD		 tempDWORD;
@@ -106,7 +106,7 @@ void CheckEventJoin(CHARLIST *ch)		// 020115 LTS
 	SDWORD	cbValue;
 	int		tempEventJoin[8];
 
-	//ch->EventJoin=1;	// ³ªÁß¿¡ ³ª¸ÓÁö´Â ÁÖ¼® Ã³¸® ÇÑ´Ù.
+	//ch->EventJoin=1;	// ë‚˜ì¤‘ì— ë‚˜ë¨¸ì§€ëŠ” ì£¼ì„ ì²˜ë¦¬ í•œë‹¤.
 
 	SQLAllocStmt(hDBC,&hStmt);
 

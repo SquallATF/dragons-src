@@ -1,4 +1,4 @@
-
+ï»¿
 
 
 #ifndef _NETWORK7_H_
@@ -6,19 +6,19 @@
 
 enum	KYO_CODE
 {
-	SPELL_MAP_MOVE_TYPE			=	10,		//alive_zoneÀÇ alive_word_type°ª
+	SPELL_MAP_MOVE_TYPE			=	10,		//alive_zoneì˜ alive_word_typeê°’
 
 	CMD_RM_NOW_REPAIR			=	14000,
 	CMD_WHAT_QUEST_IN_MAP		=	14001,
 
 	CMD_SCRIPT_SHOW_COLOR_MSG	=	14002,
 	
-	//Å¸ÀÌ¸Ó¿ë
+	//íƒ€ì´ë¨¸ìš©
 	CMD_SCRIPT_TIMER_START		=	14110,
 	CMD_SCRIPT_TIMER_SYNC		=	14111,
 	CMD_SCRIPT_TIMER_END_SUC	=	14112,
 	CMD_SCRIPT_TIMER_END_FAL	=	14113,
-	//Ä«¿îÅÍ¿ë
+	//ì¹´ìš´í„°ìš©
 	CMD_SCRIPT_COUNTER_START	=	14120,
 	CMD_SCRIPT_COUNTER_SYNC		=	14121,
 	CMD_SCRIPT_COUNTER_END		=	14122,
@@ -27,9 +27,9 @@ enum	KYO_CODE
 	CMD_SCRIPT_SPELL_MAPMOVE_SUC=	14201,	// 021128 kyo
 	CMD_SCRIPT_SPELL_MAPMOVE_FAIL=	14202,	// 021128 kyo
 
-	DEFAULT_TIMER_SYNC_TIME		=	5000,	//5ÃÊ
-	MAX_TIMER_TIME				= 5 * 3600 * 1000,		//5½Ã°£ÀÌ Á¦ÇÑÀÌ´Ù.
-	MIN_SYNCH_TIME				= 2 * 1000,				//2ÃÊÀÌÇÏ´Ù.
+	DEFAULT_TIMER_SYNC_TIME		=	5000,	//5ì´ˆ
+	MAX_TIMER_TIME				= 5 * 3600 * 1000,		//5ì‹œê°„ì´ ì œí•œì´ë‹¤.
+	MIN_SYNCH_TIME				= 2 * 1000,				//2ì´ˆì´í•˜ë‹¤.
        
 };
 //#include "Dr_Network.h"
@@ -64,7 +64,7 @@ typedef struct SHOW_COLOR_MSG
 	int		G;
 	int		B;
 	char	szMsg[0xff];
-	int		iMsgNum;	//³­Áß¿¡ ¹®ÀÚ¿­ ´ë½Å ¹øÈ£¸¦ º¸³¾ÁöµÎ ¸ô¸¥´Ù.
+	int		iMsgNum;	//ë‚œì¤‘ì— ë¬¸ìžì—´ ëŒ€ì‹  ë²ˆí˜¸ë¥¼ ë³´ë‚¼ì§€ë‘ ëª°ë¥¸ë‹¤.
 }t_show_msg;
 
 typedef struct SCRIPT_TIMER
@@ -72,7 +72,7 @@ typedef struct SCRIPT_TIMER
 	DWORD	dwTime;
 }t_script_timer;
 
-typedef struct SCRIPT_COUNTER	//¿©·¯±º´ë ¸¹ÀÌ¾²±âÀ§ÇØ¼­
+typedef struct SCRIPT_COUNTER	//ì—¬ëŸ¬êµ°ëŒ€ ë§Žì´ì“°ê¸°ìœ„í•´ì„œ
 {
 	int iNum;
 	int	iType;
@@ -149,7 +149,7 @@ typedef struct REUITAL_ITEM_TABLE
 }table_requital_Item;
 //> BBD 040329
 
-//<! BBD 040329		Áß¿ä ¾ÆÀÌÅÛÀÇ ID¸¦ µðÆÄÀÎ ÇØµÎÀÚ
+//<! BBD 040329		ì¤‘ìš” ì•„ì´í…œì˜ IDë¥¼ ë””íŒŒì¸ í•´ë‘ìž
 #define SARD_ID								1046
 #define LEAFBLESS_ID						1047
 //> BBD 040329

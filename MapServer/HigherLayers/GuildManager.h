@@ -1,4 +1,4 @@
-// GuildManager.h: interface for the CGuildManager class.
+ï»¿// GuildManager.h: interface for the CGuildManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// ±æµåÁ¤º¸¿¡ °ü·ÃµÈ Å¬·¡½º
+// ê¸¸ë“œì •ë³´ì— ê´€ë ¨ëœ í´ëž˜ìŠ¤
 class CGuildInfo
 {
 	enum
@@ -36,11 +36,11 @@ public:
 	~CGuildInfo();
 
 public :
-	BYTE on;				// µî·ÏµÈ ±æµå ÀÎÁö È®ÀÎ
-	BYTE first;			// ¿¹ºñ ±æµå ÀÎ°¡?
-	BYTE active;			// »ç¿ëÇÏ°í ÀÖ´Â ±æµåÀÎÁöÀÇ ¿©ºÎ
+	BYTE on;				// ë“±ë¡ëœ ê¸¸ë“œ ì¸ì§€ í™•ì¸
+	BYTE first;			// ì˜ˆë¹„ ê¸¸ë“œ ì¸ê°€?
+	BYTE active;			// ì‚¬ìš©í•˜ê³  ìžˆëŠ” ê¸¸ë“œì¸ì§€ì˜ ì—¬ë¶€
 	BYTE make;	
-	BYTE mark_num;	// ¹Ù²ï ÀÌ¹ÌÁö °ª
+	BYTE mark_num;	// ë°”ë€ ì´ë¯¸ì§€ ê°’
 	BYTE info_num;
 	BYTE nation;
 

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "packed.h"
 #include "servertable.h"
 #include "MAIN.H"
@@ -22,7 +22,7 @@ typedef struct chr_log
 
 	char state;
 	char Level;
-	int	 fame_pk;	// 010915 LTS	//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+	int	 fame_pk;	// 010915 LTS	//Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.		
 	NW_Character	NWCharacter;	// 010915 LTS
 	int  Str;
 	int  Con;
@@ -161,8 +161,8 @@ int PushCharData2ChrLogDB_Basic( t_chr_log *t )
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SQLINTEGER	cbskilllen, cbskillexplen,cbtacskillexplen, cbinvlen, cbquick, cbequip, cbbankitem;		
-	SQLINTEGER	cbInt[33] = {0, };			// int ÇüÀº 0
-	SQLINTEGER	cbName, cbId, cbMapName;	// ¹®ÀÚ¿­Àº SQL_NTS
+	SQLINTEGER	cbInt[33] = {0, };			// int í˜•ì€ 0
+	SQLINTEGER	cbName, cbId, cbMapName;	// ë¬¸ìì—´ì€ SQL_NTS
 	cbName = cbId = cbMapName = SQL_NTS;
 
 	int			s_IntOuput[33];
@@ -242,7 +242,7 @@ int PushCharData2ChrLogDB_Basic( t_chr_log *t )
 		
 		s_IntOuput[0] =t->state; 
 		s_IntOuput[1] =t->Level; 
-		//s_IntOuput[2] =t->fame_pk;	// 010915 LTS				//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+		//s_IntOuput[2] =t->fame_pk;	// 010915 LTS				//Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.		
 		memcpy(&s_IntOuput[2],&t->NWCharacter,sizeof(DWORD));		// 010915 LTS
 		s_IntOuput[3] =t->Str; 
 		s_IntOuput[4] =t->Con; 
@@ -453,7 +453,7 @@ int  Recv_ChrLogDB( t_packet *p, int cn )
 				strcpy( t->id,		tp->id );
 				t->state	= tp->state;
 				t->Level = tp->btLevel; // CSD-030806
-				t->fame_pk	= tp->fame_pk;	// 010915 LTS		//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+				t->fame_pk	= tp->fame_pk;	// 010915 LTS		//Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.		
 				t->NWCharacter = t->NWCharacter; // 010915 LTS
 				t->Str		= tp->Str;
 				t->Con		= tp->Con;
@@ -546,7 +546,7 @@ bool IsDefTable(HDBC hDBC, char* pTblName)
 {
   HSTMT hStmt = NULL;
   SQLAllocStmt(hDBC, &hStmt);
-  // Å×ÀÌºíÀÇ Á¤º¸ °¡Á®¿À±â
+  // í…Œì´ë¸”ì˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
   RETCODE retCode = SQLTables(hStmt, NULL, SQL_NTS, NULL, SQL_NTS, 
                               (SQLCHAR*)(pTblName), SQL_NTS, (SQLCHAR*)("'TABLE'"), SQL_NTS);
   
@@ -554,7 +554,7 @@ bool IsDefTable(HDBC hDBC, char* pTblName)
   {
     char szBuffer[256];
     SDWORD cbValue;
-    // ¼¼¹øÂ° ¿­ÀÇ °ªÀÎ Å×ÀÌºí¸í ÀÚÁ®¿À±â
+    // ì„¸ë²ˆì§¸ ì—´ì˜ ê°’ì¸ í…Œì´ë¸”ëª… ìì ¸ì˜¤ê¸°
     SQLBindCol(hStmt, 3, SQL_C_CHAR, szBuffer, sizeof(szBuffer), &cbValue);
     
     if (SQLFetch(hStmt) == SQL_SUCCESS)
@@ -571,7 +571,7 @@ bool IsDefTable(HDBC hDBC, char* pTblName)
 
 
 
-//010822 lsw ¼­¹ö¼Â ³ÖÀ½
+//010822 lsw ì„œë²„ì…‹ ë„£ìŒ
 void InitHackingLog( void )
 {	
 	HSTMT		hStmt = NULL;

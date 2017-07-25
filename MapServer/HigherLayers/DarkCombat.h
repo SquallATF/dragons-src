@@ -1,4 +1,4 @@
-// DarkCombat.h: interface for the CDarkCombat class.
+ï»¿// DarkCombat.h: interface for the CDarkCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ¾îµÒ¼Ó¼º ÀüÅõ½ºÅ³
+// ì–´ë‘ ì†ì„± ì „íˆ¬ìŠ¤í‚¬
 class CDarkCombat : public TBinder<CCombat, CDarkCombat>  
 {
 public:

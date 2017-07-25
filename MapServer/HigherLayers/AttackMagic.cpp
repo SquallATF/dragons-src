@@ -1,4 +1,4 @@
-// AttackMagic.cpp: implementation of the CAttackMagic class.
+ï»¿// AttackMagic.cpp: implementation of the CAttackMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -72,7 +72,7 @@ bool CAttackMagic::Bind()
 	Resist(LIGHTNING_BREATH, &CAttackMagic::LightningBreath);
 	Resist(OCTA_LIGHTNING, &CAttackMagic::OctaLightning);
 	Resist(DEATH_FIRE, &CAttackMagic::DeathFire);
-	Resist(DEATH_FIREE, &CAttackMagic::DeathFiree);//°µçüÓÄ»ğ
+	Resist(DEATH_FIREE, &CAttackMagic::DeathFiree);//ê° æ¢§èƒì‚½
 	Resist(HOLY_FIRE, &CAttackMagic::HolyFire);
 	Resist(HOLY_LIGHT, &CAttackMagic::HolyLight);
 	Resist(HOLY_RAGE, &CAttackMagic::HolyRage);
@@ -95,7 +95,7 @@ bool CAttackMagic::Bind()
 } 
 
 bool CAttackMagic::FireArrow()
-{	// [29]ºÒÈ­»ì
+{	// [29]ë¶ˆí™”ì‚´
 	if (m_pCaster->equip[WT_WEAPON].item_no == 0)  
 	{
 		return false;
@@ -106,85 +106,85 @@ bool CAttackMagic::FireArrow()
 }
 
 bool CAttackMagic::FireWall()
-{	// [34]È­¿°º®
+{	// [34]í™”ì—¼ë²½
 	const int nHD = GetMagicDamage(m_nIndex);
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FireBall()
-{	// [30]È­¿°±¸
+{	// [30]í™”ì—¼êµ¬
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Scorcher()
-{	// [31]È­¿°±º
+{	// [31]í™”ì—¼êµ°
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::CircleFlame()
-{	// [33]¹æ»çÈ­¿°
+{	// [33]ë°©ì‚¬í™”ì—¼
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FlameWave()
-{	// [35]¿òÁ÷ÀÌ´Â È­¿°º®
+{	// [35]ì›€ì§ì´ëŠ” í™”ì—¼ë²½
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Apocalypse()
-{	// [36]Áö¿ÁÀÇ ºÒ
+{	// [36]ì§€ì˜¥ì˜ ë¶ˆ
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Pheonix()
-{	// [109]ºÒ»õ
+{	// [109]ë¶ˆìƒˆ
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::MeteorStrike()
-{	// [110]¿î¼®
+{	// [110]ìš´ì„
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::GreatMeteor()
-{	// [85]´ë¿î¼®
+{	// [85]ëŒ€ìš´ì„
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FlyingSpark()
-{	// [89]ÆÄÀÌ¾îºí·¡½ºÆ®
+{	// [89]íŒŒì´ì–´ë¸”ë˜ìŠ¤íŠ¸
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FireExplosion()
-{	// [96]È­¿°Æø¹ß
+{	// [96]í™”ì—¼í­ë°œ
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FireStorm()
-{	// [97]ÆÄÀÌ¾î½ºÅè
+{	// [97]íŒŒì´ì–´ìŠ¤í†°
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FireBreath()
-{	// [102]È­¿°ºê·¹¾²
+{	// [102]í™”ì—¼ë¸Œë ˆì“°
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FlamePillar()
-{	// [106]È­¿°ÆøÇ³ 
+{	// [106]í™”ì—¼í­í’ 
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
@@ -196,7 +196,7 @@ bool CAttackMagic::FlamePour()
 }
 
 bool CAttackMagic::IceArrow()
-{	// [38]¾óÀ½È­»ì
+{	// [38]ì–¼ìŒí™”ì‚´
 	if (m_pCaster->equip[WT_WEAPON].item_no == 0)  
 	{
 		return false;
@@ -207,208 +207,208 @@ bool CAttackMagic::IceArrow()
 }
 
 bool CAttackMagic::IceWall()
-{	// [42]¾óÀ½º®
+{	// [42]ì–¼ìŒë²½
 	const int nHD = GetMagicDamage(m_nIndex);
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::IceBall()
-{	// [39]¾óÀ½±¸
+{	// [39]ì–¼ìŒêµ¬
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Freeze5TileRadius()
-{	// [41]¹İ°æ 5Å¸ÀÏ ¾ó¸²
+{	// [41]ë°˜ê²½ 5íƒ€ì¼ ì–¼ë¦¼
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::CircleIce()
-{	// [43]¿øÇü¾óÀ½ °ø°İ 
+{	// [43]ì›í˜•ì–¼ìŒ ê³µê²© 
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }	
 
 bool CAttackMagic::IceStorm()
-{	// [44]¾óÀ½ÆøÇ³
+{	// [44]ì–¼ìŒí­í’
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Freeze9TileRadius()
-{	// [45]¹İ°æ 9Å¸ÀÏ ¾ó¸®±â
+{	// [45]ë°˜ê²½ 9íƒ€ì¼ ì–¼ë¦¬ê¸°
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Freezing()
-{	// [99]ÁÖÀ§¾ó¸²
+{	// [99]ì£¼ìœ„ì–¼ë¦¼
 	const int nHD = CalcHitDice();
 	SetFrozen(1);
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::IceBreath()
-{	// [103]¾óÀ½ºê·¹¾²
+{	// [103]ì–¼ìŒë¸Œë ˆì“°
 	const int nHD = CalcHitDice();
 	SetFrozen(1);
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::LightningBolt()
-{	// [48]º­¶ô
+{	// [48]ë²¼ë½
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::ChainLightning()
-{	// [50]À¯µµ Àü°İ
+{	// [50]ìœ ë„ ì „ê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::CircleLightning()
-{	// [51]¿øÇü Àü°İ
+{	// [51]ì›í˜• ì „ê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Lightning()
-{	// [52]Á÷¼± Àü°İ
+{	// [52]ì§ì„  ì „ê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::GreatThunderBolt()
-{	// [84]´ëÀü°İ
+{	// [84]ëŒ€ì „ê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::Lightning5TileRadius()
-{	// [54]¹İ°æ 5Å¸ÀÏ Àü°İ
+{	// [54]ë°˜ê²½ 5íƒ€ì¼ ì „ê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::BlitzSpear()
-{	// [100]¹ø°³Ã¢
+{	// [100]ë²ˆê°œì°½
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::LightningCloud()
-{	// [101]Àü°İ±¸¸§
+{	// [101]ì „ê²©êµ¬ë¦„
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::LightningBreath()
-{	// [103]Àü°İºê·¹¾²
+{	// [103]ì „ê²©ë¸Œë ˆì“°
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::OctaLightning()
-{	// [1078]¹æ»ç Àü°İ
+{	// [1078]ë°©ì‚¬ ì „ê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::DeathFire()
-{	// [87]µ¥¾²ÆÄÀÌ¾î
+{	// [87]ë°ì“°íŒŒì´ì–´
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::DeathFiree()
-{	// [188]°µçüÓÄ»ğ
+{	// [188]ê° æ¢§èƒì‚½
 	const int nHD =  CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::HolyFire()
-{	// [165]¼º½º·¯¿î ºÒ
+{	// [165]ì„±ìŠ¤ëŸ¬ìš´ ë¶ˆ
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::HolyLight()
-{	// [162]¼º½º·¯¿î ºû
+{	// [162]ì„±ìŠ¤ëŸ¬ìš´ ë¹›
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::HolyRage()
-{	// [170]¼º½º·¯¿î ºĞ³ë
+{	// [170]ì„±ìŠ¤ëŸ¬ìš´ ë¶„ë…¸
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::TurnUndead()
-{	// [171]ÅÏ ¾ğµ¥µå
+{	// [171]í„´ ì–¸ë°ë“œ
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::DivinePower()
-{	// [174]µğ¹ÙÀÎ ÆÄ¿ö
+{	// [174]ë””ë°”ì¸ íŒŒì›Œ
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::AuthorityCharisNumen()
-{	// [182]Ä«¸®½º ´©¸àÀÇ ±Ç´É
+{	// [182]ì¹´ë¦¬ìŠ¤ ëˆ„ë©˜ì˜ ê¶ŒëŠ¥
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::RageStone()
-{	// [189]´ëÁöÀÇ ºĞ³ë
+{	// [189]ëŒ€ì§€ì˜ ë¶„ë…¸
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::RageBlast()
-{	// [191]È­½ÅÀÇ ºĞ³ë
+{	// [191]í™”ì‹ ì˜ ë¶„ë…¸
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::RageLightBall()
-{	// [192]¼º·ÉÀÇ ºĞ³ë
+{	// [192]ì„±ë ¹ì˜ ë¶„ë…¸
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::ShadowOfEvil()
-{	// [98]¾ÇÀÇ ±×¸²ÀÚ
+{	// [98]ì•…ì˜ ê·¸ë¦¼ì
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::BooldSprinkle()
-{	// [108]ÇÇ»Ñ¸®±â
+{	// [108]í”¼ë¿Œë¦¬ê¸°
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::FlameArrow()
-{	// [110] È­¿°È­»ì
+{	// [110] í™”ì—¼í™”ì‚´
 	//< CSD-031020
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }	//> CSD-031020
 
 bool CAttackMagic::AreaBatAttack()
-{	// [114]Áö¿ª ¹ÚÁã°ø°İ
+{	// [114]ì§€ì—­ ë°•ì¥ê³µê²©
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::SnowStorm() // 030415 kyo
-{	// [59]´«º¸¶óÀÇ ÆøÇ³
+{	// [59]ëˆˆë³´ë¼ì˜ í­í’
 	const int nHD =  CalcHitDice();
 	
 	if (rand()%100 < g_CSymbolMgr.GetSymbolGrade(m_pCaster))
@@ -420,7 +420,7 @@ bool CAttackMagic::SnowStorm() // 030415 kyo
 }
 
 bool CAttackMagic::IceBreath2()// 030415 kyo
-{	// [60]¾ÆÀÌ½ººê·¹½º2
+{	// [60]ì•„ì´ìŠ¤ë¸Œë ˆìŠ¤2
 	const int nHD =  CalcHitDice();
 
 	if (rand()%100 < g_CSymbolMgr.GetSymbolGrade(m_pCaster))
@@ -432,13 +432,13 @@ bool CAttackMagic::IceBreath2()// 030415 kyo
 }
 
 bool CAttackMagic::BloodLightning()// 030415 kyo
-{	// [61]ºí·¯µå¶óÀÌÆ®´×
+{	// [61]ë¸”ëŸ¬ë“œë¼ì´íŠ¸ë‹
 	const int nHD =  CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::AuthorityOfWhoarencha() // 030415 kyo
-{	// [187]È­·£Å¸ÀÇ ±Ç´É
+{	// [187]í™”ëœíƒ€ì˜ ê¶ŒëŠ¥
 	const int nHD =  CalcHitDice();
 	return AttackMagic(nHD);
 }
@@ -481,29 +481,29 @@ bool CAttackMagic::AttackMagic(int nHD)
 			const int nAmplify = m_pCaster->GetMagicAmplify(); 
 			const int nAttack = m_pCaster->CalcPhysicalStrikingPower(nStrike + nAmplify);
 			const int nDefence = m_pTarget->CalcPhysicalDefensivePower(nAttack);
-			// ÃÑ µ¥¹ÌÁö °è»ê(¼öÁ¤¿ä¸Á - 1.4¹è Á¦°Å)
+			// ì´ ë°ë¯¸ì§€ ê³„ì‚°(ìˆ˜ì •ìš”ë§ - 1.4ë°° ì œê±°)
 			int nPhysical = (nAttack - nDefence)*1.4;
-			// ¸¶¹ı¿¡ ÀÇÇÑ Àå°Å¸® ¹«±â¿¡ ÀÇÇÑ ¹æ¾î·Â º¸Á¤
+			// ë§ˆë²•ì— ì˜í•œ ì¥ê±°ë¦¬ ë¬´ê¸°ì— ì˜í•œ ë°©ì–´ë ¥ ë³´ì •
 			if (!m_pCaster->IsIgnorePhysicalDefence())
 			{
 				m_pTarget->CorrectLongDamage(nPhysical);
 			}
-			// ¸¶¹ı¿¡ ÀÇÇÑ µ¥¹ÌÁö + È°ÀÇ ¹°¸®Àû µ¥¹ÌÁö
+			// ë§ˆë²•ì— ì˜í•œ ë°ë¯¸ì§€ + í™œì˜ ë¬¼ë¦¬ì  ë°ë¯¸ì§€
 			nDamage = (nDamage>>1) + nPhysical;
 			break;
 		}
 	}
-	// °ø°İ ¸¶¹ı¿¡ ÀÇÇÑ µ¥¹ÌÁö °è»ê
+	// ê³µê²© ë§ˆë²•ì— ì˜í•œ ë°ë¯¸ì§€ ê³„ì‚°
 	const int nType = GetResistType(m_nIndex);
 	nDamage = CalcDamage(nType, nDamage);
-	// °¢Á¾º¸Á¤
+	// ê°ì¢…ë³´ì •
 	Correct(nDamage); 
-	// ¹æ¾î±¸ÀÇ ³»±¸µµ °¨¼Ò
+	// ë°©ì–´êµ¬ì˜ ë‚´êµ¬ë„ ê°ì†Œ
 	::DecreaseEquipDuration(m_pTarget, nDamage, ::getEquipRandomPos(), m_pTarget->SprNo, false);
 	
 	if (m_pTarget->IsNpc())				// LTS AI
 	{
-		if (m_pTarget->ChairNum)		// ¼­¹ö AIÀÌ¸é 	// LTS AI2	
+		if (m_pTarget->ChairNum)		// ì„œë²„ AIì´ë©´ 	// LTS AI2	
 		{
 			if (m_pTarget->patterntype>=NPC_PATTERN_WANDER&&m_pTarget->patterntype<NPC_PATTERN_BOSS_WANDER)  // LTS DRAGON MODIFY
 			{
@@ -525,29 +525,29 @@ bool CAttackMagic::AttackMagic(int nHD)
 
 void CAttackMagic::Correct(int& rDamage)
 {
-	// ¾ÆÀÌÅÛ ¼Ó¼º¿¡ ÀÇÇÑ º¸Á¤
+	// ì•„ì´í…œ ì†ì„±ì— ì˜í•œ ë³´ì •
 	if (RareEM.GetDynamicRareValue(FITEM_INVALID_OFFENCE, m_pTarget->DynamicRare))
 	{
 		rDamage = 0;
 		return;
 	}
-	// ¼Ó¼º ¼³Á¤
+	// ì†ì„± ì„¤ì •
 	if (m_pCaster->IsPlayer())
 	{
 		m_pCaster->AutoAttribute();
 	}
-	// ³ô³·ÀÌ¿¡ µû¸¥ º¸Á¤
+	// ë†’ë‚®ì´ì— ë”°ë¥¸ ë³´ì •
 	const BYTE nRiseFall = GetRiseFall(m_nIndex);
 	const int nX = m_pTarget->MoveSx; 
 	const int nY = m_pTarget->MoveSy;
 	m_pCaster->CorrectRiseFall(nRiseFall, nX, nY, rDamage);
-	// °Å¸®¿¡ µû¸¥ º¸Á¤
+	// ê±°ë¦¬ì— ë”°ë¥¸ ë³´ì •
 	const int nDistance = ::getDistance(m_pCaster, m_pTarget);
 	m_pCaster->CorrectMagicRange(nDistance, rDamage);
-	// ¿ÕÀÌ³ª ¿î¿µÀÚ¿¡ ´ëÇÑ º¸Á¤
+	// ì™•ì´ë‚˜ ìš´ì˜ìì— ëŒ€í•œ ë³´ì •
 	if (m_pCaster->name_status.nation == m_pTarget->name_status.nation )
 	{	
-		//if (m_pCaster->name_status.king || m_pTarget->IsCounselor())	 //coromo 2005/05/06 È¥³ıKINGÌØÈ¨
+		//if (m_pCaster->name_status.king || m_pTarget->IsCounselor())	 //coromo 2005/05/06 í˜¼ë‡œKINGæ™¯í™ˆ
 		//{
 		//	rDamage /= 30;
 		//}
@@ -573,7 +573,7 @@ bool CAttackMagic::Result(int nDamage)
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¼®È­¿¡ °É·ÁÀÖÀ¸¸é ¾î¶°ÇÑ °ø°İ ¸¶¹ıÀÇ µ¥¹ÌÁö¸¦ ¹ŞÁö ¸øÇÔ
+	// ì„í™”ì— ê±¸ë ¤ìˆìœ¼ë©´ ì–´ë– í•œ ê³µê²© ë§ˆë²•ì˜ ë°ë¯¸ì§€ë¥¼ ë°›ì§€ ëª»í•¨
 	if (m_pTarget->IsStone())
 	{		
 		nDamage = 0;
@@ -581,7 +581,7 @@ bool CAttackMagic::Result(int nDamage)
 		nResult = HIT_FAILED;
 		goto SEND;
 	}
-	// ¸¶¹ı ¹«È¿È­¿¡ ´ëÇÑ º¸Á¤
+	// ë§ˆë²• ë¬´íš¨í™”ì— ëŒ€í•œ ë³´ì •
 	if (!m_pCaster->IsMagicPiercing() && m_pTarget->dwMagicDamageToMana > 0)
 	{
 		const int	nMinus = GetExhaustMana(m_nIndex);
@@ -601,7 +601,7 @@ bool CAttackMagic::Result(int nDamage)
 			nMana = 0;
 		}
 	}
-	// NPC Á¾·ù¿¡ µû¸¥ º¸Á¤
+	// NPC ì¢…ë¥˜ì— ë”°ë¥¸ ë³´ì •
 	if (m_pTarget->IsNpc())
 	{
 		nDamage /= 1.4;
@@ -619,14 +619,14 @@ bool CAttackMagic::Result(int nDamage)
 				break;
 			}
 		case GUARDSTONE:
-		//case GUARDTOWER:		// LTH-040403-KO ¹æ¾îÅ¾Àº ¹Ø¿¡ ÀÖ´Ù
+		//case GUARDTOWER:		// LTH-040403-KO ë°©ì–´íƒ‘ì€ ë°‘ì— ìˆë‹¤
 			{	//< CSD-040202
 				if (IsWar() && ::CanDestroyTarget(m_pCaster, m_pTarget))
-				{ // ÀüÀïÀÎ °æ¿ì º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇ¾ú´Ù¸é          
+				{ // ì „ìŸì¸ ê²½ìš° ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì—ˆë‹¤ë©´          
 					m_pTarget->DecLife(nDamage);
 				}
 				else
-				{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì³ª ÀüÀï Áß º¸Á¶ ¼öÈ£¼®ÀÌ ´Ù ÆÄ±«µÇÁö ¾Ê¾Ò´Ù¸é
+				{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°ë‚˜ ì „ìŸ ì¤‘ ë³´ì¡° ìˆ˜í˜¸ì„ì´ ë‹¤ íŒŒê´´ë˜ì§€ ì•Šì•˜ë‹¤ë©´
 					nDamage = 0;
 					nState = m_pTarget->GetState();
 					nResult = HIT_AND_NOTDEAD;
@@ -636,13 +636,13 @@ bool CAttackMagic::Result(int nDamage)
 				break;
 			}	//> CSD-040202
 		case GUARDTOWER:
-			{	//< LTH-040403-KO ¹æ¾îÅ¾ÀÇ °æ¿ì ¼öÈ£¼®°ú´Â »ó°ü ¾ø´Ù.
+			{	//< LTH-040403-KO ë°©ì–´íƒ‘ì˜ ê²½ìš° ìˆ˜í˜¸ì„ê³¼ëŠ” ìƒê´€ ì—†ë‹¤.
 				if (IsWar())
-				{ // ÀüÀïÀÎ °æ¿ì
+				{ // ì „ìŸì¸ ê²½ìš°
 					m_pTarget->DecLife(nDamage);
 				}
 				else
-				{ // ÀüÀïÀÌ ¾Æ´Ñ °æ¿ì
+				{ // ì „ìŸì´ ì•„ë‹Œ ê²½ìš°
 					nDamage = 0;
 					nState = m_pTarget->GetState();
 					nResult = HIT_AND_NOTDEAD;
@@ -676,12 +676,12 @@ bool CAttackMagic::Result(int nDamage)
 	{
 		m_pTarget->DecLife(nDamage);
 	}
-	// Á×¾ú´ÂÁö °Ë»ç
+	// ì£½ì—ˆëŠ”ì§€ ê²€ì‚¬
 	if (m_pTarget->IsDead())
 	{
 		::AddCasterEXP(m_pCaster, m_pTarget, 1, 1, m_nIndex, abs(nDamage));
 		::KillWho(m_pTarget, m_pCaster);
-		// NK¿¡ °è»ê 
+		// NKì— ê³„ì‚° 
 		if(LocalMgr.IsAbleNation(TAIWAN))//030102 lsw Local
 		{
 			if (m_pCaster->IsTamedNpc())
@@ -728,7 +728,7 @@ bool CAttackMagic::Result(int nDamage)
 	}
 	
 SEND:  
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	InitMagicResult(CMD_MAGIC_RESULT_M);
 	m_packet.u.magic.server_magic_result_m.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_m.idTarget = m_idTarget;

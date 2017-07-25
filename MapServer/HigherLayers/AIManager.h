@@ -1,4 +1,4 @@
-// AIManager.h: interface for the CAIManager class.
+ï»¿// AIManager.h: interface for the CAIManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// NPC AI °ü¸®¸¦ À§ÇÑ Å¬·¡½º
+// NPC AI ê´€ë¦¬ë¥¼ ìœ„í•œ í´ë˜ìŠ¤
 class CAIManager : public TSingleton<CAIManager> 
 {
 public:

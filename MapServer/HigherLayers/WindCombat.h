@@ -1,4 +1,4 @@
-// WindCombat.h: interface for the CWindCombat class.
+ï»¿// WindCombat.h: interface for the CWindCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ¹Ù¶÷¼Ó¼º ÀüÅõ½ºÅ³
+// ë°”ëŒì†ì„± ì „íˆ¬ìŠ¤í‚¬
 class CWindCombat : public TBinder<CCombat, CWindCombat>  
 {
 public:

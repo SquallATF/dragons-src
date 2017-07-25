@@ -1,11 +1,11 @@
-#ifndef NW_PACKET_DEFINE_
+ï»¿#ifndef NW_PACKET_DEFINE_
 #define NW_PACKET_DEFINE_
 /*****************************************************************************/
-/* ±¹°¡Àü °ü·Ã ÆĞÅ¶ 
+/* êµ­ê°€ì „ ê´€ë ¨ íŒ¨í‚· 
 /* // 010725 LTS
 /*****************************************************************************/
 
-// ÃßÈÄ ºĞ·ù ¹× Ãß°¡
+// ì¶”í›„ ë¶„ë¥˜ ë° ì¶”ê°€
 
 #define		CMD_REQUEST_CHECK_VOTE					26001
 #define		CMD_ANSWER_CHECK_VOTE					26002
@@ -50,29 +50,29 @@
 #define		CMD_ANSWER_TILE_DONT					26045
 #define		CMD_TILE_DONT_CHANGED					26046
 #define		CMD_SQUAD_CHAT							26047
-#define		CMD_CLEAR_SQUAD_DATA					26048			// ºÎ´ë¼Ó¼º Å¬¸®¾î 
-#define		CMD_REQUEST_WARFIELD_INFO				26049			// °ø°İÀÚ¿Í ¹æ¾îÀÚÀÇ È®ÀÎ 
+#define		CMD_CLEAR_SQUAD_DATA					26048			// ë¶€ëŒ€ì†ì„± í´ë¦¬ì–´ 
+#define		CMD_REQUEST_WARFIELD_INFO				26049			// ê³µê²©ìì™€ ë°©ì–´ìì˜ í™•ì¸ 
 #define		CMD_ANSWER_WARFIELD_INFO				26050
-#define		CMD_WAR_BEGIN							26051			// ÀüÀï¸Ê¿¡ ÀÖ´Â »ç¶÷ÀÇ ÀüÀï½ÃÀÛ ¸Ş¼¼Áö..
-#define		CMD_WAR_END								26052			// ¹æ¼Ûµµ ÀÖÁö¸¸.. ¾ÈµÈ´Ù.
-#define		CMD_REG_SQUAD_LEADER					26053			// ¼­¹ö°£ 
+#define		CMD_WAR_BEGIN							26051			// ì „ìŸë§µì— ìˆëŠ” ì‚¬ëŒì˜ ì „ìŸì‹œì‘ ë©”ì„¸ì§€..
+#define		CMD_WAR_END								26052			// ë°©ì†¡ë„ ìˆì§€ë§Œ.. ì•ˆëœë‹¤.
+#define		CMD_REG_SQUAD_LEADER					26053			// ì„œë²„ê°„ 
 #define		CMD_REQUEST_CHECK_WARFIELD_POSSESSION	26054
 #define		CMD_ANSWER_CHECK_WARFIELD_POSSESSION	26055
 #define		CMD_FREELANCER_SQUAD_JOIN				26056
 #define		CMD_REQUEST_WARFIELD_POSSESSION			26057
 #define		CMD_ANSWER_WARFIELD_POSSESSION			26058
 #define		CMD_REQUEST_WARFIELD_WAR_DATA			26059
-#define		CMD_WARFIELD_WAR_DATA1					26060			// ¼º¹® ¼öÈ£¼® µ¥ÀÌÅ¸
-#define		CMD_WARFIELD_WAR_DATA2					26061			// ³²Àº½Ã°£, ¸â¹öÄ«¿îÆ® 
-#define		CMD_WARFIELD_WAR_DATA3					26062			// ¹æ¾îºÎ´ë Á¤º¸
-#define		CMD_WARFIELD_WAR_DATA4					26063			// °ø°İºÎ´ë Á¤º¸
-#define		CMD_WARFIELD_WAR_DATA5					26064			// Áö¿ø±º ºÎ´ë Á¤º¸
-#define		CMD_REQUEST_CHECK_WARNO					26065			// ÀüÀï¹øÈ£¸¦ ÆÇ´ÜÇÑ´Ù.
+#define		CMD_WARFIELD_WAR_DATA1					26060			// ì„±ë¬¸ ìˆ˜í˜¸ì„ ë°ì´íƒ€
+#define		CMD_WARFIELD_WAR_DATA2					26061			// ë‚¨ì€ì‹œê°„, ë©¤ë²„ì¹´ìš´íŠ¸ 
+#define		CMD_WARFIELD_WAR_DATA3					26062			// ë°©ì–´ë¶€ëŒ€ ì •ë³´
+#define		CMD_WARFIELD_WAR_DATA4					26063			// ê³µê²©ë¶€ëŒ€ ì •ë³´
+#define		CMD_WARFIELD_WAR_DATA5					26064			// ì§€ì›êµ° ë¶€ëŒ€ ì •ë³´
+#define		CMD_REQUEST_CHECK_WARNO					26065			// ì „ìŸë²ˆí˜¸ë¥¼ íŒë‹¨í•œë‹¤.
 #define		CMD_ANSWER_CHECK_WARNO					26066
-#define		CMD_CLEAR_WAR_CHARACTER_DATA			26067			// Å¬¶óÀÌ¾ğÆ®
-#define		CMD_SET_COMMANDER						26068			// DBµ¥¸ó 
-#define		CMD_STARTUP_NATION_CODE_CHANGE			26069			// ÀüÀï¼­¹ö->°ü¸®¼­¹ö->¸Ê¼­¹ö
-#define		CMD_ANSWER_SQUAD_INFO2					26070			// ºÎ´ëÁ¤º¸ ÆÄÆ®2
+#define		CMD_CLEAR_WAR_CHARACTER_DATA			26067			// í´ë¼ì´ì–¸íŠ¸
+#define		CMD_SET_COMMANDER						26068			// DBë°ëª¬ 
+#define		CMD_STARTUP_NATION_CODE_CHANGE			26069			// ì „ìŸì„œë²„->ê´€ë¦¬ì„œë²„->ë§µì„œë²„
+#define		CMD_ANSWER_SQUAD_INFO2					26070			// ë¶€ëŒ€ì •ë³´ íŒŒíŠ¸2
 #define		CMD_ANSWER_COMMANDER_VOTE_DATA2			26071
 #define		CMD_SET_WARFIELD_POSSESSION				26072
 #define		CMD_DELETE_EVENT_JOIN					26335			// 020115 LTS
@@ -80,11 +80,11 @@
 #define		CMD_SAVE_WARNO							26364			// LTS NEW NATIONWAR
 
 
-#define		CMD_INSERT_LOTTO_INFO					26404 //soto-030503 //DBµ¥¸óÀ¸·Î.
-#define		CMD_DELETE_LOTTO_ALL_USER				26405 //soto-030503 //DBµ¥¸óÀ¸·Î.
-#define		CMD_CUR_LOTTO_INFO						26406 //soto-030503 //DBµ¥¸ó¿¡¼­.
-#define		CMD_LOTTERY_INFO						26407 //soto-030503 //DBµ¥¸ó
-#define		CMD_NEW_EVENT							20408 //soto-030504 //DBµ¥¸ó
+#define		CMD_INSERT_LOTTO_INFO					26404 //soto-030503 //DBë°ëª¬ìœ¼ë¡œ.
+#define		CMD_DELETE_LOTTO_ALL_USER				26405 //soto-030503 //DBë°ëª¬ìœ¼ë¡œ.
+#define		CMD_CUR_LOTTO_INFO						26406 //soto-030503 //DBë°ëª¬ì—ì„œ.
+#define		CMD_LOTTERY_INFO						26407 //soto-030503 //DBë°ëª¬
+#define		CMD_NEW_EVENT							20408 //soto-030504 //DBë°ëª¬
 #define		CMD_LOTTO_BUY							20409 //soto-030504
 #define		CMD_CAN_BUY								20410 //soto-030504
 #define		CMD_WINNER_CHECK						20411 //soto-030505
@@ -95,26 +95,26 @@
 
 #define		CMD_OPEN_LOTTOMENU						20415 //soto-030520
 #define		CMD_LOTTERY_BROADCAST					20416 //soto-HK030924
-#define		CMD_LOTTO_SEEK							20417 //soto-LottoÃß°¡
+#define		CMD_LOTTO_SEEK							20417 //soto-Lottoì¶”ê°€
 
-#define		CMD_DEL_LOTTO_USER_OK					20418	// BBD 040127	·Î¶ÇÇÁ·Î¼¼½º º¯°æ
+#define		CMD_DEL_LOTTO_USER_OK					20418	// BBD 040127	ë¡œë˜í”„ë¡œì„¸ìŠ¤ ë³€ê²½
 
 //<soto-HK030924
 typedef struct	tag_LOTTERY_INFO
 {
 	int	nLottoID;
 	int nWinNumCount;
-	int	anWinNumbers[10]; // ´çÃ· ¹øÈ£.
+	int	anWinNumbers[10]; // ë‹¹ì²¨ ë²ˆí˜¸.
 }t_LOTTERY_INFO;
 //>soto-HK030924
 
-//<soto-LottoÃß°¡.
+//<soto-Lottoì¶”ê°€.
 typedef	struct tag_OPEN_LOTTO_MENU
 {
-	int	nMaxNumberCount; //¸îÀÚ¸®ÀÇ ¼ö·Î ·Î¶Ç¸¦  ¸¸µå´À³Ä.
-//	int	nCurrentLottoCount; //ÇöÁö ·Î¶Ç¸¦ ¸îÀå °¡Áö°í ÀÖ´Â³Ä?
+	int	nMaxNumberCount; //ëª‡ìë¦¬ì˜ ìˆ˜ë¡œ ë¡œë˜ë¥¼  ë§Œë“œëŠëƒ.
+//	int	nCurrentLottoCount; //í˜„ì§€ ë¡œë˜ë¥¼ ëª‡ì¥ ê°€ì§€ê³  ìˆëŠ”ëƒ?
 }t_OPEN_LOTTO_MENU;
-//>soto-LottoÃß°¡.
+//>soto-Lottoì¶”ê°€.
 
 struct LOTTO_EVENT_INFO
 {	//< CSD-030804
@@ -122,26 +122,26 @@ struct LOTTO_EVENT_INFO
 	tm		StartDate;
 	tm		LotteryDate;
 	int		nWinNumCount;
-	int		anWinNumbers[10]; // 10°³ Áö¸¸ ÇöÀç´Â 4°³¸¸ ¾²ÀÎ´Ù.
+	int		anWinNumbers[10]; // 10ê°œ ì§€ë§Œ í˜„ì¬ëŠ” 4ê°œë§Œ ì“°ì¸ë‹¤.
 };	//> CSD-030804
 
 typedef struct tag_CHECK_WINNER
 {
 	int		nLottoID;//soto-LottoADD
 	char	strCharName[21];
-	int		nWinItemCount;// 0ÀÌ¸é ´çÃ· µÇÁö ¾Ê¾Ò½¿. -1ÀÌ¸é ºó°÷ÀÌ ÃæºĞÄ¡ ¾ÊÀ½.//ÅäÅ»¾ÆÀÌÅÛ °¹¼ö.
+	int		nWinItemCount;// 0ì´ë©´ ë‹¹ì²¨ ë˜ì§€ ì•Šì•˜ìŠ´. -1ì´ë©´ ë¹ˆê³³ì´ ì¶©ë¶„ì¹˜ ì•ŠìŒ.//í† íƒˆì•„ì´í…œ ê°¯ìˆ˜.
 	int		anWinNumbers[10];
-	int		anWinItemsCount[5];//¿©±â¿¡ µî¼öº° Áö±Ş µÇ´Â ¾ÆÀÌÅÛ °¹¼ö°¡ µé¾î°£´Ù./soto-LottoÃß°¡
+	int		anWinItemsCount[5];//ì—¬ê¸°ì— ë“±ìˆ˜ë³„ ì§€ê¸‰ ë˜ëŠ” ì•„ì´í…œ ê°¯ìˆ˜ê°€ ë“¤ì–´ê°„ë‹¤./soto-Lottoì¶”ê°€
 }t_CHECK_WINNER;
-//<! BBD 040127	·Î¶Ç À¯Àú Å×ÀÌºí¿¡¼­ Àß Áö¿üÀ½À» ¾Ë¸²
+//<! BBD 040127	ë¡œë˜ ìœ ì € í…Œì´ë¸”ì—ì„œ ì˜ ì§€ì› ìŒì„ ì•Œë¦¼
 typedef struct tag_DEL_LOTTO_USER_OK
 {
 	bool	bIsDelOK;
 
 }t_DEL_LOTTO_USER_OK;
-//> BBD 040127	·Î¶Ç À¯Àú Å×ÀÌºí¿¡¼­ Àß Áö¿üÀ½À» ¾Ë¸²
+//> BBD 040127	ë¡œë˜ ìœ ì € í…Œì´ë¸”ì—ì„œ ì˜ ì§€ì› ìŒì„ ì•Œë¦¼
 
-//<! BBD 040308		ÀÌº¥Æ® ·¹¾î ¾ÆÀÌÅÛ Áö±Ş¿ë ±¸Á¶Ã¼
+//<! BBD 040308		ì´ë²¤íŠ¸ ë ˆì–´ ì•„ì´í…œ ì§€ê¸‰ìš© êµ¬ì¡°ì²´
 typedef struct tag_EVENT_RARE_ITEM_LIST
 {
 	int			nCn;
@@ -151,39 +151,39 @@ typedef struct tag_EVENT_RARE_ITEM_LIST
 	ItemAttr	item[10];
 
 }t_EVENT_RARE_ITEM_LIST;
-//> BBD 040308		ÀÌº¥Æ® ·¹¾î ¾ÆÀÌÅÛ Áö±Ş¿ë ±¸Á¶Ã¼
+//> BBD 040308		ì´ë²¤íŠ¸ ë ˆì–´ ì•„ì´í…œ ì§€ê¸‰ìš© êµ¬ì¡°ì²´
 
 typedef	struct tag_BUY_LOTTO
 {
 	int	nLottoID;//soto-LottoADD
 	char strCharName[21];
 	int	anLottoNumber[10];
-	int	m_nLottoPay;//Lotto¿¡ ÁöºÒ µÇ´Â µ·.
+	int	m_nLottoPay;//Lottoì— ì§€ë¶ˆ ë˜ëŠ” ëˆ.
 }t_BUY_LOTTO;
 
-//<soto-LottoÃß°¡.
+//<soto-Lottoì¶”ê°€.
 typedef struct tag_WINNER_MENU
 {
 	int	nLottoID;//soto-LottoADD
-	int	 nMaxLottoCount;//¸îÀÚ¸® ±îÁö ·Î¶Ç ¹øÈ£¸¦ ¾µ°ÍÀÌ³Ä?	
+	int	 nMaxLottoCount;//ëª‡ìë¦¬ ê¹Œì§€ ë¡œë˜ ë²ˆí˜¸ë¥¼ ì“¸ê²ƒì´ëƒ?	
 	char strCharName[21];
 	int	anWinNumbers[10];
-	int	nViewCount;//ÇöÀç È­¸é¿¡ ³ª¿À´Â ·Î¶ÇÀÇ Ä«¿îÆ®. 0ÃÊ°ú.
+	int	nViewCount;//í˜„ì¬ í™”ë©´ì— ë‚˜ì˜¤ëŠ” ë¡œë˜ì˜ ì¹´ìš´íŠ¸. 0ì´ˆê³¼.
 	int	anLottoNumber[5][10];
-	int	nTotalLottoCount;//³à¼®ÀÌ °¡Áö°í ÀÖ´Â ·Î¶ÇÀÇ ÃÑ¼ö°¡ µé¾î°£´Ù.
+	int	nTotalLottoCount;//ë…€ì„ì´ ê°€ì§€ê³  ìˆëŠ” ë¡œë˜ì˜ ì´ìˆ˜ê°€ ë“¤ì–´ê°„ë‹¤.
 }t_WINNER_MENU;
-//>soto-LottoÃß°¡.
+//>soto-Lottoì¶”ê°€.
 
-//<soto-LottoÃß°¡.
+//<soto-Lottoì¶”ê°€.
 typedef struct tag_LOTTOPAPER_SEEK
 {
 	char	strChrName[20];
-	int		nPage;//¿øÇÏ´Â ÆäÀÌÁö°¡ µé¾î°£´Ù.
-	int		nViewCount;//ÇöÀç Ãâ·ÂµÇ´Â º¹±ÇÀÇ °¹¼ö.
-	int		anLottoNumber[5][10];//¸®½ºÆ®¿¡ ÀÖ´Â ·Î¶Ç ¹øÈ£µéÀÌ µé¾î°£´Ù.
-	int		nLottoID;//·Î¶ÇÀÇ È¸Â÷°¡ µé¾î°£´Ù.
+	int		nPage;//ì›í•˜ëŠ” í˜ì´ì§€ê°€ ë“¤ì–´ê°„ë‹¤.
+	int		nViewCount;//í˜„ì¬ ì¶œë ¥ë˜ëŠ” ë³µê¶Œì˜ ê°¯ìˆ˜.
+	int		anLottoNumber[5][10];//ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” ë¡œë˜ ë²ˆí˜¸ë“¤ì´ ë“¤ì–´ê°„ë‹¤.
+	int		nLottoID;//ë¡œë˜ì˜ íšŒì°¨ê°€ ë“¤ì–´ê°„ë‹¤.
 }t_LOTTOPAPER_SEEK;
-//>soto-LottoÃß°¡.
+//>soto-Lottoì¶”ê°€.
 
 // Maximum Packet String Definition
 
@@ -221,7 +221,7 @@ typedef struct WarBBS_P
 {
 	char	WarfieldNo;
 	char	BBSType;
-	char	LanNo;				//·©±ÍÁöÆÑ ¹øÈ£
+	char	LanNo;				//ë­ê·€ì§€íŒ© ë²ˆí˜¸
 	char	Size;
 	char	Arg[MAX_STRING_PK];
 }	t_WarBBS;
@@ -241,7 +241,7 @@ typedef struct WarfieldStatusM_P
 typedef struct VoteData_P
 {
 	char	WarfieldNo;
-	char	VoteCount;				//¿öµå³ª Á¤¼öÇüÀ¸·Î º¯È¯ ÇÊ¿ä 
+	char	VoteCount;				//ì›Œë“œë‚˜ ì •ìˆ˜í˜•ìœ¼ë¡œ ë³€í™˜ í•„ìš” 
 }	t_VoteData;
 
 typedef struct RequestSquadInfo_P
@@ -257,11 +257,11 @@ typedef struct SquadInfo_P
 	int		ChipID;
 	char	ChipName[NW_NAME_MAX];
 	int		SoldierCount;
-	char	Sok;					//·¹¾î¼Ó¼º //ºñÆ®¿¬»ê	
+	char	Sok;					//ë ˆì–´ì†ì„± //ë¹„íŠ¸ì—°ì‚°	
 	char	LoadingPoint;
 }	t_SquadInfo;
 
-typedef struct RegSquadLeader_P			// ¼­¹ö°£ ÆĞÅ¶ 
+typedef struct RegSquadLeader_P			// ì„œë²„ê°„ íŒ¨í‚· 
 {
 	char	Nation;
 	char	WarfieldNo;
@@ -284,7 +284,7 @@ typedef struct CommanderVoteData_P
 	char	Name[NW_NAME_MAX];
 	char	Level;
 	short	Fame;
-	char	VoteCount;				//¿öµå³ª Á¤¼öÇüÀ¸·Î º¯È¯ ÇÊ¿ä
+	char	VoteCount;				//ì›Œë“œë‚˜ ì •ìˆ˜í˜•ìœ¼ë¡œ ë³€í™˜ í•„ìš”
 }	t_CommanderVoteData;
 
 typedef struct RequestCommanderRegData_p
@@ -381,7 +381,7 @@ typedef struct WarfieldPossession_P
 	char	Possession[NW_NATION_COUNT];
 }	t_WarfieldPossession;
 
-typedef struct WarfieldData1_P			//¼º¹®, ¼öÈ£¼® 
+typedef struct WarfieldData1_P			//ì„±ë¬¸, ìˆ˜í˜¸ì„ 
 {
 	char	GuardStoneCount;
 	char*   GuardStoneStatus;
@@ -389,7 +389,7 @@ typedef struct WarfieldData1_P			//¼º¹®, ¼öÈ£¼®
 	char*	CastleGateWayStatus;
 }	t_WarfieldData1;
 
-typedef struct WarfieldData2_P			// ÀüÀï ³²Àº ½Ã°£, ¹æ¾î,°ø°İ,Áö¿ø±º ¼ö
+typedef struct WarfieldData2_P			// ì „ìŸ ë‚¨ì€ ì‹œê°„, ë°©ì–´,ê³µê²©,ì§€ì›êµ° ìˆ˜
 {
 	DWORD	RemainTime;
 	WORD	DefencerCount;
@@ -397,7 +397,7 @@ typedef struct WarfieldData2_P			// ÀüÀï ³²Àº ½Ã°£, ¹æ¾î,°ø°İ,Áö¿ø±º ¼ö
 	WORD	ReinforceCount;
 }	t_WarfieldData2;
 
-typedef struct WarfieldData3_P			//ºÎ´ëÁ¤º¸ 
+typedef struct WarfieldData3_P			//ë¶€ëŒ€ì •ë³´ 
 {
 	char	Type;						// Attacker, Defencer, Reinforce
 	WORD	MemberCount[NW_SQUAD_MAX];
@@ -461,7 +461,7 @@ typedef union NationWar_P
 	t_TileDont					TileDont;
 	t_SquadChat					SquadChat;
 	t_WarfieldInfo				WarfieldInfo;
-	t_RegSquadLeader			RegSquadLeader;			//¼­¹ö°£ ÆĞÅ¶ 
+	t_RegSquadLeader			RegSquadLeader;			//ì„œë²„ê°„ íŒ¨í‚· 
 	t_WarfieldPossession		WarfieldPossession;
 	t_WarfieldData1				WarfieldData1;
 	t_WarfieldData2				WarfieldData2;

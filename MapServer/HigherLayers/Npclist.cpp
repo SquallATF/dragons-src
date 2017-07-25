@@ -1,10 +1,10 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\MyLog.h"
 #include "AdventManager.h"
 #include "LogManager.h"
 
 CHARLIST NPCList[MAX_NPC_LIST];
-int CurrentNPCNo = 0; // ÇöÀç NPCÀÇ ÃÑ¼ö.
+int CurrentNPCNo = 0; // í˜„ì¬ NPCì˜ ì´ìˆ˜.
 int Max_NPC_Generation = 0;
 
 void InitNPCList()
@@ -21,7 +21,7 @@ int GetAliveNPCList()
 	{
 		if (NPCList[i].bAlive == REMOVE_)
 		{
-			//050113_KCH_ºÒ¾ÈÁ¤ÇÑMapDown¿¡´ëÇÑ ·Î±×¹× ÃßÀû(NPC¾ø´Â¸Ê<5250> ÀÌ·Î±×°¡ ÃÊ´ç °è¼Ó ¹ß»ıÇÏ±â¿¡ ´Ù¸¥ ·Î±× ÆÄ¾ÇÀÌ ¾î·Á¿ò)
+			//050113_KCH_ë¶ˆì•ˆì •í•œMapDownì—ëŒ€í•œ ë¡œê·¸ë° ì¶”ì (NPCì—†ëŠ”ë§µ<5250> ì´ë¡œê·¸ê°€ ì´ˆë‹¹ ê³„ì† ë°œìƒí•˜ê¸°ì— ë‹¤ë¥¸ ë¡œê·¸ íŒŒì•…ì´ ì–´ë ¤ì›€)
 			if (0!=CurrentNPCNo)
 				MyLog(LOG_NORMAL, "<%d>GetAliveNPCList : %d", i, CurrentNPCNo); // CSD-LOG
 			return i;
@@ -42,7 +42,7 @@ void RemoveNPCList(int Num)
 	{
 		return;
 	}
-	// NPC¹ß»ıÇÏ´Â À§Ä¡ÀÇ ÇöÀç ¹ß»ıµÈ °ªÀ» ÇÏ³ª °¨¼Ò ÇØÁØ´Ù. ( ±×·¡¾ß ¶Ç ¹ß»ıÇÏÁö .... )
+	// NPCë°œìƒí•˜ëŠ” ìœ„ì¹˜ì˜ í˜„ì¬ ë°œìƒëœ ê°’ì„ í•˜ë‚˜ ê°ì†Œ í•´ì¤€ë‹¤. ( ê·¸ë˜ì•¼ ë˜ ë°œìƒí•˜ì§€ .... )
 	CHARLIST* pNpc = &NPCList[Num];
 
 	switch (pNpc->generationtype)
@@ -92,13 +92,13 @@ void RemoveNPCList(int Num)
 }	//> CSD-031013
 	
 //021030 YGI
-// ¾ÆÀÌÅÛ ¶³¾î ¶ß¸®Áö ¾Ê´Â´Ù.
-// Ä³¸¯ÅÍ ´«¾Õ¿¡¼­ °©ÀÚ±â ¾ø¾îÁø´Ù.
+// ì•„ì´í…œ ë–¨ì–´ ëœ¨ë¦¬ì§€ ì•ŠëŠ”ë‹¤.
+// ìºë¦­í„° ëˆˆì•ì—ì„œ ê°‘ìê¸° ì—†ì–´ì§„ë‹¤.
 void DeleteNpc(int index)
 {	
 	CHARLIST *pNpc = &NPCList[index];
 
-	if (REMOVE_ == pNpc->bAlive) //ÀÌ¹Ì ¸®¹«ºê »óÅÂ¶ó¸é ÀÌ°ÍÀ» È£Ãâ ÇÏÁö ¾Ê´Â´Ù.
+	if (REMOVE_ == pNpc->bAlive) //ì´ë¯¸ ë¦¬ë¬´ë¸Œ ìƒíƒœë¼ë©´ ì´ê²ƒì„ í˜¸ì¶œ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 	{
 		return;
 	}

@@ -1,4 +1,4 @@
-#include "network_base.h"
+ï»¿#include "network_base.h"
 #include "typedef.h"
 #include "servertable.h"
 #include "network_guid.h"
@@ -26,7 +26,7 @@ void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//020511 lsw
 {	
 	LP_SERVER_DATA pProxy = NULL;
 	
-	// Proxy ¿¡ ¿¬°áµÇÁö ¾ÊÀº °æ¿ì.
+	// Proxy ì— ì—°ê²°ë˜ì§€ ì•Šì€ ê²½ìš°.
 	if( g_pServerTable )
 	{
 		pProxy = g_pServerTable->GetOwnProxyServerData();
@@ -34,17 +34,17 @@ void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//020511 lsw
 		{
 			if( !g_pServerTable->GetOwnProxyServerData()->dwConnectionIndex )
 			{
-				// Added by chan78 at 2001/04/11 :: ÀÌ¹Ì Á¢¼Ó ½ÃµµÁßÀÎ °æ¿ì ½ÃµµÇÏÁö ¾Ê´Â´Ù.
+				// Added by chan78 at 2001/04/11 :: ì´ë¯¸ ì ‘ì† ì‹œë„ì¤‘ì¸ ê²½ìš° ì‹œë„í•˜ì§€ ì•ŠëŠ”ë‹¤.
 				if( g_pServerTable->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE )
 				{
 					return;
 				}
 
 				MyLog( LOG_NORMAL, "@@ Trying to connect PROXY Server ..." );
-				// Á¢¼Ó ½Ãµµ.
+				// ì ‘ì† ì‹œë„.
 				if( g_pServerTable->ConnectToProxyServer() )
 				{
-					// Modified by chan78 at 2001/04/11 :: Å¸ÀÌ¸Ó Æ÷Áî Ã³¸®´Â °á°úÃ³¸® Äİ¹éÇÔ¼ö¿¡¼­.
+					// Modified by chan78 at 2001/04/11 :: íƒ€ì´ë¨¸ í¬ì¦ˆ ì²˜ë¦¬ëŠ” ê²°ê³¼ì²˜ë¦¬ ì½œë°±í•¨ìˆ˜ì—ì„œ.
 					return;
 				}
 			}
@@ -87,7 +87,7 @@ bool InitDBDemon()
 	ev[2].dwPeriodicTime = 0;
 	ev[2].pEventFunc = RecvMessageFromBillingServer;
 	
-	ev[3].dwPeriodicTime = 1000*60;	// 1ºĞ
+	ev[3].dwPeriodicTime = 1000*60;	// 1ë¶„
 	ev[3].pEventFunc = GameTimeFunc;	
 	//--------------------------
 
@@ -108,7 +108,7 @@ bool InitDBDemon()
 	desc.OnRecvFromUserTCP = ReceivedMsgUser;
 	desc.dwConnectNumAtSameTime = 200;//020110 LSW
 										
-	desc.dwFlag = 0; // CSD-040127 : NETDDSC_DEBUG_LOG : INetwork ·Î±× ±â·Ï
+	desc.dwFlag = 0; // CSD-040127 : NETDDSC_DEBUG_LOG : INetwork ë¡œê·¸ ê¸°ë¡
 										
 	//2001/02/19 zhh					
 	desc.dwCustomDefineEventNum = 4;	// 030221 YGI
@@ -144,7 +144,7 @@ bool InitDBDemon()
 	if (!g_pINet || !g_pINet->CreateNetwork(&desc,10,10))
 		return false;
 
-	// ÀÏ´Ü Á¤Áö...
+	// ì¼ë‹¨ ì •ì§€...
 	g_pINet->PauseTimer( 0 );	// 040406 kyo
 
 	hKeyEvent = g_pINet->GetCustomEventHandle(1);

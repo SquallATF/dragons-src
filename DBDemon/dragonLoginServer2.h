@@ -1,10 +1,10 @@
-
+ï»¿
 #ifndef __dragonloginserver2_h__
 #define __dragonloginserver2_h__
 
 
-/////////////////// var º¯¼ö¸¦ ÀÌ¿ëÇÏ±â À§ÇÑ
-#define VAR_RESET		47		// Ä³¸¯ÅÍÀÇ º¯¼ö¸¦ ÃÊ±âÈ­ ÇÒ´ë
+/////////////////// var ë³€ìˆ˜ë¥¼ ì´ìš©í•˜ê¸° ìœ„í•œ
+#define VAR_RESET		47		// ìºë¦­í„°ì˜ ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™” í• ëŒ€
 
 
 ///////////////////////////////////////////
@@ -12,13 +12,13 @@
 
 extern void RecvGetBoxItem( DWORD box_id, short int server_id, short int gameserver_id, t_connection c[] );
 extern void RecvPreachName( k_loginserver_preach_name *data,  short int gameserver_id, t_connection c[] );
-extern void RecvPreachNameOk( int plus, k_loginserver_preach_name *data );		// ÀüµµÇÑ »ç¶÷ ½Å¾Ó½É ¿Ã·ÁÁÖ°Å³ª ±ï±â
+extern void RecvPreachNameOk( int plus, k_loginserver_preach_name *data );		// ì „ë„í•œ ì‚¬ëŒ ì‹ ì•™ì‹¬ ì˜¬ë ¤ì£¼ê±°ë‚˜ ê¹ê¸°
 extern void SendNewCharResult( char *name, short int cn );
 extern void SendGodTable( short int cn );
-extern void RecvUpdateCharByKein( k_char_update_data *p );		// Ä³¸¯ÅÍ ½Å¾Ó½ÉµîÀÇ ¾÷µ¥ÀÌÆ®
-extern void SendGetCharInfoByKein( k_req_chr_info_etc *p, short int cn );		// °ÔÀÓ¼­¹ö·Î ½Å¾Ó½ÉµîÀ» º¸³»ÁØ´Ù.
+extern void RecvUpdateCharByKein( k_char_update_data *p );		// ìºë¦­í„° ì‹ ì•™ì‹¬ë“±ì˜ ì—…ë°ì´íŠ¸
+extern void SendGetCharInfoByKein( k_req_chr_info_etc *p, short int cn );		// ê²Œì„ì„œë²„ë¡œ ì‹ ì•™ì‹¬ë“±ì„ ë³´ë‚´ì¤€ë‹¤.
 extern void SendEachGameServerForEarMessage( k_login_send_ear_message *p, short int game_server );
-extern void RecvEarMessageOk( k_send_ear_message_ok_to_login *p );		// ¾î¶² °ÔÀÓ¼­¹ö¿¡¼­ ¼º°øÀûÀ¸·Î ¸Ş½ÃÁö¸¦ º¸³Â´Ù´Â È¸½Å
+extern void RecvEarMessageOk( k_send_ear_message_ok_to_login *p );		// ì–´ë–¤ ê²Œì„ì„œë²„ì—ì„œ ì„±ê³µì ìœ¼ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ëƒˆë‹¤ëŠ” íšŒì‹ 
 extern void RecvEarMessageResult( k_send_ear_message_result *p );
 extern void RecvCheckName( char *name, short int server_id, short int cn );
 extern void CheckMoveItem( k_moving_item *p );
@@ -60,8 +60,8 @@ extern void RecvReturnGameServer( t_packet *p, int type = 0 );
 extern void RecvGmRegist( t_packet *p );
 extern void RecvRepStopWarRefusal( t_packet *p );
 
-extern void RecvReqStopWar( t_packet *p, short int cn );	// ´Ù¸¥ ¸Ê¿¡ ¿äÃ»ÇÒ ³ª¶ó¿ÕÀÌ ÀÖ´ÂÁö º¸³»ÁØ´Ù.
-extern void RecvRepStopWar( t_packet *p, short int cn );	// °ÅÀı ÇÑ °æ¿ì
+extern void RecvReqStopWar( t_packet *p, short int cn );	// ë‹¤ë¥¸ ë§µì— ìš”ì²­í•  ë‚˜ë¼ì™•ì´ ìˆëŠ”ì§€ ë³´ë‚´ì¤€ë‹¤.
+extern void RecvRepStopWar( t_packet *p, short int cn );	// ê±°ì ˆ í•œ ê²½ìš°
 extern void RecvRepStopWarAccept( t_packet *p );
 extern void RecvReqSalvationMoney( packet *p, short int cn );
 extern void RecvInsertSalvation( packet *p, short int cn );
@@ -73,7 +73,7 @@ extern void RecvSaveOpenSchoolEvent( t_packet *p, short int cn );
 extern void RecvExitGiild( t_packet *p, short int cn );
 
 extern void RecvCheckCandy( t_packet *p );
-extern void ResetCharInfo(int *var, CHARLIST *ch); // age º¯¼ö¸¦ ÀÌ¿ëÇÏ¿© char_info ÇÊµå°ªÀ» Àç¼³Á¤
+extern void ResetCharInfo(int *var, CHARLIST *ch); // age ë³€ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ char_info í•„ë“œê°’ì„ ì¬ì„¤ì •
 extern void RecvUpdateLadderScore( t_packet *p );
 extern void DirectClient( short int type, short int server_id, short int cn, void *msg, int size );
 extern void RecvReqRankLadder( t_packet *p, short int cn );
@@ -112,7 +112,7 @@ extern void RecvRegistGuildNotice( t_packet *p, short int cn );
 extern void RecvRegistFriend( t_packet *p, short int cn );
 extern int RecvGetFriend( t_packet *p, short int cn );
 extern void RecvLogout( t_packet *p );
-extern bool IsConnectName( char *name );		// Ä³¸¯¸íÀ¸·Î Á¢¼ÓÇØ ÀÖ´ÂÁö ¾Ë¾Æ º¸´Â ÇÔ¼ö
+extern bool IsConnectName( char *name );		// ìºë¦­ëª…ìœ¼ë¡œ ì ‘ì†í•´ ìˆëŠ”ì§€ ì•Œì•„ ë³´ëŠ” í•¨ìˆ˜
 extern void RecvCheckFriend( int server_id, int cn, char *name );
 extern void DeleteFriend( t_packet *p, short int cn );
 extern void RecvCheckGuildName( t_packet *p, short int cn );

@@ -1,14 +1,14 @@
-#pragma once
+ï»¿#pragma once
 //#include <afx.h>
 #include "stdafx.h"
 
 struct LoginInfoPay
 {
-	char id[40];			//¶óÀÚ ¾ÆÀÌµð
-	char pw[40];			//ÆÐ½º¿öµå
-	char UserID[40];		//Á¾·®Á¦ ¾÷Ã¼ ¾ÆÀÌµð
+	char id[40];			//ë¼ìž ì•„ì´ë””
+	char pw[40];			//íŒ¨ìŠ¤ì›Œë“œ
+	char UserID[40];		//ì¢…ëŸ‰ì œ ì—…ì²´ ì•„ì´ë””
 	char ip[40];			//ip
-	int  type;				//¾î¶² Á¾·®Á¦ ÀÎÁö 0ÀÌ¸é Á¤¾×
+	int  type;				//ì–´ë–¤ ì¢…ëŸ‰ì œ ì¸ì§€ 0ì´ë©´ ì •ì•¡
 	DWORD index;	
 };
 
@@ -22,18 +22,18 @@ typedef struct OUTPUT
 class COnePass
 {
 public:
-	enum eBillingType//-°ªÀ¸·Î ±¸¼º ÇØ¾ß ÇÕ´Ï´Ù. CheckPW_TotalDB_SQLÀÌ ³²Àº ³¯Â¥(¾ç¼ö)¸¦ ¸®ÅÏÇÏ±â ¶§¹®ÀÔ´Ï´Ù.
-	{//MapServer¿Í Ç×»ó µ¿±âÈ­ ½ÃÅ°½Ê½Ã¿ä
-		BT_WRONG_ID					= -1,//ID Æ²¸²
-		BT_WRONG_PW					= -2,//PW Æ²¸²
+	enum eBillingType//-ê°’ìœ¼ë¡œ êµ¬ì„± í•´ì•¼ í•©ë‹ˆë‹¤. CheckPW_TotalDB_SQLì´ ë‚¨ì€ ë‚ ì§œ(ì–‘ìˆ˜)ë¥¼ ë¦¬í„´í•˜ê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤.
+	{//MapServerì™€ í•­ìƒ ë™ê¸°í™” ì‹œí‚¤ì‹­ì‹œìš”
+		BT_WRONG_ID					= -1,//ID í‹€ë¦¼
+		BT_WRONG_PW					= -2,//PW í‹€ë¦¼
 
-		BT_NEED_PAY					= -3,//µ· ºÎÁ·
+		BT_NEED_PAY					= -3,//ëˆ ë¶€ì¡±
 
-		BT_COMMERCIAL_TIME_REMAIN	= -4,//³²Àº ½Ã°£ ÀÖ´Â³ð
-		BT_COMMERCIAL_IP			= -20,//IP Á¾·®Á¦
+		BT_COMMERCIAL_TIME_REMAIN	= -4,//ë‚¨ì€ ì‹œê°„ ìžˆëŠ”ë†ˆ
+		BT_COMMERCIAL_IP			= -20,//IP ì¢…ëŸ‰ì œ
 		BT_WRONG_AGE_LIMITED		= -30,// 0303929 kyo just in thailand
-		BT_FREE						= -100,//°øÂ¥
-		BT_WAIT_BILLING_MSG			= -200,//´ë¸¸ °°Àº °÷ÀÇ Ã³¸® ¹æ½Ä ºô¸µÀ» ±â´Ù¸®µµ·Ï Ã³¸®
+		BT_FREE						= -100,//ê³µì§œ
+		BT_WAIT_BILLING_MSG			= -200,//ëŒ€ë§Œ ê°™ì€ ê³³ì˜ ì²˜ë¦¬ ë°©ì‹ ë¹Œë§ì„ ê¸°ë‹¤ë¦¬ë„ë¡ ì²˜ë¦¬
 	};
 
 private:

@@ -1,4 +1,4 @@
-#ifndef PROTOCOL_H
+Ôªø#ifndef PROTOCOL_H
 #define PROTOCOL_H
 
 #pragma once
@@ -95,13 +95,13 @@ enum PTCL
 	PTCL_PROXY_TO_MAP							=   100,		//PROXY_TO_MAP	
 	PTCL_RM_FROM_PROXY							=   101,
 	//< CSD-030322
-	PTCL_PROXY_TO_ACCESS						=	102, // PROXY∑Œ ¿Œ¡ı
-	PTCL_AGENT_TO_COMMIT						=	103, // AGENT∑Œ «„∞°
-	PTCL_PROXY_TO_LOGOUT						=	104, // PROXYø°º≠ ¡¶∞≈
+	PTCL_PROXY_TO_ACCESS						=	102, // PROXYÎ°ú Ïù∏Ï¶ù
+	PTCL_AGENT_TO_COMMIT						=	103, // AGENTÎ°ú ÌóàÍ∞Ä
+	PTCL_PROXY_TO_LOGOUT						=	104, // PROXYÏóêÏÑú Ï†úÍ±∞
 	//> CSD-030322	
 	PTCL_RM										=	110,			//LISTENER_TO_PROXY	// BBD 040311
 
-	PTCL_SERVERSET_USERNUM_REQUEST				=	120,	// BBD 040311	µø¡¢ºˆ ø‰√ª
+	PTCL_SERVERSET_USERNUM_REQUEST				=	120,	// BBD 040311	ÎèôÏ†ëÏàò ÏöîÏ≤≠
 };
 
 #define RESULT_DB_DEMON_SETTING_SUCCESSED			0

@@ -1,4 +1,4 @@
-#include "recvmsg.h"
+ï»¿#include "recvmsg.h"
 #include "servertable.h"
 //#include "playermanager.h"
 #include "monitor.h"
@@ -30,7 +30,7 @@ extern void CleanUpConnection(short idServer);
 extern unsigned short	g_UsercountInServerSet;		// BBD 040311
 
 DWORD GetServerIDByUniqID( DWORD dwUID, DWORD dwCI )
-{	// ÀÓ½Ã ¸®´Ï¾î¼­Ä¡.
+{	// ì„ì‹œ ë¦¬ë‹ˆì–´ì„œì¹˜.
 	for( int i = DRAGON_CONNECTIONS_START; i < DRAGON_MAX_CONNECTIONS; i++ )
 	{
 		if( (connections[i].dwIDForAgent == dwUID) && (connections[i].dwAgentConnectionIndex == dwCI) )
@@ -105,16 +105,16 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 	switch (bID)
 	{
 		// -------------
-		// ±âº»ÆĞÅ¶ 
+		// ê¸°ë³¸íŒ¨í‚· 
 		// -------------
-		// Àü¿ë
+		// ì „ìš©
 	case PTCL_ORDER_SET_SERVER_LIST:
 	case PTCL_ORDER_CONNECT_TO_SERVERS:
 	case PTCL_ORDER_SET_DB_DEMON:
 	case PTCL_ORDER_TO_REPORT_SERVER_DATAS:
 	case PTCL_NOTIFY_YOU_ARE_CERTIFIED:
 		
-		//°øÅë
+		//ê³µí†µ
 	case PTCL_ORDER_DESTROY_SERVER:
 	case PTCL_NOTIFY_SERVER_STATUS:
 	case PTCL_SERVER_TRY_TO_CHECK_CONNECTION:
@@ -131,7 +131,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 		}
 		break;
 		// -------------
-		// ¸Ê¼­¹ö¿ë ÆĞÅ¶
+		// ë§µì„œë²„ìš© íŒ¨í‚·
 		// -------------
 		// Added by chan78 at 2001/02/20
 	case PTCL_AGENT_TO_MAP_REQUEST_REMOVE_GHOST_USER:
@@ -161,14 +161,14 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 		}	//> CSD-030509
 	case PTCL_AGENT_TO_MAP:
 		{	
-			//<! BBD 040401 À¯Àú ¹æÃâÁß¿£ ¿¡ÀÌÀüÆ®¿¡¼­ ´ë±âÁßÀÎ ³ğÀÌ ¸Ê¼­¹ö¿¡ µé¾î¿È ¾ÊµÊ
+			//<! BBD 040401 ìœ ì € ë°©ì¶œì¤‘ì—” ì—ì´ì „íŠ¸ì—ì„œ ëŒ€ê¸°ì¤‘ì¸ ë†ˆì´ ë§µì„œë²„ì— ë“¤ì–´ì˜´ ì•Šë¨
 //			if(g_KickMgr.IsKicking())
 //			{
 //				break;
 //			}
-			//> BBD 040401 À¯Àú ¹æÃâÁß¿£ ¿¡ÀÌÀüÆ®¿¡¼­ ´ë±âÁßÀÎ ³ğÀÌ ¸Ê¼­¹ö¿¡ µé¾î¿È ¾ÊµÊ
+			//> BBD 040401 ìœ ì € ë°©ì¶œì¤‘ì—” ì—ì´ì „íŠ¸ì—ì„œ ëŒ€ê¸°ì¤‘ì¸ ë†ˆì´ ë§µì„œë²„ì— ë“¤ì–´ì˜´ ì•Šë¨
 			//< CSD-HK-030829
-			// ±âº» »çÀÌÁî °Ë»ç
+			// ê¸°ë³¸ ì‚¬ì´ì¦ˆ ê²€ì‚¬
 			if (dwLength < 1 + 4 + sizeof(t_header)) 
 			{
 				MyLog(LOG_NORMAL, "PTCL_USER_CMD_TO_MAP_SERVER :: Too short packet(%d)", dwLength);
@@ -183,18 +183,18 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 			memcpy(raja_packet.u.data, pMsg+1+4+sizeof(t_header), raja_packet.h.header.size);
 			// chan78's comments 2000/11/01
 			// ----------------------------
-			// dwUniqID·Î connections[]¿¡¼­ÀÇ index¸¦ search ...
-			// ±âÁ¸ ¶óÀÚ´Â server_id(== dwUniqID)°¡ connection_index¿Í °°´Ù.
-			// ÀÌ ¹æ½ÄÀ¸·Î´Â ´Ù¸¥ MapServer¿¡ Á¢¼ÓÇÒ ¶§ ¸¶´Ù server_id¸¦ Àç ºÎ¿©¹Ş¾Æ¾ß ÇÑ´Ù.
-			// 2byte¾¿ ³ª´©¾î »óÀ§ 2¹ÙÀÌÆ®´Â MapServer ¹øÈ£, ÇÏÀ§ 2¹ÙÀÌÆ®´Â server_id·Î ÇÏ¸é ÁÁÀ» °Í °°Àºµ¥...
-			// Å¬¶óÀÌ¾ğÆ®µµ °íÃÄ¾ß ÇÒÁöµµ ¸ğ¸£¹Ç·Î ÀÏ´Ü Â÷ºĞÈ÷ »ı°¢ÇØº¸ÀÚ.
+			// dwUniqIDë¡œ connections[]ì—ì„œì˜ indexë¥¼ search ...
+			// ê¸°ì¡´ ë¼ìëŠ” server_id(== dwUniqID)ê°€ connection_indexì™€ ê°™ë‹¤.
+			// ì´ ë°©ì‹ìœ¼ë¡œëŠ” ë‹¤ë¥¸ MapServerì— ì ‘ì†í•  ë•Œ ë§ˆë‹¤ server_idë¥¼ ì¬ ë¶€ì—¬ë°›ì•„ì•¼ í•œë‹¤.
+			// 2byteì”© ë‚˜ëˆ„ì–´ ìƒìœ„ 2ë°”ì´íŠ¸ëŠ” MapServer ë²ˆí˜¸, í•˜ìœ„ 2ë°”ì´íŠ¸ëŠ” server_idë¡œ í•˜ë©´ ì¢‹ì„ ê²ƒ ê°™ì€ë°...
+			// í´ë¼ì´ì–¸íŠ¸ë„ ê³ ì³ì•¼ í• ì§€ë„ ëª¨ë¥´ë¯€ë¡œ ì¼ë‹¨ ì°¨ë¶„íˆ ìƒê°í•´ë³´ì.
 			
-			// ÀÓ½Ã ¸®´Ï¾î¼­Ä¡.
+			// ì„ì‹œ ë¦¬ë‹ˆì–´ì„œì¹˜.
 			DWORD ServerID = GetServerIDByUniqID(dwUniqID, dwConnectionIndex);
 
 			if (ServerID == DRAGON_MAX_CONNECTIONS && !g_KickMgr.IsKicking())	// BBD 040401
 			{
-				// ¾øÀ¸¸é »õ·Î¿î connection
+				// ì—†ìœ¼ë©´ ìƒˆë¡œìš´ connection
 				ServerID = GetNewCN();
 
 				if ((ServerID >= DRAGON_CONNECTIONS_START) && (ServerID < DRAGON_MAX_CONNECTIONS))
@@ -216,13 +216,13 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 					break;
 				}
 			}
-			// RajaÀÇ Command Handler·Î PacketÀ» ³Ñ°Ü ÁØ´Ù.
+			// Rajaì˜ Command Handlerë¡œ Packetì„ ë„˜ê²¨ ì¤€ë‹¤.
 			HandleCommand(ServerID, &raja_packet);
 			break;
 		}	//> CSD-HK-030829
 	case PTCL_AGENT_TO_MAP_REQUEST_ADD_USER:
 		{
-			// ÇöÀç ¾È¾¸.
+			// í˜„ì¬ ì•ˆì”€.
 		}
 		break;
 	case PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER:
@@ -234,7 +234,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 			{
 				return;
 			}
-			// Á¢¼ÓÁ¾·áÃ³¸®
+			// ì ‘ì†ì¢…ë£Œì²˜ë¦¬
 			closeconnection(connections, dwServerID, 1);
 			connections[dwServerID].dwIDForAgent = 0;
 			connections[dwServerID].dwAgentConnectionIndex = 0;
@@ -287,7 +287,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						break;
 					}
 					
-					// ³» Active Agent Server List¿¡ ÀÖ´ÂÁö È®ÀÎ.
+					// ë‚´ Active Agent Server Listì— ìˆëŠ”ì§€ í™•ì¸.
 					if( !g_pServerTable->GetServerData(packet->u.change_map_protocol.wAgentServerID) )
 					{
 						MyLog( LOG_FATAL, "Map Changer's Agent Server(%d) is not available in Own ACTIVE SERVERLIST", packet->u.change_map_protocol.wAgentServerID );
@@ -296,14 +296,14 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						dwMyAgentConnectionIndex = g_pServerTable->GetServerData(packet->u.change_map_protocol.wAgentServerID)->dwConnectionIndex;
 					}
 					
-					// »õ·Î¿î À¯Àú¸¦ ¹ŞÀ»¼ö ÀÖ´ÂÁö Check
+					// ìƒˆë¡œìš´ ìœ ì €ë¥¼ ë°›ì„ìˆ˜ ìˆëŠ”ì§€ Check
 					dwNewCN = GetNewCN();
 					
 					if( !dwNewCN || !dwMyAgentConnectionIndex || g_KickMgr.IsKicking())	// BBD 040329
-					{	// ½ÇÆĞ
+					{	// ì‹¤íŒ¨
 						
 						// Modified by chan78 at 2000/11/29
-						// dwNewCNÀº ¼º°øÇßÁö¸¸ ´Ù¸¥ ÀÌÀ¯·Î ½ÇÆĞÇÑ°æ¿ì Á¢¼ÓµÈ »ç¿ëÀÚ¼ö ÁÙÀÓ.
+						// dwNewCNì€ ì„±ê³µí–ˆì§€ë§Œ ë‹¤ë¥¸ ì´ìœ ë¡œ ì‹¤íŒ¨í•œê²½ìš° ì ‘ì†ëœ ì‚¬ìš©ììˆ˜ ì¤„ì„.
 						if( dwNewCN ) 
 						{
 						//	g_pServerTable->SetNumOfUsers( g_pServerTable->GetNumOfUsers()-1 );
@@ -314,7 +314,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 							MyLog( LOG_IMPORTANT, "PTCL_MAP_TO_MAP :: Can't Accept MORE Character!" );
 						}
 						
-						// ´õ ÀÌ»ó ¹ŞÀ»¼ö ¾øÀ½À» sender¿¡°Ô ¾Ë¸°´Ù
+						// ë” ì´ìƒ ë°›ì„ìˆ˜ ì—†ìŒì„ senderì—ê²Œ ì•Œë¦°ë‹¤
 						szMsg[0] = (BYTE)PTCL_MAP_TO_MAP;
 						spacket->h.header.type = CMD_MAP_CHANGE_DENIED;
 						spacket->h.header.size = sizeof( t_map_change_result );
@@ -336,10 +336,10 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						t_packet tp;
 						memset( &tp, 0, sizeof(t_packet) );
 						
-						// ¼º°ø 
+						// ì„±ê³µ 
 						connections[dwNewCN].dwIDForAgent = packet->u.change_map_protocol.dwIDForAgent;
 						connections[dwNewCN].dwAgentConnectionIndex = dwMyAgentConnectionIndex;
-						connections[dwNewCN].state = CONNECT_LOGIN_KEIN; // nMap¿¡¼­ÀÇ »óÅÂ..
+						connections[dwNewCN].state = CONNECT_LOGIN_KEIN; // nMapì—ì„œì˜ ìƒíƒœ..
 						
 						memcpy( connections[dwNewCN].id, packet->u.change_map_protocol.id, ID_LENGTH );
 						memcpy( connections[dwNewCN].name, packet->u.change_map_protocol.name, NM_LENGTH );
@@ -350,7 +350,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						strcpy( connections[dwNewCN].ip_address, packet->u.change_map_protocol.ip );
 						
 						// Build Packet For DB Demon
-						// DBÀÇ 'LoginTable'ÀÇ MapNameÀ» ¹Ù²Û´Ù.  
+						// DBì˜ 'LoginTable'ì˜ MapNameì„ ë°”ê¾¼ë‹¤.  
 						tp.h.header.type = CMD_ACCESS_JOIN_KEIN;
 						tp.u.gs_req_insert_userid.server_id = dwNewCN;
 						memcpy( tp.u.gs_req_insert_userid.id,		packet->u.change_map_protocol.id, ID_LENGTH );
@@ -358,7 +358,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						memcpy( tp.u.gs_req_insert_userid.name,		packet->u.change_map_protocol.name, NM_LENGTH );
 						memcpy( tp.u.gs_req_insert_userid.mapname,	packet->u.change_map_protocol.mapname, NM_LENGTH );
 						tp.h.header.size = sizeof( t_gs_req_insert_userid );
-						QueuePacket( connections, DB_DEMON, &tp, 1 );			// LogIn Server·Î º¸³½´Ù. 
+						QueuePacket( connections, DB_DEMON, &tp, 1 );			// LogIn Serverë¡œ ë³´ë‚¸ë‹¤. 
 						
 						// Now Reading...
 						NewRecvChangeMapData1( &packet->u.change_map_protocol.mapdata1, dwNewCN );
@@ -371,7 +371,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						NewRecvChangeMapData8( &packet->u.change_map_protocol.mapdata8, dwNewCN );
 						NewRecvChangeMapData9( &packet->u.change_map_protocol.mapdata9, dwNewCN );
 						
-						//----------------- ¼­¹ö·Î ºÎÅÍ ¹ŞÁö ¾Ê´Â Data¸¦ Á¤¸®.  001218 KHS
+						//----------------- ì„œë²„ë¡œ ë¶€í„° ë°›ì§€ ì•ŠëŠ” Dataë¥¼ ì •ë¦¬.  001218 KHS
 						LPCHARLIST tch = &connections[dwNewCN].chrlst;
 						tch->SetServerID(dwNewCN); // CSD-HK-030829
 						tch->startposition	= 0;	
@@ -493,8 +493,8 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 						break;
 					}
 					
-					// È¤½Ã MapChange ÆĞÅ¶ÀÌ ¿À°¡´ÂÁß ³ª°¡¹ö¸±¼öµµ ÀÖ´Ù...
-					// ¼ø°£ÀÌ¹Ç·Î °¡´É¼ºÀº ¸Å¿ì ³·Áö¸¸.
+					// í˜¹ì‹œ MapChange íŒ¨í‚·ì´ ì˜¤ê°€ëŠ”ì¤‘ ë‚˜ê°€ë²„ë¦´ìˆ˜ë„ ìˆë‹¤...
+					// ìˆœê°„ì´ë¯€ë¡œ ê°€ëŠ¥ì„±ì€ ë§¤ìš° ë‚®ì§€ë§Œ.
 					if( connections[rpacket->u.map_change_result.FromServerCn].dwAgentConnectionIndex == 0 )
 						break;
 					
@@ -502,11 +502,11 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 					LPCHARLIST ch;
 					ch = &connections[rpacket->u.map_change_result.FromServerCn].chrlst;
 					
-					// Ä¿³Ø¼Ç °ª º¹±¸
+					// ì»¤ë„¥ì…˜ ê°’ ë³µêµ¬
 					connections[rpacket->u.map_change_result.FromServerCn].state = CONNECT_JOIN;
 					memcpy( connections[rpacket->u.map_change_result.FromServerCn].mapname, MapName, NM_LENGTH);
 					
-					// ¹é¾÷ÇØ³õ¾Ò´ø °ªÀ¸·Î µÇµ¹¸®±â.
+					// ë°±ì—…í•´ë†“ì•˜ë˜ ê°’ìœ¼ë¡œ ë˜ëŒë¦¬ê¸°.
 					ch->MoveGox = ch->MapChange_MoveGox;
 					ch->MoveGoy = ch->MapChange_MoveGoy;
 					ch->X = ch->MapChange_X;
@@ -516,12 +516,12 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 					ch->MoveLength = ch->MapChange_MoveLength;
 					ch->MovePathCount = ch->MapChange_MovePathCount;
 					
-					// MAP º¯°æ Äµ½½
+					// MAP ë³€ê²½ ìº”ìŠ¬
 					CallClient( rpacket->u.map_change_result.FromServerCn, CMD_CHANGE_MAP_FAIL);
 				}
 				break;
 				
-				// 001206 KHS ±¹°¡Àü°ü·Ã 
+				// 001206 KHS êµ­ê°€ì „ê´€ë ¨ 
 			case CMD_SEALSTONE_STATUS :
 				{
 					t_packet *rpacket = (t_packet*)(pMsg+1);
@@ -571,7 +571,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 			memcpy( &packet, pMsg+1, dwLength-1 );
 			*(((char *)&packet)+dwLength) = '\0';
 			
-			// RajaPacket°ËÁõ
+			// RajaPacketê²€ì¦
 			if( ((dwLength-1) < sizeof(t_header)) || ((dwLength-1) != (sizeof(t_header)+packet.h.header.size)) )
 			{
 				MyLog( LOG_FATAL, "PTCL_BROADCAST_TO_SERVERS :: Invalid Packet Size(Expected:%d)(Length:%d)", (sizeof(t_header)+packet.h.header.size), dwLength-1 );
@@ -596,7 +596,7 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 		// Added by chan78 at 2001/03/16
 	case PTCL_MANAGER_ANSWER:
 		{
-			// ÀÖÀ» ¼ö ¾ø´Ù.
+			// ìˆì„ ìˆ˜ ì—†ë‹¤.
 			MyLog( LOG_FATAL, "PTCL_MANAGER_ANSWER :: has received!!!(%d)", pSender->wPort );
 			g_pServerTable->DestroyServer( FINISH_TYPE_UNKNOWN_ERROR);
 		}
@@ -620,14 +620,14 @@ void __stdcall orgReceivedMsgFromServer(DWORD dwConnectionIndex, char* pMsg,DWOR
 		}
 		break;
 		//
-//<! BBD 040311	ÇÁ·Ï½Ã·ÎºÎÅÍÀÇ µ¿Á¢¼ö ÀÀ´ä
+//<! BBD 040311	í”„ë¡ì‹œë¡œë¶€í„°ì˜ ë™ì ‘ìˆ˜ ì‘ë‹µ
 	case PTCL_SERVERSET_USERNUM_REQUEST:
 		{
 			memcpy(&g_UsercountInServerSet, &(pMsg[1]), sizeof(g_UsercountInServerSet));
 			unsigned short count2 = g_pServerTable->GetNumOfUsersInServerSet();
 			break;
 		}
-//> BBD 040311	ÇÁ·Ï½Ã·ÎºÎÅÍÀÇ µ¿Á¢¼ö ÀÀ´ä
+//> BBD 040311	í”„ë¡ì‹œë¡œë¶€í„°ì˜ ë™ì ‘ìˆ˜ ì‘ë‹µ
 	default:
 		{
 			MyLog( LOG_FATAL, "Unknown bID(%d) Received. From %s(wPort:%d) Size(%d) ConnectionID(%d)", bID, GetTypedServerText(pSender->dwServerType), pSender->wPort, dwLength, dwConnectionIndex);

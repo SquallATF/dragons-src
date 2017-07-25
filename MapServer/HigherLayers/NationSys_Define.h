@@ -1,4 +1,4 @@
-#ifndef _NATION_SYS_DEFINE_
+ï»¿#ifndef _NATION_SYS_DEFINE_
 #define _NATION_SYS_DEFINE_
 
 
@@ -27,19 +27,19 @@
 
 /**
  * @emun eWARFIELD_PORT.
- * @brief Warfield MapServer Port ½Äº°ÀÚ.
+ * @brief Warfield MapServer Port ì‹ë³„ì.
  * @date 040120.
  * @author LTH.
  */
 typedef enum _eWARFIELD_PORT
 {
 	WP_BASE_PORT			= BASE_WARFIELD_PORT,
-	WP_MOUNTAIN_WARFIELD	= 5991,	// »êÁß ÀüÀïÅÍ
-	WP_PLAIN_WARFIELD		= 5992,	// Æò¿ø ÀüÀïÅÍ
-	WP_ISLAND_WARFIELD		= 5993,	// ¼¶ ÀüÀïÅÍ
-	WP_SNOWY_WARFIELD		= 5980,	// ¼³¿ø ÀüÀïÅÍ
+	WP_MOUNTAIN_WARFIELD	= 5991,	// ì‚°ì¤‘ ì „ìŸí„°
+	WP_PLAIN_WARFIELD		= 5992,	// í‰ì› ì „ìŸí„°
+	WP_ISLAND_WARFIELD		= 5993,	// ì„¬ ì „ìŸí„°
+	WP_SNOWY_WARFIELD		= 5980,	// ì„¤ì› ì „ìŸí„°
 	WP_HADES_WARFIELD		= 5994,	// Hades Warfield Port
-	WP_MAX_WARFIELD_PORT	= 5995,	// ÃÖ´ë ÀüÀïÅÍ Æ÷Æ® ¹øÈ£
+	WP_MAX_WARFIELD_PORT	= 5995,	// ìµœëŒ€ ì „ìŸí„° í¬íŠ¸ ë²ˆí˜¸
 } eWARFIELD_PORT;
 //> LTH-040120-KO
 
@@ -51,12 +51,12 @@ typedef enum _eWARFIELD_PORT
  */
 typedef enum _eNEO_WARFIELD_ID
 {
-	WI_MOUNTAIN_WARFIELD	= 0,	// »êÁß ÀüÀïÅÍ	(5991 - BASE_WARFIELD_PORT = 0)
-	WI_PLAIN_WARFIELD		= 1,	// Æò¿ø ÀüÀïÅÍ	(5992 - BASE_WARFIELD_PORT = 1)
-	WI_ISLAND_WARFIELD		= 2,	// ¼¶ ÀüÀïÅÍ	(5993 - BASE_WARFIELD_PORT = 2)
-	WI_SNOWY_WARFIELD		= 3,	// ¼³¿ø ÀüÀïÅÍ	(WI_ISLAND_WARFIELD + 1 = 3)
-	WI_HADES_WARFIELD		= 4,	// ÁöÇÏ ÀüÀïÅÍ	(5994 - BASE_WARFIELD_PORT + 1= 4)
-	WI_MAX_WARFIELD			= 5,	// ÃÖ´ë ÀüÀïÅÍ °³¼ö
+	WI_MOUNTAIN_WARFIELD	= 0,	// ì‚°ì¤‘ ì „ìŸí„°	(5991 - BASE_WARFIELD_PORT = 0)
+	WI_PLAIN_WARFIELD		= 1,	// í‰ì› ì „ìŸí„°	(5992 - BASE_WARFIELD_PORT = 1)
+	WI_ISLAND_WARFIELD		= 2,	// ì„¬ ì „ìŸí„°	(5993 - BASE_WARFIELD_PORT = 2)
+	WI_SNOWY_WARFIELD		= 3,	// ì„¤ì› ì „ìŸí„°	(WI_ISLAND_WARFIELD + 1 = 3)
+	WI_HADES_WARFIELD		= 4,	// ì§€í•˜ ì „ìŸí„°	(5994 - BASE_WARFIELD_PORT + 1= 4)
+	WI_MAX_WARFIELD			= 5,	// ìµœëŒ€ ì „ìŸí„° ê°œìˆ˜
 } eNEO_WARFIELD_ID;
 //> LTH-040126-KO
 
@@ -86,7 +86,7 @@ typedef enum _eNEO_WARFIELD_ID
 #define     NW_NAME_MAX						31
 
 // Squad Define
-#define     NW_SQUAD_MAX					5		// 0ºÎ´ë : ºÎ´ë Æí¼ºÀÌ µÇÁö ¾ÊÀº ÀÎ¿øÀÇ ¸ğÀÓ.
+#define     NW_SQUAD_MAX					5		// 0ë¶€ëŒ€ : ë¶€ëŒ€ í¸ì„±ì´ ë˜ì§€ ì•Šì€ ì¸ì›ì˜ ëª¨ì„.
 #define		NW_CANDIDATE_MAX				6
 
 // NPC	Define
@@ -152,7 +152,7 @@ typedef enum _eNEO_WARFIELD_ID
 #define		BBS_SQUADLEADER_ELECT			14
 #define		BBS_NATION_MONEY_USE			15
 #define		BBS_NATION_MONEY_NOT_USE		16
-#define		BBS_USER_GO_OUTSIDE				17		// LTH-040507-KO ÀüÀïÅÍ ¸Ê¿¡¼­ À¯Àú ¹æÃâ °øÁö
+#define		BBS_USER_GO_OUTSIDE				17		// LTH-040507-KO ì „ìŸí„° ë§µì—ì„œ ìœ ì € ë°©ì¶œ ê³µì§€
 
 // WarBBS ArgType
 

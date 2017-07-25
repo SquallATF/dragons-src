@@ -1,4 +1,4 @@
-// ShopDemon.h: interface for the CShopDemon class.
+ï»¿// ShopDemon.h: interface for the CShopDemon class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -17,9 +17,9 @@
 
 typedef struct tag_LottoBuySave
 {
-	t_BUY_LOTTO Buy_Lotto;//»ç¿ëÀÚÀÇ ·Î¶Ç±¸ÀÔÀ» À§ÇÑ Á¤º¸.
-	char	szUserID[20]; //À¯Àú ¾ÆÀÌµğ°¡ ÀúÀåµÈ´Ù.
-	int cn; //»ç¿ëÀÚ°¡ ÀÖ´Â ¸ÊÀÇÇÚµé.
+	t_BUY_LOTTO Buy_Lotto;//ì‚¬ìš©ìì˜ ë¡œë˜êµ¬ì…ì„ ìœ„í•œ ì •ë³´.
+	char	szUserID[20]; //ìœ ì € ì•„ì´ë””ê°€ ì €ì¥ëœë‹¤.
+	int cn; //ì‚¬ìš©ìê°€ ìˆëŠ” ë§µì˜í•¸ë“¤.
 }t_LottoBuySave;
 
 

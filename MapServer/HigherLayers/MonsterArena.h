@@ -1,4 +1,4 @@
-// MonsterArena.h: interface for the CMonsterArena class.
+﻿// MonsterArena.h: interface for the CMonsterArena class.
 //
 //////////////////////////////////////////////////////////////////////
 

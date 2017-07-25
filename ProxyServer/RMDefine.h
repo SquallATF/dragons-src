@@ -1,23 +1,23 @@
-#pragma once
+ï»¿#pragma once
 #include "protocol.h"
 #include "ServerTable.h"
 
-//ÃÖ´ë Listener Á¢¼Ó¼ö 
+//ìµœëŒ€ Listener ì ‘ì†ìˆ˜ 
 #define MAX_LISTENER_NUM		50
 #define IP_LENGTH				16
 
-//ÃÖ´ë RMTool Login °¡´É¼ö (30°³ÀÇ IP¸¸ Çã¿ë)
+//ìµœëŒ€ RMTool Login ê°€ëŠ¥ìˆ˜ (30ê°œì˜ IPë§Œ í—ˆìš©)
 #define MAX_RM_LOGIN			30
 
-//RM_LOGIN ±¸Á¶Ã¼ÀÇ bType define
+//RM_LOGIN êµ¬ì¡°ì²´ì˜ bType define
 #define RM_TYPE_TOOL			1
 #define RM_TYPE_LISTENER		2
 
-//ProxyServer -> Listener ·ÎÀÇ Á¢¼ÓÇÒ Æ÷Æ® ¹øÈ£ 
+//ProxyServer -> Listener ë¡œì˜ ì ‘ì†í•  í¬íŠ¸ ë²ˆí˜¸ 
 #define PROXY_SERVER_CONNECTION_PORT	24694
 
 
-//RM Packet Çì´õ 
+//RM Packet í—¤ë” 
 #define MSG_RM_LOGIN						1
 #define MSG_RM_DOWNLOAD_PATH				2
 #define MSG_RM_COPY_FILE					3  //SYNC Socket 
@@ -28,32 +28,32 @@
 #define MSG_RM_REPLY_ALL_SEBSERVER_INFO		8
 #define MSG_RM_SHUTDOWN_SERVER				9
 #define MSG_RM_USER_ACCEPT_ALLOWED			10
-#define MSG_RM_SHUTDOWN_PROXY				11		//Proxy¸¸ ShutDown
-#define MSG_RM_SERVER_DISCONNECTED			12		//Proxy -> RMClient·Î 
-#define MSG_RM_SHUTDOWN_SUBSERVER			13		//Agent,Map,DBDemonµî ÇÑ°¡Áö Á¾·ùº°·Î ¼Ë´Ù¿î 
-#define MSG_RM_SERVER_UP					14		//Proxy¿¡ ¾î¶°ÇÑ ¼­¹ö°¡ Á¢¼ÓÇßÀ»¶§..
-#define MSG_RM_EXECUTE_SERVER				15		//Proxy Server¸¦ Á¦¿ÜÇÑ ¼­¹öµé ½ÇÇà 
-#define MSG_RM_REBOOT_SERVER				16		//¼­¹ö ÀçºÎÆÃ 
-#define MSG_RM_PROXY_CONTROL				17		//¼­¹ö ÀçºÎÆÃ 
+#define MSG_RM_SHUTDOWN_PROXY				11		//Proxyë§Œ ShutDown
+#define MSG_RM_SERVER_DISCONNECTED			12		//Proxy -> RMClientë¡œ 
+#define MSG_RM_SHUTDOWN_SUBSERVER			13		//Agent,Map,DBDemonë“± í•œê°€ì§€ ì¢…ë¥˜ë³„ë¡œ ì…§ë‹¤ìš´ 
+#define MSG_RM_SERVER_UP					14		//Proxyì— ì–´ë– í•œ ì„œë²„ê°€ ì ‘ì†í–ˆì„ë•Œ..
+#define MSG_RM_EXECUTE_SERVER				15		//Proxy Serverë¥¼ ì œì™¸í•œ ì„œë²„ë“¤ ì‹¤í–‰ 
+#define MSG_RM_REBOOT_SERVER				16		//ì„œë²„ ìž¬ë¶€íŒ… 
+#define MSG_RM_PROXY_CONTROL				17		//ì„œë²„ ìž¬ë¶€íŒ… 
 #define MSG_RM_RELOAD_DATA					18		//Reload Gameserver Data
-#define MSG_RM_NOTICE						19		//°øÁöº¸³¾ ¼­¹ö 
-#define MSG_RM_CHANGE_WEATHER				20		//³¯¾¾ ¹Ù²Þ 
-#define MSG_RM_DOWN_SERVER					21		//Server Down µÆ´Ù!!
-#define MSG_RM_COPY_PATH					22		//CopyÇØ¿Ã ³×Æ®¿÷ °æ·Î ÆÐ½º 
-#define MSG_RM_REQUEST_ALL_LISTENER_INFO	23		//¸®½º³Ê Á¤º¸ ¿äÃ» 
+#define MSG_RM_NOTICE						19		//ê³µì§€ë³´ë‚¼ ì„œë²„ 
+#define MSG_RM_CHANGE_WEATHER				20		//ë‚ ì”¨ ë°”ê¿ˆ 
+#define MSG_RM_DOWN_SERVER					21		//Server Down ëë‹¤!!
+#define MSG_RM_COPY_PATH					22		//Copyí•´ì˜¬ ë„¤íŠ¸ì› ê²½ë¡œ íŒ¨ìŠ¤ 
+#define MSG_RM_REQUEST_ALL_LISTENER_INFO	23		//ë¦¬ìŠ¤ë„ˆ ì •ë³´ ìš”ì²­ 
 #define MSG_RM_REPLY_ALL_LISTENER_INFO		24
 #define MSG_RM_CONNECT_ALL_LISTENER			25
 #define MSG_RM_LISTENER_CONNECT_COMPLETE	26
 #define MSG_RM_CHECK_LISTENER_CONNECTION	27
 #define MSG_RM_CHECK_LISTENER_CONNECTION_RESULT	28
-#define MSG_RM_RELOADING_GAMESERVER_DATA	29		//GameServerData Reload ÇÏ°í ÀÖ´ÂÁß 
+#define MSG_RM_RELOADING_GAMESERVER_DATA	29		//GameServerData Reload í•˜ê³  ìžˆëŠ”ì¤‘ 
 
 
-#define MSG_RM_BROADCAST_AGENT		50	//Agent Listener ¿¡°Ô¸¸... 
-#define MSG_RM_BROADCAST_DBDEMON	51	//DBDEMON Listener ¿¡°Ô¸¸... 
-#define MSG_RM_BROADCAST_MAP		52	//MAP Listener ¿¡°Ô¸¸...
-#define MSG_LISTENER_EXECUTE_SERVER 53	//Listener¿¡°Ô ¼­¹ö ½ÇÇàÇÏ¶ó°í ¸Þ¼¼Áö º¸³¿ 
-#define MSG_LISTENER_REBOOT_SERVER  54	//Listener¿¡°Ô ¼­¹ö ÀçºÎÆÃÇÏ¶ó°í ¸Þ¼¼Áö º¸³¿ 
+#define MSG_RM_BROADCAST_AGENT		50	//Agent Listener ì—ê²Œë§Œ... 
+#define MSG_RM_BROADCAST_DBDEMON	51	//DBDEMON Listener ì—ê²Œë§Œ... 
+#define MSG_RM_BROADCAST_MAP		52	//MAP Listener ì—ê²Œë§Œ...
+#define MSG_LISTENER_EXECUTE_SERVER 53	//Listenerì—ê²Œ ì„œë²„ ì‹¤í–‰í•˜ë¼ê³  ë©”ì„¸ì§€ ë³´ëƒ„ 
+#define MSG_LISTENER_REBOOT_SERVER  54	//Listenerì—ê²Œ ì„œë²„ ìž¬ë¶€íŒ…í•˜ë¼ê³  ë©”ì„¸ì§€ ë³´ëƒ„ 
 
 
 
@@ -63,12 +63,12 @@
 #define MSG_CHANGE_WEATHER			102	//ChangeWeather(MAP Server)
 #define MSG_ECHO					103
 
-#define MSG_RM_KICKOFF_USER			111	// 030224 kyo RMÀ¯Àú Á¢¼Ó Á¾·á 
-#define MSG_RM_KICKOFF_USER_ALL		112	// BBD 040110 RM ÀüÃ¼À¯Àú °­Á¦ Á¢¼ÓÁ¾·á
-#define MSG_RM_KICKOFF_USER_SEVERAL	113	// BBD 040110 RM Á¤ÇØÁø ¸í¼öÀÇ À¯ÀúÁ¾·á
-#define MSG_RM_KICKOFF_AGENTCANJOIN	114	// BBD 040110 ¿¡ÀÌÀüÆ®->¸Ê Á¶ÀÎ Çã¿ë
-#define	MSG_RM_KICKOFF_STATE_REQ	115		// BBD 040412	ÇöÀçÀÇ Å±»óÅÂ ¿äÃ»
-#define	MSG_RM_KICKOFF_STATE_RES	116		// BBD 040412	ÇöÀçÀÇ Å±»óÅÂ ÀÀ´ä
+#define MSG_RM_KICKOFF_USER			111	// 030224 kyo RMìœ ì € ì ‘ì† ì¢…ë£Œ 
+#define MSG_RM_KICKOFF_USER_ALL		112	// BBD 040110 RM ì „ì²´ìœ ì € ê°•ì œ ì ‘ì†ì¢…ë£Œ
+#define MSG_RM_KICKOFF_USER_SEVERAL	113	// BBD 040110 RM ì •í•´ì§„ ëª…ìˆ˜ì˜ ìœ ì €ì¢…ë£Œ
+#define MSG_RM_KICKOFF_AGENTCANJOIN	114	// BBD 040110 ì—ì´ì „íŠ¸->ë§µ ì¡°ì¸ í—ˆìš©
+#define	MSG_RM_KICKOFF_STATE_REQ	115		// BBD 040412	í˜„ìž¬ì˜ í‚¥ìƒíƒœ ìš”ì²­
+#define	MSG_RM_KICKOFF_STATE_RES	116		// BBD 040412	í˜„ìž¬ì˜ í‚¥ìƒíƒœ ì‘ë‹µ
 
 #define CMD_RM_CHANGE_WEATHER		26000
 #define MSG_LISTENER_LOGIN			100
@@ -78,24 +78,24 @@
 
 struct RMCLIENT_INFO
 {
-	BYTE			bConnectType;		//OnDisconnectServer¿¡¼­ ClientÀÎÁö ListenerÀÎÁö ±¸ºÐÇÏ±â À§ÇÑ ¾Õ¿¡ 1Byte	
-	DWORD			dwID;				//Listener °íÀ¯ÀÇ ¹øÈ£ÀÌ´Ù(IPÀÇ ULONG°ªÀ¸·Î ÇÑ´Ù.).
-	DWORD			ConnectionIndex;	//ÇÁ·Ï½Ã¼­¹ö¿¡¼­ Á¢¼Ó¿¡ µû¶ó °íÀ¯·Î ºÎ¿©ÇÑ ¹øÈ£ 
-	DWORD			IPAddress;			//Á¢¼ÓÇÑ ToolÀÇ IP Address
+	BYTE			bConnectType;		//OnDisconnectServerì—ì„œ Clientì¸ì§€ Listenerì¸ì§€ êµ¬ë¶„í•˜ê¸° ìœ„í•œ ì•žì— 1Byte	
+	DWORD			dwID;				//Listener ê³ ìœ ì˜ ë²ˆí˜¸ì´ë‹¤(IPì˜ ULONGê°’ìœ¼ë¡œ í•œë‹¤.).
+	DWORD			ConnectionIndex;	//í”„ë¡ì‹œì„œë²„ì—ì„œ ì ‘ì†ì— ë”°ë¼ ê³ ìœ ë¡œ ë¶€ì—¬í•œ ë²ˆí˜¸ 
+	DWORD			IPAddress;			//ì ‘ì†í•œ Toolì˜ IP Address
 	
-	char			szLoginID[20];		//·Î±×ÀÎÇÑ Åø ¾ÆÀÌµð 
-	char			szName[25];			//·Î±×ÀÎÇÑ À¯ÀúÀÇ ÀÌ¸§ 
+	char			szLoginID[20];		//ë¡œê·¸ì¸í•œ íˆ´ ì•„ì´ë”” 
+	char			szName[25];			//ë¡œê·¸ì¸í•œ ìœ ì €ì˜ ì´ë¦„ 
 
-	RMCLIENT_INFO*		pPrvUserInfo;		//hash Å×ÀÌºí¿¡¼­ °°Àº ¹öÅ¶¾ÈÀÇ ÀÌÀü ·¹ÄÚµåÀÇ ÁÖ¼Ò°ª  
-	RMCLIENT_INFO*		pNextUserInfo;		//hash Å×ÀÌºí¿¡¼­ °°Àº ¹öÅ¶¾ÈÀÇ ´ÙÀ½ ·¹ÄÚµåÀÇ ÁÖ¼Ò°ª  
+	RMCLIENT_INFO*		pPrvUserInfo;		//hash í…Œì´ë¸”ì—ì„œ ê°™ì€ ë²„í‚·ì•ˆì˜ ì´ì „ ë ˆì½”ë“œì˜ ì£¼ì†Œê°’  
+	RMCLIENT_INFO*		pNextUserInfo;		//hash í…Œì´ë¸”ì—ì„œ ê°™ì€ ë²„í‚·ì•ˆì˜ ë‹¤ìŒ ë ˆì½”ë“œì˜ ì£¼ì†Œê°’  
 };
 
 struct RM_LISTENER_INFO
 {
-	BYTE bConnectType;			//OnDisconnectServer¿¡¼­ ClientÀÎÁö ListenerÀÎÁö ±¸ºÐÇÏ±â À§ÇÑ ¾Õ¿¡ 1Byte
+	BYTE bConnectType;			//OnDisconnectServerì—ì„œ Clientì¸ì§€ Listenerì¸ì§€ êµ¬ë¶„í•˜ê¸° ìœ„í•œ ì•žì— 1Byte
 	DWORD dwConnectionIndex;	
-//	SERVER_TYPE dwServerType;	//¾î¶² ¼­¹ö TypeÀÇ ¸®½º³ÊÀÌ³Ä...
-	char szIP[ IP_LENGTH ];		//ÇØ´ç IP
+//	SERVER_TYPE dwServerType;	//ì–´ë–¤ ì„œë²„ Typeì˜ ë¦¬ìŠ¤ë„ˆì´ëƒ...
+	char szIP[ IP_LENGTH ];		//í•´ë‹¹ IP
 
 	RM_LISTENER_INFO* pPrevInfo;
 	RM_LISTENER_INFO* pNextInfo;
@@ -143,8 +143,8 @@ struct PACKET_REQUEST_ALL_SUBSERVER_INFO
 {
 	BYTE bPtcl;
 	BYTE bHeader;
-	BYTE bOpenTemplate;		//»õ·Î¿î ÅÛÇÃ¸´À» ·Îµå ÇÒ°ÍÀÎ°¡ ¾ÈÇÒ°ÍÀÎ°¡ ÇÏ´Â Á¤º¸ 
-	DWORD dwFrameID;		//ÀÀ´ä ¸Þ¼¼Áö¸¦ ¹ÞÀ» ÇÁ·¹ÀÓID°ª (bOpenTemplateÀÌ FALSEÀÏ¶§¸¸)
+	BYTE bOpenTemplate;		//ìƒˆë¡œìš´ í…œí”Œë¦¿ì„ ë¡œë“œ í• ê²ƒì¸ê°€ ì•ˆí• ê²ƒì¸ê°€ í•˜ëŠ” ì •ë³´ 
+	DWORD dwFrameID;		//ì‘ë‹µ ë©”ì„¸ì§€ë¥¼ ë°›ì„ í”„ë ˆìž„IDê°’ (bOpenTemplateì´ FALSEì¼ë•Œë§Œ)
 };
 
 
@@ -185,7 +185,7 @@ struct PACKET_REQUEST_ALL_LISTENER_INFO
 {
 	BYTE bPtcl;
 	BYTE bHeader;
-	DWORD dwFrameID;		//ÀÀ´ä ¸Þ¼¼Áö¸¦ ¹ÞÀ» ÇÁ·¹ÀÓID°ª (bOpenTemplateÀÌ FALSEÀÏ¶§¸¸)
+	DWORD dwFrameID;		//ì‘ë‹µ ë©”ì„¸ì§€ë¥¼ ë°›ì„ í”„ë ˆìž„IDê°’ (bOpenTemplateì´ FALSEì¼ë•Œë§Œ)
 };
 
 struct ServerStatusInfo
@@ -228,7 +228,7 @@ struct PACKET_RM_SERVER_UP
 	}
 };
 
-//·Î±×ÀÎ ½ÂÀÎ°ú ÇÔ²² ¼­¹ö »óÅÂ Á¤º¸¸¦ °°ÀÌ ³Ñ°ÜÁØ´Ù. 
+//ë¡œê·¸ì¸ ìŠ¹ì¸ê³¼ í•¨ê»˜ ì„œë²„ ìƒíƒœ ì •ë³´ë¥¼ ê°™ì´ ë„˜ê²¨ì¤€ë‹¤. 
 struct PACKET_RM_LOGIN_OK
 {
 	BYTE	bHeader;
@@ -289,7 +289,7 @@ struct PACKET_LISTENER_SERVER_REBOOT
 	}
 };
 
-//Proxy¼­¹ö°¡ Listener¿¡ AcceptµÇ¾úÀ»¶§ Listener¿¡¼­ ³¯·ÁÁÖ´Â ¼­¹ö ÀÌ¸§ÀÌ´ã±ä Á¤º¸ 
+//Proxyì„œë²„ê°€ Listenerì— Acceptë˜ì—ˆì„ë•Œ Listenerì—ì„œ ë‚ ë ¤ì£¼ëŠ” ì„œë²„ ì´ë¦„ì´ë‹´ê¸´ ì •ë³´ 
 /*
 struct PACKET_LISTENER_LOGIN
 {
@@ -334,7 +334,7 @@ struct PACKET_KICKOFF_USER	// 030224 kyo
 		bHeader	= MSG_RM_KICKOFF_USER;
 	}
 };
-//<! BBD 040110		ÀüÃ¼À¯Àú °­Åð¸¦ À§ÇÑ Ãß°¡
+//<! BBD 040110		ì „ì²´ìœ ì € ê°•í‡´ë¥¼ ìœ„í•œ ì¶”ê°€
 struct PACKET_KICKOFF_USER_ALL
 {
 	BYTE bPtcl;
@@ -345,9 +345,9 @@ struct PACKET_KICKOFF_USER_ALL
 		bHeader = MSG_RM_KICKOFF_USER_ALL;
 	}
 };
-//> BBD 040110		ÀüÃ¼À¯Àú °­Åð¸¦ À§ÇÑ Ãß°¡
+//> BBD 040110		ì „ì²´ìœ ì € ê°•í‡´ë¥¼ ìœ„í•œ ì¶”ê°€
 
-//<! BBD 040110		ÀüÃ¼À¯Àú °­Åð¸¦ À§ÇÑ Ãß°¡
+//<! BBD 040110		ì „ì²´ìœ ì € ê°•í‡´ë¥¼ ìœ„í•œ ì¶”ê°€
 struct PACKET_KICKOFF_USER_SEVERAL
 {
 	BYTE bPtcl;
@@ -358,9 +358,9 @@ struct PACKET_KICKOFF_USER_SEVERAL
 		bHeader = MSG_RM_KICKOFF_USER_SEVERAL;
 	}
 };
-//> BBD 040110		ÀüÃ¼À¯Àú °­Åð¸¦ À§ÇÑ Ãß°¡
+//> BBD 040110		ì „ì²´ìœ ì € ê°•í‡´ë¥¼ ìœ„í•œ ì¶”ê°€
 
-//<! BBD 040110		RM À¸·Î ¿¡ÀÌÀüÆ® ·Î±ä Çã¿ë
+//<! BBD 040110		RM ìœ¼ë¡œ ì—ì´ì „íŠ¸ ë¡œê¸´ í—ˆìš©
 struct PACKET_KICKOFF_AGENTCANJOIN
 {
 	BYTE bPtcl;
@@ -371,7 +371,7 @@ struct PACKET_KICKOFF_AGENTCANJOIN
 		bHeader = MSG_RM_KICKOFF_AGENTCANJOIN;
 	}
 };
-//> BBD 040110		RM À¸·Î ¿¡ÀÌÀüÆ® ·Î±ä Çã¿ë
+//> BBD 040110		RM ìœ¼ë¡œ ì—ì´ì „íŠ¸ ë¡œê¸´ í—ˆìš©
 
 //<! BBD 040412
 struct PACKET_KICKOFF_STATE
@@ -399,8 +399,8 @@ struct PACKET_CHANGE_WEATHER
 {
 	BYTE bPtcl;
 	BYTE bHeader;	
-	BYTE bWeather;	//0ÀÌ¸é ¸¼À½, 1ÀÌ¸é ºñ, 2ÀÌ¸é ´« 
-	BYTE bStopWeather;	//WeatherSystem Á¤Áö 
+	BYTE bWeather;	//0ì´ë©´ ë§‘ìŒ, 1ì´ë©´ ë¹„, 2ì´ë©´ ëˆˆ 
+	BYTE bStopWeather;	//WeatherSystem ì •ì§€ 
 	DWORD dwAmount;
 
 	DWORD GetPacketSize()	{	return (DWORD)8;	}
@@ -415,7 +415,7 @@ struct PACKET_CHANGE_WEATHER
 };
 
 
-//¼­¹ö ´Ù¿î µÉ¶§ ¾Ë¸² ¸Þ¼¼Áö 
+//ì„œë²„ ë‹¤ìš´ ë ë•Œ ì•Œë¦¼ ë©”ì„¸ì§€ 
 struct PACKET_DOWN_SERVER
 {
 	BYTE bHeader;
@@ -436,7 +436,7 @@ struct PACKET_RELOADING_GAMESERVER_DATA
 {
 	BYTE bHeader;
 	BYTE bServerSetNum;
-	BYTE bStart;	//RELOAD¸¦ ½ÃÀÛ ÇÑ°Å¸é TRUE; ³¡³­°Å¸é FALSE;
+	BYTE bStart;	//RELOADë¥¼ ì‹œìž‘ í•œê±°ë©´ TRUE; ëë‚œê±°ë©´ FALSE;
 	WORD wPort;
 
 	DWORD GetPacketSize()	{	return (DWORD)5;	}

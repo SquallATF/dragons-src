@@ -1,7 +1,7 @@
-// KickOffAll.h: interface for the CKickOffAll class.
+ï»¿// KickOffAll.h: interface for the CKickOffAll class.
 //
-// ¸¸µçÀÌ : eSofnet DR»ç¾÷ºÎ °³¹ßÆÀ ¼±ÀÓ ¹èº´µµ
-// Á¦ÀÛ ¸ñÀû: ¸Ê¼­¹ö¿¡¼­ ´Ü°èÀû À¯Àú°­Åð¸¦ ÇÏ±â À§ÇØ Á¦ÀÛµÊ
+// ë§Œë“ ì´ : eSofnet DRì‚¬ì—…ë¶€ ê°œë°œíŒ€ ì„ ìž„ ë°°ë³‘ë„
+// ì œìž‘ ëª©ì : ë§µì„œë²„ì—ì„œ ë‹¨ê³„ì  ìœ ì €ê°•í‡´ë¥¼ í•˜ê¸° ìœ„í•´ ì œìž‘ë¨
 //////////////////////////////////////////////////////////////////////
 
 #if !defined(AFX_KICKOFFALL_H__B9C861E8_F427_438E_8462_41AC54A785DD__INCLUDED_)

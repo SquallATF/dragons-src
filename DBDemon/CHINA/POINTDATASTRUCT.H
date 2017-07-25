@@ -1,4 +1,4 @@
-#ifndef _POINTDATASTRUCT_H_
+ï»¿#ifndef _POINTDATASTRUCT_H_
 #define _POINTDATASTRUCT_H_
 
 
@@ -46,7 +46,7 @@ typedef struct _taguserdata
 	BOOL success; //if login or logout success
 }UserData;
 
-///////////////////////Shop System °ü·Ã µğÆÄÀÎ ¹× ±¸Á¶Ã¼ Á¤ÀÇ ºÎºĞ ///////////////////////
+///////////////////////Shop System ê´€ë ¨ ë””íŒŒì¸ ë° êµ¬ì¡°ì²´ ì •ì˜ ë¶€ë¶„ ///////////////////////
 #define LOTTO_SYSTEM	1
 
 #define SHOP_OK 1 //return lotto deduct ok
@@ -75,7 +75,7 @@ typedef	struct tag_SHOP_SYSTEM_POINT_REDUCT
 	char	szKey[10]; 	//for double check, it maybe lotto's number, or item's number, it will write to transation db
 }st_SHOP_SYSTEM_POINT_REDUCT;
 
-///////////////////////³¡//////////////////////////////////////////////////////////////////
+///////////////////////ë//////////////////////////////////////////////////////////////////
 
 
 

@@ -1,4 +1,4 @@
-// DualManager.h: interface for the CDualManager class.
+ï»¿// DualManager.h: interface for the CDualManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// µà¾ó µ¥ÀÌÅ¸¿¡ °üÇÑ Å¬·¡½º
+// ë“€ì–¼ ë°ì´íƒ€ì— ê´€í•œ í´ë˜ìŠ¤
 class CDualDataInfo
 {
 public:
@@ -49,7 +49,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// µà¾ó Å¬·¡½º¿¡ °üÇÑ Å¬·¡½º
+// ë“€ì–¼ í´ë˜ìŠ¤ì— ê´€í•œ í´ë˜ìŠ¤
 class CDualClassInfo
 {
 public:
@@ -89,7 +89,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// µà¾ó¿¡ °üÇÑ Å¬·¡½º
+// ë“€ì–¼ì— ê´€í•œ í´ë˜ìŠ¤
 class CDualManager : public TSingleton<CDualManager>
 {
 	typedef vector<CDualClassInfo*> VECTOR_DUAL_CLASS;
@@ -101,7 +101,7 @@ class CDualManager : public TSingleton<CDualManager>
 		DC_LEVLE = 1, 
 		DC_LADDER = 2, 
 		DC_FAME = 3,
-		MAX_DUAL_STEP = 6  //coromo  ×î´ó6×ª
+		MAX_DUAL_STEP = 6  //coromo  é›¢ëŒ•6ç˜»
 	};
 	
 public:

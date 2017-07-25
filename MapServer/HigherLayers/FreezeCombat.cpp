@@ -1,4 +1,4 @@
-// FreezeCombat.cpp: implementation of the CFreezeCombat class.
+ï»¿// FreezeCombat.cpp: implementation of the CFreezeCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -58,7 +58,7 @@ bool CFreezeCombat::Elapse(CHARLIST* pTarget)
 
 bool CFreezeCombat::IcingBlast()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -70,11 +70,11 @@ bool CFreezeCombat::IcingBlast()
 bool CFreezeCombat::CriticalHiding()
 {
 	WORD wRemain = m_pCaster->GetCombatValue(m_nIndex);
-	// Åõ¸íÃ¼ Ãâ·ÂÀ» À§ÇÑ VIEWTYPE ¼³Á¤
+	// íˆ¬ëª…ì²´ ì¶œë ¥ì„ ìœ„í•œ VIEWTYPE ì„¤ì •
 	m_pCaster->dwTransparency = m_dwNow + wRemain;
 	m_pCaster->viewtype = VIEWTYPE_TRANSPARENCY_;
 	::SendViewType(m_pCaster, VIEWTYPE_TRANSPARENCY_, m_pCaster->dwTransparency);
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -85,7 +85,7 @@ bool CFreezeCombat::CriticalHiding()
 
 bool CFreezeCombat::SharkMissile()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -107,11 +107,11 @@ bool CFreezeCombat::HornOfIceBerg()
 bool CFreezeCombat::IceShield()
 {
 	m_pCaster->dwCombatState = m_dwNow + CalcMaintain();
-	// CSD-021216 : ¾ó¸² ÀúÁÖ ¸¶¹ı ¹æ¾î
+	// CSD-021216 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²• ë°©ì–´
 	m_pCaster->SetCurseDefense(m_dwNow + CalcMaintain(), CMagicState::CURSE_FREEZE);
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂÀÓÀ» ¼³Á¤
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœì„ì„ ì„¤ì •
 	m_pCaster->dwNormalProtect = m_dwNow + CalcMaintain();
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -122,7 +122,7 @@ bool CFreezeCombat::IceShield()
 
 bool CFreezeCombat::IceExtreme()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;

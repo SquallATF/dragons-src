@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	HadesWarfield.h
  *			interface for the CHadesWarfield class.
  */
@@ -10,8 +10,8 @@
 
 /**
  * @class	CHadesWarfield.
- * @brief	Hades ÀüÀïÅÍÀÇ ¸Ê°ü¸®ÀÚ.
- *			½ÇÁúÀûÀÎ Hades ÀüÀïÅÍÀÇ Ã³¸® ClassÀÌ´Ù.
+ * @brief	Hades ì „ìŸí„°ì˜ ë§µê´€ë¦¬ì.
+ *			ì‹¤ì§ˆì ì¸ Hades ì „ìŸí„°ì˜ ì²˜ë¦¬ Classì´ë‹¤.
  */
 //< LTH-031222-KO.
 class CHadesWarfield : public IWarfieldDefine  
@@ -56,14 +56,14 @@ protected:
 	VOID KickAllUser2Home();
 
 protected:
-	int m_aSumNationPoint[NW_NATION_COUNT];		/**< ±¹ÁöÀü ·©Å· Á¡¼öÀÇ ÇÕ. */
-	INT m_nNumOfTeam;							/**< ÆÀÀÇ ¼ö. */
-	BOOL m_bJoinNation[NW_NATION_COUNT];		/**< ¸ó½ºÅÍ ±¹°¡Àü¿¡ ÇÒ ¼ö ÀÖ´Â ±¹°¡ Á¤º¸. TRUE : ¸ó½ºÅÍ±¹°¡Àü FALSE : ½À°İ. */
-	BOOL m_bIsVictory;							/**< ½Â¸® Çß´Â°¡. ¸ó½ºÅÍ±¹°¡ÀüÀÇ ½Â¸®´Â À¯ÀúÀÇ ½Â¸®¸¦ ¸»ÇÑ´Ù. */
-	INT m_nWarfieldNo;							/**< ÀüÀïÅÍ º¯È£. */
-	INT m_nWarfieldState;						/**< ÇöÀç ÀüÀïÅÍÀÇ »óÅÂ. */
-	LPWARFIELDSTATEDEFINE m_lpWarfieldState;	/**< ÇöÀç »óÅÂ classÀÇ ÀúÀå¼Ò. */
-	LPGUARDINFO m_lpGuard;						/**< °¡µå¸¦ °ü¸®ÇÏ±â À§ÇÑ ¹è¿­. */
-	LPTEAMINFO m_lpTeam;						/**< ÆÀÀ» °ü¸®ÇÏ±â À§ÇÑ ¹è¿­. */
+	int m_aSumNationPoint[NW_NATION_COUNT];		/**< êµ­ì§€ì „ ë­í‚¹ ì ìˆ˜ì˜ í•©. */
+	INT m_nNumOfTeam;							/**< íŒ€ì˜ ìˆ˜. */
+	BOOL m_bJoinNation[NW_NATION_COUNT];		/**< ëª¬ìŠ¤í„° êµ­ê°€ì „ì— í•  ìˆ˜ ìˆëŠ” êµ­ê°€ ì •ë³´. TRUE : ëª¬ìŠ¤í„°êµ­ê°€ì „ FALSE : ìŠµê²©. */
+	BOOL m_bIsVictory;							/**< ìŠ¹ë¦¬ í–ˆëŠ”ê°€. ëª¬ìŠ¤í„°êµ­ê°€ì „ì˜ ìŠ¹ë¦¬ëŠ” ìœ ì €ì˜ ìŠ¹ë¦¬ë¥¼ ë§í•œë‹¤. */
+	INT m_nWarfieldNo;							/**< ì „ìŸí„° ë³€í˜¸. */
+	INT m_nWarfieldState;						/**< í˜„ì¬ ì „ìŸí„°ì˜ ìƒíƒœ. */
+	LPWARFIELDSTATEDEFINE m_lpWarfieldState;	/**< í˜„ì¬ ìƒíƒœ classì˜ ì €ì¥ì†Œ. */
+	LPGUARDINFO m_lpGuard;						/**< ê°€ë“œë¥¼ ê´€ë¦¬í•˜ê¸° ìœ„í•œ ë°°ì—´. */
+	LPTEAMINFO m_lpTeam;						/**< íŒ€ì„ ê´€ë¦¬í•˜ê¸° ìœ„í•œ ë°°ì—´. */
 };
 //> LTH-031222-KO.

@@ -1,11 +1,11 @@
-#ifndef _DRAGON_NPCLIST_
+ï»¿#ifndef _DRAGON_NPCLIST_
 #define _DRAGON_NPCLIST_
 
 const int NPC_LIST_START = 2;
-const int MAX_NPC_LIST   = 502; // CSD-030306 : ¸ó½ºÅÍ ¼ö¸¦ 500À¸·Î È®Àå
+const int MAX_NPC_LIST   = 502; // CSD-030306 : ëª¬ìŠ¤í„° ìˆ˜ë¥¼ 500ìœ¼ë¡œ í™•ì¥
 
 extern CHARLIST NPCList[MAX_NPC_LIST];
-extern int      CurrentNPCNo; // ÇöÀç NPCÀÇ ÃÑ¼ö.
+extern int      CurrentNPCNo; // í˜„ì¬ NPCì˜ ì´ìˆ˜.
 extern int		Max_NPC_Generation;// 
 
 void InitNPCList(void);

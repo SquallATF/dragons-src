@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\packed.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\mylog.h"
@@ -62,7 +62,7 @@ void CastMe2Other(int cn, t_packet *packet)
 
 
 void CastNPC2Other(int npc, t_packet *packet)
-{	// NPC¸¦ °¡Áö°í ÀÖ´Â ¸ğµç PC¿¡°Ô »Ñ·ÁÁØ´Ù. 
+{	// NPCë¥¼ ê°€ì§€ê³  ìˆëŠ” ëª¨ë“  PCì—ê²Œ ë¿Œë ¤ì¤€ë‹¤. 
 	 for (int i = 0; i < PC_COUNT; ++i)
 	 {
 		for (int j = 0; j < MAX_AREA_BUFFER; ++j)
@@ -222,7 +222,7 @@ void SendMoveNPCArea(t_connection c[], int npc )
 						g_pServerTable->GetPackedMsg( c[PC_TABLE[i].ID].dwAgentConnectionIndex )->AddUser( c[PC_TABLE[i].ID].dwIDForAgent );
 					} 
 					else 
-					{	//010815 lsw ¸Ş¼¼Áö Á¶±İ ¼öÁ¤
+					{	//010815 lsw ë©”ì„¸ì§€ ì¡°ê¸ˆ ìˆ˜ì •
 						MyLog( LOG_FATAL, "SendMoveNPCArea Failed.(CI:%d, CN:%d)'s ->GetPackedMsg() is NULL Agent has problem", PC_TABLE[i].ID, connections[PC_TABLE[i].ID].dwAgentConnectionIndex );
 					}
 				}
@@ -318,7 +318,7 @@ void SendNPCChatArea( int npc, char *String, ...  )
 void SendChatArea(const int cn, t_packet *packet)
 {
 	const int type		= (int)packet->u.client_chat_data.type;
-	packet->u.client_chat_data.text[TEXT_LENGTH-1] = 0;//È¤½Ã³ª ÇÏ´Â »óÈ² ¶§¹®¿¡ ¸¶Áö¸·À» ³Î¹®ÀÚ·Î Ã¤¿î´Ù
+	packet->u.client_chat_data.text[TEXT_LENGTH-1] = 0;//í˜¹ì‹œë‚˜ í•˜ëŠ” ìƒí™© ë•Œë¬¸ì— ë§ˆì§€ë§‰ì„ ë„ë¬¸ìë¡œ ì±„ìš´ë‹¤
 	const int iLen = ::strlen(packet->u.client_chat_data.text);
 
 	if(iLen <= 0 || iLen >= TEXT_LENGTH)
@@ -331,7 +331,7 @@ void SendChatArea(const int cn, t_packet *packet)
 
 	packet->u.server_chat_data.server_id	= cn;
 	packet->u.server_chat_data.type			= type;
-	packet->u.server_chat_data.length		= iLen;///´ÙÇàÈ÷ À§¿¡¼­ 255·Î ¸·´Â´Ù
+	packet->u.server_chat_data.length		= iLen;///ë‹¤í–‰íˆ ìœ„ì—ì„œ 255ë¡œ ë§‰ëŠ”ë‹¤
 
 	t_connection *pConnect = &connections[cn];
 	for( int i = 0; i < MAX_AREA_BUFFER; i++ ) 
@@ -342,7 +342,7 @@ void SendChatArea(const int cn, t_packet *packet)
 		{
 			const DWORD dwTargetAgentConnectionIndex = connections[pConnect->area_tbl[i].ID].dwAgentConnectionIndex;
 			const DWORD dwTargetID = connections[pConnect->area_tbl[i].ID].dwIDForAgent;
-			// Modified by chan78 at 2000/12/13 :: ÆĞÄ¡µÊ...
+			// Modified by chan78 at 2000/12/13 :: íŒ¨ì¹˜ë¨...
 			if( g_pServerTable->GetPackedMsg( dwTargetAgentConnectionIndex ) )
 			{
 				if( g_pServerTable->GetPackedMsg( dwTargetAgentConnectionIndex )->GetUserNum() == 0 ) 
@@ -370,7 +370,7 @@ void RemoveNPCControlData(int cn,int NPC_ID)	// LTS NPC BUG
 		if (connections[cn].chrlst.ctrlnpc[i] == NPC_ID)
 		{
 			connections[cn].chrlst.ctrlnpc[i] = -1;
-			NPCList[NPC_ID].ctrlpc = -1; //¹®Á¦°¡ »ı±æÁö ¸ğ¸¥´Ù.
+			NPCList[NPC_ID].ctrlpc = -1; //ë¬¸ì œê°€ ìƒê¸¸ì§€ ëª¨ë¥¸ë‹¤.
 			return;
 		}
 	}
@@ -381,10 +381,10 @@ void AddNPCControlData(int cn,int NPC_ID)		// LTS NPC BUG
 	
 }
 
-void CheckNPCControlData(int cn,int NPC_ID)	// LTS NPC BUG	// 2¹øÂ° ÀÎÀÚ ¹æ±İ Á×Àº NPC
+void CheckNPCControlData(int cn,int NPC_ID)	// LTS NPC BUG	// 2ë²ˆì§¸ ì¸ì ë°©ê¸ˆ ì£½ì€ NPC
 {
 	for (int i = 0; i < NPC_COUNT; ++i)
-	{	// ³»¿µ¿ª¿¡ AIÇÒ´ç ¸ø¹ŞÀº³ğµé...À» ÀçÇÒ´ç 
+	{	// ë‚´ì˜ì—­ì— AIí• ë‹¹ ëª»ë°›ì€ë†ˆë“¤...ì„ ì¬í• ë‹¹ 
 		if (NPC_TABLE[i].X >= connections[cn].chrlst.X-ADD_AREA_X && 
 			NPC_TABLE[i].X <= connections[cn].chrlst.X+ADD_AREA_X && 
 			NPC_TABLE[i].Y >= connections[cn].chrlst.Y-ADD_AREA_Y && 
@@ -420,7 +420,7 @@ int SendAddArea(t_connection c[], int cn, int type, int id)
 		UserAddBasicData(c, id, cn, &packet.u.server_user_add); // NPC_Pattern.cpp
 		QueuePacket(c, cn, &packet, 1);
 		
-		if (c[id].chrlst.MovePathCount) // ÇöÀç ÀÌµ¿ÇÏ°í ÀÖ´Â ÁßÀÌ¸é....
+		if (c[id].chrlst.MovePathCount) // í˜„ì¬ ì´ë™í•˜ê³  ìˆëŠ” ì¤‘ì´ë©´....
 		{
 			if (SettingMoveData_(id, &c[id].chrlst, &packet))
 			{
@@ -446,7 +446,7 @@ int SendAddArea(t_connection c[], int cn, int type, int id)
 			SendHostName(cn, &NPCList[id]);
 		}
 		
-		if (NPCList[id].MovePathCount) // ÇöÀç ÀÌµ¿ÇÏ°í ÀÖ´Â ÁßÀÌ¸é....	// LTS NPC BUG
+		if (NPCList[id].MovePathCount) // í˜„ì¬ ì´ë™í•˜ê³  ìˆëŠ” ì¤‘ì´ë©´....	// LTS NPC BUG
 		{
 			if (SettingMoveData_(id + 10000, &NPCList[id], &packet))
 			{
@@ -459,7 +459,7 @@ int SendAddArea(t_connection c[], int cn, int type, int id)
 		{
 			if (NPCList[id].ctrlpc == -1)
 			{
-				if (!NPCList[id].ChairNum)				// LTS AI2   // ¼­¹ö ´ã´ç AIÀÌ¸é ÄÁÆ®·Ñ ÇÒ ÇÊ¿ä°¡ ¾ø´Ù.
+				if (!NPCList[id].ChairNum)				// LTS AI2   // ì„œë²„ ë‹´ë‹¹ AIì´ë©´ ì»¨íŠ¸ë¡¤ í•  í•„ìš”ê°€ ì—†ë‹¤.
 				{
 					
 					for (int i = 0 ; i < MAX_PC_CONTROL_NPC; ++i)
@@ -482,7 +482,7 @@ int SendAddArea(t_connection c[], int cn, int type, int id)
 		{
 			return 0;
 		}
-		//ÀÌ ¾Æ·¡°¡ ´Ù ¹Ù²î¾ú½À´Ï´Ù... this lsw 
+		//ì´ ì•„ë˜ê°€ ë‹¤ ë°”ë€Œì—ˆìŠµë‹ˆë‹¤... this lsw 
 		t_server_item_add* pi = &packet.u.server_item_add;
 		pi->item_id			= id;
 		pi->item.item_no	= ItemList[id].item_no;
@@ -503,7 +503,7 @@ int SendAddArea(t_connection c[], int cn, int type, int id)
 		t_server_item_add_ziped* pii = &packet.u.server_item_add_ziped;
 		pii->zipedpack[0] = iZipSize;
 		
-		packet.h.header.type = CMD_ITEM_ADD_ZIPED;		//¾ĞÃàµÈ ¾ÆÀÌÅÛ ÆĞÅ¶
+		packet.h.header.type = CMD_ITEM_ADD_ZIPED;		//ì••ì¶•ëœ ì•„ì´í…œ íŒ¨í‚·
 		packet.h.header.size = iZipSize + 1;
 		memcpy(pii->zipedpack,itempack,iZipSize);
 		QueuePacket(c, cn, &packet, 1);
@@ -513,13 +513,13 @@ int SendAddArea(t_connection c[], int cn, int type, int id)
 }
 
 int Zip( BYTE *pbIn, int iSize, BYTE *pbOut, int iMax)
-{	// this lsw ÆĞÅ¶ ¾ĞÃà(?) ÇÔ¼ö //Å¬¶óÀÌ¾ğÆ®¿¡´Â unzip ÇÔ¼ö ÇÊ¿ä
+{	// this lsw íŒ¨í‚· ì••ì¶•(?) í•¨ìˆ˜ //í´ë¼ì´ì–¸íŠ¸ì—ëŠ” unzip í•¨ìˆ˜ í•„ìš”
 	int iStatusSize = (iSize - 1)/8 + 1;
 	pbOut[0] = iStatusSize;
 	BYTE cFlag = 0x01;
 
-	int iStatusPos = 1;				// output bufÀÇ flag index
-	int iOutPos = iStatusSize + 1;	// output bufÀÇ index
+	int iStatusPos = 1;				// output bufì˜ flag index
+	int iOutPos = iStatusSize + 1;	// output bufì˜ index
 	memset(&pbOut[1], 0, iStatusSize);
 
 	for (int i = 0; i < iSize; ++i)
@@ -849,7 +849,7 @@ int CheckAreaAllNPC(t_connection c[], int n)
 }
 
 int RemoveAllNPC(t_connection c[], int n)
-{	// ¸ğµç PC¿¡¼­ NPC nÀ» Á¦°ÅÇÑ´Ù. 
+{	// ëª¨ë“  PCì—ì„œ NPC nì„ ì œê±°í•œë‹¤. 
 	for (int i = 0; i < PC_COUNT; ++i)
 	{
 		for (int j = 0; j < MAX_AREA_BUFFER; ++j)
@@ -927,7 +927,7 @@ int CommandAllItem(t_connection c[], int n, int command)
 		for (int j = 0; j < MAX_AREA_BUFFER; ++j)
 		{
 			if (c[PC_TABLE[i].ID].area_tbl[j].bAlive == TRUE)
-			{	// TypeÀÌ ¾ÆÀÌÅÛÀÌ¸é¼­ n¹øÂ° ItemÀÌ¸é...
+			{	// Typeì´ ì•„ì´í…œì´ë©´ì„œ në²ˆì§¸ Itemì´ë©´...
 				if (c[PC_TABLE[i].ID].area_tbl[j].Type == 3 && c[PC_TABLE[i].ID].area_tbl[j].ID == n)
 				{
 					switch (command)
@@ -1033,8 +1033,8 @@ void RunArea(t_connection c[])
 	NPC_COUNT = 0;
 
 	for (int j = NPC_LIST_START; j < MAX_NPC_LIST; ++j)
-	{	// ¾ø´Â »óÅÂ( REMOVE_)ÀÌ¸é ´ç¿¬È÷ Æ÷ÇÔÇÒÇÊ¿ä ¾øµµ BUFE_»óÅÂ Áï, 
-		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ NPC°¡ »ç¶óÁö´Â ½Ã°£À» ¸¸µé±â À§ÇÔ TermÀ» À§ÇØ BUFE_»óÅÂ¶ÇÇÑ Æ÷ÇÔÇÑ´Ù. 
+	{	// ì—†ëŠ” ìƒíƒœ( REMOVE_)ì´ë©´ ë‹¹ì—°íˆ í¬í•¨í• í•„ìš” ì—†ë„ BUFE_ìƒíƒœ ì¦‰, 
+		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ NPCê°€ ì‚¬ë¼ì§€ëŠ” ì‹œê°„ì„ ë§Œë“¤ê¸° ìœ„í•¨ Termì„ ìœ„í•´ BUFE_ìƒíƒœë˜í•œ í¬í•¨í•œë‹¤. 
 		CHARLIST* pNpc = CheckNpcId(j);
 
 		if (pNpc != NULL && pNpc->bAlive != REMOVE_ && pNpc->bAlive != BUFE_)

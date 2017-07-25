@@ -1,4 +1,4 @@
-
+﻿
 
 #define MAX_ID_IN_GAME				10000
 

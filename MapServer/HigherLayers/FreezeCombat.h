@@ -1,4 +1,4 @@
-// FreezeCombat.h: interface for the CFreezeCombat class.
+ï»¿// FreezeCombat.h: interface for the CFreezeCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// ¾óÀ½¼Ó¼º ÀüÅõ½ºÅ³
+// ì–¼ìŒì†ì„± ì „íˆ¬ìŠ¤í‚¬
 class CFreezeCombat : public TBinder<CCombat, CFreezeCombat>  
 {
 public:

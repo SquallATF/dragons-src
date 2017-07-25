@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	Prison.cpp.
  *			implementation of the CPrison class.
  */
@@ -38,8 +38,8 @@ CPrison::~CPrison()
 
 /**
  * @fn		CPrison::LoadPrisonInfo().
- * @brief	DB¿¡¼­ Á÷Á¢ °¨¿Á À§Ä¡ Á¤º¸¸¦ ¾ò¾î¿Â´Ù.
- * @return	bool. ºÒ·¯¿À±â¿¡ ¼º°øÇÏ¸é true.
+ * @brief	DBì—ì„œ ì§ì ‘ ê°ì˜¥ ìœ„ì¹˜ ì •ë³´ë¥¼ ì–»ì–´ì˜¨ë‹¤.
+ * @return	bool. ë¶ˆëŸ¬ì˜¤ê¸°ì— ì„±ê³µí•˜ë©´ true.
  */
 //< LTH-040821-KO.
 bool CPrison::LoadPrisonInfo()
@@ -55,7 +55,7 @@ bool CPrison::LoadPrisonInfo()
 	{
 		nNation = ::GetNationFromIndex(nJ);
 
-		// ±¹°¡º° °¨¿ÁÀÇ °³¼ö¸¦ ÀĞ¾î¿Â´Ù.
+		// êµ­ê°€ë³„ ê°ì˜¥ì˜ ê°œìˆ˜ë¥¼ ì½ì–´ì˜¨ë‹¤.
 		SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 		wsprintf(szQuery, "EXEC up_get_NumOfprison %d", nNation);
 
@@ -85,7 +85,7 @@ bool CPrison::LoadPrisonInfo()
 
 		SQLFreeStmt(hStmt,SQL_DROP);
 
-		// ±¹°¡º° °¨¿Á Á¤º¸¸¦ ÀĞ¾î¿Â´Ù.
+		// êµ­ê°€ë³„ ê°ì˜¥ ì •ë³´ë¥¼ ì½ì–´ì˜¨ë‹¤.
 		m_ppPrisonInfo[nJ] = new tagPrisonInfo[m_naNumOfPrisonByNation[nJ]];
 
 		SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
@@ -137,7 +137,7 @@ bool CPrison::LoadPrisonInfo()
 
 	SQLFreeStmt(hStmt, SQL_DROP);
 
-	int nDay = ::GetPrivateProfileInt("Prison", "Imprisonment", 3, MapServerConfigFileName);	// °¨¿Á¿¡ ÀÖ´Â ±â°£ ÀĞ¾î¿À±â.
+	int nDay = ::GetPrivateProfileInt("Prison", "Imprisonment", 3, MapServerConfigFileName);	// ê°ì˜¥ì— ìˆëŠ” ê¸°ê°„ ì½ì–´ì˜¤ê¸°.
 	m_dwImprisonment = (DWORD)((86400 * nDay) / 4);
 
 	return true;
@@ -145,10 +145,10 @@ bool CPrison::LoadPrisonInfo()
 
 /**
  * @fn		CPrison::GetUserID().
- * @brief	chr_info table¿¡¼­ Ä³¸¯ÅÍ ÀÌ¸§À¸·Î id¸¦ Ã£¾Æ ¹İÈ¯ÇÑ´Ù.
- * @param	const char* szCharName. Ä³¸¯ÅÍ ÀÌ¸§.
- *			char* szUserID. ¹İÈ¯µÉ Ã£Àº À¯Àú ID.
- * @return	bool. DBÁ¢±Ù¿¡ Error°¡ ¾øÀ¸¸é true.
+ * @brief	chr_info tableì—ì„œ ìºë¦­í„° ì´ë¦„ìœ¼ë¡œ idë¥¼ ì°¾ì•„ ë°˜í™˜í•œë‹¤.
+ * @param	const char* szCharName. ìºë¦­í„° ì´ë¦„.
+ *			char* szUserID. ë°˜í™˜ë  ì°¾ì€ ìœ ì € ID.
+ * @return	bool. DBì ‘ê·¼ì— Errorê°€ ì—†ìœ¼ë©´ true.
  */
 //< LTH-040821-KO.
 bool CPrison::GetUserID(const char* szCharName, char* szUserID)
@@ -161,7 +161,7 @@ bool CPrison::GetUserID(const char* szCharName, char* szUserID)
 	SDWORD	cbValue;
 	TCHAR	szQuery[256] = {0,};
 
-	//< LTH-040726-KO ºÒ·® À¯ÀúÀÇ ¾ÆÀÌµğ¸¦ Ã£¾Æº»´Ù.
+	//< LTH-040726-KO ë¶ˆëŸ‰ ìœ ì €ì˜ ì•„ì´ë””ë¥¼ ì°¾ì•„ë³¸ë‹¤.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_login_id '%s'", szCharName);
 
@@ -173,7 +173,7 @@ bool CPrison::GetUserID(const char* szCharName, char* szUserID)
 	}
 
 	retCode = SQLFetch( hStmt );
-	// Á¸Àç ÇÏÁö ¾Ê´Â Ä³¸¯ÅÍ ÀÌ¸§ ÀÔ´Ï´Ù.
+	// ì¡´ì¬ í•˜ì§€ ì•ŠëŠ” ìºë¦­í„° ì´ë¦„ ì…ë‹ˆë‹¤.
 	if (retCode == SQL_NO_DATA)
 	{
 		::MyLog(LOG_FATAL, "CPrison::GetUserID(), up_get_login_id, Not Exist Character Name!!");
@@ -207,10 +207,10 @@ bool CPrison::GetUserID(const char* szCharName, char* szUserID)
 
 /**
  * @fn		CPrison::GetUserNation().
- * @brief	chr_log_info table¿¡¼­ Ä³¸¯ÅÍ ÀÌ¸§À¸·Î id¸¦ Ã£¾Æ ¹İÈ¯ÇÑ´Ù.
- * @param	const char* szUserID. À¯Àú ID.
- *			int& nNation. ¹İÈ¯µÉ ¼Ò¼Ó±¹°¡ °ª.
- * @return	bool. DBÁ¢±Ù¿¡ Error°¡ ¾øÀ¸¸é true.
+ * @brief	chr_log_info tableì—ì„œ ìºë¦­í„° ì´ë¦„ìœ¼ë¡œ idë¥¼ ì°¾ì•„ ë°˜í™˜í•œë‹¤.
+ * @param	const char* szUserID. ìœ ì € ID.
+ *			int& nNation. ë°˜í™˜ë  ì†Œì†êµ­ê°€ ê°’.
+ * @return	bool. DBì ‘ê·¼ì— Errorê°€ ì—†ìœ¼ë©´ true.
  */
 //< LTH-040821-KO.
 bool CPrison::GetUserNation(const char *szCharName, int& nNation)
@@ -223,7 +223,7 @@ bool CPrison::GetUserNation(const char *szCharName, int& nNation)
 	SDWORD	cbValue;
 	TCHAR	szQuery[256] = {0,};
 
-	//< LTH-040727-KO ºÒ·® À¯ÀúÀÇ ¾ÆÀÌµğ·Î ¼Ò¼Ó ±¹°¡¸¦ Ã£¾Æº»´Ù.
+	//< LTH-040727-KO ë¶ˆëŸ‰ ìœ ì €ì˜ ì•„ì´ë””ë¡œ ì†Œì† êµ­ê°€ë¥¼ ì°¾ì•„ë³¸ë‹¤.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_UserNation '%s'", szCharName);
 
@@ -263,9 +263,9 @@ bool CPrison::GetUserNation(const char *szCharName, int& nNation)
 
 /**
  * @fn		CPrison::IsBadUser().
- * @brief	prisonerList table¿¡¼­ User ID·Î µî·Ï µÇ¾î ÀÖ´ÂÁö¸¦ Ã£¾Æ ¹İÈ¯ÇÑ´Ù.
- * @param	const char szUserID[20]. Ã£À» À¯Àú ID.
- * @return	bool. DBÁ¢±Ù¿¡ Error°¡ ¾ø°Å³ª À¯Àú¸¦ Ã£À¸¸é true.
+ * @brief	prisonerList tableì—ì„œ User IDë¡œ ë“±ë¡ ë˜ì–´ ìˆëŠ”ì§€ë¥¼ ì°¾ì•„ ë°˜í™˜í•œë‹¤.
+ * @param	const char szUserID[20]. ì°¾ì„ ìœ ì € ID.
+ * @return	bool. DBì ‘ê·¼ì— Errorê°€ ì—†ê±°ë‚˜ ìœ ì €ë¥¼ ì°¾ìœ¼ë©´ true.
  */
 //< LTH-040821-KO.
 bool CPrison::IsBadUser(const char* szUserID)
@@ -290,7 +290,7 @@ bool CPrison::IsBadUser(const char* szUserID)
 	}
 
 	retCode = SQLFetch( hStmt );
-	// À¯Àú ¾ÆÀÌµğ°¡ ¾øÀ¸¸é...
+	// ìœ ì € ì•„ì´ë””ê°€ ì—†ìœ¼ë©´...
 	if (retCode == SQL_NO_DATA)
 	{
 		::MyLog(LOG_FATAL, "User %s is not prisner!!", szUserID);
@@ -321,10 +321,10 @@ bool CPrison::IsBadUser(const char* szUserID)
 
 /**
  * @fn		CPrison::SetBadUser().
- * @brief	DB¿¡ ºÒ·® À¯Àú¸¦ µî·ÏÇÑ´Ù.
- * @param	const char* szUserID. À¯Àú ID.
- *			const char* szCharName. Ä³¸¯ÅÍ ÀÌ¸§.
- *			const DWORD dwRemainTime. °¨¿Á¿¡ ÀÖ¾î¾ß ÇÏ´Â ½Ã°£.
+ * @brief	DBì— ë¶ˆëŸ‰ ìœ ì €ë¥¼ ë“±ë¡í•œë‹¤.
+ * @param	const char* szUserID. ìœ ì € ID.
+ *			const char* szCharName. ìºë¦­í„° ì´ë¦„.
+ *			const DWORD dwRemainTime. ê°ì˜¥ì— ìˆì–´ì•¼ í•˜ëŠ” ì‹œê°„.
  * @return	void.
  */
 //< LTH-040821-KO.
@@ -358,8 +358,8 @@ bool CPrison::SetBadUser(const char* szUserID, const char* szCharName, const DWO
 
 /**
  * @fn		CPrison::SendPrisonSystemResult().
- * @brief	°¨¿Á ½Ã½ºÅÛ Ã³¸®¿¡ ´ëÇÑ °á°ú¸¦ Àü¼ÛÇÑ´Ù. (MS->C)
- * @param	const CPrison::ePRISON_SYS_RESULT ePrisonSysResult. °á°ú°ª »ó¼ö.
+ * @brief	ê°ì˜¥ ì‹œìŠ¤í…œ ì²˜ë¦¬ì— ëŒ€í•œ ê²°ê³¼ë¥¼ ì „ì†¡í•œë‹¤. (MS->C)
+ * @param	const CPrison::ePRISON_SYS_RESULT ePrisonSysResult. ê²°ê³¼ê°’ ìƒìˆ˜.
  * @return	void.
  */
 //< LTH-040727-KO.
@@ -375,10 +375,10 @@ void CPrison::SendPrisonSystemResult(const int nCn, const CPrison::ePRISON_SYS_R
 
 /**
  * @fn		CPrison::GetPrisonPosition().
- * @brief	°¨¿Á À§Ä¡¸¦ ¹İÈ¯. °¨¿Á ³»¿¡ Å¸ÀÏ À§Ä¡´Â ·£´ıÀ¸·Î ÇÑ´Ù.
- * @param	const int nNation. ±¹°¡ÄÚµå
- *			char *szMapName. ¸ÊÀÌ¸§ ¹İÈ¯
- *			POINT &xyPosition. À§Ä¡°ª ¹İÈ¯
+ * @brief	ê°ì˜¥ ìœ„ì¹˜ë¥¼ ë°˜í™˜. ê°ì˜¥ ë‚´ì— íƒ€ì¼ ìœ„ì¹˜ëŠ” ëœë¤ìœ¼ë¡œ í•œë‹¤.
+ * @param	const int nNation. êµ­ê°€ì½”ë“œ
+ *			char *szMapName. ë§µì´ë¦„ ë°˜í™˜
+ *			POINT &xyPosition. ìœ„ì¹˜ê°’ ë°˜í™˜
  * @return	void.
  */
 //< LTH-040727-KO.
@@ -388,7 +388,7 @@ void CPrison::GetPrisonPosition(const int nNation, char *szMapName, POINT &xyPos
 
 	if (m_naNumOfPrisonByNation[nNation] > 0)
 	{
-		// °¨¿Á ³»¿¡ Å¸ÀÏ Áß¿¡ ·£´ıÇÑ °ªÀ» ¹İÈ¯
+		// ê°ì˜¥ ë‚´ì— íƒ€ì¼ ì¤‘ì— ëœë¤í•œ ê°’ì„ ë°˜í™˜
 		srand( (unsigned)time( NULL ) );
 		nRandomNumber = rand() % m_naNumOfPrisonByNation[nNation];
 	}
@@ -400,10 +400,10 @@ void CPrison::GetPrisonPosition(const int nNation, char *szMapName, POINT &xyPos
 
 /**
  * @fn		CPrison::GetVillagePosition().
- * @brief	¸ŞÀÎ ¸¶À» À§Ä¡¸¦ ¹İÈ¯.
- * @param	const int nNation. ±¹°¡ÄÚµå
- *			char *szMapName. ¸ÊÀÌ¸§ ¹İÈ¯
- *			POINT &xyPosition. À§Ä¡°ª ¹İÈ¯
+ * @brief	ë©”ì¸ ë§ˆì„ ìœ„ì¹˜ë¥¼ ë°˜í™˜.
+ * @param	const int nNation. êµ­ê°€ì½”ë“œ
+ *			char *szMapName. ë§µì´ë¦„ ë°˜í™˜
+ *			POINT &xyPosition. ìœ„ì¹˜ê°’ ë°˜í™˜
  * @return	void.
  */
 //< LTH-040805-KO.
@@ -438,11 +438,11 @@ void CPrison::GetVillagePosition(const int nNation, char *szMapName, POINT &xyPo
 
 /**
  * @fn		CPrison::SetUserStartingMap().
- * @brief	À¯ÀúÀÇ ½ÃÀÛ ¸Ê À§Ä¡¸¦ ÀÎÀÚ·Î ¹ŞÀº ¸Ê°ú À§Ä¡·Î ¼¼ÆÃÇÑ´Ù.
- * @param	const char* szUserID. À¯Àú ID.
- *			const char *szMapName. ¸Ê ÀÌ¸§.
- *			const POINT xyPosition. ÁÂÇ¥.
- * @return	bool. DB Á¢±Ù¿¡ ½ÇÆĞÇÏ¸é false.
+ * @brief	ìœ ì €ì˜ ì‹œì‘ ë§µ ìœ„ì¹˜ë¥¼ ì¸ìë¡œ ë°›ì€ ë§µê³¼ ìœ„ì¹˜ë¡œ ì„¸íŒ…í•œë‹¤.
+ * @param	const char* szUserID. ìœ ì € ID.
+ *			const char *szMapName. ë§µ ì´ë¦„.
+ *			const POINT xyPosition. ì¢Œí‘œ.
+ * @return	bool. DB ì ‘ê·¼ì— ì‹¤íŒ¨í•˜ë©´ false.
  */
 //< LTH-040821-KO.
 bool CPrison::SetUserStartingMap(const char *szUserID, const char *szMapName, const POINT xyPosition)
@@ -457,7 +457,7 @@ bool CPrison::SetUserStartingMap(const char *szUserID, const char *szMapName, co
 	RETCODE	retCode;
 	TCHAR	szQuery[256] = {0,};
 	
-	// LTH-040802-KO Å¸ÀÏ ÇÈ¼¿ °ªÀ¸·Î º¯È¯
+	// LTH-040802-KO íƒ€ì¼ í”½ì…€ ê°’ìœ¼ë¡œ ë³€í™˜
 	int nI;
 	int nX = (xyPosition.x * TILE_SIZE) + (TILE_SIZE / 2);
 	int nY = (xyPosition.y * TILE_SIZE) + (TILE_SIZE / 2);
@@ -488,9 +488,9 @@ bool CPrison::SetUserStartingMap(const char *szUserID, const char *szMapName, co
 
 /**
  * @fn		CPrison::GetAllCharName().
- * @brief	À¯ÀúÀÇ ¸ğµç Ä³¸¯ÅÍ ÀÌ¸§À» ºÒ·¯¿Â´Ù 
- * @param	const char* szUserID. À¯Àú ID.
- *			const char *szCharName[4]. Ä³¸¯ÅÍ ÀÌ¸§ ¹è¿­.
+ * @brief	ìœ ì €ì˜ ëª¨ë“  ìºë¦­í„° ì´ë¦„ì„ ë¶ˆëŸ¬ì˜¨ë‹¤ 
+ * @param	const char* szUserID. ìœ ì € ID.
+ *			const char *szCharName[4]. ìºë¦­í„° ì´ë¦„ ë°°ì—´.
  * @return	void.
  */
 //< LTH-040821-KO.
@@ -501,7 +501,7 @@ void CPrison::GetAllCharName(const char* szUserID, char szCharName[4][20])
 	SDWORD	cbValue;
 	TCHAR	szQuery[256] = {0,};
 
-	//< ÇØ´ç ¾ÆÀÌµğÀÇ ¸ğµç Ä³¸¯ÅÍ ÀÌ¸§À» °¡Á®¿Â´Ù.
+	//< í•´ë‹¹ ì•„ì´ë””ì˜ ëª¨ë“  ìºë¦­í„° ì´ë¦„ì„ ê°€ì ¸ì˜¨ë‹¤.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_char_all_name '%s'", szUserID);
 
@@ -514,7 +514,7 @@ void CPrison::GetAllCharName(const char* szUserID, char szCharName[4][20])
 	}
 
 	retCode = SQLFetch( hStmt );
-	// Ä³¸¯ÀÌ ÇÏ³ªµµ ¾øÀ» °æ¿ì
+	// ìºë¦­ì´ í•˜ë‚˜ë„ ì—†ì„ ê²½ìš°
 	if (retCode == SQL_NO_DATA)
 	{
 		SQLFreeStmt(hStmt, SQL_DROP);
@@ -556,11 +556,11 @@ extern void MovePc(short int cn, int x, int y);		// LTH-040824-KO
 
 /**
  * @fn		CPrison::MoveToPrison().
- * @brief	À¯Àú¸¦ °¨¿Á ¸ÊÀ¸·Î ÀÌµ¿½ÃÅ²´Ù. 
- *			ÇöÀç Á¢¼Ó ÁßÀÌÁö ¾ÊÀº À¯Àú´Â ½ÃÀÛ¸ÊÀÇ À§Ä¡¸¦ °¨¿ÁÀ¸·Î ¹Ù²Û´Ù.
- * @param	const char* szUserID. À¯Àú ID.
- *			const char *szCharName. Ä³¸¯ÅÍ ÀÌ¸§.
- *			const int nNation. ±¹°¡ ÄÚµå.
+ * @brief	ìœ ì €ë¥¼ ê°ì˜¥ ë§µìœ¼ë¡œ ì´ë™ì‹œí‚¨ë‹¤. 
+ *			í˜„ì¬ ì ‘ì† ì¤‘ì´ì§€ ì•Šì€ ìœ ì €ëŠ” ì‹œì‘ë§µì˜ ìœ„ì¹˜ë¥¼ ê°ì˜¥ìœ¼ë¡œ ë°”ê¾¼ë‹¤.
+ * @param	const char* szUserID. ìœ ì € ID.
+ *			const char *szCharName. ìºë¦­í„° ì´ë¦„.
+ *			const int nNation. êµ­ê°€ ì½”ë“œ.
  * @return	void.
  */
 //< LTH-040821-KO.
@@ -569,11 +569,11 @@ void CPrison::MoveToPrison(const char* szUserID, const int nNation)
 	char szMapName[20] = {0,};
 	POINT xyPosition;
 
-	// À¯ÀúÀÇ ÇØ´ç ±¹°¡ÀÇ °¨¿Á À§Ä¡¸¦ ¾ò¾î¿À°í
+	// ìœ ì €ì˜ í•´ë‹¹ êµ­ê°€ì˜ ê°ì˜¥ ìœ„ì¹˜ë¥¼ ì–»ì–´ì˜¤ê³ 
 	GetPrisonPosition(::GetNationIndex(nNation), szMapName, xyPosition);
 	::EatRearWhiteChar(szMapName);
 
-	// ½ÃÀÛ ¸ÊÀÇ À§Ä¡¸¦ ¹Ù²Û´Ù.
+	// ì‹œì‘ ë§µì˜ ìœ„ì¹˜ë¥¼ ë°”ê¾¼ë‹¤.
 	SetUserStartingMap(szUserID, szMapName, xyPosition);
 
 	char szCharName[4][20] = { {0,},};
@@ -589,12 +589,12 @@ void CPrison::MoveToPrison(const char* szUserID, const int nNation)
 		if (strlen(szCharName[nI]) != 0)
 		{
 			lpChar = ::CheckServerName(szCharName[nI]);
-			// À¯Àú°¡ Á¢¼Ó ÁßÀÌ¶ó¸é
+			// ìœ ì €ê°€ ì ‘ì† ì¤‘ì´ë¼ë©´
 			if (NULL != lpChar)
 			{
-				// ¹Ù·Î ÀÌµ¿ ½ÃÅ²´Ù.
+				// ë°”ë¡œ ì´ë™ ì‹œí‚¨ë‹¤.
 				short nCn = lpChar->GetServerID();
-				//< LTH-040824-KO °°Àº ¸ÊÀÏ °æ¿ì À§Ä¡ ÀÌµ¿¸¸ ½ÃÅ²´Ù.
+				//< LTH-040824-KO ê°™ì€ ë§µì¼ ê²½ìš° ìœ„ì¹˜ ì´ë™ë§Œ ì‹œí‚¨ë‹¤.
 				if (true != m_bIsPrisonMap)
 				{
 					::MapMove(nCn, szMapName, xyPosition.x, xyPosition.y);
@@ -621,37 +621,37 @@ void CPrison::MoveToPrison(const char* szUserID, const int nNation)
 
 /**
  * @fn		CPrison::RecvBadUserImprison().
- * @brief	client·Î ºÎÅÍ ºÒ·®À¯Àú¸¦ °¨¿Á¿¡ ÃÄ ³ÖÀ¸¶ó´Â ÆĞÅ¶À» ¹Ş¾Æ Ã³¸® (C->MS).
+ * @brief	clientë¡œ ë¶€í„° ë¶ˆëŸ‰ìœ ì €ë¥¼ ê°ì˜¥ì— ì³ ë„£ìœ¼ë¼ëŠ” íŒ¨í‚·ì„ ë°›ì•„ ì²˜ë¦¬ (C->MS).
  *			CMD_BAD_USER_IMPRISON.
- * @param	t_packet *p. ÆĞÅ¶º¯¼ö.
+ * @param	t_packet *p. íŒ¨í‚·ë³€ìˆ˜.
  * @return	void.
  */
 //< LTH-040821-KO.
 void CPrison::RecvBadUserImprison(t_packet* p, const int nCn)
 {
-	// ÆĞÅ¶ÀÇ À¯Àú Ä³¸¯ÅÍ ¸íÀ» °¡Á®¿À°í
+	// íŒ¨í‚·ì˜ ìœ ì € ìºë¦­í„° ëª…ì„ ê°€ì ¸ì˜¤ê³ 
 	char szCharName[20] = {0,};
 	strcpy(szCharName, p->u.kein.tagBadUserInfo.szName);
 	::EatRearWhiteChar(szCharName);
 	
-	// Ä³¸¯ÅÍ ¸íÀ¸·Î À¯Àú ¾ÆÀÌµğ¸¦ °¡Á®¿À°í
+	// ìºë¦­í„° ëª…ìœ¼ë¡œ ìœ ì € ì•„ì´ë””ë¥¼ ê°€ì ¸ì˜¤ê³ 
 	char szUserID[20] = {0,};
 	if (false == GetUserID(szCharName, szUserID))
 		return;
 	::EatRearWhiteChar(szUserID);
 
-	// ºÒ·® À¯Àú Å×ÀÌºí¿¡ ÀÖ´Â À¯ÀúÀÎÁö ºñ±³ÇÏ°í ¾øÀ¸¸é
+	// ë¶ˆëŸ‰ ìœ ì € í…Œì´ë¸”ì— ìˆëŠ” ìœ ì €ì¸ì§€ ë¹„êµí•˜ê³  ì—†ìœ¼ë©´
 	if (true == IsBadUser(szUserID))
 	{
 		SendPrisonSystemResult(nCn, PSR_ALREADY_REGISTERED_BAD_USER);
 		return;
 	}
 
-	// ºÒ·® À¯Àú DBÅ×ÀÌºí¿¡ ³Ö´Â´Ù.
+	// ë¶ˆëŸ‰ ìœ ì € DBí…Œì´ë¸”ì— ë„£ëŠ”ë‹¤.
 	if (false == SetBadUser(szUserID, szCharName, m_dwImprisonment))
 		return;
 
-	// ÇØ´ç ±¹°¡ÀÇ °¨¿Á ¸ÊÀ¸·Î ÀÌµ¿ ½ÃÅ²´Ù.
+	// í•´ë‹¹ êµ­ê°€ì˜ ê°ì˜¥ ë§µìœ¼ë¡œ ì´ë™ ì‹œí‚¨ë‹¤.
 	int nNation = 0;
 	if (false == GetUserNation(szCharName, nNation))
 		return;
@@ -659,8 +659,8 @@ void CPrison::RecvBadUserImprison(t_packet* p, const int nCn)
 	LPCHARLIST lpChar = ::CheckServerName(szCharName);
 	if (NULL == lpChar)
 	{
-		// °°Àº ¸Ê¿¡ ¾ø´Ù¸é...
-		// Á¢¼Ó ÁßÀÌ¶ó¸é ¸Ê¼­¹ö ÀüÃ¼¿¡ ÆĞÅ¶À» ³¯·Á °¨¿Á¿¡ ÃÄ³Ö´Â´Ù!!
+		// ê°™ì€ ë§µì— ì—†ë‹¤ë©´...
+		// ì ‘ì† ì¤‘ì´ë¼ë©´ ë§µì„œë²„ ì „ì²´ì— íŒ¨í‚·ì„ ë‚ ë ¤ ê°ì˜¥ì— ì³ë„£ëŠ”ë‹¤!!
 		t_packet packet;
 		ZeroMemory(&packet, sizeof(packet));
 		packet.h.header.type = CMD_REQUEST_MOVE_TO_PRISON;
@@ -677,8 +677,8 @@ void CPrison::RecvBadUserImprison(t_packet* p, const int nCn)
 
 /**
  * @fn		CPrison::SetDeleteBadUser().
- * @brief	DB¿¡ ºÒ·® À¯Àú¸¦ Áö¿î´Ù.
- * @param	const char* szUserID. À¯Àú ID.
+ * @brief	DBì— ë¶ˆëŸ‰ ìœ ì €ë¥¼ ì§€ìš´ë‹¤.
+ * @param	const char* szUserID. ìœ ì € ID.
  * @return	void.
  */
 //< LTH-040821-KO.
@@ -712,11 +712,11 @@ bool CPrison::SetDeleteBadUser(const char *szUserID)
 
 /**
  * @fn		CPrison::MoveToVillage().
- * @brief	À¯Àú¸¦ °¨¿Á¿¡¼­ °¢ÀÚ ¸ŞÀÎ ¸¶À» ¸ÊÀ¸·Î ÀÌµ¿½ÃÅ²´Ù. 
- *			ÇöÀç Á¢¼Ó ÁßÀÌÁö ¾ÊÀº À¯Àú´Â ½ÃÀÛ¸ÊÀÇ À§Ä¡¸¦ ¸ŞÀÎ¸¶À»·Î ¹Ù²Û´Ù.
- * @param	const char* szUserID. À¯Àú ID.
- *			const char *szCharName. Ä³¸¯ÅÍ ÀÌ¸§.
- *			const int nNation. ±¹°¡ ÄÚµå.
+ * @brief	ìœ ì €ë¥¼ ê°ì˜¥ì—ì„œ ê°ì ë©”ì¸ ë§ˆì„ ë§µìœ¼ë¡œ ì´ë™ì‹œí‚¨ë‹¤. 
+ *			í˜„ì¬ ì ‘ì† ì¤‘ì´ì§€ ì•Šì€ ìœ ì €ëŠ” ì‹œì‘ë§µì˜ ìœ„ì¹˜ë¥¼ ë©”ì¸ë§ˆì„ë¡œ ë°”ê¾¼ë‹¤.
+ * @param	const char* szUserID. ìœ ì € ID.
+ *			const char *szCharName. ìºë¦­í„° ì´ë¦„.
+ *			const int nNation. êµ­ê°€ ì½”ë“œ.
  * @return	void.
  */
 //< LTH-040821-KO.
@@ -725,11 +725,11 @@ void CPrison::MoveToVillage(const char *szUserID, const int nNation)
 	char szMapName[20] = {0,};
 	POINT xyPosition;
 
-	// À¯ÀúÀÇ ÇØ´ç ±¹°¡ÀÇ ¸ŞÀÎ ¸¶À» À§Ä¡¸¦ ¾ò¾î¿À°í
+	// ìœ ì €ì˜ í•´ë‹¹ êµ­ê°€ì˜ ë©”ì¸ ë§ˆì„ ìœ„ì¹˜ë¥¼ ì–»ì–´ì˜¤ê³ 
 	GetVillagePosition(::GetNationIndex(nNation), szMapName, xyPosition);
 	::EatRearWhiteChar(szMapName);
 
-	// ½ÃÀÛ ¸ÊÀÇ À§Ä¡¸¦ ¹Ù²Û´Ù.
+	// ì‹œì‘ ë§µì˜ ìœ„ì¹˜ë¥¼ ë°”ê¾¼ë‹¤.
 	SetUserStartingMap(szUserID, szMapName, xyPosition);
 
 	char szCharName[4][20] = { {0,},};
@@ -745,10 +745,10 @@ void CPrison::MoveToVillage(const char *szUserID, const int nNation)
 		if (strlen(szCharName[nI]) != 0)
 		{
 			lpChar = ::CheckServerName(szCharName[nI]);
-			// À¯Àú°¡ Á¢¼Ó ÁßÀÌ¶ó¸é
+			// ìœ ì €ê°€ ì ‘ì† ì¤‘ì´ë¼ë©´
 			if (NULL != lpChar)
 			{
-				// ¹Ù·Î ÀÌµ¿ ½ÃÅ²´Ù.
+				// ë°”ë¡œ ì´ë™ ì‹œí‚¨ë‹¤.
 				short nCn = lpChar->GetServerID();
 				::MapMove(nCn, szMapName, xyPosition.x, xyPosition.y);
 				SendPrisonSystemResult(nCn, CPrison::PSR_MOVE_TO_VILLAGE);
@@ -768,37 +768,37 @@ void CPrison::MoveToVillage(const char *szUserID, const int nNation)
 
 /**
  * @fn		CPrison::RecvBadUserRelease().
- * @brief	client·Î ºÎÅÍ ºÒ·®À¯Àú¸¦ °¨¿Á¿¡¼­ »©³»¶ó´Â ÆĞÅ¶À» ¹Ş¾Æ Ã³¸® (C->MS).
+ * @brief	clientë¡œ ë¶€í„° ë¶ˆëŸ‰ìœ ì €ë¥¼ ê°ì˜¥ì—ì„œ ë¹¼ë‚´ë¼ëŠ” íŒ¨í‚·ì„ ë°›ì•„ ì²˜ë¦¬ (C->MS).
  *			CMD_BAD_USER_RELEASE.
- * @param	t_packet *p. ÆĞÅ¶º¯¼ö.
+ * @param	t_packet *p. íŒ¨í‚·ë³€ìˆ˜.
  * @return	void.
  */
 //< LTH-040821-KO.
 void CPrison::RecvBadUserRelease(t_packet* p, const int nCn)
 {
-	// ÆĞÅ¶ÀÇ À¯Àú Ä³¸¯ÅÍ ¸íÀ» °¡Á®¿À°í
+	// íŒ¨í‚·ì˜ ìœ ì € ìºë¦­í„° ëª…ì„ ê°€ì ¸ì˜¤ê³ 
 	char szCharName[20] = {0,};
 	strcpy(szCharName, p->u.kein.tagBadUserInfo.szName);
 	::EatRearWhiteChar(szCharName);
 	
-	// Ä³¸¯ÅÍ ¸íÀ¸·Î À¯Àú ¾ÆÀÌµğ¸¦ °¡Á®¿À°í
+	// ìºë¦­í„° ëª…ìœ¼ë¡œ ìœ ì € ì•„ì´ë””ë¥¼ ê°€ì ¸ì˜¤ê³ 
 	char szUserID[20] = {0,};
 	if (false == GetUserID(szCharName, szUserID))
 		return;
 	::EatRearWhiteChar(szUserID);
 
-	// ºÒ·® À¯Àú Å×ÀÌºí¿¡ ÀÖ´Â À¯ÀúÀÎÁö ºñ±³ÇÏ°í ¾øÀ¸¸é
+	// ë¶ˆëŸ‰ ìœ ì € í…Œì´ë¸”ì— ìˆëŠ” ìœ ì €ì¸ì§€ ë¹„êµí•˜ê³  ì—†ìœ¼ë©´
 	if (false == IsBadUser(szUserID))
 	{
 		SendPrisonSystemResult(nCn, PSR_NOT_BAD_USER);
 		return;
 	}
 
-	// ºÒ·® À¯Àú DBÅ×ÀÌºí¿¡¼­ Áö¿î´Ù.
+	// ë¶ˆëŸ‰ ìœ ì € DBí…Œì´ë¸”ì—ì„œ ì§€ìš´ë‹¤.
 	if (false == SetDeleteBadUser(szUserID))
 		return;
 
-	// ÇØ´ç ±¹°¡ÀÇ ¸ŞÀÎ ¸¶À» ¸ÊÀ¸·Î ÀÌµ¿ ½ÃÅ²´Ù.
+	// í•´ë‹¹ êµ­ê°€ì˜ ë©”ì¸ ë§ˆì„ ë§µìœ¼ë¡œ ì´ë™ ì‹œí‚¨ë‹¤.
 	int nNation = 0;
 	if (false == GetUserNation(szCharName, nNation))
 		return;
@@ -806,8 +806,8 @@ void CPrison::RecvBadUserRelease(t_packet* p, const int nCn)
 	LPCHARLIST lpChar = ::CheckServerName(szCharName);
 	if (NULL == lpChar)
 	{
-		// °°Àº ¸Ê¿¡ ¾ø´Ù¸é...
-		// Á¢¼Ó ÁßÀÌ¶ó¸é ¸Ê¼­¹ö ÀüÃ¼¿¡ ÆĞÅ¶À» ³¯·Á ¸ŞÀÎ ¸¶À»·Î º¸³»¹ö¸°´Ù!!
+		// ê°™ì€ ë§µì— ì—†ë‹¤ë©´...
+		// ì ‘ì† ì¤‘ì´ë¼ë©´ ë§µì„œë²„ ì „ì²´ì— íŒ¨í‚·ì„ ë‚ ë ¤ ë©”ì¸ ë§ˆì„ë¡œ ë³´ë‚´ë²„ë¦°ë‹¤!!
 		t_packet packet;
 		ZeroMemory(&packet, sizeof(packet));
 		packet.h.header.type = CMD_REQUEST_MOVE_TO_VILLAGE;
@@ -824,10 +824,10 @@ void CPrison::RecvBadUserRelease(t_packet* p, const int nCn)
 
 /**
  * @fn		CPrison::SetImprisonTerm().
- * @brief	¼ö°¨ ±â°£À» DB¿¡ ÀúÀåÇÑ´Ù.
- * @param	const char* szUserId. À¯Àú ID.
- * @param	const DWORD dwImprisonTerm. ÀúÀåÇÒ ¼ö°¨ ½Ã°£.
- * @return	true. DB ÀúÀå¿¡ ¼º°øÇÏ¸é true.
+ * @brief	ìˆ˜ê° ê¸°ê°„ì„ DBì— ì €ì¥í•œë‹¤.
+ * @param	const char* szUserId. ìœ ì € ID.
+ * @param	const DWORD dwImprisonTerm. ì €ì¥í•  ìˆ˜ê° ì‹œê°„.
+ * @return	true. DB ì €ì¥ì— ì„±ê³µí•˜ë©´ true.
  */
 //< LTH-040821-KO.
 bool CPrison::SetImprisonTerm(const char *szUserId, const DWORD dwImprisonTerm)
@@ -858,9 +858,9 @@ bool CPrison::SetImprisonTerm(const char *szUserId, const DWORD dwImprisonTerm)
 
 /**
  * @fn		CPrison::GetImprisonTerm().
- * @brief	¼ö°¨ ±â°£À» DB¿¡¼­ ÀĞ¾î¿Â´Ù.
- * @param	const char* szUserId. À¯Àú ID.
- * @return	DWORD. ¼ö°¨±â°£.
+ * @brief	ìˆ˜ê° ê¸°ê°„ì„ DBì—ì„œ ì½ì–´ì˜¨ë‹¤.
+ * @param	const char* szUserId. ìœ ì € ID.
+ * @return	DWORD. ìˆ˜ê°ê¸°ê°„.
  */
 //< LTH-040821-KO.
 DWORD CPrison::GetImprisonTerm(const char *szUserId)
@@ -908,9 +908,9 @@ DWORD CPrison::GetImprisonTerm(const char *szUserId)
 
 /**
  * @fn		CPrison::RecvUpdateImprisonTerm().
- * @brief	client·Î ºÎÅÍ °¨¿Á¿¡ ÀÖ´Â ½Ã°£À» °»½ÅÇÏ¶ó´Â ¸í·ÉÀ» ¹ŞÀ½.
+ * @brief	clientë¡œ ë¶€í„° ê°ì˜¥ì— ìˆëŠ” ì‹œê°„ì„ ê°±ì‹ í•˜ë¼ëŠ” ëª…ë ¹ì„ ë°›ìŒ.
  *			CMD_UPDATE_IMPRISON_TERM.
- * @param	t_packet *p. ÆĞÅ¶º¯¼ö.
+ * @param	t_packet *p. íŒ¨í‚·ë³€ìˆ˜.
  * @return	void.
  */
 //< LTH-040810-KO.
@@ -924,7 +924,7 @@ void CPrison::RecvUpdateImprisonTerm(const short int cn)
 		return;
 
 	DWORD dwTerm = GetImprisonTerm(connections[cn].id);
-	__int64 n64Temp = dwTerm - 180;		// 3ºĞÀ» »«´Ù.
+	__int64 n64Temp = dwTerm - 180;		// 3ë¶„ì„ ëº€ë‹¤.
 
 	if (n64Temp <= 0)
 	{
@@ -956,8 +956,8 @@ extern int GetMapPortByName(char* map_name);	// LTH-040824-KO
 
 /**
  * @fn		CPrison::IsPrisonMap().
- * @brief	ÇöÀç ¸Ê¼­¹ö°¡ °¨¿Á ¸Ê¼­¹öÀÎÁö ÆÇº°.
- * @return	bool. ÀÌ ¸Ê¼­¹ö°¡ °¨¿ÁÀ» Æ÷ÇÔÇÏ°í ÀÖÀ¸¸é true.
+ * @brief	í˜„ì¬ ë§µì„œë²„ê°€ ê°ì˜¥ ë§µì„œë²„ì¸ì§€ íŒë³„.
+ * @return	bool. ì´ ë§µì„œë²„ê°€ ê°ì˜¥ì„ í¬í•¨í•˜ê³  ìˆìœ¼ë©´ true.
  */
 //< LTH-040824-KO.
 bool CPrison::IsPrisonMap()

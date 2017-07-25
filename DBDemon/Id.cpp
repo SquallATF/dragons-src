@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 
 #include "MAIN.H"
 
@@ -19,7 +19,7 @@ typedef struct IdCertificate
 	
 t_IdCertificate *IdC;
 	
-// port°¡ 5000¹øÀÏ¶§¸¸ ÀÎÁõ¼­¹öÀÇ ±â´ÉÀ» Ã³¸®ÇÑ´Ù. 
+// portê°€ 5000ë²ˆì¼ë•Œë§Œ ì¸ì¦ì„œë²„ì˜ ê¸°ëŠ¥ì„ ì²˜ë¦¬í•œë‹¤. 
 void InitIDCertificate( int port )
 {		
 	if( port != CERTIFICATE_SERVER_PORT ) return;

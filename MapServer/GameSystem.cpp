@@ -1,11 +1,11 @@
-// GameSystem.cpp: implementation of the CGameSystem class.
+ï»¿// GameSystem.cpp: implementation of the CGameSystem class.
 //
 //////////////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
 #include "GameSystem.h"
 
-//Ìì»ú
+//è–ìƒ™
 #define BEGIN_SELECT(e) switch (e) {
 #define CASE_SELECT(e)  case(e): return CS(e);
 #define END_SELECT(e)   } return CS(e);
@@ -104,7 +104,7 @@ void CGameSystem::CreateManager(eGAME_SYSTEM _eGameSystem)
 		Dbg_Assert(m_pItemMallManager != NULL);
 		break;
 	default:
-		MyLog(LOG_IMPORTANT,"CGameSystem::CreateManager ¿¡¼­ ÇØ´çÇÏ´Â TypeÀÌ ¾ø½À´Ï´Ù.[%s]",ConvertToMgrType(_eGameSystem));
+		MyLog(LOG_IMPORTANT,"CGameSystem::CreateManager ì—ì„œ í•´ë‹¹í•˜ëŠ” Typeì´ ì—†ìŠµë‹ˆë‹¤.[%s]",ConvertToMgrType(_eGameSystem));
 		break;
 	}
 }

@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\servertable.h"
 #include "..\LowerLayers\recvmsg.h"
 #include "..\LowerLayers\mylog.h"
@@ -55,7 +55,7 @@ int CMoneyToFame::GetFame( DWORD money )
 extern WORD FindMannagementMap( WORD port );
 int InitDataFromNewDay( int day, int month )
 {
-	// ÇÏ·ç¿¡ ÇÑ¹ø ±âºÎ È½¼ö¸¦ °»½ÅÇØ ÁØ´Ù.
+	// í•˜ë£¨ì— í•œë²ˆ ê¸°ë¶€ íšŸìˆ˜ë¥¼ ê°±ì‹ í•´ ì¤€ë‹¤.
 	int port = FindMannagementMap( MM_TODAY_GAMBLE_ITEM_MAIN_MAP_PORT );
 	if( g_MapPort == port )
 	{
@@ -73,7 +73,7 @@ int InitDataFromNewDay( int day, int month )
 			CallClient( DB_DEMON, CMD_ADD_GUILD_BOX_MONEY );
 	}
 
-	// ¸ÅÀÏ ÀÌº¥Æ® È°¼ºÈ­ µÇ´Â°Ô ÀÖ´ÂÁö È®ÀÎÇÑ´Ù.
+	// ë§¤ì¼ ì´ë²¤íŠ¸ í™œì„±í™” ë˜ëŠ”ê²Œ ìˆëŠ”ì§€ í™•ì¸í•œë‹¤.
 	g_EventMgr.CheckActiveEvent( CEventMgr::ET_EVENT_ALL );
 	g_EventMgr.CheckCloseEvent( CEventMgr::ET_EVENT_ALL );
 
@@ -138,14 +138,14 @@ int LoadMapPotal()
 		token = strtok( NULL, "\t\n" );
 		y = atoi( token );
 
-		token = strtok( NULL, "\t\n" );		// ºĞ·ù
-		token = strtok( NULL, "\t\n" );		// ÀÌ¹ÌÁö ºĞ·ù
+		token = strtok( NULL, "\t\n" );		// ë¶„ë¥˜
+		token = strtok( NULL, "\t\n" );		// ì´ë¯¸ì§€ ë¶„ë¥˜
 
-		token = strtok( NULL, "\t\n" );		// ·¹º§
+		token = strtok( NULL, "\t\n" );		// ë ˆë²¨
 		level = atoi( token );
 
 		g_MapPotal[nation].InsertMap( map_name, map_number, money, x, y, level );
-		fgets( temp, 1024, fp);		// ¼³¸í ¶Ù¾î ³Ñ±â
+		fgets( temp, 1024, fp);		// ì„¤ëª… ë›°ì–´ ë„˜ê¸°
 	}
 
 	fclose( fp );

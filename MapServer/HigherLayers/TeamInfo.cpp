@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	TeamInfo.cpp.
  *			implementation of the CTeamInfo class.
  */
@@ -24,9 +24,9 @@ CSquad::CSquad()
 
 /**
  * @fn		CSquad::GetNationMemberCount().
- * @brief	°¢ ±¹°¡º° ÀÎ¿ø ¼ö¸¦ ¹İÈ¯ ÇÑ´Ù.
- * @param	INT nNationNo. Æ¯Á¤ ±¹°¡.
- * @return	INT. Æ¯Á¤ ±¹°¡ÀÇ ÀÎ¿ø ¼ö.
+ * @brief	ê° êµ­ê°€ë³„ ì¸ì› ìˆ˜ë¥¼ ë°˜í™˜ í•œë‹¤.
+ * @param	INT nNationNo. íŠ¹ì • êµ­ê°€.
+ * @return	INT. íŠ¹ì • êµ­ê°€ì˜ ì¸ì› ìˆ˜.
  */
 //< LTH-040419-KO.
 INT CSquad::GetNationMemberCount(INT nNationNo)
@@ -48,8 +48,8 @@ INT CSquad::GetNationMemberCount(INT nNationNo)
 
 /**
  * @fn		CSquad::GetMemberCount().
- * @brief	ÀÌ ºÎ´ëÀÇ ÃÑ ÀÎ¿ø ¼ö ¹İÈ¯.
- * @return	INT. ÀÌ ºÎ´ëÀÇ ÃÑ ÀÎ¿ø ¼ö.
+ * @brief	ì´ ë¶€ëŒ€ì˜ ì´ ì¸ì› ìˆ˜ ë°˜í™˜.
+ * @return	INT. ì´ ë¶€ëŒ€ì˜ ì´ ì¸ì› ìˆ˜.
  */
 //< LTH-040419-KO.
 INT CSquad::GetMemberCount()
@@ -60,8 +60,8 @@ INT CSquad::GetMemberCount()
 
 /**
  * @fn		CSquad::InsertMember().
- * @brief	ºÎ´ë¿ø Ãß°¡ÇÏ´Â ÇÔ¼ö.
- * @param	INT nCn. À¯Àú ÀÎ½Ä ¹øÈ£.
+ * @brief	ë¶€ëŒ€ì› ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜.
+ * @param	INT nCn. ìœ ì € ì¸ì‹ ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -86,7 +86,7 @@ VOID CSquad::InsertMember(INT nCn)
 		break;
 	}
 	connections[nCn].chrlst.NWCharacter.SquadNo = (DWORD)m_nSquadNo;
-	//< LTH-040419-KO ·Î±× °­È­.
+	//< LTH-040419-KO ë¡œê·¸ ê°•í™”.
 	g_pLogManager->SaveLogNeoNationWar(NNT_CHARACTER_INFO, "%s Join in Squad %d, Nation %d", connections[nCn].name, \
 		m_nSquadNo, connections[nCn].chrlst.name_status.nation);
 	g_pLogManager->SaveLogNeoNationWar(NNT_CHARACTER_INFO, "Number Of %d Squad Member : %d", m_nSquadNo, \
@@ -96,8 +96,8 @@ VOID CSquad::InsertMember(INT nCn)
 
 /**
  * @fn		CSquad::DeleteMember().
- * @brief	ºÎ´ë¿ø Á¦°Å.
- * @param	INT nCn. À¯Àú ÀÎ½Ä ¹øÈ£.
+ * @brief	ë¶€ëŒ€ì› ì œê±°.
+ * @param	INT nCn. ìœ ì € ì¸ì‹ ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -126,7 +126,7 @@ VOID CSquad::DeleteMember(INT nCn)
 				--m_naNumOfJoinNation[2];
 				break;
 			}
-			//< LTH-040419-KO ·Î±× Ãß°¡!!
+			//< LTH-040419-KO ë¡œê·¸ ì¶”ê°€!!
 			connections[nCn].chrlst.NWCharacter.SquadNo = 0;
 			g_pLogManager->SaveLogNeoNationWar(NNT_CHARACTER_INFO, "%s Withdrew from Squad %d, Nation %d", connections[nCn].name, \
 				m_nSquadNo, connections[nCn].chrlst.name_status.nation);
@@ -146,8 +146,8 @@ VOID CSquad::DeleteMember(INT nCn)
 
 /**
  * @fn		CSquad::SendMessageAllMember().
- * @brief	Àü ºÎ´ë¿ø¿¡°Ô Ã¤ÆÃ ¸Ş½ÃÁö º¸³½´Ù.
- * @param	t_packet * p. ÆĞÅ¶ º¯¼ö.
+ * @brief	ì „ ë¶€ëŒ€ì›ì—ê²Œ ì±„íŒ… ë©”ì‹œì§€ ë³´ë‚¸ë‹¤.
+ * @param	t_packet * p. íŒ¨í‚· ë³€ìˆ˜.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -165,9 +165,9 @@ VOID CSquad::SendMessageAllMember(t_packet *p)
 
 /**
  * @fn		CSquad::FindMember().
- * @brief	ºÎ´ë¿ø Ã£±â.
- * @param	INT nCn. À¯Àú ÀÎ½Ä ¹øÈ£.
- * @return	BOOL. Ã£¾ÒÀ¸¸é TRUE.
+ * @brief	ë¶€ëŒ€ì› ì°¾ê¸°.
+ * @param	INT nCn. ìœ ì € ì¸ì‹ ë²ˆí˜¸.
+ * @return	BOOL. ì°¾ì•˜ìœ¼ë©´ TRUE.
  */
 //< LTH-040419-KO.
 BOOL CSquad::FindMember(INT nCn)
@@ -191,9 +191,9 @@ BOOL CSquad::FindMember(INT nCn)
 
 /**
  * @fn		CSquad::GetNationDeathCount().
- * @brief	Æ¯Á¤ ±¹°¡ÀÇ Á×Àº »ç¶÷ ¼ö ¹İÈ¯.
- * @param	INT nNationNo. Æ¯Á¤ ±¹°¡ ¹øÈ£.
- * @return	INT. Á×Àº »ç¶÷ ¼ö.
+ * @brief	íŠ¹ì • êµ­ê°€ì˜ ì£½ì€ ì‚¬ëŒ ìˆ˜ ë°˜í™˜.
+ * @param	INT nNationNo. íŠ¹ì • êµ­ê°€ ë²ˆí˜¸.
+ * @return	INT. ì£½ì€ ì‚¬ëŒ ìˆ˜.
  */
 //< LTH-040419-KO.
 INT CSquad::GetNationDeathCount(INT nNationNo)
@@ -217,11 +217,11 @@ extern void SendFameChange(LPCHARLIST lpChar,int AddFame);
 
 /**
  * @fn		CSquad::GiveFame().
- * @brief	Å¸°Ù ÁöÁ¡À¸·ÎºÎÅÍ ÀÏÁ¤ °Å¸®¿¡ ÀÖ´Â »ç¶÷¿¡°Ô ÇØ´ç ¸í¼ºÄ¡¸¦ ÁØ´Ù.
- * @param	LPCHARLIST lpCaster. ¸í¼ºÄ¡¸¦ ¹Ş´Âµ¥ Á¦¿Ü µÉ »ç¶÷,
- * @param	LPCHARLIST lpTarget. Å¸°Ù.
- * @param	INT nRange. ÀÏÁ¤ °Å¸®
- * @param	INT nAddFame. ¹ŞÀ» ¸í¼ºÄ¡.
+ * @brief	íƒ€ê²Ÿ ì§€ì ìœ¼ë¡œë¶€í„° ì¼ì • ê±°ë¦¬ì— ìˆëŠ” ì‚¬ëŒì—ê²Œ í•´ë‹¹ ëª…ì„±ì¹˜ë¥¼ ì¤€ë‹¤.
+ * @param	LPCHARLIST lpCaster. ëª…ì„±ì¹˜ë¥¼ ë°›ëŠ”ë° ì œì™¸ ë  ì‚¬ëŒ,
+ * @param	LPCHARLIST lpTarget. íƒ€ê²Ÿ.
+ * @param	INT nRange. ì¼ì • ê±°ë¦¬
+ * @param	INT nAddFame. ë°›ì„ ëª…ì„±ì¹˜.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -258,14 +258,14 @@ VOID CSquad::GiveFame(LPCHARLIST lpCaster, LPCHARLIST lpTarget, INT nRange, INT 
 }	//> LTH-040419-KO.
 
 #include "Scrp_exe.h"
-/*040719_KJHuNs g_pLogManager·Î ÀÌµ¿(Á¤¸®¸ñÀû)
+/*040719_KJHuNs g_pLogManagerë¡œ ì´ë™(ì •ë¦¬ëª©ì )
 extern void SaveLogChange_DualFame( CHARLIST *ch, const int nOldDualFame, const int nNewDualFame, eLDF_TYPE type);
 */
 
 /**
  * @fn		CSquad::GiveFame2Dual().
- * @brief	µà¾ó ¸í¼ºÄ¡¸¦ ÁØ´Ù.
- * @param	INT nAddFame. ¹ŞÀ» ¸í¼ºÄ¡.
+ * @brief	ë“€ì–¼ ëª…ì„±ì¹˜ë¥¼ ì¤€ë‹¤.
+ * @param	INT nAddFame. ë°›ì„ ëª…ì„±ì¹˜.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -295,8 +295,8 @@ VOID CSquad::GiveFame2Dual(INT nAddFame)
 
 /**
  * @fn		CSquad::AddDeathCount().
- * @brief	Æ¯Á¤ ±¹°¡¿¡ Á×Àº »ç¶÷¼ö Ãß°¡.
- * @param	INT nNationNo. Æ¯Á¤ ±¹°¡ ¹øÈ£.
+ * @brief	íŠ¹ì • êµ­ê°€ì— ì£½ì€ ì‚¬ëŒìˆ˜ ì¶”ê°€.
+ * @param	INT nNationNo. íŠ¹ì • êµ­ê°€ ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -320,7 +320,7 @@ VOID CSquad::AddDeathCount(INT nNationNo)
 
 /**
  * @fn		CSquad::DeleteAllMember().
- * @brief	¸ğµç ºÎ´ë¿ø Á¦°Å.
+ * @brief	ëª¨ë“  ë¶€ëŒ€ì› ì œê±°.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -350,7 +350,7 @@ VOID CSquad::DeleteAllMember()
 
 /**
  * @fn		CSquad::RemoveArmor().
- * @brief	°©¿ÊÀ» ¹ş±ä´Ù.
+ * @brief	ê°‘ì˜·ì„ ë²—ê¸´ë‹¤.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -372,9 +372,9 @@ VOID CSquad::RemoveArmor()
 
 /**
  * @fn		CTeamInfo::GetNationMemberCount().
- * @brief	Æ¯Á¤ ±¹°¡ÀÇ ¸â¹ö¼ö¸¦ ¹İÈ¯.
- * @param	INT nNationNo. Æ¯Á¤ ±¹°¡ ¹øÈ£.
- * @return	INT. Æ¯Á¤ ±¹°¡ÀÇ ¸â¹ö ¼ö.
+ * @brief	íŠ¹ì • êµ­ê°€ì˜ ë©¤ë²„ìˆ˜ë¥¼ ë°˜í™˜.
+ * @param	INT nNationNo. íŠ¹ì • êµ­ê°€ ë²ˆí˜¸.
+ * @return	INT. íŠ¹ì • êµ­ê°€ì˜ ë©¤ë²„ ìˆ˜.
  */
 //< LTH-040419-KO.
 INT CTeamInfo::GetNationMemberCount(INT nNationNo)
@@ -391,14 +391,14 @@ INT CTeamInfo::GetNationMemberCount(INT nNationNo)
 
 /**
  * @fn		CTeamInfo::GetSquadMemberCount().
- * @brief	Æ¯Á¤ ºÎ´ëÀÇ ºÎ´ë¿ø ¼ö.
- * @param	INT nSquadNo. Æ¯Á¤ ºÎ´ë ¹øÈ£.
- * @return	INT. Æ¯Á¤ ºÎ´ëÀÇ ºÎ´ë¿ø ¼ö.
+ * @brief	íŠ¹ì • ë¶€ëŒ€ì˜ ë¶€ëŒ€ì› ìˆ˜.
+ * @param	INT nSquadNo. íŠ¹ì • ë¶€ëŒ€ ë²ˆí˜¸.
+ * @return	INT. íŠ¹ì • ë¶€ëŒ€ì˜ ë¶€ëŒ€ì› ìˆ˜.
  */
 //< LTH-040419-KO.
 INT CTeamInfo::GetSquadMemberCount(INT nSquadNo)
 {
-	//< LTH-040304-KO ºÎ´ë°¡ ¾ø´Â ÆÀÀº ¾ø´Â °Í°ú ¸¶Âù°¡Áö ÀÌ¹Ç·Î...
+	//< LTH-040304-KO ë¶€ëŒ€ê°€ ì—†ëŠ” íŒ€ì€ ì—†ëŠ” ê²ƒê³¼ ë§ˆì°¬ê°€ì§€ ì´ë¯€ë¡œ...
 	if (m_nNumOfSquad == 0)
 		return 0;
 	//> LTH-040304-KO
@@ -411,10 +411,10 @@ extern LPWARFIELDINFO g_pcWarfieldInfo;
 
 /**
  * @fn		CTeamInfo::CheckSquadOfCharacter().
- * @brief	Æ¯Á¤ À¯ÀúÀÇ ·¹º§ÀÌ ÇØ´ç ÀüÀï¿¡¼­´Â ¾î´À ºÎ´ëÀÎ°¡ ¹İÈ¯.
- * @param	INT nWarfieldNo. ÇöÀç ÀüÀïÅÍ ¹øÈ£.
- * @param	INT nCharLv. Æ¯Á¤ À¯ÀúÀÇ ·¹º§.
- * @return	INT. ¾î´À ºÎ´ë.
+ * @brief	íŠ¹ì • ìœ ì €ì˜ ë ˆë²¨ì´ í•´ë‹¹ ì „ìŸì—ì„œëŠ” ì–´ëŠ ë¶€ëŒ€ì¸ê°€ ë°˜í™˜.
+ * @param	INT nWarfieldNo. í˜„ì¬ ì „ìŸí„° ë²ˆí˜¸.
+ * @param	INT nCharLv. íŠ¹ì • ìœ ì €ì˜ ë ˆë²¨.
+ * @return	INT. ì–´ëŠ ë¶€ëŒ€.
  */
 //< LTH-040419-KO.
 INT CTeamInfo::CheckSquadOfCharacter(INT nWarfieldNo, INT nCharLv)
@@ -434,15 +434,15 @@ INT CTeamInfo::CheckSquadOfCharacter(INT nWarfieldNo, INT nCharLv)
 
 /**
  * @fn		CTeamInfo::Init().
- * @brief	CTeamInfo class ÃÊ±âÈ­.
- * @param	INT nNumOfSquad. ÃÑ ºÎ´ë ¼ö.
+ * @brief	CTeamInfo class ì´ˆê¸°í™”.
+ * @param	INT nNumOfSquad. ì´ ë¶€ëŒ€ ìˆ˜.
  * @return	HRESULT.
  */
 //< LTH-040419-KO.
 HRESULT CTeamInfo::Init(INT nNumOfSquad)
 {
 	m_nNumOfSquad = nNumOfSquad;
-	//< LTH-040212-KO Àû¾îµµ ÇÑ ºÎ´ë´Â ÀÖ¾î¾ßÇÑ´Ù
+	//< LTH-040212-KO ì ì–´ë„ í•œ ë¶€ëŒ€ëŠ” ìˆì–´ì•¼í•œë‹¤
 	if (m_nNumOfSquad == 0)
 		return E_FAIL;
 	//> LTH-040212-KO
@@ -457,15 +457,15 @@ HRESULT CTeamInfo::Init(INT nNumOfSquad)
 
 /**
  * @fn		CTeamInfo::InsertSquadMember().
- * @brief	ºÎ´ë¿ø Ãß°¡.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
- * @param	INT nCn. À¯Àú ÀÎ½Ä ¹øÈ£.
+ * @brief	ë¶€ëŒ€ì› ì¶”ê°€.
+ * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
+ * @param	INT nCn. ìœ ì € ì¸ì‹ ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040419-KO.
 VOID CTeamInfo::InsertSquadMember(INT nWarfieldNo, INT nCn)
 {
-	//< LTH-040505-KO ¿î¿µÀÚ Ä³¸¯Àº ºÎ´ë¿¡ Æ÷ÇÑ ½ÃÅ°Áö ¾ÊÀ¸·Á°í Ãß°¡
+	//< LTH-040505-KO ìš´ì˜ì ìºë¦­ì€ ë¶€ëŒ€ì— í¬í•œ ì‹œí‚¤ì§€ ì•Šìœ¼ë ¤ê³  ì¶”ê°€
 	LPCHARLIST lpChar = ::CheckServerId(nCn);
 	if (lpChar == NULL)
 		return;
@@ -480,15 +480,15 @@ VOID CTeamInfo::InsertSquadMember(INT nWarfieldNo, INT nCn)
 
 /**
  * @fn		CTeamInfo::DeleteSquadMember().
- * @brief	ºÎ´ë¿ø Á¦°Å.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ¹øÈ£.
- * @param	INT nCn. À¯Àú ÀÎ½Ä ¹øÈ£.
+ * @brief	ë¶€ëŒ€ì› ì œê±°.
+ * @param	INT nWarfieldNo. ì „ìŸí„°ë²ˆí˜¸.
+ * @param	INT nCn. ìœ ì € ì¸ì‹ ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040419-KO.
 VOID CTeamInfo::DeleteSquadMember(INT nWarfieldNo, INT nCn)
 {
-	//< LTH-040505-KO ¿î¿µÀÚ Ä³¸¯Àº ºÎ´ë¿¡ Æ÷ÇÑ ½ÃÅ°Áö ¾ÊÀ¸·Á°í Ãß°¡
+	//< LTH-040505-KO ìš´ì˜ì ìºë¦­ì€ ë¶€ëŒ€ì— í¬í•œ ì‹œí‚¤ì§€ ì•Šìœ¼ë ¤ê³  ì¶”ê°€
 	LPCHARLIST lpChar = ::CheckServerId(nCn);
 	if (lpChar == NULL)
 		return;
@@ -503,8 +503,8 @@ VOID CTeamInfo::DeleteSquadMember(INT nWarfieldNo, INT nCn)
 
 /**
  * @fn		CTeamInfo::SendMessageAllMember().
- * @brief	ºÎ´ë¿ø Ã¤ÆÃ ¸ŞÁöÁö Àü´Ş.
- * @param	t_packet * p. ÆĞÅ¶ º¯¼ö.
+ * @brief	ë¶€ëŒ€ì› ì±„íŒ… ë©”ì§€ì§€ ì „ë‹¬.
+ * @param	t_packet * p. íŒ¨í‚· ë³€ìˆ˜.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -517,9 +517,9 @@ VOID CTeamInfo::SendMessageAllMember(t_packet *p)
 
 /**
  * @fn		CTeamInfo::GetLivePoint().
- * @brief	Æ¯Á¤ À¯Àú°¡ ¼ÓÇÑ ºÎ´ëÀÇ ·Îµù Æ÷ÀÎÆ® ¾ò¾î¿À±â.
- * @param	LPCHARLIST lpChar. Æ¯Á¤ À¯Àú.
- * @return	POINT. ·Îµù Æ÷ÀÎÆ®.
+ * @brief	íŠ¹ì • ìœ ì €ê°€ ì†í•œ ë¶€ëŒ€ì˜ ë¡œë”© í¬ì¸íŠ¸ ì–»ì–´ì˜¤ê¸°.
+ * @param	LPCHARLIST lpChar. íŠ¹ì • ìœ ì €.
+ * @return	POINT. ë¡œë”© í¬ì¸íŠ¸.
  */
 //< LTH-040419-KO.
 POINT CTeamInfo::GetLivePoint(LPCHARLIST lpChar)
@@ -540,9 +540,9 @@ POINT CTeamInfo::GetLivePoint(LPCHARLIST lpChar)
 
 /**
  * @fn		CTeamInfo::KickUser().
- * @brief	Æ¯Á¤ ºÎ´ë¿ø Á¦°Å.
- * @param	INT nCn. À¯Àú
- * @return	BOOL. À¯Àú°¡ ¾øÀ¸¸é FALSE.
+ * @brief	íŠ¹ì • ë¶€ëŒ€ì› ì œê±°.
+ * @param	INT nCn. ìœ ì €
+ * @return	BOOL. ìœ ì €ê°€ ì—†ìœ¼ë©´ FALSE.
  */
 //< LTH-040419-KO.
 BOOL CTeamInfo::KickUser(INT nCn)
@@ -555,7 +555,7 @@ BOOL CTeamInfo::KickUser(INT nCn)
 	INT nI;
 	for (nI = 0; nI < m_nNumOfSquad; ++nI)
 	{
-		//< LTH-040322-KO ÀÎÀÚ·Î µé¾î¿Â À¯Àú ¾ÆÀÌµğ°¡ ÀÖÀÚ³ª ºñ¿õ¾Æ!! ÇÔ¼ö¸¦ ¶Ç¾²³Ä -_-;
+		//< LTH-040322-KO ì¸ìë¡œ ë“¤ì–´ì˜¨ ìœ ì € ì•„ì´ë””ê°€ ìˆìë‚˜ ë¹„ì›…ì•„!! í•¨ìˆ˜ë¥¼ ë˜ì“°ëƒ -_-;
 		if (m_lpSquad[nI].FindMember(nCn))
 		{
 			m_lpSquad[nI].DeleteMember(nCn);
@@ -570,9 +570,9 @@ BOOL CTeamInfo::KickUser(INT nCn)
 
 /**
  * @fn		CTeamInfo::GetNationDeathCount().
- * @brief	Æ¯Á¤ ±¹°¡ÀÇ Á×Àº »ç¶÷ ¼ö¸¦ ¹İÈ¯.
- * @param	INT nNation. Æ¯Á¤ ±¹°¡ ¹øÈ£.
- * @return	INT. Á×Àº »ç¶÷ ¼ö.
+ * @brief	íŠ¹ì • êµ­ê°€ì˜ ì£½ì€ ì‚¬ëŒ ìˆ˜ë¥¼ ë°˜í™˜.
+ * @param	INT nNation. íŠ¹ì • êµ­ê°€ ë²ˆí˜¸.
+ * @return	INT. ì£½ì€ ì‚¬ëŒ ìˆ˜.
  */
 //< LTH-040419-KO.
 INT CTeamInfo::GetNationDeathCount(INT nNation)
@@ -589,8 +589,8 @@ INT CTeamInfo::GetNationDeathCount(INT nNation)
 
 /**
  * @fn		CTeamInfo::GiveFame2Dual().
- * @brief	µà¾ó ¸í¼ºÀ» ÁØ´Ù.
- * @param	INT nAddFame. ¹ŞÀ» ¸í¼ºÄ¡.
+ * @brief	ë“€ì–¼ ëª…ì„±ì„ ì¤€ë‹¤.
+ * @param	INT nAddFame. ë°›ì„ ëª…ì„±ì¹˜.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -603,11 +603,11 @@ VOID CTeamInfo::GiveFame2Dual(INT nAddFame)
 
 /**
  * @fn		CTeamInfo::GiveFame().
- * @brief	Æ¯Á¤ Ä³¸¯À» Á¦¿ÜÇÏ°í ÀÏÁ¤ °Å¸®ÀÇ Ä³¸¯¿¡°Ô ¸í¼ºÄ¡¸¦ ÁØ´Ù.
- * @param	LPCHARLIST lpCaster. ¸í¼ºÄ¡¸¦ ¹ŞÁö ¾ÊÀ» Ä³¸¯.
- * @param	LPCHARLIST lpTarget. Å¸°Ù.
- * @param	INT nRange. ÀÏÁ¤ °Å¸®.
- * @param	INT nAddFame. ¹ŞÀ» ¸í¼ºÄ¡.
+ * @brief	íŠ¹ì • ìºë¦­ì„ ì œì™¸í•˜ê³  ì¼ì • ê±°ë¦¬ì˜ ìºë¦­ì—ê²Œ ëª…ì„±ì¹˜ë¥¼ ì¤€ë‹¤.
+ * @param	LPCHARLIST lpCaster. ëª…ì„±ì¹˜ë¥¼ ë°›ì§€ ì•Šì„ ìºë¦­.
+ * @param	LPCHARLIST lpTarget. íƒ€ê²Ÿ.
+ * @param	INT nRange. ì¼ì • ê±°ë¦¬.
+ * @param	INT nAddFame. ë°›ì„ ëª…ì„±ì¹˜.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -622,7 +622,7 @@ VOID CTeamInfo::GiveFame(LPCHARLIST lpCaster, LPCHARLIST lpTarget, INT nRange, I
 
 /**
  * @fn		CTeamInfo::Clear().
- * @brief	¸ğµç ºÎ´ë¿ø Á¦°Å.
+ * @brief	ëª¨ë“  ë¶€ëŒ€ì› ì œê±°.
  * @return	VOID.
  */
 //< LTH-040419-KO.
@@ -635,7 +635,7 @@ VOID CTeamInfo::Clear()
 
 /**
  * @fn		CTeamInfo::RemoveArmor().
- * @brief	°©¿Ê ¹ş±â±â.
+ * @brief	ê°‘ì˜· ë²—ê¸°ê¸°.
  * @return	VOID.
  */
 //< LTH-040419-KO.

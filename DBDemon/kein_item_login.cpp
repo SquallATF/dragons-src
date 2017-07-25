@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "main.h"
 #include "CItem.h"
 
@@ -45,7 +45,7 @@ DWORD CreateItemDuration( int type, int itemno )
 void DeleteItem( ItemAttr *item )
 {
 	int type, num;
-	if( !item ) return;		// NULLÀÏ °æ¿ì 
+	if( !item ) return;		// NULLì¼ ê²½ìš° 
 	getItemIndex( item->item_no, type, num );
 
 	CItem *t = ItemUnit( type, num );
@@ -61,10 +61,10 @@ void DeleteItem( ItemAttr *item )
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-//		¾ÆÀÌÅÛ¿¡ ÀÇÇÑ ¸ÅÁ÷ °ø°İ·Â...
+//		ì•„ì´í…œì— ì˜í•œ ë§¤ì§ ê³µê²©ë ¥...
 //
-//		ÆÄ¶ó¸ŞÅ¸	:	¾ÆÀÌÅÛ ³Ñ¹ö·Î ¸ÅÁ÷ Å¬·¹½º °ªÀ» °¡Á®¿À°í ºñ±³ÇØ¼­
-//		¸®ÅÏ°ª		:	¸ÅÁ÷ °ø°İ·ÂÀ» ³Ñ°Ü ÁØ´Ù.
+//		íŒŒë¼ë©”íƒ€	:	ì•„ì´í…œ ë„˜ë²„ë¡œ ë§¤ì§ í´ë ˆìŠ¤ ê°’ì„ ê°€ì ¸ì˜¤ê³  ë¹„êµí•´ì„œ
+//		ë¦¬í„´ê°’		:	ë§¤ì§ ê³µê²©ë ¥ì„ ë„˜ê²¨ ì¤€ë‹¤.
 //
 //////////////////////////////////////////////////////////////////////////////////////
 int MagicByItem( int item_no, int magic_class )
@@ -85,12 +85,12 @@ int MagicByItem( int item_no, int magic_class )
 		
 ///////////////////////////////////////////////////////////////////////////////
 //		
-//		½Ã°£¿¡ ÀÇÇÑ Ä³¸¯ÅÍÀÇ ¹è°íÇÄ ¼öÄ¡ ÁÙÀÌ±â	//###1213_2 ¼öÁ¤
+//		ì‹œê°„ì— ì˜í•œ ìºë¦­í„°ì˜ ë°°ê³ í”” ìˆ˜ì¹˜ ì¤„ì´ê¸°	//###1213_2 ìˆ˜ì •
 //		
 ///////////////////////////////////////////////////////////////////////////////
 void HungryMuchAdd( CHARLIST *ch, double type )
 {		
-	double plus = 1.0f; // Ä³¸¯ÅÍÀÇ »óÅÂ¿¡ µû¶ó º¯È­°¡ ÀÖÀ» °æ¿ì ÀÌ °ªÀ» º¯È­ ½ÃÅ²´Ù.
+	double plus = 1.0f; // ìºë¦­í„°ì˜ ìƒíƒœì— ë”°ë¼ ë³€í™”ê°€ ìˆì„ ê²½ìš° ì´ ê°’ì„ ë³€í™” ì‹œí‚¨ë‹¤.
 		
 	if( ch->bAlive != ALIVE_ ) return;
 
@@ -183,11 +183,11 @@ DWORD GetMoneyByItem( CHARLIST *ch )
 					t = ItemUnit( type, num );
 					if( t && t->GetItemKind() == IK_MONEY )
 					{
-						if( item.item_no == IN_COIN && item.attr[IATTR_MUCH] > 5)	// µ¿Àü
+						if( item.item_no == IN_COIN && item.attr[IATTR_MUCH] > 5)	// ë™ì „
 						{
-							item.item_no = IN_COINS;		// µ· ´õ¹Ì·Î ¹Ù²Ş
+							item.item_no = IN_COINS;		// ëˆ ë”ë¯¸ë¡œ ë°”ê¿ˆ
 						}
-						else if( item.item_no == IN_COINS && item.attr[IATTR_MUCH] <= 5 ) // µ¿Àü ´õ¹Ì
+						else if( item.item_no == IN_COINS && item.attr[IATTR_MUCH] <= 5 ) // ë™ì „ ë”ë¯¸
 						{
 							item.item_no = IN_COIN;
 						}
@@ -196,7 +196,7 @@ DWORD GetMoneyByItem( CHARLIST *ch )
 				}
 			}
 
-	if( ch->handheld.item_no ) // ÇÚµå ºÎºĞ¿¡ ÀÖ´Â µ· °è»ê
+	if( ch->handheld.item_no ) // í•¸ë“œ ë¶€ë¶„ì— ìˆëŠ” ëˆ ê³„ì‚°
 	{
 		ItemAttr &item = ch->handheld;
 		getItemIndex( item.item_no, type, num );
@@ -214,16 +214,16 @@ DWORD GetMoneyByItem( CHARLIST *ch )
 
 /////////////////////////////////////////////////////////////////////
 //
-// µ· ¾ÆÀÌÅÛ¿¡ °ü·ÃÇÑ ¸Ş¼Òµåµé ( µ· »©°í ´õÇÏ±â ÇÔ¼ö )
+// ëˆ ì•„ì´í…œì— ê´€ë ¨í•œ ë©”ì†Œë“œë“¤ ( ëˆ ë¹¼ê³  ë”í•˜ê¸° í•¨ìˆ˜ )
 //
 ////////////////////////////////////////////////////////////////////
 int SubtractMoney( DWORD money, CHARLIST *ch )
 {
-	if(ch->Money < money ) return -1;	// µ·ÀÌ ºÎÁ·ÇÔ
+	if(ch->Money < money ) return -1;	// ëˆì´ ë¶€ì¡±í•¨
 
 	if( !money ) return 1;
 	ItemAttr *item = SearchItemOfInvByKind( IK_MONEY, ch );
-	if( !item ) return -1;		// µ· ¾ÆÀÌÅÛÀÌ ÇÏ³ªµµ ¾øÀ½. -->SCharacterData.nMoney = 0;		==> ¹®Á¦ ÀÖÀ½...
+	if( !item ) return -1;		// ëˆ ì•„ì´í…œì´ í•˜ë‚˜ë„ ì—†ìŒ. -->SCharacterData.nMoney = 0;		==> ë¬¸ì œ ìˆìŒ...
 
 	if( item->attr[IATTR_MUCH] < money )
 	{
@@ -242,7 +242,7 @@ int AddMoney( DWORD money, CHARLIST *ch )
 {
 	if( !money ) return 1;
 	ItemAttr *item = SearchItemOfInvByKind( IK_MONEY, ch );
-	if( !item )	// µ· ¾ÆÀÌÅÛÀÌ ÇÏ³ªµµ ¾øÀ»¶§ »õ·Î »ı¼º
+	if( !item )	// ëˆ ì•„ì´í…œì´ í•˜ë‚˜ë„ ì—†ì„ë•Œ ìƒˆë¡œ ìƒì„±
 	{
 		ItemAttr *new_item = SearchInv( ch );
 		if( !new_item ) return -1;
@@ -319,7 +319,7 @@ int IsEqualPosByPos( POS first, POS second )
 	return 1;
 }
 
-void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö 
+void CheckItem( short int cn ) // ì˜ëª»ëœ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ 
 {
 	bool fResendItem = false;
 	CHARLIST *ch = &connections[cn].chrlst;
@@ -371,7 +371,7 @@ void CheckItem( short int cn ) // Àß¸øµÈ ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö
 	for( c=0; c<7; c++ )
 		if( ch->quick[c].item_no )
 		{
-			if(c >= 5)continue;//soto-030514 ½Éº¼ ¾ÆÀÌÅÛÀº Ã¼Å© ÇÏÁö ¾Ê´Â´Ù.
+			if(c >= 5)continue;//soto-030514 ì‹¬ë³¼ ì•„ì´í…œì€ ì²´í¬ í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 			ItemAttr *item = &ch->quick[c];
 			int type, num;
@@ -399,7 +399,7 @@ void GetItemDuration( ItemAttr item, WORD &d_curr, WORD &d_max )
 }
 
 
-int CheckAutoDivideMoney( ItemAttr *item, short int cn )		// 100000À» ³ÑÀº ¾ÆÀÌÅÛ Ã³¸®
+int CheckAutoDivideMoney( ItemAttr *item, short int cn )		// 100000ì„ ë„˜ì€ ì•„ì´í…œ ì²˜ë¦¬
 {
 
 	CItem *t = ItemUnit( *item );

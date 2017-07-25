@@ -1,4 +1,4 @@
-
+﻿
 #define MAX_LOG_LENGTH		256
 #define LOG_FATAL			0
 #define LOG_IMPORTANT		1

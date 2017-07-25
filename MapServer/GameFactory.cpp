@@ -1,4 +1,4 @@
-// GameFactory.cpp: implementation of the CGameFactory class.
+﻿// GameFactory.cpp: implementation of the CGameFactory class.
 //
 //////////////////////////////////////////////////////////////////////
 

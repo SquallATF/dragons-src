@@ -1,4 +1,4 @@
-#include <afx.h>
+ï»¿#include <afx.h>
 //#include "..\Game.h"
 //#include "..\SprObject.h"
 //#include "..\ObjectManager.h"
@@ -39,12 +39,12 @@ void ReceivedMsg(CConnection* con,char* msg,DWORD length)
 }
 void OnDisconnect(CConnection* pCon)
 {
-	// Á¢¼ÓÀÌ ²÷°åÀ»¶§ ÀÚµ¿ È£ÃâµÇ´Â ÇÔ¼ö
+	// ì ‘ì†ì´ ëŠê²¼ì„ë•Œ ìë™ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜
 //	wsprintf(txt,"On Connect");
 
 }
 void OnConnect(CConnection* pCon)
 {
-	// Á¢¼ÓµÇ¾úÀ»¶§ ÀÚµ¿ È£ÃâµÇ´Â ÇÔ¼ö	
+	// ì ‘ì†ë˜ì—ˆì„ë•Œ ìë™ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜	
 //	wsprintf(txt,"On Disconnect");
 }

@@ -1,4 +1,4 @@
-// AdventManager.h: interface for the CAdventManager class.
+ï»¿// AdventManager.h: interface for the CAdventManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,10 +10,10 @@
 #endif // _MSC_VER > 1000
 
 #define	MAX_GROUP_NO			10
-// DB EM_GROUPINFOÅ×ÀÌºíÀÇ EXECTYPE¿¡ ±â·ÏµÇ´Â °ª
-#define	EM_TYPE_NONE				0		// ½ºÅ©¸³Æ®	
-#define EM_TYPE_DAY					1		// EM_GROUPTYPEÀÇ WAYOFWEEK ¿Í DHOURÀÇ ½Ã°£ÀÌ µÇ¾úÀ»¶§
-#define EM_TYPE_GROUP_KILLED		2		// EM_GROUPTYPEÀÇ KILLEDGROUP ¹øÈ£ÀÇ ±×·ìº¸½º°¡ Á×¾úÀ»¶§
+// DB EM_GROUPINFOí…Œì´ë¸”ì˜ EXECTYPEì— ê¸°ë¡ë˜ëŠ” ê°’
+#define	EM_TYPE_NONE				0		// ìŠ¤í¬ë¦½íŠ¸	
+#define EM_TYPE_DAY					1		// EM_GROUPTYPEì˜ WAYOFWEEK ì™€ DHOURì˜ ì‹œê°„ì´ ë˜ì—ˆì„ë•Œ
+#define EM_TYPE_GROUP_KILLED		2		// EM_GROUPTYPEì˜ KILLEDGROUP ë²ˆí˜¸ì˜ ê·¸ë£¹ë³´ìŠ¤ê°€ ì£½ì—ˆì„ë•Œ
 
 struct NPCGenerationPos  				// LTS AI2
 {

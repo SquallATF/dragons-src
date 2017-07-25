@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 
 #include "main.h"
 #include "CItem.h"
@@ -24,9 +24,9 @@ extern int IsHePK( int id );
 
 /////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
-extern char* SQLerrorS;/////////////////////////////////////¶¨Òå·¢ËÍÍâ¹Ò´íÎóµÄ×Ö·û´®
-extern void HackLog( int type, char *logmsg, ... );//¼ÇÂ¼Íâ¹ÒµÄLOG
-////////////////////////////////////½Ø»ñÉùÃ÷
+extern char* SQLerrorS;/////////////////////////////////////å®šä¹‰å‘é€å¤–æŒ‚é”™è¯¯çš„å­—ç¬¦ä¸²
+extern void HackLog( int type, char *logmsg, ... );//è®°å½•å¤–æŒ‚çš„LOG
+////////////////////////////////////æˆªè·å£°æ˜
 extern char *str;
 //char hackID[100],hackname[100];
 ///////////////////////////////////
@@ -35,8 +35,8 @@ extern char *str;
 ///
 ///
 
-// SP ¼Òºñ °ü·Ã Å×ÀÌºí
-// Á¾Á·º°, »óÅÂ(ÀüÅõ, ºñÀüÅõ, Àá µîÀÇ »óÅÂ¿¡ µû¶ó)
+// SP å®¶åš åŒ…è®¿ æŠ›æå–‰
+// è¾†ç»ƒå–Š, æƒ‘æ€•(å‚ˆæ§, åšå‚ˆæ§, æ³ª æ®¿ç‹¼ æƒ‘æ€•ä¿Š è¶æ‰¼)
 char sp_consume_tbl[NUM_OF_RACE][NUM_OF_KIND]= { -5, -3, 1, 15, -8, -5, 1, 20,
 -6, -3, 1, 15, -6, -2, 2, 18,
 -4, -2, 1, 15, -6, -3, 1, 15,
@@ -49,24 +49,24 @@ char sp_consume_tbl[NUM_OF_RACE][NUM_OF_KIND]= { -5, -3, 1, 15, -8, -5, 1, 20,
 
 
 
-// SPº¸Á¤ °ü·Ã Å×ÀÌºí
+// SPç„Šæ²¥ åŒ…è®¿ æŠ›æå–‰
 char sp_ttt_corr_tbl[11]= {6, 8, 1, 13, 16, 19, 22, 25, 28, 31, 34 } ; // use the result of divide it by 10
 char sp_weight_corr_tbl[10]= {1, 1, 1, 1, 1, 12, 14, 16, 18, 2 } ; // use the result of divide it by 10
 
-// ¸¶¹ıÀÇ Ä³½ºÆÃ º¸Á¤ Å×ÀÌºí DAMAGE(%)
-// Ä³½ºÆÃ ½Ã°£ - Çö·¹º§ + ¿ä±¸·¹º§
+// ä»˜è¿‡ç‹¼ æŸèƒ¶æ³¼ ç„Šæ²¥ æŠ›æå–‰ DAMAGE(%)
+// æŸèƒ¶æ³¼ çŸ«åŸƒ - æ³…é¥­éª‡ + å¤¸å¤‡é¥­éª‡
 char spell_efficent_tbl[10]= {6, 7, 8, 9, 10, 11, 12, 13, 14, 15 } ; // use the result of divide it by 10
 
-// Ã¥À¸·Î ½Àµæ°¡´ÉÇÑ ¸¶¹ı °³¼ö.
+// æ°“æ è‚º åš¼å«å•Šç“·èŒ„ ä»˜è¿‡ ä¿ºè.
 // index= (int)(INT-10) / 8
 char spell_per_int_tbl[9]= {8, 17, 37, 48, 60, 73, 87, 102, 116 } ;
 
-// ¹®¿­±â
+// å·©å‡¯æ‰
 char break_lock_tbl[20]= {1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 } ;
-// ¼èÃ¢»ì ÈÖ±â
+// è‰°èŠ’æ·· æˆæ‰
 char break_bar_tbl[20]= {0, 0, 0, 1, 2, 3, 7, 9, 10, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72 } ;
 
-// ÀÌµ¿¼Óµµ 0~25, 26~50, 51~75, 76~99 
+// ææ‚¼åŠ æ¡£ 0~25, 26~50, 51~75, 76~99 
 // index= (int)((MoveP-1) / 25)
 char walk_per_round[4]= {2, 3, 4, 5 } ;
 char run_per_round[4]= {4, 5, 6, 7 } ;
@@ -79,9 +79,9 @@ char run_per_round[4]= {4, 5, 6, 7 } ;
 ///
 ///		User Functions Declaration...
 ///
-int InitPartyMemberServerToServer( CHARLIST *ch );		//  ÀÌ¸§¸¸ µğºñ¿¡ ÀúÀåÇÏ°í ÀÌ¸§¸¸ ²¨³»¿Â´Ù.
+int InitPartyMemberServerToServer( CHARLIST *ch );		//  ææŠšçˆ¶ å¼åšä¿Š å†å˜çªç»Š ææŠšçˆ¶ æ³¢éƒ´æŸ¯ä¿ƒ.
 int EndsetPartyMenberForUpdate( CHARLIST *ch );
-int SetMySkill( CHARLIST *ch );		// ÀÏ´Ü ±âº»ÀûÀ¸·Î ¾Ë¾Æ¾ßÇÏ´Â ½ºÅ³ ¼Â
+int SetMySkill( CHARLIST *ch );		// è€çªœ æ‰å¤¯åˆ©æ è‚º èˆ…é…’å…·çªç»° èƒ¶æ‡¦ æ‚¸
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -112,13 +112,13 @@ void SendLevelUpMsgAndPoint( CHARLIST *chr )		// 1217
 	
 }
 
-// ½Ã°£´ç 1¹ø È£Ãâ
+// çŸ«åŸƒå¯¸ 1é”… é¾‹å…
 void calcHungry(CHARLIST *chr)
 {
 	double lev_corr, disease_corr, t;
 	int h= 0, weight_index ;
 	
-	if(chr->Peacests) { // ÀüÅõ½Ã
+	if(chr->Peacests) { // å‚ˆæ§çŸ«
 		if(chr->Level < 20) {
 			lev_corr= 1 + (chr->Level - 20) * 0.02 ;
 		}
@@ -136,7 +136,7 @@ void calcHungry(CHARLIST *chr)
 		if( chr->Hungry < 0 )  chr->Hungry = 0;
 		
 	}
-	else { // ±â¼ú»ç¿ë? ÈŞ½Ä? ¼ö¸é?
+	else { // æ‰è´±è¤ä¾©? ç»’ä¾¥? èæ?
 	}
 }	
 
@@ -148,7 +148,7 @@ int calcMovP( CHARLIST *ch )
 	return t;
 }
 
-// ³ªÀÌ¿¡ µû¸¥ °¢ ¹«±â±â¼úº° ½ºÅ³ ¼÷·ÃµµÀÇ »ó½Â¼ÓµµÀÇ Â÷ÀÌ 10À¸·Î ³ª´©¾î »ç¿ë
+// å”±æä¿Š è¶å¼— é˜¿ å…¬æ‰æ‰è´±å–Š èƒ¶æ‡¦ æ§›è®¿æ¡£ç‹¼ æƒ‘é“°åŠ æ¡£ç‹¼ ç’æ 10æ è‚º å”±ç©¿ç»¢ è¤ä¾©
 char tac_inc_by_age_tbl[12][37]= {	1, 13, 12, 13, 13, 12, 12, 14, 13, 15, 14, 12, 10, 12, 10, 10, 10, 10, 11, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 10, 1,
 1, 10, 10, 11, 11, 12, 12, 13, 13, 12, 14, 13, 11, 10, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 11, 12, 12, 11, 13, 11, 14, 10, 10, 10, 10, 10, 1,
 1, 10, 10, 10, 10, 11, 13, 14, 15, 15, 15, 11, 12, 10, 10, 13, 10, 10, 10, 11, 10, 11, 10, 10, 10, 10, 10, 10, 11, 10, 10, 10, 10, 10, 10, 10, 1,
@@ -163,7 +163,7 @@ char tac_inc_by_age_tbl[12][37]= {	1, 13, 12, 13, 13, 12, 12, 14, 13, 15, 14, 12
 1, 10, 10, 10, 10, 11, 10, 10, 10, 11, 10, 10, 13, 12, 14, 13, 14, 11, 10, 10, 10, 10, 10, 12, 13, 12, 13, 14, 12, 10, 10, 10, 10, 11, 10, 10, 1
 } ;
 
-// Á÷¾÷¿¡ µû¸¥ ¹«±â±â¼úº° ¼÷·Ãµµ »ó½ÂÁ¤µµ (10À¸·Î ³ª´©¾î »ç¿ë)
+// æµè¯€ä¿Š è¶å¼— å…¬æ‰æ‰è´±å–Š æ§›è®¿æ¡£ æƒ‘é“°æ²¥æ¡£ (10æ è‚º å”±ç©¿ç»¢ è¤ä¾©)
 
 char tac_inc_by_class_tbl[5][12]= { 15, 15, 15, 15, 1, 1, 1, 1, 15, 15, 15, 1,
 8, 10, 8, 8, 8, 8, 15, 15, 8, 8, 1, 8,
@@ -182,7 +182,7 @@ void increaseTacticsSkill(CHARLIST *chr)
 	k= 1 ;
 	skill_index= 0 ;
 	
-	// ½ºÅ³¼±ÅÃ º¸Á¤
+	// èƒ¶æ‡¦æ€¥ç¶ ç„Šæ²¥
 	if(chr->Tactics == skill_index) skill_corr= 1.2 ;
 	else skill_corr= 1.0 ;
 	
@@ -234,7 +234,7 @@ int increaseAbility(CHARLIST *chr, t_packet *packet)
 	
 	for(i= 0 ; i < packet->u.mass_data.num ; i++) 
 		total_inc+= packet->u.mass_data.elements[i].value ;
-	// Å¬¶óÀÌ¾ğÆ®°¡ ºÄ¿Â Áõ°¡°ªµéÀÇ ÃÑÇÕÀÌ ÇöÀç ³²¾ÆÀÖ´Â ºĞ¹èÁ¡¼öº¸´Ù ¸¹À¸¸é ¿¡·¯
+	// åŠªæ‰¼ææ”«é£˜å•Š è€—æŸ¯ åˆ˜å•Šè”¼ç”¸ç‹¼ é†šé’¦æ æ³…çŠ å·¢é…’ä¹ç»° ç›’ç¡…ç—¢èç„Šä¿ƒ è…¹æ æ ä¿ŠçŸ¾
 	if(total_inc > chr->reserved_point) return -1 ;
 	
 	for(i= 0 ; i < packet->u.mass_data.num ; i++)
@@ -279,7 +279,7 @@ int increaseAbility(CHARLIST *chr, t_packet *packet)
 }
 
 
-int SetItemEmpty( CHARLIST *ch,  int item_no )		// ºó ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» »ı¼ºÇØ¼­ Áı¾î ³Ö´Â´Ù. //1215
+int SetItemEmpty( CHARLIST *ch,  int item_no )		// å ç‰¢äº¥é…åºœä¿Š é…’æè¢é˜‘ ç§¯å·±ç§¦è¾‘ ç¬¼ç»¢ æŒç»°ä¿ƒ. //1215
 {
 	ItemAttr *item = SearchInv( ch );
 	if( item ) *item = GenerateItem( item_no ) ;
@@ -289,13 +289,13 @@ int SetItemEmpty( CHARLIST *ch,  int item_no )		// ºó ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» »ı¼ºÇØ
 }
 
 extern int SetTactics( int spell_type, int sex, int tac_type );	// 1101 YGI
-// ÃÖÃÊ Ä³¸¯ÅÍÀÇ  »ı¼ºÀ§Ä¡, ±âº»¼öÄ¡, ItemµéÀ» SettingÇÑ´Ù. 
+// å¼¥æª¬ æŸè…ç£ç‹¼  ç§¯å·±å›°æ‘¹, æ‰å¤¯èæ‘¹, Itemç”¸é˜‘ SettingèŒ„ä¿ƒ. 
 void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 {
-//	DWORD tac_skillexp[13] = {0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D};//coromo Õ½¼¨¾­Ñé
+//	DWORD tac_skillexp[13] = {0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D};//coromo æˆ˜ç»©ç»éªŒ
 	CHARLIST *ch = &c[cn].chrlst;
 	t_client_create_char *p = &packet->u.client_create_char;
-////////////////////////////////////////////////////////////////////////////////////////·¢ÏÖ×¢²áÂ©¶´	
+////////////////////////////////////////////////////////////////////////////////////////å‘ç°æ³¨å†Œæ¼æ´	
 	if(p->Class>4	||	p->Class<0)
 	{
 //		HackLog(0,p->Class,p->name );
@@ -303,17 +303,17 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	}
 /////////////////////////////////////////////////////////5/////////////////////////////////////////////////////////////////////
 		
-	memset( ch->Ws,			0,	SIZE_OF_WS			);	//	¸¶¹ı
-	memset( ch->Ps,			0,	SIZE_OF_PS			);				//	½Å¹ı
+	memset( ch->Ws,			0,	SIZE_OF_WS			);	//	ä»˜è¿‡
+	memset( ch->Ps,			0,	SIZE_OF_PS			);				//	è„šè¿‡
 	memset( ch->Skill,		0,	SIZE_OF_SKILL		);
 	memset( ch->skillexp,	0,	SIZE_OF_SKILL_EXP	);
-//	memset( ch->tac_skillEXP,(unsigned int)tac_skillexp, SIZE_OF_TAC_SKILL_EXP );  //coromo Õ½¼¨¾­Ñé
+//	memset( ch->tac_skillEXP,(unsigned int)tac_skillexp, SIZE_OF_TAC_SKILL_EXP );  //coromo æˆ˜ç»©ç»éªŒ
 	memset( ch->tac_skillEXP,0, SIZE_OF_TAC_SKILL_EXP );
 	
 	memset( var[ cn],       0, SIZE_OF_SCRIPT_VAR	); // 0819 KHS
-	memset( ch->inv,		0, SIZE_OF_INV			);	// ÀÎº¥Åä¸®
-	memset( ch->equip,		0, SIZE_OF_EQUIP		);		// ÀåÂø
-	memset( ch->quick,		0, sizeof( ItemAttr ) * 7 );		// Äü 
+	memset( ch->inv,		0, SIZE_OF_INV			);	// ç‰¢äº¥é…åºœ
+	memset( ch->equip,		0, SIZE_OF_EQUIP		);		// å˜é¦’
+	memset( ch->quick,		0, sizeof( ItemAttr ) * 7 );		// ç‹ 
 	memset( ch->bank,		0, SIZE_OF_BANKITEM );
 	
 	memset( ch->party,		0, SIZE_OF_PARTY		);
@@ -321,47 +321,47 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	memset( ch->employment,	0, SIZE_OF_EMPLOYMENT	);
 	memset( ch->Item,		0, SIZE_OF_ITEMINDEX );
 	
-	memset( &ch->handheld,	0, sizeof( ItemAttr ));		// ¼Õ(¸¶¿ì½º)¿¡ µé°í ÀÖ´Â
+	memset( &ch->handheld,	0, sizeof( ItemAttr ));		// é¢Š(ä»˜å¿«èƒ¶)ä¿Š ç”¸ç»Š ä¹ç»°
 	memset( &ch->name_status, 0 ,sizeof( DWORD ) );		// 001219 YGI
 	
 	memcpy( ch->Name, p->name, 20 );
 	
 	ch->bAlive				= ALIVE_;
 	
-	ch->Level		=  1;  //coromo ĞÂ½¨ÈËÎïµÈ¼¶
+	ch->Level		=  1;  //coromo æ–°å»ºäººç‰©ç­‰çº§
 	ch->LvUpPoint	=  0;
 	ch->Exp			=  0;
 	
 	ch->LastLoan = 0;		// 010608 YGI
 	
-	ch->Gender				= p->gender;						// 0:¿©ÀÚ 1 : ³²ÀÚ	
+	ch->Gender				= p->gender;						// 0:å’¯ç£Š 1 : å·¢ç£Š	
 	ch->Face				= p->face;												
 	ch->nGuildCode 			= 0; // CSD-030324
-	ch->Job					= p->job;						// 0:Àü»ç 1:±Ã¼ö 2:µµÀû 3:¼ºÁ÷ÀÚ 4:¸¶¹ı»ç
+	ch->Job					= p->job;						// 0:å‚ˆè¤ 1:æ³µè 2:æ¡£åˆ© 3:å·±æµç£Š 4:ä»˜è¿‡è¤
 	ch->Class				= p->Class;													
 	
 	int nation = GetNationById(c[cn].id);					// 1004 YGI
 	if( nation < 0 ) nation = 0;
 	ch->name_status.nation	= nation;
-	ch->Race				= 0;	// Á¾Á·
+	ch->Race				= 0;	// è¾†ç»ƒ
 	ch->Tactics			=  p->tactics;		
 	ch->Condition		=	0;
-	strcpy(ch->MapName, "SCHOLIUM" );  //coromo ĞÂ½¨ÈËÎïËùÔÚµØÍ¼
+	strcpy(ch->MapName, "SCHOLIUM" );  //coromo æ–°å»ºäººç‰©æ‰€åœ¨åœ°å›¾
 	
 	ch->Peacests		=	0;
 	ch->Sight			=	12;
-	ch->BodyR	= p->body_r,	ch->BodyG	= p->body_g,	ch->BodyB	= p->body_b;		// ¸ö »ö±ò R.G.B
-	ch->ClothR	= p->cloth_r,	ch->ClothG	= p->cloth_g,	ch->ClothB	= p->cloth_b;		// ¶ì »ö±ò R.G.B
+	ch->BodyR	= p->body_r,	ch->BodyG	= p->body_g,	ch->BodyB	= p->body_b;		// ä¸ª ç¥¸å½¬ R.G.B
+	ch->ClothR	= p->cloth_r,	ch->ClothG	= p->cloth_g,	ch->ClothB	= p->cloth_b;		// é¹… ç¥¸å½¬ R.G.B
 	ch->Age				=	p->age;
 	// 010531 KHS
-	ch->nk[3]			=	0;					// NK·Î »ç¿ëµÈ´Ù.
+	ch->nk[3]			=	0;					// NKè‚º è¤ä¾©ç­‰ä¿ƒ.
 	ch->nk[4]			=	0;
 	ch->nk[6]			=	0;
 	
 	
-	ch->killmon			=	0;					// 1°è¿­¸ó½ºÅÍ Å³¸µ½º
-	ch->killanimal 		=	0;					// µ¿¹° Å³¸µ¼ö
-	ch->killpc  		=	0;					// »ç¶÷,NPC Å³¸µ¼ö
+	ch->killmon			=	0;					// 1æ‹Œå‡¯é˜èƒ¶ç£ æ‡¦å‚…èƒ¶
+	ch->killanimal 		=	0;					// æ‚¼æ‹± æ‡¦å‚…è
+	ch->killpc  		=	0;					// è¤æ©,NPC æ‡¦å‚…è
 	ch->nPoison =	0;
 	ch->nCurse =	0;
 	ch->nFire =	0;
@@ -371,11 +371,11 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	ch->Spell				= p->spell;			// 0 : Ws   1 : Ps
 	
 	//////////////////////////////////////////////////////////////////////////////////						
-	// ³»°¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ..	//0101
+	// éƒ´å•Š å•Šç˜¤ç»Š ä¹ç»° é…’æè¢..	//0101
 	
 	if(LocalMgr.IsChangeMoney())//021007 lsw
 	{
-		ch->inv[0][0][0] = GenerateItem( 10123, 1000000);  //coromo Ç®
+		ch->inv[0][0][0] = GenerateItem( 10123, 1000000);  //coromo é’±
 	}
 	else
 	{
@@ -385,20 +385,20 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	if(ch->Gender ){ch->equip[WT_ARMOR] = GenerateItem( 8037);}
 	else{ch->equip[WT_ARMOR] = GenerateItem( 8038);}
 	
-	ch->accessory[0] = 96;//GetItemView( ch->equip[WT_ARMOR].item_no, ch->Gender ); // °©¿Ê.
-	ch->accessory[1] = 0;// Åõ±¸..
-	ch->accessory[2] = GetItemView( ch->equip[WT_WEAPON].item_no, ch->Gender ); // Ä®..
-	ch->accessory[3] = 0; // ¹æÆĞ...
-	ch->mantle		 = 0; // 011018 KHS ¸Á¶Ç 
+	ch->accessory[0] = 96;//GetItemView( ch->equip[WT_ARMOR].item_no, ch->Gender ); // ç™Œæ¸´.
+	ch->accessory[1] = 0;// æ§å¤‡..
+	ch->accessory[2] = GetItemView( ch->equip[WT_WEAPON].item_no, ch->Gender ); // æ¼ ..
+	ch->accessory[3] = 0; // è§„è©...
+	ch->mantle		 = 0; // 011018 KHS å™¶è‚š 
 	
 	int a, b, c1;
 	int i;
-	for( i=0; i<2; i++ )	// Æ÷¼Ç 
+	for( i=0; i<2; i++ )	// å™¨è®° 
 	{
 		SearchInv( ch->inv, a, b, c1 );
 		ch->inv[a][b][c1] = GenerateItem( 4001);
 	}
-	for( i=0; i<2; i++ )	// »§ 
+	for( i=0; i<2; i++ )	// æˆ· 
 	{
 		SearchInv( ch->inv, a, b, c1 );
 		ch->inv[a][b][c1] = GenerateItem( 3007);
@@ -406,7 +406,7 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	
 	switch( ch->Class )				// 001215 YGI
 	{
-	case WARRIOR://Èç¹ûÊÇÕ½Ê¿
+	case WARRIOR://å¦‚æœæ˜¯æˆ˜å£«
 		{
 			SetItemEmpty( ch, 4001 );
 			SetItemEmpty( ch,  4001 );
@@ -435,7 +435,7 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 			SetItemEmpty( ch, 8014 );
 			break;
 		}
-	case THIEF	://Èç¹ûÊÇµÁÔô
+	case THIEF	://å¦‚æœæ˜¯ç›—è´¼
 		{
 			for( i=0; i<5; i++ )
 			{
@@ -449,7 +449,7 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 			SetItemEmpty( ch, 8066 );
 			break;
 		}
-	case ARCHER	://Èç¹ûÊÇ¹­ÊÖ
+	case ARCHER	://å¦‚æœæ˜¯å¼“æ‰‹
 		{
 			for( i=0; i<5; i++ )
 			{
@@ -464,7 +464,7 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 			*item = GenerateItem( 7045, 1000);
 			break;
 		}
-	case WIZARD	://Èç¹ûÊÇÎ×Ê¦
+	case WIZARD	://å¦‚æœæ˜¯å·«å¸ˆ
 		{
 			for( i=0; i<3; i++ )
 			{
@@ -479,7 +479,7 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 			ch->Ws[30] = true;
 			break;
 		}
-	case PRIEST	://Èç¹ûÊÇ¼Àìë
+	case PRIEST	://å¦‚æœæ˜¯ç¥­ç¥€
 		{
 			for( i=0; i<2; i++ )
 			{
@@ -495,19 +495,19 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 			break;
 		}
 	}
-	ch->Money = 1000000;  //coromo ĞÂ½¨ÈËÎïµÄÇ®
+	ch->Money = 1000000;  //coromo æ–°å»ºäººç‰©çš„é’±
 	if( ch->Spell == WIZARD_SPELL )
 	{
-		SetItemEmpty( ch,  10025 );				// ¸¶¹ıÃ¥
+		SetItemEmpty( ch,  10025 );				// ä»˜è¿‡æ°“
 	}													// 001215 YGI -----------------------------------------
 	SetMySkill( ch );
 	
-	//  ClientÀ» À§ÇÑ Data
+	//  Clienté˜‘ å›°èŒ„ Data
 	ch->SprNo			=	ch->Gender;
 	ch->SprType			=	0;	
 	
 	ch->Direction		=	DIRECTION_SAME;
-	ch->IDWhoImAttacked	=	0;	// ³ª¸¦ Ä£³ğÀÌ ´©±¸³Ä..
+	ch->IDWhoImAttacked	=	0;	// å”±ç”« æ¨¡ä»‡æ ç©¿å¤‡è¡¬..
 	ch->nCurrentAction	=	0;
 	
 	ch->BankMoney		=	0; 
@@ -522,7 +522,7 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	ch->MoveType		=	0;
 	memset( ch->MoveDirTbl, 0 , MAX_DIR_TABLE );
 	
-	// ÃÖÃÊÀÇ Skill Exp Àû¿ë 
+	// å¼¥æª¬ç‹¼ Skill Exp åˆ©ä¾© 
 	for( i = 0 ; i <  45 ; i ++)	ch->skillexp[i] = 5;
 	
 	//< CSD-011006
@@ -539,22 +539,22 @@ void CreateCharacter( t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	ch->HungryMax = ch->Hungry = (ch->Con*20 + ch->Level*100 + 3000)/100;
 	//> CSD-011006
 	
-	ch->social_status	= 100;	// ½ÅºĞ : Æò¹Î.
+	ch->social_status	= 100;	// è„šç›’ : ä¹åˆ®.
 	ch->fame			= 0;
-	ch->fame_pk			= 0;	// 010915 LTS		//Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.		
+	ch->fame_pk			= 0;	// 010915 LTS		//Fame_PK -> NWCharacterè‚º èƒŒçœ‰ DBä¿Šç»° è§’åŠ›è‚º NWCharacterç‹¼ è”¼æ ç”¸ç»¢ç™Œèªä¿ƒ.		
 	memset(&ch->NWCharacter,0,sizeof(DWORD));	// 010915 LTS
 	ch->viewtype		= 0;
-	ch->reserved_point	= 0;  //coromo ĞÂ½¨ÈËÎïÄÜÁ¦µã
+	ch->reserved_point	= 0;  //coromo æ–°å»ºäººç‰©èƒ½åŠ›ç‚¹
 	
 	//< CSD-011006
-	memset(ch->aStepInfo, 1, sizeof(ch->aStepInfo));//ÀüÅõ½ºÅ³ ÃÊ±â¿¡ -1 µÇ¾î ÀÖ´Â ¹ö±×.
+	memset(ch->aStepInfo, 1, sizeof(ch->aStepInfo));//å‚ˆæ§èƒ¶æ‡¦ æª¬æ‰ä¿Š -1 ç™»ç»¢ ä¹ç»° æ»šå¼Š.
 	//> CSD-011006
 	
-	ch->openhouse = -1; // ÃÖÃÊ¿¡ Áı¹Û¿¡¼­ ½ÃÀÛÇÏ¹Ç·Î  ´İÇôÀÖ´Â°ÍÀ¸·Î ½ÃÀÛÇØ¾ßÁö...
+	ch->openhouse = -1; // å¼¥æª¬ä¿Š ç¬¼è§‚ä¿Šè¾‘ çŸ«ç´¯çªéª¨è‚º  æ‘§å›šä¹ç»°å·´æ è‚º çŸ«ç´¯ç§¦å…·ç˜¤...
 }
 
 
-// °ÔÀÓ¼­¹ö¿¡¼­ »ç¿ë.....
+// éœ¸çƒ™è¾‘æ»šä¿Šè¾‘ è¤ä¾©.....
 void UserAddBasicData(  t_connection c[], int i, t_server_user_add *p )
 {
 	CHARLIST *ch = &c[i].chrlst;
@@ -595,7 +595,7 @@ void UserAddBasicData(  t_connection c[], int i, t_server_user_add *p )
 }	
 
 
-// Å¬¶óÀÌ¾ğÆ®°¡ Á¢¼ÓÇÒ¶§, ±âº»Á¤º¸¸¦ Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù
+// åŠªæ‰¼ææ”«é£˜å•Š ç«‹åŠ ä¸”é”­, æ‰å¤¯æ²¥ç„Šç”« åŠªæ‰¼ææ”«é£˜è‚º ç„Šéƒ´éœ–ä¿ƒ
 void PutPacketCharDB( t_connection c[], int cn, t_packet *packet )
 {	
 	t_server_user_db_data *p;
@@ -657,17 +657,17 @@ void PutPacketCharDB( t_connection c[], int cn, t_packet *packet )
 	
 	
 	/*	
-	short int		Str   ;				//  Èû
-	short int		Con   ;				//  °Ç°­
-	short int		Dex   ;				//	¹ÎÃ¸¼º
-	short int		Wis   ;				//	ÁöÇı
-	short int		Int   ;				//	Áö´É
-	short int		MoveP ;				//	ÀÌµ¿·Â
-	short int		Char  ;				//	¸Å·Â
-	short int		Endu  ;				//  ÀúÇâ·Â
-	short int		Health;				//	Ã¼·Â
-	short int		Moral ;				//	»ç±â
-	short int		Luck  ;				//	Çà¿î
+	short int		Str   ;				//  å¡
+	short int		Con   ;				//  æ‰’ç¢
+	short int		Dex   ;				//	åˆ®é…¶å·±
+	short int		Wis   ;				//	ç˜¤é©±
+	short int		Int   ;				//	ç˜¤ç“·
+	short int		MoveP ;				//	ææ‚¼ä»¿
+	short int		Char  ;				//	æ¦‚ä»¿
+	short int		Endu  ;				//  å†æ°¢ä»¿
+	short int		Health;				//	çœ‰ä»¿
+	short int		Moral ;				//	è¤æ‰
+	short int		Luck  ;				//	é’æ¬¾
 	short int		wsps  ;
 	
 	*/	
@@ -685,7 +685,7 @@ void PutPacketCharDB( t_connection c[], int cn, t_packet *packet )
 	
 	memcpy(p->mapname, ch->MapName, 20);
 	
-	//	 p->peacests		= (unsigned char)ch->Peacests;		// 0410  »ç¿ëÇÏÁö ¾ÊÀ½...
+	//	 p->peacests		= (unsigned char)ch->Peacests;		// 0410  è¤ä¾©çªç˜¤ è‡¼æ¾œ...
 	p->sight			=				 ch->Sight;
 	
 	p->bodyr			= (unsigned char)ch->BodyR;
@@ -744,7 +744,7 @@ unsigned char magic[ 200 ];
 		QueuePacket( c, cn, &packet, 1);
 	}
 	
-	// 8°³..
+	// 8ä¿º..
 	void SendItemEquip( t_connection c[], int cn )
 	{
 		t_packet packet;
@@ -831,7 +831,7 @@ unsigned char magic[ 200 ];
 		/*	if( cn == 0 || cn == 1 )
 		{
 		FILE *fp;
-		fp = fopen( "SendCharInfoBasic¿¡ 01ÀÌ µé¾î¿Ô´Ù.txt", "at+" );
+		fp = fopen( "SendCharInfoBasicä¿Š 01æ ç”¸ç»¢å­ä¿ƒ.txt", "at+" );
 		if( fp )
 		{
 		fprintf( fp, "%d  %d \n", kind, data );
@@ -854,7 +854,7 @@ unsigned char magic[ 200 ];
 	
 	
 	
-int InitPartyMemberServerToServer( CHARLIST *ch )		//  ÀÌ¸§¸¸ µğºñ¿¡ ÀúÀåÇÏ°í ÀÌ¸§¸¸ ²¨³»¿Â´Ù.
+int InitPartyMemberServerToServer( CHARLIST *ch )		//  ææŠšçˆ¶ å¼åšä¿Š å†å˜çªç»Š ææŠšçˆ¶ æ³¢éƒ´æŸ¯ä¿ƒ.
 	{
 		for( int i=0; i<6; i++ )
 		{
@@ -893,9 +893,9 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 	
 	
 	
-	//######################## login server ¿ë ##########################
+	//######################## login server ä¾© ##########################
 	
-	void SendItemIndex( t_connection c[], int cn )		// ¹è¿î ¾ÆÀÌÅÛ º¸³»ÁÖ±â
+	void SendItemIndex( t_connection c[], int cn )		// ç¡…æ¬¾ é…’æè¢ ç„Šéƒ´æ—æ‰
 	{
 		CHARLIST *ch = &c[cn].chrlst;
 		t_packet packet;
@@ -906,7 +906,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 		packet.h.header.size = sizeof(k_server_item_index);
 		QueuePacket(c, cn, &packet, 1);
 	}
-	void SendDiesease( t_connection c[], int cn )		// diesease º¸³»ÁÖ±â 
+	void SendDiesease( t_connection c[], int cn )		// diesease ç„Šéƒ´æ—æ‰ 
 	{		
 		CHARLIST *ch = &c[cn].chrlst;
 		t_packet packet;
@@ -920,7 +920,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 		packet.h.header.size = sizeof(k_server_disease);
 		QueuePacket(c, cn, &packet, 1);
 	}
-	void SendEmployment( t_connection c[], int cn )		// employment º¸³»ÁÖ±â //1229
+	void SendEmployment( t_connection c[], int cn )		// employment ç„Šéƒ´æ—æ‰ //1229
 	{
 		return;
 		/*
@@ -953,7 +953,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 		
 	}
 	
-	void SendRelation( t_connection c[], int cn )		// »çÁ¦ °ü°èº¸³»ÁÖ±â		//1229
+	void SendRelation( t_connection c[], int cn )		// è¤åŠ› åŒ…æ‹Œç„Šéƒ´æ—æ‰		//1229
 	{
 		return;
 		/*
@@ -983,7 +983,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 		  QueuePacket(c, cn, &packet, 1);
 		*/
 	}
-	void SendParty( t_connection c[], int cn )			// ÆÄÆ¼¿ø º¸³»ÁÖ±â	//0213 YGI
+	void SendParty( t_connection c[], int cn )			// é¢‡èç›” ç„Šéƒ´æ—æ‰	//0213 YGI
 	{
 		CHARLIST *ch = &c[cn].chrlst;
 		t_packet packet;
@@ -1013,7 +1013,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 	
 	
 	/// 0212 YGI
-	int SetMySkill( CHARLIST *ch )		// ÀÏ´Ü ±âº»ÀûÀ¸·Î ¾Ë¾Æ¾ßÇÏ´Â ½ºÅ³ ¼Â
+	int SetMySkill( CHARLIST *ch )		// è€çªœ æ‰å¤¯åˆ©æ è‚º èˆ…é…’å…·çªç»° èƒ¶æ‡¦ æ‚¸
 	{
 		int i;
 		switch( ch->Class ) 
@@ -1136,7 +1136,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 	void SendCreateAbility( short int cn )
 	{
 		CHARLIST *ch = &connections[cn].chrlst;
-////////////////////////////////////////////////////////////////////////////////////////·¢ÏÖ×¢²áÂ©¶´	
+////////////////////////////////////////////////////////////////////////////////////////å‘ç°æ³¨å†Œæ¼æ´	
 	if(ch->Class>4	||	ch->Class<0)
 	{
 //		HackLog(0,ch->Class,ch->Name);
@@ -1174,7 +1174,7 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 	
 	
 	// 0410
-	int GetDiceAbility( int DiceNumber )		// ´ÙÀÌ½º µ¹¸®±â
+	int GetDiceAbility( int DiceNumber )		// ä¿ƒæèƒ¶ å€’åºœæ‰
 	{
 		int dice_count, dice_max;
 		dice_count = DiceNumber / 1000;
@@ -1189,14 +1189,14 @@ int	EndsetPartyMenberForUpdate( CHARLIST *ch )
 	}
 	
 	// 0410 YGI
-void SendThrowDice( char type, short int cn )//ÄÜÁ¦È·¶¨,TYPEÊÇÈËÎïµÄÀàĞÍ,±»CH->CLASSÈ¡Öµ
+void SendThrowDice( char type, short int cn )//èƒ½åŠ›ç¡®å®š,TYPEæ˜¯äººç‰©çš„ç±»å‹,è¢«CH->CLASSå–å€¼
 	{
 		if( type < 0 || type > 5 ) return;
 		
-		CHARLIST *ch = &connections[cn].chrlst;  //»»Î»
+		CHARLIST *ch = &connections[cn].chrlst;  //æ¢ä½
 		if( !ch ) return;
 		
-////////////////////////////////////////////////////////////////////////////////////////·¢ÏÖ×¢²áÂ©¶´	
+////////////////////////////////////////////////////////////////////////////////////////å‘ç°æ³¨å†Œæ¼æ´	
 	if(type>4	||	type<0)
 	{
 //		HackLog(0,type,ch->Name);

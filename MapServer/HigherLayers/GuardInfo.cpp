@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	GuardInfo.cpp
  *			implementation of the CGuardInfo class.
  */
@@ -67,7 +67,7 @@ BOOL CGuardInfo::IsAllBroken()
 {
 	BOOL bAllBroken = TRUE;
 	INT nI;
-	//< LTH-040322-KO ÀÌ·±... -_-; Á¾·ù¸¸ ÆÇ´ÜÇÏ¸é µÇ´Âµ¥ °¡µå ¼ö¸¸Å­ µ¹°í ÀÖ¾ú³ß... ¹ö±× ¼öÁ¤
+	//< LTH-040322-KO ì´ëŸ°... -_-; ì¢…ë¥˜ë§Œ íŒë‹¨í•˜ë©´ ë˜ëŠ”ë° ê°€ë“œ ìˆ˜ë§Œí¼ ëŒê³  ìˆì—ˆë„¹... ë²„ê·¸ ìˆ˜ì •
 	for (nI = 0; nI < GS_MAX_GUARD_SPECIES; ++nI)
 	{
 		if (FALSE == CheckTypeAllBroke(nI))
@@ -126,21 +126,21 @@ BOOL CGuardInfo::CheckAndUpdateStatus(LPCHARLIST lpChar)
 			m_pGData[nI].Status = 0;
 			switch(lpChar->SprNo)
 			{
-			case 64 :		// ÃÖÁ¾
+			case 64 :		// ìµœì¢…
 				SendBrokeBBS(GetTeamNo(), 0, nI, lpChar);
 				break;
-			case 63 :		// ³»¼º ¼öÈ£¼®
+			case 63 :		// ë‚´ì„± ìˆ˜í˜¸ì„
 				SendBrokeBBS(GetTeamNo(), 1, nI, lpChar);
 				break;
-			case 177 :		// ¼º¹® 
+			case 177 :		// ì„±ë¬¸ 
 				SendBrokeBBS(GetTeamNo(), 2, nI, lpChar);
 				break;
-			case 178 :		// ¿Ü¼º ¼öÈ£¼®
+			case 178 :		// ì™¸ì„± ìˆ˜í˜¸ì„
 				SendBrokeBBS(GetTeamNo(), 3, nI, lpChar);
 				break;
 			}
 			
-			//< LTH-040329-KO ·Î±× °­È­
+			//< LTH-040329-KO ë¡œê·¸ ê°•í™”
 			g_pLogManager->SaveLogNeoNationWar(NNT_WAR_INFO, \
 					"Update Guard! NPC_ID:%d, NPC_SprNo:%d, NPC_Status:%d, NPC_Type:%d, Position(%d,%d)", \
 					m_pGData[nI].NPC_ID, lpChar->SprNo, m_pGData[nI].Status, m_pGData[nI].NPCType, \
@@ -203,9 +203,9 @@ INT CGuardInfo::GetGuardCount(INT nType)
 	return nCount;
 }
 
-//< LTH-040315-KO ¼º¹®ÀÌ µÑÁß¿¡ ÇÏ³ª¶óµµ ±úÁ³´ÂÁö... Fame ¶§¹®¿¡ ¸¸µé¾ú´Ù
-// ¼º¹® ÇÏ³ª ±ı¶§ ¸¶´Ù FameÀÌ Àû¿ëµÇ´Â °ÍÀ» ¸·±â À§ÇØ ¼º¹® µÑÁß ÇÏ³ª¶óµµ ±úÁö¸é ³ª¸ÓÁö¸¦
-// ±ú´õ¶óµµ FameÀ» ¾òÁö ¸øÇÏµµ·Ï ¸¸µé¾ú´Ù
+//< LTH-040315-KO ì„±ë¬¸ì´ ë‘˜ì¤‘ì— í•˜ë‚˜ë¼ë„ ê¹¨ì¡ŒëŠ”ì§€... Fame ë•Œë¬¸ì— ë§Œë“¤ì—ˆë‹¤
+// ì„±ë¬¸ í•˜ë‚˜ ê¹°ë•Œ ë§ˆë‹¤ Fameì´ ì ìš©ë˜ëŠ” ê²ƒì„ ë§‰ê¸° ìœ„í•´ ì„±ë¬¸ ë‘˜ì¤‘ í•˜ë‚˜ë¼ë„ ê¹¨ì§€ë©´ ë‚˜ë¨¸ì§€ë¥¼
+// ê¹¨ë”ë¼ë„ Fameì„ ì–»ì§€ ëª»í•˜ë„ë¡ ë§Œë“¤ì—ˆë‹¤
 bool CGuardInfo::IsTargetBroken(LPCHARLIST lpTarget, int nType)
 {
 	bool bIsBroken = FALSE;
@@ -213,29 +213,29 @@ bool CGuardInfo::IsTargetBroken(LPCHARLIST lpTarget, int nType)
 	int nI;
 	for (nI = 0; nI < m_iGDataCount; ++nI)
 	{
-		// Å¸ÀÔÀÌ ¸Â´Â °ÍÀÌ ÀÖ´Â°¡
+		// íƒ€ì…ì´ ë§ëŠ” ê²ƒì´ ìˆëŠ”ê°€
 		if (nType == m_pGData[nI].NPCType)
 		{
-			// ¼º¹®ÀÎ°¡
+			// ì„±ë¬¸ì¸ê°€
 			if (nType == 2)
 			{
-				// ÀÏ´Ü Å¸°ÙÀÌ ÀúÀåµÈ ¼º¹®°ú ÀÏÄ¡ÇÏ´ÂÁö °Ë»çÇÏ°í
+				// ì¼ë‹¨ íƒ€ê²Ÿì´ ì €ì¥ëœ ì„±ë¬¸ê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ ê²€ì‚¬í•˜ê³ 
 				if (((lpTarget->X / TILE_SIZE) == m_pGData[nI].GenPosX) && \
 					((lpTarget->Y / TILE_SIZE) == m_pGData[nI].GenPosY))
 				{
-					// DontNo°¡ Â¦¼öÀÌ¸é ´ÙÀ½ °Í°ú ºñ±³ÇÏ°í È¦¼öÀÌ¸é ¾Õ¿¡ °Í°ú ºñ±³ÇÑ´Ù
+					// DontNoê°€ ì§ìˆ˜ì´ë©´ ë‹¤ìŒ ê²ƒê³¼ ë¹„êµí•˜ê³  í™€ìˆ˜ì´ë©´ ì•ì— ê²ƒê³¼ ë¹„êµí•œë‹¤
 					if ((m_pGData[nI].DontNo % 2) == 0)
 					{
-						// ½ÖÀ» ÀÌ·ç´Â ¼º¹®ÀÌ ¾ÆÁ÷ ¾È±úÁ³´Ù¸é FameÀ» ¹Ş¾Æ¾ßÇÏ¹Ç·Î TRUE!!
+						// ìŒì„ ì´ë£¨ëŠ” ì„±ë¬¸ì´ ì•„ì§ ì•ˆê¹¨ì¡Œë‹¤ë©´ Fameì„ ë°›ì•„ì•¼í•˜ë¯€ë¡œ TRUE!!
 						if (TRUE == (m_pGData[nI + 1].Status == ALIVE_))
 						{
 							bIsBroken = TRUE;
 							break;
 						}
 					}
-					else if (((nI - 1) >= 0) && (nType == m_pGData[nI - 1].NPCType))	// ¾Õ¿¡ °ÍÀÌ À¯È¿ÇÑ °ÍÀÎÁö È®ÀÎ
+					else if (((nI - 1) >= 0) && (nType == m_pGData[nI - 1].NPCType))	// ì•ì— ê²ƒì´ ìœ íš¨í•œ ê²ƒì¸ì§€ í™•ì¸
 					{
-						// ½ÖÀ» ÀÌ·ç´Â ¼º¹®ÀÌ ¾ÆÁ÷ ¾È±úÁ³´Ù¸é FameÀ» ¹Ş¾Æ¾ßÇÏ¹Ç·Î ¿ª½Ã TRUE!!!
+						// ìŒì„ ì´ë£¨ëŠ” ì„±ë¬¸ì´ ì•„ì§ ì•ˆê¹¨ì¡Œë‹¤ë©´ Fameì„ ë°›ì•„ì•¼í•˜ë¯€ë¡œ ì—­ì‹œ TRUE!!!
 						if(TRUE == (m_pGData[nI - 1].Status == ALIVE_))
 						{
 							bIsBroken = TRUE;

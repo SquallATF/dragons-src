@@ -1,4 +1,4 @@
-// GameSystem.h: interface for the CGameSystem class.
+ï»¿// GameSystem.h: interface for the CGameSystem class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -13,7 +13,7 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// °ÔÀÓ °ü·Ã Manager »ı¼º °ü¸® Å¬·¡½º
+// ê²Œì„ ê´€ë ¨ Manager ìƒì„± ê´€ë¦¬ í´ë˜ìŠ¤
 class CGameSystem : public IGameSystem
 {
 public:
@@ -56,7 +56,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Àü¿ª ÂüÁ¶ÀÚ
+// ì „ì—­ ì°¸ì¡°ì
 #define g_pLogManager CLogManager::Pointer()
 #define g_pUserManager CUserManager::Pointer()
 #define g_pDualManager CDualManager::Pointer()

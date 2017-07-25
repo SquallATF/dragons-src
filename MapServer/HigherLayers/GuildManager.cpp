@@ -1,4 +1,4 @@
-// GuildManager.cpp: implementation of the CGuildManager class.
+﻿// GuildManager.cpp: implementation of the CGuildManager class.
 //
 //////////////////////////////////////////////////////////////////////
 

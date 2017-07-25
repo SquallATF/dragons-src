@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	WarfieldInfo.cpp.
  *			implementation of the CWarfieldInfo class.
  */
@@ -8,8 +8,8 @@
 
 /**
  * @fn		CWarfieldInfo::LoadSoldierInfo().
- * @brief	ÀüÀïÅÍ ºÎ´ëÁ¤º¸¸¦ MapServerConfig.ini ÆÄÀÏ¿¡¼­ ÀĞ¾î¿Í ¼¼ÆÃ.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
+ * @brief	ì „ìŸí„° ë¶€ëŒ€ì •ë³´ë¥¼ MapServerConfig.ini íŒŒì¼ì—ì„œ ì½ì–´ì™€ ì„¸íŒ….
+ * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040127-KO.
@@ -50,8 +50,8 @@ VOID CWarfieldInfo::LoadSoldierInfo(INT nWarfieldNo)
 
 /**
  * @fn		CWarfieldInfo::LoadMapMoveInfo().
- * @brief	ÀüÀïÅÍ ÀÌµ¿Á¤º¸ MapServerConfig.ini ÆÄÀÏ¿¡¼­ ÀĞ¾î¿Í ¼¼ÆÃ.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
+ * @brief	ì „ìŸí„° ì´ë™ì •ë³´ MapServerConfig.ini íŒŒì¼ì—ì„œ ì½ì–´ì™€ ì„¸íŒ….
+ * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040127-KO.
@@ -61,15 +61,15 @@ VOID CWarfieldInfo::LoadMapMoveInfo(INT nWarfieldNo)
 	sprintf(szTemp, "WarfieldNo%dMapMove", nWarfieldNo);
 	m_acMapSetting[nWarfieldNo].m_nMoveLevelMin = ::GetPrivateProfileInt(szTemp, "LevelMin", 0, MapServerConfigFileName);
 	m_acMapSetting[nWarfieldNo].m_nMoveLevelMax = ::GetPrivateProfileInt(szTemp, "LevelMax", 0, MapServerConfigFileName);
-	m_acMapSetting[nWarfieldNo].m_nUserEntranceLimitTime = ::GetPrivateProfileInt(szTemp, "UserEntranceLimitTime", 1800, MapServerConfigFileName);	// LTH-040510-KO À¯Àú ÀüÀïÅÍ ÀÌµ¿ Á¦ÇÑ ½Ã°£ ÀĞ¾î¿À±â
+	m_acMapSetting[nWarfieldNo].m_nUserEntranceLimitTime = ::GetPrivateProfileInt(szTemp, "UserEntranceLimitTime", 1800, MapServerConfigFileName);	// LTH-040510-KO ìœ ì € ì „ìŸí„° ì´ë™ ì œí•œ ì‹œê°„ ì½ì–´ì˜¤ê¸°
 }	//> LTH-040127-KO.
 
 extern HDBC g_hDBC_DragonDB;
 
 /**
  * @fn		CWarfieldInfo::LoadWarTimeInfo().
- * @brief	ÀüÀï ½Ã°£Á¤º¸ MapServerConfig.ini ÆÄÀÏ¿¡¼­ ÀĞ¾î¿Í ¼¼ÆÃ.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
+ * @brief	ì „ìŸ ì‹œê°„ì •ë³´ MapServerConfig.ini íŒŒì¼ì—ì„œ ì½ì–´ì™€ ì„¸íŒ….
+ * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
  * @return	VOID.
  */
 //< LTH-040127-KO.
@@ -80,7 +80,7 @@ VOID CWarfieldInfo::LoadWarTimeInfo(INT nWarfieldNo)
 	char	query_stmt[80] = {0,};
 	SDWORD	cbValue;
 
-	//< LTH-040414-KO ÀÏÁÖÀÏ °£ ÇØ´ç typeÀÇ ÀüÀïÀÌ ÀÏ¾î³ª´Â È½¼ö ÀĞ¾î¿À±â.
+	//< LTH-040414-KO ì¼ì£¼ì¼ ê°„ í•´ë‹¹ typeì˜ ì „ìŸì´ ì¼ì–´ë‚˜ëŠ” íšŸìˆ˜ ì½ì–´ì˜¤ê¸°.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 
 	wsprintf(query_stmt,"select count(*) as NumDayHour from WarStartupTBL where Type=3");   
@@ -115,7 +115,7 @@ VOID CWarfieldInfo::LoadWarTimeInfo(INT nWarfieldNo)
 
 	m_atagWarTimeInfo[nWarfieldNo] = new CWarTimeInfo[m_btHowManyTimesWeek];
 
-	//< LTH-040419-KO ÀÏÁÖÀÏ°£ ÀÏ¾î³ª´Â ÀüÀïÀÇ ½Ã°£À» ÀüÀïÅÍ¿¡ µû¶ó ·Îµù.
+	//< LTH-040419-KO ì¼ì£¼ì¼ê°„ ì¼ì–´ë‚˜ëŠ” ì „ìŸì˜ ì‹œê°„ì„ ì „ìŸí„°ì— ë”°ë¼ ë¡œë”©.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 
 	wsprintf(query_stmt,"select * from WarStartupTBL where Type=3 ORDER BY DayofWeek, DHour");   
@@ -177,7 +177,7 @@ VOID CWarfieldInfo::LoadWarTimeInfo(INT nWarfieldNo)
 		m_atagWarTimeInfo[nWarfieldNo][index].m_dwWarTime = dwWarTime;
 		m_atagWarTimeInfo[nWarfieldNo][index].m_dwSecretAreaOpenTime = dwSecretAreaOpenTime;
 
-		//< LTH-040312-KO ÀüÀï ³¡³ª´Â ½Ã°£ °è»ê
+		//< LTH-040312-KO ì „ìŸ ëë‚˜ëŠ” ì‹œê°„ ê³„ì‚°
 		DWORD dwWarEndTime = (m_atagWarTimeInfo[nWarfieldNo][index].m_btStartDay * 24 + \
 			m_atagWarTimeInfo[nWarfieldNo][index].m_btStartHour + (dwWarTime / 3600));
 		//> LTH-040312-KO
@@ -200,8 +200,8 @@ VOID CWarfieldInfo::LoadWarTimeInfo(INT nWarfieldNo)
 
 /**
  * @fn		CWarfieldInfo::Init().
- * @brief	ÀüÀïÅÍ ÃÊ±âÁ¤º¸¸¦ MapServerConfig.ini ÆÄÀÏ¿¡¼­ ÀĞ¾î¿Í ¼¼ÆÃ.
- * @param	INT nNumOfWarfield. ÃÖ´ë ÀüÀïÅÍ¸ÊÀÇ °³¼ö.
+ * @brief	ì „ìŸí„° ì´ˆê¸°ì •ë³´ë¥¼ MapServerConfig.ini íŒŒì¼ì—ì„œ ì½ì–´ì™€ ì„¸íŒ….
+ * @param	INT nNumOfWarfield. ìµœëŒ€ ì „ìŸí„°ë§µì˜ ê°œìˆ˜.
  * @return	VOID.
  */
 //< LTH-040127-KO.
@@ -227,14 +227,14 @@ VOID CWarfieldInfo::Init(INT nNumOfWarfield)
 		}
 	}
 	
-	LoadYlseWarfieldMoveMoney();	// LTH-040504-KO ÀÏ½ºÀÇ ÆòÈ­±â°£ ÀüÀïÅÍ ÀÌµ¿ ¿ä±İ ÀĞ¾î¿À±â
-	LoadUserGoOutsideInfo();		// LTH-040514-KO À¯Àú ÀüÀïÅÍ ¹æÃâ¿¡ °üÇÑ Á¤º¸ ·Îµù
+	LoadYlseWarfieldMoveMoney();	// LTH-040504-KO ì¼ìŠ¤ì˜ í‰í™”ê¸°ê°„ ì „ìŸí„° ì´ë™ ìš”ê¸ˆ ì½ì–´ì˜¤ê¸°
+	LoadUserGoOutsideInfo();		// LTH-040514-KO ìœ ì € ì „ìŸí„° ë°©ì¶œì— ê´€í•œ ì •ë³´ ë¡œë”©
 }
 //> LTH-040127-KO.
 
 /**
  * @fn		CWarfieldInfo::Release().
- * @brief	ÀüÀïÅÍ Á¤º¸¸¦ ¾ÈÀüÇÏ°Ô Á¦°Å.
+ * @brief	ì „ìŸí„° ì •ë³´ë¥¼ ì•ˆì „í•˜ê²Œ ì œê±°.
  * @return	VOID.
  */
 //< LTH-040127-KO.
@@ -249,10 +249,10 @@ VOID CWarfieldInfo::Release()
 
 /**
  * @fn		CWarfieldInfo::GetThisWarIndex().
- * @brief	ÇöÀç ÁøÇàµÇ´Â ÀüÀïÀÇ index°¡ ¸óÁö ¾Ë¾Æ º¸´Â ÇÔ¼ö.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ¹øÈ£.
- * @param	DWORD dwCurrTime. ÇöÀç ½Ã°£.
- * @return	INT. ÇöÀç ÁøÇàµÇ´Â ÀüÀïÀÇ index.
+ * @brief	í˜„ì¬ ì§„í–‰ë˜ëŠ” ì „ìŸì˜ indexê°€ ëª¬ì§€ ì•Œì•„ ë³´ëŠ” í•¨ìˆ˜.
+ * @param	INT nWarfieldNo. ì „ìŸí„°ë²ˆí˜¸.
+ * @param	DWORD dwCurrTime. í˜„ì¬ ì‹œê°„.
+ * @return	INT. í˜„ì¬ ì§„í–‰ë˜ëŠ” ì „ìŸì˜ index.
  */
 //< LTH-040419-KO.
 INT CWarfieldInfo::GetThisWarIndex(INT nWarfieldNo, DWORD dwCurrTime)
@@ -281,7 +281,7 @@ INT CWarfieldInfo::GetThisWarIndex(INT nWarfieldNo, DWORD dwCurrTime)
 
 /**
  * @fn		CWarfieldInfo::LoadYlseWarfieldMoveMoney().
- * @brief	ÀÏ½º±¹°¡ À¯ÀúÀÇ ÆòÈ­ ±â°£ ÀüÀïÅÍ ÀÌµ¿ ¿ä±İ ÀĞ¾î¿À±â.
+ * @brief	ì¼ìŠ¤êµ­ê°€ ìœ ì €ì˜ í‰í™” ê¸°ê°„ ì „ìŸí„° ì´ë™ ìš”ê¸ˆ ì½ì–´ì˜¤ê¸°.
  * @return	void.
  */
 //< LTH-040429-KO.
@@ -292,7 +292,7 @@ void CWarfieldInfo::LoadYlseWarfieldMoveMoney()
 
 /**
  * @fn		CWarfieldInfo::LoadUserGoOutsideInfo().
- * @brief	ÀüÀïÅÍ¿¡¼­ÀÇ À¯Àú ¹æÃâ Á¤º¸ ÀĞ¾î¿À±â.
+ * @brief	ì „ìŸí„°ì—ì„œì˜ ìœ ì € ë°©ì¶œ ì •ë³´ ì½ì–´ì˜¤ê¸°.
  * @return	void.
  */
 //< LTH-040507-KO.

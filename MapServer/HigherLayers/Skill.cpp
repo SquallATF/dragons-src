@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "Citem.h"
 #include "Kein_item.h"
@@ -9,7 +9,7 @@
 
 extern void SaveBallancingSkill( LPCHARLIST a, int skillno );
 
-extern int CanLocalWarAttack(CHARLIST* pAttacker,CHARLIST* pDefencer);		// 020115 LTS ÃÖ¼ºµ¿ ,ÀÓ»ó¿ì°øµ¿ //020205 lsw
+extern int CanLocalWarAttack(CHARLIST* pAttacker,CHARLIST* pDefencer);		// 020115 LTS ìµœì„±ë™ ,ì„ìƒìš°ê³µë™ //020205 lsw
 extern int CheckEventAttack();
 extern bool isLevelUp(CHARLIST*);
 
@@ -21,22 +21,22 @@ static lpMAPSKILLTABLE	g_Header[8][8];
 CItem_Join	item_join[ ITEM_JOIN_MAX];
 t_earthpower EarthPower;
 int TotalItemJoinTableCount;
-int Npc_Item_Table[NPC_ITEM_TABLE_X][NPC_ITEM_TABLE_Y];	//npc°¡ Á×À»¶§ ³ª¿Ã ¾ÆÀÌÅÛµéÀÌ ¸ğ¿©ÀÖ´Â Å×ÀÌºí
+int Npc_Item_Table[NPC_ITEM_TABLE_X][NPC_ITEM_TABLE_Y];	//npcê°€ ì£½ì„ë•Œ ë‚˜ì˜¬ ì•„ì´í…œë“¤ì´ ëª¨ì—¬ìˆëŠ” í…Œì´ë¸”
 int SkillLevelExp[ SKILL_LEVEL_EXP_TABLE_MAX_ + 1 ][ SKILL_LEVEL_EXP_TABLE_MAX_ +1 ];
 int SkillExp[ SKILL_EXP_TABLE_MAX_ +1 ][SKILL_EXP_TABLE_MAX_ +1 ];  //coromo
 int MAX_JOB_LEVEL = 100; // CSD-040223
 
 //<! BBD 040311
-unsigned short	g_UsercountInServerSet = 1501;		// ÃÖÃÊ 1501µ¿Á¢ÀÌ¶ó°í º¸°í ½ÃÀÛÇÑ´Ù.
+unsigned short	g_UsercountInServerSet = 1501;		// ìµœì´ˆ 1501ë™ì ‘ì´ë¼ê³  ë³´ê³  ì‹œì‘í•œë‹¤.
 float resource_rate[6] =
 {
-	// µ¿Á¢¿¡ µû¸¥ ÀÚ¿ø ¹èÀ²
+	// ë™ì ‘ì— ë”°ë¥¸ ìì› ë°°ìœ¨
 	1.0f, 1.2f, 1.4f, 1.6f, 1.8f, 2.0f
 };
-//<! BBD 040322 ¿¡ÀÌ¼­¿ë
+//<! BBD 040322 ì—ì´ì„œìš©
 float resource_rate2[6] =
 {
-	// µ¿Á¢¿¡ µû¸¥ ÀÚ¿ø ¹èÀ²
+	// ë™ì ‘ì— ë”°ë¥¸ ìì› ë°°ìœ¨
 	1.4f, 1.55f, 1.7f, 1.85f, 2.0f, 2.15f
 };
 //> BBD 040322
@@ -57,10 +57,10 @@ extern int	addEXP(CHARLIST *a, CHARLIST *d, int criteria, int damage );
 
 extern void RequestUsercountToProxy();		// BBD 040311
 
-// 030307 sotoÃß°¡ Áß¸³Áö¿ªÀÎÁö ÆÇ´ÜÇÑ´Ù.
+// 030307 sotoì¶”ê°€ ì¤‘ë¦½ì§€ì—­ì¸ì§€ íŒë‹¨í•œë‹¤.
 bool IsNeutralZone(int nMapNumber)
 {	//< CSD-030314   
-	return (MapInfo[nMapNumber].nation == 0) ? true:false; //Áß¸³Áö¿ª¿¡¼­¸¸ µµµÏÁúÀÌ °¡´ÉÇÏ´Ù.
+	return (MapInfo[nMapNumber].nation == 0) ? true:false; //ì¤‘ë¦½ì§€ì—­ì—ì„œë§Œ ë„ë‘‘ì§ˆì´ ê°€ëŠ¥í•˜ë‹¤.
 }	//> CSD-030314
 // soto End. 
 
@@ -68,7 +68,7 @@ int skillProb_k1( const int skillno, CItem_Join *join )
 {	
 	int k1 = 65;
 	
-	if( join ) // ItemJoinTable¿¡¼­ k1À» °¡Á®¿Â´Ù.
+	if( join ) // ItemJoinTableì—ì„œ k1ì„ ê°€ì ¸ì˜¨ë‹¤.
 	{
 		k1 = join->k1;
 	}
@@ -81,14 +81,14 @@ int skillProb_k1( const int skillno, CItem_Join *join )
 	return k1;
 }	
 //-----------------------------------------------------
-// ±â  ´É : ±â¼ú ¼º°ø¸¢ÀÇ ÃÖ¼Ò°ªÀ» ¸®ÅÏÇÑ´Ù. 
-// ÀÎ  ÀÚ : ±â¼ú¹øÈ£.
-// ¸®ÅÏ°ª : 0 < n < 100 
+// ê¸°  ëŠ¥ : ê¸°ìˆ  ì„±ê³µë¥­ì˜ ìµœì†Œê°’ì„ ë¦¬í„´í•œë‹¤. 
+// ì¸  ì : ê¸°ìˆ ë²ˆí˜¸.
+// ë¦¬í„´ê°’ : 0 < n < 100 
 //-----------------------------------------------------
 int skillProb_k2( const int skillno, CItem_Join *join )
 {	
 	int k2 = 65;
-	if( join ) // ItemJoinTable¿¡¼­ k2À» °¡Á®¿Â´Ù.
+	if( join ) // ItemJoinTableì—ì„œ k2ì„ ê°€ì ¸ì˜¨ë‹¤.
 	{
 		k2 = join->k2;
 	}
@@ -107,15 +107,15 @@ int skillProb_needmax( const int skillno, const int target_id, CItem_Join *join 
 
 	switch( SkillTbl[skillno].MotherSkillExp )
 	{
-		// ¹«Á¶°Ç 100%
+		// ë¬´ì¡°ê±´ 100%
 	case 0 : ret = 100; 
 		break;
 
-		// ±×³É 1 - 100
+		// ê·¸ëƒ¥ 1 - 100
 	case 1 : ret = 100;							
 		break;	
 
-		// ÇØ´ç ¾ÆÄ¡ÅÛÀÇ °áÇÕÅ×ÀÌºíÂüÁ¶..
+		// í•´ë‹¹ ì•„ì¹˜í…œì˜ ê²°í•©í…Œì´ë¸”ì°¸ì¡°..
 	case 2 : if( join == NULL ) ret = 0;
 		else 
 		{
@@ -124,11 +124,11 @@ int skillProb_needmax( const int skillno, const int target_id, CItem_Join *join 
 		}
 		break;
 
-		// ÇØ´ç ½ºÅ³ÀÇ Å×ÀÌºíÂüÁ¶.
+		// í•´ë‹¹ ìŠ¤í‚¬ì˜ í…Œì´ë¸”ì°¸ì¡°.
 	case 3 : ret = SkillTbl[ skillno].Ability_max;
 		break;
 
-		// ½ºÅ³ÀÇ ÅÂ¸¯ÅÍ µ¥ÀÌÅÍ ÂüÁ¶..( Å×ÀÌ¹Ö )
+		// ìŠ¤í‚¬ì˜ íƒœë¦­í„° ë°ì´í„° ì°¸ì¡°..( í…Œì´ë° )
 	case 4 : if( target_id >= 10000 )
 			 {
 				ret = NPC_Gen_Ref[NPCList[ target_id - 10000].SprNo].Taming_max;
@@ -138,7 +138,7 @@ int skillProb_needmax( const int skillno, const int target_id, CItem_Join *join 
 				ret = 100;
 			 }break;
 		
-		// ÇØ´ç ½ºÅ³ÀÇ Ä³¸¯ÅÍ µ¥ÀÌÅÍ ÂüÁ¶..
+		// í•´ë‹¹ ìŠ¤í‚¬ì˜ ìºë¦­í„° ë°ì´í„° ì°¸ì¡°..
 	case 5 : if( target_id >= 10000 )
 			 {
 				 ret = NPC_Gen_Ref[NPCList[ target_id-10000].SprNo].Talkanimal_max;
@@ -148,14 +148,14 @@ int skillProb_needmax( const int skillno, const int target_id, CItem_Join *join 
 				ret = 100;
 			 }break;
 		
-		// ¾ÆÀÌÅÛÀÇ Æ¯¼º ÂüÁ¶..°æÀÛ...
+		// ì•„ì´í…œì˜ íŠ¹ì„± ì°¸ì¡°..ê²½ì‘...
 	case 6 :  ret = 100;							
 		break;
 
-		// ¹°°í±â Å×ÀÌºí ÂüÁ¶.. ³¬½Ã.
+		// ë¬¼ê³ ê¸° í…Œì´ë¸” ì°¸ì¡°.. ë‚šì‹œ.
 	case 7 :  ret = 100;
 
-		// ÇØ´ç ½ºÅ³ Ä³¸¯ÅÍ µ¥ÀÌÅÍ ÂüÁ¶ ( À½¾Ç½ºÅ³ ) 
+		// í•´ë‹¹ ìŠ¤í‚¬ ìºë¦­í„° ë°ì´í„° ì°¸ì¡° ( ìŒì•…ìŠ¤í‚¬ ) 
 	case 8 :
 	case 9 :
 	case 10:
@@ -177,24 +177,24 @@ int skillProb_needmin( const int skillno, const int target_id, CItem_Join *join 
 	int ret = 25;
 	switch( SkillTbl[skillno].MotherSkillExp )
 	{
-		// ¹«Á¶°Ç 100%
+		// ë¬´ì¡°ê±´ 100%
 	case 0 : ret = 1; 
 		break;
 
-		// ±×³É 1 - 100
+		// ê·¸ëƒ¥ 1 - 100
 	case 1 : ret = 1;							
 		break;	
 
-		// ÇØ´ç ¾ÆÄ¡ÅÛÀÇ °áÇÕÅ×ÀÌºíÂüÁ¶..
+		// í•´ë‹¹ ì•„ì¹˜í…œì˜ ê²°í•©í…Œì´ë¸”ì°¸ì¡°..
 	case 2 : if( join == NULL ) ret = 0;
 			 else ret = join->skill1_minimum;		
 		break;
 
-		// ÇØ´ç ½ºÅ³ÀÇ Å×ÀÌºíÂüÁ¶.
+		// í•´ë‹¹ ìŠ¤í‚¬ì˜ í…Œì´ë¸”ì°¸ì¡°.
 	case 3 : ret = SkillTbl[ skillno].Ability_min;
 		break;
 
-		// ½ºÅ³ÀÇ ÅÂ¸¯ÅÍ µ¥ÀÌÅÍ ÂüÁ¶..( Å×ÀÌ¹Ö )
+		// ìŠ¤í‚¬ì˜ íƒœë¦­í„° ë°ì´í„° ì°¸ì¡°..( í…Œì´ë° )
 	case 4 :	if( target_id >= 10000 )
 				{
 					ret = NPC_Gen_Ref[NPCList[ target_id - 10000].SprNo].Taming_min;
@@ -205,7 +205,7 @@ int skillProb_needmin( const int skillno, const int target_id, CItem_Join *join 
 				}
 		break;
 		
-		// ÇØ´ç ½ºÅ³ÀÇ Ä³¸¯ÅÍ µ¥ÀÌÅÍ ÂüÁ¶..
+		// í•´ë‹¹ ìŠ¤í‚¬ì˜ ìºë¦­í„° ë°ì´í„° ì°¸ì¡°..
 	case 5 : if( target_id >= 10000 )
 			 {
 				ret = NPC_Gen_Ref[NPCList[ target_id-10000].SprNo].Talkanimal_min;
@@ -217,14 +217,14 @@ int skillProb_needmin( const int skillno, const int target_id, CItem_Join *join 
 		 
 		break;
 		
-		// ¾ÆÀÌÅÛÀÇ Æ¯¼º ÂüÁ¶..°æÀÛ...
+		// ì•„ì´í…œì˜ íŠ¹ì„± ì°¸ì¡°..ê²½ì‘...
 	case 6 :  ret = 1;							
 		break;
 
-		// ¹°°í±â Å×ÀÌºí ÂüÁ¶.. ³¬½Ã.
+		// ë¬¼ê³ ê¸° í…Œì´ë¸” ì°¸ì¡°.. ë‚šì‹œ.
 	case 7 :  ret = 1;
 
-		// ÇØ´ç ½ºÅ³ Ä³¸¯ÅÍ µ¥ÀÌÅÍ ÂüÁ¶ ( À½¾Ç½ºÅ³ ) 
+		// í•´ë‹¹ ìŠ¤í‚¬ ìºë¦­í„° ë°ì´í„° ì°¸ì¡° ( ìŒì•…ìŠ¤í‚¬ ) 
 	case 8 :
 	case 9 :
 	case 10:
@@ -247,7 +247,7 @@ int ReturnSkillProbablity(	const int cn, const int skillno, const int x, const i
 {	
 	if( cn >= 10000 ) return 0;
 	
-	const int needmin = skillProb_needmin( skillno, target_id, joinitem );//´Ïµå¹Ì´Ï¸Ø ¹Ş¾Æ¿À´Â°÷! //this2 lsw
+	const int needmin = skillProb_needmin( skillno, target_id, joinitem );//ë‹ˆë“œë¯¸ë‹ˆë©ˆ ë°›ì•„ì˜¤ëŠ”ê³³! //this2 lsw
 	const int needmax = skillProb_needmax( skillno, target_id, joinitem );
 	int base = needmax - needmin;
 	
@@ -313,7 +313,7 @@ void SendViewCharInfo(const int cn, int target_id, int type, DWORD data, char *k
 	QueuePacket( connections, cn, &p, 1);
 }
 
-//1013 zhh Åë³ª¹«¿Í ¸ñÀç¿¡¸¸ ºÒÀÌ ºÙ´Â °ÍÀ» ¹Ù²Û´Ù
+//1013 zhh í†µë‚˜ë¬´ì™€ ëª©ì¬ì—ë§Œ ë¶ˆì´ ë¶™ëŠ” ê²ƒì„ ë°”ê¾¼ë‹¤
 int skill_Makefire_preCheck	(const int cn, const int skillno, const int x, const int y, const int targettype, const int target_id )
 {	
 	
@@ -322,22 +322,22 @@ int skill_Makefire_preCheck	(const int cn, const int skillno, const int x, const
 
 	switch( ItemList[target_id].item_no  )
 	{
-	case 1011	:	//	<Log>	<Åë³ª¹«>
-	case 1012	:	//	<Timber>	<¸ñÀç>	
-	case 1023	:	//	<Nutmeg Log>	<ºñÀÚ³ª¹«>
-	case 1024	:	//	<³ª¹«>	<¸®±â´Ù³ª¹«>
-	case 1025	:	//	<Fir Log>	<±¸»ó³ª¹«>
-	case 1026	:	//	<Oak Log>	<»ó¼ö¸®³ª¹«>
-	case 1027	:	//	<³ª¹«>	<°ÅÁ¦¼ö³ª¹«>
-	case 1028	:	//	<Beech Log>	<³Êµµ¹ã³ª¹«>
-	case 1029	:	//	<Whitebirch Log>	<ÀÚÀÛ³ª¹« >
-	case 1030	:	//	<Nutmeg Timber>	<ºñÀÚ³ª¹« ¸ñÀç>
-	case 1031	:	//	<³ª¹«>	<¸®±â´Ù³ª¹« ¸ñÀç>
-	case 1032	:	//	<Fir Timber>	<±¸»ó³ª¹« ¸ñÀç>
-	case 1033	:	//	<Oak Timber>	<»ó¼ö¸®³ª¹« ¸ñÀç>
-	case 1034	:	//	<³ª¹«>	<°ÅÁ¦¼ö³ª¹« ¸ñÀç>
-	case 1035	:	//	<Beech Timber>	<³Êµµ¹ã³ª¹« ¸ñÀç>
-	case 1036	:	//	<Whitebirch Timber>	<ÀÚÀÛ³ª¹« ¸ñÀç>
+	case 1011	:	//	<Log>	<í†µë‚˜ë¬´>
+	case 1012	:	//	<Timber>	<ëª©ì¬>	
+	case 1023	:	//	<Nutmeg Log>	<ë¹„ìë‚˜ë¬´>
+	case 1024	:	//	<ë‚˜ë¬´>	<ë¦¬ê¸°ë‹¤ë‚˜ë¬´>
+	case 1025	:	//	<Fir Log>	<êµ¬ìƒë‚˜ë¬´>
+	case 1026	:	//	<Oak Log>	<ìƒìˆ˜ë¦¬ë‚˜ë¬´>
+	case 1027	:	//	<ë‚˜ë¬´>	<ê±°ì œìˆ˜ë‚˜ë¬´>
+	case 1028	:	//	<Beech Log>	<ë„ˆë„ë°¤ë‚˜ë¬´>
+	case 1029	:	//	<Whitebirch Log>	<ìì‘ë‚˜ë¬´ >
+	case 1030	:	//	<Nutmeg Timber>	<ë¹„ìë‚˜ë¬´ ëª©ì¬>
+	case 1031	:	//	<ë‚˜ë¬´>	<ë¦¬ê¸°ë‹¤ë‚˜ë¬´ ëª©ì¬>
+	case 1032	:	//	<Fir Timber>	<êµ¬ìƒë‚˜ë¬´ ëª©ì¬>
+	case 1033	:	//	<Oak Timber>	<ìƒìˆ˜ë¦¬ë‚˜ë¬´ ëª©ì¬>
+	case 1034	:	//	<ë‚˜ë¬´>	<ê±°ì œìˆ˜ë‚˜ë¬´ ëª©ì¬>
+	case 1035	:	//	<Beech Timber>	<ë„ˆë„ë°¤ë‚˜ë¬´ ëª©ì¬>
+	case 1036	:	//	<Whitebirch Timber>	<ìì‘ë‚˜ë¬´ ëª©ì¬>
 		break;
 		
 	default :
@@ -373,101 +373,101 @@ void PrintSkillItemJoin( void  )
 			
 		if( ii == NULL ) 
 		{	
-			fprintf( fp, "\n %d¿¡ ÀÖ´Â ItemÀº »ç¿ëµÇÁö ¾Ê´Â ItemÀÌ°¡¿ä? \n\n", no ); 
+			fprintf( fp, "\n %dì— ìˆëŠ” Itemì€ ì‚¬ìš©ë˜ì§€ ì•ŠëŠ” Itemì´ê°€ìš”? \n\n", no ); 
 			continue;
 		}	
 			
-		fprintf( fp, "'%s(%d)'À» ¾òÀ»·Á¸é '%s(%d)±â¼úÀÌ ÇÊ¿ä.\n", ii->GetHanName(), no, 
+		fprintf( fp, "'%s(%d)'ì„ ì–»ì„ë ¤ë©´ '%s(%d)ê¸°ìˆ ì´ í•„ìš”.\n", ii->GetHanName(), no, 
 						SkillTbl[s->need_skill1].Skill_Minute, s->need_skill1 );
 		
 			
-		fprintf( fp, "        ÇÊ¿äÇÑ ±â¼úÀº ");
+		fprintf( fp, "        í•„ìš”í•œ ê¸°ìˆ ì€ ");
 		if( s->need_skill1 )	fprintf( fp,"'%30s(%7d)'( %d - %d )\n", SkillTbl[s->need_skill1].Skill_Minute, s->need_skill1, s->skill1_minimum, s->skill1_maximum );
 		if( s->need_skill2 )	fprintf( fp, "                        '%30s(%7d)'( %d - %d )\n", SkillTbl[s->need_skill2].Skill_Minute, s->need_skill2,  s->skill2_minimum, s->skill2_maximum );
 
 		if( s->need_skill1 == 0 && s->need_skill2 == 0 ) 
 		{
-		    fprintf( fp, "¾ø½À´Ï´Ù. \n" );
+		    fprintf( fp, "ì—†ìŠµë‹ˆë‹¤. \n" );
 		}
 				
 		if( s->resource1 == 0 && s->resource2 == 0 && s->resource3 == 0 && s->resource4 == 0)
 		{		
-			fprintf( fp, " ÀÌ±â¼úÀº ¾ÆÀÌÅÛÀÌ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù. \n" );
+			fprintf( fp, " ì´ê¸°ìˆ ì€ ì•„ì´í…œì´ í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤. \n" );
 		}		
 		else	
 		{		
-//			fprintf( fp, "        ÇÊ¿äÇÑ Item Àº  " );
+//			fprintf( fp, "        í•„ìš”í•œ Item ì€  " );
 
 			if( s->resource1 )
 				if( s->resource1_amount ) 
 				{
 					ii = ItemUnit( s->resource1/1000, s->resource1%1000 );
-					if( ii ) fprintf( fp, "        '%15s(%7d)'  %d°³ ÇÊ¿ä\n", ii->GetHanName(), s->resource1, s->resource1_amount );
+					if( ii ) fprintf( fp, "        '%15s(%7d)'  %dê°œ í•„ìš”\n", ii->GetHanName(), s->resource1, s->resource1_amount );
 				}
 			if( s->resource2 )
 				if( s->resource2_amount ) 
 				{
 					ii = ItemUnit( s->resource2/1000, s->resource2%1000 );
-					if( ii ) fprintf( fp, "        '%15s(%7d)'  %d°³ ÇÊ¿ä\n", ii->GetHanName(), s->resource2, s->resource2_amount );
+					if( ii ) fprintf( fp, "        '%15s(%7d)'  %dê°œ í•„ìš”\n", ii->GetHanName(), s->resource2, s->resource2_amount );
 				}
 			if( s->resource3 )
 				if( s->resource3_amount ) 
 				{
 					ii = ItemUnit( s->resource3/1000, s->resource3%1000 );
-					if( ii ) fprintf( fp, "        '%15s(%7d)'  %d°³ ÇÊ¿ä\n", ii->GetHanName(), s->resource3, s->resource3_amount );
+					if( ii ) fprintf( fp, "        '%15s(%7d)'  %dê°œ í•„ìš”\n", ii->GetHanName(), s->resource3, s->resource3_amount );
 				}
 			if( s->resource4 )
 				if( s->resource4_amount ) 
 				{
 					ii = ItemUnit( s->resource4/1000, s->resource4%1000 );
-					if( ii ) fprintf( fp, "        '%15s(%7d)'  %d°³ ÇÊ¿ä\n", ii->GetHanName(), s->resource4, s->resource4_amount );
+					if( ii ) fprintf( fp, "        '%15s(%7d)'  %dê°œ í•„ìš”\n", ii->GetHanName(), s->resource4, s->resource4_amount );
 				}
 		}		
 		
 		switch( s->Tool_kind )
 		{
-			case 48	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ °³°£¿ë(48)\n" );		break;
-			case 49	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ Ãß¼ö¿ë(49)\n");		break;
-			case 50	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ Ã¤±¤¿ë(50)\n");		break;
-			case 51	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ Á¦·Ã¿ë(51)\n");		break;
-			case 52	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ³¬½Ã¿ë(52)\n");		break;
-			case 53	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¹ú¸ñ¿ë(53)\n");		break;
-			case 54	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¸ñÀç°¡°ø¿ë(54)\n");	break;
-			case 55	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ µµÃà¿ë(55)\n");		break;
-			case 56	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¾àÃÊÃ¤Áı¿ë(56)\n");	break;
-			case 57	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¾àÀç¸¸µé±â¿ë(57)\n");	break;
-			case 58	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ °¡À§·ù(58)\n");		break;
-			case 59	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¸ñ°ø¿ë(59)\n"); break;
-			case 60	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ Ã¶°ø¿ë(60)\n"); break;
-			case 61	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ´ë¿ì´Â¿ä¸®¿ë(ÄíÄ¿)(61)\n"); break;
-			case 62	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ½á´Â¿ä¸®¿ë(62)\n"); break;
-			case 63	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¹Ù´Ã·ù(63)\n"); break;
-			case 64	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ È°Á¦ÀÛ¿ë(64)\n"); break;
-			case 65	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ºÒ´ë(65)\n"); break;
-			case 66	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¾çÃÊÁ¦ÀÛ¿ë(66)\n"); break;
-			case 67	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ¹Ğ³³°¡°ø¿ë(67)\n"); break;
-			case 68	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ Å×ÀÌ¹Ö¿ë(68)\n"); break;
-			case 69	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ±×¹°·ù(69)\n"); break;
-			case 70	:		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : µµ±¸ ºÎ½Ëµ¹·ù(70)\n"); break;
+			case 48	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ê°œê°„ìš©(48)\n" );		break;
+			case 49	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì¶”ìˆ˜ìš©(49)\n");		break;
+			case 50	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì±„ê´‘ìš©(50)\n");		break;
+			case 51	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì œë ¨ìš©(51)\n");		break;
+			case 52	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë‚šì‹œìš©(52)\n");		break;
+			case 53	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë²Œëª©ìš©(53)\n");		break;
+			case 54	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ëª©ì¬ê°€ê³µìš©(54)\n");	break;
+			case 55	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë„ì¶•ìš©(55)\n");		break;
+			case 56	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì•½ì´ˆì±„ì§‘ìš©(56)\n");	break;
+			case 57	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì•½ì¬ë§Œë“¤ê¸°ìš©(57)\n");	break;
+			case 58	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ê°€ìœ„ë¥˜(58)\n");		break;
+			case 59	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ëª©ê³µìš©(59)\n"); break;
+			case 60	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì² ê³µìš©(60)\n"); break;
+			case 61	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ëŒ€ìš°ëŠ”ìš”ë¦¬ìš©(ì¿ ì»¤)(61)\n"); break;
+			case 62	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì¨ëŠ”ìš”ë¦¬ìš©(62)\n"); break;
+			case 63	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë°”ëŠ˜ë¥˜(63)\n"); break;
+			case 64	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ í™œì œì‘ìš©(64)\n"); break;
+			case 65	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë¶ˆëŒ€(65)\n"); break;
+			case 66	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ì–‘ì´ˆì œì‘ìš©(66)\n"); break;
+			case 67	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë°€ë‚©ê°€ê³µìš©(67)\n"); break;
+			case 68	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ í…Œì´ë°ìš©(68)\n"); break;
+			case 69	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ê·¸ë¬¼ë¥˜(69)\n"); break;
+			case 70	:		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ë„êµ¬ ë¶€ì‹¯ëŒë¥˜(70)\n"); break;
 
-			default : 		fprintf( fp, "        ÇÊ¿ä·ÎÇÏ´Â ÇÏ´Â Tool Á¾·ù´Â : ¾øÀ½..\n" ); break;
+			default : 		fprintf( fp, "        í•„ìš”ë¡œí•˜ëŠ” í•˜ëŠ” Tool ì¢…ë¥˜ëŠ” : ì—†ìŒ..\n" ); break;
 		}
 
-		fprintf( fp, "        ÇÊ¿äÇÑ Àå¼Ò´Â  " );
+		fprintf( fp, "        í•„ìš”í•œ ì¥ì†ŒëŠ”  " );
 		switch( s->Flatform_kind )
 		{
-			case 0 :  fprintf( fp, "'¾Æ¹«µ¥³ª' ÀÌ´Ù. \n");			break;
+			case 0 :  fprintf( fp, "'ì•„ë¬´ë°ë‚˜' ì´ë‹¤. \n");			break;
 
-			case 71	:		fprintf( fp, " ÀÛ¾÷´ë ¿ë±¤·Î(71)\n"); break;
-			case 72	:		fprintf( fp, " ÀÛ¾÷´ë ¹èÆ²(72)\n"); break;
-			case 73	:		fprintf( fp, " ÀÛ¾÷´ë ¼±¹İ(73)\n"); break;
-			case 74	:		fprintf( fp, " ÀÛ¾÷´ë ¸ğ·ç(74)\n"); break;
-			case 75	:		fprintf( fp, " ÀÛ¾÷´ë È­´ö(75)\n"); break;
-			case 76	:		fprintf( fp, " ÀÛ¾÷´ë ½ÃÇè°ü·ù(76)\n"); break;
-			case 77	:		fprintf( fp, " ÀÛ¾÷´ë ¹°·¹(77)\n"); break;
-			case 78	:		fprintf( fp, " ÀÛ¾÷´ë ºÒ´ë (78)\n"); break;
+			case 71	:		fprintf( fp, " ì‘ì—…ëŒ€ ìš©ê´‘ë¡œ(71)\n"); break;
+			case 72	:		fprintf( fp, " ì‘ì—…ëŒ€ ë°°í‹€(72)\n"); break;
+			case 73	:		fprintf( fp, " ì‘ì—…ëŒ€ ì„ ë°˜(73)\n"); break;
+			case 74	:		fprintf( fp, " ì‘ì—…ëŒ€ ëª¨ë£¨(74)\n"); break;
+			case 75	:		fprintf( fp, " ì‘ì—…ëŒ€ í™”ë•(75)\n"); break;
+			case 76	:		fprintf( fp, " ì‘ì—…ëŒ€ ì‹œí—˜ê´€ë¥˜(76)\n"); break;
+			case 77	:		fprintf( fp, " ì‘ì—…ëŒ€ ë¬¼ë ˆ(77)\n"); break;
+			case 78	:		fprintf( fp, " ì‘ì—…ëŒ€ ë¶ˆëŒ€ (78)\n"); break;
 
-			default : fprintf( fp, "'Å×ÀÌºí°ªÀÌ Àß¸øµÈ°Í°°´Ù.\n" );	break;
+			default : fprintf( fp, "'í…Œì´ë¸”ê°’ì´ ì˜ëª»ëœê²ƒê°™ë‹¤.\n" );	break;
 		}
 
 		fprintf( fp, "---------------------------------------------------------------------------------------------\n" );
@@ -580,7 +580,7 @@ bool LoadItemJoinTable( void )
 			}
 
 		}		
-	TotalItemJoinTableCount= i; //010618 lsw À§¿¡¼­ ÀÌµ¿
+	TotalItemJoinTableCount= i; //010618 lsw ìœ„ì—ì„œ ì´ë™
 	}			
 				
 	SQLFreeStmt(hStmt, SQL_DROP);
@@ -750,12 +750,12 @@ bool LoadItemRare( void )
 				char	LocalName[100];
 				char	Explain[100];
 				char	ExplainAdd[100];
-				int		iExpMark;// + - ±âÈ£ Ç¥½Ã
-				int		iMakeAble;//¸¸µé¾î Áö´Â°¡?
-				int		RaisePro[8];// 0¹øÀº DefaultRaisePro
+				int		iExpMark;// + - ê¸°í˜¸ í‘œì‹œ
+				int		iMakeAble;//ë§Œë“¤ì–´ ì§€ëŠ”ê°€?
+				int		RaisePro[8];// 0ë²ˆì€ DefaultRaisePro
 				int		iUpgradeAble;
 				int		iAbleNation;//
-				int		GRADE[16];//0¹øÀº MAX ³ª¸ÓÁö´Â ±×·¹ÀÌµåº° °ª
+				int		GRADE[16];//0ë²ˆì€ MAX ë‚˜ë¨¸ì§€ëŠ” ê·¸ë ˆì´ë“œë³„ ê°’
 				int		Buffer1;
 				int		Buffer2;
 				int		Buffer3;
@@ -841,7 +841,7 @@ bool youvegotitInventory(const int cn, ItemAttr *item )
 	CHARLIST *ch = GetCharListPtr(cn);
 	int  i,j,m;
 	if( item == NULL ) return false;
-	CItem *ii = ItemUnit( item->item_no/1000, item->item_no % 1000 );	// ±×·± ItemÀÌ Table¿¡ ÀÖ´Â°¡?
+	CItem *ii = ItemUnit( item->item_no/1000, item->item_no % 1000 );	// ê·¸ëŸ° Itemì´ Tableì— ìˆëŠ”ê°€?
 	if( ii == NULL ) return false;
 
 	ItemAttr *tempitem;
@@ -973,8 +973,8 @@ int AddSkillExp2Exp(const int cn, int skillno, int hitrate )
 	if( lev < 1 )	lev = 1;	
 	if( lev > 100 ) lev = 100;	
 								
-	//1010 zhh	°æÇèÄ¡ Å×ÀÌºí¿¡	¼­ ÀĞ¾î µé¿©¼­ Ã³¸®ÇÑ´Ù.ÀÌ¹Ì Å×ÀÌºíÀ» ÀĞ¾î µéÀÌ°í ÀÖÁö¸¸ ÀÏ´Ü ÀÌ°É·Î °íÃÄµĞ´Ù. »õ·Î¿î Å×ÀÌºíÀÌ¶ó°í
-	//»ı°¢µÈ´Ù.					
+	//1010 zhh	ê²½í—˜ì¹˜ í…Œì´ë¸”ì—	ì„œ ì½ì–´ ë“¤ì—¬ì„œ ì²˜ë¦¬í•œë‹¤.ì´ë¯¸ í…Œì´ë¸”ì„ ì½ì–´ ë“¤ì´ê³  ìˆì§€ë§Œ ì¼ë‹¨ ì´ê±¸ë¡œ ê³ ì³ë‘”ë‹¤. ìƒˆë¡œìš´ í…Œì´ë¸”ì´ë¼ê³ 
+	//ìƒê°ëœë‹¤.					
 	inc = SkillExp[hitrate][lev];
 
 								
@@ -987,9 +987,9 @@ int AddSkillExp2Exp(const int cn, int skillno, int hitrate )
 }								
 								
 //-------------------------------------------------------------------------------------------------------------------------
-// ±â´É :  
-// ÀÎ  ÀÚ : 0 <= hitrate <= 100
-// ¸®ÅÏ°ª : 
+// ê¸°ëŠ¥ :  
+// ì¸  ì : 0 <= hitrate <= 100
+// ë¦¬í„´ê°’ : 
 //-------------------------------------------------------------------------------------------------------------------------
 int AddSkillExp(const int cn, int skillno, int hitrate )
 {	
@@ -1016,25 +1016,25 @@ int AddSkillExp(const int cn, int skillno, int hitrate )
 	case J_MERCHANT		:	 if( SkillTbl[skillno].Select_Merchant		== 1 )		 myjob = true;		break;
 	}
 
-	if( myjob == true ) // Áö±İ »ç¿ëÇÏ´Â ±â¼úÀÌ...
+	if( myjob == true ) // ì§€ê¸ˆ ì‚¬ìš©í•˜ëŠ” ê¸°ìˆ ì´...
 	{}
 	
 	fix = SkillTbl[ skillno].Ability_Fix;  // 0 <= fix <= SKILL_ABILITY_FIX_
 	
-	//1010 zhh		½ºÅ³·¹º§°ú È®·ü¿¡ µû¶ó¼­ ¾ò¾îÁö´Â °æÇèÄ¡°¡ ´Ù¸£´Ù.
+	//1010 zhh		ìŠ¤í‚¬ë ˆë²¨ê³¼ í™•ë¥ ì— ë”°ë¼ì„œ ì–»ì–´ì§€ëŠ” ê²½í—˜ì¹˜ê°€ ë‹¤ë¥´ë‹¤.
 	int skilllevel=connections[ cn].chrlst.skillexp[SkillTbl[skillno].MotherSkillType].skillexp/10000;
-	if(skilllevel<0)	skilllevel=0;		//¾ÈÀüÀåÄ¡µé
-	if(skilllevel>100)	skilllevel=100;		//¾ÈÀüÀåÄ¡µé
-	if(hitrate<0)		hitrate=0;			//¾ÈÀüÀåÄ¡µé
-	if(hitrate>100)		hitrate=100;		//¾ÈÀüÀåÄ¡µé
+	if(skilllevel<0)	skilllevel=0;		//ì•ˆì „ì¥ì¹˜ë“¤
+	if(skilllevel>100)	skilllevel=100;		//ì•ˆì „ì¥ì¹˜ë“¤
+	if(hitrate<0)		hitrate=0;			//ì•ˆì „ì¥ì¹˜ë“¤
+	if(hitrate>100)		hitrate=100;		//ì•ˆì „ì¥ì¹˜ë“¤
 	expadd = fix * SkillLevelExp[hitrate][skilllevel];	
 //	expadd = fix * ( 1 +(100 - hitrate)*(100 - hitrate) / 30 );  // 0607 
-	//1010 zhh		½ºÅ³·¹º§°ú È®·ü¿¡ µû¶ó¼­ ¾ò¾îÁö´Â °æÇèÄ¡°¡ ´Ù¸£´Ù.¿©±â±îÁö
+	//1010 zhh		ìŠ¤í‚¬ë ˆë²¨ê³¼ í™•ë¥ ì— ë”°ë¼ì„œ ì–»ì–´ì§€ëŠ” ê²½í—˜ì¹˜ê°€ ë‹¤ë¥´ë‹¤.ì—¬ê¸°ê¹Œì§€
 
 	expadd /= SKILL_ABILITY_FIX_;
 	
 	int inc = SkillTbl[skillno].MotherSkillType;										// 0527 YGI
-	//001214 zhh	//¾Æ·¡¿¡ ÀÖ´ø °æÇèÄ¡ ÁÖ´Â ·çÆ¾À» À§·Î ²ø¾î ¿Ã·È´Ù.½ºÅ³ °æÇèÄ¡´Â ¾È¿Ã¶óµµ °æÇèÄ¡´Â ¿À¸¥µµ·Ï ¼öÁ¤.
+	//001214 zhh	//ì•„ë˜ì— ìˆë˜ ê²½í—˜ì¹˜ ì£¼ëŠ” ë£¨í‹´ì„ ìœ„ë¡œ ëŒì–´ ì˜¬ë ¸ë‹¤.ìŠ¤í‚¬ ê²½í—˜ì¹˜ëŠ” ì•ˆì˜¬ë¼ë„ ê²½í—˜ì¹˜ëŠ” ì˜¤ë¥¸ë„ë¡ ìˆ˜ì •.
 	AddSkillExp2Exp( cn, skillno, hitrate );
 
 	if (connections[cn].chrlst.skillexp[inc].skillexp >= MAX_JOB_LEVEL*10000)
@@ -1042,7 +1042,7 @@ int AddSkillExp(const int cn, int skillno, int hitrate )
 		return 1;
 	}	//> CSD-040223
 
-	//001214 zhh	//gmÀÏ °æ¿ì´Â °æÇèÄ¡¸¦ ±ïÀ¸¸é ¾ÈµÈ´Ù.
+	//001214 zhh	//gmì¼ ê²½ìš°ëŠ” ê²½í—˜ì¹˜ë¥¼ ê¹ìœ¼ë©´ ì•ˆëœë‹¤.
 	//011012 lsw >
 	if( connections[ cn].chrlst.skillexp[ inc].skillexp > 999999 ) 
 	{
@@ -1065,16 +1065,16 @@ int AddSkillExp(const int cn, int skillno, int hitrate )
 }	
 /**************************************************************************************************
 	
-  SkillTbl[skillno].MotherSkillExp : ¼º°ø·ü °è»ê ÀÇ ÇüÅÂ 
+  SkillTbl[skillno].MotherSkillExp : ì„±ê³µë¥  ê³„ì‚° ì˜ í˜•íƒœ 
 	
 (2000.6.3 16:25)
 	
-			(³ªÀÇ ´É·Â(mybase/10000) - ÃÖ¼ÒÄ¡(needmin))
- ¼º°ø·ü = ----------------------------------------------   *  k1  +  K2
-			 (ÃÖ´ëÄ¡(needmax)    -    ÃÖ¼ÒÄ¡(needmin))
+			(ë‚˜ì˜ ëŠ¥ë ¥(mybase/10000) - ìµœì†Œì¹˜(needmin))
+ ì„±ê³µë¥  = ----------------------------------------------   *  k1  +  K2
+			 (ìµœëŒ€ì¹˜(needmax)    -    ìµœì†Œì¹˜(needmin))
 	
 	mybase = connections[ cn].chrlst.skillexp[ 45 ];   ( 0 =< n< 1,000,000 ) 
-			-->°æÇèÄ¡·Î °è»êÇÏ°í LevelÀ» Ãâ·ÂÇÒ¶§,  / 10000À¸·Î ÇÑ´Ù.
+			-->ê²½í—˜ì¹˜ë¡œ ê³„ì‚°í•˜ê³  Levelì„ ì¶œë ¥í• ë•Œ,  / 10000ìœ¼ë¡œ í•œë‹¤.
 
 
 ***************************************************************************************************/
@@ -1092,8 +1092,8 @@ int ReturnTamingPoint(const int cn , int skillno, int target_id, CItem_Join *joi
 	needmax = skillProb_needmax( skillno, target_id, joinitem );
 	base = needmax - needmin;
 	
-	if( base < 0 ) return 0;	// ¿¡·¯°ËÃâ·çÆ¾..
-	if( base <= 0 ) base = 1;	// min == maxÀÎ°æ¿ì ?
+	if( base < 0 ) return 0;	// ì—ëŸ¬ê²€ì¶œë£¨í‹´..
+	if( base <= 0 ) base = 1;	// min == maxì¸ê²½ìš° ?
 
 	mybase = connections[ cn].chrlst.skillexp[ SkillTbl[skillno].MotherSkillType].skillexp / 10000 -  needmin;
 
@@ -1152,13 +1152,13 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 	CHARLIST *ch= GetCharListPtr(cn);
 	if( !ch ) return;	// 020620 YGI
 
-	//<050425_KCH (¸Ş¸ğ¸® ÇØÅ·)¿¡¼­ Item Divide¹ö±×
-	CheckItem(cn);	//050331_KCH Memory Direct Hacking¿¡ µû¸¥ ¾ÆÀÌÅÛ Ã¼Å© °­È­.(¾ÆÀÌÅÛ ÇÕÄ¡´Ù Á¤»óÀûÀÎ ¾ÆÀÌÅÛÀÎÁö ¸ÕÀú È®ÀÎ)
+	//<050425_KCH (ë©”ëª¨ë¦¬ í•´í‚¹)ì—ì„œ Item Divideë²„ê·¸
+	CheckItem(cn);	//050331_KCH Memory Direct Hackingì— ë”°ë¥¸ ì•„ì´í…œ ì²´í¬ ê°•í™”.(ì•„ì´í…œ í•©ì¹˜ë‹¤ ì •ìƒì ì¸ ì•„ì´í…œì¸ì§€ ë¨¼ì € í™•ì¸)
 	//>050425_KCH
 
 	unsigned int iAttr3		= 0;
 	int RareType		= 0;
-	int SuccessMuch		= 0;//¼º°ø ¼ö·®
+	int SuccessMuch		= 0;//ì„±ê³µ ìˆ˜ëŸ‰
 	int iTryRare		= sp->s.p1;
 	int iRareGroup		= sp->s.p2;
 	int iTryMakeCount	= sp->s.p3;
@@ -1174,30 +1174,30 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 	const int  targettype	= sp->targettype;
 	const int  target_id	= sp->target_id;
 
-	const int check = SkillMgr.CheckYouCanSkillIt( cn, join, skillno, x, y, target_id );//¼ø¼­ ÁÖÀÇ.. //¿©±â¼­ JoinÀ» º¯°æ ½ÃÄÑÁØ´Ù
+	const int check = SkillMgr.CheckYouCanSkillIt( cn, join, skillno, x, y, target_id );//ìˆœì„œ ì£¼ì˜.. //ì—¬ê¸°ì„œ Joinì„ ë³€ê²½ ì‹œì¼œì¤€ë‹¤
 	const int hitrate = ReturnSkillProbablityNoExpAdd( cn, skillno, x, y, targettype, target_id, &join );
 
 	switch(iTryRare)
 	{
 	case 1:
 		{
-			iTryMakeCount = 1;//·¹¾î ½Ãµµ¸¦ ÇÏ¸é ½Ãµµ°¹¼ö´Â 1ÀÌ µÈ´Ù
+			iTryMakeCount = 1;//ë ˆì–´ ì‹œë„ë¥¼ í•˜ë©´ ì‹œë„ê°¯ìˆ˜ëŠ” 1ì´ ëœë‹¤
 		}break;
 	case 21:
 	case 31:
 	case 41:
 		{
 		}break;
-	default://·¹¾î ½Ãµµ°¡ ¾Æ´Ï¸é ±×·ì¿¡ °ªµé¾î¿Íµµ Áö¿ö ¹ö¸°´Ù
+	default://ë ˆì–´ ì‹œë„ê°€ ì•„ë‹ˆë©´ ê·¸ë£¹ì— ê°’ë“¤ì–´ì™€ë„ ì§€ì›Œ ë²„ë¦°ë‹¤
 		{
 			iRareGroup =0;
 		}break;
 	}
 
-	switch( check )// ±â¼úÀ» ¾µ¼ö ÀÖ´Â »óÈ²ÀÎÁö¸¦ Ã¼Å©ÇÑ´Ù. 
+	switch( check )// ê¸°ìˆ ì„ ì“¸ìˆ˜ ìˆëŠ” ìƒí™©ì¸ì§€ë¥¼ ì²´í¬í•œë‹¤. 
 	{
-	case ITEMMAKE_YOUCAN:{break;}//³ª´Â ÀÌ ¾ÆÀÌÅÛÀ» ¸¸µé ¼ö ÀÖ´Ù!
-	default://¸¸µé ¼ö ¾ø´Ù 
+	case ITEMMAKE_YOUCAN:{break;}//ë‚˜ëŠ” ì´ ì•„ì´í…œì„ ë§Œë“¤ ìˆ˜ ìˆë‹¤!
+	default://ë§Œë“¤ ìˆ˜ ì—†ë‹¤ 
 		{
 			SendSkillResultFail( cn, skillno, check );
 			return;
@@ -1205,25 +1205,25 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 		break;
 	}
 
-//	DecreaseEquipDuration(ch,(rand()%6+1)*iTryMakeCount,WT_WEAPON,0,false);//½ºÅ³Åø ³»±¸·Â °¨¼Ò //½ÃµµÈ½¼ö ¸¸Å­
+//	DecreaseEquipDuration(ch,(rand()%6+1)*iTryMakeCount,WT_WEAPON,0,false);//ìŠ¤í‚¬íˆ´ ë‚´êµ¬ë ¥ ê°ì†Œ //ì‹œë„íšŸìˆ˜ ë§Œí¼
 
-	//½Ã°£ Ã¼Å© 1°³´ç 1.5 ÃÊ µô·¹ÀÌ¸¦ ¸Ô´Â´Ù
+	//ì‹œê°„ ì²´í¬ 1ê°œë‹¹ 1.5 ì´ˆ ë”œë ˆì´ë¥¼ ë¨¹ëŠ”ë‹¤
 	if( global_time < ch->dwSkillMakeitemTime )	{return;}
 	else{	ch->dwSkillMakeitemTime = global_time+iTryMakeCount*1500;}
 
 	for(int count = 0  ; count < iTryMakeCount ; count++)
 	{
-		int r = (rand()%100)+1;	// ¼º°øÈ®·üÀ» °è»êÇÑ´Ù. 
-		if( r < hitrate ) 	{ 	SuccessMuch++;	}//¼º°øÇÑ °¹¼ö ±¸ÇÑ´Ù
+		int r = (rand()%100)+1;	// ì„±ê³µí™•ë¥ ì„ ê³„ì‚°í•œë‹¤. 
+		if( r < hitrate ) 	{ 	SuccessMuch++;	}//ì„±ê³µí•œ ê°¯ìˆ˜ êµ¬í•œë‹¤
 	}
 	
 	int	amount[4]	={	join.resource1_amount,join.resource2_amount,join.resource3_amount,join.resource4_amount	};
 	int	resource[4]	={	join.resource1,join.resource2,join.resource3,join.resource4	};
 	int	resultresource[2]	={	join.Result_resource1,	join.Result_resource2	};
 
-	// ItemJoinÅ×ÀÌºí¿¡ ÀÖ´Â °á°ú°ª´ë·Î Ã³¸®
-	for ( int cou = 0 ; cou	< iTryMakeCount; cou++ ) //¸®¼Ò½º Áö¿öÁÖ°í º´ °°Àº°Å ¶³±Å ÁÖ±â
-	{//¸®¼Ò½º´Â ½ÃµµÇÑ È½¼ö¸¸Å­ Áö¿î´Ù
+	// ItemJoiní…Œì´ë¸”ì— ìˆëŠ” ê²°ê³¼ê°’ëŒ€ë¡œ ì²˜ë¦¬
+	for ( int cou = 0 ; cou	< iTryMakeCount; cou++ ) //ë¦¬ì†ŒìŠ¤ ì§€ì›Œì£¼ê³  ë³‘ ê°™ì€ê±° ë–¨ê¶ˆ ì£¼ê¸°
+	{//ë¦¬ì†ŒìŠ¤ëŠ” ì‹œë„í•œ íšŸìˆ˜ë§Œí¼ ì§€ìš´ë‹¤
 		HungryMuchAdd( ch , HT_SKILL );//020214 lsw
 		int roll = 0; 
 		for(; roll < 4; roll++)
@@ -1235,9 +1235,9 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 					SendSkillResultFail( cn, skillno, ITEMMAKE_NOT_RESOURCE);
 					return;
 				}
-				else//1 2 ¸¸ ÀÖ´Âµ¥
+				else//1 2 ë§Œ ìˆëŠ”ë°
 				{
-					if( 0 < roll && 2 > roll ) //Á¶ÀÎ 1 2 ¸¸ °á°ú ¸®¼Ò½º°¡ Á¸Àç 
+					if( 0 < roll && 2 > roll ) //ì¡°ì¸ 1 2 ë§Œ ê²°ê³¼ ë¦¬ì†ŒìŠ¤ê°€ ì¡´ì¬ 
 					{
 						if( resultresource[roll])
 						{
@@ -1248,24 +1248,24 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 				}
 			}
 		}
-		AddSkillExp( cn, skillno, hitrate );//°æÇèÄ¡ ¿©·¯¹ø ÁÖ±â
+		AddSkillExp( cn, skillno, hitrate );//ê²½í—˜ì¹˜ ì—¬ëŸ¬ë²ˆ ì£¼ê¸°
 	}
 	
-	//¸Æ½º ¶§¹®¿¡ ¸ø¸¸µé¸é ¾ÆÀÌÅÛ ¾È »ç¶óÁö°í,
-	RareType = TryRareItem(cn,skillno,join,iTryRare,iRareGroup,iTryMakeCount,SuccessMuch);//·¹¾î Å¸ÀÔ ¹Ş¾Æ¿À±â
+	//ë§¥ìŠ¤ ë•Œë¬¸ì— ëª»ë§Œë“¤ë©´ ì•„ì´í…œ ì•ˆ ì‚¬ë¼ì§€ê³ ,
+	RareType = TryRareItem(cn,skillno,join,iTryRare,iRareGroup,iTryMakeCount,SuccessMuch);//ë ˆì–´ íƒ€ì… ë°›ì•„ì˜¤ê¸°
 
-	if( !SuccessMuch )//½ÇÆĞ ¸Ş¼¼Áö
+	if( !SuccessMuch )//ì‹¤íŒ¨ ë©”ì„¸ì§€
 	{	
 		RareType = 0;
 		SendSkillResultFail( cn, skillno ); 
 		if(iTryRare)
 		{
-			OutMessage(cn,2,259);//¾ÆÀÌÅÛÀÌ ½ÇÆĞÇÏ¿© ¸¸µé¼ö ¾øÀ½
+			OutMessage(cn,2,259);//ì•„ì´í…œì´ ì‹¤íŒ¨í•˜ì—¬ ë§Œë“¤ìˆ˜ ì—†ìŒ
 			return;
 		}
 		else
 		{
-			OutMessage(cn,2,260);//¾ÆÀÌÅÛÀÌ ½ÇÆĞÇÏ¿© ¸¸µé¼ö ¾øÀ½
+			OutMessage(cn,2,260);//ì•„ì´í…œì´ ì‹¤íŒ¨í•˜ì—¬ ë§Œë“¤ìˆ˜ ì—†ìŒ
 		}
 	}
 
@@ -1291,7 +1291,7 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 	}
 
 	for ( int iResultCount = 0 ; iResultCount< SuccessMuch; iResultCount++ ) 			
-	{	// ±â¼úÀÇ °á°ú¹°À» »ı¼º½ÃÅ²´Ù. 
+	{	// ê¸°ìˆ ì˜ ê²°ê³¼ë¬¼ì„ ìƒì„±ì‹œí‚¨ë‹¤. 
 
 		CItem *ii = ItemUnit( target_id );
 		if( !ii ){return;}
@@ -1311,7 +1311,7 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 				ItemAttr *inv = SearchInv(ch);
 				item.attr[IATTR_RARE_MAIN] = iAttr3;
 				if(ii->GetRbutton() == DIVIDE_ITEM )
-				{//¾ÆÀÌÅÛ ·Î±× ³²±â±â 
+				{//ì•„ì´í…œ ë¡œê·¸ ë‚¨ê¸°ê¸° 
 					Send_RareItemMakeLog( cn, join.item_id, 
 					((t_skillexp2*)&ch->skillexp[SkillTbl[skillno].MotherSkillType-14])->makecount
 					,1, RareType,0,0,0,0,0,0,item.attr[IATTR_LIMIT],
@@ -1325,21 +1325,21 @@ void SkillTargetTypeItemMake(const int cn, t_client_skill_info *sp)
 					LOWORD(item.attr[IATTR_DURATION]),HIWORD(item.attr[IATTR_DURATION]),100);
 				}
 				
-				if(inv)//ÀÎº¥Åä¸®°¡ ºñ¾úÀ¸¸é 
+				if(inv)//ì¸ë²¤í† ë¦¬ê°€ ë¹„ì—ˆìœ¼ë©´ 
 				{
 					*inv = item;
 					SendItemEventLog( inv, cn, SN_NOT_USER, SILT_MAKE_BY_SKILL, 1 ); //YGI acer
 					SendServerEachItem( inv,ch);
 					OutMessage(cn,2,524);
-					continue;//¾ÆÀÌÅÛÀ» ³Ö¾î ÁáÀ¸´Ï ¹Ù´Ú¿¡´Â ¾ÆÀÌÅÛÀ» ¶³¾î¶ß¸®Áö ¾Ê´Â´Ù 
+					continue;//ì•„ì´í…œì„ ë„£ì–´ ì¤¬ìœ¼ë‹ˆ ë°”ë‹¥ì—ëŠ” ì•„ì´í…œì„ ë–¨ì–´ëœ¨ë¦¬ì§€ ì•ŠëŠ”ë‹¤ 
 				}
 			}
-			SendItemEventLog( &item, cn, SN_NOT_USER, SILT_MAKE_TO_GROUND_BY_SKILL, 1 ); //YGI acer	// µû·Î ·Î±× Å¸ÀÔÀ» Á¤ÀÇÇÑ´Ù.
+			SendItemEventLog( &item, cn, SN_NOT_USER, SILT_MAKE_TO_GROUND_BY_SKILL, 1 ); //YGI acer	// ë”°ë¡œ ë¡œê·¸ íƒ€ì…ì„ ì •ì˜í•œë‹¤.
 			DropItem(	ch->X + (rand()%100) - 50, ch->Y + (rand()%100) - 50, &item);
 		}
 	}
 
-	if(SuccessMuch)//¼º°ø °¹¼ö ¾øÀ¸¸é ¾Èº¸³¿//020603 lsw
+	if(SuccessMuch)//ì„±ê³µ ê°¯ìˆ˜ ì—†ìœ¼ë©´ ì•ˆë³´ëƒ„//020603 lsw
 	{
 		p.h.header.type = CMD_SKILL_ITEMMAKE_RESULT;
 		{
@@ -1434,10 +1434,10 @@ void SendSkillGauge(const int cn, int skillno, int x, int y )
 	p.u.server_skill_gauge.y		= y;
 
 	
-	//	mining/cutting¿¡ 10À¸·Î ³ª´«ÀÌÀ¯´Â °ªÀÌ º¸Åë 0 - 1000ÀÇ °ªÀÌ°í °ÔÀÌÁöÀÇ Ç¥Çö¹üÀ§´Â 1/100ÀÌ±â ¶§¹®..
+	//	mining/cuttingì— 10ìœ¼ë¡œ ë‚˜ëˆˆì´ìœ ëŠ” ê°’ì´ ë³´í†µ 0 - 1000ì˜ ê°’ì´ê³  ê²Œì´ì§€ì˜ í‘œí˜„ë²”ìœ„ëŠ” 1/100ì´ê¸° ë•Œë¬¸..
 	switch( skillno )
 	{				
-		// °³°£...	
+		// ê°œê°„...	
 	case 21 :	ms = skill_ReturnProbablityFromSkillTable( &probablity,  TOOL_FARMING, x, y );
 				if( ms )
 				{	
@@ -1510,10 +1510,10 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 	// 020428 YGI acer
 	if( iTryMakeCount > 10 ) iTryMakeCount = 10;
 	
-	// acer5		// ¸ó½ºÅÍ ¾ÆÀÌµğ°¡ ³Ñ¾î ¿À¸é ¾î¶»°Ô µÇ¶ó°í
+	// acer5		// ëª¬ìŠ¤í„° ì•„ì´ë””ê°€ ë„˜ì–´ ì˜¤ë©´ ì–´ë–»ê²Œ ë˜ë¼ê³ 
 	CHARLIST *ch= CheckServerId(cn);
 	if( !ch )					{return;}
-	if( ch->cur_skillno )		{return;} // ÇöÀç ½ÃÀüÁßÀÎ ±â¼úÀÌ ÀÖ´Ù¸é ¹ŞÁö ¾Ê´Â´Ù. 
+	if( ch->cur_skillno )		{return;} // í˜„ì¬ ì‹œì „ì¤‘ì¸ ê¸°ìˆ ì´ ìˆë‹¤ë©´ ë°›ì§€ ì•ŠëŠ”ë‹¤. 
 	if( ch->bAlive != ALIVE_ )	{return;}
 
 	SaveBallancingSkill( ch, skillno );
@@ -1533,7 +1533,7 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 		return;
 	}
 
-	//	³»°¡ °¡Áø ±â¼úÀÌ ¸Â´Ù¸é ³Ñ¾î°¡°í ¾Æ´Ï¸é ¸®ÅÏÇÑ´Ù.
+	//	ë‚´ê°€ ê°€ì§„ ê¸°ìˆ ì´ ë§ë‹¤ë©´ ë„˜ì–´ê°€ê³  ì•„ë‹ˆë©´ ë¦¬í„´í•œë‹¤.
 	if(!SkillMgr.CheckIsYourSkill( ch, skillno )) 
 	{
 //		MyLog(LOG_NORMAL,"RecvSkillInfo() Recved Error SKillNo\n");
@@ -1542,7 +1542,7 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 	}
 	HungryMuchAdd( ch , HT_SKILL );
 	
-	switch( sp->targettype )// ½ÇÆĞ°¡ ¾Æ´Ï¶ó Àß¸øµÈ Data¸¦	°É·¯³½´Ù. 
+	switch( sp->targettype )// ì‹¤íŒ¨ê°€ ì•„ë‹ˆë¼ ì˜ëª»ëœ Dataë¥¼	ê±¸ëŸ¬ë‚¸ë‹¤. 
 	{		
 	case SKILLTARGETTYPE_MAP_ :	
 		{
@@ -1553,19 +1553,19 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 		//	DecreaseEquipDuration(ch,rand()%6+1,WT_WEAPON,0,true);//020720 lsw
 		}
 		break;										
-	case SKILLTARGETTYPE_TABLE_ :	//¾çÃÊ ¸¸µé±â³ª º´¸¸µé±â¸¦ À§ÇÑ ºÎºĞ
+	case SKILLTARGETTYPE_TABLE_ :	//ì–‘ì´ˆ ë§Œë“¤ê¸°ë‚˜ ë³‘ë§Œë“¤ê¸°ë¥¼ ìœ„í•œ ë¶€ë¶„
 		{
 			if( target_id/1000 < 0 || target_id/1000 >ETC ) goto FAIL_;
 		}
 		break;
 														
-	case SKILLTARGETTYPE_ITEM_ :	//Å¸°ÙÀÌ ¾ÆÀÌÅÛÀÎ°Í
+	case SKILLTARGETTYPE_ITEM_ :	//íƒ€ê²Ÿì´ ì•„ì´í…œì¸ê²ƒ
 		{
 			if( target_id < 0 || target_id >= MAX_ITEM_LIST ) goto FAIL_;
 			if( ItemList[ target_id].bAlive == REMOVE_ ) goto FAIL_;
 
 			temp = ItemList[ target_id].item_no;
-			// È¤½Ã ±â¼úÀ» »ç¿ëÇÒ¼ö ÀÖ´Â Item¿ÜÀÇ ¹øÈ£°¡ ¿À´Â°ÍÀ» ¸·´Â´Ù.
+			// í˜¹ì‹œ ê¸°ìˆ ì„ ì‚¬ìš©í• ìˆ˜ ìˆëŠ” Itemì™¸ì˜ ë²ˆí˜¸ê°€ ì˜¤ëŠ”ê²ƒì„ ë§‰ëŠ”ë‹¤.
 			if( temp / 1000 < 0 || temp /1000 > 10 ) goto FAIL_;
 		}
 		break;
@@ -1584,7 +1584,7 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 			CHARLIST *targetch = CheckServerId(target_id);
 			if(targetch)
 			{
-				if(strcmp(TargetName,targetch->Name))//ÀÌ¸§ÀÌ ´Ù¸£´Ù¸é//020531 lsw
+				if(strcmp(TargetName,targetch->Name))//ì´ë¦„ì´ ë‹¤ë¥´ë‹¤ë©´//020531 lsw
 				{
 					goto FAIL_;
 				}
@@ -1621,9 +1621,9 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 			QueuePacket( connections, cn, &p, 1);
 		}			
 				
-		// ÇØ´çÇÏ´Â ±â¼úÀÏ°æ¿ì Å¬¶óÀÌ¾ğÆ®¿¡¼­ °ÔÀÌÁö¸¦ Ãâ·ÂÇÏ°Ô ÇÑ´Ù. 
+		// í•´ë‹¹í•˜ëŠ” ê¸°ìˆ ì¼ê²½ìš° í´ë¼ì´ì–¸íŠ¸ì—ì„œ ê²Œì´ì§€ë¥¼ ì¶œë ¥í•˜ê²Œ í•œë‹¤. 
 		SendSkillGauge( cn, skillno, x, y );
-		// Pre Check....//¿Ö ¸ÕÀú Ã¼Å© ÇÏ´Âµ¥??
+		// Pre Check....//ì™œ ë¨¼ì € ì²´í¬ í•˜ëŠ”ë°??
 		switch( skillno )
 		{	// MakeFire
 			case  SKILL_MAKEFIRE :	
@@ -1641,7 +1641,7 @@ void RecvSkillInfo(const int cn, t_client_skill_info *sp)//020531 lsw
 		ch->cur_skillPOS			= sp->s;
 		//020531 lsw		>
 		memcpy(ch->cur_skillTargetName	,sp->TargetName,30);
-		ch->cur_skillTargetName[30] = 0;//strcmpÇÒ¶§ NtDll¿¡¼­ »¶³ª´Â°Å ¿¹¹æ
+		ch->cur_skillTargetName[30] = 0;//strcmpí• ë•Œ NtDllì—ì„œ ë»‘ë‚˜ëŠ”ê±° ì˜ˆë°©
 		//020531 lsw		<
 		ch->exetime_skill			= g_curr_time + SkillTbl[ skillno].Time_judge / 10;
 		break;						
@@ -1652,7 +1652,7 @@ FAIL_:
 	return ;
 }		
 
-void ReduceTame()		//ÀÏÁ¤ ½Ã°£ÀÌ Èå¸£¸é tameÀ» ±ï´Â´Ù.void CheckNPCTammingTimeElapsed( CHARLIST *ch )À» º¹»çÇØ¼­ »ç¿ë.
+void ReduceTame()		//ì¼ì • ì‹œê°„ì´ íë¥´ë©´ tameì„ ê¹ëŠ”ë‹¤.void CheckNPCTammingTimeElapsed( CHARLIST *ch )ì„ ë³µì‚¬í•´ì„œ ì‚¬ìš©.
 {	
 	static int min;				
 	
@@ -1703,12 +1703,12 @@ void RefreshSkillMapTable( void )
 //<! BBD 040311
 /*	static	int		ttime;
 
-	int g_y, g_mo, g_d, g_h, g_mi, g_se;		// °ÔÀÓ½Ã°£
+	int g_y, g_mo, g_d, g_h, g_mi, g_se;		// ê²Œì„ì‹œê°„
 	CurrentGameDate( g_curr_time*6, &g_y, &g_mo, &g_d, &g_h, &g_mi, &g_se );
 
 	int sub = g_h-ttime;
 	if( sub < 0 ) sub=sub+24;
-	if( sub < 6 ) return;	//1½Ã°£ ¸¶´Ù refresh
+	if( sub < 6 ) return;	//1ì‹œê°„ ë§ˆë‹¤ refresh
 
 	ttime = g_h;
 
@@ -1724,26 +1724,26 @@ void RefreshSkillMapTable( void )
 	for( i = iRefreshCount ; i < ep->diggingcount  ; i=i+4)	ep->digging[i] =ep->digging_old[i];
 	iRefreshCount++;*/
 
-	// ÀÌÀüÀÇ Å¸ÀÌ¸Ó¸¦ ½Å·ÚÇÒ¼ö ¾ø¾ú´Ù. ±×·¡¼­ ÇÔ¼ö³»ºÎ¸¦ ¾Ñ»ç¸® ´Ù½Ã ±¸¼ºÇÔ
+	// ì´ì „ì˜ íƒ€ì´ë¨¸ë¥¼ ì‹ ë¢°í• ìˆ˜ ì—†ì—ˆë‹¤. ê·¸ë˜ì„œ í•¨ìˆ˜ë‚´ë¶€ë¥¼ ì•—ì‚¬ë¦¬ ë‹¤ì‹œ êµ¬ì„±í•¨
 
 	static int old_hour = g_hour;
 	static int old_min = g_min;
-	static bool bReq = false;	// µ¿Á¢¿äÃ»À» 1¹ø¸¸ ÇÏ±âÀ§ÇÑ ÇÃ·¹±×
+	static bool bReq = false;	// ë™ì ‘ìš”ì²­ì„ 1ë²ˆë§Œ í•˜ê¸°ìœ„í•œ í”Œë ˆê·¸
 
 	int sub = g_hour-old_hour;
 	if( sub < 0 ) sub=sub+24;
 
-	if( sub != 4 || old_min != g_min)	// 4 ½Ã°£ Èê·¯¾ßÁö ¹ØÂÊÀ¸·Î ÁøÀÔ 4½Ã°£¸¶´Ù refresh	// BBD 040322
+	if( sub != 4 || old_min != g_min)	// 4 ì‹œê°„ í˜ëŸ¬ì•¼ì§€ ë°‘ìª½ìœ¼ë¡œ ì§„ì… 4ì‹œê°„ë§ˆë‹¤ refresh	// BBD 040322
 	{
 		int min = old_min - 1;
 		if(min < 0) min += 60;
 
-		if(!bReq && sub == 4 && min == g_min)	// ÀÌÀü½Ã°£À¸·ÎºÎÅÍ 4½Ã°£ Èå¸¥ ½Ã°£ÀÇ 1ºĞÀü µ¿Á¢À» ¿äÃ»ÇÑ´Ù	// BBD 040322
+		if(!bReq && sub == 4 && min == g_min)	// ì´ì „ì‹œê°„ìœ¼ë¡œë¶€í„° 4ì‹œê°„ íë¥¸ ì‹œê°„ì˜ 1ë¶„ì „ ë™ì ‘ì„ ìš”ì²­í•œë‹¤	// BBD 040322
 		{
-			RequestUsercountToProxy();		// µ¿Á¢¿äÃ»
+			RequestUsercountToProxy();		// ë™ì ‘ìš”ì²­
 			bReq = true;
 		}
-		return;	// 6½Ã°£ÀÌ ¾Ê‰çÀ¸¸é ¸®ÅÏ
+		return;	// 6ì‹œê°„ì´ ì•ŠÂ‰ç‘›ë§Œ?ë¦¬í„´
 	}
 
 	bReq = false;
@@ -1753,7 +1753,7 @@ void RefreshSkillMapTable( void )
 	t_earthpower *ep;				
 	ep = &EarthPower;
 
-	float Rate = GetResourceRate(g_UsercountInServerSet);	// ÀÚ¿ø¹èÀ²À» ±¸ÇØ¿Â´Ù
+	float Rate = GetResourceRate(g_UsercountInServerSet);	// ìì›ë°°ìœ¨ì„ êµ¬í•´ì˜¨ë‹¤
 
 	MyLog(0, "Resetting ResourceRate = %.1f, cause UsercountInServerSet = %d", Rate, g_UsercountInServerSet);
 	MyLog(0, "mine[0] orign:%d\tbefore:%d\tcurrent:%d", ep->mining_old[0], ep->mining[0], (int)(ep->mining_old[0] * Rate));
@@ -1798,7 +1798,7 @@ void UpdateSadonixCount()
 	
 		const short tempnSadTme = nSadTime;
 		nSadTime = g_wday*100 + g_hour;
-		if( tempnSadTme != nSadTime)//º¯Çß´Ù¸é
+		if( tempnSadTme != nSadTime)//ë³€í–ˆë‹¤ë©´
 		{
 			t_packet p;
 			p.h.header.type = CMD_SADONIX_COUNT_UPDATE;
@@ -1808,7 +1808,7 @@ void UpdateSadonixCount()
 		}
 	}
 }
-// °Ç ±â¼ú¿¡ ´ëÇØ ½ÃÀü½Ã°£ÀÌ Áö³ª¸é ½ÇÇà½ÃÅ²´Ù. 
+// ê±´ ê¸°ìˆ ì— ëŒ€í•´ ì‹œì „ì‹œê°„ì´ ì§€ë‚˜ë©´ ì‹¤í–‰ì‹œí‚¨ë‹¤. 
 void CheckSkillTimeElapsed( void )
 {	//< CSD-HK-030829
 	static DWORD time;
@@ -1840,7 +1840,7 @@ void CheckSkillTimeElapsed( void )
 				pTarget->SetServerID(i);
 			}
 
-			//<050421_KCH Accelerate Ã¼Å© ·çÆ¾ Á¦°Å(È¿°ú¹Ì¹Ì,AMDPCÁ¢¼Ó Â÷´Ü¹®Á¦)
+			//<050421_KCH Accelerate ì²´í¬ ë£¨í‹´ ì œê±°(íš¨ê³¼ë¯¸ë¯¸,AMDPCì ‘ì† ì°¨ë‹¨ë¬¸ì œ)
 			//CrackMgr.AutoCheckAccelator(pTarget);
 			//>050421_KCH
 
@@ -1853,7 +1853,7 @@ void CheckSkillTimeElapsed( void )
 				SkillMgr.AutoChangeHungry(pTarget);
 				SkillMgr.AutoRecoverCp(pTarget);
 				SkillMgr.AutoRefreshRareMakeCount(pTarget);
-				SkillMgr.AutoSetCanView(pTarget); //À¯·É , ÆøÅº , ¸¶¹ıÆ®·¦ µîÀ» º¼ ¼ö ÀÖ´ÂÁö Ã¼Å©
+				SkillMgr.AutoSetCanView(pTarget); //ìœ ë ¹ , í­íƒ„ , ë§ˆë²•íŠ¸ë© ë“±ì„ ë³¼ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬
 				RareEM.AutoCheckDynamicRare(pTarget->DynamicRare);
 
 				if (pTarget->cur_skillno)
@@ -1867,7 +1867,7 @@ void CheckSkillTimeElapsed( void )
 			}
 		}
 	}
-	// ¸ó½ºÅÍ ÀÚµ¿ Ã¼·Â È¸º¹
+	// ëª¬ìŠ¤í„° ìë™ ì²´ë ¥ íšŒë³µ
 	for (int j = NPC_LIST_START; j < MAX_NPC_LIST; ++j)
 	{
 		CHARLIST* ch = CheckNpcId(j);
@@ -1881,7 +1881,7 @@ void CheckSkillTimeElapsed( void )
 			const int nReal = ch->IncLife(nLife);
 
 			if (nReal > 0)
-			{	// Ã¼·Â È¸º¹Ã³·³ »ç¿ë 				
+			{	// ì²´ë ¥ íšŒë³µì²˜ëŸ¼ ì‚¬ìš© 				
 				t_packet packet;
 				packet.h.header.type = CMD_MAGIC_RESULT_H;
 				packet.h.header.size = sizeof(t_server_magic_result_h);
@@ -1898,7 +1898,7 @@ void CheckSkillTimeElapsed( void )
 	UpdateSadonixCount();
 }	//> CSD-HK-030829
 
-//Áö¿ö¾ß ÇÒ °Í °°Àº ÇÔ¼ö ÀÔ´Ï´Ù.
+//ì§€ì›Œì•¼ í•  ê²ƒ ê°™ì€ í•¨ìˆ˜ ì…ë‹ˆë‹¤.
 void RecvSkillCursorView(const int cn, t_client_skill_cursor_view  *p)
 {	
 	t_packet packet;
@@ -1915,16 +1915,16 @@ void RecvSkillCursorView(const int cn, t_client_skill_cursor_view  *p)
 	CastMe2Other( cn, &packet );
 }	
 	
-//	±â¼ú °á°ú¸¦ ´Ù¸¥ÀÌ¿¡°Ô ¾Ë¸°´Ù.
-//  Æ¯È÷ µµµÏ±â¼ú¿¡ ½ÇÆĞÇÏ¸é ÇÊÈ÷ ¾Ë·Á¾ß ÇÏÁö... ¾Ï....
-//	cn : ±â¼úÀ» ¾´»ç¶÷.
-//	target_id : ±â¼úÀ» ´çÇÑ »ç¶÷..
+//	ê¸°ìˆ  ê²°ê³¼ë¥¼ ë‹¤ë¥¸ì´ì—ê²Œ ì•Œë¦°ë‹¤.
+//  íŠ¹íˆ ë„ë‘‘ê¸°ìˆ ì— ì‹¤íŒ¨í•˜ë©´ í•„íˆ ì•Œë ¤ì•¼ í•˜ì§€... ì•”....
+//	cn : ê¸°ìˆ ì„ ì“´ì‚¬ëŒ.
+//	target_id : ê¸°ìˆ ì„ ë‹¹í•œ ì‚¬ëŒ..
 void SendSkillResultToOther(const int cn, const int skillno, const int target_id, const int result )
 {	
 	t_packet p;
 	p.h.header.type = CMD_SKILL_RESULT_TOOTHER;
 	
-		p.u.server_skill_result_toother.id		= cn; // ±â¼úÀ» ¾´»ç¶÷..
+		p.u.server_skill_result_toother.id		= cn; // ê¸°ìˆ ì„ ì“´ì‚¬ëŒ..
 		p.u.server_skill_result_toother.skillno = skillno;
 		p.u.server_skill_result_toother.result  = result;
 	
@@ -1953,7 +1953,7 @@ void SendViewTypeChange(const int cn, int viewtype )
 	p.h.header.size		= sizeof( t_viewtype_change );
 	p.u.viewtype_change.server_id = cn;
 	p.u.viewtype_change.viewtype = viewtype;
-	if( cn < 10000 )		//PCÀÎ °æ¿ì¸¸ º¸³¿
+	if( cn < 10000 )		//PCì¸ ê²½ìš°ë§Œ ë³´ëƒ„
 	{
 		QueuePacket( connections, cn, &p, 1);
 		CastMe2Other( cn, &p );
@@ -1971,7 +1971,7 @@ int skill_Detect_Ghost	( const int cn, const int skillno, const int x, const int
 
 	const int iHitrate	= ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );
 	const int r = rand()%100;
-	const int iTime = (SkillTbl[skillno].Produce_Fix*iHitrate)/1000000;//º¼ ¼ö ÀÖ´Â ÃÊ ´ÜÀ§
+	const int iTime = (SkillTbl[skillno].Produce_Fix*iHitrate)/1000000;//ë³¼ ìˆ˜ ìˆëŠ” ì´ˆ ë‹¨ìœ„
 	
 	if(SkillMgr.CanViewGhost(ch)){goto FAIL_; }
 	if( r > iHitrate )	{ goto FAIL_; }
@@ -2009,7 +2009,7 @@ int skill_Find_Traps		(const int cn, const int skillno, const int x, const int y
 	if( r > iHitrate ) {  SendSkillResultFail(cn, skillno); return 0; }
 
 	const int lv = ch->skillexp[ SkillTbl[skillno].MotherSkillType].skillexp / 10000;
-	int iTime = 30 + (lv*3);//	±âº» 30 ÃÊ + 1 ´ç 3		
+	int iTime = 30 + (lv*3);//	ê¸°ë³¸ 30 ì´ˆ + 1 ë‹¹ 3		
 	const int MAX = 300;
 	
 	if( iTime > MAX ) {iTime = MAX;}
@@ -2028,14 +2028,14 @@ int skill_GhostResurrection(const int cn, const int skillno, const int x, const 
 	if( ! Caster ) {goto FAIL_;}
 	if( ! Target ) {goto FAIL_;}
 	
-	if(!SkillMgr.CanViewGhost(Caster))			{	goto FAIL_;	}//À¯·ÉÀ» º¼ ¼ö ¾ø´Ù//020701 lsw
+	if(!SkillMgr.CanViewGhost(Caster))			{	goto FAIL_;	}//ìœ ë ¹ì„ ë³¼ ìˆ˜ ì—†ë‹¤//020701 lsw
 	if( Target->viewtype != VIEWTYPE_GHOST_ )	{	goto FAIL_;	}
 
 	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );
 	
 	if( r >= hitrate ) {goto FAIL_; }
 
-	// ÀÌ±â¼úÀº Å¬·¡½º°¡ ¼ºÁ÷ÀÚ¸¸ »ç¿ëÇÒ¼ö ÀÖ´Ù. 
+	// ì´ê¸°ìˆ ì€ í´ë˜ìŠ¤ê°€ ì„±ì§ìë§Œ ì‚¬ìš©í• ìˆ˜ ìˆë‹¤. 
 	switch(Caster->Class)
 	{
 		case WARRIOR : 
@@ -2045,7 +2045,7 @@ int skill_GhostResurrection(const int cn, const int skillno, const int x, const 
 		case PRIEST	 : break;
 	}
 
-//< soto-030326 Áß¸³Áö¿ªÀÌ ¾Æ´Ò¶§´Â...´Ù¸¥ ±¹°¡ »ç¶÷À» »ì¸±¼ö°¡ ¾ø´Ù.  1.02¹öÁ¯
+//< soto-030326 ì¤‘ë¦½ì§€ì—­ì´ ì•„ë‹ë•ŒëŠ”...ë‹¤ë¥¸ êµ­ê°€ ì‚¬ëŒì„ ì‚´ë¦´ìˆ˜ê°€ ì—†ë‹¤.  1.02ë²„ì ¼
 	if(!IsNeutralZone(MapNumber))
 	{
 		if(Caster->name_status.nation != Target->name_status.nation)
@@ -2056,12 +2056,12 @@ int skill_GhostResurrection(const int cn, const int skillno, const int x, const 
 	
 
 
-	// ±â¼úÀÌ µé¾î°¬À¸³ª ´©°¡ ¸ÕÀú »ì·ÈÀ» ¶§...
+	// ê¸°ìˆ ì´ ë“¤ì–´ê°”ìœ¼ë‚˜ ëˆ„ê°€ ë¨¼ì € ì‚´ë ¸ì„ ë•Œ...
 //	if(CON_NORMAL == Target->GetState() )	{goto FAIL_;}
 	if( CheckEventAttack())					{goto FAIL_;}//020205 lsw
 	if( CanLocalWarAttack(Caster,Target) )	{goto FAIL_;}//020205 lsw
 
-	SkillMgr.CharacterToAlive(Target);//»ç¶÷ »ì¸®±â
+	SkillMgr.CharacterToAlive(Target);//ì‚¬ëŒ ì‚´ë¦¬ê¸°
 	
 	addEXP( Caster, Target, HIT_GHOSTRESURRECTION, Target->HpMax / 10 );
 
@@ -2120,18 +2120,18 @@ int skill_Entrapment		(const int cn, const int skillno, const int x, const int y
 //	if( g_block_steal ) {	goto FAIL_;	}//020821 lsw
 	if( ret == 0 ) goto FAIL_;
 
-	// ÆøÅºÀÇ °ø°İ.. ¸¶¹ı ¹«½Ã ÇÏ°í °£´Ù.
+	// í­íƒ„ì˜ ê³µê²©.. ë§ˆë²• ë¬´ì‹œ í•˜ê³  ê°„ë‹¤.
 	t  = ItemUnit( ItemList[ target_id].item_no);
 
 	if(!t){goto FAIL_;}
 
-	if(t->GetItemKind() != IK_TRAP){goto FAIL_;}//if( ItemList[ target_id].item_no == 10033 ) ´ëÃ¼
+	if(t->GetItemKind() != IK_TRAP){goto FAIL_;}//if( ItemList[ target_id].item_no == 10033 ) ëŒ€ì²´
 	
-	//repairmin µ¥¹ÌÁö ,...
-	//repairmax °¡ ´É·ÂÄ¡ Á¦ÇÑ
+	//repairmin ë°ë¯¸ì§€ ,...
+	//repairmax ê°€ ëŠ¥ë ¥ì¹˜ ì œí•œ
 	if( ( ItemList[ target_id].attr[ IATTR_ATTR] & IA2_TRAPED1 ) == 0 )
 	{
-		//1009 zhh	//µ¥¹Ì2Áö¸¦ ¹Ì¸® °è»êÇÑ´Ù
+		//1009 zhh	//ë°ë¯¸2ì§€ë¥¼ ë¯¸ë¦¬ ê³„ì‚°í•œë‹¤
 		CItem_Etc *t = (CItem_Etc *)ItemUnit(ItemList[ target_id].item_no/1000, ItemList[ target_id].item_no%1000);
 			
 		if(!t){goto FAIL_;}
@@ -2185,7 +2185,7 @@ int skill_Detect_Bomb		(const int cn, const int skillno, const int x, const int 
 	if( r > iHitrate ) {  SendSkillResultFail(cn, skillno); return 0; }
 
 	const int lv = ch->skillexp[ SkillTbl[skillno].MotherSkillType].skillexp / 10000;
-	int iTime = 30 + (lv*3);//	±âº» 30 ÃÊ + 1 ´ç 3		
+	int iTime = 30 + (lv*3);//	ê¸°ë³¸ 30 ì´ˆ + 1 ë‹¹ 3		
 	const int MAX = 300;
 	
 	if( ch->bCanViewBomb ){ return 1;}
@@ -2203,18 +2203,18 @@ int skill_Bomb_in			(const int cn, const int skillno, const int x, const int y, 
 //	if( g_block_steal ) {	goto FAIL_;	}//020821 lsw
 	if( ret == 0 ) goto FAIL_;
 
-	// ÆøÅºÀÇ °ø°İ.. ¸¶¹ı ¹«½Ã ÇÏ°í °£´Ù.
+	// í­íƒ„ì˜ ê³µê²©.. ë§ˆë²• ë¬´ì‹œ í•˜ê³  ê°„ë‹¤.
 	t  = ItemUnit( ItemList[ target_id].item_no);
 
 	if(!t){goto FAIL_;}
 
-	if(t->GetItemKind() != IK_BOMB){goto FAIL_;}//if( ItemList[ target_id].item_no == 10033 ) ´ëÃ¼
+	if(t->GetItemKind() != IK_BOMB){goto FAIL_;}//if( ItemList[ target_id].item_no == 10033 ) ëŒ€ì²´
 	
-	//repairmin µ¥¹ÌÁö ,...
-	//repairmax °¡ ´É·ÂÄ¡ Á¦ÇÑ
+	//repairmin ë°ë¯¸ì§€ ,...
+	//repairmax ê°€ ëŠ¥ë ¥ì¹˜ ì œí•œ
 	if( ( ItemList[ target_id].attr[ IATTR_ATTR] & IA2_TRAPED0 ) == 0 )
 	{
-		//1009 zhh	//µ¥¹Ì2Áö¸¦ ¹Ì¸® °è»êÇÑ´Ù
+		//1009 zhh	//ë°ë¯¸2ì§€ë¥¼ ë¯¸ë¦¬ ê³„ì‚°í•œë‹¤
 		CItem_Etc *t = (CItem_Etc *)ItemUnit(ItemList[ target_id].item_no/1000, ItemList[ target_id].item_no%1000);
 			
 		if(!t){goto FAIL_;}
@@ -2302,7 +2302,7 @@ int skill_Remove_Bomb		(const int cn, const int skillno, const int x, const int 
 
 	if(!t){goto FAIL_;}
 
-	if(t->GetItemKind() != IK_BOMB){goto FAIL_;}//if( ItemList[ target_id].item_no == 10033 ) ´ëÃ¼
+	if(t->GetItemKind() != IK_BOMB){goto FAIL_;}//if( ItemList[ target_id].item_no == 10033 ) ëŒ€ì²´
 
 	UserSkillLevel = connections[ cn].chrlst.skillexp[ SkillTbl[skillno].MotherSkillType].skillexp / 10000;
 	if( t->Repair_max > UserSkillLevel ) {goto FAIL_;}
@@ -2332,7 +2332,7 @@ FAIL_:
 	return 0; 
 }
 
-//<soto-stealÃß°¡
+//<soto-stealì¶”ê°€
 int		SerchItemNPCINV(CHARLIST* ch,int nItemNumber)
 {
 	int count = 0;
@@ -2360,7 +2360,7 @@ int		TotalItemCountNPCINV(CHARLIST* ch)
 
 	return count;
 }
-//>soto-stealÃß°¡
+//>soto-stealì¶”ê°€
 
 
 int skill_Stealing	(const int cn, const int skillno, int x, int y, const int targettype, const int target_id )//020815 lsw
@@ -2408,7 +2408,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 	||	MapInfo[MapNumber].forrookie == 2)
 	{
 		goto FAIL__;
-	} //PK°¡ ¾ÈµÇ´Â Áö¿ª¿¡¼­´Â ÈÉÄ¥ ¼ö ¾ø´Ù.
+	} //PKê°€ ì•ˆë˜ëŠ” ì§€ì—­ì—ì„œëŠ” í›”ì¹  ìˆ˜ ì—†ë‹¤.
 	
 
 	if(::stricmp(target->Name,caster->cur_skillTargetName))//020531 lsw 
@@ -2416,7 +2416,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 		goto FAIL__;
 	}
 	if(caster->GetLevel() < 31) {goto FAIL__;} // CSD-030806
-	if(target->IsCounselor()){goto FAIL__;}//¿î¿µÀÚ´Â ¸øÈÉÃÄ//020730 lsw
+	if(target->IsCounselor()){goto FAIL__;}//ìš´ì˜ìëŠ” ëª»í›”ì³//020730 lsw
 	if(CanLocalWarAttack(caster,target)){goto FAIL__;}
 	if( target->viewtype == VIEWTYPE_GHOST_ ) {goto FAIL__;}
 	if(	target->Hp <=0 ) {goto FAIL__;}
@@ -2426,7 +2426,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 
 	if(LocalMgr.IsAbleNation(KOREA))
 	{
-		if( TileMap[x][y].attr_no_battle || !IsNeutralZone(MapNumber) ) // soto 030307 " || !IsEnableSkill_Steal(MapNumber) " ºÎºĞ Ãß°¡.
+		if( TileMap[x][y].attr_no_battle || !IsNeutralZone(MapNumber) ) // soto 030307 " || !IsEnableSkill_Steal(MapNumber) " ë¶€ë¶„ ì¶”ê°€.
 		{
 			OutMessage(caster->GetServerID(),2,525);//011218 lsw
 			::SendSkillResultFail(cn, skillno); 
@@ -2457,7 +2457,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 	sx = caster->MoveSx;	
 	sy = caster->MoveSy;
 
-	if(BoxAndDotCrash(sx-3,sy-3,7,7,ex,ey))//	µµµÏÁúÀº ¾à ¹İ°æ 3Å¸ÀÏ¾È¿¡ ÀÖ¾î¾ß 4-8Å¸ÀÏ¹Û¿¡ ÀÖÀ¸¸é 20%·Î ¶Ò¶³¾îÁø´Ù. 
+	if(BoxAndDotCrash(sx-3,sy-3,7,7,ex,ey))//	ë„ë‘‘ì§ˆì€ ì•½ ë°˜ê²½ 3íƒ€ì¼ì•ˆì— ìˆì–´ì•¼ 4-8íƒ€ì¼ë°–ì— ìˆìœ¼ë©´ 20%ë¡œ ëšë–¨ì–´ì§„ë‹¤. 
 	{
 
 	}	
@@ -2491,7 +2491,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 				StealItem = target->inv[i][j][k];
 				if(StealItem.item_no)
 				{		
-					if(StealItem.item_no == IN_STEAL_RESULT)//Áõ°Å ¾ÆÅÛÀÌ¸é ¹éÀå¹ÌÀÌ´Ù.
+					if(StealItem.item_no == IN_STEAL_RESULT)//ì¦ê±° ì•„í…œì´ë©´ ë°±ì¥ë¯¸ì´ë‹¤.
 					{
 						continue;
 					}
@@ -2505,7 +2505,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 					}
 
 					//if( ii->GetLevel() > caster->skillexp[SkillTbl[skillno].MotherSkillType].skillexp / 10000 )
-					if( ii->GetLevel() > 98)//98±îÁö¸¸ ÈÉÄ¥¼ö ÀÖ´Ù.
+					if( ii->GetLevel() > 98)//98ê¹Œì§€ë§Œ í›”ì¹ ìˆ˜ ìˆë‹¤.
 					{
 						continue;
 					}
@@ -2521,7 +2521,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 
 	iSteal= rand()%count;
 
-	if(!iTraped )//Æ®·¦ÀÌ ¾Æ´Ô 
+	if(!iTraped )//íŠ¸ë©ì´ ì•„ë‹˜ 
 	{
 		pStealItem = GetItemByPOS( target, ItemPos[iSteal]);
 		i =ItemPos[iSteal].p1;
@@ -2530,7 +2530,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 	}
 	else
 	{
-		if(SearchItemByInv(iForceItemNo,target,i,j,k))//Æ®·¦ÀÌ¸é Æ®·¦¹øÈ£·Î Ã£¾Æ³½´Ù
+		if(SearchItemByInv(iForceItemNo,target,i,j,k))//íŠ¸ë©ì´ë©´ íŠ¸ë©ë²ˆí˜¸ë¡œ ì°¾ì•„ë‚¸ë‹¤
 		{
 			POS pos;
 			pos.type = INV;
@@ -2544,7 +2544,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 	}
 	
 	if( !pStealItem ) goto FAIL__;
-	StealItem = *pStealItem;//¾ÆÀÌÅÛÀ» ÈÉÄ¡´Ï±î °ªÀ» ÀÓ½Ã°ø°£¿¡ ÀúÀå ÇØ µÎ°í
+	StealItem = *pStealItem;//ì•„ì´í…œì„ í›”ì¹˜ë‹ˆê¹Œ ê°’ì„ ì„ì‹œê³µê°„ì— ì €ì¥ í•´ ë‘ê³ 
 	ii = ItemUnit( StealItem.item_no );
 
 	if(!StealItem.item_no)
@@ -2552,17 +2552,17 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 		goto FAIL__;
 	}
 	///////////////////////////////
-	// ÈÉÄ¡±â ´çÇÑÀÚÀÇ Ã³¸®(¹¹°¡ µÆµç Å¸°ÙµÇ´Â ÀÚ¸®ÀÇ ¾ÆÀÌÅÛÀº Àå¹Ì°¡ µÇ´øÁö ¾ø¾îÁø´Ù)
-	if(!iTraped )//Æ®·¦ÀÌ ¾Æ´Ô 
+	// í›”ì¹˜ê¸° ë‹¹í•œìì˜ ì²˜ë¦¬(ë­ê°€ ëë“  íƒ€ê²Ÿë˜ëŠ” ìë¦¬ì˜ ì•„ì´í…œì€ ì¥ë¯¸ê°€ ë˜ë˜ì§€ ì—†ì–´ì§„ë‹¤)
+	if(!iTraped )//íŠ¸ë©ì´ ì•„ë‹˜ 
 	{
-		ResultItem = ::GenerateItem( IN_STEAL_RESULT );//¹éÀå¹Ì
+		ResultItem = ::GenerateItem( IN_STEAL_RESULT );//ë°±ì¥ë¯¸
 	}
-	else//Æ®·¦ÀÓ
+	else//íŠ¸ë©ì„
 	{
-		ZeroMemory(&ResultItem	,sizeof(ItemAttr));//¾ÆÀÌÅÛ ¾ø¾îÁü
-		ZeroMemory(&StealItem   ,sizeof(ItemAttr));//ÈÉÃÄ³í ¾ÆÀÌÅÛ ¾ø¾îÁü//Æ®·¦À» ÈÉÄ¥ ¼ö´Â ¾øÀİ¾Æ.
-////////µ£ Ã³¸®
-// soto 030307 µ£¿¡ °É¸®¸é...¹Ù·Î Á×¾î¾ß µÈ´Ù.		
+		ZeroMemory(&ResultItem	,sizeof(ItemAttr));//ì•„ì´í…œ ì—†ì–´ì§
+		ZeroMemory(&StealItem   ,sizeof(ItemAttr));//í›”ì³ë…¼ ì•„ì´í…œ ì—†ì–´ì§//íŠ¸ë©ì„ í›”ì¹  ìˆ˜ëŠ” ì—†ì–ì•„.
+////////ë« ì²˜ë¦¬
+// soto 030307 ë«ì— ê±¸ë¦¬ë©´...ë°”ë¡œ ì£½ì–´ì•¼ ëœë‹¤.		
 		if(LocalMgr.IsAbleNation(KOREA))
 		{
 			caster->Hp = 0;
@@ -2579,7 +2579,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 		p.h.header.type = CMD_STEAL_ON_TRAP;
 		p.h.header.size = sizeof(t_server_steal_on_trap);
 		p.u.server_steal_on_trap.idServer = WORD(cn);
-		p.u.server_steal_on_trap.nLife = caster->Hp;//½ÃÀüÀÚÀÇ Hp¸¦ ±×´ë·Î º¸³»ÁÜ
+		p.u.server_steal_on_trap.nLife = caster->Hp;//ì‹œì „ìì˜ Hpë¥¼ ê·¸ëŒ€ë¡œ ë³´ë‚´ì¤Œ
 
 		QueuePacket(connections, cn, &p, 1);
 		CastMe2Other( cn, &p );
@@ -2587,24 +2587,24 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 		if (caster->IsDead() == true)
 		{
 			killCharacter( NULL, caster );
-			SendCharacterCondition(caster, 0); // soto 030307 Ãß°¡. »óÅÂ¸¦ º¸³» ÁÖ¾î¾ß Á×´õ¶ó. ¤Ñ¤Ñ;
+			SendCharacterCondition(caster, 0); // soto 030307 ì¶”ê°€. ìƒíƒœë¥¼ ë³´ë‚´ ì£¼ì–´ì•¼ ì£½ë”ë¼. ã…¡ã…¡;
 		}
 		
 		OutMessage(target->GetServerID(),2,523);
 		OutMessage(caster->GetServerID(),2,523);
 
-// soto 030307 Ãß°¡.
-////////Æ®·¾À» ¾ø¾Ø´Ù.
+// soto 030307 ì¶”ê°€.
+////////íŠ¸ë ™ì„ ì—†ì•¤ë‹¤.
 		SetItemPos( INV, i,j,k, &pos );
 //		SendDeleteItem(&target->inv[i][j][k],&pos,target,false);
-		DeleteItem(&target->inv[i][j][k]);//¸ó½ºÅÍ ÀÌ¹Ç·Î.
+		DeleteItem(&target->inv[i][j][k]);//ëª¬ìŠ¤í„° ì´ë¯€ë¡œ.
 		return 0; 		
 // soto End.
 	}
 	SendItemEventLog( pStealItem, target_id, cn, SILT_PUT_STOLEN, 1 );
-	*pStealItem = ResultItem;//´çÇÑ ¹°°ÇÀ» ³Ö¾îÁÖÀÚ	//ÈÉÄ£ ¾ÆÀÌÅÛ ÀÎº¥Åä¸® Æ÷ÀÎÅÍ¿¡ °ªÀ» ³Ö¾îÁØ´Ù
+	*pStealItem = ResultItem;//ë‹¹í•œ ë¬¼ê±´ì„ ë„£ì–´ì£¼ì	//í›”ì¹œ ì•„ì´í…œ ì¸ë²¤í† ë¦¬ í¬ì¸í„°ì— ê°’ì„ ë„£ì–´ì¤€ë‹¤
 
-// soto 030307 lsw ´ÔÀÇ ¿äÃ»À¸·Î ¼öÁ¤.
+// soto 030307 lsw ë‹˜ì˜ ìš”ì²­ìœ¼ë¡œ ìˆ˜ì •.
 //	p.h.header.type = CMD_GIVE_ITEM; 
 //	{
 //		p.u.server_give_item.p1 = i;
@@ -2613,21 +2613,21 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 //		p.u.server_give_item.item = ResultItem;
 //	}
 //	p.h.header.size = sizeof( t_server_give_item );
-//	QueuePacket( connections, target_id, &p, 1);//´çÇÑ»ç¶÷ ¾ÆÀÌÅÛ ±â·Ï ³²±è
+//	QueuePacket( connections, target_id, &p, 1);//ë‹¹í•œì‚¬ëŒ ì•„ì´í…œ ê¸°ë¡ ë‚¨ê¹€
 
 //	SetItemPos( INV, i,j,k, &pos );
 //	SendServerEachItem( &pos, &target->inv[i][j][k], target_id);
 // soto End.
 
 	memset(&p, 0, sizeof(t_packet));
-	// ¿©±â±îÁö ¿À¸é ÈÉÄ¡±â ¼º°øÀÌ±â ¶§¹®¿¡ 
-	if( SearchInv( caster->inv, a1, a2, a3 ) )  //ºóÄ­ÀÌ ÀÖ´Ù¸é
+	// ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ í›”ì¹˜ê¸° ì„±ê³µì´ê¸° ë•Œë¬¸ì— 
+	if( SearchInv( caster->inv, a1, a2, a3 ) )  //ë¹ˆì¹¸ì´ ìˆë‹¤ë©´
 	{		
 		caster->inv[a1][a2][a3] = StealItem;	// 
 		SetItemPos( INV, a1,a2,a3, &pos );
 		SendServerEachItem( &pos, &caster->inv[a1][a2][a3], cn );
 	}				
-	else//¶¥¿¡ ´ú¾î¶ß¸²....
+	else//ë•…ì— ëœì–´ëœ¨ë¦¼....
 	{				
 		AddItemList( StealItem.item_no,StealItem.attr, 0, target->X+rand()%40, target->Y+rand()%60, 0, 0,  0,0,0,0 );
 	}
@@ -2638,9 +2638,9 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 	}
 
 
-//	if( rand()%100 < warning ) // 5%ÀÇ È®·ü·Î ´çÇÑ ¾êÇÑµ¥ °á°ú¸¦ ¾Ë·ÁÁØ´Ù.  ( µéÄ×´Ù )
+//	if( rand()%100 < warning ) // 5%ì˜ í™•ë¥ ë¡œ ë‹¹í•œ ì–˜í•œë° ê²°ê³¼ë¥¼ ì•Œë ¤ì¤€ë‹¤.  ( ë“¤ì¼°ë‹¤ )
 //	{
-//		SendSkillResult( cn, skillno, target_id, x, y, 2 ); // µéÄ×´Ù. 
+//		SendSkillResult( cn, skillno, target_id, x, y, 2 ); // ë“¤ì¼°ë‹¤. 
 //		SendSkillResultToOther( cn, skillno, target_id, 1 );
 //		CheckNK( cn, target_id, NK_TYPE_STEAL_ );
 //	}
@@ -2653,7 +2653,7 @@ int skill_Stealing	(const int cn, const int skillno, int x, int y, const int tar
 	return 0;
 FAIL__:
 	{
-		CheckNK( cn, target_id, NK_TYPE_NO_KILL_);//NK Ãß°¡
+		CheckNK( cn, target_id, NK_TYPE_NO_KILL_);//NK ì¶”ê°€
 		SendSkillResultFail(cn, skillno); 
 		return 0;
 	}
@@ -2679,7 +2679,7 @@ int skill_Reclaim			(const int cn, const int skillno, const int x, const int y, 
 
 	if( mt->type_Num && mt->type_Num < MAX_EARTHSKILL ) 
 	{
- 		if( ep->reclaim[ mt->type_Num ] >= 10000 ) // ´Ù °³°£ÀÌ µÇ¾úÀ¸¸é..
+ 		if( ep->reclaim[ mt->type_Num ] >= 10000 ) // ë‹¤ ê°œê°„ì´ ë˜ì—ˆìœ¼ë©´..
 		{
 			why = SKILLFAIL_NO_MORE_RACLAIM;
 			goto FAIL_;
@@ -2753,7 +2753,7 @@ int skill_Sow				(const int cn, const int skillno, const int x, const int y, con
 		case QUICK:	item = &pCh->quick[s.p3];			break;
 		default : goto ERROR_;
 	}			
-	if( !item->attr[IATTR_MUCH])//¼ö·®ÀÌ ¸ğÀÚ¶ó´Ù¸é ±â¼úÀÌ ¾ÈµÈ´Ù
+	if( !item->attr[IATTR_MUCH])//ìˆ˜ëŸ‰ì´ ëª¨ìë¼ë‹¤ë©´ ê¸°ìˆ ì´ ì•ˆëœë‹¤
 	{
 		goto ERROR_;
 	}
@@ -2797,11 +2797,11 @@ int skill_Sow				(const int cn, const int skillno, const int x, const int y, con
 	ditem.attr[IATTR_DURATION]	 =  g_curr_time + ITEM_FARM_GROW_TIME;
 			
 //			
-//          °³°£µµ/100 * Produce_Fix/100 * ±âº»¼º°ø·ü * ( 101 - ÀÛ¹°ÀÇ Lv ) 
+//          ê°œê°„ë„/100 * Produce_Fix/100 * ê¸°ë³¸ì„±ê³µë¥  * ( 101 - ì‘ë¬¼ì˜ Lv ) 
 //            100 *   100      *     100%   *       100       = 100,000,000
 //			
-//          ÇÏ³ªÀÇ ±¸¿ª¿¡¼­ ¾òÀ»¼ö ÀÖ´Â ¼öÈ®¹°Àº À§ÀÇ °è»ê¿¡¼­ ³ª¿Â°ª / 1,000,000 ÀÌ´Ù. 
-// ÀÎ ÀÚ :	
+//          í•˜ë‚˜ì˜ êµ¬ì—­ì—ì„œ ì–»ì„ìˆ˜ ìˆëŠ” ìˆ˜í™•ë¬¼ì€ ìœ„ì˜ ê³„ì‚°ì—ì„œ ë‚˜ì˜¨ê°’ / 1,000,000 ì´ë‹¤. 
+// ì¸ ì :	
 //	
 
 	ep = &EarthPower;
@@ -2871,7 +2871,7 @@ int skill_Havest			(  int cn, const int skillno, const int x, const int y, const
 		item = GenerateItem( getitemno );//020509 lsw
 		if( item.item_no == 0 ) { why = SKILLFAIL_NO_SEED; goto FAIL_; }
 
-		// ÇÑ¹ø ³·Áú¿¡ ¼öÈ®ÇÒ¼ö ÀÖ´Â ·®À» Á¤ÇÑ´Ù. 
+		// í•œë²ˆ ë‚®ì§ˆì— ìˆ˜í™•í• ìˆ˜ ìˆëŠ” ëŸ‰ì„ ì •í•œë‹¤. 
 		amount = 5;
 		if( target->attr[ IATTR_RESERVED0] < amount ) amount = target->attr[ IATTR_RESERVED0];
 		target->attr[ IATTR_RESERVED0] -= amount;
@@ -2884,10 +2884,10 @@ int skill_Havest			(  int cn, const int skillno, const int x, const int y, const
 		//1002 zhh
 		if( i == 0 ) { why = 0; goto FAIL_; }
 		
-		// ¸ğµÎ ¼öÈ®ÇßÀ¸¸é..
+		// ëª¨ë‘ ìˆ˜í™•í–ˆìœ¼ë©´..
 		if( target->attr[ IATTR_RESERVED0] == 0 ) RemoveItemList( target_id);
 
-		//½ºÅ³ ´É·ÂÄ¡ 80 ÀÌ»óÀÌ°í //È®·üÀº 1/500
+		//ìŠ¤í‚¬ ëŠ¥ë ¥ì¹˜ 80 ì´ìƒì´ê³  //í™•ë¥ ì€ 1/500
 /*
 		if((connections[cn].chrlst.skillexp[ SkillTbl[skillno].MotherSkillType].skillexp / 10000)  > 80)
 		{
@@ -2898,7 +2898,7 @@ int skill_Havest			(  int cn, const int skillno, const int x, const int y, const
 			}
 		}
 */
-		SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+		SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 		SendSkillResult( cn, skillno, target_id, x, y, 1 );
 	}	
 	else {  why = SKILLFAIL_NOT_YET_HARVEST; goto FAIL_; }
@@ -2941,12 +2941,12 @@ int skill_Mining	(const int cn, const int skillno, const int x, const int y, con
 	r = rand()%100;
 
 //	hitrate = ReturnSkillProbablityNoExpAdd( cn, skillno, x, y, targettype, target_id );
-	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ¿¹ÀüÀ¸·Î
+	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ì˜ˆì „ìœ¼ë¡œ
 	if( r >= hitrate ) { goto FAIL_; }
 
 	ep = &EarthPower;
 	
-	if( ep->mining[ mt->type_Num ] > 0 )//	¸ÅÀå·®ÀÌ ÀÖÀ¸¸é 
+	if( ep->mining[ mt->type_Num ] > 0 )//	ë§¤ì¥ëŸ‰ì´ ìˆìœ¼ë©´ 
 	{	
 //		AddSkillExp( cn, skillno, hitrate );//010607 lsw
 		subType = mt->subType;
@@ -2983,7 +2983,7 @@ int skill_Mining	(const int cn, const int skillno, const int x, const int y, con
 	{
 		DropItem( sx-50+rand()%100, sy-50+rand()%100, &item);
 	}
-	SkillMgr.IncSkillCount(ch,SADONIX_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+	SkillMgr.IncSkillCount(ch,SADONIX_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 	SendSkillResult( cn, skillno, target_id, x, y, 1 );
 	return 1; 
 		
@@ -3019,7 +3019,7 @@ int skill_Fish				(const int cn, const int skillno, const int x, const int y, co
 	int hitrate;
 	int checkitem  = 0;//011014 lsw
 	
-	// ³¬½Ã.....
+	// ë‚šì‹œ.....
 	mt = skill_ReturnProbablityFromSkillTable( &probablity,  TOOL_FISHING, x, y );
 	if( mt == NULL ) { why = SKILLFAIL_NOT_PROPER_PLACE; goto FAIL_; }
 
@@ -3027,7 +3027,7 @@ int skill_Fish				(const int cn, const int skillno, const int x, const int y, co
 
 	r = rand()%100;
 //	hitrate = ReturnSkillProbablityNoExpAdd( cn, skillno, x, y, targettype, target_id );
-	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ¿¹ÀüÀ¸·Î
+	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ì˜ˆì „ìœ¼ë¡œ
 	if( r >= hitrate ) { goto FAIL_; }
 
 	//1009 zhh
@@ -3037,7 +3037,7 @@ int skill_Fish				(const int cn, const int skillno, const int x, const int y, co
 	t_earthpower *ep;
 	short int subType;
 	ep = &EarthPower;
-	//	¸ÅÀå·®ÀÌ ÀÖÀ¸¸é 
+	//	ë§¤ì¥ëŸ‰ì´ ìˆìœ¼ë©´ 
 	if( ep->fishing[ mt->type_Num ] > 0 )
 	{	
 //		AddSkillExp( cn, skillno, hitrate );//010607 lsw
@@ -3078,7 +3078,7 @@ int skill_Fish				(const int cn, const int skillno, const int x, const int y, co
 		DropItem( sx-50+rand()%100, sy-50+rand()%100, &item);
 	}
 
-	SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+	SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 	SendSkillResult( cn, skillno, target_id, x, y, 1 );
 	return 1;
 
@@ -3094,7 +3094,7 @@ FAIL_:
 
 
 
-//1016 zhh ¸ğµÎ »õ·Î ±¸ÇöµÈ ÇÔ¼ö
+//1016 zhh ëª¨ë‘ ìƒˆë¡œ êµ¬í˜„ëœ í•¨ìˆ˜
 int skill_Netting			(const int cn, const int skillno, const int x, const int y, const int targettype, const int target_id )
 { 
 	CHARLIST *ch = CheckServerId(cn);//020720 lsw
@@ -3111,7 +3111,7 @@ int skill_Netting			(const int cn, const int skillno, const int x, const int y, 
 	
 	DecreaseEquipDuration(ch,rand()%8+1,WT_WEAPON,0,true);//020720 lsw
 
-	// ³¬½Ã.....
+	// ë‚šì‹œ.....
 	mt = skill_ReturnProbablityFromSkillTable( &probablity,  TOOL_FISHING, x, y );
 	if( mt == NULL ) { why = SKILLFAIL_NOT_PROPER_PLACE; goto FAIL_; }
 
@@ -3127,7 +3127,7 @@ int skill_Netting			(const int cn, const int skillno, const int x, const int y, 
 	t_earthpower *ep;
 	short int subType;
 	ep = &EarthPower;
-	//	¸ÅÀå·®ÀÌ ÀÖÀ¸¸é 
+	//	ë§¤ì¥ëŸ‰ì´ ìˆìœ¼ë©´ 
 	if( ep->fishing[ mt->type_Num ] > 0 )
 	{	
 		subType = mt->subType;
@@ -3165,7 +3165,7 @@ int skill_Netting			(const int cn, const int skillno, const int x, const int y, 
 	{
 		DropItem( sx-50+rand()%100, sy-50+rand()%100, &item);
 	}
-	SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+	SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 	SendSkillResult( cn, skillno, target_id, x, y, 1 );
 	return 1;
 
@@ -3200,20 +3200,20 @@ int skill_Cutting			(const int cn, const int skillno, const int x, const int y, 
 	if(!ch){return 0;}
 	t_earthpower *ep;	
 
-	//	¹ú¸ñ......
+	//	ë²Œëª©......
 	mt = skill_ReturnProbablityFromSkillTable( &probablity,  TOOL_CHOPPING, x, y );
 	if( mt == NULL ) { why = SKILLFAIL_NOT_PROPER_PLACE; goto FAIL_; }
 
 	r = rand()%100;
 //	hitrate = ReturnSkillProbablityNoExpAdd( cn, skillno, x, y, targettype, target_id );
-	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ¿¹ÀüÀ¸·Î
+	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ì˜ˆì „ìœ¼ë¡œ
 	DecreaseEquipDuration(ch,rand()%8+1,WT_WEAPON,0,true);//020803 lsw
 	if( r >= hitrate ) { goto FAIL_; }
 
 	//1011 zhh
 
 	ep = &EarthPower;
-	//	º§ ³ª¹«°¡ ÀÖÀ¸¸é 
+	//	ë²¨ ë‚˜ë¬´ê°€ ìˆìœ¼ë©´ 
 	if( ep->cutting[ mt->type_Num ] > 0 )
 	{	
 //		AddSkillExp( cn, skillno, hitrate );//010607 lsw
@@ -3249,7 +3249,7 @@ int skill_Cutting			(const int cn, const int skillno, const int x, const int y, 
 	{
 		DropItem( sx-50+rand()%100, sy-50+rand()%100, &item);
 	}
-	SkillMgr.IncSkillCount(ch,SADONIX_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+	SkillMgr.IncSkillCount(ch,SADONIX_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 	SendSkillResult( cn, skillno, target_id, x, y, 1 );
 	return 1; 
 		
@@ -3292,7 +3292,7 @@ int skill_Lumbering			(const int cn, const int skillno, const int x, const int y
 		goto _FAIL;
 	}
 
-	iResultItemNo = ii->Getmouse_MRD()/100;	// ¸ñÀû ItemNo¸¦ ±¸ÇÑ´Ù. 
+	iResultItemNo = ii->Getmouse_MRD()/100;	// ëª©ì  ItemNoë¥¼ êµ¬í•œë‹¤. 
 	if( !iResultItemNo )	
 	{  
 		why = SKILLFAIL_NOT_RESOURCE; 
@@ -3334,7 +3334,7 @@ int skill_Butchering		(const int cn, const int skillno, const int x, const int y
 {	
 	ItemAttr item = {0,};
 	CHARLIST *n;
-	CHARLIST *butcher = GetCharListPtr(cn);//010302 lsw// µµÃàÀÚÀÇ Ä³¸¯ÅÍ ¹Ş¾Æ¿È 
+	CHARLIST *butcher = GetCharListPtr(cn);//010302 lsw// ë„ì¶•ìì˜ ìºë¦­í„° ë°›ì•„ì˜´ 
 	int itemno;
 	int sx, sy;
 	int why = 0;
@@ -3441,7 +3441,7 @@ int skill_Butchering		(const int cn, const int skillno, const int x, const int y
 		why = SKILLFAIL_NO_MEET;
 		goto FAIL_;
 	}
-	SkillMgr.IncSkillCount(ch,SADONIX_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+	SkillMgr.IncSkillCount(ch,SADONIX_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 	SendSkillResult( cn, skillno, target_id, x, y, 1 );
 
 	return 1; 
@@ -3482,11 +3482,11 @@ int skill_Digging			(const int cn, const int skillno, const int x, const int y, 
 
 	r = rand()%100;
 //	hitrate = ReturnSkillProbablityNoExpAdd( cn, skillno, x, y, targettype, target_id );
-	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ¿¹ÀüÀ¸·Î
+	hitrate = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );//010612 lsw ì˜ˆì „ìœ¼ë¡œ
 	if( r >= hitrate ) { goto FAIL_; }
 
 	ep = &EarthPower;
-	//	ÄÉ³¾ ¾àÃÊ°¡ ÀÖÀ¸¸é 
+	//	ì¼€ë‚¼ ì•½ì´ˆê°€ ìˆìœ¼ë©´ 
 	if( ep->digging[ mt->type_Num ] > 0 )
 	{	
 //		AddSkillExp( cn, skillno, hitrate );//010607 lsw
@@ -3502,7 +3502,7 @@ int skill_Digging			(const int cn, const int skillno, const int x, const int y, 
 		}
 		else
 		{
-			amount=1;//³ª¿Ã ¼ö·®ÀÌ·Î°í..
+			amount=1;//ë‚˜ì˜¬ ìˆ˜ëŸ‰ì´ë¡œê³ ..
 		}
 		ep->digging[ mt->type_Num ] -= amount;
 		if( ep->digging[ mt->type_Num ] < 0 ) ep->digging[ mt->type_Num ]  = 0;
@@ -3529,7 +3529,7 @@ int skill_Digging			(const int cn, const int skillno, const int x, const int y, 
 		DropItem( sx-50+rand()%100, sy-50+rand()%100, &item);
 	}
 
-	SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//½ºÅ³ Ä«¿îÆ® Áõ°¡
+	SkillMgr.IncSkillCount(ch,BLESSLEAF_NO,skillno,ItemMgr.GetSkillPointByItem(item));//ìŠ¤í‚¬ ì¹´ìš´íŠ¸ ì¦ê°€
 	SendSkillResult( cn, skillno, target_id, x, y, item.item_no );
 	
 	return 1; 
@@ -3556,13 +3556,13 @@ int skill_Shear				(const int cn, const int skillno, const int x, const int y, c
 	int hitrate;
 	int why = 0;
 	int r;
-//»ç¶÷ ÇÑÅ× ½è´Âµ¥ ¸Ş¼¼Áö ÀÌ»óÇÏ°í, °æÇèÄ¡ µ¿½Ã¿¡ ¾È¿Ã¶ó°¨?
+//ì‚¬ëŒ í•œí…Œ ì¼ëŠ”ë° ë©”ì„¸ì§€ ì´ìƒí•˜ê³ , ê²½í—˜ì¹˜ ë™ì‹œì— ì•ˆì˜¬ë¼ê°?
 
 	if( target_id < 10000 ) 
 	{
 		//010204 lsw			// 010210 YGI
 		why = -83;	//010302 lsw
-		goto FAIL_;	// PC¿¡°Ô ±â¼úÀ» ›§À¸¸é ¿¡·¯.
+		goto FAIL_;	// PCì—ê²Œ ê¸°ìˆ ì„ Â›ã±ë§Œ?ì—ëŸ¬.
 	}
 
 	target_id -= 10000;
@@ -3628,7 +3628,7 @@ int skill_Oiling			(const int cn, const int skillno, const int x, const int y, c
 
 	if( target_id < 10000 )
 	{
-		// »ç¶ó’×¤© ButcheringÇÒ¼ø  ¾øÁö...
+		// ì‚¬ë¼Â’å£˜?Butcheringí• ìˆœ  ì—†ì§€...
 		SendSkillResultFail( cn, skillno );
 		return 0;
 	}
@@ -3657,19 +3657,19 @@ int skill_Oiling			(const int cn, const int skillno, const int x, const int y, c
 int skill_Snooping			(const int cn, const int skillno, const int x, const int y, const int targettype, const int target_id )
 { 
 
-	//<050328_KCH ¹è³¶µÚÁö±â ½ºÅ³À» ´çºĞ°£ »ç¿ë¸øÇÏ°Ô Ã³¸®(ÀÌ´Â À¯ÀúÀÇ ¿äÃ»À¸·Î, ÀÌÈÄ¿¡ ÁÁÀº ¾ÆÀÌµğ¾î ³ª¿À¸é ±×¶§ ¼öÁ¤ÇÏÀÚ.)
+	//<050328_KCH ë°°ë‚­ë’¤ì§€ê¸° ìŠ¤í‚¬ì„ ë‹¹ë¶„ê°„ ì‚¬ìš©ëª»í•˜ê²Œ ì²˜ë¦¬(ì´ëŠ” ìœ ì €ì˜ ìš”ì²­ìœ¼ë¡œ, ì´í›„ì— ì¢‹ì€ ì•„ì´ë””ì–´ ë‚˜ì˜¤ë©´ ê·¸ë•Œ ìˆ˜ì •í•˜ì.)
 	goto FAIL_;
 	//>050328_KCH
 
 	int ret,r;
 
-	LPCHARLIST target;//020530 lsw Å¸°Ù
+	LPCHARLIST target;//020530 lsw íƒ€ê²Ÿ
 	LPCHARLIST caster;
 
 	if( cn == target_id )	goto FAIL_;
 	if( target_id >= 10000 )	goto FAIL_;
 
-	if( MapNumber == 30 ) goto FAIL_; // Scholium¿¡¼­´Â ÈÉÄ¡±â ÇÒ ¼ö ¾ø´Ù.
+	if( MapNumber == 30 ) goto FAIL_; // Scholiumì—ì„œëŠ” í›”ì¹˜ê¸° í•  ìˆ˜ ì—†ë‹¤.
 
 	target = CheckServerId(target_id);
 	caster = CheckServerId(cn);
@@ -3681,7 +3681,7 @@ int skill_Snooping			(const int cn, const int skillno, const int x, const int y,
 	{
 		goto FAIL_;
 	}
-	if(target->IsCounselor()){goto FAIL_;}//¿î¿µÀÚ´Â ¸øÈÉÃÄ//020730 lsw
+	if(target->IsCounselor()){goto FAIL_;}//ìš´ì˜ìëŠ” ëª»í›”ì³//020730 lsw
 
 	ret = ReturnSkillProbablity( cn, skillno, x, y, targettype, target_id );
 
@@ -3714,20 +3714,20 @@ int skill_Makefire			(const int cn, const int skillno, const int x, const int y,
 	{
 	case 1011	: 
 	case 1012	:	
-	case 1023	:	//	<Nutmeg Log>	<ºñÀÚ³ª¹«>
-	case 1024	:	//	<³ª¹«>	<¸®±â´Ù³ª¹«>
-	case 1025	:	//	<Fir Log>	<±¸»ó³ª¹«>
-	case 1026	:	//	<Oak Log>	<»ó¼ö¸®³ª¹«>
-	case 1027	:	//	<³ª¹«>	<°ÅÁ¦¼ö³ª¹«>
-	case 1028	:	//	<Beech Log>	<³Êµµ¹ã³ª¹«>
-	case 1029	:	//	<Whitebirch Log>	<ÀÚÀÛ³ª¹« >
-	case 1030	:	//	<Nutmeg Timber>	<ºñÀÚ³ª¹« ¸ñÀç>
-	case 1031	:	//	<³ª¹«>	<¸®±â´Ù³ª¹« ¸ñÀç>
-	case 1032	:	//	<Fir Timber>	<±¸»ó³ª¹« ¸ñÀç>
-	case 1033	:	//	<Oak Timber>	<»ó¼ö¸®³ª¹« ¸ñÀç>
-	case 1034	:	//	<³ª¹«>	<°ÅÁ¦¼ö³ª¹« ¸ñÀç>
-	case 1035	:	//	<Beech Timber>	<³Êµµ¹ã³ª¹« ¸ñÀç>
-	case 1036	:	//	<Whitebirch Timber>	<ÀÚÀÛ³ª¹« ¸ñÀç>
+	case 1023	:	//	<Nutmeg Log>	<ë¹„ìë‚˜ë¬´>
+	case 1024	:	//	<ë‚˜ë¬´>	<ë¦¬ê¸°ë‹¤ë‚˜ë¬´>
+	case 1025	:	//	<Fir Log>	<êµ¬ìƒë‚˜ë¬´>
+	case 1026	:	//	<Oak Log>	<ìƒìˆ˜ë¦¬ë‚˜ë¬´>
+	case 1027	:	//	<ë‚˜ë¬´>	<ê±°ì œìˆ˜ë‚˜ë¬´>
+	case 1028	:	//	<Beech Log>	<ë„ˆë„ë°¤ë‚˜ë¬´>
+	case 1029	:	//	<Whitebirch Log>	<ìì‘ë‚˜ë¬´ >
+	case 1030	:	//	<Nutmeg Timber>	<ë¹„ìë‚˜ë¬´ ëª©ì¬>
+	case 1031	:	//	<ë‚˜ë¬´>	<ë¦¬ê¸°ë‹¤ë‚˜ë¬´ ëª©ì¬>
+	case 1032	:	//	<Fir Timber>	<êµ¬ìƒë‚˜ë¬´ ëª©ì¬>
+	case 1033	:	//	<Oak Timber>	<ìƒìˆ˜ë¦¬ë‚˜ë¬´ ëª©ì¬>
+	case 1034	:	//	<ë‚˜ë¬´>	<ê±°ì œìˆ˜ë‚˜ë¬´ ëª©ì¬>
+	case 1035	:	//	<Beech Timber>	<ë„ˆë„ë°¤ë‚˜ë¬´ ëª©ì¬>
+	case 1036	:	//	<Whitebirch Timber>	<ìì‘ë‚˜ë¬´ ëª©ì¬>
 		break;
 	default :		SendSkillResultFail(cn, skillno);		return 0;
 	}
@@ -3737,7 +3737,7 @@ int skill_Makefire			(const int cn, const int skillno, const int x, const int y,
 		ItemList[ target_id].attr[ IATTR_ATTR] |= IA2_FIRE;
 		ItemList[ target_id].attr[ IATTR_ATTR] |= IA2_NOTMOVE;
 	
-		// ¿ø·¡´Â ¸¸µé¾îÁú¶§ ½Ã°£À» °¡±â°í ¸¸µé¾îÁø´Ù. 
+		// ì›ë˜ëŠ” ë§Œë“¤ì–´ì§ˆë•Œ ì‹œê°„ì„ ê°€ê¸°ê³  ë§Œë“¤ì–´ì§„ë‹¤. 
 		ItemList[ target_id].attr[IATTR_DURATION ] = g_curr_time + ITEM_FIRE_GROW_TIME;
 			
 		SetArea( CHANGE_IA2_ATTR_ITEM_AREA, target_id );
@@ -3747,15 +3747,15 @@ int skill_Makefire			(const int cn, const int skillno, const int x, const int y,
 	return 1; 
 }			
 
-// 1. Ä³¸¯ÅÍÀÇ n->tame
-// 2. ½ÃÀüÀÚÀÇ taming skil (SkillMotherExp Å¸ÀÔ) LevelÀÌ   
-//  	NPC_Gen_Ref[n->SprNo].Taming_minº¸´Ù ³ô¾Æ¾ß TamingÇÒ¼ö ÀÖ´Ù.
+// 1. ìºë¦­í„°ì˜ n->tame
+// 2. ì‹œì „ìì˜ taming skil (SkillMotherExp íƒ€ì…) Levelì´   
+//  	NPC_Gen_Ref[n->SprNo].Taming_minë³´ë‹¤ ë†’ì•„ì•¼ Tamingí• ìˆ˜ ìˆë‹¤.
 // 3. 
-//1018 zhh ¸ğµÎ ¹Ù²ï ÇÔ¼ö
-//Âü°í ÀÚ·á
-//#define SKILLFAIL_LOW_LEVEL_TO_TAMING		-110	//tamingÇÒ ¼ö ¾ø´Â ´É·ÂÄ¡¸¦ À¯Àú°¡ °¡Áö°í ÀÖ´Ù
-//#define SKILLFAIL_NO_TAMING_ALLOWED		-111	//tamingÇÒ ¼ö ¾ø´Â ´ë»ó
-//#define SKILLFAIL_TARGET_IS_NOT_NPC		-112	//tamingÇÒ ½º ÀÖ´Â NPC°¡ ¾Æ´Ï´Ù
+//1018 zhh ëª¨ë‘ ë°”ë€ í•¨ìˆ˜
+//ì°¸ê³  ìë£Œ
+//#define SKILLFAIL_LOW_LEVEL_TO_TAMING		-110	//tamingí•  ìˆ˜ ì—†ëŠ” ëŠ¥ë ¥ì¹˜ë¥¼ ìœ ì €ê°€ ê°€ì§€ê³  ìˆë‹¤
+//#define SKILLFAIL_NO_TAMING_ALLOWED		-111	//tamingí•  ìˆ˜ ì—†ëŠ” ëŒ€ìƒ
+//#define SKILLFAIL_TARGET_IS_NOT_NPC		-112	//tamingí•  ìŠ¤ ìˆëŠ” NPCê°€ ì•„ë‹ˆë‹¤
 int skill_Taming			(const int cn, const int skillno, const int x, const int y, const int targettype, const int target_id )
 {		
 	int why=0, hitrate=0, r=0;
@@ -3767,10 +3767,10 @@ int skill_Taming			(const int cn, const int skillno, const int x, const int y, c
 		why=SKILLFAIL_TARGET_IS_NOT_NPC;
 		SendSkillResultFail(cn, skillno,why); return 0;
 	}
-	//¿©±â±îÁö ¿À¸é NPC°¡ ¾Æ´Ï°í ÃÖ´ë NPC¹øÈ£ º¸´Ù Àû´Ù
+	//ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ NPCê°€ ì•„ë‹ˆê³  ìµœëŒ€ NPCë²ˆí˜¸ ë³´ë‹¤ ì ë‹¤
 	
 	if( target_id < 10000 ) { why=SKILLFAIL_TARGET_IS_NOT_NPC;	SendSkillResultFail(cn, skillno,why); return 0; }
-	//¿©±â±îÁö ¿À¸é ÀÏ´Ü NPC´Ù
+	//ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ ì¼ë‹¨ NPCë‹¤
 
 	CHARLIST *n = &NPCList[ target_id - 10000];			
 	if( n->tamingable == 0 )
@@ -3778,13 +3778,13 @@ int skill_Taming			(const int cn, const int skillno, const int x, const int y, c
 		why=SKILLFAIL_NO_TAMING_ALLOWED;
 		SendSkillResultFail(cn, skillno,why); return 0;
 	}			
-	//¿©±â±îÁö ¿À¸é Å×ÀÌ¹Ö ÇÒ ¼ö ÀÖ´Â NPC¶ó´Â ÀÌ¾ß±â
+	//ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ í…Œì´ë° í•  ìˆ˜ ìˆëŠ” NPCë¼ëŠ” ì´ì•¼ê¸°
 	if( NPC_Gen_Ref[n->SprNo].Taming_min >= 100 )	
 	{		
 		why=SKILLFAIL_NO_TAMING_ALLOWED;
 		SendSkillResultFail(cn, skillno,why); return 0;
 	}
-	// ¿©±â±îÁö ¿À¸é Å×ÀÌ¹Ö ÇÒ ¼ö ÀÖ´Â NPC¶ó´Â ÀÌ¾ß±â
+	// ì—¬ê¸°ê¹Œì§€ ì˜¤ë©´ í…Œì´ë° í•  ìˆ˜ ìˆëŠ” NPCë¼ëŠ” ì´ì•¼ê¸°
 	if (n->IsTamedNpc() || n->IsSummonMonster())
 	{
 		SendSkillResultFail(cn, skillno ); return 0;
@@ -3804,7 +3804,7 @@ int skill_Taming			(const int cn, const int skillno, const int x, const int y, c
 
 	AddSkillExp( cn, skillno, hitrate );
 
-	// ÀÌÁ¦ºÎÅÍ ÁÖÀÎÀÌ ¾ø°í, ÀÌ³ğÀ» ÅÂ¹ÖÇÏ´Â »ç¶÷µµ ÁÖÀ§¿¡ ¾ø´Ù. 
+	// ì´ì œë¶€í„° ì£¼ì¸ì´ ì—†ê³ , ì´ë†ˆì„ íƒœë°í•˜ëŠ” ì‚¬ëŒë„ ì£¼ìœ„ì— ì—†ë‹¤. 
 
 	r=rand()%100;
 	if( hitrate > r )
@@ -3813,11 +3813,11 @@ int skill_Taming			(const int cn, const int skillno, const int x, const int y, c
 		
 		n->tame += add;
 
-		if(n->tame < 0)		n->tame=0;	// ¿¡·¯°ËÃâ·çÆ¾.. 
+		if(n->tame < 0)		n->tame=0;	// ì—ëŸ¬ê²€ì¶œë£¨í‹´.. 
 		if( n->tame > needed_max_tame ) n->tame = needed_max_tame;
 	}
 
-	// ÅÂ¹Ö¿¡ ¼º°øÇÏ¿´´Ù. 
+	// íƒœë°ì— ì„±ê³µí•˜ì˜€ë‹¤. 
 	if( n->tame >= needed_max_tame )
 	{	//< CSD-031106
 		n->SetTamed(true);
@@ -3949,11 +3949,11 @@ int skill_Double_Macefighting	(const int cn, const int skillno, const int x, con
 int skill_Magery				(const int cn, const int skillno, const int x, const int y, const int targettype, const int target_id ){ SendSkillResult( cn, skillno, target_id, x, y, -999 );return 1; }
 int skill_Orison				(const int cn, const int skillno, const int x, const int y, const int targettype, const int target_id ){ SendSkillResult( cn, skillno, target_id, x, y, -999 );return 1; }
 	
-void AddSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE	lpST )		//¸µÅ©µå ¸®½ºÆ®ÀÇ ¸Ó¸®¿¡ ºÙ¿© ³Ö±â
+void AddSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE	lpST )		//ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ë¨¸ë¦¬ì— ë¶™ì—¬ ë„£ê¸°
 {		
 	lpMAPSKILLTABLE t, temp; 
 		
-	if( *Header == NULL )		//¸µÅ©µå ¸®½ºÆ® ÃÖÃÊ »ı¼º
+	if( *Header == NULL )		//ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ ìµœì´ˆ ìƒì„±
 	{	
 		MemAlloc( *Header, sizeof( MAPSKILLTABLE ));
 
@@ -3969,7 +3969,7 @@ void AddSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE	lpST )		//¸µÅ©µå ¸®½ºÆ®À
 		(*Header)->prev			= NULL; 
 		(*Header)->next			= NULL; 
 	}	
-	else						//ÀÌ¹Ì »ı¼ºµÈ ¸®½ºÆ®¿¡ Ã·°¡ ¿¬°á
+	else						//ì´ë¯¸ ìƒì„±ëœ ë¦¬ìŠ¤íŠ¸ì— ì²¨ê°€ ì—°ê²°
 	{	
 		t = NULL;
 		MemAlloc( t, sizeof( MAPSKILLTABLE ));
@@ -4020,7 +4020,7 @@ void DeleteSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE f)
 	{
 		if( t == f )
 		{
-			if( f == *Header )		//header°¡ Á¦°ÅµÇ´Â °æ¿ì
+			if( f == *Header )		//headerê°€ ì œê±°ë˜ëŠ” ê²½ìš°
 			{
 				t = (*Header)->next;
 		
@@ -4052,7 +4052,7 @@ void DeleteSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE f)
 	}	
 }
 		
-//	¸ÊÀº Àı´ëÁÂÇ¥...
+//	ë§µì€ ì ˆëŒ€ì¢Œí‘œ...
 lpMAPSKILLTABLE FindSkill( lpMAPSKILLTABLE *H, int x, int y )
 {	   	
 	lpMAPSKILLTABLE t;
@@ -4069,15 +4069,15 @@ lpMAPSKILLTABLE FindSkill( lpMAPSKILLTABLE *H, int x, int y )
 }			
 	
 
-//1017 zhh	//»ó´ç ºÎºĞ ¼öÁ¤ µÇ¾ú½À´Ï´Ù
+//1017 zhh	//ìƒë‹¹ ë¶€ë¶„ ìˆ˜ì • ë˜ì—ˆìŠµë‹ˆë‹¤
 //--------------------------------------------------------------------------------------------
-//	±â  ´É : 1½Ã°£(½ÇÁ¦ ½Ã°£. ¶óÀÚ¿¡¼­´Â 6h)¸¶´Ù ÀÚ¿¬¿¡¼­ ¾ò¾î³¾¼ö ÀÖ´Â ·®ÀÌ  ÃÊ±âÈ­µÈ´Ù. 
-//	ÀÎ  ÀÚ : 
-//	°á  °ú : 
+//	ê¸°  ëŠ¥ : 1ì‹œê°„(ì‹¤ì œ ì‹œê°„. ë¼ìì—ì„œëŠ” 6h)ë§ˆë‹¤ ìì—°ì—ì„œ ì–»ì–´ë‚¼ìˆ˜ ìˆëŠ” ëŸ‰ì´  ì´ˆê¸°í™”ëœë‹¤. 
+//	ì¸  ì : 
+//	ê²°  ê³¼ : 
 //--------------------------------------------------------------------------------------------
 /*------------------------------------------------------------------------------------------------------------
-  ±â ´É : SkillMapTable¿¡¼­ ±×Áö¿ª¿¡¼­ ¹ß»ıÇÒ¼ö ÀÖ´Â Àû´çÇÑ ¾ÆÀÌÅÛ¹øÈ£¸¦ ¸®ÅÏÇØÁØ´Ù. 
-  ÀÎ ÀÚ : type  :   TOOL_FARMING			1
+  ê¸° ëŠ¥ : SkillMapTableì—ì„œ ê·¸ì§€ì—­ì—ì„œ ë°œìƒí• ìˆ˜ ìˆëŠ” ì ë‹¹í•œ ì•„ì´í…œë²ˆí˜¸ë¥¼ ë¦¬í„´í•´ì¤€ë‹¤. 
+  ì¸ ì : type  :   TOOL_FARMING			1
 				 	 TOOL_MINING			2
 					 TOOL_FISHING			3
 					 TOOL_CHOPPING			4
@@ -4086,7 +4086,7 @@ lpMAPSKILLTABLE FindSkill( lpMAPSKILLTABLE *H, int x, int y )
 					 TOOL_DONTSKILL			7
 	    tableno :  0 - 10 
 	    hitrate :  0 - 100
-  °á °ú : ¾ÆÀÌÅÛ¹øÈ£¸¦ ¸®ÅÏÇÑ´Ù. 
+  ê²° ê³¼ : ì•„ì´í…œë²ˆí˜¸ë¥¼ ë¦¬í„´í•œë‹¤. 
 ------------------------------------------------------------------------------------------------------*/
 int ReturnFromSkillMapTable(const int cn, const int iSkillToolType, const int iTableno, const int iHitrate ,int iReturnType)
 {				
@@ -4163,9 +4163,9 @@ int ReturnFromSkillMapTable(const int cn, const int iSkillToolType, const int iT
 }		
 
 //-------------------------------------------------------------------------------------------------------		
-//	±â ´É : ±â¼úÀ» ÀĞ¾îµéÀÌ¸é¼­  NPC »ı¼ºÀ§Ä¡¸¦ Àâ´Â´Ù. 	
-//	ÀÎ ÀÚ :		
-//	°á °ú :		
+//	ê¸° ëŠ¥ : ê¸°ìˆ ì„ ì½ì–´ë“¤ì´ë©´ì„œ  NPC ìƒì„±ìœ„ì¹˜ë¥¼ ì¡ëŠ”ë‹¤. 	
+//	ì¸ ì :		
+//	ê²° ê³¼ :		
 //-------------------------------------------------------------------------------------------------------
 BOOL LoadSkillMapTable(void)
 {				
@@ -4193,7 +4193,7 @@ BOOL LoadSkillMapTable(void)
 	ep->diggingcount = 0;
 				
 	//<! BBD 040311	
-	float Rate = GetResourceRate(g_UsercountInServerSet);	// ÀÚ¿ø¹èÀ²À» ±¸ÇØ¿Â´Ù
+	float Rate = GetResourceRate(g_UsercountInServerSet);	// ìì›ë°°ìœ¨ì„ êµ¬í•´ì˜¨ë‹¤
 	MyLog(0, "Starting ResourceRate = %.1f, cause UsercountInServerSet = %d", Rate, g_UsercountInServerSet);
 	//> BBD 040311	
 
@@ -4206,8 +4206,8 @@ BOOL LoadSkillMapTable(void)
 		int y = (int)(st.y / dy);
 		TileMap[ st.x ][ st.y ].attr_skill = 1;
 							
-		// °æÀÛ..		
-		// EarthPower[]	´Â 0 - 10000ÀÇ ¼öÄ¡¸¦ °¡Áø´Ù. ÃÖÃÊ ¾à 0-2000ÀÇ ¼öÄ¡¸¦ °¡Áö°í ½ÃÀÛÇÑ´Ù. 
+		// ê²½ì‘..		
+		// EarthPower[]	ëŠ” 0 - 10000ì˜ ìˆ˜ì¹˜ë¥¼ ê°€ì§„ë‹¤. ìµœì´ˆ ì•½ 0-2000ì˜ ìˆ˜ì¹˜ë¥¼ ê°€ì§€ê³  ì‹œì‘í•œë‹¤. 
 		t = st.probability * 10;
 		//1018 zhh
 		if( t > 1000 ) t = 1000;
@@ -4217,45 +4217,45 @@ BOOL LoadSkillMapTable(void)
 
 		switch( st.skillno )
 		{				
-			// °æÀÛ..	
+			// ê²½ì‘..	
 		case 1 :	if( ep->reclaimcount < MAX_EARTHSKILL )	
 					{												
 						ep->reclaim[ ep->reclaimcount] = 700 + (rand()%1300);
 						st.type_Num = ep->reclaimcount ++;	
 					}	
 			break;		
-			// Ã¤±¤.	
+			// ì±„ê´‘.	
 		case 2 :	if( ep->miningcount < MAX_EARTHSKILL )	
 					{												
 						ep->mining_old[ ep->miningcount] = ep->mining[ ep->miningcount] = t;
 						st.type_Num = ep->miningcount ++;	
 					}	
 			break;		
-			// ³¬½Ã.	
+			// ë‚šì‹œ.	
 		case 3 :	if( ep->fishingcount < MAX_EARTHSKILL )	
 					{												
 						ep->fishing_old[ ep->fishingcount] = ep->fishing[ ep->fishingcount] = t;
 						st.type_Num = ep->fishingcount ++;	
 					}			
 			break;		
-			// ¹ú¸ñ.	
+			// ë²Œëª©.	
 		case 4 :	if( ep->cuttingcount < MAX_EARTHSKILL )	
 					{												
 						ep->cutting_old[ ep->cuttingcount] = ep->cutting[ ep->cuttingcount] = t;
 						st.type_Num = ep->cuttingcount ++;	
 					}				
 			break;		
-			// ¾àÃÊ.	
+			// ì•½ì´ˆ.	
 		case 5 :	if( ep->diggingcount < MAX_EARTHSKILL )	
 					{												
 						ep->digging_old[ ep->diggingcount] = ep->digging[ ep->diggingcount] = t;
 						st.type_Num = ep->diggingcount ++;	
 					}			
 			break;		
-			// NPC»ı¼º. 
-		case 6 : 	//	tile_Range	-> ÃÖ´ë ¹ß»ı¼ö.
-					//	probability	-> ½ºÅ©¸³Æ®¹øÈ£( 0 - 100 ).
-					//	type_Num	-> NPC °íÀ¯¹øÈ£.
+			// NPCìƒì„±. 
+		case 6 : 	//	tile_Range	-> ìµœëŒ€ ë°œìƒìˆ˜.
+					//	probability	-> ìŠ¤í¬ë¦½íŠ¸ë²ˆí˜¸( 0 - 100 ).
+					//	type_Num	-> NPC ê³ ìœ ë²ˆí˜¸.
 					NPCGeneratePosition( st.type_Num, st.x, st.y,  st.probability, st.tile_Range );
 			break;
 		}
@@ -4338,7 +4338,7 @@ void RecvSkillGauge(const int cn, t_client_skill_gauge *p )
 
 	switch( p->skillno )
 	{				
-		// °³°£...	
+		// ê°œê°„...	
 	case 21 :	ms = skill_ReturnProbablityFromSkillTable( &probablity,  1, p->x, p->y );
 				if( ms )
 				{	
@@ -4351,9 +4351,9 @@ void RecvSkillGauge(const int cn, t_client_skill_gauge *p )
 }					
 
 ////////////////////////////////////////////////////////////////////////////////////////
-//                                    °æ  Á¦
+//                                    ê²½  ì œ
 ////////////////////////////////////////////////////////////////////////////////////////
-// Item°¡°İ Á¶Á¤ 
+// Itemê°€ê²© ì¡°ì • 
 const char itemtypename[ 11][20] = {	"Plant",		
 								"Mineral",		
 								"Herb",		
@@ -4432,7 +4432,7 @@ int SkillLevelExpLoad()
 				MyLog(LOG_NORMAL, "skill_lvexpl:  Error at %d ", c ) ;
 				return -1 ;
 			}
-			SkillLevelExp[sCustID][i-2]=exp*100;  //coromo 2007/05/01 ¹¤×÷¼¼ÄÜ¾­Ñé 
+			SkillLevelExp[sCustID][i-2]=exp*100;  //coromo 2007/05/01 ë¬é±—ì„¸ì½˜ì’”ï¤š 
 		}
 		c++;
 		ret= SQLFetch(hStmt) ;
@@ -4501,8 +4501,8 @@ int SkillExpLoad()
 	return c ;
 }
 
-//63(BETWEEN_POS) = 60(NPC_ITEM_TABLE_TOTAL_ITEM) + 2(NPC_ITEM_TABLE_START_ITEM_POS) + 1(´ÙÀ½ÀÌ´Ï±î)
-int Load_NPC_ItemGenerateTable()									//DB¿¡¼­ Å×ÀÌºíÀ» ÀĞ¾î ¿Â´Ù
+//63(BETWEEN_POS) = 60(NPC_ITEM_TABLE_TOTAL_ITEM) + 2(NPC_ITEM_TABLE_START_ITEM_POS) + 1(ë‹¤ìŒì´ë‹ˆê¹Œ)
+int Load_NPC_ItemGenerateTable()									//DBì—ì„œ í…Œì´ë¸”ì„ ì½ì–´ ì˜¨ë‹¤
 {
 	HSTMT hStmt= NULL ;
 	RETCODE ret ;
@@ -4555,8 +4555,8 @@ int LoadSkillLevelTable(void)
 }
 
 /*------------------------------------------------------------------------------------------------------------
-  ±â ´É : SkillMapTable¿¡¼­ ±×Áö¿ª¿¡¼­ ¹ß»ıÇÒ¼ö ÀÖ´Â Àû´çÇÑ demand¸¦ ¸®ÅÏÇØÁØ´Ù. 
-  ÀÎ ÀÚ : type  :   TOOL_FARMING			1
+  ê¸° ëŠ¥ : SkillMapTableì—ì„œ ê·¸ì§€ì—­ì—ì„œ ë°œìƒí• ìˆ˜ ìˆëŠ” ì ë‹¹í•œ demandë¥¼ ë¦¬í„´í•´ì¤€ë‹¤. 
+  ì¸ ì : type  :   TOOL_FARMING			1
 			 		TOOL_MINING				2
 					TOOL_FISHING			3
 					TOOL_CHOPPING			4
@@ -4565,9 +4565,9 @@ int LoadSkillLevelTable(void)
 					TOOL_DONTSKILL			7
 	    tableno :  0 - 10 
 	    hitrate :  0 - 100
-  °á °ú : demand¸¦ ¸®ÅÏÇÑ´Ù. 
+  ê²° ê³¼ : demandë¥¼ ë¦¬í„´í•œë‹¤. 
 ------------------------------------------------------------------------------------------------------*/
-int GiveBasicItem(const int cn,const int iSkillTooltype,const int subType)//020214 ½ºÅ³ ½ÃÀü½Ã ½ÇÆĞÇØµµ Åø¿¡ µû¸¥ ±âº» ¾ÆÀÌÅÛ Á¦°ø 1/15
+int GiveBasicItem(const int cn,const int iSkillTooltype,const int subType)//020214 ìŠ¤í‚¬ ì‹œì „ì‹œ ì‹¤íŒ¨í•´ë„ íˆ´ì— ë”°ë¥¸ ê¸°ë³¸ ì•„ì´í…œ ì œê³µ 1/15
 {
 	CHARLIST *ch = GetCharListPtr(cn);
 	if(!ch){return 0;}
@@ -4596,8 +4596,8 @@ void DecreaseEquipDuration( CHARLIST *ch, const DWORD dwDecValue, const int iIte
 	if( SPRITETYPE_NPC 	==  ch->SprType){return;}
 	if( 96 	==  iTargetSprNo){return;}
 
-	if( DIVIDE_ITEM == t->GetRbutton() )//³»±¸µµ¿ë ¾ÆÀÌÅÛ
-	{	// DIVIDE_ITEMÀÏ°æ¿ì attack_pow¸¸Å­ »«´Ù. 
+	if( DIVIDE_ITEM == t->GetRbutton() )//ë‚´êµ¬ë„ìš© ì•„ì´í…œ
+	{	// DIVIDE_ITEMì¼ê²½ìš° attack_powë§Œí¼ ëº€ë‹¤. 
 		if(bIsAttacker)
 		{
 			iSendValue = ItemMgr.DecItemDur_ForEquip(*item,iValue);
@@ -4607,7 +4607,7 @@ void DecreaseEquipDuration( CHARLIST *ch, const DWORD dwDecValue, const int iIte
 			iSendValue = ItemMgr.DecItemDur_ForEquip(*item,1);
 		}
 	}
-	else	//³»±¸µµ°¡ ¾Æ´Ñ ¾ÆÀÌÅÛ
+	else	//ë‚´êµ¬ë„ê°€ ì•„ë‹Œ ì•„ì´í…œ
 	{	
 		int ret = 0;
 		if(!bIsNoCount)
@@ -4619,7 +4619,7 @@ void DecreaseEquipDuration( CHARLIST *ch, const DWORD dwDecValue, const int iIte
 			if( ret > 14 ) ret = 14;
 			if( ret < 1 ) ret = 1;
 		}
-		else//Ä«¿îÆ® ¹× log ¾øÀÌ ¹Ù·Î ¿øÇÏ´Â ¸¸Å­ °¨¼Ò
+		else//ì¹´ìš´íŠ¸ ë° log ì—†ì´ ë°”ë¡œ ì›í•˜ëŠ” ë§Œí¼ ê°ì†Œ
 		{	
 			ret = iValue;
 		}
@@ -4986,7 +4986,7 @@ void SkillMapper( const int cn, const int iSkillNo, const int x, const int y, co
 	}
 }	//> CSD-030821
 
-//<! BBD 040311	ÇÁ·Ï½Ã·Î µ¿Á¢¼ö ¿äÃ»ÇÏ´Â ÇÔ¼ö
+//<! BBD 040311	í”„ë¡ì‹œë¡œ ë™ì ‘ìˆ˜ ìš”ì²­í•˜ëŠ” í•¨ìˆ˜
 void RequestUsercountToProxy()
 {
 	char Msg = 0;
@@ -4995,13 +4995,13 @@ void RequestUsercountToProxy()
 	g_pServerTable->SendToProxyServer(&Msg, sizeof(Msg));
 
 }
-//> BBD 040311	ÇÁ·Ï½Ã·Î µ¿Á¢¼ö ¿äÃ»ÇÏ´Â ÇÔ¼ö
+//> BBD 040311	í”„ë¡ì‹œë¡œ ë™ì ‘ìˆ˜ ìš”ì²­í•˜ëŠ” í•¨ìˆ˜
 
-//<! BBD 040311	µ¿Á¢¼ö·Î Àû¿ëµÉ ÀÚ¿ø¹èÀ²À» ¾ò¾î¿À´Â ÇÔ¼ö
+//<! BBD 040311	ë™ì ‘ìˆ˜ë¡œ ì ìš©ë  ìì›ë°°ìœ¨ì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜
 float GetResourceRate(int nCount)
 {
 	int nIndex = 0;
-	if( nCount <= 1000)		// 1000 ÀÌÇÏ
+	if( nCount <= 1000)		// 1000 ì´í•˜
 	{
 		nIndex =  0;
 	}
@@ -5021,12 +5021,12 @@ float GetResourceRate(int nCount)
 	{
 		nIndex = 4;
 	}
-	else		// 3000 ÀÌ»óÀÏ¶§
+	else		// 3000 ì´ìƒì¼ë•Œ
 	{
 		nIndex = 5;
 	}
 
-	//<! BBD 040322	¿¡ÀÌ¼­¿¡ °üÇÏ¿© µû·ÎÃ³¸®
+	//<! BBD 040322	ì—ì´ì„œì— ê´€í•˜ì—¬ ë”°ë¡œì²˜ë¦¬
 	if(LocalMgr.IsAbleNation( CHINA | TAIWAN | HONGKONG ))
 	{
 		return resource_rate2[nIndex];
@@ -5035,6 +5035,6 @@ float GetResourceRate(int nCount)
 	{
 		return resource_rate[nIndex];
 	}
-	//> BBD 040322	¿¡ÀÌ¼­¿¡ °üÇÏ¿© µû·ÎÃ³¸®
+	//> BBD 040322	ì—ì´ì„œì— ê´€í•˜ì—¬ ë”°ë¡œì²˜ë¦¬
 }
-//> BBD 040311	µ¿Á¢¼ö·Î Àû¿ëµÉ ÀÚ¿ø¹èÀ²À» ¾ò¾î¿À´Â ÇÔ¼ö
+//> BBD 040311	ë™ì ‘ìˆ˜ë¡œ ì ìš©ë  ìì›ë°°ìœ¨ì„ ì–»ì–´ì˜¤ëŠ” í•¨ìˆ˜

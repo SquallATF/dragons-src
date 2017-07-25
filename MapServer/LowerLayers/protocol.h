@@ -1,4 +1,4 @@
-#ifndef PROTOCOL_H
+Ôªø#ifndef PROTOCOL_H
 #define PROTOCOL_H
 
 #pragma once
@@ -95,7 +95,7 @@ enum PTCL
 	PTCL_PROXY_TO_MAP							=	100,	//PROXY TO MAP
 	PTCL_RM_FROM_PROXY							=   101,		//RM Message	// BBD 040311
 	//
-	PTCL_SERVERSET_USERNUM_REQUEST				=	120,	// BBD 040311	µø¡¢ºˆ ø‰√ª
+	PTCL_SERVERSET_USERNUM_REQUEST				=	120,	// BBD 040311	ÎèôÏ†ëÏàò ÏöîÏ≤≠
 
 };
 

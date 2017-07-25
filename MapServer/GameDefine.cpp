@@ -1,4 +1,4 @@
-// GameDefine.cpp: implementation of the CGameDefine class.
+﻿// GameDefine.cpp: implementation of the CGameDefine class.
 //
 //////////////////////////////////////////////////////////////////////
 

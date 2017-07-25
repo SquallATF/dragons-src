@@ -1,4 +1,4 @@
-// KickOffAll.cpp: implementation of the CKickOffAll class.
+ï»¿// KickOffAll.cpp: implementation of the CKickOffAll class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -32,14 +32,14 @@ CKickOffAll::~CKickOffAll()
 
 /////////////////////////////////////////////////////
 //BBD 040110 
-// ÇÔ¼ö¸í : InitKickoffUserAll
-// ±â´É : À¯Àú¸¦ ³»º¸³»±â À§ÇÑ ÃÊ±âÈ­¸¦ ÁøÇà
+// í•¨ìˆ˜ëª… : InitKickoffUserAll
+// ê¸°ëŠ¥ : ìœ ì €ë¥¼ ë‚´ë³´ë‚´ê¸° ìœ„í•œ ì´ˆê¸°í™”ë¥¼ ì§„í–‰
 /////////////////////////////////////////////////////
 bool CKickOffAll::InitKickOffUserAll()
 {
 //<! BBD 040401
 /*
-	if(!g_pUserManager)		// À¯È¿ÇÑÁö °Ë»ç
+	if(!g_pUserManager)		// ìœ íš¨í•œì§€ ê²€ì‚¬
 	{
 		return false;
 	}
@@ -49,7 +49,7 @@ bool CKickOffAll::InitKickOffUserAll()
 //>! BBD 040401
 	m_nKickAmount1Time =GetPrivateProfileInt("KICKOFF_INFO", "KickAmount1Times" , 0, MapServerConfigFileName);
 	
-	if(!m_nKickAmount1Time) // ÇÑ¹ø¿¡ ¾ÏµÎ ¾ÊÀß¸£¸é ÇÒ°Ô ¾ø´õ
+	if(!m_nKickAmount1Time) // í•œë²ˆì— ì•”ë‘ ì•Šì˜ë¥´ë©´ í• ê²Œ ì—†ë”
 	{
 		return false;
 	}
@@ -61,27 +61,27 @@ bool CKickOffAll::InitKickOffUserAll()
 
 //////////////////////////////////////////////////////
 // BBD 040110
-// ÇÔ¼ö¸í : KickOffSeverlUser
-// ±â´É : Á¤ÇØÁ® ÀÖ´Â ¸í¼öÀÇ À¯Àú¸¦ ÀúÀåÇÏ°í ³»º¸³½´Ù
+// í•¨ìˆ˜ëª… : KickOffSeverlUser
+// ê¸°ëŠ¥ : ì •í•´ì ¸ ìˆëŠ” ëª…ìˆ˜ì˜ ìœ ì €ë¥¼ ì €ì¥í•˜ê³  ë‚´ë³´ë‚¸ë‹¤
 //////////////////////////////////////////////////////
 void CKickOffAll::KickOffSeverlUser()
 {	//<! BBD 040401
-	if(m_bIsAllKick || !m_bIsKicking)	// KickÁßÀÌ ¾Æ´Ï°Å³ª ¸ğµÎ Å±ÇßÀ»¶§´Â °Á ¸®ÅÏ
+	if(m_bIsAllKick || !m_bIsKicking)	// Kickì¤‘ì´ ì•„ë‹ˆê±°ë‚˜ ëª¨ë‘ í‚¥í–ˆì„ë•ŒëŠ” ê± ë¦¬í„´
 	{
 		return;
 	}
 
 
-/*	if(!m_nConnectAmount)	// ¸ğµÎ ´Ù Àß·Á³ª°¬´Ù
+/*	if(!m_nConnectAmount)	// ëª¨ë‘ ë‹¤ ì˜ë ¤ë‚˜ê°”ë‹¤
 	{
 		return;
 	}
 
-	// À¯ÀúµéÀ» ÀúÀåÇÏ°í Àß¶óÁÖÀÚ
-	static int s_KickCurrent = DRAGON_CONNECTIONS_START;					// ÇöÀç ÀÚ¸¦ ÄÜ³Ø¼ÇÀÇ ÀÎµ¦½º
-	static int s_KickEnd = DRAGON_CONNECTIONS_START + m_nKickAmount1Time;	// ÀÌ¹ø¿¡ Àß¶óÁÙ ÄÜ³Ø¼ÇÀÇ Maximum
+	// ìœ ì €ë“¤ì„ ì €ì¥í•˜ê³  ì˜ë¼ì£¼ì
+	static int s_KickCurrent = DRAGON_CONNECTIONS_START;					// í˜„ì¬ ìë¥¼ ì½˜ë„¥ì…˜ì˜ ì¸ë±ìŠ¤
+	static int s_KickEnd = DRAGON_CONNECTIONS_START + m_nKickAmount1Time;	// ì´ë²ˆì— ì˜ë¼ì¤„ ì½˜ë„¥ì…˜ì˜ Maximum
 */
-	// ·çÇÁ¸¦ µ¹¸ç ÀÌ¹ø¿¡ Àß¶óÁÙ ³ğµéÀ» ÀÚ¸£ÀÚ
+	// ë£¨í”„ë¥¼ ëŒë©° ì´ë²ˆì— ì˜ë¼ì¤„ ë†ˆë“¤ì„ ìë¥´ì
 	int count = 0;
 	for(int cn = DRAGON_CONNECTIONS_START; cn < DRAGON_MAX_CONNECTIONS; ++cn)
 	{
@@ -96,7 +96,7 @@ void CKickOffAll::KickOffSeverlUser()
 			}
 		}
 	}
-	// ¿©±â±îÁö Å»ÃâÇÑ°ÍÀº ÀüÃ¼¸¦ µ¹¾Æ ÄÜ³Ø¼ÇÀ» ´Ù ºñ¿ü´Ù´Â ¶æ
+	// ì—¬ê¸°ê¹Œì§€ íƒˆì¶œí•œê²ƒì€ ì „ì²´ë¥¼ ëŒì•„ ì½˜ë„¥ì…˜ì„ ë‹¤ ë¹„ì› ë‹¤ëŠ” ëœ»
 	m_bIsAllKick = true;
 	//> BBD 040401
 }

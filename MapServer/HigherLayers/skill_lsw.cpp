@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include <mmsystem.h>
 #include "DefaultHeader.h"
 #include "Scrp_int.h"
@@ -37,9 +37,9 @@
 // 030329 kyo << //just using in thailand
 #include "..\HigherLayers\QuestFunction.h"
 
-#include "LogManager.h"	//040720_KJHuNs g_pLogManager¸¦ »ç¿ë.
+#include "LogManager.h"	//040720_KJHuNs g_pLogManagerë¥¼ ì‚¬ìš©.
 
-//<050224_KCH ¸¶ÀÏ¸®Áö¸ô ÀÛ¾÷
+//<050224_KCH ë§ˆì¼ë¦¬ì§€ëª° ì‘ì—…
 #include "ItemMallManager.h"
 
 #include "Auction.h"
@@ -54,7 +54,7 @@ extern bool IsThereEquipedItem( CHARLIST* pMaster );
 //> kjy-040804
 
 extern void RecvCMD_COMFORM_RESET_ABILITY(t_packet &packet);//020820 lsw
-extern void RecvCMD_TRADE_MODE_CHANGE(const int iCn, t_packet *p);//030127 lsw //Trade On/Off ¼ÂÆÃ
+extern void RecvCMD_TRADE_MODE_CHANGE(const int iCn, t_packet *p);//030127 lsw //Trade On/Off ì…‹íŒ…
 extern bool IsThereEquipedItem( CHARLIST* pMaster );	// KJY-040804-KO
 
 extern HDBC  g_hDBC_DragonDB;
@@ -66,11 +66,11 @@ t_ItemFunction		ItemFunction[MAX_ITEM_FUNCTION];
 int CanLearnSkill( CHARLIST *ch, int skill, int check_ability )
 {
 	if( !ch ) return 0;
-	int inc = SkillTbl[skill].inclusive;	// ÆÇ´Ü·çÆ¾ 
-	if( ch->Skill[skill] ) return 2;		// ÀÌ¹Ì ¹è¿üÀ½
-	if( check_ability && ch->skillexp[inc].skillexp < (DWORD)SkillTbl[skill].need_exp ) return 3;	// ´É·ÂÀÌ ¸ğÀÚ¶÷
+	int inc = SkillTbl[skill].inclusive;	// íŒë‹¨ë£¨í‹´ 
+	if( ch->Skill[skill] ) return 2;		// ì´ë¯¸ ë°°ì› ìŒ
+	if( check_ability && ch->skillexp[inc].skillexp < (DWORD)SkillTbl[skill].need_exp ) return 3;	// ëŠ¥ë ¥ì´ ëª¨ìëŒ
 	
-	return 1;		// ¹è¿ì±â¿¡ °¡´ÉÇÔ.
+	return 1;		// ë°°ìš°ê¸°ì— ê°€ëŠ¥í•¨.
 }
 
 void SendLearnSkillOk( int skill_no, t_connection c[], int cn )
@@ -81,7 +81,7 @@ void SendLearnSkillOk( int skill_no, t_connection c[], int cn )
 		packet.u.kein.server_learn_skill_ok.skill_no = skill_no;
 	}
 	packet.h.header.size = sizeof( k_server_learn_skill_ok );
-	QueuePacket( c, cn, &packet, 1 );		// Å¬¶óÀÌ¾ğÆ® Àü¼Û	¹ŞÀº°Å °í´ë·Î º¸³»ÁØ´Ù.
+	QueuePacket( c, cn, &packet, 1 );		// í´ë¼ì´ì–¸íŠ¸ ì „ì†¡	ë°›ì€ê±° ê³ ëŒ€ë¡œ ë³´ë‚´ì¤€ë‹¤.
 }
 
 void SendStartSkillExp( int inc, t_skillexp exp, t_connection c[], int cn )
@@ -93,7 +93,7 @@ void SendStartSkillExp( int inc, t_skillexp exp, t_connection c[], int cn )
 		packet.u.kein.server_skill_exp.exp = exp;
 	}
 	packet.h.header.size = sizeof( k_server_skill_exp );
-	QueuePacket( c, cn, &packet, 1 );		// Å¬¶óÀÌ¾ğÆ® Àü¼Û	¹ŞÀº°Å °í´ë·Î º¸³»ÁØ´Ù.
+	QueuePacket( c, cn, &packet, 1 );		// í´ë¼ì´ì–¸íŠ¸ ì „ì†¡	ë°›ì€ê±° ê³ ëŒ€ë¡œ ë³´ë‚´ì¤€ë‹¤.
 }
 
 int GetSkillMother( int kind, int skill_mother[], int max )
@@ -110,7 +110,7 @@ int GetSkillMother( int kind, int skill_mother[], int max )
 	return count;
 }
 
-void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  )		//###1213 ¼öÁ¤
+void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  )		//###1213 ìˆ˜ì •
 {
 	CHARLIST *ch = CheckServerId( cn );
 	if( !ch ) return;
@@ -126,11 +126,11 @@ void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  )		//###
 	if( ch->Money < (DWORD)money )
 	{
 		SendServerResult( CM_LEARNSKILL, 4, cn );
-		return; // µ·ÀÌ ºÎÁ·ÇØ...
+		return; // ëˆì´ ë¶€ì¡±í•´...
 	}
 
-	int befor_enough = 1;		// Àü´Ü°è ½ºÅ³À» ·¾ 50ÀÌ»ó ÀÍÇû´Â°¡?
-	int check_ability=1;		// ´É·Â Ã¼Å©¸¦ ÇØ¾ß ÇÏ´Â°¡?
+	int befor_enough = 1;		// ì „ë‹¨ê³„ ìŠ¤í‚¬ì„ ë ™ 50ì´ìƒ ìµí˜”ëŠ”ê°€?
+	int check_ability=1;		// ëŠ¥ë ¥ ì²´í¬ë¥¼ í•´ì•¼ í•˜ëŠ”ê°€?
 
 	switch (inc)
 	{
@@ -168,7 +168,7 @@ void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  )		//###
 		case TAIMING : 
 			{	//< CSD-030806
 				if (ch->GetLevel() < 35 ) befor_enough = 0;
-				check_ability = 0; // ´õÀÌ»ó ´É·Â Ã¼Å©´Â ¾ø´Ù.
+				check_ability = 0; // ë”ì´ìƒ ëŠ¥ë ¥ ì²´í¬ëŠ” ì—†ë‹¤.
 				break;
 			}	//> CSD-030806
 		case ANIMAL_LORE:
@@ -201,7 +201,7 @@ void RecvLearnSkill( t_client_learn_skill *p, t_connection c[], int cn  )		//###
 
 	if( !ret_learn )
 	{
-		SendServerResult( CM_LEARNSKILL, error_learn, cn );	// 2:ÀÌ¹Ì ¹è¿üÀ½   3:´É·ÂÀÌ ºÎÁ·ÇÔ.
+		SendServerResult( CM_LEARNSKILL, error_learn, cn );	// 2:ì´ë¯¸ ë°°ì› ìŒ   3:ëŠ¥ë ¥ì´ ë¶€ì¡±í•¨.
 		return;
 	}
 	SubtractMoney( money, ch );
@@ -227,19 +227,19 @@ void RecvGmRegist( t_packet *p, short int cn, int makemode )
 
 	const int iSkillNo = pGmMain->skill;
 
-	const int ret = GMMgr.CanGmRegist( gm_list_index, ch );//pGmMainÀÌ 1 ºÎÅÍ´Ï±î
-	if(0 > ret){return;}//021212 lsw //µî·Ï ºÒ°¡¶ó¸é
-	// ¾ÆÀÌÅÛ »èÁ¦, µ· »èÁ¦ ¹× ¿©·¯ Ã³¸®
+	const int ret = GMMgr.CanGmRegist( gm_list_index, ch );//pGmMainì´ 1 ë¶€í„°ë‹ˆê¹Œ
+	if(0 > ret){return;}//021212 lsw //ë“±ë¡ ë¶ˆê°€ë¼ë©´
+	// ì•„ì´í…œ ì‚­ì œ, ëˆ ì‚­ì œ ë° ì—¬ëŸ¬ ì²˜ë¦¬
 	if(-1 == ::SubtractMoney( pGmMain->need_money, ch ))
 	{
-		return;//µ·µµ ¾ø´Â°Ô Äã
+		return;//ëˆë„ ì—†ëŠ”ê²Œ ì½±
 	}
 	for( int i=0; i<MAX_GM_NEED_ITEM_COUNT; i++ )
 	{
 		const int iItemNo = pGmMain->need_item[i];
 		if( iItemNo )
 		{
-			::SendDeleteItemQuantity( ch, iItemNo, pGmMain->need_quantity[i] );		// Æ¯Á¤ ¾ÆÀÌÅÛÀ» Æ¯Á¤ °¹¼ö¸¸Å­ »èÁ¦ ÇÑ´Ù.
+			::SendDeleteItemQuantity( ch, iItemNo, pGmMain->need_quantity[i] );		// íŠ¹ì • ì•„ì´í…œì„ íŠ¹ì • ê°¯ìˆ˜ë§Œí¼ ì‚­ì œ í•œë‹¤.
 		}
 	}
 
@@ -250,8 +250,8 @@ void RecvGmRegist( t_packet *p, short int cn, int makemode )
 	case 3:
 		{
 			ch->skillexp[iSkillNo].skillexp = 1000000;//011012 lsw
-			ch->view_job = gm_list_index;// º¸¿©ÁÙ Á÷¾÷À» GMÀ¸·Î ¹Ù²Û´Ù.
-			{// µğºñ ÀúÀå
+			ch->view_job = gm_list_index;// ë³´ì—¬ì¤„ ì§ì—…ì„ GMìœ¼ë¡œ ë°”ê¾¼ë‹¤.
+			{// ë””ë¹„ ì €ì¥
 			t_packet packet;
 			packet.h.header.type = CMD_GM_REGIST;
 			packet.u.kein.gm_regist_db.gm_list = gm_list_index;
@@ -260,12 +260,12 @@ void RecvGmRegist( t_packet *p, short int cn, int makemode )
 			QueuePacket(connections, DB_DEMON, &packet, 1);
 			}
 		}break;
-	case 4://±â¼ºÀÇ °æ¿ì´Â Á» ´Ù¸£´Ù
-		{//±â¼ºÀº µğºñ¿¡ ÀúÀåµµ ¾ÈÇÑ´Ù
+	case 4://ê¸°ì„±ì˜ ê²½ìš°ëŠ” ì¢€ ë‹¤ë¥´ë‹¤
+		{//ê¸°ì„±ì€ ë””ë¹„ì— ì €ì¥ë„ ì•ˆí•œë‹¤
 			t_SkillExp3 *pExp = (t_SkillExp3*)(&ch->skillexp[iSkillNo]);
 			pExp->skillType = gm_list_index;
 			pExp->year = g_year;
-			pExp->day = g_mon*30 +g_day+10;//10ÀÏÀ» ÁØ´Ù
+			pExp->day = g_mon*30 +g_day+10;//10ì¼ì„ ì¤€ë‹¤
 		}break;
 	default:
 		{
@@ -276,7 +276,7 @@ void RecvGmRegist( t_packet *p, short int cn, int makemode )
 	
 	SkillMgr.SendSkillExp(iSkillNo,ch->skillexp[iSkillNo],ch->GetServerID());
 
-	//010708 lsw Áö¿¥ µî·Ï°ú ÇÔ²² ½ºÅ³ÀÌ °£´Ù.
+	//010708 lsw ì§€ì—  ë“±ë¡ê³¼ í•¨ê»˜ ìŠ¤í‚¬ì´ ê°„ë‹¤.
 	if(ret==2)
 	{
 		int iCheckJob = iSkillNo;
@@ -374,7 +374,7 @@ typedef enum eInsuranceType
 	IT_CMP_BASE		= 0x0000000F,
 }E_INSURANCE_TYPE;
 
-void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×°±¸µÄ
+void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ï¥€è‹Ÿè§’é½¡é±—é™‹êµ¬ë¨
 {
 	const int iSkillNo	= p->u.SkillRareUpgrade.iSkillNo;
 	LPCHARLIST ch		= ::CheckServerId(cn);
@@ -394,7 +394,7 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 
 	if( !SourceItem.item_no ) return;
 
-	int iSourceItemMuch = 0;//item_result ²¨°¡ ÇÏ³ª´Ï±î
+	int iSourceItemMuch = 0;//item_result êº¼ê°€ í•˜ë‚˜ë‹ˆê¹Œ
 
 	unsigned int iResultSok	= 0;
 	RareMain TempSokSung;
@@ -419,7 +419,7 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 	
 	int a[4] = {0,};//additem 1~4
 	int al[4] = {0,};//additem Limit 1~4
-	int HaveResource[4] = {0,};//ÇÊ¿ä ¾ÆÀÌÅÛÀÌ ÀÖ³ª
+	int HaveResource[4] = {0,};//í•„ìš” ì•„ì´í…œì´ ìˆë‚˜
 
 	const int iKind = t->GetItemKind();
 	const int AddItem[4] ={	ItemMutantKind[iKind].AddItem[0]/100,
@@ -430,7 +430,7 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 	POS pos;
 	ItemAttr *i;
 	int iIsCracked =0;
-	for (int ti = 0; ti < MAX_UPGRADE_RARE ; ti++)//½ºÅ³À» ½ÃµµÇÑ ¾ÆÀÌÅÛÀ» ¸ğÁ¶¸® Áö¿î´Ù
+	for (int ti = 0; ti < MAX_UPGRADE_RARE ; ti++)//ìŠ¤í‚¬ì„ ì‹œë„í•œ ì•„ì´í…œì„ ëª¨ì¡°ë¦¬ ì§€ìš´ë‹¤
 	{
 		pos = p->u.SkillRareUpgrade.pos[ti];
 		switch( pos.type )
@@ -447,21 +447,21 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 		{
 			if( SourceItem.item_no == i->item_no )//011224 lsw
 			{
-				if( 0 != pRare->iHighLevel )//·¹¾î ¾ÆÀÌÅÛÀÌ ¾Æ´Ï¸é(ÇÃ·¯½º ¾ÆÀÌÅÛÀÌ°Å³ª 
+				if( 0 != pRare->iHighLevel )//ë ˆì–´ ì•„ì´í…œì´ ì•„ë‹ˆë©´(í”ŒëŸ¬ìŠ¤ ì•„ì´í…œì´ê±°ë‚˜ 
 				{
-					iIsCracked = 1;//ÇÏÀÌ ¾ÆÀÌÅÛ ¾÷±Û ÇÏ·Á¸é
+					iIsCracked = 1;//í•˜ì´ ì•„ì´í…œ ì—…ê¸€ í•˜ë ¤ë©´
 				}
 				if( pRare->soksung2
 				||	pRare->soksung3)
 				{
-					iIsCracked = 1;//¸ÖÆ¼·¹¾î ¾÷±Û ÇÏ·Á¸é //0211120 lsw
+					iIsCracked = 1;//ë©€í‹°ë ˆì–´ ì—…ê¸€ í•˜ë ¤ë©´ //0211120 lsw
 				}
 
 				if( SourceItem.attr[IATTR_RARE_MAIN] != i->attr[IATTR_RARE_MAIN] )
 				{
 					if(!CorrectRareKind(SourceItem.attr[IATTR_RARE_MAIN],i->attr[IATTR_RARE_MAIN]))
 					{
-						iIsCracked = 1;//MyLog(0,"¾÷±Û ¿À±â´Â ¿Ô´Âµ¥ ¾û¶×ÇÑ°Å ¾ÆÀÌÅÛ¸¸ »©¾Ñ°í »èÁ¦..");	
+						iIsCracked = 1;//MyLog(0,"ì—…ê¸€ ì˜¤ê¸°ëŠ” ì™”ëŠ”ë° ì—‰ëš±í•œê±° ì•„ì´í…œë§Œ ë¹¼ì•—ê³  ì‚­ì œ..");	
 					}
 				}
 				
@@ -485,7 +485,7 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 			}
 			for(int addcount = 0;addcount <4;addcount++)
 			{
-				if(AddItem[addcount])//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ÀÖÀ¸¸é
+				if(AddItem[addcount])//ì•„ì´í…œ ë„˜ë²„ê°€ ìˆìœ¼ë©´
 				{
 					if( AddItem[addcount]  == i->item_no )
 					{
@@ -497,13 +497,13 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 						}
 					}
 				}
-				else// AddItem	//¿ä±¸ ¾ÆÀÌÅÛÀÌ ¾ø±â ¶§¹®¿¡ ¸®¼Ò½º ÀÖ´Â°É·Î Ã¼Å©
+				else// AddItem	//ìš”êµ¬ ì•„ì´í…œì´ ì—†ê¸° ë•Œë¬¸ì— ë¦¬ì†ŒìŠ¤ ìˆëŠ”ê±¸ë¡œ ì²´í¬
 				{
 					HaveResource[addcount] = 1;
 				}
 			}
 			::SendItemEventLog( i, cn, 0, SILT_RESOURCE_BY_SKILL, 1);	 //YGI acer
-			::DeleteItem( i );//¾ÆÀÌÅÛÀÌ ÀÖ¾ú±â ¶§¹®¿¡ Áö¿î´Ù
+			::DeleteItem( i );//ì•„ì´í…œì´ ìˆì—ˆê¸° ë•Œë¬¸ì— ì§€ìš´ë‹¤
 		}
 	}	
 
@@ -513,38 +513,38 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 	||	!HaveResource[2]	||	!HaveResource[3])
 	{
 		why |= 0x0004;
-	}//¿ä±¸ ÇÏ´Â ¾ÆÀÌÅÛÀÌ ¾ø´Ù (AddItem ÀÌ 0 ÀÌ¸é ÀÚµ¿À¸·Î 1Ã¼Å© ÇÏ´Ï±î || ¸¦ ¾´´Ù
+	}//ìš”êµ¬ í•˜ëŠ” ì•„ì´í…œì´ ì—†ë‹¤ (AddItem ì´ 0 ì´ë©´ ìë™ìœ¼ë¡œ 1ì²´í¬ í•˜ë‹ˆê¹Œ || ë¥¼ ì“´ë‹¤
 
 	
 	if(!ItemGrade[TempSokSung.grade+1].iAble)
-	{//ÃÖ´ë·Î ¾÷±×·¹ÀÌµå °¡´ÉÇÑ µî±ŞÀÎ°¡?
-		why |= 0x0008;//¾÷±Û ºÒ°¡
+	{//ìµœëŒ€ë¡œ ì—…ê·¸ë ˆì´ë“œ ê°€ëŠ¥í•œ ë“±ê¸‰ì¸ê°€?
+		why |= 0x0008;//ì—…ê¸€ ë¶ˆê°€
 	}
 	else
-	{//µî±Ş ¾÷±×·¹ÀÌµå°¡ °¡´É
-		//¾ÆÀÌÅÛ ³Ñ¹ö¿Í °³¼ö¸¦ °¡Áö°í
+	{//ë“±ê¸‰ ì—…ê·¸ë ˆì´ë“œê°€ ê°€ëŠ¥
+		//ì•„ì´í…œ ë„˜ë²„ì™€ ê°œìˆ˜ë¥¼ ê°€ì§€ê³ 
 		const int iItemKind = t->GetItemKind();
 		if (MAX_ITEM_MUTANT_KIND < iItemKind )
 		{
-			why |= 0x1000;//¾ÆÀÌÅÛ Ä«ÀÎµå Å×ÀÌºí ¿À¹ö ÂüÁ¶
+			why |= 0x1000;//ì•„ì´í…œ ì¹´ì¸ë“œ í…Œì´ë¸” ì˜¤ë²„ ì°¸ì¡°
 		}
 		
 		int iKind = ItemMutantKind[iItemKind].upgrade_type ;
 		if( !iKind ) 
 		{
-			iKind = 1;//¿ì¼± ¸Ş¸ğ¸® ¿À¹ö ÂüÁ¶ ¾ÈÇÏ°Ô ÇÏ±â À§ÇØ¼­ 1·Î ÁØ´Ù
+			iKind = 1;//ìš°ì„  ë©”ëª¨ë¦¬ ì˜¤ë²„ ì°¸ì¡° ì•ˆí•˜ê²Œ í•˜ê¸° ìœ„í•´ì„œ 1ë¡œ ì¤€ë‹¤
 			why |= 0x0100;
-		}//¾÷±×·¹ÀÌµå ¾ÈµÇ´Â ¾ÆÀÌÅÛ Ä«ÀÎµå´Ù
+		}//ì—…ê·¸ë ˆì´ë“œ ì•ˆë˜ëŠ” ì•„ì´í…œ ì¹´ì¸ë“œë‹¤
 		
-		const int PerpectMuch = ItemGrade[TempSokSung.grade+1].ResourceAmount[iKind-1];//1 ÀÏ¶§¸¸ °¡´É ÇÏ´Ï±î 1À» »©¸é 0À» ÀÎµ¦½º·Î ¾µ ¼ö ÀÖ´Ù
+		const int PerpectMuch = ItemGrade[TempSokSung.grade+1].ResourceAmount[iKind-1];//1 ì¼ë•Œë§Œ ê°€ëŠ¥ í•˜ë‹ˆê¹Œ 1ì„ ë¹¼ë©´ 0ì„ ì¸ë±ìŠ¤ë¡œ ì“¸ ìˆ˜ ìˆë‹¤
 
 		if( PerpectMuch  <= 0) 
-		{//¿ä±¸ °¹¼ö°¡ ¾ø´Ù..
+		{//ìš”êµ¬ ê°¯ìˆ˜ê°€ ì—†ë‹¤..
 			why |= 0x0010;
 		}
 
 		if( PerpectMuch )
-		{//¼º°ø·üÀ» »Ì´Â´Ù
+		{//ì„±ê³µë¥ ì„ ë½‘ëŠ”ë‹¤
 			iSuccessRate = float(iSourceItemMuch)/float(PerpectMuch);
 			iSuccessRate	*=	100;
 
@@ -554,24 +554,24 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 			}
 			else
 			{
-				iSuccessRate /= 2;//°¹¼ö°¡ ¸ğÀÚ¶ó¸é 1/5 ·Î ÁÙ¿© ¹ö¸°´Ù
+				iSuccessRate /= 2;//ê°¯ìˆ˜ê°€ ëª¨ìë¼ë©´ 1/5 ë¡œ ì¤„ì—¬ ë²„ë¦°ë‹¤
 			}
 		}
 	}
 
-	//ÆĞÅ¶ º¸³¾ ÁØºñ
+	//íŒ¨í‚· ë³´ë‚¼ ì¤€ë¹„
 	t_packet packet;
 	packet.h.header.type = CMD_SKILL_RARE_UPGRADE_RESULT;
 	packet.h.header.size = sizeof( t_SkillRareUpgradeResult);
-	ZeroMemory(&packet.u.SkillRareUpgradeResult,sizeof( t_SkillRareUpgradeResult));//¸Ş¸ğ¸® ÃÊ±âÈ­ µÇ¾úÀ½
+	ZeroMemory(&packet.u.SkillRareUpgradeResult,sizeof( t_SkillRareUpgradeResult));//ë©”ëª¨ë¦¬ ì´ˆê¸°í™” ë˜ì—ˆìŒ
 
 	const int iNowSuccess = (rand()%100);
 	
 	packet.u.SkillRareUpgradeResult.iSuccess = iNowSuccess;
 
 	if( iSuccessRate > iNowSuccess)
-	{	//¼º°øÇßÀ¸¸é µé¾î°¥ Ã³¸®		
-		if (!why)//½ÇÆĞ ÀÌÀ¯°¡ ¼ÂÆÃ µÇÁö ¾Ê¾Æ¾ß ÁÙ ¼ö ÀÖ´Ù
+	{	//ì„±ê³µí–ˆìœ¼ë©´ ë“¤ì–´ê°ˆ ì²˜ë¦¬		
+		if (!why)//ì‹¤íŒ¨ ì´ìœ ê°€ ì…‹íŒ… ë˜ì§€ ì•Šì•„ì•¼ ì¤„ ìˆ˜ ìˆë‹¤
 		{
 			if ( DIVIDE_ITEM == t->GetRbutton()) 
 			{
@@ -581,7 +581,7 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 			{
 				now = (float)now/(float)iSourceItemMuch * (float)(1.100);
 				max = (float)max/(float)iSourceItemMuch * (float)(1.100);
-				if(!now) {now = 1;}//ÀÌ·² °æ¿ì°¡ ÀÖ³Ä??
+				if(!now) {now = 1;}//ì´ëŸ´ ê²½ìš°ê°€ ìˆëƒ??
 				if(!max) {max = 1;}
 				resultdur = MAKELONG( now, max);
 			}
@@ -593,21 +593,21 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 			}
 			else
 			{
-				why |= 0x2000;//·¹¾î Á¶°ÇÀÌ Á» ÀÌ»óÇÑ°¡º¸´Ù
+				why |= 0x2000;//ë ˆì–´ ì¡°ê±´ì´ ì¢€ ì´ìƒí•œê°€ë³´ë‹¤
 			}
 
 			packet.u.SkillRareUpgradeResult.iSuccess			=	100			;
 			packet.u.SkillRareUpgradeResult.SourceItem			=	SourceItem	;
 				
 			if(!resultdur )
-			{//³»±¸µµ°¡ ¾ø¾î??
+			{//ë‚´êµ¬ë„ê°€ ì—†ì–´??
 				why |= 0x0040;
 			}
 
 			int a,b,c;
-			if(!why)// ÇÑ¹ø´õ ¹®Á¦ ¾øÀÌ ¿Ô´Ù¸é 
+			if(!why)// í•œë²ˆë” ë¬¸ì œ ì—†ì´ ì™”ë‹¤ë©´ 
 			{
-				if( ::SearchInv( ch->inv, a, b, c ))//Ä³¸¯ÅÍ ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» ³Ö¾îÁØ´Ù
+				if( ::SearchInv( ch->inv, a, b, c ))//ìºë¦­í„° ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì„ ë„£ì–´ì¤€ë‹¤
 				{
 					POS pos;
 					::SetItemPos( INV, a, b, c, &pos );
@@ -616,7 +616,7 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 					
 					t_packet bbspacket;
 					
-					//ÀüÃ¼ °øÁö
+					//ì „ì²´ ê³µì§€
 					bbspacket.h.header.type = CMD_RARE_UPGRADE_BBS_MAP_TO_MAP;
 
 					::memcpy( bbspacket.u.RareUpgradeBBSMapToMap.name, ch->Name,20);
@@ -628,20 +628,20 @@ void RecvCMD_SKILL_RARE_UPGRADE(const int cn, t_packet *p)  //coromo ÒÔÏÂÊÇÖÆ×÷×
 				}
 				else
 				{
-					why |= 0x0080;//ÀÚ¸®°¡ ¾ø´Ü´Ù.. ¸»ÀÌ µÇ³ª..
+					why |= 0x0080;//ìë¦¬ê°€ ì—†ë‹¨ë‹¤.. ë§ì´ ë˜ë‚˜..
 				}
 			}
 		}
 	}
 	else
 	{
-		why |=0x0020;//¼º°ø·ü ¶§¹®¿¡ ½ÇÆĞ
+		why |=0x0020;//ì„±ê³µë¥  ë•Œë¬¸ì— ì‹¤íŒ¨
 	}
 
 	Send_RareItemMakeLog( cn,SourceItem.item_no,0, 
 		TempSokSung.grade+1,TempSokSung.soksung1,TempSokSung.soksung2,TempSokSung.soksung3,a[0],al[0],a[1],al[1],SourceItem.attr[IATTR_LIMIT],now,max,why,2002,
 		resourcelimit[0],resourcelimit[1],resourcelimit[2],
-		resourcelimit[3],resourcelimit[4],resourcelimit[5]);//°á°ú ±â·Ï
+		resourcelimit[3],resourcelimit[4],resourcelimit[5]);//ê²°ê³¼ ê¸°ë¡
 
 	::QueuePacket(connections, cn, &packet, 1);
 	return;
@@ -656,15 +656,15 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 
 	const int iSkillNo = pSMMRM->iSkillNo;
 	const int iNowSkillNo = GMMgr.IsSkillMaster(ch);
-	if(!iNowSkillNo){return;}//±â¼º ¾Æ´Ï´Ù//¹Ş¾Ò´Âµ¥ ´Ù¸£°Å³ª ÇÏ´Ù
+	if(!iNowSkillNo){return;}//ê¸°ì„± ì•„ë‹ˆë‹¤//ë°›ì•˜ëŠ”ë° ë‹¤ë¥´ê±°ë‚˜ í•˜ë‹¤
 
 	if (!ch->IsPayedUser())
 	{
 		return;
 	}
 	
-	//¾ÆÀÌÅÛ Ã¼Å©
-	ITEMATTR RecvSrcItem[2]; //¹ŞÀº°Å
+	//ì•„ì´í…œ ì²´í¬
+	ITEMATTR RecvSrcItem[2]; //ë°›ì€ê±°
 	RecvSrcItem[0]=	pSMMRM->MRS.SrcData[0].attr;
 	RecvSrcItem[1]=	pSMMRM->MRS.SrcData[1].attr;
 
@@ -672,8 +672,8 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 	NowSrcItem[0] =	*GetItemByPOS(ch,pSMMRM->MRS.SrcData[0].pos);
 	NowSrcItem[1] =	*GetItemByPOS(ch,pSMMRM->MRS.SrcData[1].pos);
 
-	if(memcmp(RecvSrcItem,NowSrcItem,sizeof(ItemAttr))){return;}//¼­¹ö¿Í Å¬¶óÀÌ¾ğÆ®°¡ ´Ù¸¨´Ï´Ù.
-	if(RecvSrcItem[0].item_no != RecvSrcItem[0].item_no){return;}//¾ÆÀÌÅÛ ¹øÈ£°¡ ´Ù¸£¸é ÇÕÄ¥ ¼ö ¾ø½À´Ï´Ù.
+	if(memcmp(RecvSrcItem,NowSrcItem,sizeof(ItemAttr))){return;}//ì„œë²„ì™€ í´ë¼ì´ì–¸íŠ¸ê°€ ë‹¤ë¦…ë‹ˆë‹¤.
+	if(RecvSrcItem[0].item_no != RecvSrcItem[0].item_no){return;}//ì•„ì´í…œ ë²ˆí˜¸ê°€ ë‹¤ë¥´ë©´ í•©ì¹  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 	const int iResultItemNo = pSMMRM->MRS.SrcData[0].attr.item_no;
 	CItem *	t = ItemUnit( iResultItemNo);
 	if( !t ){return;}
@@ -707,7 +707,7 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 		return;
 	}
 
-	const int iGrade = (RecvRare1.grade+RecvRare2.grade)/2;//Æò±Õ
+	const int iGrade = (RecvRare1.grade+RecvRare2.grade)/2;//í‰ê· 
 
 	if( 5 < iGrade )
 	{
@@ -730,19 +730,19 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 		WORD now = (float)(now1+now2)*(float)(1.100)/2;
 		WORD max = (float)(max1+max2)*(float)(1.100)/2;
 
-		if(!now) {now = 1;}//ÀÌ·² °æ¿ì°¡ ÀÖ³Ä??
+		if(!now) {now = 1;}//ì´ëŸ´ ê²½ìš°ê°€ ìˆëƒ??
 		if(!max) {max = 1;}
 		resultdur = MAKELONG( now, max);
 	}
-	ItemAttr ResultItem = ItemMgr.GenerateItem(iResultItemNo);//Áö±ŞµÉ ¾ÆÀÌÅÛ ¼ÂÆÃ
-	ResultItem.attr[IATTR_MUCH] = resultdur;//³»±¸µµ ¼ÂÆÃ
-	ItemMgr.MakeRareAttr(ResultItem.attr[IATTR_RARE_MAIN],iGrade,RecvRare1.soksung1,RecvRare2.soksung1,0,0,0);//¸ÖÆ¼ ·¹¾î ¸¸µé¾ú´Ù
+	ItemAttr ResultItem = ItemMgr.GenerateItem(iResultItemNo);//ì§€ê¸‰ë  ì•„ì´í…œ ì…‹íŒ…
+	ResultItem.attr[IATTR_MUCH] = resultdur;//ë‚´êµ¬ë„ ì…‹íŒ…
+	ItemMgr.MakeRareAttr(ResultItem.attr[IATTR_RARE_MAIN],iGrade,RecvRare1.soksung1,RecvRare2.soksung1,0,0,0);//ë©€í‹° ë ˆì–´ ë§Œë“¤ì—ˆë‹¤
 
 	bool iIsHaveResource = true;
 	const ITEMMULTIRARE IMR = RareEM.GetIMR(iGrade);
-{//Àç·áÀÇ °¹¼ö Ã¼Å©
+{//ì¬ë£Œì˜ ê°¯ìˆ˜ ì²´í¬
 	for(int xx= 0;MAX_IMR_FIELD_CT>xx;xx++)
-	{//Àç·á Ã¼Å© ÇÑ´Ù
+	{//ì¬ë£Œ ì²´í¬ í•œë‹¤
 		int iNationAddCt = 0;
 		switch(ch->name_status.nation)
 		{
@@ -756,8 +756,8 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 		{
 			CItem *t = ::ItemUnit( iNeedItemNo );
 			if(!t){continue;}
-			const int iNowCt = ::CheckInventory(ch, iNeedItemNo, iNeedItemCt);//³»°¡ ¿øÇÑ °ª¿¡¼­ ÇöÀç °á°ú¸¦ ÁÖ´Ï±î -°ªÀÌ ³ª¿Ã ¼ö ÀÖ´Ù
-			if(0 > iNowCt)//°¹¼ö ¸ğÀÚ¶ó³× ¤Ñ¤Ñ;.
+			const int iNowCt = ::CheckInventory(ch, iNeedItemNo, iNeedItemCt);//ë‚´ê°€ ì›í•œ ê°’ì—ì„œ í˜„ì¬ ê²°ê³¼ë¥¼ ì£¼ë‹ˆê¹Œ -ê°’ì´ ë‚˜ì˜¬ ìˆ˜ ìˆë‹¤
+			if(0 > iNowCt)//ê°¯ìˆ˜ ëª¨ìë¼ë„¤ ã…¡ã…¡;.
 			{
 				iIsHaveResource = false;
 			}
@@ -768,24 +768,24 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 	{
 		::MyLog(1,"RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE ,iIsHaveResource Check Error");
 		return;
-	}//Àç·á ¸ğÀÚ¶ó Ä¡¿ö¶ó
-{//Àç·á¸¦ »èÁ¦
+	}//ì¬ë£Œ ëª¨ìë¼ ì¹˜ì›Œë¼
+{//ì¬ë£Œë¥¼ ì‚­ì œ
 
 	POS &pos1 = pSMMRM->MRS.SrcData[0].pos;
 	ItemAttr *pItem1 = GetItemByPOS(ch,pos1);
 	
 	::SendItemEventLog( pItem1, ch->GetServerID(), 0, SILT_MAKE_MULTI_RARE_RESOURCE, 1 ); //021209 lsw
 	::DeleteItem(pItem1);
-	::SendServerEachItem( &pos1, pItem1,ch->GetServerID());//º¸³»±â
+	::SendServerEachItem( &pos1, pItem1,ch->GetServerID());//ë³´ë‚´ê¸°
 
 	POS &pos2 = pSMMRM->MRS.SrcData[1].pos;
 	ItemAttr *pItem2 = GetItemByPOS(ch,pos2);
 	
 	::SendItemEventLog( pItem2, ch->GetServerID(), 0, SILT_MAKE_MULTI_RARE_RESOURCE, 1 ); //021209 lsw
 	::DeleteItem(pItem2);
-	::SendServerEachItem( &pos2, pItem2,ch->GetServerID());//º¸³»±â
+	::SendServerEachItem( &pos2, pItem2,ch->GetServerID());//ë³´ë‚´ê¸°
 
-	for(int xx= 0;MAX_IMR_FIELD_CT>xx;xx++)//Àç·á »«´Ù
+	for(int xx= 0;MAX_IMR_FIELD_CT>xx;xx++)//ì¬ë£Œ ëº€ë‹¤
 	{	
 		int iNationAddCt = 0;
 		switch(ch->name_status.nation)
@@ -800,10 +800,10 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 		{
 			CItem *t = ItemUnit( iNeedItemNo );
 			if(!t){continue;}
-			const int iNowCt = ::CheckInventory(ch,iNeedItemNo,iNeedItemCt);//³»°¡ ¿øÇÑ °ª¿¡¼­ ÇöÀç °á°ú¸¦ ÁÖ´Ï±î -°ªÀÌ ³ª¿Ã ¼ö ÀÖ´Ù
-			if(0 <=iNowCt)//°¹¼ö°¡ ¸ÂÀ¸¸é Áö¿ö¶ó
+			const int iNowCt = ::CheckInventory(ch,iNeedItemNo,iNeedItemCt);//ë‚´ê°€ ì›í•œ ê°’ì—ì„œ í˜„ì¬ ê²°ê³¼ë¥¼ ì£¼ë‹ˆê¹Œ -ê°’ì´ ë‚˜ì˜¬ ìˆ˜ ìˆë‹¤
+			if(0 <=iNowCt)//ê°¯ìˆ˜ê°€ ë§ìœ¼ë©´ ì§€ì›Œë¼
 			{
-				::SendDeleteItemQuantity( ch, iNeedItemNo, iNeedItemCt );		// Æ¯Á¤ ¾ÆÀÌÅÛÀ» Æ¯Á¤ °¹¼ö¸¸Å­ »èÁ¦ ÇÑ´Ù.
+				::SendDeleteItemQuantity( ch, iNeedItemNo, iNeedItemCt );		// íŠ¹ì • ì•„ì´í…œì„ íŠ¹ì • ê°¯ìˆ˜ë§Œí¼ ì‚­ì œ í•œë‹¤.
 			}
 		}
 	}
@@ -815,20 +815,20 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 		if(45 > iNow)
 		{
 			POS pos;
-			SetItemPos(INV,a,b,c,&pos);//pos¼ÂÆÃ 
-			ITEMATTR *pItem = ::GetItemByPOS(ch,pos);//¾ÆÀÌÅÛ ÁÖ¼Ò ¹Ş°í
+			SetItemPos(INV,a,b,c,&pos);//posì…‹íŒ… 
+			ITEMATTR *pItem = ::GetItemByPOS(ch,pos);//ì•„ì´í…œ ì£¼ì†Œ ë°›ê³ 
 			(*pItem) = ResultItem;
 			::SendItemEventLog( pItem, ch->GetServerID(), 0, SILT_MAKE_MULTI_RARE_RESULT, 1 ); //021209 lsw
-			::SendServerEachItem( &pos, pItem,ch->GetServerID());//º¸³»±â
+			::SendServerEachItem( &pos, pItem,ch->GetServerID());//ë³´ë‚´ê¸°
 			::OutMessage(cn,2,901);//021120 lsw
 		}
 		else
-		{//¸Ş¼¼Áö º¸³½´Ù
+		{//ë©”ì„¸ì§€ ë³´ë‚¸ë‹¤
 			::OutMessage(cn,2,900);//021120 lsw
 		}
 	}
 	else
-	{//ÀÌ·Ã °æ¿ì´Â ¾ø¾î¿ä
+	{//ì´ë ¨ ê²½ìš°ëŠ” ì—†ì–´ìš”
 		
 	}
 	
@@ -836,48 +836,48 @@ void RecvCMD_SKILL_MASTER_MULTI_RARE_MAKE(const int cn, t_packet *p)
 	Send_RareItemMakeLog( cn,SourceItem.item_no,0, 
 		TempSokSung.grade+1,TempSokSung.soksung1,TempSokSung.soksung2,TempSokSung.soksung3,a[0],al[0],a[1],al[1],SourceItem.attr[IATTR_LIMIT],now,max,why,2002,
 		resourcelimit[0],resourcelimit[1],resourcelimit[2],
-		resourcelimit[3],resourcelimit[4],resourcelimit[5]);//°á°ú ±â·Ï
+		resourcelimit[3],resourcelimit[4],resourcelimit[5]);//ê²°ê³¼ ê¸°ë¡
 */
 //	::QueuePacket(connections, cn, &packet, 1);
 	
 	return;
 }
-//<! BBD 040308		µ¥¸óÀ¸·ÎºÎÅÍÀÇ ÀÌº¥Æ®¾ÆÀÌÅÛ Áö±Ş ÀÀ´ä½Ã ÄİµÇ´Â ÇÔ¼ö
+//<! BBD 040308		ë°ëª¬ìœ¼ë¡œë¶€í„°ì˜ ì´ë²¤íŠ¸ì•„ì´í…œ ì§€ê¸‰ ì‘ë‹µì‹œ ì½œë˜ëŠ” í•¨ìˆ˜
 void RecvCMD_EVENTRAREITEM_RES(const int cn, t_packet &p)
 {
 	const int MAX_EVENT_USER_FILED = 10;
 	int nUserCn = p.u.Event_Item_List.nCn;
 	
 	CHARLIST *ch = CheckServerId(nUserCn);
-	if(!ch)	// Ä³¸¯ÅÍ°¡ À¯È¿ÇÑ°¡?
+	if(!ch)	// ìºë¦­í„°ê°€ ìœ íš¨í•œê°€?
 	{
-		// ¾ÆÀÌÅÛÀÌ ³¯¶ó°¬´Ù. ·Î±× ³²±âÀÚ
+		// ì•„ì´í…œì´ ë‚ ë¼ê°”ë‹¤. ë¡œê·¸ ë‚¨ê¸°ì
 		for(int i = 0; i < MAX_EVENT_USER_FILED; i++)
 		{
 			if(p.u.Event_Item_List.nIndex[i])
 			{
-				//i+1ÀÎ ÀÎµ¦½ºÀÇ ¾ÆÀÌÅÛÀÌ ³¯¾Æ°¬´Ù
+				//i+1ì¸ ì¸ë±ìŠ¤ì˜ ì•„ì´í…œì´ ë‚ ì•„ê°”ë‹¤
 				g_pLogManager->SaveLogEventItem_Lost(EILT_INVALID_CONNECTION, p.u.Event_Item_List.szChrName, i+1);
 			}
 		}
 		return;
 	}
 
-	if(strcmp(p.u.Event_Item_List.szChrName, ch->Name))//ÀÌ¸§ÀÌ Æ²·Á	
+	if(strcmp(p.u.Event_Item_List.szChrName, ch->Name))//ì´ë¦„ì´ í‹€ë ¤	
 	{
-		// ¾ÆÀÌÅÛÀÌ ³¯¶ó°¬´Ù. ·Î±× ³²±âÀÚ.
+		// ì•„ì´í…œì´ ë‚ ë¼ê°”ë‹¤. ë¡œê·¸ ë‚¨ê¸°ì.
 		for(int i = 0; i < MAX_EVENT_USER_FILED; i++)
 		{
 			if(p.u.Event_Item_List.nIndex[i])
 			{
-				//i+1ÀÎ ÀÎµ¦½ºÀÇ ¾ÆÀÌÅÛÀÌ ³¯¾Æ°¬´Ù
+				//i+1ì¸ ì¸ë±ìŠ¤ì˜ ì•„ì´í…œì´ ë‚ ì•„ê°”ë‹¤
 				g_pLogManager->SaveLogEventItem_Lost(EILT_INVALID_NAME, p.u.Event_Item_List.szChrName, i+1);
 			}
 		}
 		return;
 	}
 
-	// ÀÎº¥ÀÇ ºóÄ­ ¼¼±â
+	// ì¸ë²¤ì˜ ë¹ˆì¹¸ ì„¸ê¸°
 	int blankcount = 0;
 	for(int a=0; a<3; a++)
 	{
@@ -893,42 +893,42 @@ void RecvCMD_EVENTRAREITEM_RES(const int cn, t_packet &p)
 		}
 	}
 	
-	if(blankcount < 10)	// 10Ä­ ÀÌ»óÀÎ°¡?
+	if(blankcount < 10)	// 10ì¹¸ ì´ìƒì¸ê°€?
 	{
-		::OutMessage(ch,2,13);//ÀÓ½Ã,,ÀÎº¥Åä¸® °ø°£ÀÌ ÃæºĞÄ¡ ¾Ê½À´Ï´Ù.
-		// ¾ÆÀÌÅÛÀÌ ³¯¶ó°¬´Ù. ·Î±× ³²±âÀÚ.
+		::OutMessage(ch,2,13);//ì„ì‹œ,,ì¸ë²¤í† ë¦¬ ê³µê°„ì´ ì¶©ë¶„ì¹˜ ì•ŠìŠµë‹ˆë‹¤.
+		// ì•„ì´í…œì´ ë‚ ë¼ê°”ë‹¤. ë¡œê·¸ ë‚¨ê¸°ì.
 		for(int i = 0; i < MAX_EVENT_USER_FILED; i++)
 		{
 			if(p.u.Event_Item_List.nIndex[i])
 			{
-				//i+1ÀÎ ÀÎµ¦½ºÀÇ ¾ÆÀÌÅÛÀÌ ³¯¾Æ°¬´Ù
+				//i+1ì¸ ì¸ë±ìŠ¤ì˜ ì•„ì´í…œì´ ë‚ ì•„ê°”ë‹¤
 				g_pLogManager->SaveLogEventItem_Lost(EILT_NOTENOUGH_INVENTORY, p.u.Event_Item_List.szChrName, i+1);
 			}
 		}
 		return;
 	}
 
-	// ·çÇÁ¸¦ µ¹¸çÁö±Ş
+	// ë£¨í”„ë¥¼ ëŒë©°ì§€ê¸‰
 	for(int i = 0; i < MAX_EVENT_USER_FILED; i++)
 	{
 		if(p.u.Event_Item_List.item[i].item_no)
 		{
-			// ¾ÆÀÌÅÛ Áö±ŞÇÏÀÚ
+			// ì•„ì´í…œ ì§€ê¸‰í•˜ì
 			int a=0,b=0,c=0;
-			if(::SearchInv(ch->inv,a,b,c))//°ø°£ÀÌ ÀÖ±¸³ª
+			if(::SearchInv(ch->inv,a,b,c))//ê³µê°„ì´ ìˆêµ¬ë‚˜
 			{
 				POS pos;
-				SetItemPos(INV,a,b,c,&pos);//pos¼ÂÆÃ 
-				ITEMATTR *pItem = ::GetItemByPOS(ch,pos);//¾ÆÀÌÅÛ ÁÖ¼Ò ¹Ş°í
+				SetItemPos(INV,a,b,c,&pos);//posì…‹íŒ… 
+				ITEMATTR *pItem = ::GetItemByPOS(ch,pos);//ì•„ì´í…œ ì£¼ì†Œ ë°›ê³ 
 				(*pItem) = p.u.Event_Item_List.item[i];
-				::SendServerEachItem( &pos, pItem,nUserCn);//º¸³»±â
-				// DB¿¡¼­ »ı¼ºµÇ¾î ¿Â ¾ÆÀÌÅÛÀÌ´Ï DB¿¡¼­ ¸¸µé¾ú´Ù°í ·Î±× ³²±âÀÚ
+				::SendServerEachItem( &pos, pItem,nUserCn);//ë³´ë‚´ê¸°
+				// DBì—ì„œ ìƒì„±ë˜ì–´ ì˜¨ ì•„ì´í…œì´ë‹ˆ DBì—ì„œ ë§Œë“¤ì—ˆë‹¤ê³  ë¡œê·¸ ë‚¨ê¸°ì
 				::SendItemEventLog( pItem, ch->GetServerID(), 0, SILT_MAKE_BY_DB, 1 );
 			}
 		}
 	}
 }
-//> BBD 040308		µ¥¸óÀ¸·ÎºÎÅÍÀÇ ÀÌº¥Æ®¾ÆÀÌÅÛ Áö±Ş ÀÀ´ä½Ã ÄİµÇ´Â ÇÔ¼ö
+//> BBD 040308		ë°ëª¬ìœ¼ë¡œë¶€í„°ì˜ ì´ë²¤íŠ¸ì•„ì´í…œ ì§€ê¸‰ ì‘ë‹µì‹œ ì½œë˜ëŠ” í•¨ìˆ˜
 
 int LoadRaregroup()
 {
@@ -1193,36 +1193,36 @@ int LoadRareProbability()
 }
 /*
 {
-	DWORD	skillexp	:	20	;//½ºÅ³ °æÇèÄ¡
-	DWORD	makecount	:	5	;//¸¸µç °¹¼ö
-	DWORD	day 		:	8	;//ÀúÀåµÈ ³¯Â¥
-	DWORD	month 		:	4	;//ÀúÀåµÈ ³¯Â¥
-	DWORD	year 		:	1	;//ÀúÀåµÈ ³¯Â¥
+	DWORD	skillexp	:	20	;//ìŠ¤í‚¬ ê²½í—˜ì¹˜
+	DWORD	makecount	:	5	;//ë§Œë“  ê°¯ìˆ˜
+	DWORD	day 		:	8	;//ì €ì¥ëœ ë‚ ì§œ
+	DWORD	month 		:	4	;//ì €ì¥ëœ ë‚ ì§œ
+	DWORD	year 		:	1	;//ì €ì¥ëœ ë‚ ì§œ
 }t_skillexp2, *LPSKILLEXP2;
 typedef struct SkillExp3
 {
-	DWORD	skillexp	:	8	;//½ºÅ³Å¸ÀÔ
-	DWORD	temp		:	2	;//½ºÅ³Å¸ÀÔ
-	DWORD	year		:	9	;//³âµµ
-	DWORD	day 		:	13	;//³¯Â¥
+	DWORD	skillexp	:	8	;//ìŠ¤í‚¬íƒ€ì…
+	DWORD	temp		:	2	;//ìŠ¤í‚¬íƒ€ì…
+	DWORD	year		:	9	;//ë…„ë„
+	DWORD	day 		:	13	;//ë‚ ì§œ
 }t_SkillExp3,*LPSKILLEXP3;
 */
 int TryRareItemAbleDay(int cn,int MySkillLevel,t_skillexp2 *skillexp2)
 {
 	int mymax = Rareprobability[MySkillLevel].max_rare_day;
-	//³¯Â¥ ¿ì¼± °Ë»ö	//³¯Â¥ %8 ¿ù %8		¹º°¡%2
+	//ë‚ ì§œ ìš°ì„  ê²€ìƒ‰	//ë‚ ì§œ %8 ì›” %8		ë­”ê°€%2
 	int day		=	g_day%8;
-	int month	=	g_mon%8;//0-11 ±îÁö
+	int month	=	g_mon%8;//0-11 ê¹Œì§€
 	/*
-	¿øÄ¢.
-	1.¿À´Ã ³¯Â¥ÀÌ¸é ¸¸µé ¼ö ÀÖ´Ù.µÇ¾î¾ß
-	2.³¯Â¥°¡ Áö³ª¸é ¹İµå½Ã ¸®¼Â  ÇÑ´Ù.(CheckRareMakeCount)
+	ì›ì¹™.
+	1.ì˜¤ëŠ˜ ë‚ ì§œì´ë©´ ë§Œë“¤ ìˆ˜ ìˆë‹¤.ë˜ì–´ì•¼
+	2.ë‚ ì§œê°€ ì§€ë‚˜ë©´ ë°˜ë“œì‹œ ë¦¬ì…‹  í•œë‹¤.(CheckRareMakeCount)
 	*/
-	if(day!=skillexp2->day) {return 0;}//´Ù¸¥ ³¯Â¥ ±âÀÔ µÇ¾î ÀÖÀ¸¸é Æ¨±ä´Ù~
-	else if(	month!=skillexp2->month){return 0;}//´Ù¸¥ ´Ş ±âÀÔ µÇ¾î ÀÖÀ¸¸é Æ¨±ä´Ù~
-	else//³¯µµ °°°í ´Ş°í °°°í
+	if(day!=skillexp2->day) {return 0;}//ë‹¤ë¥¸ ë‚ ì§œ ê¸°ì… ë˜ì–´ ìˆìœ¼ë©´ íŠ•ê¸´ë‹¤~
+	else if(	month!=skillexp2->month){return 0;}//ë‹¤ë¥¸ ë‹¬ ê¸°ì… ë˜ì–´ ìˆìœ¼ë©´ íŠ•ê¸´ë‹¤~
+	else//ë‚ ë„ ê°™ê³  ë‹¬ê³  ê°™ê³ 
 	{
-		if( mymax  <= skillexp2->makecount )//¸Æ½º¿¡ ´ŞÇÏ´Â°¡?
+		if( mymax  <= skillexp2->makecount )//ë§¥ìŠ¤ì— ë‹¬í•˜ëŠ”ê°€?
 		{
 			OutMessage(cn,2,257);
 			return 0;
@@ -1230,7 +1230,7 @@ int TryRareItemAbleDay(int cn,int MySkillLevel,t_skillexp2 *skillexp2)
 		else
 		{
 			skillexp2->makecount++;
-			//¸¸µé¼ö ÀÖ´Ù Ä«¿îÆ® ¿Ã¶ó°¡¶ó
+			//ë§Œë“¤ìˆ˜ ìˆë‹¤ ì¹´ìš´íŠ¸ ì˜¬ë¼ê°€ë¼
 			return 1;
 		}
 	}
@@ -1249,7 +1249,7 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 	int NowPercent		=	0	;
 	int tempPercent		=	0	;
 	int RareType		=   0	;
-	int ItemLevel		=	join.skill1_minimum; // °æÇèÄ¡ ÇÃ·¯½º
+	int ItemLevel		=	join.skill1_minimum; // ê²½í—˜ì¹˜ í”ŒëŸ¬ìŠ¤
 	int MySkillLevel	=	ch->skillexp[iMotherSkillNo].skillexp/10000;
 	int iMaxExp			=	0	;
 	int iItemtakeExp	=	0	;
@@ -1258,7 +1258,7 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 	
 	if(iTryRare && !t){	return 0;	}
 
-	//ÀÚ½ÅÀÇ ·¹º§ º¸´Ù ³ôÀ¸¸é ¾ÈµÇ°í °°À¸¸é µÈ´Ù
+	//ìì‹ ì˜ ë ˆë²¨ ë³´ë‹¤ ë†’ìœ¼ë©´ ì•ˆë˜ê³  ê°™ìœ¼ë©´ ëœë‹¤
 	if(MySkillLevel < ItemLevel )	{	return 0;	}
 	
 	unsigned int iSuccessRate	=	ch->skillexp[iMotherSkillNo].rare+Rareprobability[MySkillLevel-ItemLevel].bonus_suc;
@@ -1266,9 +1266,9 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 	const int iItemUpgradeType = (ItemMutantKind[t->GetItemKind()].upgrade_type -1);
 	bool bMultiEXP = false;
 
-	switch(t->GetItemKind())//¿¹¿ÜÀûÀÎ ¾ÆÀÌÅÛ Á¾·ù
+	switch(t->GetItemKind())//ì˜ˆì™¸ì ì¸ ì•„ì´í…œ ì¢…ë¥˜
 	{
-	case IK_POTION_BAG :	// BBD 040213 Æ÷¼Ç¹Ú½º
+	case IK_POTION_BAG :	// BBD 040213 í¬ì…˜ë°•ìŠ¤
 	case IK_CANDLE:
 	case IK_POTION:
 	case IK_FOOD_MASS:
@@ -1293,9 +1293,9 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 		}	//> CSD-040803
 	default:
 		{
-			if( iItemUpgradeType< 0 || iItemUpgradeType >3) //ÀÌ°Å ¾î¶»°Ô ÇÏ´Ï.. ¤Ñ¤Ñ;; Æ÷¼Ç À½½Ä ¾çÃÊ¸¸ ¿À¸¥´Ù
+			if( iItemUpgradeType< 0 || iItemUpgradeType >3) //ì´ê±° ì–´ë–»ê²Œ í•˜ë‹ˆ.. ã…¡ã…¡;; í¬ì…˜ ìŒì‹ ì–‘ì´ˆë§Œ ì˜¤ë¥¸ë‹¤
 			{
-				return 0;//ÀÌ·±·ùÀÇ ¾ÆÀÌÅÛÀº ¼º°ø·üÀ» ÁÖÁö ¾Ê´Â´Ù
+				return 0;//ì´ëŸ°ë¥˜ì˜ ì•„ì´í…œì€ ì„±ê³µë¥ ì„ ì£¼ì§€ ì•ŠëŠ”ë‹¤
 			}
 			else
 			{
@@ -1306,7 +1306,7 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 	
 	if(iTryRare && (iSuccessRate	< 0) )
 	{
-		ch->skillexp[iMotherSkillNo].rare = 0; //¼º°ø·üÀÌ 0 ÀÌÇÏ³×.. 0À¸·Î ¼ÂÆÃ
+		ch->skillexp[iMotherSkillNo].rare = 0; //ì„±ê³µë¥ ì´ 0 ì´í•˜ë„¤.. 0ìœ¼ë¡œ ì…‹íŒ…
 		return 0;	
 	}
 
@@ -1315,12 +1315,12 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 	iMaxExp			=	Rareprobability[MySkillLevel-ItemLevel].max_suc;
 	
 	
-	if( iTryRare )//·¹¾î ¸¸µé±â ½Ãµµ¸ğµå
+	if( iTryRare )//ë ˆì–´ ë§Œë“¤ê¸° ì‹œë„ëª¨ë“œ
 	{
 		LPSKILLEXP2 skillexp2;
 		skillexp2 = (t_skillexp2*)&ch->skillexp[iMotherSkillNo-14]; 
 
-		//·£´ı ½Ã¿¡ 0ÀÌ ³ª¿À¸é ³Ñ¾î°¡°Ô²û ÇÑ´Ù
+		//ëœë¤ ì‹œì— 0ì´ ë‚˜ì˜¤ë©´ ë„˜ì–´ê°€ê²Œë” í•œë‹¤
 		if(!iSuccess){return 0;}
 		
 		if(!TryRareItemAbleDay(cn,MySkillLevel,skillexp2))
@@ -1330,11 +1330,11 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 		}
 		ch->skillexp[iMotherSkillNo].rare =0;
 		SkillMgr.SendSkillExp(iMotherSkillNo-14, ch->skillexp[iMotherSkillNo-14], cn);
-		if(rand()%(1001-iSuccessRate))//½ÇÆĞ ÇÒ¶§ µé¾î°¡´Â ·çÆ¾ !rand °¡ ¾Æ´Ô
+		if(rand()%(1001-iSuccessRate))//ì‹¤íŒ¨ í• ë•Œ ë“¤ì–´ê°€ëŠ” ë£¨í‹´ !rand ê°€ ì•„ë‹˜
 		{
 			RareType =  0;
-			SkillMgr.SendSkillExp(iMotherSkillNo, ch->skillexp[iMotherSkillNo], cn);//¼º°ø·üÀÌ ºÎÁ·
-			return 0;//¸¸µé±â ½ÇÆĞ
+			SkillMgr.SendSkillExp(iMotherSkillNo, ch->skillexp[iMotherSkillNo], cn);//ì„±ê³µë¥ ì´ ë¶€ì¡±
+			return 0;//ë§Œë“¤ê¸° ì‹¤íŒ¨
 		}
 
 		for(int i = 0;  i < 8 ;i++)
@@ -1343,9 +1343,9 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 		}
 
 		if(iTryRare && !TotalPercent) 
-		{	//¼º°ø·üÀÌ ºÎÁ· ±×·ì ¼º°ø·ü ¸ğÀÚ¶÷
+		{	//ì„±ê³µë¥ ì´ ë¶€ì¡± ê·¸ë£¹ ì„±ê³µë¥  ëª¨ìëŒ
 			return 0;	
-		}//È®·ü ¸ğÀÚ¶ó¼­ ¾ø´Ù.
+		}//í™•ë¥  ëª¨ìë¼ì„œ ì—†ë‹¤.
 		
 		NowPercent = rand()%TotalPercent;
 		
@@ -1359,36 +1359,36 @@ int TryRareItem(const int cn, const int iSkillNo, CItem_Join join, const int iTr
 		// 040602-2 YGI////////////////////////////////////////
 		if( ItemGrade[0].iAble == 0 )	
 		{
-			// ¾ÆÀÌÅÛ ±×·¹ÀÌµå°¡ 1 Á¶Â÷ Çã¶ôµÇÁö ¾ÊÀ¸¹Ç·Î ¸¸µé¼ö ¾ø´Ù.
+			// ì•„ì´í…œ ê·¸ë ˆì´ë“œê°€ 1 ì¡°ì°¨ í—ˆë½ë˜ì§€ ì•Šìœ¼ë¯€ë¡œ ë§Œë“¤ìˆ˜ ì—†ë‹¤.
 			RareType = 0;
 		}
 		else 
 		{
-			RareType = RareGroup[iTryRare/10][iRareGruop].rareset[index].rare_num;//·¹¾îÅ¸ÀÔ °áÁ¤
+			RareType = RareGroup[iTryRare/10][iRareGruop].rareset[index].rare_num;//ë ˆì–´íƒ€ì… ê²°ì •
 		}
 		////////////////////////////////////////////////////////////
 
 		if(RareType)
 		{
 			SkillMgr.SendSkillExp(iMotherSkillNo-14, ch->skillexp[iMotherSkillNo-14], cn);
-		}//·¹¾î¼º°ø
+		}//ë ˆì–´ì„±ê³µ
 	}
-	else//·¹¾î ½Ãµµ ¾ÈÇÔ
+	else//ë ˆì–´ ì‹œë„ ì•ˆí•¨
 	{
-		if( bMultiEXP) //ÀÌ°Å ¾î¶»°Ô ÇÏ´Ï.. ¤Ñ¤Ñ;; Æ÷¼Ç À½½Ä ¾çÃÊ¸¸ ¿À¸¥´Ù
+		if( bMultiEXP) //ì´ê±° ì–´ë–»ê²Œ í•˜ë‹ˆ.. ã…¡ã…¡;; í¬ì…˜ ìŒì‹ ì–‘ì´ˆë§Œ ì˜¤ë¥¸ë‹¤
 		{
-		//	iItemtakeExp *= iMakeCount;	//°¹¼ö¸¦ °öÇÏ±â ÇØÁØ´Ù
-			iItemtakeExp *= 2;	//°öÇÏ±â2 ·Î ÇØ ÁØ´Ù
+		//	iItemtakeExp *= iMakeCount;	//ê°¯ìˆ˜ë¥¼ ê³±í•˜ê¸° í•´ì¤€ë‹¤
+			iItemtakeExp *= 2;	//ê³±í•˜ê¸°2 ë¡œ í•´ ì¤€ë‹¤
 		}
 
 		if( ch->skillexp[iMotherSkillNo].rare +(iItemtakeExp)> iMaxExp)
 		{
-				//°æÇèÄ¡ÀÇ Ãß°¡ ¾øÀ½
-			if( ch->skillexp[iMotherSkillNo].rare > iMaxExp )//¸Æ½º º¸´Ù ³ô´Ù-> Ãß°¡ ¾ø´Ù
+				//ê²½í—˜ì¹˜ì˜ ì¶”ê°€ ì—†ìŒ
+			if( ch->skillexp[iMotherSkillNo].rare > iMaxExp )//ë§¥ìŠ¤ ë³´ë‹¤ ë†’ë‹¤-> ì¶”ê°€ ì—†ë‹¤
 			{
-				//¸Æ½ºº¸´Ù ³ôÀ¸¸é ±ğÁö ¾Ê´Â´Ù.
+				//ë§¥ìŠ¤ë³´ë‹¤ ë†’ìœ¼ë©´ ê¹ì§€ ì•ŠëŠ”ë‹¤.
 			}
-			else//¸Æ½º¿Í °°°Å³ª ³·´Ù ±×·³ ¸Æ½º´Ù
+			else//ë§¥ìŠ¤ì™€ ê°™ê±°ë‚˜ ë‚®ë‹¤ ê·¸ëŸ¼ ë§¥ìŠ¤ë‹¤
 			{
 				ch->skillexp[iMotherSkillNo].rare = iMaxExp;
 			}
@@ -1662,7 +1662,7 @@ bool LoadRareItemBag()
 		int RareItemBagPercentTableNo;
 		int iGradeMin;
 		int iGradeMax;
-		int ItemNo[21];//0 ¹øÀº ¾ø´Â °ª
+		int ItemNo[21];//0 ë²ˆì€ ì—†ëŠ” ê°’
 	}RareItemBag;
 */
 			int column = 0;
@@ -1727,7 +1727,7 @@ bool LoadItemControlPercent()
 			typedef struct ItemControlPercent
 			{
 				int iNo		
-				int	Per[8];//0¹øÀº ÅäÅ»°ª 1~5´Â º£ÀÌÁ÷ ±×·ì 6~7Àº ·¹¾î ±×·ì
+				int	Per[8];//0ë²ˆì€ í† íƒˆê°’ 1~5ëŠ” ë² ì´ì§ ê·¸ë£¹ 6~7ì€ ë ˆì–´ ê·¸ë£¹
 			}ItemControlPercent;
 */
 			int column = 0;
@@ -1767,7 +1767,7 @@ bool LoadItemControlPercent()
 	
 }
 
-bool LoadItemFallPercent()//¹ä¸Ô°í ¸¸µéÀÚ~ 
+bool LoadItemFallPercent()//ë°¥ë¨¹ê³  ë§Œë“¤ì~ 
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -1786,7 +1786,7 @@ bool LoadItemFallPercent()//¹ä¸Ô°í ¸¸µéÀÚ~
 			typedef struct ItemFallPercent
 			{
 				int iNo
-				int per[21];//0 ¹øÀº ÅäÅ» °ª ÀÌ´Ù
+				int per[21];//0 ë²ˆì€ í† íƒˆ ê°’ ì´ë‹¤
 			}ItemFallPercent;
 */
 			int column = 0;
@@ -1848,7 +1848,7 @@ bool LoadBasicItemBag()
 			{
 				int iNo;
 				int BasicItemPercentTableNo;
-				int ItemNo[21];//0¹øÀº ¾ø´Â°ª
+				int ItemNo[21];//0ë²ˆì€ ì—†ëŠ”ê°’
 			}BasicItemBag;
 */
 			int column = 0;
@@ -1911,8 +1911,8 @@ bool LoadItemControl()
 			{
 				int iNo;
 				int ItemControlPercentNo;
-				int ItemGroup[8];//0¹øÀº ¾ø´Â°ª 1~5´Â º£ÀÌÁ÷ ±×·ì 6~7Àº ·¹¾î ±×·ì
-				int	iFallItemCount;//¶³¾îÁú °¹¼ö, Áï, ¹İº¹¹® È£Ãâ È½¼ö
+				int ItemGroup[8];//0ë²ˆì€ ì—†ëŠ”ê°’ 1~5ëŠ” ë² ì´ì§ ê·¸ë£¹ 6~7ì€ ë ˆì–´ ê·¸ë£¹
+				int	iFallItemCount;//ë–¨ì–´ì§ˆ ê°¯ìˆ˜, ì¦‰, ë°˜ë³µë¬¸ í˜¸ì¶œ íšŸìˆ˜
 			}ItemControl;
 */
 			int column = 0;
@@ -1977,7 +1977,7 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 		}break;
 	case	CMD_MOVE_TO_HOMETOWN_WITH_ALIVE:
 		{
-			if(g_MapPort != 5300 && g_MapPort != 5830)//ÃÊº¸ÀÚ ¼ö·Ã¼Ò°¡ ¾Æ´Ï¶ó¸é //020827 lsw
+			if(g_MapPort != 5300 && g_MapPort != 5830)//ì´ˆë³´ì ìˆ˜ë ¨ì†Œê°€ ì•„ë‹ˆë¼ë©´ //020827 lsw
 			{
 				CHARLIST *ch = CheckServerId(cn);
 				if (ch)
@@ -2001,7 +2001,7 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 		{
 			if(cn == DB_DEMON)
 			{
-				Auction.RecvCMD_MERCHANT_BUY_LIST_REQUEST_RESULT(*p);	//µğºñµ¥¸ó²¨¸¸ ÀÎÁ¤
+				Auction.RecvCMD_MERCHANT_BUY_LIST_REQUEST_RESULT(*p);	//ë””ë¹„ë°ëª¬êº¼ë§Œ ì¸ì •
 			}
 			else
 			{
@@ -2012,18 +2012,18 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 		{
 			if(cn == DB_DEMON)
 			{
-				Auction.RecvCMD_MERCHANT_SELL_LIST_REQUEST_RESULT(*p);	//µğºñµ¥¸ó²¨¸¸ ÀÎÁ¤
+				Auction.RecvCMD_MERCHANT_SELL_LIST_REQUEST_RESULT(*p);	//ë””ë¹„ë°ëª¬êº¼ë§Œ ì¸ì •
 			}
 			else
 			{
 				MyLog(0,"Crack CMD_MERCHANT_SELL_LIST_REQUEST_RESULT");
 			}
 		}break;
-	case	CMD_MERCHANT_SELL_ITEM_INFO_REQUEST://Å¬¶óÀÌ¾ğÆ® »óÀÎÀÌ º¸³»´Â ÆĞÅ¶
+	case	CMD_MERCHANT_SELL_ITEM_INFO_REQUEST://í´ë¼ì´ì–¸íŠ¸ ìƒì¸ì´ ë³´ë‚´ëŠ” íŒ¨í‚·
 		{
 			Auction.RecvCMD_MERCHANT_SELL_LIST_REQUEST(cn,*p);
 		}break;
-	case CMD_MERCHANT_ITEM_BUY	://Å¬¶óÀÌ¾ğÆ®·Î ºÎÅÍ ¹Ş°í
+	case CMD_MERCHANT_ITEM_BUY	://í´ë¼ì´ì–¸íŠ¸ë¡œ ë¶€í„° ë°›ê³ 
 		{
 			Auction.RecvCMD_MERCHANT_ITEM_BUY(cn,*p);
 		}break;
@@ -2031,17 +2031,17 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 		{
 			if(cn == DB_DEMON)
 			{
-				Auction.RecvCMD_MERCHANT_ITEM_BUY_RESULT(*p);	//µğºñµ¥¸ó²¨¸¸ ÀÎÁ¤
+				Auction.RecvCMD_MERCHANT_ITEM_BUY_RESULT(*p);	//ë””ë¹„ë°ëª¬êº¼ë§Œ ì¸ì •
 			}
 			else
 			{
 			}
 		}break;
-	case CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT://µğºñµ¥¸óÀÌ IsEnd¸¦ Ã¼Å© ÇÏ°í ÀÀ´äÀ» ÁÖ´Â°÷
+	case CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT://ë””ë¹„ë°ëª¬ì´ IsEndë¥¼ ì²´í¬ í•˜ê³  ì‘ë‹µì„ ì£¼ëŠ”ê³³
 		{
 			if(cn == DB_DEMON)
 			{
-				Auction.RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(cn,*p);	//µğºñµ¥¸ó²¨¸¸ ÀÎÁ¤
+				Auction.RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(cn,*p);	//ë””ë¹„ë°ëª¬êº¼ë§Œ ì¸ì •
 			}
 			else
 			{
@@ -2049,15 +2049,15 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 			}
 			
 		}break;
-	case CMD_MERCHANT_SELL_ITEM_REGISTER://Å¬¶óÀÌ¾ğÆ®·ÎºÎÅÍ ¾ÆÀÌÅÛ µî·Ï ÆĞÅ¶À» ¹Ş¾Æ³À´Ï´Ù.
+	case CMD_MERCHANT_SELL_ITEM_REGISTER://í´ë¼ì´ì–¸íŠ¸ë¡œë¶€í„° ì•„ì´í…œ ë“±ë¡ íŒ¨í‚·ì„ ë°›ì•„ëƒ…ë‹ˆë‹¤.
 		{
 			Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER(cn,*p);
 		}break;
-	case CMD_MERCHANT_SELL_ITEM_REGISTER_RESULT://ÆÇ¸Å¾ÆÀÌÅÛÀ» µî·ÏÇÑ °á°ú¸¦ µğºñ·Î ºÎÅÍ ¹Ş½À´Ï´Ù..
+	case CMD_MERCHANT_SELL_ITEM_REGISTER_RESULT://íŒë§¤ì•„ì´í…œì„ ë“±ë¡í•œ ê²°ê³¼ë¥¼ ë””ë¹„ë¡œ ë¶€í„° ë°›ìŠµë‹ˆë‹¤..
 		{
 			if(cn == DB_DEMON)
 			{
-				Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_RESULT(*p);	//µğºñµ¥¸ó²¨¸¸ ÀÎÁ¤
+				Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_RESULT(*p);	//ë””ë¹„ë°ëª¬êº¼ë§Œ ì¸ì •
 			}
 			else{MyLog(0,"Crack CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT");}
 		}break;
@@ -2065,39 +2065,39 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 		{
 			if(cn == DB_DEMON)
 			{
-				Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(cn,*p);	//µğºñµ¥¸ó²¨¸¸ ÀÎÁ¤
+				Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(cn,*p);	//ë””ë¹„ë°ëª¬êº¼ë§Œ ì¸ì •
 			}
 			else{MyLog(0,"Crack CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT");}
 		}break;
-		//»èÁ¦ ÇÏ±â 
-	case CMD_MERCHANT_SELL_ITEM_DELETE://Å¬¶óÀÌ¾ğÆ®·Î ºÎÅÍ ÆÇ¸Å Ãë¼Ò¸¦ ¹Ş´Â´Ù
+		//ì‚­ì œ í•˜ê¸° 
+	case CMD_MERCHANT_SELL_ITEM_DELETE://í´ë¼ì´ì–¸íŠ¸ë¡œ ë¶€í„° íŒë§¤ ì·¨ì†Œë¥¼ ë°›ëŠ”ë‹¤
 		{
 			Auction.RecvCMD_MERCHANT_SELL_ITEM_DELETE(cn,*p);
 		}break;
-	case CMD_MERCHANT_SELL_ITEM_DELETE_RESULT://µğºñ·Î ºÎÅÍ Ãë¼Ò °á°ú¸¦ ¹Ş¾Æ Å¬¶óÀÌ¾ğÆ®¿¡°Ô º¸³½´Ù 
+	case CMD_MERCHANT_SELL_ITEM_DELETE_RESULT://ë””ë¹„ë¡œ ë¶€í„° ì·¨ì†Œ ê²°ê³¼ë¥¼ ë°›ì•„ í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ë³´ë‚¸ë‹¤ 
 		{
 			Auction.RecvCMD_MERCHANT_SELL_ITEM_DELETE_RESULT(cn,*p);
 		}break;
-	case CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT://µğºñ·Î ºÎÅÍ ÆÇ¸ÅÃë¼ÒÇÑ °á°ú¸¦ ¹Ş´Â´Ù
+	case CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT://ë””ë¹„ë¡œ ë¶€í„° íŒë§¤ì·¨ì†Œí•œ ê²°ê³¼ë¥¼ ë°›ëŠ”ë‹¤
 		{
 			Auction.RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(cn,*p);
 		}break;
-	//°Å·¡ °á°ú ¸®½ºÆ® >
-	case CMD_MERCHANT_RESULT_LIST_REQUEST://¸®½ºÆ®¸¦ ¿äÃ» ¹Ş¾Ò½À´Ï´Ù.(Å¬¶óÀÌ¾ğÆ®·Î ºÎÅÍ)
+	//ê±°ë˜ ê²°ê³¼ ë¦¬ìŠ¤íŠ¸ >
+	case CMD_MERCHANT_RESULT_LIST_REQUEST://ë¦¬ìŠ¤íŠ¸ë¥¼ ìš”ì²­ ë°›ì•˜ìŠµë‹ˆë‹¤.(í´ë¼ì´ì–¸íŠ¸ë¡œ ë¶€í„°)
 		{
 			Auction.RecvCMD_MERCHANT_RESULT_LIST_REQUEST(cn,*p);
 		}break;
-	case CMD_MERCHANT_RESULT_LIST_REQUEST_RESULT://°á°ú¸¦ ¹Ş¾ÒÀ¾´Ï´Ù(µğºñ·Î ºÎÅÍ)
+	case CMD_MERCHANT_RESULT_LIST_REQUEST_RESULT://ê²°ê³¼ë¥¼ ë°›ì•˜ìë‹ˆë‹¤(ë””ë¹„ë¡œ ë¶€í„°)
 		{
 			Auction.RecvCMD_MERCHANT_RESULT_LIST_REQUEST_RESULT(*p);
 		}break;
-	//°Å·¡ °á°ú ¸®½ºÆ® < 
+	//ê±°ë˜ ê²°ê³¼ ë¦¬ìŠ¤íŠ¸ < 
 
-	case CMD_MERCHANT_RESULT_TAKE://°¡Á®°¡°Ú´ä´Ï´Ù.
+	case CMD_MERCHANT_RESULT_TAKE://ê°€ì ¸ê°€ê² ë‹µë‹ˆë‹¤.
 		{
 			Auction.RecvCMD_MERCHANT_RESULT_TAKE(cn,*p);
 		}break;
-	case CMD_MERCHANT_RESULT_TAKE_RESULT://°á°ú¹°À» °¡Á®°¡´Â °á°ú¸¦ ¹Ş½À´Ï´Ù.(µğºñ·Î ºÎÅÍ
+	case CMD_MERCHANT_RESULT_TAKE_RESULT://ê²°ê³¼ë¬¼ì„ ê°€ì ¸ê°€ëŠ” ê²°ê³¼ë¥¼ ë°›ìŠµë‹ˆë‹¤.(ë””ë¹„ë¡œ ë¶€í„°
 		{
 			if(cn == DB_DEMON)
 			{
@@ -2113,7 +2113,7 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 			}
 			else{MyLog(0,"Crack CMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT");}				
 		}break;
-//<! BBD 040303	 ¸ÓÃµÆ®¹é¾÷ Å×ÀÌºí·ÎºÎÅÍ ¹°°ÇÀ» Ã£°Ú´Ù´Â ¸Ş½ÃÁö
+//<! BBD 040303	 ë¨¸ì²œíŠ¸ë°±ì—… í…Œì´ë¸”ë¡œë¶€í„° ë¬¼ê±´ì„ ì°¾ê² ë‹¤ëŠ” ë©”ì‹œì§€
 	case CMD_MERCHANT_BACKUP_TAKE_REQUEST:
 		{
 			if(cn == DB_DEMON)
@@ -2125,8 +2125,8 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 				MyLog(0,"Crack CMD_MERCHANT_BACKUP_TAKE_REQUEST");
 			}
 		}break;
-//> BBD 040303	 ¸ÓÃµÆ®¹é¾÷ Å×ÀÌºí·ÎºÎÅÍ ¹°°ÇÀ» Ã£°Ú´Ù´Â ¸Ş½ÃÁö
-//<! BBD 040308		ÀÌº¥Æ® ¾ÆÀÌÅÛ Áö±Ş ÀÀ´ä
+//> BBD 040303	 ë¨¸ì²œíŠ¸ë°±ì—… í…Œì´ë¸”ë¡œë¶€í„° ë¬¼ê±´ì„ ì°¾ê² ë‹¤ëŠ” ë©”ì‹œì§€
+//<! BBD 040308		ì´ë²¤íŠ¸ ì•„ì´í…œ ì§€ê¸‰ ì‘ë‹µ
 	case CMD_EVENTRAREITEM_RES:
 		{
 			if(cn == DB_DEMON)
@@ -2139,7 +2139,7 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 			}
 			break;
 		}
-//> BBD 040308		ÀÌº¥Æ® ¾ÆÀÌÅÛ Áö±Ş ÀÀ´ä
+//> BBD 040308		ì´ë²¤íŠ¸ ì•„ì´í…œ ì§€ê¸‰ ì‘ë‹µ
 	case CMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUSET:
 		{
 			Auction.RecvCMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUSET(cn,*p);
@@ -2186,11 +2186,11 @@ int HandleCommand2( t_packet *p, t_connection c[], int cn )
 		{ 
 			::RecvCMD_TRADE_MODE_CHANGE(cn,p);
 		}break;
-	case CMD_MAIL_REQUEST_LIST://ÀÌ¸§À¸·Î ¸ŞÀÏ °Ë»ö
+	case CMD_MAIL_REQUEST_LIST://ì´ë¦„ìœ¼ë¡œ ë©”ì¼ ê²€ìƒ‰
 		{
 			g_MailMgr.RecvReqMailList(cn,p);
 		}break;
-	case CMD_MAIL_LIST_FROM_DBDEMON://µğºñµ¥¸óÀ¸·Î ºÎÅÍ ¹ŞÀº °á°ú
+	case CMD_MAIL_LIST_FROM_DBDEMON://ë””ë¹„ë°ëª¬ìœ¼ë¡œ ë¶€í„° ë°›ì€ ê²°ê³¼
 		{
 			g_MailMgr.RecvMailListFromDBDEMON(cn,p);
 		}break;

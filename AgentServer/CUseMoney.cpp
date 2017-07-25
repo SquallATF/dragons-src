@@ -87,7 +87,7 @@ LRESULT CALLBACK MessageProc( HWND hwnd, UINT uMessage, WPARAM wParam, LPARAM lP
 
 		case FD_CLOSE:
 			{
-				//cout << "close " << wParam <<endl; //º≠πˆ∞° ≥°æÓ¡¯∞Õ¿∫ »Æ¿Œµ»¥Ÿ. 
+				//cout << "close " << wParam <<endl; //ÏÑúÎ≤ÑÍ∞Ä ÎÅùÏñ¥ÏßÑÍ≤ÉÏùÄ ÌôïÏù∏ÎêúÎã§. 
 				break;
 			}
 
@@ -112,8 +112,8 @@ LRESULT CALLBACK MessageProc( HWND hwnd, UINT uMessage, WPARAM wParam, LPARAM lP
 
 
 void RecvReponseGUMP( SOCKET socket )
-{//∏ﬁΩ√¡ˆ∏¶ ∏ﬁΩ√¡ˆ ªÛ¿⁄ø° ≥÷¥¬¥Ÿ. 
- //πﬁ¿∫ ∏ﬁΩ√¡ˆ∏¶ ∫–ºÆ«—¥Ÿ.
+{//Î©îÏãúÏßÄÎ•º Î©îÏãúÏßÄ ÏÉÅÏûêÏóê ÎÑ£ÎäîÎã§. 
+ //Î∞õÏùÄ Î©îÏãúÏßÄÎ•º Î∂ÑÏÑùÌïúÎã§.
 	char szMsg[100];	
 	g_cAsyncPay.RecvResponsMessage( socket, szMsg ) ;	
 	if( !szMsg) return;
@@ -131,7 +131,7 @@ void RecvReponseGUMP( SOCKET socket )
 
 void LeaveLogInText( const char* szMsg )
 {
-	//±◊≥Ø ≥Ø¬•∂˚ Ω√∞£¿Ã∂˚ 
+	//Í∑∏ÎÇ† ÎÇ†ÏßúÎûë ÏãúÍ∞ÑÏù¥Îûë 
 	time_t nowTime;	
 	//static int log_year = 0, log_mon = 0, log_day = 0;
 	time( &nowTime );
@@ -167,19 +167,19 @@ void LeaveLogInText( const char* szMsg )
 
 CAsyncClient::CAsyncClient()
 {
-	strcpy( m_strServerName, "DR" );		//º≠πˆ¿Ã∏ß
-	m_nServerGroupNum	= 1;			//º≠πˆ±◊∑Ïπ¯»£
-	strcpy( m_szServerNum, "000.000.000.000");		//º≠πˆπ¯»£
-	m_nZoneNum			= 1;			//¡∏ π¯»£
+	strcpy( m_strServerName, "DR" );		//ÏÑúÎ≤ÑÏù¥Î¶Ñ
+	m_nServerGroupNum	= 1;			//ÏÑúÎ≤ÑÍ∑∏Î£πÎ≤àÌò∏
+	strcpy( m_szServerNum, "000.000.000.000");		//ÏÑúÎ≤ÑÎ≤àÌò∏
+	m_nZoneNum			= 1;			//Ï°¥ Î≤àÌò∏
 	InitializeCriticalSection( &m_cs );
 }
 
 CAsyncClient::CAsyncClient( const char* strName, const int nGrup, const char* szServerNum, const int nZone)
 {
-	strcpy( m_strServerName, strName );		//º≠πˆ¿Ã∏ß
-	m_nServerGroupNum	= nGrup;			//º≠πˆ±◊∑Ïπ¯»£
-	strcpy( m_szServerNum, szServerNum );	//º≠πˆπ¯»£
-	m_nZoneNum			= nZone;			//¡∏ π¯»£
+	strcpy( m_strServerName, strName );		//ÏÑúÎ≤ÑÏù¥Î¶Ñ
+	m_nServerGroupNum	= nGrup;			//ÏÑúÎ≤ÑÍ∑∏Î£πÎ≤àÌò∏
+	strcpy( m_szServerNum, szServerNum );	//ÏÑúÎ≤ÑÎ≤àÌò∏
+	m_nZoneNum			= nZone;			//Ï°¥ Î≤àÌò∏
 	InitializeCriticalSection( &m_cs );
 }
 
@@ -192,17 +192,17 @@ CAsyncClient::~CAsyncClient()
 
 void CAsyncClient::SetAgentInfo( const char* szName, const int nGroup, const char* szServerNum, const int nZone )
 {
-	strcpy( m_strServerName, szName );		//º≠πˆ¿Ã∏ß
-	m_nServerGroupNum	= nGroup;			//º≠πˆ±◊∑Ïπ¯»£
-	strcpy( m_szServerNum, szServerNum );	//º≠πˆπ¯»£
-	m_nZoneNum			= nZone;			//¡∏ π¯»£
+	strcpy( m_strServerName, szName );		//ÏÑúÎ≤ÑÏù¥Î¶Ñ
+	m_nServerGroupNum	= nGroup;			//ÏÑúÎ≤ÑÍ∑∏Î£πÎ≤àÌò∏
+	strcpy( m_szServerNum, szServerNum );	//ÏÑúÎ≤ÑÎ≤àÌò∏
+	m_nZoneNum			= nZone;			//Ï°¥ Î≤àÌò∏
 }
 
 SOCKET	CAsyncClient::InitSocket( const char* szIP, const int nPort )
 {
 
 	WSADATA wsaData = {0,};
-	if(::WSAStartup(WINSOCK_VERSION, &wsaData))//Ω∫≈∏∆Ææ˜
+	if(::WSAStartup(WINSOCK_VERSION, &wsaData))//Ïä§ÌÉÄÌä∏ÏóÖ
 	{
 		const int nError = ::WSAGetLastError();		
 		ShowError( nError );
@@ -210,7 +210,7 @@ SOCKET	CAsyncClient::InitSocket( const char* szIP, const int nPort )
 	}
 
 	//get Ip and port Number	
-	m_sSocket = ::WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL,//TCP/IP ¿Œ≈Õ≥› º“ƒœ
+	m_sSocket = ::WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL,//TCP/IP Ïù∏ÌÑ∞ÎÑ∑ ÏÜåÏºì
 										SG_UNCONSTRAINED_GROUP, WSA_FLAG_OVERLAPPED);
 
 	if (m_sSocket== INVALID_SOCKET)
@@ -238,10 +238,10 @@ SOCKET	CAsyncClient::InitSocket( const char* szIP, const int nPort )
 
 const char* INI_PATH ="./AgentServer.ini";
 int CAsyncClient::InitConnectPayServer()
-{// ∞˙±›º≠πˆø°∞‘ Initialized Message∏¶ ∫∏≥Ω¥Ÿ.
-//61.251.171.11¿Ã±∏ø‰ ∆˜∆Æ¥¬ 1071¿‘¥œ¥Ÿ.
+{// Í≥ºÍ∏àÏÑúÎ≤ÑÏóêÍ≤å Initialized MessageÎ•º Î≥¥ÎÇ∏Îã§.
+//61.251.171.11Ïù¥Íµ¨Ïöî Ìè¨Ìä∏Îäî 1071ÏûÖÎãàÎã§.
 
-//iniø°º≠ ∞™¿ª πﬁæ∆ø¬¥Ÿ.
+//iniÏóêÏÑú Í∞íÏùÑ Î∞õÏïÑÏò®Îã§.
 	char szIP[50];		
 	char szServerNum[50];	
 	char szHeader[50];
@@ -299,20 +299,20 @@ int CAsyncClient::SendInitialMsg2PayServer()
 }
 
 int CAsyncClient::AnalysysMessage( char* szMsg )
-{// πﬁ¿∫ ∏ﬁΩ√¡ˆ∏¶ ∫–ºÆ«ÿº≠ ∏Æ≈œ«—¥Ÿ.
-// πﬁ¿∫ ªÁ¿Ã¡Ó∫∏¥Ÿ ≥—æÓ∞°∏È æ»µ»¥Ÿ. ≥™¡ﬂø° »Æ¿Œ
+{// Î∞õÏùÄ Î©îÏãúÏßÄÎ•º Î∂ÑÏÑùÌï¥ÏÑú Î¶¨ÌÑ¥ÌïúÎã§.
+// Î∞õÏùÄ ÏÇ¨Ïù¥Ï¶àÎ≥¥Îã§ ÎÑòÏñ¥Í∞ÄÎ©¥ ÏïàÎêúÎã§. ÎÇòÏ§ëÏóê ÌôïÏù∏
 
 	char szNull[2] = {'\t','\0'};
 	if( NULL == strstr( szMsg, szNull ) )
 	{
-		return -1;	//¿ﬂ∏¯µ» πÆ¿⁄
+		return -1;	//ÏûòÎ™ªÎêú Î¨∏Ïûê
 	}
 
 	//Analy Header
 	int nSeqNum=0;
 	char *pMsgBody = AnalysysMsgHeader( szMsg, nSeqNum );
 	if( NULL == pMsgBody )
-	{//¡ˆ¡§µ» Seqπ¯»£∞° æ∆¥œ∞≈≥™ «Ï¥ı∞° ∆≤∏Æ∏È
+	{//ÏßÄÏ†ïÎêú SeqÎ≤àÌò∏Í∞Ä ÏïÑÎãàÍ±∞ÎÇò Ìó§ÎçîÍ∞Ä ÌãÄÎ¶¨Î©¥
 		return -1;
 	}
 	
@@ -335,7 +335,7 @@ int CAsyncClient::AnalysysMessage( char* szMsg )
 			//Exit Program
 		}break;
 	case GUM_MSG_MESSAGEFORM_WRONG:
-		{//¿ﬂ∏¯µ» «¸Ωƒ¿« ∏ﬁΩ√¡ˆ
+		{//ÏûòÎ™ªÎêú ÌòïÏãùÏùò Î©îÏãúÏßÄ
 			break;
 		}
 	case GUM_MSG_RESPONS_INITALIZED:	
@@ -401,25 +401,25 @@ int CAsyncClient::AnalysysMsgHeader( char* szMsg )
 	while( 0x09 != *szMsg )//1.
 	{
 		if( m_szGumHeader[i++] != *szMsg++ )
-		{//¿ﬂ∏¯µ» «ÿ¥ı
+		{//ÏûòÎ™ªÎêú Ìï¥Îçî
 			return -10; 
 		}
 		if( NULL == *(szMsg+1) ) 
-		{//πﬁ¿∫ ªÁ¿Ã¡Ó∏¶ ≥—æÓ∞°¥¬∞≈ 
+		{//Î∞õÏùÄ ÏÇ¨Ïù¥Ï¶àÎ•º ÎÑòÏñ¥Í∞ÄÎäîÍ±∞ 
 			return -20;
 		}
 	}
 	*szMsg++;
-	char *pSeqNum = new char[4];	//pSeqNum¿∫ ∫∏±‚ø° « ø‰∞° æ¯¥Ÿ.
+	char *pSeqNum = new char[4];	//pSeqNumÏùÄ Î≥¥Í∏∞Ïóê ÌïÑÏöîÍ∞Ä ÏóÜÎã§.
 	char *pCurrentPos = pSeqNum;
 	while (0x1D != *szMsg)//2.
 	{
 		*pSeqNum++ = *szMsg++;
 		if( NULL == *(szMsg+1) ) 
-		{//πﬁ¿∫ ªÁ¿Ã¡Ó∏¶ ≥—æÓ∞°¥¬∞≈ 
+		{//Î∞õÏùÄ ÏÇ¨Ïù¥Ï¶àÎ•º ÎÑòÏñ¥Í∞ÄÎäîÍ±∞ 
 			return -20;
 		}
-		//µπˆ±◊∏µÂ¿œ∂© ∞ÀªÁ∏¶ ¥ı ¡§π–«œ∞‘
+		//ÎîîÎ≤ÑÍ∑∏Î™®ÎìúÏùºÎïê Í≤ÄÏÇ¨Î•º Îçî Ï†ïÎ∞ÄÌïòÍ≤å
 	}
 	*pSeqNum = '\0';
 	int nSeq = atoi( pCurrentPos);
@@ -436,26 +436,26 @@ char* CAsyncClient::AnalysysMsgHeader( char* szMsg, int& nSeq )
 	while( 0x09 != *szMsg )
 	{
 		if( m_szGumHeader[i++] != *szMsg++ )
-		{//¿ﬂ∏¯µ» «ÿ¥ı
+		{//ÏûòÎ™ªÎêú Ìï¥Îçî
 			return NULL; 
 		}
 		if( NULL == *(szMsg+1) ) 
-		{//πﬁ¿∫ ªÁ¿Ã¡Ó∏¶ ≥—æÓ∞°¥¬∞≈ 
+		{//Î∞õÏùÄ ÏÇ¨Ïù¥Ï¶àÎ•º ÎÑòÏñ¥Í∞ÄÎäîÍ±∞ 
 			return NULL;
 		}
 	}
 	*szMsg++;
 
-	char *pSeqNum = new char[4];	//pSeqNum¿∫ ∫∏±‚ø° « ø‰∞° æ¯¥Ÿ.
+	char *pSeqNum = new char[4];	//pSeqNumÏùÄ Î≥¥Í∏∞Ïóê ÌïÑÏöîÍ∞Ä ÏóÜÎã§.
 	char *pCurrentPos = pSeqNum;
 	while (0x1D != *szMsg)//2.
 	{
 		*pSeqNum++ = *szMsg++;
 		if( NULL == *(szMsg+1) ) 
-		{//πﬁ¿∫ ªÁ¿Ã¡Ó∏¶ ≥—æÓ∞°¥¬∞≈ 
+		{//Î∞õÏùÄ ÏÇ¨Ïù¥Ï¶àÎ•º ÎÑòÏñ¥Í∞ÄÎäîÍ±∞ 
 			return NULL;
 		}
-		//µπˆ±◊∏µÂ¿œ∂© ∞ÀªÁ∏¶ ¥ı ¡§π–«œ∞‘
+		//ÎîîÎ≤ÑÍ∑∏Î™®ÎìúÏùºÎïê Í≤ÄÏÇ¨Î•º Îçî Ï†ïÎ∞ÄÌïòÍ≤å
 	}
 	*pSeqNum = '\0';
 	nSeq = atoi( pCurrentPos);
@@ -615,17 +615,17 @@ int CAsyncClient::AddPayUser( USERINFOPAY& stUser )
 	}	
 
 	m_vtUser.push_back( stUser );
-	return 1;//∏µŒ ¡ﬂ∫π ¡¢º”Ω√ ¿÷¥¬¿Ø¿˙ ∑Œ±◊æ∆øÙ«œ∞‘
+	return 1;//Î™®Îëê Ï§ëÎ≥µ Ï†ëÏÜçÏãú ÏûàÎäîÏú†Ï†Ä Î°úÍ∑∏ÏïÑÏõÉÌïòÍ≤å
 }
 
 void CAsyncClient::DisconnectUser( USERINFOPAY& stUser )
 {
-	//∞ÊøÏ
-	//1.¡§ªÛ¿˚¿Œ ¿Ø¿˙¡æ∑·
-	//2.º≠πˆ¥ŸøÓ(¡§ªÛ)
-	//3.º≠πˆ¥ŸøÓ(≈©∑°Ω¨)
-	//4.º≠πˆ¥ŸøÓ(ƒƒ«ª≈Õø°∑Ø)
-	//5.∞Ë¡§øœ∑· -> 1,2π¯¿∏∑Œ √≥∏Æ
+	//Í≤ΩÏö∞
+	//1.Ï†ïÏÉÅÏ†ÅÏù∏ Ïú†Ï†ÄÏ¢ÖÎ£å
+	//2.ÏÑúÎ≤ÑÎã§Ïö¥(Ï†ïÏÉÅ)
+	//3.ÏÑúÎ≤ÑÎã§Ïö¥(ÌÅ¨ÎûòÏâ¨)
+	//4.ÏÑúÎ≤ÑÎã§Ïö¥(Ïª¥Ìì®ÌÑ∞ÏóêÎü¨)
+	//5.Í≥ÑÏ†ïÏôÑÎ£å -> 1,2Î≤àÏúºÎ°ú Ï≤òÎ¶¨
 
 	//SendMsgToPayServer( int nType , USERINFO& stUser );
 }
@@ -683,7 +683,7 @@ USERINFO* CAsyncClient::FindPayUser( const char* szUserId)
 
 //bool CAsyncClient::DeletePayUser( USERINFOPAY& stUser )
 //{	
-//	//«ÿ¥Á¿Ø¿˙∏¶ √£æ∆ ªË¡¶«—¥Ÿ.
+//	//Ìï¥ÎãπÏú†Ï†ÄÎ•º Ï∞æÏïÑ ÏÇ≠Ï†úÌïúÎã§.
 //	LISTUSERIT it = FindUserIterator(stUser.szUserId);
 //	if( it == NULL )
 //	{
@@ -699,7 +699,7 @@ USERINFO* CAsyncClient::FindPayUser( const char* szUserId)
 //}
 bool CAsyncClient::DeletePayUser(USERINFOPAY& stUser)
 {
-	//«ÿ¥Á¿Ø¿˙∏¶ √£æ∆ ªË¡¶«—¥Ÿ.
+	//Ìï¥ÎãπÏú†Ï†ÄÎ•º Ï∞æÏïÑ ÏÇ≠Ï†úÌïúÎã§.
 	const char * szUserName = stUser.szUserId;
 	LISTUSERIT it = find_if(m_vtUser.begin(), m_vtUser.end(), bind2nd(IsUserHere(), szUserName));
 	if (it != m_vtUser.end())
@@ -732,7 +732,7 @@ int CAsyncClient::SendPayFormatMessage( char* strMsg )
 
 	nLen++;
 	int nRet, nIdx=0;
-__try{ // 030502  ¿”∞Ëøµø™ π◊  try πÆ ª¿‘
+__try{ // 030502  ÏûÑÍ≥ÑÏòÅÏó≠ Î∞è  try Î¨∏ ÏÇΩÏûÖ
 	//EnterCriticalSection( &this->m_cs);
 	while( nLen > 0 )
 	{
@@ -814,8 +814,8 @@ void CAsyncClient::LoginUser( const int nCn, const char* szUserId, const char* s
 {
 	USERINFOPAY userInfo;
 	SetUserInfo( userInfo, nCn, szUserId, szUserPass, szGameId, szUserType );//GAME_ID, USER_TYPE );
-	//±‚¡∏≈◊¿Ã∫Ìø° ¿Ø¿˙∞° ¿÷¿∏∏È ±◊ ¿Ø¿˙∏¶ ªË¡¶«œ∞Ì «ˆ¡¶ ¿Ø¿˙∏¶ ª¿‘«—¥Ÿ.
-	int nReConnect = AddPayUser( userInfo );	//¿Ø¿˙∏¶ «ÿ¥Á ≈◊¿Ã∫Ìø° ¿˙¿Â«—¥Ÿ.
+	//Í∏∞Ï°¥ÌÖåÏù¥Î∏îÏóê Ïú†Ï†ÄÍ∞Ä ÏûàÏúºÎ©¥ Í∑∏ Ïú†Ï†ÄÎ•º ÏÇ≠Ï†úÌïòÍ≥† ÌòÑÏ†ú Ïú†Ï†ÄÎ•º ÏÇΩÏûÖÌïúÎã§.
+	int nReConnect = AddPayUser( userInfo );	//Ïú†Ï†ÄÎ•º Ìï¥Îãπ ÌÖåÏù¥Î∏îÏóê Ï†ÄÏû•ÌïúÎã§.
 	/* 030502 kyo
 	int nReConnect = 0;
 	USERINFO *pUser = g_pUserTable->GetUserInfo( szUserId );
@@ -883,7 +883,7 @@ void CAsyncClient::LogoutAllUser()
 	{
 		return;
 	}
-	//copy( m_vtUser.begin(), m_vtUser.end(), SendUserLogout );	//≈¨∑°Ω∫«‘ºˆ æ≤±‚ π∞æÓ∫º≤Ø.
+	//copy( m_vtUser.begin(), m_vtUser.end(), SendUserLogout );	//ÌÅ¥ÎûòÏä§Ìï®Ïàò Ïì∞Í∏∞ Î¨ºÏñ¥Î≥ºÍªè.
 	
 	for( LISTUSERIT it = m_vtUser.begin() ; it != m_vtUser.end(); it++ )
 	{
@@ -898,7 +898,7 @@ void CAsyncClient::SetUserInfo( USERINFOPAY& info, const int nCn, const char* sz
 {
 	info.dwConnectionIndex	= nCn;
 	
-	//strupr( info.szUserId ); // 030430 ∏µÁ ¿Ø¿˙¿Ã∏ß¿ª ¥ÎπÆ¿⁄∑Œ √≥∏Æ«—¥Ÿ.
+	//strupr( info.szUserId ); // 030430 Î™®Îì† Ïú†Ï†ÄÏù¥Î¶ÑÏùÑ ÎåÄÎ¨∏ÏûêÎ°ú Ï≤òÎ¶¨ÌïúÎã§.
 	
 	//strcpy( info.szUserId, szUserId );
 	//strcpy( info.szUserPass, szUserPass ); 
@@ -932,7 +932,7 @@ void CAsyncClient::SendUserLogout( USERINFOPAY& userInfo )
 }
 
 void CAsyncClient::RecvUserLogin( USERINFOPAY& userInfo)
-{ //≥™¿« ¿Ø¿˙∏ÆΩ∫∆Æø°º≠ √£¥¬¥Ÿ. 
+{ //ÎÇòÏùò Ïú†Ï†ÄÎ¶¨Ïä§Ìä∏ÏóêÏÑú Ï∞æÎäîÎã§. 
 	//LISTUSERIT it = FindUserIterator(userInfo.szUserId);
 	USERINFOPAY* it = FindUserIterator(userInfo.szUserId);
 	if( it == NULL )
@@ -956,9 +956,9 @@ void CAsyncClient::RecvUserLogin( USERINFOPAY& userInfo)
 
 void CAsyncClient::RecvUserLogout( USERINFOPAY& userInfo)
 {
-	//¿Ø¿˙∞° æ∆¡˜≥≤æ∆  ¿÷¥¬¡ˆ »Æ¿Œº≠ »ÆΩ«»˜ ≤˜æÓ πˆ∏∞¥Ÿ. 
-	// -> 030422 kyo ¡æ∑·¥Î±‚¿Ø¿˙¿œ¡ˆµµ∏Ù∏£¥–≥™ øÏº± ¥Î±‚«—¥Ÿ. 
-	// 030502 ø°¿Ã¿¸∆Æ∞° Ω∫Ω∫∑Œ ¿Ø¿˙∏¶ ¿ﬂ∏£∞‘ ≥ˆµŒ∞Ì øÏ∏Æ¥¬ ∏ÆΩ∫∆Æø°º≠∏∏ ªË¡¶«—¥Ÿ.
+	//Ïú†Ï†ÄÍ∞Ä ÏïÑÏßÅÎÇ®ÏïÑ  ÏûàÎäîÏßÄ ÌôïÏù∏ÏÑú ÌôïÏã§Ìûà ÎÅäÏñ¥ Î≤ÑÎ¶∞Îã§. 
+	// -> 030422 kyo Ï¢ÖÎ£åÎåÄÍ∏∞Ïú†Ï†ÄÏùºÏßÄÎèÑÎ™∞Î•¥ÎãâÎÇò Ïö∞ÏÑ† ÎåÄÍ∏∞ÌïúÎã§. 
+	// 030502 ÏóêÏù¥Ï†ÑÌä∏Í∞Ä Ïä§Ïä§Î°ú Ïú†Ï†ÄÎ•º ÏûòÎ•¥Í≤å ÎÜîÎëêÍ≥† Ïö∞Î¶¨Îäî Î¶¨Ïä§Ìä∏ÏóêÏÑúÎßå ÏÇ≠Ï†úÌïúÎã§.
 
 	
 	//g_pINet->CompulsiveDisconnectUser( userInfo.dwConnectionIndex ); // 030422 kyo
@@ -972,7 +972,7 @@ void CAsyncClient::RecvUserLogout( USERINFOPAY& userInfo)
 	*/
 	//::MyLog( 0, "AboutPAY :: User didn't LogOut!! userId = %s", userInfo.szUserId);
 	
-	//∞≠¡¶∑Œ±◊æ∆øÙ
+	//Í∞ïÏ†úÎ°úÍ∑∏ÏïÑÏõÉ
 	//g_pINet->CompulsiveDisconnectUser( pUser->dwConnectionIndex ); // 030422 kyo
 }
 
@@ -999,7 +999,7 @@ void CAsyncClient::RecvUserLoginFail( USERINFOPAY& userInfo, int nType)
 }
 
 void CAsyncClient::RecvUserLogoutFail( USERINFOPAY& userInfo )
-{// ∞˙±›º≠πˆø° ∑Œ±◊¿Œ «— ¿˚¿Ã æ¯¥¬ ¿Ø¿˙∏¶ ∑Œ±◊æ∆øÙ«— ∞ÊøÏ..
+{// Í≥ºÍ∏àÏÑúÎ≤ÑÏóê Î°úÍ∑∏Ïù∏ Ìïú Ï†ÅÏù¥ ÏóÜÎäî Ïú†Ï†ÄÎ•º Î°úÍ∑∏ÏïÑÏõÉÌïú Í≤ΩÏö∞..
 	DeletePayUser( userInfo);
 	//Leave Log
 	//::MyLog( 0, "AboutPAY :: FAIL LogOut    userId = %s", userInfo.szUserId);
@@ -1007,21 +1007,21 @@ void CAsyncClient::RecvUserLogoutFail( USERINFOPAY& userInfo )
 
 void CAsyncClient::SendUserLoginSuccess2DB( const DWORD dwConnectionIndex, const char* szUserId )
 {
-	//dbø°∞‘ «ÿ¥Á ¿Ø¿˙∞° ¡¢º”ø° º∫∞¯«ﬂ¿Ω¿ª æÀ∏∞¥Ÿ. 
-	//¿Ã∞˜ √ﬂ∞°ø‰∏¡
+	//dbÏóêÍ≤å Ìï¥Îãπ Ïú†Ï†ÄÍ∞Ä Ï†ëÏÜçÏóê ÏÑ±Í≥µÌñàÏùåÏùÑ ÏïåÎ¶∞Îã§. 
+	//Ïù¥Í≥≥ Ï∂îÍ∞ÄÏöîÎßù
 }
 
 void CAsyncClient::SendUser2Client( const DWORD dwConnectionIndex, const char* szUserId, const int nType)
 {
-	//clientø°∞‘ «ÿ¥Á ¿Ø¿˙¿« ¡¢º”¿Ã Ω«∆–«ﬁ¿Ω¿ª æÀ∏∞¥Ÿ. 
-	//¿Ã∞˜ √ﬂ∞°ø‰∏¡	
+	//clientÏóêÍ≤å Ìï¥Îãπ Ïú†Ï†ÄÏùò Ï†ëÏÜçÏù¥ Ïã§Ìå®ÌñáÏùåÏùÑ ÏïåÎ¶∞Îã§. 
+	//Ïù¥Í≥≥ Ï∂îÍ∞ÄÏöîÎßù	
 	::SendCMD_CONNECT_AGENT_SERVER_CONFORM( dwConnectionIndex, szUserId, nType);
 }
 
 void CAsyncClient::RecvUserAlert( USERINFOPAY& userInfo, int nTime)
 {
-	//Clietø°∞‘ ¿Ø¿˙ ¡¢º”Ω√∞£¿Ã æÛ∏∂ æ» ≥≤æ“¿Ω¿ª æÀ∏∞¥Ÿ.
-	//¿Ã∞˜ √ﬂ∞°ø‰∏¡	
+	//ClietÏóêÍ≤å Ïú†Ï†Ä Ï†ëÏÜçÏãúÍ∞ÑÏù¥ ÏñºÎßà Ïïà ÎÇ®ÏïòÏùåÏùÑ ÏïåÎ¶∞Îã§.
+	//Ïù¥Í≥≥ Ï∂îÍ∞ÄÏöîÎßù	
 
 	//LISTUSERIT it = FindUserIterator(userInfo.szUserId);
 	USERINFOPAY* it = FindUserIterator(userInfo.szUserId);
@@ -1036,14 +1036,14 @@ void CAsyncClient::RecvUserAlert( USERINFOPAY& userInfo, int nTime)
 	{
 		return;
 	}
-	//Ω√∞£¿∫ ¿Ωºˆ∑Œ ∫∏≥Ω¥Ÿ. 
+	//ÏãúÍ∞ÑÏùÄ ÏùåÏàòÎ°ú Î≥¥ÎÇ∏Îã§. 
 	SendUser2Client( pUser->dwConnectionIndex, pUser->szName, -nTime );
 	*/
 }
 
 void CAsyncClient::RecvUserDisconnect( USERINFOPAY& userInfo, int nMsgType)
 {
-	//client¿« ¡¢º”¿ª «ÿ¡¶«—¥Ÿ. 
+	//clientÏùò Ï†ëÏÜçÏùÑ Ìï¥Ï†úÌïúÎã§. 
 	//LISTUSERIT it = FindUserIterator(userInfo.szUserId);
 	USERINFOPAY* it = FindUserIterator(userInfo.szUserId);
 	if( it == NULL )
@@ -1061,7 +1061,7 @@ void CAsyncClient::RecvUserDisconnect( USERINFOPAY& userInfo, int nMsgType)
 	SendUser2Client( pUser->dwConnectionIndex, pUser->szName, nMsgType );
 	*/
 
-	g_pINet->CompulsiveDisconnectUser( (*it).dwConnectionIndex ); //øÏº± ¡÷ºÆ√≥∏Æ
+	g_pINet->CompulsiveDisconnectUser( (*it).dwConnectionIndex ); //Ïö∞ÏÑ† Ï£ºÏÑùÏ≤òÎ¶¨
 }
 
 

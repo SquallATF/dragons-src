@@ -1,21 +1,21 @@
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÀÛ¼ºÀÏ   : 1995³â 3¿ù 27ÀÏ
- ÀÛ¼ºÀÚ   : Àå ¼®±Ô
+ï»¿/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ ç´¯å·±è€   : 1995æ–¥ 3å²¿ 27è€
+ ç´¯å·±ç£Š   : åŽ˜ ç±ç—¹
  Compile  : bcc -ms
- È­ÀÏ ¼³¸í: ÀÌ È­ÀÏÀº ½ºÅ©¸³Æ® ³»¿ëÀ» ¹®¹ýÀûÀ¸·Î ÇØ¼®ÇÏ°í ÀÌ°ÍÀ» ½ÇÇà±â°¡
-            ¾µ¼ö ÀÖ´Â ³»¿ëÀÇ ÀÌÁø È­ÀÏ·Î »ý¼ºÇÑ´Ù.
-            * ¸ðµç ÇÔ¼ö¸íÀº 1¹ÙÀÌÆ®·Î º¯È¯µÈ´Ù. ±×·¯¹Ç·Î ÃÖ´ë ¸í·É¾îÀÇ °¹
-              ¼ö´Â ³»ºÎ, ¿ÜºÎ ¸í·É¾î ÇÕÃÄ¼­ 255°³ÀÌ´Ù.
-            * ¸ðµç º¯¼ö´Â ½ÇÁ¦°ª°ú 0x8000À» ORÇØ¼­ »ý¼º½ÃÅ²´Ù.
-			* ¸ðµç ¼öÄ¡°ªÀº ½ÇÁ¦°ªÀ» µû¸¥´Ù. ( 0 ~ 32767 )
-            * ¸ðµç GOTO ¸í·ÉÀÇ Á¡ÇÁ ÁÖ¼Ò´Â 2¹ÙÀÌÆ®ÀÌ´Ù.
-            * switch¹®¿¡¼­ case¹®Àº ÃÖ´ë 50°³ÀÌ´Ù.
+ æ‹³è€ æ±²ç–™: æž æ‹³è€ç¯® èƒ¶å†œèµ‹é£˜ éƒ´ä¾©é˜‘ å·©è¿‡åˆ©æ è‚º ç§¦ç±çªç»Š æžå·´é˜‘ è§’é’æ‰å•Š
+            é•œè ä¹ç»° éƒ´ä¾©ç‹¼ æžæŸ³ æ‹³è€è‚º ç§¯å·±èŒ„ä¿ƒ.
+            * è‘›ç”µ çªƒèç–™ç¯® 1å®˜æžé£˜è‚º å‡½åˆ¸ç­‰ä¿ƒ. å¼ŠçŸ¾éª¨è‚º å¼¥æŽª ç–™é£žç»¢ç‹¼ è‚®
+              èç»° éƒ´ä½•, å¯‡ä½• ç–™é£žç»¢ é’¦åªšè¾‘ 255ä¿ºæžä¿ƒ.
+            * è‘›ç”µ å‡½èç»° è§’åŠ›è”¼è‹ž 0x8000é˜‘ ORç§¦è¾‘ ç§¯å·±çŸ«æŒªä¿ƒ.
+			* è‘›ç”µ èæ‘¹è”¼ç¯® è§’åŠ›è”¼é˜‘ è¶å¼—ä¿ƒ. ( 0 ~ 32767 )
+            * è‘›ç”µ GOTO ç–™é£žç‹¼ ç—¢æ©‡ æž—å®¶ç»° 2å®˜æžé£˜æžä¿ƒ.
+            * switchå·©ä¿Šè¾‘ caseå·©ç¯® å¼¥æŽª 50ä¿ºæžä¿ƒ.
 
 
-date of Modification : 1997³â 10¿ù 30ÀÏ
+date of Modification : 1997æ–¥ 10å²¿ 30è€
 who modified : Kim Hongseok
 contents of modification : porting of windows
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 #include "..\stdafx.h"
 #include "DefaultHeader.h"
 
@@ -40,8 +40,8 @@ contents of modification : porting of windows
 #define MAX_SCR_ARRAY     10000
 
 
-// °¢ ¸í·É¾î¿¡ ÇØ´çÇÏ´Â ¹®ÀÚ¿­ÀÇ °ªÀ» Á¤ÀÇÇÑ´Ù.
-// ´ÙÀ½ÀÇ Á¤ÀÇ¹®Àº ÄÄÆÄÀÏµÈ ÀÌÁøÈ­ÀÏ¿¡ ½ÇÁ¦·Î ¾²¿©Áö´Â °ªÀÌ´Ù.
+// é˜¿ ç–™é£žç»¢ä¿Š ç§¦å¯¸çªç»° å·©ç£Šå‡¯ç‹¼ è”¼é˜‘ æ²¥ç‹¼èŒ„ä¿ƒ.
+// ä¿ƒæ¾œç‹¼ æ²¥ç‹¼å·©ç¯® å“ªé¢‡è€ç­‰ æžæŸ³æ‹³è€ä¿Š è§’åŠ›è‚º é™å’¯ç˜¤ç»° è”¼æžä¿ƒ.
 /*
 enum {
     goto_     =  0xe0,
@@ -68,7 +68,7 @@ enum {
     and2_     =  0xf5,
 };
 */
-// ´ÙÀ½ÀÇ Á¤ÀÇ¹®Àº ÄÄÆÄÀÏÇÒ¶§¸¸ ¿ä±¸µÇ´Â °ªÀÌ´Ù.
+// ä¿ƒæ¾œç‹¼ æ²¥ç‹¼å·©ç¯® å“ªé¢‡è€ä¸”é”­çˆ¶ å¤¸å¤‡ç™»ç»° è”¼æžä¿ƒ.
 enum {
     else_     =  0xd0,
     case_     =  0xd1,
@@ -80,7 +80,7 @@ enum {
 };
 
 
-#define LABEL_LENGTH 20        // ¶óº§ÀÇ ÃÖ´ë ±æÀÌ¸¦ ³ªÅ¸³¿
+#define LABEL_LENGTH 20        // æ‰¼éª‡ç‹¼ å¼¥æŽª è¾¨æžç”« å”±é¸¥æ™¨
 
 enum {
     END = 0,
@@ -101,29 +101,29 @@ typedef struct {
 } COMMSET;
 
 
-typedef struct {        // if_else ¹®ÀÇ ³»¿ëÀ» ÀúÀåÇÏ±â À§ÇÑ ±¸Á¶Ã¼
-    int off;            // if³ª else¹®ÀÌ À§Ä¡ÇÑ °÷ÀÇ ¿É¼Â
-    BYTE d;             // ±íÀÌ¸¦ ³ªÅ¸³¿
+typedef struct {        // if_else å·©ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜çªæ‰ å›°èŒ„ å¤‡ç‚¼çœ‰
+    int off;            // ifå”± elseå·©æž å›°æ‘¹èŒ„ é•‘ç‹¼ å¯æ‚¸
+    BYTE d;             // è¡¨æžç”« å”±é¸¥æ™¨
     BYTE t;             // 0 = if, 1 = else
 } IF_ELSE;
 
 
-typedef struct {        // »ç¿ëÀÚ°¡ Á¤ÀÇÇÑ ÇÔ¼ö¸íÀ» ÀúÀåÇÒ ±¸Á¶Ã¼
-    char s[ 50 + 1 ];       // ÇÔ¼ö¸íÀ» ÀúÀåÇÒ º¯¼ö
-    char format[ 31 ];  // ÇÔ¼ö¿¡ ÇØ´çÇÏ´Â ÀÎ¼öÀÇ formatÀ» ÀúÀåÇÒ º¯¼ö
-    int n;             // ÇÔ¼ö¸íÀÌ ÀÖ´Â°÷ÀÇ À§Ä¡
+typedef struct {        // è¤ä¾©ç£Šå•Š æ²¥ç‹¼èŒ„ çªƒèç–™é˜‘ åŽ†åŽ˜ä¸” å¤‡ç‚¼çœ‰
+    char s[ 50 + 1 ];       // çªƒèç–™é˜‘ åŽ†åŽ˜ä¸” å‡½è
+    char format[ 31 ];  // çªƒèä¿Š ç§¦å¯¸çªç»° ç‰¢èç‹¼ formaté˜‘ åŽ†åŽ˜ä¸” å‡½è
+    int n;             // çªƒèç–™æž ä¹ç»°é•‘ç‹¼ å›°æ‘¹
 } USER_FUNC;
 
 
-typedef struct {        // switch ¹®ÀÇ ³»¿ëÀ» ÀúÀåÇÒ ±¸Á¶Ã¼
-    int total;          // ÇÁ·Î±×·¥ Ã³À½¿¡ caseÀÇ °¹¼ö¸¦ Á¶»çÇÑ ³»¿ë
+typedef struct {        // switch å·©ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜ä¸” å¤‡ç‚¼çœ‰
+    int total;          // æ©‡è‚ºå¼Šä¼ è´¸æ¾œä¿Š caseç‹¼ è‚®èç”« ç‚¼è¤èŒ„ éƒ´ä¾©
     int count;
     int def;
     int numoff[ 50 ];
 } SWITCHCASE;
 
 
-// °¢°¢¿¡ ÇØ´çÇÏ´Â ¸í·É¾î¿Í ±× ¸í·É¾î¿¡ ÇØ´çÇÏ´Â ¼ýÀÚ¸¦ °¡Áö´Â ±¸Á¶Ã¼
+// é˜¿é˜¿ä¿Š ç§¦å¯¸çªç»° ç–™é£žç»¢å®¢ å¼Š ç–™é£žç»¢ä¿Š ç§¦å¯¸çªç»° ç®­ç£Šç”« å•Šç˜¤ç»° å¤‡ç‚¼çœ‰
 static COMMSET comm[ 255 ] = {
     { "goto",           goto_ },
     { "if",             if_ },
@@ -139,38 +139,38 @@ static COMMSET comm[ 255 ] = {
 };
 
 
-static COMMSET variable[ MAX_SCR_ARRAY ];             // »ç¿ëÀÚ°¡ Á¤ÀÇÇÑ º¯¼öÀÇ ³»¿ëÀ» ÀúÀå
-static COMMSET label1[ MAX_SCR_ARRAY ];               // ¿ø·¡ ¶óº§ÀÇ ³»¿ëÀ» ÀúÀåÇÏ´Â º¯¼ö
-static COMMSET label2[ MAX_SCR_ARRAY ];               // goto¹® ´ÙÀ½¿¡ ¾²ÀÎ ¶óº§À» ÀúÀå
-static IF_ELSE ifelse[ MAX_SCR_ARRAY ];               // if, else¹®ÀÇ ³»¿ëÀ» ÀúÀå
-static COMMSET userfunc1[ MAX_SCR_ARRAY ];            // ¿ø·¡ ÇÔ¼ö¸íÀÇ ³»¿ëÀ» ÀúÀå
-static COMMSET userfunc2[ MAX_SCR_ARRAY ];            // call¹® ´ÙÀ½¿¡ ¾²ÀÎ ÇÔ¼ö¸¦ ÀúÀå
-static USER_FUNC myfunction[ MAX_SCR_ARRAY ];           // À¯Àú°¡ Á¤ÀÇÇÑ ÇÔ¼ö¸¦ ÀúÀå
-static SWITCHCASE swit[ 50 ];               // ÇÏ³ªÀÇ switch¹®¿¡¼­ °¢°¢ÀÇ
-                                     // case¹®À»ÀúÀå
+static COMMSET variable[ MAX_SCR_ARRAY ];             // è¤ä¾©ç£Šå•Š æ²¥ç‹¼èŒ„ å‡½èç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+static COMMSET label1[ MAX_SCR_ARRAY ];               // ç›”è´° æ‰¼éª‡ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜çªç»° å‡½è
+static COMMSET label2[ MAX_SCR_ARRAY ];               // gotoå·© ä¿ƒæ¾œä¿Š é™ç‰¢ æ‰¼éª‡é˜‘ åŽ†åŽ˜
+static IF_ELSE ifelse[ MAX_SCR_ARRAY ];               // if, elseå·©ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+static COMMSET userfunc1[ MAX_SCR_ARRAY ];            // ç›”è´° çªƒèç–™ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+static COMMSET userfunc2[ MAX_SCR_ARRAY ];            // callå·© ä¿ƒæ¾œä¿Š é™ç‰¢ çªƒèç”« åŽ†åŽ˜
+static USER_FUNC myfunction[ MAX_SCR_ARRAY ];           // èœ¡åŽ†å•Š æ²¥ç‹¼èŒ„ çªƒèç”« åŽ†åŽ˜
+static SWITCHCASE swit[ 50 ];               // çªå”±ç‹¼ switchå·©ä¿Šè¾‘ é˜¿é˜¿ç‹¼
+                                     // caseå·©é˜‘åŽ†åŽ˜
 
-static char TOKEN[ MAX_SCR_ARRAY ];                    // ºÒ¸®ÇØ³½ ÅäÅ«À» ÀúÀåÇÒ ¹öÆÛ
-static char TOKENTYPE;                      // ¾ò¾îÁø ÅäÅ«ÀÇ Å¸ÀÔ
-static int  TOK;                            // ÅäÅ«À» º¯È¯ÇÑ ÈÄÀÇ °ªÀ» ÀúÀå
+static char TOKEN[ MAX_SCR_ARRAY ];                    // é˜‚åºœç§¦è¾° é…å¥´é˜‘ åŽ†åŽ˜ä¸” æ»šæ¬º
+static char TOKENTYPE;                      // æŽ˜ç»¢æŸ³ é…å¥´ç‹¼ é¸¥æ¶
+static int  TOK;                            // é…å¥´é˜‘ å‡½åˆ¸èŒ„ é¥¶ç‹¼ è”¼é˜‘ åŽ†åŽ˜
 
-static int ifsp;                            // if, elseÀÇ ½ºÅÃ°ª
-static int switsp;                          // switchÀÇ º¯À§°ª
-static int label1_n, label2_n;              // ¿ø·¡ÀÇ ¶óº§°ª°ú ¾²¿©Áø ¶óº§°ªÀ» ÀúÀå
-static int user1_n, user2_n;                // ¿ø·¡ÀÇ ÇÔ¼ö°ª°ú ¾²¿©Áø ÇÔ¼ö°ªÀ» ÀúÀå
-static int funclabelsp;						// GetLabel () ÇÔ¼ö¿¡¼­ »ç¿ë
+static int ifsp;                            // if, elseç‹¼ èƒ¶ç¶è”¼
+static int switsp;                          // switchç‹¼ å‡½å›°è”¼
+static int label1_n, label2_n;              // ç›”è´°ç‹¼ æ‰¼éª‡è”¼è‹ž é™å’¯æŸ³ æ‰¼éª‡è”¼é˜‘ åŽ†åŽ˜
+static int user1_n, user2_n;                // ç›”è´°ç‹¼ çªƒèè”¼è‹ž é™å’¯æŸ³ çªƒèè”¼é˜‘ åŽ†åŽ˜
+static int funclabelsp;						// GetLabel () çªƒèä¿Šè¾‘ è¤ä¾©
 
-static int LINE = 0;                        // ¼Ò½ºÈ­ÀÏÀÇ ¶óÀÎ°ªÀ» Ä«¿îÆ®
+static int LINE = 0;                        // å®¶èƒ¶æ‹³è€ç‹¼ æ‰¼ç‰¢è”¼é˜‘ å¢¨æ¬¾é£˜
 
-BYTE *wzsprog,                          // ¼Ò½º ÇÁ·Î±×·¥À» ÀÐ¾îµéÀÏ ¹öÆÛ
-	 *oldwzsprog;                       // Ã³À½¿¡´Â wzsprog¿Í °°Àº °ªÀ» °¡Áö¸ç
-									 // ÇÁ·Î±×·¥ Á¾·á½Ã freeÇÔ¼ö¿¡¼­ »ç¿ë
-static BYTE *outprog,                       // Ãâ·Â ¹öÆÛ¸¦ °¡¸®Å´
-			*oldoutprog;                    // Ã³À½¿¡´Â oldoutprog¿Í °°Àº °ªÀ» °¡Áö¸ç
-                                     // ÇÁ·Î±×·¥ Á¾·á½Ã freeÇÔ¼ö¿¡¼­ »ç¿ë
-static int SOURCEFILESIZE;                  // ¼Ò½ºÈ­ÀÏÀÇ Å©±â¸¦ ³ªÅ¸³¿
-static char TARGETFILENAME[ FILENAME_MAX];             // Ãâ·ÂÇÒ È­ÀÏÀÇ ÀÌ¸§À» ³ªÅ¸³¿
-static FILE *outfile;                       // Ãâ·ÂÇÒ È­ÀÏÀ» °¡¸®Å°´Â È­ÀÏ Æ÷ÀÎÅÍ
-static int INCLUDEFILESIZE;                 // ÀÎÅ¬·çµåµÉ È­ÀÏÀÇ Å©±â¸¦ °¡¸®Å´
+BYTE *wzsprog,                          // å®¶èƒ¶ æ©‡è‚ºå¼Šä¼é˜‘ ä½¬ç»¢ç”¸è€ æ»šæ¬º
+	 *oldwzsprog;                       // è´¸æ¾œä¿Šç»° wzsprogå®¢ éžç¯® è”¼é˜‘ å•Šç˜¤å“¥
+									 // æ©‡è‚ºå¼Šä¼ è¾†ä¸°çŸ« freeçªƒèä¿Šè¾‘ è¤ä¾©
+static BYTE *outprog,                       // å…ä»¿ æ»šæ¬ºç”« å•Šåºœç³¯
+			*oldoutprog;                    // è´¸æ¾œä¿Šç»° oldoutprogå®¢ éžç¯® è”¼é˜‘ å•Šç˜¤å“¥
+                                     // æ©‡è‚ºå¼Šä¼ è¾†ä¸°çŸ« freeçªƒèä¿Šè¾‘ è¤ä¾©
+static int SOURCEFILESIZE;                  // å®¶èƒ¶æ‹³è€ç‹¼ å†œæ‰ç”« å”±é¸¥æ™¨
+static char TARGETFILENAME[ FILENAME_MAX];             // å…ä»¿ä¸” æ‹³è€ç‹¼ æžæŠšé˜‘ å”±é¸¥æ™¨
+static FILE *outfile;                       // å…ä»¿ä¸” æ‹³è€é˜‘ å•Šåºœè™ç»° æ‹³è€ å™¨ç‰¢ç£
+static int INCLUDEFILESIZE;                 // ç‰¢åŠªé£Žé›çžª æ‹³è€ç‹¼ å†œæ‰ç”« å•Šåºœç³¯
 
 static int ErrorCount;
 
@@ -182,7 +182,7 @@ static char Wz_scriptfilename[FILENAME_MAX];
 extern int func_off[100];
 
 //////////////////////////////////////////////////////////////////////////
-// ½ÇÁúÀûÀÎ ÇÔ¼öµéÀÇ Á¤ÀÇ
+// è§’é¾™åˆ©ç‰¢ çªƒèç”¸ç‹¼ æ²¥ç‹¼
 //////////////////////////////////////////////////////////////////////////
 
 
@@ -256,12 +256,12 @@ FILE *ZS_Fopen( const char *file, const char *mode )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Incode
- ÀÎ  ÀÚ : s = ¾ÏÈ£È­ÇÒ ¹®ÀÚ¿­
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : s¹®ÀÚ¿­À» ¹Þ¾Æ¼­ ³»ºÎ¿¡ Á¤ÀÇµÈ ¼öÄ¡¿Í ¿¬»êÀ» ¼öÇàÇØ¼­ ¾ÏÈ£È­ÇÔ
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Incode
+ ç‰¢  ç£Š : s = éž é¾‹æ‹³ä¸” å·©ç£Šå‡¯
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : så·©ç£Šå‡¯é˜‘ ç½é…’è¾‘ éƒ´ä½•ä¿Š æ²¥ç‹¼ç­‰ èæ‘¹å®¢ æ¥·é­‚é˜‘ èé’ç§¦è¾‘ éž é¾‹æ‹³çªƒ
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void WinZsIncode( char *s )
 {
 //    static BYTE t[ 20 ] = {
@@ -278,12 +278,12 @@ void WinZsIncode( char *s )
 }
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : SearchFunction
- ÀÎ  ÀÚ : s = Ã£°íÀÚ ÇÏ´Â ÇÔ¼öÀÇ ¹®ÀÚ¿­
- ¸®ÅÏ°ª : Ã£Áö¸øÇÏ¸é -1, Ã£À¸¸é ¹øÈ£¸¦ ¸®ÅÏ
- ¼³  ¸í : s¹®ÀÚ¿­¿¡ ÇØ´çÇÏ´Â À¯Àú°¡ Á¤ÀÇÇÑ ÇÔ¼ö¸íÀ» function¹è¿­¿¡¼­ Ã£´Â´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : SearchFunction
+ ç‰¢  ç£Š : s = èŒ«ç»Šç£Š çªç»° çªƒèç‹¼ å·©ç£Šå‡¯
+ åºœç•”è”¼ : èŒ«ç˜¤ç»™çªæ -1, èŒ«æ æ é”…é¾‹ç”« åºœç•”
+ æ±²  ç–™ : så·©ç£Šå‡¯ä¿Š ç§¦å¯¸çªç»° èœ¡åŽ†å•Š æ²¥ç‹¼èŒ„ çªƒèç–™é˜‘ functionç¡…å‡¯ä¿Šè¾‘ èŒ«ç»°ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int SearchFunction( char *s )
 {
     int i;
@@ -295,12 +295,12 @@ int SearchFunction( char *s )
 }
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : SearchCommand
- ÀÎ  ÀÚ : s = Ã£°íÀÚÇÏ´Â ¸í·É¾îÀÇ ¹®ÀÚ¿­
- ¸®ÅÏ°ª : Ã£Áö¸øÇÏ¸é -1, Ã£À¸¸é ¹øÈ£¸¦ ¸®ÅÏ
- ¼³  ¸í : s¹®ÀÚ¿­¿¡ ÇØ´çÇÏ´Â ¸í·É¾î¸¦ Ã£À½
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : SearchCommand
+ ç‰¢  ç£Š : s = èŒ«ç»Šç£Šçªç»° ç–™é£žç»¢ç‹¼ å·©ç£Šå‡¯
+ åºœç•”è”¼ : èŒ«ç˜¤ç»™çªæ -1, èŒ«æ æ é”…é¾‹ç”« åºœç•”
+ æ±²  ç–™ : så·©ç£Šå‡¯ä¿Š ç§¦å¯¸çªç»° ç–™é£žç»¢ç”« èŒ«æ¾œ
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int SearchCommand( char *s )
 {
 	int i;
@@ -312,12 +312,12 @@ int SearchCommand( char *s )
 }
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : SearchVariable
- ÀÎ  ÀÚ : s = Ã£°íÀÚ ÇÏ´Â º¯¼öÀÇ ¹®ÀÚ¿­
- ¸®ÅÏ°ª : Ã£Áö¸øÇÏ¸é -1, Ã£À¸¸é ¹øÈ£¸¦ ¸®ÅÏ
- ¼³  ¸í : s¹®ÀÚ¿­¿¡ ÇØ´çÇÏ´Â º¯¼ö¸íÀ» Ã£À½
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : SearchVariable
+ ç‰¢  ç£Š : s = èŒ«ç»Šç£Š çªç»° å‡½èç‹¼ å·©ç£Šå‡¯
+ åºœç•”è”¼ : èŒ«ç˜¤ç»™çªæ -1, èŒ«æ æ é”…é¾‹ç”« åºœç•”
+ æ±²  ç–™ : så·©ç£Šå‡¯ä¿Š ç§¦å¯¸çªç»° å‡½èç–™é˜‘ èŒ«æ¾œ
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int SearchVariable( char *s )
 {
     int i;
@@ -329,12 +329,12 @@ int SearchVariable( char *s )
 }
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : SearchLabel
- ÀÎ  ÀÚ : s = Ã£°íÀÚ ÇÏ´Â ¶óº§ÀÇ ¹®ÀÚ¿­
- ¸®ÅÏ°ª : Ã£Áö¸øÇÏ¸é -1, Ã£À¸¸é ¹øÈ£¸¦ ¸®ÅÏ
- ¼³  ¸í : s¹®ÀÚ¿­¿¡ ÇØ´çÇÏ´Â ¶óº§À» Ã£À½
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : SearchLabel
+ ç‰¢  ç£Š : s = èŒ«ç»Šç£Š çªç»° æ‰¼éª‡ç‹¼ å·©ç£Šå‡¯
+ åºœç•”è”¼ : èŒ«ç˜¤ç»™çªæ -1, èŒ«æ æ é”…é¾‹ç”« åºœç•”
+ æ±²  ç–™ : så·©ç£Šå‡¯ä¿Š ç§¦å¯¸çªç»° æ‰¼éª‡é˜‘ èŒ«æ¾œ
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int SearchLabel( char *s )
 {
     int i;
@@ -348,13 +348,13 @@ int SearchLabel( char *s )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : SearchUserFunc
- ÀÎ  ÀÚ : s = Ã£°íÀÚ ÇÏ´Â À¯Àú°¡ Á¤ÀÇÇÑ ÇÔ¼öÀÇ ¹®ÀÚ¿­
- ¸®ÅÏ°ª : Ã£Áö¸øÇÏ¸é -1, Ã£À¸¸é ¹øÈ£¸¦ ¸®ÅÏ
- ¼³  ¸í : ¼Ò½º¿¡¼­ Á¤ÀÇÇÑ s¹®ÀÚ¿­¿¡ ÇØ´çÇÏ´Â ÇÔ¼ö¸íÀ» Ã£À½
-          ÇÔ¼ö¸íÀº ¹Ýµå½Ã '_'·Î ½ÃÀÛµÇ¾î¾ß ÇÔ
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : SearchUserFunc
+ ç‰¢  ç£Š : s = èŒ«ç»Šç£Š çªç»° èœ¡åŽ†å•Š æ²¥ç‹¼èŒ„ çªƒèç‹¼ å·©ç£Šå‡¯
+ åºœç•”è”¼ : èŒ«ç˜¤ç»™çªæ -1, èŒ«æ æ é”…é¾‹ç”« åºœç•”
+ æ±²  ç–™ : å®¶èƒ¶ä¿Šè¾‘ æ²¥ç‹¼èŒ„ så·©ç£Šå‡¯ä¿Š ç§¦å¯¸çªç»° çªƒèç–™é˜‘ èŒ«æ¾œ
+          çªƒèç–™ç¯® é¦†é›çŸ« '_'è‚º çŸ«ç´¯ç™»ç»¢å…· çªƒ
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int SearchUserFunc( char *s )
 {
     int i;
@@ -368,12 +368,12 @@ int SearchUserFunc( char *s )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Serror
- ÀÎ  ÀÚ : x = Ãâ·ÂÇÏ°íÀÚ ÇÏ´Â ¿¡·¯ ¸Þ½ÃÁöÀÇ ¹øÈ£
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : x¿¡ ÇØ´çÇÏ´Â ¿¡·¯ ¸Þ½ÃÁö¸¦ Ãâ·ÂÇÏ°í ÇÁ·Î±×·¥À» Á¾·áÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Serror
+ ç‰¢  ç£Š : x = å…ä»¿çªç»Šç£Š çªç»° ä¿ŠçŸ¾ çš‹çŸ«ç˜¤ç‹¼ é”…é¾‹
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : xä¿Š ç§¦å¯¸çªç»° ä¿ŠçŸ¾ çš‹çŸ«ç˜¤ç”« å…ä»¿çªç»Š æ©‡è‚ºå¼Šä¼é˜‘ è¾†ä¸°èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void Serror( int x )
 {
     char *s[] = {
@@ -415,7 +415,7 @@ void Serror( int x )
 	strcpy( nn, Wz_scriptfilename );
 	for( int i = strlen( nn ) - 1  ; i > 0  ; i -- )	   if( *(nn + i ) == '\\' ) break;
 	
-//	sprintf( temp, "%s: %d line: '%s'\n\n ' %s '¸¦ ¿­±î¿ä?",s[x], LINE, TOKEN,  strupr( nn+i+1) );
+//	sprintf( temp, "%s: %d line: '%s'\n\n ' %s 'ç”« å‡¯é³–å¤¸?",s[x], LINE, TOKEN,  strupr( nn+i+1) );
 //	if( YesOrNo( temp, "Script Compile Error") == IDYES )	NotePad( Wz_scriptfilename );
 
 
@@ -434,12 +434,12 @@ void Serror( int x )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Isdeli
- ÀÎ  ÀÚ : i = °Ë»çÇÒ ¹®ÀÚ
- ¸®ÅÏ°ª : ±¸ºÐ¹®ÀÚÀÌ¸é 1, ¾Æ´Ï¸é 0
- ¼³  ¸í : i¹®ÀÚ°¡ ±¸ºÐ¹®ÀÚÀÎÁö¸¦ °Ë»çÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Isdeli
+ ç‰¢  ç£Š : i = å…«è¤ä¸” å·©ç£Š
+ åºœç•”è”¼ : å¤‡ç›’å·©ç£Šæžæ 1, é…’èªæ 0
+ æ±²  ç–™ : iå·©ç£Šå•Š å¤‡ç›’å·©ç£Šç‰¢ç˜¤ç”« å…«è¤èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int Isdeli( char i )
 {
     if( strchr( " ';,+-*/%#=<>(){}[]:!@\t&|", i ) )
@@ -450,16 +450,16 @@ int Isdeli( char i )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Isspace
- ÀÎ  ÀÚ : i = °Ë»çÇÒ ¹®ÀÚ
- ¸®ÅÏ°ª : °ø¹é, ÅÇ, ¸®ÅÏ, ¶óÀÎ ÇÇµå¹®ÀÚÀÌ¸é 1, ¾Æ´Ï¸é 0
- ¼³  ¸í : i¹®ÀÚ°¡ °ø¹é, ÅÇ, ¸®ÅÏ, ¶óÀÎ ÇÇµå¹®ÀÚÀÎÁö¸¦ °Ë»çÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Isspace
+ ç‰¢  ç£Š : i = å…«è¤ä¸” å·©ç£Š
+ åºœç•”è”¼ : å‚å½’, å¾˜, åºœç•”, æ‰¼ç‰¢ ä¹”é›å·©ç£Šæžæ 1, é…’èªæ 0
+ æ±²  ç–™ : iå·©ç£Šå•Š å‚å½’, å¾˜, åºœç•”, æ‰¼ç‰¢ ä¹”é›å·©ç£Šç‰¢ç˜¤ç”« å…«è¤èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int Isspace( char i )
 {
     switch( i ) {
-        case 0x0a:        // ¶óÀÎ ÇÇµå ¹®ÀÚÀÌ¸é LINEº¯¼ö¸¦ ÇÏ³ª Áõ°¡ÇÑ´Ù.
+        case 0x0a:        // æ‰¼ç‰¢ ä¹”é› å·©ç£Šæžæ LINEå‡½èç”« çªå”± åˆ˜å•ŠèŒ„ä¿ƒ.
             LINE++;
         case 0x0d:
 		case '\t':
@@ -472,12 +472,12 @@ int Isspace( char i )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : PutToken
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : TOKEN¹è¿­ÀÇ ³»¿ëÀ» wzsprog¿¡ ´Ù½Ã¾´´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : PutToken
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : TOKENç¡…å‡¯ç‹¼ éƒ´ä¾©é˜‘ wzsprogä¿Š ä¿ƒçŸ«æ•¬ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void PutToken( void )
 {
     int i;
@@ -495,46 +495,46 @@ void PutToken( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetToken
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ÅäÅ« Å¸ÀÔÀ» ¸®ÅÏÇÑ´Ù.
- ¼³  ¸í : wzsprog¹öÆÛ¸¦ ºÐ¼®ÇØ¼­ ÅäÅ«À» ¾ò´Â´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetToken
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : é…å¥´ é¸¥æ¶é˜‘ åºœç•”èŒ„ä¿ƒ.
+ æ±²  ç–™ : wzsprogæ»šæ¬ºç”« ç›’ç±ç§¦è¾‘ é…å¥´é˜‘ æŽ˜ç»°ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int GetToken( void )
 {
     register char *temp;
 
-    // ÅäÅ« ¹öÆÛ¸¦ ÃÊ±âÈ­ ÇÑ´Ù.
+    // é…å¥´ æ»šæ¬ºç”« æª¬æ‰æ‹³ èŒ„ä¿ƒ.
     temp = TOKEN;
     TOKENTYPE = 0;
 	TOK = 0;
 
 start:
-    // È­ÀÏÀÇ ³¡¿¡ ´Ù´Ù¶úÀ»¶§
+    // æ‹³è€ç‹¼ åœºä¿Š ä¿ƒä¿ƒè€³é˜‘é”­
     if( *wzsprog == 0 ) return( TOKENTYPE = END );
 
-    // °ø¹é, ÅÇ¹®ÀÚ, ¸®ÅÏ, ¶óÀÎÇÇµå ¹®ÀÚ¸¦ ¾ø¾Ø´Ù.
+    // å‚å½’, å¾˜å·©ç£Š, åºœç•”, æ‰¼ç‰¢ä¹”é› å·©ç£Šç”« ç»çŸ©ä¿ƒ.
     while( Isspace( *wzsprog ) ) ++wzsprog;
-    if( *wzsprog == 0 ) goto start;        // È­ÀÏÀÇ ³¡ÀÌ¸é
+    if( *wzsprog == 0 ) goto start;        // æ‹³è€ç‹¼ åœºæžæ
 
-    // ¶óº§¸íÀÌ¸é TOKENº¯¼ö¿¡ ÀÌ¸§À» ÀúÀåÇÏ°í ¸®ÅÏ
+    // æ‰¼éª‡ç–™æžæ TOKENå‡½èä¿Š æžæŠšé˜‘ åŽ†åŽ˜çªç»Š åºœç•”
     if( *wzsprog == ':' ) {
-        if( Isdeli( *++wzsprog ) ) { Serror( 7 ); return -1; } // ¶óº§¸íÀº ¿µ¹®ÀÚ¿Í ¼ýÀÚ·Î ±¸¼º 
+        if( Isdeli( *++wzsprog ) ) { Serror( 7 ); return -1; } // æ‰¼éª‡ç–™ç¯® åº·å·©ç£Šå®¢ ç®­ç£Šè‚º å¤‡å·± 
         while( !Isdeli(*wzsprog) && *wzsprog != '\r' && *wzsprog != 0 )
 			*temp++ = *wzsprog++;
         *temp = 0;
         return( TOKENTYPE = LABEL );
     }
 
-    // ÁÖ¼®ÀÌ¸é ¶óÀÎÀÇ ³¡±îÁö¸¦ ½ºÅµÇÏ°í ´Ù½Ã Ã³À½À¸·Î µ¹¾Æ°£´Ù.
+    // æž—ç±æžæ æ‰¼ç‰¢ç‹¼ åœºé³–ç˜¤ç”« èƒ¶è¯ºçªç»Š ä¿ƒçŸ« è´¸æ¾œæ è‚º å€’é…’åŸƒä¿ƒ.
     if( *wzsprog == ';' ) {
         ++wzsprog;
         while( *wzsprog != '\n' && *wzsprog++ != 0 );
         goto start;
     }
 
-    // »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼öÀÌ¸é
+    // è¤ä¾©ç£Š æ²¥ç‹¼ çªƒèæžæ
     if( *wzsprog == '@' ) {
         ++wzsprog;
         while( !Isdeli(*wzsprog) && *wzsprog != '\r' && *wzsprog != 0 )
@@ -544,26 +544,26 @@ start:
         return( TOKENTYPE = USERFUNC );
 	}
 
-    // ±¸ºÐ¹®ÀÚÀÌ¸é
+    // å¤‡ç›’å·©ç£Šæžæ
     if( Isdeli( *wzsprog ) ) {
         *temp++ = *wzsprog++;
         *temp = 0;
         return( TOKENTYPE = DELIMITER );
     }
 
-    // ¹®ÀÚ¿­ÀÌ¸é
+    // å·©ç£Šå‡¯æžæ
     if( *wzsprog == '"' ) {
         ++wzsprog;
         while( *wzsprog != '"' && *wzsprog != '\r' && *wzsprog != 0 )
             *temp++ = *wzsprog++;
-        // ¸¶Áö¸· ¹®ÀÚ°¡ ¶óÀÎÇÇµå³ª È­ÀÏÀÇ ³¡ÀÌ¸é ¿¡·¯
+        // ä»˜ç˜¤é˜œ å·©ç£Šå•Š æ‰¼ç‰¢ä¹”é›å”± æ‹³è€ç‹¼ åœºæžæ ä¿ŠçŸ¾
         if( *wzsprog == '\r' || *wzsprog == 0 ) { Serror( 1 ); return -1; }
         *temp = 0;
-        wzsprog++;        // '"'¹®ÀÚ¸¦ ½ºÅµ
+        wzsprog++;        // '"'å·©ç£Šç”« èƒ¶è¯º
         return( TOKENTYPE = STRING );
     }
 
-    // ¼ýÀÚÀÌ¸é
+    // ç®­ç£Šæžæ
     if( isdigit(*wzsprog) ) {
         while( isdigit(*wzsprog) && !Isdeli(*wzsprog) &&
                *wzsprog != '\r' && *wzsprog != 0 )
@@ -572,29 +572,29 @@ start:
         return( TOKENTYPE = NUMERIC );
     }
 
-    // ¸í·É¾î³ª ¶óº§, º¯¼ö¸¦ Ã¼Å©
+    // ç–™é£žç»¢å”± æ‰¼éª‡, å‡½èç”« çœ‰å†œ
     if( isalpha(*wzsprog) ) {
         while( !Isdeli(*wzsprog) && *wzsprog != '\r' && *wzsprog != 0 )
             *temp++ = *wzsprog++;
         *temp = 0;
 
-        // ¸¸¾à ¾ò¾îÁø ¹®ÀÚ¿­ÀÌ ¸í·É¾î¶ó¸é
+        // çˆ¶è· æŽ˜ç»¢æŸ³ å·©ç£Šå‡¯æž ç–™é£žç»¢æ‰¼æ
         TOK = SearchCommand( TOKEN );
         if( TOK != -1 ) return( TOKENTYPE = COMMAND );
 
-		// ¸¸¾à ¾ò¾îÁø ¹®ÀÚ¿­ÀÌ º¯¼ö¶ó¸é
+		// çˆ¶è· æŽ˜ç»¢æŸ³ å·©ç£Šå‡¯æž å‡½èæ‰¼æ
         TOK = SearchVariable( TOKEN );
         if( TOK != -1 ) return( TOKENTYPE = VARIABLE );
 
-        // ¸¸¾à ¾ò¾îÁø ¹®ÀÚ¿­ÀÌ ¶óº§¸íÀÌ¶ó¸é
+        // çˆ¶è· æŽ˜ç»¢æŸ³ å·©ç£Šå‡¯æž æ‰¼éª‡ç–™æžæ‰¼æ
         TOK = SearchLabel( TOKEN );
         if( TOK != -1 ) return( TOKENTYPE = LABEL );
 
-        // ¸¸¾à ¾ò¾îÁø ¹®ÀÚ¿­ÀÌ »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼ö¸íÀÌ¶ó¸é
+        // çˆ¶è· æŽ˜ç»¢æŸ³ å·©ç£Šå‡¯æž è¤ä¾©ç£Š æ²¥ç‹¼ çªƒèç–™æžæ‰¼æ
         TOK = SearchFunction( TOKEN );
         if( TOK != -1 ) return( TOKENTYPE = FUNCTION );
 
-        // ±×¿Ü´Â ¹®ÀÚ¿­·Î °£ÁÖ
+        // å¼Šå¯‡ç»° å·©ç£Šå‡¯è‚º åŸƒæž—
         return( TOKENTYPE = STRING );
     }
 
@@ -605,12 +605,12 @@ start:
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : WriteInt
- ÀÎ  ÀÚ : x = outprog¿¡ Ãâ·ÂÇÏ°íÀÚ ÇÏ´Â °ª
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : x¿¡ ÇØ´çÇÏ´Â °ªÀ» outprog¹öÆÛ¿¡ ±â·ÏÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : WriteInt
+ ç‰¢  ç£Š : x = outprogä¿Š å…ä»¿çªç»Šç£Š çªç»° è”¼
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : xä¿Š ç§¦å¯¸çªç»° è”¼é˜‘ outprogæ»šæ¬ºä¿Š æ‰åºŸèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void WriteInt( int x )
 {
 	static int count=0;
@@ -621,12 +621,12 @@ void WriteInt( int x )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : WriteBYTE
- ÀÎ  ÀÚ : x = outprog¹öÆÛ¿¡ Ãâ·ÂÇÏ°íÀÚ ÇÏ´Â °ª
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : x¿¡ ÇØ´çÇÏ´Â °ªÀ» outprog¹öÆÛ¿¡ ±â·ÏÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : WriteBYTE
+ ç‰¢  ç£Š : x = outprogæ»šæ¬ºä¿Š å…ä»¿çªç»Šç£Š çªç»° è”¼
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : xä¿Š ç§¦å¯¸çªç»° è”¼é˜‘ outprogæ»šæ¬ºä¿Š æ‰åºŸèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void WriteBYTE( char x )
 {
     *outprog++ = x;
@@ -634,18 +634,18 @@ void WriteBYTE( char x )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : First
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : '}' ±âÈ£¸¦ ¹ß°ßÇÏ¸é ifelse ½ºÅÃÀ» ÆËÇÏ°í µ¥ÀÌÅ¸¸¦ Ã³¸®ÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : First
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : '}' æ‰é¾‹ç”« æƒ¯æ–‘çªæ ifelse èƒ¶ç¶é˜‘ æ‰‘çªç»Š å•æžé¸¥ç”« è´¸åºœèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int First( void )
 {
     --ifsp;
 
-    if( ifsp < 0 ){ Serror( 3 );  return -1; }       // ifelse ½ºÅÃÀÌ ¿À¹öÇÃ·Î¿ì µÆÀ»°æ¿ì
-    if( ifelse[ ifsp ].d != ifsp ) { Serror( 3 ); return -1; }  // ½ºÅÃÀÇ ±íÀÌ°¡ ¸ÂÁö¾ÊÀ» °æ¿ì
+    if( ifsp < 0 ){ Serror( 3 );  return -1; }       // ifelse èƒ¶ç¶æž å·æ»šæ•²è‚ºå¿« ç¯é˜‘ç‰ˆå¿«
+    if( ifelse[ ifsp ].d != ifsp ) { Serror( 3 ); return -1; }  // èƒ¶ç¶ç‹¼ è¡¨æžå•Š å˜Žç˜¤è‡¼é˜‘ ç‰ˆå¿«
 
     *((int *)(oldoutprog + ifelse[ifsp].off )) =
         outprog - oldoutprog;
@@ -655,24 +655,24 @@ int First( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Inc
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : »çÄ¢¿¬»ê, %, |, &, ~ ¿¬»êÀ» ¼öÇàÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Inc
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : è¤è˜‘æ¥·é­‚, %, |, &, ~ æ¥·é­‚é˜‘ èé’èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int Inc( void )
 {
-    int jj[ 3 ][ 2 ];               // Ã¹¹øÂ° Ã·ÀÚ´Â º¯¼öÀÎÁö ¼ýÀÚÀÎÁö¸¦ ³ªÅ¸³¿
-    int i;                          // º¯¼öÀÌ¸é 0, ¼ýÀÚÀÌ¸é 1
+    int jj[ 3 ][ 2 ];               // éœ‰é”…æŽ³ æ¢…ç£Šç»° å‡½èç‰¢ç˜¤ ç®­ç£Šç‰¢ç˜¤ç”« å”±é¸¥æ™¨
+    int i;                          // å‡½èæžæ 0, ç®­ç£Šæžæ 1
     BYTE j;
 
-    jj[0][0] = 0;                   // Ã¹¹øÂ° ÀÎÀÚ¸¦ ¾òÀ½, Ã¹¹øÂ° ÀÎÀÚ´Â ¹«Á¶°Ç º¯¼ö
+    jj[0][0] = 0;                   // éœ‰é”…æŽ³ ç‰¢ç£Šç”« æŽ˜æ¾œ, éœ‰é”…æŽ³ ç‰¢ç£Šç»° å…¬ç‚¼æ‰’ å‡½è
     jj[0][1] = variable[TOK].n;
 
     if( GetToken() == -1 ) return -1;
 
-    if( strchr( "+-/*%|&", *TOKEN ) )      // Áõ°¨¿¬»êÀÚµîÀÏ °æ¿ì
+    if( strchr( "+-/*%|&", *TOKEN ) )      // åˆ˜çš‘æ¥·é­‚ç£Šæ®¿è€ ç‰ˆå¿«
     {
         j = *TOKEN;
 
@@ -718,39 +718,39 @@ int Inc( void )
 
         if( GetToken() == -1 ) return -1;
 
-        switch( TOKENTYPE )             // µÎ¹øÂ° ÀÎÀÚ°¡ º¯¼öÀÎÁö ¼ýÀÚÀÎÁö¸¦ °Ë»ç
+        switch( TOKENTYPE )             // æ»´é”…æŽ³ ç‰¢ç£Šå•Š å‡½èç‰¢ç˜¤ ç®­ç£Šç‰¢ç˜¤ç”« å…«è¤
         {
-            case VARIABLE:              // º¯¼öÀÏ °æ¿ì Ã³¸®
+            case VARIABLE:              // å‡½èè€ ç‰ˆå¿« è´¸åºœ
                 jj[1][0] = 0;
                 jj[1][1] = variable[TOK].n;
                 break;
 
-            case NUMERIC:               // ¼ýÀÚÀÏ °æ¿ì Ã³¸®
+            case NUMERIC:               // ç®­ç£Šè€ ç‰ˆå¿« è´¸åºœ
                 jj[1][0] = 1;
                 jj[1][1] = atoi( TOKEN );
                 break;
 
-            default:                    // ±×¿ÜÀÇ TYPEÀÌ¸é ¿¡·¯
+            default:                    // å¼Šå¯‡ç‹¼ TYPEæžæ ä¿ŠçŸ¾
                 { Serror( 1 ); return -1; }
         }
 
         if( GetToken() == -1 ) return -1;
-        if( !strchr( "+-/*%|&", *TOKEN ) )          // ¸¸¾à ´ëÀÔ¹®ÀÌ¶ó¸é
+        if( !strchr( "+-/*%|&", *TOKEN ) )          // çˆ¶è· æŽªæ¶å·©æžæ‰¼æ
         {
             PutToken ();
             WriteBYTE( (char)equal_ );
 
             for( i = 0; i < 2; i++ )
             {
-                if( jj[i][0] == 0 )                  // º¯¼ö¶ó¸é
+                if( jj[i][0] == 0 )                  // å‡½èæ‰¼æ
                     WriteBYTE( (char)variable_ );
-                else                                 // ¼ýÀÚ¶ó¸é
+                else                                 // ç®­ç£Šæ‰¼æ
                     WriteBYTE( (char)value_ );
 
                 WriteInt( jj[i][1] );
             }
         }
-        else                                         // ´ëÀÔ¹®ÀÌ ¾Æ´Ï¶ó¸é
+        else                                         // æŽªæ¶å·©æž é…’èªæ‰¼æ
         {
             switch( *TOKEN )
             {
@@ -765,7 +765,7 @@ int Inc( void )
             }
             WriteBYTE( j );
 
-            if( GetToken() == -1 ) return -1;               // ¼¼¹øÂ° ÀÎÀÚ¸¦ ¾òÀ½
+            if( GetToken() == -1 ) return -1;               // æŠ€é”…æŽ³ ç‰¢ç£Šç”« æŽ˜æ¾œ
 
             switch( TOKENTYPE )
             {
@@ -784,9 +784,9 @@ int Inc( void )
 
             for( i = 0; i < 3; i++ )
             {
-                if( jj[i][0] == 0 )        // º¯¼öÀÌ¸é
+                if( jj[i][0] == 0 )        // å‡½èæžæ
                     WriteBYTE( (char)variable_ );
-                else                       // ¼ýÀÚÀÌ¸é
+                else                       // ç®­ç£Šæžæ
                     WriteBYTE( (char)value_ );
 
                 WriteInt( jj[i][1] );
@@ -800,12 +800,12 @@ int Inc( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetLabel
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ¶óº§¸íÀÌ ÀÖ´Â°÷ÀÇ À§Ä¡¸¦ Á¶»çÇÏ¿© label1º¯¼ö¿¡ ¼ÂÆÃÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetLabel
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : æ‰¼éª‡ç–™æž ä¹ç»°é•‘ç‹¼ å›°æ‘¹ç”« ç‚¼è¤çªå’¯ label1å‡½èä¿Š æ‚¸æ³¼èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void GetLabel( void )
 {
 //    static int i;
@@ -815,19 +815,19 @@ void GetLabel( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetCommand
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ±âº»ÀûÀÎ ¸í·ÉÀ» Ã³¸®ÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetCommand
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : æ‰å¤¯åˆ©ç‰¢ ç–™é£žé˜‘ è´¸åºœèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int GetCommand( void )
 {
     int i, j;
 
     switch( comm[TOK].n )
     {
-        // if¹®À» Ã³¸®ÇÑ´Ù.
+        // ifå·©é˜‘ è´¸åºœèŒ„ä¿ƒ.
         case if_:
             WriteBYTE( (char)if_ );
 
@@ -835,22 +835,22 @@ int GetCommand( void )
             if( *TOKEN != '(' ) { Serror( 1 ); return -1; }
 
             if( GetToken() == -1 ) return -1;
-            // ¸¸¾à ¾òÀº ÅäÅ«ÀÌ º¯¼ö°¡ ¾Æ´Ï¶ó¸é
+            // çˆ¶è· æŽ˜ç¯® é…å¥´æž å‡½èå•Š é…’èªæ‰¼æ
             if( TOKENTYPE != VARIABLE ) { Serror( 10 ); return -1; }
 
-            WriteBYTE( (char)variable_ );                             // º¯¼öÀÇ °ªÀ» ÀúÀå
+            WriteBYTE( (char)variable_ );                             // å‡½èç‹¼ è”¼é˜‘ åŽ†åŽ˜
             WriteInt( variable[TOK].n );
 
             if( GetToken() == -1 ) return -1;
             if( !strchr( "<>!=", *TOKEN ) ) { Serror( 1 ); return -1; } 
 
-            // ºñ±³ ±âÈ£¸¦ Ã£¾Æ¼­ Àû´çÇÑ Ã³¸®¸¦ ÇÑ´Ù.
+            // åŽšèƒŒ æ‰é¾‹ç”« èŒ«é…’è¾‘ åˆ©å¯¸èŒ„ è´¸åºœç”« èŒ„ä¿ƒ.
             // < - 0, <= - 1, > - 2, >= - 3, != - 4, == - 5
             switch( *TOKEN )
             {
                 case '<':
                     if( GetToken() == -1 ) return -1;
-                    if( *TOKEN != '=' )          // '<='¿¬»êÀÚ°¡ ¾Æ´Ï¶ó¸é
+                    if( *TOKEN != '=' )          // '<='æ¥·é­‚ç£Šå•Š é…’èªæ‰¼æ
                     {
                         PutToken();
                         WriteBYTE( 0 );
@@ -863,7 +863,7 @@ int GetCommand( void )
 
                 case '>':
                     if( GetToken() == -1 ) return -1;
-                    if( *TOKEN != '=' )          // '>='¿¬»êÀÚ°¡ ¾Æ´Ï¶ó¸é
+                    if( *TOKEN != '=' )          // '>='æ¥·é­‚ç£Šå•Š é…’èªæ‰¼æ
                     {
                         PutToken();
                         WriteBYTE( 2 );
@@ -886,7 +886,7 @@ int GetCommand( void )
                     break;
             }
 
-            // ºñ±³ÇÒ ´ë»óÀÇ ¿ìº¯°ªÀ» Ã³¸®ÇÑ´Ù. ¿ìº¯°ªÀº º¯¼öÀÌ°Å³ª ¼öÄ¡ÀÌ´Ù.
+            // åŽšèƒŒä¸” æŽªæƒ‘ç‹¼ å¿«å‡½è”¼é˜‘ è´¸åºœèŒ„ä¿ƒ. å¿«å‡½è”¼ç¯® å‡½èæžèŠ­å”± èæ‘¹æžä¿ƒ.
             if( GetToken() == -1 ) return -1;
             switch( TOKENTYPE )
             {
@@ -909,7 +909,7 @@ int GetCommand( void )
             if( GetToken() == -1 ) return -1;
             if( *TOKEN != '{' ) { Serror( 1 ); return -1; }
 
-            // Á¶°ÇÀÌ °ÅÁþÀÏ°æ¿ì Á¡ÇÁÇÒ ÁÖ¼Ò¸¦ °¡»óÀ¸·Î ¸¸µé¾î 0À¸·Î ¼ÂÆÃ
+            // ç‚¼æ‰’æž èŠ­çª¿è€ç‰ˆå¿« ç—¢æ©‡ä¸” æž—å®¶ç”« å•Šæƒ‘æ è‚º çˆ¶ç”¸ç»¢ 0æ è‚º æ‚¸æ³¼
             WriteBYTE( (char)goto_ );
             WriteInt( 0 );
 
@@ -919,13 +919,13 @@ int GetCommand( void )
             ++ifsp;
             break;
 
-        // else¹®À» Ã³¸®ÇÑ´Ù.
+        // elseå·©é˜‘ è´¸åºœèŒ„ä¿ƒ.
         case else_:
-            // goto¹®¿¡ ÇØ´çÇÏ´Â °ªÀ» ÀúÀå
+            // gotoå·©ä¿Š ç§¦å¯¸çªç»° è”¼é˜‘ åŽ†åŽ˜
             WriteBYTE( (char)goto_ );
             WriteInt( 0 );
 
-            // if¿¡¼­ °ÅÁþÀÏ °æ¿ì Á¡ÇÁÇÒ ÁÖ¼Ò¸¦ ÇöÀçÀÇ ÁÖ¼Ò·Î ¼ÂÆÃÇÑ´Ù.
+            // ifä¿Šè¾‘ èŠ­çª¿è€ ç‰ˆå¿« ç—¢æ©‡ä¸” æž—å®¶ç”« æ³…çŠç‹¼ æž—å®¶è‚º æ‚¸æ³¼èŒ„ä¿ƒ.
             *((int *)( oldoutprog + ifelse[ifsp].off)) += (sizeof( int ) + 1);
 
             if( GetToken() == -1 ) return -1;
@@ -938,18 +938,18 @@ int GetCommand( void )
             ++ifsp;
             break;
 
-        // goto¹®À» Ã³¸®
+        // gotoå·©é˜‘ è´¸åºœ
         case goto_:
             WriteBYTE( (char)goto_ );
             if( GetToken() == -1 ) return -1;
             if( TOKENTYPE != LABEL ) { Serror( 9 ); return -1; }
-			// ¶óº§¸íÀ» label2¿¡ ÀúÀå. ÀÌ °ªÀº ³ªÁß¿¡ label1°ú ºñ±³ÇÒ¶§ ¾²ÀÓ
+			// æ‰¼éª‡ç–™é˜‘ label2ä¿Š åŽ†åŽ˜. æž è”¼ç¯® å”±åä¿Š label1è‹ž åŽšèƒŒä¸”é”­ é™çƒ™
 			label2[label2_n].n = (int)(outprog - oldoutprog);
 			strcpy( label2[label2_n++].s, TOKEN );
-			WriteInt( 0 );        // Á¡ÇÁÇÒ ÁÖ¼Ò¸¦ ÀÓ½Ã·Î ¸¸µë
+			WriteInt( 0 );        // ç—¢æ©‡ä¸” æž—å®¶ç”« çƒ™çŸ«è‚º çˆ¶æƒ¦
 		break;
 
-        // call¹®À» Ã³¸®
+        // callå·©é˜‘ è´¸åºœ
         case call_:
             WriteBYTE( (char)call_ );
 
@@ -959,7 +959,7 @@ int GetCommand( void )
             if( GetToken() == -1 ) return -1;
             if( TOKENTYPE != USERFUNC ) { Serror( 15 ); return -1; }
             strcpy( userfunc2[user2_n].s, TOKEN );
-            // call¹®À¸·Î Á¡ÇÁÇÒ °¡»ó°ø°£À» È®º¸ÇÏ°í 0À» ¼ÂÆÃ
+            // callå·©æ è‚º ç—¢æ©‡ä¸” å•Šæƒ‘å‚åŸƒé˜‘ çŠ¬ç„Šçªç»Š 0é˜‘ æ‚¸æ³¼
             userfunc2[user2_n++].n = outprog - oldoutprog;
             WriteInt( 0 );
 
@@ -967,13 +967,13 @@ int GetCommand( void )
             if( *TOKEN != ')' ) Serror( 1 );
             break;
 
-        // end¹®À» Ã³¸®
+        // endå·©é˜‘ è´¸åºœ
         case end_:
             WriteBYTE( (char)end_ );
             if( ifsp > 0 ) { Serror( 3 ); return -1; }
             break;
 
-        // switch¹®À» Ã³¸®
+        // switchå·©é˜‘ è´¸åºœ
         case switch_:
             ++switsp;
 
@@ -987,7 +987,7 @@ int GetCommand( void )
             if( GetToken() == -1 ) return -1;
             if( *TOKEN != ')' ) { Serror( 1 ); return -1; }
 
-            // ÇÁ·Î±×·¥ Ã³À½¿¡ Á¶»çÇÑ case¹®ÀÇ °¹¼ö¸¸Å­ °ø°£À» È®º¸
+            // æ©‡è‚ºå¼Šä¼ è´¸æ¾œä¿Š ç‚¼è¤èŒ„ caseå·©ç‹¼ è‚®èçˆ¶æ€’ å‚åŸƒé˜‘ çŠ¬ç„Š
             for( i = 0; i < swit[switsp].total; i++ )
             {
                 WriteBYTE( (char)ifequal_ );
@@ -995,28 +995,28 @@ int GetCommand( void )
                 WriteBYTE( (char)variable_ );
                 WriteInt( j );
 
-                // ºñ±³ÇÒ ´ë»óÀ» À§ÇÑ °ø°£À» È®º¸
+                // åŽšèƒŒä¸” æŽªæƒ‘é˜‘ å›°èŒ„ å‚åŸƒé˜‘ çŠ¬ç„Š
                 swit[switsp].numoff[i] = outprog - oldoutprog;
                 WriteBYTE( 0 );
                 WriteInt( 0 );
 
-                // ¶óº§¸í¿¡ ÇöÀç ½ºÀ§Ä¡ÀÇ °ªÀ» ÀúÀåÇØ¼­ ´ÙÀ½¿¡ ºñ±³ÇÒ¶§
-                // »ç¿ëÇÑ´Ù.
+                // æ‰¼éª‡ç–™ä¿Š æ³…çŠ èƒ¶å›°æ‘¹ç‹¼ è”¼é˜‘ åŽ†åŽ˜ç§¦è¾‘ ä¿ƒæ¾œä¿Š åŽšèƒŒä¸”é”­
+                // è¤ä¾©èŒ„ä¿ƒ.
                 sprintf( label2[label2_n].s, "case%02d_%02d", switsp, i );
                 label2[label2_n++].n = outprog - oldoutprog;
                 WriteInt( 0 );
             }
 
-            // µðÆúÆ®¹®ÀÌ ÀÖÀ¸¸é ¶óº§¸í¿¡ ¹®ÀÚ¿­À» Ãß°¡ÇÏ¿© default¹®À» ½ÇÇà
+            // å¼å¼ƒé£˜å·©æž ä¹æ æ æ‰¼éª‡ç–™ä¿Š å·©ç£Šå‡¯é˜‘ çœ å•Šçªå’¯ defaultå·©é˜‘ è§’é’
             WriteBYTE( (char)goto_ );
             sprintf( label2[label2_n].s, "defa%02d", switsp );
             label2[label2_n++].n = outprog - oldoutprog;
             WriteInt( 0 );
             break;
 
-        // case¹®À» Ã³¸®
+        // caseå·©é˜‘ è´¸åºœ
         case case_:
-            // ¶óº§¸í¿¡ case¹®¿¡ ÇØ´çÇÏ´Â ¹®ÀÚ¿­À» Ãß°¡ÇÏ¿© ³ªÁß¿¡ Ã³¸®ÇÑ´Ù.
+            // æ‰¼éª‡ç–™ä¿Š caseå·©ä¿Š ç§¦å¯¸çªç»° å·©ç£Šå‡¯é˜‘ çœ å•Šçªå’¯ å”±åä¿Š è´¸åºœèŒ„ä¿ƒ.
             sprintf( label1[label1_n].s, "case%02d_%02d", switsp,
                 swit[switsp].count );
             label1[label1_n++].n = outprog - oldoutprog;
@@ -1043,16 +1043,16 @@ int GetCommand( void )
                 swit[switsp].numoff[swit[switsp].count++])) = j;
             break;
 
-        // default¹®À» Ã³¸®
+        // defaultå·©é˜‘ è´¸åºœ
         case default_:
-            // ¶óº§¸í¿¡ default¹®ÀÇ ¹®ÀÚ¿­À» ÀÔ·ÂÇÏ¿© ³ªÁß¿¡ Ã³¸®
+            // æ‰¼éª‡ç–™ä¿Š defaultå·©ç‹¼ å·©ç£Šå‡¯é˜‘ æ¶ä»¿çªå’¯ å”±åä¿Š è´¸åºœ
             sprintf( label1[label1_n].s, "defa%02d", switsp );
             label1[label1_n++].n = outprog - oldoutprog;
             break;
 
-        // endswitch¹®À» Ã³¸®
+        // endswitchå·©é˜‘ è´¸åºœ
 		case endswitch_:
-            // switch¹®ÀÇ ³¡³²À» ÀÇ¹ÌÇÑ´Ù.
+            // switchå·©ç‹¼ åœºå·¢é˜‘ ç‹¼å›ºèŒ„ä¿ƒ.
             if( swit[switsp].def != 1 ) {
                 sprintf( label1[label1_n].s, "defa%02d", switsp );
                 label1[label1_n++].n = outprog - oldoutprog;
@@ -1063,7 +1063,7 @@ int GetCommand( void )
             swit[switsp].count = 0;
             break;
 
-        // break¹®À» Ã³¸®
+        // breakå·©é˜‘ è´¸åºœ
         case break_:
             WriteBYTE( (char)goto_ );
             sprintf( label2[label2_n].s, "defabreak%02d", switsp );
@@ -1078,28 +1078,28 @@ int GetCommand( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetFunction
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : zs.dat¿¡¼­ Á¤ÀÇÇÑ ÇÔ¼ö¸íÀ» ºÐ¼®ÇÏ¿© ¾Ë¸ÂÀº ÀÛ¾÷À» ÇÑ´Ù.
-          i´Â int¸¦ ÀÇ¹ÌÇÏ¸ç, s´Â ¹®ÀÚ¿­À» ÀÇ¹ÌÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetFunction
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : zs.datä¿Šè¾‘ æ²¥ç‹¼èŒ„ çªƒèç–™é˜‘ ç›’ç±çªå’¯ èˆ…å˜Žç¯® ç´¯è¯€é˜‘ èŒ„ä¿ƒ.
+          iç»° intç”« ç‹¼å›ºçªå“¥, sç»° å·©ç£Šå‡¯é˜‘ ç‹¼å›ºèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int GetFunction( void )
 {
     int i, slen, len, *p;
     int tok = TOK;
 
-    WriteBYTE( (char)myfunction[tok].n );          // ÇÔ¼öÀÇ ¹øÈ£¸¦ ¼ÂÆÃ
+    WriteBYTE( (char)myfunction[tok].n );          // çªƒèç‹¼ é”…é¾‹ç”« æ‚¸æ³¼
 
-    len = strlen( myfunction[tok].format );  // ¸Å°³º¯¼öÀÇ ±æÀÌ¸¦ ¾òÀ½
+    len = strlen( myfunction[tok].format );  // æ¦‚ä¿ºå‡½èç‹¼ è¾¨æžç”« æŽ˜æ¾œ
 
     if( GetToken() == -1 ) return -1;
     if( *TOKEN != '(' ){ Serror( 1 );  return -1; }
 
     for( i = 0; i < len; i++ ) {
         switch( myfunction[tok].format[i] ) {
-            case 'i':                      // intÇüÀ» Ã³¸®
+            case 'i':                      // intå±ˆé˜‘ è´¸åºœ
                 if( GetToken() == -1 ) return -1;
                 switch( TOKENTYPE )
                 {
@@ -1119,23 +1119,23 @@ int GetFunction( void )
                 }
                 break;
 
-            case 's':                      // ¹®ÀÚ¿­À» Ã³¸®
+            case 's':                      // å·©ç£Šå‡¯é˜‘ è´¸åºœ
                 if( GetToken() == -1 ) return -1;
                 if( TOKENTYPE != STRING ) {Serror( 6 ); return -1; }
                 slen = strlen( TOKEN );
-                WinZsIncode( (char *)TOKEN );        // ¹®ÀÚ¿­À» ¾ÏÈ£È­ÇÔ
+                WinZsIncode( (char *)TOKEN );        // å·©ç£Šå‡¯é˜‘ éž é¾‹æ‹³çªƒ
 //                strcpy( outprog, (char *)TOKEN );
                 WriteBYTE( (char)value_ );
                 p = (int*)outprog;
-                WriteInt( slen );                       // ¹®ÀÚ¿­ÀÇ ±æÀÌ¸¦±â·Ï
-                memcpy( outprog, (char*)TOKEN, slen );    // ¹®ÀÚ¿­À» ÀúÀå
+                WriteInt( slen );                       // å·©ç£Šå‡¯ç‹¼ è¾¨æžç”«æ‰åºŸ
+                memcpy( outprog, (char*)TOKEN, slen );    // å·©ç£Šå‡¯é˜‘ åŽ†åŽ˜
                 outprog += slen;
 REPEA:
                 if( GetToken() == -1 ) return -1;
                 if( TOKENTYPE == STRING )
                 {
                     slen = strlen( TOKEN );
-                    WinZsIncode( (char *)TOKEN );        // ¹®ÀÚ¿­À» ¾ÏÈ£È­ÇÔ
+                    WinZsIncode( (char *)TOKEN );        // å·©ç£Šå‡¯é˜‘ éž é¾‹æ‹³çªƒ
                     (*p) += slen;
                     memcpy( outprog, (char*)TOKEN, slen );
                     outprog += slen;
@@ -1151,7 +1151,7 @@ REPEA:
             default: { Serror( 6 ); return -1; }
         }
 
-        // ¸Å°³ º¯¼ö»çÀÌÀÇ ','¸¦ Ã³¸®ÇÑ´Ù.
+        // æ¦‚ä¿º å‡½èè¤æžç‹¼ ','ç”« è´¸åºœèŒ„ä¿ƒ.
         if( len > 1 && i != (len-1) ) {
             if( GetToken() == -1 ) return -1;
             if( *TOKEN != ',' ) { Serror( 4 ); return -1; }
@@ -1165,12 +1165,12 @@ REPEA:
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : GetUserFunc
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ÇöÀçÀÇ Ãâ·Â¹öÆÛÀÇ À§Ä¡¸¦ À¯Àú ÇÔ¼ö ¹öÆÛ¿¡ ±â·ÏÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : GetUserFunc
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : æ³…çŠç‹¼ å…ä»¿æ»šæ¬ºç‹¼ å›°æ‘¹ç”« èœ¡åŽ† çªƒè æ»šæ¬ºä¿Š æ‰åºŸèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 void GetUserFunc( void )
 {
 	userfunc1[user1_n++].n = outprog - oldoutprog;
@@ -1178,14 +1178,14 @@ void GetUserFunc( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Delimeter
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ±¸ºÐÀÚ¸¦ ¹Þ¾ÒÀ» °æ¿ì Ã³¸®ÇÑ´Ù.
-          '#'Àº ÀÎÅ¬·çµå¹®À» ÀÇ¹ÌÇÑ´Ù. ÀÎÅ¬·çµå ¹®ÀÌ¶ó¸é ÇöÀç Ãâ·Â¹öÆÛÀÎ
-          outprog¿¡ ÀÎÅ¬·çµå È­ÀÏÀÇ ³»¿ëÀ» ÀÐ¾î¼­ ¾´´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Delimeter
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : å¤‡ç›’ç£Šç”« ç½ç–½é˜‘ ç‰ˆå¿« è´¸åºœèŒ„ä¿ƒ.
+          '#'ç¯® ç‰¢åŠªé£Žé›å·©é˜‘ ç‹¼å›ºèŒ„ä¿ƒ. ç‰¢åŠªé£Žé› å·©æžæ‰¼æ æ³…çŠ å…ä»¿æ»šæ¬ºç‰¢
+          outprogä¿Š ç‰¢åŠªé£Žé› æ‹³è€ç‹¼ éƒ´ä¾©é˜‘ ä½¬ç»¢è¾‘ æ•¬ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int Delimeter( void )
 {
     FILE *fp;
@@ -1219,28 +1219,28 @@ int Delimeter( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Run
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : °¢ ¸í·É¿¡ ¸Â´Â ÇÔ¼ö¸¦ È£ÃâÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Run
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : é˜¿ ç–™é£žä¿Š å˜Žç»° çªƒèç”« é¾‹å…èŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int  Run( void )
 {
     while( 1 ) {
         if( GetToken() == -1 ) return -1;
 
-        if( TOKENTYPE == END ) break;        // È­ÀÏÀÇ ³¡ÀÌ¶ó¸é
+        if( TOKENTYPE == END ) break;        // æ‹³è€ç‹¼ åœºæžæ‰¼æ
 
-        else if( *TOKEN == '}' ) {                // if,else¹®ÀÇ Á¾°áÀÚ¶ó¸é
+        else if( *TOKEN == '}' ) {                // if,elseå·©ç‹¼ è¾†æ¬ç£Šæ‰¼æ
             if( First() == -1 ) return -1;
             continue;
         }
 
-        else if( TOKENTYPE == NUMERIC )       // ¹®ÀåÀÇ Ã³À½¿¡´Â ¼ýÀÚ°¡ ¿Ã¼ö¾ø´Ù.
+        else if( TOKENTYPE == NUMERIC )       // å·©åŽ˜ç‹¼ è´¸æ¾œä¿Šç»° ç®­ç£Šå•Š æ£µèç»ä¿ƒ.
 		{ Serror( 1 ); return -1; }
 
-        else if( TOKENTYPE == DELIMITER )     // ±¸ºÐÀÚ ¸í·ÉÀ» Ã³¸®
+        else if( TOKENTYPE == DELIMITER )     // å¤‡ç›’ç£Š ç–™é£žé˜‘ è´¸åºœ
         {
             if( Delimeter() == -1 ) return -1;;
             continue;
@@ -1280,13 +1280,13 @@ int  Run( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : LoadData
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : zs.dat¸¦ ¿ÀÇÂÇØ¼­ ¾Ë¸ÂÀº ÇØ¼®À» ÇÏ°í º¯¼öÀÇ ÀÌ¸§°ú ´ëÇ¥°ª, ÇÔ¼öÀÇ
-          ÀÌ¸§°ú ´ëÇ¥°ªÀ» ¼ÂÆÃÇÔ
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : LoadData
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : zs.datç”« å·é”¹ç§¦è¾‘ èˆ…å˜Žç¯® ç§¦ç±é˜‘ çªç»Š å‡½èç‹¼ æžæŠšè‹ž æŽªé’Žè”¼, çªƒèç‹¼
+          æžæŠšè‹ž æŽªé’Žè”¼é˜‘ æ‚¸æ³¼çªƒ
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int  LoadData( char *szdat )
 {
     FILE *fp;
@@ -1318,17 +1318,17 @@ int  LoadData( char *szdat )
 		if( GetToken() == -1 ) return -1;
 		if( TOKENTYPE == END ) break;
 
-        // º¯¼ö¸¦ Ç¥½ÃÇÏ´Â ¹®ÀÚ¿­À» Ã£´Â´Ù.
+        // å‡½èç”« é’ŽçŸ«çªç»° å·©ç£Šå‡¯é˜‘ èŒ«ç»°ä¿ƒ.
 		if( strcmp( TOKEN, "variable" ) != 0 ) { Serror( 1 ); return -1; }
 
 
-		// º¯¼ö¿¡ ÇØ´çÇÏ´Â ´ëÇ¥¸í°ú ±× °ªÀ» variable¹è¿­¿¡ ¼ÂÆÃÇÑ´Ù.
+		// å‡½èä¿Š ç§¦å¯¸çªç»° æŽªé’Žç–™è‹ž å¼Š è”¼é˜‘ variableç¡…å‡¯ä¿Š æ‚¸æ³¼èŒ„ä¿ƒ.
 		while( 1 ) {
 			if( GetToken() == -1 ) return -1;
-			if( !strcmp( TOKEN, "end" ) ) break;        // ³¡ÀÌ¸é ´ÙÀ½À¸·Î
+			if( !strcmp( TOKEN, "end" ) ) break;        // åœºæžæ ä¿ƒæ¾œæ è‚º
 
 			if( TOKENTYPE != STRING ) Serror( 1 );
-			j = SearchVariable( TOKEN );                // °°Àº º¯¼ö°¡ ÀÖ´ÂÁö °Ë»ç
+			j = SearchVariable( TOKEN );                // éžç¯® å‡½èå•Š ä¹ç»°ç˜¤ å…«è¤
 			if( j != -1 ) Serror( 14 );
 			strcpy( variable[i].s, TOKEN );
 
@@ -1344,22 +1344,22 @@ int  LoadData( char *szdat )
 		if( GetToken() == -1 ) return -1;
 		if( strcmp( TOKEN, "function" ) != 0 ) { Serror( 1 ); return -1; }
 
-		// ÇÔ¼ö¿¡ ÇØ´çÇÏ´Â ´ëÇ¥¸í°ú ±× °ªÀ» function¹è¿­¿¡ ¼ÂÆÃÇÑ´Ù.
+		// çªƒèä¿Š ç§¦å¯¸çªç»° æŽªé’Žç–™è‹ž å¼Š è”¼é˜‘ functionç¡…å‡¯ä¿Š æ‚¸æ³¼èŒ„ä¿ƒ.
 		while( 1 ) {
 			if( GetToken() == -1 ) return -1;
 			if( !strcmp( "end", TOKEN )) break;
 
 			if( TOKENTYPE != STRING ) { Serror( 1 ); return -1; }
 			j = SearchFunction( TOKEN );
-			if( j != -1 ) Serror( 14 );                 // °°Àº ÇÔ¼ö°¡ ÀÖ´ÂÁö °Ë»ç
+			if( j != -1 ) Serror( 14 );                 // éžç¯® çªƒèå•Š ä¹ç»°ç˜¤ å…«è¤
 			strcpy( myfunction[i].s, TOKEN );
 
 			GetToken ();
 			if( TOKENTYPE != STRING ) { Serror( 1 ); return -1; }
-			if( !strcmp( TOKEN, "null" ) )              // ¸Å°³º¯¼ö°¡ ¾øÀ¸¸é
+			if( !strcmp( TOKEN, "null" ) )              // æ¦‚ä¿ºå‡½èå•Š ç»æ æ
 				myfunction[i].format[0] = 0;
 			else
-				strcpy( myfunction[i].format, TOKEN );    // ¸Å°³º¯¼ö°¡ ÀÖÀ¸¸é
+				strcpy( myfunction[i].format, TOKEN );    // æ¦‚ä¿ºå‡½èå•Š ä¹æ æ
 
 			if( GetToken() == -1 ) return -1;
 			if( TOKENTYPE != NUMERIC ) { Serror( 1 ); return -1; }
@@ -1380,12 +1380,12 @@ int  LoadData( char *szdat )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : InitProgram
- ÀÎ  ÀÚ : s = ÄÄÆÄÀÏÇÏ°íÀÚ ÇÏ´Â È­ÀÏÀÇ ÀÌ¸§
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ¼Ò½º¸¦ ¸Þ¸ð¸®·Î ÀÐ¾îµéÀÎÈÄ, Ãâ·ÂÇÒ È­ÀÏÀÇ ÀÌ¸§À» »ý¼º½ÃÅ²´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : InitProgram
+ ç‰¢  ç£Š : s = å“ªé¢‡è€çªç»Šç£Š çªç»° æ‹³è€ç‹¼ æžæŠš
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : å®¶èƒ¶ç”« çš‹è‘›åºœè‚º ä½¬ç»¢ç”¸ç‰¢é¥¶, å…ä»¿ä¸” æ‹³è€ç‹¼ æžæŠšé˜‘ ç§¯å·±çŸ«æŒªä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int  InitProgram( char *s )
 {
     FILE *fp;
@@ -1428,12 +1428,12 @@ int  InitProgram( char *s )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : Path1
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ¼Ò½º¸¦ ÇÑ¹ø ÀÐÀ¸¸é¼­ ¹®¹ýÀû ¿¡·¯¸¦ Ã¼Å©ÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å */
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : Path1
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : å®¶èƒ¶ç”« èŒ„é”… ä½¬æ æè¾‘ å·©è¿‡åˆ© ä¿ŠçŸ¾ç”« çœ‰å†œèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž */
 int Path1( void )
 {
     BYTE *p = wzsprog;
@@ -1448,12 +1448,12 @@ int Path1( void )
         if( GetToken() == -1 ) return -1;
         if( TOKENTYPE == END ) break;
 
-        // if, elseÀÇ °¹¼ö¸¦ °Ë»çÇØ¼­ ¿¡·¯¸¦ Ã¼Å©ÇÑ´Ù.
+        // if, elseç‹¼ è‚®èç”« å…«è¤ç§¦è¾‘ ä¿ŠçŸ¾ç”« çœ‰å†œèŒ„ä¿ƒ.
         if( *TOKEN == '{' ) ++if_else_count;
         if( *TOKEN == '}' ) --if_else_count;
 
-        // ¶óº§¸íÀÏ °æ¿ì¿¡´Â ¶óº§À» Ã£¾Æº¸°í, ÀÖÀ¸¸é ¶óº§ Áßº¹ ¿¡·¯¸¦ Ãâ·ÂÇÏ°í
-        // ¾øÀ¸¸é µî·ÏÇÑ´Ù.
+        // æ‰¼éª‡ç–™è€ ç‰ˆå¿«ä¿Šç»° æ‰¼éª‡é˜‘ èŒ«é…’ç„Šç»Š, ä¹æ æ æ‰¼éª‡ åæ±— ä¿ŠçŸ¾ç”« å…ä»¿çªç»Š
+        // ç»æ æ æ®¿åºŸèŒ„ä¿ƒ.
         if( TOKENTYPE == LABEL )
         {
             if( strlen( TOKEN ) > LABEL_LENGTH ) { Serror( 8 ); return -1; }
@@ -1462,8 +1462,8 @@ int Path1( void )
             strcpy( label1[label1_n++].s, TOKEN );
         }
 
-        // À¯Àú°¡ Á¤ÀÇÇÑ ÇÔ¼öÀÌ¸é ÇÔ¼ö¸¦ Ã£¾Æº¸°í, ÀÖÀ¸¸é ÇÔ¼ö Áßº¹ ¿¡·¯¸¦
-        // Ãâ·ÂÇÏ°í ¾øÀ¸¸ç µî·ÏÀ» ÇÑ´Ù.
+        // èœ¡åŽ†å•Š æ²¥ç‹¼èŒ„ çªƒèæžæ çªƒèç”« èŒ«é…’ç„Šç»Š, ä¹æ æ çªƒè åæ±— ä¿ŠçŸ¾ç”«
+        // å…ä»¿çªç»Š ç»æ å“¥ æ®¿åºŸé˜‘ èŒ„ä¿ƒ.
         if( TOKENTYPE == USERFUNC )
         {
             if( TOK != -1 ) { Serror( 15 ); return -1; }
@@ -1473,7 +1473,7 @@ int Path1( void )
 
         if( TOKENTYPE == COMMAND ) {
             switch( comm[TOK].n ) {
-                // switch¹®ÀÇ case¿Í default¹®ÀÇ °¹¼ö¸¦ È®ÀÎÇÏ°í ¿¡·¯¸¦ °Ë»ç
+                // switchå·©ç‹¼ caseå®¢ defaultå·©ç‹¼ è‚®èç”« çŠ¬ç‰¢çªç»Š ä¿ŠçŸ¾ç”« å…«è¤
                 case switch_:
                     ++switch_case;
                     ++switch_count;
@@ -1488,14 +1488,14 @@ int Path1( void )
                 case case_:
                     ++swit[switch_count].total; break;
 
-                // call¸í·É¹® ´ÙÀ½¿¡µµ ¶óº§¸íÀÌ ¿À±â¶§¹®¿¡ ÀÌ°ÍÀ» ÇÇÇÑ´Ù.
+                // callç–™é£žå·© ä¿ƒæ¾œä¿Šæ¡£ æ‰¼éª‡ç–™æž å·æ‰é”­å·©ä¿Š æžå·´é˜‘ ä¹”èŒ„ä¿ƒ.
                 case call_:
                     if( GetToken() == -1 ) return -1;
                     if( GetToken() == -1 ) return -1;
                     if( GetToken() == -1 ) return -1; break;
 
-                // end¹®À» Ã³¸®ÇÏ¸ç if-else, switch-endswitch, ±×¸®°í ÇÔ¼ö°¡
-                // Á¤»óÀûÀÎ°¡¸¦ ÆÇ´ÜÇÑ´Ù.
+                // endå·©é˜‘ è´¸åºœçªå“¥ if-else, switch-endswitch, å¼Šåºœç»Š çªƒèå•Š
+                // æ²¥æƒ‘åˆ©ç‰¢å•Šç”« é­„çªœèŒ„ä¿ƒ.
                 case end_:
                     if( func-- != 1 )  { Serror( 13 ); return -1; }
                     if( if_else_count != 0 ) { Serror( 12 ); return -1; }
@@ -1520,19 +1520,19 @@ int Path1( void )
 
 
 
-/* ­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å
- ÇÔ¼ö¸í : EndProgram
- ÀÎ  ÀÚ : ¾øÀ½
- ¸®ÅÏ°ª : ¾øÀ½
- ¼³  ¸í : ÇÁ·Î±×·¥ÀÇ ¸Ç ¸¶Áö¸·¿¡ ½ÇÇàµÇ¸ç, ¶óº§¸íÀÇ À§Ä¡¸¦ ±â·Ï,
-          ÇÔ¼ö¸íÀÇ À§Ä¡¸¦ ±â·Ï, ÇÔ¼öÀÇ °¹¼ö¸¦ Ãâ·ÂÈ­ÀÏÀÇ Ã³À½ ºÎºÐ¿¡ ±â·ÏÇÑ´Ù.
-­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å­å*/
+/* î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž
+ çªƒèç–™ : EndProgram
+ ç‰¢  ç£Š : ç»æ¾œ
+ åºœç•”è”¼ : ç»æ¾œ
+ æ±²  ç–™ : æ©‡è‚ºå¼Šä¼ç‹¼ ç›– ä»˜ç˜¤é˜œä¿Š è§’é’ç™»å“¥, æ‰¼éª‡ç–™ç‹¼ å›°æ‘¹ç”« æ‰åºŸ,
+          çªƒèç–™ç‹¼ å›°æ‘¹ç”« æ‰åºŸ, çªƒèç‹¼ è‚®èç”« å…ä»¿æ‹³è€ç‹¼ è´¸æ¾œ ä½•ç›’ä¿Š æ‰åºŸèŒ„ä¿ƒ.
+î…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…žî…ž*/
 int EndProgram( void )
 {
     int i, j;
     int size = 0;
 
-    // ¿ø·¡ÀÇ ¶óº§¸í°ú À¯Àú°¡ »ç¿ëÇÑ ¶óº§¸íÀ» ¼­·Î ºñ±³ÇØ¼­ ±×°ªÀ» Ãâ·ÂÇÑ´Ù.
+    // ç›”è´°ç‹¼ æ‰¼éª‡ç–™è‹ž èœ¡åŽ†å•Š è¤ä¾©èŒ„ æ‰¼éª‡ç–™é˜‘ è¾‘è‚º åŽšèƒŒç§¦è¾‘ å¼Šè”¼é˜‘ å…ä»¿èŒ„ä¿ƒ.
     for( i = 0; i < label2_n; i++ ) {
         j = SearchLabel( label2[i].s );
         if( j == -1 ) 
@@ -1545,7 +1545,7 @@ int EndProgram( void )
     }
 
 
-    // ¿ø·¡ÀÇ ÇÔ¼ö¸í°ú À¯Àú°¡ »ç¿ëÇÑ ÇÔ¼ö¸íÀ» ¼­·Î ºñ±³ÇØ¼­ ±×°ªÀ» Ãâ·ÂÇÑ´Ù.
+    // ç›”è´°ç‹¼ çªƒèç–™è‹ž èœ¡åŽ†å•Š è¤ä¾©èŒ„ çªƒèç–™é˜‘ è¾‘è‚º åŽšèƒŒç§¦è¾‘ å¼Šè”¼é˜‘ å…ä»¿èŒ„ä¿ƒ.
     for( i = 0; i < user2_n; i++ ) {
         j = SearchUserFunc( userfunc2[i].s );
         if( j == -1 ) {
@@ -1563,9 +1563,9 @@ int EndProgram( void )
 /*
 	if( GameMakeFlag == ON )
 	{
-		// ¸ðµç ÇÔ¼öÀÇ °¹¼ö¸¦ È­ÀÏÀÇ Ã³À½¿¡ ±â·ÏÀ» ÇÏ°í ÇÔ¼öÀÇ ¿É¼Â°ªÀ» ±â·ÏÇÑ´Ù.
+		// è‘›ç”µ çªƒèç‹¼ è‚®èç”« æ‹³è€ç‹¼ è´¸æ¾œä¿Š æ‰åºŸé˜‘ çªç»Š çªƒèç‹¼ å¯æ‚¸è”¼é˜‘ æ‰åºŸèŒ„ä¿ƒ.
 		temp = ftell( outfile );
-		fseek( outfile, 8, SEEK_CUR );        // Çì´õ¸¦ Ãâ·ÂÇÏ±âÀ§ÇÑ ¿©¹é
+		fseek( outfile, 8, SEEK_CUR );        // åº†æ­¹ç”« å…ä»¿çªæ‰å›°èŒ„ å’¯å½’
 
 		for( i = 0; userfunc1[i].s[0]; i++ )
 		{
@@ -1573,13 +1573,13 @@ int EndProgram( void )
 			size += sizeof( int );
 		}
 
-		// ÄÄÆÄÀÏµÈ °á°ú¸¦ È­ÀÏ·Î Ãâ·ÂÇÑ´Ù.
+		// å“ªé¢‡è€ç­‰ æ¬è‹žç”« æ‹³è€è‚º å…ä»¿èŒ„ä¿ƒ.
 		size += (outprog - oldoutprog - ( i * sizeof( int )) );
 		fwrite( oldoutprog, outprog - oldoutprog, 1, outfile );
 
 		fseek( outfile, temp, SEEK_SET );
-		fwrite( &size, 1, sizeof( int ), outfile );        // È­ÀÏÀÇ Å©±â¸¦ ±â·Ï
-		fwrite( &i, 1, sizeof( int ), outfile );           // ÇÔ¼öÀÇ °¹¼ö¸¦ ±â·Ï
+		fwrite( &size, 1, sizeof( int ), outfile );        // æ‹³è€ç‹¼ å†œæ‰ç”« æ‰åºŸ
+		fwrite( &i, 1, sizeof( int ), outfile );           // çªƒèç‹¼ è‚®èç”« æ‰åºŸ
 		fclose( outfile );
 	}
 */
@@ -1599,7 +1599,7 @@ static int Totalcount;
 
 
 /*===========================================================================
-   ½ºÇÁ¶óÀÌÆ®·Î ¸¸µé ¸ðµç È­ÀÏÀ» °Ë»öÇÑ´Ù.
+   èƒ¶æ©‡æ‰¼æžé£˜è‚º çˆ¶ç”¸ è‘›ç”µ æ‹³è€é˜‘ å…«ç¥¸èŒ„ä¿ƒ.
 ===========================================================================*/
 int SearchFile( char *fn )
 {	
@@ -1657,20 +1657,20 @@ int SearchFile( char *fn )
 			outprog = oldoutprog;
 			memset( wzsprog, 0, SOURCEFILESIZE + 1 );
 
-			memset( label1,		0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // ¿ø·¡ ¶óº§ÀÇ ³»¿ëÀ» ÀúÀåÇÏ´Â º¯¼ö
-			memset( label2,		0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // goto¹® ´ÙÀ½¿¡ ¾²ÀÎ ¶óº§À» ÀúÀå
-			memset( ifelse,		0,	sizeof( IF_ELSE )	*	MAX_SCR_ARRAY );            // if, else¹®ÀÇ ³»¿ëÀ» ÀúÀå
-			memset( userfunc1,	0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // ¿ø·¡ ÇÔ¼ö¸íÀÇ ³»¿ëÀ» ÀúÀå
-			memset( userfunc2,	0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // call¹® ´ÙÀ½¿¡ ¾²ÀÎ ÇÔ¼ö¸¦ ÀúÀå
-			memset( swit,		0,	sizeof( SWITCHCASE )*	 50 );            // ÇÏ³ªÀÇ switch¹®¿¡¼­ °¢°¢ÀÇ case¹®À»ÀúÀå
+			memset( label1,		0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // ç›”è´° æ‰¼éª‡ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜çªç»° å‡½è
+			memset( label2,		0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // gotoå·© ä¿ƒæ¾œä¿Š é™ç‰¢ æ‰¼éª‡é˜‘ åŽ†åŽ˜
+			memset( ifelse,		0,	sizeof( IF_ELSE )	*	MAX_SCR_ARRAY );            // if, elseå·©ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+			memset( userfunc1,	0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // ç›”è´° çªƒèç–™ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+			memset( userfunc2,	0,	sizeof( COMMSET )	*	MAX_SCR_ARRAY );            // callå·© ä¿ƒæ¾œä¿Š é™ç‰¢ çªƒèç”« åŽ†åŽ˜
+			memset( swit,		0,	sizeof( SWITCHCASE )*	 50 );            // çªå”±ç‹¼ switchå·©ä¿Šè¾‘ é˜¿é˜¿ç‹¼ caseå·©é˜‘åŽ†åŽ˜
 
 			printf( " %3d/%3d     : %13s File Compiling...........\n", i+1, Totalcount, (char*)f );
 			
 
-			ifsp = 0;                            // if, elseÀÇ ½ºÅÃ°ª
-			switsp = 0;                          // switchÀÇ º¯À§°ª
-			label1_n=0, label2_n = 0;              // ¿ø·¡ÀÇ ¶óº§°ª°ú ¾²¿©Áø ¶óº§°ªÀ» ÀúÀå
-			user1_n = 0, user2_n = 0;                // ¿ø·¡ÀÇ ÇÔ¼ö°ª°ú 
+			ifsp = 0;                            // if, elseç‹¼ èƒ¶ç¶è”¼
+			switsp = 0;                          // switchç‹¼ å‡½å›°è”¼
+			label1_n=0, label2_n = 0;              // ç›”è´°ç‹¼ æ‰¼éª‡è”¼è‹ž é™å’¯æŸ³ æ‰¼éª‡è”¼é˜‘ åŽ†åŽ˜
+			user1_n = 0, user2_n = 0;                // ç›”è´°ç‹¼ çªƒèè”¼è‹ž 
 			
 			
 			InitProgram( (char*)f );
@@ -1724,8 +1724,8 @@ BYTE *LoadTextScript( char *name )
 	LINE = 0;
 	
 	TOK = 0; // ^^^^ 0308
-	memset( variable, 0, sizeof( COMMSET ) *  2000 );	//MAX_SCR_ARRAY );             // »ç¿ëÀÚ°¡ Á¤ÀÇÇÑ º¯¼öÀÇ ³»¿ëÀ» ÀúÀå
-	memset( myfunction, 0, sizeof( USER_FUNC ) * 1000 ); //MAX_SCR_ARRAY );           // À¯Àú°¡ Á¤ÀÇÇÑ ÇÔ¼ö¸¦ ÀúÀå
+	memset( variable, 0, sizeof( COMMSET ) *  2000 );	//MAX_SCR_ARRAY );             // è¤ä¾©ç£Šå•Š æ²¥ç‹¼èŒ„ å‡½èç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+	memset( myfunction, 0, sizeof( USER_FUNC ) * 1000 ); //MAX_SCR_ARRAY );           // èœ¡åŽ†å•Š æ²¥ç‹¼èŒ„ çªƒèç”« åŽ†åŽ˜
 	
 	LoadData( "Zs.Dat" );	
 
@@ -1735,17 +1735,17 @@ BYTE *LoadTextScript( char *name )
 	strcpy( Wz_scriptfilename, name );
 
 	memset( wzsprog, 0, 100000 + 1 );
-	memset( (char*)label1,		0,	sizeof( COMMSET )	*	100 ); // MAX_SCR_ARRAY );            // ¿ø·¡ ¶óº§ÀÇ ³»¿ëÀ» ÀúÀåÇÏ´Â º¯¼ö
-	memset( (char*)label2,		0,	sizeof( COMMSET )	*	100 ); // MAX_SCR_ARRAY );            // goto¹® ´ÙÀ½¿¡ ¾²ÀÎ ¶óº§À» ÀúÀå
-	memset( (char*)ifelse,		0,	sizeof( IF_ELSE )	*	500 ); // MAX_SCR_ARRAY );            // if, else¹®ÀÇ ³»¿ëÀ» ÀúÀå
-	memset( (char*)userfunc1,	0,	sizeof( COMMSET )	*	1000 );//MAX_SCR_ARRAY );            // ¿ø·¡ ÇÔ¼ö¸íÀÇ ³»¿ëÀ» ÀúÀå
-	memset( (char*)userfunc2,	0,	sizeof( COMMSET )	*	1000 ); //MAX_SCR_ARRAY );            // call¹® ´ÙÀ½¿¡ ¾²ÀÎ ÇÔ¼ö¸¦ ÀúÀå
-	memset( (char*)swit,		0,	sizeof( SWITCHCASE )*	 50 );						// ÇÏ³ªÀÇ switch¹®¿¡¼­ °¢°¢ÀÇ case¹®À»ÀúÀå
+	memset( (char*)label1,		0,	sizeof( COMMSET )	*	100 ); // MAX_SCR_ARRAY );            // ç›”è´° æ‰¼éª‡ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜çªç»° å‡½è
+	memset( (char*)label2,		0,	sizeof( COMMSET )	*	100 ); // MAX_SCR_ARRAY );            // gotoå·© ä¿ƒæ¾œä¿Š é™ç‰¢ æ‰¼éª‡é˜‘ åŽ†åŽ˜
+	memset( (char*)ifelse,		0,	sizeof( IF_ELSE )	*	500 ); // MAX_SCR_ARRAY );            // if, elseå·©ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+	memset( (char*)userfunc1,	0,	sizeof( COMMSET )	*	1000 );//MAX_SCR_ARRAY );            // ç›”è´° çªƒèç–™ç‹¼ éƒ´ä¾©é˜‘ åŽ†åŽ˜
+	memset( (char*)userfunc2,	0,	sizeof( COMMSET )	*	1000 ); //MAX_SCR_ARRAY );            // callå·© ä¿ƒæ¾œä¿Š é™ç‰¢ çªƒèç”« åŽ†åŽ˜
+	memset( (char*)swit,		0,	sizeof( SWITCHCASE )*	 50 );						// çªå”±ç‹¼ switchå·©ä¿Šè¾‘ é˜¿é˜¿ç‹¼ caseå·©é˜‘åŽ†åŽ˜
 
-	ifsp		= 0;                   // if, elseÀÇ ½ºÅÃ°ª
-	switsp		= 0;                   // switchÀÇ º¯À§°ª
-	label1_n	= 0, label2_n	= 0;   // ¿ø·¡ÀÇ ¶óº§°ª°ú ¾²¿©Áø ¶óº§°ªÀ» ÀúÀå
-    user1_n		= 0, user2_n	= 0;   // ¿ø·¡ÀÇ ÇÔ¼ö°ª°ú 
+	ifsp		= 0;                   // if, elseç‹¼ èƒ¶ç¶è”¼
+	switsp		= 0;                   // switchç‹¼ å‡½å›°è”¼
+	label1_n	= 0, label2_n	= 0;   // ç›”è´°ç‹¼ æ‰¼éª‡è”¼è‹ž é™å’¯æŸ³ æ‰¼éª‡è”¼é˜‘ åŽ†åŽ˜
+    user1_n		= 0, user2_n	= 0;   // ç›”è´°ç‹¼ çªƒèè”¼è‹ž 
 	funclabelsp = 0;
 
 	if( InitProgram( name ) == -1 ) goto ERROR_;
@@ -1762,8 +1762,8 @@ ERROR_:
 
 	for( int i = strlen( nn ) - 1  ; i > 0  ; i -- )	   if( *(nn + i ) == '\\' ) break;
 
-//	sprintf( temp, "'%s'¸¦ ´Ù½Ã ·Îµå ÇÕ´Ï´Ù.", strupr(nn+ i +1)  );
-//	if( YesOrNo( temp, "È®ÀÎ") == IDYES ) goto AGAIN_;
+//	sprintf( temp, "'%s'ç”« ä¿ƒçŸ« è‚ºé› é’¦èªä¿ƒ.", strupr(nn+ i +1)  );
+//	if( YesOrNo( temp, "çŠ¬ç‰¢") == IDYES ) goto AGAIN_;
 
 	return NULL;
 }

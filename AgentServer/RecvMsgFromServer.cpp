@@ -1,4 +1,4 @@
-// --------------------------------
+ï»¿// --------------------------------
 // Re-Wrote by chan78 at 2001/01/10
 // --------------------------------
 #include "stdafx.h"//010909 lsw
@@ -44,7 +44,7 @@ void __stdcall OnAcceptServer(DWORD dwConnectionIndex)
 // ==========================================================================================
 void __stdcall OnDisconnectServer(DWORD dwConnectionIndex)
 {
-	// ¹«Áö Áß¿äÇÑ ¸â¹ö ÇÔ¼ö
+	// ë¬´ì§€ ì¤‘ìš”í•œ ë©¤ë²„ í•¨ìˆ˜
 	g_pServerTable->RemoveConnectedServerDataFromHashTable(dwConnectionIndex);
 
 	return;
@@ -86,16 +86,16 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 	switch (bID)
 	{
 	// -------------
-	// ±âº»ÆÐÅ¶ 
+	// ê¸°ë³¸íŒ¨í‚· 
 	// -------------
-	// Àü¿ë
+	// ì „ìš©
 	case PTCL_ORDER_SET_SERVER_LIST:
 	case PTCL_ORDER_CONNECT_TO_SERVERS:
 	case PTCL_ORDER_SET_DB_DEMON:
 	case PTCL_ORDER_TO_REPORT_SERVER_DATAS:
 	case PTCL_NOTIFY_YOU_ARE_CERTIFIED:
 
-	//°øÅë
+	//ê³µí†µ
 	case PTCL_ORDER_DESTROY_SERVER:
 	case PTCL_NOTIFY_SERVER_STATUS:
  	case PTCL_SERVER_TRY_TO_CHECK_CONNECTION:
@@ -112,7 +112,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 		}	
 		break;
 	// ---------------
-	// AGENT Àü¿ë ÆÐÅ¶
+	// AGENT ì „ìš© íŒ¨í‚·
 	// ---------------
 	case PTCL_MAP_TO_AGENT_CHECK_IS_USER_GHOST:
 		{	//< CSD-030515
@@ -129,7 +129,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 			pUser = g_pUserTable->GetUserInfo(pPacket->dwID);
 
 			if (pUser == NULL)
-			{	//  ¾ø´Ù. ÀÌ°Ç GHOST!
+			{	//  ì—†ë‹¤. ì´ê±´ GHOST!
 				szAnswer[0] = PTCL_AGENT_TO_MAP_REQUEST_REMOVE_GHOST_USER;
 				pAnswer->dwID = pPacket->dwID;
 
@@ -137,7 +137,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 				{
 					MyLog(LOG_FATAL, "PTCL_MAP_TO_AGENT_CHECK_IS_USER_GHOST :: Failed To Answer!!! (From %d/%d)", dwConnectionIndex, pSender->wPort);
 				}
-				// Proxy¿¡¼­ ·Î±×¾Æ¿ôÀ» ÇÏµµ·Ï ÇÔ
+				// Proxyì—ì„œ ë¡œê·¸ì•„ì›ƒì„ í•˜ë„ë¡ í•¨
 				static char szDummy[1 + ID_LENGTH];
 				memset(szDummy, 0, sizeof(szDummy));
 				szDummy[0] = BYTE(PTCL_PROXY_TO_LOGOUT);
@@ -160,7 +160,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 			memcpy(raja_packet.h.data, pMsg+1, 5);
 			memcpy(raja_packet.u.data, pMsg+1+5, raja_packet.h.header.size);
 			char szName[21];
-			// ÆÐÅ¶¾ÈÀÇ ÀÌ¸§ Á¤º¸¸¦ Ä«ÇÇÇÏ°í ³Î½ºÆ®¸µÀ» ³Ö´Â´Ù 
+			// íŒ¨í‚·ì•ˆì˜ ì´ë¦„ ì •ë³´ë¥¼ ì¹´í”¼í•˜ê³  ë„ìŠ¤íŠ¸ë§ì„ ë„£ëŠ”ë‹¤ 
 			memcpy(szName,raja_packet.u.login_close_login_id.id,20);
 			szName[20] = NULL;
 			
@@ -177,7 +177,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 						next = cur->pNextUserInfo;
 						if (strcmp(cur->szName,szName ) == 0)
 						{
-							// ÇØ´ç À¯Àú¿¡°Ô ²÷µµ·Ï ±Ç°íÇÑ´Ù.
+							// í•´ë‹¹ ìœ ì €ì—ê²Œ ëŠë„ë¡ ê¶Œê³ í•œë‹¤.
 							g_pUserTable->DisconnectUserBySuggest( cur, CMD_CLOSE_CONNECTION_SAME_ID_LOGON );
 						}
 						cur = next;
@@ -208,7 +208,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 					MyLog(LOG_IMPORTANT, "Failed To send 'PTCL_PROXY_TO_LOGOUT' to Proxy");
 				}
 				
-				// Á¢¼ÓÀ» ²÷µµ·Ï ±Ç°íÇÑ´Ù.
+				// ì ‘ì†ì„ ëŠë„ë¡ ê¶Œê³ í•œë‹¤.
 				g_pUserTable->DisconnectUserBySuggest( pUser, CMD_CLOSE_CONNECTION_NORMAL );
 				MyLog( LOG_NORMAL, "User(%d) SUGGESTED to DISCONNECT by %s(%d)", pUser->dwConnectionIndex, GetTypedServerText(pSender->dwServerType), dwConnectionIndex );
 			}	//> CSD-030322
@@ -229,20 +229,20 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 			{
 				switch( p->h.header.type ) {
 				// ---------------------------
-				// Client¿¡°Ô º¸³»Áö ¾ÊÀ» ÆÐÅ¶
+				// Clientì—ê²Œ ë³´ë‚´ì§€ ì•Šì„ íŒ¨í‚·
 				// ---------------------------
-				// Modified by chan78 at 2000/12/09 :: µ¿ÀÏ ID µ¿½ÃÁ¢¼Ó
+				// Modified by chan78 at 2000/12/09 :: ë™ì¼ ID ë™ì‹œì ‘ì†
 				case CMD_CLOSE_LOGIN_ID:
 					{
 						char szName[21];
 
-						// ÆÐÅ¶¾ÈÀÇ ÀÌ¸§ Á¤º¸¸¦ Ä«ÇÇÇÏ°í ³Î½ºÆ®¸µÀ» ³Ö´Â´Ù 
+						// íŒ¨í‚·ì•ˆì˜ ì´ë¦„ ì •ë³´ë¥¼ ì¹´í”¼í•˜ê³  ë„ìŠ¤íŠ¸ë§ì„ ë„£ëŠ”ë‹¤ 
 						memcpy( szName, p->u.login_close_login_id. id, 20 );
 						szName[20] = 0;
 							
 						if( !strcmp( szName, pUser->szName ) )
 						{	
-							// ÇØ´ç À¯Àú¸¦ ²÷´Â´Ù.
+							// í•´ë‹¹ ìœ ì €ë¥¼ ëŠëŠ”ë‹¤.
 							g_pUserTable->DisconnectUserBySuggest( pUser, CMD_CLOSE_CONNECTION_SAME_ID_LOGON );
 							//g_pINet->CompulsiveDisconnectUser(pUser->dwConnectionIndex);
 						}	
@@ -254,7 +254,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 					redirect_to_client = false;
 					break;
 				// ---------------------------------
-				// ¿©±â¼­ºÎÅÍ´Â Client¿¡°Ô º¸³¾ ÆÐÅ¶
+				// ì—¬ê¸°ì„œë¶€í„°ëŠ” Clientì—ê²Œ ë³´ë‚¼ íŒ¨í‚·
 				// ---------------------------------
 				case CMD_CONNECT_INFO:
 					{
@@ -267,9 +267,9 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 						}
 						//MyLog( LOG_IGNORE, "User %d took map Server %d(%d)", *dwUniqID, p->u.server_connect_info.port, g_pUserTable->GetUserInfo( *dwUniqID )->dwMapServerConnectionIndex );
 
-						// LOGIN °úÁ¤¿¡¼­ DB¿¡ ±â·ÏµÈ »ç¿ëÀÚ Á¤º¸ÀÇ Á¦°Å¸¦ ¿äÃ»ÇÑ´Ù.
+						// LOGIN ê³¼ì •ì—ì„œ DBì— ê¸°ë¡ëœ ì‚¬ìš©ìž ì •ë³´ì˜ ì œê±°ë¥¼ ìš”ì²­í•œë‹¤.
 						szMsg[0] = (BYTE)PTCL_AGENT_TO_DB_REQUEST_REMOVE_USER;
-						memcpy(szMsg+1,dwUniqID,4);		// (dwUniqID == &(*dwUniqID) ÇØ±ò¸®Áö ¸¶¼¼¿ä.
+						memcpy(szMsg+1,dwUniqID,4);		// (dwUniqID == &(*dwUniqID) í•´ê¹”ë¦¬ì§€ ë§ˆì„¸ìš”.
 
 						if( pUser->dwDBDemonConnectionIndex )
 						{
@@ -368,8 +368,8 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 				}
 				else if( p->h.header.type == CMD_CLOSE_LOGIN_ID )
 				{
-					// CMD_CLOSE_LOGIN_ID¸¦ ¹Þ¾ÒÁö¸¸ À¯Àú°¡ USERLIST¿¡ Á¸ÀçÇÏÁö ¾Ê´Â °æ¿ì.
-					// ÀÌ°æ¿ì´Â ·Î±×ÇÒ ÇÊ¿ä°¡ ÀÖ´Ù.
+					// CMD_CLOSE_LOGIN_IDë¥¼ ë°›ì•˜ì§€ë§Œ ìœ ì €ê°€ USERLISTì— ì¡´ìž¬í•˜ì§€ ì•ŠëŠ” ê²½ìš°.
+					// ì´ê²½ìš°ëŠ” ë¡œê·¸í•  í•„ìš”ê°€ ìžˆë‹¤.
 					szMsg[0] = (BYTE)PTCL_AGENT_TO_DB_REMOVE_USER_FROM_LOGIN_TABLE;
 
 					memcpy(szMsg+1, &(*dwUniqID),4);
@@ -389,14 +389,14 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 	case PTCL_MAP_TO_AGENT_PACKED_MSG:
 		{
 			t_packet *packet;
-			// bSend ´Â Agent°¡ °¡·ÎÃ¤ Ã³¸®ÇÑ ÈÄ client¿¡°Ô Àü¼Û ÇÒ°ÍÀÎ°¡ ¸»°ÍÀÎ°¡¸¦ °áÁ¤ÇÑ´Ù. ±âº»°ª Âü.
+			// bSend ëŠ” Agentê°€ ê°€ë¡œì±„ ì²˜ë¦¬í•œ í›„ clientì—ê²Œ ì „ì†¡ í• ê²ƒì¸ê°€ ë§ê²ƒì¸ê°€ë¥¼ ê²°ì •í•œë‹¤. ê¸°ë³¸ê°’ ì°¸.
 			bool bSend = true;
 
 			CPackedMsg*	pPackedMsg = (CPackedMsg*)pMsg;
 			DWORD dwUserNum = pPackedMsg->GetUserNum();
 			//USERINFO_CLIENT_RECV* pInfo = (USERINFO_CLIENT_RECV*)pMsg->GetMsg();
 
-			// ¹ÞÀº ÆÐÅ¶À» Å¬¶óÀÌ¾ðÆ®·Î º¸³»ÁØ´Ù.
+			// ë°›ì€ íŒ¨í‚·ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤.
 			packet = (t_packet*)(pPackedMsg->GetMsg());
 			if( (sizeof(t_header) + packet->h.header.size) != pPackedMsg->GetMsgLength() )
 			{
@@ -412,7 +412,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 				{
 					//MyLog( LOG_FATAL, "PTCL_PACKED_USER :: User %d Not Found from MAP(%d)", dwUserID, dwConnectionIndex );
 
-					// Modified by chan78 at 2000/12/16 :: °Â ¾ø´Ù ²÷¾î´Þ¶ó°í ¿äÃ».
+					// Modified by chan78 at 2000/12/16 :: ê±” ì—†ë‹¤ ëŠì–´ë‹¬ë¼ê³  ìš”ì²­.
 					szMsg[0] = (BYTE)PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER;
 					memcpy(szMsg+1,&dwUserID,4);
 
@@ -434,7 +434,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 				switch(packet->h.header.type)
 				{
 				//-----------------------------------------------------------------------------
-				// Map ChangeÀÇ Ã³¸® :: Agent´Â ÀÌ PacketÀ» hookingÇØ Map ServerÀÇ ID¸¦ ¹Ù²Û´Ù.
+				// Map Changeì˜ ì²˜ë¦¬ :: AgentëŠ” ì´ Packetì„ hookingí•´ Map Serverì˜ IDë¥¼ ë°”ê¾¼ë‹¤.
 				//-----------------------------------------------------------------------------
 				case CMD_CHANGE_MAP:
 					{
@@ -444,8 +444,8 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 
 						LP_SERVER_DATA pServerData = g_pServerTable->GetConnectedServerData((WORD)packet->u.server_change_map.port);
 						if( !pServerData || !pServerData->dwConnectionIndex ) {
-							// ¼­¹ö ID(port)·Î dwConnectionIndex¸¦ ±¸ÇÒ ¼ö ¾øÀ¸¸é Á¢¼ÓÀ» ²÷¾î¹ö¸°´Ù.
-							// ¾Ë¸² ÆÐÅ¶À» º¸³»·Á¸é ¿©±â¼­ º¸³»¾ßÇÑ´Ù.
+							// ì„œë²„ ID(port)ë¡œ dwConnectionIndexë¥¼ êµ¬í•  ìˆ˜ ì—†ìœ¼ë©´ ì ‘ì†ì„ ëŠì–´ë²„ë¦°ë‹¤.
+							// ì•Œë¦¼ íŒ¨í‚·ì„ ë³´ë‚´ë ¤ë©´ ì—¬ê¸°ì„œ ë³´ë‚´ì•¼í•œë‹¤.
 							MyLog( LOG_FATAL, "User %s Failed to CHANGE MAP :: Server(port:%d) Is Not Connected", pUser->szName, packet->u.server_change_map.port );
 							g_pINet->CompulsiveDisconnectUser( pUser->dwConnectionIndex );
 						}
@@ -478,14 +478,14 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 					// Do nothing.
 					break;
 				}
-				// Àü¼ÛÇÑ´Ù.
+				// ì „ì†¡í•œë‹¤.
 				if( bSend ) {
 					if (pUser)
 					{
-						//ÆÐÅ¶ Å° ÀÎÄÚµù ÇÒ ÀÚ¸® 
+						//íŒ¨í‚· í‚¤ ì¸ì½”ë”© í•  ìžë¦¬ 
 						if( !g_pUserTable->SendToUser(pUser, pPackedMsg->GetMsg(), pPackedMsg->GetMsgLength() ) )
 						{
-							// ²÷´Â´Ù.
+							// ëŠëŠ”ë‹¤.
 						}
 					} else {
 						MyLog( LOG_FATAL, "PTCL_PACKED_USER :: User %d Not Found", i );
@@ -508,7 +508,7 @@ void __stdcall RecvMsgFromServer( DWORD dwConnectionIndex, char *pMsg, DWORD dwL
 	// Added by chan78 at 2001/03/16
 	case PTCL_MANAGER_ANSWER:
 		{
-			// ÀÖÀ» ¼ö ¾ø´Ù.
+			// ìžˆì„ ìˆ˜ ì—†ë‹¤.
 			MyLog( LOG_FATAL, "PTCL_MANAGER_ANSWER :: has received!!!(%d)", pSender->wPort );
 			g_pServerTable->DestroyServer( FINISH_TYPE_UNKNOWN_ERROR);
 		}

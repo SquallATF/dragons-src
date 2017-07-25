@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "CItem.h"
 #include "Op_Magic.h"
@@ -23,31 +23,31 @@ extern bool isNationManageServer();
 int		iSquadRareType[MAX_SQUAD_NUMBER][MAX_SQUAD_RARE];
 bool	bSquadRared[MAX_SQUAD_NUMBER];
 
-//±âÈ¹ÀÚ°¡ Á¦°øÇÑ °íÁ¤ÀûÀÎ ¸Æ½º°ª.
+//ê¸°íšìê°€ ì œê³µí•œ ê³ ì •ì ì¸ ë§¥ìŠ¤ê°’.
 const int	iSquadMaxRareClass[MAX_SQUAD_NUMBER]	=	{MAX_SQUAD_1_RARE_CALSS,MAX_SQUAD_2_RARE_CALSS,MAX_SQUAD_3_RARE_CALSS,MAX_SQUAD_4_RARE_CALSS};
-//»óÈ²¿¡ µû¶ó º¯ÇÏ´Â ¸Æ½º°ª.
+//ìƒí™©ì— ë”°ë¼ ë³€í•˜ëŠ” ë§¥ìŠ¤ê°’.
 int		iSquadNowMaxRareClass[MAX_SQUAD_NUMBER]	=	{MAX_SQUAD_1_RARE_CALSS,MAX_SQUAD_2_RARE_CALSS,MAX_SQUAD_3_RARE_CALSS,MAX_SQUAD_4_RARE_CALSS}; 
 int		iSquadNowRareClass[MAX_SQUAD_NUMBER]	=	{0,0,0,0}; 
 
 void SquadRarePlus(CHARLIST *ch, int iRareType, int iClass)
 {
-	if(!isNationWarfieldServer()) return;//¿©±â°¡ ±¹°¡Àü ¸Ê ¾Æ´Ï¸é Àı´ë·Î °¡ÁßÄ¡¸¦ ÁÖÁö ¾Ê´Â´Ù.	
+	if(!isNationWarfieldServer()) return;//ì—¬ê¸°ê°€ êµ­ê°€ì „ ë§µ ì•„ë‹ˆë©´ ì ˆëŒ€ë¡œ ê°€ì¤‘ì¹˜ë¥¼ ì£¼ì§€ ì•ŠëŠ”ë‹¤.	
 	
 	int iPlusValue = ItemRare[iRareType].GRADE[iClass];
 }
 
 
-//ÀüÀïÅÍ ¸Ê ¼­¹ö¸¸ ¾¸ ÀÌ°Å´Â... Å¬·¡½º¸¸ Á¤ÇÔ ·¹¾î Å¸ÀÔÀº »ó°ü ¾øÀ½
+//ì „ìŸí„° ë§µ ì„œë²„ë§Œ ì”€ ì´ê±°ëŠ”... í´ë˜ìŠ¤ë§Œ ì •í•¨ ë ˆì–´ íƒ€ì…ì€ ìƒê´€ ì—†ìŒ
 int CheckSquadRareGrade( int  iBattleType,int iSquadNo, int iManCount, bool bCommanderLogin, bool bSquadLeaderLogin, int iSquadItemStatus)
 {
 	int iRareSquadGradeNow = 0;
-	//·¹¾î µé¾î°¥ °ø½ÄÀ» Ã¼Å© ÇÏÀÚ
-	//ºÎ´ëÀåÀÌ µî·Ï µÊ°ú µ¿½Ã¿¡ ·¹¾î Å¸ÀÔÀº ³ª¿À°Ô µÈ´Ù
-	if(!isNationWarfieldServer()) return 0;//»ç¶÷¼ö Ã¼Å© ÇØ¼­ ±âº»ÀûÀÎ°É ¸ğµÎ Ã¼Å· ÇØ µĞ´Ù	
+	//ë ˆì–´ ë“¤ì–´ê°ˆ ê³µì‹ì„ ì²´í¬ í•˜ì
+	//ë¶€ëŒ€ì¥ì´ ë“±ë¡ ë¨ê³¼ ë™ì‹œì— ë ˆì–´ íƒ€ì…ì€ ë‚˜ì˜¤ê²Œ ëœë‹¤
+	if(!isNationWarfieldServer()) return 0;//ì‚¬ëŒìˆ˜ ì²´í¬ í•´ì„œ ê¸°ë³¸ì ì¸ê±¸ ëª¨ë‘ ì²´í‚¹ í•´ ë‘”ë‹¤	
 	
 	int MemberCount = g_pWarfield->GetSquadCurrentMemberCount(iBattleType,iSquadNo);
 	
-	if( MemberCount )//Á¶°Ç
+	if( MemberCount )//ì¡°ê±´
 	{	
 		if(MemberCount < 19 )
 			iRareSquadGradeNow = 1;
@@ -60,17 +60,17 @@ int CheckSquadRareGrade( int  iBattleType,int iSquadNo, int iManCount, bool bCom
 		if(MemberCount > 49 )
 			iRareSquadGradeNow = 5;
 
-		iSquadNowRareClass[iSquadNo] = iRareSquadGradeNow ;//ÀÌ³ğÀÇ °ªÀ» ¹Ù²ã ÁÖ¸é µÈ´Ù
+		iSquadNowRareClass[iSquadNo] = iRareSquadGradeNow ;//ì´ë†ˆì˜ ê°’ì„ ë°”ê¿” ì£¼ë©´ ëœë‹¤
 	}
 
-	//»ç·É°üÀÌ ÀÖÀ¸¸é ¸Æ½º °ª¿¡ true ¸¦ ´õÇØÁØ´Ù ( +1 µÇ´Â°Í )
+	//ì‚¬ë ¹ê´€ì´ ìˆìœ¼ë©´ ë§¥ìŠ¤ ê°’ì— true ë¥¼ ë”í•´ì¤€ë‹¤ ( +1 ë˜ëŠ”ê²ƒ )
 	iSquadNowMaxRareClass[iSquadNo] = iSquadNowMaxRareClass[iSquadNo]+bCommanderLogin;
 
-	if( bSquadLeaderLogin )//ºÎ´ëÀåÀÌ ÀÖÀ¸¸é µî±ŞÀ» ÁØ´Ù
+	if( bSquadLeaderLogin )//ë¶€ëŒ€ì¥ì´ ìˆìœ¼ë©´ ë“±ê¸‰ì„ ì¤€ë‹¤
 	{
-		if(iSquadItemStatus)//»ç±â »ó½Â ¾ÆÀÌÅÛÀ» ¾²¸é ÀÌ °ªÀÌ +1 ÀÌ µÇ°í »ç±â ÀúÇÏ ¾ÆÀÌÅÛÀ» ¾²¸é -1ÀÌ µÈ´Ù.
+		if(iSquadItemStatus)//ì‚¬ê¸° ìƒìŠ¹ ì•„ì´í…œì„ ì“°ë©´ ì´ ê°’ì´ +1 ì´ ë˜ê³  ì‚¬ê¸° ì €í•˜ ì•„ì´í…œì„ ì“°ë©´ -1ì´ ëœë‹¤.
 		{
-			iSquadNowRareClass[iSquadNo] += iSquadItemStatus;//¸®¼Â ½ºÅ¸ÀÏÀÌ¹Ç·Î °ÆÁ¤¾øÀÌ ÇÑ´Ù.
+			iSquadNowRareClass[iSquadNo] += iSquadItemStatus;//ë¦¬ì…‹ ìŠ¤íƒ€ì¼ì´ë¯€ë¡œ ê±±ì •ì—†ì´ í•œë‹¤.
 			if( iSquadNowRareClass[iSquadNo] > iSquadNowMaxRareClass[iSquadNo])
 			{
 				iSquadNowRareClass[iSquadNo]=iSquadNowMaxRareClass[iSquadNo];
@@ -84,23 +84,23 @@ int CheckSquadRareGrade( int  iBattleType,int iSquadNo, int iManCount, bool bCom
 	}
 	else
 	{
-		iSquadNowRareClass[iSquadNo] = 0;//ºÎ´ëÀåÀÌ ¾øÀ¸¸é Á¦·Î´Ù.
+		iSquadNowRareClass[iSquadNo] = 0;//ë¶€ëŒ€ì¥ì´ ì—†ìœ¼ë©´ ì œë¡œë‹¤.
 	}
 	return iRareSquadGradeNow = iSquadNowRareClass[iSquadNo];
 }
 
-//ÀüÀïÅ¸ÀÔ ( Attacker Defencer ReForce), Ä¿³Ø¼Ç ³Ñ¹ö, ÀüÀï °ü·Ã ¾ÆÀÌÅÛ(»ç±â)
-void SquadRareReSet(int iBattleType, int cn,int iSquadItemStatus)//iSquadItemStatus->ÀüÀï »ç±â ¾ÆÀÌÅÛ¿¡ ÀÇÇÑ Å¬·¡½º º¯°æ°ª
+//ì „ìŸíƒ€ì… ( Attacker Defencer ReForce), ì»¤ë„¥ì…˜ ë„˜ë²„, ì „ìŸ ê´€ë ¨ ì•„ì´í…œ(ì‚¬ê¸°)
+void SquadRareReSet(int iBattleType, int cn,int iSquadItemStatus)//iSquadItemStatus->ì „ìŸ ì‚¬ê¸° ì•„ì´í…œì— ì˜í•œ í´ë˜ìŠ¤ ë³€ê²½ê°’
 {//020215 lsw
 
-	//Å¸ÀÔ°ú ºÎ´ë ³Ñ¹ö¿Í »ç·É°ü°ú ¸®´õ°¡ ÀÖ³ª¸¦ Ã¼Å© ÇÏ¿©
-	//ºÎ¿©ÇÒ ·¹¾î ¼Ó¼º°ú µî±ŞÀ» »Ì¾Æ³½´Ù
+	//íƒ€ì…ê³¼ ë¶€ëŒ€ ë„˜ë²„ì™€ ì‚¬ë ¹ê´€ê³¼ ë¦¬ë”ê°€ ìˆë‚˜ë¥¼ ì²´í¬ í•˜ì—¬
+	//ë¶€ì—¬í•  ë ˆì–´ ì†ì„±ê³¼ ë“±ê¸‰ì„ ë½‘ì•„ë‚¸ë‹¤
 	CHARLIST *ch = &connections[cn].chrlst;
 	
 	int iSquadNo  = connections[cn].chrlst.NWCharacter.SquadNo;
 	int iRareClass = 0;
 
-	//ÀÌ°Ô ¿öÇÊµå ÀÎ°¡.
+	//ì´ê²Œ ì›Œí•„ë“œ ì¸ê°€.
 	if(!isNationWarfieldServer()) return;
 
 	bool bCommanderLogin = g_pWarfield->CommanderExist(iBattleType);
@@ -108,18 +108,18 @@ void SquadRareReSet(int iBattleType, int cn,int iSquadItemStatus)//iSquadItemSta
 
 	int iSquadRareClass = CheckSquadRareGrade(iBattleType ,iSquadNo , g_pWarfield->GetSquadCurrentMemberCount(iBattleType,iSquadNo),  bCommanderLogin, bSquadLeaderLogin, iSquadItemStatus);
 
-	//Å¸ÀÔ( °ø°İÀÚ , ¹æ¾îÀÚ , ¿ëº´)
-	//½ºÄõµå ³Ñ¹ö ¿¡ ÀÏÄ¡ ÇÏ´Â »ç¶÷À» °Ë»ö ÇØ ³»ÀÚ
+	//íƒ€ì…( ê³µê²©ì , ë°©ì–´ì , ìš©ë³‘)
+	//ìŠ¤ì¿¼ë“œ ë„˜ë²„ ì— ì¼ì¹˜ í•˜ëŠ” ì‚¬ëŒì„ ê²€ìƒ‰ í•´ ë‚´ì
 	SquadList* g_SquadList;
 	g_SquadList = g_pWarfield->GetSquadListPointer(iBattleType,iSquadNo);	
 	
 	char SquadRare[3] = {0,0,0};
-	//011008 lsw ÀÌ°Å ÁÖ¼® Çª¼¼¿ä
+	//011008 lsw ì´ê±° ì£¼ì„ í‘¸ì„¸ìš”
 	memcpy(SquadRare,g_pWarfield->GetSquadRareSok2(iBattleType,iSquadNo),3);
 	
 	for(SquadListItor itor=g_SquadList->begin();	itor!=g_SquadList->end()	;	itor++)
 	{
-		//½ºÄõµå´Â 0,1,2,3 À¸·Î ÇØ ÁÖ¼¼¿ä.. 
+		//ìŠ¤ì¿¼ë“œëŠ” 0,1,2,3 ìœ¼ë¡œ í•´ ì£¼ì„¸ìš”.. 
 		ch = &connections[(*itor)->GetData()].chrlst;
 		if(ch)
 		{
@@ -133,13 +133,13 @@ void SquadRareReSet(int iBattleType, int cn,int iSquadItemStatus)//iSquadItemSta
 	
 }
 
-//ÀüÀï °ü¸®¿ë ¼­¹ö°¡ È£Ãâ // ¼Ó¼ºÁ¤ÇÏ±â¸¸ ÇÕ´Ï´Ù.
+//ì „ìŸ ê´€ë¦¬ìš© ì„œë²„ê°€ í˜¸ì¶œ // ì†ì„±ì •í•˜ê¸°ë§Œ í•©ë‹ˆë‹¤.
 void GetSquadRare(char *Squadrare,int squadNo/*char [3]*/)
 {
 	if( !isNationManageServer() )
 		return;
 
-	if (!Squadrare[0]) //ÀÌ¹Ì ¼Ó¼ºÀ» ¹ŞÀº °æ¿ì´Â ¼Ó¼º ºÎ¿© ÇÏÁö ¾Ê´Â´Ù
+	if (!Squadrare[0]) //ì´ë¯¸ ì†ì„±ì„ ë°›ì€ ê²½ìš°ëŠ” ì†ì„± ë¶€ì—¬ í•˜ì§€ ì•ŠëŠ”ë‹¤
 	{
 		int squadrarecount =0;
 		int	squadrarecountMax =0;
@@ -162,9 +162,9 @@ void GetSquadRare(char *Squadrare,int squadNo/*char [3]*/)
 		}
 		for(squadrarecount = 0;squadrarecount<squadrarecountMax;squadrarecount++)
 		{
-			//ÀÌÁ¦ ¼Ó¼ºÀ» ¹Ş¾Æ¿Ô´Ù//¼Ó¼ºÀÌ ¸ğµÎ Á¤ÇØÁ³´Ù.
-			//¿©±â¼­ ³Ö¾îÁÖ±â
-			Squadrare[squadrarecount] = ItemMgr.GetAbleRareKind(RARE_ABLE|RARE_ABLE_SQUAD,0);//±¹°¡Àü¿ë//020725 lsw
+			//ì´ì œ ì†ì„±ì„ ë°›ì•„ì™”ë‹¤//ì†ì„±ì´ ëª¨ë‘ ì •í•´ì¡Œë‹¤.
+			//ì—¬ê¸°ì„œ ë„£ì–´ì£¼ê¸°
+			Squadrare[squadrarecount] = ItemMgr.GetAbleRareKind(RARE_ABLE|RARE_ABLE_SQUAD,0);//êµ­ê°€ì „ìš©//020725 lsw
 		}
 	}
 }
@@ -177,7 +177,7 @@ extern CWarfieldMgr* g_pcWarfieldMgr;	// LTH-040225-KO
 
 
 // 020418 YGI
-int IsStartNationWar()		// ÀÌ ¸ÊÀÌ ÀüÅõ ¸ÊÀÌ°í ÇöÀç ÀüÅõ ÁßÀÎ°¡?
+int IsStartNationWar()		// ì´ ë§µì´ ì „íˆ¬ ë§µì´ê³  í˜„ì¬ ì „íˆ¬ ì¤‘ì¸ê°€?
 {
 	if (isNationWarfieldServer())
 	{
@@ -189,7 +189,7 @@ int IsStartNationWar()		// ÀÌ ¸ÊÀÌ ÀüÅõ ¸ÊÀÌ°í ÇöÀç ÀüÅõ ÁßÀÎ°¡?
 		if (g_pNewWarfield->GetWarfieldStatus()==NW_WAR)
 			return true;
 	}
-	//< LTH-040225-KO ÀÌ¸ÊÀÌ ÀüÅõ¸ÊÀÌ°í ÇöÀç ±¹°¡ÀüÀÌ¶ó¸é °°ÀºÆí³¢¸® PK¸¦ ¸øÇÏ°Ô ÇÏ´Â °ÍÀ¸·Î ÀÌÇØÇß´Ù
+	//< LTH-040225-KO ì´ë§µì´ ì „íˆ¬ë§µì´ê³  í˜„ì¬ êµ­ê°€ì „ì´ë¼ë©´ ê°™ì€í¸ë¼ë¦¬ PKë¥¼ ëª»í•˜ê²Œ í•˜ëŠ” ê²ƒìœ¼ë¡œ ì´í•´í–ˆë‹¤
 	if (IsNeoWarfieldServer())
 	{
 		INT nState = NW_PEACE;

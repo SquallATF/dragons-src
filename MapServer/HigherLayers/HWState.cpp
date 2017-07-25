@@ -1,4 +1,4 @@
-/**
+ï»¿/**
  * @file	HWState.cpp.
  */
 #include "..\stdafx.h"
@@ -22,8 +22,8 @@ CHWPeaceState::CHWPeaceState()
 
 /**
  * @fn		CHWPeaceState::Init().
- * @brief	ÃÊ±âÈ­.
- * @param	INT nWarfieldNo. ÀüÀïÅÍ ¹øÈ£.
+ * @brief	ì´ˆê¸°í™”.
+ * @param	INT nWarfieldNo. ì „ìŸí„° ë²ˆí˜¸.
  * @return	STDMETHODIMP_(VOID).
  */
 //< LTH-040419-KO.
@@ -38,15 +38,15 @@ STDMETHODIMP_(VOID) CHWPeaceState::Init(INT nWarfieldNo)
 	m_n64RemainTime = m_dwLoopTime - g_dwCurrWeekElapsedSec;
 	::SendCMD_UPDATE_WARTIME(m_nWarfieldNo, NW_PEACE, GetRemainTime());
 
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "Peace State!! Active!! RemainTime : %ld", m_n64RemainTime);
 	//> LTH-040323-KO
 }	//> LTH-040419-KO.
 
 /**
  * @fn		CHWPeaceState::SetRemainTime().
- * @brief	³²Àº ½Ã°£ ¼³Á¤.
- * @param	__int64 dwRemainTime. ¼³Á¤ ÇÒ ³²Àº ½Ã°£.
+ * @brief	ë‚¨ì€ ì‹œê°„ ì„¤ì •.
+ * @param	__int64 dwRemainTime. ì„¤ì • í•  ë‚¨ì€ ì‹œê°„.
  * @return	STDMETHODIMP_(VOID).
  */
 //< LTH-040419-KO.
@@ -57,14 +57,14 @@ STDMETHODIMP_(VOID) CHWPeaceState::SetRemainTime(__int64 dwRemainTime)
 
 /**
  * @fn		CHWPeaceState::GetRemainTime().
- * @brief	³²Àº½Ã°£ ¹İÈ¯.
+ * @brief	ë‚¨ì€ì‹œê°„ ë°˜í™˜.
  * @return	STDMETHODIMP_(__int64).
  */
 //< LTH-040419-KO.
 STDMETHODIMP_(__int64) CHWPeaceState::GetRemainTime()
 {
 	::UpdateWarTime();
-	//< LTH-040419-KO ÇöÀç ½Ã°£ÀÌ ÇöÀç »óÅÂ Á¾·á ½Ã°£À» Áö³µ´Ù¸é ÀÎÀ§ÀûÀ¸·Î 0À» ¼¼ÆÃÇØ ³¡³»µµ·Ï ÇÑ´Ù.
+	//< LTH-040419-KO í˜„ì¬ ì‹œê°„ì´ í˜„ì¬ ìƒíƒœ ì¢…ë£Œ ì‹œê°„ì„ ì§€ë‚¬ë‹¤ë©´ ì¸ìœ„ì ìœ¼ë¡œ 0ì„ ì„¸íŒ…í•´ ëë‚´ë„ë¡ í•œë‹¤.
 	if (m_dwLoopTime < g_dwCurrWeekElapsedSec)
 		m_dwLoopTime = 0;
 	//> LTH-040419-KO.
@@ -74,8 +74,8 @@ STDMETHODIMP_(__int64) CHWPeaceState::GetRemainTime()
 
 /**
  * @fn		CHWPeaceState::SetLoopTime().
- * @brief	ÀÎÀ§ÀûÀ¸·Î Á¾·á½Ã°£À» ¼¼ÆÃÇÑ´Ù.
- * @param	DWORD dwLoopTime. ÇöÀç »óÅÂ Á¾·á½Ã°£.
+ * @brief	ì¸ìœ„ì ìœ¼ë¡œ ì¢…ë£Œì‹œê°„ì„ ì„¸íŒ…í•œë‹¤.
+ * @param	DWORD dwLoopTime. í˜„ì¬ ìƒíƒœ ì¢…ë£Œì‹œê°„.
  * @return	STDMETHODIMP_(VOID).
  */
 //< LTH-040419-KO.
@@ -89,7 +89,7 @@ STDMETHODIMP_(VOID) CHWPeaceState::SetLoopTime(DWORD dwLoopTime)
 
 /**
  * @fn		CHWPeaceState::GetLoopTime().
- * @brief	ÇöÀç »óÅÂÀÇ Á¾·á½Ã°£À» ¹İÈ¯ÇÑ´Ù.
+ * @brief	í˜„ì¬ ìƒíƒœì˜ ì¢…ë£Œì‹œê°„ì„ ë°˜í™˜í•œë‹¤.
  * @return	STDMETHODIMP_(DWORD).
  */
 //< LTH-040419-KO.
@@ -100,7 +100,7 @@ STDMETHODIMP_(DWORD) CHWPeaceState::GetLoopTime()
 
 /**
  * @fn		CHWPeaceState::Update().
- * @brief	ÇöÀç ³²Àº ½Ã°£À» ´Ù½Ã °è»êÇÏ¸ç ÇöÀç »óÅÂ¿¡ ÇØ¾ßÇÒÀÏÀ» ¾÷µ¥ÀÌÆ® ÇÑ´Ù ³²Àº½Ã°£ÀÌ ¸¶ÀÌ³Ê½ºÀÌ¸é ÇöÀç»óÅÂ¸¦ Á¾·áÇÑ´Ù.
+ * @brief	í˜„ì¬ ë‚¨ì€ ì‹œê°„ì„ ë‹¤ì‹œ ê³„ì‚°í•˜ë©° í˜„ì¬ ìƒíƒœì— í•´ì•¼í• ì¼ì„ ì—…ë°ì´íŠ¸ í•œë‹¤ ë‚¨ì€ì‹œê°„ì´ ë§ˆì´ë„ˆìŠ¤ì´ë©´ í˜„ì¬ìƒíƒœë¥¼ ì¢…ë£Œí•œë‹¤.
  * @return	STDMETHODIMP.
  */
 //< LTH-040419-KO.
@@ -109,7 +109,7 @@ STDMETHODIMP CHWPeaceState::Update()
 	return S_OK;
 }	//> LTH-040419-KO.
 
-//----- ÀÌÇÏ »óÅÂ classÀÇ ¸â¹öº¯¼ö´Â À§¿Í µ¿ÀÏÇÑ ±â´ÉÀÌ´Ù. -----
+//----- ì´í•˜ ìƒíƒœ classì˜ ë©¤ë²„ë³€ìˆ˜ëŠ” ìœ„ì™€ ë™ì¼í•œ ê¸°ëŠ¥ì´ë‹¤. -----
 CHWWarState::CHWWarState()
 {
 	m_dwTerm = 0;
@@ -128,7 +128,7 @@ STDMETHODIMP_(VOID) CHWWarState::Init(INT nWarfieldNo)
 	m_n64RemainTime = m_dwLoopTime - g_dwCurrWeekElapsedSec;
 	::SendCMD_UPDATE_WARTIME(m_nWarfieldNo, NW_WAR, GetRemainTime());
 
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "War State!! Active!! RemainTime : %ld", m_n64RemainTime);
 	//> LTH-040323-KO
 }
@@ -171,7 +171,7 @@ STDMETHODIMP CHWWarState::Update()
 	if (m_n64RemainTime % NW_REMAIN_TIME_UPDATE == 0) 
 		::SendCMD_UPDATE_WARTIME(m_nWarfieldNo, NW_WAR, GetRemainTime());
 
-	//< LTH-040322-KO 10ºĞ°£°İÀ¸·Î ³²Àº ½Ã°£À» ·Î±×·Î ³²±âÀÚ±¸!!
+	//< LTH-040322-KO 10ë¶„ê°„ê²©ìœ¼ë¡œ ë‚¨ì€ ì‹œê°„ì„ ë¡œê·¸ë¡œ ë‚¨ê¸°ìêµ¬!!
 	if ((m_n64RemainTime % 600) == 0)
 		g_pLogManager->SaveLogNeoNationWar(NNT_TIME_INFO, "[Current RemainTime] = LoopTime(%ld) - CurrTime(%ld) = %ld", \
 		m_dwLoopTime, g_dwCurrWeekElapsedSec, m_n64RemainTime);
@@ -199,7 +199,7 @@ STDMETHODIMP_(VOID) CHWSOpenState::Init(INT nWarfieldNo)
 	m_n64RemainTime = m_dwLoopTime - g_dwCurrWeekElapsedSec;
 	::SendCMD_UPDATE_WARTIME(m_nWarfieldNo, NW_SOPEN, GetRemainTime());
 
-	//< LTH-040323-KO ·Î±× °­È­
+	//< LTH-040323-KO ë¡œê·¸ ê°•í™”
 	g_pLogManager->SaveLogNeoNationWar(NNT_STATE_INFO, "Secret Area Open State!! Active!! RemainTime : %ld", \
 		m_n64RemainTime);
 	//> LTH-040323-KO
@@ -243,7 +243,7 @@ STDMETHODIMP CHWSOpenState::Update()
 	if (m_n64RemainTime % NW_REMAIN_TIME_UPDATE == 0) 
 		::SendCMD_UPDATE_WARTIME(m_nWarfieldNo, NW_SOPEN, GetRemainTime());
 
-	//< LTH-040322-KO 10ºĞ°£°İÀ¸·Î ³²Àº ½Ã°£À» ·Î±×·Î ³²±âÀÚ±¸!!
+	//< LTH-040322-KO 10ë¶„ê°„ê²©ìœ¼ë¡œ ë‚¨ì€ ì‹œê°„ì„ ë¡œê·¸ë¡œ ë‚¨ê¸°ìêµ¬!!
 	if ((m_n64RemainTime % 600) == 0)
 		g_pLogManager->SaveLogNeoNationWar(NNT_TIME_INFO, "[Current RemainTime] = LoopTime(%ld) - CurrTime(%ld) = %ld", \
 		m_dwLoopTime, g_dwCurrWeekElapsedSec, m_n64RemainTime);

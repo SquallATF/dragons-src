@@ -1,4 +1,4 @@
-// EarthCombat.cpp: implementation of the CEarthCombat class.
+ï»¿// EarthCombat.cpp: implementation of the CEarthCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -81,8 +81,8 @@ bool CEarthCombat::GroundAttack()
 }	//> CSD-030723
 
 bool CEarthCombat::BloodWill()
-{ // [223]ºí·¯µå Àª
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+{ // [223]ë¸”ëŸ¬ë“œ ìœŒ
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.nResult = HIT_AND_NOTDEAD;
@@ -93,7 +93,7 @@ bool CEarthCombat::BloodWill()
 
 bool CEarthCombat::StoneArmor()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -105,7 +105,7 @@ bool CEarthCombat::StoneArmor()
 bool CEarthCombat::SimunianBosom()
 {
 	m_pCaster->dwCombatState = m_dwNow + CalcMaintain();
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;

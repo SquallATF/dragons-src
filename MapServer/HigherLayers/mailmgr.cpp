@@ -1,4 +1,4 @@
-// MailMgr.cpp: implementation of the CMailMgr class.
+ï»¿// MailMgr.cpp: implementation of the CMailMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
-//DB µ¥¸ó°ú Åë½ÅÇÏ´Â Å¬·¡½º
+//DB ë°ëª¬ê³¼ í†µì‹ í•˜ëŠ” í´ëž˜ìŠ¤
 CMailMgr g_MailMgr;
 CMailMgr::CMailMgr()
 {
@@ -20,20 +20,20 @@ CMailMgr::~CMailMgr()
 
 }
 
-void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//¸®½ºÆ® ¿äÃ»À» ¹ÞÀ½
+void CMailMgr::RecvReqMailList(const int cn,t_packet *p)//ë¦¬ìŠ¤íŠ¸ ìš”ì²­ì„ ë°›ìŒ
  {
-//	CMD_MAIL_REQUEST_LIST	¸¦ DBµ¥¸óÀ¸·Î
-	if(::ExistHe(p->u.Hwoa.rang.ReqestMailList.szName) > 0 )//±×»ç¶÷ÀÌ ÀÖÀ» °æ¿ì µðºñ¿¡°Ô ¿äÃ»À» ÇÑ´Ù // 030923 HK YGI
+//	CMD_MAIL_REQUEST_LIST	ë¥¼ DBë°ëª¬ìœ¼ë¡œ
+	if(::ExistHe(p->u.Hwoa.rang.ReqestMailList.szName) > 0 )//ê·¸ì‚¬ëžŒì´ ìžˆì„ ê²½ìš° ë””ë¹„ì—ê²Œ ìš”ì²­ì„ í•œë‹¤ // 030923 HK YGI
 	{
 		::QueuePacket(connections,DB_DEMON,p,1);
 	}
 }
 
-void CMailMgr::RecvMailListFromDBDEMON(const int cn,t_packet *p)//°á°ú¹°À» DB¿¡°Ô ¹ÞÀ½
+void CMailMgr::RecvMailListFromDBDEMON(const int cn,t_packet *p)//ê²°ê³¼ë¬¼ì„ DBì—ê²Œ ë°›ìŒ
 {
 	MAILLISTRESULT *pMailResult = (LPMAILLISTRESULT)&p->u.Hwoa.rang.ReqestMailBodyResult;
 	const int iTargetCn = ::ExistHe(pMailResult->szName);
-	if(iTargetCn > 0 )//±×»ç¶÷ÀÌ ÀÖÀ» °æ¿ì ¹ÞÀº ¸®½ºÆ®¸¦ º¸³»ÁØ´Ù	// 030923 HK YGI
+	if(iTargetCn > 0 )//ê·¸ì‚¬ëžŒì´ ìžˆì„ ê²½ìš° ë°›ì€ ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ë‚´ì¤€ë‹¤	// 030923 HK YGI
 	{
 		::QueuePacket(connections,iTargetCn,p,1);
 	}
@@ -47,7 +47,7 @@ bool CMailMgr::Recv(const int cn, t_packet *p)
 	MAILSEND *pMailSend = &p->u.Hwoa.rang.MailSend;
 
 	const int iTargetCn = ::ExistHe(pMailSend->szSender);
-	if(iTargetCn && cn == iTargetCn)//±×»ç¶÷ÀÌ ÀÖÀ» °æ¿ì ¹ÞÀº ¸®½ºÆ®¸¦ º¸³»ÁØ´Ù
+	if(iTargetCn && cn == iTargetCn)//ê·¸ì‚¬ëžŒì´ ìžˆì„ ê²½ìš° ë°›ì€ ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ë‚´ì¤€ë‹¤
 	{
 		switch(pMailSend->iType)
 		{
@@ -70,7 +70,7 @@ bool CMailMgr::Recv(const int cn, t_packet *p)
 	if( type == CMD_SEND_MAIL_GUILD )
 	{
 		if( !ch->GetGuildCode() ) return;
-		// if( !ch->name_status.degree ) return;		// ±æµå µî±ÞÀÌ 0ÀÌ¸é ¸ÞÀÏÀ» ¸ø º¸³½´Ù.
+		// if( !ch->name_status.degree ) return;		// ê¸¸ë“œ ë“±ê¸‰ì´ 0ì´ë©´ ë©”ì¼ì„ ëª» ë³´ë‚¸ë‹¤.
 		p.u.kein.game_to_login_send_mail.uni.guild_info.guild_code = ch->GetGuildCode();
 		p.u.kein.game_to_login_send_mail.uni.guild_info.degree = ch->name_status.guild_master;
 	}
@@ -88,14 +88,14 @@ bool CMailMgr::Recv(const int cn, t_packet *p)
 	return true;
 }	//> CSD-030324
 
-void CMailMgr::RecvDelete(const int cn,t_packet *p)//Áö¿ì±â(¸®½ºÆ® ¹øÈ£¸¦ º¸³À´Ï´Ù.)
+void CMailMgr::RecvDelete(const int cn,t_packet *p)//ì§€ìš°ê¸°(ë¦¬ìŠ¤íŠ¸ ë²ˆí˜¸ë¥¼ ë³´ëƒ…ë‹ˆë‹¤.)
 {
 	CHARLIST *ch = ::CheckServerId( cn );
 	if( !ch ) {return;}
 	::QueuePacket(connections, DB_DEMON, p, 1);
 }
 
-void CMailMgr::RecvRepair(const int cn,t_packet *p)//Áö¿ì±â(¸®½ºÆ® ¹øÈ£¸¦ º¸³À´Ï´Ù.)
+void CMailMgr::RecvRepair(const int cn,t_packet *p)//ì§€ìš°ê¸°(ë¦¬ìŠ¤íŠ¸ ë²ˆí˜¸ë¥¼ ë³´ëƒ…ë‹ˆë‹¤.)
 {
 	CHARLIST *ch = ::CheckServerId( cn );
 	if( !ch ) {return;}

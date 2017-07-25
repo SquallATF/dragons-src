@@ -1,4 +1,4 @@
-// Proxy.cpp: implementation of the CProxy class.
+﻿// Proxy.cpp: implementation of the CProxy class.
 //
 //////////////////////////////////////////////////////////////////////
 

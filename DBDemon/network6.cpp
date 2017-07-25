@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+ï»¿#include "StdAfx.h"
 #include "packed.h"
 #include "servertable.h"
 #include "MAIN.H"
@@ -22,7 +22,7 @@ extern HDBC		hDBC_TotalDB;
 extern HENV		hEnv ;
 extern HDBC		hDBC ;
 extern int	g_wday;
-//SadonixControl	sadonixcontrol[24];//24½Ã°£ ÀÌ´Ï±î
+//SadonixControl	sadonixcontrol[24];//24ì‹œê°„ ì´ë‹ˆê¹Œ
 int	CheckGameMakeTool( char *id, char ip[40])		// 020830 YGI
 {
 	SDWORD cbValue;
@@ -49,7 +49,7 @@ int	CheckGameMakeTool( char *id, char ip[40])		// 020830 YGI
 			MyLog(0,"!!!!----------------------------------!!!!" );
 
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return oksign;  //coromo ÑéÖ¤GM IP
+			return oksign;  //coromo ï¤šè¯GM IP
 		}
 		
 		retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, dbip, 40	, &cbValue);
@@ -201,7 +201,7 @@ int GetNowSadonixCount()//020822 lsw
 	int	iSadCount=0;
 	char q[255];
 //	sprintf(q,"select %d from SadonixControl where [no] = %d ",g_wday , g_hour);
-	sprintf(q,"select * from SadonixControl");//ÀÌ Å×ÀÌºí¿¡´Â 1Çà 1¿­ Â¥¸®´Ù
+	sprintf(q,"select * from SadonixControl");//ì´ í…Œì´ë¸”ì—ëŠ” 1í–‰ 1ì—´ ì§œë¦¬ë‹¤
 	retCode = SQLExecDirect(hStmt, (UCHAR *)q, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{		
@@ -229,7 +229,7 @@ void RecvCMD_CONFORM_SADONIX(const int cn, t_packet &p)
 {
 	int iSadCount = GetNowSadonixCount();
 
-	if( 0 >= iSadCount )//ÁÙ ¼ö ÀÖ´Â »çµå¿À´Ğ½º °¹¼ö°¡ ÀÖ³ª?
+	if( 0 >= iSadCount )//ì¤„ ìˆ˜ ìˆëŠ” ì‚¬ë“œì˜¤ë‹‰ìŠ¤ ê°¯ìˆ˜ê°€ ìˆë‚˜?
 	{
 		MyLog(1,"No More Sadonix Now Count is '%d'",iSadCount);
 		return;
@@ -237,7 +237,7 @@ void RecvCMD_CONFORM_SADONIX(const int cn, t_packet &p)
 	else
 	{
 		iSadCount--;
-		if(UpdateNowSadonixCount(iSadCount))//ÇÑ°³ Áá´Ù 
+		if(UpdateNowSadonixCount(iSadCount))//í•œê°œ ì¤¬ë‹¤ 
 		{
 			// 030923 HK YGI
 			MyLog(1,"Give to Sadonix '%s' Now Count is '%d' Recommand ItemNo = %d",p.u.ConformSadonix.name, iSadCount, p.u.ConformSadonix.item.item_no);
@@ -248,8 +248,8 @@ void RecvCMD_CONFORM_SADONIX(const int cn, t_packet &p)
 			return;
 		}
 	}
-	//Çã°¡ ÆĞÅ¶ ¸¸µé¾î º¸³½´Ù.
-	//RecvCMD_Give_Sadonix¿¡¼­ ¹Ş´Â´Ù.
+	//í—ˆê°€ íŒ¨í‚· ë§Œë“¤ì–´ ë³´ë‚¸ë‹¤.
+	//RecvCMD_Give_Sadonixì—ì„œ ë°›ëŠ”ë‹¤.
 
 	t_packet sp = p;
 	sp.h.header.type = CMD_CONFORM_SADONIX;
@@ -265,7 +265,7 @@ void RecvCMD_CONFORM_SADONIX(const int cn, t_packet &p)
 
 int IsBlockedId(const char *check_name)
 {
-	return 0;//Áö±İÀº ÀÓ½Ã·Î ¹«Á¶°Ç ºí·ÎÅ· µÇÁö ¾Ê¾Ò´Ù°í ¸»ÇÑ´Ù
+	return 0;//ì§€ê¸ˆì€ ì„ì‹œë¡œ ë¬´ì¡°ê±´ ë¸”ë¡œí‚¹ ë˜ì§€ ì•Šì•˜ë‹¤ê³  ë§í•œë‹¤
 	SDWORD cbValue;
 
 	int		oksign=0;
@@ -282,18 +282,18 @@ int IsBlockedId(const char *check_name)
 	
 	int retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 
-	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)//Äõ¸®¿¡ ¼º°ø Çß°í
+	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)//ì¿¼ë¦¬ì— ì„±ê³µ í–ˆê³ 
 	{															
 		retCode = SQLFetch(hStmt);
 
 		switch(retCode)
 		{
-		case SQL_NO_DATA://±×ÀÌ¸§ÀÌ ±â·Ï µÇ¾î ÀÖÁö ¾Ê³×
+		case SQL_NO_DATA://ê·¸ì´ë¦„ì´ ê¸°ë¡ ë˜ì–´ ìˆì§€ ì•Šë„¤
 			{
 				SQLFreeStmt(hStmt, SQL_DROP);
 				return 0;//020802 lsw
 			}break;
-		default://ÀÌ¸§ÀÌ ±â·Ï µÇ¾î ÀÖ´Ù
+		default://ì´ë¦„ì´ ê¸°ë¡ ë˜ì–´ ìˆë‹¤
 			{
 				char Name[20];
 				retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,		Name,		20	, &cbValue);
@@ -322,13 +322,13 @@ int IsSecretKeyCodeOk(const char *szLogInID,const char *szSecretKeyCode)//020822
 	
 	char query[256]= {0, } ;
 
-	if(LocalMgr.IsAbleNation(CHINA))//Áß±¹Àº ÆĞ½º¿öµå ÈùÆ®
+	if(LocalMgr.IsAbleNation(CHINA))//ì¤‘êµ­ì€ íŒ¨ìŠ¤ì›Œë“œ íŒíŠ¸
 	{
-		::sprintf(query, "SELECT passwd_hint FROM chr_log_info WHERE (login_id = '%s')", szLogInID) ;//°èÁ¤ ¼±ÅÃ
+		::sprintf(query, "SELECT passwd_hint FROM chr_log_info WHERE (login_id = '%s')", szLogInID) ;//ê³„ì • ì„ íƒ
 	}
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-//	BBD 031107	1.1°ú 1.2´Â ¸»·¹ÀÌ°¡ ÆĞ½º¿öµå ÈùÆ®¸¦ »ç¿ëÇÑ´Ù
-//	¿ë¿À¾¾°¡ ¹Ù²Û ÄÚµå·Î ±³Ã¼ÇÔ
+//	BBD 031107	1.1ê³¼ 1.2ëŠ” ë§ë ˆì´ê°€ íŒ¨ìŠ¤ì›Œë“œ íŒíŠ¸ë¥¼ ì‚¬ìš©í•œë‹¤
+//	ìš©ì˜¤ì”¨ê°€ ë°”ê¾¼ ì½”ë“œë¡œ êµì²´í•¨
 /*
 	else if( LocalMgr.IsAbleNation(THAI|USA))
 	{
@@ -350,7 +350,7 @@ int IsSecretKeyCodeOk(const char *szLogInID,const char *szSecretKeyCode)//020822
 	}
 	else
 	{
-		::sprintf(query, "SELECT d_jumin FROM chr_log_info WHERE (login_id = '%s')", szLogInID) ;//°èÁ¤ ¼±ÅÃ
+		::sprintf(query, "SELECT d_jumin FROM chr_log_info WHERE (login_id = '%s')", szLogInID) ;//ê³„ì • ì„ íƒ
 	}
 
 	SQLRETURN retcode	= 0;
@@ -359,7 +359,7 @@ int IsSecretKeyCodeOk(const char *szLogInID,const char *szSecretKeyCode)//020822
 
 	HDBC &hDBCTemp = ((LocalMgr.IsAbleNation(JAPAN))?hDBC_NGCDB:hDBC_TotalDB);
 
-	::SQLAllocStmt(hDBCTemp, &hstmt);//µğºñ¼±ÅÃ
+	::SQLAllocStmt(hDBCTemp, &hstmt);//ë””ë¹„ì„ íƒ
 
 	retcode = ::SQLExecDirect(hstmt, (UCHAR *)query, SQL_NTS);
 
@@ -371,9 +371,9 @@ int IsSecretKeyCodeOk(const char *szLogInID,const char *szSecretKeyCode)//020822
 			char szTableKeyCode[51] = {0,};
 			retcode= ::SQLGetData(hstmt, 1, SQL_C_CHAR, szTableKeyCode, 50, &cbvalue);
 			
-			if(!::strcmp(szSecretKeyCode,szTableKeyCode))//Å°ÄÚµå°¡ °°´Ù¸é
+			if(!::strcmp(szSecretKeyCode,szTableKeyCode))//í‚¤ì½”ë“œê°€ ê°™ë‹¤ë©´
 			{
-				SQLFreeStmt(hstmt, SQL_DROP);//ÇÁ¸®ÈÄ
+				SQLFreeStmt(hstmt, SQL_DROP);//í”„ë¦¬í›„
 				return 1;
 			}
 			else
@@ -513,7 +513,7 @@ t_EventItem EventItem[MAX_EVENT_ITEM];
 
 int LoadEventRareItem()
 {
-	memset(EventItem,sizeof(EVENTITEM)*MAX_EVENT_ITEM,0);//Å¬¸®¾î
+	memset(EventItem,sizeof(EVENTITEM)*MAX_EVENT_ITEM,0);//í´ë¦¬ì–´
 
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -592,7 +592,7 @@ int MakeDefaultRareItem( ItemAttr *item, const int iItemNo, const int iSok1, con
 	bool bIsDynamic = false;
 
 	*item = GenerateItem( iItemNo );
-	if( !item->item_no ){ return -1;}		// ¾ÆÀÌÅÛ ¹øÈ£°¡ ÀÌ»óÇÏ´Ù.
+	if( !item->item_no ){ return -1;}		// ì•„ì´í…œ ë²ˆí˜¸ê°€ ì´ìƒí•˜ë‹¤.
 
 	CItem *t = ItemUnit( *item );
 	if( !t ) {	return -1;	}
@@ -603,7 +603,7 @@ int MakeDefaultRareItem( ItemAttr *item, const int iItemNo, const int iSok1, con
 	}
 	else
 	{
-		if( t->GetRbutton() == USE_ITEM )		// ´ÙÀÌ³ª¹Í ¾ÆÀÌÅÛ...
+		if( t->GetRbutton() == USE_ITEM )		// ë‹¤ì´ë‚˜ë¯¹ ì•„ì´í…œ...
 		{
 			bIsDynamic = true;
 		}
@@ -636,21 +636,21 @@ int MakeDefaultRareItem( ItemAttr *item, const int iItemNo, const int iSok1, con
 }
 
 
-int SetEventItemEmpty( CHARLIST *ch,  const int iIndex, ItemAttr &GiveItem )		// ºó ÀÎº¥Åä¸®¿¡ ¾ÆÀÌÅÛÀ» »ı¼ºÇØ¼­ Áı¾î ³Ö´Â´Ù. //1215
+int SetEventItemEmpty( CHARLIST *ch,  const int iIndex, ItemAttr &GiveItem )		// ë¹ˆ ì¸ë²¤í† ë¦¬ì— ì•„ì´í…œì„ ìƒì„±í•´ì„œ ì§‘ì–´ ë„£ëŠ”ë‹¤. //1215
 {
-	bool bIsGiveAble = true;//iIndex2 °ªÀÌ 0 ÀÌ¸é Àı´ë ¾ÈµË´Ï´Ù.
+	bool bIsGiveAble = true;//iIndex2 ê°’ì´ 0 ì´ë©´ ì ˆëŒ€ ì•ˆë©ë‹ˆë‹¤.
 	
 	for(int i = 0; MAX_EVENT_ITEM>i;i++)
 	{
-		if(iIndex == EventItem[i].iIndex )//ÀÎµ¦½º°¡ °°À¸¸é
+		if(iIndex == EventItem[i].iIndex )//ì¸ë±ìŠ¤ê°€ ê°™ìœ¼ë©´
 		{
 			LPEVENTITEM pEI = &EventItem[i];
-			if( !pEI->iItemNo){return 0;}//Å×ÀÌºí ÀÚÃ¼¿¡ °ªÀÌ ¾ø³×..
-			GiveItem = GenerateItem( pEI->iItemNo );//¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁÖ°í
-			if( !GiveItem.item_no){return 0;}//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ¾ø³×? ¤Ñ¤Ñ;;
+			if( !pEI->iItemNo){return 0;}//í…Œì´ë¸” ìì²´ì— ê°’ì´ ì—†ë„¤..
+			GiveItem = GenerateItem( pEI->iItemNo );//ì•„ì´í…œì„ ë§Œë“¤ì–´ ì£¼ê³ 
+			if( !GiveItem.item_no){return 0;}//ì•„ì´í…œ ë„˜ë²„ê°€ ì—†ë„¤? ã…¡ã…¡;;
 			
-			if(pEI->iRareKind1)//1¹øÂ° ¼Ó¼ºÀÌ ÀÖ´Â °ÍÀÌ¶ó¸é////·¹¾î¶ó¸é ·¹¾î¸¦ ÁÖ°í
-			{//·¹¾î¸¦ »ı¼ºÇØ º»´Ù
+			if(pEI->iRareKind1)//1ë²ˆì§¸ ì†ì„±ì´ ìˆëŠ” ê²ƒì´ë¼ë©´////ë ˆì–´ë¼ë©´ ë ˆì–´ë¥¼ ì£¼ê³ 
+			{//ë ˆì–´ë¥¼ ìƒì„±í•´ ë³¸ë‹¤
 			bIsGiveAble = MakeRareAttr(GiveItem.attr[IATTR_RARE_MAIN],
 				pEI->iGrade,pEI->iRareKind1,pEI->iRareKind2,pEI->iRareKind3,
 				pEI->iHighRare,pEI->isDynamic);
@@ -662,7 +662,7 @@ int SetEventItemEmpty( CHARLIST *ch,  const int iIndex, ItemAttr &GiveItem )		//
 				*item  = GiveItem;
 				return 1;
 			}
-			else //ºóÀÚ¸®°¡ ¾ø´Ù¸é
+			else //ë¹ˆìë¦¬ê°€ ì—†ë‹¤ë©´
 			{
 				if(bIsGiveAble)
 				{
@@ -681,22 +681,22 @@ int SetEventItemEmpty( CHARLIST *ch,  const int iIndex, ItemAttr &GiveItem )		//
 	return 0;
 }
 
-//<! BBD 040308	³Ñ¾î¿Â ÀÎµ¦½º¿¡ ÇØ´çµÇ´Â ¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁØ´Ù
+//<! BBD 040308	ë„˜ì–´ì˜¨ ì¸ë±ìŠ¤ì— í•´ë‹¹ë˜ëŠ” ì•„ì´í…œì„ ë§Œë“¤ì–´ ì¤€ë‹¤
 ItemAttr MakeEventItem(int nIndex)
 {
 	ItemAttr item;
 	memset(&item, 0L, sizeof(ItemAttr));
 	
-	if(!nIndex)		// ÀÎµ¦½º°¡ 0ÀÌ¸é ³»¿ë¾ø´Â ¾ÆÀÌÅÛÀÌ ¸®ÅÏ
+	if(!nIndex)		// ì¸ë±ìŠ¤ê°€ 0ì´ë©´ ë‚´ìš©ì—†ëŠ” ì•„ì´í…œì´ ë¦¬í„´
 	{
 		return item;
 	}
 
-	if(nIndex != EventItem[nIndex-1].iIndex)	// EventRareItem Å×ÀÌºíÀÇ ÀÎµ¦½º°¡ Àß¸ø Á¤·ÄµÇ¾îÀÖ´Ù
+	if(nIndex != EventItem[nIndex-1].iIndex)	// EventRareItem í…Œì´ë¸”ì˜ ì¸ë±ìŠ¤ê°€ ì˜ëª» ì •ë ¬ë˜ì–´ìˆë‹¤
 	{
-		// ¿©±â¼­ Å×ÀÌºíÀÌ Àß¸øµÇ¾ú´Ù´Â ·Î±×¸¦ ³²°ÜÁÖÀÚ
+		// ì—¬ê¸°ì„œ í…Œì´ë¸”ì´ ì˜ëª»ë˜ì—ˆë‹¤ëŠ” ë¡œê·¸ë¥¼ ë‚¨ê²¨ì£¼ì
 		MyLog(0,"EventRareItem Table is WRONG!!! Check plz");						
-		return item;		// ¿ª½Ã ºó ¾ÆÀÌÅÛ ¸®ÅÏ
+		return item;		// ì—­ì‹œ ë¹ˆ ì•„ì´í…œ ë¦¬í„´
 	}
 
 
@@ -704,23 +704,23 @@ ItemAttr MakeEventItem(int nIndex)
 	if( !pEI->iItemNo)
 	{
 		return item;
-	}//Å×ÀÌºí ÀÚÃ¼¿¡ °ªÀÌ ¾ø³×..
-	item = GenerateItem( pEI->iItemNo );//¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁÖ°í
+	}//í…Œì´ë¸” ìì²´ì— ê°’ì´ ì—†ë„¤..
+	item = GenerateItem( pEI->iItemNo );//ì•„ì´í…œì„ ë§Œë“¤ì–´ ì£¼ê³ 
 	if( !item.item_no)
 	{
 		return item;
-	}//¾ÆÀÌÅÛ ³Ñ¹ö°¡ ¾ø³×? ¤Ñ¤Ñ;;
+	}//ì•„ì´í…œ ë„˜ë²„ê°€ ì—†ë„¤? ã…¡ã…¡;;
 	
-	if(pEI->iRareKind1)//1¹øÂ° ¼Ó¼ºÀÌ ÀÖ´Â °ÍÀÌ¶ó¸é////·¹¾î¶ó¸é ·¹¾î¸¦ ÁÖ°í
-	{//·¹¾î¸¦ »ı¼ºÇØ º»´Ù
+	if(pEI->iRareKind1)//1ë²ˆì§¸ ì†ì„±ì´ ìˆëŠ” ê²ƒì´ë¼ë©´////ë ˆì–´ë¼ë©´ ë ˆì–´ë¥¼ ì£¼ê³ 
+	{//ë ˆì–´ë¥¼ ìƒì„±í•´ ë³¸ë‹¤
 		MakeRareAttr(item.attr[IATTR_RARE_MAIN],pEI->iGrade,pEI->iRareKind1,pEI->iRareKind2,pEI->iRareKind3,
 			pEI->iHighRare,pEI->isDynamic);
 	}
 
-	// ¾ÆÀÌÅÛÀÌ ¿Ï¼ºµÇ¾ú´Ù
+	// ì•„ì´í…œì´ ì™„ì„±ë˜ì—ˆë‹¤
 	return item;
 }
-//> BBD 040308	³Ñ¾î¿Â ÀÎµ¦½º¿¡ ÇØ´çµÇ´Â ¾ÆÀÌÅÛÀ» ¸¸µé¾î ÁØ´Ù
+//> BBD 040308	ë„˜ì–´ì˜¨ ì¸ë±ìŠ¤ì— í•´ë‹¹ë˜ëŠ” ì•„ì´í…œì„ ë§Œë“¤ì–´ ì¤€ë‹¤
 
 int HaveAbilityResetList(char *szName,const bool bIsDayCheck)//020822 lsw
 {
@@ -730,20 +730,20 @@ int HaveAbilityResetList(char *szName,const bool bIsDayCheck)//020822 lsw
 
 	SQLAllocStmt(hDBC, &hStmt);
 	char	szQuerry[255] = {0,};
-	if(bIsDayCheck)//Äõ¸®°¡ ³¯Â¥ Ã¼Å© ÇÑ´Ù
+	if(bIsDayCheck)//ì¿¼ë¦¬ê°€ ë‚ ì§œ ì²´í¬ í•œë‹¤
 	{
 		if(LocalMgr.IsAbleNation(KOREA))//021007 lsw
 		{
-			sprintf(szQuerry, "Select [name] from AbilityResetDate where [name] = '%s'  AND [date] < (getdate()-30)",  szName);//30ÀÏ ÀÌÀü¿¡¼­ ¸®½ºÆ®°¡ ÀÖ´À³Ä
+			sprintf(szQuerry, "Select [name] from AbilityResetDate where [name] = '%s'  AND [date] < (getdate()-30)",  szName);//30ì¼ ì´ì „ì—ì„œ ë¦¬ìŠ¤íŠ¸ê°€ ìˆëŠëƒ
 		}
-		else	//ÇÑ±¹Àº 30ÀÏ ³ª¸ÓÁö ±¹°¡´Â 90ÀÏ ¸¶´Ù ÇÑ¹ø¾¿
+		else	//í•œêµ­ì€ 30ì¼ ë‚˜ë¨¸ì§€ êµ­ê°€ëŠ” 90ì¼ ë§ˆë‹¤ í•œë²ˆì”©
 		{
-			sprintf(szQuerry, "Select [name] from AbilityResetDate where [name] = '%s'  AND [date] < (getdate()-90)",  szName);//30ÀÏ ÀÌÀü¿¡¼­ ¸®½ºÆ®°¡ ÀÖ´À³Ä
+			sprintf(szQuerry, "Select [name] from AbilityResetDate where [name] = '%s'  AND [date] < (getdate()-90)",  szName);//30ì¼ ì´ì „ì—ì„œ ë¦¬ìŠ¤íŠ¸ê°€ ìˆëŠëƒ
 		}
 	}
-	else//Äõ¸®°¡ ÀÌ¸§¸¸ ÀÖ´ÂÁö º»´Ù
+	else//ì¿¼ë¦¬ê°€ ì´ë¦„ë§Œ ìˆëŠ”ì§€ ë³¸ë‹¤
 	{
-		sprintf(szQuerry, "Select [name] from AbilityResetDate where [name] = '%s'",  szName);//¸®½ºÆ®°¡ ÀÖ´À³Ä
+		sprintf(szQuerry, "Select [name] from AbilityResetDate where [name] = '%s'",  szName);//ë¦¬ìŠ¤íŠ¸ê°€ ìˆëŠëƒ
 	}
 
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
@@ -770,11 +770,11 @@ int UpdateAbilityResetList(char *szName, const bool bIsUpdate)
 
 	SQLAllocStmt(hDBC, &hStmt);
 	char	szQuerry[255] = {0,};
-	if(bIsUpdate)//Äõ¸®°¡ Update... ¾îÂ¼°í
+	if(bIsUpdate)//ì¿¼ë¦¬ê°€ Update... ì–´ì©Œê³ 
 	{
 		sprintf(szQuerry, "update AbilityResetDate set [date] = getdate() where name = '%s'",szName);
 	}
-	else//Äõ¸®°¡ Insert... ¾îÂ¼°í
+	else//ì¿¼ë¦¬ê°€ Insert... ì–´ì©Œê³ 
 	{
 		sprintf(szQuerry, "insert into AbilityResetDate ([name]) values ('%s')",szName);
 	}
@@ -793,13 +793,13 @@ void RecvCMD_COMFORM_RESET_ABILITY(const int cn, t_packet &p)//020821-2 lsw
 	char szName[21] = {0,};
 	memcpy(szName, p.u.ComformResetAbililty.szName,20);
 	bool bIsAbility = 0;
-	//Äõ¸®	//ÀÌ ÀÌ¸§À¸·Î µÈ ³ğÀÇ ±â·ÏÀÌ ÀÖ´Â°¡. (1)
-	if(HaveAbilityResetList(szName,false))//ÀÖ´Ù¸é
-	{	//Áö±İºÎÅÍ ÇÑ´ŞÀü º¸´Ù °ú°ÅÀÇ ³¯Â¥ÀÇ ÀÌ¸§À¸·Î °Ë»öÇÏ¿© (2)
+	//ì¿¼ë¦¬	//ì´ ì´ë¦„ìœ¼ë¡œ ëœ ë†ˆì˜ ê¸°ë¡ì´ ìˆëŠ”ê°€. (1)
+	if(HaveAbilityResetList(szName,false))//ìˆë‹¤ë©´
+	{	//ì§€ê¸ˆë¶€í„° í•œë‹¬ì „ ë³´ë‹¤ ê³¼ê±°ì˜ ë‚ ì§œì˜ ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰í•˜ì—¬ (2)
 		if(HaveAbilityResetList(szName,true))
-		{//ÀÌ¹ø¿¡µµ ±â·Ï °Ë»öÀÌ µÇ¸é ¾îºô¸®Æ¼ ÀçºĞ¹è°¡ °¡´ÉÇÏ´Ù.
-			if(UpdateAbilityResetList(szName,true))//¾÷µ¥ÀÌÆ®°¡ ¼º°ø ÇÏ¸é
-			{//ÀçºĞ¹è ÆĞÅ¶ º¸³»´Â ÇÃ·¡±× On
+		{//ì´ë²ˆì—ë„ ê¸°ë¡ ê²€ìƒ‰ì´ ë˜ë©´ ì–´ë¹Œë¦¬í‹° ì¬ë¶„ë°°ê°€ ê°€ëŠ¥í•˜ë‹¤.
+			if(UpdateAbilityResetList(szName,true))//ì—…ë°ì´íŠ¸ê°€ ì„±ê³µ í•˜ë©´
+			{//ì¬ë¶„ë°° íŒ¨í‚· ë³´ë‚´ëŠ” í”Œë˜ê·¸ On
 				bIsAbility = 1;
 			}
 			else
@@ -812,11 +812,11 @@ void RecvCMD_COMFORM_RESET_ABILITY(const int cn, t_packet &p)//020821-2 lsw
 			MyLog(0,"AbilityResetList Time Too Short");
 		}
 	}
-	else//¾ø´Ù¸é
-	{	//Insert ½ÃÅ°°í 
-		//¾îºô¸®Æ¼ ÀçºĞ¹è°¡ °¡´ÉÇÏ´Ù.//ÀçºĞ¹è ÆĞÅ¶ º¸³»´Â ÇÃ·¡±× On
+	else//ì—†ë‹¤ë©´
+	{	//Insert ì‹œí‚¤ê³  
+		//ì–´ë¹Œë¦¬í‹° ì¬ë¶„ë°°ê°€ ê°€ëŠ¥í•˜ë‹¤.//ì¬ë¶„ë°° íŒ¨í‚· ë³´ë‚´ëŠ” í”Œë˜ê·¸ On
 		if(UpdateAbilityResetList(szName,false))
-		{//ÀçºĞ¹è ÆĞÅ¶ º¸³»´Â ÇÃ·¡±× On
+		{//ì¬ë¶„ë°° íŒ¨í‚· ë³´ë‚´ëŠ” í”Œë˜ê·¸ On
 			bIsAbility = 1;
 		}
 		else
@@ -825,9 +825,9 @@ void RecvCMD_COMFORM_RESET_ABILITY(const int cn, t_packet &p)//020821-2 lsw
 		}
 	}
 
-	p.u.ComformResetAbililty.iIsAble = bIsAbility;//ÇÃ·¡±× ÀúÀå ÇÏ°í 
+	p.u.ComformResetAbililty.iIsAble = bIsAbility;//í”Œë˜ê·¸ ì €ì¥ í•˜ê³  
 	
-	QueuePacket(connections,cn,&p,1);//¸Ê¼­¹ö·Î µ¹·Áº¸³½´Ù
+	QueuePacket(connections,cn,&p,1);//ë§µì„œë²„ë¡œ ëŒë ¤ë³´ë‚¸ë‹¤
 }
 
 bool CheckRookieServerAble(const int iLv)
@@ -836,7 +836,7 @@ bool CheckRookieServerAble(const int iLv)
 
 	if(	iRookieLv 
 	&&  iRookieLv < iLv)
-	{//¼³Á¤ÇÑ ·¹º§ º¸´Ù ³ô±â ¶§¹®¿¡ µé¾î °¥ ¼ö ¾ø´Ù.
+	{//ì„¤ì •í•œ ë ˆë²¨ ë³´ë‹¤ ë†’ê¸° ë•Œë¬¸ì— ë“¤ì–´ ê°ˆ ìˆ˜ ì—†ë‹¤.
 		return false;
 	}
 	return true;
@@ -846,7 +846,7 @@ void RecvCMD_SELECTED_CHAR_RESULT_CLIENT_BOTH_DB_DEMON(t_connection c[], DWORD c
 {
 	const int iMyLv = p.u.Hwoa.rang.SelectedCharResult.iLv;
 	if(!CheckRookieServerAble(iMyLv))
-	{//ÃÊº¸¼­¹ö ·¾ Á¦ÇÑ °É¸².
+	{//ì´ˆë³´ì„œë²„ ë ™ ì œí•œ ê±¸ë¦¼.
 		p.u.Hwoa.rang.SelectedCharResult.iKey = 0;
 	}
 	else
@@ -884,28 +884,28 @@ int HandleCommand2(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUs
 		{
 			Auction.RecvCMD_MERCHANT_BUY_LIST_REQUEST(cn,*packet);
 		}break;
-	case	CMD_MERCHANT_ITEM_BUY_COMFORM://COMFORM ¹Ş¾Ò±â ¶§¹®¿¡ is end Ã¼Å©¸¦ ÇØ ÁÖµµ·Ï
-		{//¸ÊÀ¸·Î ºÎÅÍ ¹Ş´Â´Ù
+	case	CMD_MERCHANT_ITEM_BUY_COMFORM://COMFORM ë°›ì•˜ê¸° ë•Œë¬¸ì— is end ì²´í¬ë¥¼ í•´ ì£¼ë„ë¡
+		{//ë§µìœ¼ë¡œ ë¶€í„° ë°›ëŠ”ë‹¤
 			Auction.RecvCMD_MERCHANT_ITEM_BUY_COMFORM(cn,*packet);
 		}break;
-	case	CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT://ÀÔ±İÀÌ µé¾î¿Ô´Ù
-		{//µ·À» »¯¾ÒÀ¸´Ï IsEnd¸¦ Àß Ã¼Å© ÇÏÀÚ
+	case	CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT://ì…ê¸ˆì´ ë“¤ì–´ì™”ë‹¤
+		{//ëˆì„ ëºì•˜ìœ¼ë‹ˆ IsEndë¥¼ ì˜ ì²´í¬ í•˜ì
 			Auction.RecvCMD_MERCHANT_ITEM_BUY_COMFORM_RESULT(cn,*packet);
 		}break;
-	case	CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM://µî·Ï °¡´É °¹¼ö¸¦ Ã¼Å©ÇÑ´Ù
+	case	CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM://ë“±ë¡ ê°€ëŠ¥ ê°¯ìˆ˜ë¥¼ ì²´í¬í•œë‹¤
 		{
-			Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM(cn,*packet);//µî·Ï °¡´É °¹¼ö¸¦ Ã¼Å©ÇÑ´Ù
+			Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM(cn,*packet);//ë“±ë¡ ê°€ëŠ¥ ê°¯ìˆ˜ë¥¼ ì²´í¬í•œë‹¤
 		}break;
-	case	CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT://µî·Ï °¡´É °¹¼ö¸¦ Ã¼Å©ÇÑ´Ù
+	case	CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT://ë“±ë¡ ê°€ëŠ¥ ê°¯ìˆ˜ë¥¼ ì²´í¬í•œë‹¤
 		{
-			Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(cn,*packet);//µî·Ï °¡´É °¹¼ö¸¦ Ã¼Å©ÇÑ´Ù
+			Auction.RecvCMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT(cn,*packet);//ë“±ë¡ ê°€ëŠ¥ ê°¯ìˆ˜ë¥¼ ì²´í¬í•œë‹¤
 		}break;
-		//»èÁ¦ ÇÏ±â 
-	case CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM://µğºñ·Î ºÎÅÍ ÆÇ¸ÅÃë¼Ò °¡´ÉÇÑÁö ¹Ş´Â´Ù
+		//ì‚­ì œ í•˜ê¸° 
+	case CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM://ë””ë¹„ë¡œ ë¶€í„° íŒë§¤ì·¨ì†Œ ê°€ëŠ¥í•œì§€ ë°›ëŠ”ë‹¤
 		{
 			Auction.RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM(cn,*packet);
 		}break;
-	case CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT://µğºñ·Î ºÎÅÍ ÆÇ¸ÅÃë¼ÒÇÑ °á°ú¸¦ ¹Ş´Â´Ù
+	case CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT://ë””ë¹„ë¡œ ë¶€í„° íŒë§¤ì·¨ì†Œí•œ ê²°ê³¼ë¥¼ ë°›ëŠ”ë‹¤
 		{
 			Auction.RecvCMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT(cn,*packet);
 		}break;
@@ -921,44 +921,44 @@ int HandleCommand2(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUs
 		{
 			Auction.RecvCMD_MERCHANT_RESULT_TAKE_COMFORM_RESULT(cn,*packet);
 		}break;
-	//<! BBD 040226 ÆÇ¸Å Ãë¼Ò·Î ·¹ÄÚµå »èÁ¦ ¿äÃ»
+	//<! BBD 040226 íŒë§¤ ì·¨ì†Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ìš”ì²­
 	case CMD_MERCHANT_RECORD_DEL_CANCLE:
 		{
 			Auction.RecvCMD_MERCHANT_RECORD_DEL_CANCLE(cn, *packet);
 		}break;
-	//>  BBD 040226 ÆÇ¸Å Ãë¼Ò·Î ·¹ÄÚµå »èÁ¦ ¿äÃ»
-	//<! BBD 040226 °Å·¡ Á¾·á·Î ·¹ÄÚµå »èÁ¦ ¿äÃ»
+	//>  BBD 040226 íŒë§¤ ì·¨ì†Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ìš”ì²­
+	//<! BBD 040226 ê±°ë˜ ì¢…ë£Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ìš”ì²­
 	case CMD_MERCHANT_RECORD_DEL_COMPLETE:
 		{
 			Auction.RecvCMD_MERCHANT_RECORD_DEL_COMPLETE(cn, *packet);
 		}break;
-	//>  BBD 040226 °Å·¡ Á¾·á·Î ·¹ÄÚµå »èÁ¦ ¿äÃ»
-	//<!  BBD 040303 ¸ÓÃµÆ® ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ ¸®½ºÆ® ¿äÃ»
+	//>  BBD 040226 ê±°ë˜ ì¢…ë£Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ìš”ì²­
+	//<!  BBD 040303 ë¨¸ì²œíŠ¸ ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
 	case CMD_MERCHANT_BACKUP_LIST_REQUEST:
 		{
 			Auction.RecvCMD_MERCHANT_BACKUP_LIST_REQUEST(cn,*packet);
 		}break;
-	//>  BBD 040303 ¸ÓÃµÆ® ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ ¸®½ºÆ® ¿äÃ»
-	//<! BBD 040303	¸ÓÃµÆ® º¤¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ Áö±Ş ¿äÃ»
+	//>  BBD 040303 ë¨¸ì²œíŠ¸ ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ë¦¬ìŠ¤íŠ¸ ìš”ì²­
+	//<! BBD 040303	ë¨¸ì²œíŠ¸ ë²¡ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ì§€ê¸‰ ìš”ì²­
 	case CMD_MERCHANT_BACKUP_TAKE_REQUEST:
 		{
 			Auction.RecvCMD_MERCHANT_BACKUP_TAKE_REQUEST(cn, *packet);
 		}break;
-	//> BBD 040303	¸ÓÃµÆ® º¤¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛ Áö±Ş ¿äÃ»
-	//<! BBD 040303	¸Ê¼­¹ö·ÎºÎÅÍ ¹ŞÀº ¸ÓÃµÆ® ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛÁö±Ş ¼º°ø¿©ºÎ 
+	//> BBD 040303	ë¨¸ì²œíŠ¸ ë²¡ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œ ì§€ê¸‰ ìš”ì²­
+	//<! BBD 040303	ë§µì„œë²„ë¡œë¶€í„° ë°›ì€ ë¨¸ì²œíŠ¸ ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œì§€ê¸‰ ì„±ê³µì—¬ë¶€ 
 	case CMD_MERCHANT_BACKUP_TAKE_RESPONSE:
 		{
 			Auction.RecvCMD_MERCHANT_BACKUP_TAKE_RESPONSE(cn, *packet);
 		}break;
-	//> BBD 040303 ¸Ê¼­¹ö·ÎºÎÅÍ ¹ŞÀº ¸ÓÃµÆ® ¹é¾÷Å×ÀÌºíÀÇ ¾ÆÀÌÅÛÁö±Ş ¼º°ø¿©ºÎ
-	//<! BBD 040308	¸ÊÀ¸·ÎºÎÅÍ ÀÌº¥Æ®¾ÆÀÌÅÛ Áö±ŞÈ®ÀÎ ¿äÃ»
+	//> BBD 040303 ë§µì„œë²„ë¡œë¶€í„° ë°›ì€ ë¨¸ì²œíŠ¸ ë°±ì—…í…Œì´ë¸”ì˜ ì•„ì´í…œì§€ê¸‰ ì„±ê³µì—¬ë¶€
+	//<! BBD 040308	ë§µìœ¼ë¡œë¶€í„° ì´ë²¤íŠ¸ì•„ì´í…œ ì§€ê¸‰í™•ì¸ ìš”ì²­
 	case CMD_EVENTRAREITEM_REQ:
 		{
 			PutEventItemByMapReq(cn, *packet);			
 			break;
 		}
-	//> BBD 040308	¸ÊÀ¸·ÎºÎÅÍ ÀÌº¥Æ®¾ÆÀÌÅÛ Áö±ŞÈ®ÀÎ ¿äÃ»
-	case CMD_MERCHANT_SELL_ITEM_INFO_REQUEST://¸ÊÀ¸·Î ºÎÅÍ ¿äÃ»À» ¹Ş´Â´Ù
+	//> BBD 040308	ë§µìœ¼ë¡œë¶€í„° ì´ë²¤íŠ¸ì•„ì´í…œ ì§€ê¸‰í™•ì¸ ìš”ì²­
+	case CMD_MERCHANT_SELL_ITEM_INFO_REQUEST://ë§µìœ¼ë¡œ ë¶€í„° ìš”ì²­ì„ ë°›ëŠ”ë‹¤
 		{
 			Auction.RecvCMD_MERCHANT_SELL_LIST_REQUEST(cn,*packet);
 		}break;
@@ -970,7 +970,7 @@ int HandleCommand2(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUs
 		{
 			RecvCMD_SELECTED_CHAR_RESULT_CLIENT_BOTH_DB_DEMON(c, cn,*packet);
 		}break;
-	case CMD_MAIL_REQUEST_LIST://¸ŞÀÏ ¸®½ºÆ®¸¦ ¿äÃ» ¹Ş¾Ò´Ù
+	case CMD_MAIL_REQUEST_LIST://ë©”ì¼ ë¦¬ìŠ¤íŠ¸ë¥¼ ìš”ì²­ ë°›ì•˜ë‹¤
 		{
 			g_MailMgr.RecvReqMailList(cn,packet);
 		}break;

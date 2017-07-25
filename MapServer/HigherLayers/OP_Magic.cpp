@@ -1,4 +1,4 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "..\LowerLayers\mylog.h"
 #include "..\LowerLayers\protocol.h"
 #include "..\LowerLayers\servertable.h"
@@ -39,15 +39,15 @@ extern int  BreakItemByDuration( CHARLIST *ch, POS pos );
 
 extern NPC_Generation		NPC_Gen_Ref[Num_Of_NPC_Generation] ;
 
-///////////////////////// 0726 lkh Ãß°¡ ///////////////////////////
-extern void TameNpcAI( LPCHARLIST master );			//ÁÖÀÎ¿¡°Ô ¼ÓÇØ ÀÖ´Â Å×¹ÖNPCÀÇ Çàµ¿À» Á¦¾î
+///////////////////////// 0726 lkh ì¶”ê°€ ///////////////////////////
+extern void TameNpcAI( LPCHARLIST master );			//ì£¼ì¸ì—ê²Œ ì†í•´ ìˆëŠ” í…Œë°NPCì˜ í–‰ë™ì„ ì œì–´
 
-///////////////////////// 0803 lkh Ãß°¡ ///////////////////////////
+///////////////////////// 0803 lkh ì¶”ê°€ ///////////////////////////
 extern void SendSkillResult( int cn, int skillno, int target_id, int x, int y, int result );
 extern void SendNK( int id, int nk );
 extern void SendNK( int id, int nk3, int nk4, int nk6 );
 
-//////////////////////// 0809 lkh Ãß°¡ /////////////////////////////
+//////////////////////// 0809 lkh ì¶”ê°€ /////////////////////////////
 extern bool CanBattleArea( LPCHARLIST a, LPCHARLIST  d);
 extern void CheckNK( int a_id, int d_id, int type  );
 extern void InNK( LPCHARLIST ch, int nation, short int add_nk );
@@ -71,7 +71,7 @@ void Fight_Stone_End(int cn, int flag);
 static BOOL	 result;  
 static int	 dice1, dice2 ;
 
-// ¸¶¹ıµ¥¹ÌÁö »êÃâ½Ã °¢ Å¬·¹½ºº° »ó¼º°ü°è Å×ÀÌºí
+// ë§ˆë²•ë°ë¯¸ì§€ ì‚°ì¶œì‹œ ê° í´ë ˆìŠ¤ë³„ ìƒì„±ê´€ê³„ í…Œì´ë¸”
 int		classCorrection[5][5]={0,-1,0,0,-1, 1,0,0,-1,0, 0,0,0,1,1, 0,1,-1,0,0, -1,0,1,0,0 };
 
 
@@ -104,16 +104,16 @@ void SendViewType(CHARLIST *target, int view_Type, int continue_Time)
 	packet.u.angra.server_magicviewtype.view_Type	= view_Type;
 	packet.u.angra.server_magicviewtype.second_Time	= continue_Time;
 	
-	if( target_id < 10000 )		//PCÀÎ °æ¿ì¸¸ º¸³¿
+	if( target_id < 10000 )		//PCì¸ ê²½ìš°ë§Œ ë³´ëƒ„
 	{
-		QueuePacket(connections, target_id, &packet, 1);	//´ë»óÃ¼¿¡°Ô Àü¼Û
-		CastMe2Other( target_id, &packet );					//´ë»óÃ¼¸¦ ¹Ù¶óº¸°í ÀÖ´Â ¸ğµç PC
+		QueuePacket(connections, target_id, &packet, 1);	//ëŒ€ìƒì²´ì—ê²Œ ì „ì†¡
+		CastMe2Other( target_id, &packet );					//ëŒ€ìƒì²´ë¥¼ ë°”ë¼ë³´ê³  ìˆëŠ” ëª¨ë“  PC
 	}
 	else
-		CastMe2Other( target_id-10000, &packet );			//´ë»óÃ¼¸¦ ¹Ù¶óº¸°í ÀÖ´Â ¸ğµç PC
+		CastMe2Other( target_id-10000, &packet );			//ëŒ€ìƒì²´ë¥¼ ë°”ë¼ë³´ê³  ìˆëŠ” ëª¨ë“  PC
 }	
 
-// PC/NPCÀÇ »óÅÂ/Ã¼·ÂÄ¡º¯È­¸¦ ¾Ë¸®´Â ÇÔ¼ö
+// PC/NPCì˜ ìƒíƒœ/ì²´ë ¥ì¹˜ë³€í™”ë¥¼ ì•Œë¦¬ëŠ” í•¨ìˆ˜
 void SendCharacterCondition(CHARLIST* lpChar, int change_HP)
 {
 	t_packet p;
@@ -137,12 +137,12 @@ void SendCharacterCondition(CHARLIST* lpChar, int change_HP)
 }
 
 bool SummonMonster(CHARLIST* pMaster, int nCreate, int nX, int nY)
-{ // ¸ó½ºÅÍ ¼ÒÈ¯
-	// »ì¾ÆÀÖ´Â NPCÀÇ ¸¶Áö¸· ¸ó½ºÅÍÀÇ ID ±¸ÇÏ±â
+{ // ëª¬ìŠ¤í„° ì†Œí™˜
+	// ì‚´ì•„ìˆëŠ” NPCì˜ ë§ˆì§€ë§‰ ëª¬ìŠ¤í„°ì˜ ID êµ¬í•˜ê¸°
 	const int nNumber = GetAliveNPCList();	
 	if (nNumber == -1)  return false;
 	MyLog(LOG_NORMAL, "SummonMonster : %d", nCreate); // CSD-LOG
-	// NPC »ı¼º
+	// NPC ìƒì„±
 	if (pMaster->IsPlayer())
 	{
 		if (::NPC_Create(nNumber, nCreate, nX, nY, -1, 0, GT_SKILL_SUMMON) == 0)
@@ -157,10 +157,10 @@ bool SummonMonster(CHARLIST* pMaster, int nCreate, int nX, int nY)
 			return false;
 		}  
 	}
-	// ¼ÒÈ¯¸ó Áõ°¡  
+	// ì†Œí™˜ëª¬ ì¦ê°€  
 	const WORD idMaster = pMaster->GetServerID();
 	pMaster->m_xSummon.Increase(nNumber);
-	// ¼ÒÈ¯¸óÀ¸·Î ¼³Á¤
+	// ì†Œí™˜ëª¬ìœ¼ë¡œ ì„¤ì •
 	CHARLIST*	pFollowing = &NPCList[nNumber];
 	pFollowing->SetMaster(idMaster);
 	pFollowing->viewtype = VIEWTYPE_STAND_UP_;
@@ -180,7 +180,7 @@ bool SummonMonster(CHARLIST* pMaster, int nCreate, int nX, int nY)
 		strcpy(pFollowing->HostName, connections[idMaster].chrlst.Name);
 	}
 	
-	RunArea(connections);	// ¼ÒÈ¯¸ó È£Ãâ	 
+	RunArea(connections);	// ì†Œí™˜ëª¬ í˜¸ì¶œ	 
 	
 	if (pMaster->IsPlayer())
 	{
@@ -189,7 +189,7 @@ bool SummonMonster(CHARLIST* pMaster, int nCreate, int nX, int nY)
 		SendNPC_Parameter(idFollowing, NPC_PARAMETER_OLDPATTERNTYPE, pFollowing->oldpatterntype);
 		SendNPC_Parameter(idFollowing, NPC_PARAMETER_PATTERNTYPE, pFollowing->patterntype);
 		SendToAllHostName(idFollowing, pFollowing);
-		// ¼ÒÈ¯¸ó Çàµ¿ Ã³¸®
+		// ì†Œí™˜ëª¬ í–‰ë™ ì²˜ë¦¬
 		t_tame_command packet;
 		packet.cmd = LC_TAME_FOLLOWME;
 		strcpy(packet.mybaby, pFollowing->Name);
@@ -222,7 +222,7 @@ bool FollowSummon(WORD idFollowing, WORD idMaster)
 void KillMonster(WORD wNumber)
 {
 	if (wNumber >= NPC_LIST_START && wNumber < MAX_NPC_LIST)
-	{ // ¸ó½ºÅÍÀÇ ID°¡ À¯È¿ÇÑÁö ¿©ºÎ °Ë»ç
+	{ // ëª¬ìŠ¤í„°ì˜ IDê°€ ìœ íš¨í•œì§€ ì—¬ë¶€ ê²€ì‚¬
 		CHARLIST* pTarget = &NPCList[wNumber];
 		
 		if (pTarget != NULL)
@@ -239,18 +239,18 @@ void CheckCharacterCondition(CHARLIST* pTarget)
 	if (pTarget->IsPlayer())
 	{
 		if (pTarget->GetState() == CON_DEATH)
-		{ // ¼ÒÈ¯µÈ ¸ó½ºÅÍ°¡ ÀÖ´Ù¸é ÀüºÎ Á¦°Å
+		{ // ì†Œí™˜ëœ ëª¬ìŠ¤í„°ê°€ ìˆë‹¤ë©´ ì „ë¶€ ì œê±°
 			pTarget->m_xSummon.Remove(KillMonster); 
 		}
 	}
-	// À¯Áö½Ã°£ÀÌ Áö³­ ¸¶¹ı¿¡ ´ëÇÏ¿© »óÅÂ¸¦ È¸º¹
+	// ìœ ì§€ì‹œê°„ì´ ì§€ë‚œ ë§ˆë²•ì— ëŒ€í•˜ì—¬ ìƒíƒœë¥¼ íšŒë³µ
 	pTarget->Recovery(g_curr_time);
 }
 
 void CheckTransparency(CHARLIST* pTarget, bool bAuto)
 {
 	if (bAuto)  
-	{ // ÀÚµ¿À¸·Î Á¾·áµÇµµ·Ï ¼³Á¤
+	{ // ìë™ìœ¼ë¡œ ì¢…ë£Œë˜ë„ë¡ ì„¤ì •
 		pTarget->dwTransparency = 0;
 	}
 	
@@ -261,10 +261,10 @@ void CheckTransparency(CHARLIST* pTarget, bool bAuto)
 	}
 }
 
-////////////////////////// 0811 lkh ¼öÁ¤ - Æ¯Á¤ Å¬¶óÀÌ¾ğÆ®¿¡°Ô¸¸ Àü¼Û //////////////////////////
+////////////////////////// 0811 lkh ìˆ˜ì • - íŠ¹ì • í´ë¼ì´ì–¸íŠ¸ì—ê²Œë§Œ ì „ì†¡ //////////////////////////
 void SendMagicCommand(CHARLIST* lpChar, short int slot1, short int slot2, short int slot3)
 {
-	////////////////////// 0308 lkh Ãß°¡ ///////////////////////
+	////////////////////// 0308 lkh ì¶”ê°€ ///////////////////////
 	if(lpChar->GetServerID() == 0)	return;
 	
 	t_packet p;
@@ -278,25 +278,25 @@ void SendMagicCommand(CHARLIST* lpChar, short int slot1, short int slot2, short 
 	QueuePacket( connections, lpChar->GetServerID(), &p, 1);
 }
 
-int	 CorrectionMagicState(CHARLIST *target, int total_MagicDamage, int magic_No)	//°¢ °è¿­º° »ó¼º ¹× ¹è°æ¿¡ µû¸¥ º¸Á¤
+int	 CorrectionMagicState(CHARLIST *target, int total_MagicDamage, int magic_No)	//ê° ê³„ì—´ë³„ ìƒì„± ë° ë°°ê²½ì— ë”°ë¥¸ ë³´ì •
 {					
 	int correction_Rate =0;
 	
-	//°¢ °è¿­º° »ó¼º/º¸Á¤ ¼öÄ¡ Àû¿ë
+	//ê° ê³„ì—´ë³„ ìƒì„±/ë³´ì • ìˆ˜ì¹˜ ì ìš©
 	switch(Magic_Ref[magic_No].order_Type)
 	{				
-	case 1://»ı		
-	case 2://»ç		
-	case 3://ÀÏ¹İ	
-	case 4://È­¿°	
-	case 5://ºù		
-	case 6://Àü°İ	
-	case 7://¼ÒÈ¯	
-	case 8://½Ã°ø	
-	case 9://½Å¼º	
-	case 10://Á¤µ¿	
-	case 11://Á¤³ä	
-	case 12://Æ¯¼ö	
+	case 1://ìƒ		
+	case 2://ì‚¬		
+	case 3://ì¼ë°˜	
+	case 4://í™”ì—¼	
+	case 5://ë¹™		
+	case 6://ì „ê²©	
+	case 7://ì†Œí™˜	
+	case 8://ì‹œê³µ	
+	case 9://ì‹ ì„±	
+	case 10://ì •ë™	
+	case 11://ì •ë…	
+	case 12://íŠ¹ìˆ˜	
 		break;		
 	}				
 	return correction_Rate;
@@ -305,14 +305,14 @@ int	 CorrectionMagicState(CHARLIST *target, int total_MagicDamage, int magic_No)
 /*******************************************************************************************/
 //	
 //	
-// Wizard Spell ±¸Çö ÇÔ¼öµé....
+// Wizard Spell êµ¬í˜„ í•¨ìˆ˜ë“¤....
 //	
 //	
 //	
 /*******************************************************************************************/
 
-///////////////////// ½ÃÀüÀÚÀÇ °æÇèÄ¡¿Í ·¹º§ / ±â¼ú°æÇèÄ¡¸¦ µ¿½Ã¿¡ Ã³¸®ÇÔ
-///////////////////// 0726 lkh ¼öÁ¤ //////////////////////
+///////////////////// ì‹œì „ìì˜ ê²½í—˜ì¹˜ì™€ ë ˆë²¨ / ê¸°ìˆ ê²½í—˜ì¹˜ë¥¼ ë™ì‹œì— ì²˜ë¦¬í•¨
+///////////////////// 0726 lkh ìˆ˜ì • //////////////////////
 void AddCasterEXP(CHARLIST *attacker, CHARLIST *defender, int result, int magicType, int magic_Num, int damage)
 {	//< CSD-030509
 	if (g_pArenaManager->IsColossusArena())
@@ -334,19 +334,19 @@ void AddCasterEXP(CHARLIST *attacker, CHARLIST *defender, int result, int magicT
 		if( defender->Race == HUMAN ) return;
 	}
 	
-	if (defender->IsTamedNpc() == true) return;	// ÅÂ¹ÖµÈ ¾ÖÇÑÅ×¼­´Â °æÄ¡¸¦ ¾òÀ»¼ö ¾ø´Ù. 
-	//	result->0:½ÇÆĞÇÑ °æ¿ì / 1:°ø°İÀ¸·Î ÀûÀ» Á×¿´À» °æ¿ì / 2:¸¶¹ıÀÌ ¼º°øÇÑ °æ¿ì
-	//	magicType->0:ÀÏ¹İ ¸¶¹ı 1,2,3->°ø°İ ¸¶¹ı 
+	if (defender->IsTamedNpc() == true) return;	// íƒœë°ëœ ì• í•œí…Œì„œëŠ” ê²½ì¹˜ë¥¼ ì–»ì„ìˆ˜ ì—†ë‹¤. 
+	//	result->0:ì‹¤íŒ¨í•œ ê²½ìš° / 1:ê³µê²©ìœ¼ë¡œ ì ì„ ì£½ì˜€ì„ ê²½ìš° / 2:ë§ˆë²•ì´ ì„±ê³µí•œ ê²½ìš°
+	//	magicType->0:ì¼ë°˜ ë§ˆë²• 1,2,3->ê³µê²© ë§ˆë²• 
 	
-	//	1 : ÀÏ¹İ °ø°İ					
+	//	1 : ì¼ë°˜ ê³µê²©					
 	//	2 : 							
-	//	3 : ÀúÁÖ°è¿­¸¶¹ı.				
+	//	3 : ì €ì£¼ê³„ì—´ë§ˆë²•.				
 	
 	switch( magicType )				
 	{			
-	case 0 : //ÀÏ¹İ¸¶¹ı(ÁÁÀº ¸¶¹ı/ ³²À» µµ¿ÍÁÖ°Å³ª ³²¿¡°Ô ÇÇÇØ¸¦ ÁÖÁö ¾Ê´Â¸¶¹ı )
+	case 0 : //ì¼ë°˜ë§ˆë²•(ì¢‹ì€ ë§ˆë²•/ ë‚¨ì„ ë„ì™€ì£¼ê±°ë‚˜ ë‚¨ì—ê²Œ í”¼í•´ë¥¼ ì£¼ì§€ ì•ŠëŠ”ë§ˆë²• )
 		{			
-			if(result)	//¼º°ø ÇßÀ» °æ¿ì
+			if(result)	//ì„±ê³µ í–ˆì„ ê²½ìš°
 			{		
 				switch(magic_Num)
 				{	
@@ -354,24 +354,24 @@ void AddCasterEXP(CHARLIST *attacker, CHARLIST *defender, int result, int magicT
 				case 1 :
 					// GreatHealing
 				case 6 :
-					// È¸º¹ÀÇ±Ç´É
+					// íšŒë³µì˜ê¶ŒëŠ¥
 				case 151 :
-					//¿ÏÄ¡ÀÇ ±âÀû
+					//ì™„ì¹˜ì˜ ê¸°ì 
 				case 156 :		
-					exp = (DWORD)(damage*2/100) + 15;	// ¿Ã·ÁÁØ hp°ªÀÇ 2%¸¦ °æÇèÄ¡·Î ÁØ´Ù. 
+					exp = (DWORD)(damage*2/100) + 15;	// ì˜¬ë ¤ì¤€ hpê°’ì˜ 2%ë¥¼ ê²½í—˜ì¹˜ë¡œ ì¤€ë‹¤. 
 					break;
 					
-				default:		base_point = (int)Magic_Ref[magic_Num].Exp;			//ÀÏ¹İ ¸¶¹ıÀÌ ¼º°øÇÑ °æ¿ì °æÇèÄ¡·®
+				default:		base_point = (int)Magic_Ref[magic_Num].Exp;			//ì¼ë°˜ ë§ˆë²•ì´ ì„±ê³µí•œ ê²½ìš° ê²½í—˜ì¹˜ëŸ‰
 					exp = (DWORD)(base_point);
 					break;
 				}	
 				
 				switch( defender->SprNo )
 				{	
-				case 92 :	// ±âµÕ..
-				case 93 :	// ±âµÕ..
-				case 94 :	// °ú³á..
-				case 95 :	// Çã¼ö¾Æºñ.
+				case 92 :	// ê¸°ë‘¥..
+				case 93 :	// ê¸°ë‘¥..
+				case 94 :	// ê³¼ë…..
+				case 95 :	// í—ˆìˆ˜ì•„ë¹„.
 					{
 						if (attacker->GetLevel() <= ENABLE_DUMMY_LEVEL)
 						{	//< CSD-040803
@@ -383,7 +383,7 @@ void AddCasterEXP(CHARLIST *attacker, CHARLIST *defender, int result, int magicT
 						
 						break;
 					}
-				case 96  : //  ÅÂÆ½¼ö·Ã¿ë.			
+				case 96  : //  íƒœí‹±ìˆ˜ë ¨ìš©.			
 					{
 						//< CSD-040803
 						const bool bDoubleExpUp = attacker->IsDoubleExpUp();
@@ -415,10 +415,10 @@ void AddCasterEXP(CHARLIST *attacker, CHARLIST *defender, int result, int magicT
 		{			
 			switch( defender->SprNo )
 			{	
-			case 92 :	// ±âµÕ..
-			case 93 :	// ±âµÕ..
-			case 94 :	// °ú³á..
-			case 95 :	// Çã¼ö¾Æºñ.
+			case 92 :	// ê¸°ë‘¥..
+			case 93 :	// ê¸°ë‘¥..
+			case 94 :	// ê³¼ë…..
+			case 95 :	// í—ˆìˆ˜ì•„ë¹„.
 				{	//< CSD-040803
 					if (attacker->GetLevel() > ENABLE_DUMMY_LEVEL)
 					{
@@ -432,7 +432,7 @@ void AddCasterEXP(CHARLIST *attacker, CHARLIST *defender, int result, int magicT
 					isLevelUp(attacker);
 					break;
 				}	//> CSD-040803
-			case 96 : //  ÅÂÆ½¼ö·Ã¿ë. 
+			case 96 : //  íƒœí‹±ìˆ˜ë ¨ìš©. 
 				{	//< CSD-040803
 					int d = (attacker->GetLevel()/10); //< CSD-030806
 					if( d == 0 ) d = 1;
@@ -463,7 +463,7 @@ bool IsMovable(int& rX, int& rY)
 {
 	if (g_lpMapFile->wWidth <= rX)   rX = g_lpMapFile->wWidth - 1;
 	if (g_lpMapFile->wHeight <= rY)  rY = g_lpMapFile->wHeight - 1;
-	// Don't ¼Ó¼º, Áı¾È, ´Ù¸¥ Ä³¸¯ÅÍ¿¡ ÀÇÇØ Á¡À¯µÈ »óÅÂ¶ó¸é ÀÌµ¿ ºÒ°¡
+	// Don't ì†ì„±, ì§‘ì•ˆ, ë‹¤ë¥¸ ìºë¦­í„°ì— ì˜í•´ ì ìœ ëœ ìƒíƒœë¼ë©´ ì´ë™ ë¶ˆê°€
 	//< CSD-030210
 	if (TileMap[rX][rY].attr_dont)    return false;
 	if (TileMap[rX][rY].attr_inside)  return false;
@@ -473,8 +473,8 @@ bool IsMovable(int& rX, int& rY)
 }
 
 void TransArea(BYTE nType, CHARLIST* pTarget, int nX, int nY)
-{ // À§Ä¡ ÀÌµ¿
-	//< CSD-020909 : ¼­¹öÀÇ ½ÃÀüÀÚ À§Ä¡ º¯°æ
+{ // ìœ„ì¹˜ ì´ë™
+	//< CSD-020909 : ì„œë²„ì˜ ì‹œì „ì ìœ„ì¹˜ ë³€ê²½
 	pTarget->MoveGox = pTarget->X = nX<<5;
 	pTarget->MoveGoy = pTarget->Y = nY<<5;
 	pTarget->MoveSx	= nX;
@@ -500,26 +500,26 @@ void TransArea(BYTE nType, CHARLIST* pTarget, int nX, int nY)
 }
 
 void TransMap(CHARLIST* pTarget)
-{ // ¸Ê ÀÌµ¿
-	// ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸ ±¸ÇÏ±â
+{ // ë§µ ì´ë™
+	// ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ êµ¬í•˜ê¸°
 	int nPort = 0, nX = 0, nY = 0;
 	pTarget->GetTransMap(nPort, nX, nY);
-	// ¸ÊÀÌ¸§ ±¸ÇÏ±â
+	// ë§µì´ë¦„ êµ¬í•˜ê¸°
 	const string strMapName = GetMapName(nPort);
 	
 	if (strMapName == pTarget->MapName)
-	{ // °°Àº ¸Ê¿¡¼­ Àå¼Ò ÀÌµ¿
+	{ // ê°™ì€ ë§µì—ì„œ ì¥ì†Œ ì´ë™
 		TransArea(PT_TELEPORT, pTarget, nX, nY);
 	}
 	else
-	{ // ´Ù¸¥ ¸ÊÀ¸·Î Àå¼Ò ÀÌµ¿
+	{ // ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì¥ì†Œ ì´ë™
 		MapMove(pTarget->GetServerID(), (char*)strMapName.c_str(), nX, nY);
 	}
-	// ±â¾ïµÈ ÀÌµ¿ Àå¼Ò Á¤º¸ ÃÊ±âÈ­
+	// ê¸°ì–µëœ ì´ë™ ì¥ì†Œ ì •ë³´ ì´ˆê¸°í™”
 	pTarget->ClearTransMap();
 }
 
-/////////////////////////// 0111 ÀÌ±ÔÈÆ /////////////////////////////////
+/////////////////////////// 0111 ì´ê·œí›ˆ /////////////////////////////////
 void SendCMD_MAGICTRAP_EXPOSE( t_server_magictrap_expose *p)
 {
 	t_packet	packet;
@@ -534,8 +534,8 @@ void SendCMD_MAGICTRAP_EXPOSE( t_server_magictrap_expose *p)
 	
 	if(p->target_id<10000)
 	{
-		QueuePacket(connections, p->target_id, &packet, 1);		//´ë»óÃ¼¿¡°Ô Àü¼Û
-		CastMe2Other( p->target_id, &packet );								//´ë»óÃ¼¸¦ ¹Ù¶óº¸°í ÀÖ´Â ¸ğµç PC
+		QueuePacket(connections, p->target_id, &packet, 1);		//ëŒ€ìƒì²´ì—ê²Œ ì „ì†¡
+		CastMe2Other( p->target_id, &packet );								//ëŒ€ìƒì²´ë¥¼ ë°”ë¼ë³´ê³  ìˆëŠ” ëª¨ë“  PC
 	}
 	else
 		CastNPC2Other( p->target_id-10000, &packet );
@@ -557,8 +557,8 @@ void SendCMD_MAGIC_POSITION( t_server_magic_position *p)
 	}
 	else 
 	{
-		QueuePacket(connections, p->idTarget, &packet, 1); //´ë»óÃ¼¿¡°Ô Àü¼Û
-		CastMe2Other(p->idTarget, &packet); //´ë»óÃ¼¸¦ ¹Ù¶óº¸°í ÀÖ´Â ¸ğµç PC
+		QueuePacket(connections, p->idTarget, &packet, 1); //ëŒ€ìƒì²´ì—ê²Œ ì „ì†¡
+		CastMe2Other(p->idTarget, &packet); //ëŒ€ìƒì²´ë¥¼ ë°”ë¼ë³´ê³  ìˆëŠ” ëª¨ë“  PC
 	}
 }
 
@@ -569,7 +569,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 	switch (p->command_type)
 	{	
 	case CCD_PLAYSOUND_EVENT1:	
-		{	// Çà»çÀ½¾Ç Ãâ·Â ¿äÃ»
+		{	// í–‰ì‚¬ìŒì•… ì¶œë ¥ ìš”ì²­
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -580,7 +580,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_PLAYSOUND_EVENT2:
-		{	// ¹Ú¼ö¼Ò¸® ¿äÃ»
+		{	// ë°•ìˆ˜ì†Œë¦¬ ìš”ì²­
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -591,7 +591,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_START_QUEST:	
-		{	// Äù½ºÆ® ½ÃÀÛÀ½¾Ç Ãâ·Â ¿äÃ» 
+		{	// í€˜ìŠ¤íŠ¸ ì‹œì‘ìŒì•… ì¶œë ¥ ìš”ì²­ 
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -602,7 +602,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_END_QUEST:	
-		{	// Äù½ºÆ® Á¾·á Ãâ·Â ¿äÃ» 
+		{	// í€˜ìŠ¤íŠ¸ ì¢…ë£Œ ì¶œë ¥ ìš”ì²­ 
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -624,7 +624,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_QUEST_GETSKILL: 
-		{	// Äù½ºÆ® ±â¼úÈ¹µæ Ãâ·Â ¿äÃ»
+		{	// í€˜ìŠ¤íŠ¸ ê¸°ìˆ íšë“ ì¶œë ¥ ìš”ì²­
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -635,7 +635,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_QUEST_GETITEM:	
-		{	// Äù½ºÆ® ¾ÆÀÌÅÛÈ¹µæ Ãâ·Â ¿äÃ» 
+		{	// í€˜ìŠ¤íŠ¸ ì•„ì´í…œíšë“ ì¶œë ¥ ìš”ì²­ 
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -646,7 +646,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_QUEST_MONSTER:
-		{	// Äù½ºÆ® ¸ó½ºÅÍÀÇ Ä§ÀÔ 
+		{	// í€˜ìŠ¤íŠ¸ ëª¬ìŠ¤í„°ì˜ ì¹¨ì… 
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -657,7 +657,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_START_QUEST_BBS:
-		{	// °øÀÚ»çÇ×(¼±Æ÷) 
+		{	// ê³µìì‚¬í•­(ì„ í¬) 
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -665,9 +665,9 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			packet.u.angra.server_magic_command.sub_command	= 0;
 			packet.u.angra.server_magic_command.sub_term = 0;
 			QueuePacket(connections, cn, &packet, 1);
-			break;//¸ğµç Á¢¼ÓÀÚ¿¡°Ô Àü´Ş
+			break;//ëª¨ë“  ì ‘ì†ìì—ê²Œ ì „ë‹¬
 		}
-	case CCD_END_QUEST_BBS:	//°øÀÚ»çÇ×(Á¾·á) »óÈ² Á¾·á.
+	case CCD_END_QUEST_BBS:	//ê³µìì‚¬í•­(ì¢…ë£Œ) ìƒí™© ì¢…ë£Œ.
 		{
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
@@ -679,7 +679,7 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			break;
 		}
 	case CCD_COMPLETE_QUEST:
-		{	// Äù½ºÆ®¸¦ ¸¶¹«¸® ÇßÀ»¶§ È¿°ú
+		{	// í€˜ìŠ¤íŠ¸ë¥¼ ë§ˆë¬´ë¦¬ í–ˆì„ë•Œ íš¨ê³¼
 			t_packet packet;
 			packet.h.header.type = CMD_SERVER_MAGICCOMMAND;
 			packet.h.header.size = sizeof(t_server_magic_command);
@@ -689,18 +689,18 @@ void RecvCMD_CLIENT_CHARACTER_DEMAND(int cn, t_client_character_demand *p)
 			QueuePacket(connections, cn, &packet, 1);
 			break;
 		}
-	case CCD_FIGHT_LOSE: // 1:1 ´ë°á¸ğµåÀÎ °æ¿ì..
-		{	// Áø°æ¿ì
+	case CCD_FIGHT_LOSE: // 1:1 ëŒ€ê²°ëª¨ë“œì¸ ê²½ìš°..
+		{	// ì§„ê²½ìš°
 			Fight_Stone_End(cn, 1);
 			break;
 		}
 	case CCD_FIGHT_DRAW:
-		{	// ºñ±ä°æ¿ì
+		{	// ë¹„ê¸´ê²½ìš°
 			Fight_Stone_End(cn, 3);
 			break;
 		}
 	case CCD_FIGHT_LOGOUT:
-		{	// ·Î±×¾Æ¿ôÇÑ °æ¿ì
+		{	// ë¡œê·¸ì•„ì›ƒí•œ ê²½ìš°
 			Fight_Stone_End(cn, 4);
 			break;
 		}
@@ -742,7 +742,7 @@ void LoadConditionTable(void)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-//									µ£ ¼³Ä¡ °ü·Ã ÇÔ¼ö(0111)                                       //
+//									ë« ì„¤ì¹˜ ê´€ë ¨ í•¨ìˆ˜(0111)                                       //
 /////////////////////////////////////////////////////////////////////////////////////////////////// 
 
 void InitTrap()
@@ -767,7 +767,7 @@ BOOL InsertTrap(short int tile_X, short int tile_Y, short int trap_Type, DWORD	c
 	if (tile->attr_light)   return FALSE;
 	
 	tile->attr_magic = 1;
-	// Àü¿ª ¹è°æ Å¸ÀÏ ¼Ó¼º¿¡ Æ®·¦ ¼³Ä¡ ¼Ó¼º ºÎ¿©
+	// ì „ì—­ ë°°ê²½ íƒ€ì¼ ì†ì„±ì— íŠ¸ë© ì„¤ì¹˜ ì†ì„± ë¶€ì—¬
 	g_MagicTrap.trap_X = tile_X;
 	g_MagicTrap.trap_Y = tile_Y;
 	g_MagicTrap.trap_Type	= trap_Type;
@@ -776,11 +776,11 @@ BOOL InsertTrap(short int tile_X, short int tile_Y, short int trap_Type, DWORD	c
 	return TRUE;
 }
 
-void AddTrap( LPMAGICTRAP *Header, LPMAGICTRAP lpMagicTrap_add )		//¸µÅ©µå ¸®½ºÆ®ÀÇ ¸Ó¸®¿¡ ºÙ¿© ³Ö±â
+void AddTrap( LPMAGICTRAP *Header, LPMAGICTRAP lpMagicTrap_add )		//ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ì˜ ë¨¸ë¦¬ì— ë¶™ì—¬ ë„£ê¸°
 {		
 	LPMAGICTRAP t, temp;
 	
-	if( *Header == NULL )		//¸µÅ©µå ¸®½ºÆ® ÃÖÃÊ »ı¼º
+	if( *Header == NULL )		//ë§í¬ë“œ ë¦¬ìŠ¤íŠ¸ ìµœì´ˆ ìƒì„±
 	{	
 		MemAlloc( *Header, sizeof( MAGICTRAP ));
 		(*Header)->trap_X		= lpMagicTrap_add->trap_X;
@@ -791,7 +791,7 @@ void AddTrap( LPMAGICTRAP *Header, LPMAGICTRAP lpMagicTrap_add )		//¸µÅ©µå ¸®½ºÆ
 		(*Header)->prev			= NULL;
 		(*Header)->next			= NULL;
 	}		
-	else						//ÀÌ¹Ì »ı¼ºµÈ ¸®½ºÆ®¿¡ Ã·°¡ ¿¬°á/·ÎµùÇØ¿Â µ¥ÀÌÅÍ°¡ ÀÖÀ» °æ¿ì
+	else						//ì´ë¯¸ ìƒì„±ëœ ë¦¬ìŠ¤íŠ¸ì— ì²¨ê°€ ì—°ê²°/ë¡œë”©í•´ì˜¨ ë°ì´í„°ê°€ ìˆì„ ê²½ìš°
 	{	
 		t = NULL;
 		MemAlloc( t, sizeof( MAGICTRAP ));
@@ -819,7 +819,7 @@ void DeleteTrap( LPMAGICTRAP *Header, LPMAGICTRAP lpMagicTrap_Delete)
 	{		
 		if( t == lpMagicTrap_Delete )
 		{
-			if( lpMagicTrap_Delete == *Header )		//header°¡ Á¦°ÅµÇ´Â °æ¿ì
+			if( lpMagicTrap_Delete == *Header )		//headerê°€ ì œê±°ë˜ëŠ” ê²½ìš°
 			{
 				t = (*Header)->next;
 				
@@ -853,7 +853,7 @@ void DeleteTrap( LPMAGICTRAP *Header, LPMAGICTRAP lpMagicTrap_Delete)
 	}
 }		
 
-//	¸ÊÀº Àı´ëÁÂÇ¥...7
+//	ë§µì€ ì ˆëŒ€ì¢Œí‘œ...7
 LPMAGICTRAP FindTrap( LPMAGICTRAP *Header, short int tile_X, short int tile_Y )
 {	   	
 	LPMAGICTRAP	t;
@@ -870,7 +870,7 @@ LPMAGICTRAP FindTrap( LPMAGICTRAP *Header, short int tile_X, short int tile_Y )
 }
 
 bool SearchTrap(CHARLIST* pCaster, int nX, int nY)
-{ // Å¬¸¯ÇÑ ÁöÁ¡ÀÇ Áö¸§ 5Å¸ÀÏ Áö¿ª¿¡ ¸¶¹ıÀ¸·Î ¹°°Ç/µ¡/¸¶¹ıÃ¼ Å½Áö 
+{ // í´ë¦­í•œ ì§€ì ì˜ ì§€ë¦„ 5íƒ€ì¼ ì§€ì—­ì— ë§ˆë²•ìœ¼ë¡œ ë¬¼ê±´/ë§/ë§ˆë²•ì²´ íƒì§€ 
 	for (int i = -2; i < 3; i++)
 	{
 		const int nFindX = nX + i;
@@ -880,19 +880,19 @@ bool SearchTrap(CHARLIST* pCaster, int nX, int nY)
 			const int nFindY = nY + j;
 			
 			if (TileMap[nFindX][nFindY].attr_magic == 1)	
-			{ // ¸¶¹ı È¿°ú ÀÖ´Â °æ¿ì
+			{ // ë§ˆë²• íš¨ê³¼ ìˆëŠ” ê²½ìš°
 				LPMAGICTRAP lpHeader = g_lpMagicTrap[nFindX/((g_Map.file.wWidth+7)/8)][nFindY/((g_Map.file.wHeight+7)/8)];
 				LPMAGICTRAP lpMagicTrap = FindTrap(&lpHeader, nFindX, nFindY);
 				
 				if (lpMagicTrap != NULL) 
-				{ //Ã£Àº Æ®·¦ÀÌ ÀÖ´Â °æ¿ì
+				{ //ì°¾ì€ íŠ¸ë©ì´ ìˆëŠ” ê²½ìš°
 					t_packet	packet;
 					packet.h.header.type = CMD_SERVER_MAGICAL_DETECT;
 					packet.h.header.size = sizeof(t_server_magical_detect);
 					packet.u.angra.server_magical_detect.tile_X	= nFindX;
 					packet.u.angra.server_magical_detect.tile_Y	= nFindY;
 					packet.u.angra.server_magical_detect.type	= MAGIC_TRAP;
-					// ´ë»óÃ¼¿¡°Ô °á°ú Àü¼Û
+					// ëŒ€ìƒì²´ì—ê²Œ ê²°ê³¼ ì „ì†¡
 					QueuePacket(connections, pCaster->GetServerID(), &packet, 1);	
 					return true;
 				}
@@ -903,7 +903,7 @@ bool SearchTrap(CHARLIST* pCaster, int nX, int nY)
 	return false;
 }
 
-void	SendExposeTrap(CHARLIST* lpChar, short int tile_X, short int tile_Y, short int trap_Type)				//µ¥¹ÌÁö Ã³¸® ¹× È¿°ú¿¬ÃâÅä·Ï Å¬¶óÀÌ¾ğÆ®¿¡ Á¤º¸ Àü¼Û	
+void	SendExposeTrap(CHARLIST* lpChar, short int tile_X, short int tile_Y, short int trap_Type)				//ë°ë¯¸ì§€ ì²˜ë¦¬ ë° íš¨ê³¼ì—°ì¶œí† ë¡ í´ë¼ì´ì–¸íŠ¸ì— ì •ë³´ ì „ì†¡	
 {
 	t_server_magictrap_expose		server_magictrap_expose;
 	
@@ -941,7 +941,7 @@ void	CheckTimeTrap(void)
 			{
 				if(magictrap->Time <= g_curr_time)
 				{
-					TileMap[magictrap->trap_X][magictrap->trap_Y].attr_magic = 0;		//À¯È¿ ½Ã°£ °æ°úÇÑ °æ¿ì
+					TileMap[magictrap->trap_X][magictrap->trap_Y].attr_magic = 0;		//ìœ íš¨ ì‹œê°„ ê²½ê³¼í•œ ê²½ìš°
 					t = magictrap->next;
 					DeleteTrap(&g_lpMagicTrap[i][j], magictrap);
 					magictrap=t;
@@ -963,7 +963,7 @@ BOOL ReturnSuccessResult(int small_Dice, int big_Dice, CHARLIST *caster)
 	short int		wisdom		= caster->Wis;						//max:500
 	short int		intelligence= caster->Int;						//max:500
 	short int		WS_PS		= caster->wsps;						//max:500
-	short int		total_Rate	= (wisdom+intelligence+WSPS)/100;	//¼º°øÈ®·üÀÇ º¸Á¤(´õÇÏ´Â°ª) -> 0~50±îÁö ¼öÄ¡
+	short int		total_Rate	= (wisdom+intelligence+WSPS)/100;	//ì„±ê³µí™•ë¥ ì˜ ë³´ì •(ë”í•˜ëŠ”ê°’) -> 0~50ê¹Œì§€ ìˆ˜ì¹˜
 	
 	big_Dice += total_Rate;
 	
@@ -978,10 +978,10 @@ BOOL ReturnSuccessResult(int small_Dice, int big_Dice, CHARLIST *caster)
 	return FALSE;
 }
 
-void Recv_fight_stone(int cn, t_packet packet)	//cn ÆĞÅ¶À» º¸³½ ÄÄ..
+void Recv_fight_stone(int cn, t_packet packet)	//cn íŒ¨í‚·ì„ ë³´ë‚¸ ì»´..
 {	//< CSD-030515
 	const int attack_id = cn;
-	const int defend_id = packet.u.angra.server_fight_stone.fight_id; //½Î¿ì´Â ³ğ¿¡°Ôµµ flag¸¦ Áà¾ß..
+	const int defend_id = packet.u.angra.server_fight_stone.fight_id; //ì‹¸ìš°ëŠ” ë†ˆì—ê²Œë„ flagë¥¼ ì¤˜ì•¼..
 	
 	CHARLIST* attacker = CheckServerId(attack_id);
 

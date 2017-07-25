@@ -1,4 +1,4 @@
-// ResistState.h: interface for the CResistState class.
+ï»¿// ResistState.h: interface for the CResistState class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÀúÇ× »óÅÂ¿¡ ´ëÇÑ Å¬·¡½º
+// ì €í•­ ìƒíƒœì— ëŒ€í•œ í´ëž˜ìŠ¤
 class CResistState
 {
   enum {MIN = 0, MAX = 500};
@@ -30,8 +30,8 @@ public:
 	short GetExtResist(const eRESIST_TYPE RTType)const;
 
 private:
-	short m_naBasicResist[MAX_RESIST_TYPE];//DB¿¡ ±â·Ï µÇ´Â º£ÀÌ½º ¸¶¹ý ¹æ¾î·Â °ª
-	short m_naExtentionResist[MAX_RESIST_TYPE];//Á¤ÀûÀ¸·Î ¾ÆÀÌÅÛ¿¡ ÀÇÇØ¼­ ¿Ã¶ó°£ ¸¶¹ý¹æ¾î·Â °ª(ÀúÀåÇÏÁö ¾Ê´Â °ª)
+	short m_naBasicResist[MAX_RESIST_TYPE];//DBì— ê¸°ë¡ ë˜ëŠ” ë² ì´ìŠ¤ ë§ˆë²• ë°©ì–´ë ¥ ê°’
+	short m_naExtentionResist[MAX_RESIST_TYPE];//ì •ì ìœ¼ë¡œ ì•„ì´í…œì— ì˜í•´ì„œ ì˜¬ë¼ê°„ ë§ˆë²•ë°©ì–´ë ¥ ê°’(ì €ìž¥í•˜ì§€ ì•ŠëŠ” ê°’)
 };
 
 //

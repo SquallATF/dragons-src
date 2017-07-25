@@ -1,4 +1,4 @@
-// CoreArena.h: interface for the CCoreArena class.
+﻿// CoreArena.h: interface for the CCoreArena class.
 //
 //////////////////////////////////////////////////////////////////////
 

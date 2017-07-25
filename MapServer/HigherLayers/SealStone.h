@@ -1,71 +1,71 @@
-
+ï»¿
 
 #define NATION_RELATION_NO_					0
-// ¼­·Î°£¿¡ °ø°ÝÇÒ¼ö ¾ø´Â»óÅÂ.. ¸ÊÀÌµ¿ O °á°è¼® ºÎ¼ú¼ö ÀÖÀ½.
+// ì„œë¡œê°„ì— ê³µê²©í• ìˆ˜ ì—†ëŠ”ìƒíƒœ.. ë§µì´ë™ O ê²°ê³„ì„ ë¶€ìˆ ìˆ˜ ìžˆìŒ.
 #define NATION_RELATION_ENEMY_				1
-// ¼­·Î°£¿¡ °ø°ÝÇÒ¼ö ¾ø´Â»óÅÂ.. ¸ÊÀÌµ¿ X °á°è¼® ºÎ¼ú¼ö ¾øÀ½.
+// ì„œë¡œê°„ì— ê³µê²©í• ìˆ˜ ì—†ëŠ”ìƒíƒœ.. ë§µì´ë™ X ê²°ê³„ì„ ë¶€ìˆ ìˆ˜ ì—†ìŒ.
 #define NATION_RELATION_FRIEND_				2
 #define NATION_RELATION_MASTER_SERVANT_		3
 
 
-// ÇöÀç´Â ÀüÀïÁßÀ¸·Î °ü°è¼³Á¤ÀÌ ºÒ°¡ÇÏ´Ù. 
+// í˜„ìž¬ëŠ” ì „ìŸì¤‘ìœ¼ë¡œ ê´€ê³„ì„¤ì •ì´ ë¶ˆê°€í•˜ë‹¤. 
 #define NATION_RELATION_FAIL_				100
-// ±×·± ³ª¶ó´Â ¾ø½À´Ï´Ù. 
+// ê·¸ëŸ° ë‚˜ë¼ëŠ” ì—†ìŠµë‹ˆë‹¤. 
 #define NATION_RELATION_FAIL_NO_NATION_		101
-// ¿äÃ»ÇÑ ±¹°¡°ü°è°¡ ¼³Á¤µÇ¾ú½À´Ï´Ù. 
+// ìš”ì²­í•œ êµ­ê°€ê´€ê³„ê°€ ì„¤ì •ë˜ì—ˆìŠµë‹ˆë‹¤. 
 #define NATION_RELATION_SUCCESS_			102
-// ÇöÀç ÀÌ¹Ì ±×·¸°Ô ¼³Á¤ÀÌ µÇ¾î ÀÖ´Â»óÅÂÀÔ´Ï´Ù. 
+// í˜„ìž¬ ì´ë¯¸ ê·¸ë ‡ê²Œ ì„¤ì •ì´ ë˜ì–´ ìžˆëŠ”ìƒíƒœìž…ë‹ˆë‹¤. 
 #define NATION_RELATION_SAME_FAIL_			103
 
 
 /*------------------------------------------
-°¢ ³ª¶óº°·Î °á°è¼®ÀÌ Á¸ÀçÇÑ´Ù.		
+ê° ë‚˜ë¼ë³„ë¡œ ê²°ê³„ì„ì´ ì¡´ìž¬í•œë‹¤.		
 ------------------------------------------*/
 #define MAX_SEALSTONE_NATION_		100
 									
 /*------------------------------------------
-°á°Ô¼®ÀÌ ´Ù½Ã °­ÇØÁö´Â ½ÃÁ¡ÀÌ¸ç ÀÌ¶§ GameServer¿¡ 
-CMD_SEALSTONE_WEAKTIME_START¸¦ º¸³½´Ù.
+ê²°ê²Œì„ì´ ë‹¤ì‹œ ê°•í•´ì§€ëŠ” ì‹œì ì´ë©° ì´ë•Œ GameServerì— 
+CMD_SEALSTONE_WEAKTIME_STARTë¥¼ ë³´ë‚¸ë‹¤.
 ------------------------------------------*/
 #define SEALSTONE_WEAKTIME_START_	17
 									
 /*------------------------------------------
-°á°Ô¼®ÀÌ ´Ù½Ã °­ÇØÁö´Â ½ÃÁ¡ÀÌ¸ç ÀÌ¶§ GameServer¿¡ 
-CMD_SEALSTONE_WEAKTIME_END¸¦ º¸³½´Ù.
+ê²°ê²Œì„ì´ ë‹¤ì‹œ ê°•í•´ì§€ëŠ” ì‹œì ì´ë©° ì´ë•Œ GameServerì— 
+CMD_SEALSTONE_WEAKTIME_ENDë¥¼ ë³´ë‚¸ë‹¤.
 ------------------------------------------*/
 #define SEALSTONE_WEAKTIME_END_	    5
 #define NATION_MANAGE_SERVER		5250	 		// kyo	030224
 									
 //-----------------------------------------------------	
-//	±¹°¡ÀüÀÇ °á°ú.					
+//	êµ­ê°€ì „ì˜ ê²°ê³¼.					
 //	SEAL STONE RESULT				
 //-----------------------------------------------------	
 
-// ¿ì¸®Áö¿ªÀÇ ¸ðµç °á°è¼®ÀÌ ºÎ¼ÅÁ³´Ù.
+// ìš°ë¦¬ì§€ì—­ì˜ ëª¨ë“  ê²°ê³„ì„ì´ ë¶€ì…”ì¡Œë‹¤.
 #define SSR_FAIL								0
-// ¿ì¸®°¡ ³ðµéÀÇ °á°è¼®À» ¸ðµÎ ¾ø¾Ý´Ù.
+// ìš°ë¦¬ê°€ ë†ˆë“¤ì˜ ê²°ê³„ì„ì„ ëª¨ë‘ ì—†ì•´ë‹¤.
 #define SSR_VICTORY								1
-// ¹«½ÂºÎ´Ù.
+// ë¬´ìŠ¹ë¶€ë‹¤.
 #define SSR_DRAW								2
 
 	
 #define SEALSTONE_WARTIME_			(3600*6)
 #define SEALSTONE_WAR_AFTERTIME_	(60*10 ) 
-#define SEALSTONE_RE_GENTIME_		(60*60*2) // 2½Ã°£ // LTS NEW LOCALWAR
+#define SEALSTONE_RE_GENTIME_		(60*60*2) // 2ì‹œê°„ // LTS NEW LOCALWAR
 
-//<! BBD 040318	°á°è¼® NPC_No
+//<! BBD 040318	ê²°ê³„ì„ NPC_No
 #define SEALSTONE_YLLSE_NO		91
 #define SEALSTONE_VYSEUS_NO		98
 #define SEALSTONE_ZYPERN_NO		99
-//> BBD 040318	°á°è¼® NPC_No
+//> BBD 040318	ê²°ê³„ì„ NPC_No
 		
 typedef struct sealstone
 {	
-	DWORD warlefttime;	// ÀüÀï ³²Àº½Ã°£.
+	DWORD warlefttime;	// ì „ìŸ ë‚¨ì€ì‹œê°„.
 	DWORD waraftertime;
-	DWORD regentime;	// °á°è¼® ¸®Á¨µÉ¶§±îÁö ³²Àº½Ã°£.
+	DWORD regentime;	// ê²°ê³„ì„ ë¦¬ì  ë ë•Œê¹Œì§€ ë‚¨ì€ì‹œê°„.
 
-	int status[ MAX_SEALSTONE_NATION_];	// ÇöÀç °á°è¼®ÀÇ »óÅÂ 0: ¾øÀ½. 1 : »ì¾ÆÀÖÀ½.
+	int status[ MAX_SEALSTONE_NATION_];	// í˜„ìž¬ ê²°ê³„ì„ì˜ ìƒíƒœ 0: ì—†ìŒ. 1 : ì‚´ì•„ìžˆìŒ.
 }t_sealstone;
 
 
@@ -109,7 +109,7 @@ typedef struct nationrelation
 	
 #else 
 	
-	// 1 :±³Àü»óÅÂ    2:¿ìÈ£»óÅÂ
+	// 1 :êµì „ìƒíƒœ    2:ìš°í˜¸ìƒíƒœ
 	t_NationRelation	NationRelation[ MAX_NATION][MAX_NATION];
 	int					NationRelationStatus[ MAX_NATION][MAX_NATION]={	{2,	0,	0,	1,	1,	0,	1},
 																		{0,	2,	0,	0,	0,	0,	0},

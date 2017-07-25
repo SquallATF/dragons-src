@@ -1,4 +1,4 @@
-// CharInfo.h: interface for the CCharInfo class.
+ï»¿// CharInfo.h: interface for the CCharInfo class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -16,54 +16,54 @@ extern int MAX_EXP_LEVEL;  // CSD-040204
 extern int MAX_TAC_LEVEL;  // CSD-040204
 
 ///////////////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ¿¡ °üÇÑ µ¥ÀÌÅ¸
+// ìºë¦­í„°ì— ê´€í•œ ë°ì´íƒ€
 struct CHAR_DATA
 {	
-	BYTE			bAlive;					// Ä³¸¯ÅÍÀÇ »ı»ç¿©ºÎ(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)	// Check_
-	int				deadcount;					// Ä³¸¯ÅÍ°¡ Á×ÀºÈÄ ½ÇÁ¦ ¾ø¾îÁö±â±îÁöÀÇ count
+	BYTE			bAlive;					// ìºë¦­í„°ì˜ ìƒì‚¬ì—¬ë¶€(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)	// Check_
+	int				deadcount;					// ìºë¦­í„°ê°€ ì£½ì€í›„ ì‹¤ì œ ì—†ì–´ì§€ê¸°ê¹Œì§€ì˜ count
 	BYTE			installType;
 	DWORD			total_id;
 	short			eventno;
-	short			generationpos;		// NPCÀÏ°æ¿ì ¹ß»ı À§Ä¡ TableÀÇ Index°ªÀ» ±â¾ïÇÏ°í ÀÖ´Â´Ù.
-	short			generationtype;		// NPCÀÏ°Ï¿ì ¹ß»ı¹æ½Ä( GT_SKB_FILE, GT_SCRIPT );
+	short			generationpos;		// NPCì¼ê²½ìš° ë°œìƒ ìœ„ì¹˜ Tableì˜ Indexê°’ì„ ê¸°ì–µí•˜ê³  ìˆëŠ”ë‹¤.
+	short			generationtype;		// NPCì¼ê²…ìš° ë°œìƒë°©ì‹( GT_SKB_FILE, GT_SCRIPT );
 	char			Name[20];
-	int				namenumber;			// NPC_Name_Ref[ namenumber].Female¸¦ ÀÇ¹ÌÇÑ´Ù. 
+	int				namenumber;			// NPC_Name_Ref[ namenumber].Femaleë¥¼ ì˜ë¯¸í•œë‹¤. 
 	DWORD			Exp;
-	short int		Gender;						// 0:¿©ÀÚ 1 : ³²ÀÚ(050413_KCH sprno¿Í °°¾Æ¾ßÇÔ)
+	short int		Gender;						// 0:ì—¬ì 1 : ë‚¨ì(050413_KCH sprnoì™€ ê°™ì•„ì•¼í•¨)
 	short int		Face;						
-	short int		Class;						// 0:Àü»ç 1:±Ã¼ö 2:µµÀû 3:¼ºÁ÷ÀÚ 4:¸¶¹ı»ç
-	short int		Spell;					// ¸¶¹ı»ç:0 / ¼ºÁ÷ÀÚ:1
+	short int		Class;						// 0:ì „ì‚¬ 1:ê¶ìˆ˜ 2:ë„ì  3:ì„±ì§ì 4:ë§ˆë²•ì‚¬
+	short int		Spell;					// ë§ˆë²•ì‚¬:0 / ì„±ì§ì:1
 	short int		fame;
 
-	short int       fame_pk;			// 010915 LTS //Fame_PK -> NWCharacter·Î ±³Ã¼ DB¿¡´Â ½ÇÁ¦·Î NWCharacterÀÇ °ªÀÌ µé¾î°©´Ï´Ù.	// LTS AI2	//½ºÆä¼È ¾îÅÃ ¹øÈ£±â¾ï	
+	short int       fame_pk;			// 010915 LTS //Fame_PK -> NWCharacterë¡œ êµì²´ DBì—ëŠ” ì‹¤ì œë¡œ NWCharacterì˜ ê°’ì´ ë“¤ì–´ê°‘ë‹ˆë‹¤.	// LTS AI2	//ìŠ¤í˜ì…œ ì–´íƒ ë²ˆí˜¸ê¸°ì–µ	
 	NW_Character	NWCharacter;		// 010915 LTS
 
 	short int       social_status;
-	unsigned char	Tactics ;						// ¼±ÅÃÇÑ ÀüÅõ±â¼ú (º¸¿©ÁÖ±â À§ÇÔ)
-	unsigned char	Tactics_para;					// ½ÇÁ¦ skill¿¡ Àû¿ëÇÒ ÆÄ¶ó¸ŞÅÍ°ªÀ» °¡Áö°í ÀÖÀ½...
-	short int		Race;						// Á¾Á·
-	short int		Str  ;				//  Èû
-	short int		Con  ;				//  °Ç°­
-	short int		Dex  ;				//	¹ÎÃ¸¼º
-	short int		Wis  ;				//	ÁöÇı
-	short int		Int  ;				//	Áö´É
-	short int		MoveP;				//	ÀÌµ¿·Â
-	short int		Char ;				//	¸Å·Â
-	short int		Endu ;				//  ÀúÇâ·Â
-	short int		Moral;				//	»ç±â
-	short int		Luck ;				//	Çà¿î
-	short int		wsps ;				//  ¸¶¹ı·Â->¸¶¹ı ¸Ş¸ğ¶óÀÌÁî
-	//¹«±â, Armor, ¾Ç¼¼»ç¸® ,ETC ¿¡ ÀÇÇÑ 	
-	short int		Strw;				//  Èû
-	short int		Conw;				//  °Ç°­
-	short int		Dexw;				//	¹ÎÃ¸¼º
-	short int		Wisw;				//	ÁöÇı
-	short int		Intw;				//	Áö´É
-	short int		MovePw;				//	ÀÌµ¿·Â
-	short int		Charw;				//	¸Å·Â
-	short int		Enduw;				//  ÀúÇâ·Â
-	short int		Moralw;				//	»ç±â
-	short int		Luckw;				//	Çà¿î
+	unsigned char	Tactics ;						// ì„ íƒí•œ ì „íˆ¬ê¸°ìˆ  (ë³´ì—¬ì£¼ê¸° ìœ„í•¨)
+	unsigned char	Tactics_para;					// ì‹¤ì œ skillì— ì ìš©í•  íŒŒë¼ë©”í„°ê°’ì„ ê°€ì§€ê³  ìˆìŒ...
+	short int		Race;						// ì¢…ì¡±
+	short int		Str  ;				//  í˜
+	short int		Con  ;				//  ê±´ê°•
+	short int		Dex  ;				//	ë¯¼ì²©ì„±
+	short int		Wis  ;				//	ì§€í˜œ
+	short int		Int  ;				//	ì§€ëŠ¥
+	short int		MoveP;				//	ì´ë™ë ¥
+	short int		Char ;				//	ë§¤ë ¥
+	short int		Endu ;				//  ì €í–¥ë ¥
+	short int		Moral;				//	ì‚¬ê¸°
+	short int		Luck ;				//	í–‰ìš´
+	short int		wsps ;				//  ë§ˆë²•ë ¥->ë§ˆë²• ë©”ëª¨ë¼ì´ì¦ˆ
+	//ë¬´ê¸°, Armor, ì•…ì„¸ì‚¬ë¦¬ ,ETC ì— ì˜í•œ 	
+	short int		Strw;				//  í˜
+	short int		Conw;				//  ê±´ê°•
+	short int		Dexw;				//	ë¯¼ì²©ì„±
+	short int		Wisw;				//	ì§€í˜œ
+	short int		Intw;				//	ì§€ëŠ¥
+	short int		MovePw;				//	ì´ë™ë ¥
+	short int		Charw;				//	ë§¤ë ¥
+	short int		Enduw;				//  ì €í–¥ë ¥
+	short int		Moralw;				//	ì‚¬ê¸°
+	short int		Luckw;				//	í–‰ìš´
 	short int		wspsw;
 
 	BYTE			item_Hit_Rate;
@@ -71,12 +71,12 @@ struct CHAR_DATA
 
 	CCharRank		name_status;		// 0927 YGI
 	DWORD			scan_time;			// LTS AI2 NPC SUMMON DELAY TIME
-	short int		Ac;//AC( ¹æ¾î·Â )
+	short int		Ac;//AC( ë°©ì–´ë ¥ )
 	short int		Job;
 	
 	DWORD			Money;
 
-	//Hp Mp µîµîÀÇ °ª
+	//Hp Mp ë“±ë“±ì˜ ê°’
 	int		Hp;
 	int		HpMax;
 	int		Mana;
@@ -86,78 +86,78 @@ struct CHAR_DATA
 	int		Cp;
 	int		CpMax;
 
-	float	fChangeHungry;//¹è°íÇÄ ¼öÄ¡ º¯È­·®//020214 lsw
+	float	fChangeHungry;//ë°°ê³ í”” ìˆ˜ì¹˜ ë³€í™”ëŸ‰//020214 lsw
 	
 	char			MapName[21];
 	unsigned char	Peacests;
 	int				Sight; //020425 YGI
-	short int		BodyR, BodyG, BodyB;		// ¸ö »ö±ò R.G.B
-	short int		ClothR, ClothG, ClothB;		// ¶ì »ö±ò R.G.B
+	short int		BodyR, BodyG, BodyB;		// ëª¸ ìƒ‰ê¹” R.G.B
+	short int		ClothR, ClothG, ClothB;		// ë  ìƒ‰ê¹” R.G.B
 	short int		Age;
-	short int		nk[MAX_NATION];							// ¿µ¾ç°¡1
+	short int		nk[MAX_NATION];							// ì˜ì–‘ê°€1
 	
-	DWORD			killmon;					// 1°è¿­¸ó½ºÅÍ Å³¸µ½º
-	DWORD			killanimal;					// µ¿¹° Å³¸µ¼ö
-	DWORD			killpc;						// »ç¶÷,NPC Å³¸µ¼ö
+	DWORD			killmon;					// 1ê³„ì—´ëª¬ìŠ¤í„° í‚¬ë§ìŠ¤
+	DWORD			killanimal;					// ë™ë¬¼ í‚¬ë§ìˆ˜
+	DWORD			killpc;						// ì‚¬ëŒ,NPC í‚¬ë§ìˆ˜
 	char			KillerName[40];
 	
-	BYTE Ws[200];			//	¸¶¹ı
-	BYTE Ps[200];			//	½Å¹ı
+	BYTE Ws[200];			//	ë§ˆë²•
+	BYTE Ps[200];			//	ì‹ ë²•
 	USHORT Skill[MAX_SKILL_NO];
 
-	t_skillexp		skillexp[MAX_SKILL_EXP];		// 011012 lsw //½ºÅ³°æÇèÄ¡ º¯°æ
+	t_skillexp		skillexp[MAX_SKILL_EXP];		// 011012 lsw //ìŠ¤í‚¬ê²½í—˜ì¹˜ ë³€ê²½
 
-	// ³»°¡ °¡Áö°í ÀÖ´Â ¾ÆÀÌÅÛ..
-	ItemAttr	inv[3][3][8] ;// ÀÎº¥Åä¸®
-	ItemAttr	equip[8] ;// ÀåÂø
-	ItemAttr	quick[7] ;// Äü 
-	ItemAttr	handheld ;// ¼Õ¿¡ µé°í ÀÖ´Â
-	ItemAttr	bank[5][3][6];// ÀºÇà¿¡ º¸°üÇ°
+	// ë‚´ê°€ ê°€ì§€ê³  ìˆëŠ” ì•„ì´í…œ..
+	ItemAttr	inv[3][3][8] ;// ì¸ë²¤í† ë¦¬
+	ItemAttr	equip[8] ;// ì¥ì°©
+	ItemAttr	quick[7] ;// í€µ 
+	ItemAttr	handheld ;// ì†ì— ë“¤ê³  ìˆëŠ”
+	ItemAttr	bank[5][3][6];// ì€í–‰ì— ë³´ê´€í’ˆ
 
-	short int	Item[MAX_LEARN_ITEM];		// ¸¸µé¼ö ÀÖ´Â ¾ÆÀÌÅÛ		1220
-	short int	ItemMax;					// ÇöÀç ¸¸µé¼ö ÀÖ´Â ¾ÆÀÌÅÛ ÃÖ´ëÄ¡ 1220
-	int			itemweight;					// ¼ÒÈ¯ÇÑ ÁÖÀÎÀÇ ID			// LTS AI2
+	short int	Item[MAX_LEARN_ITEM];		// ë§Œë“¤ìˆ˜ ìˆëŠ” ì•„ì´í…œ		1220
+	short int	ItemMax;					// í˜„ì¬ ë§Œë“¤ìˆ˜ ìˆëŠ” ì•„ì´í…œ ìµœëŒ€ì¹˜ 1220
+	int			itemweight;					// ì†Œí™˜í•œ ì£¼ì¸ì˜ ID			// LTS AI2
 
-	//  ClientÀ» À§ÇÑ Data
-	short int		SprNo;					//050413_KCH 0:¿©ÀÚ 1 : ³²ÀÚ (gender¿Í °°¾Æ¾ßÇÔ)
+	//  Clientì„ ìœ„í•œ Data
+	short int		SprNo;					//050413_KCH 0:ì—¬ì 1 : ë‚¨ì (genderì™€ ê°™ì•„ì•¼í•¨)
 	short int		mutant;  // 0810 KHS
 	short int		npc_index; // NPC index concerned by Parameter 'index'
 	short int		SprType;	
-	short int		ElementType; // ¿øÃµÀûÀÎ ¼Ó¼ºÀ» ÀÇ¹ÌÇÑ´Ù. (¿¹) ¹Ì³ë: ºÒ(fire)		
+	short int		ElementType; // ì›ì²œì ì¸ ì†ì„±ì„ ì˜ë¯¸í•œë‹¤. (ì˜ˆ) ë¯¸ë…¸: ë¶ˆ(fire)		
 	BYTE			accessory[4];
 	
-	short int		mantle;		// 011018 KHS ¸Á¶Ç
+	short int		mantle;		// 011018 KHS ë§ë˜
 	short int		jjing;      // 011030 KHS JJING
 
 	DIRECTION		Direction;
-	DWORD			IDWhoImAttacked;	// ³ª¸¦ Ä£³ğÀÌ ´©±¸³Ä..
+	DWORD			IDWhoImAttacked;	// ë‚˜ë¥¼ ì¹œë†ˆì´ ëˆ„êµ¬ëƒ..
 	short int		nCurrentAction;						
-	short int       ox, oy;		// ÀÚ½ÅÀÌ ÅÂ¾î³­Àå¼Ò..
-	short int		X, Y;		// ÇöÀç ÁÂÇ¥( Dot ´ÜÀ§ )
+	short int       ox, oy;		// ìì‹ ì´ íƒœì–´ë‚œì¥ì†Œ..
+	short int		X, Y;		// í˜„ì¬ ì¢Œí‘œ( Dot ë‹¨ìœ„ )
 	short int		MovePathCount;
 	short int		MoveLength;
 	unsigned char	MoveType;
-	short int		OldMoveSx,MoveSx;	// ÇöÀçÁÂÇ¥(Å¸ÀÏ´ÜµÚ )
+	short int		OldMoveSx,MoveSx;	// í˜„ì¬ì¢Œí‘œ(íƒ€ì¼ë‹¨ë’¤ )
 	short int		OldMoveSy,MoveSy;
 	unsigned char   MoveDirTbl[MAX_DIR_TABLE];
-	short int		MoveGox;			// ¸ñÀûÁöÀÇ ÁÂÇ¥( Dot ´ÜÀ§ )
+	short int		MoveGox;			// ëª©ì ì§€ì˜ ì¢Œí‘œ( Dot ë‹¨ìœ„ )
 	short int		MoveGoy;
-	short int		Tox, Toy;			// Å¸°İÀ» ¹ŞÀ¸¸é ¹Ğ¸°´Ù.( Dot´ÜÀ§ )
+	short int		Tox, Toy;			// íƒ€ê²©ì„ ë°›ìœ¼ë©´ ë°€ë¦°ë‹¤.( Dotë‹¨ìœ„ )
 	short int		detect_x, detect_y;
-	int				path[ MAX_SHORTPATH][2];		// PathBuild()¸¦ À§ÇÑ º¯¼ö..
+	int				path[ MAX_SHORTPATH][2];		// PathBuild()ë¥¼ ìœ„í•œ ë³€ìˆ˜..
 	int				pathcount;
-	// --------------  NPC Pattern---------- NPC°ø°İÀ» À§ÇØ..-
+	// --------------  NPC Pattern---------- NPCê³µê²©ì„ ìœ„í•´..-
 	short 			patterntype;
 	short 			oldpatterntype;
 	int				targetid;
 	int				bossid;
-	short			attackcount;		// NPC°¡ »ç¿ëÇÑ´Ù. Áö±İÀº»ç¿ëÇÏÁö ¾Ê´Â´Ù. 
+	short			attackcount;		// NPCê°€ ì‚¬ìš©í•œë‹¤. ì§€ê¸ˆì€ì‚¬ìš©í•˜ì§€ ì•ŠëŠ”ë‹¤. 
 	DWORD 			aitimedelay;
 	DWORD			aidelayhowmuch;
-	int				tx, ty, how;// ÀÌµ¿¿¡ °ü·ÃµÈ»çÇ×.
+	int				tx, ty, how;// ì´ë™ì— ê´€ë ¨ëœì‚¬í•­.
 	int				attacked;
-	bool			notcomeinside; // Áı¾È¿¡ µé¾î°¥¼ö ¾ø´Ù. 
-	//  ------------------------------------- NPC°¡ Á×À¸¸é ¾òÀ»¼ö ÀÖ´Â °Íµé...
+	bool			notcomeinside; // ì§‘ì•ˆì— ë“¤ì–´ê°ˆìˆ˜ ì—†ë‹¤. 
+	//  ------------------------------------- NPCê°€ ì£½ìœ¼ë©´ ì–»ì„ìˆ˜ ìˆëŠ” ê²ƒë“¤...
 	short int		Get_meat;
 	char			Meat_amount;
 	short int		Get_skin;
@@ -168,20 +168,20 @@ struct CHAR_DATA
 	char			BeeWax_amount;
 	char			viewtype;
 	short int		openhouse;
-	short int		tame;				// tame¼öÄ¡... 
+	short int		tame;				// tameìˆ˜ì¹˜... 
 	short int		tamingable;
 	short int		tamingcountdown;
 	BYTE			tame_cmd;
-	char			HostName[ 21]; // ÁÖÀÎÀÇ ÀÌ¸§...
+	char			HostName[ 21]; // ì£¼ì¸ì˜ ì´ë¦„...
 	short int		HostId;
-	char			TargetName[ 31]; // ÁÖÀÎÀÌ Á¤ÇÑ °ø°İÀÚÀÇ ÀÌ¸§.
+	char			TargetName[ 31]; // ì£¼ì¸ì´ ì •í•œ ê³µê²©ìì˜ ì´ë¦„.
 	short			pkid;		//
-	short			pkcount;	// ÀÌ ¼öÄ¡°¡ 3ÀÌ»óÀÌ¸é PK¸¦ ÇÑ°ÍÀÌ´Ù ! 
-	DWORD			cast_pk;	// BroadCastµÈ ½Ã°£.
-	//------------------------   ¼­¹ö¿¡¼­¸¸ »ç¿ëÇÏ´Â para...
+	short			pkcount;	// ì´ ìˆ˜ì¹˜ê°€ 3ì´ìƒì´ë©´ PKë¥¼ í•œê²ƒì´ë‹¤ ! 
+	DWORD			cast_pk;	// BroadCastëœ ì‹œê°„.
+	//------------------------   ì„œë²„ì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” para...
 	DWORD			WalkTime;
 	DWORD			desttime;
-	short int		cur_skillno; // ÇöÀç ½ÇÇàµÇ±â À§ÇØ ½ÃÀüÁßÀÎ Skill...
+	short int		cur_skillno; // í˜„ì¬ ì‹¤í–‰ë˜ê¸° ìœ„í•´ ì‹œì „ì¤‘ì¸ Skill...
 	short int		cur_skillx;
 	short int		cur_skilly;
 	short int		cur_skilltargettype;
@@ -189,7 +189,7 @@ struct CHAR_DATA
 	short int		cur_skillKey;//030102 lsw Skill Key
 	POS				cur_skillPOS;
 	char			cur_skillTargetName[31];//020531 lsw
-	DWORD			exetime_skill; // ½ÇÇàµÉ SkillÀÇ ½Ã°£.
+	DWORD			exetime_skill; // ì‹¤í–‰ë  Skillì˜ ì‹œê°„.
 
 	short int		MaxWizardSpell ;
 	short int		MaxPriestSpell ;
@@ -197,15 +197,15 @@ struct CHAR_DATA
 	short int		Weight, MaxWeight ;
 
 	DWORD			tac_skillEXP[13] ;
-	char			cur_tac_skill;	// ÇöÀç ¾î¶²°ø°İÀÌ ÀÌ·ù¾îÁ³À»¶§ SettingµÇ¸ç ÀüÅõ±â¼ú Index°¡ µé¾î°£´Ù. ( TACTICS_Crapple....°ú °°Àº )
+	char			cur_tac_skill;	// í˜„ì¬ ì–´ë–¤ê³µê²©ì´ ì´ë¥˜ì–´ì¡Œì„ë•Œ Settingë˜ë©° ì „íˆ¬ê¸°ìˆ  Indexê°€ ë“¤ì–´ê°„ë‹¤. ( TACTICS_Crapple....ê³¼ ê°™ì€ )
 
 	DWORD			LastTotal;
 	DWORD			LastLoan;
 	DWORD			LastLoan_time;
-//	DWORD			box_id;							// ÇöÀç ¿­·Á ÀÖ´Â ¹Ú½ºÀÇ °íÀ¯ ID
-	int				Defence;						// ¹æ¾î·Â
+//	DWORD			box_id;							// í˜„ì¬ ì—´ë ¤ ìˆëŠ” ë°•ìŠ¤ì˜ ê³ ìœ  ID
+	int				Defence;						// ë°©ì–´ë ¥
 	
-	// Chatting°ü·Ã º¯¼ö ----------------
+	// Chattingê´€ë ¨ ë³€ìˆ˜ ----------------
 	char			chatname[ 31];
 	char			chattype;
 	short int		whisperid;
@@ -215,56 +215,56 @@ struct CHAR_DATA
 	CharacterParty relation[3];				
 	CharacterParty employment[6];				
 	
-	/// up_date¿ë
+	/// up_dateìš©
 	char		party_str[6][31];
 	char		relation_str[3][31];
 	char		employment_str[6][31];
 	int			partyrequestflag;
-	BYTE		Status;				// Ä³¸¯ÅÍÀÇ ÈŞ½Ä »óÅÂ 0Àº nomal		//0108
+	BYTE		Status;				// ìºë¦­í„°ì˜ íœ´ì‹ ìƒíƒœ 0ì€ nomal		//0108
 	DWORD		timetoupdate;
 	char		updatable; // CSD-TW-030620
 	int			balancingtest;
-	DWORD		attackedblock;  // ¸Ê¿¡ µé¾î¿À¸é  0810 KHS							
+	DWORD		attackedblock;  // ë§µì— ë“¤ì–´ì˜¤ë©´  0810 KHS							
 	AREA		area_tbl[MAX_AREA_BUFFER];							
-	int			ctrlpc;			// NPCÀÏ°æ¿ì ³ª¸¦ Á¦¾îÇÏ´Â NPCÀÇ ID, ¾øÀ» °æ¿ì -1¸¦ °¡Áö°í ÀÖ´Ù.
+	int			ctrlpc;			// NPCì¼ê²½ìš° ë‚˜ë¥¼ ì œì–´í•˜ëŠ” NPCì˜ ID, ì—†ì„ ê²½ìš° -1ë¥¼ ê°€ì§€ê³  ìˆë‹¤.
 	int			ctrlnpc[MAX_PC_CONTROL_NPC];		
-	DWORD		SpeedUp;			//  ÇöÀç ¼ÓµµÀÇ 1/2¸¸Å­ ´õ »¡¶óÁü
-	char		believe_god;		// ³»°¡ ¹Ï´Â ½Å
-	short int	faith;				// ½Å¾Ó½É
-	char		preach_name[20];	// ÀüµµÇÑ »ç¶÷ÀÇ ÀÌ¸§
-	short int	god_cast_level;		// ½ÅÀü ÁÖ¹® ÇĞ½À ´Ü°è	// 0410	YGI	// sql ÀúÀå ÇÊ¿ä
-	bool		in_temple;			// ½ÅÀü¾È¿¡ ÀÖ´Ù		// 0410	YGI	// sql ÀúÀå ÇÊ¿ä ¾øÀ½
-	int			is_god_meeting;		// ÇöÀç ¿¹¹èÁßÀÌ´Ù		// 0410	YGI	// sql ÀúÀå ÇÊ¿ä ¾øÀ½
-	DWORD		god_meeting_start_time;	// ¿¹¹è ½ÃÀÛÇÑ ½Ã°£	// 0410	YGI	// sql ÀúÀå ÇÊ¿ä ¾øÀ½
-	bool		i_go_year_meeting;		// ¿¬Áß ¿¹¹è¿¡ °¬´Ù.// 0410	YGI	// sql ÀúÀå ÇÊ¿ä ¾øÀ½
-	bool		i_go_month_meeting;		// ¿ùÁß ¿¹¹è¿¡ °¬´Ù.// 0410	YGI	// sql ÀúÀå ÇÊ¿ä ¾øÀ½
-	bool		i_go_day_meeting;		// ÀÏÀÏ ¿¹¹è¿¡ °¬´Ù.// 0410	YGI	// sql ÀúÀå ÇÊ¿ä ¾øÀ½
-	bool		use_supper;				// À½½Ä Á¦°øÀ» ¹Ş´Â ÁßÀÌ¤¿.		// 0601
-	int			much_supper;			// Á¦°ø ¹Ş´Â À½½ÄÀÇ ¾ç			// 0601
-	DWORD		can_memorize_time;		// °¡´ÉÇÑ ½Ã°£	// ÀúÀåÇÒ ÇÊ¿ä ¾øÀ½  0414 YGI
+	DWORD		SpeedUp;			//  í˜„ì¬ ì†ë„ì˜ 1/2ë§Œí¼ ë” ë¹¨ë¼ì§
+	char		believe_god;		// ë‚´ê°€ ë¯¿ëŠ” ì‹ 
+	short int	faith;				// ì‹ ì•™ì‹¬
+	char		preach_name[20];	// ì „ë„í•œ ì‚¬ëŒì˜ ì´ë¦„
+	short int	god_cast_level;		// ì‹ ì „ ì£¼ë¬¸ í•™ìŠµ ë‹¨ê³„	// 0410	YGI	// sql ì €ì¥ í•„ìš”
+	bool		in_temple;			// ì‹ ì „ì•ˆì— ìˆë‹¤		// 0410	YGI	// sql ì €ì¥ í•„ìš” ì—†ìŒ
+	int			is_god_meeting;		// í˜„ì¬ ì˜ˆë°°ì¤‘ì´ë‹¤		// 0410	YGI	// sql ì €ì¥ í•„ìš” ì—†ìŒ
+	DWORD		god_meeting_start_time;	// ì˜ˆë°° ì‹œì‘í•œ ì‹œê°„	// 0410	YGI	// sql ì €ì¥ í•„ìš” ì—†ìŒ
+	bool		i_go_year_meeting;		// ì—°ì¤‘ ì˜ˆë°°ì— ê°”ë‹¤.// 0410	YGI	// sql ì €ì¥ í•„ìš” ì—†ìŒ
+	bool		i_go_month_meeting;		// ì›”ì¤‘ ì˜ˆë°°ì— ê°”ë‹¤.// 0410	YGI	// sql ì €ì¥ í•„ìš” ì—†ìŒ
+	bool		i_go_day_meeting;		// ì¼ì¼ ì˜ˆë°°ì— ê°”ë‹¤.// 0410	YGI	// sql ì €ì¥ í•„ìš” ì—†ìŒ
+	bool		use_supper;				// ìŒì‹ ì œê³µì„ ë°›ëŠ” ì¤‘ì´ã….		// 0601
+	int			much_supper;			// ì œê³µ ë°›ëŠ” ìŒì‹ì˜ ì–‘			// 0601
+	DWORD		can_memorize_time;		// ê°€ëŠ¥í•œ ì‹œê°„	// ì €ì¥í•  í•„ìš” ì—†ìŒ  0414 YGI
 	short int	startposition;
 	short int	startmap;
-	//////////////////////////////////  °áÅõ ½Ã½ºÅÛ...
+	//////////////////////////////////  ê²°íˆ¬ ì‹œìŠ¤í…œ...
 	char        dualname[20];
-	char        dualstatus;	// 0: No Dual    1: ½ÅÃ»ÇÑ»óÅÂ..   2: ´ë°á»óÅÂ.
+	char        dualstatus;	// 0: No Dual    1: ì‹ ì²­í•œìƒíƒœ..   2: ëŒ€ê²°ìƒíƒœ.
 	DWORD		dualvictory;	
 	DWORD		dualfail;	
 	DWORD		dualdraw;	
-	/////////////////// DB Update¾øÀÌ PacketÀ¸·Î Å¸ °ÔÀÓ¼­¹ö¿¡ Àü¼Û.
+	/////////////////// DB Updateì—†ì´ Packetìœ¼ë¡œ íƒ€ ê²Œì„ì„œë²„ì— ì „ì†¡.
 	char		change_map_confirm[9];						// YGI 0521
-	int			now_changing_map;	// ÇöÀç ¸Ê ÀüÈ¯ ÁßÀÌ´Ù	// YGI 0521
-	POINT		memory_Position;			//Å¸¿îÆ÷Å»ÇßÀ»¶§ ÀÌµ¿ÇÒ ¸Ê ÁÂÇ¥(Å¸ÀÏ ÁÂÇ¥)
+	int			now_changing_map;	// í˜„ì¬ ë§µ ì „í™˜ ì¤‘ì´ë‹¤	// YGI 0521
+	POINT		memory_Position;			//íƒ€ìš´í¬íƒˆí–ˆì„ë•Œ ì´ë™í•  ë§µ ì¢Œí‘œ(íƒ€ì¼ ì¢Œí‘œ)
 	int			homemap;
 	int         homex, homey;
-	BOOL		fight_flag;	//1:1 ´ë°á »óÅÂÃ¼Å©.
-	int			fight_id;	//ÀüÅõÇÒ ³ğ..
-	DWORD		first_ResultMagicTime;		//ÀÏ¹İ ´ë»ó¸¶¹ıÀÎ °æ¿ì 1ÃÊ¿¡ 1¹ø ÀÌ³»·Î Á¦ÇÑÇÏ±â À§ÇÑ ½Ã°£±â¾ï
+	BOOL		fight_flag;	//1:1 ëŒ€ê²° ìƒíƒœì²´í¬.
+	int			fight_id;	//ì „íˆ¬í•  ë†ˆ..
+	DWORD		first_ResultMagicTime;		//ì¼ë°˜ ëŒ€ìƒë§ˆë²•ì¸ ê²½ìš° 1ì´ˆì— 1ë²ˆ ì´ë‚´ë¡œ ì œí•œí•˜ê¸° ìœ„í•œ ì‹œê°„ê¸°ì–µ
 	DWORD		magic_delay;
 	int			curr_fight_map;		// 0907 YGI
-	int			dec_duration;		// ÀåºñÀÇ DurationÀÌ ´à´ÂÁ¤µµ¸¦ CheckÇÑ´Ù. 
-	short int	vote_num;			// ¸¶Áö¸· ±îÁö ¼±°ÅÇÑ ³¯Â¥
-	int         sealstone;	// °á°è¼®ÀÌ ¸ÂÀ¸¸é ÀÌ¼öÄ¡°¡ ¿Ã¶ó°¡¸ç. Àû´çÈ÷ ¿Ã¶ó°¥¶§¸¶´Ù. Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù. 
-	int			view_job;		// º¸¿©ÁÖ±â Á÷¾÷		//001028 YGI
+	int			dec_duration;		// ì¥ë¹„ì˜ Durationì´ ë‹®ëŠ”ì •ë„ë¥¼ Checkí•œë‹¤. 
+	short int	vote_num;			// ë§ˆì§€ë§‰ ê¹Œì§€ ì„ ê±°í•œ ë‚ ì§œ
+	int         sealstone;	// ê²°ê³„ì„ì´ ë§ìœ¼ë©´ ì´ìˆ˜ì¹˜ê°€ ì˜¬ë¼ê°€ë©°. ì ë‹¹íˆ ì˜¬ë¼ê°ˆë•Œë§ˆë‹¤. í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤. 
+	int			view_job;		// ë³´ì—¬ì£¼ê¸° ì§ì—…		//001028 YGI
   
 	// Added by chan78 at 2000/11/27
 	short int		MapChange_MoveGox;
@@ -277,9 +277,9 @@ struct CHAR_DATA
 	short int		MapChange_MoveSy;
 	
 	// 010406 YGI
-	DWORD			LadderScore;		// Äİ·Î¼¼½º ·¡´õ Á¡¼ö
-	WINLOSEPOINT	WinLoseScore;		// Äİ·Î¼¼½º ½ÂÆĞ
-	bool			refresh_ladder;		// ·¡´õ ·©Å· µğºñ¿¡ ÀúÀåÇÒ ÇÊ¿ä°¡ ÀÖ´Â°¡? // 010511 YGI
+	DWORD			LadderScore;		// ì½œë¡œì„¸ìŠ¤ ë˜ë” ì ìˆ˜
+	WINLOSEPOINT	WinLoseScore;		// ì½œë¡œì„¸ìŠ¤ ìŠ¹íŒ¨
+	bool			refresh_ladder;		// ë˜ë” ë­í‚¹ ë””ë¹„ì— ì €ì¥í•  í•„ìš”ê°€ ìˆëŠ”ê°€? // 010511 YGI
 
 	DWORD	dwSkillTime;//010703 lsw
 	DWORD	dwSkillMakeitemTime;//010703 lsw
@@ -287,7 +287,7 @@ struct CHAR_DATA
 	int iPhysicalTotalDamage;
 	int iPhysicalRandomDamage;
 	
-	//À¯·ÉÀÌ³ª Æ®·¦À» º¸´Â ½Ã°£
+	//ìœ ë ¹ì´ë‚˜ íŠ¸ë©ì„ ë³´ëŠ” ì‹œê°„
 	bool	bCanViewGhost;
 	DWORD	dwCanViewGhostTime;
 	
@@ -300,7 +300,7 @@ struct CHAR_DATA
 	short	nSkillSadCount;
 	short	nSkillBlessLeaf;
 	
-	//È¸º¹ ½Ã°£
+	//íšŒë³µ ì‹œê°„
 	DWORD	dwHungryRecoverTime;
 	DWORD	dwHpRecoverTime;
 	DWORD	dwManaRecoverTime;
@@ -310,7 +310,7 @@ struct CHAR_DATA
 	DWORD	dwCheckAccelTime;
 	DWORD	dwSendedAccelTime;
 
-	//¹à±â Á¶Àı
+	//ë°ê¸° ì¡°ì ˆ
 	short int nDayLightControl;
 
 	DWORD		dwDayLightControlCustomTime;
@@ -318,45 +318,45 @@ struct CHAR_DATA
 		
 	RareMain					SquadRare;
 	DYNAMICRAREEFFECT			DynamicRare;
-	STATICRAREEFFECT			StaticRare;		//Âø¿ë ¾ÆÀÌÅÛ
+	STATICRAREEFFECT			StaticRare;		//ì°©ìš© ì•„ì´í…œ
   
 	// 011108 YGI
-	BYTE	select_rune;			// °×ºí½Ã ¼±ÅÃµÈ ·é ¹øÈ£
- 	int 	JoinLocalWar;			// ±¹ÁöÀü¿¡ Âü¿© ÇßÀ½ ÇÏÁö ¾Ê¾ÒÀ½	// LTS LOCALWAR		// LTS AI2 MONSTER ±×·ì¹øÈ£ // CSD-030528
-	char	GainedFame;				// ±¹ÁöÀü¿¡¼­ ¾òÀº ¸í¼º			// LTS LOCALWAR			// LTS AI2 ¸ó½ºÅÍ º¸½º¹øÈ£
-	char	CurrentPhase;			// ±¹ÁöÀü¿¡¼­ Àû±¹°¡ÀÇ ¸Ê¿¡¼­ ÇÑ´Ü°è¾¿ µé¾î°¥¶§
-	char	ChairNum;				// ÀÇÀÚ¹øÈ£						// LTS SITDOWN BUG
+	BYTE	select_rune;			// ê²œë¸”ì‹œ ì„ íƒëœ ë£¬ ë²ˆí˜¸
+ 	int 	JoinLocalWar;			// êµ­ì§€ì „ì— ì°¸ì—¬ í–ˆìŒ í•˜ì§€ ì•Šì•˜ìŒ	// LTS LOCALWAR		// LTS AI2 MONSTER ê·¸ë£¹ë²ˆí˜¸ // CSD-030528
+	char	GainedFame;				// êµ­ì§€ì „ì—ì„œ ì–»ì€ ëª…ì„±			// LTS LOCALWAR			// LTS AI2 ëª¬ìŠ¤í„° ë³´ìŠ¤ë²ˆí˜¸
+	char	CurrentPhase;			// êµ­ì§€ì „ì—ì„œ ì êµ­ê°€ì˜ ë§µì—ì„œ í•œë‹¨ê³„ì”© ë“¤ì–´ê°ˆë•Œ
+	char	ChairNum;				// ì˜ìë²ˆí˜¸						// LTS SITDOWN BUG
 
 	char	reporter_mode;
-	char	party_select;	// ÆÄÆ¼½Ã ¿Ã¶ó°¡´Â °æÇèÄ¡ °áÁ¤
-	char	ox_select;		// ox event ¿¡¼­ ¼±ÅÃÇÑ °ª
+	char	party_select;	// íŒŒí‹°ì‹œ ì˜¬ë¼ê°€ëŠ” ê²½í—˜ì¹˜ ê²°ì •
+	char	ox_select;		// ox event ì—ì„œ ì„ íƒí•œ ê°’
 
-	char			EventLocalWarJoin;			// 020115 LTS			// ´ÙÀ½ÀÌº¥Æ®¿¡ ¾²±âÀ§ÇØ 
+	char			EventLocalWarJoin;			// 020115 LTS			// ë‹¤ìŒì´ë²¤íŠ¸ì— ì“°ê¸°ìœ„í•´ 
 	Event_Join		EventJoin;					// 020115 LTS
 	int				EventPoint;					// 020115 LTS
 
-	char			HorseNo;					// LTS HORSERIDER		// LTS NEW AI		// ¸®Ä¿¹ö¸® Ä«¿îÆ® 
+	char			HorseNo;					// LTS HORSERIDER		// LTS NEW AI		// ë¦¬ì»¤ë²„ë¦¬ ì¹´ìš´íŠ¸ 
 	char			RiderNo;					// LTS HORSERIDER
 	char			HorseGrade;					// LTS HORSERIDER
 	char			RiderGrade;					// LTS HORSERIDER
 
 	char			pk_on_off;		// YGI 020418
 	char			QuestMode;					// LTS DRAGON MODIFY
-	char			DragonLordWarTeam;			// LTS DRAGONLORD		// 0 : ¾øÀ½ 1: BLUE 2: RED
+	char			DragonLordWarTeam;			// LTS DRAGONLORD		// 0 : ì—†ìŒ 1: BLUE 2: RED
 
-	//021030 lsw ±³È¯ º¯°æ
-	K_ITEM			give[MAX_EXCHANGE_ITEM];		// ³»°¡ Áà¾ß ÇÏ´Â ¾ÆÀÌÅÛ
-	K_ITEM			recv[MAX_EXCHANGE_ITEM];		// ³»°¡ ¹Ş¾Æ¾ß ÇÏ´Â ¾ÆÀÌÅÛ
-	short int		m_iExchangeTargetId;		// °Å·¡ ´ë»ó
-	char			m_szExchangeTargetName[21];		// °Å·¡ ´ë»ó ÀÌ¸§
-	int				m_iExchangeType;		// °Å·¡ÇÏ°í ÀÖ´ÂÁö ¾ø´ÂÁö...
-	int				m_iExchangeState;		// °Å·¡ÇÏ°í ÀÖ´ÂÁö ¾ø´ÂÁö...
-	bool			m_bExchangeMode;		// °Å·¡ÇÏ°í ÀÖ´ÂÁö ¾ø´ÂÁö...
-	int				m_nUserAge;				// 030929 kyo // ÅÂ±¹¿¡¼­¸¸ »ç¿ëÇÏ´Â À¯Àú ³ªÀÌ
+	//021030 lsw êµí™˜ ë³€ê²½
+	K_ITEM			give[MAX_EXCHANGE_ITEM];		// ë‚´ê°€ ì¤˜ì•¼ í•˜ëŠ” ì•„ì´í…œ
+	K_ITEM			recv[MAX_EXCHANGE_ITEM];		// ë‚´ê°€ ë°›ì•„ì•¼ í•˜ëŠ” ì•„ì´í…œ
+	short int		m_iExchangeTargetId;		// ê±°ë˜ ëŒ€ìƒ
+	char			m_szExchangeTargetName[21];		// ê±°ë˜ ëŒ€ìƒ ì´ë¦„
+	int				m_iExchangeType;		// ê±°ë˜í•˜ê³  ìˆëŠ”ì§€ ì—†ëŠ”ì§€...
+	int				m_iExchangeState;		// ê±°ë˜í•˜ê³  ìˆëŠ”ì§€ ì—†ëŠ”ì§€...
+	bool			m_bExchangeMode;		// ê±°ë˜í•˜ê³  ìˆëŠ”ì§€ ì—†ëŠ”ì§€...
+	int				m_nUserAge;				// 030929 kyo // íƒœêµ­ì—ì„œë§Œ ì‚¬ìš©í•˜ëŠ” ìœ ì € ë‚˜ì´
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// È¹µæ Æ÷ÀÎÅÍ¿¡ °üÇÑ Å¬·¡½º
+// íšë“ í¬ì¸í„°ì— ê´€í•œ í´ë˜ìŠ¤
 class CGainPoint
 {
 public:
@@ -384,7 +384,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// »óÅÂ Æ÷ÀÎÅÍ¿¡ °ü·ÃµÈ Å¬·¡½º
+// ìƒíƒœ í¬ì¸í„°ì— ê´€ë ¨ëœ í´ë˜ìŠ¤
 class CStatePoint
 {
 public:
@@ -426,7 +426,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// Ä³¸¯ÅÍ Á¤º¸¿¡ °üÇÑ Å¬·¡½º
+// ìºë¦­í„° ì •ë³´ì— ê´€í•œ í´ë˜ìŠ¤
 class CBaseArena;
 class CArenaTeam;
 class CCharInfo : public CHAR_DATA
@@ -504,7 +504,7 @@ public:
 	void Rare_Quick();
 	void Rare_Equip();
 	void CalcRareEffect(int iFlag);
-	bool IsLimitedAge( const int nLimitedAge){ return ( m_nUserAge > nLimitedAge ? false:true); }; // 030929 kyo //ÅÂ±¹¿¡¼­ »ç¿ëÇÏ´Â À¯Àú³ªÀÌ Á¦ÇÑ
+	bool IsLimitedAge( const int nLimitedAge){ return ( m_nUserAge > nLimitedAge ? false:true); }; // 030929 kyo //íƒœêµ­ì—ì„œ ì‚¬ìš©í•˜ëŠ” ìœ ì €ë‚˜ì´ ì œí•œ
 	
 public:
 	inline int IncLife(int nVolume, int nMax);
@@ -573,25 +573,25 @@ public:
     
 	void SendCharInfoBasic(BYTE nKind, DWORD dwData) const; // CSD-TW-030620
 	void SendCharInfoTactic(BYTE nKind) const; // CSD-TW-030620
-	//021030 lsw ±³È¯ º¯°æ
-	int  GetExchangeTargetId()const{return m_iExchangeTargetId;}//°Å·¡ ´ë»óÀ» ¹Ş´Â´Ù
-	const char*  GetExchangeTargetName()const{return &m_szExchangeTargetName[0];}//°Å·¡ ´ë»óÀ» ¹Ş´Â´Ù
+	//021030 lsw êµí™˜ ë³€ê²½
+	int  GetExchangeTargetId()const{return m_iExchangeTargetId;}//ê±°ë˜ ëŒ€ìƒì„ ë°›ëŠ”ë‹¤
+	const char*  GetExchangeTargetName()const{return &m_szExchangeTargetName[0];}//ê±°ë˜ ëŒ€ìƒì„ ë°›ëŠ”ë‹¤
 	void SetExchangeTarget(const int iTradeTarget,const char* szTargetName)
 	{
 		m_iExchangeTargetId = iTradeTarget;
 		strcpy(m_szExchangeTargetName,szTargetName);
-	}//°Å·¡ ´ë»óÀ» ¼³Á¤ ÇÑ´Ù
+	}//ê±°ë˜ ëŒ€ìƒì„ ì„¤ì • í•œë‹¤
 	
-	int  GetExchangeType()const{return m_iExchangeType;}//°Å·¡ Å¸ÀÔÀ» ¹Ş´Â´Ù
-	void SetExchangeType(const int iTradeType){m_iExchangeType = iTradeType;}//°Å·¡ Å¸ÀÔÀ» ¼³Á¤ÇÑ´Ù
+	int  GetExchangeType()const{return m_iExchangeType;}//ê±°ë˜ íƒ€ì…ì„ ë°›ëŠ”ë‹¤
+	void SetExchangeType(const int iTradeType){m_iExchangeType = iTradeType;}//ê±°ë˜ íƒ€ì…ì„ ì„¤ì •í•œë‹¤
 	
-	int  GetExchangeState()const{return m_iExchangeState;}//°Å·¡ »óÅÂ¸¦ ¹Ş´Â´Ù
-	void SetExchangeState(const int iStateType){m_iExchangeState = iStateType;}//°Å·¡ »óÅÂ¸¦ ¼³Á¤ÇÑ´Ù
+	int  GetExchangeState()const{return m_iExchangeState;}//ê±°ë˜ ìƒíƒœë¥¼ ë°›ëŠ”ë‹¤
+	void SetExchangeState(const int iStateType){m_iExchangeState = iStateType;}//ê±°ë˜ ìƒíƒœë¥¼ ì„¤ì •í•œë‹¤
 	
-	void SetTradeMode(const bool bIsTradeOn){m_bExchangeMode = bIsTradeOn;}//°Å·¡ »óÅÂ¸¦ ¼³Á¤ÇÑ´Ù
-	bool IsTradeOn()const{return !m_bExchangeMode;}//Trade On Off °ªÀ» ¸®ÅÏÇÑ´Ù. m_bExchangeMode --> false ÀÏ°æ¿ì Trade On ÀÌ´Ù
+	void SetTradeMode(const bool bIsTradeOn){m_bExchangeMode = bIsTradeOn;}//ê±°ë˜ ìƒíƒœë¥¼ ì„¤ì •í•œë‹¤
+	bool IsTradeOn()const{return !m_bExchangeMode;}//Trade On Off ê°’ì„ ë¦¬í„´í•œë‹¤. m_bExchangeMode --> false ì¼ê²½ìš° Trade On ì´ë‹¤
 	
-	void ClearExchangeInfo()//°Å·¡ Á¤º¸¸¦ Å¬¸®¾î ½ÃÅ´
+	void ClearExchangeInfo()//ê±°ë˜ ì •ë³´ë¥¼ í´ë¦¬ì–´ ì‹œí‚´
 	{
 		::memset( give, 0, sizeof( K_ITEM ) * MAX_EXCHANGE_ITEM );
 		::memset( recv, 0, sizeof( K_ITEM ) * MAX_EXCHANGE_ITEM );
@@ -603,7 +603,7 @@ public:
 
 	bool IsCounselor() const { return (name_status.counselor) ? true:false; }
 	bool IsReporter() const { return (name_status.reporter) ? true:false; }
-	bool IsPayedUser() const { return (BT_FREE != GetBillingType()) ? true:false; } //ÀÌ À¯Àú´Â µ·À» ³½ À¯ÀúÀÎ°¡?
+	bool IsPayedUser() const { return (BT_FREE != GetBillingType()) ? true:false; } //ì´ ìœ ì €ëŠ” ëˆì„ ë‚¸ ìœ ì €ì¸ê°€?
 
 	short GetBillingType()const{return m_nBillingType;}
 	void SetBillingType(const short wValue){m_nBillingType = wValue;}
@@ -613,7 +613,7 @@ public:
 		return m_dwBankMoney;
 	}	//> CSD-030723
 	
-	// 040715_KJHuNs ÇÔ¼ö¸¦ cpp¿¡¼­ ±¸Çö, include ÆÄÀÏÀÌ ²¿ÀÏ¼ö°¡ ÀÖ±â¿¡.
+	// 040715_KJHuNs í•¨ìˆ˜ë¥¼ cppì—ì„œ êµ¬í˜„, include íŒŒì¼ì´ ê¼¬ì¼ìˆ˜ê°€ ìˆê¸°ì—.
 	void SetBankMoney(const DWORD dwMoney, const eBankMoneyChangeType BMCT);
 	bool IncBankMoney(const DWORD dwMoney, const eBankMoneyChangeType BMCT, const bool bSend = true)
 	{	//< CSD-030723
@@ -622,7 +622,7 @@ public:
 			SetBankMoney(m_dwBankMoney + dwMoney, BMCT);
 			
 			if (bSend)
-			{	//ÀºÇàµ· °»½Å
+			{	//ì€í–‰ëˆ ê°±ì‹ 
 				SendCharInfoBasic(BANKMONEY, GetBankMoney());
 			}
 
@@ -634,8 +634,8 @@ public:
 
 	bool DecBankMoney(const DWORD dwMoney, const eBankMoneyChangeType BMCT, const bool bSend = true)
 	{	//< CSD-030723
-		if (m_dwBankMoney >= dwMoney) //²¨³¾ µ·º¸´Ù ÀÖ´Â µ·ÀÌ ¸¹À¸¸é
-		{	//ÀºÇàµ· °»½Å
+		if (m_dwBankMoney >= dwMoney) //êº¼ë‚¼ ëˆë³´ë‹¤ ìˆëŠ” ëˆì´ ë§ìœ¼ë©´
+		{	//ì€í–‰ëˆ ê°±ì‹ 
 			SetBankMoney(m_dwBankMoney - dwMoney, BMCT);
 			
 			if(bSend)
@@ -651,7 +651,7 @@ public:
 	
 	bool IsEventRecv() { return m_bEventRecv; } ;			// BBD 040308
 	void SetEventRecv(bool val) { m_bEventRecv = val; } ;	// BBD 040308
-	bool SetChangeGender();									//050413_KCH ¼ºÀüÈ¯ ¾ÆÀÌÅÛ ±¸Çö
+	bool SetChangeGender();									//050413_KCH ì„±ì „í™˜ ì•„ì´í…œ êµ¬í˜„
 
 protected:
 	int GetExtStr() const;
@@ -711,28 +711,28 @@ protected:
 		IGNORE_MAX = 5
 	};
 	
-	bitset<IGNORE_MAX> m_bsAttr; // ¼Ó¼º°ª
+	bitset<IGNORE_MAX> m_bsAttr; // ì†ì„±ê°’
 	
 protected:
-	mutable __int8 m_nCriticalCount;   // CSD-031007 : Å©¸®Æ¼Ä® È÷Æ®¸¦ À§ÇÑ Ä«¿îÆ®
-	mutable __int8 m_nItemEffectCount; // CSD-031007 : ¾ÆÀÌÅÛ È¿°ú¸¦ À§ÇÑ Ä«¿îÆ®
+	mutable __int8 m_nCriticalCount;   // CSD-031007 : í¬ë¦¬í‹°ì¹¼ íˆíŠ¸ë¥¼ ìœ„í•œ ì¹´ìš´íŠ¸
+	mutable __int8 m_nItemEffectCount; // CSD-031007 : ì•„ì´í…œ íš¨ê³¼ë¥¼ ìœ„í•œ ì¹´ìš´íŠ¸
 
 private:
 	short	m_idServer;          // CSD-HK-030829
 	int     m_nLevel;			 // CSD-030806
 	int		m_nGuildCode;		 // CSD-030806
-	unsigned __int8  m_nDualCls;          // µà¾ó Å¬·¡½º Á¾·ù
-	unsigned __int8  m_nClsStep;          // Å¬·¡½º ´Ü°è
-	unsigned __int8  m_nExpStep;          // °æÇèÄ¡ ´Ü°è
-	unsigned __int8  m_aTacStep[NO_TAC];  // ÅÃÆ½ °æÇèÄ¡ ´Ü°è
+	unsigned __int8  m_nDualCls;          // ë“€ì–¼ í´ë˜ìŠ¤ ì¢…ë¥˜
+	unsigned __int8  m_nClsStep;          // í´ë˜ìŠ¤ ë‹¨ê³„
+	unsigned __int8  m_nExpStep;          // ê²½í—˜ì¹˜ ë‹¨ê³„
+	unsigned __int8  m_aTacStep[NO_TAC];  // íƒí‹± ê²½í—˜ì¹˜ ë‹¨ê³„
 	
-	bool	m_bEventRecv;		// BBD 040308	ÀÌº¥Æ® ¾ÆÀÌÅÛ Áßº¹ Áö±Ş¿äÃ»À» ¸·´Â ÇÃ·¡±×
+	bool	m_bEventRecv;		// BBD 040308	ì´ë²¤íŠ¸ ì•„ì´í…œ ì¤‘ë³µ ì§€ê¸‰ìš”ì²­ì„ ë§‰ëŠ” í”Œë˜ê·¸
 private:
-	CGainPoint  m_gnAbility;     // ¿Ã¸± ¼ö ÀÖ´Â ¾îºô·¯Æ¼ Æ÷ÀÎÅÍ
-	CGainPoint  m_gnCombat;      // ¿Ã¸± ¼ö ÀÖ´Â ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ
-	bool	    m_bWanted;     // Çö»ó¹ü ¿©ºÎ
-	DWORD	    m_dwBankMoney;	//ÀºÇàµ·
-	short	    m_nBillingType;	//°ú±İ Å¸ÀÔ
+	CGainPoint  m_gnAbility;     // ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ì–´ë¹ŒëŸ¬í‹° í¬ì¸í„°
+	CGainPoint  m_gnCombat;      // ì˜¬ë¦´ ìˆ˜ ìˆëŠ” ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„°
+	bool	    m_bWanted;     // í˜„ìƒë²” ì—¬ë¶€
+	DWORD	    m_dwBankMoney;	//ì€í–‰ëˆ
+	short	    m_nBillingType;	//ê³¼ê¸ˆ íƒ€ì…
 	CBaseArena* m_pArenaGame; // CSD-030509
 	CArenaTeam* m_pArenaTeam; // CSD-030509
 };
@@ -740,9 +740,9 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ÀÎ¶óÀÎ ÇÔ¼ö
+// ì¸ë¼ì¸ í•¨ìˆ˜
 inline int CCharInfo::IncLife(int nVolume, int nMax = 100) 
-{ // Life Áõ°¡
+{ // Life ì¦ê°€
 	const int nOld = Hp;
 	const int nLimit = HpMax*nMax/100;
 	Hp += nVolume; 
@@ -751,16 +751,16 @@ inline int CCharInfo::IncLife(int nVolume, int nMax = 100)
 }
 
 inline int CCharInfo::DecLife(int nVolume, int nMin = 0) 
-{ // Life °¨¼Ò
+{ // Life ê°ì†Œ
 	const int nOld = Hp;
 	const int nLimit = HpMax*nMin/100;
 	Hp -= nVolume; 
 	if (Hp < nLimit)  Hp = nLimit;
 	return nOld - Hp;
 }
-// ¸¶¹ı·Â¿¡ °ü·ÃµÈ Method
+// ë§ˆë²•ë ¥ì— ê´€ë ¨ëœ Method
 inline int CCharInfo::IncMana(int nVolume, int nMax = 100)
-{ // Mana Áõ°¡
+{ // Mana ì¦ê°€
 	const int nOld = Mana;
 	const int nLimit = ManaMax*nMax/100;
 	Mana += nVolume; 
@@ -769,7 +769,7 @@ inline int CCharInfo::IncMana(int nVolume, int nMax = 100)
 }
 
 inline int CCharInfo::DecMana(int nVolume, int nMin = 0) 
-{ // Mana °¨¼Ò
+{ // Mana ê°ì†Œ
 	const int nOld = Mana;
 	const int nLimit = ManaMax*nMin/100;
 	Mana -= nVolume; 
@@ -778,7 +778,7 @@ inline int CCharInfo::DecMana(int nVolume, int nMin = 0)
 }
 
 inline int CCharInfo::IncHungry(int nVolume, int nMax = 100) 
-{ // ¹è°íÇÄÁ¤µµ Áõ°¡
+{ // ë°°ê³ í””ì •ë„ ì¦ê°€
 	const int nOld = Hungry;
 	const int nLimit = HungryMax*nMax/100;
 	Hungry += nVolume; 
@@ -787,7 +787,7 @@ inline int CCharInfo::IncHungry(int nVolume, int nMax = 100)
 }
 
 inline int CCharInfo::DecHungry(int nVolume, int nMin = 0)
-{ // ¹è°íÇÄÁ¤µµ °¨¼Ò
+{ // ë°°ê³ í””ì •ë„ ê°ì†Œ
 	const int nOld = Hungry;
 	const int nLimit = HungryMax*nMin/100;
 	Hungry -= nVolume; 
@@ -796,7 +796,7 @@ inline int CCharInfo::DecHungry(int nVolume, int nMin = 0)
 }
 
 inline int CCharInfo::IncCombat(int nVolume, int nMax = 100) 
-{ // ÀüÅõ½ºÅ³ »ç¿ë°¡´É·® Áõ°¡
+{ // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ëŸ‰ ì¦ê°€
 	const int nOld = Cp;
 	const int nLimit = CpMax*nMax/100;
 	Cp += nVolume; 
@@ -805,7 +805,7 @@ inline int CCharInfo::IncCombat(int nVolume, int nMax = 100)
 }
 
 inline int CCharInfo::DecCombat(int nVolume, int nMin = 0)
-{ // ÀüÅõ½ºÅ³ »ç¿ë°¡´É·® °¨¼Ò
+{ // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš©ê°€ëŠ¥ëŸ‰ ê°ì†Œ
 	const int nOld = Cp;
 	const int nLimit = CpMax*nMin/100;
 	Cp -= nVolume; 

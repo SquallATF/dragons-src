@@ -1,4 +1,4 @@
-// GMMgr.cpp: implementation of the CGMMgr class.
+ï»¿// GMMgr.cpp: implementation of the CGMMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,19 +24,19 @@ CGMMgr::~CGMMgr()
 
 }
 
-int CGMMgr::IsAllGM(CHARLIST *ch)const//1Â÷ 2Â÷ ¿Ã Áö¿¥?
+int CGMMgr::IsAllGM(CHARLIST *ch)const//1ì°¨ 2ì°¨ ì˜¬ ì§€ì— ?
 {
 	for(int i = 0; MAX_GM_MAIN > i ; i++)
 	{
 		if(	g_GmMain[i].job_level == 1
-		||	g_GmMain[i].job_level == 2)//1·¹º§ÀÌ³ª 2·¹º§ ½ºÅ³ÀÌ ¸ğµÎ 1000000 ÀÌ¾î¾ß ÇÑ´Ù
+		||	g_GmMain[i].job_level == 2)//1ë ˆë²¨ì´ë‚˜ 2ë ˆë²¨ ìŠ¤í‚¬ì´ ëª¨ë‘ 1000000 ì´ì–´ì•¼ í•œë‹¤
 		{
 			if(1000000 !=ch->skillexp[g_GmMain[i].skill].skillexp)
 			{
 				return 0;
 			}
 		}
-	}//±âº»À¸·Î All GmÀÌ¾î¾ß ÇÑ´Ù
+	}//ê¸°ë³¸ìœ¼ë¡œ All Gmì´ì–´ì•¼ í•œë‹¤
 	return 1;
 }
 
@@ -79,34 +79,34 @@ int CGMMgr::IsSkillMaster(CHARLIST *ch)const
 
 int CGMMgr::CanGmRegist( const int iGmIndex, CHARLIST *ch )
 {
-	if(	(MAX_GM_MAIN) <= iGmIndex//iGmIndex ´Â 0 ¹ø¿¡ °ªÀÌ ¾ø´Ù
+	if(	(MAX_GM_MAIN) <= iGmIndex//iGmIndex ëŠ” 0 ë²ˆì— ê°’ì´ ì—†ë‹¤
 	||	0 > iGmIndex) 
 	{
 		return -1;
-	}	// ¹üÀ§¸¦ ¹ş¾î³²
+	}	// ë²”ìœ„ë¥¼ ë²—ì–´ë‚¨
 	
 	if (ENABLE_GM_LEVEL >= ch->GetLevel())
 	{	//< CSD-030806
 		return -1;
 	}	//> CSD-030806
 
-	if(!ch->IsPayedUser()) //20 ÀÌÇÏ¸é//021126 lsw
+	if(!ch->IsPayedUser()) //20 ì´í•˜ë©´//021126 lsw
 	{
 		return -1;
 	}
 		
 	const GM_QUEST *pGmMain = &g_GmMain[iGmIndex];
-//	if( pGmMain->need_money > ch->Money ) {return 0;}	// µ·ÀÌ ºÎÁ·ÇÏ´Ù.
+//	if( pGmMain->need_money > ch->Money ) {return 0;}	// ëˆì´ ë¶€ì¡±í•˜ë‹¤.
 
 	for( int i=0; i<MAX_GM_NEED_ITEM_COUNT; i++ )
 	{
 		const int iItemNo = pGmMain->need_item[i];
 		if( iItemNo )
-		{	// ½ÇÁ¦ ±× ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´ÂÁö Ã¼Å©( ÀÎº¥Åä¸®¿¡ °¡Áö°í ÀÖ¾î¾ß ÇÑ´Ù. );
+		{	// ì‹¤ì œ ê·¸ ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ”ì§€ ì²´í¬( ì¸ë²¤í† ë¦¬ì— ê°€ì§€ê³  ìˆì–´ì•¼ í•œë‹¤. );
 			const int ct = ::CheckInventory( ch, iItemNo, pGmMain->need_quantity[i] );
 			if( ct < 0 ) 
 			{
-				return -4;								// Æ¯Á¤ ¾ÆÀÌÅÛÀÇ ¼ö·®ÀÌ ºÎÁ·ÇÏ´Ù.
+				return -4;								// íŠ¹ì • ì•„ì´í…œì˜ ìˆ˜ëŸ‰ì´ ë¶€ì¡±í•˜ë‹¤.
 			}
 		}
 	}
@@ -119,9 +119,9 @@ int CGMMgr::CanGmRegist( const int iGmIndex, CHARLIST *ch )
 			const int iSkillExpIndex = g_GmMain[iGmIndex].skill;
 			if( ch->skillexp[iSkillExpIndex].skillexp != 999999 )
 			{
-				return -2;			// °æÇèÄ¡°¡ ¾ÈµÊ
+				return -2;			// ê²½í—˜ì¹˜ê°€ ì•ˆë¨
 			}
-			if(2 == pGmMain->job_level)//case 1µµ ÀÖÀ¸´Ï±î
+			if(2 == pGmMain->job_level)//case 1ë„ ìˆìœ¼ë‹ˆê¹Œ
 			{
 				int ok =0;
 				switch(iSkillExpIndex)

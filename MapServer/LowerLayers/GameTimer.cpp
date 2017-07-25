@@ -1,9 +1,9 @@
-//
+ï»¿//
 // GameTimer.cpp
 //
 
 // --------------------
-// µ¿Àû ÀÛ¾÷ºĞÇÒ ½Ã½ºÅÛ
+// ë™ì  ì‘ì—…ë¶„í•  ì‹œìŠ¤í…œ
 // --------------------
 #include "GameTimer.h"
 #include "..\stdafx.h"
@@ -25,8 +25,8 @@
 void CheckElapsedTime_NK_Down( void );
 void prepare(t_connection c[]);
 
-CGameTimer GameTimerList[NUM_OF_GTES];	// GameTimerList ¹è¿­, NUM_OF_GAME_TIMERS ´Â °ÔÀÓÅ¸ÀÌ¸ÓÀÇ Ãß°¡, »èÁ¦°¡ ÀÖÀ»¶§ ²À °íÃÄÁà¾ß ÇÑ´Ù.(Áß¿ä)
-DWORD end_of_tick = 0;					// SetGameTimer()¿¡¼­ ÀÚµ¿ °»½ÅÇØ ÁÖ¹Ç·Î °íÄ¥ ÇÊ¿ä ¾ø´Ù.
+CGameTimer GameTimerList[NUM_OF_GTES];	// GameTimerList ë°°ì—´, NUM_OF_GAME_TIMERS ëŠ” ê²Œì„íƒ€ì´ë¨¸ì˜ ì¶”ê°€, ì‚­ì œê°€ ìˆì„ë•Œ ê¼­ ê³ ì³ì¤˜ì•¼ í•œë‹¤.(ì¤‘ìš”)
+DWORD end_of_tick = 0;					// SetGameTimer()ì—ì„œ ìë™ ê°±ì‹ í•´ ì£¼ë¯€ë¡œ ê³ ì¹  í•„ìš” ì—†ë‹¤.
 DWORD dwTimerFlag = 0;
 bool IsGameTimerWorking = false;
 
@@ -66,7 +66,7 @@ void NPCRegen( DWORD all, DWORD now )
 	}
 
 	from = now*increasement;
-	// ¸¶Áö¸·¿£ ³ª¸ÓÁö¸¦ ´Ù Ã³¸®
+	// ë§ˆì§€ë§‰ì—” ë‚˜ë¨¸ì§€ë¥¼ ë‹¤ ì²˜ë¦¬
 	if( now == (all-1) ) { to = total; run++; MyLog(LOG_IGNORE, "OKOKOKOKOK"); }
 
 	else to = from+increasement;
@@ -80,7 +80,7 @@ void NPCRegen( DWORD all, DWORD now )
 	return;
 }		
 		
-// Modified by chan78 at 2000/11/29, ÀÏ´Ü ºĞ·ùÇØ µÒ.
+// Modified by chan78 at 2000/11/29, ì¼ë‹¨ ë¶„ë¥˜í•´ ë‘ .
 void very_short_terms()		// 100 ms
 {	//< CSD-HK-030829
 	prepare(connections);
@@ -113,7 +113,7 @@ void long_terms()		// 600 ms
 extern void CheckTimeForMenu_Kein();		// 010419 YGI		
 extern void UpdateDragonLordWarTime();		// LTS DRAGONLORD
 
-void very_long_terms()	// 1000 ms (1ÃÊ)
+void very_long_terms()	// 1000 ms (1ì´ˆ)
 {
 	g_pBattleManager->Elapse();    
 	g_pArenaManager->Ready();   // CSD-030521
@@ -193,7 +193,7 @@ bool CGameTimer::IsTicToRun(DWORD tick)
 	if( !bIsDividable && !(tick % dwTickSize) ) return true;
 	if( bIsDividable ) {
 		if( wCurrentProcessPos ) return true;
-		// (tick%dwTickSzie) ³ª¸ÓÁö°¡ 
+		// (tick%dwTickSzie) ë‚˜ë¨¸ì§€ê°€ 
 		else if( (dwTickSize-(tick%dwTickSize)) == (DWORD)(dwTickSize - (wNumOfDividedBy/2)) ) return true;
 	}
 	return false;
@@ -203,7 +203,7 @@ WORD CGameTimer::Run()
 {
 	DWORD StartTime, FinishTime, TakeTime;
 	static int counter = 0;
-	StartTime = timeGetTime();							// ¿©±â¼­ºÎÅÍ ¼Ò¿ä ½Ã°£ Ã¼Å©
+	StartTime = timeGetTime();							// ì—¬ê¸°ì„œë¶€í„° ì†Œìš” ì‹œê°„ ì²´í¬
 
 	// Run
 	if( bIsDividable ) {
@@ -211,7 +211,7 @@ WORD CGameTimer::Run()
 		if ( wNumOfDividedBy > 1 ) {
 			wCurrentProcessPos++;
 
-			// ´Ù ÇßÀ¸¸é ¸¶¹«¸®.
+			// ë‹¤ í–ˆìœ¼ë©´ ë§ˆë¬´ë¦¬.
 			if( wCurrentProcessPos == wNumOfDividedBy )
 				wCurrentProcessPos = 0;
 		}
@@ -219,38 +219,38 @@ WORD CGameTimer::Run()
 		NormalFuncToCall();
 	}
 
-	FinishTime = timeGetTime();							// ¼Ò¿ä½Ã°£ Ã¼Å© ³¡
-	TakeTime = FinishTime - StartTime;					// °É¸° ½Ã°£À» °è»êÇÑ´Ù.
+	FinishTime = timeGetTime();							// ì†Œìš”ì‹œê°„ ì²´í¬ ë
+	TakeTime = FinishTime - StartTime;					// ê±¸ë¦° ì‹œê°„ì„ ê³„ì‚°í•œë‹¤.
 
-	// ¼Ò¿ä½Ã°£ ±â·Ï ³²±â±â
+	// ì†Œìš”ì‹œê°„ ê¸°ë¡ ë‚¨ê¸°ê¸°
 	if( !bIsDividable || wNumOfDividedBy == 1 ) {
-		dwTotalTakeTime = TakeTime;						// ºĞÇÒ ºÒ°¡´ÉÇÑ ÇÔ¼öÀÌ°Å³ª ºĞÇÒ°¡´ÉÇÏÁö¸¸ ºĞÇÒµÇÁö ¾ÊÀº ÀÛ¾÷ÀÌ¸é ÀÌ¹ø¿¡ °É¸° ½Ã°£À» dwTotalTakeTime¿¡ ³Ö´Â´Ù.
+		dwTotalTakeTime = TakeTime;						// ë¶„í•  ë¶ˆê°€ëŠ¥í•œ í•¨ìˆ˜ì´ê±°ë‚˜ ë¶„í• ê°€ëŠ¥í•˜ì§€ë§Œ ë¶„í• ë˜ì§€ ì•Šì€ ì‘ì—…ì´ë©´ ì´ë²ˆì— ê±¸ë¦° ì‹œê°„ì„ dwTotalTakeTimeì— ë„£ëŠ”ë‹¤.
 	} else {
 		counter++;
-		dwTotalTakeTime = dwTotalTakeTime + TakeTime;	// ºĞÇÒµÈ ÀÛ¾÷Àº ÇÑ´ÜÀ§ÀÇ ÀÛ¾÷ÀÌ ³¡³¯¶§±îÁö °É¸°½Ã°£À» ´õÇÑ´Ù.
+		dwTotalTakeTime = dwTotalTakeTime + TakeTime;	// ë¶„í• ëœ ì‘ì—…ì€ í•œë‹¨ìœ„ì˜ ì‘ì—…ì´ ëë‚ ë•Œê¹Œì§€ ê±¸ë¦°ì‹œê°„ì„ ë”í•œë‹¤.
 		if (wCurrentProcessPos == 0 ) {
 			MyLog( LOG_IGNORE, "TotalTakeTime(%d/%d)", counter, dwTotalTakeTime );
 			counter = 0;
 		}
 	}
 
-	if( bIsDividable && !wCurrentProcessPos ) {			// ºĞÇÒ°¡´ÉÇÑ Æã¼ÇÀÌ°í, ´ÜÀ§ÀÛ¾÷ÀÌ ÁøÇàÁßÀÌ ¾Æ´Ï¸é ºĞÇÒ/ÇÕÄ§ ¿©ºÎ¸¦ ÆÇ´ÜÇÑ´Ù.
-		if ( wNumOfDividedBy > 1 ) {					// ºĞÇÒµÈ ÀÛ¾÷ÀÇ °æ¿ì ÇÑ ÀÛ¾÷´ç ¼Ò¿ä½Ã°£ÀÇ Æò±ÕÀ» ±¸ÇÑ´Ù.
+	if( bIsDividable && !wCurrentProcessPos ) {			// ë¶„í• ê°€ëŠ¥í•œ í‘ì…˜ì´ê³ , ë‹¨ìœ„ì‘ì—…ì´ ì§„í–‰ì¤‘ì´ ì•„ë‹ˆë©´ ë¶„í• /í•©ì¹¨ ì—¬ë¶€ë¥¼ íŒë‹¨í•œë‹¤.
+		if ( wNumOfDividedBy > 1 ) {					// ë¶„í• ëœ ì‘ì—…ì˜ ê²½ìš° í•œ ì‘ì—…ë‹¹ ì†Œìš”ì‹œê°„ì˜ í‰ê· ì„ êµ¬í•œë‹¤.
 			dwTotalTakeTime = dwTotalTakeTime / wNumOfDividedBy;
 		}
-		DWORD dwTakeTimeAvr = dwTotalTakeTime;			// Æò±Õ°ªÀ¸·Î »ç¿ë.
-		dwTotalTakeTime = 0;							// ²À Å¬¸®¾îÇØÁØ´Ù.
+		DWORD dwTakeTimeAvr = dwTotalTakeTime;			// í‰ê· ê°’ìœ¼ë¡œ ì‚¬ìš©.
+		dwTotalTakeTime = 0;							// ê¼­ í´ë¦¬ì–´í•´ì¤€ë‹¤.
 
 		bool bIsExcess;
 		DWORD dwDiffTime;
 
 		if( dwTakeTimeAvr > dwExpectedTime ) {
-			if( wNumOfDividedBy == dwTickSize )			// ÀÌ¹Ì ÃÖ´ë°ª ÀÌ»óÀÇ ½Ã°£ÀÌ °É¸®°í ÀÖÀ¸¸é...
+			if( wNumOfDividedBy == dwTickSize )			// ì´ë¯¸ ìµœëŒ€ê°’ ì´ìƒì˜ ì‹œê°„ì´ ê±¸ë¦¬ê³  ìˆìœ¼ë©´...
 				return (WORD)TakeTime;
 			bIsExcess = true;
 			dwDiffTime = dwTakeTimeAvr - dwExpectedTime;
 		} else if( dwTakeTimeAvr < dwExpectedTime ) {
-			if( wNumOfDividedBy <= 1 )					// 1 ÀÌÇÏ¸é ´õ ³ª´­¼ö ¾ø´Ù.
+			if( wNumOfDividedBy <= 1 )					// 1 ì´í•˜ë©´ ë” ë‚˜ëˆŒìˆ˜ ì—†ë‹¤.
 				return (WORD)TakeTime;
 			bIsExcess = false;
 			dwDiffTime = dwExpectedTime - dwTakeTimeAvr;
@@ -268,7 +268,7 @@ WORD CGameTimer::Run()
 			
 			wNumOfDividedBy = (int)((float)wNumOfDividedBy * factor);
 			MyLog( LOG_NORMAL, "TakeTimeAvr(%d), ExpectedTime(%d), Factor(%f), Changed to(%d)", dwTakeTimeAvr, dwExpectedTime, factor, wNumOfDividedBy);
-			if( wNumOfDividedBy > dwTickSize ) {	// wNumOfDividedBy´Â dwTickSizeº¸´Ù Å¬ ¼ö ¾ø´Ù.
+			if( wNumOfDividedBy > dwTickSize ) {	// wNumOfDividedByëŠ” dwTickSizeë³´ë‹¤ í´ ìˆ˜ ì—†ë‹¤.
 				MyLog( LOG_IMPORTANT, "GTE(%s) takes too long time but can't be devided more(%d:%d)", sTimerProcessName, wNumOfDividedBy, dwTickSize);
 				wNumOfDividedBy = (WORD)dwTickSize;
 			}
@@ -278,22 +278,22 @@ WORD CGameTimer::Run()
 }
 
 
-// ²À ½ÇÇàÇØÁà¾ß ÇÑ´Ù...
+// ê¼­ ì‹¤í–‰í•´ì¤˜ì•¼ í•œë‹¤...
 void SettingGameTimers( void )
 {
-	// ÀÌ¸§, ½ÇÇàÇÒ Æ½ ³Ñ¹ö, µ¿ÀûÀÛ¾÷ºĞÇÒ°¡´É¿©ºÎ, ±â´ë½Ã°£, È£ÃâÇÒ ÇÔ¼ö.
-	// ÁÖÀÇ! 0ºÎÅÍ NUM_OF_GAME_TIMERS-1 ±îÁö ¹è¿­ÀÌ ºñ¾î¼­´Â Àı´ë ¾ÈµÊ.
-	// ³·Àº ÀÎµ¦½º¿¡ Ãß°¡ÇÒ¼ö·Ï Ã³¸® ¿ì¼±¼øÀ§°¡ ³ô´Ù. ÀÏ¹İÀûÀ¸·Î È£ÃâÆ½ÀÌ ÂªÀ»¼ö·Ï ³·Àº ÀÎµ¦½º¿¡ µî·ÏÇÏ´Â°ÍÀÌ ÁÁ´Ù.
+	// ì´ë¦„, ì‹¤í–‰í•  í‹± ë„˜ë²„, ë™ì ì‘ì—…ë¶„í• ê°€ëŠ¥ì—¬ë¶€, ê¸°ëŒ€ì‹œê°„, í˜¸ì¶œí•  í•¨ìˆ˜.
+	// ì£¼ì˜! 0ë¶€í„° NUM_OF_GAME_TIMERS-1 ê¹Œì§€ ë°°ì—´ì´ ë¹„ì–´ì„œëŠ” ì ˆëŒ€ ì•ˆë¨.
+	// ë‚®ì€ ì¸ë±ìŠ¤ì— ì¶”ê°€í• ìˆ˜ë¡ ì²˜ë¦¬ ìš°ì„ ìˆœìœ„ê°€ ë†’ë‹¤. ì¼ë°˜ì ìœ¼ë¡œ í˜¸ì¶œí‹±ì´ ì§§ì„ìˆ˜ë¡ ë‚®ì€ ì¸ë±ìŠ¤ì— ë“±ë¡í•˜ëŠ”ê²ƒì´ ì¢‹ë‹¤.
 
 // Commected by chan78 at 2000/11/29
 //	GameTimerList[0].SetGameTimer("Run Them all", 2, false, 400, imsi );
-// 1´ç 150 ms
-	GameTimerList[0].SetGameTimer("Very Short Terms",	1, false,	100, very_short_terms	);	//100ms ÃÊ´ç 12-14¹ø
-	GameTimerList[1].SetGameTimer("Short Terms",		2, false,	300, short_terms		);	//300ms ÃÊ´ç 6¹ø
-	GameTimerList[2].SetGameTimer("Normal Terms",		3, false,	450, normal_terms		);	//450ms ÃÊ´ç 4¹ø
-	GameTimerList[3].SetGameTimer("Long Terms",			4, false,	600, long_terms			);	//600ms ÃÊ´ç 4,2,4,2,4 (ÆĞÅÏ)
-	GameTimerList[4].SetGameTimer("Very Long Terms",	7, false,	1000, very_long_terms	);	//1000ms ÃÊ´ç 1¹ø
-	GameTimerList[5].SetGameTimer("Quest30Second",		10, false, 	1000, QuestSecond	);		//100ms 10ÃÊ¿¡ 7¹øÁ¤µµ(Á¶Á¤flag°¡ Á¸ÀçÇÏ´Â°ÍÀ¸·Î ÃßÁ¤) => 1000ms·Î ¼öÁ¤ by KCH
+// 1ë‹¹ 150 ms
+	GameTimerList[0].SetGameTimer("Very Short Terms",	1, false,	100, very_short_terms	);	//100ms ì´ˆë‹¹ 12-14ë²ˆ
+	GameTimerList[1].SetGameTimer("Short Terms",		2, false,	300, short_terms		);	//300ms ì´ˆë‹¹ 6ë²ˆ
+	GameTimerList[2].SetGameTimer("Normal Terms",		3, false,	450, normal_terms		);	//450ms ì´ˆë‹¹ 4ë²ˆ
+	GameTimerList[3].SetGameTimer("Long Terms",			4, false,	600, long_terms			);	//600ms ì´ˆë‹¹ 4,2,4,2,4 (íŒ¨í„´)
+	GameTimerList[4].SetGameTimer("Very Long Terms",	7, false,	1000, very_long_terms	);	//1000ms ì´ˆë‹¹ 1ë²ˆ
+	GameTimerList[5].SetGameTimer("Quest30Second",		10, false, 	1000, QuestSecond	);		//100ms 10ì´ˆì— 7ë²ˆì •ë„(ì¡°ì •flagê°€ ì¡´ì¬í•˜ëŠ”ê²ƒìœ¼ë¡œ ì¶”ì •) => 1000msë¡œ ìˆ˜ì • by KCH
 
 	StartGameTimers();
 
@@ -312,8 +312,8 @@ void StopGameTimers( void )
 	return;
 }
 
-// GTE_SIZE ¿¡ ÇÑ¹ø¾¿ È£ÃâµÇ´Â func,
-// timer.cpp Âü°í
+// GTE_SIZE ì— í•œë²ˆì”© í˜¸ì¶œë˜ëŠ” func,
+// timer.cpp ì°¸ê³ 
 void __stdcall GameTimerProcess(DWORD dwValue)//020511 lsw
 {
 	static DWORD tick = 1;
@@ -327,22 +327,22 @@ void __stdcall GameTimerProcess(DWORD dwValue)//020511 lsw
 		if( !GameTimerList[i].IsTicToRun(tick) )
 			continue;
 
-		// ¿©±â¼­ °É¸° ½Ã°£ÀÌ ÃÖ´ë Çã¿ë ½Ã°£À» ¹ş¾î³ª¸é ¾ÆÁ÷ ÇÒ ÀÏÀÌ ³²¾ÆÀÖ¾îµµ ¸ŞÀÎ¾²·¹µå·Î º¹±ÍÇØÁØ´Ù.
-		// ticÀº Áõ°¡½ÃÅ°Áö ¾Ê°í LastProcess´Â i+1ÀÇ °ªÀ» °®°ÔµÇ¹Ç·Î ³²¾ÆÀÖ´Â ÀÛ¾÷ºÎÅÍ Ã³¸®ÇÏ°Ô µÈ´Ù.
+		// ì—¬ê¸°ì„œ ê±¸ë¦° ì‹œê°„ì´ ìµœëŒ€ í—ˆìš© ì‹œê°„ì„ ë²—ì–´ë‚˜ë©´ ì•„ì§ í•  ì¼ì´ ë‚¨ì•„ìˆì–´ë„ ë©”ì¸ì“°ë ˆë“œë¡œ ë³µê·€í•´ì¤€ë‹¤.
+		// ticì€ ì¦ê°€ì‹œí‚¤ì§€ ì•Šê³  LastProcessëŠ” i+1ì˜ ê°’ì„ ê°–ê²Œë˜ë¯€ë¡œ ë‚¨ì•„ìˆëŠ” ì‘ì—…ë¶€í„° ì²˜ë¦¬í•˜ê²Œ ëœë‹¤.
 		if( (TakeTime = GameTimerList[i].Run()) > GameTimerList[i].GetExpectedTime() ) {
-			// ½Ã°£ ¿À¹ö¸¦ ·Î±×ÇÏ°í½ÍÀ¸¸é...
+			// ì‹œê°„ ì˜¤ë²„ë¥¼ ë¡œê·¸í•˜ê³ ì‹¶ìœ¼ë©´...
 			//MyLog( LOG_IGNORE, "GameTimerList[%d].Run() > dwExpectedTime(%d)", i, TakeTime );
 
 			LastProcess = i+1;
-			if( LastProcess == NUM_OF_GTES ) {		// ¾îÂ÷ÇÇ ÀÌ¹ø ÀÛ¾÷ÀÌ ¸¶Áö¸·ÀÎ °æ¿ì...
+			if( LastProcess == NUM_OF_GTES ) {		// ì–´ì°¨í”¼ ì´ë²ˆ ì‘ì—…ì´ ë§ˆì§€ë§‰ì¸ ê²½ìš°...
 				LastProcess = 0;
 			tick++;
 			}
 			return;
 		}
 
-		// LastProcess°¡ 0ÀÌ ¾Æ´Ñ°æ¿ì´Â Àú¹ø È£Ãâ¶§ ÇÒÀÏÀÌ ³²¾Æ ticÀÌ Áõ°¡ÇÏÁö ¾ÊÀº°ÍÀÌ¹Ç·Î Æ½À» Áõ°¡½ÃÅ°°í
-		// ¿ø·¡ ÀÌ¹øÅÏ¿¡ ÇØ¾ßÇÒ ÀÏµéÀ» Ã³¸®ÇØÁØ´Ù. °¡´ÉÇÏ¸é Æ½ÀÌ ´ú ¹Ğ¸®µµ·Ï ÇÏ±â À§ÇÑ Ã³¸®´Ù.
+		// LastProcessê°€ 0ì´ ì•„ë‹Œê²½ìš°ëŠ” ì €ë²ˆ í˜¸ì¶œë•Œ í• ì¼ì´ ë‚¨ì•„ ticì´ ì¦ê°€í•˜ì§€ ì•Šì€ê²ƒì´ë¯€ë¡œ í‹±ì„ ì¦ê°€ì‹œí‚¤ê³ 
+		// ì›ë˜ ì´ë²ˆí„´ì— í•´ì•¼í•  ì¼ë“¤ì„ ì²˜ë¦¬í•´ì¤€ë‹¤. ê°€ëŠ¥í•˜ë©´ í‹±ì´ ëœ ë°€ë¦¬ë„ë¡ í•˜ê¸° ìœ„í•œ ì²˜ë¦¬ë‹¤.
 		if( i == (NUM_OF_GTES-1) ) {
 			if( LastProcess != 0 ) {
 				LastProcess = 0;
@@ -353,7 +353,7 @@ void __stdcall GameTimerProcess(DWORD dwValue)//020511 lsw
 
 	}
 
-	// ÇØ¾ßÇÒ ¸ğµç ÀÛ¾÷À» ±â´ëÇÑ ½Ã°£¾È¿¡ ³¡³Â´Ù.
+	// í•´ì•¼í•  ëª¨ë“  ì‘ì—…ì„ ê¸°ëŒ€í•œ ì‹œê°„ì•ˆì— ëëƒˆë‹¤.
 	LastProcess = 0;
 	tick++;
 

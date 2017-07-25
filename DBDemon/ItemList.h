@@ -1,4 +1,4 @@
-#ifndef _DRAGON_ITEMLIST_
+﻿#ifndef _DRAGON_ITEMLIST_
 #define _DRAGON_ITEMLIST_
 
 #define MAX_ITEM_LIST 10000

@@ -1,16 +1,16 @@
-#include "defaultheader.h"
+ï»¿#include "defaultheader.h"
 #include "Citem.h"
 #ifndef __teambattle_h__
 #define __teambattle_h__
 
 extern void Script( int num );
 extern void CalcWinLoseScore( WINLOSEPOINT &win_lose, int wintype );
-extern void SendFightMapChat( short int cn, t_packet *packet );		// ÀüÃ¼¿¡°Ô º¸³½´Ù.
+extern void SendFightMapChat( short int cn, t_packet *packet );		// ì „ì²´ì—ê²Œ ë³´ë‚¸ë‹¤.
 extern void SendFightMapChatMyTeam( short int cn, t_packet *packet );
 extern void SendGamblingResult(CHARLIST* pGambler, int nPayment, DWORD dwMoney);
 
 //////////////////////////////////////////////////////////////////
-// °×ºí ¾ÆÀÌÅÛ
+// ê²œë¸” ì•„ì´í…œ
 struct k_game_item
 {
 	int count;
@@ -106,13 +106,13 @@ public :
 
 extern CTodayGambleItem g_TodayGambleItem;
 extern int RefreshTodayItem();
-extern k_nation_item_data g_nation_item;	// ±¹°¡ °í±Ş ¾ÆÀÌÅÛ
+extern k_nation_item_data g_nation_item;	// êµ­ê°€ ê³ ê¸‰ ì•„ì´í…œ
 
-// ±× ½ºÅæÀ» ¾î´ÀÆÀÀÌ Â÷Áö Çß´Â°¡?
+// ê·¸ ìŠ¤í†¤ì„ ì–´ëŠíŒ€ì´ ì°¨ì§€ í–ˆëŠ”ê°€?
 
-const int  STONE_SCORE_FIRST=	IA2_NOTMOVE;		// 1: ÃÊ±â ÀÏ¶§ 
-const int  STONE_SCORE_2	=	IA2_OPENED;		//	2 ÀÚ¸®
-const int  STONE_SCORE_1	=	IA2_BROKEN;		// Ã¹Â°ÀÚ¸®
+const int  STONE_SCORE_FIRST=	IA2_NOTMOVE;		// 1: ì´ˆê¸° ì¼ë•Œ 
+const int  STONE_SCORE_2	=	IA2_OPENED;		//	2 ìë¦¬
+const int  STONE_SCORE_1	=	IA2_BROKEN;		// ì²«ì§¸ìë¦¬
 
 class CColossusStone
 {
@@ -128,8 +128,8 @@ class CColossusStoneMgr
 {
 public :
 	CColossusStone	m_StoneList;
-	DWORD m_GotStoneTime;		// µ¹À» ÀüºÎ Â÷ÁöÇÑ ½Ã°£
-	int m_GotStoneTeam;			// µ¹À» ÀüºÎ Â÷ÁöÇÑ ÆÀ
+	DWORD m_GotStoneTime;		// ëŒì„ ì „ë¶€ ì°¨ì§€í•œ ì‹œê°„
+	int m_GotStoneTeam;			// ëŒì„ ì „ë¶€ ì°¨ì§€í•œ íŒ€
 	int m_MaxStone;
 
 
@@ -161,8 +161,8 @@ public:
 	int AddStone( int id );
 	ITEMLIST *GetList( int count );
 	void GetTeamCount( int team[4] );
-	void SetStoneByTeam( int id, int team );		// ÇÑÆÀÀÌ ½ºÅæÀ» °Çµå·ÈÀ»¶§;
-	void SetStoneFirst();		// ÃÊ±â ¼¼ÆÃ	
+	void SetStoneByTeam( int id, int team );		// í•œíŒ€ì´ ìŠ¤í†¤ì„ ê±´ë“œë ¸ì„ë•Œ;
+	void SetStoneFirst();		// ì´ˆê¸° ì„¸íŒ…	
 	int GetMaxStone();
 };
 
@@ -176,22 +176,22 @@ class CGuildHouseUnit
 {
 public :
 	int id;
-	int level;				// µî±Ş
-	int nation;				// Á¸ÀçÇÏ´Â À§Ä¡ ±¹°¡
-	int blue;				// ±¸¸Å¿¡ ÇÊ¿äÇÑ ÆÄ¶õ ½Ã±×³İ ¼ö
-	int red;				// ±¸¸Å¿¡ ÇÊ¿äÇÑ »¡°£ ½Ã±×³İ ¼ö
-	char map_name[20];		// À§Ä¡ ¸Ê
-	int x;					// À§Ä¡ ÁÂÇ¥ ( ÀÔ±¸ ÁÂÇ¥ )
+	int level;				// ë“±ê¸‰
+	int nation;				// ì¡´ì¬í•˜ëŠ” ìœ„ì¹˜ êµ­ê°€
+	int blue;				// êµ¬ë§¤ì— í•„ìš”í•œ íŒŒë€ ì‹œê·¸ë„· ìˆ˜
+	int red;				// êµ¬ë§¤ì— í•„ìš”í•œ ë¹¨ê°„ ì‹œê·¸ë„· ìˆ˜
+	char map_name[20];		// ìœ„ì¹˜ ë§µ
+	int x;					// ìœ„ì¹˜ ì¢Œí‘œ ( ì…êµ¬ ì¢Œí‘œ )
 	int y;
-	int guild_code;			// ¼ÒÀ¯ ±æµå
+	int guild_code;			// ì†Œìœ  ê¸¸ë“œ
 	int year;
 	int month;
 	int day;
-	int	event_no;		// ÇØ´ç ¸Ê¿¡ Âï¾î ³õÀº ¹ßÆÇ ¹øÈ£
+	int	event_no;		// í•´ë‹¹ ë§µì— ì°ì–´ ë†“ì€ ë°œíŒ ë²ˆí˜¸
 
 public : 
 	CGuildHouseUnit() { clear(); }
-	int GoToHouse( short int cn );		// ´Ù¸¥ ¸ÊÀÌ¸é ¸ÊÀÌµ¿À» ½ÃÀÛÇÏ°í °°Àº ¸ÊÀÏ °æ¿ì¿£ ¸ÊÀÌµ¿ ·çÆ¾À» ½ÇÇà½ÃÅ²´Ù.
+	int GoToHouse( short int cn );		// ë‹¤ë¥¸ ë§µì´ë©´ ë§µì´ë™ì„ ì‹œì‘í•˜ê³  ê°™ì€ ë§µì¼ ê²½ìš°ì—” ë§µì´ë™ ë£¨í‹´ì„ ì‹¤í–‰ì‹œí‚¨ë‹¤.
 	void clear() { id = 0; }
 	
 };
@@ -204,9 +204,9 @@ public :
 	CGuildHouseUnit	m_aGuildHouse[MAX_GUILD_HOUSE];
 public :
 	CGuildHouse() { m_Max = 0; }
-	CGuildHouseUnit *GetPointByEventNo( char *map_name, int event_no );	// ÇØ´ç ¸Ê°ú ÀÌº¥Æ® ¹øÈ£·Î ¿¦Æ÷¸®¾Æ Å¬·¹½º¿¡ Á¢±Ù
-	int GoToHouse( CHARLIST *ch );	// ÇØ´ç ¿¥Æ÷¸®¾Æ·Î ÀÌµ¿
-	CGuildHouseUnit *GetPointByGuildCode( int guild_code );		// ±æµå ÄÚµå·Î ¿¥Æ÷¸®¾Æ Å¬·¹½º¿¡ Á¢±Ù
+	CGuildHouseUnit *GetPointByEventNo( char *map_name, int event_no );	// í•´ë‹¹ ë§µê³¼ ì´ë²¤íŠ¸ ë²ˆí˜¸ë¡œ ì—¡í¬ë¦¬ì•„ í´ë ˆìŠ¤ì— ì ‘ê·¼
+	int GoToHouse( CHARLIST *ch );	// í•´ë‹¹ ì— í¬ë¦¬ì•„ë¡œ ì´ë™
+	CGuildHouseUnit *GetPointByGuildCode( int guild_code );		// ê¸¸ë“œ ì½”ë“œë¡œ ì— í¬ë¦¬ì•„ í´ë ˆìŠ¤ì— ì ‘ê·¼
 	int IsMyGuildHouse( CHARLIST *ch, int event_no );
 	int SetMax( int max ) { if( max >= m_Max ) m_Max = max+1; return 1; }
 	int clear();
@@ -224,30 +224,30 @@ extern CGuildHouse	g_GuildHouse;
 //< soto-030324
 #define		MAX_GUARDIAN_GUILD	3
 
-// ÁöÅ°¹Ì ±æµå. // º¹ÀåÀÌ ¹Ù²î´Â ±æµå´Â 1À§±æµå¸¸ ¹Ù²ï´Ù.
+// ì§€í‚¤ë¯¸ ê¸¸ë“œ. // ë³µì¥ì´ ë°”ë€ŒëŠ” ê¸¸ë“œëŠ” 1ìœ„ê¸¸ë“œë§Œ ë°”ë€ë‹¤.
 class CGuardianGuild
 {
 private:
-	int m_nGuildCount; // ÇöÀç ÁöÅ°¹Ì ±æµåÀÇ ¼ö¸¦ ³ªÅ¸³½´Ù.
-	int	m_n1stGuildCode; // 1À§ÀÎ ±æµå ÄÚµå¸¦ ¾Ë¾Æ³½´Ù.
+	int m_nGuildCount; // í˜„ì¬ ì§€í‚¤ë¯¸ ê¸¸ë“œì˜ ìˆ˜ë¥¼ ë‚˜íƒ€ë‚¸ë‹¤.
+	int	m_n1stGuildCode; // 1ìœ„ì¸ ê¸¸ë“œ ì½”ë“œë¥¼ ì•Œì•„ë‚¸ë‹¤.
 	vector<int>m_vtGuildList;
 	
-	// ¾ÈÀÇÄÚµå¸¦ °Ë»çÇÏÁö ¾Ê°í ±æµå ÄÚµå¸¦ µî·ÏÇÑ´Ù.(Áßº¹ÀÇ À§ÇèÀÌ ÀÖ´Ù)
+	// ì•ˆì˜ì½”ë“œë¥¼ ê²€ì‚¬í•˜ì§€ ì•Šê³  ê¸¸ë“œ ì½”ë“œë¥¼ ë“±ë¡í•œë‹¤.(ì¤‘ë³µì˜ ìœ„í—˜ì´ ìˆë‹¤)
 	int	ForcingAddGuild(int nGuildCode)
 	{		
 		m_vtGuildList.push_back(nGuildCode);
 		return ++m_nGuildCount;
 	}
 public:
-	CGuardianGuild() //»ı¼ºÀÚ
+	CGuardianGuild() //ìƒì„±ì
 	{ 
 		m_vtGuildList.reserve(MAX_GUARDIAN_GUILD);
 		m_nGuildCount = 0;
 		m_n1stGuildCode = -1; 
 
-	} // »ı¼ºÀÚ.
+	} // ìƒì„±ì.
 	
-	bool IsGuardianGuild(int nGuildCode)// ÀÌ ±æµåÄÚµå°¡ ÁöÅ°¹Ì ±æµåÀÇ ÄÚµåÀÌ³Ä?
+	bool IsGuardianGuild(int nGuildCode)// ì´ ê¸¸ë“œì½”ë“œê°€ ì§€í‚¤ë¯¸ ê¸¸ë“œì˜ ì½”ë“œì´ëƒ?
 	{
 		for(int i = 0;i < m_nGuildCount;i++)
 		{
@@ -256,7 +256,7 @@ public:
 		return false;
 	}	
 	
-	int AddGuild(int nGuildCode)//Áßº¹µÇÁö ¾Ê°Ô Ãß°¡ ½ÃÅ²´Ù.
+	int AddGuild(int nGuildCode)//ì¤‘ë³µë˜ì§€ ì•Šê²Œ ì¶”ê°€ ì‹œí‚¨ë‹¤.
 	{
 		if(!IsGuardianGuild(nGuildCode))
 		{
@@ -266,7 +266,7 @@ public:
 		return m_nGuildCount;
 	}
 	
-	int FirstGuild()//1µî ±æµåÄÚµå¸¦ ¾Ë¾Æ³½´Ù.// ¾øÀ»¶§´Â -1À» ¸®ÅÏ.
+	int FirstGuild()//1ë“± ê¸¸ë“œì½”ë“œë¥¼ ì•Œì•„ë‚¸ë‹¤.// ì—†ì„ë•ŒëŠ” -1ì„ ë¦¬í„´.
 	{
 		if(!m_nGuildCount)return -1;
 
@@ -287,19 +287,19 @@ public:
 		return -1;
 	}
 
-	// ÀÏµîÀÎ ±æµå´Â ÇÏ³ª°¡ ¾Æ´Ï¶ó.. °¢±¹°¡º°·Î ÇÏ³ª·Î ¹Ù²î¾ú´Ù. ´ç±Ù 3°³Áö.
+	// ì¼ë“±ì¸ ê¸¸ë“œëŠ” í•˜ë‚˜ê°€ ì•„ë‹ˆë¼.. ê°êµ­ê°€ë³„ë¡œ í•˜ë‚˜ë¡œ ë°”ë€Œì—ˆë‹¤. ë‹¹ê·¼ 3ê°œì§€.
 	bool	Is1StGuild(int nGuildCode){ return IsGuardianGuild(nGuildCode); }// soto-030324
 
-	void Set1stGuild(int nGuildCode)//1µîÀÎ ±æµå¸¦ µî·ÏÇÑ´Ù.
+	void Set1stGuild(int nGuildCode)//1ë“±ì¸ ê¸¸ë“œë¥¼ ë“±ë¡í•œë‹¤.
 	{
-		if(!m_nGuildCount)//ÇöÀç ±æµå°¡ ¾Æ¹«µµ µî·Ï µÇ¾î ÀÖÁö ¾ÊÀ»¶§.
+		if(!m_nGuildCount)//í˜„ì¬ ê¸¸ë“œê°€ ì•„ë¬´ë„ ë“±ë¡ ë˜ì–´ ìˆì§€ ì•Šì„ë•Œ.
 		{
 			ForcingAddGuild(nGuildCode);
 			m_n1stGuildCode = nGuildCode;
 		}
-		else // ÇÏ³ª ÀÌ»óÀÇ ±æµå°¡ µî·ÏµÇ¾î ÀÖÀ»¶§.
+		else // í•˜ë‚˜ ì´ìƒì˜ ê¸¸ë“œê°€ ë“±ë¡ë˜ì–´ ìˆì„ë•Œ.
 		{
-			if(IsGuardianGuild(nGuildCode)) // ¸®½ºÆ®¿¡ µî·ÏµÈ ÄÚµåÀÎ°¡?
+			if(IsGuardianGuild(nGuildCode)) // ë¦¬ìŠ¤íŠ¸ì— ë“±ë¡ëœ ì½”ë“œì¸ê°€?
 			{
 				m_n1stGuildCode = nGuildCode;
 			}
@@ -319,6 +319,6 @@ public:
 	}
 };
 
-extern CGuardianGuild	g_CGuardianGuild; // ÁöÅ°¹Ì ±æµå °ü¸® Àü¿ª Å¬·¡½º. // soto
+extern CGuardianGuild	g_CGuardianGuild; // ì§€í‚¤ë¯¸ ê¸¸ë“œ ê´€ë¦¬ ì „ì—­ í´ë˜ìŠ¤. // soto
 //> soto-030324
 #endif

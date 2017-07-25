@@ -1,4 +1,4 @@
-#ifndef __RECV_MSG_H
+﻿#ifndef __RECV_MSG_H
 #define __RECV_MSG_H
 
 #pragma once

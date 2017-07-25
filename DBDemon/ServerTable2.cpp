@@ -1,4 +1,4 @@
-#include "servertable.h"
+ï»¿#include "servertable.h"
 #include "servertable2.h"
 
 #if defined (__IS_AGENT_SERVER) || defined(__IS_PROXY_SERVER)
@@ -98,7 +98,7 @@ void CServerTable::OnDisconnectTypedServer( LP_SERVER_DATA pServerData )
 }
 void CServerTable::OnChangeServerStatus( LP_SERVER_DATA pServerData )
 {
-	// ÇöÀç ¾Æ¹«°Íµµ ¾ÈÇÔ.
+	// í˜„ìž¬ ì•„ë¬´ê²ƒë„ ì•ˆí•¨.
 }
 #endif
 // ------------------------------------------------------------------------------------------
@@ -145,28 +145,28 @@ void CServerTable::OnDisconnectTypedServer( LP_SERVER_DATA pServerData )
 		{
 			if( this->GetServerStatus() < STATUS_ACTIVATED )
 			{
-				// ºÎÆÃ ½ÃÄö½º°¡ ³¡³ª±â Àü¿¡ PROXY¿Í ¿¬°áÀÌ Á¾·áµÇ¾ú´Ù.
-				// ÀÌ ¼­¹ö´Â Á¾·áµÈ´Ù.
+				// ë¶€íŒ… ì‹œí€€ìŠ¤ê°€ ëë‚˜ê¸° ì „ì— PROXYì™€ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆë‹¤.
+				// ì´ ì„œë²„ëŠ” ì¢…ë£Œëœë‹¤.
 				this->DestroyServer( FINISH_TYPE_PROXY_LOST_CONNECTION_UNDER_BOOT_PROGRESS );
 			}
 		}
 		break;
 	case SERVER_TYPE_AGENT:
 		{
-			// ´Ù¸¥ Agent°¡ Á×Àº °æ¿ì, º°·Î ÇØÁÙ°Ç ¾ø´Ù.
+			// ë‹¤ë¥¸ Agentê°€ ì£½ì€ ê²½ìš°, ë³„ë¡œ í•´ì¤„ê±´ ì—†ë‹¤.
 		}
 		break;
 	case SERVER_TYPE_DB:
 		{
-			// DB DemonÀÌ Á×Àº °æ¿ì
-			// DB Demon¿¡ ¿£Æ®¸®¸¦ °¡Áø ¸ðµç »ç¿ëÀÚ¸¦ Àß¶óÁà¾ß ÇÑ´Ù.
+			// DB Demonì´ ì£½ì€ ê²½ìš°
+			// DB Demonì— ì—”íŠ¸ë¦¬ë¥¼ ê°€ì§„ ëª¨ë“  ì‚¬ìš©ìžë¥¼ ìž˜ë¼ì¤˜ì•¼ í•œë‹¤.
 			g_pUserTable->RemoveAllUserByDBDemonConnectionIndex( pServerData->dwConnectionIndex );
 		}
 		break;
 	case SERVER_TYPE_MAP:
 		{
-			// Map Server°¡ Á×Àº °æ¿ì
-			// Map Server¿¡ ¿£Æ®¸®¸¦ °¡Áø ¸ðµç »ç¿ëÀÚ¸¦ Àß¶óÁà¾ß ÇÑ´Ù.
+			// Map Serverê°€ ì£½ì€ ê²½ìš°
+			// Map Serverì— ì—”íŠ¸ë¦¬ë¥¼ ê°€ì§„ ëª¨ë“  ì‚¬ìš©ìžë¥¼ ìž˜ë¼ì¤˜ì•¼ í•œë‹¤.
 			g_pUserTable->RemoveAllUserByMapServerConnectionIndex( pServerData->dwConnectionIndex );
 		}
 		break;
@@ -224,15 +224,15 @@ void CServerTable::OnDisconnectTypedServer( LP_SERVER_DATA pServerData )
 		{
 			if( this->GetServerStatus() < STATUS_ACTIVATED )
 			{
-				// ºÎÆÃ ½ÃÄö½º°¡ ³¡³ª±â Àü¿¡ PROXY¿Í ¿¬°áÀÌ Á¾·áµÇ¾ú´Ù.
-				// ÀÌ ¼­¹ö´Â Á¾·áµÈ´Ù.
+				// ë¶€íŒ… ì‹œí€€ìŠ¤ê°€ ëë‚˜ê¸° ì „ì— PROXYì™€ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆë‹¤.
+				// ì´ ì„œë²„ëŠ” ì¢…ë£Œëœë‹¤.
 				this->DestroyServer( FINISH_TYPE_PROXY_LOST_CONNECTION_UNDER_BOOT_PROGRESS );
 			}
 		}	
 		break;
 	case SERVER_TYPE_AGENT:
 		{	
-			// Agent°¡ Á×Àº °æ¿ì. t_connection°ú SERVER_DATA ÀÇ ÀÎµ¦½º¸¦ Á¤¸®ÇØÁà¾ß ÇÑ´Ù.
+			// Agentê°€ ì£½ì€ ê²½ìš°. t_connectionê³¼ SERVER_DATA ì˜ ì¸ë±ìŠ¤ë¥¼ ì •ë¦¬í•´ì¤˜ì•¼ í•œë‹¤.
 			memset( pServerData->dwUSERCN, 0, (sizeof(IDCN)*MAX_USER_NUM) );
 			
 			for( DWORD i = DRAGON_CONNECTIONS_START; i < MAX_USER_NUM; i++ )
@@ -319,8 +319,8 @@ void CServerTable::OnDisconnectTypedServer( LP_SERVER_DATA pServerData )
 		{
 			if( this->GetServerStatus() < STATUS_ACTIVATED )
 			{
-				// ºÎÆÃ ½ÃÄö½º°¡ ³¡³ª±â Àü¿¡ PROXY¿Í ¿¬°áÀÌ Á¾·áµÇ¾ú´Ù.
-				// ÀÌ ¼­¹ö´Â Á¾·áµÈ´Ù.
+				// ë¶€íŒ… ì‹œí€€ìŠ¤ê°€ ëë‚˜ê¸° ì „ì— PROXYì™€ ì—°ê²°ì´ ì¢…ë£Œë˜ì—ˆë‹¤.
+				// ì´ ì„œë²„ëŠ” ì¢…ë£Œëœë‹¤.
 				this->DestroyServer( FINISH_TYPE_PROXY_LOST_CONNECTION_UNDER_BOOT_PROGRESS );
 			}
 		}

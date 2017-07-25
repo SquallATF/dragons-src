@@ -1,4 +1,4 @@
-// WarStartInfo.cpp: implementation of the CWarStartInfo class.
+﻿// WarStartInfo.cpp: implementation of the CWarStartInfo class.
 //
 //////////////////////////////////////////////////////////////////////
 

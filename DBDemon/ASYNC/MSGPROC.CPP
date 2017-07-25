@@ -1,4 +1,4 @@
-#include "msgproc.h"
+ï»¿#include "msgproc.h"
 #include "network.h"
 #include "define.h"
 #include "recvmsg.h"
@@ -13,13 +13,13 @@ void InitSocket()
 //	WSADATA wsaData;
 	
 //	Version = MAKEWORD(2, 2);
-	//2001.01.27 zhh µðºñ µ¥¸ó¿¡¼­ ÀÌ¹Ì ÃÊ±âÈ­ ÇÑ´Ù.
+	//2001.01.27 zhh ë””ë¹„ ë°ëª¬ì—ì„œ ì´ë¯¸ ì´ˆê¸°í™” í•œë‹¤.
 //	WSAStartup(Version, &wsaData);
 
 }
 void ReleaseSocket()
 {
-	//2001.01.27 zhh µðºñ µ¥¸ó¿¡¼­ ÇØÁ¦ÇÑ´Ù..
+	//2001.01.27 zhh ë””ë¹„ ë°ëª¬ì—ì„œ í•´ì œí•œë‹¤..
 //	WSACleanup();
 
 }
@@ -105,7 +105,7 @@ LRESULT CALLBACK MessageProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 				pCon = g_pNetwork->GetConnection(wParam);
 				if (pCon)
 				{
-//					MessageBox(hWindow,"¼­¹ö¿ÍÀÇ ¿¬°áÀÌ ²÷¾îÁ³½À´Ï´Ù","Error",MB_ICONSTOP);
+//					MessageBox(hWindow,"ì„œë²„ì™€ì˜ ì—°ê²°ì´ ëŠì–´ì¡ŒìŠµë‹ˆë‹¤","Error",MB_ICONSTOP);
 //					PostQuitMessage(WM_QUIT);//020831 lsw
 					OnDisconnect(pCon);
 					g_pNetwork->OnCloseConnection(wParam);

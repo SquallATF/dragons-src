@@ -1,4 +1,4 @@
-
+ï»¿
 #include "..\stdafx.h"
 #include <mmsystem.h>
 #include "DefaultHeader.h"
@@ -97,7 +97,7 @@ inline int ran( int r )
 
 #define FRAME_PER_SEC		15
 
-//	¸®ÅÏ : 0ÀÌ ¾Æ´Ñ °ªÀÌ¸é µµÂø¿¹»ó½Ã°£.
+//	ë¦¬í„´ : 0ì´ ì•„ë‹Œ ê°’ì´ë©´ ë„ì°©ì˜ˆìƒì‹œê°„.
 DWORD ReturnDestTime( LPCHARLIST ch )
 {	
 	int dist = ch->MoveLength - ch->MovePathCount;
@@ -112,7 +112,7 @@ DWORD ReturnDestTime( LPCHARLIST ch )
 }	
 
 void SaveMoveDelayTable()
-{	//< CSD-030806 : 1Å¸ÀÏ ÀÌµ¿ÇÏ´Âµ¥ °É¸®´Â ½Ã°£À» Ãà·Â
+{	//< CSD-030806 : 1íƒ€ì¼ ì´ë™í•˜ëŠ”ë° ê±¸ë¦¬ëŠ” ì‹œê°„ì„ ì¶•ë ¥
 	FILE* pFile = fopen("./OutPut/Monster_WalkingTime_mSecPerTile.txt", "wt");
 	Dbg_Assert(pFile != NULL);
 
@@ -153,7 +153,7 @@ void InitMoveDelayTable( void )
 			
 			if( i == 0 || i == 1 ) 
 			{
-				for( d = 0, j = 0 ; j < AnimationTable[12].nCount ; j ++) // ´Ş¸®±â..
+				for( d = 0, j = 0 ; j < AnimationTable[12].nCount ; j ++) // ë‹¬ë¦¬ê¸°..
 					d += (double)AnimationTable[12].dx[j];
 				if( d )
 				{
@@ -162,7 +162,7 @@ void InitMoveDelayTable( void )
 				}
 				
 				
-				for( d = 0, j = 0 ; j < AnimationTable[19].nCount ; j ++) // ¸»Å¸±â....
+				for( d = 0, j = 0 ; j < AnimationTable[19].nCount ; j ++) // ë§íƒ€ê¸°....
 					d += (double)AnimationTable[19].dx[j];
 				if( d )
 				{
@@ -363,7 +363,7 @@ BYTE TileBlock[ TILE_BLOCK_SIZE][ TILE_BLOCK_SIZE] =
 
 BYTE TileBlockBuf[ TILE_BLOCK_SIZE][ TILE_BLOCK_SIZE];
 
-// ÇöÀçÀ§Ä¡¿¡¼­ distÅ¸ÀÏ¸¸Å­  µÚ·Î ºüÁø´Ù. 
+// í˜„ì¬ìœ„ì¹˜ì—ì„œ distíƒ€ì¼ë§Œí¼  ë’¤ë¡œ ë¹ ì§„ë‹¤. 
 int NPC_NearBackCh( CHARLIST *n, CHARLIST *ch, int *x, int *y, int dist )
 {	
 	int dirt[ 5] = { 0,1,-1,-2,2 };
@@ -378,7 +378,7 @@ int NPC_NearBackCh( CHARLIST *n, CHARLIST *ch, int *x, int *y, int dist )
 		return 0;
 	}
 	
-	// °ø°İ ´ë»óÀÌ ¾ø¾î..
+	// ê³µê²© ëŒ€ìƒì´ ì—†ì–´..
 	if( !connections[n->targetid].dwAgentConnectionIndex || connections[n->targetid].state < CONNECT_JOIN ) return 0;
 	if( connections[n->targetid].chrlst.bAlive >= DEAD_ ) return 0;
 	
@@ -513,8 +513,8 @@ int NPC_MakePath( CHARLIST *n, int tx, int ty, int how = 0 )
 			
 			n->MoveLength		= c;
 			n->MovePathCount	= 0;
-			n->MoveGox			= tx * TILE_SIZE + 16 -5 + ran(10);		// ÀÌµ¿À§Ä¡°¡ º¯°æ
-			n->MoveGoy			= ty * TILE_SIZE + 16 -5 + ran(10);		// ÀÌµ¿À§Ä¡°¡ º¯°æ
+			n->MoveGox			= tx * TILE_SIZE + 16 -5 + ran(10);		// ì´ë™ìœ„ì¹˜ê°€ ë³€ê²½
+			n->MoveGoy			= ty * TILE_SIZE + 16 -5 + ran(10);		// ì´ë™ìœ„ì¹˜ê°€ ë³€ê²½
 			n->WalkTime			= global_time; // timeGetTime();
 			n->MoveType			= 0;
 			
@@ -644,7 +644,7 @@ int NPC_IsWhoNearPC( CHARLIST *npc, int tilerange  )
 }
 
 CHARLIST* NPC_ReturnCharListPoint( const int id )
-{//021030 lsw////µğºñµ¥¸ó(1)ÀÌ¸é ¹®Á¦°¡ »ı±æ ¼öµµ ÀÖ¾î¼­ °íÃÆ½À´Ï´Ù.
+{//021030 lsw////ë””ë¹„ë°ëª¬(1)ì´ë©´ ë¬¸ì œê°€ ìƒê¸¸ ìˆ˜ë„ ìˆì–´ì„œ ê³ ì³¤ìŠµë‹ˆë‹¤.
 	if( id < 0 ) return NULL;
 	
 	if( id >= 10000 )
@@ -657,7 +657,7 @@ CHARLIST* NPC_ReturnCharListPoint( const int id )
 		CHARLIST *pTempCh = ::CheckServerId( id );
 		if(pTempCh)
 		{
-			if(pTempCh->bAlive < DEAD_)//Á×Àº »óÅÂ¸é ¿Ã¸³´Ï´Ù.
+			if(pTempCh->bAlive < DEAD_)//ì£½ì€ ìƒíƒœë©´ ì˜¬ë¦½ë‹ˆë‹¤.
 			{
 				return pTempCh;
 			}
@@ -868,11 +868,11 @@ void MovingCharacter()
 				
 				if( !pc->Peacests)
 				{
-					::HungryMuchAdd( pc, ((!pc->MoveType)?HT_WALK:HT_RUN) ); // ¹è°íÇÄ¼öÄ¡ °¨¼Ò.
+					::HungryMuchAdd( pc, ((!pc->MoveType)?HT_WALK:HT_RUN) ); // ë°°ê³ í””ìˆ˜ì¹˜ ê°ì†Œ.
 				}
 				else 
 				{
-					::HungryMuchAdd( pc, ((!pc->MoveType)?HT_BATTLE_WALK :HT_BATTLE_RUN) ); // ¹è°íÇÄ¼öÄ¡ °¨¼Ò.
+					::HungryMuchAdd( pc, ((!pc->MoveType)?HT_BATTLE_WALK :HT_BATTLE_RUN) ); // ë°°ê³ í””ìˆ˜ì¹˜ ê°ì†Œ.
 				}
 			}
 			if( oldt ) 
@@ -929,7 +929,7 @@ void NPCAddBasicData(int i, t_server_npc_add* p)
 	}	//> CSD-031013
 }	//> CSD-030419
 
-// ÃÖ¼Ò 1¸¶¸®´Â ¹ß»ıÀ» ÇÏ°Ô ÇÑ´Ù. 
+// ìµœì†Œ 1ë§ˆë¦¬ëŠ” ë°œìƒì„ í•˜ê²Œ í•œë‹¤. 
 void NPCGeneratePosition( int npcindex, int x, int y, int eventno, int maxno )
 {	
 	if( NPCgeneratePositionMax >= MAX_GENERATE_POSITION_ ) return;
@@ -940,8 +940,8 @@ void NPCGeneratePosition( int npcindex, int x, int y, int eventno, int maxno )
 	NPCgeneratePosition[ NPCgeneratePositionMax].x			= x;
 	NPCgeneratePosition[ NPCgeneratePositionMax].y			= y;
 	
-	// Event¹øÈ£°¡ 0¹øÀÌ¸é Event¹øÈ£¸¦ °¡Áú¼ö ÀÖ´Â NPC¸¸ 0¹øÀ» °¡Áö°í ³ª¸ÓÁö´Â 
-	// -1°ªÀ» °®´Â´Ù. 
+	// Eventë²ˆí˜¸ê°€ 0ë²ˆì´ë©´ Eventë²ˆí˜¸ë¥¼ ê°€ì§ˆìˆ˜ ìˆëŠ” NPCë§Œ 0ë²ˆì„ ê°€ì§€ê³  ë‚˜ë¨¸ì§€ëŠ” 
+	// -1ê°’ì„ ê°–ëŠ”ë‹¤. 
 	if( eventno == 0 )
 	{	
 		switch (npcindex)
@@ -971,7 +971,7 @@ void NPCGeneratePosition( int npcindex, int x, int y, int eventno, int maxno )
 	}
 	
 	
-	// °æºñ´Â Event¹øÈ£°¡ ¾ø¾î¾ß ÇÑ´Ù. 
+	// ê²½ë¹„ëŠ” Eventë²ˆí˜¸ê°€ ì—†ì–´ì•¼ í•œë‹¤. 
 	// 010613 KHS
 	switch( npcindex )
 	{
@@ -988,7 +988,7 @@ void NPCGeneratePosition( int npcindex, int x, int y, int eventno, int maxno )
 }	
 
 int  GetDeleteAbleNPC()//030211 lsw
-{//¾ÆÁÖ ÀÏ¹İÀûÀ¸·Î ¾ğÁ¦ Á×¿©µµ »ó°ü¾ø´Â NPC¸¦ »ÌÀ½
+{//ì•„ì£¼ ì¼ë°˜ì ìœ¼ë¡œ ì–¸ì œ ì£½ì—¬ë„ ìƒê´€ì—†ëŠ” NPCë¥¼ ë½‘ìŒ
 	int i = NPC_LIST_START;
 	int iTypeId = -1;
 	for(; i < MAX_NPC_LIST; i ++)
@@ -1040,21 +1040,21 @@ int NPC_Create(int Num, int npcindex, int x, int y, int eventno, int generationp
 	n->SprType = SPRITETYPE_NPC;
 	n->npc_index = npcindex;
 	n->SetServerID(Num);
-	n->GenerateNpcName(); // ÀÌ¸§ ¼³Á¤
+	n->GenerateNpcName(); // ì´ë¦„ ì„¤ì •
 	n->eventno = eventno;
 	n->generationpos = generationpos;
 	n->generationtype = generationtype;
 	n->SprNo = pNpcTable->SprNO;
 	n->mutant = pNpcTable->mutant;
 	n->homemap = MapNumber;
-	n->homex = x; // »ı¼ºµÈ À§Ä¡
+	n->homex = x; // ìƒì„±ëœ ìœ„ì¹˜
 	n->homey = y;
-	n->Class = CREATURE; // Å¬·¡½º ¼³Á¤
-	n->Race = pNpcTable->nNpcRace; // Á¾Á· ¼³Á¤
-	n->SetLevel(pNpcTable->nLvMin + ran(pNpcTable->nLvMax - pNpcTable->nLvMin)); // CSD-030806 : ·¹º§ ¼³Á¤
-	n->Exp = pNpcTable->nEpMax; // °æÇèÄ¡ ¼³Á¤
+	n->Class = CREATURE; // í´ë˜ìŠ¤ ì„¤ì •
+	n->Race = pNpcTable->nNpcRace; // ì¢…ì¡± ì„¤ì •
+	n->SetLevel(pNpcTable->nLvMin + ran(pNpcTable->nLvMax - pNpcTable->nLvMin)); // CSD-030806 : ë ˆë²¨ ì„¤ì •
+	n->Exp = pNpcTable->nEpMax; // ê²½í—˜ì¹˜ ì„¤ì •
 	n->SetClassStep(pNpcTable->nStep);
-	n->SetAttribute(pNpcTable->nNpcRace); // ¼Ó¼º ¼³Á¤
+	n->SetAttribute(pNpcTable->nNpcRace); // ì†ì„± ì„¤ì •
 	n->Face = 0;
 	n->Sight = 12;
 	n->ResetAbility(0);
@@ -1064,13 +1064,13 @@ int NPC_Create(int Num, int npcindex, int x, int y, int eventno, int generationp
 	n->name_status.nation = (pNpcTable->nNpcNK == 0) ? 2:MapInfo[MapNumber].nation;
 	n->Money = pNpcTable->Money_min + ran(pNpcTable->Money_Max - pNpcTable->Money_min);
 	n->SetState(CON_NORMAL);
-	// ÀúÇ×·Â(´ÜÀ§ %)
-	n->SetBasicResist(RT_POISON, 0);                // µ¶°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	n->SetBasicResist(RT_CURSE, 0);	                // ÀúÁÖ°è¿­ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	n->SetBasicResist(RT_HOLY, pNpcTable->nHoly);   // ½Å·Â°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	n->SetBasicResist(RT_FIRE, pNpcTable->nFire);   // ºÒ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	n->SetBasicResist(RT_ICE, pNpcTable->nIce);	    // ¾óÀ½°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
-	n->SetBasicResist(RT_ELECT, pNpcTable->nElect); // Àü°İ°è¿­ °ø°İ ¸¶¹ı¿¡ ´ëÇÑ ÀúÇ×·Â
+	// ì €í•­ë ¥(ë‹¨ìœ„ %)
+	n->SetBasicResist(RT_POISON, 0);                // ë…ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	n->SetBasicResist(RT_CURSE, 0);	                // ì €ì£¼ê³„ì—´ ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	n->SetBasicResist(RT_HOLY, pNpcTable->nHoly);   // ì‹ ë ¥ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	n->SetBasicResist(RT_FIRE, pNpcTable->nFire);   // ë¶ˆê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	n->SetBasicResist(RT_ICE, pNpcTable->nIce);	    // ì–¼ìŒê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
+	n->SetBasicResist(RT_ELECT, pNpcTable->nElect); // ì „ê²©ê³„ì—´ ê³µê²© ë§ˆë²•ì— ëŒ€í•œ ì €í•­ë ¥
 	
 	switch (pNpcTable->Sel_gender)
 	{
@@ -1106,7 +1106,7 @@ int NPC_Create(int Num, int npcindex, int x, int y, int eventno, int generationp
 	n->Y = n->MoveGoy = n->MoveSy*TILE_SIZE + 16;
 	n->ox = n->X;
 	n->oy = n->Y;
-	n->MoveP = pNpcTable->Movp + (rand()%20); // ÀÌµ¿·Â // LTS AI
+	n->MoveP = pNpcTable->Movp + (rand()%20); // ì´ë™ë ¥ // LTS AI
 	n->MovePathCount = 0;
 	n->MoveType	= 0;
 	
@@ -1167,12 +1167,12 @@ int NPC_Create(int Num, int npcindex, int x, int y, int eventno, int generationp
 	}
 	
 	n->BeeWax_amount = amount;
-	// NPCÀ» Á×¾úÀ» ¶§ ¾òÀ» ¼ö ÀÖ´Â ¾ÆÀÌÅÛ ¼³Á¤
+	// NPCì„ ì£½ì—ˆì„ ë•Œ ì–»ì„ ìˆ˜ ìˆëŠ” ì•„ì´í…œ ì„¤ì •
 	if (!g_pArenaManager->IsColossusArena())
 	{	//< CSD-030516
 		SkillMgr.GenerateNPCItem2(n, pNpcTable);
 	}	//> CSD-030516
-	// Å¸ÀÌ¹Ö ¸ó½ºÅÍ Á¤º¸
+	// íƒ€ì´ë° ëª¬ìŠ¤í„° ì •ë³´
 	n->targetid	= -1;
 	n->attacked	= -1;
 	n->WalkTime	= global_time;
@@ -1180,8 +1180,8 @@ int NPC_Create(int Num, int npcindex, int x, int y, int eventno, int generationp
 	n->tame	= 0;
 	n->tamingcountdown = 0;
 	n->tamingable = pNpcTable->Tamingable;
-	// A.I Pattern¼³Á¤ÇØÁÖ´Â°÷
-	n->ChairNum = (generationtype == GT_SKILL_SUMMON) ? 0:pNpcTable->nAIType; // LTS AI AI ÇÒ´çÀ» °ü¸®ÇÑ´Ù. 0: Å¬¶óÀÌ¾ğÆ® 1 : ¼­¹ö
+	// A.I Patternì„¤ì •í•´ì£¼ëŠ”ê³³
+	n->ChairNum = (generationtype == GT_SKILL_SUMMON) ? 0:pNpcTable->nAIType; // LTS AI AI í• ë‹¹ì„ ê´€ë¦¬í•œë‹¤. 0: í´ë¼ì´ì–¸íŠ¸ 1 : ì„œë²„
 	n->patterntype = pNpcTable->nAIBase;
 	
 	if (n->ChairNum != 0) // LTS NEW AI
@@ -1226,7 +1226,7 @@ int NPC_Create(int Num, int npcindex, int x, int y, int eventno, int generationp
 int NPC_AdjustPosition(int sprno, int* x, int* y)
 {	//< CSD-030408
 	switch (sprno)	
-	{	// Dummy NPC·Î¼­
+	{	// Dummy NPCë¡œì„œ
 	case 92: 
 	case 93: 
 	case 94: 
@@ -1286,13 +1286,13 @@ void NPC_AutoCreationProc(  void )
 	
 	static DWORD checktime;
 	
-	if( global_time - checktime > 10000  )	// 10ÃÊ¸¶´Ù 
+	if( global_time - checktime > 10000  )	// 10ì´ˆë§ˆë‹¤ 
 	{				
 		checktime = global_time;
 		
 		for( i = 0 ; i < NPCgeneratePositionMax ; i ++)
 		{			
-			if(NPCgeneratePosition[i].maxno > NPCgeneratePosition[i].curnpc ) // ÇÑ¸í¸¸ ¹ß»ı½ÃÅ²´Ù. Áï, Event¿ëÀÌ¶õ¾ê±â.. 
+			if(NPCgeneratePosition[i].maxno > NPCgeneratePosition[i].curnpc ) // í•œëª…ë§Œ ë°œìƒì‹œí‚¨ë‹¤. ì¦‰, Eventìš©ì´ë€ì–˜ê¸°.. 
 			{				
 				gpos = &NPCgeneratePosition[i];
 				if( gpos->curnpc < gpos->maxno )
@@ -1337,17 +1337,17 @@ void NPC_AutoCreationProc2()						// LTS AI2
 	if( global_time - checktime < 10000  )	return;			
 	else checktime = global_time;
 	
-	for (int j=0;j<MAX_GROUP_NO;j++)			// ±×·ì Ã³À½ºÎÅÍ ³¡±îÁö µ·´Ù.
+	for (int j=0;j<MAX_GROUP_NO;j++)			// ê·¸ë£¹ ì²˜ìŒë¶€í„° ëê¹Œì§€ ëˆë‹¤.
 	{
 		int tempStatus=g_pAdventManager->GetActiveStatusByIndex(j);
-		if (tempStatus>0)				// ÇØ´ç ±×·ìÀÇ ÀÎµ¦½º ¹øÈ£°¡ ¾ø´Ù.
+		if (tempStatus>0)				// í•´ë‹¹ ê·¸ë£¹ì˜ ì¸ë±ìŠ¤ ë²ˆí˜¸ê°€ ì—†ë‹¤.
 		{
-			for (int i=0;i< g_pAdventManager->GetDataCountByIndex(j);i++)		// ±×·ìµ¥ÀÌÅÍÀÇ ³¡±îÁö °£´Ù.
+			for (int i=0;i< g_pAdventManager->GetDataCountByIndex(j);i++)		// ê·¸ë£¹ë°ì´í„°ì˜ ëê¹Œì§€ ê°„ë‹¤.
 			{
 				NPCGenerationPos* Pos=NULL;
 				Pos=g_pAdventManager->GetGenerationPosByIndex(j,i);
 				if (!Pos) return;
-				if (Pos->MaxNo>Pos->CurNPC)						//»ı¼ºµÇÁö ¾ÊÀº NPC°¡ ÀÖ´Ù.
+				if (Pos->MaxNo>Pos->CurNPC)						//ìƒì„±ë˜ì§€ ì•Šì€ NPCê°€ ìˆë‹¤.
 				{
 					if (Pos->MaxNo>1)
 					{
@@ -1384,8 +1384,8 @@ extern bool isNationWarfieldServer();
 void NPC_AutoCreate()		// LTS AI2
 {	//< CSD-040316
 	NPC_AutoCreationProc();
-	NPC_AutoCreationProc2(); // ÀÌº¥Æ® ¸ó½ºÅÍ µîÀå
-	// »ç³É ¸ó½ºÅÍ µîÀå
+	NPC_AutoCreationProc2(); // ì´ë²¤íŠ¸ ëª¬ìŠ¤í„° ë“±ì¥
+	// ì‚¬ëƒ¥ ëª¬ìŠ¤í„° ë“±ì¥
 	if (g_pArenaManager->IsColossusArena())
 	{
 		return;
@@ -1410,7 +1410,7 @@ void NPC_AutoCreate()		// LTS AI2
 		return;
 	}
 
-	//< LTH-040622-KO ±¹°¡Àü ÀüÀïÅÍÀÌ¸é ÀüÀï ÁØºñ ±â°£°ú ÀüÀï ±â°£À» Á¦¿Ü ÇÏ°í ¸ó½ºÅÍ¸¦ ÃâÇö ½ÃÅ²´Ù.
+	//< LTH-040622-KO êµ­ê°€ì „ ì „ìŸí„°ì´ë©´ ì „ìŸ ì¤€ë¹„ ê¸°ê°„ê³¼ ì „ìŸ ê¸°ê°„ì„ ì œì™¸ í•˜ê³  ëª¬ìŠ¤í„°ë¥¼ ì¶œí˜„ ì‹œí‚¨ë‹¤.
 	if (isNationWarfieldServer())
 	{
 		if (NULL != g_pWarfield)
@@ -1437,9 +1437,9 @@ void NPC_AutoCreate()		// LTS AI2
 }	//> CSD-040316
 
 //---------------------------------------------------------------------------------		
-//	½Ã°£ÀÌ DEAD_CHARACTER_CHECK_TIMEÀÌ °æ°úÇÏ¸é .bAlive°¡ DEAD_µÇ¾î ÀÖ´Â Character¸¦ REMOVE_½ÃÅ²´Ù. 
-//	NPCÀÏ°æ¿ì ITEMÀ» »ı¼º½ÃÅ²´Ù. 
-//	¸ğµç NPC/PCÀÇ Á×À½Àº ¿©±â¼­ Ã³¸®ÇÑ´Ù. 
+//	ì‹œê°„ì´ DEAD_CHARACTER_CHECK_TIMEì´ ê²½ê³¼í•˜ë©´ .bAliveê°€ DEAD_ë˜ì–´ ìˆëŠ” Characterë¥¼ REMOVE_ì‹œí‚¨ë‹¤. 
+//	NPCì¼ê²½ìš° ITEMì„ ìƒì„±ì‹œí‚¨ë‹¤. 
+//	ëª¨ë“  NPC/PCì˜ ì£½ìŒì€ ì—¬ê¸°ì„œ ì²˜ë¦¬í•œë‹¤. 
 //-----------------------------------------------------------------------------------
 void NPC_CheckRemove( void )
 {		
@@ -1458,10 +1458,10 @@ void NPC_CheckRemove( void )
 				ch = NPCList + i;
 				ch->deadcount--;
 
-				if( ch->deadcount == DEAD_NPC_COUNT_BOTTOM_ )	// Client¿¡°Ô¼­ Remove½ÃÅ²´Ù. 
+				if( ch->deadcount == DEAD_NPC_COUNT_BOTTOM_ )	// Clientì—ê²Œì„œ Removeì‹œí‚¨ë‹¤. 
 				{		
 					if ((ch->eventno > 0 && ch->Race == HUMAN) || (ch->Race == SEALSTONE))
-					{	// ÀÌº¥Æ®¸¦ °¡Áö°í ÀÖ´Â ³ğÀÌ¸é ..	
+					{	// ì´ë²¤íŠ¸ë¥¼ ê°€ì§€ê³  ìˆëŠ” ë†ˆì´ë©´ ..	
 						ch->deadcount = 0;
 						ch->Peacests = 0;
 						ch->OldMoveSx = ch->MoveSx = ch->X = ch->homex;
@@ -1474,16 +1474,16 @@ void NPC_CheckRemove( void )
 						ch->Mana = ch->ManaMax;
 						ch->bAlive = ALIVE_; // 020716 YGI
 						SetArea(MOVE_NPC_AREA, i);
-						//SkillMgr.CharacterToAlive(ch);//´Ù½Ã »ì¸°´Ù
+						//SkillMgr.CharacterToAlive(ch);//ë‹¤ì‹œ ì‚´ë¦°ë‹¤
 						continue;
 					}
 					
 					SetArea( REMOVE_NPC_AREA, i);
-					// Client¿¡¼­ »ç¶óÁö´Â ½Ã°£À» ¹ú±âÀ§ÇÔ...
-					// Client¿¡¼­ »ç¶óÁö´Â µ¿¾È ±×À§Ä¡¿¡¼­ »ı±â¸é ¾ÈµÇ±â ¶§¹®.
+					// Clientì—ì„œ ì‚¬ë¼ì§€ëŠ” ì‹œê°„ì„ ë²Œê¸°ìœ„í•¨...
+					// Clientì—ì„œ ì‚¬ë¼ì§€ëŠ” ë™ì•ˆ ê·¸ìœ„ì¹˜ì—ì„œ ìƒê¸°ë©´ ì•ˆë˜ê¸° ë•Œë¬¸.
 					NPCList[i].bAlive = BUFE_;
 				}
-				else if( ch->deadcount <= 1 )	// Server¿¡¼¼µµ Remove½ÃÅ²´Ù. 
+				else if( ch->deadcount <= 1 )	// Serverì—ì„¸ë„ Removeì‹œí‚¨ë‹¤. 
 				{
 					ch->deadcount = 0;
 					RemoveNPCList( i );
@@ -1501,13 +1501,13 @@ void NPC_CheckRemove( void )
 					ch = &connections[i].chrlst;
 					ch->deadcount --;
 					
-					if( ch->deadcount < DEAD_PC_COUNT_BOTTOM_ ) //  Á×ÀºµÚ Ghost·Î º¯ÇÑ´Ù. 
+					if( ch->deadcount < DEAD_PC_COUNT_BOTTOM_ ) //  ì£½ì€ë’¤ Ghostë¡œ ë³€í•œë‹¤. 
 					{	
-						RareEM.ClearDynamicRareEffect(ch); //À¯·ÉÀÌ µÇ¾úÀ»¶§ Å¬¸®¾î ±â´É¾ÆÀÌÅÛ Å¬¸®¾î
+						RareEM.ClearDynamicRareEffect(ch); //ìœ ë ¹ì´ ë˜ì—ˆì„ë•Œ í´ë¦¬ì–´ ê¸°ëŠ¥ì•„ì´í…œ í´ë¦¬ì–´
 						
-						// 031009 YGI	// ¾Æ·¹³ª¿¡¼­´Â ÅëÇÏÁö ¾Ê´Â´Ù. // ¹éº´Àü ÁßÀÏ¶© ÅëÇÏÁö ¾Ê´Â´Ù.
+						// 031009 YGI	// ì•„ë ˆë‚˜ì—ì„œëŠ” í†µí•˜ì§€ ì•ŠëŠ”ë‹¤. // ë°±ë³‘ì „ ì¤‘ì¼ë• í†µí•˜ì§€ ì•ŠëŠ”ë‹¤.
 						extern bool CanUseRevivalPosion();
-						if( CanUseRevivalPosion() && !g_pArenaManager->GetArenaInfo( GetOwnPort() ) && RareEM.IsHaveRivaval(ch) )//ÄüÃ¢À» µ¹°í¼­ »ì¸®´Â ¾ÆÀÌÅÛÀÌ ÀÖÀ¸¸é »ì·ÁÁØ´Ù // ºÎÈ°ÀÇ ¿¤¸¯¼­
+						if( CanUseRevivalPosion() && !g_pArenaManager->GetArenaInfo( GetOwnPort() ) && RareEM.IsHaveRivaval(ch) )//í€µì°½ì„ ëŒê³ ì„œ ì‚´ë¦¬ëŠ” ì•„ì´í…œì´ ìˆìœ¼ë©´ ì‚´ë ¤ì¤€ë‹¤ // ë¶€í™œì˜ ì—˜ë¦­ì„œ
 						{	
 							SkillMgr.CharacterToAlive(ch, 1);
 						}
@@ -1515,7 +1515,7 @@ void NPC_CheckRemove( void )
 						{
 							SkillMgr.CharacterToGhost(ch);
 						}
-						// Ä³¸¯ÅÍ ¸¶¹ıÁ¤º¸ ÃÊ±âÈ­  
+						// ìºë¦­í„° ë§ˆë²•ì •ë³´ ì´ˆê¸°í™”  
 						ch->Clear();
 					}
 				}
@@ -1544,8 +1544,8 @@ void RecvCMD_MODIFY_POSITION(  int cn,  t_client_modify_position *p )
 
 /* ///////////////////////////////////////////////////////////////////////////////////////
 
-  CMD_ALL_READY°¡ ¿À¸é »øÇàÇÑ´Ù. 
-  CMD_NPC_ADD¸¦ º¸³»±ä ÇßÁö¸¸  Client¿¡¼­ Data LoadingÇÏ´À³Ä°í ½Ã°£À» Àâ¾Æ¸Ô¾ú´Ù.
+  CMD_ALL_READYê°€ ì˜¤ë©´ ìƒí–‰í•œë‹¤. 
+  CMD_NPC_ADDë¥¼ ë³´ë‚´ê¸´ í–ˆì§€ë§Œ  Clientì—ì„œ Data Loadingí•˜ëŠëƒê³  ì‹œê°„ì„ ì¡ì•„ë¨¹ì—ˆë‹¤.
   
 ////////////////////////////////////////////////////////////////////////////////////////  */
 void SendReadyMoveDate( int cn )
@@ -1562,11 +1562,11 @@ void SendReadyMoveDate( int cn )
 			{
 				// PC
 			case 1: id = a[i].ID;
-				if( connections[ id].chrlst.MovePathCount )// ÇöÀç ÀÌµ¿ÇÏ°í ÀÖ´Â ÁßÀÌ¸é....
+				if( connections[ id].chrlst.MovePathCount )// í˜„ì¬ ì´ë™í•˜ê³  ìˆëŠ” ì¤‘ì´ë©´....
 				{
 					if( SettingMoveData_( id, &connections[id].chrlst, &packet ) )
 					{
-						packet.u.server_move.movetype += 100;	// ¿©±â¼­ º¸³»ÁÖ´Â À§Ä¡¿¡¼­ ½ÃÀÛÇÑ´Ù. 
+						packet.u.server_move.movetype += 100;	// ì—¬ê¸°ì„œ ë³´ë‚´ì£¼ëŠ” ìœ„ì¹˜ì—ì„œ ì‹œì‘í•œë‹¤. 
 						packet.h.header.type = CMD_MOVE;
 						QueuePacket( connections, cn, &packet, 1);
 					}
@@ -1585,11 +1585,11 @@ void SendReadyMoveDate( int cn )
 				
 				break;
 			case 2:	id = a[i].ID;
-				if( NPCList[id].MovePathCount )// ÇöÀç ÀÌµ¿ÇÏ°í ÀÖ´Â ÁßÀÌ¸é....
+				if( NPCList[id].MovePathCount )// í˜„ì¬ ì´ë™í•˜ê³  ìˆëŠ” ì¤‘ì´ë©´....
 				{
 					if( SettingMoveData_( id + 10000, &NPCList[id], &packet ))
 					{
-						packet.u.server_move.movetype += 100;	// ¿©±â¼­ º¸³»ÁÖ´Â À§Ä¡¿¡¼­ ½ÃÀÛÇÑ´Ù. 
+						packet.u.server_move.movetype += 100;	// ì—¬ê¸°ì„œ ë³´ë‚´ì£¼ëŠ” ìœ„ì¹˜ì—ì„œ ì‹œì‘í•œë‹¤. 
 						packet.h.header.type = CMD_MOVE;
 						QueuePacket(connections, cn, &packet, 1);
 					}
@@ -1617,13 +1617,13 @@ void SendReadyMoveDate( int cn )
 
 
 
-#define TAME_FAIL_CHANGE_NAME		0 // ÀÌ¸§¹Ù²Ù±â¸¦  ½ÇÆĞ. 
-#define TAME_NO_CHAR				1 // ±×·±ÀÌ¸§À¸·Î ±æµéÀÎ µ¿¹°ÀÌ ¾ø½À´Ï´Ù.  
-#define TAME_NO_NAME_CHAR			2 // ±×·± ÀÌ¸§À» °¡Áø ´ë»óÀÌ ¾ø½À´Ï´Ù. 
-#define TAME_FOLLOW					3 // µû¶ó°©´Ï´Ù. 
-#define TAME_STOP					4 // ¸ØÃç ¼·´Ï´Ù. 
-#define TAME_ATTACK					5 // °ø°İÇÕ´Ï´Ù. 
-#define TAME_SUCCESS_CHANGE_NAME	6 // ÀÌ¸§À» ¹Ù²Ù¾ú½À´Ï´Ù. 
+#define TAME_FAIL_CHANGE_NAME		0 // ì´ë¦„ë°”ê¾¸ê¸°ë¥¼  ì‹¤íŒ¨. 
+#define TAME_NO_CHAR				1 // ê·¸ëŸ°ì´ë¦„ìœ¼ë¡œ ê¸¸ë“¤ì¸ ë™ë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.  
+#define TAME_NO_NAME_CHAR			2 // ê·¸ëŸ° ì´ë¦„ì„ ê°€ì§„ ëŒ€ìƒì´ ì—†ìŠµë‹ˆë‹¤. 
+#define TAME_FOLLOW					3 // ë”°ë¼ê°‘ë‹ˆë‹¤. 
+#define TAME_STOP					4 // ë©ˆì¶° ì„­ë‹ˆë‹¤. 
+#define TAME_ATTACK					5 // ê³µê²©í•©ë‹ˆë‹¤. 
+#define TAME_SUCCESS_CHANGE_NAME	6 // ì´ë¦„ì„ ë°”ê¾¸ì—ˆìŠµë‹ˆë‹¤. 
 
 
 void RecvTameCommand( int cn, t_tame_command *p )
@@ -1648,9 +1648,9 @@ void RecvTameCommand( int cn, t_tame_command *p )
 		}
 	}
 	if( i == MAX_NPC_LIST ) { SendTameResult( cn, TAME_NO_CHAR ) ; return;  }	
-	// ±×´Â ±æµéÀÎ µ¿¹°ÀÌ ¾Æ´Ï¾ú´Ù. 
+	// ê·¸ëŠ” ê¸¸ë“¤ì¸ ë™ë¬¼ì´ ì•„ë‹ˆì—ˆë‹¤. 
 	if (n->IsTamedNpc() == false)  { SendTameResult(cn, TAME_NO_CHAR); return; }
-	// ´ç½ÅÀÌ ÁÖÀÎÀÌ ¾Æ´Ï´Ù. 
+	// ë‹¹ì‹ ì´ ì£¼ì¸ì´ ì•„ë‹ˆë‹¤. 
 	if( strcmp( n->HostName, connections[cn].chrlst.Name)) {SendTameResult( cn, TAME_NO_CHAR ) ; return; }
 	
 	switch( p->cmd )						
@@ -1673,19 +1673,19 @@ void RecvTameCommand( int cn, t_tame_command *p )
 		}		
 		else	
 		{		
-			ch = ReturnCharListPoint( p->toname );	// °ø°İ ´ë»óÀ» Ã£´Â´Ù. 
+			ch = ReturnCharListPoint( p->toname );	// ê³µê²© ëŒ€ìƒì„ ì°¾ëŠ”ë‹¤. 
 
 			if (ch == n)
 			{	//< CSD-031106
 				return;
 			}	//> CSD-031106
 
-			if( ch == NULL )	// °ø°İ´ë»óÀÌ ¾øÀ¸¸é.
+			if( ch == NULL )	// ê³µê²©ëŒ€ìƒì´ ì—†ìœ¼ë©´.
 			{	
 				n->TargetName[0] = 0;
 				SendTameResult( cn, TAME_NO_CHAR ); return;
 			}	
-			else	// °ø°İ´ë»óÀ» Ã£¾Ò´Ù !
+			else	// ê³µê²©ëŒ€ìƒì„ ì°¾ì•˜ë‹¤ !
 			{	
 				if( ch->SprType == SPRITETYPE_NPC ) 
 				{
@@ -1799,7 +1799,7 @@ void SendHostEnd( int npc_id )
 
 void CheckNPCTammingTimeElapsed( CHARLIST *ch )
 {		
-	//	½Ã°£Áö³²¿¡ µû¶ó Tamming±ïÀÌ´Â ºÎºĞ..
+	//	ì‹œê°„ì§€ë‚¨ì— ë”°ë¼ Tammingê¹ì´ëŠ” ë¶€ë¶„..
 	
 	if( ch->tame > 0 ) 
 	{	
@@ -1848,13 +1848,13 @@ void RecvSmileFace( int cn, int smileno )
 
   2000.2.5
   
-	1. NPC°¡ ÁöºØ¿¡ °¡·ÁÁü.
-	42¹ø È­ÀÌ¹ø.
-	54¹ø µ¶¼ö¸®.
+	1. NPCê°€ ì§€ë¶•ì— ê°€ë ¤ì§.
+	42ë²ˆ í™”ì´ë²ˆ.
+	54ë²ˆ ë…ìˆ˜ë¦¬.
 	
 //////////////////////////////////////////////////////////////////////// */
 
-///	  	NPC¸¦ PC¿¡¼­ °ü¸®ÇÑ´Ù. 
+///	  	NPCë¥¼ PCì—ì„œ ê´€ë¦¬í•œë‹¤. 
 void SendNPCControlData( int cn, int npc )
 {															
 	t_packet p;	
@@ -1985,7 +1985,7 @@ int ManageNPC(  int i )
 		{	
 			
 		}	
-		else		// ÀÚ½Å	À» ControlÇÏ´Â PC°¡ ¾ø´Ù. 
+		else		// ìì‹ 	ì„ Controlí•˜ëŠ” PCê°€ ì—†ë‹¤. 
 		{	
 		/*			NPCList[i].ctrlpc = -1;	
 		for( ; sx <= ex ; sx ++ )
@@ -2093,7 +2093,7 @@ void RecvMoveNear( int cn, int gox, int goy )
 }	
 
 ///////////////////////////////////////////////////////////////////////
-// Áö±İ	±îÁö ¸ğµç°ÍÀº Client¿¡¼­ Ã³¸®ÇØ¼­ ¼Ò½º¸¦ Ãß°¡ÇÒÀÏÀÌ ¾ø¾ú´Ù.
+// ì§€ê¸ˆ	ê¹Œì§€ ëª¨ë“ ê²ƒì€ Clientì—ì„œ ì²˜ë¦¬í•´ì„œ ì†ŒìŠ¤ë¥¼ ì¶”ê°€í• ì¼ì´ ì—†ì—ˆë‹¤.
 void Recv_JustAni( t_packet *p )
 {	
 	if(p->h.header.size != sizeof(t_just_ani)) {
@@ -2118,7 +2118,7 @@ void RecvCMD_MOVE(const int cn,t_packet *packet)
 	const int dummysize = sizeof(t_client_move);
 	t_client_move * p = &packet->u.client_move;
 	
-	if( p->movetype >= 100 )	// °­Á¦·Î ÀÌµ¿ÇÑ´Ù. ( ¿î¿µÀÚ¿ë )
+	if( p->movetype >= 100 )	// ê°•ì œë¡œ ì´ë™í•œë‹¤. ( ìš´ì˜ììš© )
 	{
 		p->movetype -=100;
 	}
@@ -2201,9 +2201,9 @@ void RecvCMD_MOVE(const int cn,t_packet *packet)
 		::QueuePacket(connections, cn, packet, 1);
 		::CastMe2Other( cn, packet);
 		
-		if( ch->Status )	// 0405 YGI	// ÀáÀÚ°í ÀÖ´Â »óÅÂ´Ù...
+		if( ch->Status )	// 0405 YGI	// ì ìê³  ìˆëŠ” ìƒíƒœë‹¤...
 		{
-			::SendServerWeakUp( cn );		// ±ú¾î³ª¾ßÇÔ
+			::SendServerWeakUp( cn );		// ê¹¨ì–´ë‚˜ì•¼í•¨
 		}
 	}
 }

@@ -1,4 +1,4 @@
-// LottoDBMgr.h: interface for the CLottoDBMgr class.
+ï»¿// LottoDBMgr.h: interface for the CLottoDBMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ public:
 	void RecvCheckOpenWinnerMenu(t_WINNER_MENU* pWinnerMenu,int cn);
 	void RecvLottery(LOTTO_EVENT_INFO* pLottery,int cn);
 	int CheckTwoLottos(int anTarget[],int anSource[],int count);
-	void RecvDelUser(t_CHECK_WINNER* pDelUser, int cn);		// BBD 040127 ÀÎÀÚ Ãß°¡
+	void RecvDelUser(t_CHECK_WINNER* pDelUser, int cn);		// BBD 040127 ç‰¢ç£Š çœ å•Š
 	void RecvWinnerCheck(t_CHECK_WINNER* pCheckWinner,int cn);
 	void RecvLottoBuy(t_BUY_LOTTO* pBuyLotto);
 	void GetUserIDFromName(const char* pName,char strID[]);

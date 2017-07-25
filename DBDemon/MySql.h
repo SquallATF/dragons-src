@@ -1,4 +1,4 @@
-#if !defined(AFX_MYSQL_H__65C7ED7E_9020_467F_AB76_8528EE975EC8__INCLUDED_)
+ï»¿#if !defined(AFX_MYSQL_H__65C7ED7E_9020_467F_AB76_8528EE975EC8__INCLUDED_)
 #define AFX_MYSQL_H__65C7ED7E_9020_467F_AB76_8528EE975EC8__INCLUDED_
 
 #if _MSC_VER > 1000
@@ -193,7 +193,7 @@ extern int PutBoxItem_SQL(int id, int pos, ItemAttr *I);
 extern int GetBoxItem_SQL(int id, int pos, ItemAttr *I);
 
 
-// Party/ Relation/ Employment¿¡ ´ëÇÑ Data¸ª DB¿¡¼­ °¡Á®¿Â´Ù. 
+// Party/ Relation/ Employmentì— ëŒ€í•œ Dataë¦‰ DBì—ì„œ ê°€ì ¸ì˜¨ë‹¤. 
 extern int GetPartyChar_SQL( char *name, int *Level, int *Face, int *Str, int *Class, int *Gender );	// 0115
 
 extern int UpdateTotalMapConnections( char *mapname, int no );
@@ -243,7 +243,7 @@ extern int GetTitleBBS( int count, int ct[10], TIMESTAMP_STRUCT date[10], char n
 extern int GetBelieveAndFaith_SQL( int &believe, int &faith, char *name );		// 0316 YGI
 extern int UpdateFaith_SQL( short int faith, char *name );						// 0316 YGI
 
-extern int UpdateEvaName( const char *my_name, char *eva_name );		// ÀüµµÇÑ »ç¶÷ ÀÌ¸§À» µğºñ¿¡ ¾÷µ¥ÀÌÆ® ÇÑ´Ù.//020725 lsw
+extern int UpdateEvaName( const char *my_name, char *eva_name );		// ì „ë„í•œ ì‚¬ëŒ ì´ë¦„ì„ ë””ë¹„ì— ì—…ë°ì´íŠ¸ í•œë‹¤.//020725 lsw
 extern void SubtractFaith( const char *naem );//020725 lsw
 
 
@@ -288,7 +288,7 @@ extern int DeleteHunterList( int list_id );
 
 extern int DeleteBox( int box_id );		// 0817 YGI
 extern int SearchBoxAndDelete( UCHAR **inv, UCHAR **bank, const char *szName );//020725 lsw
-extern void DeleteBoxByDeleteCharacter( const char *szname );		// Ä³¸¯ÅÍ¸¦ Áö¿ï¶§ ¹Ú½ºµµ Áö¿î´Ù.//020725 lsw
+extern void DeleteBoxByDeleteCharacter( const char *szname );		// ìºë¦­í„°ë¥¼ ì§€ìš¸ë•Œ ë°•ìŠ¤ë„ ì§€ìš´ë‹¤.//020725 lsw
 
 extern int UpdateResetJob_SQL( int job, char *name );		// 0909 YGI
 extern int get_Skill_BinaryData(UCHAR **skill_exp, UCHAR **script_var, char *name);
@@ -299,21 +299,21 @@ extern int GetMapInfo( t_mapinfo aMap[] );
 extern int MapPort( char *mapname );
 extern bool GetGuildCode(const char* szName, int& rGuildCode); // CSD-030326
 extern bool SetGuildCode( char * pName, int iGuildCode);	// 030602 YGI
-extern int GetNationByName( char *name, DWORD *nation );		// 1027 YGI ±¹°¡°ª¸¸ °¡Áö°í ¿À´Â°ÍÀÌ ¾Æ´Ï¶ó ³×ÀÓ½ºÅ×ÀÌÅÍ½º ´Ù °¡Á®¿Â´Ù.
+extern int GetNationByName( char *name, DWORD *nation );		// 1027 YGI êµ­ê°€ê°’ë§Œ ê°€ì§€ê³  ì˜¤ëŠ”ê²ƒì´ ì•„ë‹ˆë¼ ë„¤ì„ìŠ¤í…Œì´í„°ìŠ¤ ë‹¤ ê°€ì ¸ì˜¨ë‹¤.
 extern int GetVoteById_SQL( char *szUID );
 extern int SetVote_SQL( char *id, int vote_num );
 
-extern int SetPlusScoreVote( int candidate, int vote_num, int nation );					// 001031_2 YGI // µæÇ¥¸¦ ´õÇØÁØ´Ù.
+extern int SetPlusScoreVote( int candidate, int vote_num, int nation );					// 001031_2 YGI // ë“í‘œë¥¼ ë”í•´ì¤€ë‹¤.
 extern int GetScoreVote( int candidate, int vote_num, int nation );		// 001031_2 YGI
 
 
-extern int RegistCandidate_SQL( k_candidate *p );		// ÈÄº¸ µî·Ï
-extern int GetCandidate_SQL( const char *name, short int vote_num, k_candidate *p );		// ÈÄº¸ Á¤º¸ °¡Á®¿À±â
-extern int GetCandidate_SQL( short int vote_num, short int nation, k_candidate p[] );		// ÈÄº¸ Á¤º¸ °¡Á®¿À±â
+extern int RegistCandidate_SQL( k_candidate *p );		// í›„ë³´ ë“±ë¡
+extern int GetCandidate_SQL( const char *name, short int vote_num, k_candidate *p );		// í›„ë³´ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
+extern int GetCandidate_SQL( short int vote_num, short int nation, k_candidate p[] );		// í›„ë³´ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 
-extern int GetCurrentVoting( int vote_num, int nation, k_rep_vote_score *target );		// ÇöÀç ¼±°Å ÁøÇà »óÈ²
-extern int GetVoteInfo( k_set_value_of_vote *target );	// ¼±°Å ¹øÈ£¿Í ÇöÀç ¼±°Å »óÅÂ
-extern int SetVoteEndFlag( int count, int type );		// µæÇ¥¸¦ ´õÇØÁØ´Ù.
+extern int GetCurrentVoting( int vote_num, int nation, k_rep_vote_score *target );		// í˜„ì¬ ì„ ê±° ì§„í–‰ ìƒí™©
+extern int GetVoteInfo( k_set_value_of_vote *target );	// ì„ ê±° ë²ˆí˜¸ì™€ í˜„ì¬ ì„ ê±° ìƒíƒœ
+extern int SetVoteEndFlag( int count, int type );		// ë“í‘œë¥¼ ë”í•´ì¤€ë‹¤.
 extern int GetVoteNumberOne( int nation, int vote_num, char *name );
 extern int UpdateYouAreKing( char *name, int king );
 extern int SetVoteEndFlag( int count );
@@ -321,12 +321,12 @@ extern int CheckDbTable(int nation, char *name );
 extern int GetKingOfNation_SQL( int nation, char *name );
 extern int InsertGmRegist( k_gm_regist_db *p );		// 1027 YGI
 
-extern int GetSalvation( char * name, DWORD &money );		// ±âºÎÇÑ µ· ¾Ë¾Æº¸±â// 001214 YGI
+extern int GetSalvation( char * name, DWORD &money );		// ê¸°ë¶€í•œ ëˆ ì•Œì•„ë³´ê¸°// 001214 YGI
 extern int PlusMoneyRedClose( double &TotalMoney, DWORD plus_money );
 
 extern int LoadNoName_SQL();		// 010117 YGI
 extern int SetChocolateCount( char * name, int &count );		// 010212 YGI
-extern int GetTopGivenChocolate( char * name, int &count );		// ´©°¡ °¡Àå ¸¹ÀÌ °¡Áö°í ÀÖ´Â°¡
+extern int GetTopGivenChocolate( char * name, int &count );		// ëˆ„ê°€ ê°€ì¥ ë§ì´ ê°€ì§€ê³  ìˆëŠ”ê°€
 
 //010303 YGI
 extern int SaveOpenSchoolItem( char *name, int nation, int item_no, int &number );
@@ -376,7 +376,7 @@ extern int CheckGuildMail( int guild_code, int &mail_id );
 extern int GetGuildMailInfo( DWORD mail_id, int &conv_guild_code, int &conv_degree );
 extern int DeleteGuildMail( DWORD mail_id );
 extern int GetGuildMasterAndsubMaster( int guild_code, char *master, char *sub_master );
-extern int IsExistGiuildMember( char *name );		// ±æµå¸â¹ö¿¡ ³»°¡ ¼ÓÇØ ÀÖ´Â°¡?
+extern int IsExistGiuildMember( char *name );		// ê¸¸ë“œë©¤ë²„ì— ë‚´ê°€ ì†í•´ ìˆëŠ”ê°€?
 extern int CheckGuildMemberForRegistGuild( int nGuildCode );
 extern int DeleteGuild( int guild_code );
 extern int DeleteGuildMemberList( int guild_code );
@@ -393,7 +393,7 @@ extern int SaveEventItem( char *name, int item_no, int count );
 extern int GetGuildItemIndexAndCount( int guild_code, int &max, DWORD *index );
 extern int GetGuildItem( int guild_code, int cn, ItemAttr *item, int &count, DWORD *index );
 extern int InsertGuildItem( int guild_code, ItemAttr *pItem, char *name );
-extern int GetGuildItemOne( int guild_code, DWORD index, ItemAttr *pItem );		// ½ÇÁ¦ ¾ÆÀÌÅÛ ÇÏ³ª °¡Á®¿À±â
+extern int GetGuildItemOne( int guild_code, DWORD index, ItemAttr *pItem );		// ì‹¤ì œ ì•„ì´í…œ í•˜ë‚˜ ê°€ì ¸ì˜¤ê¸°
 extern int GetGuildItemOne( int guild_code, int item_no, ItemAttr *pItem, char *name );
 extern int GetGuildItemPay( int guild_code, DWORD &box_money );
 extern int GetLastGuildCode( int &last_guild_code ); // CSD-030324
@@ -428,7 +428,7 @@ struct k_startitem_basic
 	int m_nItem2No;
 	int m_nItem2Mutant;
 	int m_nItem2Grade;
-	int m_bAble;		// ´Ù È®ÀÎÈÄ¿¡ Á¦°øÇÒÁö ¾ÈÇÒ Áö ÆÇ´Ü¿ë
+	int m_bAble;		// ë‹¤ í™•ì¸í›„ì— ì œê³µí• ì§€ ì•ˆí•  ì§€ íŒë‹¨ìš©
 	char m_szTable[20]; // 030616 YGI
 
 	k_startitem_basic()

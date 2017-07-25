@@ -1,4 +1,4 @@
-// AttackMagic.h: interface for the CAttackMagic class.
+ï»¿// AttackMagic.h: interface for the CAttackMagic class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
-// °ø°Ý°è¿­ ¸¶¹ý
+// ê³µê²©ê³„ì—´ ë§ˆë²•
 class CAttackMagic : public TBinder<CMagic, CAttackMagic>
 { 
 public:
@@ -33,7 +33,7 @@ public:
 	}
 	
 public:
-	bool FireArrow();            // ºÒ°è¿­ÀÇ °ø°Ý¸¶¹ý
+	bool FireArrow();            // ë¶ˆê³„ì—´ì˜ ê³µê²©ë§ˆë²•
 	bool FireWall();
 	bool FireBall();
 	bool Scorcher();
@@ -49,7 +49,7 @@ public:
 	bool FireBreath();
 	bool FlamePillar();
 	bool FlamePour();
-	bool IceArrow();             // ¾óÀ½°è¿­ÀÇ °ø°Ý¸¶¹ý
+	bool IceArrow();             // ì–¼ìŒê³„ì—´ì˜ ê³µê²©ë§ˆë²•
 	bool IceWall();
 	bool IceBall();
 	bool Freeze5TileRadius();
@@ -58,7 +58,7 @@ public:
 	bool Freeze9TileRadius();
 	bool Freezing();
 	bool IceBreath();
-	bool LightningBolt();        // Àü°Ý°è¿­ÀÇ °ø°Ý¸¶¹ý 
+	bool LightningBolt();        // ì „ê²©ê³„ì—´ì˜ ê³µê²©ë§ˆë²• 
 	bool ChainLightning();
 	bool CircleLightning();
 	bool Lightning();
@@ -68,8 +68,8 @@ public:
 	bool LightningCloud();
 	bool LightningBreath();
 	bool OctaLightning();
-	bool DeathFire();            // ½Å·Â°è¿­ÀÇ °ø°Ý¸¶¹ý
-	bool DeathFiree();            // °µçüÓÄ»ð
+	bool DeathFire();            // ì‹ ë ¥ê³„ì—´ì˜ ê³µê²©ë§ˆë²•
+	bool DeathFiree();            // ê° æ¢§èƒì‚½
 	bool HolyFire();
 	bool HolyLight();
 	bool HolyRage();
@@ -79,7 +79,7 @@ public:
 	bool RageStone();
 	bool RageBlast();
 	bool RageLightBall();
-	bool ShadowOfEvil();         // ¾ðµ¥µå°è¿­ÀÇ °ø°Ý¸¶¹ý
+	bool ShadowOfEvil();         // ì–¸ë°ë“œê³„ì—´ì˜ ê³µê²©ë§ˆë²•
 	bool BooldSprinkle();
 	bool FlameArrow(); // CSD-031020
 	bool AreaBatAttack();
@@ -99,7 +99,7 @@ private:
 	
 private:
 	bool IsMiss() const
-	{ // ¸¶¹ý ¼º°ø·ü¿¡ µû¸¥ ¸¶¹ý ½ÇÆÐ ¿©ºÎ °Ë»ç
+	{ // ë§ˆë²• ì„±ê³µë¥ ì— ë”°ë¥¸ ë§ˆë²• ì‹¤íŒ¨ ì—¬ë¶€ ê²€ì‚¬
 		if( m_pTarget && m_pTarget->IsDead() ) return true;		// 020818 YGI
 		const int nDefense = RareEM.GetStaticRareEvasion(m_pTarget->StaticRare);
 		const int nRate= m_pCaster->CalcMagicSuccessRate(nDefense);

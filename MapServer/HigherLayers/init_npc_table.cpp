@@ -1,11 +1,11 @@
-#include "..\stdafx.h"
+ï»¿#include "..\stdafx.h"
 #include "DefaultHeader.h"
 #include "..\LowerLayers\MyLog.h"
 
-NPCName_by_Gender	NPC_Name_Ref[Num_Of_NPC_Name] = {0,};		//050329_KCH ÃÊ±âÈ­.
-NPCLev_to_Exp		NPC_Lev_Ref[Num_Of_NPC_Lev] = {0,};			//050329_KCH ÃÊ±âÈ­.
-NPC_Generation		NPC_Gen_Ref[Num_Of_NPC_Generation] = {0,};	//050329_KCH ÃÊ±âÈ­.
-BYTE				EnemyEnemy[100][100] = {0,};				//050329_KCH ÃÊ±âÈ­.
+NPCName_by_Gender	NPC_Name_Ref[Num_Of_NPC_Name] = {0,};		//050329_KCH ì´ˆê¸°í™”.
+NPCLev_to_Exp		NPC_Lev_Ref[Num_Of_NPC_Lev] = {0,};			//050329_KCH ì´ˆê¸°í™”.
+NPC_Generation		NPC_Gen_Ref[Num_Of_NPC_Generation] = {0,};	//050329_KCH ì´ˆê¸°í™”.
+BYTE				EnemyEnemy[100][100] = {0,};				//050329_KCH ì´ˆê¸°í™”.
 
 int NPC_FemaleName_Count = 0;
 int NPC_MaleName_Count = 0;
@@ -19,7 +19,7 @@ void MakeEnemyEnemyTable( void );
 
 extern HDBC g_hDBC_DragonDB ;
 
-// DB¿¡ ÀÖ´Â 3°³ÀÇ NPC Å×ÀÌºíÀ» ¸Ş¸ğ¸®·Î ÀĞ¾î¿Â´Ù.
+// DBì— ìˆëŠ” 3ê°œì˜ NPC í…Œì´ë¸”ì„ ë©”ëª¨ë¦¬ë¡œ ì½ì–´ì˜¨ë‹¤.
 int initNPCTable(void)
 {
 	if(initNPCNameTable() < 0) return -1 ;
@@ -72,7 +72,7 @@ int GetEnemyEnemy( CHARLIST *attacker, CHARLIST *defender )
 	return 125;
 }	
 
-// NPCÀÌ¸§ »ı¼ºÀ» À§ÇÑ Å×ÀÌºíÀ» DB¿¡¼­ ÀĞ¾î¿À´Â ÇÔ¼ö
+// NPCì´ë¦„ ìƒì„±ì„ ìœ„í•œ í…Œì´ë¸”ì„ DBì—ì„œ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜
 int initNPCNameTable(void)
 {
 	if(Num_Of_NPC_Name <= 0) {
@@ -151,7 +151,7 @@ int initNPCNameTable(void)
 	
 	FILE * fp;
 	int i;
-	// ÇöÀç ³²/¿© ±¸ºĞÀÌ ¾ø´Â»óÅÂÀÌ´Ù.
+	// í˜„ì¬ ë‚¨/ì—¬ êµ¬ë¶„ì´ ì—†ëŠ”ìƒíƒœì´ë‹¤.
 	fp = fopen( "./OutPut/Mon_Name.bin", "wb" );
 	if( fp )
 	{
@@ -179,7 +179,7 @@ int initNPCNameTable(void)
 }		
 
 // 0811 NPC KHS
-// NPC·¹º§°ú °æÇèÄ¡ °ü·Ã Á¤º¸¸¦ ´ã°í ÀÖ´Â Å×ÀÌºíÀ» DB¿¡¼­ ÀĞ¾î¿À´Â ÇÔ¼ö
+// NPCë ˆë²¨ê³¼ ê²½í—˜ì¹˜ ê´€ë ¨ ì •ë³´ë¥¼ ë‹´ê³  ìˆëŠ” í…Œì´ë¸”ì„ DBì—ì„œ ì½ì–´ì˜¤ëŠ” í•¨ìˆ˜
 int initNPCLevTable(void)
 {
 	if(Num_Of_NPC_Lev <= 0) 
@@ -258,7 +258,7 @@ int initNPCLevTable(void)
 	char crc = 0;
 	for( i = 0 ; i < sizeof( NPCLev_to_Exp ) * Num_Of_NPC_Lev ; i  ++)
 	{
-		*tt += ( sizeof(NPCLev_to_Exp) + i );	//050329_KCH 100 À» ÀÌÇØÇÏ±â ½±°Ô º¯°æ
+		*tt += ( sizeof(NPCLev_to_Exp) + i );	//050329_KCH 100 ì„ ì´í•´í•˜ê¸° ì‰½ê²Œ ë³€ê²½
 		crc  += *tt;
 		tt ++;
 	}

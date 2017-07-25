@@ -1,4 +1,4 @@
-#ifndef	__PATH_H__
+ï»¿#ifndef	__PATH_H__
 #define	__PATH_H__
 
 
@@ -27,7 +27,7 @@ extern "C"
 	extern void			PathDestroy( void );
 	extern LPSP_NODE	PathFind( CHARLIST *ch,int sx, int sy, int dx, int dy );
 
-	////////////////// 0730 yjs ¼öÁ¤ µğÆúÆ® ÀÎÀÚ°ªÀ» ³ÖÀ½ //////////////////////////
+	////////////////// 0730 yjs ìˆ˜ì • ë””í´íŠ¸ ì¸ìê°’ì„ ë„£ìŒ //////////////////////////
 	extern int			FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My=0, LPCHARLIST attacker=NULL );
 	////////////////////////////////////////////////////////////////////////////////
 

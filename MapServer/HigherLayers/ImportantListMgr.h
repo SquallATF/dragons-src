@@ -1,4 +1,4 @@
-// ImportantListMgr.h: interface for the CImportantListMgr class.
+﻿// ImportantListMgr.h: interface for the CImportantListMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 

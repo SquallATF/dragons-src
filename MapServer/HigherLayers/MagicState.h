@@ -1,4 +1,4 @@
-// MagicState.h: interface for the CMagicState class.
+ï»¿// MagicState.h: interface for the CMagicState class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ı »óÅÂ ±â´ÉÀ» À§ÇÑ Å¬·¡½º
+// ë§ˆë²• ìƒíƒœ ê¸°ëŠ¥ì„ ìœ„í•œ í´ë˜ìŠ¤
 class CCharState
 {
 public:
@@ -18,19 +18,19 @@ public:
 	
 public:
 	void Clear()
-	{	// º¯¼ö ÃÊ±âÈ­ 
+	{	// ë³€ìˆ˜ ì´ˆê¸°í™” 
 		m_dwTime = 0, m_nRatio = 0; 
 	}
 	
 	BYTE GetRatio() const { return m_nRatio; }
 	
 	void SetState(DWORD dwTime, BYTE nRatio)
-	{	// »óÅÂ Àç¼³Á¤ 
+	{	// ìƒíƒœ ì¬ì„¤ì • 
 		m_dwTime = dwTime, m_nRatio = nRatio;
 	}
 	
 	int Convert(int nValue) const 
-	{	// ÀÔ·Â°ªÀ» ºñÀ²·Î È¯»ê
+	{	// ì…ë ¥ê°’ì„ ë¹„ìœ¨ë¡œ í™˜ì‚°
 		return nValue*m_nRatio/100; 
 	}
 	
@@ -40,23 +40,23 @@ public:
 	}
 	
 	bool IsContinue() const
-	{	// »óÅÂ Áö¼Ó ¿©ºÎ °Ë»ç
+	{	// ìƒíƒœ ì§€ì† ì—¬ë¶€ ê²€ì‚¬
 		return (m_dwTime > 0) ? true:false; 
 	}
 	
 	bool IsContinue(DWORD dwTime) const 
-	{	// »óÅÂ Áö¼Ó ¿©ºÎ °Ë»ç
+	{	// ìƒíƒœ ì§€ì† ì—¬ë¶€ ê²€ì‚¬
 		return (m_dwTime > dwTime) ? true:false; 
 	}
 	
 	bool IsBound() const 
-	{ // ¹üÀ§(0 ~ 100%) °Ë»ç
+	{ // ë²”ìœ„(0 ~ 100%) ê²€ì‚¬
 		return (m_nRatio >= 0 && m_nRatio <= 100) ? true:false; 
 	}
 	
 private:
-	DWORD  m_dwTime; // Áö¼Ó½Ã°£
-	BYTE   m_nRatio; // ºñÀ²(0 ~ 100%)
+	DWORD  m_dwTime; // ì§€ì†ì‹œê°„
+	BYTE   m_nRatio; // ë¹„ìœ¨(0 ~ 100%)
 };
 
 //
@@ -67,63 +67,63 @@ private:
 #define NAT_NORMAL    3
 #define DELAY         4
 ///////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ıÀ» Áö¼ÓÇÒ ¼ö ÀÖ´Â ½Ã°£·®
+// ë§ˆë²•ì„ ì§€ì†í•  ìˆ˜ ìˆëŠ” ì‹œê°„ëŸ‰
 struct MAGIC_DURATION
 {	//< CSD-040803
-	CCharState apShort;     // ´Ü°Å¸® ¹°¸®Àû °ø°İ·Â
-	CCharState apMiddle;    // Áß°Å¸® ¹°¸®Àû °ø°İ·Â
-	CCharState apLong;      // Àå°Å¸® ¹°¸®Àû °ø°İ·Â
+	CCharState apShort;     // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
+	CCharState apMiddle;    // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
+	CCharState apLong;      // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ê³µê²©ë ¥
 	
-	CCharState dpShort;     // ´Ü°Å¸® ¹°¸®Àû ¹æ¾î·Â
-	CCharState dpMiddle;    // Áß°Å¸® ¹°¸®Àû ¹æ¾î·Â
-	CCharState dpLong;      // Àå°Å¸® ¹°¸®Àû ¹æ¾î·Â
+	CCharState dpShort;     // ë‹¨ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
+	CCharState dpMiddle;    // ì¤‘ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
+	CCharState dpLong;      // ì¥ê±°ë¦¬ ë¬¼ë¦¬ì  ë°©ì–´ë ¥
 	
-	CCharState dpFire;      // ºÒ°è¿­ °ø°İ¸¶¹ı  ¹æ¾î·Â
-	CCharState dpIce;       // ¾óÀ½°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	CCharState dpElect;     // Àü°İ°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
-	CCharState dpHoly;      // ½Å·Â°è¿­ °ø°İ¸¶¹ı ¹æ¾î·Â
+	CCharState dpFire;      // ë¶ˆê³„ì—´ ê³µê²©ë§ˆë²•  ë°©ì–´ë ¥
+	CCharState dpIce;       // ì–¼ìŒê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpElect;     // ì „ê²©ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpHoly;      // ì‹ ë ¥ê³„ì—´ ê³µê²©ë§ˆë²• ë°©ì–´ë ¥
 	
-	CCharState dpCurse1;    // ÀúÁÖ 1°è¿­ ¸¶¹ı ¹æ¾î·Â
-	CCharState dpCurse2;    // ÀúÁÖ 2°è¿­ ¸¶¹ı ¹æ¾î·Â
-	CCharState dpCurse3;    // ÀúÁÖ 3°è¿­ ¸¶¹ı ¹æ¾î·Â
-	CCharState dpCurse4;    // ÀúÁÖ 4°è¿­ ¸¶¹ı ¹æ¾î·Â
-	CCharState dpCurse5;    // ÀúÁÖ 5°è¿­ ¸¶¹ı ¹æ¾î·Â
-	CCharState dpFreeze;    // CSD-021216 : ¾ó¸² ÀúÁÖ ¸¶¹ı ¹æ¾î·Â
+	CCharState dpCurse1;    // ì €ì£¼ 1ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpCurse2;    // ì €ì£¼ 2ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpCurse3;    // ì €ì£¼ 3ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpCurse4;    // ì €ì£¼ 4ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpCurse5;    // ì €ì£¼ 5ê³„ì—´ ë§ˆë²• ë°©ì–´ë ¥
+	CCharState dpFreeze;    // CSD-021216 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²• ë°©ì–´ë ¥
     
-	CCharState amplify;     // °ø°İ ¸¶¹ı µ¥¹ÌÁö
-	CCharState speedUp;     // ÀÌµ¿¼Óµµ Áõ°¡   
-	CCharState speedDown;   // ÀÌµ¿¼Óµµ °¨¼Ò  
+	CCharState amplify;     // ê³µê²© ë§ˆë²• ë°ë¯¸ì§€
+	CCharState speedUp;     // ì´ë™ì†ë„ ì¦ê°€   
+	CCharState speedDown;   // ì´ë™ì†ë„ ê°ì†Œ  
 	
-	CCharState avoid;       // È¸ÇÇÀ²
-	CCharState agility;     // ¹ÎÃ¸¼º
+	CCharState avoid;       // íšŒí”¼ìœ¨
+	CCharState agility;     // ë¯¼ì²©ì„±
 	
-	DWORD dwCurse1;             // ÀúÁÖ 1°è¿­ ¸¶¹ı »óÅÂ 
-	DWORD dwCurse2;             // ÀúÁÖ 2°è¿­ ¸¶¹ı »óÅÂ 
-	DWORD dwCurse3;             // ÀúÁÖ 3°è¿­ ¸¶¹ı »óÅÂ 
-	DWORD dwCurse4;             // ÀúÁÖ 4°è¿­ ¸¶¹ı »óÅÂ 
-	DWORD dwFreeze;             // CSD-021024 : ¾ó¸² ÀúÁÖ ¸¶¹ı »óÅÂ
+	DWORD dwCurse1;             // ì €ì£¼ 1ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	DWORD dwCurse2;             // ì €ì£¼ 2ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	DWORD dwCurse3;             // ì €ì£¼ 3ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	DWORD dwCurse4;             // ì €ì£¼ 4ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	DWORD dwFreeze;             // CSD-021024 : ì–¼ë¦¼ ì €ì£¼ ë§ˆë²• ìƒíƒœ
 	
-	DWORD dwNormalProtect;      // ÀÏ¹İ º¸È£°è¿­ ¸¶¹ı »óÅÂ
-	DWORD dwSpecialProtect;     // Æ¯¼ö º¸È£°è¿­ ¸¶¹ı »óÅÂ 
-	DWORD dwExceptProtect;      // ¿¹¿Ü º¸È£°è¿­(¸ğµç ¸¶¹ıÀÌ ½ÇÆĞ) ¸¶¹ı »óÅÂ
-	DWORD dwAttackDelay;	      // °ø°İ ¼Óµµ °¨¼Ò(Ä³¸¯ÅÍ°¡ °ø°İ ÇÒ¼ö ÀÖ´Â ¿©ºÎ)
-	DWORD dwDontMove;           // ÀÌµ¿ÀÌ µÇÁö ¾ÊÀ½
-	DWORD dwDontAttack;		      // ÀÏ¹İÀûÀÎ °ø°İÀÌ µÇÁö ¾ÊÀ½
-	DWORD dwDontCasting;		    // ¸¶¹ı Ä³½ºÆÃÀÌ µÇÁö ¾ÊÀ½
-	DWORD dwDontMiss;           // ¸ğµç ¹°¸®Àû °ø°İ°ú ¸¶¹ıÀÌ ¼º°ø
-	DWORD dwBlocking;           // ¿ÜºÎ¿Í Â÷´ÜµÇ´Â »óÅÂ
-	DWORD dwLight;              // ÁÖÀ§¿¡ ºûÀ» ¹àÈ÷´Â »óÅÂ
-	DWORD dwMagicDamageToMana;  // »ó´ëÀÇ °ø°İ ¸¶¹ıÀ» ¸¶³ª¸¦ ¼Ò¸ğÇÏ¿© ¸·¾Æ³¿
-	DWORD dwReturnMagic;		    // ¸¶¹ıÀÇ È¿°ú¸¦ ½ÃÀüÀÚ¿¡°Ô µÇµ¹¸²
-	DWORD dwTransparency;		    // Ä³¸¯ÅÍ°¡ Åõ¸íÇÏ°Ô µÊ 
-	DWORD dwLifeUp;             // ÀÏÁ¤ ½Ã°£µ¿¾È Life°¡ ¿Ã¶ó°¨
-	DWORD dwStrikeReflect;      // CSD-021015 : ¹°¸®°ø°İ µ¥¹ÌÁö ¹İ»ç
-	DWORD dwMagicReflect;       // CSD-021015 : ¸¶¹ı°ø°İ µ¥¹ÌÁö ¹İ»ç
-	DWORD dwNature[NAT_NORMAL]; // ¼ºÁú º¯È­ »óÅÂ  
-	DWORD dwCombatState;        // ÀüÅõ½ºÅ³ ¼Ó¼º »óÅÂ
-	DWORD dwUpDivineMana;		// ¸¶³ª¸¦ ¿Ã¸°´Ù.	// 030415 kyo 
-	DWORD dwCombatRecovery;		//cp¸¦ ¿Ã¸®°í hp¸¦ ÁÙÀÎ´Ù.	// 030415 kyo 
-	DWORD dwUseTimeOfGuildItemMenu;			// ±æµå ¾ÆÀÌÅÛÀ» ¸Ş´º¸¦ È£ÃâÇÏ´Â ½Ã°£ ¼³Á¤	// 040623 YGI
+	DWORD dwNormalProtect;      // ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœ
+	DWORD dwSpecialProtect;     // íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²• ìƒíƒœ 
+	DWORD dwExceptProtect;      // ì˜ˆì™¸ ë³´í˜¸ê³„ì—´(ëª¨ë“  ë§ˆë²•ì´ ì‹¤íŒ¨) ë§ˆë²• ìƒíƒœ
+	DWORD dwAttackDelay;	      // ê³µê²© ì†ë„ ê°ì†Œ(ìºë¦­í„°ê°€ ê³µê²© í• ìˆ˜ ìˆëŠ” ì—¬ë¶€)
+	DWORD dwDontMove;           // ì´ë™ì´ ë˜ì§€ ì•ŠìŒ
+	DWORD dwDontAttack;		      // ì¼ë°˜ì ì¸ ê³µê²©ì´ ë˜ì§€ ì•ŠìŒ
+	DWORD dwDontCasting;		    // ë§ˆë²• ìºìŠ¤íŒ…ì´ ë˜ì§€ ì•ŠìŒ
+	DWORD dwDontMiss;           // ëª¨ë“  ë¬¼ë¦¬ì  ê³µê²©ê³¼ ë§ˆë²•ì´ ì„±ê³µ
+	DWORD dwBlocking;           // ì™¸ë¶€ì™€ ì°¨ë‹¨ë˜ëŠ” ìƒíƒœ
+	DWORD dwLight;              // ì£¼ìœ„ì— ë¹›ì„ ë°íˆëŠ” ìƒíƒœ
+	DWORD dwMagicDamageToMana;  // ìƒëŒ€ì˜ ê³µê²© ë§ˆë²•ì„ ë§ˆë‚˜ë¥¼ ì†Œëª¨í•˜ì—¬ ë§‰ì•„ëƒ„
+	DWORD dwReturnMagic;		    // ë§ˆë²•ì˜ íš¨ê³¼ë¥¼ ì‹œì „ìì—ê²Œ ë˜ëŒë¦¼
+	DWORD dwTransparency;		    // ìºë¦­í„°ê°€ íˆ¬ëª…í•˜ê²Œ ë¨ 
+	DWORD dwLifeUp;             // ì¼ì • ì‹œê°„ë™ì•ˆ Lifeê°€ ì˜¬ë¼ê°
+	DWORD dwStrikeReflect;      // CSD-021015 : ë¬¼ë¦¬ê³µê²© ë°ë¯¸ì§€ ë°˜ì‚¬
+	DWORD dwMagicReflect;       // CSD-021015 : ë§ˆë²•ê³µê²© ë°ë¯¸ì§€ ë°˜ì‚¬
+	DWORD dwNature[NAT_NORMAL]; // ì„±ì§ˆ ë³€í™” ìƒíƒœ  
+	DWORD dwCombatState;        // ì „íˆ¬ìŠ¤í‚¬ ì†ì„± ìƒíƒœ
+	DWORD dwUpDivineMana;		// ë§ˆë‚˜ë¥¼ ì˜¬ë¦°ë‹¤.	// 030415 kyo 
+	DWORD dwCombatRecovery;		//cpë¥¼ ì˜¬ë¦¬ê³  hpë¥¼ ì¤„ì¸ë‹¤.	// 030415 kyo 
+	DWORD dwUseTimeOfGuildItemMenu;			// ê¸¸ë“œ ì•„ì´í…œì„ ë©”ë‰´ë¥¼ í˜¸ì¶œí•˜ëŠ” ì‹œê°„ ì„¤ì •	// 040623 YGI
 	DWORD dwDoubleExpUp;
 	DWORD dwProtectionContinue; // CSD-040826
 	DWORD dwAssistanceContinue; // CSD-040826
@@ -132,7 +132,7 @@ struct MAGIC_DURATION
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
-// ¸¶¹ı »óÅÂ¿¡ ´ëÇÑ Å¬·¡½º
+// ë§ˆë²• ìƒíƒœì— ëŒ€í•œ í´ë˜ìŠ¤
 class CMagicState : public MAGIC_DURATION
 { 
 public:
@@ -243,18 +243,18 @@ public:
 	void SetState(BYTE nState) { m_nState = nState; }
 	void AddState(BYTE nState) { m_nState |= nState; }
 	void DelState(BYTE nState) { m_nState &= ~nState; }
-	// Life Áõ°¡·®
+	// Life ì¦ê°€ëŸ‰
 	int GetLifeUp() const { return m_nLifeUp; }
-	// Áßµ¶µÇ¾úÀ» ¶§ HP°¡ °¨¼ÒµÇ´Â ¾ç ¾ò±â
+	// ì¤‘ë…ë˜ì—ˆì„ ë•Œ HPê°€ ê°ì†Œë˜ëŠ” ì–‘ ì–»ê¸°
 	WORD GetPoisonedPoint() const { return m_wPoisonedPoint; }
 	WORD GetPoisonedCount() const { return m_wPoisonedCount; }
-	// Áßµ¶µÇ¾úÀ» ¶§ HP°¡ °¨¼ÒµÇ´Â ¾ç ¼³Á¤
+	// ì¤‘ë…ë˜ì—ˆì„ ë•Œ HPê°€ ê°ì†Œë˜ëŠ” ì–‘ ì„¤ì •
 	void SetPoisonedPoint(WORD wPoint = 0) { m_wPoisonedPoint = wPoint; }
 	void SetPoisonedCount(WORD wCount = 0) { m_wPoisonedCount = wCount; }
 	void IncPoisonedCount() { ++m_wPoisonedCount; }
 	void DecPoisonedCount() { --m_wPoisonedCount; }
 	
-	// ÀÚµ¿ hp´Ù¿î 
+	// ìë™ hpë‹¤ìš´ 
 	int	 GetRecoveryCPCount() const { return m_nRecoveryPoint;} // 030415 kyo 
 	void SetRecoveryCPCount(int nCount = 0) { m_nRecoveryPoint = nCount; } // 030415 kyo 
 	void IncRecoveryCPCount() { ++m_nRecoveryPoint; } // 030415 kyo 
@@ -262,37 +262,37 @@ public:
 
 	bool IsState(BYTE nState) const { return (m_nState == nState) ? true:false; }
 	bool IsPhysicalDamage() const
-	{	// ¹°¸®Àû µ¥¹ÌÁö¸¦ 100% ¹æ¾îÇÏ´ÂÁö ¿©ºÎ
+	{	// ë¬¼ë¦¬ì  ë°ë¯¸ì§€ë¥¼ 100% ë°©ì–´í•˜ëŠ”ì§€ ì—¬ë¶€
 		return (dpShort.IsMax() && dpMiddle.IsMax() && dpLong.IsMax()) ? false:true;
 	}  
-	// ¿ÏÀüÇÑ °á°è »óÅÂÀÎÁö ¿©ºÎ °Ë»ç
+	// ì™„ì „í•œ ê²°ê³„ ìƒíƒœì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsPerfect() const { return (dwExceptProtect > 0) ? true:false; }
-	// È¸±ÍÀÇ ±Ç´É »óÅÂÀÎÁö ¿©ºÎ °Ë»ç
+	// íšŒê·€ì˜ ê¶ŒëŠ¥ ìƒíƒœì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsReturn() const { return (dwReturnMagic > 0) ? true:false; }
-	// ±âµµ »óÅÂÀÎÁö ¿©ºÎ °Ë»ç
+	// ê¸°ë„ ìƒíƒœì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsDivineUp() const { return (dwUpDivineMana > 0) ? true:false; } // CSD-TW-030606
-	// ¼®È­ »óÅÂÀÎÁö ¿©ºÎ °Ë»ç
+	// ì„í™” ìƒíƒœì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsStone() const { return (dwBlocking > 0) ? true:false; }
-	// ¾ó¸² ÀúÁÖ »óÅÂ ¿©ºÎ °Ë»ç
+	// ì–¼ë¦¼ ì €ì£¼ ìƒíƒœ ì—¬ë¶€ ê²€ì‚¬
 	bool IsFreeze() const { return (dwAttackDelay > 0) ? true:false; }
-	// ½ÃÀüºÒ°¡ »óÅÂÀÎÁö ¿©ºÎ °Ë»ç
+	// ì‹œì „ë¶ˆê°€ ìƒíƒœì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsCasting() const { return (dwDontCasting > 0) ? false:true; }
-	// NPCÀÎ °æ¿ì ¸¶¹ı »ç¿ëÀÌ °¡´ÉÇÑÁö ¿©ºÎ °Ë»ç
+	// NPCì¸ ê²½ìš° ë§ˆë²• ì‚¬ìš©ì´ ê°€ëŠ¥í•œì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsCasting(DWORD dwNow) const { return (m_dwCasting > dwNow) ? false:true; }
-	// CSD-021015 : ÀÏÁ¤ ½Ã°£µ¿¾È Life°¡ ¿Ã¶ó°¨
+	// CSD-021015 : ì¼ì • ì‹œê°„ë™ì•ˆ Lifeê°€ ì˜¬ë¼ê°
 	bool IsLifeUp() const { return (dwLifeUp > 0) ? true:false; }
-	// CSD-021015 : ¹°¸®°ø°İ ¹İ»ç »óÅÂ °Ë»ç
+	// CSD-021015 : ë¬¼ë¦¬ê³µê²© ë°˜ì‚¬ ìƒíƒœ ê²€ì‚¬
 	bool IsStrikeReflect() const { return (dwStrikeReflect > 0) ? true:false; }
-	// CSD-021015 : ¸¶¹ı°ø°İ ¹İ»ç »óÅÂ °Ë»ç
+	// CSD-021015 : ë§ˆë²•ê³µê²© ë°˜ì‚¬ ìƒíƒœ ê²€ì‚¬
 	bool IsMagicReflect() const { return (dwMagicReflect > 0) ? true:false; }
-	// ÀüÅõ½ºÅ³ ¼Ó¼º À¯Áö »óÅÂ
+	// ì „íˆ¬ìŠ¤í‚¬ ì†ì„± ìœ ì§€ ìƒíƒœ
 	bool IsPassiveCombatState() const { return (dwCombatState <= 0) ? false:true; } // CSD-TW-030606
 	bool IsRecoveryCombatState() const { return (dwCombatRecovery <= 0) ? false:true; } // CSD-TW-030606
 
 	// 040623 YGI
 	bool IsUseableGuildItem() const { return ( dwUseTimeOfGuildItemMenu> 0) ? false:true; }
 	
-	// ¸¶¹ı ¹æ¾î·ÂÀÌ ÀÖ´ÂÁö ¿©ºÎ °Ë»ç
+	// ë§ˆë²• ë°©ì–´ë ¥ì´ ìˆëŠ”ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsCurseDefense(BYTE nType) const
 	{
 		switch (nType)
@@ -307,7 +307,7 @@ public:
 		
 		return false;
 	}
-	// ÀúÁÖ°è¿­ ¸¶¹ı »óÅÂÀÎÁö ¿©ºÎ °Ë»ç
+	// ì €ì£¼ê³„ì—´ ë§ˆë²• ìƒíƒœì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsCurse(BYTE nType) const
 	{	//< CSD-021024 
 		switch (nType)
@@ -335,27 +335,27 @@ public:
 		
 		return false;
 	}	//> CSD-021024
-	// ÀÏ¹İ º¸È£°è¿­ ¸¶¹ıÀÎÁö ¿©ºÎ °Ë»ç
+	// ì¼ë°˜ ë³´í˜¸ê³„ì—´ ë§ˆë²•ì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsNormalProtect() const { return (dwNormalProtect > 0) ? true:false; }
-	// Æ¯¼ö º¸È£°è¿­ ¸¶¹ıÀÎÁö ¿©ºÎ °Ë»ç
+	// íŠ¹ìˆ˜ ë³´í˜¸ê³„ì—´ ë§ˆë²•ì¸ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsSpecialProtect() const { return (dwSpecialProtect > 0) ? true:false; }
-	// ÀÌµ¿ Àå¼Ò ±â¾ïÀÌ ¼³Á¤µÇ¾ú´ÂÁö ¿©ºÎ °Ë»ç
+	// ì´ë™ ì¥ì†Œ ê¸°ì–µì´ ì„¤ì •ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€ ê²€ì‚¬
 	bool IsTransMap() const { return (m_nTransPort > 0) ? true:false; }
-	// ÀüÅõ½ºÅ³ »ç¿ë °¡´É È¸¼ö °Ë»ç
+	// ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© ê°€ëŠ¥ íšŒìˆ˜ ê²€ì‚¬
 	bool IsCount() const { return (m_nCount > 0) ? true:false; }
-	// ±æµéÀÌ±â ¿©ºÎ °Ë»ç
+	// ê¸¸ë“¤ì´ê¸° ì—¬ë¶€ ê²€ì‚¬
 	bool IsTamedNpc() const { return m_bTamed; }
 	void SetTamed(bool bTamed) { m_bTamed = bTamed; }
-	// ¼ÒÈ¯ ¸ó½ºÅÍ ¿©ºÎ °Ë»ç
+	// ì†Œí™˜ ëª¬ìŠ¤í„° ì—¬ë¶€ ê²€ì‚¬
 	bool IsSummonMonster() const { return m_bSummon; }
 	void SetSummonMonster(bool bSummon) { m_bSummon = bSummon; }
-	// ¸¶¹ı »óÅÂ
+	// ë§ˆë²• ìƒíƒœ
 	bool IsProtectionContinue() const { return (dwProtectionContinue > 0) ? true:false; } // CSD-040826
 	bool IsAssistanceContinue() const { return (dwAssistanceContinue > 0) ? true:false; } // CSD-040826
 	
 public:
 	class XSummonMgr
-	{	// ¼ÒÈ¯ÇÑ ¸ó½ºÅÍ °ü¸® Å¬·¡½º
+	{	// ì†Œí™˜í•œ ëª¬ìŠ¤í„° ê´€ë¦¬ í´ë˜ìŠ¤
 		typedef vector<WORD> VECTOR;
 		
 	public:
@@ -366,31 +366,31 @@ public:
 		void SetFollow(BYTE nFollow) { m_nFollow = nFollow; }
 		WORD GetMaster() const { return m_idMaster; }
 		void SetMaster(WORD idMaster) { m_idMaster = idMaster; }
-		// ¼ÒÈ¯ÇÑ ¸ó½ºÅÍÀÇ ¼ö Áõ°¡
+		// ì†Œí™˜í•œ ëª¬ìŠ¤í„°ì˜ ìˆ˜ ì¦ê°€
 		void Increase(WORD wID) 
 		{ 
 			m_vtBuffer.push_back(wID); 
 		}
-		// ¼ÒÈ¯ÇÑ ¸ó½ºÅÍÀÇ ¼ö °¨¼Ò
+		// ì†Œí™˜í•œ ëª¬ìŠ¤í„°ì˜ ìˆ˜ ê°ì†Œ
 		void Decrease(WORD wID)  
 		{ 
 			m_vtBuffer.erase(remove(m_vtBuffer.begin(), m_vtBuffer.end(), wID)); 
 		}
-		// ¼ÒÈ¯ ¸ó½ºÅÍ¿¡°Ô ¸í·É
+		// ì†Œí™˜ ëª¬ìŠ¤í„°ì—ê²Œ ëª…ë ¹
 		void Command(bool (*pFunc)(WORD, WORD))
 		{
 			pointer_to_binary_function<WORD, WORD, bool> pf(pFunc);
 			for_each(m_vtBuffer.begin(), m_vtBuffer.end(), bind2nd(pf, m_idMaster));
 		}
-		// ¼ÒÈ¯ ¸ó½ºÅÍ ÀüºÎ Á¦°Å
+		// ì†Œí™˜ ëª¬ìŠ¤í„° ì „ë¶€ ì œê±°
 		void Remove(void (*pFunc)(WORD))
 		{
 			for_each(m_vtBuffer.begin(), m_vtBuffer.end(), pFunc);
 			m_vtBuffer.clear();
 		}
-		// ¼ÒÈ¯ÇÑ ¸ó½ºÅÍÀÇ ¼ö ¾ò±â
+		// ì†Œí™˜í•œ ëª¬ìŠ¤í„°ì˜ ìˆ˜ ì–»ê¸°
 		int Count() const { return m_vtBuffer.size(); }
-		// ¼ÒÈ¯ÇÑ ¸ó½ºÅÍ°¡ Á¸ÀçÇÏ´ÂÁö ¿©ºÎ °Ë»ç
+		// ì†Œí™˜í•œ ëª¬ìŠ¤í„°ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì—¬ë¶€ ê²€ì‚¬
 		bool IsExist() const { return !m_vtBuffer.empty(); }
 		
 	private:
@@ -405,31 +405,31 @@ public:
 	void SetMaster(WORD idMaster) { m_xSummon.SetMaster(idMaster); }
 	
 protected:
-	BYTE  m_nNature;        // ¼ºÁú »óÅÂ
-	BYTE  m_nState;         // ¸¶¹ı »óÅÂ
-	WORD  m_wPoisonedPoint; // Áßµ¶µÇ¾úÀ» ¶§ HP°¡ °¨¼ÒµÇ´Â ¾ç
-	WORD  m_wPoisonedCount; // Áßµ¶µÇ¾úÀ» ¶§ HP°¡ °¨¼Ò ÃÊ
-	int	  m_nRecoveryPoint; // ÀÚµ¿cpÈ¸º¹¿¡¼­ ¸îÃÊ´ç hp°¡ ºüÁö´Â°¡? // 030415 kyo 
-	int   m_nTransPort;     // ÀÌµ¿ÇÒ ¸Ê¿¡ ´ëÇÑ Á¤º¸
-	int   m_nTransX;        // ÀÌµ¿ ÁÂÇ¥
+	BYTE  m_nNature;        // ì„±ì§ˆ ìƒíƒœ
+	BYTE  m_nState;         // ë§ˆë²• ìƒíƒœ
+	WORD  m_wPoisonedPoint; // ì¤‘ë…ë˜ì—ˆì„ ë•Œ HPê°€ ê°ì†Œë˜ëŠ” ì–‘
+	WORD  m_wPoisonedCount; // ì¤‘ë…ë˜ì—ˆì„ ë•Œ HPê°€ ê°ì†Œ ì´ˆ
+	int	  m_nRecoveryPoint; // ìë™cpíšŒë³µì—ì„œ ëª‡ì´ˆë‹¹ hpê°€ ë¹ ì§€ëŠ”ê°€? // 030415 kyo 
+	int   m_nTransPort;     // ì´ë™í•  ë§µì— ëŒ€í•œ ì •ë³´
+	int   m_nTransX;        // ì´ë™ ì¢Œí‘œ
 	int   m_nTransY;
-	int   m_nLifeUp;        // Life Áõ°¡·®
-	bool  m_bTamed;         // Å×ÀÌ¹Ö ¿©ºÎ  
-	bool  m_bSummon;        // ¼ÒÈ¯ ¸ó½ºÅÍ ¿©ºÎ
+	int   m_nLifeUp;        // Life ì¦ê°€ëŸ‰
+	bool  m_bTamed;         // í…Œì´ë° ì—¬ë¶€  
+	bool  m_bSummon;        // ì†Œí™˜ ëª¬ìŠ¤í„° ì—¬ë¶€
 		
 private:
 	bool  m_bLock;
 	BYTE  m_nAttack;		   // 020425 YGI from acer
-	BYTE  m_nMagic;        // ¸¶¹ı ¹øÈ£   
-	BYTE  m_nActive;       // ´Ü¹ß¼ºÀÇ ÀüÅõ½ºÅ³ ¹øÈ£
-	BYTE  m_nPassive;      // Áö¼ÓÀûÀÎ ÀüÅõ½ºÅ³ ¹øÈ£
-	BYTE  m_nRecovery;		// È¸º¹ ÀüÅõ½ºÅ³  // 030415 kyo 
-	BYTE  m_nCount;        // ÀüÅõ½ºÅ³ »ç¿ë È¸¼ö 
+	BYTE  m_nMagic;        // ë§ˆë²• ë²ˆí˜¸   
+	BYTE  m_nActive;       // ë‹¨ë°œì„±ì˜ ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	BYTE  m_nPassive;      // ì§€ì†ì ì¸ ì „íˆ¬ìŠ¤í‚¬ ë²ˆí˜¸
+	BYTE  m_nRecovery;		// íšŒë³µ ì „íˆ¬ìŠ¤í‚¬  // 030415 kyo 
+	BYTE  m_nCount;        // ì „íˆ¬ìŠ¤í‚¬ ì‚¬ìš© íšŒìˆ˜ 
 	DWORD m_dwAttack;		   // 020425 YGI from acer
-	DWORD m_dwCasting;     // ¸¶¹ı ½ÃÀü ½ÃÀÛ ½Ã°£
-	DWORD m_dwContinue;    // ¸¶¹ı ½ÃÀüÀÌ °¡´ÉÇÑ ½Ã°£
-	DWORD m_dwFireWall;    // È­¿°º®ÀÌ À¯ÁöµÇ´Â ½Ã°£
-	DWORD m_dwIceWall;     // ¾óÀ½º®ÀÌ À¯ÁöµÇ´Â ½Ã°£
+	DWORD m_dwCasting;     // ë§ˆë²• ì‹œì „ ì‹œì‘ ì‹œê°„
+	DWORD m_dwContinue;    // ë§ˆë²• ì‹œì „ì´ ê°€ëŠ¥í•œ ì‹œê°„
+	DWORD m_dwFireWall;    // í™”ì—¼ë²½ì´ ìœ ì§€ë˜ëŠ” ì‹œê°„
+	DWORD m_dwIceWall;     // ì–¼ìŒë²½ì´ ìœ ì§€ë˜ëŠ” ì‹œê°„
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

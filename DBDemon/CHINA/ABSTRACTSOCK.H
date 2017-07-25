@@ -1,4 +1,4 @@
-// AbstractSock.h: interface for the CAbstractSock class.
+﻿// AbstractSock.h: interface for the CAbstractSock class.
 //
 //////////////////////////////////////////////////////////////////////
 

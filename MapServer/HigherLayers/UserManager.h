@@ -1,4 +1,4 @@
-// UserManager.h: interface for the CUserManager class.
+ï»¿// UserManager.h: interface for the CUserManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 
 ///////////////////////////////////////////////////////////////////////////////
-// Á¢¼ÓÀÚ °ü¸® Å¬·¡½º
+// ì ‘ì†ì ê´€ë¦¬ í´ë˜ìŠ¤
 class CUserManager : public TSingleton<CUserManager>
 {
 public:

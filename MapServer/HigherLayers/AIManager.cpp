@@ -1,4 +1,4 @@
-// AIManager.cpp: implementation of the CAIManager class.
+ï»¿// AIManager.cpp: implementation of the CAIManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -103,7 +103,7 @@ CHARLIST* GetNearNPC(CHARLIST* Npc,int NPCIndex,int Range)
 
 void ACAvoid(CHARLIST* Npc,int Param1,int Param2)
 {	//< CSD-030417
-	// AIµô·¹ÀÌÅ¸ÀÓÀÌ ¾øÀ¸¹Ç·Î Áï½Ã ½ÇÇàµÈ´Ù.
+	// AIë”œë ˆì´íƒ€ì„ì´ ì—†ìœ¼ë¯€ë¡œ ì¦‰ì‹œ ì‹¤í–‰ëœë‹¤.
 	g_pAIManager->SetAI(Npc,NPC_PATTERN_BOSS_AVOID);
 }	//> CSD-030417
 
@@ -119,7 +119,7 @@ void ACHPRecovery(CHARLIST* Npc,int Param1,int Param2)
 
 void ACStatusUp(CHARLIST* Npc,int Param1,int Param2)
 {
-	Npc->SetNpcStatusUp(100, 30,30,30);					//È®ÀÎ ÇÊ¿ä
+	Npc->SetNpcStatusUp(100, 30,30,30);					//í™•ì¸ í•„ìš”
 }
 
 void MakeFogLocation(CHARLIST* Npc,int RangeX,int RangeY,POINTS* Location)		// LTS NEW AI	// Range Unit : Dot
@@ -154,7 +154,7 @@ void ACFog(CHARLIST* Npc,int Param1,int Param2)
 	packet.h.header.type=CMD_AI_FOG;
 	packet.u.LocalWar.AIFog.Type=Param1;
 	packet.u.LocalWar.AIFog.Delay=Param2;
-	MakeFogLocation(Npc,800,600,packet.u.LocalWar.AIFog.Location);	// ÇÑÈ­¸é 
+	MakeFogLocation(Npc,800,600,packet.u.LocalWar.AIFog.Location);	// í•œí™”ë©´ 
 	packet.h.header.size=sizeof(t_AIFog);
 	
 	CastNPC2Other(Npc->GetServerID(),&packet);
@@ -167,7 +167,7 @@ void ACDragonFog(CHARLIST* Npc,int Param1,int Param2)				// LTS DRAGON MODIFY
 	packet.h.header.type=CMD_AI_FOG;
 	packet.u.LocalWar.AIFog.Type=Param1;
 	packet.u.LocalWar.AIFog.Delay=Param2;
-	MakeDragonFogLocation(Npc,1024,768,packet.u.LocalWar.AIFog.Location);	// ÇÑÈ­¸é 
+	MakeDragonFogLocation(Npc,1024,768,packet.u.LocalWar.AIFog.Location);	// í•œí™”ë©´ 
 	packet.h.header.size=sizeof(t_AIFog);
 	
 	CastNPC2Other(Npc->GetServerID(),&packet);
@@ -175,7 +175,7 @@ void ACDragonFog(CHARLIST* Npc,int Param1,int Param2)				// LTS DRAGON MODIFY
 
 void ACWait(CHARLIST* Npc,int Param1,int Param2)
 {	//< CSD-030417
-	// AIµô·¹ÀÌÅ¸ÀÓÀÌ ¾øÀ¸¹Ç·Î Áï½Ã ½ÇÇàµÈ´Ù.
+	// AIë”œë ˆì´íƒ€ì„ì´ ì—†ìœ¼ë¯€ë¡œ ì¦‰ì‹œ ì‹¤í–‰ëœë‹¤.
 	g_pAIManager->SetAI(Npc,NPC_PATTERN_BOSS_WAIT);
 }	//> CSD-030417
 
@@ -324,7 +324,7 @@ void ACDragonTelePort(CHARLIST* Npc,int Param1,int Param2)		// LTS DRAGON MODIFY
 	}
 	else
 	{
-		g_pBattleManager->SendNpcTeleport(Npc->GetServerID(), Npc->X, Npc->Y);		// ¸¸¾àÀ» À§ÇÑ ÄÚµå 
+		g_pBattleManager->SendNpcTeleport(Npc->GetServerID(), Npc->X, Npc->Y);		// ë§Œì•½ì„ ìœ„í•œ ì½”ë“œ 
 	}
 }	//> CSD-030417
 
@@ -451,7 +451,7 @@ int CAIManager::Load_AI_Data()
 	SDWORD	cbValue;
 	int		RowCount;
 	
-	if (m_pNpc_AI_Data)								// ÀÌ¹Ì µ¥ÀÌÅÍ°¡ ÀÖ´Ù¸é ÇÁ¸®ÇØÁØ´Ù..
+	if (m_pNpc_AI_Data)								// ì´ë¯¸ ë°ì´í„°ê°€ ìˆë‹¤ë©´ í”„ë¦¬í•´ì¤€ë‹¤..
 	{
 		Clear_AI_Data();
 	}
@@ -486,7 +486,7 @@ int CAIManager::Load_AI_Data()
 	
 	SQLFreeStmt(hStmt,SQL_DROP);
 	
-	m_pNpc_AI_Data=new int*[RowCount+1];			// ÇÊµå¼ö¸¸Å­ AI_Type»ı¼º 
+	m_pNpc_AI_Data=new int*[RowCount+1];			// í•„ë“œìˆ˜ë§Œí¼ AI_Typeìƒì„± 
 	
 	if (!m_pNpc_AI_Data) 
 	{
@@ -497,7 +497,7 @@ int CAIManager::Load_AI_Data()
 	
 	for (int i=0;i<RowCount+1;i++)
 	{
-		m_pNpc_AI_Data[i]=NULL;						// ¸Ş¸ğ¸® ÃÊ±âÈ­
+		m_pNpc_AI_Data[i]=NULL;						// ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
 	}
 	
 	SQLAllocStmt(g_hDBC_DragonDB,&hStmt);
@@ -523,8 +523,8 @@ int CAIManager::Load_AI_Data()
 		return false;
 	}
 	
-	//< LTH-040505-KO Á¾·á½Ã¿¡ ¿¡·¯°¡ ³­´Ù. m_pNpc_AI_Data[0]ÀÌ ÇÒ´çµÇÁö ¾Ê°í ÂüÁ¶ÇÏ·ÁÇÑ´Ù. 
-	// NULLÀÌ ¾Æ´Ñ ¾²·¹±âÁÖ¼Ò·Î ¼³Á¤µÈ´Ù
+	//< LTH-040505-KO ì¢…ë£Œì‹œì— ì—ëŸ¬ê°€ ë‚œë‹¤. m_pNpc_AI_Data[0]ì´ í• ë‹¹ë˜ì§€ ì•Šê³  ì°¸ì¡°í•˜ë ¤í•œë‹¤. 
+	// NULLì´ ì•„ë‹Œ ì“°ë ˆê¸°ì£¼ì†Œë¡œ ì„¤ì •ëœë‹¤
 	m_iAI_DataCount = 0;
 	if (NULL == m_pNpc_AI_Data[m_iAI_DataCount])
 		m_pNpc_AI_Data[m_iAI_DataCount]=new int[nClos];
@@ -567,7 +567,7 @@ int CAIManager::LoadMagicBag()
 	SDWORD	cbValue;
 	int		RowCount;
 	
-	if (m_pMagicBag)								// ÀÌ¹Ì µ¥ÀÌÅÍ°¡ ÀÖ´Ù¸é ÇÁ¸®ÇØÁØ´Ù..
+	if (m_pMagicBag)								// ì´ë¯¸ ë°ì´í„°ê°€ ìˆë‹¤ë©´ í”„ë¦¬í•´ì¤€ë‹¤..
 	{
 		ClearMagicBag();
 	}
@@ -602,7 +602,7 @@ int CAIManager::LoadMagicBag()
 	
 	SQLFreeStmt(hStmt,SQL_DROP);
 	
-	m_pMagicBag=new int*[RowCount+1];			// ÇÊµå¼ö¸¸Å­ AI_Type»ı¼º 
+	m_pMagicBag=new int*[RowCount+1];			// í•„ë“œìˆ˜ë§Œí¼ AI_Typeìƒì„± 
 	
 	if (!m_pMagicBag) 
 	{
@@ -613,7 +613,7 @@ int CAIManager::LoadMagicBag()
 	
 	for (int i=0;i<RowCount+1;i++)
 	{
-		m_pMagicBag[i]=NULL;						// ¸Ş¸ğ¸® ÃÊ±âÈ­
+		m_pMagicBag[i]=NULL;						// ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
 	}
 	
 	SQLAllocStmt(g_hDBC_DragonDB,&hStmt);
@@ -639,8 +639,8 @@ int CAIManager::LoadMagicBag()
 		return false;
 	}
 	
-	//< LTH-040305-KO Á¾·á½Ã¿¡ ¿¡·¯°¡ ³­´Ù. m_pMagicBag[0]ÀÌ ÇÒ´çµÇÁö ¾Ê°í Á¾·á½Ã¿¡ Á¦°ÅÇÏ·ÁÇÑ´Ù. 
-	// NULLÀÌ ¾Æ´Ñ ¾²·¹±âÁÖ¼Ò·Î ¼³Á¤µÈ´Ù
+	//< LTH-040305-KO ì¢…ë£Œì‹œì— ì—ëŸ¬ê°€ ë‚œë‹¤. m_pMagicBag[0]ì´ í• ë‹¹ë˜ì§€ ì•Šê³  ì¢…ë£Œì‹œì— ì œê±°í•˜ë ¤í•œë‹¤. 
+	// NULLì´ ì•„ë‹Œ ì“°ë ˆê¸°ì£¼ì†Œë¡œ ì„¤ì •ëœë‹¤
 	m_iMagicBagCount = 0;
 	if (NULL == m_pMagicBag[m_iMagicBagCount])
 		m_pMagicBag[m_iMagicBagCount]=new int[10];
@@ -689,7 +689,7 @@ int CAIManager::LoadBossData()
 	SDWORD	cbValue;
 	int		RowCount;
 	
-	if (m_pBossStatusData)								// ÀÌ¹Ì µ¥ÀÌÅÍ°¡ ÀÖ´Ù¸é ÇÁ¸®ÇØÁØ´Ù..
+	if (m_pBossStatusData)								// ì´ë¯¸ ë°ì´í„°ê°€ ìˆë‹¤ë©´ í”„ë¦¬í•´ì¤€ë‹¤..
 	{
 		ClearBossData();
 	}
@@ -724,7 +724,7 @@ int CAIManager::LoadBossData()
 	
 	SQLFreeStmt(hStmt,SQL_DROP);
 	
-	m_pBossStatusData=new int*[RowCount+1];			// ÇÊµå¼ö¸¸Å­ AI_Type»ı¼º 
+	m_pBossStatusData=new int*[RowCount+1];			// í•„ë“œìˆ˜ë§Œí¼ AI_Typeìƒì„± 
 	
 	if (!m_pBossStatusData) 
 	{
@@ -735,7 +735,7 @@ int CAIManager::LoadBossData()
 	
 	for (int i=0;i<RowCount+1;i++)
 	{
-		m_pBossStatusData[i]=NULL;						// ¸Ş¸ğ¸® ÃÊ±âÈ­
+		m_pBossStatusData[i]=NULL;						// ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
 	}
 	
 	SQLAllocStmt(g_hDBC_DragonDB,&hStmt);
@@ -761,8 +761,8 @@ int CAIManager::LoadBossData()
 		return false;
 	}
 	
-	//< LTH-040505-KO Á¾·á½Ã¿¡ ¿¡·¯°¡ ³­´Ù. m_pBossStatusData[0]ÀÌ ÇÒ´çµÇÁö ¾Ê°í ÂüÁ¶ÇÏ·ÁÇÑ´Ù. 
-	// NULLÀÌ ¾Æ´Ñ ¾²·¹±âÁÖ¼Ò·Î ¼³Á¤µÈ´Ù
+	//< LTH-040505-KO ì¢…ë£Œì‹œì— ì—ëŸ¬ê°€ ë‚œë‹¤. m_pBossStatusData[0]ì´ í• ë‹¹ë˜ì§€ ì•Šê³  ì°¸ì¡°í•˜ë ¤í•œë‹¤. 
+	// NULLì´ ì•„ë‹Œ ì“°ë ˆê¸°ì£¼ì†Œë¡œ ì„¤ì •ëœë‹¤
 	m_iBossStatusCount = 0;
 	if (NULL == m_pBossStatusData[m_iBossStatusCount])
 		m_pBossStatusData[m_iBossStatusCount]=new int[nClos];
@@ -805,7 +805,7 @@ int CAIManager::LoadAttackBag()
 	SDWORD	cbValue;
 	int		RowCount;
 	
-	if (m_pAttackBag)								// ÀÌ¹Ì µ¥ÀÌÅÍ°¡ ÀÖ´Ù¸é ÇÁ¸®ÇØÁØ´Ù..
+	if (m_pAttackBag)								// ì´ë¯¸ ë°ì´í„°ê°€ ìˆë‹¤ë©´ í”„ë¦¬í•´ì¤€ë‹¤..
 	{
 		ClearAttackBag();
 	}
@@ -840,7 +840,7 @@ int CAIManager::LoadAttackBag()
 	
 	SQLFreeStmt(hStmt,SQL_DROP);
 	
-	m_pAttackBag=new int*[RowCount+1];			// ÇÊµå¼ö¸¸Å­ AI_Type»ı¼º 
+	m_pAttackBag=new int*[RowCount+1];			// í•„ë“œìˆ˜ë§Œí¼ AI_Typeìƒì„± 
 	
 	if (!m_pAttackBag) 
 	{
@@ -851,7 +851,7 @@ int CAIManager::LoadAttackBag()
 	
 	for (int i=0;i<RowCount+1;i++)
 	{
-		m_pAttackBag[i]=NULL;						// ¸Ş¸ğ¸® ÃÊ±âÈ­
+		m_pAttackBag[i]=NULL;						// ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
 	}
 	
 	SQLAllocStmt(g_hDBC_DragonDB,&hStmt);
@@ -877,8 +877,8 @@ int CAIManager::LoadAttackBag()
 		return false;
 	}
 	
-	//< LTH-040505-KO Á¾·á½Ã¿¡ ¿¡·¯°¡ ³­´Ù. m_pAttackBag[0]ÀÌ ÇÒ´çµÇÁö ¾Ê°í ÂüÁ¶ÇÏ·ÁÇÑ´Ù. 
-	// NULLÀÌ ¾Æ´Ñ ¾²·¹±âÁÖ¼Ò·Î ¼³Á¤µÈ´Ù
+	//< LTH-040505-KO ì¢…ë£Œì‹œì— ì—ëŸ¬ê°€ ë‚œë‹¤. m_pAttackBag[0]ì´ í• ë‹¹ë˜ì§€ ì•Šê³  ì°¸ì¡°í•˜ë ¤í•œë‹¤. 
+	// NULLì´ ì•„ë‹Œ ì“°ë ˆê¸°ì£¼ì†Œë¡œ ì„¤ì •ëœë‹¤
 	m_iAttackBagCount = 0;
 	if (NULL == m_pAttackBag[m_iAttackBagCount])
 		m_pAttackBag[m_iAttackBagCount]=new int[5];
@@ -921,7 +921,7 @@ int CAIManager::LoadActionBag()
 	SDWORD	cbValue;
 	int		RowCount;
 	
-	if (m_pActionBag)								// ÀÌ¹Ì µ¥ÀÌÅÍ°¡ ÀÖ´Ù¸é ÇÁ¸®ÇØÁØ´Ù..
+	if (m_pActionBag)								// ì´ë¯¸ ë°ì´í„°ê°€ ìˆë‹¤ë©´ í”„ë¦¬í•´ì¤€ë‹¤..
 	{
 		ClearActionBag();
 	}
@@ -956,7 +956,7 @@ int CAIManager::LoadActionBag()
 	
 	SQLFreeStmt(hStmt,SQL_DROP);
 	
-	m_pActionBag=new int*[RowCount+1];			// ÇÊµå¼ö¸¸Å­ AI_Type»ı¼º 
+	m_pActionBag=new int*[RowCount+1];			// í•„ë“œìˆ˜ë§Œí¼ AI_Typeìƒì„± 
 	
 	if (!m_pActionBag) 
 	{
@@ -967,7 +967,7 @@ int CAIManager::LoadActionBag()
 	
 	for (int i=0;i<RowCount+1;i++)
 	{
-		m_pActionBag[i]=NULL;						// ¸Ş¸ğ¸® ÃÊ±âÈ­
+		m_pActionBag[i]=NULL;						// ë©”ëª¨ë¦¬ ì´ˆê¸°í™”
 	}
 	
 	SQLAllocStmt(g_hDBC_DragonDB,&hStmt);
@@ -993,8 +993,8 @@ int CAIManager::LoadActionBag()
 		return false;
 	}
 	
-	//< LTH-040505-KO Á¾·á½Ã¿¡ ¿¡·¯°¡ ³­´Ù. m_pActionBag[0]ÀÌ ÇÒ´çµÇÁö ¾Ê°í ÂüÁ¶ÇÏ·ÁÇÑ´Ù. 
-	// NULLÀÌ ¾Æ´Ñ ¾²·¹±âÁÖ¼Ò·Î ¼³Á¤µÈ´Ù
+	//< LTH-040505-KO ì¢…ë£Œì‹œì— ì—ëŸ¬ê°€ ë‚œë‹¤. m_pActionBag[0]ì´ í• ë‹¹ë˜ì§€ ì•Šê³  ì°¸ì¡°í•˜ë ¤í•œë‹¤. 
+	// NULLì´ ì•„ë‹Œ ì“°ë ˆê¸°ì£¼ì†Œë¡œ ì„¤ì •ëœë‹¤
 	m_iActionBagCount = 0;
 	if (NULL == m_pActionBag[m_iActionBagCount])
 		m_pActionBag[m_iActionBagCount]=new int[3];
@@ -1078,7 +1078,7 @@ inline void CAIManager::SetAIDelayTime(CHARLIST* Npc,int Status,int StatusSub)
 	Npc->aidelayhowmuch = GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo, Status) + rand()%(GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo, StatusSub)+1);
 }	//> CSD-021021
 
-inline void CAIManager::SetAIDelayTime(CHARLIST* Npc,DWORD time)		//ÇöÀç »óÅÂ¿¡¼­ AIµô·¹ÀÌ½Ã°£¸¸... ´Ã¸°´Ù.
+inline void CAIManager::SetAIDelayTime(CHARLIST* Npc,DWORD time)		//í˜„ì¬ ìƒíƒœì—ì„œ AIë”œë ˆì´ì‹œê°„ë§Œ... ëŠ˜ë¦°ë‹¤.
 {
 	Npc->aidelayhowmuch=Npc->aidelayhowmuch+time;
 }
@@ -1095,7 +1095,7 @@ inline bool	CAIManager::isProcess(CHARLIST* Npc)
 		return false;
 	}
 	
-	if (Npc->patterntype < NPC_PATTERN_WANDER)		// ±âÁ¸ÀÇ AIÅ¸ÀÔ..
+	if (Npc->patterntype < NPC_PATTERN_WANDER)		// ê¸°ì¡´ì˜ AIíƒ€ì…..
 	{
 		return false;
 	}
@@ -1123,7 +1123,7 @@ inline void CAIManager::SetNextAI(CHARLIST* Npc)
 	if (!Npc->ChairNum) return;
 	if (Npc->patterntype<NPC_PATTERN_ATTACK)
 	{
-		Npc->patterntype++;									// 604µµ Áõ°¡µÇ¸é??
+		Npc->patterntype++;									// 604ë„ ì¦ê°€ë˜ë©´??
 	}
 }
 
@@ -1137,7 +1137,7 @@ inline void CAIManager::SetAIMove(CHARLIST* Npc)
 {
 	if (!Npc->ChairNum) return;
 	
-	Npc->EventPoint=Npc->patterntype;								// Old AI ÀúÀå
+	Npc->EventPoint=Npc->patterntype;								// Old AI ì €ì¥
 	Npc->patterntype=NPC_PATTERN_MOVING;
 }
 
@@ -1145,7 +1145,7 @@ inline void CAIManager::SetAIBMove(CHARLIST* Npc)
 {
 	if (!Npc->ChairNum) return;
 	
-	Npc->EventPoint=Npc->patterntype;								// Old AI ÀúÀå
+	Npc->EventPoint=Npc->patterntype;								// Old AI ì €ì¥
 	Npc->patterntype=NPC_PATTERN_BOSS_MOVING;
 }
 
@@ -1237,7 +1237,7 @@ inline void CAIManager::TargetMove(CHARLIST* Npc)		// LTS DRAGON MODIFY
 	
 	if (NPC_NearCh(Npc,&connections[Npc->targetid].chrlst,&TargetX,&TargetY))
 	{
-		if (NPC_MakePath(Npc,TargetX,TargetY,rand()%6+2))			// Å¸ÄÏÀ¸·Î ºÎÅÍÀÇ À§Ä¡ ·£´ı
+		if (NPC_MakePath(Npc,TargetX,TargetY,rand()%6+2))			// íƒ€ì¼“ìœ¼ë¡œ ë¶€í„°ì˜ ìœ„ì¹˜ ëœë¤
 		{
 			if (Npc->patterntype>=NPC_PATTERN_BOSS_WANDER) SetAIBMove(Npc);
 			else SetAIMove(Npc);
@@ -1300,14 +1300,14 @@ inline int CAIManager::CheckSummon(CHARLIST* Npc)
 	{
 		return FALSE;
 	}
-	else																		// ¼ÒÈ¯¸óÀÌ´Ù.	
-	{ // ÀÌ¹Ì ¼ÒÈ¯ ´ÙÇßÀ½
+	else																		// ì†Œí™˜ëª¬ì´ë‹¤.	
+	{ // ì´ë¯¸ ì†Œí™˜ ë‹¤í–ˆìŒ
 		if (Npc->ElementType>=GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo,FSUMMON_MAX))	// CSD-021021 
 		{ 
 			return FALSE;
 		}
 		
-		if (Npc->scan_time>g_curr_time)			// ÇÑ¹ø ¼ÒÈ¯ÇÑ´ÙÀ½ ½Ã°£ÀÌ Áö³ªÁö ¾Ê¾Ò´Ù
+		if (Npc->scan_time>g_curr_time)			// í•œë²ˆ ì†Œí™˜í•œë‹¤ìŒ ì‹œê°„ì´ ì§€ë‚˜ì§€ ì•Šì•˜ë‹¤
 		{
 			return FALSE;
 		}
@@ -1329,11 +1329,11 @@ inline void CAIManager::CheckSummonDeath(CHARLIST* Defender)						// LTS DRAGON 
 {
 	if (Defender->itemweight>=NPC_LIST_START&&Defender->itemweight<MAX_NPC_LIST)
 	{
-		CHARLIST* ch=&NPCList[Defender->itemweight];		//¼ÒÈ¯ÇÑ ÁÖÀÎÀ» Ã£´Â´Ù.
+		CHARLIST* ch=&NPCList[Defender->itemweight];		//ì†Œí™˜í•œ ì£¼ì¸ì„ ì°¾ëŠ”ë‹¤.
 		
-		if (!ch->IsDead())							//Á×Áö¾Ê¾Ò°Å³ª
+		if (!ch->IsDead())							//ì£½ì§€ì•Šì•˜ê±°ë‚˜
 		{
-			if (ch->ElementType>0)					// ¼ÒÈ¯µÈ ¼ö°¡ ÀÖ´Ù¸é 	
+			if (ch->ElementType>0)					// ì†Œí™˜ëœ ìˆ˜ê°€ ìˆë‹¤ë©´ 	
 			{
 				ch->ElementType--;
 			}
@@ -1343,7 +1343,7 @@ inline void CAIManager::CheckSummonDeath(CHARLIST* Defender)						// LTS DRAGON 
 
 inline void  CAIManager::SelectAttackMethod(CHARLIST* Npc)				
 {
-	if (CheckSummon(Npc))							// ¼ÒÈ¯ ¸ó½ºÅÍÀÌ¸é ¼ÒÈ¯À» °áÁ¤ÇÑ´Ù.
+	if (CheckSummon(Npc))							// ì†Œí™˜ ëª¬ìŠ¤í„°ì´ë©´ ì†Œí™˜ì„ ê²°ì •í•œë‹¤.
 	{
 		Npc->fame=4;
 		return;
@@ -1385,9 +1385,9 @@ inline void  CAIManager::SelectAttackMethod(CHARLIST* Npc)
 
 inline int CAIManager::GetAttackBagNo(CHARLIST*Npc)
 {
-	int AttackMethod=Npc->mantle+FBATTACK_METHOD1-1;	// mantleÀÌ 1ºÎÅÍ ½ÃÀÛ
+	int AttackMethod=Npc->mantle+FBATTACK_METHOD1-1;	// mantleì´ 1ë¶€í„° ì‹œì‘
 	
-	//< LTH-040506-KO ÀÌ³ğ 0 ÀÌ¸é ¾ÈµÈ´Ù.. -_-;
+	//< LTH-040506-KO ì´ë†ˆ 0 ì´ë©´ ì•ˆëœë‹¤.. -_-;
 	int nPhase = Npc->CurrentPhase;	
 	if ( nPhase <= 0 )
 		nPhase = 1;
@@ -1405,9 +1405,9 @@ inline int CAIManager::GetAttackMethodFromAttackBag(int AttackBagNo)
 }
 
 
-inline void  CAIManager::SelectBAttackMethod(CHARLIST* Npc)		// º¸½º¸ó½ºÅÍÀÇ °ø°İ¹æ¹ı¼³Á¤
+inline void  CAIManager::SelectBAttackMethod(CHARLIST* Npc)		// ë³´ìŠ¤ëª¬ìŠ¤í„°ì˜ ê³µê²©ë°©ë²•ì„¤ì •
 {
-	int AttackBagNo=GetAttackBagNo(Npc);						// NPC FAMEÀÌ °ø°İ¹æ¹ıÀ» ÁöÁ¤ÇÏ´Â °÷ÀÌ´Ù.
+	int AttackBagNo=GetAttackBagNo(Npc);						// NPC FAMEì´ ê³µê²©ë°©ë²•ì„ ì§€ì •í•˜ëŠ” ê³³ì´ë‹¤.
 	Npc->fame=GetAttackMethodFromAttackBag(AttackBagNo);
 	if (Npc->fame>=201)
 	{
@@ -1425,7 +1425,7 @@ inline void  CAIManager::SelectBAttackMethod(CHARLIST* Npc)		// º¸½º¸ó½ºÅÍÀÇ °ø°
 
 inline void  CAIManager::ClearAttackMethod(CHARLIST* Npc)			// LTS DRAGON MODIFY
 {
-	Npc->fame=0;												// °ø°İ ¹æ¹ı ÃÊ±âÈ­
+	Npc->fame=0;												// ê³µê²© ë°©ë²• ì´ˆê¸°í™”
 }
 
 inline CHARLIST* CAIManager::GetTarget(int TargetID)
@@ -1434,22 +1434,22 @@ inline CHARLIST* CAIManager::GetTarget(int TargetID)
 	{
 		return NULL;
 	}
-	if (TargetID>=10000)								// NPCÀÌ¸é 
+	if (TargetID>=10000)								// NPCì´ë©´ 
 	{
-		int tempTargetID=TargetID-10000;				// NPC¹øÈ£ ÃßÃâ 
-		if (NPCList[tempTargetID].bAlive>=DEAD_)		// Á×¾úÀ¸¸é 	
+		int tempTargetID=TargetID-10000;				// NPCë²ˆí˜¸ ì¶”ì¶œ 
+		if (NPCList[tempTargetID].bAlive>=DEAD_)		// ì£½ì—ˆìœ¼ë©´ 	
 		{
-			return NULL;								// NULL¸®ÅÏ
+			return NULL;								// NULLë¦¬í„´
 		}
 		else
 		{
-			return &NPCList[tempTargetID];				// »ì¾ÒÀ¸¸é CHARLIST* ¸®ÅÏ
+			return &NPCList[tempTargetID];				// ì‚´ì•˜ìœ¼ë©´ CHARLIST* ë¦¬í„´
 		}
 	}
 	else
 	{
 		if (connections[TargetID].dwAgentConnectionIndex&&connections[TargetID].state>=CONNECT_JOIN)		
-		{   //< CSD-030509 : ¿¬°á»óÅÂ 
+		{   //< CSD-030509 : ì—°ê²°ìƒíƒœ 
 			if (connections[TargetID].chrlst.bAlive>=DEAD_ || 
 				connections[TargetID].chrlst.GetState() == CON_STONE ||
 				connections[TargetID].chrlst.viewtype == VIEWTYPE_OBSERVE_)
@@ -1481,7 +1481,7 @@ inline void CAIManager::FindTarget(CHARLIST* Npc,int& Target)
 
 inline int CAIManager::GetPhysicalAttackRange(CHARLIST* Npc)
 {	//< CSD-021021
-	return GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo,FATTACK_RANGE);	// ¹°¸®°ø°İ
+	return GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo,FATTACK_RANGE);	// ë¬¼ë¦¬ê³µê²©
 }	//> CSD-021021
 
 inline int CAIManager::GetMagicAttackRange(CHARLIST* Npc,int MethodField)
@@ -1491,7 +1491,7 @@ inline int CAIManager::GetMagicAttackRange(CHARLIST* Npc,int MethodField)
 	{
 		int Row=MagicNo-200;
 		int Col=rand()%10;
-		Npc->fame_pk=GetMagicBagData(Row,Col);								//¹øÈ£ ÀúÀå
+		Npc->fame_pk=GetMagicBagData(Row,Col);								//ë²ˆí˜¸ ì €ì¥
 		return Magic_Ref[Npc->fame_pk].invalid_TargetIT;				
 	}
 	else
@@ -1532,11 +1532,11 @@ inline int CAIManager::CheckBAttackMethod(CHARLIST* Npc)
 
 inline int CAIManager::GetAttackRange(CHARLIST* Npc)
 {
-	switch(Npc->fame)													// °ø°İ ¹æ¹ı
+	switch(Npc->fame)													// ê³µê²© ë°©ë²•
 	{
 	case 1 :	return CheckAttackMethod(Npc,FATTACK_METHOD1);
-	case 2 :	return CheckAttackMethod(Npc,FATTACK_METHOD2);			// ¸¶¹ı°ø°İ
-	case 3 :	return CheckAttackMethod(Npc,FATTACK_METHOD3);			// Æ¯¼ö°ø°İ	
+	case 2 :	return CheckAttackMethod(Npc,FATTACK_METHOD2);			// ë§ˆë²•ê³µê²©
+	case 3 :	return CheckAttackMethod(Npc,FATTACK_METHOD3);			// íŠ¹ìˆ˜ê³µê²©	
 	default :	return CheckBAttackMethod(Npc);
 	}
 }
@@ -1548,7 +1548,7 @@ inline int CAIManager::AttackableRange(CHARLIST* Npc)
 	
 	ch=GetTarget(Npc->targetid);
 	if (!ch) return FALSE;
-	if (Npc->fame==4) return TRUE;										// ¼ÒÈ¯ÀÌ¸é ·¹ÀÎÁö ÇÊ¿ä¾øÀ½.
+	if (Npc->fame==4) return TRUE;										// ì†Œí™˜ì´ë©´ ë ˆì¸ì§€ í•„ìš”ì—†ìŒ.
 	
 	tempRange=(ch->X-Npc->X)*(ch->X-Npc->X) + (ch->Y-Npc->Y)*(ch->Y-Npc->Y);
 	if(tempRange<GetAttackRange(Npc)) 
@@ -1560,19 +1560,19 @@ inline int CAIManager::AttackableRange(CHARLIST* Npc)
 
 inline int CAIManager::CheckAndDoAttack(CHARLIST* Npc)
 {	//< CSD-030120
-	if (AttackableRange(Npc))										// °ø°İ °¡´É ¹üÀ§ÀÌ¸é 
+	if (AttackableRange(Npc))										// ê³µê²© ê°€ëŠ¥ ë²”ìœ„ì´ë©´ 
 	{
 		if (Npc->patterntype >= NPC_PATTERN_BOSS_WANDER) 
 		{
-			SendBAttack(Npc);											// °ø°İÀ» ÇÑ´Ù.
+			SendBAttack(Npc);											// ê³µê²©ì„ í•œë‹¤.
 		}
 		else 
 		{
-			SendAttack(Npc);											// °ø°İÀ» ÇÑ´Ù.
+			SendAttack(Npc);											// ê³µê²©ì„ í•œë‹¤.
 		}
 		
-		ClearMovePattern(Npc);										// ÀÌµ¿Áß °ø°İ¿¡ ÇØ´çÇÏ¸é ¿¹ÀüÀÇ »óÅÂ¸¦ Å¬¸®¾î ÇÑ´Ù.	
-		// °ø°İ¹æ¹ıÀ» º¯°æÇÏµµ·Ï ÇÔ
+		ClearMovePattern(Npc);										// ì´ë™ì¤‘ ê³µê²©ì— í•´ë‹¹í•˜ë©´ ì˜ˆì „ì˜ ìƒíƒœë¥¼ í´ë¦¬ì–´ í•œë‹¤.	
+		// ê³µê²©ë°©ë²•ì„ ë³€ê²½í•˜ë„ë¡ í•¨
 		if (Npc->patterntype >= NPC_PATTERN_BOSS_WANDER) 
 		{
 			//SetAI(Npc,NPC_PATTERN_BOSS_ATTACK);
@@ -1580,11 +1580,11 @@ inline int CAIManager::CheckAndDoAttack(CHARLIST* Npc)
 		}
 		else 
 		{ 
-			//SetAI(Npc,NPC_PATTERN_ATTACK); // AIAttackÀ¸·Î ÀüÈ¯ ÇÑ´Ù.
+			//SetAI(Npc,NPC_PATTERN_ATTACK); // AIAttackìœ¼ë¡œ ì „í™˜ í•œë‹¤.
 			SetAI(Npc,NPC_PATTERN_ACCESS); 
 		}
 		
-		SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);		// AI µô·¹ÀÌ Å¸ÀÓÀ» Á¤ÇÑ´Ù.	// FSTATUS03 ATTACK
+		SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);		// AI ë”œë ˆì´ íƒ€ì„ì„ ì •í•œë‹¤.	// FSTATUS03 ATTACK
 		return TRUE;
 	}
 	
@@ -1630,8 +1630,8 @@ inline void CAIManager::CheckAndSendAttack(CHARLIST* Npc,int MethodField)
 	{
 		SendMagicAttack(Npc,MethodField);
 		if (Npc->patterntype>=NPC_PATTERN_BOSS_WANDER) SelectBAttackMethod(Npc);
-		else SelectAttackMethod(Npc);				// ÇÑ¹ø °ø°İÀ» ÇßÀ¸¸é... ´Ù¸¥¹æ¹ıÀ¸·Î ¹Ù²Û´Ù..
-		SetAIDelayTime(Npc,1000);				// Å×ÀÌºíÈ­ ÀÛ¾÷ ÇÊ¿ä..
+		else SelectAttackMethod(Npc);				// í•œë²ˆ ê³µê²©ì„ í–ˆìœ¼ë©´... ë‹¤ë¥¸ë°©ë²•ìœ¼ë¡œ ë°”ê¾¼ë‹¤..
+		SetAIDelayTime(Npc,1000);				// í…Œì´ë¸”í™” ì‘ì—… í•„ìš”..
 	}
 }
 
@@ -1645,8 +1645,8 @@ inline void CAIManager::CheckAndSendBAttack(CHARLIST* Npc)
 	else
 	{
 		SendMagicBAttack(Npc);
-		SelectBAttackMethod(Npc);				// ÇÑ¹ø °ø°İÀ» ÇßÀ¸¸é... ´Ù¸¥¹æ¹ıÀ¸·Î ¹Ù²Û´Ù..
-		SetAIDelayTime(Npc,1000);				// Å×ÀÌºíÈ­ ÀÛ¾÷ ÇÊ¿ä..
+		SelectBAttackMethod(Npc);				// í•œë²ˆ ê³µê²©ì„ í–ˆìœ¼ë©´... ë‹¤ë¥¸ë°©ë²•ìœ¼ë¡œ ë°”ê¾¼ë‹¤..
+		SetAIDelayTime(Npc,1000);				// í…Œì´ë¸”í™” ì‘ì—… í•„ìš”..
 	}
 }
 
@@ -1669,8 +1669,8 @@ inline void CAIManager::SendSummon(CHARLIST* Npc,int NpcIndex)			// LTS DRAGON M
 
 inline void CAIManager::SelectSummonNPC(CHARLIST* Npc)		// LTS DRAGON MODIFY
 {	//< CSD-021021
-	Npc->scan_time=g_curr_time+GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo,FSUMMON_DELAY);		// ¼ÒÈ¯ÇÑ ¸¶Áö¸· ½Ã°£ ±â¾ï
-	int Npc_Index=rand()%6;			// ¼ÒÈ¯ÇÒ NPC¼±ÅÃ
+	Npc->scan_time=g_curr_time+GetNpcAIData(NPC_Gen_Ref[Npc->npc_index].nAINo,FSUMMON_DELAY);		// ì†Œí™˜í•œ ë§ˆì§€ë§‰ ì‹œê°„ ê¸°ì–µ
+	int Npc_Index=rand()%6;			// ì†Œí™˜í•  NPCì„ íƒ
 	switch(Npc_Index)
 	{
 	case 0 : break;			// MISS
@@ -1685,7 +1685,7 @@ inline void CAIManager::SelectSummonNPC(CHARLIST* Npc)		// LTS DRAGON MODIFY
 
 inline void CAIManager::SendAttack(CHARLIST* Npc)	
 {
-	switch(Npc->fame)										//°ø°İ ¹æ¹ı¿¡ µû¶ó
+	switch(Npc->fame)										//ê³µê²© ë°©ë²•ì— ë”°ë¼
 	{
 	case 1 :	CheckAndSendAttack(Npc,FATTACK_METHOD1); break;
 	case 2 :	CheckAndSendAttack(Npc,FATTACK_METHOD2); break;
@@ -1774,15 +1774,15 @@ inline void CAIManager::CheckStatusUp(CHARLIST* Npc)
 
 inline void CAIManager::ProcessAIWander(CHARLIST* Npc)				// LTS DRAGON MODIFY
 {
-	ClearAttackMethod(Npc);											// °ø°İ ¹æ¹ıÀ» ÃÊ±âÈ­ ÇÑ´Ù.
+	ClearAttackMethod(Npc);											// ê³µê²© ë°©ë²•ì„ ì´ˆê¸°í™” í•œë‹¤.
 	
-	SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);			// ´ÙÀ½ AIµô·¹ÀÌ Å¸ÀÓÀ» Á¤ÇÑ´Ù.		// FSTATUS01 WANDER
+	SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);			// ë‹¤ìŒ AIë”œë ˆì´ íƒ€ì„ì„ ì •í•œë‹¤.		// FSTATUS01 WANDER
 	
-	if (FindTarget(Npc)!=-1)										// ±ÙÃ³¿¡ Å¸°ÙÀÌ ÀÖ´Ù.
+	if (FindTarget(Npc)!=-1)										// ê·¼ì²˜ì— íƒ€ê²Ÿì´ ìˆë‹¤.
 	{
-		SetAI(Npc,NPC_PATTERN_ACCESS);								// ´ÙÀ½ AI¸¦ ¼öÇàÇÑ´Ù.	
-		SetTarget(Npc,Npc->targetid);								// Å¸°ÙÀ» ÁöÁ¤ÇÑ´Ù.	
-		SetAIDelayTime(Npc,FSTATUS02_DELAY,FSTATUS02_SUBDELAY);		// AI µô·¹ÀÌ Å¸ÀÓÀ» Á¤ÇÑ´Ù.	// FSTATUS02 ACCESS
+		SetAI(Npc,NPC_PATTERN_ACCESS);								// ë‹¤ìŒ AIë¥¼ ìˆ˜í–‰í•œë‹¤.	
+		SetTarget(Npc,Npc->targetid);								// íƒ€ê²Ÿì„ ì§€ì •í•œë‹¤.	
+		SetAIDelayTime(Npc,FSTATUS02_DELAY,FSTATUS02_SUBDELAY);		// AI ë”œë ˆì´ íƒ€ì„ì„ ì •í•œë‹¤.	// FSTATUS02 ACCESS
 	}
 	else
 	{
@@ -1795,41 +1795,41 @@ inline void CAIManager::ProcessAIWander(CHARLIST* Npc)				// LTS DRAGON MODIFY
 
 inline void CAIManager::ProcessAIAccess(CHARLIST* Npc)
 {
-	SetAIDelayTime(Npc,FSTATUS02_DELAY,FSTATUS02_SUBDELAY);				// AI µô·¹ÀÌ Å¸ÀÓÀ» Á¤ÇÑ´Ù.	// FSTATUS02 ACCESS
+	SetAIDelayTime(Npc,FSTATUS02_DELAY,FSTATUS02_SUBDELAY);				// AI ë”œë ˆì´ íƒ€ì„ì„ ì •í•œë‹¤.	// FSTATUS02 ACCESS
 	CHARLIST* Target=GetTarget(Npc->targetid);
 	if (Target!=NULL)
 	{
-		SelectAttackMethod(Npc);										// °ø°İ ¹æ¹ıÀ» ¼±ÅÃ
+		SelectAttackMethod(Npc);										// ê³µê²© ë°©ë²•ì„ ì„ íƒ
 		if (!CheckAndDoAttack(Npc))
 		{
-			int Target_ID;												// ÁÖÀ§¿¡ ´õ °¡±î¿î³ğÀÌ ÀÖ´ÂÁö °Ë»ç
+			int Target_ID;												// ì£¼ìœ„ì— ë” ê°€ê¹Œìš´ë†ˆì´ ìˆëŠ”ì§€ ê²€ì‚¬
 			FindTarget(Npc,Target_ID);
-			if (Target_ID!=-1)											// ´õ °¡±î¿î ÀûÀÌ ¾ø´Ù 
+			if (Target_ID!=-1)											// ë” ê°€ê¹Œìš´ ì ì´ ì—†ë‹¤ 
 			{
 				if (!CheckAndDoAttack(Npc))
 				{
 					if (Npc->Race != GUARDTOWER)
 					{	//< CSD-040202
 						SetTarget(Npc,Target_ID);
-						TargetMove(Npc);									// ¸ñÇ¥ ±ÙÃ³·Î ÀÌµ¿ÇÑ´Ù.
-					}	//> CSD-040202									// ¸ñÇ¥ ±ÙÃ³·Î ÀÌµ¿ÇÑ´Ù.
+						TargetMove(Npc);									// ëª©í‘œ ê·¼ì²˜ë¡œ ì´ë™í•œë‹¤.
+					}	//> CSD-040202									// ëª©í‘œ ê·¼ì²˜ë¡œ ì´ë™í•œë‹¤.
 				}
 			}
 		}
 	}
 	else
 	{
-		if (FindTarget(Npc)==-1)										//ÁÖÀ§¿¡ ÀûÀÌ ¾øÀ¸¸é 
+		if (FindTarget(Npc)==-1)										//ì£¼ìœ„ì— ì ì´ ì—†ìœ¼ë©´ 
 		{
-			SetAIDefault(Npc);											//¹èÈ¸ »óÅÂ·Î ÇÑ´Ù.
-			ClearTarget(Npc);											// Å¸°Ù ÃÊ±âÈ­
+			SetAIDefault(Npc);											//ë°°íšŒ ìƒíƒœë¡œ í•œë‹¤.
+			ClearTarget(Npc);											// íƒ€ê²Ÿ ì´ˆê¸°í™”
 			SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);		
 		}
 		else
 		{
 			if (Npc->Race != GUARDTOWER)
 			{	//< CSD-040202
-				TargetMove(Npc);											// ¸ñÇ¥ ±ÙÃ³·Î ÀÌµ¿ÇÑ´Ù.
+				TargetMove(Npc);											// ëª©í‘œ ê·¼ì²˜ë¡œ ì´ë™í•œë‹¤.
 			}	//> CSD-040202
 		}
 	}
@@ -1837,11 +1837,11 @@ inline void CAIManager::ProcessAIAccess(CHARLIST* Npc)
 
 inline void CAIManager::ProcessAIAttack(CHARLIST* Npc)						// LTS DRAGON MODIFY
 {
-	SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);				// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS03 ATTACK
+	SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);				// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS03 ATTACK
 	CHARLIST* Target=GetTarget(Npc->targetid);
 	if (Target!=NULL)
 	{
-		if (!CheckAndDoAttack(Npc))										// °ø°İ °¡´É ¹üÀ§ÀÌ¸é 
+		if (!CheckAndDoAttack(Npc))										// ê³µê²© ê°€ëŠ¥ ë²”ìœ„ì´ë©´ 
 		{
 			if (FindTarget(Npc)!=-1)
 			{
@@ -1853,7 +1853,7 @@ inline void CAIManager::ProcessAIAttack(CHARLIST* Npc)						// LTS DRAGON MODIFY
 			else 
 			{
 				SetAIDefault(Npc);
-				ClearTarget(Npc);										// Å¸°Ù ÃÊ±âÈ­
+				ClearTarget(Npc);										// íƒ€ê²Ÿ ì´ˆê¸°í™”
 				SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);
 			}
 		}
@@ -1862,60 +1862,60 @@ inline void CAIManager::ProcessAIAttack(CHARLIST* Npc)						// LTS DRAGON MODIFY
 	{
 		if (FindTarget(Npc)==-1)
 		{
-			SetAIDefault(Npc);											// ¹èÈ¸ »óÅÂ·Î ÇÑ´Ù.
-			ClearTarget(Npc);											// Å¸°Ù ÃÊ±âÈ­
+			SetAIDefault(Npc);											// ë°°íšŒ ìƒíƒœë¡œ í•œë‹¤.
+			ClearTarget(Npc);											// íƒ€ê²Ÿ ì´ˆê¸°í™”
 			SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);
 		}
 		else
 		{
-			SetAI(Npc,NPC_PATTERN_ACCESS);								// ÀûÀÌ ÀÖÀ¸¸é 
+			SetAI(Npc,NPC_PATTERN_ACCESS);								// ì ì´ ìˆìœ¼ë©´ 
 		}
 	}
 }
 
 inline void CAIManager::ProcessAIAttacked(CHARLIST* Npc)			// LTS DRAGON MODIFY
 {
-	SetAIDelayTime(Npc,FSTATUS04_DELAY,FSTATUS04_SUBDELAY);		// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS04 ATTACKED
+	SetAIDelayTime(Npc,FSTATUS04_DELAY,FSTATUS04_SUBDELAY);		// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS04 ATTACKED
 	CHARLIST* Target=GetTarget(Npc->targetid);
 	if (Target!=NULL)
 	{
-		if (!CheckAndDoAttack(Npc))								// °ø°İ °¡´É ¹üÀ§°¡ ¾Æ´Ï¸é 
+		if (!CheckAndDoAttack(Npc))								// ê³µê²© ê°€ëŠ¥ ë²”ìœ„ê°€ ì•„ë‹ˆë©´ 
 		{
 			SetAI(Npc,NPC_PATTERN_ACCESS);
-			SetRunStatus(Npc);									// ´Ş¸®±â Àû¿ë
-			CheckStatusUp(Npc);									// ±¤ÆøÀû¿ë
+			SetRunStatus(Npc);									// ë‹¬ë¦¬ê¸° ì ìš©
+			CheckStatusUp(Npc);									// ê´‘í­ì ìš©
 		}
 	}
 	else
 	{
-		SetAIDefault(Npc);										// ¹èÈ¸ »óÅÂ·Î ÇÑ´Ù.
-		ClearTarget(Npc);										// Å¸°Ù ÃÊ±âÈ­
+		SetAIDefault(Npc);										// ë°°íšŒ ìƒíƒœë¡œ í•œë‹¤.
+		ClearTarget(Npc);										// íƒ€ê²Ÿ ì´ˆê¸°í™”
 		SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);														
 	}
 }
 
 inline void CAIManager::CheckMoveWander(CHARLIST* Npc)
 {
-	SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);		// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// Wander¿Í °°Àº °ª
-	if (FindTarget(Npc)!=-1)									// ±ÙÃ³¿¡ Å¸°ÙÀÌ ÀÖ´Ù.
+	SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);		// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// Wanderì™€ ê°™ì€ ê°’
+	if (FindTarget(Npc)!=-1)									// ê·¼ì²˜ì— íƒ€ê²Ÿì´ ìˆë‹¤.
 	{	
 		if (Npc->EventPoint>=NPC_PATTERN_BOSS_WANDER)
 		{
-			ClearMovePattern(Npc);									//	¿¹Àü AI¸¦ Å¬¸®¾î 
+			ClearMovePattern(Npc);									//	ì˜ˆì „ AIë¥¼ í´ë¦¬ì–´ 
 			SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);
 		}
 		else
 		{
-			ClearMovePattern(Npc);									//	¿¹Àü AI¸¦ Å¬¸®¾î 
+			ClearMovePattern(Npc);									//	ì˜ˆì „ AIë¥¼ í´ë¦¬ì–´ 
 			SetAI(Npc,NPC_PATTERN_ACCESS);
 		}
-		SetTarget(Npc,Npc->targetid);							// Å¸°ÙÀ» ÁöÁ¤ÇÑ´Ù.	
+		SetTarget(Npc,Npc->targetid);							// íƒ€ê²Ÿì„ ì§€ì •í•œë‹¤.	
 	}
 	else
 	{
-		if (!NPC_IsMoving(Npc))									// NPC°¡ ¿òÁ÷ÀÌÁö ¾Ê°í ÀÕ´Ù¸é
+		if (!NPC_IsMoving(Npc))									// NPCê°€ ì›€ì§ì´ì§€ ì•Šê³  ì‡ë‹¤ë©´
 		{	
-			SetAI(Npc,Npc->EventPoint);							// ¿ø·¡ ¹èÈ¸ ID·Î ¼¼ÆÃÀ» ÇÑ´Ù.	
+			SetAI(Npc,Npc->EventPoint);							// ì›ë˜ ë°°íšŒ IDë¡œ ì„¸íŒ…ì„ í•œë‹¤.	
 			ClearMovePattern(Npc);						
 		}
 	}
@@ -1928,15 +1928,15 @@ inline void CAIManager::CheckAndModifyTarget(CHARLIST* Npc)
 	int TargetMoveX=Npc->tx*TILE_SIZE;
 	int TargetMoveY=Npc->ty*TILE_SIZE;
 	
-	int ChangeRange=(4*32)*(4*32);					// Ä³¸¯ÅÍÀÇ ÀÌµ¿ÇÏ·Á´Â ÁÂÇ¥°¡ ±âÁ¸º¸´Ù 3Å¸ÀÏÀÌ»ó Â÷ÀÌ³­´Ù¸é ÆĞ½ººôµåÇÑ´Ù.
+	int ChangeRange=(4*32)*(4*32);					// ìºë¦­í„°ì˜ ì´ë™í•˜ë ¤ëŠ” ì¢Œí‘œê°€ ê¸°ì¡´ë³´ë‹¤ 3íƒ€ì¼ì´ìƒ ì°¨ì´ë‚œë‹¤ë©´ íŒ¨ìŠ¤ë¹Œë“œí•œë‹¤.
 	int ResultRange=(Target->MoveGox-TargetMoveX)*(Target->MoveGox-TargetMoveX)+
 		(Target->MoveGoy-TargetMoveY)*(Target->MoveGoy-TargetMoveY);
 	
-	if (ResultRange>ChangeRange)  //ÀÌµ¿ÇÏ´Â À§Ä¡°¡ ´Ù¸£´Ù¸é ÀÌµ¿À» ¼öÁ¤ÇÑ´Ù.
+	if (ResultRange>ChangeRange)  //ì´ë™í•˜ëŠ” ìœ„ì¹˜ê°€ ë‹¤ë¥´ë‹¤ë©´ ì´ë™ì„ ìˆ˜ì •í•œë‹¤.
 	{
 		if (NPC_NearCh(Npc,Target,&TargetX,&TargetY))
 		{
-			if (NPC_MakePath(Npc,TargetX,TargetY,rand()%6+2))			// Å¸ÄÏÀ¸·Î ºÎÅÍÀÇ À§Ä¡ ·£´ı
+			if (NPC_MakePath(Npc,TargetX,TargetY,rand()%6+2))			// íƒ€ì¼“ìœ¼ë¡œ ë¶€í„°ì˜ ìœ„ì¹˜ ëœë¤
 			{
 				SendModifyPositionNPC(connections,Npc->GetServerID());		
 				SendMoveNPCArea( connections, Npc->GetServerID());
@@ -1947,16 +1947,16 @@ inline void CAIManager::CheckAndModifyTarget(CHARLIST* Npc)
 
 inline void CAIManager::CheckMoveAccess(CHARLIST* Npc)
 {
-	SetAIDelayTime(Npc,FSTATUS05_DELAY,FSTATUS05_SUBDELAY); 	// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS05 ACCESS MOVE
+	SetAIDelayTime(Npc,FSTATUS05_DELAY,FSTATUS05_SUBDELAY); 	// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS05 ACCESS MOVE
 	
-	if (!CheckAndDoAttack(Npc))							// °ø°İ °¡´É ¹üÀ§ÀÌ¸é 
+	if (!CheckAndDoAttack(Npc))							// ê³µê²© ê°€ëŠ¥ ë²”ìœ„ì´ë©´ 
 	{
-		if (!NPC_IsMoving(Npc))							// NPC°¡ ¿òÁ÷ÀÌÁö ¾Ê°í ÀÕ´Ù¸é
+		if (!NPC_IsMoving(Npc))							// NPCê°€ ì›€ì§ì´ì§€ ì•Šê³  ì‡ë‹¤ë©´
 		{	
-			SetAI(Npc,Npc->EventPoint);					// ¿ø·¡ ¹èÈ¸ ID·Î ¼¼ÆÃÀ» ÇÑ´Ù.	
+			SetAI(Npc,Npc->EventPoint);					// ì›ë˜ ë°°íšŒ IDë¡œ ì„¸íŒ…ì„ í•œë‹¤.	
 			ClearMovePattern(Npc);						
 		}
-		else											// ¿òÁ÷ÀÌ°í ÀÖ´Ù¸é
+		else											// ì›€ì§ì´ê³  ìˆë‹¤ë©´
 		{
 			switch (NPC_Gen_Ref[Npc->npc_index].nAttr)
 			{	//< CSD-031027
@@ -1980,7 +1980,7 @@ inline void CAIManager::CheckMoveAccess(CHARLIST* Npc)
 
 inline void CAIManager::ProcessAIMoving(CHARLIST* Npc)			// LTS DRAGON MODIFY	
 {
-	if (!Npc->EventPoint) return;							// NPC_MOVINGÀ¸·Î °£ ¼Ó¼º Wander, Access, Attack
+	if (!Npc->EventPoint) return;							// NPC_MOVINGìœ¼ë¡œ ê°„ ì†ì„± Wander, Access, Attack
 	switch (Npc->EventPoint)
 	{
 	case NPC_PATTERN_WANDER		 :	CheckMoveWander(Npc);	break;
@@ -1995,7 +1995,7 @@ inline int** CAIManager::GetBossStatusData()
 
 inline int* CAIManager::GetBossStatusData(int TypeNo)
 {
-	//< LTH-040506-KO ÀÌ³ğ 0 ÀÌ¸é ¾ÈµÈ´Ù.. -_-;
+	//< LTH-040506-KO ì´ë†ˆ 0 ì´ë©´ ì•ˆëœë‹¤.. -_-;
 	if ( TypeNo <= 0 )
 		TypeNo = 1;
 
@@ -2005,7 +2005,7 @@ inline int* CAIManager::GetBossStatusData(int TypeNo)
 
 inline int CAIManager::GetBossStatusData(int TypeNo,int Field)
 {
-	//< LTH-040506-KO ÀÌ³ğ 0 ÀÌ¸é ¾ÈµÈ´Ù.. -_-;
+	//< LTH-040506-KO ì´ë†ˆ 0 ì´ë©´ ì•ˆëœë‹¤.. -_-;
 	if ( TypeNo <= 0 )
 		TypeNo = 1;
 
@@ -2079,7 +2079,7 @@ inline void CAIManager::CallActionFunc(CHARLIST* Npc,int* Action)
 
 inline void CAIManager::OnHPAction(CHARLIST* Npc,int HPGrade)		// LTS DRAGON MODIFY
 {
-	if (HPGrade!=0&&Npc->EventLocalWarJoin) return;								// ÀÌ¹Ì HP±×·¹ÀÌµå »óÅÂ¸¦ ½ÇÇàÇÑ³ğÀÌ´Ù.
+	if (HPGrade!=0&&Npc->EventLocalWarJoin) return;								// ì´ë¯¸ HPê·¸ë ˆì´ë“œ ìƒíƒœë¥¼ ì‹¤í–‰í•œë†ˆì´ë‹¤.
 	
 	int Action[3];
 	
@@ -2101,7 +2101,7 @@ inline void CAIManager::OnHPAction(CHARLIST* Npc,int HPGrade)		// LTS DRAGON MOD
 	
 	CallActionFunc(Npc,Action);
 	
-	Npc->EventLocalWarJoin=TRUE;	// ÀÌ¹Ì Ã³¸®Çß´Ù°í ±â·Ï 
+	Npc->EventLocalWarJoin=TRUE;	// ì´ë¯¸ ì²˜ë¦¬í–ˆë‹¤ê³  ê¸°ë¡ 
 }
 
 inline void CAIManager::OnCloseHPAction(CHARLIST* Npc)
@@ -2110,15 +2110,15 @@ inline void CAIManager::OnCloseHPAction(CHARLIST* Npc)
 	
 	SetActionFunc(Npc,Npc->mantle,Action);
 	
-	if (Action[0]==6||Action[0]==1)	// ¾×¼ÇÁß È¸ÇÇÀÌ°Å³ª ´ë±âÀÌ¸é 
+	if (Action[0]==6||Action[0]==1)	// ì•¡ì…˜ì¤‘ íšŒí”¼ì´ê±°ë‚˜ ëŒ€ê¸°ì´ë©´ 
 	{
 		SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);
 	}
-	if (Action[1]==6||Action[1]==1)	// ¾×¼ÇÁß È¸ÇÇÀÌ°Å³ª ´ë±âÀÌ¸é 
+	if (Action[1]==6||Action[1]==1)	// ì•¡ì…˜ì¤‘ íšŒí”¼ì´ê±°ë‚˜ ëŒ€ê¸°ì´ë©´ 
 	{
 		SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);
 	}
-	if (Action[2]==6||Action[2]==1)	// ¾×¼ÇÁß È¸ÇÇÀÌ°Å³ª ´ë±âÀÌ¸é 
+	if (Action[2]==6||Action[2]==1)	// ì•¡ì…˜ì¤‘ íšŒí”¼ì´ê±°ë‚˜ ëŒ€ê¸°ì´ë©´ 
 	{
 		SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);
 	}
@@ -2128,62 +2128,62 @@ inline void CAIManager::OnCloseHPAction(CHARLIST* Npc)
 
 inline void CAIManager::ProcessAIBWander(CHARLIST* Npc)			// LTS DRAGON MODIFY
 {
-	ClearAttackMethod(Npc);											// °ø°İ ¹æ¹ıÀ» ÃÊ±âÈ­ ÇÑ´Ù.
+	ClearAttackMethod(Npc);											// ê³µê²© ë°©ë²•ì„ ì´ˆê¸°í™” í•œë‹¤.
 	
-	SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);			// ´ÙÀ½ AIµô·¹ÀÌ Å¸ÀÓÀ» Á¤ÇÑ´Ù.		// FSTATUS01 WANDER
+	SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);			// ë‹¤ìŒ AIë”œë ˆì´ íƒ€ì„ì„ ì •í•œë‹¤.		// FSTATUS01 WANDER
 	
-	if (FindTarget(Npc)!=-1)										// ±ÙÃ³¿¡ Å¸°ÙÀÌ ÀÖ´Ù.
+	if (FindTarget(Npc)!=-1)										// ê·¼ì²˜ì— íƒ€ê²Ÿì´ ìˆë‹¤.
 	{
-		ClearMovePattern(Npc);										//	¿¹Àü AI¸¦ Å¬¸®¾î 
+		ClearMovePattern(Npc);										//	ì˜ˆì „ AIë¥¼ í´ë¦¬ì–´ 
 		SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);
-		SetTarget(Npc,Npc->targetid);								// Å¸°ÙÀ» ÁöÁ¤ÇÑ´Ù.	
-		OnHPAction(Npc,0);												// °­Á¦·Î 0¹ø ¾×¼ÇÀ» ¼öÇà
+		SetTarget(Npc,Npc->targetid);								// íƒ€ê²Ÿì„ ì§€ì •í•œë‹¤.	
+		OnHPAction(Npc,0);												// ê°•ì œë¡œ 0ë²ˆ ì•¡ì…˜ì„ ìˆ˜í–‰
 	}
 }
 
 inline void CAIManager::ProcessAIBAccess(CHARLIST* Npc)					// LTS DRAGON MODIFY
 {
-	SetAIDelayTime(Npc,FSTATUS02_DELAY,FSTATUS02_SUBDELAY);				// AI µô·¹ÀÌ Å¸ÀÓÀ» Á¤ÇÑ´Ù.	// FSTATUS02 ACCESS
+	SetAIDelayTime(Npc,FSTATUS02_DELAY,FSTATUS02_SUBDELAY);				// AI ë”œë ˆì´ íƒ€ì„ì„ ì •í•œë‹¤.	// FSTATUS02 ACCESS
 	CHARLIST* Target=GetTarget(Npc->targetid);
 	if (Target!=NULL)
 	{
-		SelectBAttackMethod(Npc);										// °ø°İ ¹æ¹ıÀ» ¼±ÅÃ
+		SelectBAttackMethod(Npc);										// ê³µê²© ë°©ë²•ì„ ì„ íƒ
 		if (!CheckAndDoAttack(Npc))
 		{
-			int Target_ID;												// ÁÖÀ§¿¡ ´õ °¡±î¿î³ğÀÌ ÀÖ´ÂÁö °Ë»ç
+			int Target_ID;												// ì£¼ìœ„ì— ë” ê°€ê¹Œìš´ë†ˆì´ ìˆëŠ”ì§€ ê²€ì‚¬
 			FindTarget(Npc,Target_ID);
-			if (Target_ID!=-1)											// ´õ °¡±î¿î ÀûÀÌ ¾ø´Ù 
+			if (Target_ID!=-1)											// ë” ê°€ê¹Œìš´ ì ì´ ì—†ë‹¤ 
 			{
 				if (!CheckAndDoAttack(Npc))
 				{
 					if (Npc->Race != GUARDTOWER)
 					{	//< CSD-040302
 						SetTarget(Npc,Target_ID);
-						TargetMove(Npc);									// ¸ñÇ¥ ±ÙÃ³·Î ÀÌµ¿ÇÑ´Ù.
+						TargetMove(Npc);									// ëª©í‘œ ê·¼ì²˜ë¡œ ì´ë™í•œë‹¤.
 					}	//> CSD-040302
 				}
 			}
 			else
 			{
-				SetAIBDefault(Npc);											//¹èÈ¸ »óÅÂ·Î ÇÑ´Ù.
-				ClearTarget(Npc);											// Å¸°Ù ÃÊ±âÈ­
+				SetAIBDefault(Npc);											//ë°°íšŒ ìƒíƒœë¡œ í•œë‹¤.
+				ClearTarget(Npc);											// íƒ€ê²Ÿ ì´ˆê¸°í™”
 				SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);		
 			}
 		}
 	}
 	else
 	{
-		if (FindTarget(Npc)==-1)										//ÁÖÀ§¿¡ ÀûÀÌ ¾øÀ¸¸é 
+		if (FindTarget(Npc)==-1)										//ì£¼ìœ„ì— ì ì´ ì—†ìœ¼ë©´ 
 		{
-			SetAIBDefault(Npc);											//¹èÈ¸ »óÅÂ·Î ÇÑ´Ù.
-			ClearTarget(Npc);											// Å¸°Ù ÃÊ±âÈ­
+			SetAIBDefault(Npc);											//ë°°íšŒ ìƒíƒœë¡œ í•œë‹¤.
+			ClearTarget(Npc);											// íƒ€ê²Ÿ ì´ˆê¸°í™”
 			SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);		
 		}
 		else
 		{
 			if (Npc->Race != GUARDTOWER)
 			{	//< CSD-040302
-				TargetMove(Npc);											// ¸ñÇ¥ ±ÙÃ³·Î ÀÌµ¿ÇÑ´Ù.
+				TargetMove(Npc);											// ëª©í‘œ ê·¼ì²˜ë¡œ ì´ë™í•œë‹¤.
 			}	//> CSD-040302
 		}
 	}
@@ -2191,11 +2191,11 @@ inline void CAIManager::ProcessAIBAccess(CHARLIST* Npc)					// LTS DRAGON MODIFY
 
 inline void CAIManager::ProcessAIBAttack(CHARLIST* Npc)
 {
-	SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);				// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS03 ATTACK
+	SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);				// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS03 ATTACK
 	CHARLIST* Target=GetTarget(Npc->targetid);
 	if (Target!=NULL)
 	{
-		if (!CheckAndDoAttack(Npc))										// °ø°İ °¡´É ¹üÀ§ÀÌ¸é 
+		if (!CheckAndDoAttack(Npc))										// ê³µê²© ê°€ëŠ¥ ë²”ìœ„ì´ë©´ 
 		{
 			if (FindTarget(Npc)!=-1)
 			{
@@ -2207,7 +2207,7 @@ inline void CAIManager::ProcessAIBAttack(CHARLIST* Npc)
 			else 
 			{
 				SetAIBDefault(Npc);
-				ClearTarget(Npc);										// Å¸°Ù ÃÊ±âÈ­
+				ClearTarget(Npc);										// íƒ€ê²Ÿ ì´ˆê¸°í™”
 				SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);
 			}
 		}
@@ -2216,25 +2216,25 @@ inline void CAIManager::ProcessAIBAttack(CHARLIST* Npc)
 	{
 		if (FindTarget(Npc)==-1)
 		{
-			SetAIBDefault(Npc);											// ¹èÈ¸ »óÅÂ·Î ÇÑ´Ù.
-			ClearTarget(Npc);											// Å¸°Ù ÃÊ±âÈ­
+			SetAIBDefault(Npc);											// ë°°íšŒ ìƒíƒœë¡œ í•œë‹¤.
+			ClearTarget(Npc);											// íƒ€ê²Ÿ ì´ˆê¸°í™”
 			SetAIDelayTime(Npc,FSTATUS01_DELAY,FSTATUS01_SUBDELAY);
 		}
 		else
 		{
-			SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);								// ÀûÀÌ ÀÖÀ¸¸é 
+			SetAI(Npc,NPC_PATTERN_BOSS_ACCESS);								// ì ì´ ìˆìœ¼ë©´ 
 		}
 	}
 }
 
 void CAIManager::ProcessAIBAttacked(CHARLIST* Npc)
 {
-	// °ø°İ´çÇÏ¸é ¹º°¡ ÇØÁØ´Ù.
+	// ê³µê²©ë‹¹í•˜ë©´ ë­”ê°€ í•´ì¤€ë‹¤.
 }
 
 inline void CAIManager::ProcessAIBMoving(CHARLIST* Npc)
 {
-	if (!Npc->EventPoint) return;							// NPC_MOVINGÀ¸·Î °£ ¼Ó¼º Wander, Access, Attack
+	if (!Npc->EventPoint) return;							// NPC_MOVINGìœ¼ë¡œ ê°„ ì†ì„± Wander, Access, Attack
 	switch (Npc->EventPoint)
 	{
 	case NPC_PATTERN_BOSS_WANDER :	CheckMoveWander(Npc);	break;
@@ -2244,7 +2244,7 @@ inline void CAIManager::ProcessAIBMoving(CHARLIST* Npc)
 
 inline void CAIManager::ProcessAIBBackDraw(CHARLIST* Npc)
 {
-	SetAIDelayTime(Npc,FSTATUS06_DELAY,FSTATUS06_SUBDELAY);				// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS03 ATTACK
+	SetAIDelayTime(Npc,FSTATUS06_DELAY,FSTATUS06_SUBDELAY);				// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS03 ATTACK
 	
 	if (NPC_IsMoving(Npc)) return;
 	
@@ -2254,7 +2254,7 @@ inline void CAIManager::ProcessAIBBackDraw(CHARLIST* Npc)
 		if (InDistance(Npc,Target,32*10))
 		{
 			int ex,ey;
-			if (NPC_NearBackCh(Npc,Target,&ex,&ey,10))	// µÚ·Î µµ¸Á
+			if (NPC_NearBackCh(Npc,Target,&ex,&ey,10))	// ë’¤ë¡œ ë„ë§
 			{
 				NPC_MakePath(Npc,ex,ey,rand()%10+5);
 			}
@@ -2270,29 +2270,29 @@ inline void CAIManager::ProcessAIBBackDraw(CHARLIST* Npc)
 	}
 }
 
-inline void CAIManager::ProcessAIBAvoid(CHARLIST* Npc)						// ÀÌ»óÅÂ´Â HP¾×¼Ç¿¡¼­ Ã³¸®ÇÑ´Ù.	// Å»ÃâÀº OnHPActionClose
+inline void CAIManager::ProcessAIBAvoid(CHARLIST* Npc)						// ì´ìƒíƒœëŠ” HPì•¡ì…˜ì—ì„œ ì²˜ë¦¬í•œë‹¤.	// íƒˆì¶œì€ OnHPActionClose
 {
-	SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);//ÀÓ½Ã·Î3				// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS03 ATTACK
-	// ¸îÅ¸ÀÏ µÚ·Î µµ¸ÁÈÄ ·£´ıÄ¡·Î ¿µ¿ª¿¡ ÀÖ´Ù¸é °ø°İÇÑ´Ù.
+	SetAIDelayTime(Npc,FSTATUS03_DELAY,FSTATUS03_SUBDELAY);//ì„ì‹œë¡œ3				// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS03 ATTACK
+	// ëª‡íƒ€ì¼ ë’¤ë¡œ ë„ë§í›„ ëœë¤ì¹˜ë¡œ ì˜ì—­ì— ìˆë‹¤ë©´ ê³µê²©í•œë‹¤.
 	if (NPC_IsMoving(Npc)) return;
 	
 	CHARLIST* Target=GetTarget(Npc->targetid);
 	if (Target!=NULL)
 	{
-		if (InDistance(Npc,Target,32*5))	// 5Å¸ÀÏ ¾È¿¡ ÀûÀÌÀÖ´Ù¸é
+		if (InDistance(Npc,Target,32*5))	// 5íƒ€ì¼ ì•ˆì— ì ì´ìˆë‹¤ë©´
 		{
 			int ex,ey;
-			if (NPC_NearBackCh(Npc,Target,&ex,&ey,5))	// µÚ·Î µµ¸Á
+			if (NPC_NearBackCh(Npc,Target,&ex,&ey,5))	// ë’¤ë¡œ ë„ë§
 			{
 				NPC_MakePath(Npc,ex,ey,rand()%10+5);
 				SelectBAttackMethod(Npc);
 			}
 		}
-		else		// 5Å¸ÀÏ ¾È¿¡ ÀûÀÌ ¾ø´Ù¸é	// Search·¹ÀÎÁö¸¦ µÚÁø´Ù
+		else		// 5íƒ€ì¼ ì•ˆì— ì ì´ ì—†ë‹¤ë©´	// Searchë ˆì¸ì§€ë¥¼ ë’¤ì§„ë‹¤
 		{
-			if (FindTarget(Npc)!=-1)	//ÀûÀÌÀÖ´Ù¸é
+			if (FindTarget(Npc)!=-1)	//ì ì´ìˆë‹¤ë©´
 			{
-				CheckAndDoAttack(Npc);	// ¾îÅÃ·¹ÀÎÁö¿¡ ÀÖ´Ù¸é
+				CheckAndDoAttack(Npc);	// ì–´íƒë ˆì¸ì§€ì— ìˆë‹¤ë©´
 			}
 		}
 	}
@@ -2302,18 +2302,18 @@ inline void CAIManager::ProcessAIBAvoid(CHARLIST* Npc)						// ÀÌ»óÅÂ´Â HP¾×¼Ç¿¡
 	}
 }
 
-inline void CAIManager::ProcessAIBWait(CHARLIST* Npc)						// ÀÌ»óÅÂ´Â HP¾×¼Ç¿¡¼­ Ã³¸®ÇØ ÁØ´Ù.	// Å»ÃâÀº OnHPActionClose
+inline void CAIManager::ProcessAIBWait(CHARLIST* Npc)						// ì´ìƒíƒœëŠ” HPì•¡ì…˜ì—ì„œ ì²˜ë¦¬í•´ ì¤€ë‹¤.	// íƒˆì¶œì€ OnHPActionClose
 {
-	SetAIDelayTime(Npc,FSTATUS08_DELAY,FSTATUS08_SUBDELAY);				// AIµô·¹ÀÌ Å¸ÀÓÀ» °è»ê		// FSTATUS03 ATTACK
-	//ÀÌ»óÅÂ¿¡¼­´Â ¾Æ¹«°Íµµ ÇÏÁö¾Ê´Â´Ù.									// Attacked³ª ¾×¼Ç »óÅÂ°¡ ¹Ù²î¸é Ã³¸®µÈ´Ù
+	SetAIDelayTime(Npc,FSTATUS08_DELAY,FSTATUS08_SUBDELAY);				// AIë”œë ˆì´ íƒ€ì„ì„ ê³„ì‚°		// FSTATUS03 ATTACK
+	//ì´ìƒíƒœì—ì„œëŠ” ì•„ë¬´ê²ƒë„ í•˜ì§€ì•ŠëŠ”ë‹¤.									// Attackedë‚˜ ì•¡ì…˜ ìƒíƒœê°€ ë°”ë€Œë©´ ì²˜ë¦¬ëœë‹¤
 }
 
 inline void CAIManager::CheckHPStatus(CHARLIST* Npc) // LTS DRAGON MODIFY
 {
 	int HPGrade=CheckHPGrade(Npc);
-	if (HPGrade!=Npc->mantle)				// OLD HP STATUS¿Í ºñ±³
-	{	// »õ·Î¿î HP»óÅÂ¿¡ µé¾î¿È
-		if (DRAGON_HEART_INDEX_NO==Npc->npc_index)	//µå·¡°ïÇÏÆ®ÀÌ¸é HP°¡ Ã¼ÀÎÁöµÉ¶§.. Ã³¸®ÇØÁØ´Ù.
+	if (HPGrade!=Npc->mantle)				// OLD HP STATUSì™€ ë¹„êµ
+	{	// ìƒˆë¡œìš´ HPìƒíƒœì— ë“¤ì–´ì˜´
+		if (DRAGON_HEART_INDEX_NO==Npc->npc_index)	//ë“œë˜ê³¤í•˜íŠ¸ì´ë©´ HPê°€ ì²´ì¸ì§€ë ë•Œ.. ì²˜ë¦¬í•´ì¤€ë‹¤.
 		{
 			if (CheckDragonPtr(Npc))
 			{
@@ -2413,7 +2413,7 @@ void CAIManager::ProcessNPCAI(CHARLIST* Npc)
 	case NPC_PATTERN_BOSS_AVOID		: ProcessAIBAvoid(Npc);		break;
 	}
 	
-	if (Npc->patterntype>=NPC_PATTERN_BOSS_WANDER)	// AI¸¦ ³¡³½´ÙÀ½¿¡ »óÅÂº¯°æÀ» ÇÑ´Ù.
+	if (Npc->patterntype>=NPC_PATTERN_BOSS_WANDER)	// AIë¥¼ ëë‚¸ë‹¤ìŒì— ìƒíƒœë³€ê²½ì„ í•œë‹¤.
 	{
 		CheckHPStatus(Npc);
 	}

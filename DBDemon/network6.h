@@ -1,4 +1,4 @@
-
+ï»¿
 #define GM_TOOL_VERSION 6708
 const int MAX_NAME = 21;
 extern int	CheckGameMakeTool(char *id, char ip[40]);	// 020830 YGI
@@ -8,12 +8,12 @@ extern int	CheckGameMakeTool(char *id, char ip[40]);	// 020830 YGI
 typedef struct rare_item_make_log
 {
 	int map;
-	//date; ÀÚµ¿ ±â·Ï
+	//date; ìžë™ ê¸°ë¡
 	char maker[20];
 	
-	int itemno;//¾ÆÀÌÅÛ ÀÚÃ¼ ³Ñ¹ö
+	int itemno;//ì•„ì´í…œ ìžì²´ ë„˜ë²„
 	
-	int today_count;//¿À´Ã ¸î¹ø ¸¸µé¾ú³ª
+	int today_count;//ì˜¤ëŠ˜ ëª‡ë²ˆ ë§Œë“¤ì—ˆë‚˜
 	
 	int grade;
 
@@ -33,7 +33,7 @@ typedef struct rare_item_make_log
 	int why;
 	int why2;
 
-	int resource1limit;//¸®¹Ô
+	int resource1limit;//ë¦¬ë°‹
 	int resource2limit;
 	int resource3limit;
 	int resource4limit;
@@ -66,7 +66,7 @@ typedef struct SADONIXCONTROL
 	int Day[7];
 }SadonixControl,*LPSadonixControl;
 
-extern SadonixControl	sadonixcontrol[24];//24½Ã°£ ÀÌ´Ï±î
+extern SadonixControl	sadonixcontrol[24];//24ì‹œê°„ ì´ë‹ˆê¹Œ
 */
 
 //acer7
@@ -78,12 +78,12 @@ extern int IsSecretKeyCodeOk(const char *log_id,const char *szSecretKeyCode);
 
 typedef struct ITEMRAREMAIN
 {
-	DWORD	grade			: 4;//µî±Þ
-	DWORD	soksung1		: 8;//¼Ó¼º1
-	DWORD	soksung2		: 8;//¼Ó¼º2 ¸ÖÆ¼ ¼Ó¼º
-	DWORD	soksung3		: 8;//½Ã°£µî±Þ
-	DWORD	iHighLevel		: 3;//ÇÃ·¯½º Å¸ÀÔ °ªÀÌ ÀÖ´Ù¸é IsDynamicRare-->´Â ¹Ýµå½Ã 0 ÀÌ¾î¾ß ÇÑ´Ù
-	DWORD	IsDynamicRare	: 1;//1 ÀÌ¸é ±â´É ¾ÆÀÌÅÛ 0 ÀÌ¸é ·¹¾î ¾ÆÀÌÅÛ
+	DWORD	grade			: 4;//ë“±ê¸‰
+	DWORD	soksung1		: 8;//ì†ì„±1
+	DWORD	soksung2		: 8;//ì†ì„±2 ë©€í‹° ì†ì„±
+	DWORD	soksung3		: 8;//ì‹œê°„ë“±ê¸‰
+	DWORD	iHighLevel		: 3;//í”ŒëŸ¬ìŠ¤ íƒ€ìž… ê°’ì´ ìžˆë‹¤ë©´ IsDynamicRare-->ëŠ” ë°˜ë“œì‹œ 0 ì´ì–´ì•¼ í•œë‹¤
+	DWORD	IsDynamicRare	: 1;//1 ì´ë©´ ê¸°ëŠ¥ ì•„ì´í…œ 0 ì´ë©´ ë ˆì–´ ì•„ì´í…œ
 }RareMain, *LPRareMain;
 
 typedef struct EVENTITEM
@@ -111,17 +111,17 @@ typedef struct COMFORMRESETABILILTY
 }t_ComformResetAbililty,*LPCOMFORMRESETABILILTY;
 
 
-//<soto-030514 ¼öÁ¤.
+//<soto-030514 ìˆ˜ì •.
 typedef struct SEARCHPACKETCLIENT
 {
-	char	szKeyWord[21];	//Å°¿öµå °Ë»ö¿¡ µé¾î°¥
-	char	szMerchant[21]; //»óÀÎÀÌ¸§ °Ë»ö¿¡ µé¾î°¥
-	int		nPeriod;		//µî·Ï ±â°£ ¼³Á¤.// 0:1ÀÏ, 1:3ÀÏ,  2:ÀÏÁÖÀÏ.
+	char	szKeyWord[21];	//í‚¤ì›Œë“œ ê²€ìƒ‰ì— ë“¤ì–´ê°ˆ
+	char	szMerchant[21]; //ìƒì¸ì´ë¦„ ê²€ìƒ‰ì— ë“¤ì–´ê°ˆ
+	int		nPeriod;		//ë“±ë¡ ê¸°ê°„ ì„¤ì •.// 0:1ì¼, 1:3ì¼,  2:ì¼ì£¼ì¼.
 	int		iIndex;
 	int		iKey;
 }t_SearchPacketClient,*lpSEARCHPACKETCLIENT;
 
-//±¸¸ÅÀÚ¿ë °Ë»ö ±¸Á¶Ã¼
+//êµ¬ë§¤ìžìš© ê²€ìƒ‰ êµ¬ì¡°ì²´
 #define CMD_MERCHANT_BUY_ITEM_SEARCH_SERVER			16002//020815 lsw
 typedef struct SEARCHPACKETSERVER
 {
@@ -129,7 +129,7 @@ typedef struct SEARCHPACKETSERVER
 	char szName[21];
 	t_SearchPacketClient	ClientMsg;
 }t_SearchPacketServer,*lpSEARCHPACKETSERVER;
-//>soto-030514 ¼öÁ¤.
+//>soto-030514 ìˆ˜ì •.
 
 
 typedef struct SEARCHRESULT
@@ -137,7 +137,7 @@ typedef struct SEARCHRESULT
 	int			iIndex;
 	char		szSellerName[21];
 	char		szBuyerName[21];
-	int			iSellValue;//ÆÇ¸Å±Ý¾×Àº 20¾ïÀ» ³Ñ±âÁö ¾Ê½À´Ï´Ù.
+	int			iSellValue;//íŒë§¤ê¸ˆì•¡ì€ 20ì–µì„ ë„˜ê¸°ì§€ ì•ŠìŠµë‹ˆë‹¤.
 	int			iIsEnd;
 	int			iSellerTake;
 	int			iBuyerTake;
@@ -157,37 +157,37 @@ typedef struct SEARCHRESULTLIST
 	SEARCHRESULT ResultList[MAX_SEARCH_RESULT_LIST];
 }t_SearchResultList,*lpSEARCHRESULTLIST;
 //
-//±¸¸ÅÀÚ¿ë ¾ÆÀÌÅÛ ±¸ÀÔÀ» ÇÏ°Ú´Ù´Â ÆÐÅ¶
-#define CMD_MERCHANT_ITEM_BUY					16005//Å¬¶óÀÌ¾ðÆ® ¿¡°Ô ¹Þ°í 
+//êµ¬ë§¤ìžìš© ì•„ì´í…œ êµ¬ìž…ì„ í•˜ê² ë‹¤ëŠ” íŒ¨í‚·
+#define CMD_MERCHANT_ITEM_BUY					16005//í´ë¼ì´ì–¸íŠ¸ ì—ê²Œ ë°›ê³  
 #define CMD_MERCHANT_ITEM_BUY_RESULT			16006
-#define CMD_MERCHANT_ITEM_BUY_COMFORM			16007//µðºñ¿Í Åë½Å
-#define CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT	16008//µðºñ¿Í Åë½Å
+#define CMD_MERCHANT_ITEM_BUY_COMFORM			16007//ë””ë¹„ì™€ í†µì‹ 
+#define CMD_MERCHANT_ITEM_BUY_COMFORM_RESULT	16008//ë””ë¹„ì™€ í†µì‹ 
 typedef struct MERCHANT_ITEM_BUY
 {
-	int			iIndex;//±¸ÀÔÇÒ ¾ÆÀÌÅÛÀÇ ÀÎµ¦½º °ª
-	int			iCn;//Ä¿³Ø¼Ç °ª
-	char		szSellerName[21];//ÆÇ¸ÅÀÚ ÀÌ¸§
-	char		szBuyerName[21];//±¸¸ÅÀÚ ÀÌ¸§
-	DWORD		dwSellValue;//ÆÇ¸Å±Ý¾×Àº 20¾ïÀ» ³Ñ±âÁö ¾Ê½À´Ï´Ù.
+	int			iIndex;//êµ¬ìž…í•  ì•„ì´í…œì˜ ì¸ë±ìŠ¤ ê°’
+	int			iCn;//ì»¤ë„¥ì…˜ ê°’
+	char		szSellerName[21];//íŒë§¤ìž ì´ë¦„
+	char		szBuyerName[21];//êµ¬ë§¤ìž ì´ë¦„
+	DWORD		dwSellValue;//íŒë§¤ê¸ˆì•¡ì€ 20ì–µì„ ë„˜ê¸°ì§€ ì•ŠìŠµë‹ˆë‹¤.
 	ItemAttr	SellItem;
 	int			iKey;
 }t_MerchantItemBuy,*lpMERCHANTITEMBUY;
 
 //
-//ÆÇ¸ÅÀÚ¿ë ±¸Á¶Ã¼
+//íŒë§¤ìžìš© êµ¬ì¡°ì²´
 #define CMD_MERCHANT_SELL_ITEM_INFO_REQUEST		16003
 typedef struct SELLERITEMREQUEST
 {
 	int iCn;
 	int iIndex;
 	int iKey;
-	char szName[21];//ÀÚ½ÅÀÇ ÀÌ¸§À» º¸³»¼­ ¾ÆÀÌÅÛÀ» °Ë»ö ÇÕ´Ï´Ù.
+	char szName[21];//ìžì‹ ì˜ ì´ë¦„ì„ ë³´ë‚´ì„œ ì•„ì´í…œì„ ê²€ìƒ‰ í•©ë‹ˆë‹¤.
 }t_SellerItemRequest,*lpSELLERITEMREQUEST;
 
-#define CMD_MERCHANT_SELL_ITEM_REGISTER					16009//ÆÇ¸Å¾ÆÀÌÅÛÀ» µî·Ï ÇÕ´Ï´Ù.
-#define CMD_MERCHANT_SELL_ITEM_REGISTER_RESULT			16010//ÆÇ¸Å¾ÆÀÌÅÛÀ» µî·Ï ÇÕ´Ï´Ù.
-#define CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM			16011//ÆÇ¸Å¾ÆÀÌÅÛÀ» µî·Ï ÇÕ´Ï´Ù.(µðºñ¿¡ °¡´ÉÇÑÁö ¿äÃ» ÇÕ´Ï´Ù.
-#define CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT	16012//ÆÇ¸Å¾ÆÀÌÅÛÀ» µî·Ï ÇÕ´Ï´Ù.(µðºñ¿¡ µ·À» µî·Ï ÇÏ°í µîµî ¤Ñ¤Ñ;.. ¾îÁö·¯¿ö¶ó..
+#define CMD_MERCHANT_SELL_ITEM_REGISTER					16009//íŒë§¤ì•„ì´í…œì„ ë“±ë¡ í•©ë‹ˆë‹¤.
+#define CMD_MERCHANT_SELL_ITEM_REGISTER_RESULT			16010//íŒë§¤ì•„ì´í…œì„ ë“±ë¡ í•©ë‹ˆë‹¤.
+#define CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM			16011//íŒë§¤ì•„ì´í…œì„ ë“±ë¡ í•©ë‹ˆë‹¤.(ë””ë¹„ì— ê°€ëŠ¥í•œì§€ ìš”ì²­ í•©ë‹ˆë‹¤.
+#define CMD_MERCHANT_SELL_ITEM_REGISTER_COMFORM_RESULT	16012//íŒë§¤ì•„ì´í…œì„ ë“±ë¡ í•©ë‹ˆë‹¤.(ë””ë¹„ì— ëˆì„ ë“±ë¡ í•˜ê³  ë“±ë“± ã…¡ã…¡;.. ì–´ì§€ëŸ¬ì›Œë¼..
 typedef struct SELLERITEMREGISTER
 {
 	int			iCn;
@@ -202,18 +202,18 @@ typedef struct SELLERITEMREGISTER
 	int			iKey;
 }t_SellerItemRegister,*lpSELLERITEMREGISTER;
 
-#define CMD_MERCHANT_SELL_ITEM_DELETE					16020//ÆÇ¸Å¸¦ Ãë¼ÒÇÕ´Ï´Ù.//Å¬¶óÀÌ¾ðÆ®¿ë
-#define CMD_MERCHANT_SELL_ITEM_DELETE_RESULT			16021//ÆÇ¸Å¸¦ Ãë¼ÒÇÕ´Ï´Ù.
-#define CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM			16022//ÆÇ¸Å¸¦ Ãë¼ÒÇÕ´Ï´Ù.//µðºñ¿¡ ¿äÃ»
-#define CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT	16023//ÆÇ¸Å¸¦ Ãë¼ÒÇÕ´Ï´Ù.//µðºñ¿¡ ¾ÆÀÌÅÛÀ» Áö¿ì°í Å¬¶óÀÌ¾ðÆ®¿¡°Ô Áö±Þ
-#define CMD_MERCHANT_RECORD_DEL_CANCLE					16024	// BBD 040226 ÆÇ¸Å Ãë¼Ò·Î ·¹ÄÚµå »èÁ¦ ¿äÃ».
-#define CMD_MERCHANT_RECORD_DEL_CANCLE_RESULT			16025	// BBD 040226 ÆÇ¸Å Ãë¼Ò·Î ·¹ÄÚµå »èÁ¦ °á°ú. ¾ÆÁ÷ »ç¿ëÄ¡ ¾ÊÀ½
-#define CMD_MERCHANT_RECORD_DEL_COMPLETE				16026	// BBD 040226 °Å·¡ Á¾·á·Î ·¹ÄÚµå »èÁ¦ ¿äÃ».
-#define CMD_MERCHANT_RECORD_DEL_COMPLETE_RESULT			16027	// BBD 040226 °Å·¡ Á¾·á·Î ·¹ÄÚµå »èÁ¦ °á°ú. ¾ÆÁ÷ »ç¿ëÄ¡ ¾ÊÀ½
+#define CMD_MERCHANT_SELL_ITEM_DELETE					16020//íŒë§¤ë¥¼ ì·¨ì†Œí•©ë‹ˆë‹¤.//í´ë¼ì´ì–¸íŠ¸ìš©
+#define CMD_MERCHANT_SELL_ITEM_DELETE_RESULT			16021//íŒë§¤ë¥¼ ì·¨ì†Œí•©ë‹ˆë‹¤.
+#define CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM			16022//íŒë§¤ë¥¼ ì·¨ì†Œí•©ë‹ˆë‹¤.//ë””ë¹„ì— ìš”ì²­
+#define CMD_MERCHANT_SELL_ITEM_DELETE_COMFORM_RESULT	16023//íŒë§¤ë¥¼ ì·¨ì†Œí•©ë‹ˆë‹¤.//ë””ë¹„ì— ì•„ì´í…œì„ ì§€ìš°ê³  í´ë¼ì´ì–¸íŠ¸ì—ê²Œ ì§€ê¸‰
+#define CMD_MERCHANT_RECORD_DEL_CANCLE					16024	// BBD 040226 íŒë§¤ ì·¨ì†Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ìš”ì²­.
+#define CMD_MERCHANT_RECORD_DEL_CANCLE_RESULT			16025	// BBD 040226 íŒë§¤ ì·¨ì†Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ê²°ê³¼. ì•„ì§ ì‚¬ìš©ì¹˜ ì•ŠìŒ
+#define CMD_MERCHANT_RECORD_DEL_COMPLETE				16026	// BBD 040226 ê±°ëž˜ ì¢…ë£Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ìš”ì²­.
+#define CMD_MERCHANT_RECORD_DEL_COMPLETE_RESULT			16027	// BBD 040226 ê±°ëž˜ ì¢…ë£Œë¡œ ë ˆì½”ë“œ ì‚­ì œ ê²°ê³¼. ì•„ì§ ì‚¬ìš©ì¹˜ ì•ŠìŒ
 
 typedef struct SELLERITEMDELETE
 {
-	int			iIndex;//ÆÇ¸Å¹°Ç°ÀÇ ÀÎµ¦½º
+	int			iIndex;//íŒë§¤ë¬¼í’ˆì˜ ì¸ë±ìŠ¤
 	int			iCn;
 	char		szSellerName[21];
 	char		szName[21];
@@ -238,7 +238,7 @@ typedef struct SELLERITEMDELETE
 
 typedef struct MERCHANTRESULTTAKE
 {
-	int			iIndex;//ÆÇ¸Å¹°Ç°ÀÇ ÀÎµ¦½º
+	int			iIndex;//íŒë§¤ë¬¼í’ˆì˜ ì¸ë±ìŠ¤
 	int			iCn;
 	char		szMyName[21];
 	char		szSellerName[21];
@@ -256,11 +256,11 @@ typedef struct MERCHANTRESULTTAKE
 #define CMD_MERCHANT_EXCHANGE_LIST_REQUSET_RESULT					16101
 typedef struct MERCHANTEXCHANGEREQUEST
 {
-	int			iIndex;//0À¸·Î ³¯¸®µµ·Ï ÇÏ°í
+	int			iIndex;//0ìœ¼ë¡œ ë‚ ë¦¬ë„ë¡ í•˜ê³ 
 	int			iCn;
 	char		szSellerName[21];
 	char		szMyName[21];
-	int			iKey;//ÀÎµ¦½º À§ÀÎ°¡ ¾Æ·¡ÀÎ°¡.
+	int			iKey;//ì¸ë±ìŠ¤ ìœ„ì¸ê°€ ì•„ëž˜ì¸ê°€.
 }t_MerchantExchangeRequest,*lpMERCHANTEXCHANGEREQUEST;
 
 enum eHighLv
@@ -280,7 +280,7 @@ typedef struct SELECTEDCHARRESULT
 
 // Mail System //////////////////////////////////////////////////////////////////////////////
 const int MAX_MAIL_PAGE	= 12;
-const int MAX_MAIL_PAGE_COUNT	= 5;//ÃÖ´ë ÆäÀÌÁö¼ö
+const int MAX_MAIL_PAGE_COUNT	= 5;//ìµœëŒ€ íŽ˜ì´ì§€ìˆ˜
 const int MAX_MAIL_RECEIVER = 5;
 const int MAX_MAIL_BODY_LEN = 1000;
 
@@ -305,7 +305,7 @@ typedef struct MAILBODY
 	char szBody[MAX_MAIL_BODY_LEN];
 }t_MailBody, *LPMAILBODY;
 
-const int CMD_MAIL_REQ_BODY		= 16102;//ÇØ´ç ¸ÞÀÏÀÇ ¹Ùµð
+const int CMD_MAIL_REQ_BODY		= 16102;//í•´ë‹¹ ë©”ì¼ì˜ ë°”ë””
 typedef struct REQESTMAILBODY
 {
 //	int iWantMailType;
@@ -313,7 +313,7 @@ typedef struct REQESTMAILBODY
 	char szName[MAX_NAME];
 }t_ReqestMailBody,*LPREQESTMAILBODY;
 
-const int CMD_MAIL_REQ_BODY_RESULT		= 16113;//ÇØ´ç ¸ÞÀÏÀÇ ¹Ùµð
+const int CMD_MAIL_REQ_BODY_RESULT		= 16113;//í•´ë‹¹ ë©”ì¼ì˜ ë°”ë””
 typedef struct REQESTMAILBODYRESULT
 {
 //	int iWantMailType;
@@ -326,7 +326,7 @@ typedef struct REQESTMAILBODYRESULT
 	char szBody[MAX_MAIL_BODY_LEN];
 }t_ReqestMailBodyResult,*LPREQESTMAILBODYRESULT;
 
-const int CMD_MAIL_REQUEST_LIST = 16114;//ÇÑÆäÀÌÁö ºÐ·®ÀÇ ¸ÞÀÏ ¸®½ºÆ®.
+const int CMD_MAIL_REQUEST_LIST = 16114;//í•œíŽ˜ì´ì§€ ë¶„ëŸ‰ì˜ ë©”ì¼ ë¦¬ìŠ¤íŠ¸.
 typedef struct REQESTMAILLIST
 {
 	int iWantMailType;
@@ -337,16 +337,16 @@ typedef struct REQESTMAILLIST
 #define CMD_SEND_MAIL_GUILD					10355
 #define CMD_REP_RECV_GUILD_MAIL_TITLE		10358
 
-#define CMD_REQ_RECV_MAIL_BODY_GUILD		10359	// ±æµå ³»¿ë È®ÀÎ
+#define CMD_REQ_RECV_MAIL_BODY_GUILD		10359	// ê¸¸ë“œ ë‚´ìš© í™•ì¸
 #define CMD_UPDATE_GUILD_MAIL_ID			10360
 #define CMD_RECV_MAIL_DELETE_GUILD			10361
 
-const int CMD_MAIL_SEND	=10142;	// ¸ÞÀÏ º¸³»±â
+const int CMD_MAIL_SEND	=10142;	// ë©”ì¼ ë³´ë‚´ê¸°
 
 typedef struct MAILSEND
 {
 	int iType;
-	char szTarget[MAX_NAME*MAX_MAIL_RECEIVER];//5¸í
+	char szTarget[MAX_NAME*MAX_MAIL_RECEIVER];//5ëª…
 	char szSender[MAX_NAME];
 	char szTitle[60];
 	char szBody[MAX_MAIL_BODY_LEN];
@@ -361,8 +361,8 @@ typedef struct MAILLISTRESULT
 	MAILDATA MailData[MAX_MAIL_PAGE];
 }t_MailListResult,*LPMAILLISTRESULT;
 
-const int CMD_MAIL_DELETE	=10143;	// ¸ÞÀÏ »èÁ¦
-const int CMD_MAIL_REPAIR	=10145;	// ¸ÞÀÏ »èÁ¦
+const int CMD_MAIL_DELETE	=10143;	// ë©”ì¼ ì‚­ì œ
+const int CMD_MAIL_REPAIR	=10145;	// ë©”ì¼ ì‚­ì œ
 typedef struct MAILDELETE
 {
 	int cn;
@@ -370,13 +370,13 @@ typedef struct MAILDELETE
 	int aiMailIndex[MAX_MAIL_PAGE];
 }t_MailDelete,*LPMAILDELETE;
 
-#define CMD_REQ_RECV_MAIL_BODY				10144	// ¸ÞÀÏ ³»¿ë ¿äÃ»
+#define CMD_REQ_RECV_MAIL_BODY				10144	// ë©”ì¼ ë‚´ìš© ìš”ì²­
 
 #define CMD_REP_RECV_MAIL_TITLE				10145
 #define CMD_REP_RECV_MAIL_BODY				10146
 #define	CMD_RECV_MAIL_DELETE				10147
 
-const int CMD_MAIL_ALERT = 16400;//¸ÞÀÏ ¾ó·µ
+const int CMD_MAIL_ALERT = 16400;//ë©”ì¼ ì–¼ëŸ¿
 
 typedef struct HWOARANG_PACKET
 {

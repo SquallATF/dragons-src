@@ -1,4 +1,4 @@
-// LottoDBMgr.cpp: implementation of the CLottoDBMgr class.
+ï»¿// LottoDBMgr.cpp: implementation of the CLottoDBMgr class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,11 +24,11 @@ CLottoDBMgr::CLottoDBMgr()
 {
 	Clear();
 	m_pClass = this;
-	m_nLottoNumberCount = 4;//ÇöÀç´Â ³×°³ÀÇ ¹øÈ£¸¸À¸·Î ÇÑ´Ù.
-//	m_nGiveItemNumber = SADONIX_NO;//±âº»Àº »çµå ¿À´Ğ½º¸¦ ÁØ´Ù.
-	memset(m_anGiveItemNumber,0,sizeof(int)*5);//µî¼öº°·Î Áö±ŞµÇ´Â ¾ÆÀÌÅÛ ¹øÈ£.
-	memset(m_anItemCount4Grade,0,sizeof(int)*5);//µî¼öº°·Î Áö±ŞµÇ´Â ¾ÆÀÌÅÛ °Ù¼ö.
-	memset(m_anWinNumberCount4Grade,0,sizeof(int)*5);//¸î°³ÀÇ ÀüÈ£°¡ ¸Â¾Æ¾ß ¸îµîÀÎ°¡..
+	m_nLottoNumberCount = 4;//í˜„ì¬ëŠ” ë„¤ê°œì˜ ë²ˆí˜¸ë§Œìœ¼ë¡œ í•œë‹¤.
+//	m_nGiveItemNumber = SADONIX_NO;//ê¸°ë³¸ì€ ì‚¬ë“œ ì˜¤ë‹‰ìŠ¤ë¥¼ ì¤€ë‹¤.
+	memset(m_anGiveItemNumber,0,sizeof(int)*5);//ë“±ìˆ˜ë³„ë¡œ ì§€ê¸‰ë˜ëŠ” ì•„ì´í…œ ë²ˆí˜¸.
+	memset(m_anItemCount4Grade,0,sizeof(int)*5);//ë“±ìˆ˜ë³„ë¡œ ì§€ê¸‰ë˜ëŠ” ì•„ì´í…œ ê²Ÿìˆ˜.
+	memset(m_anWinNumberCount4Grade,0,sizeof(int)*5);//ëª‡ê°œì˜ ì „í˜¸ê°€ ë§ì•„ì•¼ ëª‡ë“±ì¸ê°€..
 	memset(m_anWinNumbers,0,sizeof(int)*10);
 	m_nLottoPay = 0;
 	mkdir( "LotteryLog" );
@@ -115,7 +115,7 @@ bool CLottoDBMgr::LoadTable(HDBC hDBC)
 	
 	retCode = SQLFetch(hStmt);
 	
-	if(!SQLOK(retCode))//Å×ÀÌºí¿¡ ³»¿ëÀÌ ¾ø´Ù
+	if(!SQLOK(retCode))//í…Œì´ë¸”ì— ë‚´ìš©ì´ ì—†ë‹¤
 	{
 		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
@@ -125,7 +125,7 @@ bool CLottoDBMgr::LoadTable(HDBC hDBC)
 	{	
 
 /*		
-		SQLGetData(hStmt, 1, SQL_C_LONG, &m_Lotto_Info.nLottoID, 0, &cbValue);//LottoID ¸¶Áö¸· È¸Â÷ÀÇ ·Î¶Ç ¾ÆÀÌµğ°¡ ·Îµå µÈ´Ù.
+		SQLGetData(hStmt, 1, SQL_C_LONG, &m_Lotto_Info.nLottoID, 0, &cbValue);//LottoID ë§ˆì§€ë§‰ íšŒì°¨ì˜ ë¡œë˜ ì•„ì´ë””ê°€ ë¡œë“œ ëœë‹¤.
 		SQLGetData(hStmt, 2, SQL_C_LONG, &m_Lotto_Info.StartDate.tm_year, 0, &cbValue);
 		SQLGetData(hStmt, 3, SQL_C_LONG, &m_Lotto_Info.StartDate.tm_mon, 0, &cbValue);
 		SQLGetData(hStmt, 4, SQL_C_LONG, &m_Lotto_Info.StartDate.tm_wday, 0, &cbValue);
@@ -156,9 +156,9 @@ bool CLottoDBMgr::LoadTable(HDBC hDBC)
 
 void CLottoDBMgr::RecvNewEvent(LOTTO_EVENT_INFO* pInfo,int cn)
 {
-//	if(m_Lotto_Info.nLottoID >= pInfo->nLottoID)return;//ÀÌÀü ·Î¶Ç È¸Â÷°¡ »õ·Î¿î°Íº¸´Ù Å©¸é ¾Æ¹«ÀÏµµ.
+//	if(m_Lotto_Info.nLottoID >= pInfo->nLottoID)return;//ì´ì „ ë¡œë˜ íšŒì°¨ê°€ ìƒˆë¡œìš´ê²ƒë³´ë‹¤ í¬ë©´ ì•„ë¬´ì¼ë„.
 
-	//Lotte_User Å×ÀÌºíÀ» ±ò²ûÈ÷...ÇÏ±â Àü¿¡. ·Î±×¸¦ ³²±âÀÚ.
+	//Lotte_User í…Œì´ë¸”ì„ ê¹”ë”íˆ...í•˜ê¸° ì „ì—. ë¡œê·¸ë¥¼ ë‚¨ê¸°ì.
 	char		szQuerry[512];
 	char		szFileName[512];
 	RETCODE		retCode;
@@ -300,43 +300,43 @@ void CLottoDBMgr::RecvCanBuyLotto(t_BUY_LOTTO *pCanBuy,int cn)
 
 	p.u.Lotto_Buy.nLottoID = pCanBuy->nLottoID;
 	
-	if(nBuyCount == 0)//¹«Á¶°Ç »ì¼ö ÀÖ´Ù.
+	if(nBuyCount == 0)//ë¬´ì¡°ê±´ ì‚´ìˆ˜ ìˆë‹¤.
 	{
 		memcpy(p.u.Lotto_Buy.anLottoNumber,pCanBuy->anLottoNumber,sizeof(int)*10);
 	}
-	else//soto-LottoÃß°¡ if(nBuyCount < 5)// Áßº¹ ¹øÈ£ °Ë»ç¸¦ ÇØ¾ßÇÑ´Ù.
+	else//soto-Lottoì¶”ê°€ if(nBuyCount < 5)// ì¤‘ë³µ ë²ˆí˜¸ ê²€ì‚¬ë¥¼ í•´ì•¼í•œë‹¤.
 	{
-		//soto-031126 ¼öÄ¡ Á¶ÀıÀÇ ¹®Á¦·Î ÇÑ±¹ÂÊ¿¡´Â 10ÀåÀÇ ÇÑ°è¸¦ µĞ´Ù.
+		//soto-031126 ìˆ˜ì¹˜ ì¡°ì ˆì˜ ë¬¸ì œë¡œ í•œêµ­ìª½ì—ëŠ” 10ì¥ì˜ í•œê³„ë¥¼ ë‘”ë‹¤.
 		if(LocalMgr.IsAbleNation(KOREA))
 		{
-			if(nBuyCount < 10)	// BBD 040211 50Àå¿¡¼­ 10Àå Á¦ÇÑÀ¸·Î º¯°æµÊ
+			if(nBuyCount < 10)	// BBD 040211 50ì¥ì—ì„œ 10ì¥ ì œí•œìœ¼ë¡œ ë³€ê²½ë¨
 			{
 				
 			}
 			else
 			{	//< CSD-031127
-				p.u.Lotto_Buy.anLottoNumber[0] = -2; // -2 º¹±ÇÀ» ¸¹ÀÌ »ò´Ù.
+				p.u.Lotto_Buy.anLottoNumber[0] = -2; // -2 ë³µê¶Œì„ ë§ì´ ìƒ€ë‹¤.
 				QueuePacket(connections,cn,&p,1);
 				return;
 			}	//> CSD-031127
 			
 		}
 
-		if(!ExistLottoNumber(pCanBuy->anLottoNumber,strUserID,pCanBuy->nLottoID))//Áßº¹ µÇÁö ¾Ê¾Ò´Ù.
+		if(!ExistLottoNumber(pCanBuy->anLottoNumber,strUserID,pCanBuy->nLottoID))//ì¤‘ë³µ ë˜ì§€ ì•Šì•˜ë‹¤.
 		{
 			memcpy(p.u.Lotto_Buy.anLottoNumber,pCanBuy->anLottoNumber,sizeof(int)*10);
 		}
-		else//Áßº¹ µÇ´Â ¹øÈ£°¡ ÀÖ´Ù.
+		else//ì¤‘ë³µ ë˜ëŠ” ë²ˆí˜¸ê°€ ìˆë‹¤.
 		{
-			p.u.Lotto_Buy.anLottoNumber[0] = -3; // -3 Áßº¹ µÇ´Â ¹øÈ£.
+			p.u.Lotto_Buy.anLottoNumber[0] = -3; // -3 ì¤‘ë³µ ë˜ëŠ” ë²ˆí˜¸.
 		}
 	}
 
-//soto-LottoÃß°¡
+//soto-Lottoì¶”ê°€
 /*
-	else//»ì¼ö ÀÖ´Â ¸¸Å­ ´Ù»ò´Ù.
+	else//ì‚´ìˆ˜ ìˆëŠ” ë§Œí¼ ë‹¤ìƒ€ë‹¤.
 	{
-		p.u.Lotto_Buy.anLottoNumber[0] = -2; // -2 º¹±ÇÀ» ¸¹ÀÌ »ò´Ù.
+		p.u.Lotto_Buy.anLottoNumber[0] = -2; // -2 ë³µê¶Œì„ ë§ì´ ìƒ€ë‹¤.
 	}
 */
 	QueuePacket(connections,cn,&p,1);
@@ -400,7 +400,7 @@ int CLottoDBMgr::ExistLottoNumber(int anNumber[], char *pUserID , int nLottoID)/
 		if (!SQLOK(retCode))
 		{
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return nRet; //¹øÈ£°¡ ¾ø´Ù.³Ö¾î¶ó.
+			return nRet; //ë²ˆí˜¸ê°€ ì—†ë‹¤.ë„£ì–´ë¼.
 		}
 		
 		int anLottoNum[10] = {0,};
@@ -426,17 +426,17 @@ int CLottoDBMgr::ExistLottoNumber(int anNumber[], char *pUserID , int nLottoID)/
 			if(nSameNum >= m_nLottoNumberCount)
 			{
 				SQLFreeStmt(hStmt, SQL_DROP);
-				return 1;//Á¸Àç ÇÑ´Ù. ³ÖÁö ¸¶¶ó.
+				return 1;//ì¡´ì¬ í•œë‹¤. ë„£ì§€ ë§ˆë¼.
 			}
 			retCode = SQLFetch(hStmt);
 		}
 	
 		SQLFreeStmt(hStmt, SQL_DROP);
 		
-		return 0;//³ÖÀ»¼ö ÀÖ´Ù.
+		return 0;//ë„£ì„ìˆ˜ ìˆë‹¤.
 	}
 
-	return 1;//³ÖÀ»¼ö ¾ø´Ù.
+	return 1;//ë„£ì„ìˆ˜ ì—†ë‹¤.
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 
 void CLottoDBMgr::GetUserIDFromName(const char *pName, char strID[])
@@ -508,7 +508,7 @@ void CLottoDBMgr::RecvLottoBuy(t_BUY_LOTTO *pBuyLotto)
 		
 		SQLAllocStmt(m_hDragonDB, &hStmt);
 		retCode= SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
-		if(!SQLOK(retCode))//»ğÀÔ ½ÇÆĞ.
+		if(!SQLOK(retCode))//ì‚½ì… ì‹¤íŒ¨.
 		{
 //			SQLFreeStmt(hStmt, SQL_DROP);
 			printf("Lotto Insert failed  ID : %s , Name : %s",strUserID,pBuyLotto->strCharName);
@@ -562,7 +562,7 @@ void CLottoDBMgr::RecvWinnerCheck(t_CHECK_WINNER *pCheckWinner, int cn)
 
 			
 			retCode = SQLFetch(hStmt);
-			if(SQLOK(retCode))//À¯Àú°¡ ÀÖ´Ù.
+			if(SQLOK(retCode))//ìœ ì €ê°€ ìˆë‹¤.
 			{
 				for(int i = 0;i < nLottoPaperCount;i++)
 				{
@@ -613,7 +613,7 @@ void CLottoDBMgr::RecvWinnerCheck(t_CHECK_WINNER *pCheckWinner, int cn)
 					ct = 4;
 				}
 			}
-			else//±×·± À¯Àú ¾ø´Ù.
+			else//ê·¸ëŸ° ìœ ì € ì—†ë‹¤.
 			{
 
 			}
@@ -630,8 +630,8 @@ void CLottoDBMgr::RecvWinnerCheck(t_CHECK_WINNER *pCheckWinner, int cn)
 
 			QueuePacket(connections,cn,&p,1);
 		}
-		//<! BBD 040127	¸Ê¼­¹ö¿¡ ¸Ş½ÃÁö º¸³»¼­ ºí·ÏÀ» Ç®¾îÁÖ¶ó°í ÇÑ´Ù
-		else	// ÀÌ³ğÀº ÇÑÀåµµ ¾Ê³²¾Ò´Ù. ºí·Ï¸¸ Ç®°í ³¡³»ÀÚ
+		//<! BBD 040127	ë§µì„œë²„ì— ë©”ì‹œì§€ ë³´ë‚´ì„œ ë¸”ë¡ì„ í’€ì–´ì£¼ë¼ê³  í•œë‹¤
+		else	// ì´ë†ˆì€ í•œì¥ë„ ì•Šë‚¨ì•˜ë‹¤. ë¸”ë¡ë§Œ í’€ê³  ëë‚´ì
 		{
 			t_packet	p;
 			p.h.header.type = CMD_DEL_LOTTO_USER_OK;
@@ -640,11 +640,11 @@ void CLottoDBMgr::RecvWinnerCheck(t_CHECK_WINNER *pCheckWinner, int cn)
 
 			QueuePacket(connections,cn,&p,1);
 		}
-		//> BBD 040127	¸Ê¼­¹ö¿¡ ¸Ş½ÃÁö º¸³»¼­ ºí·ÏÀ» Ç®¾îÁÖ¶ó°í ÇÑ´Ù
+		//> BBD 040127	ë§µì„œë²„ì— ë©”ì‹œì§€ ë³´ë‚´ì„œ ë¸”ë¡ì„ í’€ì–´ì£¼ë¼ê³  í•œë‹¤
 	}	
 }
 
-void CLottoDBMgr::RecvDelUser(t_CHECK_WINNER *pDelUser, int cn)		// BBD 040127 ÀÎÀÚ Ãß°¡
+void CLottoDBMgr::RecvDelUser(t_CHECK_WINNER *pDelUser, int cn)		// BBD 040127 ì¸ì ì¶”ê°€
 {
 	if(m_hDragonDB)
 	{
@@ -663,8 +663,8 @@ void CLottoDBMgr::RecvDelUser(t_CHECK_WINNER *pDelUser, int cn)		// BBD 040127 À
 		retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 		
 		SQLFreeStmt(hStmt, SQL_DROP);
-		//<! BBD 040127	Á¤»óÀûÀ¸·Î À¯Àú¸¦ »èÁ¦ÇÏ¿´À½À» ¸Ê¼­¹ö¿¡ ¾Ë¸°´Ù
-		// ¸¸ÀÏ retCode°¡ ¹®Á¦ÀÖ´Ù¸é ¾î¶»°Ô ·Ñ¹é½ÃÅ³°ÍÀÎ°¡? ÀÏ´Ü ·Î±×¸¸ ³²±âÀÚ
+		//<! BBD 040127	ì •ìƒì ìœ¼ë¡œ ìœ ì €ë¥¼ ì‚­ì œí•˜ì˜€ìŒì„ ë§µì„œë²„ì— ì•Œë¦°ë‹¤
+		// ë§Œì¼ retCodeê°€ ë¬¸ì œìˆë‹¤ë©´ ì–´ë–»ê²Œ ë¡¤ë°±ì‹œí‚¬ê²ƒì¸ê°€? ì¼ë‹¨ ë¡œê·¸ë§Œ ë‚¨ê¸°ì
 		if(retCode != SQL_SUCCESS)
 		{
 			FILE *fp;
@@ -682,7 +682,7 @@ void CLottoDBMgr::RecvDelUser(t_CHECK_WINNER *pDelUser, int cn)		// BBD 040127 À
 		p.u.Lotto_Del_Ok.bIsDelOK = true;
 
 		QueuePacket(connections,cn,&p,1);
-		//> BBD 040127	Á¤»óÀûÀ¸·Î À¯Àú¸¦ »èÁ¦ÇÏ¿´À½À» ¸Ê¼­¹ö¿¡ ¾Ë¸°´Ù
+		//> BBD 040127	ì •ìƒì ìœ¼ë¡œ ìœ ì €ë¥¼ ì‚­ì œí•˜ì˜€ìŒì„ ë§µì„œë²„ì— ì•Œë¦°ë‹¤
 	}
 }
 
@@ -742,7 +742,7 @@ void CLottoDBMgr::RecvLottery(LOTTO_EVENT_INFO *pLottery,int cn)
 	
 	memcpy(&p.u.Lotto_Info,pLottery,sizeof(LOTTO_EVENT_INFO));
 
-	QueuePacket(connections,cn,&p,1);//¸Ê ¼­¹ö·Î º¸³» ÁØ´Ù.
+	QueuePacket(connections,cn,&p,1);//ë§µ ì„œë²„ë¡œ ë³´ë‚´ ì¤€ë‹¤.
 }
 
 void CLottoDBMgr::RecvCheckOpenWinnerMenu(t_WINNER_MENU *pWinnerMenu,int cn)
@@ -775,7 +775,7 @@ void CLottoDBMgr::RecvCheckOpenWinnerMenu(t_WINNER_MENU *pWinnerMenu,int cn)
 		memset(p.u.Lotto_Winner_Menu.anLottoNumber,0,sizeof(int)*10*5);
 		memset(p.u.Lotto_Winner_Menu.anWinNumbers,0,sizeof(int)*10);
 
-		retCode = SQLFetch(hStmt);//Ã¹¹øÂ°ÁÙÀÌ ÀÖ´Â°¡.
+		retCode = SQLFetch(hStmt);//ì²«ë²ˆì§¸ì¤„ì´ ìˆëŠ”ê°€.
 		while(SQLOK(retCode))
 		{
 			if(nLottoPaperCount >= 5)break;

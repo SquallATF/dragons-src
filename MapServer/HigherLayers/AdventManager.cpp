@@ -1,4 +1,4 @@
-// AdventManager.cpp: implementation of the CAdventManager class.
+ï»¿// AdventManager.cpp: implementation of the CAdventManager class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -83,7 +83,7 @@ CAdventManager::~CAdventManager()
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-void CAdventManager::ClearGenerationData()			// Å¬¸®¾î ¿À·ù³²
+void CAdventManager::ClearGenerationData()			// í´ë¦¬ì–´ ì˜¤ë¥˜ë‚¨
 {
 /*	if (m_pGPos)
 	{
@@ -131,7 +131,7 @@ int CAdventManager::LoadGenerationData()
 	int		tGroupDataCount;
 
 	
-	if (m_pGPos)								// ÀÌ¹Ì µ¥ÀÌÅÍ°¡ ÀÖ´Ù¸é ÇÁ¸®ÇØÁØ´Ù..
+	if (m_pGPos)								// ì´ë¯¸ ë°ì´í„°ê°€ ìˆë‹¤ë©´ í”„ë¦¬í•´ì¤€ë‹¤..
 	{
 		ClearGenerationData();
 	}
@@ -162,7 +162,7 @@ int CAdventManager::LoadGenerationData()
 	m_iGroupCount=0;
 	while (ret==SQL_SUCCESS)
 	{
-		ret=SQLGetData(hStmt,1,SQL_C_SLONG,&m_piGroupNo[m_iGroupCount],sizeof(int),&cbValue);		// ¸î°³ÀÇ ±×·ìÀÌ ÀÖ´ÂÁö È®ÀÎ
+		ret=SQLGetData(hStmt,1,SQL_C_SLONG,&m_piGroupNo[m_iGroupCount],sizeof(int),&cbValue);		// ëª‡ê°œì˜ ê·¸ë£¹ì´ ìˆëŠ”ì§€ í™•ì¸
 		if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 		{
 			MyLog(0,"Event_Monster Table SQL Return Error(%d)!!",ret);
@@ -179,7 +179,7 @@ int CAdventManager::LoadGenerationData()
 		ret=SQLFetch(hStmt);
 	}
 
-	m_pGPos=new NPCGenerationPos*[m_iGroupCount];			// ÀÌÂ÷¿ø Ä«¿îÅÍ ¼³Á¤			// ±×·ìÀÇ ¼ö¸¸Å­ ÀÚ¸®¸¦ ÇÒ´çÇÑ´Ù.
+	m_pGPos=new NPCGenerationPos*[m_iGroupCount];			// ì´ì°¨ì› ì¹´ìš´í„° ì„¤ì •			// ê·¸ë£¹ì˜ ìˆ˜ë§Œí¼ ìë¦¬ë¥¼ í• ë‹¹í•œë‹¤.
 	if (!m_pGPos)
 	{
 		MyLog(0,"Event_Monster Data Memory Alloc Error!!");
@@ -187,7 +187,7 @@ int CAdventManager::LoadGenerationData()
 		return false;
 	}
 
-	for (int i=0;i<m_iGroupCount;i++)	//ÃÊ±âÈ­ 
+	for (int i=0;i<m_iGroupCount;i++)	//ì´ˆê¸°í™” 
 	{
 		m_pGPos[i]=NULL;
 	}
@@ -218,7 +218,7 @@ int CAdventManager::LoadGenerationData()
 			SQLFreeStmt(hStmt,SQL_DROP);
 			return false;
 		}
-		ret=SQLGetData(hStmt,1,SQL_C_SLONG,&RowCount,sizeof(int),&cbValue);		// ±×·ì¿¡ ¸î°³ÀÇ µ¥ÀÌÅÍ°¡ ÀÖ´ÂÁö È®ÀÎ
+		ret=SQLGetData(hStmt,1,SQL_C_SLONG,&RowCount,sizeof(int),&cbValue);		// ê·¸ë£¹ì— ëª‡ê°œì˜ ë°ì´í„°ê°€ ìˆëŠ”ì§€ í™•ì¸
 		if (ret!=SQL_SUCCESS_WITH_INFO && ret!=SQL_SUCCESS)
 		{
 			MyLog(0,"Event_Monster Table SQL Return Error(%d)!!",ret);
@@ -226,7 +226,7 @@ int CAdventManager::LoadGenerationData()
 			return false;
 		}                
 
-		m_pGPos[tGroupNo]=new NPCGenerationPos[RowCount];								// ±×·ìµ¥ÀÌÅÍ¸¦ À§ÇÑ °ø°£ 
+		m_pGPos[tGroupNo]=new NPCGenerationPos[RowCount];								// ê·¸ë£¹ë°ì´í„°ë¥¼ ìœ„í•œ ê³µê°„ 
 		if (!m_pGPos[tGroupNo])
 		{
 			MyLog(0,"Event_Monster Data Memory Alloc Error!!");
@@ -315,7 +315,7 @@ int CAdventManager::LoadGroupInfoData()
 
 	while (ret==SQL_SUCCESS)
 	{
-		ret=SQLGetData(hStmt,3,SQL_C_SLONG,&tGroupNo,sizeof(int),&cbValue);		// ±×·ì¹øÈ£
+		ret=SQLGetData(hStmt,3,SQL_C_SLONG,&tGroupNo,sizeof(int),&cbValue);		// ê·¸ë£¹ë²ˆí˜¸
 		if (tGroupNo<0||tGroupNo>=MAX_GROUP_NO)
 		{
 			JustMsg("EM_GroupInfo Table GroupNo Fail MapPort : %d, GroupNo : %d!!",pData->wPort,tGroupNo);
@@ -382,7 +382,7 @@ void CAdventManager::GetDayofWeek()
 	m_tTimeData.DayofWeek=NewTime->tm_wday;
 }
 
-void CAdventManager::UpdateEventMonster()		// È¯°æ ¼³Á¤ÀÌ ÀÖ´Ù¸é..
+void CAdventManager::UpdateEventMonster()		// í™˜ê²½ ì„¤ì •ì´ ìˆë‹¤ë©´..
 {
 	static int oldHour=0;
 	if (g_hour==oldHour) 
@@ -393,9 +393,9 @@ void CAdventManager::UpdateEventMonster()		// È¯°æ ¼³Á¤ÀÌ ÀÖ´Ù¸é..
 	GetDayofWeek();
 	oldHour=g_hour;
 
-	for (int i=0;i<MAX_GROUP_NO;i++)			// ±×·ì ¹ß»ıÀÌº¥Æ® 
+	for (int i=0;i<MAX_GROUP_NO;i++)			// ê·¸ë£¹ ë°œìƒì´ë²¤íŠ¸ 
 	{
-		switch(m_tGroupInfo[i].ExecType)		// ¿©±â¿¡ °è¼Ó ³ÖÀ¸¸é µÊ
+		switch(m_tGroupInfo[i].ExecType)		// ì—¬ê¸°ì— ê³„ì† ë„£ìœ¼ë©´ ë¨
 		{
 		case 1 : CheckDayAndActive(i);
 		//case 2 : CheckKilledGroup(i);
@@ -408,7 +408,7 @@ void CAdventManager::SetDeActiveByGroupNo(int GroupNo)		// DeActive By GroupNo
 	int tempIndex=GetGroupIndex(GroupNo);
 	if (tempIndex>=0)
 	{
-		CheckKilledGroup(tempIndex);				// ÀÌ±×·ìÀÌ ÇØÁ¦µÇ¸é¼­ ¹®Á¦°¡ ¹ß»ıµÇ¿À¾ß ÇÏ´Â°Ô ÀÖ´Ù¸é Ã¼Å©
+		CheckKilledGroup(tempIndex);				// ì´ê·¸ë£¹ì´ í•´ì œë˜ë©´ì„œ ë¬¸ì œê°€ ë°œìƒë˜ì˜¤ì•¼ í•˜ëŠ”ê²Œ ìˆë‹¤ë©´ ì²´í¬
 		m_piActived[tempIndex]=0;
 		MyLog(0,"Event Monster Group No : %d Was DeActived",tempIndex);
 	}
@@ -418,7 +418,7 @@ void CAdventManager::SetDeActiveByIndex(int Index)
 {
 	if (Index<0||Index>=MAX_GROUP_NO) return;
 
-	CheckKilledGroup(Index);				// ÀÌ±×·ìÀÌ ÇØÁ¦µÇ¸é¼­ ¹®Á¦°¡ ¹ß»ıµÇ¿À¾ß ÇÏ´Â°Ô ÀÖ´Ù¸é Ã¼Å©
+	CheckKilledGroup(Index);				// ì´ê·¸ë£¹ì´ í•´ì œë˜ë©´ì„œ ë¬¸ì œê°€ ë°œìƒë˜ì˜¤ì•¼ í•˜ëŠ”ê²Œ ìˆë‹¤ë©´ ì²´í¬
 	m_piActived[Index]=0;
 	MyLog(0,"Event Monster Group No : %d Was DeActived",Index);
 }
@@ -500,11 +500,11 @@ void	CAdventManager::RemoveEventMonster(CHARLIST* Npc)
 
 void CAdventManager::CheckBossAndDeActiveGroupNo(CHARLIST* Npc)
 {
-	if (!Npc->IsNpc()) return;		// NPC°¡ ¾Æ´Ï¸é ¸®ÅÏÇÑ´Ù.
-	if (!Npc->GainedFame) return;	//º¸½º°¡ ¾Æ´Ï¸é ¸®ÅÏÇÑ´Ù.
+	if (!Npc->IsNpc()) return;		// NPCê°€ ì•„ë‹ˆë©´ ë¦¬í„´í•œë‹¤.
+	if (!Npc->GainedFame) return;	//ë³´ìŠ¤ê°€ ì•„ë‹ˆë©´ ë¦¬í„´í•œë‹¤.
 	
 	MyLog(0,"Delete BOSS GroupNo : %d ,Type:%d",Npc->JoinLocalWar,Npc->generationpos);
-	SetDeActiveByIndex(Npc->JoinLocalWar);	// ±×·ì¹øÈ£¸¦ ÁßÁöÇÑ´Ù.
+	SetDeActiveByIndex(Npc->JoinLocalWar);	// ê·¸ë£¹ë²ˆí˜¸ë¥¼ ì¤‘ì§€í•œë‹¤.
 }
 
 void CAdventManager::CheckDayAndActive(int Index)
@@ -524,11 +524,11 @@ void CAdventManager::CheckDayAndActive(int Index)
 	SetActiveByIndex(Index);
 }
 
-void CAdventManager::CheckKilledGroup(int Index)	// ±×·ìÀÇ Á¾·á½Ã ÀÌº¥Æ® 
+void CAdventManager::CheckKilledGroup(int Index)	// ê·¸ë£¹ì˜ ì¢…ë£Œì‹œ ì´ë²¤íŠ¸ 
 {
 	for (int i=0;i<MAX_GROUP_NO;i++)
 	{
-		if (m_tGroupInfo[i].ExecType==2)					// ¿©±â¿¡ °è¼Ó ³ÖÀ¸¸é µÊ (switch)
+		if (m_tGroupInfo[i].ExecType==2)					// ì—¬ê¸°ì— ê³„ì† ë„£ìœ¼ë©´ ë¨ (switch)
 		{
 			if (m_tGroupInfo[i].KilledGroup==Index)
 			{

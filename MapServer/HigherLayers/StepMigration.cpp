@@ -1,4 +1,4 @@
-// StepMigration.cpp: implementation of the CStepMigration class.
+ï»¿// StepMigration.cpp: implementation of the CStepMigration class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -24,7 +24,7 @@ CStepMigration::~CStepMigration()
 ///////////////////////////////////////////////////////////////////////////////
 
 void CStepMigration::Load(unsigned char* pData)
-{	// µ¥ÀÌÅ¸º£ÀÌ½º¿¡¼­ ¹®ÀÚ¿­ ÀúÀåÀº ¼ýÀÚ 0À» NULL·Î ÀÎ½ÄÇÏ¹Ç·Î 1¾¿ »©¼­ ·Îµå
+{	// ë°ì´íƒ€ë² ì´ìŠ¤ì—ì„œ ë¬¸ìžì—´ ì €ìž¥ì€ ìˆ«ìž 0ì„ NULLë¡œ ì¸ì‹í•˜ë¯€ë¡œ 1ì”© ë¹¼ì„œ ë¡œë“œ
 	unsigned char aBuffer[MAX_STEP];
 	memcpy(aBuffer, pData, MAX_STEP);
 
@@ -38,7 +38,7 @@ void CStepMigration::Load(unsigned char* pData)
 }
 
 void CStepMigration::Save(unsigned char* pData)
-{	// µ¥ÀÌÅ¸º£ÀÌ½º¿¡¼­ ¹®ÀÚ¿­ ÀúÀåÀº ¼ýÀÚ 0À» NULL·Î ÀÎ½ÄÇÏ¹Ç·Î 1¾¿ ´õÇØ¼­ ÀúÀå
+{	// ë°ì´íƒ€ë² ì´ìŠ¤ì—ì„œ ë¬¸ìžì—´ ì €ìž¥ì€ ìˆ«ìž 0ì„ NULLë¡œ ì¸ì‹í•˜ë¯€ë¡œ 1ì”© ë”í•´ì„œ ì €ìž¥
 	CheckStepInfo(pData);
 
 	unsigned char aBuffer[MAX_STEP];
@@ -55,7 +55,7 @@ void CStepMigration::Save(unsigned char* pData)
 ///////////////////////////////////////////////////////////////////////////////
 
 void CStepMigration::CheckStepInfo(unsigned char* pData)
-{	// Ä³¸¯ÅÍÀÇ ´Ü°è Á¤º¸ °Ë»ç
+{	// ìºë¦­í„°ì˜ ë‹¨ê³„ ì •ë³´ ê²€ì‚¬
 	m_vtBuffer.assign(pData, pData + MAX_STEP);
 	
 	CheckClassStep(CLS_STEP);
@@ -79,7 +79,7 @@ void CStepMigration::CheckStepInfo(unsigned char* pData)
 ///////////////////////////////////////////////////////////////////////////////
 
 void CStepMigration::CheckClassStep(int nStepType)
-{	// Å¬·¡½º ´Ü°è °Ë»ç
+{	// í´ëž˜ìŠ¤ ë‹¨ê³„ ê²€ì‚¬
 	const unsigned char cStep = m_vtBuffer[nStepType];
 
 	if (cStep >= 0 && cStep <= 5)
@@ -92,7 +92,7 @@ void CStepMigration::CheckClassStep(int nStepType)
 }
 
 void CStepMigration::CheckDualClass(int nStepType)
-{	// µà¾ó Å¬·¡½º Á¾·ù °Ë»ç
+{	// ë“€ì–¼ í´ëž˜ìŠ¤ ì¢…ë¥˜ ê²€ì‚¬
 	const unsigned char cStep = m_vtBuffer[nStepType];
 
 	if (cStep >= WARRIOR && cStep <= PRIEST)
@@ -105,11 +105,11 @@ void CStepMigration::CheckDualClass(int nStepType)
 }
 
 void CStepMigration::CheckExpStep(int nStepType)
-{	// °æÇèÄ¡ ´Ü°è °Ë»ç
+{	// ê²½í—˜ì¹˜ ë‹¨ê³„ ê²€ì‚¬
 	const unsigned char cStep = m_vtBuffer[nStepType];
 
 	if (cStep >= 0 && cStep <= NPC_Lev_Ref[MAX_EXP_LEVEL].nStep)
-	{	// µ¥ÀÌÅ¸º£ÀÌ½º¿¡¼­ ÀúÀåÀÌ µÇÁö ¾Ê´Â ¹®ÀÚ
+	{	// ë°ì´íƒ€ë² ì´ìŠ¤ì—ì„œ ì €ìž¥ì´ ë˜ì§€ ì•ŠëŠ” ë¬¸ìž
 		switch (cStep)
 		{
 		case 31:
@@ -132,11 +132,11 @@ void CStepMigration::CheckExpStep(int nStepType)
 }
 
 void CStepMigration::CheckTacStep(int nStepType)
-{	// °æÇèÄ¡ ´Ü°è °Ë»ç
+{	// ê²½í—˜ì¹˜ ë‹¨ê³„ ê²€ì‚¬
 	const unsigned char cStep = m_vtBuffer[nStepType];
 	
 	if (cStep >= 0 && cStep <= NPC_Lev_Ref[MAX_TAC_LEVEL].nStep)
-	{	// µ¥ÀÌÅ¸º£ÀÌ½º¿¡¼­ ÀúÀåÀÌ µÇÁö ¾Ê´Â ¹®ÀÚ
+	{	// ë°ì´íƒ€ë² ì´ìŠ¤ì—ì„œ ì €ìž¥ì´ ë˜ì§€ ì•ŠëŠ” ë¬¸ìž
 		switch (cStep)
 		{
 		case 31:
@@ -159,7 +159,7 @@ void CStepMigration::CheckTacStep(int nStepType)
 }
 
 void CStepMigration::CheckCombatPoint(int nStepType)
-{	// ÀüÅõ½ºÅ³ Æ÷ÀÎÅÍ °Ë»ç
+{	// ì „íˆ¬ìŠ¤í‚¬ í¬ì¸í„° ê²€ì‚¬
 	const unsigned char cStep = m_vtBuffer[nStepType];
 
 	if (cStep >= 0 && cStep <= NPC_Lev_Ref[MAX_EXP_LEVEL].nCspMax)

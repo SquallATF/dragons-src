@@ -1,4 +1,4 @@
-// stdafx.h : include file for standard system include files,
+ï»¿// stdafx.h : include file for standard system include files,
 //  or project specific include files that are used frequently, but
 //      are changed infrequently
 //
@@ -13,7 +13,7 @@
 #include <initguid.h>
 #include <winsock2.h>
 #include <windows.h>
-// °øÀ¯ ¶óÀÌºê·¯¸®
+// ê³µìœ  ë¼ì´ë¸ŒëŸ¬ë¦¬
 #include "../Library/Shared/HSEL.h"
 #include "../Library/Shared/Shared.h"
 #ifdef _DEBUG

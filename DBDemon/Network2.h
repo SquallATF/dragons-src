@@ -1,4 +1,4 @@
-
+ï»¿
 extern int WaitMoveMap ;
 
 #define MAX_BOX_ITEM			15
@@ -13,36 +13,36 @@ extern int WaitMoveMap ;
 
 
 
-#define CMD_RESEND_ITEM			10001		// ÀÎº¥Åä¸® È®ÀÎÀ» À§ÇÑ ¼­¹ö¿¡¼­ »õ·Î Àü¼Û
+#define CMD_RESEND_ITEM			10001		// ì¸ë²¤í† ë¦¬ í™•ì¸ì„ ìœ„í•œ ì„œë²„ì—ì„œ ìƒˆë¡œ ì „ì†¡
 #define CMD_RESEND_CHARLIST		10003       //
-#define CMD_MAGIC_STRIKE		10004		// ¸ÅÁ÷¿¡ ´çÇßÀ» ¶§,
-#define CMD_OTHER_CH_INV		10005		// ´Ù¸¥ »ç¶÷ÀÇ ¾ÆÀÌÅÛ ¸ñ·ÏÀ» º¼¶§
-#define CMD_DIVIDE_ITEM			10006		// ¾ÆÀÌÅÛ ³ª´©±â ÀÎÅÍÆäÀÌ½º¿¡ ÀÇÇÑ ¼­¹ö Äİ
-#define CMD_CREATE_ITEM			10007		// ¾ÆÀÌÅÛ »ı¼º
-#define CMD_BOX_OPEN			10008		// ¹Ú½º ¿ÀÇÂ
+#define CMD_MAGIC_STRIKE		10004		// ë§¤ì§ì— ë‹¹í–ˆì„ ë•Œ,
+#define CMD_OTHER_CH_INV		10005		// ë‹¤ë¥¸ ì‚¬ëŒì˜ ì•„ì´í…œ ëª©ë¡ì„ ë³¼ë•Œ
+#define CMD_DIVIDE_ITEM			10006		// ì•„ì´í…œ ë‚˜ëˆ„ê¸° ì¸í„°í˜ì´ìŠ¤ì— ì˜í•œ ì„œë²„ ì½œ
+#define CMD_CREATE_ITEM			10007		// ì•„ì´í…œ ìƒì„±
+#define CMD_BOX_OPEN			10008		// ë°•ìŠ¤ ì˜¤í”ˆ
 
 #define CMD_RESEND_ITEM_EQUIP	10009		
 #define CMD_RESEND_ITEM_QUICK	10010
 
-#define CMD_DELETE_ITEM			10011		// ¾ÆÀÌÅÛ ºÎ¼­Áü]
-#define CMD_DECREASE_ITEM		10012		// ¾ÆÀÌÅÛ dur °¨¼Ò
+#define CMD_DELETE_ITEM			10011		// ì•„ì´í…œ ë¶€ì„œì§]
+#define CMD_DECREASE_ITEM		10012		// ì•„ì´í…œ dur ê°ì†Œ
 
-#define CMD_LVUP_POINT_EACH		10013		// °¢°¢ÀÇ ·¹º§¾÷ ¼öÄ¡ Àü¼Û
+#define CMD_LVUP_POINT_EACH		10013		// ê°ê°ì˜ ë ˆë²¨ì—… ìˆ˜ì¹˜ ì „ì†¡
 
-#define REQ_LEVELUP_POINT		10014		// ·¹º§¾÷ Æ÷ÀÎÆ®¸¦ ¿äÃ»ÇÑ´Ù. ÀÓ½Ã
-#define CMD_LVDOWN_POINT_EACH	10015		// °¢°¢ÀÇ ·¹º§¾÷ ¼öÄ¡ Àü¼Û
-#define CMD_LEVELDOWN_OK		10016		// ·¹º§´Ù¿î ¿ÀÄÉÀÌ
+#define REQ_LEVELUP_POINT		10014		// ë ˆë²¨ì—… í¬ì¸íŠ¸ë¥¼ ìš”ì²­í•œë‹¤. ì„ì‹œ
+#define CMD_LVDOWN_POINT_EACH	10015		// ê°ê°ì˜ ë ˆë²¨ì—… ìˆ˜ì¹˜ ì „ì†¡
+#define CMD_LEVELDOWN_OK		10016		// ë ˆë²¨ë‹¤ìš´ ì˜¤ì¼€ì´
 
-#define CMD_LEARN_ITEM			10017		// ¾ÆÀÌÅÛ ¹è¿ì±â 
-// #define CMD_LEARN_ITEM_OK		10018		// ¾ÆÀÌÅÛ ¹è¿ì±â ¼º°ø
-#define CMD_ITEMREPAIR_REQ		10019		// ¾ÆÀÌÅÛ °íÄ¡±â
-#define CMD_ITEMREPAIR_OK		10020		// ¾ÆÀÌÅÛ °íÄ¡±â ¼º°ø
-#define CMD_RESULT				10021		// °ø¿ëÀ¸·Î ¾²ÀÏ ¼­¹ö°è»ê °á°ú (¿¹ -1:µ·ÀÌ ºÎÁ·)
+#define CMD_LEARN_ITEM			10017		// ì•„ì´í…œ ë°°ìš°ê¸° 
+// #define CMD_LEARN_ITEM_OK		10018		// ì•„ì´í…œ ë°°ìš°ê¸° ì„±ê³µ
+#define CMD_ITEMREPAIR_REQ		10019		// ì•„ì´í…œ ê³ ì¹˜ê¸°
+#define CMD_ITEMREPAIR_OK		10020		// ì•„ì´í…œ ê³ ì¹˜ê¸° ì„±ê³µ
+#define CMD_RESULT				10021		// ê³µìš©ìœ¼ë¡œ ì“°ì¼ ì„œë²„ê³„ì‚° ê²°ê³¼ (ì˜ˆ -1:ëˆì´ ë¶€ì¡±)
 #define CMD_LEARN_SKILL_OK		10022		
 #define CMD_SKILL_EXP			10023
-#define CMD_OPEN_STATUS_REQ		10024		// ½ºÅ×ÀÌÅÍ½º Ã¢ÀÌ ¿­¸±¶§
+#define CMD_OPEN_STATUS_REQ		10024		// ìŠ¤í…Œì´í„°ìŠ¤ ì°½ì´ ì—´ë¦´ë•Œ
 
-#define CMD_REQ_CHAR_INFO_PLUS	10025		// Ä³¸¯ÅÍ Ãß°¡ Á¤º¸ ¿äÃ»
+#define CMD_REQ_CHAR_INFO_PLUS	10025		// ìºë¦­í„° ì¶”ê°€ ì •ë³´ ìš”ì²­
 
 #define CMD_SEND_CHAR_DISEASE	10026		
 #define CMD_PARTY				10028
@@ -62,8 +62,8 @@ extern int WaitMoveMap ;
 #define CMD_CLIENT_CHAR_NAME	10038
 
 #define CMD_LEARN_MAGIC_OK		10039
-#define CMD_PREVENTING			10040		// Áúº´ ¿¹¹æ	// µ·ÀÌ ºÎÁ·ÇÒ ¼ö ÀÖ±â¿¡ °á°ú¸¦ º¸³»ÁØ´Ù.
-#define CMD_CURE_DISEASE		10041		// Áúº´ Ä¡·á	// 100%ÀÌ±â¿¡ °á°ú¸¦ º¸³»ÁÖÁö ¾Ê´Â´Ù.
+#define CMD_PREVENTING			10040		// ì§ˆë³‘ ì˜ˆë°©	// ëˆì´ ë¶€ì¡±í•  ìˆ˜ ìˆê¸°ì— ê²°ê³¼ë¥¼ ë³´ë‚´ì¤€ë‹¤.
+#define CMD_CURE_DISEASE		10041		// ì§ˆë³‘ ì¹˜ë£Œ	// 100%ì´ê¸°ì— ê²°ê³¼ë¥¼ ë³´ë‚´ì£¼ì§€ ì•ŠëŠ”ë‹¤.
 
 #define CMD_REQ_ITEM_VALUE				10042
 #define CMD_REQ_ITEM_VALUE_SELL			10043
@@ -75,8 +75,8 @@ extern int WaitMoveMap ;
 
 #define CMD_SERVER_WAKE_UP				10048
 
-#define CMD_REQ_JOIN_GAME				10049	// °ÔÀÓ¿¡ µé¾î¿Ô´Ù´Â °ÍÀ» ¾Ë¸°´Ù.
-#define CMD_SERVER_EXIT_GAME			10050	// °ÔÀÓ¿¡¼­ ³ª°¬´Ù´Â °ÍÀ» ¾Ë¸°´Ù.
+#define CMD_REQ_JOIN_GAME				10049	// ê²Œì„ì— ë“¤ì–´ì™”ë‹¤ëŠ” ê²ƒì„ ì•Œë¦°ë‹¤.
+#define CMD_SERVER_EXIT_GAME			10050	// ê²Œì„ì—ì„œ ë‚˜ê°”ë‹¤ëŠ” ê²ƒì„ ì•Œë¦°ë‹¤.
 #define CMD_REQ_MY_PARTY				10051
 
 #define CMD_PARTY_JOIN_OK				10052
@@ -91,10 +91,10 @@ extern int WaitMoveMap ;
 #define CMD_LEARN_ALL_NOT				10059
 
 
-#define CMD_EXCHANGE_ITEM_READY			10060		// °Å·¡ÇÏ±â À§ÇØ ³»°¡ ¹°°ÇÀ» ³Ñ°å´Ù
-#define CMD_EXCHANGE_ITEM_REQ			10061		// ´©±º°¡ ´ç½Å¿¡°Ô ¹°°Ç °Å·¡¸¦ ¿äÃ»Çß´Ù.
+#define CMD_EXCHANGE_ITEM_READY			10060		// ê±°ë˜í•˜ê¸° ìœ„í•´ ë‚´ê°€ ë¬¼ê±´ì„ ë„˜ê²¼ë‹¤
+#define CMD_EXCHANGE_ITEM_REQ			10061		// ëˆ„êµ°ê°€ ë‹¹ì‹ ì—ê²Œ ë¬¼ê±´ ê±°ë˜ë¥¼ ìš”ì²­í–ˆë‹¤.
 #define CMD_EXCHANGE_ITEM				10062
-#define CMD_EXCHANGE_ITEM_RESULT		10063		// °Å·¡ ½ÅÃ»¿¡ ´ëÇÑ °á°ú Àü¼Û
+#define CMD_EXCHANGE_ITEM_RESULT		10063		// ê±°ë˜ ì‹ ì²­ì— ëŒ€í•œ ê²°ê³¼ ì „ì†¡
 #define CMD_EXCHANGE_OK_SIGN			10064
 #define CMD_EXCHANGE_CANCEL				10065
 #define	CMD_EXCHANGE_ITEM_EACH			10066
@@ -118,7 +118,7 @@ extern int WaitMoveMap ;
 #define CMD_SERVER_KILLMON				10081
 
 #define	CMD_PARTY_ACCESS				10082
-#define CMD_REQ_PARTY_TOGETHER			10083		// ¼­·Î µ¿¸ÍÀ» ¸Î°í ÀÖ´ÂÁö ¾Ë¾Æº¸±â À§ÇØ ·Î±×ÀÎ ¼­¹ö·Î µğºñ¸¦ ¿äÃ»ÇÑ´Ù.
+#define CMD_REQ_PARTY_TOGETHER			10083		// ì„œë¡œ ë™ë§¹ì„ ë§ºê³  ìˆëŠ”ì§€ ì•Œì•„ë³´ê¸° ìœ„í•´ ë¡œê·¸ì¸ ì„œë²„ë¡œ ë””ë¹„ë¥¼ ìš”ì²­í•œë‹¤.
 
 #define CMD_PARTY_NO_NAME				10084
 #define CMD_RELATION_NO_NAME			10085
@@ -126,8 +126,8 @@ extern int WaitMoveMap ;
 
 #define CMD_REQ_MAGERY					10087
 
-#define CMD_THROW_DICE					10088		// ÁÖ»çÀ§ ´øÁö±â...
-#define CMD_CREATE_ABILITY				10089		// ±âº»¼öÄ¡ ·£´ı »ı¼º
+#define CMD_THROW_DICE					10088		// ì£¼ì‚¬ìœ„ ë˜ì§€ê¸°...
+#define CMD_CREATE_ABILITY				10089		// ê¸°ë³¸ìˆ˜ì¹˜ ëœë¤ ìƒì„±
 
 #define	CMD_PUBLIC_NOTICE_BBS_REQ		10090
 #define	CMD_RANK_BBS_REQ				10091
@@ -139,24 +139,24 @@ extern int WaitMoveMap ;
 
 #define CMD_GET_SERVER_TEXT				10097
 #define CMD_LOGIN_GET_BOX_ITEM			10098
-#define CMD_PUT_BOX_ITEM				10099		// ·Î±×ÀÎ ¼­¹ö·Î Àü¼Û
+#define CMD_PUT_BOX_ITEM				10099		// ë¡œê·¸ì¸ ì„œë²„ë¡œ ì „ì†¡
 
-#define CMD_PREACH_NAME					10100		// ÀüµµÀÚ ÀÌ¸§
+#define CMD_PREACH_NAME					10100		// ì „ë„ì ì´ë¦„
 
-#define CMD_GOD_REGIST_OK				10101		// ½ÅÀü¿¡ µî·ÏÇÑ´Ù.
-#define CMD_GOD_REGIST_CANCEL			10102		// ½ÅÀüµî·ÏµÇ¾î ÀÖ´Â °ÍÀ» Ãë¼Ò½ÃÅ²´Ù.
+#define CMD_GOD_REGIST_OK				10101		// ì‹ ì „ì— ë“±ë¡í•œë‹¤.
+#define CMD_GOD_REGIST_CANCEL			10102		// ì‹ ì „ë“±ë¡ë˜ì–´ ìˆëŠ” ê²ƒì„ ì·¨ì†Œì‹œí‚¨ë‹¤.
 
-#define CMD_LOGIN_PREACH_NAME			10103		// ·Î±×ÀÎ ¼­¹ö·Î º¸³» Äõ¸®¹®À» ½ÇÇàÇÑ´Ù.
+#define CMD_LOGIN_PREACH_NAME			10103		// ë¡œê·¸ì¸ ì„œë²„ë¡œ ë³´ë‚´ ì¿¼ë¦¬ë¬¸ì„ ì‹¤í–‰í•œë‹¤.
 #define CMD_LOGIN_PREACH_NAME_OK		10104
 #define CMD_LOGIN_PREACH_NAME_CANCEL	10105			
-#define CMD_PREACH_NAME_OK				10106		// Àüµµ ÇÑ »ç¶÷ ½Å¾Ó¼öÄ¡¸¦ ¿Ã·Á ÁÖÀÚ
+#define CMD_PREACH_NAME_OK				10106		// ì „ë„ í•œ ì‚¬ëŒ ì‹ ì•™ìˆ˜ì¹˜ë¥¼ ì˜¬ë ¤ ì£¼ì
 
-#define CMD_NOW_GOD_MEETING_START		10107		//	ÀÌÁ¨ ¿¹¹è ½Ã°£ÀÌ´Ù
-#define CMD_NOW_GOD_MEETING_END			10108		//	ÀÌÁ¨ ¿¹¹è ½Ã°£³¡ÀÌ´Ù. 
+#define CMD_NOW_GOD_MEETING_START		10107		//	ì´ì   ì˜ˆë°° ì‹œê°„ì´ë‹¤
+#define CMD_NOW_GOD_MEETING_END			10108		//	ì´ì   ì˜ˆë°° ì‹œê°„ëì´ë‹¤. 
 
-#define CMD_TOOL_PASSWORD				10109		// ÅøÀ» »ç¿ëÇÏ±â À§ÇÑ ÆĞ½º¿öµå
+#define CMD_TOOL_PASSWORD				10109		// íˆ´ì„ ì‚¬ìš©í•˜ê¸° ìœ„í•œ íŒ¨ìŠ¤ì›Œë“œ
 
-#define CMD_CHECK_NEW_CHAR				10120		// Ä³¸¯ÅÍ ÃÊ±âÈ­
+#define CMD_CHECK_NEW_CHAR				10120		// ìºë¦­í„° ì´ˆê¸°í™”
 #define CMD_CHECK_NEW_CHAR_OK			10121
 #define CMD_CHECK_NEW_CHAR_NOT			10122
 
@@ -167,88 +167,88 @@ extern int WaitMoveMap ;
 #define CMD_MEETING_TEXT				10126
 
 #define	CMD_CHAR_UPDATE_DATA_BY_KEIN	10127
-#define	CMD_GET_CHARINFO_BY_KEIN		10128		// Ã³À½ ½Å¾Ó¼öÄ¡µîÀÇ Ä³¸¯ÅÍ Á¤º¸¸¦ °ÔÀÓ¼­¹ö·Î º¸³»ÁÙ¶§
+#define	CMD_GET_CHARINFO_BY_KEIN		10128		// ì²˜ìŒ ì‹ ì•™ìˆ˜ì¹˜ë“±ì˜ ìºë¦­í„° ì •ë³´ë¥¼ ê²Œì„ì„œë²„ë¡œ ë³´ë‚´ì¤„ë•Œ
 
-#define CMD_SERVER_KILLPC				10129		// 0410 KHSÃß°¡...
+#define CMD_SERVER_KILLPC				10129		// 0410 KHSì¶”ê°€...
 
-#define CMD_CAN_MEMORIZE				10130		// ¸Ş¸ğ¶óÀÌÁî ÇÒ¼ö ÀÖ´Â°¡...
-#define CMD_CAN_MEMORIZE_OK				10131		// ¸Ş¸ğ¶óÀÌÁî °¡´ÉÇÏ´Ù
-#define CMD_CAN_MEMORIZE_NOT			10132		// ¸Ş¸ğ¶óÀÌÁî ÇÒ ½Ã°£ÀÌ ¾Æ´Ï´Ù.
+#define CMD_CAN_MEMORIZE				10130		// ë©”ëª¨ë¼ì´ì¦ˆ í• ìˆ˜ ìˆëŠ”ê°€...
+#define CMD_CAN_MEMORIZE_OK				10131		// ë©”ëª¨ë¼ì´ì¦ˆ ê°€ëŠ¥í•˜ë‹¤
+#define CMD_CAN_MEMORIZE_NOT			10132		// ë©”ëª¨ë¼ì´ì¦ˆ í•  ì‹œê°„ì´ ì•„ë‹ˆë‹¤.
 
-#define CMD_SEND_EAR_MESSAGE			10133		// ±Ó¼Ó¸» Àü¼Û
+#define CMD_SEND_EAR_MESSAGE			10133		// ê·“ì†ë§ ì „ì†¡
 #define CMD_SEND_EAR_MESSAGE_OK			10134		
 #define CMD_SEND_EAR_MESSAGE_NOT		10135		
-#define CMD_SEND_EAR_MESSAGE_OTHER		10136		// ±Ó¼Ó¸»À» Àü¼ÛÇÒ¶§ ´Ù¸¥ ¸Ê¿¡ ÀÖ´ÂÁö ¾Ë¾Æ º»´Ù.
-#define CMD_SEND_EAR_MESSAGE_RESULT		10137		// ¹ŞÀº ±Ó¼Ó¸»¿¡ ´ëÇÑ °á°ú
-#define	CMD_LOGIN2GAME_EAR_MESSAGE_RESULT	10138	// ·Î±×ÀÎ ¼­¹ö°¡ ¼ÓÇØ ÀÖ´Â °ÔÀÓ¼­¹ö·Î º¸³»ÁØ´Ù.
-#define CMD_GAME2CLIENT_EAR_RESULT			10139	// º¸³½ ±Ó¼Ó¸»¿¡ ´ëÇÑ È¸½Å
+#define CMD_SEND_EAR_MESSAGE_OTHER		10136		// ê·“ì†ë§ì„ ì „ì†¡í• ë•Œ ë‹¤ë¥¸ ë§µì— ìˆëŠ”ì§€ ì•Œì•„ ë³¸ë‹¤.
+#define CMD_SEND_EAR_MESSAGE_RESULT		10137		// ë°›ì€ ê·“ì†ë§ì— ëŒ€í•œ ê²°ê³¼
+#define	CMD_LOGIN2GAME_EAR_MESSAGE_RESULT	10138	// ë¡œê·¸ì¸ ì„œë²„ê°€ ì†í•´ ìˆëŠ” ê²Œì„ì„œë²„ë¡œ ë³´ë‚´ì¤€ë‹¤.
+#define CMD_GAME2CLIENT_EAR_RESULT			10139	// ë³´ë‚¸ ê·“ì†ë§ì— ëŒ€í•œ íšŒì‹ 
 #define CMD_GAME2LOGIN_CHECK_NAME			10140
 
-#define CMD_GAME2LOGIN_MOVING_ITEM			10141	// ¾ÆÀÌÅÛ ÀÌµ¿À» Ä³¸¯ÅÍ º°·Î ÀúÀåÇÑ´Ù.
+#define CMD_GAME2LOGIN_MOVING_ITEM			10141	// ì•„ì´í…œ ì´ë™ì„ ìºë¦­í„° ë³„ë¡œ ì €ì¥í•œë‹¤.
 
-#define CMD_CHANGE_MAP_KEIN					10149	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿
+#define CMD_CHANGE_MAP_KEIN					10149	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™
 
-#define CMD_ACCESS_JOIN_KEIN				10150	// connections¿¡ ¾ÆÀÌµğ¿Í ÀÌ¸§¸¸ µî·ÏÇÑ´Ù.
-#define CMD_LOGOUT_KEIN						10151	// ·Î±×¾Æ¿ôÀ» º¸³»ÁØ´Ù. ( ¸ÊÀüÈ¯½Ã ) ¾÷µ¥ÀÌÆ®´Â ÇÏÁö ¾Ê´Â´Ù.
+#define CMD_ACCESS_JOIN_KEIN				10150	// connectionsì— ì•„ì´ë””ì™€ ì´ë¦„ë§Œ ë“±ë¡í•œë‹¤.
+#define CMD_LOGOUT_KEIN						10151	// ë¡œê·¸ì•„ì›ƒì„ ë³´ë‚´ì¤€ë‹¤. ( ë§µì „í™˜ì‹œ ) ì—…ë°ì´íŠ¸ëŠ” í•˜ì§€ ì•ŠëŠ”ë‹¤.
 
 #define CMD_ACCEPT_JOIN_KEIN				10152
 
-#define CMD_CHANGE_MAP_DATA1				10153	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û1
-#define CMD_CHANGE_MAP_DATA2				10154	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û2
-#define CMD_CHANGE_MAP_DATA3				10155	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û3
-#define CMD_CHANGE_MAP_DATA4				10156	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û4
-#define CMD_CHANGE_MAP_DATA5				10157	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û5
-#define CMD_CHANGE_MAP_DATA6				10158	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û6
-#define CMD_CHANGE_MAP_DATA7				10159	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û7
-#define CMD_CHANGE_MAP_DATA8				10160	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û8
-#define CMD_CHANGE_MAP_DATA9				10161	// ´Ù¸¥ ¸ÊÀ¸·Î ÀÌµ¿ µ¥ÀÌÅ¸ Àü¼Û9
+#define CMD_CHANGE_MAP_DATA1				10153	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡1
+#define CMD_CHANGE_MAP_DATA2				10154	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡2
+#define CMD_CHANGE_MAP_DATA3				10155	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡3
+#define CMD_CHANGE_MAP_DATA4				10156	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡4
+#define CMD_CHANGE_MAP_DATA5				10157	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡5
+#define CMD_CHANGE_MAP_DATA6				10158	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡6
+#define CMD_CHANGE_MAP_DATA7				10159	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡7
+#define CMD_CHANGE_MAP_DATA8				10160	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡8
+#define CMD_CHANGE_MAP_DATA9				10161	// ë‹¤ë¥¸ ë§µìœ¼ë¡œ ì´ë™ ë°ì´íƒ€ ì „ì†¡9
 
-#define CMD_RECALL_BOX_ITEM					10162	// ·Î±×ÀÎ ¼­¹ö·Î ¹Ú½º ¾ÆÀÌÅÛÀ» ´Ù½Ã ¿äÃ»ÇÑ´Ù.
-#define CMD_IF_DOUBLE_BOX_THEN_DELETE		10163	// ¶È°°Àº ¹Ú½º°¡ ÀÖÀ» °æ¿ì Áö¿î´Ù.
+#define CMD_RECALL_BOX_ITEM					10162	// ë¡œê·¸ì¸ ì„œë²„ë¡œ ë°•ìŠ¤ ì•„ì´í…œì„ ë‹¤ì‹œ ìš”ì²­í•œë‹¤.
+#define CMD_IF_DOUBLE_BOX_THEN_DELETE		10163	// ë˜‘ê°™ì€ ë°•ìŠ¤ê°€ ìˆì„ ê²½ìš° ì§€ìš´ë‹¤.
 
-#define CMD_CHANGE_MAP_CONFIRM				10164	// ¸Ê°£ ÀÌµ¿½Ã ½Ã°£Áö¿¬À¸·Î ¿¡·¯°¡ ¹ß»ıÇÏ¸é ¼­¹ö·Î È®ÀÎÀ» ¿äÃ»ÇÑ´Ù.
-#define CMD_CHANGE_MAP_FAIL					10165	// ¸ÊÀÌµ¿¿¡ ¹®Á¦°¡ »ı°å´Ù.
-#define CMD_NOW_CHANGEMAP					10166	// ¸ÊÀÌµ¿ ÁßÀÌ´Ù...
+#define CMD_CHANGE_MAP_CONFIRM				10164	// ë§µê°„ ì´ë™ì‹œ ì‹œê°„ì§€ì—°ìœ¼ë¡œ ì—ëŸ¬ê°€ ë°œìƒí•˜ë©´ ì„œë²„ë¡œ í™•ì¸ì„ ìš”ì²­í•œë‹¤.
+#define CMD_CHANGE_MAP_FAIL					10165	// ë§µì´ë™ì— ë¬¸ì œê°€ ìƒê²¼ë‹¤.
+#define CMD_NOW_CHANGEMAP					10166	// ë§µì´ë™ ì¤‘ì´ë‹¤...
 
-#define	CMD_REQ_SKILL_ALL					10167	// ½ºÅ³ °æÇèÄ¡ ¿äÃ»
+#define	CMD_REQ_SKILL_ALL					10167	// ìŠ¤í‚¬ ê²½í—˜ì¹˜ ìš”ì²­
 
-#define CMD_REQ_FAITH_UP					10168	// ´Ù¸¥ ¸Ê¿¡ Á¢¼ÓÇØ ÀÖ´ÂÁö È®ÀÎÇØ¼­ ½Å¾Ó½ÉÀ» ¿Ã·ÁÁØ´Ù.
-#define CMD_DIVINE_UP						10169	// divineÀ» ¿Ã·ÁÁØ´Ù. 
-#define CMD_DIVINE_DOWN						10170	// divineÀÌ ¶³¾îÁüÀ» Å¬¶óÀÌ¾ğÆ®¿¡ ¾Ë·ÁÁØ´Ù.
-#define CMD_OPEN_SUPPER						10171	// ½ÅÀü¿¡¼­ Á¦°ø¹Ş´Â À½½ÄÀ» ¿äÃ»ÇÑ´Ù.
+#define CMD_REQ_FAITH_UP					10168	// ë‹¤ë¥¸ ë§µì— ì ‘ì†í•´ ìˆëŠ”ì§€ í™•ì¸í•´ì„œ ì‹ ì•™ì‹¬ì„ ì˜¬ë ¤ì¤€ë‹¤.
+#define CMD_DIVINE_UP						10169	// divineì„ ì˜¬ë ¤ì¤€ë‹¤. 
+#define CMD_DIVINE_DOWN						10170	// divineì´ ë–¨ì–´ì§ì„ í´ë¼ì´ì–¸íŠ¸ì— ì•Œë ¤ì¤€ë‹¤.
+#define CMD_OPEN_SUPPER						10171	// ì‹ ì „ì—ì„œ ì œê³µë°›ëŠ” ìŒì‹ì„ ìš”ì²­í•œë‹¤.
 
-#define CMD_I_GET_ITEM_OF_SUPPER			10172	// ½ÅÀü¿¡¼­ À½½ÄÀ» Á¦°ø ¹Ş´Â´Ù.
+#define CMD_I_GET_ITEM_OF_SUPPER			10172	// ì‹ ì „ì—ì„œ ìŒì‹ì„ ì œê³µ ë°›ëŠ”ë‹¤.
 
-#define CMD_NOTE_MEETING					10173	// ¹ÌÆÃ ÇÑ½Ã°£ ÀüÀÎ°ÍÀ» ¾Ë¸°´Ù.
-#define	CMD_NOT_EXIST_GAMESERVER			10174	// °ÔÀÓ¼­¹ö°¡ ÇÏ³ªµµ Á¸ÀçÇÏÁö ¾Ê´Â´Ù¸é...
+#define CMD_NOTE_MEETING					10173	// ë¯¸íŒ… í•œì‹œê°„ ì „ì¸ê²ƒì„ ì•Œë¦°ë‹¤.
+#define	CMD_NOT_EXIST_GAMESERVER			10174	// ê²Œì„ì„œë²„ê°€ í•˜ë‚˜ë„ ì¡´ì¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´...
 
-#define CMD_REQ_CHAR_INFO					10175	// Ä³¸¯ÅÍÀÇ Á¤º¸¸¦ Àü¼Û¹Ş´Â´Ù.
-#define CMD_OH_MY_PARTY						10176	// ³»°¡ µé¾î ¿Ô´ç
+#define CMD_REQ_CHAR_INFO					10175	// ìºë¦­í„°ì˜ ì •ë³´ë¥¼ ì „ì†¡ë°›ëŠ”ë‹¤.
+#define CMD_OH_MY_PARTY						10176	// ë‚´ê°€ ë“¤ì–´ ì™”ë‹¹
 
-#define CMD_REQ_PARTY_INFO					10177	// ÇöÀç ¸Î°í ÀÖ´Â Ä³¸¯ÅÍ »óÅÂ Á¤º¸¸¦ ¹Ş¾Æ ¿Â´Ù.
+#define CMD_REQ_PARTY_INFO					10177	// í˜„ì¬ ë§ºê³  ìˆëŠ” ìºë¦­í„° ìƒíƒœ ì •ë³´ë¥¼ ë°›ì•„ ì˜¨ë‹¤.
 
-#define CMD_LOGIN_TO_GAME_PUBLIC_BBS		10178	// ·Î±×ÀÎ¼­¹ö¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î °øÁö»çÇ×À» º¸³¾¶§ 
-#define CMD_CALL_PUBLIC_BBS					10179	// °øÁö»çÇ×
+#define CMD_LOGIN_TO_GAME_PUBLIC_BBS		10178	// ë¡œê·¸ì¸ì„œë²„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ê³µì§€ì‚¬í•­ì„ ë³´ë‚¼ë•Œ 
+#define CMD_CALL_PUBLIC_BBS					10179	// ê³µì§€ì‚¬í•­
 
-#define CMD_SEND_MAIL_OK					10180	// ¸ŞÀÏ º¸³»±â ¼º°ø
-#define CMD_SEND_MAIL_FAIL					10181	// ¸ŞÀÏ º¸³»±â ½ÇÆĞ
+#define CMD_SEND_MAIL_OK					10180	// ë©”ì¼ ë³´ë‚´ê¸° ì„±ê³µ
+#define CMD_SEND_MAIL_FAIL					10181	// ë©”ì¼ ë³´ë‚´ê¸° ì‹¤íŒ¨
 
-#define CMD_START_GAME_MAIL					10182	// Ã³À½ µé¾î¿ÔÀ»¶§ ¸ŞÀÏ È®ÀÎ
-#define CMD_SEND_LEARN_ITEM_INDEX			10183	// Ã³À½ ¹è¿î ¾ÆÀÌÅÛ ¸ñ·Ï..
+#define CMD_START_GAME_MAIL					10182	// ì²˜ìŒ ë“¤ì–´ì™”ì„ë•Œ ë©”ì¼ í™•ì¸
+#define CMD_SEND_LEARN_ITEM_INDEX			10183	// ì²˜ìŒ ë°°ìš´ ì•„ì´í…œ ëª©ë¡..
 
-#define CMD_CALL_PUBLIC_BBS_ONLY_ONE		10184	// ÇÑ¸í¿¡°Ô º¸³»ÁÖ´Â °øÁö»çÇ×..
+#define CMD_CALL_PUBLIC_BBS_ONLY_ONE		10184	// í•œëª…ì—ê²Œ ë³´ë‚´ì£¼ëŠ” ê³µì§€ì‚¬í•­..
 #define CMD_HUNTER_REGIST					10185
 #define CMD_GET_HUNTER_LIST					10186
 #define CMD_SEND_HUNTER_LIST				10187
 
-#define	CMD_KILL_HUNTER_LIST				10188	// Çö»ó¹üÀ» Àâ¾Ò´Ù.
-#define	CMD_KILL_HUNTER_LIST_OK				10189	// ¸Ş½ÃÁö Ãâ·Â, ÃàÇÏÇÕ´Ï´Ù. Çö»ó±İ ¾ó¸¶¸¦ ¹Ş¾Ò½À´Ï´Ù...
-#define	CMD_KILL_HUNTER_LIST_CANCEL			10190	// °á°ú		// ´Ê¾ú½À´Ï´Ù. ÀÌ¹Ì ´©±º°¡ ¸ÕÀú Çö»ó±İÀ» ¹Ş¾Ò½À´Ï´Ù.
-#define CMD_HUNTER_REGIST_RESULT			10191	// ´©±¸´©±¸°¡ ´ç½Å²²¼­ Çö»ó¹ü °Ô½ÃÆÇ¿¡ µî·ÏÇÑ ´©±¸´©±¸¸¦ Á×ÀÌ´Âµ¥ ¼º°øÇß½À´Ï´Ù.
+#define	CMD_KILL_HUNTER_LIST				10188	// í˜„ìƒë²”ì„ ì¡ì•˜ë‹¤.
+#define	CMD_KILL_HUNTER_LIST_OK				10189	// ë©”ì‹œì§€ ì¶œë ¥, ì¶•í•˜í•©ë‹ˆë‹¤. í˜„ìƒê¸ˆ ì–¼ë§ˆë¥¼ ë°›ì•˜ìŠµë‹ˆë‹¤...
+#define	CMD_KILL_HUNTER_LIST_CANCEL			10190	// ê²°ê³¼		// ëŠ¦ì—ˆìŠµë‹ˆë‹¤. ì´ë¯¸ ëˆ„êµ°ê°€ ë¨¼ì € í˜„ìƒê¸ˆì„ ë°›ì•˜ìŠµë‹ˆë‹¤.
+#define CMD_HUNTER_REGIST_RESULT			10191	// ëˆ„êµ¬ëˆ„êµ¬ê°€ ë‹¹ì‹ ê»˜ì„œ í˜„ìƒë²” ê²Œì‹œíŒì— ë“±ë¡í•œ ëˆ„êµ¬ëˆ„êµ¬ë¥¼ ì£½ì´ëŠ”ë° ì„±ê³µí–ˆìŠµë‹ˆë‹¤.
 #define CMD_KILLED_BY_HUNTER				10192
 
-#define CMD_KILL_WHO						10193	// ³»°¡ ´©±¼ Á×¿´´Ù.
-#define CMD_DANGER_OF_HUNTER				10194	// ´©±º°¡ ³ª¸¦ ³ë¸°´Ù.
+#define CMD_KILL_WHO						10193	// ë‚´ê°€ ëˆ„êµ´ ì£½ì˜€ë‹¤.
+#define CMD_DANGER_OF_HUNTER				10194	// ëˆ„êµ°ê°€ ë‚˜ë¥¼ ë…¸ë¦°ë‹¤.
 
 
 #define CMD_REQ_QUEST_INDEX					10195
@@ -257,135 +257,135 @@ extern int WaitMoveMap ;
 #define CMD_PARTY_NOT_BY_LEVEL				10197
 #define CMD_DO_PARTY_OK						10198
 
-#define	CMD_REQ_MAN_TO_MAN					10199	// 1:1 °áÅõ ½ÅÃ»
-#define	CMD_REQ_MAN_TO_MAN_RESULT			10200	// °áÅõ ½ÅÃ»¿¡ µû¸¥ °á°ú( ¼º°øÀûÀ¸·Î ½ÅÃ»Çß´Ù, ¾Æ´Ô ÀúÂÊÀÌ °ÅÀı »óÅÂÀÌ´Ù.. ·¹º§ÀÌ ¾ÈµÈ´Ù.. µîµîÀÇ.. )
-#define CMD_REQ_MAN_TO_MAN_CONSENT			10201	// °áÅõ ½Â³«
-#define CMD_REQ_MAN_TO_MAN_REFUSAL			10202	// °áÅõ °ÅÀı
+#define	CMD_REQ_MAN_TO_MAN					10199	// 1:1 ê²°íˆ¬ ì‹ ì²­
+#define	CMD_REQ_MAN_TO_MAN_RESULT			10200	// ê²°íˆ¬ ì‹ ì²­ì— ë”°ë¥¸ ê²°ê³¼( ì„±ê³µì ìœ¼ë¡œ ì‹ ì²­í–ˆë‹¤, ì•„ë‹˜ ì €ìª½ì´ ê±°ì ˆ ìƒíƒœì´ë‹¤.. ë ˆë²¨ì´ ì•ˆëœë‹¤.. ë“±ë“±ì˜.. )
+#define CMD_REQ_MAN_TO_MAN_CONSENT			10201	// ê²°íˆ¬ ìŠ¹ë‚™
+#define CMD_REQ_MAN_TO_MAN_REFUSAL			10202	// ê²°íˆ¬ ê±°ì ˆ
 #define	CMD_DELETE_BOX_ITEM					10203
 ///////////////////////////////////////////////////////////////////////////////////
 
 
-#define	CMD_MAN_TO_MAN_ITEM_EACH			10204	// 1:1 ´ë°á ÇÒ·Á°í ÇÒ¶§ °É°Ô µÇ´Â ¾ÆÀÌÅÛ
-#define CMD_FIGHT_MAP_MESSAGE				10205	// ÀüÅõ ¸Ê¿¡¼­ ¿©·¯ ¸Ş½ÃÁö¸¦ Ãâ·ÂÇÒ¶§...
-#define CMD_FIGHT_MAP_ADD_OK				10206	// Âü¿©Çß´Ù
-#define	CMD_FIGHT_MAP_ADD_WHO				10207	// ´©±º°¡ Âü¿©Çß´Ù.
-#define	CMD_FIGHT_MAP_DELETE_WHO			10208	// ´©±º°¡ ÆÀ¿¡¼­ ºüÁ³´Ù.
-#define	CMD_FIGHT_MAP_MEMBER_INFO			10209	// Ã³À½À¸·Î ¹èÆ²Á¸¿¡ µî·ÏÇÏ¸é ±×µ¿¾È µî·ÏÇÑ »ç¶÷ÀÇ Á¤º¸¸¦ º¸³»ÁØ´Ù.
-#define CMD_FIGHT_MAP_START					10210	// ¿î¿µÀÚ°¡ ¹èÆ²Á¸ ½ºÅ¸Æ®¸¦ ¾Ë¸°´Ù.
-#define	CMD_FIGHT_MAP_END					10211	// ¿î¿µÀÚ°¡ ¹èÆ²Á¸ÀÌ ³¡³µÀ½À» ¼­¹ö¿¡ ¾Ë¸®´Ù
-#define	CMD_FIGHT_MAP_ADD_FULL				10212	// ÀÎ¿øÀÌ ²Ë Ã¡´Ù
+#define	CMD_MAN_TO_MAN_ITEM_EACH			10204	// 1:1 ëŒ€ê²° í• ë ¤ê³  í• ë•Œ ê±¸ê²Œ ë˜ëŠ” ì•„ì´í…œ
+#define CMD_FIGHT_MAP_MESSAGE				10205	// ì „íˆ¬ ë§µì—ì„œ ì—¬ëŸ¬ ë©”ì‹œì§€ë¥¼ ì¶œë ¥í• ë•Œ...
+#define CMD_FIGHT_MAP_ADD_OK				10206	// ì°¸ì—¬í–ˆë‹¤
+#define	CMD_FIGHT_MAP_ADD_WHO				10207	// ëˆ„êµ°ê°€ ì°¸ì—¬í–ˆë‹¤.
+#define	CMD_FIGHT_MAP_DELETE_WHO			10208	// ëˆ„êµ°ê°€ íŒ€ì—ì„œ ë¹ ì¡Œë‹¤.
+#define	CMD_FIGHT_MAP_MEMBER_INFO			10209	// ì²˜ìŒìœ¼ë¡œ ë°°í‹€ì¡´ì— ë“±ë¡í•˜ë©´ ê·¸ë™ì•ˆ ë“±ë¡í•œ ì‚¬ëŒì˜ ì •ë³´ë¥¼ ë³´ë‚´ì¤€ë‹¤.
+#define CMD_FIGHT_MAP_START					10210	// ìš´ì˜ìê°€ ë°°í‹€ì¡´ ìŠ¤íƒ€íŠ¸ë¥¼ ì•Œë¦°ë‹¤.
+#define	CMD_FIGHT_MAP_END					10211	// ìš´ì˜ìê°€ ë°°í‹€ì¡´ì´ ëë‚¬ìŒì„ ì„œë²„ì— ì•Œë¦¬ë‹¤
+#define	CMD_FIGHT_MAP_ADD_FULL				10212	// ì¸ì›ì´ ê½‰ ì°¼ë‹¤
 
 
-#define CMD_RESET_JOB						10213	// JOB¸¦ »õ·Î ¼±ÅÃ
-#define	CMD_DELETE_ITEM_BY_DURATION			10214	// ¾ÆÀÌÅÛÀÌ »ç¿ë¿¡ ÀÇÇØ ºÎ¼­Áú °æ¿ì
-#define CMD_SELECT_NATION					10215	// ³ª¶ó ¼±ÅÃ 
+#define CMD_RESET_JOB						10213	// JOBë¥¼ ìƒˆë¡œ ì„ íƒ
+#define	CMD_DELETE_ITEM_BY_DURATION			10214	// ì•„ì´í…œì´ ì‚¬ìš©ì— ì˜í•´ ë¶€ì„œì§ˆ ê²½ìš°
+#define CMD_SELECT_NATION					10215	// ë‚˜ë¼ ì„ íƒ 
 
 #define CMD_SCRIPT_CHANGE					10216
 
 #define CMD_CHANGE_DURATION					10217
-#define	CMD_SEND_EAR_MESSAGE_RESULT_ETC		10218	// ±Ó¼Ó¸»¿¡ ´ëÇÑ ¸î¸î °á°ú°ª
-#define CMD_EXIST_NAME						10219	// Á¸ÀçÇÏ´Â ÀÌ¸§ÀÌ³Ä?
+#define	CMD_SEND_EAR_MESSAGE_RESULT_ETC		10218	// ê·“ì†ë§ì— ëŒ€í•œ ëª‡ëª‡ ê²°ê³¼ê°’
+#define CMD_EXIST_NAME						10219	// ì¡´ì¬í•˜ëŠ” ì´ë¦„ì´ëƒ?
 
-#define CMD_ISSAME_MY_NATION				10220	// ³ª¿Í ³ª¶ó°¡ °°Àº°¡?
+#define CMD_ISSAME_MY_NATION				10220	// ë‚˜ì™€ ë‚˜ë¼ê°€ ê°™ì€ê°€?
 #define CMD_EXIST_NAME_AND_NATION			10221
 
-#define	CMD_VOTE_GAME2LOGIN					10223	// ÅõÇ¥°ü·ÃµÈ °ÔÀÓ ¼­¹ö¿Í ·Î±×ÀÎ ¼­¹ö°£ÀÇ ÆĞÅ¶..
-#define CMD_VOTE_OK							10224	// ¼±°Å¸¦ Çß´Ù.
-#define	CMD_VOTE_NOT						10225	// ¼±°ÅÇÒ¼ö ¾ø´Ù.
+#define	CMD_VOTE_GAME2LOGIN					10223	// íˆ¬í‘œê´€ë ¨ëœ ê²Œì„ ì„œë²„ì™€ ë¡œê·¸ì¸ ì„œë²„ê°„ì˜ íŒ¨í‚·..
+#define CMD_VOTE_OK							10224	// ì„ ê±°ë¥¼ í–ˆë‹¤.
+#define	CMD_VOTE_NOT						10225	// ì„ ê±°í• ìˆ˜ ì—†ë‹¤.
 
-#define CMD_REGIST_CANDIDATE				10226	// ÈÄº¸ µî·Ï
-#define CMD_REGIST_CANDIDATE_OK				10233	// ÈÄº¸ µî·Ï ¼º°ø
-#define CMD_REGIST_CANDIDATE_NOT			10234	// ÈÄº¸ µî·Ï ½ÇÆĞ
+#define CMD_REGIST_CANDIDATE				10226	// í›„ë³´ ë“±ë¡
+#define CMD_REGIST_CANDIDATE_OK				10233	// í›„ë³´ ë“±ë¡ ì„±ê³µ
+#define CMD_REGIST_CANDIDATE_NOT			10234	// í›„ë³´ ë“±ë¡ ì‹¤íŒ¨
 
-#define CMD_IS_THIS_MAN_CANDIDATE			10227	// ÈÄº¸ÀÚ ¸í´Ü¿¡ ÀÖ´Â »ç¶÷ÀÌ³Ä?
-#define CMD_THIS_MAN_IS_CANDIDATE_OK		10228	// ¸í´Ü¿¡ ÀÖ´Ù.
-#define CMD_THIS_MAN_IS_CANDIDATE_NOT		10229	// ¸í´Ü¿¡ ¾ø´Ù.
+#define CMD_IS_THIS_MAN_CANDIDATE			10227	// í›„ë³´ì ëª…ë‹¨ì— ìˆëŠ” ì‚¬ëŒì´ëƒ?
+#define CMD_THIS_MAN_IS_CANDIDATE_OK		10228	// ëª…ë‹¨ì— ìˆë‹¤.
+#define CMD_THIS_MAN_IS_CANDIDATE_NOT		10229	// ëª…ë‹¨ì— ì—†ë‹¤.
 
-#define CMD_CHECK_VOTE						10230	// ÅõÇ¥ÇÒ¼ö ÀÖ´ÂÁö ¾ø´ÂÁö¸¦ Ã¼Å©
-#define CMD_CHECK_VOTE_NOT					10231	// ÅõÇ¥ÇÒ¼ö ÀÖ´ÂÁöÀÇ °á°ú
-#define CMD_CHECK_VOTE_OK					10232	// ÅõÇ¥ÇÒ¼ö ÀÖ´Ù.
+#define CMD_CHECK_VOTE						10230	// íˆ¬í‘œí• ìˆ˜ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ë¥¼ ì²´í¬
+#define CMD_CHECK_VOTE_NOT					10231	// íˆ¬í‘œí• ìˆ˜ ìˆëŠ”ì§€ì˜ ê²°ê³¼
+#define CMD_CHECK_VOTE_OK					10232	// íˆ¬í‘œí• ìˆ˜ ìˆë‹¤.
 
-#define CMD_SET_VALUE_OF_VOTE				10235	// ¼±°Å ½Ã½ºÅÛ¿¡¼­ »ç¿ëÇÒ µ¥ÀÌÅ¸ °¡Á®¿À±â
+#define CMD_SET_VALUE_OF_VOTE				10235	// ì„ ê±° ì‹œìŠ¤í…œì—ì„œ ì‚¬ìš©í•  ë°ì´íƒ€ ê°€ì ¸ì˜¤ê¸°
 #define CMD_RESET_VOTE_VALUE				10236
-#define CMD_RETRY							10237	// ´Ù½Ã ½Ãµµ ÇØ´Ş¶ó´Â ¸Ş½ÃÁö¸¦ »Ñ¸®°Ô ÇÑ´Ù.
+#define CMD_RETRY							10237	// ë‹¤ì‹œ ì‹œë„ í•´ë‹¬ë¼ëŠ” ë©”ì‹œì§€ë¥¼ ë¿Œë¦¬ê²Œ í•œë‹¤.
 
-#define CMD_REQ_VOTE_SCORE					10238	// Å¬¶óÀÌ¾ğÆ®¿¡¼­ µğºñµ¥¸óÀ¸·Î
-#define CMD_REP_VOTE_SCORE					10239	// µğºñ µ¥¸ó¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î 
+#define CMD_REQ_VOTE_SCORE					10238	// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë””ë¹„ë°ëª¬ìœ¼ë¡œ
+#define CMD_REP_VOTE_SCORE					10239	// ë””ë¹„ ë°ëª¬ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ 
 
-#define CMD_GET_SKILL_INFO					10240	// ¸¶¿ì½º °¡Á®´Ù ´òÀ»¶§ ¶ß´Â ½ºÅ³ ·¹º§ ¿äÃ»
+#define CMD_GET_SKILL_INFO					10240	// ë§ˆìš°ìŠ¤ ê°€ì ¸ë‹¤ ëŒ”ì„ë•Œ ëœ¨ëŠ” ìŠ¤í‚¬ ë ˆë²¨ ìš”ì²­
 
-#define CMD_SEND_ALL_MSG					10241	// ±¹°¡ °øÁö
+#define CMD_SEND_ALL_MSG					10241	// êµ­ê°€ ê³µì§€
 #define CMD_RECV_ALL_MSG					10242	
 
-#define CMD_YOU_ARE_KING_LOG2LOG			10243	// ³Í ¿ÕÀÌ´Ù. ( µ¥¸ó¿¡¼­ 5000¹øÀ¸·Î º¸³½´Ù. )
-#define CMD_YOU_ARE_KING_LOG2CLIENT			10244	// ³Í ¿ÕÀÌ´Ù. ( 5000¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î º¸³½´Ù. )
+#define CMD_YOU_ARE_KING_LOG2LOG			10243	// ë„Œ ì™•ì´ë‹¤. ( ë°ëª¬ì—ì„œ 5000ë²ˆìœ¼ë¡œ ë³´ë‚¸ë‹¤. )
+#define CMD_YOU_ARE_KING_LOG2CLIENT			10244	// ë„Œ ì™•ì´ë‹¤. ( 5000ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¸ë‹¤. )
 
-#define CMD_YOU_ARE_NO_KING_LOG2LOG			10245	// ³Í ¿Õ¿¡¼­ ÇØÀÓ. ( µ¥¸ó¿¡¼­ 5000¹øÀ¸·Î º¸³½´Ù. )
-#define CMD_YOU_ARE_NO_KING_LOG2CLIENT		10246	// ³Í ¿Õ¿¡¼­ ÇØÀÓ. ( 5000¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î º¸³½´Ù. )
+#define CMD_YOU_ARE_NO_KING_LOG2LOG			10245	// ë„Œ ì™•ì—ì„œ í•´ì„. ( ë°ëª¬ì—ì„œ 5000ë²ˆìœ¼ë¡œ ë³´ë‚¸ë‹¤. )
+#define CMD_YOU_ARE_NO_KING_LOG2CLIENT		10246	// ë„Œ ì™•ì—ì„œ í•´ì„. ( 5000ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚¸ë‹¤. )
 
 #define CMD_GUILD_EXIT_COMMAND				10247
-#define CMD_GUILD_EXIT_YOU					10248	// ³Í Å»Åğ´çÇß´Ù.
-#define CMD_GUILD_EXIT_OK					10249	// Å»Åğ½ÃÅ°´Âµ¥ ¼º°øÇß´Ù. 
-#define CMD_GUILD_EXIT_WHO					10250	// Å»Åğ´çÇÑ »ç¶÷ ÁÖº¯ »ç¶÷µé¿¡°Ô »Ñ·ÁÁØ´Ù.
+#define CMD_GUILD_EXIT_YOU					10248	// ë„Œ íƒˆí‡´ë‹¹í–ˆë‹¤.
+#define CMD_GUILD_EXIT_OK					10249	// íƒˆí‡´ì‹œí‚¤ëŠ”ë° ì„±ê³µí–ˆë‹¤. 
+#define CMD_GUILD_EXIT_WHO					10250	// íƒˆí‡´ë‹¹í•œ ì‚¬ëŒ ì£¼ë³€ ì‚¬ëŒë“¤ì—ê²Œ ë¿Œë ¤ì¤€ë‹¤.
 
-#define CMD_GUILD_JOIN_SERVER				10251	// ±æµå °¡ÀÔ ½ÃÄÑ¶ó ( db_demon ±îÁö º¸³½´Ù. )
-#define CMD_GUILD_JOIN_SERVER_OK			10252	// ±æµå °¡ÀÔ °¡´ÉÇÏ´Ù.
-#define CMD_GUILD_JOIN_SERVER_NOT			10253	// ±æµå °¡ÀÔ ºÒ°¡´ÉÇÏ´Ù.
+#define CMD_GUILD_JOIN_SERVER				10251	// ê¸¸ë“œ ê°€ì… ì‹œì¼œë¼ ( db_demon ê¹Œì§€ ë³´ë‚¸ë‹¤. )
+#define CMD_GUILD_JOIN_SERVER_OK			10252	// ê¸¸ë“œ ê°€ì… ê°€ëŠ¥í•˜ë‹¤.
+#define CMD_GUILD_JOIN_SERVER_NOT			10253	// ê¸¸ë“œ ê°€ì… ë¶ˆê°€ëŠ¥í•˜ë‹¤.
 
-#define CMD_GUILD_JOIN_CONFIRM				10254	// ´ç»çÀÚ¿¡°Ô È®ÀÎÀ» ¹°¾î º»´Ù.
-#define CMD_GUILD_JOIN_CONFIRM_OK			10255	// Çã¶ôÇß´Ù.
-#define CMD_GUILD_JOIN_CONFIRM_NOT			10256	// °ÅºÎÇß´Ù.
-#define CMD_SCAN_TARGET						10257	// ±æ¸¶°¡ »ç¿ëÇÏ´Â µğÅØÆ®
+#define CMD_GUILD_JOIN_CONFIRM				10254	// ë‹¹ì‚¬ìì—ê²Œ í™•ì¸ì„ ë¬¼ì–´ ë³¸ë‹¤.
+#define CMD_GUILD_JOIN_CONFIRM_OK			10255	// í—ˆë½í–ˆë‹¤.
+#define CMD_GUILD_JOIN_CONFIRM_NOT			10256	// ê±°ë¶€í–ˆë‹¤.
+#define CMD_SCAN_TARGET						10257	// ê¸¸ë§ˆê°€ ì‚¬ìš©í•˜ëŠ” ë””í…íŠ¸
 
-#define CMD_GUILD_ALL_MSG					10258	// ±æµå ÀüÃ¼ ¸Ş½ÃÁö
-#define CMD_GUILD_ALL_MSG_RECV				10259	// ±æµå ÀüÃ¼ ¸Ş½ÃÁö // ¼­¹ö¿¡¼­
-#define CMD_GUILD_EACH_LEVEL				10260	// ±æµå³» µî±ŞÀ» ¹Ù²Ù´Â ¸í·É
+#define CMD_GUILD_ALL_MSG					10258	// ê¸¸ë“œ ì „ì²´ ë©”ì‹œì§€
+#define CMD_GUILD_ALL_MSG_RECV				10259	// ê¸¸ë“œ ì „ì²´ ë©”ì‹œì§€ // ì„œë²„ì—ì„œ
+#define CMD_GUILD_EACH_LEVEL				10260	// ê¸¸ë“œë‚´ ë“±ê¸‰ì„ ë°”ê¾¸ëŠ” ëª…ë ¹
 
-#define CMD_GUILD_JOIN_CONFIRM_GUILMA		10261	// ±æµå °¡ÀÔ È®ÀÎÀ» º¸³Â´Ù´Â »ç½ÇÀ» ±æ¸¶¿¡°Ôµµ º¸³»ÁØ´Ù.
+#define CMD_GUILD_JOIN_CONFIRM_GUILMA		10261	// ê¸¸ë“œ ê°€ì… í™•ì¸ì„ ë³´ëƒˆë‹¤ëŠ” ì‚¬ì‹¤ì„ ê¸¸ë§ˆì—ê²Œë„ ë³´ë‚´ì¤€ë‹¤.
 
-#define CMD_GM_REGIST						10262	// GM µî·ÏÀ» ½ÅÃ»
-#define CMD_GM_REGIST2						10263	// GM¿¡ µî·ÏÇÒ ÀÚ°İÀº ¾ÈµÇÁö¸¸ ºñ½ÁÇÑ »ç¶÷
-#define CMD_BBS_ALL							10264	// µğÆúÆ® ÃßÄ« °øÁö »çÇ×
+#define CMD_GM_REGIST						10262	// GM ë“±ë¡ì„ ì‹ ì²­
+#define CMD_GM_REGIST2						10263	// GMì— ë“±ë¡í•  ìê²©ì€ ì•ˆë˜ì§€ë§Œ ë¹„ìŠ·í•œ ì‚¬ëŒ
+#define CMD_BBS_ALL							10264	// ë””í´íŠ¸ ì¶”ì¹´ ê³µì§€ ì‚¬í•­
 
-#define CMD_COME_OUT_GM_FROM_LOGIN			10265	// GM µî·Ï¿¡ ¼º°øÇß´Ù.
+#define CMD_COME_OUT_GM_FROM_LOGIN			10265	// GM ë“±ë¡ì— ì„±ê³µí–ˆë‹¤.
 #define CMD_CHANGE_VIEW_JOB					10266	// change_job
-#define CMD_REQ_STOP_WAR_TO_LOGIN			10267	// ÈŞÀü ¿äÃ»
-#define CMD_REQ_STOP_WAR_TO_CLIENT			10268	// ÈŞÀü ¿äÃ»À» Å¬¶óÀÌ¾ğÆ®·Î
+#define CMD_REQ_STOP_WAR_TO_LOGIN			10267	// íœ´ì „ ìš”ì²­
+#define CMD_REQ_STOP_WAR_TO_CLIENT			10268	// íœ´ì „ ìš”ì²­ì„ í´ë¼ì´ì–¸íŠ¸ë¡œ
 
-#define CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	10269	// ÈŞÀü °ÅÀı
+#define CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	10269	// íœ´ì „ ê±°ì ˆ
 #define CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT	10270	
 
-#define CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN	10271	// ÈŞÀü ½Â³«
+#define CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN	10271	// íœ´ì „ ìŠ¹ë‚™
 #define CMD_REP_STOP_WAR_ACCEPT_TO_CLIENT	10272	
 
-#define	CMD_SALVATION_MONEY					10275	// ±âºÎÇÑ´Ù.
-#define CMD_REQ_SALVATION_MONEY				10276	// Áö±İ±îÁö ±âºÎÇÑ°Å..
-#define CMD_DB2GAME_SALVATION				10277	// °ÔÀÓ¼­¹ö·Î º¸³»ÁØ´Ù.
+#define	CMD_SALVATION_MONEY					10275	// ê¸°ë¶€í•œë‹¤.
+#define CMD_REQ_SALVATION_MONEY				10276	// ì§€ê¸ˆê¹Œì§€ ê¸°ë¶€í•œê±°..
+#define CMD_DB2GAME_SALVATION				10277	// ê²Œì„ì„œë²„ë¡œ ë³´ë‚´ì¤€ë‹¤.
 
 #define CMD_GM_REGIST_GAMEMAKEMODE			10278
 
-#define CMD_MSG_ALL_SALVATION_TOTAL_MONEY	10279	// ±âºÎ±İ ÃÑ¾×°ú, ³ª¶ó ÀÌ¸§À» °¡¸£ÃÄ ÁØ´Ù.
+#define CMD_MSG_ALL_SALVATION_TOTAL_MONEY	10279	// ê¸°ë¶€ê¸ˆ ì´ì•¡ê³¼, ë‚˜ë¼ ì´ë¦„ì„ ê°€ë¥´ì³ ì¤€ë‹¤.
 
 // 010210 YGI
-#define CMD_CHANGE_MONEY					10280	// È¯Àü
-#define CMD_CHANGE_MONEY_OK					10281	// µ·À» ¹Ù²å´Ù.
+#define CMD_CHANGE_MONEY					10280	// í™˜ì „
+#define CMD_CHANGE_MONEY_OK					10281	// ëˆì„ ë°”ê¿¨ë‹¤.
 
-#define CMD_EAT_CHOCOLATE					10282	// ÃÊÄİ·¿À» ¸Ô¾ú´Ù.
-#define CMD_EAT_CHOCOLATE_OK				10283	// ¸î°³³ª ¸Ô¾ú³Ä..
+#define CMD_EAT_CHOCOLATE					10282	// ì´ˆì½œë ›ì„ ë¨¹ì—ˆë‹¤.
+#define CMD_EAT_CHOCOLATE_OK				10283	// ëª‡ê°œë‚˜ ë¨¹ì—ˆëƒ..
 
 #define CMD_PAY_RUMOR						10284
 #define CMD_PAY_RUMOR_OK					10285
 #define CMD_PAY_RUMOR_NOT					10286
 #define CMD_TEAMBATTLE_INFO					10287
 
-#define CMD_OPENSCHOOL_DATA					10288	// °³ÇĞ ÀÌº¥Æ®¸¦ À§ÇÑ Á¤º¸ ÀúÀå
+#define CMD_OPENSCHOOL_DATA					10288	// ê°œí•™ ì´ë²¤íŠ¸ë¥¼ ìœ„í•œ ì •ë³´ ì €ì¥
 #define CMD_OPENSCHOOL_DATA_OK				10289
 #define CMD_GUILD_EXIT_COMMAND_GLOBAL		10290
 
-#define CMD_GUILD_EXIT_COMMAND_GLOBAL_NOT	10291	// °°Àº ±æµå¿øÀÌ ¾Æ´Ï´Ù.
+#define CMD_GUILD_EXIT_COMMAND_GLOBAL_NOT	10291	// ê°™ì€ ê¸¸ë“œì›ì´ ì•„ë‹ˆë‹¤.
 #define CMD_GUILD_EXIT_COMMAND_GLOBAL_OK	10292
 
-#define CMD_GUILD_EXIT_COMMAND_GLOBAL_LET	10293	// ¸ğµç ¸Ê¼­¹ö¿¡°Ô º¸³» ±× ³ğÀ» Å»Åğ½ÃÄÑ¶ó ¸í·ÉÇÑ´Ù.
+#define CMD_GUILD_EXIT_COMMAND_GLOBAL_LET	10293	// ëª¨ë“  ë§µì„œë²„ì—ê²Œ ë³´ë‚´ ê·¸ ë†ˆì„ íƒˆí‡´ì‹œì¼œë¼ ëª…ë ¹í•œë‹¤.
 
 #define CMD_EAT_CANDY						10294
 #define CMD_EAT_CANDY_OK					10295
@@ -397,9 +397,9 @@ extern int WaitMoveMap ;
 #define CMD_DIRECT_CLIENT					10322
 #define CMD_REP_RANK_LADDER_FINISH			10323
 
-#define CMD_DIRECT_CLIENT_TO_DB				10324		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¹Ù·Î µğºñ·Î º¸³»´Â ÆĞÅ¶
+#define CMD_DIRECT_CLIENT_TO_DB				10324		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ë°”ë¡œ ë””ë¹„ë¡œ ë³´ë‚´ëŠ” íŒ¨í‚·
 #define CMD_REQ_SEARCH_RANK_LADDER			10325
-#define CMD_REQ_SEARCH_RENK_LADDER_FAIL		10326		// Ã£´Âµ¥ ½ÇÆĞÇß´Ù.		// 010514 YGI
+#define CMD_REQ_SEARCH_RENK_LADDER_FAIL		10326		// ì°¾ëŠ”ë° ì‹¤íŒ¨í–ˆë‹¤.		// 010514 YGI
 
 #define CMD_SEND_EFFECT						10327
 
@@ -408,17 +408,17 @@ extern int WaitMoveMap ;
 #define CMD_BUY_VISA_OK						10330
 #define CMD_BUY_VISA_FAIL					10331
 
-#define CMD_NATION_INFO_MAP_TO_MAP			10332		// ÀÌ Å¸ÀÔÀ» ¾²·Á¸é Ã¹ ¹ÙÀÌÆ®´Â Å¸ÀÔÀ» ³Ö¾îÁà¾ß ÇÑ´Ù.
-#define CMD_SAVE_NATION_INFO				10333		// ±¹°¡ °ü·Ã, ÀúÀåÇØ¾ßÇÒ ³»¿ëµé
+#define CMD_NATION_INFO_MAP_TO_MAP			10332		// ì´ íƒ€ì…ì„ ì“°ë ¤ë©´ ì²« ë°”ì´íŠ¸ëŠ” íƒ€ì…ì„ ë„£ì–´ì¤˜ì•¼ í•œë‹¤.
+#define CMD_SAVE_NATION_INFO				10333		// êµ­ê°€ ê´€ë ¨, ì €ì¥í•´ì•¼í•  ë‚´ìš©ë“¤
 
 
-#define CMD_EXIT_GUILD_SELF					10335		// ±æµå Å×ÀÌºí¿¡¼­ Áö¿ö¶ó
+#define CMD_EXIT_GUILD_SELF					10335		// ê¸¸ë“œ í…Œì´ë¸”ì—ì„œ ì§€ì›Œë¼
 
-#define CMD_SAVE_GUILD_MARK_IMAGE			10336		// ±æµå ¸¶Å© ÀúÀå
+#define CMD_SAVE_GUILD_MARK_IMAGE			10336		// ê¸¸ë“œ ë§ˆí¬ ì €ì¥
 #define CMD_REGIST_GUILD_IMSI				10337
-#define CMD_REGIST_GUILD_IMSI_OK			10338		// ÀÓ½Ã ±æµå µî·Ï¿¡ ¼º°øÇÑ°æ¿ì
-#define CMD_REGIST_GUILD_IMSI_OK_ALL		10339		// ¸ğµç ¸Ê¼­¹ö¿¡ ÀÓ½Ã ±æµå µî·ÏµÈ »ç½ÇÀ» ¾Ë·ÁÁØ´Ù.
-#define CMD_REQ_GUILD_EXPLAIN				10345		// ±æµåÀÇ ¼³¸íÀ» ¾Ë¾Æº»´Ù.
+#define CMD_REGIST_GUILD_IMSI_OK			10338		// ì„ì‹œ ê¸¸ë“œ ë“±ë¡ì— ì„±ê³µí•œê²½ìš°
+#define CMD_REGIST_GUILD_IMSI_OK_ALL		10339		// ëª¨ë“  ë§µì„œë²„ì— ì„ì‹œ ê¸¸ë“œ ë“±ë¡ëœ ì‚¬ì‹¤ì„ ì•Œë ¤ì¤€ë‹¤.
+#define CMD_REQ_GUILD_EXPLAIN				10345		// ê¸¸ë“œì˜ ì„¤ëª…ì„ ì•Œì•„ë³¸ë‹¤.
 #define CMD_REGIST_GUILD_MARK				10346
 #define CMD_GUILD_NUMBER_INFO_DB_TO_MAP		10347
 #define CMD_GUILD_MARK_IMAGE				10348
@@ -434,7 +434,7 @@ extern int WaitMoveMap ;
 #define CMD_REQ_RECV_MAIL_TITLE_GUILD		10357
 #define CMD_REP_RECV_GUILD_MAIL_TITLE		10358
 
-#define CMD_REQ_RECV_MAIL_BODY_GUILD		10359	// ±æµå ³»¿ë È®ÀÎ
+#define CMD_REQ_RECV_MAIL_BODY_GUILD		10359	// ê¸¸ë“œ ë‚´ìš© í™•ì¸
 #define CMD_UPDATE_GUILD_MAIL_ID			10360
 #define CMD_RECV_MAIL_DELETE_GUILD			10361
 
@@ -482,9 +482,9 @@ extern int WaitMoveMap ;
 
 #define CMD_GET_GUILD_ITEM_FIRST			10420
 #define CMD_GET_GUILD_ITEM					10421
-#define CMD_PUT_GUILD_ITEM					10422		// ±æµå ¾ÆÀÌÅÛ ÀúÀå
-#define CMD_GET_GUILD_ITEM_CLIENT			10423		// ½ÇÁ¦ ¾ÆÀÌÅÛ °¡Á®¿À±â
-#define CMD_GET_GUILD_ITEM_MAP				10424		// ½ÇÁ¦ ¾ÆÀÌÅÛ °¡Á®¿À±â
+#define CMD_PUT_GUILD_ITEM					10422		// ê¸¸ë“œ ì•„ì´í…œ ì €ì¥
+#define CMD_GET_GUILD_ITEM_CLIENT			10423		// ì‹¤ì œ ì•„ì´í…œ ê°€ì ¸ì˜¤ê¸°
+#define CMD_GET_GUILD_ITEM_MAP				10424		// ì‹¤ì œ ì•„ì´í…œ ê°€ì ¸ì˜¤ê¸°
 
 #define CMD_GET_GUILD_BOX_MONEY				10425	
 #define CMD_CHECK_GUILD_BOX_MONEY			10426
@@ -504,14 +504,14 @@ extern int WaitMoveMap ;
 #define CMD_CHANGE_GUILDHOUSE_INFO			10447
 #define CMD_BUY_GUILD_HOUSE					10448
 #define	CMD_CHECK_GUILD_HOUSE				10449
-#define CMD_RELOAD_GUILD_HOUSE				10450		// µğºñ¿Í µ¿±âÈ­¸¦ ¸ÂÃß±â À§ÇØ
+#define CMD_RELOAD_GUILD_HOUSE				10450		// ë””ë¹„ì™€ ë™ê¸°í™”ë¥¼ ë§ì¶”ê¸° ìœ„í•´
 
 
 #define CMD_SAVE_AMOUNT_EVENT_NPC_ITEM		10467
 #define CMD_CHECK_EVENT_MOVE_MAP			10468
 #define CMD_SAVE_EVENT_MAPMOVE_NOW			10469
 
-#define CMD_CHECK_EVENT_SCRIPT_ITEM			10610		// ÇÑ °èÁ¤´ç ÇÏ³ªÀÇ ¾ÆÀÌÅÛÀÇ °æ¿ì Ã³¸®
+#define CMD_CHECK_EVENT_SCRIPT_ITEM			10610		// í•œ ê³„ì •ë‹¹ í•˜ë‚˜ì˜ ì•„ì´í…œì˜ ê²½ìš° ì²˜ë¦¬
 #define CMD_CHECK_RECV_MAIL					10619 // CSD-030227
 // 040105 YGI
 #define CMD_GET_TREASURE_MAP_DETAIL				10622
@@ -528,8 +528,8 @@ struct k_get_treasure_map_detail_to_map
 
 struct k_get_treasure_map_detail_to_db
 {
-	POS pos;			// ¾ÆÀÌÅÛ À§Ä¡
-	short int cn;		// ¾ÆÀÌÅÛÀ» °¡Áö°í ÀÖ´Â ³ğ
+	POS pos;			// ì•„ì´í…œ ìœ„ì¹˜
+	short int cn;		// ì•„ì´í…œì„ ê°€ì§€ê³  ìˆëŠ” ë†ˆ
 };
 
 struct k_check_recv_mail
@@ -545,14 +545,14 @@ struct k_save_event_move_map
 	short int now;
 };
 
-struct k_event_move_map_req		// Å¬¶óÀÌ¾ğÆ®°¡ µğºñ¿¡°Ô ¿äÃ»
+struct k_event_move_map_req		// í´ë¼ì´ì–¸íŠ¸ê°€ ë””ë¹„ì—ê²Œ ìš”ì²­
 {
-	char sex;			// ¼ºº° ¿©ÀÚ 0, ³²ÀÚ 1 
-	char class_num;		// Å¬·¡½º ¹øÈ£ ClassType À» µû¸¥´Ù.
-	char nation;		// ±¹°¡ ¹øÈ£ defineÀ» µû¸¥´Ù.
+	char sex;			// ì„±ë³„ ì—¬ì 0, ë‚¨ì 1 
+	char class_num;		// í´ë˜ìŠ¤ ë²ˆí˜¸ ClassType ì„ ë”°ë¥¸ë‹¤.
+	char nation;		// êµ­ê°€ ë²ˆí˜¸ defineì„ ë”°ë¥¸ë‹¤.
 };
 
-struct k_event_move_map_rep		// ÀÌº¥Æ® ¸ÊÀÌ ÀÖÀ¸¸é ¾Ë·ÁÁØ´Ù.
+struct k_event_move_map_rep		// ì´ë²¤íŠ¸ ë§µì´ ìˆìœ¼ë©´ ì•Œë ¤ì¤€ë‹¤.
 {
 	int event_no;
 	char map_name[20];
@@ -565,9 +565,9 @@ struct k_event_script_item
 	short int npc_index;
 	short int bag_num;
 	char id[20];
-	char name[20];			// ÇØ´ç Ä³¸¯ÅÍ ÀÌ¸§ --> È¤½Ã ±× »çÀÌ¿¡ ·Î±× ¾Æ¿ô ÇßÀ» °æ¿ì ´ëºñ
-	char	script_no;		// ÇØ´ç ÀÌº¥Æ® ½ºÅ©¸³Æ® ÀÌº¥Æ® Å¬·¡½º Æ÷ÀÎÅÍ¸¦ ¾ò¾î¿À±â À§ÇØ
-	char	result;			// ¼º°ø ½ÇÆĞ¿¡ °üÇÑ
+	char name[20];			// í•´ë‹¹ ìºë¦­í„° ì´ë¦„ --> í˜¹ì‹œ ê·¸ ì‚¬ì´ì— ë¡œê·¸ ì•„ì›ƒ í–ˆì„ ê²½ìš° ëŒ€ë¹„
+	char	script_no;		// í•´ë‹¹ ì´ë²¤íŠ¸ ìŠ¤í¬ë¦½íŠ¸ ì´ë²¤íŠ¸ í´ë˜ìŠ¤ í¬ì¸í„°ë¥¼ ì–»ì–´ì˜¤ê¸° ìœ„í•´
+	char	result;			// ì„±ê³µ ì‹¤íŒ¨ì— ê´€í•œ
 };
 
 struct k_event_object
@@ -632,19 +632,19 @@ struct k_change_guild_house_info_db2map
 struct k_change_guild_house_info
 {
 	char id;
-	char day_type;		// 1: ½Å±Ô ½ÅÃ», 2 : ¿¬Àå
+	char day_type;		// 1: ì‹ ê·œ ì‹ ì²­, 2 : ì—°ì¥
 	short int guild_code;
 };
 
 struct k_guild_house_info_unit
 {
-	char id;				// ¹øÈ£
-	char lv;				// µî±Ş
-	short int guild_code;			// ¼ÒÀ¯±æµå
-	char time;				// ³²Àº ±â°£ // ³¯ÀÚ
+	char id;				// ë²ˆí˜¸
+	char lv;				// ë“±ê¸‰
+	short int guild_code;			// ì†Œìœ ê¸¸ë“œ
+	char time;				// ë‚¨ì€ ê¸°ê°„ // ë‚ ì
 	short int red;
 	short int blue;
-	char map_name[20];		// À§Ä¡
+	char map_name[20];		// ìœ„ì¹˜
 };
 
 struct k_guild_house_info
@@ -664,7 +664,7 @@ struct k_get_guild_item_db
 	short int server_id;
 	ItemAttr item;
 };
-struct k_get_guild_item_map		// ½ÇÁ¦ ¾ÆÀÌÅÛ °¡Á®¿À±â
+struct k_get_guild_item_map		// ì‹¤ì œ ì•„ì´í…œ ê°€ì ¸ì˜¤ê¸°
 {
 	short int server_id;
 	short int guild_code;
@@ -732,7 +732,7 @@ struct k_guild_notice
 	short int guild_code;
 	char msg[1000];
 };
-struct k_get_guild_member_list_req		// Å¬¶óÀÌ¾ğÆ®¿¡¼­ ¿äÃ»ÇÒ¶§
+struct k_get_guild_member_list_req		// í´ë¼ì´ì–¸íŠ¸ì—ì„œ ìš”ì²­í• ë•Œ
 {
 	short int guild_code;
 	char degree;
@@ -744,7 +744,7 @@ struct k_get_guild_memeber_list_name
 	char is_connect;
 };
 
-struct k_get_guild_memeber_list			// µğºñ¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁÙ¶§..
+struct k_get_guild_memeber_list			// ë””ë¹„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤„ë•Œ..
 {
 	char degree;
 	char count;
@@ -909,7 +909,7 @@ struct k_save_nation_info
 	int		nation_item[20];
 };
 
-struct k_nation_info_money		// ±¹°í º¯È­·® 
+struct k_nation_info_money		// êµ­ê³  ë³€í™”ëŸ‰ 
 {
 	char	type;
 	char	nation;
@@ -961,7 +961,7 @@ struct k_req_rank_ladder_to_db
 
 struct k_get_ladder_score_rank_unit
 {
-	int		rank;		// ¼øÀ§
+	int		rank;		// ìˆœìœ„
 	DWORD	score;
 	char	nation;
 	char	cls;
@@ -972,7 +972,7 @@ struct k_get_ladder_score_rank_unit
 struct k_db_get_ladder_score_rank
 {
 	//short int server_id;
-	char	is_end;		// ¿©±â°¡ ³¡ÀÎÁö ¾Æ´ÑÁö...
+	char	is_end;		// ì—¬ê¸°ê°€ ëì¸ì§€ ì•„ë‹Œì§€...
 	k_get_ladder_score_rank_unit	unit[10];
 };
 
@@ -996,12 +996,12 @@ struct k_name2
 
 struct k_eat_candy
 {
-	DWORD total_id;			// ÀÚ±â ÀÚ½ÅÀÇ total_id
-	DWORD candy_limit;		// ÄµµğÀÇ ¸®¹ÌÆ® ¹øÈ£
-	char  name[20];			// ÀÚ±â ÀÌ¸§
+	DWORD total_id;			// ìê¸° ìì‹ ì˜ total_id
+	DWORD candy_limit;		// ìº”ë””ì˜ ë¦¬ë¯¸íŠ¸ ë²ˆí˜¸
+	char  name[20];			// ìê¸° ì´ë¦„
 };
 
-struct k_guild_exit_global		// DB¿¡¼­ Áö¿ì°í ¸ğµÎ¿¡°Ô ÀÖÀ¸¸é Áö¿ì¶ó°í ÇÑ´Ù.
+struct k_guild_exit_global		// DBì—ì„œ ì§€ìš°ê³  ëª¨ë‘ì—ê²Œ ìˆìœ¼ë©´ ì§€ìš°ë¼ê³  í•œë‹¤.
 {
 	short int server_id;
 	short int guild_code;
@@ -1063,7 +1063,7 @@ struct k_total_salvation_all_msg
 	char name[20];
 };
 
-typedef struct tag_db_salvation_money		// ±âºÎ±İÀ» ÀúÀåÇÏ¶ó..
+typedef struct tag_db_salvation_money		// ê¸°ë¶€ê¸ˆì„ ì €ì¥í•˜ë¼..
 {
 	short int server_id;
 	char	nation;
@@ -1071,19 +1071,19 @@ typedef struct tag_db_salvation_money		// ±âºÎ±İÀ» ÀúÀåÇÏ¶ó..
 	char	name[20];
 }k_db_salvation_money;
 
-typedef struct tag_db2game_salvation_money		// ±âºÎ±İ°ªÀ» º¸³»ÁØ´Ù.
+typedef struct tag_db2game_salvation_money		// ê¸°ë¶€ê¸ˆê°’ì„ ë³´ë‚´ì¤€ë‹¤.
 {
 	short int server_id;
 	DWORD	money;
 }k_db2game_salvation_money;
 
-typedef struct tag_req_salvation_money		// ±âºÎÇÑ±İ¾×À» °¡Á®¿Â´Ù.
+typedef struct tag_req_salvation_money		// ê¸°ë¶€í•œê¸ˆì•¡ì„ ê°€ì ¸ì˜¨ë‹¤.
 {
 	short int server_id;
 	char	name[20];
 }k_req_salvation_money;
 
-typedef struct tag_stop_war_all_msg		// µÎ ³ª¶ó°¡ ÈŞÀüÀÌ¶ó´Â »ç½ÇÀ» ¸ğµÎ¿¡°Ô ¾Ë¸°´Ù.
+typedef struct tag_stop_war_all_msg		// ë‘ ë‚˜ë¼ê°€ íœ´ì „ì´ë¼ëŠ” ì‚¬ì‹¤ì„ ëª¨ë‘ì—ê²Œ ì•Œë¦°ë‹¤.
 {
 	char	send_nation;
 	char	target_nation;
@@ -1097,37 +1097,37 @@ typedef struct tag_rep_stop_war_login
 
 typedef struct tag_send_client_req_stop_war
 {
-	char send_nation;		// ÈŞÀüÀ» ½ÅÃ»ÇÑ ³ª¶ó
-	short int server_id;	// ÈŞÀüÀ» ¿äÃ»ÇÑ ³ğ ¾ÆÀÌµğ
-	short int game_id;		// ÈŞÀüÀ» ¿äÃ»ÇÑ ³ğÀÌ ÀÖ´Â Æ÷Æ®¹øÈ£
+	char send_nation;		// íœ´ì „ì„ ì‹ ì²­í•œ ë‚˜ë¼
+	short int server_id;	// íœ´ì „ì„ ìš”ì²­í•œ ë†ˆ ì•„ì´ë””
+	short int game_id;		// íœ´ì „ì„ ìš”ì²­í•œ ë†ˆì´ ìˆëŠ” í¬íŠ¸ë²ˆí˜¸
 }k_send_client_req_stop_war;
 
 typedef struct tag_send_game_server_req_stop_war
 {
-	char target_nation;		// ÈŞÀüÀ» °áÁ¤ÇÒ ³ª¶ó
-	char send_nation;		// ÈŞÀüÀ» ½ÅÃ»ÇÑ ³ª¶ó
-	short int server_id;	// ÈŞÀüÀ» ¿äÃ»ÇÑ ³ğ ¾ÆÀÌµğ
-	short int game_id;		// ÈŞÀüÀ» ¿äÃ»ÇÑ ³ğÀÌ ÀÖ´Â Æ÷Æ®¹øÈ£
+	char target_nation;		// íœ´ì „ì„ ê²°ì •í•  ë‚˜ë¼
+	char send_nation;		// íœ´ì „ì„ ì‹ ì²­í•œ ë‚˜ë¼
+	short int server_id;	// íœ´ì „ì„ ìš”ì²­í•œ ë†ˆ ì•„ì´ë””
+	short int game_id;		// íœ´ì „ì„ ìš”ì²­í•œ ë†ˆì´ ìˆëŠ” í¬íŠ¸ë²ˆí˜¸
 }k_send_game_server_req_stop_war;
 
 typedef struct tag_send_login_req_stop_war
 {
-	char target_nation;			// ¾î´À³ª¶ó·Î º¸³¾¿äÃ» ÇÒ²¨³Ä?
-	char send_nation;			// ¾î´À ³ª¶ó°¡ º¸³»³Ä?
-	short int server_id;		// ¾î¶² ³ÑÀÌ º¸³»³Ä?
+	char target_nation;			// ì–´ëŠë‚˜ë¼ë¡œ ë³´ë‚¼ìš”ì²­ í• êº¼ëƒ?
+	char send_nation;			// ì–´ëŠ ë‚˜ë¼ê°€ ë³´ë‚´ëƒ?
+	short int server_id;		// ì–´ë–¤ ë„˜ì´ ë³´ë‚´ëƒ?
 }k_send_login_req_stop_war;
 
 typedef struct tag_send_gm_regist_ok
 {
-	char gm_index;				// ¾î¶² Á÷¾÷ÀÇ gmÀÎÁö
-	short int gm_rank;			// ±×Á÷¾÷ÀÇ ¸î¹øÂ° gmÀÎÁö
-	short int total_gm_rank;		// ÅäÅ» gmÀÇ ¸î¹øÂ° ÀÎÁö
+	char gm_index;				// ì–´ë–¤ ì§ì—…ì˜ gmì¸ì§€
+	short int gm_rank;			// ê·¸ì§ì—…ì˜ ëª‡ë²ˆì§¸ gmì¸ì§€
+	short int total_gm_rank;		// í† íƒˆ gmì˜ ëª‡ë²ˆì§¸ ì¸ì§€
 	char	name[20];
 }k_send_gm_regist_ok;
 
 typedef struct tag_bbs_ALL
 {
-	char type;		// º¸³¾ °øÁöÀÇ Á¾·ù ÆÄ¾Ç
+	char type;		// ë³´ë‚¼ ê³µì§€ì˜ ì¢…ë¥˜ íŒŒì•…
 	char name[20];
 }k_bbs_all;
 
@@ -1169,8 +1169,8 @@ typedef struct tag_scan_target
 
 typedef struct tag_guild_join_ok
 {
-	short int guild_code;			// ¾î´À ±æµåÀÎÁö
-	short int target_id;			// ±æµå °¡ÀÔÀÌ µÈ ³ğ
+	short int guild_code;			// ì–´ëŠ ê¸¸ë“œì¸ì§€
+	short int target_id;			// ê¸¸ë“œ ê°€ì…ì´ ëœ ë†ˆ
 }k_guild_join_ok;
 
 typedef struct tag_guild_join_result
@@ -1181,8 +1181,8 @@ typedef struct tag_guild_join_result
 
 typedef struct tag_guild_join_server
 {
-	short int target_id;		// ±æµå¸¦ ¹Ù²Ü³ğ
-	short int server_id;		// ¸í·ÉÀ» ³»¸°³ğ 
+	short int target_id;		// ê¸¸ë“œë¥¼ ë°”ê¿€ë†ˆ
+	short int server_id;		// ëª…ë ¹ì„ ë‚´ë¦°ë†ˆ 
 	short int guild_code;
 	char id[20];
 }k_guild_join_server;
@@ -1250,7 +1250,7 @@ typedef struct tag_is_this_man_candidate
 
 typedef struct tag_candidate
 {
-	short int	number;		// ¼±°Å ¹øÈ£
+	short int	number;		// ì„ ê±° ë²ˆí˜¸
 
 	DWORD		lv : 7;
 	DWORD		class_type : 3;
@@ -1274,7 +1274,7 @@ typedef struct tag_check_vote_ok
 	short int server_id;
 	char candidate_count;
 	k_candidate candidate[3];
-}k_check_vote_ok;		// ÈÄº¸ Á¤º¸
+}k_check_vote_ok;		// í›„ë³´ ì •ë³´
 
 typedef struct tag_check_vote_client_ok
 {
@@ -1291,14 +1291,14 @@ typedef struct tag_vote_game2login
 	char	login_id[20];
 }k_vote_game2login;
 
-typedef struct tag_exist_name_nation	// ¸ŞÀÏ º¸³»±â¿¡ °¡´ÉÇÑ ÀÌ¸§ÀÎÁö È®ÀÎ
+typedef struct tag_exist_name_nation	// ë©”ì¼ ë³´ë‚´ê¸°ì— ê°€ëŠ¥í•œ ì´ë¦„ì¸ì§€ í™•ì¸
 {
 	char nation;
 	short int server_id;
 	char name[20];
 }k_exist_name_and_nation;
 
-typedef struct tag_exist_name		// ¸ŞÀÏ º¸³»±â¿¡ °¡´ÉÇÑ ÀÌ¸§ÀÎÁö È®ÀÎ
+typedef struct tag_exist_name		// ë©”ì¼ ë³´ë‚´ê¸°ì— ê°€ëŠ¥í•œ ì´ë¦„ì¸ì§€ í™•ì¸
 {
 	short int server_id;
 	char name[20];
@@ -1357,8 +1357,8 @@ typedef struct tag_req_man_to_man_result
 
 typedef struct tag_req_man_to_man
 {
-//	char		name[20];		// ½ÅÃ»ÇÑ Ä³¸¯ÅÍ ÀÌ¸§
-	short int	id;				// ½ÅÃ»ÇÑ Ä³¸¯ÅÍÀÇ ¾ÆÀÌµğ
+//	char		name[20];		// ì‹ ì²­í•œ ìºë¦­í„° ì´ë¦„
+	short int	id;				// ì‹ ì²­í•œ ìºë¦­í„°ì˜ ì•„ì´ë””
 }k_req_man_to_man;
 
 typedef struct tag_do_party_ok
@@ -1370,7 +1370,7 @@ typedef struct tag_do_party_ok
 typedef struct t_danger_of_hunter
 {
 	short int	target_id;
-	char		type;		// 1: ½Ã¾ß¾ÈÀ¸·Î µé¾î¿Ô´Ù.  0: »ç¶óÁ³´Ù.
+	char		type;		// 1: ì‹œì•¼ì•ˆìœ¼ë¡œ ë“¤ì–´ì™”ë‹¤.  0: ì‚¬ë¼ì¡Œë‹¤.
 }k_danger_of_hunter;
 
 typedef struct t_kill_who
@@ -1379,7 +1379,7 @@ typedef struct t_kill_who
 }k_kill_who;
 
 //////////////////////////////////////////////////////////////
-// Çö»ó¹üÀ» Àâ°í ³ª¼­...
+// í˜„ìƒë²”ì„ ì¡ê³  ë‚˜ì„œ...
 typedef struct t_kill_hunter_ok		// CMD_KILL_HUNTER_LIST_OK
 {
 	DWORD	money;
@@ -1387,15 +1387,15 @@ typedef struct t_kill_hunter_ok		// CMD_KILL_HUNTER_LIST_OK
 
 typedef struct t_kill_who_whom
 {
-	char hunter_name[20];		// Á×ÀÎ»ç¶÷
-	char target_name[20];		// Á×Àº »ç¶÷
+	char hunter_name[20];		// ì£½ì¸ì‚¬ëŒ
+	char target_name[20];		// ì£½ì€ ì‚¬ëŒ
 }k_kill_who_whom;
 
 typedef struct t_kill_who_whom_login
 {
-	char hunter_name[20];		// Á×ÀÎ»ç¶÷
-	char target_name[20];		// Á×Àº »ç¶÷
-	char regist_name[20];		// ÀÇ·ÚÇÑ »ç¶÷
+	char hunter_name[20];		// ì£½ì¸ì‚¬ëŒ
+	char target_name[20];		// ì£½ì€ ì‚¬ëŒ
+	char regist_name[20];		// ì˜ë¢°í•œ ì‚¬ëŒ
 }k_kill_who_whom_login;
 
 typedef struct t_send_kill_hunter_list
@@ -1410,18 +1410,18 @@ typedef struct t_kill_hunter_list_login
 {
 	short int server_id;
 	int	list_id;
-	char hunter_name[20];		// »ç³É²ÛÀÇ ÀÌ¸§	
+	char hunter_name[20];		// ì‚¬ëƒ¥ê¾¼ì˜ ì´ë¦„	
 }k_kill_hunter_list_login;
 
 ///////////////////////////////////////////////////////////////////
-// Çö»ó¹ü ¸®½ºÆ® º¸³»ÁÖ±â À§ÇÑ ±¸Á¶Ã¼
+// í˜„ìƒë²” ë¦¬ìŠ¤íŠ¸ ë³´ë‚´ì£¼ê¸° ìœ„í•œ êµ¬ì¡°ì²´
 typedef struct t_get_hunter_list
 {
 	int list_id;
 }k_get_hunter_list;
 
 
-typedef struct t_hunter_list		// °ÔÀÓ¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î
+typedef struct t_hunter_list		// ê²Œì„ì—ì„œ í´ë¼ì´ì–¸íŠ¸ë¡œ
 {
 	int	 index;
 	char target_name[20];
@@ -1432,13 +1432,13 @@ typedef struct t_hunter_list		// °ÔÀÓ¿¡¼­ Å¬¶óÀÌ¾ğÆ®·Î
 	char text[1000];
 }k_hunter_list;
 
-typedef struct t_login_game_hunter_list		// µğºñµ¥¸ó¿¡¼­ °ÔÀÓÀ¸·Î 
+typedef struct t_login_game_hunter_list		// ë””ë¹„ë°ëª¬ì—ì„œ ê²Œì„ìœ¼ë¡œ 
 {
 	short int		server_id;
 	k_hunter_list	list;
 }k_login_game_hunter_list;
 
-typedef struct t_game_login_hunter_list		// °ÔÀÓ¿¡¼­ ·Î±×ÀÎÀ¸·Î ¿äÃ»
+typedef struct t_game_login_hunter_list		// ê²Œì„ì—ì„œ ë¡œê·¸ì¸ìœ¼ë¡œ ìš”ì²­
 {
 	short int	server_id;
 	int			list_id;
@@ -1493,8 +1493,8 @@ typedef struct t_rep_party_info
 
 typedef struct t_oh_my_party
 {
-	char	my_name[20];		// »õ·Î µé¾î¿Â³ğ
-	char	party_name[20];		// °°ÀÌ ÆÄÆ¼ ¸ÎÀº »ç¶÷
+	char	my_name[20];		// ìƒˆë¡œ ë“¤ì–´ì˜¨ë†ˆ
+	char	party_name[20];		// ê°™ì´ íŒŒí‹° ë§ºì€ ì‚¬ëŒ
 }k_oh_my_party;
 
 typedef struct t_server_req_char_info
@@ -1518,19 +1518,19 @@ typedef struct tag_i_get_item_of_supper
 
 typedef struct tag_server_to_client_open_supper
 {
-	char much;		// ¾òÀ» ¼ö ÀÖ´Â »§ÀÇ °¹¼ö
+	char much;		// ì–»ì„ ìˆ˜ ìˆëŠ” ë¹µì˜ ê°¯ìˆ˜
 }k_server_to_client_open_supper;
 
 typedef struct tag_req_faith_up
 {
-	char name[20];				// ½Å¾Ó½É ¿Ã·ÁÁÙ »ç¶÷
-	short int up_point;			// ½Å¾Ó½É ¿Ã·ÁÁÙ ¾ç
+	char name[20];				// ì‹ ì•™ì‹¬ ì˜¬ë ¤ì¤„ ì‚¬ëŒ
+	short int up_point;			// ì‹ ì•™ì‹¬ ì˜¬ë ¤ì¤„ ì–‘
 }k_req_faith_up;
 
 typedef struct tag_game2login_recall_box_item
 {
 	DWORD box_id;
-	short int server_id;		// ÀÚ±â ÀÚ½Å°Ç ¾ÈÁö¿ì±â À§ÇØ
+	short int server_id;		// ìê¸° ìì‹ ê±´ ì•ˆì§€ìš°ê¸° ìœ„í•´
 }k_game2login_recall_box_item;
 
 typedef struct tag_char_update_data
@@ -1745,14 +1745,14 @@ typedef struct tag_game2client_ear_result
 typedef struct tag_login2game_ear_message_result
 {
 	short int send_server_id;
-	char	ret;									// ret  1 : ok, 2:Á×À½, 3:°ÅÀıÇÔ
+	char	ret;									// ret  1 : ok, 2:ì£½ìŒ, 3:ê±°ì ˆí•¨
 }k_login2game_ear_message_result;
 
 typedef struct tag_send_ear_message_result
 {
 	short int send_game_server;
 	short int send_server_id;
-	char	ret;									// ret  1 : ok, 2:Á×À½, 3:°ÅÀıÇÔ
+	char	ret;									// ret  1 : ok, 2:ì£½ìŒ, 3:ê±°ì ˆí•¨
 }k_send_ear_message_result;
 
 typedef struct tag_loginserver_to_gameserver_ear_message
@@ -1766,25 +1766,25 @@ typedef struct tag_send_ear_message_ok_to_login
 	short int gameserver_port;
 	short int server_id;
 	char name[20];
-	char ret;				// °á°ú
+	char ret;				// ê²°ê³¼
 }k_send_ear_message_ok_to_login;
 
 typedef struct tag_login_to_gameserver_ear_message
 {
-	short int game_server;		// º¸³½»ç¶÷ÀÌ ¼ÓÇÑ °ÔÀÓ ¼­¹ö
-	short int server_id;		// º¸³½»ç¶÷ÀÇ ¾ÆÀÌµğ 
-	char nation;				// ³ª¶ó¸¦ ºñ±³ÇÏ±â À§ÇØ
-	char recv_name[20];				// ´©±¸ÇÑÅ× º¸³»´Â °¡
-	char send_name[20];				// ´©°¡ º¸³½°Ç°¡...
-	char message[200];			// ¾î¶² ¸Ş½ÃÁö ÀÎ°¡...
+	short int game_server;		// ë³´ë‚¸ì‚¬ëŒì´ ì†í•œ ê²Œì„ ì„œë²„
+	short int server_id;		// ë³´ë‚¸ì‚¬ëŒì˜ ì•„ì´ë”” 
+	char nation;				// ë‚˜ë¼ë¥¼ ë¹„êµí•˜ê¸° ìœ„í•´
+	char recv_name[20];				// ëˆ„êµ¬í•œí…Œ ë³´ë‚´ëŠ” ê°€
+	char send_name[20];				// ëˆ„ê°€ ë³´ë‚¸ê±´ê°€...
+	char message[200];			// ì–´ë–¤ ë©”ì‹œì§€ ì¸ê°€...
 }k_login_to_gameserver_ear_message;
 
 typedef struct tag_login_send_ear_message
 {
 	short int server_id;
-	char nation;			// ³ª¶ó¸¦ ºñ±³ÇÏ±â À§ÇØ
-	char recv_name[20];		// ¹Ş´Â »ç¶÷ÀÌ¸§
-	char send_name[20];		// º¸³»´Â »ç¶÷ ÀÌ¸§
+	char nation;			// ë‚˜ë¼ë¥¼ ë¹„êµí•˜ê¸° ìœ„í•´
+	char recv_name[20];		// ë°›ëŠ” ì‚¬ëŒì´ë¦„
+	char send_name[20];		// ë³´ë‚´ëŠ” ì‚¬ëŒ ì´ë¦„
 	char message[200];
 }k_login_send_ear_message;
 
@@ -1796,12 +1796,12 @@ typedef struct tag_send_ear_message_ok
 typedef struct tag_send_ear_message
 {
 	char name[20];
-	short int send_game_server;		// º¸³½ »ç¶÷ÀÌ ¼ÓÇÑ °ÔÀÓ ¼­¹ö Æ÷Æ®¹øÈ£
-	short int send_server_id;		// º¸³½ »ç¶÷ÀÇ ¾ÆÀÌµğ
+	short int send_game_server;		// ë³´ë‚¸ ì‚¬ëŒì´ ì†í•œ ê²Œì„ ì„œë²„ í¬íŠ¸ë²ˆí˜¸
+	short int send_server_id;		// ë³´ë‚¸ ì‚¬ëŒì˜ ì•„ì´ë””
 	char message[200];
 }k_send_ear_message;
 
-typedef struct server_to_client_char_info_plus		// Ãß°¡ Ä³¸¯ÅÍ Á¤º¸¸¦ Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁØ´Ù.
+typedef struct server_to_client_char_info_plus		// ì¶”ê°€ ìºë¦­í„° ì •ë³´ë¥¼ í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤€ë‹¤.
 {
 	char		believe_god;
 	short int	faith;
@@ -1833,13 +1833,13 @@ typedef struct tag_get_char_info	// loginserver -> gameserver
 typedef struct tag_server_text_default
 {
 	char text[512];
-	unsigned short int len;			// ÃÑ ±æÀÌ
+	unsigned short int len;			// ì´ ê¸¸ì´
 }k_server_text_default;
 
 typedef struct tag_server_text_only_one
 {
 	char text[512];
-	unsigned short int len;			// ÃÑ ±æÀÌ
+	unsigned short int len;			// ì´ ê¸¸ì´
 	short int server_id;
 }k_server_text_only_one;
 
@@ -1872,7 +1872,7 @@ typedef struct login_sql_evangelist_delete
 	char my_name[20];
 }k_login_sql_evangelist_delete;
 
-typedef struct server_client_preach_name		// °á°ú
+typedef struct server_client_preach_name		// ê²°ê³¼
 {
 	char	result;
 	char	name[20];
@@ -1914,17 +1914,17 @@ typedef struct server_preach_name
 
 typedef struct login_put_box_item
 {
-	//	short int server_id;		// Å¬¶óÀÌ¾ğÆ®·Î º¸³»ÁÙ ÇÊ¿ä°¡ ¾ø±â ¶§¹®¿¡
+	//	short int server_id;		// í´ë¼ì´ì–¸íŠ¸ë¡œ ë³´ë‚´ì¤„ í•„ìš”ê°€ ì—†ê¸° ë•Œë¬¸ì—
 	DWORD		box_id;
-	char		para;				//À§Ä¡
+	char		para;				//ìœ„ì¹˜
 	ItemAttr	item;
 }k_login_put_box_item;
 
 typedef struct get_server_text
 {
 	char text[512];		
-	char ct;						// Å¬·¹½ºÀÇ ¹è¿­
-	unsigned short int len;			// ÃÑ±æÀÌ
+	char ct;						// í´ë ˆìŠ¤ì˜ ë°°ì—´
+	unsigned short int len;			// ì´ê¸¸ì´
 }k_get_server_text;
 
 typedef struct req_bbs_title
@@ -1932,7 +1932,7 @@ typedef struct req_bbs_title
 	char count;
 }k_req_bbs_title;
 
-typedef struct transfer_item		// ¾ÆÀÌÅÛ Àü¼Û µğÆúÆ®
+typedef struct transfer_item		// ì•„ì´í…œ ì „ì†¡ ë””í´íŠ¸
 {
 	ItemAttr item;
 }k_transfer_item;
@@ -1959,7 +1959,7 @@ typedef struct start_create_ability
 	unsigned int luck	: 2;
 }k_start_create_ability;
 
-typedef struct start_throw_dice		// ÁÖ»çÀ§ µ¹¸± °æ¿ì 0~10 ±îÁöÀÇ ´õÇÏ±â ¼öÄ¡
+typedef struct start_throw_dice		// ì£¼ì‚¬ìœ„ ëŒë¦´ ê²½ìš° 0~10 ê¹Œì§€ì˜ ë”í•˜ê¸° ìˆ˜ì¹˜
 {
 	char ability1;
 	char ability2;
@@ -2013,8 +2013,8 @@ typedef struct server_req_party_db
 
 typedef struct server_server_party_info
 {
-	short int	Server_id;		// ÀÌ¶§ »ç¿ëÇÏ´Â ¼­¹ö ¾ÆÀÌµğ´Â ¿äÃ»ÇÑ Å¬¶óÀÌ¾ğÆ®ÀÇ ¾ÆÀÌµğ ÀÌ´Ù...
-	char		ct;				// ÆÄÆ¼ ¹øÈ£
+	short int	Server_id;		// ì´ë•Œ ì‚¬ìš©í•˜ëŠ” ì„œë²„ ì•„ì´ë””ëŠ” ìš”ì²­í•œ í´ë¼ì´ì–¸íŠ¸ì˜ ì•„ì´ë”” ì´ë‹¤...
+	char		ct;				// íŒŒí‹° ë²ˆí˜¸
 
 	short int	Face;
 	short int	Level;
@@ -2068,7 +2068,7 @@ typedef struct tac_skill_each_exp
 */
 typedef struct tag_client_inn
 {
-	char type;			// ½¬±â->3, ÀáÀÚ±â->3( ³·, ¹ãÀ¸·Î ³ª´¸ )
+	char type;			// ì‰¬ê¸°->3, ì ìê¸°->3( ë‚®, ë°¤ìœ¼ë¡œ ë‚˜ë‰¨ )
 }k_client_inn;
 
 typedef struct tag_party_info
@@ -2152,7 +2152,7 @@ typedef struct tag_server_relation
 	char		Class[3];
 }k_server_relation;
 
-typedef struct tag_server_party		// employment¿Í°°ÀÌ ¾´´Ù.
+typedef struct tag_server_party		// employmentì™€ê°™ì´ ì“´ë‹¤.
 {
 	char		name[6][31];
 	char		Gender[6];
@@ -2198,7 +2198,7 @@ typedef struct server_result
 
 typedef struct server_item_repair_ok
 {
-	short int	item_pos;		// °íÄ¥ À§Ä¡ ( << 5 | <<3  | ... »ç¿ë )
+	short int	item_pos;		// ê³ ì¹  ìœ„ì¹˜ ( << 5 | <<3  | ... ì‚¬ìš© )
 	short int	money;
 	DWORD		dur;
 }k_server_item_repair_ok;
@@ -2222,16 +2222,16 @@ typedef struct client_lvup_point_each
 
 typedef struct client_other_ch_inv
 {
-	short int other_ch;					// ¿³º¸·Á´Â »ç¶÷ÀÇ ¾ÆÀÌµğ
+	short int other_ch;					// ì—¿ë³´ë ¤ëŠ” ì‚¬ëŒì˜ ì•„ì´ë””
 }kein_client_other_ch_inv;
 
 typedef struct server_other_ch_inv
 {
 	int target_id;
-	int item[15];						// ¿³º¸´Â »ç¶÷ÀÇ ¾ÆÀÌÅÛ ¸ñ·Ï
+	int item[15];						// ì—¿ë³´ëŠ” ì‚¬ëŒì˜ ì•„ì´í…œ ëª©ë¡
 }kein_server_other_ch_inv;
 
-typedef struct client_item_attr_pos		// ¾ÆÀÌÅÛ ¼Ó¼º¹× À§Ä¡
+typedef struct client_item_attr_pos		// ì•„ì´í…œ ì†ì„±ë° ìœ„ì¹˜
 {
 	ItemAttr		item_attr;
 	POS				item_pos;
@@ -2240,7 +2240,7 @@ typedef struct client_item_attr_pos		// ¾ÆÀÌÅÛ ¼Ó¼º¹× À§Ä¡
 
 typedef struct client_bank_deposit
 {
-	DWORD			money;		// ÃÑ ¿¹±İÇÑ ±İ¾×
+	DWORD			money;		// ì´ ì˜ˆê¸ˆí•œ ê¸ˆì•¡
 } k_client_bank_deposit;
 
 typedef struct client_bank_repayment		
@@ -2277,7 +2277,7 @@ typedef struct req_login_server_box_open
 
 typedef struct login_server_box_open
 {
-	short int	server_id;		// Å¬¶óÀÌ¾ğÆ® ¾ÆÀÌµğ
+	short int	server_id;		// í´ë¼ì´ì–¸íŠ¸ ì•„ì´ë””
 	ItemAttr	box_item[MAX_BOX_ITEM];
 	DWORD		box_id;
 }k_login_server_box_open;

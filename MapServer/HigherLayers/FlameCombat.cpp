@@ -1,4 +1,4 @@
-// FlameCombat.cpp: implementation of the CFlameCombat class.
+ï»¿// FlameCombat.cpp: implementation of the CFlameCombat class.
 //
 //////////////////////////////////////////////////////////////////////
 
@@ -57,7 +57,7 @@ bool CFlameCombat::Elapse(CHARLIST* pTarget)
 
 bool CFlameCombat::SwordNRoses()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -68,7 +68,7 @@ bool CFlameCombat::SwordNRoses()
 
 bool CFlameCombat::MultipleFire()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -79,7 +79,7 @@ bool CFlameCombat::MultipleFire()
 
 bool CFlameCombat::FleetMissile()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -90,7 +90,7 @@ bool CFlameCombat::FleetMissile()
 
 bool CFlameCombat::ConvertingArmor()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -102,7 +102,7 @@ bool CFlameCombat::ConvertingArmor()
 bool CFlameCombat::CriticalFire()
 {
 	m_pCaster->dwCombatState = m_dwNow + CalcMaintain();
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
@@ -113,7 +113,7 @@ bool CFlameCombat::CriticalFire()
 
 bool CFlameCombat::BurningBloody() // 030415 kyo
 {	//< CSD-TW-030606
-	const WORD wPeriod = CalcMaintain(); // À¯Áö½Ã°£ °è»ê
+	const WORD wPeriod = CalcMaintain(); // ìœ ì§€ì‹œê°„ ê³„ì‚°
 	m_pCaster->dwCombatRecovery = m_dwNow + wPeriod;
 	
 	t_server_combat_result_t packet;
@@ -127,7 +127,7 @@ bool CFlameCombat::BurningBloody() // 030415 kyo
 
 bool CFlameCombat::FireExtreme()
 {
-	// °á°ú°ªÀ» ´ë»óÀÚ¿¡°Ô PacketÀ¸·Î º¸³»±â
+	// ê²°ê³¼ê°’ì„ ëŒ€ìƒìì—ê²Œ Packetìœ¼ë¡œ ë³´ë‚´ê¸°
 	t_server_combat_result packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;
