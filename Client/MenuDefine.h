@@ -1090,6 +1090,8 @@ enum FieldTypeIndex
 	FT_CHECK_MERCHANT_FIND				,
 	FT_MAININTERFACE_MAIL_CALL			,//메인 인터페이의 메일 메뉴 콜
 	FT_MERCHANT_BACKUP_GET_LIST			,// BBD 040303	
+
+	FT_SELECT_CHARACTER_SCROLL			, // ADD by taniey
 }; 
 
 /////////////////////////////////////////////////////////////////////////////////

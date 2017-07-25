@@ -168,13 +168,13 @@ bool TFileMgr<T, N>::Load(const char* pFile)
 {
   ifstream fin(pFile, ios::in|ios::binary);
   if( !fin.is_open() ) return false;
-  // 헤더 읽어오기
-  int nVersion = 0;
-  fin.read((char*)(&nVersion), sizeof(nVersion)); 
-  if (m_hsel.GetVersion() != nVersion)  return false;
-  HselInit deinit;
-  fin.read((char*)(&deinit), sizeof(HselInit));
-  if (!m_hsel.Initial(deinit))  return false;
+  //// 헤더 읽어오기
+  //int nVersion = 0;
+  //fin.read((char*)(&nVersion), sizeof(nVersion)); 
+  //if (m_hsel.GetVersion() != nVersion)  return false;
+  //HselInit deinit;
+  //fin.read((char*)(&deinit), sizeof(HselInit));
+  //if (!m_hsel.Initial(deinit))  return false;
   // 파일 읽어오기
   T* pT = NULL;
 
@@ -187,7 +187,7 @@ bool TFileMgr<T, N>::Load(const char* pFile)
     fin.read((char*)(&m_dwHandle), sizeof(m_dwHandle));
     Decode((char*)(pT), sizeof(T));
     // 해킹여부 검사
-    if (m_hsel.GetCRCConvertShort() != m_nIndex)  return false;
+    //if (m_hsel.GetCRCConvertShort() != m_nIndex)  return false;
     if (pT->Check() != m_nMagic)  return false;
 
 	//020808 YGI  --------------------

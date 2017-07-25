@@ -668,8 +668,11 @@ void inithook() {
 extern int LoadHackingToolName();
 int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
+#if _DEBUG
 	StdString strAppPath = GetAppPath();
 	SetCurrentDirectory(strAppPath.c_str());  //设置
+#endif // _DEBUG
+
 /*///////////////////////////////////////////////////////////////////菱乖 쓱?
  // Is this the Original EXE or the clone EXE?
 // If the command-line 1 argument, this is the Original EXE

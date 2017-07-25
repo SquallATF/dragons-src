@@ -3064,7 +3064,7 @@ void StartMenuSet2()
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //	인물 선택
-	::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,12);
+	::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);
 	
 	::SMenuFTReg(MN_SELECT_CHARACTER,0,FT_HIDE_SPECIAL_WILLDO_AUTO_PUT,SWD_RESET_JOB,
 						94, 506,200, 62, SELECT_CHARACTER_IMG, 6, 1);

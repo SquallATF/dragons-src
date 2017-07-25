@@ -253,7 +253,7 @@ int main()
 	srect.Right = info.dwMaximumWindowSize.X-1;
 	srect.Bottom = info.dwMaximumWindowSize.Y-1;
 
-	result = SetConsoleWindowInfo(g_hOut,TRUE, &srect);
+	//result = SetConsoleWindowInfo(g_hOut,TRUE, &srect);
 	// ------------------
 
 	// Init Log

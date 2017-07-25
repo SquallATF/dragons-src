@@ -87,7 +87,7 @@ int main()
 	hIn = GetStdHandle(STD_INPUT_HANDLE);
 	g_hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	SetMonitorSize( SCREEN_TEXT_SIZE_X, SCREEN_TEXT_SIZE_Y );
+	//SetMonitorSize( SCREEN_TEXT_SIZE_X, SCREEN_TEXT_SIZE_Y );
 
 	InitMyLog();
 	

@@ -3817,7 +3817,7 @@ bool Order(int nOne, int nTwo)
 {
 	const int nTemp1 = g_lpMT[nOne].basic_Level;
 	const int nTemp2 = g_lpMT[nTwo].basic_Level;
-	return (nTemp1 <= nTemp2) ? true:false;
+	return (nTemp1 < nTemp2) ? true:false;
 }
 
 bool LoadMagicTable2(void)
