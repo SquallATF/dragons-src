@@ -1,2 +1,2 @@
 # dragons-src
-for dragons games
+for only for test projects.
