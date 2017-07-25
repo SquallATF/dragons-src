@@ -11396,7 +11396,6 @@ public :
 		//fin.read((char*)(&deinit), sizeof(HselInit));
 		//if( !m_hsel.Initial(deinit) )  return false;
 
-		std::cout << "" << std::endl ;;
 		for (int i = 0; i < N; ++i)	
 		{ 
 			T tempT;

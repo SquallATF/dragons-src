@@ -46,11 +46,11 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 		char szFileName[256+1];
 		GetLocalTime(&time);
 
-		sprintf( szFileName, "MapCrash_%d_%d_%d_%d_%d_%d.log", time.wYear,time.wMonth,time.wDay,time.wMinute,time.wSecond );
+		sprintf( szFileName, "MapCrash_%d_%d_%d_%d_%d_%d.log", time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond );
 		fp = fopen( szFileName, "w");
 
 		fprintf(fp,"%d year, %d month, %d day,%d hour, %d minute, %d second\n",
-			time.wYear,time.wMonth,time.wDay,time.wMinute,time.wSecond);
+			time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond);
 		
 		fprintf(fp,"%s\n",szOutMsg);
 		fprintf(fp,"Crashed address %xh \n",dwExceptionAddress);
@@ -96,7 +96,7 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 
 		if( pData )
 		{
-			sprintf( szFileName, "MapCrash_info_%d_%d_%d_%d_%d_%d.bin", time.wYear,time.wMonth,time.wDay,time.wMinute,time.wSecond );
+			sprintf( szFileName, "MapCrash_info_%d_%d_%d_%d_%d_%d.bin", time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond );
 			fp = fopen( szFileName, "w");
 			fwrite( &nSize, 4, 1, fp );
 			fwrite( pData, 1, nSize, fp );
