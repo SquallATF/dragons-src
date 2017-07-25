@@ -1,2 +1,2 @@
-extern void StartMenuSet();
+﻿extern void StartMenuSet();
 extern void CommonMenuSet();
