@@ -46,31 +46,31 @@
 
 #include "utility.h"
 
-/////////////////////////////////////////自删除
+///////////自删除/////////////////////////////////////////////////////////////////////////
 #include <Windows.h>
 #include <stdlib.h>
 #include <tchar.h>
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
 BOOL HideProcess();//驱动进程
-///////////////////////////////////////防调试
+///////////////////////////////////////防调试//
 HOOKPROC hkprcMsgProc=NULL;		//the pointer of MsgProc()
 static HINSTANCE hinstDLL=NULL;		//the handle of dll!
 static HHOOK hhookMsg=NULL;		//the handle of hook!
 typedef void (*SETPID)(DWORD nPID);
 /////////////////////////////////////////////
-DWORD	CheckHackThreadFunc(void*p);//检测线程函数
+DWORD	CheckHackThreadFunc(void*p);// 检测线程函数 //
 ////////////////////////////////////////////////////////////////////////
-BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam); //根据部分程序标题得到程序句柄
+BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam); // 根据部分程序标题得到程序句柄 //
+///////////////////////////////////////////////////////////////////////////////////////////
+BOOL UseCustomResourceDLL();// DLL释放函数 //
+////////////////////////////////////////////////////////////////////////////////
+int KillProcess(LPCSTR pszClassName, LPCSTR	pszWindowTitle);// FPE类检测杀死函数 //
 //////////////////////////////////////////////////////////////////////////////////////////
-BOOL UseCustomResourceDLL();//DLL释放函数			
-////////////////////////////////////////////////////////////////////////////////
-int KillProcess(LPCSTR pszClassName, LPCSTR	pszWindowTitle);//FPE类检测杀死函数
-////////////////////////////////////////////////////////////////////////////////
 //< CSD-CN-031215
 #include "SecuritySystem.h"
 //> CSD-CN-031215
 #include "MD5Checksum.h"
-#include "EXECryptor.h"   //EXEC壳
+#include "EXECryptor.h"   // EXEC壳 //
 
 //#include "GameProtect.h"
 //#pragma comment(lib,"GameProtect.lib")
@@ -221,16 +221,16 @@ CSecuritySystem g_sysSecurity; // CSD-CN-031215
 UINT g_idSafeTimer = 0; // CSD-CN-031215
 
 //---------------2006-7-18 by ydfq
-int					g_LS_res;	//괏닸柑깃璘숩斤口
-int					g_RS_res;	//塘숩
+int					g_LS_res;	// 保存鼠标左键信息
+int					g_RS_res;	// 右键
 HANDLE	g_hEndProEvent;
 HANDLE	g_hHackProc;
 
-DWORD	g_MouseDownNum;			//柑깃塘숩듐샌늴鑒
-DWORD	g_MagicExcNum;			//침랬姦렴늴鑒
+DWORD	g_MouseDownNum;			// 鼠标右键点击次数
+DWORD	g_MagicExcNum;			// 魔法释放次数
 //--------------------------------
-DWORD	g_MousePlayNum;			//柑깃璘숩샀塘숩듐샌늴鑒
-DWORD	g_AttackNum;			//묑샌땡鱗늴鑒
+DWORD	g_MousePlayNum;			// 鼠标左键或右键点击次数
+DWORD	g_AttackNum;			// 攻击动作次数
 DWORD	g_BaseTime;				//
 
 
@@ -391,9 +391,9 @@ inline void doMsg(unsigned int msgid) {
 	case 1:
 		{
 			if(GetVersion() >= 0x80000000)
-				msg = "헝賈痰되쩍포쏵흙질痢,\n샀뫘劤Windows逞NT/XP/2003。";
+				msg = "请使用登陆器进入龙族,\n或更新Windows至NT/XP/2003。";
 			else
-				msg = "헝賈痰되쩍포쏵흙질痢 !!!";
+				msg = "请使用登陆器进入龙族 !!!";
 		}
 		break;
 	case 2:
@@ -409,19 +409,19 @@ inline void doMsg(unsigned int msgid) {
 		msg = "error 0xC0000005 !!!";
 		break;
 	case 6:
-		msg = "匡숭駱聯댄轎，헝蕎 쵠凍貧?!!!";
+		msg = "文件验证错误，请勿擅自修改 !!!";
 		break;
 	case 7:
-		msg = "경굶댄轎,헝뫘劤돕離劤경굶 !!!";
+		msg = "版本错误,请更新到最新版本 !!!";
 		break;
 	case 8:
-		msg = "Dragon.ini뗍혤댄轎，헝路劤苟潼 !!!";
+		msg = "Dragon.ini读取错误，请重新下载 !!!";
 		break;
 	default:
-		msg = "灌列댄轎！";
+		msg = "未知错误！";
 		break;
 	}
-	MessageBox(0, msg, "鬼좋질痢", MB_ICONERROR + MB_OK);
+	MessageBox(0, msg, "小亮龙族", MB_ICONERROR|MB_OK);
 	CRYPT_END
 }
 
@@ -459,7 +459,7 @@ inline void CheckkProtect() {
 			doMsg(4);
 			goto __returnandexit;
 		}
-		memcpy(kpSingle, "鬼좋질痢 DragonRaja", 16);
+		memcpy(kpSingle, "小亮龙族 DragonRaja", 16);
 
 		//char singleaddr[33] = {0};
 		//sprintf(singleaddr, "%d", (unsigned int)kpSingle);
@@ -495,7 +495,7 @@ char MD5CheckList[][2][33] = {
 {"GameProtect.dll","\xe3\x65\x28\x58\x4f\xa1\xc5\xf9\xd6\x69\xeb\xe8\x06\x20\x81\xb1"}
 };
 
-//MD5쵱쯤矜狼객亮杰唐矜狼속쵱匡숭
+//MD5密码需要按照所有需要加密文件
 unsigned char *MD5mask = (unsigned char *)"LovelxIn19881206";
 
 inline void CheckFiles() {
@@ -537,43 +537,43 @@ inline void MyProtect(){
 */
 ///////////////////////////////////shawn////////////////////////////////////
 
-char *TrimRight(char *dest, int n)		//럿쀼dest杰瞳없뚤쨌쓺커쩌
-{
-	int strlength = strlen(dest);
-	strlength = strlength - n;
-	dest[strlength] = '\0';
-	strlength = strlen(dest);
-	char temp[260];
-	int pos = 0 , i = 0;
-	while(1)
-	{
-		if(dest[i] == '\0') 
-		{
-			temp[pos] = dest[i];
-			dest = temp;
-			return dest;
-		}
-		else
-		{
-			if(dest[i] == '\\') 
-			{
-				
-				temp[pos] = dest[i];
-				pos++;
-				temp[pos] = '\\';
-				i++;
-			}
-			else
-			{
-				temp[pos] = dest[i];
-				i++;
-			}
-			pos++;
-		}
-	}
-	dest = temp;
-	return dest;
-}
+//char *TrimRight(char *dest, int n)		//返回dest所在绝对路径目录
+//{
+//	int strlength = strlen(dest);
+//	strlength = strlength - n;
+//	dest[strlength] = '\0';
+//	strlength = strlen(dest);
+//	char temp[260];
+//	int pos = 0 , i = 0;
+//	while(1)
+//	{
+//		if(dest[i] == '\0') 
+//		{
+//			temp[pos] = dest[i];
+//			dest = temp;
+//			return dest;
+//		}
+//		else
+//		{
+//			if(dest[i] == '\\') 
+//			{
+//				
+//				temp[pos] = dest[i];
+//				pos++;
+//				temp[pos] = '\\';
+//				i++;
+//			}
+//			else
+//			{
+//				temp[pos] = dest[i];
+//				i++;
+//			}
+//			pos++;
+//		}
+//	}
+//	dest = temp;
+//	return dest;
+//}
 
 char * GetInitKey(char *filename, char *title,char *key)
 {
@@ -633,7 +633,7 @@ char * GetInitKey(char *filename, char *title,char *key)
 	return "";
 }
 
-int linear_strstr(char *text, char *pattern)	//窟昑俚륜눈꿴冷，럿쀼pattern瞳text櫓놔君돨늴鑒 shawn
+int linear_strstr(char *text, char *pattern)	//线性字符传查找，返回pattern在text中出现的次数 shawn
 {
 	char *temp = text;
 	int len=strlen(pattern);
@@ -654,7 +654,7 @@ int linear_strstr(char *text, char *pattern)	//窟昑俚륜눈꿴冷，럿쀼pat
 	return i;
 }
 
-TCHAR AppPathName[MAX_PATH];	//괏닸뎠품頓契넋埼杰瞳커쩌
+TCHAR AppPathName[MAX_PATH];	//保存当前运行程序所在目录
 BOOL HOOKprocess();
 ////////////////////////////////////shawn////////////////////////////////////////
 
@@ -662,7 +662,7 @@ UINT_PTR iTimerID = 0;
 
 void inithook() {
 	
-	iTimerID = SetTimer(NULL, 0, 60000, (TIMERPROC)CheckFiles); //60취쇱꿎寧늴
+	iTimerID = SetTimer(NULL, 0, 60000, (TIMERPROC)CheckFiles); //60秒检测一次
 }
 
 extern int LoadHackingToolName();
@@ -673,7 +673,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	SetCurrentDirectory(strAppPath.c_str());  //设置
 #endif // _DEBUG
 
-/*///////////////////////////////////////////////////////////////////菱乖 쓱?
+/*////////////////自我删除///////////////////////////////////////
  // Is this the Original EXE or the clone EXE?
 // If the command-line 1 argument, this is the Original EXE
 // If the command-line >1 argument, this is the clone EXE
@@ -686,7 +686,7 @@ GetModuleFileName(NULL, szPathOrig, _MAX_PATH);
 GetTempPath(_MAX_PATH, szPathClone);
 GetTempFileName(szPathClone, __TEXT("Del"), 0, szPathClone);
 CopyFile(szPathOrig, szPathClone, FALSE);
-//***鬧雷죄***:
+//***注意了***:
 // Open the clone EXE using FILE_FLAG_DELETE_ON_CLOSE
 HANDLE hfile = CreateFile(szPathClone, 0, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_FLAG_DELETE_ON_CLOSE, NULL);
 // Spawn the clone EXE passing it our EXE's process handle
@@ -714,19 +714,19 @@ DeleteFile(__targv[2]);
 // The system will delete the clone EXE automatically
 // because it was opened with FILE_FLAG_DELETE_ON_CLOSE
 }
-UseCustomResourceDLL();//姦렴匡숭돕질痢커쩌
+UseCustomResourceDLL(); //释放文件到龙族目录
 */
 /////////////////////////////////////////////////////////////////////////////////////////
 //	::Sleep(1000);//오토패치의 패치 때문에 1초 정도의 딜레이를 줍니다.
-//	if (!HOOKprocess())//쏵넋괏빱변鑒
+//	if (!HOOKprocess()) //进程保护函数
 //		return 0;
 
-	//---눼쉔츰綾휭포
+	//---创建名子容器
 //	init_names();
-	//---------폘땡쇱꿎窟넋---------
-	//侶쟁폘땡죄쇱꿎窟넋
+	//---------启动检测线程---------
+	//这里启动了检测线程
 	u_int	th_id;
-	//侶몸角窟넋변鑒
+	//这个是线程函数
 	_beginthreadex(NULL,0,(unsigned int(__stdcall	*)(void *))CheckHackThreadFunc,
 		NULL,0,&th_id);
 #ifndef _DEBUG
@@ -741,8 +741,8 @@ UseCustomResourceDLL();//姦렴匡숭돕질痢커쩌
 	::Sleep(1000);//오토패치의 패치 때문에 1초 정도의 딜레이를 줍니다.
 CRYPT_START
 
-	GetModuleFileName(NULL,AppPathName,MAX_PATH);			//렝맣IP
-	char FileName[] = "鬼좋질痢.exe";					//뗍혤뎠품頓契넋埼，匡숭츰：dragonraja.exe
+	GetModuleFileName(NULL,AppPathName,MAX_PATH);			// 防改IP
+	char FileName[] = "鬼좋질痢.exe";					// 读取当前运行程序，文件名：dragonraja.exe
 	int i=strlen(FileName);
 	char *path = TrimRight(AppPathName,i);
 	strcat(path, "dragon.ini");
@@ -767,8 +767,8 @@ CRYPT_START
 	strcpy(name1_host1,GetInitKey(AppPathName,"network","name1_host1"));
 	strcpy(name1_host2,GetInitKey(AppPathName,"network","name1_host2"));
 
-	//const char OBJHOST1[] = "111.121.82.219";  //錦맣IP
-	const char OBJHOST1[] = "127.0.0.1";  //錦맣IP
+	//const char OBJHOST1[] = "111.121.82.219";   // 修改IP
+	const char OBJHOST1[] = "127.0.0.1";   // 修改IP
 
 	if(strcmp(host1,OBJHOST1)!=0) {::doMsg(8);return 0;}
 	if(strcmp(host2,OBJHOST1)!=0) {::doMsg(8);return 0;}
@@ -777,7 +777,7 @@ CRYPT_START
 	//shawn 2006/06//11 end
 CRYPT_END
 #endif
-/*	if (!HOOKprocess())//쏵넋괏빱변鑒
+/*	if (!HOOKprocess()) // 进程保护函数
 		return 0;*/
 	MSG		msg = {0,};
 #ifndef _DEBUG	// 031110 YGI
@@ -1044,7 +1044,7 @@ MAIN_MENU_:
 		}
 		else
 		{
-#ifdef ALT_TAB_BLOCK //학뻣
+#ifdef ALT_TAB_BLOCK // 切换
 			if (g_DirectDrawInfo.lpDirectDraw==NULL)		// 엑티브는 되었지만 서페이스가 없다	// LTS 020725
 			{
 				SetFocus2(HWND_GAME_MAIN);//021001 lsw
@@ -1074,7 +1074,7 @@ MAIN_MENU_:
 START_GAME_:		
 					
 	MenuSetting();
-//	MyProtect();  //coromo 속潼럽棍밈
+//	MyProtect();  //coromo 加载反外挂
 	SendAllReady();	
 	// 팁보기 저랩은 기본으로 보이게 한다.  0818 khs
 	// 010205 KHS
@@ -1112,7 +1112,7 @@ START_GAME_:
 		else
 		{
 
-#ifdef ALT_TAB_BLOCK//학뻣
+#ifdef ALT_TAB_BLOCK  // 切换
 			if (g_DirectDrawInfo.lpDirectDraw==NULL)		// 엑티브는 되었지만 서페이스가 없다	// LTS 020725
 			{
 				SetFocus2(HWND_GAME_MAIN);//021001 lsw
@@ -1266,7 +1266,7 @@ InitApplication( HINSTANCE hInstance, LPSTR lpCmdLine )
 	LoadString( hInstance, IDC_DRAGONRAJA_CLASS, g_szWindowClass, MAX_LOADSTRING );
 	MyRegisterClass( hInstance );
 	
-//	ParseCommandLine( lpCmdLine );//菱던돨눗왯뺏변鑒?
+//	ParseCommandLine( lpCmdLine );		// 自带的窗口化函数
 	srand( ::timeGetTime() );
 	
 	SetCurrentWorkingDirectory();
@@ -1288,12 +1288,12 @@ InitApplication( HINSTANCE hInstance, LPSTR lpCmdLine )
 	g_pointMouseY = SCREEN_HEIGHT / 2;
 	g_nLButtonState = g_nRButtonState = g_nOldLButtonState = g_nOldRButtonState = STATE_BUTTON_RELEASED;
 	g_nSensitivity = 0;
-//----------------------侶쟁角못객숩斤口속쵱돨뒈렘
+	//------这里是给按键信息加密的地方----------
 	g_LS_res=g_nLButtonState;
 	g_RS_res=g_nRButtonState;
 	g_LS_res^=MSK_G_LS;
 	g_RS_res^=MSK_G_RS;
-//	----------------------------		
+	//------------------------------------------		
 	return	TRUE;
 }	
 
@@ -1443,78 +1443,78 @@ void MouseProcess( UINT message, WPARAM wParam, LPARAM lParam)
 {	
 	int x, y;
 
-	switch( message )										
-	{														
-	case WM_LBUTTONUP     :	g_nLButtonState = STATE_BUTTON_RELEASED; LButtonDownIng= 0;	tool_MyHouseLBU( wParam, lParam ); ReleaseCapture();
-//----------------------侶쟁角못객숩斤口속쵱돨뒈렘
-	g_LS_res=g_nLButtonState;
-	g_RS_res=g_nRButtonState;
-	g_LS_res^=MSK_G_LS;
-	g_RS_res^=MSK_G_RS;
-//	----------------------------	
+	switch (message)
+	{
+	case WM_LBUTTONUP:	g_nLButtonState = STATE_BUTTON_RELEASED; LButtonDownIng = 0;	tool_MyHouseLBU(wParam, lParam); ReleaseCapture();
+		//------这里是给按键信息加密的地方----------
+		g_LS_res = g_nLButtonState;
+		g_RS_res = g_nRButtonState;
+		g_LS_res ^= MSK_G_LS;
+		g_RS_res ^= MSK_G_RS;
+		//	----------------------------	
 		break;
-	case WM_LBUTTONDOWN   :	YouCanHeroActionProc = 1; YouCanViewTipsCheck  = 1;g_nLButtonState = STATE_BUTTON_PRESSED;  LButtonDownIng= 1;	tool_MyHouseLBD( wParam, lParam ); SetCapture( g_hwndMain);
-//----------------------侶쟁角못객숩斤口속쵱돨뒈렘
-	g_LS_res=g_nLButtonState;
-	g_RS_res=g_nRButtonState;
-	g_LS_res^=MSK_G_LS;
-	g_RS_res^=MSK_G_RS;
-//	----------------------------	
+	case WM_LBUTTONDOWN:	YouCanHeroActionProc = 1; YouCanViewTipsCheck = 1; g_nLButtonState = STATE_BUTTON_PRESSED;  LButtonDownIng = 1;	tool_MyHouseLBD(wParam, lParam); SetCapture(g_hwndMain);
+		//------这里是给按键信息加密的地方----------
+		g_LS_res = g_nLButtonState;
+		g_RS_res = g_nRButtonState;
+		g_LS_res ^= MSK_G_LS;
+		g_RS_res ^= MSK_G_RS;
+		//	----------------------------	
 		break;
-	case WM_RBUTTONUP	  :	g_nRButtonState = STATE_BUTTON_RELEASED; RButtonDownIng= 0;	ReleaseCapture();
-//----------------------侶쟁角못객숩斤口속쵱돨뒈렘
-	g_LS_res=g_nLButtonState;
-	g_RS_res=g_nRButtonState;
-	g_LS_res^=MSK_G_LS;
-	g_RS_res^=MSK_G_RS;
-//	----------------------------				
+	case WM_RBUTTONUP:	g_nRButtonState = STATE_BUTTON_RELEASED; RButtonDownIng = 0;	ReleaseCapture();
+		//------这里是给按键信息加密的地方----------
+		g_LS_res = g_nLButtonState;
+		g_RS_res = g_nRButtonState;
+		g_LS_res ^= MSK_G_LS;
+		g_RS_res ^= MSK_G_RS;
+		//	----------------------------				
 		break;
-	case WM_RBUTTONDOWN   :	g_nRButtonState = STATE_BUTTON_PRESSED;	 RButtonDownIng= 1;	SetCapture( g_hwndMain);
-//----------------------侶쟁角못객숩斤口속쵱돨뒈렘
-	g_LS_res=g_nLButtonState;
-	g_RS_res=g_nRButtonState;
-	g_LS_res^=MSK_G_LS;
-	g_RS_res^=MSK_G_RS;
-//	----------------------------
-	case WM_LBUTTONDBLCLK :	g_nLDButtonState = STATE_BUTTON_DOUBLECLICK;	SetCapture( g_hwndMain);		break;
-	case WM_RBUTTONDBLCLK :	g_nRDButtonState = STATE_BUTTON_DOUBLECLICK;	SetCapture( g_hwndMain);		break;
-	}												
-							
-	x = LOWORD( lParam );
-	y = HIWORD( lParam );
+	case WM_RBUTTONDOWN:	g_nRButtonState = STATE_BUTTON_PRESSED;	 RButtonDownIng = 1;	SetCapture(g_hwndMain);
+		//------这里是给按键信息加密的地方----------
+		g_LS_res = g_nLButtonState;
+		g_RS_res = g_nRButtonState;
+		g_LS_res ^= MSK_G_LS;
+		g_RS_res ^= MSK_G_RS;
+		//	----------------------------
+	case WM_LBUTTONDBLCLK:	g_nLDButtonState = STATE_BUTTON_DOUBLECLICK;	SetCapture(g_hwndMain);		break;
+	case WM_RBUTTONDBLCLK:	g_nRDButtonState = STATE_BUTTON_DOUBLECLICK;	SetCapture(g_hwndMain);		break;
+	}
+
+	x = LOWORD(lParam);
+	y = HIWORD(lParam);
 
 #ifdef _DEBUG
 	y += ::GetSystemMetrics(SM_CYMENUSIZE);
 #endif
-	
-	if(LButtonDownIng==1 )								
-	{															
-		g_DragMouse.ex=x+Mapx;	//마우스의 화면좌표에 맵의 절대 좌표를 더함
-		g_DragMouse.ey=y+Mapy;	
+
+	if (LButtonDownIng == 1)
+	{
+		g_DragMouse.ex = x + Mapx;	//마우스의 화면좌표에 맵의 절대 좌표를 더함
+		g_DragMouse.ey = y + Mapy;
 	}
 
 
-	AdjustSkillMouseCursor( &x, &y );
-		
-	
+	AdjustSkillMouseCursor(&x, &y);
+
+
 	// 현재 노가다 기술을 하는 중이면   마우스는 그 박스안에 있어야 한다. 
 	g_pointMouseY = g_pointMouse.y = y;
 	g_pointMouseX = g_pointMouse.x = x;
-	Mox =  Mapx + g_pointMouseX;		Moy =  Mapy + g_pointMouseY;
-	
+	Mox = Mapx + g_pointMouseX;		Moy = Mapy + g_pointMouseY;
+
 	/*int		SkillNo;
-int		SkillStatus;
-Spr	   *SkillIcon;
-int		SkillItemNo;			// 기술에 사용될  Item의 번호.
-POS		SkillItemPOS;			// 기술에 사용될  Item의 위치값.
+	int		SkillStatus;
+	Spr	   *SkillIcon;
+	int		SkillItemNo;			// 기술에 사용될  Item의 번호.
+	POS		SkillItemPOS;			// 기술에 사용될  Item의 위치값.
 
 
 
-bool	SkillMouseDontMoveFlag;	//	노가다를 해야 하는 기술은 한번 그곳을 선택하면   오른쪽마우스로 취소하든가 NogadaCount가 Max가 될때까지 기다려야 한다. 
-DWORD	SkillRetryTime;
-int		SkillDontMoveSx,SkillDontMoveSy,SkillDontMoveEx,SkillDontMoveEy;
-bool	YouCanNogadaFlag;
-*/
+	bool	SkillMouseDontMoveFlag;	//	노가다를 해야 하는 기술은 한번 그곳을 선택하면   오른쪽마우스로 취소하든가 NogadaCount가 Max가 될때까지 기다려야 한다.
+	DWORD	SkillRetryTime;
+	int		SkillDontMoveSx,SkillDontMoveSy,SkillDontMoveEx,SkillDontMoveEy;
+	bool	YouCanNogadaFlag;
+	*/
 
 }															
 
@@ -1623,8 +1623,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					break;
 				}
 			case WA_INACTIVE:
-				{//侶쟁角눗왯굳학뻣珂溝固돨繫列
-					//exit(0);//狼賈눗왯꼇콘학뻣맣侶쟁//侶쟁角怜狼학뻣앎藁놔넋埼
+				{// 这里是窗口被切换时系统的通知
+					//exit(0);// 要使窗口不能切换改这里//这里是只要切换就退出程序
 					//------------------------------
 					//鹿苟돨角학뻣놔혼빈瞳麟깃0,깻崗샌.
 					/*
@@ -1634,16 +1634,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					SetForegroundWindow(g_hwndMain);
 					*/
 					//------------------------------
-					// 衢撚퓐의剋뻐캑響?-----------
+					//---上面是防切换的代码---------
 					g_bIsActive = FALSE;
 					g_FrameMgr.InitTime();
 //SysInfo.dx = 0;	
-//g_DirectDrawInfo.bFullscreen = false;// switch screen//눗왯친駕
+//g_DirectDrawInfo.bFullscreen = false;// switch screen // 窗口模式
 					if (g_DirectDrawInfo.lpDirectDraw != NULL)
 					{
 						CleanupDirectDraw(&g_DirectDrawInfo);
 					}
-ShowWindow(FindWindow("DRAGONRAJA_CLASS","DragonRaja Online"),SW_SHOWNORMAL);//侶몸변鑒쫘속돨,씁횔콘맴훅棍밈!拳꼇돕...
+ShowWindow(FindWindow("DRAGONRAJA_CLASS","DragonRaja Online"),SW_SHOWNORMAL); // 这个函数乱加的,竟然能干扰外挂!想不到...
 					break;
 				}
 			case WA_ACTIVE:
@@ -1800,7 +1800,7 @@ ShowWindow(FindWindow("DRAGONRAJA_CLASS","DragonRaja Online"),SW_SHOWNORMAL);//�
 			PostQuitMessage( 0 );	
 			break;					
 		}
-	case WM_CLOSE:  //coromo 럽棍밈菌潼
+	case WM_CLOSE:   //coromo 反外挂卸载
 		{
 //			UnProtect();
 			PostQuitMessage(0);
@@ -2070,7 +2070,7 @@ DWORD	WaitToEndProcess(void	*p)
 {
 	WaitForSingleObject(g_hEndProEvent, INFINITE);
 	//	Sleep(1000*10);
-	Sleep(1000 * 2);//睡10秒改为2秒/
+	Sleep(1000 * 2); // 睡10秒改为2秒/
 
 	ExitApplication(EA_NORMAL);
 	//ExitProcess(0);
