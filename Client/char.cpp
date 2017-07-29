@@ -4659,8 +4659,9 @@ void LoadAttackRangeTable( int sprno )
 		while( 1 )
 		{	
 			if( fgets( temp, FILENAME_MAX, fp ) == NULL ) break;
-			sscanf( temp, "%d %d %d %d %d %d %d %d %d %d %d %s\n", &no, &min, &max, &basic,  &walk, &att1, &att2, &att3, &standtype, &wavewoman, &waveman );
-			AttackRangeTable[sprno][no][0] = min; 
+			//sscanf(temp, "%d %d %d %d %d %d %d %d %d %d %d %s\n", &no, &min, &max, &basic, &walk, &att1, &att2, &att3, &standtype, &wavewoman, &waveman);
+			sscanf(temp, "%d %d %d %d %d %d %d %d %d %d %d\n", &no, &min, &max, &basic, &walk, &att1, &att2, &att3, &standtype, &wavewoman, &waveman);
+			AttackRangeTable[sprno][no][0] = min;
 			AttackRangeTable[sprno][no][1] = max; 
 			if( basic) basic --; AttackRangeTable[sprno][no][2] = basic;
 			if( walk ) walk  --; AttackRangeTable[sprno][no][3] = walk;

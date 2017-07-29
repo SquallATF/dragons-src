@@ -370,8 +370,9 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 	{
 		if(!RAJADecodePacket(pUserInfo, packet, dwLength))
 		{
-			MyLog( LOG_FATAL, "-------------------------", dwConnectionIndex, packet->h.header.type );
-			MyLog( LOG_FATAL, "CRC Error From Usre", dwConnectionIndex, packet->h.header.type );
+			MyLog( LOG_FATAL, "-------------------------");
+			MyLog(LOG_FATAL, "CRC Error From User. dwConnectionIndex: %u; header.type: %d",
+				dwConnectionIndex, packet->h.header.type );
 
 			char cause[ FILENAME_MAX];
 			sprintf( cause, "Bad Packet Size %d:%d", packet->h.header.size, dwLength-sizeof(t_header) );

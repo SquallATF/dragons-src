@@ -78,9 +78,9 @@ char tempbbs  [10][ FILENAME_MAX];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-typedef struct tag_Updating		// 泅犁 Updateing窍绊 乐绰 Character俊 措茄 Table捞促. 
-{								// GameServer肺 Access Join窍妨绰 Client啊 乐阑锭, 
-	char id[ ID_LENGTH];		// 捞 Table俊 绢恫 蔼捞 乐促搁 泪矫扁促妨具 茄促. 
+typedef struct tag_Updating		// 현재 Updateing하고 있는 Character에 대한 Table이다. 
+{								// GameServer로 Access Join하려는 Client가 있을때, 
+	char id[ ID_LENGTH];		// 이 Table에 어떤 값이 있다면 잠시기다려야 한다. 
 }UPDATE, *LPUPDATE;
 
 int		CurUpdateChar;
@@ -99,7 +99,7 @@ void ConvertSave(unsigned char* pData, int nSize = MAX_STEP)
 }	//> CSD-TW-030620
 
 void ConvertQueryString(const char* szStr, char* szResult, const int iMaxString = MAX_STEP)
-{// ' 巩磊甫 茫绊 '' 肺 官层霖促
+{// ' 문자를 찾고 '' 로 바꿔준다
 //	if(!szStr){return;}
 
 //	const int iLen = ::strlen(szStr);
@@ -299,7 +299,7 @@ int Querry_SQL(LPSTR szQuerry, HDBC hdbc)
 	return -1;
 }	//> CSD-030804
 
-// chr_log_info 抛捞喉俊辑 某腐磐捞抚阑 茫绰促. 
+// chr_log_info 테이블에서 캐릭터이름을 찾는다. 
 int GetCharacterNameInID( LPSTR id, char name[4][20] )
 {	
 	HSTMT		hStmt = NULL;
@@ -310,7 +310,7 @@ int GetCharacterNameInID( LPSTR id, char name[4][20] )
 	sprintf( szQuerry, "login_id = '%s'", id );
 	if( !IsExitRecordOfDB( "chr_log_info",  szQuerry ) )
 	{
-		// 货肺款 某腐磐
+		// 새로운 캐릭터
 		sprintf( szQuerry, "INSERT chr_log_info ( login_id, vote, passwd ) VALUES ( '%s', 0, 'make by db_demon' )", id );
 		retCode = Querry_SQL( szQuerry );
 	}
@@ -339,7 +339,7 @@ int GetCharacterNameInID( LPSTR id, char name[4][20] )
 }				
 
 
-// GetCharacterNameInID( LPSTR id, char *name[4] )俊辑 茫篮 捞抚阑 啊瘤绊  扁夯沥焊甫 惶酒辰促. 
+// GetCharacterNameInID( LPSTR id, char *name[4] )에서 찾은 이름을 가지고  기본정보를 뽑아낸다. 
 int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027 YGI
 {				
 	HSTMT		hStmt = NULL;
@@ -391,13 +391,13 @@ int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027
 				char tempid[ 20+1];
 				strcpy( tempid, id );
 				EatRearWhiteChar(	tempid);	CharUpper( tempid);
-				if( strcmp( tempid, realid ) )	// Character狼 家蜡拌沥捞 酒聪促..     
+				if( strcmp( tempid, realid ) )	// Character의 소유계정이 아니다..     
 				{	
 					RecvHackingUser( realid, name[i], 20009, " ", "Not His Char" );
 					tp->name[i][0] = 0;
 					SQLFreeStmt(hStmt, SQL_DROP);
 					
-					sprintf(szQuerry, "UPDATE chr_log_info SET name%d = NULL WHERE login_id = '%s' ", i+1, realid );	// 鞍篮 捞抚捞 乐阑 版快 瘤款促.
+					sprintf(szQuerry, "UPDATE chr_log_info SET name%d = NULL WHERE login_id = '%s' ", i+1, realid );	// 같은 이름이 있을 경우 지운다.
 					SQLAllocStmt(hDBC, &hStmt);
 					retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 					SQLFreeStmt(hStmt, SQL_DROP);
@@ -450,21 +450,21 @@ int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027
 		SQLFreeStmt(hStmt, SQL_DROP);
 	}		
 	
-	// 啊瘤绊 乐绰 某腐磐狼 沥焊甫 厚背秦辑 
-	// 捞惑茄 版快唱 扁鸥 版快甫 贸府茄促.
+	// 가지고 있는 캐릭터의 정보를 비교해서 
+	// 이상한 경우나 기타 경우를 처리한다.
 	tp->nation = 0;			// 1027 YGI
 	for( int j=0; j<4; j++ )
 	{
-		if( tp->name[j][0] )		// 捞抚阑 啊瘤绊 乐绰 某腐磐啊
+		if( tp->name[j][0] )		// 이름을 가지고 있는 캐릭터가
 		{
 			CCharRank temp_status;
 			memcpy( &temp_status, &nation[j], sizeof( DWORD ) );
-			if( temp_status.nation == 0 )		// 某腐磐吝 茄疙捞扼档 惫啊 0阑 啊瘤绊 乐栏搁 唱扼 急琶 促矫
+			if( temp_status.nation == 0 )		// 캐릭터중 한명이라도 국가 0을 가지고 있으면 나라 선택 다시
 			{
 				tp->nation = 0; 
 				break;
 			}
-			if( tp->nation && ( tp->nation != temp_status.nation ) ) // 某腐磐吝 辑肺 促弗 唱扼甫 啊瘤绊 乐促搁		// 1028 YGI
+			if( tp->nation && ( tp->nation != temp_status.nation ) ) // 캐릭터중 서로 다른 나라를 가지고 있다면		// 1028 YGI
 			{
 				tp->nation = 0;
 				break;
@@ -665,7 +665,7 @@ int GetCharDB_SQL(t_connection c[], int cn)
 			if( ch->Condition == CON_DEATH )		//0206 YGI
 			{
 			}
-			else ch->Condition = CON_NORMAL;		// 磷篮惑怕啊 酒聪扼搁 扁夯利栏肺 '芭固临'鞍篮 惑怕绰 绝矩促...
+			else ch->Condition = CON_NORMAL;		// 죽은상태가 아니라면 기본적으로 '거미줄'같은 상태는 없앤다...
 			
 			//				"sprno, x, y, mapname, peacests, sight, "
 			retCode = SQLGetData(hStmt, 25, SQL_C_ULONG, &t , 0, &cbValue); ch->SprNo		= (short )t;
@@ -746,9 +746,9 @@ int GetCharDB_SQL(t_connection c[], int cn)
 
 
 
-//  困狼 GetCharDB_SQL()绰  Login Server俊辑档 荤侩登绰 窃荐肺 Client肺 扁夯沥焊甫 焊郴绰 格利阑 林肺 窍绊 
-//  捞锅 GetCharGameDB_SQL()绰 霸烙 Server俊辑父 荤侩登绰 函荐甫 佬扁困茄巴捞促. 
-//  GameServer俊辑父 捞窃荐甫 荤侩茄促. 
+//  위의 GetCharDB_SQL()는  Login Server에서도 사용되는 함수로 Client로 기본정보를 보내는 목적을 주로 하고 
+//  이번 GetCharGameDB_SQL()는 게임 Server에서만 사용되는 변수를 읽기위한것이다. 
+//  GameServer에서만 이함수를 사용한다. 
 int GetCharGameDB_SQL(t_connection c[], int cn)
 {
 	HSTMT		hStmt = NULL;
@@ -803,7 +803,7 @@ int GetCharGameDB_SQL(t_connection c[], int cn)
 			
 			SQLFreeStmt(hStmt, SQL_DROP);
 			
-			//---------------------------------- //DB俊辑 Data甫 啊廉柯第 拌魂且巴捞 乐栏搁 拌魂茄促. 
+			//---------------------------------- //DB에서 Data를 가져온뒤 계산할것이 있으면 계산한다. 
 			//			ch->bAlive	= ALIVE_;
 			//			ch->Condition = 0x00;
 			//			if( ch->Hp <= 0 ) ch->Hp = 1;
@@ -822,7 +822,7 @@ int GetCharGameDB_SQL(t_connection c[], int cn)
 };
 
 
-// 荤侩窍瘤 臼绰促. 0309 KHS 
+// 사용하지 않는다. 0309 KHS 
 int GetNameCount_SQL(LPSTR szUID)
 {		
 	HSTMT hStmt = NULL;
@@ -917,7 +917,7 @@ int CheckName_SQL(LPSTR szUNM)
 
 /*********************************************
 **********************************************/
-// Chr_info俊辑 login_id啊 啊瘤绊 乐绰  name阑 茫酒 chr_info 俊 持绰促. 
+// Chr_info에서 login_id가 가지고 있는  name을 찾아 chr_info 에 넣는다. 
 int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 {
 	HSTMT hStmt = NULL;
@@ -963,21 +963,21 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 		SearchStrWord( cheak_name ) || 
 		SearchStrStr( cheak_name, " ") ||
 		IsBlockedId(cheak_name)
-		) // 捞抚捞 乐栏搁... // 0208 YGI
+		) // 이름이 있으면... // 0208 YGI
 	{
-		return(-100); // Invalid ID	// 捞固 乐绰 某腐磐
+		return(-100); // Invalid ID	// 이미 있는 캐릭터
 	}
 	
 	
-	// DB俊辑 磊悼积汲等促. 
+	// DB에서 자동생설된다. 
 	//		Count = GetNameCount_SQL(c[cn].id);
 	//		if(Count >= 4)
 	//			return(-2); // Over
 	
-	CreateCharacter( c, cn, packet); // 弥檬 某腐磐狼  积己困摹, 扁夯荐摹, Item甸阑 Setting茄促. NPC_Pattern.cpp
+	CreateCharacter( c, cn, packet); // 최초 캐릭터의  생성위치, 기본수치, Item들을 Setting한다. NPC_Pattern.cpp
 	
 	total_id = GetCharID_SQL();
-	if( total_id == 0 )  return -1; // Total ID甫 且寸罐瘤 给沁绢夸..
+	if( total_id == 0 )  return -1; // Total ID를 할당받지 못했어요..
 	
 	ch->total_id = total_id;
 	
@@ -1014,8 +1014,8 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 		ch->Age, 
 		ch->nGuildCode, // CSD-030324
 		ch->total_id,
-		ch->ClothR,	ch->ClothG,	ch->ClothB,		// 鹅 祸彬 R.G.B
-		ch->BodyR,	ch->BodyG,	ch->BodyB,		// 个 祸彬 R.G.B
+		ch->ClothR,	ch->ClothG,	ch->ClothB,		// 띠 색깔 R.G.B
+		ch->BodyR,	ch->BodyG,	ch->BodyB,		// 몸 색깔 R.G.B
 		//"tactics, job, spell, str, con, dex, wis, int, movep, char, "
 		ch->Tactics, 
 		ch->Job, 
@@ -1071,7 +1071,7 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 		ch->nIce,
 		ch->nElect,
 		ch->aStepInfo); // CSD-TW-030620
-	// 某腐磐狼 老馆 Data甫 chr_info俊 积己窍绊 ( 1-1窜拌 )
+	// 캐릭터의 일반 Data를 chr_info에 생성하고 ( 1-1단계 )
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -1079,10 +1079,10 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 		//			SQLTransact(SQL_NULL_HENV, hDBC, SQL_COMMIT);
 		SQLFreeStmt(hStmt, SQL_DROP);
 		
-		// 某腐磐狼 Binary Data甫 chr_info俊 积己窍绊 ( 1-2窜拌 )
+		// 캐릭터의 Binary Data를 chr_info에 생성하고 ( 1-2단계 )
 		// 0218 YGI #######################
-		//			EndsetPartyMenberForUpdate( ch );		// 颇萍盔甸 捞抚 弓澜	// 0219 Create俊辑绰 鞘夸 绝澜.
-		// 某腐磐狼 Binary Data甫 chr_info俊 积己窍绊 ( 1-2窜拌 )
+		//			EndsetPartyMenberForUpdate( ch );		// 파티원들 이름 묶음	// 0219 Create에서는 필요 없음.
+		// 캐릭터의 Binary Data를 chr_info에 생성하고 ( 1-2단계 )
 		int ret = update_BinaryData_to_Chr_Info
 			(	(UCHAR *)ch->Ws,   
 			(UCHAR *)ch->Ps,     
@@ -1101,23 +1101,23 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 		//####################################
 		if( ret == 1 ) 
 		{
-			// 某腐磐狼 老馆 Data甫 chr_info2俊 积己窍绊 ( 2-1窜拌 )
+			// 캐릭터의 일반 Data를 chr_info2에 생성하고 ( 2-1단계 )
 			ret = CreateChar2_SQL(c, cn);
-			if( ret == 1 ) // 己傍..
+			if( ret == 1 ) // 성공..
 			{
-				// 某腐磐狼 老馆 Data甫 chr_info2俊 积己窍绊 ( 2-1窜拌 ) -- Character积己 场.
+				// 캐릭터의 일반 Data를 chr_info2에 생성하고 ( 2-1단계 ) -- Character생성 끝.
 				ret = update_BinaryData_to_Chr_Info2(  (UCHAR *)ch->bank, c[cn].id, ch->Name );
 				
 				if( ret == 1 ) 
 				{
 					
-					return 1; // 己傍...
+					return 1; // 성공...
 				}
-				return ret; // 角菩.
+				return ret; // 실패.
 			}
-			else  return ret; // 角菩.
+			else  return ret; // 실패.
 		}
-		else   return ret; // 角菩.
+		else   return ret; // 실패.
 	}
 	else
 	{
@@ -1140,7 +1140,7 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 
 
 
-int delete_char_create_fail( LPSTR name )		// 0411_2 YGI		// 捞扒 肋给 积己等 版快 昏力窍绰 窃荐
+int delete_char_create_fail( LPSTR name )		// 0411_2 YGI		// 이건 잘못 생성된 경우 삭제하는 함수
 {	
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -1161,9 +1161,9 @@ int delete_char_create_fail( LPSTR name )		// 0411_2 YGI		// 捞扒 肋给 积�
 
 
 /*****************************************************************************************
-CreateChar_SQL()篮  DB狼 Chr_info狼  Table俊 货肺款 Character沥焊甫 Insert窍绊 
-CreateChar2_SQL()篮 DB狼 Chr_info2 Table俊 Character沥焊甫 Insert茄促.
-Insert登绰 field绰 
+CreateChar_SQL()은  DB의 Chr_info의  Table에 새로운 Character정보를 Insert하고 
+CreateChar2_SQL()은 DB의 Chr_info2 Table에 Character정보를 Insert한다.
+Insert되는 field는 
 
   name, login_id..
 		
@@ -1179,7 +1179,7 @@ int CreateChar2_SQL(t_connection c[], int cn )		// 0302 YGI
 	LPCHARLIST ch = &c[cn].chrlst;
 	
 	sprintf( szQuerry, 
-		//	某腐磐檬扁拳	捞饶角青 0405 KHS
+		//	캐릭터초기화	이후실행 0405 KHS
 		"insert into chr_info2 (name, login_id , new) values "		// 0405 YGI new char
 		"('%s', '%s', 0  )",
 		ch->Name,	c[cn].id );
@@ -1191,9 +1191,9 @@ int CreateChar2_SQL(t_connection c[], int cn )		// 0302 YGI
 		//		SQLTransact(SQL_NULL_HENV, hDBC, SQL_COMMIT);
 		SQLFreeStmt(hStmt, SQL_DROP);
 		
-		//		return(1); // succeed 饶 窍唱歹~ 0303 KHS
+		//		return(1); // succeed 후 하나더~ 0303 KHS
 		
-		// login_id甫 捞侩窍咯 4疙狼 捞抚阑 佬绢 柯促.
+		// login_id를 이용하여 4명의 이름을 읽어 온다.
 		//sprintf(szQuerry, "select name1, name2, name3, name4 from chr_log_info where login_id='%s'", c[cn].id);		
 		/////////////////////////////////////////////////////////////////////////////
 		sprintf(szQuerry, "EXEC up_get_char_all_name '%s'", c[cn].id);
@@ -1295,7 +1295,7 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 		MyLog( LOG_NORMAL, "Error!! : Failed Character Deleted Name is Very Long ==> '%s'", szName);
 		return 0;
 	}
-	// login_id甫 茫绊		
+	// login_id를 찾고		
 	//sprintf(szQuerry, "select login_id from chr_info where name='%s'", szName);		
 	/////////////////////////////////////////////////////////////////////////////
 	sprintf(szQuerry, "EXEC up_get_login_id '%s'", szName);
@@ -1322,7 +1322,7 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 		RecvHackingUser( log_id, szName, 20009, " ","Not his Char(Delete)" );	
 		return 0;
 	}
-	// login_id甫 捞侩窍咯 4疙狼 捞抚阑 佬绢 柯促.
+	// login_id를 이용하여 4명의 이름을 읽어 온다.
 	//sprintf(szQuerry, "select name1, name2, name3, name4 from chr_log_info where login_id='%s'", log_id);		
 	/////////////////////////////////////////////////////////////////////////////
 	sprintf(szQuerry, "EXEC up_get_char_all_name '%s'", log_id);
@@ -1343,12 +1343,12 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 					// 010414 KHS
 					EatRearWhiteChar( select_name );
 					
-					if( !strcmp( select_name, szName ) ) //捞抚捞 鞍栏骨肺
+					if( !strcmp( select_name, szName ) ) //이름이 같으므로
 					{
-						SQLFreeStmt(hStmt, SQL_DROP);//瘤况具 且 仇捞促
+						SQLFreeStmt(hStmt, SQL_DROP);//지워야 할 놈이다
 						if( IsSecretKeyCodeOk(log_id,szSecretKeyCode))
 						{
-							sprintf(szQuerry, "UPDATE chr_log_info SET name%d = NULL WHERE login_id = '%s' ", i+1, log_id );	// 鞍篮 捞抚捞 乐阑 版快 瘤款促.
+							sprintf(szQuerry, "UPDATE chr_log_info SET name%d = NULL WHERE login_id = '%s' ", i+1, log_id );	// 같은 이름이 있을 경우 지운다.
 							SQLAllocStmt(hDBC, &hStmt);
 							retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 							if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -1364,7 +1364,7 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 							}
 						}
 						else
-						{//虐内靛啊 撇啡扁 锭巩捞促 虐内靛 眉农 且锭 SQL篮 葛滴 Free沁栏聪 瘤陛 橇府 窍瘤 臼绊 府畔 茄促
+						{//키코드가 틀렸기 때문이다 키코드 체크 할때 SQL은 모두 Free했으니 지금 프리 하지 않고 리턴 한다
 							return 0;
 						}
 					}
@@ -1377,14 +1377,14 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 }
 
 
-//  瘤快妨绊 窍绰 Character Data逢 颗变促. 
+//  지우려고 하는 Character Data룰 옮긴다. 
 int MoveDeleteChar_SQL( const char *szName)//020725 lsw
 {	
 	HSTMT hStmt = NULL;
 	RETCODE retCode;
 	char szQuerry[255];
 	
-	DeleteBoxByDeleteCharacter( szName );		// 0817 YGI		// 啊瘤绊 乐绰 冠胶甫 瘤款促.
+	DeleteBoxByDeleteCharacter( szName );		// 0817 YGI		// 가지고 있는 박스를 지운다.
 	
 	sprintf(szQuerry, "INSERT INTO Deleted_Chr_Info SELECT * FROM chr_info WHERE name='%s'", szName );
 	SQLAllocStmt(hDBC, &hStmt);
@@ -1423,10 +1423,10 @@ int DeleteChar_SQL( const char *szID, const char *szName ,const char *szSecretKe
 	if( !DeleteChar_SQL2( szID, szName, szSecretKeyCode) ) return 0;		// 0302 YGI
 	
 	MoveDeleteChar_SQL( szName );
-	SubtractFaith( szName );			// 瘤快扁 傈俊 磊扁甫 傈档茄 荤恩狼 脚居缴阑 憋绰促.		// YGI 0405
-	DeleteBoxByDeleteCharacter( szName );		// 0817 YGI		// 啊瘤绊 乐绰 冠胶甫 瘤款促.
+	SubtractFaith( szName );			// 지우기 전에 자기를 전도한 사람의 신앙심을 깍는다.		// YGI 0405
+	DeleteBoxByDeleteCharacter( szName );		// 0817 YGI		// 가지고 있는 박스를 지운다.
 	
-	// 021008 YGI		// 辨靛 府胶飘俊 乐绰 某腐磐甫 瘤款促.
+	// 021008 YGI		// 길드 리스트에 있는 캐릭터를 지운다.
 	ChangeGuildMemberList( (char *)szName, 0, 0 );
 	
 	// 011214 YGI
@@ -1462,15 +1462,15 @@ int DeleteChar_SQL( const char *szID, const char *szName ,const char *szSecretKe
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// 窃荐汲疙: 某腐磐狼 binary(农扁啊 奴硅凯甸篮 binary肺 历厘窍绊 binary肺
-//				佬绢柯促)甫 佬绢坷绰 窃荐.
+// 함수설명: 캐릭터의 binary(크기가 큰배열들은 binary로 저장하고 binary로
+//				읽어온다)를 읽어오는 함수.
 //
-// 颇扼固磐:	ws; 某腐磐 沥焊吝 WS[200]硅凯狼 **, ps; PS[200]硅凯狼 **
-//				inv; inv[3][3][8]硅凯狼 **
-//				equip, quick; 秦寸 硅凯狼 **
-//				(曼绊: inv, equip, quick篮 ItemAttr Structure狼 硅凯捞促)
+// 파라미터:	ws; 캐릭터 정보중 WS[200]배열의 **, ps; PS[200]배열의 **
+//				inv; inv[3][3][8]배열의 **
+//				equip, quick; 해당 배열의 **
+//				(참고: inv, equip, quick은 ItemAttr Structure의 배열이다)
 //
-// 府畔蔼: update狼 己傍 咯何; 己傍(1), 角菩(ret < 0)
+// 리턴값: update의 성공 여부; 성공(1), 실패(ret < 0)
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1561,15 +1561,15 @@ int get_BinaryData_from_Chr_Info(UCHAR *ws, UCHAR *ps, UCHAR *skill, UCHAR *skil
 
 /////////////////////////////////////////////////////////////////////////////
 //	
-// 窃荐汲疙: 某腐磐狼 binary(农扁啊 奴硅凯甸篮 binary肺 历厘窍绊 binary肺佬绢柯促)甫 佬绢坷绰 窃荐.
+// 함수설명: 캐릭터의 binary(크기가 큰배열들은 binary로 저장하고 binary로읽어온다)를 읽어오는 함수.
 //	
-//			---Bank俊 历厘茄 Item格废阑 啊廉柯促.  ---
-//			 父距 LogIn Server俊辑 Client俊霸 傈价且 鞘夸绝绰 Data扼搁 LogIn Server俊辑绰 龋免且鞘夸 绝促. 
+//			---Bank에 저장한 Item목록을 가져온다.  ---
+//			 만약 LogIn Server에서 Client에게 전송할 필요없는 Data라면 LogIn Server에서는 호출할필요 없다. 
 //	
-// 颇扼固磐:	ItemAttr bankiem[5][3][6]
-//				(曼绊:  ItemAttr Structure狼 硅凯捞促)
+// 파라미터:	ItemAttr bankiem[5][3][6]
+//				(참고:  ItemAttr Structure의 배열이다)
 //	
-// 府畔蔼:      己傍(1), 角菩(ret < 0)
+// 리턴값:      성공(1), 실패(ret < 0)
 //	
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1632,15 +1632,15 @@ int get_BinaryData_from_Chr_Info2(UCHAR *bankitem,	 char *login_id, char *name)
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// 窃荐汲疙: 某腐磐狼 binary(农扁啊 奴硅凯甸篮 binary肺 历厘窍绊 binary肺
-//				佬绢柯促)甫 历厘(update)窍绰 窃荐.
+// 함수설명: 캐릭터의 binary(크기가 큰배열들은 binary로 저장하고 binary로
+//				읽어온다)를 저장(update)하는 함수.
 //
-// 颇扼固磐:	ws; 某腐磐 沥焊吝 WS[200]硅凯狼 *, ps; PS[200]硅凯狼 *
-//				inv; inv[3][3][8]硅凯狼 *
-//				equip, quick; 秦寸 硅凯狼 *
-//				(曼绊: inv, equip, quick篮 ItemAttr Structure狼 硅凯捞促)
+// 파라미터:	ws; 캐릭터 정보중 WS[200]배열의 *, ps; PS[200]배열의 *
+//				inv; inv[3][3][8]배열의 *
+//				equip, quick; 해당 배열의 *
+//				(참고: inv, equip, quick은 ItemAttr Structure의 배열이다)
 //
-// 府畔蔼: update狼 己傍 咯何; 己傍(1), 角菩(ret < 0)
+// 리턴값: update의 성공 여부; 성공(1), 실패(ret < 0)
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -1883,7 +1883,7 @@ int GetConnectInfo_SQL(t_connection c[], int cn, t_packet *packet, char *mapname
 	if(GetMapName_SQL(c, cn) == 1)
 	{
 AGAIN_:
-	if( mapname == NULL )	strcpy( tempmapname, c[ cn].mapname );	// 盔贰 乐带 磊府肺 埃促
+	if( mapname == NULL )	strcpy( tempmapname, c[ cn].mapname );	// 원래 있던 자리로 간다
 	else					strcpy( tempmapname, mapname );
 	
 	//sprintf(szQuerry, "Select IP0, IP1, IP2, port From MapName Where mapname='%s'", tempmapname ); //startmapposition[startmap][startposition] );//	c[cn].mapname);
@@ -1984,15 +1984,15 @@ int CheckUsedID_SQL( LPSTR szUID, WORD *wPort, DWORD *dwID, DWORD *dwServerSetNu
 	char		szQuerry[255];
 	char		ID[ID_LENGTH];
 	
-	// 0403 泅犁 亮篮 LogIn/Out俊 包茄 舅绊府硫 积阿吝..........
-	// 寸盒埃 荤侩窍瘤 臼绰促...................................
+	// 0403 현재 좋은 LogIn/Out에 관한 알고리즘 생각중..........
+	// 당분간 사용하지 않는다...................................
 	
     if(szUID == NULL)	return(-2);
 	
 	Len = strlen(szUID);
 	if(Len <= 0)		return(-2);
 	
-	//		return -1; // 牢刘辑滚 扁瓷阑 备泅窍扁 傈鳖瘤 老窜 柳青茄促.  0420 KHS
+	//		return -1; // 인증서버 기능을 구현하기 전까지 일단 진행한다.  0420 KHS
 	
 	//sprintf(szQuerry, "select user_id, port, agent_id, server_set_num from logintable where user_id='%s'", szUID);
 	/////////////////////////////////////////////////////////////////////////////
@@ -2009,7 +2009,7 @@ int CheckUsedID_SQL( LPSTR szUID, WORD *wPort, DWORD *dwID, DWORD *dwServerSetNu
 		{
 			memset(ID, 0, ID_LENGTH);
 			
-			// Modified by chan78 at 2001/01/31, 盔贰 抗寇贸府啊 绝栏骨肺 弊成;;;
+			// Modified by chan78 at 2001/01/31, 원래 예외처리가 없으므로 그냥;;;
 			retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, ID, Len+1, &cbValue);
 			retCode = SQLGetData(hStmt, 2, SQL_C_USHORT, wPort, 0, NULL );
 			retCode = SQLGetData(hStmt, 3, SQL_C_ULONG, dwID, 0, NULL );
@@ -2064,7 +2064,7 @@ void SendDeleteUsedID( int server_id )
 
 
 /****************************************************************************************/
-// 10岿 4老 眠啊
+// 10월 4일 추가
 /****************************************************************************************/
 /*
 typedef struct tagCHARLIST
@@ -2076,10 +2076,10 @@ BOOL			bAlive;
 	short int		Level;
 	DWORD			Exp;
 	
-	  short int		Gender;						// 0:咯磊 1 : 巢磊
+	  short int		Gender;						// 0:여자 1 : 남자
 	  short int		Face;						
-	  short int		SpritValue;					// 啊摹包
-	  short int		Class;						// 0:傈荤 1:泵荐 2:档利 3:己流磊 4:付过荤
+	  short int		SpritValue;					// 가치관
+	  short int		Class;						// 0:전사 1:궁수 2:도적 3:성직자 4:마법사
 	  short int		\Sprituality;	
 	  short int		Class_Poisioning;	
 	  short int		Class_Bombplay;		
@@ -2091,42 +2091,42 @@ BOOL			bAlive;
 	  short int		Class_Stealing;	
 	  short int		Spell;
 	  
-		short int		Race;						// 辆练
+		short int		Race;						// 종족
 		
-		  //弥檬某腐磐 积己且锭狼 荐摹..
-		  short int		StrOld;				//  塞
-		  short int		ConOld;				//  扒碍
-		  short int		DexOld;				//	刮酶己
-		  short int		WisOld;				//	瘤驱
-		  short int		IntOld;				//	瘤瓷
-		  short int		MovePOld;			//	捞悼仿
-		  short int		CharOld;			//	概仿
-		  short int		EnduOld;			//  历氢仿
-		  short int		HealthOld;			//	眉仿
-		  short int		MoralOld;			//	荤扁
-		  short int		LuckOld;			//	青款
+		  //최초캐릭터 생성할때의 수치..
+		  short int		StrOld;				//  힘
+		  short int		ConOld;				//  건강
+		  short int		DexOld;				//	민첩성
+		  short int		WisOld;				//	지혜
+		  short int		IntOld;				//	지능
+		  short int		MovePOld;			//	이동력
+		  short int		CharOld;			//	매력
+		  short int		EnduOld;			//  저향력
+		  short int		HealthOld;			//	체력
+		  short int		MoralOld;			//	사기
+		  short int		LuckOld;			//	행운
 		  
-			short int		Str;				//  塞
-			short int		Con;				//  扒碍
-			short int		Dex;				//	刮酶己
-			short int		Wis;				//	瘤驱
-			short int		Int;				//	瘤瓷
-			short int		MoveP;				//	捞悼仿
-			short int		Char;				//	概仿
-			short int		Endu;				//  历氢仿
-			short int		Health;				//	眉仿
-			short int		Moral;				//	荤扁
-			short int		Luck;				//	青款
+			short int		Str;				//  힘
+			short int		Con;				//  건강
+			short int		Dex;				//	민첩성
+			short int		Wis;				//	지혜
+			short int		Int;				//	지능
+			short int		MoveP;				//	이동력
+			short int		Char;				//	매력
+			short int		Endu;				//  저향력
+			short int		Health;				//	체력
+			short int		Moral;				//	사기
+			short int		Luck;				//	행운
 			
 			  short int		Job;
 			  
 				DWORD			Money;
 				
-				  short int		VitalPower;					// 积疙仿
+				  short int		VitalPower;					// 생명력
 				  short int		VitalMax;
-				  short int		Mana;					// 付过仿
+				  short int		Mana;					// 마법력
 				  short int		ManaMax;
-				  short int		AttackPower;				// 傍拜仿
+				  short int		AttackPower;				// 공격력
 				  short int		AttackMax;
 				  
 					short int		Condition;
@@ -2137,52 +2137,52 @@ BOOL			bAlive;
 						  unsigned char	Peacests;
 						  short int		Sight;
 						  
-							short int		BodyR, BodyG, BodyB;		// 个 祸彬 R.G.B
-							short int		ClothR, ClothG, ClothB;		// 鹅 祸彬 R.G.B
+							short int		BodyR, BodyG, BodyB;		// 몸 색깔 R.G.B
+							short int		ClothR, ClothG, ClothB;		// 띠 색깔 R.G.B
 							
 							  short int		Age;
 							  
 								short int		Hungry;
 								short int		HungryMax;
-								short int		Nut1;						// 康剧啊1
+								short int		Nut1;						// 영양가1
 								short int		Nut2;
 								short int		Nut3;
 								
-								  DWORD			Killmon;					// 6霸凯阁胶磐 懦傅荐
-								  DWORD			Killanimal;					// 悼拱 懦傅荐
-								  DWORD			KillNPC;					// 荤恩,NPC 懦傅荐
+								  DWORD			Killmon;					// 6게열몬스터 킬링수
+								  DWORD			Killanimal;					// 동물 킬링수
+								  DWORD			KillNPC;					// 사람,NPC 킬링수
 								  
-									short int		Resis_Poision;		//	刀/磷澜 历亲仿
-									short int		Resis_Stone;		//	籍拳 付厚 历亲仿
-									short int		Resis_Magic;		//	付过历亲仿
-									short int		Resis_Fire;			//	阂 历亲仿
-									short int		Resis_Ice;			//	倔澜历亲仿
-									short int		Resis_Elect;		//	傈扁历氢仿
+									short int		Resis_Poision;		//	독/죽음 저항력
+									short int		Resis_Stone;		//	석화 마비 저항력
+									short int		Resis_Magic;		//	마법저항력
+									short int		Resis_Fire;			//	불 저항력
+									short int		Resis_Ice;			//	얼음저항력
+									short int		Resis_Elect;		//	전기저향력
 									short int		Wizardspell;		//	Ws
-									short int		Ws[200];			//	付过
+									short int		Ws[200];			//	마법
 									short int		Priestspell;		//	Ps
-									short int		Ps[200];			//	脚过
+									short int		Ps[200];			//	신법
 									
 									  
-										// 郴啊 啊瘤绊 乐绰 酒捞袍..
-										// 牢亥配府
+										// 내가 가지고 있는 아이템..
+										// 인벤토리
 										ItemAttr	inv[3][3][8] ;
-										// 厘馒
+										// 장착
 										ItemAttr	equip[8] ;
-										// 狞 
+										// 퀵 
 										ItemAttr	quick[6] ;
-										// 颊俊 甸绊 乐绰
+										// 손에 들고 있는
 										ItemAttr	handheld ;
 										//short int		Item[ 13][100];
 										
-										  //  Client阑 困茄 Data
+										  //  Client을 위한 Data
 										  
 											short int		SprNo;
 											short int		SprType;	
 											
 											  BYTE			accessory[4];
 											  DIRECTION		Direction;
-											  DWORD			IDWhoImAttacked;	// 唱甫 模仇捞 穿备衬..
+											  DWORD			IDWhoImAttacked;	// 나를 친놈이 누구냐..
 											  short int		nCurrentAction;
 											  short int		Light;
 											  
@@ -2199,14 +2199,14 @@ BOOL			bAlive;
 												  short int		MoveGoy;
 												  
 													
-													  //------------------------   辑滚俊辑父 荤侩窍绰 para...
+													  //------------------------   서버에서만 사용하는 para...
 													  
 														
 														  char			patterntype;
 														  DWORD			WalkTime;
 														  
-															// ********************************* 眠啊等 亲格甸..
-															// 蜡悼利烙. 
+															// ********************************* 추가된 항목들..
+															// 유동적임. 
 															short int		Dam_Min, Dam_Max ;
 															short int		Ac ;
 															short int		Def_Rate ;
@@ -2561,25 +2561,25 @@ void updateCharacterStatusToLoginServer( t_connection c[], int char_id)
 	tp->Luck 				= ch->Luck;
 	tp->wsps 				= ch->wsps;
 	
-	tp->Tactics 		= ch->Tactics;				// 急琶茄 傈捧扁贱 (焊咯林扁 困窃)
+	tp->Tactics 		= ch->Tactics;				// 선택한 전투기술 (보여주기 위함)
 	memcpy( &tp->nation, &ch->name_status, sizeof( DWORD ) );			// 1004 YGI
 	tp->Money			= ch->Money;
 	tp->Hp				= ch->Hp;
 	tp->HpMax			= ch->HpMax ;
-	tp->Mana			= ch->Mana;					// 付过仿
+	tp->Mana			= ch->Mana;					// 마법력
 	tp->ManaMax			= ch->ManaMax;
-	tp->Condition		= ch->Condition;		// 0沥惑->CON_NORMAL, 1劝悼利->CON_ACTIVE, 2公扁仿->CON_SLUGGISH, 3浇肺快->CON_SLOW, 4去鄂->CON_DAZE, 5吝刀->CON_POISON, 6籍拳->CON_STONE, 7磷澜->CON_DEATH 
+	tp->Condition		= ch->Condition;		// 0정상->CON_NORMAL, 1활동적->CON_ACTIVE, 2무기력->CON_SLUGGISH, 3슬로우->CON_SLOW, 4혼란->CON_DAZE, 5중독->CON_POISON, 6석화->CON_STONE, 7죽음->CON_DEATH 
 	
 	memcpy( tp->MapName, MapName, 20 );
 	tp->Sight = ch->Sight;
 	tp->Age = ch->Age;
-	tp->bAlive		= ch->bAlive;					// 某腐磐狼 积荤咯何(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
+	tp->bAlive		= ch->bAlive;					// 캐릭터의 생사여부(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
 	
 	tp->Hungry = ch->Hungry;	
 	tp->HungryMax = ch->HungryMax;
-	tp->killmon = ch->killmon;						// 1拌凯阁胶磐 懦傅胶
-	tp->killanimal = ch->killanimal;				// 悼拱 懦傅荐
-	tp->killpc = ch->killpc;						// 荤恩,NPC 懦傅荐
+	tp->killmon = ch->killmon;						// 1계열몬스터 킬링스
+	tp->killanimal = ch->killanimal;				// 동물 킬링수
+	tp->killpc = ch->killpc;						// 사람,NPC 킬링수
 	
 	//< CSD-010907
 	tp->nPoison = ch->nPoison;
@@ -2734,7 +2734,7 @@ int AddCRC( void *pSource, int size, int step )
 }
 // --------------------------------------------
 
-//  Updatae沥焊甫 LoginServer俊 焊辰促.
+//  Updatae정보를 LoginServer에 보낸다.
 int RecvUpdateCharDB( t_update_char_db *p )
 {
 	// acer5 -------------
@@ -2762,7 +2762,7 @@ int RecvUpdateCharDB( t_update_char_db *p )
 			  p->nGuildCode,
 			  p->social_status,
 			  p->fame,
-			  //p->fame_pk,	// 010915 LTS	//Fame_PK -> NWCharacter肺 背眉 DB俊绰 角力肺 NWCharacter狼 蔼捞 甸绢癌聪促.		
+			  //p->fame_pk,	// 010915 LTS	//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
 			  temp_NWCharacter,	// 010915 LTS
 			  p->aStepInfo,	// CSD-TW-030620
 			  p->name);
@@ -2836,7 +2836,7 @@ int RecvUpdateCharDB( t_update_char_db *p )
 	}
 	
 	// 010406 YGI
-	// 010531 KHS  nut1,2,3 郴 nk3,4,5 Update眠啊..
+	// 010531 KHS  nut1,2,3 내 nk3,4,5 Update추가..
 	sprintf(query, "UPDATE chr_info SET"
 		" openhouse = %d, reserved_point= %d,"
 		" bankmoney= %u, LastLoan= %d, exp = %u, "
@@ -3950,7 +3950,7 @@ char		szQuerry[255];
 									  */
 									  
 									  
-									  //蛆烹矫胶袍狼 何盒栏肺 Party, Relation, Employment狼 Data甫佬绢柯促. 
+									  //협통시스템의 부분으로 Party, Relation, Employment의 Data를읽어온다. 
 									  
 									  int GetPartyChar_SQL( char *name, int *Level, int *Face, int *Str, int *Class, int *Gender )		// 0115
 									  {
@@ -4068,8 +4068,8 @@ char		szQuerry[255];
 									  
 									  //---------------------------------------------
 									  
-									  //  DB俊 Character捞釜捞 乐绰瘤 绝绰瘤 舅酒夯促.
-									  // 乐栏搁 
+									  //  DB에 Character이릉이 있는지 없는지 알아본다.
+									  // 있으면 
 									  
 									  
 									  
@@ -4102,13 +4102,13 @@ char		szQuerry[255];
 										pMailSend->szSender = '月神夜';
 										}*/
 										//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-										  if( CheckName_SQL( name ) == 1 || SearchStrWord( name ) || SearchStrStr( name, " ") ) // 捞抚捞 乐栏搁... // 0208 YGI
+										  if( CheckName_SQL( name ) == 1 || SearchStrWord( name ) || SearchStrStr( name, " ") ) // 이름이 있으면... // 0208 YGI
 										  {
 											  p.h.header.type = CMD_THEREIS_CHARNAME;
 											  p.h.header.size = 0;
 											  QueuePacket( connections, cn, &p, 1 );
 										  }
-										  else	// 捞抚捞 绝栏搁..
+										  else	// 이름이 없으면..
 										  {
 											  p.h.header.type = CMD_THEREIS_NO_CHARNAME;
 											  p.h.header.size = 0;
@@ -4117,7 +4117,7 @@ char		szQuerry[255];
 									  }	
 									  
 									  DiseaseTable	disease_tbl[6];
-									  // 龙捍 抛捞喉 ~~~		0104
+									  // 질병 테이블 ~~~		0104
 									  int GetDisease_SQL( )
 									  {	
 										  HSTMT		hStmt = NULL;
@@ -4304,7 +4304,7 @@ int GetCharID_SQL( void  )
 ///////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////
 
-// BBS包府 家胶...
+// BBS관리 소스...
 
 
 
@@ -4327,7 +4327,7 @@ int InsertBBS( char *name, char *title, char *contents )
 		"values ('%d/%d/%d %d:%d:%d', '%s', '%s' )", 
 		g_mon+1, g_day, g_year - 2000, g_hour, g_min, g_sec, name, title );
 	
-	// 某腐磐狼 老馆 Data甫 chr_info俊 积己窍绊 ( 1-1窜拌 )
+	// 캐릭터의 일반 Data를 chr_info에 생성하고 ( 1-1단계 )
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -4416,7 +4416,7 @@ int GetTitleBBS( int count, int ct[10], TIMESTAMP_STRUCT date[10], char name[10]
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	char		szQuerry[128];
-	DWORD		bbs_count=0;		// 傍瘤荤亲狼 醚 俺荐
+	DWORD		bbs_count=0;		// 공지사항의 총 개수
 	int max=10;		
 	
 	//sprintf( szQuerry, "SELECT no FROM bbs ORDER BY no DESC" );
@@ -4461,7 +4461,7 @@ int GetTitleBBS( int count, int ct[10], TIMESTAMP_STRUCT date[10], char name[10]
 		if(retCode == SQL_SUCCESS)
 		{
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return ( max );			// 啊廉柯 单捞磐狼 俺荐甫 府畔秦霖促.
+			return ( max );			// 가져온 데이터의 개수를 리턴해준다.
 		}
 		else 
 		{
@@ -4628,9 +4628,9 @@ int CheckNoName_SQL(LPSTR szUNM)
 
 //////////////////////////////////////////////////////////////// 0208 YGI
 //
-// 巩磊凯吝 漂沥 巩磊凯俊 器窃茄 巩磊啊 乐绰瘤甫 茫绰 皋家靛 
+// 문자열중 특정 문자열에 포함한 문자가 있는지를 찾는 메소드 
 //
-// return : 乐阑 版快 true, 绝阑 版快 false甫 府畔
+// return : 있을 경우 true, 없을 경우 false를 리턴
 //
 ///////////////////////////////////////////////////////////////
 bool SearchStrStr( const char *szSource, const char *szWhite )
@@ -4658,7 +4658,7 @@ int no_name_count;
 
 /////////////////////////////////////////////////////////////////
 //
-//		0209 YGI	巩磊凯俊辑 镜荐 绝绰 巩磊凯 乐绰瘤 绝绰瘤 魄窜.
+//		0209 YGI	문자열에서 쓸수 없는 문자열 있는지 없는지 판단.
 //
 /////////////////////////////////////////////////////////////
 // 010301 KHS
@@ -4900,7 +4900,7 @@ int CurrentTotalUserInMap( void )
 	oldhour = g_hour;
 	
 	
-	FILE *fp = fopen( "立加磊荐.txt", "at+" );
+	FILE *fp = fopen( "접속자수.txt", "at+" );
 	if( fp == NULL ) return 0;
 	
 	fprintf( fp, " %2d.%2d %02d:%02d | ", g_mon + 1, g_day, g_hour, g_min );
@@ -4992,7 +4992,7 @@ int UpdateFaith_SQL( short int faith, char *name )		// 0405 YGI
 	else return 0;
 }
 
-int UpdateEvaName( const char *my_name, char *eva_name )		// 傈档茄 荤恩 捞抚阑 叼厚俊 诀单捞飘 茄促. // 0405 YGI//020725 lsw
+int UpdateEvaName( const char *my_name, char *eva_name )		// 전도한 사람 이름을 디비에 업데이트 한다. // 0405 YGI//020725 lsw
 {
 	return 0;											// 010414 YGI
 	HSTMT		hStmt = NULL;
@@ -5008,7 +5008,7 @@ int UpdateEvaName( const char *my_name, char *eva_name )		// 傈档茄 荤恩 �
 	else return 0;
 }
 
-int GetEvangelist( const char *my_name, char *eva_name )		// 唱甫 傈档茄 荤恩 捞抚 啊廉坷扁//020725 lsw
+int GetEvangelist( const char *my_name, char *eva_name )		// 나를 전도한 사람 이름 가져오기//020725 lsw
 {
 	return 0;											// 010414 YGI
 	SDWORD		cbValue;
@@ -5042,7 +5042,7 @@ int GetEvangelist( const char *my_name, char *eva_name )		// 唱甫 傈档茄 �
 	return 1;
 }
 
-void SubtractFaith( const char *szName )		// 昏力甫 且 版快 磊扁甫 傈档茄 荤恩狼 脚居缴阑 憋绰促.//020725 lsw
+void SubtractFaith( const char *szName )		// 삭제를 할 경우 자기를 전도한 사람의 신앙심을 깍는다.//020725 lsw
 {
 	char eva_name[20] = {0, };
 	if( GetEvangelist( szName, eva_name ) )//020725 lsw
@@ -5187,7 +5187,7 @@ int UpdateCharNew( char *name )
 
 
 
-char *GodIndex2Name[] = { "EDELBLHOY", "TEFFERY", "LETTY", };	// 0410 YGI		俊胆宏肺捞, 抛其府, 弊尔郡海福, 蜡乔弛, 饭萍, 秋墨匙胶, 拳坊瞒
+char *GodIndex2Name[] = { "EDELBLHOY", "TEFFERY", "LETTY", };	// 0410 YGI		에델브로이, 테페리, 그랑엘베르, 유피넬, 레티, 헬카네스, 화렌차
 int GetGodMeetingTime( TIMESTAMP_STRUCT &day, TIMESTAMP_STRUCT &month, TIMESTAMP_STRUCT &year, int god_index )
 {		
 	SDWORD		cbValue;
@@ -5339,9 +5339,9 @@ int GetCharDataStatusByKein( k_get_char_info *ch, char *name )		// 0410 YGI
 }			
 
 //---------------------------------------------------------------------------------------------------------			
-// 扁  瓷 :
-// 牢  磊 : 
-// 搬  苞 : 
+// 기  능 :
+// 인  자 : 
+// 결  과 : 
 //---------------------------------------------------------------------------------------------------------
 int AccessBoxData( int box_id )			// 0420 YGI
 {			
@@ -5442,7 +5442,7 @@ int GetMailBody( int type, DWORD mail_id, char *body )
 	SDWORD		cbValue;
 	char		szQuerry[255];
 	
-	if( type == 2 )	// 辨靛 皋老
+	if( type == 2 )	// 길드 메일
 	{
 		sprintf(szQuerry, "SELECT mail_body FROM guild_mail WHERE mail_id = %u ", mail_id );
 	}
@@ -5473,7 +5473,7 @@ int GetMailBody( int type, DWORD mail_id, char *body )
 	}
 }
 
-bool UpdateLogintablebyChangeMap( char *user_id, char *map_name )		// 甘埃 傈券俊 狼茄 抛捞喉 函版   //0521 YGI
+bool UpdateLogintablebyChangeMap( char *user_id, char *map_name )		// 맵간 전환에 의한 테이블 변경   //0521 YGI
 {		
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -5497,9 +5497,9 @@ bool UpdateLogintablebyChangeMap( char *user_id, char *map_name )		// 甘埃 傈
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	饭内靛 肮荐甫 啊廉柯促.
-//	梅磊 : 抛捞喉 捞抚( table ), key蔼捞 吧赴 鞘靛疙( field ) NULL老版快 * 栏肺 贸府, 啊瘤绊哎 搬苞蔼( RowCount )
-//	府畔蔼 : SQL巩阑 角青沁阑锭 积变 搬苞蔼( 己傍, 角菩 )阑 府畔秦霖促.
+//	레코드 갯수를 가져온다.
+//	첨자 : 테이블 이름( table ), key값이 걸린 필드명( field ) NULL일경우 * 으로 처리, 가지고갈 결과값( RowCount )
+//	리턴값 : SQL문을 실행했을때 생긴 결과값( 성공, 실패 )을 리턴해준다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 021206
 int GetRowLineOfSQL( const char *table, const char *field, int *RowCount, const char *condition, HDBC hdbc )
@@ -5655,7 +5655,7 @@ int GetHunterList( int id, k_hunter_list* pList, int type )			// 0811 YGI
 	
 	if( type )
 	{
-		if( id )	// id 焊促 累篮 官肺 流傈狼 窍唱
+		if( id )	// id 보다 작은 바로 직전의 하나
 		{
 			//sprintf(szQuerry, "SELECT TOP 1 * FROM hunter_list WHERE id < %d ORDER BY id DESC", id);
 			/////////////////////////////////////////////////////////////////////////////
@@ -5664,7 +5664,7 @@ int GetHunterList( int id, k_hunter_list* pList, int type )			// 0811 YGI
 		}
 		else
 		{
-			//sprintf(szQuerry, "SELECT TOP 1 * FROM hunter_list ORDER BY id DESC");		// 盖 贸澜
+			//sprintf(szQuerry, "SELECT TOP 1 * FROM hunter_list ORDER BY id DESC");		// 맨 처음
 			/////////////////////////////////////////////////////////////////////////////
 			sprintf(szQuerry, "EXEC up_get_hunter_list2");
 			/////////////////////////////////////////////////////////////////////////////
@@ -5775,7 +5775,7 @@ int SearchBoxAndDelete( UCHAR **inv, UCHAR **bank, const char *szName )//020725 
 			
 			//			SQLTransact(SQL_NULL_HENV, hDBC, SQL_COMMIT);
 			SQLFreeStmt(hstmt, SQL_DROP);
-			if( !ret ) return -1;		// 立辟 角菩
+			if( !ret ) return -1;		// 접근 실패
 		}
 		else 
 		{
@@ -5963,7 +5963,7 @@ int UpdateSelectNation( int nation, char *name )		// 1027 YGI
 	CCharRank guild;
 	DWORD name_status;
 	int ret = GetNationByName( name, &name_status );
-	if( !ret ) return 0;		// 孽府俊 角菩
+	if( !ret ) return 0;		// 쿼리에 실패
 	
 	memcpy( &guild, &name_status, sizeof( DWORD ) );
 	guild.nation = nation;
@@ -6019,7 +6019,7 @@ bool SetGuildCode(char * pName, int iGuildCode)
 }	//> CSD-030723
 
 
-int GetNationByName( char *name, DWORD *name_status ) // 1027 YGI 惫啊蔼父 啊瘤绊 坷绰巴捞 酒聪扼 匙烙胶抛捞磐胶 促 啊廉柯促.
+int GetNationByName( char *name, DWORD *name_status ) // 1027 YGI 국가값만 가지고 오는것이 아니라 네임스테이터스 다 가져온다.
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6048,7 +6048,7 @@ int GetNationByName( char *name, DWORD *name_status ) // 1027 YGI 惫啊蔼父 �
 	return( 0 );
 }
 
-int GetNationById( char *login_id )	// 1027 YGI---		// 捞扒 柳楼 唱扼 蔼父 啊廉柯促.
+int GetNationById( char *login_id )	// 1027 YGI---		// 이건 진짜 나라 값만 가져온다.
 {
 	char name[4][20]={0,};
 	GetCharacterNameInID( login_id, name );
@@ -6102,7 +6102,7 @@ int GetMapInfo( t_mapinfo aMap[] )		// 1004 YGI
 			retCode = SQLGetData(hStmt, 10, SQL_C_LONG, &value,	0, &cbValue); aMap[count].forrookie = value?true:false;
 			retCode = SQLGetData(hStmt, 11, SQL_C_LONG, &value,	0, &cbValue); aMap[count].port      = value;
 			
-			EatRearWhiteChar(aMap[count].mapfile); strupr( aMap[count].mapfile );		// 010414 YGI
+			EatRearWhiteChar(aMap[count].mapfile); _strupr( aMap[count].mapfile );		// 010414 YGI
 			EatRearWhiteChar(aMap[count].mapname);
 			
 			if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -6131,7 +6131,7 @@ int MapPort( char *mapname )
 {
 	int i;
 	
-	strupr( mapname );
+	_strupr( mapname );
 	
 	for( i = 0 ;  i< MAX_MAP_ ; i ++ )
 	{	
@@ -6243,13 +6243,13 @@ int GetScoreVote( int candidate, int vote_num, int nation )		// 001031_2 YGI
 }		
 
 
-//int SetPlusScoreVote( char *name, int vote_num )		// 垫钎甫 歹秦霖促.
-int SetPlusScoreVote( int candidate, int vote_num, int nation )		// 垫钎甫 歹秦霖促.		// 001031_2 YGI
+//int SetPlusScoreVote( char *name, int vote_num )		// 득표를 더해준다.
+int SetPlusScoreVote( int candidate, int vote_num, int nation )		// 득표를 더해준다.		// 001031_2 YGI
 {
 	int vote_score = GetScoreVote( candidate, vote_num, nation );
 	if( vote_score < 0 ) return vote_score;
 	
-	vote_score++;		// 垫钎沁蝶.
+	vote_score++;		// 득표했따.
 	
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6273,27 +6273,27 @@ int SetPlusScoreVote( int candidate, int vote_num, int nation )		// 垫钎甫 �
 }
 
 //////////////////////////////////////////////////////////////////////////////////////
-// vote 抛捞喉 力绢 巩
-// 1: 饭内靛 火涝( 饶焊殿废 )	- 扁粮俊 饶焊啊 乐绰瘤 眉农秦辑 饶焊锅龋甫 何咯茄促.
-// 2: 饶焊 沥焊 啊廉坷扁		- 辨靛, 唱扼, 己喊, 饭骇, 努饭胶甫 啊廉柯促
-// 3: 急芭 柳青惑炔	- 急芭 锅龋甫 啊瘤绊 乐绰 葛电 饶焊甸狼 泅犁 垫钎蔼阑 啊廉柯促
+// vote 테이블 제어 문
+// 1: 레코드 삽입( 후보등록 )	- 기존에 후보가 있는지 체크해서 후보번호를 부여한다.
+// 2: 후보 정보 가져오기		- 길드, 나라, 성별, 레벨, 클레스를 가져온다
+// 3: 선거 진행상황	- 선거 번호를 가지고 있는 모든 후보들의 현재 득표값을 가져온다
 
-int RegistCandidate_SQL( k_candidate *p )		// 饶焊 殿废
+int RegistCandidate_SQL( k_candidate *p )		// 후보 등록
 {
-	int nRowCount;		// 割疙牢啊?
+	int nRowCount;		// 몇명인가?
 	
 	char condition[255];
 	sprintf( condition, "number = %d AND name = '%s'", p->number, p->name );
-	int ret = GetRowLineOfSQL( "vote", "name", &nRowCount, condition );		// 捞固 殿废登绢 乐绰啊?
+	int ret = GetRowLineOfSQL( "vote", "name", &nRowCount, condition );		// 이미 등록되어 있는가?
 	if( ret ) return -3;
 	
 	sprintf( condition, "number = %d AND nation = %d", p->number, p->nation );
 	ret = GetRowLineOfSQL( "vote", "name", &nRowCount, condition );
 	
-	if( nRowCount >= 3 ) return -1;		// 歹捞惑 饶焊 殿废阑 且荐 绝促. // 父距 炼扒俊 狼秦 官层临鞘夸啊 乐促搁 咯扁辑
+	if( nRowCount >= 3 ) return -1;		// 더이상 후보 등록을 할수 없다. // 만약 조건에 의해 바꿔줄필요가 있다면 여기서
 	
 	int score = 0;
-	int ct = nRowCount+1;				// 饶焊 锅龋
+	int ct = nRowCount+1;				// 후보 번호
 	
 	char		szQuerry[255];
 	HSTMT		hStmt = NULL;
@@ -6313,10 +6313,10 @@ int RegistCandidate_SQL( k_candidate *p )		// 饶焊 殿废
 		SQLFreeStmt(hStmt, SQL_DROP);
 		displaySQLError(hStmt) ;
 	}
-	return -2;		// sql 孽府俊 角菩 沁促.
+	return -2;		// sql 쿼리에 실패 했다.
 }
 
-int GetCandidate_SQL( const char *name, short int vote_num, k_candidate *p )		// 饶焊 沥焊 啊廉坷扁
+int GetCandidate_SQL( const char *name, short int vote_num, k_candidate *p )		// 후보 정보 가져오기
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6355,7 +6355,7 @@ int GetCandidate_SQL( const char *name, short int vote_num, k_candidate *p )		//
 	}
 }
 
-int GetCandidate_SQL( short int vote_num, short int nation, k_candidate p[]  )		// 饶焊 沥焊 啊廉坷扁
+int GetCandidate_SQL( short int vote_num, short int nation, k_candidate p[]  )		// 후보 정보 가져오기
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6401,7 +6401,7 @@ int GetCandidate_SQL( short int vote_num, short int nation, k_candidate p[]  )		
 	}
 }
 
-int GetCurrentVoting( int vote_num, int nation, k_rep_vote_score *target )		// 泅犁 急芭 柳青 惑炔
+int GetCurrentVoting( int vote_num, int nation, k_rep_vote_score *target )		// 현재 선거 진행 상황
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6439,7 +6439,7 @@ int GetCurrentVoting( int vote_num, int nation, k_rep_vote_score *target )		// �
 }
 
 
-int GetVoteInfo( k_set_value_of_vote *target )		// 急芭 锅龋客 泅犁 急芭 惑怕
+int GetVoteInfo( k_set_value_of_vote *target )		// 선거 번호와 현재 선거 상태
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6479,10 +6479,10 @@ int GetVoteInfo( k_set_value_of_vote *target )		// 急芭 锅龋客 泅犁 急�
 
 /////////////////////////////////////////////////////////////
 //
-//	急芭 肯丰 风凭
+//	선거 완료 루틴
 //
 
-// 1: 俩 腹篮 钎甫 啊柳 荤恩 捞抚阑 啊廉柯促.
+// 1: 젤 많은 표를 가진 사람 이름을 가져온다.
 int GetVoteNumberOne( int nation, int vote_num, char *name )
 {
 	HSTMT		hStmt = NULL;
@@ -6512,15 +6512,15 @@ int GetVoteNumberOne( int nation, int vote_num, char *name )
 	}
 }
 
-// 2: 空捞 瞪 仇捞 立加秦 乐绰瘤甫 犬牢( 猾促.. 酒捞叼甫 啊廉坷绰单 巩力啊 积辨 犬伏捞 乐栏聪瘪 弊成 霸烙 辑滚肺 葛滴 焊辰促.
+// 2: 왕이 될 놈이 접속해 있는지를 확인( 뺀다.. 아이디를 가져오는데 문제가 생길 확률이 있으니깐 그냥 게임 서버로 모두 보낸다.
 int IsLogingByName_SQL( char *name )
 {
 	//	GetRowLineOfSQL( "LoginTable", "name", 
 	return 1;
 }
 
-// 3 : 老窜 霸烙 辑滚肺 焊辰饶俊 弊仇 某腐磐俊 诀单捞飘甫 老窜 茄促.
-// 3-1 : name_status 啊廉客辑 诀单捞飘茄促.
+// 3 : 일단 게임 서버로 보낸후에 그놈 캐릭터에 업데이트를 일단 한다.
+// 3-1 : name_status 가져와서 업데이트한다.
 int UpdateYouAreKing( char *name , int king )		// 1027 YGI
 {
 	DWORD before;
@@ -6529,7 +6529,7 @@ int UpdateYouAreKing( char *name , int king )		// 1027 YGI
 	
 	CCharRank after;
 	memcpy( &after, &before, sizeof( DWORD ) );
-	after.king = king;		// 空栏肺 父甸绢 林芭唱 秦烙矫挪促.
+	after.king = king;		// 왕으로 만들어 주거나 해임시킨다.
 	
 	memcpy( &before, &after, sizeof( DWORD ) );
 	
@@ -6554,14 +6554,14 @@ int UpdateYouAreKing( char *name , int king )		// 1027 YGI
 	}
 }
 
-// 4: 惑炔阑 0栏肺 技泼秦辑 付公府 茄促.
+// 4: 상황을 0으로 세팅해서 마무리 한다.
 int SetVoteEndFlag( int count, int type )
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	char		szQuerry[255];
 	
-	sprintf(szQuerry, "UPDATE vote_info SET is_voting = 0, king = NULL, king_start = NULL WHERE ct = %d", count );	// 急芭 场抄 惑怕肺 ->乞惑矫肺 倒妨 初绰促.
+	sprintf(szQuerry, "UPDATE vote_info SET is_voting = 0, king = NULL, king_start = NULL WHERE ct = %d", count );	// 선거 끝난 상태로 ->평상시로 돌려 놓는다.
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -6578,21 +6578,21 @@ int SetVoteEndFlag( int count, int type )
 	}
 }
 
-// 5: 叼厚 抛捞喉阑 沥府茄促. ( 空殿废棺 饶焊 昏力 )
+// 5: 디비 테이블을 정리한다. ( 왕등록및 후보 삭제 )
 int CheckDbTable(int nation, char *name )
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	char		szQuerry[255];
 	
-	sprintf(szQuerry, "UPDATE vote_info SET king='%s', king_start = getdate() WHERE ct = %d", name, nation );// 空阑 殿废矫难 初绰促.	
+	sprintf(szQuerry, "UPDATE vote_info SET king='%s', king_start = getdate() WHERE ct = %d", name, nation );// 왕을 등록시켜 놓는다.	
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	
 	//	SQLTransact(SQL_NULL_HENV, hDBC, SQL_COMMIT );
 	SQLFreeStmt(hStmt, SQL_DROP);
 	
-	sprintf(szQuerry, "TRUNCATE TABLE vote_regist" );	// 饶焊 殿废 抛捞喉阑 瘤况滚赴促.
+	sprintf(szQuerry, "TRUNCATE TABLE vote_regist" );	// 후보 등록 테이블을 지워버린다.
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -6610,8 +6610,8 @@ int CheckDbTable(int nation, char *name )
 }
 
 //////////////////////////////////////////////////////
-// 空俊辑 秦力甫 困茄 风凭
-int GetKingOfNation_SQL( int nation, char *name )		// 弊 唱扼狼 空 捞抚 啊廉坷扁
+// 왕에서 해제를 위한 루틴
+int GetKingOfNation_SQL( int nation, char *name )		// 그 나라의 왕 이름 가져오기
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6649,10 +6649,10 @@ int InsertGmRegist( k_gm_regist_db *p )		// 1027 YGI
 	/*
 	char job_name[][20] = 
 	{ 
-	"丑何",		"堡何",		"绢何",		"唱公槽",	"档绵磊", 
-	"缴付聪",	"格荐",		"措厘厘捞", "夸府荤",	"犁窜荤", 
-	"劝力累荤", "楷陛贱荤", "檬里捞",	"惑牢",		"措厘厘捞扁己",
-	"格荐扁己", "劝力累荤扁己", "犁窜荤扁己"
+	"농부",		"광부",		"어부",		"나무꾼",	"도축자", 
+	"심마니",	"목수",		"대장장이", "요리사",	"재단사", 
+	"활제작사", "연금술사", "초쟁이",	"상인",		"대장장이기성",
+	"목수기성", "활제작사기성", "재단사기성"
 	};
 	*/
 	sprintf(szQuerry, "INSERT INTO gm_table (name, job, job_name )"
@@ -6668,7 +6668,7 @@ int InsertGmRegist( k_gm_regist_db *p )		// 1027 YGI
 }
 
 
-// 001214 YGI -- 关栏肺 促..
+// 001214 YGI -- 밑으로 다..
 void SQLerror( char *querry )
 {	
 	//	printf( " SQL querry error! : [%s] '\n", querry );
@@ -6676,7 +6676,7 @@ void SQLerror( char *querry )
 
 
 
-int GetSalvation( char * name, DWORD &money )		// 扁何茄 捣 舅酒焊扁
+int GetSalvation( char * name, DWORD &money )		// 기부한 돈 알아보기
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6807,7 +6807,7 @@ int SetChocolateCount( char * name, int &count )		// 010212 YGI
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
 		retCode = SQLFetch(hStmt);
-		if( retCode == SQL_NO_DATA )		// 贸澜老版快
+		if( retCode == SQL_NO_DATA )		// 처음일경우
 		{	
 			SQLFreeStmt(hStmt, SQL_DROP);
 			SQLAllocStmt(hDBC, &hStmt);
@@ -6837,7 +6837,7 @@ int SetChocolateCount( char * name, int &count )		// 010212 YGI
 	}
 }
 
-int GetTopGivenChocolate( char * name, int &count )		// 010212 YGI // 穿啊 啊厘 腹捞 啊瘤绊 乐绰啊
+int GetTopGivenChocolate( char * name, int &count )		// 010212 YGI // 누가 가장 많이 가지고 있는가
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -6870,7 +6870,7 @@ int GetTopGivenChocolate( char * name, int &count )		// 010212 YGI // 穿啊 啊
 // 010303 YGI
 ////////////////////////////////////////////////////
 //
-//	俺切 捞亥飘甫 困茄 抛捞喉 曼炼 openschool
+//	개학 이벤트를 위한 테이블 참조 openschool
 //
 int SaveOpenSchoolItem( char *name, int nation, int item_no, int &number )
 {
@@ -6894,7 +6894,7 @@ int SaveOpenSchoolItem( char *name, int nation, int item_no, int &number )
 		{
 			//			SQLTransact(SQL_NULL_HENV, hDBC, SQL_ROLLBACK);
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return -1;	// 捞固 殿废等 仇捞促.
+			return -1;	// 이미 등록된 놈이다.
 		}
 	}
 	else
@@ -6955,7 +6955,7 @@ int SetNationByName( DWORD status, char *name )		// 1027 YGI
 
 
 // 010310 YGI
-int GetChocolateEatName( char *name, DWORD total_id )		// total_id肺 冈篮 仇 茫扁
+int GetChocolateEatName( char *name, DWORD total_id )		// total_id로 먹은 놈 찾기
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -7073,7 +7073,7 @@ int CheckWorstDBTable( void )
 	SDWORD		cbValue;
 	int number=0;
 	
-	// 汲沥阑 力措肺 窍搁 Mail狼 荐绰 巩力啊 绝促. 
+	// 설정을 제대로 하면 Mail의 수는 문제가 없다. 
 	return 1;
 	
 	
@@ -7123,7 +7123,7 @@ int UpdateLadderScore( DWORD ladderscore, char *name, int nation, int cls, int l
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
 		retCode = SQLFetch(hStmt);
-		if( retCode == SQL_NO_DATA )		// 贸澜老版快
+		if( retCode == SQL_NO_DATA )		// 처음일경우
 		{	
 			SQLFreeStmt(hStmt, SQL_DROP);
 			SQLAllocStmt(hDBC, &hStmt);
@@ -7211,15 +7211,15 @@ int GetLadderScoreRank( int rank, k_db_get_ladder_score_rank *rank_data )
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
 		retCode = SQLFetch(hStmt);
-		if( retCode == SQL_NO_DATA )		// 贸澜老版快
+		if( retCode == SQL_NO_DATA )		// 처음일경우
 		{	
 			SQLFreeStmt(hStmt, SQL_DROP);
-			if( rank == 1 )		// 蔼捞 傈囚 绝阑 版快
+			if( rank == 1 )		// 값이 전혀 없을 경우
 			{
 				RefreshColossus_rank_read_table();
-				return 2;		// 茄锅 歹 角青矫难霖促. ( 犁蓖绰 公茄俊 狐龙 堪妨啊 乐扁 锭巩俊 迭 茄锅父 歹..
+				return 2;		// 한번 더 실행시켜준다. ( 재귀는 무한에 빠질 염려가 있기 때문에 딱 한번만 더..
 			}
-			return -1;		// 捞霸 场捞促..
+			return -1;		// 이게 끝이다..
 		}
 		else
 		{
@@ -7273,7 +7273,7 @@ int GetRankLadderByName( char *name )
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 	{
 		retCode = SQLFetch(hStmt);
-		if( retCode == SQL_NO_DATA )		// 绝绰 某腐捞促.
+		if( retCode == SQL_NO_DATA )		// 없는 캐릭이다.
 		{	
 			SQLFreeStmt(hStmt, SQL_DROP);
 			return -1;
@@ -7341,7 +7341,7 @@ bool IsFreeLevel( char *szUID )
 	int			lev = 0;
 	bool		must_pay = false;
 	
-	// 4俺狼 捞抚阑 啊廉柯促. 
+	// 4개의 이름을 가져온다. 
 	if( GetCharacterNameInID( szUID, name ) == -1 ) 
 	{
 		return false;
@@ -7377,7 +7377,7 @@ bool IsFreeLevel( char *szUID )
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 辨靛 矫胶袍 包访
+// 길드 시스템 관련
 int UpdateGuildMark( int guild_code, int size, UCHAR *mark)
 {
 	SQLINTEGER	clen = 0;
@@ -7479,7 +7479,7 @@ int GetGuildMarkImage( int guild_code, char *image, int size, int &mark_num )
 	}
 }
 
-int GetGuildImageSize( int guild_code )		// 捞固瘤狼 农扁甫 啊廉柯促.
+int GetGuildImageSize( int guild_code )		// 이미지의 크기를 가져온다.
 {		
 	SDWORD		cbValue;
 	HSTMT		hStmt = NULL;
@@ -7537,7 +7537,7 @@ int GetEmptyGuildCode( int &guild_code )
 
 	SQLFreeStmt(hStmt, SQL_DROP);
 
-	sprintf(szQuerry, "SELECT top 1 code FROM guild_list ORDER BY code DESC " );		// 泅犁 叼厚俊 历厘等 辨靛 荐
+	sprintf(szQuerry, "SELECT top 1 code FROM guild_list ORDER BY code DESC " );		// 현재 디비에 저장된 길드 수
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
@@ -7560,7 +7560,7 @@ int GetEmptyGuildCode( int &guild_code )
 	return -1;
 }	//> CSD-030423
 
-// 烙矫 辨靛甫 殿废 矫难林绊 弊 沥焊甫 啊廉柯促.
+// 임시 길드를 등록 시켜주고 그 정보를 가져온다.
 int SaveGuildRegistImsi( int guild_code, k_regist_guild_imsi_db *guild, k_set_guild_info *guild_info )
 {
 	HSTMT		hStmt = NULL;
@@ -7586,7 +7586,7 @@ int SaveGuildRegistImsi( int guild_code, k_regist_guild_imsi_db *guild, k_set_gu
 			
 			if( active ) 
 			{
-				return -100;// 劝悼吝牢 辨靛捞促.
+				return -100;// 활동중인 길드이다.
 			}
 			SQLAllocStmt(hDBC, &hStmt);
 			
@@ -7608,8 +7608,8 @@ int SaveGuildRegistImsi( int guild_code, k_regist_guild_imsi_db *guild, k_set_gu
 		retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 		SQLFreeStmt(hStmt, SQL_DROP);
 		
-		guild_info->active = 1;		// 殿废登菌栏骨肺 劝悼吝捞促.
-		guild_info->first = 1;		// 烙矫捞促.
+		guild_info->active = 1;		// 등록되었으므로 활동중이다.
+		guild_info->first = 1;		// 임시이다.
 		guild_info->guild_code = guild_code;
 		guild_info->make = make+1;
 		guild_info->mark_num = 1;
@@ -7712,7 +7712,7 @@ int GetGuildExplain( int guild_code, int &len, char *explain )
 	return -2;
 }
 
-int IncreaseNumberOfGuildList( int guild_code, int type, BYTE &number  )		// mark_num, info_num, make_number 甫 1 刘啊矫难霖促.
+int IncreaseNumberOfGuildList( int guild_code, int type, BYTE &number  )		// mark_num, info_num, make_number 를 1 증가시켜준다.
 {
 	char		szQuerry[255];
 	HSTMT		hStmt = NULL;
@@ -7723,7 +7723,7 @@ int IncreaseNumberOfGuildList( int guild_code, int type, BYTE &number  )		// mar
 	
 	switch( type )
 	{
-	case 0 :		// 捞固瘤 锅龋 +1
+	case 0 :		// 이미지 번호 +1
 		sprintf(szQuerry, "SELECT mark_num FROM guild_list WHERE code = '%d'", guild_code );
 		break;
 		
@@ -7754,15 +7754,15 @@ int IncreaseNumberOfGuildList( int guild_code, int type, BYTE &number  )		// mar
 	
 	switch( type )
 	{
-	case 0 :		// 捞固瘤 锅龋 +1
+	case 0 :		// 이미지 번호 +1
 		sprintf(szQuerry, "UPDATE guild_list SET mark_num = %d WHERE code = '%d'", number, guild_code );
 		break;
 		
-	case 1:			// 辨靛 锅龋 +1 
+	case 1:			// 길드 번호 +1 
 		sprintf(szQuerry, "UPDATE guild_list SET make = %d WHERE code = '%d'", number, guild_code );
 		break;
 		
-	case 2:			// 辨靛 沥焊 锅龋 +1
+	case 2:			// 길드 정보 번호 +1
 		sprintf(szQuerry, "UPDATE guild_list SET info_num = %d WHERE code = '%d'", number, guild_code );
 		break;
 	}
@@ -7807,7 +7807,7 @@ int SaveGuildRegist( k_guild_regist *guild, int &info_num )
 		if( first != 1 ) 
 		{
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return -100;// 烙矫 辨靛啊 酒聪匙..
+			return -100;// 임시 길드가 아니네..
 		}
 		
 		info_num++;
@@ -7883,7 +7883,7 @@ int ChangeGuildMemberList( char *char_name, int guild_code, int guild_degree )
 	RETCODE		retCode;
 	char		szQuerry[255];
 	
-	if( !guild_code )		// 昏力 矫难扼
+	if( !guild_code )		// 삭제 시켜라
 	{
 		sprintf(szQuerry, "DELETE guild_member_list WHERE name = '%s' ", char_name );
 		SQLAllocStmt(hDBC, &hStmt);
@@ -7931,7 +7931,7 @@ int ChangeGuildMemberList( char *char_name, int guild_code, int guild_degree )
 	}
 }
 
-// 弊 辨靛 锅龋肺 割锅掳 父甸绢柳 辨靛 牢瘤 锅龋 啊廉坷扁
+// 그 길드 번호로 몇번째 만들어진 길드 인지 번호 가져오기
 int GetGuildMakeNumber( int guild_code, int &make )
 {
 	SDWORD		cbValue;
@@ -8213,7 +8213,7 @@ int GetGuildMasterAndsubMaster( int guild_code, char *master, char *sub_master )
 	return -2;
 }
 
-int IsExistGiuildMember( char *name )		// 辨靛糕滚俊 郴啊 加秦 乐绰啊?
+int IsExistGiuildMember( char *name )		// 길드멤버에 내가 속해 있는가?
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -8228,9 +8228,9 @@ int IsExistGiuildMember( char *name )		// 辨靛糕滚俊 郴啊 加秦 乐绰�
 		SQLFreeStmt(hStmt, SQL_DROP);
 		if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 		{
-			return 1;		// 弊 辨靛俊 郴啊 加秦 乐促.
+			return 1;		// 그 길드에 내가 속해 있다.
 		}
-		else return 0;		// 辨靛俊 加秦 乐瘤 臼促.
+		else return 0;		// 길드에 속해 있지 않다.
 	}
 	else
 	{
@@ -8278,13 +8278,13 @@ int CheckGuildMemberForRegistGuild( int nGuildCode )
 	
 	int first = 0;
 	int ret = GetIsFirstGuild( nGuildCode, first );
-	if( ret != 1 ) return -100;		// 孽府俊 巩力啊 乐芭唱 绝绰 辨靛促.
-	if( first != 1 ) return -200;		// 烙矫 辨靛啊 酒聪促.
+	if( ret != 1 ) return -100;		// 쿼리에 문제가 있거나 없는 길드다.
+	if( first != 1 ) return -200;		// 임시 길드가 아니다.
 	
 	int nRowCount = 0;
 	sprintf( szQuerry, "guild_code = %d", nGuildCode );
 	ret = GetRowLineOfSQL( "guild_member_list", "name", &nRowCount, szQuerry );
-	if( nRowCount < MIN_GUILD_COUNT ) return -400; // 荤恩 荐啊 何练窍促. 
+	if( nRowCount < MIN_GUILD_COUNT ) return -400; // 사람 수가 부족하다. 
 	
 	
 	sprintf(szQuerry, "SELECT name FROM guild_member_list WHERE guild_code = %d ", nGuildCode );
@@ -8296,7 +8296,7 @@ int CheckGuildMemberForRegistGuild( int nGuildCode )
 		name_data = new k_name[nRowCount];
 		
 		retCode = SQLFetch(hStmt);
-		int count = 0;		// 饭骇捞 30捞惑牢 荤恩 眉农
+		int count = 0;		// 레벨이 30이상인 사람 체크
 		while(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
 		{
 			retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, name, 20, &cbValue);
@@ -8365,7 +8365,7 @@ int DeleteImsiGuild( int *guild_code, int &guild_code_count )
 	char		szQuerry[255];
 	int ret = -1;
 	
-	// 朝磊啊 20老捞 瘤抄 劝悼吝牢 辨靛
+	// 날자가 20일이 지난 활동중인 길드
 	sprintf(szQuerry, "SELECT code FROM guild_list WHERE first = 1  AND active = 1 AND ( getdate()-20 > create_time )" );
 	
 	SQLAllocStmt(hDBC, &hStmt);
@@ -8550,7 +8550,7 @@ int RegistFriend_SQL( char *name1, char *name2 )
 			ZeroMemory( get_name, 20 );
 			retCode = SQLGetData(hStmt, cn, SQL_C_CHAR, get_name, 20, &cbValue);
 			EatRearWhiteChar( get_name );
-			if( !get_name[0] )		// NULL老 版快 
+			if( !get_name[0] )		// NULL일 경우 
 			{
 				SQLFreeStmt(hStmt, SQL_DROP);
 				sprintf( szQuerry, " UPDATE friend_list SET friend%d = '%s' WHERE name = '%s'", cn, name2, name1 );
@@ -8704,7 +8704,7 @@ int GetGuildItemIndexAndCount( int guild_code, int &max, DWORD *index )
 		SQLFetch(hStmt);
 		SQLGetData(hStmt, 1, SQL_C_LONG, &max, 0, &cbValue);
 		SQLFreeStmt(hStmt, SQL_DROP);
-		if( !max ) return -100;	// 酒捞袍捞 窍唱档 绝促.
+		if( !max ) return -100;	// 아이템이 하나도 없다.
 		if( max > 150 ) max = 150;
 		
 		sprintf( szQuerry, "SELECT top 150 cn FROM guild_item WHERE guild_code = %d ORDER BY cn", guild_code );
@@ -8775,7 +8775,7 @@ int InsertGuildItem( int guild_code, ItemAttr *pItem, char *name )
 	return Querry_SQL( szQuerry );
 }
 
-int GetGuildItemOne( int guild_code, DWORD index, ItemAttr *pItem )		// 角力 酒捞袍 窍唱 啊廉坷扁
+int GetGuildItemOne( int guild_code, DWORD index, ItemAttr *pItem )		// 실제 아이템 하나 가져오기
 {
 	char		szQuerry[1024];
 	HSTMT		hStmt;
@@ -8809,14 +8809,14 @@ int GetGuildItemOne( int guild_code, DWORD index, ItemAttr *pItem )		// 角力 �
 		else
 		{
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return 100;		// 绝促.
+			return 100;		// 없다.
 		}
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
 	return -1;
 }
 
-int GetGuildItemOne( int guild_code, int item_no, ItemAttr *pItem, char *name )		// 角力 酒捞袍 窍唱 啊廉坷扁
+int GetGuildItemOne( int guild_code, int item_no, ItemAttr *pItem, char *name )		// 실제 아이템 하나 가져오기
 {
 	char		szQuerry[1024];
 	HSTMT		hStmt;
@@ -8853,7 +8853,7 @@ int GetGuildItemOne( int guild_code, int item_no, ItemAttr *pItem, char *name )	
 		else
 		{
 			SQLFreeStmt(hStmt, SQL_DROP);
-			return 100;		// 绝促.
+			return 100;		// 없다.
 		}
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);
@@ -8861,7 +8861,7 @@ int GetGuildItemOne( int guild_code, int item_no, ItemAttr *pItem, char *name )	
 }
 
 
-// 辨靛 酒捞袍 焊包丰
+// 길드 아이템 보관료
 int GetGuildItemPay( int guild_code, DWORD &box_money )
 {
 	char		szQuerry[255];
@@ -8943,7 +8943,7 @@ int GetActiveByGuildList( int guild_code, int &active )
 
 int CheckGuildMasterLastConnect( int guild_code )
 {
-	// 辨靛 付胶磐狼 弥辟 立加 矫埃阑 眉农茄促.
+	// 길드 마스터의 최근 접속 시간을 체크한다.
 	char		szQuerry[255];
 	HSTMT		hStmt;
 	RETCODE		retCode;
@@ -8953,7 +8953,7 @@ int CheckGuildMasterLastConnect( int guild_code )
 	int RowCount = 0;
 	sprintf( szQuerry, "code = %d AND (master_last_connect < getdate()-15)", guild_code  );
 	GetRowLineOfSQL( "guild_list", "name", &RowCount, szQuerry );
-	if( RowCount > 0 )		// 背眉啊 啊瓷窍促.
+	if( RowCount > 0 )		// 교체가 가능하다.
 		return 1;
 	
 	TIMESTAMP_STRUCT temp_date ={0,};
@@ -8965,18 +8965,18 @@ int CheckGuildMasterLastConnect( int guild_code )
 		SQLFetch(hStmt);
 		SQLGetData(hStmt, 1, SQL_C_TIMESTAMP, &temp_date,  sizeof( TIMESTAMP_STRUCT ), &cbValue);
 		SQLFreeStmt(hStmt, SQL_DROP);
-		if( temp_date.year == 0 )	// 矫埃捞 null 老 版快 10老 傈 朝磊肺 技泼
+		if( temp_date.year == 0 )	// 시간이 null 일 경우 10일 전 날자로 세팅
 		{
 			sprintf( szQuerry, "UPDATE guild_list SET master_last_connect = getdate()-11  WHERE code = %d", guild_code );
 			Querry_SQL( szQuerry );
-			return 2;	// 背眉 阂啊瓷 : 版快 2
+			return 2;	// 교체 불가능 : 경우 2
 		}
-		return 3;		// 背眉 阂啊瓷 : 版快 1
+		return 3;		// 교체 불가능 : 경우 1
 	}
 	else 
 	{
 		SQLFreeStmt(hStmt, SQL_DROP);
-		return -1;		// 背眉 阂啊瓷
+		return -1;		// 교체 불가능
 	}
 }
 
@@ -9067,7 +9067,7 @@ int GetCheckGuildHouse( char *pHouseId, int &count )
 	char		szQuerry[512];
 	int temp_int;
 	
-	sprintf(szQuerry, "SELECT id FROM guild_house WHERE getdate() > date" );	//瘤况龙 辨靛窍快胶
+	sprintf(szQuerry, "SELECT id FROM guild_house WHERE getdate() > date" );	//지워질 길드하우스
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if( !SQLOK(retCode) )
@@ -9131,7 +9131,7 @@ int ClearSkillPoint(const char* pName)
 extern int GetServerSetNum();
 int SaveItemLog( k_item_log *pData )
 {
-	if( !hDBC_ChrLogDB ) return -100;		// 楷搬 登绢 乐瘤 臼篮 惑怕捞促.
+	if( !hDBC_ChrLogDB ) return -100;		// 연결 되어 있지 않은 상태이다.
 	
 	//acer7
 	MyLog( 0, " ItemLog : %s->%s, item_no(%d), type(%d)",pData->name1, pData->name2, pData->item.item_no, pData->type );
@@ -9153,7 +9153,7 @@ int SaveItemLog( k_item_log *pData )
 // 020826 YGI
 int CheckSalvationNameBasic2( char *name )
 {
-/* 24 矫埃捞 瘤唱具瘤父 啊瓷且 版快 
+/* 24 시간이 지나야지만 가능할 경우 
 int nRowCount = 0;
 char condition[256];
 sprintf( condition, "name = '%s' AND date > getdate()-1", name );
@@ -9175,7 +9175,7 @@ return nRowCount?1:0;
 		return -1;
 	}
 	retCode = ::SQLFetch( hStmt );
-	if( retCode == SQL_NO_DATA )		// 扁何 啊瓷窍促.
+	if( retCode == SQL_NO_DATA )		// 기부 가능하다.
 	{
 		::SQLFreeStmt(hStmt, SQL_DROP);
 		return 1;
@@ -9198,22 +9198,22 @@ return nRowCount?1:0;
 }
 
 //021030 YGI
-// 捞亥飘 抛捞喉阑 曼炼 秦辑 酒捞袍阑 罐阑霸 乐绰瘤甫 眉农茄促.
-// 秦寸酒捞袍捞 乐栏搁 event_startitem_recv_id 甫 眉农窍绊 酒捞袍阑 力傍饶 历厘茄促.
+// 이벤트 테이블을 참조 해서 아이템을 받을게 있는지를 체크한다.
+// 해당아이템이 있으면 event_startitem_recv_id 를 체크하고 아이템을 제공후 저장한다.
 int CheckEventITem( CHARLIST *ch )
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SDWORD		cbValue;
-	int i = 0;		// for 侩
-	int ct = 0;		// 单捞鸥 啊廉棵 锭 牢郸胶侩
-	int count = 0;	// 罐篮利捞 乐绰瘤 犬牢窍绰 风凭俊辑 荤侩
-	char condition[255] = {0,};	// 犬牢侩 孽府
+	int i = 0;		// for 용
+	int ct = 0;		// 데이타 가져올 때 인덱스용
+	int count = 0;	// 받은적이 있는지 확인하는 루틴에서 사용
+	char condition[255] = {0,};	// 확인용 쿼리
 	int ret = 0;
 	
 	int nRowCount = 0;
 	::GetRowLineOfSQL( "Event_StartItem", "*", &nRowCount, "event_start_date <= getdate() AND event_end_date >= getdate()" );
-	if( !nRowCount ) {return 0;}		// 秦寸 捞亥飘啊 绝促.
+	if( !nRowCount ) {return 0;}		// 해당 이벤트가 없다.
 	
 	vector<k_startitem_basic> vtSI;
 	vtSI.reserve(nRowCount);
@@ -9229,13 +9229,13 @@ int CheckEventITem( CHARLIST *ch )
 		return 0;
 	}
 	
-	// 单捞鸥 啊廉坷扁 风凭
+	// 데이타 가져오기 루틴
 	retCode = SQLFetch( hStmt );
 	while( SQLOK( retCode ) )
 	{
 		if( retCode == SQL_NO_DATA ) break;
 
-		k_startitem_basic *pData = &vtSI[ct];		// 傈何 int 捞扁 锭巩俊 
+		k_startitem_basic *pData = &vtSI[ct];		// 전부 int 이기 때문에 
 		int i = 0;
 		retCode = ::SQLGetData(hStmt, ++i, SQL_C_ULONG, &pData->m_nEventNo,		0, &cbValue); 
 		retCode = ::SQLGetData(hStmt, ++i, SQL_C_ULONG, &pData->m_bAll,			0, &cbValue); 
@@ -9256,7 +9256,7 @@ int CheckEventITem( CHARLIST *ch )
 	}
 	::SQLFreeStmt(hStmt, SQL_DROP);
 	
-	// 傈俊 罐篮利捞 乐绰瘤 犬牢 风凭
+	// 전에 받은적이 있는지 확인 루틴
 	for( i=0; i<nRowCount; i++ )
 	{
 		if( vtSI[i].m_nEventNo )
@@ -9281,8 +9281,8 @@ int AddEventItem( CHARLIST *ch, k_startitem_basic* pData )
 	{
 		switch( pData->m_nSex )
 		{
-		case 1 : if( ch->Gender != 1 ) return 0; break;		// 巢磊
-		case 2 : if( ch->Gender != 0 ) return 0; break;		// 咯磊
+		case 1 : if( ch->Gender != 1 ) return 0; break;		// 남자
+		case 2 : if( ch->Gender != 0 ) return 0; break;		// 여자
 		}
 		switch( pData->m_nClass )
 		{
@@ -9326,7 +9326,7 @@ int AddEventItem( CHARLIST *ch, k_startitem_basic* pData )
 		}
 		else
 		{
-			// 涝仿
+			// 입력
 			sprintf( query, "INSERT INTO event_startitem_recv_id ( event_no, recv_date, login_id, character_name, item_no, item_mutant, item_grade ) VALUES "
 				" ( %d, getdate(), '%s', '%s', %d, %d, %d ) ", pData->m_nEventNo, connections[ch->server_id].id, ch->Name,
 				pData->m_nItem1No, pData->m_nItem1Mutant, pData->m_nItem1Grade );
@@ -9343,7 +9343,7 @@ int AddEventItem( CHARLIST *ch, k_startitem_basic* pData )
 		}
 		else
 		{
-			// 涝仿
+			// 입력
 			sprintf( query, "INSERT INTO event_startitem_recv_id ( event_no, recv_date, login_id, character_name, item_no, item_mutant, item_grade ) VALUES "
 				" ( %d, getdate(), '%s', '%s', %d, %d, %d ) ", pData->m_nEventNo, connections[ch->server_id].id, ch->Name,
 				pData->m_nItem2No, pData->m_nItem2Mutant, pData->m_nItem2Grade );
@@ -9372,10 +9372,10 @@ int MakeAndSetItem( CHARLIST *ch, int item_no, int item_mutant, int item_grade )
 	{
 		return MakeDefaultRareItem( item, item_no, item_mutant, item_grade, 0 );
 	}
-	return -1;		// 后傍埃捞 绝促.
+	return -1;		// 빈공간이 없다.
 }
 
-// 捞亥飘 凯副锭牢瘤 犬牢茄促.  return 蔼篮 0 苞 1肺父 沥狼 茄促.
+// 이벤트 열릴때인지 확인한다.  return 값은 0 과 1로만 정의 한다.
 int CheckEventObject( char *map_name, k_event_object_sound *data )
 {
 	HSTMT		hStmt = NULL;
@@ -9386,7 +9386,7 @@ int CheckEventObject( char *map_name, k_event_object_sound *data )
 	int nRowCount = 0;
 	sprintf( szQuerry, "event_start_date <= getdate() AND event_end_date >= getdate() AND map = '%s'", map_name );
 	GetRowLineOfSQL( "Event_Object", "*", &nRowCount, szQuerry );
-	if( !nRowCount ) return 0;		// 秦寸 捞亥飘啊 绝促.
+	if( !nRowCount ) return 0;		// 해당 이벤트가 없다.
 	
 	sprintf( szQuerry, "SELECT object_toi, object_b FROM event_object "
 		"WHERE event_start_date <= getdate() AND event_end_date >= getdate() AND map = '%s'"
@@ -9400,7 +9400,7 @@ int CheckEventObject( char *map_name, k_event_object_sound *data )
 		return 0;
 	}
 	
-	// 单捞鸥 啊廉坷扁 风凭
+	// 데이타 가져오기 루틴
 	retCode = SQLFetch( hStmt );
 	if( SQLOK( retCode ) )
 	{
@@ -9419,7 +9419,7 @@ int CheckEventObject( char *map_name, k_event_object_sound *data )
 	return 1;
 }
 
-// 捞亥飘 荤款靛啊 凯副锭牢瘤 犬牢茄促.  return 蔼篮 0 苞 2肺父 沥狼 茄促.
+// 이벤트 사운드가 열릴때인지 확인한다.  return 값은 0 과 2로만 정의 한다.
 int CheckEventSound( char *map_name, k_event_object_sound *data )
 {
 	HSTMT		hStmt = NULL;
@@ -9430,7 +9430,7 @@ int CheckEventSound( char *map_name, k_event_object_sound *data )
 	int nRowCount = 0;
 	sprintf( szQuerry, "event_start_date <= getdate() AND event_end_date >= getdate() AND ( [all] <> 0 OR map = '%s' )", map_name );
 	GetRowLineOfSQL( "Event_sound", "*", &nRowCount, szQuerry );
-	if( !nRowCount ) return 0;		// 秦寸 捞亥飘啊 绝促.
+	if( !nRowCount ) return 0;		// 해당 이벤트가 없다.
 	
 	sprintf( szQuerry, "SELECT sound FROM event_sound "
 		"WHERE event_start_date <= getdate() AND event_end_date >= getdate() AND ( [all] <> 0 OR map = '%s' )"
@@ -9444,7 +9444,7 @@ int CheckEventSound( char *map_name, k_event_object_sound *data )
 		return 0;
 	}
 	
-	// 单捞鸥 啊廉坷扁 风凭
+	// 데이타 가져오기 루틴
 	int temp = 0;
 	retCode = SQLFetch( hStmt );
 	if( SQLOK( retCode ) )
@@ -9488,7 +9488,7 @@ int GetEventMoveMapName( k_event_move_map_req *pData, k_event_move_map_rep *pMap
 	
 	int tAll, tSex, tClass, tNation;
 	tAll = tSex = tClass = tNation = 0;
-	// 单捞鸥 啊廉坷扁 风凭
+	// 데이타 가져오기 루틴
 	retCode = SQLFetch( hStmt );
 	
 	if( SQLOK( retCode ) )
@@ -9504,7 +9504,7 @@ int GetEventMoveMapName( k_event_move_map_req *pData, k_event_move_map_rep *pMap
 		
 		SQLFreeStmt(hStmt, SQL_DROP);
 		
-		if( tAll ) return 1;		// 啊瓷
+		if( tAll ) return 1;		// 가능
 		if( tSex )
 		{
 			if( tSex != sex2sex[pData->sex] ) return 0;
@@ -9525,7 +9525,7 @@ int GetEventMoveMapName( k_event_move_map_req *pData, k_event_move_map_rep *pMap
 }
 
 // 030221 YGI
-// 寇何俊辑 焊辰 皋老甫 罐绰 荤恩 捞抚阑 啊廉柯促. 啊廉柯 捞抚篮 瘤款促.
+// 외부에서 보낸 메일를 받는 사람 이름을 가져온다. 가져온 이름은 지운다.
 int GetRecvMailName( int *pRowCount, char pszRecvName[40][20])
 {
 	HSTMT		hStmt = NULL;
@@ -9570,7 +9570,7 @@ int GetRecvMailName( int *pRowCount, char pszRecvName[40][20])
 	return 1;
 }
 
-// NPC饭骇苞 版氰摹 包访 沥焊甫 淬绊 乐绰 抛捞喉阑 DB俊辑 佬绢坷绰 窃荐
+// NPC레벨과 경험치 관련 정보를 담고 있는 테이블을 DB에서 읽어오는 함수
 int LoadNPCLevTable()
 {	//< CSD-030306
 	if(Num_Of_NPC_Lev <= 0) 
@@ -9679,7 +9679,7 @@ int GetTreasureAttr( int &mapnumber, int &x, int &y )
 	SQLFreeStmt(hStmt, SQL_DROP);
 	if( mapnumber<0 ) return -1;
 
-	// 荤侩茄扒 眉农窍磊..
+	// 사용한건 체크하자..
 	sprintf( szQuerry, "UPDATE event_treasure_xy SET [use]=1 WHERE [index] = %d", index );
 	Querry_SQL( szQuerry );
 	return 1;

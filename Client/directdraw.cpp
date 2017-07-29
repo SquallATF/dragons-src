@@ -60,6 +60,7 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 	
 	if(lpDirectDrawInfo->lpDirectDraw != NULL)	return TRUE;
 
+	//hResult = DirectDrawCreateEx(NULL, (LPVOID *)(&lpDirectDrawInfo->lpDirectDraw), IID_IDirectInput8, NULL);
 	hResult = DirectDrawCreate( NULL, &lpDirectDrawInfo->lpDirectDraw, NULL );
 	if( hResult != DD_OK )
 	{

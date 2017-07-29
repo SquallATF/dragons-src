@@ -498,9 +498,19 @@ bool StartProxyServer()
            (void**)&g_pINet);
 
 
-	if (FAILED(hr))
-	{
-		MyLog( LOG_FATAL, "FAILED : NO DLL IN THAT SYSTEM");
+	if (FAILED(hr)) {
+		//REGDB_E_CLASSNOTREG;
+		void *pMsgBuf;
+		FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+			NULL,
+			hr,
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+			(LPTSTR)&pMsgBuf,
+			0,
+			NULL);
+
+		MyLog(LOG_FATAL, "ERROR: Com Initialize Failed. Msg:%s", pMsgBuf);
+		LocalFree(pMsgBuf);
 		return false;
 	}
 

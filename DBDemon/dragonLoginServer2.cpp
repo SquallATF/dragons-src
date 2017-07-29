@@ -46,10 +46,10 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 	case CMD_GET_GOD_TABLE				:	SendGodTable( cn ); break;
 	case CMD_CHAR_UPDATE_DATA_BY_KEIN	:	RecvUpdateCharByKein( &p->u.kein.char_update_data ); break;
 	case CMD_GET_CHARINFO_BY_KEIN		:	SendGetCharInfoByKein( &p->u.kein.req_chr_info_etc, cn ); break;
-	case CMD_SEND_EAR_MESSAGE_OTHER		:	SendEachGameServerForEarMessage( &p->u.kein.login_send_ear_message, cn );	break;	// 庇加富阑 困秦 阿 霸烙 辑滚肺 傈价 秦夯促.
+	case CMD_SEND_EAR_MESSAGE_OTHER		:	SendEachGameServerForEarMessage( &p->u.kein.login_send_ear_message, cn );	break;	// 귓속말을 위해 각 게임 서버로 전송 해본다.
 	case CMD_SEND_EAR_MESSAGE_OK		:	RecvEarMessageOk( &p->u.kein.send_ear_message_ok_to_login ); break;
 	case CMD_SEND_EAR_MESSAGE_RESULT	:	RecvEarMessageResult( &p->u.kein.send_ear_message_result ); break;
-	case CMD_GAME2LOGIN_CHECK_NAME		:	RecvCheckName( p->u.kein.loginserver_to_gameserver_ear_message.name, p->u.kein.loginserver_to_gameserver_ear_message.server_id, cn ); break;		// 备炼眉 喊妨靖
+	case CMD_GAME2LOGIN_CHECK_NAME		:	RecvCheckName( p->u.kein.loginserver_to_gameserver_ear_message.name, p->u.kein.loginserver_to_gameserver_ear_message.server_id, cn ); break;		// 구조체 별려씀
 		
 	case CMD_GAME2LOGIN_MOVING_ITEM		:	CheckMoveItem( &p->u.kein.moving_item ); break;
 	
@@ -80,7 +80,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 	case CMD_ISSAME_MY_NATION			:	RecvExistNameForNation( p, cn ); break;
 		
 	case CMD_REGIST_CANDIDATE			:	RecvRegistCandidate( p, cn ); break;
-	case CMD_IS_THIS_MAN_CANDIDATE		:	isThisManCandidate( p, cn ); break;	// 饶焊 殿废啊瓷茄 某腐磐牢瘤 酒囱瘤
+	case CMD_IS_THIS_MAN_CANDIDATE		:	isThisManCandidate( p, cn ); break;	// 후보 등록가능한 캐릭터인지 아닌지
 	case CMD_CHECK_VOTE					:	CheckVote( p, cn ); break;
 		
 	case CMD_SET_VALUE_OF_VOTE			:	GetVoteValue( cn ); break;
@@ -95,13 +95,13 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 	case CMD_GUILD_JOIN_SERVER			:	CheckGuildJoin( p, cn ); break;   //加入公会
 	case CMD_GUILD_ALL_MSG				:	SendGuildAllMsg( p, cn ); break;
 	case CMD_GM_REGIST					:	RecvGmRegist( p ); break;
-	case CMD_BBS_ALL					:	RecvReturnGameServer( p ); break;		// 绊措肺 霸烙辑滚肺 葛滴 倒妨拎滚赴促.
-	case CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	:	RecvRepStopWarRefusal( p ); break;	// 绒傈 夸没 芭例
-	case CMD_REQ_STOP_WAR_TO_LOGIN			:	RecvReqStopWar( p, cn ); break;	// 绒傈 夸没
+	case CMD_BBS_ALL					:	RecvReturnGameServer( p ); break;		// 고대로 게임서버로 모두 돌려줘버린다.
+	case CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	:	RecvRepStopWarRefusal( p ); break;	// 휴전 요청 거절
+	case CMD_REQ_STOP_WAR_TO_LOGIN			:	RecvReqStopWar( p, cn ); break;	// 휴전 요청
 	case CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN	:	RecvRepStopWarAccept( p ); break;
 		
-	case CMD_REQ_SALVATION_MONEY			:	RecvReqSalvationMoney( p, cn ); break;		// 扁何陛 夸没
-	case CMD_SALVATION_MONEY				:	RecvInsertSalvation(p, cn ); break;			// 扁何茄吧 历沥
+	case CMD_REQ_SALVATION_MONEY			:	RecvReqSalvationMoney( p, cn ); break;		// 기부금 요청
+	case CMD_SALVATION_MONEY				:	RecvInsertSalvation(p, cn ); break;			// 기부한걸 저정
 		
 	case CMD_EAT_CHOCOLATE					:	RecvEatChocolate( p, cn ); break;
 	case CMD_PAY_RUMOR						:	RecvCheckChocolate( p, cn ); break;
@@ -118,10 +118,10 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 	case CMD_REQ_SEARCH_RANK_LADDER			:	RecvSearchRankLadder( p, cn ); break;
 	case CMD_SAVE_NATION_INFO				:	SaveNationInfo_SQL( &p->u.kein.save_nation_info ); break;
 		
-		// 抛胶飘 侩 菩哦..
+		// 테스트 용 패킷..
 	case CMD_SAVE_GUILD_MARK_IMAGE			:	UpdateGuildMark( 1, p->h.header.size-2, (BYTE *)p->u.kein.send_db_direct_map.data ); break;
 		
-		// 角力 捞固瘤 历厘 菩哦
+		// 실제 이미지 저장 패킷
 	case CMD_REGIST_GUILD_MARK				:	RecvRegistGuildMark( p, cn ); break;
 	case CMD_REGIST_GUILD_IMSI				:	RecvRegistGuild_DB( p, cn ); break;	//预备公会申请
 	case CMD_REQ_GUILD_EXPLAIN				:	RecvReqGuildExplain( p, cn ); break;
@@ -155,10 +155,10 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 		
 	case CMD_ADD_EVENT_ITEM					:	RecvAddEventItem( p, cn ); break;
 		
-	case CMD_GET_GUILD_ITEM_FIRST			:	RecvGetGuildItemFirst( p, cn ); break;	// 辨靛 酒捞袍 格废
-	case CMD_GET_GUILD_ITEM					:	RecvGetGuildItem( p, cn ); break;		// 辨靛 酒捞袍 格废 啊廉坷扁
+	case CMD_GET_GUILD_ITEM_FIRST			:	RecvGetGuildItemFirst( p, cn ); break;	// 길드 아이템 목록
+	case CMD_GET_GUILD_ITEM					:	RecvGetGuildItem( p, cn ); break;		// 길드 아이템 목록 가져오기
 	case CMD_PUT_GUILD_ITEM					:	RecvPutGuildItem( p ); break;
-	case CMD_GET_GUILD_ITEM_MAP				:	RecvGetGuildItemMap( p, cn ); break;		// 角力 酒捞袍阑 啊廉柯促.
+	case CMD_GET_GUILD_ITEM_MAP				:	RecvGetGuildItemMap( p, cn ); break;		// 실제 아이템을 가져온다.
 		
 	case CMD_GET_GUILD_BOX_MONEY			:	RecvGetGuildBoxMoney( p, cn ); break;
 	case CMD_CHECK_GUILD_BOX_MONEY			:	RecvCheckGuildBoxMoney( p, cn ); break;
@@ -172,7 +172,7 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 	case CMD_REGIST_SUB_GUILD_MASTER		:	RecvRegistSubMaster( p, cn ); break;
 	case CMD_GUILD_HOUSE_INFO				:	RecvGuildHouseInfo( p, cn ); break;
 	case CMD_CHANGE_GUILDHOUSE_INFO			:	RecvChangeGuildHouseInfo( p, cn ); break;
-	case CMD_CHECK_GUILD_HOUSE				:	RecvCheckGuildHouse(); break;		// 窍风俊 茄锅
+	case CMD_CHECK_GUILD_HOUSE				:	RecvCheckGuildHouse(); break;		// 하루에 한번
 		
 		//021030 YGI
 	case CMD_SAVE_AMOUNT_EVENT_NPC_ITEM		:	RecvSaveAmountEventNpcItem( p ); break;
@@ -216,7 +216,7 @@ void RecvGetBoxItem( DWORD box_id, short int server_id, short int gameserver_id,
 		packet.u.kein.login_server_box_open.server_id = server_id;
 		for( int i=0; i<MAX_BOX_ITEM; i++ )
 		{
-			int ret = GetBoxItem_SQL( box_id, i, &packet.u.kein.login_server_box_open.box_item[i] );		// 蔼 啊瘤败坷 角菩甫 秦档 傈价秦拎具 茄促.
+			int ret = GetBoxItem_SQL( box_id, i, &packet.u.kein.login_server_box_open.box_item[i] );		// 값 가지겨오 실패를 해도 전송해줘야 한다.
 		}
 		packet.u.kein.login_server_box_open.box_id= box_id;
 		//AccessBoxData( box_id );
@@ -228,7 +228,7 @@ void RecvGetBoxItem( DWORD box_id, short int server_id, short int gameserver_id,
 void RecvDoubleBoxFind( DWORD box_id, short int server_id, short int gameserver_id )
 {
 	t_packet packet;
-	packet.h.header.type = CMD_IF_DOUBLE_BOX_THEN_DELETE ;		// 度鞍篮 冠胶啊 乐绰 版快 窍唱甫 瘤况滚赴促.
+	packet.h.header.type = CMD_IF_DOUBLE_BOX_THEN_DELETE ;		// 똑같은 박스가 있는 경우 하나를 지워버린다.
 	packet.u.kein.game2login_recall_box_item.box_id= box_id;	
 	packet.u.kein.game2login_recall_box_item.server_id= server_id;	
 	packet.h.header.size = sizeof( k_game2login_recall_box_item );
@@ -272,13 +272,13 @@ for(i = 0; i < len1; i++)		//公会名称
 		ret = GetBelieveAndFaith_SQL( believe, faith, data->name );
 		if( ret )
 		{
-			if( believe == data->believe_god ) packet.u.kein.loginserver_preach_name_result.result = 1;		// 己傍
-			else packet.u.kein.loginserver_preach_name_result.result = 3; // 弊 荤恩篮 弊 脚傈俊 殿废登绢 乐瘤 臼促.
+			if( believe == data->believe_god ) packet.u.kein.loginserver_preach_name_result.result = 1;		// 성공
+			else packet.u.kein.loginserver_preach_name_result.result = 3; // 그 사람은 그 신전에 등록되어 있지 않다.
 		}
-		else packet.u.kein.loginserver_preach_name_result.result = 4;		// 孽府巩捞 角青捞 救 等惑怕
+		else packet.u.kein.loginserver_preach_name_result.result = 4;		// 쿼리문이 실행이 안 된상태
 	}
 	else
-		packet.u.kein.loginserver_preach_name_result.result = 2;	// 弊繁 荤恩 绝促.
+		packet.u.kein.loginserver_preach_name_result.result = 2;	// 그런 사람 없다.
 	
 	packet.h.header.type = CMD_LOGIN_PREACH_NAME ;
 	{
@@ -291,7 +291,7 @@ for(i = 0; i < len1; i++)		//公会名称
 	QueuePacket( c, gameserver_id, &packet, 1 );
 }
 
-void RecvPreachNameOk( int plus, k_loginserver_preach_name *data )		// 傈档茄 荤恩 脚居缴 棵妨林扁
+void RecvPreachNameOk( int plus, k_loginserver_preach_name *data )		// 전도한 사람 신앙심 올려주기
 {
 	int ret;
 	int faith, believe;
@@ -301,7 +301,7 @@ void RecvPreachNameOk( int plus, k_loginserver_preach_name *data )		// 傈档茄
 	{
 		if( believe == data->believe_god ) 
 		{
-			faith += plus; // 歹秦林绰 扁夯 荐摹
+			faith += plus; // 더해주는 기본 수치
 			if( faith > 1000 ) faith = 1000;
 			if( faith < 0 ) faith = 0 ;
 			UpdateFaith_SQL( (short int )faith, data->name );
@@ -318,7 +318,7 @@ void SendNewCharResult( char *name, short int cn )
 	ret = GetCharNew( is_new, name );
 	
 	t_packet packet;
-	if( is_new || ret == 0)							// 1篮 备 某腐磐, 0篮 货肺款 某腐磐
+	if( is_new || ret == 0)							// 1은 구 캐릭터, 0은 새로운 캐릭터
 		packet.h.header.type = CMD_CHECK_NEW_CHAR_NOT;
 	else 
 		packet.h.header.type = CMD_CHECK_NEW_CHAR_OK;
@@ -373,7 +373,7 @@ void SendGetCharInfoByKein( k_req_chr_info_etc *p, short int cn )
 
 void SendEachGameServerForEarMessage( k_login_send_ear_message *p, short int game_server )
 {
-	if( !CheckName_SQL( p->recv_name ) ) return;		// 弊繁 仇 粮犁窍瘤 臼澜.
+	if( !CheckName_SQL( p->recv_name ) ) return;		// 그런 놈 존재하지 않음.
 	
 	t_packet packet;
 	packet.h.header.type = CMD_SEND_EAR_MESSAGE_OTHER;
@@ -389,7 +389,7 @@ void SendEachGameServerForEarMessage( k_login_send_ear_message *p, short int gam
 	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
 }
 
-void RecvEarMessageOk( k_send_ear_message_ok_to_login *p )		// 绢恫 霸烙辑滚俊辑 己傍利栏肺 皋矫瘤甫 焊陈促绰 雀脚
+void RecvEarMessageOk( k_send_ear_message_ok_to_login *p )		// 어떤 게임서버에서 성공적으로 메시지를 보냈다는 회신
 {
 	if( !p->gameserver_port ) return;
 	for(int i = 0; i < LOGIN_MAX_CONNECTIONS; i ++)		
@@ -453,7 +453,7 @@ void CheckMoveItem( k_moving_item *p )
 	
 	FILE *fp;
 	char temp[MAX_PATH];
-	sprintf( temp, ".\\logout_item\\%s_酒捞袍捞悼.txt", p->name );
+	sprintf( temp, ".\\logout_item\\%s_아이템이동.txt", p->name );
 	fp = fopen( temp, "at+" );
 	if( !fp ) return;
 	
@@ -465,12 +465,12 @@ void CheckMoveItem( k_moving_item *p )
 	}
 	
 	if( t->GetRbutton() == DIVIDE_ITEM )
-		fprintf( fp, "酒捞袍:%s, 荐樊:%9ld, 困摹:[%8s] ===> 困摹:[%8s]     捣:[%8ld]\n", t->GetHanName(), p->item.attr[IATTR_MUCH], pos_type[p->source_type], pos_type[p->dest_type], p->money );
+		fprintf( fp, "아이템:%s, 수량:%9ld, 위치:[%8s] ===> 위치:[%8s]     돈:[%8ld]\n", t->GetHanName(), p->item.attr[IATTR_MUCH], pos_type[p->source_type], pos_type[p->dest_type], p->money );
 	else
 	{
 		WORD dur_curr, dur_max;
 		GetItemDuration( p->item, dur_curr, dur_max );
-		fprintf( fp, "酒捞袍:%s, Dur :%4d/%4d, 困摹:[%8s] ===> 困摹:[%8s]     捣:[%8ld]\n", t->GetHanName(), dur_curr, dur_max, pos_type[p->source_type], pos_type[p->dest_type], p->money );
+		fprintf( fp, "아이템:%s, Dur :%4d/%4d, 위치:[%8s] ===> 위치:[%8s]     돈:[%8ld]\n", t->GetHanName(), dur_curr, dur_max, pos_type[p->source_type], pos_type[p->dest_type], p->money );
 	}
 	
 	fclose( fp );
@@ -556,7 +556,7 @@ void ReSendBoxItemEach( k_login_put_box_item *box )
 }
 
 
-// 傈档茄荤恩捞 霸烙 辑滚俊 乐绰瘤 眉农秦辑 努扼捞攫飘肺 焊郴霖促.
+// 전도한사람이 게임 서버에 있는지 체크해서 클라이언트로 보내준다.
 void RecvFaithUp( char *name, short int point )
 {
 	t_packet p;
@@ -583,7 +583,7 @@ void SendOhMyParty( char *my_name, char *party_name )
 
 
 //////////////////////////////////////////////////////////
-//	傍瘤 荤亲阑 叼厚俊辑 佬绢辑 傈眉肺 谎妨霖促.
+//	공지 사항을 디비에서 읽어서 전체로 뿌려준다.
 
 void SendLoginToGameServerMessage( int type, char *szTemp )
 {
@@ -653,7 +653,7 @@ void RecvHunterRegist( k_hunter_regist2 *p )
 void RecvGetHunterList( int list_id, short int server_id, short int game_id)
 {
 	k_hunter_list list;
-	int ret = GetHunterList( list_id, &list, 1 );		// 酒捞叼 官肺 关狼 郴侩阑 啊廉柯促.
+	int ret = GetHunterList( list_id, &list, 1 );		// 아이디 바로 밑의 내용을 가져온다.
 	if( ret != 1 ) return;
 	
 	t_packet p;
@@ -668,8 +668,8 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 {
 	t_packet p;
 	k_hunter_list list;
-	int ret = GetHunterList( list_id, &list, 0 );		// 酒捞叼肺 撅技胶 茄促.
-	if( ret != 1 || !list.index )		// 孽府巩俊 角菩沁芭唱 府胶飘狼 牢郸胶啊 绝阑 版快 
+	int ret = GetHunterList( list_id, &list, 0 );		// 아이디로 억세스 한다.
+	if( ret != 1 || !list.index )		// 쿼리문에 실패했거나 리스트의 인덱스가 없을 경우 
 	{
 		p.h.header.type = CMD_KILL_HUNTER_LIST_CANCEL;
 		p.u.kein.server_id.server_id = server_id;
@@ -678,8 +678,8 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 	}
 	else 
 	{
-		DeleteHunterList( list_id );		// 郴侩阑 昏力茄促.
-		// 霸烙辑滚肺 捣窍绊 郴侩阑 焊郴霖促.	// 贸府茄 荤恩俊霸 沥焊甫 焊郴霖促.
+		DeleteHunterList( list_id );		// 내용을 삭제한다.
+		// 게임서버로 돈하고 내용을 보내준다.	// 처리한 사람에게 정보를 보내준다.
 		p.h.header.type = CMD_KILL_HUNTER_LIST_OK;
 		//			strcpy( p.u.kein.send_kill_hunter_list.target_name, list.target_name);
 		//			strcpy( p.u.kein.send_kill_hunter_list.regist_name, list.regist_name);
@@ -688,7 +688,7 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 		p.h.header.size = sizeof( k_send_kill_hunter_list );
 		QueuePacket( connections, game_id, &p, 1 );
 		
-		// 搬苞甫 泅惑裹 扒 荤恩俊霸 皋老肺 舅妨 霖促.
+		// 결과를 현상범 건 사람에게 메일로 알려 준다.
 		EatRearWhiteChar( list.regist_name );
 		EatRearWhiteChar( list.target_name);
 		k_game_to_login_send_mail result;
@@ -716,7 +716,7 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 			sprintf( result.body, ini_body, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
 		}
 		else
-		{		
+		{	
 			if(LocalMgr.IsAbleNation(CHINA))//021007 lsw
 			{
 				strcpy( result.send_name, "佣兵军团" ); 
@@ -730,22 +730,22 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 			}
 			else if(LocalMgr.IsAbleNation(TAIWAN|HONGKONG))//021007 lsw
 			{
-				strcpy( result.send_name, "赌瓁刮" ); 
+				strcpy( result.send_name, "뗑?x민" ); 
 				strcpy( result.uni.recv_name, list.regist_name );
-				strcpy( result.title, "[そ] ъ硄絩デ" );
-				sprintf( result.body, 	"ъ眤稱ъ腶洁デ '%s'\n"
-					"[%s] ъ '%s'┮眔 %s ?﹚腶洁? %d\n"
-					"и?赌瓁刮临琌?荷??腶洁デ"
+				strcpy( result.title, "[ㅍ?] ㏃⑥??Η?" );
+				sprintf( result.body, 	"㏃⑥???㏃ず?썅Η '%s'?\n"
+					"[%s] ㏃⑥? '%s'?⒡??⑥? %s ??ず?썅? %d?\n"
+					"?メ㏀?뗑?x민줄??뵐????썅Η?"
 					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
 			}
 			else
 			{
-				strcpy( result.send_name, "侩捍辨靛 厘" );
+				strcpy( result.send_name, "용병길드 장" );
 				strcpy( result.uni.recv_name, list.regist_name );
-				strcpy( result.title, "[傍瘤] 泅惑裹 八芭!" );
-				sprintf( result.body, "丛膊辑 夸没窍脚 泅惑裹 \"%s\" 甫 八芭窍看嚼聪促.\n"
-					"[%s]丛膊辑 \"%s\"丛阑 八芭窃栏肺结 %s 丛膊辑 吧绢敌 泅惑陛 %d甫 裙垫窍继嚼聪促.\n"
-					"促澜俊档 快府 侩捍 辨靛俊辑绰 弥急阑 促秦 泅惑裹甸阑 棱档废 窍摆嚼聪促."
+				strcpy( result.title, "[공지] 현상범 검거!" );
+				sprintf( result.body, "님께서 요청하신 현상범 \"%s\" 를 검거하였습니다.\n"
+					"[%s]님께서 \"%s\"님을 검거함으로써 %s 님께서 걸어둔 현상금 %d를 획득하셨습니다.\n"
+					"다음에도 우리 용병 길드에서는 최선을 다해 현상범들을 잡도록 하겠습니다."
 					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
 				
 			}
@@ -758,7 +758,7 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 	}
 }
 
-void DeleteBoxByDeleteCharacter( const char *szName )		// 某腐磐甫 瘤匡锭 冠胶档 瘤款促.//020725 lsw
+void DeleteBoxByDeleteCharacter( const char *szName )		// 캐릭터를 지울때 박스도 지운다.//020725 lsw
 {
 	ItemAttr inv[3][3][8];
 	ItemAttr bank[5][3][6];
@@ -807,8 +807,8 @@ void RecvResetJob( t_packet *p, short int cn )
 	DWORD			skillexp[45];
 	int var[ _SCRIPT_VARABLE_POINT_ ];
 	
-	if( job < J_FAMER || job > J_HERB_DIGGER ) return;		// 流诀急琶篮 6啊瘤父 啊瓷
-	if( cls < WARRIOR || cls > PRIEST )  return;			// 努饭胶 流诀 胶懦 硅快扁俊 包秦...
+	if( job < J_FAMER || job > J_HERB_DIGGER ) return;		// 직업선택은 6가지만 가능
+	if( cls < WARRIOR || cls > PRIEST )  return;			// 클레스 직업 스킬 배우기에 관해...
 	
 	if( UpdateResetJob_SQL( job, name ) )
 	{
@@ -826,10 +826,10 @@ void RecvResetJob( t_packet *p, short int cn )
 				||( SkillTbl[i].Select_Blacksmith	== 1 )	||( SkillTbl[i].Select_Cooking		== 1 )	
 				||( SkillTbl[i].Select_Tailoring	== 1 )	||( SkillTbl[i].Select_Bowcraft_Fletcher == 1 )
 				||( SkillTbl[i].Select_Alchemy		== 1 )	||( SkillTbl[i].Select_Candlemaker	== 1 )
-				||( SkillTbl[i].Select_Merchant		== 1 )	||( SkillTbl[i].MotherSkillType == 27 ) )		// 抛怪老 版快俊档 贸府..
+				||( SkillTbl[i].Select_Merchant		== 1 )	||( SkillTbl[i].MotherSkillType == 27 ) )		// 테밍일 경우에도 처리..
 				CheckSkillExp_kein( SkillTbl[i].MotherSkillType, skillexp, exp );
 		}
-		exp *= 0.4;		// 40 %父 啊廉 埃促.
+		exp *= 0.4;		// 40 %만 가져 간다.
 		if( exp < 50000 ) exp = 50000;
 		switch( job )
 		{
@@ -992,7 +992,7 @@ enum eSelectMap
 	SC_SCHOLIUM			=11,
 	SC_TYREN			=12,
 	SC_BARANTAN			=13,	
-	SC_SCHOLIUM2		=14,		// 眠啊矫 StartMapPosition档 眠啊茄促.	// 20俺 鳖瘤促..//020815-2 lsw
+	SC_SCHOLIUM2		=14,		// 추가시 StartMapPosition도 추가한다.	// 20개 까지다..//020815-2 lsw
 	SC_RECENT_LOGOUT	= 99,
 };
 
@@ -1007,7 +1007,7 @@ int GetStartPostionByNation( CHARLIST *ch, int StartPosition )
 			case SC_BAISUS_IMPEL :	if( ch->Level >= 41 ) return StartPosition;	break;
 			case SC_IRAMUS :		if( ch->Level >= 31 ) return StartPosition;	break;
 			}
-			return SC_HELTERNT_VILLAGE;		// 秋畔飘
+			return SC_HELTERNT_VILLAGE;		// 헬턴트
 		}
 	case N_ZYPERN:	
 		{
@@ -1016,7 +1016,7 @@ int GetStartPostionByNation( CHARLIST *ch, int StartPosition )
 			case SC_DIPH_UBEN:	if( ch->Level >= 41 ) return StartPosition;	break;
 			case SC_TYREN:		if( ch->Level >= 31 ) return StartPosition;	break;
 			}
-			return SC_RENUS;		// 饭呈胶
+			return SC_RENUS;		// 레너스
 		}
 	case N_YILSE: 	
 		{
@@ -1027,7 +1027,7 @@ int GetStartPostionByNation( CHARLIST *ch, int StartPosition )
 }
 
 
-bool IsPossibleRecent( char *map_name, int &index )		// recent 且 荐 乐绰 甘牢啊 酒囱啊?
+bool IsPossibleRecent( char *map_name, int &index )		// recent 할 수 있는 맵인가 아닌가?
 {	//< CSD-030804
 	static const int impossible_map[] =
 	{	
@@ -1046,7 +1046,7 @@ bool IsPossibleRecent( char *map_name, int &index )		// recent 且 荐 乐绰 �
 			86,	// Nation4
 			90,	// semenys_d1
 			91,	// semenys_d2
-			// 眠啊 窍绊 酵栏搁 关栏肺 拌加 眠啊..
+			// 추가 하고 싶으면 밑으로 계속 추가..
 	};
 
 	static const int max = sizeof(impossible_map)/sizeof(int);
@@ -1055,7 +1055,7 @@ bool IsPossibleRecent( char *map_name, int &index )		// recent 且 荐 乐绰 �
 
 	if (index == -1)
 	{
-		return false;		// recent 且 荐 绝促. 
+		return false;		// recent 할 수 없다. 
 	}
 
 	for (int i = 0; i < max; ++i)
@@ -1068,7 +1068,7 @@ bool IsPossibleRecent( char *map_name, int &index )		// recent 且 荐 乐绰 �
 
 	if (LocalMgr.IsAbleNation(KOREA))
 	{	
-		// 030624 YGI : 磷栏搁 泼扁绰 甘栏沸 府季飘 立加 且 荐 绝促.
+		// 030624 YGI : 죽으면 팅기는 맵으론 리센트 접속 할 수 없다.
 		int nRow = 0;
 		char query[256];
 		sprintf( query, "mapname = '%s'", map_name );
@@ -1082,23 +1082,23 @@ bool IsPossibleRecent( char *map_name, int &index )		// recent 且 荐 乐绰 �
 //020823 lsw
 void CheckStartMap( t_connection c[], short int cn, int &StartPosition )		// 1004 YGI
 {
-	// 矫累 困摹甫 历厘等 困摹甫 荤侩窍绰瘤甫 魄窜茄促.
+	// 시작 위치를 저장된 위치를 사용하는지를 판단한다.
 	CHARLIST *ch = &c[cn].chrlst;
-	//1			檬焊磊1 檬焊磊2
-	//2-7		檬焊磊1 檬焊磊2 付阑
-	//7坷滚		付阑(府季飘 秦档 救凳)
+	//1			초보자1 초보자2
+	//2-7		초보자1 초보자2 마을
+	//7오버		마을(리센트 해도 안됨)
 	switch(ch->Level)
 	{
 	case 0:
 	case 1:
 		{
-			if(ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//捞芭 历芭 笛吝 窍唱搁
+			if(ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//이거 저거 둘중 하나면
 			{
 				return;
 			}
-			if(ch->startposition != SC_SCHOLIUM && ch->startposition == SC_SCHOLIUM2)//饭骇 1 林力俊 促弗单 立加 窍妨窍搁
+			if(ch->startposition != SC_SCHOLIUM && ch->startposition == SC_SCHOLIUM2)//레벨 1 주제에 다른데 접속 하려하면
 			{
-				if(ch->startposition = StartPosition = SC_SCHOLIUM)//檬焊磊肺 悸泼
+				if(ch->startposition = StartPosition = SC_SCHOLIUM)//초보자로 셋팅
 				{
 					return;
 				}
@@ -1111,33 +1111,33 @@ void CheckStartMap( t_connection c[], short int cn, int &StartPosition )		// 100
 	case 6:
 	case 7:
 		{
-			if(ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//捞芭 历芭 笛吝 窍唱搁
+			if(ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//이거 저거 둘중 하나면
 			{
-				//	if(ch->startposition = StartPosition = SC_SCHOLIUM)//檬焊磊肺 悸泼
+				//	if(ch->startposition = StartPosition = SC_SCHOLIUM)//초보자로 셋팅
 				{
 					return;
 				}
 			}
-		}//弊霸 酒聪扼 钧蹲茄芭搁 酒贰肺 郴妨皑
+		}//그게 아니라 엉뚱한거면 아래로 내려감
 	default:
-		{	// Recent肺 立加窍妨绊 且锭, 弊甘捞 某腐磐狼 唱扼捞芭唱, 吝赋甘捞搁 甸绢哎荐 乐促. 
+		{	// Recent로 접속하려고 할때, 그맵이 캐릭터의 나라이거나, 중립맵이면 들어갈수 있다. 
 			if( ch->startposition == 99 )
 			{
 				int index;
-				if( IsPossibleRecent( ch->MapName, index ) )		// 府季飘 阂啊瓷 瘤开捞 酒聪搁
+				if( IsPossibleRecent( ch->MapName, index ) )		// 리센트 불가능 지역이 아니면
 				{
-					// 惫啊甫 犬牢窍咯 贸府茄促.
+					// 국가를 확인하여 처리한다.
 					int nation = MapInfo[index].nation;
-					if( !ch->name_status.nation || !nation || ch->name_status.nation == nation ) // 吝赋档 积阿
+					if( !ch->name_status.nation || !nation || ch->name_status.nation == nation ) // 중립도 생각
 					{
-						return;		// 府季飘 啊瓷窍促.
+						return;		// 리센트 가능하다.
 					}
 				}
 			}
 		}break;
 	}
-	// recent 阂啊瓷 瘤开捞扼搁
-	// 某腐狼 唱扼甘栏肺 矫累甘,矫累谅钎甫 焊沥茄促. 
+	// recent 불가능 지역이라면
+	// 캐릭의 나라맵으로 시작맵,시작좌표를 보정한다. 
 	ch->startposition = StartPosition = GetStartPostionByNation( ch, StartPosition );
 	
 	switch( ch->startposition )
@@ -1188,7 +1188,7 @@ void CheckStartMap( t_connection c[], short int cn, int &StartPosition )		// 100
 void RecvExistName( t_packet *p, short int cn )		//通缉犯
 {
 	k_exist_name *t = &p->u.kein.exist_name;
-////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
+/////////////////////////////////截获非法字符///////////////////////////////////////////////////////	
 	strcpy(s1,t->name  );	//被通缉人
 //gets(pMailSend->szSender);
 len1 = (int)strlen(s1);
@@ -1216,11 +1216,11 @@ for(i = 0; i < len1; i++)		//主旨
 	
 	t_packet packet;
 	int ret = CheckName_SQL( t->name );
-	if( ret )		// 粮犁 茄促.
+	if( ret )		// 존재 한다.
 	{
 		packet.h.header.type = CMD_THEREIS_CHARNAME;
 	}
-	else			// 捞抚捞 绝栏搁..
+	else			// 이름이 없으면..
 	{
 		packet.h.header.type = CMD_THEREIS_NO_CHARNAME;
 	}
@@ -1260,9 +1260,9 @@ void CheckAndUpdateVote( t_packet *p, short int cn )
 {
 	char *login_id	= p->u.kein.vote_game2login.login_id;
 	int server_id	= p->u.kein.vote_game2login.server_id;
-	int vote		= p->u.kein.vote_game2login.vote;			// 急芭 锅龋
-	int nation		= p->u.kein.vote_game2login.nation;			// 唱扼
-	int support		= p->u.kein.vote_game2login.support;		// 琶茄 饶焊
+	int vote		= p->u.kein.vote_game2login.vote;			// 선거 번호
+	int nation		= p->u.kein.vote_game2login.nation;			// 나라
+	int support		= p->u.kein.vote_game2login.support;		// 택한 후보
 	
 	int check_vote = GetVoteById_SQL( login_id );
 	if( check_vote < 0 ) return;
@@ -1270,14 +1270,14 @@ void CheckAndUpdateVote( t_packet *p, short int cn )
 	t_packet packet;
 	if( check_vote < vote )
 	{
-		SetPlusScoreVote( support, vote, nation );	// 急芭 抛捞喉俊 钎窍唱 ++ 秦霖促.
-		SetVote_SQL( login_id, vote );		// 急芭甫 摹烽 荤角阑 殿废
+		SetPlusScoreVote( support, vote, nation );	// 선거 테이블에 표하나 ++ 해준다.
+		SetVote_SQL( login_id, vote );		// 선거를 치룬 사실을 등록
 		
-		packet.h.header.type = CMD_VOTE_OK;	// 急芭 沁促.
+		packet.h.header.type = CMD_VOTE_OK;	// 선거 했다.
 	}
 	else 
 	{
-		packet.h.header.type = CMD_VOTE_NOT;	// 急芭甫 且荐 绝促.
+		packet.h.header.type = CMD_VOTE_NOT;	// 선거를 할수 없다.
 	}
 	packet.u.kein.default_short_int = server_id;
 	packet.h.header.size = sizeof( short int );
@@ -1323,7 +1323,7 @@ void isThisManCandidate( t_packet *p, short int cn )
 	sprintf( condition, "name = '%s' AND number = %d", name, vote_num );
 	int ret = GetRowLineOfSQL( "vote", "name", &RowCount, condition );
 	
-	if( ret < 0 || RowCount )		// 捞固 殿废沁促.
+	if( ret < 0 || RowCount )		// 이미 등록했다.
 	{
 		packet.h.header.type = CMD_THIS_MAN_IS_CANDIDATE_NOT;
 		packet.u.kein.default_short_int = server_id;
@@ -1338,12 +1338,12 @@ void isThisManCandidate( t_packet *p, short int cn )
 	
 	if( RowCount )
 	{
-		// 饶焊磊 疙窜俊 乐促.
+		// 후보자 명단에 있다.
 		packet.h.header.type = CMD_THIS_MAN_IS_CANDIDATE_OK;
 	}
 	else 
 	{
-		// 饶焊磊 疙窜俊 绝促.
+		// 후보자 명단에 없다.
 		packet.h.header.type = CMD_THIS_MAN_IS_CANDIDATE_NOT;
 	}
 	packet.u.kein.default_short_int = server_id;
@@ -1364,7 +1364,7 @@ void CheckVote( t_packet *p, short int game_id )
 	t_packet packet;
 	if( vote_num <= check_vote )
 	{
-		// 捞固 急芭甫 沁促.
+		// 이미 선거를 했다.
 		packet.h.header.type = CMD_CHECK_VOTE_NOT;
 		packet.u.kein.default_short_int = server_id;
 		packet.h.header.size = sizeof( short int );
@@ -1384,13 +1384,13 @@ void CheckVote( t_packet *p, short int game_id )
 		}
 		else
 		{
-			// 饶焊磊啊 窍唱档 绝促.
+			// 후보자가 하나도 없다.
 		}
 	}
 }
 
-// 急芭 搬苞 风凭 3-2
-// 肺弊牢 辑滚肺 焊郴 葛电 霸烙辑滚肺 焊尘荐 乐霸 茄促.
+// 선거 결과 루틴 3-2
+// 로그인 서버로 보내 모든 게임서버로 보낼수 있게 한다.
 void SendYouAreKingLog2Log( char *name, short int cn, int type )
 {
 	t_packet packet;
@@ -1400,8 +1400,8 @@ void SendYouAreKingLog2Log( char *name, short int cn, int type )
 	QueuePacket( connections, cn, &packet, 1 );
 }
 
-// 急芭 搬苞 风凭 3-3
-// 努扼攫飘鳖瘤 啊档废 葛电 霸烙 辑滚俊 谎赴促.
+// 선거 결과 루틴 3-3
+// 클라언트까지 가도록 모든 게임 서버에 뿌린다.
 void SendYouAreKingLog2Client( char *name, int type )
 {
 	t_packet packet;
@@ -1421,23 +1421,23 @@ void GetVoteValue( short int cn )
 	
 	for( int i=0; i<6; i++ )
 	{
-		if( is_voting[i] == 10 )		// 急芭 肯丰
+		if( is_voting[i] == 10 )		// 선거 완료
 		{
-			//	急芭 肯丰 风凭
+			//	선거 완료 루틴
 			char the_king[20];
-			int ret = GetVoteNumberOne( i, vote_num[i], the_king );		// 1: 寸急磊 捞抚 舅酒坷扁
-			UpdateYouAreKing( the_king, 1 );							// 2: 寸急磊 db绊媚林扁 (空栏肺 父甸绢 霖促 )
-			SendYouAreKingLog2Log( the_king, cn, CMD_YOU_ARE_KING_LOG2LOG );						// 3: 寸急磊 茫扁
-			SetVoteEndFlag( i, 1 );										// 4: 急芭 肯丰 敲饭弊甫 悸泼窍扁
-			CheckDbTable( i, the_king );								// 5: 空 殿废窍绊 饶焊 促 瘤款促.
+			int ret = GetVoteNumberOne( i, vote_num[i], the_king );		// 1: 당선자 이름 알아오기
+			UpdateYouAreKing( the_king, 1 );							// 2: 당선자 db고쳐주기 (왕으로 만들어 준다 )
+			SendYouAreKingLog2Log( the_king, cn, CMD_YOU_ARE_KING_LOG2LOG );						// 3: 당선자 찾기
+			SetVoteEndFlag( i, 1 );										// 4: 선거 완료 플레그를 셋팅하기
+			CheckDbTable( i, the_king );								// 5: 왕 등록하고 후보 다 지운다.
 		}
-		else if( is_voting[i] == 20 )		// 空狼 烙扁 肯丰	// 空阑 秦力 矫挪促.
+		else if( is_voting[i] == 20 )		// 왕의 임기 완료	// 왕을 해제 시킨다.
 		{
 			char the_king[20];
-			GetKingOfNation_SQL( i, the_king );		// 空狼 捞抚阑 啊廉坷绊
-			UpdateYouAreKing( the_king, 0 );		// 空阑 秦烙 矫挪促.
-			SendYouAreKingLog2Log( the_king, cn, CMD_YOU_ARE_NO_KING_LOG2LOG );						// 3: 寸急磊 茫扁
-			SetVoteEndFlag( i, 0 );										// 4: 急芭 肯丰 敲饭弊甫 悸泼窍扁
+			GetKingOfNation_SQL( i, the_king );		// 왕의 이름을 가져오고
+			UpdateYouAreKing( the_king, 0 );		// 왕을 해임 시킨다.
+			SendYouAreKingLog2Log( the_king, cn, CMD_YOU_ARE_NO_KING_LOG2LOG );						// 3: 당선자 찾기
+			SetVoteEndFlag( i, 0 );										// 4: 선거 완료 플레그를 셋팅하기
 		}
 	}
 	if( ret == 1 )
@@ -1480,11 +1480,11 @@ void CheckGuildJoin( t_packet *p, short int cn )
 	
 	int is_possible = 1;
 	
-	// 鞍篮 拌沥狼 促弗 某腐磐啊 促弗 辨靛俊电芭 酒囱啊?
+	// 같은 계정의 다른 캐릭터가 다른 길드에든거 아닌가?
 	is_possible = isPosableGuildJoinById( guild_code, id );
 	
 	t_packet packet;
-	if( is_possible )		// 辨靛 啊涝捞 啊瓷窍促.
+	if( is_possible )		// 길드 가입이 가능하다.
 		packet.h.header.type = CMD_GUILD_JOIN_SERVER_OK;
 	else
 		packet.h.header.type = CMD_GUILD_JOIN_SERVER_NOT;
@@ -1514,7 +1514,7 @@ void RecvGmRegist( t_packet *p )
 	
 	int gm_list = p->u.kein.gm_regist_db.gm_list;
 	char *name = p->u.kein.gm_regist_db.name;
-	sprintf( condition, "job = %d AND name = '%s'", gm_list, name );		// 鞍篮 流辆栏肺 度鞍篮 仇捞 历厘登绰吧 阜扁 困秦
+	sprintf( condition, "job = %d AND name = '%s'", gm_list, name );		// 같은 직종으로 똑같은 놈이 저장되는걸 막기 위해
 	int ret = GetRowLineOfSQL( "GM_TABLE", "*", &gm_count, condition );
 	if( gm_count == 0 ) 
 	{
@@ -1522,12 +1522,12 @@ void RecvGmRegist( t_packet *p )
 		if( !ret ) return;
 	}
 	
-	sprintf( condition, "job = %d", gm_list);		// 鞍篮 流辆栏肺 度鞍篮 仇捞 历厘登绰吧 阜扁 困秦
-	ret = GetRowLineOfSQL( "GM_TABLE", "*", &gm_count, condition );		// 弊 流诀狼 gm 荐
-	ret = GetRowLineOfSQL( "GM_TABLE", "*", &total_gm_count, NULL);		// total gm 荐
+	sprintf( condition, "job = %d", gm_list);		// 같은 직종으로 똑같은 놈이 저장되는걸 막기 위해
+	ret = GetRowLineOfSQL( "GM_TABLE", "*", &gm_count, condition );		// 그 직업의 gm 수
+	ret = GetRowLineOfSQL( "GM_TABLE", "*", &total_gm_count, NULL);		// total gm 수
 	
 	t_packet packet;
-	packet.h.header.type = CMD_COME_OUT_GM_FROM_LOGIN;		// 葛电 荤恩俊霸 舅赴促.
+	packet.h.header.type = CMD_COME_OUT_GM_FROM_LOGIN;		// 모든 사람에게 알린다.
 	packet.u.kein.send_gm_regist_ok.gm_index = gm_list;
 	packet.u.kein.send_gm_regist_ok.gm_rank= gm_count;
 	packet.u.kein.send_gm_regist_ok.total_gm_rank= total_gm_count;
@@ -1555,7 +1555,7 @@ void RecvRepStopWarRefusal( t_packet *p )
 	}
 }
 
-void RecvReqStopWar( t_packet *p, short int cn )		// 促弗 甘俊 夸没且 唱扼空捞 乐绰瘤 焊郴霖促.
+void RecvReqStopWar( t_packet *p, short int cn )		// 다른 맵에 요청할 나라왕이 있는지 보내준다.
 {
 	t_packet packet;
 	packet.h.header.type = CMD_REQ_STOP_WAR_TO_CLIENT;
@@ -1571,17 +1571,17 @@ void RecvReqStopWar( t_packet *p, short int cn )		// 促弗 甘俊 夸没且 唱
 
 void RecvRepStopWarAccept( t_packet *p )
 {
-	p->h.header.type = CMD_REP_STOP_WAR_ACCEPT_TO_CLIENT;		// 磊 葛滴俊霸 谎妨拎 焊磊
+	p->h.header.type = CMD_REP_STOP_WAR_ACCEPT_TO_CLIENT;		// 자 모두에게 뿌려줘 보자
 	
 	g_pServerTable->BroadCastToEveryServer( (char *)p, (sizeof(t_header)+p->h.header.size ), SERVER_TYPE_MAP );
 }
 
 /// YGI /////////
-int SetTactics( int spell_type, int sex, int tac_type )		// 某腐磐 皋捞农且版快 急琶茄 琶平胶甫 角力 硅凯梅磊肺 官操绰 风凭..
+int SetTactics( int spell_type, int sex, int tac_type )		// 캐릭터 메이크할경우 선택한 택틱스를 실제 배열첨자로 바꾸는 루틴..
 {
 	int tac_con[2][12] = { 
-		{ CRAPPLE_, SWORD_, ARCHERY_, FENCING_, MACE_, PIERCE_, WHIRL_, HURL_, PARRYING_, MAGERY_, },		 // 咯磊
-		{ CRAPPLE_, SWORD_, ARCHERY_, PARRYING_, MACE_, PIERCE_, WHIRL_, HURL_, MAGERY_, D_SWORD_, D_MACE_ },	// 巢磊
+		{ CRAPPLE_, SWORD_, ARCHERY_, FENCING_, MACE_, PIERCE_, WHIRL_, HURL_, PARRYING_, MAGERY_, },		 // 여자
+		{ CRAPPLE_, SWORD_, ARCHERY_, PARRYING_, MACE_, PIERCE_, WHIRL_, HURL_, MAGERY_, D_SWORD_, D_MACE_ },	// 남자
 	};
 	
 	int ret = tac_con[sex][tac_type];
@@ -1661,7 +1661,7 @@ void RecvInsertSalvation( packet *p, short int cn )
 {
 	short int server_id = p->u.kein.db_salvation_money.server_id;
 	DWORD money = p->u.kein.db_salvation_money.money;
-	int nation = p->u.kein.db_salvation_money.nation;		// 唱扼
+	int nation = p->u.kein.db_salvation_money.nation;		// 나라
 	char *name = p->u.kein.db_salvation_money.name;
 	DWORD old_money;
 	
@@ -1671,29 +1671,29 @@ void RecvInsertSalvation( packet *p, short int cn )
 	{
 	char result = ret;
 	DirectClient( CMD_CHECK_SALVATION_NAME, server_id, cn, &result, sizeof( char ) );
-	return; // 捞固 扁何茄利捞 乐促.
+	return; // 이미 기부한적이 있다.
 }*/
 	
 	int ret = GetSalvation( name, old_money );
-	if( ret != 1 )		// 角菩
+	if( ret != 1 )		// 실패
 	{
 		return;
 	}
 	DWORD total_money = money+old_money;
-	if( old_money < 3000000 )// 酒捞袍阑 临 版快牢瘤 眉农
+	if( old_money < 3000000 )// 아이템을 줄 경우인지 체크
 	{
 		if( total_money >= 3000000 ) 
 		{
-			SendServerEachItem( 9047, server_id, cn );		// 利绞磊 厚飘 倾飘甫 霖促.
+			SendServerEachItem( 9047, server_id, cn );		// 적십자 비트 허트를 준다.
 		}
 	}
 	char szQuerry[255];
 	sprintf(szQuerry, "UPDATE chr_info2 SET salvation=%u WHERE name = '%s'", total_money, name );
-	// 配呕 扁何咀 歹 秦霖促.
+	// 토탈 기부액 더 해준다.
 	ret = Querry_SQL( szQuerry );
 	if( ret >= 0 )
 	{
-		// salvation俊 历厘茄促.
+		// salvation에 저장한다.
 		
 		if( CheckSalvationNameBasic( name ) )
 		{
@@ -1713,7 +1713,7 @@ void RecvInsertSalvation( packet *p, short int cn )
 		SendReqSalvationMoney( server_id, money+old_money, cn );
 		double Total_Money = 0;
 		ret = PlusMoneyRedClose( Total_Money, money );
-		if( ret == 1 )	// 葛滴俊霸 谎妨霖促.
+		if( ret == 1 )	// 모두에게 뿌려준다.
 		{
 		t_packet packet;
 		packet.h.header.type = CMD_MSG_ALL_SALVATION_TOTAL_MONEY;
@@ -1729,7 +1729,7 @@ void RecvInsertSalvation( packet *p, short int cn )
 	//	else SQLerror( szQuerry );
 }
 
-// 霸烙辑滚肺 酒捞袍阑 父甸扼绊 皋矫瘤甫 焊辰促.
+// 게임서버로 아이템을 만들라고 메시지를 보낸다.
 void SendServerEachItem( int item_no, short int server_id, short int game_id )
 {
 	t_packet packet;
@@ -1740,7 +1740,7 @@ void SendServerEachItem( int item_no, short int server_id, short int game_id )
 	QueuePacket( connections, game_id, &packet, 1 );
 }
 
-void SaveItemAndLimit( int nItemNumber, char *szCharName, DWORD dwItemLimit )		// 檬妮房 府固飘 锅龋 历厘..
+void SaveItemAndLimit( int nItemNumber, char *szCharName, DWORD dwItemLimit )		// 초콜렛 리미트 번호 저장..
 {
 	char filename[MAX_PATH];
 	sprintf( filename, "%d.txt", nItemNumber );
@@ -1797,14 +1797,14 @@ void RecvSaveOpenSchoolEvent( t_packet *p, short int cn )
 	if( number > 10 ) number = 10;
 	switch( ret )
 	{
-	case 1  :		// 力措肺 己傍 number 蔼阑 捞侩
+	case 1  :		// 제대로 성공 number 값을 이용
 		packet.u.kein.openschool_data_ok.number = number;
 		break;
 		
-	case -1 :		// 捞固 乐绰 仇捞 肚 历厘窍妨绊 茄促.
+	case -1 :		// 이미 있는 놈이 또 저장하려고 한다.
 		packet.u.kein.openschool_data_ok.number = -1;
 		break;
-	case -2 :	return;  // 孽府 角菩
+	case -2 :	return;  // 쿼리 실패
 	}
 	
 	packet.h.header.type = CMD_OPENSCHOOL_DATA_OK;
@@ -1824,15 +1824,15 @@ void RecvExitGiild( t_packet *p, short int cn )
 	
 	CCharRank name_status;
 	DWORD status;
-	GetNationByName( name, &status );		// 措惑狼 辨靛郴 殿鞭蔼 啊廉坷扁
+	GetNationByName( name, &status );		// 대상의 길드내 등급값 가져오기
 	memcpy( &name_status, &status, sizeof(DWORD ) );
 
-	int target_guild_code = 0;				// 措惑狼 辨靛 内靛蔼 啊廉坷扁
+	int target_guild_code = 0;				// 대상의 길드 코드값 가져오기
 	GetGuildCode( name, target_guild_code );
 
 	t_packet packet;
 	
-	// 鞍篮 辨靛盔捞 酒聪芭唱 措惑捞 辨付牢 版快	// 020702 YGI
+	// 같은 길드원이 아니거나 대상이 길마인 경우	// 020702 YGI
 	if(target_guild_code != guild_code || name_status.guild_master == 1)
 	{
 		packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_NOT;
@@ -1847,44 +1847,44 @@ void RecvExitGiild( t_packet *p, short int cn )
 	memcpy( &status, &name_status, sizeof( DWORD ) );
 	SetNationByName( status, name );
 	
-	packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_OK;		// guild 呕硼		// 辨靛炉俊霸 己傍沁促绊 舅赴促.
+	packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_OK;		// guild 탈퇴		// 길드짱에게 성공했다고 알린다.
 	packet.u.kein.default_short_int = server_id;
 	packet.h.header.size = sizeof( short int );
 	QueuePacket( connections, cn, &packet, 1 );
 	
 	
-	packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_LET;		// guild 呕硼		// 辨靛炉俊霸 己傍沁促绊 舅赴促.
+	packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_LET;		// guild 탈퇴		// 길드짱에게 성공했다고 알린다.
 	strcpy( packet.u.kein.default_name, name );
 	packet.h.header.size = strlen( name )+1;
 	
 	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
 	
-	ChangeGuildMemberList( name, 0, 0 );		// guild_member_list 俊辑 昏力 矫挪促.
+	ChangeGuildMemberList( name, 0, 0 );		// guild_member_list 에서 삭제 시킨다.
 }	//> CSD-030326
 
 void RecvCheckCandy( t_packet *p )
 {
-	DWORD total_id = p->u.kein.eat_candy.total_id;	// 咯磊 酒捞叼
-	DWORD limit = p->u.kein.eat_candy.candy_limit;	// 荤帕阑 霖 巢磊 酒捞叼
-	char *name = p->u.kein.eat_candy.name;		// 荤帕阑 罐篮 咯磊
+	DWORD total_id = p->u.kein.eat_candy.total_id;	// 여자 아이디
+	DWORD limit = p->u.kein.eat_candy.candy_limit;	// 사탕을 준 남자 아이디
+	char *name = p->u.kein.eat_candy.name;		// 사탕을 받은 여자
 	
-	char target_name[20];		// 檬妮房阑 罐篮 巢磊
-	char target_name2[20];		// 荤帕阑 霖 巢磊 捞抚
+	char target_name[20];		// 초콜렛을 받은 남자
+	char target_name2[20];		// 사탕을 준 남자 이름
 	
 	int ret = GetChocolateEatName( target_name, total_id );
-	if( ret != 1 ) return;		// 檬妮房阑 林瘤 臼疽促.
+	if( ret != 1 ) return;		// 초콜렛을 주지 않았다.
 	
 	ret = GetNameByTotalId( target_name2, limit );
-	if( ret != 1 ) return;		// 绝绰 配呕酒捞叼
+	if( ret != 1 ) return;		// 없는 토탈아이디
 	
-	if( strcmp( target_name, target_name2 ) == 0 )		// 檬妮房阑 罐篮 巢磊客 荤帕阑 霖 巢磊啊 悼老牢捞促.
+	if( strcmp( target_name, target_name2 ) == 0 )		// 초콜렛을 받은 남자와 사탕을 준 남자가 동일인이다.
 	{
-		// 捞亥飘 己傍
+		// 이벤트 성공
 		SaveWhiteDayEvent( target_name, name );
-		// 葛电 甘俊 舅赴促.
+		// 모든 맵에 알린다.
 		
 		t_packet packet;
-		packet.h.header.type = CMD_EAT_CANDY_OK;		// guild 呕硼		// 辨靛炉俊霸 己傍沁促绊 舅赴促.
+		packet.h.header.type = CMD_EAT_CANDY_OK;		// guild 탈퇴		// 길드짱에게 성공했다고 알린다.
 		strcpy( packet.u.kein.name2.name1, target_name );
 		strcpy( packet.u.kein.name2.name2, name );
 		packet.h.header.size = sizeof( k_name2 );
@@ -1914,7 +1914,7 @@ void ChangeOldRareToNewRare(ItemAttr *item)
 	int right = ichangeItemCount;
 	
 	if( no < itemchange[left].origin_item_no || no > itemchange[right].origin_item_no)
-		return;//救吧赴 酒袍老 版快
+		return;//안걸린 아템일 경우
 	
 	while( right >=left)
 	{
@@ -1934,10 +1934,10 @@ void ChangeOldRareToNewRare(ItemAttr *item)
 }
 
 // 010613 YGI
-void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 檬扁拳茄促.	// 霸烙辑滚俊辑 夸没且锭
+void ResetCharDB( int *var, CHARLIST *ch )		// var 변수를 이용하여 db를 초기화한다.	// 게임서버에서 요청할때
 {
-	// 2啊瘤狼 力距捞 乐促.
-	// 1. gameserver肺 焊尘锭父 荤侩茄促. 溜, 努扼捞攫飘绰 促弗 郴侩捞 焊郴龙荐 乐促绰 舵捞促.
+	// 2가지의 제약이 있다.
+	// 1. gameserver로 보낼때만 사용한다. 즉, 클라이언트는 다른 내용이 보내질수 있다는 뜻이다.
 	int ret = 0;
 	if( var[VAR_RESET] < 2 )
 	{
@@ -1946,10 +1946,10 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 
 		var[VAR_RESET] = 2;
 	}
 	
-	//this4 lsw //抗傈狼 滚弊 酒捞袍狼 加己蔼狼 檬扁拳
+	//this4 lsw //예전의 버그 아이템의 속성값의 초기화
 	if( var[VAR_RESET] < 3 )
 	{
-		// 郴啊 啊瘤绊 乐绰 酒捞袍..
+		// 내가 가지고 있는 아이템..
 		
 		for(int iInv1 = 0;iInv1<3;iInv1++)
 		{
@@ -1988,7 +1988,7 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 
 	}
 	
 	// 010531 KHS
-	// 老胶眠啊登搁辑 nut1,nut2,nut3狼 蔼阑 檬扁拳 茄促. 
+	// 일스추가되면서 nut1,nut2,nut3의 값을 초기화 한다. 
 	if( var[VAR_RESET] < 5 )
 	{	
 		ch->nk[N_VYSEUS] = 0;
@@ -2015,7 +2015,7 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 
 			int ret = GetGuildMakeNumber( ch->name_status.dwReserved, make_num );
 			if( ret == 1 )
 			{
-				if( make_num )		// 捞固 官诧利捞 乐绰 辨靛促.
+				if( make_num )		// 이미 바뀐적이 있는 길드다.
 				{
 					ch->name_status.dwReserved = 0;
 					ch->name_status.guild_master = 0;
@@ -2044,10 +2044,10 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 
 	//< CSD-011022
 	if (var[VAR_RESET] < 14)
 	{
-		// 扁粮俊 唱穿扁 3栏肺 乐带 蔼阑 盔惑怕肺 函券
+		// 기존에 나누기 3으로 있던 값을 원상태로 변환
 		ch->Hp *= 3;
 		ch->HpMax *= 3;
-		// 历亲仿阑 100栏肺 檬扁拳
+		// 저항력을 100으로 초기화
 		ch->nPoison = 100;
 		ch->nCurse = 100;
 		ch->nFire = 100;
@@ -2060,9 +2060,9 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 
 	//< CSD-011024
 	if (var[VAR_RESET] < 20)
 	{
-		// 努贰胶 窜拌俊 包茄 沥焊 檬扁拳
+		// 클래스 단계에 관한 정보 초기화
 		memset(ch->aStepInfo, 0, sizeof(ch->aStepInfo));
-		// 版氰摹 犁盒硅
+		// 경험치 재분배
 		if (ch->Level >= 99)
 		{
 			const int nOffset = ch->Exp - 1917766395;
@@ -2076,7 +2076,7 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 函荐甫 捞侩窍咯 db甫 
 				ch->Level = 99;
 			}
 		}
-		// 琶平 版氰摹 犁盒硅
+		// 택틱 경험치 재분배
 		for (int i = 0; i < 13; ++i)
 		{
 			const int nOffset = ch->tac_skillEXP[i] - 1917766395;
@@ -2335,7 +2335,7 @@ LEVEL_INFO g_aLevelInfo[] =
 //> CSD-030306
 
 void ReadjustExpLevel(CHARLIST* pTarget)
-{	//< CSD-030306 : 饭骇 版氰摹甫 犁汲沥窍搁辑 扁粮狼 版氰摹, 窜拌蔼 犁炼沥
+{	//< CSD-030306 : 레벨 경험치를 재설정하면서 기존의 경험치, 단계값 재조정
 	const int nLevel = pTarget->Level;
 	
 	if (nLevel >= 101)
@@ -2355,7 +2355,7 @@ void ReadjustExpLevel(CHARLIST* pTarget)
 }
 
 void ReadjustTacLevel(CHARLIST* pTarget, BYTE nKind)
-{	//< CSD-030306 : 琶平 版氰摹甫 犁汲沥窍搁辑 扁粮狼 版氰摹, 窜拌蔼 犁炼沥
+{	//< CSD-030306 : 택틱 경험치를 재설정하면서 기존의 경험치, 단계값 재조정
 	for (int i = 1; i <= MAX_TAC_LEVEL; ++i)
 	{
 		if (pTarget->aStepInfo[T01_STEP + nKind] == g_aLevelInfo[i].nStep && 
@@ -2401,7 +2401,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	{	//< CSD-030326
 		if( ch->name_status.dwReserved )
 		{
-			if( IsExistGiuildMember( ch->Name ) == 0 )		// 辨靛俊 加秦 乐瘤 臼阑锭..
+			if( IsExistGiuildMember( ch->Name ) == 0 )		// 길드에 속해 있지 않을때..
 			{
 				ch->name_status.dwReserved = 0;
 				ch->name_status.guild_master = 0;
@@ -2487,7 +2487,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	}
 	
 	if (ch->Age < 132)
-	{	//< CSD-020724 : 傈捧胶懦 器牢磐 犁盒硅
+	{	//< CSD-020724 : 전투스킬 포인터 재분배
 		int nSum = ch->aStepInfo[CSP_STEP];
 		
 		for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
@@ -2501,9 +2501,9 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	}	//> CSD-020724
 	
 	if (ch->Age < 133)
-	{	//< CSD-020724 : 傈捧胶懦 器牢磐 犁盒硅  
+	{	//< CSD-020724 : 전투스킬 포인터 재분배  
 		const int nPoint = GetSkillPoint(ch->Name);
-		// 傈捧胶懦 器捞磐 醚钦
+		// 전투스킬 포이터 총합
 		int nTotal = ch->aStepInfo[CSP_STEP] + nPoint;
 		
 		if (ch->Level >= 1 && ch->Level <= 10)
@@ -2593,10 +2593,10 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 		ch->Age = 133;
 	}	//> CSD-020724
 	
-	if(LocalMgr.IsAbleNation(KOREA))//021007 lsw// 茄惫父 犁盒硅 秦霖促.
+	if(LocalMgr.IsAbleNation(KOREA))//021007 lsw// 한국만 재분배 해준다.
 	{
 		if (ch->Age < 134)
-		{ //< CSD-020930 : 傈捧胶懦 器牢磐 犁盒硅
+		{ //< CSD-020930 : 전투스킬 포인터 재분배
 			int nSum = ch->aStepInfo[CSP_STEP];
 			
 			for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
@@ -2617,9 +2617,9 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 
 	if (ch->Age < 136)
 	{	//< CSD-030306
-		// 饭骇 版氰摹甫 犁汲沥窍搁辑 扁粮狼 版氰摹, 窜拌蔼 犁炼沥
+		// 레벨 경험치를 재설정하면서 기존의 경험치, 단계값 재조정
 		ReadjustExpLevel(ch);
-		// 琶平 版氰摹甫 犁汲沥窍搁辑 扁粮狼 版氰摹, 窜拌蔼 犁炼沥
+		// 택틱 경험치를 재설정하면서 기존의 경험치, 단계값 재조정
 		for (int i = 0; i < 13; ++i)
 		{
 			ReadjustTacLevel(ch, i);
@@ -2654,7 +2654,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	if (LocalMgr.IsAbleNation(CHINA))
 	{	//< CSD-HK-030829
 		if (ch->Age < 138)
-		{	// 吝惫俊辑父 夸没茄 1瞒 版氰摹 焊惑
+		{	// 중국에서만 요청한 1차 경험치 보상
 			const int nLevel = ch->Level;
 			ch->Exp = NPC_Lev_Ref[nLevel].nMaxExp;
 			ch->aStepInfo[EXP_STEP] = NPC_Lev_Ref[nLevel].nStep;
@@ -2663,7 +2663,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 		}
 
 		if (ch->Age < 139)
-		{	// 吝惫俊辑父 夸没茄 2瞒 版氰摹 焊惑
+		{	// 중국에서만 요청한 2차 경험치 보상
 			const int nLevel = ch->Level;
 			ch->Exp = NPC_Lev_Ref[nLevel].nMaxExp;
 			ch->aStepInfo[EXP_STEP] = NPC_Lev_Ref[nLevel].nStep;
@@ -2675,7 +2675,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	if (LocalMgr.IsAbleNation(HONGKONG))
 	{	//<soto-031031
 		if (ch->Age < 140)
-		{	// 全尼俊辑父 夸没茄 1瞒 版氰摹 焊惑
+		{	// 홍콩에서만 요청한 1차 경험치 보상
 			const int nLevel = ch->Level;
 			ch->Exp = NPC_Lev_Ref[nLevel].nMaxExp;
 			ch->aStepInfo[EXP_STEP] = NPC_Lev_Ref[nLevel].nStep;
@@ -2685,19 +2685,19 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	}	//>soto-031031
 
 	if (!IsConnectName(ch->Name))
-	{ // 某腐磐 肺弊牢 且 锭 弊 沥焊 涝仿
+	{ // 캐릭터 로그인 할 때 그 정보 입력
 		sprintf(querry, "INSERT INTO login_name (name) VALUES ('%s')", ch->Name);
 		Querry_SQL(querry);
 	}
-	// 辨靛 内靛蔼捞 乐绰单 guild_member_list 俊 蔼捞 绝阑锭
+	// 길드 코드값이 있는데 guild_member_list 에 값이 없을때
 	if( ch->nGuildCode )
 	{	//< CSD-030324
-		if( IsExistGiuildMember( ch->Name ) == 0 )		// 辨靛俊 加秦 乐瘤 臼阑锭..
+		if( IsExistGiuildMember( ch->Name ) == 0 )		// 길드에 속해 있지 않을때..
 		{
 			ch->nGuildCode = 0;
 			ch->name_status.guild_master = 0;
 		}
-		if( ch->name_status.guild_master == 1 )		// 辨付 老 版快 辨付 甸绢 柯 矫埃阑 盎脚茄促.
+		if( ch->name_status.guild_master == 1 )		// 길마 일 경우 길마 들어 온 시간을 갱신한다.
 		{
 			sprintf( querry, "UPDATE guild_list SET master = '%s', master_last_connect = getdate() WHERE code = %d", 
 				ch->Name, 
@@ -2719,10 +2719,10 @@ void RecvReqRankLadder( t_packet *p, short int cn )
 	int page = p->u.kein.req_rank_ladder_to_db.page;
 	short int server_id = p->u.kein.req_rank_ladder_to_db.server_id;
 	int ret = GetLadderScoreRank( page*10+1, &rank_data );
-	if( ret == 2 )		// refresh 沁促..
+	if( ret == 2 )		// refresh 했다..
 		ret = GetLadderScoreRank( page*10+1, &rank_data );
 	
-	if( ret != 1 ) // 蔼捞 绝促.
+	if( ret != 1 ) // 값이 없다.
 	{
 		DirectClient( CMD_REP_RANK_LADDER_FINISH, server_id, cn, NULL, 0 );
 	}
@@ -2781,7 +2781,7 @@ int isPosableGuildJoinById( int guild_code, char *id )
 				if (GetGuildCode(name[i], nGuildCode))
 				{
 				
-					if (nGuildCode > 0 && nGuildCode != guild_code) // 促弗 辨靛俊 甸绢 乐栏搁
+					if (nGuildCode > 0 && nGuildCode != guild_code) // 다른 길드에 들어 있으면
 					{
 						return 0;
 					}
@@ -2857,17 +2857,17 @@ for(i = 0; i < len2; i++)		//申请公会的名称
 	}*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-	// 促弗 辨靛俊 甸绢 乐绰瘤甫 眉农
+	// 다른 길드에 들어 있는지를 체크
 	if( !isPosableGuildJoinByName( 0, master ) ) 
 	{
-		// 辨靛 付胶磐啊 促弗 某腐栏肺 辨靛俊 啊涝秦 乐绰 版快
+		// 길드 마스터가 다른 캐릭으로 길드에 가입해 있는 경우
 		fail_type = 1;
 		goto is_fail_;
 	}
 	ret = GetEmptyGuildCode( code );
 	if( ret != 1 ) 
 	{
-		fail_type = 2;		// 辨靛啊 菜 谩阑 版快
+		fail_type = 2;		// 길드가 꽉 찼을 경우
 		goto is_fail_;
 	}
 	
@@ -2875,20 +2875,20 @@ for(i = 0; i < len2; i++)		//申请公会的名称
 	ret = GetRowLineOfSQL( "guild_list", "name", &nRowCount, conditon );
 	if( nRowCount > 0 )
 	{
-		// 度鞍篮 捞抚狼 辨靛啊 粮犁茄促.
-		fail_type = 4;			// db 历厘俊 角菩沁促.
+		// 똑같은 이름의 길드가 존재한다.
+		fail_type = 4;			// db 저장에 실패했다.
 		goto is_fail_;
 	}
 	
 	ret = SaveGuildRegistImsi( code, &p->u.kein.regist_guild_imsi_db, &guild_info );
 	if( ret != 1 ) 
 	{
-		fail_type = 3;			// db 历厘俊 角菩沁促.
+		fail_type = 3;			// db 저장에 실패했다.
 		goto is_fail_;
 	}
 	else
 	{
-		// 葛电 辑滚俊 烙矫 辨靛 殿废荤角阑 舅赴促.
+		// 모든 서버에 임시 길드 등록사실을 알린다.
 		packet.h.header.type = CMD_REGIST_GUILD_IMSI_OK_ALL;
 		packet.u.kein.set_guild_info = guild_info;
 		//if( guild_info.guild_degree[0][0] )
@@ -2898,20 +2898,20 @@ for(i = 0; i < len2; i++)		//申请公会的名称
 		
 		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
 		
-		// 弊 某腐磐俊霸 己傍 荤角阑 舅赴促.
+		// 그 캐릭터에게 성공 사실을 알린다.
 		packet.h.header.type = CMD_REGIST_GUILD_IMSI_OK;
 		packet.u.kein.regist_guild_imsi_ok.server_id = server_id;
 		packet.u.kein.regist_guild_imsi_ok.guild_code = code;
 		packet.h.header.size = sizeof( k_regist_guild_imsi_ok );
 		QueuePacket( connections, cn, &packet, 1 );
-		// 辨靛 糕滚 抛捞喉俊 付胶磐甫 历厘矫挪促.
+		// 길드 멤버 테이블에 마스터를 저장시킨다.
 		ChangeGuildMemberList( master, code, 1 );
 		SaveGuildLog( code, 0, 1, master, guild_name );		// 021008 YGI
 		return;
 	}
 	
 is_fail_ :
-	// 角菩 傈价 
+	// 실패 전송 
 	DirectClient( CMD_REGIST_GUILD_IMSI_FAIL, server_id, cn, &fail_type, 1 );
 	SaveGuildLog( code, 0, 1, master, guild_name );		// 021008 YGI
 	return;
@@ -2951,10 +2951,10 @@ int CGuildMarkImage::FreeData()
 
 int CGuildMarkImage::Setting(DWORD size, int xl, int yl )
 {
-	FreeData();		// 捞固 且寸等利捞 乐栏搁 瘤快绊 促矫 且寸.
+	FreeData();		// 이미 할당된적이 있으면 지우고 다시 할당.
 	
 	total_size = size+sizeof(k_image_header);
-	data = new char[total_size];		// 角力 捞固瘤俊 庆歹鳖瘤 且寸茄促.
+	data = new char[total_size];		// 실제 이미지에 헤더까지 할당한다.
 	k_image_header *img_header;
 	img_header = (k_image_header *)data;
 	img_header->size = size;
@@ -2966,7 +2966,7 @@ int CGuildMarkImage::Setting(DWORD size, int xl, int yl )
 
 int CGuildMarkImage::SaveImage( int subCount, char *img, int size )
 {
-	if( !data ) return 0;		//檬扁 技泼阑 救茄 惑怕捞促.
+	if( !data ) return 0;		//초기 세팅을 안한 상태이다.
 	
 	k_image_header *img_header;
 	img_header = (k_image_header *)data;
@@ -2995,19 +2995,19 @@ void RecvRegistGuildMark( t_packet *p, short int cn )  //coromo 工会图标显�
 		return;
 	}	//> CSD-030324
 	
-	if( pRegistGuildMark->sub_count == 1 )	// 盖贸澜 罐篮巴捞骨肺 单捞鸥甫 技泼茄促.
+	if( pRegistGuildMark->sub_count == 1 )	// 맨처음 받은것이므로 데이타를 세팅한다.
 	{
 		if( pRegistGuildMark->size<= 0 || pRegistGuildMark->size > 1000000 ) 
 		{
 			g_GuildMarkImage[guildCode].faile = 1;
-			return;// 1M 捞惑老 版快
+			return;// 1M 이상일 경우
 		}
 		g_GuildMarkImage[guildCode].Setting( 
 			pRegistGuildMark->size, pRegistGuildMark->xl, pRegistGuildMark->yl );
 	}
 	else
 	{
-		// 傈俊 角菩 沁阑 版快
+		// 전에 실패 했을 경우
 		if( g_GuildMarkImage[guildCode].faile ) return;
 	}
 	
@@ -3018,7 +3018,7 @@ void RecvRegistGuildMark( t_packet *p, short int cn )  //coromo 工会图标显�
 	}
 	else sub_size = IMAGE_UNIT_SIZE;
 	
-	// 捞固瘤甫 历厘窍绊
+	// 이미지를 저장하고
 	if( g_GuildMarkImage[guildCode].SaveImage( 
 		pRegistGuildMark->sub_count, 
 		pRegistGuildMark->img, 
@@ -3028,9 +3028,9 @@ void RecvRegistGuildMark( t_packet *p, short int cn )  //coromo 工会图标显�
 		return;
 	}
 	
-	// 捞固瘤甫 葛滴 罐疽促搁 叼厚辑滚俊 历厘茄促.
+	// 이미지를 모두 받았다면 디비서버에 저장한다.
 	if( pRegistGuildMark->sub_count == pRegistGuildMark->total && !g_GuildMarkImage[guildCode].faile )
-		// 角菩啊 绝菌阑订 DB俊 历厘茄促.
+		// 실패가 없었을땐 DB에 저장한다.
 	{
 		int ret = UpdateGuildMark( guildCode, pRegistGuildMark->size+sizeof( k_image_header ), 
 			(UCHAR *)g_GuildMarkImage[guildCode].data );
@@ -3038,13 +3038,13 @@ void RecvRegistGuildMark( t_packet *p, short int cn )  //coromo 工会图标显�
 		BYTE number;
 		if( ret == 1 ) 
 		{
-			ret = IncreaseNumberOfGuildList( guildCode, 0, number );		// 捞固瘤 锅龋甫 刘啊矫难霖促.
+			ret = IncreaseNumberOfGuildList( guildCode, 0, number );		// 이미지 번호를 증가시켜준다.
 			if( ret == 1 )
 			{
-				// 捞固瘤 锅龋 刘啊 荤角阑 葛电 甘 辑滚俊霸 舅妨霖促.
+				// 이미지 번호 증가 사실을 모든 맵 서버에게 알려준다.
 				t_packet packet;
 				packet.h.header.type = CMD_GUILD_NUMBER_INFO_DB_TO_MAP;
-				packet.u.kein.set_guild_number_info.type = 0;		// 捞固瘤 锅龋
+				packet.u.kein.set_guild_number_info.type = 0;		// 이미지 번호
 				packet.u.kein.set_guild_number_info.number = number;
 				packet.u.kein.set_guild_number_info.guild_code = guildCode;
 				packet.h.header.size = sizeof( k_set_guild_number_info );
@@ -3100,7 +3100,7 @@ void SendGuildImage( t_packet *p, short int cn )
 	delete [] image;
 }
 
-// 沥侥 辨靛 殿废
+// 정식 길드 등록
 void RecvRegistGuild( t_packet *p, short int cn )
 {	//< CSD-030324
 	int server_id = p->u.kein.send_db_direct_map.server_id;
@@ -3117,8 +3117,7 @@ void RecvRegistGuild( t_packet *p, short int cn )
 	vector<int> vtGuild;
 	vtGuild.reserve(cCount);
 	
-	//int ret = DeleteImsiGuild(vtGuild.begin(), cCount);	// 20老 瘤抄 烙矫 辨靛甫 茫绰促.
-	int ret = DeleteImsiGuild(vtGuild.data(), cCount);	// 20老 瘤抄 烙矫 辨靛甫 茫绰促.
+	int ret = DeleteImsiGuild(vtGuild.data(), cCount);	// 20일 지난 임시 길드를 찾는다.
 	if( ret == 1 )
 	{
 		if( cCount )
@@ -3135,11 +3134,11 @@ void RecvRegistGuild( t_packet *p, short int cn )
 	}
 	//////////////////////////////////////////////////////////////////////
 	
-	const int nCount = CheckGuildMemberForRegistGuild( guildCode );		// 弊 辨靛盔俊 加秦 乐绰 某腐磐啊 割疙捞衬?
+	const int nCount = CheckGuildMemberForRegistGuild( guildCode );		// 그 길드원에 속해 있는 캐릭터가 몇명이냐?
 	
 	if (nCount < MIN_GUILD_COUNT)
-	{	//< CSD-030320 : 沥侥 辨靛啊 登扁 困茄 牢盔阑 10疙捞惑栏肺 函版
-		// 辨靛盔 荐啊 何练窍促.
+	{	//< CSD-030320 : 정식 길드가 되기 위한 인원을 10명이상으로 변경
+		// 길드원 수가 부족하다.
 		SaveGuildLog( guildCode, 1, -1 );		// 021008 YGI
 		return;
 	}	//> CSD-030320
@@ -3197,7 +3196,7 @@ void RecvSaveGuildMemberList( t_packet *p )
 	ChangeGuildMemberList( name, guild_code, degree );
 	if( !guild_code )
 	{
-		// 趣矫 何 辨付 捞搁 guild_list 档 荐沥矫难霖促.
+		// 혹시 부 길마 이면 guild_list 도 수정시켜준다.
 		char master[20];
 		char submaster[20];
 		int ret = GetGuildMasterAndsubMaster( old_guild_code, master, submaster);
@@ -3244,15 +3243,15 @@ void RecvGuildMasterAndSubMaster( t_packet *p, short int cn )
 	
 	switch( type )
 	{
-	case 2 : strcpy( data.name1, data.name2 );  // 辑宏 辨付父
-	case 1 : DirectClient(						// 辨付父
+	case 2 : strcpy( data.name1, data.name2 );  // 서브 길마만
+	case 1 : DirectClient(						// 길마만
 				 CMD_GUILD_MASTER_AND_SUBMASTER, 
 				 server_id, 
 				 cn,
 				 &data, 
 				 sizeof( k_req_guild_master_and_sub_master )- 40 + strlen( data.name1 ) );
 		break;
-	case 3 : DirectClient(						// 笛促
+	case 3 : DirectClient(						// 둘다
 				 CMD_GUILD_MASTER_AND_SUBMASTER, 
 				 server_id, 
 				 cn,
@@ -3267,10 +3266,10 @@ void RecvRegistGuildCheck( t_packet *p, short int cn )
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	int nGuildCode = *((short int*)p->u.kein.send_db_direct_map.data);
 	
-	const int nCount = CheckGuildMemberForRegistGuild( nGuildCode );		// 弊 辨靛盔俊 加秦 乐绰 某腐磐啊 割疙捞衬?
+	const int nCount = CheckGuildMemberForRegistGuild( nGuildCode );		// 그 길드원에 속해 있는 캐릭터가 몇명이냐?
 	
 	if (nCount >= MIN_GUILD_COUNT)
-	{	//< CSD-030320 : 沥侥 辨靛啊 登扁 困茄 牢盔阑 10疙捞惑栏肺 函版
+	{	//< CSD-030320 : 정식 길드가 되기 위한 인원을 10명이상으로 변경
 		DirectClient( CMD_REGIST_GUILD_CHECK_OK, server_id, cn, NULL, 0 );
 	}	//> CSD-030320
 	else 
@@ -3328,14 +3327,14 @@ for(i = 0; i < len1; i++)		//公会名称
 	int ret = GetRowLineOfSQL( "guild_member_list", "*", &nRowCount, conditon );
 	if( nRowCount <= 0 ) 
 	{
-		result = 1;			// 鞍篮 辨靛盔 荤恩捞 酒聪促.
+		result = 1;			// 같은 길드원 사람이 아니다.
 		goto fail_;
 	}
 	
 	GetDataBasic2ByName( &data, check_info->name );
 	if( data.lv < 30 )
 	{
-		result = 1;			// 何辨付 饭骇捞 呈公 撤促.
+		result = 1;			// 부길마 레벨이 너무 낮다.
 		goto fail_;
 	}
 	DirectClient( CMD_CHECK_SUB_MASTER_OK, server_id, cn, check_info->name, strlen( check_info->name ) );
@@ -3349,27 +3348,27 @@ fail_ :
 // 021008 YGI
 void RecvChangeDeleteGuild( t_packet *p )
 {
-	// 菩哦 备炼甫 荐沥窍霸 登搁 辨靛 殿废窍绰 何盒档 眉农秦毫具 茄促. 
-	// 沥侥 辨靛 殿废窍绰 何盒俊 烙矫 辨靛 瘤快绰 何盒捞 乐绊 咯扁辑 捞 窃荐甫 龋免茄促.!!!
+	// 패킷 구조를 수정하게 되면 길드 등록하는 부분도 체크해봐야 한다. 
+	// 정식 길드 등록하는 부분에 임시 길드 지우는 부분이 있고 여기서 이 함수를 호출한다.!!!
 	int guild_code = p->u.kein.guild_instroduction_basic.guild_code;
-	char *name = p->u.kein.guild_instroduction_basic.guild_name;		// 瘤款 仇
+	char *name = p->u.kein.guild_instroduction_basic.guild_name;		// 지운 놈
 	int ret = DeleteGuild( guild_code );
 	if( ret == 1 )
 	{
-		// 辨靛 糕滚 抛捞喉俊辑 瘤况霖促.
+		// 길드 멤버 테이블에서 지워준다.
 		DeleteGuildMemberList( guild_code );
 		
-		// 骏器府酒啊 乐促搁 瘤况霖促.
+		// 엠포리아가 있다면 지워준다.
 		char querry[512];
 		sprintf( querry, "UPDATE guild_house SET guild_code = 0 WHERE guild_code = %d", guild_code );
 		Querry_SQL( querry );
 		
 		// 021128 YGI------------
-		// 辨靛 皋老阑 瘤况霖促.
+		// 길드 메일을 지워준다.
 		sprintf(querry, "DELETE guild_mail WHERE guild_code = %d ", guild_code );
 		Querry_SQL( querry );
 		
-		// 辨靛 酒捞袍阑 瘤款促.
+		// 길드 아이템을 지운다.
 		sprintf(querry, "DELETE guild_item WHERE guild_code = %d ", guild_code );
 		Querry_SQL( querry );
 		//--------------------------
@@ -3380,9 +3379,9 @@ void RecvChangeDeleteGuild( t_packet *p )
 		packet.h.header.size = sizeof( short int );
 		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
 		
-		if( name[0] )	// 沥侥 辨靛 昏力
-			SaveGuildLog2( guild_code, 1, name );	// 辨靛 昏力矫 肺弊肺 巢变促.		// 021008 YGI
-		else			// 矫埃捞 瘤抄 烙矫 辨靛 昏力
+		if( name[0] )	// 정식 길드 삭제
+			SaveGuildLog2( guild_code, 1, name );	// 길드 삭제시 로그로 남긴다.		// 021008 YGI
+		else			// 시간이 지난 임시 길드 삭제
 			SaveGuildLog2( guild_code, 0, NULL);
 	}	
 }
@@ -3412,11 +3411,11 @@ void CheckSalvationName( t_packet *p, short int cn )
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	char *name = (char *)p->u.kein.send_db_direct_map.data;
 	
-	int ret = CheckSalvationNameBasic2( name );	// 扁何 啊瓷 窍绰啊?
+	int ret = CheckSalvationNameBasic2( name );	// 기부 가능 하는가?
 	char result = 1;
 	if( ret == 1 )
 	{
-		result = 0;		// 扁何 啊瓷
+		result = 0;		// 기부 가능
 	}
 	DirectClient( CMD_CHECK_SALVATION_NAME, server_id, cn, &result, sizeof( char ) );
 }
@@ -3467,9 +3466,9 @@ int PutEventItem( const int turn, t_connection *c )
 			ItemAttr give_item = {0,};
 			int reset = SetEventItemEmpty( ch, iIndex[ct], give_item );
 			//<soto-cn031205
-			if( turn == 2 && reset )//turn 捞 2搁 瘤快扼绰 捞具扁
+			if( turn == 2 && reset )//turn 이 2면 지우라는 이야기
 			{
-				//event%n 捞聪鳖 +1阑 秦霖促
+				//event%n 이니까 +1을 해준다
 				if(DeleteEventItemNumber( c->id, ct+1 ))
 				{
 					log_data.item = give_item;
@@ -3495,14 +3494,14 @@ int PutEventItem( const int turn, t_connection *c )
 	return 1;
 }	//> CSD-040120
 
-//<! BBD 040308	甘栏肺何磐 捞亥飘酒捞袍 瘤鞭夸没阑 罐疽阑锭 妮登绰 窃荐焙
+//<! BBD 040308	맵으로부터 이벤트아이템 지급요청을 받았을때 콜되는 함수군
 extern ItemAttr MakeEventItem(int nIndex);
-// 秦寸蜡历酒第狼 Event0 - 10鞘靛甫 犬牢秦 酒捞袍阑 积己秦霖促
-// But 角力肺 瘤鞭秦林绰巴篮 甘辑滚捞促
+// 해당유저아뒤의 Event0 - 10필드를 확인해 아이템을 생성해준다
+// But 실제로 지급해주는것은 맵서버이다
 int PutEventItemByMapReq(const int iCn,t_packet &p)
 {
 
-	if (!LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG)) // 鸥惫啊俊辑 荤侩阑 盔窍搁 鞘洒 荐沥且镑
+	if (!LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG)) // 타국가에서 사용을 원하면 필히 수정할곳
 	{
 		return 0;
 	}
@@ -3522,20 +3521,20 @@ int PutEventItemByMapReq(const int iCn,t_packet &p)
 	strcpy( log_data.name1, "DB_DEMON" );
 	strcpy( log_data.name2, p.u.Event_Item_List.szChrName );
 	
-	// 救傈 力老 烙矫函荐俊 罐酒辑 静磊
+	// 안전 제일 임시변수에 받아서 쓰자
 	for(int ct = 0 ; MAX_EVENT_USER_FILED > ct; ct++)
 	{
 		memset(&item, 0L, sizeof(item));
-		item = MakeEventItem(iIndex[ct]);		// 父电 酒捞袍阑 官肺 锭妨 持磊
+		item = MakeEventItem(iIndex[ct]);		// 만든 아이템을 바로 때려 넣자
 	
-		if(!item.item_no)	// 卿! 酒捞袍 逞滚啊 绝促
+		if(!item.item_no)	// 헉! 아이템 넘버가 없다
 		{
 			continue;
 		}
 
 		p.u.Event_Item_List.item[ct] = item;
 		
-		// 罐疽栏聪 瘤况林绊 肺弊 巢扁磊
+		// 받았으니 지워주고 로그 남기자
 		if(DeleteEventItemNumber( p.u.Event_Item_List.szLoginID, ct+1 ))
 		{
 			log_data.item = item;
@@ -3546,7 +3545,7 @@ int PutEventItemByMapReq(const int iCn,t_packet &p)
 	}
 	
 
-	// 傲 柯 菩哦 弊措肺 焊郴林磊
+	// 걍 온 패킷 그대로 보내주자
 	p.h.header.type = CMD_EVENTRAREITEM_RES;
 	p.h.header.size = sizeof(t_EVENT_RARE_ITEM_LIST);
 	memcpy(p.u.Event_Item_List.nIndex, iIndex, sizeof(iIndex));
@@ -3554,7 +3553,7 @@ int PutEventItemByMapReq(const int iCn,t_packet &p)
 
 	return 1;
 }
-//> BBD 040308	甘栏肺何磐 捞亥飘酒捞袍 瘤鞭夸没阑 罐疽阑锭 妮登绰 窃荐焙
+//> BBD 040308	맵으로부터 이벤트아이템 지급요청을 받았을때 콜되는 함수군
 
 int GetServerSetNum()
 {
@@ -3650,7 +3649,7 @@ for(i = 0; i < len2; i++)		//内容
 	char result = 0;
 	DWORD name_status;
 	int ret = GetNationByName( data->name2, &name_status );		// 1018 YGI
-	if( !ret ) // 弊繁 荤恩 绝促.
+	if( !ret ) // 그런 사람 없다.
 	{
 		result = 0;
 		DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
@@ -3663,7 +3662,7 @@ for(i = 0; i < len2; i++)		//内容
 	if( target.nation == data->nation )
 	{
 		int ret = RegistFriend_SQL( data->name1, data->name2 );
-		if( ret == 100 )		// 歹捞惑 殿废 且 荐 绝促.
+		if( ret == 100 )		// 더이상 등록 할 수 없다.
 		{
 			result = 1;
 			DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
@@ -3671,7 +3670,7 @@ for(i = 0; i < len2; i++)		//内容
 		}
 		else if( ret == 1 )
 		{
-			// 殿废 己傍.. 弊 荤恩捞 泅犁 楷搬 惑怕牢瘤 犬牢茄促.
+			// 등록 성공.. 그 사람이 현재 연결 상태인지 확인한다.
 			RecvCheckFriend( server_id, cn, data->name2 );
 		}
 		else if( ret == 200 )
@@ -3682,7 +3681,7 @@ for(i = 0; i < len2; i++)		//内容
 	}
 	else
 	{
-		// 唱扼啊 促福促.
+		// 나라가 다르다.
 		result = 2;
 		DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
 		return;
@@ -3719,7 +3718,7 @@ void RecvLogout( t_packet *p )
 	Querry_SQL( szQuerry );
 }
 
-bool IsConnectName( char *name )		// 某腐疙栏肺 立加秦 乐绰瘤 舅酒 焊绰 窃荐
+bool IsConnectName( char *name )		// 캐릭명으로 접속해 있는지 알아 보는 함수
 {
 	char querry[256];
 	int nRowCount = 0;
@@ -3771,12 +3770,13 @@ void RecvCheckGuildName( t_packet *p, short int cn )
 	
 	int nRowCount = 0;
 	char conditon[256];
-////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
+////////////////////////////////////截获非法字符////////////////////////////////////////////////////	
 	strcpy(s1,name  );	//公会名称
 //gets(pMailSend->szSender);
 len1 = (int)strlen(s1);
 
 str="发现SQL漏洞攻击!非法内容:[%s],  公会申请名称:[%s]";
+
 
 for(i = 0; i < len1; i++)		//公会名称
 {
@@ -3801,12 +3801,12 @@ for(i = 0; i < len1; i++)		//公会名称
 	int ret = GetRowLineOfSQL( "guild_list", "name", &nRowCount, conditon );
 	if( nRowCount > 0 )
 	{
-		// 粮犁茄促.
+		// 존재한다.
 		DirectClient( CMD_THEREIS_CHARANAME, server_id, cn, NULL, 0 );
 	}
 	else
 	{
-		//  粮犁窍瘤 臼绰促.
+		//  존재하지 않는다.
 		DirectClient( CMD_THEREIS_NO_CHARANAME, server_id, cn, NULL, 0 );		
 	}
 }
@@ -3835,7 +3835,7 @@ void RecvAddEventItem( t_packet *p, short int cn )
 	SaveEventItem( name, item_no, count );
 }
 
-// 檬扁 秦寸 辨靛 酒捞袍狼 牢郸蔼父 焊郴霖促.
+// 초기 해당 길드 아이템의 인덱값만 보내준다.
 void RecvGetGuildItemFirst( t_packet *p, short int cn )
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
@@ -3870,7 +3870,7 @@ void RecvGetGuildItemCount( t_packet *p, short int cn )
 	}
 }
 
-// 漂沥 牢咆胶 蔼俊辑 秦寸 辨靛 酒捞袍狼 促澜 10俺狼 酒捞袍阑 焊郴霖促.
+// 특정 인텍스 값에서 해당 길드 아이템의 다음 10개의 아이템을 보내준다.
 void RecvGetGuildItem( t_packet *p, short int cn )
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
@@ -3889,7 +3889,7 @@ void RecvGetGuildItem( t_packet *p, short int cn )
 	}
 }
 
-// 酒捞袍 历厘
+// 아이템 저장
 void RecvPutGuildItem( t_packet *p )
 {
 	ItemAttr *pItem = &p->u.kein.put_guild_item.item;
@@ -3912,7 +3912,7 @@ void RecvGetGuildItemMap( t_packet *p, short int cn )
 	if( !guild_code ) return;
 	DWORD box_money = 0;
 	GetGuildItemPay( guild_code, box_money );
-	if( box_money ) return;		// 技陛捞 巢酒 乐绢辑 荤侩窍瘤 给茄促.
+	if( box_money ) return;		// 세금이 남아 있어서 사용하지 못한다.
 	
 	ItemAttr item;
 	ret = GetGuildItemOne( guild_code, index, &item );
@@ -3972,7 +3972,7 @@ int DeleteGuildBoxMoney( DWORD &box_money, short int guild_code )
 		{
 			item.attr[IATTR_MUCH] -= box_money;
 			box_money = 0;
-			// 巢篮 酒捞袍阑 历厘茄促.
+			// 남은 아이템을 저장한다.
 			InsertGuildItem( guild_code, &item, name );
 			return 1;
 		}
@@ -4024,9 +4024,9 @@ void RecvUpdateGuildBoxMoney()
 			{
 				if( RowCount > 150 ) RowCount = 150;
 				sprintf( condition, "Update guild_list set box_money = box_money+%d where code = %d", 
-					RowCount*1000, i );		// 焊包丰 = 醚焊包 酒捞袍 * 150;
+					RowCount*1000, i );		// 보관료 = 총보관 아이템 * 150;
 				Querry_SQL( condition );
-				CheckGuildItemPay( i );		// 焊包丰 沥魂
+				CheckGuildItemPay( i );		// 보관료 정산
 			}
 		}
 	}
@@ -4039,7 +4039,7 @@ int GetMoneyItemNumber()
 
 void RecvChangeGuildMaster( t_packet *p, short int cn )
 {
-	// 甘阑 烹秦辑 柯促.
+	// 맵을 통해서 온다.
 	short int guild_code = p->u.kein.default_short_int;
 	if (guild_code <= 0) return;
 	
@@ -4047,12 +4047,12 @@ void RecvChangeGuildMaster( t_packet *p, short int cn )
 	char submaster[20];
 	int ret = GetGuildMasterAndsubMaster( guild_code, master, submaster);
 	if( ret != 1 ) return;
-	if( !master[0] || !submaster[0] ) return;		// 辑宏 辨付啊 绝促.
+	if( !master[0] || !submaster[0] ) return;		// 서브 길마가 없다.
 	
-	// 辨靛 付胶磐狼 guild_degree 蔼阑 官槽促.
+	// 길드 마스터의 guild_degree 값을 바꾼다.
 	DWORD data;
-	CCharRank name_status1;	// master 狼
-	CCharRank name_status2; // subMaster 狼
+	CCharRank name_status1;	// master 의
+	CCharRank name_status2; // subMaster 의
 	
 	ret = GetNationByName( master, &data );
 	if( !ret ) return;
@@ -4071,17 +4071,17 @@ void RecvChangeGuildMaster( t_packet *p, short int cn )
 	memcpy( &data, &name_status2, sizeof( DWORD ) );
 	SetNationByName( data, submaster );
 	
-	// guild_member_list 甫 背眉茄促.
+	// guild_member_list 를 교체한다.
 	ChangeGuildMemberList( master, guild_code, name_status1.guild_master );
 	ChangeGuildMemberList( submaster, guild_code, name_status2.guild_master );
 	
-	// guild_list 甫 荐沥茄促.
+	// guild_list 를 수정한다.
 	char querry[1024];
 	sprintf( querry, "UPDATE guild_list SET master = '%s', sub_master = NULL WHERE code = %d", 
 		submaster, guild_code );
 	Querry_SQL( querry );
 	
-	// 傈眉 甘辑滚俊 sub master 狼 捞抚阑 焊郴霖促.
+	// 전체 맵서버에 sub master 의 이름을 보내준다.
 	
 	t_packet packet;
 	packet.h.header.type = CMD_CHANGE_GUILD_MASTER_ALL_MAP;
@@ -4093,7 +4093,7 @@ void RecvChangeGuildMaster( t_packet *p, short int cn )
 
 void RecvChangeGuildMasterBySubMaster( t_packet *p, short int cn )
 {
-	// 努扼捞攫飘俊辑 流立柯促.
+	// 클라이언트에서 직접온다.
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_guild_notice *info= (k_guild_notice *)p->u.kein.send_db_direct_map.data;
 	char *sub_master = info->msg;
@@ -4104,30 +4104,30 @@ void RecvChangeGuildMasterBySubMaster( t_packet *p, short int cn )
 	char submaster[20];
 	int ret = GetGuildMasterAndsubMaster( guild_code, master, submaster);
 	if( ret != 1 ) return;
-	if( !master[0] || !submaster[0] ) return;		// 辑宏 辨付啊 绝促.
-	if( strcmp( sub_master, submaster ) != 0 ) return;	// 何辨付 沥焊啊 撇府促.
+	if( !master[0] || !submaster[0] ) return;		// 서브 길마가 없다.
+	if( strcmp( sub_master, submaster ) != 0 ) return;	// 부길마 정보가 틀리다.
 	
-	// 朝磊甫 眉农茄促. 救登搁 皋矫瘤甫 焊郴霖促.
-	ret = CheckGuildMasterLastConnect( guild_code );		// null 老版快 10老 傈栏肺 技泼茄促.
-	if( ret != 1 )		// 背眉啊 阂啊瓷窍促.
+	// 날자를 체크한다. 안되면 메시지를 보내준다.
+	ret = CheckGuildMasterLastConnect( guild_code );		// null 일경우 10일 전으로 세팅한다.
+	if( ret != 1 )		// 교체가 불가능하다.
 	{
 		switch( ret )
 		{
-		case 2:		// 5老 饶俊 促矫 矫档窍技夸
+		case 2:		// 5일 후에 다시 시도하세요
 			SendPutMenuString( cn, KM_FAIL, 140, server_id );
 			break;
-		case 3:		// 辨靛 付胶磐啊 15老 捞傈栏肺 立加茄利捞 乐嚼聪促.
+		case 3:		// 길드 마스터가 15일 이전으로 접속한적이 있습니다.
 			SendPutMenuString( cn, KM_FAIL, 141, server_id );
 			break;
 		}
 		return;
 	}
 	
-	// 函版 矫累
-	// 辨靛 付胶磐狼 guild_degree 蔼阑 官槽促.
+	// 변경 시작
+	// 길드 마스터의 guild_degree 값을 바꾼다.
 	DWORD data;
-	CCharRank name_status1;	// master 狼
-	CCharRank name_status2; // subMaster 狼
+	CCharRank name_status1;	// master 의
+	CCharRank name_status2; // subMaster 의
 	
 	ret = GetNationByName( master, &data );
 	if( !ret ) return;
@@ -4146,17 +4146,17 @@ void RecvChangeGuildMasterBySubMaster( t_packet *p, short int cn )
 	memcpy( &data, &name_status2, sizeof( DWORD ) );
 	SetNationByName( data, submaster );
 	
-	// guild_member_list 甫 背眉茄促.
+	// guild_member_list 를 교체한다.
 	ChangeGuildMemberList( master, guild_code, name_status1.guild_master );
 	ChangeGuildMemberList( submaster, guild_code, name_status2.guild_master );
 	
-	// guild_list 甫 荐沥茄促.
+	// guild_list 를 수정한다.
 	char querry[1024];
 	sprintf( querry, "UPDATE guild_list SET master = '%s', sub_master = NULL WHERE code = %d", 
 		submaster, guild_code );
 	Querry_SQL( querry );
 	
-	// 傈眉 甘辑滚俊 sub master 狼 捞抚阑 焊郴霖促.
+	// 전체 맵서버에 sub master 의 이름을 보내준다.
 	
 	t_packet packet;
 	packet.h.header.type = CMD_CHANGE_GUILD_MASTER_ALL_MAP;
@@ -4190,7 +4190,7 @@ void RecvGuildHouseInfo( t_packet *p, short int cn )
 	int ret = GetGuildHouseInfo( &guild_house_info, count, nation );
 	if( ret == 1 )
 	{
-		// 秦寸 沥焊甫 焊郴霖促.
+		// 해당 정보를 보내준다.
 		int size = sizeof( k_guild_house_info_unit )*count+sizeof( char );
 		if( !size ) return;
 		
@@ -4213,7 +4213,7 @@ DWORD SendDb2AllMap( int type, void *msg, int size )
 	return g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
 }
 
-bool IsExitRecordOfDB( char *table, char *condition )		// 漂沥 抛捞喉俊 饭内靛啊 粮犁 窍绰啊?
+bool IsExitRecordOfDB( char *table, char *condition )		// 특정 테이블에 레코드가 존재 하는가?
 {
 	int nRowCount =0;
 	
@@ -4226,24 +4226,24 @@ void RecvChangeGuildHouseInfo( t_packet *p, short int cn )
 	k_change_guild_house_info *pData = (k_change_guild_house_info *)p->u.kein.data;
 	
 	char szQuerry [512];
-	if( pData->day_type == 1 )		// 脚痹
+	if( pData->day_type == 1 )		// 신규
 	{
 		sprintf( szQuerry , "guild_code = %d", pData->guild_code );
 		if( IsExitRecordOfDB( "guild_house", szQuerry ) )
 		{
-			// 啊瘤绊 乐绰 辨靛啊 勒促.
+			// 가지고 있는 길드가 잇다.
 			SendDb2AllMap( CMD_RELOAD_GUILD_HOUSE );
 			return;			
 		}
 		sprintf(szQuerry, "UPDATE guild_house SET date = getdate()+30, guild_code = %d WHERE id = %d", 
 			pData->guild_code, pData->id  );
 	}
-	else if( pData->day_type == 2 )		// 楷厘
+	else if( pData->day_type == 2 )		// 연장
 	{
 		sprintf( szQuerry , "guild_code = %d AND id = %d ", pData->guild_code, pData->id );
 		if( !IsExitRecordOfDB( "guild_house", szQuerry ) )
 		{
-			// 楷厘阑 且 荐 绝促.
+			// 연장을 할 수 없다.
 			SendDb2AllMap( CMD_RELOAD_GUILD_HOUSE );
 			return;
 		}
@@ -4258,7 +4258,7 @@ void RecvChangeGuildHouseInfo( t_packet *p, short int cn )
 	int ret = GetGuildHouseInfoById( guild_house_info, pData->id );
 	if( ret == 1)
 	{
-		// 葛电 甘俊 焊郴林磊		
+		// 모든 맵에 보내주자		
 		packet.h.header.type = CMD_CHANGE_GUILDHOUSE_INFO;
 		guild_house_info->house_id = pData->id;
 		packet.h.header.size = sizeof( k_change_guild_house_info_db2map );
@@ -4289,7 +4289,7 @@ void RecvCheckGuildHouse()
 			packet.h.header.size = sizeof( k_check_guild_house)*count + sizeof( char );		
 			g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
 		}
-		// 角力肺 瘤况霖促.
+		// 실제로 지워준다.
 		char querry[512];
 		sprintf( querry, "UPDATE guild_house SET guild_code = 0 WHERE getdate() > date" );
 		Querry_SQL( querry );
@@ -4330,7 +4330,7 @@ void SaveGuildLog( int guild_code, int type1, int type2, char *master, char *gui
 		strcpy( why, "success" );
 		break;
 	case -100:
-		guild_code = 0;		// 酒流 辨靛 内靛甫 且寸罐扁 傈捞促.
+		guild_code = 0;		// 아직 길드 코드를 할당받기 전이다.
 		strcpy( why, "master already have guild" );
 		break;
 	case -200:
@@ -4354,7 +4354,7 @@ void SaveGuildLog( int guild_code, int type1, int type2, char *master, char *gui
 	fclose( fp );
 }
 
-void SaveGuildLog2( int guild_code, int type, char *name )	// type - 0:矫埃捞 瘤唱辑, 1:穿焙啊 瘤匡锭
+void SaveGuildLog2( int guild_code, int type, char *name )	// type - 0:시간이 지나서, 1:누군가 지울때
 {
 	FILE *fp;
 	fp = fopen( "./logout/guild_log.txt", "at+" );
@@ -4368,12 +4368,12 @@ void SaveGuildLog2( int guild_code, int type, char *name )	// type - 0:矫埃捞
 	char why[1024];
 	if( type == 1 )
 	{
-		// 穿焙啊 瘤奎促.
+		// 누군가 지웠다.
 		sprintf( why, "Delete by '%s'", name );
 	}
 	else
 	{
-		// 20老捞 瘤唱辑 烙矫 辨靛绰 荤扼脸促.
+		// 20일이 지나서 임시 길드는 사라졌다.
 		strcpy( why, "Delete because over 20 day " );
 	}
 	
@@ -4434,19 +4434,19 @@ void RecvCheckEventScriptItem( t_packet *p, short int cn )
 	int RowCount = 0;
 	sprintf( condition, "event_no=%d AND login_id = '%s'", pData->event_no, pData->id );
 	int ret = GetRowLineOfSQL( "Event_NpcItem_Recv_Id", "*", &RowCount, condition );
-	if( RowCount > 0 || ret != 1 ) // 抛捞喉捞 绝芭唱 捞固 罐篮 利捞 乐促搁
+	if( RowCount > 0 || ret != 1 ) // 테이블이 없거나 이미 받은 적이 있다면
 	{
-		pData->result = 0;		// 角菩
+		pData->result = 0;		// 실패
 		QueuePacket( connections, cn, p, 1 );
-		return;		// 捞固 罐篮利捞 乐促. 
+		return;		// 이미 받은적이 있다. 
 	}
 	
-	// 坷贰等 单捞鸥绰 瘤快磊
+	// 오래된 데이타는 지우자
 	Querry_SQL( "DELETE event_npcitem_recv_id WHERE recv_date < getdate()-30" );
 	
 	
-	pData->result = 1;		// 己傍
-	// 甘辑滚肺 绊措肺 促矫 焊郴绊 历厘窍档废 窍磊.
+	pData->result = 1;		// 성공
+	// 맵서버로 고대로 다시 보내고 저장하도록 하자.
 	QueuePacket( connections, cn, p, 1 );
 	
 	sprintf( condition, "INSERT INTO event_npcitem_recv_id (event_no, recv_date, login_id, [character] ) "
@@ -4479,7 +4479,7 @@ void RecvSaveEventMapMoveNow( t_packet *p, short int cn )
 	sprintf( query, "EXEC up_update_event_mapmove_now %d, %d, %d", pData->event_no, pData->max, pData->now );
 	Querry_SQL( query );
 }
-// 寇何俊辑 焊辰 皋老捞 乐绰瘤 犬牢
+// 외부에서 보낸 메일이 있는지 확인
 // 030221 YGI
 extern int GetRecvMailName( int *iRowCount, char recv_name[40][20] );
 void CheckOutSideMail()

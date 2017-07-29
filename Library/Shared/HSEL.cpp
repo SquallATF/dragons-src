@@ -35,15 +35,15 @@ bool CHSEL_STREAM::Decrypt(char *lpStream, const __int32 iStreamSize/* = 0*/)
 
 char CHSEL_STREAM::GetCRCConvertChar(void)const
 {
-	return 0;
+	return '\0';
 }
 short CHSEL_STREAM::GetCRCConvertShort(void)const
 {
-	return 0;
+	return (short)0;
 }
 __int32 CHSEL_STREAM::GetCRCConvertInt(void)const
 {
-	return 0;
+	return (__int32)0;
 }
 
 void CHSEL_STREAM::SetKeyCustom(HselKey IntoKey)

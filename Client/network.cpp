@@ -485,6 +485,12 @@ int ConnectLogin( t_connection *c, LPSTR ID, LPSTR PW ,int LineNum )
 	packet.h.header.type = CMD_ACCESS_LOGIN;
 	packet.h.header.size = sizeof(t_ClientAccessLogin);
 
+	//char szinfo[10] = { 0 };
+	//sprintf(szinfo, "sizeof(t_ClientAccessLogin): %d", sizeof(t_ClientAccessLogin));
+	g_DBGLog.Log(LOG_NORMAL, "<<<< sizeof  packet.u.ClientAccessLogin: %d >>>>", sizeof(t_ClientAccessLogin));
+	g_DBGLog.Log(LOG_NORMAL, "<<<< sizeof  packet.u.ClientAccessLogin: %d >>>>", sizeof(packet.u.ClientAccessLogin));
+	//MessageBox(NULL, szinfo, "test", MB_OK);;
+
 	packet.u.ClientAccessLogin.init= en.GetHSELCustomizeOption();
 	memcpy( packet.u.ClientAccessLogin.id, ID, ID_LENGTH );
 	memcpy( packet.u.ClientAccessLogin.pw, PW, PW_LENGTH );
@@ -495,7 +501,8 @@ int ConnectLogin( t_connection *c, LPSTR ID, LPSTR PW ,int LineNum )
 #else
 	packet.u.ClientAccessLogin.version = 6708;GM_TOOL_VERSION;
 #endif
-    packet.u.ClientAccessLogin.patch = 20050801;
+	//packet.u.ClientAccessLogin.patch = 20050801;
+	packet.u.ClientAccessLogin.patch = 0;
 	::SetMyCode( packet.u.ClientAccessLogin.mycode, packet.u.ClientAccessLogin.mystring );
 
 	::memset(packet.u.ClientAccessLogin.User_ID, 0 , sizeof(packet.u.ClientAccessLogin.User_ID));

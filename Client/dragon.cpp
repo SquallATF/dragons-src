@@ -1586,7 +1586,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}	//soto End.
 	case WM_CREATE:
 		{
-			SetCursor( NULL );
+			//SetCursor( NULL );
 			SetTimer( hWnd, 13, 1000, NULL);
 			break;
 		}					
@@ -1659,7 +1659,7 @@ ShowWindow(FindWindow("DRAGONRAJA_CLASS","DragonRaja Online"),SW_SHOWNORMAL); //
 
 						EraseScreen(&g_DirectDrawInfo, RGB(0,0,0));
 						
-						SetCursor(NULL);
+						//SetCursor(NULL);
 					}
 
 					break;

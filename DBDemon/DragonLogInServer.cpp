@@ -202,7 +202,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			/////////////////////////////
 			ResetCharInfo(var[cn], ch);
 
-//			PutEventItem( 2, &c[cn] );		// 捞亥飘侩 酒捞袍 持绢 林扁	// BBD 040308	Map辑滚啊 林扁肺 沁澜
+//			PutEventItem( 2, &c[cn] );		// 이벤트용 아이템 넣어 주기	// BBD 040308	Map서버가 주기로 했음
 
 			int refresh_inventory = CheckEventITem( ch );
 
@@ -292,7 +292,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			tp->viewtype		= ch->viewtype;		// 0212 YGI
 			tp->social_status	= ch->social_status;
 			tp->fame			= ch->fame;
-			tp->fame_pk			= ch->fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter肺 背眉 DB俊绰 角力肺 NWCharacter狼 蔼捞 甸绢癌聪促.		
+			tp->fame_pk			= ch->fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
 			tp->NWCharacter		= ch->NWCharacter;	// 010915 LTS
 			tp->EventJoin		= ch->EventJoin;	// 020115 LTS
 			tp->nUserAge		= GetUserAge(c[cn].id); // 030929 kyo
@@ -409,17 +409,17 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			::SendPartyInfoOfOtherCharToGameserver( packet->u.kein.server_req_party_together.party_name, packet->u.kein.server_req_party_together.my_name, packet->u.kein.server_req_party_together.server_id, c, cn );
 		}break;
 
-case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
+case CMD_CONNECT_INFO :							// 4개중의 하나의 캐릭터를 선택했다
 	{	
-		// 某腐磐檬扁拳捞饶角青 0405 KHS 
+		// 캐릭터초기화이후실행 0405 KHS 
 		// 0405 YGI	new char
 		int is_new_char = 0;
-		if( ::GetCharNew(is_new_char, packet->u.client_connect_info.name ) )			// 4岿 1老 货酚霸 父电 某腐磐 牢啊?
+		if( ::GetCharNew(is_new_char, packet->u.client_connect_info.name ) )			// 4월 1일 새롭게 만든 캐릭터 인가
 		{
 			if( is_new_char )
 			{
 				break;
-			}// 1: 抗傈 某腐磐	0: 货肺款 某腐磐
+			}// 1: 예전 캐릭터	0: 새로운 캐릭터
 		}
 		else 
 		{
@@ -471,7 +471,7 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 			c[cn].chrlst.viewtype	= VIEWTYPE_NORMAL_;
 		}		
 			
-		if( c[cn].chrlst.startposition != 99 ) // 盔贰狼 困摹俊 甸绢埃促. 
+		if( c[cn].chrlst.startposition != 99 ) // 원래의 위치에 들어간다. 
 		{	
 			strcpy( c[cn].mapname, StartMapPosition[ StartMap][ StartPosition ] );
 			strcpy( c[cn].chrlst.MapName, StartMapPosition[ StartMap][ StartPosition ] );
@@ -521,10 +521,10 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 											(UCHAR *)c[cn].chrlst.employment, 
 											(UCHAR *)c[cn].chrlst.Item, 
 											c[cn].id, c[cn].name ) ;
-//			PutEventItem( 1, &c[cn] );		// 捞亥飘侩 酒捞袍 持绢 林扁	// BBD 040308	Map辑滚啊 林扁肺 沁澜
+//			PutEventItem( 1, &c[cn] );		// 이벤트용 아이템 넣어 주기	// BBD 040308	Map서버가 주기로 했음
 			SendItemQuick( c, cn ); 
 
-			// 付过阑 硅快瘤 臼绊 葛电 付过阑 荤侩窍妨搁 捞镑俊辑  Ws/Ps甫 Setting秦林搁 等促. 
+			// 마법을 배우지 않고 모든 마법을 사용하려면 이곳에서  Ws/Ps를 Setting해주면 된다. 
 			for( int i = 0 ; i < 1000 ; i ++)
 			{
 				if( c[cn].chrlst.Item[i] == 0) break;
@@ -634,7 +634,7 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 			{
 			case -100 : ::MyLog( 0, "Fail:Character Generation ( Already character %s, ID:%s :%d)", packet->u.client_create_char.name, c[cn].id, ret );
 						RecvHackingUser( c[cn].id, packet->u.client_create_char.name, 20009, " ", "Not his Char" );
-						is_delete = 0;		// 瘤快瘤 臼绰促.
+						is_delete = 0;		// 지우지 않는다.
 				break;
 			case -30 : ::MyLog( 0, "Fail : Try to make Character but NO ID in chr_log_info ( %s, ID:%s )", packet->u.client_create_char.name, c[cn].id );
 				break;
@@ -686,13 +686,13 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 	}		
 	case CMD_ISTHERE_CHARNAME : 
 		{
-										strcpy(s1,packet->u.client_isthere_charname.name  );	//公会名称
+										strcpy(s1,packet->u.client_isthere_charname.name  );
 										//gets(pMailSend->szSender);
 										len1 = (int)strlen(s1);
 
 										str="发现SQL漏洞攻击!非法内容:[%s],  注册人物名称:[%s]";
 
-										for(i = 0; i < len1; i++)		//公会名称
+										for(i = 0; i < len1; i++)		
 										{
 										if(s1[i]==39 || s1[i]=='-')
 										{
@@ -789,7 +789,7 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 			
 			t_packet tp;
 			gs_req_insert_userid* pGRIU = &packet->u.gs_req_insert_userid;
-			if( ::UpdateLogintablebyChangeMap( pGRIU->id, pGRIU->mapname ))	// LoginTable俊 绝澜.. 溜, 甸绢哎荐 乐澜..
+			if( ::UpdateLogintablebyChangeMap( pGRIU->id, pGRIU->mapname ))	// LoginTable에 없음.. 즉, 들어갈수 있음..
 			{	
 				tp.h.header.type = CMD_JOINABLE;
 				tp.u.ls_joinable.server_id = packet->u.gs_req_insert_userid.server_id;
@@ -804,9 +804,9 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 			::QueuePacket( c, cn, &tp, 1 );
 		}break;		
 			
-	///////////// network2.h阑 困秦..  0224 YGI ///////////////
+	///////////// network2.h을 위해..  0224 YGI ///////////////
 	case CMD_CREATE_ABILITY :	SendCreateAbility( cn ); break;//到筛子那里
-	case CMD_THROW_DICE		:	SendThrowDice( packet->u.kein.client_throw_dice.type, cn ); break;//筛子
+	case CMD_THROW_DICE		:	SendThrowDice( packet->u.kein.client_throw_dice.type, cn ); break;//
 			
 	case CMD_HOW_MANY_IN_MAP :	UpdateTotalMapConnections( packet->u.how_many_in_map.map, packet->u.how_many_in_map.how );
 		break;
@@ -868,7 +868,7 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 		{
 			if (LottoDBMgr())
 			{
-				LottoDBMgr()->RecvDelUser(&packet->u.Check_Winner, cn);	// BBD 040127 牢磊眠啊
+				LottoDBMgr()->RecvDelUser(&packet->u.Check_Winner, cn);	// BBD 040127 인자추가
 			}
 
 			break;
@@ -925,7 +925,7 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 						}
 		break;
 //>soto-HK
-//<soto-Lotto眠啊
+//<soto-Lotto추가
 	case CMD_LOTTO_SEEK:
 		{
 			if(LottoDBMgr())
@@ -934,7 +934,7 @@ case CMD_CONNECT_INFO :							// 4俺吝狼 窍唱狼 某腐磐甫 急琶沁促
 			}
 		}
 		break;
-//>soto-Lotto眠啊.
+//>soto-Lotto추가.
 	default : 
 		{		// 0308 YGI
 			int msg = CheckHandleByKein( packet, c, cn );
@@ -1037,8 +1037,8 @@ void SendCMD_USED_ID(const int cn, const int iCallType)
 	DWORD dwID = 0;	
 	DWORD dwServerSetNum = 0;
 	if( CheckUsedID_SQL(pCN->id, &wPort, &dwID, &dwServerSetNum ) == 1 )
-	{	//	Modified by chan78 at 2000/02/19 :: 辑滚技飘啊 老摹窍绰 版快俊父 俊捞傈飘肺 立加辆丰甫 夸备茄促.
-		//	辑滚技飘啊 老摹窍瘤 臼绰 版快俊绰 弊 荤侩磊啊 促弗 辑滚技飘俊辑 唱哎锭鳖瘤 立加捞 阂啊瓷秦柳促.
+	{	//	Modified by chan78 at 2000/02/19 :: 서버세트가 일치하는 경우에만 에이전트로 접속종료를 요구한다.
+		//	서버세트가 일치하지 않는 경우에는 그 사용자가 다른 서버세트에서 나갈때까지 접속이 불가능해진다.
 		if( dwServerSetNum == g_pServerTable->GetServerSetNum() )
 		{
 			if( !SendRemoveUserToAgent( pCN->id, wPort, dwID )  )
@@ -1057,6 +1057,9 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 	if(cn >= LOGIN_MAX_CONNECTIONS){return 0;}//目池记
 
 	t_connection *pCN = &connections[cn];
+
+	MyLog(LOG_FATAL, "<<<< sizeof  CLIENTACCESSLOGIN: %d >>>>", sizeof(CLIENTACCESSLOGIN));
+	MyLog(LOG_FATAL, "<<<< sizeof  packet.u.ClientAccessLogin: %d >>>>", sizeof(packet.u.ClientAccessLogin));
 
 	const int code		= packet.u.ClientAccessLogin.mycode;
 	char *szMyString	= packet.u.ClientAccessLogin.mystring;
@@ -1140,7 +1143,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 	// 030929 kyo >>
 	
 	OUTPUT Output		=	onepass.OnePassID(cn,in,bIsGMTool);
-	int ret				=	Output.nRet;//肺弊牢 且 荐 乐促 绝促狼 魄喊
+	int ret				=	Output.nRet;//로그인 할 수 있다 없다의 판별
 	const int iBillType	=	Output.nType;
 	
 	if(LocalMgr.IsFreeBeta())//021007 lsw
@@ -1171,7 +1174,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 			::QueuePacket(connections, cn, &packet, 1);
 			::closeconnection( connections, cn, CCT_WRONG_PASSWORD ); 
 		}break;
-	case COnePass::BT_NEED_PAY: // -3 : 捣郴!...		//2001/01/28 ZHH
+	case COnePass::BT_NEED_PAY: // -3 : 돈내!...		//2001/01/28 ZHH
 		{
 			::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Called by CheckIDAutherizing()", pCN->id, pCN->pw);
 
@@ -1182,14 +1185,14 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 			::closeconnection( connections, cn, CCT_PAYMENT_NEED );
 		}break;
 	case COnePass::BT_WAIT_BILLING_MSG:
-		{	//呼傅 皋技瘤甫 扁促赋聪促. 酒公 贸府档 窍瘤 臼嚼聪促.
+		{	//빌링 메세지를 기다립니다. 아무 처리도 하지 않습니다.
 			break;
 		}
 	case COnePass::BT_FREE:
 		default:
 		{
 			const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
-			if( !ret_checkusedid )//荤侩吝牢 蜡历
+			if( !ret_checkusedid )//사용중인 유저
 			{			
 				::SendCMD_USED_ID(cn,0);
 				return 0;
@@ -1201,7 +1204,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 			}
 		}break;
 
-/*   //coromo 注释掉原先登陆判断ID IS LOGIN  2007/04/29
+/*   //coromo  IS LOGIN  2007/04/29
 	default:
 		{
 			WORD wPort = 0;	
@@ -1220,7 +1223,7 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 				}
 			}
 			const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
-			if( !ret_checkusedid )//荤侩吝牢 蜡历
+			if( !ret_checkusedid )//사용중인 유저
 			{			
 				//::SendCMD_USED_ID(cn,0);
 				::MyLog( 0, "ID('%s'):IP('%s') is Using Now!!", pCN->id, pCN->ip_address);
@@ -1271,7 +1274,7 @@ int	SendYesorNo( char *ID,			//[11]; //user'ID
 
 	t_connection *pCN = &connections[cn];
 
-	if(success==1)		//肺弊牢 己傍.( 穿焙啊 静瘤 臼绰促搁)
+	if(success==1)		//로그인 성공.( 누군가 쓰지 않는다면)
 	{
 		const int port = pCN->myconnectedagentport;
 		const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", pCN->id, pCN->ip_address , "  " , (int)type, port, pCN->dwUserID );
@@ -1287,20 +1290,20 @@ int	SendYesorNo( char *ID,			//[11]; //user'ID
 			return 1;	
 		}
 	}
-	else//肺弊牢 角菩. 酒捞叼客 菩胶况靛绰 嘎栏骨肺 巢篮巴篮 捣郴绰 巴 挥.
+	else//로그인 실패. 아이디와 패스워드는 맞으므로 남은것은 돈내는 것 뿐.
 	{			
 		::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Cause = '%d' Called by SendYesorNo()", pCN->id, pCN->pw, success);
 		
 		packet.h.header.type = CMD_LOGIN_FAIL_MASSAGE;
 		packet.h.header.size = sizeof( client_login_fail_reason );
-		packet.u.client_login_fail_reason.cPaytype = memicmp("P",type,2) == 0 ? 0 : 1;	//Point搁 0 沥咀捞搁 1
+		packet.u.client_login_fail_reason.cPaytype = memicmp("P",type,2) == 0 ? 0 : 1;	//Point면 0 정액이면 1
 		packet.u.client_login_fail_reason.cReserverdData = 0;
 		packet.u.client_login_fail_reason.dwType = success;
 		packet.u.client_login_fail_reason.dwPoint = point;
 		
 		::sprintf( packet.u.client_login_fail_reason.szExpireDate, expiredata);
 		::QueuePacket(connections, cn, &packet, 1);
-		::closeconnection( connections, cn, CCT_PAYMENT_NEED ); // 捣 救陈澜 
+		::closeconnection( connections, cn, CCT_PAYMENT_NEED ); // 돈 안냈음 
 		return 0;
 	}
 }

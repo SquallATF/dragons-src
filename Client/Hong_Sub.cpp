@@ -961,12 +961,12 @@ void SetClock9x(int freq)
 	Pointer[0]=NewIntAddress.bytes[0];
 	Pointer[1]=NewIntAddress.bytes[1];
 	Pointer[6]=NewIntAddress.bytes[2];
-	Pointer[7]=NewIntAddress.bytes[3]; // 阮촛쨉켯菌衢?
+	Pointer[7]=NewIntAddress.bytes[3]; //
 	
 	__asm
 	{
 		mov ebx,freq
-		int FREE_INT_NO			//끓 峴菌句Ы廢?ing0
+		int FREE_INT_NO			//끓 ing0
 	}
 
 	Pointer[0]=OldIntAddress.bytes[0];

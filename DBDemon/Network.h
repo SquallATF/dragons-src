@@ -857,6 +857,8 @@ typedef struct server_change_map
 #define Netsgo		4
 
 const int MAX_MY_STRING = 20;
+#pragma pack (push,1)
+
 typedef struct CLIENTACCESSLOGIN
 {
 	HSEL_INITIAL	init;
@@ -907,6 +909,7 @@ typedef struct server_accept_login
 	char			name[ MAX_CHARACTEROFID][NM_LENGTH];
 
 } t_server_accept_login;
+//#pragma pack (pop)
 
 //--------------------------------------------------------
 typedef struct client_connect_info
@@ -2524,8 +2527,8 @@ typedef struct hacking_user
 }t_hacking_user;
 
 
-#pragma pack (push,1)
 
+//#pragma pack (push,1)
 	
 #include "network2.h"
 #include "Network3.h"
