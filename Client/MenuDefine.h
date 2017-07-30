@@ -566,6 +566,9 @@ enum SpecailWillDoIndex//FT_xxx_SPECIAL_WILLDO 류에서 클릭시 쓰임
 	SWD_LEARN							,		// skill 배우기
 	SWD_CHARACTER_SELECT				,		// 캐릭터 선택하기
 	SWD_CHARACTER_DEL_ADD				,
+	SWD_CHARACTER_SCROLL_LEFT			,		//	for character scroll up
+	SWD_CHARACTER_SCROLL_RIGHT			,		//	for character scroll down
+
 	SWD_STATUS_TACTICS					,		// 스테이터스에서 택틱스로
 	SWD_TACTICS_STATUS					,		// 택틱스에서 스테이터스로
 	SWD_PARTY_BUTTON					,
@@ -809,6 +812,7 @@ enum SpecailWillDoIndex//FT_xxx_SPECIAL_WILLDO 류에서 클릭시 쓰임
 	SWD_SEND_MERCHANT_BACKUP_ITEM_TAKE,			// BBD 040303
 	SWD_SEND_MERCHANT_BACKUP_LIST_SCROLL_UP,	// BBD 040303
 	SWD_SEND_MERCHANT_BACKUP_LIST_SCROLL_DOWN,	// BBD 040303
+
 };
 
 //메뉴 구성요소 타입번호 설정
