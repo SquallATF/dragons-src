@@ -1,0 +1,107 @@
+StartMenuProc
+
+gameproc.cpp: 1335L
+
+HN_MAKECHARACTER_GENDER_RECT
+
+HN_MAKECHARACTER_GENDER_TEXT
+
+HN_MAKECHARACTER_ARIGEMENT_TEXT
+
+
+
+MN_MAKECHARACTER_BASIC
+
+
+
+
+/// 这个是头绪
+MN_SELECT_CHARACTER
+
+FT_HIDE_SPECIAL_WILLDO_AUTO_PUT
+
+// 这俩个里找止定没问题
+LoadCh, character_active
+
+
+CheckAgentServer
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{
+/// modify 
+network.h : 114L
+#define MAX_CHARACTEROFID				8
+-----------------------------------------------------------------------------------------
+./data/menu_image.txt :
+15L,  10013	20	./data/NewSelectCharacter.dat
+-----------------------------------------------------------------------------------------
+MenuDefine.h :
+138L, #define SN_SELECT_CHARACTER				MAX_CHARACTEROFID
+1094L, FT_SELECT_CHARACTER_SCROLL			, // ADD by taniey
+-----------------------------------------------------------------------------------------
+Menu.h :
+651L, extern SCharacter		LoadCh[SN_SELECT_CHARACTER];					// 辑滚俊辑 某矾 沥焊甫 傈价罐绰促extern SCharacter LoadCh[4];								
+656L, delete this line   (extern SCharacter		LoadCh[4];)
+-----------------------------------------------------------------------------------------
+MenuStart.cpp : 
+126L, SCharacter LoadCh[SN_SELECT_CHARACTER];								// 서버에서 캐러 정보를 전송받는다
+2177L, case SWD_CHARACTER_SELECT : (标记出来，尚未修改)
+4448L, case SWD_CHARACTER_SELECT : (标记出来，尚未修改)
+-----------------------------------------------------------------------------------------
+kh_menuset.cpp :
+3067L, ::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);
+3081L, 
+
+-----------------------------------------------------------------------------------------
+
+
+}}}}}
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+Menu.cpp:8066L   magic_plus_count
+
+FT_QUICK_MAGIC_ARRAY_SCROLL
+
+MN_QUICK_MAGIC_PLUS
+
+FT_QUICK_MAGIC_ARRAY_SCROLL
+
+magic_plus_start
+FT_QUICK_MAGIC_PLUS
+
+g_MagicMenuOn, MainOn
+
+fLMoveMenu || fRMoveMenu
+
+376-22*(SM_MAGIC_COUNT-1)
+
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{
+modify:
+MenuDefine.h :134L --- 136L
+// magic modify by taniey
+#define  SM_MAGIC_COUNT					10
+
+
+
+kh_menuset.cpp :3971L, 5133L --- 5202L
+	case FT_QUICK_MAGIC_PLUS : 
+	{...}
+
+Menu.cpp :5936L
+		case FT_QUICK_MAGIC_ARRAY_SCROLL :
+	  8065L
+		case FT_QUICK_MAGIC_ARRAY_SCROLL :	{
+
+SmallMenu.cpp : 8391L
+	magic_plus_start = magic_plus_count-5;
+		8397L
+	if( magic_plus_start > magic_plus_count-5 )	magic_plus_start = magic_plus_count-5;
+	
+}}}}}
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
