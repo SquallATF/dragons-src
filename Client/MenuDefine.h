@@ -566,9 +566,6 @@ enum SpecailWillDoIndex//FT_xxx_SPECIAL_WILLDO 류에서 클릭시 쓰임
 	SWD_LEARN							,		// skill 배우기
 	SWD_CHARACTER_SELECT				,		// 캐릭터 선택하기
 	SWD_CHARACTER_DEL_ADD				,
-	SWD_CHARACTER_SCROLL_LEFT			,		//	for character scroll up
-	SWD_CHARACTER_SCROLL_RIGHT			,		//	for character scroll down
-
 	SWD_STATUS_TACTICS					,		// 스테이터스에서 택틱스로
 	SWD_TACTICS_STATUS					,		// 택틱스에서 스테이터스로
 	SWD_PARTY_BUTTON					,
@@ -812,6 +809,10 @@ enum SpecailWillDoIndex//FT_xxx_SPECIAL_WILLDO 류에서 클릭시 쓰임
 	SWD_SEND_MERCHANT_BACKUP_ITEM_TAKE,			// BBD 040303
 	SWD_SEND_MERCHANT_BACKUP_LIST_SCROLL_UP,	// BBD 040303
 	SWD_SEND_MERCHANT_BACKUP_LIST_SCROLL_DOWN,	// BBD 040303
+
+	SWD_CHARACTER_SCROLL_LEFT,		//	character scroll to left , add by taniey
+	SWD_CHARACTER_SCROLL_RIGHT,		//	character scroll to right, add by taniey
+
 
 };
 
@@ -1095,7 +1096,7 @@ enum FieldTypeIndex
 	FT_MAININTERFACE_MAIL_CALL			,//메인 인터페이의 메일 메뉴 콜
 	FT_MERCHANT_BACKUP_GET_LIST			,// BBD 040303	
 
-	FT_SELECT_CHARACTER_SCROLL			, // ADD by taniey
+	FT_CHARACTER_SCROLL					, // add by taniey
 }; 
 
 /////////////////////////////////////////////////////////////////////////////////

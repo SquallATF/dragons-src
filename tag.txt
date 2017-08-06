@@ -13,6 +13,7 @@ HN_MAKECHARACTER_ARIGEMENT_TEXT
 MN_MAKECHARACTER_BASIC
 
 
+CEditWndMgr EWndMgr;
 
 
 /// 这个是头绪
@@ -36,20 +37,35 @@ network.h : 114L
 -----------------------------------------------------------------------------------------
 MenuDefine.h :
 138L, #define SN_SELECT_CHARACTER				MAX_CHARACTEROFID
-1094L, FT_SELECT_CHARACTER_SCROLL			, // ADD by taniey
+1099L, FT_CHARACTER_SCROLL			, // add by taniey
+813L, 	SWD_CHARACTER_SCROLL_LEFT,		//	for character scroll up , add by taniey
+814L, 	SWD_CHARACTER_SCROLL_RIGHT,		//	for character scroll down, add by taniey
+
 -----------------------------------------------------------------------------------------
 Menu.h :
-651L, extern SCharacter		LoadCh[SN_SELECT_CHARACTER];					// 辑滚俊辑 某矾 沥焊甫 傈价罐绰促extern SCharacter LoadCh[4];								
-656L, delete this line   (extern SCharacter		LoadCh[4];)
+651L, extern SCharacter		LoadCh[SN_SELECT_CHARACTER];   --->  extern SCharacter		LoadCh[SN_SELECT_CHARACTER];
+656L, extern SCharacter		LoadCh[4];  (删除此行)
+-----------------------------------------------------------------------------------------
+Menu.cpp :
+7191L, case FT_CHARACTER_SCROLL:    (标记，尚未修改, 此处可能不需要修改！！！！)  //  add by taniey
 -----------------------------------------------------------------------------------------
 MenuStart.cpp : 
 126L, SCharacter LoadCh[SN_SELECT_CHARACTER];								// 서버에서 캐러 정보를 전송받는다
-2177L, case SWD_CHARACTER_SELECT : (标记出来，尚未修改)
-4448L, case SWD_CHARACTER_SELECT : (标记出来，尚未修改)
+2076L, for (k = 0; k<SN_SELECT_CHARACTER; k++)
+2188L, character_active = SubMenu->nField[j].nWillDo;   --->  character_active = SubMenu->key * 4 + SubMenu->nField[j].nWillDo;
+4498L, character_active = SMenu[i].nField[j].nWillDo;   --->   character_active = SMenu[i].key * 4 + SMenu[i].nField[j].nWillDo;
+3913L, case FT_CHARACTER_SCROLL: {...}	(标记，尚未修改完成) add by taniey  ,  鼠标越过及点击翻页的处理（ 人物角色）
+
 -----------------------------------------------------------------------------------------
 kh_menuset.cpp :
 3067L, ::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);
-3081L, 
+3082L, 	// add by taniey
+	::SMenuFTReg(MN_SELECT_CHARACTER, 12, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_LEFT,
+		333, 480, 30, 16, SELECT_CHARACTER_IMG, 16, 16, 0);		// left scroll
+	::SMenuFTReg(MN_SELECT_CHARACTER, 13, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_RIGHT,
+		423, 480, 30, 16, SELECT_CHARACTER_IMG, 18, 18, 1);		// right scroll
+
+
 
 -----------------------------------------------------------------------------------------
 

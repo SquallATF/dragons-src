@@ -596,7 +596,7 @@ void MoveTextPut(int x, int y, char *sSource, int type)		 // 다 떠오르고 �
 	y = y_plus;
 	delay++;
 	static int limits = 4;
-	if (delay >  limits)
+	if (delay > limits)
 	{
 		y--;
 		delay = 0;
@@ -805,14 +805,14 @@ void SetCharacterData()
 {
 	int i, j;
 
-	for (i = 0; i<MAX_SHN; i++)
+	for (i = 0; i < MAX_SHN; i++)
 	{
-		for (j = 0; j<MAX_SHN_FIELD; j++)
+		for (j = 0; j < MAX_SHN_FIELD; j++)
 		{
 			SHideNomal[i][j].bShow = FALSE;
 		}
 	}
-	for (i = 0; i<MAX_CHARACTERDATA; i++)
+	for (i = 0; i < MAX_CHARACTERDATA; i++)
 	{
 		if (SCharSource.nCharacterData[i] != -1) SHideNomal[i][SCharSource.nCharacterData[i]].bShow = TRUE;
 	}
@@ -828,7 +828,7 @@ void StartMenuSetting()
 	g_StartMenuOn = true;
 	character_active = 0;
 
-	for (i = 0; i<MAX_START; i++)  //일단 모든 메뉴 구조체들을 비활성으로 설정
+	for (i = 0; i < MAX_START; i++)  //일단 모든 메뉴 구조체들을 비활성으로 설정
 	{
 		SMenu[menu[i]].bActive = FALSE;
 		SMenu[menu[i]].Id = menu[i];
@@ -861,7 +861,7 @@ inline BOOL MouseInRectCheak(int x, int y, RECT Box, BOOL flag)
 	if (pointMouse.x > Box.left + x
 		&& pointMouse.x < Box.right + x
 		&& pointMouse.y >Box.top + y
-		&& pointMouse.y <Box.bottom + y)
+		&& pointMouse.y < Box.bottom + y)
 	{
 		return TRUE;
 	}
@@ -913,7 +913,7 @@ int k_PutImage(int x, int y, int nImageNumber, BOOL bEnd)
 	if (SMenu[MN_MAINSTART_BACK].nTemp)	rx = 1;
 	SMenu[MN_MAINSTART_BACK].nTemp = FALSE;
 	if (bEnd) rx = 39;
-	if (2 * rx>x && 2 * rx + 1 < spr[nImageNumber].xl)
+	if (2 * rx > x && 2 * rx + 1 < spr[nImageNumber].xl)
 	{
 		PutCmprsImgCliping(x, y, spr[nImageNumber].img, g_DestBackBuf, 0, 16 * rx + 1, 0, (int)(12 * (float)rx) + 1);
 	}
@@ -933,7 +933,7 @@ extern int g_MyCode;//021001 lsw
 void StartMenuDisplay()//020828 lsw
 {
 	int i, x;
-	for (x = 0; x<MAX_START; x++)
+	for (x = 0; x < MAX_START; x++)
 	{
 		i = menu[x];
 		if (SMenu[i].bActive)   //i번째 메뉴가 활성화 되있냐?
@@ -1014,7 +1014,7 @@ void StartMenuDisplay()//020828 lsw
 			EraseScreen(curr_direct_draw_info, RGB(0x00, 0x00, 0x00));
 			if ((g_SetGuildMarkViewOn - 1) * 40 > g_GuildMax) g_SetGuildMarkViewOn = 1;
 
-			for (int i = (g_SetGuildMarkViewOn - 1) * 40; i <= g_GuildMax && i<(g_SetGuildMarkViewOn) * 40; i++)
+			for (int i = (g_SetGuildMarkViewOn - 1) * 40; i <= g_GuildMax && i < (g_SetGuildMarkViewOn) * 40; i++)
 			{
 				int x = 200 + (i % 40) / 7 * 80;
 				int y = 80 + (i % 40) % 7 * 50;
@@ -1083,14 +1083,14 @@ void StartMenuChecking()
 	int i, j, k, x;
 	static bool b_DoubleClickOn = false;
 
-	for (x = 0; x<MAX_START; x++)
+	for (x = 0; x < MAX_START; x++)
 	{
 		i = menu[x];
 		if (SMenu[i].bActive)   //i번째 메뉴가 활성화 되있냐?
 		{
 			if (y_MenuFocus && y_MenuFocus != i) continue;
 
-			for (j = 0; j<SMenu[i].nFieldCount; j++)	// rect 형
+			for (j = 0; j < SMenu[i].nFieldCount; j++)	// rect 형
 			{
 				//				if( i == MN_SELECT_CHARACTER ) 
 				//				{
@@ -1106,7 +1106,7 @@ void StartMenuChecking()
 
 					if (SMenu[i].nField[j].nType == FT_HIDE_NOMAL_ONE_PUT)
 					{
-						for (k = SMenu[i].nField[j].nSHideNomalStart; k<(SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k<SMenu[i].nField[j].nSHideNomalCount; k++)
+						for (k = SMenu[i].nField[j].nSHideNomalStart; k < (SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k < SMenu[i].nField[j].nSHideNomalCount; k++)
 						{
 							if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].rCheakBox))
 								SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].bRect = true;
@@ -1165,7 +1165,7 @@ void StartMenuChecking()
 		}
 		else
 		{
-			for (j = 0; j<SMenu[i].nFieldCount; j++)
+			for (j = 0; j < SMenu[i].nFieldCount; j++)
 			{
 				SMenu[i].nField[j].fRectMouse = false;
 			}
@@ -1174,13 +1174,13 @@ void StartMenuChecking()
 
 	if (g_nLDButtonState == STATE_BUTTON_DOUBLECLICK)
 	{
-		for (x = 0; x<MAX_START; x++)
+		for (x = 0; x < MAX_START; x++)
 		{
 			i = menu[x];
 			if (SMenu[i].bActive)
 			{
 				if (y_MenuFocus && y_MenuFocus != i) continue;
-				for (j = 0; j<SMenu[i].nFieldCount; j++)
+				for (j = 0; j < SMenu[i].nFieldCount; j++)
 				{
 					if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SMenu[i].nField[j].rCheakBox))
 					{
@@ -1190,7 +1190,7 @@ void StartMenuChecking()
 					}
 					if (SMenu[i].nField[j].nType == FT_HIDE_NOMAL_ONE_PUT)
 					{
-						for (k = SMenu[i].nField[j].nSHideNomalStart; k<(SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k<SMenu[i].nField[j].nSHideNomalCount; k++)
+						for (k = SMenu[i].nField[j].nSHideNomalStart; k < (SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k < SMenu[i].nField[j].nSHideNomalCount; k++)
 						{
 							if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].rCheakBox))
 							{
@@ -1214,7 +1214,7 @@ void StartMenuChecking()
 	if (g_nLButtonState == STATE_BUTTON_STILL && LButtonDown == TRUE)   // 일단 마우스가 어디선가 방금 눌렸다. 그게 범위 안에서 눌렸는지, 아닌지 판단 부분
 	{
 		MouseDrag = true;
-		for (x = 0; x<MAX_START; x++)
+		for (x = 0; x < MAX_START; x++)
 		{
 			i = menu[x];
 			if (SMenu[i].bActive)
@@ -1223,7 +1223,7 @@ void StartMenuChecking()
 				switch (SMenu[i].CheakType)
 				{
 				case 0:    //RECT형 체크 타입
-					for (j = 0; j<SMenu[i].nFieldCount; j++)  //메뉴의 구성요소들을 검사
+					for (j = 0; j < SMenu[i].nFieldCount; j++)  //메뉴의 구성요소들을 검사
 					{
 						if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SMenu[i].nField[j].rCheakBox) &&
 							MouseInRectCheak(SMenu[i].x, SMenu[i].y, SMenu[i].nField[j].rCheakBox, FALSE))  //마우스가 메뉴구성 요소의 rect안에서 L버튼이 눌렸냐
@@ -1246,7 +1246,7 @@ void StartMenuChecking()
 					int StateArrayX = (StateMousePoint.x - (SMenu[i].x + 31)) / 10;
 					int StateArrayY = (StateMousePoint.y - (SMenu[i].y + 31)) / 10;
 
-					for (j = 0; j<SMenu[i].nFieldCount; j++)
+					for (j = 0; j < SMenu[i].nFieldCount; j++)
 					{
 						if (SMenu[i].nField[j].fLButtonDown)  //이 메뉴요소가 눌렸었냐?
 						{
@@ -1287,7 +1287,7 @@ void StartMenuChecking()
 			return;
 		}
 		LButtonDown = FALSE;
-		for (x = 0; x<MAX_START; x++)
+		for (x = 0; x < MAX_START; x++)
 		{
 			bool f_ClickOn = false;		// 클릭하면 더이상 메뉴 참조는 없다.
 			i = menu[x];
@@ -1297,11 +1297,11 @@ void StartMenuChecking()
 				switch (SMenu[i].CheakType) //활성화된 메뉴의 체크 타입이 뭐냐?
 				{
 				case 0:    //RECT형 체크 타입
-					for (j = 0; j<SMenu[i].nFieldCount; j++)  //메뉴의 구성요소들을 검사
+					for (j = 0; j < SMenu[i].nFieldCount; j++)  //메뉴의 구성요소들을 검사
 					{
 						if (SMenu[i].nField[j].nType == FT_HIDE_NOMAL_ONE_PUT)
 						{
-							for (k = SMenu[i].nField[j].nSHideNomalStart; k<(SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k<SMenu[i].nField[j].nSHideNomalCount; k++)
+							for (k = SMenu[i].nField[j].nSHideNomalStart; k < (SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k < SMenu[i].nField[j].nSHideNomalCount; k++)
 							{
 								if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].rCheakBox))
 								{
@@ -1336,7 +1336,7 @@ void StartMenuChecking()
 				case 1:
 				case 2:	int ArrayX = (g_pointMouseX - (SMenu[i].x + 31)) / 10;
 					int ArrayY = (g_pointMouseY - (SMenu[i].y + 31)) / 10;
-					for (j = 0; j<SMenu[i].nFieldCount; j++)
+					for (j = 0; j < SMenu[i].nFieldCount; j++)
 					{
 						if (!MouseDrag || SMenu[i].nField[j].fLButtonDown)
 						{
@@ -1391,7 +1391,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 	SetCharacterData();
 	start_KeyProc();
 
-	for (j = 0; j<SubMenu->nFieldCount; j++)   //메뉴에 구성요소들을 수행해라
+	for (j = 0; j < SubMenu->nFieldCount; j++)   //메뉴에 구성요소들을 수행해라
 	{
 		Hcolor(FONT_COLOR_NUMBER);
 		SetHangulAlign(TA_LEFT);
@@ -1567,50 +1567,60 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			{
 				switch (SubMenu->nField[j].nWillDo)
 				{
-				case MN_MAKECHARACTER_CLASS:	SCharSource.nCharacterData[ARIGEMENT] = 4;
+				case MN_MAKECHARACTER_CLASS:
+				{
+					SCharSource.nCharacterData[ARIGEMENT] = 4;
 					SCharSource.age = 18;
-					break;
+				}break;
 
-				case MN_MAKECHARACTER_NAME:	if (SCharSource.nCharacterData[GENDER] == -1)
+				case MN_MAKECHARACTER_NAME:
 				{
-					flag = TRUE;
-					sound = 1;
-				}
-											break;
-				case MN_MAKECHARACTER_AGE:	if (SCharSource.nCharacterData[ARIGEMENT] == -1)
-				{
-					flag = TRUE;
-					sound = 1;
-				}
-											break;
-				case MN_MAKECHARACTER_FACE:	if (*SCharSource.sCharacterName)
-				{
-					if (SearchStrStr(SCharSource.sCharacterName, " "))
+					if (SCharSource.nCharacterData[GENDER] == -1)
 					{
-						CallOkCancelMessageBox(MN_MAKECHARACTER_NAME, 0, 0, lan->OutputMessage(5, 61), 0);//lsw
-						SetFocus2(HWND_3);//021001 lsw
-						flag = true;
-						sound = 1;
-						break;
-					}
-
-					if (CheckCharName(SCharSource.sCharacterName))
-					{
-						CallOkCancelMessageBox(MN_MAKECHARACTER_NAME, 0, 0, lan->OutputMessage(5, 62), 0);//lsw
-						SetFocus2(HWND_3);//021001 lsw
 						flag = TRUE;
 						sound = 1;
 					}
-				}
-											else flag = true;
-											break;
-				case MN_MAKECHARACTER_COLOR:	if (SCharSource.nCharacterData[CLASS] == -1 || SCharSource.nCharacterData[SPELL] == -1)
+				}break;
+				case MN_MAKECHARACTER_AGE:
 				{
-					sound = 1;
-					flag = TRUE;
-				}
-												SetTacticsBySpell(&SCharSource);
-												break;
+					if (SCharSource.nCharacterData[ARIGEMENT] == -1)
+					{
+						flag = TRUE;
+						sound = 1;
+					}
+				}break;
+				case MN_MAKECHARACTER_FACE:
+				{
+					if (*SCharSource.sCharacterName)
+					{
+						if (SearchStrStr(SCharSource.sCharacterName, " "))
+						{
+							CallOkCancelMessageBox(MN_MAKECHARACTER_NAME, 0, 0, lan->OutputMessage(5, 61), 0);//lsw
+							SetFocus2(HWND_3);//021001 lsw
+							flag = true;
+							sound = 1;
+							break;
+						}
+
+						if (CheckCharName(SCharSource.sCharacterName))
+						{
+							CallOkCancelMessageBox(MN_MAKECHARACTER_NAME, 0, 0, lan->OutputMessage(5, 62), 0);//lsw
+							SetFocus2(HWND_3);//021001 lsw
+							flag = TRUE;
+							sound = 1;
+						}
+					}
+					else flag = true;
+				}break;
+				case MN_MAKECHARACTER_COLOR:
+				{
+					if (SCharSource.nCharacterData[CLASS] == -1 || SCharSource.nCharacterData[SPELL] == -1)
+					{
+						sound = 1;
+						flag = TRUE;
+					}
+					SetTacticsBySpell(&SCharSource);
+				} break;
 				case MN_MAKECHARACTER_JOB:
 				{
 					if (SCharSource.nCharacterData[CLASS] == -1 || SCharSource.nCharacterData[SPELL] == -1) //020725 lsw
@@ -1638,9 +1648,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						sound = 1;
 					}
 					else if (SCharSource.nCharacterData[GENDER] == 0 && SCharSource.nCharacterData[TACTICS_WOMAN] == -1) flag = TRUE;
-					break;
-				}
-				case MN_MAKECHARACTER_ARIGEMENT: // SCharSource.nCharacterData[FACE]=SCharSource.nCharacterData[GENDER]*1000 + 0;
+				}break;
+				case MN_MAKECHARACTER_ARIGEMENT:
+					// SCharSource.nCharacterData[FACE]=SCharSource.nCharacterData[GENDER]*1000 + 0;
 					break; //얼굴 이미지 넣어주기
 				}
 			}
@@ -1652,11 +1662,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			else if (sound) MP3(SN_WARNING);
 
-
-
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//													if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				// if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
 			}
 		}
@@ -1672,7 +1680,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 		case FT_WILLDO_PUT:
 		{
-
 			if (SubMenu->nField[j].fCheakFlag)
 			{
 				SubMenu->bActive = FALSE;  //자신은 사라짐
@@ -1870,48 +1877,51 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SubMenu->bActive = false;
 					y_MenuFocus = 0;
 				}break;
-				case SWD_LOGON_OK:	if (*SCharSource.sCharacterName)			// 이름이 없다면 밑의 case문 실행->캐러 새로 만들기
+				case SWD_LOGON_OK:
 				{
-					if (SubMenu->Id == MN_RESET_JOB)
+					if (*SCharSource.sCharacterName)			// 이름이 없다면 밑의 case문 실행->캐러 새로 만들기
 					{
-						if (SCharSource.nCharacterData[JOB] == -1) goto Label_2;
-						char temp[255];
-						sprintf(temp, lan->OutputMessage(5, 68), SHideNomal[HN_MAKECHARACTER_JOB_TEXT][SCharSource.nCharacterData[JOB]].temp);//lsw
-						CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
-						goto Label_2;
-					}
-					else if (SubMenu->Id == MN_SELECT_NATION)
-					{
-						if (SubMenu->nField[j].nWillDo == 0)
+						if (SubMenu->Id == MN_RESET_JOB)
 						{
-							SubMenu->work = 0;		// 중립국 선택
+							if (SCharSource.nCharacterData[JOB] == -1) goto Label_2;
+							char temp[255];
+							sprintf(temp, lan->OutputMessage(5, 68), SHideNomal[HN_MAKECHARACTER_JOB_TEXT][SCharSource.nCharacterData[JOB]].temp);//lsw
+							CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
 							goto Label_2;
 						}
-						char temp[255];
-						switch (SubMenu->work)
+						else if (SubMenu->Id == MN_SELECT_NATION)
 						{
-						case 0: goto Label_2;
-						case 100: goto Label_2;
-							//sprintf( temp, "중립을 선택하시겠습니까?" ); 
-							//break;
-						case N_VYSEUS:
+							if (SubMenu->nField[j].nWillDo == 0)
+							{
+								SubMenu->work = 0;		// 중립국 선택
+								goto Label_2;
+							}
+							char temp[255];
+							switch (SubMenu->work)
+							{
+							case 0: goto Label_2;
+							case 100: goto Label_2;
+								//sprintf( temp, "중립을 선택하시겠습니까?" ); 
+								//break;
+							case N_VYSEUS:
 #ifdef KOREA_LOCALIZING_
-						{
-							sprintf(temp, lan->OutputMessage(3, 300), NationName[SubMenu->work]); //lsw
-							CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
-						}break;
+							{
+								sprintf(temp, lan->OutputMessage(3, 300), NationName[SubMenu->work]); //lsw
+								CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
+							}break;
 #endif
-						case N_ZYPERN:
-						case N_HEGEMONIA:
-						case N_YILSE:
-							sprintf(temp, lan->OutputMessage(5, 69), NationName[SubMenu->work]); //lsw
-							break;
-						default: goto Label_2;
+							case N_ZYPERN:
+							case N_HEGEMONIA:
+							case N_YILSE:
+								sprintf(temp, lan->OutputMessage(5, 69), NationName[SubMenu->work]); //lsw
+								break;
+							default: goto Label_2;
+							}
+							for (int a = 0; a < 4; a++) LoadCh[a].nation = SubMenu->work;
+							SCharSource.nation = SubMenu->work;
+							CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
+							goto Label_2;
 						}
-						for (int a = 0; a<4; a++) LoadCh[a].nation = SubMenu->work;
-						SCharSource.nation = SubMenu->work;
-						CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
-						goto Label_2;
 					}
 				}
 				case SWD_CHARACTER_DEL_ADD:	//020802 lsw
@@ -1968,7 +1978,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalStart = 0;   // 데이터 초기화 작업
 					SCharSource = SCharSource1;										//       "
 					nCursor_Flicker = 0;
-					for (k = 0; k<MAX_START; k++) SMenu[menu[k]].bActive = FALSE;				// 먼저 모든 화면을 닫는다.
+					for (k = 0; k < MAX_START; k++) SMenu[menu[k]].bActive = FALSE;				// 먼저 모든 화면을 닫는다.
 					SMenu[MN_MAKECHARACTER_BASIC].bActive = TRUE;
 					SMenu[MN_MAKECHARACTER_CHEAK1].bActive = TRUE;
 					// SMenu[MN_MAKECHARACTER_CHEAK1].x=SMenu[MN_MAKECHARACTER_CHEAK1].nField[MAX_FIELD-1].x;
@@ -2051,18 +2061,18 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 
 				case SWD_YESNO_NO:		y_MenuFocus = 0;
-					for (k = 0; k<MAX_START; k++) SMenu[menu[k]].bActive = FALSE;
+					for (k = 0; k < MAX_START; k++) SMenu[menu[k]].bActive = FALSE;
 					y_delay = 0;		// 빌려쓴 변수 돌려 줘야죠?
 					MakeCharacterAbility();		// 다이스로 만든 능력 다시 초기화...
 
-												//												SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalStart=0;
+					// SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalStart=0;
 					SMenu[MN_MAKECHARACTER_BASIC].bActive = TRUE;		//능력치 설정으로 돌아가기
 					SMenu[MN_MAKECHARACTER_CHEAK3].bActive = TRUE;
 					SMenu[MN_MAKECHARACTER_ABILITY].bActive = TRUE;
 					break;
 
 				case SWD_YESNO_YES: {
-					for (k = 0; k<MAX_START; k++) SMenu[menu[k]].bActive = FALSE;
+					for (k = 0; k < MAX_START; k++) SMenu[menu[k]].bActive = FALSE;
 					y_delay = 0;		// 빌려쓴 변수 돌려 줘야죠?
 
 					for (k = STR; k <= LUCK; k++)
@@ -2073,7 +2083,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SCharSource.nMoney = CalCreateMoney(&SCharSource);
 
 					SCharSource.nation = 0;
-					for (k = 0; k<4; k++)
+					for (k = 0; k < SN_SELECT_CHARACTER; k++)    // modify by taniey
 					{
 						if (LoadCh[k].sCharacterName[0] && LoadCh[k].nation)
 						{
@@ -2150,24 +2160,26 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					::CallLoginMenu();
 				}break;
 
-				case SWD_MAKECHARACTER_GENDERBACK:		for (k = 0; k<MAX_START; k++)
+				case SWD_MAKECHARACTER_GENDERBACK:
 				{
-					SMenu[menu[k]].bActive = FALSE;
-					SMenu[menu[k]].key = 0;		// 설명을 다시 찍기 위해
-				}
-														//SMenu[MN_MAINSTART_BACK].bActive=TRUE;
-														SMenu[MN_SELECT_CHARACTER].bActive = TRUE;
-														SCharSource = SCharSource1;  // 다시 초기화
-														break;
-
-				case SWD_RE_LOGON:	SCharSource = LoadCh[character_active];
+					for (k = 0; k < MAX_START; k++)
+					{
+						SMenu[menu[k]].bActive = FALSE;
+						SMenu[menu[k]].key = 0;		// 설명을 다시 찍기 위해
+					}
+					//SMenu[MN_MAINSTART_BACK].bActive=TRUE;
+					SMenu[MN_SELECT_CHARACTER].bActive = TRUE;
+					SCharSource = SCharSource1;  // 다시 초기화
+				}break;
+				case SWD_RE_LOGON:
+				{
+					SCharSource = LoadCh[character_active];
 					SMenu[SubMenu->nField[j].nWillDo].bActive = TRUE;
 					//	SMenu[MN_MAINSTART_BACK].bActive=false;
 					SMenu[MN_LOGIN].bActive = false;//020515 lsw											
 					SMenu[MN_START_MAP].bActive = false;
 					y_MenuFocus = 0;//020815-2 lsw
-					break;
-
+				}break;
 				case SWD_LOGON:
 				{	//021021 lsw
 					g_bLogOnFlag = false;//010909 lsw 접속전에 로그온 플래그를 죽여 준다
@@ -2185,7 +2197,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					{
 						SubMenu->nField[j + 4].nSHideNomalCount = 1;
 					}
-					character_active = SubMenu->nField[j].nWillDo;
+					character_active = SubMenu->key * 4 + SubMenu->nField[j].nWillDo;		// modify by taniey
 					SCharSource = LoadCh[character_active];
 					MP3(SN_SELECT_START);
 					goto Label_2;
@@ -2500,14 +2512,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					goto Label_2;
 					//>soto-030915
 				}break;
-				case SWD_CHARACTER_SCROLL_LEFT: {
-					int a = 0;
-					goto Label_2;
-				}break;
-				case SWD_CHARACTER_SCROLL_RIGHT: {
-					int a = 0;
-					goto Label_2;
-				}break;
 				} // switch{}
 				  // SWD_ 의 일을 한 메뉴는 사라짐. 사라지지 않을려면 goto 문 사용
 				SubMenu->bActive = FALSE;
@@ -2594,7 +2598,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SetNationExplainDetect(para, SubMenu->nField[j].nRectImage, explain, color);
 				}
 
-				for (int i = 0; i<11; i++)
+				for (int i = 0; i < 11; i++)
 				{
 					if (!i || color[scroll][i] != color[scroll][i - 1]) Hcolor(color[scroll][i]);
 					Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + i * 18, g_DestBackBuf, EatFrontWhiteChar(explain[scroll][i]));
@@ -2675,7 +2679,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				SetJobExplainDetect(job, SubMenu->nField[j].nRectImage, explain, color);
 			}
 
-			for (int i = 0; i<11; i++)
+			for (int i = 0; i < 11; i++)
 			{
 				if (!i || color[scroll][i] != color[scroll][i - 1]) Hcolor(color[scroll][i]);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + i * 18, g_DestBackBuf, EatFrontWhiteChar(explain[scroll][i]));
@@ -2837,7 +2841,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 				if (!g_GoDiceRecv)					// 랜덤수 서버에서 받을 때 까지 클라이언트에서는 랜덤하게 주사위 보여준다.
 				{
-					for (i = 0; i<2; i++)
+					for (i = 0; i < 2; i++)
 					{
 						int para = class_ability[SCharSource.nCharacterData[CLASS]][i];
 						//if( para == -1 ) break;
@@ -2868,7 +2872,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				PutDiceNumber = 0;
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber);
 				//다이스를 랜덤하게 출력
-				for (i = 0; i<2; i++)
+				for (i = 0; i < 2; i++)
 				{
 					int para = class_ability[SCharSource.nCharacterData[CLASS]][i];
 					//if( para == -1 ) break;
@@ -2901,7 +2905,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			break;
 
 		case FT_SELECT_CITY: {
-			for (int a = j; a< SubMenu->nFieldCount; a++)
+			for (int a = j; a < SubMenu->nFieldCount; a++)
 			{
 				if (SubMenu->nField[a].nType == FT_HIDE_SPECIAL_WILLDO_AUTO_PUT_2)
 				{
@@ -2992,9 +2996,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		{
 			int not_english = 0;
 			char *str = SubMenu->nField[j].temp;
-			for (int a = 0; a<strlen(str); a++)
+			for (int a = 0; a < strlen(str); a++)
 			{
-				if (str[a] != ' ' && (str[a] > 'Z' || str[a]<'A'))
+				if (str[a] != ' ' && (str[a] > 'Z' || str[a] < 'A'))
 				{
 					not_english = 1;
 					break;
@@ -3284,7 +3288,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 		case FT_COLOR_GAUGE: {
 			int select = 2;
-			for (k = 0; k<2; k++)
+			for (k = 0; k < 2; k++)
 			{
 				if (SHideNomal[HN_MAKECHARACTER_COLOR_SELECT][k].bShow) select = k;
 			}
@@ -3331,7 +3335,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			else gab = end;
 
-			for (int x = start; x<gab + start; x++)
+			for (int x = start; x < gab + start; x++)
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber);
 
 			gab = (int)(gab / 83.0f * 255.0f + 0.5);
@@ -3368,7 +3372,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 			if (SCharSource.nCharacterData[GENDER])
 			{
-				for (a = 0; a<FACE_MAX; a++)				// 최적화를 시켜야 겠지?
+				for (a = 0; a < FACE_MAX; a++)				// 최적화를 시켜야 겠지?
 					if (!spr_face_man_b[a].img)
 					{
 						// 0906 KKH 추가 
@@ -3385,7 +3389,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			else
 			{
-				for (a = 0; a<FACE_MAX; a++)
+				for (a = 0; a < FACE_MAX; a++)
 					if (!spr_face_woman_b[a].img)
 					{
 						// 0906 KKH 추가 
@@ -3660,7 +3664,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			int plus = SubMenu->nField[j].nShideNomalPlus;
 			int max = SubMenu->nField[j].nSHideNomalCount;
 
-			for (int a = start; a< start + plus && a<max; a++)
+			for (int a = start; a < start + plus && a < max; a++)
 			{
 				Spr *s = GetSprOfMenu(MAIN_ETC, img_num[a]);
 				if (!s) continue;
@@ -3681,7 +3685,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			int start = SubMenu->nField[j].nSHideNomalStart;
 			int max = SubMenu->nField[j].nSHideNomalCount;
 			//for( count = start ; count<start+plus; count++ )
-			for (count = 0; count<max; count++)
+			for (count = 0; count < max; count++)
 			{
 				if (SHideNomal[willdo][count].bShow) break;
 			}
@@ -3691,8 +3695,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			{
 				char str[10][15][256] = { 0, };
 
-				for (int i = 0; i<10; i++)
-					for (int j = 0; j<15; j++)
+				for (int i = 0; i < 10; i++)
+					for (int j = 0; j < 15; j++)
 					{
 
 						sprintf(str[i][j], "%s", lan->OutputMessage(9, i * 15 + j + 31));
@@ -3837,7 +3841,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			else SubMenu->key = 0;
 		}
 		case FT_HIDE_NOMAL_GROUP_PUT:
-			for (i = SubMenu->nField[j].nSHideNomalStart; i<(SubMenu->nField[j].nSHideNomalStart) + (SubMenu->nField[j].nShideNomalPlus) && i<SubMenu->nField[j].nSHideNomalCount; i++)
+			for (i = SubMenu->nField[j].nSHideNomalStart; i < (SubMenu->nField[j].nSHideNomalStart) + (SubMenu->nField[j].nShideNomalPlus) && i < SubMenu->nField[j].nSHideNomalCount; i++)
 			{
 				static int bSound = 0;
 				int type = i * 100 + j;
@@ -3906,40 +3910,69 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 			}break;
 
-		case FT_SELECT_CHARACTER_SCROLL:
+		case FT_CHARACTER_SCROLL:	// add by taniey
 		{
-			//if ((SubMenu->nField[j].fRectMouse ||
-			//	SubMenu->nField[j].fLButtonDown) && SubMenu->nField[j].nType != FT_HIDE_SPECIAL_WILLDO_AUTO_PUT_2)
-			//{
-			//	FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
-			//}
-			//if (SubMenu->nField[j].fCheakFlag)
-			//{
-			//	switch (SubMenu->nField[j].nSpecialWillDo)
-			//	{
-			//	case SWD_CHARACTER_SCROLL_LEFT:
-			//	{
-			//		int a = 0;
-			//	} break;
-			//	case SWD_CHARACTER_SCROLL_RIGHT:
-			//	{
-			//		int a = 0;
-			//	} break;
+			if (SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown)
+			{
+				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
+			}
 
-			//	default:
-			//		break;
-			//	}
-			//}
+			if (SubMenu->nField[j].fCheakFlag)
+			{
+				switch (SubMenu->nField[j].nSpecialWillDo)
+				{
+				case SWD_CHARACTER_SCROLL_LEFT:
+				{
+					if (SubMenu->key < 0)
+						SubMenu->key = 0;
+					///=============================
+					if (SubMenu->key > 0)
+					{
+						SubMenu->key--;
+						int n_temp_pox = character_active % 4;
+						character_active = SubMenu->key * 4 + n_temp_pox;
+						SCharSource = LoadCh[character_active];
+						//MP3(SN_SELECT_START);
+					}
+					///=============================
 
+				}break;
+				case SWD_CHARACTER_SCROLL_RIGHT:
+				{
+					const int max_pageindex = SN_SELECT_CHARACTER >> 2;   // 右移2 位 表示 移动 4 个角色曹
+					if (SubMenu->key > max_pageindex - 1)
+						SubMenu->key = max_pageindex - 1;
 
-			//int a = 0;
-			//a++;
+					///=============================
+					if (SubMenu->key < max_pageindex-1)
+					{
+						SubMenu->key++;
+						int n_temp_pox = character_active % 4;
+						character_active = SubMenu->key * 4 + n_temp_pox;
+						SCharSource = LoadCh[character_active];
+						//MP3(SN_SELECT_START);
+					}
+					///=============================
+				}break;
+				default:
+					break;
+				}
+			} // if
+
+			if (SubMenu->key == 1)
+			{
+				FieldTypeNomalPut(SubMenu->x, SubMenu->y, 375, 474, 15, SELECT_CHARACTER_IMG);
+			}
+
+			SubMenu->nField[j].fCheakFlag = FALSE;
+			SubMenu->nField[j].fLButtonDown = FALSE;
+
 		}break;
 		default://020515 lsw
 		{
 			StartMenuSubProcessType2(SubMenu, i, j, k);
 		}break;
-		}
+		}  // switch
 	}
 }
 
@@ -4000,7 +4033,7 @@ void start_KeyProc()
 
 	if (!flag && !comp) return;
 
-	for (int x = 0; x<MAX_START; x++)
+	for (int x = 0; x < MAX_START; x++)
 	{
 		index = menu[x];
 
@@ -4107,7 +4140,7 @@ void start_KeyProc()
 
 				default:
 				{
-					for (y = 0; y<SMenu[index].nFieldCount; y++)
+					for (y = 0; y < SMenu[index].nFieldCount; y++)
 					{
 						if (SMenu[index].nField[y].nImageNumber == 64 || (SMenu[index].nField[y].nImageType == RESET_JOB_ETC && SMenu[index].nField[y].nImageNumber == 10))
 						{
@@ -4128,47 +4161,57 @@ void start_KeyProc()
 			{
 				switch (index)
 				{
-				case MN_YESNO:	if (comp)
+				case MN_YESNO:
 				{
-					SMenu[MN_YESNO].nField[1].fCheakFlag = TRUE;
-					SMenu[MN_YESNO].nField[1].fLButtonDown = FALSE;
+					if (comp)
+					{
+						SMenu[MN_YESNO].nField[1].fCheakFlag = TRUE;
+						SMenu[MN_YESNO].nField[1].fLButtonDown = FALSE;
+					}
+					else SMenu[MN_YESNO].nField[1].fLButtonDown = TRUE;
+					return;
 				}
-								else SMenu[MN_YESNO].nField[1].fLButtonDown = TRUE;
-								return;
 
-								//							case MN_LOGIN :	if(comp)
-								//											{
-								//												SMenu[MN_LOGIN].nField[2].fCheakFlag=TRUE;
-								//												SMenu[MN_LOGIN].nField[2].fLButtonDown=FALSE;
-								//											}
-								//											else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
-								//											return;
-				case MN_SYSTEM_LOGOUT: if (comp)
+				//case MN_LOGIN :	if(comp)
+				//				{
+				//					SMenu[MN_LOGIN].nField[2].fCheakFlag=TRUE;
+				//					SMenu[MN_LOGIN].nField[2].fLButtonDown=FALSE;
+				//				}
+				//				else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
+				//				return;
+				case MN_SYSTEM_LOGOUT:
 				{
-					SMenu[MN_SYSTEM_LOGOUT].nField[1].fCheakFlag = true;
-					SMenu[MN_SYSTEM_LOGOUT].nField[1].fLButtonDown = false;
+					if (comp)
+					{
+						SMenu[MN_SYSTEM_LOGOUT].nField[1].fCheakFlag = true;
+						SMenu[MN_SYSTEM_LOGOUT].nField[1].fLButtonDown = false;
+					}
+					else
+					{
+						SMenu[MN_SYSTEM_LOGOUT].nField[1].fLButtonDown = true;
+					}
+					return;
 				}
-									   else
-									   {
-										   SMenu[MN_SYSTEM_LOGOUT].nField[1].fLButtonDown = true;
-									   }
-									   return;
-				case MN_MAINSTART_START:	if (comp)
+				case MN_MAINSTART_START:
 				{
-					SMenu[MN_MAINSTART_START].nField[2].fCheakFlag = TRUE;
-					SMenu[MN_MAINSTART_START].nField[2].fLButtonDown = FALSE;
+					if (comp)
+					{
+						SMenu[MN_MAINSTART_START].nField[2].fCheakFlag = TRUE;
+						SMenu[MN_MAINSTART_START].nField[2].fLButtonDown = FALSE;
+					}
+					else SMenu[MN_MAINSTART_START].nField[2].fLButtonDown = TRUE;
+					return;
 				}
-											else SMenu[MN_MAINSTART_START].nField[2].fLButtonDown = TRUE;
-											return;
-
-				case MN_LOGON:	if (comp)
+				case MN_LOGON:
 				{
-					SMenu[MN_LOGON].nField[1].fCheakFlag = TRUE;
-					SMenu[MN_LOGON].nField[1].fLButtonDown = FALSE;
+					if (comp)
+					{
+						SMenu[MN_LOGON].nField[1].fCheakFlag = TRUE;
+						SMenu[MN_LOGON].nField[1].fLButtonDown = FALSE;
+					}
+					else SMenu[MN_LOGON].nField[1].fLButtonDown = TRUE;
+					return;
 				}
-								else SMenu[MN_LOGON].nField[1].fLButtonDown = TRUE;
-								return;
-
 				case MN_INFO:
 				{
 					SMenu[index].bActive = false;
@@ -4182,7 +4225,7 @@ void start_KeyProc()
 					{
 						break;
 					}
-					for (y = 0; y<SMenu[index].nFieldCount; y++)
+					for (y = 0; y < SMenu[index].nFieldCount; y++)
 					{
 						if (SMenu[index].nField[y].nImageNumber == 65 || SMenu[index].nField[y].nImageNumber == 33 || SMenu[index].nField[y].nImageNumber == 837)
 						{
@@ -4255,11 +4298,11 @@ void start_KeyProc()
 						//> kjy-040325 
 					}
 
-					for (y = 0; y<SMenu[index].nFieldCount; y++)
+					for (y = 0; y < SMenu[index].nFieldCount; y++)
 					{
 						if (SMenu[index].nField[y].nType == FT_HIDE_NOMAL_ONE_PUT)
 						{
-							for (k = SMenu[index].nField[y].nSHideNomalStart; k< SMenu[index].nField[y].nSHideNomalStart + SMenu[index].nField[y].nShideNomalPlus; k++)
+							for (k = SMenu[index].nField[y].nSHideNomalStart; k < SMenu[index].nField[y].nSHideNomalStart + SMenu[index].nField[y].nShideNomalPlus; k++)
 							{
 								if (SHideNomal[SMenu[index].nField[y].nSHideNomalNumber][k].bShow)
 								{
@@ -4357,7 +4400,7 @@ void LoadChImageNumber(char *filename, char **buf, Spr Ani[][80], int max_ani[7]
 	MemFree(*buf);
 	MemAlloc(*buf, sprfilelength);
 
-	for (int a = 1; a<7; a++)
+	for (int a = 1; a < 7; a++)
 	{
 		for (int b = 1; b <= max_ani[a]; b++)
 		{
@@ -4421,7 +4464,7 @@ void LoadChImage()
 void FreeChImage()
 {
 	int i;
-	for (i = 0; i< 12; i++)
+	for (i = 0; i < 12; i++)
 	{
 		MemFree(ani_buf[i]);
 	}
@@ -4434,7 +4477,7 @@ void MakeCharacterAbility()
 
 	CallServer(CMD_CREATE_ABILITY);
 
-	for (int i = 0; i<5; i++)	nDiceNumber[i] = 1;
+	for (int i = 0; i < 5; i++)	nDiceNumber[i] = 1;
 	return;
 	/*
 	for(int i=STR; i<=LUCK; i++)
@@ -4448,7 +4491,7 @@ void MakeCharacterAbility()
 
 int ImgToAbility(int num_to_img[10], int img)
 {
-	for (int i = 0; i<11; i++)
+	for (int i = 0; i < 11; i++)
 		if (num_to_img[i] == img) return i;
 
 	return 0;
@@ -4460,7 +4503,7 @@ void DoLButtonDoubbleClickOfStartMenu(int i, int j)
 	switch (SMenu[i].nField[j].nType)
 	{
 	case FT_HIDE_NOMAL_ONE_PUT: {
-		for (int y = 0; y<SMenu[i].nFieldCount; y++)
+		for (int y = 0; y < SMenu[i].nFieldCount; y++)
 		{
 			if (SMenu[i].nField[y].nImageNumber == 64 || (SMenu[i].nField[y].nImageType == RESET_JOB_ETC && SMenu[i].nField[y].nImageNumber == 10))
 			{
@@ -4486,7 +4529,7 @@ void DoLButtonDoubbleClickOfStartMenu(int i, int j)
 				SMenu[i].nField[a].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 			}
 			SMenu[i].nField[j].nType = FT_NOMAL_PUT;
-			character_active = SMenu[i].nField[j].nWillDo;
+			character_active = SMenu[i].key * 4 + SMenu[i].nField[j].nWillDo;   // modify by taniey    
 			SCharSource = LoadCh[character_active];
 
 			SMenu[i].nField[0].fCheakFlag = true;	// ok button on
@@ -4532,7 +4575,7 @@ void SetDamageOfHero(SCharacter *ch)
 	int luck_dmg[6] = { 30, 60, 90, 140, 180, 190 };
 
 	int lv = 5;				// level에 의한 대미지 선택 경우의 수
-	for (int i = 0; i<5; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		if (ch->nLevel <= level_to_para[i])
 		{
@@ -4542,7 +4585,7 @@ void SetDamageOfHero(SCharacter *ch)
 	}
 
 	int luck_count = 7; // 최대 7번의 기회를 준다.
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (ch->nCharacterAbility[LUCK] < luck_dmg[i])
 		{
@@ -4554,7 +4597,7 @@ void SetDamageOfHero(SCharacter *ch)
 
 	int temp;
 	int min = 100;
-	for (int i = 0; i<luck_count; i++)		// 최대 기회를 줘서 가장 작은 수를 뽑아냄
+	for (int i = 0; i < luck_count; i++)		// 최대 기회를 줘서 가장 작은 수를 뽑아냄
 	{
 		temp = rand() % level_count[lv];
 		if (temp < min) min = temp;
@@ -4642,7 +4685,7 @@ void LoadOpenningSpr(char *filename, BYTE **buf, Spr *temp_spr, int nMaxCount)
 	SAFE_DELETE_ARRAY(*buf);
 	*buf = new BYTE[sprfilelength];
 
-	for (int a = 0; a<no; a++)
+	for (int a = 0; a < no; a++)
 	{
 		s = &temp_spr[a];
 		fread(&size, 4, 1, fp);
@@ -4670,10 +4713,10 @@ void LoadOpenningSpr(char *filename, BYTE **buf, Spr *temp_spr, int nMaxCount)
 		s->img = (char *)*buf + nOff;
 		convert565to555(s);
 		nOff += size;
-	}
+		}
 
 	fclose(fp);
-}
+	}
 
 
 
@@ -4704,10 +4747,10 @@ void LoadJobExplain()
 	fp = Fopen("./data/job_ex.txt", "rt");
 	if (fp)
 	{
-		for (int i = 0; i<7; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			int j = 0;
-			while (j<6)
+			while (j < 6)
 			{
 				fgets(job_explain[i][j], 1000, fp);
 				EatRearWhiteChar(job_explain[i][j]);
@@ -4732,14 +4775,14 @@ void SetJobExplainDetect(int job, int width, char explain[5][11][200], WORD colo
 	char *ex = job_explain[job][0];
 	int ct = 0;
 	int count = 0;
-	for (int i = 0; i<5; i++) for (int j = 0; j<11; j++) explain[i][j][0] = NULL;
+	for (int i = 0; i < 5; i++) for (int j = 0; j < 11; j++) explain[i][j][0] = NULL;
 	WORD *cl;
 	if (!job) cl = c;
 	else cl = c2;
 
 	while (ex)
 	{
-		for (int i = 0; i<11; i++)
+		for (int i = 0; i < 11; i++)
 		{
 			color[ct][i] = cl[count];
 			char *ex2 = DivideStringByRect(width, ex, 1);
@@ -4769,10 +4812,10 @@ void LoadNationExplain()
 	fp = Fopen("./data/nation_ex.txt", "rt");
 	if (fp)
 	{
-		for (int i = 0; i<7; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			int j = 0;
-			while (j<11)
+			while (j < 11)
 			{
 				fgets(nation_explain[i][j], 1000, fp);
 				EatRearWhiteChar(nation_explain[i][j]);
@@ -4798,14 +4841,14 @@ void SetNationExplainDetect(int nation, int width, char explain[7][11][200], WOR
 	char *ex = nation_explain[nation][0];
 	int ct = 0;
 	int count = 0;
-	for (int i = 0; i<7; i++) for (int j = 0; j<11; j++) explain[i][j][0] = NULL;
+	for (int i = 0; i < 7; i++) for (int j = 0; j < 11; j++) explain[i][j][0] = NULL;
 	WORD *cl;
 	if (!nation) cl = c;
 	else cl = c2;
 
 	while (ex)
 	{
-		for (int i = 0; i<11; i++)
+		for (int i = 0; i < 11; i++)
 		{
 			color[ct][i] = cl[count];
 			char *ex2 = DivideStringByRect(width, ex, 1);
@@ -4831,7 +4874,7 @@ void SetNationExplainDetect(int nation, int width, char explain[7][11][200], WOR
 
 void OpenSelectNationMenu()
 {
-	for (int k = 0; k<MAX_START; k++) SMenu[menu[k]].bActive = FALSE;
+	for (int k = 0; k < MAX_START; k++) SMenu[menu[k]].bActive = FALSE;
 	SMenu[MN_MAKECHARACTER_BASIC].bActive = TRUE;
 	SMenu[MN_NATION_EXPLAIN].bActive = true;
 	SMenu[MN_SELECT_NATION].bActive = true;

@@ -1920,7 +1920,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 		case FT_HIDE_SPECIAL_WILLDO_AUTO_PUT: {
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//													if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				// if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				switch (SubMenu->nField[j].nSpecialWillDo)
 				{
 				case SWD_MAININTERFACE_STATUS: PrintQuickKey("C"); break;
@@ -1954,8 +1954,8 @@ void MenuSubProcessType(SMENU *SubMenu)
 					stch %= 32;
 				}
 			}break;
-		case FT_MAKE_RARE_MORE://011013 lsw
-		case FT_RARE_GROUP_SCROLL://011014 lsw 
+		case FT_MAKE_RARE_MORE:		//011013 lsw
+		case FT_RARE_GROUP_SCROLL:	//011014 lsw 
 		//011004 lsw >
 		case FT_SHOW_SPECIAL_WILLDO_AUTO_PUT:
 		{
@@ -7184,12 +7184,11 @@ void DoLButtonDownOfMenu(int i, int j)
 				mouse_ch.m_Gender = SCharacterData.nCharacterData[GENDER];
 				break;
 			}
-		}
-									   break;
+		} break;
 		}
 		break;
 
-	case FT_SELECT_CHARACTER_SCROLL:
+	case FT_CHARACTER_SCROLL:	//  add by taniey
 	{
 		int a = 0;
 	} break;

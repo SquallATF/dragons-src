@@ -111,7 +111,7 @@
 
 
 //--------------------------------------------------------
-#define MAX_CHARACTEROFID				4 
+#define MAX_CHARACTEROFID				8 
 //------------------- NEW_APPEND -------------------------
 #define MAX_PACKET_SIZE					3000
 //#define MAX_PACKET_SIZE					512
