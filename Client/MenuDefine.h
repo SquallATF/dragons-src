@@ -833,6 +833,7 @@ enum FieldTypeIndex
 	FT_HIDE_WILLDO_PUT                  , //마우스 L버튼으로 눌렀다 때면 다른메뉴를 호출하는 형식
 	FT_HIDE_SPECIAL_WILLDO_PUT  		, //단순히 메뉴호출만 하는게 아니라 여러가지 특별한 일을 할경우
 	FT_SPECIAL_WILLDO                   , //이미지를 찍지 않고 작동한다
+	FT_CHARACTER_SCROLL					, // add by taniey
 	FT_HIDE_ISCROLL_PUT                 , //FT_HIDE_NOMAL_ 와 연결된 스크롤 버튼을 눌렀을때 FT_HIDE_NOMAL_가 찍힐 범위를 증가 설정
 	FT_HIDE_DSCROLL_PUT                 , //FT_HIDE_NOMAL_ 와 연결된 스크롤 버튼을 눌렀을때 FT_HIDE_NOMAL_가 찍힐 범위를 감소 설정
 	FT_THROWDICE                        , //주사위를 던져주는 타입
@@ -1096,7 +1097,6 @@ enum FieldTypeIndex
 	FT_MAININTERFACE_MAIL_CALL			,//메인 인터페이의 메일 메뉴 콜
 	FT_MERCHANT_BACKUP_GET_LIST			,// BBD 040303	
 
-	FT_CHARACTER_SCROLL					, // add by taniey
 }; 
 
 /////////////////////////////////////////////////////////////////////////////////

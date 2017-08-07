@@ -73,7 +73,7 @@ extern int g_MouseItemNumber;
 extern int g_ActionAnger;		// LTS ACTION
 extern int g_BoadAndSignNumber;	// CSD-030324 // thai2 YGI
 
-////////////////////// SoundUp lkh 眠啊 ///////////////////////
+////////////////////// SoundUp lkh ///////////////////////
 extern int	BGM_SoundVolume;
 extern BOOL	BGM_FadeInOut;
 
@@ -113,7 +113,7 @@ ORDERTABLE neworder[ 2000]= {0,};
 
 int PathBuildSuccess = 0;
 
-bool HeroActionProcChecked;//  父距 付快胶努腐俊   HeroActionProc()捞 龋免登瘤 臼疽促搁 DoLButtonUp()俊辑 龋免窍霸 茄促. 
+bool HeroActionProcChecked;//  만약 마우스클릭에   HeroActionProc()이 호출되지 않았다면 DoLButtonUp()에서 호출하게 한다. 
 
 
 const char ordermsg[6][30]= {	"Body.Weapon.Shield",
@@ -136,16 +136,16 @@ int YouCanHeroActionProc;
 int YouCanViewTipsCheck;
 int ViewTipToggle;		// 0818 khs
 
-int Moveoldx, Moveoldy;	// 捞悼阑 困秦 付快胶 努腐茄 瘤痢阑 扁撅窍绊 乐绰促. 
+int Moveoldx, Moveoldy;	// 이동을 위해 마우스 클릭한 지점을 기억하고 있는다. 
 DWORD Movetime;
 
-LPCHARACTER MouseCheckCharacterName;  //  付快胶俊 狼秦 急琶登绰 
+LPCHARACTER MouseCheckCharacterName;  //  마우스에 의해 선택되는 
 
 
 
 
 
-///////////////// 0430 lkh 眠啊 ////////////////////
+///////////////// 0430 lkh 추가 ////////////////////
 BOOL	g_AttackSkill_Trace1=FALSE;
 BOOL	g_AttackSkill_Trace2=FALSE;
 
@@ -195,7 +195,7 @@ void		UnDisplayDestPoing( LPCHARACTER ch );
 
 void		DoHeroAttack( int x, int y );
 
-///////////////////// 0204 lkh 荐沥 /////////////////////////
+///////////////////// 0204 lkh 수정 /////////////////////////
 bool		ReturnCheckObject( LPMAPOBJECT mo );
 bool		GetBoardData(int board_Number, char* str_Data);
 bool		GetDirectBoardData(int board_Number, DIRECTBOARDDATA* directboardData);
@@ -213,7 +213,7 @@ extern void ShowMonsterWarInfo();	// BBD 040311
 //---by fqyd 060730-----鼠标点击检测----------
 int		g_CheckButton()
 {
-	g_LS_res^=MSK_G_LS;//左
+	g_LS_res^=MSK_G_LS;//
 	if(g_LS_res!=g_nLButtonState)
 		return 0;
 	g_LS_res^=MSK_G_LS;
@@ -222,12 +222,12 @@ int		g_CheckButton()
 	if(g_RS_res!=g_nRButtonState)
 		return 0;
 //如果程序的按键状态被改变了,就被检查出来了
-	g_RS_res^=MSK_G_RS;//右
+	g_RS_res^=MSK_G_RS;//
 	return 1;
 }
 //------by fqyd 060730
 
-///////////////////// SoundUp lkh 眠啊 /////////////////////////
+///////////////////// SoundUp lkh 추가 /////////////////////////
 void	ObjectSoundPlay(void)
 {
 	int soundNo=0, soundFrame=0, soundDelay=0;
@@ -254,20 +254,20 @@ void	ObjectSoundPlay(void)
 				soundCount	= mo->soundno/1000;
 
 				soundFrame	= mo->soundframe%1000;
-				soundOverlap= mo->soundframe/1000;		//吝酶 瓤苞澜 免仿阑 困秦
+				soundOverlap= mo->soundframe/1000;		//중첩 효과음 출력을 위해
 
 				soundDelay	= mo->sounddelay%1000;
-				soundType	= mo->sounddelay/1000;		//技何 免仿 规过
+				soundType	= mo->sounddelay/1000;		//세부 출력 방법
 				
-				if(mo->delay==0)// || soundFrame==99)		//map_delay啊 0牢 版快 肚绰 公炼扒 吝酶 风俏 免仿牢 版快
+				if(mo->delay==0)// || soundFrame==99)		//map_delay가 0인 경우 또는 무조건 중첩 루핑 출력인 경우
 				{
 					int sx = mo->x;
 					int	sy = mo->y;
 
-					//int distance_X = abs(Hero->x - sx)/(TILE_SIZE);		//芭府甫 鸥老 窜困肺 券魂	// LTS SOUND
+					//int distance_X = abs(Hero->x - sx)/(TILE_SIZE);		//거리를 타일 단위로 환산	// LTS SOUND
 					//int distance_Y = abs(Hero->y - sy)/(TILE_SIZE);									// LTS SOUND
 
-					int distance_X = sx-Hero->x;		//芭府甫 鸥老 窜困肺 券魂	// LTS SOUND
+					int distance_X = sx-Hero->x;		//거리를 타일 단위로 환산	// LTS SOUND
 					int distance_Y = sy-Hero->y;									// LTS SOUND
 					int tempsx=sx;				// LTS SOUND
 					int tempsy=sy;
@@ -278,11 +278,11 @@ void	ObjectSoundPlay(void)
 					int mo_X = sx/TILE_SIZE;
 					int	mo_Y = sy/TILE_SIZE;
 
-					if( soundNo && (mo->curframe == soundFrame || soundFrame==99) )			//风俏 瓤苞澜捞芭唱 荤款靛 免仿 秦寸 橇饭烙牢 版快牢 版快
+					if( soundNo && (mo->curframe == soundFrame || soundFrame==99) )			//루핑 효과음이거나 사운드 출력 해당 프레임인 경우인 경우
 					{
 						BOOL	play=1;
 
-						if(soundType!=2 && soundDelay)		// type->random 免仿
+						if(soundType!=2 && soundDelay)		// type->random 출력
 						{
 							if( (soundCount) <= 0 )
 								mo->soundno = (mo->soundno%1000)+soundDelay*1000;		//soundcount set
@@ -293,7 +293,7 @@ void	ObjectSoundPlay(void)
 
 						int	sound_Num=0;
 						
-						BOOL	play_Rate=0;//	= (mo->sounddelay%1000)/100;	//0->秦寸 橇饭烙俊辑 公炼扒 免仿 1->秦寸 橇饭烙俊辑 秦寸 厚啦俊 嘎苗 免仿
+						BOOL	play_Rate=0;//	= (mo->sounddelay%1000)/100;	//0->해당 프레임에서 무조건 출력 1->해당 프레임에서 해당 비율에 맞춰 출력
 						
 						int		probability=0;
 
@@ -302,7 +302,7 @@ void	ObjectSoundPlay(void)
 						case 1:		//3way
 							sound_Num		= soundNo+rand()%3;
 							break;
-						case 2:		//犬伏俊 狼秦 家府 免仿
+						case 2:		//확률에 의해 소리 출력
 							play_Rate		= 1;
 							probability		= soundDelay;
 							sound_Num		= soundNo;
@@ -314,16 +314,16 @@ void	ObjectSoundPlay(void)
 						
 						if( play )
 						{
-							if( ( play_Rate && (rand()%101 <= probability ) ) || !play_Rate )	//犬伏俊 狼秦 免仿登绰 版快客 犬伏俊 包拌 绝绰 版快
+							if( ( play_Rate && (rand()%101 <= probability ) ) || !play_Rate )	//확률에 의해 출력되는 경우와 확률에 관계 없는 경우
 							{
-								if(soundOverlap)		//true->公炼扒 秦寸 橇饭烙俊辑 免仿(坷宏璃飘狼 橇饭烙捞 利篮 版快 吝酶凳)
-									//PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );	//3D sound肺 钎泅 // LTS SOUND
-									PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );	//3D sound肺 钎泅 // LTS SOUND
-								else					//false->免仿 橇饭烙俊 惑包绝捞 吝酶登瘤 臼霸 
+								if(soundOverlap)		//true->무조건 해당 프레임에서 출력(오브젝트의 프레임이 적은 경우 중첩됨)
+									//PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );	//3D sound로 표현 // LTS SOUND
+									PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );	//3D sound로 표현 // LTS SOUND
+								else					//false->출력 프레임에 상관없이 중첩되지 않게 
 								{
 									if( !IsPlaying(sound_Num))
 										//PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );
-									PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );	//3D sound肺 钎泅 // LTS SOUND
+									PlayListAutoSounds( sound_Num, distance_X, distance_Y, 0 );	//3D sound로 표현 // LTS SOUND
 								}
 							}
 						}
@@ -471,12 +471,12 @@ BOOL StartMenuProc(LPDIRECTDRAWINFO lpDirectDrawInfo)
 	g_nLButtonState = 0;g_nRButtonState = 0;
 	g_nLDButtonState = 0; g_nRDButtonState = 0;
 	
-//----------------------这里是给按键信息加密的地方
+//----这里是给按键信息加密的地方------------------
 	g_LS_res=g_nLButtonState;
 	g_RS_res=g_nRButtonState;
 	g_LS_res^=MSK_G_LS;
 	g_RS_res^=MSK_G_RS;
-//	----------------------------
+//	----------------------------------------------
 
 	ViewTips(); // 001030 KHS	
 	CursorDisplayBack();
@@ -545,7 +545,6 @@ BOOL GameProc( LPDIRECTDRAWINFO lpDirectDrawInfo )//030703 lsw
 		if(Hero)
 		{
 			char	buff[64]={0};
-
 	//		t_ClientAccessLogin	packet;//发送的ぃ▆產账号
 			
 			switch(Hero->Check())	//检查角色信息结构看有没有被改过
@@ -797,8 +796,8 @@ BOOL GameProc( LPDIRECTDRAWINFO lpDirectDrawInfo )//030703 lsw
 		if( g_GameInfo.displayOptionDelay <= 0 ) 		g_GameInfo.displayOption = 0;
 	}										
 	
-	///////////////// 0604 lkh 眠啊(父距 付快胶 钮俊 啊侩茄 单捞磐 蔼捞 乐绰 版快: 贸府饶 府畔) //////////////
-	if(g_queue.lb && g_queue.ch!=Hero)	//哭率 滚瓢捞 喘赴 钮 单捞磐
+	///////////////// 0604 lkh 추가(만약 마우스 큐에 가용한 데이터 값이 있는 경우: 처리후 리턴) //////////////
+	if(g_queue.lb && g_queue.ch!=Hero)	//왼쪽 버튼이 눌린 큐 데이터
 	{
 		if(g_queue.ch == g_GameInfo.lpcharacter && g_queue.ch != NULL && g_GameInfo.lpcharacter != NULL)
 		{
@@ -846,21 +845,21 @@ JUMP_SKIP:
 	
 	ViewCheckRoutine( 60 );
 	
-	DrawClock(); //付阑 甘牢 版快
+	DrawClock(); //마을 맵인 경우
 	
 	CalcOrder();
 
 	if( !tool_ViewMenu )
-	MenuChecking();     //皋春 备己夸家狼 面倒眉农MenuChecking();     
+	MenuChecking();     //메뉴 구성요소의 충돌체크MenuChecking();     
 	
 	g_nLButtonState		= 0;	g_nRButtonState		= 0;
 	g_nLDButtonState	= 0;	g_nRDButtonState	= 0;
-//----------------------这里是给按键信息加密的地方
+//----这里是给按键信息加密的地方------------------
 	g_LS_res=g_nLButtonState;
 	g_RS_res=g_nRButtonState;
 	g_LS_res^=MSK_G_LS;
 	g_RS_res^=MSK_G_RS;
-///	----------------------------		
+///	----------------------------------------------
 	RainAnimationSetting();
 	SnowAnimationSetting();
 	CurrentMsgMgr.CheckCurrentStatusMessage();
@@ -956,7 +955,7 @@ JUMP_SKIP:
  	ShowMonsterWarInfo();		// BBD 040311
   
 	if( !tool_ViewMenu )
-	MenuDisplay();     //皋春 备己夸家狼 面倒眉农MenuChecking();     //皋春 备己夸家狼 面倒眉农MenuDisplay();      //皋春狼 劝己咯何甫 魄窜秦 免仿窍绰 窃荐	
+	MenuDisplay();     //메뉴 구성요소의 충돌체크MenuChecking();     //메뉴 구성요소의 충돌체크MenuDisplay();      //메뉴의 활성여부를 판단해 출력하는 함수	
 	
 	gr.GuideGhost_OutPut();
 	
@@ -1000,7 +999,7 @@ SKIP__:
 	CharacterProcFrameCount();
 	CheckTrap();
 
-	///////////// SoundUp lkh 眠啊 /////////////
+	///////////// SoundUp lkh 추가 /////////////
 	ObjectSoundPlay();
 	WeatherFXSound();
 	//021030 YGI
@@ -1008,7 +1007,7 @@ SKIP__:
 	//BGMFadeInOut();
 	////////////////////////////////////////////
 
-	CheckEffectSpriteFree(); //鞘夸绝绢柳 捞棋飘 胶橇扼捞飘 朝府扁
+	CheckEffectSpriteFree(); //필요없어진 이펙트 스프라이트 날리기
 	
 	CheckAutoWave();
 	return	TRUE;
@@ -1026,7 +1025,7 @@ BOOL GameTestProc( LPDIRECTDRAWINFO lpDirectDrawInfo )
 
 	LPCHARACTER ch = NULL;
 
-	if (SysInfo.notconectserver == 0) // normal 捞搁.
+	if (SysInfo.notconectserver == 0) // normal 이면.
 	{
 		if (ProtocolProc(&connections) < 0)
 		{
@@ -1046,18 +1045,18 @@ BOOL GameTestProc( LPDIRECTDRAWINFO lpDirectDrawInfo )
 	EffectProc();
 	DrawItemList();
 	CalcOrder();
-	MenuChecking();     //皋春 备己夸家狼 面倒眉农MenuChecking();     //皋春 备己夸家狼 面倒眉农MenuDisplay();      //皋春狼 劝己咯何甫 魄窜秦 免仿窍绰 窃荐
+	MenuChecking();     //메뉴 구성요소의 충돌체크MenuChecking();     //메뉴 구성요소의 충돌체크MenuDisplay();      //메뉴의 활성여부를 판단해 출력하는 함수
 	
 	g_nLButtonState = 0; 
 	g_nRButtonState = 0;
 	g_nLDButtonState = 0; 
 	g_nRDButtonState = 0;
-//----------------------这里是给按键信息加密的地方
+//-----这里是给按键信息加密的地方-----------------
 	g_LS_res=g_nLButtonState;
 	g_RS_res=g_nRButtonState;
 	g_LS_res^=MSK_G_LS;
 	g_RS_res^=MSK_G_RS;
-///	----------------------------	
+///	----------------------------------------------
 	RainAnimationSetting();
 	SnowAnimationSetting();
 	CurrentMsgMgr.CheckCurrentStatusMessage();
@@ -1121,7 +1120,7 @@ BOOL GameTestProc( LPDIRECTDRAWINFO lpDirectDrawInfo )
 //	MapCurtain();
 	MapBright();
 	
-	MenuDisplay();     //皋春 备己夸家狼 面倒眉农MenuChecking();     //皋春 备己夸家狼 面倒眉农MenuDisplay();      //皋春狼 劝己咯何甫 魄窜秦 免仿窍绰 窃荐	
+	MenuDisplay();     //메뉴 구성요소의 충돌체크MenuChecking();     //메뉴 구성요소의 충돌체크MenuDisplay();      //메뉴의 활성여부를 판단해 출력하는 함수	
 	
 	ViewVersion( g_GameInfo.version );
 	
@@ -1173,7 +1172,7 @@ SKIP__:
 	
 	
 static int	effect_Test=1;
-///////////////// 0501 lkh 荐沥 /////////////////
+///////////////// 0501 lkh 수정 /////////////////
 void KeyboardProc( void )
 {	
 	if( SysInfo.viewcharacterframe ) return;
@@ -1194,7 +1193,7 @@ void KeyboardProc( void )
 	{
 		MoveScreen( DIRECTION_DOWN );
 	}
-	if (!IsChatBoxActive())//盲泼 葛靛啊 酒聪搁
+	if (!IsChatBoxActive())//채팅 모드가 아니면
 	{
 		if (g_aCurrentKeys[ DIK_SPACE] & 0x80)
 		{
@@ -1255,14 +1254,14 @@ void MouseProc( void )
 	if( SysInfo.dx == 0 )
 	{
 	}
-	else if( g_StartMenuOn == false  ) // 霸烙郴俊 甸绢吭阑锭, 
+	else if( g_StartMenuOn == false  ) // 게임내에 들어왔을때, 
 	{
 		int mousechange = 0;
 
-		if ( g_pointMouseX < 2 )					if( MoveScreen( DIRECTION_LEFT ) )	mousechange  = 1;	// 哭率..
-		if ( g_pointMouseX > SCREEN_WIDTH - 2 )		if( MoveScreen( DIRECTION_RIGHT ) ) mousechange  = 1;   // 坷弗率..
-		if ( g_pointMouseY < 2 )					if( MoveScreen( DIRECTION_UP ) )	mousechange  = 1;	// 困..
-		if ( g_pointMouseY > SCREEN_HEIGHT - 2 )	if( MoveScreen( DIRECTION_DOWN ) )	mousechange  = 1;	// 酒贰..
+		if ( g_pointMouseX < 2 )					if( MoveScreen( DIRECTION_LEFT ) )	mousechange  = 1;	// 왼쪽..
+		if ( g_pointMouseX > SCREEN_WIDTH - 2 )		if( MoveScreen( DIRECTION_RIGHT ) ) mousechange  = 1;   // 오른쪽..
+		if ( g_pointMouseY < 2 )					if( MoveScreen( DIRECTION_UP ) )	mousechange  = 1;	// 위..
+		if ( g_pointMouseY > SCREEN_HEIGHT - 2 )	if( MoveScreen( DIRECTION_DOWN ) )	mousechange  = 1;	// 아래..
 
 		if( g_pointMouseX < 2 )
 		{	
@@ -1309,10 +1308,10 @@ void MouseProc( void )
 //	sprintf(s,"%d",g_MousePlayNum);
 //	ChatMgr.AddString(0,s,CHATTYPE_NOTICE);
 
-//----------------------这里是给按键信息加密的地方
+//-----这里是给按键信息加密的地方-----------------
 	g_LS_res=g_nLButtonState;
 	g_LS_res^=MSK_G_LS;
-///	----------------------------	
+///	----------------------------------------------
 	}
 	else if(g_nRButtonState)				//截获鼠标右键按下
 	{
@@ -1322,10 +1321,10 @@ void MouseProc( void )
 //	sprintf(s,"%d",g_MousePlayNum);
 //	ChatMgr.AddString(0,s,CHATTYPE_NOTICE);
 
-//----------------------这里是给按键信息加密的地方
+//-----这里是给按键信息加密的地方-----------------
 	g_RS_res=g_nRButtonState;
 	g_RS_res^=MSK_G_RS;
-///	----------------------------	
+///	----------------------------------------------
 	}
 	
 	
@@ -1351,7 +1350,7 @@ void MouseProc( void )
 //1206 zhh
 #include "CReadArgument.h"
 
-// LogIn Server俊 立辟...
+// LogIn Server에 접근...
 int CheckAgentServer( t_connection *c, char *id, char *password )
 {//021021 lsw
 	int ret = 0;
@@ -1395,14 +1394,14 @@ int CheckAgentServer( t_connection *c, char *id, char *password )
 	}
 	goto __CheckSuccss;
 
-__CheckSuccss://己傍 窍搁
+__CheckSuccss://성공 하면
 	{
 		ret = 1;
-		strcpy( IIDD, sId );//酒第 菩胶甫 持绊
+		strcpy( IIDD, sId );//아뒤 패스를 넣고
 		strcpy( PPWW, sPassword );
 		goto __ClearID_PASSWORD;
 	}
-__CheckFail://己傍 窍搁
+__CheckFail://성공 하면
 	{
 		strcpy( IIDD, "" );
 		strcpy( PPWW, "" );
@@ -1410,18 +1409,18 @@ __CheckFail://己傍 窍搁
 	}
 __ClearID_PASSWORD:
 	{
-		strcpy( sId ,"");//酒第 菩胶 涝仿登绢乐绰芭 瘤快绊
+		strcpy( sId ,"");//아뒤 패스 입력되어있는거 지우고
 		strcpy( sPassword,"" );
-		EWndMgr.ClearAllTxt();//Hwnd俊 乐绰 皋技瘤档 瘤款促
+		EWndMgr.ClearAllTxt();//Hwnd에 있는 메세지도 지운다
 		return ret;
 	}
 }
 		
-/////////////////////////////////  0131 YGI 海鸥 抛胶飘 酒捞叼 眉农 ////////////////////
+/////////////////////////////////  0131 YGI 베타 테스트 아이디 체크 ////////////////////
 int CheckBetaTestId( char *id )
 {		
 	if( SysInfo.notconectserver == 1 ) return 1;
-	LoadGameInfo(); //  LogIn 辑滚俊 立加且 IP/Port甫 佬绰促.
+	LoadGameInfo(); //  LogIn 서버에 접속할 IP/Port를 읽는다.
 		
 		
 	if( connections.state == CONNECT_FAIL )
@@ -1456,13 +1455,13 @@ int CheckBetaTestId( char *id )
 			return( -3 );
 		}
 		
-		if ( ListenCommand == 100 )		// 沥惑 楷搬
+		if ( ListenCommand == 100 )		// 정상 연결
 		{
 			break;
 		}
 		else if( ListenCommand == 10 )
 		{
-			return(-4);			// 海鸥 抛胶磐啊 酒聪促.
+			return(-4);			// 베타 테스터가 아니다.
 		}
 	}	
 		
@@ -1545,7 +1544,7 @@ void CharacterProcCheck( void )
 					Check_NPC_Pattern( ch );
 				break;
 		}					
-		// 林牢傍捞 笼救栏肺 甸绢啊芭唱 唱客辑 g_Inside蔼捞 官拆荐 乐促. 
+		// 주인공이 집안으로 들어가거나 나와서 g_Inside값이 바뀔수 있다. 
 		if( ch == Hero ) 
 		{
 			DWORD	mx = ch->position.x;
@@ -1557,7 +1556,7 @@ void CharacterProcCheck( void )
 		ch->height = ch->AnimationTable[ ch->nCurrentAction].height[  ch->nCurrentFrame ];
 		ch->sp =  &CharSpr[ ch->sprno ].sp[ ch->direction ][ sprc];
 
-		if( ch->flagattacked > 0 )	//  辑滚俊辑 磷绰 敲饭弊啊 逞绢坷搁 磷绢具 茄促. 
+		if( ch->flagattacked > 0 )	//  서버에서 죽는 플레그가 넘어오면 죽어야 한다. 
 		{
 			ch->flagattacked--;
 			if( ch->flagattacked < 1 )
@@ -1567,8 +1566,8 @@ void CharacterProcCheck( void )
 			}
 		}
 
-		//  付快胶俊 狼秦 Check登菌阑版快  捞抚阑 焊咯林咯具 窍绰单..   MouseCheckCharacterName啊 Setting登骨肺 捞甫 捞侩窍咯 捞抚阑 免仿茄促.  距埃狼 Delay甫 林绢 濒冠捞瘤 臼霸 茄促. 
-		if( ch->viewtype != VIEWTYPE_TRANSPARENCY_ ) // 捧疙牢埃 付过阑 静搁 捞抚肚茄 焊咯林瘤 臼绰促.
+		//  마우스에 의해 Check되었을경우  이름을 보여주여야 하는데..   MouseCheckCharacterName가 Setting되므로 이를 이용하여 이름을 출력한다.  약간의 Delay를 주어 깜박이지 않게 한다. 
+		if( ch->viewtype != VIEWTYPE_TRANSPARENCY_ ) // 투명인간 마법을 쓰면 이름또한 보여주지 않는다.
 		if( ch == MouseCheckCharacterName )
 		{
 			if(ch->namedisplaycount == 0)
@@ -1579,7 +1578,7 @@ void CharacterProcCheck( void )
 					int DistanceX = (ch->x - Hero->x)/* / TILE_SIZE*/;	// LTS SOUND
 					int DistanceY = (ch->y - Hero->y)/* / TILE_SIZE*/;	// LTS SOUND
 
-					//////////////////////// 0810 lkh 付快胶 目辑甫 棵妨 躇阑锭 磊澜 瓤苞澜 拱府扁 ////////////////////////
+					//////////////////////// 0810 lkh 마우스 커서를 올려 놨을때 자음 효과음 물리기 ////////////////////////
 					switch(ch->animationType)
 					{
 					case ANIMATION_TYPE_MAN   :
@@ -1588,7 +1587,7 @@ void CharacterProcCheck( void )
 								auto_Wave = 70+rand()%3;
 						else	auto_Wave = 75+rand()%3;
 						
-						PlayListAutoSounds( auto_Wave,DistanceX, DistanceY, 0 );	//3D sound肺 钎泅 // LTS SOUND
+						PlayListAutoSounds( auto_Wave,DistanceX, DistanceY, 0 );	//3D sound로 표현 // LTS SOUND
 						//PlayListAutoSounds(auto_Wave, DistanceX,DistanceY,0);	// LTS SOUND
 						break;
 					case ANIMATION_TYPE_MON1  :
@@ -1634,9 +1633,9 @@ void CharacterProcCheck( void )
 
 	if(LButtonDownIng==1 )								
 	{						
-		if( Hero != NULL )	// 霸烙救俊 甸绢吭促搁..				
+		if( Hero != NULL )	// 게임안에 들어왔다면..				
 		{										
-			if( Hero->peacests == 0 && SMenu[ MN_PARTY].bActive == true )// 颇萍甫 备己窍扁 困茄 
+			if( Hero->peacests == 0 && SMenu[ MN_PARTY].bActive == true )// 파티를 구성하기 위한 
 			{
 				if( g_GameInfo.lpcharacter == g_GameInfo.lpoldcharacter )
 				{
@@ -1708,7 +1707,7 @@ void AttackProc( LPCHARACTER ch, int minr, int maxr )
 	LPCHARACTER dch;
 	LPITEMGROUND i;
 	int ani;
-	//	某腐磐甫 急琶 拱府利牢 傍拜...
+	//	캐릭터를 선택 물리적인 공격...
 
 
 	switch( ch->animationType )
@@ -1717,7 +1716,7 @@ void AttackProc( LPCHARACTER ch, int minr, int maxr )
 		break;
 				
 	case ANIMATION_TYPE_MAN   :
-	case ANIMATION_TYPE_WOMAN :		if( ch->changeActionFlag == 0 ) // 促弗 傍拜悼累阑 窍绊 乐瘤 臼促搁,
+	case ANIMATION_TYPE_WOMAN :		if( ch->changeActionFlag == 0 ) // 다른 공격동작을 하고 있지 않다면,
 									{			
 										switch( ch->nAttackedType )
 										{	
@@ -1764,7 +1763,7 @@ void AttackProc( LPCHARACTER ch, int minr, int maxr )
 									}			
 		break;									
 												
-	case ANIMATION_TYPE_MON1  :		if( ch->changeActionFlag == 0 ) // 促弗 傍拜悼累阑 窍绊 乐瘤 臼促搁,
+	case ANIMATION_TYPE_MON1  :		if( ch->changeActionFlag == 0 ) // 다른 공격동작을 하고 있지 않다면,
 									{			
 										ch->attackMinRange = minr;
 										ch->attackMaxRange = maxr;
@@ -1802,11 +1801,11 @@ void AttackProc( LPCHARACTER ch, int minr, int maxr )
 ///////////////////////////////////////////////////////////////////////////////
 //////			
 //////			
-//////			Mouse 贸府....
+//////			Mouse 처리....
 //////			
 //////			
 			
-/* // 捞何盒篮 Server俊辑 倾遏阑 罐绊 捞悼茄促. 
+/* // 이부분은 Server에서 허락을 받고 이동한다. 
 if ( Hero->nCurrentAction != ACTION_RUN )
 {			
 Hero->nCurrentAction = ACTION_RUN;
@@ -1830,9 +1829,9 @@ void DoHeroMove( int movetype, int x, int y )
 	if( DontMoveAttackFlag == TRUE ) 
 		return;
 
-  if ( Hero->nCurrentAction==17)		// LTS 011214 LTS			// 旧篮 惑怕俊辑 规氢阑 官操绢 霖促.
+  if ( Hero->nCurrentAction==17)		// LTS 011214 LTS			// 앉은 상태에서 방향을 바꾸어 준다.
 	{
-		/*AddCurrentStatusMessage( 255,255,0,"旧扁 惑怕俊辑绰 框流老荐 绝嚼聪促.");
+		/*AddCurrentStatusMessage( 255,255,0,"앉기 상태에서는 움직일수 없습니다.");
 		switch(Hero->direction)
 		{
 		case DIRECTION_UP			: Hero->direction=DIRECTION_RIGHTUP;	break;
@@ -1865,10 +1864,10 @@ void DoHeroMove( int movetype, int x, int y )
 
 	if( IsDead( Hero) && Hero->viewtype != VIEWTYPE_GHOST_ ) 
 	{	
-		if(!Hero->sex)		//咯磊
-			PlayListAutoSounds( 80,0,0,0 ); // 捞悼角菩.
+		if(!Hero->sex)		//여자
+			PlayListAutoSounds( 80,0,0,0 ); // 이동실패.
 		else
-			PlayListAutoSounds( 81,0,0,0 ); // 捞悼角菩.
+			PlayListAutoSounds( 81,0,0,0 ); // 이동실패.
 		AddCurrentStatusMessage( 255,100,100,lan->OutputMessage(5,20) );//010216 lsw
 		return;
 	}	
@@ -1876,23 +1875,23 @@ void DoHeroMove( int movetype, int x, int y )
 	if( SCharacterData.nCharacterSP <= 0  && !IsDead( Hero) ) 
 	{
 	//	0910 YGI
-	//		if(!Hero->sex)		//咯磊
-	//			PlayListAutoSounds( 80,0,0,0 ); // 捞悼角菩.
+	//		if(!Hero->sex)		//여자
+	//			PlayListAutoSounds( 80,0,0,0 ); // 이동실패.
 	//		else
-	//			PlayListAutoSounds( 81,0,0,0 ); // 捞悼角菩.
+	//			PlayListAutoSounds( 81,0,0,0 ); // 이동실패.
 		AddCurrentStatusMessage( 255,100,100,lan->OutputMessage(9,3) );//010215 lsw
 	}
 		
-	if( TileMap[ Hero->x/ TILE_SIZE][Hero->y/TILE_SIZE].attr_dont ) return;		// 捣飘冠胶搁 给框流牢促. 
+	if( TileMap[ Hero->x/ TILE_SIZE][Hero->y/TILE_SIZE].attr_dont ) return;		// 돈트박스면 못움직인다. 
 			
 	if ( !TileMap[ mx ][ my ].attr_dont && FreeTile( Hero, mx, my , mx, my ))
 	{		
 //		if( IsTooNearCharacter( x, y, Hero ) )	
 //		{
-//			PlayListAutoSounds( 10,0,0,0 ); // 捞悼角菩.
-//			return; // 傍拜裹困焊促 救率栏肺 啊妨茄促搁..
+//			PlayListAutoSounds( 10,0,0,0 ); // 이동실패.
+//			return; // 공격범위보다 안쪽으로 가려한다면..
 //		}
-//		崔府绰档吝 500ms傈俊 付快胶啊 努腐登搁 
+//		달리는도중 500ms전에 마우스가 클릭되면 
 			
 		temptime = ::timeGetTime();//::timeGetTime();	
 		if( temptime - Movetime < 300 )
@@ -1976,7 +1975,7 @@ void DoHeroMove( int movetype, int x, int y )
 		}		
 		else	
 		{		
-			if( Hero->x != x || Hero->y != y ) //  促弗 磊府肺 捞悼窍妨 茄促搁.
+			if( Hero->x != x || Hero->y != y ) //  다른 자리로 이동하려 한다면.
 			if( Hero->x /TILE_SIZE == mx && Hero->y /TILE_SIZE == my ) 
 			{
 				Hero->gox		= x;
@@ -1994,16 +1993,16 @@ void DoHeroMove( int movetype, int x, int y )
 				}
 			}
 			
-			if(!Hero->sex)		//咯磊
-				PlayListAutoSounds( 80,0,0,0 ); // 捞悼角菩.
+			if(!Hero->sex)		//여자
+				PlayListAutoSounds( 80,0,0,0 ); // 이동실패.
 			else
-				PlayListAutoSounds( 81,0,0,0 ); // 捞悼角菩.
+				PlayListAutoSounds( 81,0,0,0 ); // 이동실패.
 		}		
 	}			
 	else	
 	{		
 
-		if( Hero->x != x || Hero->y != y ) //  促弗 磊府肺 捞悼窍妨 茄促搁.
+		if( Hero->x != x || Hero->y != y ) //  다른 자리로 이동하려 한다면.
 		if( Hero->x /TILE_SIZE == mx && Hero->y /TILE_SIZE == my ) 
 		{
 			Hero->gox		= x;
@@ -2021,13 +2020,13 @@ void DoHeroMove( int movetype, int x, int y )
 			}
 		}
 
-		if(!Hero->sex)		//咯磊
-			PlayListAutoSounds( 80,0,0,0 ); // 捞悼角菩.
+		if(!Hero->sex)		//여자
+			PlayListAutoSounds( 80,0,0,0 ); // 이동실패.
 		else
-			PlayListAutoSounds( 81,0,0,0 ); // 捞悼角菩.
+			PlayListAutoSounds( 81,0,0,0 ); // 이동실패.
 	}		
 
-	if(!IsHeroDead()) CheckNpcTalk();	// 0923 YGI 眠啊 
+	if(!IsHeroDead()) CheckNpcTalk();	// 0923 YGI 추가 
 
 }				
 		
@@ -2055,14 +2054,14 @@ void DoHeroAttack( int x, int y )
 									
 	if( IsDead( Hero) || Hero->nCurrentAction == ACTION_DIE )
 	{											
-		PlayListAutoSounds( 82,0,0,0 ); // 捞悼角菩.
+		PlayListAutoSounds( 82,0,0,0 ); // 이동실패.
 		AddCurrentStatusMessage( 255,100,100,lan->OutputMessage(9,4) );
 		return;						
 	}								
 									
 	if( SCharacterData.nCharacterSP == 0 )
 	{								
-		PlayListAutoSounds( 82,0,0,0 ); // 捞悼角菩.
+		PlayListAutoSounds( 82,0,0,0 ); // 이동실패.
 		AddCurrentStatusMessage( 255,100,100,lan->OutputMessage(9,5) );//010215 lsw
 		return;						
 	}								
@@ -2090,11 +2089,11 @@ void DoHeroAttack( int x, int y )
 										}
 										else
 										{
-											if( Hero->sprno == 0 ) //咯磊捞搁.
+											if( Hero->sprno == 0 ) //여자이면.
 											{
 												switch( Hero->accessory[2] )
 												{
-												case 76 :case 77:case 78: case 79: // 劝捞唱 厚八牢版快肺 捞公扁绰 Magic贸府俊辑 Send窍霸等促. 
+												case 76 :case 77:case 78: case 79: // 활이나 비검인경우로 이무기는 Magic처리에서 Send하게된다. 
 													Send_CMD_JUST_ATTACK_ANIMATION( i );
 													break;
 												default : 
@@ -2106,7 +2105,7 @@ void DoHeroAttack( int x, int y )
 											{
 												switch( Hero->accessory[2] )
 												{
-												case 78: case 79:case 80 :case 81:	// 劝捞唱 厚八牢版快肺 捞公扁绰 Magic贸府俊辑 Send窍霸等促. 
+												case 78: case 79:case 80 :case 81:	// 활이나 비검인경우로 이무기는 Magic처리에서 Send하게된다. 
 													Send_CMD_JUST_ATTACK_ANIMATION( i );
 													break;
 												default : 
@@ -2139,9 +2138,9 @@ void DoHeroAttack( int x, int y )
 									destx = d->x; 
 									desty = d->y;
 									
-									////////////////////// 0609 lkh 眠啊(寒.厘局拱 第俊辑 傍拜窍绰 惑炔 阜扁困秦) ////////////////////////
+									////////////////////// 0609 lkh 추가(벽.장애물 뒤에서 공격하는 상황 막기위해) ////////////////////////
 									minormax = IsAttackRange( &minrange, &maxrange, Hero, destx, desty );
-									if( TileLineCheck(destx, desty, Hero->x, Hero->y) )		//厘局拱捞 绝绰 版快
+									if( TileLineCheck(destx, desty, Hero->x, Hero->y) )		//장애물이 없는 경우
 									{
 										if (minormax == ATTACKRANGE_IN_AREA_)
                     {
@@ -2160,8 +2159,8 @@ void DoHeroAttack( int x, int y )
 									
 	switch( minormax )				
 	{								
-		//////////////////////// 0614 lkh 眠啊 /////////////////////
-		case ATTACKRANGE_IN_MIN_	:	range = minrange + 16;				break;		//0525 lkh 荐摹 荐沥
+		//////////////////////// 0614 lkh 추가 /////////////////////
+		case ATTACKRANGE_IN_MIN_	:	range = minrange + 16;				break;		//0525 lkh 수치 수정
 		case ATTACKRANGE_OUT_MAX_	:	range = maxrange - 16;				break;		//			"
 
 		case ATTACKRANGE_IN_AREA_	:	
@@ -2181,8 +2180,8 @@ void DoHeroAttack( int x, int y )
 		t.moveFlag = TRUE;
 		t.movetype = 1;
 
-		//////////////////////// 0625 lkh 眠啊 ////////////////////////////
-		if(GetIndexOfCondition(SCharacterData.condition)==CC_DAZE)		return;//去鄂惑怕
+		//////////////////////// 0625 lkh 추가 ////////////////////////////
+		if(GetIndexOfCondition(SCharacterData.condition)==CC_DAZE)		return;//혼란상태
 
 
 		t.gox = x;
@@ -2223,9 +2222,9 @@ void DoHeroAttack( int x, int y )
 		}		
 		else	
 		{		
-			if( Hero->x != x || Hero->y != y ) //  促弗 磊府肺 捞悼窍妨 茄促搁.
+			if( Hero->x != x || Hero->y != y ) //  다른 자리로 이동하려 한다면.
 			{
-				if( (Hero->x - x)*(Hero->x - x)+(Hero->y - y)*(Hero->y - y) < 2048 ) // 鸥老窍唱 焊促 累篮 农扁 裹困.
+				if( (Hero->x - x)*(Hero->x - x)+(Hero->y - y)*(Hero->y - y) < 2048 ) // 타일하나 보다 작은 크기 범위.
 				{
 					//if( Hero->x /TILE_SIZE == dx && Hero->y /TILE_SIZE == dy ) 
 	
@@ -2285,7 +2284,7 @@ ACCESS_:
 			Hero->destx = dx, Hero->desty = dy;
 			if ( PathBuild( Hero ) )
 			{	
-				// ### 辑滚俊 焊辰促. 
+				// ### 서버에 보낸다. 
 				if( SysInfo.notconectserver )
 				{
 					if ( Hero->nCurrentAction != Hero->basicWalk )
@@ -2303,7 +2302,7 @@ ACCESS_:
 				}
 				else
 				{
-					if(GetIndexOfCondition(SCharacterData.condition)==CC_DAZE)		return;//去鄂惑怕
+					if(GetIndexOfCondition(SCharacterData.condition)==CC_DAZE)		return;//혼란상태
 				
 					Hero->moveFlag = TRUE;
 					Hero->gox = x;
@@ -2354,7 +2353,7 @@ ACCESS_:
 					{
 						LPCHARACTER tempch=(LPCHARACTER)(Hero->lpAttacked);
 						
-						if (abs(tempch->x-Hero->x)<50&&abs(tempch->y-Hero->y)<50)	//酒林啊鳖款 芭府俊 乐绢辑 菩胶呼靛啊 角菩茄版快
+						if (abs(tempch->x-Hero->x)<50&&abs(tempch->y-Hero->y)<50)	//아주가까운 거리에 있어서 패스빌드가 실패한경우
 						{
 							ChangeDirection(&Hero->direction,Hero->x,Hero->y,tempch->x,tempch->y);
 							SendAction(ACTION_ANGER,Hero->direction);					// LTS ACTION
@@ -2399,10 +2398,10 @@ int NotNeededMouseLButtonClick( void )
 	
 //////////////////////////////
 	
-//////////////////////////////// 0313 lkh 荐沥 ////////////////////////////////
-///////////////////////// 捞痹绕 1220 /////////////////////////////
-// 付快胶甫 努腐茄镑狼 Map谅钎甫 掘绰促.
-// 父距 贱俊 秒窍搁 钧蹲茄镑狼 谅钎甫 霖促. 
+//////////////////////////////// 0313 lkh 수정 ////////////////////////////////
+///////////////////////// 이규훈 1220 /////////////////////////////
+// 마우스를 클릭한곳의 Map좌표를 얻는다.
+// 만약 술에 취하면 엉뚱한곳의 좌표를 준다. 
 void MouseClickPosition( int *mx, int *my )
 {	
 	int distance_X=0;
@@ -2410,9 +2409,9 @@ void MouseClickPosition( int *mx, int *my )
 	int distance_Y=0;
 	int	temp_Dist_Y=0;
 
-	if(GetIndexOfCondition(SCharacterData.condition)==CC_DAZE)		//去鄂惑怕		// 0116 YGI
+	if(GetIndexOfCondition(SCharacterData.condition)==CC_DAZE)		//혼란상태		// 0116 YGI
 	{
-		////////////////////// 0331 lkh 荐沥 ////////////////////////
+		////////////////////// 0331 lkh 수정 ////////////////////////
 		temp_Dist_X = abs(Hero->x - Mox);
 		temp_Dist_Y = abs(Hero->y - Moy);
 
@@ -2425,19 +2424,19 @@ void MouseClickPosition( int *mx, int *my )
 		
 		switch(rand()%4)
 		{
-		case 0:		//x 措莫
+		case 0:		//x 대칭
 			if(Hero->x > Mox)
 				Mox += distance_X;
 			else
 				Mox -= distance_X;
 			break;
-		case 1:		//y 措莫
+		case 1:		//y 대칭
 			if(Hero->y > Moy)
 				Moy += distance_Y;
 			else
 				Moy -= distance_Y;
 			break;
-		case 2:		//x,y 措莫
+		case 2:		//x,y 대칭
 			if(Hero->x > Mox)
 				Mox += distance_X;
 			else
@@ -2479,24 +2478,24 @@ int GetItemKind(int itemno)
 		case IK_TWO_ARROW:
 		case IK_DUAL_ARROW://030102 lsw
 		case IK_SNOW_BALL:   
-		{ // 厘芭府 公扁
+		{ // 장거리 무기
 		  return RANGE_BOW;
 		}
 		case IK_WHIRL:       
 		case IK_STAFE:
 		case IK_SPEAR:
 		case IK_FORK:        
-		{ // 吝芭府 公扁
+		{ // 중거리 무기
 		  return RANGE_DEFAULT;
 		}
 	}
 
-  return MELEE; // 窜芭府公扁
+  return MELEE; // 단거리무기
 }
 
 // mousebutton : 0 : LeftClick 
 //				 1 : Left Double Click..
-//////////////////////////// 0522 LKH 荐沥 //////////////////////////////
+//////////////////////////// 0522 LKH 수정 //////////////////////////////
 void HeroActionProc( int mousebutton, int mx, int my  )
 {	//< CSD-030930
 	if( g_StartMenuOn == TRUE )  return;
@@ -2512,10 +2511,10 @@ void HeroActionProc( int mousebutton, int mx, int my  )
 	}
 	//< CSD-021021
 	if (Hero->condition&CON_STONE)
-	{ // 酒贰 惑怕俊辑绰 橇饭烙 沥瘤 棺 捞悼阂啊
+	{ // 아래 상태에서는 프레임 정지 및 이동불가
 		return;
 	}
-	// 促矫 惑怕 雀汗
+	// 다시 상태 회복
 	if (Hero->viewtype == VIEWTYPE_STONE_)   
 	{
 		Hero->viewtype = VIEWTYPE_NORMAL_;
@@ -2527,7 +2526,7 @@ void HeroActionProc( int mousebutton, int mx, int my  )
 		{
 			switch (g_GameInfo.nSelectedSpriteType)
 			{								
-			case SPRITETYPE_NONE:  // 喘妨柳 惑怕俊辑 酒公巴档 Checking等巴捞 绝促搁.. 弊成 捞悼茄促.
+			case SPRITETYPE_NONE:  // 눌려진 상태에서 아무것도 Checking된것이 없다면.. 그냥 이동한다.
 				{
 					Hero->nAttackedType = 0;
 					Hero->lpAttacked = NULL;
@@ -2557,9 +2556,9 @@ void HeroActionProc( int mousebutton, int mx, int my  )
            	switch (g_GameInfo.nSelectedSpriteType)
 			{								
 			case SPRITETYPE_NONE :  
-				{	// 喘妨柳 惑怕俊辑 酒公巴档 Checking等巴捞 绝促搁.. 弊成 捞悼茄促. 
+				{	// 눌려진 상태에서 아무것도 Checking된것이 없다면.. 그냥 이동한다. 
 					if (ACTION_ATTACK_BOW == Hero->nCurrentAction|| ACTION_THROW == Hero->nCurrentAction)
-					{	//拳混筋扁唱 厚档 带瘤扁 悼累吝俊 鸥百阑 檬扁拳 窍瘤 臼配废 茄促.
+					{	//화살쏘기나 비도 던지기 동작중에 타겟을 초기화 하지 않토록 한다.
 						goto NEXT_PROCESS_;
 					}	// 0303011 kyo
 
@@ -2575,11 +2574,11 @@ void HeroActionProc( int mousebutton, int mx, int my  )
 			case SPRITETYPE_MONSTER:
 			case SPRITETYPE_NPC:	
 				{
-					switch ((g_GameInfo.lpcharacter)->sprno)	//父距俊 郴啊 傍拜窍妨绰 歹固啊 漠俊 嘎瘤 臼栏搁....
+					switch ((g_GameInfo.lpcharacter)->sprno)	//만약에 내가 공격하려는 더미가 칼에 맞지 않으면....
 					{	
 					case 92: 
 					case 93:	
-						{	// 窜芭府 公扁 楷嚼侩 歹固
+						{	// 단거리 무기 연습용 더미
 							if (GetItemKind(EquipItemAttr[ WT_WEAPON].item_no) != MELEE)
 							{
 								AddCurrentStatusMessage( 255,100,100, lan->OutputMessage(9,6) );//010215 lsw
@@ -2589,7 +2588,7 @@ void HeroActionProc( int mousebutton, int mx, int my  )
 							goto NEXT_PROCESS_;
 						}											
 					case 94: 
-						{	// 厘芭府 公扁 楷嚼侩	
+						{	// 장거리 무기 연습용	
 							if( GetItemKind ( EquipItemAttr[ WT_WEAPON].item_no ) != RANGE_BOW )
 							{
 								AddCurrentStatusMessage( 255,100,100,lan->OutputMessage(9,7) );//010215 lsw
@@ -2599,7 +2598,7 @@ void HeroActionProc( int mousebutton, int mx, int my  )
 							goto NEXT_PROCESS_;
 						}
 					case 95:
-						{	// 吝芭府 公扁 楷嚼侩
+						{	// 중거리 무기 연습용
 							if( GetItemKind ( EquipItemAttr[ WT_WEAPON].item_no ) != RANGE_DEFAULT )
 							{
 								AddCurrentStatusMessage( 255,100,100, lan->OutputMessage(9,8) );//010215 lsw
@@ -2627,8 +2626,8 @@ RET_:
 
 int g_CurrCharStatus;
 #define CCS_NONE		0	
-#define CCS_ATTACKING	1	// 傍拜吝捞菌促.
-#define CCS_MOVING		2	// 叭绰吝捞菌促.
+#define CCS_ATTACKING	1	// 공격중이었다.
+#define CCS_MOVING		2	// 걷는중이었다.
 
 
 extern void MouseProcess( UINT message, WPARAM wParam, LPARAM lParam);
@@ -2644,7 +2643,7 @@ void DoLbuttonStill()
 				if( flag == false )
 				{
 					static int ct = 1;
-					if( !(ct%10) )		// 15锅寸 1锅
+					if( !(ct%10) )		// 15번당 1번
 					{
 						DWORD Param;
 						Param = MAKELONG( g_pointMouseX, g_pointMouseY );
@@ -2660,17 +2659,17 @@ void DoLbuttonStill()
 	}
 }
 
-void DoLButtonDown( void )	// LButton捞 促款登搁 角青登绢 瘤绰镑...
+void DoLButtonDown( void )	// LButton이 다운되면 실행되어 지는곳...
 {
 	int mx, my;						
 	if( ViewTipsCheck()) return;
-	if( MouseCursorOnOff == false ) return;// 扁贱矫傈吝.
+	if( MouseCursorOnOff == false ) return;// 기술시전중.
 	if( NotNeededMouseLButtonClick() ) return;
 	if( CounselerSelectChar() ) return;
 	if( CheckSkill() ) return;
 
-	////////////// 捞痹绕 1112 //////////////////
-	if( tool_ID_SKILL_INPUT)		//skill 加己 涝仿芒捞 劝己拳登绢 乐绰 版快
+	////////////// 이규훈 1112 //////////////////
+	if( tool_ID_SKILL_INPUT)		//skill 속성 입력창이 활성화되어 있는 경우
     {
 		char temp[FILENAME_MAX];
 		mx=Mox/32;
@@ -2678,9 +2677,9 @@ void DoLButtonDown( void )	// LButton捞 促款登搁 角青登绢 瘤绰镑...
 		g_MapSkillTable.x = mx;
 		g_MapSkillTable.y = my;
 		sprintf (temp, "%d", mx);
-		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_X ), temp);	//急琶等 鸥老 辆谅钎
+		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_X ), temp);	//선택된 타일 종좌표
 		sprintf (temp, "%d", my);
-		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_Y ), temp);	//急琶等 鸥老 辆谅钎
+		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_Y ), temp);	//선택된 타일 종좌표
 		MapSkillTool_Attr( mx, my);
 		return;
     }
@@ -2713,7 +2712,7 @@ void DoLButtonDown( void )	// LButton捞 促款登搁 角青登绢 瘤绰镑...
 	else return; 
 
 	// 011210 YGI
-	ClickCharacter();		//  努腐 
+	ClickCharacter();		//  클릭 
 }										
 
 
@@ -2724,14 +2723,14 @@ void DoLButtonUp( void )
 //	int mx, my;										
 	if( ViewTipsCheck() )  return;								
 												
-	if( g_MouseItemType == 1 )//酒捞袍阑 甸绊 乐绊 绢凋啊俊 初绰促
+	if( g_MouseItemType == 1 )//아이템을 들고 있고 어딘가에 놓는다
 	{												
 		switch( g_GameInfo.nSelectedSpriteType )
 		{
 		case SPRITETYPE_ON_THE_CEILING_CHAR	 :
 		case SPRITETYPE_MONSTER		:
 		case SPRITETYPE_NPC			:	break;
-		case SPRITETYPE_CHARACTER	:	//021030 lsw //弊 措惑捞 某腐磐扼搁
+		case SPRITETYPE_CHARACTER	:	//021030 lsw //그 대상이 캐릭터라면
 			{
 				if( g_GameInfo.lpcharacter )		// 0131 YGI
 				{
@@ -2741,13 +2740,13 @@ void DoLButtonUp( void )
 					}
 					if( g_GameInfo.lpcharacter->id>=0 && g_GameInfo.lpcharacter->id<=10000 )
 					{
-						if( g_GameInfo.lpcharacter != Hero )//惑措啊 郴 某腐磐啊 酒聪扼搁
+						if( g_GameInfo.lpcharacter != Hero )//상대가 내 캐릭터가 아니라면
 						{
 							if(CheckPC && g_GameInfo.lpcharacter->viewtype != VIEWTYPE_GHOST_)//030127 lsw
 							{
 								LButtonDown = 0;
 								MouseDrag	= 0;
-								::PutMouseItemCheck();// 角力肺 酒捞袍阑 登倒妨 初绰促. ( 怖 捞磊府俊.. )
+								::PutMouseItemCheck();// 실제로 아이템을 되돌려 놓는다. ( 꼭 이자리에.. )
 								::SendExchangeItemWithOtherCh( g_GameInfo.lpcharacter->id,EXCHANGE_TYPE_NORMAL);//021030 lsw
 								g_DropOnHero = true;
 							}
@@ -2779,11 +2778,11 @@ void DoRButtonDown( void )
 		
 	int x=0,y=0;
 		
-	if( MouseCursorOnOff == false ) return;// 扁贱矫傈吝.
+	if( MouseCursorOnOff == false ) return;// 기술시전중.
 
 	
 
-	//////////////////// 0311 lkh 眠啊 ////////////////////
+	//////////////////// 0311 lkh 추가 ////////////////////
 	switch( g_Operator_Function )
 	{
 	case OPERATOR_PLAYSOUND_EVENT1:
@@ -2807,7 +2806,7 @@ void DoRButtonDown( void )
 		}	//> CSD-TW-030606
 		break;
 	}
-	//////////////////// 咯扁鳖瘤 ////////////////////////
+	//////////////////// 여기까지 ////////////////////////
 
 	SkillSettingClear();
 		
@@ -2833,8 +2832,8 @@ void DoRButtonDown( void )
 		return;
 	}
 	
-	////////////// 捞痹绕 1112 //////////////////
-	if( tool_ID_SKILL_INPUT )		//skill 加己 涝仿芒捞 劝己拳登绢 乐绰 版快
+	////////////// 이규훈 1112 //////////////////
+	if( tool_ID_SKILL_INPUT )		//skill 속성 입력창이 활성화되어 있는 경우
     {		
 		lpMAPSKILLTABLE	result;
 		int	mx=Mox/32;
@@ -2842,9 +2841,9 @@ void DoRButtonDown( void )
 			
 		char temp[FILENAME_MAX];
 		sprintf (temp, "%d", mx);
-		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_X ), temp);	//急琶等 鸥老 辆谅钎
+		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_X ), temp);	//선택된 타일 종좌표
 		sprintf (temp, "%d", my);
-		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_Y ), temp);	//急琶等 鸥老 辆谅钎
+		Edit_SetText (GetDlgItem(InputSkillAttrHdlg, IDC_INPUT_TILE_Y ), temp);	//선택된 타일 종좌표
 			
 		// 010312 KHS
 		int hx, hy;
@@ -2871,12 +2870,12 @@ void DoRButtonDown( void )
 	}
 
 
-	/////////////////////////// 0430 lkh 荐沥 //////////////////////////////
-	if(!IsMenuActive())		// 劝己拳等 皋春救俊 付快胶啊 乐绰瘤甫 魄窜
+	/////////////////////////// 0430 lkh 수정 //////////////////////////////
+	if(!IsMenuActive())		// 활성화된 메뉴안에 마우스가 있는지를 판단
 	{
 		if(g_AttackSkill_Trace1)
 		{
-			//InsertMagic( Hero, Hero, 8, 1, 0, 0, 0, 0, 0); // 030402 kyo //捞惑 瞒隆 泅惑
+			//InsertMagic( Hero, Hero, 8, 1, 0, 0, 0, 0, 0); // 030402 kyo //이상 차징 현상
 		}
 		else if(g_AttackSkill_Trace2)
 		{
@@ -2888,7 +2887,7 @@ void DoRButtonDown( void )
 		}
 	}
 
-	if ( Hero->nCurrentAction==17)		// 011214 LTS // 旧篮 惑怕俊辑 规氢阑 官操绢 霖促.
+	if ( Hero->nCurrentAction==17)		// 011214 LTS // 앉은 상태에서 방향을 바꾸어 준다.
 	{
 		switch(Hero->direction)
 		{
@@ -2941,7 +2940,7 @@ void DoLDButtonDown( void )
 
 	MouseClickPosition( &mx, &my );
 
-	if( Lc_DefaultMoveType == 0 ) //  扁夯崔府扁肺 汲沥登绢乐促搁 DoubleClick 阑 利侩窍唱 弊犯瘤 臼栏搁 龋免窍瘤 臼绰促.  
+	if( Lc_DefaultMoveType == 0 ) //  기본달리기로 설정되어있다면 DoubleClick 을 적용하나 그렇지 않으면 호출하지 않는다.  
 		HeroActionProc( 1 , mx, my  );
 }				
 				
@@ -2962,8 +2961,8 @@ void DoRDButtonDown( void )
 ///////////////////////////////////////////////////////////////////////////////
 //////			
 //////			
-//////			角力利栏肺  免仿窍绰镑..
-//////			Sorting窍咯 免仿茄促.
+//////			실제적으로  출력하는곳..
+//////			Sorting하여 출력한다.
 //////					
 
 int BoxAndBoxCrash_( int ax, int ay, int axl, int ayl,  int bx, int by, int bxl, int byl )
@@ -3205,7 +3204,7 @@ void CalcOrder( void )
 		{	
 			if( ch != Hero )
 			{
-				// 澜... 林牢傍狼 矫具+SIGHT_PLUS俊辑 哈绢唱搁 绝矩促. 
+				// 음... 주인공의 시야+SIGHT_PLUS에서 벗어나면 없앤다. 
 //				if( (ch->position.x >Hero->position.x) * ( ch->x - Hero->x )  +  (ch->y-Hero->y) * (ch->y-Hero->y) > Hero->sight + 90000 )
 //				if( abs( ch->position.x - Hero->position.x ) > 20 && abs( ch->position.y - Hero->position.y ) > 20 )
 //				{
@@ -3235,8 +3234,8 @@ void CalcOrder( void )
 		{					
 			bool	check = ReturnCheckObject( mo );
 
-			//////////////////////////// 0812 lkh 眠啊 ///////////////////////////////
-			//	泅惑陛 霸矫魄阑 歹喉努腐(哭率滚瓢)窍绰 版快 霸矫魄 皋春 夺促.
+			//////////////////////////// 0812 lkh 추가 ///////////////////////////////
+			//	현상금 게시판을 더블클릭(왼쪽버튼)하는 경우 게시판 메뉴 뜬다.
 //			Spr *sp = &MoImage[ mo->id-1].spr[0];
 ///			if( mo->id >= 2482 && mo->id <=2485 )
 ///				if( BoxAndDotCrash( (int)(mo->x+mo->offx-sp->ox), (int)(mo->y+mo->offy-sp->oy), sp->xl, sp->yl, Mox, Moy) && g_MouseInMenu == false )
@@ -3255,7 +3254,7 @@ void CalcOrder( void )
 				o->x		= mo->x;
 				o->y		= mo->y;
 				o->offset	= mo->y;
-				o->rgb		= i; // rgb肺 静绰芭捞 酒聪扼 硅凯锅龋甫 敬促. 
+				o->rgb		= i; // rgb로 쓰는거이 아니라 배열번호를 쓴다. 
 									
 				o->height	= 0;
 				o->lpvData	= (LPVOID)(mo);
@@ -3267,7 +3266,7 @@ void CalcOrder( void )
 							
 			if( GetSysInfo( SI_GAME_MAKE_MODE ) )
 			{				
-				// MapObject甫 Check且锭.1. 嘛篮 谅钎客 面倒登绰 MapObject甫 茫绰促. 
+				// MapObject를 Check할때.1. 찍은 좌표와 충돌되는 MapObject를 찾는다. 
 				if( BoxAndDotCrash(mo->x-10, mo->y-10, 20, 20,  Mox, Moy ) )
 				{			
 					IDCheckedMapObject = i;
@@ -3277,7 +3276,7 @@ void CalcOrder( void )
 	}			
 
 
-	// MapObject甫 Check且锭.2. 付快胶客 面倒登绰 MapObject甫 茫绰促. 
+	// MapObject를 Check할때.2. 마우스와 충돌되는 MapObject를 찾는다. 
 	if( GetSysInfo( SI_GAME_MAKE_MODE ) )
 	if( IDCheckedMapObject == -1 )
 	for( i = 0 ; i < TotalMapObject ; i ++)
@@ -3510,7 +3509,7 @@ void CalcOrder( void )
 				{	//< CSD-030509
 					return;
 				}	//> CSD-030509
-				//	郴啊 蜡飞捞芭唱 蜡飞阑 杭 乐阑 锭父 惑措蜡飞阑 急琶且荐 乐促. 
+				//	내가 유령이거나 유령을 볼 있을 때만 상대유령을 선택할수 있다. 
 				if( ch->viewtype == VIEWTYPE_GHOST_ )
 				{	
 					// YGI ACER
@@ -3527,17 +3526,17 @@ void CalcOrder( void )
 					
 				MouseCheckCharacterName = (LPCHARACTER )pi->lpvData;
 					
-				//	磷绢 乐阑版快..............
+				//	죽어 있을경우..............
 				if( IsDead(ch) )
 				{	
 					if( SkillOn == -1 ) break;
 				}	
 					
 					
-				//	老馆 PC老跋快俊绰 
+				//	일반 PC일겅우에는 
 				if( ch->id < 10000 )			// 0906 YGI	fightmap_2
 				{	
-					if( g_FightMapStart ) /* 傈捧 甘俊辑 辑肺 促弗 评老版快 牧飘费 虐 绝捞档 急琶捞 啊瓷窍霸...*/
+					if( g_FightMapStart ) /* 전투 맵에서 서로 다른 팀일경우 컨트롤 키 없이도 선택이 가능하게...*/
 					{
 						if( Hero->fight_map_team_num  && ch->fight_map_team_num && Hero->fight_map_team_num != ch->fight_map_team_num )  bClickOn = true;
 					}
@@ -3546,7 +3545,7 @@ void CalcOrder( void )
 					{	//< CSD-040414
 						if (!CheckNotClickNation())
 						{
-							bClickOn = true;	// 努腐 阂啊瓷捞 酒聪搁 // 010724 YGI
+							bClickOn = true;	// 클릭 불가능이 아니면 // 010724 YGI
 
 							for (int i = 0; i < 6; ++i)
 							{
@@ -3560,16 +3559,16 @@ void CalcOrder( void )
 					}	//> CSD-040414
 #endif
 					else if( IsNK( ch ) >= 5 && ch != Hero )				bClickOn = true;
-					else if( Hero->fight_flag && Hero->fight_id == ch->id ) bClickOn = true; // 搬捧矫.. 
+					else if( Hero->fight_flag && Hero->fight_id == ch->id ) bClickOn = true; // 결투시.. 
 					
-					if (g_bWarBegin)	// 傈里吝捞搁	// 011022 LTS
+					if (g_bWarBegin)	// 전쟁중이면	// 011022 LTS
 					{
-						if (isOurSquad(Hero,ch)) bClickOn=false; //惫啊傈捞绊 扁鸥殿殿捞搁
+						if (isOurSquad(Hero,ch)) bClickOn=false; //국가전이고 기타등등이면
 						else bClickOn=true;		
 					}
 					if (Hero->DragonLordWarTeam>0&&ch->DragonLordWarTeam>0)		// LTS DRAGONLORD
 					{
-						if (Hero->DragonLordWarTeam!=ch->DragonLordWarTeam) bClickOn=true;		// 促弗祈捞搁 
+						if (Hero->DragonLordWarTeam!=ch->DragonLordWarTeam) bClickOn=true;		// 다른편이면 
 						else bClickOn=false;		
 					}
 					if ((MapNumber==39)&&(g_EventLocalWarBegin==3)) bClickOn = true;	// LTS BUG
@@ -3822,13 +3821,13 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 				{
 					if(Hero->HorseNo)
 					{	
-						::PutHeroHpGauge(x - 15, y - ch->height - 30);	   // npc HP霸捞瘤 嘛扁  // 1015 YGI
-						::PutHeroMpGauge(x - 15, y - ch->height + 3 - 30); // npc HP霸捞瘤 嘛扁  // 1015 YGI
+						::PutHeroHpGauge(x - 15, y - ch->height - 30);	   // npc HP게이지 찍기  // 1015 YGI
+						::PutHeroMpGauge(x - 15, y - ch->height + 3 - 30); // npc HP게이지 찍기  // 1015 YGI
 					}
 					else
 					{
-						::PutHeroHpGauge(x - 15, y - ch->height + 10);	   // npc HP霸捞瘤 嘛扁  // 1015 YGI
-						::PutHeroMpGauge(x - 15, y - ch->height + 3 + 10); // npc HP霸捞瘤 嘛扁  // 1015 YGI
+						::PutHeroHpGauge(x - 15, y - ch->height + 10);	   // npc HP게이지 찍기  // 1015 YGI
+						::PutHeroMpGauge(x - 15, y - ch->height + 3 + 10); // npc HP게이지 찍기  // 1015 YGI
 					}
 
 					break;
@@ -3891,7 +3890,7 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 	if (!GetSysInfo( SI_GAME_MAKE_MODE ))
 	{
 		if (ch!=Hero)					// LTS DRAGON MODIFY
-		{	//< CSD-040322 : 惫瘤傈矫 鸥惫啊狼 沥焊啊 焊捞档废 荐沥
+		{	//< CSD-040322 : 국지전시 타국가의 정보가 보이도록 수정
 			/*
 			if (g_LocalWarBegin)
 			{
@@ -3920,7 +3919,7 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 			}
 			if (Hero->DragonLordWarTeam>0&&ch->DragonLordWarTeam>0)		// LTS DRAGONLORD
 			{
-				if (Hero->DragonLordWarTeam!=ch->DragonLordWarTeam)		// 促弗评捞搁 
+				if (Hero->DragonLordWarTeam!=ch->DragonLordWarTeam)		// 다른팀이면 
 				{
 					return;
 				}
@@ -3936,12 +3935,12 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 
 	if( ch->namedisplaycount > 1 && !ch->ChatDelay )
 	{				
-		int tttx = spr[ 71].xl / 2; // 捞抚臂揪第俊 嘛洒绰 硅版..
-		if( ch->type==SPRITETYPE_CHARACTER ) // PC甸父 荤柳捞 乐促....
+		int tttx = spr[ 71].xl / 2; // 이름글씨뒤에 찍히는 배경..
+		if( ch->type==SPRITETYPE_CHARACTER ) // PC들만 사진이 있다....
 		{	//< CSD-030324
-			if( !CheckPC && CheckGuildCode( ch->GetGuildCode() ) )		// 1027 YGI		// 牧飘费阑 喘范阑 版款 
+			if( !CheckPC && CheckGuildCode( ch->GetGuildCode() ) )		// 1027 YGI		// 컨트롤을 눌렀을 경운 
 			{
-				::PutGuildImage( x -tttx+ -20 ,y - 24 - ch->height +ttty, ch->GetGuildCode() );		// 辨靛 付农甫 嘛绰促.
+				::PutGuildImage( x -tttx+ -20 ,y - 24 - ch->height +ttty, ch->GetGuildCode() );		// 길드 마크를 찍는다.
 			}
 			else 
 			{
@@ -3950,7 +3949,7 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 		}	//> CSD-030324
 		else
 		{
-			::PutHpGauge( x +5, y-ch->height, ch );		// npc HP霸捞瘤 嘛扁  // 1015 YGI
+			::PutHpGauge( x +5, y-ch->height, ch );		// npc HP게이지 찍기  // 1015 YGI
 		}
 
 		if (ch->name[0])
@@ -3967,20 +3966,20 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 				{
 					if( CheckGuildCode( ch->GetGuildCode() ) )// 1004 YGI
 					{	//< CSD-030324
-						PutLvNameByColor( x -tttx+ 86, y-4-15-ch->height+ttty, ch );		// 饭骇 免仿
+						PutLvNameByColor( x -tttx+ 86, y-4-15-ch->height+ttty, ch );		// 레벨 출력
 					}	//> CSD-030324
 					else 
 					{
-						PutLvNameByColor( x -tttx+ 10, y-4-15-ch->height+ttty, ch );		// 饭骇 免仿
+						PutLvNameByColor( x -tttx+ 10, y-4-15-ch->height+ttty, ch );		// 레벨 출력
 					}
 					PutDualMark(x - tttx + 5, y - 4 - 20 - ch->height + ttty, ch);
 				}
 				else
 				{
-					// 流诀 饭骇 免仿
+					// 직업 레벨 출력
 					if( ch->job )
 					{
-						PutJobLv( x -tttx+ 10, y-19-ch->height+ttty, ch->job, ch->call_job_lv );		// 1004 YGI( 流诀 殿鞭 免仿 )
+						PutJobLv( x -tttx+ 10, y-19-ch->height+ttty, ch->job, ch->call_job_lv );		// 1004 YGI( 직업 등급 출력 )
 					}
 				}
 					
@@ -4000,11 +3999,11 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 				{	
 					::HprintBold( x -tttx+ 10, y-4 - ch->height +ttty, RGB( 0xff, 0xff, 0xff ),0, "%s", ch->name );
 				}	
-// 唱扼捞抚阑 免仿.....
+// 나라이름을 출력.....
 #ifdef _NATION_APPLY_				
 				if( !CheckPC && CheckGuildCode( ch->GetGuildCode() ) )// 1004 YGI
 				{	//< CSD-030324
-					PutGuildLvByColor( x -tttx+ 10, y-19-ch->height+ttty, ch->GetGuildCode(), ch->name_status.guild_master );	// 辨靛郴 流氓 免仿
+					PutGuildLvByColor( x -tttx+ 10, y-19-ch->height+ttty, ch->GetGuildCode(), ch->name_status.guild_master );	// 길드내 직책 출력
 				}	//> CSD-030324
 //					else
 				{	
@@ -4012,30 +4011,30 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 					{
 						case 0 :
 							break;
-						default :	::HprintBold( x -tttx+ 10, y-34-ch->height +ttty, NationColor[ch->name_status.nation] ,0, "%s", NationName[ch->name_status.nation] );		// 001029 YGI( 唱扼疙 免仿 )
+						default :	::HprintBold( x -tttx+ 10, y-34-ch->height +ttty, NationColor[ch->name_status.nation] ,0, "%s", NationName[ch->name_status.nation] );		// 001029 YGI( 나라명 출력 )
 							break;
 					}
 				}				
 				if( ch->name_status.king) 
 				{
-					::HprintBold( x -tttx+ 10, y-52-ch->height +ttty, RGB( 255,255, 255 ),0, "[%s]", PosOfNation[ch->name_status.nation] );		// 1031 YGI( 唱扼疙 免仿 )
+					::HprintBold( x -tttx+ 10, y-52-ch->height +ttty, RGB( 255,255, 255 ),0, "[%s]", PosOfNation[ch->name_status.nation] );		// 1031 YGI( 나라명 출력 )
 				}
 #endif						
 				if( ch->name_status.reporter )
 				{
-					// 扁磊窜
+					// 기자단
 					::HprintBold( x -tttx+ 10, y-52-ch->height +ttty, RGB( 200,0xff, 0xff ),0, kein_GetMenuString( 93 ) );
 				}
 				else
 				{
 					switch( ch->name_status.counselor ) 
 					{
-					case 1:	// 款康磊
+					case 1:	// 운영자
 						{
 							HprintBold( x -tttx+ 10, y-52-ch->height +ttty, RGB( 200,0xff, 0xff ),0, kein_GetMenuString( 42 ) );
 							break;
 						}
-					case 2:	// 档快固
+					case 2:	// 도우미
 						{
 							HprintBold( x -tttx+ 10, y-52-ch->height +ttty, RGB( 200,0xff, 0xff ),0, kein_GetMenuString( 43 ) );
 							break;
@@ -4053,7 +4052,7 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 					const int nBaseY = y - ch->height - 19;
 
 					if (ch->nAttr == AT_NORMAL)
-					{	// 扁夯 加己
+					{	// 기본 속성
 						HprintBold(nBaseX, nBaseY, RGB(0xff, 0xff, 0), 0, "%s", g_infNpc[ch->sprno].szName);
 					}
 					else
@@ -4064,7 +4063,7 @@ void DisplaySprite_Character(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 						HprintBold(nBaseX + nOffset, nBaseY, RGB(0xff, 0xff, 0), 0, "%s", g_infNpc[ch->sprno].szName);
 					}
 				}
-				// Tamming等 Character
+				// Tamming된 Character
 				if (ch->HostName[0]) 
 				{
 					HprintBold( x -tttx+ 10, y-4 - ch->height , RGB( 100, 100, 0xff ),0, "%s(%s)", ch->name, ch->HostName );
@@ -4132,7 +4131,7 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 			case OBJECTSPRITE_TRANS :  
 				{
 					::PutCompressedImageFX( iIX-Mapx, iIY-Mapy, item->spr[item->curframe/2], item->attr[IATTR_SPRITE_TYPE] >>3, 2 );
-					OutputLight( iIX, iIY, 16 );		// 堡盔
+					OutputLight( iIX, iIY, 16 );		// 광원
 				}break;
 			}
 			skip = 1;
@@ -4163,11 +4162,11 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 		}
 	}
 	
-	if( item->attr[ IATTR_ATTR] & IA2_FIRE ) // 阂阑 乔奎绢..
+	if( item->attr[ IATTR_ATTR] & IA2_FIRE ) // 불을 피웠어..
 	{
 		::PutCompressedImageFX( iIX-Mapx+iIOX, iIY-Mapy+iIOY - 16, sp, 10 +(rand()%10) , 2 );	
 	}
-	else if( item->attr[ IATTR_ATTR] & IA2_HIDE ) // 救焊捞绰 加己捞搁...
+	else if( item->attr[ IATTR_ATTR] & IA2_HIDE ) // 안보이는 속성이면...
 	{	
 		if( Hero->canviewitem )
 		{
@@ -4176,11 +4175,11 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 		}
 		else
 		{
-			// 臼嘛绢.. 恐.. 救焊捞聪鳖...
+			// 않찍어.. 왜.. 안보이니까...
 		}
 	}	
 	else if( item->attr[ IATTR_ATTR] & IA2_COLOSSUS_STONE )
-	{	//评俊 蝶弗 拿矾 函拳..
+	{	//팀에 따른 컬러 변화..
 		const int team = GetTeamByStone( item->attr[ IATTR_ATTR] );
 		sp = item->spr[team+1];
 		if( sp->img )
@@ -4218,7 +4217,7 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 				}
 				else
 				{
-					if (item->attr[IATTR_RARE_MAIN]) //饭绢幅狼 亮篮 巴捞扼搁
+					if (item->attr[IATTR_RARE_MAIN]) //레어류의 좋은 것이라면
 					{
 						::PutCompressedImage(iIX-Mapx+iIOX, iIY-Mapy+iIOY, sp);
 						::PutCompressedImageFX(iIX-Mapx+iIOX, iIY-Mapy+iIOY, sp, rand()%15, 2 );	
@@ -4231,7 +4230,7 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 			}
 			else
 			{
-				if (item->attr[IATTR_RARE_MAIN]) //饭绢幅狼 亮篮 巴捞扼搁
+				if (item->attr[IATTR_RARE_MAIN]) //레어류의 좋은 것이라면
 				{
 					::PutCompressedImage(iIX-Mapx+iIOX, iIY-Mapy+iIOY, sp);
 					::PutCompressedImageFX(iIX-Mapx+iIOX, iIY-Mapy+iIOY, sp, rand()%15, 2 );	
@@ -4244,7 +4243,7 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 		}	//> CSD-031101
 		else
 		{
-			if (item->attr[IATTR_RARE_MAIN]) //饭绢幅狼 亮篮 巴捞扼搁
+			if (item->attr[IATTR_RARE_MAIN]) //레어류의 좋은 것이라면
 			{
 				::PutCompressedImage(iIX-Mapx+iIOX, iIY-Mapy+iIOY, sp);
 				::PutCompressedImageFX(iIX-Mapx+iIOX, iIY-Mapy+iIOY, sp, rand()%15, 2 );	
@@ -4257,14 +4256,14 @@ void DisplaySprite_Item(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 lsw
 	}	//> CSD-031029
 	
 	if( o->rgb )
-	{	//	救焊咯档 急琶篮 瞪荐 乐促. 
+	{	//	안보여도 선택은 될수 있다. 
 		if ((CanViewBomb(Hero) && (item->attr[IATTR_ATTR]&IA2_TRAPED0)) 
 		||  (CanViewTrap(Hero) && (item->attr[IATTR_ATTR]&IA2_TRAPED1)))
 		{
 		}
 		else 
 		{
-			if( item->attr[ IATTR_ATTR] & IA2_FIRE ) // 阂阑 乔奎绢..
+			if( item->attr[ IATTR_ATTR] & IA2_FIRE ) // 불을 피웠어..
 			{
 				::PutCompressedImageFX( iIX-Mapx+iIOX, iIY-Mapy+iIOY - 16, sp, o->alpha, 2 );	 
 			}
@@ -4353,7 +4352,7 @@ void DisplaySprite_Effect(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//021108 l
 		case 7:
 			::PutCompressedImageVoid(o->x - Mapx, o->y-o->height - Mapy, (Spr*)(o->lpvData));
 			break;
-		case 8:			//0502 lkh 眠啊
+		case 8:			//0502 lkh 추가
 			::PutCompressedImageVoid(	o->x+(rand()%5-2) - Mapx, o->y-o->height+(rand()%5-2) - Mapy, (Spr*)(o->lpvData));
 			::PutCompressedImageFX(	o->x - Mapx, o->y-o->height - Mapy, (Spr*)(o->lpvData), o->alpha, 2);
 			break;
@@ -4395,7 +4394,7 @@ void DisplaySprite_DestPoint(int &x,int &y,LPCHARACTER ch,LPORDERTABLE o)//02110
 	}
 }
 
-//////////////////////// 0502 lkh 眠啊 (8锅 菩畔->Void & High Trans 汗钦) ////////////////////////////
+//////////////////////// 0502 lkh 추가 (8번 패턴->Void & High Trans 복합) ////////////////////////////
 void DisplaySprite( void )
 {
 	int x = 0, y= 0;
@@ -4580,27 +4579,27 @@ void DisplaySpriteCeiling( void )
 					else h_DisplayPC( ch, 1 );
 				}	
 
-				// ####唱吝俊瘤况...
+				// ####나중에지워...
 				int x = ch->x - Mapx+1;	
 				int y = ch->y - Mapy - CharSpr[ ch->sprno ].sp[0][0].yl - 20;
 
 
 				if( ch->namedisplaycount > 5 && !ch->ChatDelay )
 				{
-					int tttx = spr[ 71].xl / 2; // 捞抚臂揪第俊 嘛洒绰 硅版..
-					if( ch->type==SPRITETYPE_CHARACTER ) // PC甸父 荤柳捞 乐促....
+					int tttx = spr[ 71].xl / 2; // 이름글씨뒤에 찍히는 배경..
+					if( ch->type==SPRITETYPE_CHARACTER ) // PC들만 사진이 있다....
 					{
 						PutCharImage( x -tttx+ -20 ,y - 24 - ch->height , ch->face, 0, FS_MICRO, 0, ch->sex );
 					}
 					if( ch->name[0] )
 					{
 						//PutCompressedImageFX( x, y, &spr[ 71], 10, 1 );	
-						if( ch->HostName[0] ) //  Tamming等 Character.
+						if( ch->HostName[0] ) //  Tamming된 Character.
 						{
 							HprintBold( x -tttx+ 10, y-4 - ch->height , RGB( 100, 100, 0xff ),0, "%s(%s)", ch->name, ch->HostName );
 							if( strcmp( ch->HostName, Hero->HostName ) == 0 )
 							{
-								//  郴 悼拱俊 措茄 饭骇阑 焊咯霖促. 
+								//  내 동물에 대한 레벨을 보여준다. 
 							}
 
 						}
@@ -4732,7 +4731,7 @@ void _DisplayMapObjectAfter( void )
 
 				switch( mo->objectoritem )
 				{
-					//  扁贱侩累诀措..
+					//  기술용작업대..
 				case 71 :HprintBold( o->x - Mapx, o->y- Mapy+12 , RGB(255,255,255), RGB16( 0,0,0 ),lan->OutputMessage(9,11)  );		break;//010215 lsw
 				case 72 :HprintBold( o->x - Mapx, o->y- Mapy+12 , RGB(255,255,255), RGB16( 0,0,0 ),lan->OutputMessage(9,12)  );		break;//
 				case 73 :HprintBold( o->x - Mapx, o->y- Mapy+12 , RGB(255,255,255), RGB16( 0,0,0 ),lan->OutputMessage(9,13) );		break;//
@@ -4793,7 +4792,7 @@ void smallmap_CalcOrder( void )
 				o->x			= Mo[i].x;
 				o->y			= Mo[i].y;
 				o->offset		= Mo[i].y;
-				o->rgb			= i; // rgb肺 静绰芭捞 酒聪扼 硅凯锅龋甫 敬促. 
+				o->rgb			= i; // rgb로 쓰는거이 아니라 배열번호를 쓴다. 
 									
 				o->height		= 0;
 				o->lpvData		= (LPVOID)(&Mo[i] );
@@ -4956,7 +4955,7 @@ void smallmap_DisplaySprite( void )
 						int mx = mo->x + mo->offx - Mapx;
 						int my = mo->y + mo->offy - Mapy;
 
-						IDCheckedMapObject = g_OrderInfo.order[ i ].rgb;// 硅凯锅龋甫 唱鸥辰促. 
+						IDCheckedMapObject = g_OrderInfo.order[ i ].rgb;// 배열번호를 나타낸다. 
 						Spr *sp;
 						sp =  &MoImage[ mo->id-1].spr[ mo->curframe];
 
@@ -5009,7 +5008,7 @@ void smallmap_DisplaySprite( void )
 /////////////////////////////////////////////////////////////////////////////
 /////
 /////
-/////	 傈眉 饭捞促....
+/////	 전체 레이다....
 /////
 /////
 
@@ -5293,10 +5292,10 @@ void SendIsThereCharName( char *name )
 }	
 	
 
-//   Create Character 且锭,  捞抚捞 粮犁窍绰瘤 舅酒夯促. 
+//   Create Character 할때,  이름이 존재하는지 알아본다. 
 
-//   name捞 DB俊 粮犁窍搁 1阑 府畔茄促. 
-//   name捞 DB俊 粮犁窍瘤 臼栏搁 0阑 府畔茄促. 
+//   name이 DB에 존재하면 1을 리턴한다. 
+//   name이 DB에 존재하지 않으면 0을 리턴한다. 
 bool CheckCharName( char *name )
 {
 	if( NULL == name ) 
@@ -5317,7 +5316,7 @@ bool CheckCharName( char *name )
 	ListenCommand = CMD_NONE;
 	while( 1 )			
 	{					
-		DWORD Duration = ::timeGetTime( ) - StartTime;	// 5檬甫 扁促赴促. 
+		DWORD Duration = ::timeGetTime( ) - StartTime;	// 5초를 기다린다. 
 		if ( Duration > 5000 )		
 		{				
 			return false;
@@ -5416,7 +5415,7 @@ void RecvPleaseGiveLife( int id, int hp, int mana, int hungryp, int who )
 	LPCHARACTER ch = ReturnCharacterPoint( id );
 	if( ch == NULL ) return;
 
-	// Healing瓤苞......
+	// Healing효과......
 
 //	if( ch->type != SPRITETYPE_MONSTER ) 
 //		if( ch->viewtype != VIEWTYPE_GHOST_  && ch->hp != 0 ) return;
@@ -5428,7 +5427,7 @@ void RecvPleaseGiveLife( int id, int hp, int mana, int hungryp, int who )
 		SCharacterData.nCharacterSP = hungryp;
 		SCharacterData.condition	 = CON_NORMAL;
 
-    // 何劝 锭 傈捧胶懦 檬扁拳
+    // 부활 때 전투스킬 초기화
 		iCSPCMax = iCSPCNow = 0; // 030226 
 	CSDMainIconClear(); // 030428 kyo
   }
@@ -5503,30 +5502,30 @@ void RecvPleaseGiveLife( int id, int hp, int mana, int hungryp, int who )
 
 
 
-/////////////////////////// 0206 lkh 傈何 汗荤 ///////////////////////////////////
+/////////////////////////// 0206 lkh 전부 복사 ///////////////////////////////////
 bool	ReturnCheckObject(  LPMAPOBJECT		mo )
 {
 	static int			buttonOnCount;
-	static int			selectObject=0;				//付快胶俊 狼秦 眉农等 坷宏璃飘 锅龋
+	static int			selectObject=0;				//마우스에 의해 체크된 오브젝트 번호
 	
-	static int			selectObject_X;					//急琶等 坷宏璃飘狼 X绵
-	static int			selectObject_Y;					//急琶等 坷宏璃飘狼 Y绵
+	static int			selectObject_X;					//선택된 오브젝트의 X축
+	static int			selectObject_Y;					//선택된 오브젝트의 Y축
 	
-	static int			tempObject	=0;				//捞傈俊 急琶等 坷宏璃飘 扁撅
-	static int			objectType	=0;				//眉农等 坷宏璃飘狼 辆幅(5:埃魄/6:捞沥钎)
-	static int			displayBoard	=0;			//泅犁 焊咯瘤绊 乐绰 埃魄锅龋
-	static int			displayDirect	=0;			//泅犁 焊咯瘤绊 乐绰 捞沥钎锅龋	
+	static int			tempObject	=0;				//이전에 선택된 오브젝트 기억
+	static int			objectType	=0;				//체크된 오브젝트의 종류(5:간판/6:이정표)
+	static int			displayBoard	=0;			//현재 보여지고 있는 간판번호
+	static int			displayDirect	=0;			//현재 보여지고 있는 이정표번호	
 	
 	char				str_Data[80];
 		
 	DIRECTBOARDDATA		directboardData;
-	int					onCount=15;				//1檬
+	int					onCount=15;				//1초
 	
 	if( g_MouseInMenu  )  return 0;
 		
 	//WORD  objectoritem;				//object Type(0~65535)
 	
-	//////////////////////////////// 0420 lkh 眠啊 (皋春啊 凯妨 付快胶啊 皋春困俊 乐绰 版快绰 眉农窍瘤 臼澜) 
+	//////////////////////////////// 0420 lkh 추가 (메뉴가 열려 마우스가 메뉴위에 있는 경우는 체크하지 않음) 
 	Spr *sp = &MoImage[ mo->id-1].spr[0];
 	if( BoxAndDotCrash( (int)(mo->x+mo->offx-sp->ox), (int)(mo->y+mo->offy-sp->oy), sp->xl, sp->yl, Mox, Moy) )
 	{
@@ -5636,7 +5635,7 @@ bool	ReturnCheckObject(  LPMAPOBJECT		mo )
 	}
 	
 	/*
-	else		//促弗 鸥涝狼 坷宏璃飘甫 急琶沁阑 锭
+	else		//다른 타입의 오브젝트를 선택했을 때
 	{
 		Spr *sp = &MoImage[ mo->id-1].spr[ mo->curframe ];
 		if( BoxAndDotCrash( (int)(mo->x+mo->offx-sp->ox), (int)(mo->y+mo->offy-sp->oy), sp->xl, sp->yl, Mox, Moy) )
@@ -5671,7 +5670,7 @@ bool	GetBoardData(int board_Number, char* str_Data)
 {	//< CSD-030324
 	char *token;
 	
-	char		str_boardData[100];	//茄臂 50磊/康巩 100磊甫 哈绢唱瘤 给窃
+	char		str_boardData[100];	//한글 50자/영문 100자를 벗어나지 못함
 	BOARDDATA	boardData;
 	FILE*		fp;
 	char		DataPath[MAX_PATH];
@@ -5710,7 +5709,7 @@ bool	GetDirectBoardData(int board_Number, DIRECTBOARDDATA* directboardData)
 {	//< CSD-030324
 	char *token;
 	
-	char		str_boardData[160];	//茄臂 50磊/康巩 100磊甫 哈绢唱瘤 给窃
+	char		str_boardData[160];	//한글 50자/영문 100자를 벗어나지 못함
 	//DIRECTBOARDDATA		directboardData;
 	FILE*		fp;
 	char		DataPath[MAX_PATH];
@@ -5761,8 +5760,8 @@ bool	GetDirectBoardData(int board_Number, DIRECTBOARDDATA* directboardData)
 	return	false; 
 }	//> CSD-030324
 
-////////////////////////////////// 咯扁鳖瘤 ////////////////////////////////////////
-bool IsHidenGhost( LPCHARACTER ch )		// 杭荐 绝绰 绊胶飘 牢啊??//款康磊 给扒靛府霸 
+////////////////////////////////// 여기까지 ////////////////////////////////////////
+bool IsHidenGhost( LPCHARACTER ch )		// 볼수 없는 고스트 인가??//운영자 못건드리게 
 {
 	if( Hero->IsCounselor() ) return false;
 	if( ch->IsCounselor() && ch->viewtype == VIEWTYPE_GHOST_ ) return true;

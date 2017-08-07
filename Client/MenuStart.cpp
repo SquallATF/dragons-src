@@ -3590,7 +3590,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			SubMenu->nField[j].fLButtonDown = FALSE;
 			break;
 		case FT_TEST_CHECK: {
-			;
 			int willdo = SubMenu->nField[j].nWillDo;
 			if (BetaTest == willdo)
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, 0);
@@ -3631,7 +3630,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			break;
 
 		case FT_PUT_TACTICS: {
-			;
 			int img_num_man[] = { 46, 50, 51, 40, 48, 47, 42, 43, 41, 44, 45 };
 			int img_num_woman[] = { 46, 50, 51, 49, 48, 47, 42, 43, 40, 41 };
 			int *img_num;
@@ -3666,7 +3664,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		}
 
 		case FT_HIDE_NOMAL_ONE_PUT: {
-			;
 			int count;	// 현재 선택된 항목 
 			int willdo = SubMenu->nField[j].nSHideNomalNumber;
 			int plus = SubMenu->nField[j].nShideNomalPlus;
@@ -3828,7 +3825,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			else SubMenu->key = 0;
 		}
-		case FT_HIDE_NOMAL_GROUP_PUT:
+		case FT_HIDE_NOMAL_GROUP_PUT: {
 			for (i = SubMenu->nField[j].nSHideNomalStart; i < (SubMenu->nField[j].nSHideNomalStart) + (SubMenu->nField[j].nShideNomalPlus) && i < SubMenu->nField[j].nSHideNomalCount; i++)
 			{
 				static int bSound = 0;
@@ -3896,17 +3893,11 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						break;
 					}
 				}
-			}break;
-
+			} // for
+		}break;
 		case FT_CHARACTER_SCROLL:	// add by taniey
 		{
 			const int max_pageindex = SN_CHARACTER_MAX_COUNT >> 2;   // 移动 2 位, 表示 移动 4 个角色槽
-
-			// // scroll point effect image
-			//if (SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown && !((SubMenu->key <= 0 && 12 == j) || (SubMenu->key >= max_pageindex - 1 && 13 == j)))
-			//{ // mouse move on the scroll and lbutton not push down , and not  
-			//	FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
-			//}
 
 			if (SubMenu->nField[j].fCheakFlag)
 			{
@@ -3951,13 +3942,14 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			const int page_base = 14;
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, 375, 474, page_base + SubMenu->key, SELECT_CHARACTER_IMG);
 
-			bool b_is_both_ends = (SubMenu->key <= 0 && 12 == j) || (SubMenu->key >= max_pageindex - 1 && 13 == j);
 			// if page to end, gray the left or right scroll, or if mouse move on scroll ,effect the impage
-			if (b_is_both_ends || (!b_is_both_ends && SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown))
-			{
+			if ((SubMenu->key <= 0 && 12 == j) || (SubMenu->key >= max_pageindex - 1 && 13 == j)) {
 				// case: scroll to leftmost or rightmost
-				//case: mouse move on the scroll and lbutton not push down , and not key=0 or key = MAX
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
+			}
+			else if (SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown) {
+				//case: mouse move on the scroll and lbutton not push down , and not key=0 or key = MAX
+				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 			}
 			else {
 				// case: lbutton push down.
