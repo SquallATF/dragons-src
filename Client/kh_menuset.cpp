@@ -3064,7 +3064,7 @@ void StartMenuSet2()
 	//////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //	인물 선택
-	::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);
+	::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);  // modify by taniey
 	
 	::SMenuFTReg(MN_SELECT_CHARACTER,0,FT_HIDE_SPECIAL_WILLDO_AUTO_PUT,SWD_RESET_JOB,
 						94, 506,200, 62, SELECT_CHARACTER_IMG, 6, 1);
@@ -3078,11 +3078,11 @@ void StartMenuSet2()
 	::SMenuFTReg(MN_SELECT_CHARACTER,2,FT_NO_CHECK,0,
 						295, 506,200, 62, SELECT_CHARACTER_IMG, 11, 11);//가변 필드 Make캐릭터 로 변하는 부분
 
-	// add by taniey
+	// left and right character scroll 
 	::SMenuFTReg(MN_SELECT_CHARACTER, 12, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_LEFT,
-		333, 480, 30, 16, SELECT_CHARACTER_IMG, 16, 16, 0);		// left scroll
+		333, 480, 30, 16, SELECT_CHARACTER_IMG, 17, 16, 0);		// left scroll add by taniey
 	::SMenuFTReg(MN_SELECT_CHARACTER, 13, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_RIGHT,
-		423, 480, 30, 16, SELECT_CHARACTER_IMG, 18, 18, 1);		// right scroll
+		423, 480, 30, 16, SELECT_CHARACTER_IMG, 19, 18, 1);		// right scroll add by taniey
 
 	//select 1 box
 	SMenu[MN_SELECT_CHARACTER].nField[4].nType=FT_NOMAL_PUT;

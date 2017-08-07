@@ -136,7 +136,7 @@
 #define  SM_MAGIC_COUNT					10
 
 // DEF SELECT CHAR COUNT
-#define SN_SELECT_CHARACTER				MAX_CHARACTEROFID
+#define SN_CHARACTER_MAX_COUNT			MAX_CHARACTEROFID		// 必须是 4 的倍数
 
 
 /////////////////////////////////////////////////////////////////////////////////

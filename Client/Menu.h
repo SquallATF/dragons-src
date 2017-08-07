@@ -646,7 +646,7 @@ extern bool IsReporterMode();
 #define PAGE_NUMBER__	 2//020515 lsw 이동 했습니다
 
 extern bool g_bLogOnFlag;
-extern SCharacter		LoadCh[SN_SELECT_CHARACTER];								// 서버에서 캐러 정보를 전송받는다extern SCharacter LoadCh[4];								
+extern SCharacter		LoadCh[SN_CHARACTER_MAX_COUNT];								// 서버에서 캐러 정보를 전송받는다extern SCharacter LoadCh[4];								
 extern t_client_login_fail_reason g_client_login_fail_reason;		// 로그인 시 메시지
 
 extern void RecvChatSetResult( t_chat_set_result *p );

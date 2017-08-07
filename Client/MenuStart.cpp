@@ -123,7 +123,7 @@ SCharacter SCharSource = {
 };
 SCharacter SCharSource1 = SCharSource;
 
-SCharacter LoadCh[SN_SELECT_CHARACTER];								// 서버에서 캐러 정보를 전송받는다
+SCharacter LoadCh[SN_CHARACTER_MAX_COUNT];								// 서버에서 캐러 정보를 전송받는다
 
 extern CHARACTERLIST g_CharacterList;
 
@@ -1917,7 +1917,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 								break;
 							default: goto Label_2;
 							}
-							for (int a = 0; a < 4; a++) LoadCh[a].nation = SubMenu->work;
+							for (int a = 0; a < SN_CHARACTER_MAX_COUNT; a++) LoadCh[a].nation = SubMenu->work;  // modify by taniey
 							SCharSource.nation = SubMenu->work;
 							CallOkCancelMessageBox(SubMenu->Id, 0, 0, temp);
 							goto Label_2;
@@ -2083,7 +2083,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SCharSource.nMoney = CalCreateMoney(&SCharSource);
 
 					SCharSource.nation = 0;
-					for (k = 0; k < SN_SELECT_CHARACTER; k++)    // modify by taniey
+					for (k = 0; k < SN_CHARACTER_MAX_COUNT; k++)    // modify by taniey
 					{
 						if (LoadCh[k].sCharacterName[0] && LoadCh[k].nation)
 						{
@@ -3062,10 +3062,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				PutCompressedImageCharRGB(350 + 65, 100 + 96, &ch_line_image_after[index][a], 0);
 				break;
 			}
-
-
-
-			case DP_FACEIMAGE:	// 얼굴 이미지 찍기
+			case DP_FACEIMAGE: {	// 얼굴 이미지 찍기
 				if (SCharSource.nCharacterData[FACE] >= 0) //FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SCharSource.nCharacterData[FACE]); 
 				{
 					if (SubMenu->Id == MN_MAKECHARACTER_FACE)
@@ -3073,18 +3070,17 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					else PutCharImage(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, SCharSource.nCharacterData[FACE], 0, FS_MIDDLE);
 				}
 				break;
-
+			}
 			case DP_ARIGEMENT:
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_ARIGEMENT_TEXT][SCharSource.nCharacterData[ARIGEMENT]].temp);
 				break;
 				//이름 출력
-			case DP_NAME:
-			{
+			case DP_NAME: {
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SCharSource.sCharacterName);
-			}break;
+				break;
+			}
 			//이름쓰는 칸에 출력
-			case DP_NAMEEDITBOX:
-			{
+			case DP_NAMEEDITBOX: {
 				SetFocus2(HWND_3);//021001 lsw
 				EWndMgr.GetTxt(HWND_3, SCharSource.sCharacterName, 17);//021001 lsw
 				if (strlen(SCharSource.sCharacterName) * 8 < 119) // 깜박이는 커서 찍기 119는 에디트 박스 넓이
@@ -3097,10 +3093,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					}
 				}
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SCharSource.sCharacterName);
-			}break;
-
-			case DP_IDEDITBOX:
-			{
+				break;
+			}
+			case DP_IDEDITBOX: {
 				EWndMgr.GetTxt(HWND_1, sId, 15);
 				if (id_password && EWndMgr.IsFocus(HWND_1))
 				{
@@ -3120,10 +3115,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					}
 				}
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", sId);
-			}break;
-
-			case DP_PASSEDITBOX:
-			{
+				break;
+			}
+			case DP_PASSEDITBOX: {
 				EWndMgr.GetTxt(HWND_2, sPassword, 15);
 
 				for (k = 0; k < (int)strlen(sPassword); k++)
@@ -3150,24 +3144,28 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						}
 					}
 				}
-			}break;
-
-			case DP_AGE_MAKE:	if (SubMenu->nField[j].nSHideNomalStart < 15)  SubMenu->nField[j].nSHideNomalStart = 15;
-				SCharSource.age = SubMenu->nField[j].nSHideNomalStart;
-			case DP_AGE:		if (SCharSource.age > 14)
-			{
-				SetHangulAlign(TA_RIGHT);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nWillDo, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%d", SCharSource.age);
+				break;
 			}
-								break;
-
-								//클래스 출력
-			case DP_CLASS:
+			case DP_AGE_MAKE: {
+				if (SubMenu->nField[j].nSHideNomalStart < 15)  SubMenu->nField[j].nSHideNomalStart = 15;
+				SCharSource.age = SubMenu->nField[j].nSHideNomalStart;
+			}
+			case DP_AGE: {
+				if (SCharSource.age > 14)
+				{
+					SetHangulAlign(TA_RIGHT);
+					Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nWillDo, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%d", SCharSource.age);
+				}
+				break;
+			}
+			//클래스 출력
+			case DP_CLASS: {
 				SetHangulAlign(TA_RIGHT);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nRectImage, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][SCharSource.nCharacterData[CLASS]].temp);
 				break;
+			}
 				//스펠 출력
-			case DP_SPELL:
+			case DP_SPELL: {
 				SetHangulAlign(TA_RIGHT);
 				if (SCharSource.nCharacterData[SPELL] == 0)
 				{
@@ -3178,8 +3176,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nRectImage, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "PRIEST");
 				}
 				break;
+			}
 				//택틱스 출력
-			case DP_TACTICS:
+			case DP_TACTICS: {
 				SetHangulAlign(TA_RIGHT);
 				if (SCharSource.nCharacterData[GENDER])
 				{
@@ -3190,9 +3189,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nRectImage, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_TACTICS_WOMAN_TEXT][SCharSource.nCharacterData[TACTICS_WOMAN]].temp);
 				}
 				break;
+			}
 				//직업 출력
-			case DP_JOB:
-			{
+			case DP_JOB: {
 				SetHangulAlign(TA_RIGHT);
 				int job = SCharSource.nCharacterData[JOB];
 				if (job >= 20)  job -= 20;
@@ -3228,17 +3227,15 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-
-			case DP_LEVEL_LOGON:	Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%d", SCharSource.nLevel); //오른쪽 정렬 하지 않을때
+			case DP_LEVEL_LOGON:
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%d", SCharSource.nLevel); //오른쪽 정렬 하지 않을때
 				break;
-
 			case DP_RECT_STRING_PUT:
 				RectTextPut(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].temp);
 				break;
-
 			case DP_NAME_SELECT: {	// hometown을 nation으로 바꾸기
-									//	FieldTypeNomalPut( SubMenu->x, SubMenu->y, SubMenu->nField[j].x-9,SubMenu->nField[j].y+118, 0, START_ETC2 ); //020515 lsw
-									//020515 lsw
+				//	FieldTypeNomalPut( SubMenu->x, SubMenu->y, SubMenu->nField[j].x-9,SubMenu->nField[j].y+118, 0, START_ETC2 ); //020515 lsw
+				//020515 lsw
 				if (!SCharSource.sCharacterName[0])//그림 바꾸기네..
 				{
 					SMenu[MN_SELECT_CHARACTER].nField[2].nType = FT_NOMAL_PUT;
@@ -3252,38 +3249,36 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SMenu[MN_SELECT_CHARACTER].nField[3].nImageNumber = 2;
 				}
 
-				if (!LoadCh[SubMenu->nField[j].nWillDo].sCharacterName[0]) break;
-				const int para = SubMenu->nField[j].nWillDo;				// 현재 선택한 캐릭터
+				const int para = SubMenu->nField[j].nWillDo;							// 현재 선택한 캐릭터
+				if (!LoadCh[SubMenu->key + para].sCharacterName[0]) break;
 				if (para == character_active)		// 고른놈만 에니메이션 
 				{
-					const int first_para = LoadCh[para].nCharacterData[GENDER];			// 스프라이트 인덱스 불러오기 위해	// 여자 남자
-					const int second_para = LoadCh[para].nCharacterData[CLASS];			// 선택 클래스
-					const DWORD body = ReturnBlendRGB(LoadCh[para].body_r, LoadCh[para].body_g, LoadCh[para].body_b);
-					const DWORD line = ReturnBlendRGB(LoadCh[para].cloth_r, LoadCh[para].cloth_g, LoadCh[para].cloth_b);
+					const int first_para = LoadCh[SubMenu->key + para].nCharacterData[GENDER];			// 스프라이트 인덱스 불러오기 위해	// 여자 남자
+					const int second_para = LoadCh[SubMenu->key + para].nCharacterData[CLASS];			// 선택 클래스
+					const DWORD body = ReturnBlendRGB(LoadCh[SubMenu->key + para].body_r, LoadCh[SubMenu->key + para].body_g, LoadCh[SubMenu->key + para].body_b);
+					const DWORD line = ReturnBlendRGB(LoadCh[SubMenu->key + para].cloth_r, LoadCh[SubMenu->key + para].cloth_g, LoadCh[SubMenu->key + para].cloth_b);
 					PutTestAnimation(first_para, second_para, body, line);
 				}
 				int gaby = 0;
-				int job = LoadCh[SubMenu->nField[j].nWillDo].nCharacterData[JOB];
+				int job = LoadCh[SubMenu->key + para].nCharacterData[JOB];
 				if (job >= 20)  job -= 20;
-				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby, g_DestBackBuf, "%s", LoadCh[SubMenu->nField[j].nWillDo].sCharacterName);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby, g_DestBackBuf, "%s", LoadCh[SubMenu->key + para].sCharacterName);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 35, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_JOB_TEXT][job].temp);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 57, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][LoadCh[SubMenu->nField[j].nWillDo].nCharacterData[CLASS]].temp);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 78, g_DestBackBuf, "%d", LoadCh[SubMenu->nField[j].nWillDo].age);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 101, g_DestBackBuf, "%d", LoadCh[SubMenu->nField[j].nWillDo].nLevel);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 140, g_DestBackBuf, NationName[LoadCh[SubMenu->nField[j].nWillDo].nation]);	// 나라 이름 찍기
-				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 163, g_DestBackBuf, "%d", LoadCh[SubMenu->nField[j].nWillDo].nMoney);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 57, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][LoadCh[SubMenu->key + para].nCharacterData[CLASS]].temp);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 78, g_DestBackBuf, "%d", LoadCh[SubMenu->key + para].age);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 101, g_DestBackBuf, "%d", LoadCh[SubMenu->key + para].nLevel);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 140, g_DestBackBuf, NationName[LoadCh[SubMenu->key + para].nation]);	// 나라 이름 찍기
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 163, g_DestBackBuf, "%d", LoadCh[SubMenu->key + para].nMoney);
 				break;
 			}
 			case DP_BACK_IMAGE_VALUE_TEXT: {
-				;
 				PutCompressedImageFX(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + spr[71].oy - 3, &spr[71], 15, 1);
 				SetHangulAlign(TA_CENTER);
 				Hcolor(FONT_COLOR_NAME);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + 3, g_DestBackBuf, select_server_name);
 				break;
 			}
-
-			}
+			} // switch
 			break;
 
 		case FT_COLOR_GAUGE: {
@@ -3362,8 +3357,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			break;
 		}
-							 // 0906 kkh 작업 해 넣을 부분.. \
-							 		// 이부분은 그림 데이터유무를 따져서 카운트를 늘려가다 그림 데이터가 없는 부분에서 값을 넘겨준다. 
+		// 0906 kkh 작업 해 넣을 부분.. \
+		// 이부분은 그림 데이터유무를 따져서 카운트를 늘려가다 그림 데이터가 없는 부분에서 값을 넘겨준다. 
 		case FT_SELECT_FACE: {
 			int tempi = 1;
 			int a = 0;
@@ -3423,8 +3418,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				SubMenu->nField[j].nType = FT_NO_CHECK;		//	타이틀 동영상 끝
 				break;
 
-
-
 				static int turn = 0;
 				static unsigned short int gab = 8;
 
@@ -3433,15 +3426,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				static bool flag2 = false;
 				static int flag = 0;
 
-
 				Spr *s1 = &spr[SubMenu->nField[j].nImageNumber];
 				Spr *s2 = &spr[SubMenu->nField[j].nRectImage];
 				int lion[] = { 305, 306, 307, 308, 309,308,307,306 };
 				Spr *s3 = &spr[lion[flag % 8]];
 
-
 				UpperMenuNomalPut(SMenu[MN_MAINSTART_BASIC].x, SMenu[MN_MAINSTART_BASIC].y, SMenu[MN_MAINSTART_BASIC].nImageNumber, 0);
-				//												if( turn > 2 )		// 그림자
+				// if( turn > 2 )		// 그림자
 				{
 					PutCompressedImageFX(SubMenu->x + 0 - turn*gab + s1->xl/*+s2->ox*/, SubMenu->y + 0 + s2->oy, s2, 8, 3);
 					PutCompressedImageFX(SubMenu->x + SubMenu->nField[j].x + s2->ox + turn*gab - s2->ox, SubMenu->y + SubMenu->nField[j].y + s2->oy, s2, 8, 3);
@@ -3467,26 +3458,26 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				flag++;
 				break;
 			}
-			case DP_ARIGEMENT:		if (SCharSource.nCharacterData[ARIGEMENT] == -1) break;
-									else
-									{
-										FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber + SCharSource.nCharacterData[ARIGEMENT]);
-										static int stch = 0;
-										static int de = 0;
-										FieldTypeNomalPutFx(SubMenu->x + 11, SubMenu->y + 6, SubMenu->nField[j].x, SubMenu->nField[j].y, 801 + SCharSource.nCharacterData[ARIGEMENT], de, 2);
-										//											switch(stch%2)
-										//											{
-										//												case 0: FieldTypeNomalPutFx(SubMenu->x+11, SubMenu->y+4, SubMenu->nField[j].x, SubMenu->nField[j].y, 801+SCharSource.nCharacterData[ARIGEMENT],de, 2);break;
-										//												case 0: FieldTypeNomalPutFx(SubMenu->x+9, SubMenu->y+5, SubMenu->nField[j].x, SubMenu->nField[j].y, 801+SCharSource.nCharacterData[ARIGEMENT],de, 2);break;
-										//												case 1: FieldTypeNomalPutFx(SubMenu->x+11, SubMenu->y+6, SubMenu->nField[j].x, SubMenu->nField[j].y, 801+SCharSource.nCharacterData[ARIGEMENT],de, 2);break;
-										//											}
-										if (stch > 15) de -= 2;
-										else de += 2;
-										stch++;
-										stch %= 32;
-									}
-									break;
-
+			case DP_ARIGEMENT: {
+				if (SCharSource.nCharacterData[ARIGEMENT] == -1) break;
+				else
+				{
+					FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber + SCharSource.nCharacterData[ARIGEMENT]);
+					static int stch = 0;
+					static int de = 0;
+					FieldTypeNomalPutFx(SubMenu->x + 11, SubMenu->y + 6, SubMenu->nField[j].x, SubMenu->nField[j].y, 801 + SCharSource.nCharacterData[ARIGEMENT], de, 2);
+					//switch(stch%2)
+					//{
+					//	case 0: FieldTypeNomalPutFx(SubMenu->x+11, SubMenu->y+4, SubMenu->nField[j].x, SubMenu->nField[j].y, 801+SCharSource.nCharacterData[ARIGEMENT],de, 2);break;
+					//	case 0: FieldTypeNomalPutFx(SubMenu->x+9, SubMenu->y+5, SubMenu->nField[j].x, SubMenu->nField[j].y, 801+SCharSource.nCharacterData[ARIGEMENT],de, 2);break;
+					//	case 1: FieldTypeNomalPutFx(SubMenu->x+11, SubMenu->y+6, SubMenu->nField[j].x, SubMenu->nField[j].y, 801+SCharSource.nCharacterData[ARIGEMENT],de, 2);break;
+					//}
+					if (stch > 15) de -= 2;
+					else de += 2;
+					stch++;
+					stch %= 32;
+				}
+			}break;
 			case DO_CHARACTER: {
 				int index = 0;
 				if (SCharSource.nCharacterData[CLASS] == -1) break;
@@ -3514,8 +3505,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 				static bool turn = true;
 				static int a = 1;
-
-
 				DWORD body = ReturnBlendRGB(SCharSource.body_r, SCharSource.body_g, SCharSource.body_b);
 				DWORD line = ReturnBlendRGB(SCharSource.cloth_r, SCharSource.cloth_g, SCharSource.cloth_b);
 
@@ -3559,16 +3548,15 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				turn = true;
 				}
 				*/
-				break;
-			}
+			}break;
 
-							   //				case DO_SELECT_LOAD_CHAR :	if(SubMenu->nField[j].nSpecialWillDo != SubMenu->nField[j].nSHideNomalStart)
-							   //											{
-							   //												SubMenu->nField[j].nSpecialWillDo = SubMenu->nField[j].nSHideNomalStart;
-							   //												SCharSource = LoadCh[ SubMenu->nField[j].nSpecialWillDo ];
-							   //											}
-							   //											break;
-
+			//case DO_SELECT_LOAD_CHAR: {
+			//	if (SubMenu->nField[j].nSpecialWillDo != SubMenu->nField[j].nSHideNomalStart)
+			//	{
+			//		SubMenu->nField[j].nSpecialWillDo = SubMenu->nField[j].nSHideNomalStart;
+			//		SCharSource = LoadCh[SubMenu->nField[j].nSpecialWillDo];
+			//	}
+			//}break;
 			case FT_DO_DEFAULT: //처음 로고 화면에서만 사용..
 			{//020515 lsw
 				static int tt = TRUE, pp;
@@ -3912,10 +3900,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 		case FT_CHARACTER_SCROLL:	// add by taniey
 		{
-			if (SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown)
-			{
-				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
-			}
+			const int max_pageindex = SN_CHARACTER_MAX_COUNT >> 2;   // 移动 2 位, 表示 移动 4 个角色槽
+
+			// // scroll point effect image
+			//if (SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown && !((SubMenu->key <= 0 && 12 == j) || (SubMenu->key >= max_pageindex - 1 && 13 == j)))
+			//{ // mouse move on the scroll and lbutton not push down , and not  
+			//	FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
+			//}
 
 			if (SubMenu->nField[j].fCheakFlag)
 			{
@@ -3925,43 +3916,52 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				{
 					if (SubMenu->key < 0)
 						SubMenu->key = 0;
-					///=============================
+
 					if (SubMenu->key > 0)
 					{
 						SubMenu->key--;
-						int n_temp_pox = character_active % 4;
-						character_active = SubMenu->key * 4 + n_temp_pox;
+						character_active = SubMenu->key * 4 + character_active % 4;
 						SCharSource = LoadCh[character_active];
-						//MP3(SN_SELECT_START);
+						//MP3(SN_CLICK_START);
 					}
-					///=============================
 
-				}break;
+					break;
+				}
 				case SWD_CHARACTER_SCROLL_RIGHT:
 				{
-					const int max_pageindex = SN_SELECT_CHARACTER >> 2;   // 右移2 位 表示 移动 4 个角色曹
 					if (SubMenu->key > max_pageindex - 1)
 						SubMenu->key = max_pageindex - 1;
 
-					///=============================
 					if (SubMenu->key < max_pageindex-1)
 					{
 						SubMenu->key++;
-						int n_temp_pox = character_active % 4;
-						character_active = SubMenu->key * 4 + n_temp_pox;
+						character_active = SubMenu->key * 4 + character_active % 4;
 						SCharSource = LoadCh[character_active];
-						//MP3(SN_SELECT_START);
+						//MP3(SN_CLICK_START);
 					}
-					///=============================
-				}break;
-				default:
+
 					break;
 				}
+				default:
+					break;
+				}// switch
 			} // if
 
-			if (SubMenu->key == 1)
+			// put character page index image (1/2, 2/2)
+			const int page_base = 14;
+			FieldTypeNomalPut(SubMenu->x, SubMenu->y, 375, 474, page_base + SubMenu->key, SELECT_CHARACTER_IMG);
+
+			bool b_is_both_ends = (SubMenu->key <= 0 && 12 == j) || (SubMenu->key >= max_pageindex - 1 && 13 == j);
+			// if page to end, gray the left or right scroll, or if mouse move on scroll ,effect the impage
+			if (b_is_both_ends || (!b_is_both_ends && SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown))
 			{
-				FieldTypeNomalPut(SubMenu->x, SubMenu->y, 375, 474, 15, SELECT_CHARACTER_IMG);
+				// case: scroll to leftmost or rightmost
+				//case: mouse move on the scroll and lbutton not push down , and not key=0 or key = MAX
+				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
+			}
+			else {
+				// case: lbutton push down.
+				// nothing need to do.
 			}
 
 			SubMenu->nField[j].fCheakFlag = FALSE;
