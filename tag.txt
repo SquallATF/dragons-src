@@ -55,11 +55,11 @@ Menu.cpp :
 MenuStart.cpp : 
 126L, modify,  SCharacter LoadCh[4];   --->   SCharacter LoadCh[SN_CHARACTER_MAX_COUNT]; // 서버에서 캐러 정보를 전송받는다
 1920L, modify, for (int a = 0; a < 4; a++) LoadCh[a].nation = SubMenu->work;  --->   for (int a = 0; a < SN_CHARACTER_MAX_COUNT; a++) LoadCh[a].nation = SubMenu->work;
-2076L, modify, for (k = 0; k<4; k++)   --->   for (k = 0; k<SN_CHARACTER_MAX_COUNT; k++)
-2188L, modify, character_active = SubMenu->nField[j].nWillDo;   --->  character_active = SubMenu->key * 4 + SubMenu->nField[j].nWillDo;
-4498L, modify, character_active = SMenu[i].nField[j].nWillDo;   --->   character_active = SMenu[i].key * 4 + SMenu[i].nField[j].nWillDo;
-3239L, modify, case DP_NAME_SELECT: {...}			(DP_NAME_SELECT 大括号内内容全部换掉)
+2086L, modify, for (k = 0; k<4; k++)   --->   for (k = 0; k<SN_CHARACTER_MAX_COUNT; k++)
+2200L, modify, character_active = SubMenu->nField[j].nWillDo;   --->  character_active = SubMenu->key * 4 + SubMenu->nField[j].nWillDo;
+3236L, modify, case DP_NAME_SELECT: {...}			(DP_NAME_SELECT 大括号内内容全部换掉)
 3901L, add,    case FT_CHARACTER_SCROLL: {...}	(标记，尚未修改完成) add by taniey  ,  鼠标越过及点击翻页的处理（ 人物角色）
+4532L, modify, character_active = SMenu[i].nField[j].nWillDo;   --->   character_active = SMenu[i].key * 4 + SMenu[i].nField[j].nWillDo;
 
 -----------------------------------------------------------------------------------------
 kh_menuset.cpp :

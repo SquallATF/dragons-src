@@ -4519,7 +4519,7 @@ void DoLButtonDoubbleClickOfStartMenu(int i, int j)
 		break;
 	}
 	case FT_NOMAL_PUT:
-	case FT_HIDE_SPECIAL_WILLDO_AUTO_PUT:
+	case FT_HIDE_SPECIAL_WILLDO_AUTO_PUT: {
 		switch (SMenu[i].nField[j].nSpecialWillDo)
 		{
 		case SWD_CHARACTER_SELECT:
@@ -4536,25 +4536,27 @@ void DoLButtonDoubbleClickOfStartMenu(int i, int j)
 		}break;
 		}
 		break;
-	case FT_HIDE_SPECIAL_WILLDO_AUTO_PUT_2: switch (SMenu[i].nField[j].nSpecialWillDo)
-	{
-	case SWD_WILLDO_WORK: if (CheckNationCity(SMenu[i].nField[j].nWillDo) == OK)
-	{
-		SMenu[i].work = SMenu[i].nField[j].nWillDo;
-		SMenu[i].key = SMenu[i].nField[j].x * 1000 + SMenu[i].nField[j].y;		// 좌표넘겨 줄때
-		StartPosition = SMenu[i].work;
-		SMenu[i].nField[0].fCheakFlag = true;
 	}
-						  else
-						  {
-							  MP3(SN_WARNING);
-						  }
-						  break;
-
-	}
-											break;
-
-	}
+	case FT_HIDE_SPECIAL_WILLDO_AUTO_PUT_2: {
+		switch (SMenu[i].nField[j].nSpecialWillDo)
+		{
+		case SWD_WILLDO_WORK:
+			if (CheckNationCity(SMenu[i].nField[j].nWillDo) == OK)
+			{
+				SMenu[i].work = SMenu[i].nField[j].nWillDo;
+				SMenu[i].key = SMenu[i].nField[j].x * 1000 + SMenu[i].nField[j].y;		// 좌표넘겨 줄때
+				StartPosition = SMenu[i].work;
+				SMenu[i].nField[0].fCheakFlag = true;
+			}
+			else
+			{
+				MP3(SN_WARNING);
+			}
+			break;
+		}
+		break;
+	} // case
+	} // switch
 }
 
 
