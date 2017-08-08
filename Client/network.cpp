@@ -4496,10 +4496,10 @@ void RecvCMD_CONNECT_AGENT_SERVER_CONFORM(t_packet *packet)
 	case 1:	
 		{
 			SMenu[MN_SELECT_CHARACTER].bActive=TRUE;
+			SMenu[MN_SELECT_CHARACTER].key = 0;		// clear to 0 ,add by taniey
 			SMenu[MN_LOGIN].bActive=false;
 			SCharSource = LoadCh[ character_active ];
-			if( 0 <= g_nBillingType
-			&&  5 >= g_nBillingType )	
+			if( 0 <= g_nBillingType &&  5 >= g_nBillingType )	
 			{
 				char temp[200]={0,};
 				::sprintf( temp, lan->OutputMessage(5,74),g_nBillingType );//lsw

@@ -35,13 +35,16 @@ CheckAgentServer
 #########################################################################################
 // 客户端：（）以下内容在客户端文件修改
 -----------------------------------------------------------------------------------------
-
-/// modify 
+./data/menu_image.txt : (安装包目录)
+15L, modify, 10013	15	./data/NewSelectCharacter.dat   --->   10013	20	./data/NewSelectCharacter.dat
+-----------------------------------------------------------------------------------------
 network.h :
 114L, modify, #define MAX_CHARACTEROFID				4  --->   #define MAX_CHARACTEROFID				8	// must be Multiple of 4, modify by taniey
 -----------------------------------------------------------------------------------------
-./data/menu_image.txt : (安装包目录)
-15L, modify, 10013	15	./data/NewSelectCharacter.dat   --->   10013	20	./data/NewSelectCharacter.dat
+network.cpp :
+4499L, add,  SMenu[MN_SELECT_CHARACTER].key = 0;		// clear to 0 ,add by taniey
+
+
 -----------------------------------------------------------------------------------------
 MenuDefine.h :
 138L, add,  #define SN_CHARACTER_MAX_COUNT				MAX_CHARACTEROFID	// must be Multiple of 4, add by taniey

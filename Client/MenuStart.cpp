@@ -2109,44 +2109,43 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					break;
 				}
 
-				case SWD_CALL_OTHER:	if (SubMenu->nField[j].nWillDo == MN_SELECT && SMenu[SubMenu->nField[j].nWillDo].bActive)
-				{
-					SubMenu->nField[0].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-					SubMenu->nField[3].nType = FT_HIDE_WILLDO_AUTO_PUT;
-					SMenu[SubMenu->nField[j].nWillDo].bActive = FALSE;
-					SMenu[MN_LOCATION].bActive = TRUE;
-					SubMenu->nField[j].nType = FT_NO_CHECK;
-					MP3(SN_MENU_OPEN);
+				case SWD_CALL_OTHER: {
+					if (SubMenu->nField[j].nWillDo == MN_SELECT && SMenu[SubMenu->nField[j].nWillDo].bActive)
+					{
+						SubMenu->nField[0].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
+						SubMenu->nField[3].nType = FT_HIDE_WILLDO_AUTO_PUT;
+						SMenu[SubMenu->nField[j].nWillDo].bActive = FALSE;
+						SMenu[MN_LOCATION].bActive = TRUE;
+						SubMenu->nField[j].nType = FT_NO_CHECK;
+						MP3(SN_MENU_OPEN);
+					}
+					if (SubMenu->nField[j].nWillDo == MN_LOCATION && SMenu[SubMenu->nField[j].nWillDo].bActive)
+					{
+						SMenu[SubMenu->nField[j].nWillDo].bActive = FALSE;
+						SubMenu->nField[j].nType = FT_NO_CHECK;
+					}
+					goto Label_2;
 				}
-										if (SubMenu->nField[j].nWillDo == MN_LOCATION && SMenu[SubMenu->nField[j].nWillDo].bActive)
-										{
-											SMenu[SubMenu->nField[j].nWillDo].bActive = FALSE;
-											SubMenu->nField[j].nType = FT_NO_CHECK;
-										}
-										goto Label_2;
-
-				case  SWD_IDEDITBOX:
-				{
+				case  SWD_IDEDITBOX: {
 					SetFocus2(HWND_1);//021001 lsw
 					id_password = TRUE;
 					cursor2 = nCursor_Flicker;
 					nCursor_Flicker = cursor1;
 					goto Label_2;
-				}break;
-				case  SWD_PASSEDITBOX:
-				{
+				}
+				case  SWD_PASSEDITBOX: {
 					SetFocus2(HWND_2);//021001 lsw
 					id_password = FALSE;
 					cursor1 = nCursor_Flicker;
 					nCursor_Flicker = cursor2;
 					goto Label_2;
-				}break;
-				case SWD_WILLDO:
-				{
+					break;
+				}
+				case SWD_WILLDO: {
 					SMenu[SubMenu->nField[j].nWillDo].bActive = true;
 					MP3(SN_MENU_OPEN);
-				}break;
-
+					break;
+				}
 				case SWD_IDPASS:
 				{//021001 lsw
 					sId[0] = 0;
@@ -2161,8 +2160,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					::CallLoginMenu();
 				}break;
 
-				case SWD_MAKECHARACTER_GENDERBACK:
-				{
+				case SWD_MAKECHARACTER_GENDERBACK: {
 					for (k = 0; k < MAX_START; k++)
 					{
 						SMenu[menu[k]].bActive = FALSE;
@@ -2171,24 +2169,24 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					//SMenu[MN_MAINSTART_BACK].bActive=TRUE;
 					SMenu[MN_SELECT_CHARACTER].bActive = TRUE;
 					SCharSource = SCharSource1;  // 다시 초기화
-				}break;
-				case SWD_RE_LOGON:
-				{
+					break;
+				}
+				case SWD_RE_LOGON: {
 					SCharSource = LoadCh[character_active];
 					SMenu[SubMenu->nField[j].nWillDo].bActive = TRUE;
 					//	SMenu[MN_MAINSTART_BACK].bActive=false;
 					SMenu[MN_LOGIN].bActive = false;//020515 lsw											
 					SMenu[MN_START_MAP].bActive = false;
 					y_MenuFocus = 0;//020815-2 lsw
-				}break;
+					break;
+				}
 				case SWD_LOGON:
 				{	//021021 lsw
 					g_bLogOnFlag = false;//010909 lsw 접속전에 로그온 플래그를 죽여 준다
 					::SWD_LOGON_Clicked(SubMenu->Id);
 					goto Label_2;
-				}break;
-				case SWD_CHARACTER_SELECT:
-				{
+				}
+				case SWD_CHARACTER_SELECT: {
 					for (int a = 4; a <= 7; a++)
 					{
 						SubMenu->nField[a].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
@@ -2204,31 +2202,33 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					goto Label_2;
 				}
 				case SWD_SELECT_LOCATION: {
-					;
 					StartPosition = SubMenu->nField[j].nWillDo;
 					SMenu[MN_MAINSTART_START].nField[0].fCheakFlag = true;
 					goto Label_2;
 					break;
 				}
-
-				case SWD_SMALL_MENU:	SMenu[SubMenu->nField[j].nWillDo].bActive = true;
+				case SWD_SMALL_MENU: {
+					SMenu[SubMenu->nField[j].nWillDo].bActive = true;
 					y_MenuFocus = SubMenu->nField[j].nWillDo;
 					goto Label_2;
-
-				case SWD_QUIT:
-				{
+				}
+				case SWD_QUIT: {
 					QuitFlag = SWD_QUIT;
 					//MP3( SN_GAMEEND );
 					GameEndFree();
 					goto Label_2;
 				}
-
-				case SWD_OKCANCEL_CANCEL: if (SubMenu->nTemp == MN_START_MAP)
-				{
-					;
-					SMenu[MN_START_MAP].nField[9].fCheakFlag = true;
+				case SWD_OKCANCEL_CANCEL: {
+					if (SubMenu->nTemp == MN_START_MAP)
+					{
+						SMenu[MN_START_MAP].nField[9].fCheakFlag = true;
+					}
 				}
-				case SWD_SMALLMENU_END: MP3(SN_MENU_CLOSE); y_MenuFocus = 0; break;
+				case SWD_SMALLMENU_END: {
+					MP3(SN_MENU_CLOSE);
+					y_MenuFocus = 0;
+					break;
+				}
 				case SWD_ONLY_OK: {
 					if (SubMenu->nTemp == MN_SELECT_CHARACTER)	// 캐릭터 지우기 메시지와 겹침을 방지하기 위해...
 					{
@@ -2236,16 +2236,16 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						y_MenuFocus = 0;
 						break;
 					}
-					/*
-					if( SubMenu->nTemp == MN_START_MAP )
-					{
-					MP3( SN_MENU_OPEN );
-					StartPosition = SC_SCHOLIUM;
-					SMenu[MN_LODING].bActive = true;
-					SendChoiceCharacter( character_active );
-					SMenu[SubMenu->nTemp].bActive = false;
-					break;
-					}*/
+					
+					//if( SubMenu->nTemp == MN_START_MAP )
+					//{
+					//MP3( SN_MENU_OPEN );
+					//StartPosition = SC_SCHOLIUM;
+					//SMenu[MN_LODING].bActive = true;
+					//SendChoiceCharacter( character_active );
+					//SMenu[SubMenu->nTemp].bActive = false;
+					//break;
+					//}
 				}
 				case SWD_OKCANCEL_OK: {
 					MP3(SN_MENU_CLOSE);
@@ -2313,14 +2313,12 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						break;
 					}
 					case MN_MAKECHARACTER_NAME: break;
-					case MN_SELECT_CHARACTER:
-					{
+					case MN_SELECT_CHARACTER: {
 						CallOkCancelMessageBox(SubMenu->Id, 0, 0,/*193, 75,*/ lan->OutputMessage(5, 87));//lsw
 						SubMenu->nTemp = MN_OKCANCEL_MESSAGEBOX;
 						goto Label_2;
 					}
-					case MN_OKCANCEL_MESSAGEBOX:
-					{
+					case MN_OKCANCEL_MESSAGEBOX: {
 						//// 020925 YGI
 						//#ifdef CHINA_LOCALIZING_		// 중국에서는 아직 delete 메뉴를 사용하지 않는다.
 						//if(TRUE == SendDeleteCharacter( LoadCh[ character_active ].sCharacterName, "temp" ) )
@@ -2335,27 +2333,28 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						goto Label_2;
 						//#endif
 					}
-					case MN_LOGIN:	if (SubMenu->key == 100)		// 홈페이지로 이동//020822 lsw
-					{
-						SubMenu->key = 0;
-						const int ret = LaunchApplication_kein("htmlfile", lan->OutputMessage(5, 89));//lsw
-						if (ret)
+					case MN_LOGIN: {
+						if (SubMenu->key == 100)		// 홈페이지로 이동//020822 lsw
 						{
-							QuitFlag = SWD_QUIT;
-							GameEndFree();
-							MP3(SN_WARNING);
-							goto Label_2;
+							SubMenu->key = 0;
+							const int ret = LaunchApplication_kein("htmlfile", lan->OutputMessage(5, 89));//lsw
+							if (ret)
+							{
+								QuitFlag = SWD_QUIT;
+								GameEndFree();
+								MP3(SN_WARNING);
+								goto Label_2;
+							}
 						}
+						else
+						{
+							EWndMgr.ClearAllTxt();//021001 lsw
+							SetFocus2(HWND_1);//021001 lsw
+							id_password = TRUE;
+						}
+						break;
 					}
-									else
-									{
-										EWndMgr.ClearAllTxt();//021001 lsw
-										SetFocus2(HWND_1);//021001 lsw
-										id_password = TRUE;
-									}
-									break;
-
-					case MN_LODING:
+					case MN_LODING: {
 						//SMenu[MN_MAINSTART_BACK].bActive=true;
 						//SMenu[MN_LOGIN].bActive=true;//020515 lsw
 						::CallLoginMenu();
@@ -2364,8 +2363,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						SMenu[MN_LODING].bActive = false;
 						y_MenuFocus = 0;
 						break;
-					case MN_START_MAP:
-					{
+					}
+					case MN_START_MAP: {
 						MP3(SN_MENU_OPEN);
 						StartPosition = SC_SCHOLIUM;
 						SMenu[MN_LODING].bActive = true;
@@ -2373,12 +2372,11 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						SMenu[SubMenu->nTemp].bActive = false;
 						break;
 					}
-					}
+					}  // switch
 					y_MenuFocus = 0;
 					break;
 				}
-				case SWD_CONNECT:
-				{
+				case SWD_CONNECT: {
 					if (!SubMenu->work) goto Label_2;
 
 					if (LoadCh[character_active].sCharacterName[0])
@@ -2419,14 +2417,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SMenu[MN_RESET_JOB_EXPLAIN].nField[0].fCheakFlag = true;
 					goto Label_2;
 				}
-				case SWD_NEW_ID:
-				{
+				case SWD_NEW_ID: {
 					CallOkCancelMessageBox(SubMenu->Id, 0, 0, lan->OutputMessage(5, 89), false);//020822 lsw
 					// SMenu[MN_OKCANCEL_MESSAGEBOX].key = 100;
 					SMenu[MN_OK_MESSAGEBOX].key = 100;
 					goto Label_2;
-				}break;
-				case 	SWD_SELECT_TUTORIAL_OK://020815-2 lsw
+				}
+				case SWD_SELECT_TUTORIAL_OK://020815-2 lsw
 				{	//맵이동 하겠다는 패킷 날림
 					int &iMyTarget = SubMenu->nField[j].nWillDo;
 					switch (iMyTarget)
@@ -2567,7 +2564,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		}
 
 		case FT_SELECT_NATION_EXPLAIN: {
-			;
 			int para = 0;
 			int ret = true;
 			switch (SMenu[MN_SELECT_NATION].work)
@@ -2616,7 +2612,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			break;
 		}
 		case FT_SELECT_NATION_SCROLL: {
-			;
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, 6, SubMenu->nField[j].nImageType);
 
 			//// 스크롤 처리
@@ -2629,7 +2624,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 			if (!block)		// 화살표를 보여주지 않는다.
 			{
-				
 				//int &delay=SubMenu->nField[j].nSHideNomalStart;
 				//if( (delay%8) < 4 )
 				//{
@@ -2663,7 +2657,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		}
 
 		case FT_RESET_JOB_EXPLAIN: {
-			;
 			int &scroll = SubMenu->work;
 			static char explain[5][11][200];
 			static WORD	color[5][11];
@@ -2690,7 +2683,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			break;
 		}
 		case FT_RESET_JOB_SCROLL: {
-			;
 			if (SCharSource.nCharacterData[JOB] >= 0) break;
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->key, SubMenu->nField[j].nImageType);
 
@@ -2770,14 +2762,15 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			break;
 		}
 
-		case FT_HIDE_DSCROLL_AUTO_PUT:	if (SubMenu->nField[j].fRectMouse)
-		{
-			////if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
-			if (((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) - (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) < 0) break;
-			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
+		case FT_HIDE_DSCROLL_AUTO_PUT: {
+			if (SubMenu->nField[j].fRectMouse)
+			{
+				////if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				if (((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) - (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) < 0) break;
+				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
+			}
 		}
 		case FT_HIDE_DSCROLL_PUT: {
-			;
 			int willdo = SubMenu->nField[j].nWillDo;
 			if (((SubMenu->nField[willdo].nSHideNomalStart) - (SubMenu->nField[willdo].nShideNomalPlus)) < 0)
 			{
@@ -2810,7 +2803,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			break;
 		}
-
 		case FT_THROWDICE: {
 			if (!g_GoDice) break;
 			int num_to_rate[2] = { 1003, 1002 };
@@ -2828,7 +2820,6 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			//{ DEX,	CON,	MOVP,	-1, },
 			//{ CON,	INT,	ENDU,	WSPS, -1,},
 			//{ CON,	WSPS,	WIS,	ENDU, -1,} };
-
 
 			if (SubMenu->nField[j].fCheakFlag)
 			{
@@ -2884,7 +2875,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			break;
 		}
-		case FT_HIDE_PUT_CENTER:
+		case FT_HIDE_PUT_CENTER: {
 			if (SubMenu->nField[j].fLButtonDown)
 			{
 				static int tt;
@@ -2905,7 +2896,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				PutCompressedImageFX(SubMenu->x + lenght + s->ox, SubMenu->y + SubMenu->nField[j].y + s->oy, s, de, 2);
 			}
 			break;
-
+		}
 		case FT_SELECT_CITY: {
 			for (int a = j; a < SubMenu->nFieldCount; a++)
 			{
@@ -3037,7 +3028,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		}
 
 		//메뉴등에 데이터를 출력해야 할경우
-		case FT_DATA_PUT:
+		case FT_DATA_PUT: {
 			flag = TRUE;			// 플레그 설정 -캐러 이름이 없을때 아무것도 띄우지 않는다.
 			switch (SubMenu->nField[j].nImageNumber)
 			{
@@ -3081,7 +3072,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SCharSource.sCharacterName);
 				break;
 			}
-			//이름쓰는 칸에 출력
+						  //이름쓰는 칸에 출력
 			case DP_NAMEEDITBOX: {
 				SetFocus2(HWND_3);//021001 lsw
 				EWndMgr.GetTxt(HWND_3, SCharSource.sCharacterName, 17);//021001 lsw
@@ -3160,13 +3151,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-			//클래스 출력
+						 //클래스 출력
 			case DP_CLASS: {
 				SetHangulAlign(TA_RIGHT);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nRectImage, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][SCharSource.nCharacterData[CLASS]].temp);
 				break;
 			}
-				//스펠 출력
+						   //스펠 출력
 			case DP_SPELL: {
 				SetHangulAlign(TA_RIGHT);
 				if (SCharSource.nCharacterData[SPELL] == 0)
@@ -3179,7 +3170,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-				//택틱스 출력
+						   //택틱스 출력
 			case DP_TACTICS: {
 				SetHangulAlign(TA_RIGHT);
 				if (SCharSource.nCharacterData[GENDER])
@@ -3192,7 +3183,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-				//직업 출력
+							 //직업 출력
 			case DP_JOB: {
 				SetHangulAlign(TA_RIGHT);
 				int job = SCharSource.nCharacterData[JOB];
@@ -3252,25 +3243,26 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 
 				const int para = SubMenu->nField[j].nWillDo;							// 현재 선택한 캐릭터
-				if (!LoadCh[SubMenu->key + para].sCharacterName[0]) break;
+				const int para_base = SubMenu->key * 4;
+				if (!LoadCh[para_base + para].sCharacterName[0]) break;
 				if (para == character_active)		// 고른놈만 에니메이션 
 				{
-					const int first_para = LoadCh[SubMenu->key + para].nCharacterData[GENDER];			// 스프라이트 인덱스 불러오기 위해	// 여자 남자
-					const int second_para = LoadCh[SubMenu->key + para].nCharacterData[CLASS];			// 선택 클래스
-					const DWORD body = ReturnBlendRGB(LoadCh[SubMenu->key + para].body_r, LoadCh[SubMenu->key + para].body_g, LoadCh[SubMenu->key + para].body_b);
-					const DWORD line = ReturnBlendRGB(LoadCh[SubMenu->key + para].cloth_r, LoadCh[SubMenu->key + para].cloth_g, LoadCh[SubMenu->key + para].cloth_b);
+					const int first_para = LoadCh[para_base + para].nCharacterData[GENDER];			// 스프라이트 인덱스 불러오기 위해	// 여자 남자
+					const int second_para = LoadCh[para_base + para].nCharacterData[CLASS];			// 선택 클래스
+					const DWORD body = ReturnBlendRGB(LoadCh[para_base + para].body_r, LoadCh[para_base + para].body_g, LoadCh[para_base + para].body_b);
+					const DWORD line = ReturnBlendRGB(LoadCh[para_base + para].cloth_r, LoadCh[para_base + para].cloth_g, LoadCh[para_base + para].cloth_b);
 					PutTestAnimation(first_para, second_para, body, line);
 				}
 				int gaby = 0;
-				int job = LoadCh[SubMenu->key + para].nCharacterData[JOB];
+				int job = LoadCh[para_base + para].nCharacterData[JOB];
 				if (job >= 20)  job -= 20;
-				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby, g_DestBackBuf, "%s", LoadCh[SubMenu->key + para].sCharacterName);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby, g_DestBackBuf, "%s", LoadCh[para_base + para].sCharacterName);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 35, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_JOB_TEXT][job].temp);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 57, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][LoadCh[SubMenu->key + para].nCharacterData[CLASS]].temp);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 78, g_DestBackBuf, "%d", LoadCh[SubMenu->key + para].age);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 101, g_DestBackBuf, "%d", LoadCh[SubMenu->key + para].nLevel);
-				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 140, g_DestBackBuf, NationName[LoadCh[SubMenu->key + para].nation]);	// 나라 이름 찍기
-				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 163, g_DestBackBuf, "%d", LoadCh[SubMenu->key + para].nMoney);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 57, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][LoadCh[para_base + para].nCharacterData[CLASS]].temp);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 78, g_DestBackBuf, "%d", LoadCh[para_base + para].age);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x + 52, SubMenu->y + SubMenu->nField[j].y + gaby + 101, g_DestBackBuf, "%d", LoadCh[para_base + para].nLevel);
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 140, g_DestBackBuf, NationName[LoadCh[para_base + para].nation]);	// 나라 이름 찍기
+				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y + gaby + 163, g_DestBackBuf, "%d", LoadCh[para_base + para].nMoney);
 				break;
 			}
 			case DP_BACK_IMAGE_VALUE_TEXT: {
@@ -3282,7 +3274,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			} // switch
 			break;
-
+		}
 		case FT_COLOR_GAUGE: {
 			int select = 2;
 			for (k = 0; k < 2; k++)
@@ -3937,6 +3929,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				default:
 					break;
 				}// switch
+
+				SubMenu->nField[j].fCheakFlag = FALSE;
 			} // if
 
 			// put character page index image (1/2, 2/2)
@@ -3957,8 +3951,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				// nothing need to do.
 			}
 
-			SubMenu->nField[j].fCheakFlag = FALSE;
-			SubMenu->nField[j].fLButtonDown = FALSE;
+			//SubMenu->nField[j].fLButtonDown = FALSE;
 
 		}break;
 		default://020515 lsw
