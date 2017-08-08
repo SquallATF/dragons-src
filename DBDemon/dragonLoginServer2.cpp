@@ -916,9 +916,9 @@ void RecvSelectNation( t_packet *p, short int cn )
 	int nation = p->u.kein.default_char;
 	if( nation <= 0 || nation > 6 ) return;
 	
-	char name[4][20]={0,};
+	char name[MAX_CHARACTEROFID][NM_LENGTH]={0,};
 	GetCharacterNameInID( connections[cn].id, name );
-	for( int i = 0; i< 4; i++ )
+	for( int i = 0; i< MAX_CHARACTEROFID; i++ )
 	{
 		if( name[i][0] )
 		{
@@ -2767,12 +2767,12 @@ void RecvSearchRankLadder( t_packet *p, short int cn )
 int isPosableGuildJoinById( int guild_code, char *id )
 {	//< CSD-030326
 	int is_possible = 1;
-	char name[4][20];
-	memset(name, 0, sizeof(char)*4*20);
+	char name[MAX_CHARACTEROFID][NM_LENGTH];					// modify by taniey
+	memset(name, 0, sizeof(char)*MAX_CHARACTEROFID *NM_LENGTH); // modify by taniey
 
 	if (GetCharacterNameInID(id, name) == 1)
 	{
-		for( int i=0; i<4 ; i++ )
+		for( int i=0; i<MAX_CHARACTEROFID; i++ )  // modify by taniey
 		{
 			if (name[i][0])
 			{

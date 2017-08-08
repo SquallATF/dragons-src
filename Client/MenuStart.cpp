@@ -145,7 +145,7 @@ char sPassword[30];
 SMENU SMenu[MAX_MENU];    //메뉴 구조체를 최대치 만큼 생성
 POINT StateMousePoint;	// 드래그 시작점 기억
 
-						//배열방식 체크에 필요한 배열
+//배열방식 체크에 필요한 배열
 BYTE CheakArray[MAX_CHEAKARRAY][16][33] =
 {
 	{
@@ -656,8 +656,8 @@ void CallMenu(int Menu, int temp, bool is_focus)
 {
 	if (Menu == MN_MERCHANT_FIND)
 	{
-		//		::AddCurrentStatusMessage(255,0,0,"아직 상인아이템 구입은 되지 않습니다.");
-		//		return; //soto-030511 추가..임시 상인검색 종료후 지워야 함.
+		//::AddCurrentStatusMessage(255,0,0,"아직 상인아이템 구입은 되지 않습니다.");
+		//return; //soto-030511 추가..임시 상인검색 종료후 지워야 함.
 	}
 
 	SetChatMode(CM_COMMAND, true);//021001 lsw //인터페이스 뜨면 무조건 채팅창 닫는다
@@ -1092,11 +1092,11 @@ void StartMenuChecking()
 
 			for (j = 0; j < SMenu[i].nFieldCount; j++)	// rect 형
 			{
-				//				if( i == MN_SELECT_CHARACTER ) 
-				//				{
-				//					if( j >=0 && j < 4 )	SMenu[i].CheakType =3;
-				//					else SMenu[i].CheakType = 0;
-				//				}
+				//if( i == MN_SELECT_CHARACTER ) 
+				//{
+				//	if( j >=0 && j < 4 )	SMenu[i].CheakType =3;
+				//	else SMenu[i].CheakType = 0;
+				//}
 
 				switch (SMenu[i].CheakType)
 				{
@@ -1113,8 +1113,8 @@ void StartMenuChecking()
 							else SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].bRect = false;
 						}
 					}
+					break;
 				}
-						 break;
 				case 1:											// 배열형
 				case 2: {
 					int ArrayX = (g_pointMouseX - (SMenu[i].x + 31)) / 10;
@@ -1134,32 +1134,32 @@ void StartMenuChecking()
 					{
 						SMenu[i].nField[j].fRectMouse = false;
 						SMenu[i].nField[j].fLButtonDown = false;
-						//		SMenu[i].nField[j].fCheakFlag=false;
+						// SMenu[i].nField[j].fCheakFlag=false;
 					}
 					break;
 				}
-						//					case 3:	{
-						//								int ArrayX=(g_pointMouseX - (SMenu[i].x + 202) )/8;
-						//								int ArrayY=(g_pointMouseY - (SMenu[i].y + 390) )/13;
-						//								if( (ArrayX >= 0) && (ArrayX <= 15)  &&  (ArrayY >=0) && (ArrayY <=15) ) // 마우스를 이용해 구한 좌표가 배열에 들어가냐?
-						//								{
-						//									if( ( (CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j ) )
-						//											SMenu[i].nField[j].fRectMouse = true;
-						//									else 
-						//									{
-						//										SMenu[i].nField[j].fRectMouse=false;
-						//										SMenu[i].nField[j].fLButtonDown=false;
-						//										SMenu[i].nField[j].fCheakFlag=false;
-						///									}
-						//								}
-						//								else	
-						//								{
-						//										SMenu[i].nField[j].fRectMouse=false;
-						//										SMenu[i].nField[j].fLButtonDown=false;
-						//								//		SMenu[i].nField[j].fCheakFlag=false;
-						//								}
-						//								break;
-						//							}
+				//case 3:	{
+				//	int ArrayX=(g_pointMouseX - (SMenu[i].x + 202) )/8;
+				//	int ArrayY=(g_pointMouseY - (SMenu[i].y + 390) )/13;
+				//	if( (ArrayX >= 0) && (ArrayX <= 15)  &&  (ArrayY >=0) && (ArrayY <=15) ) // 마우스를 이용해 구한 좌표가 배열에 들어가냐?
+				//	{
+				//		if( ( (CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j ) )
+				//				SMenu[i].nField[j].fRectMouse = true;
+				//		else 
+				//		{
+				//			SMenu[i].nField[j].fRectMouse=false;
+				//			SMenu[i].nField[j].fLButtonDown=false;
+				//			SMenu[i].nField[j].fCheakFlag=false;
+				//		}
+				//	}
+				//	else	
+				//	{
+				//			SMenu[i].nField[j].fRectMouse=false;
+				//			SMenu[i].nField[j].fLButtonDown=false;
+				//	//		SMenu[i].nField[j].fCheakFlag=false;
+				//	}
+				//	break;
+				//}
 				}
 			}
 		}
@@ -1195,7 +1195,7 @@ void StartMenuChecking()
 							if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].rCheakBox))
 							{
 								DoLButtonDoubbleClickOfStartMenu(i, j);
-								//									MouseDrag = true;		// 이건 다음에 클릭의 영향을 주지 않기 위해서이다.. 너무하당~
+								// MouseDrag = true;		// 이건 다음에 클릭의 영향을 주지 않기 위해서이다.. 너무하당~
 								b_DoubleClickOn = true;
 								return;
 							}
@@ -1334,7 +1334,8 @@ void StartMenuChecking()
 					break;
 
 				case 1:
-				case 2:	int ArrayX = (g_pointMouseX - (SMenu[i].x + 31)) / 10;
+				case 2:
+					int ArrayX = (g_pointMouseX - (SMenu[i].x + 31)) / 10;
 					int ArrayY = (g_pointMouseY - (SMenu[i].y + 31)) / 10;
 					for (j = 0; j < SMenu[i].nFieldCount; j++)
 					{
@@ -1346,7 +1347,7 @@ void StartMenuChecking()
 								if ((CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j)
 								{
 									SMenu[i].nField[j].fCheakFlag = TRUE;
-									//											f_ClickOn = true;	// 체크 하나에 클릭하나
+									// f_ClickOn = true;	// 체크 하나에 클릭하나
 								}
 							}
 						}
@@ -1398,8 +1399,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		switch (SubMenu->nField[j].nType)  //구성요소가 어떤 타입이지?
 		{
 		case FT_NOMAL_PUT:     //이미지만 찍는 구성요소
-							   //					if( SubMenu->Id == MN_MAINSTART_BACK ) FieldTypeNomalPutFx(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, 15,1);
-							   //					else 
+			//if( SubMenu->Id == MN_MAINSTART_BACK ) FieldTypeNomalPutFx(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, 15,1);
+			//else 
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 
 			if (!SubMenu->key)
@@ -1474,7 +1475,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				if (SubMenu->nField[j].fCheakFlag)
 				{
 					curr_page--;
-					SubMenu->nField[j].fCheakFlag = 0;
+					SubMenu->nField[j].fCheakFlag = FALSE;
 					break;
 				}
 			}break;
@@ -1484,7 +1485,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				if (SubMenu->nField[j].fCheakFlag)
 				{
 					curr_page++;
-					SubMenu->nField[j].fCheakFlag = 0;
+					SubMenu->nField[j].fCheakFlag = FALSE;
 					break;
 				}
 			}break;
@@ -1723,7 +1724,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 		case FT_HIDE_SPECIAL_WILLDO_AUTO_PUT:
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//			   if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				// if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				if (SubMenu->nField[j].nRectImage == 30 && SubMenu->nField[j].nImageType == START_ETC)
 				{
 					static int tt;
@@ -1845,7 +1846,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			{
 				if (SubMenu->nField[j].fRectMouse || SubMenu->nField[j].fLButtonDown)
 				{
-					//											if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+					// if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 					FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x + 20, SubMenu->nField[j].y + 20, SubMenu->nField[j].nSHideNomalCount, SubMenu->nField[j].nImageType);
 				}
 			}
@@ -1987,7 +1988,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					MP3(SN_MENU_OPEN);
 					break;
 				}
-											  //기본적인 캐릭터 만들기가 끝나고 주사위를 굴려서 능력치를 설정하러 들어갈때
+				//기본적인 캐릭터 만들기가 끝나고 주사위를 굴려서 능력치를 설정하러 들어갈때
 				case SWD_MAKECHARACTER_ABILITY:
 					if (SCharSource.nCharacterData[SPELL]) // case priest 
 					{
@@ -2320,19 +2321,19 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					}
 					case MN_OKCANCEL_MESSAGEBOX:
 					{
-						// 020925 YGI
-						/*#ifdef CHINA_LOCALIZING_		// 중국에서는 아직 delete 메뉴를 사용하지 않는다.
-						if(TRUE == SendDeleteCharacter( LoadCh[ character_active ].sCharacterName, "temp" ) )
-						{
-						memset( &LoadCh[ character_active ], 0, sizeof( SCharacter ) );
-						}
-						SCharSource = LoadCh[ character_active ];
-						break;
-						#else
-						*///021011 lsw
+						//// 020925 YGI
+						//#ifdef CHINA_LOCALIZING_		// 중국에서는 아직 delete 메뉴를 사용하지 않는다.
+						//if(TRUE == SendDeleteCharacter( LoadCh[ character_active ].sCharacterName, "temp" ) )
+						//{
+						//memset( &LoadCh[ character_active ], 0, sizeof( SCharacter ) );
+						//}
+						//SCharSource = LoadCh[ character_active ];
+						//break;
+						//#else
+						////021011 lsw
 						CallDelCharComform();//020802 lsw
 						goto Label_2;
-						//												#endif
+						//#endif
 					}
 					case MN_LOGIN:	if (SubMenu->key == 100)		// 홈페이지로 이동//020822 lsw
 					{
@@ -2354,8 +2355,9 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 									}
 									break;
 
-					case MN_LODING:		//SMenu[MN_MAINSTART_BACK].bActive=true;
-										//	SMenu[MN_LOGIN].bActive=true;//020515 lsw
+					case MN_LODING:
+						//SMenu[MN_MAINSTART_BACK].bActive=true;
+						//SMenu[MN_LOGIN].bActive=true;//020515 lsw
 						::CallLoginMenu();
 						SMenu[MN_MAINSTART_BASIC].bActive = true;
 						SMenu[MN_SELECT_CHARACTER].bActive = false;
@@ -2420,7 +2422,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				case SWD_NEW_ID:
 				{
 					CallOkCancelMessageBox(SubMenu->Id, 0, 0, lan->OutputMessage(5, 89), false);//020822 lsw
-																								//								SMenu[MN_OKCANCEL_MESSAGEBOX].key = 100;
+					// SMenu[MN_OKCANCEL_MESSAGEBOX].key = 100;
 					SMenu[MN_OK_MESSAGEBOX].key = 100;
 					goto Label_2;
 				}break;
@@ -2627,18 +2629,18 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 			if (!block)		// 화살표를 보여주지 않는다.
 			{
-				/*
-				int &delay=SubMenu->nField[j].nSHideNomalStart;
-				if( (delay%8) < 4 )
-				{
-				int x = 217;
-				int y;
-				if( willdo == SCROLL_UP ) y = 25;
-				else y = 223;
+				
+				//int &delay=SubMenu->nField[j].nSHideNomalStart;
+				//if( (delay%8) < 4 )
+				//{
+				//int x = 217;
+				//int y;
+				//if( willdo == SCROLL_UP ) y = 25;
+				//else y = 223;
 
-				FieldTypeNomalPut(SubMenu->x, SubMenu->y, x, y, SubMenu->nField[j].nSHideNomalCount);
-				}
-				delay++;*/
+				//FieldTypeNomalPut(SubMenu->x, SubMenu->y, x, y, SubMenu->nField[j].nSHideNomalCount);
+				//}
+				//delay++;
 
 				if (SubMenu->nField[j].fLButtonDown)
 				{
@@ -2656,7 +2658,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					else if (willdo == SCROLL_DOWN) scroll++;
 				}
 			}
-			SubMenu->nField[j].fCheakFlag = 0;
+			SubMenu->nField[j].fCheakFlag = FALSE;
 			break;
 		}
 
@@ -2718,12 +2720,12 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					else if (willdo == SCROLL_DOWN) scroll++;
 				}
 			}
-			SubMenu->nField[j].fCheakFlag = 0;
+			SubMenu->nField[j].fCheakFlag = FALSE;
 			break;
 		}
 		case FT_HIDE_ISCROLL_AUTO_PUT:	if (SubMenu->nField[j].fRectMouse)
 		{
-			//											if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+			// if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 			if (((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) + (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) >= (SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalCount)) break;
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
 		}
@@ -2770,7 +2772,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 		case FT_HIDE_DSCROLL_AUTO_PUT:	if (SubMenu->nField[j].fRectMouse)
 		{
-			////											if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+			////if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 			if (((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) - (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) < 0) break;
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
 		}
@@ -2787,10 +2789,10 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			{
 				int &ct = SubMenu->nTemp;
 				int &turn = SubMenu->work;
-				//											if( turn ) ct--;
-				//											else ct++;
-				//											if( ct > 14 ) turn = true;
-				//											if( ct < 1 ) turn = false;
+				//if( turn ) ct--;
+				//else ct++;
+				//if( ct > 14 ) turn = true;
+				//if( ct < 1 ) turn = false;
 				FieldTypeNomalPutFx(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, ct, 2);
 			}
 			if (SubMenu->nField[j].fLButtonDown)
@@ -2820,12 +2822,12 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				{ INT_,	WSPS, },
 				{ WIS,	WSPS, }, };
 
-			/*								int	class_ability[5][5] = {
-			{ STR,	CON,	-1,  },
-			{ MOVP, DEX,	LUCK,	CON, -1, },
-			{ DEX,	CON,	MOVP,	-1, },
-			{ CON,	INT,	ENDU,	WSPS, -1,},
-			{ CON,	WSPS,	WIS,	ENDU, -1,} };*/
+			//int	class_ability[5][5] = {
+			//{ STR,	CON,	-1,  },
+			//{ MOVP, DEX,	LUCK,	CON, -1, },
+			//{ DEX,	CON,	MOVP,	-1, },
+			//{ CON,	INT,	ENDU,	WSPS, -1,},
+			//{ CON,	WSPS,	WIS,	ENDU, -1,} };
 
 
 			if (SubMenu->nField[j].fCheakFlag)
@@ -3510,44 +3512,44 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 				PutTestAnimation2(SCharSource.nCharacterData[GENDER], SCharSource.nCharacterData[CLASS], body, line);
 
-				/*
-				if( SMenu[ MN_MAKECHARACTER_CLASS ].bActive || SMenu[ MN_MAKECHARACTER_COLOR ].bActive )		// 에니메이션
-				{
-				PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_body_image_after[index][a], body);
-				PutCompressedImage( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_armor_image_after[index][a]);
-				PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_line_image_after[index][a], line);
-				a++;
-				if( !ch_body_image_after[index][a].img )
-				{
-				a=1;
-				turn = true;
-				}
-				else turn = false;
-				}
-				else if( !turn )
-				{
-				PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_body_image_after[index][a], body);
-				PutCompressedImage( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_armor_image_after[index][a]);
-				PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_line_image_after[index][a], line);
-				a++;
-				if( !ch_body_image_after[index][a].img )
-				{
-				a=1;
-				turn = true;
-				}
-				else turn = false;
-				}
-				else
-				{
-				static int c=1;
-				PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_body_image_befor[index][c], body);
-				PutCompressedImage( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_armor_image_befor[index][c]);
-				PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_line_image_befor[index][c], line);
-				c++;
-				if( !ch_body_image_befor[index][c].img ) c=1;
-				turn = true;
-				}
-				*/
+				
+				//if( SMenu[ MN_MAKECHARACTER_CLASS ].bActive || SMenu[ MN_MAKECHARACTER_COLOR ].bActive )		// 에니메이션
+				//{
+				//PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_body_image_after[index][a], body);
+				//PutCompressedImage( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_armor_image_after[index][a]);
+				//PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_line_image_after[index][a], line);
+				//a++;
+				//if( !ch_body_image_after[index][a].img )
+				//{
+				//a=1;
+				//turn = true;
+				//}
+				//else turn = false;
+				//}
+				//else if( !turn )
+				//{
+				//PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_body_image_after[index][a], body);
+				//PutCompressedImage( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_armor_image_after[index][a]);
+				//PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_line_image_after[index][a], line);
+				//a++;
+				//if( !ch_body_image_after[index][a].img )
+				//{
+				//a=1;
+				//turn = true;
+				//}
+				//else turn = false;
+				//}
+				//else
+				//{
+				//static int c=1;
+				//PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_body_image_befor[index][c], body);
+				//PutCompressedImage( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_armor_image_befor[index][c]);
+				//PutCompressedImageCharRGB( SubMenu->x+ SubMenu->nField[j].x+45, SubMenu->y+SubMenu->nField[j].y+96, &ch_line_image_befor[index][c], line);
+				//c++;
+				//if( !ch_body_image_befor[index][c].img ) c=1;
+				//turn = true;
+				//}
+				
 			}break;
 
 			//case DO_SELECT_LOAD_CHAR: {
@@ -3625,10 +3627,11 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			break;
 		}
-		case FT_NO_CHECK:	SubMenu->nField[j].fCheakFlag = FALSE;	// 일단 체크 플레그를 폴스로 하고 아무것도 찍지 않을때.
+		case FT_NO_CHECK: {
+			SubMenu->nField[j].fCheakFlag = FALSE;	// 일단 체크 플레그를 폴스로 하고 아무것도 찍지 않을때.
 			SubMenu->nField[j].fLButtonDown = FALSE;
 			break;
-
+		}
 		case FT_PUT_TACTICS: {
 			int img_num_man[] = { 46, 50, 51, 40, 48, 47, 42, 43, 41, 44, 45 };
 			int img_num_woman[] = { 46, 50, 51, 49, 48, 47, 42, 43, 40, 41 };
@@ -3686,86 +3689,85 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 
 						sprintf(str[i][j], "%s", lan->OutputMessage(9, i * 15 + j + 31));
 					}
-				/*
-				char str[10][15][256] = {
-				{
-				"여성을 선택하면 특유의 섬세함으로 펜싱검을 사용할 수 있습니다.",
-				"남성을 선택하면 강인한 체력으로 인해 양손검과 양손도끼를 사용할 수 있습니다.",
-				},
-				{
-				"선하면서 정직한 가치관입니다.",
-				"보통의 선한 가치관입니다.",
-				"중도에서 선한쪽으로 넘어가는 혼돈의 선입니다.",
-				"중도이지만 정직한 면을 가지고 있습니다.",
-				"선도 악도 아닌 중도입니다.",
-				"중도에서 악으로 넘어가는 혼돈스러운 중도",
-				"악하지만 그래도 정직한 면이 있습니다.",
-				"보통의 악한 가치관입니다.",
-				"악하면서도 잔인한 가치관입니다.",
-				},
-				//51
-				{
-				"선천적인 힘과 건강 그리고 용기를 가진 클래스입니다. 단거리전투에 능합니다. ",
-				"속임수와 잔기술 그리고 빠른발로 세상에 맞서는 클래스입니다. 훔치기 기술이 있습니다.",
-				"타고난 민첩성과 악에대한 격멸을 가진 클래스입니다. 활을 잘사용합니다.",
-				"대자연의 힘을 이용한 마법에 능한 클래스입니다. 단 초기에 체력이 약한 단점이 있습니다.",
-				"신에 힘에 의지한 마법에 능한 클래스입니다. 초기에  체력이 약하지만 죽은사람을 살릴수 있습니다.",
-				},
-				//61
+				
+				//char str[10][15][256] = {
+				//{
+				//"여성을 선택하면 특유의 섬세함으로 펜싱검을 사용할 수 있습니다.",
+				//"남성을 선택하면 강인한 체력으로 인해 양손검과 양손도끼를 사용할 수 있습니다.",
+				//},
+				//{
+				//"선하면서 정직한 가치관입니다.",
+				//"보통의 선한 가치관입니다.",
+				//"중도에서 선한쪽으로 넘어가는 혼돈의 선입니다.",
+				//"중도이지만 정직한 면을 가지고 있습니다.",
+				//"선도 악도 아닌 중도입니다.",
+				//"중도에서 악으로 넘어가는 혼돈스러운 중도",
+				//"악하지만 그래도 정직한 면이 있습니다.",
+				//"보통의 악한 가치관입니다.",
+				//"악하면서도 잔인한 가치관입니다.",
+				//},
+				////51
+				//{
+				//"선천적인 힘과 건강 그리고 용기를 가진 클래스입니다. 단거리전투에 능합니다. ",
+				//"속임수와 잔기술 그리고 빠른발로 세상에 맞서는 클래스입니다. 훔치기 기술이 있습니다.",
+				//"타고난 민첩성과 악에대한 격멸을 가진 클래스입니다. 활을 잘사용합니다.",
+				//"대자연의 힘을 이용한 마법에 능한 클래스입니다. 단 초기에 체력이 약한 단점이 있습니다.",
+				//"신에 힘에 의지한 마법에 능한 클래스입니다. 초기에  체력이 약하지만 죽은사람을 살릴수 있습니다.",
+				//},
+				////61
 
-
-				{
-				"대자연의 힘(Mana)를 이용한 공격적인 마법을 주로 사용합니다.",
-				"기도의 힘(Divine)을 이용한 보호,치료의 마법을 주로 사용합니다. ",
-				},
-				{
-				"캐릭터의 피부색을 조정합니다.",
-				"캐릭터가 착용한 옷에 있는 색을 조정합니다. ",
-				},
-				{
-				"맨손전투능력입니다. 수치가 높으면 칼보다 강할수 있습니다. ",
-				"한손검을 잘다루는 능력입니다. 전사의 주력택틱스입니다.",
-				"활을 잘쏘는 능력입니다. 궁수의 주력택틱스가 됩니다.",
-				"방패를 이용한 방어에 능한 택틱스입니다.",
-				"도끼나 철퇴등의 육중한 무기를 다루는 능력입니다.",
-				"창을 잘 다룰수 있는 능력입니다.",
-				"봉을 잘 다루는 능력으로 마법사나 성직자의 주력택틱스입니다.",
-				"비검을 잘 던지는 능력으로 도둑의 주력택틱스입니다.",
-				"성직자 마법의 효과를 높여주는 택틱스입니다.",
-				"양손검을 잘사용하는 능력으로 남자만이 가질수 있습니다.",
-				"양손도끼를 잘 사용하는 능력으로 남자만이 가질수 있습니다.",
-				},
-				{
-				"맨손전투능력입니다. 수치가 높으면 칼보다 강할수 있습니다. ",
-				"한손검을 잘다루는 능력입니다. 전사의 주력택틱스입니다.",
-				"활을 잘쏘는 능력입니다. 궁수의 주력택틱스가 됩니다.",
-				"펜싱검을 잘다루는 능력입니다. 여자만이 선택할수 있습니다.",
-				"도끼나 철퇴등의 육중한 무기를 다루는 능력입니다.",
-				"창을 잘 다룰수 있는 능력입니다.",
-				"봉을 잘 다루는 능력으로 마법사나 성직자의 주력택틱스입니다.",
-				"비검을 잘 던지는 능력으로 도둑의 주력택틱스입니다.",
-				"방패를 이용한 방어에 능한 택틱스입니다.",
-				"마법사 마법의 효과를 높여주는 택틱스입니다.",
-				},
-				{
-				"농부는 밭을갈고 곡식을 심고 그 곡식을  재배하는 기술을 가지고 있습니다.",
-				"광부는 광맥을 찾고 거기서 각종 광물을 캐내는 기술을 가지고 있습니다.",
-				"어부는 낚시나 그믈질로 물고기를 잡는 기술을 가지고 있습니다.",
-				"나무꾼은 나무를 배고 다듬는 기술을 가지고 있습니다.",
-				"도축자는 죽은 동물에게서 고기와 가죽을 얻어내는 기술이 있습니다.",
-				"심마니는 산이나 들판에 있는 약초를 찾아서  약으로 만드는 기술이 있습니다.",
-				"목동은 동물들을 이리저리 몰고 다니는 기술이 있습니다.",
-				"목수는 목재를 이용해서 여러 아이템을 만드는 기술이 있습니다.",
-				"대장장이는 광물을 이용해서 여러 아이템을 만드는 기술이 있습니다.",
-				"요리사는 재료를 이용해 건강을 올려주는 아이템을 만드는 기술이 있습니다.",
-				"재단사는 실과 천으로 옷을 만들어 내는 능력이 있습니다.",
-				"활제작사는 목재를 이용해서 활과 화살을 전문적으로 만들어 냅니다.",
-				"연금술사는 특수한 금속이나 포션을 만들어 냅니다.",
-				"초쟁이는 밤을 밝혀주는 양초를 만들어 냅니다.",
-				"상인은 물건을 숨겨 도둑으로부터 보호하면서 먼곳을 이동할수 있습니다.",
-				},
-				};
-				*/
+				//{
+				//"대자연의 힘(Mana)를 이용한 공격적인 마법을 주로 사용합니다.",
+				//"기도의 힘(Divine)을 이용한 보호,치료의 마법을 주로 사용합니다. ",
+				//},
+				//{
+				//"캐릭터의 피부색을 조정합니다.",
+				//"캐릭터가 착용한 옷에 있는 색을 조정합니다. ",
+				//},
+				//{
+				//"맨손전투능력입니다. 수치가 높으면 칼보다 강할수 있습니다. ",
+				//"한손검을 잘다루는 능력입니다. 전사의 주력택틱스입니다.",
+				//"활을 잘쏘는 능력입니다. 궁수의 주력택틱스가 됩니다.",
+				//"방패를 이용한 방어에 능한 택틱스입니다.",
+				//"도끼나 철퇴등의 육중한 무기를 다루는 능력입니다.",
+				//"창을 잘 다룰수 있는 능력입니다.",
+				//"봉을 잘 다루는 능력으로 마법사나 성직자의 주력택틱스입니다.",
+				//"비검을 잘 던지는 능력으로 도둑의 주력택틱스입니다.",
+				//"성직자 마법의 효과를 높여주는 택틱스입니다.",
+				//"양손검을 잘사용하는 능력으로 남자만이 가질수 있습니다.",
+				//"양손도끼를 잘 사용하는 능력으로 남자만이 가질수 있습니다.",
+				//},
+				//{
+				//"맨손전투능력입니다. 수치가 높으면 칼보다 강할수 있습니다. ",
+				//"한손검을 잘다루는 능력입니다. 전사의 주력택틱스입니다.",
+				//"활을 잘쏘는 능력입니다. 궁수의 주력택틱스가 됩니다.",
+				//"펜싱검을 잘다루는 능력입니다. 여자만이 선택할수 있습니다.",
+				//"도끼나 철퇴등의 육중한 무기를 다루는 능력입니다.",
+				//"창을 잘 다룰수 있는 능력입니다.",
+				//"봉을 잘 다루는 능력으로 마법사나 성직자의 주력택틱스입니다.",
+				//"비검을 잘 던지는 능력으로 도둑의 주력택틱스입니다.",
+				//"방패를 이용한 방어에 능한 택틱스입니다.",
+				//"마법사 마법의 효과를 높여주는 택틱스입니다.",
+				//},
+				//{
+				//"농부는 밭을갈고 곡식을 심고 그 곡식을  재배하는 기술을 가지고 있습니다.",
+				//"광부는 광맥을 찾고 거기서 각종 광물을 캐내는 기술을 가지고 있습니다.",
+				//"어부는 낚시나 그믈질로 물고기를 잡는 기술을 가지고 있습니다.",
+				//"나무꾼은 나무를 배고 다듬는 기술을 가지고 있습니다.",
+				//"도축자는 죽은 동물에게서 고기와 가죽을 얻어내는 기술이 있습니다.",
+				//"심마니는 산이나 들판에 있는 약초를 찾아서  약으로 만드는 기술이 있습니다.",
+				//"목동은 동물들을 이리저리 몰고 다니는 기술이 있습니다.",
+				//"목수는 목재를 이용해서 여러 아이템을 만드는 기술이 있습니다.",
+				//"대장장이는 광물을 이용해서 여러 아이템을 만드는 기술이 있습니다.",
+				//"요리사는 재료를 이용해 건강을 올려주는 아이템을 만드는 기술이 있습니다.",
+				//"재단사는 실과 천으로 옷을 만들어 내는 능력이 있습니다.",
+				//"활제작사는 목재를 이용해서 활과 화살을 전문적으로 만들어 냅니다.",
+				//"연금술사는 특수한 금속이나 포션을 만들어 냅니다.",
+				//"초쟁이는 밤을 밝혀주는 양초를 만들어 냅니다.",
+				//"상인은 물건을 숨겨 도둑으로부터 보호하면서 먼곳을 이동할수 있습니다.",
+				//},
+				//};
+				
 
 				//if( SubMenu->Id == MN_RESET_JOB ) SCharSource.nCharacterData[JOB] = count+20;
 
@@ -3895,8 +3897,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 			} // for
 		}break;
-		case FT_CHARACTER_SCROLL:	// add by taniey
-		{
+		case FT_CHARACTER_SCROLL: {	// add by taniey
 			const int max_pageindex = SN_CHARACTER_MAX_COUNT >> 2;   // 移动 2 位, 表示 移动 4 个角色槽
 
 			if (SubMenu->nField[j].fCheakFlag)
@@ -4053,72 +4054,78 @@ void start_KeyProc()
 					else	SMenu[MN_MAKECHARACTER_ABILITY].nField[4].fLButtonDown = TRUE;
 					return;
 
-				case MN_YESNO:	if (comp)
-				{
-					SMenu[MN_YESNO].nField[0].fCheakFlag = TRUE;
-					SMenu[MN_YESNO].nField[0].fLButtonDown = FALSE;
+				case MN_YESNO: {
+					if (comp)
+					{
+						SMenu[MN_YESNO].nField[0].fCheakFlag = TRUE;
+						SMenu[MN_YESNO].nField[0].fLButtonDown = FALSE;
+					}
+					else SMenu[MN_YESNO].nField[0].fLButtonDown = TRUE;
+					return;
 				}
-								else SMenu[MN_YESNO].nField[0].fLButtonDown = TRUE;
-								return;
-
-				case MN_SYSTEM_LOGOUT: if (comp)
-				{
-					SMenu[MN_SYSTEM_LOGOUT].nField[0].fCheakFlag = true;
-					SMenu[MN_SYSTEM_LOGOUT].nField[0].fLButtonDown = false;
+				case MN_SYSTEM_LOGOUT: {
+					if (comp)
+					{
+						SMenu[MN_SYSTEM_LOGOUT].nField[0].fCheakFlag = true;
+						SMenu[MN_SYSTEM_LOGOUT].nField[0].fLButtonDown = false;
+					}
+					else
+					{
+						SMenu[MN_SYSTEM_LOGOUT].nField[0].fLButtonDown = true;
+					}
+					return;
 				}
-									   else
-									   {
-										   SMenu[MN_SYSTEM_LOGOUT].nField[0].fLButtonDown = true;
-									   }
-									   return;
-
 				case MN_OK_MESSAGEBOX:
-				case MN_OKCANCEL_MESSAGEBOX:	if (comp)
-				{
-					SMenu[index].nField[2].fCheakFlag = true;
-					SMenu[index].nField[2].fLButtonDown = false;
+				case MN_OKCANCEL_MESSAGEBOX: {
+					if (comp)
+					{
+						SMenu[index].nField[2].fCheakFlag = true;
+						SMenu[index].nField[2].fLButtonDown = false;
+					}
+					else
+					{
+						SMenu[index].nField[2].fLButtonDown = true;
+					}
+					return;
 				}
-												else
-												{
-													SMenu[index].nField[2].fLButtonDown = true;
-												}
-												return;
-
-				case MN_MAINSTART_BASIC:	if (comp)
-				{
-					SMenu[MN_MAINSTART_BASIC].nField[1].fCheakFlag = TRUE;
-					SMenu[MN_MAINSTART_BASIC].nField[1].fLButtonDown = FALSE;
+				case MN_MAINSTART_BASIC: {
+					if (comp)
+					{
+						SMenu[MN_MAINSTART_BASIC].nField[1].fCheakFlag = TRUE;
+						SMenu[MN_MAINSTART_BASIC].nField[1].fLButtonDown = FALSE;
+					}
+					else SMenu[MN_MAINSTART_BASIC].nField[1].fLButtonDown = TRUE;
+					return;
 				}
-											else SMenu[MN_MAINSTART_BASIC].nField[1].fLButtonDown = TRUE;
-											return;
-
 				case MN_LOGON:
-				case MN_LOGIN: if (comp)
-				{
-					SMenu[index].nField[0].fCheakFlag = TRUE;
-					SMenu[index].nField[0].fLButtonDown = FALSE;
+				case MN_LOGIN: {
+					if (comp)
+					{
+						SMenu[index].nField[0].fCheakFlag = TRUE;
+						SMenu[index].nField[0].fLButtonDown = FALSE;
+					}
+					else SMenu[index].nField[0].fLButtonDown = TRUE;
+					return;
 				}
-							   else SMenu[index].nField[0].fLButtonDown = TRUE;
-							   return;
-
-				case MN_SELECT: if (comp)
-				{
-					SMenu[MN_MAINSTART_START].nField[1].fCheakFlag = true;
-					SMenu[MN_MAINSTART_START].nField[1].fLButtonDown = false;
+				case MN_SELECT: {
+					if (comp)
+					{
+						SMenu[MN_MAINSTART_START].nField[1].fCheakFlag = true;
+						SMenu[MN_MAINSTART_START].nField[1].fLButtonDown = false;
+					}
+					else SMenu[MN_MAINSTART_START].nField[1].fLButtonDown = true;
+					return;
 				}
-								else SMenu[MN_MAINSTART_START].nField[1].fLButtonDown = true;
-								return;
-
-				case MN_LOCATION:	if (comp)
-				{
-					SMenu[MN_MAINSTART_START].nField[3].fCheakFlag = true;
-					SMenu[MN_MAINSTART_START].nField[3].fLButtonDown = false;
+				case MN_LOCATION: {
+					if (comp)
+					{
+						SMenu[MN_MAINSTART_START].nField[3].fCheakFlag = true;
+						SMenu[MN_MAINSTART_START].nField[3].fLButtonDown = false;
+					}
+					else SMenu[MN_MAINSTART_START].nField[3].fLButtonDown = true;
+					return;
 				}
-									else SMenu[MN_MAINSTART_START].nField[3].fLButtonDown = true;
-									return;
-
-				case MN_SELECT_CHARACTER:
-				{
+				case MN_SELECT_CHARACTER: {
 					if (comp)
 					{
 						SMenu[MN_SELECT_CHARACTER].nField[0].fCheakFlag = true;
@@ -4128,10 +4135,10 @@ void start_KeyProc()
 					{
 						SMenu[MN_SELECT_CHARACTER].nField[0].fLButtonDown = true;
 					}
-				}return;
+					return;
+				}
 
-				default:
-				{
+				default: {
 					for (y = 0; y < SMenu[index].nFieldCount; y++)
 					{
 						if (SMenu[index].nField[y].nImageNumber == 64 || (SMenu[index].nField[y].nImageType == RESET_JOB_ETC && SMenu[index].nField[y].nImageNumber == 10))
@@ -4146,15 +4153,15 @@ void start_KeyProc()
 							return;
 						}
 					}
-				}break;
-				}
+					break;
+				} // default
+				} // switch
 			}break;
 			case 3:	/* ESC key */
 			{
 				switch (index)
 				{
-				case MN_YESNO:
-				{
+				case MN_YESNO: {
 					if (comp)
 					{
 						SMenu[MN_YESNO].nField[1].fCheakFlag = TRUE;
@@ -4171,8 +4178,7 @@ void start_KeyProc()
 				//				}
 				//				else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
 				//				return;
-				case MN_SYSTEM_LOGOUT:
-				{
+				case MN_SYSTEM_LOGOUT: {
 					if (comp)
 					{
 						SMenu[MN_SYSTEM_LOGOUT].nField[1].fCheakFlag = true;
@@ -4184,8 +4190,7 @@ void start_KeyProc()
 					}
 					return;
 				}
-				case MN_MAINSTART_START:
-				{
+				case MN_MAINSTART_START: {
 					if (comp)
 					{
 						SMenu[MN_MAINSTART_START].nField[2].fCheakFlag = TRUE;
@@ -4194,8 +4199,7 @@ void start_KeyProc()
 					else SMenu[MN_MAINSTART_START].nField[2].fLButtonDown = TRUE;
 					return;
 				}
-				case MN_LOGON:
-				{
+				case MN_LOGON: {
 					if (comp)
 					{
 						SMenu[MN_LOGON].nField[1].fCheakFlag = TRUE;
@@ -4204,12 +4208,12 @@ void start_KeyProc()
 					else SMenu[MN_LOGON].nField[1].fLButtonDown = TRUE;
 					return;
 				}
-				case MN_INFO:
-				{
+				case MN_INFO: {
 					SMenu[index].bActive = false;
 					SetFocus2(HWND_1);//021001 lsw
 					::CallLoginMenu();
-				}return;
+					return;
+				}
 
 				default:
 				{
@@ -4232,7 +4236,7 @@ void start_KeyProc()
 						}
 					}
 				}break;		// 일부러...
-				}
+				} // switch (index)
 			}break;
 			case 1:/* TAB */
 			{
@@ -4354,19 +4358,19 @@ char SpaceBarPress()
 	}
 	if (g_aCurrentKeys[DIK_I] & 0x80)
 	{
-		//		if( flag == 'i') return '0';
+		// if( flag == 'i') return '0';
 		flag = 'i';
 		return flag;
 	}
 	if (g_aCurrentKeys[DIK_NUMPADPLUS] & 0x80)
 	{
-		//		if(flag == 'p') return '0';
+		// if(flag == 'p') return '0';
 		flag = 'p';
 		return flag;
 	}
 	if (g_aCurrentKeys[DIK_NUMPADMINUS] & 0x80)
 	{
-		//		if(flag == 'm') return '0';
+		// if(flag == 'm') return '0';
 		flag = 'm';
 		return flag;
 	}
@@ -4471,13 +4475,13 @@ void MakeCharacterAbility()
 
 	for (int i = 0; i < 5; i++)	nDiceNumber[i] = 1;
 	return;
-	/*
-	for(int i=STR; i<=LUCK; i++)
-	{
-	SCharSource.nCharacterAbility[i] = 10;
-	SCharSource.nCharacterAbility[i] += ran(3)+1;
-	}
-	for( i=0; i<5; i++ )	nDiceNumber[i] = 1;*/
+	
+	//for(int i=STR; i<=LUCK; i++)
+	//{
+	//SCharSource.nCharacterAbility[i] = 10;
+	//SCharSource.nCharacterAbility[i] += ran(3)+1;
+	//}
+	//for(int i=0; i<5; i++ )	nDiceNumber[i] = 1;
 }
 
 

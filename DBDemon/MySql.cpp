@@ -300,7 +300,7 @@ int Querry_SQL(LPSTR szQuerry, HDBC hdbc)
 }	//> CSD-030804
 
 // chr_log_info 테이블에서 캐릭터이름을 찾는다. 
-int GetCharacterNameInID( LPSTR id, char name[4][20] )
+int GetCharacterNameInID( LPSTR id, char name[MAX_CHARACTEROFID][NM_LENGTH] )
 {	
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
@@ -326,10 +326,16 @@ int GetCharacterNameInID( LPSTR id, char name[4][20] )
 	{
 		retCode = SQLFetch(hStmt);
 		//"select name, lev, job, class, gender, bodyr, bodyg, bodyb, "
-		retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, name[0], NM_LENGTH, &cbValue);
-		retCode = SQLGetData(hStmt, 2, SQL_C_CHAR, name[1], NM_LENGTH, &cbValue);
-		retCode = SQLGetData(hStmt, 3, SQL_C_CHAR, name[2], NM_LENGTH, &cbValue);
-		retCode = SQLGetData(hStmt, 4, SQL_C_CHAR, name[3], NM_LENGTH, &cbValue);
+		// comment: add by taniey
+		for (int i = 0; i < MAX_CHARACTEROFID; i++)
+		{
+			retCode = SQLGetData(hStmt, i+1, SQL_C_CHAR, name[i], NM_LENGTH, &cbValue);
+		}
+		// delete by taniey
+		//retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, name[0], NM_LENGTH, &cbValue);
+		//retCode = SQLGetData(hStmt, 2, SQL_C_CHAR, name[1], NM_LENGTH, &cbValue);
+		//retCode = SQLGetData(hStmt, 3, SQL_C_CHAR, name[2], NM_LENGTH, &cbValue);
+		//retCode = SQLGetData(hStmt, 4, SQL_C_CHAR, name[3], NM_LENGTH, &cbValue);
 		SQLFreeStmt(hStmt, SQL_DROP);
 		return(1);
 	}
@@ -340,25 +346,25 @@ int GetCharacterNameInID( LPSTR id, char name[4][20] )
 
 
 // GetCharacterNameInID( LPSTR id, char *name[4] )에서 찾은 이름을 가지고  기본정보를 뽑아낸다. 
-int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027 YGI
-{				
+int GetCharInfo_SQL2( char *realid, char name[MAX_CHARACTEROFID][NM_LENGTH], t_packet *packet)		// 1027 YGI
+{
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode;
 	SDWORD		cbValue;
 	char		szQuerry[255];
-	int			i;
-	char		id[ 20];
+	//int			i;   // delete by taniey
+	char		id[NM_LENGTH];
 	int			Level, Job, Class, Gender;
 	int			bodyr, bodyg, bodyb, clothr, clothg, clothb;
 	DWORD		money;
 	int			age;
 	int 		acc_equip1, acc_equip2, acc_equip3, acc_equip4;
-	int			nation[4];
+	int			nation[MAX_CHARACTEROFID];		// modify by taniey
 	
 	t_server_accept_login *tp;
 	tp = &packet->u.server_accept_login;
 				
-	for( i = 0 ; i < 4 ; i ++)
+	for(int i = 0 ; i < MAX_CHARACTEROFID; i ++)
 	{
 		if( name[i][0] == 0 )
 		{
@@ -386,13 +392,13 @@ int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027
 			else
 			{	
 				//"select login_id, name, lev, job, class, gender, bodyr, bodyg, bodyb, "
-				retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,  &id,	   20, &cbValue);
+				retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,  &id, NM_LENGTH, &cbValue);
 				
-				char tempid[ 20+1];
+				char tempid[NM_LENGTH +1];
 				strcpy( tempid, id );
 				EatRearWhiteChar(	tempid);	CharUpper( tempid);
 				if( strcmp( tempid, realid ) )	// Character의 소유계정이 아니다..     
-				{	
+				{
 					RecvHackingUser( realid, name[i], 20009, " ", "Not His Char" );
 					tp->name[i][0] = 0;
 					SQLFreeStmt(hStmt, SQL_DROP);
@@ -453,7 +459,7 @@ int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027
 	// 가지고 있는 캐릭터의 정보를 비교해서 
 	// 이상한 경우나 기타 경우를 처리한다.
 	tp->nation = 0;			// 1027 YGI
-	for( int j=0; j<4; j++ )
+	for( int j=0; j<MAX_CHARACTEROFID; j++ )
 	{
 		if( tp->name[j][0] )		// 이름을 가지고 있는 캐릭터가
 		{
@@ -480,7 +486,7 @@ int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027
 
 int GetCharactersBasicInfoInID_SQL( LPSTR id, t_packet *packet )
 {
-	char name[ 4][ NM_LENGTH]={{0,},};
+	char name[MAX_CHARACTEROFID][NM_LENGTH]={{0,},};
 	
 	if( GetCharacterNameInID( id, name ) == 1 )
 	{
@@ -929,7 +935,7 @@ int CreateChar_SQL(t_connection c[], int cn, t_packet *packet)//new bug!!
 ////////////////////////////////////////////////////////////////////////////////////////发现注册漏洞	
 	if(ch->Class>4	||	ch->Class<0)
 	{
-//		HackLog(0,ch->Class,ch->Name );
+		//HackLog(0,ch->Class,ch->Name );
 		ch->Class = 4;
 	}
 /////////////////////////////////////////////////////////5/////////////////////////////////////////////////////////////////////
@@ -1174,7 +1180,7 @@ int CreateChar2_SQL(t_connection c[], int cn )		// 0302 YGI
 	RETCODE retCode;
 	SDWORD cbValue ;
 	char szQuerry[1024];
-	char select_name[20] ={0, };
+	char select_name[NM_LENGTH] ={0, };
 	//int Count;
 	LPCHARLIST ch = &c[cn].chrlst;
 	
@@ -1211,10 +1217,10 @@ int CreateChar2_SQL(t_connection c[], int cn )		// 0302 YGI
 				
 				if(retCode == SQL_SUCCESS )
 				{				
-					for( int i=0; i<4; i++ )
+					for( int i=0; i<MAX_CHARACTEROFID; i++ )
 					{			
 						*select_name = 0;
-						retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[20]), &cbValue) ;
+						retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[NM_LENGTH]), &cbValue) ;
 						
 						if( retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO )
 						{		
@@ -1285,12 +1291,12 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 	RETCODE retCode;
 	SDWORD cbValue ;
 	char szQuerry[255];
-	char log_id[20] = {0, };
-	char ori_log_id[20];
-	char select_name[20];
+	char log_id[NM_LENGTH] = {0, };
+	char ori_log_id[NM_LENGTH];
+	char select_name[NM_LENGTH];
 	
 	const int len = strlen( szName );
-	if( len > 20 )
+	if( len > NM_LENGTH)
 	{
 		MyLog( LOG_NORMAL, "Error!! : Failed Character Deleted Name is Very Long ==> '%s'", szName);
 		return 0;
@@ -1303,11 +1309,11 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 	SQLAllocStmt(hDBC, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
 	if(retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO)
-	{				
+	{
 		retCode = SQLFetch(hStmt);
 		if(retCode == SQL_SUCCESS)
 		{			
-			retCode= SQLGetData(hStmt, 1, SQL_C_CHAR, log_id, 20, &cbValue) ;
+			retCode= SQLGetData(hStmt, 1, SQL_C_CHAR, log_id, NM_LENGTH, &cbValue) ;
 		}			
 	}				
 	SQLFreeStmt(hStmt, SQL_DROP);
@@ -1335,9 +1341,9 @@ int DeleteChar_SQL2( const char *szID, const char *szName, const char* szSecretK
 		retCode = SQLFetch(hStmt);
 		if(retCode == SQL_SUCCESS)
 		{			
-			for( int i=0; i<4; i++ )
-			{		
-				retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[20]), &cbValue) ;
+			for( int i=0; i<MAX_CHARACTEROFID; i++ )
+			{
+				retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[NM_LENGTH]), &cbValue) ;
 				if( retCode == SQL_SUCCESS || retCode == SQL_SUCCESS_WITH_INFO )
 				{	
 					// 010414 KHS
@@ -2752,9 +2758,9 @@ int RecvUpdateCharDB( t_update_char_db *p )
 	DWORD temp_NWCharacter;
 	memcpy(&temp_NWCharacter,&p->NWCharacter,sizeof(DWORD));
 	ConvertSave(p->aStepInfo); // CSD-TW-030620
- 				for(int i = 0; i < 20; i++){
-// 				MyLog(LOG_NORMAL, "[%d] save astepinfo : %d", i, p->aStepInfo[i]);  //coromo save astepinfo
- 			}
+ 	//for(int i = 0; i < 20; i++){
+ 	//	MyLog(LOG_NORMAL, "[%d] save astepinfo : %d", i, p->aStepInfo[i]);  //coromo save astepinfo
+ 	//}
 	sprintf(query, "UPDATE chr_info "
 		      "SET lev = %d, spritvalue = %d, social_status = %d, fame = %d, fame_pk = %d, guildname = '%s' "
 			  "WHERE name= '%s'",
@@ -6050,9 +6056,9 @@ int GetNationByName( char *name, DWORD *name_status ) // 1027 YGI 국가값만 �
 
 int GetNationById( char *login_id )	// 1027 YGI---		// 이건 진짜 나라 값만 가져온다.
 {
-	char name[4][20]={0,};
+	char name[MAX_CHARACTEROFID][NM_LENGTH]={0,};
 	GetCharacterNameInID( login_id, name );
-	for( int i=0; i<4; i++ )
+	for( int i=0; i<MAX_CHARACTEROFID; i++ )
 	{
 		if( name[i][0] )
 		{
@@ -7332,7 +7338,7 @@ int SaveNationInfo_SQL( k_save_nation_info *p )
 
 bool IsFreeLevel( char *szUID )
 {
-	char name[ 4][ NM_LENGTH]={{0,},};
+	char name[MAX_CHARACTEROFID][ NM_LENGTH]={{0,},};
 	HSTMT		hStmt = NULL;
 	SDWORD		cbValue;
 	RETCODE		retCode;
@@ -7347,7 +7353,7 @@ bool IsFreeLevel( char *szUID )
 		return false;
 	}
 	
-	for( i = 0 ; i < 4; i ++)
+	for( i = 0 ; i < MAX_CHARACTEROFID; i ++)
 	{
 		if( name[i][0] == 0 ) 
 		{
@@ -7370,7 +7376,7 @@ bool IsFreeLevel( char *szUID )
 		if( lev > FREE_LEVEL_ ) break;
 	}
 	
-	if( i == 4 ) {return true;}  // Free Level..
+	if( i == MAX_CHARACTEROFID) {return true;}  // Free Level..
 	
 	return false; 
 }

@@ -136,7 +136,7 @@
 #define  SM_MAGIC_COUNT					10
 
 // DEF SELECT CHAR COUNT
-#define SN_CHARACTER_MAX_COUNT			MAX_CHARACTEROFID		// 必须是 4 的倍数
+#define SN_CHARACTER_MAX_COUNT			MAX_CHARACTEROFID		// 必须是 4 的倍数 , add by taniey
 
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -515,6 +515,8 @@ enum SpecailWillDoIndex//FT_xxx_SPECIAL_WILLDO 류에서 클릭시 쓰임
 	SWD_MAKECHARACTER_SPELLORCOLOR		,      //클래스 메뉴에서 선택된 클래스를 판단해 SPELL이나 칼라로 갈때
 	SWD_MAKECHARACTER_TACTICS			,      //성별을 판단해  TACTICS목록을 보여준다
 	SWD_MAKECHARACTER_ABILITY			,      //JOB에서 ABILITY메뉴로 가기
+	SWD_CHARACTER_SCROLL_LEFT			,		// character scroll to left , add by taniey
+	SWD_CHARACTER_SCROLL_RIGHT			,		// character scroll to right, add by taniey
 	SWD_FOCUS_WILLDO					,
 	SWD_CALLMENU						,
 	SWD_MN_MERCHANT_BBS_OK				,		// 공지 날리기
@@ -810,10 +812,6 @@ enum SpecailWillDoIndex//FT_xxx_SPECIAL_WILLDO 류에서 클릭시 쓰임
 	SWD_SEND_MERCHANT_BACKUP_LIST_SCROLL_UP,	// BBD 040303
 	SWD_SEND_MERCHANT_BACKUP_LIST_SCROLL_DOWN,	// BBD 040303
 
-	SWD_CHARACTER_SCROLL_LEFT,		//	character scroll to left , add by taniey
-	SWD_CHARACTER_SCROLL_RIGHT,		//	character scroll to right, add by taniey
-
-
 };
 
 //메뉴 구성요소 타입번호 설정
@@ -833,7 +831,7 @@ enum FieldTypeIndex
 	FT_HIDE_WILLDO_PUT                  , //마우스 L버튼으로 눌렀다 때면 다른메뉴를 호출하는 형식
 	FT_HIDE_SPECIAL_WILLDO_PUT  		, //단순히 메뉴호출만 하는게 아니라 여러가지 특별한 일을 할경우
 	FT_SPECIAL_WILLDO                   , //이미지를 찍지 않고 작동한다
-	FT_CHARACTER_SCROLL					, // add by taniey
+	FT_CHARACTER_SCROLL					, // character scroll, add by taniey
 	FT_HIDE_ISCROLL_PUT                 , //FT_HIDE_NOMAL_ 와 연결된 스크롤 버튼을 눌렀을때 FT_HIDE_NOMAL_가 찍힐 범위를 증가 설정
 	FT_HIDE_DSCROLL_PUT                 , //FT_HIDE_NOMAL_ 와 연결된 스크롤 버튼을 눌렀을때 FT_HIDE_NOMAL_가 찍힐 범위를 감소 설정
 	FT_THROWDICE                        , //주사위를 던져주는 타입

@@ -493,6 +493,7 @@ SKIP__:
 	CheckingAccelator_Sub1();	// 020620 YGI
 	return	TRUE;
 }	//> CSD-030806
+
 //010604 lsw	
 extern DWORD ServerAccelTime;
 extern void CheckAccelerator();
@@ -503,18 +504,18 @@ extern int RecvChangeMap( t_server_change_map *p );
 
 DWORD   Sends()
 {
-				if(strlen(Sendhack)<2)//检查发送消息是否重复
-				{
-					char s[50];
-				strcpy(Hackname,HeroName);//得到ぃ▆產人物名
-				sprintf(s," [ID: %s",HackID);//取得ぃ▆產ID
-				sprintf(Sendhack,str,Hackname,s);
-				}		
-				SendBBSAll(Sendhack);
-				SendLogOutCharacter(Hackname);
-				SetEvent(g_hEndProEvent);
-//				exit(0);
-			return 1;	
+	if(strlen(Sendhack)<2)//检查发送消息是否重复
+	{
+		char s[50];
+	strcpy(Hackname,HeroName);//得到ぃ▆產人物名
+	sprintf(s," [ID: %s",HackID);//取得ぃ▆產ID
+	sprintf(Sendhack,str,Hackname,s);
+	}		
+	SendBBSAll(Sendhack);
+	SendLogOutCharacter(Hackname);
+	SetEvent(g_hEndProEvent);
+	// exit(0);
+	return 1;	
 }
 	
 BOOL GameProc( LPDIRECTDRAWINFO lpDirectDrawInfo )//030703 lsw

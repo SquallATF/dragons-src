@@ -37,7 +37,7 @@ extern void RecvResetJob( t_packet *p, short int cn );
 extern void CheckSkillExp_kein( int index, DWORD skillexp[], DWORD &exp );
 extern void RecvSelectNation( t_packet *p, short int cn );
 
-extern int GetCharacterNameInID( LPSTR id, char name[4][20] );
+extern int GetCharacterNameInID( LPSTR id, char name[MAX_CHARACTEROFID][NM_LENGTH] );
 extern void CheckInitData();
 extern void CheckStartMap( t_connection c[], short int cn, int &StartPosition );		// 1004 YGI
 extern void RecvExistName( t_packet *p, short int cn );

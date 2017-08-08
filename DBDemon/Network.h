@@ -62,7 +62,7 @@
 #define CONNECT_JOIN					4
 #define CONNECT_JOIN_START				5
 
-#define MAX_CHARACTEROFID				4 
+#define MAX_CHARACTEROFID				8			// must be Multiple of 4, modify by taniey
 #define MAX_PACKET_SIZE					3000
 #define MAX_SERVER_QUEUE_OUT_BUFFER		(1024*1024*10 )
 #define MAX_CLIENT_QUEUE_OUT_BUFFER		16584

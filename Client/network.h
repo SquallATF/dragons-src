@@ -111,7 +111,7 @@
 
 
 //--------------------------------------------------------
-#define MAX_CHARACTEROFID				8 
+#define MAX_CHARACTEROFID				8	// must be Multiple of 4, modify by taniey
 //------------------- NEW_APPEND -------------------------
 #define MAX_PACKET_SIZE					3000
 //#define MAX_PACKET_SIZE					512
