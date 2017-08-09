@@ -74,7 +74,7 @@ int QueuePacket( t_connection c[], int cn, t_packet *packet, int type )
 	if( 1+4+dwLength >= MM_MAX_PACKET_SIZE )
 	{
 		// it's a big bug.. 
-//		_asm int 3;
+		//_asm int 3;
 	}
 	else 
 	{
@@ -146,287 +146,287 @@ int HandleReading(t_connection c[], int cn)
 int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUserID, int cn)  //接受
 {
 	const int ttype	= packet->h.header.type;
-	switch(ttype)
+	switch (ttype)
 	{
-	case CMD_NONE :
+	case CMD_NONE:
 		break;
-	case CMD_PING :
+	case CMD_PING:
 		break;
-	case CMD_LOST_CONNECTION : 
+	case CMD_LOST_CONNECTION:
 		closeconnection(c, cn, CCT_NORMAL);
 		break;
-	case CMD_IM_GAME_SERVER :
+	case CMD_IM_GAME_SERVER:
 		break;
-	case CMD_ACCESS_CHAR_DB :		// 010613 YGI
-		{
-			const int server_id = packet->u.server_access_char_db.server_id;
-			memcpy(c[cn].id, packet->u.server_access_char_db.id, ID_LENGTH);
-			memcpy(c[cn].name, packet->u.server_access_char_db.name, NM_LENGTH);
-			LPCHARLIST ch = &c[cn].chrlst; //换位
-
-////////////////////////////////////////////////////////////////////////////////////////发现注册漏洞	
-	if(ch->Class>4	||	ch->Class<0)
+	case CMD_ACCESS_CHAR_DB:		// 010613 YGI
 	{
-//		HackLog(0,ch->Class);
-		ch->Class = 4;
-	}
-/////////////////////////////////////////////////////////5/////////////////////////////////////////////////////////////////////
+		const int server_id = packet->u.server_access_char_db.server_id;
+		memcpy(c[cn].id, packet->u.server_access_char_db.id, ID_LENGTH);
+		memcpy(c[cn].name, packet->u.server_access_char_db.name, NM_LENGTH);
+		LPCHARLIST ch = &c[cn].chrlst; //换位
 
-			if(GetCharDB_SQL(c, cn) != 1) break;
-			if(GetCharGameDB_SQL(c, cn) != 1 )  break;
-//			LPCHARLIST ch = &c[cn].chrlst; //换位
-			if(!CheckRookieServerAble(ch->Level))//021230 lsw
-			{
-				break;
-			}
-			ch->server_id = cn;
-			// 030923 HK YGI
-			int ret = get_BinaryData_from_Chr_Info(	(UCHAR *)ch->Ws, 
-											(UCHAR *)ch->Ps, 
-											(UCHAR *)ch->Skill, 
-											(UCHAR *)ch->skillexp, 
-											(UCHAR *)ch->tac_skillEXP, 
-											(UCHAR *)var[cn], 						
-											(UCHAR *)ch->inv, 
-											(UCHAR *)ch->equip, 
-											(UCHAR *)ch->quick, 
-											(UCHAR *)ch->party, 
-											(UCHAR *)ch->relation, 
-											(UCHAR *)ch->employment, 
-											(UCHAR *)ch->Item, 
-											c[cn].id, c[cn].name ) ;
-			if( ret != 1 ) break;
-
-			ret = get_BinaryData_from_Chr_Info2 ( (UCHAR *)c[cn].chrlst.bank,  c[cn].id, c[cn].name ) ;
-			if( ret != 1 ) break;
-			/////////////////////////////
-			ResetCharInfo(var[cn], ch);
-
-//			PutEventItem( 2, &c[cn] );		// 이벤트용 아이템 넣어 주기	// BBD 040308	Map서버가 주기로 했음
-
-			int refresh_inventory = CheckEventITem( ch );
-
-			CheckEventJoin(&c[cn].chrlst);			// 020115 LTS
-
-			/////////////////////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-
-			packet->h.header.type = CMD_ACCEPT_CHAR_DB;
-			packet->h.header.size = sizeof(t_server_accept_char_db);
-			t_server_accept_char_db *tp = &(packet->u.server_accept_char_db);
-
-			strcpy( tp->name, c[cn].name );// 030923 HK YGI
-			tp->server_id	= server_id;
-			tp->Level		= ch->Level;
-			tp->Exp			= ch->Exp;
-
-			tp->Gender		= ch->Gender;
-			tp->Face		= ch->Face;
-			tp->nGuildCode	= ch->nGuildCode; // CSD-030324
-			tp->Class		= ch->Class;
-			tp->Spell		= ch->Spell;
-			tp->Job			= ch->Job;		// 0212 YGI
-
-			tp->Str			= ch->Str;
-			tp->Con			= ch->Con;
-			tp->Dex			= ch->Dex;
-			tp->Wis			= ch->Wis;
-			tp->Int			= ch->Int;
-			tp->MoveP		= ch->MoveP;
-			tp->Char		= ch->Char;
-			tp->Endu		= ch->Endu;
-			tp->Moral		= ch->Moral;
-
-			tp->Money		= ch->Money;
-			tp->nLife	= ch->Hp;
-			tp->nMaxHp = ch->HpMax;
-			tp->nMana = ch->Mana;
-			tp->nMaxMp = ch->ManaMax;
-			tp->nHungry	= ch->Hungry;
-			tp->nMaxHungry	= ch->HungryMax;
-			tp->Condition	= ch->Condition;
-			tp->SprNo		= ch->SprNo;
-			tp->X			= ch->X;
-			tp->Y			= ch->Y;
-			memcpy( tp->MapName, ch->MapName, 20);
-			tp->Peacests	= ch->Peacests;
-			tp->Sight		= ch->Sight;
-
-			tp->BodyR		= ch->BodyR;
-			tp->BodyG		= ch->BodyG;
-			tp->BodyB		= ch->BodyB;
-
-			tp->ClothR		= ch->ClothR;
-			tp->ClothG		= ch->ClothG;
-			tp->ClothB		= ch->ClothB;
-
-			tp->Age			= ch->Age;
-			tp->Luck		= ch->Luck;
-			tp->wsps		= ch->wsps;
-			memcpy( &tp->nation, &ch->name_status, sizeof( DWORD ) );			// 1004 YGI
-
-			tp->accessory[0]	= ch->accessory[0];
-			tp->accessory[1]	= ch->accessory[1];
-			tp->accessory[2]	= ch->accessory[2];
-			tp->accessory[3]	= ch->accessory[3];
-			
-			ch->mantle =   ch->equip[ WT_NECK].item_no;
-			tp->mantle = ch->mantle;
-
-			tp->bAlive			= ch->bAlive;
-			tp->openhouse		= ch->openhouse;
-			tp->disease[0]		= ch->disease[0];
-			tp->disease[1]		= ch->disease[1];
-			tp->disease[2]		= ch->disease[2];
-			tp->disease[3]		= ch->disease[3];
-			tp->disease[4]		= ch->disease[4];
-			tp->disease[5]		= ch->disease[5];
-			tp->total_id		= ch->total_id;
-
-			tp->nPoison	= ch->nPoison;
-			tp->nCurse = ch->nCurse;
-			tp->nFire = ch->nFire;
-			tp->nIce = ch->nIce;
-			tp->nElect = ch->nElect;
-			tp->nHoly = ch->nHoly;
-			tp->viewtype		= ch->viewtype;		// 0212 YGI
-			tp->social_status	= ch->social_status;
-			tp->fame			= ch->fame;
-			tp->fame_pk			= ch->fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
-			tp->NWCharacter		= ch->NWCharacter;	// 010915 LTS
-			tp->EventJoin		= ch->EventJoin;	// 020115 LTS
-			tp->nUserAge		= GetUserAge(c[cn].id); // 030929 kyo
-  			memcpy(tp->aStepInfo, ch->aStepInfo, sizeof(ch->aStepInfo));
-  			if(!QueuePacket(c, cn, packet, 1)){break;}
-
-			/////////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-			t_server_accept_char_game_db *tsac = &(packet->u.server_accept_char_game_db);
-
-			packet->h.header.type = CMD_ACCEPT_CHAR_GAME_DB;
-			packet->h.header.size = sizeof(t_server_accept_char_game_db);
-
-			strcpy( tsac->name, c[cn].name );// 030923 HK YGI
-			tsac->server_id		= server_id;
-			tsac->BankMoney		= ch->BankMoney;	
-			memcpy( &tsac->win_defeat, &ch->WinLoseScore, sizeof( DWORD ) );
-			tsac->LadderScore = ch->LadderScore;
-			tsac->LastLoan		= ch->LastLoan;
-			tsac->nk3			= ch->nk[N_VYSEUS];
-			tsac->nk4			= ch->nk[N_ZYPERN];
-			tsac->nk6			= ch->nk[N_YILSE];
-			tsac->killmon		= ch->killmon;
-			tsac->killanimal	= ch->killanimal;
-			tsac->killpc		= ch->killpc;
-			tsac->reserved_point= ch->reserved_point;
-			tsac->Tactics		= ch->Tactics;
-
-			if(!QueuePacket(c, cn, packet, 1)) break;
-
-			///////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-
-			packet->h.header.type = CMD_ACCEPT_BINARY_DATA;
-			packet->h.header.size = sizeof(t_server_accept_binary_data);
-
-			packet->u.server_accept_binary_data.server_id = server_id;
-			strcpy( packet->u.server_accept_binary_data.name, c[cn].name );// 030923 HK YGI
-
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.Ws, (UCHAR *)ch->Ws, SIZE_OF_WS);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.Ps, (UCHAR *)ch->Ps, SIZE_OF_PS);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.Skill, (UCHAR *)ch->Skill, SIZE_OF_SKILL);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.skillexp, (UCHAR *)ch->skillexp, SIZE_OF_SKILL_EXP);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.tac_skillEXP, (UCHAR *)ch->tac_skillEXP, SIZE_OF_TAC_SKILL_EXP);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.equip, (UCHAR *)ch->equip, SIZE_OF_EQUIP);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.quick, (UCHAR *)ch->quick, SIZE_OF_QUICK);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.party, (UCHAR *)ch->party, SIZE_OF_PARTY);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.relation, (UCHAR *)ch->relation, SIZE_OF_RELATION);
-			memcpy((UCHAR *)packet->u.server_accept_binary_data.employment, (UCHAR *)ch->employment, SIZE_OF_EMPLOYMENT);
-
-			if(!QueuePacket(c, cn, packet, 1)) break;
-
-			///////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-
-			packet->h.header.type = CMD_ACCEPT_SCRIPT_DATA;
-			packet->h.header.size = sizeof(t_server_accept_script_data);
-
-			packet->u.server_accept_script_data.server_id = server_id;
-			strcpy( packet->u.server_accept_script_data.name, c[cn].name );// 030923 HK YGI
-			memcpy((UCHAR *)packet->u.server_accept_script_data.script_var, (UCHAR *)var[cn], SIZE_OF_SCRIPT_VAR);
-
-			if(!QueuePacket(c, cn, packet, 1)) break;
-
-			///////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-
-			packet->h.header.type = CMD_ACCEPT_INV_DATA;
-			packet->h.header.size = sizeof(t_server_accept_inv_data);
-
-			packet->u.server_accept_inv_data.server_id = server_id;
-			strcpy( packet->u.server_accept_inv_data.name, c[cn].name );// 030923 HK YGI
-			memcpy((UCHAR *)packet->u.server_accept_inv_data.inv, (UCHAR *)ch->inv, SIZE_OF_INV);
-			//021030 YGI
-			packet->u.server_accept_inv_data.refresh_inventory = refresh_inventory;
-
-
-			if(!QueuePacket(c, cn, packet, 1)) break;
-
-			///////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-
-			packet->h.header.type = CMD_ACCEPT_ITEM_DATA;
-			packet->h.header.size = sizeof(t_server_accept_item_data);
-
-			packet->u.server_accept_item_data.server_id = server_id;
-
-			strcpy( packet->u.server_accept_item_data.name, c[cn].name );// 030923 HK YGI
-			memcpy((UCHAR *)packet->u.server_accept_item_data.Item, (UCHAR *)c[cn].chrlst.Item, SIZE_OF_ITEMINDEX);
-
-			if(!QueuePacket(c, cn, packet, 1)) break;
-			
-			///////////////////////////////////////////////////////////////////////
-			memset(packet, 0, sizeof(t_packet));
-
-			packet->h.header.type = CMD_ACCEPT_BANKITEM_DATA;
-			packet->h.header.size = sizeof(t_server_accept_bankitem_data);
-
-			packet->u.server_accept_bankitem_data.server_id = server_id;
-			strcpy( packet->u.server_accept_bankitem_data.name, c[cn].name );// 030923 HK YGI
-			memcpy((UCHAR *)packet->u.server_accept_bankitem_data.bankitem, (UCHAR *)c[cn].chrlst.bank, SIZE_OF_BANKITEM);
-			if(!QueuePacket(c, cn, packet, 1)) break;
-		}break;
-	case CMD_ACCESS_LOGIN :
+		///////////////////发现注册漏洞/////////////////////////////////////////////////////////////////////
+		if (ch->Class > 4 || ch->Class < 0)
 		{
-			::CheckIDAutherizing(*packet,cn);
-		}break;
-	case CMD_PARTY_ACCESS : 
-		{
-			::SendPartyInforForGameserver( packet->u.kein.server_req_party_db.server_id, packet->u.kein.server_req_party_db.ct, packet->u.kein.server_req_party_db.name, c, cn );
-		}break;
-	case CMD_REQ_PARTY_TOGETHER : 
-		{
-			::SendPartyInfoOfOtherCharToGameserver( packet->u.kein.server_req_party_together.party_name, packet->u.kein.server_req_party_together.my_name, packet->u.kein.server_req_party_together.server_id, c, cn );
-		}break;
+			//HackLog(0,ch->Class);
+			ch->Class = 4;
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////
 
-case CMD_CONNECT_INFO :							// 4개중의 하나의 캐릭터를 선택했다
-	{	
+		if (GetCharDB_SQL(c, cn) != 1) break;
+		if (GetCharGameDB_SQL(c, cn) != 1)  break;
+		//LPCHARLIST ch = &c[cn].chrlst; //换位
+		if (!CheckRookieServerAble(ch->Level))//021230 lsw
+		{
+			break;
+		}
+		ch->server_id = cn;
+		// 030923 HK YGI
+		int ret = get_BinaryData_from_Chr_Info((UCHAR *)ch->Ws,
+			(UCHAR *)ch->Ps,
+			(UCHAR *)ch->Skill,
+			(UCHAR *)ch->skillexp,
+			(UCHAR *)ch->tac_skillEXP,
+			(UCHAR *)var[cn],
+			(UCHAR *)ch->inv,
+			(UCHAR *)ch->equip,
+			(UCHAR *)ch->quick,
+			(UCHAR *)ch->party,
+			(UCHAR *)ch->relation,
+			(UCHAR *)ch->employment,
+			(UCHAR *)ch->Item,
+			c[cn].id, c[cn].name);
+		if (ret != 1) break;
+
+		ret = get_BinaryData_from_Chr_Info2((UCHAR *)c[cn].chrlst.bank, c[cn].id, c[cn].name);
+		if (ret != 1) break;
+		/////////////////////////////
+		ResetCharInfo(var[cn], ch);
+
+		//PutEventItem( 2, &c[cn] );		// 이벤트용 아이템 넣어 주기	// BBD 040308	Map서버가 주기로 했음
+
+		int refresh_inventory = CheckEventITem(ch);
+
+		CheckEventJoin(&c[cn].chrlst);			// 020115 LTS
+
+		/////////////////////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+
+		packet->h.header.type = CMD_ACCEPT_CHAR_DB;
+		packet->h.header.size = sizeof(t_server_accept_char_db);
+		t_server_accept_char_db *tp = &(packet->u.server_accept_char_db);
+
+		strcpy(tp->name, c[cn].name);// 030923 HK YGI
+		tp->server_id = server_id;
+		tp->Level = ch->Level;
+		tp->Exp = ch->Exp;
+
+		tp->Gender = ch->Gender;
+		tp->Face = ch->Face;
+		tp->nGuildCode = ch->nGuildCode; // CSD-030324
+		tp->Class = ch->Class;
+		tp->Spell = ch->Spell;
+		tp->Job = ch->Job;		// 0212 YGI
+
+		tp->Str = ch->Str;
+		tp->Con = ch->Con;
+		tp->Dex = ch->Dex;
+		tp->Wis = ch->Wis;
+		tp->Int = ch->Int;
+		tp->MoveP = ch->MoveP;
+		tp->Char = ch->Char;
+		tp->Endu = ch->Endu;
+		tp->Moral = ch->Moral;
+
+		tp->Money = ch->Money;
+		tp->nLife = ch->Hp;
+		tp->nMaxHp = ch->HpMax;
+		tp->nMana = ch->Mana;
+		tp->nMaxMp = ch->ManaMax;
+		tp->nHungry = ch->Hungry;
+		tp->nMaxHungry = ch->HungryMax;
+		tp->Condition = ch->Condition;
+		tp->SprNo = ch->SprNo;
+		tp->X = ch->X;
+		tp->Y = ch->Y;
+		memcpy(tp->MapName, ch->MapName, 20);
+		tp->Peacests = ch->Peacests;
+		tp->Sight = ch->Sight;
+
+		tp->BodyR = ch->BodyR;
+		tp->BodyG = ch->BodyG;
+		tp->BodyB = ch->BodyB;
+
+		tp->ClothR = ch->ClothR;
+		tp->ClothG = ch->ClothG;
+		tp->ClothB = ch->ClothB;
+
+		tp->Age = ch->Age;
+		tp->Luck = ch->Luck;
+		tp->wsps = ch->wsps;
+		memcpy(&tp->nation, &ch->name_status, sizeof(DWORD));			// 1004 YGI
+
+		tp->accessory[0] = ch->accessory[0];
+		tp->accessory[1] = ch->accessory[1];
+		tp->accessory[2] = ch->accessory[2];
+		tp->accessory[3] = ch->accessory[3];
+
+		ch->mantle = ch->equip[WT_NECK].item_no;
+		tp->mantle = ch->mantle;
+
+		tp->bAlive = ch->bAlive;
+		tp->openhouse = ch->openhouse;
+		tp->disease[0] = ch->disease[0];
+		tp->disease[1] = ch->disease[1];
+		tp->disease[2] = ch->disease[2];
+		tp->disease[3] = ch->disease[3];
+		tp->disease[4] = ch->disease[4];
+		tp->disease[5] = ch->disease[5];
+		tp->total_id = ch->total_id;
+
+		tp->nPoison = ch->nPoison;
+		tp->nCurse = ch->nCurse;
+		tp->nFire = ch->nFire;
+		tp->nIce = ch->nIce;
+		tp->nElect = ch->nElect;
+		tp->nHoly = ch->nHoly;
+		tp->viewtype = ch->viewtype;		// 0212 YGI
+		tp->social_status = ch->social_status;
+		tp->fame = ch->fame;
+		tp->fame_pk = ch->fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
+		tp->NWCharacter = ch->NWCharacter;	// 010915 LTS
+		tp->EventJoin = ch->EventJoin;	// 020115 LTS
+		tp->nUserAge = GetUserAge(c[cn].id); // 030929 kyo
+		memcpy(tp->aStepInfo, ch->aStepInfo, sizeof(ch->aStepInfo));
+		if (!QueuePacket(c, cn, packet, 1)) { break; }
+
+		/////////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+		t_server_accept_char_game_db *tsac = &(packet->u.server_accept_char_game_db);
+
+		packet->h.header.type = CMD_ACCEPT_CHAR_GAME_DB;
+		packet->h.header.size = sizeof(t_server_accept_char_game_db);
+
+		strcpy(tsac->name, c[cn].name);// 030923 HK YGI
+		tsac->server_id = server_id;
+		tsac->BankMoney = ch->BankMoney;
+		memcpy(&tsac->win_defeat, &ch->WinLoseScore, sizeof(DWORD));
+		tsac->LadderScore = ch->LadderScore;
+		tsac->LastLoan = ch->LastLoan;
+		tsac->nk3 = ch->nk[N_VYSEUS];
+		tsac->nk4 = ch->nk[N_ZYPERN];
+		tsac->nk6 = ch->nk[N_YILSE];
+		tsac->killmon = ch->killmon;
+		tsac->killanimal = ch->killanimal;
+		tsac->killpc = ch->killpc;
+		tsac->reserved_point = ch->reserved_point;
+		tsac->Tactics = ch->Tactics;
+
+		if (!QueuePacket(c, cn, packet, 1)) break;
+
+		///////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+
+		packet->h.header.type = CMD_ACCEPT_BINARY_DATA;
+		packet->h.header.size = sizeof(t_server_accept_binary_data);
+
+		packet->u.server_accept_binary_data.server_id = server_id;
+		strcpy(packet->u.server_accept_binary_data.name, c[cn].name);// 030923 HK YGI
+
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.Ws, (UCHAR *)ch->Ws, SIZE_OF_WS);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.Ps, (UCHAR *)ch->Ps, SIZE_OF_PS);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.Skill, (UCHAR *)ch->Skill, SIZE_OF_SKILL);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.skillexp, (UCHAR *)ch->skillexp, SIZE_OF_SKILL_EXP);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.tac_skillEXP, (UCHAR *)ch->tac_skillEXP, SIZE_OF_TAC_SKILL_EXP);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.equip, (UCHAR *)ch->equip, SIZE_OF_EQUIP);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.quick, (UCHAR *)ch->quick, SIZE_OF_QUICK);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.party, (UCHAR *)ch->party, SIZE_OF_PARTY);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.relation, (UCHAR *)ch->relation, SIZE_OF_RELATION);
+		memcpy((UCHAR *)packet->u.server_accept_binary_data.employment, (UCHAR *)ch->employment, SIZE_OF_EMPLOYMENT);
+
+		if (!QueuePacket(c, cn, packet, 1)) break;
+
+		///////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+
+		packet->h.header.type = CMD_ACCEPT_SCRIPT_DATA;
+		packet->h.header.size = sizeof(t_server_accept_script_data);
+
+		packet->u.server_accept_script_data.server_id = server_id;
+		strcpy(packet->u.server_accept_script_data.name, c[cn].name);// 030923 HK YGI
+		memcpy((UCHAR *)packet->u.server_accept_script_data.script_var, (UCHAR *)var[cn], SIZE_OF_SCRIPT_VAR);
+
+		if (!QueuePacket(c, cn, packet, 1)) break;
+
+		///////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+
+		packet->h.header.type = CMD_ACCEPT_INV_DATA;
+		packet->h.header.size = sizeof(t_server_accept_inv_data);
+
+		packet->u.server_accept_inv_data.server_id = server_id;
+		strcpy(packet->u.server_accept_inv_data.name, c[cn].name);// 030923 HK YGI
+		memcpy((UCHAR *)packet->u.server_accept_inv_data.inv, (UCHAR *)ch->inv, SIZE_OF_INV);
+		//021030 YGI
+		packet->u.server_accept_inv_data.refresh_inventory = refresh_inventory;
+
+
+		if (!QueuePacket(c, cn, packet, 1)) break;
+
+		///////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+
+		packet->h.header.type = CMD_ACCEPT_ITEM_DATA;
+		packet->h.header.size = sizeof(t_server_accept_item_data);
+
+		packet->u.server_accept_item_data.server_id = server_id;
+
+		strcpy(packet->u.server_accept_item_data.name, c[cn].name);// 030923 HK YGI
+		memcpy((UCHAR *)packet->u.server_accept_item_data.Item, (UCHAR *)c[cn].chrlst.Item, SIZE_OF_ITEMINDEX);
+
+		if (!QueuePacket(c, cn, packet, 1)) break;
+
+		///////////////////////////////////////////////////////////////////////
+		memset(packet, 0, sizeof(t_packet));
+
+		packet->h.header.type = CMD_ACCEPT_BANKITEM_DATA;
+		packet->h.header.size = sizeof(t_server_accept_bankitem_data);
+
+		packet->u.server_accept_bankitem_data.server_id = server_id;
+		strcpy(packet->u.server_accept_bankitem_data.name, c[cn].name);// 030923 HK YGI
+		memcpy((UCHAR *)packet->u.server_accept_bankitem_data.bankitem, (UCHAR *)c[cn].chrlst.bank, SIZE_OF_BANKITEM);
+		if (!QueuePacket(c, cn, packet, 1)) break;
+	}break;
+	case CMD_ACCESS_LOGIN:
+	{
+		::CheckIDAutherizing(*packet, cn);
+	}break;
+	case CMD_PARTY_ACCESS:
+	{
+		::SendPartyInforForGameserver(packet->u.kein.server_req_party_db.server_id, packet->u.kein.server_req_party_db.ct, packet->u.kein.server_req_party_db.name, c, cn);
+	}break;
+	case CMD_REQ_PARTY_TOGETHER:
+	{
+		::SendPartyInfoOfOtherCharToGameserver(packet->u.kein.server_req_party_together.party_name, packet->u.kein.server_req_party_together.my_name, packet->u.kein.server_req_party_together.server_id, c, cn);
+	}break;
+
+	case CMD_CONNECT_INFO:							// 4개중의 하나의 캐릭터를 선택했다
+	{
 		// 캐릭터초기화이후실행 0405 KHS 
 		// 0405 YGI	new char
 		int is_new_char = 0;
-		if( ::GetCharNew(is_new_char, packet->u.client_connect_info.name ) )			// 4월 1일 새롭게 만든 캐릭터 인가
+		if (::GetCharNew(is_new_char, packet->u.client_connect_info.name))			// 4월 1일 새롭게 만든 캐릭터 인가
 		{
-			if( is_new_char )
+			if (is_new_char)
 			{
 				break;
 			}// 1: 예전 캐릭터	0: 새로운 캐릭터
 		}
-		else 
+		else
 		{
 			break;
 		}
 
-		if( !CheckIsRealName( connections[cn].id, packet->u.client_connect_info.name ) )
+		if (!CheckIsRealName(connections[cn].id, packet->u.client_connect_info.name))
 		{
 			break;
 		}
@@ -435,555 +435,553 @@ case CMD_CONNECT_INFO :							// 4개중의 하나의 캐릭터를 선택했다
 		memset(c[cn].name, 0, NM_LENGTH);
 		strcpy(c[cn].name, packet->u.client_connect_info.name);
 
-		StartMap		= packet->u.client_connect_info.startmap;	
-		StartPosition	= packet->u.client_connect_info.startposition;
-		
-		if( StartMap < 0 || StartMap > 1 )				StartMap = 0;
+		StartMap = packet->u.client_connect_info.startmap;
+		StartPosition = packet->u.client_connect_info.startposition;
 
-		if( StartPosition == 99 ) 
-		{			
-		}			
-		else if( StartPosition < 1 || StartPosition > 20 )
+		if (StartMap < 0 || StartMap > 1)				StartMap = 0;
+
+		if (StartPosition == 99)
+		{
+		}
+		else if (StartPosition < 1 || StartPosition > 20)
 		{
 			StartPosition = 1;
 		}
-					
-		c[cn].chrlst.startmap		= StartMap;
-		c[cn].chrlst.startposition	= StartPosition;
-						
+
+		c[cn].chrlst.startmap = StartMap;
+		c[cn].chrlst.startposition = StartPosition;
+
 		memset(packet, 0, sizeof(t_packet));
 		int ret = GetCharDB_SQL(c, cn);
-		if( ret )		
-		{				
-			CheckStartMap( c, cn, StartPosition );		// 1004 YGI
-			ret = GetCharGameDB_SQL(c,cn);
+		if (ret)
+		{
+			CheckStartMap(c, cn, StartPosition);		// 1004 YGI
+			ret = GetCharGameDB_SQL(c, cn);
 		}
-		if( c[cn].chrlst.Hp == 0 )
-		{	
-			c[cn].chrlst.bAlive		= DEAD_; 
-			c[cn].chrlst.Condition	= CON_DEATH;
-			c[cn].chrlst.viewtype	= VIEWTYPE_GHOST_;
-		}	
-		else 
-		{	
-			c[cn].chrlst.bAlive 	= ALIVE_;
-			c[cn].chrlst.Condition	= CON_NORMAL;
-			c[cn].chrlst.viewtype	= VIEWTYPE_NORMAL_;
-		}		
-			
-		if( c[cn].chrlst.startposition != 99 ) // 원래의 위치에 들어간다. 
-		{	
-			strcpy( c[cn].mapname, StartMapPosition[ StartMap][ StartPosition ] );
-			strcpy( c[cn].chrlst.MapName, StartMapPosition[ StartMap][ StartPosition ] );
-		}	
-			
-		if(ret == 1)
-		{	
+		if (c[cn].chrlst.Hp == 0)
+		{
+			c[cn].chrlst.bAlive = DEAD_;
+			c[cn].chrlst.Condition = CON_DEATH;
+			c[cn].chrlst.viewtype = VIEWTYPE_GHOST_;
+		}
+		else
+		{
+			c[cn].chrlst.bAlive = ALIVE_;
+			c[cn].chrlst.Condition = CON_NORMAL;
+			c[cn].chrlst.viewtype = VIEWTYPE_NORMAL_;
+		}
+
+		if (c[cn].chrlst.startposition != 99) // 원래의 위치에 들어간다. 
+		{
+			strcpy(c[cn].mapname, StartMapPosition[StartMap][StartPosition]);
+			strcpy(c[cn].chrlst.MapName, StartMapPosition[StartMap][StartPosition]);
+		}
+
+		if (ret == 1)
+		{
 			//< CSD-030324
-			extern void CheckNewGuildCode( CHARLIST *ch );
-			CheckNewGuildCode( &c[cn].chrlst );
+			extern void CheckNewGuildCode(CHARLIST *ch);
+			CheckNewGuildCode(&c[cn].chrlst);
 			//> CSD-030324
 			packet->h.header.type = CMD_USER_DB;
 			{
-				PutPacketCharDB( c, cn, packet );
+				PutPacketCharDB(c, cn, packet);
 			}
 			packet->h.header.size = sizeof(t_server_user_db_data);
-			if(!QueuePacket(c, cn, packet, 1)) break;
-		}	
+			if (!QueuePacket(c, cn, packet, 1)) break;
+		}
 		else // Invalid DB
-		{	
+		{
 			::MyLog(1, "Invalid DB [%s]", c[cn].name);
 
 			packet->h.header.type = CMD_INVALID_DB;
 			packet->h.header.size = 0;
 			QueuePacket(c, cn, packet, 1);
-			break;				
-		}					
-		break;				
-	}
-							
-	case CMD_CHR_ITEM_INFO_0 :
-		{					
-			//------------------------------------------------------------
-			// Send Char Binary Data
-			//------------------------------------------------------------
-			get_BinaryData_from_Chr_Info(	(UCHAR *)c[cn].chrlst.Ws, 
-											(UCHAR *)c[cn].chrlst.Ps, 
-											(UCHAR *)c[cn].chrlst.Skill, 
-											(UCHAR *)c[cn].chrlst.skillexp, 
-											(UCHAR *)c[cn].chrlst.tac_skillEXP, 
-											(UCHAR *)var[c[cn].chrlst.server_id], 						
-											(UCHAR *)c[cn].chrlst.inv, 
-											(UCHAR *)c[cn].chrlst.equip, 
-											(UCHAR *)c[cn].chrlst.quick, 
-											(UCHAR *)c[cn].chrlst.party, 
-											(UCHAR *)c[cn].chrlst.relation, 
-											(UCHAR *)c[cn].chrlst.employment, 
-											(UCHAR *)c[cn].chrlst.Item, 
-											c[cn].id, c[cn].name ) ;
-//			PutEventItem( 1, &c[cn] );		// 이벤트용 아이템 넣어 주기	// BBD 040308	Map서버가 주기로 했음
-			SendItemQuick( c, cn ); 
-
-			// 마법을 배우지 않고 모든 마법을 사용하려면 이곳에서  Ws/Ps를 Setting해주면 된다. 
-			for( int i = 0 ; i < 1000 ; i ++)
-			{
-				if( c[cn].chrlst.Item[i] == 0) break;
-			}
-			c[cn].chrlst.ItemMax = i;
-			SendLearnedItem( c, cn );		// 0730 YGI										
-			break;			
-		}					
-								
-	case CMD_CHR_ITEM_INFO_1 : SendItemEquip( c, cn ); break;
-	case CMD_CHR_ITEM_INFO_2 : SendItemInventory( packet->u.client_item_inv.count, c, cn ); break;
-			
-	case CMD_CHAR_INFO_MAGIC : SendCharInfoMagic( c, cn ); break;
-	case CMD_CHAR_INFO_SKILL : 
-		{
-			SendCharInfoSkill( c, cn ); 
-			::MyLog(0, "Send [%s]Info to [%s]", c[cn].name, c[cn].id);
-		}break;
-			
-	case CMD_CHAR_INFO_TAC_SKILL_EXP : SendCharInfotac_skillEXP( c, cn ); break;
-				
-	case CMD_CONNECT_INFO1 :	
-		{
-			char *map_name = 0;
-			int ret = 0;
-			if( c[cn].chrlst.startposition == 99 )
-			{
-				ret = GetMapName_SQL( c, cn); // 001126 KHS
-				if( ret == 1 ) map_name = c[cn].mapname;
-			}
-			else
-			{
-				map_name = StartMapPosition[ c[cn].chrlst.startmap][c[cn].chrlst.startposition];
-			}
-
-			if( map_name )
-			{
-				ret = 0;
-				int port = MapPort( map_name );
-				if( port )
-				{
-					ret = 1;
-					packet->u.kein.server_connect_info_kein.data1.port = port;
-					ret += CheckEventObject( map_name, &packet->u.kein.server_connect_info_kein.u.data3);
-					ret += CheckEventSound( map_name, &packet->u.kein.server_connect_info_kein.u.data3);
-				}
-			}
-
-			if( ret )
-			{	
-				//-----------------------------------------------------------------
-				//-----------------------------------------------------------------
-				packet->h.header.type = CMD_CONNECT_INFO;
-				packet->h.header.size = sizeof(t_server_connect_info);
-				if( ret == 4 ) // object + sound
-				{
-					packet->h.header.size += sizeof(k_event_object_sound);
-				}
-				else if( ret == 3 )		// sound
-				{
-					packet->h.header.size += sizeof(k_event_sound);
-					int sound_no = packet->u.kein.server_connect_info_kein.u.data3.sound_no;
-					packet->u.kein.server_connect_info_kein.u.data4.sound_no = sound_no;
-				}
-				else if( ret == 2 )		// object
-				{
-					packet->h.header.size += sizeof(k_event_object);
-				}
-				packet->u.server_connect_info.startposition = c[cn].chrlst.startposition;
-				if(!QueuePacket(c, cn, packet, 1))
-				{
-					break;
-				}
-			
-				//-----------------------------------------------------------------
-				c[cn].state = CONNECT_JOIN;
-			}
-			else // Invalid DB
-			{
-				::MyLog(0, "Invalid User DB [%s]", c[cn].name);
-
-				packet->h.header.type = CMD_INVALID_DB;
-				packet->h.header.size = 0;
-				QueuePacket(c, cn, packet, 1);
-				break;
-			}	
 			break;
 		}
-			
-	case CMD_CREATE_CHAR : //确定筛子后
-	{		
+		break;
+	}
+
+	case CMD_CHR_ITEM_INFO_0: {
+		//------------------------------------------------------------
+		// Send Char Binary Data
+		//------------------------------------------------------------
+		get_BinaryData_from_Chr_Info((UCHAR *)c[cn].chrlst.Ws,
+			(UCHAR *)c[cn].chrlst.Ps,
+			(UCHAR *)c[cn].chrlst.Skill,
+			(UCHAR *)c[cn].chrlst.skillexp,
+			(UCHAR *)c[cn].chrlst.tac_skillEXP,
+			(UCHAR *)var[c[cn].chrlst.server_id],
+			(UCHAR *)c[cn].chrlst.inv,
+			(UCHAR *)c[cn].chrlst.equip,
+			(UCHAR *)c[cn].chrlst.quick,
+			(UCHAR *)c[cn].chrlst.party,
+			(UCHAR *)c[cn].chrlst.relation,
+			(UCHAR *)c[cn].chrlst.employment,
+			(UCHAR *)c[cn].chrlst.Item,
+			c[cn].id, c[cn].name);
+		//PutEventItem( 1, &c[cn] );		// 이벤트용 아이템 넣어 주기	// BBD 040308	Map서버가 주기로 했음
+		SendItemQuick(c, cn);
+
+		// 마법을 배우지 않고 모든 마법을 사용하려면 이곳에서  Ws/Ps를 Setting해주면 된다. 
+		for (int i = 0; i < 1000; i++)
+		{
+			if (c[cn].chrlst.Item[i] == 0) break;
+		}
+		c[cn].chrlst.ItemMax = i;
+		SendLearnedItem(c, cn);		// 0730 YGI										
+		break;
+	}
+	case CMD_CHR_ITEM_INFO_1: SendItemEquip(c, cn); break;
+	case CMD_CHR_ITEM_INFO_2: SendItemInventory(packet->u.client_item_inv.count, c, cn); break;
+
+	case CMD_CHAR_INFO_MAGIC: SendCharInfoMagic(c, cn); break;
+	case CMD_CHAR_INFO_SKILL:
+	{
+		SendCharInfoSkill(c, cn);
+		::MyLog(0, "Send [%s]Info to [%s]", c[cn].name, c[cn].id);
+	}break;
+
+	case CMD_CHAR_INFO_TAC_SKILL_EXP: SendCharInfotac_skillEXP(c, cn); break;
+
+	case CMD_CONNECT_INFO1:
+	{
+		char *map_name = 0;
+		int ret = 0;
+		if (c[cn].chrlst.startposition == 99)
+		{
+			ret = GetMapName_SQL(c, cn); // 001126 KHS
+			if (ret == 1) map_name = c[cn].mapname;
+		}
+		else
+		{
+			map_name = StartMapPosition[c[cn].chrlst.startmap][c[cn].chrlst.startposition];
+		}
+
+		if (map_name)
+		{
+			ret = 0;
+			int port = MapPort(map_name);
+			if (port)
+			{
+				ret = 1;
+				packet->u.kein.server_connect_info_kein.data1.port = port;
+				ret += CheckEventObject(map_name, &packet->u.kein.server_connect_info_kein.u.data3);
+				ret += CheckEventSound(map_name, &packet->u.kein.server_connect_info_kein.u.data3);
+			}
+		}
+
+		if (ret)
+		{
+			//-----------------------------------------------------------------
+			//-----------------------------------------------------------------
+			packet->h.header.type = CMD_CONNECT_INFO;
+			packet->h.header.size = sizeof(t_server_connect_info);
+			if (ret == 4) // object + sound
+			{
+				packet->h.header.size += sizeof(k_event_object_sound);
+			}
+			else if (ret == 3)		// sound
+			{
+				packet->h.header.size += sizeof(k_event_sound);
+				int sound_no = packet->u.kein.server_connect_info_kein.u.data3.sound_no;
+				packet->u.kein.server_connect_info_kein.u.data4.sound_no = sound_no;
+			}
+			else if (ret == 2)		// object
+			{
+				packet->h.header.size += sizeof(k_event_object);
+			}
+			packet->u.server_connect_info.startposition = c[cn].chrlst.startposition;
+			if (!QueuePacket(c, cn, packet, 1))
+			{
+				break;
+			}
+
+			//-----------------------------------------------------------------
+			c[cn].state = CONNECT_JOIN;
+		}
+		else // Invalid DB
+		{
+			::MyLog(0, "Invalid User DB [%s]", c[cn].name);
+
+			packet->h.header.type = CMD_INVALID_DB;
+			packet->h.header.size = 0;
+			QueuePacket(c, cn, packet, 1);
+			break;
+		}
+		break;
+	}
+
+	case CMD_CREATE_CHAR: //确定筛子后
+	{
 		int ret = CreateChar_SQL(c, cn, packet);
-		if(ret == 1)
-		{	
+		if (ret == 1)
+		{
 			packet->h.header.type = CMD_ACCEPT_CREATE;
 			packet->h.header.size = 1;
-			packet->u.data[0]= 0 ;
+			packet->u.data[0] = 0;
 			QueuePacket(c, cn, packet, 1);
-			
-			::MyLog( 0, "%s (ID:%s) is Generated !", c[cn].id, c[cn].chrlst.Name );
+
+			::MyLog(0, "%s (ID:%s) is Generated !", c[cn].id, c[cn].chrlst.Name);
 			break;
-		}	
+		}
 		else
-		{	
+		{
 			int is_delete = 1;
-			switch( ret )
+			switch (ret)
 			{
-			case -100 : ::MyLog( 0, "Fail:Character Generation ( Already character %s, ID:%s :%d)", packet->u.client_create_char.name, c[cn].id, ret );
-						RecvHackingUser( c[cn].id, packet->u.client_create_char.name, 20009, " ", "Not his Char" );
-						is_delete = 0;		// 지우지 않는다.
+			case -100: ::MyLog(0, "Fail:Character Generation ( Already character %s, ID:%s :%d)", packet->u.client_create_char.name, c[cn].id, ret);
+				RecvHackingUser(c[cn].id, packet->u.client_create_char.name, 20009, " ", "Not his Char");
+				is_delete = 0;		// 지우지 않는다.
 				break;
-			case -30 : ::MyLog( 0, "Fail : Try to make Character but NO ID in chr_log_info ( %s, ID:%s )", packet->u.client_create_char.name, c[cn].id );
+			case -30: ::MyLog(0, "Fail : Try to make Character but NO ID in chr_log_info ( %s, ID:%s )", packet->u.client_create_char.name, c[cn].id);
 				break;
-			default  : ::MyLog( 0, "Fail : Character Generation( %s, ID:%s :%d)", packet->u.client_create_char.name, c[cn].id, ret );
+			default: ::MyLog(0, "Fail : Character Generation( %s, ID:%s :%d)", packet->u.client_create_char.name, c[cn].id, ret);
 				break;
 			}
 
-			if(is_delete) 
+			if (is_delete)
 			{
-				delete_char_create_fail( packet->u.client_create_char.name );
+				delete_char_create_fail(packet->u.client_create_char.name);
 			}
-		
+
 			packet->h.header.type = CMD_INVALID_DB;
 			packet->h.header.size = 1;
-			packet->u.data[0]= 0 ;
+			packet->u.data[0] = 0;
 			QueuePacket(c, cn, packet, 1);
 
 			break;
-		}	
+		}
 		break;
-	}		
-	case CMD_DELETE_CHAR :
-	{	
+	}
+	case CMD_DELETE_CHAR:
+	{
 		const char* szName = packet->u.client_delete_char.szName;
-		int ret = DeleteChar_SQL( c[cn].id, szName ,packet->u.client_delete_char.szSecretKeyCode );
-		if(ret == 1)
-		{	
-			MyLog( LOG_NORMAL, "Success : Character Deleted (%s, ID:%s)", szName, c[cn].id );
-			RecvHackingUser( c[cn].id, szName, HACKING_DELETE_CHAR_NORMAL_, c[cn].ip_address, "Character Deleted !! Normally.." );
-									
+		int ret = DeleteChar_SQL(c[cn].id, szName, packet->u.client_delete_char.szSecretKeyCode);
+		if (ret == 1)
+		{
+			MyLog(LOG_NORMAL, "Success : Character Deleted (%s, ID:%s)", szName, c[cn].id);
+			RecvHackingUser(c[cn].id, szName, HACKING_DELETE_CHAR_NORMAL_, c[cn].ip_address, "Character Deleted !! Normally..");
+
 			packet->h.header.type = CMD_ACCEPT_DELETE;
 			packet->h.header.size = 1;
-			packet->u.data[0]= 0 ;
+			packet->u.data[0] = 0;
 			QueuePacket(c, cn, packet, 1);
 			break;
-		}	
+		}
 		else
-		{		
-			MyLog( LOG_NORMAL, "Delete Fail !");
-			
+		{
+			MyLog(LOG_NORMAL, "Delete Fail !");
+
 			packet->h.header.type = CMD_INVALID_DB;
 			packet->h.header.size = 1;
-			packet->u.data[0]= 0 ;
+			packet->u.data[0] = 0;
 			QueuePacket(c, cn, packet, 1);
 			break;
-		}		
-			
-		break;
-	}		
-	case CMD_ISTHERE_CHARNAME : 
-		{
-										strcpy(s1,packet->u.client_isthere_charname.name  );
-										//gets(pMailSend->szSender);
-										len1 = (int)strlen(s1);
-
-										str="发现SQL漏洞攻击!非法内容:[%s],  注册人物名称:[%s]";
-
-										for(i = 0; i < len1; i++)		
-										{
-										if(s1[i]==39 || s1[i]=='-')
-										{
-										if(i==0)
-										{
-										sprintf(SQLerrorS,str,packet->u.client_isthere_charname.name,packet->u.client_isthere_charname.name);
-										HackLog(0,SQLerrorS);
-										}
-										packet->u.client_isthere_charname.name[i] = 32;
-										}
-										} 
-										
-										/*   if(pMailSend->szSender == '月神夜')
-										{
-										pMailSend->szSender = '月神夜';
-										}*/
-										//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		RecvIsThereCharName( cn, packet->u.client_isthere_charname.name ); //注册ID
 		}
-		break;
-			
-	case CMD_CHECK_BETA_TEST : CheckBetaIdTest( cn, packet->u.kein.beta_check_id.id ); break;
-	
-	case  CMD_SPECIAL_ITEM		:
-		RecvUpdateSpecial( &(packet->u.server_special_item)  );					break;
-	
-	case  CMD_UPDATE_CHAR_DB:	
-		{
-			int iRet = RecvUpdateCharDB( &(packet->u.update_char_db)  );					
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateCharDB Failed");
-			}
-		}break;
-	case  CMD_UPDATE_BINARY_DATA0	:	
-		{
-			int iRet = RecvUpdateBinaryData( &(packet->u.server_update_binary_data0)  );	
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateBinaryData Failed");
-			}
-		}break;
-	case  CMD_UPDATE_BINARY_DATA1	:	
-		{
-			int iRet = RecvUpdateBinaryData1( &(packet->u.server_update_binary_data1)  );	
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateBinaryData1 Failed");
-			}
-		}break;
-	case  CMD_UPDATE_SCRIPT_DATA	:	
-		{
-			int iRet = RecvUpdateScriptData( &(packet->u.server_update_script_data)  );	
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateScriptData Failed");
-			}
-		}break;
-	case  CMD_UPDATE_INV_DATA		:	
-		{
-			int iRet = RecvUpdateInvData( &(packet->u.server_update_inv_data)  );			
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateInvData Failed");
-			} 
-		}break;
-	case  CMD_UPDATE_ITEM_DATA		:	
-		{
-			int iRet = RecvUpdateItemData( &(packet->u.server_update_item_data ) );		
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateItemData Failed");
-			}
-		}break;
-	case  CMD_UPDATE_BANKITEM_DATA	:	
-		{
-			int iRet = RecvUpdateBankItemData( c, cn, &(packet->u.server_update_bankitem_data));	
-			if(iRet != 1)
-			{
-				MyLog(0,"RecvUpdateBankItemData Failed");
-			}
-		}break;
 
-	case CMD_REQ_DELETE_USERID :
-		onepass.DeleteUsedID_SQL_ForPay( packet->u.gs_req_delete_userid.mapname, packet->u.gs_req_delete_userid.id, 0 ); 
 		break;
-			
-	case CMD_REQ_INSERT_USERID : 
+	}
+	case CMD_ISTHERE_CHARNAME:
+	{
+		strcpy(s1, packet->u.client_isthere_charname.name);
+		//gets(pMailSend->szSender);
+		len1 = (int)strlen(s1);
+
+		str = "发现SQL漏洞攻击!非法内容:[%s],  注册人物名称:[%s]";
+
+		for (i = 0; i < len1; i++)
 		{
-			if(!::CheckIsRealName(packet->u.gs_req_insert_userid.id, packet->u.gs_req_insert_userid.name ) )
+			if (s1[i] == 39 || s1[i] == '-')
 			{
-				break;
+				if (i == 0)
+				{
+					sprintf(SQLerrorS, str, packet->u.client_isthere_charname.name, packet->u.client_isthere_charname.name);
+					HackLog(0, SQLerrorS);
+				}
+				packet->u.client_isthere_charname.name[i] = 32;
 			}
-			
-			t_packet tp;
-			gs_req_insert_userid* pGRIU = &packet->u.gs_req_insert_userid;
-			if( ::UpdateLogintablebyChangeMap( pGRIU->id, pGRIU->mapname ))	// LoginTable에 없음.. 즉, 들어갈수 있음..
-			{	
-				tp.h.header.type = CMD_JOINABLE;
-				tp.u.ls_joinable.server_id = packet->u.gs_req_insert_userid.server_id;
-				tp.h.header.size = sizeof( t_ls_joinable );
-			}	
-			else	
-			{	
-				tp.h.header.type = CMD_UPDATING;
-				tp.u.ls_updating.server_id = packet->u.gs_req_insert_userid.server_id;
-				tp.h.header.size = sizeof( t_ls_updating );
-			}
-			::QueuePacket( c, cn, &tp, 1 );
-		}break;		
-			
-	///////////// network2.h을 위해..  0224 YGI ///////////////
-	case CMD_CREATE_ABILITY :	SendCreateAbility( cn ); break;//到筛子那里
-	case CMD_THROW_DICE		:	SendThrowDice( packet->u.kein.client_throw_dice.type, cn ); break;//
-			
-	case CMD_HOW_MANY_IN_MAP :	UpdateTotalMapConnections( packet->u.how_many_in_map.map, packet->u.how_many_in_map.how );
-		break;
-			
-	case CMD_UPDATE_VERY_IMPORTANT_STATUS	:	RecvUpdateCharacterVeryImportantStatus( &(packet->u.update_very_important_status) );
-		break;
-			
-	case CMD_UPDATE_VERY_IMPORTANT_TACTICS  :	RecvUpdateTacticSkillExpData( &(packet->u.update_very_important_tactics ));
-		break;
-			
-	case CMD_ITEM_DURATION_CHANGE :
-	case CMD_TACTICS_PARRYING_EXP :
-	case CMD_REQ_PARTY_MEMBER	  : 
-	case CMD_LEVELUP_POINT		  :
-	case CMD_DELETE_ITEM		  : 
-		
-				MyLog( LOG_NORMAL,  "No Useful Protocol...%d from %d", packet->h.header.type, cn) ;
-				
-		break;
-		
-	case CMD_SEALSTONEFROMKING	:
-				RecvSealStoneFromKing( packet->u.sealstone_fromking.nation );
-		break;
-		
-	case CMD_SEALSTONE_STATUS	:
-				RecvSealStoneStatus( packet );
-		break;
-		
-	case CMD_NATION2NATION_RELATION :
-				RecvNation2NationRelation( cn, &(packet->u.nation2nation_relation) );
-		break;
-
-
-
-	case CMD_HACKING_USER :
-		{
-				t_hacking_user *tp = &(packet->u.hacking_user );
-				RecvHackingUser( tp->id, tp->name, tp->type, tp->ip, tp->cause );
 		}
+
+		/*   if(pMailSend->szSender == '月神夜')
+		{
+		pMailSend->szSender = '月神夜';
+		}*/
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		RecvIsThereCharName(cn, packet->u.client_isthere_charname.name); //注册ID
+		break;
+	}
+
+	case CMD_CHECK_BETA_TEST:
+		CheckBetaIdTest(cn, packet->u.kein.beta_check_id.id);
 		break;
 
-	case CMD_RARE_ITEM_MAKE_LOG :
+	case  CMD_SPECIAL_ITEM:
+		RecvUpdateSpecial(&(packet->u.server_special_item));
+		break;
+
+	case  CMD_UPDATE_CHAR_DB:
+	{
+		int iRet = RecvUpdateCharDB(&(packet->u.update_char_db));
+		if (iRet != 1)
 		{
-				RecvRareItemMakeLog( &packet->u.rare_item_make_log );
+			MyLog(0, "RecvUpdateCharDB Failed");
 		}
-		break;
-	case CMD_SET_COMMANDER :						// 010915 LTS
-	case CMD_SET_WARFIELD_POSSESSION :
-	case CMD_DELETE_EVENT_JOIN :					// 020115 LTS
-	case CMD_SAVE_WARNO :							// LTS NEW NATIONWAR
-		CheckHandleByNationWar(packet,c,cn);
-		break;
-//<soto-030504
-	case CMD_NEW_EVENT: if(LottoDBMgr())LottoDBMgr()->RecvNewEvent(&packet->u.Lotto_Info,cn);
-		break;
-	case CMD_WINNER_CHECK: if(LottoDBMgr())LottoDBMgr()->RecvWinnerCheck(&packet->u.Check_Winner,cn);
-		break;
-	case CMD_DEL_LOTTO_USER:
+	}break;
+	case  CMD_UPDATE_BINARY_DATA0:
+	{
+		int iRet = RecvUpdateBinaryData(&(packet->u.server_update_binary_data0));
+		if (iRet != 1)
 		{
-			if (LottoDBMgr())
-			{
-				LottoDBMgr()->RecvDelUser(&packet->u.Check_Winner, cn);	// BBD 040127 인자추가
-			}
+			MyLog(0, "RecvUpdateBinaryData Failed");
+		}
+	}break;
+	case  CMD_UPDATE_BINARY_DATA1:
+	{
+		int iRet = RecvUpdateBinaryData1(&(packet->u.server_update_binary_data1));
+		if (iRet != 1)
+		{
+			MyLog(0, "RecvUpdateBinaryData1 Failed");
+		}
+	}break;
+	case  CMD_UPDATE_SCRIPT_DATA:
+	{
+		int iRet = RecvUpdateScriptData(&(packet->u.server_update_script_data));
+		if (iRet != 1)
+		{
+			MyLog(0, "RecvUpdateScriptData Failed");
+		}
+	}break;
+	case  CMD_UPDATE_INV_DATA:
+	{
+		int iRet = RecvUpdateInvData(&(packet->u.server_update_inv_data));
+		if (iRet != 1)
+		{
+			MyLog(0, "RecvUpdateInvData Failed");
+		}
+	}break;
+	case  CMD_UPDATE_ITEM_DATA:
+	{
+		int iRet = RecvUpdateItemData(&(packet->u.server_update_item_data));
+		if (iRet != 1)
+		{
+			MyLog(0, "RecvUpdateItemData Failed");
+		}
+	}break;
+	case  CMD_UPDATE_BANKITEM_DATA:
+	{
+		int iRet = RecvUpdateBankItemData(c, cn, &(packet->u.server_update_bankitem_data));
+		if (iRet != 1)
+		{
+			MyLog(0, "RecvUpdateBankItemData Failed");
+		}
+	}break;
 
+	case CMD_REQ_DELETE_USERID:
+		onepass.DeleteUsedID_SQL_ForPay(packet->u.gs_req_delete_userid.mapname, packet->u.gs_req_delete_userid.id, 0);
+		break;
+
+	case CMD_REQ_INSERT_USERID:
+	{
+		if (!::CheckIsRealName(packet->u.gs_req_insert_userid.id, packet->u.gs_req_insert_userid.name))
+		{
 			break;
 		}
-	case CMD_LOTTERY_INFO: if(LottoDBMgr())LottoDBMgr()->RecvLottery(&packet->u.Lotto_Info,cn);
-		break;
-	case CMD_CHECK_WINNER_MENU: if(LottoDBMgr())LottoDBMgr()->RecvCheckOpenWinnerMenu(&packet->u.Lotto_Winner_Menu,cn);
-		break;
-//>soto-030504
-//<soto-HK
-	case CMD_CAN_BUY: if(LottoDBMgr())
-					  {
-						  if(LocalMgr.IsAbleNation(TAIWAN | HONGKONG | CHINA))
-						  {
-							  if(GetShopDemon() != NULL)
-							  {
-								  DebugPrintf("GetShopDemon() Request CMD_CAN_BUY");
-								  GetShopDemon()->RecvCanBuyLotto(&packet->u.Lotto_Buy,cn);
-							  }
-							  else
-							  {
-								  DebugPrintf("GetShopDemon() is NULL =====> 	 CMD_CAN_BUY");
-							  }
-						  }
-						  else
-						  {
-								LottoDBMgr()->RecvCanBuyLotto(&packet->u.Lotto_Buy,cn);
-						  }
-					  }
-		break;
-	case CMD_LOTTO_BUY: if(LottoDBMgr())
-						{
-							if(LocalMgr.IsAbleNation(TAIWAN | HONGKONG | CHINA))
-							{
-								if(GetShopDemon() != NULL)
-								{
-									DebugPrintf("GetShopDemon() Request CMD_LOTTO_BUY");
-									GetShopDemon()->RecvLottoBuy(&packet->u.Lotto_Buy,cn);
-								}
-								else
-								{
-									DebugPrintf("GetShopDemon() is NULL =====> 	 CMD_LOTTO_BUY");								
-								}
-							}
-							else
-							{
-								
-								LottoDBMgr()->RecvLottoBuy(&packet->u.Lotto_Buy);
-							}
-						}
-						else
-						{
-														
-						}
-		break;
-//>soto-HK
-//<soto-Lotto추가
-	case CMD_LOTTO_SEEK:
+
+		t_packet tp;
+		gs_req_insert_userid* pGRIU = &packet->u.gs_req_insert_userid;
+		if (::UpdateLogintablebyChangeMap(pGRIU->id, pGRIU->mapname))	// LoginTable에 없음.. 즉, 들어갈수 있음..
 		{
-			if(LottoDBMgr())
-			{
-				LottoDBMgr()->RecvLottoSeek(&packet->u.Lotto_Seek,cn);
-			}
+			tp.h.header.type = CMD_JOINABLE;
+			tp.u.ls_joinable.server_id = packet->u.gs_req_insert_userid.server_id;
+			tp.h.header.size = sizeof(t_ls_joinable);
 		}
+		else
+		{
+			tp.h.header.type = CMD_UPDATING;
+			tp.u.ls_updating.server_id = packet->u.gs_req_insert_userid.server_id;
+			tp.h.header.size = sizeof(t_ls_updating);
+		}
+		::QueuePacket(c, cn, &tp, 1);
+	}break;
+
+	///////////// network2.h을 위해..  0224 YGI ///////////////
+	case CMD_CREATE_ABILITY:	SendCreateAbility(cn); break;//到筛子那里
+	case CMD_THROW_DICE:	SendThrowDice(packet->u.kein.client_throw_dice.type, cn); break;//
+
+	case CMD_HOW_MANY_IN_MAP:	UpdateTotalMapConnections(packet->u.how_many_in_map.map, packet->u.how_many_in_map.how);
 		break;
-//>soto-Lotto추가.
-	default : 
-		{		// 0308 YGI
-			int msg = CheckHandleByKein( packet, c, cn );
-			if(msg == 1)
+
+	case CMD_UPDATE_VERY_IMPORTANT_STATUS:	RecvUpdateCharacterVeryImportantStatus(&(packet->u.update_very_important_status));
+		break;
+
+	case CMD_UPDATE_VERY_IMPORTANT_TACTICS:	RecvUpdateTacticSkillExpData(&(packet->u.update_very_important_tactics));
+		break;
+
+	case CMD_ITEM_DURATION_CHANGE:
+	case CMD_TACTICS_PARRYING_EXP:
+	case CMD_REQ_PARTY_MEMBER:
+	case CMD_LEVELUP_POINT:
+	case CMD_DELETE_ITEM:
+		MyLog(LOG_NORMAL, "No Useful Protocol...%d from %d", packet->h.header.type, cn);
+		break;
+	case CMD_SEALSTONEFROMKING:
+		RecvSealStoneFromKing(packet->u.sealstone_fromking.nation);
+		break;
+
+	case CMD_SEALSTONE_STATUS:
+		RecvSealStoneStatus(packet);
+		break;
+
+	case CMD_NATION2NATION_RELATION:
+		RecvNation2NationRelation(cn, &(packet->u.nation2nation_relation));
+		break;
+
+	case CMD_HACKING_USER:
+	{
+		t_hacking_user *tp = &(packet->u.hacking_user);
+		RecvHackingUser(tp->id, tp->name, tp->type, tp->ip, tp->cause);
+	}
+	break;
+
+	case CMD_RARE_ITEM_MAKE_LOG:
+	{
+		RecvRareItemMakeLog(&packet->u.rare_item_make_log);
+	}
+	break;
+	case CMD_SET_COMMANDER:						// 010915 LTS
+	case CMD_SET_WARFIELD_POSSESSION:
+	case CMD_DELETE_EVENT_JOIN:					// 020115 LTS
+	case CMD_SAVE_WARNO:							// LTS NEW NATIONWAR
+		CheckHandleByNationWar(packet, c, cn);
+		break;
+		//<soto-030504
+	case CMD_NEW_EVENT: if (LottoDBMgr())LottoDBMgr()->RecvNewEvent(&packet->u.Lotto_Info, cn);
+		break;
+	case CMD_WINNER_CHECK: if (LottoDBMgr())LottoDBMgr()->RecvWinnerCheck(&packet->u.Check_Winner, cn);
+		break;
+	case CMD_DEL_LOTTO_USER:
+	{
+		if (LottoDBMgr())
+		{
+			LottoDBMgr()->RecvDelUser(&packet->u.Check_Winner, cn);	// BBD 040127 인자추가
+		}
+
+		break;
+	}
+	case CMD_LOTTERY_INFO:
+		if (LottoDBMgr())
+			LottoDBMgr()->RecvLottery(&packet->u.Lotto_Info, cn);
+		break;
+	case CMD_CHECK_WINNER_MENU:
+		if (LottoDBMgr())
+			LottoDBMgr()->RecvCheckOpenWinnerMenu(&packet->u.Lotto_Winner_Menu, cn);
+		break;
+		//>soto-030504
+		//<soto-HK
+	case CMD_CAN_BUY: {
+		if (LottoDBMgr())
+		{
+			if (LocalMgr.IsAbleNation(TAIWAN | HONGKONG | CHINA))
 			{
-				break;
-			}
-			else 
-			{	
-				if(HandleCommand2(c, dwIndex, packet, dwUserID, cn))//020505 lsw 
+				if (GetShopDemon() != NULL)
 				{
-					break;
+					DebugPrintf("GetShopDemon() Request CMD_CAN_BUY");
+					GetShopDemon()->RecvCanBuyLotto(&packet->u.Lotto_Buy, cn);
 				}
 				else
 				{
-					MyLog( LOG_NORMAL,  "ERROR : Unknown Protocol(%d) dwIndex:%d, dwUserID:%d, cn:%d ", packet->h.header.type, dwIndex, dwUserID, cn );
-					return msg;
+					DebugPrintf("GetShopDemon() is NULL =====> 	 CMD_CAN_BUY");
 				}
+			}
+			else
+			{
+				LottoDBMgr()->RecvCanBuyLotto(&packet->u.Lotto_Buy, cn);
 			}
 		}
-	}		
-				
-			if( debug_SavePacketExeTimeIng() )
+		break;
+	}
+	case CMD_LOTTO_BUY: {
+		if (LottoDBMgr())
+		{
+			if (LocalMgr.IsAbleNation(TAIWAN | HONGKONG | CHINA))
 			{
-				if( ttype != CMD_NONE )
-				{		
-					{	
-						DWORD t = ViewCheckRoutine( 9999 );
-						if( t < 30 )
-						{
-							Debug( "%2d:%d:%d %20s[%20s] Recv : %5d- %3d\n", g_hour,g_min,g_sec, c[cn].id, c[cn].name, ttype, t );
-						}
-						else if( t < 100 )
-						{
-							Debug( "%2d:%d:%d %20s[%20s] Recv : %5d--- %3d\n", g_hour,g_min,g_sec, c[cn].id, c[cn].name, ttype, t );
-						}
-						else if( t  < 200 )
-						{
-							Debug( "%2d:%d:%d %20s[%20s] Recv : %5d------ %3d\n",  g_hour,g_min,g_sec,c[cn].id, c[cn].name, ttype, t );
-						}
-						else
-						{
-							Debug( "%2d:%d:%d %20s[%20s] Recv : %5d---------- %3d\n", g_hour,g_min,g_sec, c[cn].id, c[cn].name, ttype, t );
-						}
-					}
+				if (GetShopDemon() != NULL)
+				{
+					DebugPrintf("GetShopDemon() Request CMD_LOTTO_BUY");
+					GetShopDemon()->RecvLottoBuy(&packet->u.Lotto_Buy, cn);
+				}
+				else
+				{
+					DebugPrintf("GetShopDemon() is NULL =====> 	 CMD_LOTTO_BUY");
 				}
 			}
-	
-	
+			else
+			{
+
+				LottoDBMgr()->RecvLottoBuy(&packet->u.Lotto_Buy);
+			}
+		}
+		else
+		{
+
+		}
+		break;
+	}
+						//>soto-HK
+						//<soto-Lotto추가
+	case CMD_LOTTO_SEEK:
+	{
+		if (LottoDBMgr())
+		{
+			LottoDBMgr()->RecvLottoSeek(&packet->u.Lotto_Seek, cn);
+		}
+	}
+	break;
+	//>soto-Lotto추가.
+	default: {
+		// 0308 YGI
+		int msg = CheckHandleByKein(packet, c, cn);
+		if (msg == 1)
+		{
+			break;
+		}
+		else
+		{
+			if (HandleCommand2(c, dwIndex, packet, dwUserID, cn))//020505 lsw 
+			{
+				break;
+			}
+			else
+			{
+				MyLog(LOG_NORMAL, "ERROR : Unknown Protocol(%d) dwIndex:%d, dwUserID:%d, cn:%d ", packet->h.header.type, dwIndex, dwUserID, cn);
+				return msg;
+			}
+		}
+	}
+	}  // switch		
+				
+	if (debug_SavePacketExeTimeIng() && ttype != CMD_NONE)
+	{
+		DWORD t = ViewCheckRoutine(9999);
+		if (t < 30)
+		{
+			Debug("%2d:%d:%d %20s[%20s] Recv : %5d- %3d\n", g_hour, g_min, g_sec, c[cn].id, c[cn].name, ttype, t);
+		}
+		else if (t < 100)
+		{
+			Debug("%2d:%d:%d %20s[%20s] Recv : %5d--- %3d\n", g_hour, g_min, g_sec, c[cn].id, c[cn].name, ttype, t);
+		}
+		else if (t < 200)
+		{
+			Debug("%2d:%d:%d %20s[%20s] Recv : %5d------ %3d\n", g_hour, g_min, g_sec, c[cn].id, c[cn].name, ttype, t);
+		}
+		else
+		{
+			Debug("%2d:%d:%d %20s[%20s] Recv : %5d---------- %3d\n", g_hour, g_min, g_sec, c[cn].id, c[cn].name, ttype, t);
+		}
+	}  // if
+
 	return(1);
 }
 
@@ -1075,14 +1073,14 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 	const bool bIsGMTool = ((version != GM_TOOL_VERSION)?true:false);
 	if(bIsGMTool)   //coromo GM登陆器必须验证ID和IP
 	{
-		/*
-		packet.h.header.type = CMD_INVALID_VERSION;
-		packet.h.header.size = 0;
-		::QueuePacket(connections, cn, &packet, 1);
-		::closeconnection( connections, cn, CCT_INVALID_CLIENT );
-		MyLog( 0, "Version error: ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address );
-		return 0;
-		*/
+		//
+		//packet.h.header.type = CMD_INVALID_VERSION;
+		//packet.h.header.size = 0;
+		//::QueuePacket(connections, cn, &packet, 1);
+		//::closeconnection( connections, cn, CCT_INVALID_CLIENT );
+		//MyLog( 0, "Version error: ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address );
+		//return 0;
+		//
 		if(!::CheckGameMakeTool(pCN->id, pCN->ip_address))	// 020830 YGI
 		{
 			packet.h.header.type = CMD_INVALID_VERSION;

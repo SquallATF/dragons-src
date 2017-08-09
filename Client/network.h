@@ -2737,6 +2737,9 @@ typedef struct connection
 
 } t_connection;
 
+
+///////////////////////////////////////////////////////////////////////////////
+
 extern t_connection	connections;
 extern DWORD 		g_ping_delay;
 extern DWORD 		g_ping_time;
