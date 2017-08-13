@@ -6,6 +6,9 @@
 #include "stdafx.h"
 #include "dr_agent_defines.h"
 
+
+#pragma pack (push, 1 )
+
 typedef struct server_connect_info
 {
 	char	ip[3][18];
@@ -114,8 +117,8 @@ typedef struct server_port
 	short int port[100];
 }k_server_port;
 
-
-#pragma pack (push, 1 )
+//
+//#pragma pack (push, 1 )
 
 typedef struct dragon_header
 {					

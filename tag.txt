@@ -33,6 +33,10 @@ CheckAgentServer
 /////////////////////////////////////////////////////////////////////////////////////////
 {{{{{
 #########################################################################################
+#########################################################################################
+数据库：（DragonRajaDB）:
+
+#########################################################################################
 // 客户端：（）以下内容在客户端文件修改
 -----------------------------------------------------------------------------------------
 ./data/menu_image.txt : (安装包目录)
@@ -42,8 +46,8 @@ network.h :
 114L, modify, #define MAX_CHARACTEROFID				4  --->   #define MAX_CHARACTEROFID				8	// must be Multiple of 4, modify by taniey
 -----------------------------------------------------------------------------------------
 network.cpp :
+(在函数：RecvCMD_CONNECT_AGENT_SERVER_CONFORM)
 4499L, add,  SMenu[MN_SELECT_CHARACTER].key = 0;		// clear to 0 ,add by taniey
-
 
 -----------------------------------------------------------------------------------------
 MenuDefine.h :
@@ -58,25 +62,25 @@ Menu.h :
 656L, delete, extern SCharacter		LoadCh[4];   --->   // extern SCharacter		LoadCh[4];( 或者删除此行)
 -----------------------------------------------------------------------------------------
 Menu.cpp :
-7191L, case FT_CHARACTER_SCROLL:    (标记, 尚未修改, 此处不需要修改！！！！)  //  add by taniey
+7191L, case FT_CHARACTER_SCROLL:    (标记, 此处不需要修改！！！！)  //  add by taniey
 -----------------------------------------------------------------------------------------
 MenuStart.cpp : 
 126L, modify,  SCharacter LoadCh[4];   --->   SCharacter LoadCh[SN_CHARACTER_MAX_COUNT]; 
-1920L, modify, for (int a = 0; a < 4; a++) LoadCh[a].nation = SubMenu->work;  --->   for (int a = 0; a < SN_CHARACTER_MAX_COUNT; a++) LoadCh[a].nation = SubMenu->work;
-2086L, modify, for (k = 0; k<4; k++)   --->   for (k = 0; k<SN_CHARACTER_MAX_COUNT; k++)
-2200L, modify, character_active = SubMenu->nField[j].nWillDo;   --->  character_active = SubMenu->key * 4 + SubMenu->nField[j].nWillDo;
-3236L, modify, case DP_NAME_SELECT: {...}			(DP_NAME_SELECT 大括号内内容全部换掉)
-3901L, add,    case FT_CHARACTER_SCROLL: {...}	// 鼠标越过及点击翻页的处理（ 人物角色）
-4532L, modify, character_active = SMenu[i].nField[j].nWillDo;   --->   character_active = SMenu[i].key * 4 + SMenu[i].nField[j].nWillDo;
+1927L, modify, for (int a = 0; a < 4; a++) LoadCh[a].nation = SubMenu->work;  --->   for (int a = 0; a < SN_CHARACTER_MAX_COUNT; a++) LoadCh[a].nation = SubMenu->work;
+2100L, modify, for (k = 0; k<4; k++)   --->   for (k = 0; k<SN_CHARACTER_MAX_COUNT; k++)
+2210L, modify, character_active = SubMenu->nField[j].nWillDo;   --->  character_active = SubMenu->key * 4 + SubMenu->nField[j].nWillDo;
+3238L, modify, case DP_NAME_SELECT: {...}			(DP_NAME_SELECT 大括号内内容全部换掉)
+3899L, add,    case FT_CHARACTER_SCROLL: {...}	// 鼠标越过及点击翻页的处理（ 人物角色）
+4528L, modify, character_active = SMenu[i].nField[j].nWillDo;   --->   character_active = SMenu[i].key * 4 + SMenu[i].nField[j].nWillDo;
 
 -----------------------------------------------------------------------------------------
 kh_menuset.cpp :
-3067L, modify, ::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,12);   --->  ::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);
-3081L, add,    // comment: left and right character scroll
-3082L, add,    ::SMenuFTReg(MN_SELECT_CHARACTER, 12, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_LEFT,
-3083L, add,			333, 480, 30, 16, SELECT_CHARACTER_IMG, 16, 16, 0);		// left scroll // add by taniey
-3084L, add,	   ::SMenuFTReg(MN_SELECT_CHARACTER, 13, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_RIGHT,
-3085L, add,			423, 480, 30, 16, SELECT_CHARACTER_IMG, 18, 18, 1);		// right scroll // add by taniey
+3059L, modify, ::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,12);   --->  ::SMenuReg(MN_SELECT_CHARACTER, 0, 0, SELECT_CHARACTER_IMG,0,14);
+3073L, add,    // comment: left and right character scroll
+3074L, add,    ::SMenuFTReg(MN_SELECT_CHARACTER, 12, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_LEFT,
+3075L, add,			333, 480, 30, 16, SELECT_CHARACTER_IMG, 16, 16, 0);		// left scroll // add by taniey
+3076L, add,	   ::SMenuFTReg(MN_SELECT_CHARACTER, 13, FT_CHARACTER_SCROLL, SWD_CHARACTER_SCROLL_RIGHT,
+3077L, add,			423, 480, 30, 16, SELECT_CHARACTER_IMG, 18, 18, 1);		// right scroll // add by taniey
 
 -----------------------------------------------------------------------------------------
 
@@ -88,67 +92,76 @@ NetWork.h :
 65L, modify, #define MAX_CHARACTEROFID				4   --->   #define MAX_CHARACTEROFID				8
 -----------------------------------------------------------------------------------------
 MySql.cpp :
-(303L --- 333L, 可以找到函数, GetCharacterNameInID(...)  替换整个函数)
-303L, modify, int GetCharacterNameInID( LPSTR id, char name[4][20] )   --->   int GetCharacterNameInID( LPSTR id, char name[MAX_CHARACTEROFID][NM_LENGTH] )
-329L, add,   // comment: add by taniey
-330L, modify, retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, name[0], NM_LENGTH, &cbValue);   --->   for (int i = 0; i < MAX_CHARACTEROFID; i++)
-331L, modify, retCode = SQLGetData(hStmt, 2, SQL_C_CHAR, name[1], NM_LENGTH, &cbValue);   --->   {
-332L, modify, retCode = SQLGetData(hStmt, 3, SQL_C_CHAR, name[2], NM_LENGTH, &cbValue);   --->   	retCode = SQLGetData(hStmt, i+1, SQL_C_CHAR, name[i], NM_LENGTH, &cbValue);
-333L, modify, retCode = SQLGetData(hStmt, 4, SQL_C_CHAR, name[3], NM_LENGTH, &cbValue);   --->   }
+(301L --- 336L, 可以找到函数, GetCharacterNameInID(...)  替换整个函数)
+301L, modify, int GetCharacterNameInID( LPSTR id, char name[4][20] )   --->   int GetCharacterNameInID( LPSTR id, char name[MAX_CHARACTEROFID][NM_LENGTH] )
+327L, add,   // comment: add by taniey
+328L, add, for (int i = 0; i < MAX_CHARACTEROFID; i++)
+329L, add, {
+330L, add, 	retCode = SQLGetData(hStmt, i+1, SQL_C_CHAR, name[i], NM_LENGTH, &cbValue);
+331L, add, }
+332L, add, //  delete by taniey
+333L, delete, // retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, name[0], NM_LENGTH, &cbValue);
+334L, delete, // retCode = SQLGetData(hStmt, 2, SQL_C_CHAR, name[1], NM_LENGTH, &cbValue);
+335L, delete, // retCode = SQLGetData(hStmt, 3, SQL_C_CHAR, name[2], NM_LENGTH, &cbValue);
+336L, delete, // retCode = SQLGetData(hStmt, 4, SQL_C_CHAR, name[3], NM_LENGTH, &cbValue);
 
 
-(344L --- 457L, 可以找到函数, GetCharInfo_SQL2(...)  替换整个函数)
-344L, modify, int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027 YGI   --->   int GetCharInfo_SQL2( char *realid, char name[MAX_CHARACTEROFID][NM_LENGTH], t_packet *packet)		// 1027 YGI
-350L, delete, int			i;   --->   //int			i;  // delete by taniey
-351L, modify, char		id[ 20];   --->   char		id[NM_LENGTH];
-357L, modify, int			nation[4];   --->   int			nation[MAX_CHARACTEROFID];   // modify by taniey
-362L, modify, for( i = 0 ; i < 4; i++)  --->   for( i = 0 ; i < MAX_CHARACTEROFID; i++)
-390L, modify, retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,  &id,	   20, &cbValue);   --->   retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,  &id, NM_LENGTH, &cbValue);
-392L, modify, char tempid[ 20+1];   --->   char tempid[NM_LENGTH+1];
-457L, modify, for( int j=0; j<4; j++ )  --->   for( int j=0; j<MAX_CHARACTEROFID; j++)
+(346L --- 459L, 可以找到函数, GetCharInfo_SQL2(...)  替换整个函数)
+346L, modify, int GetCharInfo_SQL2( char *realid, char name[4][20], t_packet *packet)		// 1027 YGI   --->   int GetCharInfo_SQL2( char *realid, char name[MAX_CHARACTEROFID][NM_LENGTH], t_packet *packet)		// 1027 YGI
+352L, delete, int			i;   --->   //int			i;  // delete by taniey
+353L, modify, char		id[ 20];   --->   char		id[ID_LENGTH];
+359L, modify, int			nation[4];   --->   int			nation[MAX_CHARACTEROFID];   // modify by taniey
+364L, modify, for( i = 0 ; i < 4; i++)  --->   for( i = 0 ; i < MAX_CHARACTEROFID; i++)
+392L, modify, retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,  &id,	   20, &cbValue);   --->   retCode = SQLGetData(hStmt, 1, SQL_C_CHAR,  &id, ID_LENGTH, &cbValue);
+394L, modify, char tempid[ 20+1];   --->   char tempid[ID_LENGTH+1];
+459L, modify, for( int j=0; j<4; j++ )  --->   for( int j=0; j<MAX_CHARACTEROFID; j++)
 
+(483L, 可以找到函数, GetCharactersBasicInfoInID_SQL(...)  替换整个函数)
+483L, modify, char name[ 4][ NM_LENGTH]={{0,},};   ---> char name[MAX_CHARACTEROFID][NM_LENGTH]={{0,},};
 
-484L, modify, char name[ 4][ NM_LENGTH]={{0,},};   ---> char name[MAX_CHARACTEROFID][NM_LENGTH]={{0,},};
 
 931L, modify, if(ch->Class>4	||	ch->Class<0)   ---> if(ch->Class>4	||	ch->Class<0)     (此处修改尚不确定，暂时保留)
 939L, modify, ch->Class = 4;   --->   ch->Class = 4;										 (此处修改尚不确定，暂时保留)
 
 
-(1178L --- 1218L, 可以找到函数, CreateChar2_SQL(...)  替换整个函数)
-1178L, modify, char select_name[20] ={0, };    --->   char select_name[NM_LENGTH] ={0, };
-1215L, modify, for( int i=0; i<4; i++ )    --->    for( int i=0; i<MAX_CHARACTEROFID; i++ )
-1218L, modify, retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[20]), &cbValue) ;   --->   retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[NM_LENGTH]), &cbValue) ;
+(1152L --- 1193L, 可以找到函数, CreateChar2_SQL(...)  替换整个函数)
+1152L, modify, char select_name[20] ={0, };    --->   char select_name[NM_LENGTH] ={0, };
+1190L, modify, for( int i=0; i<4; i++ )    --->    for( int i=0; i<MAX_CHARACTEROFID; i++ )
+1193L, modify, retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[20]), &cbValue) ;   --->   retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[NM_LENGTH]), &cbValue) ;
 
 
-
-(1289L --- 1341L, 可以找到函数, DeleteChar_SQL2(...)  替换整个函数)
-1289L, modify, char log_id[20] = {0, };   --->   char log_id[NM_LENGTH] = {0, };
-1290L, modify, char ori_log_id[20];   --->   char ori_log_id[NM_LENGTH];
-1291L, modify, char select_name[20];   --->   char select_name[NM_LENGTH];
-1294L, modify, if( len > 20 )   --->   if( len > NM_LENGTH )
-1311L, modify, retCode= SQLGetData(hStmt, 1, SQL_C_CHAR, log_id, 20, &cbValue) ;   --->   retCode= SQLGetData(hStmt, 1, SQL_C_CHAR, log_id, NM_LENGTH, &cbValue) ;
-1339L, modify, for( int i=0; i<4; i++ )   --->   for( int i=0; i<MAX_CHARACTEROFID; i++ )
-1341L, modify, retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[20]), &cbValue) ;   --->   retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[NM_LENGTH]), &cbValue) ;
-
-
-(6054L --- 6056L, 可以找到函数, GetNationById(...)  替换整个函数)
-6054L, modify, char name[4][20]={0,};   --->   char name[MAX_CHARACTEROFID][NM_LENGTH]={0,};
-6056L, modify, for( int i=0; i<4; i++ )   --->   for(int i=0; i<MAX_CHARACTEROFID; i++)
+(1256L --- 1309L, 可以找到函数, DeleteChar_SQL2(...)  替换整个函数)
+1256L, modify, char log_id[20] = {0, };   --->   char log_id[ID_LENGTH] = {0, };
+1257L, modify, char ori_log_id[20];   --->   char ori_log_id[ID_LENGTH];
+1258L, modify, char select_name[20];   --->   char select_name[NM_LENGTH];
+1261L, modify, if( len > 20 )   --->   if( len > NM_LENGTH )
+1278L, modify, retCode= SQLGetData(hStmt, 1, SQL_C_CHAR, log_id, 20, &cbValue) ;   --->   retCode= SQLGetData(hStmt, 1, SQL_C_CHAR, log_id, ID_LENGTH, &cbValue) ;
+1307L, modify, for( int i=0; i<4; i++ )   --->   for( int i=0; i<MAX_CHARACTEROFID; i++ )
+1309L, modify, retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[20]), &cbValue) ;   --->   retCode= SQLGetData(hStmt, i+1, SQL_C_CHAR, select_name, sizeof(char[NM_LENGTH]), &cbValue) ;
 
 
-(7336L --- 7374L, 可以找到函数, IsFreeLevel(...)  替换整个函数)
-7336L, modify, char name[ 4][ NM_LENGTH]={{0,},};   --->   char name[MAX_CHARACTEROFID][NM_LENGTH]={{0,},};
-7351L, modify, for( i = 0 ; i < 4; i ++)   --->   for( i = 0 ; i < MAX_CHARACTEROFID; i ++)
-7374L, modify, if( i == 4) {return true;}   --->   if( i == MAX_CHARACTEROFID) {return true;}
+(5895L --- 5897L, 可以找到函数, GetNationById(...)  替换整个函数)
+5895L, modify, char name[4][20]={0,};   --->   char name[MAX_CHARACTEROFID][NM_LENGTH]={0,};
+5897L, modify, for( int i=0; i<4; i++ )   --->   for(int i=0; i<MAX_CHARACTEROFID; i++)
+
+
+(7166L --- 7204L, 可以找到函数, IsFreeLevel(...)  替换整个函数)
+7166L, modify, char name[ 4][ NM_LENGTH]={{0,},};   --->   char name[MAX_CHARACTEROFID][NM_LENGTH]={{0,},};
+7181L, modify, for( i = 0 ; i < 4; i ++)   --->   for( i = 0 ; i < MAX_CHARACTEROFID; i ++)
+7204L, modify, if( i == 4) {return true;}   --->   if( i == MAX_CHARACTEROFID) {return true;}
 -----------------------------------------------------------------------------------------
 dragonLoginServer2.h :
-40L, modify, extern int GetCharacterNameInID( LPSTR id, char name[4][20] );   ---> extern int GetCharacterNameInID( LPSTR id, char name[MAX_CHARACTEROFID][NM_LENGTH] );
+40L, modify, extern int GetCharacterNameInID( LPSTR id, char name[4][20] );   --->   extern int GetCharacterNameInID( LPSTR id, char name[MAX_CHARACTEROFID][NM_LENGTH] );
+
+-----------------------------------------------------------------------------------------
+dragonLoginServer.cpp :
+(1006L, 可以找到函数, SendCMD_ACCEPT_LOGIN(...)  替换整个函数)
+1006L, add, 	memset(&packet, 0, sizeof(t_packet));   // add by taniey
 -----------------------------------------------------------------------------------------
 dragonLoginServer2.cpp :
 (919L --- 921L, 可以找到函数, RecvSelectNation(...)  替换整个函数)
 919L, modify, char name[4][20]={0,};  --->   char name[MAX_CHARACTEROFID][NM_LENGTH]={0,};
 921L, modify, for( int i = 0; i< 4; i++ )    --->   for( int i = 0; i< MAX_CHARACTEROFID; i++ )
-
 
 (2770L --- 2775L, 可以找到函数, isPosableGuildJoinById(...)  替换整个函数)
 2770L, modify, char name[4][20];   --->   char name[MAX_CHARACTEROFID][NM_LENGTH];

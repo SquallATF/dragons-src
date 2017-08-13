@@ -440,11 +440,11 @@ inline void CheckkProtect() {
 			doMsg(2);
 			goto __returnandexit;
 		}
-// 		for(int i=0; i<16; i++) {
-// 			if(rightmd5sum[i] != md5sum[i]) {
-// 				boInvalidkProtect = true;
-// 			}
-// 		}
+ 		//for(int i=0; i<16; i++) {
+ 		//	if(rightmd5sum[i] != md5sum[i]) {
+ 		//		boInvalidkProtect = true;
+ 		//	}
+ 		//}
 		delete []md5sum;
 
 		if(boInvalidkProtect) {
@@ -520,21 +520,21 @@ inline void CheckFiles() {
 	}
 	CRYPT_END
 }
-/*
-inline void MyProtect(){
+//
+//inline void MyProtect(){
+//
+//	int a = Protect(g_hwndMain,::GetCurrentProcessId());
+//	if(a != 0)
+//	{
+//		ExitProcess(0);
+//		char abuffer[8];
+//		sprintf(abuffer,"%d",a);
+//		MessageBox(NULL, abuffer, "error", MB_OK);
+//		ExitProcess(0);
+//	}
+//	//return TRUE; 
+//}
 
-	int a = Protect(g_hwndMain,::GetCurrentProcessId());
-	if(a != 0)
-	{
-		ExitProcess(0);
-		char abuffer[8];
-		sprintf(abuffer,"%d",a);
-		MessageBox(NULL, abuffer, "error", MB_OK);
-		ExitProcess(0);
-	}
-	//return TRUE; 
-}
-*/
 ///////////////////////////////////shawn////////////////////////////////////
 
 //char *TrimRight(char *dest, int n)		//返回dest所在绝对路径目录
@@ -668,10 +668,10 @@ void inithook() {
 extern int LoadHackingToolName();
 int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
-#if _DEBUG
-	StdString strAppPath = GetAppPath();
-	SetCurrentDirectory(strAppPath.c_str());  //设置
-#endif // _DEBUG
+//#if _DEBUG
+//	StdString strAppPath = GetAppPath();
+//	SetCurrentDirectory(strAppPath.c_str());  //设置
+//#endif // _DEBUG
 
 /*////////////////自我删除///////////////////////////////////////
  // Is this the Original EXE or the clone EXE?

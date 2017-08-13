@@ -6,6 +6,9 @@
 #include "stdafx.h"
 #include "dr_agent_defines.h"
 
+
+#pragma pack (push, 1 )
+
 //< CSD-030322
 typedef struct server_connect_info
 {
@@ -131,7 +134,7 @@ typedef struct server_port
 }k_server_port;
 
 
-#pragma pack (push, 1 )
+//#pragma pack (push, 1 )
 
 typedef struct dragon_header
 {					
@@ -244,63 +247,63 @@ typedef struct packet
 
 
 //--------------------------------------------------------
-/*
-typedef struct connection 
-{
-	SOCKET			socket;
-	struct			sockaddr_in addr;
-	int				state;
-	t_packet		*inbuf;
-	t_packet		*outbuf;
-	int				receive;
-	int				receive_count;
-    DWORD			connect_time;
-	DWORD			monitor_time;
-	DWORD			send_bytes;
-	DWORD			receive_bytes;
-	int				send_try;		// 보내기 횟수...
+//
+//typedef struct connection 
+//{
+//	SOCKET			socket;
+//	struct			sockaddr_in addr;
+//	int				state;
+//	t_packet		*inbuf;
+//	t_packet		*outbuf;
+//	int				receive;
+//	int				receive_count;
+//    DWORD			connect_time;
+//	DWORD			monitor_time;
+//	DWORD			send_bytes;
+//	DWORD			receive_bytes;
+//	int				send_try;		// 보내기 횟수...
+//
+//	int				send_addlen;
+//
+//	char			ip_address[128];
+//
+//	int				last_year;
+//	int				last_mon;
+//	int				last_day;
+//	int				last_hour;
+//	int				last_min;
+//
+//	int				login_year;
+//	int				login_mon;
+//	int				login_day;
+//	int				login_hour;
+//	int				login_min;
+//	int				login_sec;
+//
+//	t_packet		packet;
+//	int				packet_pnt;
+//	int				packet_size;
+//	int				packet_status;
+//	int				packet_count[2];
+//
+//	int				kick_out;
+//	DWORD			kick_out_time;
+//
+//	int				save_db;
+//	DWORD			save_db_time;
+//
+//	char			id[ID_LENGTH];
+//	char			pw[PW_LENGTH];
+//	char			name[NM_LENGTH];
+//	char			mapname[NM_LENGTH];
+//
+//	int				server_check;
+//	char			*SendBuf;				// send()로 보낼 내용을 다음에 담아 놓는다. 
+//	int				SendBufSize;			// send()로 보낼 내용의 크기. 
+//	int				SendErr;				// send()로 보낼 내용의 크기. 
+//
+//} t_connection;
 
-	int				send_addlen;
-
-	char			ip_address[128];
-
-	int				last_year;
-	int				last_mon;
-	int				last_day;
-	int				last_hour;
-	int				last_min;
-
-	int				login_year;
-	int				login_mon;
-	int				login_day;
-	int				login_hour;
-	int				login_min;
-	int				login_sec;
-
-	t_packet		packet;
-	int				packet_pnt;
-	int				packet_size;
-	int				packet_status;
-	int				packet_count[2];
-
-	int				kick_out;
-	DWORD			kick_out_time;
-
-	int				save_db;
-	DWORD			save_db_time;
-
-	char			id[ID_LENGTH];
-	char			pw[PW_LENGTH];
-	char			name[NM_LENGTH];
-	char			mapname[NM_LENGTH];
-
-	int				server_check;
-	char			*SendBuf;				// send()로 보낼 내용을 다음에 담아 놓는다. 
-	int				SendBufSize;			// send()로 보낼 내용의 크기. 
-	int				SendErr;				// send()로 보낼 내용의 크기. 
-
-} t_connection;
-*/
 
 typedef struct im_game_server
 {		

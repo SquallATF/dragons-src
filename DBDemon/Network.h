@@ -24,6 +24,8 @@
 	#include "ItemList.h"
 #endif
 
+#pragma pack (push,1)
+
 #define SIZE_OF_WS				(200 * sizeof( unsigned char ))
 #define SIZE_OF_PS				(200 * sizeof( unsigned char ))
 #define SIZE_OF_SKILL			(200 * sizeof( unsigned short ))	//1219 YGI
@@ -786,7 +788,7 @@ typedef struct chr_item_info2
 typedef struct chr_name_info
 {
 	char	name[ NM_LENGTH];
-	char	login_id[20];
+	char	login_id[ID_LENGTH];
 } t_chr_name_info;
 
 //---
@@ -857,7 +859,7 @@ typedef struct server_change_map
 #define Netsgo		4
 
 const int MAX_MY_STRING = 20;
-#pragma pack (push,1)
+//#pragma pack (push,1)
 
 typedef struct CLIENTACCESSLOGIN
 {

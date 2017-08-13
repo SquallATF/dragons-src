@@ -41,19 +41,18 @@ CDualMgr::~CDualMgr()
 
 void CDualMgr::Load(const char* pFile)
 {
-	/*
-	ifstream fin(pFile, ios::in|ios::binary);
+	
+	//ifstream fin(pFile, ios::in|ios::binary);
 
-	for (int i = 0; i < 5; ++i)
-	{
-		for  (int j = 0; j < 15; ++j)
-		{
-			fin.read((char*)(&m_aBank[i][j]), sizeof(HERO_NAME));
-		}
-	}
-  
-	fin.close();
-	*/
+	//for (int i = 0; i < 5; ++i)
+	//{
+	//	for  (int j = 0; j < 15; ++j)
+	//	{
+	//		fin.read((char*)(&m_aBank[i][j]), sizeof(HERO_NAME));
+	//	}
+	//}
+	//fin.close();
+	
 	ifstream fin(pFile);
 	string strLine;
 	int i = 0, j = 0;
@@ -67,29 +66,29 @@ void CDualMgr::Load(const char* pFile)
 			i = atoi(strLine.substr(nBegin , nEnd - nBegin).c_str());
 			j = 0;
 		}
-		// 泅犁 努贰胶 佬绢坷扁
+		// 현재 클래스 읽어오기
 		m_aBank[i][j].nBefore = i;
-		// 函版且 努贰胶 佬绢坷扁
+		// 변경할 클래스 읽어오기
 		nBegin = nEnd + 1;
 		nEnd = strLine.find("\t", nBegin);
 		if (nEnd == string::npos)  continue;
 		m_aBank[i][j].nAfter = atoi(strLine.substr(nBegin , nEnd - nBegin).c_str());
-		// 努贰胶 窜拌 佬绢坷扁
+		// 클래스 단계 읽어오기
 		nBegin = nEnd + 1;
 		nEnd = strLine.find("\t", nBegin);
 		if (nEnd == string::npos)  continue;
 		m_aBank[i][j].nStep = atoi(strLine.substr(nBegin , nEnd - nBegin).c_str());
-		// 疙莫阑 荤侩 啊瓷茄 饭骇 佬绢坷扁
+		// 명칭을 사용 가능한 레벨 읽어오기
 		nBegin = nEnd + 1;
 		nEnd = strLine.find("\t", nBegin);
 		if (nEnd == string::npos)  continue;
 		m_aBank[i][j].nLimit = atoi(strLine.substr(nBegin , nEnd - nBegin).c_str());
-		// 努贰胶 疙莫 佬绢坷扁
+		// 클래스 명칭 읽어오기
 		nBegin = nEnd + 1;
 		nEnd = strLine.find("\t", nBegin);
 		if (nEnd == string::npos)  continue;
 		m_aBank[i][j].strName = string(strLine, nBegin , nEnd - nBegin);
-		// 疙莫俊 包茄 汲疙 佬绢坷扁
+		// 명칭에 관한 설명 읽어오기
 		nBegin = nEnd + 1;
 		m_aBank[i][j].strExplain = string(strLine, nBegin , strLine.length() - nBegin);    
 		++j;
@@ -100,19 +99,17 @@ void CDualMgr::Load(const char* pFile)
 
 void CDualMgr::Save(const char* pFile)
 {
-/*
-ofstream fout(pFile, ios::out|ios::binary);
+//ofstream fout(pFile, ios::out|ios::binary);
+//
+//  for (int i = 0; i < 5; ++i)
+//  {
+//  for  (int j = 0; j < 15; ++j)
+//  {
+//  fout.write((char*)(&m_aBank[i][j]), sizeof(HERO_NAME));
+//  }
+//  }
+//	fout.close();
 
-  for (int i = 0; i < 5; ++i)
-  {
-  for  (int j = 0; j < 15; ++j)
-  {
-  fout.write((char*)(&m_aBank[i][j]), sizeof(HERO_NAME));
-  }
-  }
-  
-	fout.close();
-	*/
 	int i = 12, j = 8920;
 	string strTemp = "Test best!";
 	ofstream fout(pFile);
@@ -179,13 +176,13 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 	if (pMaster == NULL)  return;
 	
 	POS pos;
-	// 傈捧胶懦 器牢磐 裙垫 酒捞袍 困摹 备窍扁
+	// 전투스킬 포인터 획득 아이템 위치 구하기
 	::SetItemPos(INV, nPara, nY, nX, &pos);
-	// 傈捧胶懦 器牢磐 裙垫 酒捞袍 犬牢
+	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 	
 	if (rItemAttr.item_no == 4028)
-	{ // Packet 傈价
+	{ // Packet 전송
 		t_packet packet;
 		packet.h.header.type = CMD_DUAL_ENABLE;
 		packet.h.header.size = sizeof(t_client_dual_enable);
@@ -202,13 +199,13 @@ void CDualMgr::SendDualChange(LPCHARACTER pMaster, BYTE nNext)
 	if (pMaster == NULL)  return;
 	
 	POS pos;
-	// 傈捧胶懦 器牢磐 裙垫 酒捞袍 困摹 备窍扁
+	// 전투스킬 포인터 획득 아이템 위치 구하기
 	::SetItemPos(INV, m_nPara, m_nPosY, m_nPosX, &pos);
-	// 傈捧胶懦 器牢磐 裙垫 酒捞袍 犬牢
+	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[m_nPara][m_nPosY][m_nPosX];
 	
 	if (rItemAttr.item_no == 4028)
-	{ // Packet 傈价
+	{ // Packet 전송
 		t_packet packet;
 		packet.h.header.type = CMD_DUAL_CHANGE;
 		packet.h.header.size = sizeof(t_client_dual_change);
@@ -241,14 +238,14 @@ void CDualMgr::RecvDualEnable(t_server_dual_enable* pPacket)
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
-	// 傈捧胶懦 器牢磐 裙垫 酒捞袍 困摹 备窍扁
+	// 전투스킬 포인터 획득 아이템 위치 구하기
 	POS pos;
 	::SetItemPos(INV, nPara, nY, nX, &pos);
-	// 傈捧胶懦 器牢磐 裙垫 酒捞袍 犬牢
+	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 	
 	if (rItemAttr.item_no == 4028)
-	{ // Packet 傈价
+	{ // Packet 전송
 		m_nPara = nPara;
 		m_nPosX = nX;
 		m_nPosY = nY;
@@ -267,9 +264,9 @@ void CDualMgr::RecvDualChange(t_server_dual_change* pPacket)
 		m_nPosX = 0;
 		m_nPosY = 0;
 		
-		pDual->aStepInfo[CLS_STEP] = 1;              // 掂倔 努贰胶 窜拌 惑铰
-		pDual->aStepInfo[DUAL_CLS] = pPacket->nDual; // 掂倔 努贰胶 汲沥
-		SCharacterData.nCharacterAbility[FAME] = pPacket->dwFame; // 惫啊傈 fame 痢荐 犁汲沥
+		pDual->aStepInfo[CLS_STEP] = 1;              // 듀얼 클래스 단계 상승
+		pDual->aStepInfo[DUAL_CLS] = pPacket->nDual; // 듀얼 클래스 설정
+		SCharacterData.nCharacterAbility[FAME] = pPacket->dwFame; // 국가전 fame 점수 재설정
 		SCharacterData.nCharacterAbility[STR] = pPacket->wStr;
 		SCharacterData.nCharacterAbility[DEX] = pPacket->wDex;
 		SCharacterData.nCharacterAbility[CON] = pPacket->wCon;
@@ -297,8 +294,8 @@ void CDualMgr::RecvDualDivide(t_server_dual_divide* pPacket)
 	if (pDual == Hero)
 	{
 		
-		++Hero->aStepInfo[CLS_STEP];                // 掂倔 努贰胶 窜拌 惑铰
-		Hero->aStepInfo[DUAL_CLS] = pPacket->nDual; // 掂倔 努贰胶 汲沥
+		++Hero->aStepInfo[CLS_STEP];                // 듀얼 클래스 단계 상승
+		Hero->aStepInfo[DUAL_CLS] = pPacket->nDual; // 듀얼 클래스 설정
 		SCharacterData.nCharacterAbility[STR] = pPacket->wStr;
 		SCharacterData.nCharacterAbility[DEX] = pPacket->wDex;
 		SCharacterData.nCharacterAbility[CON] = pPacket->wCon;
@@ -318,29 +315,29 @@ void CDualMgr::RecvDualDivide(t_server_dual_divide* pPacket)
 }
 
 int CDualMgr::GetAbility(BYTE nType)
-{	// 绢呼府萍 弥措蔼 啊廉坷扁
+{	// 어빌리티 최대값 가져오기
 	const int nClass = Hero->class_type;
 	const int nStep = Hero->aStepInfo[CLS_STEP];
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(nClass, nStep);
 	
 	switch (nType)
 	{
-    case STR:  return pLimit->GetStr();  // 塞
-    case CON:	 return pLimit->GetCon();  // 眉仿
-    case DEX:	 return pLimit->GetDex();  // 刮酶
-    case WIS:	 return pLimit->GetWis();  // 瘤瓷
-    case INT_: return pLimit->GetInt();	 // 瘤驱
-    case CHA:	 return pLimit->GetCha();  // 概仿
-    case MOVP: return pLimit->GetMovp(); // 捞悼仿
-    case ENDU: return pLimit->GetEndu(); // 牢郴
-    case MOR:	 return pLimit->GetMor();  // 荤扁
-    case LUCK: return pLimit->GetLuck(); // 青款
+    case STR:  return pLimit->GetStr();  // 힘
+    case CON:	 return pLimit->GetCon();  // 체력
+    case DEX:	 return pLimit->GetDex();  // 민첩
+    case WIS:	 return pLimit->GetWis();  // 지능
+    case INT_: return pLimit->GetInt();	 // 지혜
+    case CHA:	 return pLimit->GetCha();  // 매력
+    case MOVP: return pLimit->GetMovp(); // 이동력
+    case ENDU: return pLimit->GetEndu(); // 인내
+    case MOR:	 return pLimit->GetMor();  // 사기
+    case LUCK: return pLimit->GetLuck(); // 행운
     case WSPS:
 		{
 			switch (SCharacterData.nCharacterData[SPELL])
 			{
-			case WIZARD_SPELL: return pLimit->GetWs(); // 付过荤
-			case PRIEST_SPELL: return pLimit->GetPs(); // 己流磊
+			case WIZARD_SPELL: return pLimit->GetWs(); // 마법사
+			case PRIEST_SPELL: return pLimit->GetPs(); // 성직자
 			}
 		}
 	}

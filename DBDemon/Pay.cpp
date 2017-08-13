@@ -97,7 +97,7 @@ extern CQueryDBSocket *ConQ;
 OUTPUT COnePass::OnePassID(const short nCn,LoginInfoPay &LIP,const bool bIsGMTool)
 {
 	OUTPUT Output = {0,};
-	if(LocalMgr.IsAbleNation(JAPAN) && !bIsGMTool)//老夯牢单 老馆 蜡历老 版快
+	if(LocalMgr.IsAbleNation(JAPAN) && !bIsGMTool)//일본인데 일반 유저일 경우
 	{
 		Output.nRet		=	CheckLoginIDForJapan(nCn,LIP);
 		Output.nType	=	LIP.type;
@@ -105,17 +105,17 @@ OUTPUT COnePass::OnePassID(const short nCn,LoginInfoPay &LIP,const bool bIsGMToo
 	}
 	else
 	{
-		Output.nRet		=	CheckPW_TotalDB_SQL(nCn,LIP);//肺弊牢 啊瓷茄瘤俊 措茄 函荐 涝聪促.
-		Output.nType	=	LIP.type;//搬力 鸥涝涝聪促.
+		Output.nRet		=	CheckPW_TotalDB_SQL(nCn,LIP);//로그인 가능한지에 대한 변수 입니다.
+		Output.nType	=	LIP.type;//결제 타입입니다.
 		Output.dwIndex	=	LIP.index;//
-		// 吝惫狼 苞陛俊辑 IP窜困狼 苞陛捞 甸绢啊搁 捞何盒俊 眠啊等促. 
+		// 중국의 과금에서 IP단위의 과금이 들어가면 이부분에 추가된다. 
 /* //coromo 2007/5/2  disable pay
-		if(LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG))//021007 lsw//吝惫全尼措父 葛滴 酒捞乔甫 眠啊茄促. 
+		if(LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG))//021007 lsw//중국홍콩대만 모두 아이피를 추가한다. 
 		{
-			if( Output.nRet > 0 || Output.nRet == BT_NEED_PAY )//0焊促 努 版快绰 巢篮 朝楼啊 乐绰 巴捞绊
+			if( Output.nRet > 0 || Output.nRet == BT_NEED_PAY )//0보다 클 경우는 남은 날짜가 있는 것이고
 			{
 				ConQ->AskCheckLoginWithIP( LIP.id, LIP.ip );
-				Output.nRet = COnePass::BT_WAIT_BILLING_MSG;//吝惫狼 版快绰
+				Output.nRet = COnePass::BT_WAIT_BILLING_MSG;//중국의 경우는
 			}
 		}
 */
@@ -124,11 +124,11 @@ OUTPUT COnePass::OnePassID(const short nCn,LoginInfoPay &LIP,const bool bIsGMToo
 }
 
 
-// 橇府 海鸥老 版快 立加 啊瓷茄 酒捞叼 牢瘤 朝磊肺 犬牢 且锭 荤侩
+// 프리 베타일 경우 접속 가능한 아이디 인지 날자로 확인 할때 사용
 int GetAccessPossableDay( int &year, int &month, int &day )
 {
 	char szRegistDate[50]= {0,};
-	// YYYY/MM/DD 屈侥捞绢具 窃
+	// YYYY/MM/DD 형식이어야 함
 	if( GetPrivateProfileString( "nation_set", "RegistDate", "" , szRegistDate, 50,DB_DEMON_INI_ ) )
 	{
 		char *token = strtok( szRegistDate, "/" );
@@ -149,13 +149,13 @@ int GetAccessPossableDay( int &year, int &month, int &day )
 	return 0;
 }
 
-// 府畔蔼..
-// -1 : ID 绝澜. 
-// -2 : PW 撇覆..
-// -3 : 捣郴具窃..
-//      巢篮 朝楼..
+// 리턴값..
+// -1 : ID 없음. 
+// -2 : PW 틀림..
+// -3 : 돈내야함..
+//      남은 날짜..
 extern bool IsFreeLevel( char *szUID );
-int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//荤侩 啊瓷茄 朝楼甫 府畔 钦聪促.
+int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//사용 가능한 날짜를 리턴 합니다.
 {
 	HSTMT		hStmt = NULL;
 	RETCODE		retCode= 0;
@@ -182,7 +182,7 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//荤侩 啊
 		retCode = ::SQLFetch(hStmt);
 		if( retCode != SQL_SUCCESS) 
 		{
-			goto ERROR_NO_ID_;	// 殿废登瘤 臼篮 ID涝聪促. 
+			goto ERROR_NO_ID_;	// 등록되지 않은 ID입니다. 
 		}
 		
 		while(retCode == SQL_SUCCESS)
@@ -203,12 +203,12 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//荤侩 啊
 		}
 		::SQLFreeStmt(hStmt, SQL_DROP);
 
-		if(!bIsPwRight){return(BT_WRONG_PW);}// password 撇覆..
+		if(!bIsPwRight){return(BT_WRONG_PW);}// password 틀림..
 
 		if(LocalMgr.IsFreeBeta())//021007 lsw
 		{
 			int year = 0, month = 0, day = 0;
-			if( ::GetAccessPossableDay( year, month, day ) )//殿废 朝楼肺 橇府海鸥啊 啊瓷 茄瘤 眉农
+			if( ::GetAccessPossableDay( year, month, day ) )//등록 날짜로 프리베타가 가능 한지 체크
 			{
 				sprintf(szQuerry, "login_id = '%s' AND d_regday > '%d-%d-%d' ", LIP.id, year, month, day);
 				int nCount = 0;
@@ -223,9 +223,9 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//荤侩 啊
 
 		const int iLimitDay = date.year * 365 + month_tbl[ date.month-1] + date.day; 
 		const int iToday = g_year * 365 + g_yday;	
-		if( iLimitDay >= iToday )// 1窜拌 : 蜡历朝楼 眉农.
+		if( iLimitDay >= iToday )// 1단계 : 유저날짜 체크.
 		{
-			return 1 + iLimitDay - iToday;// 菊栏肺 荤侩啊瓷茄 朝楼荐 
+			return 1 + iLimitDay - iToday;// 앞으로 사용가능한 날짜수 
 		}
 		//< CSD-040127
 		if (LocalMgr.IsAbleNation(TAIWAN|HONGKONG))
@@ -249,33 +249,33 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//荤侩 啊
 
 		LIP.type = 0;
 		
-		if( ret > 0 )// 2窜拌 : IP朝楼 眉农..
+		if( ret > 0 )// 2단계 : IP날짜 체크..
 		{	
 			this->d_kyulje=0;
 			return BT_COMMERCIAL_IP;
 		}
-		if(IP_TimeRemain>0)// 3窜拌 : IP 急阂辆樊力 眉农..
+		if(IP_TimeRemain>0)// 3단계 : IP 선불종량제 체크..
 		{
-			this->d_kyulje=0;	//ip客 包访瞪 版快 0栏肺 持绢崔扼绰 碍秦盔 评厘丛狼 夸备俊 蝶扼 0栏肺 技泼.
+			this->d_kyulje=0;	//ip와 관련될 경우 0으로 넣어달라는 강해원 팀장님의 요구에 따라 0으로 세팅.
 			LIP.type = ip_idx + 50000;
 			return BT_COMMERCIAL_IP;
 		}
-		else if(User_TimeReamin>0)// 4窜拌 : 蜡历 急阂辆樊力 眉农..
+		else if(User_TimeReamin>0)// 4단계 : 유저 선불종량제 체크..
 		{
 			this->d_kyulje=4000;	
-			LIP.type = 4000; // 蜡历 矫埃 辆樊力 鸥涝
-			return BT_COMMERCIAL_TIME_REMAIN; // 4老 捞惑巢篮巴栏肺 埃林. 
+			LIP.type = 4000; // 유저 시간 종량제 타입
+			return BT_COMMERCIAL_TIME_REMAIN; // 4일 이상남은것으로 간주. 
 		}
 
-		if (LocalMgr.IsAbleNation(KOREA))//捣阑 救辰 荤恩捞促
+		if (LocalMgr.IsAbleNation(KOREA))//돈을 안낸 사람이다
 		{	//< CSD-040127
 			if( ::IsFreeLevel( LIP.id ) )
 			{
 				return BT_FREE;
-			}// 橇府饭骇蜡历捞骨肺 烹苞
+			}// 프리레벨유저이므로 통과
 		}	//> CSD-040127
 
-		return BT_NEED_PAY;	// 捣郴具窃..
+		return BT_NEED_PAY;	// 돈내야함..
 	}
 	else
 	{
@@ -283,7 +283,7 @@ int COnePass::CheckPW_TotalDB_SQL(const short nCn,LoginInfoPay &LIP)//荤侩 啊
 	}
 ERROR_NO_ID_:
 	::SQLFreeStmt(hStmt, SQL_DROP);	
-	return BT_WRONG_ID;							// 弊繁 ID绝澜.
+	return BT_WRONG_ID;							// 그런 ID없음.
 }
 
 
@@ -317,7 +317,7 @@ int COnePass::CheckGameBangIP_SQL( DWORD *can_use, LPSTR ip ,int &type, int &IP_
 	{		
 		retCode = SQLFetch(hStmt);
 			
-		if( retCode == SQL_SUCCESS ) // 殿废等 IP啊 粮犁窃. 
+		if( retCode == SQL_SUCCESS ) // 등록된 IP가 존재함. 
 		{	
 			SQLGetData(hStmt, 1, SQL_C_ULONG, can_use, 0, &cbValue);
 			SQLGetData(hStmt, 2, SQL_C_TIMESTAMP, &date,  sizeof( TIMESTAMP_STRUCT ), &cbValue);
@@ -329,14 +329,14 @@ int COnePass::CheckGameBangIP_SQL( DWORD *can_use, LPSTR ip ,int &type, int &IP_
 			SQLFreeStmt(hStmt, SQL_DROP);
 			
 			this->CheckGameBangIPAccount_SQL( ip_idx, IP_TimeRemain);
-			//	朝楼 拌魂.. 
-			if( *can_use == 1 ) // 荤侩啊瓷茄 IP..
+			//	날짜 계산.. 
+			if( *can_use == 1 ) // 사용가능한 IP..
 			{	
 				rt = date.year * 365 + month_tbl[ date.month-1] + date.day;
 				ct = g_year * 365 + g_yday;
 				
 				if( rt < ct )	return BT_NEED_PAY;
-				else			return 1 + rt - ct;	// 菊栏肺 荤侩啊瓷茄 朝楼俊 
+				else			return 1 + rt - ct;	// 앞으로 사용가능한 날짜에 
 			}	
 			else
 			{	
@@ -352,7 +352,7 @@ int COnePass::CheckGameBangIP_SQL( DWORD *can_use, LPSTR ip ,int &type, int &IP_
 	else
 	{
 		SQLFreeStmt(hStmt, SQL_DROP);	
-		return -1;							// 弊繁 白规IP绝澜.
+		return -1;							// 그런 겜방IP없음.
 	}
 	SQLFreeStmt(hStmt, SQL_DROP);			// 0414 YGI
 	return(-2);
@@ -369,7 +369,7 @@ int COnePass::CheckLoginIDForJapan(const short nCn, LoginInfoPay &LIP)
 	EatRearWhiteChar( LIP.id );
 	EatRearWhiteChar( LIP.pw );
 
-	sprintf(szQuerry, "SELECT   Memidx,Uid FROM NgcTempUser WHERE (Utid = '%s%s')", LIP.id,LIP.pw);//老夯 DB曼炼//TID肺 ID 啊廉坷扁.
+	sprintf(szQuerry, "SELECT   Memidx,Uid FROM NgcTempUser WHERE (Utid = '%s%s')", LIP.id,LIP.pw);//일본 DB참조//TID로 ID 가져오기.
 
 	SQLAllocStmt(hDBC_NGCDB, &hStmt);
 	retCode = SQLExecDirect(hStmt, (UCHAR *)szQuerry, SQL_NTS);
@@ -378,7 +378,7 @@ int COnePass::CheckLoginIDForJapan(const short nCn, LoginInfoPay &LIP)
 		retCode = SQLFetch(hStmt);
 		if( retCode != SQL_SUCCESS) 
 		{
-			goto ERROR_NO_ID_;	// 殿废登瘤 臼篮 ID涝聪促. 
+			goto ERROR_NO_ID_;	// 등록되지 않은 ID입니다. 
 		}
 		retCode = ::SQLGetData(hStmt, 1, SQL_C_LONG,	&LIP.index,	ID_LENGTH, &cbValue);
 		
@@ -389,12 +389,12 @@ int COnePass::CheckLoginIDForJapan(const short nCn, LoginInfoPay &LIP)
 		::strcpy(connections[nCn].id,szID);
 		::strcpy(LIP.id,szID);
 		::SQLFreeStmt(hStmt, SQL_DROP);
-		return 100;//老夯牢 版快 傍楼涝聪促. NGC俊辑 苞陛阑 窍扁 锭巩俊.
+		return 100;//일본인 경우 공짜입니다. NGC에서 과금을 하기 때문에.
 	}
 ERROR_NO_ID_:
 
 	::SQLFreeStmt(hStmt, SQL_DROP);	
-	return BT_WRONG_ID;							// 弊繁 ID绝澜.
+	return BT_WRONG_ID;							// 그런 ID없음.
 }
 
 int COnePass::CheckGameBangIPAccount_SQL( DWORD ip_idx, int &IP_TimeRemain)
@@ -419,7 +419,7 @@ int COnePass::CheckGameBangIPAccount_SQL( DWORD ip_idx, int &IP_TimeRemain)
 	{		
 		retCode = SQLFetch(hStmt);
 			
-		if( retCode == SQL_SUCCESS ) // 殿废等 IP啊 粮犁窃. 
+		if( retCode == SQL_SUCCESS ) // 등록된 IP가 존재함. 
 		{	
 			SQLGetData(hStmt, 1, SQL_C_ULONG, &IP_TimeRemain, 0, &cbValue);
 			SQLFreeStmt(hStmt, SQL_DROP);			

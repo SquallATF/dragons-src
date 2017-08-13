@@ -1003,6 +1003,7 @@ void SendCMD_ACCEPT_LOGIN(const int cn, const int iRemainDay)
 	t_connection *pCN = &connections[cn];
 
 	t_packet packet;
+	memset(&packet, 0, sizeof(t_packet));   // add by taniey
 	packet.h.header.type = CMD_ACCEPT_LOGIN;
 	packet.h.header.size = sizeof(t_server_accept_login);
 
