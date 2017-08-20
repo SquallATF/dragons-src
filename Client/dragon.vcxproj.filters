@@ -593,6 +593,7 @@
     <None Include="SafeMem_040317.exe" />
     <None Include="thidchk.tlh" />
     <None Include="thidchk.tli" />
+    <None Include="NoKillDll.dll" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="DesDll.lib">

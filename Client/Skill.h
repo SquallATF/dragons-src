@@ -9,6 +9,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#pragma pack()
+
+
 #define SKILL_READY			1
 #define SKILL_ON			2
 #define SKILL_OFF			0

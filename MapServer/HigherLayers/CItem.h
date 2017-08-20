@@ -15,7 +15,7 @@
 #include "skill_lsw.h"
 //11025 lsw <
 
-#define		ITEM_NAME_MAX		31
+#define		ITEM_NAME_MAX		32
 
 #define OK			1
 #define NOT		0	

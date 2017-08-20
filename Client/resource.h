@@ -1,6 +1,6 @@
-ï»¿//{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by dragon.rc
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ Éú³ÉµÄ°üº¬ÎÄ¼þ¡£
+// ¹© dragon.rc Ê¹ÓÃ
 //
 #define IDC_MYICON                      2
 #define IDOK2                           3
@@ -751,7 +751,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        249
+#define _APS_NEXT_RESOURCE_VALUE        250
 #define _APS_NEXT_COMMAND_VALUE         32889
 #define _APS_NEXT_CONTROL_VALUE         1288
 #define _APS_NEXT_SYMED_VALUE           113

@@ -1566,6 +1566,11 @@ bool ReadMagicTable()
 				crc += *tt;
 				tt++;
 			}
+
+			//char sz[20] = { 0 };
+			//sprintf(sz, "%d", sizeof(CMagic));
+			//MessageBox(NULL, sz, "aaaaaaaa", MB_OK);
+
 			if (crc != crc1 || crc != crc2)
 			{
 				CheckSumError = -1;

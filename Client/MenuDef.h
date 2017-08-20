@@ -559,6 +559,7 @@ typedef struct
 #define CLOSE_HOUSE	1
 
 
+#pragma pack ()
 
 //////////// 건물 클레스 ///////////////
 class CHouse

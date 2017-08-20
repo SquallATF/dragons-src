@@ -9,29 +9,29 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-/*
-#pragma pack(push, 1)
+//
+//#pragma pack(push, 1)
+//
+//typedef struct PROFILER
+//{
+//	char		szCounterName[32];
+//	//__int32		nCounterID:
+//	//char		*szCounterName;
+//	LARGE_INTEGER n64CounterStart;
+//	LARGE_INTEGER n64CounterEnd;
+//	int			nCounterGroup;
+//	PROFILER()
+//	{
+//		memset( (void*)(&szCounterName), 0, 32);
+//		n64CounterStart.QuadPart	=0;
+//		n64CounterEnd.QuadPart		=0;
+//		nCounterGroup				=-1;
+//	};
+//
+//} ProFiler;
+//
+//#pragma pack(pop,1)
 
-typedef struct PROFILER
-{
-	char		szCounterName[32];
-	//__int32		nCounterID:
-	//char		*szCounterName;
-	LARGE_INTEGER n64CounterStart;
-	LARGE_INTEGER n64CounterEnd;
-	int			nCounterGroup;
-	PROFILER()
-	{
-		memset( (void*)(&szCounterName), 0, 32);
-		n64CounterStart.QuadPart	=0;
-		n64CounterEnd.QuadPart		=0;
-		nCounterGroup				=-1;
-	};
-
-} ProFiler;
-
-#pragma pack(pop,1)
-*/
 typedef struct PROFILE_TYPE
 {
 	bool	bParent;

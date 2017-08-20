@@ -11,7 +11,7 @@
 
 #pragma pack (push,1)
 #include "Network5.h"
-#pragma pack (pop)
+#pragma pack (pop,1)
 ///////////////////////////////////////////////////////////////////////////////
 // 듀얼을 위한 클래스
 class CDualMgr  

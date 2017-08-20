@@ -512,6 +512,13 @@ int LoadTOI(char *filename)
 		fread(&TotalMapObjectID, 2, 1, fp);
 		fseek(fp, TotalMapObject * sizeof(int), SEEK_CUR);
 
+		//// for test
+		//char sz[200] = { 0 };  // 117 ,123
+		//sprintf(sz, "sizeof(MAPOBJECT_old): %d; sizeof(MAPOBJECT): %d",
+		//	sizeof(MAPOBJECT_old), sizeof(MAPOBJECT));
+		//MessageBox(NULL, sz, "aaaaaaaa", MB_OK);
+		//// test end
+
 		for (i = 0; i < TotalMapObject; i++)
 		{
 			if (count == 140)

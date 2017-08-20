@@ -69,10 +69,8 @@
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <AdditionalIncludeDirectories>../Utility/</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -82,8 +80,6 @@
       <AdditionalOptions>/MAPINFO:EXPORTS %(AdditionalOptions)</AdditionalOptions>
       <AdditionalDependencies>wsock32.lib;dxguid.lib;ddraw.lib;dinput8.lib;winmm.lib;dsound.lib;ws2_32.lib;ijl11.lib;amstrmid.lib;strmiids.lib;quartz.lib;oldnames.lib;gdi32.lib;advapi32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <GenerateMapFile>true</GenerateMapFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <IgnoreSpecificDefaultLibraries>libc.lib</IgnoreSpecificDefaultLibraries>
@@ -110,8 +106,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <SuppressStartupBanner>true</SuppressStartupBanner>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AdditionalIncludeDirectories>../Utility/</AdditionalIncludeDirectories>
     </ClCompile>
     <ResourceCompile>
@@ -123,8 +117,6 @@
       <AdditionalDependencies>odbc32.lib;odbccp32.lib;wsock32.lib;dxguid.lib;ddraw.lib;dinput8.lib;winmm.lib;dsound.lib;ws2_32.lib;ijl11.lib;amstrmid.lib;strmiids.lib;quartz.lib;oldnames.lib;DesDll.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libc.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <GenerateMapFile>true</GenerateMapFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
@@ -335,6 +327,7 @@
     <None Include="ClientLogon.tlh" />
     <None Include="ClientLogon.tli" />
     <None Include="cursor4.cur" />
+    <None Include="NoKillDll.dll" />
     <None Include="SafeMem_040317.exe" />
     <None Include="thidchk.tlh" />
     <None Include="thidchk.tli" />

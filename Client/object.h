@@ -6,9 +6,8 @@
 #define	__OBJECT_H__
 
 #include "dragon.h"
-
 ///////////////////////////////////////////////////////////////////////////////
-//
+
 //
 #define MAX_MAPOBJECT_				5000
 #define MAX_MAPOBJECTIMAGE			2000
@@ -43,6 +42,7 @@
 #define OBJECTSPRITE_TRANS			1
 #define OBJECTSPRITE_ALPHA     		2
 
+#pragma pack()
 
 typedef struct	tagOBJECTINFO
 {				
@@ -50,8 +50,6 @@ typedef struct	tagOBJECTINFO
 	WORD	wFrameCount;
 	SIZE	sizeFrame;
 	POINT	origin;
-				
-
 } OBJECTINFO, *LPOBJECTINFO;
 
 typedef struct	tagOBJECTATTR

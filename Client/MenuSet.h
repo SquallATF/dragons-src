@@ -1001,28 +1001,29 @@ public :
 
 	k_event_object_sound	*m_pEventObjcet;		//021030 YGI
 	CEventMoveMap			*m_pEventMoveMap;		// 021107 YGI
-//-----------fqyd 060730--/////////////////////////////////////////////////////////////////
-	//------밑숩斤口瞳侶쟁구룀------
-	int bCheckSalvation_res;//轟掘츰 ?
 
-	//char	pluse_value_res;
+	//-----------fqyd 060730--/////////////////////////////////////////////////////////////////
+	//------关键信息在这里备份------
+	int bCheckSalvation_res;//无限名 ?
 
-	int CheckMoney()//轟掘츰 ?
-	{//뚤壇돨쇱꿴변鑒
-	bCheckSalvation_res^=bCheckSalvation_MSK_CA;////轟掘츰 ?
-	if(bCheckSalvation!=bCheckSalvation_res)
-		return 0;
-	bCheckSalvation_cont();////轟掘츰 ?踞샙변鑒
-	bCheckSalvation_res^=bCheckSalvation_MSK_CA;
+	// char	pluse_value_res;
+
+	int CheckMoney()//无限名 ?
+	{//对应的检查函数
+		bCheckSalvation_res ^= bCheckSalvation_MSK_CA;////无限名 ?
+		if (bCheckSalvation != bCheckSalvation_res)
+			return 0;
+		bCheckSalvation_cont();////无限名 ?随机函数
+		bCheckSalvation_res ^= bCheckSalvation_MSK_CA;
 		return 1;
 	}
 
-	//苟충侶硅떼角쌔삿넋埼딧痰,깻괏닸구룀돨변鑒.
-	int set_bCheckSalvation(bool m)////轟掘츰 ?
+	//下面这些都是截获程序调用,并保存备份的函数.
+	int set_bCheckSalvation(bool m)////无限名 ?
 	{
-		bCheckSalvation=m;
-		bCheckSalvation_res=m;
-		bCheckSalvation_res^=bCheckSalvation_MSK_CA;
+		bCheckSalvation = m;
+		bCheckSalvation_res = m;
+		bCheckSalvation_res ^= bCheckSalvation_MSK_CA;
 		return 1;
 	}
 	///////////////////////////////////////////////////////////////
