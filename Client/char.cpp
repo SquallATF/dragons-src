@@ -4719,8 +4719,8 @@ void LoadAttackRangeTable(int sprno)
 			tt++;
 		}
 
-		if (crc != crc1) if (CheckSumError == 0) CheckSumError = CHECKSUM_ERROR_ATTACKRANGE;
-		if (crc != crc2) if (CheckSumError == 0) CheckSumError = CHECKSUM_ERROR_ATTACKRANGE;
+		if (crc != crc1 && CheckSumError == 0) CheckSumError = CHECKSUM_ERROR_ATTACKRANGE;
+		if (crc != crc2 && CheckSumError == 0) CheckSumError = CHECKSUM_ERROR_ATTACKRANGE;
 	}
 }
 

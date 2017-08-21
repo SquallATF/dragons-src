@@ -418,7 +418,7 @@ void LoadItem( LPITEMGROUND i )
 			static int check;
 			check++;
 			if( (check % 5)  == 2 ) // 체크섬을 구하여 비교해본다. 
-			{		
+			{
 				DWORD fl = _filelength( _fileno( fp ) );
 				char  *tbuf, *buf = NULL;
 				char crc = 0, crc1;

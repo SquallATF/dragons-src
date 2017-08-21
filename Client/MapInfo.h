@@ -57,7 +57,8 @@ typedef struct MAPINFO
 		m_MoveType = 0;
 	}
 }t_MapInfo,*LPMAPINFO;
-#pragma pack(pop,1)
+//#pragma pack(pop,1)
+#pragma pack(pop)
 
 extern t_MapInfo MapInfo[MAX_MAP_];
 #endif // !defined(AFX_MAPINFO_H__6A59C12B_1C45_495B_958A_D5A51EFE0646__INCLUDED_)

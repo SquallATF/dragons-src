@@ -42,7 +42,7 @@
 #define OBJECTSPRITE_TRANS			1
 #define OBJECTSPRITE_ALPHA     		2
 
-#pragma pack()
+//#pragma pack ()
 
 typedef struct	tagOBJECTINFO
 {				

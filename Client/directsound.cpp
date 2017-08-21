@@ -137,8 +137,8 @@ BOOL	LoadSoundList( void )
 			crc += *tt;
 			tt ++;
 		}
-		if( crc  != crc1 ) if( CheckSumError == 0 )  CheckSumError = CHECKSUM_ERROR_SOUNDLIST;
-		if( crc  != crc2 ) if( CheckSumError == 0 )  CheckSumError = CHECKSUM_ERROR_SOUNDLIST;
+		if( crc  != crc1 && CheckSumError == 0 )  CheckSumError = CHECKSUM_ERROR_SOUNDLIST;
+		if( crc  != crc2 && CheckSumError == 0 )  CheckSumError = CHECKSUM_ERROR_SOUNDLIST;
 	}
 	return TRUE;
 }
@@ -806,12 +806,9 @@ void	SetListener( int x, int y )
 	IDirectSound3DListener_SetPosition( g_SoundInfo.lpDirectSound3DListener, P2M( x * TILE_SIZE ), P2M( y * TILE_SIZE ), 0.f, DS3D_IMMEDIATE );
 }
 
-
 // flag == 1 : looping.
 // flag != 0 : 해당 횟수만큼 반복.
 // flag == 0 : 1 time.
-
-
 
 ///////////////////// SoundUp lkh 수정 ////////////////////
 BOOL PlayListAutoSounds( int index, int x, int y, BOOL flag)		//index->1~999까지
@@ -823,7 +820,7 @@ BOOL PlayListAutoSounds( int index, int x, int y, BOOL flag)		//index->1~999까�
 	char	szFilePath[ _MAX_PATH ];
 					
 	if(!g_SoundList[index].static_Sound)
-	{				
+	{
 		if( g_SoundInfo.bInitialized == FALSE || g_SoundInfo.lpDirectSound == NULL ) return 0;
 		//////////////// 사운드 버퍼에 이미 로딩되어 있는 사운드인 경우 재로딩하지 않도록 할것 /////////////////////
 		if( g_SoundInfo.lpDirectSoundBuffer[ index ] == NULL )//!IsPlaying(index) )

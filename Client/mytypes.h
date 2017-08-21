@@ -5,7 +5,7 @@
 #ifndef __MYTYPES_H__
 #define	__MYTYPES_H__
 
-#pragma pack()
+//#pragma pack ()
 
 #define _MAPOBJECT_DIRECTORY_CHANGE_
 //#define BETA_TESTER_

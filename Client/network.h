@@ -2655,7 +2655,8 @@ typedef struct packet
 } t_packet;
 
 
-#pragma pack (pop,1)
+//#pragma pack (pop ,1)
+#pragma pack (pop)
 
 
 

@@ -128,7 +128,7 @@ bool CSecuritySystem::CheckFileName(const char* pFileName)
 	// 파일명 비교
 	char szFileName[_MAX_FNAME + _MAX_EXT];
 	sprintf(szFileName, "%s%s", szName, szExt);
-	return (stricmp(szFileName, pFileName) == 0) ? true : false;
+	return (_stricmp(szFileName, pFileName) == 0) ? true : false;
 }
 
 HWND CSecuritySystem::GetDragonHwnd()

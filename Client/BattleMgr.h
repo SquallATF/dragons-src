@@ -11,7 +11,8 @@
 
 #pragma pack (push,1)
 #include "Network5.h"
-#pragma pack (pop,1)
+//#pragma pack (pop, 1)
+#pragma pack (pop)
 
 #define MK_NORMAL      0
 #define MK_WARNING     1

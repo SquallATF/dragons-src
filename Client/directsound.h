@@ -14,6 +14,8 @@
 
 #include "dsound.h"
 
+#pragma pack ()
+
 #define WAVEVERSION 1
 
 #ifndef ER_MEM
