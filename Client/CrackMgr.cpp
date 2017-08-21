@@ -48,48 +48,47 @@ void CCrackMgr::AutoCheckAccel()//보내기 //자동으로 시간 계산 해서
 //클라이언트 엑셀
 	//첫 체크후 1초 뒤에 체크한다
 	//체크 했을때 5% 이상의 오차가 나면 멈춰 버리자
-/*	CLOCK cl;
-	GetNowClock(&cl);
-	static __int64 s_i64Clock = *(__int64*)&cl;
-	static	DWORD s_dwPreTime = ::timeGetTime();
-	const DWORD dwTimeGab = ::timeGetTime() - s_dwPreTime;
-	if( dwTimeGab > 1000 )//1초가 지났다면
-	{
-		s_dwPreTime = ::timeGetTime();//시간 갱신
+	//CLOCK cl;
+	//GetNowClock(&cl);
+	//static __int64 s_i64Clock = *(__int64*)&cl;
+	//static	DWORD s_dwPreTime = ::timeGetTime();
+	//const DWORD dwTimeGab = ::timeGetTime() - s_dwPreTime;
+	//if( dwTimeGab > 1000 )//1초가 지났다면
+	//{
+	//	s_dwPreTime = ::timeGetTime();//시간 갱신
 
-		CLOCK cl2;
-		GetNowClock(&cl2);//현재 클럭
-		
-		__int64 i64Curr = *(__int64*)&cl2;
-		__int64 i64Result = i64Curr - s_i64Clock;
+	//	CLOCK cl2;
+	//	GetNowClock(&cl2);//현재 클럭
+	//	
+	//	__int64 i64Curr = *(__int64*)&cl2;
+	//	__int64 i64Result = i64Curr - s_i64Clock;
 
-		if(i64Result)//평균 재서 m_i64Clock와 얼마나 차이나는지 확인
-		{
-			const __int64 i64NowClock = i64Result*1000/dwTimeGab;
-//			::AddCurrentStatusMessage(FONT_COLOR_RED,"%d",i64NowClock);
-			if( i64NowClock )//5%정도로 끊으면 좋을까? .. -_-;..
-			{
-				if( m_i64Clock + (m_i64Clock*3/100) < i64NowClock //3% 허용 오차를 벗어나면
-				||	m_i64Clock - (m_i64Clock*3/100) > i64NowClock )
-				{
-//					JustMsg("Your System have problem");
-//					g_DBGLog.Log(LOG_LV1, "Your System have problem (%d)", m_i64Clock);//모드 셋팅 기록 될 파일의 고유 이름입니다.
-//					g_DBGLog.Log(LOG_LV1, "Your System have problem2 (%d)", i64NowClock);//모드 셋팅 기록 될 파일의 고유 이름입니다.
-//					::ExitApplication(EA_CPU_CLOCK_ERROR);
-//					::exit(0);
-				}
-			}
-		}
-		GetNowClock(&cl);
-		s_i64Clock = *(__int64*)&cl;//새로운 기준점 클럭을 셋팅
-	}
-*/
+	//	if(i64Result)//평균 재서 m_i64Clock와 얼마나 차이나는지 확인
+	//	{
+	//		const __int64 i64NowClock = i64Result*1000/dwTimeGab;
+	//		//::AddCurrentStatusMessage(FONT_COLOR_RED,"%d",i64NowClock);
+	//		if( i64NowClock )//5%정도로 끊으면 좋을까? .. -_-;..
+	//		{
+	//			if( m_i64Clock + (m_i64Clock*3/100) < i64NowClock //3% 허용 오차를 벗어나면
+	//			||	m_i64Clock - (m_i64Clock*3/100) > i64NowClock )
+	//			{
+	//				//JustMsg("Your System have problem");
+	//				//g_DBGLog.Log(LOG_LV1, "Your System have problem (%d)", m_i64Clock);//모드 셋팅 기록 될 파일의 고유 이름입니다.
+	//				//g_DBGLog.Log(LOG_LV1, "Your System have problem2 (%d)", i64NowClock);//모드 셋팅 기록 될 파일의 고유 이름입니다.
+	//				//::ExitApplication(EA_CPU_CLOCK_ERROR);
+	//				//::exit(0);
+	//			}
+	//		}
+	//	}
+	//	GetNowClock(&cl);
+	//	s_i64Clock = *(__int64*)&cl;//새로운 기준점 클럭을 셋팅
+	//}
 
 	if(!IsCrackThreadRun())
 	{
 		::ExitApplication(EA_CRACK_THREAD_FIND_CRACK);
 	}
-//서버엑셀레이터
+	//서버엑셀레이터
 	if	((	!dwRecommandTime && dwRecvedTime)
 		||(	dwRecommandTime && !dwRecvedTime))
 	{//어느 한쪽만 셋팅이 될때
@@ -152,17 +151,17 @@ bool CCrackMgr::StartCrackThread()//크랙 체크 쓰레드 시작하게 하기
 	// Get the build number.
 	if (dwVersion < 0x80000000)              // Windows NT/2000/XP
 	{
-//		dwBuild = (DWORD)(HIWORD(dwVersion));
+		//dwBuild = (DWORD)(HIWORD(dwVersion));
 		SetThreadApplyGab(500);
 	}
 	else if (dwWindowsMajorVersion < 4)      // Win32s
 	{
-//		dwBuild = (DWORD)(HIWORD(dwVersion) & ~0x8000);
+		//dwBuild = (DWORD)(HIWORD(dwVersion) & ~0x8000);
 		SetThreadApplyGab(1500);
 	}
 	else                                     // Windows 95/98/Me
 	{
-//		dwBuild =  0;
+		//dwBuild =  0;
 		SetThreadApplyGab(2000);
 	}
 
@@ -236,8 +235,8 @@ unsigned __stdcall CrackCheckThread(LPVOID pValue)
 		DWORD dwRetTGT = dwNowTGT-dwPrevTGT;
 		if(	i1Sec+CrackMgr.GetThreadApplyGab() < dwRetTGT)
 		{
-//			g_DBGLog.Log(LOG_LV1, "Your System have problem Type(%d) ", dwRetTGT);//	,dwRetGTC);//모드 셋팅 기록 될 파일의 고유 이름입니다.
-//			::ExitApplication(EA_CRACK_THREAD_FIND_CRACK);
+			//g_DBGLog.Log(LOG_LV1, "Your System have problem Type(%d) ", dwRetTGT);//	,dwRetGTC);//모드 셋팅 기록 될 파일의 고유 이름입니다.
+			//::ExitApplication(EA_CRACK_THREAD_FIND_CRACK);
 			bTGT_SLP = true;
 		}
 
@@ -270,8 +269,8 @@ unsigned __stdcall CrackCheckThread(LPVOID pValue)
 		dwRetTGT = dwNowTGT-dwPrevTGT;
 		if(	i1Sec+CrackMgr.GetThreadApplyGab() < dwRetTGT)
 		{
-//			g_DBGLog.Log(LOG_LV1, "Your System have problem Type(%d) ", dwRetTGT);//	,dwRetGTC);//모드 셋팅 기록 될 파일의 고유 이름입니다.
-//			::ExitApplication(EA_CRACK_THREAD_FIND_CRACK);
+			//g_DBGLog.Log(LOG_LV1, "Your System have problem Type(%d) ", dwRetTGT);//	,dwRetGTC);//모드 셋팅 기록 될 파일의 고유 이름입니다.
+			//::ExitApplication(EA_CRACK_THREAD_FIND_CRACK);
 			bTGT_GTC = true;
 		}
 		
@@ -323,7 +322,7 @@ unsigned __stdcall CrackCheckThread(LPVOID pValue)
 		{
 			//어느 문제인지 알수가 없다.
 			strcpy(p.u.Accel_Type.strMsg,"Unknown");
-//			::QueuePacket(&p,1);//서버로 보낸다.
+			//::QueuePacket(&p,1);//서버로 보낸다.
 		}
 		
 	}

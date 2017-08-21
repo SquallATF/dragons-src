@@ -11526,7 +11526,7 @@ void CheckingFilter()
 	
 	return;
 ERROR1_ :
-	CheckSumError=20007;
+	CheckSumError= CHECKSUM_ERROR_ACCELATOR_USER;
 	return;
 #endif
 }

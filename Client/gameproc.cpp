@@ -386,8 +386,8 @@ void DisplayDebug(void)
 		{
 			switch (SkillStatus)
 			{
-			case SKILL_ON: Hprint2(200, 180, g_DestBackBuf, "Skill_ON");		break;
-			case SKILL_ING:  Hprint2(200, 180, g_DestBackBuf, "Skill_ING");	break;
+			case SKILL_ON: Hprint2(200, 180, g_DestBackBuf, "Skill_ON"); break;
+			case SKILL_ING:  Hprint2(200, 180, g_DestBackBuf, "Skill_ING"); break;
 			}
 		}
 

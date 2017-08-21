@@ -11,7 +11,7 @@
 #define CHECKSUM_ERROR_MOVEPATTERN		20004				//NPC의 이동패턴 테이블 로딩 에러
 #define CHECKSUM_ERROR_ANIMATIONDATA	20005
 #define CHECKSUM_ERROR_ATTACKRANGE		20006
-#define CHECKSUM_ERROR_ACCELATOR_USER	20007//010605 lms
+#define CHECKSUM_ERROR_ACCELATOR_USER	20007	//010605 lms
 
 
 #define MANDEAD1	66	
@@ -68,15 +68,15 @@ enum EFFECT_TYPE
 	LOCAL_CLASH = 25       // 지역 충돌
 };	//> CSD-TW-030606
 
-#define		DAY_			     0
-#define		NIGHT_			   1
+#define		DAY_					0
+#define		NIGHT_					1
 
-#define HIT_FAILED			      0
-#define HIT_AND_DEAD		      1
-#define HIT_AND_NOTDEAD	      2
-#define HIT_AND_ALIVE		      3
-#define HIT_GHOSTRESURRECTION 4
-#define HIT_SUMMONING	        5
+#define HIT_FAILED					0
+#define HIT_AND_DEAD				1
+#define HIT_AND_NOTDEAD				2
+#define HIT_AND_ALIVE				3
+#define HIT_GHOSTRESURRECTION		4
+#define HIT_SUMMONING				5
 
 ///////////////////////////////////////////////////////////////////////////////
 //

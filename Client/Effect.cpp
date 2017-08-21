@@ -129,7 +129,7 @@ int	ReturnRoonWord(LPCHARACTER caster, int magic_Num)
 		//if(SCharacterData.nCharacterData[SPELL])	//성직자인 경우
 	{
 		
-		if(caster->sex)		//남자
+		if(caster->sex)		// 남자
 		{
 			switch(rand()%3)
 			{
@@ -144,7 +144,7 @@ int	ReturnRoonWord(LPCHARACTER caster, int magic_Num)
 				break;
 			}
 		}
-		else				//여자
+		else				// 여자
 		{
 			switch(rand()%4)
 			{
@@ -163,7 +163,7 @@ int	ReturnRoonWord(LPCHARACTER caster, int magic_Num)
 			}
 		}
 	}
-	else										//마법사인 경우
+	else					// 마법사인 경우
 	{
 		switch(magic_Num)
 		{

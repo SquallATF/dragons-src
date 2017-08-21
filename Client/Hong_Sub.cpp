@@ -147,15 +147,15 @@ public :
 
 FILE *FopenSub_( char *name, char *filemode, char *wherefile, int line )
 { 
-	/*
-	// thai2 YGI
-#ifdef _DEBUG
-	if( temp_fp.m_fp )
-	{
-		fprintf( temp_fp.m_fp, "%s\n", name );
-	}
-#endif
-	*/
+	
+//	 thai2 YGI
+//#ifdef _DEBUG
+//	if( temp_fp.m_fp )
+//	{
+//		fprintf( temp_fp.m_fp, "%s\n", name );
+//	}
+//#endif
+	
 
 	FILE *fp;
 	if(checkbeta == 2 )//한번만 호출되는 부분.. 어째되던 값이 0또는 1로 
@@ -352,7 +352,7 @@ void JustMsg( const char *s, ... )
 	
 int BoxAndDotCrash( int dx, int dy, int dxl, int dyl, int x, int y )
 {
-//	BoxOneColor( dx + IMapX, dy+ IMapY, dxl, dyl, 255);
+	// BoxOneColor( dx + IMapX, dy+ IMapY, dxl, dyl, 255);
 	if( dx <= x && x <= dx + dxl  ) if( dy <= y && y <= dy+dyl ) return 1;
 	return 0;
 }	
@@ -365,7 +365,7 @@ int BoxAndBoxCrash( int ax, int ay, int axl, int ayl,  int bx, int by, int bxl, 
 /////////////////////////////// 이규훈 1025 수정 /////////////////////////////////////////////	
 int BoxAndDotCrash( int dx, int dy, int dxl, int dyl, int x, int y, int dz, int dzl, int z)
 {
-//	BoxOneColor( dx + IMapX, dy+ IMapY, dxl, dyl, 255);
+	// BoxOneColor( dx + IMapX, dy+ IMapY, dxl, dyl, 255);
 	if( dx <= x && x <= dx + dxl  ) if( dy <= y && y <= dy+dyl )
 		if(dz<=z && z<=dz+dzl)	return 1;		//높이값 체크		
 		else					return 0;
@@ -411,16 +411,11 @@ int ViewCheckRoutine( const int t )
 #endif
 }					
 
-
-
-
-
 int Determinant( int ax, int ay, int bx, int by, int X, int Y)
 {
 	int ret = ( ax * ( by - Y ) - ay * ( bx - X ) + bx * Y - (by * X ));
 	return ret;
 }
-
 
 
 int IsInBox( int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int x, int y )
@@ -537,13 +532,13 @@ void CaptureScreen ( void )
 	}	
 }		
 		
-/*		
-		31536000	= 1 year.
-		2592000		= 1 month.
-		86400		= 1 day.
-		3600		= 1 hour.
-		60			= 1 min.
-*/		
+		
+//31536000	= 1 year.
+//2592000		= 1 month.
+//86400		= 1 day.
+//3600		= 1 hour.
+//60			= 1 min.
+		
 
 void Log( char *msg, char *name, ... )
 {
@@ -587,8 +582,8 @@ void	ReturnCircleResult(int s_X, int s_Y, int e_X, int e_Y, float &result_X, flo
 	result_X += s_X;
 	result_Y += s_Y;
 					
-//	sprintf(temp, "%3.1f-%3.1f", result_X, result_Y);
-//	MessageBox(NULL, temp, 0, MB_OK);
+	//sprintf(temp, "%3.1f-%3.1f", result_X, result_Y);
+	//MessageBox(NULL, temp, 0, MB_OK);
 }					
 
 int ReturnFileNumber( char *sou )
@@ -892,11 +887,11 @@ int GetWindowVersion( void )
 {
 	DWORD dwVersion = GetVersion();
 	
-//  Get the Windows version.
+	// Get the Windows version.
 	DWORD dwWindowsMajorVersion =  (DWORD)(LOBYTE(LOWORD(dwVersion)));
 	DWORD dwWindowsMinorVersion =  (DWORD)(HIBYTE(LOWORD(dwVersion)));
 	
-// Get the build number.
+	// Get the build number.
 	
 	if (dwVersion < 0x80000000)              // Windows NT/2000, Whistler
 		return WV_NT_;
@@ -912,67 +907,67 @@ int GetWindowVersion( void )
 
 #define FREE_INT_NO 5	
 void Ring0()
-{	//瞳Windows9x苟쏵흙ring0빈쏵契돨꾸鱗
-	__asm   
-	{       
-		cli 
-		mov al,34h
-		out 43h,al	//畇흙8253왠齡셍닸포， 阮촛?뵀땍珂포
-		mov ax,bx 	
-		out 40h,al	//畇땍珂令됴貫
-		mov al,ah 
-		out 40h,al	//畇땍珂令멕貫
-		sti 
+{	//在Windows9x下进入ring0后进行的操作
+	__asm
+	{
+		cli
+		mov al, 34h
+		out 43h, al	//写入8253控制寄存器，设置写0号定时器
+		mov ax, bx
+		out 40h, al	//写定时值低位
+		mov al, ah
+		out 40h, al	//写定时值高位
+		sti
 		iretd;
-	}       
-}           
-             
+	}
+}
+
 
 
 void SetClock9x(int freq)
 {
 	union Function_Pointer
 	{
-		void (*pointer)();
+		void(*pointer)();
 		char bytes[sizeof(void *)];
-	}OldIntAddress,NewIntAddress;
+	}OldIntAddress, NewIntAddress;
 
-	int IDTAddress;		//IDT깊샘뒈囹
-	int IDTItemAddress;	//狼錦맣돨櫓뙤쳔杰瞳뒈囹
-	char *Pointer;	//狼錦맣돨櫓뙤쳔杰瞳뒈囹，寧濾近駕
+	int IDTAddress;		//IDT表基地址
+	int IDTItemAddress;	//要修改的中断门所在地址
+	char *Pointer;		//要修改的中断门所在地址，指针形式
 
 	__asm
 	{
 		push eax
-		sidt [esp-2]
+		sidt[esp - 2]
 		pop eax
-		mov IDTAddress,eax	//돤돕IDT깊샘뒈囹
+		mov IDTAddress, eax	//得到IDT表基地址
 	}
-	
-	IDTItemAddress=FREE_INT_NO*8+IDTAddress;
-	Pointer=(char *)IDTItemAddress;
-	NewIntAddress.pointer=Ring0;
-	
-	OldIntAddress.bytes[0]=Pointer[0];
-	OldIntAddress.bytes[1]=Pointer[1];
-	OldIntAddress.bytes[2]=Pointer[6];
-	OldIntAddress.bytes[3]=Pointer[7];	//괏닸앉돨櫓뙤쳔
 
-	Pointer[0]=NewIntAddress.bytes[0];
-	Pointer[1]=NewIntAddress.bytes[1];
-	Pointer[6]=NewIntAddress.bytes[2];
-	Pointer[7]=NewIntAddress.bytes[3]; //
-	
+	IDTItemAddress = FREE_INT_NO * 8 + IDTAddress;
+	Pointer = (char *)IDTItemAddress;
+	NewIntAddress.pointer = Ring0;
+
+	OldIntAddress.bytes[0] = Pointer[0];
+	OldIntAddress.bytes[1] = Pointer[1];
+	OldIntAddress.bytes[2] = Pointer[6];
+	OldIntAddress.bytes[3] = Pointer[7];	//保存旧的中断门
+
+	Pointer[0] = NewIntAddress.bytes[0];
+	Pointer[1] = NewIntAddress.bytes[1];
+	Pointer[6] = NewIntAddress.bytes[2];
+	Pointer[7] = NewIntAddress.bytes[3];	//设置新的中断门
+
 	__asm
 	{
-		mov ebx,freq
-		int FREE_INT_NO			//끓 ing0
+		mov ebx, freq
+		int FREE_INT_NO			//产生中断，进入ring0
 	}
 
-	Pointer[0]=OldIntAddress.bytes[0];
-	Pointer[1]=OldIntAddress.bytes[1];
-	Pointer[6]=OldIntAddress.bytes[2];
-	Pointer[7]=OldIntAddress.bytes[3];	//뿟릿앉돨櫓뙤쳔
+	Pointer[0] = OldIntAddress.bytes[0];
+	Pointer[1] = OldIntAddress.bytes[1];
+	Pointer[6] = OldIntAddress.bytes[2];
+	Pointer[7] = OldIntAddress.bytes[3];	//恢复旧的中断门
 }
 
 void CurrentGameDate( DWORD t, int *y, int *mo, int *d, int *h, int *mi, int *sec )
