@@ -788,12 +788,12 @@ char* CClientBill::ReturnUniteWebIP(char *Name)
 	return NULL;	
 }
 
-/*
-int		CClientBill::Check_UnitelWeb()		//나 웹이서 들어오는 유니텔?
-{
-	return 0;
-}
-*/
+//
+//int CClientBill::Check_UnitelWeb()		//나 웹이서 들어오는 유니텔?
+//{
+//	return 0;
+//}
+
 int		CClientBill::Check_Chollian()		//나 천리안?
 {
 	if(CommandNum!=4) return 0;
@@ -1298,9 +1298,6 @@ int		CClientBill::Check_Thrunet()		//나 두루넷?
 	}
 //	MessageBox(NULL,buf,"thrunet",NULL);	
 
-	
-	
-
 	HRESULT	hr = NOERROR;
 	bool	fComInitialized = false;
 	if (FAILED(hr = ::CoInitialize(NULL)))
@@ -1400,30 +1397,30 @@ int		CClientBill::Channel_i_StartUP()	//채널아이에서 넘어온 부분. 라
 
 int		CClientBill::Channel_i_SendEncryptedData()	//채널아이에서 제공한 dll에서 알아서 아이디와 암호를 전송한다.
 {
-//	WSADATA				wsaData;
-//	SOCKET				sockfd;
-//	struct sockaddr_in	serv_addr;
+	//WSADATA				wsaData;
+	//SOCKET				sockfd;
+	//struct sockaddr_in	serv_addr;
 
 
 	//
 	// winsock initialization
 	//
-//	if (WSAStartup(0x202, &wsaData) == SOCKET_ERROR) {
-//		goto cleanup;
-//	}
+	//if (WSAStartup(0x202, &wsaData) == SOCKET_ERROR) {
+	//	goto cleanup;
+	//}
 
-//	memset(&serv_addr, 0, sizeof(serv_addr));
-//	serv_addr.sin_family = AF_INET;
-//	serv_addr.sin_addr.s_addr = inet_addr(m_SessParam.lpszIPAddress);
-//	serv_addr.sin_port = htons(m_SessParam.nPortNum);
+	//memset(&serv_addr, 0, sizeof(serv_addr));
+	//serv_addr.sin_family = AF_INET;
+	//serv_addr.sin_addr.s_addr = inet_addr(m_SessParam.lpszIPAddress);
+	//serv_addr.sin_port = htons(m_SessParam.nPortNum);
 
-//	if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-//		goto cleanup;
-//	}
+	//if ((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
+	//	goto cleanup;
+	//}
 
-//	if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-//		goto cleanup;
-//	}else{ //connect에 성공했을때 바로 SendEncryptedData함수를 불러야 함.
+	//if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+	//	goto cleanup;
+	//}else{ //connect에 성공했을때 바로 SendEncryptedData함수를 불러야 함.
 
 
 
@@ -1440,8 +1437,8 @@ int		CClientBill::Channel_i_SendEncryptedData()	//채널아이에서 제공한 d
 	else
 	{			
 		DWORD dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, connections.socket);
-	//	DWORD dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, connections[curr_connect].socket);
-	//	DWORD dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, sockfd);
+		//DWORD dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, connections[curr_connect].socket);
+		//DWORD dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, sockfd);
 		//Data(ID/Pwd)를 Encryption하여 MugProxy에 전달.
 
 		if(dwRet == 0){
@@ -1451,9 +1448,9 @@ int		CClientBill::Channel_i_SendEncryptedData()	//채널아이에서 제공한 d
 			int t=0;
 			while(t)
 			{
-			//	dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, sockfd);
+				//dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, sockfd);
 				dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, connections.socket);
-			//	dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, connections[curr_connect].socket);
+				//dwRet = lpfnDllFunc(m_SessParam.lpszUserName, m_SessParam.lpszPassword, connections[curr_connect].socket);
 				if(dwRet==0)
 					return 1;
 				else
@@ -1464,18 +1461,15 @@ int		CClientBill::Channel_i_SendEncryptedData()	//채널아이에서 제공한 d
 			// Proxy Server로 부터 Public Key, Random Seed를 받아 Data를 Encryption해서 보내는 데 실패함.
 			// 이때에는 프로그램을 종료하던지, Reconnect를 시도 해야 함.
 		}
-
 	}
 
-//	}
-
-//	cleanup:
+	//cleanup:
 
 	if (connections.socket)
 		closesocket(connections.socket);
 
-//	if (connections[curr_connect].socket)
-//		closesocket(connections[curr_connect].socket);
+	//if (connections[curr_connect].socket)
+	//	closesocket(connections[curr_connect].socket);
 
 	WSACleanup();
 	PostQuitMessage(0);
@@ -1956,21 +1950,19 @@ bool	CClientBill::Receive_sub( t_connection *c)
 }
 
 
-/*
-int CClientBill::Netsgo_connect_gatewayd(char *host_nm,int port_no)
-{
-	int  serv_sock;
-	int  rtncd,ok;
-	
-
-	//	if ((serv_sock = connect(host_nm,port_no)) < 0)    //socket connect (socket(), connect()) 
-	
-	return (-1);
-	return serv_sock;
-}
-*/
-
-
+//
+//int CClientBill::Netsgo_connect_gatewayd(char *host_nm,int port_no)
+//{
+//	int  serv_sock;
+//	int  rtncd,ok;
+//	
+//
+//	//	if ((serv_sock = connect(host_nm,port_no)) < 0)    //socket connect (socket(), connect()) 
+//	
+//	return (-1);
+//	return serv_sock;
+//}
+//
 
 //int(2byte)      //user id  length,     
 //string(length)   //user id
@@ -2039,7 +2031,7 @@ int		CClientBill::Thrunet_SendMessage()
 	short int answer;
 
 	ret = WaitingTheAnswerForTHTUNET( &connections, &answer );
-//	ret = WaitingTheAnswerForTHTUNET( &connections[curr_connect], &answer );
+	//ret = WaitingTheAnswerForTHTUNET( &connections[curr_connect], &answer );
 
 	if( ret == false ) 
 	{
@@ -2157,8 +2149,8 @@ int	CClientBill::MakePaySocket(int How)
 	u_long argp = 1;
 	ioctlsocket ( sockfd , FIONBIO, &argp);
 	int ret = connect( sockfd , ( LPSOCKADDR )&addr, sizeof( addr ) );
-//	if(ret<0)
-//		PostQuitMessage(0);
+	//if(ret<0)
+	//	PostQuitMessage(0);
 		
 	for( i = 0 ; i < 4 ; i ++)
 	{	
@@ -2193,11 +2185,7 @@ void	CClientBill::HeartBeatToGameSocket()	//실제 게임용으로 열린 소켓
 	SendAliveCheckRoutine();
 }
 
-
-
-////////////////////////
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 // 답이 날라오면  bool *answer에 값이 답이 들어가고  true를 리턴한다. 
 // 답이 없으면    answer에 값을 넣지 않고 false를 리턴한다. 
 bool WaitingTheAnswerForTHTUNET_sub( t_connection *c, short int *answer )
@@ -2395,7 +2383,7 @@ void CUnicheck::Uniwin_GetUniwinInfo()
 	*pUserName = '\0';
 
 	Uniwin_RunningStatus=0;
-//	memset(szpUniwinDirectory,0,100);
+	//memset(szpUniwinDirectory,0,100);
 	memset(Uniwin_szpUserID,0,100);
 	memset(Uniwin_szpUserName,0,100);
 
@@ -2436,13 +2424,13 @@ void CUnicheck::Uniwin_GetUniwinInfo()
 
 			Uniwin_RunningStatus = bRunningStatus;
 			
-	//		memcpy(szpUniwinDirectory, pUniwinDirectory,100);
+			//memcpy(szpUniwinDirectory, pUniwinDirectory,100);
 			memcpy(Uniwin_szpUserID , pUserID,strlen(pUserID));
 			memcpy(Uniwin_szpUserName , pUserName,strlen(pUserName));
-	//		MessageBox(NULL,pUniwinDirectory,"Directory",NULL);
-	//		MessageBox(NULL,pUserID,"ID",NULL);
-	//		MessageBox(NULL,pUserName,"Name",NULL);
-		//	MessageBox(NULL,pUserID,"ID",NULL);
+			//MessageBox(NULL,pUniwinDirectory,"Directory",NULL);
+			//MessageBox(NULL,pUserID,"ID",NULL);
+			//MessageBox(NULL,pUserName,"Name",NULL);
+			//MessageBox(NULL,pUserID,"ID",NULL);
 		}
 		::FreeLibrary(hGlobalUll);
 	}
@@ -2451,15 +2439,15 @@ void CUnicheck::Uniwin_GetUniwinInfo()
 	delete pGlobalUll;
 	delete pUserID;
 	delete pUserName;
-//	UpdateData(FALSE);
+	//UpdateData(FALSE);
 }
 
 void	CUnicheck::Uniwin_Init(HWND hwnd)
 {
-//	_asm int 3;
+	//_asm int 3;
 	Uniwin_m_hWnd=hwnd;
 	g_unitel->Uniwin_StartCheckUniwin(hwnd,UM_TERMINATENOTIFY);
-//	g_unitel->Uniwin_StartCheckUniwin(NULL,UM_TERMINATENOTIFY);
+	//g_unitel->Uniwin_StartCheckUniwin(NULL,UM_TERMINATENOTIFY);
 	g_unitel->Uniwin_GetUniwinInfo();
 	char FromUnitel[100],FromArgument[100];
 	memset(FromUnitel,0,100);
@@ -2502,12 +2490,12 @@ char* CUnicheck::ReturnUniteIP(char *Name)
 			inAddr.S_un.S_un_b.s_b4);
 		return UnitelIP;
 
-	//	m_strResult.Format("DWORD:%X,ToSTR: %d.%d.%d.%d", 
-	//		inAddr.S_un.S_addr, 
-	//		inAddr.S_un.S_un_b.s_b1, 
-	//		inAddr.S_un.S_un_b.s_b2, 
-	//		inAddr.S_un.S_un_b.s_b3, 
-	//		inAddr.S_un.S_un_b.s_b4);
+		//m_strResult.Format("DWORD:%X,ToSTR: %d.%d.%d.%d", 
+		//	inAddr.S_un.S_addr, 
+		//	inAddr.S_un.S_un_b.s_b1, 
+		//	inAddr.S_un.S_un_b.s_b2, 
+		//	inAddr.S_un.S_un_b.s_b3, 
+		//	inAddr.S_un.S_un_b.s_b4);
 	}	
 	return NULL;
 	

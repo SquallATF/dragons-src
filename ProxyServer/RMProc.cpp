@@ -516,57 +516,54 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 		}
 		break;
 
-			/*
-			MANAGER_TO_MAP_PACKET PacketToMap;
-			char dummy[612];
-			int len;
-			
-			PacketToMap.h.header.type = CMD_BBS;
-			PacketToMap.h.header.size = pPacket->b.MgrPublicNoticePacket.wLengthOfMsg;
-			strncpy( PacketToMap.u.PublicNotice.msg, pPacket->b.MgrPublicNoticePacket.szMessage, PacketToMap.h.header.size );
+		//
+		//MANAGER_TO_MAP_PACKET PacketToMap;
+		//char dummy[612];
+		//int len;
+		//
+		//PacketToMap.h.header.type = CMD_BBS;
+		//PacketToMap.h.header.size = pPacket->b.MgrPublicNoticePacket.wLengthOfMsg;
+		//strncpy( PacketToMap.u.PublicNotice.msg, pPacket->b.MgrPublicNoticePacket.szMessage, PacketToMap.h.header.size );
 
-			len = sizeof( PacketToMap.h ) + PacketToMap.h.header.size;
+		//len = sizeof( PacketToMap.h ) + PacketToMap.h.header.size;
 
-			dummy[0] = (BYTE)PTCL_BROADCAST_TO_SERVERS;
-			memcpy( dummy+1, (char*)&PacketToMap, len );
+		//dummy[0] = (BYTE)PTCL_BROADCAST_TO_SERVERS;
+		//memcpy( dummy+1, (char*)&PacketToMap, len );
 
-			LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( pPacket->b.MgrPublicNoticePacket.wPort );
+		//LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( pPacket->b.MgrPublicNoticePacket.wPort );
 
-			if( !g_pServerTable->Send( pServerData->dwConnectionIndex, (char *)dummy, len+1 ) )
-			{
-				MyLog( LOG_IMPORTANT, "Failed To Send For Public Notice" );
-			}
-			*/
+		//if( !g_pServerTable->Send( pServerData->dwConnectionIndex, (char *)dummy, len+1 ) )
+		//{
+		//	MyLog( LOG_IMPORTANT, "Failed To Send For Public Notice" );
+		//}
+		//
 
-	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	////Tool에서 서버들 정보 요구 ~
+	//case MSG_RM_REQUEST_SERVER_STATUS:
+	//	{
+	//		LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( pPacket->b.MgrSubServerRequestPacket.wPort );
+	//		
+	//		if( pServerData != NULL )
+	//		{
+	//			pSendPacket->b.MgrServerStatusPacket.dwStatus = pServerData->dwStatus;
+	//			pSendPacket->b.MgrServerStatusPacket.dwNumOfUsers = pServerData->dwNumOfUsers;
 
+	//			if( !AnswerToManager( pSendPacket, sizeof(MANAGER_PACKET_HEADER) + (sizeof(DWORD) * 2) ) )
+	//			{
+	//				MyLog( LOG_NORMAL, "MSG_RM_REQUEST_SERVER_STATUS :: Failed To Answer" );
+	//				break;
+	//			}
+	//		}
+	//		else
+	//		{
+	//			MyLog( LOG_NORMAL, "MSG_RM_REQUEST_SERVER_STATUS :: Failed To Answer" );
+	//			break;
+	//		}
+	//	
+	//	}
+	//	break;
 
-/*
-	//Tool에서 서버들 정보 요구 ~
-	case MSG_RM_REQUEST_SERVER_STATUS:
-		{
-			LP_SERVER_DATA pServerData = g_pServerTable->GetServerData( pPacket->b.MgrSubServerRequestPacket.wPort );
-			
-			if( pServerData != NULL )
-			{
-				pSendPacket->b.MgrServerStatusPacket.dwStatus = pServerData->dwStatus;
-				pSendPacket->b.MgrServerStatusPacket.dwNumOfUsers = pServerData->dwNumOfUsers;
-
-				if( !AnswerToManager( pSendPacket, sizeof(MANAGER_PACKET_HEADER) + (sizeof(DWORD) * 2) ) )
-				{
-					MyLog( LOG_NORMAL, "MSG_RM_REQUEST_SERVER_STATUS :: Failed To Answer" );
-					break;
-				}
-			}
-			else
-			{
-				MyLog( LOG_NORMAL, "MSG_RM_REQUEST_SERVER_STATUS :: Failed To Answer" );
-				break;
-			}
-		
-		}
-		break;
-*/
 
 	//--------------------------------------------------------------------------------------------
 	//									Listener Packet
@@ -588,13 +585,13 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 			// 쩝 이렇게 해서 얻는 서버 이름은 .. 속도가 너무 느려..  서버 부하가 된다..
 			// 무식하더라도.. 로그인 패킷에 서버 이름을 보내자..
-			/*
-			in_addr addr;
-			addr.S_un = g_pINet->GetServerAddress( dwConnectionIndex )->sin_addr.S_un;
-			char ip[20];	memset(ip,0,20);
-			memcpy(ip,inet_ntoa(addr),strlen(inet_ntoa(addr)));
-			gethostbyaddr( ip,20,AF_INET); 
-			*/
+			//
+			//in_addr addr;
+			//addr.S_un = g_pINet->GetServerAddress( dwConnectionIndex )->sin_addr.S_un;
+			//char ip[20];	memset(ip,0,20);
+			//memcpy(ip,inet_ntoa(addr),strlen(inet_ntoa(addr)));
+			//gethostbyaddr( ip,20,AF_INET); 
+			//
 			//addr.S_un = g_pINet->GetUserAddress( info->ConnectionIndex )->sin_addr.S_un;
 			//SetDlgItemText(hdlg,IDC_IPADDRESS,inet_ntoa(addr));
 		}

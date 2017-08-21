@@ -1119,7 +1119,7 @@ void RecvCMD_ANSWER_VOTE_DATA(t_packet* p)					// Nation War Join Interface Open
 	if (p->u.NationWar.VoteData.WarfieldNo>=0)
 	{
 		//그래프로 그리기
-//		p->u.NationWar.VoteData.WarfieldNo, ->전쟁터 넘버
+		//p->u.NationWar.VoteData.WarfieldNo, ->전쟁터 넘버
 
 		switch(p->u.NationWar.VoteData.WarfieldNo)
 		{
@@ -1290,9 +1290,9 @@ void SendCMD_REQUEST_COMMANDER_VOTE_DATA(int CandidaterNo)	// Request Commander 
 void RecvCMD_ANSWER_COMMANDER_VOTE_DATA(t_packet* p)		// Answer Commander Candidater Information
 {
 	//이거도 바꿔야 됨 만들어 놓았음
-//	AddCurrentStatusMessage( 255,255,0, "사령관 후보 %d의 데이터입니다.",p->u.NationWar.CommanderVoteData.VoteNo);
-//	AddCurrentStatusMessage( 255,255,0, "후보ID : %d, 후보이름 : %s",p->u.NationWar.CommanderVoteData.CandidaterID,p->u.NationWar.CommanderVoteData.Name);
-//	AddCurrentStatusMessage( 255,255,0, "레벨 : %d, 명성치 : %d, 지지표 :%d",p->u.NationWar.CommanderVoteData.Level,p->u.NationWar.CommanderVoteData.Fame,p->u.NationWar.CommanderVoteData.VoteCount);
+	//AddCurrentStatusMessage( 255,255,0, "사령관 후보 %d의 데이터입니다.",p->u.NationWar.CommanderVoteData.VoteNo);
+	//AddCurrentStatusMessage( 255,255,0, "후보ID : %d, 후보이름 : %s",p->u.NationWar.CommanderVoteData.CandidaterID,p->u.NationWar.CommanderVoteData.Name);
+	//AddCurrentStatusMessage( 255,255,0, "레벨 : %d, 명성치 : %d, 지지표 :%d",p->u.NationWar.CommanderVoteData.Level,p->u.NationWar.CommanderVoteData.Fame,p->u.NationWar.CommanderVoteData.VoteCount);
 	g_CommanderCandidaterLevel = p->u.NationWar.CommanderVoteData.Level;
 	
 	if(p->u.NationWar.CommanderVoteData.CandidaterID != 0)
@@ -1590,11 +1590,11 @@ void SendCMD_FREELANCER_SQUAD_JOIN(int Nation)
 	{
 	case NW_ZY : 
 		CallOkCancelMessageBox(TRUE, 0,0, lan->OutputMessage(0,240), FALSE); //"이번 전쟁에서 [자이펀] 용병으로 소속됐습니다."
-//		Hero->NWCharacter.YL_JoinNation=NW_ZY;	// 011020 LTS
+		//Hero->NWCharacter.YL_JoinNation=NW_ZY;	// 011020 LTS
 		break;
 	case NW_BY : 
 		CallOkCancelMessageBox(TRUE, 0,0,lan->OutputMessage(0,241), FALSE); //"이번 전쟁에서 [바이서스] 용병으로 소속됐습니다."
-//		Hero->NWCharacter.YL_JoinNation=NW_BY;	// 011020 LTS
+		//Hero->NWCharacter.YL_JoinNation=NW_BY;	// 011020 LTS
 		break;
 	}
 }
@@ -2579,7 +2579,7 @@ void RecvCMD_WAR_BBS(t_packet* p)						// 전쟁 BBS관련 모든것을 처리�
 		case BBS_CASTLEGATEWAY_BROKED	:	ProcessBBS_CASTLEGATEWAY_BROKED(p,msg);		break;
 		case BBS_COMMANDER_DEATH		:	ProcessBBS_COMMANDER_DEATH(p,msg);			break;
 		case BBS_COMMANDER_CHAT			:	ProcessBBS_COMMANDER_CHAT(p,msg);			break;
-//		case BBS_WAR_DEFEAT :
+		//case BBS_WAR_DEFEAT :
 		case BBS_WAR_VICTORY			:	ProcessBBS_WAR_VICTORY(p,msg);				break;
 		case BBS_BONUS_OPEN				:	ProcessBBS_BONUS_OPEN(p,msg);				break;
 		case BBS_KILLER					:	ProcessBBS_KILLER(p,msg);					break;
@@ -3192,9 +3192,9 @@ void ProcessPeace1D(t_packet *p)		// 011025 LTS
 	WORD Hour3,Min3,Sec3;
 
 	IntoNationNotice(ALL_CLEAR,1,NULL);
-//	ReturnWarfieldName(p->u.NationWar.NoticeWarPeace1D.WarfieldNo,WarfieldName);
-//	sprintf(tempMessage,lan->OutputMessage(0,314),WarfieldName,p->u.NationWar.NoticeWarPeace1D.Money);
-//	IntoNationNotice(FORCE_TYPE,1,tempMessage);
+	//ReturnWarfieldName(p->u.NationWar.NoticeWarPeace1D.WarfieldNo,WarfieldName);
+	//sprintf(tempMessage,lan->OutputMessage(0,314),WarfieldName,p->u.NationWar.NoticeWarPeace1D.Money);
+	//IntoNationNotice(FORCE_TYPE,1,tempMessage);
 	sprintf(tempMessage,lan->OutputMessage(0,317));
 	IntoNationNotice(FORCE_TYPE,1,tempMessage);
 	GetTime(p->u.NationWar.NoticeWarPeace1D.Warfield1RemainTime,Hour1,Min1,Sec1);
@@ -3324,21 +3324,21 @@ void ProcessPeace2Reinforce(t_packet *p)	// 011025 LTS
 	ProcessPeace2(p);
 	return;
 
-/*	char tempMessage[500];
-	WORD Hour1,Min1,Sec1;
-	WORD Hour2,Min2,Sec2;
-	WORD Hour3,Min3,Sec3;
+	//char tempMessage[500];
+	//WORD Hour1,Min1,Sec1;
+	//WORD Hour2,Min2,Sec2;
+	//WORD Hour3,Min3,Sec3;
 
-	IntoNationNotice(ALL_CLEAR,1,NULL);
-	sprintf(tempMessage,lan->OutputMessage(0,318));
-	IntoNationNotice(FORCE_TYPE,1,tempMessage);
-	GetTime(p->u.NationWar.NoticeWarPeace2.Warfield1RemainTime,Hour1,Min1,Sec1);
-	GetTime(p->u.NationWar.NoticeWarPeace2.Warfield2RemainTime,Hour2,Min2,Sec2);
-	GetTime(p->u.NationWar.NoticeWarPeace2.Warfield3RemainTime,Hour3,Min3,Sec3);
-	sprintf(tempMessage,lan->OutputMessage(0,325),Hour1,Min1,Hour2,Min2,Hour3,Min3);
-	IntoNationNotice(FORCE_TYPE,2,tempMessage);
+	//IntoNationNotice(ALL_CLEAR,1,NULL);
+	//sprintf(tempMessage,lan->OutputMessage(0,318));
+	//IntoNationNotice(FORCE_TYPE,1,tempMessage);
+	//GetTime(p->u.NationWar.NoticeWarPeace2.Warfield1RemainTime,Hour1,Min1,Sec1);
+	//GetTime(p->u.NationWar.NoticeWarPeace2.Warfield2RemainTime,Hour2,Min2,Sec2);
+	//GetTime(p->u.NationWar.NoticeWarPeace2.Warfield3RemainTime,Hour3,Min3,Sec3);
+	//sprintf(tempMessage,lan->OutputMessage(0,325),Hour1,Min1,Hour2,Min2,Hour3,Min3);
+	//IntoNationNotice(FORCE_TYPE,2,tempMessage);
 
-	CallSmallMenu(MN_NATION_TODAY_NOTICE);*/
+	//CallSmallMenu(MN_NATION_TODAY_NOTICE);
 }
 
 void ProcessSopen(t_packet* p)
@@ -3427,10 +3427,10 @@ void RecvCMD_FAME_EXP_CHANGE(t_packet *p)		// 020115 LTS	// LTS NEW LOCALWAR
 	short int	tempFame=p->u.NationWar.FameExpChange.GainedFame;
 	DWORD		tempExp=p->u.NationWar.FameExpChange.GainedExp;
 	PlayListAutoSounds(62,0,0,FALSE);
-/*	AddCurrentStatusMessage( 255,255,0,"============< 전쟁 보상 >==============");
-	AddCurrentStatusMessage( 255,255,0,"전쟁에서 많은 공을 세워 국가에서 아래와 같은 보상을 하게營윱求?");
-	AddCurrentStatusMessage( 255,255,0,"   [ 명    성] : %d",tempFame);
-	AddCurrentStatusMessage( 255,255,0,"   [ 경 험 치] : %d",tempExp);*/
+	//AddCurrentStatusMessage( 255,255,0,"============< 전쟁 보상 >==============");
+	//AddCurrentStatusMessage( 255,255,0,"전쟁에서 많은 공을 세워 국가에서 아래와 같은 보상을 하게營윱求?");
+	//AddCurrentStatusMessage( 255,255,0,"   [ 명    성] : %d",tempFame);
+	//AddCurrentStatusMessage( 255,255,0,"   [ 경 험 치] : %d",tempExp);
 	AddCurrentStatusMessage( 255,255,0,lan->OutputMessage(0,198));
 	AddCurrentStatusMessage( 255,255,0,lan->OutputMessage(0,199));
 	AddCurrentStatusMessage( 255,255,0,lan->OutputMessage(0,200),tempFame);

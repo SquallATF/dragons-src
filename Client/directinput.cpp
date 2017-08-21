@@ -17,13 +17,6 @@
 
 #include "Tool.h"
 
-
-
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // Global variables
 
@@ -41,8 +34,6 @@ HRESULT		SetAcquire( BOOL bFlag );
 HRESULT		UpdateInputState( void );
 HRESULT		CleanupDirectInput( void );
 
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // Functions
 
@@ -57,8 +48,8 @@ InitDirectInput( HWND hWnd, HINSTANCE hInstance, BOOL bActive )
 		return	hResult;
 	}
 	
-//	keyboard
-//	rval = lpDID->QueryInterface(IID_IDirectInputDevice2, (LPVOID*)&m_Device);
+	// keyboard
+	//rval = lpDID->QueryInterface(IID_IDirectInputDevice2, (LPVOID*)&m_Device);
 
 	hResult = g_lpDirectInput->CreateDevice( GUID_SysKeyboard, &g_lpKeyboard, NULL );
 	if ( hResult != DI_OK )

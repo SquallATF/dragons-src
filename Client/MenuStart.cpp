@@ -2975,8 +2975,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			int image_c = image[SubMenu->work - 1][2];
 			int offset = image[SubMenu->work - 1][3];
 
-			//		if( image_a )	//국가명 디스 플레이 //020515 lsw 삭제
-			//			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, image_a, SubMenu->nField[j].nImageType);
+			//if( image_a )	//국가명 디스 플레이 //020515 lsw 삭제
+			//	FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, image_a, SubMenu->nField[j].nImageType);
 
 			int gabx = SubMenu->key / 1000;
 			int gaby = SubMenu->key % 1000;
@@ -3555,13 +3555,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				//}
 			}break;
 
-				//case DO_SELECT_LOAD_CHAR: {
-				//	if (SubMenu->nField[j].nSpecialWillDo != SubMenu->nField[j].nSHideNomalStart)
-				//	{
-				//		SubMenu->nField[j].nSpecialWillDo = SubMenu->nField[j].nSHideNomalStart;
-				//		SCharSource = LoadCh[SubMenu->nField[j].nSpecialWillDo];
-				//	}
-				//}break;
+			//case DO_SELECT_LOAD_CHAR: {
+			//	if (SubMenu->nField[j].nSpecialWillDo != SubMenu->nField[j].nSHideNomalStart)
+			//	{
+			//		SubMenu->nField[j].nSpecialWillDo = SubMenu->nField[j].nSHideNomalStart;
+			//		SCharSource = LoadCh[SubMenu->nField[j].nSpecialWillDo];
+			//	}
+			//}break;
 			case FT_DO_DEFAULT: //처음 로고 화면에서만 사용..
 			{//020515 lsw
 				static int tt = TRUE, pp;
@@ -4172,12 +4172,12 @@ void start_KeyProc()
 				}
 
 				//case MN_LOGIN :	if(comp)
-				//				{
-				//					SMenu[MN_LOGIN].nField[2].fCheakFlag=TRUE;
-				//					SMenu[MN_LOGIN].nField[2].fLButtonDown=FALSE;
-				//				}
-				//				else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
-				//				return;
+				//{
+				//	SMenu[MN_LOGIN].nField[2].fCheakFlag=TRUE;
+				//	SMenu[MN_LOGIN].nField[2].fLButtonDown=FALSE;
+				//}
+				//else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
+				//return;
 				case MN_SYSTEM_LOGOUT: {
 					if (comp)
 					{

@@ -138,14 +138,13 @@ bool CProFileMgr::AddCounter(string szParent, string szName)
 	CProFile *pProFile =  new CProFile;
 	pProFile->SetParentName(szParent);
 	m_mProFile.insert( PAIR_PROFILE( szName, pProFile) );
-/*
-	ProFiler pProFiler;
-	//memset( pProFiler->szCounterName, 0, 32 );
-	strncpy( pProFiler.szCounterName, szCounterName, strlen( szCounterName ) );
-	pProFiler.nCounterGroup = nCounterGroup;
-	m_mProFile.insert( PAIR_PROFILE( nCounterID, pProFiler) );
-*/
-	
+
+	//ProFiler pProFiler;
+	////memset( pProFiler->szCounterName, 0, 32 );
+	//strncpy( pProFiler.szCounterName, szCounterName, strlen( szCounterName ) );
+	//pProFiler.nCounterGroup = nCounterGroup;
+	//m_mProFile.insert( PAIR_PROFILE( nCounterID, pProFiler) );
+
 	return true;
 }
 
@@ -169,17 +168,16 @@ bool CProFileMgr::AddCounter(const char* szParent, const char* szName)
 
 int CProFileMgr::GetCounterID(int nCounterGroup, const char* szCounterName)
 {
-	/*
-	for( int i=0;i< m_nMaxCounterNum;i++)
-	{
-		if( NULL == m_ProFiler[i].szCounterName )
-		{
-			SetCounter(i, nCounterGroup, szCounterName );
-			return i;
-		}
-	}
-	return -1;
-	*/
+	//for( int i=0;i< m_nMaxCounterNum;i++)
+	//{
+	//	if( NULL == m_ProFiler[i].szCounterName )
+	//	{
+	//		SetCounter(i, nCounterGroup, szCounterName );
+	//		return i;
+	//	}
+	//}
+	//return -1;
+
 	return 1;
 }
 

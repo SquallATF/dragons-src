@@ -115,29 +115,28 @@ void DeleteAllSkillData( void )
 	}
 }
 
-/*id DeleteAllSkillData( void )
-{
-	for( int y=0; y<g_Map.file.wHeight; y++)
-	{
-		for(int x=0; x<g_Map.file.wWidth; x++)
-		{
-			lpMAPSKILLTABLE result;
-			
-			if(TileMap[x][y].attr_skill == 1)
-			{	
-				result=FindSkill(&Header[(int)(x/(int)((g_Map.file.wWidth+7)/8))][(int)(y/(int)((g_Map.file.wHeight+7)/8))], x, y);
-				if(result==NULL)
-					TileMap[x][y].attr_skill = 0;
-				else
-				{
-					TileMap[x][y].attr_skill = 0;
-					DeleteSkill(&Header[(int)(x/(int)((g_Map.file.wWidth+7)/8))][(int)(y/(int)((g_Map.file.wHeight+7)/8))], result);
-				}
-			}
-		}
-	}
-}*/  // 0907 KHS
-
+//id DeleteAllSkillData( void )
+//{
+//	for( int y=0; y<g_Map.file.wHeight; y++)
+//	{
+//		for(int x=0; x<g_Map.file.wWidth; x++)
+//		{
+//			lpMAPSKILLTABLE result;
+//			
+//			if(TileMap[x][y].attr_skill == 1)
+//			{	
+//				result=FindSkill(&Header[(int)(x/(int)((g_Map.file.wWidth+7)/8))][(int)(y/(int)((g_Map.file.wHeight+7)/8))], x, y);
+//				if(result==NULL)
+//					TileMap[x][y].attr_skill = 0;
+//				else
+//				{
+//					TileMap[x][y].attr_skill = 0;
+//					DeleteSkill(&Header[(int)(x/(int)((g_Map.file.wWidth+7)/8))][(int)(y/(int)((g_Map.file.wHeight+7)/8))], result);
+//				}
+//			}
+//		}
+//	}
+//}  // 0907 KHS
 
 
 void DrawSkillBox(int mox, int moy)
@@ -284,39 +283,38 @@ void AddSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE	lpST )		//링크드 리�
 		t->prev = NULL;
 		*Header = t;
 	}
-	/*	
-		if(lpST->skillno == TOOL_FARMING || lpST->skillno == TOOL_MINING || lpST->skillno == TOOL_FISHING ||
-			lpST->skillno == TOOL_CHOPPING || lpST->skillno == TOOL_HUB )
-		{
-			t->tile_Range	= lpST->tile_Range;
-			t->probability	= lpST->probability;
-			t->type_Num		= 0;
-			t->subType		= lpST->subType;
-		}
-
-		else if(lpST->skillno == TOOL_NPC_GENER )
-		{
-			t->tile_Range	= lpST->tile_Range;
-			t->probability	= lpST->probability;
-			t->type_Num		= lpST->type_Num;
-			t->subType		= 0;
-		}
-
-		else if(lpST->skillno == TOOL_BUILDHOUSE )
-		{
-			t->tile_Range	= lpST->tile_Range;
-			t->probability	= 0;
-			t->type_Num		= 0;
-			t->subType		= 0;
-		}
 		
-		temp = *Header ;
-		temp->prev = t;
-		t->next = temp;
-		t->prev = NULL;
-		*Header = t;
-	}	
-	*/
+	//if(lpST->skillno == TOOL_FARMING || lpST->skillno == TOOL_MINING || lpST->skillno == TOOL_FISHING ||
+	//	lpST->skillno == TOOL_CHOPPING || lpST->skillno == TOOL_HUB )
+	//{
+	//	t->tile_Range	= lpST->tile_Range;
+	//	t->probability	= lpST->probability;
+	//	t->type_Num		= 0;
+	//	t->subType		= lpST->subType;
+	//}
+
+	//else if(lpST->skillno == TOOL_NPC_GENER )
+	//{
+	//	t->tile_Range	= lpST->tile_Range;
+	//	t->probability	= lpST->probability;
+	//	t->type_Num		= lpST->type_Num;
+	//	t->subType		= 0;
+	//}
+
+	//else if(lpST->skillno == TOOL_BUILDHOUSE )
+	//{
+	//	t->tile_Range	= lpST->tile_Range;
+	//	t->probability	= 0;
+	//	t->type_Num		= 0;
+	//	t->subType		= 0;
+	//}
+	//	
+	//temp = *Header ;
+	//temp->prev = t;
+	//t->next = temp;
+	//t->prev = NULL;
+	//*Header = t;
+	
 }	
 	
 	
@@ -1060,15 +1058,6 @@ void tool_MyHouseLBD( WPARAM wParam, LPARAM lParam )
 }
 
 
-
-
-
-
-
-
-
-
-
 void CheckHouseObjectEdit ( HWND hwnd, HINSTANCE hInstance)
 {	
 	//HINSTANCE  hinst;		//error?
@@ -1088,19 +1077,19 @@ BOOL CALLBACK MyhouseToolproc( HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 	switch(Message)
 	{
 	case WM_INITDIALOG:
-		/*
-		map_X=Mox/32;
-		map_Y=Moy/32;
+		//
+		//map_X=Mox/32;
+		//map_Y=Moy/32;
 
-		sprintf (temp, "%d", g_MyhouseTool.sx);
-		Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_SX ), temp);
-		sprintf (temp, "%d", g_MyhouseTool.sy);
-		Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_SY ), temp);
-		sprintf (temp, "%d", g_MyhouseTool.ex);
-		Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_EX ), temp);
-		sprintf (temp, "%d", g_MyhouseTool.ey);
-		Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_EY ), temp);
-		*/
+		//sprintf (temp, "%d", g_MyhouseTool.sx);
+		//Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_SX ), temp);
+		//sprintf (temp, "%d", g_MyhouseTool.sy);
+		//Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_SY ), temp);
+		//sprintf (temp, "%d", g_MyhouseTool.ex);
+		//Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_EX ), temp);
+		//sprintf (temp, "%d", g_MyhouseTool.ey);
+		//Edit_SetText (GetDlgItem(hDlg, IDC_VIEW_EY ), temp);
+		//
 
 		//CheckHouseObjectEdit = GetDlgItem(hDlg, IDC_OBJECT_EDIT );
 
@@ -1137,13 +1126,13 @@ BOOL CALLBACK MyhouseToolproc( HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 					FILE*		fp;
 					TILE*		temp_Tile;
 					int			object_Count=0;
-//					MYHOUSETOOL Myhouse; //TileMap
+					//MYHOUSETOOL Myhouse; //TileMap
 
 					sprintf( temp, "./map/%s.mhb", MapName );	//확장자->My House Binery
 					fp = Fopen( temp, "wb" );
 					if(fp)
 					{
-						/////////////////////////// 헤더부분 /////////////////////////
+						/////////////////////////// 헤더부분 /////////////////////////////////////////////////
 						int length_X=g_MyhouseTool.ex-g_MyhouseTool.sx;	//셀렉트하여 자른 복수타일의 종타일 길이
 						fwrite(&length_X, sizeof(int), 1, fp);
 						int length_Y=g_MyhouseTool.ey-g_MyhouseTool.sy; //셀렉트하여 자른 복수타일의 횡타일 길이
@@ -1154,18 +1143,18 @@ BOOL CALLBACK MyhouseToolproc( HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 						//if(fgetpos(fp, temp_fp)==0)	
 						//	;							//마지막에 오브젝트의 총 갯수를 체크한후 다시 셋팅하기 위해
 						fwrite(&object_Count, sizeof(int), 1, fp);		//셀렉트된 타일 위에 위치한 총 오브젝트수 
-						///////////////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////////////////////////////////////
 
-						//////////////////////////// 타일의 정보 셋팅 //////////////////////////
+						//////////////////////////// 타일의 정보 셋팅 /////////////////////////////////////////
 						for( a=g_MyhouseTool.sx; a<=g_MyhouseTool.ex; a++)
 							for( b=g_MyhouseTool.sy; b<=g_MyhouseTool.ey; b++)
 							{
 								temp_Tile=&TileMap[a][b];
 								fwrite(temp_Tile, sizeof(TILE), 1, fp);
 							}
-						////////////////////////////////////////////////////////////////////////
+						///////////////////////////////////////////////////////////////////////////////////////
 
-						/////////////////////////// 오브젝트의 정보 셋팅 ///////////////////////////
+						/////////////////////////// 오브젝트의 정보 셋팅 ///////////////////////////////////////
 						for(int i = 0 ; i < TotalMapObject ; i++ )
 						{
 							if( g_MyhouseTool.sx <= (Mo[i].x/TILE_SIZE) && g_MyhouseTool.ex >= (Mo[i].x/TILE_SIZE) &&
@@ -1182,62 +1171,58 @@ BOOL CALLBACK MyhouseToolproc( HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 								object_Count++;
 							}
 						}
-						///////////////////////////////////////////////////////////////////////////
-						
-						/*
-						/////////////////////////// 지붕 타일 정보 셋팅 ///////////////////////////
-						for(a=g_MyhouseTool.sx; a<=g_MyhouseTool.ex; a++)
-							for(b=g_MyhouseTool.sy; b<=g_MyhouseTool.ey; b++)
-							{
-								temp_Tile=&TileMap[a][b];
-								temp_Tile->attr_room;
+						///////////////////////////// 지붕 타일 정보 셋팅 ///////////////////////////////////////////
+						//for(a=g_MyhouseTool.sx; a<=g_MyhouseTool.ex; a++)
+						//	for(b=g_MyhouseTool.sy; b<=g_MyhouseTool.ey; b++)
+						//	{
+						//		temp_Tile=&TileMap[a][b];
+						//		temp_Tile->attr_room;
 
-									if ( TileMap[ a ][ b ].attr_room == 1 )		//지붕속성의 타일이며 지붕이 활성화(지붕이 가리고 있는 경우)
-									{
-										LPEVENTLIST		lpEventList;
-										LPROOFGROUP		lpRoofGroup;
-										LPROOF			lpRoof;
+						//			if ( TileMap[ a ][ b ].attr_room == 1 )		//지붕속성의 타일이며 지붕이 활성화(지붕이 가리고 있는 경우)
+						//			{
+						//				LPEVENTLIST		lpEventList;
+						//				LPROOFGROUP		lpRoofGroup;
+						//				LPROOF			lpRoof;
 
-										lpEventList = FindEventList( &g_EventListHeaderRoom, ( WORD )a, ( WORD )b );
-										if ( lpEventList != NULL )
-										{
-											lpRoofGroup = FindRoofGroup( &g_RoofHeader, lpEventList->index );	//지붕 리스트에서 find
-											if ( lpRoofGroup != NULL )
-											{
-												lpRoof = lpRoofGroup->lpFirst;
-												while ( lpRoof )
-												{
-													TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 1;
-													lpRoof = lpRoof->lpNext;
-												}
-											}
-										}
-									}
-									else					//지붕속성 타일이며 지붕이 비활성화되어 있는 경우(뚜껑이 열려있는 경우)
-									{
-										LPEVENTLIST		lpEventList;
-										LPROOFGROUP		lpRoofGroup;
-										LPROOF			lpRoof;
+						//				lpEventList = FindEventList( &g_EventListHeaderRoom, ( WORD )a, ( WORD )b );
+						//				if ( lpEventList != NULL )
+						//				{
+						//					lpRoofGroup = FindRoofGroup( &g_RoofHeader, lpEventList->index );	//지붕 리스트에서 find
+						//					if ( lpRoofGroup != NULL )
+						//					{
+						//						lpRoof = lpRoofGroup->lpFirst;
+						//						while ( lpRoof )
+						//						{
+						//							TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 1;
+						//							lpRoof = lpRoof->lpNext;
+						//						}
+						//					}
+						//				}
+						//			}
+						//			else					//지붕속성 타일이며 지붕이 비활성화되어 있는 경우(뚜껑이 열려있는 경우)
+						//			{
+						//				LPEVENTLIST		lpEventList;
+						//				LPROOFGROUP		lpRoofGroup;
+						//				LPROOF			lpRoof;
 
-										lpEventList = FindEventList( &g_EventListHeaderRoom, ( WORD )a, ( WORD )b );
-										if ( lpEventList != NULL )
-										{
-											lpRoofGroup = FindRoofGroup( &g_RoofHeader, lpEventList->index );
-											if ( lpRoofGroup != NULL )
-											{
-												lpRoof = lpRoofGroup->lpFirst;
-												while ( lpRoof )
-												{
-													TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 0;
+						//				lpEventList = FindEventList( &g_EventListHeaderRoom, ( WORD )a, ( WORD )b );
+						//				if ( lpEventList != NULL )
+						//				{
+						//					lpRoofGroup = FindRoofGroup( &g_RoofHeader, lpEventList->index );
+						//					if ( lpRoofGroup != NULL )
+						//					{
+						//						lpRoof = lpRoofGroup->lpFirst;
+						//						while ( lpRoof )
+						//						{
+						//							TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 0;
 
-													lpRoof = lpRoof->lpNext;
-												}
-											}
-										}
-									}
-								
-							}
-							*/
+						//							lpRoof = lpRoof->lpNext;
+						//						}
+						//					}
+						//				}
+						//			}
+						//	}
+						//	
 						///////////////////////////////////////////////////////////////////////////
 
 						fseek(fp, 3*sizeof(int), SEEK_SET);
@@ -1263,20 +1248,20 @@ void PutMyhouse(int x, int y)		// 단 인자 x,y는 절대 타일좌표계로 �
 {
 	char			temp[FILENAME_MAX];
 	static int		map_X, map_Y;
-///	RECT			rect, grect;
+	//RECT			rect, grect;
 	static bool		lButtonDown=false;
 	int				a,b;
 	FILE*			fp;
 	TILE			temp_Tile;
 	int				object_Count=0;
-//	MYHOUSETOOL		Myhouse; //TileMap
+	//MYHOUSETOOL		Myhouse; //TileMap
 	MAPOBJECT		temp_Object;
 
 	sprintf( temp, "./map/%s.mhb", MapName );	//확장자->My House Binery
 	fp = Fopen( temp, "rb" );
 	if(fp)
 	{
-		//////////////////////////////// 헤더부분 //////////////////////////////
+		//////////////////////////////// 헤더부분 /////////////////////////////////////////////
 		int length_X;//=g_MyhouseTool.ex-g_MyhouseTool.sx;	//셀렉트하여 자른 복수타일의 종타일 길이
 		fread(&length_X, sizeof(int), 1, fp);
 		int length_Y;//=g_MyhouseTool.ey-g_MyhouseTool.sy; //셀렉트하여 자른 복수타일의 횡타일 길이
@@ -1285,18 +1270,18 @@ void PutMyhouse(int x, int y)		// 단 인자 x,y는 절대 타일좌표계로 �
 		fread(&tile_Num, sizeof(int), 1, fp);
 				
 		fread(&object_Count, sizeof(int), 1, fp);		//셀렉트된 타일 위에 위치한 총 오브젝트수 
-		////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////
 
-		//////////////////////////// 타일의 정보 셋팅 //////////////////////////
+		//////////////////////////// 타일의 정보 셋팅 //////////////////////////////////////////
 		for( a=x; a<=x+length_X; a++)
 			for( b=y; b<=y+length_Y; b++)
 			{
 				fread(&temp_Tile, sizeof(TILE), 1, fp);
 				TileMap[a][b]=temp_Tile;
 			}
-		////////////////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////
 
-		/////////////////////////// 오브젝트의 정보 셋팅 ///////////////////////////
+		/////////////////////////// 오브젝트의 정보 셋팅 ///////////////////////////////////////
 		for(int i = 0 ; i < object_Count ; i++ )
 		{
 			fread(&temp_Object, sizeof(MAPOBJECT), 1, fp);
@@ -1309,10 +1294,6 @@ void PutMyhouse(int x, int y)		// 단 인자 x,y는 절대 타일좌표계로 �
 		}
 	}
 }
-//------------------------------------------------
-
-
-
 
 void GetEffect2Pix(void)
 {
@@ -1326,8 +1307,8 @@ void GetEffect2Pix(void)
 	int buff = 0;
 	char buf[30];
 
-//	buf = (char*) calloc(30, sizeof(char));
-//	filename = (char*) calloc( 141, sizeof(char)*30);
+	//buf = (char*) calloc(30, sizeof(char));
+	//filename = (char*) calloc( 141, sizeof(char)*30);
 
 	char  DataPath[MAX_PATH]="./effect/list.txt";
 	
@@ -1338,7 +1319,7 @@ void GetEffect2Pix(void)
 		for(int i=0; i<141; i++)
 		{
 			fscanf( file, "%s\n", buf);
-//			strcpy(filename[i], buf);
+			//strcpy(filename[i], buf);
 			sprintf(filename[i], "./effect/%s",buf);
 		}
 		fclose( file );
@@ -1361,8 +1342,6 @@ void GetEffect2Pix(void)
 		}
 	}
 }
-
-
 //--------------------------------------------------
 		
 void DeleteAllType(int delete_Type)

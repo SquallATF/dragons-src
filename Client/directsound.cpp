@@ -14,7 +14,7 @@
 #include "dragon.h"
 #include "directsound.h"
 #include "gameproc.h"
-//////////////////////// SoundUp lkh 수정 //////////////////////////
+//////////////////////// SoundUp lkh 수정 //////////////////////////////////////
 #include "menu.h"
 
 #include "Music.h"
@@ -642,7 +642,7 @@ BOOL	InitGlobals( HWND hWnd )
 
 	if ( DirectSoundCreate( NULL, &g_SoundInfo.lpDirectSound, NULL ) != DS_OK )		//IDirectSound인터페이스의 생성과 초기화
     {
-//		MessageBox(NULL, "IDirectSound인터페이스 생성 실패", 0, MB_OK);
+		//MessageBox(NULL, "IDirectSound인터페이스 생성 실패", 0, MB_OK);
 		return	FALSE;
 	}
 
@@ -856,23 +856,23 @@ BOOL PlayListAutoSounds( int index, int x, int y, BOOL flag)		//index->1~999까�
 	else		//만약 static buffer 사운드인 경우
 	{
 		if( g_SoundInfo.bInitialized == FALSE || g_SoundInfo.lpDirectSound == NULL ) return 0;
-		/*
-		if( g_SoundInfo.lpDirectSoundBuffer[ index ] == NULL )		//스타틱 버퍼에 실제 사운드 데이타 없는 경우
-		{
-			wsprintf( szFilePath, "%s/sound/%s", GetCurrentWorkingDirectory(), g_SoundList[index].sound_FileName);		
+		//
+		//if( g_SoundInfo.lpDirectSoundBuffer[ index ] == NULL )		//스타틱 버퍼에 실제 사운드 데이타 없는 경우
+		//{
+		//	wsprintf( szFilePath, "%s/sound/%s", GetCurrentWorkingDirectory(), g_SoundList[index].sound_FileName);		
 
-			//실제 wav 화일을 읽어와 스태틱 버퍼에 로딩
-			if ( WaveInit( &g_SoundInfo.lpWaveData[ index ], g_SoundInfo.lpDirectSound, szFilePath ) == FALSE )	
-			{
-				return FALSE;
-			}
-			//실제 해당 wav 화일을 플레이시키는데 문제가 없는지 체크
-			if ( !WaveGetBuffers( g_SoundInfo.lpWaveData[ index ], &g_SoundInfo.lpDirectSoundBuffer[ index ], &g_SoundInfo.lpDirectSound3DBuffer[ index ] ) )
-			{
-				return FALSE;
-			}
-		}
-		*/
+		//	//실제 wav 화일을 읽어와 스태틱 버퍼에 로딩
+		//	if ( WaveInit( &g_SoundInfo.lpWaveData[ index ], g_SoundInfo.lpDirectSound, szFilePath ) == FALSE )	
+		//	{
+		//		return FALSE;
+		//	}
+		//	//실제 해당 wav 화일을 플레이시키는데 문제가 없는지 체크
+		//	if ( !WaveGetBuffers( g_SoundInfo.lpWaveData[ index ], &g_SoundInfo.lpDirectSoundBuffer[ index ], &g_SoundInfo.lpDirectSound3DBuffer[ index ] ) )
+		//	{
+		//		return FALSE;
+		//	}
+		//}
+		//
 	}
 	
 	PlayWave( index, x, y, flag );
@@ -910,12 +910,12 @@ void	AdjustSounds( int index, int volume, bool loop)
 	else
 		result = AdjustAutoSounds( index, volume, loop);
 
-////////////////// 0621 lkh test용 /////////////////
-//	if(!result)
-//	{
-//		sprintf(error_message, "%d.wav화일 플레이 Error", index);
-//		MessageBox(NULL, error_message, 0, MB_OK);
-//	}
+	////////////////// 0621 lkh test용 /////////////////
+	//if(!result)
+	//{
+	//	sprintf(error_message, "%d.wav화일 플레이 Error", index);
+	//	MessageBox(NULL, error_message, 0, MB_OK);
+	//}
 }
 
 BOOL AdjustAutoSounds( int index, int volume, bool loop)		//index->1~999까지
@@ -943,24 +943,22 @@ BOOL AdjustAutoSounds( int index, int volume, bool loop)		//index->1~999까지
 			}
 		}
 		
-		/*
-		//////////////// 사운드 버퍼에 이미 로딩되어 있는 사운드인 경우 재로딩하지 않도록 할것 /////////////////////
-		if( g_SoundInfo.lpDirectSoundBuffer[ index ] == NULL )//!IsPlaying(index) )
-		{
-			wsprintf( szFilePath, "%s/sound/%s", GetCurrentWorkingDirectory(), g_SoundList[index].sound_FileName);		
+		////////////////// 사운드 버퍼에 이미 로딩되어 있는 사운드인 경우 재로딩하지 않도록 할것 /////////////////////
+		//if( g_SoundInfo.lpDirectSoundBuffer[ index ] == NULL )//!IsPlaying(index) )
+		//{
+		//	wsprintf( szFilePath, "%s/sound/%s", GetCurrentWorkingDirectory(), g_SoundList[index].sound_FileName);		
 
-			//실제 wav 화일을 읽어와 스태틱 버퍼에 로딩
-			if ( WaveInit( &g_SoundInfo.lpWaveData[ index ], g_SoundInfo.lpDirectSound, szFilePath ) == FALSE )
-			{
-				return FALSE;
-			}
-			//실제 해당 wav 화일을 플레이시키는데 문제가 없는지 체크
-			if ( !WaveGetBuffers( g_SoundInfo.lpWaveData[ index ], &g_SoundInfo.lpDirectSoundBuffer[ index ], &g_SoundInfo.lpDirectSound3DBuffer[ index ] ) )
-			{
-				return FALSE;
-			}
-		}
-		*/
+		//	//실제 wav 화일을 읽어와 스태틱 버퍼에 로딩
+		//	if ( WaveInit( &g_SoundInfo.lpWaveData[ index ], g_SoundInfo.lpDirectSound, szFilePath ) == FALSE )
+		//	{
+		//		return FALSE;
+		//	}
+		//	//실제 해당 wav 화일을 플레이시키는데 문제가 없는지 체크
+		//	if ( !WaveGetBuffers( g_SoundInfo.lpWaveData[ index ], &g_SoundInfo.lpDirectSoundBuffer[ index ], &g_SoundInfo.lpDirectSound3DBuffer[ index ] ) )
+		//	{
+		//		return FALSE;
+		//	}
+		//}
 	}
 
 	if ( g_SoundInfo.lpDirectSoundBuffer[ index ])
@@ -1102,11 +1100,11 @@ void CheckAutoWave( void )
 	}
 }	
 	
-/*	
-short int g_Current_Volume			//현재의 사운드 볼륨
-short int g_To_Volume				//변환되어야 하는 (최종적으로) 목표 사운드 볼륨
-short int g_Change_Volume			//볼륨 수치 변환치(-+ 변화값->Fade Out/In)
-*/	
+//	
+//short int g_Current_Volume			//현재의 사운드 볼륨
+//short int g_To_Volume				//변환되어야 하는 (최종적으로) 목표 사운드 볼륨
+//short int g_Change_Volume			//볼륨 수치 변환치(-+ 변화값->Fade Out/In)
+//	
 	
 void VolumeTranslate()
 {	
@@ -1218,30 +1216,30 @@ static	int		temp_Old_Volume;
 void	BGMFadeInOut(void)				//배경음악의 fade in/out 처리를 위한 함수
 {
 	return;
-	/*
-	int		fadeOut_Volume	= 100-BGM_SoundVolume;
-	int		fadeIn_Volume	= BGM_SoundVolume;
+	
+	//int		fadeOut_Volume	= 100-BGM_SoundVolume;
+	//int		fadeIn_Volume	= BGM_SoundVolume;
 
-	if(BGM_FadeInOut)
-	{
-		int	fadeOut_SoundNum = ReturnBGMNumber(OldMapNumber);
-		if(!fadeOut_SoundNum)	fadeOut_SoundNum = 1;
-		
-		if(fadeOut_Volume<=0)
-		{
-			StopWave( fadeOut_SoundNum );
-			OldMapNumber= MapNumber;
-			BGM_FadeInOut = 0;
-		}
-		if(fadeIn_Volume>=100)
-			BGM_SoundVolume=100;
+	//if(BGM_FadeInOut)
+	//{
+	//	int	fadeOut_SoundNum = ReturnBGMNumber(OldMapNumber);
+	//	if(!fadeOut_SoundNum)	fadeOut_SoundNum = 1;
+	//	
+	//	if(fadeOut_Volume<=0)
+	//	{
+	//		StopWave( fadeOut_SoundNum );
+	//		OldMapNumber= MapNumber;
+	//		BGM_FadeInOut = 0;
+	//	}
+	//	if(fadeIn_Volume>=100)
+	//		BGM_SoundVolume=100;
 
-		if( IsPlaying( fadeOut_SoundNum) )
-			MoveWave( fadeOut_SoundNum, 0, 16-fadeOut_Volume/6 );
-		if( IsPlaying(ReturnBGMNumber(MapNumber)) )
-			MoveWave( ReturnBGMNumber(MapNumber), 0, 16-fadeIn_Volume/6 );
-		BGM_SoundVolume+=3;
-	}*/
+	//	if( IsPlaying( fadeOut_SoundNum) )
+	//		MoveWave( fadeOut_SoundNum, 0, 16-fadeOut_Volume/6 );
+	//	if( IsPlaying(ReturnBGMNumber(MapNumber)) )
+	//		MoveWave( ReturnBGMNumber(MapNumber), 0, 16-fadeIn_Volume/6 );
+	//	BGM_SoundVolume+=3;
+	//}
 }	
 	
 void StartSound( int type )		// 초기 사운드 멈춤

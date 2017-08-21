@@ -62,7 +62,7 @@ void MainLoop()
 	__try// 030514 kyo
 	{
 		if (LocalMgr.IsAbleNation(THAI) && !LocalMgr.IsFreeBeta())
-		{	//030129 lsw 咯扁啊 Gump 辑滚啊 嘿阑 何盒.
+		{	//030129 lsw 여기가 Gump 서버가 붙을 부분.
 			/////////////////////////////////////////
 			if (0 < g_cAsyncPay.InitConnectPayServer())
 			{
@@ -214,7 +214,7 @@ void MainLoop()
 		//DumpException( pException, "Exception Raised on main()" );
 		ProcessEnd(FINISH_TYPE_UNKNOWN_ERROR);
 	}
-	// 鉴辑 瘤懦 巴.
+	// 순서 지킬 것.
 FinishAgentServer:
 	MyLog(LOG_NORMAL, "-- AgentServer ShutDown :: Now Release INetwork Module, ServerTable");
 	EndAgentServer();
@@ -474,7 +474,7 @@ void Paythread( void *pVoid )
 							g_pServerTable->DestroyServer( FINISH_TYPE_NORMAL );
 							MyLog(LOG_NORMAL, "-- AgentServer Shutdown " );
 							g_cAsyncPay.LogoutAllUser(); // 030626 kyo
-							PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // 胶饭靛 辆丰
+							PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // 스레드 종료
 						}
 					}
 					break;

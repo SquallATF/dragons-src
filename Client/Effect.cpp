@@ -2238,26 +2238,24 @@ LPITEMGROUND ReturnMagicCheckedItem( bool range_Check, MAGICLIST* lpML, int x, i
 		
 		if( item->spr[0] == NULL ) return 0;
 		
-		/*
-		g_Item->server_id = i->server_id;
-		g_Item->no	  = i->no;
-		g_Item->sx    = i->sx;
-		g_Item->sy	  = i->sy;
-		g_Item->offx  = i->offx;
-		g_Item->offy  = i->offy;
-		g_Item->x     = i->x; 
-		g_Item->y     = i->y; 
-		g_Item->mx    = i->x / TILE_SIZE;
-		g_Item->my    = i->y / TILE_SIZE;
-		
-		  g_Item->attr[0]	= i->attr[0];
-		  g_Item->attr[1]	= i->attr[1];
-		  g_Item->attr[2]	= i->attr[2];
-		  g_Item->attr[3]	= i->attr[3];
-		  g_Item->attr[4]	= i->attr[4];
-		  g_Item->attr[5]	= i->attr[5];
-		*/
-		
+		//g_Item->server_id = i->server_id;
+		//g_Item->no	  = i->no;
+		//g_Item->sx    = i->sx;
+		//g_Item->sy	  = i->sy;
+		//g_Item->offx  = i->offx;
+		//g_Item->offy  = i->offy;
+		//g_Item->x     = i->x; 
+		//g_Item->y     = i->y; 
+		//g_Item->mx    = i->x / TILE_SIZE;
+		//g_Item->my    = i->y / TILE_SIZE;
+		//
+		//g_Item->attr[0]	= i->attr[0];
+		//g_Item->attr[1]	= i->attr[1];
+		//g_Item->attr[2]	= i->attr[2];
+		//g_Item->attr[3]	= i->attr[3];
+		//g_Item->attr[4]	= i->attr[4];
+		//g_Item->attr[5]	= i->attr[5];
+
 		///////////////////////// Item의 종/횡축 길이 //////////////////////////////
 		int item_Spr_X = item->spr[0]->xl;
 		int item_Spr_Y = item->spr[0]->yl;
@@ -2473,8 +2471,8 @@ void RecvCMD_SERVER_MAGICCOMMAND( t_server_magic_command *p)
 			}
 			break;
 		}
-		///////////////////////////////////////////////////////////////////////1010 KKH 바뀐 부분.. 끝////////////////////////////////////////////////////////
-		////////////////////////////////////////////////////////////
+		////////////////////1010 KKH 바뀐 부분.. 끝////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 }
 
@@ -3035,61 +3033,6 @@ BOOL EffectSoundPlay(MAGICLIST*	lpML, int magic_Num, int sound_Num, int sound_lo
 }
 
 
-/*
-int	ReturnTransColor(MAGICLIST* lpML, EFFECTLIST* lpEL)
-{
-switch(color_Trans_Type)
-{
-case 0:	
-
-  lpEL->trans_Level=
-  
-	
-	  USEEFFECTLIST
-	  
-		
-		  if(lpML->trans_Type%10==8)		//점점 밝게 생성 / 마지막 어둡게
-		  {
-		  if(lpEL->FrameCount<EffList[lpEL->sprite_Num].MaxFrame-4)
-		  {
-		  lpEL->trans_Level=(lpML->trans_Level/(float)EffList[lpEL->sprite_Num].MaxFrame)*lpEL->FrameCount;
-		  if(lpEL->trans_Level > lpML->trans_Level)	lpEL->trans_Level=(float)lpML->trans_Level;
-		  }
-		  else
-		  {
-		  lpEL->trans_Level-=(float)(lpML->trans_Level/4.);
-		  if(lpEL->trans_Level < 1) lpEL->trans_Level = 1;
-		  }
-		  }
-		  
-			// 마지막 4프레임은 alpha off
-			else if(lpML->trans_Type%10==9 && lpEL->FrameCount>=EffList[lpEL->sprite_Num].MaxFrame-4)	
-			{
-			lpEL->trans_Level-=(lpML->trans_Level/4);//-((lpML->trans_Level/EffList[lpEL->sprite_Num].MaxFrame)*(lpEL->FrameCount-1));
-			if(lpEL->trans_Level<=1)	lpEL->trans_Level=1;
-			}
-			
-			  else if(lpML->trans_Type%10==7)	//바닥이 얼어붙는 효과
-			  {
-			  if(lpEL->FrameCount<=EffList[lpML->sprite_Num].MaxFrame/2)
-			  {
-			  lpEL->trans_Level=(float)lpEL->FrameCount;
-			  if(lpEL->trans_Level>=32)	lpEL->trans_Level=32;
-			  }
-			  else
-			  {
-			  lpEL->trans_Level=(float)(EffList[lpML->sprite_Num].MaxFrame-lpEL->FrameCount);
-			  if(lpEL->trans_Level<0) lpEL->trans_Level=0;
-			  }
-			  }
-			  
-				else if(g_lpET[lpML->magicNum].end_Time!=0)
-				{
-				lpEL->trans_Level=lpML->trans_Level*(g_lpET[lpML->magicNum].end_Time-lpEL->total_Frame)/g_lpET[lpML->magicNum].end_Time;
-				if(lpEL->trans_Level<0)	lpEL->trans_Level=0;
-				}
-				}
-*/
 int CallbackCharacterData(int char_ID, DWORD index/* #define되어 있는 서버쪽 캐릭터 정보 인덱스(정수) */)
 {
 	return 1;
@@ -3133,11 +3076,11 @@ BOOL TileLineCheck(int sx, int sy, int ex, int ey, BOOL check_ShootItem)			//발
 		check_X=check_X+incx;
 		check_Y=check_Y+incy;
 		
-		//		if( TileMap[(int)check_X][(int)check_Y].attr_light ) return FALSE;
+		//if( TileMap[(int)check_X][(int)check_Y].attr_light ) return FALSE;
 		
 		//////////////////////////// 0607 lkh 수정(충돌하는 장애물이 있는 경우, /////////////////////////////
-		//		if( check_ShootItem )
-		//		if( !FreeTile( NULL, check_X, check_Y,  check_X, check_Y )) return FALSE;
+		//if( check_ShootItem )
+		//if( !FreeTile( NULL, check_X, check_Y,  check_X, check_Y )) return FALSE;
 		// 활과 비도의 경우는 높낮이에 관계없이 사용가능하기 위해 효과벽이지만 높이 검사를 하지 않음 		
 		if(TileMap[(int)check_X][(int)check_Y].attr_light || (check_ShootItem && TileMap[(int)check_X][(int)check_Y].occupied) )
 		{ 
@@ -3618,17 +3561,17 @@ LPCHARACTER ReturnMagicCheckedCharacter(int range_Check, MAGICLIST* lpML, int x,
 						g_mgrBattle.SendMagicResult(lpML->magicSerial, lpML->lpChar_Own, ch->id, ch->x, ch->y-ch->height);
 						break;
 					} //> CSD-021021
-/*
-				case LIGHTNING_EXTREME:
-					{ // 030328 kyo
-						if( lpML->lpChar_Own != ch )
-						{							
-							InsertMagic(lpML->lpChar_Own, ch, lpML->next_Effect, 9, ch->x, ch->y-ch->height, ch->x, ch->y-ch->height);
-							g_mgrBattle.SendMagicResult(lpML->magicSerial, lpML->lpChar_Own, ch->id, ch->x, ch->y-ch->height);						
-						}						
-						break;
-					}
-					*/
+
+				//case LIGHTNING_EXTREME:
+				//	{ // 030328 kyo
+				//		if( lpML->lpChar_Own != ch )
+				//		{							
+				//			InsertMagic(lpML->lpChar_Own, ch, lpML->next_Effect, 9, ch->x, ch->y-ch->height, ch->x, ch->y-ch->height);
+				//			g_mgrBattle.SendMagicResult(lpML->magicSerial, lpML->lpChar_Own, ch->id, ch->x, ch->y-ch->height);						
+				//		}						
+				//		break;
+				//	}
+				//	
 				default:
 					{
 						switch (my_Check)
@@ -3961,11 +3904,43 @@ void	RenameSoundFile(void)
 	char	DataPathold[MAX_PATH];
 	char	DataPathnew[MAX_PATH];
 	
-	char	DeleteFileName[35][MAX_PATH] = {"./SOUND/기술예비.wav","./SOUND/기타예약.wav","./SOUND/마시동5전격.wav","./SOUND/마시동반경9.wav","./SOUND/마시동보호막.wav",
-		"./SOUND/마시동불저항.wav","./SOUND/마시동빙저항.wav","./SOUND/마시동얼음구.wav","./SOUND/마시동얼음원.wav","./SOUND/마시동전저항.wav","./SOUND/마시동지옥불.wav",
-		"./SOUND/마시동직선전.wav","./SOUND/마시동체력.wav","./SOUND/마시동치료.wav","./SOUND/마시동화염구.wav","./SOUND/몬스터비명_.wav","./SOUND/몽둥이.wav","./SOUND/무기예비.wav",
-		"./SOUND/미닫이닫기.wav","./SOUND/번개1.wav","./SOUND/번개2.wav","./SOUND/불새.wav","./SOUND/비명예비.wav","./SOUND/시전예비.wav","./SOUND/시전예비.wav","./SOUND/예약_.wav","./SOUND/자유음예비.wav",
-		"./SOUND/클릭_.wav","./SOUND/타격예비.wav","./SOUND/화로불.wav","./SOUND/좀비공격.wav","./SOUND/화살타격 .wav","./SOUND/막자찢기.wav","./SOUND/STATIC/2발작보통큰걸음.wav","./SOUND/STATIC/4발작보통큰걸음.wav"};
+	char	DeleteFileName[35][MAX_PATH] = {
+		"./SOUND/기술예비.wav",
+		"./SOUND/기타예약.wav",
+		"./SOUND/마시동5전격.wav",
+		"./SOUND/마시동반경9.wav",
+		"./SOUND/마시동보호막.wav",
+		"./SOUND/마시동불저항.wav",
+		"./SOUND/마시동빙저항.wav",
+		"./SOUND/마시동얼음구.wav",
+		"./SOUND/마시동얼음원.wav",
+		"./SOUND/마시동전저항.wav",
+		"./SOUND/마시동지옥불.wav",
+		"./SOUND/마시동직선전.wav",
+		"./SOUND/마시동체력.wav",
+		"./SOUND/마시동치료.wav",
+		"./SOUND/마시동화염구.wav",
+		"./SOUND/몬스터비명_.wav",
+		"./SOUND/몽둥이.wav",
+		"./SOUND/무기예비.wav",
+		"./SOUND/미닫이닫기.wav",
+		"./SOUND/번개1.wav",
+		"./SOUND/번개2.wav",
+		"./SOUND/불새.wav",
+		"./SOUND/비명예비.wav",
+		"./SOUND/시전예비.wav",
+		"./SOUND/시전예비.wav",
+		"./SOUND/예약_.wav",
+		"./SOUND/자유음예비.wav",
+		"./SOUND/클릭_.wav",
+		"./SOUND/타격예비.wav",
+		"./SOUND/화로불.wav",
+		"./SOUND/좀비공격.wav",
+		"./SOUND/화살타격 .wav",
+		"./SOUND/막자찢기.wav",
+		"./SOUND/STATIC/2발작보통큰걸음.wav",
+		"./SOUND/STATIC/4발작보통큰걸음.wav"
+	};
 	
 	fp = Fopen( DataPath, "rb" );			//read only+text file
 	if(fp)
@@ -3984,9 +3959,9 @@ void	RenameSoundFile(void)
 				//fprintf( fp, "%d	%s.wav\n", i, name);
 				goto gotolabel1;
 			}
-			else if(i<10)									sprintf(str, "000");
-			else if(i<100)									sprintf(str, "00");
-			else											sprintf(str, "0");
+			else if(i<10) sprintf(str, "000");
+			else if(i<100) sprintf(str, "00");
+			else sprintf(str, "0");
 			
 			sprintf(number,"%d", i);
 			sprintf(name, "%s%s", str, number);
@@ -4612,38 +4587,37 @@ void InsertEffect(MAGICLIST *Temp, int start_Frame, int nOffX, int nOffY)
 	TempList->trans_Level = (float)Temp->trans_Level;
 	TempList->speed       = Temp->spr_Speed;
 	
-	/*
-	if(g_lpET[Temp->magicNum].pattern_Num == 20)
-	{		
-	switch(Temp->lpChar_Own->direction)
-	{
-	case DIRECTION_DOWN:
-	TempList->first_Angle = 0;
-	break;
-	case DIRECTION_LEFTDOWN:
-	TempList->first_Angle = 45;
-	break;
-	case DIRECTION_LEFT:
-	TempList->first_Angle = 90;
-	break;
-	case DIRECTION_LEFTUP:
-	TempList->first_Angle = 135;
-	break;
-	case DIRECTION_UP:
-	TempList->first_Angle = 180;
-	break;
-	case DIRECTION_RIGHTUP:
-	TempList->first_Angle = 225;
-	break;
-	case DIRECTION_RIGHT:
-	TempList->first_Angle = 270;
-	break;
-	case DIRECTION_RIGHTDOWN:
-	TempList->first_Angle = 315;
-	break;
-	}
-	}
-	*/
+	
+	//if (g_lpET[Temp->magicNum].pattern_Num == 20)
+	//{
+	//	switch (Temp->lpChar_Own->direction)
+	//	{
+	//	case DIRECTION_DOWN:
+	//		TempList->first_Angle = 0;
+	//		break;
+	//	case DIRECTION_LEFTDOWN:
+	//		TempList->first_Angle = 45;
+	//		break;
+	//	case DIRECTION_LEFT:
+	//		TempList->first_Angle = 90;
+	//		break;
+	//	case DIRECTION_LEFTUP:
+	//		TempList->first_Angle = 135;
+	//		break;
+	//	case DIRECTION_UP:
+	//		TempList->first_Angle = 180;
+	//		break;
+	//	case DIRECTION_RIGHTUP:
+	//		TempList->first_Angle = 225;
+	//		break;
+	//	case DIRECTION_RIGHT:
+	//		TempList->first_Angle = 270;
+	//		break;
+	//	case DIRECTION_RIGHTDOWN:
+	//		TempList->first_Angle = 315;
+	//		break;
+	//	}
+	//}
 	
 	TempList->first_Angle=0;
 	
@@ -4658,12 +4632,11 @@ void InsertEffect(MAGICLIST *Temp, int start_Frame, int nOffX, int nOffY)
 	
 	InsertList(&Temp->EffHead, TempList);
 	
-	/*
-	if(TempList->speed==0 && TempList->dir==0)
-	TempList->RepeatCount = 0;
-	else
-	TempList->RepeatCount = EffList[TempList->sprite_Num].EffData[TempList->FrameCount].RepeatFrame;
-	*/
+	//if(TempList->speed==0 && TempList->dir==0)
+	//TempList->RepeatCount = 0;
+	//else
+	//TempList->RepeatCount = EffList[TempList->sprite_Num].EffData[TempList->FrameCount].RepeatFrame;
+	//
 }
 
 /////////////////////////// 0126 lkh /////////////////////////////////
@@ -4689,46 +4662,46 @@ int	ClockOutPut(int x, int y, Spr* sp)		//좌표 -> 절대좌표
 	return 0;
 }
 
-int EffectOutput(int x, int y, Spr* sp, int type, int alpha, int height, int sort_Type, DWORD rgb )
+int EffectOutput(int x, int y, Spr* sp, int type, int alpha, int height, int sort_Type, DWORD rgb)
 {
-	switch(type/10)		//두자리수인 경우 앞자리의 값이 trans 방법
-	{	
+	switch (type / 10)		//두자리수인 경우 앞자리의 값이 trans 방법
+	{
 	case 1:
-		type=1;
+		type = 1;
 		break;
 	case 2:
-		type=2;
+		type = 2;
 		break;
 	}
-	
+
 	LPORDERTABLE  o;
-	
-	o = &g_OrderInfo.order[ g_OrderInfo.count ];
-	
-	o->wType		= sort_Type;
-	
-	o->type			= type;
-	
-	if(type==7)
+
+	o = &g_OrderInfo.order[g_OrderInfo.count];
+
+	o->wType = sort_Type;
+
+	o->type = type;
+
+	if (type == 7)
 	{
-		o->x			= x+(rand()%5-2) + Mapx;
-		o->y			= y + Mapy;
+		o->x = x + (rand() % 5 - 2) + Mapx;
+		o->y = y + Mapy;
 	}
 	else
 	{
-		o->x			= x + Mapx;
-		o->y			= y + Mapy;
+		o->x = x + Mapx;
+		o->y = y + Mapy;
 	}
-	o->height		= height;
-	o->alpha		= alpha;
-	o->rgb			= rgb;
-	o->offset		= y + Mapy;
-	o->lpvData		= (LPVOID ) (sp);
-	
-	o->show			= 1;
-	o->sort			= 1;
+	o->height = height;
+	o->alpha = alpha;
+	o->rgb = rgb;
+	o->offset = y + Mapy;
+	o->lpvData = (LPVOID)(sp);
+
+	o->show = 1;
+	o->sort = 1;
 	g_OrderInfo.count++;
-	
+
 	return 0;
 }
 
@@ -8111,15 +8084,13 @@ MAGICLIST* SampleMagic6(MAGICLIST* lpML) //, int Num, int motion_Num, int speed,
 			//if(lpEL->FrameCount > EffList[lpEL->sprite_Num].MaxFrame )
 			//	lpEL->FrameCount=0;
 			
-			/*
-			//마지막 프레임 찍고 종료
-			if(lpEL->FrameCount >= EffList[lpEL->sprite_Num].MaxFrame )
-			{
-			DeleteList(&(lpML->EffHead), lpEL);
-			lpEL = lpML->EffHead;
-			continue;
-			}
-			*/
+			////마지막 프레임 찍고 종료
+			//if(lpEL->FrameCount >= EffList[lpEL->sprite_Num].MaxFrame )
+			//{
+			//DeleteList(&(lpML->EffHead), lpEL);
+			//lpEL = lpML->EffHead;
+			//continue;
+			//}
 			
 			//종료 조건 확인하여 링크드 리스트에서 제외
 			if( g_lpET[lpML->magicNum].end_Time > 0)		//특정 유지시간을 가지고 있는 경우
@@ -8170,15 +8141,12 @@ MAGICLIST* SampleMagic6(MAGICLIST* lpML) //, int Num, int motion_Num, int speed,
 				continue;
 			}
 			//////////////////////////////////////////////////////////////////////////////////////////////////////
-			
-			/*
-			if(lpEL->FrameCount>=EffList[lpEL->sprite_Num].MaxFrame || ++lpEL->total_Frame==lpML->end_Time)
-			{
-			DeleteList(&(lpML->EffHead), lpEL);
-			lpEL = lpML->EffHead;
-			continue;
-			}
-			*/
+			//if(lpEL->FrameCount>=EffList[lpEL->sprite_Num].MaxFrame || ++lpEL->total_Frame==lpML->end_Time)
+			//{
+			//DeleteList(&(lpML->EffHead), lpEL);
+			//lpEL = lpML->EffHead;
+			//continue;
+			//}
 			
 			if (lpEL->Next == NULL)
 				break;
@@ -8786,12 +8754,12 @@ MAGICLIST* SampleMagic9(MAGICLIST* lpML)//, int Num, int motion_Num, int speed, 
 	
 	static int start_X=0,start_Y=0;
 	
-	/*
-	result=ChangeDirection(direction_Missile,lpML->x,lpML->y,lpML->tarx, lpML->tary);
 	
-	  lpEL->x=lpML->x+(int)(cos(angle)*(lpML->spr_Speed*2));
-	  lpEL->y=lpML->y+(int)(sin(angle)*(lpML->spr_Speed))-18;
-	*/
+	//result=ChangeDirection(direction_Missile,lpML->x,lpML->y,lpML->tarx, lpML->tary);
+	//
+	//lpEL->x=lpML->x+(int)(cos(angle)*(lpML->spr_Speed*2));
+	//lpEL->y=lpML->y+(int)(sin(angle)*(lpML->spr_Speed))-18;
+	
 	
 	lpEL = lpML->EffHead;	//MAGICLIST와 연결되어 있는 USEEFFECTLIST의 주소를 넘겨줌 
 	
@@ -8998,18 +8966,16 @@ MAGICLIST* SampleMagic9(MAGICLIST* lpML)//, int Num, int motion_Num, int speed, 
 				round_incx1 = (int)((lpEL->total_Frame*4.)*cos((lpEL->total_Frame*9%360)*M_PI/180.));
 				round_incy1 = (int)((lpEL->total_Frame*3.)*sin((lpEL->total_Frame*9%360)*M_PI/180.));
 				
-				/*
-				if(abs(round_incx)>30)	
-				{
-				if(round_incx>=0)	{	round_incx=30;	round_incx1=21;	}
-				else				{	round_incx=-30;	round_incy1=-21;}
-				}
-				if(abs(round_incy)>20)
-				{
-				if(round_incy>=0)	{	round_incy=20;	round_incy1=14;	}
-				else				{	round_incy=-20;	round_incy1=-14;}
-				}
-				*/
+				//if(abs(round_incx)>30)	
+				//{
+				//if(round_incx>=0)	{	round_incx=30;	round_incx1=21;	}
+				//else				{	round_incx=-30;	round_incy1=-21;}
+				//}
+				//if(abs(round_incy)>20)
+				//{
+				//if(round_incy>=0)	{	round_incy=20;	round_incy1=14;	}
+				//else				{	round_incy=-20;	round_incy1=-14;}
+				//}
 				
 				lpEL->oldincx = lpEL->incx;
 				lpEL->oldincy = lpEL->incy;
@@ -9066,18 +9032,16 @@ MAGICLIST* SampleMagic9(MAGICLIST* lpML)//, int Num, int motion_Num, int speed, 
 					break;
 				}
 				
-				/*
-				if(abs(lpEL->incx)>60)	
-				{
-				if(lpEL->incx>=0)	{	lpEL->incx=60;	round_incx1=42;	}
-				else				{	lpEL->incx=-40;	round_incy1=-28;}
-				}
-				if(abs(lpEL->incy)>40)
-				{
-				if(lpEL->incy>=0)	{	lpEL->incy=40;	round_incy1=28;	}
-				else				{	lpEL->incy=-30;	round_incy1=-21;}
-				}
-				*/
+				//if(abs(lpEL->incx)>60)	
+				//{
+				//if(lpEL->incx>=0)	{	lpEL->incx=60;	round_incx1=42;	}
+				//else				{	lpEL->incx=-40;	round_incy1=-28;}
+				//}
+				//if(abs(lpEL->incy)>40)
+				//{
+				//if(lpEL->incy>=0)	{	lpEL->incy=40;	round_incy1=28;	}
+				//else				{	lpEL->incy=-30;	round_incy1=-21;}
+				//}
 				
 				//특정 외곽 라인에 근접할수록 색깔값 사라짐
 				lpEL->trans_Level=(float)(lpML->trans_Level*(( 280. - abs((int)lpEL->incx) ) / 60.));
@@ -9830,17 +9794,15 @@ MAGICLIST* Firewall1(MAGICLIST* lpML)
 				}
 			}
 			
-			/*
-			//이팩트가 일정거리 날라가면 소멸
-			if( lpEL->incx>=360 || lpEL->incy>=360 )  
-			{
-			DeleteList(&(lpML->EffHead), lpEL);
-			lpEL = lpML->EffHead;
-			lpML->EffectCount--;
-			lpML->flag=1;				//전체 연결 이팩트의 소멸을 위한 플레그 셋팅
-			continue;
-			}
-			*/
+			////이팩트가 일정거리 날라가면 소멸
+			//if( lpEL->incx>=360 || lpEL->incy>=360 )  
+			//{
+			//DeleteList(&(lpML->EffHead), lpEL);
+			//lpEL = lpML->EffHead;
+			//lpML->EffectCount--;
+			//lpML->flag=1;				//전체 연결 이팩트의 소멸을 위한 플레그 셋팅
+			//continue;
+			//}
 			
 			//마지막 프레임까지 진행된 경우 종료시킬까?
 			if(lpEL->FrameCount >= EffList[lpEL->sprite_Num].MaxFrame )
@@ -12733,194 +12695,194 @@ void DrawEffect3(USEEFFECTLIST *Temp, MAGICLIST* lpML, bool target)	//이펙트 
 	EffectOutput( x, y, lpChar_Effect->sp3/*&CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc]*/, lpML->trans_Type, (int)Temp->trans_Level);
 	//EffectOutput( x, y, lpChar_Effect->sp4/*&CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc]*/, lpML->trans_Type, (int)Temp->trans_Level);
 	
-	/*
-	switch(share/100000)
-	{
-	case 1:
-	out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-	sub=100000;
-	break;
-	case 2:
-	out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-	sub=200000;
-	break;
-	case 3:
-	out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-	sub=300000;
-	break;
-	case 4:
-	out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-	sub=400000;
-	break;
-	case 5:
-	out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-	sub=500000;
-	break;
-	case 6:
-	out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-	sub=600000;
-	default:
-	sub=0;
-	}
-	
-	  share-=sub;
-	  
-		switch(share/10000)
-		{
-		case 1:
-		out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-		sub=10000;
-		break;
-		case 2:
-		out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-		sub=20000;
-		break;
-		case 3:
-		out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-		sub=30000;
-		break;
-		case 4:
-		out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-		sub=40000;
-		break;
-		case 5:
-		out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-		sub=50000;
-		break;
-		case 6:
-		out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-		sub=60000;
-		break;
-		default:
-		sub=0;
-		}
-		
-		  share-=sub;
-		  
-			switch(share/1000)
-			{
-			case 1:
-			out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-			sub=1000;
-			break;
-			case 2:
-			out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-			sub=2000;
-			break;
-			case 3:
-			out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-			sub=3000;
-			break;
-			case 4:
-			out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-			sub=4000;
-			break;
-			case 5:
-			out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-			sub=5000;
-			break;
-			case 6:
-			out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-			sub=6000;
-			default:
-			sub=0;
-			}
-			
-			  share-=sub;
-			  
-				switch(share/100)
-				{
-				case 1:
-				out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-				sub=100;
-				break;
-				case 2:
-				out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-				sub=200;
-				break;
-				case 3:
-				out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-				sub=300;
-				break;
-				case 4:
-				out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-				sub=400;
-				break;
-				case 5:
-				out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-				sub=500;
-				break;
-				case 6:
-				out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-				sub=600;
-				break;
-				default:
-				sub=0;
-				}
-				
-				  share-=sub;
-				  
-					switch(share/10)
-					{
-					case 1:
-					out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-					sub=10;
-					break;
-					case 2:
-					out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-					sub=20;
-					break;
-					case 3:
-					out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-					sub=30;
-					break;
-					case 4:
-					out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-					sub=40;
-					break;
-					case 5:
-					out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-					sub=50;
-					break;
-					case 6:
-					out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-					sub=60;
-					break;
-					default:
-					sub=0;
-					}
-					
-					  share-=sub;
-					  
-						switch(share%10)
-						{
-						case 1:
-						out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-						break;
-						case 2:
-						out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-						break;
-						case 3:
-						out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-						break;
-						case 4:
-						out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-						break;
-						case 5:
-						out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-						break;
-						case 6:
-						out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
-						}
-*/
-Temp->FrameCount++;
+	//
+	//switch(share/100000)
+	//{
+	//case 1:
+	//out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=100000;
+	//break;
+	//case 2:
+	//out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=200000;
+	//break;
+	//case 3:
+	//out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=300000;
+	//break;
+	//case 4:
+	//out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=400000;
+	//break;
+	//case 5:
+	//out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=500000;
+	//break;
+	//case 6:
+	//out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=600000;
+	//default:
+	//sub=0;
+	//}
+	//
+	//share-=sub;
+	//  
+	//switch(share/10000)
+	//{
+	//case 1:
+	//out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=10000;
+	//break;
+	//case 2:
+	//out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=20000;
+	//break;
+	//case 3:
+	//out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=30000;
+	//break;
+	//case 4:
+	//out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=40000;
+	//break;
+	//case 5:
+	//out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=50000;
+	//break;
+	//case 6:
+	//out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=60000;
+	//break;
+	//default:
+	//sub=0;
+	//}
+	//	
+	//share-=sub;
+	//	  
+	//switch(share/1000)
+	//{
+	//case 1:
+	//out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=1000;
+	//break;
+	//case 2:
+	//out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=2000;
+	//break;
+	//case 3:
+	//out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=3000;
+	//break;
+	//case 4:
+	//out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=4000;
+	//break;
+	//case 5:
+	//out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=5000;
+	//break;
+	//case 6:
+	//out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=6000;
+	//default:
+	//sub=0;
+	//}
+	//		
+	//share-=sub;
+	//		  
+	//switch(share/100)
+	//{
+	//case 1:
+	//out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=100;
+	//break;
+	//case 2:
+	//out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=200;
+	//break;
+	//case 3:
+	//out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=300;
+	//break;
+	//case 4:
+	//out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=400;
+	//break;
+	//case 5:
+	//out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=500;
+	//break;
+	//case 6:
+	//out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=600;
+	//break;
+	//default:
+	//sub=0;
+	//}
+	//			
+	//share-=sub;
+	//			  
+	//switch(share/10)
+	//{
+	//case 1:
+	//out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=10;
+	//break;
+	//case 2:
+	//out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=20;
+	//break;
+	//case 3:
+	//out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=30;
+	//break;
+	//case 4:
+	//out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=40;
+	//break;
+	//case 5:
+	//out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=50;
+	//break;
+	//case 6:
+	//out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//sub=60;
+	//break;
+	//default:
+	//sub=0;
+	//}
+	//				
+	//share-=sub;
+	//				  
+	//switch(share%10)
+	//{
+	//case 1:
+	//out_Result=EffectOutput( x, y, &CharSpr[lpChar_Effect->sprno].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//break;
+	//case 2:
+	//out_Result=EffectOutput( x, y, &CharSpr[1].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//break;
+	//case 3:
+	//out_Result=EffectOutput( x, y, &CharSpr[2].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//break;
+	//case 4:
+	//out_Result=EffectOutput( x, y, &CharSpr[3].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//break;
+	//case 5:
+	//out_Result=EffectOutput( x, y, &CharSpr[4].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//break;
+	//case 6:
+	//out_Result=EffectOutput( x, y, &CharSpr[5].sp[ dir ][ sprc], lpML->trans_Type, (int)Temp->trans_Level);
+	//}
+
+	Temp->FrameCount++;
 }
-/*
-bool SendServer(int magic_Num, LPCHARACTER scr)
-{
-return 1;
-}
-*/
+//
+//bool SendServer(int magic_Num, LPCHARACTER scr)
+//{
+//return 1;
+//}
+//
 bool DoingImpectEffect(int magic_Num, LPCHARACTER scr, LPCHARACTER dcr, int damage)
 {
 	DIRECTION	dir;
@@ -12936,27 +12898,27 @@ bool DoingImpectEffect(int magic_Num, LPCHARACTER scr, LPCHARACTER dcr, int dama
 	return 1;
 }
 
-/* 001212 KHS
+ //001212 KHS
 
-  39  4 194 0	./effect/start_ice16   2154	100	186 12  2		 16  0  0   0  0 1   0   0 179	0
-  
-	1. effect_table.ef화일의 처음 필드에서 39를 찾는다.
-	2. 2번째 필드는 patterntype.
-	3. 3전째 필드는 sprite고유번호 즉, start_ice16은 194이다. 
-	4. 이는 시전시 나오는 효과이고. ( 효과음은 2154 )
-	5. 발사는 8번째 필드인 186번으로 간다. 
-	
-	  
-		
-		  새로운 마법을 추가하기 위해 ..
-		  
-			priest.txt
-			priest_ex.txt에 추가하여 			magic폴더에 넣는다. 
-			
-			  wizard.txt
-			  wizard_ex.txt에 추가하여 			magic 폴더에 넣는다. 
-			  
-*/
+ // 39  4 194 0	./effect/start_ice16   2154	100	186 12  2		 16  0  0   0  0 1   0   0 179	0
+ // 
+//1. effect_table.ef화일의 처음 필드에서 39를 찾는다.
+//2. 2번째 필드는 patterntype.
+//3. 3전째 필드는 sprite고유번호 즉, start_ice16은 194이다. 
+//4. 이는 시전시 나오는 효과이고. ( 효과음은 2154 )
+//5. 발사는 8번째 필드인 186번으로 간다. 
+//
+//  
+//	
+//	  새로운 마법을 추가하기 위해 ..
+//	  
+//		priest.txt
+//		priest_ex.txt에 추가하여 			magic폴더에 넣는다. 
+//		
+//		  wizard.txt
+//		  wizard_ex.txt에 추가하여 			magic 폴더에 넣는다. 
+//		  
+
 
 bool RbuttonContinue( int magic_Num, LPCHARACTER scr, LPCHARACTER dcr, int x, int y)
 {
@@ -13610,13 +13572,12 @@ MAGICLIST*	RadiantStar(MAGICLIST*	lpML)		//특정 위치에 일정 패턴으로 
 				}
 				break;
 				case 3:		//포물선 형태
-							/*
-							if(lpEL->effect_Count%2)
-							lpEL->incx += 3.f/(lpEL->FrameCount+1.f);
-							else
-							lpEL->incx += -(3.f/(lpEL->FrameCount+1.f));
-							lpEL->incy += (float)lpEL->FrameCount*1.7f;		//sqrt( lpEL->total_Frame*grade );		//아래로 향하는 포물선
-					*/
+					//if(lpEL->effect_Count%2)
+					//lpEL->incx += 3.f/(lpEL->FrameCount+1.f);
+					//else
+					//lpEL->incx += -(3.f/(lpEL->FrameCount+1.f));
+					//lpEL->incy += (float)lpEL->FrameCount*1.7f;		//sqrt( lpEL->total_Frame*grade );		//아래로 향하는 포물선
+					
 					if(lpEL->effect_Count%2)
 						lpEL->incx = (float)(lpEL->FrameCount*2.);
 					else

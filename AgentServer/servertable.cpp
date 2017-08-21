@@ -1410,8 +1410,8 @@ bool CServerTable::RemoveConnectedServerDataFromHashTable( DWORD dwConnectionInd
 		{
 			ASSERT(pTest);
 			dwCount++;
-//			if( this->m_ppServerTable[pTest->wPosInHashTable] == NULL )
-//				_asm int 3;
+			//if( this->m_ppServerTable[pTest->wPosInHashTable] == NULL )
+			//	_asm int 3;
 			pTest = pTest->pNextHashedServerData;
 		}
 		
@@ -1885,14 +1885,14 @@ bool CServerTable::InitServerTable(const char *sFileName )
 				// 현재 두개의 PROXY가 떴을때 상황처리가 완벽하지 않으므로
 				// 하나의 프락시만 허용한다.
 
-				/* pServerData = this->GetNewServerData( sDummyIP, wDummyPort );
-				this->m_pOwnProxyServerData[SECONDARY_SERVER] = pServerData;
+				// pServerData = this->GetNewServerData( sDummyIP, wDummyPort );
+				//this->m_pOwnProxyServerData[SECONDARY_SERVER] = pServerData;
 
-				if( pServerData )
-				{
-					this->AddServerDataToList( pServerData );
-				}
-				*/
+				//if( pServerData )
+				//{
+				//	this->AddServerDataToList( pServerData );
+				//}
+				//
 			}
 			break;
 		default:
@@ -2012,8 +2012,8 @@ bool CServerTable::SendToProxyServer( char* pMsg, DWORD dwLength )
 	}
 
 	// For Debugging
-//	if( pProxyServer->dwServerType != SERVER_TYPE_PROXY )
-//		_asm int 3;
+	//if( pProxyServer->dwServerType != SERVER_TYPE_PROXY )
+	//	_asm int 3;
 
 	return this->m_pINet->SendToServer( pProxyServer->dwConnectionIndex, pMsg, dwLength, FLAG_SEND_NOT_ENCRYPTION );
 }
@@ -2358,7 +2358,7 @@ bool CServerTable::SetDBDemon( LP_SERVER_DATA pTargetServer, LP_SERVER_DATA pDBD
 		// 기존에 배정된 DB 정보 제거.
 		if( !this->ClearDBDemonSetting( pTargetServer ) )
 		{
-//			MyLog( LOG_FATAL, "CServerTable::ClearDBDemonSetting() Failed!!!" );
+			//MyLog( LOG_FATAL, "CServerTable::ClearDBDemonSetting() Failed!!!" );
 		}
 
 		// 배정된 DB 정보를 링크.

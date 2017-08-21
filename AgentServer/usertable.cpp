@@ -187,7 +187,7 @@ USERINFO* CUserTable::GetUserInfo( const char* szName )		// 030224 kyo
 		USERINFO* cur = m_ppInfoTable[i];
 		while (cur)
 		{
-			if( 0 == stricmp( cur->szName, szName ) )
+			if( 0 == _stricmp( cur->szName, szName ) )
 			{
 				return cur;
 			}

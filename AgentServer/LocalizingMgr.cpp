@@ -167,13 +167,13 @@ int CLocalizingMgr::InitVersion(const int iNationCode,const int iIsFreeBeta)
 
 int CLocalizingMgr::ConvertNameToCode(const char* szNationName)
 {
-	if(!stricmp(szNationName,szKorea)){return KOREA;}
-	if(!stricmp(szNationName,szChina)){return CHINA;}
-	if(!stricmp(szNationName,szTaiwan)){return TAIWAN;}
-	if(!stricmp(szNationName,szThai)){return THAI;}
-	if(!stricmp(szNationName,szHongKong)){return HONGKONG;}
-	if(!stricmp(szNationName,szUsa)){return USA;}
-	if(!stricmp(szNationName,szJapan)){return JAPAN;}
+	if(!_stricmp(szNationName,szKorea)){return KOREA;}
+	if(!_stricmp(szNationName,szChina)){return CHINA;}
+	if(!_stricmp(szNationName,szTaiwan)){return TAIWAN;}
+	if(!_stricmp(szNationName,szThai)){return THAI;}
+	if(!_stricmp(szNationName,szHongKong)){return HONGKONG;}
+	if(!_stricmp(szNationName,szUsa)){return USA;}
+	if(!_stricmp(szNationName,szJapan)){return JAPAN;}
 	
 	return NOTSET;	
 }

@@ -1454,8 +1454,8 @@ void h_DisplayPC(LPCHARACTER ch, int shadow)
 
 		COLO__ = aa;
 
-		//		if( ro )	{ rr+=(( er-sr) * SPEED__ / 100); if( rr > er )	{ ro = !ro; }}
-		//		else		{ rr-=(( er-sr) * SPEED__ / 100); if( rr < sr )	{ ro = !ro; }}
+		//if( ro )	{ rr+=(( er-sr) * SPEED__ / 100); if( rr > er )	{ ro = !ro; }}
+		//else		{ rr-=(( er-sr) * SPEED__ / 100); if( rr < sr )	{ ro = !ro; }}
 
 		if (ro) { rr += ((er - sr) * SPEED__ / 100); if (rr > er) { ro = !ro; } }
 		else { rr -= ((er - sr) * SPEED__ / 100); if (rr < sr) { ro = !ro; } }
@@ -1463,34 +1463,32 @@ void h_DisplayPC(LPCHARACTER ch, int shadow)
 		else { gg -= ((eg - sg) * SPEED__ / 100); if (gg < sg) { go = !go; } }
 		if (bo) { bb += ((eb - sb) * SPEED__ / 100); if (bb > eb) { bo = !bo; } }
 		else { bb -= ((eb - sb) * SPEED__ / 100); if (bb < sb) { bo = !bo; } }
-		//		WORD color = RGB16( rr,gg,bb );
-		//		WORD color = RGB16( 110,10,10 );
-		/*
-		PutCompressedImageFX( x+1,y, ch->sp, COLO__/2, 2 );
-		PutCompressedImageFX( x-1,y, ch->sp, COLO__/2, 2 );
+		//WORD color = RGB16( rr,gg,bb );
+		//WORD color = RGB16( 110,10,10 );
+		
+		//PutCompressedImageFX( x+1,y, ch->sp, COLO__/2, 2 );
+		//PutCompressedImageFX( x-1,y, ch->sp, COLO__/2, 2 );
 
-		  if( ac0 )  // 갑옷..
-		  {
-		  PutCompressedImageFX( x+1,y, ch->sp0, COLO__/2, 2 );
-		  PutCompressedImageFX( x-1,y, ch->sp0, COLO__/2, 2 );
-		  }
-		  if( ac1 )
-		  {
-		  PutCompressedImageFX( x+1,y, ch->sp1, COLO__/2, 2 );
-		  PutCompressedImageFX( x-1,y, ch->sp1, COLO__/2, 2 );
-		  }
-		  if( ac2 && ch->peacests )
-		  {
-		  PutCompressedImageFX( x+1,y, ch->sp2, COLO__/2, 2 );
-		  PutCompressedImageFX( x-1,y, ch->sp2, COLO__/2, 2 );
-		  }
-		  if( ac3 && ch->peacests )
-		  {
-		  PutCompressedImageFX( x+1,y, ch->sp3, COLO__/2, 2 );
-		  PutCompressedImageFX( x-1,y, ch->sp3, COLO__/2, 2 );
-		  }
-
-		*/
+		//  if( ac0 )  // 갑옷..
+		//  {
+		//  PutCompressedImageFX( x+1,y, ch->sp0, COLO__/2, 2 );
+		//  PutCompressedImageFX( x-1,y, ch->sp0, COLO__/2, 2 );
+		//  }
+		//  if( ac1 )
+		//  {
+		//  PutCompressedImageFX( x+1,y, ch->sp1, COLO__/2, 2 );
+		//  PutCompressedImageFX( x-1,y, ch->sp1, COLO__/2, 2 );
+		//  }
+		//  if( ac2 && ch->peacests )
+		//  {
+		//  PutCompressedImageFX( x+1,y, ch->sp2, COLO__/2, 2 );
+		//  PutCompressedImageFX( x-1,y, ch->sp2, COLO__/2, 2 );
+		//  }
+		//  if( ac3 && ch->peacests )
+		//  {
+		//  PutCompressedImageFX( x+1,y, ch->sp3, COLO__/2, 2 );
+		//  PutCompressedImageFX( x-1,y, ch->sp3, COLO__/2, 2 );
+		//  }
 	}
 
 	switch (ch->viewtype)
@@ -3141,8 +3139,8 @@ BOOL AddCharacter(LPCHARACTERLIST lpCharacterList, LPCHARACTER ch, LPGPCHARINFO 
 	case 80:	lpNew->dummy_pk = 0;
 		break;
 
-		//		default :	lpNew->dummy_pk = 100;
-		break;
+	//default :	lpNew->dummy_pk = 100;
+	//	break;
 	}
 
 
@@ -3177,15 +3175,14 @@ BOOL AddCharacter(LPCHARACTERLIST lpCharacterList, LPCHARACTER ch, LPGPCHARINFO 
 	// 단순카피하는데  일일이 코딩해 줘야 한다.
 	// 빠지면 버그의 원인이 된다.
 
-	/*
-	//__________________________________________ // 010904 LTS
-	lpNew->isCommander		= gpch->isCommander;	//국가전 관련
-	lpNew->isSquadLeader	= gpch->isSquadLeader;	// LTS CHAR
-	lpNew->WarNo			= gpch->WarNo;
-	lpNew->WarfieldNo		= gpch->WarfieldNo;
-	lpNew->SquadNo			= gpch->SquadNo;
-	lpNew->YL_JoinNation	= gpch->YL_JoinNation;
-	//__________________________________________ // 010904 LTS*/
+	////__________________________________________ // 010904 LTS
+	//lpNew->isCommander		= gpch->isCommander;	//국가전 관련
+	//lpNew->isSquadLeader	= gpch->isSquadLeader;	// LTS CHAR
+	//lpNew->WarNo			= gpch->WarNo;
+	//lpNew->WarfieldNo		= gpch->WarfieldNo;
+	//lpNew->SquadNo			= gpch->SquadNo;
+	//lpNew->YL_JoinNation	= gpch->YL_JoinNation;
+	////__________________________________________ // 010904 LTS
 
 	Hero = g_CharacterList.lpFirst;
 
@@ -3372,30 +3369,30 @@ BOOL ChangeDirection16(DIRECTION* direction, int sx, int sy, int dx, int dy)
 //		
 
 
-/*	ACTION_NONE = 0,				//기본동작
-ACTION_BASIC_WALK,				//기본걷기
-ACTION_BATTLE_WALK_OWNHAND,		//전투걷기
-ACTION_BATTLE_NONE,				//전투기본
-ACTION_ATTACK_ONESWORD1,		//한손공격
-ACTION_ATTACK_ONESWORD2,		//한손공격2
-ACTION_ATTACK_BONG_DOWN,		//봉, 곤봉, 공격( 내려치기 )
-ACTION_ATTACK_BONG_JJIRKI,		//창, 봉, 공격( 찌르기 )
-ACTION_ATTACK_BOW,				//활쏘기
-ACTION_ATTACK_PENSWORD2,		//펜싱자세
-ACTION_ATTACK_PENSING1,			//펜싱공격 1
-ACTION_ATTACK_PENSING2,			//펜싱공격 2
-ACTION_RUN,						//뛰기
-ACTION_ATTACKED,				//맞기
-ACTION_DIE,						//죽기
-ACTION_MAGIC_CASTING,			//마법캐스팅
-ACTION_MAGIC_BEFORE,			//마법시전
-ACTION_SITDOWN,					//않기
-ACTION_THROW,					//던지기공격
-ACTION_HORSE,					//말타기
-ACTION_BATTLE_WALK_TWOHAND,		//전투걷기 2 ( 양손에 검 )
-ACTION_BATTLE_NONE_TWOHAND,		//전투기본 2( 양손 )
-ACTION_ATTACK_BONG_ROUND		//봉, 창, 곤봉, 공격( 휘두르기 )
-*/
+//	ACTION_NONE = 0,				// 기본동작
+//ACTION_BASIC_WALK,				// 기본걷기
+//ACTION_BATTLE_WALK_OWNHAND,		// 전투걷기
+//ACTION_BATTLE_NONE,				// 전투기본
+//ACTION_ATTACK_ONESWORD1,			// 한손공격
+//ACTION_ATTACK_ONESWORD2,			// 한손공격2
+//ACTION_ATTACK_BONG_DOWN,			// 봉, 곤봉, 공격( 내려치기 )
+//ACTION_ATTACK_BONG_JJIRKI,		// 창, 봉, 공격( 찌르기 )
+//ACTION_ATTACK_BOW,				// 활쏘기
+//ACTION_ATTACK_PENSWORD2,			// 펜싱자세
+//ACTION_ATTACK_PENSING1,			// 펜싱공격 1
+//ACTION_ATTACK_PENSING2,			// 펜싱공격 2
+//ACTION_RUN,						// 뛰기
+//ACTION_ATTACKED,					// 맞기
+//ACTION_DIE,						// 죽기
+//ACTION_MAGIC_CASTING,				// 마법캐스팅
+//ACTION_MAGIC_BEFORE,				// 마법시전
+//ACTION_SITDOWN,					// 않기
+//ACTION_THROW,						// 던지기공격
+//ACTION_HORSE,						// 말타기
+//ACTION_BATTLE_WALK_TWOHAND,		// 전투걷기 2 ( 양손에 검 )
+//ACTION_BATTLE_NONE_TWOHAND,		// 전투기본 2( 양손 )
+//ACTION_ATTACK_BONG_ROUND			// 봉, 창, 곤봉, 공격( 휘두르기 )
+//
 
 
 
@@ -3413,13 +3410,13 @@ void onLineDistantPosition(int x1, int y1, int x2, int y2, int *xx, int *yy, int
 
 //	뒤로 물러서는것이나 싸움의 연출에 관한 것을 출력한다. 	
 //////////////////////// 0604 이규훈 수정 ///////////////////////////
-/*----------------------------------------------------------------------------------------------------------------------------------
-기능 :
-인자 :
-결과 :	리턴값 : -1 BackDraw가 지금 막 끝났다.
-0 Backdraq가 필요없다. ( 그냥 리턴 )
-1 Backdraw 중이다.
-//----------------------------------------------------------------------------------------------------------------------------------*/
+//----------------------------------------------------------------------------------------------------------------------------------
+//기능 :
+//인자 :
+//결과 :	리턴값 : -1 BackDraw가 지금 막 끝났다.
+//0 Backdraq가 필요없다. ( 그냥 리턴 )
+//1 Backdraw 중이다.
+////----------------------------------------------------------------------------------------------------------------------------------
 
 ///////////////////// 0607 lkh 수정 ////////////////////////////
 ///////////////////// 0613 lkh 수정 ////////////////////////////
@@ -3586,7 +3583,7 @@ void AnimationTypeWomanCheck(LPCHARACTER ch)
 	case ACTION_BASIC_WALK://기본걷기		
 	case ACTION_RUN://뛰기			
 	{
-		//			CharacterWorkingWater( ch);
+		//CharacterWorkingWater( ch);
 
 		int todir = (int)ch->todir;
 		int dir = (int)ch->direction;
@@ -3665,9 +3662,6 @@ void AnimationTypeWomanCheck(LPCHARACTER ch)
 					{
 						ch->pathcount--;
 					}
-
-					//---------------------------------------------------------------------------------------
-					//---------------------------------------------------------------------------------------
 				}
 			}
 		}
@@ -4158,13 +4152,13 @@ void AnimationTypeWomanFrameCount(LPCHARACTER ch)
 	}
 }
 
-/*	MON1_NONE = 0,		// 기본동작
-MON1_BATTLE_NONE,	// 전투기본
-MON1_ATTACKED,		// 맞기
-MON1_DIE,			// 죽기....
-MON1_BATTLE_WALK_,	// 기본걷기
-MON1_BATTLE_ATTACK, // 한손공격
-*/
+//MON1_NONE = 0,		// 기본동작
+//MON1_BATTLE_NONE,	// 전투기본
+//MON1_ATTACKED,		// 맞기
+//MON1_DIE,			// 죽기....
+//MON1_BATTLE_WALK_,	// 기본걷기
+//MON1_BATTLE_ATTACK, // 한손공격
+//
 
 // 010724 KHS						
 void AnimationType_Mon1_Check(LPCHARACTER ch)
@@ -4994,8 +4988,6 @@ int ReturnAccesablePosition(LPCHARACTER ch, int sx, int sy, int ex, int ey, int 
 
 	return 0;
 }
-
-
 
 
 //   공격을 한다는것은 공격범위에 있다는 것이므로 

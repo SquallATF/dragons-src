@@ -42,10 +42,6 @@ extern void			PutCompressedImageShadow( int x, int y, Spr *sp );
 extern int			IsDead( LPCHARACTER ch );
 
 
-
-
-
-
 void InitHorseAniTable()
 {
 	g_HorseRider.LoadHorseRiderAniMationTable(0,0,"./char/hrAniTable0000.txt");
@@ -555,7 +551,7 @@ void cHorseRider::LoadHorseData(LPCHARACTER ch)
 		if (HorseGrade>=0) LoadHorseGradeSprite(HorseKind,HorseGrade);
 		if (WeaponKind>=0) LoadWeaponSprite(Sex,WeaponKind);
 		if (GuardKind>=0) LoadGuardSprite(Sex,GuardKind);
-//		if (ch->mantle) LoadRiderMantleSprite(Sex);
+		//if (ch->mantle) LoadRiderMantleSprite(Sex);
 	}
 }
 
@@ -784,7 +780,7 @@ void cHorseRider::LoadHorseRiderAniMationTable(int Sex,int HorseNo,char* FileNam
 				}
 				
 				sscanf( temp, "%d %d %d %d %d %d %d ", &no, &x, &y, &attackframe, &wave, &height, &effect );
-	//			no = atoi( temp ) -1;
+				//no = atoi( temp ) -1;
 				HorseRiderAniTable[Sex][HorseNo][i].cFrame[ count]	= no-1;
 				HorseRiderAniTable[Sex][HorseNo][i].dx[ count]		=  x;
 				HorseRiderAniTable[Sex][HorseNo][i].dy[ count]		=  y;
@@ -908,8 +904,7 @@ void cHorseRider::CheckMoveAnimation(LPCHARACTER ch)
 		else
 		{
 			ch->nCurrentFrame =0;
-				ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
-
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值
 		}
 	}
 }
@@ -930,8 +925,8 @@ void cHorseRider::CheckAttackAnimation(LPCHARACTER ch)
 			ch->nCurrentAction		= ch->basicAction;
 			ch->nCurrentFrame		= 0;
 			ch->offset.x = 0; ch->offset.y = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值
 			if (ch->nActiveCombat == SHARK_MISSILE)
 			{
 				ch->attackanimationON = 0;
@@ -1012,14 +1007,14 @@ inline void cHorseRider::FreeWeaponSprite(int SexType,int SpriteKind)
 
 inline void cHorseRider::ClearWeaponSprite()
 {
-//	for (int i=0;i<HSEX_TYPE_MAX;i++)
-//	{
+	//for (int i=0;i<HSEX_TYPE_MAX;i++)
+	//{
 		for (int j=0;j<HWEAPON_TYPE_MAX;j++)
 		{
 			FreeWeaponSprite(0,j);
 			FreeWeaponSprite(1,j);
 		}
-//	}
+	//}
 }
 
 inline void cHorseRider::FreeGuardSprite(int SexType,int SpriteKind)
@@ -1029,14 +1024,14 @@ inline void cHorseRider::FreeGuardSprite(int SexType,int SpriteKind)
 
 inline void cHorseRider::ClearGuardSprite()
 {
-//	for (int i=0;i<HSEX_TYPE_MAX;i++)
-//	{
-//		for (int j=0;j<HGUARD_TYPE_MAX;j++)
-//		{
-			//FreeGuardSprite(i,j);
+	//for (int i=0;i<HSEX_TYPE_MAX;i++)
+	//{
+	//	for (int j=0;j<HGUARD_TYPE_MAX;j++)
+	//	{
+	//		FreeGuardSprite(i,j);
 	FreeGuardSprite(0,0);
-//		}
-//	}
+	//	}
+	//}
 }
 
 inline void cHorseRider::FreeRiderGradeSprite(int SexType,int SpriteKind,int GradeType)
@@ -1155,11 +1150,11 @@ inline int cHorseRider::CheckGuardKind(LPCHARACTER ch)		// 교체
 {
 	int	Accessory=ch->accessory[3]-87;						// 87은 방패의 시작번호 
 
-/*	if (Accessory<0||Accessory>6) 
-	{
-		MessageBox(NULL,"Error!!","Shield Sprite Number Error...",MB_OK);
-		return 0;
-	}*/
+	//if (Accessory<0||Accessory>6) 
+	//{
+	//	MessageBox(NULL,"Error!!","Shield Sprite Number Error...",MB_OK);
+	//	return 0;
+	//}
 	if (Accessory<0) return -1;
 	return 0;
 }
@@ -1290,19 +1285,19 @@ inline void cHorseRider::DrawRider(LPCHARACTER ch)			// LTS HORSERIDER ADD
 	Spr* RiderGradeSpr=NULL;
 	Spr* RiderMantleSpr=NULL;
 
-//	if (ch->mantlecolor!=0&&ch->mantlecolor!=65535) RiderMantleSpr=&RiderMantlePic[SexType][ch->direction][Frame];
+	//if (ch->mantlecolor!=0&&ch->mantlecolor!=65535) RiderMantleSpr=&RiderMantlePic[SexType][ch->direction][Frame];
 	
 	if (RiderGrade>=0) RiderGradeSpr=&RiderGradePic[SexType][RiderKind][RiderGrade][ch->direction][Frame];	// 범위연산에 문제 생김.
 
-//	if (ch->direction==DIRECTION_DOWN||ch->direction==DIRECTION_RIGHTDOWN||ch->direction==DIRECTION_LEFTDOWN)
-//		PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,ch->mantlecolor);
-//	PutCompressedImage(LocateX,LocateY,RiderMantleSpr);
+	//if (ch->direction==DIRECTION_DOWN||ch->direction==DIRECTION_RIGHTDOWN||ch->direction==DIRECTION_LEFTDOWN)
+	//	PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,ch->mantlecolor);
+	//PutCompressedImage(LocateX,LocateY,RiderMantleSpr);
 	PutCompressedImage(LocateX,LocateY,RiderSpr);
 	PutCompressedImageCharRGB(LocateX,LocateY,RiderBandSpr, ch->bodycolor);
 	PutCompressedImage(LocateX,LocateY,RiderGradeSpr);
-//	if (ch->direction!=DIRECTION_DOWN&&ch->direction!=DIRECTION_RIGHTDOWN&&ch->direction!=DIRECTION_LEFTDOWN)
-//		PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,ch->mantlecolor);
-//	PutCompressedImage(LocateX,LocateY,RiderMantleSpr);
+	//if (ch->direction!=DIRECTION_DOWN&&ch->direction!=DIRECTION_RIGHTDOWN&&ch->direction!=DIRECTION_LEFTDOWN)
+	//	PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,ch->mantlecolor);
+	//PutCompressedImage(LocateX,LocateY,RiderMantleSpr);
 }
 
 inline void cHorseRider::DrawRiderColor(LPCHARACTER ch,DWORD Color1,DWORD Color2)
@@ -1318,17 +1313,17 @@ inline void cHorseRider::DrawRiderColor(LPCHARACTER ch,DWORD Color1,DWORD Color2
 
 	Spr* RiderSpr=GetSpriteData(SexType,HSRIDER,RiderKind,ch->direction,Frame);
 	Spr* RiderGradeSpr=NULL;
-//	Spr* RiderMantleSpr=NULL;
+	//Spr* RiderMantleSpr=NULL;
 
-//	if (ch->mantlecolor!=0&&ch->mantlecolor!=65535) RiderMantleSpr=&RiderMantlePic[SexType][ch->direction][Frame];
+	//if (ch->mantlecolor!=0&&ch->mantlecolor!=65535) RiderMantleSpr=&RiderMantlePic[SexType][ch->direction][Frame];
 	if (RiderGrade>=0) RiderGradeSpr=&RiderGradePic[SexType][RiderKind][RiderGrade][ch->direction][Frame];	// 범위연산에 문제 생김.
 
-//	if (ch->direction==DIRECTION_DOWN||ch->direction==DIRECTION_RIGHTDOWN||ch->direction==DIRECTION_LEFTDOWN)
-//		PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,Color2);
+	//if (ch->direction==DIRECTION_DOWN||ch->direction==DIRECTION_RIGHTDOWN||ch->direction==DIRECTION_LEFTDOWN)
+	//	PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,Color2);
 	PutCompressedImageCharRGB(LocateX,LocateY,RiderSpr,Color2);
 	PutCompressedImageCharRGB(LocateX,LocateY,RiderGradeSpr,Color2);
-//	if (ch->direction!=DIRECTION_DOWN&&ch->direction!=DIRECTION_RIGHTDOWN&&ch->direction!=DIRECTION_LEFTDOWN)
-//		PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,Color2);
+	//if (ch->direction!=DIRECTION_DOWN&&ch->direction!=DIRECTION_RIGHTDOWN&&ch->direction!=DIRECTION_LEFTDOWN)
+	//	PutCompressedImageCharRGB(LocateX,LocateY,RiderMantleSpr,Color2);
 }
 
 inline void cHorseRider::DrawRiderFX(LPCHARACTER ch,int Trans,int Operation)	// LTS HORSERIDER ADD	
@@ -1343,20 +1338,20 @@ inline void cHorseRider::DrawRiderFX(LPCHARACTER ch,int Trans,int Operation)	// 
 
 	Spr* RiderSpr=GetSpriteData(SexType,HSRIDER,RiderKind,ch->direction,Frame);
 	Spr* RiderGradeSpr=NULL;
-//	Spr* RiderMantleSpr=NULL;
+	//Spr* RiderMantleSpr=NULL;
 
-//	if (ch->mantlecolor!=0&&ch->mantlecolor!=65535) RiderMantleSpr=&RiderMantlePic[SexType][ch->direction][Frame];
+	//if (ch->mantlecolor!=0&&ch->mantlecolor!=65535) RiderMantleSpr=&RiderMantlePic[SexType][ch->direction][Frame];
 	if (RiderGrade>=0) RiderGradeSpr=&RiderGradePic[SexType][RiderKind][RiderGrade][ch->direction][Frame];	// 범위연산에 문제 생김.
 
-//	if (ch->direction==DIRECTION_DOWN||ch->direction==DIRECTION_RIGHTDOWN||ch->direction==DIRECTION_LEFTDOWN)
-//		PutCompressedImageFX(LocateX,LocateY,RiderMantleSpr,Trans,Operation);
+	//if (ch->direction==DIRECTION_DOWN||ch->direction==DIRECTION_RIGHTDOWN||ch->direction==DIRECTION_LEFTDOWN)
+	//	PutCompressedImageFX(LocateX,LocateY,RiderMantleSpr,Trans,Operation);
 	PutCompressedImageFX(LocateX,LocateY,RiderSpr,Trans,Operation);
 	PutCompressedImageFX(LocateX,LocateY,RiderGradeSpr,Trans,Operation);
 }
 
 inline void cHorseRider::DrawRiderVoid(LPCHARACTER ch)
 {
-//	int  RiderGrade=CheckRiderGrade(ch);
+	//int  RiderGrade=CheckRiderGrade(ch);
 	int	SexType=CheckSex(ch);
 	int RiderKind=CheckRiderKind(ch);
 	int LocateX=ch->x-Mapx;
@@ -1366,10 +1361,10 @@ inline void cHorseRider::DrawRiderVoid(LPCHARACTER ch)
 
 
 	Spr* RiderSpr=GetSpriteData(SexType,HSRIDER,RiderKind,ch->direction,Frame);
-//	Spr* RiderGradeSpr=&RiderGradePic[RiderGrade][SexType][RiderKind][ch->direction][Frame];	// 범위연산에 문제 생김.
+	//Spr* RiderGradeSpr=&RiderGradePic[RiderGrade][SexType][RiderKind][ch->direction][Frame];	// 범위연산에 문제 생김.
 
 	PutCompressedImageVoid(LocateX+(rand()%5-2),LocateY+(rand()%5-2),RiderSpr);
-//	PutCompressedImageVoid(LocateX+(rand()%5-2),LocateY+(rand%5-2),RiderGradeSpr);
+	//PutCompressedImageVoid(LocateX+(rand()%5-2),LocateY+(rand%5-2),RiderGradeSpr);
 }
 
 inline void cHorseRider::DrawHorse(LPCHARACTER ch)
@@ -1441,17 +1436,17 @@ inline void cHorseRider::DrawHorseFX(LPCHARACTER ch,int Trans,int Operation)
 
 inline void cHorseRider::DrawHorseVoid(LPCHARACTER ch)
 {
-//	int HorseGrade=CheckHorseGrade(ch);
+	//int HorseGrade=CheckHorseGrade(ch);
 	int HorseKind=CheckHorseKind(ch);
 	int LocateX=ch->x-Mapx;
 	int LocateY=ch->y-Mapy;
 	int Frame=HorseRiderAniTable[CheckSex(ch)][HorseKind][ch->nCurrentAction].cFrame[ch->nCurrentFrame];
 
 	Spr* HorseSpr=GetSpriteData(0,HSHORSE,HorseKind,ch->direction,Frame);
-//	Spr* HorseGradeSpr=&HorseGradePic[HorseKind][HorseGrade][ch->direction][Frame];
+	//Spr* HorseGradeSpr=&HorseGradePic[HorseKind][HorseGrade][ch->direction][Frame];
 
 	PutCompressedImageVoid(LocateX+(rand()%5-2),LocateY+(rand()%5-2),HorseSpr);
-//	PutCompressedImageVoid(LocateX+(rand()%5-2),LocateY+(rand()%5-2),HorseGradeSpr);
+	//PutCompressedImageVoid(LocateX+(rand()%5-2),LocateY+(rand()%5-2),HorseGradeSpr);
 }
 
 inline void cHorseRider::DrawFX(LPCHARACTER ch,int Trans,int Operation)

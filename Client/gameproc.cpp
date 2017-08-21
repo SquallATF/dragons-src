@@ -1143,22 +1143,22 @@ SKIP__:
 
 	CharacterProcFrameCount();
 
-	//	if( SkipTime - STDTime < 60 )
+	//if( SkipTime - STDTime < 60 )
+	//{
+	//	while( 1 )	
 	//	{
-	//		while( 1 )	
+	//		SkipTime = ::timeGetTime();
+	//		if( SkipTime - STDTime > 60 ) 
 	//		{
-	//			SkipTime = ::timeGetTime();
-	//			if( SkipTime - STDTime > 60 ) 
-	//			{
-	//				STDTime = SkipTime;
-	//				break;
-	//			}		
-	//		}			
-	//	}
-	//	else
-	//	{
-	//		STDTime = SkipTime;
-	//	}	
+	//			STDTime = SkipTime;
+	//			break;
+	//		}		
+	//	}			
+	//}
+	//else
+	//{
+	//	STDTime = SkipTime;
+	//}	
 
 	if (Hero->nCurrentAction < 0 || Hero->nCurrentAction > 23)
 	{

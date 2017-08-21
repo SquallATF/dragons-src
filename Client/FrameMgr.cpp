@@ -87,25 +87,25 @@ bool CFrameMgr::CanNextFrame()
 	}
 	// 2. 짧다면.
 	//		프레임이 끝나기 전에 DoFrameDelay를 걸어 프레임 타임을 지연 시킨다.
-//COMMENT	char szMsg[ FILENAME_MAX]={0,}; 
+	//COMMENT	char szMsg[ FILENAME_MAX]={0,}; 
 	FILE *fp = NULL;
 
-//COMMENT	sprintf( szMsg, "dwTimeGab = %d \n", dwTimeGab);
-//COMMENT	OutputDebugString( szMsg );
+	//COMMENT	sprintf( szMsg, "dwTimeGab = %d \n", dwTimeGab);
+	//COMMENT	OutputDebugString( szMsg );
 
-//	static int nbabo;
+	//static int nbabo;
 	int* pnFRAME_DELAY	= this->GetFrameDelayBuffer();
 	int* pnHACK_CHECK	= this->GetFrameDelayBuffer();
-//	int pnFRAME_DELAY = FRAME_DELAY;
-//	int s_iHackDelay = FRAME_DELAY;
+	//int pnFRAME_DELAY = FRAME_DELAY;
+	//int s_iHackDelay = FRAME_DELAY;
 
 		
 	IncFrameCount();
 	
 	if(0 < *m_piSkipCount)
 	{
-//COMMENT	sprintf( szMsg, "Skip s_iSkipCount = %d \n", s_iSkipCount);
-//COMMENT	OutputDebugString( szMsg );
+		//COMMENT	sprintf( szMsg, "Skip s_iSkipCount = %d \n", s_iSkipCount);
+		//COMMENT	OutputDebugString( szMsg );
 		--(*m_piSkipCount);
 		goto __SKIP_FRAME;
 	}
@@ -116,8 +116,8 @@ bool CFrameMgr::CanNextFrame()
 	}
 	if(*m_pnFrameDelay >= *pnFRAME_DELAY)
 	{
-//COMMENT	sprintf( szMsg, "Skip m_nFrameDelay = %d \n", m_nFrameDelay);
-//COMMENT	OutputDebugString( szMsg );
+	//COMMENT	sprintf( szMsg, "Skip m_nFrameDelay = %d \n", m_nFrameDelay);
+	//COMMENT	OutputDebugString( szMsg );
 		*m_pnFrameDelay -= *pnFRAME_DELAY;
 		goto __SKIP_FRAME;
 	}
@@ -133,8 +133,8 @@ bool CFrameMgr::CanNextFrame()
 	 	*m_pnFrameDelay += dwTimeGab % *pnFRAME_DELAY;
 	}
 
-//COMMENT	sprintf( szMsg, "Frame Go %d\n", dwTimeGab);
-//COMMENT	OutputDebugString( szMsg );
+	//COMMENT	sprintf( szMsg, "Frame Go %d\n", dwTimeGab);
+	//COMMENT	OutputDebugString( szMsg );
 	goto __DO_FRAME;
 
 __DO_FRAME://로그를 위해서 goto 를 사용합니다.
@@ -190,7 +190,7 @@ void CFrameMgr::DoFrameDelay(char** pTemp)
 		
 	int*	pFrame_Delay = this->GetFrameDelayBuffer();
 		
-//	if( *pFrame_Delay > dwGab )
+	//if( *pFrame_Delay > dwGab )
 	if( !(*pFrame_Delay < dwGab) )//맣법돨속醵
 	{
 		int iForceDelay = (*pFrame_Delay - dwGab);
@@ -246,7 +246,7 @@ void CFrameMgr::IncFrameCount()//루핑이 호출 되는 머리에 붙여줍니�
 		m_iNowFrame = m_iFrameCounter;
 		m_iFrameCounter = 1;//프레임 카운트 종료
 		*m_pdwTargetTime = dwNowTime+1000;//1초 뒤로 셋팅
-//COMMENT OutputDebugString( "1 Sec Over\n");
+		//COMMENT OutputDebugString( "1 Sec Over\n");
 		
 		FILE* fp = Fopen(szCheckFileName,"at+");
 		if(fp)
@@ -257,9 +257,9 @@ void CFrameMgr::IncFrameCount()//루핑이 호출 되는 머리에 붙여줍니�
 	}
 	else
 	{
-//COMMENT char szMsg[ FILENAME_MAX]={0,};
-//COMMENT sprintf( szMsg, "Counter %d\n", m_iFrameCounter);
-//COMMENT OutputDebugString( szMsg );
+		//COMMENT char szMsg[ FILENAME_MAX]={0,};
+		//COMMENT sprintf( szMsg, "Counter %d\n", m_iFrameCounter);
+		//COMMENT OutputDebugString( szMsg );
 		++m_iFrameCounter;
 	}
 

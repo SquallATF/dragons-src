@@ -140,7 +140,7 @@ int LoadItemSprite( Spr *s, int no, int type, int order, int return_null = 0 )
 		fread( &s->yl, sizeof( short ), 1, fp);
 		fread( &s->ox, sizeof( short ), 1, fp);
 		fread( &s->oy, sizeof( short ), 1, fp);
-//		s->oy = s->yl * 80/ 100; //sizeof( short ), 1, fp);
+		//s->oy = s->yl * 80/ 100; //sizeof( short ), 1, fp);
 		fread( &s->size, sizeof( unsigned int ), 1, fp);
 		s->img = NULL;
 		MemAlloc( s->img, s->size );
@@ -930,12 +930,12 @@ void ToggleItemAnimation( LPITEMGROUND i )
 							 if( i->Anitype == ITEMANIMATION_OPENED ) { SendItemDoorOpenClose( i, 1 );	break; }
 				break;
 							
-//		case ITEMTYPE_BOX  : if( i->Anitype == ITEMANIMATION_CLOSED ) Send_CMD_ITEM_BOX_BREAK( i );	break;
-//				break;
+		//case ITEMTYPE_BOX  : if( i->Anitype == ITEMANIMATION_CLOSED ) Send_CMD_ITEM_BOX_BREAK( i );	break;
+		//		break;
 		}
 	}
 
-//	SendOpenDoor( i->server_id );
+	//SendOpenDoor( i->server_id );
 }		
 		
 		
@@ -979,9 +979,9 @@ void DrawItemList( void )
 					//1019 zhh	//6	Remove Traps //5	Find Traps	//16	Detect Bomb	//18	Remove Bomb										
 					if( (CanViewBomb(Hero) && SkillNo == 18 ) || (CanViewTrap(Hero) && SkillNo == 6 ) )//020320 lsw
 					{						
-					//	CursorCheckedItem = t;
-					//	if(o->rgb		!= 1)	o->rgb		= 1;						
-					//	if(o->alpha		!= light)	o->alpha	= light;
+						//CursorCheckedItem = t;
+						//if(o->rgb		!= 1)	o->rgb		= 1;						
+						//if(o->alpha		!= light)	o->alpha	= light;
 						goto zoung_;
 					}
 					//1019 zhh //여기까지
@@ -991,7 +991,7 @@ void DrawItemList( void )
 zoung_:
 
 			if( g_MouseItemType == 0 ) 
-//			if( t->host == Hero->id || t->host == 100000000 ) // 내꺼거나 주인이 없는경우.
+			//if( t->host == Hero->id || t->host == 100000000 ) // 내꺼거나 주인이 없는경우.
 			{
 				int x = t->x-s->ox+t->offx;
 				int y = t->y-s->oy+t->offy;
@@ -1008,7 +1008,7 @@ zoung_:
 				if( (Hero->canviewitem && (t->attr[ IATTR_ATTR] & IA2_HIDE) ) 
 					|| !(t->attr[ IATTR_ATTR] & IA2_HIDE) )
 				{
-						//if( Distance( Mox, Moy, Hero->x, Hero->y ) < 10000 )
+					//if( Distance( Mox, Moy, Hero->x, Hero->y ) < 10000 )
 					{	//if( (t->attr[ IATTR_ATTR] & IA2_BOX) == 0 ) 
 						CursorCheckedItem = t;
 					}
@@ -1101,7 +1101,7 @@ NEXT_:
 	}		 	
 	if( CursorCheckedItem )
 	{		 
-//		PutCompressedImageFX( CursorCheckedItem->x - Mapx, CursorCheckedItem->y-Mapy, &spr[ 415], light, 2 );
+		//PutCompressedImageFX( CursorCheckedItem->x - Mapx, CursorCheckedItem->y-Mapy, &spr[ 415], light, 2 );
 	}		 
 }			 
 ////////////////////////////////////////////////////////////////////////////
@@ -1158,7 +1158,7 @@ int CheckEventWith_Item( void )
 			{ 
 			case ITEMTYPE_COLOSSUS_STONE  :
 			case ITEMTYPE_BOX  :	return 0;
-//			  			DoHeroAttackBox( int x, int y )
+			  			//DoHeroAttackBox( int x, int y )
 				break;
               
 			case ITEMTYPE_DOOR :	
@@ -1180,10 +1180,7 @@ void DrawObjectItem_SealStone( void )
 	if( tool_ViewAllCharacter == false ) return;
 	if( tool_SkillTool_ITEM_SEAL == false ) return;
 
-
-	return;
-
-
+	return;     // 
 
 	int i;
 	int mxl, myl;
@@ -1205,35 +1202,32 @@ void DrawObjectItem_SealStone( void )
 		}
 	}
 
-
 	return;
 
-	/*
-
-	LPITEMGROUND t = g_Item;
-	int mxl, myl;
-	int px, py;
-	WORD color;
-	int sxl, syl;
-	static int tog;
-	int smx, smy, smxl, smyl;
-			
-	mxl = g_Map.file.wWidth  * TILE_SIZE;
-	myl = g_Map.file.wHeight * TILE_SIZE;
-	
-	while( t != NULL )
-	{		
-		if( (t->attr[ IATTR_ATTR] & IA2_SEAL_NOR ) || (t->attr[ IATTR_ATTR] & IA2_SEAL_SPC ) ) 
-		{	
-			px = t->x * TILE_SIZE * RADARXL / mxl;
-			py = t->y * TILE_SIZE * RADARYL / myl;
-			Hcolor( 255,255,100 );
-			Hprint2( px, py, g_DestBackBuf, "결%d", t->attr[ IATTR_SEAL_STONE_NO] );
-		}
-             
-		t = t->next;
-	}		 	
-	*/
+	//LPITEMGROUND t = g_Item;
+	//int mxl, myl;
+	//int px, py;
+	//WORD color;
+	//int sxl, syl;
+	//static int tog;
+	//int smx, smy, smxl, smyl;
+	//		
+	//mxl = g_Map.file.wWidth  * TILE_SIZE;
+	//myl = g_Map.file.wHeight * TILE_SIZE;
+	//
+	//while( t != NULL )
+	//{		
+	//	if( (t->attr[ IATTR_ATTR] & IA2_SEAL_NOR ) || (t->attr[ IATTR_ATTR] & IA2_SEAL_SPC ) ) 
+	//	{	
+	//		px = t->x * TILE_SIZE * RADARXL / mxl;
+	//		py = t->y * TILE_SIZE * RADARYL / myl;
+	//		Hcolor( 255,255,100 );
+	//		Hprint2( px, py, g_DestBackBuf, "결%d", t->attr[ IATTR_SEAL_STONE_NO] );
+	//	}
+ //            
+	//	t = t->next;
+	//}		 	
+	//
 }
 
 

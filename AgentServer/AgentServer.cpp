@@ -79,9 +79,9 @@ void __stdcall TimerForUserTable(DWORD dwValue)//020511 lsw
 {
 	if( g_pUserTable )
 	{
-		// 立加辆丰 措扁 贸府侩.
+		// 접속종료 대기 처리용.
 		g_pUserTable->CloseConnectionWithAwaitingToDisconnect();
-		// 坷罚矫埃 浆绰 荤侩磊 贸府侩.
+		// 오랜시간 쉬는 사용자 처리용.
 		g_pUserTable->CloseConnectionWithSleepingUsers();
 	}
 }	
@@ -150,13 +150,13 @@ bool Init()
 	if (!g_pINet || !g_pINet->CreateNetwork(&desc, 10, 10))
 		return false;
 	
-	// 老窜 沥瘤...
+	// 일단 정지...
 	g_pINet->PauseTimer( 0 ); // 040406 kyo
 	g_pINet->PauseTimer( 2 ); // 040406 kyo
 	
 	hKeyEvent[0] = g_pINet->GetCustomEventHandle(1);
 	
-	// CUserTable / CServerTable 积己.
+	// CUserTable / CServerTable 생성.
 	g_pUserTable = new CUserTable((WORD)65535);
 	g_pServerTable = new CServerTable(AGENT_SERVER_INI_,MAX_SERVER_NUM, g_pINet);//021007 lsw
 	
@@ -172,14 +172,14 @@ void EndAgentServer()
 		g_pINet = NULL;
 	}
 	
-	// CServerTable 力芭
+	// CServerTable 제거
 	if (g_pServerTable)
 	{
 		delete g_pServerTable;
 		g_pServerTable = NULL;
 	}
 	
-	// CUserTable 力芭
+	// CUserTable 제거
 	if (g_pUserTable)
 	{
 		delete g_pUserTable;
@@ -191,17 +191,8 @@ void EndAgentServer()
 	
 	return;
 }	
-	
-	
-	
-	
-	
-	
-	
-	
-/////////////////////
-	
-	
+
+///////////////////////////////////////////////////////////////////////////////
 
 #define HACKING_EFFECTTABLE_	20001
 #define HACKING_011106_			20002
@@ -213,7 +204,6 @@ void EndAgentServer()
 #define HACKING_FILTER_			20008
 
 
-	
 static char sMsg[MAX_PACKET_SIZE];
 bool SendHackingUser2DB( USERINFO *pUserInfo, int type,  char *cause )
 {	

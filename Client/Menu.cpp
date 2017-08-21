@@ -1592,7 +1592,7 @@ void MenuChecking()
 									DoButtonCheckOfMenu(i, j);
 									SMenu[i].nField[j].DragCount = 0;
 								}
-								//								else SMenu[i].nField[j].DragCount = 0;
+								//else SMenu[i].nField[j].DragCount = 0;
 							}
 						}
 						else
@@ -1849,7 +1849,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//								if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				static int tt;
 				static int de = 10;
 				if (tt) { de++;	if (de > 12) { tt = !tt; } }
@@ -2136,8 +2136,8 @@ void MenuSubProcessType(SMENU *SubMenu)
 										}
 		case FT_HIDE_ISCROLL_PUT:	if (SubMenu->nField[j].fLButtonDown)
 		{   //스크롤 될경우를 생각해 미리 범위를 체크해 스크롤을 해선 안되면 break한다
-//										if( ((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) + (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) >= (SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalCount) )
-//											break;
+			//if( ((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) + (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) >= (SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalCount) )
+			//	break;
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 
 		}
@@ -2156,12 +2156,12 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 		case FT_HIDE_DSCROLL_PUT:	 if (SubMenu->nField[j].fLButtonDown)
 		{
-			//										if( ((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) - (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) < 0 )
-			//											break;
+			//if( ((SubMenu->nField[SubMenu->nField[j].nWillDo].nSHideNomalStart) - (SubMenu->nField[SubMenu->nField[j].nWillDo].nShideNomalPlus)) < 0 )
+			//	break;
 			if (SubMenu->Id == MN_ITEM) PrintQuickKey("PGDN");
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 		}
-									 break;
+		break;
 
 		case FT_PARTY: {
 			if (!SubMenu->CheakType)
@@ -2492,7 +2492,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber + 2, SubMenu->nField[j].nImageType);
 			else if (SubMenu->nField[j].fRectMouse)
 			{
-				//											if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber + 1, SubMenu->nField[j].nImageType);
 			}
 			else FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
@@ -2619,7 +2619,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 			else if (SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
 			}
 			break;
@@ -2686,7 +2686,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			break;
 		}
 		case FT_FIGHT_MAP_SIGN: {
-			//									SubMenu->key--;
+			//SubMenu->key--;
 			if (SubMenu->key <= 0)
 			{
 				SubMenu->key = 0;
@@ -2838,24 +2838,24 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			break;
 		}
-						  /*
-					  case FT_TEMBATLE_INFO : {
-												  int willdo = SubMenu->nField[j].nWillDo;
-												  int max = g_BattleZone.GetCount( willdo );
-												  if( !max ) break;
-												  char *name;
-												  int count=0;
-												  for( int i=0; i<MAX_TEAM_MEMBER; i++ )
-												  {
-													  name = g_BattleZone.m_team[willdo].member[i].name;
-													  if( name[0] )
-													  {
-														  Hprint2( SubMenu->x+SubMenu->nField[j].x, SubMenu->y+SubMenu->nField[j].y, g_DestBackBuf, name );
-														  count++;
-													  }
-												  }
-												  break;
-											  }*/
+		//	
+		//case FT_TEMBATLE_INFO : {
+		//							int willdo = SubMenu->nField[j].nWillDo;
+		//							int max = g_BattleZone.GetCount( willdo );
+		//							if( !max ) break;
+		//							char *name;
+		//							int count=0;
+		//							for( int i=0; i<MAX_TEAM_MEMBER; i++ )
+		//							{
+		//								name = g_BattleZone.m_team[willdo].member[i].name;
+		//								if( name[0] )
+		//								{
+		//									Hprint2( SubMenu->x+SubMenu->nField[j].x, SubMenu->y+SubMenu->nField[j].y, g_DestBackBuf, name );
+		//									count++;
+		//								}
+		//							}
+		//							break;
+		//						}
 		case FT_BANK_LOAN: {
 			if (!g_RecvLoanInfo) return;
 			break;
@@ -3461,7 +3461,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 		}break;
 		case FT_POTION_BOX:
 		{
-			//				if( SMenu[MN_TIME_DISPLAY_MENU].bActive ) break;
+			//if( SMenu[MN_TIME_DISPLAY_MENU].bActive ) break;
 			int item_no, much;
 			GetItemByPotionBox(item_no, much);
 			if (item_no && much)
@@ -4257,7 +4257,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 					PutItemIcon(SubMenu->x + SubMenu->nField[j].x + 10, SubMenu->y + SubMenu->nField[j].y + 26, item_select_result.item_no, 8, 2);
 
 					ItemExplain(item_select_result.item_no);
-					//						SetHangulAlign( TA_CENTER );
+					//SetHangulAlign( TA_CENTER );
 					Hcolor(FONT_COLOR_NAME);
 					Hprint2(SubMenu->x + SubMenu->nField[j].x + 50, SubMenu->y + SubMenu->nField[j].y + 21, g_DestBackBuf, "%s", GetItemName(item_select_result.item_no));
 
@@ -4392,11 +4392,11 @@ void MenuSubProcessType(SMENU *SubMenu)
 			case DP_RECT_STRING_PUT:
 			{
 				//DP_RECT_STRING_PUT는 nRectImage에 문자열이 찍힐 사각형의 가로길이를 넣는다.
-		//		const int nWillDo = SubMenu->nField[j].nWillDo;
-		//		if( nWillDo )
-		//		{
-		//			Hcolor( nWillDo );
-		//		}
+				//const int nWillDo = SubMenu->nField[j].nWillDo;
+				//if( nWillDo )
+				//{
+				//	Hcolor( nWillDo );
+				//}
 				RectTextPut(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].temp);
 			}break;
 			case DP_HEALING_EXPLAIN: {
@@ -4458,7 +4458,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			case DP_BBS_PUT: {
 				Hcolor(FONT_COLOR_PLUS);
-				//												RectTextPut( SubMenu->x+SubMenu->nField[j].x,SubMenu->y+SubMenu->nField[j].y, SubMenu->nField[j].nRectImage,s_BbsTextBuf );
+				//RectTextPut( SubMenu->x+SubMenu->nField[j].x,SubMenu->y+SubMenu->nField[j].y, SubMenu->nField[j].nRectImage,s_BbsTextBuf );
 				int para = SubMenu->work;
 				if (c_BbsTitle[para].is_first)
 				{
@@ -5047,7 +5047,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			if (!item.item_no) break;
 			if (!g_MouseItemType &&  SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				PutItemIcon(SubMenu->x + gabx + 15 + 35 * ItemX, SubMenu->y + gaby + 15 + 35 * ItemY, item.item_no, 8, 2);
 				ItemExplain(item);
 			}
@@ -5074,17 +5074,17 @@ void MenuSubProcessType(SMENU *SubMenu)
 			if (!s || !skill[s].num) break;
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
-				//										if( s )
-				//										{
-				//											if( main_interface.data[IF_MAP] )	skill[s].ExplainSkillWhenMapOn(SubMenu->x+SubMenu->nField[j].x+30+41*third, SubMenu->y+SubMenu->nField[j].y+30+second*36);
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( s )
+				//{
+				//	if( main_interface.data[IF_MAP] )	skill[s].ExplainSkillWhenMapOn(SubMenu->x+SubMenu->nField[j].x+30+41*third, SubMenu->y+SubMenu->nField[j].y+30+second*36);
 				CheckSkillExplain(s);
-				//										}
-				//										else if( s2 )
-				//										{
-				//											if( main_interface.data[IF_MAP] )	skill[s2].ExplainSkillWhenMapOn(SubMenu->x+SubMenu->nField[j].x+30+41*third, SubMenu->y+SubMenu->nField[j].y+30+second*36);
-				//											skill[s2].ExplainSkill();
-				//										}
+				//}
+				//else if( s2 )
+				//{
+				//	if( main_interface.data[IF_MAP] )	skill[s2].ExplainSkillWhenMapOn(SubMenu->x+SubMenu->nField[j].x+30+41*third, SubMenu->y+SubMenu->nField[j].y+30+second*36);
+				//	skill[s2].ExplainSkill();
+				//}
 			}
 
 			if (SubMenu->nField[j].fLButtonDown || SubMenu->nField[j].fRButtonDown)
@@ -5102,12 +5102,12 @@ void MenuSubProcessType(SMENU *SubMenu)
 					PutSkillIcon(SubMenu->x + SubMenu->nField[j].x + 15 + (index % 3) * 46, SubMenu->y + SubMenu->nField[j].y + 15 + (index / 3) * 46, start);	// 출력
 				}
 				index++;
-				/*else
-				{
-					*( (int *)skill_inv + index ) = start;
-					PutSkillIcon( SubMenu->x+SubMenu->nField[j].x+15+( index%3 )*46, SubMenu->y+SubMenu->nField[j].y+15+( index/3 )*46, start , 8 ,2 );	// 출력
-					index++;
-				}*/
+				//else
+				//{
+				//	*( (int *)skill_inv + index ) = start;
+				//	PutSkillIcon( SubMenu->x+SubMenu->nField[j].x+15+( index%3 )*46, SubMenu->y+SubMenu->nField[j].y+15+( index/3 )*46, start , 8 ,2 );	// 출력
+				//	index++;
+				//}
 			}
 			memcpy(Skill_Know_Inv, skill_inv, sizeof(int[3][3]));
 			int first = g_pointMouseY - (SubMenu->y + SubMenu->nField[j].y);
@@ -5148,7 +5148,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			if (SubMenu->nField[j].fRectMouse && !g_MouseItemType)
 			{
-				//											if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				int ItemX = (g_pointMouseX - (SubMenu->x + SubMenu->nField[j].x)) / 35;
 				int ItemY = (g_pointMouseY - (SubMenu->y + SubMenu->nField[j].y)) / 35;
 
@@ -5157,7 +5157,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 				if ((xCheck < 2) || (xCheck > 30) || (yCheck < 2) || (yCheck > 30))  break;
 				ItemAttr &item = You.inv[15 * (para + 1)];
-				//											if( !LButtonDown && item.item_no ) ItemExplain(item.item_no);
+				//if( !LButtonDown && item.item_no ) ItemExplain(item.item_no);
 			}
 			break;
 		}
@@ -5170,7 +5170,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			for (int a = 0; a < 20; a++)
 			{
-				//									if( make_item_list[a].item_no ) PutItemIcon( SubMenu->x+make_item_list[a].x, SubMenu->y+make_item_list[a].y, make_item_list[a].item_no);
+				//if( make_item_list[a].item_no ) PutItemIcon( SubMenu->x+make_item_list[a].x, SubMenu->y+make_item_list[a].y, make_item_list[a].item_no);
 				if (make_item_list[a].item_no) PutItemIcon(SubMenu->x + make_item_list[a].x, SubMenu->y + make_item_list[a].y, make_item_list[a].item_no, 30, 1);
 			}
 			break;
@@ -5195,12 +5195,12 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			else
 			{
-				//										if( st1 < 20 )
-				//										{
-				//											if( make_item_result.item_no ) PutItemIcon( SubMenu->x+make_item_result.x, SubMenu->y+make_item_result.y, make_item_result.item_no, st1, 1 );
-				//											st1++;
-				//										}
-				//										else
+				//if( st1 < 20 )
+				//{
+				//	if( make_item_result.item_no ) PutItemIcon( SubMenu->x+make_item_result.x, SubMenu->y+make_item_result.y, make_item_result.item_no, st1, 1 );
+				//	st1++;
+				//}
+				//else
 				{
 					if (make_item_result.item_no)
 					{
@@ -5458,7 +5458,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			if (SubMenu->nField[j].fRectMouse || SubMenu->nField[j].fLButtonDown || SubMenu->nTemp == j)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				Spr *s = GetSprOfMenu(SubMenu->nField[j].nImageType, SubMenu->nField[j].nImageNumber);
 				if (s)
 					PutCompressedImage(SubMenu->x + SubMenu->nField[j].x + 15, SubMenu->y + SubMenu->nField[j].y + 10, s);
@@ -5489,7 +5489,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				PrintQuickKey("PGUP");
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
 			}
@@ -5521,7 +5521,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				PrintQuickKey("PGDN");
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
 			}
@@ -5535,11 +5535,11 @@ void MenuSubProcessType(SMENU *SubMenu)
 			int magic_num = magic_by_class.magic[SubMenu->nTemp][para];
 			if (!magic_num) break;
 
-			//									if( !SCharacterData.MagicId[ magic_num ] )
+			//if( !SCharacterData.MagicId[ magic_num ] )
 			{
 				if (SubMenu->nField[j].fLButtonDown || SubMenu->nField[j].fRectMouse)
 				{
-					//											if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+					//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 					FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber);
 				}
 			}
@@ -5581,7 +5581,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				PrintQuickKey("PGUP");
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
 			}
@@ -5619,7 +5619,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			if (SubMenu->nField[j].fRectMouse)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				PrintQuickKey("PGDN");
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
 			}
@@ -5665,14 +5665,14 @@ void MenuSubProcessType(SMENU *SubMenu)
 			int &con_prev = SubMenu->nField[j].nSpecialWillDo;
 			int &delay2 = SubMenu->nField[j].nSHideNomalStart;
 
-			//									if( !SubMenu->key )
-			//									{
-			//										for( i=0; i<6; i++ )
-			//											SearchMyPartyOfMySight( &SCharacterData.party[i]); // 초기 시야권안에 파티 있는지 체크..
-			//										SubMenu->key = 1;
-			//									}
+			//if( !SubMenu->key )
+			//{
+			//	for( i=0; i<6; i++ )
+			//		SearchMyPartyOfMySight( &SCharacterData.party[i]); // 초기 시야권안에 파티 있는지 체크..
+			//	SubMenu->key = 1;
+			//}
 
-												// 상태 출력
+			// 상태 출력
 			if (!SubMenu->CheakType)
 			{
 				SubMenu->CheakType = 1;
@@ -5702,27 +5702,27 @@ void MenuSubProcessType(SMENU *SubMenu)
 			if (GetSysInfo(SI_GAME_MAKE_MODE)) Hprint2(SubMenu->x + 17, SubMenu->y - 12, g_DestBackBuf, "%d", character->m_Id);
 			Hcolor(FONT_COLOR_NAME);
 			SetHangulFont(3);	//	10 font
-			/*
-			char name[11];
-			strncpy( name, character->m_Name, 10 );		// 한글 6자만 보여준다.
-			name[10] = NULL;
-			int start = 0;
-			for( int i=10; i>=0; i-- )
-			{
-				if( name[i] & 0x80 ) start = i;		// 한글이 시작되는 처음을 찾아낸다.
-				else if( start ) break;		// 전에 한글이 있는 곳이 있는데 한글 아닌데가 나오면...
-			}
-			if( start )
-			{
-				int flag = 0;
-				for( i=start;i<10 ;i++ )
-				{
-					if( name[i] & 0x80 ) flag++;
-				}
-				if( flag % 2) name[9] = NULL;
-			}
+			//
+			//char name[11];
+			//strncpy( name, character->m_Name, 10 );		// 한글 6자만 보여준다.
+			//name[10] = NULL;
+			//int start = 0;
+			//for( int i=10; i>=0; i-- )
+			//{
+			//	if( name[i] & 0x80 ) start = i;		// 한글이 시작되는 처음을 찾아낸다.
+			//	else if( start ) break;		// 전에 한글이 있는 곳이 있는데 한글 아닌데가 나오면...
+			//}
+			//if( start )
+			//{
+			//	int flag = 0;
+			//	for( i=start;i<10 ;i++ )
+			//	{
+			//		if( name[i] & 0x80 ) flag++;
+			//	}
+			//	if( flag % 2) name[9] = NULL;
+			//}
 
-			Hprint2( SubMenu->x+17, SubMenu->y-12, g_DestBackBuf, name );*/
+			//Hprint2( SubMenu->x+17, SubMenu->y-12, g_DestBackBuf, name );
 
 			Hprint2(SubMenu->x + 17, SubMenu->y + 44 + 10 * ((SubMenu->Id - MN_PARTY_FACE1) % 2), g_DestBackBuf, character->m_Name);
 			SetHangulFont(2);	//	12 font
@@ -5868,7 +5868,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			if (SubMenu->nField[j].fRectMouse || LeftShiftOn)
 			{
-				//										if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				int gabx = x;
 				int gaby = y - 15;
 
@@ -5885,34 +5885,34 @@ void MenuSubProcessType(SMENU *SubMenu)
 				Spr *s = &small_map_spr[j];
 				PutCompressedImageFX(x + s->ox + 1, y + s->oy + 1, s, count, 2);
 
-				/*										if( j == SubMenu->nFieldCount-1 && SubMenu->key )		// 맨마지막일 경우
-														{
-															int para = SubMenu->key;
+				//if( j == SubMenu->nFieldCount-1 && SubMenu->key )		// 맨마지막일 경우
+				//{
+				//	int para = SubMenu->key;
 
-															x = SubMenu->x+SubMenu->nField[para].x;
-															y = SubMenu->y+SubMenu->nField[para].y;
-															gabx = x;
-															gaby = y-15;
-															if( gaby < 0  )
-															{
-																gaby += 15;
-																gabx += 30;
-															}
-															Hcolor( 0,0,255 );
-															Hprint2( gabx, gaby, g_DestBackBuf, SubMenu->nField[para].temp );
-															Spr *s = &small_map_spr[para];
-															PutCompressedImageFX( x+s->ox+1, y+s->oy+1, s, count, 2 );
-														}*/
+				//	x = SubMenu->x+SubMenu->nField[para].x;
+				//	y = SubMenu->y+SubMenu->nField[para].y;
+				//	gabx = x;
+				//	gaby = y-15;
+				//	if( gaby < 0  )
+				//	{
+				//		gaby += 15;
+				//		gabx += 30;
+				//	}
+				//	Hcolor( 0,0,255 );
+				//	Hprint2( gabx, gaby, g_DestBackBuf, SubMenu->nField[para].temp );
+				//	Spr *s = &small_map_spr[para];
+				//	PutCompressedImageFX( x+s->ox+1, y+s->oy+1, s, count, 2 );
+				//}
 			}
 
-			/*									if( j == 1 )		// 맨처음 일경우
-												{
-													SubMenu->key = 0;
-												}
+			//if( j == 1 )		// 맨처음 일경우
+			//{
+			//	SubMenu->key = 0;
+			//}
 
-												if( SubMenu->nField[j].fRectMouse && LeftShiftOn )
-													SubMenu->key = j;
-				*/
+			//if( SubMenu->nField[j].fRectMouse && LeftShiftOn )
+			//	SubMenu->key = j;
+				
 			break;
 		}
 		case FT_USED_MAGIC_EXPLAIN: {
@@ -5922,7 +5922,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 				if (back_spr)
 				{
 					PutCompressedImageFX(GAME_SCREEN_XSIZE / 2, SubMenu->y - 52 - back_spr->oy, back_spr, 15, 1);
-					//	if( g_CurrUsedMagic >= 150 ) g_CurrUsedMagic -= 150;
+					//if( g_CurrUsedMagic >= 150 ) g_CurrUsedMagic -= 150;
 					const char *name = magic[g_CurrUsedMagic].GetName();
 #ifdef CHINA_LOCALIZING_
 					Hprint2(GAME_SCREEN_XSIZE / 2 - back_spr->ox + 3, SubMenu->y - 52 - back_spr->yl + 3, g_DestBackBuf, "\"%s\" 硫구嘉랬", name);
@@ -5958,7 +5958,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			}
 			else if (SubMenu->nField[j].fRectMouse)
 			{
-				//													if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
 			}
 			break;
@@ -6127,7 +6127,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 				if (!SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown && !SubMenu->nField[j].fCheakFlag) SubMenu->nField[0].nSHideNomalCount = 0;
 				if (SubMenu->nField[j].fRectMouse)
 				{
-					//													if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+					//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 					FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
 				}
 				if (SubMenu->nField[j].fLButtonDown)
@@ -6139,7 +6139,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 				if (!SubMenu->nField[j].fRectMouse && !SubMenu->nField[j].fLButtonDown && !SubMenu->nField[j].fCheakFlag) SubMenu->nField[0].nSHideNomalStart = 0;		// 벗어나 있으면 증폭 변수를 초기화
 				if (SubMenu->nField[j].fRectMouse)
 				{
-					//													if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+					//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 					FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage);
 				}
 				if (SubMenu->nField[j].fLButtonDown)
@@ -6153,7 +6153,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			case DO_BANK_SCROLL_LEFT:
 			case DO_BANK_SCROLL_RIGHT:	if (SubMenu->nField[j].fRectMouse)
 			{
-				//												if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nRectImage, SubMenu->nField[j].nImageType);
 			}
 										if (SubMenu->nField[j].fLButtonDown)
@@ -6213,13 +6213,13 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 				if (!skip && SubMenu->nField[j].fRectMouse && skill[SkillInventory[a][b][c]].num)
 				{
-					//												if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+					//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 					PutSkillIcon(SubMenu->x + SubMenu->nField[j].x + 15 + 45 * c, SubMenu->y + SubMenu->nField[j].y + 15, skill[SkillInventory[a][b][c]].num, 8);
 					if (!nSkillLearnResult)
 					{
 						exp_on = false;
 						CheckSkillExplain(SkillInventory[a][b][c]);
-						//													skill[SkillInventory[a][b][c]].ExplainSkill(SubMenu->x+23, SubMenu->y+153, 160 );	// 스킬 설명문
+						//skill[SkillInventory[a][b][c]].ExplainSkill(SubMenu->x+23, SubMenu->y+153, 160 );	// 스킬 설명문
 					}
 					else nSkillLearnResult = 0;
 				}
@@ -6231,7 +6231,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 					Hprint2(SubMenu->x + 22, SubMenu->y + 157, g_DestBackBuf, lan->OutputMessage(3, 146));//010215 lsw
 
 					Hcolor(FONT_COLOR_NUMBER);
-					//												if( skill[SkillInventory[a][b][0]].series == 1 )
+					//if( skill[SkillInventory[a][b][0]].series == 1 )
 					{
 						char *text;
 						switch (skill[SkillInventory[a][b][0]].inclusive)
@@ -7234,7 +7234,7 @@ void DoLButtonDownOfMenu(int i, int j)
 			if (count == LButtonCount - 1) count++;
 			else
 			{
-				//												if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				LButtonCount = 1;
 				count = 1;
 			}
@@ -7300,7 +7300,7 @@ void DoLButtonDownOfMenu(int i, int j)
 			if (count == LButtonCount - 1) count++;
 			else
 			{
-				//													if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
+				//if( !bSoundOn ) { MP3( SN_TOUCH ); bSoundOn = true; }
 				LButtonCount = 1;
 				count = 1;
 			}
@@ -7747,7 +7747,7 @@ void DoButtonCheckOfMenu(int i, int j)
 		if ((wear_position == item_position) || ((wear_position == WEAR_RIGHT_HAND || wear_position == WEAR_LEFT_HAND) && (item_position == WEAR_TWO_HAND)))
 		{
 			int a, b, c;
-			//										ItemSound( HandItemAttr.item_no );
+			//ItemSound( HandItemAttr.item_no );
 			if (wear_position == WEAR_LEFT_HAND && item_position == WEAR_TWO_HAND)  // 양손검을 방패자리에 넣을 때 
 			{
 				wear_position = WEAR_RIGHT_HAND;
@@ -7760,7 +7760,7 @@ void DoButtonCheckOfMenu(int i, int j)
 				{
 					InvItemAttr[a][b][c] = EquipItemAttr[WT_SHIELD];
 					DeleteItem(&EquipItemAttr[WT_SHIELD]);
-					//												sheild_unequip = true;
+					//sheild_unequip = true;
 
 					POS pos_s, pos_t;
 					SetItemPos(EQUIP, WT_SHIELD, &pos_s);
@@ -7860,7 +7860,7 @@ void DoButtonCheckOfMenu(int i, int j)
 			if (item.item_no)
 			{
 				// YGI 020527
-//										  ItemAttr attr_temp = item;
+				//ItemAttr attr_temp = item;
 				item = HandItemAttr;
 				g_MouseItemNumber = 0;
 				memset(&HandItemAttr, 0, sizeof(ItemAttr));
@@ -7920,8 +7920,8 @@ void DoButtonCheckOfMenu(int i, int j)
 
 		PutMouseItemCheck();		// 020716 YGI
 
-//								g_MouseItemType = 0;
-//								g_MouseItemNumber = 0;
+		//g_MouseItemType = 0;
+		//g_MouseItemNumber = 0;
 		break;
 	}
 	case FT_ITEM_MAKE_SELECT: {
@@ -8450,13 +8450,13 @@ void DoButtonCheckOfMenu(int i, int j)
 		}
 
 		case SWD_PARTY_BUTTON: {
-			/*
-										int field = SMenu[i].nField[j].nSHideNomalNumber;		// 역시 12번 필드를 가리킨다.
-										int &para = SMenu[i].nField[field].nWillDo;
-										para = 0;
-										SetPartyMenu( SMenu[i].nField[j].nWillDo );
-										SMenu[i].key = SMenu[i].nField[j].nWillDo;
-										*/
+			
+			//int field = SMenu[i].nField[j].nSHideNomalNumber;		// 역시 12번 필드를 가리킨다.
+			//int &para = SMenu[i].nField[field].nWillDo;
+			//para = 0;
+			//SetPartyMenu( SMenu[i].nField[j].nWillDo );
+			//SMenu[i].key = SMenu[i].nField[j].nWillDo;
+			//
 			g_Menu_Variable.m_PartySelect = SMenu[i].nField[j].nWillDo;
 			SendSelectPartyExp(g_Menu_Variable.m_PartySelect);
 			MainOn = true; break;
@@ -8837,8 +8837,8 @@ void DoButtonCheckOfMenu(int i, int j)
 		}
 		case SWD_ITEM_MAKE_CANCEL: {
 			SkillStatus = SKILL_OFF;
-			//												SkillNogadaCount = 0;		//  이 카운트가  Max에 이르면 SendSkillInfo()를 호츨한다. 
-			//												SkillMouseDontMoveFlag = false;	//	노가다를 해야 하는 기술은 한번 그곳을 선택하면   오른쪽마우스로 취소하든가 NogadaCount가 Max가 될때까지 기다려야 한다. 
+			//SkillNogadaCount = 0;		//  이 카운트가  Max에 이르면 SendSkillInfo()를 호츨한다. 
+			//SkillMouseDontMoveFlag = false;	//	노가다를 해야 하는 기술은 한번 그곳을 선택하면   오른쪽마우스로 취소하든가 NogadaCount가 Max가 될때까지 기다려야 한다. 
 			nItemOther = 0;
 			//SkillNo =  1230 KHS
 			SkillSettingClear();
@@ -9260,10 +9260,10 @@ void DoButtonCheckOfMenu(int i, int j)
 			{
 				g_MailMgr.SendDelete(1);
 			}break;
-			//						case MN_MAIL_READ ://030701 lsw
-			//							{
-			//								g_MailMgr.SendDelete(SubMenu->nField[i].nWillDo);
-			//							}break;
+			//case MN_MAIL_READ ://030701 lsw
+			//	{
+			//		g_MailMgr.SendDelete(SubMenu->nField[i].nWillDo);
+			//	}break;
 			}
 			break;
 		}
@@ -9334,7 +9334,7 @@ void DoButtonCheckOfMenu(int i, int j)
 		}break;
 		case SWD_GM_2ND_OK: //이제 만들겠다는 신호를 보내는 것
 		{
-			//						MainOn = true;
+			//MainOn = true;
 			SkillOn = false;
 			Send2NDGMMAKE(SkillNo);
 		}break;
@@ -9373,7 +9373,7 @@ void DoButtonCheckOfMenu(int i, int j)
 #else
 						AddCurrentStatusMessage(255, 255, 0, lan->OutputMessage(3, 164), GetItemName(item), price);//010215 lsw
 #endif
-														//item = 0;		// 아이템 사기에 성공하면 음악과 함께 선택 아이템 사라진다.
+						//item = 0;		// 아이템 사기에 성공하면 음악과 함께 선택 아이템 사라진다.
 					}
 					else if (!MessageOn)
 					{
@@ -9413,7 +9413,7 @@ void DoButtonCheckOfMenu(int i, int j)
 				}
 				MP3(SN_ITEM_SELL);
 				SendItemSell(pos, storelistindex);
-				//												AddMoney( money );
+				//AddMoney( money );
 #ifdef CHANGE_MONEY_
 				AddCurrentStatusMessage(255, 255, 0, lan->OutputMessage(3, 167), GetItemName(item_no), money);//010215 lsw
 #else
@@ -9616,7 +9616,7 @@ void DoButtonCheckOfMenu(int i, int j)
 			case MN_BANK_DEPOSIT:	nBankTemp = 0; SendBankInfo(REQ_MY_DEPOSIT_INFO, 0); break;
 			case MN_BANK_REPAYMENT:	nBankTemp = 0; SendBankInfo(REQ_MY_REPAYMENT_INFO, 0); break;
 			case MN_BANK_DEFRAYAL:	nBankTemp = 0; SendBankInfo(REQ_MY_DEPOSIT_INFO, 0); break;
-				//case MN_BANK_LOAN :	nBankTemp = 0; break;
+			//case MN_BANK_LOAN :	nBankTemp = 0; break;
 			case MN_BANK_AUCTION: nBankTemp = 0; break;
 			}
 			CallMenu(menu, i);
@@ -9635,10 +9635,10 @@ void DoButtonCheckOfMenu(int i, int j)
 				else
 				{
 					MP3(SN_DO_MEMORIZE);
-					//													int sound = ReturnCastingWord( Hero, num+SCharacterData.nCharacterData[SPELL]*150 );
-					//													MP3( sound );													
+					//int sound = ReturnCastingWord( Hero, num+SCharacterData.nCharacterData[SPELL]*150 );
+					//MP3( sound );													
 					AddCurrentStatusMessage(255, 255, 255, lan->OutputMessage(3, 175), magic[num].GetName());//010215 lsw
-//													MagicSetting();	// 메직창 재 셋팅...
+					//MagicSetting();	// 메직창 재 셋팅...
 					SMenu[i].work = 0;
 				}
 			}
@@ -10855,24 +10855,25 @@ void DoButtonCheckOfMenu(int i, int j)
 		case DO_BANK_SCROLL_LEFT:	break;
 		case DO_BANK_SCROLL_RIGHT:	break;
 
-			/*				case DO_LEARNSKILL_ICON : {
-														int a=SMenu[i].nField[ 6 ].nSHideNomalStart;
-														int b=SMenu[i].nField[j].nSHideNomalStart;
-														int c;
-														c = g_pointMouseX - (SMenu[i].x+SMenu[i].nField[j].x);
+		//case DO_LEARNSKILL_ICON : 
+		//{
+		//	int a = SMenu[i].nField[6].nSHideNomalStart;
+		//	int b = SMenu[i].nField[j].nSHideNomalStart;
+		//	int c;
+		//	c = g_pointMouseX - (SMenu[i].x + SMenu[i].nField[j].x);
 
-														if( c>0 && c<35 ) c = 0;
-														else if( c>45 && c<80 ) c = 1;
-														else if( c>90 && c<125 ) c = 2;
-														else if( c>140 && c<175 ) c = 3;
-														else break;
+		//	if (c > 0 && c < 35) c = 0;
+		//	else if (c > 45 && c < 80) c = 1;
+		//	else if (c > 90 && c < 125) c = 2;
+		//	else if (c > 140 && c < 175) c = 3;
+		//	else break;
 
-														if( !SkillInventory[a][b][c] )	break;
-														SMenu[i].work = SkillInventory[a][b][c];
-			//											nSkillLearnResult = skill[SkillInventory[a][b][c]].CanLearnSkill( SMenu[i].nTemp - MN_BLACKSMITH );	// 서버 콜도 함수안에서 같이 한다.
-														break;
-													  }
-			*/
+		//	if (!SkillInventory[a][b][c])	break;
+		//	SMenu[i].work = SkillInventory[a][b][c];
+		//	//nSkillLearnResult = skill[SkillInventory[a][b][c]].CanLearnSkill( SMenu[i].nTemp - MN_BLACKSMITH );	// 서버 콜도 함수안에서 같이 한다.
+		//	break;
+		//}
+			
 		}
 		break;
 	case FT_SKILL_PUT:
@@ -10934,15 +10935,16 @@ void DoButtonCheckOfMenu(int i, int j)
 			SMenu[i].nField[SMenu[i].nField[j].nWillDo].nSHideNomalStart = 0;
 		break;
 
-	case FT_LEVELUP://	if( LeftShiftOn && SCharacterData.LvUpPoint )
-					//	{
-					//		if(	SCharacterData.EachUp[SMenu[i].nField[j].nWillDo] && SCharacterData.LvUpPoint < 10 )
-					//		{
-					//			SendLvDownPointEach( SMenu[i].nField[j].nWillDo );
-					//		}
-					//	}
-					//	else
-	{
+	case FT_LEVELUP:
+		//if (LeftShiftOn && SCharacterData.LvUpPoint)
+		//{
+		//	if (SCharacterData.EachUp[SMenu[i].nField[j].nWillDo] && SCharacterData.LvUpPoint < 10)
+		//	{
+		//		SendLvDownPointEach(SMenu[i].nField[j].nWillDo);
+		//	}
+		//}
+		//else
+		{
 		if (SCharacterData.EachUp[SMenu[i].nField[j].nWillDo] < 9999)
 		{
 			if (SCharacterData.nCharacterAbility[SMenu[i].nField[j].nWillDo] >= g_mgrDual.GetAbility(SMenu[i].nField[j].nWillDo))		// 레벨업 한계치
@@ -10958,8 +10960,8 @@ void DoButtonCheckOfMenu(int i, int j)
 			MP3(SN_LV_EACH_UP);
 
 			SendLvUpPointEach(SMenu[i].nField[j].nWillDo);
-			//									SendLevelUpPoint( SCharacterData.EachUp );		// 포인터가 0이 되었을 때만 서버 콜을 한다.
-			//									AbilityOpenWhenLevelUp();
+			//SendLevelUpPoint( SCharacterData.EachUp );		// 포인터가 0이 되었을 때만 서버 콜을 한다.
+			//AbilityOpenWhenLevelUp();
 
 			if (!SCharacterData.LvUpPoint)
 			{
@@ -10972,13 +10974,13 @@ void DoButtonCheckOfMenu(int i, int j)
 
 	case FT_LEVELUP_BUTTON:	if (!SCharacterData.LvUpPoint || IsLeftWindowOpen()) break;
 		CallMenu(MN_ABILITY);
-		//									CallServer( CMD_OPEN_ABILITY );	// ability 메뉴가 온 될때 서버에서 받아야할 데이타 요청
-											/*	//020515 lsw
-											SMenu[MN_STATUS].nField[6].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+154;
-											SMenu[MN_STATUS].nField[7].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+163;
-											SMenu[MN_ABILITY].nField[2].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+154;
-											SMenu[MN_ABILITY].nField[3].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+163;
-											*/
+		//CallServer( CMD_OPEN_ABILITY );	// ability 메뉴가 온 될때 서버에서 받아야할 데이타 요청
+		//	//020515 lsw
+		//SMenu[MN_STATUS].nField[6].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+154;
+		//SMenu[MN_STATUS].nField[7].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+163;
+		//SMenu[MN_ABILITY].nField[2].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+154;
+		//SMenu[MN_ABILITY].nField[3].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+163;
+		//
 		break;
 
 	case FT_SYSTEM_OPTION_SCROLL:	switch (j)
@@ -10992,7 +10994,7 @@ void DoButtonCheckOfMenu(int i, int j)
 	case 7:	system_info.scroll_speed--; if (system_info.scroll_speed < 0)	system_info.scroll_speed = 0; break;	//scroll왼
 	case 8:	system_info.scroll_speed++; if (system_info.scroll_speed >= 100)	system_info.scroll_speed = 100; break;	//scroll오른
 	}
-									break;
+	break;
 
 	case FT_JOB_ITEM: {
 		int ItemX = (g_pointMouseX - (SMenu[i].x + 25)) / 35;
@@ -11123,9 +11125,9 @@ void DoButtonCheckOfMenu(int i, int j)
 			if (!SMenu[i].nField[j].nSpecialWillDo)		// 이미 메모라이즈를 하지 않았을 경우만...
 			{
 				SMenu[i].work = SMenu[i].nField[j].nWillDo;
-				//											int sound = ReturnCastingWord( Hero, num+SCharacterData.nCharacterData[SPELL]*150 );
+				//int sound = ReturnCastingWord( Hero, num+SCharacterData.nCharacterData[SPELL]*150 );
 				int sound = ReturnStartingWord(Hero, num + SCharacterData.nCharacterData[SPELL] * 150);
-				//											int sound = ReturnRoonWord( Hero, num+SCharacterData.nCharacterData[SPELL]*150 );
+				//int sound = ReturnRoonWord( Hero, num+SCharacterData.nCharacterData[SPELL]*150 );
 				if (sound) MP3(sound);
 			}
 		}
@@ -11146,7 +11148,7 @@ void DoButtonCheckOfMenu(int i, int j)
 			}
 			else
 			{
-				//										MP3( SN_WARNING );
+				//MP3( SN_WARNING );
 			}
 		}	//> CSD-030723
 
@@ -11185,22 +11187,22 @@ void DoButtonCheckOfMenu(int i, int j)
 		int &join_prev = SMenu[i].nField[j].nSHideNomalStart;
 		int &delay = SMenu[i].nField[j].nShideNomalPlus;
 
-		/*
-		//acer
-		if( character->m_Sight && character->ch )
-		{
-			if( g_MouseItemType == 1 )	// 아이템을 들고 있었을 경우...
-			{
-				POS pos_s, pos_t;
-				SetItemPos(HAND,  &pos_s);
-				SetItemPos(IM_CHARACTER, character->ch->id, &pos_t);
-				SendMoveItem( HandItemAttr.item_no, pos_s, pos_t );
-				AddCurrentStatusMessage( 200, 200, 0, lan->OutputMessage(3,197),GetItemName(HandItemAttr.item_no), character->m_Name  );//010215 lsw
-				g_MouseItemType = 0;
-				g_MouseItemNumber = 0;
-				DeleteItem( &HandItemAttr );
-			}
-		}*/
+		//
+		////acer
+		//if( character->m_Sight && character->ch )
+		//{
+		//	if( g_MouseItemType == 1 )	// 아이템을 들고 있었을 경우...
+		//	{
+		//		POS pos_s, pos_t;
+		//		SetItemPos(HAND,  &pos_s);
+		//		SetItemPos(IM_CHARACTER, character->ch->id, &pos_t);
+		//		SendMoveItem( HandItemAttr.item_no, pos_s, pos_t );
+		//		AddCurrentStatusMessage( 200, 200, 0, lan->OutputMessage(3,197),GetItemName(HandItemAttr.item_no), character->m_Name  );//010215 lsw
+		//		g_MouseItemType = 0;
+		//		g_MouseItemNumber = 0;
+		//		DeleteItem( &HandItemAttr );
+		//	}
+		//}
 
 		SendReqHpOfParty(character->m_Name);
 		break;
@@ -11265,19 +11267,20 @@ void DoButtonCheckOfMenu(int i, int j)
 		}
 		break;
 	}
-						   /*case FT_TEMBATLE_ADD : {
-												   int willdo = SMenu[i].nField[j].nWillDo;
-												   if( !g_BattleZone.IsExist( SCharacterData.sCharacterName ))
-												   {
-													   SendAddMeOfTeamBattle( willdo );
-												   }
-												   else
-												   {
-													   MP3( SN_WARNING );
-													   // 이미 등록했다.
-												   }
-												   break;
-												  }*/
+	//case FT_TEMBATLE_ADD : 
+	//{
+	//	int willdo = SMenu[i].nField[j].nWillDo;
+	//	if (!g_BattleZone.IsExist(SCharacterData.sCharacterName))
+	//	{
+	//		SendAddMeOfTeamBattle(willdo);
+	//	}
+	//	else
+	//	{
+	//		MP3(SN_WARNING);
+	//		 //이미 등록했다.
+	//	}
+	//	break;
+	//}
 
 	case FT_GM_ITEM_EXPLAIN_BUTTON: {
 		int nWillDo = SMenu[i].nField[j].nWillDo;
@@ -11727,14 +11730,9 @@ void SmallMenuChecking()
 	PutMouseItemCheck();
 }
 
-
-
 //----------------------------------------------------------------------------------------------------
 //
 //----------------------------------------------------------------------------------------------------
-
-
-
 
 void MenuButtonRightExplain(int x, int y, int &count, char * title)
 {

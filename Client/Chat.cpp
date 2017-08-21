@@ -96,8 +96,8 @@ void CChatMgr::AddString(const char* szName, const char* szChatData, const int i
 		}break;
 	case CHATTYPE_NOTICE:
 		{
-		//	::AddCurrentStatusMessage( 200,200,0,lan->OutputMessage(3,131) );//010215 lsw
-		//	::AddCurrentStatusMessage( 255,255,0, szChatData );
+			//::AddCurrentStatusMessage( 200,200,0,lan->OutputMessage(3,131) );//010215 lsw
+			//::AddCurrentStatusMessage( 255,255,0, szChatData );
 			InputData->SetChatType(iChatType,++m_iTotalCounter,++m_iYesNoCounter);
 			InputData->SetData(FONT_COLOR_SOLID_YELLOW,szChatData);	
 			InputData->SetHeader(FONT_COLOR_SOLID_YELLOW,lan->OutputMessage(0,612));//"공지사항"
@@ -183,7 +183,7 @@ void CChatMgr::DisplayCheck()//전체 인덱스를 체크해서 9줄 넘을거 �
 		const DWORD dwMaxDisplayTime =	(*itor)->GetMaxDisplayTime();
 		const int iDisplayAbleCounter =   GetDisplayAbleCounter();
 		if	( (dwNowTime > dwMaxDisplayTime) //디스플레이 시간 오버이거나
-//		||	( (*itor)->GetIndex() <= iDisplayAbleCounter)		//화면 출력 해야 하는데 카운터가 모자라면
+		//||	( (*itor)->GetIndex() <= iDisplayAbleCounter)		//화면 출력 해야 하는데 카운터가 모자라면
 			)
 		{
 			(*itor)->SetDisplayAble(false);
@@ -575,13 +575,7 @@ void CChatMgr::SetViewChat(const int iChatType , const int iIsView)
 		}break;
 	}
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1114,7 +1108,7 @@ void SetChatMode(const int iMode,bool bIsForce)//강제로 포커스를 게임�
 				SetFocus2(HWND_GAME_MAIN);//021001 lsw 위 인터페이스상태에서는 채팅 불가능이다.
 				return;
 			}
-//			EWndMgr.ClearAllTxt();//021001 lsw
+			//EWndMgr.ClearAllTxt();//021001 lsw
 			
 			if(Hero&&Hero->viewtype == VIEWTYPE_OBSERVE_) // 030522 kyo
 			{
@@ -1413,7 +1407,7 @@ int CheckLanguageForMenu( LPSTR lpStr ) // 메뉴에서 사용할 언어 시스�
 			case EDELBLHOY		:	if( !_stricmp( lpStr, lan->OutputMessage(7,93) )) CallServer( CMD_DIVINE_UP ); break;//010215 lsw
 			case TEFFERY		:	if( !_stricmp( lpStr, lan->OutputMessage(7,94))) CallServer(CMD_DIVINE_UP ); break;//010215 lsw
 			case LETTY			:	if( !_stricmp( lpStr, lan->OutputMessage(7,95))) CallServer( CMD_DIVINE_UP ); break;//010215 lsw
-//			case OREM			:	if( !stricmp( lpStr, lan->OutputMessage(7,95))) CallServer( CMD_DIVINE_UP ); break;//010215 lsw
+			//case OREM			:	if( !stricmp( lpStr, lan->OutputMessage(7,95))) CallServer( CMD_DIVINE_UP ); break;//010215 lsw
 			default : break;
 		}
 	}
@@ -1520,10 +1514,10 @@ int InsertWisperList(const char* name)//이름 저장후 저장된 자리를 리
 	}
 	if(i==CHAT_TARGET_WISPER_END)//넣을 자리가 빽빽 하면
 	{
-//		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER9].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER8].temp);
-//		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER8].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER7].temp);
-//		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER7].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER6].temp);
-//		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER6].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER5].temp);
+		//strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER9].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER8].temp);
+		//strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER8].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER7].temp);
+		//strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER7].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER6].temp);
+		//strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER6].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER5].temp);
 		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER5].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER4].temp);
 		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER4].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER3].temp);
 		strcpy(SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER3].temp,SMenu[MN_WISPER_LIST].nField[CHAT_TARGET_WISPER2].temp);
@@ -1536,17 +1530,17 @@ int InsertWisperList(const char* name)//이름 저장후 저장된 자리를 리
 
 //////////////////////////////////////////////////////////////////////
 //1.3 공지 제한
-/*
-int CChatMgr::CompareString(string szLef, string szRig)//kyo 나중에 checkLimitedBBSName고칠때 삭제한다.
-{
-	return szLef.compare( szRig);
-}
-
-int CompareString(string szLef, string szRig)//kyo 나중에 checkLimitedBBSName고칠때 삭제한다.
-{
-	return szLef.compare( szRig);
-}
-*/
+//
+//int CChatMgr::CompareString(string szLef, string szRig)//kyo 나중에 checkLimitedBBSName고칠때 삭제한다.
+//{
+//	return szLef.compare( szRig);
+//}
+//
+//int CompareString(string szLef, string szRig)//kyo 나중에 checkLimitedBBSName고칠때 삭제한다.
+//{
+//	return szLef.compare( szRig);
+//}
+//
 void CChatMgr::ClearLimiteBBS()
 {
 	m_bIsActiveBBS = true;	

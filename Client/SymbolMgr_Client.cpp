@@ -461,74 +461,74 @@ void CSymbolMgr_Client::Recv_SymbolUpGrade(t_SYMBOL_ITEM_MSG *pSymbol)
 
 void CSymbolMgr_Client::SaveBinaryFiles()
 {
-	/*
-	FILE*	fp = NULL;
-	
-	int SymbolCount = m_vtSymbolList.size();
-	
-	if(m_bBeta)
-	{	//< CSD-031030
-		fp = fopen("./Itemtable_b5/Item_Symbol.bin","w+b");
-	}	//> CSD-031030
-	else
-	{
-		fp = fopen("./Itemtable/Item_Symbol.bin","w+b");
-	}	
-		
-	if(fp)
-	{
-		for(int i = 0;i < SymbolCount;i++)
-		{
-			int nItemNumber = m_vtSymbolList[i].nItemNumber;
-			char strName[65] = {NULL,};strcpy(strName,m_vtSymbolList[i].strName);
-			char strHanName[65] = {NULL,};strcpy(strHanName,m_vtSymbolList[i].strHanName);
-			int n1StClass = m_vtSymbolList[i].n1StClass;
-			int	n2ndClass = m_vtSymbolList[i].n2ndClass;
-			int nRare[5] = {0,};memcpy(nRare,m_vtSymbolList[i].nRare,sizeof(int)*5);
+	//
+	//FILE*	fp = NULL;
+	//
+	//int SymbolCount = m_vtSymbolList.size();
+	//
+	//if(m_bBeta)
+	//{	//< CSD-031030
+	//	fp = fopen("./Itemtable_b5/Item_Symbol.bin","w+b");
+	//}	//> CSD-031030
+	//else
+	//{
+	//	fp = fopen("./Itemtable/Item_Symbol.bin","w+b");
+	//}	
+	//	
+	//if(fp)
+	//{
+	//	for(int i = 0;i < SymbolCount;i++)
+	//	{
+	//		int nItemNumber = m_vtSymbolList[i].nItemNumber;
+	//		char strName[65] = {NULL,};strcpy(strName,m_vtSymbolList[i].strName);
+	//		char strHanName[65] = {NULL,};strcpy(strHanName,m_vtSymbolList[i].strHanName);
+	//		int n1StClass = m_vtSymbolList[i].n1StClass;
+	//		int	n2ndClass = m_vtSymbolList[i].n2ndClass;
+	//		int nRare[5] = {0,};memcpy(nRare,m_vtSymbolList[i].nRare,sizeof(int)*5);
 
-			int size = fwrite(&nItemNumber,sizeof(int),1,fp);
-			size = fwrite(strName,sizeof(char),65,fp);
-			size = fwrite(strHanName,sizeof(char),65,fp);
-			size = fwrite(&n1StClass,sizeof(int),1,fp);
-			size = fwrite(&n2ndClass,sizeof(int),1,fp);
-			size = fwrite(nRare,sizeof(int),5,fp);
-		}
+	//		int size = fwrite(&nItemNumber,sizeof(int),1,fp);
+	//		size = fwrite(strName,sizeof(char),65,fp);
+	//		size = fwrite(strHanName,sizeof(char),65,fp);
+	//		size = fwrite(&n1StClass,sizeof(int),1,fp);
+	//		size = fwrite(&n2ndClass,sizeof(int),1,fp);
+	//		size = fwrite(nRare,sizeof(int),5,fp);
+	//	}
 
-		fclose(fp);
-	}
+	//	fclose(fp);
+	//}
 
-	fp = NULL;
-	int RareListSize = m_vtRareValueList.size();
+	//fp = NULL;
+	//int RareListSize = m_vtRareValueList.size();
 
-	for(int FileCount = 0;FileCount < RareListSize;FileCount++)
-	{
-		char szFileName[MAX_PATH] = {NULL,};
-		if(m_bBeta)
-		{	//< CSD-031030
-			sprintf(szFileName,"./Itemtable_b5/Item_Symbol_Ability%d.bin",FileCount+1);
-		}	//> CSD-031030
-		else
-		{
-			sprintf(szFileName,"./Itemtable/Item_Symbol_Ability%d.bin",FileCount+1);			
-		}
+	//for(int FileCount = 0;FileCount < RareListSize;FileCount++)
+	//{
+	//	char szFileName[MAX_PATH] = {NULL,};
+	//	if(m_bBeta)
+	//	{	//< CSD-031030
+	//		sprintf(szFileName,"./Itemtable_b5/Item_Symbol_Ability%d.bin",FileCount+1);
+	//	}	//> CSD-031030
+	//	else
+	//	{
+	//		sprintf(szFileName,"./Itemtable/Item_Symbol_Ability%d.bin",FileCount+1);			
+	//	}
 
-		fp = fopen(szFileName,"w+b");
-		
-		if(fp)
-		{
-			int nGradeCount = m_vtRareValueList[FileCount].size();
-			for(int i = 0;i < nGradeCount;i++)
-			{
-				for(int j = 0;j < SYMBOL_ITEM_MAX;j++)
-				{
-					int nRare = m_vtRareValueList[FileCount][i].anRare[j];
-					int size = fwrite(&nRare,sizeof(int),1,fp);
-				}
-			}
-			fclose(fp);
-		}	
-	}
-	*/
+	//	fp = fopen(szFileName,"w+b");
+	//	
+	//	if(fp)
+	//	{
+	//		int nGradeCount = m_vtRareValueList[FileCount].size();
+	//		for(int i = 0;i < nGradeCount;i++)
+	//		{
+	//			for(int j = 0;j < SYMBOL_ITEM_MAX;j++)
+	//			{
+	//				int nRare = m_vtRareValueList[FileCount][i].anRare[j];
+	//				int size = fwrite(&nRare,sizeof(int),1,fp);
+	//			}
+	//		}
+	//		fclose(fp);
+	//	}	
+	//}
+	//
 }
 
 void CSymbolMgr_Client::SaveBinFile_Item_Symbol()

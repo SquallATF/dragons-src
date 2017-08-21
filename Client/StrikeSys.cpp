@@ -56,7 +56,7 @@ int CStrikeSys::Action(LPCHARACTER pCaster)
 	const int nSprNo = pCaster->sprno;
 	
 	int t = ::GetCharAccessory(pCaster); 
-	// LTS HORSERIDER // Flag	// 芒狼 荤沥芭府肺 技泼
+	// LTS HORSERIDER // Flag	// 창의 사정거리로 세팅
 	if ((t - 121) >= 0 && (t - 121) < 6)	
 	{
 		t = 75;
@@ -93,7 +93,7 @@ void CStrikeSys::Effect(LPCHARACTER pCaster, LPCHARACTER pTarget)
 
 void CStrikeSys::Effect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nSrcX, int nSrcY, int nDstX, int nDstY)
 {
-	const double dUnit = 0.392699; // PI甫 8殿盒
+	const double dUnit = 0.392699; // PI를 8등분
 	EFFECT_INFO infEffect;
 	int nDir = 0, nOffX = 0, nOffY = 0;
 	double dAngle = 0.0;
@@ -136,12 +136,12 @@ void CStrikeSys::EffectThrow(MAGICLIST* pThrow, USEEFFECTLIST* pEffect)
 	switch (nThrow)
 	{
     case THROW_ARROW:
-		{	// 拳混
+		{	// 화살
 			::InsertMagic(pCaster, pTarget, 204, 9, nSrcX, nSrcY, nDstX, nDstY);
 			break;
 		}
     case THROW_KNIFE:
-		{	// 厚档
+		{	// 비도
 			::InsertMagic(pCaster, pTarget, 210, 9, nSrcX, nSrcY, nDstX, nDstY);
 			break;
 		}
@@ -174,7 +174,7 @@ void CStrikeSys::EffectThrow(MAGICLIST* pThrow, USEEFFECTLIST* pEffect)
 }	//> CSD-031014
 
 void CStrikeSys::EffectHit(LPCHARACTER pCaster, LPCHARACTER pTarget)
-{ // 鸥拜瓤苞 楷免
+{ // 타격효과 연출
 	const int nSrcX = 0;
 	const int nSrcY = 0;
 	const int nDstX = pTarget->x;
@@ -182,17 +182,17 @@ void CStrikeSys::EffectHit(LPCHARACTER pCaster, LPCHARACTER pTarget)
 	
 	switch (pCaster->sprno)
 	{ 
-    case 17: // 惯废喇 : 倔澜瓤苞
+    case 17: // 발록윙 : 얼음효과
 		{
 			::InsertMagic(pTarget, pTarget, 170, 0, nSrcX, nSrcY, nDstX, nDstY);
 			break;
 		}
-    case 83: // 轨颇捞绢 : 冠零瓤苞
+    case 83: // 뱀파이어 : 박쥐효과
 		{
 			::InsertMagic(pTarget, pTarget, 400, 0, nSrcX, nSrcY, nDstX, nDstY);
 			break;
 		}
-    case 87: // 捞橇府飘 : 拳堪瓤苞
+    case 87: // 이프리트 : 화염효과
 		{
 			::InsertMagic(pTarget, pTarget, 457, 0, nSrcX, nSrcY, nDstX, nDstY);
 			break;
@@ -224,7 +224,7 @@ void CStrikeSys::Shoot(LPCHARACTER pCaster, LPCHARACTER pTarget)
 		pCaster->shoot_PointY = 0;
 		return;
 	}
-	// 臭捞蔼阑 啊柳 某腐磐甫 傍拜
+	// 높이값을 가진 캐릭터를 공격
 	int nX = pTarget->x, nY = pTarget->y;
 	
 	if (nHeight > 0)
@@ -276,7 +276,7 @@ void CStrikeSys::Shoot(LPCHARACTER pCaster, LPCHARACTER pTarget)
 			else
 			{
 				pCaster->bow_Type = 0;
-				pCaster->set_bow_Type(pCaster->bow_Type);//// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+				pCaster->set_bow_Type(pCaster->bow_Type);  // 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 				::InsertMagic(pCaster, pTarget, THROW_ARROW, 0, 0, 0, nX, nY);
 			}
 			
@@ -298,7 +298,7 @@ void CStrikeSys::Shoot(LPCHARACTER pCaster, LPCHARACTER pTarget)
 			else
 			{
 				pCaster->bow_Type = 0;
-				pCaster->set_bow_Type(pCaster->bow_Type);//// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+				pCaster->set_bow_Type(pCaster->bow_Type);  // 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 				::InsertMagic(pCaster, pTarget, THROW_ARROW, 0, 0, 0, nX, nY);
 			}
 			
@@ -313,7 +313,7 @@ void CStrikeSys::Throw(LPCHARACTER pCaster, LPCHARACTER pTarget)
 	
 	if (pCaster->nAttackedType == SPRITETYPE_ITEM)
 	{
-		pCaster->set_nAttackedType(pCaster->nAttackedType); //攻击类型截获
+		pCaster->set_nAttackedType(pCaster->nAttackedType);  //攻击类型截获
 
 		pTarget = pCaster;
 		bPoint = true;
@@ -327,7 +327,7 @@ void CStrikeSys::Throw(LPCHARACTER pCaster, LPCHARACTER pTarget)
 		pCaster->shoot_PointY = 0;
 		return;
 	}
-	// 臭捞蔼阑 啊柳 某腐磐甫 傍拜
+	// 높이값을 가진 캐릭터를 공격
 	int nX = pTarget->x, nY = pTarget->y;
 	
 	if (nHeight > 0)
@@ -343,7 +343,7 @@ void CStrikeSys::Throw(LPCHARACTER pCaster, LPCHARACTER pTarget)
 	}
 
 	int nEffect = THROW_KNIFE;
-	// 捞亥飘甫 困茄 荐沥
+	// 이벤트를 위한 수정
 	switch (pCaster->accessory[2])
 	{
 	case 120: nEffect = THROW_SNOW_BALL; break;

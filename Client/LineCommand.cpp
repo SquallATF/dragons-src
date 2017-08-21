@@ -249,670 +249,670 @@ int LineCommandSortFunction( const void *first, const void *second )
 	return ( strlen( lc2->reserved ) - strlen( lc1->reserved ) );
 }
 
-int IsLineCommand( char *message, int nsize )
-{	
+int IsLineCommand(char *message, int nsize)
+{
 	//if( Hero->viewtype == VIEWTYPE_GHOST_ )// 유령일 경우
 	//	return ;		// 명령어를 못 하게 한다.
-	int c; 
+	int c;
 	LPLINECOMMAND lc;
 	LPCHARACTER ch = Hero;
 	char *t, *t1;
 	char tempmessage[MAX_CHAT_STRING];
-	
-	if( *message != '/' ) return 0;
-	
-	message ++;
-	strcpy( tempmessage, message );
+
+	if (*message != '/') return 0;
+
+	message++;
+	strcpy(tempmessage, message);
 	//	CharUpper( message );//020926 lsw
 	static int first = 1;
-	if( first )
+	if (first)
 	{
 		int i = 0;
-		for(; i<MAX_LINE_COMMAND_; i++ )
+		for (; i < MAX_LINE_COMMAND_; i++)
 		{
-			if( !LC[i].reserved[0] ) break;
+			if (!LC[i].reserved[0]) break;
 		}
-		qsort( LC, i, sizeof( LINECOMMAND ), LineCommandSortFunction );
+		qsort(LC, i, sizeof(LINECOMMAND), LineCommandSortFunction);
 		first = 0;
 	}
-	
+
 	c = 0;
-	lc = &LC[ c];
-	while( lc->reserved[0] )
-	{		
-		if( 0 == _strnicmp( lc->reserved, message, strlen( lc->reserved )) )//020926 lsw
+	lc = &LC[c];
+	while (lc->reserved[0])
+	{
+		if (0 == _strnicmp(lc->reserved, message, strlen(lc->reserved)))//020926 lsw
 		{
-			t = tempmessage + strlen(lc->reserved );
-			t1 = EatFrontWhiteChar( t );
-			
+			t = tempmessage + strlen(lc->reserved);
+			t1 = EatFrontWhiteChar(t);
+
 			switch (lc->command)
-			{	
+			{
 			case LC_GO_STOP:
-				{
-					Lc_AutoMovementCmd = 0;
-					break;
-				}
+			{
+				Lc_AutoMovementCmd = 0;
+				break;
+			}
 			case LC_GO_WEST:
 			case LC_GO_NORTH:
 			case LC_GO_SOUTH:
-			case LC_GO_EAST:		
+			case LC_GO_EAST:
 			case LC_GO_RANDOM:
-				{
-					Lc_AutoMovementCmd = lc->command;
-				
-					switch( Lc_AutoMovementCmd )
-					{	
-					case LC_GO_EAST:
-						{
-							SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx + 100, Hero->y - Mapy));
-							break;
-						}
-					case LC_GO_WEST:
-						{
-							SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx - 100, Hero->y - Mapy));
-							break;
-						}
-					case LC_GO_NORTH:
-						{
-							SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx, Hero->y - Mapy  - 100));
-							break;
-						}
-					case LC_GO_SOUTH:
-						{
-							SendMessage( g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG( Hero->x - Mapx, Hero->y - Mapy  + 100) );
-							break;
-						}
-					}
+			{
+				Lc_AutoMovementCmd = lc->command;
 
+				switch (Lc_AutoMovementCmd)
+				{
+				case LC_GO_EAST:
+				{
+					SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx + 100, Hero->y - Mapy));
 					break;
 				}
+				case LC_GO_WEST:
+				{
+					SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx - 100, Hero->y - Mapy));
+					break;
+				}
+				case LC_GO_NORTH:
+				{
+					SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx, Hero->y - Mapy - 100));
+					break;
+				}
+				case LC_GO_SOUTH:
+				{
+					SendMessage(g_hwndMain, WM_LBUTTONDOWN, 0, MAKELONG(Hero->x - Mapx, Hero->y - Mapy + 100));
+					break;
+				}
+				}
+
+				break;
+			}
 			case LC_EAT_ITEM:
 			case LC_NOT_GO:
-				{
-					break;
-				}
+			{
+				break;
+			}
 			case LC_CHAT_WHISPER:
-				{
-					SendWisperByLineCommand(t);
-					break;
-				}
+			{
+				SendWisperByLineCommand(t);
+				break;
+			}
 			case LC_CHAT_PARTY:
-				{
-					SendPartyChatByLineCommand(t);//020701 lsw
-					break;
-				}
+			{
+				SendPartyChatByLineCommand(t);//020701 lsw
+				break;
+			}
 			case LC_CHAT_GUILD:
-				{
-					SendChatSet(CHATTYPE_GUILD, NULL);
-					break;
-				}
+			{
+				SendChatSet(CHATTYPE_GUILD, NULL);
+				break;
+			}
 			case LC_TOTAL_MAP_CONNECTIONS:
-				{
-					SendTotalMapConnections();
-					break;
-				}
+			{
+				SendTotalMapConnections();
+				break;
+			}
 			case LC_TOTAL_CONNECTIONS:
-				{
-					SendTotalConnections();
-					break;
-				}
+			{
+				SendTotalConnections();
+				break;
+			}
 			case LC_MAKE_PARTY:
-				{
-					LC_SendInputParty(t1);
-					break;
-				}
+			{
+				LC_SendInputParty(t1);
+				break;
+			}
 			case LC_DEFAULT_RUN:
-				{
-					Lc_DefaultMoveType = 1;
-					Kein_PutMessage(KM_INFO, kein_GetMenuString(39));
-					break;
-				}
+			{
+				Lc_DefaultMoveType = 1;
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(39));
+				break;
+			}
 			case LC_DEFAULT_WALK:
-				{
-					Lc_DefaultMoveType = 0;
-					Kein_PutMessage(KM_INFO, kein_GetMenuString(40));
-					break;
-				}
+			{
+				Lc_DefaultMoveType = 0;
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(40));
+				break;
+			}
 			case LC_TAME_STOP:
-				{
-					SendTameCommand(LC_TAME_STOP, t1);
-					break;
-				}
+			{
+				SendTameCommand(LC_TAME_STOP, t1);
+				break;
+			}
 			case LC_TAME_ATTACK:
-				{
-					SendTameCommand(LC_TAME_ATTACK, t1);
-					break;
-				}
+			{
+				SendTameCommand(LC_TAME_ATTACK, t1);
+				break;
+			}
 			case LC_TAME_FOLLOWME:
-				{
-					SendTameCommand(LC_TAME_FOLLOWME, t1);
-					break;
-				}
+			{
+				SendTameCommand(LC_TAME_FOLLOWME, t1);
+				break;
+			}
 			case LC_TAME_NAME:
-				{
-					SendTameCommand( LC_TAME_NAME, t1 );	
-					break;
-				}
+			{
+				SendTameCommand(LC_TAME_NAME, t1);
+				break;
+			}
 			case LC_OPEN_TIMEMENU:
-				{
-					g_bTimeMenuOn = true;
-					break;
-				}
+			{
+				g_bTimeMenuOn = true;
+				break;
+			}
 			case LC_CLOSE_TIMEMENU:
-				{
-					g_bTimeMenuOn = false;
-					break;
-				}
+			{
+				g_bTimeMenuOn = false;
+				break;
+			}
 			case LC_CLOSE_ALL:
-				{
-					g_bTimeMenuOn = false; g_ExplainMenuOn = false;
-					CloseAllMenu();
-					break;
-				}
+			{
+				g_bTimeMenuOn = false; g_ExplainMenuOn = false;
+				CloseAllMenu();
+				break;
+			}
 			case LC_EXPLAIN_OPEN:
-				{
-					g_ExplainMenuOn = true;
-					break;
-				}
+			{
+				g_ExplainMenuOn = true;
+				break;
+			}
 			case LC_EXPLAIN_CLOSE:
-				{
-					g_ExplainMenuOn = false;
-					break;
-				}
-			case LC_EAR_MESSAGE_REFUSE: 
-				{
-					ChatMgr.SetRefuseWhiper(t1);//021025 lsw
-					break;
-				}
-			case LC_EAR_MESSAGE_OK: 
-				{
-					ChatMgr.SetAcceptWhiper(t1);//021025 lsw
-					break;
-				}
+			{
+				g_ExplainMenuOn = false;
+				break;
+			}
+			case LC_EAR_MESSAGE_REFUSE:
+			{
+				ChatMgr.SetRefuseWhiper(t1);//021025 lsw
+				break;
+			}
+			case LC_EAR_MESSAGE_OK:
+			{
+				ChatMgr.SetAcceptWhiper(t1);//021025 lsw
+				break;
+			}
 			case LC_EAR_MESSAGE_REFUSE_WHO:
-				{
-					ChatMgr.DisplayRefuseList();
-					break;
-				}
-			case LC_REQ_MAN_TO_MAN:	
-				{
-					SendReqManToMan(t1); 
-					break;		// 0810 YGI
-				}
+			{
+				ChatMgr.DisplayRefuseList();
+				break;
+			}
+			case LC_REQ_MAN_TO_MAN:
+			{
+				SendReqManToMan(t1);
+				break;		// 0810 YGI
+			}
 			case LC_GREETING:
-				{
-					strcpy(GreetingStr, t1);
-					AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3,49), GreetingStr);//010215 lsw
-					AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3,48));//010215 lsw
-					break;
-				}
+			{
+				strcpy(GreetingStr, t1);
+				AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3, 49), GreetingStr);//010215 lsw
+				AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3, 48));//010215 lsw
+				break;
+			}
 			case LC_RESET_MAGIC_ARRAY:
+			{
+				if (SCharacterData.nCharacterData[SPELL] == PRIEST_SPELL)
 				{
-					if (SCharacterData.nCharacterData[SPELL] == PRIEST_SPELL)
-					{
-						MagicSetting2(); // 원래~ 프리스트 경우...
-					}
-
-					break;
+					MagicSetting2(); // 원래~ 프리스트 경우...
 				}
+
+				break;
+			}
 			case LC_MSG_ALL_NATION:
-				{
-					SendAllMsgNation(t1);
-					break;
-				}
+			{
+				SendAllMsgNation(t1);
+				break;
+			}
 			case LC_GUILD_EXIT:
-				{
-					SendGuildExit(t1);
-					break;
-				}
+			{
+				SendGuildExit(t1);
+				break;
+			}
 			case LC_GUILD_JOIN:
-				{
-					SendGuildJoin(t1);
-					break;
-				}
+			{
+				SendGuildJoin(t1);
+				break;
+			}
 			case LC_GUILD_ALL_MSG:
-				{
-					SendGuildAllMsg(t1);
-					break;
-				}
+			{
+				SendGuildAllMsg(t1);
+				break;
+			}
 			case LC_GUILD_CHANGE_EACH_LEVEL:
-				{
-					SendGuildChangeEachLevel(t1);
-					break;
-				}
+			{
+				SendGuildChangeEachLevel(t1);
+				break;
+			}
 			case LC_GUILD_CMD_INFO:
-				{
-					ViewGuildCommandInfo();
-					break;
-				}
+			{
+				ViewGuildCommandInfo();
+				break;
+			}
 			case LC_CHANGE_JOB:
-				{
-					break;//021126 lsw 직업 바꾸기 커멘드 없음
-				}
+			{
+				break;//021126 lsw 직업 바꾸기 커멘드 없음
+			}
 			case LC_STOP_WAR:
-				{
-					SendReqStopWar(t1);
-					break;
-				}
+			{
+				SendReqStopWar(t1);
+				break;
+			}
 			case LC_EAR_COMMAND_INFO:
-				{
-					ViewEarCommandInfo();
-					break;
-				}
+			{
+				ViewEarCommandInfo();
+				break;
+			}
 			case LC_SCAN_TARGET_VYSEUS:
+			{
+				if (!ScanTarget(N_VYSEUS))
 				{
-					if (!ScanTarget(N_VYSEUS))
-					{
-						return 0;
-					}
-
-					break;
+					return 0;
 				}
+
+				break;
+			}
 			case LC_SCAN_TARGET_ZYPERN:
+			{
+				if (!ScanTarget(N_ZYPERN))
 				{
-					if (!ScanTarget(N_ZYPERN))
-					{
-						return 0;
-						
-					}
+					return 0;
 
-					break;  
 				}
+
+				break;
+			}
 			case LC_SCAN_TARGET_YILSE:
+			{
+				if (!ScanTarget(N_YILSE))
 				{
-					if (!ScanTarget(N_YILSE))
-					{
-						return 0;
-					}
-
-					break;		// 011217 LTS
+					return 0;
 				}
-				// 001028 KHS
+
+				break;		// 011217 LTS
+			}
+			// 001028 KHS
 			case LC_KILL_CHARACTER:
+			{
+				if (Hero->IsCounselor())
 				{
-					if( Hero->IsCounselor() )
+					LPCHARACTER ch;
+					t_packet p;
+
+					if (g_GameInfo.lpvSelectedSprite)
 					{
-						LPCHARACTER ch;
-						t_packet p;
-						
-						if (g_GameInfo.lpvSelectedSprite)
+						if ((LPCHARACTER)g_GameInfo.lpvSelectedSprite != Hero)
 						{
-							if ((LPCHARACTER)g_GameInfo.lpvSelectedSprite != Hero)
+							ch = (LPCHARACTER)g_GameInfo.lpvSelectedSprite;
+
+							if (ch->sprno < 2)
 							{
-								ch = (LPCHARACTER)g_GameInfo.lpvSelectedSprite; 
-								
-								if (ch->sprno < 2)
-								{
-									p.h.header.type = CMD_MAKE_GHOST;
-									p.u.make_ghost.id = ch->id;
-									p.h.header.size = sizeof( t_make_ghost );
-									QueuePacket( &p, 1 );
-								}
+								p.h.header.type = CMD_MAKE_GHOST;
+								p.u.make_ghost.id = ch->id;
+								p.h.header.size = sizeof(t_make_ghost);
+								QueuePacket(&p, 1);
 							}
 						}
 					}
+				}
 
-					break;
-				}
+				break;
+			}
 			case LC_DIRECTIONS:
-				{
-					break;
-					t_packet p;
-					p.h.header.type = CMD_FACE_DIRECTIONS;
-					p.h.header.size = sizeof(t_face_directions);
-					p.u.face_directions.dir = atoi(t1);
-					p.u.face_directions.id  = Hero->id;
-					QueuePacket(&p , 1);
-					Hero->todir = (DIRECTION)atoi(t1);
-					break;
-				}
-				//020515 lsw
+			{
+				break;
+				t_packet p;
+				p.h.header.type = CMD_FACE_DIRECTIONS;
+				p.h.header.size = sizeof(t_face_directions);
+				p.u.face_directions.dir = atoi(t1);
+				p.u.face_directions.id = Hero->id;
+				QueuePacket(&p, 1);
+				Hero->todir = (DIRECTION)atoi(t1);
+				break;
+			}
+			//020515 lsw
 			case LC_OPEN_DISPLAY_SKILL_EXP://	OpenDisplaySkillExp(); break;
 			case LC_OPEN_DISPLAY_TAC_EXP://	OpenDisplayTacExp(); break;
 			case LC_CLOSE_DISPLAY_SKILL_EXP://	CloseDisplaySkillExp(); break;
 			case LC_CLOSE_DISPLAY_TAC_EXP://	CloseDisplayTacExp(); break;
-				{
-					break;
-				}
-				// 001129 KHS
+			{
+				break;
+			}
+			// 001129 KHS
 			case LC_LIGHTOFRESCUE:
-				{
-					gr.GuideGhost_TypeTheHelp(true);
-					break;
-				}
+			{
+				gr.GuideGhost_TypeTheHelp(true);
+				break;
+			}
 			case LC_AUTOLEVELUP_CLOSE:
+			{
+				if (SCharacterData.nLevel <= 30)	// 010815 YGI
 				{
-					if (SCharacterData.nLevel <= 30)	// 010815 YGI
-					{
-						AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3,19));//010215 lsw
-					}
+					AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3, 19));//010215 lsw
+				}
 
-					AutoLevelUpOn = false; 
-					break;
-				}
+				AutoLevelUpOn = false;
+				break;
+			}
 			case LC_AUTOLEVELUP_OPEN:
+			{
+				if (SCharacterData.nLevel <= 30)	// 010815 YGI
 				{
-					if (SCharacterData.nLevel <= 30)	// 010815 YGI
-					{
-						AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3,20));//010215 lsw
-					}
-					
-					AutoLevelUpOn = true; 
-					break;
+					AddCurrentStatusMessage(FONT_COLOR_SOLID_GREEN, lan->OutputMessage(3, 20));//010215 lsw
 				}
+
+				AutoLevelUpOn = true;
+				break;
+			}
 			case LC_ANNONCE_ON:	//if ( pMusic->OpenFile( "./sound/start.mp3" ) )	pMusic->Play();
-				{
-					break;	
-				}
+			{
+				break;
+			}
 			case LC_ANNONCE_OFF:
-				{
-					pMusic->Stop();
-					break;
-				}
+			{
+				pMusic->Stop();
+				break;
+			}
 			case LC_FIGHTMAP_ALL_CHAT:
-				{
-					SendChatDataGlobalFightMap(t1);
-					break;
-				}
+			{
+				SendChatDataGlobalFightMap(t1);
+				break;
+			}
 			case LC_SMALL_TIPS:
-				{
-					CallViewSmallTips(t1);
-					break;
-				}
+			{
+				CallViewSmallTips(t1);
+				break;
+			}
 			case LC_EMOTION:
-				{
-					SendLcEmotion(t1);
-					break;
-				}
+			{
+				SendLcEmotion(t1);
+				break;
+			}
 			case LC_EXIT_GUILD:
-				{
-					SendExitGuild();
-					break;
-				}
+			{
+				SendExitGuild();
+				break;
+			}
 			case LC_VIEW_NK:
-				{
-					ViewNk(t1);
-					break;
-				}
+			{
+				ViewNk(t1);
+				break;
+			}
 			case LC_SQUAD_CHAT:
-			case LC_SQUAD_LEADER:	
-			case LC_SQUAD:	
+			case LC_SQUAD_LEADER:
+			case LC_SQUAD:
 			case LC_SQUAD_MEMBER:
 			case LC_SQUAD_MEMBER_TO_MEMBER:
-				{
-					SendSquadChatMessage(lc->command,t1);	// Nation.cpp
-					break;
-				}
+			{
+				SendSquadChatMessage(lc->command, t1);	// Nation.cpp
+				break;
+			}
 			case LC_WAR_MENU_OPEN:
-				{
-					WarControl(t1);	// 011020 LTS
-					break;
-				}
+			{
+				WarControl(t1);	// 011020 LTS
+				break;
+			}
 			case LC_WAR_MENU_NOTICE_OPEN:
-				{
-					WarLoopTime(t1);						// 011025 LTS
-					break;
-				}
+			{
+				WarLoopTime(t1);						// 011025 LTS
+				break;
+			}
 			case LC_GUILD_MAIL:
-				{
-					break;//
-				}
+			{
+				break;//
+			}
 			case LC_GUILD_CHAT:
-				{
-					SendChatGuild(t1);
-					break;
-				}
+			{
+				SendChatGuild(t1);
+				break;
+			}
 			case LC_COMMANDER_INFO:
-				{
-					ShowCommanderInfo();
-					break;				// 010924 LTS
-				}
+			{
+				ShowCommanderInfo();
+				break;				// 010924 LTS
+			}
 			case LC_SQUAD_INFO:
-				{
-					ShowSquadInfo();
-					break;
-				}
+			{
+				ShowSquadInfo();
+				break;
+			}
 			case LC_GUILD_CHAT_ON:
-				{
-					g_Menu_Variable.m_bGuildChatOn = true;
-					break;
-				}
+			{
+				g_Menu_Variable.m_bGuildChatOn = true;
+				break;
+			}
 			case LC_GUILD_CHAT_OFF:
+			{
+				g_Menu_Variable.m_bGuildChatOn = false;
+				break;
+			}
+			case LC_RESET_ABILITY:
+			{	// 020925 YGI
+#ifdef _NO_COMMAND_RESET_ABILITY
+				break;
+#endif
+				int iAble = 1;
+
+				for (int i = 0; i < 8; i++)
 				{
-					g_Menu_Variable.m_bGuildChatOn = false;
-					break;
+					if (EquipItemAttr[i].item_no)
+					{
+						iAble = 0;
+					}
 				}
-			case LC_RESET_ABILITY:	
-				{	// 020925 YGI
-				#ifdef _NO_COMMAND_RESET_ABILITY
-					break;
-				#endif
-					int iAble = 1;
 
-					for (int i = 0; i < 8; i++)
-					{
-						if (EquipItemAttr[i].item_no)
-						{	
-							iAble = 0;
-						}
-					}
-
-					if (iAble)
-					{
-						CallSmallMenu(MN_ABILITY_REDISTRIBUTION);
-					}
-					else
-					{
-						AddCurrentStatusMessage(FONT_COLOR_RED, lan->OutputMessage(0,500));//020701 lsw
-					}
-
-					break;	// LTS LOCALWAR
+				if (iAble)
+				{
+					CallSmallMenu(MN_ABILITY_REDISTRIBUTION);
 				}
+				else
+				{
+					AddCurrentStatusMessage(FONT_COLOR_RED, lan->OutputMessage(0, 500));//020701 lsw
+				}
+
+				break;	// LTS LOCALWAR
+			}
 			case LC_WAR_GIVE_LIFE:
-				{
-					WarGiveLife();
-					break;					// 011015 LTS
-				}
-			case LC_PARTY_ALL_FREE:	
-				{
-					memset(SCharacterData.party, 0, sizeof(CharacterParty)*6);
-					CallServer(CMD_PARTY_ALL_FREE);
-					break;
-				}
+			{
+				WarGiveLife();
+				break;					// 011015 LTS
+			}
+			case LC_PARTY_ALL_FREE:
+			{
+				memset(SCharacterData.party, 0, sizeof(CharacterParty) * 6);
+				CallServer(CMD_PARTY_ALL_FREE);
+				break;
+			}
 			case LC_SEND_MAIL:
 			case LC_SEND_GUILD_MAIL:
-				{
-					::Call_MAIL_WRITE_MENU(t1);
-					break;
-				}
+			{
+				::Call_MAIL_WRITE_MENU(t1);
+				break;
+			}
 			case LC_SHOW_ME_DUAL:
+			{
+				CheckShowMeDual();
+				break;
+			}
+			case LC_REPORTER_MODE:
+			{
+				if (Hero->name_status.reporter)
 				{
-					CheckShowMeDual();
-					break;
-				}
-			case LC_REPORTER_MODE:	
-				{
-					if (Hero->name_status.reporter)
-					{
-						if (!Hero->reporter_mode && IsDead(Hero))
-						{
-							break;
-						}
-
-						CallServer(CMD_REPORTER_MODE);
-						//Hero->reporter_mode = !Hero->reporter_mode;
-					} 
-					else
-					{
-						Kein_PutMessage(KM_FAIL, kein_GetMenuString(97));
-					}
-
-					break;
-				}
-			case LC_FRIEND_MENU:
-				{
-					CallFriendMenu();
-					break; //CallGuildMemberListMenu(); break;
-				}
-			case LC_WAR_GIVE_LIFE2:
-				{
-					WarGiveLife2(t1);
-					break;			// 011213 LTS
-				}
-			case LC_GETCOLOSSUS_INFO:
-				{
-					CallServer(CMD_CHECK_COLOSSUS_MAP);
-					Kein_PutMessage(KM_INFO , kein_GetMenuString(152));
-					break;
-				}
-			case LC_INVITE_COLOSSUS:
-				{	//< CSD-030521
-					if (!g_pArenaManager->IsLeader(Hero->id)) // 리더가 아니라면
-					{
-						Kein_PutMessage(KM_FAIL, kein_GetMenuString(153));
-					}
-					else
-					{	
-						static DWORD time = g_curr_time - 20;
-
-						DWORD gab = g_curr_time-time;
-
-						if (gab < 10)
-						{
-							MP3(SN_WARNING);
-							Kein_PutMessage(KM_FAIL, kein_GetMenuString(156), 10 - gab);
-						}
-						else
-						{
-							time = g_curr_time;
-							CallServer(CMD_INVITE_COLOSSUS);
-						}
-					}
-					
-					break;
-				}	//> CSD-030521
-			case LC_JOIN_COLOSSUS: 
-				{
-					SendJoinColossusMap();
-					break;
-				}
-			case LC_PK_ON_OFF:
-				{
-					CallServer(CMD_GET_PK_ON_OFF);
-					break;	
-				}
-			case LC_COMBAT_SKILL_ON_OFF://020420 lsw
-				{
-					g_mgrBattle.SendCombatRequest(Hero);
-					break;
-				}
-			case LC_LOCALWAR_CHAT:		// LTS NEW LOCALWAR
-				{
-					SendLocalWarChat(t1);		// LTS NEW LOCALWAR	
-					break;
-				}
-			case LC_QUESTMODE: 
-				{
-					CharUpper(t1);
-					SendCMD_SET_QUESTMODE(t1); 
-					break;	// LTS DRAGON MODIFY
-				}
-			case LC_WEATHER_ON:
-				{	//< CSD-CN-031222
-					g_bOffWeatherSystem = false;
-					break;
-				}	//> CSD-CN-031222
-			case LC_WEATHER_OFF:
-				{	//< CSD-CN-031222
-					g_bOffWeatherSystem = true;
-					break;
-				}	//> CSD-CN-031222
-			case LC_COMBAT_RESET:
-				{	//< CSD-030306
-				#ifdef _DEBUG
-					CallServer(CMD_COMBAT_RESET);
-				#endif
-					break;
-				}	//> CSD-030306
-			case LC_MAGIC_DISPLAY_ON:
-				{	//< CSD-030306
-					g_mgrBattle.SetDisplay(true);
-					g_ParticleManager.SetDisplay(true);
-					break;
-				}	//> CSD-030306
-			case LC_MAGIC_DISPLAY_OFF:
-				{	//< CSD-030306
-					g_mgrBattle.SetDisplay(false);
-					g_ParticleManager.SetDisplay(false);
-					break;
-				}	//> CSD-030306
-			case LC_SET_NORMAL_CHAT_MODE://020620 lsw
-				{
-					SetChatTarget(CHAT_TARGET_NORMAL);
-					SendChatNormal(t1);		
-					break;
-				}
-			case LC_REPRINT_EAR_MESSAGE	:	
-				{
-					ChatMgr.DisplayPastData(CHATTYPE_WHISPER);		//020704 lsw
-					break;
-				}
-			case LC_REPRINT_NORMAL_CHAT:
-				{
-					ChatMgr.DisplayPastData(CHATTYPE_NORMAL);		//020704 lsw
-					break;
-				}
-			case LC_REPRINT_GUILD_CHAT:
-				{
-					ChatMgr.DisplayPastData(CHATTYPE_GUILD);		//020704 lsw
-					break;
-				}
-			case LC_REPRINT_GUILD_BBS:
-				{
-					ChatMgr.DisplayPastData(CHATTYPE_GUILD_BBS);		//020704 lsw
-					break;
-				}
-			case LC_TRADE://020808 YGI
-				{
-					TradeONOFF(t1);
-					break;
-				}
-			case LC_CHECK_DUAL_FAME:	  // LTS DUAL FAME
-				{
-					SendCheckDualFame();
-					break;
-				}
-			case LC_WHAT_QUEST_IN_MAP:	// 021007 kyo //퀘스트정보를 본다. 
-				{
-					SendWhatQuestInMap(t1);
-					break;
-				}
-			case LC_MERCHANT_BBS://021126 lsw
-				{
-					if (Hero->viewtype == VIEWTYPE_GHOST_) //다른 사람은 고스트 이며	(딴사람은 유령)
+					if (!Hero->reporter_mode && IsDead(Hero))
 					{
 						break;
 					}
 
-					if (IsMerchant())
-					{
-						::SendChatData( t1, CHATTYPE_MERCHANT_BBS);
-					}
+					CallServer(CMD_REPORTER_MODE);
+					//Hero->reporter_mode = !Hero->reporter_mode;
+				}
+				else
+				{
+					Kein_PutMessage(KM_FAIL, kein_GetMenuString(97));
+				}
 
+				break;
+			}
+			case LC_FRIEND_MENU:
+			{
+				CallFriendMenu();
+				break; //CallGuildMemberListMenu(); break;
+			}
+			case LC_WAR_GIVE_LIFE2:
+			{
+				WarGiveLife2(t1);
+				break;			// 011213 LTS
+			}
+			case LC_GETCOLOSSUS_INFO:
+			{
+				CallServer(CMD_CHECK_COLOSSUS_MAP);
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(152));
+				break;
+			}
+			case LC_INVITE_COLOSSUS:
+			{	//< CSD-030521
+				if (!g_pArenaManager->IsLeader(Hero->id)) // 리더가 아니라면
+				{
+					Kein_PutMessage(KM_FAIL, kein_GetMenuString(153));
+				}
+				else
+				{
+					static DWORD time = g_curr_time - 20;
+
+					DWORD gab = g_curr_time - time;
+
+					if (gab < 10)
+					{
+						MP3(SN_WARNING);
+						Kein_PutMessage(KM_FAIL, kein_GetMenuString(156), 10 - gab);
+					}
+					else
+					{
+						time = g_curr_time;
+						CallServer(CMD_INVITE_COLOSSUS);
+					}
+				}
+
+				break;
+			}	//> CSD-030521
+			case LC_JOIN_COLOSSUS:
+			{
+				SendJoinColossusMap();
+				break;
+			}
+			case LC_PK_ON_OFF:
+			{
+				CallServer(CMD_GET_PK_ON_OFF);
+				break;
+			}
+			case LC_COMBAT_SKILL_ON_OFF://020420 lsw
+			{
+				g_mgrBattle.SendCombatRequest(Hero);
+				break;
+			}
+			case LC_LOCALWAR_CHAT:		// LTS NEW LOCALWAR
+			{
+				SendLocalWarChat(t1);		// LTS NEW LOCALWAR	
+				break;
+			}
+			case LC_QUESTMODE:
+			{
+				CharUpper(t1);
+				SendCMD_SET_QUESTMODE(t1);
+				break;	// LTS DRAGON MODIFY
+			}
+			case LC_WEATHER_ON:
+			{	//< CSD-CN-031222
+				g_bOffWeatherSystem = false;
+				break;
+			}	//> CSD-CN-031222
+			case LC_WEATHER_OFF:
+			{	//< CSD-CN-031222
+				g_bOffWeatherSystem = true;
+				break;
+			}	//> CSD-CN-031222
+			case LC_COMBAT_RESET:
+			{	//< CSD-030306
+#ifdef _DEBUG
+				CallServer(CMD_COMBAT_RESET);
+#endif
+				break;
+			}	//> CSD-030306
+			case LC_MAGIC_DISPLAY_ON:
+			{	//< CSD-030306
+				g_mgrBattle.SetDisplay(true);
+				g_ParticleManager.SetDisplay(true);
+				break;
+			}	//> CSD-030306
+			case LC_MAGIC_DISPLAY_OFF:
+			{	//< CSD-030306
+				g_mgrBattle.SetDisplay(false);
+				g_ParticleManager.SetDisplay(false);
+				break;
+			}	//> CSD-030306
+			case LC_SET_NORMAL_CHAT_MODE://020620 lsw
+			{
+				SetChatTarget(CHAT_TARGET_NORMAL);
+				SendChatNormal(t1);
+				break;
+			}
+			case LC_REPRINT_EAR_MESSAGE:
+			{
+				ChatMgr.DisplayPastData(CHATTYPE_WHISPER);		//020704 lsw
+				break;
+			}
+			case LC_REPRINT_NORMAL_CHAT:
+			{
+				ChatMgr.DisplayPastData(CHATTYPE_NORMAL);		//020704 lsw
+				break;
+			}
+			case LC_REPRINT_GUILD_CHAT:
+			{
+				ChatMgr.DisplayPastData(CHATTYPE_GUILD);		//020704 lsw
+				break;
+			}
+			case LC_REPRINT_GUILD_BBS:
+			{
+				ChatMgr.DisplayPastData(CHATTYPE_GUILD_BBS);		//020704 lsw
+				break;
+			}
+			case LC_TRADE://020808 YGI
+			{
+				TradeONOFF(t1);
+				break;
+			}
+			case LC_CHECK_DUAL_FAME:	  // LTS DUAL FAME
+			{
+				SendCheckDualFame();
+				break;
+			}
+			case LC_WHAT_QUEST_IN_MAP:	// 021007 kyo //퀘스트정보를 본다. 
+			{
+				SendWhatQuestInMap(t1);
+				break;
+			}
+			case LC_MERCHANT_BBS://021126 lsw
+			{
+				if (Hero->viewtype == VIEWTYPE_GHOST_) //다른 사람은 고스트 이며	(딴사람은 유령)
+				{
 					break;
 				}
+
+				if (IsMerchant())
+				{
+					::SendChatData(t1, CHATTYPE_MERCHANT_BBS);
+				}
+
+				break;
+			}
 			case LC_MERCHANT_EXCHANGE://021026 lsw
-				{
-					Auction.SendCMD_MERCHANT_EXCHANGE_LIST_REQUEST(t1,0,1,true);
-					break;
-				}
+			{
+				Auction.SendCMD_MERCHANT_EXCHANGE_LIST_REQUEST(t1, 0, 1, true);
+				break;
+			}
 			case LC_EVENT_MOVE_MAP:	// 021107 YGI
-				{
-					SendEvnetMoveMap();
-					break;
-				}
-				//<< 031021 kyo
-			case LC_EMOTI_SMILE:					
+			{
+				SendEvnetMoveMap();
+				break;
+			}
+			//<< 031021 kyo
+			case LC_EMOTI_SMILE:
 			case LC_EMOTI_SHY:
 			case LC_EMOTI_CRY:
 			case LC_EMOTI_ANGER:
@@ -932,100 +932,100 @@ int IsLineCommand( char *message, int nsize )
 			case LC_GAME_TRANSACTION:
 			case LC_GAME_BEG:
 			case LC_GAME_CONGRAGULATION:
-				{
-					::SendSmileFace((lc->command) - LC_EMOTI_SMILE + 2); // 얼굴아이콘이 1부터 시작한다.
-					break;
-				}
+			{
+				::SendSmileFace((lc->command) - LC_EMOTI_SMILE + 2); // 얼굴아이콘이 1부터 시작한다.
+				break;
+			}
 			case LC_BBS_LIMITED_USER_ADD:
+			{
+				if (!ChatMgr.AddLimintedBBSName(t1))
+				{	// 제한인원에 걸린다.
+					::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 512));
+				}
+				else if (strlen(t1) > 0)
 				{
-					if (!ChatMgr.AddLimintedBBSName(t1))
-					{	// 제한인원에 걸린다.
-						::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 512));
-					}
-					else if (strlen(t1) > 0)
-					{
-						::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 510), t1);
-					}
+					::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 510), t1);
+				}
 
-					break;
-				}
+				break;
+			}
 			case LC_BBS_ON:
-				{
-					ChatMgr.SetActiveBBS(true);
-					::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 513));
-					//ChatMgr.ShowLimitedList(); // 031031 kyo
-					break;						
-				}
+			{
+				ChatMgr.SetActiveBBS(true);
+				::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 513));
+				//ChatMgr.ShowLimitedList(); // 031031 kyo
+				break;
+			}
 			case LC_BBS_OFF:
-				{
-					ChatMgr.SetActiveBBS(false);
-					::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 514));
-					break;						
-				}
-				//<< 031021 kyo
+			{
+				ChatMgr.SetActiveBBS(false);
+				::AddCurrentStatusMessage(FONT_COLOR_SOLID_YELLOW, lan->OutputMessage(0, 514));
+				break;
+			}
+			//<< 031021 kyo
 			case LC_RAID_START:
-				{	//< CSD-040310
-				#ifdef _DEBUG
-					CallServer(CMD_MONSTER_RAID_START);
-				#endif
-					break;
-				}	//> CSD-040310
+			{	//< CSD-040310
+#ifdef _DEBUG
+				CallServer(CMD_MONSTER_RAID_START);
+#endif
+				break;
+			}	//> CSD-040310
 			case LC_RAID_END:
-				{	//< CSD-040310
-				#ifdef _DEBUG
-					CallServer(CMD_MONSTER_RAID_END);
-				#endif
-					break;
-				}	//> CSD-040310
+			{	//< CSD-040310
+#ifdef _DEBUG
+				CallServer(CMD_MONSTER_RAID_END);
+#endif
+				break;
+			}	//> CSD-040310
 			case LC_LINERESET_POINT: //踏狗櫓路롸듐鑒.墩 駐?90822
-				{
-					Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
-					//	CallSmallMenu(MN_INIT_ABILITY);//댔역콘제눗왯
-					CallServer(CMD_RESET_ABILITY);//랙箇路롸변鑒
-					CallMenu(MN_ABILITY);//댔역橄昑꽉데
-					//CallServer(CMD_OPEN_ABILITY);
-					break;
-				}
+			{
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
+				//	CallSmallMenu(MN_INIT_ABILITY);//댔역콘제눗왯
+				CallServer(CMD_RESET_ABILITY);//랙箇路롸변鑒
+				CallMenu(MN_ABILITY);//댔역橄昑꽉데
+				//CallServer(CMD_OPEN_ABILITY);
+				break;
+			}
 			case 	LC_MINIWINDOW_MODE:	//墩 駐?90822,離鬼뺏눗왯
-				{
-					Kein_PutMessage(KM_INFO, kein_GetMenuString(230));
+			{
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(230));
 				if (g_DirectDrawInfo.bFullscreen == 1)
 				{
-		//		SysInfo.dx = 0;
-				g_DirectDrawInfo.bFullscreen = false;// switch screen//눗왯친駕
-				SetWindowLong( g_hwndMain, GWL_STYLE, WS_OVERLAPPEDWINDOW );
-				SetWindowPos(g_hwndMain,HWND_TOP,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);                
-				ShowWindow(g_hwndMain,SW_MINIMIZE);//극꼇옵 名Х粥識盈譯塑惡?侶쟁邱離鬼뺏寧苟눗왯
-				ShowWindow(g_hwndMain,SW_MAXIMIZE);//극꼇옵 名Х粥識盈譯塑惡?횔빈侶離댕뺏寧苟눗왯,앎샴삶죄
+					//SysInfo.dx = 0;
+					g_DirectDrawInfo.bFullscreen = false;// switch screen//눗왯친駕
+					SetWindowLong(g_hwndMain, GWL_STYLE, WS_OVERLAPPEDWINDOW);
+					SetWindowPos(g_hwndMain, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+					ShowWindow(g_hwndMain, SW_MINIMIZE);//극꼇옵 名Х粥識盈譯塑惡?侶쟁邱離鬼뺏寧苟눗왯
+					ShowWindow(g_hwndMain, SW_MAXIMIZE);//극꼇옵 名Х粥識盈譯塑惡?횔빈侶離댕뺏寧苟눗왯,앎샴삶죄
 				}
 				else
 				{
 					Kein_PutMessage(KM_INFO, kein_GetMenuString(231));//侶몸角뗍혤MENUSTRING.TXT쟁句口돨,옵鹿菱성속
 				}
-					break;
-				}
+				break;
+			}
 			case	LC_MAXWINDOW_MODE:	//墩 駐?90822,離댕뺏눗왯
-				{
-					Kein_PutMessage(KM_INFO, kein_GetMenuString(232));
+			{
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(232));
 				if (g_DirectDrawInfo.bFullscreen == 0)
 				{
-		//		SysInfo.dx = 1;
-				g_DirectDrawInfo.bFullscreen = true;// switch screen//홍팁친駕
-				SetWindowLong( g_hwndMain, GWL_STYLE, WS_POPUP );
-				SetWindowPos(g_hwndMain,HWND_TOP,0,0,0,0,SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED); 
-				ShowWindow(g_hwndMain,SW_MINIMIZE);//극꼇옵 名Х粥識盈譯塑惡?侶쟁邱離鬼뺏寧苟눗왯
-				ShowWindow(g_hwndMain,SW_MAXIMIZE);//극꼇옵 名Х粥識盈譯塑惡?횔빈侶離댕뺏寧苟눗왯,앎샴삶죄
+					//SysInfo.dx = 1;
+					g_DirectDrawInfo.bFullscreen = true;// switch screen//홍팁친駕
+					SetWindowLong(g_hwndMain, GWL_STYLE, WS_POPUP);
+					SetWindowPos(g_hwndMain, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+					ShowWindow(g_hwndMain, SW_MINIMIZE);//극꼇옵 名Х粥識盈譯塑惡?侶쟁邱離鬼뺏寧苟눗왯
+					ShowWindow(g_hwndMain, SW_MAXIMIZE);//극꼇옵 名Х粥識盈譯塑惡?횔빈侶離댕뺏寧苟눗왯,앎샴삶죄
 				}
 				else
 				{
 					Kein_PutMessage(KM_INFO, kein_GetMenuString(233));
 				}
-					break;
-				}
-				}
+				break;
+			}
+			}
 
 			return 1;
-		}	
+		}
 
 		lc = &LC[++c];
 	}
@@ -1035,18 +1035,18 @@ int IsLineCommand( char *message, int nsize )
 
 void SendTotalMapConnections( void )
 {
-	//	t_packet p;
-	//	p.h.header.type = CMD_TOTAL_MAP_CONNECTIONS;
-	//	p.h.header.size = 0;
-	//	QueuePacket( &p, 1 );
+	//t_packet p;
+	//p.h.header.type = CMD_TOTAL_MAP_CONNECTIONS;
+	//p.h.header.size = 0;
+	//QueuePacket( &p, 1 );
 }
 
 void SendTotalConnections( void )
 {
-	//	t_packet p;
-	//	p.h.header.type = CMD_TOTAL_CONNECTIONS;
-	//	p.h.header.size = 0;
-	//	QueuePacket( &p, 1 );
+	//t_packet p;
+	//p.h.header.type = CMD_TOTAL_CONNECTIONS;
+	//p.h.header.size = 0;
+	//QueuePacket( &p, 1 );
 }
 
 
@@ -1130,13 +1130,13 @@ void SendTameCommand(int command, char* s)
 	{
 		switch (command)
 		{
-		/*
-		case LC_TAME_ATTACK:
-			{
-				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 59));	
-				return;
-			}
-		*/
+		//
+		//case LC_TAME_ATTACK:
+		//	{
+		//		AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 59));	
+		//		return;
+		//	}
+		//
 		case LC_TAME_NAME:
 			{
 				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 60));

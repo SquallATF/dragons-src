@@ -79,16 +79,16 @@ char g_Note_Meeting_message[256];
 
 int	smallmenu_img2[MAX_IMAGE2]=	{ 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 };		// spr2 을 이용한 독립메뉴.. --> 프리할때 이용
 float paytable[9] = { 1.2f, 1.1f, 1.0f, 1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f };
-/*
-typedef struct tag_board			// 임시
-{
-char	text[4][20];
-}DIRECTBOARD, *LPDIRECTBOARD;
-
-  DIRECTBOARD board_test;
-  void PutDirectBoardMenu( const LPDIRECTBOARD lpDB );
-  void PutBoardMenu( int cn, char *name );
-*/
+//
+//typedef struct tag_board			// 임시
+//{
+//char	text[4][20];
+//}DIRECTBOARD, *LPDIRECTBOARD;
+//
+//  DIRECTBOARD board_test;
+//  void PutDirectBoardMenu( const LPDIRECTBOARD lpDB );
+//  void PutBoardMenu( int cn, char *name );
+//
 
 extern void PutDirectBoardMenu( const DIRECTBOARDDATA *lpDB );
 extern void PutBoardMenu( int cn, char *name );
@@ -422,7 +422,7 @@ const int smallmenu1[] =
 		MN_SYSTEM,
 		MN_SYSTEM_OPTION,
 		MN_SYSTEM_LOGOUT,
-		//				MN_LEVELUP,
+		//MN_LEVELUP,
 		
 		MN_ITEM_MAKE,
 		MN_ITEM_MAKE_SELECT,
@@ -441,9 +441,9 @@ const int smallmenu1[] =
 		
 		MN_SKILLGUILD_BUY			,
 		MN_SKILLGUILD_SELL			,
-		//				MN_SKILLGUILD_SKILL			,
-		//				MN_SKILLGUILD_ITEM			,
-		//				MN_SKILLGUILD_REPAIR		,
+		//MN_SKILLGUILD_SKILL			,
+		//MN_SKILLGUILD_ITEM			,
+		//MN_SKILLGUILD_REPAIR		,
 		
 		MN_BANK_DEPOSIT,
 		MN_BANK_DEFRAYAL,
@@ -645,12 +645,12 @@ void InitMenu()				// 시작할때, 셋업을 상황에 맞춰 해야 할 경우
 	if( SCharacterData.nCharacterData[SPELL]==PRIEST_SPELL )
 	{
 		
-		//		LoadOpenningSpr( "./data/divine.dat", &divine_gauge, spr_divine_gauge );//020515 lsw 데이타는 알아서 읽자
+		//LoadOpenningSpr( "./data/divine.dat", &divine_gauge, spr_divine_gauge );//020515 lsw 데이타는 알아서 읽자
 		SMenu[MN_ABILITY].nField[21].nType=FT_NOMAL_PUT;
 		
 		// 프리스트일때 11, 12 계열은 없다.
-		//		SMenu[MN_LEARN_MAGIC_BOOK].nField[11].nType = FT_NO_CHECK;
-		//		SMenu[MN_LEARN_MAGIC_BOOK].nField[12].nType = FT_NO_CHECK;
+		//SMenu[MN_LEARN_MAGIC_BOOK].nField[11].nType = FT_NO_CHECK;
+		//SMenu[MN_LEARN_MAGIC_BOOK].nField[12].nType = FT_NO_CHECK;
 		
 		strcpy( string_ability[WSPS], "PS" );
 	}
@@ -667,8 +667,8 @@ void InitMenu()				// 시작할때, 셋업을 상황에 맞춰 해야 할 경우
 		}
 	}
 	// 메모라이즈 초기화...
-	//	SCharacterData.sleep = true;
-	//	InitMemorize();
+	//SCharacterData.sleep = true;
+	//InitMemorize();
 	
 	LoadOpenningSpr( "./data/main_etc.dat", &main_etc_buf, main_etc_spr);		// 메인 인터페이스~
 	LoadOpenningSpr( "./data/skill_menu.dat", &skill_menu_buf, skill_menu_spr);		// 메인 인터페이스~
@@ -1006,13 +1006,13 @@ void kein_KeyProc()
 				CallMapMoveMenu(3);
 			}
 			//< CSD-011008
-			/*
-			if(g_aCurrentKeys[DIK_O] & 0x80 ) 
-			{
-			g_fight_win = 1;
-			AddCurrentStatusMessage( 250,255,255, kein_GetMenuString(10) );
-			}
-			*/
+			//
+			//if(g_aCurrentKeys[DIK_O] & 0x80 ) 
+			//{
+			//g_fight_win = 1;
+			//AddCurrentStatusMessage( 250,255,255, kein_GetMenuString(10) );
+			//}
+			//
 			if(g_aCurrentKeys[DIK_LEFT] & 0x80 ) 
 			{
 				CallSmallMenu(280);
@@ -1054,7 +1054,7 @@ void kein_KeyProc()
 			if(g_aCurrentKeys[DIK_J] & 0x80 ) 
 			{
 				//bDisplayTacticExp= !bDisplayTacticExp;//020515 lsw
-		//		CallSmallMenu(MN_EVENT_LOCALWAR_OK);MN_LOCALWAR_JOIN
+				//CallSmallMenu(MN_EVENT_LOCALWAR_OK);MN_LOCALWAR_JOIN
 				CallSmallMenu(MN_REVIVAL);
 			}
 			
@@ -1112,135 +1112,6 @@ void kein_KeyProc()
 			kein_kh_key_on = false;
 			return;
 		}
-		
-		/*
-		
-		  // ######### 인벤 창 Refresh 4번 키 #########
-		  //QuickItemAttr
-		  static bool f_resend = false;
-		  if(g_aCurrentKeys[DIK_NUMPAD4] & 0x80 )
-		  {	
-		  if( !f_resend )	
-		  {
-		  CallServer( CMD_RESEND_ITEM );
-		  f_resend = true;
-		  }
-		  }
-		  else f_resend = false;
-		  
-			
-			  // ######### 능력치 갱신 5번 키 ########
-			  static bool f_time = false;
-			  if(g_aCurrentKeys[DIK_NUMPAD5] & 0x80 )
-			  {	
-			  if( !f_time )	
-			  {
-			  CallServer(CMD_RESEND_CHARLIST);
-			  f_time = true;
-			  }
-			  }
-			  else f_time = false;
-			  
-				// ######### 파티원들 보여주기 갱신 7번 키 ########
-				static bool f_party = false;
-				if(g_aCurrentKeys[DIK_NUMPAD7] & 0x80 )
-				{	
-				if( !f_party )
-				{
-				CallServer( CMD_REQ_PARTY_MEMBER );
-				f_party = true;
-				}
-				}
-				else f_party = false;
-				// ##################################################
-				static bool f_memorize = false;
-				if(g_aCurrentKeys[DIK_7] & 0x80 )
-				{	
-				if( !f_memorize )
-				{
-				g_bMagicSelect = !g_bMagicSelect;
-				if( g_bMagicSelect )
-				{
-				CallOkCancelMessageBox(0,0,0,"마법 방식이 메모라이즈 개념으로 바뀌었습니다.",0);//010215 lsw temp
-				RecvServerWakeUp();
-				}
-				else 
-				{
-				CallOkCancelMessageBox(0,0,0,"마법 방식이 능력제로 바뀌었습니다.",0);//010215 lsw temp
-				MagicSetting2();
-				}
-				f_memorize = true;
-				}
-				}
-				else f_memorize = false;
-				
-				  
-					//####### 깨어나라	8번키 #######
-					static bool f_sleep = false;
-					if(g_aCurrentKeys[DIK_NUMPAD8] & 0x80 )
-					{	
-					if( !f_sleep )
-					{
-					CallServer( CMD_SERVER_WAKE_UP );
-					f_sleep = true;
-					}
-					}
-					else f_sleep = false;
-					
-					  static int flag = 0;
-					  if(g_aCurrentKeys[DIK_NUMPAD1] & 0x80)
-					  {
-					  ItemRead();
-					  }
-					  
-						if(g_aCurrentKeys[DIK_NUMPAD2] & 0x80)
-						{
-						if( flag == 0 )
-						{
-						SCharacterData.nCharacterData[GENDER] = !SCharacterData.nCharacterData[GENDER];
-						Hero->sprno = SCharacterData.nCharacterData[GENDER];
-						if( !SCharacterData.nCharacterData[GENDER] )	//  0:여자 1:남자
-						{
-						SMenu[MN_ITEM].nField[7].nImageNumber=483;
-						SMenu[MN_TACTICS].nImageNumber=10001;
-						}
-						else
-						{
-						SMenu[MN_ITEM].nField[7].nImageNumber=120;
-						SMenu[MN_TACTICS].nImageNumber=867;
-						}			
-						flag = 2;
-						}
-						}
-						else flag = 0;
-						
-						  // ######### 캐릭터 아이템 보여주기 6번 키 #########
-						  static bool f_itemshow = false;
-						  if(g_aCurrentKeys[DIK_NUMPAD6] & 0x80 )
-						  {	
-						  if( !f_itemshow )	
-						  {
-						  //				CallOtherCharacterInv( InvItemAttr, EquipItemAttr, QuickItemAttr );
-						  SendShowItemOfOtherCh( Hero->id );
-						  f_itemshow = true;
-						  }
-						  }
-						  else f_itemshow = false;
-						  
-							// ######### 바닥에 아이템 떨어뜨리기 3번 키 #########
-							static bool f_item = false;
-							if(g_aCurrentKeys[DIK_NUMPAD3] & 0x80 )
-							{	
-							if( !f_item )	
-							{
-							DropItemOnHero( QuickItemAttr[6] );
-							f_item = true;
-							}
-							}
-							else f_item = false;
-							
-*/
-
 
 //######### 캐릭터 매직계열 바꾸기 F10 ##########
 static int flag1 = 0;
@@ -1252,13 +1123,13 @@ if(g_aCurrentKeys[DIK_F10] & 0x80)
 		for( int a=0; a<MAX_MAGIC_; a++)  magic[a].DeleteMagic();
 		
 		memset( aMagicItem, 0, sizeof( int[3][4][3][5] ) );
-		/*	//020515 lsw 데이타 로딩 필요 없습니다.
-		if( SCharacterData.nCharacterData[SPELL] == PRIEST_SPELL  )
-		{
-		LoadOpenningSpr( "./data/divine.dat", &divine_gauge, spr_divine_gauge );
-		}
-		else FreeOpenningSpr( &divine_gauge);
-		*/
+		//	//020515 lsw 데이타 로딩 필요 없습니다.
+		//if( SCharacterData.nCharacterData[SPELL] == PRIEST_SPELL  )
+		//{
+		//LoadOpenningSpr( "./data/divine.dat", &divine_gauge, spr_divine_gauge );
+		//}
+		//else FreeOpenningSpr( &divine_gauge);
+		//
 		ReadMagicTable();
 		MagicSetting();
 	}
@@ -1309,7 +1180,6 @@ else flag1 = 0;
 		
 		SMenu[MN_MESSAGEBOX_BIG].bActive=false;
 		SMenu[MN_MESSAGEBOX_SMALL].bActive =false;
-		
 		
 		if( !IsChatBoxActive())
 		{
@@ -1429,8 +1299,8 @@ else flag1 = 0;
 		
 		if(g_aCurrentKeys[DIK_Q] & 0x80)
 		{
-			//			CallSmallMenu(MN_GOD_SUPPER);		// 음식 제공 메뉴
-			//			CallSmallMenu(MN_MAIL_MENU);
+			//CallSmallMenu(MN_GOD_SUPPER);		// 음식 제공 메뉴
+			//CallSmallMenu(MN_MAIL_MENU);
 		}		
 		
 		if(g_aCurrentKeys[DIK_R] & 0x80)
@@ -1442,23 +1312,21 @@ else flag1 = 0;
 		
 		if(!LeftShiftOn && g_aCurrentKeys[DIK_F12] & 0x80)
 		{
-			
-			
-			//			for( int i=0; i<ITEM_JOIN_MAX; i++)
-			//			{
-			//				SCharacterData.ItemId[i] = item_join[i].item_id;
-			//			}
-			
-			//			SCharacterData.ItemIdCount = MAX_LEARN_ITEM;
+			//for( int i=0; i<ITEM_JOIN_MAX; i++)
+			//{
+			//	SCharacterData.ItemId[i] = item_join[i].item_id;
+			//}
+			//
+			//SCharacterData.ItemIdCount = MAX_LEARN_ITEM;
 		}
 		else if(LeftShiftOn && g_aCurrentKeys[DIK_F12] & 0x80)
 		{
-			//			for( int a=0; a<SCharacterData.ItemIdCount; a++)
-			//			{
-			//				SCharacterData.ItemId[a] = 0;
-			//			}
-			
-			//			SCharacterData.ItemIdCount = 0;
+			//for( int a=0; a<SCharacterData.ItemIdCount; a++)
+			//{
+			//	SCharacterData.ItemId[a] = 0;
+			//}
+			//
+			//SCharacterData.ItemIdCount = 0;
 		}
 		
 		if( !LeftShiftOn && g_aCurrentKeys[DIK_F11] & 0x80)
@@ -2341,147 +2209,149 @@ void PutMouseItemCheck()
 		{
 			switch ( IP_base.type )
 			{
-			case  EQUIP:{	
+			case  EQUIP: {
 				int a, b, c;
-				if( SearchEmpty(a, b, c) )
+				if (SearchEmpty(a, b, c))
 				{
 					InvItemAttr[a][b][c] = HandItemAttr;
 					POS pos_s, pos_t;
 					SetItemPos(HAND, &pos_s);
 					SetItemPos(INV, a, b, c, &pos_t);
-					SendMoveItem( HandItemAttr.item_no, pos_s, pos_t, false );
+					SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 				}
 				else
 				{
-					SendDropItem( HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr );
+					SendDropItem(HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr);
 				}
 				break;
-						}
+			}
 				
-						/*				case  EQUIP:	if(GetItemAttr(HandItemAttr.item_no, WEAR_ABLE) == WearAble[IP_base.p3] && !EquipItemAttr[IP_base.p3].item_no)		// 무기 아이템 창에서 떼어낸 아이템
-						{
-						POS s; 
-						EquipItemAttr[IP_base.p3]= HandItemAttr;
-						
-						  SetItemPos(HAND, &s);
-						  SendMoveItem( HandItemAttr.item_no, s, IP_base );
-						  }
-						  else
-						  {
-						  int a, b, c;
-						  if( SearchEmpty(a, b, c) )
-						  {
-						  InvItemAttr[a][b][c] = HandItemAttr;
-						  POS pos_s, pos_t;
-						  SetItemPos(HAND, &pos_s);
-						  SetItemPos(INV, a, b, c, &pos_t);
-						  SendMoveItem( HandItemAttr.item_no, pos_s, pos_t );
-						  }
-						  else
-						  {
-						  SendDropItem( HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr );
-						  }
-						  }
-						  break;		
-				*/
-			case QUICK :	if(GetItemAttr(HandItemAttr.item_no, WEAR_ABLE) == WEAR_BELT)		// 단축 아이템 창에서 떼어낸 아이템
-							{
-								QuickItemAttr[IP_base.p3] = HandItemAttr;
-								POS s; 
-								SetItemPos(HAND, &s);
-								SendMoveItem(HandItemAttr.item_no,s, IP_base, false);
-							}
+			//case  EQUIP:
+			//if(GetItemAttr(HandItemAttr.item_no, WEAR_ABLE) == WearAble[IP_base.p3] && !EquipItemAttr[IP_base.p3].item_no)		// 무기 아이템 창에서 떼어낸 아이템
+			//{
+			//POS s; 
+			//EquipItemAttr[IP_base.p3]= HandItemAttr;
+			//			
+			//	SetItemPos(HAND, &s);
+			//	SendMoveItem( HandItemAttr.item_no, s, IP_base );
+			//	}
+			//	else
+			//	{
+			//	int a, b, c;
+			//	if( SearchEmpty(a, b, c) )
+			//	{
+			//	InvItemAttr[a][b][c] = HandItemAttr;
+			//	POS pos_s, pos_t;
+			//	SetItemPos(HAND, &pos_s);
+			//	SetItemPos(INV, a, b, c, &pos_t);
+			//	SendMoveItem( HandItemAttr.item_no, pos_s, pos_t );
+			//	}
+			//	else
+			//	{
+			//	SendDropItem( HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr );
+			//	}
+			//	}
+			//	break;
+	
+			case QUICK: {
+				if (GetItemAttr(HandItemAttr.item_no, WEAR_ABLE) == WEAR_BELT)		// 단축 아이템 창에서 떼어낸 아이템
+				{
+					QuickItemAttr[IP_base.p3] = HandItemAttr;
+					POS s;
+					SetItemPos(HAND, &s);
+					SendMoveItem(HandItemAttr.item_no, s, IP_base, false);
+				}
 				else
 				{
 					int a, b, c;
-					if( SearchEmpty(a, b, c) )
+					if (SearchEmpty(a, b, c))
 					{
 						InvItemAttr[a][b][c] = HandItemAttr;
 						POS pos_s, pos_t;
 						SetItemPos(HAND, &pos_s);
 						SetItemPos(INV, a, b, c, &pos_t);
-						
-						SendMoveItem( HandItemAttr.item_no,pos_s, pos_t, false );
+
+						SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 					}
 					else
 					{
-						SendDropItem( HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr );
+						SendDropItem(HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr);
 					}
 				}
-				break;		
-				
-			case BANK :{
+				break;
+			}
+			case BANK: {
 				BankItemAttr[IP_base.p1][IP_base.p2][IP_base.p3] = HandItemAttr;
 				POS pos_s;
 				SetItemPos(HAND, &pos_s);
-				SendMoveItem( HandItemAttr.item_no,pos_s, IP_base , false);
+				SendMoveItem(HandItemAttr.item_no, pos_s, IP_base, false);
 				break;
-					   }
-			case GROUND : {
+			}
+			case GROUND: {
 				int a, b, c;
 				int kind = GetItemAttr(HandItemAttr.item_no, ITEM_KIND);
-				if( kind == IK_NEW_MONEY )
+				if (kind == IK_NEW_MONEY)
 				{
-					if( SearchNewCoinItem( a, b, c ) )
+					if (SearchNewCoinItem(a, b, c))
 					{
 						POS pos_s, pos_t;
 						SetItemPos(HAND, &pos_s);
-						SetItemPos(INV, a,b,c, &pos_t);
-						SendMoveItem( HandItemAttr.item_no, pos_s, pos_t, false );
+						SetItemPos(INV, a, b, c, &pos_t);
+						SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 						//ChangeItemAttr( &InvItemAttr[a][b][c], CIA_MUCH, HandItemAttr.attr[IATTR_MUCH], 0 );
 						break;
 					}
 				}
-				else if( kind == IK_MONEY  )
+				else if (kind == IK_MONEY)
 				{
-					if( SearchCoinItem( a, b, c ) )
+					if (SearchCoinItem(a, b, c))
 					{
 						POS pos_s, pos_t;
 						SetItemPos(HAND, &pos_s);
-						SetItemPos(INV, a,b,c, &pos_t);
-						SendMoveItem( HandItemAttr.item_no, pos_s, pos_t, false );
+						SetItemPos(INV, a, b, c, &pos_t);
+						SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 						//ChangeItemAttr( &InvItemAttr[a][b][c], CIA_MUCH, HandItemAttr.attr[IATTR_MUCH], 0 );
 						break;
 					}
 				}
-				else if( GetItemAttr( HandItemAttr.item_no, DO_RBUTTON )==DIVIDE_ITEM && SearchItemPosByNumber( &HandItemAttr, a, b, c ) )
+				else if (GetItemAttr(HandItemAttr.item_no, DO_RBUTTON) == DIVIDE_ITEM && SearchItemPosByNumber(&HandItemAttr, a, b, c))
 				{
 					POS pos_s, pos_t;
 					SetItemPos(HAND, &pos_s);
 					SetItemPos(INV, a, b, c, &pos_t);
-					SendMoveItem( HandItemAttr.item_no, pos_s, pos_t , false);
+					SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 					//ChangeItemAttr( &InvItemAttr[a][b][c], CIA_MUCH, HandItemAttr.attr[IATTR_MUCH], 0 );
 					break;
-				} 
-				if( SearchEmpty(a, b, c) )
+				}
+				if (SearchEmpty(a, b, c))
 				{
 					InvItemAttr[a][b][c] = HandItemAttr;
 					POS pos_s, pos_t;
 					SetItemPos(HAND, &pos_s);
 					SetItemPos(INV, a, b, c, &pos_t);
-					SendMoveItem( HandItemAttr.item_no, pos_s, pos_t, false );
+					SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 				}
 				else
 				{
-					SendDropItem( HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr );
+					SendDropItem(HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr);
 				}
 				break;
-						  }
-			default : {
-				if( InvItemAttr[IP_base.p1][IP_base.p2][IP_base.p3].item_no )
+			}
+			default: {
+				if (InvItemAttr[IP_base.p1][IP_base.p2][IP_base.p3].item_no)
 				{
 					int a, b, c;
-					if( SearchEmpty(a, b, c) )
+					if (SearchEmpty(a, b, c))
 					{
 						InvItemAttr[a][b][c] = HandItemAttr;
 						POS pos_s, pos_t;
 						SetItemPos(HAND, &pos_s);
 						SetItemPos(INV, a, b, c, &pos_t);
-						SendMoveItem( HandItemAttr.item_no, pos_s, pos_t , false);
+						SendMoveItem(HandItemAttr.item_no, pos_s, pos_t, false);
 					}
 					else
 					{
-						SendDropItem( HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr );
+						SendDropItem(HandItemAttr.item_no, Hero->x, Hero->y, HandItemAttr.attr);
 					}
 				}
 				else
@@ -2489,11 +2359,11 @@ void PutMouseItemCheck()
 					InvItemAttr[IP_base.p1][IP_base.p2][IP_base.p3] = HandItemAttr;
 					POS pos_s;
 					SetItemPos(HAND, &pos_s);
-					SendMoveItem( HandItemAttr.item_no, pos_s, IP_base , false);
+					SendMoveItem(HandItemAttr.item_no, pos_s, IP_base, false);
 					break;
 				}
-					  }
 			}
+			}  // switch
 		}
 		g_MouseItemNumber = 0;
 		g_MouseItemType = 0;
@@ -2727,20 +2597,20 @@ void RecvLevelUpPointResult( int ok )
 	int a;
 	switch( ok )
 	{
-	case CMD_LEVELUP_POINT_OK : /*for( a=0; a<11; a++ )
-								{
-								SCharacterData.nCharacterAbility[a]++;
-								SCharacterData.LvUpPoint--;
-								//										SCharacterData.EachUp[a] = 0;
-	}*/
+	case CMD_LEVELUP_POINT_OK : 
+		//for( a=0; a<11; a++ )
+		//{
+		//	SCharacterData.nCharacterAbility[a]++;
+		//	SCharacterData.LvUpPoint--;
+		//	//SCharacterData.EachUp[a] = 0;
+		//}
 		break;
-		
-	case CMD_LEVELUP_POINT_NO : for( a=0; a<11; a++ ) 
-								{
-									SCharacterData.EachUp[a] = 0;
-									SCharacterData.LvUpPoint = 0;
-
-								}
+	case CMD_LEVELUP_POINT_NO : 
+		for (a = 0; a < 11; a++)
+		{
+			SCharacterData.EachUp[a] = 0;
+			SCharacterData.LvUpPoint = 0;
+		}
 		break;
 	}
 }
@@ -3150,14 +3020,14 @@ void LoofSetHeroAbility( int ability[] )	// 캐릭터의 토탈 능력치 셋
 		}
 	}
 	//< CSD-030324
-	/*
-	// thai2 YGI
-	if( SCharacterData.nCharacterData[ARIGEMENT] < 0 || SCharacterData.nCharacterData[ARIGEMENT] > 9 )
-	{
-		JustMsg( lan->OutputMessage(6,40) );//010215 lsw
-		SCharacterData.nCharacterData[ARIGEMENT] = 0;
-	}
-	*/
+	//
+	//// thai2 YGI
+	//if( SCharacterData.nCharacterData[ARIGEMENT] < 0 || SCharacterData.nCharacterData[ARIGEMENT] > 9 )
+	//{
+	//	JustMsg( lan->OutputMessage(6,40) );//010215 lsw
+	//	SCharacterData.nCharacterData[ARIGEMENT] = 0;
+	//}
+	//
 	//> CSD-030324
 #ifdef CHANGE_MONEY_
 	SCharacterData.nMoney = GetNewMoneyByItem();			// 아이템으로 계산하는 돈
@@ -3757,11 +3627,38 @@ bool DivideItem( K_ITEM *item, int much )
 	return 1;
 }
 
-char skill_to_mother[31][20] = {	"SPRITUALITY", "POISONING", "ENTRAPMENT", "SCROLLING", "CUNNING", "BOMBPLAY", "STEALING",
-"FARMING", "MINING", "FISHING", "CUTDOWN", "BUTCHERING", "HERBDIGGING", "HERDING", "CARPENTRY",
-"BLACKSMITHY", "COOKING", "TAILORING", "BOWCRAFTING", "ALCHEMING", "CANDLEMAKIN", "REPARING",
-"REUTILIZING", "MUSICIANSHI", "DETECT", "HIDE", "CAMPING", "TAMING", "ACTION", "COMMUNICATION",
-"IDENTIFICATION", 
+char skill_to_mother[31][20] = {
+	"SPRITUALITY",
+	"POISONING",
+	"ENTRAPMENT",
+	"SCROLLING",
+	"CUNNING",
+	"BOMBPLAY",
+	"STEALING",
+	"FARMING",
+	"MINING",
+	"FISHING",
+	"CUTDOWN",
+	"BUTCHERING",
+	"HERBDIGGING",
+	"HERDING",
+	"CARPENTRY",
+	"BLACKSMITHY",
+	"COOKING",
+	"TAILORING",
+	"BOWCRAFTING",
+	"ALCHEMING",
+	"CANDLEMAKIN",
+	"REPARING",
+	"REUTILIZING",
+	"MUSICIANSHI",
+	"DETECT",
+	"HIDE",
+	"CAMPING",
+	"TAMING",
+	"ACTION",
+	"COMMUNICATION",
+	"IDENTIFICATION", 
 };
 
 char *GetMotherSkillName( int s )
@@ -3824,19 +3721,10 @@ BYTE	*facebuf_man_mm_dash;
 BYTE	*facebuf_woman_mm_dash;
 
 
-
-
-
-
-
-
-
-
-
-/*//디바인 게이지 필요 없습니다. 020515 lsw
-BYTE	*divine_gauge;
-Spr		spr_divine_gauge[45];
-*/
+////디바인 게이지 필요 없습니다. 020515 lsw
+//BYTE	*divine_gauge;
+//Spr		spr_divine_gauge[45];
+//
 
 BYTE	*buf_bird;
 Spr		spr_bird[5];
@@ -4330,21 +4218,21 @@ void LoadHouseImage( int is_open )
 void FreeHouseImage( )
 {	
 	int i=0;
-	/*	for( i=0; i<MAX_HOUSE; i++ )
-	{
-	if( openhouse[i].img ) 
-	{
-	GlobalFree( openhouse[i].img );
-	openhouse[i].img = NULL;
-	}
-	if( closehouse[i].img ) 
-	{
-	GlobalFree( closehouse[i].img );
-	closehouse[i].img = NULL;
-	}
-	i++;
-	}
-	*/
+	//for( i=0; i<MAX_HOUSE; i++ )
+	//{
+	//if( openhouse[i].img ) 
+	//{
+	//GlobalFree( openhouse[i].img );
+	//openhouse[i].img = NULL;
+	//}
+	//if( closehouse[i].img ) 
+	//{
+	//GlobalFree( closehouse[i].img );
+	//closehouse[i].img = NULL;
+	//}
+	//i++;
+	//}
+	
 	//	GlobalFree(openbuf);
 	//	GlobalFree(closebuf);
 	MemFree( openbuf );
@@ -4371,8 +4259,6 @@ void LoadHouse( )
 	if( !openbuf )	LoadHouseImage( OPEN_HOUSE );
 	if( !closebuf )	LoadHouseImage( CLOSE_HOUSE );
 }
-
-
 
 //
 //	클라이언트에서 파티를 맺고 그걸 서버로 전송해 준다
@@ -4432,19 +4318,19 @@ int SearchNextMagicNumByClass( int num, int cls )		// 어떤 매직 다음의 �
 	for( int i = num+1; i<MAX_MAGIC_;i++ )
 		if( magic[i].GetClass() == cls ) return i;
 		
-		//	for( int i = 0; i<=num; i++ )						// 처음으로 돌려서 다시 찾아 본다.
-		//		if( magic[i].GetClass() == cls ) return i;
+	//for( int i = 0; i<=num; i++ )						// 처음으로 돌려서 다시 찾아 본다.
+	//	if( magic[i].GetClass() == cls ) return i;
 		
-		return -1;		// 그런 클레스 계열의 마법은 없어요...
+	return -1;		// 그런 클레스 계열의 마법은 없어요...
 }
 
-int GetMagicMaxByClass( int cls )		// 그계열의 총 매직 수를 구한다.
+int GetMagicMaxByClass(int cls)		// 그계열의 총 매직 수를 구한다.
 {
 	int count = 0;
-	for( int i = 0; i<MAX_MAGIC_; i++ )
-		if( magic[i].GetClass() == cls ) count++;
-		
-		return count;
+	for (int i = 0; i < MAX_MAGIC_; i++)
+		if (magic[i].GetClass() == cls) count++;
+
+	return count;
 }
 
 int GetLearnableMagicMaxByClass( int cls )		// 그 계열에서 내가 배울 수 있는  마법 수를 구한다. (이미 배운 마법 포함 )
@@ -4475,8 +4361,8 @@ bool CanLearnMagic( int num )		// 그 마법을 배울수 있나?
 	
 	
 	if( SCharacterData.MagicId[num] ) return false;		// 이미 배웠다.  -> 어둡게 보여줘야 한다.
-	//	if( g_lpMT[num+sptype].basic_Level > SCharacterData.nLevel )	return false;				// 레벨이 가능한가?
-	//	if( g_lpMT[num+sptype].before_Magic && !SCharacterData.MagicId[ g_lpMT[num+sptype].before_Magic ] )	return false;			// 전단계 마법을 배웠는가?
+	//if( g_lpMT[num+sptype].basic_Level > SCharacterData.nLevel )	return false;				// 레벨이 가능한가?
+	//if( g_lpMT[num+sptype].before_Magic && !SCharacterData.MagicId[ g_lpMT[num+sptype].before_Magic ] )	return false;			// 전단계 마법을 배웠는가?
 	if( g_lpMT[num+sptype].basic_Magery > SCharacterData.SkillId[sp]+1 )	return false;			// 마법기술이 충분한가?
 	if( g_lpMT[num+sptype].require_WP > Hero_Ability[WIS] ) return false;		// 요구 지혜
 	if( g_lpMT[num+sptype].require_IT > Hero_Ability[INT_] ) return false;		// 요구 지능
@@ -4517,7 +4403,7 @@ void GetDivedeMagicByClass( )
 				if( magic[i].GetMagicNum() && !CanLearnMagic( i ) && !SCharacterData.MagicId[i] )
 				{
 					magic_by_class.magic[ magic_class ][ magic_by_class.max[magic_class] ] = i;
-					//					magic_by_class.max[magic_class]++;
+					//magic_by_class.max[magic_class]++;
 					break;
 				}
 			}
@@ -4663,7 +4549,7 @@ void SmallMenuClose( )
 		
 	if( SMenu[MN_NATION_WAR_RESULT].bActive )
 	{
-		//	is_mainmenu_active = false; //020510 lsw
+		//is_mainmenu_active = false; //020510 lsw
 	}
 	else
 	{
@@ -4727,7 +4613,7 @@ DWORD GetMoneyByItem( )
 							item.item_no = IN_COIN;
 						}
 						money += item.attr[IATTR_MUCH];
-						//						CheckAutoDivideMoney( &item );		// 서버에서 처리
+						//CheckAutoDivideMoney( &item );		// 서버에서 처리
 					}
 				}
 			}
@@ -4949,8 +4835,8 @@ int GetNoLearnMagic( int cls, int &magic_num )	// 못배우는 마법 이름과 
 	{
 		magic_num = n_MagicBagic[spell][cls][i];
 		if( !magic[magic_num].GetMagicNum() || SCharacterData.MagicId[magic_num] ) continue;
-		//		if( g_lpMT[magic_num+sptype].basic_Level > SCharacterData.nLevel )	return 1;				// 레벨이 가능한가?
-		//		if( g_lpMT[magic_num+sptype].before_Magic && !SCharacterData.MagicId[ g_lpMT[magic_num+sptype].before_Magic ] )	return 2;			// 전단계 마법을 배웠는가?
+		//if( g_lpMT[magic_num+sptype].basic_Level > SCharacterData.nLevel )	return 1;				// 레벨이 가능한가?
+		//if( g_lpMT[magic_num+sptype].before_Magic && !SCharacterData.MagicId[ g_lpMT[magic_num+sptype].before_Magic ] )	return 2;			// 전단계 마법을 배웠는가?
 		if( g_lpMT[magic_num+sptype].require_WP > SCharacterData.nCharacterAbility[WIS] ) return 4;		// 요구 지혜
 		if( g_lpMT[magic_num+sptype].require_IT > SCharacterData.nCharacterAbility[INT_] ) return 5;		// 요구 지능
 		if( g_lpMT[magic_num+sptype].basic_Magery > SCharacterData.SkillId[sp]+1 )	return 3;				// 마법기술이 충분한가?
@@ -4973,11 +4859,11 @@ void CheckPartyFace( )		// 파티원들이 있는 지를 체크해서 화면에 
 	static int party_face_menu[] = { MN_PARTY_FACE1, MN_PARTY_FACE2,MN_PARTY_FACE3, MN_PARTY_FACE4, MN_PARTY_FACE5, MN_PARTY_FACE6 };
 	const int max = sizeof(NotMenu)/sizeof(int); 
 	
-	//	if( main_interface.data[IF_BATTLE_PEACE] )	// 배틀 모드인 경우
-	//	{
-	//		for( int a=0; a<6; a++ ) SMenu[ party_face_menu[a] ].bActive = false;
-	//		return;
-	//	}
+	//if( main_interface.data[IF_BATTLE_PEACE] )	// 배틀 모드인 경우
+	//{
+	//	for( int a=0; a<6; a++ ) SMenu[ party_face_menu[a] ].bActive = false;
+	//	return;
+	//}
 	for( int i=0; i<max; i++ )
 	{
 		if( SMenu[NotMenu[i]].bActive )
@@ -4996,10 +4882,10 @@ void CheckPartyFace( )		// 파티원들이 있는 지를 체크해서 화면에 
 			SMenu[ party_face_menu[ct] ].bActive = true;
 			SMenu[ party_face_menu[ct] ].nField[0].nWillDo = i;		// 배열 몇번째를 출력 시키는 가..
 			
-			//			if( !SearchMyPartyOfMySight( &SCharacterData.party[i] ) )
-			//			{
-			//				SCharacterData.party[i].m_Sight = 0;
-			//			}
+			//if( !SearchMyPartyOfMySight( &SCharacterData.party[i] ) )
+			//{
+			//	SCharacterData.party[i].m_Sight = 0;
+			//}
 			LPCHARACTER ch = SCharacterData.party[i].ch;
 			if( ch )
 			{
@@ -5818,7 +5704,7 @@ void InitPartyState( )
 //
 // sysmenu.dat 화일이 너무 커서 두개로 나눔...
 //
-///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 void FieldTypeNomalPutFx2(int mx, int my, int x,int y,int nImageNumber, int t, int j)
 {
@@ -5906,36 +5792,33 @@ DWORD GetExpByLv( int lv )		// 레벨을 경험치로 변환해 준다.
 	return NPC_Lev_Ref[lv].nMinExp + 1 ;
 }
 
-/*
-void PutTextDc( HWND hWnd )
-{
-HDC hdc;
-hdc = GetDc( hWnd );
-
-  //	if ( lpSurface->GetDC( &hdc ) == DD_OK )
-  {																	
-		int			nBkMode;										
-		nBkMode = ::SetBkMode( hdc, TRANSPARENT );
-		
-		  
-			SetTextColor( hdc, RGB( HR, HG, HB ));
-			
-			  
-				SetTextAlign( hdc, HangulAlign );
-				TextOut( hdc, x, y, txt, strlen( txt ));
-				::SetBkMode( hdc, nBkMode );
-				
-				  SelectObject( hdc, hFontOld );
-				  //		SelectObject( hdc, hGrnOld );
-				  
-					DeleteObject( MainHrgn );
-					//		DeleteObject( __HFontDial[HangulFontType] );
-					
-					  //		lpSurface->ReleaseDC( hdc );
-					  }			
-					  }
-*/
-
+//void PutTextDc(HWND hWnd)
+//{
+//	HDC hdc;
+//	hdc = GetDc(hWnd);
+//
+//	//if ( lpSurface->GetDC( &hdc ) == DD_OK )
+//	{
+//		int			nBkMode;
+//		nBkMode = ::SetBkMode(hdc, TRANSPARENT);
+//
+//
+//		SetTextColor(hdc, RGB(HR, HG, HB));
+//
+//
+//		SetTextAlign(hdc, HangulAlign);
+//		TextOut(hdc, x, y, txt, strlen(txt));
+//		::SetBkMode(hdc, nBkMode);
+//
+//		SelectObject(hdc, hFontOld);
+//		//SelectObject( hdc, hGrnOld );
+//
+//		DeleteObject(MainHrgn);
+//		//DeleteObject( __HFontDial[HangulFontType] );
+//
+//		//lpSurface->ReleaseDC( hdc );
+//	}
+//}
 
 ///////////////////////////////////////////////////////////////////////////////////////
 //일정 영역의 사각형 안에 문자열을 출력하는 함수  FONT사용
@@ -6694,181 +6577,181 @@ int QuickKey( int menu, HWND active_hwnd )		// 단축키 // 주의: 필드번호
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
 		if(g_aCurrentKeys[DIK_U] & 0x80 )		SMenu[menu].key2 = 'u';	
-		//							if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )		SMenu[menu].key2 = 'u';	
+		//if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )		SMenu[menu].key2 = 'u';	
 		if( SMenu[menu].key2 == -1 && old_key == 'u' ) DoButtonCheckOfMenu( menu, 1 ); //	어빌리티 창 닫기
 		break;
 	
 					  }
-		/* // 031029 kyo 이모티콘 단축키 없앰
-	case MN_FACE :	{
-		int face_num = -1;
-		int old_key = SMenu[menu].key2;
-		SMenu[menu].key2 = -1;
-		
-		for( int i=7; i>=0; i-- )
-			if(g_aCurrentKeys[DIK_1 + i] & 0x80 )	
-			{
-				SMenu[menu].key2 = DIK_1+i;						
-			}
-			
-			if(g_aCurrentKeys[DIK_P] & 0x80 )		SMenu[menu].key2 = 'p';	// 얼굴표정 메뉴 닫기
-			if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )		SMenu[menu].key2 = 'p';	// 얼굴표정 메뉴 닫기
-			if( SMenu[menu].key2 == -1 && old_key > 0 )
-			{
+	//// 031029 kyo 이모티콘 단축키 없앰
+	//case MN_FACE: {
+	//	int face_num = -1;
+	//	int old_key = SMenu[menu].key2;
+	//	SMenu[menu].key2 = -1;
 
-				if( old_key == 'p' ) SMenu[MN_FACE].bActive = false; 
-				
-				for( int i=7; i>=0; i-- )
-					if( old_key == DIK_1+i ) face_num = i ;
-			}
-			
-			if( face_num != -1 ) DoButtonCheckOfMenu( menu, face_num );
-			break;
-					}		
-		*/
+	//	for (int i = 7; i >= 0; i--)
+	//		if (g_aCurrentKeys[DIK_1 + i] & 0x80)
+	//		{
+	//			SMenu[menu].key2 = DIK_1 + i;
+	//		}
+
+	//	if (g_aCurrentKeys[DIK_P] & 0x80)		SMenu[menu].key2 = 'p';	// 얼굴표정 메뉴 닫기
+	//	if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)		SMenu[menu].key2 = 'p';	// 얼굴표정 메뉴 닫기
+	//	if (SMenu[menu].key2 == -1 && old_key > 0)
+	//	{
+
+	//		if (old_key == 'p') SMenu[MN_FACE].bActive = false;
+
+	//		for (int i = 7; i >= 0; i--)
+	//			if (old_key == DIK_1 + i) face_num = i;
+	//	}
+
+	//	if (face_num != -1) DoButtonCheckOfMenu(menu, face_num);
+	//	break;
+	//}
+		
 	case MN_LEARN_MAGIC_BOOK: {
-								int old_key = SMenu[menu].key2;
-								SMenu[menu].key2 = -1;
-								if(g_aCurrentKeys[DIK_PGUP] & 0x80 )		SMenu[menu].key2 = 'u';	// 책장 넘기기
-								if(g_aCurrentKeys[DIK_PGDN] & 0x80 )		SMenu[menu].key2 = 'd';	// 
-								
-								if( SMenu[menu].key2 == -1 && old_key > 0 )
-								{
-									if( old_key == 'u' ) DoButtonCheckOfMenu( menu, 13 );
-									if( old_key == 'd' ) DoButtonCheckOfMenu( menu, 14 );
-								}
-								break;
-							  }
+		int old_key = SMenu[menu].key2;
+		SMenu[menu].key2 = -1;
+		if (g_aCurrentKeys[DIK_PGUP] & 0x80)		SMenu[menu].key2 = 'u';	// 책장 넘기기
+		if (g_aCurrentKeys[DIK_PGDN] & 0x80)		SMenu[menu].key2 = 'd';	// 
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'u') DoButtonCheckOfMenu(menu, 13);
+			if (old_key == 'd') DoButtonCheckOfMenu(menu, 14);
+		}
+		break;
+	}
 	case MN_QUICK_MAGIC_SCROLL: {
-								int old_key = SMenu[menu].key2;
-								SMenu[menu].key2 = -1;
-								if(g_aCurrentKeys[DIK_PGUP] & 0x80 )		SMenu[menu].key2 = 'u';	// 마법스크롤 단축키
-								if(g_aCurrentKeys[DIK_PGDN] & 0x80 )		SMenu[menu].key2 = 'd';	// 
-								
-								if( SMenu[menu].key2 == -1 && old_key > 0 )
-								{
-									if( old_key == 'u' ) DoButtonCheckOfMenu( menu, 0 );
-									if( old_key == 'd' ) DoButtonCheckOfMenu( menu, 1 );
-								}
-								break;
-								}
-	case MN_MEM_BOOK : {
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
-		if(g_aCurrentKeys[DIK_PGUP] & 0x80 )		SMenu[menu].key2 = 'u';	// 책장 넘기기
-		if(g_aCurrentKeys[DIK_PGDN] & 0x80 )		SMenu[menu].key2 = 'd';	// 
-		if(g_aCurrentKeys[DIK_RETURN] & 0x80 )		SMenu[menu].key2 = 'y';	
-		
-		if( SMenu[menu].key2 == -1 && old_key > 0 )
-		{									
-			if( old_key == 'u' ) DoButtonCheckOfMenu( menu, 0 );
-			if( old_key == 'd' ) DoButtonCheckOfMenu( menu, 1 );
-			if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 16 );
+		if (g_aCurrentKeys[DIK_PGUP] & 0x80)		SMenu[menu].key2 = 'u';	// 마법스크롤 단축키
+		if (g_aCurrentKeys[DIK_PGDN] & 0x80)		SMenu[menu].key2 = 'd';	// 
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'u') DoButtonCheckOfMenu(menu, 0);
+			if (old_key == 'd') DoButtonCheckOfMenu(menu, 1);
 		}
 		break;
-					   }
-	case MN_ITEM :{
+	}
+	case MN_MEM_BOOK: {
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
-		if(g_aCurrentKeys[DIK_PGUP] & 0x80 )		SMenu[menu].key2 = 'u';	
-		if(g_aCurrentKeys[DIK_PGDN] & 0x80 )		SMenu[menu].key2 = 'd';	
-		
-		if( SMenu[menu].key2 == -1 && old_key > 0 )
-		{									
-			if( old_key == 'u' ) DoButtonCheckOfMenu( menu, 6 );
-			if( old_key == 'd' ) DoButtonCheckOfMenu( menu, 5 );
+		if (g_aCurrentKeys[DIK_PGUP] & 0x80)		SMenu[menu].key2 = 'u';	// 책장 넘기기
+		if (g_aCurrentKeys[DIK_PGDN] & 0x80)		SMenu[menu].key2 = 'd';	// 
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)		SMenu[menu].key2 = 'y';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'u') DoButtonCheckOfMenu(menu, 0);
+			if (old_key == 'd') DoButtonCheckOfMenu(menu, 1);
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 16);
 		}
 		break;
-				  }
-	case MN_SYSTEM : {
+	}
+	case MN_ITEM: {
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
-		if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-		if(g_aCurrentKeys[DIK_X] & 0x80 )		SMenu[menu].key2 = 'x';	
-		
-		if( SMenu[menu].key2 == -1 && old_key > 0 )
-		{									
-			if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 0 );
+		if (g_aCurrentKeys[DIK_PGUP] & 0x80)		SMenu[menu].key2 = 'u';
+		if (g_aCurrentKeys[DIK_PGDN] & 0x80)		SMenu[menu].key2 = 'd';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'u') DoButtonCheckOfMenu(menu, 6);
+			if (old_key == 'd') DoButtonCheckOfMenu(menu, 5);
 		}
 		break;
-					 }
-	case MN_SKILLGUILD_BUY :{
-								int old_key = SMenu[menu].key2;
-								SMenu[menu].key2 = -1;
-								if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-								if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key2 = 'y';	
-								
-								if( SMenu[menu].key2 == -1 && old_key > 0 )
-								{									
-									if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 2 );
-									if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 1 );
-								}
-								break;
-							}
-	case MN_SKILLGUILD_SELL :{
-								int old_key = SMenu[menu].key2;
-								SMenu[menu].key2 = -1;
-								if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-								if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key2 = 'y';	
-								
-								if( SMenu[menu].key2 == -1 && old_key > 0 )
-								{									
-									if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 2 );
-									if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 1 );
-								}
-								break;
-							 }
-	case MN_MAIL_MENU : {
+	}
+	case MN_SYSTEM: {
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
-		if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-		if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key2 = 'y';	
-		
-		if( SMenu[menu].key2 == -1 && old_key > 0 )
-		{									
-			if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 3 );
-			if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 0 );
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_X] & 0x80)		SMenu[menu].key2 = 'x';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 0);
 		}
 		break;
-						}
-	case MN_OK_MESSAGEBOX :{
-								int old_key = SMenu[menu].key2;
-								SMenu[menu].key2 = -1;
-								if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-								if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key2 = 'y';	
-								
-								if( SMenu[menu].key2 == -1 && old_key > 0 )
-								{									
-									if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 2 );
-									if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 2 );
-								}
-								break;
-						   }
-	case MN_OKCANCEL_MESSAGEBOX:{
+	}
+	case MN_SKILLGUILD_BUY: {
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
-		if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-		if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key2 = 'y';	
-		
-		if( SMenu[menu].key2 == -1 && old_key > 0 )
-		{									
-			if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 2 );
-			if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 3 );
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key2 = 'y';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 2);
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 1);
 		}
 		break;
-								}
-	case MN_DEFAULT_MESSAGEBOX : {
+	}
+	case MN_SKILLGUILD_SELL: {
 		int old_key = SMenu[menu].key2;
 		SMenu[menu].key2 = -1;
-		if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key2 = 'x';	
-		if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key2 = 'x';	
-		
-		if( SMenu[menu].key2 == -1 && old_key > 0 )
-		{									
-			if( old_key == 'x' ) DoButtonCheckOfMenu( menu, 0 );
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key2 = 'y';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 2);
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 1);
 		}
 		break;
-								 }
+	}
+	case MN_MAIL_MENU: {
+		int old_key = SMenu[menu].key2;
+		SMenu[menu].key2 = -1;
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key2 = 'y';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 3);
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 0);
+		}
+		break;
+	}
+	case MN_OK_MESSAGEBOX: {
+		int old_key = SMenu[menu].key2;
+		SMenu[menu].key2 = -1;
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key2 = 'y';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 2);
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 2);
+		}
+		break;
+	}
+	case MN_OKCANCEL_MESSAGEBOX: {
+		int old_key = SMenu[menu].key2;
+		SMenu[menu].key2 = -1;
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key2 = 'y';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 2);
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 3);
+		}
+		break;
+	}
+	case MN_DEFAULT_MESSAGEBOX: {
+		int old_key = SMenu[menu].key2;
+		SMenu[menu].key2 = -1;
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key2 = 'x';
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key2 = 'x';
+
+		if (SMenu[menu].key2 == -1 && old_key > 0)
+		{
+			if (old_key == 'x') DoButtonCheckOfMenu(menu, 0);
+		}
+		break;
+	}
 	default : break;
 	}
 	
@@ -6879,19 +6762,19 @@ int QuickKeyFirst( int menu )
 {
 	switch( menu )
 	{
-	case MN_SYSTEM_LOGOUT:{
+	case MN_SYSTEM_LOGOUT: {
 		int old_key = SMenu[menu].key;
 		SMenu[menu].key = -1;
-		if(g_aCurrentKeys[DIK_RETURN] & 0x80 )	SMenu[menu].key = 'y';	
-		if(g_aCurrentKeys[DIK_ESCAPE] & 0x80 )	SMenu[menu].key = 'n';	
-		
-		if( SMenu[menu].key == -1 && old_key > 0 )
+		if (g_aCurrentKeys[DIK_RETURN] & 0x80)	SMenu[menu].key = 'y';
+		if (g_aCurrentKeys[DIK_ESCAPE] & 0x80)	SMenu[menu].key = 'n';
+
+		if (SMenu[menu].key == -1 && old_key > 0)
 		{
-			if( old_key == 'y' ) DoButtonCheckOfMenu( menu, 0 );
-			if( old_key == 'n' ) DoButtonCheckOfMenu( menu, 1 );
+			if (old_key == 'y') DoButtonCheckOfMenu(menu, 0);
+			if (old_key == 'n') DoButtonCheckOfMenu(menu, 1);
 		}
 		break;
-						  }
+	}
 	}
 	
 	return 1;
@@ -6900,389 +6783,393 @@ int QuickKeyFirst( int menu )
 Spr *GetSprOfMenu( int type, int nImageNumber )
 {
 	Spr *s = NULL;
-	switch( type )
+	switch (type)
 	{
-	case GOD_MENU : s = &god_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/sys_god.dat", &god_spr_buf, god_spr);			// 신전메뉴 이미지
+	case GOD_MENU:
+		s = &god_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/sys_god.dat", &god_spr_buf, god_spr);			// 신전메뉴 이미지
 		break;
-	case TIME_MENU :s = &time_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/sys_time.dat", &time_spr_buf, time_spr);			// 시간 표시 메뉴 이미지
+	case TIME_MENU:
+		s = &time_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/sys_time.dat", &time_spr_buf, time_spr);			// 시간 표시 메뉴 이미지
 		break;
-	case MEM_BOOK:	s = &membook_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/sys_membook.dat", &membook_spr_buf, membook_spr);			// 메모라이즈
+	case MEM_BOOK:
+		s = &membook_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/sys_membook.dat", &membook_spr_buf, membook_spr);			// 메모라이즈
 		break;
-	case MAGIC_BOOK_MENU :	s = &magicbook_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/sys_magic.dat", &magicbook_spr_buf, magicbook_spr);			// 마법배우기
-								break;
-	case MAIL_MENU : s = &mail_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/sys_mail.dat", &mail_spr_buf, mail_spr);
+	case MAGIC_BOOK_MENU:
+		s = &magicbook_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/sys_magic.dat", &magicbook_spr_buf, magicbook_spr);			// 마법배우기
 		break;
-	case START_ETC: s = &start_etc_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/start_etc.dat", &start_etc_buf, start_etc_spr);
+	case MAIL_MENU:
+		s = &mail_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/sys_mail.dat", &mail_spr_buf, mail_spr);
 		break;
-	case START_ETC2: s = &start_etc2_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/start_etc2.dat", &start_etc2_buf, start_etc2_spr);
+	case START_ETC:
+		s = &start_etc_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/start_etc.dat", &start_etc_buf, start_etc_spr);
 		break;
-	case RESET_JOB_ETC: s = &job_etc_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/skill_etc.dat", &job_etc_buf, job_etc_spr);
+	case START_ETC2:
+		s = &start_etc2_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/start_etc2.dat", &start_etc2_buf, start_etc2_spr);
 		break;
-	case START_MAP: s = &start_map_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/start_map.dat", &start_map_buf, start_map_spr);
+	case RESET_JOB_ETC:
+		s = &job_etc_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/skill_etc.dat", &job_etc_buf, job_etc_spr);
 		break;
-	case CHAT_MENU: s = &chat_menu_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/sys_chat.dat", &chat_menu_buf, chat_menu_spr);
+	case START_MAP:
+		s = &start_map_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/start_map.dat", &start_map_buf, start_map_spr);
 		break;
-	case MAIN_ETC:	s = &main_etc_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/main_etc.dat", &main_etc_buf, main_etc_spr);
+	case CHAT_MENU:
+		s = &chat_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/sys_chat.dat", &chat_menu_buf, chat_menu_spr);
 		break;
-	case MAIN_ETC3:	s = &main_etc3_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/main_etc3.dat", &main_etc3_buf, main_etc3_spr);
+	case MAIN_ETC:
+		s = &main_etc_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/main_etc.dat", &main_etc_buf, main_etc_spr);
 		break;
-	case SKILL_MENU:	s = &skill_menu_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/skill_menu.dat", &skill_menu_buf, skill_menu_spr);
+	case MAIN_ETC3:
+		s = &main_etc3_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/main_etc3.dat", &main_etc3_buf, main_etc3_spr);
 		break;
-	case SMALL_MAP: s = &small_map_spr[nImageNumber];
-		if( !s->img) LoadSmallMapSprData( g_SmallMapNumber ); // CSD-030324 // thai2 YGI
+	case SKILL_MENU:
+		s = &skill_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/skill_menu.dat", &skill_menu_buf, skill_menu_spr);
 		break;
-	case SMALL_ETC:	s = &small_etc_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/small_etc.dat", &small_etc_buf, small_etc_spr);
+	case SMALL_MAP:
+		s = &small_map_spr[nImageNumber];
+		if (!s->img) LoadSmallMapSprData(g_SmallMapNumber); // CSD-030324 // thai2 YGI
 		break;
-	case PUBLIC_BBS:	s = &public_bbs_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/public_bbs.dat", &public_bbs_buf, public_bbs_spr );			
+	case SMALL_ETC:
+		s = &small_etc_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/small_etc.dat", &small_etc_buf, small_etc_spr);
 		break;
-	case HUNTER_MENU:	s = &hunter_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/hunter.dat", &hunter_buf, hunter_spr );					// 현상범 메뉴
+	case PUBLIC_BBS:
+		s = &public_bbs_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/public_bbs.dat", &public_bbs_buf, public_bbs_spr);
 		break;
-	case QUEST_MENU:	s = &questmenu_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/questuj.dat", &questmenu_buf, questmenu_spr);			// 퀘스트 메뉴
+	case HUNTER_MENU:
+		s = &hunter_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/hunter.dat", &hunter_buf, hunter_spr);					// 현상범 메뉴
 		break;
-	case CHARACTER_COLOR_CHANGE: s = &chcolorcha_spr[nImageNumber];
-		if( !s->img ) LoadOpenningSpr( "./data/chcolorchauj.dat",&chcolorcha_buf, chcolorcha_spr);
+	case QUEST_MENU:
+		s = &questmenu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/questuj.dat", &questmenu_buf, questmenu_spr);			// 퀘스트 메뉴
 		break;
-	case ITEM_MAKE_IMAGE: s = &item_make_image_spr[nImageNumber];
-		if( !s->img ) LoadOpenningSpr( "./data/itemmakeimageuj.dat",&item_make_image_buf, item_make_image_spr);
+	case CHARACTER_COLOR_CHANGE:
+		s = &chcolorcha_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/chcolorchauj.dat", &chcolorcha_buf, chcolorcha_spr);
 		break;
-	case NATION_BBS_MENU:	s = &nation_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/nation.dat", &nation_buf, nation_spr );
-								break;
-	case START_FIGHT_MAP:	s = &start_fight_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/fight_start.dat", &start_fight_buf, start_fight_spr );
-								break;
-	case STOP_FIGHT_MAP	:	s = &stop_fight_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/fight_stop.dat", &stop_fight_buf, stop_fight_spr );
-								break;
-	case FIGHT_MAP_TIME	:	s = &fightmap_time_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/fight_time.dat", &fightmap_time_buf, fightmap_time_spr );
-								break;
-	case FIGHT_MAP_WIN	:	s = &fightmap_win_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/fight_win.dat", &fightmap_win_buf, fightmap_win_spr );
-								break;
-	case FIGHT_MAP_LOSE :	s = &fightmap_lose_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/fight_lose.dat", &fightmap_lose_buf, fightmap_lose_spr );
-								break;
-	case VOTE_MENU:		s = &vote_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/vote.dat", &vote_buf, vote_spr );					// 투표
+	case ITEM_MAKE_IMAGE:
+		s = &item_make_image_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/itemmakeimageuj.dat", &item_make_image_buf, item_make_image_spr);
 		break;
-	case GUILD_MARK:	{
-								s = &guild_mark_spr[nImageNumber];
-								break;
-						}
-	case GUILD_ADMIN:	s = &guild_admin_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/guild00.dat", &guild_admin_buf, guild_admin_spr );
+	case NATION_BBS_MENU:
+		s = &nation_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/nation.dat", &nation_buf, nation_spr);
 		break;
-	case GUILD_LIST:	s = &guild_skill_list_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/guild01.dat", &guild_skill_list_buf, guild_skill_list_spr);
+	case START_FIGHT_MAP:
+		s = &start_fight_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/fight_start.dat", &start_fight_buf, start_fight_spr);
 		break;
-	case GUILD_ADMIN_ETC:	s = &guild_admin_etc_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/guild_etc.dat", &guild_admin_etc_buf, guild_admin_etc_spr);
-								break;
-	case HELP_PCX:	s = &help_pcx_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/HELP.dat", &help_pcx_buf, help_pcx_spr);
+	case STOP_FIGHT_MAP:
+		s = &stop_fight_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/fight_stop.dat", &stop_fight_buf, stop_fight_spr);
 		break;
-	case BANK_PCX:	s = &bank_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/bank.dat", &bank_buf, bank_spr);
+	case FIGHT_MAP_TIME:
+		s = &fightmap_time_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/fight_time.dat", &fightmap_time_buf, fightmap_time_spr);
 		break;
-	case SALVATION_PCX:	s = &salvation_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/salvation.dat", &salvation_buf, salvation_spr);
+	case FIGHT_MAP_WIN:
+		s = &fightmap_win_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/fight_win.dat", &fightmap_win_buf, fightmap_win_spr);
 		break;
-	case SALVATION_PCX_ANI: s = &salvation_ani_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/salvation_ani.dat", &salvation_ani_buf, salvation_ani_spr);
-								break;
-	case TEAM_BATTLE: s =	&team_battle_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/team_battle.dat", &team_battle_buf, team_battle_spr);
-								break;
-	case SELECT_SERVER: s = &select_server_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/select_server.dat", &select_server_buf, select_server_spr);
+	case FIGHT_MAP_LOSE:
+		s = &fightmap_lose_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/fight_lose.dat", &fightmap_lose_buf, fightmap_lose_spr);
 		break;
-	case CHANGE_MONEY:	s = &cahnge_money_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/change_money.dat", &cahnge_money_buf, cahnge_money_spr);
+	case VOTE_MENU:
+		s = &vote_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/vote.dat", &vote_buf, vote_spr);					// 투표
 		break;
-	case GUILD_WAIT:	s = &guild_wait_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/g_wait.dat", &guild_wait_buf, guild_wait_spr);
+	case GUILD_MARK:
+		s = &guild_mark_spr[nImageNumber];
 		break;
-	case MERCHANT_IMG :	s = &merchant_spr[nImageNumber]; 
-		if( !s->img ) LoadOpenningSpr( "./data/merchant.dat", &merchant_buf, merchant_spr);
+
+	case GUILD_ADMIN:
+		s = &guild_admin_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild00.dat", &guild_admin_buf, guild_admin_spr);
 		break;
-	case GUILD_MENU_IMG :	s = &guild_menu_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/guild_menu.dat", &guild_menu_buf, guild_menu_spr);
-								break;
-								
+	case GUILD_LIST:
+		s = &guild_skill_list_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild01.dat", &guild_skill_list_buf, guild_skill_list_spr);
+		break;
+	case GUILD_ADMIN_ETC:
+		s = &guild_admin_etc_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild_etc.dat", &guild_admin_etc_buf, guild_admin_etc_spr);
+		break;
+	case HELP_PCX:
+		s = &help_pcx_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/HELP.dat", &help_pcx_buf, help_pcx_spr);
+		break;
+	case BANK_PCX:
+		s = &bank_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/bank.dat", &bank_buf, bank_spr);
+		break;
+	case SALVATION_PCX:
+		s = &salvation_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/salvation.dat", &salvation_buf, salvation_spr);
+		break;
+	case SALVATION_PCX_ANI:
+		s = &salvation_ani_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/salvation_ani.dat", &salvation_ani_buf, salvation_ani_spr);
+		break;
+	case TEAM_BATTLE:
+		s = &team_battle_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/team_battle.dat", &team_battle_buf, team_battle_spr);
+		break;
+	case SELECT_SERVER:
+		s = &select_server_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/select_server.dat", &select_server_buf, select_server_spr);
+		break;
+	case CHANGE_MONEY:
+		s = &cahnge_money_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/change_money.dat", &cahnge_money_buf, cahnge_money_spr);
+		break;
+	case GUILD_WAIT:
+		s = &guild_wait_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/g_wait.dat", &guild_wait_buf, guild_wait_spr);
+		break;
+	case MERCHANT_IMG:
+		s = &merchant_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/merchant.dat", &merchant_buf, merchant_spr);
+		break;
+	case GUILD_MENU_IMG:
+		s = &guild_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild_menu.dat", &guild_menu_buf, guild_menu_spr);
+		break;
+
 	case NATION_BATTLE_BBS_IMG://010730 lsw 
-								s = &nation_battle_bbs_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/nation_battle_bbs.dat", &nation_battle_bbs_buf, nation_battle_bbs_spr);
-								break;
-								
+		s = &nation_battle_bbs_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/nation_battle_bbs.dat", &nation_battle_bbs_buf, nation_battle_bbs_spr);
+		break;
+
 	case NATION_INFO_IMG://010730 lsw 
-								s = &nation_info_spr[nImageNumber]; 
-								if( !s->img ) LoadOpenningSpr( "./data/NaInfo.dat", &nation_info_buf, nation_info_spr);
-								break;
-  		case NATION_VOTE_IMG://010730 lsw 
-			s = &nation_vote_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaVote.dat", &nation_vote_buf, nation_vote_spr);
-			break;
-		case NATION_BUDAE_IMG://010730 lsw 
-			s = &nation_budae_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaBudae.dat", &nation_budae_buf, nation_budae_spr);
-			break;
-		case NATION_NOW_IMG://010730 lsw 
-			s = &nation_now_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaNow.dat", &nation_now_buf, nation_now_spr);
-			break;
-		case NATION_LADDER_IMG://010730 lsw 
-			s = &nation_ladder_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaLadder.dat", &nation_ladder_buf, nation_ladder_spr);
-			break;
-		case NATION_JOIN_IMG://010730 lsw 
-			s = &nation_join_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/Najoin.dat", &nation_join_buf, nation_join_spr);
-			break;
-			
-		case NATION_GOTO_WAR_MAP_IMG:	
-			s = &nation_goto_war_map_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/Nagoto_war_map.dat", &nation_goto_war_map_buf, nation_goto_war_map_spr);
-			break;
-			
-		case NATION_GUEST_IMG		:
-			s = &nation_guest_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaGuest.dat", &nation_guest_buf, nation_guest_spr);
-			break;
-			
-		case NATION_MSGBOX_IMG:	
-			s = &nation_msgbox_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaMsgbox.dat", &nation_msgbox_buf, nation_msgbox_spr);
-			break;
-		case NATION_DONEBOX_IMG:	
-			s = &nation_donebox_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaDonebox.dat", &nation_donebox_buf, nation_donebox_spr);
-			break;
-		case NATION_TODAY_NOTICE_IMG:	
-			s = &nation_today_notice_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaTodayNotice.dat", &nation_today_notice_buf, nation_today_notice_spr);
-			break;
-		case NATION_WAR_RESULT_IMG:	//010910 lsw
-			s = &nation_war_result_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaWarResult.dat", &nation_war_result_buf, nation_war_result_spr);
-			break;
-		case NATION_WAR_START_IMG:	//010925 lsw
-			s = &nation_war_start_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NaWarstart.dat", &nation_war_start_buf, nation_war_start_spr);
-			break;
-		case GM_2ND_SKILL_IMG://010708 lsw 
-			s = &gm_2nd_skill_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/gm_2nd_skill.dat", &gm_2nd_skill_buf, gm_2nd_skill_spr);
-			break;
-			//010928 lsw
-		case NEW_CHAT_IMG :	s = &new_chat_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/NewChat.dat", &new_chat_buf, new_chat_spr);
-			break;
-			
-		case DUAL_IMG :	s = &dual_img_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/dual_img.dat", &dual_img_buf, dual_img_spr);
-			break;
-		case TUTORIAL_DISPLAY_IMG:
-			s = &tutorial_display_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/TutorialMenu.dat", &tutorial_display_buf, tutorial_display_spr);
-			break;
-			//011014 lsw >
-		case TUTORIAL_DISPLAY_TMP_IMG:
-			s = &tutorial_display_tmp_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/TutorialMenutmp.dat", &tutorial_display_tmp_buf, tutorial_display_tmp_spr);
-			break;
-			//011014 lsw <
-			
-			//011013 lsw >
-		case ITEM_MAKE_RARE_SELECT_IMG:
-			s = &item_make_rare_select_spr[nImageNumber];
-			if( !s->img ) LoadOpenningSpr( "./data/ItemMakeRare.dat", &item_make_rare_select_buf, item_make_rare_select_spr);
-			break;
-			//011013 lsw <
-		case RUNE_IMG : 
-			s = &rune_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/rune.dat", &rune_buf, rune_spr);
-			break;
-		case RUNE_EFFECT1 : 
-			s = &rune_effect_spr1[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/rune01.dat", &rune_effect_buf1, rune_effect_spr1);
-			break;
-		case RUNE_EFFECT2 : 
-			s = &rune_effect_spr2[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/rune02.dat", &rune_effect_buf2, rune_effect_spr2);
-			break;
-		case RUNE_EFFECT3 : 
-			s = &rune_effect_spr3[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/rune03.dat", &rune_effect_buf3, rune_effect_spr3);
-			break;
-		case RUNE_EFFECT4 : 
-			s = &rune_effect_spr4[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/rune04.dat", &rune_effect_buf4, rune_effect_spr4);
-			break;
-		case RUNE_EFFECT_DEFAULT: 
-			s = &rune_effect_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/rune_default.dat", &rune_effect_buf, rune_effect_spr);
-			break;
-		case SKIN_MENU: 
-			s = &skin_menu_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/skin_menu.dat", &skin_menu_buf, skin_menu_spr);
-			break;
-		case GAMBLE_IMG:
-			s = &gamble_menu_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/gamble_img.dat", &gamble_menu_buf, gamble_menu_spr);
-			break;
-		case GAMBLE_EFFECT:
-			s = &gamble_effect_spr[nImageNumber]; 
-			if( !s->img ) LoadOpenningSpr( "./data/gamble_effect.dat", &gamble_effect_buf, gamble_effect_spr);
-			break;
-			
-		case IIT_EXP_GAUGE :
-			{
-				s = &exp_gauge_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/exp_gauge.dat", &exp_gauge_buf, exp_gauge_spr);
-				break;
-			}
-		case DUAL_MARK_IMG:	s = &dual_mark_spr[nImageNumber]; 
-							{
-								if( !s->img ) LoadOpenningSpr( "./data/dual_mark.dat", &dual_mark_buf, dual_mark_spr);
-								break;
-							}
-		case ABILITY_REDISTRIBUTION_IMG :		// 011201 LTS		// LTS MENU
-			{
-				s=&Ability_Redistribution_Spr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/ARedist.dat",&Ability_Redistribution_Buf,Ability_Redistribution_Spr);
-				break;
-			}
-		case LOCALWAR_JOIN_IMG :				// 011201 LTS
-			{
-				s=&LocalWar_Join_Spr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/LocalJoin.dat",&LocalWar_Join_Buf,LocalWar_Join_Spr);
-				break;
-			}
-		case IIT_GUILD_MEMBER_LIST:
-			{
-				s = &guild_member_list_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/guild_member.dat", &guild_member_list_buf, guild_member_list_spr);
-				break;
-			}
-		case IIT_FRIEND:
-			{
-				s = &friend_menu_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/friend_menu.dat", &friend_menu_buf, friend_menu_spr);
-				break;
-			}
-		case IIT_POTAL:
-			{
-				s = &potal_menu_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/potal_menu.dat", &potal_menu_buf, potal_menu_spr);
-				break;
-			}
-		case IIT_PARTY_BUTTON:
-			{
-				s = &party_button_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/party_button.dat", &party_button_buf, party_button_spr);
-				break;
-			}
-		case IIT_GUILD_ITEM:
-			{
-				s = &guild_item_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/guild_item.dat", &guild_item_buf, guild_item_spr);
-				break;
-			}
-		case IIT_GUILD_CHANGE_INFO:
-			{
-				s = &guild_change_info_spr[nImageNumber]; 
-				if( !s->img ) LoadOpenningSpr( "./data/guild_change_info.dat", &guild_change_info_buf, guild_change_info_spr);
-				break;
-			}
-			
-		case LOCALWAR_OK_IMG :	// LTS LOCALWAR BUG			// LOCALWAR MENU
-			{
-				s=&LocalWar_OK_Spr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/LWDoneBox.dat",&LocalWar_OK_Buf,LocalWar_OK_Spr);
-				break;
-			}
-		case EVENT_LOCALWAR_OK_IMG :	// 020115 LTS
-			{
-				s=&EventLocalWar_OK_Spr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/NaMsgBox.dat",&EventLocalWar_OK_Buf,EventLocalWar_OK_Spr);
-				break;
-			}
-		case EVENT_LOCALWAR_MOVE_IMG :	// 020115 LTS
-			{
-				s=&EventLocalWar_Move_Spr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/NaMsgBox.dat",&EventLocalWar_Move_Buf,EventLocalWar_Move_Spr);
-				break;
-			}
-		case WAR_START_IMG :
-			{
-				s=&WarStartSpr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/WarStart.dat",&WarStartBuf,WarStartSpr);
-				break;
-			}
-		case WAR_MOVE_IMG :
-			{
-				s=&WarMoveSpr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/WarMove.dat",&WarMoveBuf,WarMoveSpr);
-				break;
-			}
-		case WAR_STATUS_IMG :
-			{
-				s=&WarStatusSpr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/WarStatus.dat",&WarStatusBuf,WarStatusSpr);
-				break;
-			}
+		s = &nation_info_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaInfo.dat", &nation_info_buf, nation_info_spr);
+		break;
+	case NATION_VOTE_IMG://010730 lsw 
+		s = &nation_vote_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaVote.dat", &nation_vote_buf, nation_vote_spr);
+		break;
+	case NATION_BUDAE_IMG://010730 lsw 
+		s = &nation_budae_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaBudae.dat", &nation_budae_buf, nation_budae_spr);
+		break;
+	case NATION_NOW_IMG://010730 lsw 
+		s = &nation_now_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaNow.dat", &nation_now_buf, nation_now_spr);
+		break;
+	case NATION_LADDER_IMG://010730 lsw 
+		s = &nation_ladder_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaLadder.dat", &nation_ladder_buf, nation_ladder_spr);
+		break;
+	case NATION_JOIN_IMG://010730 lsw 
+		s = &nation_join_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/Najoin.dat", &nation_join_buf, nation_join_spr);
+		break;
+
+	case NATION_GOTO_WAR_MAP_IMG:
+		s = &nation_goto_war_map_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/Nagoto_war_map.dat", &nation_goto_war_map_buf, nation_goto_war_map_spr);
+		break;
+
+	case NATION_GUEST_IMG:
+		s = &nation_guest_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaGuest.dat", &nation_guest_buf, nation_guest_spr);
+		break;
+
+	case NATION_MSGBOX_IMG:
+		s = &nation_msgbox_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaMsgbox.dat", &nation_msgbox_buf, nation_msgbox_spr);
+		break;
+	case NATION_DONEBOX_IMG:
+		s = &nation_donebox_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaDonebox.dat", &nation_donebox_buf, nation_donebox_spr);
+		break;
+	case NATION_TODAY_NOTICE_IMG:
+		s = &nation_today_notice_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaTodayNotice.dat", &nation_today_notice_buf, nation_today_notice_spr);
+		break;
+	case NATION_WAR_RESULT_IMG:	//010910 lsw
+		s = &nation_war_result_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaWarResult.dat", &nation_war_result_buf, nation_war_result_spr);
+		break;
+	case NATION_WAR_START_IMG:	//010925 lsw
+		s = &nation_war_start_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaWarstart.dat", &nation_war_start_buf, nation_war_start_spr);
+		break;
+	case GM_2ND_SKILL_IMG://010708 lsw 
+		s = &gm_2nd_skill_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/gm_2nd_skill.dat", &gm_2nd_skill_buf, gm_2nd_skill_spr);
+		break;
+		//010928 lsw
+	case NEW_CHAT_IMG:	s = &new_chat_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NewChat.dat", &new_chat_buf, new_chat_spr);
+		break;
+
+	case DUAL_IMG:	s = &dual_img_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/dual_img.dat", &dual_img_buf, dual_img_spr);
+		break;
+	case TUTORIAL_DISPLAY_IMG:
+		s = &tutorial_display_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/TutorialMenu.dat", &tutorial_display_buf, tutorial_display_spr);
+		break;
+		//011014 lsw >
+	case TUTORIAL_DISPLAY_TMP_IMG:
+		s = &tutorial_display_tmp_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/TutorialMenutmp.dat", &tutorial_display_tmp_buf, tutorial_display_tmp_spr);
+		break;
+		//011014 lsw <
+
+		//011013 lsw >
+	case ITEM_MAKE_RARE_SELECT_IMG:
+		s = &item_make_rare_select_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/ItemMakeRare.dat", &item_make_rare_select_buf, item_make_rare_select_spr);
+		break;
+		//011013 lsw <
+	case RUNE_IMG:
+		s = &rune_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/rune.dat", &rune_buf, rune_spr);
+		break;
+	case RUNE_EFFECT1:
+		s = &rune_effect_spr1[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/rune01.dat", &rune_effect_buf1, rune_effect_spr1);
+		break;
+	case RUNE_EFFECT2:
+		s = &rune_effect_spr2[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/rune02.dat", &rune_effect_buf2, rune_effect_spr2);
+		break;
+	case RUNE_EFFECT3:
+		s = &rune_effect_spr3[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/rune03.dat", &rune_effect_buf3, rune_effect_spr3);
+		break;
+	case RUNE_EFFECT4:
+		s = &rune_effect_spr4[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/rune04.dat", &rune_effect_buf4, rune_effect_spr4);
+		break;
+	case RUNE_EFFECT_DEFAULT:
+		s = &rune_effect_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/rune_default.dat", &rune_effect_buf, rune_effect_spr);
+		break;
+	case SKIN_MENU:
+		s = &skin_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/skin_menu.dat", &skin_menu_buf, skin_menu_spr);
+		break;
+	case GAMBLE_IMG:
+		s = &gamble_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/gamble_img.dat", &gamble_menu_buf, gamble_menu_spr);
+		break;
+	case GAMBLE_EFFECT:
+		s = &gamble_effect_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/gamble_effect.dat", &gamble_effect_buf, gamble_effect_spr);
+		break;
+
+	case IIT_EXP_GAUGE:
+		s = &exp_gauge_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/exp_gauge.dat", &exp_gauge_buf, exp_gauge_spr);
+		break;
+	case DUAL_MARK_IMG:
+		s = &dual_mark_spr[nImageNumber];
+		if (!s->img)
+		{
+			LoadOpenningSpr("./data/dual_mark.dat", &dual_mark_buf, dual_mark_spr);
+		}
+		break;
+	case ABILITY_REDISTRIBUTION_IMG:		// 011201 LTS		// LTS MENU
+		s = &Ability_Redistribution_Spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/ARedist.dat", &Ability_Redistribution_Buf, Ability_Redistribution_Spr);
+		break;
+	case LOCALWAR_JOIN_IMG:				// 011201 LTS
+		s = &LocalWar_Join_Spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/LocalJoin.dat", &LocalWar_Join_Buf, LocalWar_Join_Spr);
+		break;
+	case IIT_GUILD_MEMBER_LIST:
+		s = &guild_member_list_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild_member.dat", &guild_member_list_buf, guild_member_list_spr);
+		break;
+	case IIT_FRIEND:
+		s = &friend_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/friend_menu.dat", &friend_menu_buf, friend_menu_spr);
+		break;
+	case IIT_POTAL:
+		s = &potal_menu_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/potal_menu.dat", &potal_menu_buf, potal_menu_spr);
+		break;
+	case IIT_PARTY_BUTTON:
+		s = &party_button_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/party_button.dat", &party_button_buf, party_button_spr);
+		break;
+	case IIT_GUILD_ITEM:
+		s = &guild_item_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild_item.dat", &guild_item_buf, guild_item_spr);
+		break;
+	case IIT_GUILD_CHANGE_INFO:
+		s = &guild_change_info_spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/guild_change_info.dat", &guild_change_info_buf, guild_change_info_spr);
+		break;
+	case LOCALWAR_OK_IMG:	// LTS LOCALWAR BUG			// LOCALWAR MENU
+		s = &LocalWar_OK_Spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/LWDoneBox.dat", &LocalWar_OK_Buf, LocalWar_OK_Spr);
+		break;
+	case EVENT_LOCALWAR_OK_IMG:	// 020115 LTS
+		s = &EventLocalWar_OK_Spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaMsgBox.dat", &EventLocalWar_OK_Buf, EventLocalWar_OK_Spr);
+		break;
+	case EVENT_LOCALWAR_MOVE_IMG:	// 020115 LTS
+		s = &EventLocalWar_Move_Spr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/NaMsgBox.dat", &EventLocalWar_Move_Buf, EventLocalWar_Move_Spr);
+		break;
+	case WAR_START_IMG:
+		s = &WarStartSpr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/WarStart.dat", &WarStartBuf, WarStartSpr);
+		break;
+	case WAR_MOVE_IMG:
+		s = &WarMoveSpr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/WarMove.dat", &WarMoveBuf, WarMoveSpr);
+		break;
+	case WAR_STATUS_IMG:
+		s = &WarStatusSpr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/WarStatus.dat", &WarStatusBuf, WarStatusSpr);
+		break;
 		//<! BBD 040311
-		case MONSTER_WAR_IMG :
-			{
-				s=&MonsterWarInfoSpr[nImageNumber];
-				if (!s->img) LoadOpenningSpr("./data/MWarInfo.dat",&MonsterWarInfoBuf,MonsterWarInfoSpr);
-				break;
-			}
+	case MONSTER_WAR_IMG:
+		s = &MonsterWarInfoSpr[nImageNumber];
+		if (!s->img) LoadOpenningSpr("./data/MWarInfo.dat", &MonsterWarInfoBuf, MonsterWarInfoSpr);
+		break;
+	case DEFAULT_MENU:
+		if (nImageNumber >= 10000)
+		{
+			int num = nImageNumber - 10000;
+			s = &spr2[num];
+			if (!s->img) LoadSmallMenuImage2(num);
+			break;
+		}
+		else
+		{
+			s = &spr[nImageNumber];
+			if (!s->img) LoadSmallMenuImage(nImageNumber);
+			break;
+		}
+		break;
 		//> BBD 040311
-		default :
-			{
-				if( type >= 10000 )
-				{
-					s = g_MenuImageMgr->GetSpr( type-10000, nImageNumber );
-				}
-				break;
-			}
-		case DEFAULT_MENU : 
-			{
-				
-				if( nImageNumber >= 10000 ) 
-				{
-					int num = nImageNumber-10000;
-					s = &spr2[num];
-					if( !s->img ) LoadSmallMenuImage2( num );
-					break;
-				}
-				else 
-				{
-					s = &spr[nImageNumber];
-					if( !s->img ) LoadSmallMenuImage( nImageNumber );
-					break;
-				}
-				break;
-			}
+	default:
+		if (type >= 10000)
+		{
+			s = g_MenuImageMgr->GetSpr(type - 10000, nImageNumber);
+		}
+		break;
 	}
 	
 	if( !s || !s->img ) 
@@ -7595,9 +7482,9 @@ void StartMenuFree()	// 스타트 메뉴에서 메모리 사용을 프리 시켜
 	}
 	
 	
-	//	FreeSpriteOnlyOne( &credit );//020515 lsw
-	//	FreeSpriteOnlyOne( &logo2 );//020515 lsw
-	//	FreeSpriteOnlyOne( &logo1 );//020515 lsw
+	//FreeSpriteOnlyOne( &credit );//020515 lsw
+	//FreeSpriteOnlyOne( &logo2 );//020515 lsw
+	//FreeSpriteOnlyOne( &logo1 );//020515 lsw
 	
 	FreeSmallMenuImage2( );		// sysmenu2.dat 에서 로드해온 데이터 프리...
 	
@@ -8087,12 +7974,13 @@ int PutHeroMpGauge( const int x, const int y)
 		PutDot( x+1+count, y+1, rgb2 );
 		PutDot( x+1+count, y+2, rgb2 );
 	}
-	/*	WORD rgb3 = RGB16( 255, 255, 255);					//흰줄//020701 lsw
-	PutDot( x+gauge, y, rgb3 );
-	PutDot( x+gauge, y+1, rgb3 );
-	PutDot( x+1+gauge, y, rgb3 );
-	PutDot( x+1+gauge, y+1, rgb3 );
-	*/	return 1;
+	//WORD rgb3 = RGB16( 255, 255, 255);					//흰줄//020701 lsw
+	//PutDot( x+gauge, y, rgb3 );
+	//PutDot( x+gauge, y+1, rgb3 );
+	//PutDot( x+1+gauge, y, rgb3 );
+	//PutDot( x+1+gauge, y+1, rgb3 );
+	//
+	return 1;
 }
 const int HERO_HP_GAUGE_DOT_MAX = 30;
 int PutHeroHpGauge( const int x, const int y)
@@ -8128,12 +8016,13 @@ int PutHeroHpGauge( const int x, const int y)
 		PutDot( x+1+count, y+1, rgb2 );
 		PutDot( x+1+count, y+2, rgb2 );
 	}
-	/*	WORD rgb3 = RGB16( 255, 255, 255);					//흰줄
-	PutDot( x+gauge, y, rgb3 );
-	PutDot( x+gauge, y+1, rgb3 );
-	PutDot( x+1+gauge, y, rgb3 );
-	PutDot( x+1+gauge, y+1, rgb3 );
-	*/	return 1;
+	//	WORD rgb3 = RGB16( 255, 255, 255);					//흰줄
+	//PutDot( x+gauge, y, rgb3 );
+	//PutDot( x+gauge, y+1, rgb3 );
+	//PutDot( x+1+gauge, y, rgb3 );
+	//PutDot( x+1+gauge, y+1, rgb3 );
+	//
+	return 1;
 }
 
 /////////////////////////////////////////////////////////
@@ -8311,7 +8200,7 @@ void SetMenuExplain( int type, int menu, int start_field )
 		token = strtok( NULL, "\t\n");
 		strcpy( name_temp, token );
 		
-//		token = strtok( NULL, "\t\n");
+		//token = strtok( NULL, "\t\n");
 		if( GetSysInfo( SI_GAME_MAKE_MODE ) ) 
 		{
 			int len = strlen( token );
@@ -8384,8 +8273,6 @@ int IsExistNodeToArray( int node, int *int_array, int curr_count )
 	
 	return false;
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 void InsertMagicQuickArray( int magic_no )		// 퀵매직 배열에 사용한 매직 등록
@@ -10276,13 +10163,13 @@ void ExplainItem2( int xx, int yy, ItemAttr *olg_item )//020821-2 lsw
 	}
 	
 	TxtOut.PutTextTailBGImg(x,y+iBlk+iLGab*iCt,iWidth);//꼬리 테두리
-													   /*	if(IK_POTION_BOX == kind)
-													   {
-													   PutCompressedImageFX( x+back_spr->ox, y+back_spr->oy+count*iLGab, back_spr, trans, 1 );
-													   RectTextPut( x+6, y+3+(count-1)*iLGab, back_spr->xl-10, lan->OutputMessage(7,168) );
-													   count++;
-													   }
-	*/
+	//if(IK_POTION_BOX == kind)
+	//{
+	//	PutCompressedImageFX( x+back_spr->ox, y+back_spr->oy+count*iLGab, back_spr, trans, 1 );
+	//	RectTextPut( x+6, y+3+(count-1)*iLGab, back_spr->xl-10, lan->OutputMessage(7,168) );
+	//	count++;
+	//}
+	//
 }
 
 int GetItemExplainLine( ItemAttr *olg_item )
@@ -10545,9 +10432,9 @@ void ViewSmallTip()
 		PutCompressedImageFX( back_spr->xl+back_spr->ox, i*back_spr->yl, back_spr, 20, 1 );		// 배경 화면
 	}
 	
-	//	SetHangulAlign( TA_CENTER );
-	//	Hprint2( back_spr->xl/2, 5, g_DestBackBuf, "제목 : " );
-	//	Line( 10, 320, /*back_spr->xl-10*/800, 320, RGB16( 255, 255, 255 ) );
+	//SetHangulAlign( TA_CENTER );
+	//Hprint2( back_spr->xl/2, 5, g_DestBackBuf, "제목 : " );
+	//Line( 10, 320, /*back_spr->xl-10*/800, 320, RGB16( 255, 255, 255 ) );
 	
 	for(int i = 0 ; i < SMALL_TIPS_LINE ; i ++)
 	{
@@ -10776,7 +10663,7 @@ void Kein_PutMessage( int type, char *msg, ... )
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 // 문자열에서 특정 문자를 원하는 문자로 교체
 char *ChangeString( char *str, char sor, char tag )
 {

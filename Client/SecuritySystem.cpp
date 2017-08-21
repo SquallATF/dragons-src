@@ -118,17 +118,17 @@ void CSecuritySystem::Disconnect()
 
 bool CSecuritySystem::CheckFileName(const char* pFileName)
 {
-	// 泅犁 角青 颇老疙 傈眉 版肺肺 啊廉坷扁
-	char szPath[MAX_PATH]; 
+	// 현재 실행 파일명 전체 경로로 가져오기
+	char szPath[MAX_PATH];
 	::GetModuleFileName(NULL, szPath, sizeof(szPath));
-	// 颇老疙阑 捞抚苞 犬厘磊肺 盒府
+	// 파일명을 이름과 확장자로 분리
 	char szName[_MAX_FNAME];
 	char szExt[_MAX_EXT];
 	_splitpath(szPath, NULL, NULL, szName, szExt);
-	// 颇老疙 厚背
+	// 파일명 비교
 	char szFileName[_MAX_FNAME + _MAX_EXT];
 	sprintf(szFileName, "%s%s", szName, szExt);
-	return (_stricmp(szFileName, pFileName) == 0) ? true:false;
+	return (stricmp(szFileName, pFileName) == 0) ? true : false;
 }
 
 HWND CSecuritySystem::GetDragonHwnd()

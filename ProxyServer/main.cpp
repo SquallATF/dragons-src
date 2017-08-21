@@ -49,7 +49,7 @@ void DestroyAgent()
 		if( pDummyServerData->dwConnectionIndex  && pDummyServerData->dwServerType == SERVER_TYPE_AGENT )
 		{
 			g_pServerTable->DestroyOtherServer( pDummyServerData );
-//			break;//020610 lsw//020822 lsw
+			//break;//020610 lsw//020822 lsw
 		}
 	}
 	return;

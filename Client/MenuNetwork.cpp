@@ -1709,10 +1709,8 @@ void SendReqQuestIndex( int page)
 
 void RecvQuestIndex( k_rep_quest_index *p )
 {
-/*
-short int index[6];
-short int ret[6];
-	*/
+	//short int index[6];
+	//short int ret[6];
 	
 	int max = p->max;
 	for( int i=0; i<max; i++ )
@@ -1884,11 +1882,12 @@ void RecvRegistCandidateNot()
 void RecvCallVoteSupport( t_packet *p )
 {
 	const int ret = p->u.kein.default_char;
-	/*	switch( ret )
-	{
-	default : break;
-	}
-	*/	RecvRegistCandidateNot();
+	//switch( ret )
+	//{
+	//default : break;
+	//}
+	//
+	RecvRegistCandidateNot();
 }
 
 void RecvCheckVoteOk( t_packet *p )		// 후보 정보를 가지고 와서 뿌려준다.
@@ -1928,10 +1927,10 @@ void SendCheckVote( )
 	switch( g_CurrVote )
 	{
 	case -2: AddCurrentStatusMessage( 250, 30, 30, lan->OutputMessage(3,52));MP3( SN_WARNING ); return;//010215 lsw
-		//		case -1: 
-		//			AddCurrentStatusMessage( 250, 30, 30, "선거 기간이 아닙니다.");MP3( SN_WARNING ); 
-		//			g_CurrVote=0;		// 재차 선거 기간인지를 확인할때를 대비해서
-		//			return;
+	//case -1: 
+	//	AddCurrentStatusMessage( 250, 30, 30, "선거 기간이 아닙니다.");MP3( SN_WARNING ); 
+	//	g_CurrVote=0;		// 재차 선거 기간인지를 확인할때를 대비해서
+	//	return;
 	case -3: 
 		{
 			// 투표 현황판 보여주기
@@ -2016,14 +2015,14 @@ int RecvVoteScore( t_packet *p )
 
 void SendAllMsgNation( char *text )
 {
-/* //coromo 2005/05/06 혼뇜KING景홈
-	if( !Hero->name_status.king )
-	{
-		MP3( SN_WARNING );
-		AddCurrentStatusMessage( 220,30,30, lan->OutputMessage(3,66));//010215 lsw
-		return;
-	}
-*/	
+ ////coromo 2005/05/06 혼뇜KING景홈
+	//if( !Hero->name_status.king )
+	//{
+	//	MP3( SN_WARNING );
+	//	AddCurrentStatusMessage( 220,30,30, lan->OutputMessage(3,66));//010215 lsw
+	//	return;
+	//}
+	//
 	int len = strlen( text );
 	if( len >= MAX_MSG ) AddCurrentStatusMessage( 220,30,30, lan->OutputMessage(3,67));//010215 lsw
 	
@@ -2379,8 +2378,6 @@ void SendGuildChangeEachLevel( char *text )		// 길드원의 등급을 바꾼다
 ERR_ :
 	AddCurrentStatusMessage( 160,160,250, lan->OutputMessage(3,108) );//010215 lsw
 	return;
-	
-	
 }
 
 void RecvGuildEachLevel( t_packet *p )		// 누군가 등급이 바꼈다.

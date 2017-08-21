@@ -148,14 +148,12 @@ int ReturnWaveNPCAnimation( LPCHARACTER ch, int wave )
 	return wave;
 }	
 
-/*	
-	MON1_NONE = 0,		// 기본동작
-	MON1_BATTLE_WALK,	// 기본걷기
-	MON1_ATTACKED,		// 맞기
-	MON1_DIE,			// 죽기....
-	MON1_BATTLE_ATTACK  // 한손공격
-*/
-
+//
+//MON1_NONE = 0,		// 기본동작
+//MON1_BATTLE_WALK,	// 기본걷기
+//MON1_ATTACKED,		// 맞기
+//MON1_DIE,			// 죽기....
+//MON1_BATTLE_ATTACK  // 한손공격
 
 ///////////////////////////// SoundUp lkh 수정 ///////////////////////////////////
 int ReturnPCAutoWave(LPCHARACTER	lpChar, int type)		//PC(lpChar->효과음 주체/대상 캐릭터 | type->0:공자/1:피타격자)
@@ -1702,22 +1700,21 @@ void SendSmileFace( int smileno )
 	}
 	p.h.header.size = sizeof( t_client_smile_face );
 
-	/*//kyo
-	switch(smileno)
-	{
-	case 1:
-	case 6:
-	case 7:
-		{
-			SendAction(ACTION_ANGER,Hero->direction);
-		}break;
-	case 0:
-	case 4:
-		{
-			SendAction(ACTION_VICTORY,Hero->direction);
-		}break;
-	}
-	*/
+	////kyo
+	//switch(smileno)
+	//{
+	//case 1:
+	//case 6:
+	//case 7:
+	//	{
+	//		SendAction(ACTION_ANGER,Hero->direction);
+	//	}break;
+	//case 0:
+	//case 4:
+	//	{
+	//		SendAction(ACTION_VICTORY,Hero->direction);
+	//	}break;
+	//}
 
 	QueuePacket( &p, 1 );
 
@@ -1737,99 +1734,79 @@ void RecvSmileFace( int id, int smileno )
 	ch->smileno = smileno;
 }
 
-
-
-
-
-//-----------------------------------------------------------------------------------
-
-/*
-
-extern SystemInfo	system_info;
-
-void PlaySoundWalkingWater( LPCHARACTER ch, int anino )
-{
-	int waveno;
-	int vol;
-	int left;
-
-	if( ch == Hero )
-	{
-		waveno = ReturnAttackWaveAnimation( ch );
-		if( waveno )
-		{
-			vol = system_info.sound;
-
-			switch( anino )
-			{
-				case ACTION_BATTLE_WALK_OWNHAND	://전투걷기
-				case ACTION_BATTLE_WALK_TWOHAND	://전투걷기 2 ( 양손에 검 )
-				case ACTION_BASIC_WALK			://기본걷기
-
-					waveno = 1144;
-
-
-			// 다족류( 큰놈 ) 
-			// 다족류(중간놈 )
-			// 다족류( 작은놈 )
-			// 대형
-			// 큰발
-			// 중간발
-			// 작은발
-
-			case ACTION_RUN					://뛰기
-					waveno = 1146;
-			}
-
-			// 뛰기 
-			//초소형
-			// 절뚝거림
-			// 기어감
-			// 유령하급
-			// 슬래임 
-		}
-
-	
-	}
-	else
-	{
-		vol = system_info.sound / 2;
-
-
-		switch( ch->sprno )
-		{
-			// 다족류( 큰놈 ) 
-			// 다족류(중간놈 )
-			// 다족류( 작은놈 )
-			// 대형
-			// 큰발
-			// 중간발
-			// 작은발
-			// 뛰기 
-			//초소형
-			// 절뚝거림
-			// 기어감
-			// 유령하급
-			// 슬래임 
-		}
-
-	}
-
-
-	SetVolumeOne( waveno, vol );
-
-
-}
-
-
-
-
-
-*/
-
-
-
-
-
-
-
+//-----------------------------------------------------------------------------------//
+//extern SystemInfo	system_info;
+//
+//void PlaySoundWalkingWater( LPCHARACTER ch, int anino )
+//{
+//	int waveno;
+//	int vol;
+//	int left;
+//
+//	if( ch == Hero )
+//	{
+//		waveno = ReturnAttackWaveAnimation( ch );
+//		if( waveno )
+//		{
+//			vol = system_info.sound;
+//
+//			switch( anino )
+//			{
+//				case ACTION_BATTLE_WALK_OWNHAND	://전투걷기
+//				case ACTION_BATTLE_WALK_TWOHAND	://전투걷기 2 ( 양손에 검 )
+//				case ACTION_BASIC_WALK			://기본걷기
+//
+//					waveno = 1144;
+//
+//
+//			// 다족류( 큰놈 ) 
+//			// 다족류(중간놈 )
+//			// 다족류( 작은놈 )
+//			// 대형
+//			// 큰발
+//			// 중간발
+//			// 작은발
+//
+//			case ACTION_RUN					://뛰기
+//					waveno = 1146;
+//			}
+//
+//			// 뛰기 
+//			//초소형
+//			// 절뚝거림
+//			// 기어감
+//			// 유령하급
+//			// 슬래임 
+//		}
+//
+//	
+//	}
+//	else
+//	{
+//		vol = system_info.sound / 2;
+//
+//
+//		switch( ch->sprno )
+//		{
+//			// 다족류( 큰놈 ) 
+//			// 다족류(중간놈 )
+//			// 다족류( 작은놈 )
+//			// 대형
+//			// 큰발
+//			// 중간발
+//			// 작은발
+//			// 뛰기 
+//			//초소형
+//			// 절뚝거림
+//			// 기어감
+//			// 유령하급
+//			// 슬래임 
+//		}
+//
+//	}
+//
+//
+//	SetVolumeOne( waveno, vol );
+//
+//
+//}

@@ -233,28 +233,29 @@ BOOL CRMTable::BroadcastAllListener(char *packet, DWORD dwLength)
 	return TRUE;
 }
 
-/*
-//매개변수에 지정한 종류의 서버Listener로만 Broadcast
-BOOL CRMTable::BroadcastEachListener(DWORD dwServerType, char *packet, DWORD dwLength)
-{
-	LP_SERVER_DATA pServerData;
-	for( pServerData = this->m_pServerListHead; pServerData; pServerData = pServerData->pNextServerData )
-	{
-		if( pServerData->dwServerType == dwServerType )
-		{
-			g_pINet->SendToServer( pServerData->dwConnectionIndex , packet, dwLength, FLAG_SEND_NOT_ENCRYPTION);
-		}
-	}
-	return TRUE;
-}
-*/
+//
+////매개변수에 지정한 종류의 서버Listener로만 Broadcast
+//BOOL CRMTable::BroadcastEachListener(DWORD dwServerType, char *packet, DWORD dwLength)
+//{
+//	LP_SERVER_DATA pServerData;
+//	for( pServerData = this->m_pServerListHead; pServerData; pServerData = pServerData->pNextServerData )
+//	{
+//		if( pServerData->dwServerType == dwServerType )
+//		{
+//			g_pINet->SendToServer( pServerData->dwConnectionIndex , packet, dwLength, FLAG_SEND_NOT_ENCRYPTION);
+//		}
+//	}
+//	return TRUE;
+//}
+//
 
 //ini파일로 부터 RMTool Login가능한 IP를 받아온다..
 BOOL CRMTable::GetCertainIPFromIni()
 {
 	char path[ MAX_PATH ];
 	
-	sprintf(path,".\\ProxyServer.ini");                          
+	//sprintf(path, ".\\ProxyServer.ini");
+	sprintf(path, PROXY_SERVER_INI_);
 	m_CertainIPNum = (DWORD)GetPrivateProfileInt( "RMTool_Info", "CertainIPNum ", 0, path );
 	if( m_CertainIPNum <= 0 ) 
 		return FALSE;
@@ -275,7 +276,9 @@ BOOL CRMTable::CheckCertainIP(DWORD dwConnectionIndex, char* ip)
 	// YGI		// 이중 비교
 	return true;
 	//Connection에서 얻은 IP
-	char szConnectionIP[16];	memset(szConnectionIP , 0, 16);
+	char szConnectionIP[16] = { 0 };
+	//memset(szConnectionIP , 0, 16);
+
 	WORD wPort;
 	g_pINet->GetUserAddress(dwConnectionIndex, szConnectionIP, &wPort);
 	

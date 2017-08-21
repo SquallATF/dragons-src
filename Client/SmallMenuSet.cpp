@@ -255,16 +255,16 @@ void SmallMenuSet()
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 // 여관에서 서브 메뉴
-/*	SHideNomal[HN_INN_REST_TEXT][0].nType=FT_TEXT_PUT_CENTER;
-	SHideNomal[HN_INN_REST_TEXT][0].y=99;
-	wsprintf(SHideNomal[HN_INN_REST_TEXT][0].temp,"SINGLE");
-	SHideNomal[HN_INN_REST_TEXT][1].nType=FT_TEXT_PUT_CENTER;
-	SHideNomal[HN_INN_REST_TEXT][1].y=133;
-	wsprintf(SHideNomal[HN_INN_REST_TEXT][1].temp,"DOUBLE");
-	SHideNomal[HN_INN_REST_TEXT][2].nType=FT_TEXT_PUT_CENTER;
-	SHideNomal[HN_INN_REST_TEXT][2].y=167;
-	wsprintf(SHideNomal[HN_INN_REST_TEXT][2].temp,"MULTI");
-*/
+	//SHideNomal[HN_INN_REST_TEXT][0].nType=FT_TEXT_PUT_CENTER;
+	//SHideNomal[HN_INN_REST_TEXT][0].y=99;
+	//wsprintf(SHideNomal[HN_INN_REST_TEXT][0].temp,"SINGLE");
+	//SHideNomal[HN_INN_REST_TEXT][1].nType=FT_TEXT_PUT_CENTER;
+	//SHideNomal[HN_INN_REST_TEXT][1].y=133;
+	//wsprintf(SHideNomal[HN_INN_REST_TEXT][1].temp,"DOUBLE");
+	//SHideNomal[HN_INN_REST_TEXT][2].nType=FT_TEXT_PUT_CENTER;
+	//SHideNomal[HN_INN_REST_TEXT][2].y=167;
+	//wsprintf(SHideNomal[HN_INN_REST_TEXT][2].temp,"MULTI");
+
 	SHideNomal[HN_INN_REST_TEXT][0].nType=FT_TEXT_PUT_CENTER;
 	SHideNomal[HN_INN_REST_TEXT][0].y=133;
 	wsprintf(SHideNomal[HN_INN_REST_TEXT][0].temp,"SINGLE");
@@ -273,20 +273,11 @@ void SmallMenuSet()
 // Dungeon 메뉴 설명 문
 
 	// ARTIFICIAL던전 설명문
-/*	char cArtificial[] = "이곳에 온것을 환영한다. 이곳은 초보 모험가를 위한 곳. 당신이 초보라 생각하면 들어와도 상관은 없다.";
-	SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].nType=FT_TEXT_PUT_CUT;  // 긴 문자열 잘라서 출력
-	SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].x=47;
-	SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].y=84;
-	wsprintf(SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].temp,cArtificaial);
-*/
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
-
-
+	//char cArtificial[] = "이곳에 온것을 환영한다. 이곳은 초보 모험가를 위한 곳. 당신이 초보라 생각하면 들어와도 상관은 없다.";
+	//SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].nType=FT_TEXT_PUT_CUT;  // 긴 문자열 잘라서 출력
+	//SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].x=47;
+	//SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].y=84;
+	//wsprintf(SHideNomal[HN_DUNGEON_ARTIFICAL_TEXT][0].temp,cArtificaial);
 
 /////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////메뉴 데이터 설정/////////////////////////////////////
@@ -369,23 +360,23 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_BANK_MAIN].nField[6].rCheakBox,89,281,155,302);
 
 	// 드래그를 이용한 메뉴 이동
-//	SMenu[MN_BANK_MAIN].nField[7].nType=FT_MENU_MOVE;
-//	SetRect(SMenu[MN_BANK_MAIN].nField[7].rCheakBox,0,0,246,31);
+	//SMenu[MN_BANK_MAIN].nField[7].nType=FT_MENU_MOVE;
+	//SetRect(SMenu[MN_BANK_MAIN].nField[7].rCheakBox,0,0,246,31);
 
 	
 //////////////////////////////////////////////////////////////////////////////////////////////////
 	// DEPOSIT
 	SMenu[MN_BANK_DEPOSIT].x=366+GABX_SCREEN;
 	SMenu[MN_BANK_DEPOSIT].y=20;
-//	SMenu[MN_BANK_DEPOSIT].nImageNumber=290;
+	//SMenu[MN_BANK_DEPOSIT].nImageNumber=290;
 	SMenu[MN_BANK_DEPOSIT].nImageNumber=3;
 	SMenu[MN_BANK_DEPOSIT].nImageType=BANK_PCX;
 	SMenu[MN_BANK_DEPOSIT].nFieldCount=8;
 	SMenu[MN_BANK_DEPOSIT].CheakType=0;
 
 	// 드래그를 이용한 메뉴 이동
-//	SMenu[MN_BANK_DEPOSIT].nField[0].nType=FT_MENU_MOVE;
-//	SetRect(SMenu[MN_BANK_DEPOSIT].nField[0].rCheakBox,0,0,246,31);
+	//SMenu[MN_BANK_DEPOSIT].nField[0].nType=FT_MENU_MOVE;
+	//SetRect(SMenu[MN_BANK_DEPOSIT].nField[0].rCheakBox,0,0,246,31);
 
 	// ok, cancel  Button 
 	SMenu[MN_BANK_DEPOSIT].nField[1].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
@@ -425,23 +416,23 @@ void SmallMenuSet()
 	SMenu[MN_BANK_DEPOSIT].nField[5].nType=FT_DATA_PUT;
 	SMenu[MN_BANK_DEPOSIT].nField[5].x=51;
 	SMenu[MN_BANK_DEPOSIT].nField[5].y=212;
-//	SMenu[MN_BANK_DEPOSIT].nField[5].nWillDo=0;
+	//SMenu[MN_BANK_DEPOSIT].nField[5].nWillDo=0;
 	SMenu[MN_BANK_DEPOSIT].nField[5].nImageNumber=DP_TEMP_MONEY;
-//	SetRect(SMenu[MN_BANK_DEPOSIT].nField[5].rCheakBox,64,190,217,206);
+	//SetRect(SMenu[MN_BANK_DEPOSIT].nField[5].rCheakBox,64,190,217,206);
 
 	// 예금할 금액과 예금한 금액을 합해서 보여줌
 	SMenu[MN_BANK_DEPOSIT].nField[6].nType=FT_DATA_PUT;
 	SMenu[MN_BANK_DEPOSIT].nField[6].x=51;
 	SMenu[MN_BANK_DEPOSIT].nField[6].y=130;
 	SMenu[MN_BANK_DEPOSIT].nField[6].nImageNumber=DP_BANK_TOTAL;
-//	SetRect(SMenu[MN_BANK_DEPOSIT].nField[5].rCheakBox,64,100,217,206);
+	//SetRect(SMenu[MN_BANK_DEPOSIT].nField[5].rCheakBox,64,100,217,206);
 
 	// 현재 예금한 금액
 	SMenu[MN_BANK_DEPOSIT].nField[7].nType=FT_DATA_PUT;
 	SMenu[MN_BANK_DEPOSIT].nField[7].x=51;
 	SMenu[MN_BANK_DEPOSIT].nField[7].y=90;
 	SMenu[MN_BANK_DEPOSIT].nField[7].nImageNumber=DP_BANK_SAVE;
-//	SetRect(SMenu[MN_BANK_DEPOSIT].nField[5].rCheakBox,64,100,217,206);
+	//SetRect(SMenu[MN_BANK_DEPOSIT].nField[5].rCheakBox,64,100,217,206);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -449,7 +440,7 @@ void SmallMenuSet()
 	// DEFRAYAL
 	SMenu[MN_BANK_DEFRAYAL].x=366+GABX_SCREEN;
 	SMenu[MN_BANK_DEFRAYAL].y=20;
-//	SMenu[MN_BANK_DEFRAYAL].nImageNumber=290;
+	//SMenu[MN_BANK_DEFRAYAL].nImageNumber=290;
 	SMenu[MN_BANK_DEFRAYAL].nImageNumber=3;
 	SMenu[MN_BANK_DEFRAYAL].nImageType=BANK_PCX;
 	SMenu[MN_BANK_DEFRAYAL].nFieldCount=8;
@@ -459,7 +450,7 @@ void SmallMenuSet()
 	SMenu[MN_BANK_DEFRAYAL].nField[0].nType=FT_NOMAL_PUT;
 	SMenu[MN_BANK_DEFRAYAL].nField[0].x=64;
 	SMenu[MN_BANK_DEFRAYAL].nField[0].y=13;
-//	SMenu[MN_BANK_DEFRAYAL].nField[0].nImageNumber=289;
+	//SMenu[MN_BANK_DEFRAYAL].nField[0].nImageNumber=289;
 	SMenu[MN_BANK_DEFRAYAL].nField[0].nImageNumber=2;
 	SMenu[MN_BANK_DEFRAYAL].nField[0].nImageType=BANK_PCX;
 	
@@ -472,8 +463,8 @@ void SmallMenuSet()
 	SMenu[MN_BANK_DEFRAYAL].nField[1].nImageNumber=820;
 	SetRect(SMenu[MN_BANK_DEFRAYAL].nField[1].rCheakBox,23,274,89,295);
 
-//	SMenu[MN_BANK_DEFRAYAL].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_BANK_DEFRAYAL].nField[2].nSpecialWillDo=SWD_SMALLMENU_END;
+	//SMenu[MN_BANK_DEFRAYAL].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
+	//SMenu[MN_BANK_DEFRAYAL].nField[2].nSpecialWillDo=SWD_SMALLMENU_END;
 	SMenu[MN_BANK_DEFRAYAL].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_BANK_DEFRAYAL].nField[2].nSpecialWillDo=SWD_SUBMENU_BACK;
 	SMenu[MN_BANK_DEFRAYAL].nField[2].x=155;
@@ -503,23 +494,23 @@ void SmallMenuSet()
 	SMenu[MN_BANK_DEFRAYAL].nField[5].nType=FT_DATA_PUT;
 	SMenu[MN_BANK_DEFRAYAL].nField[5].x=51;
 	SMenu[MN_BANK_DEFRAYAL].nField[5].y=212;
-//	SMenu[MN_BANK_DEFRAYAL].nField[5].nWillDo=0;
+	//SMenu[MN_BANK_DEFRAYAL].nField[5].nWillDo=0;
 	SMenu[MN_BANK_DEFRAYAL].nField[5].nImageNumber=DP_TEMP_MONEY;
-//	SetRect(SMenu[MN_BANK_DEFRAYAL].nField[5].rCheakBox,64,190,217,206);
+	//SetRect(SMenu[MN_BANK_DEFRAYAL].nField[5].rCheakBox,64,190,217,206);
 
 	// 출금할 금액과 예금된 금액을 계산해서 보여줌
 	SMenu[MN_BANK_DEFRAYAL].nField[6].nType=FT_DATA_PUT;
 	SMenu[MN_BANK_DEFRAYAL].nField[6].x=51;
 	SMenu[MN_BANK_DEFRAYAL].nField[6].y=130;
 	SMenu[MN_BANK_DEFRAYAL].nField[6].nImageNumber=DP_BANK_TOTAL;
-//	SetRect(SMenu[MN_BANK_DEFRAYAL].nField[5].rCheakBox,64,100,217,206);
+	//SetRect(SMenu[MN_BANK_DEFRAYAL].nField[5].rCheakBox,64,100,217,206);
 
 	// 현재 예금된 금액
 	SMenu[MN_BANK_DEFRAYAL].nField[7].nType=FT_DATA_PUT;
 	SMenu[MN_BANK_DEFRAYAL].nField[7].x=51;
 	SMenu[MN_BANK_DEFRAYAL].nField[7].y=90;
 	SMenu[MN_BANK_DEFRAYAL].nField[7].nImageNumber=DP_BANK_SAVE;
-//	SetRect(SMenu[MN_BANK_DEFRAYAL].nField[5].rCheakBox,64,100,217,206);
+	//SetRect(SMenu[MN_BANK_DEFRAYAL].nField[5].rCheakBox,64,100,217,206);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 	//은행 메뉴에서 CUSTODY뛰우기
@@ -609,8 +600,8 @@ void SmallMenuSet()
 	SMenu[MN_BANK_LOAN].CheakType=0;
 
 	// 드래그를 이용한 메뉴 이동
-//	SMenu[MN_BANK_LOAN].nField[0].nType=FT_MENU_MOVE;
-//	SetRect(SMenu[MN_BANK_LOAN].nField[0].rCheakBox,0,0,246,31);
+	//SMenu[MN_BANK_LOAN].nField[0].nType=FT_MENU_MOVE;
+	//SetRect(SMenu[MN_BANK_LOAN].nField[0].rCheakBox,0,0,246,31);
 
 	SMenu[MN_BANK_LOAN].nField[0].nType=FT_BANK_LOAN;
 
@@ -695,8 +686,8 @@ void SmallMenuSet()
 	SMenu[MN_BANK_REPAYMENT].CheakType=0;		
 
 	// 드래그를 이용한 메뉴 이동
-//	SMenu[MN_BANK_LOAN].nField[0].nType=FT_MENU_MOVE;
-//	SetRect(SMenu[MN_BANK_LOAN].nField[0].rCheakBox,0,0,246,31);
+	//SMenu[MN_BANK_LOAN].nField[0].nType=FT_MENU_MOVE;
+	//SetRect(SMenu[MN_BANK_LOAN].nField[0].rCheakBox,0,0,246,31);
 
 	// 서버에서 응답이 있을때 까지
 	SMenu[MN_BANK_REPAYMENT].nField[0].nType=FT_BANK_LOAN;
@@ -793,8 +784,8 @@ void SmallMenuSet()
 	SMenu[MN_BANK_AUCTION].CheakType=0;		
 
 	// 드래그를 이용한 메뉴 이동
-//	SMenu[MN_BANK_AUCTION].nField[0].nType=FT_MENU_MOVE;
-//	SetRect(SMenu[MN_BANK_AUCTION].nField[0].rCheakBox,0,0,246,31);
+	//SMenu[MN_BANK_AUCTION].nField[0].nType=FT_MENU_MOVE;
+	//SetRect(SMenu[MN_BANK_AUCTION].nField[0].rCheakBox,0,0,246,31);
 
 	// ok, cancel  Button 
 	SMenu[MN_BANK_AUCTION].nField[1].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
@@ -805,8 +796,8 @@ void SmallMenuSet()
 	SMenu[MN_BANK_AUCTION].nField[1].nImageNumber=295;
 	SetRect(SMenu[MN_BANK_AUCTION].nField[1].rCheakBox,13,263,57,307);
 
-//	SMenu[MN_BANK_AUCTION].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_BANK_AUCTION].nField[2].nSpecialWillDo=SWD_SMALLMENU_END;
+	//SMenu[MN_BANK_AUCTION].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
+	//SMenu[MN_BANK_AUCTION].nField[2].nSpecialWillDo=SWD_SMALLMENU_END;
 	SMenu[MN_BANK_AUCTION].nField[2].nType=FT_HIDE_WILLDO_AUTO_PUT;
 	SMenu[MN_BANK_AUCTION].nField[2].nWillDo=MN_BANK_MAIN;
 	SMenu[MN_BANK_AUCTION].nField[2].x=190;
@@ -957,12 +948,7 @@ void SmallMenuSet()
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
     //던전 메뉴중 아티피컬 메뉴 띄우기
-//	SMenu[MN_DUNGEON_ARTIFICIAL].bActive=TRUE;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+	//SMenu[MN_DUNGEON_ARTIFICIAL].bActive=TRUE;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 독립 메뉴 중 직업 길드메뉴 띄우기
@@ -1156,16 +1142,16 @@ void SmallMenuSet()
 	SMenu[MN_RESTAURANT].nField[4].nImageNumber=604;
 	SetRect(SMenu[MN_RESTAURANT].nField[4].rCheakBox,31,198,180,220);
 
-/*
-	// Repair menu call
-	SMenu[MN_RESTAURANT].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
-	SMenu[MN_RESTAURANT].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
-	SMenu[MN_RESTAURANT].nField[5].x=38;
-	SMenu[MN_RESTAURANT].nField[5].y=238;
-	SMenu[MN_RESTAURANT].nField[5].nRectImage=605;
-	SMenu[MN_RESTAURANT].nField[5].nImageNumber=606;
-	SetRect(SMenu[MN_RESTAURANT].nField[5].rCheakBox,34,236,137,261);
-*/
+
+	//// Repair menu call
+	//SMenu[MN_RESTAURANT].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
+	//SMenu[MN_RESTAURANT].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
+	//SMenu[MN_RESTAURANT].nField[5].x=38;
+	//SMenu[MN_RESTAURANT].nField[5].y=238;
+	//SMenu[MN_RESTAURANT].nField[5].nRectImage=605;
+	//SMenu[MN_RESTAURANT].nField[5].nImageNumber=606;
+	//SetRect(SMenu[MN_RESTAURANT].nField[5].rCheakBox,34,236,137,261);
+
 
 /////////////////////////////////////////////////////
 // 약초점
@@ -1225,16 +1211,16 @@ void SmallMenuSet()
 	SMenu[MN_HERBSHOP].nField[4].nImageNumber=604;
 	SetRect(SMenu[MN_HERBSHOP].nField[4].rCheakBox,31,198,180,220);
 
-/*
-	// Repair menu call
-	SMenu[MN_HERBSHOP].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
-	SMenu[MN_HERBSHOP].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
-	SMenu[MN_HERBSHOP].nField[5].x=38;
-	SMenu[MN_HERBSHOP].nField[5].y=238;
-	SMenu[MN_HERBSHOP].nField[5].nRectImage=605;
-	SMenu[MN_HERBSHOP].nField[5].nImageNumber=606;
-	SetRect(SMenu[MN_HERBSHOP].nField[5].rCheakBox,34,236,137,261);
-*/
+
+	//// Repair menu call
+	//SMenu[MN_HERBSHOP].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
+	//SMenu[MN_HERBSHOP].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
+	//SMenu[MN_HERBSHOP].nField[5].x=38;
+	//SMenu[MN_HERBSHOP].nField[5].y=238;
+	//SMenu[MN_HERBSHOP].nField[5].nRectImage=605;
+	//SMenu[MN_HERBSHOP].nField[5].nImageNumber=606;
+	//SetRect(SMenu[MN_HERBSHOP].nField[5].rCheakBox,34,236,137,261);
+
 
 /////////////////////////////////////////////////////
 // 푸주간
@@ -1294,16 +1280,16 @@ void SmallMenuSet()
 	SMenu[MN_SHAMBLES].nField[4].nImageNumber=604;
 	SetRect(SMenu[MN_SHAMBLES].nField[4].rCheakBox,31,198,180,220);
 
-/*
-	// Repair menu call
-	SMenu[MN_SHAMBLES].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
-	SMenu[MN_SHAMBLES].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
-	SMenu[MN_SHAMBLES].nField[5].x=38;
-	SMenu[MN_SHAMBLES].nField[5].y=238;
-	SMenu[MN_SHAMBLES].nField[5].nRectImage=605;
-	SMenu[MN_SHAMBLES].nField[5].nImageNumber=606;
-	SetRect(SMenu[MN_SHAMBLES].nField[5].rCheakBox,34,236,137,261);
-*/
+
+	//// Repair menu call
+	//SMenu[MN_SHAMBLES].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
+	//SMenu[MN_SHAMBLES].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
+	//SMenu[MN_SHAMBLES].nField[5].x=38;
+	//SMenu[MN_SHAMBLES].nField[5].y=238;
+	//SMenu[MN_SHAMBLES].nField[5].nRectImage=605;
+	//SMenu[MN_SHAMBLES].nField[5].nImageNumber=606;
+	//SetRect(SMenu[MN_SHAMBLES].nField[5].rCheakBox,34,236,137,261);
+
 
 /////////////////////////////////////////////////////
 // 양초점
@@ -1363,16 +1349,15 @@ void SmallMenuSet()
 	SMenu[MN_CANDLE].nField[4].nImageNumber=604;
 	SetRect(SMenu[MN_CANDLE].nField[4].rCheakBox,31,198,180,220);
 
-/*	
-	// Repair menu call
-	SMenu[MN_CANDLE].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
-	SMenu[MN_CANDLE].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
-	SMenu[MN_CANDLE].nField[5].x=38;
-	SMenu[MN_CANDLE].nField[5].y=238;
-	SMenu[MN_CANDLE].nField[5].nRectImage=605;
-	SMenu[MN_CANDLE].nField[5].nImageNumber=606;
-	SetRect(SMenu[MN_CANDLE].nField[5].rCheakBox,34,236,137,261);
-*/
+	//
+	//// Repair menu call
+	//SMenu[MN_CANDLE].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
+	//SMenu[MN_CANDLE].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
+	//SMenu[MN_CANDLE].nField[5].x=38;
+	//SMenu[MN_CANDLE].nField[5].y=238;
+	//SMenu[MN_CANDLE].nField[5].nRectImage=605;
+	//SMenu[MN_CANDLE].nField[5].nImageNumber=606;
+	//SetRect(SMenu[MN_CANDLE].nField[5].rCheakBox,34,236,137,261);
 
 /////////////////////////////////////////////////////
 // 옷가게
@@ -1500,16 +1485,16 @@ void SmallMenuSet()
 	SMenu[MN_ALCHEMY].nField[4].nImageNumber=604;
 	SetRect(SMenu[MN_ALCHEMY].nField[4].rCheakBox,31,198,180,220);
 
-/*
-	// Repair menu call
-	SMenu[MN_ALCHEMY].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
-	SMenu[MN_ALCHEMY].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
-	SMenu[MN_ALCHEMY].nField[5].x=38;
-	SMenu[MN_ALCHEMY].nField[5].y=238;
-	SMenu[MN_ALCHEMY].nField[5].nRectImage=605;
-	SMenu[MN_ALCHEMY].nField[5].nImageNumber=606;
-	SetRect(SMenu[MN_ALCHEMY].nField[5].rCheakBox,34,236,137,261);
-*/
+
+	//// Repair menu call
+	//SMenu[MN_ALCHEMY].nField[5].nType=FT_HIDE_WILLDO_AUTO_PUT;
+	//SMenu[MN_ALCHEMY].nField[5].nWillDo = MN_SKILLGUILD_REPAIR;
+	//SMenu[MN_ALCHEMY].nField[5].x=38;
+	//SMenu[MN_ALCHEMY].nField[5].y=238;
+	//SMenu[MN_ALCHEMY].nField[5].nRectImage=605;
+	//SMenu[MN_ALCHEMY].nField[5].nImageNumber=606;
+	//SetRect(SMenu[MN_ALCHEMY].nField[5].rCheakBox,34,236,137,261);
+
 
 /////////////////////////////////////////////////////
 // 목공소
@@ -1787,7 +1772,7 @@ void SmallMenuSet()
 	// Learn Knowlage
 	SMenu[MN_ACADEMY].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_ACADEMY].nField[2].nSpecialWillDo = SWD_SORRY;
-//	SMenu[MN_ACADEMY].nField[2].nSpecialWillDo = SWD_SKILLGUILD_LEARN;
+	//SMenu[MN_ACADEMY].nField[2].nSpecialWillDo = SWD_SKILLGUILD_LEARN;
 	SMenu[MN_ACADEMY].nField[2].nWillDo = MN_SKILLGUILD_KNOWLAGE;
 	SMenu[MN_ACADEMY].nField[2].x=31;
 	SMenu[MN_ACADEMY].nField[2].y=199;
@@ -1801,7 +1786,7 @@ void SmallMenuSet()
 // 직업 길드에서 사용할 서브 메뉴
 
 //BUY Menu	
-//	SMenu[MN_SKILLGUILD_BUY].nTemp;		// 전 단계 메뉴 번호를 받아 넣어 둔다
+	//SMenu[MN_SKILLGUILD_BUY].nTemp;		// 전 단계 메뉴 번호를 받아 넣어 둔다
 	SMenu[MN_SKILLGUILD_BUY].x=345+GABX_SCREEN;//197;
 	SMenu[MN_SKILLGUILD_BUY].y=20;
 #ifdef CHANGE_MONEY_
@@ -1811,7 +1796,7 @@ void SmallMenuSet()
 	SMenu[MN_SKILLGUILD_BUY].nImageNumber=609;
 #endif
 	SMenu[MN_SKILLGUILD_BUY].nFieldCount=8;
-//	SMenu[MN_SKILLGUILD_BUY].CheakType=0;
+	//SMenu[MN_SKILLGUILD_BUY].CheakType=0;
 
 	// 제목 띄우기	
 	SMenu[MN_SKILLGUILD_BUY].nField[0].nType=FT_NOMAL_PUT;
@@ -1877,8 +1862,8 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_SKILLGUILD_BUY].nField[7].rCheakBox,203,106,223,141);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Sell Menu
-//	SMenu[MN_SKILLGUILD_SELL].nTemp;		// 전 단계 메뉴 번호를 받아 넣어 둔다
+	// Sell Menu
+	//SMenu[MN_SKILLGUILD_SELL].nTemp;		// 전 단계 메뉴 번호를 받아 넣어 둔다
 	SMenu[MN_SKILLGUILD_SELL].x=345+GABX_SCREEN;
 	SMenu[MN_SKILLGUILD_SELL].y=20;
 #ifdef CHANGE_MONEY_
@@ -1891,10 +1876,10 @@ void SmallMenuSet()
 	SMenu[MN_SKILLGUILD_SELL].CheakType=0;
 
 	// 제목 띄우기	
-//	SMenu[MN_SKILLGUILD_SELL].nField[0].nType=FT_NO_CHECK;
-//	SMenu[MN_SKILLGUILD_SELL].nField[0].x=66;
-//	SMenu[MN_SKILLGUILD_SELL].nField[0].y=10;
-//	SMenu[MN_SKILLGUILD_SELL].nField[0].nImageNumber=610;
+	//SMenu[MN_SKILLGUILD_SELL].nField[0].nType=FT_NO_CHECK;
+	//SMenu[MN_SKILLGUILD_SELL].nField[0].x=66;
+	//SMenu[MN_SKILLGUILD_SELL].nField[0].y=10;
+	//SMenu[MN_SKILLGUILD_SELL].nField[0].nImageNumber=610;
 
 	// ok, cancel  Button 
 	SMenu[MN_SKILLGUILD_SELL].nField[1].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
@@ -1955,7 +1940,7 @@ void SmallMenuSet()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Learn Skill Menu
+	// Learn Skill Menu
 
 	SMenu[MN_SKILLGUILD_SKILL].x=345+GABX_SCREEN;
 	SMenu[MN_SKILLGUILD_SKILL].y=20;
@@ -2025,18 +2010,18 @@ void SmallMenuSet()
 	SMenu[MN_SKILLGUILD_SKILL].nField[6].nType=FT_NOMAL_PUT;
 	SMenu[MN_SKILLGUILD_SKILL].nField[6].x=19;
 	SMenu[MN_SKILLGUILD_SKILL].nField[6].y=44;
-//	SMenu[MN_SKILLGUILD_SKILL].nField[6].nSHideNomalCount=2;	상황에 따라 바뀜
+	//SMenu[MN_SKILLGUILD_SKILL].nField[6].nSHideNomalCount=2;	상황에 따라 바뀜
 	SMenu[MN_SKILLGUILD_SKILL].nField[6].nSHideNomalStart=0;
 	SMenu[MN_SKILLGUILD_SKILL].nField[6].nShideNomalPlus=1;
-//	SMenu[MN_SKILLGUILD_SKILL].nField[6].nImageNumber=000;		상황에 따라 바뀜
+	//SMenu[MN_SKILLGUILD_SKILL].nField[6].nImageNumber=000;		상황에 따라 바뀜
 
-//	SMenu[MN_SKILLGUILD_SKILL].nField[7].nType=FT_DATA_PUT;
-//	SMenu[MN_SKILLGUILD_SKILL].nField[7].x=45;
-//	SMenu[MN_SKILLGUILD_SKILL].nField[7].y=180;
-//	SMenu[MN_SKILLGUILD_SKILL].nField[7].nImageNumber=DP_SELECT_SKILL;
+	//SMenu[MN_SKILLGUILD_SKILL].nField[7].nType=FT_DATA_PUT;
+	//SMenu[MN_SKILLGUILD_SKILL].nField[7].x=45;
+	//SMenu[MN_SKILLGUILD_SKILL].nField[7].y=180;
+	//SMenu[MN_SKILLGUILD_SKILL].nField[7].nImageNumber=DP_SELECT_SKILL;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Learn Skill MN_SKILLGUILD_KNOWLAGE
+	// Learn Skill MN_SKILLGUILD_KNOWLAGE
 
 	SMenu[MN_SKILLGUILD_KNOWLAGE].x=345+GABX_SCREEN;
 	SMenu[MN_SKILLGUILD_KNOWLAGE].y=20;
@@ -2110,7 +2095,7 @@ void SmallMenuSet()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Lean Item Menu
+	// Lean Item Menu
 	SMenu[MN_SKILLGUILD_ITEM].x=345+GABX_SCREEN;
 	SMenu[MN_SKILLGUILD_ITEM].y=20;
 #ifdef CHANGE_MONEY_
@@ -2159,7 +2144,7 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_SKILLGUILD_ITEM].nField[3].rCheakBox,17,52,230,208);
 	
 	// <--
-//	SMenu[MN_SKILLGUILD_ITEM].nField[4].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
+	//SMenu[MN_SKILLGUILD_ITEM].nField[4].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_SKILLGUILD_ITEM].nField[4].nType=FT_NOMAL_PUT;
 	SMenu[MN_SKILLGUILD_ITEM].nField[4].nSpecialWillDo=SWD_LEARNSKILL_OTHER;
 	SMenu[MN_SKILLGUILD_ITEM].nField[4].nWillDo=3;
@@ -2171,14 +2156,10 @@ void SmallMenuSet()
 	SMenu[MN_SKILLGUILD_ITEM].nField[4].nImageType=SMALL_ETC;
 	SetRect(SMenu[MN_SKILLGUILD_ITEM].nField[4].rCheakBox,88,252,123,270);
 
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Repair Menu
 
-//	SMenu[MN_SKILLGUILD_REPAIR].nTemp;		// 전 단계 메뉴 번호를 받아 넣어 둔다
+	//SMenu[MN_SKILLGUILD_REPAIR].nTemp;		// 전 단계 메뉴 번호를 받아 넣어 둔다
 	SMenu[MN_SKILLGUILD_REPAIR].x=345+GABX_SCREEN;
 	SMenu[MN_SKILLGUILD_REPAIR].y=20;
 #ifdef CHANGE_MONEY_
@@ -2306,7 +2287,7 @@ void SmallMenuSet()
 // 마을 회관 메뉴
 
 	//메인 메뉴 뛰우기
-//	SMenu[MN_TOWNHALL].bActive=TRUE;
+	//SMenu[MN_TOWNHALL].bActive=TRUE;
 	SMenu[MN_TOWNHALL].x=366+GABX_SCREEN;
 	SMenu[MN_TOWNHALL].y=20;
 	SMenu[MN_TOWNHALL].nImageNumber=402;
@@ -2350,7 +2331,7 @@ void SmallMenuSet()
 
 	//GUILD용 사각형
 	SMenu[MN_TOWNHALL].nField[4].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_TOWNHALL].nField[4].nSpecialWillDo=SWD_WILLDO;
+	//SMenu[MN_TOWNHALL].nField[4].nSpecialWillDo=SWD_WILLDO;
 	SMenu[MN_TOWNHALL].nField[4].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_TOWNHALL].nField[4].nWillDo=MN_TOWNHALL_GUILD;
 	SMenu[MN_TOWNHALL].nField[4].x=35;
@@ -2361,7 +2342,7 @@ void SmallMenuSet()
 
 	//FORUM용 사각형
 	SMenu[MN_TOWNHALL].nField[5].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_TOWNHALL].nField[5].nSpecialWillDo=SWD_TOWNHALL_TITLE;
+	//SMenu[MN_TOWNHALL].nField[5].nSpecialWillDo=SWD_TOWNHALL_TITLE;
 	SMenu[MN_TOWNHALL].nField[5].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_TOWNHALL].nField[5].nWillDo=MN_TOWNHALL_FORUM;
 	SMenu[MN_TOWNHALL].nField[5].x=35;
@@ -2372,7 +2353,7 @@ void SmallMenuSet()
 
 	//EVENT용 사각형
 	SMenu[MN_TOWNHALL].nField[6].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_TOWNHALL].nField[6].nSpecialWillDo=SWD_TOWNHALL_TITLE;
+	//SMenu[MN_TOWNHALL].nField[6].nSpecialWillDo=SWD_TOWNHALL_TITLE;
 	SMenu[MN_TOWNHALL].nField[6].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_TOWNHALL].nField[6].nWillDo=MN_TOWNHALL_EVENT;
 	SMenu[MN_TOWNHALL].nField[6].x=35;
@@ -2383,7 +2364,7 @@ void SmallMenuSet()
 
 	//RANK용 사각형
 	SMenu[MN_TOWNHALL].nField[7].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_TOWNHALL].nField[7].nSpecialWillDo=SWD_TOWNHALL_TITLE;
+	//SMenu[MN_TOWNHALL].nField[7].nSpecialWillDo=SWD_TOWNHALL_TITLE;
 	SMenu[MN_TOWNHALL].nField[7].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_TOWNHALL].nField[7].nWillDo=MN_TOWNHALL_RANK1;
 	SMenu[MN_TOWNHALL].nField[7].x=35;
@@ -2413,7 +2394,7 @@ void SmallMenuSet()
 	//read버튼
 	SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].nSpecialWillDo=SWD_BBS_READ ;
-//	SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].nWillDo=MN_TOWNHALL_NOTICE1;
+	//SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].nWillDo=MN_TOWNHALL_NOTICE1;
 	SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].nWillDo=MN_TOWNHALL_BBS1;
 	SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].nSHideNomalCount = 2; // 아래 필드를 가리킴
 	SMenu[MN_TOWNHALL_PUBLICNOTICE].nField[1].x=42;
@@ -2770,7 +2751,7 @@ void SmallMenuSet()
 
 	//write
 	SMenu[MN_TOWNHALL_FORUM].nField[0].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_TOWNHALL_FORUM].nField[0].nSpecialWillDo=SWD_GO_BBS_WRITE;
+	//SMenu[MN_TOWNHALL_FORUM].nField[0].nSpecialWillDo=SWD_GO_BBS_WRITE;
 	SMenu[MN_TOWNHALL_FORUM].nField[0].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_TOWNHALL_FORUM].nField[0].nWillDo=MN_TOWNHALL_BBS3;
 	SMenu[MN_TOWNHALL_FORUM].nField[0].x=21;
@@ -3064,9 +3045,6 @@ void SmallMenuSet()
 	SMenu[MN_TOWNHALL_RANK1].nField[8].x=37;
 	SMenu[MN_TOWNHALL_RANK1].nField[8].y=241;
 	SMenu[MN_TOWNHALL_RANK1].nField[8].nImageNumber=DP_TOWNGALL_TITLE_DATE;
-
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 	//townhall메뉴중 rank2메뉴
@@ -3429,12 +3407,12 @@ void SmallMenuSet()
 
 	// 선택 선 유지 
 	SMenu[MN_TOWNHALL_CONSTRUCTION].nField[13].nType=FT_NOMAL_PUT;
-//	SMenu[MN_TOWNHALL_CONSTRUCTION].nField[13].x=249;
-//	SMenu[MN_TOWNHALL_CONSTRUCTION].nField[13].y=55;
+	//SMenu[MN_TOWNHALL_CONSTRUCTION].nField[13].x=249;
+	//SMenu[MN_TOWNHALL_CONSTRUCTION].nField[13].y=55;
 	SMenu[MN_TOWNHALL_CONSTRUCTION].nField[13].nImageNumber=0;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 종이 인터페이스	// OK CANCEL Button
 
 	SMenu[MN_TOWNHALL_BBS1].x=96;
@@ -3492,7 +3470,7 @@ void SmallMenuSet()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 종이 인터페이스	// JOIN CANCEL Button
 
 	SMenu[MN_TOWNHALL_BBS2].x=96;
@@ -3551,7 +3529,7 @@ void SmallMenuSet()
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 종이 인터페이스	// WRITE/EXIT Button
 
 	SMenu[MN_TOWNHALL_BBS3].x=96;
@@ -3572,26 +3550,26 @@ void SmallMenuSet()
 	SMenu[MN_TOWNHALL_BBS3].nField[0].nImageNumber=DP_BBS_WRITE_PUT;
 
 	//preview
-//	SMenu[MN_TOWNHALL_BBS3].nField[1].nType=FT_HIDE_DSCROLL_AUTO_PUT;
-//	SMenu[MN_TOWNHALL_BBS3].nField[1].nWillDo=0;
-//	SMenu[MN_TOWNHALL_BBS3].nField[1].x=52;
-//	SMenu[MN_TOWNHALL_BBS3].nField[1].y=37;
-//	SMenu[MN_TOWNHALL_BBS3].nField[1].nRectImage=10018;
-//	SMenu[MN_TOWNHALL_BBS3].nField[1].nImageNumber=10019;
-//	SetRect(SMenu[MN_TOWNHALL_BBS3].nField[1].rCheakBox,52,37,118,72);
+	//SMenu[MN_TOWNHALL_BBS3].nField[1].nType=FT_HIDE_DSCROLL_AUTO_PUT;
+	//SMenu[MN_TOWNHALL_BBS3].nField[1].nWillDo=0;
+	//SMenu[MN_TOWNHALL_BBS3].nField[1].x=52;
+	//SMenu[MN_TOWNHALL_BBS3].nField[1].y=37;
+	//SMenu[MN_TOWNHALL_BBS3].nField[1].nRectImage=10018;
+	//SMenu[MN_TOWNHALL_BBS3].nField[1].nImageNumber=10019;
+	//SetRect(SMenu[MN_TOWNHALL_BBS3].nField[1].rCheakBox,52,37,118,72);
 
 	//next
-///	SMenu[MN_TOWNHALL_BBS3].nField[2].nType=FT_HIDE_ISCROLL_AUTO_PUT;
-//	SMenu[MN_TOWNHALL_BBS3].nField[2].nWillDo=0;
-//	SMenu[MN_TOWNHALL_BBS3].nField[2].x=336;
-//	SMenu[MN_TOWNHALL_BBS3].nField[2].y=36;
-//	SMenu[MN_TOWNHALL_BBS3].nField[2].nRectImage=10020;
-//	SMenu[MN_TOWNHALL_BBS3].nField[2].nImageNumber=10021;
-//	SetRect(SMenu[MN_TOWNHALL_BBS3].nField[2].rCheakBox,337,36,403,71);
+	//SMenu[MN_TOWNHALL_BBS3].nField[2].nType=FT_HIDE_ISCROLL_AUTO_PUT;
+	//SMenu[MN_TOWNHALL_BBS3].nField[2].nWillDo=0;
+	//SMenu[MN_TOWNHALL_BBS3].nField[2].x=336;
+	//SMenu[MN_TOWNHALL_BBS3].nField[2].y=36;
+	//SMenu[MN_TOWNHALL_BBS3].nField[2].nRectImage=10020;
+	//SMenu[MN_TOWNHALL_BBS3].nField[2].nImageNumber=10021;
+	//SetRect(SMenu[MN_TOWNHALL_BBS3].nField[2].rCheakBox,337,36,403,71);
 
 	//write
 	SMenu[MN_TOWNHALL_BBS3].nField[3].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_TOWNHALL_BBS3].nField[3].nSpecialWillDo=SWD_BBS_WRITE_SEND;
+	//SMenu[MN_TOWNHALL_BBS3].nField[3].nSpecialWillDo=SWD_BBS_WRITE_SEND;
 	SMenu[MN_TOWNHALL_BBS3].nField[3].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_TOWNHALL_BBS3].nField[3].x=52;
 	SMenu[MN_TOWNHALL_BBS3].nField[3].y=207;
@@ -3607,10 +3585,6 @@ void SmallMenuSet()
 	SMenu[MN_TOWNHALL_BBS3].nField[4].nRectImage=10012;
 	SMenu[MN_TOWNHALL_BBS3].nField[4].nImageNumber=10013;
 	SetRect(SMenu[MN_TOWNHALL_BBS3].nField[4].rCheakBox,338,203,404,238);
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	테페리 신전
@@ -3667,7 +3641,7 @@ void SmallMenuSet()
 // MISSION
 	SMenu[MN_GOD_TEFFERY].nField[4].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_GOD_TEFFERY].nField[4].nSpecialWillDo = SWD_SORRY;
-//	SMenu[MN_GOD_TEFFERY].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
+	//SMenu[MN_GOD_TEFFERY].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
 	SMenu[MN_GOD_TEFFERY].nField[4].x=32;
 	SMenu[MN_GOD_TEFFERY].nField[4].y=215;
 	SMenu[MN_GOD_TEFFERY].nField[4].nRectImage=24;
@@ -3677,7 +3651,7 @@ void SmallMenuSet()
 
 // SUPPER
 	SMenu[MN_GOD_TEFFERY].nField[5].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_GOD_TEFFERY].nField[5].nSpecialWillDo = SWD_SORRY;
+	//SMenu[MN_GOD_TEFFERY].nField[5].nSpecialWillDo = SWD_SORRY;
 	SMenu[MN_GOD_TEFFERY].nField[5].nSpecialWillDo = SWD_FOCUS_WILLDO;
 	SMenu[MN_GOD_TEFFERY].nField[5].nWillDo = MN_GOD_SUPPER;
 	SMenu[MN_GOD_TEFFERY].nField[5].x=32;
@@ -3750,7 +3724,7 @@ void SmallMenuSet()
 // MISSION
 	SMenu[MN_GOD_LETTY].nField[4].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_GOD_LETTY].nField[4].nSpecialWillDo = SWD_SORRY;
-//	SMenu[MN_GOD_LETTY].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
+	//SMenu[MN_GOD_LETTY].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
 	SMenu[MN_GOD_LETTY].nField[4].x=32;
 	SMenu[MN_GOD_LETTY].nField[4].y=215;
 	SMenu[MN_GOD_LETTY].nField[4].nRectImage=24;
@@ -3760,7 +3734,7 @@ void SmallMenuSet()
 
 // SUPPER
 	SMenu[MN_GOD_LETTY].nField[5].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_GOD_LETTY].nField[5].nSpecialWillDo = SWD_SORRY;
+	//SMenu[MN_GOD_LETTY].nField[5].nSpecialWillDo = SWD_SORRY;
 	SMenu[MN_GOD_LETTY].nField[5].nSpecialWillDo = SWD_FOCUS_WILLDO;
 	SMenu[MN_GOD_LETTY].nField[5].nWillDo = MN_GOD_SUPPER;
 	SMenu[MN_GOD_LETTY].nField[5].x=32;
@@ -3833,7 +3807,7 @@ void SmallMenuSet()
 // MISSION
 	SMenu[MN_GOD_EDELBLHOY].nField[4].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_GOD_EDELBLHOY].nField[4].nSpecialWillDo = SWD_SORRY;
-//	SMenu[MN_GOD_EDELBLHOY].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
+	//SMenu[MN_GOD_EDELBLHOY].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
 	SMenu[MN_GOD_EDELBLHOY].nField[4].x=32;
 	SMenu[MN_GOD_EDELBLHOY].nField[4].y=215;
 	SMenu[MN_GOD_EDELBLHOY].nField[4].nRectImage=24;
@@ -3843,7 +3817,7 @@ void SmallMenuSet()
 
 // SUPPER
 	SMenu[MN_GOD_EDELBLHOY].nField[5].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_GOD_EDELBLHOY].nField[5].nSpecialWillDo = SWD_SORRY;
+	//SMenu[MN_GOD_EDELBLHOY].nField[5].nSpecialWillDo = SWD_SORRY;
 	SMenu[MN_GOD_EDELBLHOY].nField[5].nSpecialWillDo = SWD_FOCUS_WILLDO;
 	SMenu[MN_GOD_EDELBLHOY].nField[5].nWillDo = MN_GOD_SUPPER;
 	SMenu[MN_GOD_EDELBLHOY].nField[5].x=32;
@@ -3908,7 +3882,7 @@ void SmallMenuSet()
 // MISSION
 	SMenu[MN_GOD_OREM].nField[4].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_GOD_OREM].nField[4].nSpecialWillDo = SWD_SORRY;
-//	SMenu[MN_GOD_OREM].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
+	//SMenu[MN_GOD_OREM].nField[4].nSpecialWillDo = SWD_SMALLMENU_END;
 	SMenu[MN_GOD_OREM].nField[4].x=32;
 	SMenu[MN_GOD_OREM].nField[4].y=215;
 	SMenu[MN_GOD_OREM].nField[4].nRectImage=24;
@@ -3918,7 +3892,7 @@ void SmallMenuSet()
 
 // SUPPER
 	SMenu[MN_GOD_OREM].nField[5].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_GOD_OREM].nField[5].nSpecialWillDo = SWD_SORRY;
+	//SMenu[MN_GOD_OREM].nField[5].nSpecialWillDo = SWD_SORRY;
 	SMenu[MN_GOD_OREM].nField[5].nSpecialWillDo = SWD_FOCUS_WILLDO;
 	SMenu[MN_GOD_OREM].nField[5].nWillDo = MN_GOD_SUPPER;
 	SMenu[MN_GOD_OREM].nField[5].x=32;
@@ -4016,9 +3990,6 @@ void SmallMenuSet()
 	SMenu[MN_GOD_MEETING].nField[4].nImageNumber=9;
 	SMenu[MN_GOD_MEETING].nField[4].nImageType=GOD_MENU;
 	SetRect(SMenu[MN_GOD_MEETING].nField[4].rCheakBox, 135, 221, 207, 248);
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // REGISTRATION
@@ -4214,7 +4185,6 @@ void SmallMenuSet()
 	SMenu[MN_GOD_REGIST_ERROR].nField[3].y=84;
 	SMenu[MN_GOD_REGIST_ERROR].nField[3].nRectImage=148;
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // ok 버튼만 있는 신전 등록에 관한 메시지 처리 메뉴
 	SMenu[MN_GOD_REGIST_MESSAGE].x=216+GABX_SCREEN;
@@ -4247,7 +4217,7 @@ void SmallMenuSet()
 	SMenu[MN_GOD_REGIST_MESSAGE].nField[2].y=84;
 	SMenu[MN_GOD_REGIST_MESSAGE].nField[2].nRectImage=148;
 	SMenu[MN_GOD_REGIST_MESSAGE].nField[2].nImageNumber=DP_RECT_STRING_PUT;
-//	wsprintf(SMenu[MN_GOD_REGIST_MESSAGE].nField[2].temp, "당신은 우리 신전의 등록을 취소 하셨습니다.");
+	//wsprintf(SMenu[MN_GOD_REGIST_MESSAGE].nField[2].temp, "당신은 우리 신전의 등록을 취소 하셨습니다.");
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 시간과 장소가 맞을 때 뜨는 예배 메뉴
@@ -4313,21 +4283,16 @@ void SmallMenuSet()
 	SMenu[MN_GOD_SUPPER].nField[2].nImageType=GOD_MENU;
 	SetRect(SMenu[MN_GOD_SUPPER].nField[2].rCheakBox,137,186,209,213);
 
+	//SMenu[MN_GOD_SUPPER].nField[0].nType=FT_NOMAL_PUT;
+	//SMenu[MN_GOD_SUPPER].nField[0].x=16;
+	//SMenu[MN_GOD_SUPPER].nField[0].y=43;
+	//SMenu[MN_GOD_SUPPER].nField[0].nImageNumber=11;
+	//SMenu[MN_GOD_SUPPER].nField[0].nImageType=GOD_MENU;
 
-/*
-	SMenu[MN_GOD_SUPPER].nField[0].nType=FT_NOMAL_PUT;
-	SMenu[MN_GOD_SUPPER].nField[0].x=16;
-	SMenu[MN_GOD_SUPPER].nField[0].y=43;
-	SMenu[MN_GOD_SUPPER].nField[0].nImageNumber=11;
-	SMenu[MN_GOD_SUPPER].nField[0].nImageType=GOD_MENU;
-
-	SMenu[MN_GOD_SUPPER].nField[1].nType=FT_VIEW_GOD_MEETING;
-	SMenu[MN_GOD_SUPPER].nField[1].x=31;
-	SMenu[MN_GOD_SUPPER].nField[1].y=84;
-	SMenu[MN_GOD_SUPPER].nField[1].nRectImage=148;
-*/ 
-
-
+	//SMenu[MN_GOD_SUPPER].nField[1].nType=FT_VIEW_GOD_MEETING;
+	//SMenu[MN_GOD_SUPPER].nField[1].x=31;
+	//SMenu[MN_GOD_SUPPER].nField[1].y=84;
+	//SMenu[MN_GOD_SUPPER].nField[1].nRectImage=148;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //신전메뉴2
@@ -4513,9 +4478,6 @@ void SmallMenuSet()
 	SMenu[MN_DRINK_RUMOR_VIEW].nField[2].nImageNumber = 536;
 	SetRect(SMenu[MN_DRINK_RUMOR_VIEW].nField[2].rCheakBox,116,180,186,207);
 
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	주점 - buy
 
@@ -4531,10 +4493,10 @@ void SmallMenuSet()
 	SMenu[MN_DRINK_BUY].CheakType=0;
 
 	// 덧 씌우기
-//	SMenu[MN_DRINK_BUY].nField[0].nType=FT_NOMAL_PUT;
-//	SMenu[MN_DRINK_BUY].nField[0].x=0;
-//	SMenu[MN_DRINK_BUY].nField[0].y=0;
-//	SMenu[MN_DRINK_BUY].nField[0].nImageNumber=537;
+	//SMenu[MN_DRINK_BUY].nField[0].nType=FT_NOMAL_PUT;
+	//SMenu[MN_DRINK_BUY].nField[0].x=0;
+	//SMenu[MN_DRINK_BUY].nField[0].y=0;
+	//SMenu[MN_DRINK_BUY].nField[0].nImageNumber=537;
 
 	// 제목 띄우기	
 	SMenu[MN_DRINK_BUY].nField[1].nType=FT_NOMAL_PUT;
@@ -4544,7 +4506,7 @@ void SmallMenuSet()
 
 	// ok, cancel  Button 
 	SMenu[MN_DRINK_BUY].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_DRINK_BUY].nField[2].nSpecialWillDo=SWD_ITEM_SELLBUY_OK;
+	//SMenu[MN_DRINK_BUY].nField[2].nSpecialWillDo=SWD_ITEM_SELLBUY_OK;
 	SMenu[MN_DRINK_BUY].nField[2].nSpecialWillDo=SWD_SORRY;
 	SMenu[MN_DRINK_BUY].nField[2].nWillDo=ITEM_BUY;
 	SMenu[MN_DRINK_BUY].nField[2].x=23;
@@ -4864,7 +4826,7 @@ void SmallMenuSet()
 
 	// learn open
 	SMenu[MN_HEAL_MAIN].nField[4].nType = FT_NO_CHECK;
-//	SMenu[MN_HEAL_MAIN].nField[4].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
+	//SMenu[MN_HEAL_MAIN].nField[4].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_HEAL_MAIN].nField[4].nSpecialWillDo = SWD_WILLDO;
 	SMenu[MN_HEAL_MAIN].nField[4].nWillDo = MN_HEAL_LEARN;
 	SMenu[MN_HEAL_MAIN].nField[4].x = 58;
@@ -4914,7 +4876,7 @@ void SmallMenuSet()
 
 	// 질병 이름 출력	
 	SMenu[MN_HEAL_HEALING].nField[4].nType = FT_DATA_PUT;
-//	SMenu[MN_HEAL_HEALING].nField[4].nWillDo						// 걸린 병의 번호...
+	//SMenu[MN_HEAL_HEALING].nField[4].nWillDo						// 걸린 병의 번호...
 	SMenu[MN_HEAL_HEALING].nField[4].x=33;							// 걸린 병이 없을 경우 메시지 출력을 위해
 	SMenu[MN_HEAL_HEALING].nField[4].y=81;
 	SMenu[MN_HEAL_HEALING].nField[4].nRectImage = 159;				// 설명 메시지가 뜰경우 그 넓이...
@@ -5170,7 +5132,7 @@ void SmallMenuSet()
 	// Rest open
 	SMenu[MN_INN_MAIN].nField[2].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_INN_MAIN].nField[2].nSpecialWillDo = SWD_WILLDO;
-//	SMenu[MN_INN_MAIN].nField[2].nSpecialWillDo = SWD_SORRY;
+	//SMenu[MN_INN_MAIN].nField[2].nSpecialWillDo = SWD_SORRY;
 	SMenu[MN_INN_MAIN].nField[2].nWillDo = MN_INN_REST;
 	SMenu[MN_INN_MAIN].nField[2].x = 51;
 	SMenu[MN_INN_MAIN].nField[2].y = 110;
@@ -5181,7 +5143,7 @@ void SmallMenuSet()
 	// Sleep open
 	SMenu[MN_INN_MAIN].nField[3].nType = FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_INN_MAIN].nField[3].nSpecialWillDo = SWD_WILLDO;
-//	SMenu[MN_INN_MAIN].nField[3].nSpecialWillDo = SWD_SORRY;
+	//SMenu[MN_INN_MAIN].nField[3].nSpecialWillDo = SWD_SORRY;
 	SMenu[MN_INN_MAIN].nField[3].nWillDo = MN_INN_SLEEP;
 	SMenu[MN_INN_MAIN].nField[3].x = 51;
 	SMenu[MN_INN_MAIN].nField[3].y = 139;
@@ -5237,7 +5199,7 @@ void SmallMenuSet()
 	
 	SMenu[MN_INN_REST].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_INN_REST].nField[2].nSpecialWillDo=SWD_SUBMENU_BACK;
-//	SMenu[MN_INN_REST].nField[2].nWillDo=MN_INN_MAIN;
+	//SMenu[MN_INN_REST].nField[2].nWillDo=MN_INN_MAIN;
 	SMenu[MN_INN_REST].nField[2].x=121;
 	SMenu[MN_INN_REST].nField[2].y=249;
 	SMenu[MN_INN_REST].nField[2].nRectImage=935;
@@ -5245,13 +5207,13 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_INN_REST].nField[2].rCheakBox,121,249,187,270);
 
 	// single
-//	SMenu[MN_INN_REST].nField[3].nType = FT_INN;
-//	SMenu[MN_INN_REST].nField[3].nWillDo=INN_SINGLE;
-//	SMenu[MN_INN_REST].nField[3].x = 51;
-//	SMenu[MN_INN_REST].nField[3].y = 91;
-//	SMenu[MN_INN_REST].nField[3].nRectImage = 758;
-//	SMenu[MN_INN_REST].nField[3].nImageNumber = 758;
-//	SetRect(SMenu[MN_INN_REST].nField[3].rCheakBox,51,91,155,117);
+	//SMenu[MN_INN_REST].nField[3].nType = FT_INN;
+	//SMenu[MN_INN_REST].nField[3].nWillDo=INN_SINGLE;
+	//SMenu[MN_INN_REST].nField[3].x = 51;
+	//SMenu[MN_INN_REST].nField[3].y = 91;
+	//SMenu[MN_INN_REST].nField[3].nRectImage = 758;
+	//SMenu[MN_INN_REST].nField[3].nImageNumber = 758;
+	//SetRect(SMenu[MN_INN_REST].nField[3].rCheakBox,51,91,155,117);
 
 	// double
 	SMenu[MN_INN_REST].nField[4].nType = FT_INN;
@@ -5263,13 +5225,13 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_INN_REST].nField[4].rCheakBox,51,125,155,151);
 
 	// multi
-//	SMenu[MN_INN_REST].nField[5].nType = FT_INN;
-//	SMenu[MN_INN_REST].nField[5].nWillDo=INN_MULTI;
-//	SMenu[MN_INN_REST].nField[5].x = 51;
-//	SMenu[MN_INN_REST].nField[5].y = 159;
-//	SMenu[MN_INN_REST].nField[5].nRectImage = 758;
-//	SMenu[MN_INN_REST].nField[5].nImageNumber = 758;
-//	SetRect(SMenu[MN_INN_REST].nField[5].rCheakBox,51,159,155,185);
+	//SMenu[MN_INN_REST].nField[5].nType = FT_INN;
+	//SMenu[MN_INN_REST].nField[5].nWillDo=INN_MULTI;
+	//SMenu[MN_INN_REST].nField[5].x = 51;
+	//SMenu[MN_INN_REST].nField[5].y = 159;
+	//SMenu[MN_INN_REST].nField[5].nRectImage = 758;
+	//SMenu[MN_INN_REST].nField[5].nImageNumber = 758;
+	//SetRect(SMenu[MN_INN_REST].nField[5].rCheakBox,51,159,155,185);
 
 	// 선택한 사각형 계속 보여주기
 	SMenu[MN_INN_REST].nField[6].nType = FT_DATA_PUT;
@@ -5307,7 +5269,7 @@ void SmallMenuSet()
 
 	SMenu[MN_INN_SLEEP].nField[2].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
 	SMenu[MN_INN_SLEEP].nField[2].nSpecialWillDo=SWD_SUBMENU_BACK;
-//	SMenu[MN_INN_SLEEP].nField[2].nWillDo=MN_INN_MAIN;
+	//SMenu[MN_INN_SLEEP].nField[2].nWillDo=MN_INN_MAIN;
 	SMenu[MN_INN_SLEEP].nField[2].x=121;
 	SMenu[MN_INN_SLEEP].nField[2].y=249;
 	SMenu[MN_INN_SLEEP].nField[2].nRectImage=935;
@@ -5315,13 +5277,13 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_INN_SLEEP].nField[2].rCheakBox,121,249,187,270);
 
 	// single
-//	SMenu[MN_INN_SLEEP].nField[3].nType = FT_INN;
-//	SMenu[MN_INN_SLEEP].nField[3].nWillDo=INN_SINGLE;
-//	SMenu[MN_INN_SLEEP].nField[3].x = 51;
-//	SMenu[MN_INN_SLEEP].nField[3].y = 91;
-//	SMenu[MN_INN_SLEEP].nField[3].nRectImage = 758;
-//	SMenu[MN_INN_SLEEP].nField[3].nImageNumber = 758;
-//	SetRect(SMenu[MN_INN_SLEEP].nField[3].rCheakBox,51,91,155,117);
+	//SMenu[MN_INN_SLEEP].nField[3].nType = FT_INN;
+	//SMenu[MN_INN_SLEEP].nField[3].nWillDo=INN_SINGLE;
+	//SMenu[MN_INN_SLEEP].nField[3].x = 51;
+	//SMenu[MN_INN_SLEEP].nField[3].y = 91;
+	//SMenu[MN_INN_SLEEP].nField[3].nRectImage = 758;
+	//SMenu[MN_INN_SLEEP].nField[3].nImageNumber = 758;
+	//SetRect(SMenu[MN_INN_SLEEP].nField[3].rCheakBox,51,91,155,117);
 
 	// double
 	SMenu[MN_INN_SLEEP].nField[4].nType = FT_INN;
@@ -5333,13 +5295,13 @@ void SmallMenuSet()
 	SetRect(SMenu[MN_INN_SLEEP].nField[4].rCheakBox,51,125,155,151);
 
 	// multi
-//	SMenu[MN_INN_SLEEP].nField[5].nType = FT_INN;
-//	SMenu[MN_INN_SLEEP].nField[5].nWillDo=INN_MULTI;
-//	SMenu[MN_INN_SLEEP].nField[5].x = 51;
-//	SMenu[MN_INN_SLEEP].nField[5].y = 159;
-//	SMenu[MN_INN_SLEEP].nField[5].nRectImage = 758;
-//	SMenu[MN_INN_SLEEP].nField[5].nImageNumber = 758;
-//	SetRect(SMenu[MN_INN_SLEEP].nField[5].rCheakBox,51,159,155,185);
+	//SMenu[MN_INN_SLEEP].nField[5].nType = FT_INN;
+	//SMenu[MN_INN_SLEEP].nField[5].nWillDo=INN_MULTI;
+	//SMenu[MN_INN_SLEEP].nField[5].x = 51;
+	//SMenu[MN_INN_SLEEP].nField[5].y = 159;
+	//SMenu[MN_INN_SLEEP].nField[5].nRectImage = 758;
+	//SMenu[MN_INN_SLEEP].nField[5].nImageNumber = 758;
+	//SetRect(SMenu[MN_INN_SLEEP].nField[5].rCheakBox,51,159,155,185);
 
 	// 제목 판 찍기
 	SMenu[MN_INN_SLEEP].nField[6].nType=FT_NOMAL_PUT;
@@ -5424,7 +5386,7 @@ void SmallMenuSet()
 	SMenu[MN_DIVIDE_ITEM].nField[4].nWillDo=116;
 	SMenu[MN_DIVIDE_ITEM].nField[4].x=62;
 	SMenu[MN_DIVIDE_ITEM].nField[4].y=29;
-//	SetRect(SMenu[MN_DIVIDE_ITEM].nField[4].rCheakBox,12,15,187,120);
+	//SetRect(SMenu[MN_DIVIDE_ITEM].nField[4].rCheakBox,12,15,187,120);
 
 	// 메뉴 옮김 
 	SMenu[MN_DIVIDE_ITEM].nField[5].nType=FT_MENU_MOVE;
@@ -5609,7 +5571,7 @@ void SmallMenuSet()
 
 	// 왼쪽 책장 넘기기
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[13].nType = FT_DSCROLL_BOOK;
-//	SMenu[MN_LEARN_MAGIC_BOOK].nField[13].nWillDo=20;
+	//SMenu[MN_LEARN_MAGIC_BOOK].nField[13].nWillDo=20;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[13].x=18;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[13].y=297;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[13].nRectImage=16;
@@ -5619,7 +5581,7 @@ void SmallMenuSet()
 
 	// 오른쪽 책장 넘기기
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[14].nType = FT_ISCROLL_BOOK;
-//	SMenu[MN_LEARN_MAGIC_BOOK].nField[14].nWillDo=20;
+	//SMenu[MN_LEARN_MAGIC_BOOK].nField[14].nWillDo=20;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[14].x=466;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[14].y=297;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[14].nRectImage=18;
@@ -5653,7 +5615,7 @@ void SmallMenuSet()
 
 	// learn magic
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[18].nType = FT_LEARN_MAGIC;
-//	SMenu[MN_LEARN_MAGIC_BOOK].nField[18].nSpecialWillDo = SWD_LEARN_MAGIC;
+	//SMenu[MN_LEARN_MAGIC_BOOK].nField[18].nSpecialWillDo = SWD_LEARN_MAGIC;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[18].nWillDo = 0;		// left
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[18].x=107;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[18].y=250;
@@ -5662,7 +5624,7 @@ void SmallMenuSet()
 	
 	// learn magic
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[19].nType = FT_LEARN_MAGIC;
-//	SMenu[MN_LEARN_MAGIC_BOOK].nField[19].nSpecialWillDo = SWD_LEARN_MAGIC;
+	//SMenu[MN_LEARN_MAGIC_BOOK].nField[19].nSpecialWillDo = SWD_LEARN_MAGIC;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[19].nWillDo = 1;		// right
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[19].x=358;
 	SMenu[MN_LEARN_MAGIC_BOOK].nField[19].y=250;
@@ -5700,7 +5662,7 @@ void SmallMenuSet()
 	SMenu[MN_MEM_BOOK].nField[2].x=-30+35;
 	SMenu[MN_MEM_BOOK].nField[2].y=3+26;
 	SMenu[MN_MEM_BOOK].nField[2].nImageNumber = 1017;
-//	SetRect(SMenu[MN_MEM_BOOK].nField[2].rCheakBox,44+35,52+26,85+35,92+26);
+	//SetRect(SMenu[MN_MEM_BOOK].nField[2].rCheakBox,44+35,52+26,85+35,92+26);
 	
 	// 1번째 마법
 	SMenu[MN_MEM_BOOK].nField[3].nType = FT_MEM_MAGIC_ICON;
@@ -5894,8 +5856,6 @@ void SmallMenuSet()
 	SMenu[MN_HUNTER_MAIN].nField[3].nImageType=HUNTER_MENU;
 	SetRect(SMenu[MN_HUNTER_MAIN].nField[3].rCheakBox,72,195,144,222);
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // 현상범 등록 메뉴
 	SMenu[MN_HUNTER_REGIST].x=450;
@@ -6011,9 +5971,6 @@ void SmallMenuSet()
 	SMenu[MN_HUNTER_LIST].nField[4].x=85;
 	SMenu[MN_HUNTER_LIST].nField[4].y=183;
 
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 // 나라 헌장문 출력 게시판 메뉴
 	SMenu[MN_NATION_BBS].x=177;
@@ -6248,8 +6205,8 @@ void SmallMenuSet()
 	// scroll butoon	// up
 	SMenu[MN_SALVATION].nField[6].nType=FT_DO;
 	SMenu[MN_SALVATION].nField[6].nWillDo = DO_BANK_SCROLL_UP;
-//	SMenu[MN_SALVATION].nField[6].nType=FT_SALVATION_MONEY_SCROLL;
-//	SMenu[MN_SALVATION].nField[6].nWillDo=SCROLL_UP;
+	//SMenu[MN_SALVATION].nField[6].nType=FT_SALVATION_MONEY_SCROLL;
+	//SMenu[MN_SALVATION].nField[6].nWillDo=SCROLL_UP;
 	SMenu[MN_SALVATION].nField[6].x=102;
 	SMenu[MN_SALVATION].nField[6].y=214;
 	SMenu[MN_SALVATION].nField[6].nRectImage=8;
@@ -6259,8 +6216,8 @@ void SmallMenuSet()
 						// down
 	SMenu[MN_SALVATION].nField[7].nType=FT_DO;
 	SMenu[MN_SALVATION].nField[7].nWillDo = DO_BANK_SCROLL_DOWN;
-//	SMenu[MN_SALVATION].nField[7].nType=FT_SALVATION_MONEY_SCROLL;
-//	SMenu[MN_SALVATION].nField[7].nWillDo=SCROLL_DOWN;
+	//SMenu[MN_SALVATION].nField[7].nType=FT_SALVATION_MONEY_SCROLL;
+	//SMenu[MN_SALVATION].nField[7].nWillDo=SCROLL_DOWN;
 	SMenu[MN_SALVATION].nField[7].x=102;
 	SMenu[MN_SALVATION].nField[7].y=228;
 	SMenu[MN_SALVATION].nField[7].nRectImage=10;
@@ -6400,43 +6357,41 @@ void SmallMenuSet()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-// 
-	/*
-	SMenu[MN_TEAM_BATTLE_INFO].x=193+GABX_SCREEN;
-	SMenu[MN_TEAM_BATTLE_INFO].y=75;//+GABY_SCREEN;
-	SMenu[MN_TEAM_BATTLE_INFO].nImageNumber=0;
-	SMenu[MN_TEAM_BATTLE_INFO].nImageType=TEAM_BATTLE;
-	SMenu[MN_TEAM_BATTLE_INFO].nFieldCount=5;
+	//
+	//SMenu[MN_TEAM_BATTLE_INFO].x=193+GABX_SCREEN;
+	//SMenu[MN_TEAM_BATTLE_INFO].y=75;//+GABY_SCREEN;
+	//SMenu[MN_TEAM_BATTLE_INFO].nImageNumber=0;
+	//SMenu[MN_TEAM_BATTLE_INFO].nImageType=TEAM_BATTLE;
+	//SMenu[MN_TEAM_BATTLE_INFO].nFieldCount=5;
 
-	// 팀별 캐릭터 이름 출력
-	SMenu[MN_TEAM_BATTLE_INFO].nField[0].nType=FT_TEMBATLE_INFO;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[0].nWillDo=0;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[0].x=35;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[0].y=185;
+	//// 팀별 캐릭터 이름 출력
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[0].nType=FT_TEMBATLE_INFO;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[0].nWillDo=0;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[0].x=35;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[0].y=185;
 
-	SMenu[MN_TEAM_BATTLE_INFO].nField[1].nType=FT_TEMBATLE_INFO;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[1].nWillDo=1;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[1].x=162;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[1].y=185;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[1].nType=FT_TEMBATLE_INFO;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[1].nWillDo=1;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[1].x=162;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[1].y=185;
 
-	SMenu[MN_TEAM_BATTLE_INFO].nField[2].nType=FT_TEMBATLE_INFO;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[2].nWillDo=2;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[2].x=284;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[2].y=185;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[2].nType=FT_TEMBATLE_INFO;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[2].nWillDo=2;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[2].x=284;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[2].y=185;
 
-	SMenu[MN_TEAM_BATTLE_INFO].nField[3].nType=FT_TEMBATLE_INFO;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[3].nWillDo=3;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[3].x=417;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[3].y=185;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[3].nType=FT_TEMBATLE_INFO;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[3].nWillDo=3;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[3].x=417;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[3].y=185;
 
-	// 팀에 등록하기
-	SMenu[MN_TEAM_BATTLE_INFO].nField[4].nType=FT_TEMBATLE_ADD;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[4].nWillDo=0;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[4].x=17;
-	SMenu[MN_TEAM_BATTLE_INFO].nField[4].y=185;
-	SetRect(SMenu[MN_TEAM_BATTLE_INFO].nField[4].rCheakBox,35,31,127,47);
+	//// 팀에 등록하기
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[4].nType=FT_TEMBATLE_ADD;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[4].nWillDo=0;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[4].x=17;
+	//SMenu[MN_TEAM_BATTLE_INFO].nField[4].y=185;
+	//SetRect(SMenu[MN_TEAM_BATTLE_INFO].nField[4].rCheakBox,35,31,127,47);
 
-*/
 ///////////////////////////////////////////////////////////////////////////////////////////
 // 화폐교환
 	SMenu[MN_CHANGE_MONEY].x=200+GABX_SCREEN;
@@ -6509,8 +6464,8 @@ void SmallMenuSet()
 	// scroll butoon	// up
 	SMenu[MN_CHANGE_MONEY].nField[6].nType=FT_DO;
 	SMenu[MN_CHANGE_MONEY].nField[6].nWillDo = DO_BANK_SCROLL_UP;
-//	SMenu[MN_CHANGE_MONEY].nField[6].nType=FT_SALVATION_MONEY_SCROLL;
-//	SMenu[MN_CHANGE_MONEY].nField[6].nWillDo=SCROLL_UP;
+	//SMenu[MN_CHANGE_MONEY].nField[6].nType=FT_SALVATION_MONEY_SCROLL;
+	//SMenu[MN_CHANGE_MONEY].nField[6].nWillDo=SCROLL_UP;
 	SMenu[MN_CHANGE_MONEY].nField[6].x=102-6;
 	SMenu[MN_CHANGE_MONEY].nField[6].y=214-5;
 	SMenu[MN_CHANGE_MONEY].nField[6].nRectImage=8;
@@ -6520,8 +6475,8 @@ void SmallMenuSet()
 						// down
 	SMenu[MN_CHANGE_MONEY].nField[7].nType=FT_DO;
 	SMenu[MN_CHANGE_MONEY].nField[7].nWillDo = DO_BANK_SCROLL_DOWN;
-//	SMenu[MN_CHANGE_MONEY].nField[7].nType=FT_SALVATION_MONEY_SCROLL;
-//	SMenu[MN_CHANGE_MONEY].nField[7].nWillDo=SCROLL_DOWN;
+	//SMenu[MN_CHANGE_MONEY].nField[7].nType=FT_SALVATION_MONEY_SCROLL;
+	//SMenu[MN_CHANGE_MONEY].nField[7].nWillDo=SCROLL_DOWN;
 	SMenu[MN_CHANGE_MONEY].nField[7].x=102-6;
 	SMenu[MN_CHANGE_MONEY].nField[7].y=228-5;
 	SMenu[MN_CHANGE_MONEY].nField[7].nRectImage=10;
@@ -6806,7 +6761,7 @@ void SmallMenuSet()
 	SMenu[MN_SCALE].nField[1].nWillDo = RGB16( 255, 255, 255);
 	SMenu[MN_SCALE].nField[1].nSpecialWillDo = 1;		// CheakType 을 1로 바꿔 다시는 초기화 루틴으로 안들어 오게 한다.
 	SMenu[MN_SCALE].nField[1].nRectImage=210;
-//	SMenu[MN_SCALE].nField[1].m_lpTemp = g_szScale; // LoadDefaultStringByMenu() 에서 처리
+	//SMenu[MN_SCALE].nField[1].m_lpTemp = g_szScale; // LoadDefaultStringByMenu() 에서 처리
 
 	// 텍스트 스크롤
 	SMenu[MN_SCALE].nField[2].nType=FT_SCROLL_BUTTON;
@@ -7015,9 +6970,6 @@ void SmallMenuSet()
 	SMenu[MN_GUILD_EXPLAIN].nField[10].nImageNumber=47;
 	SMenu[MN_GUILD_EXPLAIN].nField[10].nImageType=GUILD_MENU_IMG;
 	SetRect(SMenu[MN_GUILD_EXPLAIN].nField[10].rCheakBox,167,182,303,201);
-
-
-
 	
 ///////////////////////////////////////////////////////////////////////////////////////////	
 ///////////////////////////////////////////////////////////////////////////////////////////	
@@ -7077,8 +7029,6 @@ void SmallMenuSet()
 	SMenu[MN_GUILD_REGIST_IMSI].nField[5].y=137;
 	SMenu[MN_GUILD_REGIST_IMSI].nField[5].nRectImage=268;
 	SetRect(SMenu[MN_GUILD_REGIST_IMSI].nField[5].rCheakBox,30,137,300,300);
-
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -8163,10 +8113,7 @@ void SmallMenuSet()
 	SMenu[MN_OKCANCEL_FILE_TEXT].nField[2].nImageNumber=DP_RECT_STRING_PUT;
 	SMenu[MN_OKCANCEL_FILE_TEXT].nField[2].nRectImage=153;
 
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	
 	// Ability Redistribution Menu
 	SMenu[MN_ABILITY_REDISTRIBUTION].x=225;				// LTS LOCALWAR BUG
 	SMenu[MN_ABILITY_REDISTRIBUTION].y=50;
@@ -8795,8 +8742,8 @@ void SmallMenuSet()
 
 	//> BBD 040311
 
-//	SMenuFTReg(iMnIndex,iFtNum++,FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_WAR_MOVE,			// 리프레쉬 버튼
-//			432, 270, 82, 23, iImg, 6, 5);			// 이동버튼
+	//SMenuFTReg(iMnIndex,iFtNum++,FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_WAR_MOVE,			// 리프레쉬 버튼
+	//		432, 270, 82, 23, iImg, 6, 5);			// 이동버튼
 
 	}
 
@@ -8806,8 +8753,8 @@ void SmallMenuSet()
 // MN_SCENARIO_TRAP_INFO
 	SMenuReg(MN_SCENARIO_TRAP_INFO, CENTER_X, 40,SCENARIO_IMG,1,6);//021007 lsw
 	//OK		01// 6개 짜리 Done
-//	SMenuFTReg(MN_SCENARIO_TRAP_INFO, 1, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, 
-//						SWD_SMALLMENU_END, 212, 259, 283-212, 283-259,10022, 5, 6);
+	//SMenuFTReg(MN_SCENARIO_TRAP_INFO, 1, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, 
+	//					SWD_SMALLMENU_END, 212, 259, 283-212, 283-259,10022, 5, 6);
 	//CANCEL	02
 	SMenuFTReg(MN_SCENARIO_TRAP_INFO, 2, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, 
 						SWD_SMALLMENU_END, 163, 256, 228-163, 275-256,SCENARIO_IMG, 2, 3);//021007 lsw
@@ -8819,8 +8766,8 @@ void SmallMenuSet()
 // MN_SCENARIO_TRAP_KEY
 	SMenuReg(MN_SCENARIO_TRAP_KEY, CENTER_X, 40,SCENARIO_IMG,0,6);//021007 lsw
 	//OK		01// 6개 짜리 Done
-//	SMenuFTReg(MN_SCENARIO_TRAP_KEY, 1, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, 
-//						SWD_SMALLMENU_END, 212, 259, 283-212, 283-259,10022, 5, 6);
+	//SMenuFTReg(MN_SCENARIO_TRAP_KEY, 1, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, 
+	//					SWD_SMALLMENU_END, 212, 259, 283-212, 283-259,10022, 5, 6);
 	//CANCEL	02
 	SMenuFTReg(MN_SCENARIO_TRAP_KEY, 2, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, 
 						SWD_SMALLMENU_END, 163, 253, 228-163, 275-253,SCENARIO_IMG, 2, 3);
@@ -8828,26 +8775,13 @@ void SmallMenuSet()
 	SMenuFTReg(MN_SCENARIO_TRAP_KEY, 3, FT_SCENARIO_TRAP_KEY, 
 						0, 299, 259, 0, 0,SCENARIO_IMG, 0, 0);
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-
 
 	lsw_menu_set();// 010907 LTS
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	kh_menu_set();		// 경하 작업
-
-
-
-
-
-
-
 }
-
-
 
 
 void CommonMenuSet()
@@ -8919,26 +8853,25 @@ void CommonMenuSet()
 	SMenu[MN_YESNO].nField[1].fLButtonDown=FALSE;
 	SMenu[MN_YESNO].nField[1].nImageNumber=244;
 	SetRect(SMenu[MN_YESNO].nField[1].rCheakBox,35,43,75,65);
-////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //			메시지 박스
 
 	SMenu[MN_MESSAGEBOX_BIG].nImageNumber=485;
 	SMenu[MN_MESSAGEBOX_BIG].nFieldCount=1;
 
-//	SMenu[MN_MESSAGEBOX_BIG].nField[0].nType=FT_DO;
-//	SMenu[MN_MESSAGEBOX_BIG].nField[0].nWillDo=DO_TEXT_PUT;
-//	SMenu[MN_MESSAGEBOX_BIG].nField[0].temp
+	//SMenu[MN_MESSAGEBOX_BIG].nField[0].nType=FT_DO;
+	//SMenu[MN_MESSAGEBOX_BIG].nField[0].nWillDo=DO_TEXT_PUT;
+	//SMenu[MN_MESSAGEBOX_BIG].nField[0].temp
 	
 	
 	SMenu[MN_MESSAGEBOX_SMALL].nImageNumber=484;
 	SMenu[MN_MESSAGEBOX_SMALL].nFieldCount=1;
 
-//	SMenu[MN_MESSAGEBOX_SMALL].nField[0].nType=FT_DO;
-//	SMenu[MN_MESSAGEBOX_SMALL].nField[0].nWillDo=DO_TEXT_PUT;
+	//SMenu[MN_MESSAGEBOX_SMALL].nField[0].nType=FT_DO;
+	//SMenu[MN_MESSAGEBOX_SMALL].nField[0].nWillDo=DO_TEXT_PUT;
 
-
-/////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////
 // OK, CACEL 달린 메시지 박스
 	
 	SMenu[MN_OKCANCEL_MESSAGEBOX].x=GABX_SCREEN;
@@ -8946,10 +8879,10 @@ void CommonMenuSet()
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nImageNumber=0;
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nFieldCount=5;
 
-//	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].nType=FT_NOMAL_PUT_FX;
-//	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].x=111;
-//	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].y=0;
-//	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].nImageNumber=15;
+	//SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].nType=FT_NOMAL_PUT_FX;
+	//SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].x=111;
+	//SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].y=0;
+	//SMenu[MN_OKCANCEL_MESSAGEBOX].nField[0].nImageNumber=15;
 	
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[1].nType=FT_NOMAL_PUT;
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[1].x=193;
@@ -8980,7 +8913,7 @@ void CommonMenuSet()
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[4].y=104;
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[4].nImageNumber=DP_RECT_STRING_PUT;
 	SMenu[MN_OKCANCEL_MESSAGEBOX].nField[4].nRectImage=153;
-//	wsprintf(SMenu[MN_OKCANCEL_MESSAGEBOX].nField[4].temp,"정말로 Logout 하시겠습니까?");
+	//wsprintf(SMenu[MN_OKCANCEL_MESSAGEBOX].nField[4].temp,"정말로 Logout 하시겠습니까?");
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -8991,10 +8924,10 @@ void CommonMenuSet()
 	SMenu[MN_OK_MESSAGEBOX].nImageNumber=0;
 	SMenu[MN_OK_MESSAGEBOX].nFieldCount=5;
 
-//	SMenu[MN_OK_MESSAGEBOX].nField[0].nType=FT_NOMAL_PUT_FX;
-//	SMenu[MN_OK_MESSAGEBOX].nField[0].x=111;
-//	SMenu[MN_OK_MESSAGEBOX].nField[0].y=0;
-//	SMenu[MN_OK_MESSAGEBOX].nField[0].nImageNumber=15;
+	//SMenu[MN_OK_MESSAGEBOX].nField[0].nType=FT_NOMAL_PUT_FX;
+	//SMenu[MN_OK_MESSAGEBOX].nField[0].x=111;
+	//SMenu[MN_OK_MESSAGEBOX].nField[0].y=0;
+	//SMenu[MN_OK_MESSAGEBOX].nField[0].nImageNumber=15;
 	
 	SMenu[MN_OK_MESSAGEBOX].nField[1].nType=FT_NOMAL_PUT;
 	SMenu[MN_OK_MESSAGEBOX].nField[1].x=193;
@@ -9101,6 +9034,3 @@ void CommonMenuSet()
 	SMenu[MN_DEFAULT_MESSAGEBOX2].nField[1].nType=FT_RETURN_FUCTION;
 
 }
-
-
-

@@ -53,7 +53,7 @@ void SendRoofOpenHouse( int roofno )
 {
 	t_packet p;
 
-//	return;/////////////  2000.1.22
+	//return;/////////////  2000.1.22
 	
 	p.h.header.type		= CMD_ROOF_OPEN;
 	p.u.roof_open.roofno= roofno;
@@ -65,7 +65,7 @@ void SendRoofCloseHouse( int roofno )
 {
 	t_packet p;
 
-//	return;/////////////  2000.1.22
+	//return;/////////////  2000.1.22
 	
 	p.h.header.type		  = CMD_ROOF_CLOSE;
 	p.u.roof_close.roofno = roofno;
@@ -74,10 +74,10 @@ void SendRoofCloseHouse( int roofno )
 	QueuePacket( &p, 1 );
 }
 
-/*
-case CMD_ROOF_OPEN :  RecvRoofOpen( p.u.server_roof_open.roofno );
-	break;
-*/
+//
+//case CMD_ROOF_OPEN :  RecvRoofOpen( p.u.server_roof_open.roofno );
+//	break;
+//
 
 // 010505 KHS
 void RecvRoofOpen( int roofno )

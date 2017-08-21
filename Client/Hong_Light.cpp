@@ -15,7 +15,6 @@
 #include <Math.h>
 #include <stdio.h>
 
-
 #include "Dragon.h"
 #include "GameProc.h"
 #include "Char.h"
@@ -479,17 +478,17 @@ void	PutCharacterLight(LPCHARACTER	lpCharacter, int diff_Time)
 						{
 							tt = BrightSprBuf[18-diff_Time][0];	
 							/******************************************** 나의 파티원들만 서로 볼수 있다. 
-							for(int i=0; i<6; i++)
-							{
-								if( SCharacterData.party[i].m_Sight == 1 )
-								{
-									if( lpCharacter == SCharacterData.party[i].ch )
-									{
-										tt = BrightSprBuf[12-diff_Time][0];	// 나도 Ghsot가 아니고 상대도 Ghost가 아니면 볼수 있다. 
-										break;
-									}
-								}
-							}
+							//for(int i=0; i<6; i++)
+							//{
+							//	if( SCharacterData.party[i].m_Sight == 1 )
+							//	{
+							//		if( lpCharacter == SCharacterData.party[i].ch )
+							//		{
+							//			tt = BrightSprBuf[12-diff_Time][0];	// 나도 Ghsot가 아니고 상대도 Ghost가 아니면 볼수 있다. 
+							//			break;
+							//		}
+							//	}
+							//}
 							***********************************************************/
 						}
 					}
@@ -558,17 +557,16 @@ int MapBright( void )
 	}
 
 	//////////////////// 0322 lkh 추가 /////////////////////
-/*	if(Hero->lightness && DayLightControl < 29 && !Hero->lostSight)		//낮이 아니고 시야상실 상태가 아니며, Hero가 빛 마법을 사용한 경우
-	{
-		if(Hero->lightnessTime <= g_curr_time)
-		{
-			Hero->light			= 0;
-			Hero->lightness		= 0;
-			Hero->lightnessTime	= 0;
-		}
-		temp_DayLight = rand()%3+28;
-	}
-*/
+	//if(Hero->lightness && DayLightControl < 29 && !Hero->lostSight)		//낮이 아니고 시야상실 상태가 아니며, Hero가 빛 마법을 사용한 경우
+	//{
+	//	if(Hero->lightnessTime <= g_curr_time)
+	//	{
+	//		Hero->light			= 0;
+	//		Hero->lightness		= 0;
+	//		Hero->lightnessTime	= 0;
+	//	}
+	//	temp_DayLight = rand()%3+28;
+	//}
 	///////////////////////////////////////////////////////
 
 	//////////////////// 0201 이 규훈 //////////////////////
@@ -637,10 +635,10 @@ int MapBright( void )
 				else
 					g_OutLight[i].frame++;
 
-//				if(g_OutLight[i].light<=0)	
-//				{
-//					memset(&g_OutLight[i],0,sizeof(LIGHT));
-//				}
+				//if(g_OutLight[i].light<=0)	
+				//{
+				//	memset(&g_OutLight[i],0,sizeof(LIGHT));
+				//}
 				LightCount++;
 			}
 			else
@@ -667,12 +665,12 @@ int MapBright( void )
 				break;
 			case 2:		//Red Light 	Effspr[sprite_Num].EffSpr[i].img
 				////////////////// 0206 lkh 수정 ////////////////////
-//				PutCompressedImageFX( l->x - Mapx, l->y - Mapy, &Effspr[78].EffSpr[l->light], 2, 2 );   // 나중에 컴사양이 올라가면 remark를푼다. 
+				//PutCompressedImageFX( l->x - Mapx, l->y - Mapy, &Effspr[78].EffSpr[l->light], 2, 2 );   // 나중에 컴사양이 올라가면 remark를푼다. 
 				PutBright( l->x - Mapx, l->y - Mapy, BrightSprBuf[l->light][0] );
 				break;
 			case 3:		//Blue Light
 				////////////////// 0206 lkh 수정 ////////////////////
-//				PutCompressedImageFX( l->x - Mapx, l->y - Mapy, &Effspr[79].EffSpr[l->light], 2, 2);	// 나중에 컴사양이 올라가면 remark를푼다. 
+				//PutCompressedImageFX( l->x - Mapx, l->y - Mapy, &Effspr[79].EffSpr[l->light], 2, 2);	// 나중에 컴사양이 올라가면 remark를푼다. 
 				PutBright( l->x - Mapx, l->y - Mapy, BrightSprBuf[l->light][0] );
 				break;
 			}

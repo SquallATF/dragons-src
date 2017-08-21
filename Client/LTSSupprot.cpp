@@ -855,21 +855,21 @@ void RecvCMD_LOCALWAR_STARTUP_STATUS(t_packet* p)
 
 
 // Event LocalWar ___________________________________________________________________
-/*
-void EventLocalWarControl(char* Arg)	// 020115 LTS
-{
-#ifdef _DEBUG
-
-	t_packet packet;
-	char temp=Arg[0]-48;		// 0 :사용안함, 1 : 잠여 및 이동, 2 : 시작, 3 : 종료
-
-	packet.h.header.type=CMD_EVENT_LOCALWAR_CONTROL;
-	packet.u.LocalWar.CommonDataC.Data=temp;
-	packet.h.header.size=sizeof(t_CommonDataC);
-	QueuePacket(&packet,1);
-	
-#endif
-}*/
+//
+//void EventLocalWarControl(char* Arg)	// 020115 LTS
+//{
+//#ifdef _DEBUG
+//
+//	t_packet packet;
+//	char temp=Arg[0]-48;		// 0 :사용안함, 1 : 잠여 및 이동, 2 : 시작, 3 : 종료
+//
+//	packet.h.header.type=CMD_EVENT_LOCALWAR_CONTROL;
+//	packet.u.LocalWar.CommonDataC.Data=temp;
+//	packet.h.header.size=sizeof(t_CommonDataC);
+//	QueuePacket(&packet,1);
+//	
+//#endif
+//}
 
 void SendCMD_EVENT_LOCALWAR_JOIN()
 {
@@ -913,40 +913,40 @@ void SetEventLocalWarArmor()
 	}
 }
 
-/*void ProcessEventLocalWarStart()
-{
-	AddCurrentStatusMessage( 255,255,0,"이벤트 국지전이 시작되었습니다.");
-	SetEventLocalWarArmor();
-}
-
-void RecvCMD_EVENT_LOCALWAR_STATUS_CHANGE(t_packet* p)
-{
-	g_EventLocalWarBegin=p->u.LocalWar.CommonDataC.Data;
-	//메시지 처리
-	switch (g_EventLocalWarBegin)
-	{
-	case 0 :	break;
-	case 1 :	break;
-	case 2 :	break;
-	case 3 : 	
-				AddCurrentStatusMessage( 255,255,0,"이벤트 국지전이 시작되었습니다.");
-				//SetEventLocalWarArmor(); 
-				break;
-	case 4 :	
-				AddCurrentStatusMessage( 255,255,0,"이벤트 국지전이 종료되었습니다.");
-				break;
-	}
-}
-
-void RecvCMD_EVENT_LOCALWAR_REMAIN_TIME(t_packet* p)
-{
-	char temp[MAX_PATH];
-	WORD Hour,Min,Sec;
-	GetTime(p->u.LocalWar.CommonDataDw.Data,Hour,Min,Sec);			// 020115 LTS
-
-	sprintf(temp,"이벤트 국지전이 %02d:%02d:%02d 남았습니다.",Hour,Min,Sec);
-	AddCurrentStatusMessage( 255,255,0,temp);
-}*/
+//void ProcessEventLocalWarStart()
+//{
+//	AddCurrentStatusMessage( 255,255,0,"이벤트 국지전이 시작되었습니다.");
+//	SetEventLocalWarArmor();
+//}
+//
+//void RecvCMD_EVENT_LOCALWAR_STATUS_CHANGE(t_packet* p)
+//{
+//	g_EventLocalWarBegin=p->u.LocalWar.CommonDataC.Data;
+//	//메시지 처리
+//	switch (g_EventLocalWarBegin)
+//	{
+//	case 0 :	break;
+//	case 1 :	break;
+//	case 2 :	break;
+//	case 3 : 	
+//				AddCurrentStatusMessage( 255,255,0,"이벤트 국지전이 시작되었습니다.");
+//				//SetEventLocalWarArmor(); 
+//				break;
+//	case 4 :	
+//				AddCurrentStatusMessage( 255,255,0,"이벤트 국지전이 종료되었습니다.");
+//				break;
+//	}
+//}
+//
+//void RecvCMD_EVENT_LOCALWAR_REMAIN_TIME(t_packet* p)
+//{
+//	char temp[MAX_PATH];
+//	WORD Hour,Min,Sec;
+//	GetTime(p->u.LocalWar.CommonDataDw.Data,Hour,Min,Sec);			// 020115 LTS
+//
+//	sprintf(temp,"이벤트 국지전이 %02d:%02d:%02d 남았습니다.",Hour,Min,Sec);
+//	AddCurrentStatusMessage( 255,255,0,temp);
+//}
 
 void RecvCMD_EVENT_LOCALWAR_JOIN_RESULT(t_packet* p)
 {
@@ -1102,10 +1102,10 @@ void RecvCMD_LOCALWAR_FAME_EXP(t_packet* p)			/// LTS NEW LOCALWAR
 	short int	tempFame=p->u.LocalWar.FameExpChange.GainedFame;
 	DWORD		tempExp=p->u.LocalWar.FameExpChange.GainedExp;
 	PlayListAutoSounds(62,0,0,FALSE);
-	/*AddCurrentStatusMessage( 255,255,0,"============< 전쟁 보상 >==============");
-	AddCurrentStatusMessage( 255,255,0,"전쟁에서 많은 공을 세워 국가에서 아래와 같은 보상을 하게營윱求?");
-	AddCurrentStatusMessage( 255,255,0,"   [ 명    성] : %d",tempFame);
-	AddCurrentStatusMessage( 255,255,0,"   [ 경 험 치] : %d",tempExp);*/
+	//AddCurrentStatusMessage( 255,255,0,"============< 전쟁 보상 >==============");
+	//AddCurrentStatusMessage( 255,255,0,"전쟁에서 많은 공을 세워 국가에서 아래와 같은 보상을 하게營윱求?");
+	//AddCurrentStatusMessage( 255,255,0,"   [ 명    성] : %d",tempFame);
+	//AddCurrentStatusMessage( 255,255,0,"   [ 경 험 치] : %d",tempExp);
 	AddCurrentStatusMessage( 255,255,0,lan->OutputMessage(0,198));
 	AddCurrentStatusMessage( 255,255,0,lan->OutputMessage(0,199));
 	AddCurrentStatusMessage( 255,255,0,lan->OutputMessage(0,200),tempFame);
@@ -1234,67 +1234,68 @@ int GetDirection(POINT tStart,POINT tDest)
 
 void MakeBreathData(int Index,int Count,int x,int y)
 {
-/*	t_CommonArg Arg;
-	for (int i=0;i<Count;i++)
-	{
-		Arg.BreathArg.SpriteIndex=Index;								// Packet Receive
-		Arg.BreathArg.StartLocation.x=600;
-		Arg.BreathArg.StartLocation.y=100;
-		Arg.BreathArg.DestLocation.x=100;
-		Arg.BreathArg.DestLocation.y=600;
-		Arg.BreathArg.Direction=GetDirection(Arg.BreathArg.StartLocation,Arg.BreathArg.DestLocation);
-		Arg.BreathArg.Power=5+rand()%10;
-		Arg.BreathArg.StartTime=g_ClientTime+rand()%3000;
-		cBreath* tempBreath=new cBreath(&Arg);
-		g_ParticleManager.Insert(tempBreath);
-	}*/
-/*	t_CommonArg Arg;
-		Arg.BreathArg.SpriteIndex=Index;								// Packet Receive
-		Arg.BreathArg.StartLocation.x=x;
-		Arg.BreathArg.StartLocation.y=y;
-		Arg.BreathArg.DestLocation.x=100;
-		Arg.BreathArg.DestLocation.y=600;
-		Arg.BreathArg.Direction=GetDirection(Arg.BreathArg.StartLocation,Arg.BreathArg.DestLocation);
-		Arg.BreathArg.Power=90;
-//		Arg.BreathArg.StartTime=g_ClientTime+rand()%3000;
-		cBreath* tempBreath=new cBreath(&Arg);
-		g_ParticleManager.SetContinueParticle(tempBreath,Count);*/
+	//t_CommonArg Arg;
+	//for (int i=0;i<Count;i++)
+	//{
+	//	Arg.BreathArg.SpriteIndex=Index;								// Packet Receive
+	//	Arg.BreathArg.StartLocation.x=600;
+	//	Arg.BreathArg.StartLocation.y=100;
+	//	Arg.BreathArg.DestLocation.x=100;
+	//	Arg.BreathArg.DestLocation.y=600;
+	//	Arg.BreathArg.Direction=GetDirection(Arg.BreathArg.StartLocation,Arg.BreathArg.DestLocation);
+	//	Arg.BreathArg.Power=5+rand()%10;
+	//	Arg.BreathArg.StartTime=g_ClientTime+rand()%3000;
+	//	cBreath* tempBreath=new cBreath(&Arg);
+	//	g_ParticleManager.Insert(tempBreath);
+	//}
+
+	//t_CommonArg Arg;
+	//Arg.BreathArg.SpriteIndex=Index;								// Packet Receive
+	//Arg.BreathArg.StartLocation.x=x;
+	//Arg.BreathArg.StartLocation.y=y;
+	//Arg.BreathArg.DestLocation.x=100;
+	//Arg.BreathArg.DestLocation.y=600;
+	//Arg.BreathArg.Direction=GetDirection(Arg.BreathArg.StartLocation,Arg.BreathArg.DestLocation);
+	//Arg.BreathArg.Power=90;
+	////Arg.BreathArg.StartTime=g_ClientTime+rand()%3000;
+	//cBreath* tempBreath=new cBreath(&Arg);
+	//g_ParticleManager.SetContinueParticle(tempBreath,Count);
 
 }
 
 void RecvBreath(int x,int y)
 {
-/*	g_EffectSpriteManager.CheckAndLoadSpriteData(9);	// Packet Receive
+	//g_EffectSpriteManager.CheckAndLoadSpriteData(9);	// Packet Receive
 
-	MakeBreathData(1,26,x,y);*/
+	//MakeBreathData(1,26,x,y);
 }
 
 void MakeFogData(int Index,int Count)
 {
-/*	t_CommonArg Arg;
-	for (int i=0;i<Count;i++)
-	{
-		Arg.FogArg.SpriteIndex=Index;								// Packet Receive
-		Arg.FogArg.StartTime=g_curr_time+rand()%20;
-		Arg.FogArg.DelayTime=Arg.FogArg.StartTime+50+rand()%5;				// Packet Receive
-		Arg.FogArg.Location.x=rand()%800;					// Packet Receive
-		Arg.FogArg.Location.y=rand()%600;
-		cFog* tempFog=new cFog(&Arg);
-		g_ParticleManager.Insert(tempFog);
-	}*/
+	//t_CommonArg Arg;
+	//for (int i=0;i<Count;i++)
+	//{
+	//	Arg.FogArg.SpriteIndex=Index;								// Packet Receive
+	//	Arg.FogArg.StartTime=g_curr_time+rand()%20;
+	//	Arg.FogArg.DelayTime=Arg.FogArg.StartTime+50+rand()%5;				// Packet Receive
+	//	Arg.FogArg.Location.x=rand()%800;					// Packet Receive
+	//	Arg.FogArg.Location.y=rand()%600;
+	//	cFog* tempFog=new cFog(&Arg);
+	//	g_ParticleManager.Insert(tempFog);
+	//}
 }
 
 void RecvFog()					// Effect temp
 {
-/*	g_EffectSpriteManager.CheckAndLoadSpriteData(6);	// Packet Receive
-	g_EffectSpriteManager.CheckAndLoadSpriteData(7);	// Packet Receive
-	g_EffectSpriteManager.CheckAndLoadSpriteData(8);	// Packet Receive
+	//g_EffectSpriteManager.CheckAndLoadSpriteData(6);	// Packet Receive
+	//g_EffectSpriteManager.CheckAndLoadSpriteData(7);	// Packet Receive
+	//g_EffectSpriteManager.CheckAndLoadSpriteData(8);	// Packet Receive
 
-	MakeFogData(6,20);
-	MakeFogData(7,20);
-	MakeFogData(8,40);
+	//MakeFogData(6,20);
+	//MakeFogData(7,20);
+	//MakeFogData(8,40);
 
-//		RecvBreath();*/
+	////RecvBreath();
 }
 
 void RecvCMD_AI_FOG(t_packet* p)		// LTS NEW AI	// LTS DRAGON MODIFY	
@@ -1575,12 +1576,12 @@ int CheckHandleByLTSSupport(t_packet* p)
 	case CMD_LOCALWAR_STARTUP_STATUS :
 											RecvCMD_LOCALWAR_STARTUP_STATUS(p);
 											break;
-/*	case CMD_EVENT_LOCALWAR_STATUS_CHANGE :
-											RecvCMD_EVENT_LOCALWAR_STATUS_CHANGE(p);
-											break;*/
-/*	case CMD_EVENT_LOCALWAR_REMAIN_TIME :
-											RecvCMD_EVENT_LOCALWAR_REMAIN_TIME(p);
-											break;*/
+	//case CMD_EVENT_LOCALWAR_STATUS_CHANGE :
+	//										RecvCMD_EVENT_LOCALWAR_STATUS_CHANGE(p);
+	//										break;
+	//case CMD_EVENT_LOCALWAR_REMAIN_TIME :
+	//										RecvCMD_EVENT_LOCALWAR_REMAIN_TIME(p);
+	//										break;
 	case CMD_EVENT_LOCALWAR_JOIN_RESULT :
 											RecvCMD_EVENT_LOCALWAR_JOIN_RESULT(p);
 											break;

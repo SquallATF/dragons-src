@@ -3505,11 +3505,12 @@ void MenuSet2()// 필드를 추가할때 죽었을 경우 체크 되지 않아�
 
 		//654,170 , 480 = 
 		::SMenuFTReg(MN_ITEM, 24, FT_NONE, 0, 134 + 10, 140 + 2, 40, 40, 0, 0, 0, 0);//soto-030513
-																					 //이거 좌표 조정
-																					 //	양초 우선은 막아둔다
-																					 //::SMenuFTReg(MN_ITEM, 24, FT_CANDLE_INVENTORY, WEAR_SHOES, 138, 134, 40,40,INVENTORY_IMG,0,0,WT_SHOES);
-																					 //SMenu[MN_ITEM].nField[24].nImageNumber=865;
-																					 //::SMenuFTReg(MN_ITEM, 25, FT_DATA_PUT, 0, 138,		134,	40,40,INVENTORY_IMG,0,DP_ARMOR_INVENTORY,WT_SHOES);
+
+		//이거 좌표 조정
+		//	양초 우선은 막아둔다
+		//::SMenuFTReg(MN_ITEM, 24, FT_CANDLE_INVENTORY, WEAR_SHOES, 138, 134, 40,40,INVENTORY_IMG,0,0,WT_SHOES);
+		//SMenu[MN_ITEM].nField[24].nImageNumber=865;
+		//::SMenuFTReg(MN_ITEM, 25, FT_DATA_PUT, 0, 138,		134,	40,40,INVENTORY_IMG,0,DP_ARMOR_INVENTORY,WT_SHOES);
 
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////
@@ -3663,14 +3664,14 @@ void MenuSet2()// 필드를 추가할때 죽었을 경우 체크 되지 않아�
 		SMenu[MN_PARTY].nField[3].nSHideNomalNumber = 12;
 		SMenu[MN_PARTY].nField[3].nSHideNomalCount = 5;//평소버튼
 
-													   // EMPROYMENT 버튼 출력
+		// EMPROYMENT 버튼 출력
 		::SMenuFTReg(MN_PARTY, 4, FT_PUT_BUTTON, SWD_PARTY_BUTTON, 216, 42, 60, 25, PARTY_IMG, 8, 9, PS_MAGIC_TAC);
 		SMenu[MN_PARTY].nField[4].nSHideNomalNumber = 12;
 		SMenu[MN_PARTY].nField[4].nSHideNomalCount = 8;//평소버튼
-													   //다른 파티원들 출력 :
-													   // 먼저 가까이만 가도 숫자 필드의 숫자에 불이 들어온다. 1번
-													   // 다른 캐릭터와 관계가 있다면 nSpecialWillDo를 체크(true)해 둔다			// origin 좌표로 이미지를 찍는다.
-													   //1번
+		//다른 파티원들 출력 :
+		// 먼저 가까이만 가도 숫자 필드의 숫자에 불이 들어온다. 1번
+		// 다른 캐릭터와 관계가 있다면 nSpecialWillDo를 체크(true)해 둔다			// origin 좌표로 이미지를 찍는다.
+		//1번
 		::SMenuFTReg(MN_PARTY, 6, FT_PARTY, 12, 55, 217, 0, 0, 0, 468, 468, 0);
 		::SetRect(SMenu[MN_PARTY].nField[6].rCheakBox, 25, 182, 85, 252);//범위 체크 스타일이 다르다
 																		 // 2번
@@ -3739,8 +3740,9 @@ void MenuSet2()// 필드를 추가할때 죽었을 경우 체크 되지 않아�
 		//국가전 메뉴
 		::SMenuFTReg(MN_MAININTERFACE, NATION_BBS_FIELD, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALL_MENU, 701, 21, 40, 36, MAININTERFACE_IMG, 65, 66, MN_NATION_BATTLE_BBS);
 		::SMenuFTReg(MN_MAININTERFACE, HOT_KEY_FIELD, FT_HOTKEY_ICON, 0, HOTKEY_ICON_POS_X, HOTKEY_ICON_POS_Y, 40, 40, COMBAT_SKILL_ICON_IMG, 90, 90, 0);//전투스킬에 있는 아이콘을 쓴다
-																																						 ///////////////////// 채팅 /////////////////////
-																																						 // 입력란 
+		
+		///////////////////// 채팅 /////////////////////
+		// 입력란 
 		::SMenuFTReg(MN_MAININTERFACE, 31, FT_DO, 0, 103, 4, 0, 0, MAININTERFACE_IMG, 67, 68, DO_CHATTING_EDITBOX);
 		// 메일 메뉴 띄우기
 		::SMenuFTReg(MN_MAININTERFACE, MAIL_FIELD, FT_MAININTERFACE_MAIL_CALL, SWD_NONE,
@@ -3763,7 +3765,7 @@ void MenuSet2()// 필드를 추가할때 죽었을 경우 체크 되지 않아�
 		::SMenuFTReg(MN_MAININTERFACE, 45, FT_NOMAL_PUT, 0, 66, 52, 0, 0, MAININTERFACE_IMG, 96, 96);//게이지 그림 세모로 만드는거
 																									 //친구 메뉴
 		::SMenuFTReg(MN_MAININTERFACE, FRIEND_FIELD, FT_SHOW_SPECIAL_WILLDO_AUTO_PUT, SWD_CALL_FRIEND_MENU, 100, 17, 30, 20, MAININTERFACE_IMG, 97, 97);//친구 버튼
-																																						//Lock Button	nWillDo 0 --> UnLock 1 -> lock
+		//Lock Button	nWillDo 0 --> UnLock 1 -> lock
 		::SMenuFTReg(MN_MAININTERFACE, 47, FT_CHAT_LOCK, 0, 639, 7, 30, 35, MAININTERFACE_IMG, 69, 70, 1);//Lock Button//nWillDo가 1 이면 Lock 있음
 
 		::SMenuFTReg(MN_MAININTERFACE, 9, FT_HUNTER_VERSUS_DISPLAY, 0, 639, -200, 30, 35, MAININTERFACE_IMG, 69, 70, 1);//021001 lsw
@@ -4716,9 +4718,9 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 																  //const int y = iMainY+iFieldY;
 		FieldTypeNomalPut(iMainX, iMainY, iFieldX, iFieldY, iImageNo, COMBAT_SKILL_ICON_IMG);//빽판 찍기
 
-																							 //Hcolor( FONT_COLOR_YELLOW );	
-																							 //SetHangulAlign(TA_CENTER);
-																							 //Hprint2(x+21,y+50,g_DestBackBuf,"<%s>",CombatSkillGroupExplain[(iWork-1)*2 +(nWillDo)].LocalName);
+		//Hcolor( FONT_COLOR_YELLOW );	
+		//SetHangulAlign(TA_CENTER);
+		//Hprint2(x+21,y+50,g_DestBackBuf,"<%s>",CombatSkillGroupExplain[(iWork-1)*2 +(nWillDo)].LocalName);
 
 		if (fRcMouse)//마우스 업 일때
 		{
@@ -8586,7 +8588,7 @@ void kh_menu_set()
 	SMenu[MN_QUEST_INDEX].nField[2].nImageType = QUEST_MENU;
 	SMenu[MN_QUEST_INDEX].nField[2].nType = FT_QUEST_INDEX_SCROLL;			// 처리하는 곳 MenuSubProcessType() 그림을 찍어 주도록 하는곳, DoButtonCheckOfMenu() 마우스 클릭 관계..
 	SMenu[MN_QUEST_INDEX].nField[2].nWillDo = 0;		// left
-														//SMenu[MN_QUEST_INDEX].nField[2].nType = FT_DSCROLL_MEM_BOOK;
+	//SMenu[MN_QUEST_INDEX].nField[2].nType = FT_DSCROLL_MEM_BOOK;
 	SMenu[MN_QUEST_INDEX].nField[2].x = 51;
 	SMenu[MN_QUEST_INDEX].nField[2].y = 193;
 	SMenu[MN_QUEST_INDEX].nField[2].nRectImage = 5;
@@ -8597,7 +8599,7 @@ void kh_menu_set()
 	SMenu[MN_QUEST_INDEX].nField[3].nImageType = QUEST_MENU;
 	SMenu[MN_QUEST_INDEX].nField[3].nType = FT_QUEST_INDEX_SCROLL;			// 처리하는 곳 MenuSubProcessType() 그림을 찍어 주도록 하는곳, DoButtonCheckOfMenu() 마우스 클릭 관계.. 
 	SMenu[MN_QUEST_INDEX].nField[3].nWillDo = 1;		// right
-														//SMenu[MN_QUEST_INDEX].nField[3].nType = FT_ISCROLL_MEM_BOOK;
+	//SMenu[MN_QUEST_INDEX].nField[3].nType = FT_ISCROLL_MEM_BOOK;
 	SMenu[MN_QUEST_INDEX].nField[3].x = 330;
 	SMenu[MN_QUEST_INDEX].nField[3].y = 193;
 	SMenu[MN_QUEST_INDEX].nField[3].nRectImage = 4;

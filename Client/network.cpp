@@ -1707,17 +1707,17 @@ int SendCreateCharacter( SCharacter *s )
 		packet.u.client_create_char.job			= s->nCharacterData[ JOB ];
 		packet.u.client_create_char.spell		= s->nCharacterData[ SPELL ];
 	
-//		packet.u.client_create_char.str			= s->nCharacterAbility[STR];
-//		packet.u.client_create_char.con			= s->nCharacterAbility[CON];
-//		packet.u.client_create_char.dex			= s->nCharacterAbility[DEX];
-//		packet.u.client_create_char.wis			= s->nCharacterAbility[WIS];
-//		packet.u.client_create_char.intl		= s->nCharacterAbility[INT];
-//		packet.u.client_create_char.movp		= s->nCharacterAbility[MOVP];
-//		packet.u.client_create_char.cha			= s->nCharacterAbility[CHA];
-//		packet.u.client_create_char.endu		= s->nCharacterAbility[ENDU];
-//		packet.u.client_create_char.mor			= s->nCharacterAbility[MOR];
-//		packet.u.client_create_char.luck		= s->nCharacterAbility[LUCK];
-//		packet.u.client_create_char.wsps		= s->nCharacterAbility[WSPS];
+		//packet.u.client_create_char.str			= s->nCharacterAbility[STR];
+		//packet.u.client_create_char.con			= s->nCharacterAbility[CON];
+		//packet.u.client_create_char.dex			= s->nCharacterAbility[DEX];
+		//packet.u.client_create_char.wis			= s->nCharacterAbility[WIS];
+		//packet.u.client_create_char.intl		= s->nCharacterAbility[INT];
+		//packet.u.client_create_char.movp		= s->nCharacterAbility[MOVP];
+		//packet.u.client_create_char.cha			= s->nCharacterAbility[CHA];
+		//packet.u.client_create_char.endu		= s->nCharacterAbility[ENDU];
+		//packet.u.client_create_char.mor			= s->nCharacterAbility[MOR];
+		//packet.u.client_create_char.luck		= s->nCharacterAbility[LUCK];
+		//packet.u.client_create_char.wsps		= s->nCharacterAbility[WSPS];
 	}	
 	packet.h.header.size = sizeof( t_client_create_char );
 	QueuePacket( &packet, 1 );
@@ -1919,9 +1919,9 @@ void RecvHeroInit( t_server_user_db_data *p )
 	gpCharInfo.accessory[3]		= p->acc_equip4;
 	LoadHeroClothAccessoryDataOne( p->sprno, p->acc_equip4 );
 
-// 011030 KHS JJING	찡에 대한 부분은 여기서 정의 하지 않고 Equip[8]을 보내주는 곳에서 세팅한다. 
-//	if( p->jjing >= 5 )	LoadHeroClothAccessoryDataOne( p->sprno, p->acc_equip1+200);
-//	if( p->jjing >= 9 )	LoadHeroClothAccessoryDataOne( p->sprno, p->acc_equip1+201);
+	 //011030 KHS JJING	찡에 대한 부분은 여기서 정의 하지 않고 Equip[8]을 보내주는 곳에서 세팅한다. 
+	//if( p->jjing >= 5 )	LoadHeroClothAccessoryDataOne( p->sprno, p->acc_equip1+200);
+	//if( p->jjing >= 9 )	LoadHeroClothAccessoryDataOne( p->sprno, p->acc_equip1+201);
 
 
 	// 011018 KHS 망또	; 여기에는 망또 Data가 오지 않는다. CMD_CHR_ITEM_INFO_1이 올때 equip[WT_NECK]쪽으로 올때 처리한다.
@@ -2307,9 +2307,6 @@ SUCCESS_:
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
 // #define STATUS_PEACE_BATTLE	0
 void SendPeaceBattle( LPCHARACTER ch )
 {	
@@ -2512,7 +2509,7 @@ int	DequeuePacket( t_packet *packet, int type )
 
 		int iSize	= packet->h.header.size+sizeof(t_header);
 			
-	//	if( connections.state > 1 && g_bLogOnFlag )//접속 중일때 로그인 해도 좋다는 사인이 들어온 후 //CONNECT_LOGIN_KEIN
+		//if( connections.state > 1 && g_bLogOnFlag )//접속 중일때 로그인 해도 좋다는 사인이 들어온 후 //CONNECT_LOGIN_KEIN
 		if( g_bLogOnFlag )//에이전트와 붙기만 하면
 		{
 			de.Decrypt(packet->h.data,2);

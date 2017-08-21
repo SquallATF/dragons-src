@@ -232,7 +232,7 @@ void SendCMD_CONNECT_AGENT_SERVER_CONFORM(const DWORD dwUserID, const char* szUs
 	
 	if(!pUser){return;}
 
-	if(::stricmp(szUserName,pUser->szName))//아까와 다른 유저 라면
+	if(::_stricmp(szUserName,pUser->szName))//아까와 다른 유저 라면
 	{
 		return;
 	}
@@ -470,9 +470,9 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 		// 010109 KHS
 	case CMD_SV_SEND_MESSAGE_ALL :		// 010110 YGI
 		{	
-			SendPbs( packet->u.default_msg, packet->h.header.size ); //랙箇무멩,乖瞳侶쟁
-			HackLog( 0,  packet->u.default_msg);//쉥賈痰棍밈諒돨斤口괏닸돕HackLog櫓.
-			break;
+		SendPbs(packet->u.default_msg, packet->h.header.size); //发送公告,我在这里
+		HackLog(0, packet->u.default_msg);//将使用外挂者的信息保存到HackLog中.
+		break;
 		}
 		
 		//--------------------------------------------
@@ -484,7 +484,7 @@ void __stdcall RecvMsgFromUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLeng
 			SOCKADDR_IN* paddr = NULL;
 			DWORD length = sizeof(t_header)+packet->h.header.size;
 			
-			::strupr( packet->u.ClientAccessLogin.id );
+			::_strupr( packet->u.ClientAccessLogin.id );
 			::memcpy( &pUserInfo->szName, &packet->u.ClientAccessLogin.id, 20 );
 			
 			pUserInfo->bAmILogon = false;

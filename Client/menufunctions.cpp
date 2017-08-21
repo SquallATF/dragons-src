@@ -551,13 +551,13 @@ void LoadFileText( char *file_name )
 	FILE *fp = Fopen( file_name, "rt" );
 	if( !fp ) return;
 
-	/*
-	if( g_Menu_Variable.m_szFileTextPut ) 
-	{
-		delete [] g_Menu_Variable.m_szFileTextPut;
-		g_Menu_Variable.m_szFileTextPut = 0;
-	}
-	*/
+	//
+	//if( g_Menu_Variable.m_szFileTextPut ) 
+	//{
+	//	delete [] g_Menu_Variable.m_szFileTextPut;
+	//	g_Menu_Variable.m_szFileTextPut = 0;
+	//}
+	//
 
 	char temp[1024];
 	while( fgets( temp, 1024, fp ) )

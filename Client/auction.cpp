@@ -174,17 +174,17 @@ void CAuction::RecvCMD_MERCHANT_ITEM_BUY_RESULT(t_packet &p)//구매하기(구�
 		{
 			::AddCurrentStatusMessage(FONT_COLOR_WHITE,lan->OutputMessage(4,508),iResult);
 		}break;
-	/*
-	case IS_END_DELETE_COMPLETE:
-	case IS_END_DELETING:
-		{
-			COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"구입에 실패 했습니다. 판매자가 지우고 있습니다.");
-		}break;
-	case IS_END_BUYING:
-		{
-			COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"누군가가 구매중입니다.");
-		}break;
-	*/
+	//
+	//case IS_END_DELETE_COMPLETE:
+	//case IS_END_DELETING:
+	//	{
+	//		COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"구입에 실패 했습니다. 판매자가 지우고 있습니다.");
+	//	}break;
+	//case IS_END_BUYING:
+	//	{
+	//		COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"누군가가 구매중입니다.");
+	//	}break;
+	//
 	}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -338,12 +338,12 @@ void CAuction::SendCMD_MERCHANT_SELL_ITEM_REGISTER()//판매 아이템을 등록
 	p.u.SellerItemRegister.SellItem	= m_SellItemAttr;//아이템 실제값
 	
 	p.u.SellerItemRegister.dwSellValue = m_iSellValue;
-//	if(!m_iSellValue)
-//	{
-//		COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"직접거래로 등록 되었습니다.");
-//		COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"아직은 지원하지 않는 기능입니다.");
-//		return;
-//	}
+	//if(!m_iSellValue)
+	//{
+	//	COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"직접거래로 등록 되었습니다.");
+	//	COMMENT ::AddCurrentStatusMessage(FONT_COLOR_WHITE,"아직은 지원하지 않는 기능입니다.");
+	//	return;
+	//}
 	::AddCurrentStatusMessage(FONT_COLOR_WHITE,lan->OutputMessage(4,517));
 	//패킷 값 설정해서 보낼것
 	::QueuePacket(&p,1);
@@ -690,7 +690,7 @@ int CAuction::RecvCMD_MERCHANT_EXCHANGE_LIST_REQUEST_RESULT(t_packet &p)
 	m_iBuyerViewPage  = ((p.u.SearchResultList.iKey)?AUCTION_PAGE_MIN:AUCTION_PAGE_MAX);
 	m_iWaitPageRefresh = 0;
 	::CallSmallMenu(MN_MERCHANT_DIRECT_EXCHAGE_LIST);
-//	::CallSmallMenu(MN_MERCHANT_BUY);
+	//::CallSmallMenu(MN_MERCHANT_BUY);
 	
 	return 0;
 }

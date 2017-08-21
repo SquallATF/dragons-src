@@ -378,20 +378,20 @@ void LoadHongSkillTable( void )
 		EatRearWhiteChar( SkillTable[i].Skill_Minute);
 	}		
 	//< CSD-030324
-	/*			
-	if( GetSysInfo( SI_GAME_MAKE_MODE ) )
-	{		
-		fp = Fopen( "./data/열어라(SkillTable_effect_wave).txt", "wb" );
-		if( fp )
-		{	
-			for( int i = 0 ; i < 102 ; i ++)
-			{
-				fprintf( fp, "%d : 	%d	\n", i, 	SkillTable[ i].effect_wave );
-			}
-			fclose(fp);
-		}	
-	}			
-	*/
+	//			
+	//if( GetSysInfo( SI_GAME_MAKE_MODE ) )
+	//{		
+	//	fp = Fopen( "./data/열어라(SkillTable_effect_wave).txt", "wb" );
+	//	if( fp )
+	//	{	
+	//		for( int i = 0 ; i < 102 ; i ++)
+	//		{
+	//			fprintf( fp, "%d : 	%d	\n", i, 	SkillTable[ i].effect_wave );
+	//		}
+	//		fclose(fp);
+	//	}	
+	//}			
+	//
 	//> CSD-030324
 	if( CheckSumError == 0 ) 
 	{
@@ -402,12 +402,12 @@ void LoadHongSkillTable( void )
 	
 
 
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 // 기   능 : 기술구현을 위해 셋팅한 것을 지운다.( 기술을 끊낸다.)
 // 인   자 :  (1). 기술 시전 후 상태로 간다.						
 //			  (2). 기술 시전 전 상태로 간다( 기술실행이 끝났다. )
 // 결    과 : 없슴.
-//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
 	
 void SkillSettingClear( void )
 {	
@@ -521,65 +521,6 @@ void SendSkillInfo( int skillno, int x, int y, int targettype, int targetid, POS
 	SkillStatus	= SKILL_ING;
 //	CursorNo( 1 );
 }				
-				
-				
-				
-				
-				
-				
-				
-				
-/* 성공  250,	1, 
-//				2,
-//				3,
-//				4, 
-//				5- 실패...
-//				6- 실패...
-
-		성공 Wave번호 : 108
-		실패 Wave번호 : 109
-
-	case 0:		//Skill->Level Up
-		InsertMagic( scr, scr, 211, -1, 0, 0, x, y);				//Level Up 
-		break;
-	case 1:		//Skill->Detect
-		InsertMagic( scr, scr, 212, 0, Mox, Moy, 0, 0);				//Skill_Detect
-		break;
-	case 2:		//Skill->Identify
-		InsertMagic( scr, scr, 213, 0, Mox, Moy, 0, 0 );			//Skill_Identify
-		break;
-	case 3:		//Skill->촛불
-		InsertMagic( scr, scr, 214, -2, Mox, Moy, 0, 0 );			//Skill_촛불 
-		break;
-	case 4:
-		InsertMagic( scr, scr, 218, 0, Mox, Moy, 0, 0 );			//마법사.연금술사 버섯구름
-		break;
-	case 5:
-		InsertMagic( scr, scr, 208, 0, Mox, Moy, 0, 0 );			//상자 열었을시 부비트랩 폭파
-		break;
-	case 6:
-		InsertMagic( scr, scr, 215, -2, Mox, Moy, 0, 0 );			//담금질-수증기
-		break;
-	case 7:
-		InsertMagic( scr, scr, 207, 0, Mox, Moy, 0, 0 );			//모루/망치질 스파크
-		break;
-	case 8:
-		InsertMagic( scr, scr, 210, 0, Mox, Moy, 0, 0 );			//부싯돌 스파크
-		break;
-	case 9:
-		InsertMagic( scr, scr, 216, 0, Mox, Moy, 0, 0 );			//굴뚝/용광로 연기(스모그)
-		break;
-	case 10:
-		InsertMagic( scr, scr, 217, -2, Mox, Moy, 0, 0 );			//장작불 
-		break;
-	case 11:
-		InsertMagic( scr, scr, 219, rand()%6, Mox, Moy, 0, 0 );		//물고기 수면위로 뛰어올라오기
-		break;
-	case 12:
-		InsertMagic( scr, scr, 226+rand()%5, rand()%6, Mox, Moy, 0, 0 );	//인물 숨기기 효과 5개 패턴(random 출력)
-		break;
-*/		
-		
 		
 
 static int startcirclemagic;
@@ -614,10 +555,6 @@ void  CircleMagic( void )
 		InsertMagic( ch, ch, 213, 9, 0, 0, ch->x + x, ch->y + y);//, 0,0 );	
 	}	
 }		
-		
-		
-		
-		
 									
 void RecvSkillInfo( t_server_skill_info *p )
 {					
@@ -633,7 +570,7 @@ void RecvSkillInfo( t_server_skill_info *p )
 	targettype= p->targettype;	
 	target_id = p->target_id;	
 	
-//	if( ch == Hero ) CursorNo( 1 );
+	//if( ch == Hero ) CursorNo( 1 );
 
 	// 화면에  시전하는것을 상대방에게는 보여주지 않는다.  ( Cursor )...
 	if( ch != Hero )
@@ -649,7 +586,7 @@ void RecvSkillInfo( t_server_skill_info *p )
 		default :	
 					ChangeDirection( &ch->todir, ch->x, ch->y, x, y );
 					//1006 zhh //1007 zhh
-				//	AddSkillCursor( Hero, skillno, SkillTable[ skillno].Curser3, x, y, 1 );
+				//AddSkillCursor( Hero, skillno, SkillTable[ skillno].Curser3, x, y, 1 );
 				break;
 	}				
 					
@@ -658,83 +595,84 @@ void RecvSkillInfo( t_server_skill_info *p )
 		PlayListAutoSounds( SkillTable[ skillno].effect_wave , 0, 0, 0 );
 					
 	/////////////////////////////////////// 이규훈 1226(광원) ///////////////////////////////////////		
-	switch( skillno )
-	{				
+	switch (skillno)
+	{
 		//  Ghost Detect...
-		case  1 :		
-		case  2 :	
-		case  3 :  StartCircleMagic( p->server_id, 0 );
-			break;	
-					
-		case 6 :	InsertMagic( Hero, Hero, 212, 9, 0, 0, x, y-80);//, 0,0 );	
-			return;
+	case  1:
+	case  2:
+	case  3:
+		StartCircleMagic(p->server_id, 0);
+		break;
 
-		case 7 :	InsertMagic( Hero, Hero, 212, 9, 0, 0, x, y-80);//, 0,0 );	
-			return;
+	case 6:
+		InsertMagic(Hero, Hero, 212, 9, 0, 0, x, y - 80);//, 0,0 );	
+		return;
 
-			// Reclaim
-		case 21 :	
-		case 24 :	
-		case 32 :	
-		case 36 :	
+	case 7:
+		InsertMagic(Hero, Hero, 212, 9, 0, 0, x, y - 80);//, 0,0 );	
+		return;
+
+		// Reclaim
+	case 21:
+	case 24:
+	case 32:
+	case 36:
+		//1006 zhh
+	case 75:
+		if (ch == Hero)
+		{
+			StopDoingSkillCursor(ch);
 			//1006 zhh
-		case 75 :	if( ch == Hero ) 
-					{
-						StopDoingSkillCursor( ch );
-						//1006 zhh
-						AddSkillCursor(  ch,  skillno, SkillTable[ skillno].Curser2,  x,  y,  2 );
-					}
-	 				PlayListAutoSounds( 2438, 0, 0, 0 );
+			AddSkillCursor(ch, skillno, SkillTable[skillno].Curser2, x, y, 2);
+		}
+		PlayListAutoSounds(2438, 0, 0, 0);
+		break;
 
-			break;	
-				
 		//1017 zhh
-		case 30:
-		case 28 :	if( TileMap[ x/TILE_SIZE][y/TILE_SIZE].attr_river )	
-						InsertMagic( Hero, Hero, 219, rand()%8, x, y, 0, 0 );		//물고기 수면위로 뛰어올라오기
+	case 30:
+	case 28:
+		if (TileMap[x / TILE_SIZE][y / TILE_SIZE].attr_river)
+			InsertMagic(Hero, Hero, 219, rand() % 8, x, y, 0, 0);		//물고기 수면위로 뛰어올라오기
 
-					//1017 zhh
-					if( ch == Hero ) 
-					{
-						StopDoingSkillCursor( ch );
-						//1006 zhh
-						AddSkillCursor(  ch,  skillno, SkillTable[ skillno].Curser2,  x,  y,  2 );
-					}
-			return;
-
-		case 33 :	
+																		//1017 zhh
+		if (ch == Hero)
+		{
+			StopDoingSkillCursor(ch);
 			//1006 zhh
-			if( ch == Hero ) 
-				//1006 zhh
-				AddSkillCursor(  ch,  skillno, SkillTable[ skillno].Curser2,  x,  y,  4 );
-			break;
+			AddSkillCursor(ch, skillno, SkillTable[skillno].Curser2, x, y, 2);
+		}
+		return;
 
+	case 33:
+		//1006 zhh
+		if (ch == Hero)
+			//1006 zhh
+			AddSkillCursor(ch, skillno, SkillTable[skillno].Curser2, x, y, 4);
+		break;
+	case 25:
+	case 35:
+		//AddDetectTile( 0, x, y, RGB16( 0, 255, 0 )); 
+		if (ch == Hero) //1006 zhh
+			AddSkillCursor(ch, skillno, SkillTable[skillno].Curser2, x, y, 4);
+		InsertMagic(Hero, Hero, 253, 9, 0, 0, x, y);//,0,0 );
+		break;
 
-		case 25 : 
-		case 35 :	//AddDetectTile( 0, x, y, RGB16( 0, 255, 0 )); 
-					if( ch == Hero ) 
-						//1006 zhh
-						AddSkillCursor(  ch,  skillno, SkillTable[ skillno].Curser2,  x,  y,  4 );
-					InsertMagic( Hero, Hero, 253, 9, 0, 0, x, y);//,0,0 );
-			break;
+		// MakeFire
+	case 74:
+		InsertMagic(Hero, Hero, 210, 9, 0, 0, x, y);//, 0, 0 );
+		return;
 
-			// MakeFire
-		case 74 :  	InsertMagic( Hero, Hero, 210, 9, 0, 0, x, y);//, 0, 0 );
-			return;
-
-			//1011 zhh
-		default:	if( ch == Hero ) 
-					{						
-						StopDoingSkillCursor( ch );
-						//1006 zhh
-						AddSkillCursor(  ch,  skillno, SkillTable[ skillno].Curser2,  x,  y,  2 );
-					}
-			break;
-	
+		//1011 zhh
+	default:
+		if (ch == Hero)
+		{
+			StopDoingSkillCursor(ch);
+			//1006 zhh
+			AddSkillCursor(ch, skillno, SkillTable[skillno].Curser2, x, y, 2);
+		}
+		break;
 	}
 }
-
-
 
 //1024 zhh
 //1019 zhh
@@ -1314,8 +1252,8 @@ int SelectSkill( int skillno )
 			break;
 	}			
 																		
-//	CursorSpriteNo( 879 );
-	return 0;								
+	//CursorSpriteNo( 879 );
+	return 0;
 }											
 int CheckSkill( void )
 {		
@@ -1405,7 +1343,7 @@ int CheckSkill( void )
 		{
 			//1024 zhh
 			AddCurrentStatusMessage( 0,155,255, lan->OutputMessage(2,195) );
-		//	AddCurrentStatusMessage( 0,155,255, "너무 멀어 기술을 쓸수 없습니다." );
+			//AddCurrentStatusMessage( 0,155,255, "너무 멀어 기술을 쓸수 없습니다." );
 			PlayListAutoSounds( 82,0,0,0 ); // 이동실패.
 			return 1;
 		}		
@@ -1416,106 +1354,112 @@ int CheckSkill( void )
 	int target_id = 0;
 	int target_item_no = 0;
 	char TargetName[31] = {0,};//020531 lsw
-	switch( targettype )
+	switch (targettype)
 	{
-	case SKILLTARGETTYPE_TABLE_ :	return 0;
-	case SKILLTARGETTYPE_ITEM_	:	if( CursorCheckedItem == NULL ) 
-									{
-										//1024 zhh
-										AddCurrentStatusMessage( 125,100,255, lan->OutputMessage(2,196));
-									//	AddCurrentStatusMessage( 125,100,255, "기술에 사용될 Item을 클릭하세요 .");
-										return 0; 
-									}
-									target_id = CursorCheckedItem->server_id; 
-									target_item_no = CursorCheckedItem->no;
+	case SKILLTARGETTYPE_TABLE_:
+		return 0;
+	case SKILLTARGETTYPE_ITEM_:
+		if (CursorCheckedItem == NULL)
+		{
+			//1024 zhh
+			AddCurrentStatusMessage(125, 100, 255, lan->OutputMessage(2, 196));
+			//AddCurrentStatusMessage( 125,100,255, "기술에 사용될 Item을 클릭하세요 .");
+			return 0;
+		}
+		target_id = CursorCheckedItem->server_id;
+		target_item_no = CursorCheckedItem->no;
 
-									//1005 zhh
-									Skill_CursorCheckedItem = CursorCheckedItem;
-				break;
-	case SKILLTARGETTYPE_CHAR_	:	if( g_GameInfo.lpcharacter == NULL ) 
-									{
-										//1024 zhh
-										AddCurrentStatusMessage( 125,100,255, lan->OutputMessage(2,197) );
-									//	AddCurrentStatusMessage( 125,100,255, "기술을 걸 캐릭터를 클릭하세요." );
-										return 0;
-									}
-									target_id = g_GameInfo.lpcharacter->id;
-									memcpy(TargetName, g_GameInfo.lpcharacter->name,30);//020531 lsw
-				break;
+		//1005 zhh
+		Skill_CursorCheckedItem = CursorCheckedItem;
+		break;
+	case SKILLTARGETTYPE_CHAR_:
+		if (g_GameInfo.lpcharacter == NULL)
+		{
+			//1024 zhh
+			AddCurrentStatusMessage(125, 100, 255, lan->OutputMessage(2, 197));
+			//AddCurrentStatusMessage( 125,100,255, "기술을 걸 캐릭터를 클릭하세요." );
+			return 0;
+		}
+		target_id = g_GameInfo.lpcharacter->id;
+		memcpy(TargetName, g_GameInfo.lpcharacter->name, 30);//020531 lsw
+		break;
 
-	case SKILLTARGETTYPE_MAP_	:	target_id = 0;   
-				
-				break;
+	case SKILLTARGETTYPE_MAP_:
+		target_id = 0;
+		break;
 
-	case SKILLTARGETTYPE_HERO_	:	if(	g_GameInfo.lpcharacter != Hero ) 
-									{
-										//1024 zhh
-										AddCurrentStatusMessage( 125,100,255, lan->OutputMessage(2,198) );
-									//	AddCurrentStatusMessage( 125,100,255, "자신에게만 사용할 수 있는 기술입니다." );
-										return 0;
-									}
-									target_id = Hero->id; 
-				break;
+	case SKILLTARGETTYPE_HERO_:
+		if (g_GameInfo.lpcharacter != Hero)
+		{
+			//1024 zhh
+			AddCurrentStatusMessage(125, 100, 255, lan->OutputMessage(2, 198));
+			//AddCurrentStatusMessage( 125,100,255, "자신에게만 사용할 수 있는 기술입니다." );
+			return 0;
+		}
+		target_id = Hero->id;
+		break;
 
-	case SKILLTARGETTYPE_MAP_WITH_ITEM_:  
-									if( SkillStatus != SKILL_READY ) 
-									{
-										return 0;
-									}
-									SendSkillInfo( SkillNo, Mox, Moy, targettype, SkillItemNo, SkillItemPOS );
-				break;
+	case SKILLTARGETTYPE_MAP_WITH_ITEM_:
+		if (SkillStatus != SKILL_READY)
+		{
+			return 0;
+		}
+		SendSkillInfo(SkillNo, Mox, Moy, targettype, SkillItemNo, SkillItemPOS);
+		break;
 	}
 	
-	switch( SkillNo )
+	switch (SkillNo)
 	{
-	case 19  :	if( Hero->id == target_id ) 
-				{
-					//1024 zhh
-					AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,201) );
-				//	AddCurrentStatusMessage( 255,255,255, "기술를 자신에게 사용하였습니다. 당신은 실수하여 창피해 합니다." );
-					return 1;
-				}
-				if( target_id < 10000 || g_GameInfo.lpcharacter->eventnpc )//soto-Steal수정. 몬스터에서만 가능하다.
-				{
-					//1024 zhh
-					AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,202) );
-				//	AddCurrentStatusMessage( 255,255,255, "훔치기 기술은 Player에게만 사용할 수 있습니다." );
-					return 1;
-				}
-				SendSkillInfo( SkillNo, Mox, Moy, targettype, target_id, target_item_no, TargetName);//020531 lsw
+	case 19:
+		if (Hero->id == target_id)
+		{
+			//1024 zhh
+			AddCurrentStatusMessage(255, 255, 255, lan->OutputMessage(2, 201));
+			//AddCurrentStatusMessage( 255,255,255, "기술를 자신에게 사용하였습니다. 당신은 실수하여 창피해 합니다." );
+			return 1;
+		}
+		if (target_id < 10000 || g_GameInfo.lpcharacter->eventnpc)//soto-Steal수정. 몬스터에서만 가능하다.
+		{
+			//1024 zhh
+			AddCurrentStatusMessage(255, 255, 255, lan->OutputMessage(2, 202));
+			//AddCurrentStatusMessage( 255,255,255, "훔치기 기술은 Player에게만 사용할 수 있습니다." );
+			return 1;
+		}
+		SendSkillInfo(SkillNo, Mox, Moy, targettype, target_id, target_item_no, TargetName);//020531 lsw
 		break;
 
 		// Harvest..
-	case 24 :	{
-					if( CursorCheckedItem == NULL ) break;
+	case 24: {
+		if (CursorCheckedItem == NULL) break;
 
-					CItem *t = ItemUnit( CursorCheckedItem->no/1000, CursorCheckedItem->no%1000 );	
-					if( t )
-					if( t->GetItemKind() == IK_SEED )
-					{
-						SendSkillInfo( SkillNo, Mox, Moy, targettype, CursorCheckedItem->server_id );
-						return 1;	
-					}
-				}
-		break;		
-					
-	case 28 :   //	낚시.. 
-				if( TileMap[ Mox/TILE_SIZE][Moy/ TILE_SIZE].attr_river == 0 ) 
-				{	
-					//1024 zhh	
-					AddCurrentStatusMessage( 255,155,155,lan->OutputMessage(2,203), SkillTable[SkillNo].Skill_Minute );
-				//	AddCurrentStatusMessage( 255,155,155,"이곳은 고기가 없는곳으로 '%s'기술을 사용할수 없습니다.", SkillTable[SkillNo].Skill_Minute );
-					goto SKILL_FAIL_;
-				}	
-				else
-				{
-					//SendSkillGauge( Mox, Moy, SkillNo );
-					SendSkillInfo( SkillNo, Mox, Moy, targettype, target_id );
-				}
-		break;		
-						
-	default :	SendSkillInfo( SkillNo, Mox, Moy, targettype, target_id ,target_item_no,TargetName);//020531 lsw
-			return 1;	
+		CItem *t = ItemUnit(CursorCheckedItem->no / 1000, CursorCheckedItem->no % 1000);
+		if (t)
+			if (t->GetItemKind() == IK_SEED)
+			{
+				SendSkillInfo(SkillNo, Mox, Moy, targettype, CursorCheckedItem->server_id);
+				return 1;
+			}
+	}
+	break;
+
+	case 28:   //	낚시.. 
+		if (TileMap[Mox / TILE_SIZE][Moy / TILE_SIZE].attr_river == 0)
+		{
+			//1024 zhh	
+			AddCurrentStatusMessage(255, 155, 155, lan->OutputMessage(2, 203), SkillTable[SkillNo].Skill_Minute);
+			//AddCurrentStatusMessage( 255,155,155,"이곳은 고기가 없는곳으로 '%s'기술을 사용할수 없습니다.", SkillTable[SkillNo].Skill_Minute );
+			goto SKILL_FAIL_;
+		}
+		else
+		{
+			//SendSkillGauge( Mox, Moy, SkillNo );
+			SendSkillInfo(SkillNo, Mox, Moy, targettype, target_id);
+		}
+		break;
+
+	default:
+		SendSkillInfo(SkillNo, Mox, Moy, targettype, target_id, target_item_no, TargetName);//020531 lsw
+		return 1;
 	}
 					
 	return ret;		
@@ -1646,13 +1590,13 @@ void GameStatusOutput( int no )
 	static char text[ FILENAME_MAX];
 	char temp[ FILENAME_MAX];
 
-//	static int oldno = -1;
+	//static int oldno = -1;
 	char *token;
 	int tno;
 	FILE *fp;
 
-//	if( no == oldno ) goto NEXT_;
-//	oldno = no;
+	//if( no == oldno ) goto NEXT_;
+	//oldno = no;
 
 	fp = Fopen( "./data/gamestatusexplain.txt", "rt" );
 	if( fp == NULL ) return;
@@ -1724,15 +1668,15 @@ void RecvCMD_STEAL_ON_TRAP( t_server_steal_on_trap	*p )
 		{
 			ch->nCurrentAction = ACTION_ATTACKED;
 			ch->nCurrentFrame = 0;		
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
 		}
 		else
 		{
 			ch->nCurrentAction = MON1_ATTACKED;
 			ch->nCurrentFrame = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
 		}
 	}
 }
@@ -1769,15 +1713,15 @@ void RecvCMD_FOOT_ON_TRAP_0_ITEM( t_server_foot_on_trap0 *p )
 		{
 			ch->nCurrentAction = ACTION_ATTACKED;
 			ch->nCurrentFrame = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
 		}
 		else
 		{
 			ch->nCurrentAction = MON1_ATTACKED;
 			ch->nCurrentFrame = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
 		}
 	}
 }				
@@ -1799,9 +1743,9 @@ void RecvCMD_FOOT_ON_TRAP_1_ITEM( t_server_foot_on_trap1 *p )
 	if( i == NULL ) return;
 	int no;
 
-//	int t = rand()%4 +1;
-//	for( int j = 0 ; j < t; j ++)
-//		InsertMagic( ch, ch, 208,0, i->x+(rand()%32) - 16, i->y+ (rand()%32)-16, 0,0 );
+	//int t = rand()%4 +1;
+	//for( int j = 0 ; j < t; j ++)
+	//	InsertMagic( ch, ch, 208,0, i->x+(rand()%32) - 16, i->y+ (rand()%32)-16, 0,0 );
 
 	InsertMagic( ch, ch, 288,0, i->x+(rand()%32) - 16, i->y+ (rand()%32)-16, 0,0 );
 	
@@ -1825,15 +1769,15 @@ void RecvCMD_FOOT_ON_TRAP_1_ITEM( t_server_foot_on_trap1 *p )
 		{
 			ch->nCurrentAction = ACTION_ATTACKED;
 			ch->nCurrentFrame = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
 		}
 		else
 		{
 			ch->nCurrentAction = MON1_ATTACKED;
 			ch->nCurrentFrame = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+			ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
 		}
 	}
 }	
@@ -1874,9 +1818,8 @@ void RecvViewtypeChange( t_viewtype_change *p )
 				ch->nCurrentAction = ch->basicAction;
 				
 				CharDoAni( ch, ch->direction, ch->basicAction);
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-				
-			}break;
+				ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+		}break;
 
 		case VIEWTYPE_CAMELEON_ : 
 			break;
@@ -1901,16 +1844,16 @@ void RecvViewCharInfo( t_view_char_info *p )
 						//1024 zhh
 						AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,204), ch->name, p->data );
 						sprintf( temp, lan->OutputMessage(2,205), ch->name, p->data  );
-					//	AddCurrentStatusMessage( 255,255,255, "%s의 지혜는 %d입니다. ", ch->name, p->data );
-					//	sprintf( temp, "%s의 지헤는 %d정도 되겠군...", ch->name, p->data  );
+						//AddCurrentStatusMessage( 255,255,255, "%s의 지혜는 %d입니다. ", ch->name, p->data );
+						//sprintf( temp, "%s의 지헤는 %d정도 되겠군...", ch->name, p->data  );
 					}
 					else
 					{
 						//1024 zhh
 						AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,206), p->data );
 						sprintf( temp, lan->OutputMessage(2,207), p->data  );
-					//	AddCurrentStatusMessage( 255,255,255, "알아보니, 지혜는 %d입니다. ", p->data );
-					//	sprintf( temp, "지헤는 %d정도 되겠군...", p->data  );
+						//AddCurrentStatusMessage( 255,255,255, "알아보니, 지혜는 %d입니다. ", p->data );
+						//sprintf( temp, "지헤는 %d정도 되겠군...", p->data  );
 					}
 					strcpy( Hero->szChatMessage, temp );
 					Hero->ChatDelay = 70;
@@ -1920,16 +1863,16 @@ void RecvViewCharInfo( t_view_char_info *p )
 						//1024 zhh
 						AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,208), ch->name, p->data );
 						sprintf( temp, lan->OutputMessage(2,209), ch->name, p->data  );
-					//	AddCurrentStatusMessage( 255,255,255, "%s의 지능는 %d입니다. ", ch->name, p->data );
-					//	sprintf( temp, "%s의 지능는 %d정도 되겠군...", ch->name, p->data  );
+						//AddCurrentStatusMessage( 255,255,255, "%s의 지능는 %d입니다. ", ch->name, p->data );
+						//sprintf( temp, "%s의 지능는 %d정도 되겠군...", ch->name, p->data  );
 					}
 					else
 					{
 						//1024 zhh
 						AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,210), p->data );
 						sprintf( temp, lan->OutputMessage(2,211), p->data  );
-					//	AddCurrentStatusMessage( 255,255,255, "알아보니, 지능는 %d입니다. ", p->data );
-					//	sprintf( temp, "지능는 %d정도 되겠군...", p->data  );
+						//AddCurrentStatusMessage( 255,255,255, "알아보니, 지능는 %d입니다. ", p->data );
+						//sprintf( temp, "지능는 %d정도 되겠군...", p->data  );
 					}
 					strcpy( Hero->szChatMessage, temp );
 					Hero->ChatDelay = 70;
@@ -1941,8 +1884,8 @@ void RecvViewCharInfo( t_view_char_info *p )
 						//1024 zhh
 						AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,212) );
 						sprintf( temp, lan->OutputMessage(2,213) );
-					//	AddCurrentStatusMessage( 255,255,255, "죽을 당시의 상황이 파악이 되지 않습니다. " );
-					//	sprintf( temp, "왜 죽었는지 잘 모르겠어." );
+						//AddCurrentStatusMessage( 255,255,255, "죽을 당시의 상황이 파악이 되지 않습니다. " );
+						//sprintf( temp, "왜 죽었는지 잘 모르겠어." );
 					}
 					else
 					{
@@ -1953,16 +1896,16 @@ void RecvViewCharInfo( t_view_char_info *p )
 							//1024 zhh
 							AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,214), ch->name, p->killer );
 							sprintf( temp, lan->OutputMessage(2,215), p->killer );
-						//	AddCurrentStatusMessage( 255,255,255, "%s은(는) %s에 의해 죽임을 당했습니다.", ch->name, p->killer );
-						//	sprintf( temp, "%s에 당한것 같군.", p->killer );
+							//AddCurrentStatusMessage( 255,255,255, "%s은(는) %s에 의해 죽임을 당했습니다.", ch->name, p->killer );
+							//sprintf( temp, "%s에 당한것 같군.", p->killer );
 						}
 						else
 						{
 							//1024 zhh
 							AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(2,216), p->killer );
 							sprintf( temp, lan->OutputMessage(2,217), p->killer );
-						//	AddCurrentStatusMessage( 255,255,255, "%s에 의해 죽임을 당했습니다.", p->killer );
-						//	sprintf( temp, "%s에 당한것 같군.", p->killer );
+							//AddCurrentStatusMessage( 255,255,255, "%s에 의해 죽임을 당했습니다.", p->killer );
+							//sprintf( temp, "%s에 당한것 같군.", p->killer );
 						}
 					}
 					strcpy( Hero->szChatMessage, temp );
@@ -1989,7 +1932,7 @@ void AgainSkill( int skillno )
 	case	28 :
 	case	30 :
 	case	32 :
-//	case	34 :
+	//case	34 :
 	case	35 :
 	case	36 :
 	case	38 :
@@ -2009,7 +1952,6 @@ void AgainSkill( int skillno )
 		}
 		break;
 
-		//
 	case	22 :	//   만약   아이템이 남아 있다면..
 		{
 					//1004 zhh
@@ -2092,46 +2034,44 @@ void DrawSkilltile( void  )
 
 	if( SkillStatus == SKILL_OFF ) return;
 
-	switch( skillno )
+	switch (skillno)
 	{
-	case 21	://Reclaim	
-	case 22	://Sow	
-	case 23	://Cultivate	
-	case 24	://Havest	
-					skillno = 1;
-					lineColor=RGB16(221,189,140);
-					
-			break;
+	case 21://Reclaim	
+	case 22://Sow	
+	case 23://Cultivate	
+	case 24://Havest	
+		skillno = 1;
+		lineColor = RGB16(221, 189, 140);
 
-	case 25	://Detect Mineral	
-	case 26	://Mining	
-					skillno = 2;
-					lineColor=RGB16(203,185,156);
-					
-			break;
-		
-	case 28	://Fish 
-	case 30	://Netting	
-					skillno = 3;
-					lineColor=RGB16(118,100,85);
-			break;
+		break;
 
-	case 32	://Cutting	
-	case 33	://Lumbering	
-					skillno = 4;
-					lineColor=RGB16(197,79,0);
-			break;
+	case 25://Detect Mineral	
+	case 26://Mining	
+		skillno = 2;
+		lineColor = RGB16(203, 185, 156);
 
-	case 35	://Detect Herb	
-	case 36	://Digging	
-					skillno = 5;
-					lineColor=RGB16(137,202,157);
-			break;
+		break;
 
-	default : return;
+	case 28://Fish 
+	case 30://Netting	
+		skillno = 3;
+		lineColor = RGB16(118, 100, 85);
+		break;
+
+	case 32://Cutting	
+	case 33://Lumbering	
+		skillno = 4;
+		lineColor = RGB16(197, 79, 0);
+		break;
+
+	case 35://Detect Herb	
+	case 36://Digging	
+		skillno = 5;
+		lineColor = RGB16(137, 202, 157);
+		break;
+
+	default: return;
 	}
-
-	
 
 	mapy = g_Map.y;
 	
@@ -2163,8 +2103,6 @@ void DrawSkilltile( void  )
 		}
 	}
 }	
-	
-	
 	
 void DrawSkillGauge( LPSKILLGAUGE n )
 {	
@@ -2209,10 +2147,6 @@ void DrawSkillGauge( LPSKILLGAUGE n )
 
 		break;
 	}
-
-
-	
-
 
 	//PutCompressImageApart( sx, sy+gy, g, 0,0, 640,480, n->delay );
 	if( n->delay > 31 )		PutCompressedImage( x, y, sp );
@@ -2328,7 +2262,7 @@ LPSKILLGAUGE AddSkillGauge( int skillno, int x, int y, int min )
 		{
 			t->delay = 75;
 			t->min = min;
-//			t->max = min;
+			//t->max = min;
 			t->toggle = true;
 			//1018 zhh
 			t->x = x;
@@ -2382,7 +2316,7 @@ void OutputSkillGauge( void )
 		}
 		else t->delay --; 
 
-//		if( t->max > t->min ) t->min ++;
+		//if( t->max > t->min ) t->min ++;
 		 
 		//  감소하거나 .. 너무많이 시간이 흐른것이면..( 대충 400 frame )
 		if( t->delay <= 0 || t->min == 999 ) { temp = t->next; DeleteSkillGauge( t ); t = temp; continue; }
@@ -2413,12 +2347,12 @@ void AdjustSkillMouseCursor( int *x, int *y )
 	return;
 
 
-//	if( SkillMouseDontMoveFlag == true )
+	//if( SkillMouseDontMoveFlag == true )
 	{	
-//		sx = SkillDontMoveSx - Mapx;
-//		sy = SkillDontMoveSy - Mapy;
-//		ex = sx + SkillDontMoveXl - 2;
-//		ey = sy + SkillDontMoveYl - 2;
+		//sx = SkillDontMoveSx - Mapx;
+		//sy = SkillDontMoveSy - Mapy;
+		//ex = sx + SkillDontMoveXl - 2;
+		//ey = sy + SkillDontMoveYl - 2;
 		
 		//  A tale that wasn't right -- Hallowin
 		if( BoxAndDotCrash( sx, sy, ex-sx, ey-sy, *x, *y ))
@@ -2945,8 +2879,8 @@ void SetGMskill()//인터페이스에 GM가능 리스트 등록
 				}break;
 			case 3:
 			case 4:
-//				{
-//				}break;
+				//{
+				//}break;
 			default:
 				{
 				}break;

@@ -183,10 +183,10 @@ void HackLog( int type, char *logmsg, ... )
 	DWORD   dwAttr   =   GetFileAttributes(".\\外挂账号记录");   
 	if(dwAttr   ==   0xFFFFFFFF)     //文件夹不存在   
 	{ CreateDirectory(".\\外挂账号记录",NULL);  } 
-/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //是文件夹   
-	{   
-	//do   something   
-	}*/
+	//else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //是文件夹   
+	//{   
+	////do   something   
+	//}
 	//----------------------------------------------
 
 	// Filtering unlogable things

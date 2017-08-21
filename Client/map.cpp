@@ -250,19 +250,19 @@ void MapCleanupSurface( LPMAP lpMap )
 	
 BOOL MapRestoreSurface( LPMAP lpMap )
 {	
-//	char	szFileName[ _MAX_PATH ];
-		
-//	wsprintf( szFileName, "%s/art/back%04d.bmp", __szCurrentDirectory, __GameInfo.nStageMajor );
-//	if ( !ReLoadMapImage( &lpMap->lpSurfaceBack, szFileName ) )
-//	{
-//		return	FALSE;
-//	}
-	
-//	wsprintf( szFileName, "%s/art/tile%04d.bmp", __szCurrentDirectory, __GameInfo.nStageMajor );
-//	if ( !ReLoadMapImage( &lpMap->lpSurfaceTile, szFileName ) )
-//	{
-//		return	FALSE;
-//	}
+	//char	szFileName[ _MAX_PATH ];
+	//	
+	//wsprintf( szFileName, "%s/art/back%04d.bmp", __szCurrentDirectory, __GameInfo.nStageMajor );
+	//if ( !ReLoadMapImage( &lpMap->lpSurfaceBack, szFileName ) )
+	//{
+	//	return	FALSE;
+	//}
+	//
+	//wsprintf( szFileName, "%s/art/tile%04d.bmp", __szCurrentDirectory, __GameInfo.nStageMajor );
+	//if ( !ReLoadMapImage( &lpMap->lpSurfaceTile, szFileName ) )
+	//{
+	//	return	FALSE;
+	//}
 	
 	return	TRUE;
 }		
@@ -298,10 +298,10 @@ BOOL MapReadFile( LPMAPFILE lpMapFile, char* pszFileName )
 				{
 					fread( &TileMap[ x ][ y ], sizeof( TILE ), 1, fp );
 			
-//					cc = (double*)&TileMap[ x][ y];
-//					*cc -= (x+y);
-//					cc = ((double*)&TileMap[ x][ y]) + 1;
-//					*cc -= (y);
+					//cc = (double*)&TileMap[ x][ y];
+					//*cc -= (x+y);
+					//cc = ((double*)&TileMap[ x][ y]) + 1;
+					//*cc -= (y);
 					t += *(int*)&TileMap[ x][ y];
 				}
 				HandleRunning(&connections );
@@ -389,10 +389,10 @@ BOOL MapWirteFile( LPMAPFILE lpMapFile, char* pszFileName )
 			for ( int x = 0 ; x < lpMapFile->wWidth ; x++ )
 			{	
 				t += *(int*)&TileMap[ x][ y];
-//				cc = (double*)&TileMap[ x][ y];
-//				*cc += (x+y);
-//				cc = ((double*)&TileMap[ x][ y]) + 1;
-//				*cc += (y);
+				//cc = (double*)&TileMap[ x][ y];
+				//*cc += (x+y);
+				//cc = ((double*)&TileMap[ x][ y]) + 1;
+				//*cc += (y);
 				fwrite( (char *)&TileMap[ x][ y], sizeof( TILE ), 1, fp );
 			}	
 		}		
@@ -409,21 +409,16 @@ BOOL MapWirteFile( LPMAPFILE lpMapFile, char* pszFileName )
 	{			
 		for ( int x = 0; x < lpMapFile->wWidth; x++ )
 		{		
-//			cc = (double*)&TileMap[ x][ y];
-//			*cc -= (x+y);
-//			cc = ((double*)&TileMap[ x][ y]) + 1;
-//			*cc -= (y);
+			//cc = (double*)&TileMap[ x][ y];
+			//*cc -= (x+y);
+			//cc = ((double*)&TileMap[ x][ y]) + 1;
+			//*cc -= (y);
 		}	
 	}		
 						
 	return	TRUE;
 }							
 							
-							
-
-			
-
-					
 				
 void  MapDisplay( int nType )
 {
@@ -953,12 +948,8 @@ GO_PROCESS_:
 		}			
 	}
 }
-
-
-	
 	
 ///////////////////////////////////////////////////////////////////////////////
-	
 ///////////////////////////////////////////////////////////////////////////////
 // roof
 	
@@ -1614,9 +1605,6 @@ void SetHeroPosition( int flag )		// 0110
 	}
 }
 
-
-
-
 //////////////////////// 0625 lkh 수정 //////////////////////////
 void StartSetView( LPCHARACTER ch )
 {	
@@ -1695,37 +1683,37 @@ void changesourcename( char *oldname, char *newname )
 }		
 
 
-/*
-void LoadSmallMap( char *filename )
-{
-	FILE *fp;
-	char temp[ FILENAME_MAX];
-	Spr *s;
-
-	switch( MapNumber )
-	{
-	case 0 :	break;
-	default :	return;
-	}
-
-	sprintf( temp, "./map/%s.sml", filename );
-	fp = Fopen( temp, "rb" );
-	if( fp )
-	{	
-		s = &g_Map.sp;
-		fread( &s->xl, sizeof( short ), 1, fp);
-		fread( &s->yl, sizeof( short ), 1, fp);
-		fread( &s->ox, sizeof( short ), 1, fp);
-		fread( &s->oy, sizeof( short ), 1, fp);
-//		s->ox = s->oy = 0;
-		fread( &s->size, sizeof( unsigned int ), 1, fp);
-		s->img = NULL;
-		MemAlloc( s->img, s->size );
-		fread( s->img, s->size, 1, fp );
-		convert565to555( s );
-		fclose(fp);
-	}	
-}*/
+//
+//void LoadSmallMap( char *filename )
+//{
+//	FILE *fp;
+//	char temp[ FILENAME_MAX];
+//	Spr *s;
+//
+//	switch( MapNumber )
+//	{
+//	case 0 :	break;
+//	default :	return;
+//	}
+//
+//	sprintf( temp, "./map/%s.sml", filename );
+//	fp = Fopen( temp, "rb" );
+//	if( fp )
+//	{	
+//		s = &g_Map.sp;
+//		fread( &s->xl, sizeof( short ), 1, fp);
+//		fread( &s->yl, sizeof( short ), 1, fp);
+//		fread( &s->ox, sizeof( short ), 1, fp);
+//		fread( &s->oy, sizeof( short ), 1, fp);
+//		//s->ox = s->oy = 0;
+//		fread( &s->size, sizeof( unsigned int ), 1, fp);
+//		s->img = NULL;
+//		MemAlloc( s->img, s->size );
+//		fread( s->img, s->size, 1, fp );
+//		convert565to555( s );
+//		fclose(fp);
+//	}	
+//}
 
 
 		
@@ -1915,8 +1903,8 @@ DWORD ReturnSizeOfSource2( char *source2name )
 		int source = sou2.source_no;
 		int tile =   sou2.tile_no;
 	
-//		_ASSERT(  0 <= sou2.tile_no && sou2.tile_no < 3600 );					
-//		_ASSERT(  0 <= sou2.source_no && sou2.source_no < MAX_SOURCE_NO_ );
+		//_ASSERT(  0 <= sou2.tile_no && sou2.tile_no < 3600 );					
+		//_ASSERT(  0 <= sou2.source_no && sou2.source_no < MAX_SOURCE_NO_ );
 	
 		if(  0 <= sou2.tile_no && sou2.tile_no < 3600 ){}else continue;
 		if(  0 <= sou2.source_no && sou2.source_no < MAX_SOURCE_NO_ ){}else continue;
@@ -1993,8 +1981,8 @@ void LoadMapSource2( char *mapname )
 		sou2.tile_no = tt;
 		sou2.source_no = ts-1;
 
-//		_ASSERT(  0 <= sou2.tile_no && sou2.tile_no < 3600 );
-//		_ASSERT(  0 <= sou2.source_no && sou2.source_no < MAX_SOURCE_NO_ );
+		//_ASSERT(  0 <= sou2.tile_no && sou2.tile_no < 3600 );
+		//_ASSERT(  0 <= sou2.source_no && sou2.source_no < MAX_SOURCE_NO_ );
 		if(  0 <= sou2.tile_no && sou2.tile_no < 3600 ){}else { Sou[i].xl = 0; Sou[i].img = NULL; continue; }
 		if(  0 <= sou2.source_no && sou2.source_no < MAX_SOURCE_NO_ ){}else { Sou[i].xl = 0; Sou[i].img = NULL; continue; }
 
@@ -2148,7 +2136,7 @@ int CheckEventAttrTile( void )
 			eventno = ReturnEventNo( mx, my );
 			if( eventno != -1 )
 			{
-//				JustMsg( "int CheckEventAttr( void ) %d", eventno );
+				//JustMsg( "int CheckEventAttr( void ) %d", eventno );
 				SendEvent( EVENT_TYPE_MAPTILE, eventno );
 
 				return 1;
@@ -2163,11 +2151,7 @@ int CheckEventAttrTile( void )
 	return 0;
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////
-
 Spr SmallMapBackSpr;
 
 void LoadSmallMapBack( void )
@@ -2201,9 +2185,6 @@ void PutSmallMapBack( int x, int y )
 	
 #define SmallMapXL		125
 #define SmallMapYL		77
-
-
-
 
 
 BYTE ZXTABLE[ SCREEN_WIDTH];
@@ -2272,7 +2253,7 @@ void OutputSmallMap( void )//020730 lsw
 			smallmap_DisplaySprite();
 			MapDisplay(1);
 
-////////////////////////////
+			////////////////////////////
 
 			curx = sx = SCREEN_WIDTH / MAP_SMALL_SIZE_BAEYULX * (x/25);
 			sy = GAME_SCREEN_YSIZE_OLD / MAP_SMALL_SIZE_BAEYULX * (y/15);
@@ -2301,8 +2282,7 @@ void OutputSmallMap( void )//020730 lsw
 			}
 NEXT__:
 			FlipScreen( &g_DirectDrawInfo );
-			;
-////////////////////////////
+			////////////////////////////
 		}
 	}
 
@@ -2348,7 +2328,7 @@ NEXT__:
 	WORD *p16DIB = (WORD *)(buf);
 	for( int i = 0; yl > i ; i++)
 	{
-//		int iReadPos = (i*xl);
+		//int iReadPos = (i*xl);
 		int iWritePos = ((yl-i-1)*xl);
 		for( int j = 0; xl > j ; j++)
 		{
@@ -2559,7 +2539,7 @@ void MaskMap( int x, int y, Spr *sp )
 		{
 			int front = TileMap[ i][ j].front;
 			if(  front )
-//			if(  TileMap[ i][ j].frontoffset * TILE_SIZE >= y )
+			//if(  TileMap[ i][ j].frontoffset * TILE_SIZE >= y )
 			{ 
 				if( Sou[ front].xl == -1 )		PutTile( i*TILE_SIZE - Mapx,  j*TILE_SIZE - Mapy,  Sou[front].img, g_DestBackBuf );
 				else							PutCompressedImage(  i*TILE_SIZE - Mapx,  j*TILE_SIZE - Mapy,  &Sou[ front] );
@@ -2611,14 +2591,14 @@ void MaskMapEffect( int x, int y, int height, Spr *sp )
 	int ex  = sx+sp->xl + TILE_SIZE - 1;
 	int ey  = sy+sp->yl + TILE_SIZE - 1;
 
-//	if( !TileMap[ x/TILE_SIZE][ y/TILE_SIZE].front )
-//	{
-//		return;
-//	}
+	//if( !TileMap[ x/TILE_SIZE][ y/TILE_SIZE].front )
+	//{
+	//	return;
+	//}
 
-//	int offset = TileMap[ x/TILE_SIZE][ y/TILE_SIZE].frontoffset;
+	//int offset = TileMap[ x/TILE_SIZE][ y/TILE_SIZE].frontoffset;
 
-//	ex += (( ex - sx )/2);
+	//ex += (( ex - sx )/2);
 
 	sx	/= TILE_SIZE;
 	sy	/= TILE_SIZE;
@@ -2630,7 +2610,7 @@ void MaskMapEffect( int x, int y, int height, Spr *sp )
 	if( ex >= g_Map.file.wWidth  ) ex = g_Map.file.wWidth;
 	if( ey >= g_Map.file.wHeight ) ey = g_Map.file.wHeight;
 
-	//	my += Mapy;
+	//my += Mapy;
 
 	for( i = sx ; i < ex ; i ++ )
 		for( j = sy ; j < ey ; j ++ )
@@ -2644,22 +2624,6 @@ void MaskMapEffect( int x, int y, int height, Spr *sp )
 			}
 		}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 void ViewRoofData( void )
@@ -2700,7 +2664,7 @@ void ViewRoofData( void )
 						Hprint2( sx - Mapx, sy- Mapy,  g_DestBackBuf, "%d", lpEventList->index );
 						Hcolor( 0xffff );
 						Hprint2( sx - Mapx-1, sy- Mapy-1,  g_DestBackBuf, "%d", lpEventList->index );
-						//						TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 1;
+						//TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 1;
 						lpRoof = lpRoof->lpNext;
 					}
 				}
@@ -2729,8 +2693,8 @@ void ViewRoofData( void )
 						Hprint2( sx - Mapx, sy- Mapy,  g_DestBackBuf, "%d", lpEventList->index );
 						Hcolor( 0xffff );
 						Hprint2( sx - Mapx-1, sy- Mapy-1,  g_DestBackBuf, "%d", lpEventList->index );
-						//						TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 1;
-//						TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 0;
+						//TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 1;
+						//TileMap[ lpRoof->x ][ lpRoof->y ].show_roof = 0;
 						lpRoof = lpRoof->lpNext;
 					}
 				}
@@ -2743,9 +2707,6 @@ void ViewRoofData( void )
 		mx = tmx, my = tmy;
 	}
 }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////
 // 로딩이나 맵이동후 지붕이 닫쳐 있으면 연다.
@@ -2838,16 +2799,6 @@ void CheckEnterHouse( LPCHARACTER ch )
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
 
 
 void SettingTripAround( void )

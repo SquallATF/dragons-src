@@ -23,7 +23,7 @@ CFileMerge& CFileMerge::operator=( CFileMerge &rhs)
 	}
 	this->Clear();
 	//this->SetFileName( rhs.GetFileList() );
-//	this->OpenFile("wrb"); 
+	//this->OpenFile("wrb"); 
 
 	return *this;
 }

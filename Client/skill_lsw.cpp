@@ -1344,20 +1344,20 @@ bool SetCSDFlied(const int iGroupNo, const int iGroupType, const int iStartFlied
 	for(; iCSIndex<iCSIndexTarget ;iCSIndex++)
 	{
 		SFIELD *f = &SMenu[MN_COMBAT_SKILL_DOING].nField[iFNo];
-//    if(	iCSIndex != (iCSIndexTarget-1) 
-//		|| 
-//			(iGroupNo==3 && iGroupType ==2) )//5번이 아니면 그린다 3번 그룹에 2번 타입( 바람 이면 그린다 )
-//		{
-		  if(CombatSkill[iCSIndex].iSkillLv&&(bForceNoneType == 0))//배운거다.. 1렙 이상이니까
-		  {
-			  f->nImageNumber = SkillIdToCombatSkillIconImage(CombatSkill[iCSIndex].iSkillNo,true);
-			  f->nRectImage	= SkillIdToCombatSkillIconImage(CombatSkill[iCSIndex].iSkillNo,false);
-			  SetRect(f->rCheakBox, f->x, f->y, f->x+42, f->y+42);
-			  f->nWillDo = iCSIndex;
-			  iFNo++;//다음 필드로
-			  iReturnValue = true;
-      }
-//    }
+		//if(	iCSIndex != (iCSIndexTarget-1) 
+		//|| 
+		//	(iGroupNo==3 && iGroupType ==2) )//5번이 아니면 그린다 3번 그룹에 2번 타입( 바람 이면 그린다 )
+		//{
+		if (CombatSkill[iCSIndex].iSkillLv && (bForceNoneType == 0))//배운거다.. 1렙 이상이니까
+		{
+			f->nImageNumber = SkillIdToCombatSkillIconImage(CombatSkill[iCSIndex].iSkillNo, true);
+			f->nRectImage = SkillIdToCombatSkillIconImage(CombatSkill[iCSIndex].iSkillNo, false);
+			SetRect(f->rCheakBox, f->x, f->y, f->x + 42, f->y + 42);
+			f->nWillDo = iCSIndex;
+			iFNo++;//다음 필드로
+			iReturnValue = true;
+		}
+		//}
 		else//쓸수 있는 스킬 아니면 영역과 nWillDo를 0으로 셋팅
 		{
 			f->nWillDo = 0;
@@ -1373,9 +1373,9 @@ void SetCSDIconRectAndnWillDo()
 	int iFieldNo = 17;//필드 넘버 밀기
 	int iGroupNo = 1;
 
-//	( SetCSDFlied(1,GetKnowCSGroupType(1),17) );
-//	( SetCSDFlied(2,GetKnowCSGroupType(2),17) );
-//	( SetCSDFlied(3,GetKnowCSGroupType(3),5) );
+	//( SetCSDFlied(1,GetKnowCSGroupType(1),17) );
+	//( SetCSDFlied(2,GetKnowCSGroupType(2),17) );
+	//( SetCSDFlied(3,GetKnowCSGroupType(3),5) );
 
 	for ( iGroupNo =1; iGroupNo<4;iGroupNo++)
 	{
@@ -1415,15 +1415,13 @@ void CallCombatSkillDoingMenu()
 	{
 		SMenu[MN_COMBAT_SKILL_DOING].bActive = true;	
 	}
-  /*
-	else
-	{
-		SMenu[MN_COMBAT_SKILL_DOING].bActive = true;
-	}
-	InitCombatSkill();
-	SetCSDIconRectAndnWillDo();
-	SetSCDMainAndOtherClear(0);
-  */
+	//else
+	//{
+	//	SMenu[MN_COMBAT_SKILL_DOING].bActive = true;
+	//}
+	//InitCombatSkill();
+	//SetCSDIconRectAndnWillDo();
+	//SetSCDMainAndOtherClear(0);
 }
 
 int iCSPMax = 0;
@@ -1446,22 +1444,22 @@ inline void ReadCombatSkillExplain(char * buf,int i)
 	
 	token = strtok(NULL,"\t\n\r");	if( token == NULL ) return;
 	strcpy(CombatSkillExplain[iIndex].EngName	,token);
-//	CombatSkillExplain[iIndex].EngName[30] = 0;
+	//CombatSkillExplain[iIndex].EngName[30] = 0;
 	EatRearWhiteChar( CombatSkillExplain[iIndex].EngName);
 	
 	token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;
 	strcpy(CombatSkillExplain[iIndex].LocalName,token);
-//	CombatSkillExplain[iIndex].LocalName[30] = 0;
+	//CombatSkillExplain[iIndex].LocalName[30] = 0;
 	EatRearWhiteChar( CombatSkillExplain[iIndex].LocalName);
 	
 	token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;//사용법
 	strcpy(CombatSkillExplain[iIndex].ClassName,token);
-//	CombatSkillExplain[iIndex].ClassName[50] = 0;
+	//CombatSkillExplain[iIndex].ClassName[50] = 0;
 	EatRearWhiteChar( CombatSkillExplain[iIndex].ClassName);
 
 	token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;//사용법
 	strcpy(CombatSkillExplain[iIndex].WeaponTactic,token);
-//	CombatSkillExplain[iIndex].WeaponTactic[30] = 0;
+	//CombatSkillExplain[iIndex].WeaponTactic[30] = 0;
 	EatRearWhiteChar( CombatSkillExplain[iIndex].WeaponTactic);
 
 	token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;CombatSkillExplain[iIndex].iNeedLv[0]		= atoi(token);	
@@ -1475,18 +1473,18 @@ inline void ReadCombatSkillExplain(char * buf,int i)
 	{
 		token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;//사용법
 		strcpy(CombatSkillExplain[iIndex].MicroExplain[xx],token);
-//		CombatSkillExplain[iIndex].MicroExplain[xx][50] = 0;
+		//CombatSkillExplain[iIndex].MicroExplain[xx][50] = 0;
 		EatRearWhiteChar( CombatSkillExplain[iIndex].MicroExplain[xx]);
 	}
 	
 	token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;//사용법
 	strcpy(CombatSkillExplain[iIndex].Use,token);
-//	CombatSkillExplain[iIndex].Use[50] = 0;
+	//CombatSkillExplain[iIndex].Use[50] = 0;
 	EatRearWhiteChar( CombatSkillExplain[iIndex].Use);
 
 	token = strtok(NULL,"\t\n\r");	if( token == NULL )	return;
 	strcpy(CombatSkillExplain[iIndex].Explain,token);
-//	CombatSkillExplain[iIndex].Explain[100] = 0;
+	//CombatSkillExplain[iIndex].Explain[100] = 0;
 	EatRearWhiteChar( CombatSkillExplain[iIndex].Explain);
 	
 	ConvertSpecialWord(CombatSkillExplain[iIndex].Explain,"\\n",'\n');
@@ -1709,7 +1707,7 @@ void DrawCombatSkillExplain(const int iExplainX, const int iExplainY, const int 
 
 	if(1)//클래스 배우기 가능 하면
 	{	//How To Use
-	//	Hcolor(FONT_COLOR_RARE_MAIN);
+		//Hcolor(FONT_COLOR_RARE_MAIN);
 		Hcolor(FONT_COLOR_BLIGHT_ORANGE);
 		iReultLineCount = TxtOut.RcTXTOut(iExplainX,iExplainY+iBlankGab+iLineGab*iCount,iWidth,0,lan->OutputMessage(0,418));
 		iCount += iReultLineCount;

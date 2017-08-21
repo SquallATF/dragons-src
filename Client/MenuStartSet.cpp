@@ -22,7 +22,7 @@ void SetRect(RECT &rect,int left, int top, int right, int bottom) //메뉴 구�
 void StartMenuSet()
 {
 /////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////// 그룹 메뉴에서 사용할 데이터 초기화////////////////////
+////////////////////////////// 그룹 메뉴에서 사용할 데이터 초기화//////////////////////
 	//캐릭터 만들기에서 사각형 선택 이미지 찍기
 	SHideNomal[HN_MAKECHARACTER_GENDER_RECT][0].nType=FT_NOMAL_PUT_CENTER;
 	SHideNomal[HN_MAKECHARACTER_GENDER_RECT][0].bShow=FALSE;
@@ -562,10 +562,10 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_CHEAK1].nField[3].nImageNumber=DP_TACTICS;
 
 	//가치관 데이타 찍기
-//	SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].nType=FT_DATA_PUT;
-//	SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].x=117;
-//	SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].y=184;
-//	SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].nImageNumber=DP_ARIGEMENT;
+	//SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].nType=FT_DATA_PUT;
+	//SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].x=117;
+	//SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].y=184;
+	//SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].nImageNumber=DP_ARIGEMENT;
 
 	//나이 찍기
 	SMenu[MN_MAKECHARACTER_CHEAK1].nField[4].nType=FT_DATA_PUT;
@@ -714,16 +714,16 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_GENDER].nField[1].nShideNomalPlus=2;
 
 	//마우스가 MAN 글자 근처에 가면 저절로 사각형 그림 뛰우기
-//	SMenu[MN_MAKECHARACTER_GENDER].nField[2].nType=FT_HIDE_PUT_CENTER_AUTO;
-//	SMenu[MN_MAKECHARACTER_GENDER].nField[2].y=102;
-//	SMenu[MN_MAKECHARACTER_GENDER].nField[2].nImageNumber=16;
-//	SetRect(SMenu[MN_MAKECHARACTER_GENDER].nField[2].rCheakBox,10,107,163,134);
+	//SMenu[MN_MAKECHARACTER_GENDER].nField[2].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_GENDER].nField[2].y=102;
+	//SMenu[MN_MAKECHARACTER_GENDER].nField[2].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_GENDER].nField[2].rCheakBox,10,107,163,134);
 
 	//마우스가 WOMAN 글자 근처에 가면 저절로 사각형 그림 뛰우기
-//	SMenu[MN_MAKECHARACTER_GENDER].nField[3].nType=FT_HIDE_PUT_CENTER_AUTO;
-//	SMenu[MN_MAKECHARACTER_GENDER].nField[3].y=172;
-//	SMenu[MN_MAKECHARACTER_GENDER].nField[3].nImageNumber=16;
-//	SetRect(SMenu[MN_MAKECHARACTER_GENDER].nField[3].rCheakBox,10,177,163,204);
+	//SMenu[MN_MAKECHARACTER_GENDER].nField[3].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_GENDER].nField[3].y=172;
+	//SMenu[MN_MAKECHARACTER_GENDER].nField[3].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_GENDER].nField[3].rCheakBox,10,177,163,204);
 
 	//마우스가 글자를 선택하면 그글자에 계속 사각형을 뛰우기
 	SMenu[MN_MAKECHARACTER_GENDER].nField[2].nType=FT_HIDE_NOMAL_ONE_PUT;
@@ -860,7 +860,7 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_FACE].x=55+GABX_SCREEN;
 	SMenu[MN_MAKECHARACTER_FACE].y=75+GABY_SCREEN;
 	SMenu[MN_MAKECHARACTER_FACE].nImageNumber=25;
-//	SMenu[MN_MAKECHARACTER_FACE].nImageNumber=69;
+	//SMenu[MN_MAKECHARACTER_FACE].nImageNumber=69;
 	SMenu[MN_MAKECHARACTER_FACE].nFieldCount=13;    
 	SMenu[MN_MAKECHARACTER_FACE].CheakType=0;		
 
@@ -1017,20 +1017,20 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[6].nShideNomalPlus=3;
 
 	//글자에 가까이 갔을때 저절로 뜨는 사각형 설정 3개 설정
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].y=114;
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].nImageNumber=16;
-//	SetRect(SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].rCheakBox,10,122,163,145);
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].y=114;
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[7].rCheakBox,10,122,163,145);
 
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].y=166;
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].nImageNumber=16;
-//	SetRect(SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].rCheakBox,10,174,163,197);
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].y=166;
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[8].rCheakBox,10,174,163,197);
 
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].y=218;
-//	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].nImageNumber=16;
-//	SetRect(SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].rCheakBox,10,226,163,249);
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].y=218;
+	//SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[9].rCheakBox,10,226,163,249);
 
 	//가치관 글자 그룹 증가 스크롤 버튼
 	SMenu[MN_MAKECHARACTER_ARIGEMENT].nField[10].nType=FT_HIDE_ISCROLL_PUT;
@@ -1149,31 +1149,31 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_CLASS].nField[6].nShideNomalPlus=5;
 
 	//글자에 가까이 갔을때 저절로 뜨는 사각형 설정 5개 설정
-/*	SMenu[MN_MAKECHARACTER_CLASS].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[7].y=90;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[7].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[7].rCheakBox,10,97,163,120);
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[7].y=90;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[7].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[7].rCheakBox,10,97,163,120);
 
-	SMenu[MN_MAKECHARACTER_CLASS].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[8].y=126;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[8].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[8].rCheakBox,10,133,163,156);
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[8].y=126;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[8].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[8].rCheakBox,10,133,163,156);
 
-	SMenu[MN_MAKECHARACTER_CLASS].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[9].y=162;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[9].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[9].rCheakBox,10,169,163,192);
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[9].y=162;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[9].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[9].rCheakBox,10,169,163,192);
 
-	SMenu[MN_MAKECHARACTER_CLASS].nField[10].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[10].y=198;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[10].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[10].rCheakBox,10,205,163,228);
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[10].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[10].y=198;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[10].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[10].rCheakBox,10,205,163,228);
 
-	SMenu[MN_MAKECHARACTER_CLASS].nField[11].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[11].y=234;
-	SMenu[MN_MAKECHARACTER_CLASS].nField[11].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[11].rCheakBox,10,241,163,264);
-*/
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[11].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[11].y=234;
+	//SMenu[MN_MAKECHARACTER_CLASS].nField[11].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_CLASS].nField[11].rCheakBox,10,241,163,264);
+
 	// 화살표 덧씌워 없애기 
 	SMenu[MN_MAKECHARACTER_CLASS].nField[12].nType=FT_NOMAL_PUT;
 	SMenu[MN_MAKECHARACTER_CLASS].nField[12].x=0;
@@ -1207,19 +1207,19 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_SPELL].nField[1].nSHideNomalCount=2;
 	SMenu[MN_MAKECHARACTER_SPELL].nField[1].nSHideNomalStart=0;
 	SMenu[MN_MAKECHARACTER_SPELL].nField[1].nShideNomalPlus=2;
-/*
-	//마우스가 WIZARD SPELL 글자 근처에 가면 저절로 사각형 그림 뛰우기
-	SMenu[MN_MAKECHARACTER_SPELL].nField[2].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_SPELL].nField[2].y=100;
-	SMenu[MN_MAKECHARACTER_SPELL].nField[2].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_SPELL].nField[2].rCheakBox,10,107,163,134);
 
-	//마우스가 PRIEST SPELL 글자 근처에 가면 저절로 사각형 그림 뛰우기
-	SMenu[MN_MAKECHARACTER_SPELL].nField[3].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_SPELL].nField[3].y=170;
-	SMenu[MN_MAKECHARACTER_SPELL].nField[3].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_SPELL].nField[3].rCheakBox,10,177,163,204);
-*/
+	////마우스가 WIZARD SPELL 글자 근처에 가면 저절로 사각형 그림 뛰우기
+	//SMenu[MN_MAKECHARACTER_SPELL].nField[2].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_SPELL].nField[2].y=100;
+	//SMenu[MN_MAKECHARACTER_SPELL].nField[2].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_SPELL].nField[2].rCheakBox,10,107,163,134);
+
+	////마우스가 PRIEST SPELL 글자 근처에 가면 저절로 사각형 그림 뛰우기
+	//SMenu[MN_MAKECHARACTER_SPELL].nField[3].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_SPELL].nField[3].y=170;
+	//SMenu[MN_MAKECHARACTER_SPELL].nField[3].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_SPELL].nField[3].rCheakBox,10,177,163,204);
+
 	//마우스가 글자를 선택하면 그글자에 계속 사각형을 뛰우기
 	SMenu[MN_MAKECHARACTER_SPELL].nField[2].nType=FT_HIDE_NOMAL_ONE_PUT;
 	SMenu[MN_MAKECHARACTER_SPELL].nField[2].nSHideNomalNumber=HN_MAKECHARACTER_SPELL_RECT;
@@ -1271,8 +1271,8 @@ void StartMenuSet()
 
 	
 	
-//////////////////////////////////////////////////////////////////////////////////////////
-//캐릭터 만들기에서 SPELL설정 메뉴2
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//캐릭터 만들기에서 SPELL설정 메뉴2
 	//메인 메뉴뛰우기
 	SMenu[MN_MAKECHARACTER_SPELL2].x=55+GABX_SCREEN;
 	SMenu[MN_MAKECHARACTER_SPELL2].y=75+GABY_SCREEN;
@@ -1346,8 +1346,8 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_SPELL2].nField[9].x=49;
 	SMenu[MN_MAKECHARACTER_SPELL2].nField[9].y=45;
 	SMenu[MN_MAKECHARACTER_SPELL2].nField[9].nImageNumber=551;
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 	//캐릭터 만들기에서 COLOR 메뉴 
 
 	//메인 메뉴 뛰우기
@@ -1424,11 +1424,11 @@ void StartMenuSet()
 	SetRect(SMenu[MN_MAKECHARACTER_COLOR].nField[9].rCheakBox,47,234,185,259);
 
 
-//	SMenu[MN_MAKECHARACTER_COLOR].nField[13].nType=FT_COLOR_GAUGE;
-//	SMenu[MN_MAKECHARACTER_COLOR].nField[13].x=49;
-//	SMenu[MN_MAKECHARACTER_COLOR].nField[13].y=45;
-//	SMenu[MN_MAKECHARACTER_COLOR].nField[13].nImageNumber=401;
-//	SetRect(SMenu[MN_MAKECHARACTER_COLOR].nField[5].rCheakBox,9,287,100,302);
+	//SMenu[MN_MAKECHARACTER_COLOR].nField[13].nType=FT_COLOR_GAUGE;
+	//SMenu[MN_MAKECHARACTER_COLOR].nField[13].x=49;
+	//SMenu[MN_MAKECHARACTER_COLOR].nField[13].y=45;
+	//SMenu[MN_MAKECHARACTER_COLOR].nField[13].nImageNumber=401;
+	//SetRect(SMenu[MN_MAKECHARACTER_COLOR].nField[5].rCheakBox,9,287,100,302);
 
 
 	// 화살표 덧씌워 없애기 
@@ -1444,7 +1444,7 @@ void StartMenuSet()
 
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 	//캐릭터 만들기에서 TACTICS남 설정
 
 	//메인 메뉴 뛰우기
@@ -1507,22 +1507,22 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[6].nSHideNomalStart=0;
 	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[6].nShideNomalPlus=4;
 
-/*	//글자에 가까이 갔을때 저절로 뜨는 사각형 설정 3개 설정
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].y=114;
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].rCheakBox,10,122,163,145);
+	////글자에 가까이 갔을때 저절로 뜨는 사각형 설정 3개 설정
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].y=114;
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[7].rCheakBox,10,122,163,145);
 
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].y=166;
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].rCheakBox,10,174,163,197);
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].y=166;
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[8].rCheakBox,10,174,163,197);
 
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].y=218;
-	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].rCheakBox,10,226,163,249);
-*/
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].y=218;
+	//SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[9].rCheakBox,10,226,163,249);
+
 	//TACTICS남 글자 그룹 증가 스크롤 버튼
 	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[10].nType=FT_HIDE_ISCROLL_PUT;
 	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[10].nSpecialWillDo=100;
@@ -1579,7 +1579,7 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[16].y=45;
 	SMenu[MN_MAKECHARACTER_TACTICS_MAN].nField[16].nImageNumber=554;
 
-//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 	//캐릭터 만들기에서 TACTICS여 설정
 
 	//메인 메뉴 뛰우기
@@ -1643,26 +1643,26 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[6].nShideNomalPlus=4;
 
 	//글자에 가까이 갔을때 저절로 뜨는 사각형 설정 4개 설정
-/*	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].y=103;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].rCheakBox,10,111,163,134);
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].y=103;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[7].rCheakBox,10,111,163,134);
 
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].y=144;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].rCheakBox,10,152,163,175);
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].y=144;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[8].rCheakBox,10,152,163,175);
 
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].y=185;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].rCheakBox,10,193,163,216);
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].y=185;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[9].rCheakBox,10,193,163,216);
 
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].y=226;
-	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].rCheakBox,10,234,163,257);
-*/
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].y=226;
+	//SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[10].rCheakBox,10,234,163,257);
+
 	//TACTICS여 글자 그룹 증가 스크롤 버튼
 	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[11].nType=FT_HIDE_ISCROLL_PUT;
 	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[11].nSpecialWillDo=100;
@@ -1720,7 +1720,7 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_TACTICS_WOMAN].nField[18].nImageNumber=554;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
 	//캐릭터 만들기 메뉴에서 직업 설정하기 메뉴
 
 	//메인 메뉴 뛰우기
@@ -1785,32 +1785,32 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_JOB].nField[6].nSHideNomalStart=0;
 	SMenu[MN_MAKECHARACTER_JOB].nField[6].nShideNomalPlus=3;
 
-/*	//글자에 가까이 갔을때 저절로 뜨는 사각형 설정 5개 설정
-	SMenu[MN_MAKECHARACTER_JOB].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_JOB].nField[7].y=90;
-	SMenu[MN_MAKECHARACTER_JOB].nField[7].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[7].rCheakBox,10,97,163,120);
+	////글자에 가까이 갔을때 저절로 뜨는 사각형 설정 5개 설정
+	//SMenu[MN_MAKECHARACTER_JOB].nField[7].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[7].y=90;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[7].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[7].rCheakBox,10,97,163,120);
 
-	SMenu[MN_MAKECHARACTER_JOB].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_JOB].nField[8].y=126;
-	SMenu[MN_MAKECHARACTER_JOB].nField[8].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[8].rCheakBox,10,133,163,156);
+	//SMenu[MN_MAKECHARACTER_JOB].nField[8].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[8].y=126;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[8].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[8].rCheakBox,10,133,163,156);
 
-	SMenu[MN_MAKECHARACTER_JOB].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_JOB].nField[9].y=162;
-	SMenu[MN_MAKECHARACTER_JOB].nField[9].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[9].rCheakBox,10,169,163,192);
+	//SMenu[MN_MAKECHARACTER_JOB].nField[9].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[9].y=162;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[9].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[9].rCheakBox,10,169,163,192);
 
-	SMenu[MN_MAKECHARACTER_JOB].nField[10].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_JOB].nField[10].y=198;
-	SMenu[MN_MAKECHARACTER_JOB].nField[10].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[10].rCheakBox,10,205,163,228);
+	//SMenu[MN_MAKECHARACTER_JOB].nField[10].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[10].y=198;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[10].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[10].rCheakBox,10,205,163,228);
 
-	SMenu[MN_MAKECHARACTER_JOB].nField[11].nType=FT_HIDE_PUT_CENTER_AUTO;
-	SMenu[MN_MAKECHARACTER_JOB].nField[11].y=234;
-	SMenu[MN_MAKECHARACTER_JOB].nField[11].nImageNumber=16;
-	SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[11].rCheakBox,10,241,163,264);
-*/
+	//SMenu[MN_MAKECHARACTER_JOB].nField[11].nType=FT_HIDE_PUT_CENTER_AUTO;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[11].y=234;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[11].nImageNumber=16;
+	//SetRect(SMenu[MN_MAKECHARACTER_JOB].nField[11].rCheakBox,10,241,163,264);
+
 	//TACTICS여 글자 그룹 증가 스크롤 버튼
 	SMenu[MN_MAKECHARACTER_JOB].nField[12].nType=FT_HIDE_ISCROLL_PUT;
 	SMenu[MN_MAKECHARACTER_JOB].nField[12].nSpecialWillDo=100;
@@ -1858,10 +1858,10 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_JOB].nField[17].nImageNumber=14;	
 
 	// 화살표 안보이게 하기 
-//	SMenu[MN_MAKECHARACTER_JOB].nField[12].nType=FT_NOMAL_PUT;
-//	SMenu[MN_MAKECHARACTER_JOB].nField[12].x=0;
-//	SMenu[MN_MAKECHARACTER_JOB].nField[12].y=45;
-//	SMenu[MN_MAKECHARACTER_JOB].nField[12].nImageNumber=26;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[12].nType=FT_NOMAL_PUT;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[12].x=0;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[12].y=45;
+	//SMenu[MN_MAKECHARACTER_JOB].nField[12].nImageNumber=26;
 
 	SMenu[MN_MAKECHARACTER_JOB].nField[18].nType=FT_NOMAL_PUT;
 	SMenu[MN_MAKECHARACTER_JOB].nField[18].x=49;
@@ -1869,7 +1869,7 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_JOB].nField[18].nImageNumber=550;
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
 	//캐릭터 만들기 메뉴에서 능력치 설정 메뉴
 
 	//메인베뉴 뛰우기
@@ -1879,18 +1879,18 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_ABILITY].nFieldCount=16;    
 	SMenu[MN_MAKECHARACTER_ABILITY].CheakType=0;
 
-//	//설명창 뛰우기
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[0].nType=FT_NOMAL_PUT;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[0].x=5;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[0].y=315;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[0].nImageNumber=9;
+	////설명창 뛰우기
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[0].nType=FT_NOMAL_PUT;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[0].x=5;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[0].y=315;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[0].nImageNumber=9;
 
 	//능력치 글자 그룹을 보여준다
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nType=FT_HIDE_NOMAL_GROUP_PUT;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalNumber=HN_MAKECHARACTER_ABILITY;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalCount=11;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalStart=0;
-//	SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nShideNomalPlus=1;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nType=FT_HIDE_NOMAL_GROUP_PUT;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalNumber=HN_MAKECHARACTER_ABILITY;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalCount=11;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nSHideNomalStart=0;
+	//SMenu[MN_MAKECHARACTER_ABILITY].nField[1].nShideNomalPlus=1;
 
 	//안눌린 다이스 버튼 찍기
 	SMenu[MN_MAKECHARACTER_ABILITY].nField[2].nType=FT_NOMAL_PUT;
@@ -1922,9 +1922,9 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_ABILITY].nField[6].y=45;
 	SMenu[MN_MAKECHARACTER_ABILITY].nField[6].nImageNumber=556;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-// YESNO 메뉴      // CallYesNo() 함수를 이용하여 좌표값을 넣어준다.
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//YESNO 메뉴      // CallYesNo() 함수를 이용하여 좌표값을 넣어준다.
 
 	//메인 메뉴 띄우기
 	SMenu[MN_YESNO].nImageNumber=242;
@@ -1948,9 +1948,9 @@ void StartMenuSet()
 	SMenu[MN_YESNO].nField[1].fLButtonDown=FALSE;
 	SMenu[MN_YESNO].nField[1].nImageNumber=244;
 	SetRect(SMenu[MN_YESNO].nField[1].rCheakBox,35,43,75,65);
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//			메시지 박스
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	//메시지 박스
 
 	SMenu[MN_MESSAGEBOX_BIG].nImageNumber=485;
 	SMenu[MN_MESSAGEBOX_BIG].nFieldCount=1;
@@ -1958,11 +1958,11 @@ void StartMenuSet()
 	SMenu[MN_MESSAGEBOX_SMALL].nImageNumber=484;
 	SMenu[MN_MESSAGEBOX_SMALL].nFieldCount=1;
 
-//020515 lsw
-//020515 lsw
+	//020515 lsw
+	//020515 lsw
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-//캐릭터 만들기에서 AGE설정 메뉴
+	/////////////////////////////////////////////////////////////////////////////////////////////
+	//캐릭터 만들기에서 AGE설정 메뉴
 
 	//메인 메뉴뛰우기
 	SMenu[MN_MAKECHARACTER_AGE].x=55+GABX_SCREEN;
@@ -2054,9 +2054,9 @@ void StartMenuSet()
 	SMenu[MN_MAKECHARACTER_AGE].nField[10].nImageNumber=73;
 
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////
-// 게임 설명창
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//게임 설명창
 
 	SMenu[MN_INFO].x=0;
 	SMenu[MN_INFO].y=0;
@@ -2070,13 +2070,12 @@ void StartMenuSet()
 	SMenu[MN_INFO].nField[0].y=180;
 	SMenu[MN_INFO].nField[0].nRectImage = 288;
 
-//////////////////////////////////////////////////////////////////////////////////
-//
-///////////////////////////////////////////////////////////////////////////////////
-// 접속 선택 지도 메뉴
+	/////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//접속 선택 지도 메뉴
 
-//////////////////////////////////////////////////////////////////////////////////////////
-//	직업 재 선택 메뉴
+	/////////////////////////////////////////////////////////////////////////////////////////
+	//직업 재 선택 메뉴
 
 	//메인 메뉴 뛰우기
 	SMenu[MN_RESET_JOB].x=55+GABX_SCREEN;
@@ -2126,17 +2125,17 @@ void StartMenuSet()
 	SMenu[MN_RESET_JOB].nField[4].nImageNumber=7;
 	SMenu[MN_RESET_JOB].nField[4].nImageType=RESET_JOB_ETC;
 	SetRect(SMenu[MN_RESET_JOB].nField[4].rCheakBox,9,287,100,302);
-/*
-	SMenu[MN_RESET_JOB].nField[4].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-	SMenu[MN_RESET_JOB].nField[4].nSpecialWillDo=SWD_LOGON;		// 다른 걸로 바뀜..
-	SMenu[MN_RESET_JOB].nField[4].nWillDo=MN_SELECT_CHARACTER;
-	SMenu[MN_RESET_JOB].nField[4].x=9;
-	SMenu[MN_RESET_JOB].nField[4].y=287;
-	SMenu[MN_RESET_JOB].nField[4].nRectImage=8;
-	SMenu[MN_RESET_JOB].nField[4].nImageNumber=7;
-	SMenu[MN_RESET_JOB].nField[4].nImageType=RESET_JOB_ETC;
-	SetRect(SMenu[MN_RESET_JOB].nField[4].rCheakBox,9,287,100,302);
-*/
+
+	//SMenu[MN_RESET_JOB].nField[4].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
+	//SMenu[MN_RESET_JOB].nField[4].nSpecialWillDo=SWD_LOGON;		// 다른 걸로 바뀜..
+	//SMenu[MN_RESET_JOB].nField[4].nWillDo=MN_SELECT_CHARACTER;
+	//SMenu[MN_RESET_JOB].nField[4].x=9;
+	//SMenu[MN_RESET_JOB].nField[4].y=287;
+	//SMenu[MN_RESET_JOB].nField[4].nRectImage=8;
+	//SMenu[MN_RESET_JOB].nField[4].nImageNumber=7;
+	//SMenu[MN_RESET_JOB].nField[4].nImageType=RESET_JOB_ETC;
+	//SetRect(SMenu[MN_RESET_JOB].nField[4].rCheakBox,9,287,100,302);
+
 	//직업 글자 그룹 보여주기
 	SMenu[MN_RESET_JOB].nField[5].nType=FT_HIDE_NOMAL_GROUP_PUT;
 	SMenu[MN_RESET_JOB].nField[5].nSHideNomalNumber=HN_MAKECHARACTER_JOB_TEXT;
@@ -2199,10 +2198,10 @@ void StartMenuSet()
 	SMenu[MN_RESET_JOB].nField[17].nImageNumber=14;	
 
 	// 화살표 안보이게 하기 
-//	SMenu[MN_RESET_JOB].nField[12].nType=FT_NOMAL_PUT;
-//	SMenu[MN_RESET_JOB].nField[12].x=0;
-//	SMenu[MN_RESET_JOB].nField[12].y=45;
-//	SMenu[MN_RESET_JOB].nField[12].nImageNumber=26;
+	//SMenu[MN_RESET_JOB].nField[12].nType=FT_NOMAL_PUT;
+	//SMenu[MN_RESET_JOB].nField[12].x=0;
+	//SMenu[MN_RESET_JOB].nField[12].y=45;
+	//SMenu[MN_RESET_JOB].nField[12].nImageNumber=26;
 
 	SMenu[MN_RESET_JOB].nField[18].nType=FT_NOMAL_PUT;
 	SMenu[MN_RESET_JOB].nField[18].x=49;
@@ -2210,8 +2209,8 @@ void StartMenuSet()
 	SMenu[MN_RESET_JOB].nField[18].nImageNumber=550;
 
 
-////////////////////////////////////////////////////////////////////////////////////
-//직업 재 선택에 관한 설명 글
+	////////////////////////////////////////////////////////////////////////////////////
+	//직업 재 선택에 관한 설명 글
 
 	SMenu[MN_RESET_JOB_EXPLAIN].x=329+GABX_SCREEN;
 	SMenu[MN_RESET_JOB_EXPLAIN].y=104+GABY_SCREEN;
@@ -2249,9 +2248,9 @@ void StartMenuSet()
 	SetRect(SMenu[MN_RESET_JOB_EXPLAIN].nField[2].rCheakBox,257,36,257+25,36+36);
 
 {
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 국가 선택 메뉴
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//국가 선택 메뉴
 	// 메인 메뉴 
 	SMenu[MN_SELECT_NATION].x=55+GABX_SCREEN;
 	SMenu[MN_SELECT_NATION].y=75+GABY_SCREEN;
@@ -2299,8 +2298,8 @@ void StartMenuSet()
 
 	//선택된 cancel버튼 뛰우기
 	SMenu[MN_SELECT_NATION].nField[5].nType=FT_HIDE_SPECIAL_WILLDO_AUTO_PUT;
-//	SMenu[MN_SELECT_NATION].nField[5].nSpecialWillDo=SWD_LOGON;
-//	SMenu[MN_SELECT_NATION].nField[5].nWillDo=MN_SELECT_CHARACTER;
+	//SMenu[MN_SELECT_NATION].nField[5].nSpecialWillDo=SWD_LOGON;
+	//SMenu[MN_SELECT_NATION].nField[5].nWillDo=MN_SELECT_CHARACTER;
 	SMenu[MN_SELECT_NATION].nField[5].nSpecialWillDo=SWD_LOGON_OK;	// 중립국 선택 기능 추가시 바꿔준다.
 	SMenu[MN_SELECT_NATION].nField[5].nWillDo= 0;				
 	SMenu[MN_SELECT_NATION].nField[5].x=9;
@@ -2351,22 +2350,22 @@ void StartMenuSet()
 	SMenu[MN_SELECT_NATION].nField[10].nImageNumber=16;
 	SetRect(SMenu[MN_SELECT_NATION].nField[10].rCheakBox,19, 181, 190, 206 );
 
-//	// 나라 선택	// 헤게모니아
-//	SMenu[MN_SELECT_NATION].nField[11].nType=FT_SELECT_NATION;
-//	SMenu[MN_SELECT_NATION].nField[11].nWillDo= N_HEGEMONIA;
-//	SMenu[MN_SELECT_NATION].nField[11].x=19;
-//	SMenu[MN_SELECT_NATION].nField[11].y=222;
-//	SMenu[MN_SELECT_NATION].nField[11].nImageNumber=16;
-//	SetRect(SMenu[MN_SELECT_NATION].nField[11].rCheakBox,19,222,190,250);
+	//// 나라 선택	// 헤게모니아
+	//SMenu[MN_SELECT_NATION].nField[11].nType=FT_SELECT_NATION;
+	//SMenu[MN_SELECT_NATION].nField[11].nWillDo= N_HEGEMONIA;
+	//SMenu[MN_SELECT_NATION].nField[11].x=19;
+	//SMenu[MN_SELECT_NATION].nField[11].y=222;
+	//SMenu[MN_SELECT_NATION].nField[11].nImageNumber=16;
+	//SetRect(SMenu[MN_SELECT_NATION].nField[11].rCheakBox,19,222,190,250);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-// 각 나라 설명글
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//각 나라 설명글
 	SMenu[MN_NATION_EXPLAIN].x=329+GABX_SCREEN;
 	SMenu[MN_NATION_EXPLAIN].y=104+GABY_SCREEN;
 	SMenu[MN_NATION_EXPLAIN].nImageNumber=485;
 	SMenu[MN_NATION_EXPLAIN].nFieldCount=3;   
 	SMenu[MN_NATION_EXPLAIN].CheakType=0;		
-//	SMenu[MN_NATION_EXPLAIN].key=6;		// 스크롤 버튼 테두리 이미지 번호 // 스크롤 플레그로 바꿨음..
+	//SMenu[MN_NATION_EXPLAIN].key=6;		// 스크롤 버튼 테두리 이미지 번호 // 스크롤 플레그로 바꿨음..
 
     //설명글 뛰우기
 	SMenu[MN_NATION_EXPLAIN].nField[0].nType=FT_SELECT_NATION_EXPLAIN;

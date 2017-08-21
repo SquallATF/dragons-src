@@ -67,13 +67,13 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 		return	ShowErrorMessage( "DirectDrawCreate Failed!" );
 	}
 	
-//	hResult = lpDirectDraw->QueryInterface( IID_IDirectDraw4, ( LPVOID* )&lpDirectDrawInfo->lpDirectDraw );
-//	if ( hResult != DD_OK )
-//	{
-//		return	ShowErrorMessage( "QueryInterface Failed!" );
-//	}
-//	lpDirectDraw->Release( );
-//	lpDirectDraw = NULL;
+	//hResult = lpDirectDraw->QueryInterface( IID_IDirectDraw4, ( LPVOID* )&lpDirectDrawInfo->lpDirectDraw );
+	//if ( hResult != DD_OK )
+	//{
+	//	return	ShowErrorMessage( "QueryInterface Failed!" );
+	//}
+	//lpDirectDraw->Release( );
+	//lpDirectDraw = NULL;
 	
 	if ( lpDirectDrawInfo->bFullscreen )
 	{
@@ -116,16 +116,16 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 			return	ShowErrorMessage( "GetAttachedSurface Failed!" );
 		}
 	
-/*	
-		DDSURFACEDESC       DDSDesc;
-		DDSDesc.dwSize = sizeof(DDSDesc2);
-		
-		lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Lock(NULL, &DDSDesc, 0, NULL);   // 
-		lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Unlock(NULL);
 	
-		DxSize = DDSDesc.lPitch;
+		//DDSURFACEDESC       DDSDesc;
+		//DDSDesc.dwSize = sizeof(DDSDesc2);
+		//
+		//lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Lock(NULL, &DDSDesc, 0, NULL);   // 
+		//lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Unlock(NULL);
+	
+		//DxSize = DDSDesc.lPitch;
 
-*/
+
 	}
 	else
 	{
@@ -135,32 +135,32 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 			return	ShowErrorMessage( "SetCooperativeLevel Failed!" );
 		}
 
-		/*
-		DWORD	dwStyle;
-		RECT	rectWork, rectClient;
-		dwStyle = GetWindowStyle( hWnd );
-		dwStyle &= ~WS_POPUP;
-		dwStyle |= WS_OVERLAPPED | WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX;
-		SetWindowLong( hWnd, GWL_STYLE, dwStyle );
+		//
+		//DWORD	dwStyle;
+		//RECT	rectWork, rectClient;
+		//dwStyle = GetWindowStyle( hWnd );
+		//dwStyle &= ~WS_POPUP;
+		//dwStyle |= WS_OVERLAPPED | WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX;
+		//SetWindowLong( hWnd, GWL_STYLE, dwStyle );
 
-		SetRect( &rectClient, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
+		//SetRect( &rectClient, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
-		AdjustWindowRectEx( &rectClient, GetWindowStyle( hWnd ), GetMenu( hWnd ) != NULL, GetWindowExStyle( hWnd ) );
-		SetWindowPos( hWnd, NULL, 0, 0, rectClient.right - rectClient.left, rectClient.bottom - rectClient.top, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE );
-		SetWindowPos( hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE );
+		//AdjustWindowRectEx( &rectClient, GetWindowStyle( hWnd ), GetMenu( hWnd ) != NULL, GetWindowExStyle( hWnd ) );
+		//SetWindowPos( hWnd, NULL, 0, 0, rectClient.right - rectClient.left, rectClient.bottom - rectClient.top, SWP_NOMOVE | SWP_NOZORDER | SWP_NOACTIVATE );
+		//SetWindowPos( hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE );
 
-		SystemParametersInfo( SPI_GETWORKAREA, 0, &rectWork, 0 );
-		GetWindowRect( hWnd, &rectClient );
-		if ( rectClient.left < rectWork.left )
-		{
-			rectClient.left = rectWork.left;
-		}
-		if ( rectClient.top  < rectWork.top )
-		{
-			rectClient.top  = rectWork.top;
-		}
-		SetWindowPos( hWnd, NULL, rectClient.left, rectClient.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
-		*/
+		//SystemParametersInfo( SPI_GETWORKAREA, 0, &rectWork, 0 );
+		//GetWindowRect( hWnd, &rectClient );
+		//if ( rectClient.left < rectWork.left )
+		//{
+		//	rectClient.left = rectWork.left;
+		//}
+		//if ( rectClient.top  < rectWork.top )
+		//{
+		//	rectClient.top  = rectWork.top;
+		//}
+		//SetWindowPos( hWnd, NULL, rectClient.left, rectClient.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
+		//
 
 		ZeroMemory( &ddsd, sizeof( ddsd ) );
 		ddsd.dwSize = sizeof( ddsd );
@@ -342,7 +342,7 @@ FlipScreen( LPDIRECTDRAWINFO lpDirectDrawInfo )
 	}				
 	else			
 	{				
-//		lpDirectDrawInfo->lpDirectDrawSurfacePrimary->SetClipper( lpDirectDrawInfo->lpClipper );
+		//lpDirectDrawInfo->lpDirectDrawSurfacePrimary->SetClipper( lpDirectDrawInfo->lpClipper );
 			
 		hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Blt( &lpDirectDrawInfo->rectPrimarySurface,
 			lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL, DDBLT_WAIT, NULL );
@@ -426,8 +426,8 @@ DDLoadBitmap( LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpsz
 	DDCopyBitmap( lpSurfaceInfo->lpSurface, hbm, 0, 0, 0, 0 );
 	DeleteObject( hbm );
 
-//	lpSurfaceInfo->dwFillColor = DDColorMatch( lpSurfaceInfo->lpSurface, RGB( 255, 0, 255 ) );
-//	DDSetColorKey( lpSurfaceInfo->lpSurface, lpSurfaceInfo->dwFillColor );
+	//lpSurfaceInfo->dwFillColor = DDColorMatch( lpSurfaceInfo->lpSurface, RGB( 255, 0, 255 ) );
+	//DDSetColorKey( lpSurfaceInfo->lpSurface, lpSurfaceInfo->dwFillColor );
 	DDSetColorKey( lpSurfaceInfo->lpSurface, RGB( 255, 0, 255 ) );
 
 	return	TRUE;
@@ -747,11 +747,11 @@ BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFAC
 
 				//wPixel = ( ( ( wBlue * 11 ) + ( wGreen * 59 ) + ( wRed * 30 ) ) / 100 );
 				//wPixel = ( ( WORD )( ( ( BYTE )( Pixel ) | ( ( WORD )( ( BYTE )( wPixel ) ) << 5 ) ) | ( ( ( DWORD )( BYTE )( wPixel ) ) << 10 ) ) );
-//				wPixel = ( ( WORD )( ( ( BYTE )( wRed ) | ( ( WORD )( ( BYTE )( wGreen ) ) << 5 ) ) | ( ( ( DWORD )( BYTE )( wBlue ) ) << 10 ) ) );
-//				wPixel = ( ( wBlue >> 3 ) | ( ( wGreen >> 3 ) << 5 ) | ( ( wRed >> 3 ) << 10 ) );
+				//wPixel = ( ( WORD )( ( ( BYTE )( wRed ) | ( ( WORD )( ( BYTE )( wGreen ) ) << 5 ) ) | ( ( ( DWORD )( BYTE )( wBlue ) ) << 10 ) ) );
+				//wPixel = ( ( wBlue >> 3 ) | ( ( wGreen >> 3 ) << 5 ) | ( ( wRed >> 3 ) << 10 ) );
 
-//				*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = ( ( wBlue ) | ( ( wGreen ) << 5 ) | ( ( wRed ) << 10 ) );
-//				*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = ( ( wBlue ) | ( ( wGreen ) << 5 ) | ( ( wRed ) << 10 ) );
+				//*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = ( ( wBlue ) | ( ( wGreen ) << 5 ) | ( ( wRed ) << 10 ) );
+				//*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = ( ( wBlue ) | ( ( wGreen ) << 5 ) | ( ( wRed ) << 10 ) );
 
 				//*lpwImageDst = ( ( wSrcBlue ) | ( ( wSrcGreen ) << 5 ) | ( ( wSrcRed ) << 10 ) );
 				*lpwImageDst = ( ( wSrcBlue >> 3 ) | ( ( wSrcGreen >> 3 ) << 5 ) | ( ( wSrcRed >> 3 ) << 10 ) );
@@ -1046,45 +1046,40 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 
 //--------------------------- Gamma Control------------------------
 /*******************************************************************
-
-HRESULT GetColorControls(
-  LPDDCOLORCONTROL lpColorControl  
-);
-
-
-typedef struct _DDCOLORCONTROL {
-    DWORD   dwSize;
-				-> sizeof( DDCOLORCONTROL );
-    DWORD   dwFlags;
-				->	DDCOLOR_BRIGHTNESS 
-						The lBrightness member contains valid data. 
-					DDCOLOR_COLORENABLE 
-						The lColorEnable member contains valid data. 
-					DDCOLOR_CONTRAST 
-						The lContrast member contains valid data. 
-					DDCOLOR_GAMMA 
-						The lGamma member contains valid data. 
-					DDCOLOR_HUE 
-						The lHue member contains valid data. 
-					DDCOLOR_SATURATION 
-						The lSaturation member contains valid data. 
-						DDCOLOR_SHARPNESS 
-					The lSharpness member contains valid data. 
-
-    LONG    lBrightness;
-    LONG    lContrast;
-    LONG    lHue;
-    LONG    lSaturation;
-    LONG    lSharpness;
-    LONG    lGamma;
-    LONG    lColorEnable;
-    DWORD   dwReserved1;
-} DDCOLORCONTROL, FAR *LPDDCOLORCONTROL;
- 
-
-
-  
-
+//HRESULT GetColorControls(
+//  LPDDCOLORCONTROL lpColorControl  
+//);
+//
+//
+//typedef struct _DDCOLORCONTROL {
+//    DWORD   dwSize;
+//				-> sizeof( DDCOLORCONTROL );
+//    DWORD   dwFlags;
+//				->	DDCOLOR_BRIGHTNESS 
+//						The lBrightness member contains valid data. 
+//					DDCOLOR_COLORENABLE 
+//						The lColorEnable member contains valid data. 
+//					DDCOLOR_CONTRAST 
+//						The lContrast member contains valid data. 
+//					DDCOLOR_GAMMA 
+//						The lGamma member contains valid data. 
+//					DDCOLOR_HUE 
+//						The lHue member contains valid data. 
+//					DDCOLOR_SATURATION 
+//						The lSaturation member contains valid data. 
+//						DDCOLOR_SHARPNESS 
+//					The lSharpness member contains valid data. 
+//
+//    LONG    lBrightness;
+//    LONG    lContrast;
+//    LONG    lHue;
+//    LONG    lSaturation;
+//    LONG    lSharpness;
+//    LONG    lGamma;
+//    LONG    lColorEnable;
+//    DWORD   dwReserved1;
+//} DDCOLORCONTROL, FAR *LPDDCOLORCONTROL;
+//
 *******************************************************************/
 
 
@@ -1096,7 +1091,7 @@ void InitGammaControl( void )
 	g_DisplayGamma.dwSize  = sizeof( DDCOLORCONTROL );
 	g_DisplayGamma.dwFlags = DDCOLOR_BRIGHTNESS;
 
-//	GetColorControls( &g_DisplayGamma );
+	//GetColorControls( &g_DisplayGamma );
 	g_OldDisplayGamma = g_DisplayGamma;
 }
 
@@ -1104,7 +1099,7 @@ void InitGammaControl( void )
 // 게임전의 값을 다시 Setting한다. 
 void ResetGammaCtrl( void )
 {
-//	g_DirectDrawInfo.lpColorCtrl-> lpColorControl->SetColorControls( &g_OldDisplayGamma );  
+	//g_DirectDrawInfo.lpColorCtrl-> lpColorControl->SetColorControls( &g_OldDisplayGamma );  
 }
 
 // 0 - 10000
@@ -1113,7 +1108,7 @@ int ColorCtrlBrightness( long v )
 	g_DisplayGamma.dwSize  = sizeof( DDCOLORCONTROL );
 	g_DisplayGamma.dwFlags = DDCOLOR_BRIGHTNESS;
 	g_DisplayGamma.lBrightness = v;
-//	SetColorControls( &g_DisplayGamma );  
+	//SetColorControls( &g_DisplayGamma );  
 	return v;
 }
 

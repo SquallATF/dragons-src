@@ -44,7 +44,7 @@ bool CRMListenerTable::Add(char* ip, BYTE type,  DWORD dwConnectionIndex)
 	memset(info, 0, sizeof(RM_LISTENER_INFO));		
 	info->bConnectType = RM_TYPE_LISTENER;		//매개변수 type과는 헷깔리지 말것!!   매개변수 type은 접속, 미접속 여부이다.
 	info->dwConnectionIndex = dwConnectionIndex;
-//	info->dwServerType = pServerData->dwServerType;
+	//info->dwServerType = pServerData->dwServerType;
 	strcpy(info->szIP, ip);
 
 	//접속 상태일때 dwConnectionIndex가 나오므로 그때 DLL에 셋팅하자..

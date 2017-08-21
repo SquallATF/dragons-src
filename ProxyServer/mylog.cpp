@@ -52,7 +52,7 @@ void MyLog( int type, char *logmsg, ... )
 	static char sLogFileName[80+1];
 
 	
-//여기서부터 필터링 시작~
+	//여기서부터 필터링 시작~
 	// Filtering unlogable things
 	if( (type < 0) && (type >= NUM_OF_LOG_TYPE ) )
 	{
@@ -65,7 +65,7 @@ void MyLog( int type, char *logmsg, ... )
 	{
 		return;
 	}
-//필터링 끝 
+	//필터링 끝 
 
 	// Argument Processing
 	va_start( vargs, logmsg );

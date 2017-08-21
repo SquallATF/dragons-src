@@ -43,21 +43,21 @@ extern void NPC_Pattern_SealStone( LPCHARACTER n );
 extern int writedebug;
 extern int g_DontPlayNPC;
 
-/*
-#define NPC_PATTERN_NO_MOVE_			  0		// 가만히 있는다.
-#define NPC_PATTERN_HOSTILE_			 10		// 적대적으로 바뀐다. 
-#define NPC_PATTERN_PEACE_				 20		// 평화적으로 바뀐다.
-#define NPC_PATTERN_FIND_CLOSE_PC_		 30		// 가까운 pc를 찾는다.(그쪽을 바라본다. )
-#define NPC_PATTERN_FIND_WEAK_PC_		 40		// 약한  pc를 찾는다.(그쪽을 바라본다. )
-#define NPC_PATTERN_FIND_STRONG_PC_		 50		// 강한  pc를 찾는다.(그쪽을 바라본다. )
-#define NPC_PATTERN_ACCESS_PC_			 60		// 찾은 PC에 적근한다. ( Hostile일경우 공격범위에 있으면 공격한다. peace일경우 접근해도 가만히 접근하는놈을 바라본다.  
-#define NPC_PATTERN_ACCESS_PC_ATTACKED_	 70		// 나를 공격한 Pc에 접근한다. 
-#define NPC_PATTERN_WANDER_RANGE_1_		 80		// 배회한다. ( 1번 배회범위가 1이다. )
-#define NPC_PATTERN_WANDER_RANGE_2_		 90		// 배화한다. ( 1번 배회범위가 2이다. )
-#define NPC_PATTERN_WANDER_RANGE_3_		100  	// 배화한다. ( 1번 배회범위가 3이다. )
-#define NPC_PATTERN_ESCAPE_PC_			110		// 찾은 PC로 부터 도망간다. 
-#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// 근처에 공격 PC가 있으면 멀리 도망간다. 
-*/
+//
+//#define NPC_PATTERN_NO_MOVE_			  0		// 가만히 있는다.
+//#define NPC_PATTERN_HOSTILE_			 10		// 적대적으로 바뀐다. 
+//#define NPC_PATTERN_PEACE_				 20		// 평화적으로 바뀐다.
+//#define NPC_PATTERN_FIND_CLOSE_PC_		 30		// 가까운 pc를 찾는다.(그쪽을 바라본다. )
+//#define NPC_PATTERN_FIND_WEAK_PC_		 40		// 약한  pc를 찾는다.(그쪽을 바라본다. )
+//#define NPC_PATTERN_FIND_STRONG_PC_		 50		// 강한  pc를 찾는다.(그쪽을 바라본다. )
+//#define NPC_PATTERN_ACCESS_PC_			 60		// 찾은 PC에 적근한다. ( Hostile일경우 공격범위에 있으면 공격한다. peace일경우 접근해도 가만히 접근하는놈을 바라본다.  
+//#define NPC_PATTERN_ACCESS_PC_ATTACKED_	 70		// 나를 공격한 Pc에 접근한다. 
+//#define NPC_PATTERN_WANDER_RANGE_1_		 80		// 배회한다. ( 1번 배회범위가 1이다. )
+//#define NPC_PATTERN_WANDER_RANGE_2_		 90		// 배화한다. ( 1번 배회범위가 2이다. )
+//#define NPC_PATTERN_WANDER_RANGE_3_		100  	// 배화한다. ( 1번 배회범위가 3이다. )
+//#define NPC_PATTERN_ESCAPE_PC_			110		// 찾은 PC로 부터 도망간다. 
+//#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// 근처에 공격 PC가 있으면 멀리 도망간다. 
+//
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,14 +75,7 @@ int NpcPatternTable[20] = { NPC_PATTERN_HOSTILE_,
 // 0811 NPC KHS
 short NPCAccessTable[400][4];
 
-
-
 static int movep;
-
-
-
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///
 ///				User Function Declarations..
@@ -455,69 +448,61 @@ int NPC_NearRoundCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
 
 	
 // 공격대상에 대해 접근할때 사용된다. 
-/*int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
-{
-	int dirt[ 5] = { 0,1,-1,-2,2 };
-	int d, i, j, tempdir;
-	int tx, ty;
-	int ttx, tty;
-
-	if( n->targetid == -1 ) 
-	{
-		n->targetid = NPC_IsWhoNearPC( n, 10 );
-		if( n->targetid == -1 )	return 0;
-	}
-
-	// 공격 대상이 없어..
-	if( !connections[n->targetid].socket || connections[n->targetid].state < CONNECT_JOIN ) return 0;
-	if( connections[n->targetid].chrlst.bAlive >= DEAD_ ) return 0;
-
-	tx = connections[ n->targetid].chrlst.x / TILE_SIZE;
-	ty = connections[ n->targetid].chrlst.y / TILE_SIZE;
-	*x = n->x / TILE_SIZE;  *y = n->y / TILE_SIZE;
-	tempdir = NPC_GetDir( tx, ty, n->x / TILE_SIZE, n->y / TILE_SIZE );
-	
-	for( j = 2 ; j < 10 ; j ++)
-	{
-		for( i = 0 ;  i < 5 ; i ++)
-		{
-			ttx = tx;	tty = ty;
-			d = ( tempdir + 8 + dirt[i] ) %8;
-			switch( d )
-			{
-			case 0 :			tty +=j; break;
-			case 1 : ttx -=j;	tty +=j; break;
-			case 2 : ttx -=j;			 break;
-			case 3 : ttx -=j;	tty -=j; break;
-			case 4 :			tty -=j; break;
-			case 5 : ttx +=j;	tty -=j; break;
-			case 6 : ttx +=j;			 break;
-			case 7 : ttx +=j;	tty +=j; break;
-			}
-			if( FreeTile( n, n->x / TILE_SIZE, n->y / TILE_SIZE, ttx, tty ) )  
-			{
-				*x = ttx;  *y = tty;
-				return 1;
-			}
-		}
-	}
-
-	return 0;
-}*/
+//int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
+//{
+//	int dirt[ 5] = { 0,1,-1,-2,2 };
+//	int d, i, j, tempdir;
+//	int tx, ty;
+//	int ttx, tty;
+//
+//	if( n->targetid == -1 ) 
+//	{
+//		n->targetid = NPC_IsWhoNearPC( n, 10 );
+//		if( n->targetid == -1 )	return 0;
+//	}
+//
+//	// 공격 대상이 없어..
+//	if( !connections[n->targetid].socket || connections[n->targetid].state < CONNECT_JOIN ) return 0;
+//	if( connections[n->targetid].chrlst.bAlive >= DEAD_ ) return 0;
+//
+//	tx = connections[ n->targetid].chrlst.x / TILE_SIZE;
+//	ty = connections[ n->targetid].chrlst.y / TILE_SIZE;
+//	*x = n->x / TILE_SIZE;  *y = n->y / TILE_SIZE;
+//	tempdir = NPC_GetDir( tx, ty, n->x / TILE_SIZE, n->y / TILE_SIZE );
+//	
+//	for( j = 2 ; j < 10 ; j ++)
+//	{
+//		for( i = 0 ;  i < 5 ; i ++)
+//		{
+//			ttx = tx;	tty = ty;
+//			d = ( tempdir + 8 + dirt[i] ) %8;
+//			switch( d )
+//			{
+//			case 0 :			tty +=j; break;
+//			case 1 : ttx -=j;	tty +=j; break;
+//			case 2 : ttx -=j;			 break;
+//			case 3 : ttx -=j;	tty -=j; break;
+//			case 4 :			tty -=j; break;
+//			case 5 : ttx +=j;	tty -=j; break;
+//			case 6 : ttx +=j;			 break;
+//			case 7 : ttx +=j;	tty +=j; break;
+//			}
+//			if( FreeTile( n, n->x / TILE_SIZE, n->y / TILE_SIZE, ttx, tty ) )  
+//			{
+//				*x = ttx;  *y = tty;
+//				return 1;
+//			}
+//		}
+//	}
+//
+//	return 0;
+//}
 // 만약 목표캐릭이 이동중이면 도달목표점을 리턴해준다. 
 // 단지 그곳의 근처에 간다. ( Tamming에 사용된다. )
 
 
-
-
-
-
-
-
-
 #define HOME_DIST_1AREA		245
 #define HOME_DIST_2AREA		625
-
 
 
 int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
@@ -528,8 +513,7 @@ int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
 	int ttx, tty;
 		
 	if( ch == NULL )			return 0;
-		
-		
+
 	tx = ch->x / TILE_SIZE;
 	ty = ch->y / TILE_SIZE;
 		
@@ -553,45 +537,46 @@ int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
 	case  NPC_PATTERN_ATTACK_PC_38_		:
 	case  NPC_PATTERN_WANDER_38_		:
 	case  NPC_PATTERN_MURI_38_			:
-	case  NPC_PATTERN_BACKDRAW_PC_38_	:	area1 = (n->x/TILE_SIZE - n->homex)*(n->x/TILE_SIZE - n->homex) + (n->y/TILE_SIZE - n->homey)*(n->y/TILE_SIZE - n->homey);
-											area2 = (tx - n->homex)*(tx - n->homex) + (ty - n->homey)*(ty - n->homey);
-											if( area1 > HOME_DIST_1AREA )
-											{	
-												if( area2 > HOME_DIST_2AREA )
-												{
-													tx = n->homex;
-													ty = n->homey;
-												}
-											}	
-								break;
-/*
-	case NPC_PATTERN_WANDER_8_			:
-	case NPC_PATTERN_IAM_BOSS_8_		:
-	case NPC_PATTERN_TOBOSS_8_			:
-	case NPC_PATTERN_MURI_8_			:`
-	case NPC_PATTERN_ACCESS_PC_8_		:
-	case NPC_PATTERN_ATTACK_PC_8_		:
-	case NPC_PATTERN_BACKDRAW_8_		:	
-
-	case NPC_PATTERN_IAM_BOSS_28_		:
-	case NPC_PATTERN_TOBOSS_28_			:
-	case NPC_PATTERN_WANDER_28_			:
-	case NPC_PATTERN_MURI_28_			:
-	case NPC_PATTERN_BACKDRAW_PC_28_	:	
-
-	case  NPC_PATTERN_IAM_BOSS_GUARD_	:
-	case  NPC_PATTERN_TOBOSS_GUARD_		:
-	case  NPC_PATTERN_WANDER_GUARD_		:
-	case  NPC_PATTERN_MURI_GUARD_		:
-	case  NPC_PATTERN_ACCESS_PC_GUARD_	:
-	case  NPC_PATTERN_ATTACK_PC_GUARD_	:
-	case  NPC_PATTERN_BACKDRAW_PC_GUARD_:	
-
-	case NPC_PATTERN_TAME_				:	
-	case NPC_PATTERN_EVENTING_MAUL_		:
-	case NPC_PATTERN_WANDER_MAUL_		:
+	case  NPC_PATTERN_BACKDRAW_PC_38_	:	
+		area1 = (n->x / TILE_SIZE - n->homex)*(n->x / TILE_SIZE - n->homex) + (n->y / TILE_SIZE - n->homey)*(n->y / TILE_SIZE - n->homey);
+		area2 = (tx - n->homex)*(tx - n->homex) + (ty - n->homey)*(ty - n->homey);
+		if (area1 > HOME_DIST_1AREA)
+		{
+			if (area2 > HOME_DIST_2AREA)
+			{
+				tx = n->homex;
+				ty = n->homey;
+			}
+		}
 		break;
-		*/
+	//
+	//case NPC_PATTERN_WANDER_8_			:
+	//case NPC_PATTERN_IAM_BOSS_8_		:
+	//case NPC_PATTERN_TOBOSS_8_			:
+	//case NPC_PATTERN_MURI_8_			:`
+	//case NPC_PATTERN_ACCESS_PC_8_		:
+	//case NPC_PATTERN_ATTACK_PC_8_		:
+	//case NPC_PATTERN_BACKDRAW_8_		:	
+
+	//case NPC_PATTERN_IAM_BOSS_28_		:
+	//case NPC_PATTERN_TOBOSS_28_			:
+	//case NPC_PATTERN_WANDER_28_			:
+	//case NPC_PATTERN_MURI_28_			:
+	//case NPC_PATTERN_BACKDRAW_PC_28_	:	
+
+	//case  NPC_PATTERN_IAM_BOSS_GUARD_	:
+	//case  NPC_PATTERN_TOBOSS_GUARD_		:
+	//case  NPC_PATTERN_WANDER_GUARD_		:
+	//case  NPC_PATTERN_MURI_GUARD_		:
+	//case  NPC_PATTERN_ACCESS_PC_GUARD_	:
+	//case  NPC_PATTERN_ATTACK_PC_GUARD_	:
+	//case  NPC_PATTERN_BACKDRAW_PC_GUARD_:	
+
+	//case NPC_PATTERN_TAME_				:	
+	//case NPC_PATTERN_EVENTING_MAUL_		:
+	//case NPC_PATTERN_WANDER_MAUL_		:
+	//	break;
+	//	
 	}
 
 	*x = n->x / TILE_SIZE;  *y = n->y / TILE_SIZE;
@@ -624,11 +609,6 @@ int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y )
 			
 	return 0;
 }
-
-
-
-
-
 
 
 #define TILE_BLOCK_SIZE  11
@@ -737,8 +717,8 @@ int NPC_NearBackCh( CHARACTER *n, CHARACTER *ch, int *x, int *y, int dist )
 	
 	if( n->targetid == -1 ) 
 	{
-//		n->targetid = NPC_IsWhoNearPC( n, 10  );
-//		if( n->targetid == -1 )  
+		//n->targetid = NPC_IsWhoNearPC( n, 10  );
+		//if( n->targetid == -1 )  
 		return 0;
 	}
 	
@@ -844,88 +824,78 @@ int NPC_GetDir( int sx, int sy, int ex, int ey )
 	return -1;
 }		
 			
-	
-	
-	
-	
-/*	
-	
-int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
-{		
-	int dir;
-	int c, i;
-	int nx, ny, px, py;
-		
-	n->tx = tx;
-	n->ty = ty;
-	n->how = how;
-	
-	if( n->pathcount < 2 )
-	{
-		if( PathBuild( n, tx, ty ) == false ) { return 0; }
-	
-		int bOdd = 0;
-	
-		if( n->pathcount )
-		{
-			px = n->path[ n->pathcount -1][0];
-			py = n->path[ n->pathcount -1][1];
-	
-			c = 0;
-			for( i = n->pathcount -2 ; i >= 0 ; i -- )
-			{		
-				nx = n->path[i][0];
-				ny = n->path[i][1];
-					
-				if( nx > px ) 
-				{	
-					if( ny > py )		{ dir = 7; }
-					else if( ny < py )	{ dir = 5; }
-					else				{ dir = 6; }
-				}	
-				else if( nx < px )
-				{	
-					if( ny > py )		{ dir = 1; }
-					else if( ny < py )	{ dir = 3; }
-					else				{ dir = 2; }
-				}	
-				else 
-				{	
-					if( ny > py )		{ dir = 0; }
-					else				{ dir = 4; }
-				}	
-	
-	
-				if (  bOdd == 0){	n->MoveDirTbl[ (c/2) ] = dir << 4;	}
-				else			{	n->MoveDirTbl[ (c/2) ] += dir;		}
-				c++;
-				bOdd = !bOdd;
-				px = nx;
-				py = ny;
-			}
-	
-			n->MoveLength		= c;
-			n->pathcount	= 0;
-			n->MoveGox			= tx * TILE_SIZE + 16 -5 + Random(10);
-			n->goy			= ty * TILE_SIZE + 16 -5 + Random(10);
-			n->WalkTime			= g_ClientTime; // ::timeGetTime();
-			n->MoveType			= 0;
-	
-			
-			return 1;
-		}
-	
-		return 0;
-	}		
-	
-	
-	return 0;
-}				
-	
-	
-*/	
-	
-
+//	
+//int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
+//{		
+//	int dir;
+//	int c, i;
+//	int nx, ny, px, py;
+//		
+//	n->tx = tx;
+//	n->ty = ty;
+//	n->how = how;
+//	
+//	if( n->pathcount < 2 )
+//	{
+//		if( PathBuild( n, tx, ty ) == false ) { return 0; }
+//	
+//		int bOdd = 0;
+//	
+//		if( n->pathcount )
+//		{
+//			px = n->path[ n->pathcount -1][0];
+//			py = n->path[ n->pathcount -1][1];
+//	
+//			c = 0;
+//			for( i = n->pathcount -2 ; i >= 0 ; i -- )
+//			{		
+//				nx = n->path[i][0];
+//				ny = n->path[i][1];
+//					
+//				if( nx > px ) 
+//				{	
+//					if( ny > py )		{ dir = 7; }
+//					else if( ny < py )	{ dir = 5; }
+//					else				{ dir = 6; }
+//				}	
+//				else if( nx < px )
+//				{	
+//					if( ny > py )		{ dir = 1; }
+//					else if( ny < py )	{ dir = 3; }
+//					else				{ dir = 2; }
+//				}	
+//				else 
+//				{	
+//					if( ny > py )		{ dir = 0; }
+//					else				{ dir = 4; }
+//				}	
+//	
+//	
+//				if (  bOdd == 0){	n->MoveDirTbl[ (c/2) ] = dir << 4;	}
+//				else			{	n->MoveDirTbl[ (c/2) ] += dir;		}
+//				c++;
+//				bOdd = !bOdd;
+//				px = nx;
+//				py = ny;
+//			}
+//	
+//			n->MoveLength		= c;
+//			n->pathcount	= 0;
+//			n->MoveGox			= tx * TILE_SIZE + 16 -5 + Random(10);
+//			n->goy			= ty * TILE_SIZE + 16 -5 + Random(10);
+//			n->WalkTime			= g_ClientTime; // ::timeGetTime();
+//			n->MoveType			= 0;
+//	
+//			
+//			return 1;
+//		}
+//	
+//		return 0;
+//	}		
+//	
+//	
+//	return 0;
+//}				
 					
 						
 // 목적지가 적당한곳인자 아닌지를 Check한다. 
@@ -943,19 +913,15 @@ bool CheckDestinationOk( int tx, int ty )
 		switch( i->type )
 		{			
 		case ITEMTYPE_DOOR : 
-			{		
-				if( Distance( i->x, i->y, tx, ty ) < 18432 ) //타일 3개 차이...
-				{	
-//					return 0;
-				}	
-			}		
-
-		}			
+			if (Distance(i->x, i->y, tx, ty) < 18432) //타일 3개 차이...
+			{
+				//return 0;
+			}
+		}
 		i = i->next;
 	}	
 
 	return 1;
-
 }		
 					
 int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
@@ -1020,95 +986,94 @@ int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
 	
 	
 	
-/*	
-int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
-{		
-	int dir;
-	int c, i;
-	int nx, ny, px, py;
-
-
-	if( g_block_move )
-	{
-		return 0;
-	}
-
-	n->destx = tx;
-	n->desty = ty;
-	n->how = how;
-	if( n->pathcount < 2 )
-	{
-		if( PathBuild( n, tx, ty ) == false ) { return 0; }
+//	
+//int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
+//{		
+//	int dir;
+//	int c, i;
+//	int nx, ny, px, py;
+//
+//
+//	if( g_block_move )
+//	{
+//		return 0;
+//	}
+//
+//	n->destx = tx;
+//	n->desty = ty;
+//	n->how = how;
+//	if( n->pathcount < 2 )
+//	{
+//		if( PathBuild( n, tx, ty ) == false ) { return 0; }
+//	
+//		int bOdd = 0;
+//	
+//		if( n->pathcount )
+//		{
+//			px = n->path[ n->pathcount -1][0];
+//			py = n->path[ n->pathcount -1][1];
+//	
+//			c = 0;
+//			for( i = n->pathcount -2 ; i >= 0 ; i -- )
+//			{		
+//				nx = n->path[i][0];
+//				ny = n->path[i][1];
+//					
+//				if( nx > px ) 
+//				{	
+//					if( ny > py )		{ dir = 7; }
+//					else if( ny < py )	{ dir = 5; }
+//					else				{ dir = 6; }
+//				}	
+//				else if( nx < px )
+//				{	
+//					if( ny > py )		{ dir = 1; }
+//					else if( ny < py )	{ dir = 3; }
+//					else				{ dir = 2; }
+//				}	
+//				else 
+//				{	
+//					if( ny > py )		{ dir = 0; }
+//					else				{ dir = 4; }
+//				}	
+//	
+//	
+//				if (  bOdd == 0){	n->MoveDirTbl[ (c/2) ] = dir << 4;	}
+//				else			{	n->MoveDirTbl[ (c/2) ] += dir;		}
+//				c++;
+//				bOdd = !bOdd;
+//				px = nx;
+//				py = ny;
+//			}
+//	
+//			n->MoveLength		= c;
+//			n->pathcount	= 0;
+//			n->MoveGox			= tx * TILE_SIZE + 16 -5 + Random(10);
+//			n->goy			= ty * TILE_SIZE + 16 -5 + Random(10);
+//			n->WalkTime			= g_ClientTime; // ::timeGetTime();
+//			n->MoveType			= 0;
+//	
+//	
+//
+//			return 1;
+//		}
+//	
+//
+//		return 0;
+//
+//	}		
+//	
+//	
+//
+//	return 0;
+//}
 	
-		int bOdd = 0;
-	
-		if( n->pathcount )
-		{
-			px = n->path[ n->pathcount -1][0];
-			py = n->path[ n->pathcount -1][1];
-	
-			c = 0;
-			for( i = n->pathcount -2 ; i >= 0 ; i -- )
-			{		
-				nx = n->path[i][0];
-				ny = n->path[i][1];
-					
-				if( nx > px ) 
-				{	
-					if( ny > py )		{ dir = 7; }
-					else if( ny < py )	{ dir = 5; }
-					else				{ dir = 6; }
-				}	
-				else if( nx < px )
-				{	
-					if( ny > py )		{ dir = 1; }
-					else if( ny < py )	{ dir = 3; }
-					else				{ dir = 2; }
-				}	
-				else 
-				{	
-					if( ny > py )		{ dir = 0; }
-					else				{ dir = 4; }
-				}	
-	
-	
-				if (  bOdd == 0){	n->MoveDirTbl[ (c/2) ] = dir << 4;	}
-				else			{	n->MoveDirTbl[ (c/2) ] += dir;		}
-				c++;
-				bOdd = !bOdd;
-				px = nx;
-				py = ny;
-			}
-	
-			n->MoveLength		= c;
-			n->pathcount	= 0;
-			n->MoveGox			= tx * TILE_SIZE + 16 -5 + Random(10);
-			n->goy			= ty * TILE_SIZE + 16 -5 + Random(10);
-			n->WalkTime			= g_ClientTime; // ::timeGetTime();
-			n->MoveType			= 0;
-	
-	
-
-			return 1;
-		}
-	
-
-		return 0;
-
-	}		
-	
-	
-
-	return 0;
-}			*/
-	
-/*	
-int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
-{
-	return NPC_MakePathBumn( n, tx, ty, how );
-}
-*/
-
+//	
+//int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
+//{
+//	return NPC_MakePathBumn( n, tx, ty, how );
+//}
+//
 
 
 int NPC_MakePathBumn( CHARACTER *n, int tx, int ty, int how = 0 )
@@ -1214,67 +1179,67 @@ int NPC_MakePathMaul( CHARACTER *n, int tx, int ty, int how )
 
 
 
-/*
-
-int NPC_MakePathBumn( CHARACTER *n, int tx, int ty, int how )
-{
-	int dir;
-	int oldx, oldy;
-	int num;
-	int i;
-
-	n->tx = tx;
-	n->ty = ty;
-	n->how = how;
-
-	if( n->pathcount < 2 )
-	{
-		int x = n->x / TILE_SIZE;
-		int y = n->y / TILE_SIZE;
-
-		dir  = NPC_GetDir( x, y, tx, ty );
-
-		for( i = 0 ; i < how ; i ++)
-		{
-			oldx = x; oldy = y;
-			
-			switch( dir )
-			{
-			case 0 :	   y ++; break;
-			case 1 : x --; y ++; break;
-			case 2 : x --;       break;
-			case 3 : x --; y --; break;
-			case 4 :       y --; break;
-			case 5 : x ++; y --; break;
-			case 6 : x ++;       break;
-			case 7 : x ++; y ++; break;
-			}
-			
-			if( FreeTile( n->x / TILE_SIZE, n->y / TILE_SIZE, x, y ) )
-			{
-				if (  i%2 == 0){	n->MoveDirTbl[ (i/2) ] = dir << 4;	}
-				else			{	n->MoveDirTbl[ (i/2) ] += dir;		}
-			}
-			else 
-			{
-				x = oldx;
-				y = oldy;
-				break;
-			}
-		}	
-/		n->MoveLength		= i;
-		n->pathcount	= 0;
-		n->MoveGox			= x * TILE_SIZE + 16;
-		n->goy			= y * TILE_SIZE + 16;
-		n->WalkTime			= g_ClientTime; // ::timeGetTime();
-		n->MoveType			= 0;
-
-		printf( "NPC Move... \n");
-	}		
-			
-	return i;
-}			
-*/			
+//
+//
+//int NPC_MakePathBumn( CHARACTER *n, int tx, int ty, int how )
+//{
+//	int dir;
+//	int oldx, oldy;
+//	int num;
+//	int i;
+//
+//	n->tx = tx;
+//	n->ty = ty;
+//	n->how = how;
+//
+//	if( n->pathcount < 2 )
+//	{
+//		int x = n->x / TILE_SIZE;
+//		int y = n->y / TILE_SIZE;
+//
+//		dir  = NPC_GetDir( x, y, tx, ty );
+//
+//		for( i = 0 ; i < how ; i ++)
+//		{
+//			oldx = x; oldy = y;
+//			
+//			switch( dir )
+//			{
+//			case 0 :	   y ++; break;
+//			case 1 : x --; y ++; break;
+//			case 2 : x --;       break;
+//			case 3 : x --; y --; break;
+//			case 4 :       y --; break;
+//			case 5 : x ++; y --; break;
+//			case 6 : x ++;       break;
+//			case 7 : x ++; y ++; break;
+//			}
+//			
+//			if( FreeTile( n->x / TILE_SIZE, n->y / TILE_SIZE, x, y ) )
+//			{
+//				if (  i%2 == 0){	n->MoveDirTbl[ (i/2) ] = dir << 4;	}
+//				else			{	n->MoveDirTbl[ (i/2) ] += dir;		}
+//			}
+//			else 
+//			{
+//				x = oldx;
+//				y = oldy;
+//				break;
+//			}
+//		}	
+//		//n->MoveLength		= i;
+//		n->pathcount	= 0;
+//		n->MoveGox			= x * TILE_SIZE + 16;
+//		n->goy			= y * TILE_SIZE + 16;
+//		n->WalkTime			= g_ClientTime; // ::timeGetTime();
+//		n->MoveType			= 0;
+//
+//		printf( "NPC Move... \n");
+//	}		
+//			
+//	return i;
+//}			
+//
 			
 bool NPC_IsMoving(CHARACTER* n)
 {	//< CSD-040107
@@ -1445,8 +1410,6 @@ int NPC_IsTherePC( CHARACTER *npc, int range )
 }
 
 
-
-
 int NPC_IsWhoNearOtherNationPc( int npc_nation, LPCHARACTER npc, int range )
 {
 	int x = npc->x;		
@@ -1476,19 +1439,19 @@ int NPC_IsWhoNearOtherNationPc( int npc_nation, LPCHARACTER npc, int range )
 			{			
 			case 0 :	
 			case 1 :	
-//			case 18 :	
-//			case 19 :	
-//			case 20 :	
-						if( npc_nation == tempch->name_status.nation ) break;
-						tx = tempch->x;
-						ty = tempch->y;
-						tmin = (tx-x)*(tx-x) + (ty-y)*(ty-y);
-						if( tmin < min ) 
-						{
-							min = tmin;
-							findch = tempch->id;
-						}
-					break;
+			//case 18 :	
+			//case 19 :	
+			//case 20 :	
+				if (npc_nation == tempch->name_status.nation) break;
+				tx = tempch->x;
+				ty = tempch->y;
+				tmin = (tx - x)*(tx - x) + (ty - y)*(ty - y);
+				if (tmin < min)
+				{
+					min = tmin;
+					findch = tempch->id;
+				}
+				break;
 			}			
 		}				
 		tempch = tempch->lpNext;
@@ -1663,15 +1626,11 @@ CHARACTER *ReturnCharListPoint( char *name )
 	return NULL;
 }
 		
-		
-		
-		
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //		User Functions.....
 //
-
 
 void NPC_Pattern_28( LPCHARACTER n)
 {			
@@ -2166,7 +2125,7 @@ void NPC_Pattern_38( LPCHARACTER n)
 					}
 					else
 					{
-//						if( NPC_Hostile( n ) ) // 공격모드이면...
+						//if( NPC_Hostile( n ) ) // 공격모드이면...
 						LPCHARACTER tempch = ReturnCharacterPoint( n->targetid );
 						if( tempch )
 						if( !IsDead( tempch ) )
@@ -2199,8 +2158,8 @@ void NPC_Pattern_38( LPCHARACTER n)
 								{
 									n->patterntype = NPC_PATTERN_WANDER_38_;
 
-//									n->bossid = -1;
-//									n->server_id = -1;
+									//n->bossid = -1;
+									//n->server_id = -1;
 								}
 							}
 						}	
@@ -2300,10 +2259,10 @@ ATTACK_38_NEXT__:
 							{	
 								n->targetid = -1;
 								n->patterntype = NPC_PATTERN_WANDER_38_;
-//								n->bossid	 = -1;
-//								n->server_id = -1;
-//								JustMessage( " %d의 Pattern번호 %d ", n->server_id, n->patterntype );
-//								JustMessage( " %d의 Pattern번호 %d ", n->patterntype );
+								//n->bossid	 = -1;
+								//n->server_id = -1;
+								//JustMessage( " %d의 Pattern번호 %d ", n->server_id, n->patterntype );
+								//JustMessage( " %d의 Pattern번호 %d ", n->patterntype );
 							}				
 						}
 						else 
@@ -2611,10 +2570,7 @@ void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD4( t_packet *p )
 }
 
 
-
-
-
-static char monname_temp[ 17];
+static char monname_temp[17];
 char *LoadMonNameTable( int namenumber )
 {
 	FILE *fp = Fopen( "./Data/Mon_Name.bin", "rb" );
@@ -2625,23 +2581,3 @@ char *LoadMonNameTable( int namenumber )
 	fclose(fp);
 	return (((char*)monname_temp)?(char*)monname_temp:"");
 }
-
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

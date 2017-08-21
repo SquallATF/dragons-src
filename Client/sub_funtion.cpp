@@ -64,28 +64,25 @@ void DisplayFightStone(void)
 	}
 }
 
-
-/*
-////////////  나이외에 한사람만 있는가  ////////////
-int Fight_search(void)
-{
-	LPCHARACTER lpCharacter;
-
-	int count=0;
-
-	lpCharacter = Hero;
-	while(lpCharacter != NULL)
-	{
-		if(lpCharacter == Hero )	lpCharacter->lpNext;
-		else	
-		{	
-			lpCharacter->lpNext;
-			count++;
-		}
-	}
-	return count;
-}
-*/
+//////////////  나이외에 한사람만 있는가  ////////////
+//int Fight_search(void)
+//{
+//	LPCHARACTER lpCharacter;
+//
+//	int count=0;
+//
+//	lpCharacter = Hero;
+//	while(lpCharacter != NULL)
+//	{
+//		if(lpCharacter == Hero )	lpCharacter->lpNext;
+//		else	
+//		{	
+//			lpCharacter->lpNext;
+//			count++;
+//		}
+//	}
+//	return count;
+//}
 
 
 void Check_Length(int length, int hero_length)	//범위를 벗어나면.. 짐..
@@ -149,16 +146,16 @@ void Fight_Stone_End(void)
 	Hero->fight_id	= 0;
 	Hero->fight_time= 0;
 
-	/*
-	if(lpTarget!=NULL)
-	{
-		lpTarget->fight_flag = 0;
-		lpTarget->stone_x	= 0;
-		lpTarget->stone_y	= 0;
-		lpTarget->fight_id	= 0;
-		lpTarget->fight_time= 0;
-	}
-	*/
+	//
+	//if(lpTarget!=NULL)
+	//{
+	//	lpTarget->fight_flag = 0;
+	//	lpTarget->stone_x	= 0;
+	//	lpTarget->stone_y	= 0;
+	//	lpTarget->fight_id	= 0;
+	//	lpTarget->fight_time= 0;
+	//}
+	//
 }
 
 

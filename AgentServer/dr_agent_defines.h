@@ -1,4 +1,4 @@
-//
+﻿//
 // 2000/10/23, chan78
 //
 // Definations for Agent Server

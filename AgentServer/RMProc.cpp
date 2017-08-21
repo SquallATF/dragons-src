@@ -8,23 +8,23 @@
 
 extern HWND m_hProcWnd; // 030422 kyo
 
-/*
-bool CServerTable::SendToProxyServer( char* pMsg, DWORD dwLength )
-{
-	LP_SERVER_DATA pProxyServer = this->m_pOwnProxyServerData[PRIMARY_SERVER];
-
-	if( !pProxyServer || (pProxyServer->dwConnectionIndex == 0) )
-	{
-		pProxyServer = this->m_pOwnProxyServerData[SECONDARY_SERVER];
-	}
-	if( !pProxyServer || (pProxyServer->dwConnectionIndex == 0) )
-	{
-		return false;
-	}
-
-	return this->m_pINet->SendToServer( pProxyServer->dwConnectionIndex, pMsg, dwLength, FLAG_SEND_NOT_ENCRYPTION );
-}
-*/
+//
+//bool CServerTable::SendToProxyServer( char* pMsg, DWORD dwLength )
+//{
+//	LP_SERVER_DATA pProxyServer = this->m_pOwnProxyServerData[PRIMARY_SERVER];
+//
+//	if( !pProxyServer || (pProxyServer->dwConnectionIndex == 0) )
+//	{
+//		pProxyServer = this->m_pOwnProxyServerData[SECONDARY_SERVER];
+//	}
+//	if( !pProxyServer || (pProxyServer->dwConnectionIndex == 0) )
+//	{
+//		return false;
+//	}
+//
+//	return this->m_pINet->SendToServer( pProxyServer->dwConnectionIndex, pMsg, dwLength, FLAG_SEND_NOT_ENCRYPTION );
+//}
+//
 extern void ReLoadGameServerDataByKeyInput( void );
 
 void KickOffUserALL() // 030716 kyo copy to PTCL_BROADCAST_TO_SERVERS:
@@ -69,8 +69,8 @@ void RMProc(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 	{
 	case MSG_SHUT_DOWN:
 		{
-			//CServerTable *pVoid = NULL;
-			//	pVoid->StartServer(0);			
+			// CServerTable *pVoid = NULL;
+			// pVoid->StartServer(0);			
 			g_pServerTable->DestroyServer( FINISH_TYPE_NORMAL );
 			PostMessage( m_hProcWnd, WM_QUIT, 0, 0 );		// 030422 kyo // 스레드 종료
 		}

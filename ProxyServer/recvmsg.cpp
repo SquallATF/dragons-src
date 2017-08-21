@@ -113,7 +113,7 @@ void __stdcall OnAcceptUser(DWORD dwConnectionIndex)
 
 		if ( g_pServerTable->IsUserAcceptAllowed() )
 		{
-//			MyLog( LOG_IMPORTANT, "WARNING : No Agent server are ready to service" );
+			//MyLog( LOG_IMPORTANT, "WARNING : No Agent server are ready to service" );
 		}
 		else if (g_pProxy->bLimit == 0)
 		{
@@ -189,7 +189,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 	if (dwConnectionIndex == 0)
 	{
 #ifdef __ON_DEBUG
-//		_asm int 3;
+		//_asm int 3;
 #endif
 		return;
 	}
@@ -199,7 +199,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 		if( g_pServerTable->OnRecvServerUpMsg(dwConnectionIndex, *(WORD*)(pMsg+1)) )
 		{
 #ifdef __ON_DEBUG
-//			_asm int 3;
+			//_asm int 3;
 #endif
 		}
 		return;
@@ -250,7 +250,7 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLeng
 			{
 				MyLog( LOG_FATAL, "OnRecvNegotiationMsg() Failed :: (pSender(%d), bId(%d), MsgLength(%d))", pSender->wPort, bID, dwLength );
 #ifdef __ON_DEBUG
-//				_asm int 3;
+				//_asm int 3;
 #endif
 			}
 		}
@@ -386,34 +386,34 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 			//	
 			
 			
-	/*		
-			// 여기서 디코딩한다.
-			// Not Yet.
+			//
+			//// 여기서 디코딩한다.
+			//// Not Yet.
 
-			// 디코딩해서 얻은 값은...
-			LP_MANAGER_PACKET pPacket = (LP_MANAGER_PACKET)pMsg;
+			//// 디코딩해서 얻은 값은...
+			//LP_MANAGER_PACKET pPacket = (LP_MANAGER_PACKET)pMsg;
 
-			if( dwLength < sizeof(MANAGER_PACKET_HEADER) )
-			{
-				MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER :: Illegal Packet(%d)", dwLength );
-				MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
+			//if( dwLength < sizeof(MANAGER_PACKET_HEADER) )
+			//{
+			//	MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER :: Illegal Packet(%d)", dwLength );
+			//	MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
 
-				pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
-				g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
-				return;
-			}
+			//	pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
+			//	g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
+			//	return;
+			//}
 
-			if( !OnRecvMsgFromManager( pUserInfo, pPacket, dwLength ) )
-			{
-				// 불량 CLIENT로 분류. 이 경우는 크래킹이라기보다는 버그일 확률이 높고, 해킹이라면 엄청 심각하다.
-				MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER :: Illegal Packet(wCMD:%d, CRC:%d, dwLength:%d)", pPacket->h.wCMD, pPacket->h.dwCRC, dwLength );
-				MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
+			//if( !OnRecvMsgFromManager( pUserInfo, pPacket, dwLength ) )
+			//{
+			//	// 불량 CLIENT로 분류. 이 경우는 크래킹이라기보다는 버그일 확률이 높고, 해킹이라면 엄청 심각하다.
+			//	MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER :: Illegal Packet(wCMD:%d, CRC:%d, dwLength:%d)", pPacket->h.wCMD, pPacket->h.dwCRC, dwLength );
+			//	MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
 
-				pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
-				g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
-				return;
-			}
-*/
+			//	pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
+			//	g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
+			//	return;
+			//}
+
 			// 정상처리됨.
 			return;
 		}
@@ -471,35 +471,35 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 			}
 
 			//
-/*
 
-			// 이곳에서 SSL(Secure Socket Layer)를 구성하고,
 
-			// 일단 MANAGER CLIENT일 가능성이 있다고 인정된 CLIENT 로서.
-			// 일련의 인증 과정을 거쳐 CLIENT_TYPE_MANAGER 로 인증되면 MANAGER 로서 역할을 수행할 수 있게된다.
+			//// 이곳에서 SSL(Secure Socket Layer)를 구성하고,
 
-			// 인증용 패킷을 받는다.
-			if( !OnRecvAuthMsgFromManager( pUserInfo, (LP_MANAGER_PACKET)pMsg, dwLength ) )
-			{
-				MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER_UNDER_AUTHENTICATION :: Illegal Packet(%d)", dwLength );
-				MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
-				pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
-				g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
-				return;
-			}
-			else
-			{
-				// 인증 되었다.
-				pUserInfo->dwType = CLIENT_TYPE_MANAGER;
-				pUserInfo->dwStatus = STATUS_USER_ACTIVATED;
+			//// 일단 MANAGER CLIENT일 가능성이 있다고 인정된 CLIENT 로서.
+			//// 일련의 인증 과정을 거쳐 CLIENT_TYPE_MANAGER 로 인증되면 MANAGER 로서 역할을 수행할 수 있게된다.
 
-				// 접속종료 대기 리스트에서 빼준다.
-				g_pUserTable->RemoveUserFromAwaitingDisconnectUserList( pUserInfo );
+			//// 인증용 패킷을 받는다.
+			//if( !OnRecvAuthMsgFromManager( pUserInfo, (LP_MANAGER_PACKET)pMsg, dwLength ) )
+			//{
+			//	MyLog( LOG_IMPORTANT, "CLIENT_TYPE_MANAGER_UNDER_AUTHENTICATION :: Illegal Packet(%d)", dwLength );
+			//	MyLog( LOG_IMPORTANT, "_____ at (CI:%d, IP:%d, PORT:%d) (PacketSize:%d)", dwConnectionIndex, pUserInfo->szIP, pUserInfo->wPort );
+			//	pUserInfo->dwType = CLIENT_TYPE_ILLEGAL;
+			//	g_pINet->CompulsiveDisconnectUser( dwConnectionIndex );
+			//	return;
+			//}
+			//else
+			//{
+			//	// 인증 되었다.
+			//	pUserInfo->dwType = CLIENT_TYPE_MANAGER;
+			//	pUserInfo->dwStatus = STATUS_USER_ACTIVATED;
 
-				// 20010508 Add Proxy-OwnPort 필요
-				AnswerAuthPacket( pUserInfo );
-			}
-*/
+			//	// 접속종료 대기 리스트에서 빼준다.
+			//	g_pUserTable->RemoveUserFromAwaitingDisconnectUserList( pUserInfo );
+
+			//	// 20010508 Add Proxy-OwnPort 필요
+			//	AnswerAuthPacket( pUserInfo );
+			//}
+
 
 		}
 		break;
@@ -510,7 +510,7 @@ void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength
 			// 가장 처음 날아온 PACKET 으로 불량 CLIENT 와 MANAGER CLIENT를 1차적으로 분류한다.
 			// --------------------------------
 
-//			MyLog( LOG_IMPORTANT, "RecvPacket Size : %d, %d", dwLength, sizeof(MANAGER_PACKET_HEADER));
+			//MyLog( LOG_IMPORTANT, "RecvPacket Size : %d, %d", dwLength, sizeof(MANAGER_PACKET_HEADER));
 
 			if( dwLength <= sizeof(MANAGER_PACKET_HEADER) )
 			{
@@ -618,15 +618,15 @@ void __stdcall OnDisconnectServer(DWORD dwConnectionIndex)
 		case RM_TYPE_TOOL:
 			{
 				// 021008 YGI
-				/*
-				//Modified by KBS 011213
-				g_pRMTable->RemoveClient( dwConnectionIndex );
+				//
+				////Modified by KBS 011213
+				//g_pRMTable->RemoveClient( dwConnectionIndex );
 
-				if(g_pRMTable->GetClientNum() == 0)	//RMClient가 모두 접속 해제 되었으면 체크 그만 
-				{
-					StopWaitTimer();
-					StopEchoTimer();	
-				}*/
+				//if(g_pRMTable->GetClientNum() == 0)	//RMClient가 모두 접속 해제 되었으면 체크 그만 
+				//{
+				//	StopWaitTimer();
+				//	StopEchoTimer();	
+				//}
 			}
 			break;
 

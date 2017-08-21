@@ -31,8 +31,8 @@
 
 
 
-//扁夯汲沥 
-//努贰胶 
+//기본설정 
+//클래스 
 #define LOW			200
 #define C_GENERAL	300
 #define HIGH		400
@@ -40,7 +40,7 @@
 #define C_GREAT		600
 #define CRUSADER	700
 
-//流诀 
+//직업 
 #define J_GENERAL	200
 #define PRECISE		300
 #define GOOD		400
@@ -48,11 +48,11 @@
 #define HONORABLE	600
 #define J_GREAT		700
 
-//窃荐 
-void	Func_Division(void);	//蔼惑铰俊蝶扼 Division 函荐狼 蔼阑 函版窍咯 利侩虐 困茄... 
-//函荐 
-int		Class_Division;				//努贰胶 疙己摹 蔼惑铰俊蝶弗 备盒阑困茄 函荐 	
-int		Job_Division;				//流诀 疙己摹 蔼惑铰俊蝶弗 备盒阑困茄 函荐 	
+//함수 
+void	Func_Division(void);	//값상승에따라 Division 변수의 값을 변경하여 적용키 위한... 
+//변수 
+int		Class_Division;				//클래스 명성치 값상승에따른 구분을위한 변수 	
+int		Job_Division;				//직업 명성치 값상승에따른 구분을위한 변수 	
 int		QUEST_GIVE;
 int		QUEST_COUNT;
 
@@ -62,13 +62,13 @@ void IncreaseFamous( int class_plus, int job_plus )
 {
 	SCharacterData.class_famous += class_plus;
 	//
-	// 努饭胶 疙己捞 惑铰沁阑 锭 绢恫 贸府啊 乐促搁...
+	// 클레스 명성이 상승했을 때 어떤 처리가 있다면...
 	//
 
 	SCharacterData.job_famous += job_plus;
 	Func_Division();
 	//
-	// 流诀 疙己捞 惑铰沁阑锭...
+	// 직업 명성이 상승했을때...
 	//
 }
 
@@ -76,7 +76,7 @@ void DecreaseFamous( int class_plus, int job_plus )
 {
 	SCharacterData.class_famous -= class_plus;
 	if( SCharacterData.class_famous < 0 ) SCharacterData.class_famous = 0;
-	//dik窍遏沁阑 锭, 贸府秦具且 何盒捞 乐促搁 咯扁俊...
+	//dik하락했을 때, 처리해야할 부분이 있다면 여기에...
 	//
 	
 	SCharacterData.job_famous -= job_plus;
@@ -85,14 +85,14 @@ void DecreaseFamous( int class_plus, int job_plus )
 }
 
 void Func_Division(){
-	//努贰胶 疙己摹 
+	//클래스 명성치 
 	if(SCharacterData.class_famous > 0 && SCharacterData.class_famous < LOW)					Class_Division = 1;
 	else if(SCharacterData.class_famous > LOW && SCharacterData.class_famous < C_GENERAL)			Class_Division = 2;
 	else if(SCharacterData.class_famous > C_GENERAL && SCharacterData.class_famous < HIGH)		Class_Division = 3;
 	else if(SCharacterData.class_famous > HIGH && SCharacterData.class_famous < SUPERIOR)		Class_Division = 4;
 	else if(SCharacterData.class_famous > SUPERIOR && SCharacterData.class_famous < C_GREAT)	Class_Division = 5;
 	else if(SCharacterData.class_famous > C_GREAT && SCharacterData.class_famous < CRUSADER)	Class_Division = 6;
-	//流诀 疙己摹 
+	//직업 명성치 
 	if(SCharacterData.job_famous > 0 && SCharacterData.job_famous < J_GENERAL)					Job_Division = 1;
 	else if(SCharacterData.job_famous > J_GENERAL && SCharacterData.job_famous < PRECISE)			Job_Division = 2;
 	else if(SCharacterData.job_famous > PRECISE && SCharacterData.job_famous < GOOD)			Job_Division = 3;
@@ -104,7 +104,7 @@ void Func_Division(){
 
 
 ReadQuestTable  quest_text[QUEST_MAX];
-// 富弊措肺 涅胶飘 抛捞喉阑 阂矾 柯促. 
+// 말그대로 퀘스트 테이블을 불러 온다. 
 void LoadQuestTable( char *filename,char* filename2, char *filename_bin)
 {
 	
@@ -173,8 +173,8 @@ void LoadQuestTable( char *filename,char* filename2, char *filename_bin)
 
 
 
-// 涅胶飘 抛捞喉捞尔 持坷档 登绰单 抛捞喉捞 沥府啊 登绢乐瘤 臼酒辑 
-// 蝶肺 父甸绢初篮 颇老阑 阂矾柯促. 
+// 퀘스트 테이블이랑 넣오도 되는데 테이블이 정리가 되어있지 않아서 
+// 따로 만들어놓은 파일을 불러온다. 
 void ReadQuestTable::LoadPicture( char *text )	{
 	
 	char *token = strtok(text,",\t\n");
@@ -200,7 +200,7 @@ void ReadQuestTable::SaveTable()
 	{
 		fprintf(fp, "%d	", quest_if[i] );
 	}
-	for(int i=0; i<QUEST_TAKE_COUNT; i++ )
+	for( i=0; i<QUEST_TAKE_COUNT; i++ )
 	{
 		fprintf(fp, "%d	", quest_take[i] );		
 	}
@@ -216,7 +216,7 @@ void ReadQuestTable::SaveTable()
 
 }
 
-void ReadQuestTable::LoadTable( char *text )	// 巩磊凯俊辑 单捞鸥甫 盒府
+void ReadQuestTable::LoadTable( char *text )	// 문자열에서 데이타를 분리
 {
 	char *token = strtok(text,",\t\n");
 	if( !token ) return;
@@ -244,18 +244,18 @@ void ReadQuestTable::LoadTable( char *text )	// 巩磊凯俊辑 单捞鸥甫 盒
 		quest_if[i] = atoi(token);
 	}
 
-	for(int i = 0 ; i < QUEST_TAKE_COUNT; i++){
+	for(i = 0 ; i < QUEST_TAKE_COUNT; i++){
 		token= strtok(NULL, ",\t\n") ;
 		if( !token ) return;
 		quest_take[i] = atoi(token);
 	}
 	
 	///////////////////////////
-	// 亲格 眠啊
+	// 항목 추가
 }
 
 //////////////////////////////////////////
-// 贸澜 矫累 何福扁
+// 처음 시작 부르기
 void kh_InitMenu()
 {
 	//LoadQuestTable("./quest/quest.txt");
@@ -277,31 +277,31 @@ void SetStartQuest(int num){
 	if(QUEST_COUNT > 200 ) QUEST_COUNT = 200;
 	return;
 }
-//if( end_quest[quest_num] ) --> 己傍茄 涅胶飘..
+//if( end_quest[quest_num] ) --> 성공한 퀘스트..
 
 
 void kh_KeyProc()
 {
 	if(g_aCurrentKeys[DIK_R] & 0x80)
 	{
-		CallSmallMenu(MN_CHARACTER_COLOR_CHANGE);		// 涅胶飘 皋春
+		CallSmallMenu(MN_CHARACTER_COLOR_CHANGE);		// 퀘스트 메뉴
 	}
 	if(g_aCurrentKeys[DIK_M] & 0x80)
 	{
 		if(!SMenu[MN_CHARACTER_COLOR_CHANGE].key){
-			SMenu[MN_CHARACTER_COLOR_CHANGE].key = 1;		// 涅胶飘 皋春
+			SMenu[MN_CHARACTER_COLOR_CHANGE].key = 1;		// 퀘스트 메뉴
 		}
 		else {
 			SMenu[MN_CHARACTER_COLOR_CHANGE].key = 0;
 		}
-	}// けしさずけい 
+	}// ㅁㅇㅅㅊㅁㄴ 
 	//FAME
 	
 	if(g_aCurrentKeys[DIK_B] & 0x80)
 	{
 		
 		//SetStartQuest(1);
-		//CallSmallMenu(MN_FAME);		// 涅胶飘 皋春
+		//CallSmallMenu(MN_FAME);		// 퀘스트 메뉴
 		SendReqQuestIndex( 1 );
 	}
 
@@ -332,14 +332,14 @@ void QestDataFree( )
 
 
 
-//////////////////////////////////////1010 kkh 眠啊 //////////////////////////////////////
+//////////////////////////////////////1010 kkh 추가 //////////////////////////////////////
 void CharacterWorkingWater( LPCHARACTER ch )
 {
-	//1010 kkh 眠啊 
-	static bool FIRSTONWATER = TRUE; // 1010 kkh 拱 茄锅父 拌加 嘛绰 弊覆 困秦 
-	if( TileMap[ch->x / TILE_SIZE][ch->y / TILE_SIZE].attr_river == 1) {// 父距俊 辑乐绰 镑捞 拱加己牢 镑捞扼搁.. 
+	//1010 kkh 추가 
+	static bool FIRSTONWATER = TRUE; // 1010 kkh 물 한번만 계속 찍는 그림 위해 
+	if( TileMap[ch->x / TILE_SIZE][ch->y / TILE_SIZE].attr_river == 1) {// 만약에 서있는 곳이 물속성인 곳이라면.. 
 		
-		static int tempCHtileX = 0,tempCHtileY = 0;
+		static unsigned int tempCHtileX = 0,tempCHtileY = 0;
 		if( tempCHtileX  > ch->x / TILE_SIZE || tempCHtileX < ch->x / TILE_SIZE \
 			|| tempCHtileY > ch->y / TILE_SIZE || tempCHtileY < ch->y / TILE_SIZE){
 			{ //
@@ -359,8 +359,8 @@ void CharacterWorkingWater( LPCHARACTER ch )
 													 }
 	 				
 					}
-					tempCHtileX = ch->x / TILE_SIZE;  // 泅犁 谅钎甫 扁撅 矫难 初绰促.
-					tempCHtileY = ch->y / TILE_SIZE;  // 促澜俊 甸绢 吭阑锭 厚背 窍扁 困秦
+					tempCHtileX = ch->x / TILE_SIZE;  // 현재 좌표를 기억 시켜 놓는다.
+					tempCHtileY = ch->y / TILE_SIZE;  // 다음에 들어 왔을때 비교 하기 위해
 				}
 				
 			}	
@@ -368,7 +368,7 @@ void CharacterWorkingWater( LPCHARACTER ch )
 		}
 	}
 	
-	//////////////////////////////////////1010 kkh 眠啊 场 //////////////////////////////////////
+	//////////////////////////////////////1010 kkh 추가 끝 //////////////////////////////////////
 }
 						   
 

@@ -640,10 +640,10 @@ void ViewTipsMenu( void )
 	}
 	else
 	{
-		/*		// 001128 YGI
-		Box( Mapx+1, Mapy+1,  80+Mapx-1, 20+Mapy-1, RGB16( 150, 150,150 ));
-		Box( Mapx,   Mapy,    80+Mapx,   20+Mapy,   RGB16( 100, 100,100 ));
-		HprintBold( 10,5, RGB( 0xff, 0xff, 0xff),  RGB( 0x7f, 0x7f, 0x7f), "Tip 보기" );*/
+		//// 001128 YGI
+		//Box( Mapx+1, Mapy+1,  80+Mapx-1, 20+Mapy-1, RGB16( 150, 150,150 ));
+		//Box( Mapx,   Mapy,    80+Mapx,   20+Mapy,   RGB16( 100, 100,100 ));
+		//HprintBold( 10,5, RGB( 0xff, 0xff, 0xff),  RGB( 0x7f, 0x7f, 0x7f), "Tip 보기" );
 	}	
 }		
 		

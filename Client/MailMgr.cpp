@@ -98,8 +98,8 @@ COMMENT	::AddCurrentStatusMessage( 250, 100, 100, "Mail Send");
 
 	//메일을 보내겠지~.. 
 	{	//< CSD-030324
-//		ConvString(szTitle);
-//		ConvString(szBody);
+		//ConvString(szTitle);
+		//ConvString(szBody);
 		t_packet p;
 
 		p.h.header.type = CMD_MAIL_SEND;
@@ -188,8 +188,8 @@ void CMailMgr::SendRepair()//현재 선택된 리스트를 복원합니다.
 void CMailMgr::RequestBody(const int iMailIndex)//해당 메일의 내용 받기
 {
 COMMENT	::AddCurrentStatusMessage( 250, 100, 100, "Req Mail Body, INDEX [%d]",iMailIndex);
-//	ConvString(szTitle);
-//	ConvString(szBody);
+	//ConvString(szTitle);
+	//ConvString(szBody);
 	t_packet p;
 
 	p.h.header.type = CMD_MAIL_REQ_BODY;
@@ -399,7 +399,7 @@ COMMENT	::AddCurrentStatusMessage( 250, 100, 100, "Mail List is Wrong!! Call Dev
 	m_iNowViewType = iViewType;
 	m_iNowViewPageNo = pMLR->iWantViewPage;
 	CallSmallMenu(MN_MAIL_MENU);
-//	SMenu[MN_MAIL_MENU].bActive = true;
+	//SMenu[MN_MAIL_MENU].bActive = true;
 }
 
 void CMailMgr::SendReqOtherPage(const int iPageFlag)
@@ -560,13 +560,13 @@ const int CMailMgr::GetTempMailType()
 
 char* CMailMgr::GetTempMailSender()
 {
-//	return "화랑상우님";
+	//	return "화랑상우님";
 	return m_TempMailData.szSender;
 }
 
 char* CMailMgr::GetTempMailTitle()
 {
-//	return "메일 제목이래요~";
+	//	return "메일 제목이래요~";
 	return m_TempMailData.szTitle;
 }
 
@@ -613,21 +613,21 @@ const int CMailMgr::GetMailType(const int iMailListIndex)
 
 const char* CMailMgr::GetMailSender(const int iMailListIndex)
 {
-//	return "화랑상우님";
+	//	return "화랑상우님";
 	if(!CheckIndex(iMailListIndex)){return "";}
 	return m_MailList[iMailListIndex].MailData.szSender;
 }
 
 const char* CMailMgr::GetMailTitle(const int iMailListIndex)
 {
-//	return "메일 제목이래요~";
+	//	return "메일 제목이래요~";
 	if(!CheckIndex(iMailListIndex)){return "";}
 	return m_MailList[iMailListIndex].MailData.szTitle;
 }
 
 const bool CMailMgr::GetMailDate(const int iMailListIndex, const bool bIsDetail, char* szTime)
 {
-//	return "03-03-03";
+	//	return "03-03-03";
 	::strcpy(szTime,"");
 	if(!CheckIndex(iMailListIndex)){return false;}
 	if(!GetMailIndex(iMailListIndex)){return false;}
@@ -639,9 +639,9 @@ const bool CMailMgr::GetMailDate(const int iMailListIndex, const bool bIsDetail,
 		::sprintf(szTime,"%04d-%02d-%02d %02d:%02d:%02d",
 			pTS->year,pTS->month,pTS->day,
 			pTS->hour,pTS->minute,pTS->second);
-//		SQLUSMALLINT   hour;
-//      SQLUSMALLINT   minute;
-//    SQLUSMALLINT   second;
+		//SQLUSMALLINT   hour;
+		//SQLUSMALLINT   minute;
+		//SQLUSMALLINT   second;
 	}
 	else
 	{

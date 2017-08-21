@@ -502,17 +502,17 @@ void CursorDisplayBack( void )
 	PmcSy = SCREEN_HEIGHT;
 	PmcEx = PmcEy = 0;
 	Spr *s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni];
-/*	switch(CurMouseCursorNo)
-	{
-	case 1://sa
-		{
-	//		s = FieldTypeNomalPut(int mx, int my, int x,int y,int nImageNumber, int type);
-		}break;
-	default :
-		{
-			s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni];
-		}break;
-	}*/
+	//switch(CurMouseCursorNo)
+	//{
+	//case 1://sa
+	//	{
+	////		s = FieldTypeNomalPut(int mx, int my, int x,int y,int nImageNumber, int type);
+	//	}break;
+	//default :
+	//	{
+	//		s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni];
+	//	}break;
+	//}
 	int sx = g_pointMouseX + CurMouseCursorSpotX - s->ox;
 	int sy = g_pointMouseY + CurMouseCursorSpotY - s->oy;
 	int ex = sx + s->xl;
@@ -570,184 +570,184 @@ void CursorDisplayBack( void )
 //-------
 	CurMouseCursorFrameCounter();
 }
-/*
-{		
-	if( MouseCursorOnOff == false ) return;// 기술시전중.
-//	if( SMenu[MN_LOGO_START].bActive==true ) return;
-	if( SMenu[MN_LODING].bActive ==true )return;  // 화면 Loading할때는 찍지 않는다.
-	PmcSx = SCREEN_WIDTH;
-	PmcSy = SCREEN_HEIGHT;
-	PmcEx = PmcEy = 0;
-	Spr *s;
-
-	switch(CurMouseCursorNo)
-	{
-	case 1://sa
-		{
-			s = GetSprOfMenu(CURSOR_DEFAULT_IMG	,0);
-			FieldTypeNomalPut(0,0,g_pointMouseX,g_pointMouseY,0,CURSOR_DEFAULT_IMG);
-	//CURSOR_CLICK_IMG				10024
-	//		s = FieldTypeNomalPut(int mx, int my, int x,int y,int nImageNumber, int type);
-		}break;
-	default :
-		{
-			s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni];
-		}break;
-	}
-
-	const int sx = g_pointMouseX + CurMouseCursorSpotX - s->ox;
-	const int sy = g_pointMouseY + CurMouseCursorSpotY - s->oy;
-	const int ex = sx + s->xl;
-	const int ey = sy + s->yl;
-		
-	if( sx < PmcSx ) PmcSx = sx;
-	if( sy < PmcSy ) PmcSy = sy;
-	if( ex > PmcEx ) PmcEx = ex;
-	if( ey > PmcEy ) PmcEy = ey;
-		
-	if( PmcSx < 0 ) PmcSx = 0;
-	if( PmcSy < 0 ) PmcSy = 0;
-	if( PmcEx > SCREEN_WIDTH -1) PmcEx = SCREEN_WIDTH-1;
-	if( PmcEy > SCREEN_HEIGHT-1) PmcEy = SCREEN_HEIGHT-1;
-
-#ifdef _DEBUG	
-	if( (PmcEx-PmcSx+1)*(PmcEy-PmcSy+1) >= MAX_MOUSE_AREA_BUF_SIZE )
-	{
-		Error( "Mouse MgBuf is Too Small..\n %d %d %d %d",  PmcSx, PmcSy,  PmcEx, PmcEy );
-	}
-	Hprint2(100,120, g_DestBackBuf,"마우스 %d,%d",CurMouseCursorNo,CurMouseCursorAni);
-#endif	
-
-//	GetImageBox( MgBuf, g_DestBackBuf, PmcSx, PmcSy,  PmcEx, PmcEy );
-	switch(CurMouseCursorNo)
-	{
-	case 1:
-		break;
-	default:
-		{
-			PutCompressedImage( g_pointMouseX + CurMouseCursorSpotX, g_pointMouseY + CurMouseCursorSpotY, s );//마우스 커서 그림 찍는곳
-		}
-	}
-	
-	//클릭포인트 라인 그리는 곳
-	{
-	const int ClickPointX = g_pointMouseX + Mapx;
-	const int ClickPointY = g_pointMouseY + Mapy;
-	static char cRelayColor = 0;//static 이다
-	cRelayColor+=16;
-	const unsigned char ucTempColor= abs(cRelayColor);
-	const WORD wColor = ConvertColor(ucTempColor,ucTempColor,ucTempColor);
-	Line( ClickPointX-2,ClickPointY,	ClickPointX+3,	ClickPointY,	wColor );
-	Line( ClickPointX,	ClickPointY-2,	ClickPointX,	ClickPointY+3,	wColor );
-	}
-
-	withSkillItem();
-	
-	if( tool_MouseCursorBlock )
-	{
-		PutCompressedImage( 320 + CurMouseCursorSpotX, 240 + CurMouseCursorSpotY, s );
-		int ttx = 320 + Mapx, 
-			tty = 240 + Mapy;
-		Line( ttx-5, tty, ttx+5, tty, 0xffff );
-		Line( ttx, tty-5, ttx, tty+5, 0xffff );
-	}
-	CurMouseCursorFrameCounter();
-}
-*/
-/*
-void CursorDisplay_Sub( int *newflag )
-{			
-	int sx, sy, ex, ey;
-	char *t;
-	static int oldx, oldy;
-
-
-	if( MouseCursorOnOff == false ) return;// 기술시전중.
-
-//	if( SMenu[MN_LOGO_START_SAMSUNG].bActive==TRUE ) return;
-	if( SMenu[MN_LOGO_START].bActive==true ) return;
-
-	
-	if( oldx == g_pointMouseX && oldy == g_pointMouseY ) return;
-	oldx = g_pointMouseX, oldy = g_pointMouseY;
-
-	t = g_DestBackBuf;
-	WORD twdxsize = wDxSize;
-	DWORD tddxsize = dDxSize;
-	wDxSize = wSurDxSize;
-	dDxSize = dSurDxSize;
-
-	g_DestBackBuf = GetSurfacePointer( g_DirectDrawInfo.lpDirectDrawSurfacePrimary );
-	if( *newflag == 1 )
-	{	
-		PutImageBox( MgBuf, g_DestBackBuf, PmcSx, PmcSy,  PmcEx, PmcEy );
-	}	
-	PmcSx = SCREEN_WIDTH;
-	PmcSy = SCREEN_HEIGHT;
-	PmcEx = PmcEy = 0;
-	
-	Spr *s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni]; 
-	sx = g_pointMouseX + CurMouseCursorSpotX - s->ox;
-	sy = g_pointMouseY + CurMouseCursorSpotY - s->oy;
-	ex = sx + s->xl;
-	ey = sy + s->yl;
-	
-	if( sx < PmcSx ) PmcSx = sx;
-	if( sy < PmcSy ) PmcSy = sy;
-	if( ex > PmcEx ) PmcEx = ex;
-	if( ey > PmcEy ) PmcEy = ey;
-
-	if( PmcSx < 0 ) PmcSx = 0;
-	if( PmcSy < 0 ) PmcSy = 0;
-	if( PmcEx > SCREEN_WIDTH -1) PmcEx = SCREEN_WIDTH-1;
-	if( PmcEy > SCREEN_HEIGHT-1) PmcEy = SCREEN_HEIGHT-1;
-
-	if( (PmcEx-PmcSx+1)*(PmcEy-PmcSy+1) >= MAX_MOUSE_AREA_BUF_SIZE )
-		Error( "Mouse MgBuf is Too Small..\n %d %d %d %d",  PmcSx, PmcSy,  PmcEx, PmcEy );
-
-	GetImageBox( MgBuf, g_DestBackBuf, PmcSx, PmcSy,  PmcEx, PmcEy );
-
-	*newflag = 1;	
-
-	if( SMenu[MN_LODING].bActive != TRUE )  // 화면 Loading할때는 찍지 않는다.
-	{	
-		PutCompressedImage( g_pointMouseX + CurMouseCursorSpotX, g_pointMouseY + CurMouseCursorSpotY, s );
-		withSkillItem();
-	}	
-
-	wDxSize = twdxsize;
-	dDxSize = tddxsize;
-
-	g_DestBackBuf = t;
-}
-*/
-/*
-int CursorDisplay( int *newflag )
-{
-//	MSG msg;
-	int c=0;
-
-	if( SysInfo.dx == 0 ) return 1;
-
-//  while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) !=0 )
-//  {	
-//		if( msg.message == WM_QUIT ) 
-//		{	
-//			QuitFlag = SWD_QUIT;
-//			return 0;
+//
+//{		
+//	if( MouseCursorOnOff == false ) return;// 기술시전중.
+//	//if( SMenu[MN_LOGO_START].bActive==true ) return;
+//	if( SMenu[MN_LODING].bActive ==true )return;  // 화면 Loading할때는 찍지 않는다.
+//	PmcSx = SCREEN_WIDTH;
+//	PmcSy = SCREEN_HEIGHT;
+//	PmcEx = PmcEy = 0;
+//	Spr *s;
+//
+//	switch(CurMouseCursorNo)
+//	{
+//	case 1://sa
+//		{
+//			s = GetSprOfMenu(CURSOR_DEFAULT_IMG	,0);
+//			FieldTypeNomalPut(0,0,g_pointMouseX,g_pointMouseY,0,CURSOR_DEFAULT_IMG);
+//	//CURSOR_CLICK_IMG				10024
+//	//		s = FieldTypeNomalPut(int mx, int my, int x,int y,int nImageNumber, int type);
+//		}break;
+//	default :
+//		{
+//			s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni];
+//		}break;
+//	}
+//
+//	const int sx = g_pointMouseX + CurMouseCursorSpotX - s->ox;
+//	const int sy = g_pointMouseY + CurMouseCursorSpotY - s->oy;
+//	const int ex = sx + s->xl;
+//	const int ey = sy + s->yl;
+//		
+//	if( sx < PmcSx ) PmcSx = sx;
+//	if( sy < PmcSy ) PmcSy = sy;
+//	if( ex > PmcEx ) PmcEx = ex;
+//	if( ey > PmcEy ) PmcEy = ey;
+//		
+//	if( PmcSx < 0 ) PmcSx = 0;
+//	if( PmcSy < 0 ) PmcSy = 0;
+//	if( PmcEx > SCREEN_WIDTH -1) PmcEx = SCREEN_WIDTH-1;
+//	if( PmcEy > SCREEN_HEIGHT-1) PmcEy = SCREEN_HEIGHT-1;
+//
+//#ifdef _DEBUG	
+//	if( (PmcEx-PmcSx+1)*(PmcEy-PmcSy+1) >= MAX_MOUSE_AREA_BUF_SIZE )
+//	{
+//		Error( "Mouse MgBuf is Too Small..\n %d %d %d %d",  PmcSx, PmcSy,  PmcEx, PmcEy );
+//	}
+//	Hprint2(100,120, g_DestBackBuf,"마우스 %d,%d",CurMouseCursorNo,CurMouseCursorAni);
+//#endif	
+//
+//	//GetImageBox( MgBuf, g_DestBackBuf, PmcSx, PmcSy,  PmcEx, PmcEy );
+//	switch(CurMouseCursorNo)
+//	{
+//	case 1:
+//		break;
+//	default:
+//		{
+//			PutCompressedImage( g_pointMouseX + CurMouseCursorSpotX, g_pointMouseY + CurMouseCursorSpotY, s );//마우스 커서 그림 찍는곳
 //		}
-//		TranslateMessage(&msg);
-//		DispatchMessage(&msg);
+//	}
+//	
+//	//클릭포인트 라인 그리는 곳
+//	{
+//	const int ClickPointX = g_pointMouseX + Mapx;
+//	const int ClickPointY = g_pointMouseY + Mapy;
+//	static char cRelayColor = 0;//static 이다
+//	cRelayColor+=16;
+//	const unsigned char ucTempColor= abs(cRelayColor);
+//	const WORD wColor = ConvertColor(ucTempColor,ucTempColor,ucTempColor);
+//	Line( ClickPointX-2,ClickPointY,	ClickPointX+3,	ClickPointY,	wColor );
+//	Line( ClickPointX,	ClickPointY-2,	ClickPointX,	ClickPointY+3,	wColor );
+//	}
+//
+//	withSkillItem();
+//	
+//	if( tool_MouseCursorBlock )
+//	{
+//		PutCompressedImage( 320 + CurMouseCursorSpotX, 240 + CurMouseCursorSpotY, s );
+//		int ttx = 320 + Mapx, 
+//			tty = 240 + Mapy;
+//		Line( ttx-5, tty, ttx+5, tty, 0xffff );
+//		Line( ttx, tty-5, ttx, tty+5, 0xffff );
+//	}
+//	CurMouseCursorFrameCounter();
+//}
+
+
+//
+//void CursorDisplay_Sub( int *newflag )
+//{			
+//	int sx, sy, ex, ey;
+//	char *t;
+//	static int oldx, oldy;
+//
+//
+//	if( MouseCursorOnOff == false ) return;// 기술시전중.
+//
+//	//if( SMenu[MN_LOGO_START_SAMSUNG].bActive==TRUE ) return;
+//	if( SMenu[MN_LOGO_START].bActive==true ) return;
+//
+//	
+//	if( oldx == g_pointMouseX && oldy == g_pointMouseY ) return;
+//	oldx = g_pointMouseX, oldy = g_pointMouseY;
+//
+//	t = g_DestBackBuf;
+//	WORD twdxsize = wDxSize;
+//	DWORD tddxsize = dDxSize;
+//	wDxSize = wSurDxSize;
+//	dDxSize = dSurDxSize;
+//
+//	g_DestBackBuf = GetSurfacePointer( g_DirectDrawInfo.lpDirectDrawSurfacePrimary );
+//	if( *newflag == 1 )
+//	{	
+//		PutImageBox( MgBuf, g_DestBackBuf, PmcSx, PmcSy,  PmcEx, PmcEy );
 //	}	
+//	PmcSx = SCREEN_WIDTH;
+//	PmcSy = SCREEN_HEIGHT;
+//	PmcEx = PmcEy = 0;
+//	
+//	Spr *s = &mc[ CurMouseCursorNo-1][ CurMouseCursorAni]; 
+//	sx = g_pointMouseX + CurMouseCursorSpotX - s->ox;
+//	sy = g_pointMouseY + CurMouseCursorSpotY - s->oy;
+//	ex = sx + s->xl;
+//	ey = sy + s->yl;
+//	
+//	if( sx < PmcSx ) PmcSx = sx;
+//	if( sy < PmcSy ) PmcSy = sy;
+//	if( ex > PmcEx ) PmcEx = ex;
+//	if( ey > PmcEy ) PmcEy = ey;
+//
+//	if( PmcSx < 0 ) PmcSx = 0;
+//	if( PmcSy < 0 ) PmcSy = 0;
+//	if( PmcEx > SCREEN_WIDTH -1) PmcEx = SCREEN_WIDTH-1;
+//	if( PmcEy > SCREEN_HEIGHT-1) PmcEy = SCREEN_HEIGHT-1;
+//
+//	if( (PmcEx-PmcSx+1)*(PmcEy-PmcSy+1) >= MAX_MOUSE_AREA_BUF_SIZE )
+//		Error( "Mouse MgBuf is Too Small..\n %d %d %d %d",  PmcSx, PmcSy,  PmcEx, PmcEy );
+//
+//	GetImageBox( MgBuf, g_DestBackBuf, PmcSx, PmcSy,  PmcEx, PmcEy );
+//
+//	*newflag = 1;	
+//
+//	if( SMenu[MN_LODING].bActive != TRUE )  // 화면 Loading할때는 찍지 않는다.
+//	{	
+//		PutCompressedImage( g_pointMouseX + CurMouseCursorSpotX, g_pointMouseY + CurMouseCursorSpotY, s );
+//		withSkillItem();
+//	}	
+//
+//	wDxSize = twdxsize;
+//	dDxSize = tddxsize;
+//
+//	g_DestBackBuf = t;
+//}
 
 
+//
+//int CursorDisplay( int *newflag )
+//{
+//	//MSG msg;
+//	int c=0;
+//
+//	if( SysInfo.dx == 0 ) return 1;
+//
+//	//while( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) !=0 )
+//	//{	
+//	//	if( msg.message == WM_QUIT ) 
+//	//	{	
+//	//		QuitFlag = SWD_QUIT;
+//	//		return 0;
+//	//	}
+//	//	TranslateMessage(&msg);
+//	//	DispatchMessage(&msg);
+//	//}	
+//
+//	if( c == 0 ) CursorDisplay_Sub( newflag );
+//
+//	return 1;
+//}
+//
 
-
-	if( c == 0 ) CursorDisplay_Sub( newflag );
-
-	return 1;
-}
-*/
 void FreeMouseCursor ( void )
 {	
 	if( McBuf ) GlobalFree( McBuf );
@@ -941,7 +941,7 @@ void OutputSkillCursor( void )
 		{	
 			t->repeat--;
 			if( t->repeat <= 0 ) 
-//			if( g_curr_time > t->endtime )
+			//if( g_curr_time > t->endtime )
 			{
 				temp = t->next; 
 				DeleteSkillCursor( t ); 
@@ -1019,13 +1019,3 @@ int queueout( t_queue *n)
 	n = NULL;
 	return 0;
 }	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		

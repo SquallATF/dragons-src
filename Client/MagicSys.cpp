@@ -453,20 +453,20 @@ bool CMagicSys::IsEnable(int nMagic) const
 	{
 		return false;
 	}
-	/*
-	// 전투스킬 선택 중인 경우
-	if (Hero->bSelect)
-	{
-    OUTPUT(MK_WARNING, lan->OutputMessage(1, 89));
-    return false;
-	}
-	// 마법시전 중인 경우
-	if (Hero->ready_Magic != 0)
-	{
-	OUTPUT(MK_WARNING, lan->OutputMessage(1, 3));
-	return false;
-	}
-	*/
+	
+	//// 전투스킬 선택 중인 경우
+	//if (Hero->bSelect)
+	//{
+	//	OUTPUT(MK_WARNING, lan->OutputMessage(1, 89));
+	//	return false;
+	//}
+	//// 마법시전 중인 경우
+	//if (Hero->ready_Magic != 0)
+	//{
+	//	OUTPUT(MK_WARNING, lan->OutputMessage(1, 3));
+	//	return false;
+	//}
+	
 	if (Hero->ready_Magic_rare != 0)
 	{
 		OUTPUT(MK_SHORTAGE, lan->OutputMessage(0, 81));

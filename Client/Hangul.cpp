@@ -69,73 +69,72 @@ static int HangulAlign;
 int LoadHangulEnglishFont( char *caHangulFileName, char *caEngFileName )
 {
 	EndFont();
-/*
-    FILE *fp;
-    int i;
 
+    //FILE *fp;
+    //int i;
 
-    // 한글 화일을 오픈
-    fp = fopen( caHangulFileName, "rb" );
+    //// 한글 화일을 오픈
+    //fp = fopen( caHangulFileName, "rb" );
 	
-    // 초성을 읽어들임
-    for( i = 0; i < 8; i++ ) {
-        fseek( fp, 32, SEEK_CUR );
-        fread( (void *)BaHanFont1[ i ], 19 * 32, 1, fp );
-    }
+    //// 초성을 읽어들임
+    //for( i = 0; i < 8; i++ ) {
+    //    fseek( fp, 32, SEEK_CUR );
+    //    fread( (void *)BaHanFont1[ i ], 19 * 32, 1, fp );
+    //}
 	
-    // 중성을 읽어들임
-    for( i = 0; i < 4; i++ ) {
-        fseek( fp, 32, SEEK_CUR );
-        fread( (void *)BaHanFont2[ i ], 21 * 32, 1, fp );
-    }
+    //// 중성을 읽어들임
+    //for( i = 0; i < 4; i++ ) {
+    //    fseek( fp, 32, SEEK_CUR );
+    //    fread( (void *)BaHanFont2[ i ], 21 * 32, 1, fp );
+    //}
 	
-    // 종성을 읽어들임
-    for( i = 0; i < 4; i++ ) {
-        fseek( fp, 32, SEEK_CUR );
-        fread( (void *)BaHanFont3[ i ], 27 * 32, 1, fp );
-    }
-    fclose( fp );
+    //// 종성을 읽어들임
+    //for( i = 0; i < 4; i++ ) {
+    //    fseek( fp, 32, SEEK_CUR );
+    //    fread( (void *)BaHanFont3[ i ], 27 * 32, 1, fp );
+    //}
+    //fclose( fp );
 	
-    // 영문 폰트를 읽어들임
-    fp = fopen( caEngFileName, "rb" );
-    fread( (void *)BaAscFont, 16, 96, fp );
+    //// 영문 폰트를 읽어들임
+    //fp = fopen( caEngFileName, "rb" );
+    //fread( (void *)BaAscFont, 16, 96, fp );
 	
-    fclose( fp );
-*/
+    //fclose( fp );
+
 	
 
 //////////////////////////////////////////////////////////////////////////////010727 lms
-/*#ifdef CHINA_LOCALIZING_//010528 lms 다국어 폰트 적용
-	char *DR_FONT =  "芥竟";//010527 lms 중국어 폰트
-#endif
-
-#if defined (TAIWAN_LOCALIZING_) || defined (HONGKONG_LOCALIZING_)
-	char *DR_FONT =  "꾄ⁿ톱";//010511 lms 대만 폰트
-#endif
-
-#ifdef KOREA_LOCALIZING_
-	char *DR_FONT =  "굴림체";
-#endif
-
-#ifdef USA_LOCALIZING_
-	char *DR_FONT =  "MS Mincho";
-#endif
-// THAI YGI
-#ifdef THAI_LOCALIZING_
-	DR_FONT =  "MS Sans Serif";		// BBD 031214 태국도 USA_LOCALIZING_이 선언된다
-	int DR_FONT_SIZE = 15;
-#else
-	#ifdef USA_LOCALIZING_
-		int DR_FONT_SIZE =	12;
-	#else
-		int DR_FONT_SIZE = 12;
-	#endif
-
-#endif
-
-#ifdef JAPAN_LOCALIZING_
-	char *DR_FONT =  "MS Mincho"//"FixedSys"@//020325 lms
-#endif*/
+//#ifdef CHINA_LOCALIZING_//010528 lms 다국어 폰트 적용
+//	char *DR_FONT =  "芥竟";//010527 lms 중국어 폰트
+//#endif
+//
+//#if defined (TAIWAN_LOCALIZING_) || defined (HONGKONG_LOCALIZING_)
+//	char *DR_FONT =  "꾄ⁿ톱";//010511 lms 대만 폰트
+//#endif
+//
+//#ifdef KOREA_LOCALIZING_
+//	char *DR_FONT =  "굴림체";
+//#endif
+//
+//#ifdef USA_LOCALIZING_
+//	char *DR_FONT =  "MS Mincho";
+//#endif
+//// THAI YGI
+//#ifdef THAI_LOCALIZING_
+//	DR_FONT =  "MS Sans Serif";		// BBD 031214 태국도 USA_LOCALIZING_이 선언된다
+//	int DR_FONT_SIZE = 15;
+//#else
+//	#ifdef USA_LOCALIZING_
+//		int DR_FONT_SIZE =	12;
+//	#else
+//		int DR_FONT_SIZE = 12;
+//	#endif
+//
+//#endif
+//
+//#ifdef JAPAN_LOCALIZING_
+//	char *DR_FONT =  "MS Mincho"//"FixedSys"@//020325 lms
+//#endif
 	char *DR_FONT =  "芥竟";//050728
 	int DR_FONT_SIZE = 12;
 
@@ -369,54 +368,50 @@ void PutEnglish( int x, int y, WORD color, BYTE *s )
  인자 :	
  리턴 :	
 ───────────────────────────────────────*/
-/*void Hprint( int x, int y, char *destbuf, char *temp )
-{	
-	int  i;
-	WORD k;
-	BYTE *t, *kk;
-	int  tchar;
-	int  yy, oldx;
-	WORD c,c2,kscode, index;
-
-	h_DestBuf = destbuf;
-	
-	oldx = x;
-	i = 0; yy = 0;
-	for( ; *(temp+i); i++ )
-	{
-		if( *(temp+i) & 0x80 ) {        // 한글일 경우
-			kscode = *(WORD *)(temp+i++);
-			c = kscode >> 8;
-			c2 = kscode & 0xff;
-			index = ( (int)c2 - 0xb0 ) * 94 + ( (int)c  - 0xa1 );
-			kk = (BYTE *)&NaKsTable[ index * 2 ];
-			k = *(kk)<<8; 
-			k += (*(++kk));
-			
-			t = GetHanImage(k);
-			PutHangul( x, y, NHangulColor, t );
-
-			x += HANGUL_SIZE;
-		}
-		else { // 영문일 경우
-			tchar = *(temp+i);
-			if( tchar == 32 )  goto NEXT_00;
- 			if( tchar == 92 || tchar == 47 ) { goto NEXT_01; } // 92 = \  47 = /
-			t = BaAscFont[ tchar -32 ];
-			PutEnglish( x, y, NHangulColor, t );
-			
-			NEXT_00:
-			x += ENGLISH_SIZE;
-		  }	
-NEXT_01:;
-	}
-}		*/
-
-
+//void Hprint( int x, int y, char *destbuf, char *temp )
+//{	
+//	int  i;
+//	WORD k;
+//	BYTE *t, *kk;
+//	int  tchar;
+//	int  yy, oldx;
+//	WORD c,c2,kscode, index;
+//
+//	h_DestBuf = destbuf;
+//	
+//	oldx = x;
+//	i = 0; yy = 0;
+//	for( ; *(temp+i); i++ )
+//	{
+//		if( *(temp+i) & 0x80 ) {        // 한글일 경우
+//			kscode = *(WORD *)(temp+i++);
+//			c = kscode >> 8;
+//			c2 = kscode & 0xff;
+//			index = ( (int)c2 - 0xb0 ) * 94 + ( (int)c  - 0xa1 );
+//			kk = (BYTE *)&NaKsTable[ index * 2 ];
+//			k = *(kk)<<8; 
+//			k += (*(++kk));
+//			
+//			t = GetHanImage(k);
+//			PutHangul( x, y, NHangulColor, t );
+//
+//			x += HANGUL_SIZE;
+//		}
+//		else { // 영문일 경우
+//			tchar = *(temp+i);
+//			if( tchar == 32 )  goto NEXT_00;
+// 			if( tchar == 92 || tchar == 47 ) { goto NEXT_01; } // 92 = \  47 = /
+//			t = BaAscFont[ tchar -32 ];
+//			PutEnglish( x, y, NHangulColor, t );
+//			
+//			NEXT_00:
+//			x += ENGLISH_SIZE;
+//		  }	
+//NEXT_01:;
+//	}
+//}		
 
 int HR, HB, HG;
-
-
 
 void Hcolor( WORD color )
 {
@@ -627,11 +622,6 @@ void Hprint( const int x, const int y, char *destbuf, const char *szStr )
 		lpSurface->ReleaseDC( hdc );
 	}				
 }		
-		
-
-
-
-
 
 
 void HprintC2( int x, int y, char *destbuf, char *s, ... )
@@ -730,9 +720,9 @@ void HprintBold( const int x, const int y, const int fc, const int bc, char *s, 
 		::SetTextColor( hdc, fc );
 		::TextOut( hdc, x, y, txt, iStringSize);
 
-//		::SetBkMode( hdc, nBkMode );
+		//::SetBkMode( hdc, nBkMode );
 		SelectObject( hdc, hFontOld );
-//		DeleteObject( __HFontDial[HangulFontType] );
+		//DeleteObject( __HFontDial[HangulFontType] );
 
 		lpSurface->ReleaseDC( hdc );
 	}			
@@ -764,14 +754,14 @@ void HprintBoldcolor( int x, int y, int percent, char *s, ... )
 		
 		hprintcolor( hdc, percent, x, y, txt );
 		
-//		::SetBkMode( hdc, nBkMode );
+		//::SetBkMode( hdc, nBkMode );
 		SelectObject( hdc, hFontOld );
-//		DeleteObject( __HFontDial[HangulFontType] );
+		//DeleteObject( __HFontDial[HangulFontType] );
 		
 		lpSurface->ReleaseDC( hdc );
 	}				
 }		
-				
+
 /*────────────────────────────────────────
  함수명 : 그냥 출력한다... Hprint2는 ...인자를 받고, Hprint는 String만 받는다. 
  인  자 : x,y = 출력할 문자의 위치,
@@ -780,20 +770,17 @@ void HprintBoldcolor( int x, int y, int percent, char *s, ... )
  리턴값 : 없음
  설  명 : x,y 위치에 문자를 출력한다.
 ────────────────────────────────────────*/
-/*void Hprint2( int x, int y, char *destbuf, char *s, ... )
-{		
-    BYTE temp[ 1000]={0,};
-    va_list arg;
-		
-    va_start( arg, s );
-    vsprintf( (char *)temp, s, arg );
-    va_end( arg );
-		
-	Hprint( x, y, destbuf, (char *)temp );
-}*/
-		
-		
-
+//void Hprint2( int x, int y, char *destbuf, char *s, ... )
+//{		
+//    BYTE temp[ 1000]={0,};
+//    va_list arg;
+//		
+//    va_start( arg, s );
+//    vsprintf( (char *)temp, s, arg );
+//    va_end( arg );
+//		
+//	Hprint( x, y, destbuf, (char *)temp );
+//}
 
 			
 void SetHangulFont( int type )

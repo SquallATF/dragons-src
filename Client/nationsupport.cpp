@@ -506,23 +506,22 @@ void NationSupportNationNow1(t_packet *p)
 		//011010 lsw >
 		float fmapx = ( 280.000 * float(mapx) / 420.000 );
 		float fmapy = ( 280.000 * float(mapy) / 420.000 );
-/*
-		switch( CheckNationStatus(NW_WAR))
-		{
-		case  0://산중 
-			fmapx += ;
-			fmapy += ;
-			break;
-		case  1://평원 
-			fmapx += -15;
-			fmapy += -20;
-			break;
-		case  2://섬
-			fmapx += ;
-			fmapy += ;
-			break;
-		}
-*/
+
+		//switch( CheckNationStatus(NW_WAR))
+		//{
+		//case  0://산중 
+		//	fmapx += ;
+		//	fmapy += ;
+		//	break;
+		//case  1://평원 
+		//	fmapx += -15;
+		//	fmapy += -20;
+		//	break;
+		//case  2://섬
+		//	fmapx += ;
+		//	fmapy += ;
+		//	break;
+		//}
 
 		SMenu[MN_NATION_NOW].nField[33].x = (int)fmapx+10;//+SMenu[MN_NATION_NOW].nField[3].x;		// 011023 LTS
 		SMenu[MN_NATION_NOW].nField[33].y = (int)fmapy+24;//+SMenu[MN_NATION_NOW].nField[3].y;		// 011023 LTS
@@ -670,7 +669,7 @@ void NationSupportNationSquadLeader(t_packet* p)
 	}
 	else
 	{
-//		SMenu[MN_NATION_BUDAE].nField[7].nType = 0;//부대 마크 안뜸
+		//SMenu[MN_NATION_BUDAE].nField[7].nType = 0;//부대 마크 안뜸
 		//011030 lsw >
 		sprintf(SMenu[MN_NATION_BUDAE].nField[8].temp,	lan->OutputMessage(0,405) 	);//,p->u.NationWar.SquadInfo.ChipName);
 		sprintf(SMenu[MN_NATION_BUDAE].nField[17].temp, lan->OutputMessage(0,405)	);//,p->u.NationWar.SquadInfo.Sok);
@@ -975,10 +974,10 @@ bool DoButtonCheckOfMenu_SpecialWillDo_lsw(int i, int j)//020515 lsw
 				MP3( SN_MENU_OPEN );
 				SMenu[MN_STATUS].x = 0;
 				MenuStack.PutMenu(MN_STATUS);
-				/*	//020515 lsw
-				SMenu[MN_STATUS].nField[6].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+154;
-				SMenu[MN_STATUS].nField[7].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+163;
-				*/
+				//	//020515 lsw
+				//SMenu[MN_STATUS].nField[6].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+154;
+				//SMenu[MN_STATUS].nField[7].nImageNumber=SCharacterData.nCharacterData[ARIGEMENT]+163;
+				//
 				return true; 
 			}break;   
 	case SWD_MAININTERFACE_ABILITY :	
@@ -989,7 +988,7 @@ bool DoButtonCheckOfMenu_SpecialWillDo_lsw(int i, int j)//020515 lsw
 			MenuStack.DelMenu(MN_TACTICS);//020828 lsw
 			SMenu[MN_ABILITY].bActive=TRUE;
 			MP3( SN_MENU_OPEN );
-//			CallServer( CMD_OPEN_ABILITY );			// ability 메뉴가 온 될때 서버에서 전송받아야 할것 들 요청
+			//CallServer( CMD_OPEN_ABILITY );			// ability 메뉴가 온 될때 서버에서 전송받아야 할것 들 요청
 			MenuStack.PutMenu(MN_ABILITY);													
 			return true; 
 		}break;
@@ -1151,19 +1150,19 @@ bool DoButtonCheckOfMenu_SpecialWillDo_lsw(int i, int j)//020515 lsw
 
 	case SWD_AUCTION_FIND_KEY_RARE_SET:
 		{
-//			( 1 == nWillDo )?Auction.FKRareTypeInc():Auction.FKRareTypeDec();
+			//( 1 == nWillDo )?Auction.FKRareTypeInc():Auction.FKRareTypeDec();
 		}break;
 	case SWD_AUCTION_FIND_KEY_LV_SET:
 		{
-//			( 1 == nWillDo )?Auction.FKLevelInc():Auction.FKLevelDec();
+			//( 1 == nWillDo )?Auction.FKLevelInc():Auction.FKLevelDec();
 		}break;
 	case SWD_AUCTION_FIND_KEY_TACTIC_SET:
 		{
-//			( 1 == nWillDo )?Auction.FKTacticTypeInc():Auction.FKTacticTypeDec();
+			//( 1 == nWillDo )?Auction.FKTacticTypeInc():Auction.FKTacticTypeDec();
 		}break;
 	case SWD_AUCTION_FIND_KEY_WEAR_SET:
 		{
-//			( 1 == nWillDo )?Auction.FKWearTypeInc():Auction.FKWearTypeDec();
+			//( 1 == nWillDo )?Auction.FKWearTypeInc():Auction.FKWearTypeDec();
 		}break;	
 	case SWD_SEND_MERCHANT_BUY_LIST_SCROLL_UP:
 		{
@@ -1317,7 +1316,7 @@ bool DoButtonCheckOfMenu_SpecialWillDo_lsw(int i, int j)//020515 lsw
 	case SWD_EXCHANGE_BOND_MONEY_OK://021126 lsw
 		{
 			Auction.SendCMD_EXCHANGE_BOND_MONEY();//021202 lsw
-//			::CloseAllMenu();
+			//::CloseAllMenu();
 		}break;
 	case SWD_CALL_EXCHANGE_BOND_MONEY:
 		{
@@ -1338,19 +1337,19 @@ bool DoButtonCheckOfMenu_SpecialWillDo_lsw(int i, int j)//020515 lsw
 			{
 				*( div_str-1 ) = NULL;		// \n 처리를 위해서..
 			}
-//			int ret = CheckCharNameAndNation( name );		// 그 사람과 내가 같은 나라인가?
-//			if( !ret ) 
-//			{
-//				CallOkCancelMessageBox( i, 0, 0, lan->OutputMessage(3,178) );//010215 lsw
-//			}
-//			else 
-//			{
-//				ChangeString( body, '\r', ' ');
-//				SendMail( name, title, body );
-//				EWndMgr.ClearAllTxt();//021001 lsw
-//				SmallMenuClose();
-//				break;
-//			}
+			//int ret = CheckCharNameAndNation( name );		// 그 사람과 내가 같은 나라인가?
+			//if( !ret ) 
+			//{
+			//	CallOkCancelMessageBox( i, 0, 0, lan->OutputMessage(3,178) );//010215 lsw
+			//}
+			//else 
+			//{
+			//	ChangeString( body, '\r', ' ');
+			//	SendMail( name, title, body );
+			//	EWndMgr.ClearAllTxt();//021001 lsw
+			//	SmallMenuClose();
+			//	break;
+			//}
 			
 			::ChangeString( szTitle, '\r', ' ');
 			::ChangeString( szBody, '\r', ' ');
@@ -1382,10 +1381,10 @@ bool DoButtonCheckOfMenu_SpecialWillDo_lsw(int i, int j)//020515 lsw
 			// ok만 있는 건지 ok_cancel이 있는 메시지 박스인지를 선택,  
 			//menu는 호출한 메뉴를 넣는다
 		}break;
-//	case SWD_MAIL_DELETE://지우기 
-//		{
-//			g_MailMgr.SendDelete(nWillDo);
-//		}break;
+	//case SWD_MAIL_DELETE://지우기 
+	//	{
+	//		g_MailMgr.SendDelete(nWillDo);
+	//	}break;
 	case SWD_MAIL_SAVE://저장하기
 		{
 			g_MailMgr.SaveMailToLocal();

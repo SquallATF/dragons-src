@@ -18,7 +18,7 @@
 //#define MAP_SERVER_INI_			".\\MapServer.ini"
 
 #define PROXY_SERVER_INI_NAME		".\\ProxyServer.ini"
-#define SERVER_MANAGER_INI_NAME		PROXY_SERVER_INI_
+//#define SERVER_MANAGER_INI_NAME		PROXY_SERVER_INI_
 #define DB_DEMON_INI_NAME			".\\DBDemon.ini"
 #define AGENT_SERVER_INI_NAME		".\\agentserver.ini"
 #define MAP_SERVER_INI_NAME			".\\MapServer.ini"
@@ -110,28 +110,28 @@ public://SetNationCode 류의 함수는 만들지 않습니다. 게임 서비스
 	
 	int IsAbleMyCode(const int iMyCode)const;//불가능한 마이코드라면 0을 리턴 가능하면 1을 리턴
 	int IsAbleNation(const int iNationCode)const;//불가능한 국가라면 0을 리턴 가능하면 1을 리턴
-/*	
-	void example()//IsAbleNation()의 샘플 코드
-	{
-		if(IsAbleNation(KOREA||TAIWAN)
-		{//한국이거나 대만이면 실행 됩니다.
-		}
-		else
-		{//나머지 국가에서 실행 됩니다.
-		}
-	}
-*/
-	const char *GetDBAccount(const int iType, bool bIsID);//iType TOTAL_DB,등의 타입입니다.bIsID ID, PASS 둘중에 하나를 쓸 수 있습니다. 결과는 const char*로 넘어옵니다. 스트링카피나 멤카피를 사용해 주십시요.
-/*	
-	void example()//GetDBAccount()의 샘플 코드
-	{
-		char id[30],pw[30];
+	//
+	//void example()//IsAbleNation()의 샘플 코드
+	//{
+	//	if(IsAbleNation(KOREA||TAIWAN)
+	//	{//한국이거나 대만이면 실행 됩니다.
+	//	}
+	//	else
+	//	{//나머지 국가에서 실행 됩니다.
+	//	}
+	//}
 
-		if( (Init_SQL("DragonRajaDB", GetDBAccount(TOTAL_DB,ID), GetDBAccount(TOTAL_DB,PASS)) ) == 0)
-		{//
-		}
-	}
-*/
+	const char *GetDBAccount(const int iType, bool bIsID);//iType TOTAL_DB,등의 타입입니다.bIsID ID, PASS 둘중에 하나를 쓸 수 있습니다. 결과는 const char*로 넘어옵니다. 스트링카피나 멤카피를 사용해 주십시요.
+	//
+	//void example()//GetDBAccount()의 샘플 코드
+	//{
+	//	char id[30],pw[30];
+
+	//	if( (Init_SQL("DragonRajaDB", GetDBAccount(TOTAL_DB,ID), GetDBAccount(TOTAL_DB,PASS)) ) == 0)
+	//	{//
+	//	}
+	//}
+
 };
 extern CLocalizingMgr LocalMgr;
 #endif // !defined(AFX_LOCALIZINGMGR_H__F4B2DCF8_D77A_426D_8C68_DE978C3113E8__INCLUDED_)

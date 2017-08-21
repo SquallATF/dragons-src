@@ -31,402 +31,8 @@ void CheckParticleEffect()
 	g_ParticleManager.CheckContinueParticle();
 }
 
-
-
-
-/*
-cSEffectManager::cSEffectManager()
-{
-}
-
-  cSEffectManager::~cSEffectManager()
-  {
-  ClearAllFog();
-  ClearFogList();
-  }
-  
-	
-	  void InitFogData()
-	  {
-	  g_FogManager.LoadFogData("./data/마법탐지.dat",0);
-	  g_FogManager.LoadFogData("./data/악령탐색.dat",1);
-	  g_DragonEffect.LoadBreathData("./data/브레스.dat");
-	  }
-	  
-		void cSEffectManager::ClearFog(int Index)
-		{
-		MemFree(FogPicBuffer[Index]);
-		}
-		
-		  void cSEffectManager::ClearAllFog()
-		  {
-		  ClearFog(0);
-		  ClearFog(1);
-		  ClearFog(2);
-		  }
-		  
-			int cSEffectManager::LoadFogData(char* FileName,int FogIndex)
-			{
-			FILE *fp;
-			short no;
-			DWORD sprfilelength, size;
-			DWORD nOff = 0;
-			int   i,j;
-			Spr*  s;
-			int length;
-			int FrameCount=0;
-			
-			  switch (FogIndex)
-			  {
-			  case 0 : FrameCount=FOG1_FRAME;
-			  case 1 : FrameCount=FOG2_FRAME;
-			  //	case 2 : FrameCount=FOG3_FRAME;
-			  }
-			  
-				fp=Fopen(FileName,"rb" );
-				if (fp==NULL)
-				{
-				return FALSE;
-				}
-				
-				  fread( &no, 2,1, fp);
-				  fseek( fp, no * 4, SEEK_CUR ); 
-				  length = sprfilelength = _filelength( _fileno( fp) ) - no * 4 * 2 - 2;
-				  
-					MemAlloc( FogPicBuffer[FogIndex], sprfilelength );
-					for (j=0;j<FrameCount;j++)
-					{
-					s = &FogPic[FogIndex][j];
-					fread( &size, 4,1, fp);
-					if( size== 0 )	
-					{				
-					s->xl = 0;	
-					s->yl = 0;	
-					s->size = 0;
-					s->img = NULL;
-					continue;	
-					}				
-					fread( &(s->xl),	sizeof( short ), 1, fp);
-					fread( &(s->yl),	sizeof( short ), 1, fp);
-					fread( &(s->ox),	sizeof( short ), 1, fp);
-					fread( &(s->oy),	sizeof( short ), 1, fp);
-					fread( &(s->size),	sizeof( unsigned int ), 1, fp);
-					
-					  if( nOff + s->size >= sprfilelength ) 
-					  {						
-					  JustMsg( "%s File Error !!",FileName);
-					  ExitApplication();
-					  }						
-					  fread(FogPicBuffer[FogIndex] + nOff, s->size, 1, fp);
-					  s->img = FogPicBuffer[FogIndex] + nOff;
-					  
-						convert565to555_LoadSprite( s );
-						
-						  nOff += size;		
-						  }
-						  fclose(fp);	
-						  return TRUE;
-						  }
-						  
-							void cSEffectManager::ClearFogList(int Type)
-							{
-							for (FogListItor itor=FogList[Type].begin();itor!=FogList[Type].end();itor++)
-							{
-							//		if ((*itor))
-							//		{
-							delete (*itor);
-							itor=FogList[Type].erase(itor);
-							//		}
-							}
-							}
-							
-							  void cSEffectManager::ClearFogList()
-							  {
-							  ClearFogList(0);
-							  ClearFogList(1);
-							  ClearFogList(2);
-							  }
-							  
-								void cSEffectManager::InsertFog(int FogType,int X,int Y,DWORD StartTime,DWORD DelayTime)
-								{
-								t_CommonArg	CommonArg;
-								
-								  CommonArg.FogArg.FogType=FogType;
-								  CommonArg.FogArg.Location.x=X;
-								  CommonArg.FogArg.Location.y=Y;
-								  CommonArg.FogArg.StartTime=StartTime;
-								  CommonArg.FogArg.DelayTime=DelayTime;
-								  
-									FogList[FogType].push_back(new FogObject(&CommonArg));
-									}
-									
-									  void cSEffectManager::PrepareForDrawing(int Type,DWORD DelayTime,POINTS* Location)
-									  {
-									  if (Type<0||Type>3) return;		// Index Check
-									  if (FogStatus[Type]>0) return;	// Current Status Check
-									  
-										FogStatus[Type]=FOG_ACTIVE;
-										FogFrameCount[0]=FOG1_FRAME;	// 
-										FogFrameCount[1]=FOG1_FRAME;
-										for (int i=0;i<FOG_MAX;i++)
-										{
-										InsertFog(Type,Location[i].x,Location[i].y,rand()%10,DelayTime+rand()%10);
-										}
-										
-										  }
-										  
-											void cSEffectManager::FogDraw(int Type)
-											{
-											if (!FogStatus[Type]) return;
-											
-											  Spr*		Sprite;
-											  FogObject*	tempFog;
-											  
-												for (FogListItor itor=FogList[Type].begin();itor!=FogList[Type].end();itor++)
-												{
-												Sprite=&FogPic[(*itor)->FogType][(*itor)->FrameCount];
-												tempFog=(*itor);
-												if (tempFog->StartTime<=g_curr_time)
-												{
-												//PutCompressedImageFX(tempFog->LocationX,tempFog->LocationY,Sprite,15,2);
-												PutCompressedImageFX(Mapx-tempFog->Location.x,Mapy-tempFog->Location.y,Sprite,15,2);
-												if (FogFrameCount[tempFog->FogType]<=tempFog->FrameCount)
-												{
-												tempFog->FrameCount=0;
-												}
-												else
-												{
-												tempFog->FrameCount++;
-												}
-												if (tempFog->DelayTime<=g_curr_time)
-												{
-												delete (*itor);
-												itor=FogList[Type].erase(itor);
-												}
-												}
-												}
-												if (FogList[Type].empty()) FogStatus[Type]=FOG_DEACTIVE;
-												}
-												
-												  void cSEffectManager::FogDraw()
-												  {
-												  FogDraw(0);
-												  FogDraw(1);
-												  FogDraw(2);
-												  }
-												  
-													void FogPrepare(int Type,DWORD DelayTime,POINTS* Location)
-													{
-													g_FogManager.PrepareForDrawing(Type,DelayTime,Location);
-													}
-													
-													  void DrawFog()
-													  {
-													  g_FogManager.FogDraw();
-													  g_DragonEffect.DrawBreath();
-													  }
-													  
-														cDragonEffect::cDragonEffect()
-														{
-														}
-														
-														  cDragonEffect::~cDragonEffect()
-														  {
-														  
-															}
-															
-															  void cDragonEffect::ClearAllBreath()
-															  {
-															  for (DragonBreathItor itor=DragonBreathList.begin();itor!=DragonBreathList.end();itor++)
-															  {
-															  delete (*itor);
-															  itor=DragonBreathList.erase(itor);
-															  }
-															  }
-															  
-																void cDragonEffect::ClearSprite()
-																{
-																MemFree(BreathPicBuffer);
-																}
-																
-																  int cDragonEffect::LoadBreathData(char* strFileName)
-																  {
-																  FILE *fp;
-																  short no;
-																  DWORD sprfilelength, size;
-																  DWORD nOff = 0;
-																  int   i,j;
-																  Spr*  s;
-																  int length;
-																  int FrameCount=0;
-																  
-																	fp=Fopen(strFileName,"rb" );
-																	if (fp==NULL)
-																	{
-																	return FALSE;
-																	}
-																	
-																	  fread( &no, 2,1, fp);
-																	  fseek( fp, no * 4, SEEK_CUR ); 
-																	  length = sprfilelength = _filelength( _fileno( fp) ) - no * 4 * 2 - 2;
-																	  
-																		MemAlloc( BreathPicBuffer, sprfilelength );
-																		for (j=0;j<DRAGON_BREATH_FRAME_COUNT;j++)
-																		{
-																		s = &BreathPic[j];
-																		fread( &size, 4,1, fp);
-																		if( size== 0 )	
-																		{				
-																		s->xl = 0;	
-																		s->yl = 0;	
-																		s->size = 0;
-																		s->img = NULL;
-																		continue;	
-																		}				
-																		fread( &(s->xl),	sizeof( short ), 1, fp);
-																		fread( &(s->yl),	sizeof( short ), 1, fp);
-																		fread( &(s->ox),	sizeof( short ), 1, fp);
-																		fread( &(s->oy),	sizeof( short ), 1, fp);
-																		fread( &(s->size),	sizeof( unsigned int ), 1, fp);
-																		
-																		  if( nOff + s->size >= sprfilelength ) 
-																		  {						
-																		  JustMsg( "%s File Error !!",strFileName);
-																		  ExitApplication();
-																		  }						
-																		  fread(BreathPicBuffer + nOff, s->size, 1, fp);
-																		  s->img = BreathPicBuffer + nOff;
-																		  
-																			convert565to555_LoadSprite( s );
-																			
-																			  nOff += size;		
-																			  }
-																			  fclose(fp);	
-																			  return TRUE;
-																			  }
-																			  
-																				void cDragonEffect::InsertBreath(POINT tStart,POINT tDest,int Direction,int Power)
-																				{
-																				t_CommonArg CommonArg;
-																				
-																				  CommonArg.BreathArg.StartLocation	= tStart;
-																				  CommonArg.BreathArg.DestLocation	= tDest;
-																				  CommonArg.BreathArg.Direction		= Direction;
-																				  CommonArg.BreathArg.Power			= Power;
-																				  
-																					DragonBreathList.push_back(new DragonBreath(&CommonArg));
-																					}
-																					
-																					  void cDragonEffect::BreathPrepare(POINT tStart,POINT tDest,int Count)
-																					  {
-																					  POINT temp;
-																					  int Quater=0;
-																					  float Ratio=0;
-																					  int Direction;
-																					  
-																						temp.x=tStart.x-tDest.x;
-																						temp.y=tStart.y-tDest.y;
-																						if (temp.x>0 && temp.y>0) Quater=1;	// 해당 사분면 결정
-																						if (temp.x<0 && temp.y>0) Quater=2;
-																						if (temp.x>0 && temp.y<0) Quater=3;
-																						if (temp.x<0 && temp.y<0) Quater=4;
-																						
-																						  if (Quater==0) return;
-																						  if (temp.y==0) return;
-																						  Ratio=(float)temp.x / (float)temp.y;
-																						  if (Ratio<0) Ratio*=-1;	// ABS
-																						  
-																							switch(Quater)
-																							{
-																							case 1 :
-																							{
-																							if (Ratio>=0     && Ratio<0.17) Direction=8;
-																							if (Ratio>=0.17 && Ratio<0.65) Direction=7;
-																							if (Ratio>=0.65 && Ratio<1.5)  Direction=6;
-																							if (Ratio>=1.5  && Ratio<5.5)  Direction=5;
-																							if (Ratio>=5.5  && Ratio<500)  Direction=4;
-																							}
-																							break;
-																							case 2 :
-																							{
-																							if (Ratio>=0     && Ratio<0.17) Direction=8;
-																							if (Ratio>=0.17 && Ratio<0.65) Direction=9;
-																							if (Ratio>=0.65 && Ratio<1.5)  Direction=10;
-																							if (Ratio>=1.5  && Ratio<5.5)  Direction=11;
-																							if (Ratio>=5.5  && Ratio<500)  Direction=12;
-																							}
-																							break;
-																							case 3 :
-																							{
-																							if (Ratio>=0     && Ratio<0.17) Direction=0;
-																							if (Ratio>=0.17 && Ratio<0.65) Direction=1;
-																							if (Ratio>=0.65 && Ratio<1.5)  Direction=2;
-																							if (Ratio>=1.5  && Ratio<5.5)  Direction=3;
-																							if (Ratio>=5.5  && Ratio<500)  Direction=4;
-																							}
-																							break;
-																							case 4 : 
-																							{
-																							if (Ratio>=0     && Ratio<0.17) Direction=0;
-																							if (Ratio>=0.17 && Ratio<0.65) Direction=15;
-																							if (Ratio>=0.65 && Ratio<1.5)  Direction=14;
-																							if (Ratio>=1.5  && Ratio<5.5)  Direction=13;
-																							if (Ratio>=5.5  && Ratio<500)  Direction=12;
-																							}
-																							break;
-																							
-																							  }
-																							  
-																								AddCurrentStatusMessage(255,255,0,"해당 사분면은 : %d", Quater);
-																								AddCurrentStatusMessage(255,255,0,"방향은 : %d", Direction);
-																								
-																								  for (int i=0;i<Count;i++)
-																								  {
-																								  InsertBreath(tStart,tDest,Direction,31);
-																								  }
-																								  }
-																								  
-																									void cDragonEffect::DrawBreath()
-																									{
-																									Spr*		Sprite;
-																									POINTS		Progress[16]= { 
-																									{0,2},{-1,2},{-2,2},{-2,1},
-																									{-2,0},{-2,-1},{-2,-2},{-1,-2},
-																									{0,-2},{1,-2},{2,-2},{2,-1},
-																									{2,0},{2,1},{2,2},{1,2} };
-																									
-																									  for (DragonBreathItor itor=DragonBreathList.begin();itor!=DragonBreathList.end();itor++)
-																									  {
-																									  if ((*itor)->Power>0)
-																									  {
-																									  DragonBreath* tempBreath=(*itor);
-																									  int frame= tempBreath->Power*6/31;
-																									  frame=6-frame;
-																									  AddCurrentStatusMessage(255,255,0,"프레임은 : %d", frame);
-																									  Sprite=&BreathPic[frame];
-																									  //PutCompressedImageFX(tempFog->LocationX,tempFog->LocationY,Sprite,15,2);
-																									  PutCompressedImageFX((*itor)->Start.x,(*itor)->Start.y,Sprite,(*itor)->Power,2);
-																									  
-																										(*itor)->Start.x+=Progress[(*itor)->Direction].x;
-																										(*itor)->Start.y+=Progress[(*itor)->Direction].y;
-																										(*itor)->Start.x+=Progress[(*itor)->Direction].x;
-																										(*itor)->Start.y+=Progress[(*itor)->Direction].y;
-																										(*itor)->Start.x+=Progress[(*itor)->Direction].x;
-																										(*itor)->Start.y+=Progress[(*itor)->Direction].y;
-																										(*itor)->Start.x+=Progress[(*itor)->Direction].x;
-																										(*itor)->Start.y+=Progress[(*itor)->Direction].y;
-																										
-																										  (*itor)->Power-=1;
-																										  }
-																										  else
-																										  {
-																										  delete (*itor);
-																										  itor=DragonBreathList.erase(itor);
-																										  }
-																										  }
-																										  }
-*/
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 cFog::cFog(t_CommonArg* Arg)
 {
 	this->m_cSpriteIndex	= Arg->FogArg.SpriteIndex;
@@ -444,12 +50,12 @@ void cFog::GetData(t_CommonArg* Arg)
 
 cParticle* cFog::Insert(cParticle* Arg)
 {
-/*this->m_cSpriteIndex	= Arg->FogArg.SpriteIndex;
-this->m_cFrameCount		= 0;
-this->m_cFogType		= 0;
-this->m_Location		= Arg->FogArg.Location;
-this->StartTime			= Arg->FogArg.StartTime;
-	this->DelayTime			= Arg->FogArg.DelayTime;*/
+	//this->m_cSpriteIndex	= Arg->FogArg.SpriteIndex;
+	//this->m_cFrameCount		= 0;
+	//this->m_cFogType		= 0;
+	//this->m_Location		= Arg->FogArg.Location;
+	//this->StartTime			= Arg->FogArg.StartTime;
+	//	this->DelayTime			= Arg->FogArg.DelayTime;
 	return NULL;
 }
 
@@ -527,8 +133,8 @@ int cBreath::Draw()
 								
 								if (this->m_ucPower>0)
 								{
-									//		if (this->m_uiStartTime>g_ClientTime)
-									//		{
+									//if (this->m_uiStartTime>g_ClientTime)
+									//{
 									Spr* Sprite=g_EffectSpriteManager.GetSpriteData(this->m_cSpriteIndex,this->m_cFrameCount);
 									if (!Sprite)
 									{
@@ -537,34 +143,34 @@ int cBreath::Draw()
 									}
 									PutCompressedImageFX(this->m_Start.x-Mapx,this->m_Start.y-Mapy,Sprite,12,2);
 									this->m_Start.x+=Progress[this->m_cDirection].x;
-									/*			this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;
-									this->m_Start.x+=Progress[this->m_cDirection].x;
-									this->m_Start.y+=Progress[this->m_cDirection].y;*/
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
+									//this->m_Start.x+=Progress[this->m_cDirection].x;
+									//this->m_Start.y+=Progress[this->m_cDirection].y;
 									
 									this->m_ucPower-=1;
-									//		}
+									//}
 								}
-								//	AddCurrentStatusMessage(255,255,0,"현재시각 : %d",g_ClientTime);
+								//AddCurrentStatusMessage(255,255,0,"현재시각 : %d",g_ClientTime);
 								return TRUE;
 								
 }
@@ -743,11 +349,11 @@ int cEffectSpriteManager::LoadEFFile(int Index)
 		}
 		
 		fread(m_pEffectList[Index].Frame,m_pEffectList[Index].TotalFrame,sizeof(unsigned char),file);
-		/*if (fread(m_pEffectList[Index].Frame,m_pEffectList[Index].MaxFrame,sizeof(unsigned char),file))
-		{
-		MemFree(m_pEffectList[Index].Frame);
-		return FALSE;
-	}*/
+		//if (fread(m_pEffectList[Index].Frame,m_pEffectList[Index].MaxFrame,sizeof(unsigned char),file))
+		//{
+		//	MemFree(m_pEffectList[Index].Frame);
+		//	return FALSE;
+		//}
 		
 		fclose(file);
 	}

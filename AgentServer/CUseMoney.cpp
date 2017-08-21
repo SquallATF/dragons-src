@@ -1,4 +1,3 @@
-
 //#include "stdafx.h"
 #include "CUseMoney.h"
 //#include <winsock2.h>
@@ -816,16 +815,16 @@ void CAsyncClient::LoginUser( const int nCn, const char* szUserId, const char* s
 	SetUserInfo( userInfo, nCn, szUserId, szUserPass, szGameId, szUserType );//GAME_ID, USER_TYPE );
 	//기존테이블에 유저가 있으면 그 유저를 삭제하고 현제 유저를 삽입한다.
 	int nReConnect = AddPayUser( userInfo );	//유저를 해당 테이블에 저장한다.
-	/* 030502 kyo
-	int nReConnect = 0;
-	USERINFO *pUser = g_pUserTable->GetUserInfo( szUserId );
-	( NULL == pUser)
-	{
-		nReConnect = 0;
-	}
-	else
-		nReConnect = 1;
-*/
+	// 030502 kyo
+	//int nReConnect = 0;
+	//USERINFO *pUser = g_pUserTable->GetUserInfo( szUserId );
+	//( NULL == pUser)
+	//{
+	//	nReConnect = 0;
+	//}
+	//else
+	//	nReConnect = 1;
+
 	SendUserLogin( userInfo, szUserRealIp, szUserVrIp, nReConnect );
 	
 	//SendUserLogin( userInfo, szUserRealIp, szUserVrIp, 0);
@@ -833,18 +832,18 @@ void CAsyncClient::LoginUser( const int nCn, const char* szUserId, const char* s
 
 void CAsyncClient::LogoutUser( const int nCn, const char* szUserName )
 {
-/*
-	USERINFO *pUser = FindPayUser( szUserName );
-	if( pUser == NULL )
-	{
-		return;
-	}
 
-	if( nCn != pUser->dwConnectionIndex )
-	{
-		return;
-	}
-*/
+	//USERINFO *pUser = FindPayUser( szUserName );
+	//if( pUser == NULL )
+	//{
+	//	return;
+	//}
+
+	//if( nCn != pUser->dwConnectionIndex )
+	//{
+	//	return;
+	//}
+
 	if( NULL == szUserName ) // 030701 kyo
 	{
 		return;
@@ -941,14 +940,14 @@ void CAsyncClient::RecvUserLogin( USERINFOPAY& userInfo)
 	}
 	SendUser2Client( (*it).dwConnectionIndex, (*it).szUserId, 100);
 
-	/*
-	USERINFO *pUser = FindPayUser( userInfo.szUserId );
-	if( pUser == NULL )
-	{
-		return;
-	}
-	SendUser2Client( pUser->dwConnectionIndex, pUser->szName, 100);
-	*/
+	//
+	//USERINFO *pUser = FindPayUser( userInfo.szUserId );
+	//if( pUser == NULL )
+	//{
+	//	return;
+	//}
+	//SendUser2Client( pUser->dwConnectionIndex, pUser->szName, 100);
+	
 	//::SendCMD_CONNECT_AGENT_SERVER_CONFORM( pUser->dwConnectionIndex, pUser->szName, 100);	
 	//::SendCMD_CONNECT_AGENT_SERVER_CONFORM( (*it).dwConnectionIndex, (*it).szUserId, 100);
 
@@ -963,13 +962,13 @@ void CAsyncClient::RecvUserLogout( USERINFOPAY& userInfo)
 	
 	//g_pINet->CompulsiveDisconnectUser( userInfo.dwConnectionIndex ); // 030422 kyo
 	DeletePayUser( userInfo );
-	/*
-	USERINFO *pUser = FindPayUser( userInfo.szUserId );
-	if( pUser == NULL )
-	{
-		return;
-	}
-	*/
+	//
+	//USERINFO *pUser = FindPayUser( userInfo.szUserId );
+	//if( pUser == NULL )
+	//{
+	//	return;
+	//}
+	//
 	//::MyLog( 0, "AboutPAY :: User didn't LogOut!! userId = %s", userInfo.szUserId);
 	
 	//강제로그아웃
@@ -987,15 +986,15 @@ void CAsyncClient::RecvUserLoginFail( USERINFOPAY& userInfo, int nType)
 	SendUser2Client( (*it).dwConnectionIndex, (*it).szUserId, nType );
 	DeletePayUser( userInfo );
 	
-	/*
-	USERINFO *pUser = FindPayUser( userInfo.szUserId );
-	if( pUser == NULL )
-	{
-		return;
-	}
-	
-	SendUser2Client( pUser->dwConnectionIndex, pUser->szName, nType );
-	*/
+	//
+	//USERINFO *pUser = FindPayUser( userInfo.szUserId );
+	//if( pUser == NULL )
+	//{
+	//	return;
+	//}
+	//
+	//SendUser2Client( pUser->dwConnectionIndex, pUser->szName, nType );
+	//
 }
 
 void CAsyncClient::RecvUserLogoutFail( USERINFOPAY& userInfo )
@@ -1030,15 +1029,15 @@ void CAsyncClient::RecvUserAlert( USERINFOPAY& userInfo, int nTime)
 		return;
 	}
 	SendUser2Client( (*it).dwConnectionIndex, (*it).szUserId, -nTime );
-	/*
-	USERINFO *pUser = FindPayUser( userInfo.szUserId );
-	if( pUser == NULL )
-	{
-		return;
-	}
-	//시간은 음수로 보낸다. 
-	SendUser2Client( pUser->dwConnectionIndex, pUser->szName, -nTime );
-	*/
+	//
+	//USERINFO *pUser = FindPayUser( userInfo.szUserId );
+	//if( pUser == NULL )
+	//{
+	//	return;
+	//}
+	////시간은 음수로 보낸다. 
+	//SendUser2Client( pUser->dwConnectionIndex, pUser->szName, -nTime );
+	//
 }
 
 void CAsyncClient::RecvUserDisconnect( USERINFOPAY& userInfo, int nMsgType)
@@ -1051,15 +1050,15 @@ void CAsyncClient::RecvUserDisconnect( USERINFOPAY& userInfo, int nMsgType)
 		return;
 	}
 	SendUser2Client( (*it).dwConnectionIndex, (*it).szUserId, nMsgType);
-/*
-	USERINFO *pUser = FindPayUser( userInfo.szUserId );
-	if( pUser == NULL )
-	{
-		return;
-	}
 
-	SendUser2Client( pUser->dwConnectionIndex, pUser->szName, nMsgType );
-	*/
+	//USERINFO *pUser = FindPayUser( userInfo.szUserId );
+	//if( pUser == NULL )
+	//{
+	//	return;
+	//}
+
+	//SendUser2Client( pUser->dwConnectionIndex, pUser->szName, nMsgType );
+	//
 
 	g_pINet->CompulsiveDisconnectUser( (*it).dwConnectionIndex ); //우선 주석처리
 }
@@ -1112,37 +1111,37 @@ void CAsyncClient::CloseConnection()
 {
 	closesocket( m_sSocket );
 }
-/*
-int CAsyncClient::GetUserCN( USERINFO *pUser, const char* szName )
-{
-	return 0;
-
-	DWORD index = info->dwID%m_wMaxBucketNum;
-	
-	if (!m_ppInfoTable[index])
-	{
-		m_ppInfoTable[index] = info;
-		info->pNextUserInfo = NULL;
-		info->pPrvUserInfo = NULL;
-		return;
-	}
-
-	int nBucket = g_pUserTable->GetBucketNum();
-	for( int i=0 ; i< nBucket; i++)
-	{
-		
-	}
-	USERINFO* cur = m_ppInfoTable[index];
-	USERINFO* prv = NULL;
-
-	while (cur)
-	{
-		prv = cur;
-		cur = cur->pNextUserInfo;
-	}
-
-}
-*/
+//
+//int CAsyncClient::GetUserCN( USERINFO *pUser, const char* szName )
+//{
+//	return 0;
+//
+//	DWORD index = info->dwID%m_wMaxBucketNum;
+//	
+//	if (!m_ppInfoTable[index])
+//	{
+//		m_ppInfoTable[index] = info;
+//		info->pNextUserInfo = NULL;
+//		info->pPrvUserInfo = NULL;
+//		return;
+//	}
+//
+//	int nBucket = g_pUserTable->GetBucketNum();
+//	for( int i=0 ; i< nBucket; i++)
+//	{
+//		
+//	}
+//	USERINFO* cur = m_ppInfoTable[index];
+//	USERINFO* prv = NULL;
+//
+//	while (cur)
+//	{
+//		prv = cur;
+//		cur = cur->pNextUserInfo;
+//	}
+//
+//}
+//
 
 BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int nSize )
 {// 030620 thailand kyo _ copy dbdemon 
@@ -1234,7 +1233,7 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 
 		if( pData )
 		{
-			sprintf( szFileName, "Agent_info_%d_%d_%d_%d_%d_%d.bin", time.wYear,time.wMonth,time.wDay,time.wMinute,time.wSecond );
+			sprintf( szFileName, "Agent_info_%d_%d_%d_%d_%d_%d.bin", time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond);
 			fp = fopen( szFileName, "w");
 			fwrite( &nSize, 4, 1, fp );
 			fwrite( pData, 1, nSize, fp );
@@ -1253,5 +1252,3 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 
 	return result;
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

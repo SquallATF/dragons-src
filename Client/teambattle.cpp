@@ -437,9 +437,9 @@ void ResetMagicFlag( LPCHARACTER ch )
 	{
 		ch->sight = 10;
 		ch->lostSight = 0;
-//		ch->lightness		= 0;//010530 lsw
+		//ch->lightness		= 0;//010530 lsw
 		ch->lostSightTime = 0;
-		ch->set_sight(ch->sight);//柬柰쌔삿!
+		ch->set_sight(ch->sight); //视野截获!
 
 	}
 
