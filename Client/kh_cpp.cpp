@@ -200,7 +200,7 @@ void ReadQuestTable::SaveTable()
 	{
 		fprintf(fp, "%d	", quest_if[i] );
 	}
-	for( i=0; i<QUEST_TAKE_COUNT; i++ )
+	for(int i=0; i<QUEST_TAKE_COUNT; i++ )
 	{
 		fprintf(fp, "%d	", quest_take[i] );		
 	}
@@ -244,7 +244,7 @@ void ReadQuestTable::LoadTable( char *text )	// 문자열에서 데이타를 분
 		quest_if[i] = atoi(token);
 	}
 
-	for(i = 0 ; i < QUEST_TAKE_COUNT; i++){
+	for(int i = 0 ; i < QUEST_TAKE_COUNT; i++){
 		token= strtok(NULL, ",\t\n") ;
 		if( !token ) return;
 		quest_take[i] = atoi(token);
@@ -333,41 +333,39 @@ void QestDataFree( )
 
 
 //////////////////////////////////////1010 kkh 추가 //////////////////////////////////////
-void CharacterWorkingWater( LPCHARACTER ch )
+void CharacterWorkingWater(LPCHARACTER ch)
 {
 	//1010 kkh 추가 
 	static bool FIRSTONWATER = TRUE; // 1010 kkh 물 한번만 계속 찍는 그림 위해 
-	if( TileMap[ch->x / TILE_SIZE][ch->y / TILE_SIZE].attr_river == 1) {// 만약에 서있는 곳이 물속성인 곳이라면.. 
-		
-		static unsigned int tempCHtileX = 0,tempCHtileY = 0;
-		if( tempCHtileX  > ch->x / TILE_SIZE || tempCHtileX < ch->x / TILE_SIZE \
-			|| tempCHtileY > ch->y / TILE_SIZE || tempCHtileY < ch->y / TILE_SIZE){
-			{ //
-				if(abs(tempCHtileX - (ch->x / TILE_SIZE))+abs(tempCHtileY - (ch->y / TILE_SIZE)) >= 1){
-					switch(ch->nCurrentAction){
-					case ACTION_BASIC_WALK			:{
-							InsertMagic(ch, ch, 490, 0, 0,0,0,0);
-							InsertMagic(ch, ch, 491, 0, 0,0,0,0);
-							PlayListAutoSounds( rand()%2+1148, 0, 0,0 );
+	if (TileMap[ch->x / TILE_SIZE][ch->y / TILE_SIZE].attr_river == 1) {// 만약에 서있는 곳이 물속성인 곳이라면.. 
+		static unsigned int tempCHtileX = 0, tempCHtileY = 0;
+		if (tempCHtileX > ch->x / TILE_SIZE || tempCHtileX < ch->x / TILE_SIZE \
+			|| tempCHtileY > ch->y / TILE_SIZE || tempCHtileY < ch->y / TILE_SIZE) {
+				{ //
+					if (abs((int)(tempCHtileX - (ch->x / TILE_SIZE))) + abs((int)(tempCHtileY - (ch->y / TILE_SIZE))) >= 1) {
+						switch (ch->nCurrentAction) {
+						case ACTION_BASIC_WALK: {
+							InsertMagic(ch, ch, 490, 0, 0, 0, 0, 0);
+							InsertMagic(ch, ch, 491, 0, 0, 0, 0, 0);
+							PlayListAutoSounds(rand() % 2 + 1148, 0, 0, 0);
 							break;
-													 }
-					case ACTION_RUN					:{
-							InsertMagic(ch, ch, 492, 0, 0,0,0,0);
-							InsertMagic(ch, ch, 493, 0, 0,0,0,0);
-							PlayListAutoSounds( rand()%2+1145, 0, 0,0 );
+						}
+						case ACTION_RUN: {
+							InsertMagic(ch, ch, 492, 0, 0, 0, 0, 0);
+							InsertMagic(ch, ch, 493, 0, 0, 0, 0, 0);
+							PlayListAutoSounds(rand() % 2 + 1145, 0, 0, 0);
 							break;
-													 }
-	 				
+						}
+						}  // switch
+						tempCHtileX = ch->x / TILE_SIZE;  // 현재 좌표를 기억 시켜 놓는다.
+						tempCHtileY = ch->y / TILE_SIZE;  // 다음에 들어 왔을때 비교 하기 위해
 					}
-					tempCHtileX = ch->x / TILE_SIZE;  // 현재 좌표를 기억 시켜 놓는다.
-					tempCHtileY = ch->y / TILE_SIZE;  // 다음에 들어 왔을때 비교 하기 위해
+
 				}
-				
-			}	
 				//FIRSTONWATER = TRUE;
 		}
 	}
-	
+
 	//////////////////////////////////////1010 kkh 추가 끝 //////////////////////////////////////
 }
 						   
