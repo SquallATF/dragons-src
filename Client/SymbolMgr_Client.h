@@ -43,7 +43,7 @@ class CSymbolMgr_Client
 	vector<SYMBOL_ITEM>		m_vtSymbolList;
 	vector<VT_SYMBOL_RARE>	m_vtRareValueList;
 
-public:	
+public:
 	void SaveBinFile_Item_Symbol_Abilliy();
 	void SaveBinFile_Item_Symbol();
 	bool m_bBeta;
@@ -58,12 +58,12 @@ public:
 	int m_nPutX;
 	int GetItemNumber();
 	void Load();
-	int RareValue(int nItemNumber,int AttrCount, int nLevel);
-	int GetRareNum(int nSymbolNumber,int AttrCount);// 주소가아니라. 몇번째인가가 인자로 쓰인다.
+	int RareValue(int nItemNumber, int AttrCount, int nLevel);
+	int GetRareNum(int nSymbolNumber, int AttrCount);// 주소가아니라. 몇번째인가가 인자로 쓰인다.
 	void Explain(int nX, int nY);
 	bool LoadTables();
 	int m_nGrade;
-	void SetDualItem(int nItemNumber,int nLevel);
+	void SetDualItem(int nItemNumber, int nLevel);
 	void PutSymbolItem();//아이템 이미지를 출력한다.
 	void DestroyAllObject();
 	void LoadItemImage();

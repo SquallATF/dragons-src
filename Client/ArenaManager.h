@@ -40,7 +40,7 @@ public:
 	bool IsExistMember(WORD idMember)
 	{
 		ITOR_MEMBER itor = find(m_ltMember.begin(), m_ltMember.end(), idMember);
-		return (itor != m_ltMember.end()) ? true:false;
+		return (itor != m_ltMember.end()) ? true : false;
 	}
 
 private:
@@ -85,7 +85,7 @@ public:
 	LIST_MEMBER& GetMemberSet() { return m_ltMember; }
 	LIST_MEMBER& GetGamblerSet() { return m_ltGambler; }
 	LIST_MEMBER& GetObserveSet() { return m_ltObserve; }
-	
+
 	int GetMemberCount() const { return m_ltMember.size(); }
 	int GetGamblerCount() const { return m_ltGambler.size(); }
 	int GetObserveCount() const { return m_ltObserve.size(); }
@@ -97,19 +97,19 @@ public:
 	bool IsExistMember(WORD idMember)
 	{
 		ITOR_MEMBER itor = find(m_ltMember.begin(), m_ltMember.end(), idMember);
-		return (itor != m_ltMember.end()) ? true:false;
+		return (itor != m_ltMember.end()) ? true : false;
 	}
 
 	bool IsExistGambler(WORD idGambler)
 	{
 		ITOR_MEMBER itor = find(m_ltGambler.begin(), m_ltGambler.end(), idGambler);
-		return (itor != m_ltGambler.end()) ? true:false;
+		return (itor != m_ltGambler.end()) ? true : false;
 	}
 
 	bool IsExistObserve(WORD idObserve)
 	{
 		ITOR_MEMBER itor = find(m_ltObserve.begin(), m_ltObserve.end(), idObserve);
-		return (itor != m_ltObserve.end()) ? true:false;
+		return (itor != m_ltObserve.end()) ? true : false;
 	}
 
 private:
@@ -125,9 +125,9 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-class CArenaManager  
+class CArenaManager
 {
-	enum {TIME_READY = 11};
+	enum { TIME_READY = 11 };
 
 public:
 	typedef vector<CArenaTeam*>   VECTOR_TEAM;
@@ -179,7 +179,7 @@ public:
 	void RecvArenaGameMessage4(t_arena_game_message4* pPacket); // CSD-TW-030627
 
 	CArenaTeam* GetArenaTeam(int nTeam);
-	
+
 	CArenaTeam* GetMemberTeam(WORD idMember);
 	CArenaTeam* GetObserveTeam(WORD idObserve);
 
@@ -231,18 +231,18 @@ public:
 
 	bool IsLeader(WORD idMember) const
 	{
-		return (m_idLeader == idMember) ? true:false;
+		return (m_idLeader == idMember) ? true : false;
 	}
 
 	bool IsReadyGame() const
 	{
-		return (m_dwReadyTime > 0 && m_dwReadyTime < TIME_READY) ? true:false;
+		return (m_dwReadyTime > 0 && m_dwReadyTime < TIME_READY) ? true : false;
 	}
 
 private:
 	bool IsSelectGame() const
 	{
-		return (m_nSelectGame <= 0) ? false:true;
+		return (m_nSelectGame <= 0) ? false : true;
 	}
 
 protected:

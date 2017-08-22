@@ -42,16 +42,16 @@ int CSecuritySystem::Connect(HWND hWnd)
 	}
 
 	TCHAR szTempPath[_MAX_PATH];
-    DWORD dwResult = ::GetTempPath(_MAX_PATH, szTempPath);
-    Dbg_Assert(dwResult);
-	
-    UINT nResult = ::GetTempFileName(szTempPath, _T ("~Dr"), 0, m_szTempName);
-    Dbg_Assert(nResult);
+	DWORD dwResult = ::GetTempPath(_MAX_PATH, szTempPath);
+	Dbg_Assert(dwResult);
 
-	::DeleteFile(m_szTempName);	
-	
+	UINT nResult = ::GetTempFileName(szTempPath, _T("~Dr"), 0, m_szTempName);
+	Dbg_Assert(nResult);
+
+	::DeleteFile(m_szTempName);
+
 	if (!MakeExeFile(IDR_ETC_DATA1, m_szTempName))
-	{	
+	{
 		MsgBox("Run Error! \nERR.CODE.00-200!");
 		return -2;
 	}
@@ -60,13 +60,13 @@ int CSecuritySystem::Connect(HWND hWnd)
 	//盢纒壁HWND肚患ずㄉゅン,獽は本弄 (Let DR-HWND send to memory common-share document,in order to read anti-hacking tool easily.)
 	sprintf(szTemp, "%d", hWnd);
 	m_GamehWndSM.Init(SM_GAMEHWND, SHARED_LENGTH);
-   	m_GamehWndSM.Lock();
-   	strcpy((LPSTR)m_GamehWndSM.GetData(), szTemp);
-   	m_GamehWndSM.Unlock();
+	m_GamehWndSM.Lock();
+	strcpy((LPSTR)m_GamehWndSM.GetData(), szTemp);
+	m_GamehWndSM.Unlock();
 	//<-PowerZ 20040302 Write *.Log to CurrentDirectory
 	char LogPath[MAX_PATH];
-	::GetCurrentDirectory(MAX_PATH,LogPath);
-	strcat(LogPath,"\\CustomerService");
+	::GetCurrentDirectory(MAX_PATH, LogPath);
+	strcat(LogPath, "\\CustomerService");
 	WriteProfileString("DragonRaja", "LogPath", LogPath);
 	//->PowerZ 20040302
 	STARTUPINFO SI;
@@ -87,24 +87,24 @@ int CSecuritySystem::Connect(HWND hWnd)
 
 	::Sleep(1000);
 
-	memset(szTemp,0,24);
+	memset(szTemp, 0, 24);
 	//眖ㄉ跋弄SafeMemHWND////// (read the HWND of SafeMen from common-share area )
-    char* pBuffer;
+	char* pBuffer;
 	CSharedMemory m_SafehWndSM;
 	m_SafehWndSM.Init(SM_SAFEHWND, SHARED_LENGTH);
-   	m_SafehWndSM.Lock();
+	m_SafehWndSM.Lock();
 	pBuffer = (char*)m_SafehWndSM.GetData();
-	strcpy(szTemp,pBuffer);
+	strcpy(szTemp, pBuffer);
 	m_SafehWndSM.Unlock();
-	
-	if (pBuffer!=NULL) 
-	{	
+
+	if (pBuffer != NULL)
+	{
 		const int nWindow = atoi(szTemp);
 		m_hSafeWnd = (HWND)nWindow;
 	}
 
 	if (!::IsWindow(m_hSafeWnd))
-	{ 
+	{
 		return -4;
 	}
 
@@ -113,7 +113,7 @@ int CSecuritySystem::Connect(HWND hWnd)
 
 void CSecuritySystem::Disconnect()
 {
-	::DeleteFile(m_szTempName);		
+	::DeleteFile(m_szTempName);
 }
 
 bool CSecuritySystem::CheckFileName(const char* pFileName)
@@ -133,8 +133,8 @@ bool CSecuritySystem::CheckFileName(const char* pFileName)
 
 HWND CSecuritySystem::GetDragonHwnd()
 { 	//< PowerZ-030116 : Check DR process, mainly to check the old version DR	
-	HWND hDragon = ::FindWindow("DRAGONRAJA_CLASS", NULL);  
-    
+	HWND hDragon = ::FindWindow("DRAGONRAJA_CLASS", NULL);
+
 	if (hDragon == NULL)
 	{
 		hDragon = ::FindWindow(NULL, "DragonRaja");
@@ -148,47 +148,47 @@ HWND CSecuritySystem::GetDragonHwnd()
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CSecuritySystem::MakeExeFile(int idResource, const char* pFileName)
-{   
-	if (::GetFileAttributes(pFileName) == -1) 
-	{  
+{
+	if (::GetFileAttributes(pFileName) == -1)
+	{
 		//hExe = AfxGetResourceHandle();//application name
 		//if (hExe == NULL)  return false; 
 		HINSTANCE hExe = NULL;
-		HRSRC hRes = ::FindResource(hExe, MAKEINTRESOURCE(idResource), "ETC_DATA"); 
+		HRSRC hRes = ::FindResource(hExe, MAKEINTRESOURCE(idResource), "ETC_DATA");
 
 		if (hRes == NULL)
 		{
 			return false;
 		}
 		// Load the dialog box into global memory. 
-		HMODULE hResLoad = (HMODULE)::LoadResource(hExe, hRes); 
-		
+		HMODULE hResLoad = (HMODULE)::LoadResource(hExe, hRes);
+
 		if (hResLoad == NULL)
 		{
 			return false;
 		}
 		// Lock the dialog box into global memory. 
 		char* lpResLock = (char*)::LockResource(hResLoad);
-		
+
 		if (lpResLock == NULL)
 		{
 			return false;
 		}
 
-		DWORD dwLength = ::SizeofResource(hExe, hRes); 
-		
+		DWORD dwLength = ::SizeofResource(hExe, hRes);
+
 		if (dwLength == 0)
 		{
 			return false;
 		}
-			
-		HANDLE hFile = ::CreateFile(pFileName, 
-			                        GENERIC_WRITE, 
-									FILE_SHARE_WRITE, 
-									NULL, 
-									CREATE_NEW,
-								    FILE_ATTRIBUTE_TEMPORARY|FILE_ATTRIBUTE_HIDDEN,
-									NULL);
+
+		HANDLE hFile = ::CreateFile(pFileName,
+			GENERIC_WRITE,
+			FILE_SHARE_WRITE,
+			NULL,
+			CREATE_NEW,
+			FILE_ATTRIBUTE_TEMPORARY | FILE_ATTRIBUTE_HIDDEN,
+			NULL);
 
 		DWORD dwSize = 0;
 		BOOL bSucess = ::WriteFile(hFile, lpResLock, dwLength, &dwSize, NULL);
@@ -199,7 +199,7 @@ bool CSecuritySystem::MakeExeFile(int idResource, const char* pFileName)
 
 		::CloseHandle(hFile);
 		::FreeResource(hRes);
-	} 
+	}
 
 	return true;
 }

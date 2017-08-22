@@ -11,8 +11,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Global variables
 
-extern BYTE		g_aCurrentKeys[ 256 ];
-extern BYTE		g_aPrevKeys[ 256 ];
+extern BYTE		g_aCurrentKeys[256];
+extern BYTE		g_aPrevKeys[256];
 
 ///////////////////////////////////////////////////////////////////////////////
 // Function prototypes
@@ -22,10 +22,10 @@ extern "C"
 {
 #endif
 
-extern HRESULT		InitDirectInput( HWND hWnd, HINSTANCE hInstance, BOOL bActive );
-extern HRESULT		SetAcquire( BOOL bFlag );
-extern HRESULT		UpdateInputState( void );
-extern HRESULT		CleanupDirectInput( void );
+	extern HRESULT		InitDirectInput(HWND hWnd, HINSTANCE hInstance, BOOL bActive);
+	extern HRESULT		SetAcquire(BOOL bFlag);
+	extern HRESULT		UpdateInputState(void);
+	extern HRESULT		CleanupDirectInput(void);
 
 #ifdef __cplusplus
 }

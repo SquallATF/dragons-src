@@ -10,7 +10,7 @@ enum eARENA_TEAM_INDEX
 	ATI_BLUE_TEAM = 1,
 	ATI_MAX_TEAM = 2,
 };
-const int MAX_TEAM  = ATI_MAX_TEAM;
+const int MAX_TEAM = ATI_MAX_TEAM;
 
 #define PACKET_SEND_MINIMUM_TIME		500		// 0.5초
 
@@ -759,7 +759,7 @@ struct k_get_scenario_info_basic
 	char SMin;
 	char type;
 	char layer;
-	
+
 	char EHour;
 	char EMin;
 	char dungeon_map[20];
@@ -852,7 +852,7 @@ struct k_nation_item
 	short int item_no;
 	char give_type;			// 기부 타입 // 돈인지, fame 인지
 	int give_much;			// 그 양
-	
+
 	void clear()
 	{
 		item_no = 0;
@@ -985,9 +985,9 @@ struct k_change_color
 {
 	DWORD type1 : 4;
 	DWORD type2 : 4;
-	DWORD r		: 8;
-	DWORD g		: 8;
-	DWORD b		: 8;
+	DWORD r : 8;
+	DWORD g : 8;
+	DWORD b : 8;
 };
 struct k_reset_ability
 {
@@ -1096,7 +1096,7 @@ struct k_guild_info_name
 	short int guild_code;
 	char make;
 	char first;
-	char guild_name[20];	
+	char guild_name[20];
 };
 
 struct k_guild_info_degree
@@ -1160,13 +1160,13 @@ struct k_send_effect
 struct k_send_db_direct_map
 {
 	short int	server_id;
-	char		data[MAX_PACKET_SIZE-2];
+	char		data[MAX_PACKET_SIZE - 2];
 };
 
 struct k_send_db_direct_client
 {
 	short int	type;
-	char		data[MAX_PACKET_SIZE-2];
+	char		data[MAX_PACKET_SIZE - 2];
 };
 
 struct k_get_ladder_score_rank_unit
@@ -1189,11 +1189,11 @@ struct k_db_get_ladder_score_rank
 struct k_update_ladder_score
 {
 	DWORD	score;
-	
+
 	char	nation;
 	char	cls;
 	BYTE btLevel; // CSD-030806
-	
+
 	char	name[20];
 };
 
@@ -1370,7 +1370,7 @@ typedef struct tag_send_gm_regist_ok
 	char gm_index;				// 어떤 직업의 gm인지
 	short int gm_rank;			// 그직업의 몇번째 gm인지
 	short int total_gm_rank;	// 토탈 gm의 몇번째 인지
-	char	name[20];				
+	char	name[20];
 }k_send_gm_regist_ok;
 
 typedef struct tag_bbs_ALL
@@ -1478,7 +1478,7 @@ typedef struct tag_client_rep_vote_score
 typedef struct tag_set_value_of_vote
 {
 	char	vote_num[6];
-	char	is_voting[6];	
+	char	is_voting[6];
 }k_set_value_of_vote;
 
 typedef struct tag_check_vote
@@ -1486,7 +1486,7 @@ typedef struct tag_check_vote
 	short int	server_id;
 	short int	vote_num;
 	char		nation;
-	char		login_id[20]; 
+	char		login_id[20];
 }k_check_vote;
 
 typedef struct tag_is_this_man_candidate
@@ -1499,15 +1499,15 @@ typedef struct tag_is_this_man_candidate
 typedef struct tag_candidate
 {
 	short int	number;		// 선거 번호
-	
+
 	DWORD		lv : 7;
 	DWORD		class_type : 3;
 	DWORD		gender : 1;
 	DWORD		nation : 4;
-	
+
 	DWORD		guild_code : 9;
 	DWORD		face : 7;
-	
+
 	char		name[20];
 }k_candidate;
 
@@ -1582,14 +1582,14 @@ typedef struct tag_team_add_message
 typedef struct tag_team_battle_msg
 {
 	char		ret;
-	char		team_num;	
+	char		team_num;
 	char		data;
 }k_team_battle_msg;
 
 typedef struct tag_team_battle_msg2
 {
 	char ret;
-	char attack_ch[20];	
+	char attack_ch[20];
 	char team1;
 	char death_ch[20];
 	char team2;
@@ -1598,7 +1598,7 @@ typedef struct tag_team_battle_msg2
 typedef struct tag_team_battle_msg3
 {
 	char ret;
-	char attack_ch[20];	
+	char attack_ch[20];
 	char team1;
 	char stone_number;
 }k_team_battle_msg3;
@@ -1811,7 +1811,7 @@ typedef struct tag_change_map9
 {
 	short int						game_port;
 	char							name[20];
-	
+
 	short int						Gender;
 	short int						Face;
 	short int						Class;
@@ -1825,9 +1825,9 @@ typedef struct tag_change_map9
 	short int						ClothR;
 	short int						ClothG;
 	short int						ClothB;
-	
+
 	DWORD							total_id;
-	
+
 	short int						nk3;
 	short int						nk4;
 	short int						nk6;
@@ -1887,12 +1887,12 @@ typedef struct change_map_protocol
 	DWORD FromServerCn;
 	WORD wAgentServerID;
 	DWORD dwIDForAgent;
-	
+
 	char id[ID_LENGTH];
 	char password[PW_LENGTH];
 	char name[NM_LENGTH];
 	char mapname[NM_LENGTH];
-	
+
 	// Character Informations
 	k_change_map1 mapdata1;
 	k_change_map2 mapdata2;
@@ -1980,13 +1980,13 @@ struct k_guild_mail
 {
 	DWORD		mail_id;
 	char		degree;
-	short int	year;	
+	short int	year;
 	char		month;
 	char		day;
 	char		send_name[20];
 	char		mail_title[60];
 	char		mail_body[1000];
-	
+
 };
 
 typedef struct tag_mail
@@ -2013,7 +2013,7 @@ typedef struct tag_game_to_login_send_mail
 	{
 		char recv_name[20];
 		k_guild_mail_unit guild_info;
-	}uni;	
+	}uni;
 	char title[60];
 	char body[1000];
 }k_game_to_login_send_mail;
@@ -2211,7 +2211,7 @@ typedef struct login_put_box_item
 
 typedef struct get_server_text
 {
-	char text[512];		
+	char text[512];
 	char ct;						// 클레스의 배열
 	unsigned short int len;			// 총길이
 }k_get_server_text;
@@ -2228,19 +2228,19 @@ typedef struct client_throw_dice
 
 typedef struct start_create_ability
 {
-	unsigned int str	: 2;
-	unsigned int dex	: 2;
-	unsigned int con	: 2;
-	unsigned int wis	: 2;
-	
-	unsigned int inte	: 2;
-	unsigned int cha	: 2;
-	unsigned int movp	: 2;
-	unsigned int endu	: 2;
-	
-	unsigned int mor	: 2;
-	unsigned int wsps	: 2;
-	unsigned int luck	: 2;
+	unsigned int str : 2;
+	unsigned int dex : 2;
+	unsigned int con : 2;
+	unsigned int wis : 2;
+
+	unsigned int inte : 2;
+	unsigned int cha : 2;
+	unsigned int movp : 2;
+	unsigned int endu : 2;
+
+	unsigned int mor : 2;
+	unsigned int wsps : 2;
+	unsigned int luck : 2;
 }k_start_create_ability;
 
 typedef struct start_throw_dice		// 주사위 돌릴 경우 0~10 까지의 더하기 수치
@@ -2252,12 +2252,12 @@ typedef struct start_throw_dice		// 주사위 돌릴 경우 0~10 까지의 더�
 	DWORD dex	: 2;
 	DWORD con	: 2;
 	DWORD wis	: 2;
-	
+
 	  DWORD inte	: 2;
 	  DWORD cha	: 2;
 	  DWORD movp	: 2;
 	  DWORD endu	: 2;
-	  
+
 		DWORD mor   : 2;
 		DWORD wsps	: 2;
 		DWORD luck  : 2;
@@ -2300,7 +2300,7 @@ typedef struct server_server_party_info
 {
 	short int	Server_id;		// 이때 사용하는 서버 아이디는 요청한 클라이언트의 아이디 이다...
 	char		ct;				// 파티 번호
-	
+
 	short int	Face;
 	short int	Level;
 	short int	Str;
@@ -2524,7 +2524,7 @@ typedef struct server_other_ch_inv
 {
 	short int target_id;
 	char item_count;
-//	short int item[15];						// 엿보는 사람의 아이템 목록
+	//	short int item[15];						// 엿보는 사람의 아이템 목록
 	ItemAttr	item[15];
 }kein_server_other_ch_inv;
 //>soto-tai
@@ -2541,7 +2541,7 @@ typedef struct client_bank_deposit
 	DWORD			money;		// 총 예금한 금액
 } k_client_bank_deposit;
 
-typedef struct client_bank_repayment		
+typedef struct client_bank_repayment
 {
 	DWORD			loan_money;
 	DWORD			last_loan;
@@ -2607,11 +2607,11 @@ typedef struct tag_exchange_item_start
 typedef union kein_imsi
 {
 	k_server_result					server_result;
-	
+
 	kein_server_other_ch_inv		server_other_ch_inv;
 	kein_client_other_ch_inv		client_other_ch_inv;
 	kein_item_attr_pos				item_attr_pos;
-	
+
 	k_client_bank_deposit			client_bank_deposit;
 	k_client_bank_repayment			client_bank_repayment;
 	k_client_create_item			client_create_item;
@@ -2619,133 +2619,133 @@ typedef union kein_imsi
 	k_server_box_open				server_box_open;
 	k_server_delete_item			server_delete_item;
 	k_server_decrease_item			server_decrease_item;
-	
+
 	k_client_lvup_point_each		client_lvup_point_each;
 	k_client_learn_item				client_learn_item;
 	k_item_no						item_no;
-	
-	k_server_item_repair_ok			server_item_repair_ok;	
+
+	k_server_item_repair_ok			server_item_repair_ok;
 	k_server_learn_skill_ok			server_learn_skill_ok;
 	k_server_skill_exp				server_skill_exp;
-	
+
 	k_server_status_open			server_status_open;
 	k_client_char_info_plus			client_char_info_plus;
 	k_server_party					server_party;
 	k_server_relation				server_relation;
 	k_server_item_index				server_item_index;
 	k_server_disease				server_disease;
-	
-	k_server_bank_item				server_bank_item;	
+
+	k_server_bank_item				server_bank_item;
 	k_client_do_party				client_do_party;
-	
+
 	k_client_delete_party			client_delete_party;
-	
+
 	k_client_learn_magic			client_learn_magic;
-	
+
 	k_client_char_name				client_char_name;
 	k_learn_magic_ok				learn_magic_ok;
-	
+
 	k_client_disease				client_disease;
-	
+
 	k_client_item_no				client_item_no;
 	k_server_item_money				server_item_money;
-	
+
 	k_party_info					party_info;
 	k_client_inn					client_inn;
 	//	t_tac_skill_each_exp			tac_skill_each_exp;
-	
+
 	k_server_killpc					server_killpc;
 	K_ITEM							server_item;
 	k_server_resist					server_resist;
-	
+
 	k_server_money					server_money;
-	
+
 	K_ITEM							item;
-	
+
 	k_exchange_item_start			exchange_item_start;
 	k_try_item_trade				try_item_trade;
-	
+
 	k_exchange_item_del				exchange_item_del;
-	
+
 	k_beta_check_id					beta_check_id;
 	k_server_item_attr				server_item_attr;
-	
+
 	k_server_ac						server_ac;
 	k_server_killmon				server_killmon;
 	k_server_server_party_info		server_server_party_info;
-	
+
 	k_server_req_party_db			server_req_party_db;
-	
+
 	k_server_req_party_together		server_req_party_together;
 	k_rep_party_together			rep_party_together;
 	k_cmd_party_no_name				cmd_party_no_name;
-	
+
 	k_server_tactics							server_tactics;
-	
+
 	k_start_create_ability						start_create_ability;
 	k_start_throw_dice							start_throw_dice;
 	k_client_throw_dice							client_throw_dice;
 	k_transfer_item								transfer_item;
-	
+
 	k_req_bbs_title								req_bbs_title;
-	
+
 	k_get_server_text							get_server_text;
 	k_login_server_box_open						login_server_box_open;
-	
+
 	k_req_login_server_box_open					req_login_server_box_open;
 	k_login_put_box_item						login_put_box_item;
-	
+
 	k_server_preach_name						server_preach_name;
 	k_client_god_regist_ok						client_god_regist_ok;
-	
+
 	k_loginserver_preach_name					loginserver_preach_name;
 	k_loginserver_result						loginserver_result;
-	
+
 	k_server_client_preach_name					server_client_preach_name;
 	k_tool_password								tool_password;
-	
+
 	k_check_new_char							check_new_char;
-	
+
 	k_loginserver_preach_name_result			loginserver_preach_name_result;
-	
+
 	k_login_sql_evangelist_create				login_sql_evangelist_create;
 	k_login_sql_evangelist_delete				login_sql_evangelist_delete;
-	
+
 	k_get_god_table								get_god_table;
-	
+
 	k_server_text_default						server_text_default;
-	
+
 	k_char_update_data							char_update_data;
 	k_get_char_info								get_char_info;
 	k_req_chr_info_etc							req_chr_info_etc;
-	
+
 	k_server_to_client_char_info_plus			server_to_client_char_info_plus;
 	k_send_ear_message							send_ear_message;
 	k_send_ear_message_ok						send_ear_message_ok;
 	k_login_send_ear_message					login_send_ear_message;
-	
+
 	k_login_to_gameserver_ear_message			login_to_gameserver_ear_message;
 	k_send_ear_message_ok_to_login				send_ear_message_ok_to_login;
 	k_loginserver_to_gameserver_ear_message		loginserver_to_gameserver_ear_message;
 	k_send_ear_message_result					send_ear_message_result;
-	
+
 	k_login2game_ear_message_result				login2game_ear_message_result;
 	k_game2client_ear_result					game2client_ear_result;
-	
+
 	k_moving_item								moving_item;
 	k_game_to_login_send_mail					game_to_login_send_mail;
 	k_req_mail_body								req_mail_body;
-	
+
 	k_login_to_game_mail_title					login_to_game_mail_title;
 	MAIL										mail;
-	
+
 	k_req_recv_mail_body						req_recv_mail_body;
 	k_game_to_login_req_recv_mail_body			game_to_login_req_recv_mail_body;
 	k_login_to_game_rep_recv_mail_body			login_to_game_rep_recv_mail_body;
 	k_game_to_client_rep_recv_mail_body			game_to_client_rep_recv_mail_body;
-	
+
 	k_who_send_mail								who_send_mail;
-	
+
 	k_send_game_port							send_game_port;
 	k_change_map1								change_map1;
 	k_change_map2								change_map2;
@@ -2756,45 +2756,45 @@ typedef union kein_imsi
 	k_change_map7								change_map7;
 	k_change_map8								change_map8;
 	k_change_map9								change_map9;
-	
+
 	k_game2login_recall_box_item				game2login_recall_box_item;
-	
+
 	k_req_faith_up								req_faith_up;
 	k_server_to_client_open_supper				server_to_client_open_supper;
 	k_i_get_item_of_supper						i_get_item_of_supper;
-	
+
 	k_note_meeting								note_meeting;
-	
+
 	k_server_req_char_info						server_req_char_info;
 	k_oh_my_party								oh_my_party;
-	
+
 	k_req_party_info							req_party_info;
 	k_rep_party_info							rep_party_info;
-	
+
 	k_start_game_mail							start_game_mail;
 	k_server_id									server_id;
-	
+
 	k_server_learn_item							server_learn_item;
 	k_hunter_regist								hunter_regist;
 	k_hunter_regist2							hunter_regist2;
 	k_hunter_list								hunter_list;
-	
+
 	k_server_text_only_one						server_text_only_one;
 	k_login_game_hunter_list					login_game_hunter_list;
 	k_game_login_hunter_list					game_login_hunter_list;
-	
+
 	k_get_hunter_list							get_hunter_list;
-	
-	
+
+
 	k_kill_hunter_list_login					kill_hunter_list_login;
 	k_send_kill_hunter_list						send_kill_hunter_list;
 	k_kill_who									kill_who;
 	k_kill_hunter_ok							kill_hunter_ok;
 	k_kill_who_whom								kill_who_whom;
-	
+
 	k_kill_who_whom_login						kill_who_whom_login;
 	k_danger_of_hunter							danger_of_hunter;
-	
+
 	char										default_char;
 	short int									default_short_int;
 	int											default_int;
@@ -2803,124 +2803,124 @@ typedef union kein_imsi
 	char										default_name[20];
 	char										default_msg[MAX_MSG];
 	POS											default_pos;
-	
-	
+
+
 	k_do_party_ok								do_party_ok;
-	
+
 	k_req_man_to_man							req_man_to_man;
 	k_req_man_to_man_result						req_man_to_man_result;
 	k_rep_quest_index							rep_quest_index;
-	
+
 	k_team_battle_msg							team_battle_msg;
 	k_team_add_message							team_add_message;
 	k_reset_job									reset_job;
-	
+
 	k_script_change								script_change;
 	k_change_dur								change_dur;
 	k_exist_name								exist_name;
-	
+
 	k_exist_name_and_nation						exist_name_and_nation;
 	k_vote_game2login							vote_game2login;
-	
+
 	k_regist_candidate							regist_candidate;
 	k_is_this_man_candidate						is_this_man_candidate;
 	k_check_vote								check_vote;
 	k_check_vote_ok								check_vote_ok;
 	k_check_vote_client_ok						check_vote_client_ok;
-	
+
 	k_set_value_of_vote							set_value_of_vote;
-	
+
 	k_req_vote_score							req_vote_score;
 	k_rep_vote_score							rep_vote_score;
 	k_client_rep_vote_score						client_rep_vote_score;
-	
+
 	k_get_skill_info							get_skill_info;
 	k_send_login_nation_msg						send_login_nation_msg;
-	
+
 	k_guild_join_server							guild_join_server;
 	k_guild_join_result							guild_join_result;
-	
+
 	k_guild_join_ok								guild_join_ok;
 	k_scan_target								scan_target;
-	
+
 	k_guild_msg									guild_msg;
 	k_guild_each_level							guild_each_level;
-	
+
 	k_gm_regist									gm_regist;
 	k_bbs_all									bbs_all;
 	k_gm_regist_db								gm_regist_db;
 	k_send_gm_regist_ok							send_gm_regist_ok;
-	
+
 	k_send_login_req_stop_war					send_login_req_stop_war;
 	k_send_client_req_stop_war					send_client_req_stop_war;
-	
+
 	k_rep_stop_war_login						rep_stop_war_login;
 	k_stop_war_all_msg							stop_war_all_msg;
-	
+
 	k_send_game_server_req_stop_war				send_game_server_req_stop_war;
-	
+
 	k_db_salvation_money						db_salvation_money;
 	k_db2game_salvation_money					db2game_salvation_money;
 	k_req_salvation_money						req_salvation_money;
-	
+
 	k_total_salvation_all_msg					total_salvation_all_msg;
-	
+
 	k_send_db2map_each_item						send_db2map_each_item;
-	
+
 	k_team_member_info_unit						team_member_info_unit;
 	k_team_member_info_all						team_member_info_all;
-	
+
 	k_team_member_info_one						team_member_info_one;
 	k_chang_money								chang_money;
-	
+
 	k_eat_chocolate_ok							eat_chocolate_ok;
 	k_eat_chocolate								eat_chocolate;
-	
+
 	k_check_chocolate							check_chocolate;
 	k_openschool_data_result					openschool_data_result;
-	
+
 	k_name2										name2;
 	k_loan_info									loan_info;
-	
+
 	k_fight_map_char_info						fight_map_char_info;
 	k_character									character;
-	
+
 	k_name_message								name_message;
 	k_merchant_item_bbs							merchant_item_bbs;
 	k_recv_merchant_item_bbs					recv_merchant_item_bbs;
-	
+
 	k_get_ladder_score_rank_unit				get_ladder_score_rank_unit;
 	k_db_get_ladder_score_rank					db_get_ladder_score_rank;
 	k_update_ladder_score						update_ladder_score;
-	
+
 	k_send_db_direct_map						send_db_direct_map;
 	k_send_db_direct_client						send_db_direct_client;
-	
+
 	k_send_effect								send_effect;
 	k_visa_item									visa_item;
-	
+
 	k_visa_buy									visa_buy;
 	k_emotion									emotion;
-	
+
 	k_regist_guild_imsi							regist_guild_imsi;
 	k_send_regist_imsi_guild_info				send_regist_imsi_guild_info;
 	k_req_guild_info1							req_guild_info1;
-	
+
 	k_guild_info_name							guild_info_name;
 	k_guild_info_degree							guild_info_degree;
-	
+
 	k_guild_explain								guild_explain;
 	k_regist_guild_mark							regist_guild_mark;
 	k_guild_image								guild_image;
-	
+
 	k_guild_regist								guild_regist;
 	k_guild_degree_info							guild_degree_info;
-	
+
 	k_guild_instroduction						guild_instroduction;
 	k_login_to_game_guild_mail_title			login_to_game_guild_mail_title;
 	k_guild_mail								guild_mail;
 	k_req_guild_master_and_sub_master			req_guild_master_and_sub_master;
-	
+
 	k_put_menu_string							put_menu_string;
 	k_guild_instroduction_basic					guild_instroduction_basic;
 	k_guild_chat								guild_chat;
@@ -2936,10 +2936,10 @@ typedef union kein_imsi
 	k_add_friend								add_friend;
 	k_today_gamble_item							today_gamble_item;
 	k_set_time									set_time;
-	
+
 	k_get_guild_item_first						get_guild_item_first;
 	k_get_guild_item							get_guild_item;
-	
+
 	k_req_guild_item							req_guild_item;
 	k_chanage_guild_degree						chanage_guild_degree;
 	k_check_guild_change						check_guild_change;
@@ -2953,7 +2953,7 @@ typedef union kein_imsi
 	k_guild_house_info							guild_house_info;
 	k_direct_map_move							direct_map_move;
 	k_char_info									char_info;
-	
+
 	k_setting_map_tile							setting_map_tile;
 	k_get_scenario_info							get_scenario_info;
 	k_scenario_message							scenario_message;
@@ -2961,7 +2961,7 @@ typedef union kein_imsi
 	k_scenario_trap_key							scenario_trap_key;
 	//< CSD-030306
 	k_client_scenario_time_info					client_scenario_time;
-	k_server_scenario_time_info					server_scenario_time; 
+	k_server_scenario_time_info					server_scenario_time;
 	k_scenario_time_change                      scenario_time_change;
 	//> CSD-030306
 	k_map_move									map_move;

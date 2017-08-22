@@ -15,9 +15,9 @@ typedef struct {
 	int gamemakemode;
 	int loaditemfromtoi2;
 	int makeanitable_bin;
-	char ip[ 30];
-	char agentip[ 30];
-	char proxyip[ 30];
+	char ip[30];
+	char agentip[30];
+	char proxyip[30];
 	int port;
 	int entergameserver;
 	int enteragent;
@@ -77,8 +77,8 @@ extern int tMapAttr_Offset_Modify;
 extern int tMapAttrBrush;
 extern char tool_ViewAllCharacter;
 extern bool	tool_SkillTool_FARMING;
-extern bool	tool_SkillTool_MINING;	
-extern bool	tool_SkillTool_FISHING;	
+extern bool	tool_SkillTool_MINING;
+extern bool	tool_SkillTool_FISHING;
 extern bool	tool_SkillTool_CHOPPING;
 extern bool	tool_SkillTool_HUB;
 extern bool	tool_SkillTool_NPC;
@@ -93,7 +93,7 @@ extern HWND	InputMyhouseHdlg;
 
 
 #ifdef _DEBUG
-extern char	AnimationName[ MAX_ANIMATION][ 110];
+extern char	AnimationName[MAX_ANIMATION][110];
 #endif
 
 
@@ -105,31 +105,31 @@ extern int  CheckEquipmentFlag;
 extern int  TempAnimationCount;
 extern int	IDCheckedMapObject;
 
-extern void Box( int x1, int y1,  int x2, int y2,  int x3, int y3,  int x4, int y4, int color );
-extern void Box( int sx, int sy,  int ex, int ey, int color );
-extern void Box_( int sx, int sy,  int xl, int yl, int color );
-extern void PutDot( int x, int y, WORD color );
+extern void Box(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4, int color);
+extern void Box(int sx, int sy, int ex, int ey, int color);
+extern void Box_(int sx, int sy, int xl, int yl, int color);
+extern void PutDot(int x, int y, WORD color);
 extern void Line(int sx, int sy, int ex, int ey, int color);
-extern void XLine( int x, int y, DWORD xl, WORD color );
-extern void Circle(int xc,int yc,int a0,int col );
-extern void BoxFill( int sx, int sy, int xl, int yl, int color);
+extern void XLine(int x, int y, DWORD xl, WORD color);
+extern void Circle(int xc, int yc, int a0, int col);
+extern void BoxFill(int sx, int sy, int xl, int yl, int color);
 
-extern void DoSomeThingWithKey( WPARAM wParam, LPARAM lParam );
-extern void CheckCharacterFrameOrder( WPARAM wParam, LPARAM lParam );
+extern void DoSomeThingWithKey(WPARAM wParam, LPARAM lParam);
+extern void CheckCharacterFrameOrder(WPARAM wParam, LPARAM lParam);
 
-extern void ViewMapObjectInfo( void );
-extern void ViewItemInfo( void );
-
-
-extern void SystemMenuProcess( WPARAM wParam );
-extern void ModeSetting ( HWND hwnd, HINSTANCE hInstance );
-extern void CheckEquipmentData( HWND hwnd, HINSTANCE hInstance);
+extern void ViewMapObjectInfo(void);
+extern void ViewItemInfo(void);
 
 
-extern void tool_InputMapAttr( int mx, int my, int flag );
+extern void SystemMenuProcess(WPARAM wParam);
+extern void ModeSetting(HWND hwnd, HINSTANCE hInstance);
+extern void CheckEquipmentData(HWND hwnd, HINSTANCE hInstance);
 
-extern int AgreeStartGame( HWND hwnd, HINSTANCE hInstance );
-extern void ToolLogoutCharacter( );
+
+extern void tool_InputMapAttr(int mx, int my, int flag);
+
+extern int AgreeStartGame(HWND hwnd, HINSTANCE hInstance);
+extern void ToolLogoutCharacter();
 
 #else
 
@@ -139,8 +139,8 @@ extern void ToolLogoutCharacter( );
 
 #define SI_GAME_MAKE_MODE		0
 #define SI_NOT_CONNECT_MODE		1
-extern inline int GetSysInfo( int type );
-extern void StartOXEvent( );
+extern inline int GetSysInfo(int type);
+extern void StartOXEvent();
 
 // 020428 YGI acer
 extern void ToolMapMove();
@@ -150,7 +150,7 @@ extern void ToolMapMoveMultiple();
 extern bool IsNPC(LPCHARACTER pCharac);
 extern void ToolGenerateMonster();
 #ifdef _DEBUG
-extern void	MainMenuSelected(WPARAM wParam,LPARAM lParam);
+extern void	MainMenuSelected(WPARAM wParam, LPARAM lParam);
 #endif
 
 extern void SetLocalWarTime();
@@ -163,7 +163,7 @@ extern HWND g_hSetScenarioDlgWnd;
 ////// ProcSetScenario에서만 쓰이는 전용 함수이다. 딴데서 쓰지 맙시다.
 //
 extern void ReleaseListData(HWND hListWnd);
-extern void SelectedTimeList(HWND hListWnd,int index);
+extern void SelectedTimeList(HWND hListWnd, int index);
 extern void SendSelectedSenarioName(int index);
 extern bool AddTimeList(void* data);
 //

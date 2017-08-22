@@ -1,4 +1,4 @@
-﻿ 
+﻿
 #ifndef  MAX_GENERATE_POSITION_
 
 #define NPC_PATTERN_NO_MOVE_			 0		// 가만히 있는다.
@@ -105,113 +105,113 @@ typedef struct tNPCgeneratePosition
 /////////////////////////////////////////////////////////////
 ///  Variables
 
-	extern int NpcPatternTable[20];
-	extern sNPCgeneratePosition NPCgeneratePosition[ MAX_GENERATE_POSITION_];
-	extern int NPCgeneratePositionMax;
+extern int NpcPatternTable[20];
+extern sNPCgeneratePosition NPCgeneratePosition[MAX_GENERATE_POSITION_];
+extern int NPCgeneratePositionMax;
 
-	extern bool CharMovingThreadStart0;
-	extern bool CharMovingThreadStart1;
-	extern bool CharMovingThreadStart2;
+extern bool CharMovingThreadStart0;
+extern bool CharMovingThreadStart1;
+extern bool CharMovingThreadStart2;
 
-	// 0811 NPC KHS
-	extern short NPCAccessTable[400][4];
+// 0811 NPC KHS
+extern short NPCAccessTable[400][4];
 
 /////////////////////////////////////////////////////////////
 ///  User Function
 
-extern void SendModifyPositionNPC( int id );
-extern void SendNPCChatArea( int id, char *data );
-extern void SendNPCAttack( int attacker_npc_id);
-extern void SendNPC_parameter( int id, int type, int data );
-extern void RecvNPC_parameter( int id, int type, int data );
-extern void RecvNPC_stringparameter( int id, int type, char *data );
+extern void SendModifyPositionNPC(int id);
+extern void SendNPCChatArea(int id, char *data);
+extern void SendNPCAttack(int attacker_npc_id);
+extern void SendNPC_parameter(int id, int type, int data);
+extern void RecvNPC_parameter(int id, int type, int data);
+extern void RecvNPC_stringparameter(int id, int type, char *data);
 
 
 
-extern void InitMoveDelayTable( void );
-extern int Get_MoveDelayTime( CHARACTER *ch );
-extern int InDistance( CHARACTER *s, CHARACTER *d, int dis );
-extern int NPC_NearRoundCh( CHARACTER *n, CHARACTER *ch, int *x, int *y );
-extern int NPC_NearCh( CHARACTER *n, CHARACTER *ch, int *x, int *y );
-extern int NPC_NearPosition( CHARACTER *n, CHARACTER *c, int *x, int *y );
-extern int NPC_NearBackCh( CHARACTER *n, CHARACTER *ch, int *x, int *y, int dist );
-extern int NPC_GetAttackRange( CHARACTER *n );
-extern int NPC_GetPatternTable( CHARACTER *n );
-extern int NPC_GetDir( int sx, int sy, int ex, int ey );
-extern int NPC_MakePath( CHARACTER *n, int tx, int ty, int how );
-extern int NPC_MakePathBumn( CHARACTER *n, int tx, int ty, int how );
+extern void InitMoveDelayTable(void);
+extern int Get_MoveDelayTime(CHARACTER *ch);
+extern int InDistance(CHARACTER *s, CHARACTER *d, int dis);
+extern int NPC_NearRoundCh(CHARACTER *n, CHARACTER *ch, int *x, int *y);
+extern int NPC_NearCh(CHARACTER *n, CHARACTER *ch, int *x, int *y);
+extern int NPC_NearPosition(CHARACTER *n, CHARACTER *c, int *x, int *y);
+extern int NPC_NearBackCh(CHARACTER *n, CHARACTER *ch, int *x, int *y, int dist);
+extern int NPC_GetAttackRange(CHARACTER *n);
+extern int NPC_GetPatternTable(CHARACTER *n);
+extern int NPC_GetDir(int sx, int sy, int ex, int ey);
+extern int NPC_MakePath(CHARACTER *n, int tx, int ty, int how);
+extern int NPC_MakePathBumn(CHARACTER *n, int tx, int ty, int how);
 extern bool NPC_IsMoving(CHARACTER* n); // CSD-040107
-extern int NPC_Hostile( CHARACTER *n );
-extern int NPC_StillAttack( CHARACTER *n);
-extern int NPC_IsAttackableRange( CHARACTER *n );
-extern int NPC_IsInBossRange( CHARACTER *n );
-extern int NPC_IsInHostRange( CHARACTER *n );
-extern int NPC_IsWhoNearRedPC( CHARACTER *npc, int tilerange  );
-extern int NPC_IsWhoNearPC( CHARACTER *npc, int tilerange );
-extern int NPC_WhoIsAttackMyBaby( CHARACTER *n );
-extern int NPC_WhoIsBoss( CHARACTER *npc );
-extern int NPC_WhoIsBlocking( int sx, int sy );
-extern CHARACTER *NPC_ReturnCHARACTERPoint( int id );
-extern CHARACTER *ReturnCHARACTERPoint( char *name );
-extern void RecvTameCommand( int cn, t_tame_command *p );
-extern void SendTameResult( int cn, int result  );
-extern void SendHostName( int cn, CHARACTER *n );
-extern void SendToAllHostName( int cn, CHARACTER *n );
-extern void CheckNPCTammingTimeElapsed( CHARACTER *n );
+extern int NPC_Hostile(CHARACTER *n);
+extern int NPC_StillAttack(CHARACTER *n);
+extern int NPC_IsAttackableRange(CHARACTER *n);
+extern int NPC_IsInBossRange(CHARACTER *n);
+extern int NPC_IsInHostRange(CHARACTER *n);
+extern int NPC_IsWhoNearRedPC(CHARACTER *npc, int tilerange);
+extern int NPC_IsWhoNearPC(CHARACTER *npc, int tilerange);
+extern int NPC_WhoIsAttackMyBaby(CHARACTER *n);
+extern int NPC_WhoIsBoss(CHARACTER *npc);
+extern int NPC_WhoIsBlocking(int sx, int sy);
+extern CHARACTER *NPC_ReturnCHARACTERPoint(int id);
+extern CHARACTER *ReturnCHARACTERPoint(char *name);
+extern void RecvTameCommand(int cn, t_tame_command *p);
+extern void SendTameResult(int cn, int result);
+extern void SendHostName(int cn, CHARACTER *n);
+extern void SendToAllHostName(int cn, CHARACTER *n);
+extern void CheckNPCTammingTimeElapsed(CHARACTER *n);
 
-	extern DWORD ReturnDestTime( LPCHARACTER ch );
-	extern void SaveMoveDelayTable( void );
-	extern void InitMoveDelayTable( void );
-
-
-	extern void StartCharacterMovingThread( void );
-	extern void EndCharacterMovingThread( void );
+extern DWORD ReturnDestTime(LPCHARACTER ch);
+extern void SaveMoveDelayTable(void);
+extern void InitMoveDelayTable(void);
 
 
-	extern int NPC_MakePathGuard( CHARACTER *n, int tx, int ty, int how );
-	extern int NPC_MakePathMaul( CHARACTER *n, int tx, int ty, int how );
-	
-	extern void NPCAddBasicData(  int i, t_server_npc_add *p );
-
-	extern void NPCGeneratePosition( int npcindex, int x, int y, int eventno, int maxno );
-	extern void NPC_Create( int Num, int npcindex, int x, int y, int eventno, int maxno );
-	extern int  NPC_AdjustPosition( int sprno, int *x, int *y );
-	extern void NPC_AutoCreationProc( void );
-	extern void NPC_CheckRemove( void );
-	extern void RecvCMD_MODIFY_POSITION(  int cn,  t_client_modify_position *p );
-	extern void SendReadyMoveDate( int cn );
-	extern void RecvSmileFace( int cn, int smileno );
-
-	extern int NPC_IsTherePC( CHARACTER *npc, int range );
-	extern int NPC_IsWhoNearPC2( CHARACTER *npc, int range );
-	extern int NPC_IsWhoNearOtherNationPc( int npc_nation, LPCHARACTER id, int range );
-
-	extern void Check_NPC_Pattern( LPCHARACTER  n );
-
-	extern void RecvStartGoodBad( int id );
-	extern void RecvEndofGoodBad( int id );
+extern void StartCharacterMovingThread(void);
+extern void EndCharacterMovingThread(void);
 
 
-	extern void RecvNK( int id, int nk3, int nk4, int nk6 );
-	extern void RecvServerKillPc(  int id, int killpc );
+extern int NPC_MakePathGuard(CHARACTER *n, int tx, int ty, int how);
+extern int NPC_MakePathMaul(CHARACTER *n, int tx, int ty, int how);
 
-	extern void CheckNPCPk( int aid, int did );
+extern void NPCAddBasicData(int i, t_server_npc_add *p);
+
+extern void NPCGeneratePosition(int npcindex, int x, int y, int eventno, int maxno);
+extern void NPC_Create(int Num, int npcindex, int x, int y, int eventno, int maxno);
+extern int  NPC_AdjustPosition(int sprno, int *x, int *y);
+extern void NPC_AutoCreationProc(void);
+extern void NPC_CheckRemove(void);
+extern void RecvCMD_MODIFY_POSITION(int cn, t_client_modify_position *p);
+extern void SendReadyMoveDate(int cn);
+extern void RecvSmileFace(int cn, int smileno);
+
+extern int NPC_IsTherePC(CHARACTER *npc, int range);
+extern int NPC_IsWhoNearPC2(CHARACTER *npc, int range);
+extern int NPC_IsWhoNearOtherNationPc(int npc_nation, LPCHARACTER id, int range);
+
+extern void Check_NPC_Pattern(LPCHARACTER  n);
+
+extern void RecvStartGoodBad(int id);
+extern void RecvEndofGoodBad(int id);
 
 
-	// 0811 NPC KHS
-	extern void SaveNPCAcessTable( void );
-	extern void LoadNPCAccessTable( void );
-	extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD( t_packet *p );
-	extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD2( t_packet *p );
-	extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD3( t_packet *p );
-	extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD4( t_packet *p );
+extern void RecvNK(int id, int nk3, int nk4, int nk6);
+extern void RecvServerKillPc(int id, int killpc);
 
-	extern void Recv_FaceDirections( t_face_directions *tp );
-	extern void Send_JustAni( int id, int anino );
-	extern void Recv_JustAni( t_just_ani *p );
-	extern void NPC_Pattern_SealStone( LPCHARACTER n );
+extern void CheckNPCPk(int aid, int did);
 
-	extern char *LoadMonNameTable( int namenumber );
+
+// 0811 NPC KHS
+extern void SaveNPCAcessTable(void);
+extern void LoadNPCAccessTable(void);
+extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD(t_packet *p);
+extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD2(t_packet *p);
+extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD3(t_packet *p);
+extern void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD4(t_packet *p);
+
+extern void Recv_FaceDirections(t_face_directions *tp);
+extern void Send_JustAni(int id, int anino);
+extern void Recv_JustAni(t_just_ani *p);
+extern void NPC_Pattern_SealStone(LPCHARACTER n);
+
+extern char *LoadMonNameTable(int namenumber);
 
 #else
 

@@ -19,28 +19,28 @@ BOOL WINAPI DecryptFunc(LPTSTR cipher_text, LPTSTR plain_text);
 const int MAX_BILL_BUFFER = 255;
 const int MAX_TID = 50;
 
-const int MAX_BILL_CORP	= 16;//2001/02/17 zhh 설명: 현제 종량제 하고 있는 업체의 수. 업체가 추가될때 마다 늘려준다.
+const int MAX_BILL_CORP = 16;//2001/02/17 zhh 설명: 현제 종량제 하고 있는 업체의 수. 업체가 추가될때 마다 늘려준다.
 
 //2001/02/17 zhh 설명: WhatLineUse에 들어가는번호. 실제 서버에서는 +1해서 logintable에 집어넣는다. 
 //logintable의 0은 업체 없음이다.
 enum ePayCompanyType
 {
-	Nownuri			=0,
-	Thrunet			=1,//ip로 체크한다.( 클라리언트 수정 없음 )
-	Channel_i		=2,
-	Unitel			=3,
-	Netsgo			=4,
-	KornetWorld		=5,
-	Mezzy			=6,
-	Wever			=7,
-	WiseTop			=8,
-	MediaWeb		=9,
-	PcBangDotCom	=10,
-	OneGame			=11,
-	ExciteGame		=12,
-	UnitelWeb		=13,//유니텔이긴 하지만 웹을 따로 처리
-	Chollian		=14,//천리안
-	HyunJuComputer	=15,//현주 컴퓨터
+	Nownuri = 0,
+	Thrunet = 1,//ip로 체크한다.( 클라리언트 수정 없음 )
+	Channel_i = 2,
+	Unitel = 3,
+	Netsgo = 4,
+	KornetWorld = 5,
+	Mezzy = 6,
+	Wever = 7,
+	WiseTop = 8,
+	MediaWeb = 9,
+	PcBangDotCom = 10,
+	OneGame = 11,
+	ExciteGame = 12,
+	UnitelWeb = 13,//유니텔이긴 하지만 웹을 따로 처리
+	Chollian = 14,//천리안
+	HyunJuComputer = 15,//현주 컴퓨터
 };
 
 extern HINSTANCE hDll;  //전역변수나 멤버로 처리
@@ -57,14 +57,14 @@ extern SessionParameter	m_SessParam;
 
 #define STRING_TERMINATEEVENT	"THREAD_THERMINATEEVENT"
 
-extern "C" typedef HWND			(WINAPI *FnGetHWNDUnimain)(void);
-extern "C" typedef LPCTSTR		(WINAPI *FnUNIGetUserID)(void);
-extern "C" typedef LPCTSTR		(WINAPI *FnUNIGetUserName)(void);
+extern "C" typedef HWND(WINAPI *FnGetHWNDUnimain)(void);
+extern "C" typedef LPCTSTR(WINAPI *FnUNIGetUserID)(void);
+extern "C" typedef LPCTSTR(WINAPI *FnUNIGetUserName)(void);
 extern "C" typedef int			(WINAPI *FnUNIGetLoginStatus)(void);
 
 struct STRUCTCHECKUNIPARAM
 {
-	HWND hWndReceiveWindow; 
+	HWND hWndReceiveWindow;
 	UINT nSendToMessage;
 };
 
@@ -137,9 +137,9 @@ public:
 	int		ReturnPORTNumber();			//게이트웨이 포트 번호
 	int		ReturnPayPORTNumber();		//종량제 업체용 port반환
 	int		SendSpecifiedMessage(HWND hwnd);		//해당업체가 게이트웨이서버로 접속한 후 어떤 특정한 정보를 날려주기를 원할경우 날리는 함수
-	
+
 #ifdef JAPAN_LOCALIZING_
-	char*	GetJapanTID(){return m_szJapanTID;}//일본웹에서 넘긴 ID와 패스워드 저장(암호화 되어 있음)
+	char*	GetJapanTID() { return m_szJapanTID; }//일본웹에서 넘긴 ID와 패스워드 저장(암호화 되어 있음)
 #endif
 
 private:
@@ -167,7 +167,7 @@ private:
 	SOCKET	sockfd;				//채널아이용//과금용으로 생성된 소켓
 
 	void	initipNport();		//IP_pos , Port_pos를 초기화 한다
-	
+
 	int		CommandNum;			//넘어온 인자값의 숫자
 	int		CommandNumSlash;			//넘어온 인자값의 숫자
 	char**	Command;			//Command로 넘어온 것들을 가리킬 포인터
@@ -240,10 +240,10 @@ private:
 	int		Channel_i_SendEncryptedData();	//채널아이에서 제공한 dll에서 알아서 아이디와 암호를 전송한다.
 
 	int		EatRearWhiteChar(char *eatit);
-	int		Send(char *msg,int len);
-	int		SendToPaySocket(char *msg,int len);
+	int		Send(char *msg, int len);
+	int		SendToPaySocket(char *msg, int len);
 	int		Receive(int len);
-	bool	Receive_sub( t_connection *c);
+	bool	Receive_sub(t_connection *c);
 
 	int		MakePaySocket(int How);		//종량제 업체용으로 소켓을 하나 연다.
 };

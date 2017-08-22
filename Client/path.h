@@ -18,7 +18,7 @@ typedef struct	tagSPNODE
 	int					x, y;
 	int					number;
 	struct tagSPNODE	*lpParent;
-	struct tagSPNODE	*lpChild[ 8 ];
+	struct tagSPNODE	*lpChild[8];
 	struct tagSPNODE	*lpNext;
 } SP_NODE, *LPSP_NODE;
 
@@ -49,17 +49,17 @@ extern "C"
 
 
 	extern int  PathCollisionLineCount; //   辨瘉扁俊 荤侩瞪 酒捞袍阑 葛酒 初绰促.
-	extern COLLISIONLINE PathCollisionLine[ MAX_ITEM_COLLISION ];
+	extern COLLISIONLINE PathCollisionLine[MAX_ITEM_COLLISION];
 
 
-	extern BOOL			PathBuild( LPCHARACTER lpCharacter );
-	extern void			PathDestroy( void );
-	extern LPSP_NODE	PathFind( LPCHARACTER lpcharacter,int sx, int sy, int dx, int dy );
+	extern BOOL			PathBuild(LPCHARACTER lpCharacter);
+	extern void			PathDestroy(void);
+	extern LPSP_NODE	PathFind(LPCHARACTER lpcharacter, int sx, int sy, int dx, int dy);
 
-	extern int			FreeTile( LPCHARACTER lpcharacter, int sx, int sy, int x, int y );
-	extern int			FreeTileOther( LPCHARACTER ch, int sx, int sy );
+	extern int			FreeTile(LPCHARACTER lpcharacter, int sx, int sy, int x, int y);
+	extern int			FreeTileOther(LPCHARACTER ch, int sx, int sy);
 
-	extern int CheckLineCollision( LPCHARACTER ch, int sx, int sy, int ex, int ey );
+	extern int CheckLineCollision(LPCHARACTER ch, int sx, int sy, int ex, int ey);
 
 	////////////////////////0724 yjs /////////////////////////////////////////////////
 	////////////////////////鸥老 茄沫老 菊栏肺 啊搁辑 眉农窍绰 窃荐////////////////////
@@ -72,7 +72,7 @@ extern "C"
 
 
 
-	#ifdef __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

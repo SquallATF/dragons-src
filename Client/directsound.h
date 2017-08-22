@@ -73,9 +73,9 @@ typedef struct	tagSOUNDINFO
 	LPDIRECTSOUND3DLISTENER		lpDirectSound3DListener;
 	LPDIRECTSOUNDBUFFER			lpPrimaryBuffer;
 
-	LPDIRECTSOUNDBUFFER			lpDirectSoundBuffer[ MAX_SOUND ];
-	LPDIRECTSOUND3DBUFFER		lpDirectSound3DBuffer[ MAX_SOUND ];
-	LPWAVEDATA					lpWaveData[ MAX_SOUND ];
+	LPDIRECTSOUNDBUFFER			lpDirectSoundBuffer[MAX_SOUND];
+	LPDIRECTSOUND3DBUFFER		lpDirectSound3DBuffer[MAX_SOUND];
+	LPWAVEDATA					lpWaveData[MAX_SOUND];
 
 	BOOL						bInitialized;
 } SOUNDINFO, *LPSOUNDINFO;
@@ -94,39 +94,39 @@ extern "C"
 {
 #endif
 
-extern SOUNDINFO	g_SoundInfo;
-extern SOUNDLIST*	g_SoundList;
+	extern SOUNDINFO	g_SoundInfo;
+	extern SOUNDLIST*	g_SoundList;
 
-extern BOOL		PlayListAutoSounds( int index, int x, int y, int flag);
-extern BOOL		AdjustAutoSounds( int index, int volume, bool loop=0);
-extern BOOL		AdjustStaticSounds( int index, int volume, bool loop=0);
-////////////// 0618 lkh 추가 //////////////
-extern void		AdjustSounds( int index, int volume, bool loop=0);
+	extern BOOL		PlayListAutoSounds(int index, int x, int y, int flag);
+	extern BOOL		AdjustAutoSounds(int index, int volume, bool loop = 0);
+	extern BOOL		AdjustStaticSounds(int index, int volume, bool loop = 0);
+	////////////// 0618 lkh 추가 //////////////
+	extern void		AdjustSounds(int index, int volume, bool loop = 0);
 
-extern BOOL		LoadSoundList( void );
-extern BOOL		InitSfx( HWND hWnd );
-extern void		FreeSfx( void );
-extern BOOL		InitGlobals( HWND hWnd );
-extern void		FreeGlobals( void );
-extern BOOL		InitFixedSounds( void );
-extern void		FreeFixedSounds( void );
-extern void		FreeAutoSounds( int index );
+	extern BOOL		LoadSoundList(void);
+	extern BOOL		InitSfx(HWND hWnd);
+	extern void		FreeSfx(void);
+	extern BOOL		InitGlobals(HWND hWnd);
+	extern void		FreeGlobals(void);
+	extern BOOL		InitFixedSounds(void);
+	extern void		FreeFixedSounds(void);
+	extern void		FreeAutoSounds(int index);
 
-extern void		SetListener( int x, int y );
-extern void		PlayWave( int index, int x, int y, int flag );
-extern void		StopWave( int index );
-extern void		MoveWave( int index, int x, int y );
-extern void		SetVolumeOne( int index, int volume );
-extern void		SetVolume( int volume );
-extern void		SetVolumeMusic( int volume );
-extern BOOL		IsPlaying( int index );
-extern void		WaveFree( LPWAVEDATA lpWaveData );
-extern void		CheckAutoWave( void );
-extern void		VolumeTranslate();
-extern void		VolumeSet(short int change_Volume, short int to_Volume);
-extern void		WeatherFXSound(void);
-extern void		BGMFadeInOut(void);
-extern void		StartSound( int type );		// 초기 사운드 멈춤		//021030 YGI
+	extern void		SetListener(int x, int y);
+	extern void		PlayWave(int index, int x, int y, int flag);
+	extern void		StopWave(int index);
+	extern void		MoveWave(int index, int x, int y);
+	extern void		SetVolumeOne(int index, int volume);
+	extern void		SetVolume(int volume);
+	extern void		SetVolumeMusic(int volume);
+	extern BOOL		IsPlaying(int index);
+	extern void		WaveFree(LPWAVEDATA lpWaveData);
+	extern void		CheckAutoWave(void);
+	extern void		VolumeTranslate();
+	extern void		VolumeSet(short int change_Volume, short int to_Volume);
+	extern void		WeatherFXSound(void);
+	extern void		BGMFadeInOut(void);
+	extern void		StartSound(int type);		// 초기 사운드 멈춤		//021030 YGI
 
 #ifdef __cplusplus
 }

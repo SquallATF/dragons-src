@@ -41,37 +41,37 @@ typedef struct HEADER_DATA_
 class CFileMerge
 {
 public:
-	CFileMerge(){};
+	CFileMerge() {};
 	virtual ~CFileMerge();
 
-//operator override
-	CFileMerge& operator=( CFileMerge &rhs);		
+	//operator override
+	CFileMerge& operator=(CFileMerge &rhs);
 
-//function
-	void	Init( STR_VEC& vFile, const char* szExtention);
+	//function
+	void	Init(STR_VEC& vFile, const char* szExtention);
 	//void	Init( STR_LIST& vFile, const char* szType );
 	void	Clear();
 	//void	SetFileName( STR_LIST& vFile );
-	void	SetFileName( STR_VEC& vFile, const char* szExtention );
-	void	SetPosition( size_t pos, const int nType);
+	void	SetFileName(STR_VEC& vFile, const char* szExtention);
+	void	SetPosition(size_t pos, const int nType);
 	FILE*	OpenFile(const char* szType);
 	FILE*	OpenFile(const int nNum, const char* szType);
 	void	CloseFile();
-	void	CloseFile( const int nFileNum);
+	void	CloseFile(const int nFileNum);
 
 	unsigned int GetSize() const { return m_vFileName.size(); }
-	FILE*	GetFileHandle( const int nPosition );
-	const char* GetFileName( const int nPosition );
+	FILE*	GetFileHandle(const int nPosition);
+	const char* GetFileName(const int nPosition);
 	//STR_LIST& GetFileList();
 	STR_VEC& GetFileList();
-	
+
 private:
 	FILE_VEC	m_vFileHandle;
 	//STR_LIST	m_lFileName;
 	STR_VEC		m_vFileName;
 
-	const CFileMerge& operator+=( const CFileMerge &rhs){};
-	CFileMerge& operator+=( CFileMerge &rhs){};
+	const CFileMerge& operator+=(const CFileMerge &rhs) {};
+	CFileMerge& operator+=(CFileMerge &rhs) {};
 };
 
 // CFileMerge																					//////////
@@ -86,17 +86,17 @@ class CMergeData
 public:
 	CMergeData();
 	//CMergeData(STR_LIST& vSFile, STR_LIST& vTFile, const char *szSType,const char *szTType);
-	CMergeData(STR_VEC& vSFile, STR_VEC& vTFile,const char* szSExtention, const char* szTExtention, const char *szSType,const char *szTType);
+	CMergeData(STR_VEC& vSFile, STR_VEC& vTFile, const char* szSExtention, const char* szTExtention, const char *szSType, const char *szTType);
 	virtual ~CMergeData();
 
 	//init
-	bool	Init( STR_VEC& vSFile, STR_VEC& vTFile, const char* szSExtention, const char* szTExtention);
+	bool	Init(STR_VEC& vSFile, STR_VEC& vTFile, const char* szSExtention, const char* szTExtention);
 	//void	Init( STR_LIST& vSFile, STR_LIST& vTFile, const char *szSType,const char *szTType);
-	
-	int		WriteTargetFile( const int nFileNum, void *buf, size_t size);
-	int		WriteTargetFile( const int nFileNum, FILE* fp, const int nSize );
-	bool	MergeFile(const int iFlag=0);
-	char*   GetFileBuf(const int nSprite_Num, DWORD& dwSize);			
+
+	int		WriteTargetFile(const int nFileNum, void *buf, size_t size);
+	int		WriteTargetFile(const int nFileNum, FILE* fp, const int nSize);
+	bool	MergeFile(const int iFlag = 0);
+	char*   GetFileBuf(const int nSprite_Num, DWORD& dwSize);
 	//char*   GetFileBuf(const char* szFileName, DWORD& dwSize);			
 	FILE*	GetEffectFileHandle(const int nSprite_Num, DWORD& dwSize);
 	//FILE*	GetEffectFileHandle(const char* szFileName, DWORD& dwSize);

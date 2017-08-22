@@ -38,31 +38,31 @@ struct NPCLev_to_Exp
 };	//> CSD-030314
 
 extern LPCHARACTER ReturnCharacterPoint(int id);
-extern NPCLev_to_Exp		NPC_Lev_Ref[Num_Of_NPC_Lev] ;
+extern NPCLev_to_Exp		NPC_Lev_Ref[Num_Of_NPC_Lev];
 
 extern int			ReturnPCAutoWave(LPCHARACTER lpChar, BOOL type);
 extern int			ReturnNPCAutoWave(LPCHARACTER lpChar, BOOL type);
 
-extern int			ReturnWaveAnimation( LPCHARACTER lpCharacter );
-extern int			ReturnEffectAnimation( LPCHARACTER ch );
-extern int			ReturnAttackWaveAnimation( LPCHARACTER lpCharacter );
-extern int			ReturnAttackedWaveAnimation( LPCHARACTER lpCharacter );
-extern LPCHARACTER  ReturnCharacterID( int id );
+extern int			ReturnWaveAnimation(LPCHARACTER lpCharacter);
+extern int			ReturnEffectAnimation(LPCHARACTER ch);
+extern int			ReturnAttackWaveAnimation(LPCHARACTER lpCharacter);
+extern int			ReturnAttackedWaveAnimation(LPCHARACTER lpCharacter);
+extern LPCHARACTER  ReturnCharacterID(int id);
 
-extern LPCHARACTER	ReturnCharacterPoint( int server_id );
+extern LPCHARACTER	ReturnCharacterPoint(int server_id);
 
-extern void			ReturnCharMoveDistance( LPCHARACTER ch, int *dist );
-
-
-extern int			IsDead( LPCHARACTER ch );
-extern bool IsAttackAble( LPCHARACTER pTarget );
+extern void			ReturnCharMoveDistance(LPCHARACTER ch, int *dist);
 
 
-extern void			LoadLevelExpTable( void );
+extern int			IsDead(LPCHARACTER ch);
+extern bool IsAttackAble(LPCHARACTER pTarget);
 
-extern void SendSmileFace( int smileno );
-extern void RecvSmileFace( int id, int smileno );
 
-extern int	ReturnWaveNatural( LPCHARACTER	ch );
+extern void			LoadLevelExpTable(void);
+
+extern void SendSmileFace(int smileno);
+extern void RecvSmileFace(int id, int smileno);
+
+extern int	ReturnWaveNatural(LPCHARACTER	ch);
 
 #endif //#if !defined(AFX_CHARDATATABLE_H__3028D503_725C_4F31_8429_95303BA39959__INCLUDED_)

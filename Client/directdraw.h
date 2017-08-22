@@ -7,10 +7,10 @@
 
 #include "ddraw.h"
 
-typedef struct 
+typedef struct
 {
 	RGNDATAHEADER	rgnheader;
-	RECT			rect[ 4 ];
+	RECT			rect[4];
 } CLIPLIST, *LPCLIPLIST;
 
 typedef struct	tagDIRECTDRAWINFO
@@ -38,31 +38,31 @@ extern "C"
 {
 #endif
 
-extern BOOL					InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo );
-extern void					CleanupDirectDraw( LPDIRECTDRAWINFO lpDirectDrawInfo );
-extern LPDIRECTDRAWSURFACE 	CreateSurface( LPDIRECTDRAW  lpDirectDraw, DWORD dwWidth, DWORD dwHeight );
-extern void					CleanupSurface( LPDIRECTDRAWSURFACE lpSurface );
-extern BOOL					RestoreSurface( LPDIRECTDRAWSURFACE lpSurface );
-extern BOOL					RestoreAllSurfaces( LPDIRECTDRAWINFO lpDirectDrawInfo );
-extern void					FlipScreen( LPDIRECTDRAWINFO lpDirectDrawInfo );
-extern void					EraseScreen( LPDIRECTDRAWINFO lpDirectDrawInfo, WORD color );
+	extern BOOL					InitDirectDraw(HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo);
+	extern void					CleanupDirectDraw(LPDIRECTDRAWINFO lpDirectDrawInfo);
+	extern LPDIRECTDRAWSURFACE 	CreateSurface(LPDIRECTDRAW  lpDirectDraw, DWORD dwWidth, DWORD dwHeight);
+	extern void					CleanupSurface(LPDIRECTDRAWSURFACE lpSurface);
+	extern BOOL					RestoreSurface(LPDIRECTDRAWSURFACE lpSurface);
+	extern BOOL					RestoreAllSurfaces(LPDIRECTDRAWINFO lpDirectDrawInfo);
+	extern void					FlipScreen(LPDIRECTDRAWINFO lpDirectDrawInfo);
+	extern void					EraseScreen(LPDIRECTDRAWINFO lpDirectDrawInfo, WORD color);
 
-extern BOOL		DDLoadBitmap( LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpszFilePath );
-extern BOOL		DDReLoadBitmap( LPDIRECTDRAWSURFACE lpSurface, char* lpszFilePath );
-extern BOOL		DDCopyBitmap( LPDIRECTDRAWSURFACE lpSurface, HBITMAP hBitmap, int x, int y, int dx, int dy );
-extern DWORD	DDColorMatch( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb );
-extern HRESULT	DDSetColorKey( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb );
+	extern BOOL		DDLoadBitmap(LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpszFilePath);
+	extern BOOL		DDReLoadBitmap(LPDIRECTDRAWSURFACE lpSurface, char* lpszFilePath);
+	extern BOOL		DDCopyBitmap(LPDIRECTDRAWSURFACE lpSurface, HBITMAP hBitmap, int x, int y, int dx, int dy);
+	extern DWORD	DDColorMatch(LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb);
+	extern HRESULT	DDSetColorKey(LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb);
 
-extern void		StretchBltScreen( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc, DWORD dwColorFill, int nDirection );
-extern void		BltGrid( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc );
-extern void		BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc );
-extern int		TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LONG x, LONG y, RECT rectSrc, WORD wAlphaValue );
+	extern void		StretchBltScreen(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc, DWORD dwColorFill, int nDirection);
+	extern void		BltGrid(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc);
+	extern void		BltTrans(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc);
+	extern int		TransAlpha(LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LONG x, LONG y, RECT rectSrc, WORD wAlphaValue);
 
 
-// GammaControl..
-extern void		InitGammaControl( void );
-extern void		ResetGammaCtrl( void );
-extern int		ColorCtrlBrightness( long v );
+	// GammaControl..
+	extern void		InitGammaControl(void);
+	extern void		ResetGammaCtrl(void);
+	extern int		ColorCtrlBrightness(long v);
 
 
 #ifdef __cplusplus

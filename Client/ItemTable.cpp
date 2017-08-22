@@ -166,7 +166,7 @@ int ReadItemTableFunction(char *text, int &Item_id, char *Name, char *Han_Name, 
 	strcpy(Han_Name, token);
 
 
-	for (int i = 0; i<max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		token = strtok(NULL, "\t\n");
 		*item_value = atoi(token);
@@ -856,7 +856,7 @@ inline int GetItemNumber(int item_number, int& type, int& num)
 	type = item_number / 1000;
 	num = item_number % 1000;
 
-	if ((type<0) || (type>10)) return 0;
+	if ((type < 0) || (type > 10)) return 0;
 	//if( (num<0) || (num>= Item_Ref.nItem[type]) ) return 0;
 
 	return 1;
@@ -1233,7 +1233,7 @@ void RecvChrItemInfo_0(t_chr_item_info0 *i)
 	int b = i->ar1;
 	int ct = (a * 3) + b;
 
-	for (int c = 0; c<8; c++)
+	for (int c = 0; c < 8; c++)
 	{
 		InvItemAttr[a][b][c] = i->inv[c];
 	}
@@ -1337,7 +1337,7 @@ void RecvChrItemInfo_2(t_chr_item_info2 *i)
 {
 	int a;
 
-	for (a = 0; a<6; a++)
+	for (a = 0; a < 6; a++)
 	{
 		QuickItemAttr[a] = i->quick[a];
 	}
@@ -1414,7 +1414,7 @@ void RecvItemEquip(t_chr_status_info *chr)
 
 	//에니메이션 번호를  old 데이터와 비교하여 다르면 서버로 정보를 보내준다.
 	//SendAnimationInfo( );
-	
+
 }
 
 
@@ -1534,7 +1534,7 @@ bool ReadMagicTable()
 		{
 			char *tt = (char *)magic;
 			char crc = 0;
-			for (int i = 0; i< sizeof(CMagic)*MAX_MAGIC_; i++)
+			for (int i = 0; i < sizeof(CMagic)*MAX_MAGIC_; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -1544,7 +1544,7 @@ bool ReadMagicTable()
 			fwrite(&crc, 1, 1, fp);
 			fclose(fp);
 		}
-		for (int i = 0; i<MAX_MAGIC_; i++)
+		for (int i = 0; i < MAX_MAGIC_; i++)
 		{
 			if (magic[i].GetMagicNum())
 				ReadMagicIconImage(SCharacterData.nCharacterData[SPELL], magic[i].GetImage());
@@ -1561,7 +1561,7 @@ bool ReadMagicTable()
 			fread(magic, sizeof(CMagic), MAX_MAGIC_, fp);
 			fread(&crc2, 1, 1, fp);
 			fclose(fp);
-			for (int i = 0; i< sizeof(CMagic) *MAX_MAGIC_; i++)
+			for (int i = 0; i < sizeof(CMagic) *MAX_MAGIC_; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -1578,7 +1578,7 @@ bool ReadMagicTable()
 			}
 			else	// 매직 아이콘 읽어 오기...
 			{
-				for (int i = 0; i<MAX_MAGIC_; i++)
+				for (int i = 0; i < MAX_MAGIC_; i++)
 					if (magic[i].GetMagicNum())
 						ReadMagicIconImage(SCharacterData.nCharacterData[SPELL], magic[i].GetImage());
 			}
@@ -1660,7 +1660,7 @@ bool ReadMagicIconImage(int type, int num)
 
 void FreeMagicIcon()
 {
-	for (int i = 0; i<MAGIC_SPR_MAX; i++)
+	for (int i = 0; i < MAGIC_SPR_MAX; i++)
 	{
 		if (magic_spr[i].img) MemFree(magic_spr[i].img);
 	}
@@ -1857,7 +1857,7 @@ bool ReadSkillTable()
 	{
 		//int i=0;
 		int num = 0;
-		while (!feof(fp) && num<MAX_SKILL)
+		while (!feof(fp) && num < MAX_SKILL)
 		{
 			if (!fscanf(fp, "%s", temp)) break;
 			if (temp[0] == '#' || temp[0] == ';')
@@ -1877,7 +1877,7 @@ bool ReadSkillTable()
 		{
 			char *tt = (char *)skill;
 			char crc = 0;
-			for (int i = 0; i<sizeof(CSkill) *MAX_SKILL; i++)
+			for (int i = 0; i < sizeof(CSkill) *MAX_SKILL; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -1901,7 +1901,7 @@ bool ReadSkillTable()
 			fread(&crc2, 1, 1, fp);
 			fclose(fp);
 
-			for (int i = 0; i<sizeof(CSkill)*MAX_SKILL; i++)
+			for (int i = 0; i < sizeof(CSkill)*MAX_SKILL; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -1913,7 +1913,7 @@ bool ReadSkillTable()
 			}
 			else		// 이미지 읽어 오기
 			{
-				for (int i = 0; i<MAX_SKILL; i++)
+				for (int i = 0; i < MAX_SKILL; i++)
 				{
 					if (skill[i].num)
 					{
@@ -1954,7 +1954,7 @@ bool ReadSkillTable()
 //	SkillMain과 맞춘다.
 void ConvertSkillTable()
 {
-	for (int i = 0; i<MAX_SKILL_; i++)
+	for (int i = 0; i < MAX_SKILL_; i++)
 	{
 		skill[i].inclusive = SkillTable[i].MotherSkillType;
 		skill[i].money = SkillTable[i].money;
@@ -2011,7 +2011,7 @@ int GetSkillMother(int kind, int skill_mother[], int max)
 {
 	memset(skill_mother, 0, sizeof(int)*max);
 	int count = 0;
-	for (int i = 0; i<MAX_SKILL; i++)
+	for (int i = 0; i < MAX_SKILL; i++)
 	{
 		if (skill[i].num)
 		{
@@ -2042,7 +2042,7 @@ void ChangeSkillMenuInventory(int x)
 	int skill_mother[MAX_SKILL_OF_KIND];
 	int count = GetSkillMother(x, skill_mother, MAX_SKILL_OF_KIND);		// 같은 종류의 스킬을 찾는다.
 
-	for (ct = 0; ct<count; ct++)
+	for (ct = 0; ct < count; ct++)
 	{
 		i = skill_mother[ct];
 		if (SCharacterData.SkillId[i]) SkillInventory[0][ct / 4][ct % 4] = i;
@@ -2050,7 +2050,7 @@ void ChangeSkillMenuInventory(int x)
 	}
 
 	count = GetSkillMother(x + 1, skill_mother, MAX_SKILL_OF_KIND);		// 같은 종류의 스킬을 찾는다.
-	for (ct = 0; ct<count; ct++)
+	for (ct = 0; ct < count; ct++)
 	{
 		i = skill_mother[ct];
 		if (SCharacterData.SkillId[i]) SkillInventory[1][ct / 4][ct % 4] = i;
@@ -2598,7 +2598,7 @@ void GetLearnKnowlageInv(int start)			// 지식 기술을 배울때 가져올 �
 	int skill_mother[MAX_SKILL_OF_KIND];
 	int count = GetSkillMother(ITEM_IDENTIFICATION, skill_mother, MAX_SKILL_OF_KIND);
 	s = skill_mother[0]; a = 0; b = 0;
-	while (count>0 && s <= skill_mother[count - 1])
+	while (count > 0 && s <= skill_mother[count - 1])
 	{
 		//011012 lsw
 		if (!SCharacterData.SkillId[s] && SCharacterData.nJobSkill[ITEM_IDENTIFICATION].skillexp >= (unsigned int)skill[s].skillable)
@@ -3050,21 +3050,21 @@ void ChangeItem(int start)			// 단축키를 이용하여 아이템을 바꿔준
 
 	int ct = 0, i;
 
-	for (i = 1; i<Num_Of_CItem_Plant; i++) { item_array[ct].item_no = i + PLANT * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Mineral; i++) { item_array[ct].item_no = i + MINERAL * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Herb; i++) { item_array[ct].item_no = i + HERB * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Cook; i++) { item_array[ct].item_no = i + COOK * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Potion; i++) { item_array[ct].item_no = i + POTION * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Tool; i++) { item_array[ct].item_no = i + TOOL * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Weapon; i++) { item_array[ct].item_no = i + WEAPON * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Disposable; i++) { item_array[ct].item_no = i + DISPOSABLE * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Armor; i++) { item_array[ct].item_no = i + ARMOR * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Accessory; i++) { item_array[ct].item_no = i + ACCESSORY * 1000;  ct++; }
-	for (i = 1; i<Num_Of_CItem_Etc; i++) { item_array[ct].item_no = i + ETC * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Plant; i++) { item_array[ct].item_no = i + PLANT * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Mineral; i++) { item_array[ct].item_no = i + MINERAL * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Herb; i++) { item_array[ct].item_no = i + HERB * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Cook; i++) { item_array[ct].item_no = i + COOK * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Potion; i++) { item_array[ct].item_no = i + POTION * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Tool; i++) { item_array[ct].item_no = i + TOOL * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Weapon; i++) { item_array[ct].item_no = i + WEAPON * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Disposable; i++) { item_array[ct].item_no = i + DISPOSABLE * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Armor; i++) { item_array[ct].item_no = i + ARMOR * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Accessory; i++) { item_array[ct].item_no = i + ACCESSORY * 1000;  ct++; }
+	for (i = 1; i < Num_Of_CItem_Etc; i++) { item_array[ct].item_no = i + ETC * 1000;  ct++; }
 
 
 	int count = 0;
-	for (i = start; i<start + inv_total; i++)
+	for (i = start; i < start + inv_total; i++)
 	{
 		ct = i % max;
 		if (item_array[ct].item_no < 0) break;
@@ -3104,11 +3104,11 @@ void CMagic::SetArray2()
 	int second = (m_data[MagicClass] - 1) % 4;
 	int third = 0;
 
-	for (int b = 0; b<15; b++)
+	for (int b = 0; b < 15; b++)
 	{
 		if (n_MagicBagic[SCharacterData.nCharacterData[SPELL]][m_data[MagicClass] - 1][b] == GetMagicNum())
 		{
-			for (int z = 0; z<15; z++)
+			for (int z = 0; z < 15; z++)
 				if (!aMagicItem[first][second][z / 5][z % 5])
 				{
 					third = z;
@@ -3131,7 +3131,7 @@ void CMagic::SetArray2()
 void MagicSetting()		// 자동 메모라이즈를 하지 않는다.
 {
 	memset(aMagicItem, 0, sizeof(int[3][4][3][5]));
-	for (int a = 0; a<MAX_MAGIC_; a++)
+	for (int a = 0; a < MAX_MAGIC_; a++)
 	{
 		if (SCharacterData.curr_magic[a])
 		{
@@ -3149,9 +3149,9 @@ void CMagic::SetArray()
 	int second = (m_data[MagicClass] - 1) % 4;
 	int third = 0;
 
-	for (int b = 0; b<3; b++)
+	for (int b = 0; b < 3; b++)
 	{
-		for (int c = 0; c<5; c++)
+		for (int c = 0; c < 5; c++)
 		{
 			if (!aMagicItem[first][second][b][c])
 			{
@@ -3178,7 +3178,7 @@ int CItem_Plant::EatItem()
 	if (ch.nCharacterSP > ch.nCharacterMAXSP) ch.nCharacterSP = ch.nCharacterMAXSP;
 
 	int *temp = &cure_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3187,7 +3187,7 @@ int CItem_Plant::EatItem()
 	}
 
 	temp = &take_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && !ch.disease[i])
 		{
@@ -3208,7 +3208,7 @@ int CItem_Herb::EatItem()
 	if (ch.nCharacterSP > ch.nCharacterMAXSP) ch.nCharacterSP = ch.nCharacterMAXSP;
 
 	int *temp = &cure_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3218,7 +3218,7 @@ int CItem_Herb::EatItem()
 	}
 
 	temp = &take_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && !ch.disease[i])
 		{
@@ -3318,7 +3318,7 @@ int CItem_Cook::EatItem()
 
 
 	int *temp = &cure_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3328,7 +3328,7 @@ int CItem_Cook::EatItem()
 	}
 
 	temp = &take_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && !ch.disease[i])
 		{
@@ -3426,7 +3426,7 @@ int CItem_Potion::EatItem()
 
 
 	int *temp = &cure_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3436,7 +3436,7 @@ int CItem_Potion::EatItem()
 	}
 
 	temp = &take_disease1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && !ch.disease[i])
 		{
@@ -3584,7 +3584,7 @@ int CItem_Weapon::EquipItem()
 	ch.nCharacterSP += Change_health_max;
 
 	int *temp = &imunity_Cure_1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3660,7 +3660,7 @@ int CItem_Armor::EquipItem()
 	ch.nCharacterSP += Change_health_max;
 
 	int *temp = &imunity_Cure_1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3734,7 +3734,7 @@ int CItem_Accessory::EquipItem()
 	ch.nCharacterSP += Change_health_max;
 
 	int *temp = &imunity_Cure_1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -3809,7 +3809,7 @@ int CItem_Etc::EquipItem()
 	ch.nCharacterSP += Change_health_max;
 
 	int *temp = &imunity_Cure_1;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(temp + i) && ch.disease[i])
 		{
@@ -4165,7 +4165,7 @@ bool LoadItemJoinTable()
 		{
 			char *tt = (char *)item_join;
 			char crc = 0;
-			for (int i = 0; i<sizeof(CItem_Join)*ITEM_JOIN_MAX; i++)
+			for (int i = 0; i < sizeof(CItem_Join)*ITEM_JOIN_MAX; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -4187,7 +4187,7 @@ bool LoadItemJoinTable()
 			fread(&crc2, 1, 1, fp);
 			fclose(fp);
 
-			for (int i = 0; i<sizeof(CItem_Join)*ITEM_JOIN_MAX; i++)
+			for (int i = 0; i < sizeof(CItem_Join)*ITEM_JOIN_MAX; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -4220,7 +4220,7 @@ inline void ReadItemSokSungKind(char * buf, int i)
 
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;	ItemMutantKind[i].upgrade_type = atoi(token);
 	int Count = 0;
-	for (Count = 0; Count<8; Count++)
+	for (Count = 0; Count < 8; Count++)
 	{
 		token = strtok(NULL, "\t\n"); if (token == NULL) return;	ItemMutantKind[i].AddItem[Count] = atoi(token);
 
@@ -4251,7 +4251,7 @@ bool LoadItemSokSungKindTable()
 		{
 			fgets(buf, 1023, fp);
 			if (*buf == ';') continue;
-			if (i> MAX_ITEM_MUTANT_KIND - 1) break;
+			if (i > MAX_ITEM_MUTANT_KIND - 1) break;
 			ReadItemSokSungKind(buf, i);
 			i++;
 		}
@@ -4329,7 +4329,7 @@ bool LoadItemSokSungGradeTable()
 		{
 			fgets(buf, 1023, fp);
 			if (*buf == ';') continue;
-			if (i> MAX_ITEM_GRADE - 1) break;
+			if (i > MAX_ITEM_GRADE - 1) break;
 			ReadItemSokSungGrade(buf, i);
 			i++;
 		}
@@ -4394,13 +4394,13 @@ inline void ReadItemSokSung(char * buf, int i)
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iExpMark = atoi(token);
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iMakeAble = atoi(token);
 	int Count = 0;
-	for (Count = 0; Count<8; Count++)
+	for (Count = 0; Count < 8; Count++)
 	{
 		token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].RaisePro[Count] = atoi(token);
 	}
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iUpgradeAble = atoi(token);
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iAbleNation = atoi(token);
-	for (Count = 0; Count<16; Count++)
+	for (Count = 0; Count < 16; Count++)
 	{
 		token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].GRADE[Count] = atoi(token);
 	}
@@ -4431,7 +4431,7 @@ bool LoadItemSokSungTable()
 		{
 			fgets(buf, 1023, fp);
 			if (*buf == ';') continue;
-			if (i> MAX_ITEM_RARE - 1) break;
+			if (i > MAX_ITEM_RARE - 1) break;
 			ReadItemSokSung(buf, i);
 			i++;
 		}
@@ -4689,10 +4689,10 @@ int CanMakeItemListSet(int s, int menu)		// 만들수 있는 아이템 등록
 void CalcGuildToSkill()
 {
 	memset(inclusive_to_skill, 0, sizeof(int)*MAX_SKILL_KIND * 8);
-	for (int i = 0; i<MAX_SKILL; i++)
+	for (int i = 0; i < MAX_SKILL; i++)
 	{
 		int para = skill[i].inclusive;
-		for (int j = 0; j<8; j++)
+		for (int j = 0; j < 8; j++)
 		{
 			if (!inclusive_to_skill[para][j])
 			{
@@ -4738,8 +4738,8 @@ ItemAttr *GetItemByPos(POS item)
 CItem *ItemUnit(int type, int item_no)
 {
 	//	if( !item_no ) return NULL;
-	if ((type<0) || (type>10)) goto ITEM_UNIT_NOT;
-	if ((item_no<0) || (item_no >= Item_Ref.nItem[type])) goto ITEM_UNIT_NOT;
+	if ((type < 0) || (type > 10)) goto ITEM_UNIT_NOT;
+	if ((item_no < 0) || (item_no >= Item_Ref.nItem[type])) goto ITEM_UNIT_NOT;
 
 	return Item_Ref.Item_type[type][item_no];
 
@@ -4790,7 +4790,7 @@ int DeleteItem(POS pos)
 // 배운 아이템에 넣어 둔다.
 void SetLearnItem()
 {
-	for (int i = 0; i<ITEM_JOIN_MAX; i++)
+	for (int i = 0; i < ITEM_JOIN_MAX; i++)
 	{
 		if (!item_join[i].need_know && item_join[i].item_id)
 		{
@@ -4805,7 +4805,7 @@ void SetLearnItem()
 //////////////////////////////////////////////////////////////////////////////
 bool CanLearnItem(int item, int price, int &join_no)
 {
-	for (int i = 0; i<ITEM_JOIN_MAX; i++)
+	for (int i = 0; i < ITEM_JOIN_MAX; i++)
 	{
 		if (item_join[i].item_id == item && item_join[i].tech_price == menu_to_set[price])
 		{
@@ -4818,7 +4818,7 @@ bool CanLearnItem(int item, int price, int &join_no)
 
 bool CanLearnItemForExplain(int item)
 {
-	for (int i = 0; i<ITEM_JOIN_MAX; i++)
+	for (int i = 0; i < ITEM_JOIN_MAX; i++)
 	{
 		if (item_join[i].item_id == item)
 		{
@@ -4906,9 +4906,9 @@ void GetItemDuration(ItemAttr item, WORD &d_curr, WORD &d_max)
 
 void DeleteItemByItemNumber(int item)
 {
-	for (int i = 0; i<3; i++)		// inventory
-		for (int j = 0; j<3; j++)
-			for (int k = 0; k<8; k++)
+	for (int i = 0; i < 3; i++)		// inventory
+		for (int j = 0; j < 3; j++)
+			for (int k = 0; k < 8; k++)
 			{
 				if (item == InvItemAttr[i][j][k].item_no)
 				{
@@ -4916,7 +4916,7 @@ void DeleteItemByItemNumber(int item)
 					return;
 				}
 			}
-	for (int i = 0; i<8; i++)			// equip inv
+	for (int i = 0; i < 8; i++)			// equip inv
 	{
 		if (item == EquipItemAttr[i].item_no)
 		{
@@ -4925,7 +4925,7 @@ void DeleteItemByItemNumber(int item)
 		}
 	}
 
-	for (int i = 0; i<6; i++)			// quick inv
+	for (int i = 0; i < 6; i++)			// quick inv
 	{
 		if (item == QuickItemAttr[i].item_no)
 		{
@@ -4943,7 +4943,7 @@ void CItem_Plant::CopyItemClass(CItem_Plant *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -4959,7 +4959,7 @@ void CItem_Mineral::CopyItemClass(CItem_Mineral *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -4975,7 +4975,7 @@ void CItem_Herb::CopyItemClass(CItem_Herb *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -4991,7 +4991,7 @@ void CItem_Cook::CopyItemClass(CItem_Cook *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5007,7 +5007,7 @@ void CItem_Potion::CopyItemClass(CItem_Potion *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5023,7 +5023,7 @@ void CItem_Tool::CopyItemClass(CItem_Tool *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5039,7 +5039,7 @@ void CItem_Weapon::CopyItemClass(CItem_Weapon *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5055,7 +5055,7 @@ void CItem_Disposable::CopyItemClass(CItem_Disposable *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5071,7 +5071,7 @@ void CItem_Armor::CopyItemClass(CItem_Armor *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5087,7 +5087,7 @@ void CItem_Accessory::CopyItemClass(CItem_Accessory *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5103,7 +5103,7 @@ void CItem_Etc::CopyItemClass(CItem_Etc *source, int ct)
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
-	for (int i = 0; i<ct - 3; i++)
+	for (int i = 0; i < ct - 3; i++)
 	{
 		*item_value = *source_item_value;
 		item_value++;
@@ -5154,9 +5154,9 @@ void EquipSound(int item_no)
 
 void FreeItemIcon()
 {
-	for (int i = 0; i< ITEM_MAX; i++)
+	for (int i = 0; i < ITEM_MAX; i++)
 	{
-		for (int j = 0; j<10; j++)
+		for (int j = 0; j < 10; j++)
 		{
 			if (Icon1[i][j].img) MemFree(Icon1[i][j].img);
 			if (Icon2[i][j].img) MemFree(Icon2[i][j].img);
@@ -5181,14 +5181,14 @@ int GetTotalWeight()
 {
 	int a, b, c;
 	int weight = 0;
-	for (a = 0; a<3; a++)
-		for (b = 0; b<3; b++)
-			for (c = 0; c<8; c++)
+	for (a = 0; a < 3; a++)
+		for (b = 0; b < 3; b++)
+			for (c = 0; c < 8; c++)
 				if (InvItemAttr[a][b][c].item_no)
 					weight += GetWeight(InvItemAttr[a][b][c]);
-	for (a = 0; a<6; a++)
+	for (a = 0; a < 6; a++)
 		if (QuickItemAttr[a].item_no)	weight += GetWeight(QuickItemAttr[a]);
-	for (a = 0; a<8; a++)
+	for (a = 0; a < 8; a++)
 		if (EquipItemAttr[a].item_no)	weight += GetWeight(EquipItemAttr[a]);
 	if (HandItemAttr.item_no) weight += GetWeight(HandItemAttr);
 	return weight;
@@ -5219,7 +5219,7 @@ int LoadMagicName()		// 마법 이름만 다 읽어 온다. // priest는 매직�
 
 	sprintf(filenameBin, "./magic/wizard.bin");
 
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		fp = Fopen(filenameBin, "rb");
 		if (fp)
@@ -5231,9 +5231,9 @@ int LoadMagicName()		// 마법 이름만 다 읽어 온다. // priest는 매직�
 			fclose(fp);
 
 			if (i == 0)
-				for (int j = 0; j<150; j++) strcpy(g_MagicName[j], temp_magic[j].GetName());
+				for (int j = 0; j < 150; j++) strcpy(g_MagicName[j], temp_magic[j].GetName());
 			else
-				for (int j = 0; j<50; j++) strcpy(g_MagicName[j + 150], temp_magic[j].GetName());
+				for (int j = 0; j < 50; j++) strcpy(g_MagicName[j + 150], temp_magic[j].GetName());
 
 			sprintf(filenameBin, "./magic/priest.bin");
 		}
@@ -5308,7 +5308,7 @@ void ItemSoundOfDropItem(int item_no)
 void CheckAbility()
 {
 	::memset(SCharacterData.nAbilityPlusOfWeapon, 0, sizeof(int) * 11);
-	for (int i = 0; i<8; i++)		// 현재 입고 시작하는 아이템에 대한...
+	for (int i = 0; i < 8; i++)		// 현재 입고 시작하는 아이템에 대한...
 	{
 		CallItemVirtualFunction(VF_CURR_EQUIP, EquipItemAttr[i].item_no);
 	}
@@ -5360,7 +5360,7 @@ void CItemExplain::GetItemExplain(int n)
 		{
 			char *tt = (char *)m_Item;
 			char crc = 0;
-			for (int i = 0; i<sizeof(CItemExplainBasic)*m_nCount; i++)
+			for (int i = 0; i < sizeof(CItemExplainBasic)*m_nCount; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -5384,7 +5384,7 @@ void CItemExplain::GetItemExplain(int n)
 			fread(&crc2, 1, 1, fp);
 			fclose(fp);
 
-			for (int i = 0; i<sizeof(CItemExplainBasic)*m_nCount; i++)
+			for (int i = 0; i < sizeof(CItemExplainBasic)*m_nCount; i++)
 			{
 				crc += *tt;
 				tt++;
@@ -5426,9 +5426,9 @@ int CItemExplain::SetValue(int para, char *buf)
 }
 void CItemExplain::SortingById()
 {
-	for (int i = 0; i<m_nCount - 1; i++)
+	for (int i = 0; i < m_nCount - 1; i++)
 	{
-		for (int j = i; j<m_nCount; j++)
+		for (int j = i; j < m_nCount; j++)
 		{
 			if (m_Item[i].m_nItemId == 0 || m_Item[i].m_nItemId > m_Item[j].m_nItemId)
 			{
@@ -5472,9 +5472,9 @@ char *CItemExplain::GetExplain(int para)
 int CheckInventory(const int iItemNo, const int iNeedCount)//021111 lsw
 {
 	int ct = 0;
-	for (int a = 0; a<3; a++)
-		for (int b = 0; b<3; b++)
-			for (int c = 0; c<8; c++)
+	for (int a = 0; a < 3; a++)
+		for (int b = 0; b < 3; b++)
+			for (int c = 0; c < 8; c++)
 			{
 				if (InvItemAttr[a][b][c].item_no == iItemNo) ct++;
 			}
@@ -5495,7 +5495,7 @@ void CItem_Weapon::GetItemNeedAbility(int &count, int *type, int *value)
 
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5512,7 +5512,7 @@ void CItem_Armor::GetItemNeedAbility(int &count, int *type, int *value)
 	int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5529,7 +5529,7 @@ void CItem_Disposable::GetItemNeedAbility(int &count, int *type, int *value)
 	int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5546,7 +5546,7 @@ void CItem_Accessory::GetItemNeedAbility(int &count, int *type, int *value)
 	int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5563,7 +5563,7 @@ void CItem_Etc::GetItemNeedAbility(int &count, int *type, int *value)
 	int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5580,7 +5580,7 @@ void CItem_Herb::GetItemChangeAbility(int &count, int *type, int *value)
 	static int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5595,7 +5595,7 @@ void CItem_Cook::GetItemChangeAbility(int &count, int *type, int *value)
 	static int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5610,7 +5610,7 @@ void CItem_Potion::GetItemChangeAbility(int &count, int *type, int *value)
 	static int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5625,7 +5625,7 @@ void CItem_Tool::GetItemChangeAbility(int &count, int *type, int *value)
 	static int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5641,7 +5641,7 @@ void CItem_Weapon::GetItemChangeAbility(int &count, int *type, int *value)
 	static int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5657,7 +5657,7 @@ void CItem_Armor::GetItemChangeAbility(int &count, int *type, int *value)
 	static int max = sizeof(need) / sizeof(int);
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5674,7 +5674,7 @@ void CItem_Etc::GetItemChangeAbility(int &count, int *type, int *value)
 
 	int t[] = { 0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5692,7 +5692,7 @@ void CItem_Accessory::GetItemChangeAbility(int &count, int *type, int *value)
 
 
 	count = 0;
-	for (int i = 0; i< max; i++)
+	for (int i = 0; i < max; i++)
 	{
 		if (need[i])
 		{
@@ -5705,7 +5705,7 @@ void CItem_Accessory::GetItemChangeAbility(int &count, int *type, int *value)
 int GetAntiMagic_1(int *anti, int *ability)
 {
 	int count = 0;
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		if (*(ability + i))
 		{

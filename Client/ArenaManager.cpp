@@ -104,7 +104,7 @@ void CArenaTeam::DelGambler(WORD idGambler)
 {
 	m_ltGambler.remove(idGambler);
 }
-	
+
 void CArenaTeam::ClearGambler()
 {
 	m_ltGambler.clear();
@@ -119,7 +119,7 @@ void CArenaTeam::DelObserve(WORD idObserve)
 {
 	m_ltObserve.remove(idObserve);
 }
-	
+
 void CArenaTeam::ClearObserve()
 {
 	m_ltObserve.clear();
@@ -174,7 +174,7 @@ void CArenaManager::Clear()
 void CArenaManager::Reset()
 {
 	m_pLobby->ClearMember();
-	
+
 	for (ITOR_TEAM i = m_vtTeam.begin(); i != m_vtTeam.end(); ++i)
 	{
 		(*i)->ClearMember();
@@ -212,7 +212,7 @@ void CArenaManager::SendLeaveLobby()
 
 void CArenaManager::SendEnterTeam(int nTeam)
 {
-	t_packet packet;		
+	t_packet packet;
 	packet.h.header.type = CMD_ARENA_ENTER_TEAM;
 	packet.h.header.size = sizeof(t_arena_enter_team);
 	packet.u.arena.arena_enter_team.nArenaGame = m_nSelectGame;
@@ -222,7 +222,7 @@ void CArenaManager::SendEnterTeam(int nTeam)
 
 void CArenaManager::SendLeaveTeam()
 {
-	t_packet packet;		
+	t_packet packet;
 	packet.h.header.type = CMD_ARENA_LEAVE_TEAM;
 	packet.h.header.size = sizeof(t_arena_leave_team);
 	packet.u.arena.arena_leave_team.nArenaGame = m_nSelectGame;
@@ -232,7 +232,7 @@ void CArenaManager::SendLeaveTeam()
 void CArenaManager::SendReadyGame(WORD idMember)
 {	//< CSD-TW-030618
 	LPCHARACTER pMember = ::ReturnCharacterPoint(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -250,7 +250,7 @@ void CArenaManager::SendReadyGame(WORD idMember)
 
 void CArenaManager::SendEnterObserve(int nTeam)
 {
-	t_packet packet;		
+	t_packet packet;
 	packet.h.header.type = CMD_ARENA_ENTER_OBSERVE;
 	packet.h.header.size = sizeof(t_arena_enter_observe);
 	packet.u.arena.arena_enter_observe.nArenaGame = m_nSelectGame;
@@ -262,7 +262,7 @@ void CArenaManager::SendEnterObserve(int nTeam)
 
 void CArenaManager::SendEnterGambling(int nTeam, DWORD dwMoney)
 {
-	t_packet packet;		
+	t_packet packet;
 	packet.h.header.type = CMD_ARENA_ENTER_GAMBLING;
 	packet.h.header.size = sizeof(t_arena_enter_gambling);
 	packet.u.arena.arena_enter_gambling.nArenaGame = m_nSelectGame;
@@ -274,7 +274,7 @@ void CArenaManager::SendEnterGambling(int nTeam, DWORD dwMoney)
 }
 
 void CArenaManager::RecvAddLobby(t_arena_add_lobby* pPacket)
-{	
+{
 	if (!IsSelectGame())
 	{
 		OUTPUT(MK_INFORMATION, lan->OutputMessage(1, 114));
@@ -283,7 +283,7 @@ void CArenaManager::RecvAddLobby(t_arena_add_lobby* pPacket)
 
 	const WORD idMember = pPacket->idMember;
 	LPCHARACTER pMember = ::ReturnCharacterPoint(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -293,7 +293,7 @@ void CArenaManager::RecvAddLobby(t_arena_add_lobby* pPacket)
 	{
 		return;
 	}
-	
+
 	m_pLobby->AddMember(idMember);
 }
 
@@ -307,7 +307,7 @@ void CArenaManager::RecvDeleteLobby(t_arena_delete_lobby* pPacket)
 
 	const WORD idMember = pPacket->idMember;
 	LPCHARACTER pMember = ::ReturnCharacterPoint(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -331,7 +331,7 @@ void CArenaManager::RecvAddTeam(t_arena_add_team* pPacket)
 
 	const DWORD idMember = pPacket->idMember;
 	LPCHARACTER pMember = ::ReturnCharacterPoint(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -351,14 +351,14 @@ void CArenaManager::RecvAddTeam(t_arena_add_team* pPacket)
 
 	m_vtTeam[nTeam]->AddMember(idMember);
 
-	::AddCurrentStatusMessage(220, 220, 
-		                      0, 
-		                      lan->OutputMessage(3,44), 
-							  pMember->name, 
-							  FightTeam[nTeam]);
+	::AddCurrentStatusMessage(220, 220,
+		0,
+		lan->OutputMessage(3, 44),
+		pMember->name,
+		FightTeam[nTeam]);
 	::OpenFightMapSignMenuOpen(fight_map_live_man);
 }
-	
+
 void CArenaManager::RecvDeleteTeam(t_arena_delete_team* pPacket)
 {
 	if (!IsSelectGame())
@@ -369,7 +369,7 @@ void CArenaManager::RecvDeleteTeam(t_arena_delete_team* pPacket)
 
 	const WORD idMember = pPacket->idMember;
 	LPCHARACTER pMember = ::ReturnCharacterPoint(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -390,12 +390,12 @@ void CArenaManager::RecvDeleteTeam(t_arena_delete_team* pPacket)
 	pMember->fight_map_team_num = 0;
 	m_vtTeam[nTeam]->DelMember(idMember);
 
-	::AddCurrentStatusMessage(200, 50, 
-		                      50, 
-							  lan->OutputMessage(3,45), 
-							  pMember->name, 
-							  FightTeam[nTeam]);
-	
+	::AddCurrentStatusMessage(200, 50,
+		50,
+		lan->OutputMessage(3, 45),
+		pMember->name,
+		FightTeam[nTeam]);
+
 	if (IsLeader(idMember))
 	{
 		m_idLeader = 0;
@@ -414,7 +414,7 @@ void CArenaManager::RecvAddGambling(t_arena_add_gambling* pPacket)
 
 	const WORD idGambler = pPacket->idGambler;
 	LPCHARACTER pGambler = ::ReturnCharacterPoint(pPacket->idGambler);
-	
+
 	if (pGambler == NULL)
 	{
 		return;
@@ -445,7 +445,7 @@ void CArenaManager::RecvDeleteGambling(t_arena_delete_gambling* pPacket)
 
 	const WORD idGambler = pPacket->idGambler;
 	LPCHARACTER pGambler = ::ReturnCharacterPoint(idGambler);
-	
+
 	if (pGambler == NULL)
 	{
 		return;
@@ -476,7 +476,7 @@ void CArenaManager::RecvAddObserve(t_arena_add_observe* pPacket)
 
 	const WORD idObserve = pPacket->idObserve;
 	LPCHARACTER pObserve = ::ReturnCharacterPoint(pPacket->idObserve);
-	
+
 	if (pObserve == NULL)
 	{
 		return;
@@ -496,7 +496,7 @@ void CArenaManager::RecvAddObserve(t_arena_add_observe* pPacket)
 
 	m_vtTeam[nTeam]->AddObserve(idObserve);
 }
-	
+
 void CArenaManager::RecvDeleteObserve(t_arena_delete_observe* pPacket)
 {
 	if (!IsSelectGame())
@@ -507,7 +507,7 @@ void CArenaManager::RecvDeleteObserve(t_arena_delete_observe* pPacket)
 
 	const WORD idObserve = pPacket->idObserve;
 	LPCHARACTER pObserve = ::ReturnCharacterPoint(pPacket->idObserve);
-	
+
 	if (pObserve == NULL)
 	{
 		return;
@@ -529,7 +529,7 @@ void CArenaManager::RecvDeleteObserve(t_arena_delete_observe* pPacket)
 }
 
 void CArenaManager::RecvLeaderInfo(t_arena_leader_info* pPacket)
-{	
+{
 
 	if (!IsSelectGame())
 	{
@@ -539,7 +539,7 @@ void CArenaManager::RecvLeaderInfo(t_arena_leader_info* pPacket)
 
 	const WORD idLeader = pPacket->idLeader;
 	LPCHARACTER pLeader = ::ReturnCharacterPoint(idLeader);
-	
+
 	if (pLeader == NULL)
 	{
 		return;
@@ -557,7 +557,7 @@ void CArenaManager::RecvProbabilityInfo(t_arena_probability_info* pPacket)
 	}
 
 	const int nTeam = pPacket->nArenaTeam;
-	
+
 	if (nTeam < 0 || nTeam > 1)
 	{
 		return;
@@ -575,7 +575,7 @@ void CArenaManager::RecvGamblingInfo(t_arena_gambling_info* pPacket)
 	}
 
 	const int nTeam = pPacket->nArenaTeam;
-	
+
 	if (nTeam < 0 || nTeam > 1)
 	{
 		return;
@@ -604,9 +604,9 @@ void CArenaManager::RecvReadyInfo(t_arena_ready_info* pPacket)
 		return;
 	}
 
-	
+
 	m_dwReadyTime = pPacket->dwReadyTime;
-	
+
 	if (IsReadyGame())
 	{	//< CSD-031106
 		MP3(SN_FIGHT_TIME);
@@ -616,12 +616,12 @@ void CArenaManager::RecvReadyInfo(t_arena_ready_info* pPacket)
 void CArenaManager::RecvGameInfo(t_arena_game_info* pPacket)
 {	//< CSD-TW-030701
 	const char* pMapName = ::GetMapNameByPort(pPacket->wPort);
-	
+
 	if (pMapName == NULL)
 	{
 		return;
 	}
-	
+
 	const int nCount = pPacket->wMemberCount;
 	const char* pLeader = pPacket->szLeader;
 	// [%s] : 총[%d]명	    방장 : [%s]
@@ -638,12 +638,12 @@ void CArenaManager::RecvStartGame(t_arena_start_game* pPacket)
 
 	const WORD idLeader = pPacket->idLeader;
 	LPCHARACTER pLeader = ::ReturnCharacterPoint(idLeader);
-	
+
 	if (pLeader == NULL)
 	{
 		return;
 	}
-	
+
 	::CallServer(CMD_ARENA_START_GAME);
 	// 리더 초기화
 	m_idLeader = 0;
@@ -653,18 +653,18 @@ void CArenaManager::RecvGamblingResult(t_arena_gambling_result* pPacket)
 {
 	switch (pPacket->nPayment)
 	{
-    case 0:	
-		{
-			::AddCurrentStatusMessage(255, 180, 190, 
-				                      lan->OutputMessage(1, 118), pPacket->dwMoney);
-			break;
-		}
-	case 1:	
-		{
-			::AddCurrentStatusMessage(255, 180, 190, 
-				                      lan->OutputMessage(1, 120), pPacket->dwMoney);
-			break;
-		}   
+	case 0:
+	{
+		::AddCurrentStatusMessage(255, 180, 190,
+			lan->OutputMessage(1, 118), pPacket->dwMoney);
+		break;
+	}
+	case 1:
+	{
+		::AddCurrentStatusMessage(255, 180, 190,
+			lan->OutputMessage(1, 120), pPacket->dwMoney);
+		break;
+	}
 	}
 }
 
@@ -676,26 +676,26 @@ void CArenaManager::RecvArenaGameMessage1(t_arena_game_message1* pPacket)
 
 	switch (nMsgType)
 	{
-	case 1: 
-		{
-			AddCurrentStatusMessage(220, 220, 0, lan->OutputMessage(3,41), FightTeam[nTeamNumber], nGameData); //010215 lsw
-			fight_map_live_man[nTeamNumber] = nGameData;
-			::OpenFightMapSignMenuOpen(fight_map_live_man);
-			break;
-		}
+	case 1:
+	{
+		AddCurrentStatusMessage(220, 220, 0, lan->OutputMessage(3, 41), FightTeam[nTeamNumber], nGameData); //010215 lsw
+		fight_map_live_man[nTeamNumber] = nGameData;
+		::OpenFightMapSignMenuOpen(fight_map_live_man);
+		break;
+	}
 	case 2:
-		{
-			AddCurrentStatusMessage(220, 220, 0, kein_GetMenuString(159), FightTeam[nTeamNumber], nGameData); //010215 lsw
-			fight_map_live_man[nTeamNumber] = nGameData;
-			::OpenFightMapSignMenuOpen(fight_map_live_man);
-			break;
-		}
+	{
+		AddCurrentStatusMessage(220, 220, 0, kein_GetMenuString(159), FightTeam[nTeamNumber], nGameData); //010215 lsw
+		fight_map_live_man[nTeamNumber] = nGameData;
+		::OpenFightMapSignMenuOpen(fight_map_live_man);
+		break;
+	}
 	case 6:
-		{
-			fight_map_live_man[nTeamNumber] = nGameData;
-			::OpenFightMapSignMenuOpen(fight_map_live_man);
-			break;
-		}
+	{
+		fight_map_live_man[nTeamNumber] = nGameData;
+		::OpenFightMapSignMenuOpen(fight_map_live_man);
+		break;
+	}
 	}
 }	//> CSD-030523
 
@@ -703,14 +703,14 @@ void CArenaManager::RecvArenaGameMessage2(t_arena_game_message2* pPacket)
 {
 	const int nTeamNumber1 = pPacket->nTeamNumber1;
 	const int nTeamNumber2 = pPacket->nTeamNumber2;
-	
+
 	char* pTeamMember1 = pPacket->szTeamMember1;
 	char* pTeamMember2 = pPacket->szTeamMember2;
 	// %s(%s)님이 %s(%s)님에게 공격 당해 죽었습니다.
-	MP3( SN_KILL_WHO );
+	MP3(SN_KILL_WHO);
 	Kein_PutMessage(KM_FAIL, kein_GetMenuString(160),
-				    pTeamMember2, FightTeam[nTeamNumber2], 
-					pTeamMember1, FightTeam[nTeamNumber1]);
+		pTeamMember2, FightTeam[nTeamNumber2],
+		pTeamMember1, FightTeam[nTeamNumber1]);
 }
 
 void CArenaManager::RecvArenaGameMessage3(t_arena_game_message3* pPacket)
@@ -723,26 +723,26 @@ void CArenaManager::RecvArenaGameMessage3(t_arena_game_message3* pPacket)
 	switch (nMsgType)
 	{
 	case 4:
-		{
-			int r, g, b;
-			GetRGBByTeam(nTeamNumber, r, g, b);
-			AddCurrentStatusMessage(r, g, b, 
-				                    kein_GetMenuString(161), 
-									pTeamMember, 
-									FightTeam[nTeamNumber]);
-			break;
-		}
+	{
+		int r, g, b;
+		GetRGBByTeam(nTeamNumber, r, g, b);
+		AddCurrentStatusMessage(r, g, b,
+			kein_GetMenuString(161),
+			pTeamMember,
+			FightTeam[nTeamNumber]);
+		break;
+	}
 	case 5:
-		{
-			int r, g, b;
-			GetRGBByTeam(nTeamNumber, r, g, b);
-			AddCurrentStatusMessage(r, g, b, 
-				                    kein_GetMenuString(162), 
-									FightTeam[nTeamNumber], 
-									pTeamMember, 
-									nStoneNumber);
-			break;
-		}
+	{
+		int r, g, b;
+		GetRGBByTeam(nTeamNumber, r, g, b);
+		AddCurrentStatusMessage(r, g, b,
+			kein_GetMenuString(162),
+			FightTeam[nTeamNumber],
+			pTeamMember,
+			nStoneNumber);
+		break;
+	}
 	}
 }
 

@@ -1138,28 +1138,28 @@ void StartMenuChecking()
 					}
 					break;
 				}
-				//case 3:	{
-				//	int ArrayX=(g_pointMouseX - (SMenu[i].x + 202) )/8;
-				//	int ArrayY=(g_pointMouseY - (SMenu[i].y + 390) )/13;
-				//	if( (ArrayX >= 0) && (ArrayX <= 15)  &&  (ArrayY >=0) && (ArrayY <=15) ) // 마우스를 이용해 구한 좌표가 배열에 들어가냐?
-				//	{
-				//		if( ( (CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j ) )
-				//				SMenu[i].nField[j].fRectMouse = true;
-				//		else 
-				//		{
-				//			SMenu[i].nField[j].fRectMouse=false;
-				//			SMenu[i].nField[j].fLButtonDown=false;
-				//			SMenu[i].nField[j].fCheakFlag=false;
-				//		}
-				//	}
-				//	else	
-				//	{
-				//			SMenu[i].nField[j].fRectMouse=false;
-				//			SMenu[i].nField[j].fLButtonDown=false;
-				//	//		SMenu[i].nField[j].fCheakFlag=false;
-				//	}
-				//	break;
-				//}
+						//case 3:	{
+						//	int ArrayX=(g_pointMouseX - (SMenu[i].x + 202) )/8;
+						//	int ArrayY=(g_pointMouseY - (SMenu[i].y + 390) )/13;
+						//	if( (ArrayX >= 0) && (ArrayX <= 15)  &&  (ArrayY >=0) && (ArrayY <=15) ) // 마우스를 이용해 구한 좌표가 배열에 들어가냐?
+						//	{
+						//		if( ( (CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j ) )
+						//				SMenu[i].nField[j].fRectMouse = true;
+						//		else 
+						//		{
+						//			SMenu[i].nField[j].fRectMouse=false;
+						//			SMenu[i].nField[j].fLButtonDown=false;
+						//			SMenu[i].nField[j].fCheakFlag=false;
+						//		}
+						//	}
+						//	else	
+						//	{
+						//			SMenu[i].nField[j].fRectMouse=false;
+						//			SMenu[i].nField[j].fLButtonDown=false;
+						//	//		SMenu[i].nField[j].fCheakFlag=false;
+						//	}
+						//	break;
+						//}
 				}
 			}
 		}
@@ -1487,7 +1487,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					break;
 				}
 			}break;
-			default: 
+			default:
 				break;
 			}
 
@@ -1505,7 +1505,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				target_number = SubMenu->nField[j].nSpecialWillDo;
 			}
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, target_number, SubMenu->nField[j].nImageType);
-		
+
 			break;
 		}
 		case FT_HIDE_AUTO_PUT: {
@@ -1835,7 +1835,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			switch (SubMenu->nField[j].nWillDo)
 			{
 			case MN_MAKECHARACTER_CLASS:
-				if (SCharSource.nCharacterData[CLASS] == -1) 
+				if (SCharSource.nCharacterData[CLASS] == -1)
 					flag = TRUE;
 				break;
 			case MN_MAKECHARACTER_JOB:
@@ -1932,7 +1932,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					}
 				}
 				case SWD_CHARACTER_DEL_ADD: {	//020802 lsw
-				
+
 					if (*SCharSource.sCharacterName) // delete
 					{
 						MP3(SN_WARNING);
@@ -1994,7 +1994,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					MP3(SN_MENU_OPEN);
 					break;
 				}
-				//기본적인 캐릭터 만들기가 끝나고 주사위를 굴려서 능력치를 설정하러 들어갈때
+											  //기본적인 캐릭터 만들기가 끝나고 주사위를 굴려서 능력치를 설정하러 들어갈때
 				case SWD_MAKECHARACTER_ABILITY: {
 					if (SCharSource.nCharacterData[SPELL]) // case priest 
 					{
@@ -2012,7 +2012,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					MP3(SN_MENU_OPEN);
 					break;
 				}
-				//캐릭터 이름을 쓰는 메뉴로 갈때
+												//캐릭터 이름을 쓰는 메뉴로 갈때
 				case SWD_MAKECHARACTER_ENTERNAME: {
 					//SMenu[MN_MAKECHARACTER_NAME].bActive=TRUE;
 					if (SCharSource.body_r == -1)
@@ -2034,7 +2034,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					SetFocus2(HWND_3);//021001 lsw
 					goto Label_2;
 				}
-				//클래스를 결정하는 메뉴에서 스펠이나 색을 결정하는 메뉴로 갈때
+												  //클래스를 결정하는 메뉴에서 스펠이나 색을 결정하는 메뉴로 갈때
 				case SWD_MAKECHARACTER_SPELLORCOLOR: {
 					//선택한 클래스가 스펠을 정해야 하냐 안정해도 되냐?
 					if (SCharSource.nCharacterData[CLASS] == WIZARD)				//클래스가위자드냐?
@@ -2058,7 +2058,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					MP3(SN_MENU_OPEN);
 					break;
 				}
-				//색을 결정하는 메뉴에서 택틱스를 결정하는 메뉴로 갈때
+													 //색을 결정하는 메뉴에서 택틱스를 결정하는 메뉴로 갈때
 				case SWD_MAKECHARACTER_TACTICS: {
 					if (SHideNomal[HN_MAKECHARACTER_COLOR_SELECT][0].bShow
 						|| SHideNomal[HN_MAKECHARACTER_COLOR_SELECT][1].bShow)
@@ -2247,7 +2247,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 						y_MenuFocus = 0;
 						break;
 					}
-					
+
 					//if( SubMenu->nTemp == MN_START_MAP )
 					//{
 					//MP3( SN_MENU_OPEN );
@@ -3081,7 +3081,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				Hprint2(SubMenu->x + SubMenu->nField[j].x, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SCharSource.sCharacterName);
 				break;
 			}
-			//이름쓰는 칸에 출력
+						  //이름쓰는 칸에 출력
 			case DP_NAMEEDITBOX: {
 				SetFocus2(HWND_3);//021001 lsw
 				EWndMgr.GetTxt(HWND_3, SCharSource.sCharacterName, 17);//021001 lsw
@@ -3160,13 +3160,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-			//클래스 출력
+						 //클래스 출력
 			case DP_CLASS: {
 				SetHangulAlign(TA_RIGHT);
 				Hprint2(SubMenu->x + SubMenu->nField[j].x + SubMenu->nField[j].nRectImage, SubMenu->y + SubMenu->nField[j].y, g_DestBackBuf, "%s", SHideNomal[HN_MAKECHARACTER_CLASS_TEXT][SCharSource.nCharacterData[CLASS]].temp);
 				break;
 			}
-			//스펠 출력
+						   //스펠 출력
 			case DP_SPELL: {
 				SetHangulAlign(TA_RIGHT);
 				if (SCharSource.nCharacterData[SPELL] == 0)
@@ -3179,7 +3179,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-			//택틱스 출력
+						   //택틱스 출력
 			case DP_TACTICS: {
 				SetHangulAlign(TA_RIGHT);
 				if (SCharSource.nCharacterData[GENDER])
@@ -3192,7 +3192,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				}
 				break;
 			}
-			//직업 출력
+							 //직업 출력
 			case DP_JOB: {
 				SetHangulAlign(TA_RIGHT);
 				int job = SCharSource.nCharacterData[JOB];
@@ -3254,7 +3254,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				const int para = SubMenu->nField[j].nWillDo;							// 현재 선택한 캐릭터
 				const int para_base = SubMenu->key << 2;			// muti 4
 				if (!LoadCh[para_base + para].sCharacterName[0]) break;
-				if (para_base+para == character_active)		// 고른놈만 에니메이션 
+				if (para_base + para == character_active)		// 고른놈만 에니메이션 
 				{
 					const int first_para = LoadCh[para_base + para].nCharacterData[GENDER];			// 스프라이트 인덱스 불러오기 위해	// 여자 남자
 					const int second_para = LoadCh[para_base + para].nCharacterData[CLASS];			// 선택 클래스
@@ -3360,8 +3360,8 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 			}
 			break;
 		}
-		// 0906 kkh 작업 해 넣을 부분.. \
-		// 이부분은 그림 데이터유무를 따져서 카운트를 늘려가다 그림 데이터가 없는 부분에서 값을 넘겨준다. 
+							 // 0906 kkh 작업 해 넣을 부분.. \
+					 		// 이부분은 그림 데이터유무를 따져서 카운트를 늘려가다 그림 데이터가 없는 부분에서 값을 넘겨준다. 
 		case FT_SELECT_FACE: {
 			int tempi = 1;
 			int a = 0;
@@ -3555,13 +3555,13 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				//}
 			}break;
 
-			//case DO_SELECT_LOAD_CHAR: {
-			//	if (SubMenu->nField[j].nSpecialWillDo != SubMenu->nField[j].nSHideNomalStart)
-			//	{
-			//		SubMenu->nField[j].nSpecialWillDo = SubMenu->nField[j].nSHideNomalStart;
-			//		SCharSource = LoadCh[SubMenu->nField[j].nSpecialWillDo];
-			//	}
-			//}break;
+				//case DO_SELECT_LOAD_CHAR: {
+				//	if (SubMenu->nField[j].nSpecialWillDo != SubMenu->nField[j].nSHideNomalStart)
+				//	{
+				//		SubMenu->nField[j].nSpecialWillDo = SubMenu->nField[j].nSHideNomalStart;
+				//		SCharSource = LoadCh[SubMenu->nField[j].nSpecialWillDo];
+				//	}
+				//}break;
 			case FT_DO_DEFAULT: //처음 로고 화면에서만 사용..
 			{//020515 lsw
 				static int tt = TRUE, pp;
@@ -3769,7 +3769,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 				//"상인은 물건을 숨겨 도둑으로부터 보호하면서 먼곳을 이동할수 있습니다.",
 				//},
 				//};
-				
+
 				//if( SubMenu->Id == MN_RESET_JOB ) SCharSource.nCharacterData[JOB] = count+20;
 
 				wsprintf(str[5][8], lan->OutputMessage(7, 162), SCharSource.nCharacterData[SPELL] == WIZARD_SPELL ? lan->OutputMessage(7, 163) : lan->OutputMessage(7, 164));//010216 lsw
@@ -3923,7 +3923,7 @@ void StartMenuSubProcessType(SMENU *SubMenu)
 					if (SubMenu->key > max_pageindex - 1)
 						SubMenu->key = max_pageindex - 1;
 
-					if (SubMenu->key < max_pageindex-1)
+					if (SubMenu->key < max_pageindex - 1)
 					{
 						SubMenu->key++;
 						character_active = SubMenu->key * 4 + character_active % 4;
@@ -4171,13 +4171,13 @@ void start_KeyProc()
 					return;
 				}
 
-				//case MN_LOGIN :	if(comp)
-				//{
-				//	SMenu[MN_LOGIN].nField[2].fCheakFlag=TRUE;
-				//	SMenu[MN_LOGIN].nField[2].fLButtonDown=FALSE;
-				//}
-				//else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
-				//return;
+							   //case MN_LOGIN :	if(comp)
+							   //{
+							   //	SMenu[MN_LOGIN].nField[2].fCheakFlag=TRUE;
+							   //	SMenu[MN_LOGIN].nField[2].fLButtonDown=FALSE;
+							   //}
+							   //else SMenu[MN_LOGIN].nField[2].fLButtonDown=TRUE;
+							   //return;
 				case MN_SYSTEM_LOGOUT: {
 					if (comp)
 					{
@@ -4475,7 +4475,7 @@ void MakeCharacterAbility()
 
 	for (int i = 0; i < 5; i++)	nDiceNumber[i] = 1;
 	return;
-	
+
 	//for(int i=STR; i<=LUCK; i++)
 	//{
 	//SCharSource.nCharacterAbility[i] = 10;
@@ -4708,10 +4708,10 @@ void LoadOpenningSpr(char *filename, BYTE **buf, Spr *temp_spr, int nMaxCount)
 		s->img = (char *)*buf + nOff;
 		convert565to555(s);
 		nOff += size;
-		}
+	}
 
 	fclose(fp);
-	}
+}
 
 
 void FreeOpenningSpr(BYTE **buf)

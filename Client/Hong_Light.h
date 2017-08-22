@@ -5,7 +5,7 @@
 #define MAX_OUTLIGHT_	50
 //////////////////////////////////////////////////////////
 ////////////////////// 이규훈 수정 1030 ///////////////////////
-typedef struct tagLIGHT{ 
+typedef struct tagLIGHT {
 	int x, y;
 	int light;
 	int flag;
@@ -13,13 +13,13 @@ typedef struct tagLIGHT{
 	int terminateFrame;
 }LIGHT, *LPLIGHT;
 
-	
-extern int  MapBright( void );
-extern void LoadBrightData( void );
 
-extern void MakergbTable( void);
+extern int  MapBright(void);
+extern void LoadBrightData(void);
 
-extern void OutputLight( int x, int y, int lightness, int color=0 );
+extern void MakergbTable(void);
+
+extern void OutputLight(int x, int y, int lightness, int color = 0);
 
 
 
@@ -31,14 +31,14 @@ extern int LightTableY;
 extern int DayLightControl;
 
 
-extern char *BrightSprBuf[ 21][2];
+extern char *BrightSprBuf[21][2];
 
 extern int   LightCount;
-extern LIGHT Light[ LIGHT_MAX_];
-extern LIGHT g_OutLight[ MAX_OUTLIGHT_];	
+extern LIGHT Light[LIGHT_MAX_];
+extern LIGHT g_OutLight[MAX_OUTLIGHT_];
 
 
-extern char BrightBuf[ (GAME_SCREEN_XSIZE/2) * (GAME_SCREEN_YSIZE/2) ];;
+extern char BrightBuf[(GAME_SCREEN_XSIZE / 2) * (GAME_SCREEN_YSIZE / 2)];;
 extern WORD rgbTable[32 * 65536];
 //////////////////// 0807 lkh 추가 //////////////////
 extern void	PutCharacterLight(LPCHARACTER	lpChar, int time);

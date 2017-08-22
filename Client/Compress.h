@@ -15,9 +15,9 @@
 
 typedef struct defNODE
 {
-  int parent;
-  int left;
-  int right;
+	int parent;
+	int left;
+	int right;
 } T_NODE[DICT_SIZE + 1];
 
 extern void Compress(t_packet *packet);

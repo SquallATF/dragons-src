@@ -13,9 +13,9 @@ class CMessage
 {
 	enum
 	{
-		MAX_SIZE			= 128,
+		MAX_SIZE = 128,
 		//MAX_MSG_NUM			= 500,		//txt에 들어있는 메시지갯수 // 021128 kyo
-		MAX_VARIABLE		= 10,		// 021128 kyo
+		MAX_VARIABLE = 10,		// 021128 kyo
 		/*
 		//AREA_EN		= 0,		//내용은 clanguage.h참조
 		AREA_KR		= 1,
@@ -29,8 +29,8 @@ class CMessage
 public:
 	CMessage();
 	~CMessage();
-	
-//variable
+
+	//variable
 	string		m_Msg[MAX_VARIABLE][MAX_MSG_NUM];
 
 	DWORD		WinAreaCode;			//국가 코드 그대로 가져온것 
@@ -38,19 +38,19 @@ public:
 	char *m_szFilePath;
 	char *m_szFileName;
 
-//funciton
+	//funciton
 	bool	Init();			//국가 세팅해서 파일명 지정
 	bool	LoadMessage();
 
 	int		CheckArea();	//국가 지정 CLaguage에서 그대로 가져와따.
-	char*	GetTextMessage( const int& iType, const int& iNum );	// 021128 kyo
-	char*	DividedMsg( char *tmp);
+	char*	GetTextMessage(const int& iType, const int& iNum);	// 021128 kyo
+	char*	DividedMsg(char *tmp);
 
-	char*	GetFileName(){ return m_szFileName;};
-	char*	GetFilePath(){ return m_szFilePath;};
+	char*	GetFileName() { return m_szFileName; };
+	char*	GetFilePath() { return m_szFilePath; };
 	//BOOL	DelAllMessage();
-		
-	
+
+
 };
 
 extern CMessage g_cMsg;

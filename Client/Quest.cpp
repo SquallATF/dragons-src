@@ -3,9 +3,9 @@
 
 #define	QSF_TELEPORT		1
 
-void	RecvQSF_Command( t_qsf_command	qc )
+void	RecvQSF_Command(t_qsf_command	qc)
 {
-	switch(qc.command)
+	switch (qc.command)
 	{
 	case QSF_TELEPORT:		//Teleport
 		break;

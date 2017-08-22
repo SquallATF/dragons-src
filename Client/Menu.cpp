@@ -2161,7 +2161,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 			if (SubMenu->Id == MN_ITEM) PrintQuickKey("PGDN");
 			FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 		}
-		break;
+									 break;
 
 		case FT_PARTY: {
 			if (!SubMenu->CheakType)
@@ -2838,24 +2838,24 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			break;
 		}
-		//	
-		//case FT_TEMBATLE_INFO : {
-		//							int willdo = SubMenu->nField[j].nWillDo;
-		//							int max = g_BattleZone.GetCount( willdo );
-		//							if( !max ) break;
-		//							char *name;
-		//							int count=0;
-		//							for( int i=0; i<MAX_TEAM_MEMBER; i++ )
-		//							{
-		//								name = g_BattleZone.m_team[willdo].member[i].name;
-		//								if( name[0] )
-		//								{
-		//									Hprint2( SubMenu->x+SubMenu->nField[j].x, SubMenu->y+SubMenu->nField[j].y, g_DestBackBuf, name );
-		//									count++;
-		//								}
-		//							}
-		//							break;
-		//						}
+						  //	
+						  //case FT_TEMBATLE_INFO : {
+						  //							int willdo = SubMenu->nField[j].nWillDo;
+						  //							int max = g_BattleZone.GetCount( willdo );
+						  //							if( !max ) break;
+						  //							char *name;
+						  //							int count=0;
+						  //							for( int i=0; i<MAX_TEAM_MEMBER; i++ )
+						  //							{
+						  //								name = g_BattleZone.m_team[willdo].member[i].name;
+						  //								if( name[0] )
+						  //								{
+						  //									Hprint2( SubMenu->x+SubMenu->nField[j].x, SubMenu->y+SubMenu->nField[j].y, g_DestBackBuf, name );
+						  //									count++;
+						  //								}
+						  //							}
+						  //							break;
+						  //						}
 		case FT_BANK_LOAN: {
 			if (!g_RecvLoanInfo) return;
 			break;
@@ -5912,7 +5912,7 @@ void MenuSubProcessType(SMENU *SubMenu)
 
 			//if( SubMenu->nField[j].fRectMouse && LeftShiftOn )
 			//	SubMenu->key = j;
-				
+
 			break;
 		}
 		case FT_USED_MAGIC_EXPLAIN: {
@@ -8450,7 +8450,7 @@ void DoButtonCheckOfMenu(int i, int j)
 		}
 
 		case SWD_PARTY_BUTTON: {
-			
+
 			//int field = SMenu[i].nField[j].nSHideNomalNumber;		// 역시 12번 필드를 가리킨다.
 			//int &para = SMenu[i].nField[field].nWillDo;
 			//para = 0;
@@ -9616,7 +9616,7 @@ void DoButtonCheckOfMenu(int i, int j)
 			case MN_BANK_DEPOSIT:	nBankTemp = 0; SendBankInfo(REQ_MY_DEPOSIT_INFO, 0); break;
 			case MN_BANK_REPAYMENT:	nBankTemp = 0; SendBankInfo(REQ_MY_REPAYMENT_INFO, 0); break;
 			case MN_BANK_DEFRAYAL:	nBankTemp = 0; SendBankInfo(REQ_MY_DEPOSIT_INFO, 0); break;
-			//case MN_BANK_LOAN :	nBankTemp = 0; break;
+				//case MN_BANK_LOAN :	nBankTemp = 0; break;
 			case MN_BANK_AUCTION: nBankTemp = 0; break;
 			}
 			CallMenu(menu, i);
@@ -10855,25 +10855,25 @@ void DoButtonCheckOfMenu(int i, int j)
 		case DO_BANK_SCROLL_LEFT:	break;
 		case DO_BANK_SCROLL_RIGHT:	break;
 
-		//case DO_LEARNSKILL_ICON : 
-		//{
-		//	int a = SMenu[i].nField[6].nSHideNomalStart;
-		//	int b = SMenu[i].nField[j].nSHideNomalStart;
-		//	int c;
-		//	c = g_pointMouseX - (SMenu[i].x + SMenu[i].nField[j].x);
+			//case DO_LEARNSKILL_ICON : 
+			//{
+			//	int a = SMenu[i].nField[6].nSHideNomalStart;
+			//	int b = SMenu[i].nField[j].nSHideNomalStart;
+			//	int c;
+			//	c = g_pointMouseX - (SMenu[i].x + SMenu[i].nField[j].x);
 
-		//	if (c > 0 && c < 35) c = 0;
-		//	else if (c > 45 && c < 80) c = 1;
-		//	else if (c > 90 && c < 125) c = 2;
-		//	else if (c > 140 && c < 175) c = 3;
-		//	else break;
+			//	if (c > 0 && c < 35) c = 0;
+			//	else if (c > 45 && c < 80) c = 1;
+			//	else if (c > 90 && c < 125) c = 2;
+			//	else if (c > 140 && c < 175) c = 3;
+			//	else break;
 
-		//	if (!SkillInventory[a][b][c])	break;
-		//	SMenu[i].work = SkillInventory[a][b][c];
-		//	//nSkillLearnResult = skill[SkillInventory[a][b][c]].CanLearnSkill( SMenu[i].nTemp - MN_BLACKSMITH );	// 서버 콜도 함수안에서 같이 한다.
-		//	break;
-		//}
-			
+			//	if (!SkillInventory[a][b][c])	break;
+			//	SMenu[i].work = SkillInventory[a][b][c];
+			//	//nSkillLearnResult = skill[SkillInventory[a][b][c]].CanLearnSkill( SMenu[i].nTemp - MN_BLACKSMITH );	// 서버 콜도 함수안에서 같이 한다.
+			//	break;
+			//}
+
 		}
 		break;
 	case FT_SKILL_PUT:
@@ -10944,7 +10944,7 @@ void DoButtonCheckOfMenu(int i, int j)
 		//	}
 		//}
 		//else
-		{
+	{
 		if (SCharacterData.EachUp[SMenu[i].nField[j].nWillDo] < 9999)
 		{
 			if (SCharacterData.nCharacterAbility[SMenu[i].nField[j].nWillDo] >= g_mgrDual.GetAbility(SMenu[i].nField[j].nWillDo))		// 레벨업 한계치
@@ -10994,7 +10994,7 @@ void DoButtonCheckOfMenu(int i, int j)
 	case 7:	system_info.scroll_speed--; if (system_info.scroll_speed < 0)	system_info.scroll_speed = 0; break;	//scroll왼
 	case 8:	system_info.scroll_speed++; if (system_info.scroll_speed >= 100)	system_info.scroll_speed = 100; break;	//scroll오른
 	}
-	break;
+									break;
 
 	case FT_JOB_ITEM: {
 		int ItemX = (g_pointMouseX - (SMenu[i].x + 25)) / 35;
@@ -11267,20 +11267,20 @@ void DoButtonCheckOfMenu(int i, int j)
 		}
 		break;
 	}
-	//case FT_TEMBATLE_ADD : 
-	//{
-	//	int willdo = SMenu[i].nField[j].nWillDo;
-	//	if (!g_BattleZone.IsExist(SCharacterData.sCharacterName))
-	//	{
-	//		SendAddMeOfTeamBattle(willdo);
-	//	}
-	//	else
-	//	{
-	//		MP3(SN_WARNING);
-	//		 //이미 등록했다.
-	//	}
-	//	break;
-	//}
+						   //case FT_TEMBATLE_ADD : 
+						   //{
+						   //	int willdo = SMenu[i].nField[j].nWillDo;
+						   //	if (!g_BattleZone.IsExist(SCharacterData.sCharacterName))
+						   //	{
+						   //		SendAddMeOfTeamBattle(willdo);
+						   //	}
+						   //	else
+						   //	{
+						   //		MP3(SN_WARNING);
+						   //		 //이미 등록했다.
+						   //	}
+						   //	break;
+						   //}
 
 	case FT_GM_ITEM_EXPLAIN_BUTTON: {
 		int nWillDo = SMenu[i].nField[j].nWillDo;

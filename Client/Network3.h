@@ -64,17 +64,17 @@ typedef struct	server_arigement_response
 
 struct t_server_magic_position
 {
-  BYTE nType; // 출력할 이펙트 번호
-  WORD idTarget; // 마법을 사용한 대상자
-  __int16 nX; // 이동할 위치의 X좌표
-  __int16 nY; // 이동할 위치의 Y좌표
+	BYTE nType; // 출력할 이펙트 번호
+	WORD idTarget; // 마법을 사용한 대상자
+	__int16 nX; // 이동할 위치의 X좌표
+	__int16 nY; // 이동할 위치의 Y좌표
 };
 
 struct t_server_character_condition
 {
-  WORD idTarget;
-  __int32 nLife;
-  BYTE nState;
+	WORD idTarget;
+	__int32 nLife;
+	BYTE nState;
 };
 
 typedef struct  server_magic_command
@@ -165,4 +165,4 @@ typedef struct rm_change_weather
 //
 
 
-extern void RecvChangeWeather( t_rm_change_weather* p );
+extern void RecvChangeWeather(t_rm_change_weather* p);

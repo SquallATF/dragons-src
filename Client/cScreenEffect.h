@@ -30,7 +30,7 @@ struct t_BreathArg
 
 struct t_CommonArg						// 아규먼트를 공통으로 쓰기위한것.
 {
-	union 
+	union
 	{
 		char			Data[MAX_ARG_DATA_SIZE];
 		t_FogArg		FogArg;
@@ -41,11 +41,11 @@ struct t_CommonArg						// 아규먼트를 공통으로 쓰기위한것.
 
 class cParticle					// Interface Class
 {
-public :
-	virtual cParticle*	Insert(cParticle* Arg)=0;
-	virtual void		GetData(t_CommonArg* Arg)=0;
-	virtual int			Draw()=0;
-	virtual int			CheckAndRemove()=0;
+public:
+	virtual cParticle*	Insert(cParticle* Arg) = 0;
+	virtual void		GetData(t_CommonArg* Arg) = 0;
+	virtual int			Draw() = 0;
+	virtual int			CheckAndRemove() = 0;
 };
 
 typedef list<cParticle*>			tParticleList;
@@ -54,19 +54,19 @@ typedef tParticleList::iterator		tParticleListItor;
 class cParticleManager
 {
 	tParticleList	ParticleList;
-	
+
 	cParticle*		m_pContinueParticle;
 	int				m_iContinueparticleCount;
 	bool            m_bDisplay; // CSD-030306
-	
+
 public:
 	cParticleManager();
 	~cParticleManager();
-	
+
 	void		DeleteParticle();
 	void		Insert(cParticle* Particle);
 	void		Draw();
-	void		SetContinueParticle(cParticle* Particle,int Count);
+	void		SetContinueParticle(cParticle* Particle, int Count);
 	void		CheckContinueParticle();
 public:
 	void SetDisplay(bool bDisplay)
@@ -83,14 +83,14 @@ class cFog : public cParticle
 	unsigned char	m_cFrameCount;
 	DWORD			StartTime;
 	DWORD			DelayTime;
-	
-public :
-	
+
+public:
+
 	cFog(t_CommonArg* Arg);
-	
+
 	cParticle*	Insert(cParticle* Arg);
 	void		GetData(t_CommonArg* Arg);
-	void		GetArgData(cParticle* Arg,t_FogArg* ReturnArg);
+	void		GetArgData(cParticle* Arg, t_FogArg* ReturnArg);
 	int			Draw();
 	int			CheckAndRemove();
 };
@@ -105,14 +105,14 @@ class cBreath : public cParticle
 	unsigned char	m_cFrameCount;						// 프레임 카운트
 	char			m_cStatus;							// 발사 되었나 안되었나.
 	DWORD			m_uiStartTime;
-	
-public :
-	
+
+public:
+
 	cBreath(t_CommonArg* Arg);
-	
+
 	cParticle*	Insert(cParticle* Arg);
 	void		GetData(t_CommonArg* Arg);
-	void		GetArgData(cParticle* Arg,t_CommonArg* ReturnArg);
+	void		GetArgData(cParticle* Arg, t_CommonArg* ReturnArg);
 	int			Draw();
 	int 		CheckAndRemove();
 };
@@ -130,16 +130,16 @@ class cEffectSpriteManager
 	char*				m_pSpriteData[MAX_EFFECT_SPRITE];
 	Spr					m_Sprite[MAX_SPRITE_TYPE][MAX_FRAME_COUNT];
 	tEffectFrameList	m_pEffectList[MAX_EFFECT_SPRITE];
-	
-public :
-	
+
+public:
+
 	cEffectSpriteManager();
 	~cEffectSpriteManager();
-	
+
 	int		LoadEFFile(int Index);
-	int		LoadSprite(int Index,int FrameCount);
-	Spr*	GetSpriteData(int Index,unsigned char& Frame);
-	
+	int		LoadSprite(int Index, int FrameCount);
+	Spr*	GetSpriteData(int Index, unsigned char& Frame);
+
 	void	CheckAndLoadSpriteData(int Index);
 };
 
@@ -165,7 +165,7 @@ DWORD	DelayTime;				// 종료시간
 		DelayTime	=	CommonArg->FogArg.DelayTime;
 		FrameCount	=	0;
 		}
-		
+
 };*/
 
 /*
@@ -179,28 +179,28 @@ typedef tFogList::iterator FogListItor;
   int					FogFrameCount[3];		// Fog의 프레임 카운트이다.
   int					FogStatus[3];			//현재 드로잉인지 아닌지 나타내는 변수
   int					FogDelay[3];			// 나타날 딜레이값
-  
-	tFogList			FogList[3];				// 포그 오브젝트의 갯수 
-	
+
+	tFogList			FogList[3];				// 포그 오브젝트의 갯수
+
 	  public :
 	  cSEffectManager();
 	  ~cSEffectManager();
-	  
+
 		void				ClearAllFog();
 		void				ClearFog(int Index);
-		
+
 		  void				ClearFogList(int Type);
 		  void				ClearFogList();
-		  
-			
+
+
 			  int					LoadFogData(char* FileName,int FogIndex);
 			  void				InsertFog(int FogType,int X,int Y,DWORD StartTime,DWORD DelayTime);
 			  void				PrepareForDrawing(int Type,DWORD DelayTime,POINTS* Location);
 			  void				FogDraw(int Type);
 			  void				FogDraw();
-			  
+
 				};
-				
+
 				  struct DragonBreath
 				  {
 				  POINT	Start;
@@ -209,7 +209,7 @@ typedef tFogList::iterator FogListItor;
 				  int		Power;							// 진행 속도
 				  int		FrameCount;						// 프레임 카운트
 				  int		Status;							// 발사 되었나 안되었나.
-				  
+
 					DragonBreath(t_CommonArg* CommonArg)
 					{
 					Start		=	CommonArg->BreathArg.StartLocation;
@@ -220,32 +220,32 @@ typedef tFogList::iterator FogListItor;
 					Status		=	0;
 					}
 					};
-					
+
 					  typedef list<DragonBreath*>	tDragonBreathList;
 					  typedef tDragonBreathList::iterator	DragonBreathItor;
-					  
+
 						#define DRAGON_BREATH_FRAME_COUNT	6
-						
+
 						  class cDragonEffect
 						  {
 						  tDragonBreathList	DragonBreathList;
-						  
+
 							char*				BreathPicBuffer;
 							Spr					BreathPic[30];			// Fog1 : 악령탐색 20프레임 Fog2 : 마법탐지 28프레임
-							
+
 							  public :
-							  
+
 								cDragonEffect();
 								~cDragonEffect();
-								
+
 								  void ClearAllBreath();
 								  void ClearSprite();
-								  
+
 									int LoadBreathData(char* strFileName);
 									void InsertBreath(POINT tStart,POINT tDest,int tDirection,int tPower);
 									void BreathPrepare(POINT tStart,POINT tDest,int Count);
 									void DrawBreath();
-									
+
 };*/
 
 

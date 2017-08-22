@@ -9,57 +9,57 @@
 
 #define ConvertColor(r,g,b)	(	(r>>3)<<11 | (g>>3)<<6 | b>>3	)//020610 lsw
 
-const WORD FONT_COLOR_DEFAULT			= ConvertColor(141,144, 132);		//	보통 글자 (한글, 영문)
-const WORD FONT_COLOR_BLACK				= ConvertColor(0	,0	, 0);		//	보통 글자 (한글, 영문)
+const WORD FONT_COLOR_DEFAULT = ConvertColor(141, 144, 132);		//	보통 글자 (한글, 영문)
+const WORD FONT_COLOR_BLACK = ConvertColor(0, 0, 0);		//	보통 글자 (한글, 영문)
 
-const WORD FONT_COLOR_SOLID_YELLOW		= ConvertColor(255,255, 0);		//	진짜 노랑
-const WORD FONT_COLOR_SOLID_RED			= ConvertColor(255,0, 0);		//	진짜 빨강
-const WORD FONT_COLOR_SOLID_BLUE		= ConvertColor(0,0, 255);		//	진짜 파랑
-const WORD FONT_COLOR_SOLID_GREEN		= ConvertColor(0,255, 0);		//	진짜 초록
-const WORD FONT_COLOR_SOLID_VIOLET		= ConvertColor(255,0, 255);		//	진짜 보라
-const WORD FONT_COLOR_SOLID_JADE		= ConvertColor(0,255, 255);		//	진짜 옥색
+const WORD FONT_COLOR_SOLID_YELLOW = ConvertColor(255, 255, 0);		//	진짜 노랑
+const WORD FONT_COLOR_SOLID_RED = ConvertColor(255, 0, 0);		//	진짜 빨강
+const WORD FONT_COLOR_SOLID_BLUE = ConvertColor(0, 0, 255);		//	진짜 파랑
+const WORD FONT_COLOR_SOLID_GREEN = ConvertColor(0, 255, 0);		//	진짜 초록
+const WORD FONT_COLOR_SOLID_VIOLET = ConvertColor(255, 0, 255);		//	진짜 보라
+const WORD FONT_COLOR_SOLID_JADE = ConvertColor(0, 255, 255);		//	진짜 옥색
 
-const WORD FONT_COLOR_PLUS				= ConvertColor(255,61	, 65);		//	능력치에서 플러스 된 숫자	(붉은 색)
-const WORD FONT_COLOR_NAME				= ConvertColor(255,220, 100)	;	//	이름 (금색글자)
+const WORD FONT_COLOR_PLUS = ConvertColor(255, 61, 65);		//	능력치에서 플러스 된 숫자	(붉은 색)
+const WORD FONT_COLOR_NAME = ConvertColor(255, 220, 100);	//	이름 (금색글자)
 
-const WORD FONT_COLOR_YELLOW			= ConvertColor(200,170, 75)	;	//	이름 (금색글자)
-const WORD FONT_COLOR_ORANGE			= ConvertColor(255,220, 80)	;	//	검정색바탕에서 튀는 색 (주황색)
+const WORD FONT_COLOR_YELLOW = ConvertColor(200, 170, 75);	//	이름 (금색글자)
+const WORD FONT_COLOR_ORANGE = ConvertColor(255, 220, 80);	//	검정색바탕에서 튀는 색 (주황색)
 
-const WORD FONT_COLOR_BLIGHT_GREEN		= ConvertColor(150	,220, 30)	;	//	연두색
-const WORD FONT_COLOR_BLIGHT_GREEN2		= ConvertColor(30	,220, 150)	;	//
-const WORD FONT_COLOR_BLIGHT_BLUE		= ConvertColor(30	,150, 220);		//	밝은파란색
-const WORD FONT_COLOR_BLIGHT_VIOLET		= ConvertColor(220	,30	, 150);		//	밝은 보라색
-const WORD FONT_COLOR_BLIGHT_ORANGE		= ConvertColor(220	,150, 30)	;	//	밝은 오랜지색
-const WORD FONT_COLOR_BLIGHT_RED		= ConvertColor(220	,150,150);
-const WORD FONT_COLOR_BLIGHT_YELLOW		= ConvertColor(30	,220,30);
+const WORD FONT_COLOR_BLIGHT_GREEN = ConvertColor(150, 220, 30);	//	연두색
+const WORD FONT_COLOR_BLIGHT_GREEN2 = ConvertColor(30, 220, 150);	//
+const WORD FONT_COLOR_BLIGHT_BLUE = ConvertColor(30, 150, 220);		//	밝은파란색
+const WORD FONT_COLOR_BLIGHT_VIOLET = ConvertColor(220, 30, 150);		//	밝은 보라색
+const WORD FONT_COLOR_BLIGHT_ORANGE = ConvertColor(220, 150, 30);	//	밝은 오랜지색
+const WORD FONT_COLOR_BLIGHT_RED = ConvertColor(220, 150, 150);
+const WORD FONT_COLOR_BLIGHT_YELLOW = ConvertColor(30, 220, 30);
 
-const WORD FONT_COLOR_GREEN				= ConvertColor(50	,230, 50);		//	초록색
-const WORD FONT_COLOR_RED				= ConvertColor(230,50	, 50);		//	빨강
-const WORD FONT_COLOR_BLUE				= ConvertColor(50	,50	, 230)	;	//	파란색
+const WORD FONT_COLOR_GREEN = ConvertColor(50, 230, 50);		//	초록색
+const WORD FONT_COLOR_RED = ConvertColor(230, 50, 50);		//	빨강
+const WORD FONT_COLOR_BLUE = ConvertColor(50, 50, 230);	//	파란색
 
-const WORD FONT_COLOR_SPECIAL			= ConvertColor(101,169, 18)	;	//	특별한 경우 ( 녹색계통)
-const WORD FONT_COLOR_NUMBER			= ConvertColor(221,230, 206);		//	보통 숫자
+const WORD FONT_COLOR_SPECIAL = ConvertColor(101, 169, 18);	//	특별한 경우 ( 녹색계통)
+const WORD FONT_COLOR_NUMBER = ConvertColor(221, 230, 206);		//	보통 숫자
 
-const WORD FONT_COLOR_NORMAL			= ConvertColor(141,144, 132);
-const WORD FONT_COLOR_RECT				= ConvertColor(221,230, 206);
-const WORD FONT_COLOR_BUTTON			= ConvertColor(255,61	, 65);
+const WORD FONT_COLOR_NORMAL = ConvertColor(141, 144, 132);
+const WORD FONT_COLOR_RECT = ConvertColor(221, 230, 206);
+const WORD FONT_COLOR_BUTTON = ConvertColor(255, 61, 65);
 
-const WORD FONT_COLOR_SKILL				= ConvertColor(4	,152, 54);		//	스킬 설명
+const WORD FONT_COLOR_SKILL = ConvertColor(4, 152, 54);		//	스킬 설명
 
-const WORD FONT_COLOR_MAX				= ConvertColor(255,255, 0	);		//  능력치 최고일경우 ( 노란색 )
+const WORD FONT_COLOR_MAX = ConvertColor(255, 255, 0);		//  능력치 최고일경우 ( 노란색 )
 
-const WORD FONT_COLOR_BORA				= ConvertColor(200,0	, 200)	;		//
+const WORD FONT_COLOR_BORA = ConvertColor(200, 0, 200);		//
 
-const WORD FONT_COLOR_HIGH_RARE_MAIN	= ConvertColor(230	, 230 , 80)	;		//옥색
-const WORD FONT_COLOR_HIGH_RARE_DISPLAY	= ConvertColor(150	, 230 , 50);		//레어 프러스 포인트
+const WORD FONT_COLOR_HIGH_RARE_MAIN = ConvertColor(230, 230, 80);		//옥색
+const WORD FONT_COLOR_HIGH_RARE_DISPLAY = ConvertColor(150, 230, 50);		//레어 프러스 포인트
 
-const WORD FONT_COLOR_RARE_MAIN			= ConvertColor(0	,240, 240)	;		//옥색
-const WORD FONT_COLOR_RARE_DISPLAY		= ConvertColor(80	,183, 255);		//레어 프러스 포인트 
-const WORD FONT_COLOR_RARE_PLUS_POINT	= ConvertColor(255,255, 75);		//레어 프러스 포인트 
-const WORD FONT_COLOR_RARE_MINUS_POINT	= ConvertColor(255,0	, 0	);		//옥색
+const WORD FONT_COLOR_RARE_MAIN = ConvertColor(0, 240, 240);		//옥색
+const WORD FONT_COLOR_RARE_DISPLAY = ConvertColor(80, 183, 255);		//레어 프러스 포인트 
+const WORD FONT_COLOR_RARE_PLUS_POINT = ConvertColor(255, 255, 75);		//레어 프러스 포인트 
+const WORD FONT_COLOR_RARE_MINUS_POINT = ConvertColor(255, 0, 0);		//옥색
 
-const WORD FONT_COLOR_WHITE				= ConvertColor(233,233,233);//020725 lsw
-const WORD FONT_COLOR_EXP_PERCENT		= ConvertColor(220,230,9);//020725 lsw
+const WORD FONT_COLOR_WHITE = ConvertColor(233, 233, 233);//020725 lsw
+const WORD FONT_COLOR_EXP_PERCENT = ConvertColor(220, 230, 9);//020725 lsw
 
 extern DWORD Convert16to32(const WORD wColor);
 
@@ -94,145 +94,145 @@ extern DWORD Convert16to32(const WORD wColor);
 //Menu_Image.txt 의 내용입니다. 겹쳐서는 아니됩니다.(겹치게 쓰시면 컴파일 자체가 안됩니다 ㅡㅡ;..)
 enum ImageFileIndex
 {
-	DEFAULT_MENU				=	0	,
-	GOD_MENU					=	100,
-	TIME_MENU					=	110,
-	MEM_BOOK					=	120,
-	MAIL_MENU					=	130,
-	START_ETC					=	140,
-	RESET_JOB_ETC				=	141,
-	CHAT_MENU					=	150,
-	MAGIC_BOOK_MENU				=	160,
-	MAIN_ETC					=	170,
-	SMALL_MAP					=	180,
-	START_MAP					=	190,
-	SMALL_ETC					=	200,
-	SKILL_MENU					=	210,
-	PUBLIC_BBS					=	220,
-	HUNTER_MENU					=	230,
-	QUEST_MENU					=	240,
-	FAME_MENU					=	250,
-	CHARACTER_COLOR_CHANGE		=	260,
-	ITEM_MAKE_IMAGE				=	270,
-	NATION_BBS_MENU				=	280,
-	START_FIGHT_MAP				=	290,
-	STOP_FIGHT_MAP				=	300,
-	VOTE_MENU					=	310,
-	GUILD_MARK					=	320,
-	GUILD_ADMIN					=	330,
-	GUILD_LIST					=	340,
-	START_ETC2					=	350,
-	GUILD_ADMIN_ETC				=	360,
-	HELP_PCX					=	370,
-	BANK_PCX					=	380,
-	SALVATION_PCX				=	390,
-	SALVATION_PCX_ANI			=	400,
-	TEAM_BATTLE					=	410,
-	SELECT_SERVER				=	420,
-	CHANGE_MONEY				=	430,
-	GUILD_WAIT					=	440,
-	MERCHANT_IMG				=	450,
-	FIGHT_MAP_TIME				=	460,
-	FIGHT_MAP_WIN				=	470,
-	FIGHT_MAP_LOSE				=	480,
-	MAIN_ETC3					=	490,
-	GUILD_MENU_IMG				=	500,
-	GM_2ND_SKILL_IMG			=	510,
-	NATION_BATTLE_BBS_IMG		=	520,
-	NATION_INFO_IMG				=	530,
-	NATION_VOTE_IMG				=	540,
-	NATION_BUDAE_IMG			=	550,
-	NATION_NOW_IMG				=	560,
-	NATION_LADDER_IMG			=	570,
-	NATION_JOIN_IMG				=	580,
-	NATION_GOTO_WAR_MAP_IMG		=	590,
-	NATION_GUEST_IMG			=	600,
-	NATION_MSGBOX_IMG			=	610,
-	NATION_DONEBOX_IMG			=	620,
-	NATION_TODAY_NOTICE_IMG		=	630,
-	NATION_WAR_RESULT_IMG		=	640,
-	NATION_WAR_START_IMG		=	650,
-	DUAL_MARK_IMG				=	730,
-	ITEM_MAKE_RARE_SELECT_IMG	=	740,
-	NEW_CHAT_IMG				=	750,
-	DUAL_IMG					=	760,
-	TUTORIAL_DISPLAY_IMG		=	770,
-	RUNE_IMG					=	780,
-	RUNE_EFFECT1				=	790,
-	RUNE_EFFECT2				=	800,
-	RUNE_EFFECT3				=	810,
-	RUNE_EFFECT4				=	820,
-	RUNE_EFFECT_DEFAULT			=	830,
-	SKIN_MENU					=	840,
-	GAMBLE_IMG					=	850,
-	IIT_EXP_GAUGE				=	860,
-	GAMBLE_EFFECT				=	870,
-	TUTORIAL_DISPLAY_TMP_IMG	=	900,
-	IIT_GUILD_MEMBER_LIST		=	910,
-	ABILITY_REDISTRIBUTION_IMG	=	880,
-	LOCALWAR_JOIN_IMG			=	881,
-	LOCALWAR_OK_IMG				=	882,
-	EVENT_LOCALWAR_OK_IMG		=	883,
-	EVENT_LOCALWAR_MOVE_IMG		=	884,
-	WAR_START_IMG				=	885,
-	WAR_MOVE_IMG				=	886,
-	WAR_STATUS_IMG				=	887,
-	MONSTER_WAR_IMG				=	888,	// BBD 040311 몬스터 국가전 상태 화면 우상단 표시용 이미지
+	DEFAULT_MENU = 0,
+	GOD_MENU = 100,
+	TIME_MENU = 110,
+	MEM_BOOK = 120,
+	MAIL_MENU = 130,
+	START_ETC = 140,
+	RESET_JOB_ETC = 141,
+	CHAT_MENU = 150,
+	MAGIC_BOOK_MENU = 160,
+	MAIN_ETC = 170,
+	SMALL_MAP = 180,
+	START_MAP = 190,
+	SMALL_ETC = 200,
+	SKILL_MENU = 210,
+	PUBLIC_BBS = 220,
+	HUNTER_MENU = 230,
+	QUEST_MENU = 240,
+	FAME_MENU = 250,
+	CHARACTER_COLOR_CHANGE = 260,
+	ITEM_MAKE_IMAGE = 270,
+	NATION_BBS_MENU = 280,
+	START_FIGHT_MAP = 290,
+	STOP_FIGHT_MAP = 300,
+	VOTE_MENU = 310,
+	GUILD_MARK = 320,
+	GUILD_ADMIN = 330,
+	GUILD_LIST = 340,
+	START_ETC2 = 350,
+	GUILD_ADMIN_ETC = 360,
+	HELP_PCX = 370,
+	BANK_PCX = 380,
+	SALVATION_PCX = 390,
+	SALVATION_PCX_ANI = 400,
+	TEAM_BATTLE = 410,
+	SELECT_SERVER = 420,
+	CHANGE_MONEY = 430,
+	GUILD_WAIT = 440,
+	MERCHANT_IMG = 450,
+	FIGHT_MAP_TIME = 460,
+	FIGHT_MAP_WIN = 470,
+	FIGHT_MAP_LOSE = 480,
+	MAIN_ETC3 = 490,
+	GUILD_MENU_IMG = 500,
+	GM_2ND_SKILL_IMG = 510,
+	NATION_BATTLE_BBS_IMG = 520,
+	NATION_INFO_IMG = 530,
+	NATION_VOTE_IMG = 540,
+	NATION_BUDAE_IMG = 550,
+	NATION_NOW_IMG = 560,
+	NATION_LADDER_IMG = 570,
+	NATION_JOIN_IMG = 580,
+	NATION_GOTO_WAR_MAP_IMG = 590,
+	NATION_GUEST_IMG = 600,
+	NATION_MSGBOX_IMG = 610,
+	NATION_DONEBOX_IMG = 620,
+	NATION_TODAY_NOTICE_IMG = 630,
+	NATION_WAR_RESULT_IMG = 640,
+	NATION_WAR_START_IMG = 650,
+	DUAL_MARK_IMG = 730,
+	ITEM_MAKE_RARE_SELECT_IMG = 740,
+	NEW_CHAT_IMG = 750,
+	DUAL_IMG = 760,
+	TUTORIAL_DISPLAY_IMG = 770,
+	RUNE_IMG = 780,
+	RUNE_EFFECT1 = 790,
+	RUNE_EFFECT2 = 800,
+	RUNE_EFFECT3 = 810,
+	RUNE_EFFECT4 = 820,
+	RUNE_EFFECT_DEFAULT = 830,
+	SKIN_MENU = 840,
+	GAMBLE_IMG = 850,
+	IIT_EXP_GAUGE = 860,
+	GAMBLE_EFFECT = 870,
+	TUTORIAL_DISPLAY_TMP_IMG = 900,
+	IIT_GUILD_MEMBER_LIST = 910,
+	ABILITY_REDISTRIBUTION_IMG = 880,
+	LOCALWAR_JOIN_IMG = 881,
+	LOCALWAR_OK_IMG = 882,
+	EVENT_LOCALWAR_OK_IMG = 883,
+	EVENT_LOCALWAR_MOVE_IMG = 884,
+	WAR_START_IMG = 885,
+	WAR_MOVE_IMG = 886,
+	WAR_STATUS_IMG = 887,
+	MONSTER_WAR_IMG = 888,	// BBD 040311 몬스터 국가전 상태 화면 우상단 표시용 이미지
 
 //여기서 부터 Menu_Image.txt 의 내용입니다. 겹쳐서는 아니됩니다.(겹치게 쓰시면 컴파일 자체가 안됩니다 ㅡㅡ;..)
-	COMBAT_SKILL_ICON_IMG		=	10002,
-	COMBAT_SKILL_POINT_IMG		=	10003,
-	MAINSTART_LOGIN_IMG			=	10005,
-	START_LOGO_IMG				=	10006,
-	PARTY_IMG					=	10007,	
-	STATUS_IMG					=	10008,	
-	INVENTORY_IMG				=	10009,	
-	MAININTERFACE_IMG			=	10010,
-	CONNECTING_IMG				=	10011,
-	SHOW_CREDIT_IMG				=	10012,
-	SELECT_CHARACTER_IMG		=	10013,	
-	MANA_IMG					=	10014,	
-	DIVINE_IMG					=	10015,	
-	HP_IMG						=	10016,	
-	NEW_START_MAP_IMG			=	10017,	
-	NEW_EMOTE_IMG				=	10018,	
-	NEW_GHOST_TO_ALIVE_IMG		=	10019,	
-	NEW_SYSTEM_IMG				=	10020,	
-	NEW_CHAT_BACK_IMG			=	10021,
-	SCENARIO_IMG				=	10022,
-	MERCHANT_FINDER_IMG			=	10023,
-	MERCHANT_BUY_IMG			=	10024,//021008 lsw
-	NEW_DEST_POINT_IMG			=	10025,
-	TXT_BG_BLACK_IMG			=	10026,
-	NEW_TUTORIAL_TEMP2			=	10027,
-	DEL_CHAR_COMFORM_IMG		=	10028,
-	TXT_BG_BLUE_IMG				=	10029,	
-	TXT_BG_RED_IMG				=	10030,
-	TXT_BG_BLUEGREEN_IMG		=	10031,	
-	TXT_BG_BROWN_IMG			=	10032,	
-	TXT_BG_GREEN_IMG			=	10033,	
-	SELECT_TUTORIAL_LOGIN_IMG	=	10034,
-	MERCHANT_SELL_INFO_IMG		=	10035,
-	MERCHANT_SELL_REGISTER_IMG	=	10036,
-	MERCHANT_RESULT_TAKE_IMG	=	10037,	
-	SCRIPT_TIMER_COUNTER_IMG	=	10038,	//021025 kyo 타이머랑 카운터그림
-	MERCHANT_DIRECT_EXCHANGE_IMG =	10039,
-	EXCHANGE_IMG				=	10040,//교환창 그림
-	MAN_TO_MAN_IMG				=	10041,//결투 그림
-	SKILL_MASTER_QUEST_IMG		=	10042,//
-	SKILL_MASTER_KIND_SELECT_IMG=	10043,//기성 종류 고르기
-	SKILL_MASTER_MAKE_IMG		=	10044,//만들기 그림
-	EXCHANGE_BOND_MONEY_IMG		=	10045,//돈교환창
-	SKILL_MASTER_MARK_IMG		=	10046,//기성 상인 마크 
-	MERCHANT_BBS_BACK_IMG		=	10047,//상인공지 채팅창
-	NEW_BANK_IMG				=	10048,//새로운 은행 
+COMBAT_SKILL_ICON_IMG = 10002,
+COMBAT_SKILL_POINT_IMG = 10003,
+MAINSTART_LOGIN_IMG = 10005,
+START_LOGO_IMG = 10006,
+PARTY_IMG = 10007,
+STATUS_IMG = 10008,
+INVENTORY_IMG = 10009,
+MAININTERFACE_IMG = 10010,
+CONNECTING_IMG = 10011,
+SHOW_CREDIT_IMG = 10012,
+SELECT_CHARACTER_IMG = 10013,
+MANA_IMG = 10014,
+DIVINE_IMG = 10015,
+HP_IMG = 10016,
+NEW_START_MAP_IMG = 10017,
+NEW_EMOTE_IMG = 10018,
+NEW_GHOST_TO_ALIVE_IMG = 10019,
+NEW_SYSTEM_IMG = 10020,
+NEW_CHAT_BACK_IMG = 10021,
+SCENARIO_IMG = 10022,
+MERCHANT_FINDER_IMG = 10023,
+MERCHANT_BUY_IMG = 10024,//021008 lsw
+NEW_DEST_POINT_IMG = 10025,
+TXT_BG_BLACK_IMG = 10026,
+NEW_TUTORIAL_TEMP2 = 10027,
+DEL_CHAR_COMFORM_IMG = 10028,
+TXT_BG_BLUE_IMG = 10029,
+TXT_BG_RED_IMG = 10030,
+TXT_BG_BLUEGREEN_IMG = 10031,
+TXT_BG_BROWN_IMG = 10032,
+TXT_BG_GREEN_IMG = 10033,
+SELECT_TUTORIAL_LOGIN_IMG = 10034,
+MERCHANT_SELL_INFO_IMG = 10035,
+MERCHANT_SELL_REGISTER_IMG = 10036,
+MERCHANT_RESULT_TAKE_IMG = 10037,
+SCRIPT_TIMER_COUNTER_IMG = 10038,	//021025 kyo 타이머랑 카운터그림
+MERCHANT_DIRECT_EXCHANGE_IMG = 10039,
+EXCHANGE_IMG = 10040,//교환창 그림
+MAN_TO_MAN_IMG = 10041,//결투 그림
+SKILL_MASTER_QUEST_IMG = 10042,//
+SKILL_MASTER_KIND_SELECT_IMG = 10043,//기성 종류 고르기
+SKILL_MASTER_MAKE_IMG = 10044,//만들기 그림
+EXCHANGE_BOND_MONEY_IMG = 10045,//돈교환창
+SKILL_MASTER_MARK_IMG = 10046,//기성 상인 마크 
+MERCHANT_BBS_BACK_IMG = 10047,//상인공지 채팅창
+NEW_BANK_IMG = 10048,//새로운 은행 
 
-	LUCK_MENU_IMG				=	10049,//행운 메뉴
-	LOTTO_MENU_IMG				=	10050,//로또 메뉴.
-	LUCKY_EVENT_IMG				=	10051,//당첨 확인창.
+LUCK_MENU_IMG = 10049,//행운 메뉴
+LOTTO_MENU_IMG = 10050,//로또 메뉴.
+LUCKY_EVENT_IMG = 10051,//당첨 확인창.
 
-	ARENA_IMG					=	10052,
-	OBSERVER_IMG				=	10053,
+ARENA_IMG = 10052,
+OBSERVER_IMG = 10053,
 };
 
 #define NOT		0
@@ -243,11 +243,11 @@ enum ImageFileIndex
 enum ClassType//021008 lsw
 {
 	CLASSTYPEMIN = -1,
-	WARRIOR		= 0,
-	THIEF		= 1,
-	ARCHER		= 2,
-	WIZARD		= 3,
-	PRIEST		= 4,
+	WARRIOR = 0,
+	THIEF = 1,
+	ARCHER = 2,
+	WIZARD = 3,
+	PRIEST = 4,
 	CLASSTYPEMAX = 5
 };
 
@@ -291,20 +291,20 @@ enum ClassType//021008 lsw
 //					( select city )
 enum eSelectMap
 {
-	SC_HELTERNT_CASTLE	=1,
-	SC_HELTERNT_VILLAGE	=2,
-	SC_HUDAIN_RIVER		=3,
-	SC_GRAY_MOUNTAIN	=4,
-	SC_CALAHIL			=5,
-	SC_BAISUS_IMPEL		=6,
-	SC_RENUS		 	=7,
-	SC_DEL_HAPPA		=8,
-	SC_IRAMUS			=9,
-	SC_DIPH_UBEN		=10,
-	SC_SCHOLIUM			=11,
-	SC_TYREN			=12,
-	SC_BARANTAN			=13,	
-	SC_SCHOLIUM2		=14,		// 추가시 StartMapPosition도 추가한다.	// 20개 까지다..//020815-2 lsw
+	SC_HELTERNT_CASTLE = 1,
+	SC_HELTERNT_VILLAGE = 2,
+	SC_HUDAIN_RIVER = 3,
+	SC_GRAY_MOUNTAIN = 4,
+	SC_CALAHIL = 5,
+	SC_BAISUS_IMPEL = 6,
+	SC_RENUS = 7,
+	SC_DEL_HAPPA = 8,
+	SC_IRAMUS = 9,
+	SC_DIPH_UBEN = 10,
+	SC_SCHOLIUM = 11,
+	SC_TYREN = 12,
+	SC_BARANTAN = 13,
+	SC_SCHOLIUM2 = 14,		// 추가시 StartMapPosition도 추가한다.	// 20개 까지다..//020815-2 lsw
 	SC_RECENT_LOGOUT = 99,
 };
 
@@ -320,77 +320,77 @@ enum eSelectMap
 // 캐릭터 nCharacterAbility의 배열 첨자에 사용하기 위한 define
 enum CharInfoType
 {
-	STR			=0,		// 힘
-	DEX			=1,		// 건강
-	CON			=2,		// 민첩성
-	WIS			=3,		// 지능
-	INT_		=4,		// 지혜
-	CHA			=5,		// 매력
-	MOVP		=6,		// 이동력
-	ENDU		=7,		// 인내
-	MOR			=8,		// 사기
-	WSPS		=9,		// 마법 신법
-	LUCK		=10,		// 행운
-	HEALTH		=11,		
-	MOV			=12,
-	AC			=13,
-	FAME		=14,
-	DAMAGE		=15,
-	HIT			=16,
-	TACTICE		=17,
-	MONEY		=18,
-	LVPOINT		=19,
-	LEV			=20,
-	EXP			=21,
-	HP			=22,
-	MAX_HP		=23,
-	MP			=24,
-	MAX_MP		=25,
-	SP			=26,
-	MAX_SP		=27,
-	CP	  		=28,
-	MAX_CP		=29,
-	BP			=30,
-	MAX_BP		=31,
-	R_FIR		=32,
-	R_ICE		=33,
-	R_ELE		=34,
-	DAM_MIN		=35,
-	DAM_MAX		=36,
-	HIT_RAT		=37,
-	DEF_RAT		=38,	
-	TAC_L1		=39,
-	TAC_L2		=40,
-	TAC_L3		=41,
-	TAC_L4		=42,
-	TAC_L5		=43,
-	TAC_L6		=44,
-	TAC_L7		=45,
-	TAC_L8		=46,
-	TAC_L9		=47,
-	TAC_L10		=48,
-	TAC_L11		=49,
-	TAC_L12		=50,
-	TAC_L13		=51	,
-	TAC_E1		=52,
-	TAC_E2		=53,
-	TAC_E3		=54,
-	TAC_E4		=55,
-	TAC_E5		=56,
-	TAC_E6		=57,
-	TAC_E7		=58,
-	TAC_E8		=59,
-	TAC_E9		=60,
-	TAC_E10		=61,
-	TAC_E11		=62,
-	TAC_E12		=63,
-	TAC_E13		=64,
-	BANKMONEY	=65,
-	FAITH		=66,
-	VIEWGHOST	=67,//020314 lsw
-	VIEWBOMB	=68,
-	VIEWTRAP	=69,
-	CIB_POTION_BOX	=70,		// YGI 020418
+	STR = 0,		// 힘
+	DEX = 1,		// 건강
+	CON = 2,		// 민첩성
+	WIS = 3,		// 지능
+	INT_ = 4,		// 지혜
+	CHA = 5,		// 매력
+	MOVP = 6,		// 이동력
+	ENDU = 7,		// 인내
+	MOR = 8,		// 사기
+	WSPS = 9,		// 마법 신법
+	LUCK = 10,		// 행운
+	HEALTH = 11,
+	MOV = 12,
+	AC = 13,
+	FAME = 14,
+	DAMAGE = 15,
+	HIT = 16,
+	TACTICE = 17,
+	MONEY = 18,
+	LVPOINT = 19,
+	LEV = 20,
+	EXP = 21,
+	HP = 22,
+	MAX_HP = 23,
+	MP = 24,
+	MAX_MP = 25,
+	SP = 26,
+	MAX_SP = 27,
+	CP = 28,
+	MAX_CP = 29,
+	BP = 30,
+	MAX_BP = 31,
+	R_FIR = 32,
+	R_ICE = 33,
+	R_ELE = 34,
+	DAM_MIN = 35,
+	DAM_MAX = 36,
+	HIT_RAT = 37,
+	DEF_RAT = 38,
+	TAC_L1 = 39,
+	TAC_L2 = 40,
+	TAC_L3 = 41,
+	TAC_L4 = 42,
+	TAC_L5 = 43,
+	TAC_L6 = 44,
+	TAC_L7 = 45,
+	TAC_L8 = 46,
+	TAC_L9 = 47,
+	TAC_L10 = 48,
+	TAC_L11 = 49,
+	TAC_L12 = 50,
+	TAC_L13 = 51,
+	TAC_E1 = 52,
+	TAC_E2 = 53,
+	TAC_E3 = 54,
+	TAC_E4 = 55,
+	TAC_E5 = 56,
+	TAC_E6 = 57,
+	TAC_E7 = 58,
+	TAC_E8 = 59,
+	TAC_E9 = 60,
+	TAC_E10 = 61,
+	TAC_E11 = 62,
+	TAC_E12 = 63,
+	TAC_E13 = 64,
+	BANKMONEY = 65,
+	FAITH = 66,
+	VIEWGHOST = 67,//020314 lsw
+	VIEWBOMB = 68,
+	VIEWTRAP = 69,
+	CIB_POTION_BOX = 70,		// YGI 020418
 };
 //######## SCharacter 구조체안에 nCharacterData 배열에 사용할 구조체 ##########
 
@@ -468,7 +468,7 @@ enum CharInfoType
 
 //메뉴관련 구조체 선언
 //FT_HIDE_NOMAL_GROUP_PUT ,FT_HIDE_NOMAL_ONE_PUT 에 사용할 구조체 선언
-typedef struct 
+typedef struct
 {
 	int nType;                //메뉴 구성요소 처럼 타입을 가질수 있다. 단 FT_TEXT_PUT, FT_TEXT_PUT_CENTER, FT_NOMAL_PUT, FT_NOMAL_PUT_CENTER만 가능
 	int x;                    //자신을 포함하는 메뉴구성요소의 상위 메뉴에 대해 상대적인 x축출력 좌표
@@ -508,7 +508,7 @@ typedef struct
 	int nShideNomalPlus;       //한번에 보여줄수 있는 최대치 nSHideNomalCount와 같은 값일수도 있다
 	int *nValue;				// 변수를 받기위해
 	void *m_lpTemp;
-	void (*m_pFunction)();
+	void(*m_pFunction)();
 } SFIELD;
 
 //메뉴 구조체 선언
@@ -516,7 +516,7 @@ typedef struct
 {
 	int		Id;
 	bool	bActive;            //현재 메뉴가 활성화 됐는지를 나타냄
- 	int		x;					//현재 메뉴가 찍힐 화면에 상대적인 x축 좌표
+	int		x;					//현재 메뉴가 찍힐 화면에 상대적인 x축 좌표
 	int		y;					//현재 메뉴가 찍힐 화면에 상대적인 y축 좌표
 	int		nImageNumber;       //현재 메뉴의 이미지 번호
 	int		nImageType;
@@ -526,7 +526,7 @@ typedef struct
 	int		work;				//여러 일을 할 임시 변수
 	int		key;				// 지워지지 않는 임시 변수 
 	int		key2;				//단축키 역할을 할...
-    SFIELD nField[MAX_FIELD];	//메뉴구성 요소 배열
+	SFIELD nField[MAX_FIELD];	//메뉴구성 요소 배열
 } SMENU;
 
 
@@ -550,7 +550,7 @@ typedef struct
 #define		MAX_NAME_		31
 
 #define		MAX_HOUSE		40			// 이미지 최대
-	
+
 #define		HOUSE_MAX_TABLE	32			// 테이블 최대
 
 
@@ -564,9 +564,9 @@ typedef struct
 //////////// 건물 클레스 ///////////////
 class CHouse
 {
-protected :
+protected:
 
-public :
+public:
 
 	int		m_Id;
 	int		m_Image;
@@ -575,7 +575,7 @@ public :
 	int		m_Width;				// 넓이
 	int		m_Wall;					// 벽의 재질
 	int		m_Roof;					// 지붕 재질
-	int		m_LV;					
+	int		m_LV;
 	int		m_ForResiding;			// 주거용
 	int		m_ForGuild;				// 길드용
 	int		m_ForNotResiding;		// 비주거용
@@ -611,26 +611,26 @@ public:
 	CHouse();
 	char	*GetDur();
 	void	SetExplain(char *, char *);
-	void	ReadHouse( char * );
+	void	ReadHouse(char *);
 };
 
 
 class CMyHouse
 {
-protected : 
-public :
+protected:
+public:
 	CHouse		data;		//	CHouse class를 가리킴
 	DWORD		date;		//	그 건물의 생성 날짜를 기록한다.
 	CMyHouse	*next;
 	CMyHouse	*prev;
 
-public :
+public:
 	CMyHouse() { next = NULL; prev = NULL; }
 	void FreeAll();
-	void AddHouse( CHouse house, int *count );
-	void DeleteHouse( int *count );
+	void AddHouse(CHouse house, int *count);
+	void DeleteHouse(int *count);
 	int	Repair();
-	int GetImageNumber( ) { return data.m_Image; }
+	int GetImageNumber() { return data.m_Image; }
 };
 
 typedef struct tagCharacterParty
@@ -645,7 +645,7 @@ typedef struct tagCharacterParty
 	BYTE	m_Condition;
 	int		m_Hp;
 	int		m_HpMax;
-	
+
 	int		m_Join;			// 조인한 상태냐...? 0->1 : 접속, 1->0 접속 끊음
 	int		m_JoinPrev;
 
@@ -655,7 +655,7 @@ typedef struct tagCharacterParty
 	int		x;
 	int		y;
 	int		xy_on;
-	
+
 	LPCHARACTER ch;		// 시야에 들어와 있을때, 
 }CharacterParty, *LpCharacterParty;
 
@@ -680,47 +680,47 @@ typedef struct tagCharacterParty
 #define CSC_SLEEP		1			// 잠자고 있는 상태
 #define CSC_REST		2			// 휴식을 취하고 있는 상태
 
-const int  MAX_SKILL_ID  = 200;
+const int  MAX_SKILL_ID = 200;
 
 typedef struct SkillExp
 {
-	DWORD skillexp	: 20;
-	DWORD rare		: 12;
-}t_SkillExp,*LPSKILLEXP;
+	DWORD skillexp : 20;
+	DWORD rare : 12;
+}t_SkillExp, *LPSKILLEXP;
 
 typedef struct SkillExp2
 {
-	DWORD	skillexp	:	20	;//스킬 경험치
-	DWORD	makecount	:	6	;//만든 갯수
-	DWORD	day 		:	3	;//저장된 날짜
-	DWORD	month 		:	3	;//저장된 날짜
-}t_SkillExp2,*LPSKILLEXP2;
+	DWORD	skillexp : 20;//스킬 경험치
+	DWORD	makecount : 6;//만든 갯수
+	DWORD	day : 3;//저장된 날짜
+	DWORD	month : 3;//저장된 날짜
+}t_SkillExp2, *LPSKILLEXP2;
 
 typedef struct SkillExp3//021030 lsw
 {
-	DWORD	skillType	:	8	;//스킬타입
-	DWORD	year		:	12	;//년도
-	DWORD	day 		:	12	;//날짜
-}t_SkillExp3,*LPSKILLEXP3;
+	DWORD	skillType : 8;//스킬타입
+	DWORD	year : 12;//년도
+	DWORD	day : 12;//날짜
+}t_SkillExp3, *LPSKILLEXP3;
 
 enum eRESIST_TYPE
 {
-	RT_POISON	=0,
-	RT_CURSE	=1,
-	RT_HOLY 	=2,
-	RT_FIRE		=3,
-	RT_ICE		=4,
-	RT_ELECT	=5,
+	RT_POISON = 0,
+	RT_CURSE = 1,
+	RT_HOLY = 2,
+	RT_FIRE = 3,
+	RT_ICE = 4,
+	RT_ELECT = 5,
 	MAX_RESIST_TYPE = 6
 };
 
 //-----------------------------------------------------------
 //	캐릭터 테이블	-	메뉴에서 사용할 것만
 //-----------------------------------------------------------
-typedef struct 
+typedef struct
 {
 	__int16 nLevel;
-	DWORD	nExp;				
+	DWORD	nExp;
 	DWORD	nExpNext;
 
 	char	sCharacterName[MAX_NAME];
@@ -729,7 +729,7 @@ typedef struct
 	int		nCharacterData[MAX_CHARACTERDATA];  // 성별,얼굴,가치관,클래스,스펠,머리색,피부색,옷색,장식색,택틱스남,택틱스여,직업
 	int		nCharacterAbility[20];				//STR,CON,DEX,WIS,INT,CHA,MOVP,ENDU,MOR,CONV,LUCK, WSPS,
 	int		nAbilityMax[20];					//STR,CON,DEX,WIS,INT,CHA,MOVP,ENDU,MOR,CONV,LUCK, WSPS,
-	
+
 	DWORD	nMoney;		// 돈
 
 	int		nCharacterFace;						// 캐릭터 얼굴 표정을 저장 총8가지가 있다
@@ -737,7 +737,7 @@ typedef struct
 	int		nCharacterMP;
 	int		nCharacterMAXHP;					// HP와 MP의 최대치
 	int		nCharacterMAXMP;
-	int		nCharacterSP;				
+	int		nCharacterSP;
 	int		nCharacterMAXSP;
 
 	BYTE	condition;		// 캐릭터의 상태를 저장하는 변수 0이면 정상이다. 
@@ -748,8 +748,8 @@ typedef struct
 	int		LastLoan;
 	DWORD	LastLoan_Time;
 
-//	int		nJobSkill_Lv[31];				// 캐러의 직업스킬 능력치
-//	DWORD	nJobSkill[MAX_MOTHER_SKILL];					// 기술 경험치
+	//	int		nJobSkill_Lv[31];				// 캐러의 직업스킬 능력치
+	//	DWORD	nJobSkill[MAX_MOTHER_SKILL];					// 기술 경험치
 	t_SkillExp	nJobSkill[MAX_MOTHER_SKILL];					// 기술 경험치//011013 lsw 
 //	int		nJopSkillHit[31];				// 성공률
 
@@ -763,7 +763,7 @@ typedef struct
 
 	int		memorize_point;					// 현재 메모라이즈 하고 남은 포인트
 	int		memorize_point_max;				// 메모라이즈 할 수 있는 포인트 최대치	// 현재 wsps+3
-	
+
 
 //	int		TacticsLv[13];					// 택틱스 레벨
 	DWORD	TacticsExp[13];					// 택틱스 경험치
@@ -776,7 +776,7 @@ typedef struct
 	WORD 	EachUp[11];
 
 	int		body_r;			//  외모 색
-	int		body_g;					
+	int		body_g;
 	int		body_b;
 	int		cloth_r;
 	int		cloth_g;
@@ -796,7 +796,7 @@ typedef struct
 	BYTE	believe_god;			// 섬기는 신 0: 없음... ~
 	int		faith;					// 신앙심
 	char	much_supper;			// 신전에서 음식 제공할때 그 갯수
-	
+
 	int		dmg_count;		// first	// 3d2 ( 1~2인 주사위를 3번 던진다.)
 	int		dmg_max;		// second
 
@@ -848,7 +848,7 @@ typedef struct tag_client_candidate		// 후보 구조체
 	int			nation;
 	int			guild_code;
 	int			face;
-	
+
 	int			score;		// 득표수 
 }k_client_candidate;
 
@@ -868,9 +868,9 @@ extern int IsMouseOnMenu();
 
 
 
-extern int CheckAndSetPartyOnMySight( LPCHARACTER ch, int type );		// 파티원 시야에 들어왔는지 나간지를 판단.		1: 들어올때, 0: 나갈때
-extern inline bool CheckGuildCode( int guild_code );
-extern inline bool CheckGuildMaster( LPCHARACTER ch );
-extern inline bool IsSubMaster( LPCHARACTER ch );
-extern inline bool IsSubMaster( int guild_code, char *name );
+extern int CheckAndSetPartyOnMySight(LPCHARACTER ch, int type);		// 파티원 시야에 들어왔는지 나간지를 판단.		1: 들어올때, 0: 나갈때
+extern inline bool CheckGuildCode(int guild_code);
+extern inline bool CheckGuildMaster(LPCHARACTER ch);
+extern inline bool IsSubMaster(LPCHARACTER ch);
+extern inline bool IsSubMaster(int guild_code, char *name);
 #endif

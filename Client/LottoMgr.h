@@ -13,7 +13,7 @@
 
 #define MAXIMUM_LOTTO_NUM	24
 
-class CLottoMgr  
+class CLottoMgr
 {
 	int		m_anNumbers[10];
 	int		m_anWinNumbers[10];
@@ -40,21 +40,21 @@ public:
 	void RecvOpenWinnerMenu(t_WINNER_MENU* pOpenMsg);
 	void SendOpenWinnerMenu();
 	bool WinnerMenuTextDisplay(int nMenuNum);
-	void SetWinNumbers(int* anNumbers,int NumCount);
+	void SetWinNumbers(int* anNumbers, int NumCount);
 	void LottoMenuTextDisplay(int nMenuNum);
-	static	CLottoMgr*	GetClass(){return m_pClass;}
-	static	bool	Create(){ if(!m_pClass){new CLottoMgr; return true;} return false;}
-	static	bool	Destroy(){ if(m_pClass){delete m_pClass;m_pClass = NULL; return true;}return false;}
+	static	CLottoMgr*	GetClass() { return m_pClass; }
+	static	bool	Create() { if (!m_pClass) { new CLottoMgr; return true; } return false; }
+	static	bool	Destroy() { if (m_pClass) { delete m_pClass; m_pClass = NULL; return true; }return false; }
 	int GetCurCount();
 	void Clear();
 	bool IsFullNumber();
 	int InsertNumber(int nLottoNumber);
-	
+
 	void Sort(int aNumbers[], int size);
 	bool IsMember(int nNumber);
 	int RandomNumber();
 	int CreateOneNumber();
-	
+
 	int GetMinNumber(int aNumbers[], int size);
 	void Generate6Number();
 	CLottoMgr();
@@ -65,6 +65,6 @@ private:
 	int m_nCrruntPage;
 };
 
-extern	inline CLottoMgr*	LottoMgr(){return CLottoMgr::GetClass();}
+extern	inline CLottoMgr*	LottoMgr() { return CLottoMgr::GetClass(); }
 
 #endif // !defined(AFX_LOTTOMGR_H__451262F1_F06A_469A_987E_4D3B1DA114E1__INCLUDED_)

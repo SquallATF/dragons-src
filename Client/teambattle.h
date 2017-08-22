@@ -1,31 +1,31 @@
 ﻿#ifndef __teambattle_h__
 #define __teambattle_h__
 
-class CBattleTeam 
+class CBattleTeam
 {
-public : 
+public:
 	int count;
 	k_team_member_info_unit member[MAX_TEAM_MEMBER];
 
-public :
+public:
 	CBattleTeam();
 	void ReSetClass();
-	int AddMember( k_team_member_info_unit *info );
-	int DeleteMember( char *name );
+	int AddMember(k_team_member_info_unit *info);
+	int DeleteMember(char *name);
 };
 
 class CBattleZone
 {
-public : 
+public:
 	CBattleTeam		m_team[ATI_MAX_TEAM];			// 최대 4팀
 
-public : 
+public:
 	CBattleZone();
 	void ReSetClass();
-	int SetAllInfo( k_team_member_info_all *info );
-	int AddMember( int team, k_team_member_info_unit *info );
-	int GetCount( int team );
-	int IsExist( char *name );
+	int SetAllInfo(k_team_member_info_all *info);
+	int AddMember(int team, k_team_member_info_unit *info);
+	int GetCount(int team);
+	int IsExist(char *name);
 };
 
 
@@ -35,14 +35,14 @@ public :
 
 struct WINLOSEPOINT
 {
-	DWORD win			: 13;
-	DWORD defeat		: 12;
-	DWORD disconnect	: 7 ;
+	DWORD win : 13;
+	DWORD defeat : 12;
+	DWORD disconnect : 7;
 };
 
 class CFightMapCharInfo
 {
-public :
+public:
 	DWORD				m_TotalId;
 	WINLOSEPOINT		m_WinDefeat;
 	DWORD				m_dwLadderScore;
@@ -53,17 +53,17 @@ public :
 
 	CFightMapCharInfo	*next;
 
-public :
-	CFightMapCharInfo() { m_TotalId=0, next = 0; }
-	~CFightMapCharInfo() { if( next ) delete next; }
+public:
+	CFightMapCharInfo() { m_TotalId = 0, next = 0; }
+	~CFightMapCharInfo() { if (next) delete next; }
 
 	// 여기서 type은 서버 전송을 받기 전 받은 후를 나타낸다.
-	void AddCharInfo( DWORD total_id, DWORD win_defeat, DWORD ladder, int level, int Class, int type, int dual_cls, int cls_step );
-	CFightMapCharInfo *GetFightMapCharInfo( DWORD total_id );
+	void AddCharInfo(DWORD total_id, DWORD win_defeat, DWORD ladder, int level, int Class, int type, int dual_cls, int cls_step);
+	CFightMapCharInfo *GetFightMapCharInfo(DWORD total_id);
 	void DeleteAll() { m_TotalId = 0; delete next; next = 0; }
 
 
-	
+
 };
 
 ////////////////////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ public :
 
 class CGuildBasic
 {
-public :
+public:
 	int  m_bInfo;			// 서버로 그 길드의 정보를 요청한 적이 있다 없다의 플레그
 	int	 m_bActive;			// 없는 길드이다 아니다.
 	int	 m_nCode;				// 길드 코드
@@ -94,14 +94,14 @@ public :
 	char m_szSubGuldMasterName[20];			// 서브 길마 이름
 	char m_aDegree[5][20];		// 직책	1: 길마 ~ 0 : 일반
 
-public :
+public:
 	CGuildBasic()
 	{
 		InitData();
 	}
-	char *CallGuildDegreeName( int nDegree )
+	char *CallGuildDegreeName(int nDegree)
 	{
-		if( nDegree <0 || nDegree >= 5 ) return NULL;
+		if (nDegree < 0 || nDegree >= 5) return NULL;
 		return m_aDegree[nDegree];
 	}
 	int InitData();
@@ -109,7 +109,7 @@ public :
 
 class CGuild : public CGuildBasic		// text로 필요한 것만 로딩해올때.. 만약 bin에서 로딩 할 경우엔 다르게.....
 {
-public :
+public:
 	int m_nLevel;				// 길드 등급
 
 	int	first;
@@ -130,9 +130,9 @@ public :
 
 	char *m_szExplain;			// 길드 설명
 
-public : 
-	CGuild(){ InitData(); }		// 초기화
-	~CGuild(){ if( m_szExplain ) delete m_szExplain; }
+public:
+	CGuild() { InitData(); }		// 초기화
+	~CGuild() { if (m_szExplain) delete m_szExplain; }
 	int InitData();
 };
 
@@ -141,16 +141,16 @@ public :
 extern TKeinGuildMap< CGuild > g_GuildMgr; // CSD-030324
 
 // 길드 클레스와 관련된 함수들
-extern char *CallGuildDegreeName( int guild_num, int degree_num );		// 길드 직책을 리턴...
-extern char *GetGuildName( int guild_num );
-extern int GetGuildCode( LPCHARACTER ch );
+extern char *CallGuildDegreeName(int guild_num, int degree_num);		// 길드 직책을 리턴...
+extern char *GetGuildName(int guild_num);
+extern int GetGuildCode(LPCHARACTER ch);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // 길드 소개 할때 사용할 국가별 길드 정보
 
 class CGuildIntroductionGuild
 {
-public : 
+public:
 	int x;
 	BYTE line;
 	BYTE page;
@@ -163,11 +163,11 @@ public :
 
 class CGuildIntroduction
 {	//< CSD-030324
-public :
+public:
 	int m_Nation;
 	int m_Count;
 	TKeinGuildMap < CGuildIntroductionGuild > m_Guild;
-public :
+public:
 	CGuildIntroduction()
 	{
 		m_Count = 0;
@@ -193,43 +193,43 @@ private:
 	int m_nGuildCount; // 현재 지키미 길드의 수를 나타낸다.
 	int	m_n1stGuildCode; // 1위인 길드 코드를 알아낸다.
 	vector<int>m_vtGuildList;
-	
+
 	// 안의코드를 검사하지 않고 길드 코드를 등록한다.(중복의 위험이 있다)
 	int	ForcingAddGuild(int nGuildCode)
-	{		
+	{
 		m_vtGuildList.push_back(nGuildCode);
 		return ++m_nGuildCount;
 	}
 public:
 	CGuardianGuild() //생성자
-	{ 
+	{
 		m_vtGuildList.reserve(MAX_GUARDIAN_GUILD);
 		m_nGuildCount = 0;
-		m_n1stGuildCode = -1; 
+		m_n1stGuildCode = -1;
 	} // 생성자.
-	
+
 	bool IsGuardianGuild(int nGuildCode)// 이 길드코드가 지키미 길드의 코드이냐?
 	{
-		for(int i = 0;i < m_nGuildCount;i++)
+		for (int i = 0; i < m_nGuildCount; i++)
 		{
-			if(m_vtGuildList[i] == nGuildCode) return true;
+			if (m_vtGuildList[i] == nGuildCode) return true;
 		}
 		return false;
-	}	
-	
+	}
+
 	int AddGuild(int nGuildCode)//중복되지 않게 추가 시킨다.
 	{
-		if(!IsGuardianGuild(nGuildCode))
+		if (!IsGuardianGuild(nGuildCode))
 		{
 			m_nGuildCount = ForcingAddGuild(nGuildCode);
 		}
 
 		return m_nGuildCount;
 	}
-	
+
 	int FirstGuild()//1등 길드코드를 알아낸다.// 없을때는 -1을 리턴.
 	{
-		if(!m_nGuildCount)return -1;
+		if (!m_nGuildCount)return -1;
 
 		return m_n1stGuildCode;
 	}
@@ -241,24 +241,24 @@ public:
 
 	int	GetGuildCode(int nIndex)
 	{
-		if(nIndex < m_nGuildCount)
+		if (nIndex < m_nGuildCount)
 			return m_vtGuildList[nIndex];
 		return -1;
 	}
 
 	// 일등인 길드는 하나가 아니라.. 각국가별로 하나로 바뀌었다. 당근 3개지.
-	bool	Is1StGuild(int nGuildCode){ return IsGuardianGuild(nGuildCode); }// soto-030318
+	bool	Is1StGuild(int nGuildCode) { return IsGuardianGuild(nGuildCode); }// soto-030318
 
 	void Set1stGuild(int nGuildCode)//1등인 길드를 등록한다.
 	{
-		if(!m_nGuildCount)//현재 길드가 아무도 등록 되어 있지 않을때.
+		if (!m_nGuildCount)//현재 길드가 아무도 등록 되어 있지 않을때.
 		{
 			ForcingAddGuild(nGuildCode);
 			m_n1stGuildCode = nGuildCode;
 		}
 		else // 하나 이상의 길드가 등록되어 있을때.
 		{
-			if(IsGuardianGuild(nGuildCode)) // 리스트에 등록된 코드인가?
+			if (IsGuardianGuild(nGuildCode)) // 리스트에 등록된 코드인가?
 			{
 				m_n1stGuildCode = nGuildCode;
 			}
@@ -271,7 +271,7 @@ public:
 	}
 
 	void ClearGuild()
-	{ 
+	{
 		m_vtGuildList.clear();
 		m_n1stGuildCode = -1;
 		m_nGuildCount = 0;
@@ -286,17 +286,17 @@ extern bool	CheckGuardianGuildWear();// 시야의 사람들의 옷을체크 하�
 
 extern CGuardianGuild	g_CGuardianGuild; // 지키미 길드 관리 전역 클래스. // soto
 extern CBattleZone	g_BattleZone;
-extern void RecvAllTeamInfo( t_packet *p );
-extern void SendAddMeOfTeamBattle( int team );
-extern void RecvAddMemberInfo( t_packet *p );
+extern void RecvAllTeamInfo(t_packet *p);
+extern void SendAddMeOfTeamBattle(int team);
+extern void RecvAddMemberInfo(t_packet *p);
 
 extern bool	g_FightMapStart;
 extern void StartTembattleWaitMenu(int nGame); // CSD-030506
-extern void ViewFightMapCharInfo( char *name, DWORD total_id, int x, int y );
+extern void ViewFightMapCharInfo(char *name, DWORD total_id, int x, int y);
 extern void ChangeEquipForFightMapStart();
-extern void RecvFightRemainTime( t_packet *p );
+extern void RecvFightRemainTime(t_packet *p);
 extern void FighMapReset();
-extern void ResetMagicFlag( LPCHARACTER ch );
+extern void ResetMagicFlag(LPCHARACTER ch);
 extern int g_save_load_flag;
 extern void LoadGuildMarkEx();
 extern CGuildIntroduction *g_Guild_Introduction;
@@ -310,8 +310,8 @@ extern CGuildIntroduction *g_Guild_Introduction;
 
 #define GetAttr2( attr2, a )		((attr2) & (a))
 #define SetAttr2( attr2, b )		{(attr2) |=(b);}
-extern int GetTeamByStone( DWORD attr );
-extern WORD GetRGBByTeam( int team, int &r, int &g, int &b );
+extern int GetTeamByStone(DWORD attr);
+extern WORD GetRGBByTeam(int team, int &r, int &g, int &b);
 
 extern int GetArenaObserverTarget();
 extern int GetArenaBettingTarget();

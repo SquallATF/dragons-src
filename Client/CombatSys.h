@@ -12,37 +12,37 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 전투스킬 관련 클래스
-class CCombatSys : public CBattle  
+class CCombatSys : public CBattle
 {
 public:
 	CCombatSys();
 	virtual ~CCombatSys();
 
 public:
-  virtual int Action(LPCHARACTER pCaster);
-  virtual void Effect(MAGICLIST* pEffect);
+	virtual int Action(LPCHARACTER pCaster);
+	virtual void Effect(MAGICLIST* pEffect);
 
 public:
-  bool Ready(LPCHARACTER pCaster, int nCombat, int nReady);
-   bool Apply(LPCHARACTER pCaster, LPCHARACTER pTarget, int nCombat, int nX, int nY, bool bFail);
-  void Effect(LPCHARACTER pCaster, LPCHARACTER pTarget);
-  int GetCastContinue(int nCombat) const;
+	bool Ready(LPCHARACTER pCaster, int nCombat, int nReady);
+	bool Apply(LPCHARACTER pCaster, LPCHARACTER pTarget, int nCombat, int nX, int nY, bool bFail);
+	void Effect(LPCHARACTER pCaster, LPCHARACTER pTarget);
+	int GetCastContinue(int nCombat) const;
 
-  bool IsEnable(int nCombat) const;
-  
-protected:
-  bool AddEffect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nMagic, int nX, int nY, bool bFail);
+	bool IsEnable(int nCombat) const;
 
 protected:
-  int GetCombatLevel(int nCombat) const
-  {
-    return SCharacterData.SkillId[nCombat - 100];
-  }
+	bool AddEffect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nMagic, int nX, int nY, bool bFail);
 
-  void SetCombatLevel(int nCombat, int nLevel)
-  {
-    SCharacterData.SkillId[nCombat - 100] = nLevel;
-  }
+protected:
+	int GetCombatLevel(int nCombat) const
+	{
+		return SCharacterData.SkillId[nCombat - 100];
+	}
+
+	void SetCombatLevel(int nCombat, int nLevel)
+	{
+		SCharacterData.SkillId[nCombat - 100] = nLevel;
+	}
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

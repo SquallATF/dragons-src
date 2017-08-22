@@ -3,15 +3,15 @@
 #pragma once
 enum eIntoNationNoticeType
 {
-	ALL_CLEAR	=0x0000,  
-	FORCE_TYPE	=0x0001, //iPosition 1-3 
-	QUEUE_TYPE	=0x0002, 
+	ALL_CLEAR = 0x0000,
+	FORCE_TYPE = 0x0001, //iPosition 1-3 
+	QUEUE_TYPE = 0x0002,
 };
 
 enum eINNTQueueType
 {
-	FIRST_IN	=0x0001,
-	LAST_IN		=0x0002,	
+	FIRST_IN = 0x0001,
+	LAST_IN = 0x0002,
 };
 
 extern int CallNationYesOrNo(int iPrevType, int temp);
@@ -27,4 +27,4 @@ extern void NationSupportNationSquadLeader2(t_packet *p);
 extern void NationSupportRecvNationWarResult(t_packet *p);
 extern void WarMenuNoticeOpen();
 extern void TodayNoticeButtonIntoColor(int color);
-extern void	IntoNationNotice(const eIntoNationNoticeType iStyleFlag,int iPosition, char *Msg);//QUEUE Style //INTOPOSTION Style // ALL Clear // 
+extern void	IntoNationNotice(const eIntoNationNoticeType iStyleFlag, int iPosition, char *Msg);//QUEUE Style //INTOPOSTION Style // ALL Clear // 

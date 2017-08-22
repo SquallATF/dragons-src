@@ -1,7 +1,7 @@
 ﻿#ifndef NW_PACKET_DEFINE_
 #define NW_PACKET_DEFINE_
 /*****************************************************************************/
-/* 국가전 관련 패킷 
+/* 국가전 관련 패킷
 /* // 010725 LTS
 /*****************************************************************************/
 
@@ -572,7 +572,7 @@ typedef struct NoticeJoinVoteA_
 	char	WarfieldNo;
 	short	VoteCount;									// 011028 LTS
 	DWORD	RemainTime;
-}	t_NoticeJoinVoteA;   
+}	t_NoticeJoinVoteA;
 
 typedef struct NoticeJoinVoteD_
 {
@@ -699,7 +699,7 @@ typedef struct NoticeWar2Reinforce_
 typedef	struct NoticeWarPeace1V_				// War Result			// 011025 LTS
 {
 	char	Type;
-	char	SecretWarfieldNo;	
+	char	SecretWarfieldNo;
 	char	WarfieldNo;
 	DWORD	Money;
 	DWORD	Warfield1RemainTime;
@@ -905,7 +905,7 @@ typedef union NationWar_P
 	t_NoticeWarPeace1Reinforce	NoticeWarPeace1Reinforce;
 	t_NoticeWarPeace2			NoticeWarPeace2;
 	t_Delivery_Notice			Delivery_Notice;
-	t_WarControl				WarControl;			
+	t_WarControl				WarControl;
 	t_WarLoopTime				WarLoopTime;		// 011025 LTS
 	t_FameExpChange				FameExpChange;		// 020115 LTS
 	WAR_RESULT					WarResult;
@@ -1053,7 +1053,7 @@ typedef struct AIFog_					// LTS NEW AI
 {
 	char	Type;
 	DWORD	Delay;
-	POINTS	Location[FOG_MAX];	
+	POINTS	Location[FOG_MAX];
 }	t_AIFog;
 
 typedef struct ActionTest_				// LTS NEW AI

@@ -34,8 +34,8 @@
 #include "ArenaManager.h"
 
 extern CHARACTERLIST g_CharacterList;
-extern void SendSquadChatMessage(int type,char* Message);			
-extern void WarMenuOpen();											
+extern void SendSquadChatMessage(int type, char* Message);
+extern void WarMenuOpen();
 extern void WarMenuNoticeOpen();
 
 extern void ShowCommanderInfo(); 				// 010924 LTS
@@ -44,16 +44,16 @@ extern void WarGiveLife();						// 011015 LTS
 extern void WarControl(char* Arg);				// 011020 LTS
 extern void WarLoopTime(char* Arg);				// 011025 LTS
 extern void WarGiveLife(char* Arg);				// 011213 LTS
-extern void WarGiveLife2(char* Arg);			
-extern int	IsDead( LPCHARACTER ch );
+extern void WarGiveLife2(char* Arg);
+extern int	IsDead(LPCHARACTER ch);
 extern void SendLocalWarChat(char* Arg);		// LTS NEW LOCALWAR	
-extern void SendAction(int i,int Direction);	// LTS ACTION
+extern void SendAction(int i, int Direction);	// LTS ACTION
 extern void SendCMD_SET_QUESTMODE(char* Arg);	// LTS DRAGON MODIFY
 extern void SendCheckDualFame();              // LTS DUAL FAME
 extern bool g_bStopWeatherSystem; // CSD-CN-031215
 extern bool g_bOffWeatherSystem; // CSD-CN-031217
 
-LINECOMMAND LC[MAX_LINE_COMMAND_] = 
+LINECOMMAND LC[MAX_LINE_COMMAND_] =
 {	//< CSD-030311 : 영어는 대문자로 써주세요..
 	{"", LC_EAT_ITEM},					// 먹기										
 	{"", LC_CHAT_WHISPER},				// @										
@@ -208,31 +208,31 @@ LINECOMMAND LC[MAX_LINE_COMMAND_] =
 	{"", LC_MINIWINDOW_MODE}, //墩 駐?90822
 	{"", LC_MAXWINDOW_MODE}, //墩 駐?90822
 
-	{"", 0}		};  //> CSD-030311
+	{"", 0} };  //> CSD-030311
 
 char	Lc_ChatType;
-char	Lc_TempChatName[ 31];
+char	Lc_TempChatName[31];
 char	Lc_DefaultMoveType;
 
 int		Lc_AutoMovementCmd;
 
 
-char	GreetingStr[ FILENAME_MAX];
+char	GreetingStr[FILENAME_MAX];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 //		User Functions Declaration..
 //
 //
-void SendTotalMapConnections( void );
-void SendTotalConnections( void );
-void RecvTotalMapConnections( int no );
-void RecvTotalConnections( int no );
+void SendTotalMapConnections(void);
+void SendTotalConnections(void);
+void RecvTotalMapConnections(int no);
+void RecvTotalConnections(int no);
 
-void LC_SendInputParty( char *name );
+void LC_SendInputParty(char *name);
 
-void SendTameCommand( int command, char *s );
-void RecvHostEnd(  tame_end *p );
+void SendTameCommand(int command, char *s);
+void RecvHostEnd(tame_end *p);
 
 
 
@@ -242,11 +242,11 @@ void RecvHostEnd(  tame_end *p );
 //
 //
 
-int LineCommandSortFunction( const void *first, const void *second )
+int LineCommandSortFunction(const void *first, const void *second)
 {
 	LINECOMMAND *lc1 = (LINECOMMAND *)first;
 	LINECOMMAND *lc2 = (LINECOMMAND *)second;
-	return ( strlen( lc2->reserved ) - strlen( lc1->reserved ) );
+	return (strlen(lc2->reserved) - strlen(lc1->reserved));
 }
 
 int IsLineCommand(char *message, int nsize)
@@ -1033,7 +1033,7 @@ int IsLineCommand(char *message, int nsize)
 	return 0;
 }
 
-void SendTotalMapConnections( void )
+void SendTotalMapConnections(void)
 {
 	//t_packet p;
 	//p.h.header.type = CMD_TOTAL_MAP_CONNECTIONS;
@@ -1041,7 +1041,7 @@ void SendTotalMapConnections( void )
 	//QueuePacket( &p, 1 );
 }
 
-void SendTotalConnections( void )
+void SendTotalConnections(void)
 {
 	//t_packet p;
 	//p.h.header.type = CMD_TOTAL_CONNECTIONS;
@@ -1050,74 +1050,74 @@ void SendTotalConnections( void )
 }
 
 
-void RecvTotalMapConnections( int no )
+void RecvTotalMapConnections(int no)
 {
-	AddCurrentStatusMessage( 255,255,255, lan->OutputMessage(3,53), no );//010215 lsw
+	AddCurrentStatusMessage(255, 255, 255, lan->OutputMessage(3, 53), no);//010215 lsw
 }
 
-void RecvTotalConnections( int no )
+void RecvTotalConnections(int no)
 {
-	AddCurrentStatusMessage( 255,170,170, lan->OutputMessage(3,54),  no );//010215 lsw
+	AddCurrentStatusMessage(255, 170, 170, lan->OutputMessage(3, 54), no);//010215 lsw
 }
 
-void LC_SendInputParty( char *name )		// 0929 YGI
+void LC_SendInputParty(char *name)		// 0929 YGI
 {
-	LPCHARACTER target = ExistHe( name );
-	if( !target ) return;
-	
+	LPCHARACTER target = ExistHe(name);
+	if (!target) return;
+
 	int i = 0;
-	for(; i<6; i++ )
+	for (; i < 6; i++)
 	{
-		if( !SCharacterData.party[i].m_Name[0] ) break;
+		if (!SCharacterData.party[i].m_Name[0]) break;
 	}
-	if( i == 6 ) return;
-	
-	SetMouseCh( target );
-	SendInputParty( PARTY, i, &mouse_ch);
-	memset( &mouse_ch, 0, sizeof( CharacterParty ) );
+	if (i == 6) return;
+
+	SetMouseCh(target);
+	SendInputParty(PARTY, i, &mouse_ch);
+	memset(&mouse_ch, 0, sizeof(CharacterParty));
 }
 
 void SendTameCommand(int command, char* s)
 {	//< CSD-031106
 	char* tok = strtok(s, " ");
-	
-	if (tok == NULL) 
+
+	if (tok == NULL)
 	{
 		switch (command)
 		{
 		case LC_TAME_STOP:
-			{
-				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 55));
-				break;
-			}
-		case LC_TAME_ATTACK:
-			{
-				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 56));
-				break;
-			}
-		case LC_TAME_FOLLOWME:
-			{
-				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 57));
-				break;
-			}
-		case LC_TAME_NAME:
-			{
-				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 58));
-				break;
-			}
+		{
+			AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 55));
+			break;
 		}
-		
+		case LC_TAME_ATTACK:
+		{
+			AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 56));
+			break;
+		}
+		case LC_TAME_FOLLOWME:
+		{
+			AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 57));
+			break;
+		}
+		case LC_TAME_NAME:
+		{
+			AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 58));
+			break;
+		}
+		}
+
 		return;
 	}
 
 	char mybaby[FILENAME_MAX];
 	strcpy(mybaby, tok);
-	
+
 	tok = strtok(NULL, " \n");
 
 	char toname[FILENAME_MAX];
 
-	if (tok == NULL) 
+	if (tok == NULL)
 	{
 		toname[0] = 0;
 	}
@@ -1125,116 +1125,116 @@ void SendTameCommand(int command, char* s)
 	{
 		strcpy(toname, tok);
 	}
-	
+
 	if (toname[0] == 0)
 	{
 		switch (command)
 		{
-		//
-		//case LC_TAME_ATTACK:
-		//	{
-		//		AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 59));	
-		//		return;
-		//	}
-		//
+			//
+			//case LC_TAME_ATTACK:
+			//	{
+			//		AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 59));	
+			//		return;
+			//	}
+			//
 		case LC_TAME_NAME:
-			{
-				AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 60));
-				return;
-			}
+		{
+			AddCurrentStatusMessage(100, 100, 255, lan->OutputMessage(3, 60));
+			return;
+		}
 		}
 	}
-	
+
 	t_packet p;
 	p.h.header.type = CMD_TAME_COMMAND;
 	p.u.tame_command.cmd = command;
 	mybaby[19] = 0;
 	EatRearWhiteChar(mybaby);
 	strcpy(p.u.tame_command.mybaby, mybaby);
-	EatRearWhiteChar( toname );
+	EatRearWhiteChar(toname);
 	toname[19] = 0;
 	strcpy(p.u.tame_command.toname, toname);
-	p.h.header.size= sizeof(t_tame_command);
+	p.h.header.size = sizeof(t_tame_command);
 	QueuePacket(&p, 1);
 }	//> CSD-031106
 
-void RecvTameCommandResult( int result )
+void RecvTameCommandResult(int result)
 {
-	switch( result )
+	switch (result)
 	{
-	case TAME_FAIL_CHANGE_NAME		: AddCurrentStatusMessage( 214,100,122, lan->OutputMessage(3,74));		break;//010215 lsw
-	case TAME_NO_CHAR				: AddCurrentStatusMessage( 214,100,122,lan->OutputMessage(3,75) ); break;
-	case TAME_NO_NAME_CHAR			: AddCurrentStatusMessage( 214,100,122, lan->OutputMessage(3,76));	break;
-	case TAME_FOLLOW				: AddCurrentStatusMessage( 114,100,122, lan->OutputMessage(3,77));	break;
-	case TAME_STOP					: AddCurrentStatusMessage( 114,100,122, lan->OutputMessage(3,78));	break;
-	case TAME_ATTACK				: AddCurrentStatusMessage( 114,100,122, lan->OutputMessage(3,79));	break;
-	case TAME_SUCCESS_CHANGE_NAME	: AddCurrentStatusMessage( 114,100,122, lan->OutputMessage(3,80));	break;//010215 lsw
+	case TAME_FAIL_CHANGE_NAME: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 74));		break;//010215 lsw
+	case TAME_NO_CHAR: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 75)); break;
+	case TAME_NO_NAME_CHAR: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 76));	break;
+	case TAME_FOLLOW: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 77));	break;
+	case TAME_STOP: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 78));	break;
+	case TAME_ATTACK: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 79));	break;
+	case TAME_SUCCESS_CHANGE_NAME: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 80));	break;//010215 lsw
 	}
 }
 
-void RecvTameNameChange( t_tame_name_change *p )
+void RecvTameNameChange(t_tame_name_change *p)
 {
-	LPCHARACTER ch = FindCharacter( &g_CharacterList, p->id);
-	if( ch == NULL ) return;
-	strcpy( ch->name, p->name );
+	LPCHARACTER ch = FindCharacter(&g_CharacterList, p->id);
+	if (ch == NULL) return;
+	strcpy(ch->name, p->name);
 }
 
 
-void RecvHostName( tame_host_name *p )
+void RecvHostName(tame_host_name *p)
 {
-	LPCHARACTER ch = FindCharacter( &g_CharacterList, p->id);
-	if( ch == NULL ) return;
-	strcpy( ch->HostName, p->hostname );
+	LPCHARACTER ch = FindCharacter(&g_CharacterList, p->id);
+	if (ch == NULL) return;
+	strcpy(ch->HostName, p->hostname);
 }
 
 //   Tamming 끝..
-void RecvHostEnd(  tame_end *p )
+void RecvHostEnd(tame_end *p)
 {
-	LPCHARACTER ch = FindCharacter( &g_CharacterList, p->id);
-	if( ch == NULL ) return;
-	
+	LPCHARACTER ch = FindCharacter(&g_CharacterList, p->id);
+	if (ch == NULL) return;
+
 	ch->HostName[0] = 0;
 }
 
-void SendBBS( char *bbs)
+void SendBBS(char *bbs)
 {
 	t_packet p;
 	int len;
-	
-	if( bbs == NULL ) return;
-	len = strlen( bbs );
-	if( len == 0 ) return;
-	if( len >= MAX_PATH-1 ) return;
-	
+
+	if (bbs == NULL) return;
+	len = strlen(bbs);
+	if (len == 0) return;
+	if (len >= MAX_PATH - 1) return;
+
 	p.h.header.type = CMD_BBS;
-	strcpy( p.u.server_bbs.bbs, bbs );
-	p.h.header.size = sizeof( t_server_bbs ) - MAX_PATH + len;
-	
-	QueuePacket( &p, 1 );
+	strcpy(p.u.server_bbs.bbs, bbs);
+	p.h.header.size = sizeof(t_server_bbs) - MAX_PATH + len;
+
+	QueuePacket(&p, 1);
 }
 
-void SendBBSAll( char *bbs)
+void SendBBSAll(char *bbs)
 {
 	t_packet p;
 	int len;
-	
-	if( bbs == NULL ) return;
-	len = strlen( bbs );
-	if( len == 0 ) return;
-	if( len >= MAX_MSG-1 ) return;
-	
+
+	if (bbs == NULL) return;
+	len = strlen(bbs);
+	if (len == 0) return;
+	if (len >= MAX_MSG - 1) return;
+
 	p.h.header.type = CMD_SV_SEND_MESSAGE_ALL;
-	strcpy( p.u.kein.default_msg, bbs );
+	strcpy(p.u.kein.default_msg, bbs);
 	p.h.header.size = len;
-	
-	QueuePacket( &p, 1 );
+
+	QueuePacket(&p, 1);
 }
 
 ////////////// 0810 lhs 퀘스트용  도움말 //////////////
-void RecvBbs_quest( char *bbs )
+void RecvBbs_quest(char *bbs)
 {
-	AddCurrentStatusMessage( 200,200,0, lan->OutputMessage(3,132) );//010215 lsw
-	AddCurrentStatusMessage( 255,255,0, bbs );
+	AddCurrentStatusMessage(200, 200, 0, lan->OutputMessage(3, 132));//010215 lsw
+	AddCurrentStatusMessage(255, 255, 0, bbs);
 }
 
 
@@ -1244,42 +1244,42 @@ CSmallTipCount	g_SmallTipCount;
 int LoadSmallTipsPage()
 {
 	FILE *fp;
-	fp = Fopen( "./data/small_tips.txt", "rt" );
-	if( !fp ) return 0;
-	
+	fp = Fopen("./data/small_tips.txt", "rt");
+	if (!fp) return 0;
+
 	char str[512];
-	while( fgets( str, 512, fp ) )
+	while (fgets(str, 512, fp))
 	{
-		if( str[0] == ':' ) break;
+		if (str[0] == ':') break;
 		char *token;
-		token = strtok( str, "\t\n" );
-		if( !token ) continue;
-		
-		int number = atoi( token );
-		if( !number ) continue;
-		
-		token = strtok( NULL, "\t\n" );
-		if( !token ) continue;
-		
-		while( token )
+		token = strtok(str, "\t\n");
+		if (!token) continue;
+
+		int number = atoi(token);
+		if (!number) continue;
+
+		token = strtok(NULL, "\t\n");
+		if (!token) continue;
+
+		while (token)
 		{
-			g_SmallTipCount.AddData( number, token );
-			token = strtok( NULL, "\t\n" );
+			g_SmallTipCount.AddData(number, token);
+			token = strtok(NULL, "\t\n");
 		}
 	}
-	
-	fclose( fp );
+
+	fclose(fp);
 	return 1;
 }
 
-int CSmallTipCount::AddData( int number, char *str )
+int CSmallTipCount::AddData(int number, char *str)
 {
 	CSmallTipCount* target = this;
-	
-	while( target->next ) target = target->next;
-	if( m_nPage == 0 )
+
+	while (target->next) target = target->next;
+	if (m_nPage == 0)
 	{
-		strncpy( m_szKey, str, 49 );		// 020925 YGI
+		strncpy(m_szKey, str, 49);		// 020925 YGI
 		m_szKey[49] = 0;					// 020925 YGI
 		m_nPage = number;
 		return 1;
@@ -1287,47 +1287,47 @@ int CSmallTipCount::AddData( int number, char *str )
 	else
 	{
 		target->next = new CSmallTipCount;
-		strcpy( target->next->m_szKey, str );
+		strcpy(target->next->m_szKey, str);
 		target->next->m_nPage = number;
 		return 1;
 	}
 }
 
-int CSmallTipCount::GetPage( char *key )
+int CSmallTipCount::GetPage(char *key)
 {
-	if( !m_nPage ) return 0;
-	
+	if (!m_nPage) return 0;
+
 	CSmallTipCount *target = this;
-	while( target )
+	while (target)
 	{
-		if( strcmp( target->m_szKey, key ) == 0 ) return target->m_nPage;
+		if (strcmp(target->m_szKey, key) == 0) return target->m_nPage;
 		target = target->next;
 	}
 	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void CallViewSmallTips( char *txt )
+void CallViewSmallTips(char *txt)
 {
-	if( IsDead( Hero ) ) return;
-	char *token = strtok( txt, " \t\n" );
-	if( !token ) token = txt;
+	if (IsDead(Hero)) return;
+	char *token = strtok(txt, " \t\n");
+	if (!token) token = txt;
 	else
 	{
-		token = strtok( NULL, " \t\n" );
-		if( !token ) token = txt;
+		token = strtok(NULL, " \t\n");
+		if (!token) token = txt;
 	}
 	static bool first = true;
-	if( first ) 
+	if (first)
 	{
 		LoadSmallTipsPage();
 		first = false;
 	}
-	
+
 	int t = 0;
-	if( *token )
-		t = g_SmallTipCount.GetPage( EatRearWhiteChar( token ) );
-	
+	if (*token)
+		t = g_SmallTipCount.GetPage(EatRearWhiteChar(token));
+
 	CloseAllMenu();
 	SMenu[MN_SMALL_TIPS].key = t;
 	bSmallTips = true;
@@ -1335,7 +1335,7 @@ void CallViewSmallTips( char *txt )
 
 CTextCmd *g_lpTextCmd;
 CEmotionCmd *g_lpEmotionCmd;
-void SendLcEmotion( char *txt )
+void SendLcEmotion(char *txt)
 {
 	return;
 }
@@ -1344,27 +1344,27 @@ void SendLcEmotion( char *txt )
 // CTextCmd member fuction
 void CTextCmd::AddText(char *txt)
 {
-	if( !m_txt )
+	if (!m_txt)
 	{
-		m_txt = new char[strlen(txt)+1];
-		strcpy( m_txt, txt );
+		m_txt = new char[strlen(txt) + 1];
+		strcpy(m_txt, txt);
 		return;
 	}
-	
+
 	CTextCmd *temp = this;
-	for(; temp->next; temp=temp->next ) ;
-	
+	for (; temp->next; temp = temp->next);
+
 	CTextCmd *data;
 	data = new CTextCmd;
-	data->m_txt = new char[strlen(txt)+1];
-	strcpy( data->m_txt, txt );
+	data->m_txt = new char[strlen(txt) + 1];
+	strcpy(data->m_txt, txt);
 	temp->next = data;
 	return;
 }
 char *CTextCmd::GetLastText()
 {
 	CTextCmd *temp = this;
-	for(; temp->next; temp=temp->next ) ;
+	for (; temp->next; temp = temp->next);
 	return temp->m_txt;
 }
 char *CTextCmd::GetFirstText()
@@ -1374,107 +1374,107 @@ char *CTextCmd::GetFirstText()
 
 ///////////////////////////////////////////////////////////////
 // CEmotionCmd member function
-void CEmotionCmd::AddCmd( char *cmd )
+void CEmotionCmd::AddCmd(char *cmd)
 {
-	if( !m_Cmd )
+	if (!m_Cmd)
 	{
-		m_Cmd = new char[strlen(cmd)+1];
-		strcpy( m_Cmd, cmd );
+		m_Cmd = new char[strlen(cmd) + 1];
+		strcpy(m_Cmd, cmd);
 		return;
 	}
-	
+
 	CEmotionCmd *temp = this;
-	for(; temp->next; temp=temp->next ) ;
-	
+	for (; temp->next; temp = temp->next);
+
 	CEmotionCmd *data;
 	data = new CEmotionCmd;
-	data->m_Cmd = new char[strlen(cmd)+1];
-	strcpy( data->m_Cmd, cmd );
+	data->m_Cmd = new char[strlen(cmd) + 1];
+	strcpy(data->m_Cmd, cmd);
 	temp->next = data;
 	return;
 }
 
-int CEmotionCmd::GetCmd( char *txt )
+int CEmotionCmd::GetCmd(char *txt)
 {
 	CEmotionCmd *temp = this;
 	int count = 0;
-	while( temp )
+	while (temp)
 	{
-		if( strcmp( temp->m_Cmd, txt ) == 0 )
+		if (strcmp(temp->m_Cmd, txt) == 0)
 			return count;
-		count ++;
+		count++;
 		temp = temp->next;
 	}
 	return -1;
 }
 ///////////////////////////////////////////////////////////////
-int LoadEmotionCmd( CEmotionCmd *lpEmotionCmd )
+int LoadEmotionCmd(CEmotionCmd *lpEmotionCmd)
 {
 	FILE *fp;
-	fp = Fopen( "./data/emotion.txt", "rt" );
-	if( !fp ) return 0;
-	
+	fp = Fopen("./data/emotion.txt", "rt");
+	if (!fp) return 0;
+
 	char temp[256];
-	while( fgets( temp, 256, fp ) )
+	while (fgets(temp, 256, fp))
 	{
-		if( temp[0] == ';' ) continue;
-		lpEmotionCmd->AddCmd( EatRearWhiteChar(temp) );
+		if (temp[0] == ';') continue;
+		lpEmotionCmd->AddCmd(EatRearWhiteChar(temp));
 	}
-	fclose( fp );
+	fclose(fp);
 	return 1;
 }
 
 void SendExitGuild()
 {
-	if (!CheckGuildCode(Hero->GetGuildCode())) 
+	if (!CheckGuildCode(Hero->GetGuildCode()))
 	{	//< CSD-030324
 		return;
 	}	//> CSD-030324
 
-	if( CheckGuildMaster( Hero ) ) return;		// 길마는 하지 못하게..
-	CallServer( CMD_EXIT_GUILD_SELF );
+	if (CheckGuildMaster(Hero)) return;		// 길마는 하지 못하게..
+	CallServer(CMD_EXIT_GUILD_SELF);
 }
 
-void ViewNk( char *name )
+void ViewNk(char *name)
 {
-	EatRearWhiteChar( name );
-	name = EatRearWhiteChar( name );
-	LPCHARACTER target = ExistHe( name );
-	if( !target ) target = Hero;
-	
-	Kein_PutMessage( KM_INFO, "[%s] Vysues NK:%3d", target->name, IsNK( target, N_VYSEUS ));
-	Kein_PutMessage( KM_INFO, "[%s] Zypern NK:%3d", target->name, IsNK( target, N_ZYPERN ));
-	Kein_PutMessage( KM_INFO, "[%s] Yilse  NK:%3d", target->name, IsNK( target, N_YILSE ));
+	EatRearWhiteChar(name);
+	name = EatRearWhiteChar(name);
+	LPCHARACTER target = ExistHe(name);
+	if (!target) target = Hero;
+
+	Kein_PutMessage(KM_INFO, "[%s] Vysues NK:%3d", target->name, IsNK(target, N_VYSEUS));
+	Kein_PutMessage(KM_INFO, "[%s] Zypern NK:%3d", target->name, IsNK(target, N_ZYPERN));
+	Kein_PutMessage(KM_INFO, "[%s] Yilse  NK:%3d", target->name, IsNK(target, N_YILSE));
 }
 
-extern int IsDead( LPCHARACTER ch );
+extern int IsDead(LPCHARACTER ch);
 
-void RecvGuildChatData( t_packet *p )
+void RecvGuildChatData(t_packet *p)
 {
-	if( IsDead( Hero ) ) return;
-	
+	if (IsDead(Hero)) return;
+
 	static int first = 1;
-	if( first && !g_Menu_Variable.m_bGuildChatOn )
+	if (first && !g_Menu_Variable.m_bGuildChatOn)
 	{
 		// 길드원이 메시지를 보냈습니다. 길드 채팅 명령어를 이용하세요 /#, /길드채팅켜기, /길드채팅끄기
-		Kein_PutMessage( KM_INFO, kein_GetMenuString( 70 ) );
+		Kein_PutMessage(KM_INFO, kein_GetMenuString(70));
 		first = 0;
 	}
 	char *name = p->u.kein.guild_chat.name;
 	char *msg = p->u.kein.guild_chat.msg;
-	ChatMgr.AddString( name, msg, CHATTYPE_GUILD );//021001 lsw
+	ChatMgr.AddString(name, msg, CHATTYPE_GUILD);//021001 lsw
 }
 
 void CheckShowMeDual()
 {
-	if( EquipItemAttr[WT_NECK].item_no == 10175 )
+	if (EquipItemAttr[WT_NECK].item_no == 10175)
 	{
-		CallServer( CMD_SHOW_ME_DUAL_CHAR );
+		CallServer(CMD_SHOW_ME_DUAL_CHAR);
 	}
 	else
 	{
-		CItem *item = ItemUnit( 10175 );
-		if( item )
-			Kein_PutMessage( KM_FAIL, kein_GetMenuString( 78 ), item->GetItemHanName() );
-	}	
+		CItem *item = ItemUnit(10175);
+		if (item)
+			Kein_PutMessage(KM_FAIL, kein_GetMenuString(78), item->GetItemHanName());
+	}
 }

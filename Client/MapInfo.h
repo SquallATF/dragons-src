@@ -40,23 +40,23 @@ typedef struct MAPINFO
 		cPosType = 0; // CSD-030509
 		nSaveX = 0;   // CSD-030509
 		nSaveY = 0;	  // CSD-030509
-		daylightcontrol= 0;	// 지붕이 있으면 0     // 없으면  ( 아래것과 거의 같다 ) 
-		rain= 0;		//  1 :이면 비가 오는곳이다.	0 : 비가 오지 않는 동굴같은 곳이다. 
-		nation= 0;	//  국가코드. 
-		forrookie= 0;
-		ghostguide3x= 0, ghostguide3y= 0;	// nation code 3
-		ghostguide4x= 0, ghostguide4y= 0;	// nation code 4..
+		daylightcontrol = 0;	// 지붕이 있으면 0     // 없으면  ( 아래것과 거의 같다 ) 
+		rain = 0;		//  1 :이면 비가 오는곳이다.	0 : 비가 오지 않는 동굴같은 곳이다. 
+		nation = 0;	//  국가코드. 
+		forrookie = 0;
+		ghostguide3x = 0, ghostguide3y = 0;	// nation code 3
+		ghostguide4x = 0, ghostguide4y = 0;	// nation code 4..
 
 		port = 0;
-		group= 0;
-		Class= 0;
-		LvMin= 0;
-		LvMax= 0;
+		group = 0;
+		Class = 0;
+		LvMin = 0;
+		LvMax = 0;
 		nDisableMagicType = 0; // CSD-030516
 
 		m_MoveType = 0;
 	}
-}t_MapInfo,*LPMAPINFO;
+}t_MapInfo, *LPMAPINFO;
 //#pragma pack(pop,1)
 #pragma pack(pop)
 

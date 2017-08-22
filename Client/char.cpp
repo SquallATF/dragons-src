@@ -1465,7 +1465,7 @@ void h_DisplayPC(LPCHARACTER ch, int shadow)
 		else { bb -= ((eb - sb) * SPEED__ / 100); if (bb < sb) { bo = !bo; } }
 		//WORD color = RGB16( rr,gg,bb );
 		//WORD color = RGB16( 110,10,10 );
-		
+
 		//PutCompressedImageFX( x+1,y, ch->sp, COLO__/2, 2 );
 		//PutCompressedImageFX( x-1,y, ch->sp, COLO__/2, 2 );
 
@@ -3139,8 +3139,8 @@ BOOL AddCharacter(LPCHARACTERLIST lpCharacterList, LPCHARACTER ch, LPGPCHARINFO 
 	case 80:	lpNew->dummy_pk = 0;
 		break;
 
-	//default :	lpNew->dummy_pk = 100;
-	//	break;
+		//default :	lpNew->dummy_pk = 100;
+		//	break;
 	}
 
 

@@ -112,14 +112,14 @@ typedef struct _TRIE
 	bool	wrap;	// can break word?
 	void*	next;	// pointer to next node in save level
 	void*	child;	// pointer to next level
-}TRIE,*LPTRIE;
+}TRIE, *LPTRIE;
 
 typedef struct	_DIFFBYTE
 {
 #if defined SOLARIS && defined SPARC
-	byte b3,b2,b1,b0;
+	byte b3, b2, b1, b0;
 #else
-	unsigned char b0,b1,b2,b3;
+	unsigned char b0, b1, b2, b3;
 #endif
 }DIFFBYTE;
 
@@ -160,9 +160,9 @@ public:
 	ThaiLexicon();
 	~ThaiLexicon();
 
-// Implementation
+	// Implementation
 public:
-	bool AddWord(unsigned char *szNew,unsigned int cb);
+	bool AddWord(unsigned char *szNew, unsigned int cb);
 	void RefreshTrie();
 
 	// Implementation of lexicon functions
@@ -183,8 +183,8 @@ public:
 	unsigned int GetTotalWord() { return m_cWord; };
 	unsigned int GetTotalNode() { return m_cNode; };
 
-// Implementation
-protected:		 
+	// Implementation
+protected:
 	int Trie2Mem(LPTRIE pTrie, int iStart, bool fWrap);
 	int EnumNode(LPTRIE pTrie);
 	unsigned char CountUniqueStr(LPTRIE pTrie);
@@ -192,13 +192,13 @@ protected:
 
 	void DestroyTrie(LPTRIE pTrie);
 
-// Attributes
+	// Attributes
 protected:
 	LPTRIE		m_trie;
 	unsigned int	m_cWord;
 	long	m_cNode;
 	long	m_nSize;
-	unsigned char	*m_MemDict;	
+	unsigned char	*m_MemDict;
 	DICTHEADER	m_DictHeader;
 };
 
@@ -303,12 +303,12 @@ public:
 
 public:
 	bool	InitializeLexicon();
-	int	FindThaiWordBreak(const char* szText,unsigned int nStrlen, unsigned char* rgbBrk, unsigned int nMaxBrk, unsigned int uFlags);
+	int	FindThaiWordBreak(const char* szText, unsigned int nStrlen, unsigned char* rgbBrk, unsigned int nMaxBrk, unsigned int uFlags);
 
 protected:
 	bool	HaveType(char ch, unsigned long IsType); //	{ return (bool)(XCharType(ch) & IsType); };
 	unsigned long	XCharType(char ch); // { m_rgThaiCharTypeTable[ch]; };
-	int	GetWeight(unsigned char* vmOurDict, unsigned char* szText,unsigned char* pchFst,unsigned char* pchLim, unsigned long dwFlags);
+	int	GetWeight(unsigned char* vmOurDict, unsigned char* szText, unsigned char* pchFst, unsigned char* pchLim, unsigned long dwFlags);
 	bool	fCanCat(unsigned char chPrev, unsigned char ch, unsigned int uFlags);
 
 

@@ -15,7 +15,7 @@ namespace battle
 	enum BATTLE_TYPE
 	{	//< CSD-031014
 		// 물리적 공격 
-		PHYSICAL = 0,                  
+		PHYSICAL = 0,
 		// 마법
 		LIFE_UP = 1,                   // 체력회복 
 		PROTECTION = 2,                // 보호
@@ -26,7 +26,7 @@ namespace battle
 		SLOW = 10,                     // 속도저하
 		CONFUSION = 11,                // 혼란
 		INTOXICATION = 12,             // 중독
-		STONELY =	13,                // 석화
+		STONELY = 13,                // 석화
 		ABSOLUTE_PARALYSIS = 14,       // 절대마비
 		TOXIC_CLOUD = 15,              // 독구름  
 		DISEASE_INDUCE = 16,           // 질병유발 
@@ -40,9 +40,9 @@ namespace battle
 		MAGIC_AMPLIFY = 26,            // 마법증폭
 		FIRE_RESIST = 28,              // 불에 대한 저항  
 		FIRE_ARROW = 29,               // 화염화살 
-		FIRE_BALL= 30,                 // 화염구
+		FIRE_BALL = 30,                 // 화염구
 		SCORCHER = 31,                 // 화염군(화염방사)
-		CIRCLE_FLAME= 33,              // 방사화염
+		CIRCLE_FLAME = 33,              // 방사화염
 		FIRE_WALL = 34,                // 화염벽
 		FLAME_WAVE = 35,               // 움직이는 화염벽
 		APOCALYPSE = 36,               // 지옥의 불
@@ -64,8 +64,8 @@ namespace battle
 		LIGHTNING_5TILE_RADIUS = 54,   // 반경 5타일 전격
 		LOW_MONSTER_RECALL = 55,       // 저급 몬스터 소환
 		MIDDLE_MONSTER_RECALL = 58,    // 중급 몬스터 소환
-		SNOWSTORM	= 59,			   // 눈보라의 폭풍
-		ICE_BREATH2	= 60,			   // 아이스 브레스2
+		SNOWSTORM = 59,			   // 눈보라의 폭풍
+		ICE_BREATH2 = 60,			   // 아이스 브레스2
 		BLOOD_LIGHTNING = 61,		   // 블러드 라이트닝
 		PHASING = 64,                  // 장소이동
 		MEMORIZING_LOCATION = 65,      // 이동장소기억
@@ -144,8 +144,8 @@ namespace battle
 		AUTHORITY_SIMUNIAN = 181,      // 시무니안의 권능
 		AUTHORITY_CHARISNUMEN = 182,   // 카리스 누멘의 권능
 		AUTHORITY_LETHY = 183,         // 레티의 권능
-		AUTHORITY_OF_ATHYAS	= 185,     // 아샤스의 권능
-		AUTHORITY_OF_WHOARENCHA	= 187, // 화렌차의 권능
+		AUTHORITY_OF_ATHYAS = 185,     // 아샤스의 권능
+		AUTHORITY_OF_WHOARENCHA = 187, // 화렌차의 권능
 		DEATH_FIREE = 188,             // 갠梧聃삽
 		RAGE_STONE = 189,              // 대지의 분노
 		LIFE_DRAIN = 190,              // 생명력 탈취  
@@ -154,46 +154,46 @@ namespace battle
 		THROW_ARROW = 194,             // 화살
 		THROW_KNIFE = 195,             // 비도
 		// 번개 속성 전투스킬
-		LIGHTNING_BOOM = 215,          
+		LIGHTNING_BOOM = 215,
 		THUNDER_BLOW = 216,
 		LIGHTNING_SHOCK = 217,
 		THUNDER_STRIKE = 218,
 		LIGHTNING_SHIELD = 219,
 		LIGHTNING_EXTREME = 220,
 		// 대지 속성 전투스킬
-		BLOOD_EARTH = 221,             
-		GROUND_ATTACK = 222, 
+		BLOOD_EARTH = 221,
+		GROUND_ATTACK = 222,
 		BLOOD_WILL = 223,
 		STONE_ARMOR = 224,
 		SIMUNIAN_BOSOM = 225,
 		EARTH_EXTREME = 226,
 		// 화염 속성 전투스킬 
 		SWORD_N_ROSES = 227,
-		MULTIPLE_FIRE = 228, 
+		MULTIPLE_FIRE = 228,
 		FLEET_MISSILE = 229,
-		CONVERTING_ARMOR = 230, 
+		CONVERTING_ARMOR = 230,
 		BURNING_BLOODY = 231,
 		FIRE_EXTREME = 232,
 		// 어둠 속성 전투스킬
 		POISONING_NOVA = 233,
-		CHERROY_SHADE = 234, 
-		DARK_BLADE = 235, 
+		CHERROY_SHADE = 234,
+		DARK_BLADE = 235,
 		TYBERN_GIFT = 236,
 		ACUQUIRE_DARK = 237,
 		DARK_EXTREME = 238,
 		// 얼음 속성 전투스킬
 		ICING_BLAST = 239,
-		CRITICAL_HIDING = 240, 
-		SHARK_MISSILE = 241, 
-		HORN_OF_ICEBERG = 242, 
+		CRITICAL_HIDING = 240,
+		SHARK_MISSILE = 241,
+		HORN_OF_ICEBERG = 242,
 		ICE_SHIELD = 243,
 		ICE_EXTREME = 244,
 		// 바람 속성 전투스킬
 		CHARGING = 245,
-		DOUBLE_ATTACK = 246, 
+		DOUBLE_ATTACK = 246,
 		WHILWIND = 247,
-		TWISTER = 248, 
-		GUST = 249, 
+		TWISTER = 248,
+		GUST = 249,
 		WIND_EXTREME = 250,
 		// 이벤트
 		THROW_SNOW_BALL = 193,
@@ -214,16 +214,16 @@ struct USEEFFECTLIST;
 struct MAGICLIST;
 ///////////////////////////////////////////////////////////////////////////////
 // 전투 관련 클래스
-class CBattle  
+class CBattle
 {
 public:
 	CBattle();
 	virtual ~CBattle();
-	
+
 public:
 	virtual int Action(LPCHARACTER pCaster) = 0;
 	virtual void Effect(MAGICLIST* pEffect) = 0;
-	
+
 public:
 	void EffectLocal(MAGICLIST* pMagic, DWORD dwNow);
 	void EffectRound(MAGICLIST* pMagic, DWORD dwNow);
@@ -232,11 +232,11 @@ public:
 	void EffectShoot(MAGICLIST* pMagic, int nCount);
 	void EffectMulti(MAGICLIST* pMagic, int nCount);
 	void EffectBreath(MAGICLIST* pMagic, int nX, int nY);
-	void EffectPillar(MAGICLIST* pMagic, DWORD dwNow, const int nWidth=100, bool IsCkCollision=false); // 030519 kyo
+	void EffectPillar(MAGICLIST* pMagic, DWORD dwNow, const int nWidth = 100, bool IsCkCollision = false); // 030519 kyo
 	void EffectQuake(MAGICLIST* pMagic, int nCount, DWORD dwNow);
 	void EffectDrop(MAGICLIST* pMagic, int nCount, DWORD dwNow);
-	void EffectSpreadIrregular(MAGICLIST* pMagic, DWORD dwNow, const int nTile, const int nRan, int nLoop=2); //	030328 kyo
-	
+	void EffectSpreadIrregular(MAGICLIST* pMagic, DWORD dwNow, const int nTile, const int nRan, int nLoop = 2); //	030328 kyo
+
 protected:
 	/////////////////////////////////////////////////////////////////////////////
 	// 이펙트 정보
@@ -249,7 +249,7 @@ protected:
 		int         nSub;    // 서브타입
 		int         nDir;    // 방향
 		int         nSrcX;   // 시작 위치
-		int         nSrcY;   
+		int         nSrcY;
 		int         nDstX;   // 대상 위치
 		int         nDstY;
 	};
@@ -257,13 +257,13 @@ protected:
 	/////////////////////////////////////////////////////////////////////////////
 	void AddEffect(EFFECT_INFO* pEffect);
 	void ClearCrash();
-	
-	protected:
-		void Coordinates(double dAngle, int& rX, int& rY);
+
+protected:
+	void Coordinates(double dAngle, int& rX, int& rY);
 };
 
-extern int GetInt4Test( const char* szApp, const char* szKey, const char* szFile); // 030513 kyo //for test
-extern void GetString4Test( char* szString,  const char* szApp, const char* szKey, const char* szFile); // 030513 kyo //for test
+extern int GetInt4Test(const char* szApp, const char* szKey, const char* szFile); // 030513 kyo //for test
+extern void GetString4Test(char* szString, const char* szApp, const char* szKey, const char* szFile); // 030513 kyo //for test
 
 //
 ///////////////////////////////////////////////////////////////////////////////

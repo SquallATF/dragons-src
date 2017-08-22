@@ -1,18 +1,18 @@
-﻿ 
- /*=======================================================================*/
- /*                                                                       */
- /*           (c) InstallShield Software Corporation (1996-1997)          */
- /*            (c)  InstallShield Corporation  (1990-1996)                */
- /*                       Schaumburg, Illinois 60173                      */
- /*                          All Rights Reserved                          */
- /*                           InstallShield (R)                           */
- /*                                                                       */
- /*   File    : sdlang.h                                                  */
- /*                                                                       */
- /*   Purpose : This file contains the internal declarations for          */
- /*             the language IDs.                                         */
- /*                                                                       */
- /*=======================================================================*/
+﻿
+/*=======================================================================*/
+/*                                                                       */
+/*           (c) InstallShield Software Corporation (1996-1997)          */
+/*            (c)  InstallShield Corporation  (1990-1996)                */
+/*                       Schaumburg, Illinois 60173                      */
+/*                          All Rights Reserved                          */
+/*                           InstallShield (R)                           */
+/*                                                                       */
+/*   File    : sdlang.h                                                  */
+/*                                                                       */
+/*   Purpose : This file contains the internal declarations for          */
+/*             the language IDs.                                         */
+/*                                                                       */
+/*=======================================================================*/
 
 
 #define ISLANG_ALL                          0x0000

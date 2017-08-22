@@ -23,128 +23,128 @@
 IDirectInput*			g_lpDirectInput = NULL;
 IDirectInputDevice*		g_lpKeyboard = NULL;
 
-BYTE					g_aCurrentKeys[ 256 ];
-BYTE					g_aPrevKeys[ 256 ];
+BYTE					g_aCurrentKeys[256];
+BYTE					g_aPrevKeys[256];
 
 ///////////////////////////////////////////////////////////////////////////////
 // Function prototypes
 
-HRESULT		InitDirectInput( HWND hWnd, HINSTANCE hInstance, BOOL bActive );
-HRESULT		SetAcquire( BOOL bFlag );
-HRESULT		UpdateInputState( void );
-HRESULT		CleanupDirectInput( void );
+HRESULT		InitDirectInput(HWND hWnd, HINSTANCE hInstance, BOOL bActive);
+HRESULT		SetAcquire(BOOL bFlag);
+HRESULT		UpdateInputState(void);
+HRESULT		CleanupDirectInput(void);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Functions
 
 HRESULT
-InitDirectInput( HWND hWnd, HINSTANCE hInstance, BOOL bActive )
-{	
+InitDirectInput(HWND hWnd, HINSTANCE hInstance, BOOL bActive)
+{
 	HRESULT hResult = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&g_lpDirectInput, NULL);
 	//HRESULT hResult = DirectInputCreate(hInstance, DIRECTINPUT_VERSION, &g_lpDirectInput, NULL);
 	//HRESULT hResult = DirectInputCreateEx(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput, (LPVOID*)&g_lpDirectInput, NULL);
-	if ( hResult != DI_OK )
+	if (hResult != DI_OK)
 	{
 		return	hResult;
 	}
-	
+
 	// keyboard
 	//rval = lpDID->QueryInterface(IID_IDirectInputDevice2, (LPVOID*)&m_Device);
 
-	hResult = g_lpDirectInput->CreateDevice( GUID_SysKeyboard, &g_lpKeyboard, NULL );
-	if ( hResult != DI_OK )
+	hResult = g_lpDirectInput->CreateDevice(GUID_SysKeyboard, &g_lpKeyboard, NULL);
+	if (hResult != DI_OK)
 	{
 		return	hResult;
 	}
-	
-	hResult = g_lpKeyboard->SetDataFormat( &c_dfDIKeyboard );
-	if ( hResult != DI_OK )
+
+	hResult = g_lpKeyboard->SetDataFormat(&c_dfDIKeyboard);
+	if (hResult != DI_OK)
 	{
 		return	hResult;
 	}
-	
-	hResult = g_lpKeyboard->SetCooperativeLevel( hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND );
-	if ( hResult != DI_OK )
+
+	hResult = g_lpKeyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+	if (hResult != DI_OK)
 	{
 		return	hResult;
 	}
-	
-	
-	SetAcquire( bActive );
-	
+
+
+	SetAcquire(bActive);
+
 	return	DI_OK;
-}	
-	
+}
+
 HRESULT
-SetAcquire( BOOL bFlag )
-{	
-	if ( g_lpKeyboard == NULL )
+SetAcquire(BOOL bFlag)
+{
+	if (g_lpKeyboard == NULL)
 	{
 		return	S_FALSE;
 	}
-	
-	if ( bFlag )
+
+	if (bFlag)
 	{
-		g_lpKeyboard->Acquire( );
-	} 
-	else 
-	{
-		g_lpKeyboard->Unacquire( );
+		g_lpKeyboard->Acquire();
 	}
-	
+	else
+	{
+		g_lpKeyboard->Unacquire();
+	}
+
 	return	DI_OK;
-}	
-	
+}
+
 HRESULT
-UpdateInputState( void )
-{		
+UpdateInputState(void)
+{
 	HRESULT		hResult;
-			
+
 	// keyboard
 	hResult = DIERR_INPUTLOST;
-	if ( g_lpKeyboard != NULL )
-	{			
-		while ( hResult == DIERR_INPUTLOST )
-		{							
-			hResult = g_lpKeyboard->GetDeviceState( sizeof( g_aCurrentKeys ), g_aCurrentKeys );
-			if ( hResult == DIERR_INPUTLOST )
-			{				
-				hResult = g_lpKeyboard->Acquire( );
-				if ( hResult != DI_OK )
-				{			
+	if (g_lpKeyboard != NULL)
+	{
+		while (hResult == DIERR_INPUTLOST)
+		{
+			hResult = g_lpKeyboard->GetDeviceState(sizeof(g_aCurrentKeys), g_aCurrentKeys);
+			if (hResult == DIERR_INPUTLOST)
+			{
+				hResult = g_lpKeyboard->Acquire();
+				if (hResult != DI_OK)
+				{
 					return	hResult;
 				}
 			}
-		}	
-			
-		if ( hResult != DI_OK )
-		{	
+		}
+
+		if (hResult != DI_OK)
+		{
 			return	hResult;
 		}
-	}	
+	}
 
 	return	DI_OK;
-}		
-		
-HRESULT	
-CleanupDirectInput( void )
-{		
-	if ( g_lpKeyboard != NULL )
-	{	
-		g_lpKeyboard->Unacquire( );
-		g_lpKeyboard->Release( );
+}
+
+HRESULT
+CleanupDirectInput(void)
+{
+	if (g_lpKeyboard != NULL)
+	{
+		g_lpKeyboard->Unacquire();
+		g_lpKeyboard->Release();
 		g_lpKeyboard = NULL;
-	}	
-		
-	if ( g_lpDirectInput != NULL )
-	{	
-		g_lpDirectInput->Release( );
+	}
+
+	if (g_lpDirectInput != NULL)
+	{
+		g_lpDirectInput->Release();
 		g_lpDirectInput = NULL;
-	}	
-			
+	}
+
 	return	DI_OK;
-}		
-		
+}
+
 
 
 

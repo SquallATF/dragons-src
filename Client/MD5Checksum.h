@@ -3,7 +3,7 @@
 
 class CMD5Checksum {
 public:
- //interface functions for the RSA MD5 calculation
+	//interface functions for the RSA MD5 calculation
 	static unsigned char *GetMD5(BYTE* pBuf, UINT nLength);
 	static unsigned char *GetMD5(FILE *File);
 	static unsigned char *GetMD5(const char *strFilePath);
@@ -18,10 +18,10 @@ protected:
 	void Update(BYTE* Input, ULONG nInputLen);
 	unsigned char *Final();
 	inline DWORD RotateLeft(DWORD x, int n);
-	inline void FF( DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
-	inline void GG( DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
-	inline void HH( DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
-	inline void II( DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
+	inline void FF(DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
+	inline void GG(DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
+	inline void HH(DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
+	inline void II(DWORD& A, DWORD B, DWORD C, DWORD D, DWORD X, DWORD S, DWORD T);
 
 	//utility functions
 	void DWordToByte(BYTE* Output, DWORD* Input, UINT nLength);

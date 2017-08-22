@@ -12,27 +12,27 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 마법 관련 클래스
-class CMagicSys : public CBattle  
-{  
+class CMagicSys : public CBattle
+{
 public:
 	CMagicSys();
 	virtual ~CMagicSys();
 
 public:
-  virtual int Action(LPCHARACTER pCaster);
-  virtual void Effect(MAGICLIST* pEffect);
+	virtual int Action(LPCHARACTER pCaster);
+	virtual void Effect(MAGICLIST* pEffect);
 
-public: 
-  bool Ready(LPCHARACTER pCaster, int nMagic, int nReady);
-  bool Apply(LPCHARACTER pCaster, LPCHARACTER pTarget, int nMagic, int nX, int nY, bool bFail = false);
-  
-  bool IsEnable(int nMagic) const;
+public:
+	bool Ready(LPCHARACTER pCaster, int nMagic, int nReady);
+	bool Apply(LPCHARACTER pCaster, LPCHARACTER pTarget, int nMagic, int nX, int nY, bool bFail = false);
+
+	bool IsEnable(int nMagic) const;
 
 protected:
-  bool AddEffect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nMagic, int nX, int nY, bool bFail);
+	bool AddEffect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nMagic, int nX, int nY, bool bFail);
 
 private:
-  bool IsContinue(int nMagic) const;
+	bool IsContinue(int nMagic) const;
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

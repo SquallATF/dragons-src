@@ -1991,7 +1991,7 @@ void lsw_menu_set()
 		//상인이름 입력 체크.
 		::SMenuFTReg(iMnIndex, iFtNum++, FT_CHECK_MERCHANT_FIND, 1,
 			222, 64 + 65, 34, 34, iImg, 7, 7, 0);
-		
+
 		//::SMenuFTReg(iMnIndex,iFtNum++,FT_DATA_PUT, 0,
 		//	90,65+10,  98, 32, iImg, 0, DP_AUCTION_FK_RARE);
 		//::SMenuFTReg(iMnIndex,iFtNum++,FT_DATA_PUT, 0,
@@ -3331,7 +3331,7 @@ void StartMenuSubProcessType2(SMENU *SubMenu, int i, int j, int k)
 		}break;
 		case LGDS_END:
 		{
-			for (int x = 0; x<MAX_START; x++) SMenu[menu[x]].bActive = FALSE;		//모든 창을 닫는다.
+			for (int x = 0; x < MAX_START; x++) SMenu[menu[x]].bActive = FALSE;		//모든 창을 닫는다.
 			SMenu[MN_MAININTERFACE].bActive = TRUE;
 		}break;
 		}
@@ -3428,7 +3428,7 @@ void StartMenuSubProcessType2(SMENU *SubMenu, int i, int j, int k)
 		{
 			const int iPassLen = strlen(szSecretKeyCode);//별표 처리
 														 //	for(int temp=0; temp < iPassLen; temp++) 
-			const int iDisplayLen = (iPassLen>24) ? 24 : iPassLen;
+			const int iDisplayLen = (iPassLen > 24) ? 24 : iPassLen;
 			for (int temp = 0; iDisplayLen > temp; temp++) //24자만 찍어라//021014 lsw
 			{
 				szSecretKeyCodeTemp[temp] = '*';
@@ -3740,7 +3740,7 @@ void MenuSet2()// 필드를 추가할때 죽었을 경우 체크 되지 않아�
 		//국가전 메뉴
 		::SMenuFTReg(MN_MAININTERFACE, NATION_BBS_FIELD, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALL_MENU, 701, 21, 40, 36, MAININTERFACE_IMG, 65, 66, MN_NATION_BATTLE_BBS);
 		::SMenuFTReg(MN_MAININTERFACE, HOT_KEY_FIELD, FT_HOTKEY_ICON, 0, HOTKEY_ICON_POS_X, HOTKEY_ICON_POS_Y, 40, 40, COMBAT_SKILL_ICON_IMG, 90, 90, 0);//전투스킬에 있는 아이콘을 쓴다
-		
+
 		///////////////////// 채팅 /////////////////////
 		// 입력란 
 		::SMenuFTReg(MN_MAININTERFACE, 31, FT_DO, 0, 103, 4, 0, 0, MAININTERFACE_IMG, 67, 68, DO_CHATTING_EDITBOX);
@@ -4082,7 +4082,7 @@ void lsw_DoLButtonDownOfMenu(const int i, const int j)
 			if (IsExchangeNow())
 			{
 				int a = 0;
-				for (; a<MAX_EXCHANGE_ITEM; a++)
+				for (; a < MAX_EXCHANGE_ITEM; a++)
 				{
 					if (item_give[a].item.item_attr.item_no && item_give[a].item.item_pos.type == QUICK && item_give[a].item.item_pos.p3 == ItemX)
 						break;
@@ -4115,7 +4115,7 @@ void lsw_DoLButtonDownOfMenu(const int i, const int j)
 			if (IsExchangeNow())
 			{
 				int a = 0;
-				for (; a<MAX_EXCHANGE_ITEM; a++)
+				for (; a < MAX_EXCHANGE_ITEM; a++)
 				{
 					if (item_give[a].item.item_attr.item_no && item_give[a].item.item_pos.type == QUICK && item_give[a].item.item_pos.p3 == ItemX)
 						break;
@@ -4151,7 +4151,7 @@ void lsw_DoLButtonDownOfMenu(const int i, const int j)
 			break;
 		}
 		int a = 0;
-		for (; a<MAX_UPGRADE_RARE; a++)
+		for (; a < MAX_UPGRADE_RARE; a++)
 		{//아템 번호가 있고 마우스 역역 체크가 되었다
 			if (gm_make_item_list[a].item_no
 				&&	MouseInRectCheak(SMenu[i].x, SMenu[i].y, gm_make_item_list[a].rect))
@@ -4171,7 +4171,7 @@ void lsw_DoLButtonDownOfMenu(const int i, const int j)
 		}
 		int temp = 0;
 
-		for (a = 0; a<MAX_UPGRADE_RARE; a++)
+		for (a = 0; a < MAX_UPGRADE_RARE; a++)
 		{
 			if (gm_make_item_list[a].item_no)
 			{
@@ -4191,7 +4191,7 @@ void lsw_DoLButtonDownOfMenu(const int i, const int j)
 		{//손에 뭘 들고 있다.
 			break;
 		}
-		for (int a = 0; a<2; a++)
+		for (int a = 0; a < 2; a++)
 		{
 			const ItemAttr Item = g_MultiRareSrc.MultiRareSrc[a].attr;
 			if (Item.item_no
@@ -4386,7 +4386,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 				if (!img_max)
 				{
 					Spr *temp_spr;
-					for (int j = 0; j<START_FIGHT_IMG_MAX; j++)
+					for (int j = 0; j < START_FIGHT_IMG_MAX; j++)
 					{
 						temp_spr = GetSprOfMenu(START_FIGHT_MAP, j);
 						if (!temp_spr->img) break;
@@ -4581,7 +4581,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 		if (iCSIndex)
 		{
 			const int iSkillLv = CombatSkill[iCSIndex].iSkillLv;
-			if (iSkillLv >0)//배운것이라야 찍는다
+			if (iSkillLv > 0)//배운것이라야 찍는다
 			{
 				const int iLvImageNo = 79 + iSkillLv - 1;//79번 이미지 부터 시작
 				FieldTypeNomalPutFx3(iMainX, iMainY, iFieldX, iFieldY, iLvImageNo, iImgType, 5, 5);
@@ -5126,7 +5126,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 		{
 			int litter_num = magic_plus_count <= SM_MAGIC_COUNT ? magic_plus_count : SM_MAGIC_COUNT;
 			FieldTypeNomalPut(iMainX, iMainY, 376 - 22 * (litter_num - 1), -52, 15, MAIN_ETC);
-			for (int i = 0; i<litter_num; i++)
+			for (int i = 0; i < litter_num; i++)
 			{
 				FieldTypeNomalPut(iMainX, iMainY, 379 - 22 * (litter_num - 1) + 44 * i, -52, 16, MAIN_ETC);
 			}
@@ -5147,7 +5147,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 		scroll_max = magic_plus_count;
 
 		const int scroll_start = magic_plus_start;
-		for (int i = scroll_start, count = 0; i<scroll_max, count<SM_MAGIC_COUNT; i++, count++)
+		for (int i = scroll_start, count = 0; i < scroll_max, count < SM_MAGIC_COUNT; i++, count++)
 		{
 			if (magic_plus[i])
 			{
@@ -5551,7 +5551,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 			SubMenu->CheakType = 1;
 			SetGMskill();
 			do_search = 1;
-			for (int a = 0; a<5; a++) //3~7 필드 우선 필드타입 없에고
+			for (int a = 0; a < 5; a++) //3~7 필드 우선 필드타입 없에고
 			{
 				SubMenu->nField[3 + a].nType = FT_NO_CHECK;//필드 끄기
 			}
@@ -5578,7 +5578,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 
 		if (do_search)
 		{
-			for (int a = 0; a<MAX_GM_NEED_ITEM_COUNT; a++)
+			for (int a = 0; a < MAX_GM_NEED_ITEM_COUNT; a++)
 			{
 				const int iItemNo = pGmMain->need_item[a];
 				if (iItemNo)
@@ -5774,7 +5774,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 		}
 	}break;
 	case FT_GM_2ND_SKILL_MAKE_ITEM: {
-		for (int a = 0; a<MAX_UPGRADE_RARE; a++)
+		for (int a = 0; a < MAX_UPGRADE_RARE; a++)
 		{
 			if (gm_make_item_list[a].item_no)
 				PutItemIcon(SubMenu->x + gm_make_item_list[a].x,//+	SubMenu->nField[j].x, 
@@ -5784,7 +5784,7 @@ void lsw_MenuSubProcessType(SMENU *SubMenu, const int j)
 		break;
 	}
 	case FT_SKILL_MASTER_MAKE_ITEM: {	//021111 lsw
-		for (int a = 0; a<2; a++)
+		for (int a = 0; a < 2; a++)
 		{
 			const ItemAttr Item = g_MultiRareSrc.MultiRareSrc[a].attr;
 			const int iItemNo = Item.item_no;
@@ -6222,7 +6222,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 		float fSuccessRate = 0.000;
 		Hcolor(FONT_COLOR_WHITE);
 		Hprint2(iMainX + 34, iMainY + 205 + count * iLineGab, g_DestBackBuf, "%s", GetItemHanName(iNeedItemNo1));
-		if (ineedItemCount1< 0 || ineedItemCount1 > 1) { Hcolor(FONT_COLOR_PLUS); }
+		if (ineedItemCount1 < 0 || ineedItemCount1 > 1) { Hcolor(FONT_COLOR_PLUS); }
 		Hprint2(iMainX + 34, iMainY + 205 + count * iLineGab, g_DestBackBuf, "                        %d/1", ineedItemCount1);
 
 		count++;
@@ -6230,7 +6230,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 		{
 			Hcolor(FONT_COLOR_WHITE);
 			Hprint2(iMainX + 34, iMainY + 205 + count * iLineGab, g_DestBackBuf, "%s", GetItemHanName(iNeedItemNo2));
-			if (ineedItemCount2< 0 || ineedItemCount2 > 1) { Hcolor(FONT_COLOR_PLUS); }
+			if (ineedItemCount2 < 0 || ineedItemCount2 > 1) { Hcolor(FONT_COLOR_PLUS); }
 			Hprint2(iMainX + 34, iMainY + 205 + count * iLineGab, g_DestBackBuf, "                        %d/1", ineedItemCount2);
 			count++;
 		}
@@ -6363,7 +6363,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 			bIsFail = true;
 		}
 
-		for (int xx = 0; MAX_IMR_FIELD_CT>xx; xx++)
+		for (int xx = 0; MAX_IMR_FIELD_CT > xx; xx++)
 		{
 			int iNationAddCt = 0;
 			switch (Hero->name_status.nation)
@@ -6554,7 +6554,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 	{
 		static int NationTime = timeGetTime();
 
-		if (timeGetTime() - NationTime> 1000)
+		if (timeGetTime() - NationTime > 1000)
 		{
 			NationTime = timeGetTime();
 			if (nRcImg > 0)
@@ -6822,7 +6822,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 	case DP_MAIN_LEVEL:
 	{
 		const int before_exp = NPC_Lev_Ref[SCharacterData.nLevel].nMinExp;
-		if (SCharacterData.nExpNext - before_exp> 0)
+		if (SCharacterData.nExpNext - before_exp > 0)
 		{
 			const int iMax = NPC_Lev_Ref[SCharacterData.nLevel].nMaxExp - before_exp;//다음 경험치 총량 - 이전 경험치 총량
 			const int iNow = __max(SCharacterData.nExp - before_exp, 0);
@@ -6926,7 +6926,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 				int type = exp / unit;		// 몇번째 인가..
 				if (type >= 1)
 				{
-					for (int i = 0; i<nWidth; i++)
+					for (int i = 0; i < nWidth; i++)
 					{
 						FieldTypeNomalPut(iMainX + i, iMainY - 2, iFieldX, iFieldY, 0, IIT_EXP_GAUGE);
 					}
@@ -6963,7 +6963,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 				{
 					SCharacterData.nExp += 500000;
 				}
-				for (int i = 0; i<count; i++)
+				for (int i = 0; i < count; i++)
 				{
 					FieldTypeNomalPut(iMainX + i, iMainY - 2, iFieldX, iFieldY, 0, IIT_EXP_GAUGE);
 				}
@@ -7041,7 +7041,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 		const int nWidth1 = 69;
 		const int nWidth2 = 69;
 
-		for (int a = 0; a<max; a++)
+		for (int a = 0; a < max; a++)
 		{
 			if (GetSysInfo(SI_NOT_CONNECT_MODE))
 			{
@@ -7063,13 +7063,13 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 					int type = exp / unit;		// 몇번째 인가..
 					if (type >= 1)
 					{
-						for (int i = 0; i<nWidth1; i++)
+						for (int i = 0; i < nWidth1; i++)
 						{
 							FieldTypeNomalPut(iMainX + 23 + i, iMainY + a * 23, iFieldX, iFieldY, type, IIT_EXP_GAUGE);
 						}
 					}
 					int count = int((float)(exp - unit*type)*nWidth1 / (unit));
-					for (int i = 0; i<count; i++)
+					for (int i = 0; i < count; i++)
 					{
 						FieldTypeNomalPut(iMainX + 23 + i, iMainY + a * 23, iFieldX, iFieldY, (type + 1), IIT_EXP_GAUGE);
 					}
@@ -7078,7 +7078,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 				if (exp_next)
 				{
 					int count = (int)((float)exp*nWidth2 / exp_next);
-					for (int i = 0; i<count; i++)
+					for (int i = 0; i < count; i++)
 					{
 						//FieldTypeNomalPut( iMainX+97+i, iMainY+gabx[first_param][a]-1, iFieldX, iFieldY, 0, IIT_EXP_GAUGE );//
 						FieldTypeNomalPut(iMainX + 96 + i, iMainY + a * 23, iFieldX, iFieldY, 0, IIT_EXP_GAUGE);//
@@ -7182,7 +7182,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 
 	case DP_RESIST:
 	{
-		for (int a = 0; a<MAX_RESIST_TYPE; a++)
+		for (int a = 0; a < MAX_RESIST_TYPE; a++)
 		{
 			SetHangulAlign(TA_RIGHT);
 			::Hprint2(iMainX + iFieldX + 31, iMainY + iFieldY + a * 25, g_DestBackBuf, "%d",
@@ -7211,7 +7211,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 			float width_rate = 80 / 150.0f;
 			if (rate != 150)
 			{
-				for (int start = (int)(rate*width_rate); start<80; start++)		// rate*width_rate =>실제 거리
+				for (int start = (int)(rate*width_rate); start < 80; start++)		// rate*width_rate =>실제 거리
 				{
 					if (rate < 100)
 						FieldTypeNomalPut(iMainX + start, iMainY, iFieldX, iFieldY, nRcImg);
@@ -7442,9 +7442,9 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 	}break;
 	case DP_SKILL_ICON:
 	{
-		for (int a = 0; a<2; a++)
+		for (int a = 0; a < 2; a++)
 		{
-			for (int b = 0; b<4; b++)
+			for (int b = 0; b < 4; b++)
 			{
 				if (SkillInventory[nWillDo][a][b])
 				{
@@ -7532,12 +7532,12 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 		EatRearWhiteChar(temp);
 		nBankTemp = atol(temp);
 		int refresh = 0;
-		if (nBankTemp<0)
+		if (nBankTemp < 0)
 		{
 			nBankTemp = 0;
 			refresh = 1;
 		}
-		if ((DWORD)nBankTemp>max)		//// 020925 YGI
+		if ((DWORD)nBankTemp > max)		//// 020925 YGI
 		{
 			nBankTemp = max;
 			refresh = 1;
@@ -8158,7 +8158,7 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 			if (g_MouseItemType == 1)//아이템을 들고 있다면
 			{
 				int a = 0;
-				for (; a<MAX_EXCHANGE_ITEM; a++)
+				for (; a < MAX_EXCHANGE_ITEM; a++)
 				{
 					if (!item_give[a].item.item_attr.item_no)
 					{
@@ -8197,7 +8197,7 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 		int ct = 0;
 		if (g_MouseItemType != 1)
 		{
-			for (int a = 0; a<MAX_UPGRADE_RARE; a++)
+			for (int a = 0; a < MAX_UPGRADE_RARE; a++)
 			{
 				if (gm_make_item_list[a].item_no && MouseInRectCheak(SMenu[i].x, SMenu[i].y, gm_make_item_list[a].rect))
 				{
@@ -8253,7 +8253,7 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 		int ct = 0;
 		if (g_MouseItemType != 1)
 		{
-			for (int a = 0; a<2; a++)
+			for (int a = 0; a < 2; a++)
 			{
 				const ItemAttr Item = g_MultiRareSrc.MultiRareSrc[a].attr;
 				if (Item.item_no
@@ -8367,7 +8367,7 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 		int login;
 		char *name;
 
-		for (int a = 0; a<30; a++)
+		for (int a = 0; a < 30; a++)
 		{
 			if (count >= max_line) break;
 			name = g_Menu_Variable.m_FriendGrup->GetFriend(a, login);
@@ -8398,7 +8398,7 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 				real_count++;
 			}
 		}
-		for (int a = 0; a<30; a++)
+		for (int a = 0; a < 30; a++)
 		{
 			if (count >= max_line) break;
 			name = g_Menu_Variable.m_FriendGrup->GetFriend(a, login);
@@ -8740,7 +8740,7 @@ void ButtonDownAtInventory(const int i, const int j)
 	if (SMenu[MN_GAMBLE].bActive)	// 작업대가 활성화 됐을 경우 작업대에 놓여 있는 아이템은 선택되어지지 않는다.
 	{
 		int a = 0;
-		for (; a<20; a++)
+		for (; a < 20; a++)
 		{
 			const POS &tempPos = make_item_list[a].pos;
 			const ITEMATTR *pItem = &make_item_list[a].attr;
@@ -8758,7 +8758,7 @@ void ButtonDownAtInventory(const int i, const int j)
 	if (SMenu[MN_GM_2ND_SKILL].bActive)	// GM 의작업대가 활성화 됐을 경우 작업대에 놓여 있는 아이템은 선택되어지지 않는다.
 	{
 		int a = 0;
-		for (; a<MAX_UPGRADE_RARE; a++)
+		for (; a < MAX_UPGRADE_RARE; a++)
 		{
 			const POS &tempPos = gm_make_item_list[a].pos;
 			const ITEMATTR *pItem = &gm_make_item_list[a].attr;
@@ -8775,7 +8775,7 @@ void ButtonDownAtInventory(const int i, const int j)
 	if (SMenu[MN_SKILL_MASTER_MAKE].bActive)
 	{
 		int a = 0;
-		for (; a<2; a++)
+		for (; a < 2; a++)
 		{
 			const POS &tempPos = g_MultiRareSrc.MultiRareSrc[a].pos;
 			const ITEMATTR *pItem = &g_MultiRareSrc.MultiRareSrc[a].attr;
@@ -8804,7 +8804,7 @@ void ButtonDownAtInventory(const int i, const int j)
 	if (IsExchangeNow())
 	{
 		int a = 0;
-		for (; a<MAX_EXCHANGE_ITEM; a++)
+		for (; a < MAX_EXCHANGE_ITEM; a++)
 		{
 			const POS &tempPos = item_give[a].item.item_pos;
 			const ITEMATTR *pItem = &item_give[a].item.item_attr;
@@ -8858,9 +8858,9 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 	int first_para = SubMenu->nField[PAGE_NUMBER__].nSHideNomalStart;
 
 
-	for (k = 0; k<3; k++)
+	for (k = 0; k < 3; k++)
 	{
-		for (i = 0; i<8; i++)  //인벤토리창의 세로 최대 크기는 3
+		for (i = 0; i < 8; i++)  //인벤토리창의 세로 최대 크기는 3
 		{	//nField[2]는 스크롤을 위한 가상 필드이다//PAGE_NUMBER__
 			const ItemAttr &put_item = InvItemAttr[first_para][k][i];
 			if (put_item.item_no)
@@ -8868,7 +8868,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 				int put = 1;
 				if (SMenu[MN_GAMBLE].bActive)
 				{
-					for (int a = 0; a<20; a++)
+					for (int a = 0; a < 20; a++)
 					{
 						const POS &pos = make_item_list[a].pos;
 						const int iItemNo = make_item_list[a].item_no;
@@ -8886,7 +8886,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 				}
 				else if (IsExchangeNow())
 				{
-					for (int a = 0; a<MAX_EXCHANGE_ITEM; a++)
+					for (int a = 0; a < MAX_EXCHANGE_ITEM; a++)
 					{
 						const POS &pos = item_give[a].item.item_pos;
 						const int iItemNo = item_give[a].item.item_attr.item_no;
@@ -8904,7 +8904,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 				}
 				else if (SMenu[MN_GM_2ND_SKILL].bActive)//011001 lsw 2차 지엠 때문
 				{
-					for (int a = 0; a<MAX_UPGRADE_RARE; a++)
+					for (int a = 0; a < MAX_UPGRADE_RARE; a++)
 					{
 						const POS &pos = gm_make_item_list[a].pos;
 						const int iItemNo = gm_make_item_list[a].item_no;
@@ -8939,7 +8939,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 				}
 				else if (SMenu[MN_SKILL_MASTER_MAKE].bActive)
 				{
-					for (int a = 0; a<2; a++)
+					for (int a = 0; a < 2; a++)
 					{
 						const POS &pos = g_MultiRareSrc.MultiRareSrc[a].pos; \
 							const int iItemNo = g_MultiRareSrc.MultiRareSrc[a].item_no;
@@ -9029,7 +9029,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 
 		if (SMenu[MN_GAMBLE].bActive)				// 아이템 메이크 창에 재료로 올라간 아템은 선택되지 않는다.
 		{
-			for (i = 0; i<20; i++)
+			for (i = 0; i < 20; i++)
 			{
 				const POS &pos = make_item_list[i].pos;
 				const ItemAttr &Item = make_item_list[i].attr;
@@ -9050,7 +9050,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 		}
 		else if (IsExchangeNow())		// 아이템 교환창에 올려진 아이템
 		{
-			for (i = 0; i<MAX_EXCHANGE_ITEM; i++)
+			for (i = 0; i < MAX_EXCHANGE_ITEM; i++)
 			{
 				const POS &pos = item_give[i].item.item_pos;
 				const ItemAttr &Item = item_give[i].item.item_attr;
@@ -9072,7 +9072,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 
 		if (SMenu[MN_GM_2ND_SKILL].bActive)				// 아이템 메이크 창에 재료로 올라간 아템은 선택되지 않는다.
 		{
-			for (i = 0; i<MAX_UPGRADE_RARE; i++)
+			for (i = 0; i < MAX_UPGRADE_RARE; i++)
 			{
 				const POS &pos = gm_make_item_list[i].pos;
 				const ItemAttr &Item = gm_make_item_list[i].attr;
@@ -9093,7 +9093,7 @@ void	DisplayInventoryMenu(SMENU *SubMenu, int j)
 		if (SMenu[MN_SKILL_MASTER_MAKE].bActive)
 		{
 			int a = 0;
-			for (; a<2; a++)
+			for (; a < 2; a++)
 			{
 				const POS &pos = g_MultiRareSrc.MultiRareSrc[a].pos;
 				const ItemAttr &Item = g_MultiRareSrc.MultiRareSrc[a].attr;
@@ -9149,14 +9149,14 @@ void DisplayQuickMenu(SMENU *SubMenu, int j)
 	const int gabx = SubMenu->nField[j].x;
 	const int gaby = SubMenu->nField[j].y;
 	int i = 0, k = 0;
-	for (k = 0; k<5; k++) //단축 인벤토리창의 가로 최대 크기는 5 가 되었습니다.
+	for (k = 0; k < 5; k++) //단축 인벤토리창의 가로 최대 크기는 5 가 되었습니다.
 	{
 		if (QuickItemAttr[k].item_no)
 		{
 			if (IsExchangeNow())
 			{
 				int put = 1;
-				for (int a = 0; a<MAX_EXCHANGE_ITEM; a++)
+				for (int a = 0; a < MAX_EXCHANGE_ITEM; a++)
 				{
 					if (item_give[a].item.item_attr.item_no && item_give[a].item.item_pos.type == QUICK && item_give[a].item.item_pos.p3 == k)
 					{
@@ -9189,7 +9189,7 @@ void DisplayQuickMenu(SMENU *SubMenu, int j)
 
 	if (SMenu[MN_GAMBLE].bActive)				// 아이템 메이크 창에 재료로 올라간 아템은 선택되지 않는다.
 	{
-		for (i = 0; i<20; i++)
+		for (i = 0; i < 20; i++)
 		{
 			if (make_item_list[i].item_no && make_item_list[i].pos.type == QUICK && make_item_list[i].pos.p3 == ItemX)
 			{
@@ -9204,7 +9204,7 @@ void DisplayQuickMenu(SMENU *SubMenu, int j)
 	}
 	else if (IsExchangeNow())		// 아이템 교환창에 올려진 아이템
 	{
-		for (i = 0; i<MAX_EXCHANGE_ITEM; i++)
+		for (i = 0; i < MAX_EXCHANGE_ITEM; i++)
 		{
 			if (item_give[i].item.item_attr.item_no && item_give[i].item.item_pos.type == QUICK && item_give[i].item.item_pos.p3 == ItemX)
 			{
@@ -9219,7 +9219,7 @@ void DisplayQuickMenu(SMENU *SubMenu, int j)
 	}
 	else if (SMenu[MN_GM_2ND_SKILL].bActive)				// 아이템 메이크 창에 재료로 올라간 아템은 선택되지 않는다.
 	{
-		for (i = 0; i<MAX_UPGRADE_RARE; i++)
+		for (i = 0; i < MAX_UPGRADE_RARE; i++)
 		{
 			if (gm_make_item_list[i].item_no && gm_make_item_list[i].pos.type == QUICK && gm_make_item_list[i].pos.p3 == ItemX)
 			{
@@ -9259,7 +9259,7 @@ void DisplayCandleMenu(SMENU *SubMenu, int j)
 		if (IsExchangeNow())
 		{
 			int put = 1;
-			for (int a = 0; a<MAX_EXCHANGE_ITEM; a++)
+			for (int a = 0; a < MAX_EXCHANGE_ITEM; a++)
 			{
 				if (item_give[a].item.item_attr.item_no && item_give[a].item.item_pos.type == QUICK && item_give[a].item.item_pos.p3 == k)
 				{
@@ -9285,7 +9285,7 @@ void DisplayCandleMenu(SMENU *SubMenu, int j)
 
 	if (SMenu[MN_GAMBLE].bActive)				// 아이템 메이크 창에 재료로 올라간 아템은 선택되지 않는다.
 	{
-		for (i = 0; i<20; i++)
+		for (i = 0; i < 20; i++)
 		{
 			if (make_item_list[i].item_no && make_item_list[i].pos.type == QUICK && make_item_list[i].pos.p3 == ItemX)
 			{
@@ -9300,7 +9300,7 @@ void DisplayCandleMenu(SMENU *SubMenu, int j)
 	}
 	else if (IsExchangeNow())		// 아이템 교환창에 올려진 아이템
 	{
-		for (i = 0; i<MAX_EXCHANGE_ITEM; i++)
+		for (i = 0; i < MAX_EXCHANGE_ITEM; i++)
 		{
 			if (item_give[i].item.item_attr.item_no && item_give[i].item.item_pos.type == QUICK && item_give[i].item.item_pos.p3 == ItemX)
 			{
@@ -9315,7 +9315,7 @@ void DisplayCandleMenu(SMENU *SubMenu, int j)
 	}
 	else if (SMenu[MN_GM_2ND_SKILL].bActive)				// 아이템 메이크 창에 재료로 올라간 아템은 선택되지 않는다.
 	{
-		for (i = 0; i<MAX_UPGRADE_RARE; i++)
+		for (i = 0; i < MAX_UPGRADE_RARE; i++)
 		{
 			if (gm_make_item_list[i].item_no && gm_make_item_list[i].pos.type == QUICK && gm_make_item_list[i].pos.p3 == ItemX)
 			{
@@ -9392,7 +9392,7 @@ void DisplayTacGauge(SMENU *SubMenu, int j, const int x, const int y, const int 
 		if (exp_rate >= 0)
 		{
 			//for( int i=0; i< 118 - exp_rate; i++ )
-			for (int i = 0; i< exp_rate; i++)
+			for (int i = 0; i < exp_rate; i++)
 			{
 				FieldTypeNomalPut(SubMenu->x, SubMenu->y, SubMenu->nField[j].x + i, SubMenu->nField[j].y, SubMenu->nField[j].nImageNumber, SubMenu->nField[j].nImageType);
 			}
@@ -9438,7 +9438,7 @@ void ClearQuickMemory()
 
 void CheckDuplicateQuickMemory(const int iType, const int iNo, const int iBuffer)
 {
-	for (int i = 0; i<MAX_MAGIC_MEMORY; i++)
+	for (int i = 0; i < MAX_MAGIC_MEMORY; i++)
 	{
 		if ((iType == SaveMemory[i].iType) && (iNo == SaveMemory[i].iNo))
 		{
@@ -9591,7 +9591,7 @@ int CheckLegendSetComplete(const int iLegendGroupNo, const int iLegendGroupIndex
 {
 	int aLegendGNo[ITEM_EQUIP_MAX] = { 0, };
 	int aLegendGIndex[ITEM_EQUIP_MAX] = { 0, };
-	for (int i = 0; i <ITEM_EQUIP_MAX; i++)
+	for (int i = 0; i < ITEM_EQUIP_MAX; i++)
 	{
 		const LPRareMain pRare = (LPRareMain)&EquipItemAttr[i].attr[IATTR_RARE_MAIN];
 		if (H_LV_LEGEND_ITEM != pRare->iHighLevel) { continue; }//레전드가 아닐 경우
@@ -9599,14 +9599,14 @@ int CheckLegendSetComplete(const int iLegendGroupNo, const int iLegendGroupIndex
 		aLegendGIndex[i] = pRare->soksung3;
 	}
 
-	for (int i = 0; i <ITEM_EQUIP_MAX; i++)//체크해서 차고 있는게 레전드 아이템 이라면
+	for (int i = 0; i < ITEM_EQUIP_MAX; i++)//체크해서 차고 있는게 레전드 아이템 이라면
 	{
 		const int iGNo = aLegendGNo[i];
 		const int iGIndex = aLegendGIndex[i];
 		if (!iGNo || !iGIndex) { continue; }
 		const int iNeeds = g_aItemLegend[iGNo].aSub[iGIndex].iNeeds;
 		int iLegendResult = 0;
-		for (int aa = 0; aa <ITEM_EQUIP_MAX; aa++)//	needs 체크후 다시 8개를 검색해서 셋트가 되었는지 본다
+		for (int aa = 0; aa < ITEM_EQUIP_MAX; aa++)//	needs 체크후 다시 8개를 검색해서 셋트가 되었는지 본다
 		{
 			if (aLegendGNo[aa] == iGNo	//내 무기가 iGNo가 같고
 				&&	aLegendGIndex[aa] == iGIndex)//인덱스도 일치 한다면
@@ -9804,9 +9804,9 @@ void DisplayRareExplain(const int x, const int y, int &iCount, int &iReultLineCo
 			wForceColor = FONT_COLOR_RED;
 		}
 
-		for (int xx = 0; MAX_ITEM_LEGEND_SUB_BONUS_MAX>xx; xx++)
+		for (int xx = 0; MAX_ITEM_LEGEND_SUB_BONUS_MAX > xx; xx++)
 		{
-			for (int yy = 0; MAX_ITEM_LEGEND_BONUS_KIND>yy; yy++)
+			for (int yy = 0; MAX_ITEM_LEGEND_BONUS_KIND > yy; yy++)
 			{
 				RareMain TempRare = { 0, };
 				TempRare.grade = g_aLegendBonus[g_aItemLegend[pRareValue->soksung2].aSub[pRareValue->soksung3].aiBonus[xx]].aiGrade[yy];
@@ -9845,7 +9845,7 @@ void CallLoginMenu(const bool bForceLoginActive)
 			{
 				SMenu[MN_SELECT_SERVER].nFieldCount = 8;
 			}
-			for (int i = 0; i<count && i<5; i++)
+			for (int i = 0; i < count && i < 5; i++)
 			{
 				SMenu[MN_SELECT_SERVER].nField[3 + i].nType = FT_SELECT_SERVER_BUTTON;
 			}
@@ -10083,7 +10083,7 @@ void DisplayGmRegistRequest(const int iGmQuestIndex, const int iMainX, const int
 #endif
 
 	iLineCt++;
-	for (int a = 0; a<MAX_GM_NEED_ITEM_COUNT; a++)
+	for (int a = 0; a < MAX_GM_NEED_ITEM_COUNT; a++)
 	{
 		::Hcolor(RGB16(200, 250, 200));
 		const int iItemNo = pGmMain->need_item[a];

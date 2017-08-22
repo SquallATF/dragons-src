@@ -19,54 +19,54 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 
-BOOL					InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo );
-void					CleanupDirectDraw( LPDIRECTDRAWINFO lpDirectDrawInfo );
-LPDIRECTDRAWSURFACE		CreateSurface( LPDIRECTDRAW lpDirectDraw, DWORD dwWidth, DWORD dwHeight );
-void					CleanupSurface( LPDIRECTDRAWSURFACE lpSurface );
-BOOL					RestoreSurface( LPDIRECTDRAWSURFACE lpSurface );
-BOOL					RestoreAllSurfaces( LPDIRECTDRAWINFO lpDirectDrawInfo );
-void					FlipScreen( LPDIRECTDRAWINFO lpDirectDrawInfo );
-void					EraseScreen( LPDIRECTDRAWINFO lpDirectDrawInfo, WORD color );
+BOOL					InitDirectDraw(HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo);
+void					CleanupDirectDraw(LPDIRECTDRAWINFO lpDirectDrawInfo);
+LPDIRECTDRAWSURFACE		CreateSurface(LPDIRECTDRAW lpDirectDraw, DWORD dwWidth, DWORD dwHeight);
+void					CleanupSurface(LPDIRECTDRAWSURFACE lpSurface);
+BOOL					RestoreSurface(LPDIRECTDRAWSURFACE lpSurface);
+BOOL					RestoreAllSurfaces(LPDIRECTDRAWINFO lpDirectDrawInfo);
+void					FlipScreen(LPDIRECTDRAWINFO lpDirectDrawInfo);
+void					EraseScreen(LPDIRECTDRAWINFO lpDirectDrawInfo, WORD color);
 
-BOOL	DDLoadBitmap( LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpszFilePath );
-BOOL	DDReLoadBitmap( LPDIRECTDRAWSURFACE lpSurface, char* lpszFilePath );
-BOOL	DDCopyBitmap( LPDIRECTDRAWSURFACE lpSurface, HBITMAP hBitmap, int x, int y, int dx, int dy );
-DWORD	DDColorMatch( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb );
-HRESULT	DDSetColorKey( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb );
+BOOL	DDLoadBitmap(LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpszFilePath);
+BOOL	DDReLoadBitmap(LPDIRECTDRAWSURFACE lpSurface, char* lpszFilePath);
+BOOL	DDCopyBitmap(LPDIRECTDRAWSURFACE lpSurface, HBITMAP hBitmap, int x, int y, int dx, int dy);
+DWORD	DDColorMatch(LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb);
+HRESULT	DDSetColorKey(LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb);
 
-void	StretchBltScreen( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc, DWORD dwColorFill, int nDirection );
-void	BltGrid( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc );
-void	BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc );
-int		TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LONG x, LONG y, RECT rectSrc, WORD wAlphaValue );
+void	StretchBltScreen(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc, DWORD dwColorFill, int nDirection);
+void	BltGrid(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc);
+void	BltTrans(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc);
+int		TransAlpha(LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LONG x, LONG y, RECT rectSrc, WORD wAlphaValue);
 
 
-void	InitGammaControl( void );
-void	ResetGammaCtrl( void );
-int		ColorCtrlBrightness( long v );
+void	InitGammaControl(void);
+void	ResetGammaCtrl(void);
+int		ColorCtrlBrightness(long v);
 
 
 ///////////////////////////////////////////////////////////////////////////////
 //	
-	
+
 BOOL
-InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
-{	
+InitDirectDraw(HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo)
+{
 	LPDIRECTDRAW			lpDirectDraw = NULL;
 	DDSCAPS					ddscaps;
 	DDSURFACEDESC			ddsd;
 	CLIPLIST				tClipList;
 	RECT					rectClipper;
 	HRESULT					hResult;
-	
-	if(lpDirectDrawInfo->lpDirectDraw != NULL)	return TRUE;
+
+	if (lpDirectDrawInfo->lpDirectDraw != NULL)	return TRUE;
 
 	//hResult = DirectDrawCreateEx(NULL, (LPVOID *)(&lpDirectDrawInfo->lpDirectDraw), IID_IDirectInput8, NULL);
-	hResult = DirectDrawCreate( NULL, &lpDirectDrawInfo->lpDirectDraw, NULL );
-	if( hResult != DD_OK )
+	hResult = DirectDrawCreate(NULL, &lpDirectDrawInfo->lpDirectDraw, NULL);
+	if (hResult != DD_OK)
 	{
-		return	ShowErrorMessage( "DirectDrawCreate Failed!" );
+		return	ShowErrorMessage("DirectDrawCreate Failed!");
 	}
-	
+
 	//hResult = lpDirectDraw->QueryInterface( IID_IDirectDraw4, ( LPVOID* )&lpDirectDrawInfo->lpDirectDraw );
 	//if ( hResult != DD_OK )
 	//{
@@ -74,65 +74,65 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 	//}
 	//lpDirectDraw->Release( );
 	//lpDirectDraw = NULL;
-	
-	if ( lpDirectDrawInfo->bFullscreen )
+
+	if (lpDirectDrawInfo->bFullscreen)
 	{
-		hResult = lpDirectDrawInfo->lpDirectDraw->SetCooperativeLevel( hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDraw->SetCooperativeLevel(hWnd, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "SetCooperativeLevel Failed!" );
+			return	ShowErrorMessage("SetCooperativeLevel Failed!");
 		}
-	
+
 #ifdef ALT_TAB_BLOCK
-		while( lpDirectDrawInfo->lpDirectDraw->SetDisplayMode( SCREEN_WIDTH, SCREEN_HEIGHT, 16 ) != DD_OK )
+		while (lpDirectDrawInfo->lpDirectDraw->SetDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16) != DD_OK)
 		{
-			Sleep( 1000 );
+			Sleep(1000);
 			//count++;
 			//if( count > 100 ) return false;
 		}
 #else
-		hResult = lpDirectDrawInfo->lpDirectDraw->SetDisplayMode( SCREEN_WIDTH, SCREEN_HEIGHT, 16 );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDraw->SetDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, 16);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "SetDisplayMode Failed!" );
+			return	ShowErrorMessage("SetDisplayMode Failed!");
 		}
 #endif
-	
-		ZeroMemory( &ddsd, sizeof( ddsd ) );
-		ddsd.dwSize = sizeof( ddsd );
+
+		ZeroMemory(&ddsd, sizeof(ddsd));
+		ddsd.dwSize = sizeof(ddsd);
 		ddsd.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
 		ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_COMPLEX | DDSCAPS_SYSTEMMEMORY;
 		ddsd.dwBackBufferCount = 1;
-		hResult = lpDirectDrawInfo->lpDirectDraw->CreateSurface( &ddsd, &lpDirectDrawInfo->lpDirectDrawSurfacePrimary, NULL );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDraw->CreateSurface(&ddsd, &lpDirectDrawInfo->lpDirectDrawSurfacePrimary, NULL);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "CreateSurface(Primary) Failed!" );
+			return	ShowErrorMessage("CreateSurface(Primary) Failed!");
 		}
-	
+
 		ddscaps.dwCaps = DDSCAPS_BACKBUFFER;
-		hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->GetAttachedSurface( &ddscaps, &lpDirectDrawInfo->lpDirectDrawSurfaceBack );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->GetAttachedSurface(&ddscaps, &lpDirectDrawInfo->lpDirectDrawSurfaceBack);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "GetAttachedSurface Failed!" );
+			return	ShowErrorMessage("GetAttachedSurface Failed!");
 		}
-	
-	
+
+
 		//DDSURFACEDESC       DDSDesc;
 		//DDSDesc.dwSize = sizeof(DDSDesc2);
 		//
 		//lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Lock(NULL, &DDSDesc, 0, NULL);   // 
 		//lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Unlock(NULL);
-	
+
 		//DxSize = DDSDesc.lPitch;
 
 
 	}
 	else
 	{
-		hResult = lpDirectDrawInfo->lpDirectDraw->SetCooperativeLevel( hWnd, DDSCL_NORMAL );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDraw->SetCooperativeLevel(hWnd, DDSCL_NORMAL);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "SetCooperativeLevel Failed!" );
+			return	ShowErrorMessage("SetCooperativeLevel Failed!");
 		}
 
 		//
@@ -162,45 +162,45 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 		//SetWindowPos( hWnd, NULL, rectClient.left, rectClient.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE );
 		//
 
-		ZeroMemory( &ddsd, sizeof( ddsd ) );
-		ddsd.dwSize = sizeof( ddsd );
+		ZeroMemory(&ddsd, sizeof(ddsd));
+		ddsd.dwSize = sizeof(ddsd);
 		ddsd.dwFlags = DDSD_CAPS;
 		ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_SYSTEMMEMORY;
-		hResult = lpDirectDrawInfo->lpDirectDraw->CreateSurface( &ddsd, &lpDirectDrawInfo->lpDirectDrawSurfacePrimary, NULL );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDraw->CreateSurface(&ddsd, &lpDirectDrawInfo->lpDirectDrawSurfacePrimary, NULL);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "CreateSurface(Primary Failed!" );
+			return	ShowErrorMessage("CreateSurface(Primary Failed!");
 		}
 
-		ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;	
-		ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN |  DDSCAPS_SYSTEMMEMORY;
+		ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
+		ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
 		ddsd.dwWidth = SCREEN_WIDTH;
 		ddsd.dwHeight = SCREEN_HEIGHT;
-		hResult = lpDirectDrawInfo->lpDirectDraw->CreateSurface( &ddsd, &lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL );
-		if ( hResult != DD_OK )
+		hResult = lpDirectDrawInfo->lpDirectDraw->CreateSurface(&ddsd, &lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL);
+		if (hResult != DD_OK)
 		{
-			return	ShowErrorMessage( "CreateSurface(Back) Failed!" );
+			return	ShowErrorMessage("CreateSurface(Back) Failed!");
 		}
 	}
 
-	hResult = lpDirectDrawInfo->lpDirectDraw->CreateClipper( 0, &lpDirectDrawInfo->lpClipper, NULL );
-	if ( hResult != DD_OK )
+	hResult = lpDirectDrawInfo->lpDirectDraw->CreateClipper(0, &lpDirectDrawInfo->lpClipper, NULL);
+	if (hResult != DD_OK)
 	{
-		return	ShowErrorMessage( "CreateClipper Failed!" );
+		return	ShowErrorMessage("CreateClipper Failed!");
 	}
 
-	SetRect( &rectClipper, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-	tClipList.rgnheader.dwSize = sizeof( RGNDATAHEADER );
+	SetRect(&rectClipper, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+	tClipList.rgnheader.dwSize = sizeof(RGNDATAHEADER);
 	tClipList.rgnheader.iType = RDH_RECTANGLES;
 	tClipList.rgnheader.nCount = 1;
 	tClipList.rgnheader.nRgnSize = 0;
-	memcpy( &tClipList.rgnheader.rcBound, &rectClipper, sizeof( RECT ) );
-	memcpy( &tClipList.rect, &rectClipper, sizeof( RECT ) );
+	memcpy(&tClipList.rgnheader.rcBound, &rectClipper, sizeof(RECT));
+	memcpy(&tClipList.rect, &rectClipper, sizeof(RECT));
 
-	hResult = lpDirectDrawInfo->lpClipper->SetClipList( ( LPRGNDATA )&tClipList, 0 );
-	if ( hResult != DD_OK )
+	hResult = lpDirectDrawInfo->lpClipper->SetClipList((LPRGNDATA)&tClipList, 0);
+	if (hResult != DD_OK)
 	{
-		return	ShowErrorMessage( "SetClipList Failed!" );
+		return	ShowErrorMessage("SetClipList Failed!");
 	}
 
 	InitGammaControl();
@@ -209,50 +209,50 @@ InitDirectDraw( HWND hWnd, LPDIRECTDRAWINFO lpDirectDrawInfo )
 }
 
 void
-CleanupDirectDraw( LPDIRECTDRAWINFO lpDirectDrawInfo )
+CleanupDirectDraw(LPDIRECTDRAWINFO lpDirectDrawInfo)
 {
-	if ( !lpDirectDrawInfo->bFullscreen && lpDirectDrawInfo->lpClipper )
+	if (!lpDirectDrawInfo->bFullscreen && lpDirectDrawInfo->lpClipper)
 	{
-		lpDirectDrawInfo->lpClipper->SetClipList( NULL, 0 );
-		lpDirectDrawInfo->lpClipper->Release( );
+		lpDirectDrawInfo->lpClipper->SetClipList(NULL, 0);
+		lpDirectDrawInfo->lpClipper->Release();
 		lpDirectDrawInfo->lpClipper = NULL;
 	}
 
-	if ( !lpDirectDrawInfo->bFullscreen && ( lpDirectDrawInfo->lpDirectDrawSurfaceBack != NULL ) )
+	if (!lpDirectDrawInfo->bFullscreen && (lpDirectDrawInfo->lpDirectDrawSurfaceBack != NULL))
 	{
-		lpDirectDrawInfo->lpDirectDrawSurfaceBack->Release( );
+		lpDirectDrawInfo->lpDirectDrawSurfaceBack->Release();
 		lpDirectDrawInfo->lpDirectDrawSurfaceBack = NULL;
 	}
 
-	if ( lpDirectDrawInfo->lpDirectDrawSurfacePrimary != NULL )
+	if (lpDirectDrawInfo->lpDirectDrawSurfacePrimary != NULL)
 	{
-		lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Release( );
+		lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Release();
 		lpDirectDrawInfo->lpDirectDrawSurfacePrimary = NULL;
 	}
 
-	if( lpDirectDrawInfo->lpDirectDraw != NULL )
+	if (lpDirectDrawInfo->lpDirectDraw != NULL)
 	{
-		lpDirectDrawInfo->lpDirectDraw->Release( );
+		lpDirectDrawInfo->lpDirectDraw->Release();
 		lpDirectDrawInfo->lpDirectDraw = NULL;
 	}
 
-//	ResetGammaCtrl();
+	//	ResetGammaCtrl();
 }
 
 LPDIRECTDRAWSURFACE
-CreateSurface( LPDIRECTDRAW lpDirectDraw, DWORD dwWidth, DWORD dwHeight )
+CreateSurface(LPDIRECTDRAW lpDirectDraw, DWORD dwWidth, DWORD dwHeight)
 {
 	LPDIRECTDRAWSURFACE		lpSurface;
 	DDSURFACEDESC			ddsd;
 
-	ZeroMemory( &ddsd, sizeof( ddsd ) );
-	ddsd.dwSize = sizeof( ddsd );
+	ZeroMemory(&ddsd, sizeof(ddsd));
+	ddsd.dwSize = sizeof(ddsd);
 	ddsd.dwFlags = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
-	ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN |  DDSCAPS_SYSTEMMEMORY;
+	ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
 	ddsd.dwWidth = dwWidth;
 	ddsd.dwHeight = dwHeight;
 
-	if ( lpDirectDraw->CreateSurface( &ddsd, &lpSurface, NULL ) != DD_OK )
+	if (lpDirectDraw->CreateSurface(&ddsd, &lpSurface, NULL) != DD_OK)
 	{
 		return	NULL;
 	}
@@ -261,19 +261,19 @@ CreateSurface( LPDIRECTDRAW lpDirectDraw, DWORD dwWidth, DWORD dwHeight )
 }
 
 void
-CleanupSurface( LPDIRECTDRAWSURFACE lpSurface )
+CleanupSurface(LPDIRECTDRAWSURFACE lpSurface)
 {
-	if ( lpSurface )
+	if (lpSurface)
 	{
-		lpSurface->Release( );
+		lpSurface->Release();
 		lpSurface = NULL;
 	}
 }
 
 BOOL
-RestoreSurface( LPDIRECTDRAWSURFACE lpSurface )
+RestoreSurface(LPDIRECTDRAWSURFACE lpSurface)
 {
-	if ( lpSurface->Restore( ) != DD_OK )
+	if (lpSurface->Restore() != DD_OK)
 	{
 		return	FALSE;
 	}
@@ -282,121 +282,123 @@ RestoreSurface( LPDIRECTDRAWSURFACE lpSurface )
 }
 
 BOOL
-RestoreAllSurfaces( LPDIRECTDRAWINFO lpDirectDrawInfo )
+RestoreAllSurfaces(LPDIRECTDRAWINFO lpDirectDrawInfo)
 {
-	if ( !RestoreSurface( lpDirectDrawInfo->lpDirectDrawSurfacePrimary ) )
+	if (!RestoreSurface(lpDirectDrawInfo->lpDirectDrawSurfacePrimary))
 	{
 		char	temp[30];
-		sprintf(temp, lan->OutputMessage(7,61));//010215 lsw
-		MessageBox( g_hwndMain, temp, 0, MB_OK);
+		sprintf(temp, lan->OutputMessage(7, 61));//010215 lsw
+		MessageBox(g_hwndMain, temp, 0, MB_OK);
 		return	FALSE;
 	}
 
-	if ( !RestoreSurface( lpDirectDrawInfo->lpDirectDrawSurfaceBack ) )
+	if (!RestoreSurface(lpDirectDrawInfo->lpDirectDrawSurfaceBack))
 	{
 		char	temp[30];
-		sprintf(temp, lan->OutputMessage(7,62));//010215 lsw
-		MessageBox( g_hwndMain, temp, 0, MB_OK);
+		sprintf(temp, lan->OutputMessage(7, 62));//010215 lsw
+		MessageBox(g_hwndMain, temp, 0, MB_OK);
 		return	FALSE;
-	}				
-					
-	return	TRUE;	
-}					
-					
-void				
-FlipScreen( LPDIRECTDRAWINFO lpDirectDrawInfo )
-{					
-	HRESULT		hResult;
-					
-	extern bool chinese_input;
-	if ( lpDirectDrawInfo->bFullscreen )
-	{				
-		if( chinese_input )
-		{
-			lpDirectDrawInfo->lpDirectDrawSurfacePrimary->SetClipper( lpDirectDrawInfo->lpClipper );
+	}
 
-			hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Blt( &lpDirectDrawInfo->rectPrimarySurface,
-				lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL, DDBLT_WAIT, NULL );
+	return	TRUE;
+}
+
+void
+FlipScreen(LPDIRECTDRAWINFO lpDirectDrawInfo)
+{
+	HRESULT		hResult;
+
+	extern bool chinese_input;
+	if (lpDirectDrawInfo->bFullscreen)
+	{
+		if (chinese_input)
+		{
+			lpDirectDrawInfo->lpDirectDrawSurfacePrimary->SetClipper(lpDirectDrawInfo->lpClipper);
+
+			hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Blt(&lpDirectDrawInfo->rectPrimarySurface,
+				lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL, DDBLT_WAIT, NULL);
 		}
 		else
-		while( 1 )	
-		{			
-			hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Flip( NULL, DDFLIP_WAIT );
-			if ( hResult == DD_OK )
-			{		
-				break;
-			}		
-			if ( hResult == DDERR_SURFACELOST )
-			{		
-				hResult = RestoreAllSurfaces(  lpDirectDrawInfo );
-				if ( hResult != DD_OK )
-				{	
-					return;
-				}	
-			}		
-			if ( hResult != DDERR_WASSTILLDRAWING )
-			{		
-				break;
-			}		
-		}			
-	}				
-	else			
-	{				
+		{
+			while (1)
+			{
+				hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Flip(NULL, DDFLIP_WAIT);
+				if (hResult == DD_OK)
+				{
+					break;
+				}
+				if (hResult == DDERR_SURFACELOST)
+				{
+					hResult = RestoreAllSurfaces(lpDirectDrawInfo);
+					if (hResult != DD_OK)
+					{
+						return;
+					}
+				}
+				if (hResult != DDERR_WASSTILLDRAWING)
+				{
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
 		//lpDirectDrawInfo->lpDirectDrawSurfacePrimary->SetClipper( lpDirectDrawInfo->lpClipper );
-			
-		hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Blt( &lpDirectDrawInfo->rectPrimarySurface,
-			lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL, DDBLT_WAIT, NULL );
-	}				
-}					
-					
-void				
-EraseScreen( LPDIRECTDRAWINFO lpDirectDrawInfo, WORD color )
-{					
+
+		hResult = lpDirectDrawInfo->lpDirectDrawSurfacePrimary->Blt(&lpDirectDrawInfo->rectPrimarySurface,
+			lpDirectDrawInfo->lpDirectDrawSurfaceBack, NULL, DDBLT_WAIT, NULL);
+	}
+}
+
+void
+EraseScreen(LPDIRECTDRAWINFO lpDirectDrawInfo, WORD color)
+{
 	DDBLTFX		ddbltfx;
 	HRESULT		hResult;
-					
-	ddbltfx.dwSize = sizeof( ddbltfx );
+
+	ddbltfx.dwSize = sizeof(ddbltfx);
 	ddbltfx.dwFillColor = color;//	RGB16( 0, 0, 255 );
 
-	if( lpDirectDrawInfo == NULL ) return;
-					
-	while( 1 )		
-	{				
-		hResult = lpDirectDrawInfo->lpDirectDrawSurfaceBack->Blt( NULL, NULL, NULL, DDBLT_COLORFILL, &ddbltfx );
-		if ( hResult == DD_OK )
-		{			
-			break;	
-		}			
-		if ( hResult == DDERR_SURFACELOST )
-		{			
-			hResult = RestoreAllSurfaces( lpDirectDrawInfo );
-			if ( hResult != DD_OK )
-			{		
+	if (lpDirectDrawInfo == NULL) return;
+
+	while (1)
+	{
+		hResult = lpDirectDrawInfo->lpDirectDrawSurfaceBack->Blt(NULL, NULL, NULL, DDBLT_COLORFILL, &ddbltfx);
+		if (hResult == DD_OK)
+		{
+			break;
+		}
+		if (hResult == DDERR_SURFACELOST)
+		{
+			hResult = RestoreAllSurfaces(lpDirectDrawInfo);
+			if (hResult != DD_OK)
+			{
 				return;
-			}		
-		}			
-		if ( hResult != DDERR_WASSTILLDRAWING )
-		{			
-			return;	
-		}			
-	}				
-}					
-	
+			}
+		}
+		if (hResult != DDERR_WASSTILLDRAWING)
+		{
+			return;
+		}
+	}
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 
 BOOL
-DDLoadBitmap( LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpszFilePath )
+DDLoadBitmap(LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpszFilePath)
 {
 	HBITMAP		hbm;
 	BITMAP		bm;
 
-	hbm = ( HBITMAP )LoadImage( NULL, lpszFilePath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION );
-	if ( hbm == NULL )
+	hbm = (HBITMAP)LoadImage(NULL, lpszFilePath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+	if (hbm == NULL)
 	{
 		return	FALSE;
 	}
-	GetObject( hbm, sizeof( bm ), &bm );
+	GetObject(hbm, sizeof(bm), &bm);
 
 	//DDSURFACEDESC			ddsd;
 	//LPDIRECTDRAWSURFACE	pdds;
@@ -421,77 +423,77 @@ DDLoadBitmap( LPDIRECTDRAW lpDirectDraw, LPSURFACEINFO lpSurfaceInfo, char* lpsz
 	lpSurfaceInfo->rect.right = bm.bmWidth;
 	lpSurfaceInfo->rect.bottom = bm.bmHeight;
 
-	lpSurfaceInfo->lpSurface = CreateSurface( lpDirectDraw, bm.bmWidth, bm.bmHeight );
+	lpSurfaceInfo->lpSurface = CreateSurface(lpDirectDraw, bm.bmWidth, bm.bmHeight);
 
-	DDCopyBitmap( lpSurfaceInfo->lpSurface, hbm, 0, 0, 0, 0 );
-	DeleteObject( hbm );
+	DDCopyBitmap(lpSurfaceInfo->lpSurface, hbm, 0, 0, 0, 0);
+	DeleteObject(hbm);
 
 	//lpSurfaceInfo->dwFillColor = DDColorMatch( lpSurfaceInfo->lpSurface, RGB( 255, 0, 255 ) );
 	//DDSetColorKey( lpSurfaceInfo->lpSurface, lpSurfaceInfo->dwFillColor );
-	DDSetColorKey( lpSurfaceInfo->lpSurface, RGB( 255, 0, 255 ) );
+	DDSetColorKey(lpSurfaceInfo->lpSurface, RGB(255, 0, 255));
 
 	return	TRUE;
 }
 
 BOOL
-DDReLoadBitmap( LPDIRECTDRAWSURFACE lpSurface, char* lpszFilePath )
+DDReLoadBitmap(LPDIRECTDRAWSURFACE lpSurface, char* lpszFilePath)
 {
 	HBITMAP		hBitmap;
 
-	hBitmap = ( HBITMAP )LoadImage( NULL, lpszFilePath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION );
-	if ( hBitmap == NULL )
+	hBitmap = (HBITMAP)LoadImage(NULL, lpszFilePath, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
+	if (hBitmap == NULL)
 	{
 		return	FALSE;
 	}
 
-	DDCopyBitmap( lpSurface, hBitmap, 0, 0, 0, 0 );
-	DeleteObject( hBitmap );
+	DDCopyBitmap(lpSurface, hBitmap, 0, 0, 0, 0);
+	DeleteObject(hBitmap);
 
 	return	TRUE;
 }
 
 BOOL
-DDCopyBitmap( LPDIRECTDRAWSURFACE lpSurface, HBITMAP hBitmap, int x, int y, int dx, int dy )
+DDCopyBitmap(LPDIRECTDRAWSURFACE lpSurface, HBITMAP hBitmap, int x, int y, int dx, int dy)
 {
 	HDC				hdcImage;
 	HDC				hdc;
 	BITMAP			bm;
 	DDSURFACEDESC	ddsd;
 
-	if ( hBitmap == NULL || lpSurface == NULL )
+	if (hBitmap == NULL || lpSurface == NULL)
 	{
 		return	FALSE;
 	}
 
-	lpSurface->Restore( );
+	lpSurface->Restore();
 
-	hdcImage = CreateCompatibleDC( NULL );
-	if ( !hdcImage )
+	hdcImage = CreateCompatibleDC(NULL);
+	if (!hdcImage)
 	{
 		return	FALSE;
 	}
-	SelectObject( hdcImage, hBitmap );
+	SelectObject(hdcImage, hBitmap);
 
-	GetObject( hBitmap, sizeof( bm ), &bm );
+	GetObject(hBitmap, sizeof(bm), &bm);
 	dx = dx == 0 ? bm.bmWidth : dx;
 	dy = dy == 0 ? bm.bmHeight : dy;
 
-	ddsd.dwSize = sizeof( ddsd );
+	ddsd.dwSize = sizeof(ddsd);
 	ddsd.dwFlags = DDSD_HEIGHT | DDSD_WIDTH;
-	lpSurface->GetSurfaceDesc( &ddsd );
-	if ( lpSurface->GetDC( &hdc ) == DD_OK )
+	lpSurface->GetSurfaceDesc(&ddsd);
+	if (lpSurface->GetDC(&hdc) == DD_OK)
 	{
-		StretchBlt( hdc, 0, 0, ddsd.dwWidth, ddsd.dwHeight, hdcImage, x, y, dx, dy, SRCCOPY );
-		lpSurface->ReleaseDC( hdc );
+		StretchBlt(hdc, 0, 0, ddsd.dwWidth, ddsd.dwHeight, hdcImage, x, y, dx, dy, SRCCOPY);
+		lpSurface->ReleaseDC(hdc);
 	}
 
-	DeleteDC( hdcImage );
+	DeleteDC(hdcImage);
 
 	return	TRUE;
 }
 
 DWORD
-DDColorMatch( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb )
+DDColorMatch(LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb)
 {
 	COLORREF		rgbT;
 	HDC				hdc;
@@ -499,154 +501,154 @@ DDColorMatch( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb )
 	DDSURFACEDESC	ddsd;
 	HRESULT			hResult;
 
-	if ( rgb != CLR_INVALID && lpSurface->GetDC( &hdc ) == DD_OK )
+	if (rgb != CLR_INVALID && lpSurface->GetDC(&hdc) == DD_OK)
 	{
-		rgbT = GetPixel( hdc, 0, 0 );
-		SetPixel( hdc, 0, 0, rgb );
-		lpSurface->ReleaseDC( hdc );
+		rgbT = GetPixel(hdc, 0, 0);
+		SetPixel(hdc, 0, 0, rgb);
+		lpSurface->ReleaseDC(hdc);
 	}
 
-	ddsd.dwSize = sizeof( ddsd );
-	while ( ( hResult = lpSurface->Lock( NULL, &ddsd, 0, NULL ) ) == DDERR_WASSTILLDRAWING )
+	ddsd.dwSize = sizeof(ddsd);
+	while ((hResult = lpSurface->Lock(NULL, &ddsd, 0, NULL)) == DDERR_WASSTILLDRAWING)
 	{
 		;
 	}
 
-	if ( hResult == DD_OK )
+	if (hResult == DD_OK)
 	{
-		dw = *( DWORD* )ddsd.lpSurface;
-		if ( ddsd.ddpfPixelFormat.dwRGBBitCount < 32 )
+		dw = *(DWORD*)ddsd.lpSurface;
+		if (ddsd.ddpfPixelFormat.dwRGBBitCount < 32)
 		{
-			dw &= ( 1 << ddsd.ddpfPixelFormat.dwRGBBitCount ) - 1;
+			dw &= (1 << ddsd.ddpfPixelFormat.dwRGBBitCount) - 1;
 		}
 
-		lpSurface->Unlock( NULL );
+		lpSurface->Unlock(NULL);
 	}
 
-	if ( rgb != CLR_INVALID && lpSurface->GetDC( &hdc ) == DD_OK )
+	if (rgb != CLR_INVALID && lpSurface->GetDC(&hdc) == DD_OK)
 	{
-		SetPixel( hdc, 0, 0, rgbT );
-		lpSurface->ReleaseDC( hdc );
+		SetPixel(hdc, 0, 0, rgbT);
+		lpSurface->ReleaseDC(hdc);
 	}
 
 	return	dw;
 }
 
 HRESULT
-DDSetColorKey( LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb )
+DDSetColorKey(LPDIRECTDRAWSURFACE lpSurface, COLORREF rgb)
 {
 	DDCOLORKEY	ddck;
 
-	ddck.dwColorSpaceLowValue = DDColorMatch( lpSurface, rgb );
+	ddck.dwColorSpaceLowValue = DDColorMatch(lpSurface, rgb);
 	ddck.dwColorSpaceHighValue = ddck.dwColorSpaceLowValue;
 
-	return	lpSurface->SetColorKey( DDCKEY_SRCBLT, &ddck );
+	return	lpSurface->SetColorKey(DDCKEY_SRCBLT, &ddck);
 }
 
 void
-StretchBltScreen( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst,
-				  LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc,
-				  DWORD dwColorFill, int nDirection )
+StretchBltScreen(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst,
+	LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc,
+	DWORD dwColorFill, int nDirection)
 {
 	DDBLTFX		ddbltfx;
 
-	ZeroMemory( &ddbltfx, sizeof( ddbltfx ) );
-	ddbltfx.dwSize = sizeof( ddbltfx );
+	ZeroMemory(&ddbltfx, sizeof(ddbltfx));
+	ddbltfx.dwSize = sizeof(ddbltfx);
 	ddbltfx.dwFillColor = dwColorFill;
 
-	lpSurfaceDst->Blt( lpRectDst, lpSurfaceSrc, lpRectSrc, DDBLT_KEYSRC | DDBLT_DDFX | DDBLT_WAIT, &ddbltfx );
+	lpSurfaceDst->Blt(lpRectDst, lpSurfaceSrc, lpRectSrc, DDBLT_KEYSRC | DDBLT_DDFX | DDBLT_WAIT, &ddbltfx);
 }
 
 void
-BltGrid( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc )
+BltGrid(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc)
 {
 	DDSURFACEDESC	ddsdSrc, ddsdDst;
 	register int	x, y;
 	WORD			wColorKey;
 
-	ZeroMemory( &ddsdSrc, sizeof( ddsdSrc ) );
-	ddsdSrc.dwSize = sizeof( ddsdSrc );
+	ZeroMemory(&ddsdSrc, sizeof(ddsdSrc));
+	ddsdSrc.dwSize = sizeof(ddsdSrc);
 	ddsdSrc.dwFlags = DDSD_PIXELFORMAT;
-	if ( FAILED( lpSurfaceSrc->GetSurfaceDesc( &ddsdSrc ) ) )
+	if (FAILED(lpSurfaceSrc->GetSurfaceDesc(&ddsdSrc)))
 	{
 		return;
 	}
 
-	ZeroMemory( &ddsdDst, sizeof( ddsdDst ) );
-	ddsdDst.dwSize = sizeof( ddsdDst );
-	if ( FAILED( lpSurfaceDst->GetSurfaceDesc( &ddsdDst ) ) )
+	ZeroMemory(&ddsdDst, sizeof(ddsdDst));
+	ddsdDst.dwSize = sizeof(ddsdDst);
+	if (FAILED(lpSurfaceDst->GetSurfaceDesc(&ddsdDst)))
 	{
 		return;
 	}
 
 	DDPIXELFORMAT	ddpfSrc;
-	ZeroMemory( &ddpfSrc, sizeof( ddpfSrc ) );
-	ddpfSrc.dwSize = sizeof( ddpfSrc );
-	lpSurfaceSrc->GetPixelFormat( &ddpfSrc );
-	switch ( ddpfSrc.dwRBitMask )
+	ZeroMemory(&ddpfSrc, sizeof(ddpfSrc));
+	ddpfSrc.dwSize = sizeof(ddpfSrc);
+	lpSurfaceSrc->GetPixelFormat(&ddpfSrc);
+	switch (ddpfSrc.dwRBitMask)
 	{
 	case	0x7C00:		// RGB 5:5:5
-		wColorKey  = ( 255 >> 3 );			// Blue
-		wColorKey += (   0 >> 3 ) << 5;		// Green
-		wColorKey += ( 255 >> 3 ) << 10;	// Red
+		wColorKey = (255 >> 3);			// Blue
+		wColorKey += (0 >> 3) << 5;		// Green
+		wColorKey += (255 >> 3) << 10;	// Red
 		break;
 
 	case	0xF800:		// RGB 5:6:5
-		wColorKey  = ( 255 >> 3 );			// Blue
-		wColorKey += (   0 >> 2 ) << 5;		// Green
-		wColorKey += ( 255 >> 3 ) << 11;	// Red
+		wColorKey = (255 >> 3);			// Blue
+		wColorKey += (0 >> 2) << 5;		// Green
+		wColorKey += (255 >> 3) << 11;	// Red
 		break;
 	}
 
-	if ( FAILED( lpSurfaceSrc->Lock( NULL, &ddsdSrc, DDLOCK_WAIT, NULL ) ) )
+	if (FAILED(lpSurfaceSrc->Lock(NULL, &ddsdSrc, DDLOCK_WAIT, NULL)))
 	{
 		return;
 	}
 
-	if ( FAILED( lpSurfaceDst->Lock( NULL, &ddsdDst, DDLOCK_WAIT, NULL ) ) )
+	if (FAILED(lpSurfaceDst->Lock(NULL, &ddsdDst, DDLOCK_WAIT, NULL)))
 	{
-		lpSurfaceSrc->Unlock( NULL );
+		lpSurfaceSrc->Unlock(NULL);
 		return;
 	}
 
-	LPWORD	lpwSrc = ( LPWORD )ddsdSrc.lpSurface + lpRectSrc->top * ( ddsdSrc.lPitch / sizeof( WORD ) ) + lpRectSrc->left;
-	LPWORD	lpwDst = ( LPWORD )ddsdDst.lpSurface + lpRectDst->top * ( ddsdDst.lPitch / sizeof( WORD ) ) + lpRectDst->left;
+	LPWORD	lpwSrc = (LPWORD)ddsdSrc.lpSurface + lpRectSrc->top * (ddsdSrc.lPitch / sizeof(WORD)) + lpRectSrc->left;
+	LPWORD	lpwDst = (LPWORD)ddsdDst.lpSurface + lpRectDst->top * (ddsdDst.lPitch / sizeof(WORD)) + lpRectDst->left;
 	int		cx = lpRectDst->right - lpRectDst->left;
 	int		cy = lpRectDst->bottom - lpRectDst->top;
 
-	for ( y = 0; y < cy; y++ )
+	for (y = 0; y < cy; y++)
 	{
-		for ( x = 0; x < cx; x++ )
+		for (x = 0; x < cx; x++)
 		{
-			if ( y % 2 == 0 )
+			if (y % 2 == 0)
 			{
-				if ( x % 2 == 0 )
+				if (x % 2 == 0)
 				{
-					if ( *( lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) != wColorKey )
+					if (*(lpwSrc + y * (ddsdSrc.lPitch / sizeof(WORD)) + x) != wColorKey)
 					{
-						*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = *( lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x );
+						*(lpwDst + y * (ddsdSrc.lPitch / sizeof(WORD)) + x) = *(lpwSrc + y * (ddsdSrc.lPitch / sizeof(WORD)) + x);
 					}
 				}
 			}
 			else
 			{
-				if ( x % 2 == 1 )
+				if (x % 2 == 1)
 				{
-					if ( *( lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) != wColorKey )
+					if (*(lpwSrc + y * (ddsdSrc.lPitch / sizeof(WORD)) + x) != wColorKey)
 					{
-						*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = *( lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x );
+						*(lpwDst + y * (ddsdSrc.lPitch / sizeof(WORD)) + x) = *(lpwSrc + y * (ddsdSrc.lPitch / sizeof(WORD)) + x);
 					}
 				}
 			}
 		}
 	}
-	
-	lpSurfaceSrc->Unlock( NULL );
-	lpSurfaceDst->Unlock( NULL );
+
+	lpSurfaceSrc->Unlock(NULL);
+	lpSurfaceDst->Unlock(NULL);
 }
 
 void
-BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc )
+BltTrans(LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LPRECT lpRectSrc)
 {
 	DDSURFACEDESC	ddsdSrc, ddsdDst;
 	register int	x, y;
@@ -655,69 +657,69 @@ BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFAC
 	WORD			wDstRed, wDstGreen, wDstBlue;
 	WORD			wImageSrc, wImageDst;
 
-	ZeroMemory( &ddsdSrc, sizeof( ddsdSrc ) );
-	ddsdSrc.dwSize = sizeof( ddsdSrc );
+	ZeroMemory(&ddsdSrc, sizeof(ddsdSrc));
+	ddsdSrc.dwSize = sizeof(ddsdSrc);
 	ddsdSrc.dwFlags = DDSD_PIXELFORMAT;
-	if ( FAILED( lpSurfaceSrc->GetSurfaceDesc( &ddsdSrc ) ) )
+	if (FAILED(lpSurfaceSrc->GetSurfaceDesc(&ddsdSrc)))
 	{
 		return;
 	}
 
-	ZeroMemory( &ddsdDst, sizeof( ddsdDst ) );
-	ddsdDst.dwSize = sizeof( ddsdDst );
-	if ( FAILED( lpSurfaceDst->GetSurfaceDesc( &ddsdDst ) ) )
+	ZeroMemory(&ddsdDst, sizeof(ddsdDst));
+	ddsdDst.dwSize = sizeof(ddsdDst);
+	if (FAILED(lpSurfaceDst->GetSurfaceDesc(&ddsdDst)))
 	{
 		return;
 	}
 
 	DDPIXELFORMAT	ddpfSrc;
-	ZeroMemory( &ddpfSrc, sizeof( ddpfSrc ) );
-	ddpfSrc.dwSize = sizeof( ddpfSrc );
-	lpSurfaceSrc->GetPixelFormat( &ddpfSrc );
-	switch ( ddpfSrc.dwRBitMask )
+	ZeroMemory(&ddpfSrc, sizeof(ddpfSrc));
+	ddpfSrc.dwSize = sizeof(ddpfSrc);
+	lpSurfaceSrc->GetPixelFormat(&ddpfSrc);
+	switch (ddpfSrc.dwRBitMask)
 	{
 	case	0x7C00:		// RGB 5:5:5
-		wColorKey  = ( 255 >> 3 );			// Blue
-		wColorKey += (   0 >> 3 ) << 5;		// Green
-		wColorKey += ( 255 >> 3 ) << 10;	// Red
+		wColorKey = (255 >> 3);			// Blue
+		wColorKey += (0 >> 3) << 5;		// Green
+		wColorKey += (255 >> 3) << 10;	// Red
 		break;
 
 	case	0xF800:		// RGB 5:6:5
-		wColorKey  = ( 255 >> 3 );			// Blue
-		wColorKey += (   0 >> 2 ) << 5;		// Green
-		wColorKey += ( 255 >> 3 ) << 11;	// Red
+		wColorKey = (255 >> 3);			// Blue
+		wColorKey += (0 >> 2) << 5;		// Green
+		wColorKey += (255 >> 3) << 11;	// Red
 		break;
 	}
 
-	if ( FAILED( lpSurfaceSrc->Lock( NULL, &ddsdSrc, DDLOCK_WAIT, NULL ) ) )
+	if (FAILED(lpSurfaceSrc->Lock(NULL, &ddsdSrc, DDLOCK_WAIT, NULL)))
 	{
 		return;
 	}
 
-	if ( FAILED( lpSurfaceDst->Lock( NULL, &ddsdDst, DDLOCK_WAIT, NULL ) ) )
+	if (FAILED(lpSurfaceDst->Lock(NULL, &ddsdDst, DDLOCK_WAIT, NULL)))
 	{
-		lpSurfaceSrc->Unlock( NULL );
+		lpSurfaceSrc->Unlock(NULL);
 		return;
 	}
 
-	LPWORD	lpwSrc = ( LPWORD )ddsdSrc.lpSurface + lpRectSrc->top * ( ddsdSrc.lPitch / sizeof( WORD ) ) + lpRectSrc->left;
-	LPWORD	lpwDst = ( LPWORD )ddsdDst.lpSurface + lpRectDst->top * ( ddsdDst.lPitch / sizeof( WORD ) ) + lpRectDst->left;
+	LPWORD	lpwSrc = (LPWORD)ddsdSrc.lpSurface + lpRectSrc->top * (ddsdSrc.lPitch / sizeof(WORD)) + lpRectSrc->left;
+	LPWORD	lpwDst = (LPWORD)ddsdDst.lpSurface + lpRectDst->top * (ddsdDst.lPitch / sizeof(WORD)) + lpRectDst->left;
 	int		cx = lpRectDst->right - lpRectDst->left;
 	int		cy = lpRectDst->bottom - lpRectDst->top;
 
 	LPWORD	lpwImageSrc, lpwImageDst;
 
-	for ( y = 0; y < cy; y++ )
+	for (y = 0; y < cy; y++)
 	{
-		lpwImageSrc = lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) );
-		lpwImageDst = lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) );
+		lpwImageSrc = lpwSrc + y * (ddsdSrc.lPitch / sizeof(WORD));
+		lpwImageDst = lpwDst + y * (ddsdSrc.lPitch / sizeof(WORD));
 
-		for ( x = 0; x < cx; x++ )
+		for (x = 0; x < cx; x++)
 		{
 			//wSrc = *( lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x );
 			//lpwImageSrc = ( LPWORD )*( lpwSrc + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x );
 
-			if ( *lpwImageSrc != wColorKey )
+			if (*lpwImageSrc != wColorKey)
 			{
 				wImageSrc = *lpwImageSrc;
 				wImageDst = *lpwImageDst;
@@ -737,13 +739,13 @@ BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFAC
 				//wDst = ( ( ( wDstBlue * 11 ) + ( wDstGreen * 59 ) + ( wDstRed * 30 ) ) / 100 );
 				//wDst = ( ( WORD )( ( ( BYTE )( wDst ) | ( ( WORD )( ( BYTE )( wDst ) ) << 5 ) ) | ( ( ( DWORD )( BYTE )( wDst ) ) << 10 ) ) );
 
-				wSrcBlue  = ( wImageSrc        ) & ( 0x001f );
-				wSrcGreen = ( wImageSrc >>  5  ) & ( 0x001f );
-				wSrcRed   = ( wImageSrc >> 10  ) & ( 0x001f );
+				wSrcBlue = (wImageSrc) & (0x001f);
+				wSrcGreen = (wImageSrc >> 5) & (0x001f);
+				wSrcRed = (wImageSrc >> 10) & (0x001f);
 
-				wDstBlue  = ( wImageDst        ) & ( 0x001f );
-				wDstGreen = ( wImageDst >>  5  ) & ( 0x001f );
-				wDstRed   = ( wImageDst >> 10  ) & ( 0x001f );
+				wDstBlue = (wImageDst) & (0x001f);
+				wDstGreen = (wImageDst >> 5) & (0x001f);
+				wDstRed = (wImageDst >> 10) & (0x001f);
 
 				//wPixel = ( ( ( wBlue * 11 ) + ( wGreen * 59 ) + ( wRed * 30 ) ) / 100 );
 				//wPixel = ( ( WORD )( ( ( BYTE )( Pixel ) | ( ( WORD )( ( BYTE )( wPixel ) ) << 5 ) ) | ( ( ( DWORD )( BYTE )( wPixel ) ) << 10 ) ) );
@@ -754,19 +756,19 @@ BltTrans( LPDIRECTDRAWSURFACE lpSurfaceDst, LPRECT lpRectDst, LPDIRECTDRAWSURFAC
 				//*( lpwDst + y * ( ddsdSrc.lPitch / sizeof( WORD ) ) + x ) = ( ( wBlue ) | ( ( wGreen ) << 5 ) | ( ( wRed ) << 10 ) );
 
 				//*lpwImageDst = ( ( wSrcBlue ) | ( ( wSrcGreen ) << 5 ) | ( ( wSrcRed ) << 10 ) );
-				*lpwImageDst = ( ( wSrcBlue >> 3 ) | ( ( wSrcGreen >> 3 ) << 5 ) | ( ( wSrcRed >> 3 ) << 10 ) );
+				*lpwImageDst = ((wSrcBlue >> 3) | ((wSrcGreen >> 3) << 5) | ((wSrcRed >> 3) << 10));
 			}
 
 			lpwImageSrc++, lpwImageDst++;
 		}
 	}
-	
-	lpSurfaceSrc->Unlock( NULL );
-	lpSurfaceDst->Unlock( NULL );
+
+	lpSurfaceSrc->Unlock(NULL);
+	lpSurfaceDst->Unlock(NULL);
 }
 
 int
-TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LONG x, LONG y, RECT rectSrc, WORD wAlphaValue )
+TransAlpha(LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, LONG x, LONG y, RECT rectSrc, WORD wAlphaValue)
 {
 	DDSURFACEDESC	ddsdSrc, ddsdDst;
 	register int	i, j;
@@ -779,12 +781,12 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 	DWORD			dwResult;
 	BOOL			bOdd = FALSE;
 	DWORD			dwColorKey;
-	
-	if ( wAlphaValue < 0 )
+
+	if (wAlphaValue < 0)
 	{
 		wAlphaValue = 0;
 	}
-	else if ( wAlphaValue > 256 )
+	else if (wAlphaValue > 256)
 	{
 		wAlphaValue = 256;
 	}
@@ -792,70 +794,70 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 	height = rectSrc.bottom - rectSrc.top;
 	width = rectSrc.right - rectSrc.left;
 
-	ZeroMemory( &ddsdSrc, sizeof( ddsdSrc ) );
-	ddsdSrc.dwSize = sizeof( ddsdSrc );
+	ZeroMemory(&ddsdSrc, sizeof(ddsdSrc));
+	ddsdSrc.dwSize = sizeof(ddsdSrc);
 	ddsdSrc.dwFlags = DDSD_PIXELFORMAT;
-	if ( FAILED( lpSurfaceSrc->GetSurfaceDesc( &ddsdSrc ) ) )
+	if (FAILED(lpSurfaceSrc->GetSurfaceDesc(&ddsdSrc)))
 	{
 		return	-1;
 	}
 
-	ZeroMemory( &ddsdDst, sizeof( ddsdDst ) );
-	ddsdDst.dwSize = sizeof( ddsdDst );
-	if ( FAILED( lpSurfaceDst->GetSurfaceDesc( &ddsdDst ) ) )
+	ZeroMemory(&ddsdDst, sizeof(ddsdDst));
+	ddsdDst.dwSize = sizeof(ddsdDst);
+	if (FAILED(lpSurfaceDst->GetSurfaceDesc(&ddsdDst)))
 	{
 		return	-1;
 	}
 
 	DDPIXELFORMAT	ddpfSrc;
-	ZeroMemory( &ddpfSrc, sizeof( ddpfSrc ) );
-	ddpfSrc.dwSize = sizeof( ddpfSrc );
-	lpSurfaceSrc->GetPixelFormat( &ddpfSrc );
-	switch ( ddpfSrc.dwRBitMask )
+	ZeroMemory(&ddpfSrc, sizeof(ddpfSrc));
+	ddpfSrc.dwSize = sizeof(ddpfSrc);
+	lpSurfaceSrc->GetPixelFormat(&ddpfSrc);
+	switch (ddpfSrc.dwRBitMask)
 	{
 	case	0x7C00:		// RGB 5:5:5
-		dwColorKey  = ( 255 >> 3 );				// Blue
-		dwColorKey += (   0 >> 3 ) << 5;		// Green
-		dwColorKey += ( 255 >> 3 ) << 10;		// Red
+		dwColorKey = (255 >> 3);				// Blue
+		dwColorKey += (0 >> 3) << 5;		// Green
+		dwColorKey += (255 >> 3) << 10;		// Red
 		break;
 
 	case	0xF800:		// RGB 5:6:5
-		dwColorKey  = ( 255 >> 3 );				// Blue
-		dwColorKey += (   0 >> 2 ) << 5;		// Green
-		dwColorKey += ( 255 >> 3 ) << 11;		// Red
+		dwColorKey = (255 >> 3);				// Blue
+		dwColorKey += (0 >> 2) << 5;		// Green
+		dwColorKey += (255 >> 3) << 11;		// Red
 		break;
 	}
 
-	if ( FAILED( lpSurfaceSrc->Lock( NULL, &ddsdSrc, DDLOCK_WAIT, NULL ) ) )
+	if (FAILED(lpSurfaceSrc->Lock(NULL, &ddsdSrc, DDLOCK_WAIT, NULL)))
 	{
 		return	-1;
 	}
 
-	if ( FAILED( lpSurfaceDst->Lock( NULL, &ddsdDst, DDLOCK_WAIT, NULL ) ) )
+	if (FAILED(lpSurfaceDst->Lock(NULL, &ddsdDst, DDLOCK_WAIT, NULL)))
 	{
-		lpSurfaceSrc->Unlock( NULL );
+		lpSurfaceSrc->Unlock(NULL);
 		return	-1;
 	}
 
-	wSrcPitch = ( WORD )ddsdSrc.lPitch;
-	wDstPitch = ( WORD )ddsdDst.lPitch;
+	wSrcPitch = (WORD)ddsdSrc.lPitch;
+	wDstPitch = (WORD)ddsdDst.lPitch;
 
-	lpSrc = ( LPBYTE )ddsdSrc.lpSurface;
-	lpDst = ( LPBYTE )ddsdDst.lpSurface;
+	lpSrc = (LPBYTE)ddsdSrc.lpSurface;
+	lpDst = (LPBYTE)ddsdDst.lpSurface;
 
-	switch ( ddpfSrc.dwRBitMask )
+	switch (ddpfSrc.dwRBitMask)
 	{
 	case	0x7C00:
-		lpSrc += ( rectSrc.top * wSrcPitch ) + ( rectSrc.left * 2 );
-		lpDst += ( y * wDstPitch) + ( x * 2 );
+		lpSrc += (rectSrc.top * wSrcPitch) + (rectSrc.left * 2);
+		lpDst += (y * wDstPitch) + (x * 2);
 
-		wSrcPadding = ( WORD )( wSrcPitch - ( width * 2 ) );
-		wDstPadding = ( WORD )( wDstPitch - ( width * 2 ) );
+		wSrcPadding = (WORD)(wSrcPitch - (width * 2));
+		wDstPadding = (WORD)(wDstPitch - (width * 2));
 
-		if ( width % 2 == 1 )
+		if (width % 2 == 1)
 		{
 			bOdd = TRUE;
-			width = ( width - 1 ) / 2;
+			width = (width - 1) / 2;
 		}
 		else
 		{
@@ -865,24 +867,24 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 		i = height;
 		do
 		{
-			if ( bOdd )
+			if (bOdd)
 			{
-				dwSrcTemp = *( ( LPWORD )lpSrc );
+				dwSrcTemp = *((LPWORD)lpSrc);
 
-				if ( dwSrcTemp != dwColorKey )
+				if (dwSrcTemp != dwColorKey)
 				{
-					dwDstTemp = *( ( LPWORD )lpDst );
+					dwDstTemp = *((LPWORD)lpDst);
 
-					dwSrcBlue  = dwSrcTemp & 0x1f;
-					dwDstBlue  = dwDstTemp & 0x1f;
-					dwSrcGreen = ( dwSrcTemp >> 5 ) & 0x1f;
-					dwDstGreen = ( dwDstTemp >> 5 ) & 0x1f;
-					dwSrcRed   = ( dwSrcTemp >> 10 ) & 0x1f;
-					dwDstRed   = ( dwDstTemp >> 10 ) & 0x1f;
+					dwSrcBlue = dwSrcTemp & 0x1f;
+					dwDstBlue = dwDstTemp & 0x1f;
+					dwSrcGreen = (dwSrcTemp >> 5) & 0x1f;
+					dwDstGreen = (dwDstTemp >> 5) & 0x1f;
+					dwSrcRed = (dwSrcTemp >> 10) & 0x1f;
+					dwDstRed = (dwDstTemp >> 10) & 0x1f;
 
-					*( ( LPWORD )lpDst ) = ( WORD )( ( wAlphaValue * ( dwSrcBlue - dwDstBlue ) >> 8 ) + dwDstBlue	|
-										   ( ( wAlphaValue * ( dwSrcGreen - dwDstGreen ) >> 8 ) + dwDstGreen ) << 5	|
-										   ( ( wAlphaValue * ( dwSrcRed - dwDstRed ) >> 8 ) + dwDstRed ) << 10 );
+					*((LPWORD)lpDst) = (WORD)((wAlphaValue * (dwSrcBlue - dwDstBlue) >> 8) + dwDstBlue |
+						((wAlphaValue * (dwSrcGreen - dwDstGreen) >> 8) + dwDstGreen) << 5 |
+						((wAlphaValue * (dwSrcRed - dwDstRed) >> 8) + dwDstRed) << 10);
 				}
 
 				lpSrc += 2, lpDst += 2;
@@ -891,67 +893,67 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 			j = width;
 			do
 			{
-				dwSrcTemp = *( ( LPDWORD )lpSrc );
+				dwSrcTemp = *((LPDWORD)lpSrc);
 
-				if ( dwSrcTemp != ( ( DWORD )dwColorKey | ( ( DWORD )dwColorKey << 16 ) ) )
+				if (dwSrcTemp != ((DWORD)dwColorKey | ((DWORD)dwColorKey << 16)))
 				{
-					dwDstTemp = *( ( LPDWORD )lpDst );
+					dwDstTemp = *((LPDWORD)lpDst);
 					dwResult = dwDstTemp;
 
-					if ( ( dwSrcTemp & 0xffff ) != dwColorKey )
+					if ((dwSrcTemp & 0xffff) != dwColorKey)
 					{
-						dwSrcBlue  = dwSrcTemp & 0x1f;
-						dwDstBlue  = dwDstTemp & 0x1f;
-						dwSrcGreen = ( dwSrcTemp >> 5 ) & 0x1f;
-						dwDstGreen = ( dwDstTemp >> 5 ) & 0x1f;
-						dwSrcRed   = ( dwSrcTemp >> 10 ) & 0x1f;
-						dwDstRed   = ( dwDstTemp >> 10 ) & 0x1f;
+						dwSrcBlue = dwSrcTemp & 0x1f;
+						dwDstBlue = dwDstTemp & 0x1f;
+						dwSrcGreen = (dwSrcTemp >> 5) & 0x1f;
+						dwDstGreen = (dwDstTemp >> 5) & 0x1f;
+						dwSrcRed = (dwSrcTemp >> 10) & 0x1f;
+						dwDstRed = (dwDstTemp >> 10) & 0x1f;
 
 						dwResult = dwResult & 0xffff0000;
 
-						dwResult |= ( DWORD )( ( wAlphaValue * ( dwSrcBlue - dwDstBlue ) >> 8 ) + dwDstBlue		|
-									( ( wAlphaValue * ( dwSrcGreen - dwDstGreen ) >> 8 ) + dwDstGreen ) << 5	|
-									( ( wAlphaValue * ( dwSrcRed - dwDstRed ) >> 8 ) + dwDstRed ) << 10 );
+						dwResult |= (DWORD)((wAlphaValue * (dwSrcBlue - dwDstBlue) >> 8) + dwDstBlue |
+							((wAlphaValue * (dwSrcGreen - dwDstGreen) >> 8) + dwDstGreen) << 5 |
+							((wAlphaValue * (dwSrcRed - dwDstRed) >> 8) + dwDstRed) << 10);
 					}
 
-					if ( ( ( dwSrcTemp >> 16 ) & 0xffff ) != dwColorKey )
+					if (((dwSrcTemp >> 16) & 0xffff) != dwColorKey)
 					{
-						dwSrcBlue  = ( dwSrcTemp >> 16 ) & 0x1f;
-						dwDstBlue  = ( dwDstTemp >> 16 ) & 0x1f;
-						dwSrcGreen = ( dwSrcTemp >> 21 ) & 0x1f;
-						dwDstGreen = ( dwDstTemp >> 21 ) & 0x1f;
-						dwSrcRed   = ( dwSrcTemp >> 26 ) & 0x1f;
-						dwDstRed   = ( dwDstTemp >> 26 ) & 0x1f;
+						dwSrcBlue = (dwSrcTemp >> 16) & 0x1f;
+						dwDstBlue = (dwDstTemp >> 16) & 0x1f;
+						dwSrcGreen = (dwSrcTemp >> 21) & 0x1f;
+						dwDstGreen = (dwDstTemp >> 21) & 0x1f;
+						dwSrcRed = (dwSrcTemp >> 26) & 0x1f;
+						dwDstRed = (dwDstTemp >> 26) & 0x1f;
 
 						dwResult = dwResult & 0xffff;
 
-						dwResult |= ( DWORD )( ( wAlphaValue * ( dwSrcBlue - dwDstBlue ) >> 8 ) + dwDstBlue		|
-									( ( wAlphaValue * ( dwSrcGreen - dwDstGreen ) >> 8 ) + dwDstGreen ) << 5	|
-									( ( wAlphaValue * ( dwSrcRed - dwDstRed ) >> 8 ) + dwDstRed ) << 10 ) << 16;
+						dwResult |= (DWORD)((wAlphaValue * (dwSrcBlue - dwDstBlue) >> 8) + dwDstBlue |
+							((wAlphaValue * (dwSrcGreen - dwDstGreen) >> 8) + dwDstGreen) << 5 |
+							((wAlphaValue * (dwSrcRed - dwDstRed) >> 8) + dwDstRed) << 10) << 16;
 					}
 
-					*( ( LPDWORD )lpDst ) = dwResult;
+					*((LPDWORD)lpDst) = dwResult;
 				}
 
 				lpSrc += 4, lpDst += 4;
-			} while ( --j > 0 );
+			} while (--j > 0);
 
 			lpSrc += wSrcPadding, lpDst += wDstPadding;
 
-		} while ( --i > 0 );
+		} while (--i > 0);
 		break;
 
 	case	0xF800:
-		lpSrc += ( rectSrc.top * wSrcPitch ) + ( rectSrc.left * 2 );
-		lpDst += ( y * wDstPitch) + ( x * 2 );
+		lpSrc += (rectSrc.top * wSrcPitch) + (rectSrc.left * 2);
+		lpDst += (y * wDstPitch) + (x * 2);
 
-		wSrcPadding = ( WORD )( wSrcPitch - ( width * 2 ) );
-		wDstPadding = ( WORD )( wDstPitch - ( width * 2 ) );
+		wSrcPadding = (WORD)(wSrcPitch - (width * 2));
+		wDstPadding = (WORD)(wDstPitch - (width * 2));
 
-		if ( width % 2 == 1 )
+		if (width % 2 == 1)
 		{
 			bOdd = TRUE;
-			width = ( width - 1 ) / 2;
+			width = (width - 1) / 2;
 		}
 		else
 		{
@@ -961,24 +963,24 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 		i = height;
 		do
 		{
-			if ( bOdd )
+			if (bOdd)
 			{
-				dwSrcTemp = *( ( LPWORD )lpSrc );
+				dwSrcTemp = *((LPWORD)lpSrc);
 
-				if ( dwSrcTemp != dwColorKey )
+				if (dwSrcTemp != dwColorKey)
 				{
-					dwDstTemp = *( ( LPWORD )lpDst );
+					dwDstTemp = *((LPWORD)lpDst);
 
-					dwSrcBlue  = dwSrcTemp & 0x1f;
-					dwDstBlue  = dwDstTemp & 0x1f;
-					dwSrcGreen = ( dwSrcTemp >> 5 ) & 0x3f;
-					dwDstGreen = ( dwDstTemp >> 5 ) & 0x3f;
-					dwSrcRed   = ( dwSrcTemp >> 11 ) & 0x1f;
-					dwDstRed   = ( dwDstTemp >> 11 ) & 0x1f;
+					dwSrcBlue = dwSrcTemp & 0x1f;
+					dwDstBlue = dwDstTemp & 0x1f;
+					dwSrcGreen = (dwSrcTemp >> 5) & 0x3f;
+					dwDstGreen = (dwDstTemp >> 5) & 0x3f;
+					dwSrcRed = (dwSrcTemp >> 11) & 0x1f;
+					dwDstRed = (dwDstTemp >> 11) & 0x1f;
 
-					*( ( LPWORD )lpDst ) = ( WORD )( ( wAlphaValue * ( dwSrcBlue - dwDstBlue ) >> 8 ) + dwDstBlue	|
-										   ( ( wAlphaValue * ( dwSrcGreen - dwDstGreen ) >> 8 ) + dwDstGreen ) << 5	|
-										   ( ( wAlphaValue * ( dwSrcRed - dwDstRed ) >> 8 ) + dwDstRed ) << 11 );
+					*((LPWORD)lpDst) = (WORD)((wAlphaValue * (dwSrcBlue - dwDstBlue) >> 8) + dwDstBlue |
+						((wAlphaValue * (dwSrcGreen - dwDstGreen) >> 8) + dwDstGreen) << 5 |
+						((wAlphaValue * (dwSrcRed - dwDstRed) >> 8) + dwDstRed) << 11);
 				}
 
 				lpSrc += 2, lpDst += 2;
@@ -987,58 +989,58 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 			j = width;
 			do
 			{
-				dwSrcTemp = *( ( LPDWORD )lpSrc );
+				dwSrcTemp = *((LPDWORD)lpSrc);
 
-				if ( dwSrcTemp != ( ( DWORD )dwColorKey | ( ( DWORD )dwColorKey << 16 ) ) )
+				if (dwSrcTemp != ((DWORD)dwColorKey | ((DWORD)dwColorKey << 16)))
 				{
-					dwDstTemp = *( ( LPDWORD )lpDst );
+					dwDstTemp = *((LPDWORD)lpDst);
 					dwResult = dwDstTemp;
 
-					if ( ( dwSrcTemp & 0xffff ) != dwColorKey )
+					if ((dwSrcTemp & 0xffff) != dwColorKey)
 					{
-						dwSrcBlue  = dwSrcTemp & 0x1f;
-						dwDstBlue  = dwDstTemp & 0x1f;
-						dwSrcGreen = ( dwSrcTemp >> 5 ) & 0x3f;
-						dwDstGreen = ( dwDstTemp >> 5 ) & 0x3f;
-						dwSrcRed   = ( dwSrcTemp >> 11 ) & 0x1f;
-						dwDstRed   = ( dwDstTemp >> 11 ) & 0x1f;
+						dwSrcBlue = dwSrcTemp & 0x1f;
+						dwDstBlue = dwDstTemp & 0x1f;
+						dwSrcGreen = (dwSrcTemp >> 5) & 0x3f;
+						dwDstGreen = (dwDstTemp >> 5) & 0x3f;
+						dwSrcRed = (dwSrcTemp >> 11) & 0x1f;
+						dwDstRed = (dwDstTemp >> 11) & 0x1f;
 
 						dwResult = dwResult & 0xffff0000;
 
-						dwResult |= ( DWORD )( ( wAlphaValue * ( dwSrcBlue - dwDstBlue ) >> 8 ) + dwDstBlue		|
-									( ( wAlphaValue * ( dwSrcGreen - dwDstGreen ) >> 8 ) + dwDstGreen ) << 5	|
-									( ( wAlphaValue * ( dwSrcRed - dwDstRed ) >> 8 ) + dwDstRed ) << 11 );
+						dwResult |= (DWORD)((wAlphaValue * (dwSrcBlue - dwDstBlue) >> 8) + dwDstBlue |
+							((wAlphaValue * (dwSrcGreen - dwDstGreen) >> 8) + dwDstGreen) << 5 |
+							((wAlphaValue * (dwSrcRed - dwDstRed) >> 8) + dwDstRed) << 11);
 					}
 
-					if ( ( ( dwSrcTemp >> 16 ) & 0xffff ) != dwColorKey )
+					if (((dwSrcTemp >> 16) & 0xffff) != dwColorKey)
 					{
-						dwSrcBlue  = ( dwSrcTemp >> 16 ) & 0x1f;
-						dwDstBlue  = ( dwDstTemp >> 16 ) & 0x1f;
-						dwSrcGreen = ( dwSrcTemp >> 21 ) & 0x3f;
-						dwDstGreen = ( dwDstTemp >> 21 ) & 0x3f;
-						dwSrcRed   = ( dwSrcTemp >> 27 ) & 0x1f;
-						dwDstRed   = ( dwDstTemp >> 27 ) & 0x1f;
+						dwSrcBlue = (dwSrcTemp >> 16) & 0x1f;
+						dwDstBlue = (dwDstTemp >> 16) & 0x1f;
+						dwSrcGreen = (dwSrcTemp >> 21) & 0x3f;
+						dwDstGreen = (dwDstTemp >> 21) & 0x3f;
+						dwSrcRed = (dwSrcTemp >> 27) & 0x1f;
+						dwDstRed = (dwDstTemp >> 27) & 0x1f;
 
 						dwResult = dwResult & 0xffff;
 
-						dwResult |= ( DWORD )( ( wAlphaValue * ( dwSrcBlue - dwDstBlue ) >> 8 ) + dwDstBlue		|
-									( ( wAlphaValue * ( dwSrcGreen - dwDstGreen ) >> 8 ) + dwDstGreen ) << 5	|
-									( ( wAlphaValue * ( dwSrcRed - dwDstRed ) >> 8 ) + dwDstRed ) << 11 ) << 16;
+						dwResult |= (DWORD)((wAlphaValue * (dwSrcBlue - dwDstBlue) >> 8) + dwDstBlue |
+							((wAlphaValue * (dwSrcGreen - dwDstGreen) >> 8) + dwDstGreen) << 5 |
+							((wAlphaValue * (dwSrcRed - dwDstRed) >> 8) + dwDstRed) << 11) << 16;
 					}
 
-					*( ( LPDWORD )lpDst ) = dwResult;
+					*((LPDWORD)lpDst) = dwResult;
 				}
 
 				lpSrc += 4, lpDst += 4;
-			} while ( --j > 0 );
+			} while (--j > 0);
 
 			lpSrc += wSrcPadding, lpDst += wDstPadding;
-		} while ( --i > 0 );
+		} while (--i > 0);
 		break;
 	}
 
-	lpSurfaceSrc->Unlock( NULL );
-	lpSurfaceDst->Unlock( NULL );
+	lpSurfaceSrc->Unlock(NULL);
+	lpSurfaceDst->Unlock(NULL);
 
 	return	0;
 }
@@ -1047,7 +1049,7 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 //--------------------------- Gamma Control------------------------
 /*******************************************************************
 //HRESULT GetColorControls(
-//  LPDDCOLORCONTROL lpColorControl  
+//  LPDDCOLORCONTROL lpColorControl
 //);
 //
 //
@@ -1055,20 +1057,20 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 //    DWORD   dwSize;
 //				-> sizeof( DDCOLORCONTROL );
 //    DWORD   dwFlags;
-//				->	DDCOLOR_BRIGHTNESS 
-//						The lBrightness member contains valid data. 
-//					DDCOLOR_COLORENABLE 
-//						The lColorEnable member contains valid data. 
-//					DDCOLOR_CONTRAST 
-//						The lContrast member contains valid data. 
-//					DDCOLOR_GAMMA 
-//						The lGamma member contains valid data. 
-//					DDCOLOR_HUE 
-//						The lHue member contains valid data. 
-//					DDCOLOR_SATURATION 
-//						The lSaturation member contains valid data. 
-//						DDCOLOR_SHARPNESS 
-//					The lSharpness member contains valid data. 
+//				->	DDCOLOR_BRIGHTNESS
+//						The lBrightness member contains valid data.
+//					DDCOLOR_COLORENABLE
+//						The lColorEnable member contains valid data.
+//					DDCOLOR_CONTRAST
+//						The lContrast member contains valid data.
+//					DDCOLOR_GAMMA
+//						The lGamma member contains valid data.
+//					DDCOLOR_HUE
+//						The lHue member contains valid data.
+//					DDCOLOR_SATURATION
+//						The lSaturation member contains valid data.
+//						DDCOLOR_SHARPNESS
+//					The lSharpness member contains valid data.
 //
 //    LONG    lBrightness;
 //    LONG    lContrast;
@@ -1086,9 +1088,9 @@ TransAlpha( LPDIRECTDRAWSURFACE lpSurfaceDst, LPDIRECTDRAWSURFACE lpSurfaceSrc, 
 DDCOLORCONTROL g_DisplayGamma, g_OldDisplayGamma;
 
 // 게임전의 값을 읽어 저장한다. 
-void InitGammaControl( void )
+void InitGammaControl(void)
 {
-	g_DisplayGamma.dwSize  = sizeof( DDCOLORCONTROL );
+	g_DisplayGamma.dwSize = sizeof(DDCOLORCONTROL);
 	g_DisplayGamma.dwFlags = DDCOLOR_BRIGHTNESS;
 
 	//GetColorControls( &g_DisplayGamma );
@@ -1097,15 +1099,15 @@ void InitGammaControl( void )
 
 
 // 게임전의 값을 다시 Setting한다. 
-void ResetGammaCtrl( void )
+void ResetGammaCtrl(void)
 {
 	//g_DirectDrawInfo.lpColorCtrl-> lpColorControl->SetColorControls( &g_OldDisplayGamma );  
 }
 
 // 0 - 10000
-int ColorCtrlBrightness( long v )
+int ColorCtrlBrightness(long v)
 {
-	g_DisplayGamma.dwSize  = sizeof( DDCOLORCONTROL );
+	g_DisplayGamma.dwSize = sizeof(DDCOLORCONTROL);
 	g_DisplayGamma.dwFlags = DDCOLOR_BRIGHTNESS;
 	g_DisplayGamma.lBrightness = v;
 	//SetColorControls( &g_DisplayGamma );  

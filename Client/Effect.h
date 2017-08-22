@@ -81,7 +81,7 @@ enum EFFECT_TYPE
 ///////////////////////////////////////////////////////////////////////////////
 //
 class CEffectTbl
-{ 
+{
 public:
 	CEffectTbl()
 	{
@@ -106,26 +106,26 @@ public:
 		impect_Effect_Num = 0;
 		send_result = false;
 	}
-	
+
 public:
 	//020808 YGI  ---------------------------
-	int Check() const 
+	int Check() const
 	{
 		int value;
 		char *pValue = (char *)&value;
-		pValue[0] = Check1()+Check3();
-		pValue[1] = Check2()+Check4();
+		pValue[0] = Check1() + Check3();
+		pValue[1] = Check2() + Check4();
 		pValue[2] = 0;
 		pValue[3] = 0;
 		return (short int)value;
 	}
 	char Check1() const
 	{
-		return (char)(effect_Num+end_Time);
+		return (char)(effect_Num + end_Time);
 	}
 	char Check2() const
 	{
-		return (char)(sort_Type+next_Effect+sort_Type+object_Num);
+		return (char)(sort_Type + next_Effect + sort_Type + object_Num);
 	}
 	char Check3() const
 	{
@@ -135,7 +135,7 @@ public:
 	{
 		return (char)(pattern_Num + sprite_Num + link_Frame);
 	}
-	
+
 public:
 	short int	end_Time;			//종료까지의 총 프레임수
 	short int	light;				//광원효과 넣을까?(0->넣지 않음/100자리수치->0이면 정상적 출력/1이면 높이값 더해서 출력(1~20 사이의 광원 단계)
@@ -166,14 +166,14 @@ extern TFileMgr<CEffectTbl, MAX_EFFECT_COUNT> g_lpET;
 ///////////////////////////////////////////////////////////////////////////////
 //
 class CEffectTbl2
-{ 
+{
 public:
-	int Check() const 
+	int Check() const
 	{
 		int value = 0;
-		for( int i=0; i<30; i++ )
+		for (int i = 0; i < 30; i++)
 			value += sprite_Name[i];
-		
+
 		return value;
 	}
 public:
@@ -221,22 +221,22 @@ public:
 		nRiseFall = 0;
 		nDualStep = 0;	// 030415 kyo
 	}
-	
+
 public:
-	int Check() const 
+	int Check() const
 	{
-		return serial_Num + basic_Level + cast_Time + cast_Continue + 
+		return serial_Num + basic_Level + cast_Time + cast_Continue +
 			continue_Time + avail_Range + excute_Type + appoint_Type +
 			avail_Type + spell_Type + magic_Type + nCombatCount;
 	}
-	
+
 public:
 	int	order_Type;			     // 계열(1->생/2->사/3->일반/4->화염/5->얼음/6->전격/7->소환/8->시공/9->신성/10->정동/11->정념/12->특수)
 	int	serial_Num;			     // 고유번호(1~)
 	int	basic_Level;		     // 사용 기본 레벨(1~9)
 	int	WS;					         // wizwrd spell(or priest spell) point 
 	int	before_Magic;		     // 전 단계 마법(먼저 익혀야 할 마법)
-	int	basic_Magery ;		   // 기본 마법력
+	int	basic_Magery;		   // 기본 마법력
 	int	cast_Time;			     // 캐스팅 시간(절대시간)
 	int	cast_Continue;		   // 캐스팅 지속 시간(절대시간)
 	int	continue_Time;		   // 지속시간(0->순간,영원히/1~절대시간)	
@@ -248,7 +248,7 @@ public:
 	int	require_IT;			     // 요구 지능
 	int	point_WS;			       // WS 포인트(0->not available/1~)
 	int invalid_TargetIT;    // 마법 사용가능 범위
-	int	spell_Type ;		     // 0 Wizard, 1~13 priest(God별 type들 때문에 다양)
+	int	spell_Type;		     // 0 Wizard, 1~13 priest(God별 type들 때문에 다양)
 	int	appoint_Type;		     // 대상 지정방식 타입(0->나자신/1->대상지정(단일/복수대상)/2->특정지점(클릭위치)/3->지역마법)
 	int	excute_Type;		     // 마법 캐스팅 유지시 시행될수 있는 횟수(0->여러번/1->한번만)
 	int	magic_Type;			     // 마법 대분류
@@ -322,7 +322,7 @@ struct MAGICLIST
 	int	s_X;        			 // 시작좌표
 	int	s_Y;
 	int	t_X;				       // 목표좌표
-	int	t_Y;				       
+	int	t_Y;
 	int	tarx;				       // 목표 좌표 X
 	int	tary;				       // 목표 좌표 Y
 	float	first_incx;		   // 최초 발사시 X축 증감치
@@ -369,7 +369,7 @@ extern MAGICLIST*	g_lpML;
 ///////////////////////////////////////////////////////////////////////////////
 //< CSD-030123
 struct EFFECT
-{ 
+{
 	short	SprNo;			 // 스프라이트의 번호
 	short	RepeatFrame; // 반복해서 찍을 횟수 (default : 1)
 	short	x;					 // 이동값 (엔진과 상관없이 Data에서 
@@ -386,57 +386,57 @@ struct EffectListTblBasic
 {
 	int	    offset_X;		// X축의 수정좌표
 	int	    offset_Y;		// Y축의 수정좌표
-	int	    MaxFrame;    
+	int	    MaxFrame;
 	EFFECT  EffData[200];
-	
+
 	short int	check_sum1;
 	short int	check_sum2;
 };
 
 class CEffectListTbl// : public EffectListTblBasic
 {
-public: 
+public:
 	CEffectListTbl()
 	{
 		offset_X = 0;
 		offset_Y = 0;
 		MaxFrame = 0;
-		memset(EffData, 0, sizeof(EFFECT)*200);
+		memset(EffData, 0, sizeof(EFFECT) * 200);
 	}
-	
+
 public:
-	void CopyIn( EffectListTblBasic &data )
+	void CopyIn(EffectListTblBasic &data)
 	{
 		offset_X = data.offset_X;
 		offset_Y = data.offset_Y;
 		MaxFrame = data.MaxFrame;
-		memcpy(EffData, data.EffData, sizeof(EFFECT)*200);
+		memcpy(EffData, data.EffData, sizeof(EFFECT) * 200);
 	}
-	void CopyOut( EffectListTblBasic &data )
+	void CopyOut(EffectListTblBasic &data)
 	{
 		data.offset_X = offset_X;
 		data.offset_Y = offset_Y;
 		data.MaxFrame = MaxFrame;
-		memcpy( data.EffData, EffData, sizeof(EFFECT)*200);
+		memcpy(data.EffData, EffData, sizeof(EFFECT) * 200);
 	}
-	
+
 	int Check() const
 	{
 		int nCheck = offset_X + offset_Y + MaxFrame;
-		
+
 		for (int i = 0; i < MaxFrame; ++i)
 		{
 			nCheck = EffData[i].SprNo + EffData[i].RepeatFrame + EffData[i].x + EffData[i].y;
 		}
-		
+
 		return nCheck;
 	}
-	
+
 public:
-	
+
 	int	    offset_X;		// X축의 수정좌표
 	int	    offset_Y;		// Y축의 수정좌표
-	int	    MaxFrame;    
+	int	    MaxFrame;
 	EFFECT  EffData[200];
 };
 //> CSD-030123
@@ -452,7 +452,7 @@ typedef struct tagBGESOUND
 	int		day_Rate[10];		//효과음 출력 빈도
 	int		day_Type[10];		//출력패턴
 	int		use_DayNum;			//실제 플레이될 효과음(슬롯)수
-	
+
 	int		nightPattern;		//밤배경효과음을 출력하는 패턴(0이상이면 특정 패턴에 따라)
 	int		night_Slot[10];		//밤효과음 번호
 	int		night_Rate[10];		//효과음 출력 빈도
@@ -464,7 +464,7 @@ typedef struct tagBGESOUND
 typedef struct	tagEFFECT_TABLE
 {
 	int				effect_Num;			//이팩트의 고유(일련) 번호
-	
+
 	int				pattern_Num;		//패턴(함수)의 번호	
 	int				sprite_Num;			//스프라이트의 고유 번호
 	BOOL			static_Effect;		//스프라이트의 스타틱 여부
@@ -473,7 +473,7 @@ typedef struct	tagEFFECT_TABLE
 	int				sound_Volume;		//이펙트와 연결된 사운드의 볼륨레벨
 	//				1000단위 이상 숫자->반복횟수(단 99일 경우 종료시까지) / 100단위까지 실제 사운드 번호 
 	int				sound_loop;			//사운드 출력 횟수
-	
+
 	int				next_Effect;		//다음 이펙트 번호
 	int				link_Frame;			//다음 이펙트가 시작될 프레임
 	int				trans_Type;			//트렌스 방법
@@ -491,10 +491,10 @@ typedef struct	tagEFFECT_TABLE
 }	EFFECT_TABLE;
 
 typedef struct tagEFFSPRITE
-{ 
+{
 	short		Count;									// 스프라이트의 갯수
 	Spr			EffSpr[MAX_EFFECT_FRAME];				// 스프라이트의 Data
-	
+
 } EFFSPRITE;
 
 typedef	struct tagMovePattern
@@ -546,33 +546,33 @@ extern void	ReturnDazeMove(int& dest_x, int& dest_y);
 //////////////////////////////// 이규훈 1228 //////////////////////////////////////////////
 extern void BackEffectSound(int MapNumber);			//랜덤 효과음 사운드 연출 함수
 extern BOOL	CheckCrackRange(LPCHARACTER lpChar);	//일정 지역내에 적이 있는 경우 채크						
-extern void ConditionSet(LPCHARACTER ch, BYTE condition, DWORD	Time=0);	//상태전이 결정함수
+extern void ConditionSet(LPCHARACTER ch, BYTE condition, DWORD	Time = 0);	//상태전이 결정함수
 extern void LoadConditionTable(void);
 extern BOOL NPC_MovePattern(LPCHARACTER ch);							//NPC의 지능에 따른 차별화된 이동패턴 처리
 
-extern void RecvCMD_SERVER_MAGICTRAP_EXPOSE( t_server_magictrap_expose *p );
-extern void RecvCMD_SERVER_MAGICAL_DETECT( t_server_magical_detect *p);
+extern void RecvCMD_SERVER_MAGICTRAP_EXPOSE(t_server_magictrap_expose *p);
+extern void RecvCMD_SERVER_MAGICAL_DETECT(t_server_magical_detect *p);
 
-extern void SendCMD_CHARACTER_DEMAND( int command_type, int target_id);
-extern void RecvCMD_ARIGEMENT_RESPONSE(t_server_arigement_response *p );
+extern void SendCMD_CHARACTER_DEMAND(int command_type, int target_id);
+extern void RecvCMD_ARIGEMENT_RESPONSE(t_server_arigement_response *p);
 
 // 010620 YGI
 extern void RecvCMD_CHARACTER_CONDITION(t_server_character_condition *p, int type = 0);
-extern void RecvCMD_SERVER_MAGICVIEWTYPE( t_server_magicviewtype *p);
+extern void RecvCMD_SERVER_MAGICVIEWTYPE(t_server_magicviewtype *p);
 extern void RecvCMD_SERVER_MAGICCOMMAND(t_server_magic_command *p);
 
-extern void RecvCMD_MAGIC_POSITION( t_server_magic_position *p);
+extern void RecvCMD_MAGIC_POSITION(t_server_magic_position *p);
 extern void EndCastMagic(LPCHARACTER scr/*MAGICLIST* lpML*/);								//캐스팅시작 및 유지 효과를 종료하고 평상태로 전이
-extern void CheckDoingAppointMagic( void );								//구사할려고한 마법이 체크 타입이 무었인지(GameProc.cpp 사용)
-extern void CheckEffectSpriteFree( void );
+extern void CheckDoingAppointMagic(void);								//구사할려고한 마법이 체크 타입이 무었인지(GameProc.cpp 사용)
+extern void CheckEffectSpriteFree(void);
 extern int  CallbackCharacterData(int char_ID, DWORD index/* #define되어 있는 서버쪽 캐릭터 정보 인덱스(정수) */);
 
 extern MAGICLIST* SkillResult(MAGICLIST* lpML);							//기술효과(성공/실패)
 ////////////////////// 0529 lkh 수정(마지막 인자:비검의 상자연사버그를 막기위한 플래그) ////////////////////////
 //발사된 객체의 경로상 장애물이 있는 여부 체크(타일단위) : 인자->타일 시작점 x,y & 타일끝점 x,y & 경로상의 다른 적 유무 확인 루틴체크 여부
-extern BOOL TileLineCheck(int sx, int sy, int ex, int ey, BOOL check_ShootItem=0);
+extern BOOL TileLineCheck(int sx, int sy, int ex, int ey, BOOL check_ShootItem = 0);
 
-extern void InsertLightOut(int x, int y, int light, int terminateFrame, int color=0);	//소멸해 가는 광원을 추가하는 함수(color->0:white)
+extern void InsertLightOut(int x, int y, int light, int terminateFrame, int color = 0);	//소멸해 가는 광원을 추가하는 함수(color->0:white)
 extern MAGICLIST* CastingMagic(MAGICLIST* magic_List);	 // CSD-TW-030606 : 마법 시전 효과 출력
 extern MAGICLIST* CastingCombat(MAGICLIST* magic_List);	 // CSD-TW-030606 : 전투스킬 시전 효과 출력
 extern MAGICLIST* CastingContinueMagic(MAGICLIST*	lpML);				//캐스팅 유지 (발사대기) 효과 출력 함수
@@ -580,12 +580,12 @@ extern void	ResetCharacter(LPCHARACTER lpChar);
 extern void ResetEffect(LPCHARACTER lpChar);
 extern bool DoingImpectEffect(int magic_Num, LPCHARACTER scr, LPCHARACTER dcr, int damage);	//서버에 의해 날라온 타격처리에 대한 출력 함수
 extern bool TimeCheck(DWORD end_Time);									//시간을 체크하는 함수
-extern bool	ReadyMagic(LPCHARACTER	lpRead_Char, int trans_Type=2, int trans_Level=20);					//캐스팅이 끝나고 마법발사 준비 완료된 인물 처리
+extern bool	ReadyMagic(LPCHARACTER	lpRead_Char, int trans_Type = 2, int trans_Level = 20);					//캐스팅이 끝나고 마법발사 준비 완료된 인물 처리
 
-extern BOOL LoadEffectSprite( int sprite_Num, char* sprite_Name);		//반드시 스프라이트의 번호와 이름은 일치하여야 함;
+extern BOOL LoadEffectSprite(int sprite_Num, char* sprite_Name);		//반드시 스프라이트의 번호와 이름은 일치하여야 함;
 extern BOOL LoadEffectAnimation(int animate_Num, char* animate_Name);
 extern bool LoadEffectSpriteDivFile(const int nSprite_Num); // 030821 kyo
-extern void FreeEffectSprite( int sprite_Num );
+extern void FreeEffectSprite(int sprite_Num);
 
 void		RenameSoundFile(void);										//사운드 리스트 및 데이터 화일명을 영문으로
 void		RenameEffectFile(void);										//한글명칭인 화일을 rename하기 위한 변수
@@ -619,25 +619,25 @@ extern void DeleteAllList(MAGICLIST **Head);
 extern void	DrawClock();
 
 // 복수 지역 마법인 경우 충돌한 적을 리턴하는 함수
-extern LPCHARACTER ReturnMagicCheckedCharacter(int range_Check, MAGICLIST* lpML, int x, int y, int z, int xl, int yl, int my_Check=0, int air_Surface=0, BOOL	curve=0);
+extern LPCHARACTER ReturnMagicCheckedCharacter(int range_Check, MAGICLIST* lpML, int x, int y, int z, int xl, int yl, int my_Check = 0, int air_Surface = 0, BOOL	curve = 0);
 
-extern int EffectOutput(int x, int y, Spr* sp, int type, int alpha=0, int height=0, int sort_Type=9, DWORD rgb=0x00);
+extern int EffectOutput(int x, int y, Spr* sp, int type, int alpha = 0, int height = 0, int sort_Type = 9, DWORD rgb = 0x00);
 
 /////////////////////// 0126 lkh /////////////////////////////
 extern int ClockOutPut(int x, int y, Spr* sp);		//좌표 -> 절대좌표
 extern bool	RandomAttackEffect(int Effect_Type, LPCHARACTER ch, LPCHARACTER tchar);
 extern bool	RandomThrowEffect(int nKind, LPCHARACTER ch, LPCHARACTER tchar);
-extern bool RbuttonContinue( int magic_Num, LPCHARACTER scr=Hero, LPCHARACTER dcr=Hero, int x=0, int y=0);			//마우스 오른쪽 버튼을 계속 누르고 있는 경우 실행되는 마법
+extern bool RbuttonContinue(int magic_Num, LPCHARACTER scr = Hero, LPCHARACTER dcr = Hero, int x = 0, int y = 0);			//마우스 오른쪽 버튼을 계속 누르고 있는 경우 실행되는 마법
 // 마법 리스트에 효과 마법 등록 (인자:이펙트의 고유번호/중점좌표 X,Y/시전자 이미지 변화시키는 마법에서 사용->(1~6 사이의 숫자로 6자리까지) 
-extern void InsertMagic(LPCHARACTER lpChar_Own, LPCHARACTER lpChar_Target, int magicNum, int magicSubNum, int s_X, int s_Y, int t_X, int t_Y, bool firePattern=0, int next_Effect=0, bool failed=0, DWORD dwDuration = 0);
+extern void InsertMagic(LPCHARACTER lpChar_Own, LPCHARACTER lpChar_Target, int magicNum, int magicSubNum, int s_X, int s_Y, int t_X, int t_Y, bool firePattern = 0, int next_Effect = 0, bool failed = 0, DWORD dwDuration = 0);
 // 이펙트 리스트에 마법 리스트 등록 (인자:이펙트의 고유번호/모션 카운트(생성/중간/종말)/스피드/방향/Trans방법/투명도/마지막 프레임           
-extern void InsertEffect(MAGICLIST *Temp, int start_Frame=0, int nOffX = 0, int nOffY = 0);
+extern void InsertEffect(MAGICLIST *Temp, int start_Frame = 0, int nOffX = 0, int nOffY = 0);
 // 실제 효과1(효과 스프라이트)를 화면에 보여줌 (인자:Trnas 방법/투명도/마지막 프레임)
-extern void DrawEffect(USEEFFECTLIST *Temp, MAGICLIST* magic_List, int light=0, bool target=0);
+extern void DrawEffect(USEEFFECTLIST *Temp, MAGICLIST* magic_List, int light = 0, bool target = 0);
 // 실제 효과2(시전자 이미지 색변화-Trans)를 화면에 보여줌(인자:Trans 방법/색변형시키고자하는 신체 부위(1~6))
-extern void DrawEffect1(USEEFFECTLIST *Temp, MAGICLIST* magic_List, int share=0, bool target=0);
+extern void DrawEffect1(USEEFFECTLIST *Temp, MAGICLIST* magic_List, int share = 0, bool target = 0);
 // 실제 효과3(시전자 이미지 색변화-RGB_Blend)를 화면에 보여줌(인자:색변형시키고자하는 신체 부위(1~6), 적용시키고자하는 RGB값)
-extern bool DrawEffect2(USEEFFECTLIST *Temp, MAGICLIST* magic_List, int share, DWORD rgb, bool target=0);
+extern bool DrawEffect2(USEEFFECTLIST *Temp, MAGICLIST* magic_List, int share, DWORD rgb, bool target = 0);
 // 실제 효과출력(시전자의 잔상을 출력)-이펙트 스프라이트를 로딩하지 않고 원 이미지 변형하는 경우
 extern void DrawEffect3(USEEFFECTLIST *Temp, MAGICLIST* lpML, bool target);
 // 서있는 방향으로 화염기동(1) 튀어올라오며 발사 패턴(인자: 효과고유번호/모션넘버/스피드/방향/Trans방법/투명도/마지막 프레임)                              
@@ -645,7 +645,7 @@ extern MAGICLIST* SampleMagic1(MAGICLIST *magic_List);//, int Num, int motion_Nu
 // 클리한 곳으로 화염기둥(2) 튀어올라오며 발사 패턴
 extern MAGICLIST* SampleMagic1_1(MAGICLIST *magic_List);
 // 8방향 방사효과 마법 발사 패턴(인자:효과고유번호/모션넘버/스피드/Trans방법/투명도/마지막 프레임)
-extern MAGICLIST* SampleMagic2(MAGICLIST *magic_List, int Num, int motion_Num, int speed, int height, int type, int level, int end_Frame=-1);
+extern MAGICLIST* SampleMagic2(MAGICLIST *magic_List, int Num, int motion_Num, int speed, int height, int type, int level, int end_Frame = -1);
 // 시전자의 이미지 색을 변형시키는 마법 패턴(인자:효과 고유번호/변형시키고자하는 신체부위(1~6로 6자리))
 extern MAGICLIST* SampleMagic3(MAGICLIST *magic_List);//, int Num, int share_Num, int looping=0);
 // 특정 효과 특정 위치에 찍어주기
@@ -657,7 +657,7 @@ extern MAGICLIST* SampleMagic6(MAGICLIST* magic_List);//, int Num, int motion_Nu
 // 시전자 위치에서 정확한 좌표/속도로 이동하는 화살 패턴(인자: 효과고유번호/주인공의 발사시 방향/모션넘버/스피드/높이/Trans방법/투명도)                              
 extern MAGICLIST* FireArrow(MAGICLIST *magic_List);	//, int Num, int motion_Num, int speed, int height, int type, int level);
 // 발사방향/속도로 (복수/1개) 날아가는 마법
-extern MAGICLIST* SampleMagic8(MAGICLIST *magic_List);	
+extern MAGICLIST* SampleMagic8(MAGICLIST *magic_List);
 // 8 way 화염기둥
 extern MAGICLIST* SampleMagic9(MAGICLIST* magic_List);//, int Num, int motion_Num, int speed, int height, int type, int level, int end_Frame=-1);
 // 유성탄 
@@ -687,8 +687,8 @@ extern MAGICLIST* Trace(MAGICLIST* lpML);
 //특정 위치에 일정 패턴으로 움직이는 빛 조각들(1:아래로 떨어지는/2:시계방향으로 원운동/3:주변으로 퍼져 나가는)
 extern MAGICLIST* RadiantStar(MAGICLIST* lpML);
 // SampleMagic4와 같으나 hp <= 0 이어도 실행된다. 
-extern MAGICLIST* SampleMagic_Type4_Like(MAGICLIST*	lpML); 
-extern void Log_BattleSave( char* filename, bool attack_Type, BATTLERESULTSAVE BR_Save);
+extern MAGICLIST* SampleMagic_Type4_Like(MAGICLIST*	lpML);
+extern void Log_BattleSave(char* filename, bool attack_Type, BATTLERESULTSAVE BR_Save);
 extern void TransAfToAb();
 
 MAGICLIST* FindList(MAGICLIST *Head, int MagicNum, int idTarget);

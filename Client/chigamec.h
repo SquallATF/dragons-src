@@ -4,10 +4,10 @@
 #define BLOCK_SIZE			160
 
 typedef struct _SessionParameter {
-		char	lpszUserName[32];
-		char	lpszPassword[32];
-		char	lpszIPAddress[32];
-		int		nPortNum;
+	char	lpszUserName[32];
+	char	lpszPassword[32];
+	char	lpszIPAddress[32];
+	int		nPortNum;
 } SessionParameter;
 
 extern DWORD WINAPI WaitForSessionParameter(SessionParameter* lpSP);

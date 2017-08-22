@@ -155,7 +155,7 @@
 
 //- 수정 : 구입한 아이템이 아이템 창에 놓일때의 소리 (즉 각 아이템 마다 아이템 창에 놓일때의 소리가 다를 경우 그 해당 효과음 발생..)
 #define SN_GAMEEND				1240	//게임을 끝낼때
-	
+
 #define SN_GOD_REGIST			1230	//신전에 등록할때
 #define SN_GOD_MEETING			1252	// 예배 음악
 
@@ -217,10 +217,10 @@ extern void LoadMenuData(int nNum);                   //필요한 메뉴 이미�
 extern void FreeMenuData(int nNum);                    //필요 없는 메뉴 이미지 데이타 메모리를 반환
 
 extern bool g_DropOnHero;
-extern int StartPosition ;
+extern int StartPosition;
 extern int StartMap;
 //021014 lsw
-extern SMENU	SMenu[MAX_MENU]; 
+extern SMENU	SMenu[MAX_MENU];
 extern const int mainmenu[];
 extern const int smallmenu[];
 extern const int aNoCloseMenu[];
@@ -323,40 +323,40 @@ extern BYTE	*time_spr_buf;
 extern Spr	time_spr[TIME_MENU_IMG_MAX];
 
 extern BYTE	*membook_spr_buf;
-extern Spr	membook_spr[MEMBOOK_MENU_IMG_MAX];		
+extern Spr	membook_spr[MEMBOOK_MENU_IMG_MAX];
 
 extern BYTE	*magicbook_spr_buf;
-extern Spr	magicbook_spr[MAGICBOOK_MENU_IMG_MAX];		
+extern Spr	magicbook_spr[MAGICBOOK_MENU_IMG_MAX];
 
 extern BYTE	*mail_spr_buf;
-extern Spr	mail_spr[MAIL_MENU_IMG_MAX];	
+extern Spr	mail_spr[MAIL_MENU_IMG_MAX];
 
 extern BYTE	*start_etc_buf;
-extern Spr	start_etc_spr[START_ETC_IMG_MAX];	
+extern Spr	start_etc_spr[START_ETC_IMG_MAX];
 
 extern BYTE	*start_etc2_buf;
-extern Spr	start_etc2_spr[START_ETC2_IMG_MAX];	
+extern Spr	start_etc2_spr[START_ETC2_IMG_MAX];
 
 extern BYTE	*job_etc_buf;
 extern Spr	job_etc_spr[JOB_ETC_IMG_MAX];
 
 extern BYTE	*select_server_buf;
-extern Spr	select_server_spr[SELECT_SERVER_IMG_MAX];	
+extern Spr	select_server_spr[SELECT_SERVER_IMG_MAX];
 
 extern BYTE	*start_map_buf;
-extern Spr	start_map_spr[START_MAP_IMG_MAX];	
+extern Spr	start_map_spr[START_MAP_IMG_MAX];
 
 extern BYTE	*chat_menu_buf;
-extern Spr	chat_menu_spr[CHAT_MENU_IMG_MAX];	
+extern Spr	chat_menu_spr[CHAT_MENU_IMG_MAX];
 
 extern BYTE	*main_etc_buf;
-extern Spr	main_etc_spr[MAIN_ETC_IMG_MAX];	
+extern Spr	main_etc_spr[MAIN_ETC_IMG_MAX];
 
 extern BYTE	*main_etc3_buf;
-extern Spr	main_etc3_spr[MAIN_ETC3_IMG_MAX];	
+extern Spr	main_etc3_spr[MAIN_ETC3_IMG_MAX];
 
 extern BYTE	*skill_menu_buf;
-extern Spr	skill_menu_spr[SKILL_MENU_IMG_MAX];	
+extern Spr	skill_menu_spr[SKILL_MENU_IMG_MAX];
 
 extern BYTE	*small_map_buf;
 extern Spr	small_map_spr[SMALL_MAP_MAX];
@@ -455,10 +455,10 @@ extern int g_VoteSignExist;
 extern int BetaTest;
 extern int SoundOn;
 
-extern void SetRect(RECT &rect,int left, int top, int right, int bottom);
+extern void SetRect(RECT &rect, int left, int top, int right, int bottom);
 extern void FieldTypeNomalPut(int mx, int my, int x, int y, int nImageNumber, int type = 0);
 extern void FieldTypeNomalPutFx(int mx, int my, int x, int y, int nImageNumber, int t, int j);
-extern void FieldTypeNomalPutFx3(int mx, int my, int x,int y,int nImageNumber, int type , int t, int j);//010910 lsw
+extern void FieldTypeNomalPutFx3(int mx, int my, int x, int y, int nImageNumber, int type, int t, int j);//010910 lsw
 
 //######## 메인 인터페이스에서 셋팅할 데이터 정의 ##########
 #define IF_MAP				0		// IF -> info_flag
@@ -475,30 +475,30 @@ struct	InterfaceFlag
 
 extern struct	InterfaceFlag main_interface;
 extern bool		IsMenuActive();					// 활성화된 메뉴안에 마우스가 있는지를 판단
-extern void		LoadSmallMenuImage( int num );	// 없는 그림 로드해온다.
-extern void		CallMenu(int Menu, int x, int y, BOOL bMenuFocus=FALSE);
-extern void		CallMenu( int Menu, int temp=0, bool is_focus = false );
+extern void		LoadSmallMenuImage(int num);	// 없는 그림 로드해온다.
+extern void		CallMenu(int Menu, int x, int y, BOOL bMenuFocus = FALSE);
+extern void		CallMenu(int Menu, int temp = 0, bool is_focus = false);
 
 
 
 
-extern	void	SendLevelUpPoint( WORD p[11] ) ;
-extern	void	RecvLevelUpPoint( t_server_levelup_point *p );
-extern	void	RecvLevelUpPointResult( int ok );
-extern	void	RecvCallSmallMenu( t_server_call_smallmenu *p );
+extern	void	SendLevelUpPoint(WORD p[11]);
+extern	void	RecvLevelUpPoint(t_server_levelup_point *p);
+extern	void	RecvLevelUpPointResult(int ok);
+extern	void	RecvCallSmallMenu(t_server_call_smallmenu *p);
 extern	void	RecvCallDualMagicLearnBook();//soto-030421
-extern	void	ReqSmallMenu( int menu, int storelistindex );
-extern	void	RecvStoreItemList( t_server_store_itemlist *p );
+extern	void	ReqSmallMenu(int menu, int storelistindex);
+extern	void	RecvStoreItemList(t_server_store_itemlist *p);
 
 
-extern	void	SendItemBuy( int item_pos, int inv_pos, int store_id );
-extern	void	SendItemSell( int item_pos, int store_menu );
-extern	int		SendDeleteCharacter( const char *szName, const char *szSecretKeyCode);
+extern	void	SendItemBuy(int item_pos, int inv_pos, int store_id);
+extern	void	SendItemSell(int item_pos, int store_menu);
+extern	int		SendDeleteCharacter(const char *szName, const char *szSecretKeyCode);
 
-extern	int		GetMagicCastingTime( int magic_no, SCharacter &ch );
-extern	int		CanMakeItemListSet( int s , int menu=0);
-extern	void	DropItemOnHero( ItemAttr &item_attr );
-extern	void	CallOtherCharacterInv( ItemAttr inv[3][3][8], ItemAttr equip[8], ItemAttr quick[7] );
+extern	int		GetMagicCastingTime(int magic_no, SCharacter &ch);
+extern	int		CanMakeItemListSet(int s, int menu = 0);
+extern	void	DropItemOnHero(ItemAttr &item_attr);
+extern	void	CallOtherCharacterInv(ItemAttr inv[3][3][8], ItemAttr equip[8], ItemAttr quick[7]);
 
 
 
@@ -508,70 +508,70 @@ extern	int SearchEmptyQuickItem();
 extern	int SearchEmptyBank(int &a, int &b, int &c);
 
 extern	ItemJoinSelect learn_item_list[MAX_LEARN_ITEM];
-extern	void	CallSmallMenu(int menu, int pre=0, int sound=SN_MENU_OPEN);											// 서브 메뉴 콜할때 사용
+extern	void	CallSmallMenu(int menu, int pre = 0, int sound = SN_MENU_OPEN);											// 서브 메뉴 콜할때 사용
 
 
-extern	void	CallServer( int type, void *msg =NULL, int size=0 );			// 서버로 뭔가를 요청할때
+extern	void	CallServer(int type, void *msg = NULL, int size = 0);			// 서버로 뭔가를 요청할때
 
 extern	int		g_MouseItemNumber;
 extern	int		g_MouseItemType;
 
-extern int GetIndexOfCondition( BYTE condition );
-extern int RectAndRectCrash( const RECT *box1, const RECT *box2 );
-extern int RectAndDotCrash( const RECT *box1, const int x, const int y );
+extern int GetIndexOfCondition(BYTE condition);
+extern int RectAndRectCrash(const RECT *box1, const RECT *box2);
+extern int RectAndDotCrash(const RECT *box1, const int x, const int y);
 
-extern void FreeOpenningSpr( BYTE **buf );
-extern void ReStartMenu( );
+extern void FreeOpenningSpr(BYTE **buf);
+extern void ReStartMenu();
 
 extern int IsMouseOnMenu();
-extern void SmallMenuClose( );
-extern void MainMenuClose( );
+extern void SmallMenuClose();
+extern void MainMenuClose();
 
 
 extern Spr spr2[MAX_IMAGE2];		// 추가 메뉴 이미지 
-extern void FieldTypeNomalPutFx2(int mx, int my, int x,int y,int nImageNumber, int t, int j);
-extern void FieldTypeNomalPut2(int mx, int my, int x,int y,int nImageNumber);
-extern void LoadSmallMenuImage2( int num );
-extern inline void UpperMenuNomalPut(int &x, int y,int nImageNumber, int type);
+extern void FieldTypeNomalPutFx2(int mx, int my, int x, int y, int nImageNumber, int t, int j);
+extern void FieldTypeNomalPut2(int mx, int my, int x, int y, int nImageNumber);
+extern void LoadSmallMenuImage2(int num);
+extern inline void UpperMenuNomalPut(int &x, int y, int nImageNumber, int type);
 
 
 extern bool bCallGodMeetingMenu;
 extern void CloseAllMenu();
-extern int CheckLanguageForMenu( LPSTR lpStr );
+extern int CheckLanguageForMenu(LPSTR lpStr);
 
-extern HWND SetFocus2( const int iIndex);//021001 lsw
-extern int GetDiceAbility( int DiceNumber );		// 다이스 돌리기
+extern HWND SetFocus2(const int iIndex);//021001 lsw
+extern int GetDiceAbility(int DiceNumber);		// 다이스 돌리기
 
-extern void CutHangul( char *text, int max );
-extern void AddWaveOfEndString( char *text );		// 물결을 붙여준다.		문자열은 넉넉이 잡혀 있어야 한다.
+extern void CutHangul(char *text, int max);
+extern void AddWaveOfEndString(char *text);		// 물결을 붙여준다.		문자열은 넉넉이 잡혀 있어야 한다.
 
 extern int isSmallMenuOn();
 extern int RectTextPut(const int x, const int y, int nWidth, char *sSource, const int hight = 18, const int line_max = 0);
-extern int RectTextPutNotEatWhiteChar(const int x, const int y,int nWidth, char *sSource,const int hight = 18, const int line_max = 0);
-extern int RectBoldTextPut(const int x, const int y,int nWidth, char *sSource, const int hight=18, const int line_max= 0);//020730 lsw
-extern int RectBoldTextPutNotEatWhiteChar(const int x, const int y,int nWidth, char *sSource, const int hight=18, const int line_max= 0);//020730 lsw
-extern int GetRectTextLine( char *sSource, int nWidth, const int line_max = 0);//020703 lsw
-extern char *DivideStringByRect( int nWidth, char *sSource, int max_line = 0 );
+extern int RectTextPutNotEatWhiteChar(const int x, const int y, int nWidth, char *sSource, const int hight = 18, const int line_max = 0);
+extern int RectBoldTextPut(const int x, const int y, int nWidth, char *sSource, const int hight = 18, const int line_max = 0);//020730 lsw
+extern int RectBoldTextPutNotEatWhiteChar(const int x, const int y, int nWidth, char *sSource, const int hight = 18, const int line_max = 0);//020730 lsw
+extern int GetRectTextLine(char *sSource, int nWidth, const int line_max = 0);//020703 lsw
+extern char *DivideStringByRect(int nWidth, char *sSource, int max_line = 0);
 extern bool CanActiveMessageLine();
-extern int GetLineRectTextPut( int nWidth, char *sSource ); // line의 수를 체크하여..
-extern int SkipRectTextPut( int x, int y, int nWidth, int skip, char *sSource, int line_max = 0, int fx_type = 0 ); // line의 수를 체크하여..
+extern int GetLineRectTextPut(int nWidth, char *sSource); // line의 수를 체크하여..
+extern int SkipRectTextPut(int x, int y, int nWidth, int skip, char *sSource, int line_max = 0, int fx_type = 0); // line의 수를 체크하여..
 extern void GameEndFree();
 extern void RegistProgram();
 extern int LoadSmallMapSprData(int mapnumber); // CSD-030324 // thai2 YGI
-extern int  PutHpGauge( int x, int y, LPCHARACTER ch );
-extern int  PutHeroHpGauge( const int x, const int y);//020626 lsw
-extern int  PutHeroMpGauge( const int x, const int y);
-extern int GetTextLine( char *filename );
-extern void InsertMagicQuickArray( int magic_no );
-extern void DeleteMagicQuickArray( int magic_no );
-extern void ResetMagicQuickArray( );
+extern int  PutHpGauge(int x, int y, LPCHARACTER ch);
+extern int  PutHeroHpGauge(const int x, const int y);//020626 lsw
+extern int  PutHeroMpGauge(const int x, const int y);
+extern int GetTextLine(char *filename);
+extern void InsertMagicQuickArray(int magic_no);
+extern void DeleteMagicQuickArray(int magic_no);
+extern void ResetMagicQuickArray();
 extern void MagicSetting2();
 extern bool	ReadMagicTable();
-extern char *GetNameById( int id );		// 아이디로 이름을 가져 온다.
-extern int ConvMapnameToMapnumber( char *mapname );
-extern Spr *GetSprOfMenu( int type, int nImageNumber );		// 스프라이트 데이타
-extern void MP3( int n, int ing=0 );
-extern void PutLvNameByColor( int x, int y, LPCHARACTER ch );
+extern char *GetNameById(int id);		// 아이디로 이름을 가져 온다.
+extern int ConvMapnameToMapnumber(char *mapname);
+extern Spr *GetSprOfMenu(int type, int nImageNumber);		// 스프라이트 데이타
+extern void MP3(int n, int ing = 0);
+extern void PutLvNameByColor(int x, int y, LPCHARACTER ch);
 extern void PutDualMark(int x, int y, LPCHARACTER ch);
 extern bool IsHeroDead();
 extern char NationName[8][20];
@@ -579,23 +579,23 @@ extern const DWORD NationColor[7];
 extern const WORD NationColor16[7];
 extern int	fight_map_live_man[4];
 extern void FreeAllOfMenu();		// 0927 YGI
-extern void DeleteMouseCh( char *name );
-extern void SetMouseCh( LPCHARACTER lpTarget );
-extern LPCHARACTER ExistHe( char *name );		// 내 시야에 존재하는 넘인지 알아보는 루틴
+extern void DeleteMouseCh(char *name);
+extern void SetMouseCh(LPCHARACTER lpTarget);
+extern LPCHARACTER ExistHe(char *name);		// 내 시야에 존재하는 넘인지 알아보는 루틴
 extern void InitMenuByChangeMap();
-extern void Check_Kein_Menu( int type );		// 툴에서 메뉴
-extern int LoadGuildTableEx( );
-extern void PutJobLv( int x, int y, int job, int call_job_lv );		// 1004 YGI( 직업 등급 출력 )
-extern int GetCallJob( int call_job_lv );		// 직업 능력 단위 가져오기
+extern void Check_Kein_Menu(int type);		// 툴에서 메뉴
+extern int LoadGuildTableEx();
+extern void PutJobLv(int x, int y, int job, int call_job_lv);		// 1004 YGI( 직업 등급 출력 )
+extern int GetCallJob(int call_job_lv);		// 직업 능력 단위 가져오기
 
-extern void ViewGuildCommandInfo( );		// 길드 명령 설명
-extern char *Kein_EatFrontWhiteChar( char *pStr );
+extern void ViewGuildCommandInfo();		// 길드 명령 설명
+extern char *Kein_EatFrontWhiteChar(char *pStr);
 
 extern void ViewEarCommandInfo();
 
-extern BOOL LaunchApplication(LPCTSTR pCmdLine );
-extern BOOL LaunchApplication_kein( char *app_name, char *arg );
-extern void KeinMessageBox( int next_menu, char *msg, ... );// 020701 YGI
+extern BOOL LaunchApplication(LPCTSTR pCmdLine);
+extern BOOL LaunchApplication_kein(char *app_name, char *arg);
+extern void KeinMessageBox(int next_menu, char *msg, ...);// 020701 YGI
 
 extern int AutoLevelUpOn;
 extern DWORD AutoLevelUpCount;
@@ -607,22 +607,22 @@ extern void FreeAndReload();
 extern int g_SetGuildMarkViewOn;
 extern int g_GuildMax;
 
-extern void PrintMagicExplain( int magic_no );
+extern void PrintMagicExplain(int magic_no);
 extern int	g_CurrUsedMagic;		// 현재 캐스팅 되고 있는 마법
 
 // ok만 있는 건지 ok_cancel이 있는 메시지 박스인지를 선택,  menu는 호출한 메뉴를 넣는다
-extern void CallOkCancelMessageBox( int menu, int x, int y, const char *source, bool ok_cancel = true, int param = 0 );
+extern void CallOkCancelMessageBox(int menu, int x, int y, const char *source, bool ok_cancel = true, int param = 0);
 
 extern int g_fight_win;
 extern int g_fight_lose;
 
-extern int g_RemainTimeType; 
+extern int g_RemainTimeType;
 extern int g_RemainTimeDelay;
 
-extern int  ConvString( char *szStr ); // 욕설 필터
+extern int  ConvString(char *szStr); // 욕설 필터
 extern char checkbeta;
 extern bool bSmallTips;
-extern char *kein_GetMenuString( int index );
+extern char *kein_GetMenuString(int index);
 
 extern char *g_szScale;
 
@@ -632,15 +632,15 @@ extern char *g_szScale;
 #define KM_OK		2
 #define KM_BBS		3
 
-extern void Kein_PutMessage( int type, char *msg, ... );
+extern void Kein_PutMessage(int type, char *msg, ...);
 extern int g_SelectServerIndex;
 
 
 #define SI_GAME_MAKE_MODE		0
 #define SI_NOT_CONNECT_MODE		1
 
-extern inline int GetSysInfo( int type );
-extern bool CheckTempChar( char ch, char *white );
+extern inline int GetSysInfo(int type);
+extern bool CheckTempChar(char ch, char *white);
 extern bool IsReporterMode();
 
 #define PAGE_NUMBER__	 2//020515 lsw 이동 했습니다
@@ -649,8 +649,8 @@ extern bool g_bLogOnFlag;
 extern SCharacter		LoadCh[SN_CHARACTER_MAX_COUNT];								// 서버에서 캐러 정보를 전송받는다extern SCharacter LoadCh[4];								
 extern t_client_login_fail_reason g_client_login_fail_reason;		// 로그인 시 메시지
 
-extern void RecvChatSetResult( t_chat_set_result *p );
-extern CHARACTERLIST	g_CharacterList;											
+extern void RecvChatSetResult(t_chat_set_result *p);
+extern CHARACTERLIST	g_CharacterList;
 //extern SCharacter		LoadCh[4];								// 서버에서 캐러 정보를 전송받는다extern SCharacter LoadCh[4];								
 // 서버에서 캐러 정보를 전송받는다
 
@@ -660,10 +660,10 @@ extern BOOL		MouseDrag;
 
 extern ItemAttr InvItemAttr[3][3][8];		//### 1214 YGI
 
-extern void SettingChangMapMenu( int ct ); // smallmenu.cpp
-extern void RecvPleaseGiveLife( int id, int hp, int mana, int hungryp, int who );
+extern void SettingChangMapMenu(int ct); // smallmenu.cpp
+extern void RecvPleaseGiveLife(int id, int hp, int mana, int hungryp, int who);
 
-extern void	RecvQSF_Command( t_qsf_command	qc );
+extern void	RecvQSF_Command(t_qsf_command	qc);
 
 extern int CheckHandleByNationWar(t_packet *p);  // 010904 LTS
 
@@ -671,24 +671,24 @@ extern void Recv2NDGMMAKEResult(t_SkillRareUpgradeResult *p);//011004 lsw
 extern void RecvCallSmallMenuCustom(t_server_call_smallmenucustom *p);//011011 lsw
 
 
-extern bool	DoButtonCheckOfMenu_SWD(int nMenuIndex,int nFieldIndex);//soto-030430
+extern bool	DoButtonCheckOfMenu_SWD(int nMenuIndex, int nFieldIndex);//soto-030430
 
 
-extern  int		GetItemAttr( int item_id, int attr);				//011018 KHS 망또
+extern  int		GetItemAttr(int item_id, int attr);				//011018 KHS 망또
 extern  int		GetItemAttr2(int sprno, int item_id, int attr);		//011018 KHS 망또
 
 
 extern void SendRequestTileDontData();		// 010904 LTS
 extern void SendCMD_REQUEST_COMPARE_PHASE();	// LTS LOCALWAR	
-extern void SetLocalWarArmor(t_server_change_equip *p,LPCHARACTER ch);	// LTS LOCALWAR
+extern void SetLocalWarArmor(t_server_change_equip *p, LPCHARACTER ch);	// LTS LOCALWAR
 extern void SetLocalWarArmor(t_server_user_add *c);	// LTS LOCALWAR
-extern bool g_bWarBegin; 
+extern bool g_bWarBegin;
 extern int	g_LocalWarBegin;					// LTS LOCALWAR
-extern void SetWarArmor(t_server_change_equip *p,LPCHARACTER ch);
+extern void SetWarArmor(t_server_change_equip *p, LPCHARACTER ch);
 extern void SetWarArmor(t_server_user_add *c);	// 010904 LTS
 extern int GetLeveByExp(int nStep, DWORD exp);
-extern ItemAttr *GetItemByPos( POS item ); // itemtable.cpp
-extern 	SCharacter			SCharSource;		
+extern ItemAttr *GetItemByPos(POS item); // itemtable.cpp
+extern 	SCharacter			SCharSource;
 extern 	int					character_active;
 extern	int					g_LocalWarBegin;			// 011215 LTS	
 #endif//AFX_MENU_H__CCD50119_39F2_4932_8DEF_B46CD7E4330A__INCLUDED_

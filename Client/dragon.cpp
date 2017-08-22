@@ -544,10 +544,10 @@ char *TrimRight(char *dest, int n)		//返回dest所在绝对路径目录
 	dest[strlength] = '\0';
 	strlength = strlen(dest);
 	char temp[260];
-	int pos = 0 , i = 0;
-	while(1)
+	int pos = 0, i = 0;
+	while (1)
 	{
-		if(dest[i] == '\0') 
+		if (dest[i] == '\0')
 		{
 			temp[pos] = dest[i];
 			dest = temp;
@@ -555,9 +555,9 @@ char *TrimRight(char *dest, int n)		//返回dest所在绝对路径目录
 		}
 		else
 		{
-			if(dest[i] == '\\') 
+			if (dest[i] == '\\')
 			{
-				
+
 				temp[pos] = dest[i];
 				pos++;
 				temp[pos] = '\\';

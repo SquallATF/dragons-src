@@ -19,18 +19,18 @@ public:
 	virtual ~CStrikeSys();
 
 public:
-  virtual int Action(LPCHARACTER pCaster);
-  virtual void Effect(MAGICLIST* pEffect);
+	virtual int Action(LPCHARACTER pCaster);
+	virtual void Effect(MAGICLIST* pEffect);
 
 public:
-  void Effect(LPCHARACTER pCaster, LPCHARACTER pTarget);
-  void Effect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nSrcX, int nSrcY, int nDstX, int nDstY);
-  void EffectThrow(MAGICLIST* pThrow, USEEFFECTLIST* pEffect);
-  void EffectHit(LPCHARACTER pCaster, LPCHARACTER pTarget);
+	void Effect(LPCHARACTER pCaster, LPCHARACTER pTarget);
+	void Effect(LPCHARACTER pCaster, LPCHARACTER pTarget, int nSrcX, int nSrcY, int nDstX, int nDstY);
+	void EffectThrow(MAGICLIST* pThrow, USEEFFECTLIST* pEffect);
+	void EffectHit(LPCHARACTER pCaster, LPCHARACTER pTarget);
 
 protected:
-  void Shoot(LPCHARACTER pCaster, LPCHARACTER pTarget);
-  void Throw(LPCHARACTER pCaster, LPCHARACTER pTarget);
+	void Shoot(LPCHARACTER pCaster, LPCHARACTER pTarget);
+	void Throw(LPCHARACTER pCaster, LPCHARACTER pTarget);
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

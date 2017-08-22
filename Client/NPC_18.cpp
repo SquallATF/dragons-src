@@ -9,9 +9,9 @@
 #include "Map.h"
 #include "lineCommand.h"
 
-extern CHARACTER *NPC_ReturnCharListPoint( int id );
-extern void calcNewAbility(CHARACTER *) ;
-extern int getMaxHungry(CHARACTER *chr) ;
+extern CHARACTER *NPC_ReturnCharListPoint(int id);
+extern void calcNewAbility(CHARACTER *);
+extern int getMaxHungry(CHARACTER *chr);
 
 void NPC_Pattern_8(CHARACTER *n)
 {
@@ -553,7 +553,7 @@ void NPC_Pattern_8(CHARACTER *n)
 			}
 			else
 			{
-Attack_access_pc_:
+			Attack_access_pc_:
 				if (n->targetid != -1)
 				{
 					int ex, ey;
@@ -1435,305 +1435,305 @@ void NPC_Pattern_Tammed(CHARACTER *n)
 	break;
 	}
 }
-			
+
 void NPC_Pattern_GUARD(LPCHARACTER n)
-{			
+{
 	switch (n->patterntype)
-	{					
+	{
 	case NPC_PATTERN_WANDER_GUARD_:
-		{	
-			if (g_ClientTime - n->aitimedelay > n->aidelayhowmuch)
-			{
-				n->aitimedelay = g_ClientTime;
-				n->aidelayhowmuch = 1000 + (rand()%1000);
-			}
-			else
-			{
-				break;
-			}
-			
-			// 그냥 배회한다.
-			if (!NPC_IsMoving(n))
-			{		
-				int targetid = NPC_IsWhoNearRedPC( n, 10 );
-				if( targetid != -1 )
-				{			
-					n->patterntype = NPC_PATTERN_ACCESS_PC_GUARD_;
-					n->targetid = targetid;
-					
-					if( n->targetid >= 10000 )
-					{		
-						
-					}		
-					else 
-					{
-						if( rand()%100 < 30 )
-						{
-							LPCHARACTER tch = ReturnCharacterPoint( n->targetid );
-							
-#ifdef _NATION_APPLY_
-							if(  tch->name_status.nation  == MapInfo[ MapNumber].nation || MapNumber == 30  )
-#else
-								if( 1 )
-#endif
-								{
-									switch( rand()%3 )
-									{		
-									case 0:	SendNPCChatArea(n->id, lan->OutputMessage(4, 37)); break;//lsw
-									case 1:	SendNPCChatArea(n->id, lan->OutputMessage(4, 38));	break;//lsw
-									}					
-								}
-								else if( rand()%100 < 50 )
-								{
-									LPCHARACTER tch = ReturnCharacterPoint( n->targetid );
-									if( tch )
-									{
-										switch( tch->name_status.nation )		//1004 YGI
-										{
-										case 3 : SendNPCChatArea( n->id, lan->OutputMessage(4,39) );	break;//lsw
-										case 4 : SendNPCChatArea( n->id, lan->OutputMessage(4,40) );	break;//lsw
-										}
-									}
-								}
-						}
-					}
-				}							
-				else											
-				{						
-					if (rand()%100 < 90)  //  배회는 별로 하지 않고 제자리에 있는다. 
-					{							
-						return;				
-					}							
-					
-					int dir;						
-					int how;								
-					int tx, ty;							
-					
-					dir = Random(8);						
-					how = Random(2)+2;						
-					tx = n->x/TILE_SIZE;	
-					ty = n->y/TILE_SIZE;			
-					
-					switch (dir)
-					{									
-					case 0:	ty +=how; break;
-					case 1: tx -=how; ty +=how; break;
-					case 2: tx -=how; break;
-					case 3: tx -=how; ty -=how; break;
-					case 4:	ty -=how; break;
-					case 5: tx +=how; ty -=how; break;
-					case 6: tx +=how; break;
-					case 7: tx +=how; ty +=how; break;
-					}
-					
-					NPC_MakePathGuard(n, tx, ty, how);
-				}							
-			}											
-			
-			break;							
-		}
-	case NPC_PATTERN_ACCESS_PC_GUARD_ :
-		{						
-			if( g_ClientTime - n->aitimedelay > n->aidelayhowmuch ) 
-			{						
-				n->aitimedelay = g_ClientTime;
-				n->aidelayhowmuch = PCFINDACCESS(n); // 0813 NPC KHS
-				if( NPC_IsMoving( n ) )
-				{				
-					LPCHARACTER tempch = ReturnCharacterPoint( n->targetid );
-					if( tempch )
-						if( !IsDead( tempch )) 
-						{			
-							if( NPC_IsAttackableRange( n ) )
-							{		
-								SendModifyPositionNPC( n->id );
-								SendNPCAttack(  n->id );
-								n->attackcount ++;
-								n->patterntype = NPC_PATTERN_ATTACK_PC_GUARD_;
-								break;
-							}		
-						}			
-				}				
-				else			
-				{				
-					//						if( NPC_Hostile( n ) ) // 공격모드이면...
-					int ex,ey;	
-					LPCHARACTER tempch = ReturnCharacterPoint( n->targetid );
-					if( tempch )
-					{			
-						if( !IsDead( tempch ) )
-						{		
-							if( NPC_IsAttackableRange( n ) )// 공격 가능한 거리까지 왔나 ?
-							{	
-								SendNPCAttack(  n->id );
-								n->attackcount ++;
-								n->patterntype = NPC_PATTERN_ATTACK_PC_GUARD_;
-								break;
-							}	
-							else	// 공격가능한 거리가 아니면 근처까지 간다..................
-							{	
-								if( NPC_NearCh( n, tempch, &ex, &ey ) )
-								{
-									n->MoveP = 100 + Random(80);
-									NPC_MakePath( n, ex, ey, Random(6) + 2 );
-									n->patterntype = NPC_PATTERN_ATTACK_PC_GUARD_;
-								}
-								else
-								{
-									n->patterntype = NPC_PATTERN_WANDER_GUARD_;
-									n->targetid = -1;
-									//									n->bossid = -1;
-									//									n->id = -1;
-								}
-							}	
-						}		
-						else	
-						{		
-							n->patterntype = NPC_PATTERN_WANDER_GUARD_;
-							n->targetid = -1;
-							SendNPC_parameter( n->id, NPC_PARAMETER_TARGETID, n->targetid );
-							break;
-						}		
-					}			
-					else		
-					{			
-						n->patterntype = NPC_PATTERN_WANDER_GUARD_;
-						n->targetid = -1;
-						break;	
-					}			
-				}				
-			}			
-		}				
-		break;			
-								
-	case NPC_PATTERN_ATTACK_PC_GUARD_ :
-		
-		if( g_ClientTime - n->aitimedelay > n->aidelayhowmuch ) 
-		{	
+	{
+		if (g_ClientTime - n->aitimedelay > n->aidelayhowmuch)
+		{
 			n->aitimedelay = g_ClientTime;
-			n->aidelayhowmuch = ATTACKACCESS(n)  + (rand()%250);
-		}
-		else break;
-		
-		if( NPC_IsAttackableRange( n ) )	// 이동 도중 공격대상캐릭를 공격할수 있다면 공격한다. 
-		{
-			goto ATTACK_GUARD_NEXT__;
-		}
-		
-		if( NPC_IsMoving(n))	break;
-		
-		if( NPC_IsAttackableRange( n ) )// 공격 가능한 거리까지 왔나 ?
-		{					
-ATTACK_GUARD_NEXT__:
-		if( 1 ) // if( NPC_StillAttack(n) ) 0430
-		{
-			SendNPCAttack(  n->id );
-			n->attackcount ++;
-		}								
-		else							
-		{								
-			int ex,ey;
-			LPCHARACTER tempch = ReturnCharacterPoint( n->targetid );
-			if( NPC_NearBackCh( n, tempch, &ex, &ey, 5 ) )
-			{
-				n->MoveP = 60 + Random(30 );
-				NPC_MakePath( n, ex, ey, Random(2)+2 );
-				n->patterntype =NPC_PATTERN_ACCESS_PC_GUARD_;		//WANDER_8_;
-			}
-			else
-			{
-				n->patterntype =NPC_PATTERN_ACCESS_PC_GUARD_;		//WANDER_8_;
-				//Debug( "%d :  patterntype :%d ", n->id, n->patterntype );
-			}
-		}
+			n->aidelayhowmuch = 1000 + (rand() % 1000);
 		}
 		else
 		{
-			if( n->targetid != -1 )
+			break;
+		}
+
+		// 그냥 배회한다.
+		if (!NPC_IsMoving(n))
+		{
+			int targetid = NPC_IsWhoNearRedPC(n, 10);
+			if (targetid != -1)
 			{
-				int ex,ey;
-				LPCHARACTER tempch = ReturnCharacterPoint( n->targetid );
-				if( !IsDead( tempch ) )
-				{		
-					if( NPC_NearCh( n, tempch, &ex, &ey ) )
-					{		
+				n->patterntype = NPC_PATTERN_ACCESS_PC_GUARD_;
+				n->targetid = targetid;
+
+				if (n->targetid >= 10000)
+				{
+
+				}
+				else
+				{
+					if (rand() % 100 < 30)
+					{
+						LPCHARACTER tch = ReturnCharacterPoint(n->targetid);
+
+#ifdef _NATION_APPLY_
+						if (tch->name_status.nation == MapInfo[MapNumber].nation || MapNumber == 30)
+#else
+						if (1)
+#endif
+						{
+							switch (rand() % 3)
+							{
+							case 0:	SendNPCChatArea(n->id, lan->OutputMessage(4, 37)); break;//lsw
+							case 1:	SendNPCChatArea(n->id, lan->OutputMessage(4, 38));	break;//lsw
+							}
+						}
+						else if (rand() % 100 < 50)
+						{
+							LPCHARACTER tch = ReturnCharacterPoint(n->targetid);
+							if (tch)
+							{
+								switch (tch->name_status.nation)		//1004 YGI
+								{
+								case 3: SendNPCChatArea(n->id, lan->OutputMessage(4, 39));	break;//lsw
+								case 4: SendNPCChatArea(n->id, lan->OutputMessage(4, 40));	break;//lsw
+								}
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				if (rand() % 100 < 90)  //  배회는 별로 하지 않고 제자리에 있는다. 
+				{
+					return;
+				}
+
+				int dir;
+				int how;
+				int tx, ty;
+
+				dir = Random(8);
+				how = Random(2) + 2;
+				tx = n->x / TILE_SIZE;
+				ty = n->y / TILE_SIZE;
+
+				switch (dir)
+				{
+				case 0:	ty += how; break;
+				case 1: tx -= how; ty += how; break;
+				case 2: tx -= how; break;
+				case 3: tx -= how; ty -= how; break;
+				case 4:	ty -= how; break;
+				case 5: tx += how; ty -= how; break;
+				case 6: tx += how; break;
+				case 7: tx += how; ty += how; break;
+				}
+
+				NPC_MakePathGuard(n, tx, ty, how);
+			}
+		}
+
+		break;
+	}
+	case NPC_PATTERN_ACCESS_PC_GUARD_:
+	{
+		if (g_ClientTime - n->aitimedelay > n->aidelayhowmuch)
+		{
+			n->aitimedelay = g_ClientTime;
+			n->aidelayhowmuch = PCFINDACCESS(n); // 0813 NPC KHS
+			if (NPC_IsMoving(n))
+			{
+				LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
+				if (tempch)
+					if (!IsDead(tempch))
+					{
+						if (NPC_IsAttackableRange(n))
+						{
+							SendModifyPositionNPC(n->id);
+							SendNPCAttack(n->id);
+							n->attackcount++;
+							n->patterntype = NPC_PATTERN_ATTACK_PC_GUARD_;
+							break;
+						}
+					}
+			}
+			else
+			{
+				//						if( NPC_Hostile( n ) ) // 공격모드이면...
+				int ex, ey;
+				LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
+				if (tempch)
+				{
+					if (!IsDead(tempch))
+					{
+						if (NPC_IsAttackableRange(n))// 공격 가능한 거리까지 왔나 ?
+						{
+							SendNPCAttack(n->id);
+							n->attackcount++;
+							n->patterntype = NPC_PATTERN_ATTACK_PC_GUARD_;
+							break;
+						}
+						else	// 공격가능한 거리가 아니면 근처까지 간다..................
+						{
+							if (NPC_NearCh(n, tempch, &ex, &ey))
+							{
+								n->MoveP = 100 + Random(80);
+								NPC_MakePath(n, ex, ey, Random(6) + 2);
+								n->patterntype = NPC_PATTERN_ATTACK_PC_GUARD_;
+							}
+							else
+							{
+								n->patterntype = NPC_PATTERN_WANDER_GUARD_;
+								n->targetid = -1;
+								//									n->bossid = -1;
+								//									n->id = -1;
+							}
+						}
+					}
+					else
+					{
+						n->patterntype = NPC_PATTERN_WANDER_GUARD_;
+						n->targetid = -1;
+						SendNPC_parameter(n->id, NPC_PARAMETER_TARGETID, n->targetid);
+						break;
+					}
+				}
+				else
+				{
+					n->patterntype = NPC_PATTERN_WANDER_GUARD_;
+					n->targetid = -1;
+					break;
+				}
+			}
+		}
+	}
+	break;
+
+	case NPC_PATTERN_ATTACK_PC_GUARD_:
+
+		if (g_ClientTime - n->aitimedelay > n->aidelayhowmuch)
+		{
+			n->aitimedelay = g_ClientTime;
+			n->aidelayhowmuch = ATTACKACCESS(n) + (rand() % 250);
+		}
+		else break;
+
+		if (NPC_IsAttackableRange(n))	// 이동 도중 공격대상캐릭를 공격할수 있다면 공격한다. 
+		{
+			goto ATTACK_GUARD_NEXT__;
+		}
+
+		if (NPC_IsMoving(n))	break;
+
+		if (NPC_IsAttackableRange(n))// 공격 가능한 거리까지 왔나 ?
+		{
+		ATTACK_GUARD_NEXT__:
+			if (1) // if( NPC_StillAttack(n) ) 0430
+			{
+				SendNPCAttack(n->id);
+				n->attackcount++;
+			}
+			else
+			{
+				int ex, ey;
+				LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
+				if (NPC_NearBackCh(n, tempch, &ex, &ey, 5))
+				{
+					n->MoveP = 60 + Random(30);
+					NPC_MakePath(n, ex, ey, Random(2) + 2);
+					n->patterntype = NPC_PATTERN_ACCESS_PC_GUARD_;		//WANDER_8_;
+				}
+				else
+				{
+					n->patterntype = NPC_PATTERN_ACCESS_PC_GUARD_;		//WANDER_8_;
+					//Debug( "%d :  patterntype :%d ", n->id, n->patterntype );
+				}
+			}
+		}
+		else
+		{
+			if (n->targetid != -1)
+			{
+				int ex, ey;
+				LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
+				if (!IsDead(tempch))
+				{
+					if (NPC_NearCh(n, tempch, &ex, &ey))
+					{
 						//if( NPC_EnemyOnMyWay( 		
 						// 니독네 공격상대에게 접근하기 위한 루틴을 넣는다. ( 'ㄱ' 'ㄴ'으로 
-						n->MoveP = 60 + Random(30 );
-						NPC_MakePath( n, ex, ey, Random(6)+2 );
-						
-					}			
-					else		
-					{	
-						n->patterntype =NPC_PATTERN_ACCESS_PC_GUARD_;		//WANDER_8_;
+						n->MoveP = 60 + Random(30);
+						NPC_MakePath(n, ex, ey, Random(6) + 2);
+
+					}
+					else
+					{
+						n->patterntype = NPC_PATTERN_ACCESS_PC_GUARD_;		//WANDER_8_;
 						//n->patterntype = NPC_PATTERN_WANDER_8_;
 						//Debug( "%d :  patterntype :%d ", n->id, n->patterntype );
 						//n->bossid	 = -1;
 						//n->id = -1;
 						//JustMessage( " %d의 Pattern번호 %d ", n->id, n->patterntype );
 						//JustMessage( " %d의 Pattern번호 %d ", n->patterntype );
-					}				
+					}
 				}
-				else 
+				else
 				{
-					n->patterntype =NPC_PATTERN_WANDER_GUARD_;		//WANDER_8_;
+					n->patterntype = NPC_PATTERN_WANDER_GUARD_;		//WANDER_8_;
 					n->targetid = -1;
-					SendNPC_parameter( n->id, NPC_PARAMETER_TARGETID, n->targetid );
+					SendNPC_parameter(n->id, NPC_PARAMETER_TARGETID, n->targetid);
 				}
-			}					
-			else 
+			}
+			else
 			{
-				n->patterntype =NPC_PATTERN_WANDER_GUARD_;		//WANDER_8_;
+				n->patterntype = NPC_PATTERN_WANDER_GUARD_;		//WANDER_8_;
 				n->targetid = -1;
 			}
 		}
-		break;					
-		
-	case NPC_PATTERN_BACKDRAW_PC_GUARD_ :
-		{					
-			if( g_ClientTime - n->aitimedelay > n->aidelayhowmuch ) 
-			{	
-				n->aitimedelay = g_ClientTime;
-				n->aidelayhowmuch = 500  + (rand()%500);
-				
-				if( NPC_IsMoving( n ) )
-				{			
-					
-				}			
-				else		
-				{			
-					if( n->targetid != -1 )
-					{		
-						
-						int ex,ey;
-						LPCHARACTER tempch = ReturnCharacterPoint( n->targetid );
-						
-						if( InDistance( n, tempch,  TILE_SIZE * 10 ) )	// 그 PC가  10 타일안에 있다면.
-						{	
-							n->patterntype = NPC_PATTERN_WANDER_GUARD_;
-							if( NPC_NearBackCh( n, tempch, &ex, &ey, 10 ) )
-							{	
-								NPC_MakePath( n, ex, ey, Random(10)+5 );
-							}	
-							else 
-							{
-							}
-						}
-						else	// 충분히 멀리있군.
-						{
-							n->patterntype = NPC_PATTERN_WANDER_GUARD_;
-							
-						}
-					}
-					else
+		break;
+
+	case NPC_PATTERN_BACKDRAW_PC_GUARD_:
+	{
+		if (g_ClientTime - n->aitimedelay > n->aidelayhowmuch)
+		{
+			n->aitimedelay = g_ClientTime;
+			n->aidelayhowmuch = 500 + (rand() % 500);
+
+			if (NPC_IsMoving(n))
+			{
+
+			}
+			else
+			{
+				if (n->targetid != -1)
+				{
+
+					int ex, ey;
+					LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
+
+					if (InDistance(n, tempch, TILE_SIZE * 10))	// 그 PC가  10 타일안에 있다면.
 					{
 						n->patterntype = NPC_PATTERN_WANDER_GUARD_;
-						
+						if (NPC_NearBackCh(n, tempch, &ex, &ey, 10))
+						{
+							NPC_MakePath(n, ex, ey, Random(10) + 5);
+						}
+						else
+						{
+						}
+					}
+					else	// 충분히 멀리있군.
+					{
+						n->patterntype = NPC_PATTERN_WANDER_GUARD_;
+
 					}
 				}
+				else
+				{
+					n->patterntype = NPC_PATTERN_WANDER_GUARD_;
+
+				}
 			}
-			break;			
 		}
+		break;
+	}
 	}
 }
 
@@ -1891,39 +1891,39 @@ void NPC_Pattern_MAUL(LPCHARACTER n)
 		break;
 	}
 }
-	
-	
-void Recv_FaceDirections( t_face_directions *tp )
+
+
+void Recv_FaceDirections(t_face_directions *tp)
 {
-	LPCHARACTER ch = ReturnCharacterPoint( tp->id );
-	if( ch == NULL ) return;
-	ch->todir = (DIRECTION) tp->dir;
+	LPCHARACTER ch = ReturnCharacterPoint(tp->id);
+	if (ch == NULL) return;
+	ch->todir = (DIRECTION)tp->dir;
 }
-	
-void Send_JustAni( int id, int anino )
-{	
+
+void Send_JustAni(int id, int anino)
+{
 	t_packet packet;
-	
+
 	packet.h.header.type = CMD_JUST_ANI;
-	packet.h.header.size = sizeof( t_just_ani );
-		packet.u.just_ani.id  = id;
-		packet.u.just_ani.ani = anino;
-		
-	QueuePacket( &packet, 1 );
+	packet.h.header.size = sizeof(t_just_ani);
+	packet.u.just_ani.id = id;
+	packet.u.just_ani.ani = anino;
+
+	QueuePacket(&packet, 1);
 }
-		
-void Recv_JustAni( t_just_ani *p )
-{		
-	LPCHARACTER ch = ReturnCharacterPoint( p->id );
-	if( ch == NULL ) return;
-		
-	if( p->id >= 10000 )
-	{	
+
+void Recv_JustAni(t_just_ani *p)
+{
+	LPCHARACTER ch = ReturnCharacterPoint(p->id);
+	if (ch == NULL) return;
+
+	if (p->id >= 10000)
+	{
 		ch->just_ani = true;
-		CharDoAni( ch, ch->direction, p->ani );
-	}	
-}		
-		
+		CharDoAni(ch, ch->direction, p->ani);
+	}
+}
+
 void NPC_Pattern_SealStone(LPCHARACTER n)
 {
 	int nation;

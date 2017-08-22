@@ -100,16 +100,16 @@
  * @def		enum _eWARFIELD_PORT.
  * @brief	Warfield MapServer Port 식별자.
  */
-//< LTH-040120-KO.
+ //< LTH-040120-KO.
 typedef enum _eWARFIELD_PORT
 {
-	WP_BASE_PORT			= BASE_WARFIELD_PORT,	/**< 기본이 되는 전쟁터 포트. */
-	WP_MOUNTAIN_WARFIELD	= 5991,					/**< 산중 전쟁터. */
-	WP_PLAIN_WARFIELD		= 5992,					/**< 평원 전쟁터. */
-	WP_ISLAND_WARFIELD		= 5993,					/**< 섬 전쟁터. */
-	WP_SNOWY_WARFIELD		= 5980,					/**< 설원 전쟁터. */
-	WP_HADES_WARFIELD		= 5994,					/**< 지하 전쟁터. */
-	WP_MAX_WARFIELD_PORT	= 5995,					/**< 최대 전쟁터 포트 번호. */
+	WP_BASE_PORT = BASE_WARFIELD_PORT,	/**< 기본이 되는 전쟁터 포트. */
+	WP_MOUNTAIN_WARFIELD = 5991,					/**< 산중 전쟁터. */
+	WP_PLAIN_WARFIELD = 5992,					/**< 평원 전쟁터. */
+	WP_ISLAND_WARFIELD = 5993,					/**< 섬 전쟁터. */
+	WP_SNOWY_WARFIELD = 5980,					/**< 설원 전쟁터. */
+	WP_HADES_WARFIELD = 5994,					/**< 지하 전쟁터. */
+	WP_MAX_WARFIELD_PORT = 5995,					/**< 최대 전쟁터 포트 번호. */
 } eWARFIELD_PORT;									/**< 전쟁터 포트 대표 enum group. */
 //> LTH-040120-KO
 
@@ -117,15 +117,15 @@ typedef enum _eWARFIELD_PORT
  * @def		enum _eNEO_WARFIELD_ID.
  * @brief	Identity Each Warfield Map and Equal MapServer Port.
  */
-//< LTH-040126-KO.
+ //< LTH-040126-KO.
 typedef enum _eNEO_WARFIELD_ID
 {
-	WI_MOUNTAIN_WARFIELD	= 0,	/**< 산중 전쟁터	(5991 - BASE_WARFIELD_PORT = 0). */
-	WI_PLAIN_WARFIELD		= 1,	/**< 평원 전쟁터	(5992 - BASE_WARFIELD_PORT = 1). */
-	WI_ISLAND_WARFIELD		= 2,	/**< 섬 전쟁터		(5993 - BASE_WARFIELD_PORT = 2). */
-	WI_SNOWY_WARFIELD		= 3,	/**< 설원 전쟁터	(WI_ISLAND_WARFIELD + 1 = 3). */
-	WI_HADES_WARFIELD		= 4,	/**< 지하 전쟁터	(5994 - BASE_WARFIELD_PORT + 1= 4). */
-	WI_MAX_WARFIELD			= 5,	/**< 최대 전쟁터 개수. */
+	WI_MOUNTAIN_WARFIELD = 0,	/**< 산중 전쟁터	(5991 - BASE_WARFIELD_PORT = 0). */
+	WI_PLAIN_WARFIELD = 1,	/**< 평원 전쟁터	(5992 - BASE_WARFIELD_PORT = 1). */
+	WI_ISLAND_WARFIELD = 2,	/**< 섬 전쟁터		(5993 - BASE_WARFIELD_PORT = 2). */
+	WI_SNOWY_WARFIELD = 3,	/**< 설원 전쟁터	(WI_ISLAND_WARFIELD + 1 = 3). */
+	WI_HADES_WARFIELD = 4,	/**< 지하 전쟁터	(5994 - BASE_WARFIELD_PORT + 1= 4). */
+	WI_MAX_WARFIELD = 5,	/**< 최대 전쟁터 개수. */
 } eNEO_WARFIELD_ID;					/**< 전쟁터 번호 대표 enum group. */
 //> LTH-040126-KO
 
@@ -145,89 +145,89 @@ typedef enum _eNEO_WARFIELD_ID
 ///////////////////////////////////////////////////////////////////////////lms 011226
 #if defined (CHINA_LOCALIZING_) || defined (TAIWAN_LOCALIZING_) || defined (HONGKONG_LOCALIZING_)		// 020115 LTS
 
-	#define		NW_NATION_VOTE_MIN				50				// 011028 LTS
-	#define		NW_SQUADLEADER_LEVEL_MIN		60
-	#define		NW_SQUADLEADER_LADDER_MIN		0
-	#define		NW_COMMANDER_LEVEL_MIN			70
-	#define		NW_COMMANDER_LADDER_MIN			2000
-	#define		NW_COMMANDER_FAME_MIN			1200
+#define		NW_NATION_VOTE_MIN				50				// 011028 LTS
+#define		NW_SQUADLEADER_LEVEL_MIN		60
+#define		NW_SQUADLEADER_LADDER_MIN		0
+#define		NW_COMMANDER_LEVEL_MIN			70
+#define		NW_COMMANDER_LADDER_MIN			2000
+#define		NW_COMMANDER_FAME_MIN			1200
 
-	// Squad Condition
-	#define		NW_SQUAD1_LEVEL_MIN				60
-	#define		NW_SQUAD1_LEVEL_MAX				255
-	#define		NW_SQUAD2_LEVEL_MIN				60
-	#define		NW_SQUAD2_LEVEL_MAX				255			// 011028 LTS
-	#define		NW_SQUAD3_LEVEL_MIN				60			// 011028 LTS
-	#define		NW_SQUAD3_LEVEL_MAX				255			// 011028 LTS
-	#define		NW_SQUAD4_LEVEL_MIN				60			// 011028 LTS
-	#define		NW_SQUAD4_LEVEL_MAX				255			// 011213 LTS
+// Squad Condition
+#define		NW_SQUAD1_LEVEL_MIN				60
+#define		NW_SQUAD1_LEVEL_MAX				255
+#define		NW_SQUAD2_LEVEL_MIN				60
+#define		NW_SQUAD2_LEVEL_MAX				255			// 011028 LTS
+#define		NW_SQUAD3_LEVEL_MIN				60			// 011028 LTS
+#define		NW_SQUAD3_LEVEL_MAX				255			// 011028 LTS
+#define		NW_SQUAD4_LEVEL_MIN				60			// 011028 LTS
+#define		NW_SQUAD4_LEVEL_MAX				255			// 011213 LTS
 
-	#define		NW_SQUAD1_MAN_MIN				5
-	#define		NW_SQUAD1_MAN_MAX				70			// 011028 LTS
-	#define		NW_SQUAD2_MAN_MIN				5
-	#define		NW_SQUAD2_MAN_MAX				70			// 011028 LTS
-	#define		NW_SQUAD3_MAN_MIN				5
-	#define		NW_SQUAD3_MAN_MAX				70			// 011028 LTS
-	#define		NW_SQUAD4_MAN_MIN				5
-	#define		NW_SQUAD4_MAN_MAX				70			// 011028 LTS
+#define		NW_SQUAD1_MAN_MIN				5
+#define		NW_SQUAD1_MAN_MAX				70			// 011028 LTS
+#define		NW_SQUAD2_MAN_MIN				5
+#define		NW_SQUAD2_MAN_MAX				70			// 011028 LTS
+#define		NW_SQUAD3_MAN_MIN				5
+#define		NW_SQUAD3_MAN_MAX				70			// 011028 LTS
+#define		NW_SQUAD4_MAN_MIN				5
+#define		NW_SQUAD4_MAN_MAX				70			// 011028 LTS
 //< LTH-040426-KO 예전에 맵서버에 고친 내용과 일치 시키려고 추가
 #elif defined (THAI_LOCALIZING_)
 
-	#define		NW_NATION_VOTE_MIN				50
-	#define		NW_SQUADLEADER_LEVEL_MIN		20;
-	#define		NW_SQUADLEADER_LADDER_MIN		0;
-	#define		NW_COMMANDER_LEVEL_MIN			70;
-	#define		NW_COMMANDER_LADDER_MIN			2000;
-	#define		NW_COMMANDER_FAME_MIN			1200;
+#define		NW_NATION_VOTE_MIN				50
+#define		NW_SQUADLEADER_LEVEL_MIN		20;
+#define		NW_SQUADLEADER_LADDER_MIN		0;
+#define		NW_COMMANDER_LEVEL_MIN			70;
+#define		NW_COMMANDER_LADDER_MIN			2000;
+#define		NW_COMMANDER_FAME_MIN			1200;
 
-	#define		NW_SQUAD1_LEVEL_MIN				20;
-	#define		NW_SQUAD1_LEVEL_MAX				50;
-	#define		NW_SQUAD2_LEVEL_MIN				40;
-	#define		NW_SQUAD2_LEVEL_MAX				70;		
-	#define		NW_SQUAD3_LEVEL_MIN				60;		
-	#define		NW_SQUAD3_LEVEL_MAX				90;		
-	#define		NW_SQUAD4_LEVEL_MIN				80;		
-	#define		NW_SQUAD4_LEVEL_MAX				255;	
+#define		NW_SQUAD1_LEVEL_MIN				20;
+#define		NW_SQUAD1_LEVEL_MAX				50;
+#define		NW_SQUAD2_LEVEL_MIN				40;
+#define		NW_SQUAD2_LEVEL_MAX				70;		
+#define		NW_SQUAD3_LEVEL_MIN				60;		
+#define		NW_SQUAD3_LEVEL_MAX				90;		
+#define		NW_SQUAD4_LEVEL_MIN				80;		
+#define		NW_SQUAD4_LEVEL_MAX				255;	
 
-	#define		NW_SQUAD1_MAN_MIN				5;
-	#define		NW_SQUAD1_MAN_MAX				30;		
-	#define		NW_SQUAD2_MAN_MIN				5;
-	#define		NW_SQUAD2_MAN_MAX				60;		
-	#define		NW_SQUAD3_MAN_MIN				5;
-	#define		NW_SQUAD3_MAN_MAX				80;		
-	#define		NW_SQUAD4_MAN_MIN				5;
-	#define		NW_SQUAD4_MAN_MAX				90;	
+#define		NW_SQUAD1_MAN_MIN				5;
+#define		NW_SQUAD1_MAN_MAX				30;		
+#define		NW_SQUAD2_MAN_MIN				5;
+#define		NW_SQUAD2_MAN_MAX				60;		
+#define		NW_SQUAD3_MAN_MIN				5;
+#define		NW_SQUAD3_MAN_MAX				80;		
+#define		NW_SQUAD4_MAN_MIN				5;
+#define		NW_SQUAD4_MAN_MAX				90;	
 //> LTH-040426-KO
 #else
 
-	#define		NW_NATION_VOTE_MIN				50				// 011028 LTS
-	#define		NW_SQUADLEADER_LEVEL_MIN		20
-	#define		NW_SQUADLEADER_LADDER_MIN		0
-	#define		NW_COMMANDER_LEVEL_MIN			70
-	#define		NW_COMMANDER_LADDER_MIN			2000
-	#define		NW_COMMANDER_FAME_MIN			1200
+#define		NW_NATION_VOTE_MIN				50				// 011028 LTS
+#define		NW_SQUADLEADER_LEVEL_MIN		20
+#define		NW_SQUADLEADER_LADDER_MIN		0
+#define		NW_COMMANDER_LEVEL_MIN			70
+#define		NW_COMMANDER_LADDER_MIN			2000
+#define		NW_COMMANDER_FAME_MIN			1200
 
-	// Squad Condition
+// Squad Condition
 
-	//< LTH-040421-KO 밸런스를 위해 부대 레벨제한을 수정
-	#define		NW_SQUAD1_LEVEL_MIN				20
-	#define		NW_SQUAD1_LEVEL_MAX				60
-	#define		NW_SQUAD2_LEVEL_MIN				50
-	#define		NW_SQUAD2_LEVEL_MAX				90			// 011028 LTS
-	#define		NW_SQUAD3_LEVEL_MIN				80			// 011028 LTS
-	#define		NW_SQUAD3_LEVEL_MAX				120			// 011028 LTS
-	#define		NW_SQUAD4_LEVEL_MIN				110			// 011028 LTS
-	#define		NW_SQUAD4_LEVEL_MAX				150			// 011213 LTS
-	//> LTH-040421-KO	
+//< LTH-040421-KO 밸런스를 위해 부대 레벨제한을 수정
+#define		NW_SQUAD1_LEVEL_MIN				20
+#define		NW_SQUAD1_LEVEL_MAX				60
+#define		NW_SQUAD2_LEVEL_MIN				50
+#define		NW_SQUAD2_LEVEL_MAX				90			// 011028 LTS
+#define		NW_SQUAD3_LEVEL_MIN				80			// 011028 LTS
+#define		NW_SQUAD3_LEVEL_MAX				120			// 011028 LTS
+#define		NW_SQUAD4_LEVEL_MIN				110			// 011028 LTS
+#define		NW_SQUAD4_LEVEL_MAX				150			// 011213 LTS
+//> LTH-040421-KO	
 
-	#define		NW_SQUAD1_MAN_MIN				5
-	#define		NW_SQUAD1_MAN_MAX				80			// 011028 LTS
-	#define		NW_SQUAD2_MAN_MIN				5
-	#define		NW_SQUAD2_MAN_MAX				70			// 011028 LTS
-	#define		NW_SQUAD3_MAN_MIN				5
-	#define		NW_SQUAD3_MAN_MAX				60			// 011028 LTS
-	#define		NW_SQUAD4_MAN_MIN				5
-	#define		NW_SQUAD4_MAN_MAX				50			// 011028 LTS
+#define		NW_SQUAD1_MAN_MIN				5
+#define		NW_SQUAD1_MAN_MAX				80			// 011028 LTS
+#define		NW_SQUAD2_MAN_MIN				5
+#define		NW_SQUAD2_MAN_MAX				70			// 011028 LTS
+#define		NW_SQUAD3_MAN_MIN				5
+#define		NW_SQUAD3_MAN_MAX				60			// 011028 LTS
+#define		NW_SQUAD4_MAN_MIN				5
+#define		NW_SQUAD4_MAN_MAX				50			// 011028 LTS
 
 #endif
 
@@ -301,20 +301,20 @@ class cNation
 	BYTE m_NewStatus[MAX_NEW_WARFIELD];
 	BYTE m_btNeoStatus[WI_MAX_WARFIELD];		// LTH-040226-KO 1.4 패치 후 새롭게 국가전 상태를 관리하는 곳.
 
-public :
+public:
 	cNation();
 	~cNation();
 
 	void SetStatus(int WarfieldNo, int Status);
 	int  GetStatus(int WarfieldNo);
-	void SetNewStatus(int WarfieldNo,int Status);
+	void SetNewStatus(int WarfieldNo, int Status);
 	int  GetNewStatus(int WarfieldNo);
-	void SetWarfieldPoss(int WarfieldNo,int Nation);
+	void SetWarfieldPoss(int WarfieldNo, int Nation);
 	int  GetWarfieldPoss(int WarfieldNo);
 	bool LoadMonsterPoint();
 	void SaveMonsterPoint();
-	void SetTileDont(int WarfieldNo,int MonNo,int type); //몬스터 SQL 필드 INDEX, 0,1 : 
-	void TileDont(int WarfieldNo,int TypeNum,int Value);
+	void SetTileDont(int WarfieldNo, int MonNo, int type); //몬스터 SQL 필드 INDEX, 0,1 : 
+	void TileDont(int WarfieldNo, int TypeNum, int Value);
 };
 
 typedef struct DONTDATA
@@ -328,14 +328,14 @@ class CDontManager
 	int			m_iSize;
 	LPDONTDATA	m_pDontData;
 
-public :
+public:
 
 	CDontManager();
 	~CDontManager();
 
 	void Clear();
 	void LoadData();
-	void ActiveDont(int DontNo,int Type);
+	void ActiveDont(int DontNo, int Type);
 };
 
 extern CDontManager*	g_pDontManager;

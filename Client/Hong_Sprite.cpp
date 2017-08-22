@@ -58,30 +58,30 @@ bool g_bOffWeatherSystem = false; // CSD-CN-031217
 
 /////////////////////
 char *GetSurfacePointer(LPDIRECTDRAWSURFACE  pSurface)
-{	
-    char *buf;
-    DDSURFACEDESC ddSurfaceDesc;
-    
+{
+	char *buf;
+	DDSURFACEDESC ddSurfaceDesc;
+
 	memset(&ddSurfaceDesc, 0, sizeof(DDSURFACEDESC));
-    ddSurfaceDesc.dwSize = sizeof(DDSURFACEDESC);
-    HRESULT result;
-    result = pSurface->Lock(NULL, &ddSurfaceDesc, DDLOCK_SURFACEMEMORYPTR | DDLOCK_WAIT, NULL);
-	
+	ddSurfaceDesc.dwSize = sizeof(DDSURFACEDESC);
+	HRESULT result;
+	result = pSurface->Lock(NULL, &ddSurfaceDesc, DDLOCK_SURFACEMEMORYPTR | DDLOCK_WAIT, NULL);
+
 	buf = (char *)ddSurfaceDesc.lpSurface;
-	
-	if ( buf == NULL )
+
+	if (buf == NULL)
 	{
-		result = RestoreAllSurfaces(  &g_DirectDrawInfo );
+		result = RestoreAllSurfaces(&g_DirectDrawInfo);
 		memset(&ddSurfaceDesc, 0, sizeof(DDSURFACEDESC));
 		ddSurfaceDesc.dwSize = sizeof(DDSURFACEDESC);
 		HRESULT result;
 		result = pSurface->Lock(NULL, &ddSurfaceDesc, DDLOCK_SURFACEMEMORYPTR | DDLOCK_WAIT, NULL);
 	}
-	
-    pSurface->Unlock( NULL ); //ddSurfaceDesc.lpSurface);
-	
+
+	pSurface->Unlock(NULL); //ddSurfaceDesc.lpSurface);
+
 	return buf;
-}	
+}
 
 
 
@@ -90,134 +90,136 @@ char *GetSurfacePointer(LPDIRECTDRAWSURFACE  pSurface)
 //			16	High Color
 //			24	24Bits Color
 //			32	32Bits Color
-int	GetBitsPerPixel( void )
-{	
+int	GetBitsPerPixel(void)
+{
 	HDC		hDC;
 	int		nBitPerPixel;
-	
-	hDC = GetDC( NULL );
-	nBitPerPixel = GetDeviceCaps( hDC, PLANES ) * GetDeviceCaps( hDC, BITSPIXEL );
-	ReleaseDC( NULL, hDC );
-	
+
+	hDC = GetDC(NULL);
+	nBitPerPixel = GetDeviceCaps(hDC, PLANES) * GetDeviceCaps(hDC, BITSPIXEL);
+	ReleaseDC(NULL, hDC);
+
 	return	nBitPerPixel;
-}		
+}
 
 
 
 
 
-void	CheckColorBitMask(  LPDIRECTDRAWSURFACE  surface )
-{		
+void	CheckColorBitMask(LPDIRECTDRAWSURFACE  surface)
+{
 	DDSURFACEDESC ddSurfaceDesc;
-	
-	ZeroMemory( &ddSurfaceDesc, sizeof( DDSURFACEDESC ) );
-	ddSurfaceDesc.dwSize  = sizeof( ddSurfaceDesc );
+
+	ZeroMemory(&ddSurfaceDesc, sizeof(DDSURFACEDESC));
+	ddSurfaceDesc.dwSize = sizeof(ddSurfaceDesc);
 	//ddSurfaceDesc.dwFlags = DDSD_PIXELFORMAT | DDSD_PITCH;
-	HRESULT hResult = surface->GetSurfaceDesc( &ddSurfaceDesc );
-	
-	if( g_DirectDrawInfo.bFullscreen )
-	{	
-		FILE *fp = Fopen( "c:/dxsize.txt", "wt" );
+	HRESULT hResult = surface->GetSurfaceDesc(&ddSurfaceDesc);
+
+	if (g_DirectDrawInfo.bFullscreen)
+	{
+		FILE *fp = Fopen("c:/dxsize.txt", "wt");
 		wSurDxSize = (WORD)ddSurfaceDesc.lPitch;
 		dSurDxSize = (DWORD)ddSurfaceDesc.lPitch;
-		
-		fprintf( fp, "%d %d \n", wDxSize, dSurDxSize );
+
+		fprintf(fp, "%d %d \n", wDxSize, dSurDxSize);
 		fclose(fp);
-	}	
-	else 
-	{	
+	}
+	else
+	{
 		wDxSize = SCREEN_WIDTH * 2;
 		dDxSize = SCREEN_WIDTH * 2;
-	}	
-	
+	}
+
 	wDxSize = SCREEN_WIDTH * 2;
 	dDxSize = SCREEN_WIDTH * 2;
-	
+
 	if (hResult != 0)//DD_OK)
 		return;
-	
+
 	_PixelInfo.BitMaskR = ddSurfaceDesc.ddpfPixelFormat.dwRBitMask;
 	_PixelInfo.BitMaskG = ddSurfaceDesc.ddpfPixelFormat.dwGBitMask;
-	_PixelInfo.BitMaskB = ddSurfaceDesc.ddpfPixelFormat.dwBBitMask; 
-	
-	if (_PixelInfo.BitMaskR == 0xF800) 
-	{	
+	_PixelInfo.BitMaskB = ddSurfaceDesc.ddpfPixelFormat.dwBBitMask;
+
+	if (_PixelInfo.BitMaskR == 0xF800)
+	{
 		// 요거이 RGB 5:6:5 포맷이니끼리 그렇게 알라우.
 		//			 4444----3333----2222----1111----
 		//           84218421842184218421842184218421
 		//           00000000000000011111011111011110;
 		_PixelInfo.ShiftRightR = 11;
-		_PixelInfo.ShiftLeftR  = 0;
-		
+		_PixelInfo.ShiftLeftR = 0;
+
 		_PixelInfo.ShiftRightG = 5;
-		_PixelInfo.ShiftLeftG  = 5;
-		
+		_PixelInfo.ShiftLeftG = 5;
+
 		_PixelInfo.ShiftRightB = 0;
-		_PixelInfo.ShiftLeftB  = 11;
-	}else
-		if (_PixelInfo.BitMaskR == 0x7C00) 
-		{	
+		_PixelInfo.ShiftLeftB = 11;
+	}
+	else
+		if (_PixelInfo.BitMaskR == 0x7C00)
+		{
 			// 요고 RGB 5:5:5 포맷 아이가.
 			//			   4444----3333----2222----1111----
 			//             84218421842184218421842184218421
 			//             00000000000000001111101111011110;
 			_PixelInfo.ShiftRightR = 10;
-			_PixelInfo.ShiftLeftR  = 1;
-			
+			_PixelInfo.ShiftLeftR = 1;
+
 			_PixelInfo.ShiftRightG = 5;
-			_PixelInfo.ShiftLeftG  = 6;
-			
+			_PixelInfo.ShiftLeftG = 6;
+
 			_PixelInfo.ShiftRightB = 0;
-			_PixelInfo.ShiftLeftB  = 11;
-		}else
+			_PixelInfo.ShiftLeftB = 11;
+		}
+		else
 			if (_PixelInfo.BitMaskR == 0x001F)
-			{	
+			{
 				// 아따 요것 BGR 5:6:5 포맷이것제.
 				//			   4444----3333----2222----1111----
 				//             84218421842184218421842184218421
 				_PixelInfo.ShiftRightR = 0;
-				_PixelInfo.ShiftLeftR  = 11;
-				
+				_PixelInfo.ShiftLeftR = 11;
+
 				_PixelInfo.ShiftRightG = 5;
-				_PixelInfo.ShiftLeftG  = 5;
-				
+				_PixelInfo.ShiftLeftG = 5;
+
 				_PixelInfo.ShiftRightB = 11;
-				_PixelInfo.ShiftLeftB  = 0;
-			}	
-}		
+				_PixelInfo.ShiftLeftB = 0;
+			}
+}
 
 
 
 
-void	InitSpriteTransTable( LPDIRECTDRAWSURFACE  surface )
-{		
-	CheckColorBitMask( surface );
-	
+void	InitSpriteTransTable(LPDIRECTDRAWSURFACE  surface)
+{
+	CheckColorBitMask(surface);
+
 	WORD	MaskG;
-	if( _PixelInfo.BitMaskR == 0x7c00)
-	{	
+	if (_PixelInfo.BitMaskR == 0x7c00)
+	{
 		MaskG = 0x1f;
-	}	
+	}
 	else
-	{	
+	{
 		MaskG = 0x3f;
-	}	
-	
+	}
+
 	//Make ADD Table
-	for(int i=0; i < 128; i++){
-		if(i<32)
+	for (int i = 0; i < 128; i++) {
+		if (i < 32)
 		{
 			AddTableR[i] = i << _PixelInfo.ShiftRightR;
 			AddTableB[i] = i << _PixelInfo.ShiftRightB;
-		}	
+		}
 		else
 		{
 			AddTableR[i] = 0x1f << _PixelInfo.ShiftRightR;
 			AddTableB[i] = 0x1f << _PixelInfo.ShiftRightB;
 		}
-	}	
-	for(int i=0; i < 256; i++){
-		if(i<=MaskG)
+	}
+	for (int i = 0; i < 256; i++) {
+		if (i <= MaskG)
 		{
 			AddTableG[i] = i << _PixelInfo.ShiftRightG;
 		}
@@ -225,11 +227,11 @@ void	InitSpriteTransTable( LPDIRECTDRAWSURFACE  surface )
 		{
 			AddTableG[i] = MaskG << _PixelInfo.ShiftRightG;
 		}
-	}	
-	
+	}
+
 	//Make SUB Table
-	for(int i=0 ; i < 64 ; i++ ){
-		if(i<32)
+	for (int i = 0; i < 64; i++) {
+		if (i < 32)
 		{
 			SubTableR[i] = 0;
 			SubTableB[i] = 0;
@@ -242,8 +244,8 @@ void	InitSpriteTransTable( LPDIRECTDRAWSURFACE  surface )
 		//SubTableG[i] = i << _PixelInfo.ShiftRightG;
 		//SubTableg[i] = 0;
 	}
-	for(int i=0; i < 128; i++){
-		if(i<64)
+	for (int i = 0; i < 128; i++) {
+		if (i < 64)
 		{
 			SubTableG[i] = 0;
 		}
@@ -262,193 +264,193 @@ void	InitSpriteTransTable( LPDIRECTDRAWSURFACE  surface )
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
-void PutCmprsImgClipingTrans565( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, WORD MSK)
+void PutCmprsImgClipingTrans565(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, WORD MSK)
 {
 	int		l, kkk = lx << 1;
-	LPVOID	Dtmp = (LPVOID)( (char *)dest + y * wDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
 	rx <<= 1;
 	lx <<= 1;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		mov		esi,Stmp;
-		
-		mov		cx,word ptr ty;
-		
-		or		cx,cx;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		mov		esi, Stmp;
+
+		mov		cx, word ptr ty;
+
+		or cx, cx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
+	exit_xxxx:
 		inc		esi;
 		inc		esi;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
-		mov		bx,word ptr by;		//
-loop_for1:
-		or		bx,bx;		//for(i=0;i<by;i++)
+	_asm {
+		mov		bx, word ptr by;		//
+	loop_for1:
+		or bx, bx;		//for(i=0;i<by;i++)
 		jz		exit_for1;	//
-		xor		eax,eax;
-		xor		edx,edx;
-		xor		ecx,ecx;
-		mov		edi,Dtmp;
-		
-		mov		ax,word ptr lx;	//if(lx)
-		or		ax,ax;			//
+		xor		eax, eax;
+		xor		edx, edx;
+		xor		ecx, ecx;
+		mov		edi, Dtmp;
+
+		mov		ax, word ptr lx;	//if(lx)
+		or ax, ax;			//
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		add		esi,2;
-		cmp		dx,word ptr lx;		//if(j>lx)
+		add		dx, [esi];
+		add		esi, 2;
+		cmp		dx, word ptr lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		dx,word ptr lx;		//j-=lx
-		
-		cmp		dx,word ptr rx;
+		sub		dx, word ptr lx;		//j-=lx
+
+		cmp		dx, word ptr rx;
 		jg		jmp_00001;
-		
-		add		edi,edx;			//dtmp+=j
-		
+
+		add		edi, edx;			//dtmp+=j
+
 		lodsw;						//k=*stmp
-		add		dx,ax;				//j+=k
-		mov		cx,ax;				//
-		
-		cmp		dx,word ptr rx;	//new
+		add		dx, ax;				//j+=k
+		mov		cx, ax;				//
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;
-		add		cx,word ptr rx;
-		sub		cx,dx;
-		
+		add		cx, word ptr rx;
+		sub		cx, dx;
+
 		jmp		xxxxxxx1;
-jmp_00001:
+	jmp_00001:
 		lodsw;
-		add		esi,eax;
+		add		esi, eax;
 		jmp		ext_loop;
-		
-jmp_if1:///////////////////////////////////////
+
+	jmp_if1:///////////////////////////////////////
 		lodsw;				//
-		add		dx,ax;		//
-		add		esi,eax;	//
-		cmp		dx,word ptr lx;		//
+		add		dx, ax;		//
+		add		esi, eax;	//
+		cmp		dx, word ptr lx;		//
 		jle		loop_while1;
-		sub		dx,word ptr lx;
-		sub		esi,edx;
-		mov		cx,dx;
-		
-		cmp		dx,word ptr rx;	//new
+		sub		dx, word ptr lx;
+		sub		esi, edx;
+		mov		cx, dx;
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;		//"
-		mov		cx,word ptr rx;	//"
-xxxxxxx1:
-jmp_0000:					//"
-		
-		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		mov		cx, word ptr rx;	//"
+	xxxxxxx1:
+	jmp_0000:					//"
+
+			//************ move	data ***********
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata1;
-loop_TR1:
+	loop_TR1:
 		lodsw
-			and		ax,1111101111011110b;
-		and		word ptr [edi],1111101111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 1111101111011110b;
+		and		word ptr[edi], 1111101111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR1;
-exit_movedata1:
-		
-		cmp		dx,word ptr rx;	//new		
+	exit_movedata1:
+
+		cmp		dx, word ptr rx;	//new		
 		jle		exit_while1;	//"
-		mov		eax,edx;		//"
-		sub		ax,word ptr rx;	//"
-		add		esi,eax;		//new
-		
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+		mov		eax, edx;		//"
+		sub		ax, word ptr rx;	//"
+		add		esi, eax;		//new
+
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
+
 		lodsw;
-		
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-		
+
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+
 		lodsw;
-		mov		cx,ax;		//l=k=*stmp
-		mov		word ptr l,ax;
-		
-		add		ax,dx;
-		cmp		ax,word ptr rx;
+		mov		cx, ax;		//l=k=*stmp
+		mov		word ptr l, ax;
+
+		add		ax, dx;
+		cmp		ax, word ptr rx;
 		jle		exit_if0;
-		cmp		dx,word ptr rx;
+		cmp		dx, word ptr rx;
 		jg		exit_if0;
 		//mov		ax,cx;
-		mov		cx,word ptr rx;
-		sub		cx,dx;
-exit_if0:
-		cmp		dx,word ptr rx;
+		mov		cx, word ptr rx;
+		sub		cx, dx;
+	exit_if0:
+		cmp		dx, word ptr rx;
 		jg		else_if;
-		
-		add		dx,word ptr l;	//j+=l;
-		sub		word ptr l,cx;	//l-k;
-		
+
+		add		dx, word ptr l;	//j+=l;
+		sub		word ptr l, cx;	//l-k;
+
 		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata2;
-loop_TR2:
+	loop_TR2:
 		lodsw
-			and		ax,1111101111011110b;
-		and		word ptr [edi],1111101111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 1111101111011110b;
+		and		word ptr[edi], 1111101111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR2;
-exit_movedata2:
-		
-		mov		ax,word ptr l;
-		add		esi,eax;
+	exit_movedata2:
+
+		mov		ax, word ptr l;
+		add		esi, eax;
 		jmp		loop_while2;
-		
-else_if:
-		mov		ax,word ptr l;
-		add		esi,eax;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		mov		ax, word ptr l;
+		add		esi, eax;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		add		esi,2;
+		add		esi, 2;
 		lodsw
-			add		esi,eax;
+			add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
-		add		esi,2;
-		
-		mov		ax,wDxSize;
-		add		dword ptr Dtmp,eax;
+	ext:
+
+	exit_while2:
+		add		esi, 2;
+
+		mov		ax, wDxSize;
+		add		dword ptr Dtmp, eax;
 		dec		bx;
 		jmp		loop_for1;
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
@@ -456,252 +458,252 @@ exit_for1:
 void PutCmprsImgNOTClipingTrans565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, WORD MSK)
 {
 	DWORD	j, tmpclr;
-	LPVOID	Dtmp = (LPVOID)( (char *)dest + y * dDxSize + (x * 2));
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
-		or		ebx,ebx;	// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
+		or ebx, ebx;	// if(SY==0)
 		jz		exit_1;
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		shr		ecx,1;
-		
-loop_TR:
-		mov		ax,[esi];
-		and		eax,1110011100011100b;
-		mov		tmpclr,eax;
-		
-		mov		ax,[edi];
-		and		eax,1110011100011100b;
-		add		eax,tmpclr;
-		
-		shr		eax,2;
-		mov		[edi],ax;
-		add		esi,2;
-		add		edi,2;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+		shr		ecx, 1;
+
+	loop_TR:
+		mov		ax, [esi];
+		and		eax, 1110011100011100b;
+		mov		tmpclr, eax;
+
+		mov		ax, [edi];
+		and		eax, 1110011100011100b;
+		add		eax, tmpclr;
+
+		shr		eax, 2;
+		mov[edi], ax;
+		add		esi, 2;
+		add		edi, 2;
 		loop	loop_TR;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		bx;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
 
-void PutCmprsImgClipingTrans555( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, WORD MSK)
+void PutCmprsImgClipingTrans555(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, WORD MSK)
 {
 	int		l, kkk = lx << 1;
-	LPVOID	Dtmp = (LPVOID)( (char *)dest + y * wDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
 	rx <<= 1;
 	lx <<= 1;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		mov		esi,Stmp;
-		
-		mov		cx,word ptr ty;
-		
-		or		cx,cx;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		mov		esi, Stmp;
+
+		mov		cx, word ptr ty;
+
+		or cx, cx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
+	exit_xxxx:
 		inc		esi;
 		inc		esi;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
-		mov		bx,word ptr by;		//
-loop_for1:
-		or		bx,bx;		//for(i=0;i<by;i++)
+	_asm {
+		mov		bx, word ptr by;		//
+	loop_for1:
+		or bx, bx;		//for(i=0;i<by;i++)
 		jz		exit_for1;	//
-		xor		eax,eax;
-		xor		edx,edx;
-		xor		ecx,ecx;
-		mov		edi,Dtmp;
-		
-		mov		ax,word ptr lx;	//if(lx)
-		or		ax,ax;			//
+		xor		eax, eax;
+		xor		edx, edx;
+		xor		ecx, ecx;
+		mov		edi, Dtmp;
+
+		mov		ax, word ptr lx;	//if(lx)
+		or ax, ax;			//
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		add		esi,2;
-		cmp		dx,word ptr lx;		//if(j>lx)
+		add		dx, [esi];
+		add		esi, 2;
+		cmp		dx, word ptr lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		dx,word ptr lx;		//j-=lx
-		
-		cmp		dx,word ptr rx;
+		sub		dx, word ptr lx;		//j-=lx
+
+		cmp		dx, word ptr rx;
 		jg		jmp_00001;
-		
-		add		edi,edx;			//dtmp+=j
-		
+
+		add		edi, edx;			//dtmp+=j
+
 		lodsw;						//k=*stmp
-		add		dx,ax;				//j+=k
-		mov		cx,ax;				//
-		
-		cmp		dx,word ptr rx;	//new
+		add		dx, ax;				//j+=k
+		mov		cx, ax;				//
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;
-		add		cx,word ptr rx;
-		sub		cx,dx;
-		
+		add		cx, word ptr rx;
+		sub		cx, dx;
+
 		jmp		xxxxxxx1;
-jmp_00001:
+	jmp_00001:
 		lodsw;
-		add		esi,eax;
+		add		esi, eax;
 		jmp		ext_loop;
-		
-jmp_if1:///////////////////////////////////////
+
+	jmp_if1:///////////////////////////////////////
 		lodsw;				//
-		add		dx,ax;		//
-		add		esi,eax;	//
-		cmp		dx,word ptr lx;		//
+		add		dx, ax;		//
+		add		esi, eax;	//
+		cmp		dx, word ptr lx;		//
 		jle		loop_while1;
-		sub		dx,word ptr lx;
-		sub		esi,edx;
-		mov		cx,dx;
-		
-		cmp		dx,word ptr rx;	//new
+		sub		dx, word ptr lx;
+		sub		esi, edx;
+		mov		cx, dx;
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;		//"
-		mov		cx,word ptr rx;	//"
-xxxxxxx1:
-jmp_0000:					//"
-		
-		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		mov		cx, word ptr rx;	//"
+	xxxxxxx1:
+	jmp_0000:					//"
+
+			//************ move	data ***********
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata1;
-loop_TR1:
+	loop_TR1:
 		lodsw
-			and		ax,1111101111011110b;
-		and		word ptr [edi],1111101111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 1111101111011110b;
+		and		word ptr[edi], 1111101111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR1;
-exit_movedata1:
-		
-		cmp		dx,word ptr rx;	//new		
+	exit_movedata1:
+
+		cmp		dx, word ptr rx;	//new		
 		jle		exit_while1;	//"
-		mov		eax,edx;		//"
-		sub		ax,word ptr rx;	//"
-		add		esi,eax;		//new
-		
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+		mov		eax, edx;		//"
+		sub		ax, word ptr rx;	//"
+		add		esi, eax;		//new
+
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
+
 		lodsw;
-		
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-		
+
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+
 		lodsw;
-		mov		cx,ax;		//l=k=*stmp
-		mov		word ptr l,ax;
-		
-		add		ax,dx;
-		cmp		ax,word ptr rx;
+		mov		cx, ax;		//l=k=*stmp
+		mov		word ptr l, ax;
+
+		add		ax, dx;
+		cmp		ax, word ptr rx;
 		jle		exit_if0;
-		cmp		dx,word ptr rx;
+		cmp		dx, word ptr rx;
 		jg		exit_if0;
 		//mov		ax,cx;
-		mov		cx,word ptr rx;
-		sub		cx,dx;
-exit_if0:
-		cmp		dx,word ptr rx;
+		mov		cx, word ptr rx;
+		sub		cx, dx;
+	exit_if0:
+		cmp		dx, word ptr rx;
 		jg		else_if;
-		
-		add		dx,word ptr l;	//j+=l;
-		sub		word ptr l,cx;	//l-k;
-		
+
+		add		dx, word ptr l;	//j+=l;
+		sub		word ptr l, cx;	//l-k;
+
 		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata2;
-loop_TR2:
+	loop_TR2:
 		lodsw
-			and		ax,1111101111011110b;
-		and		word ptr [edi],1111101111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 1111101111011110b;
+		and		word ptr[edi], 1111101111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR2;
-exit_movedata2:
-		
-		mov		ax,word ptr l;
-		add		esi,eax;
+	exit_movedata2:
+
+		mov		ax, word ptr l;
+		add		esi, eax;
 		jmp		loop_while2;
-		
-else_if:
-		mov		ax,word ptr l;
-		add		esi,eax;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		mov		ax, word ptr l;
+		add		esi, eax;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		add		esi,2;
+		add		esi, 2;
 		lodsw
-			add		esi,eax;
+			add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
-		add		esi,2;
-		
-		mov		ax,wDxSize;
-		add		dword ptr Dtmp,eax;
+	ext:
+
+	exit_while2:
+		add		esi, 2;
+
+		mov		ax, wDxSize;
+		add		dword ptr Dtmp, eax;
 		dec		bx;
 		jmp		loop_for1;
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
@@ -709,61 +711,61 @@ exit_for1:
 void PutCmprsImgNOTClipingTrans555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, WORD MSK)
 {
 	DWORD	j, tmpclr;
-	LPVOID	Dtmp = (LPVOID)( (char *)dest + y * dDxSize + (x * 2));
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
-		or		ebx,ebx;	// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
+		or ebx, ebx;	// if(SY==0)
 		jz		exit_1;
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		shr		ecx,1;
-		
-loop_TR:
-		mov		ax,[esi];
-		and		eax,111001110011100b;
-		mov		tmpclr,eax;
-		
-		mov		ax,[edi];
-		and		eax,111001110011100b;
-		add		eax,tmpclr;
-		
-		shr		eax,2;
-		mov		[edi],ax;
-		add		esi,2;
-		add		edi,2;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+		shr		ecx, 1;
+
+	loop_TR:
+		mov		ax, [esi];
+		and		eax, 111001110011100b;
+		mov		tmpclr, eax;
+
+		mov		ax, [edi];
+		and		eax, 111001110011100b;
+		add		eax, tmpclr;
+
+		shr		eax, 2;
+		mov[edi], ax;
+		add		esi, 2;
+		add		edi, 2;
 		loop	loop_TR;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		bx;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
@@ -772,79 +774,79 @@ exit_1:
 
 void PutCompressedImageTrans(int x, int y, Spr *sp, WORD MSK)
 {
-	int		lx, rx, ty, by , IsC=0;
-	
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
+	int		lx, rx, ty, by, IsC = 0;
+
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
-	
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	
-	if( x >= SCREEN_WIDTH  ) return; 
-	else if( x + xl < 0 ) return; 
-	
-	if( y >= SCREEN_HEIGHT ) return; 
-	else if( y + yl < 0  ) return;
-	
+
+
+	if (x >= SCREEN_WIDTH) return;
+	else if (x + xl < 0) return;
+
+	if (y >= SCREEN_HEIGHT) return;
+	else if (y + yl < 0) return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	
-	
-	if( x + xl >= SCREEN_WIDTH )
+
+
+
+	if (x + xl >= SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	
-	if( y + yl >= SCREEN_HEIGHT )
+
+	if (y + yl >= SCREEN_HEIGHT)
 	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}	
-	
-	
-	if( _PixelInfo.BitMaskR == 0x7C00)		
+	}
+
+
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		if( IsC )
-			PutCmprsImgClipingTrans555( x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, MSK);
+		if (IsC)
+			PutCmprsImgClipingTrans555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, MSK);
 		else
-			PutCmprsImgNOTClipingTrans555( x, y, yl, sp->img, g_DestBackBuf, MSK);
+			PutCmprsImgNOTClipingTrans555(x, y, yl, sp->img, g_DestBackBuf, MSK);
 	}
 	else
 	{
-		if( IsC )
-			PutCmprsImgClipingTrans565( x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, MSK);
+		if (IsC)
+			PutCmprsImgClipingTrans565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, MSK);
 		else
-			PutCmprsImgNOTClipingTrans565( x, y, yl, sp->img, g_DestBackBuf, MSK);
+			PutCmprsImgNOTClipingTrans565(x, y, yl, sp->img, g_DestBackBuf, MSK);
 	}
-	
+
 	return;
 }
 /////////////////////////////////////////////////////////////////////////// Put Sprite Transperensy..
@@ -864,256 +866,256 @@ void	PutCmprsImgCliping(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, 
 {
 	int		l;
 	LPVOID Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		
-		shr		ecx,2;		//move DATA
+		sub		l, ecx;			//l-k;
+
+		shr		ecx, 2;		//move DATA
 		jnc		Next2_1;	//
 		movsw;				//
-Next2_1:				//
+	Next2_1:				//
 		rep		movsd;		//
-		
-		add		esi,l;
+
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		ebx;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void	PutCmprsImgNOTCliping(int x, int y, int yl, LPVOID Stmp, LPVOID dest )
+void	PutCmprsImgNOTCliping(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)( (char*)dest + y * dDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
-		or		bx,bx;		// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
+		or bx, bx;		// if(SY==0)
 		jz		exit_1;
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,2;		//move DATA
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 2;		//move DATA
 		jnc		Next2;		//
 		movsw;				//
-Next2:					//
+	Next2:					//
 		rep		movsd;		//
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		bx;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
-	}; 
+	};
 }
 
-void PutCompressedImage(int x, int y, Spr *sp )
-{		
-	int		lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
+void PutCompressedImage(int x, int y, Spr *sp)
+{
+	int		lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	
-	if( x >= SCREEN_WIDTH  ) return; 
-	else if( x + xl < 0 ) return; 
-	
-	if( y >= SCREEN_HEIGHT ) return; 
-	else if( y + yl < 0  ) return;
-	
+
+
+	if (x >= SCREEN_WIDTH) return;
+	else if (x + xl < 0) return;
+
+	if (y >= SCREEN_HEIGHT) return;
+	else if (y + yl < 0) return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	
-	
-	if( x + xl >= (SCREEN_WIDTH-1) )
+
+
+
+	if (x + xl >= (SCREEN_WIDTH - 1))
 	{
-		rx -= x + xl - (SCREEN_WIDTH-1);
+		rx -= x + xl - (SCREEN_WIDTH - 1);
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	
-	if( y + yl >= SCREEN_HEIGHT )
+
+	if (y + yl >= SCREEN_HEIGHT)
 	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}	
-	
-	
-	if( sp->img == NULL ) return;
-	
-	
-	if( IsC )
-	{	
-		PutCmprsImgCliping( x,  y, sp->img, g_DestBackBuf, lx, rx+1, ty, by);
-	}	
+	}
+
+
+	if (sp->img == NULL) return;
+
+
+	if (IsC)
+	{
+		PutCmprsImgCliping(x, y, sp->img, g_DestBackBuf, lx, rx + 1, ty, by);
+	}
 	else
-	{	
-		PutCmprsImgNOTCliping( x,  y, sp->yl, sp->img, g_DestBackBuf );
-	}	
-}		
+	{
+		PutCmprsImgNOTCliping(x, y, sp->yl, sp->img, g_DestBackBuf);
+	}
+}
 
 
 
@@ -1129,292 +1131,279 @@ void	PutCmprsImgClipingOneColor(int x, int y, LPVOID Stmp, LPVOID dest, int lx, 
 {
 	int		l;
 	LPVOID Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		mov		ax, color
 			shl		eax, 16
 			mov		ax, color
-			
+
 			add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		
+		sub		l, ecx;			//l-k;
+
 		add		esi, ecx;
 		sub		edi, 2
 			add		ecx, 4
-			shr		ecx,2;		//move DATA
+			shr		ecx, 2;		//move DATA
 		jnc		Next2_1;	//
-		
+
 		stosw;	//
-		
-Next2_1:				//
-		
+
+	Next2_1:				//
+
 		rep		stosd;		//
 		sub		edi, 2
-			
-			add		esi,l;
+
+			add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		ebx;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void	PutCmprsImgNOTClipingOneColor(int x, int y, int yl, LPVOID Stmp, LPVOID dest, WORD color )
+void	PutCmprsImgNOTClipingOneColor(int x, int y, int yl, LPVOID Stmp, LPVOID dest, WORD color)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)( (char*)dest + y * dDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
 		//	mov		ebx,j;
-		
+
 		mov     ax, color;
 		shl		eax, 16;
 		mov		ax, color;
-		
-		xor		ebx,ebx;
-		xor		ecx,ecx;
-loop_1:
-		cmp 	j,0;		// if(SY==0)
+
+		xor		ebx, ebx;
+		xor		ecx, ecx;
+	loop_1:
+		cmp 	j, 0;		// if(SY==0)
 		jz		exit_1;
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		bx,[esi];
-		add		edi,ebx;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
+
+		mov		bx, [esi];
+		add		edi, ebx;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
 		add		esi, ecx;
 		sub		edi, 2
 			add		ecx, 4;
 		shr		ecx, 2;
 		jnc		Next2;		//
-		
+
 		stosw;				//
-Next2:					//
+	Next2:					//
 		rep		stosd;		//
 		sub		edi, 2
-			
+
 			jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		sub		j, 1;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
-}	
-void PutCompressedImageOneColor(int x, int y, Spr *sp, WORD color )
-{		
-	
-	int		lx, rx, ty, by , IsC=0;
-	
+}
+void PutCompressedImageOneColor(int x, int y, Spr *sp, WORD color)
+{
+
+	int		lx, rx, ty, by, IsC = 0;
+
 	int		ey = SCREEN_HEIGHT - 128;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
-	
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	
-	if( x >= SCREEN_WIDTH -1 ) return; 
-	else if( x + xl < 1 ) return; 
-	
-	if( y >= ey ) return; 
-	else if( y + yl < 0  ) return;
-	
+
+
+	if (x >= SCREEN_WIDTH - 1) return;
+	else if (x + xl < 1) return;
+
+	if (y >= ey) return;
+	else if (y + yl < 0) return;
+
 	rx = xl;
 	lx = 1;
 	ty = 0;
 	by = yl;
-	
-	
-	
-	if( x + xl >= SCREEN_WIDTH-1)
+
+
+
+	if (x + xl >= SCREEN_WIDTH - 1)
 	{
-		rx -= x + xl - (SCREEN_WIDTH-1);
+		rx -= x + xl - (SCREEN_WIDTH - 1);
 		IsC = 1;
 	}
-	if( x < 1 )
+	if (x < 1)
 	{
-		lx  = 1 - x;
-		x   = 1;
+		lx = 1 - x;
+		x = 1;
 		rx -= lx;
 		IsC = 1;
 	}
-	
-	if( y + yl >= SCREEN_HEIGHT )
+
+	if (y + yl >= SCREEN_HEIGHT)
 	{
 		by -= y + yl - ey;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}	
-	
-	
-	if( IsC )
-	{	
-		PutCmprsImgClipingOneColor( x,  y, sp->img, g_DestBackBuf, lx, rx, ty, by, color);
-	}	
+	}
+
+
+	if (IsC)
+	{
+		PutCmprsImgClipingOneColor(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, color);
+	}
 	else
-	{	
-		PutCmprsImgNOTClipingOneColor( x,  y, sp->yl, sp->img, g_DestBackBuf, color );
-	}	
-}		
-
-
-
-
+	{
+		PutCmprsImgNOTClipingOneColor(x, y, sp->yl, sp->img, g_DestBackBuf, color);
+	}
+}
 
 ///////////////////////////////////////////////////////////////////////////// Put Sprite Normally...
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //
@@ -1425,349 +1414,349 @@ void	PutCmprsImgVoidCliping(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int 
 {
 	int		l;
 	LPVOID Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		
+		sub		l, ecx;			//l-k;
+
 		//			shr		ecx,2;		//move DATA
 		//			jnc		Next2_1;	//
 		//			movsw;				//
 		//		Next2_1:				//
 		///			rep		movsd;		//
 		//
-		
-		
-		shr		ecx,2;		//move DATA
+
+
+		shr		ecx, 2;		//move DATA
 		jnc		Next2_1;		//
-		mov		ax, word ptr [edi]
-			mov		word ptr [edi-2], ax
+		mov		ax, word ptr[edi]
+			mov		word ptr[edi - 2], ax
 			add		esi, 2
 			add		edi, 2
-			
-Next2_1:	//
-		
+
+			Next2_1:	//
+
 		cmp		cx, 0
 			jz		NextVoid_2;
-		
-NextVoid:
-		
+
+	NextVoid:
+
 		mov		eax, [edi];
-		mov		[edi-2], eax
+		mov[edi - 2], eax
 			add		esi, 4
 			add		edi, 4
-			
+
 			loop	NextVoid
-			
-NextVoid_2:
-		
-		add		esi,l;
+
+			NextVoid_2 :
+
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		ebx;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void	PutCmprsImgVoidNOTCliping(int x, int y, int yl, LPVOID Stmp, LPVOID dest )
+void	PutCmprsImgVoidNOTCliping(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)( (char*)dest + y * dDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
-		or		bx,bx;		// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
+		or bx, bx;		// if(SY==0)
 		jz		exit_1;
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax
-			mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,2;		//move DATA
+
+		xor		eax, eax
+			mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 2;		//move DATA
 		jnc		Next2;		//
-		mov		ax, word ptr [edi]
-			mov		word ptr [edi-2], ax
+		mov		ax, word ptr[edi]
+			mov		word ptr[edi - 2], ax
 			add		esi, 2
 			add		edi, 2
-			
-Next2:	//
-		
+
+			Next2:	//
+
 		cmp		cx, 0
 			jz		loop_2;
-		
-NextVoid:
-		
+
+	NextVoid:
+
 		mov		eax, [edi];
-		mov		[edi-2], eax
+		mov[edi - 2], eax
 			add		esi, 4
 			add		edi, 4
-			
+
 			loop	NextVoid
-			
+
 			//		rep		movsd;		//
-			
+
 			jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		bx;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
-}	
+}
 
-void PutCompressedImageVoid(int x, int y, Spr *sp )
-{		
-	int	lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
+void PutCompressedImageVoid(int x, int y, Spr *sp)
+{
+	int	lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	if( x >= (SCREEN_WIDTH-2)  )	return; 
-	else if( x + xl < 0 )			return; 
-	
-	if( y >= SCREEN_HEIGHT )		return; 
-	else if( y + yl < 0  )			return;
-	
+
+	if (x >= (SCREEN_WIDTH - 2))	return;
+	else if (x + xl < 0)			return;
+
+	if (y >= SCREEN_HEIGHT)		return;
+	else if (y + yl < 0)			return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	if( x + xl >= (SCREEN_WIDTH-2) )
+
+	if (x + xl >= (SCREEN_WIDTH - 2))
 	{
-		rx -= x + xl - (SCREEN_WIDTH-2);
+		rx -= x + xl - (SCREEN_WIDTH - 2);
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	
-	if( y + yl >= SCREEN_HEIGHT )
+
+	if (y + yl >= SCREEN_HEIGHT)
 	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}	
-	
-	if( IsC )
-		PutCmprsImgVoidCliping( x,  y, sp->img, g_DestBackBuf, lx, rx, ty, by);
+	}
+
+	if (IsC)
+		PutCmprsImgVoidCliping(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by);
 	else
-		PutCmprsImgVoidNOTCliping( x,  y, sp->yl, sp->img, g_DestBackBuf );
-}		
+		PutCmprsImgVoidNOTCliping(x, y, sp->yl, sp->img, g_DestBackBuf);
+}
 
 
-void PutCompressImageApart( int x, int y, Spr *sp, int sx, int sy, int ex, int ey, int alpha )
+void PutCompressImageApart(int x, int y, Spr *sp, int sx, int sy, int ex, int ey, int alpha)
 {
-	int		lx, rx, ty, by , IsC=0;
-	
+	int		lx, rx, ty, by, IsC = 0;
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	//	x -= sp->ox;
 	//	y -= sp->oy;
-	
-	
-	if( x >= ex  ) return; 
-	else if( x + xl < sx ) return; 
-	
-	if( y >= ey ) return; 
-	else if( y + yl < sy  ) return;
-	
+
+
+	if (x >= ex) return;
+	else if (x + xl < sx) return;
+
+	if (y >= ey) return;
+	else if (y + yl < sy) return;
+
 	rx = xl;
 	lx = sx;
 	ty = sy;
 	by = yl;
-	
-	if( x + xl >= ex )
+
+	if (x + xl >= ex)
 	{
 		rx -= x + xl - ex;
 	}
-	if( x < sx )
+	if (x < sx)
 	{
-		lx  = sx - x;
-		x   = sx;
+		lx = sx - x;
+		x = sx;
 		rx -= lx;
 	}
-	
-	if( y + yl >= ey )
+
+	if (y + yl >= ey)
 	{
 		by -= y + yl - ey;
 	}
-	if( y < sy )
+	if (y < sy)
 	{
-		ty  = sy - y;
-		y   = sy;
+		ty = sy - y;
+		y = sy;
 		by -= ty;
-	}	
-	
-	if( alpha > 31 )
-	{
-		PutCmprsImgCliping( x,  y, sp->img, g_DestBackBuf, lx, rx, ty, by);
 	}
-	else 
+
+	if (alpha > 31)
 	{
-		if( _PixelInfo.BitMaskR == 0x7C00)
+		PutCmprsImgCliping(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by);
+	}
+	else
+	{
+		if (_PixelInfo.BitMaskR == 0x7C00)
 		{
 			PutCmprsImgClipingBlend555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 		}
@@ -1776,609 +1765,591 @@ void PutCompressImageApart( int x, int y, Spr *sp, int sx, int sy, int ex, int e
 			PutCmprsImgClipingBlend565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 		}
 	}
-	
+
 }
 
 
 
 
 
-void PutCompressImageSubApart( int x, int y, Spr *sp, int sx, int sy, int ex, int ey, int alpha )
+void PutCompressImageSubApart(int x, int y, Spr *sp, int sx, int sy, int ex, int ey, int alpha)
 {
-	int		lx, rx, ty, by , IsC=0;
-	
+	int		lx, rx, ty, by, IsC = 0;
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	//	x -= sp->ox;
 	//	y -= sp->oy;
-	
-	
-	if( x >= ex  ) return; 
-	else if( x + xl < sx ) return; 
-	
-	if( y >= ey ) return; 
-	else if( y + yl < sy  ) return;
-	
+
+
+	if (x >= ex) return;
+	else if (x + xl < sx) return;
+
+	if (y >= ey) return;
+	else if (y + yl < sy) return;
+
 	rx = xl;
 	lx = sx;
 	ty = sy;
 	by = yl;
-	
-	if( x + xl >= ex )
+
+	if (x + xl >= ex)
 	{
 		rx -= x + xl - ex;
 	}
-	if( x < sx )
+	if (x < sx)
 	{
-		lx  = sx - x;
-		x   = sx;
+		lx = sx - x;
+		x = sx;
 		rx -= lx;
 	}
-	
-	if( y + yl >= ey )
+
+	if (y + yl >= ey)
 	{
 		by -= y + yl - ey;
 	}
-	if( y < sy )
+	if (y < sy)
 	{
-		ty  = sy - y;
-		y   = sy;
+		ty = sy - y;
+		y = sy;
 		by -= ty;
-	}	
-	
-	if( alpha > 31 )
-	{
-		PutCmprsImgCliping( x,  y, sp->img, g_DestBackBuf, lx, rx, ty, by);
 	}
-	else 
+
+	if (alpha > 31)
 	{
-		if( _PixelInfo.BitMaskR == 0x7C00)
+		PutCmprsImgCliping(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by);
+	}
+	else
+	{
+		if (_PixelInfo.BitMaskR == 0x7C00)
 		{
-			
-			PutCmprsImgClipingSub555( x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
-			
-			//			PutCmprsImgClipingBlend555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+
+			PutCmprsImgClipingSub555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+			// PutCmprsImgClipingBlend555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 		}
 		else
 		{
-			PutCmprsImgClipingSub565( x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
-			
-			//			PutCmprsImgClipingBlend565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+			PutCmprsImgClipingSub565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+			// PutCmprsImgClipingBlend565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 		}
 	}
-	
 }
 
-
-
-
-
-
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //  Put Sprite FX ---------------
-
-//  Put Sprite FX ---------------
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void PutCmprsImgClipingHBlend565(
-								 int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by)
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by)
 {
 	int		l, kkk = lx << 1;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
 	rx <<= 1;
 	lx <<= 1;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		mov		esi,Stmp;
-		
-		mov		cx,word ptr ty;
-		
-		or		cx,cx;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		mov		esi, Stmp;
+
+		mov		cx, word ptr ty;
+
+		or cx, cx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
+	exit_xxxx:
 		inc		esi;
 		inc		esi;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
-		mov		bx,word ptr by;		//
-loop_for1:
-		or		bx,bx;		//for(i=0;i<by;i++)
+	_asm {
+		mov		bx, word ptr by;		//
+	loop_for1:
+		or bx, bx;		//for(i=0;i<by;i++)
 		jz		exit_for1;	//
-		xor		eax,eax;
-		xor		edx,edx;
-		xor		ecx,ecx;
-		mov		edi,Dtmp;
-		
-		mov		ax,word ptr lx;	//if(lx)
-		or		ax,ax;			//
+		xor		eax, eax;
+		xor		edx, edx;
+		xor		ecx, ecx;
+		mov		edi, Dtmp;
+
+		mov		ax, word ptr lx;	//if(lx)
+		or ax, ax;			//
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		add		esi,2;
-		cmp		dx,word ptr lx;		//if(j>lx)
+		add		dx, [esi];
+		add		esi, 2;
+		cmp		dx, word ptr lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		dx,word ptr lx;		//j-=lx
-		
-		cmp		dx,word ptr rx;
+		sub		dx, word ptr lx;		//j-=lx
+
+		cmp		dx, word ptr rx;
 		jg		jmp_00001;
-		
-		add		edi,edx;			//dtmp+=j
-		
+
+		add		edi, edx;			//dtmp+=j
+
 		lodsw;						//k=*stmp
-		add		dx,ax;				//j+=k
-		mov		cx,ax;				//
-		
-		cmp		dx,word ptr rx;	//new
+		add		dx, ax;				//j+=k
+		mov		cx, ax;				//
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;
-		add		cx,word ptr rx;
-		sub		cx,dx;
-		
+		add		cx, word ptr rx;
+		sub		cx, dx;
+
 		jmp		xxxxxxx1;
-jmp_00001:
+	jmp_00001:
 		lodsw;
-		add		esi,eax;
+		add		esi, eax;
 		jmp		ext_loop;
-		
-jmp_if1:///////////////////////////////////////
+
+	jmp_if1:///////////////////////////////////////
 		lodsw;				//
-		add		dx,ax;		//
-		add		esi,eax;	//
-		cmp		dx,word ptr lx;		//
+		add		dx, ax;		//
+		add		esi, eax;	//
+		cmp		dx, word ptr lx;		//
 		jle		loop_while1;
-		sub		dx,word ptr lx;
-		sub		esi,edx;
-		mov		cx,dx;
-		
-		cmp		dx,word ptr rx;	//new
+		sub		dx, word ptr lx;
+		sub		esi, edx;
+		mov		cx, dx;
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;		//"
-		mov		cx,word ptr rx;	//"
-xxxxxxx1:
-jmp_0000:					//"
-		
-		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		mov		cx, word ptr rx;	//"
+	xxxxxxx1:
+	jmp_0000:					//"
+
+			//************ move	data ***********
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata1;
-loop_TR1:
+	loop_TR1:
 		lodsw
-			and		ax,1111011111011110b;
-		and		word ptr [edi],1111011111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 1111011111011110b;
+		and		word ptr[edi], 1111011111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR1;
-exit_movedata1:
-		
-		cmp		dx,word ptr rx;	//new		
+	exit_movedata1:
+
+		cmp		dx, word ptr rx;	//new		
 		jle		exit_while1;	//"
-		mov		eax,edx;		//"
-		sub		ax,word ptr rx;	//"
-		add		esi,eax;		//new
-		
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+		mov		eax, edx;		//"
+		sub		ax, word ptr rx;	//"
+		add		esi, eax;		//new
+
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
+
 		lodsw;
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-		
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+
 		lodsw;
-		mov		cx,ax;		//l=k=*stmp
-		mov		word ptr l,ax;
-		
-		add		ax,dx;
-		cmp		ax,word ptr rx;
+		mov		cx, ax;		//l=k=*stmp
+		mov		word ptr l, ax;
+
+		add		ax, dx;
+		cmp		ax, word ptr rx;
 		jle		exit_if0;
-		cmp		dx,word ptr rx;
+		cmp		dx, word ptr rx;
 		jg		exit_if0;
 		//mov		ax,cx;
-		mov		cx,word ptr rx;
-		sub		cx,dx;
-exit_if0:
-		cmp		dx,word ptr rx;
+		mov		cx, word ptr rx;
+		sub		cx, dx;
+	exit_if0:
+		cmp		dx, word ptr rx;
 		jg		else_if;
-		
-		add		dx,word ptr l;	//j+=l;
-		sub		word ptr l,cx;	//l-k;
-		
+
+		add		dx, word ptr l;	//j+=l;
+		sub		word ptr l, cx;	//l-k;
+
 		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata2;
-loop_TR2:
+	loop_TR2:
 		lodsw
-			and		ax,1111011111011110b;
-		and		word ptr [edi],1111011111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 1111011111011110b;
+		and		word ptr[edi], 1111011111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR2;
-exit_movedata2:
-		
-		mov		ax,word ptr l;
-		add		esi,eax;
+	exit_movedata2:
+
+		mov		ax, word ptr l;
+		add		esi, eax;
 		jmp		loop_while2;
-		
-else_if:
-		mov		ax,word ptr l;
-		add		esi,eax;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		mov		ax, word ptr l;
+		add		esi, eax;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		add		esi,2;
+		add		esi, 2;
 		lodsw
-			add		esi,eax;
+			add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
-		add		esi,2;
-		
+	ext:
+
+	exit_while2:
+		add		esi, 2;
+
 		mov		ax, wDxSize;
-		add		dword ptr Dtmp,eax;
+		add		dword ptr Dtmp, eax;
 		dec		bx;
 		jmp		loop_for1;
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 void PutCmprsImgNOTClipingHBlend565(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	_asm{
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		or		ebx,ebx;	// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		or ebx, ebx;	// if(SY==0)
 		jz		exit_1;
-loop_1:
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		shr		ecx,1;
-		
-loop_TR:
-		mov		eax,[esi];
-		mov		ebx,[edi];
-		shr		eax,2;
-		and		eax,0011000111000110b;
-		and		ebx,1111011111011110b;
-		
-		add		eax,ebx;
-		
-		shr		eax,1;
-		mov		[edi],ax;
-		add		esi,2;
-		add		edi,2;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+		shr		ecx, 1;
+
+	loop_TR:
+		mov		eax, [esi];
+		mov		ebx, [edi];
+		shr		eax, 2;
+		and		eax, 0011000111000110b;
+		and		ebx, 1111011111011110b;
+
+		add		eax, ebx;
+
+		shr		eax, 1;
+		mov[edi], ax;
+		add		esi, 2;
+		add		edi, 2;
 		loop	loop_TR;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		j;
 		jnz		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
 
 void PutCmprsImgClipingHBlend555(
-								 int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by)
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by)
 {
 	int		l, kkk = lx << 1;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
 	rx <<= 1;
 	lx <<= 1;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		mov		esi,Stmp;
-		
-		mov		cx,word ptr ty;
-		
-		or		cx,cx;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		mov		esi, Stmp;
+
+		mov		cx, word ptr ty;
+
+		or cx, cx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
+	exit_xxxx:
 		inc		esi;
 		inc		esi;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
-		mov		bx,word ptr by;		//
-loop_for1:
-		or		bx,bx;		//for(i=0;i<by;i++)
+	_asm {
+		mov		bx, word ptr by;		//
+	loop_for1:
+		or bx, bx;		//for(i=0;i<by;i++)
 		jz		exit_for1;	//
-		xor		eax,eax;
-		xor		edx,edx;
-		xor		ecx,ecx;
-		mov		edi,Dtmp;
-		
-		mov		ax,word ptr lx;	//if(lx)
-		or		ax,ax;			//
+		xor		eax, eax;
+		xor		edx, edx;
+		xor		ecx, ecx;
+		mov		edi, Dtmp;
+
+		mov		ax, word ptr lx;	//if(lx)
+		or ax, ax;			//
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		add		esi,2;
-		cmp		dx,word ptr lx;		//if(j>lx)
+		add		dx, [esi];
+		add		esi, 2;
+		cmp		dx, word ptr lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		dx,word ptr lx;		//j-=lx
-		
-		cmp		dx,word ptr rx;
+		sub		dx, word ptr lx;		//j-=lx
+
+		cmp		dx, word ptr rx;
 		jg		jmp_00001;
-		
-		add		edi,edx;			//dtmp+=j
-		
+
+		add		edi, edx;			//dtmp+=j
+
 		lodsw;						//k=*stmp
-		add		dx,ax;				//j+=k
-		mov		cx,ax;				//
-		
-		cmp		dx,word ptr rx;	//new
+		add		dx, ax;				//j+=k
+		mov		cx, ax;				//
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;
-		add		cx,word ptr rx;
-		sub		cx,dx;
-		
+		add		cx, word ptr rx;
+		sub		cx, dx;
+
 		jmp		xxxxxxx1;
-jmp_00001:
+	jmp_00001:
 		lodsw;
-		add		esi,eax;
+		add		esi, eax;
 		jmp		ext_loop;
-		
-jmp_if1:///////////////////////////////////////
+
+	jmp_if1:///////////////////////////////////////
 		lodsw;				//
-		add		dx,ax;		//
-		add		esi,eax;	//
-		cmp		dx,word ptr lx;		//
+		add		dx, ax;		//
+		add		esi, eax;	//
+		cmp		dx, word ptr lx;		//
 		jle		loop_while1;
-		sub		dx,word ptr lx;
-		sub		esi,edx;
-		mov		cx,dx;
-		
-		cmp		dx,word ptr rx;	//new
+		sub		dx, word ptr lx;
+		sub		esi, edx;
+		mov		cx, dx;
+
+		cmp		dx, word ptr rx;	//new
 		jle		jmp_0000;		//"
-		mov		cx,word ptr rx;	//"
-xxxxxxx1:
-jmp_0000:					//"
-		
-		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		mov		cx, word ptr rx;	//"
+	xxxxxxx1:
+	jmp_0000:					//"
+
+			//************ move	data ***********
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata1;
-loop_TR1:
+	loop_TR1:
 		lodsw
-			and		ax,111101111011110b;
-		and		word ptr [edi],111101111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 111101111011110b;
+		and		word ptr[edi], 111101111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR1;
-exit_movedata1:
-		
-		cmp		dx,word ptr rx;	//new		
+	exit_movedata1:
+
+		cmp		dx, word ptr rx;	//new		
 		jle		exit_while1;	//"
-		mov		eax,edx;		//"
-		sub		ax,word ptr rx;	//"
-		add		esi,eax;		//new
-		
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+		mov		eax, edx;		//"
+		sub		ax, word ptr rx;	//"
+		add		esi, eax;		//new
+
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
+
 		lodsw;
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;		//j+=*stmp
-		
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;		//j+=*stmp
+
 		lodsw;
-		mov		cx,ax;		//l=k=*stmp
-		mov		word ptr l,ax;
-		
-		add		ax,dx;
-		cmp		ax,word ptr rx;
+		mov		cx, ax;		//l=k=*stmp
+		mov		word ptr l, ax;
+
+		add		ax, dx;
+		cmp		ax, word ptr rx;
 		jle		exit_if0;
-		cmp		dx,word ptr rx;
+		cmp		dx, word ptr rx;
 		jg		exit_if0;
 		//mov		ax,cx;
-		mov		cx,word ptr rx;
-		sub		cx,dx;
-exit_if0:
-		cmp		dx,word ptr rx;
+		mov		cx, word ptr rx;
+		sub		cx, dx;
+	exit_if0:
+		cmp		dx, word ptr rx;
 		jg		else_if;
-		
-		add		dx,word ptr l;	//j+=l;
-		sub		word ptr l,cx;	//l-k;
-		
+
+		add		dx, word ptr l;	//j+=l;
+		sub		word ptr l, cx;	//l-k;
+
 		//************ move	data ***********
-		shr		cx,1;//*********************************************************
-		or		cx,cx;
+		shr		cx, 1;//*********************************************************
+		or cx, cx;
 		jz		exit_movedata2;
-loop_TR2:
+	loop_TR2:
 		lodsw
-			and		ax,111101111011110b;
-		and		word ptr [edi],111101111011110b;
-		add		ax,[edi];
-		shr		ax,1;
-		mov		[edi],ax;
-		add		edi,2;
+			and		ax, 111101111011110b;
+		and		word ptr[edi], 111101111011110b;
+		add		ax, [edi];
+		shr		ax, 1;
+		mov[edi], ax;
+		add		edi, 2;
 		loop	loop_TR2;
-exit_movedata2:
-		
-		mov		ax,word ptr l;
-		add		esi,eax;
+	exit_movedata2:
+
+		mov		ax, word ptr l;
+		add		esi, eax;
 		jmp		loop_while2;
-		
-else_if:
-		mov		ax,word ptr l;
-		add		esi,eax;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		mov		ax, word ptr l;
+		add		esi, eax;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		add		esi,2;
+		add		esi, 2;
 		lodsw
-			add		esi,eax;
+			add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
-		add		esi,2;
-		
+	ext:
+
+	exit_while2:
+		add		esi, 2;
+
 		mov		ax, wDxSize;
-		add		dword ptr Dtmp,eax;
+		add		dword ptr Dtmp, eax;
 		dec		bx;
 		jmp		loop_for1;
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 void PutCmprsImgNOTClipingHBlend555(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	_asm{
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		or		ebx,ebx;	// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		or ebx, ebx;	// if(SY==0)
 		jz		exit_1;
-loop_1:
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		shr		ecx,1;
-		
-loop_TR:
-		mov		eax,[esi];
-		mov		ebx,[edi];
-		shr		eax,2;
-		and		eax,001100011000110b;
-		and		ebx,111101111011110b;
-		
-		add		eax,ebx;
-		
-		shr		eax,1;
-		mov		[edi],ax;
-		add		esi,2;
-		add		edi,2;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+		shr		ecx, 1;
+
+	loop_TR:
+		mov		eax, [esi];
+		mov		ebx, [edi];
+		shr		eax, 2;
+		and		eax, 001100011000110b;
+		and		ebx, 111101111011110b;
+
+		add		eax, ebx;
+
+		shr		eax, 1;
+		mov[edi], ax;
+		add		esi, 2;
+		add		edi, 2;
 		loop	loop_TR;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		j;
 		jnz		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
@@ -2386,1795 +2357,1792 @@ exit_1:
 
 
 void PutCmprsImgClipingBlend565(
-								int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
 {
 	int		l;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2 ));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		mov		ebx,alpha;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+		mov		ebx, alpha;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		eax, by;		//
-		or		eax,eax;
+		or eax, eax;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		xor		eax,eax;
-		mov		ax,[esi];
-		ror		eax,11;
-		xor		edx,edx;
-		shl		ax,10;
-		rol		eax,6;
-		shl		ax,5;
-		rol		eax,5;
-		
-		mov		dx,[edi];
-		ror		edx,11;
-		shl		dx,10;
-		rol		edx,6;
-		shl		dx,5;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x03e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x03e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+	loop_alpha:
+		xor		eax, eax;
+		mov		ax, [esi];
+		ror		eax, 11;
+		xor		edx, edx;
+		shl		ax, 10;
+		rol		eax, 6;
+		shl		ax, 5;
+		rol		eax, 5;
+
+		mov		dx, [edi];
+		ror		edx, 11;
+		shl		dx, 10;
+		rol		edx, 6;
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x03e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x03e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-		
-jmp_kkk:
-		add		esi,l;
+
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 void PutCmprsImgNOTClipingBlend565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		mov		ax,[esi];
-		ror		eax,11;
-		xor		edx,edx;
-		shl		ax,10;
-		rol		eax,6;
-		shl		ax,5;
-		rol		eax,5;
-		
-		mov		dx,[edi];
-		ror		edx,11;
-		shl		dx,10;
-		rol		edx,6;
-		shl		dx,5;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x03e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x03e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		mov		ax, [esi];
+		ror		eax, 11;
+		xor		edx, edx;
+		shl		ax, 10;
+		rol		eax, 6;
+		shl		ax, 5;
+		rol		eax, 5;
+
+		mov		dx, [edi];
+		ror		edx, 11;
+		shl		dx, 10;
+		rol		edx, 6;
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x03e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x03e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
-	};	
-}		
+	};
+}
 
 void PutCmprsImgClipingBlend555(
-								int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
 {
 	int		l;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2 ));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		mov		ebx,alpha;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+		mov		ebx, alpha;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		eax, by;		//
-		or		eax,eax;
+		or eax, eax;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		xor		eax,eax;
-		mov		ax,[esi];
-		ror		eax,10;
-		xor		edx,edx;
-		shl		ax,11;
-		rol		eax,5;
-		shl		ax,6;
-		rol		eax,5;
-		
-		mov		dx,[edi];
-		ror		edx,10;
-		shl		dx,11;
-		rol		edx,5;
-		shl		dx,6;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x07e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x07e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+	loop_alpha:
+		xor		eax, eax;
+		mov		ax, [esi];
+		ror		eax, 10;
+		xor		edx, edx;
+		shl		ax, 11;
+		rol		eax, 5;
+		shl		ax, 6;
+		rol		eax, 5;
+
+		mov		dx, [edi];
+		ror		edx, 10;
+		shl		dx, 11;
+		rol		edx, 5;
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x07e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x07e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-		
-jmp_kkk:
-		add		esi,l;
+
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 void PutCmprsImgNOTClipingBlend555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		mov		ax,[esi];
-		ror		eax,10;
-		xor		edx,edx;
-		shl		ax,11;
-		rol		eax,5;
-		shl		ax,6;
-		rol		eax,5;
-		
-		mov		dx,[edi];
-		ror		edx,10;
-		shl		dx,11;
-		rol		edx,5;
-		shl		dx,6;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x03e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x03e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		mov		ax, [esi];
+		ror		eax, 10;
+		xor		edx, edx;
+		shl		ax, 11;
+		rol		eax, 5;
+		shl		ax, 6;
+		rol		eax, 5;
+
+		mov		dx, [edi];
+		ror		edx, 10;
+		shl		dx, 11;
+		rol		edx, 5;
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x03e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x03e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
-	};	
-}		
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////
+	};
+}
 
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 void PutCmprsImgClipingBlendDifer565(
-									 int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
 {
 	int		l;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2 ));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		mov		ebx,alpha;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+		mov		ebx, alpha;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		eax, by;		//
-		or		eax,eax;
+		or eax, eax;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		xor		eax,eax;
-		xor		edx,edx;
-		mov		ax,[esi];
-		mov		dx,[edi];
-		
+	loop_alpha:
+		xor		eax, eax;
+		xor		edx, edx;
+		mov		ax, [esi];
+		mov		dx, [edi];
+
 		cmp		ax, dx
 			jz		skip_same_color_
-			
-			ror		eax,11;
-		shl		ax,10;
-		rol		eax,6;
-		shl		ax,5;
-		rol		eax,5;
-		
-		
-		ror		edx,11;
-		shl		dx,10;
-		rol		edx,6;
-		shl		dx,5;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x03e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x03e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-skip_same_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 11;
+		shl		ax, 10;
+		rol		eax, 6;
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		ror		edx, 11;
+		shl		dx, 10;
+		rol		edx, 6;
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x03e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x03e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+	skip_same_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-		
-jmp_kkk:
-		add		esi,l;
+
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 void PutCmprsImgNOTClipingBlendDifer565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		xor		edx,edx;
-		mov		ax,[esi];
-		mov		dx,[edi];
-		
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		xor		edx, edx;
+		mov		ax, [esi];
+		mov		dx, [edi];
+
 		cmp		ax, dx
 			jz		skip_same_color_
-			
-			ror		eax,11;
-		
-		shl		ax,10;
-		rol		eax,6;
-		shl		ax,5;
-		rol		eax,5;
-		
-		
-		ror		edx,11;
-		shl		dx,10;
-		rol		edx,6;
-		shl		dx,5;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x03e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x03e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-skip_same_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 11;
+
+		shl		ax, 10;
+		rol		eax, 6;
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		ror		edx, 11;
+		shl		dx, 10;
+		rol		edx, 6;
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x03e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x03e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+	skip_same_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
-	};	
-}		
+	};
+}
 
 void PutCmprsImgClipingBlendDifer555(
-									 int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
 {
 	int		l;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2 ));
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		mov		ebx,alpha;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+		mov		ebx, alpha;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		eax, by;		//
-		or		eax,eax;
+		or eax, eax;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		xor		eax,eax;
-		xor		edx,edx;
-		
-		mov		ax,[esi];
-		mov		dx,[edi];
-		
+	loop_alpha:
+		xor		eax, eax;
+		xor		edx, edx;
+
+		mov		ax, [esi];
+		mov		dx, [edi];
+
 		cmp		ax, dx
 			jz		skip_same_color_
-			
-			ror		eax,10;
-		shl		ax,11;
-		rol		eax,5;
-		shl		ax,6;
-		rol		eax,5;
-		
-		
-		ror		edx,10;
-		shl		dx,11;
-		rol		edx,5;
-		shl		dx,6;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x07e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x07e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-skip_same_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 10;
+		shl		ax, 11;
+		rol		eax, 5;
+		shl		ax, 6;
+		rol		eax, 5;
+
+
+		ror		edx, 10;
+		shl		dx, 11;
+		rol		edx, 5;
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x07e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x07e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+	skip_same_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-		
-jmp_kkk:
-		add		esi,l;
+
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 void PutCmprsImgNOTClipingBlendDifer555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		xor		edx,edx;
-		
-		mov		ax,[esi];
-		mov		dx,[edi];
-		
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		xor		edx, edx;
+
+		mov		ax, [esi];
+		mov		dx, [edi];
+
 		cmp		ax, dx
 			jz		skip_same_color_
-			
-			ror		eax,10;
-		shl		ax,11;
-		rol		eax,5;
-		shl		ax,6;
-		rol		eax,5;
-		
-		
-		ror		edx,10;
-		shl		dx,11;
-		rol		edx,5;
-		shl		dx,6;
-		rol		edx,5;
-		
-		imul	eax,ebx;
-		shr		eax,5;
-		and		eax,0x03e0fc1f;
-		add		eax,edx;
-		imul	edx,ebx;
-		shr		edx,5;
-		and		eax,0x03e0fc1f;
-		
-		sub		eax,edx;
-		
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-skip_same_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 10;
+		shl		ax, 11;
+		rol		eax, 5;
+		shl		ax, 6;
+		rol		eax, 5;
+
+
+		ror		edx, 10;
+		shl		dx, 11;
+		rol		edx, 5;
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, ebx;
+		shr		eax, 5;
+		and		eax, 0x03e0fc1f;
+		add		eax, edx;
+		imul	edx, ebx;
+		shr		edx, 5;
+		and		eax, 0x03e0fc1f;
+
+		sub		eax, edx;
+
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+	skip_same_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
-	};	
-}		
+	};
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 void PutCmprsImgClipingAdd565(
-							  int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
-{		
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+{
 	int		l;
-	
-	
-	LPVOID	Dtmp = (LPVOID)(( char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
-	}	
-	
-	_asm{
+
+
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
+	}
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		dx,ax;	//j+=*stmp		// add		edx,eax;	//j+=*stmp  001216 KHS
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		dx, ax;	//j+=*stmp		// add		edx,eax;	//j+=*stmp  001216 KHS
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		movzx	eax,word ptr[esi];
-		ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		movzx	edx,word ptr[edi];
-		ror		edx,11;			//
-		shl		dx,10;			//
-		rol		edx,6;			//
-		shl		dx,5;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1fc3f;	//
-		add		eax,edx;
-		
-		xor		edx,edx;
-		mov		dl,al;
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,11;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
+	loop_alpha:
+		movzx	eax, word ptr[esi];
+		ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+		movzx	edx, word ptr[edi];
+		ror		edx, 11;			//
+		shl		dx, 10;			//
+		rol		edx, 6;			//
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1fc3f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		mov		ax,[esi+2];		//movzx	eax,[esi+2]; 001216 KHS
-		add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2];		//movzx	eax,[esi+2]; 001216 KHS
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void PutCmprsImgNOTClipingAdd565(int x, int y, int yl, LPVOID Stmp, LPVOID dest,  DWORD alpha)
+void PutCmprsImgNOTClipingAdd565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	static	DWORD	ttt = 0;
 	DWORD	j;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
-	
+
 	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		mov		ax,[esi];
-		ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		
-		mov		dx,[edi];
-		ror		edx,11;			//
-		shl		dx,10;			//
-		rol		edx,6;			//
-		shl		dx,5;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1fc3f;	//
-		add		eax,edx;
-		
-		xor		edx,edx;
-		mov		dl,al;
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,11;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		mov		ax, [esi];
+		ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		mov		dx, [edi];
+		ror		edx, 11;			//
+		shl		dx, 10;			//
+		rol		edx, 6;			//
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1fc3f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	}
-}	
-
-void PutCmprsImgClipingAdd555( 
-							  int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
-{		
-	int		l;
-	LPVOID	Dtmp = (LPVOID)(( char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
-	}	
-	
-	_asm{
-		push	es;
-		
-		push	ds;
-		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
-		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
-		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
-		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
-		loop	loop_1;
-exit_1:
-	}	
-	_asm{
-		mov		ebx, by;		//
-		or		ebx,ebx;
-		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
-		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
-		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
-		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
-		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
-		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
-		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
-		cmp		eax, rx;
-		jle		exit_if0;
-		cmp		edx, rx;
-		jg		exit_if0;
-		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
-		cmp		edx, rx;
-		jg		else_if;
-		
-		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
-		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
-		push	edx;
-loop_alpha:
-		movzx	eax,word ptr[esi];
-		ror		eax,10;			//
-		shl		ax,11;			//
-		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
-		movzx	edx,word ptr[edi];
-		ror		edx,10;			//
-		shl		dx,11;			//
-		rol		edx,5;			//
-		shl		dx,6;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1f83f;	//
-		add		eax,edx;
-		
-		xor		edx,edx;								
-		mov		dl,al;									
-		mov		bx,word ptr[offset AddTableB + edx*2];	
-		shr		eax,11;									
-		mov		dl,al;									
-		or		bx,word ptr[offset AddTableG + edx*2];	
-		shr		eax,10;									
-		mov		dl,al;									
-		or		bx,word ptr[offset AddTableR + edx*2];	
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
-		loop	loop_alpha;
-		pop		edx;
-jmp_kkk:
-		add		esi,l;
-		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
-		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
-		jmp		ext_loop;
-ext:
-		
-exit_while2:
-		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
-		dec		dword ptr by;	//for(i=0;i<by;i++)
-		jnz		loop_for1;	//
-exit_for1:
-		
-		pop		es;
-	};
 }
 
-
-void PutCmprsImgNOTClipingAdd555(int x, int y, int yl, LPVOID Stmp, LPVOID dest,  DWORD alpha)
-{
-	static	DWORD	ttt = 0;
-	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
-	
-	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
-		push	es;
-		
-		push	ds;
-		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
-		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
-		dec		j
-			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		mov		ax,[esi];
-		ror		eax,10;			//
-		shl		ax,11;			//
-		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
-		
-		mov		dx,[edi];		
-		ror		edx,10;			//
-		shl		dx,11;			//
-		rol		edx,5;			//
-		shl		dx,6;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;		
-		shr		eax,4;			
-		and		eax,0x07e1f83f;	//
-		add		eax,edx;		
-		
-		xor		edx,edx;		
-		mov		dl,al;			
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,11;			
-		mov		dl,al;			
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-		
-		add		edi,2;
-		add		esi,2;
-		loop	loop_alpha;
-		
-		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
-		jmp		loop_1;
-exit_1:
-		pop		es;
-	}
-}	
-
-
-void PutCmprsImgClipingSub565( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+void PutCmprsImgClipingAdd555(
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
+	loop_alpha:
+		movzx	eax, word ptr[esi];
+		ror		eax, 10;			//
+		shl		ax, 11;			//
+		rol		eax, 5;			//
+		shl		ax, 6;
+		rol		eax, 5;
+
+		movzx	edx, word ptr[edi];
+		ror		edx, 10;			//
+		shl		dx, 11;			//
+		rol		edx, 5;			//
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1f83f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
+		loop	loop_alpha;
+		pop		edx;
+	jmp_kkk:
+		add		esi, l;
+		jmp		loop_while2;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
+		jz		ext;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
+		jmp		ext_loop;
+	ext:
+
+	exit_while2:
+		mov		eax, dDxSize;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
+		dec		dword ptr by;	//for(i=0;i<by;i++)
+		jnz		loop_for1;	//
+	exit_for1:
+
+		pop		es;
+	};
+}
+
+
+void PutCmprsImgNOTClipingAdd555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
+{
+	static	DWORD	ttt = 0;
+	DWORD	j;
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
+	j = yl;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
+		push	es;
+
+		push	ds;
+		pop		es;
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
+		inc		j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
+		dec		j
+			jz		exit_1;  //if(SY==0)
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		mov		ax, [esi];
+		ror		eax, 10;			//
+		shl		ax, 11;			//
+		rol		eax, 5;			//
+		shl		ax, 6;
+		rol		eax, 5;
+
+
+		mov		dx, [edi];
+		ror		edx, 10;			//
+		shl		dx, 11;			//
+		rol		edx, 5;			//
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1f83f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+
+		add		edi, 2;
+		add		esi, 2;
+		loop	loop_alpha;
+
+		jmp		loop_2;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
+		jmp		loop_1;
+	exit_1:
+		pop		es;
+	}
+}
+
+
+void PutCmprsImgClipingSub565(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+{
+	int		l;
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
+	}
+
+	_asm {
+		push	es;
+
+		push	ds;
+		pop		es;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
+		jz		exit_1;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_xxxx;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
+		jmp		loop_1;
+	exit_xxxx:
+		add		esi, 2;
+		loop	loop_1;
+	exit_1:
+	}
+	_asm {
+		mov		ebx, by;		//
+		or ebx, ebx;
+		jz		exit_for1;
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
+		jz		exit_if1;
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
+		jz		exit_while1;			//
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
+		jle		jmp_if1;			//
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
+		jmp		jmp_0416;//****************************************************
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
+		jle		loop_while1;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
+		jmp		jmp_0429;		//4.29
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_while2;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
+		cmp		eax, rx;
+		jle		exit_if0;
+		cmp		edx, rx;
+		jg		exit_if0;
+		mov		ecx, rx;
+		sub		ecx, edx;
+	exit_if0:
+		cmp		edx, rx;
+		jg		else_if;
+
+		add		edx, l;			//j+=l;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
+		jz		jmp_kkk;
+
+		shr		ecx, 1;		//move DATA
+		push	edx;
+	loop_alpha:
 		//------------------------
-		xor		eax,eax;
-		xor		edx,edx;
-		
-		mov		ax,[esi];
-		ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		
-		mov		dx,[edi];
-		ror		edx,11;			//
-		shl		dx,10;			//
-		rol		edx,6;			//
-		shl		dx,5;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x03e0fc1f;	//
-		
-		
-		or		edx,0x80100200;
-		sub		edx,eax;
-		mov		eax,edx;
-		
-		movsx	edx,al;
-		mov		bx,word ptr[offset SubTableB + 64 + edx*2];	//
-		shr		eax,10;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableG + 128 + edx*2];
-		shr		eax,11;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableR + 64 + edx*2];	//
-		
-		mov		[edi],bx;
-		
+		xor		eax, eax;
+		xor		edx, edx;
+
+		mov		ax, [esi];
+		ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		mov		dx, [edi];
+		ror		edx, 11;			//
+		shl		dx, 10;			//
+		rol		edx, 6;			//
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x03e0fc1f;	//
+
+
+		or edx, 0x80100200;
+		sub		edx, eax;
+		mov		eax, edx;
+
+		movsx	edx, al;
+		mov		bx, word ptr[offset SubTableB + 64 + edx * 2];	//
+		shr		eax, 10;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableG + 128 + edx * 2];
+		shr		eax, 11;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableR + 64 + edx * 2];	//
+
+		mov[edi], bx;
+
 		//---------------------------
-		
+
 		/*		movzx	eax,word ptr[esi];
 		ror		eax,11;			//
 		shl		ax,10;			//
 		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
+		shl		ax,5;
+		rol		eax,5;
+
 		  movzx	edx,word ptr[edi];
 		  ror		edx,11;			//
 		  shl		dx,10;			//
 		  rol		edx,6;			//
-		  shl		dx,5;			
-		  rol		edx,5;			
-		  
+		  shl		dx,5;
+		  rol		edx,5;
+
 			imul	eax,alpha;
 			shr		eax,4;
 			and		eax,0x07e1fc3f;	//
 			add		eax,edx;
-			
+
 			  xor		edx,edx;
 			  mov		dl,al;
 			  mov		bx,word ptr[offset AddTableB + edx*2];	//
@@ -4184,302 +4152,302 @@ loop_alpha:
 			  shr		eax,11;
 			  mov		dl,al;
 			  or		bx,word ptr[offset AddTableR + edx*2];	//
-			  
+
 				mov		[edi],bx;
 		*/
-		add		edi,2;
-		add		esi,2;
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void PutCmprsImgNOTClipingSub565(int x, int y, int yl, LPVOID Stmp, LPVOID dest , DWORD alpha)
+void PutCmprsImgNOTClipingSub565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	static	DWORD	ttt = 0;
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)( (char*)dest  + y * dDxSize + (x * 2));
-	
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		xor		edx,edx;
-		
-		mov		ax,[esi];
-		ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		
-		mov		dx,[edi];
-		ror		edx,11;			//
-		shl		dx,10;			//
-		rol		edx,6;			//
-		shl		dx,5;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x03e0fc1f;	//
-		
-		
-		or		edx,0x80100200;
-		sub		edx,eax;
-		mov		eax,edx;
-		
-		movsx	edx,al;
-		mov		bx,word ptr[offset SubTableB + 64 + edx*2];	//
-		shr		eax,10;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableG + 128 + edx*2];
-		shr		eax,11;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableR + 64 + edx*2];	//
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		xor		edx, edx;
+
+		mov		ax, [esi];
+		ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		mov		dx, [edi];
+		ror		edx, 11;			//
+		shl		dx, 10;			//
+		rol		edx, 6;			//
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x03e0fc1f;	//
+
+
+		or edx, 0x80100200;
+		sub		edx, eax;
+		mov		eax, edx;
+
+		movsx	edx, al;
+		mov		bx, word ptr[offset SubTableB + 64 + edx * 2];	//
+		shr		eax, 10;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableG + 128 + edx * 2];
+		shr		eax, 11;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableR + 64 + edx * 2];	//
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	}
 }
 
-void PutCmprsImgClipingSub555( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+void PutCmprsImgClipingSub555(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
-		
+	loop_alpha:
+
+
 		//---------------------------------------------
-		xor		eax,eax;
-		xor		edx,edx;
-		
-		mov		ax,[esi];
-		ror		eax,10;			//
-		shl		ax,11;			//
-		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
-		
-		mov		dx,[edi];
-		ror		edx,10;			//
-		shl		dx,11;			//
-		rol		edx,5;			//
-		shl		dx,6;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x03e0f81f;	//
-		or		edx,0x80100200;
-		sub		edx,eax;
-		mov		eax,edx;
-		
-		movsx	edx,al;
-		mov		bx,word ptr[offset SubTableB + 64 + edx*2];	//
-		shr		eax,11;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableG + 128 + edx*2];
-		shr		eax,10;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableR + 64 + edx*2];	//
-		
-		mov		[edi],bx;
-		
+		xor		eax, eax;
+		xor		edx, edx;
+
+		mov		ax, [esi];
+		ror		eax, 10;			//
+		shl		ax, 11;			//
+		rol		eax, 5;			//
+		shl		ax, 6;
+		rol		eax, 5;
+
+
+		mov		dx, [edi];
+		ror		edx, 10;			//
+		shl		dx, 11;			//
+		rol		edx, 5;			//
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x03e0f81f;	//
+		or edx, 0x80100200;
+		sub		edx, eax;
+		mov		eax, edx;
+
+		movsx	edx, al;
+		mov		bx, word ptr[offset SubTableB + 64 + edx * 2];	//
+		shr		eax, 11;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableG + 128 + edx * 2];
+		shr		eax, 10;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableR + 64 + edx * 2];	//
+
+		mov[edi], bx;
+
 		//----------------------------------------------
 		/*		movzx	eax,word ptr[esi];
 		ror		eax,10;			//
 		shl		ax,11;			//
 		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
+		shl		ax,6;
+		rol		eax,5;
+
 		  movzx	edx,word ptr[edi];
 		  ror		edx,10;			//
 		  shl		dx,11;			//
 		  rol		edx,5;			//
-		  shl		dx,6;			
-		  rol		edx,5;			
-		  
+		  shl		dx,6;
+		  rol		edx,5;
+
 			imul	eax,alpha;
 			shr		eax,4;
 			and		eax,0x07e1f83f;	//
 			add		eax,edx;
-			
+
 			  xor		edx,edx;
 			  mov		dl,al;
 			  mov		bx,word ptr[offset AddTableB + edx*2];	//
@@ -4489,131 +4457,131 @@ loop_alpha:
 			  shr		eax,10;
 			  mov		dl,al;
 			  or		bx,word ptr[offset AddTableR + edx*2];	//
-			  
+
 				mov		[edi],bx;
 		*/
-		add		edi,2;
-		add		esi,2;
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void PutCmprsImgNOTClipingSub555(int x, int y, int yl, LPVOID Stmp, LPVOID dest , DWORD alpha)
+void PutCmprsImgNOTClipingSub555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	static	DWORD	ttt = 0;
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)( (char*)dest  + y * dDxSize + (x * 2));
-	
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		xor		edx,edx;
-		
-		mov		ax,[esi];
-		ror		eax,10;			//
-		shl		ax,11;			//
-		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
-		
-		mov		dx,[edi];
-		ror		edx,10;			//
-		shl		dx,11;			//
-		rol		edx,5;			//
-		shl		dx,6;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x03e0f81f;	//
-		or		edx,0x80100200;
-		sub		edx,eax;
-		mov		eax,edx;
-		
-		movsx	edx,al;
-		mov		bx,word ptr[offset SubTableB + 64 + edx*2];	//
-		shr		eax,11;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableG + 128 + edx*2];
-		shr		eax,10;
-		movsx	edx,al;
-		or		bx,word ptr[offset SubTableR + 64 + edx*2];	//
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		xor		edx, edx;
+
+		mov		ax, [esi];
+		ror		eax, 10;			//
+		shl		ax, 11;			//
+		rol		eax, 5;			//
+		shl		ax, 6;
+		rol		eax, 5;
+
+
+		mov		dx, [edi];
+		ror		edx, 10;			//
+		shl		dx, 11;			//
+		rol		edx, 5;			//
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x03e0f81f;	//
+		or edx, 0x80100200;
+		sub		edx, eax;
+		mov		eax, edx;
+
+		movsx	edx, al;
+		mov		bx, word ptr[offset SubTableB + 64 + edx * 2];	//
+		shr		eax, 11;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableG + 128 + edx * 2];
+		shr		eax, 10;
+		movsx	edx, al;
+		or bx, word ptr[offset SubTableR + 64 + edx * 2];	//
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	}
 }
@@ -4623,629 +4591,629 @@ exit_1:
 //==============================================================================================================
 //==============================================================================================================
 void PutCmprsImgClipingAddDifer565(
-								   int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
-{		
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+{
 	int		l;
-	LPVOID	Dtmp = (LPVOID)(( char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
-	}	
-	
-	_asm{
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
+	}
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		movzx	eax,word ptr[esi];
-		movzx	edx,word ptr[edi];
-		
+	loop_alpha:
+		movzx	eax, word ptr[esi];
+		movzx	edx, word ptr[edi];
+
 		cmp		eax, edx
 			jz		skip_color_
-			
-			ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		
-		ror		edx,11;			//
-		shl		dx,10;			//
-		rol		edx,6;			//
-		shl		dx,5;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1fc3f;	//
-		add		eax,edx;
-		
-		xor		edx,edx;
-		mov		dl,al;
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,11;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-skip_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		ror		edx, 11;			//
+		shl		dx, 10;			//
+		rol		edx, 6;			//
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1fc3f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+	skip_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void PutCmprsImgNOTClipingAddDifer565(int x, int y, int yl, LPVOID Stmp, LPVOID dest,  DWORD alpha)
+void PutCmprsImgNOTClipingAddDifer565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	static	DWORD	ttt = 0;
 	DWORD	j;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
-	
+
 	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		mov		ax,[esi];
-		mov		dx,[edi];
-		
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		mov		ax, [esi];
+		mov		dx, [edi];
+
 		cmp     ax, dx
 			jz      skip_color_
-			
-			ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		ror		edx,11;			//
-		shl		dx,10;			//
-		rol		edx,6;			//
-		shl		dx,5;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1fc3f;	//
-		add		eax,edx;
-		
-		xor		edx,edx;
-		mov		dl,al;
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,11;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-skip_color_ :
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+		ror		edx, 11;			//
+		shl		dx, 10;			//
+		rol		edx, 6;			//
+		shl		dx, 5;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1fc3f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+	skip_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	}
-}	
+}
 
-void PutCmprsImgClipingAddDifer555( 
-								   int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
-{		
+void PutCmprsImgClipingAddDifer555(
+	int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD alpha)
+{
 	int		l;
-	LPVOID	Dtmp = (LPVOID)(( char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
-	}	
-	
-	_asm{
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
+	}
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		movzx	eax,word ptr[esi];
-		movzx	edx,word ptr[edi];
-		
+	loop_alpha:
+		movzx	eax, word ptr[esi];
+		movzx	edx, word ptr[edi];
+
 		cmp		eax, edx
 			jz		skip_color_
-			
-			ror		eax,10;			//
-		shl		ax,11;			//
-		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
-		
-		ror		edx,10;			//
-		shl		dx,11;			//
-		rol		edx,5;			//
-		shl		dx,6;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1f83f;	//
-		add		eax,edx;
-		
-		xor		edx,edx;								
-		mov		dl,al;									
-		mov		bx,word ptr[offset AddTableB + edx*2];	
-		shr		eax,11;									
-		mov		dl,al;									
-		or		bx,word ptr[offset AddTableG + edx*2];	
-		shr		eax,10;									
-		mov		dl,al;									
-		or		bx,word ptr[offset AddTableR + edx*2];	
-		
-		mov		[edi],bx;
-		
-skip_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 10;			//
+		shl		ax, 11;			//
+		rol		eax, 5;			//
+		shl		ax, 6;
+		rol		eax, 5;
+
+
+		ror		edx, 10;			//
+		shl		dx, 11;			//
+		rol		edx, 5;			//
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1f83f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];
+
+		mov[edi], bx;
+
+	skip_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 
 
-void PutCmprsImgNOTClipingAddDifer555(int x, int y, int yl, LPVOID Stmp, LPVOID dest,  DWORD alpha)
+void PutCmprsImgNOTClipingAddDifer555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	static	DWORD	ttt = 0;
 	DWORD	j;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
-	
+
 	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		mov		ax,[esi];
-		mov		dx,[edi];		
-		
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		mov		ax, [esi];
+		mov		dx, [edi];
+
 		cmp		ax, dx
 			jz		skip_color_
-			
-			ror		eax,10;			//
-		shl		ax,11;			//
-		rol		eax,5;			//
-		shl		ax,6;			
-		rol		eax,5;			
-		
-		ror		edx,10;			//
-		shl		dx,11;			//
-		rol		edx,5;			//
-		shl		dx,6;			
-		rol		edx,5;			
-		
-		imul	eax,alpha;		
-		shr		eax,4;			
-		and		eax,0x07e1f83f;	//
-		add		eax,edx;		
-		
-		xor		edx,edx;		
-		mov		dl,al;			
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,11;			
-		mov		dl,al;			
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-skip_color_:
-		
-		add		edi,2;
-		add		esi,2;
+
+			ror		eax, 10;			//
+		shl		ax, 11;			//
+		rol		eax, 5;			//
+		shl		ax, 6;
+		rol		eax, 5;
+
+		ror		edx, 10;			//
+		shl		dx, 11;			//
+		rol		edx, 5;			//
+		shl		dx, 6;
+		rol		edx, 5;
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1f83f;	//
+		add		eax, edx;
+
+		xor		edx, edx;
+		mov		dl, al;
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+	skip_color_:
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	}
 }
 
 void PutCompressedImageFX(int x, int y, Spr *sp, DWORD alpha, DWORD op)
 {
-	int		lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
+	int		lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	
-	if( x >= SCREEN_WIDTH  ) return; 
-	else if( x + xl < 0 ) return; 
-	
-	if( y >= SCREEN_HEIGHT ) return; 
-	else if( y + yl < 0  ) return;
-	
+
+
+	if (x >= SCREEN_WIDTH) return;
+	else if (x + xl < 0) return;
+
+	if (y >= SCREEN_HEIGHT) return;
+	else if (y + yl < 0) return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	
-	
-	
-	if( x + xl >= SCREEN_WIDTH )
+
+
+
+
+	if (x + xl >= SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	
-	if( y + yl >= SCREEN_HEIGHT )
+
+	if (y + yl >= SCREEN_HEIGHT)
 	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
 	}
-	
-	
+
+
 	//-----------------------
-	if( _PixelInfo.BitMaskR == 0x7C00)
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		if(IsC){
-			switch(op){
+		if (IsC) {
+			switch (op) {
 			case 1://alpha
 				PutCmprsImgClipingBlend555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 2://add
-				PutCmprsImgClipingAdd555(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+				PutCmprsImgClipingAdd555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 3://sub
-				PutCmprsImgClipingSub555(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+				PutCmprsImgClipingSub555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 4://H alpha
-				PutCmprsImgClipingHBlend555(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by);
+				PutCmprsImgClipingHBlend555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by);
 				break;
 			case 5:// Add not put the same colors between dest and source
-				PutCmprsImgClipingAddDifer555(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+				PutCmprsImgClipingAddDifer555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 6://alpha not put the same colors between dest and source
 				PutCmprsImgClipingBlendDifer555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
@@ -5253,56 +5221,56 @@ void PutCompressedImageFX(int x, int y, Spr *sp, DWORD alpha, DWORD op)
 			}
 		}
 		else
-			switch(op){ 
+			switch (op) {
 			case 1://alpha
-				PutCmprsImgNOTClipingBlend555(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingBlend555(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 2://add
-				PutCmprsImgNOTClipingAdd555(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingAdd555(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 3://sub
-				PutCmprsImgNOTClipingSub555(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingSub555(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 4://H alpha
-				PutCmprsImgNOTClipingHBlend555(x, y, yl,  sp->img, g_DestBackBuf);
+				PutCmprsImgNOTClipingHBlend555(x, y, yl, sp->img, g_DestBackBuf);
 				break;
 			case 5://add not put the same colors between dest and source
-				PutCmprsImgNOTClipingAddDifer555(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingAddDifer555(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 6://alpha not put the same colors between dest and source
-				PutCmprsImgNOTClipingBlendDifer555(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingBlendDifer555(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
-		}
+			}
 	}
 	else
 	{
-		if(IsC){
-			switch(op){
+		if (IsC) {
+			switch (op) {
 			case 1://alpha
 				PutCmprsImgClipingBlend565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 2://add
-				if( sp->yl == 464 )
+				if (sp->yl == 464)
 				{
 					_asm nop;
-					
+
 				}
-				
+
 				PutCmprsImgClipingAdd565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				//PutCmprsImgClipingOneColor(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				//PutCmprsImgClipingBlend565
 				//PutCmprsImgClipingSub565
-				
+
 				//PutCmprsImgClipingHBlend565(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by);
 				break;
 			case 3://sub
-				PutCmprsImgClipingSub565(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+				PutCmprsImgClipingSub565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 4://H alpha
-				PutCmprsImgClipingHBlend565(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by);
+				PutCmprsImgClipingHBlend565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by);
 				break;
 			case 5://add not put the same colors between dest and source
-				PutCmprsImgClipingAddDifer565(x, y,  sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
+				PutCmprsImgClipingAddDifer565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
 				break;
 			case 6://alpha not put the same colors between dest and source
 				PutCmprsImgClipingBlendDifer565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, alpha);
@@ -5310,258 +5278,258 @@ void PutCompressedImageFX(int x, int y, Spr *sp, DWORD alpha, DWORD op)
 			}
 		}
 		else
-			switch(op){ 
+			switch (op) {
 			case 1://alpha
-				PutCmprsImgNOTClipingBlend565(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingBlend565(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 2://add
-				PutCmprsImgNOTClipingAdd565(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingAdd565(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 3://sub
-				PutCmprsImgNOTClipingSub565(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingSub565(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 4://H alpha
-				PutCmprsImgNOTClipingHBlend565(x, y, yl,  sp->img, g_DestBackBuf);
+				PutCmprsImgNOTClipingHBlend565(x, y, yl, sp->img, g_DestBackBuf);
 				break;
 			case 5://add  not put the same colors between dest and source
-				PutCmprsImgNOTClipingAddDifer565(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingAddDifer565(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
 			case 6://alpha not put the same colors between dest and source
-				PutCmprsImgNOTClipingBlendDifer565(x, y, yl,  sp->img, g_DestBackBuf, alpha);
+				PutCmprsImgNOTClipingBlendDifer565(x, y, yl, sp->img, g_DestBackBuf, alpha);
 				break;
-		}
+			}
 	}
-	
-}		
+
+}
 
 void PutCmprsImgNOTClipingShadow565(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
 {
 	DWORD  sk, j;
-	
-	x +=( yl/2 );
-	y += (yl/2);
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
+
+	x += (yl / 2);
+	y += (yl / 2);
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
 	j = yl;
-	sk = dDxSize-2;
-	_asm{
+	sk = dDxSize - 2;
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		or		ebx,ebx;	// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		or ebx, ebx;	// if(SY==0)
 		jz		exit_1;
-loop_1:
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		shr		ecx,1;
-		
-loop_TR:
-		mov		ebx,[edi];
-		and		ebx,1111011111011110b;
-		shr		ebx,1;
-		mov		[edi],bx;
-		add		esi,2;
-		add		edi,2;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+		shr		ecx, 1;
+
+	loop_TR:
+		mov		ebx, [edi];
+		and		ebx, 1111011111011110b;
+		shr		ebx, 1;
+		mov[edi], bx;
+		add		esi, 2;
+		add		edi, 2;
 		loop	loop_TR;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,sk;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, sk;
 		dec		j;
 		jz		exit_1;
-		
+
 		//---------------------
-		mov		edi,edx;
-		
-loop_22:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_22:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_22;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
 		add     esi, ecx
 			jmp		loop_22;
-		
-exit_22:
-		add		esi,2;
-		
+
+	exit_22:
+		add		esi, 2;
+
 		dec		j;
 		jnz		loop_1;
 		//---------------------
-exit_1:
+	exit_1:
 		pop		es;
-	};	
-}																							
+	};
+}
 void PutCmprsImgNOTClipingShadow555(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
-{		
+{
 	DWORD  sk, j;
-	
-	x +=( yl/2 );
-	y += (yl/2);
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
+
+	x += (yl / 2);
+	y += (yl / 2);
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
 	j = yl;
-	sk = dDxSize-2;
-	_asm{
+	sk = dDxSize - 2;
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-		
-		or		ebx,ebx;	// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+
+		or ebx, ebx;	// if(SY==0)
 		jz		exit_1;
-loop_1:
-		mov		edi,edx;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		mov		edi, edx;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		shr		ecx,1;
-		
-loop_TR:
-		mov		ebx,[edi];
-		and		ebx,111101111011110b;
-		shr		ebx,1;
-		mov		[edi],bx;
-		add		esi,2;
-		add		edi,2;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+		shr		ecx, 1;
+
+	loop_TR:
+		mov		ebx, [edi];
+		and		ebx, 111101111011110b;
+		shr		ebx, 1;
+		mov[edi], bx;
+		add		esi, 2;
+		add		edi, 2;
 		loop	loop_TR;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,sk;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, sk;
 		dec		j;
 		jz		exit_1;
-		
+
 		//---------------------
-		mov		edi,edx;
-		
-loop_22:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, edx;
+
+	loop_22:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_22;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
 		add     esi, ecx
 			jmp		loop_22;
-		
-exit_22:
-		add		esi,2;
-		
+
+	exit_22:
+		add		esi, 2;
+
 		dec		j;
 		jnz		loop_1;
 		//---------------------
-exit_1:
+	exit_1:
 		pop		es;
-	};	
-}																							
-void PutCompressedImageShadow( int x, int y, Spr *sp )
-{	
-	int	lx, rx, ty, by , IsC=0;
+	};
+}
+void PutCompressedImageShadow(int x, int y, Spr *sp)
+{
+	int	lx, rx, ty, by, IsC = 0;
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	if( x >= SCREEN_WIDTH  )			return; 
-	else if( x + xl < 0 )	return; 
-	if( y >= GAME_SCREEN_YSIZE )			return; 
-	else if( y + yl < 0  )	return;
-	
+
+	if (x >= SCREEN_WIDTH)			return;
+	else if (x + xl < 0)	return;
+	if (y >= GAME_SCREEN_YSIZE)			return;
+	else if (y + yl < 0)	return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	if( x + xl >= SCREEN_WIDTH )
+
+	if (x + xl >= SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	if( y + yl >= GAME_SCREEN_YSIZE )
+	if (y + yl >= GAME_SCREEN_YSIZE)
 	{
 		by -= y + yl - GAME_SCREEN_YSIZE;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
 	}
-	
-	if( _PixelInfo.BitMaskR == 0x7C00)
+
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		if(IsC){
+		if (IsC) {
 		}
-		else 
+		else
 		{
-			PutCmprsImgNOTClipingShadow555( x, y, yl, sp->img, g_DestBackBuf);
+			PutCmprsImgNOTClipingShadow555(x, y, yl, sp->img, g_DestBackBuf);
 		}
 	}
 	else
 	{
-		if(IsC){
+		if (IsC) {
 		}
-		else 
+		else
 		{
-			PutCmprsImgNOTClipingShadow565( x, y, yl, sp->img, g_DestBackBuf);
+			PutCmprsImgNOTClipingShadow565(x, y, yl, sp->img, g_DestBackBuf);
 		}
 	}
-}	
+}
 
 
 
@@ -5575,94 +5543,94 @@ void PutCompressedImageShadow( int x, int y, Spr *sp )
 // alpha  :  0 - n : 0이면 Sprite는 어두워진다. 
 // 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-void PutCmprsImgNOTClipingLight(int x, int y, int yl, LPVOID Stmp, LPVOID dest,  DWORD alpha)
+void PutCmprsImgNOTClipingLight(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD alpha)
 {
 	static	DWORD	ttt = 0;
 	DWORD	j;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
-	
+
 	j = yl;
-	_asm{
-		mov		al,0xff
-			
-			movsx	eax,al;
+	_asm {
+		mov		al, 0xff
+
+		movsx	eax, al;
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		mov		ebx,alpha;
-		
+
+		mov		esi, Stmp;
+
+		mov		ebx, alpha;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
-		jz		exit_2; 
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		mov		ax,[esi];
-		ror		eax,11;			//
-		shl		ax,10;			//
-		rol		eax,6;			//
-		shl		ax,5;			
-		rol		eax,5;			
-		
-		
-		//		mov		dx,[edi];
-		//		ror		edx,11;			//
-		//		shl		dx,10;			//
-		//		rol		edx,6;			//
-		//		shl		dx,5;			
-		//		rol		edx,5;			
-		
-		imul	eax,alpha;
-		shr		eax,4;
-		and		eax,0x07e1fc3f;	//
-		
-		xor		edx,edx;
-		mov		dl,al;
-		
-		mov		bx,word ptr[offset AddTableB + edx*2];	//
-		shr		eax,10;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableG + edx*2];
-		shr		eax,11;
-		mov		dl,al;
-		or		bx,word ptr[offset AddTableR + edx*2];	//
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
+		jz		exit_2;
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		mov		ax, [esi];
+		ror		eax, 11;			//
+		shl		ax, 10;			//
+		rol		eax, 6;			//
+		shl		ax, 5;
+		rol		eax, 5;
+
+
+		//mov		dx,[edi];
+		//ror		edx,11;			//
+		//shl		dx,10;			//
+		//rol		edx,6;			//
+		//shl		dx,5;			
+		//rol		edx,5;			
+
+		imul	eax, alpha;
+		shr		eax, 4;
+		and		eax, 0x07e1fc3f;	//
+
+		xor		edx, edx;
+		mov		dl, al;
+
+		mov		bx, word ptr[offset AddTableB + edx * 2];	//
+		shr		eax, 10;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableG + edx * 2];
+		shr		eax, 11;
+		mov		dl, al;
+		or bx, word ptr[offset AddTableR + edx * 2];	//
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	}
 }
@@ -5681,543 +5649,543 @@ exit_1:
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-void PutCmprsImgNOTClipingBlendRGB565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB )
+void PutCmprsImgNOTClipingBlendRGB565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		//		mov		ebx,RGB;
-		
+
+		mov		esi, Stmp;
+
+		//mov		ebx,RGB;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		mov		ax,[esi];
-		ror		eax,11;
-		shl		ax,10;
-		rol		eax,6;
-		shl		ax,5;
-		rol		eax,5;
-		
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		mov		ax, [esi];
+		ror		eax, 11;
+		shl		ax, 10;
+		rol		eax, 6;
+		shl		ax, 5;
+		rol		eax, 5;
+
 		and     eax, RGB;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
-void PutCmprsImgClipingBlendRGB565	( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB )
+void PutCmprsImgClipingBlendRGB565(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		mov  	 ax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		mov  	 ax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
+	loop_alpha:
+
 		///////////////////
-		movzx	eax,word ptr[edi];
-		ror		eax,11;
-		shl		ax,10;
-		rol		eax,6;
-		shl		ax,5;
-		rol		eax,5;
-		
+		movzx	eax, word ptr[edi];
+		ror		eax, 11;
+		shl		ax, 10;
+		rol		eax, 6;
+		shl		ax, 5;
+		rol		eax, 5;
+
 		and     eax, RGB;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
 		//////////////////
-		
-		
-		
-		
-		add		edi,2;
-		add		esi,2;
+
+
+
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 
-void PutCmprsImgNOTClipingBlendRGB555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB )
+void PutCmprsImgNOTClipingBlendRGB555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
+
+		mov		esi, Stmp;
+
 		//		mov		ebx,RGB;
-		
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		xor		eax,eax;
-		mov		ax,[esi];
-		ror		eax,10;
-		shl		ax,11;
-		rol		eax,5;
-		shl		ax,6;
-		rol		eax,5;
-		
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+		xor		eax, eax;
+		mov		ax, [esi];
+		ror		eax, 10;
+		shl		ax, 11;
+		rol		eax, 5;
+		shl		ax, 6;
+		rol		eax, 5;
+
 		and     eax, RGB;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
-void PutCmprsImgClipingBlendRGB555( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB )
+void PutCmprsImgClipingBlendRGB555(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
+	loop_alpha:
+
 		///////////////////
-		movzx	eax,word ptr[esi];
-		ror		eax,10;
-		shl		ax,11;
-		rol		eax,5;
-		shl		ax,6;
-		rol		eax,5;
-		
+		movzx	eax, word ptr[esi];
+		ror		eax, 10;
+		shl		ax, 11;
+		rol		eax, 5;
+		shl		ax, 6;
+		rol		eax, 5;
+
 		and     eax, RGB;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
 		//////////////////
-		
-		
-		mov		[edi],bx;
-		
-		add		edi,2;
-		add		esi,2;
+
+
+		mov[edi], bx;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 
 
 
-void PutCompressedImageBlendRGB( int x, int y, Spr *sp, DWORD RGB )
+void PutCompressedImageBlendRGB(int x, int y, Spr *sp, DWORD RGB)
 {
-	int	lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
+	int	lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	
+
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	if( x >= SCREEN_WIDTH  )			return; 
-	else if( x + xl < 0 )	return; 
-	if( y >= SCREEN_HEIGHT )			return; 
-	else if( y + yl < 0  )	return;
-	
+
+	if (x >= SCREEN_WIDTH)			return;
+	else if (x + xl < 0)	return;
+	if (y >= SCREEN_HEIGHT)			return;
+	else if (y + yl < 0)	return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	if( x + xl >= SCREEN_WIDTH )
+
+	if (x + xl >= SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	if( y + yl >= SCREEN_HEIGHT )
+	if (y + yl >= SCREEN_HEIGHT)
 	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
-	}	
-	if(	y < 0 )
-	{	
-		ty  = 0 - y;
-		y   = 0;
+	}
+	if (y < 0)
+	{
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}		
-	
-	if( _PixelInfo.BitMaskR == 0x7C00)
+	}
+
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		if(IsC)	PutCmprsImgClipingBlendRGB555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB );
-		else 	PutCmprsImgNOTClipingBlendRGB555( x, y, yl, sp->img, g_DestBackBuf, RGB);
+		if (IsC)	PutCmprsImgClipingBlendRGB555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB);
+		else 	PutCmprsImgNOTClipingBlendRGB555(x, y, yl, sp->img, g_DestBackBuf, RGB);
 	}
 	else
 	{
-		if(IsC)	PutCmprsImgClipingBlendRGB565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB );
-		else 	PutCmprsImgNOTClipingBlendRGB565( x, y, yl, sp->img, g_DestBackBuf, RGB);
+		if (IsC)	PutCmprsImgClipingBlendRGB565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB);
+		else 	PutCmprsImgNOTClipingBlendRGB565(x, y, yl, sp->img, g_DestBackBuf, RGB);
 	}
-}		
+}
 
 
 
@@ -6228,1084 +6196,1082 @@ void PutCompressedImageBlendRGB( int x, int y, Spr *sp, DWORD RGB )
 
 
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-void PutCmprsImgNOTClipingCharRGB565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB )
+void PutCmprsImgNOTClipingCharRGB565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		//		mov		ebx,RGB;
-		
+
+		mov		esi, Stmp;
+
+		//mov		ebx,RGB;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		
-		
-		movzx	edx,word ptr [esi];
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+
+
+		movzx	edx, word ptr[esi];
 		and     edx, 0x1f;
-		//		ror		eax,11;
-		//		shl		ax,10;
-		//		rol		eax,6;
-		//		shl		ax,5;
-		//		rol		eax,5;
-		
+		//ror		eax,11;
+		//shl		ax,10;
+		//rol		eax,6;
+		//shl		ax,5;
+		//rol		eax,5;
+
 		mov		eax, RGB;
 		imul    eax, edx;
-		shr		eax,5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+		shr		eax, 5;
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
-void PutCmprsImgClipingCharRGB565( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB )
+void PutCmprsImgClipingCharRGB565(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
+	loop_alpha:
+
 		///////////////////
-		movzx	eax,word ptr[esi];
+		movzx	eax, word ptr[esi];
 		and     eax, 0x1f;
-		
+
 		mov		edx, RGB;
 		imul    eax, edx;
 		shr		eax, 5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
 		//////////////////
-		
-		
-		add		edi,2;
-		add		esi,2;
+
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void PutCmprsImgNOTClipingCharRGB555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB )
+void PutCmprsImgNOTClipingCharRGB555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		//		mov		ebx,RGB;
-		
+
+		mov		esi, Stmp;
+
+		//mov		ebx,RGB;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		
-		
-		movzx	edx,word ptr [esi];
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+
+
+		movzx	edx, word ptr[esi];
 		and     edx, 0x1f;
-		//		ror		eax,11;
-		//		shl		ax,10;
-		//		rol		eax,6;
-		//		shl		ax,5;
-		//		rol		eax,5;
-		
+		//ror		eax,11;
+		//shl		ax,10;
+		//rol		eax,6;
+		//shl		ax,5;
+		//rol		eax,5;
+
 		mov		eax, RGB;
 		imul    eax, edx;
-		shr		eax,5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+		shr		eax, 5;
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
-void PutCmprsImgClipingCharRGB555( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB )
+void PutCmprsImgClipingCharRGB555(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
+	loop_alpha:
+
 		///////////////////
-		movzx	eax,word ptr[esi];
+		movzx	eax, word ptr[esi];
 		and     eax, 0x1f;
-		
+
 		mov		edx, RGB;
 		imul    eax, edx;
 		shr		eax, 5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
 		//////////////////
-		
-		
-		add		edi,2;
-		add		esi,2;
+
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 
 
-void PutCompressedImageCharRGB( int x, int y, Spr *sp, DWORD RGB )
+void PutCompressedImageCharRGB(int x, int y, Spr *sp, DWORD RGB)
 {
-	int	lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
+	int	lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	if( x >= SCREEN_WIDTH  )			return; 
-	else if( x + xl < 0 )	return; 
-	if( y >= SCREEN_HEIGHT )			return; 
-	else if( y + yl < 0  )	return;
-	
+
+	if (x >= SCREEN_WIDTH)			return;
+	else if (x + xl < 0)	return;
+	if (y >= SCREEN_HEIGHT)			return;
+	else if (y + yl < 0)	return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	if( x + xl >= SCREEN_WIDTH )
+
+	if (x + xl >= SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
-	{	
-		lx  = 0 - x;
-		x   = 0;
+	if (x < 0)
+	{
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
-	}	
-	if( y + yl >= SCREEN_HEIGHT )
-	{	
+	}
+	if (y + yl >= SCREEN_HEIGHT)
+	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
-	}	
-	if(	y < 0 )
-	{	
-		ty  = 0 - y;
-		y   = 0;
+	}
+	if (y < 0)
+	{
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}		
-	
-	if( _PixelInfo.BitMaskR == 0x7C00)
+	}
+
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		if(IsC)		PutCmprsImgClipingCharRGB555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB );
-		else 		PutCmprsImgNOTClipingCharRGB555( x, y, yl, sp->img, g_DestBackBuf, RGB);
+		if (IsC)		PutCmprsImgClipingCharRGB555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB);
+		else 		PutCmprsImgNOTClipingCharRGB555(x, y, yl, sp->img, g_DestBackBuf, RGB);
 	}
 	else
 	{
-		if(IsC)		PutCmprsImgClipingCharRGB565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB );
-		else 		PutCmprsImgNOTClipingCharRGB565( x, y, yl, sp->img, g_DestBackBuf, RGB);
+		if (IsC)		PutCmprsImgClipingCharRGB565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB);
+		else 		PutCmprsImgNOTClipingCharRGB565(x, y, yl, sp->img, g_DestBackBuf, RGB);
 	}
-}		
+}
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 // @@@@@@@@@   RGB Diferent...
 
-void PutCmprsImgNOTClipingCharRGBDifer565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB )
+void PutCmprsImgNOTClipingCharRGBDifer565(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		//		mov		ebx,RGB;
-		
+
+		mov		esi, Stmp;
+
+		//mov		ebx,RGB;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		
-								
-		movzx	edx,word ptr [esi];
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+
+
+		movzx	edx, word ptr[esi];
 		and     edx, 0x1f;
-		//		ror		eax,11;
-		//		shl		ax,10;
-		//		rol		eax,6;
-		//		shl		ax,5;
-		//		rol		eax,5;
-		
+		//ror		eax,11;
+		//shl		ax,10;
+		//rol		eax,6;
+		//shl		ax,5;
+		//rol		eax,5;
+
 		mov		eax, RGB;
 		imul    eax, edx;
-		shr		eax,5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+		shr		eax, 5;
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:		
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:		
+	exit_1:
 		pop		es;
-	};			
+	};
 }
-void PutCmprsImgClipingCharRGBDifer565( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB )
+void PutCmprsImgClipingCharRGBDifer565(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
+	loop_alpha:
+
 		///////////////////
-		movzx	eax,word ptr[esi];
+		movzx	eax, word ptr[esi];
 		and     eax, 0x1f;
-		
+
 		mov		edx, RGB;
 		imul    eax, edx;
 		shr		eax, 5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,5;
-		ror		eax,6;
-		shr		ax,10;
-		rol		eax,11;
-		
-		mov		[edi],ax;
-		
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 5;
+		ror		eax, 6;
+		shr		ax, 10;
+		rol		eax, 11;
+
+		mov[edi], ax;
+
 		//////////////////
-		
-		
-		add		edi,2;
-		add		esi,2;
+
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
-void PutCmprsImgNOTClipingCharRGBDifer555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB )
+void PutCmprsImgNOTClipingCharRGBDifer555(int x, int y, int yl, LPVOID Stmp, LPVOID dest, DWORD RGB)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2 ));
-	
+	LPVOID	Dtmp = (LPVOID)((char *)dest + y * dDxSize + (x * 2));
+
 	j = yl;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		esi,Stmp;
-		
-		//		mov		ebx,RGB;
-		
+
+		mov		esi, Stmp;
+
+		//mov		ebx,RGB;
+
 		inc		j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
 		dec		j
 			jz		exit_1;  //if(SY==0)
-		mov		edi,Dtmp;
-		
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+		mov		edi, Dtmp;
+
+	loop_2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		xor		eax,eax;
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,1;
-		
-loop_alpha:
-		
-		
-		movzx	edx,word ptr [esi];
+
+		xor		eax, eax;
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 1;
+
+	loop_alpha:
+
+
+		movzx	edx, word ptr[esi];
 		and     edx, 0x1f;
-		//		ror		eax,11;
-		//		shl		ax,10;
-		//		rol		eax,6;
-		//		shl		ax,5;
-		//		rol		eax,5;
-		
+		//ror		eax,11;
+		//shl		ax,10;
+		//rol		eax,6;
+		//shl		ax,5;
+		//rol		eax,5;
+
 		mov		eax, RGB;
 		imul    eax, edx;
-		shr		eax,5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
-		add		edi,2;
-		add		esi,2;
+		shr		eax, 5;
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		mov		eax,Dtmp;
-		add		eax,dDxSize;
-		mov		Dtmp,eax;
+	exit_2:
+		add		esi, 2;
+
+		mov		eax, Dtmp;
+		add		eax, dDxSize;
+		mov		Dtmp, eax;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
 }
-void PutCmprsImgClipingCharRGBDifer555( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB )
+void PutCmprsImgClipingCharRGBDifer555(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by, DWORD RGB)
 {
 	int		l;
 	LPVOID	Dtmp = (LPVOID)((char *)dest + y * wDxSize + (x * 2));
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
-	}	
-	_asm{
+	exit_1:
+	}
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+	loop_while1:
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		add		edx,eax;	//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+		add		edx, eax;	//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		or		ecx,ecx;
+		sub		l, ecx;			//l-k;
+		or ecx, ecx;
 		jz		jmp_kkk;
-		
-		shr		ecx,1;		//move DATA
+
+		shr		ecx, 1;		//move DATA
 		push	edx;
-loop_alpha:
-		
+	loop_alpha:
+
 		///////////////////
-		movzx	eax,word ptr[esi];
+		movzx	eax, word ptr[esi];
 		and     eax, 0x1f;
-		
+
 		mov		edx, RGB;
 		imul    eax, edx;
 		shr		eax, 5;
-		
-		and		eax,0x03e0fc1f;
-		ror		eax,5;
-		shr		ax,6;
-		ror		eax,5;
-		shr		ax,11;
-		rol		eax,10;
-		
-		mov		[edi],ax;
-		
+
+		and		eax, 0x03e0fc1f;
+		ror		eax, 5;
+		shr		ax, 6;
+		ror		eax, 5;
+		shr		ax, 11;
+		rol		eax, 10;
+
+		mov[edi], ax;
+
 		//////////////////
-		
-		
-		add		edi,2;
-		add		esi,2;
+
+
+		add		edi, 2;
+		add		esi, 2;
 		loop	loop_alpha;
 		pop		edx;
-jmp_kkk:
-		add		esi,l;
+	jmp_kkk:
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		movzx	eax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		movzx	eax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		dword ptr by;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
 
 
-void PutCompressedImageCharRGBDifer( int x, int y, Spr *sp, DWORD RGB )
+void PutCompressedImageCharRGBDifer(int x, int y, Spr *sp, DWORD RGB)
 {
-	int	lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
+	int	lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	if( x >= SCREEN_WIDTH  )			return; 
-	else if( x + xl < 0 )	return; 
-	if( y >= SCREEN_HEIGHT )			return; 
-	else if( y + yl < 0  )	return;
-	
+
+	if (x >= SCREEN_WIDTH)			return;
+	else if (x + xl < 0)	return;
+	if (y >= SCREEN_HEIGHT)			return;
+	else if (y + yl < 0)	return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	if( x + xl >= SCREEN_WIDTH )
+
+	if (x + xl >= SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
-	{	
-		lx  = 0 - x;
-		x   = 0;
+	if (x < 0)
+	{
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
-	}	
-	if( y + yl >= SCREEN_HEIGHT )
-	{	
+	}
+	if (y + yl >= SCREEN_HEIGHT)
+	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
-	}	
-	if(	y < 0 )
-	{	
-		ty  = 0 - y;
-		y   = 0;
+	}
+	if (y < 0)
+	{
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}		
-	
-	if( _PixelInfo.BitMaskR == 0x7C00)
+	}
+
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		if(IsC)		PutCmprsImgClipingCharRGBDifer555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB );
-		else 		PutCmprsImgNOTClipingCharRGBDifer555( x, y, yl, sp->img, g_DestBackBuf, RGB);
+		if (IsC)		PutCmprsImgClipingCharRGBDifer555(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB);
+		else 		PutCmprsImgNOTClipingCharRGBDifer555(x, y, yl, sp->img, g_DestBackBuf, RGB);
 	}
 	else
 	{
-		if(IsC)		PutCmprsImgClipingCharRGBDifer565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB );
-		else 		PutCmprsImgNOTClipingCharRGBDifer565( x, y, yl, sp->img, g_DestBackBuf, RGB);
+		if (IsC)		PutCmprsImgClipingCharRGBDifer565(x, y, sp->img, g_DestBackBuf, lx, rx, ty, by, RGB);
+		else 		PutCmprsImgNOTClipingCharRGBDifer565(x, y, yl, sp->img, g_DestBackBuf, RGB);
 	}
-}		
+}
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
-
-//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-int tilewavetable[ 400] = { 2, 2, 2, 2, 4, 4, 4, 4, 6, 6, 6, 6, 8, 8, 8, 8, 8,10,10,10,
-10,10, 8, 8, 8, 8, 8, 6, 6, 6, 6, 6, 4, 4, 4, 4, 2, 2, 2, 2, 
+int tilewavetable[400] = { 2, 2, 2, 2, 4, 4, 4, 4, 6, 6, 6, 6, 8, 8, 8, 8, 8,10,10,10,
+10,10, 8, 8, 8, 8, 8, 6, 6, 6, 6, 6, 4, 4, 4, 4, 2, 2, 2, 2,
 2, 2, 2, 4, 4, 4, 4, 6, 6, 6, 6, 8, 8, 8, 8, 8,10,10,10,10,
 10, 8, 8, 8, 8, 8, 6, 6, 6, 6, 6, 4, 4, 4, 4, 2, 2, 2,
 2,2,2,2,4,4,4,4,6,6,6,6,8,8,8,8,8,10,10,10,10,10,8,8,8,8,8,6,6,6,6,6,4,4,4,4,2,2,2,
@@ -7319,162 +7285,162 @@ void	PutCmprsImgClipingWaveTile(int x, int y, LPVOID Stmp, LPVOID dest, int lx, 
 	int		l;
 	LPVOID Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
 	int ttt;
-	
+
 	ttt = WaveTileStart;
-	
-	_asm{
-		mov		ecx,rx;
-		shl		ecx,1;
-		mov		rx,ecx;
-		
-		mov		ecx,lx;
-		shl		ecx,1;
-		mov		lx,ecx;
+
+	_asm {
+		mov		ecx, rx;
+		shl		ecx, 1;
+		mov		rx, ecx;
+
+		mov		ecx, lx;
+		shl		ecx, 1;
+		mov		lx, ecx;
 	}
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		xor		eax,eax;
-		
-		mov		esi,Stmp;
-		
-		mov		ecx,ty;
-		or		ecx,ecx;
+
+		xor		eax, eax;
+
+		mov		esi, Stmp;
+
+		mov		ecx, ty;
+		or ecx, ecx;
 		jz		exit_1;
-loop_1:
-		
-		cmp		word ptr[esi],0xffff;
+	loop_1:
+
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_xxxx;
-		mov		ax,[esi+2]
-			add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2]
+			add		esi, 4;
+		add		esi, eax;
 		jmp		loop_1;
-exit_xxxx:
-		add		esi,2;
+	exit_xxxx:
+		add		esi, 2;
 		loop	loop_1;
-exit_1:
+	exit_1:
 	}
-	_asm{
+	_asm {
 		mov		ebx, by;		//
-		or		ebx,ebx;
+		or ebx, ebx;
 		jz		exit_for1;
-loop_for1:
-		
-		xor		edx,edx;
-		mov		edi,Dtmp;
-		test	lx,0xffff;			//if(lx)
+	loop_for1:
+
+		xor		edx, edx;
+		mov		edi, Dtmp;
+		test	lx, 0xffff;			//if(lx)
 		jz		exit_if1;
-		
+
 		inc     ttt;
 		push    edx
 			mov		edx, ttt
 			shl		edx, 2
-			add     edi, dword ptr[ offset tilewavetable + edx ];
+			add     edi, dword ptr[offset tilewavetable + edx];
 		pop		edx
-			
-loop_while1:
-		cmp		word ptr[esi],0xffff;	//while(*stmp != 0xffff)
+
+			loop_while1 :
+		cmp		word ptr[esi], 0xffff;	//while(*stmp != 0xffff)
 		jz		exit_while1;			//
-		add		dx,[esi];
-		cmp		edx,lx;		//if(j>lx)
+		add		dx, [esi];
+		cmp		edx, lx;		//if(j>lx)
 		jle		jmp_if1;			//
-		sub		edx,lx;		//j-=lx
-		add		edi,edx;			//dtmp+=j
-		
-		//			inc     ttt;
-		//			push    edx
-		//			mov		edx, ttt
-		//			shl		edx, 2
-		//			add     edi, dword ptr[ offset tilewavetable + edx ];
-		//			pop		edx
-		
+		sub		edx, lx;		//j-=lx
+		add		edi, edx;			//dtmp+=j
+
+		//inc     ttt;
+		//push    edx
+		//mov		edx, ttt
+		//shl		edx, 2
+		//add     edi, dword ptr[ offset tilewavetable + edx ];
+		//pop		edx
+
 		jmp		jmp_0416;//****************************************************
-		
-jmp_if1:///////////////////////////////////////
-		mov		ax,[esi + 2];
-		add		esi,4;
-		add		edx,eax;
-		add		esi,eax;	//
-		cmp		edx,lx;		//
+
+	jmp_if1:///////////////////////////////////////
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		edx, eax;
+		add		esi, eax;	//
+		cmp		edx, lx;		//
 		jle		loop_while1;
-		sub		edx,lx;
-		sub		esi,edx;
-		mov		eax,edx;
-		xor		edx,edx;
+		sub		edx, lx;
+		sub		esi, edx;
+		mov		eax, edx;
+		xor		edx, edx;
 		jmp		jmp_0429;		//4.29
-exit_while1:	//end while(*stmp != 0xffff)*/
-exit_if1:	//end if(lx)
-		
-loop_while2:	
-		cmp		word ptr[esi],0xffff;
+	exit_while1:	//end while(*stmp != 0xffff)*/
+	exit_if1:	//end if(lx)
+
+	loop_while2:
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_while2;
-		
-		movzx	eax,word ptr[esi];
-		add		edi,eax;	//dtmp+=*stmp
-		
-		
+
+		movzx	eax, word ptr[esi];
+		add		edi, eax;	//dtmp+=*stmp
+
+
 		inc     ttt;
 		push    edx
 			mov		edx, ttt
 			shl		edx, 2
-			add     edi, dword ptr[ offset tilewavetable + edx ];
+			add     edi, dword ptr[offset tilewavetable + edx];
 		pop		edx
-			
-			
-			add		dx,ax;		//j+=*stmp
-jmp_0416:
-		mov		ax,[esi + 2];
-		add		esi,4;
-jmp_0429:
-		mov		ecx,eax;		//l=k=*stmp
-		mov		l,eax;
-		
-		add		eax,edx;
+
+
+			add		dx, ax;		//j+=*stmp
+	jmp_0416:
+		mov		ax, [esi + 2];
+		add		esi, 4;
+	jmp_0429:
+		mov		ecx, eax;		//l=k=*stmp
+		mov		l, eax;
+
+		add		eax, edx;
 		cmp		eax, rx;
 		jle		exit_if0;
 		cmp		edx, rx;
 		jg		exit_if0;
 		mov		ecx, rx;
-		sub		ecx,edx;
-exit_if0:
+		sub		ecx, edx;
+	exit_if0:
 		cmp		edx, rx;
 		jg		else_if;
-		
+
 		add		edx, l;			//j+=l;
-		sub		l,ecx;			//l-k;
-		
-		shr		ecx,2;		//move DATA
+		sub		l, ecx;			//l-k;
+
+		shr		ecx, 2;		//move DATA
 		jnc		Next2_1;	//
 		movsw;				//
-Next2_1:				//
+	Next2_1:				//
 		rep		movsd;		//
-		
-		add		esi,l;
+
+		add		esi, l;
 		jmp		loop_while2;
-		
-else_if:
-		add		esi,l;
-ext_loop:
-		cmp		word ptr[esi],0xffff;
+
+	else_if:
+		add		esi, l;
+	ext_loop:
+		cmp		word ptr[esi], 0xffff;
 		jz		ext;
-		mov		ax,[esi+2];
-		add		esi,4;
-		add		esi,eax;
+		mov		ax, [esi + 2];
+		add		esi, 4;
+		add		esi, eax;
 		jmp		ext_loop;
-ext:
-		
-exit_while2:
+	ext:
+
+	exit_while2:
 		mov		eax, dDxSize;
-		add		esi,2;
-		add		dword ptr Dtmp,eax;
+		add		esi, 2;
+		add		dword ptr Dtmp, eax;
 		dec		ebx;	//for(i=0;i<by;i++)
 		jnz		loop_for1;	//
-exit_for1:
-		
+	exit_for1:
+
 		pop		es;
 	};
 }
@@ -7482,135 +7448,135 @@ exit_for1:
 
 
 
-void	PutCmprsImgNOTClipingWaveTile(int x, int y, int yl, LPVOID Stmp, LPVOID dest )
+void	PutCmprsImgNOTClipingWaveTile(int x, int y, int yl, LPVOID Stmp, LPVOID dest)
 {
 	DWORD	j;
-	LPVOID	Dtmp = (LPVOID)( (char*)dest + y * dDxSize + (x * 2 ));
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
 	int		ttt;
 	j = yl;
-	
+
 	ttt = WaveTileStart;
-	
-	_asm{
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
-		mov		edx,Dtmp;
-		mov		esi,Stmp;
-		
-		mov		ebx,j;
-		
-		xor		eax,eax;
-		xor		ecx,ecx;
-loop_1:
-		or		bx,bx;		// if(SY==0)
+
+		mov		edx, Dtmp;
+		mov		esi, Stmp;
+
+		mov		ebx, j;
+
+		xor		eax, eax;
+		xor		ecx, ecx;
+	loop_1:
+		or bx, bx;		// if(SY==0)
 		jz		exit_1;
-		mov		edi,edx;
-		
+		mov		edi, edx;
+
 		inc     ttt;
 		push    edx
 			mov		edx, ttt
 			shl		edx, 2
-			add     edi, dword ptr[ offset tilewavetable + edx ];
+			add     edi, dword ptr[offset tilewavetable + edx];
 		pop		edx
-			
-loop_2:	
-		cmp		word ptr[esi],0xffff;
+
+			loop_2 :
+		cmp		word ptr[esi], 0xffff;
 		jz		exit_2;
-		
-		mov		ax,[esi];
-		add		edi,eax;	//0 skip
-		
-		mov		cx,[esi+2];	//load data num
-		add		esi,4;
-		
-		shr		ecx,2;		//move DATA
+
+		mov		ax, [esi];
+		add		edi, eax;	//0 skip
+
+		mov		cx, [esi + 2];	//load data num
+		add		esi, 4;
+
+		shr		ecx, 2;		//move DATA
 		jnc		Next2;		//
 		movsw;				//
-Next2:					//
+	Next2:					//
 		rep		movsd;		//
-		
+
 		jmp		loop_2;
-exit_2:
-		add		esi,2;
-		
-		add		edx,dDxSize;
+	exit_2:
+		add		esi, 2;
+
+		add		edx, dDxSize;
 		dec		bx;
 		jmp		loop_1;
-exit_1:
+	exit_1:
 		pop		es;
 	};
-}	
-void PutCompressedImageWaveTile(int x, int y, Spr *sp )
-{		
-	
-	int		lx, rx, ty, by , IsC=0;
-	
-	if( sp == NULL ) return;
-	if( sp->img == NULL ) return;
-	
-	
+}
+void PutCompressedImageWaveTile(int x, int y, Spr *sp)
+{
+
+	int		lx, rx, ty, by, IsC = 0;
+
+	if (sp == NULL) return;
+	if (sp->img == NULL) return;
+
+
 	int xl = sp->xl;
 	int yl = sp->yl;
-	
-	if( xl == 0 ) return;
-	if( yl == 0 ) return;
-	
+
+	if (xl == 0) return;
+	if (yl == 0) return;
+
 	x -= sp->ox;
 	y -= sp->oy;
-	
-	
-	if( x >= GAME_SCREEN_XSIZE  ) return; 
-	else if( x + xl < 0 ) return; 
-	
-	if( y >= GAME_SCREEN_YSIZE ) return; 
-	else if( y + yl < 0  ) return;
-	
+
+
+	if (x >= GAME_SCREEN_XSIZE) return;
+	else if (x + xl < 0) return;
+
+	if (y >= GAME_SCREEN_YSIZE) return;
+	else if (y + yl < 0) return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	
-	
-	if( x + xl >= GAME_SCREEN_XSIZE )
+
+
+
+	if (x + xl >= GAME_SCREEN_XSIZE)
 	{
 		rx -= x + xl - GAME_SCREEN_XSIZE;
 		IsC = 1;
 	}
-	if( x < 0 )
+	if (x < 0)
 	{
-		lx  = 0 - x;
-		x   = 0;
+		lx = 0 - x;
+		x = 0;
 		rx -= lx;
 		IsC = 1;
 	}
-	
-	if( y + yl >= GAME_SCREEN_YSIZE )
+
+	if (y + yl >= GAME_SCREEN_YSIZE)
 	{
 		by -= y + yl - GAME_SCREEN_YSIZE;
 		IsC = 1;
 	}
-	if( y < 0 )
+	if (y < 0)
 	{
-		ty  = 0 - y;
-		y   = 0;
+		ty = 0 - y;
+		y = 0;
 		by -= ty;
 		IsC = 1;
-	}	
-	
-	
-	if( IsC )
-	{	
-		PutCmprsImgClipingWaveTile( x,  y, sp->img, g_DestBackBuf, lx, rx+1, ty, by);
-	}	
+	}
+
+
+	if (IsC)
+	{
+		PutCmprsImgClipingWaveTile(x, y, sp->img, g_DestBackBuf, lx, rx + 1, ty, by);
+	}
 	else
-	{	
-		PutCmprsImgNOTClipingWaveTile( x,  y, sp->yl, sp->img, g_DestBackBuf );
-	}	
-}		
+	{
+		PutCmprsImgNOTClipingWaveTile(x, y, sp->yl, sp->img, g_DestBackBuf);
+	}
+}
 
 
 
@@ -7649,110 +7615,110 @@ void PutCompressedImageWaveTile(int x, int y, Spr *sp )
 
 
 
-int LoadCharSpriteData_Sub( char *filename, char **buf, DWORD *length, CharacterSprite *charactersprite, int mode )
-{				
+int LoadCharSpriteData_Sub(char *filename, char **buf, DWORD *length, CharacterSprite *charactersprite, int mode)
+{
 	FILE *fp;
 	short no;
 	DWORD sprfilelength, size;
 	DWORD nOff = 0;
-	int   i,j;
+	int   i, j;
 	Spr  *s;
-	
-	fp = Fopen( filename, "rb" );
-	if( fp == NULL ) return 0;
-	
-	fread( &no, 2,1, fp);
-	fseek( fp, no * 4, SEEK_CUR );  // 오프셋 스킵
-	*length = sprfilelength = _filelength( _fileno( fp) ) - no * 4 * 2 - 2;
 
-	if( *buf != NULL )  return 0;
-	MemFree( *buf );		// 0201 YGI
-	MemAlloc( *buf, sprfilelength );
-	
-	if( mode == LD_CHAR_SPRITE_ONLY_MEM_ALLOC )
-	{				
-		fclose(fp );
+	fp = Fopen(filename, "rb");
+	if (fp == NULL) return 0;
+
+	fread(&no, 2, 1, fp);
+	fseek(fp, no * 4, SEEK_CUR);  // 오프셋 스킵
+	*length = sprfilelength = _filelength(_fileno(fp)) - no * 4 * 2 - 2;
+
+	if (*buf != NULL)  return 0;
+	MemFree(*buf);		// 0201 YGI
+	MemAlloc(*buf, sprfilelength);
+
+	if (mode == LD_CHAR_SPRITE_ONLY_MEM_ALLOC)
+	{
+		fclose(fp);
 		return 0;
-	}			
-				
+	}
+
 	//	return 0;//	
-	for( i = 0 ; i < 8 ; i ++)
-	{			
-		for( j = 0 ; j < no/8 ; j ++)
-		{				
+	for (i = 0; i < 8; i++)
+	{
+		for (j = 0; j < no / 8; j++)
+		{
 			s = &charactersprite->sp[i][j];
-			fread( &size, 4,1, fp);
-			if( size== 0 )	
-			{				
-				s->xl = 0;	
-				s->yl = 0;	
+			fread(&size, 4, 1, fp);
+			if (size == 0)
+			{
+				s->xl = 0;
+				s->yl = 0;
 				s->size = 0;
 				s->img = NULL;
-				continue;	
-			}				
-			
-			fread( &(s->xl),	sizeof( short ), 1, fp);
-			fread( &(s->yl),	sizeof( short ), 1, fp);
+				continue;
+			}
+
+			fread(&(s->xl), sizeof(short), 1, fp);
+			fread(&(s->yl), sizeof(short), 1, fp);
 			//s->yl ++;		
-			fread( &(s->ox),	sizeof( short ), 1, fp);
-			fread( &(s->oy),	sizeof( short ), 1, fp);
-			fread( &(s->size),sizeof( unsigned int ), 1, fp);
-			
-			if( nOff + s->size >= sprfilelength ) 
-			{						
+			fread(&(s->ox), sizeof(short), 1, fp);
+			fread(&(s->oy), sizeof(short), 1, fp);
+			fread(&(s->size), sizeof(unsigned int), 1, fp);
+
+			if (nOff + s->size >= sprfilelength)
+			{
 				//				JustMsg( " [%s]의 화일에 %d방향 %d번 \nsprite화일에 문제가 있는듯 합니다.\n\n Check하여주십시오.\n 종료합니다."
-				JustMsg( lan->OutputMessage(6,51),
-					filename, i+1, j );
+				JustMsg(lan->OutputMessage(6, 51),
+					filename, i + 1, j);
 				ExitApplication(EA_LOAD_CHAR_SPR_DATA_SUB);
-			}						
-			fread( *buf + nOff, s->size, 1, fp);
+			}
+			fread(*buf + nOff, s->size, 1, fp);
 			s->img = *buf + nOff;
-			
-			convert565to555_LoadSprite( s );
-			
-			nOff += size;		
+
+			convert565to555_LoadSprite(s);
+
+			nOff += size;
 		}
 	}
-				
-	fclose(fp);	
-	return sprfilelength;	
-}			
 
-
-
-
-
-int LoadCharSpriteData( char *filename, char **buf, DWORD *length, CharacterSprite *charactersprite, int mode )
-{
-	int ret;
-	if( StartLoadCharSpriteDataThreadFlag )
-	{
-		ret = 0;
-		InputThreadCharSprite( filename, buf, length, charactersprite, mode );
-	}
-	else
-	{
-		ret = LoadCharSpriteData_Sub( filename, buf, length, charactersprite, mode );
-	}
-	return ret ;
+	fclose(fp);
+	return sprfilelength;
 }
 
 
 
 
-void FreeCharacterSpriteData( char *buf )
-{				
-	if( buf == NULL ) return;
-	MemFree( buf );
-}			
 
-void FreeCharacterSpriteDataAll( int s, int e )
-{	
+int LoadCharSpriteData(char *filename, char **buf, DWORD *length, CharacterSprite *charactersprite, int mode)
+{
+	int ret;
+	if (StartLoadCharSpriteDataThreadFlag)
+	{
+		ret = 0;
+		InputThreadCharSprite(filename, buf, length, charactersprite, mode);
+	}
+	else
+	{
+		ret = LoadCharSpriteData_Sub(filename, buf, length, charactersprite, mode);
+	}
+	return ret;
+}
+
+
+
+
+void FreeCharacterSpriteData(char *buf)
+{
+	if (buf == NULL) return;
+	MemFree(buf);
+}
+
+void FreeCharacterSpriteDataAll(int s, int e)
+{
 	for (int i = s; i < e; i++)
-	{	
+	{
 		MemFree(CharBuf[i]);
 		CharBufCount[i] = 0;
-		
+
 		for (int j = 0; j < MAX_CHARACTOR_PART_; j++)
 		{
 			for (int k = 0; k < MAX_CHARACTER_LAYER_; k++)
@@ -7761,105 +7727,105 @@ void FreeCharacterSpriteDataAll( int s, int e )
 				CharLayerBufCount[i][j][k] = 0;
 			}
 		}
-	}	
-} 
+	}
+}
 
-void LoadHeroClothAccessoryData( int s, int e )
-{		
+void LoadHeroClothAccessoryData(int s, int e)
+{
 	int i;
-	char tempfilename[ FILENAME_MAX];
-	
-	for( i = s ; i <= e ; i ++)
-	{	
-		sprintf( tempfilename, "./char/000%03d.spr", i );
-		LoadCharSpriteData( tempfilename,  &CharAccessoryBuf[ 0][i], &CharAccessoryBufLength[ 0][i], &CharAccessorySpr[ 0][i], LD_CHAR_SPRITE_ALL_LOAD );
-		sprintf( tempfilename, "./char/001%03d.spr", i );
-		LoadCharSpriteData( tempfilename,  &CharAccessoryBuf[ 1][i], &CharAccessoryBufLength[ 1][i], &CharAccessorySpr[ 1][i], LD_CHAR_SPRITE_ALL_LOAD );
-	}	
-}		
-void FreeHeroClothAccessoryDataOne( int sprno, int no )
-{		
-	if( no == 0 ) return;
-	if( sprno > 1 ) return;
-	if( CharAccessoryCount[sprno][ no] <= 0 ) return;
-	
-	CharAccessoryCount[sprno][ no] --;
-	if( CharAccessoryCount[sprno][ no] <= 0 ) 
-	{	
-		if( CharAccessoryBuf[ sprno][no] == NULL ) return;
-		GlobalFree( CharAccessoryBuf[ sprno][no] );
-		CharAccessoryBuf[ sprno][no] = NULL;
-	}	
-}		
-void LoadHeroClothAccessoryDataOne( int sprno, int no )
-{		
-	if( no == 0 ) return;
-	if( sprno > 1 ) return;
-	if( no >= CHARACTER_ACCESSORY_MAX_ ) return;	// 011018 KHS 망또	
-	if( CharAccessoryBuf[ sprno][no] ) return;
-	
-	char tempfilename[ FILENAME_MAX];
-	sprintf( tempfilename, "./char/%03d%03d.spr", sprno, no );
-	
+	char tempfilename[FILENAME_MAX];
+
+	for (i = s; i <= e; i++)
+	{
+		sprintf(tempfilename, "./char/000%03d.spr", i);
+		LoadCharSpriteData(tempfilename, &CharAccessoryBuf[0][i], &CharAccessoryBufLength[0][i], &CharAccessorySpr[0][i], LD_CHAR_SPRITE_ALL_LOAD);
+		sprintf(tempfilename, "./char/001%03d.spr", i);
+		LoadCharSpriteData(tempfilename, &CharAccessoryBuf[1][i], &CharAccessoryBufLength[1][i], &CharAccessorySpr[1][i], LD_CHAR_SPRITE_ALL_LOAD);
+	}
+}
+void FreeHeroClothAccessoryDataOne(int sprno, int no)
+{
+	if (no == 0) return;
+	if (sprno > 1) return;
+	if (CharAccessoryCount[sprno][no] <= 0) return;
+
+	CharAccessoryCount[sprno][no] --;
+	if (CharAccessoryCount[sprno][no] <= 0)
+	{
+		if (CharAccessoryBuf[sprno][no] == NULL) return;
+		GlobalFree(CharAccessoryBuf[sprno][no]);
+		CharAccessoryBuf[sprno][no] = NULL;
+	}
+}
+void LoadHeroClothAccessoryDataOne(int sprno, int no)
+{
+	if (no == 0) return;
+	if (sprno > 1) return;
+	if (no >= CHARACTER_ACCESSORY_MAX_) return;	// 011018 KHS 망또	
+	if (CharAccessoryBuf[sprno][no]) return;
+
+	char tempfilename[FILENAME_MAX];
+	sprintf(tempfilename, "./char/%03d%03d.spr", sprno, no);
+
 	int ret;
-	
-	ret = LoadCharSpriteData( tempfilename,  &CharAccessoryBuf[ sprno][no], &CharAccessoryBufLength[ sprno][no], &CharAccessorySpr[ sprno][no], LD_CHAR_SPRITE_ALL_LOAD );
-}		
-void FreeHeroClothAccessoryData( void )
-{		
-	int i;
-	for( i = 1 ; i < 104 ; i ++)
-	{	
-		FreeCharacterSpriteData( CharAccessoryBuf[ 0][i] );
-		CharAccessoryBuf[ 0][i] = NULL;
-		CharAccessoryCount[0][i] = 0;
-		FreeCharacterSpriteData( CharAccessoryBuf[ 1][i] );
-		CharAccessoryBuf[ 1][i] = NULL;
-		CharAccessoryCount[1][i] = 0;
-	}	
-}		
 
-void FreeHeroClothAccessoryDataOne_tool( int sprno, int no )
+	ret = LoadCharSpriteData(tempfilename, &CharAccessoryBuf[sprno][no], &CharAccessoryBufLength[sprno][no], &CharAccessorySpr[sprno][no], LD_CHAR_SPRITE_ALL_LOAD);
+}
+void FreeHeroClothAccessoryData(void)
+{
+	int i;
+	for (i = 1; i < 104; i++)
+	{
+		FreeCharacterSpriteData(CharAccessoryBuf[0][i]);
+		CharAccessoryBuf[0][i] = NULL;
+		CharAccessoryCount[0][i] = 0;
+		FreeCharacterSpriteData(CharAccessoryBuf[1][i]);
+		CharAccessoryBuf[1][i] = NULL;
+		CharAccessoryCount[1][i] = 0;
+	}
+}
+
+void FreeHeroClothAccessoryDataOne_tool(int sprno, int no)
 {	//< CSD-030306	
-	if( no == 0 ) return;
-	if( sprno > 1 ) return;
-	if( CharAccessoryCount[sprno][ no] <= 0 ) return;
-		
-	CharAccessoryCount[sprno][ no] --;
-	if( CharAccessoryCount[sprno][ no] <= 0 ) 
-	{	
-		if( CharAccessoryBuf[ sprno][no] == NULL ) return;
-		GlobalFree( CharAccessoryBuf[ sprno][no] );
-		CharAccessoryBuf[ sprno][no] = NULL;
-	}	
+	if (no == 0) return;
+	if (sprno > 1) return;
+	if (CharAccessoryCount[sprno][no] <= 0) return;
+
+	CharAccessoryCount[sprno][no] --;
+	if (CharAccessoryCount[sprno][no] <= 0)
+	{
+		if (CharAccessoryBuf[sprno][no] == NULL) return;
+		GlobalFree(CharAccessoryBuf[sprno][no]);
+		CharAccessoryBuf[sprno][no] = NULL;
+	}
 }	//> CSD-030306		
 
-void LoadHeroClothAccessoryDataOne_tool( int sprno, int no )
+void LoadHeroClothAccessoryDataOne_tool(int sprno, int no)
 {	//< CSD-030306	
-	if( no == 0 ) return;
-	if( sprno > 1 ) return;
-	if( no >= CHARACTER_ACCESSORY_MAX_ ) return;	// 011018 KHS 망또	
-	if( CharAccessoryBuf[ sprno][no] ) return;
-		
-	char tempfilename[ FILENAME_MAX];
-	sprintf( tempfilename, "./char_test/%03d%03d.spr", sprno, no );
+	if (no == 0) return;
+	if (sprno > 1) return;
+	if (no >= CHARACTER_ACCESSORY_MAX_) return;	// 011018 KHS 망또	
+	if (CharAccessoryBuf[sprno][no]) return;
+
+	char tempfilename[FILENAME_MAX];
+	sprintf(tempfilename, "./char_test/%03d%03d.spr", sprno, no);
 
 	int ret;
 
-	ret = LoadCharSpriteData( tempfilename,  &CharAccessoryBuf[ sprno][no], &CharAccessoryBufLength[ sprno][no], &CharAccessorySpr[ sprno][no], LD_CHAR_SPRITE_ALL_LOAD );
+	ret = LoadCharSpriteData(tempfilename, &CharAccessoryBuf[sprno][no], &CharAccessoryBufLength[sprno][no], &CharAccessorySpr[sprno][no], LD_CHAR_SPRITE_ALL_LOAD);
 }	//> CSD-030306
 
-void LoadHeroSpriteData( void )
-{			
-	LoadCharSpriteData( "./char/000000.spr",  &CharBuf[0], &CharBufLength[0], &CharSpr[0], LD_CHAR_SPRITE_ALL_LOAD );
-	LoadCharSpriteData( "./char/001000.spr",  &CharBuf[1], &CharBufLength[1], &CharSpr[1], LD_CHAR_SPRITE_ALL_LOAD );
-	LoadHeroClothAccessoryData( 104, 107 );
-}	
-void FreeHeroSpriteData( void )
-{		
-	FreeCharacterSpriteData( CharBuf[0] );
-	FreeCharacterSpriteData( CharBuf[1] );
-}	
+void LoadHeroSpriteData(void)
+{
+	LoadCharSpriteData("./char/000000.spr", &CharBuf[0], &CharBufLength[0], &CharSpr[0], LD_CHAR_SPRITE_ALL_LOAD);
+	LoadCharSpriteData("./char/001000.spr", &CharBuf[1], &CharBufLength[1], &CharSpr[1], LD_CHAR_SPRITE_ALL_LOAD);
+	LoadHeroClothAccessoryData(104, 107);
+}
+void FreeHeroSpriteData(void)
+{
+	FreeCharacterSpriteData(CharBuf[0]);
+	FreeCharacterSpriteData(CharBuf[1]);
+}
 
 
 
@@ -7879,102 +7845,102 @@ void FreeHeroSpriteData( void )
 
 #define RAIN_SPRITE_		880
 
-static int	rainsx[ MAX_RAIN], 
-rainsy[ MAX_RAIN],
-rainey[ MAX_RAIN],
+static int	rainsx[MAX_RAIN],
+rainsy[MAX_RAIN],
+rainey[MAX_RAIN],
 //			rainframe[ MAX_RAIN],
 //			rainfd[ MAX_RAIN],
-rainspr[ MAX_RAIN],
-raindownspeed[ MAX_RAIN],
-raintrans[  MAX_RAIN],
-raindrop[  MAX_RAIN],
+rainspr[MAX_RAIN],
+raindownspeed[MAX_RAIN],
+raintrans[MAX_RAIN],
+raindrop[MAX_RAIN],
 rainmax;
 
 static int  RainNumber;
 
-void RainStart( int number, int flag )
-{	
+void RainStart(int number, int flag)
+{
 	RainNumber = number;
 	/////////////////////  SoundUp lkh 추가 /////////////////////////
-	int sound_Volume = number/9;
-}	
+	int sound_Volume = number / 9;
+}
 
-void RainStop( void )
+void RainStop(void)
 {
 	RainNumber = 0;
 	////////////////////// SoundUp lkh 추가 /////////////////////////
 	StopWave(SOUND_RAINY);
 }
 
-void RainAnimationSub( int i )
+void RainAnimationSub(int i)
 {
 	int tt = 3;
-	if		( rainey[i] < 200 )	{ raindownspeed[i] = 15 + Random( 5 );	rainspr[i] = Random( 3 ) + 6;	raintrans[i] = tt+ Random(3); }
-	else if	( rainey[i] < 500 )	
+	if (rainey[i] < 200) { raindownspeed[i] = 15 + Random(5);	rainspr[i] = Random(3) + 6;	raintrans[i] = tt + Random(3); }
+	else if (rainey[i] < 500)
 	{
-		switch( Random(3) )
+		switch (Random(3))
 		{
-		case 0 :			{ raindownspeed[i] = 20 + Random( 4 );  rainspr[i] = Random( 3 ) + 4;	raintrans[i] = tt+ Random(3);}
-			break;
-		case 1 :			{ raindownspeed[i] = 22 + Random( 4 );  rainspr[i] = Random( 3 ) + 6;	raintrans[i] = tt+ Random(4);}
-			break;
-		default :			{ raindownspeed[i] = 27 + Random( 4 );  rainspr[i] = Random( 3 ) + 5;	raintrans[i] = tt+ Random(4);}
-			break;
+		case 0: { raindownspeed[i] = 20 + Random(4);  rainspr[i] = Random(3) + 4;	raintrans[i] = tt + Random(3); }
+				break;
+		case 1: { raindownspeed[i] = 22 + Random(4);  rainspr[i] = Random(3) + 6;	raintrans[i] = tt + Random(4); }
+				break;
+		default: { raindownspeed[i] = 27 + Random(4);  rainspr[i] = Random(3) + 5;	raintrans[i] = tt + Random(4); }
+				 break;
 		}
-	}	
-	else						{ raindownspeed[i] = 30 + Random( 4 );  rainspr[i] = Random( 2 ) + 2;	raintrans[i] = tt+ Random(3);}
-}		
+	}
+	else { raindownspeed[i] = 30 + Random(4);  rainspr[i] = Random(2) + 2;	raintrans[i] = tt + Random(3); }
+}
 
-void RainAnimationSetting( void )
-{		
+void RainAnimationSetting(void)
+{
 	static int start;
 	int i;
 	int dist;
-	
-	if( RainNumber == 0 && rainmax == 0 ) 
-	{				
+
+	if (RainNumber == 0 && rainmax == 0)
+	{
 		return;
-	}	
-	else if (RainNumber != rainmax ) 
-	{	
-		if( RainNumber > rainmax )
-		{	
+	}
+	else if (RainNumber != rainmax)
+	{
+		if (RainNumber > rainmax)
+		{
 			rainmax += 10;
-			if( rainmax > 900 ) rainmax =  900;
+			if (rainmax > 900) rainmax = 900;
 		}
-		else 
+		else
 		{
 			rainmax -= 10;
 		}
-	}	
-	
+	}
+
 	int mapstartx = g_Map.x * 32;
 	int mapstarty = g_Map.y * 32;
-	
-	switch( start )	
-	{					
-	case 0 :	rainmax = 0;
-		for( i = 0 ; i < MAX_RAIN ; i ++ )
-		{	
-			rainsx[i] = Random( SCREEN_WIDTH  + 200) - 100;
-			rainsy[i] = Random( SCREEN_HEIGHT) - SCREEN_HEIGHT;
-			rainey[i] = Random( 680);
-			RainAnimationSub( i );
-		}	
-		start = 1;
-		break;	
-	}				
-	
-	for( i  = 0 ; i < rainmax ; i ++)
-	{				
-		if( raindrop[i] == 0 )
+
+	switch (start)
+	{
+	case 0:	rainmax = 0;
+		for (i = 0; i < MAX_RAIN; i++)
 		{
-			rainsx[ i] += Random( 3)+2;
-			rainsy[ i] += raindownspeed[i];
+			rainsx[i] = Random(SCREEN_WIDTH + 200) - 100;
+			rainsy[i] = Random(SCREEN_HEIGHT) - SCREEN_HEIGHT;
+			rainey[i] = Random(680);
+			RainAnimationSub(i);
 		}
-		
-		dist    = 5;
-		
+		start = 1;
+		break;
+	}
+
+	for (i = 0; i < rainmax; i++)
+	{
+		if (raindrop[i] == 0)
+		{
+			rainsx[i] += Random(3) + 2;
+			rainsy[i] += raindownspeed[i];
+		}
+
+		dist = 5;
+
 		//		switch( ch->direction  )
 		//		{
 		//			case DIRECTION_DOWN		: rainsx[i] -= dist;	rainsy[i] -= dist;		break;
@@ -7986,11 +7952,11 @@ void RainAnimationSetting( void )
 		//			case DIRECTION_RIGHT	: rainsx[i] -= dist;	rainsy[i] += dist;		break;
 		//			case DIRECTION_RIGHTDOWN: rainsx[i] -= dist;				       		break;
 		//		}
-		
-		
-		if( raindrop[i] == 0 )
+
+
+		if (raindrop[i] == 0)
 		{
-			if( rainsy[i]> rainey[i] )
+			if (rainsy[i] > rainey[i])
 			{
 				raindrop[i] = 2;
 			}
@@ -7998,60 +7964,60 @@ void RainAnimationSetting( void )
 		else
 		{
 			raindrop[i]--;
-			if( raindrop[i] == 0 )
+			if (raindrop[i] == 0)
 			{
-				rainsx[i]	= Random( SCREEN_WIDTH  + 200 ) - 100;
-				rainsy[i]	= Random( 200 ) - SCREEN_HEIGHT;
-				rainey[i]	= Random( 680 );
-				RainAnimationSub( i );
+				rainsx[i] = Random(SCREEN_WIDTH + 200) - 100;
+				rainsy[i] = Random(200) - SCREEN_HEIGHT;
+				rainey[i] = Random(680);
+				RainAnimationSub(i);
 			}
 		}
-	}	
-}		
+	}
+}
 
-void RainAnimationOutput( void )
-{		
+void RainAnimationOutput(void)
+{
 	int i;
-	
-	for( i  = 0 ; i < rainmax ; i ++)
-	{			
-		if( raindrop[i] ) 
-		{		
-			switch( raindrop[i] )
+
+	for (i = 0; i < rainmax; i++)
+	{
+		if (raindrop[i])
+		{
+			switch (raindrop[i])
 			{
-			case 1 :	PutCompressedImageFX( rainsx[i], rainsy[i], &spr[ 87 ],  raintrans[i], 2 ); break;
-			case 2 : 	PutCompressedImageFX( rainsx[i], rainsy[i], &spr[ 86 ],  raintrans[i], 2 ); break;
+			case 1:	PutCompressedImageFX(rainsx[i], rainsy[i], &spr[87], raintrans[i], 2); break;
+			case 2: 	PutCompressedImageFX(rainsx[i], rainsy[i], &spr[86], raintrans[i], 2); break;
 			}
 			//			PutCompressedImageFX( rainsx[i], rainsy[i], &spr[ RAIN_SPRITE_  ], 14,1 );
 			//			PutCompressedImage( rainsx[i], rainsy[i], &spr[ RAIN_SPRITE_  ]);
-		}	
-		else	
-		{	
-			if( rainspr[i] )
+		}
+		else
+		{
+			if (rainspr[i])
 			{
 				//PutCompressedImageTrans(int x, int y, Spr *sp, WORD MSK)
 				//PutCompressedImageTrans( rainsx[i], rainsy[i], &spr[ RAIN_SPRITE_ + rainspr[i]], 0 );
-				PutCompressedImageFX( rainsx[i], rainsy[i], &spr[ RAIN_SPRITE_ + rainspr[i]], raintrans[i], 2 );
+				PutCompressedImageFX(rainsx[i], rainsy[i], &spr[RAIN_SPRITE_ + rainspr[i]], raintrans[i], 2);
 			}
 			else
 			{
-				PutCompressedImageFX( rainsx[i], rainsy[i], &spr[ RAIN_SPRITE_ + rainspr[i]] , raintrans[i], 2 );
+				PutCompressedImageFX(rainsx[i], rainsy[i], &spr[RAIN_SPRITE_ + rainspr[i]], raintrans[i], 2);
 			}
-		}	
-	}			
-}	
+		}
+	}
+}
 
 
 
 /*
 
-  
+
 	#define MAX_SNOW  		800
-	#define MAX_SNOWFRAME	1 
-	
+	#define MAX_SNOWFRAME	1
+
 	  #define SNOW_SPRITE_		79
-	  
-		static int	snowsx[ MAX_SNOW], 
+
+		static int	snowsx[ MAX_SNOW],
 		snowsy[ MAX_SNOW],
 		snowey[ MAX_SNOW],
 		snowframe[ MAX_SNOW],
@@ -8062,112 +8028,112 @@ void RainAnimationOutput( void )
 		snowflag[  MAX_SNOW],
 		snowwind[  MAX_SNOW],
 		snowmax;
-		
-		  
+
+
 			static int  SnowNumber;
-			
+
 			  void SnowStart( int number, int flag )
-			  {	
+			  {
 			  SnowNumber = number;
-			  }	
-			  
+			  }
+
 				void SnowStop( void )
-				{	
+				{
 				SnowNumber = 0;
-				}	
-				
-				  
+				}
+
+
 					void SnowAnimationSub( int my, int i )
-					{			
+					{
 					int tt = 5;
-					
+
 					  if		( snowey[i] - my  < 100 )	{ snowdownspeed[i] =  1 + Random( 5 );  snowspr[i] = Random( 2 ) + 5;	snowtrans[i] = tt+ Random(4);}
 					  else if	( snowey[i] - my  < 150 )	{ snowdownspeed[i] =  2 + Random( 4 );  snowspr[i] = Random( 2 ) + 5;	snowtrans[i] = tt+ Random(4);}
 					  else if	( snowey[i] - my  < 200 )	{ snowdownspeed[i] =  3 + Random( 4 );  snowspr[i] = Random( 2 ) + 5;	snowtrans[i] = tt+ Random(4);}
 					  else if	( snowey[i] - my  < 250 )	{ snowdownspeed[i] =  4 + Random( 4 );  snowspr[i] = Random( 2 ) + 4;	snowtrans[i] = tt+ Random(4);}
 					  else if	( snowey[i] - my  < 300 )	{ snowdownspeed[i] =  5 + Random( 4 );  snowspr[i] = Random( 2 ) + 4;	snowtrans[i] = tt+ Random(4);}
 					  else 	{ snowdownspeed[i] = 6 + Random( 4 );  snowspr[i] = Random(2) + 5 ;				snowtrans[i] = tt+ Random(4);}
-					  }			
-					  
+					  }
+
 						void SnowAnimationSetting( void )
-						{				
+						{
 						static int start;
-						int i;		
-						int dist;	
+						int i;
+						int dist;
 						int curhero;
 						static int snowwindflag;
-						
+
 						  ch		ch = ( ch )g_OrderInfo.order[ 0 ].lpvData;
-						  
-							if( SnowNumber == 0 && snowmax == 0 ) 
-							{				
+
+							if( SnowNumber == 0 && snowmax == 0 )
+							{
 							return;
 							}
 							else if( SnowNumber >= snowmax )
 							{
 							snowmax += 10;
 							}
-							else 
+							else
 							{
 							snowmax -= 10;
 							}
-							
+
 							  int mapstartx = g_Map.x * 32;
 							  int mapstarty = g_Map.y * 32;
-							  
-								switch( start )	
-								{				
+
+								switch( start )
+								{
 								case 0 :	snowmax = 0;
 								for( i = 0 ; i < MAX_SNOW ; i ++ )
-								{	
+								{
 								snowsx[i] = mapstartx + Random( SCREEN_WIDTH  + 200) - 100;
 								snowsy[i] = mapstarty + Random( 100) - 100;
 								snowey[i] = mapstarty + Random( SCREEN_HEIGHT);
-								
+
 								  SnowAnimationSub( mapstarty, i );
-								  }	
+								  }
 								  start = 1;
-								  break;		
-								  }				
-								  
+								  break;
+								  }
+
 									if( Random( 100 ) == 50 )
-									{			
+									{
 									snowwindflag = 40;
-									}			
-									
+									}
+
 									  for( i  = 0	; i < snowmax ; i ++)
-									  {				
+									  {
 									  if( snowwindflag )
-									  {		
+									  {
 									  snowwindflag --;
 									  if( snowwindflag == 0 )
-									  {	
+									  {
 									  snowwind[i] = Random(30) + 30;
-									  }	
-									  }		
-									  
+									  }
+									  }
+
 										if( snowsy[i] < snowey[i] )
-										{		
-										if( snowwind[i] ) 
-										{	
+										{
+										if( snowwind[i] )
+										{
 										snowwind[i] --;
 										snowsx[i] -= ( Random( 10 ) + 20 );
-										}	
-										else 
+										}
+										else
 										snowsx[ i] += ( Random( 5) -2 );
-										
+
 										  snowsy[ i] += snowdownspeed[i];
-										  }		
+										  }
 										  else if( snowflag[i] == 0 )
-										  {	
+										  {
 										  snowflag[i] = 1;
 										  snowtrans[i] += 2;
 										  if( snowtrans[i] > 15 ) snowtrans[i] = 15;
-										  }		
-										  else 
-										  {	
+										  }
+										  else
+										  {
 										  snowtrans[i] --;
-										  
+
 											if( snowtrans[i] < 0 )
 											{
 											snowsx[i]	= mapstartx + Random( SCREEN_WIDTH  + 800 ) - 400;
@@ -8175,25 +8141,25 @@ void RainAnimationOutput( void )
 											snowey[i]	= mapstarty + Random( 680 );
 											snowflag[i] = 0;
 											snowwind[i] = 0;
-											
+
 											  SnowAnimationSub( mapstarty, i );
 											  }
-											  }	
-											  }		
-											  }			
-											  
+											  }
+											  }
+											  }
+
 												void SnowAnimationOutput( void )
-												{	
-												int i;	
-												
+												{
+												int i;
+
 												  int mapstartx = g_Map.x * 32;
 												  int mapstarty = g_Map.y * 32;
-												  
+
 													for( i  = 0 ; i < snowmax ; i ++)
 													{
 													PutCompressedImageFX( snowsx[i] - mapstartx, snowsy[i] - mapstarty, &spr[ SNOW_SPRITE_+ snowspr[i] ], snowtrans[i], 2 );
 													}
-													}				
+													}
 													//-----------------------------------------------------------------------
 */
 
@@ -8206,162 +8172,162 @@ void RainAnimationOutput( void )
 
 #define SNOW_SPRITE_		889
 
-static int	snowsx[ MAX_SNOW],		
-snowsy[ MAX_SNOW],		
-snowey[ MAX_SNOW],		
-snowframe[ MAX_SNOW],	
-snowfd[ MAX_SNOW],		
-snowspr[ MAX_SNOW],		
-snowdownspeed[ MAX_SNOW],
-snowtrans[  MAX_SNOW],
-snowflag[  MAX_SNOW],
-snowwind[  MAX_SNOW],
+static int	snowsx[MAX_SNOW],
+snowsy[MAX_SNOW],
+snowey[MAX_SNOW],
+snowframe[MAX_SNOW],
+snowfd[MAX_SNOW],
+snowspr[MAX_SNOW],
+snowdownspeed[MAX_SNOW],
+snowtrans[MAX_SNOW],
+snowflag[MAX_SNOW],
+snowwind[MAX_SNOW],
 snowmax;
 
 
 static int  SnowNumber;
 
-void SnowStart( int no, int flag )
-{	
-	SnowNumber = 0; 
-	
-	if( strcmp( MapName, "FIREDUN1" ) == 0 ) return;
-	if( strcmp( MapName, "ICE-W01" ) == 0 ) return;
-	if( strcmp( MapName, "MANDUN" ) == 0 ) return;
-	
-	SnowNumber = no; 
-}				
+void SnowStart(int no, int flag)
+{
+	SnowNumber = 0;
 
-void SnowStop( void )
-{		
-	SnowNumber = 0; 
-}				
+	if (strcmp(MapName, "FIREDUN1") == 0) return;
+	if (strcmp(MapName, "ICE-W01") == 0) return;
+	if (strcmp(MapName, "MANDUN") == 0) return;
+
+	SnowNumber = no;
+}
+
+void SnowStop(void)
+{
+	SnowNumber = 0;
+}
 
 
-void SnowAnimationSub( int my, int i )
-{		
+void SnowAnimationSub(int my, int i)
+{
 	int tt = 5;
-	
-	if		( snowey[i] - my  < 100 )	{ snowdownspeed[i] =  1 + Random( 5 );  snowspr[i] = Random( 2 ) + 5;	snowtrans[i] = tt+ Random(4);}
-	else if	( snowey[i] - my  < 150 )	{ snowdownspeed[i] =  2 + Random( 4 );  snowspr[i] = Random( 2 ) + 5;	snowtrans[i] = tt+ Random(4);}
-	else if	( snowey[i] - my  < 200 )	{ snowdownspeed[i] =  3 + Random( 4 );  snowspr[i] = Random( 2 ) + 5;	snowtrans[i] = tt+ Random(4);}
-	else if	( snowey[i] - my  < 250 )	{ snowdownspeed[i] =  4 + Random( 4 );  snowspr[i] = Random( 2 ) + 4;	snowtrans[i] = tt+ Random(4);}
-	else if	( snowey[i] - my  < 300 )	{ snowdownspeed[i] =  5 + Random( 4 );  snowspr[i] = Random( 2 ) + 4;	snowtrans[i] = tt+ Random(4);}
-	else 	{ snowdownspeed[i] = 6 + Random( 4 );  snowspr[i] = Random(2) + 5 ;				snowtrans[i] = tt+ Random(4);}
-}		
 
-void SnowAnimationSetting( void )
-{				
+	if (snowey[i] - my < 100) { snowdownspeed[i] = 1 + Random(5);  snowspr[i] = Random(2) + 5;	snowtrans[i] = tt + Random(4); }
+	else if (snowey[i] - my < 150) { snowdownspeed[i] = 2 + Random(4);  snowspr[i] = Random(2) + 5;	snowtrans[i] = tt + Random(4); }
+	else if (snowey[i] - my < 200) { snowdownspeed[i] = 3 + Random(4);  snowspr[i] = Random(2) + 5;	snowtrans[i] = tt + Random(4); }
+	else if (snowey[i] - my < 250) { snowdownspeed[i] = 4 + Random(4);  snowspr[i] = Random(2) + 4;	snowtrans[i] = tt + Random(4); }
+	else if (snowey[i] - my < 300) { snowdownspeed[i] = 5 + Random(4);  snowspr[i] = Random(2) + 4;	snowtrans[i] = tt + Random(4); }
+	else { snowdownspeed[i] = 6 + Random(4);  snowspr[i] = Random(2) + 5;				snowtrans[i] = tt + Random(4); }
+}
+
+void SnowAnimationSetting(void)
+{
 	static int start;
-	int i;		
+	int i;
 	static int windflag;
-				
-	if( SnowNumber == 0 && snowmax == 0 ) 
-	{	
+
+	if (SnowNumber == 0 && snowmax == 0)
+	{
 		return;
-	}	
-	else if ( SnowNumber != snowmax )
-	{		
-		if( SnowNumber > snowmax )
+	}
+	else if (SnowNumber != snowmax)
+	{
+		if (SnowNumber > snowmax)
 		{
 			snowmax += 10;
-			if( snowmax > 900 ) snowmax = 900;
+			if (snowmax > 900) snowmax = 900;
 		}
-		else 
+		else
 		{
 			snowmax -= 10;
-			if( snowmax < 0 ) snowmax = 0;
+			if (snowmax < 0) snowmax = 0;
 		}
-	}	
-	
+	}
+
 	int mapstartx = g_Map.x * 32;
 	int mapstarty = g_Map.y * 32;
-	
-	switch( start )	
-	{					
-	case 0 :	snowmax = 0;
-		for( i = 0 ; i < MAX_SNOW ; i ++ )
-		{	
-			snowsx[i] = mapstartx + Random( SCREEN_WIDTH  + 200) - 100;
-			snowsy[i] = mapstarty + Random( 100) - 100;
-			snowey[i] = mapstarty + Random( SCREEN_HEIGHT);
-			
-			SnowAnimationSub( mapstarty, i );
-			
-		}	
+
+	switch (start)
+	{
+	case 0:	snowmax = 0;
+		for (i = 0; i < MAX_SNOW; i++)
+		{
+			snowsx[i] = mapstartx + Random(SCREEN_WIDTH + 200) - 100;
+			snowsy[i] = mapstarty + Random(100) - 100;
+			snowey[i] = mapstarty + Random(SCREEN_HEIGHT);
+
+			SnowAnimationSub(mapstarty, i);
+
+		}
 		start = 1;
-		break;	
-	}			
-	
+		break;
+	}
+
 	//	if( SnowFlag ) snowmax ++ ;
 	//	if( snowmax > MAX_SNOW ) 
 	//	snowmax = MAX_SNOW;
-	
-	
-	if( Random( 100 ) == 50 )
-	{	
+
+
+	if (Random(100) == 50)
+	{
 		windflag = 40;
-	}	
-	
-	for( i  = 0 ; i < snowmax ; i ++)
-	{			
-		if( windflag )
-		{	
-			windflag --;
-			if( windflag == 0 )
+	}
+
+	for (i = 0; i < snowmax; i++)
+	{
+		if (windflag)
+		{
+			windflag--;
+			if (windflag == 0)
 			{
 				snowwind[i] = Random(30) + 30;
 			}
-		}	
-		
-		if( snowsy[i] < snowey[i] )
-		{	
-			if( snowwind[i] ) 
+		}
+
+		if (snowsy[i] < snowey[i])
+		{
+			if (snowwind[i])
 			{
 				snowwind[i] --;
-				snowsx[i] -= ( Random( 10 ) + 20 );
+				snowsx[i] -= (Random(10) + 20);
 			}
-			else 
-				snowsx[ i] += ( Random( 5) -2 );
-			
-			snowsy[ i] += snowdownspeed[i];
-		}	
-		else if( snowflag[i] == 0 )
-		{	
+			else
+				snowsx[i] += (Random(5) - 2);
+
+			snowsy[i] += snowdownspeed[i];
+		}
+		else if (snowflag[i] == 0)
+		{
 			snowflag[i] = 1;
 			snowtrans[i] += 2;
-			if( snowtrans[i] > 15 ) snowtrans[i] = 15;
-		}		
-		else 
-		{	
+			if (snowtrans[i] > 15) snowtrans[i] = 15;
+		}
+		else
+		{
 			snowtrans[i] --;
-			
-			if( snowtrans[i] < 0 )
+
+			if (snowtrans[i] < 0)
 			{
-				snowsx[i]	= mapstartx + Random( SCREEN_WIDTH  + 800 ) - 400;
-				snowsy[i]	= mapstarty + Random( 200 ) - 200;
-				snowey[i]	= mapstarty + Random( 680 );
+				snowsx[i] = mapstartx + Random(SCREEN_WIDTH + 800) - 400;
+				snowsy[i] = mapstarty + Random(200) - 200;
+				snowey[i] = mapstarty + Random(680);
 				snowflag[i] = 0;
 				snowwind[i] = 0;
-				
-				SnowAnimationSub( mapstarty, i );
-			}
-		}	
-	}		
-}			
 
-void SnowAnimationOutput( void )
-{	
-	int i;	
-	
+				SnowAnimationSub(mapstarty, i);
+			}
+		}
+	}
+}
+
+void SnowAnimationOutput(void)
+{
+	int i;
+
 	int mapstartx = g_Map.x * 32;
 	int mapstarty = g_Map.y * 32;
-	
-	for( i  = 0 ; i < snowmax ; i ++)
+
+	for (i = 0; i < snowmax; i++)
 	{
-		PutCompressedImageFX( snowsx[i] - mapstartx, snowsy[i] - mapstarty, &spr[ SNOW_SPRITE_+ snowspr[i] ], snowtrans[i], 2 );
+		PutCompressedImageFX(snowsx[i] - mapstartx, snowsy[i] - mapstarty, &spr[SNOW_SPRITE_ + snowspr[i]], snowtrans[i], 2);
 	}
-}			
+}
 
 /*		mov		ax,[esi];
 cmp		eax,0;
@@ -8373,13 +8339,13 @@ shr		al,3;
 		//ror		eax,11;			//
 		//shl		ax,10;			//
 		//rol		eax,6;			//
-		//shl		ax,5;			
-		//rol		eax,5;			
-		
+		//shl		ax,5;
+		//rol		eax,5;
+
 		  or		eax,0x00808080;
 		  sub		eax,mask;
 		  xor		eax,0x00808080;
-		  
+
 			movsx	edx,al;
 			mov		bx,word ptr[offset SubTableB + 64 + edx*2];	//
 			movsx	edx,ah;
@@ -8387,7 +8353,7 @@ shr		al,3;
 			shr		eax,16;
 			movsx	edx,al;
 			or		bx,word ptr[offset SubTableR + 64 + edx*2];	//
-*/	
+*/
 
 
 
@@ -8400,161 +8366,161 @@ shr		al,3;
 
 #define WIND_SPRITE_		79
 
-static int	windsx[ MAX_WIND], 
-windsy[ MAX_SNOW],
-windey[ MAX_WIND],
-windframe[ MAX_WIND],
-windfd[ MAX_WIND],
-windspr[ MAX_WIND],
-winddownspeed[ MAX_WIND],
-windtrans[  MAX_WIND],
-snowwindflag[  MAX_WIND],
-windwind[  MAX_WIND],
-windflag[  MAX_WIND],
+static int	windsx[MAX_WIND],
+windsy[MAX_SNOW],
+windey[MAX_WIND],
+windframe[MAX_WIND],
+windfd[MAX_WIND],
+windspr[MAX_WIND],
+winddownspeed[MAX_WIND],
+windtrans[MAX_WIND],
+snowwindflag[MAX_WIND],
+windwind[MAX_WIND],
+windflag[MAX_WIND],
 windmax;
 
 static int  WindNumber;
 
-void WindStart( int number )
-{	
+void WindStart(int number)
+{
 	WindNumber = number;
-}	
+}
 
-void WindStop( void )
-{	
+void WindStop(void)
+{
 	WindNumber = 0;
-}	
+}
 
 
-void WindAnimationSub( int my, int i )
-{	
+void WindAnimationSub(int my, int i)
+{
 	int tt = 5;
-	
-	if		( windey[i] - my  < 100 )	{ winddownspeed[i] =  1 + Random( 5 );  windspr[i] = Random( 2 ) + 5;	windtrans[i] = tt+ Random(4);}
-	else if	( windey[i] - my  < 150 )	{ winddownspeed[i] =  2 + Random( 4 );  windspr[i] = Random( 2 ) + 5;	windtrans[i] = tt+ Random(4);}
-	else if	( windey[i] - my  < 200 )	{ winddownspeed[i] =  3 + Random( 4 );  windspr[i] = Random( 2 ) + 5;	windtrans[i] = tt+ Random(4);}
-	else if	( windey[i] - my  < 250 )	{ winddownspeed[i] =  4 + Random( 4 );  windspr[i] = Random( 2 ) + 4;	windtrans[i] = tt+ Random(4);}
-	else if	( windey[i] - my  < 300 )	{ winddownspeed[i] =  5 + Random( 4 );  windspr[i] = Random( 2 ) + 4;	windtrans[i] = tt+ Random(4);}
-	else 	{ winddownspeed[i] = 6 + Random( 4 );  windspr[i] = Random(2) + 5 ;				windtrans[i] = tt+ Random(4);}
-}									
 
-void WindAnimationSetting( void )
-{							
-	static int start;		
-	int i;					
-	static int Windflag;	
-	
-	LPCHARACTER ch = ( LPCHARACTER  )g_OrderInfo.order[ 0 ].lpvData;
-	
-	if( RainNumber == 0 && rainmax == 0 ) 
-	{						
-		return;				
-	}						
-	if( RainNumber >= rainmax )
-	{						
-		rainmax += 10;		
-	}						
-	else					
-	{						
-		rainmax += 10;		
-	}						
-	
+	if (windey[i] - my < 100) { winddownspeed[i] = 1 + Random(5);  windspr[i] = Random(2) + 5;	windtrans[i] = tt + Random(4); }
+	else if (windey[i] - my < 150) { winddownspeed[i] = 2 + Random(4);  windspr[i] = Random(2) + 5;	windtrans[i] = tt + Random(4); }
+	else if (windey[i] - my < 200) { winddownspeed[i] = 3 + Random(4);  windspr[i] = Random(2) + 5;	windtrans[i] = tt + Random(4); }
+	else if (windey[i] - my < 250) { winddownspeed[i] = 4 + Random(4);  windspr[i] = Random(2) + 4;	windtrans[i] = tt + Random(4); }
+	else if (windey[i] - my < 300) { winddownspeed[i] = 5 + Random(4);  windspr[i] = Random(2) + 4;	windtrans[i] = tt + Random(4); }
+	else { winddownspeed[i] = 6 + Random(4);  windspr[i] = Random(2) + 5;				windtrans[i] = tt + Random(4); }
+}
+
+void WindAnimationSetting(void)
+{
+	static int start;
+	int i;
+	static int Windflag;
+
+	LPCHARACTER ch = (LPCHARACTER)g_OrderInfo.order[0].lpvData;
+
+	if (RainNumber == 0 && rainmax == 0)
+	{
+		return;
+	}
+	if (RainNumber >= rainmax)
+	{
+		rainmax += 10;
+	}
+	else
+	{
+		rainmax += 10;
+	}
+
 	int mapstartx = g_Map.x * 32;
 	int mapstarty = g_Map.y * 32;
-	
-	switch( start )			
-	{						
-	case 0 :	windmax = 0;
-		for( i = 0 ; i < MAX_WIND ; i ++ )
-		{			
-			windsx[i] = mapstartx + Random( SCREEN_WIDTH  + 200) - 100;
-			windsy[i] = mapstarty + Random( 100) - 100;
-			windey[i] = mapstarty + Random( SCREEN_HEIGHT);
-			
-			WindAnimationSub( mapstarty, i );
-			
-		}			
-		start = 1;	
+
+	switch (start)
+	{
+	case 0:	windmax = 0;
+		for (i = 0; i < MAX_WIND; i++)
+		{
+			windsx[i] = mapstartx + Random(SCREEN_WIDTH + 200) - 100;
+			windsy[i] = mapstarty + Random(100) - 100;
+			windey[i] = mapstarty + Random(SCREEN_HEIGHT);
+
+			WindAnimationSub(mapstarty, i);
+
+		}
+		start = 1;
 		break;
 	}
-	
+
 	//	if( WindFlag ) windmax ++ ;
 	//	if( windmax > MAX_WIND ) 
 	windmax = MAX_WIND;
-	
-	
-	if( Random( 100 ) == 50 )
+
+
+	if (Random(100) == 50)
 	{
 		Windflag = 40;
 	}
-	
-	for( i  = 0 ; i < windmax ; i ++)
-	{			
-		if( Windflag )
-		{	
-			Windflag --;
-			if( Windflag == 0 )
+
+	for (i = 0; i < windmax; i++)
+	{
+		if (Windflag)
+		{
+			Windflag--;
+			if (Windflag == 0)
 			{
 				windwind[i] = Random(30) + 30;
 			}
-		}	
-		
-		if( windsy[i] < windey[i] )
-		{	
-			if( windwind[i] ) 
+		}
+
+		if (windsy[i] < windey[i])
+		{
+			if (windwind[i])
 			{
 				windwind[i] --;
-				windsx[i] -= ( Random( 10 ) + 20 );
+				windsx[i] -= (Random(10) + 20);
 			}
-			else 
-				windsx[ i] += ( Random( 5) -2 );
-			
-			windsy[ i] += winddownspeed[i];
-		}	
-		else if( windflag[i] == 0 )
-		{	
+			else
+				windsx[i] += (Random(5) - 2);
+
+			windsy[i] += winddownspeed[i];
+		}
+		else if (windflag[i] == 0)
+		{
 			windflag[i] = 1;
 			windtrans[i] += 2;
-			if( windtrans[i] > 15 ) windtrans[i] = 15;
-		}		
-		else 
-		{	
+			if (windtrans[i] > 15) windtrans[i] = 15;
+		}
+		else
+		{
 			windtrans[i] --;
-			
-			if( windtrans[i] < 0 )
+
+			if (windtrans[i] < 0)
 			{
-				windsx[i]	= mapstartx + Random( SCREEN_WIDTH  + 800 ) - 400;
-				windsy[i]	= mapstarty + Random( 200 ) - 200;
-				windey[i]	= mapstarty + Random( 680 );
+				windsx[i] = mapstartx + Random(SCREEN_WIDTH + 800) - 400;
+				windsy[i] = mapstarty + Random(200) - 200;
+				windey[i] = mapstarty + Random(680);
 				windflag[i] = 0;
 				windwind[i] = 0;
-				
-				WindAnimationSub( mapstarty, i );
-			}
-		}	
-	}		
-}			
 
-void WindAnimationOutput( void )
-{	
-	int i;	
-	
+				WindAnimationSub(mapstarty, i);
+			}
+		}
+	}
+}
+
+void WindAnimationOutput(void)
+{
+	int i;
+
 	int mapstartx = g_Map.x * 32;
 	int mapstarty = g_Map.y * 32;
-	
-	for( i  = 0 ; i < windmax ; i ++)
+
+	for (i = 0; i < windmax; i++)
 	{
-		PutCompressedImageFX( windsx[i] - mapstartx, windsy[i] - mapstarty, &spr[ WIND_SPRITE_+ windspr[i] ], windtrans[i], 2 );
+		PutCompressedImageFX(windsx[i] - mapstartx, windsy[i] - mapstarty, &spr[WIND_SPRITE_ + windspr[i]], windtrans[i], 2);
 	}
-}			
+}
 
 
 
-void LighteningSetting( void )
+void LighteningSetting(void)
 {
-	
-	
-	
+
+
+
 }
 
 
@@ -8577,15 +8543,15 @@ int		RainAmount;
 BOOL	Statue_Weather;
 
 
-int InitWeather( void )
-{	
+int InitWeather(void)
+{
 	RainStop();
 	SnowStop();
-	
-	return 0;
-}		
 
-void RecvChangeWeather( t_rm_change_weather* p )
+	return 0;
+}
+
+void RecvChangeWeather(t_rm_change_weather* p)
 {
 	if (g_bOffWeatherSystem)
 	{	//< CSD-CN-031217
@@ -8593,87 +8559,87 @@ void RecvChangeWeather( t_rm_change_weather* p )
 	}	//> CSD-CN-031217
 
 	g_bStopWeatherSystem = p->bStopWeather;
-	
-	switch((int)p->bWeather)
+
+	switch ((int)p->bWeather)
 	{
 		//멈춤 
 	case 0:
-		{
-			RainStop();
-			SnowStop();
-			Statue_Weather = 0;
-		}
-		break;
-		//비 
-	case 1:
-		{
-			DWORD amount = p->dwAmount;
-			if( amount > 900)	amount  = 900;
-			RainStart( amount, 0 );
-			Statue_Weather = 1;
-		}
-		break;
-		//눈
-	case 2:
-		{
-			SnowStart( p->dwAmount , 0 );
-			Statue_Weather = 2;
-		}
-		break;
-		
+	{
+		RainStop();
+		SnowStop();
+		Statue_Weather = 0;
 	}
-	
-	
+	break;
+	//비 
+	case 1:
+	{
+		DWORD amount = p->dwAmount;
+		if (amount > 900)	amount = 900;
+		RainStart(amount, 0);
+		Statue_Weather = 1;
+	}
+	break;
+	//눈
+	case 2:
+	{
+		SnowStart(p->dwAmount, 0);
+		Statue_Weather = 2;
+	}
+	break;
+
+	}
+
+
 }
 //		
 short int g_RealDate;
-void WeatherDataProcess( DWORD value, DWORD another, DWORD rainstart, DWORD rainend, int amount, int temperature )
+void WeatherDataProcess(DWORD value, DWORD another, DWORD rainstart, DWORD rainend, int amount, int temperature)
 {
-		static int rainsound;
+	static int rainsound;
 	g_CurrentTime = value;
 	g_ServerClientTimeGap = g_CurrentTime - timeGetTime() + g_ping_delay;
-	g_curr_time	= another;
-				
+	g_curr_time = another;
+
 	if (Hero == NULL)
 	{
 		return;
 	}
-	
+
 	time_t lTime;
 	time(&lTime);
 	struct tm* today = localtime(&lTime);
 	//Log( "Packet받음.txt", "%02d:%02d  %d", today->tm_min, today->tm_sec, addlen );
-	if( today->tm_mon == 11 && ( today->tm_mday >=22 || today->tm_mday <= 29 ) )
+	if (today->tm_mon == 11 && (today->tm_mday >= 22 || today->tm_mday <= 29))
 	{
-		if( MapInfo[ MapNumber].rain )
+		if (MapInfo[MapNumber].rain)
 		{
-			if( amount )
+			if (amount)
 			{
-				SnowStart( amount, 0 );
+				SnowStart(amount, 0);
 				Statue_Weather = 2;
-			}	
+			}
 			else
-			{	
+			{
 				SnowStop();
 				Statue_Weather = 0;
-			}	
-		}	
-	}			
-	else		
-	{			
+			}
+		}
+	}
+	else
+	{
 		RainTime = 0;
 		RainStartTime = rainstart;
 		RainEndTime = rainend;
-		
+
 		if (MapInfo[MapNumber].rain)
 		{
 			if (0 > rainstart && 0 < rainend)
 			{
 				amount *= 10;
-				
+
 				if (amount > 900)
 				{
-					amount  = 900;
+					amount = 900;
 				}
 
 				RainAmount = amount;
@@ -8686,48 +8652,48 @@ void WeatherDataProcess( DWORD value, DWORD another, DWORD rainstart, DWORD rain
 			}
 		}
 	}
-	
+
 	g_RealDate = temperature;
 }
 
 #define FRAME_PER_SEC		15
-			  
+
 // ani의 1초당 움직이는 
-void CharWalkTime( LPCHARACTER ch, int ani )
+void CharWalkTime(LPCHARACTER ch, int ani)
 {
 	double dist = 0.0;
-	double framepertime; 
+	double framepertime;
 
-	for( int d= 0 ;  d < ch->AnimationTable[ani].nCount ; d ++) //걷기에 대한 속도검사...
-	  dist += (double)ch->AnimationTable[ani].dx[ d];
+	for (int d = 0; d < ch->AnimationTable[ani].nCount; d++) //걷기에 대한 속도검사...
+		dist += (double)ch->AnimationTable[ani].dx[d];
 
 	// dist =  한번 Ani하는데 이동하는 Dot수.
 	// ch->AnimationTable[ani].nCount  = Frame수.
 	// framepertime = 32dot(1 Tile)이동하는데 걸리는 Frame수.
 	// ch->walktime = 32dot(1 Tile)이동하는데 걸리는 mSEC.
-	if( dist )
+	if (dist)
 	{
-	  framepertime = TILE_SIZE *(double) ch->AnimationTable[ani].nCount / dist;
-	  ch->walktime = (int)( 1000 * framepertime / FRAME_PER_SEC); 
+		framepertime = TILE_SIZE *(double)ch->AnimationTable[ani].nCount / dist;
+		ch->walktime = (int)(1000 * framepertime / FRAME_PER_SEC);
 	}
 }
 
-int CharCalcMovP( LPCHARACTER ch )
+int CharCalcMovP(LPCHARACTER ch)
 {
 	int ret = 50;
 	int sx, sy, ex, ey;
 	DWORD towalktime;
-	
-	if( (ch->desttime < g_ClientTime) ||  g_ClientTime == 0 ) return ret;
+
+	if ((ch->desttime < g_ClientTime) || g_ClientTime == 0) return ret;
 	ch->set_movp(ch->movp);//盧땡제윽쌔!	
 	sx = ch->x / TILE_SIZE;
 	sy = ch->y / TILE_SIZE;
-	ex = ch->path[ch->pathcount-1][0];
-	ey = ch->path[ch->pathcount-1][1];
-	
+	ex = ch->path[ch->pathcount - 1][0];
+	ey = ch->path[ch->pathcount - 1][1];
+
 	DWORD d = ch->desttime - g_ClientTime;
-	
-	if( ch->desttime < g_ClientTime ) 
+
+	if (ch->desttime < g_ClientTime)
 	{
 		ch->movp = ret;
 		ch->set_movp(ch->movp);//盧땡제윽쌔!
@@ -8735,132 +8701,134 @@ int CharCalcMovP( LPCHARACTER ch )
 	}
 	//	DWORD dist = (DWORD )sqrt( (ex-sx)*(ex-sx) + (ey-sy)*(ey-sy) );
 	//	int resttile  = dist / TILE_SIZE;
-	towalktime = d / (ch->pathcount +1);
+	towalktime = d / (ch->pathcount + 1);
 	ch->set_movp(ch->movp);//盧땡제윽쌔!
-	if( towalktime )
+	if (towalktime)
 	{
-		ret = ch->movp = (short )(ch->walktime * 50 / towalktime);
+		ret = ch->movp = (short)(ch->walktime * 50 / towalktime);
 		ch->set_movp(ch->movp);//盧땡제윽쌔!
 
 	}
-	
-	if( ret >= 200 ){ ret = 200;	ch->movp = 200;		ch->set_movp(ch->movp);//盧땡제윽쌔!
-}
-	if( ret < 25 )	{ ret = 25;		ch->movp = 25; 	ch->set_movp(ch->movp);//盧땡제윽쌔!
+
+	if (ret >= 200) {
+		ret = 200;	ch->movp = 200;		ch->set_movp(ch->movp);//盧땡제윽쌔!
+	}
+	if (ret < 25) {
+		ret = 25;		ch->movp = 25; 	ch->set_movp(ch->movp);//盧땡제윽쌔!
 	}
 	return ret;
 }
 
-void LoadChacterAnimationData_Tool( LPCHARACTER  ch )
+void LoadChacterAnimationData_Tool(LPCHARACTER  ch)
 {
 	FILE *fp;
 	int i, no, count;
-	char temp[ FILENAME_MAX];
+	char temp[FILENAME_MAX];
 	int x, y, attackframe, wave, height, effect;
-	char filename[ FILENAME_MAX];
+	char filename[FILENAME_MAX];
 	static int tempsprno;
 	char gabage[20];
-	
-	
-	sprintf( filename, "./char_test/%03dAniTable.txt", ch->sprno );
-	if( GetSysInfo( SI_GAME_MAKE_MODE ) )	fp = Fopen( filename, "rt" );
+
+
+	sprintf(filename, "./char_test/%03dAniTable.txt", ch->sprno);
+	if (GetSysInfo(SI_GAME_MAKE_MODE))	fp = Fopen(filename, "rt");
 	else fp = NULL;
-	if( fp )
-	{							
+	if (fp)
+	{
 		ch->TotalAni = 0;
-		for( i = 0 ; i < 50 ; i ++)
-		{			
-			count =0;
-AGAIN_:		
-			if( fgets( temp, FILENAME_MAX, fp ) == NULL ) break;
-			
-			if( temp[0] == '#' || temp[0] == ' ' || temp[0] == 10 || temp[0] == '\n' )  
+		for (i = 0; i < 50; i++)
+		{
+			count = 0;
+		AGAIN_:
+			if (fgets(temp, FILENAME_MAX, fp) == NULL) break;
+
+			if (temp[0] == '#' || temp[0] == ' ' || temp[0] == 10 || temp[0] == '\n')
 			{
-				if( temp[0] == '#' )
+				if (temp[0] == '#')
 				{
 					char *p;
-					if( (p = strchr( temp, 10 )) ) *p = 0;
+					if ((p = strchr(temp, 10))) *p = 0;
 #ifdef _DEBUG
-					strncpy( AnimationName[i], temp + 1, 100 );
+					strncpy(AnimationName[i], temp + 1, 100);
 #endif
-					ch->TotalAni ++;
+					ch->TotalAni++;
 				}
-				
+
 				goto AGAIN_;
 			}
 			else goto PROCESS__;
-			
-			while( fgets( temp, FILENAME_MAX, fp ) != NULL )
-			{	
-PROCESS__:				
-			if( temp[ 0] == ' ' || temp[0] == '\n' || temp[0] == '\r' )
+
+			while (fgets(temp, FILENAME_MAX, fp) != NULL)
 			{
+			PROCESS__:
+				if (temp[0] == ' ' || temp[0] == '\n' || temp[0] == '\r')
+				{
+					ch->AnimationTable[i].nCount = count;
+					break;
+				}
+
+				sscanf(temp, "%d %d %d %d %d %d %d ", &no, &x, &y, &attackframe, &wave, &height, &effect);
+				//			no = atoi( temp ) -1;
+				ch->AnimationTable[i].cFrame[count] = no - 1;
+				ch->AnimationTable[i].dx[count] = x;
+				ch->AnimationTable[i].dy[count] = y;
+				ch->AnimationTable[i].attackf[count] = attackframe;
+				ch->AnimationTable[i].wave[count] = wave;
+				ch->AnimationTable[i].height[count] = height;
+				ch->AnimationTable[i].effect[count] = effect;
+				count++;
 				ch->AnimationTable[i].nCount = count;
-				break;
 			}
-			
-			sscanf( temp, "%d %d %d %d %d %d %d ", &no, &x, &y, &attackframe, &wave, &height, &effect );
-			//			no = atoi( temp ) -1;
-			ch->AnimationTable[i].cFrame[ count]	= no-1;
-			ch->AnimationTable[i].dx[ count]		=  x;
-			ch->AnimationTable[i].dy[ count]		=  y;
-			ch->AnimationTable[i].attackf[ count]	=  attackframe;
-			ch->AnimationTable[i].wave[ count]		=  wave;
-			ch->AnimationTable[i].height[ count]	=  height;
-			ch->AnimationTable[i].effect[ count]	=  effect;
-			count++;
-			ch->AnimationTable[i].nCount = count;
-			}	
-		}		
+		}
 		fclose(fp);
-		
+
 		int dist = 0;
-		
-		sprintf( filename, "./char_test/%03dAniTable.bin", ch->sprno );
-		fp = Fopen( filename, "wb" );
-		if( fp )
+
+		sprintf(filename, "./char_test/%03dAniTable.bin", ch->sprno);
+		fp = Fopen(filename, "wb");
+		if (fp)
 		{
-			fwrite( gabage, 20,1, fp );
+			fwrite(gabage, 20, 1, fp);
 			char *tt = (char *)ch->AnimationTable;
 			char crc = 0;
-			for( i = 0 ; i < sizeof( PCANIMATIONTABLE ) * MAX_ANIMATION ; i ++)
+			for (i = 0; i < sizeof(PCANIMATIONTABLE) * MAX_ANIMATION; i++)
 			{
 				crc += *tt;
-				tt ++;
+				tt++;
 			}
-			fwrite( &crc, 1,1, fp );
-			fwrite( ch->AnimationTable, sizeof( PCANIMATIONTABLE ), MAX_ANIMATION, fp);
+			fwrite(&crc, 1, 1, fp);
+			fwrite(ch->AnimationTable, sizeof(PCANIMATIONTABLE), MAX_ANIMATION, fp);
 			fclose(fp);
 		}
 	}
-	else 
+	else
 	{
 		sprintf(filename, "./char_test/%03dAniTable.bin", ch->sprno);
-		fp = Fopen( filename, "rb" );
+		fp = Fopen(filename, "rb");
 		char *tt = (char *)ch->AnimationTable;
 		char crc = 0, crc1;
-		if( fp )
+		if (fp)
 		{
-			fseek( fp, 20, SEEK_SET );
-			fread( &crc1, 1,1, fp );
-			fread( ch->AnimationTable, sizeof( PCANIMATIONTABLE ), MAX_ANIMATION, fp);
-			for( i = 0 ; i < sizeof( PCANIMATIONTABLE ) * MAX_ANIMATION ;  i ++)
+			fseek(fp, 20, SEEK_SET);
+			fread(&crc1, 1, 1, fp);
+			fread(ch->AnimationTable, sizeof(PCANIMATIONTABLE), MAX_ANIMATION, fp);
+			for (i = 0; i < sizeof(PCANIMATIONTABLE) * MAX_ANIMATION; i++)
 			{
 				crc += *tt;
-				tt ++;
+				tt++;
 			}
 			fclose(fp);
-			
-			if( abs(crc1 - crc) )
+
+			if (abs(crc1 - crc))
 			{
 				//if( SysInfo.gamemakemode ) JustMsg( "CHECKSUM_ERROR_ANIMATIONDATA : ch->sprno = %d ",  ch->sprno );
 				CheckSumError = CHECKSUM_ERROR_ANIMATIONDATA;
 			}
-			
+
 			sprintf(filename, "./char_test/%03dAniTable.tmp", ch->sprno);
 			ofstream fout(filename);
 			string strTemp;
-			
+
 			for (int j = 0; j < MAX_ANIMATION; j++)
 			{
 				if (ch->sprno >= 0 && ch->sprno <= 1)
@@ -8872,13 +8840,13 @@ PROCESS__:
 					case ACTION_BATTLE_WALK_OWNHAND: strTemp = "# 전투걷기1(한손무기)."; break;
 					case ACTION_BATTLE_NONE:         strTemp = "# 전투기본1(한손무기)."; break;
 					case ACTION_ATTACK_ONESWORD1:    strTemp = "# 한손공격1."; break;
-					case ACTION_ATTACK_ONESWORD2:    strTemp = "# 한손공격2."; break;  
+					case ACTION_ATTACK_ONESWORD2:    strTemp = "# 한손공격2."; break;
 					case ACTION_ATTACK_BONG_DOWN:    strTemp = "# 중거리 무기 공격(내려치기)."; break;
 					case ACTION_ATTACK_BONG_JJIRKI:  strTemp = "# 중거리 무기 공격(찌르기)."; break;
-					case ACTION_ATTACK_BOW:          strTemp = "# 활쏘기."; break;      
-					case ACTION_ATTACK_PENSWORD2:    strTemp = "# 펜싱자세."; break;   
-					case ACTION_ATTACK_PENSING1:     strTemp = "# 펜싱공격 1."; break; 
-					case ACTION_ATTACK_PENSING2:     strTemp = "# 펜싱공격 2."; break; 
+					case ACTION_ATTACK_BOW:          strTemp = "# 활쏘기."; break;
+					case ACTION_ATTACK_PENSWORD2:    strTemp = "# 펜싱자세."; break;
+					case ACTION_ATTACK_PENSING1:     strTemp = "# 펜싱공격 1."; break;
+					case ACTION_ATTACK_PENSING2:     strTemp = "# 펜싱공격 2."; break;
 					case ACTION_RUN:                 strTemp = "# 뛰기."; break;
 					case ACTION_ATTACKED:            strTemp = "# 맞기."; break;
 					case ACTION_DIE:                 strTemp = "# 죽기."; break;
@@ -8904,23 +8872,23 @@ PROCESS__:
 					case MON1_DIE:			     strTemp = "# 죽기동작."; break;
 					case MON1_BATTLE_ATTACK: strTemp = "# 공격동작."; break;
 					case MON1_BATTLE_MAGIC:  strTemp = "# 마법동작."; break;
-					case MON1_STAND_UP	: strTemp = "# 일어서기."; break;			// 일어서기
-					case MON1_CASTING_MAGIC : strTemp = "# 마법시전."; break;		// 08마법시전			// LTS DRAGON MODIFY
-					case MON1_BATTLE_ATTACK2 : strTemp = "# 공격2."; break;	// 09공격 2
-					case MON1_BATTLE_ATTACK3 : strTemp = "# 공격3."; break;	// 10공격 3
-					case MON1_JUST_ACTION : strTemp = "# 임의의동작."; break;		// 11임의의 동작 	
+					case MON1_STAND_UP: strTemp = "# 일어서기."; break;			// 일어서기
+					case MON1_CASTING_MAGIC: strTemp = "# 마법시전."; break;		// 08마법시전			// LTS DRAGON MODIFY
+					case MON1_BATTLE_ATTACK2: strTemp = "# 공격2."; break;	// 09공격 2
+					case MON1_BATTLE_ATTACK3: strTemp = "# 공격3."; break;	// 10공격 3
+					case MON1_JUST_ACTION: strTemp = "# 임의의동작."; break;		// 11임의의 동작 	
 					default: continue;
 					}
 				}
-				
-				fout << strTemp.c_str() << endl; 
+
+				fout << strTemp.c_str() << endl;
 #ifdef _DEBUG
 				strncpy(AnimationName[j], strTemp.c_str() + 1, 100);
 #endif
 				++ch->TotalAni;
-				
+
 				const int nCount = ch->AnimationTable[j].nCount;
-				
+
 				for (int k = 0; k < nCount; k++)
 				{
 					int nFrame = ch->AnimationTable[j].cFrame[k] + 1;
@@ -8938,171 +8906,171 @@ PROCESS__:
 					fout << nHeight << "\t";
 					fout << nEffect << endl;
 				}
-				
+
 				fout << endl;
-			} 
+			}
 		}
-		else 
+		else
 		{
-			if( GetSysInfo( SI_GAME_MAKE_MODE ) ) JustMsg( "CheckNumError : ch->sprno = %d ( No File )",  ch->sprno );	// 010612 KHS
-			CheckSumError = CHECKSUM_ERROR_ANIMATIONDATA;			
+			if (GetSysInfo(SI_GAME_MAKE_MODE)) JustMsg("CheckNumError : ch->sprno = %d ( No File )", ch->sprno);	// 010612 KHS
+			CheckSumError = CHECKSUM_ERROR_ANIMATIONDATA;
 		}
 	}
 }
 
-void LoadChacterAnimationData( LPCHARACTER  ch )
-{				
+void LoadChacterAnimationData(LPCHARACTER  ch)
+{
 	FILE *fp;
 	int i, no, count;
-	char temp[ FILENAME_MAX];
+	char temp[FILENAME_MAX];
 	int x, y, attackframe, wave, height, effect;
-	char filename[ FILENAME_MAX];
+	char filename[FILENAME_MAX];
 	static int tempsprno;
 	char gabage[20];
-	
-	
-	sprintf( filename, "./CHAR/%03dAniTable.txt", ch->sprno );
-	if( GetSysInfo( SI_GAME_MAKE_MODE ) )	fp = Fopen( filename, "rt" );
+
+
+	sprintf(filename, "./CHAR/%03dAniTable.txt", ch->sprno);
+	if (GetSysInfo(SI_GAME_MAKE_MODE))	fp = Fopen(filename, "rt");
 	else fp = NULL;
-	if( fp )
-	{							
+	if (fp)
+	{
 		ch->TotalAni = 0;
-		for( i = 0 ; i < 50 ; i ++)
-		{			
-			count =0;
-AGAIN_:		
-			if( fgets( temp, FILENAME_MAX, fp ) == NULL ) break;
-												
-			if( temp[0] == '#' || temp[0] == ' ' || temp[0] == 10 || temp[0] == '\n' )  
+		for (i = 0; i < 50; i++)
+		{
+			count = 0;
+		AGAIN_:
+			if (fgets(temp, FILENAME_MAX, fp) == NULL) break;
+
+			if (temp[0] == '#' || temp[0] == ' ' || temp[0] == 10 || temp[0] == '\n')
 			{
-				if( temp[0] == '#' )
+				if (temp[0] == '#')
 				{
 					char *p;
-					if( (p = strchr( temp, 10 )) ) *p = 0;
+					if ((p = strchr(temp, 10))) *p = 0;
 #ifdef _DEBUG
-					strncpy( AnimationName[i], temp + 1, 100 );
+					strncpy(AnimationName[i], temp + 1, 100);
 #endif
-					ch->TotalAni ++;
+					ch->TotalAni++;
 				}
-				
+
 				goto AGAIN_;
 			}
 			else goto PROCESS__;
-			
-			while( fgets( temp, FILENAME_MAX, fp ) != NULL )
-			{	
-PROCESS__:				
-			if( temp[ 0] == ' ' || temp[0] == '\n' || temp[0] == '\r' )
+
+			while (fgets(temp, FILENAME_MAX, fp) != NULL)
 			{
+			PROCESS__:
+				if (temp[0] == ' ' || temp[0] == '\n' || temp[0] == '\r')
+				{
+					ch->AnimationTable[i].nCount = count;
+					break;
+				}
+
+				sscanf(temp, "%d %d %d %d %d %d %d ", &no, &x, &y, &attackframe, &wave, &height, &effect);
+				//			no = atoi( temp ) -1;
+				ch->AnimationTable[i].cFrame[count] = no - 1;
+				ch->AnimationTable[i].dx[count] = x;
+				ch->AnimationTable[i].dy[count] = y;
+				ch->AnimationTable[i].attackf[count] = attackframe;
+				ch->AnimationTable[i].wave[count] = wave;
+				ch->AnimationTable[i].height[count] = height;
+				ch->AnimationTable[i].effect[count] = effect;
+				count++;
 				ch->AnimationTable[i].nCount = count;
-				break;
 			}
-			
-			sscanf( temp, "%d %d %d %d %d %d %d ", &no, &x, &y, &attackframe, &wave, &height, &effect );
-			//			no = atoi( temp ) -1;
-			ch->AnimationTable[i].cFrame[ count]	= no-1;
-			ch->AnimationTable[i].dx[ count]		=  x;
-			ch->AnimationTable[i].dy[ count]		=  y;
-			ch->AnimationTable[i].attackf[ count]	=  attackframe;
-			ch->AnimationTable[i].wave[ count]		=  wave;
-			ch->AnimationTable[i].height[ count]	=  height;
-			ch->AnimationTable[i].effect[ count]	=  effect;
-			count++;
-			ch->AnimationTable[i].nCount = count;
-			}	
-		}		
+		}
 		fclose(fp);
-		
+
 		int dist = 0;
-		
-		sprintf( filename, "./CHAR/%03dAniTable.bin", ch->sprno );
-		fp = Fopen( filename, "wb" );
-		if( fp )
+
+		sprintf(filename, "./CHAR/%03dAniTable.bin", ch->sprno);
+		fp = Fopen(filename, "wb");
+		if (fp)
 		{
-			fwrite( gabage, 20,1, fp );
+			fwrite(gabage, 20, 1, fp);
 			char *tt = (char *)ch->AnimationTable;
 			char crc = 0;
-			for( i = 0 ; i < sizeof( PCANIMATIONTABLE ) * MAX_ANIMATION ; i ++)
+			for (i = 0; i < sizeof(PCANIMATIONTABLE) * MAX_ANIMATION; i++)
 			{
 				crc += *tt;
-				tt ++;
+				tt++;
 			}
-			fwrite( &crc, 1,1, fp );
-			fwrite( ch->AnimationTable, sizeof( PCANIMATIONTABLE ), MAX_ANIMATION, fp);
+			fwrite(&crc, 1, 1, fp);
+			fwrite(ch->AnimationTable, sizeof(PCANIMATIONTABLE), MAX_ANIMATION, fp);
 			fclose(fp);
 		}
 	}
-	else 
+	else
 	{
-		sprintf( filename, "./CHAR/%03dAniTable.bin", ch->sprno );
-		fp = Fopen( filename, "rb" );
+		sprintf(filename, "./CHAR/%03dAniTable.bin", ch->sprno);
+		fp = Fopen(filename, "rb");
 		char *tt = (char *)ch->AnimationTable;
 		char crc = 0, crc1;
-		if( fp )
+		if (fp)
 		{
-			fseek( fp, 20, SEEK_SET );
-			fread( &crc1, 1,1, fp );
-			fread( ch->AnimationTable, sizeof( PCANIMATIONTABLE ), MAX_ANIMATION, fp);
-			for( i = 0 ; i < sizeof( PCANIMATIONTABLE ) * MAX_ANIMATION ;  i ++)
+			fseek(fp, 20, SEEK_SET);
+			fread(&crc1, 1, 1, fp);
+			fread(ch->AnimationTable, sizeof(PCANIMATIONTABLE), MAX_ANIMATION, fp);
+			for (i = 0; i < sizeof(PCANIMATIONTABLE) * MAX_ANIMATION; i++)
 			{
 				crc += *tt;
-				tt ++;
+				tt++;
 			}
 			fclose(fp);
-			
-			if( abs(crc1 - crc) )
+
+			if (abs(crc1 - crc))
 			{
 				//if( SysInfo.gamemakemode ) JustMsg( "CHECKSUM_ERROR_ANIMATIONDATA : ch->sprno = %d ",  ch->sprno );
 				CheckSumError = CHECKSUM_ERROR_ANIMATIONDATA;
 			}
 		}
-		else 
+		else
 		{
-			if( GetSysInfo( SI_GAME_MAKE_MODE ) ) JustMsg( "CheckNumError : ch->sprno = %d ( No File )",  ch->sprno );	// 010612 KHS
-			CheckSumError = CHECKSUM_ERROR_ANIMATIONDATA;			
+			if (GetSysInfo(SI_GAME_MAKE_MODE)) JustMsg("CheckNumError : ch->sprno = %d ( No File )", ch->sprno);	// 010612 KHS
+			CheckSumError = CHECKSUM_ERROR_ANIMATIONDATA;
 		}
 	}
-}			
+}
 
 
 
-void LoadClothOrderData( void )
-{			
+void LoadClothOrderData(void)
+{
 	FILE *fp;
-	
-	fp = Fopen( "./char/00ClothOrderBasic.bin","rb" );
-	if( fp )
-	{		
-		for( int i = 0 ; i < 8 ; i ++)
-			for( int j = 0 ; j < 75 ; j ++)
-				fread( &SpriteOrder[0][i][j], 1,1, fp );
-			fclose(fp);
-	}		
-	fp = Fopen( "./char/01ClothOrderBasic.bin","rb" );
-	if( fp )
-	{		
-		for( int i = 0 ; i < 8 ; i ++)
-			for( int j = 0 ; j < 75 ; j ++)
-				fread( &SpriteOrder[1][i][j], 1,1, fp );
-			fclose(fp);
-	}		
-	fp = Fopen( "./char/00ClothOrderBow.bin","rb" );
-	if( fp )
-	{		
-		for( int i = 0 ; i < 8 ; i ++)
-			for( int j = 0 ; j < 75 ; j ++)
-				fread( &SpriteOrder[2][i][j], 1,1, fp );
-			fclose(fp);
-	}		
-	fp = Fopen( "./char/01ClothOrderBow.bin","rb" );
-	if( fp )
-	{		
-		for( int i = 0 ; i < 8 ; i ++)
-			for( int j = 0 ; j < 75 ; j ++)
-				fread( &SpriteOrder[3][i][j], 1,1, fp );
-			fclose(fp);
-	}		
-}			
+
+	fp = Fopen("./char/00ClothOrderBasic.bin", "rb");
+	if (fp)
+	{
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 75; j++)
+				fread(&SpriteOrder[0][i][j], 1, 1, fp);
+		fclose(fp);
+	}
+	fp = Fopen("./char/01ClothOrderBasic.bin", "rb");
+	if (fp)
+	{
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 75; j++)
+				fread(&SpriteOrder[1][i][j], 1, 1, fp);
+		fclose(fp);
+	}
+	fp = Fopen("./char/00ClothOrderBow.bin", "rb");
+	if (fp)
+	{
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 75; j++)
+				fread(&SpriteOrder[2][i][j], 1, 1, fp);
+		fclose(fp);
+	}
+	fp = Fopen("./char/01ClothOrderBow.bin", "rb");
+	if (fp)
+	{
+		for (int i = 0; i < 8; i++)
+			for (int j = 0; j < 75; j++)
+				fread(&SpriteOrder[3][i][j], 1, 1, fp);
+		fclose(fp);
+	}
+}
 
 
 
@@ -9114,22 +9082,22 @@ void LoadClothOrderData( void )
 // 배경 Sprite를 찍기 위한 루틴.
 
 
-void PutTileNotCliping( int x, int y, LPVOID Stmp, LPVOID dest )
-{		
-	LPVOID	Dtmp = (LPVOID)( (char*)dest + y * dDxSize + (x * 2 ));
-	
-	_asm{
+void PutTileNotCliping(int x, int y, LPVOID Stmp, LPVOID dest)
+{
+	LPVOID	Dtmp = (LPVOID)((char*)dest + y * dDxSize + (x * 2));
+
+	_asm {
 		push	es;
-		
+
 		push	ds;
 		pop		es;
-		
+
 		mov     ecx, dDxSize;
 		sub     ecx, 64;
-		
-		mov		edi,Dtmp;
-		mov		esi,Stmp;
-		
+
+		mov		edi, Dtmp;
+		mov		esi, Stmp;
+
 		movsd;
 		movsd;
 		movsd;
@@ -9673,75 +9641,75 @@ void PutTileNotCliping( int x, int y, LPVOID Stmp, LPVOID dest )
 		movsd;
 		movsd;
 		movsd;
-		
+
 		pop		es;
 	}
 }
 
 
-void PutTileCliping( int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by )
+void PutTileCliping(int x, int y, LPVOID Stmp, LPVOID dest, int lx, int rx, int ty, int by)
 {
 	int  xl = TILE_SIZE;
 	int  yl = TILE_SIZE;
 	WORD *p, *sou;
-	int  i,j;
-	
+	int  i, j;
+
 	sou = (WORD *)((char*)Stmp + (lx + ty * xl) * 2);
-	for( i = ty ; i < by ; i ++)
-	{	
+	for (i = ty; i < by; i++)
+	{
 		p = (WORD*)((char *)dest + x * 2 + y * dDxSize);
-		for( j = lx ; j < rx ; j ++, p++, sou++ )
+		for (j = lx; j < rx; j++, p++, sou++)
 			*p = *sou;
-		
-		sou += ( xl - ( rx - lx ) );
-		y ++;
-	}	
+
+		sou += (xl - (rx - lx));
+		y++;
+	}
 }
 
 
-void PutTile( int x, int y, LPVOID Stmp, LPVOID dest )
+void PutTile(int x, int y, LPVOID Stmp, LPVOID dest)
 {
-	int	lx, rx, ty, by , IsC=0;
+	int	lx, rx, ty, by, IsC = 0;
 	int xl = TILE_SIZE;
 	int yl = TILE_SIZE;
-	
-	if( x >= SCREEN_WIDTH  )			return; 
-	else if( x + xl < 0 )	return; 
-	if( y >= SCREEN_HEIGHT )			return; 
-	else if( y + yl < 0  )	return;
-	
+
+	if (x >= SCREEN_WIDTH)			return;
+	else if (x + xl < 0)	return;
+	if (y >= SCREEN_HEIGHT)			return;
+	else if (y + yl < 0)	return;
+
 	rx = xl;
 	lx = 0;
 	ty = 0;
 	by = yl;
-	
-	if( x + xl > SCREEN_WIDTH )
+
+	if (x + xl > SCREEN_WIDTH)
 	{
 		rx -= x + xl - SCREEN_WIDTH;
 		IsC = 1;
 	}
-	if( x < 0 )
-	{	
-		lx  = 0 - x;
-		x   = 0;
+	if (x < 0)
+	{
+		lx = 0 - x;
+		x = 0;
 		//		rx -= lx;
 		IsC = 1;
-	}	
-	if( y + yl > SCREEN_HEIGHT )
-	{	
+	}
+	if (y + yl > SCREEN_HEIGHT)
+	{
 		by -= y + yl - SCREEN_HEIGHT;
 		IsC = 1;
-	}	
-	if(	y < 0 )
-	{	
-		ty  = 0 - y;
-		y   = 0;
+	}
+	if (y < 0)
+	{
+		ty = 0 - y;
+		y = 0;
 		//		by -= ty;
 		IsC = 1;
-	}		
-	
-	if(IsC)		PutTileCliping( x, y, Stmp, dest, lx, rx, ty, by );
-	else 		PutTileNotCliping( x, y, Stmp, dest );
+	}
+
+	if (IsC)		PutTileCliping(x, y, Stmp, dest, lx, rx, ty, by);
+	else 		PutTileNotCliping(x, y, Stmp, dest);
 }
 
 
@@ -9749,64 +9717,64 @@ void PutTile( int x, int y, LPVOID Stmp, LPVOID dest )
 
 
 
-WORD RGB16( int r, int g, int b )
-{	
+WORD RGB16(int r, int g, int b)
+{
 	r >>= 3;
 	g >>= 3;
 	b >>= 3;
-	if( _PixelInfo.BitMaskR != 0x7C00)
+	if (_PixelInfo.BitMaskR != 0x7C00)
 	{
-		return ((r)<< 11) | (g)<<6 |(b);
+		return ((r) << 11) | (g) << 6 | (b);
 	}
-	return ((r)<< 10) | (g)<<5 |(b);
+	return ((r) << 10) | (g) << 5 | (b);
 }
 
 
-DWORD ReturnBlendRGB( int r, int g, int b )
+DWORD ReturnBlendRGB(int r, int g, int b)
 {
-	WORD rgb = (WORD)RGB16( r, g, b );
+	WORD rgb = (WORD)RGB16(r, g, b);
 	DWORD RGB;
-	
-	if( _PixelInfo.BitMaskR == 0x7C00)
+
+	if (_PixelInfo.BitMaskR == 0x7C00)
 	{
-		_asm{	xor     edx, edx;
-		mov		dx,rgb;
-		ror		edx,10;
-		shl		dx,11;
-		rol		edx,5;
-		shl		dx,6;
-		rol		edx,5;
+		_asm {	xor     edx, edx;
+		mov		dx, rgb;
+		ror		edx, 10;
+		shl		dx, 11;
+		rol		edx, 5;
+		shl		dx, 6;
+		rol		edx, 5;
 		mov     RGB, edx;
 		}
 	}
 	else
 	{
-		_asm{	xor     edx, edx;
-		mov		dx,rgb;
-		ror		edx,11;
-		shl		dx,10;
-		rol		edx,6;
-		shl		dx,5;
-		rol		edx,5;
+		_asm {	xor     edx, edx;
+		mov		dx, rgb;
+		ror		edx, 11;
+		shl		dx, 10;
+		rol		edx, 6;
+		shl		dx, 5;
+		rol		edx, 5;
 		mov     RGB, edx;
 		}
 	}
 	return RGB;
 }
 
-void ViewVersion( int version )
+void ViewVersion(int version)
 {	//< CSD-030509
 	return;			// 0625 YGI
-	char temp[ MAX_PATH];
-	sprintf( temp, "v.%03d", version );
-	Hcolor( 0, 0, 0 );
-	Hprint( SCREEN_WIDTH - strlen( temp) *12, 3, g_DestBackBuf, temp );
-	Hcolor( 150, 150, 150 );
-	Hprint( SCREEN_WIDTH - strlen( temp) *12-1, 2, g_DestBackBuf, temp );
-	
-	int mapx = g_Map.x + g_pointMouseX/TILE_SIZE;
-	int mapy = g_Map.y + g_pointMouseY/TILE_SIZE;
-	HprintBold( SCREEN_WIDTH - 30* 12 - 5, 31, 0xffff, 0,  lan->OutputMessage(6,52), MapNumberName, mapx, mapy);
+	char temp[MAX_PATH];
+	sprintf(temp, "v.%03d", version);
+	Hcolor(0, 0, 0);
+	Hprint(SCREEN_WIDTH - strlen(temp) * 12, 3, g_DestBackBuf, temp);
+	Hcolor(150, 150, 150);
+	Hprint(SCREEN_WIDTH - strlen(temp) * 12 - 1, 2, g_DestBackBuf, temp);
+
+	int mapx = g_Map.x + g_pointMouseX / TILE_SIZE;
+	int mapy = g_Map.y + g_pointMouseY / TILE_SIZE;
+	HprintBold(SCREEN_WIDTH - 30 * 12 - 5, 31, 0xffff, 0, lan->OutputMessage(6, 52), MapNumberName, mapx, mapy);
 }	//> CSD-030509
 
 static int		HEAD, TAIL;
@@ -9816,8 +9784,8 @@ static int		HEAD, TAIL;
 HANDLE ghLoadCharSpriteDataThread;
 DWORD  gdwLoadCharSpriteDataThread;
 
-typedef struct 
-{	
+typedef struct
+{
 	char filename[FILENAME_MAX];
 	char **buf;
 	DWORD *length;
@@ -9825,92 +9793,93 @@ typedef struct
 }t_queueSprite;
 
 
-t_queueSprite  queueSprite[ MAX_QUEUE_SPRITE];
+t_queueSprite  queueSprite[MAX_QUEUE_SPRITE];
 
 
 
-void ClearQueueSprite( void )
-{		
+void ClearQueueSprite(void)
+{
 	HEAD = TAIL = 0;
-}		
+}
 
-int queueInSprite( t_queueSprite *n )
-{			
+int queueInSprite(t_queueSprite *n)
+{
 	g_criticThread.Lock();
-	
-	if( (TAIL+1) %  MAX_MQUEUE != HEAD )
-	{	
-		memcpy( &queueSprite[TAIL], n, sizeof( t_queueSprite ) );
-		TAIL ++;
-		TAIL = TAIL % MAX_MQUEUE ;
+
+	if ((TAIL + 1) % MAX_MQUEUE != HEAD)
+	{
+		memcpy(&queueSprite[TAIL], n, sizeof(t_queueSprite));
+		TAIL++;
+		TAIL = TAIL % MAX_MQUEUE;
 		g_criticThread.Unlock();
 		return 1;
-	}	
+	}
 	g_criticThread.Unlock();
 	return 0;
-}		
+}
 
-int queueOutSprite( t_queueSprite *n)
-{		
-	if( TAIL != HEAD )
-	{	
-		memcpy( n, &queueSprite[HEAD], sizeof( t_queueSprite ) );
-		HEAD ++;
+int queueOutSprite(t_queueSprite *n)
+{
+	if (TAIL != HEAD)
+	{
+		memcpy(n, &queueSprite[HEAD], sizeof(t_queueSprite));
+		HEAD++;
 		HEAD = HEAD % MAX_MQUEUE;
 		return 1;
-	}	
-	
+	}
+
 	n = NULL;
 	return 0;
-}		
+}
 
-void InputThreadCharSprite( char *filename, char **buf, DWORD *length, CharacterSprite *charactersprite, int mode )
-{	
+void InputThreadCharSprite(char *filename, char **buf, DWORD *length, CharacterSprite *charactersprite, int mode)
+{
 	t_queueSprite n;
-	
-	strcpy( n.filename, filename );
-	n.buf				= buf;
-	n.length			= length;
-	n.charactersprite	= charactersprite;
-	
-	if( queueInSprite( &n ) )
-	{}
-	else Error( lan->OutputMessage(6,53));//lsw
-}	
 
+	strcpy(n.filename, filename);
+	n.buf = buf;
+	n.length = length;
+	n.charactersprite = charactersprite;
 
-DWORD __stdcall LoadCharSpriteDataThread( void *g )
-{	
-	t_queueSprite n;
-	
-	while( 1 )
+	if (queueInSprite(&n))
 	{
-		if( queueOutSprite( &n) )
+	}
+	else Error(lan->OutputMessage(6, 53));//lsw
+}
+
+
+DWORD __stdcall LoadCharSpriteDataThread(void *g)
+{
+	t_queueSprite n;
+
+	while (1)
+	{
+		if (queueOutSprite(&n))
 		{
 			LoadingCharSpriteData = true;
-			LoadCharSpriteData_Sub( n.filename, n.buf, n.length, n.charactersprite, LD_CHAR_SPRITE_ALL_LOAD );
+			LoadCharSpriteData_Sub(n.filename, n.buf, n.length, n.charactersprite, LD_CHAR_SPRITE_ALL_LOAD);
 			LoadingCharSpriteData = false;
 		}
 		Sleep(10);
-    }
-	
+	}
+
 	return 0;
-}	
+}
 
 
-void StartLoadCharSpriteDataThread( void )
+void StartLoadCharSpriteDataThread(void)
 {
-	ghLoadCharSpriteDataThread=CreateThread(NULL,0, LoadCharSpriteDataThread, NULL,0,&gdwLoadCharSpriteDataThread);
-	SetThreadPriority( ghLoadCharSpriteDataThread, THREAD_PRIORITY_ABOVE_NORMAL );
-	
+	ghLoadCharSpriteDataThread = CreateThread(NULL, 0, LoadCharSpriteDataThread, NULL, 0, &gdwLoadCharSpriteDataThread);
+	SetThreadPriority(ghLoadCharSpriteDataThread, THREAD_PRIORITY_ABOVE_NORMAL);
+
 	StartLoadCharSpriteDataThreadFlag = true;
 }
 
 
-void EndLoadCharSpriteDataThread( void )
+void EndLoadCharSpriteDataThread(void)
 {
-	if( StartLoadCharSpriteDataThreadFlag == true )
-		TerminateThread( ghLoadCharSpriteDataThread, 0 );
+	if (StartLoadCharSpriteDataThreadFlag == true)
+		TerminateThread(ghLoadCharSpriteDataThread, 0);
 	StartLoadCharSpriteDataThreadFlag = false;
 }
 

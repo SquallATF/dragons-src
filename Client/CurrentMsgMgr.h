@@ -13,21 +13,21 @@
 #define NUM_STATUSMESSAGE    30
 #define STATUSMESSAGE_X		 10
 #define STATUSMESSAGE_Y		 120
-	
+
 typedef struct tagCurrentStatusMessage
-{	
-	char		msg[MAX_PATH+1];
+{
+	char		msg[MAX_PATH + 1];
 	int			x, y;
 	int			delay;
 	COLORREF	dwColor;
 }CURRENTSTATUSMESSAGE;
-class CCurrentMsgMgr  
+class CCurrentMsgMgr
 {
 public:
 	CCurrentMsgMgr();
 	virtual ~CCurrentMsgMgr();
-	void AddString( const WORD wColor, char *msg, ... );
-	void AddString( const int R, const int G, const int B, char *msg, ... );
+	void AddString(const WORD wColor, char *msg, ...);
+	void AddString(const int R, const int G, const int B, char *msg, ...);
 	void Clear();
 	void ViewCurrentStatusMessage();
 	void CheckCurrentStatusMessage();
@@ -42,11 +42,11 @@ private:
 private:
 	CURRENTSTATUSMESSAGE* GetCurStsMsg(const int iIndex)
 	{
-		if(0 > iIndex || NUM_STATUSMESSAGE <= iIndex){return NULL;} 
+		if (0 > iIndex || NUM_STATUSMESSAGE <= iIndex) { return NULL; }
 		return &CurStsMsg[iIndex];
 	}
 };
 extern CCurrentMsgMgr  CurrentMsgMgr;
-extern void AddCurrentStatusMessage( const int R, const int G, const int B, char *msg, ... );
-extern void AddCurrentStatusMessage( const WORD wColor, char *msg, ... );
+extern void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...);
+extern void AddCurrentStatusMessage(const WORD wColor, char *msg, ...);
 #endif // !defined(AFX_CURRENTMSGMGR_H__589944BD_DCE5_4B05_9D6B_82C08591AC88__INCLUDED_)

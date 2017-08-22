@@ -1,14 +1,14 @@
 ﻿extern void CallGuildMemberListMenu();
 extern int CallFriendMenu();
-extern void SendWisperByLineCommand( char *str_buf );
-extern void SendPartyChatByLineCommand( char *str_buf );//020701 lsw
-extern char *GetNationName( int nation );
+extern void SendWisperByLineCommand(char *str_buf);
+extern void SendPartyChatByLineCommand(char *str_buf);//020701 lsw
+extern char *GetNationName(int nation);
 extern void CallGetGuildItem();
 extern void CallGuildItemPut();
 extern int GetMoneyItemNumber();
 extern void CallChangeMaster();
-extern void SendGetGuildMasterAndSubMasterName( int guild_code, int type );
-extern void CallHtmlMessageBox( int next_menu, char *file_name );
+extern void SendGetGuildMasterAndSubMasterName(int guild_code, int type);
+extern void CallHtmlMessageBox(int next_menu, char *file_name);
 extern void CallNationItem();
 
 
@@ -28,10 +28,10 @@ extern void CallNationItem();
 #define GDP_MAX					11	// 맥스 처리			
 
 
-extern bool CheckGuildPower( int type, LPCHARACTER ch );
-extern void LoadFileText( char *file_name );
+extern bool CheckGuildPower(int type, LPCHARACTER ch);
+extern void LoadFileText(char *file_name);
 extern void CallGuildHouseInfo();
-extern char *GetIsGotGuildHouse( int time );		// 시간을 가지고 소유 비소유를 판단.
+extern char *GetIsGotGuildHouse(int time);		// 시간을 가지고 소유 비소유를 판단.
 
 
 #ifdef LIGHT_VERSION_
@@ -49,17 +49,17 @@ struct k_light_version_weapon
 
 	k_light_version_weapon()
 	{
-		memset( weapon, 0, sizeof( int ) *4 );
-/*		man1 = 0;
-		woman1 = 0;
-		man2 = 0;
-		woman2 = 0;*/
+		memset(weapon, 0, sizeof(int) * 4);
+		/*		man1 = 0;
+				woman1 = 0;
+				man2 = 0;
+				woman2 = 0;*/
 	}
 };
 
 class CLightVersion
 {
-public :
+public:
 	// 맵 이동 관련
 	string *m_szlpMap;
 	int m_nCount;
@@ -68,7 +68,7 @@ public :
 	k_light_version_weapon	*m_pWeapon;
 	int m_nWeaponCount;
 
-public :
+public:
 	CLightVersion()
 	{
 		m_nCount = 0;
@@ -82,17 +82,17 @@ public :
 	}
 	void Clear()
 	{
-		m_nCount =0;
-		if( m_szlpMap ) delete [] m_szlpMap;
+		m_nCount = 0;
+		if (m_szlpMap) delete[] m_szlpMap;
 		m_szlpMap = 0;
-		if( m_pWeapon ) delete [] m_pWeapon;
+		if (m_pWeapon) delete[] m_pWeapon;
 		m_nWeaponCount = 0;
 	}
 
 	int LoadLightVersionMap();
-	int IsGotoMap( char *mapname );
+	int IsGotoMap(char *mapname);
 	int LoadLightVersionWeapon();
-	int GetLightVersionWeapon( int sex, int weapon_num );
+	int GetLightVersionWeapon(int sex, int weapon_num);
 };
 
 extern CLightVersion *g_pLightVersion;
@@ -101,5 +101,5 @@ extern CLightVersion *g_pLightVersion;
 #endif	// LIGHT_VERSION_
 
 //021030 YGI
-extern int RecvEventObject( k_event_object *pData );
+extern int RecvEventObject(k_event_object *pData);
 extern void SendEvnetMoveMap();	// 021107 YGI

@@ -7,42 +7,42 @@
 template <class T1> class TKeinList
 {
 	typedef TKeinList<T1> LIST;
-public :
-	
+public:
+
 	int m_nIndex;
 	T1	*m_pData;
 	LIST *m_pNext;
-public :
+public:
 	TKeinList() { m_nIndex = -1; m_pData = 0; GetNext() = 0; }
-	~TKeinList() { if( m_pData ) delete m_pData; if( GetNext() ) delete GetNext(); }
-	LIST *&GetNext(){ return m_pNext; }
+	~TKeinList() { if (m_pData) delete m_pData; if (GetNext()) delete GetNext(); }
+	LIST *&GetNext() { return m_pNext; }
 	LIST *GetEndNode()
-	{ 
+	{
 		LIST *temp = this;
-		for( ; temp->GetNext(); temp = temp->GetNext() );
+		for (; temp->GetNext(); temp = temp->GetNext());
 		return temp;
 	}
 	T1& operator[](int nIndex)
 	{
-		LIST *pList = Find( nIndex );
-		if( !pList )
+		LIST *pList = Find(nIndex);
+		if (!pList)
 		{
 			T1 *pT = new T1;
-			pList = AddNode( pT, nIndex );
+			pList = AddNode(pT, nIndex);
 		}
 		return *pList->m_pData;
 	}
 
-	LIST *Find( int index )
+	LIST *Find(int index)
 	{
-		if( index < 0 ) return NULL;
+		if (index < 0) return NULL;
 		LIST *temp = this->GetNext();
 		LIST *old;
-		int count = 0; 
-		
-		while( temp )
+		int count = 0;
+
+		while (temp)
 		{
-			if( temp->m_nIndex == index ) return temp;
+			if (temp->m_nIndex == index) return temp;
 			old = temp;
 			temp = temp->GetNext();
 			count++;
@@ -50,11 +50,11 @@ public :
 		return NULL;
 	}
 
-	LIST *AddNode( T1 *pData, int index )
+	LIST *AddNode(T1 *pData, int index)
 	{
-		if( index < 0 ) return false;
-		LIST *pList = Find( index );
-		if( pList )
+		if (index < 0) return false;
+		LIST *pList = Find(index);
+		if (pList)
 		{
 			delete pList->m_pData;
 			pList->m_pData = pData;
@@ -70,7 +70,7 @@ public :
 			return pAddData;
 		}
 	}
-	bool AddNode( T1 *pData )
+	bool AddNode(T1 *pData)
 	{
 		LIST *pEnd = GetEndNode();
 		LIST *pAddData = new LIST;
@@ -83,9 +83,9 @@ public :
 	{
 		LIST *temp1 = this;
 		LIST *temp2 = GetNext();
-		if( !temp2 ) return 0;
-		
-		for( ; temp2->GetNext(); )
+		if (!temp2) return 0;
+
+		for (; temp2->GetNext(); )
 		{
 			temp1 = temp2;
 			temp2 = temp2->GetNext();
@@ -96,9 +96,9 @@ public :
 	}
 	bool FreeAll()
 	{
-		if( GetNext() ) delete GetNext();
+		if (GetNext()) delete GetNext();
 		GetNext() = 0;
-		if( m_pData ) delete m_pData;
+		if (m_pData) delete m_pData;
 		m_pData = 0;
 		return 1;
 	}
@@ -113,34 +113,34 @@ public :
 // map
 template <class T1> class TKeinMap
 {
-public :
+public:
 	int index;
 	TKeinList<T1> *m_pList;
 	TKeinMap<T1> *m_pNext;
 	TKeinMap<T1> *m_pPrev;
 
-public :
+public:
 	TKeinList<T1> *m_pFind;
 
-public :
-	TKeinMap() { index = 0; m_pList = 0; GetNext()= 0; GetPrev() = 0; m_pFind=0; }
-	~TKeinMap() { if( m_pList ) delete m_pList; if( GetNext() ) delete GetNext(); }
-	TKeinMap<T1> *&GetNext(){ return m_pNext; }
-	TKeinMap<T1> *&GetPrev(){ return m_pPrev; }
+public:
+	TKeinMap() { index = 0; m_pList = 0; GetNext() = 0; GetPrev() = 0; m_pFind = 0; }
+	~TKeinMap() { if (m_pList) delete m_pList; if (GetNext()) delete GetNext(); }
+	TKeinMap<T1> *&GetNext() { return m_pNext; }
+	TKeinMap<T1> *&GetPrev() { return m_pPrev; }
 
 	TKeinMap<T1> *GetEndNode()
-	{ 
+	{
 		TKeinMap<T1> *temp = this;
-		for(; temp->GetNext(); temp = temp->GetNext() );
+		for (; temp->GetNext(); temp = temp->GetNext());
 		return temp;
 	}
-	bool AddNode( T1 *pData, int index )
+	bool AddNode(T1 *pData, int index)
 	{
-		if( !index ) return false;
-		TKeinList<T1> *pList = GetList( index );
-		if( pList )
+		if (!index) return false;
+		TKeinList<T1> *pList = GetList(index);
+		if (pList)
 		{
-			pList->AddNode( pData);
+			pList->AddNode(pData);
 		}
 		else
 		{
@@ -151,31 +151,31 @@ public :
 			pAddData->index = index;
 			pAddData->GetPrev() = pEnd;
 
-			pAddData->m_pList->AddNode( pData );
+			pAddData->m_pList->AddNode(pData);
 			pEnd->GetNext() = pAddData;
 		}
 		return 1;
 	}
-	TKeinList<T1> *GetList( int index )
+	TKeinList<T1> *GetList(int index)
 	{
-		TKeinMap<T1> *pNode = GetNode( index );
-		if( pNode ) return pNode->m_pList;
+		TKeinMap<T1> *pNode = GetNode(index);
+		if (pNode) return pNode->m_pList;
 		else return NULL;
 	}
-	TKeinMap<T1> *GetNode( int index )
+	TKeinMap<T1> *GetNode(int index)
 	{
-		for( TKeinMap<T1> *temp = GetNext(); temp; temp = temp->GetNext() )
+		for (TKeinMap<T1> *temp = GetNext(); temp; temp = temp->GetNext())
 		{
-			if( temp->index == index ) return temp;
+			if (temp->index == index) return temp;
 		}
 		return NULL;
 	}
-	bool DeleteList( int index )
+	bool DeleteList(int index)
 	{
-		TKeinMap<T1> *pNode = GetNode( index );
-		if( pNode )
+		TKeinMap<T1> *pNode = GetNode(index);
+		if (pNode)
 		{
-			if( pNode->GetNext() )
+			if (pNode->GetNext())
 			{
 				pNode->GetNext()->GetPrev() = pNode->GetPrev();
 				pNode->GetPrev()->GetNext() = pNode->GetNext();
@@ -187,23 +187,23 @@ public :
 		}
 		return false;
 	}
-	bool SetFind( int index )
+	bool SetFind(int index)
 	{
-		m_pFind = GetList( index );
-		if( m_pFind ) return true;
+		m_pFind = GetList(index);
+		if (m_pFind) return true;
 		else return false;
 	}
 
 	T1 *GetFindNext()
 	{
-		if( m_pFind )
+		if (m_pFind)
 		{
 			m_pFind = m_pFind->GetNext();
-			if( m_pFind )
+			if (m_pFind)
 			{
 				return m_pFind->m_pData;
 			}
-		}	
+		}
 		return NULL;
 	}
 };
@@ -216,20 +216,20 @@ public :
 const int MaxGuildBlock = 256;
 template <typename T> class TKeinGuildMap
 {	//< CSD-030326
-public :
+public:
 	typedef map<short, T* > GUILDHASH;
 	typedef typename GUILDHASH::iterator LPGUILDHASHUNIT;
-private :
+private:
 
-	GUILDHASH	m_mpBank;	
+	GUILDHASH	m_mpBank;
 
-public :
+public:
 	T& operator[](int nIndex)
 	{
 		int nFirstParam = nIndex / MaxGuildBlock;
 		int nSecondParam = nIndex % MaxGuildBlock;
 
-		if( !m_mpBank[nFirstParam] )
+		if (!m_mpBank[nFirstParam])
 		{
 			m_mpBank[nFirstParam] = new T[MaxGuildBlock];
 		}
@@ -245,7 +245,7 @@ public :
 	{
 		return m_mpBank.begin();
 	}
-	
+
 	LPGUILDHASHUNIT End()
 	{
 		return m_mpBank.end();
@@ -253,9 +253,9 @@ public :
 
 	void Reset()
 	{
-		for( LPGUILDHASHUNIT i = Begin(); i != End(); i++ )
+		for (LPGUILDHASHUNIT i = Begin(); i != End(); i++)
 		{
-			delete [] i->second;
+			delete[] i->second;
 		}
 		m_mpBank.clear();
 	}

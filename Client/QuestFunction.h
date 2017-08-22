@@ -20,8 +20,8 @@ class CScriptTimer
 	//그래서 id랑 name이 필요가 없다.
 
 public:
-	CScriptTimer(){ClearTimer();};
-	~CScriptTimer(){};
+	CScriptTimer() { ClearTimer(); };
+	~CScriptTimer() {};
 
 private:
 	DWORD	m_dwTimerTime;		//할당된 타임
@@ -32,29 +32,29 @@ private:
 
 public:
 	DWORD	m_dwOld;			//카운터 시작했을때 값 저장
-	DWORD	m_dwSynch;			
+	DWORD	m_dwSynch;
 
-	void	SetTimerTime( DWORD dwTime);				//타이머의 시간을 설정한다. 
-	void	SetSynchroneTime( DWORD dwSyncTime );		//동기화 하는 시간을 설정
+	void	SetTimerTime(DWORD dwTime);				//타이머의 시간을 설정한다. 
+	void	SetSynchroneTime(DWORD dwSyncTime);		//동기화 하는 시간을 설정
 
-	DWORD	GetCurretTimerTime() const { return m_dwTimerTime;};			//현재 남은 시간을 알아본다.
-	DWORD	GetCurretSynchTime() const { return m_dwSynchTime;};		//설정한 동기화 시간을 알아본다.
-	DWORD	GetSpendTime() const { return m_dwSpendTime;};
+	DWORD	GetCurretTimerTime() const { return m_dwTimerTime; };			//현재 남은 시간을 알아본다.
+	DWORD	GetCurretSynchTime() const { return m_dwSynchTime; };		//설정한 동기화 시간을 알아본다.
+	DWORD	GetSpendTime() const { return m_dwSpendTime; };
 	bool	GetShowMenu() const { return m_bShow; };
 
 	bool	IsRunning();				//진행중인가?
-	bool	IsStart() const { return m_bStart;};
+	bool	IsStart() const { return m_bStart; };
 	void	ClearTimer();								//타이머 값들을 전부 0으로
-	void	FormatTimer( const DWORD& dwTime, char* szTime );
-	bool	ConfirmSyncTimer( DWORD dwRecvTime );		//동기화 시간이랑 현 사용시간이랑 비교
+	void	FormatTimer(const DWORD& dwTime, char* szTime);
+	bool	ConfirmSyncTimer(DWORD dwRecvTime);		//동기화 시간이랑 현 사용시간이랑 비교
 
-	void	SendSCRIPT_TIEMER( DWORD dwSpendTime , int iType);		//싱크a 맞추기 위한 패킷을 보낸다.
-	void	RecvSCRIPT_TIMER_SYNC( t_script_timer *tp );//동기화 패킷을 받을때.
-	
+	void	SendSCRIPT_TIEMER(DWORD dwSpendTime, int iType);		//싱크a 맞추기 위한 패킷을 보낸다.
+	void	RecvSCRIPT_TIMER_SYNC(t_script_timer *tp);//동기화 패킷을 받을때.
+
 	bool	StartTimer();				//시간이 설정되어 있으면 m_bStart = true한다.
 	void	RunTimer();					//계쏙해서 실행
 	void	EndTimer();
-	void	ShowTimer( char* szMsg);	//타이머 쁘려줌..
+	void	ShowTimer(char* szMsg);	//타이머 쁘려줌..
 	void	ShowTimerMenu();
 	void	HideTimerMenu();
 };
@@ -64,8 +64,8 @@ public:
 class CScriptCounter
 {
 public:
-	CScriptCounter(){};
-	~CScriptCounter(){};
+	CScriptCounter() {};
+	~CScriptCounter() {};
 
 private:
 	int		m_iNum;
@@ -78,23 +78,23 @@ private:
 	int		m_iFlag;			// 030108 클라이언트 카운터가 끝이 났다는것을 알린다
 
 public:
-	void	SetNum( const int num ) { m_iNum = num;};
-	void	SetType( const int type );// { m_iType = type; if( m_iType ==};
-	void	SetMax( const int max ) { m_iMax = max;};
-	void	SetCounter( const int con) { m_iCounter = con;};
-	void	SetFlag( const int flag) { m_iFlag = flag;};
+	void	SetNum(const int num) { m_iNum = num; };
+	void	SetType(const int type);// { m_iType = type; if( m_iType ==};
+	void	SetMax(const int max) { m_iMax = max; };
+	void	SetCounter(const int con) { m_iCounter = con; };
+	void	SetFlag(const int flag) { m_iFlag = flag; };
 
-	int		GetNum() const { return m_iNum;};
-	int		GetType() const { return m_iType;};
-	int		GetMax() const { return m_iMax;};
-	int		GetCounter() const { return m_iCounter;};
+	int		GetNum() const { return m_iNum; };
+	int		GetType() const { return m_iType; };
+	int		GetMax() const { return m_iMax; };
+	int		GetCounter() const { return m_iCounter; };
 	bool	GetShowMenu() const { return m_bShow; };
 
-	void	ClearCounter(){ m_iNum=0; m_iType=0; m_iMax=0; m_iCounter=0; m_bStart= false; m_szType[0] = '\0'; m_iFlag=0;};
-	void	ShowCounter( char* szMsg);
+	void	ClearCounter() { m_iNum = 0; m_iType = 0; m_iMax = 0; m_iCounter = 0; m_bStart = false; m_szType[0] = '\0'; m_iFlag = 0; };
+	void	ShowCounter(char* szMsg);
 
 	bool	StartCounter();
-	void	AddCounter(){ m_iCounter++;};
+	void	AddCounter() { m_iCounter++; };
 	void	EndCounter();
 	void	ShowCountMenu();
 	void	HideCountMenu();
@@ -106,30 +106,30 @@ public:
 class CQuestMgr
 {
 public:
-	CQuestMgr(){};
-	~CQuestMgr(){};
+	CQuestMgr() {};
+	~CQuestMgr() {};
 
 
-//script timer관련
+	//script timer관련
 	CScriptTimer	*m_cTimer;
-	void	InitScriptTimer( const DWORD& dwTimerTime, const DWORD& dwSyncTime);
-	void 	RunScriptTimer( char *szMsg);	//돌면서 메뉴에 뿌릴 글자를 만든다.
+	void	InitScriptTimer(const DWORD& dwTimerTime, const DWORD& dwSyncTime);
+	void 	RunScriptTimer(char *szMsg);	//돌면서 메뉴에 뿌릴 글자를 만든다.
 	void	DeleteScriptTimer();
 
-//script counter관련
+	//script counter관련
 	CScriptCounter	*m_cCounter;
-	void	InitScriptCounter( t_script_counter *tp );//const int& iNum, const int& iType, const int& iMuch);
-	void	RunScriptCounter( char *szMsg);//돌면서 메뉴에 뿌릴 글자를 만든다.
-	void	SyncScriptCounter( t_script_counter *tp );	//monster kill일때
+	void	InitScriptCounter(t_script_counter *tp);//const int& iNum, const int& iType, const int& iMuch);
+	void	RunScriptCounter(char *szMsg);//돌면서 메뉴에 뿌릴 글자를 만든다.
+	void	SyncScriptCounter(t_script_counter *tp);	//monster kill일때
 	void	CheckItemCount();							//item search 일때
 	void	DeleteScriptCounter();
 
-//spellmapmove관련
+	//spellmapmove관련
 	string	m_szSpell;
-  void	SetSpellWord( const char* szWord ){ m_szSpell.assign( szWord ); };	//치? 문자를 모두 기억해라.
+	void	SetSpellWord(const char* szWord) { m_szSpell.assign(szWord); };	//치? 문자를 모두 기억해라.
 	void	EmptySpellWord();													//주문 내용을 맵이동 할때 지워라	
-	void	CheckSpellWord( t_script_spellmapmove *spell);						//주문이 맞는지 확인해서 맵에게 결과 보냄
-	void	RecvSpellWord_Suc( char* szMap );
+	void	CheckSpellWord(t_script_spellmapmove *spell);						//주문이 맞는지 확인해서 맵에게 결과 보냄
+	void	RecvSpellWord_Suc(char* szMap);
 	void	RecvSpellWord_Fail();
 	void	SendSpellWord(const t_script_spellmapmove *spell);
 };

@@ -61,9 +61,9 @@ struct t_char_info_tactic
 
 struct t_battle_message
 {
-    BYTE nType;   // 메세지의 분류
-    BYTE nKind;   // 메세지의 종류
-    WORD nNumber; // 메세지의 번호
+	BYTE nType;   // 메세지의 분류
+	BYTE nKind;   // 메세지의 종류
+	WORD nNumber; // 메세지의 번호
 };
 
 struct t_battle_damage
@@ -141,7 +141,7 @@ struct t_server_throw_attack
 };	//> CSD-TW-030606
 
 struct t_client_throw_result
-{ 
+{
 	WORD idTarget; // 마법을 사용한 대상자
 	__int16 nX;    // 마법이 발생된 위치의 X좌표
 	__int16 nY;    // 마법이 발생된 위치의 Y좌표
@@ -255,7 +255,7 @@ struct t_client_magic_execute
 	__int16 nY;    // 마법이 발생된 위치의 Y좌표
 };	//> CSD-TW-030606
 
-struct t_server_magic_execute 
+struct t_server_magic_execute
 {	//< CSD-TW-030606
 	BYTE nMagic;   // 마법의 번호
 	WORD idCaster; // 마법 시전자
@@ -271,7 +271,7 @@ struct t_client_magic_result
 	WORD idTarget; // 마법을 사용한 대상자
 	__int16 nX;    // 마법이 발생된 위치의 X좌표
 	__int16 nY;    // 마법이 발생된 위치의 Y좌표
-	bool bWanted; 
+	bool bWanted;
 };
 
 struct t_server_magic_result
@@ -480,7 +480,7 @@ union t_combat
 	t_client_combat_attack   client_combat_attack;
 	t_server_combat_attack   server_combat_attack;
 	t_client_combat_result   client_combat_result;
-	t_server_combat_result   server_combat_result;  
+	t_server_combat_result   server_combat_result;
 	t_server_combat_result_h server_combat_result_h;
 	t_server_combat_result_m server_combat_result_m;
 	t_server_combat_result_s server_combat_result_s;
@@ -758,7 +758,7 @@ struct t_arena_game_message1
 struct t_arena_game_message2
 {
 	char nTeamNumber1;
-	char szTeamMember1[20];	
+	char szTeamMember1[20];
 	char nTeamNumber2;
 	char szTeamMember2[20];
 };
@@ -779,23 +779,23 @@ struct t_arena_game_message4
 union t_arena
 {
 	t_arena_enter_lobby      arena_enter_lobby;
-	
+
 	t_arena_enter_team       arena_enter_team;
 	t_arena_leave_team       arena_leave_team;
-	
+
 	t_arena_enter_observe    arena_enter_observe;
 
 	t_arena_enter_gambling   arena_enter_gambling;
 
-	t_arena_add_lobby        arena_add_lobby; 
+	t_arena_add_lobby        arena_add_lobby;
 	t_arena_delete_lobby     arena_delete_lobby;
-	
-	t_arena_add_team         arena_add_team; 
+
+	t_arena_add_team         arena_add_team;
 	t_arena_delete_team      arena_delete_team;
 
 	t_arena_add_gambling	 arena_add_gambling;
 	t_arena_delete_gambling  arena_delete_gambling;
-	
+
 	t_arena_add_observe  	 arena_add_observe;
 	t_arena_delete_observe   arena_delete_observe;
 
@@ -803,14 +803,14 @@ union t_arena
 	t_arena_probability_info arena_probability_info;
 	t_arena_gambling_info    arena_gambling_info;
 	t_arena_dividend_info    arena_dividend_info;
-	t_arena_ready_info       arena_ready_info; 
+	t_arena_ready_info       arena_ready_info;
 	t_arena_game_info        arena_game_info; // CSD-TW-030701
 
 	t_arena_ready_game       arena_ready_game;
 	t_arena_start_game       arena_start_game;
 
 	t_arena_gambling_result  arena_gambling_result;
-	
+
 	t_arena_game_message1    arena_game_message1;
 	t_arena_game_message2    arena_game_message2;
 	t_arena_game_message3    arena_game_message3;

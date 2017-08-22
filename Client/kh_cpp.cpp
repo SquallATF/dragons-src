@@ -56,9 +56,9 @@ int		Job_Division;				//직업 명성치 값상승에따른 구분을위한 변�
 int		QUEST_GIVE;
 int		QUEST_COUNT;
 
-int		quest_num[QUEST_MAX] ; 
+int		quest_num[QUEST_MAX];
 //SCharacterData.nCharacterData[SPELL]
-void IncreaseFamous( int class_plus, int job_plus )
+void IncreaseFamous(int class_plus, int job_plus)
 {
 	SCharacterData.class_famous += class_plus;
 	//
@@ -72,102 +72,102 @@ void IncreaseFamous( int class_plus, int job_plus )
 	//
 }
 
-void DecreaseFamous( int class_plus, int job_plus )
+void DecreaseFamous(int class_plus, int job_plus)
 {
 	SCharacterData.class_famous -= class_plus;
-	if( SCharacterData.class_famous < 0 ) SCharacterData.class_famous = 0;
+	if (SCharacterData.class_famous < 0) SCharacterData.class_famous = 0;
 	//dik하락했을 때, 처리해야할 부분이 있다면 여기에...
 	//
-	
+
 	SCharacterData.job_famous -= job_plus;
-	if( SCharacterData.job_famous < 0 ) SCharacterData.job_famous = 0;
+	if (SCharacterData.job_famous < 0) SCharacterData.job_famous = 0;
 	Func_Division();
 }
 
-void Func_Division(){
+void Func_Division() {
 	//클래스 명성치 
-	if(SCharacterData.class_famous > 0 && SCharacterData.class_famous < LOW)					Class_Division = 1;
-	else if(SCharacterData.class_famous > LOW && SCharacterData.class_famous < C_GENERAL)			Class_Division = 2;
-	else if(SCharacterData.class_famous > C_GENERAL && SCharacterData.class_famous < HIGH)		Class_Division = 3;
-	else if(SCharacterData.class_famous > HIGH && SCharacterData.class_famous < SUPERIOR)		Class_Division = 4;
-	else if(SCharacterData.class_famous > SUPERIOR && SCharacterData.class_famous < C_GREAT)	Class_Division = 5;
-	else if(SCharacterData.class_famous > C_GREAT && SCharacterData.class_famous < CRUSADER)	Class_Division = 6;
+	if (SCharacterData.class_famous > 0 && SCharacterData.class_famous < LOW)					Class_Division = 1;
+	else if (SCharacterData.class_famous > LOW && SCharacterData.class_famous < C_GENERAL)			Class_Division = 2;
+	else if (SCharacterData.class_famous > C_GENERAL && SCharacterData.class_famous < HIGH)		Class_Division = 3;
+	else if (SCharacterData.class_famous > HIGH && SCharacterData.class_famous < SUPERIOR)		Class_Division = 4;
+	else if (SCharacterData.class_famous > SUPERIOR && SCharacterData.class_famous < C_GREAT)	Class_Division = 5;
+	else if (SCharacterData.class_famous > C_GREAT && SCharacterData.class_famous < CRUSADER)	Class_Division = 6;
 	//직업 명성치 
-	if(SCharacterData.job_famous > 0 && SCharacterData.job_famous < J_GENERAL)					Job_Division = 1;
-	else if(SCharacterData.job_famous > J_GENERAL && SCharacterData.job_famous < PRECISE)			Job_Division = 2;
-	else if(SCharacterData.job_famous > PRECISE && SCharacterData.job_famous < GOOD)			Job_Division = 3;
-	else if(SCharacterData.job_famous > GOOD && SCharacterData.job_famous < TRUST)				Job_Division = 4;
-	else if(SCharacterData.job_famous > TRUST && SCharacterData.job_famous < HONORABLE)			Job_Division = 5;
-	else if(SCharacterData.job_famous > HONORABLE && SCharacterData.job_famous < J_GREAT)		Job_Division = 6;
-	
+	if (SCharacterData.job_famous > 0 && SCharacterData.job_famous < J_GENERAL)					Job_Division = 1;
+	else if (SCharacterData.job_famous > J_GENERAL && SCharacterData.job_famous < PRECISE)			Job_Division = 2;
+	else if (SCharacterData.job_famous > PRECISE && SCharacterData.job_famous < GOOD)			Job_Division = 3;
+	else if (SCharacterData.job_famous > GOOD && SCharacterData.job_famous < TRUST)				Job_Division = 4;
+	else if (SCharacterData.job_famous > TRUST && SCharacterData.job_famous < HONORABLE)			Job_Division = 5;
+	else if (SCharacterData.job_famous > HONORABLE && SCharacterData.job_famous < J_GREAT)		Job_Division = 6;
+
 }
 
 
 ReadQuestTable  quest_text[QUEST_MAX];
 // 말그대로 퀘스트 테이블을 불러 온다. 
-void LoadQuestTable( char *filename,char* filename2, char *filename_bin)
+void LoadQuestTable(char *filename, char* filename2, char *filename_bin)
 {
-	
+
 	char text[1024];
 	char text1[1024];
 	FILE *fp;
-	
-	if(fp = Fopen( filename, "rt" ))
+
+	if (fp = Fopen(filename, "rt"))
 	{
 		int count = 0;
-		while( fgets( text, 1024, fp) != NULL )
+		while (fgets(text, 1024, fp) != NULL)
 		{
-			if( text[0] == '#' || text[0] == ';' ) continue;
-			quest_text[count].LoadTable( text );
+			if (text[0] == '#' || text[0] == ';') continue;
+			quest_text[count].LoadTable(text);
 			count++;
 		}
-		fclose( fp );
+		fclose(fp);
 		count = 0;
-		fp = Fopen( filename2, "rt" );	
-		while( fgets( text1, 1024, fp) != NULL )
+		fp = Fopen(filename2, "rt");
+		while (fgets(text1, 1024, fp) != NULL)
 		{
-			if( text1[0] == '#' || text1[0] == ';' ) continue;
-			quest_text[count].LoadPicture( text1 );
+			if (text1[0] == '#' || text1[0] == ';') continue;
+			quest_text[count].LoadPicture(text1);
 			count++;
 		}
-		fclose( fp );
-				
-		
-		if( Fopen ( filename_bin, "wb" ))
+		fclose(fp);
+
+
+		if (Fopen(filename_bin, "wb"))
 		{
 			char* tt = (char*)quest_text;
 			char crc = 0;
-			while(fgets( text, 1024, fp) != NULL){
+			while (fgets(text, 1024, fp) != NULL) {
 				crc += *tt;
 				tt++;
 			}
-			fwrite( &crc, 1, 1, fp);
-			fwrite( quest_text, sizeof(ReadQuestTable), QUEST_MAX, fp);
-			fwrite( &crc, 1, 1, fp);
+			fwrite(&crc, 1, 1, fp);
+			fwrite(quest_text, sizeof(ReadQuestTable), QUEST_MAX, fp);
+			fwrite(&crc, 1, 1, fp);
 			fclose(fp);
 		}
 	}
 	else
 	{
-		
-		if( fp = Fopen( filename_bin, "rb" ))
-		{
-			char* tt = (char*) quest_text;
-			char crc = 0,crc1,crc2;
-			fread( &crc1, 1, 1, fp);
-			fread( quest_text, sizeof(ReadQuestTable), QUEST_MAX, fp );
-			fread( &crc2, 1, 1, fp);
-			fclose(fp );
 
-			for( int i=0; i<QUEST_MAX; i++ )
+		if (fp = Fopen(filename_bin, "rb"))
+		{
+			char* tt = (char*)quest_text;
+			char crc = 0, crc1, crc2;
+			fread(&crc1, 1, 1, fp);
+			fread(quest_text, sizeof(ReadQuestTable), QUEST_MAX, fp);
+			fread(&crc2, 1, 1, fp);
+			fclose(fp);
+
+			for (int i = 0; i < QUEST_MAX; i++)
 			{
 				quest_text[i].SaveTable();
 			}
 		}
 		else return;
 	}
-	return ;
-	
+	return;
+
 }
 
 
@@ -175,15 +175,15 @@ void LoadQuestTable( char *filename,char* filename2, char *filename_bin)
 
 // 퀘스트 테이블이랑 넣오도 되는데 테이블이 정리가 되어있지 않아서 
 // 따로 만들어놓은 파일을 불러온다. 
-void ReadQuestTable::LoadPicture( char *text )	{
-	
-	char *token = strtok(text,",\t\n");
-	if( !token ) return;
+void ReadQuestTable::LoadPicture(char *text) {
+
+	char *token = strtok(text, ",\t\n");
+	if (!token) return;
 	picnum = atoi(token);
-		
-	token= strtok(NULL, ",\t\n") ;
-	if( !token ) return;
-	strcpy( picture, token );
+
+	token = strtok(NULL, ",\t\n");
+	if (!token) return;
+	strcpy(picture, token);
 }
 
 
@@ -192,64 +192,64 @@ void ReadQuestTable::SaveTable()
 {
 	return;
 	FILE *fp;
-	fp = fopen( "quest.txt", "at+" );
-	if( !fp ) return;
+	fp = fopen("quest.txt", "at+");
+	if (!fp) return;
 
-	fprintf( fp, "%d	%d	%s	%d	%s	", num, code, name, place, ch );
-	for( int i=0; i<QUEST_IF_COUNT; i++ )
+	fprintf(fp, "%d	%d	%s	%d	%s	", num, code, name, place, ch);
+	for (int i = 0; i < QUEST_IF_COUNT; i++)
 	{
-		fprintf(fp, "%d	", quest_if[i] );
+		fprintf(fp, "%d	", quest_if[i]);
 	}
-	for(int i=0; i<QUEST_TAKE_COUNT; i++ )
+	for (int i = 0; i < QUEST_TAKE_COUNT; i++)
 	{
-		fprintf(fp, "%d	", quest_take[i] );		
+		fprintf(fp, "%d	", quest_take[i]);
 	}
-	fprintf( fp, "\n" );
-	fclose( fp );
+	fprintf(fp, "\n");
+	fclose(fp);
 
-	fp = fopen( "questpic.txt", "at+" );
-	if( !fp ) return;
+	fp = fopen("questpic.txt", "at+");
+	if (!fp) return;
 
-	fprintf( fp, "%d	%s\n", picnum, picture );
-	fclose( fp );
+	fprintf(fp, "%d	%s\n", picnum, picture);
+	fclose(fp);
 	return;
 
 }
 
-void ReadQuestTable::LoadTable( char *text )	// 문자열에서 데이타를 분리
+void ReadQuestTable::LoadTable(char *text)	// 문자열에서 데이타를 분리
 {
-	char *token = strtok(text,",\t\n");
-	if( !token ) return;
-	num = atoi( token );
+	char *token = strtok(text, ",\t\n");
+	if (!token) return;
+	num = atoi(token);
 
-	token= strtok(NULL, ",\t\n") ;
-	if( !token ) return;
+	token = strtok(NULL, ",\t\n");
+	if (!token) return;
 	code = atoi(token);
-	
-	token = strtok(NULL,",\t\n");
-	if( !token ) return;
-	strcpy( name, token );
-	
-	token= strtok(NULL, ",\t\n") ;
-	if( !token ) return;
+
+	token = strtok(NULL, ",\t\n");
+	if (!token) return;
+	strcpy(name, token);
+
+	token = strtok(NULL, ",\t\n");
+	if (!token) return;
 	place = atoi(token);
-	
-	token = strtok(NULL,",\t\n");
-	if( !token ) return;
-	strcpy( ch, token );
-	
-	for(int i = 0 ; i < QUEST_IF_COUNT; i++){
-		token= strtok(NULL, ",\t\n") ;
-		if( !token ) return;
+
+	token = strtok(NULL, ",\t\n");
+	if (!token) return;
+	strcpy(ch, token);
+
+	for (int i = 0; i < QUEST_IF_COUNT; i++) {
+		token = strtok(NULL, ",\t\n");
+		if (!token) return;
 		quest_if[i] = atoi(token);
 	}
 
-	for(int i = 0 ; i < QUEST_TAKE_COUNT; i++){
-		token= strtok(NULL, ",\t\n") ;
-		if( !token ) return;
+	for (int i = 0; i < QUEST_TAKE_COUNT; i++) {
+		token = strtok(NULL, ",\t\n");
+		if (!token) return;
 		quest_take[i] = atoi(token);
 	}
-	
+
 	///////////////////////////
 	// 항목 추가
 }
@@ -263,18 +263,18 @@ void kh_InitMenu()
 
 int end_quest[200];
 
-void SetEndQuest(int num )
+void SetEndQuest(int num)
 {
 	//for( int i=0; i<3; i++ )
-		end_quest[num] = 1;
-		return ;
+	end_quest[num] = 1;
+	return;
 }
 
-void SetStartQuest(int num){
-	QUEST_GIVE = rand()%4;
+void SetStartQuest(int num) {
+	QUEST_GIVE = rand() % 4;
 	quest_num[QUEST_COUNT++] = QUEST_GIVE;
-	
-	if(QUEST_COUNT > 200 ) QUEST_COUNT = 200;
+
+	if (QUEST_COUNT > 200) QUEST_COUNT = 200;
 	return;
 }
 //if( end_quest[quest_num] ) --> 성공한 퀘스트..
@@ -282,13 +282,13 @@ void SetStartQuest(int num){
 
 void kh_KeyProc()
 {
-	if(g_aCurrentKeys[DIK_R] & 0x80)
+	if (g_aCurrentKeys[DIK_R] & 0x80)
 	{
 		CallSmallMenu(MN_CHARACTER_COLOR_CHANGE);		// 퀘스트 메뉴
 	}
-	if(g_aCurrentKeys[DIK_M] & 0x80)
+	if (g_aCurrentKeys[DIK_M] & 0x80)
 	{
-		if(!SMenu[MN_CHARACTER_COLOR_CHANGE].key){
+		if (!SMenu[MN_CHARACTER_COLOR_CHANGE].key) {
 			SMenu[MN_CHARACTER_COLOR_CHANGE].key = 1;		// 퀘스트 메뉴
 		}
 		else {
@@ -296,17 +296,17 @@ void kh_KeyProc()
 		}
 	}// ㅁㅇㅅㅊㅁㄴ 
 	//FAME
-	
-	if(g_aCurrentKeys[DIK_B] & 0x80)
+
+	if (g_aCurrentKeys[DIK_B] & 0x80)
 	{
-		
+
 		//SetStartQuest(1);
 		//CallSmallMenu(MN_FAME);		// 퀘스트 메뉴
-		SendReqQuestIndex( 1 );
+		SendReqQuestIndex(1);
 	}
 
-	if(g_aCurrentKeys[DIK_X] & 0x80 )
-	{	
+	if (g_aCurrentKeys[DIK_X] & 0x80)
+	{
 		kein_kh_key_on = true;
 	}
 }
@@ -314,14 +314,14 @@ void kh_KeyProc()
 
 void FreeQuest()
 {
-	for( int i=0; i<QUEST_MAX;i++ )
-		if( quest_text[i].sq.img ) FreeSpriteOnlyOne( &quest_text[i].sq );
+	for (int i = 0; i < QUEST_MAX; i++)
+		if (quest_text[i].sq.img) FreeSpriteOnlyOne(&quest_text[i].sq);
 }
 
-void QestDataFree( )
+void QestDataFree()
 {
-	memset( quest_num, 0, sizeof( int ) *QUEST_MAX );
-	memset( end_quest, 0, sizeof( int ) *QUEST_MAX );
+	memset(quest_num, 0, sizeof(int) *QUEST_MAX);
+	memset(end_quest, 0, sizeof(int) *QUEST_MAX);
 	QUEST_COUNT = 0;
 }
 
@@ -368,7 +368,7 @@ void CharacterWorkingWater(LPCHARACTER ch)
 
 	//////////////////////////////////////1010 kkh 추가 끝 //////////////////////////////////////
 }
-						   
+
 
 
 

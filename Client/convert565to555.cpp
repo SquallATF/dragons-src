@@ -20,55 +20,55 @@ extern	TPixelInfo	_PixelInfo;
 
 int  convert565to555(Spr *sp)
 {
-	int FFFFCheak=0;
+	int FFFFCheak = 0;
 	int ConvertCount;
 	int i;
 	WORD *p;
 	int tt;
 
-	
-	if( _PixelInfo.BitMaskR != 0x7C00 )
+
+	if (_PixelInfo.BitMaskR != 0x7C00)
 	{
 		return 0;
 	}
 
-	if( sp->xl == 0 ) return -1;
-	if( sp->yl == 0 ) return -2;
-	if( sp->size == 0 ) return -3;
+	if (sp->xl == 0) return -1;
+	if (sp->yl == 0) return -2;
+	if (sp->size == 0) return -3;
 
-	 p = (WORD *)sp->img;
+	p = (WORD *)sp->img;
 
-	while(1)
+	while (1)
 	{
-AGAIN_:
+	AGAIN_:
 		tt = 0;
-		if(*p == 0xFFFF)
+		if (*p == 0xFFFF)
 		{
 			tt = *p;
 			FFFFCheak++;
 			p++;
 
-			if(FFFFCheak == sp->yl ) break;
+			if (FFFFCheak == sp->yl) break;
 		}
 
-		if( tt == 0xffff ) goto AGAIN_;
+		if (tt == 0xffff) goto AGAIN_;
 
 		p++;   //투명색 건너 뛰기
-		ConvertCount=*p;   //색 갯수 체크
+		ConvertCount = *p;   //색 갯수 체크
 		p++;    //체크후 포인터 이동
 
-		for(i=0; i < ConvertCount;i+=2)
+		for (i = 0; i < ConvertCount; i += 2)
 		{
-			*p=((*p)&0xFFC0)>>1 | ((*p)&0x1F);
+			*p = ((*p) & 0xFFC0) >> 1 | ((*p) & 0x1F);
 			p++;
 		}
 
-		if(*p == 0xFFFF)
+		if (*p == 0xFFFF)
 		{
 			FFFFCheak++;
 			p++;
 
-			if(FFFFCheak == sp->yl ) break;
+			if (FFFFCheak == sp->yl) break;
 		}
 	}
 
@@ -78,55 +78,55 @@ AGAIN_:
 
 int  convert565to555_LoadSprite(Spr *sp)
 {
-	int FFFFCheak=0;
+	int FFFFCheak = 0;
 	int ConvertCount;
 	int i;
 	WORD *p;
 	int tt;
 
-	
-	if( _PixelInfo.BitMaskR != 0x7C00 )
+
+	if (_PixelInfo.BitMaskR != 0x7C00)
 	{
 		return 0;
 	}
 
-	if( sp->xl == 0 ) return -1;
-	if( sp->yl == 0 ) return -2;
-	if( sp->size == 0 ) return -3;
+	if (sp->xl == 0) return -1;
+	if (sp->yl == 0) return -2;
+	if (sp->size == 0) return -3;
 
-	 p = (WORD *)sp->img;
+	p = (WORD *)sp->img;
 
-	while(1)
+	while (1)
 	{
-AGAIN_:
+	AGAIN_:
 		tt = 0;
-		if(*p == 0xFFFF)
+		if (*p == 0xFFFF)
 		{
 			tt = *p;
 			FFFFCheak++;
 			p++;
 
-			if(FFFFCheak == sp->yl ) break;
+			if (FFFFCheak == sp->yl) break;
 		}
 
-		if( tt == 0xffff ) goto AGAIN_;
+		if (tt == 0xffff) goto AGAIN_;
 
 		p++;   //투명색 건너 뛰기
-		ConvertCount=*p;   //색 갯수 체크
+		ConvertCount = *p;   //색 갯수 체크
 		p++;    //체크후 포인터 이동
 
-		for(i=0; i < ConvertCount;i+=2)
+		for (i = 0; i < ConvertCount; i += 2)
 		{
-			*p=((*p)&0xFFC0)>>1 | ((*p)&0x1F);
+			*p = ((*p) & 0xFFC0) >> 1 | ((*p) & 0x1F);
 			p++;
 		}
 
-		if(*p == 0xFFFF)
+		if (*p == 0xFFFF)
 		{
 			FFFFCheak++;
 			p++;
 
-			if(FFFFCheak == sp->yl ) break;
+			if (FFFFCheak == sp->yl) break;
 		}
 	}
 	return 0;
@@ -136,26 +136,26 @@ AGAIN_:
 
 
 
-void convert565to555RawTile( char *img )
+void convert565to555RawTile(char *img)
 {
 	int i;
 	WORD *p;
 
-	if( _PixelInfo.BitMaskR != 0x7C00 )		return;
+	if (_PixelInfo.BitMaskR != 0x7C00)		return;
 
-	 p = (WORD *)img;
+	p = (WORD *)img;
 
-	 for( i = 0 ; i < TILE_SIZE * TILE_SIZE ; i ++)
-	 {
-		 *p=((*p)&0xFFC0)>>1 | ((*p)&0x1F);
-		 p++;
-	 }
+	for (i = 0; i < TILE_SIZE * TILE_SIZE; i++)
+	{
+		*p = ((*p) & 0xFFC0) >> 1 | ((*p) & 0x1F);
+		p++;
+	}
 }
 
 
 // 스프라이트 끼리 카피한다.
 // 주의 사항은 img 의 메모리 카피를 의식해야 한다.
-void CopySprToSpr( Spr *target, const Spr *source )
+void CopySprToSpr(Spr *target, const Spr *source)
 {
 	target->xl = source->xl;
 	target->yl = source->yl;
@@ -163,5 +163,5 @@ void CopySprToSpr( Spr *target, const Spr *source )
 	target->oy = source->oy;
 	target->size = source->size;
 	target->img = new char[target->size];
-	memcpy( target->img, source->img, target->size );
+	memcpy(target->img, source->img, target->size);
 }

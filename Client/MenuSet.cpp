@@ -12,61 +12,61 @@
 extern void MenuSet2();//020515 lsw
 extern void MenuSet3();	// 021020 kyo
 
-extern char* EatRearWhiteChar( char* pStr );
+extern char* EatRearWhiteChar(char* pStr);
 extern SMENU SMenu[MAX_MENU];
 extern SHN SHideNomal[MAX_SHN][MAX_SHN_FIELD];
 
-extern void SetRect(RECT &rect,int left, int top, int right, int bottom);    //메뉴 구성요소의 충돌체크 rect형에 값 대입
+extern void SetRect(RECT &rect, int left, int top, int right, int bottom);    //메뉴 구성요소의 충돌체크 rect형에 값 대입
 
 ////////////////////////////////////////////////////////////////////////////////////////////
 CMenuImageMgr *g_MenuImageMgr = NULL;
 int LoadMenuImage()
 {
 	char *filename = "./data/menu_image.txt";
-	
-	FILE *fp = Fopen( filename, "rt" );
-	if( fp )
+
+	FILE *fp = Fopen(filename, "rt");
+	if (fp)
 	{
 		char temp[512];
 		int index, image_max;
 		char file_name[40];
 		int max_index = 0;
 		CMenuImageLink link;
-		while( fgets( temp, 512, fp ) )
+		while (fgets(temp, 512, fp))
 		{
-			if( CheckContinueLine( temp[0] ) ) continue;
+			if (CheckContinueLine(temp[0])) continue;
 			char *token;
-			token = strtok( temp, "\t\n" );
-			if( !token ) continue;
-			index = atoi( token );
-			if( index > max_index ) max_index = index;		// 10000 이상이어야 한다.
-			
-			token = strtok( NULL, "\t\n" );
-			image_max = atoi( token );
-			token = strtok( NULL, "\t\n" );
-			strcpy( file_name, token );
-			link.InputData( index, image_max, file_name );
+			token = strtok(temp, "\t\n");
+			if (!token) continue;
+			index = atoi(token);
+			if (index > max_index) max_index = index;		// 10000 이상이어야 한다.
+
+			token = strtok(NULL, "\t\n");
+			image_max = atoi(token);
+			token = strtok(NULL, "\t\n");
+			strcpy(file_name, token);
+			link.InputData(index, image_max, file_name);
 		}
 		SAFE_DELETE(g_MenuImageMgr);
-		
-		if( image_max )
+
+		if (image_max)
 		{
-			g_MenuImageMgr = new CMenuImageMgr( max_index-10000+1 );
-			
+			g_MenuImageMgr = new CMenuImageMgr(max_index - 10000 + 1);
+
 			CMenuImageLink *find;
 			link.SetFind();
-			while( find = link.Next() )
+			while (find = link.Next())
 			{
-				g_MenuImageMgr->InsetData( find->GetParam(), find->GetDataPoint() );
+				g_MenuImageMgr->InsetData(find->GetParam(), find->GetDataPoint());
 			}
 		}
-		
-		fclose( fp );
+
+		fclose(fp);
 		return 1;
 	}
 	else
 	{
-		JustMsg( "Error! Not Found 'menu_image.txt'");
+		JustMsg("Error! Not Found 'menu_image.txt'");
 		return 0;
 	}
 }
@@ -75,50 +75,50 @@ int LoadMenuImage()
 
 int CMenuImage::clear()
 {
-	if (buf) 
+	if (buf)
 	{
 		FreeOpenningSpr(&buf);
 		buf = NULL;
 	}
-	
-	if (spr) 
+
+	if (spr)
 	{
-		delete [] spr;
+		delete[] spr;
 		spr = NULL;
 	}
-	
+
 	return 1;
 }
 
 // 020701 YGI
 int CMenuImage::LoadMenuSpr()
 {
-	LoadOpenningSpr( file_name, &buf, spr, image_max );					// 투표
+	LoadOpenningSpr(file_name, &buf, spr, image_max);					// 투표
 	return 1;
 }
 // 020701 YGI
-Spr *CMenuImage::GetSpr( int img_number )
+Spr *CMenuImage::GetSpr(int img_number)
 {
-	if( img_number > image_max ) return NULL;
-	if( !buf ) LoadMenuSpr();
+	if (img_number > image_max) return NULL;
+	if (!buf) LoadMenuSpr();
 	return &spr[img_number];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-int CGuildMemberName::SetCount( int degree, int count, k_get_guild_memeber_list_name *data )
+int CGuildMemberName::SetCount(int degree, int count, k_get_guild_memeber_list_name *data)
 {
-	if( m_degree[degree].m_iTotal ) m_degree[degree].clear();
+	if (m_degree[degree].m_iTotal) m_degree[degree].clear();
 	m_degree[degree].m_iTotal = count;
-	if( count )
+	if (count)
 	{
 		m_degree[degree].m_lpszName = new string[count];
 		m_degree[degree].m_bpIsConnect = new int[count];
 		int code = Hero->GetGuildCode(); // CSD-030324
-		for( int i=0; i<count; i++ )
+		for (int i = 0; i < count; i++)
 		{
 			m_degree[degree].m_lpszName[i] = data[i].name;
 			m_degree[degree].m_bpIsConnect[i] = data[i].is_connect;
-			if( IsSubMaster( code, data[i].name ) )
+			if (IsSubMaster(code, data[i].name))
 			{
 				m_nSubMasterNumber_degree = degree;
 				m_nSubMasterNumber = i;
@@ -128,198 +128,198 @@ int CGuildMemberName::SetCount( int degree, int count, k_get_guild_memeber_list_
 	return 1;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////
-DWORD GetNationMoney( int nation )
+DWORD GetNationMoney(int nation)
 {
-	if( !g_Menu_Variable.m_stNationMoney ) return 0;
-	
-	switch( nation )
+	if (!g_Menu_Variable.m_stNationMoney) return 0;
+
+	switch (nation)
 	{
-	case N_VYSEUS	:	return g_Menu_Variable.m_stNationMoney->money3;
-	case N_ZYPERN	: 	return g_Menu_Variable.m_stNationMoney->money4;
-	case N_YILSE	:	return g_Menu_Variable.m_stNationMoney->money6;
+	case N_VYSEUS:	return g_Menu_Variable.m_stNationMoney->money3;
+	case N_ZYPERN: 	return g_Menu_Variable.m_stNationMoney->money4;
+	case N_YILSE:	return g_Menu_Variable.m_stNationMoney->money6;
 	}
 	return 0;
 }
 
 // 주석 처리
-bool CheckContinueLine( char check )
+bool CheckContinueLine(char check)
 {
-	if( check == 0 || check == ' ' || check == ';' || check == '#' || check == '\n' ) return true;
+	if (check == 0 || check == ' ' || check == ';' || check == '#' || check == '\n') return true;
 	return false;
 }
 
 ///////////////////////////////////////////////////////////////////
 // 포탈 메뉴
-int CPotalMenu::LoadPotalMap( int nation )
+int CPotalMenu::LoadPotalMap(int nation)
 {
 	int nation_temp;
 	int map_number;
 	int money, x, y, type, img_type, level;
 
-	char map_name[50] = {0,};
-	
-	FILE *fp = Fopen( "./data/map_potal.txt","rt" );
-	if( !fp ) return 0;
-	
+	char map_name[50] = { 0, };
+
+	FILE *fp = Fopen("./data/map_potal.txt", "rt");
+	if (!fp) return 0;
+
 	char temp[2048];
-	while( fgets( temp, 2048, fp) )
+	while (fgets(temp, 2048, fp))
 	{
-		if( ::CheckContinueLine( temp[0] ) ) continue;
-		char *token = strtok( temp, "\t\n" );
-		if( !token ) continue;
-		map_number = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		strcpy( map_name, token );
-		
-		token = strtok( NULL, "\t\n" );
-		nation_temp = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		money = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		x = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		y = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		type = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		img_type = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		level = atoi( token );
-		
-		fgets( temp, 2048, fp);
-		
-		if( nation_temp == nation )
+		if (::CheckContinueLine(temp[0])) continue;
+		char *token = strtok(temp, "\t\n");
+		if (!token) continue;
+		map_number = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		strcpy(map_name, token);
+
+		token = strtok(NULL, "\t\n");
+		nation_temp = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		money = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		x = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		y = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		type = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		img_type = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		level = atoi(token);
+
+		fgets(temp, 2048, fp);
+
+		if (nation_temp == nation)
 		{
 			m_Map[m_Count].map_number = map_number;
 			m_Map[m_Count].money = money;
 			m_Map[m_Count].type = type;
 			m_Map[m_Count].img_type = img_type;
 			m_Map[m_Count].level = level;
-			strcpy( m_Map[m_Count].map_name, map_name );
-			int len = strlen( temp );
-			if( len )
+			strcpy(m_Map[m_Count].map_name, map_name);
+			int len = strlen(temp);
+			if (len)
 			{
-				SetExplain( m_Count, temp, len );
+				SetExplain(m_Count, temp, len);
 			}
 			m_Count++;
 		}
 	}
-	fclose( fp );
+	fclose(fp);
 	return 1;
-}	
+}
 
 ///////////////////////////////////////////////////////////////////
 // 친구 시스템 클레스
-int CFriendGrup::SetFriendName( int cn, char *name )
+int CFriendGrup::SetFriendName(int cn, char *name)
 {
-	strcpy( m_Friend[cn].name, name);
+	strcpy(m_Friend[cn].name, name);
 	return 1;
 }
-int CFriendGrup::SetFriendLogin( int cn, int login )
+int CFriendGrup::SetFriendLogin(int cn, int login)
 {
 	m_Friend[cn].m_bLogin = login;
 	return 1;
 }
-char *CFriendGrup::GetFriend( int cn, int &login )
+char *CFriendGrup::GetFriend(int cn, int &login)
 {
 	login = m_Friend[cn].m_bLogin;
 	return m_Friend[cn].name;
 }
-int CFriendGrup::InsertFriend( char *name, int login )
+int CFriendGrup::InsertFriend(char *name, int login)
 {
 	int cn = -1;
-	for( int i=0; i<MAX_FRIEND_GROUP; i++ )
+	for (int i = 0; i < MAX_FRIEND_GROUP; i++)
 	{
-		if( !m_Friend[i].name[0] )
+		if (!m_Friend[i].name[0])
 		{
-			if( cn == -1 ) cn = i;
+			if (cn == -1) cn = i;
 			continue;
 		}
-		if( strcmp( m_Friend[i].name, name ) == 0 )
+		if (strcmp(m_Friend[i].name, name) == 0)
 		{
-			SetFriendLogin( i, login );
+			SetFriendLogin(i, login);
 			break;
 		}
 	}
-	if( cn != -1 )
+	if (cn != -1)
 	{
-		SetFriendName( cn, name );
-		SetFriendLogin( cn, login );
+		SetFriendName(cn, name);
+		SetFriendLogin(cn, login);
 		count++;
 	}
-	
+
 	SMENU *SubMenu = &SMenu[MN_FRIEND_MENU];
 	int &page_status = SubMenu->work;
 	WORD page;
 	WORD page_max;
-	GetWORDOfDWORD( (DWORD)page_status, page, page_max );
-	
+	GetWORDOfDWORD((DWORD)page_status, page, page_max);
+
 	int max_line = 10;
-	page_max = (count-1)/10.0;
-	page_status = (int )MAKELONG( page, page_max+1 );
+	page_max = (count - 1) / 10.0;
+	page_status = (int)MAKELONG(page, page_max + 1);
 	return 1;
 }
 int CFriendGrup::clear()
 {
-	for( int i=0; i<MAX_FRIEND_GROUP; i++ )
+	for (int i = 0; i < MAX_FRIEND_GROUP; i++)
 	{
 		m_Friend[i].name[0] = 0;
-		m_Friend[i].m_bLogin= 0;
+		m_Friend[i].m_bLogin = 0;
 	}
 	count = 0;
 	return 1;
 }
-int CFriendGrup::SerchName( const char *name )//030504 lsw
+int CFriendGrup::SerchName(const char *name)//030504 lsw
 {
-	for( int i=0; i<MAX_FRIEND_GROUP; i++ )
+	for (int i = 0; i < MAX_FRIEND_GROUP; i++)
 	{
-		if( ::_stricmp( name, m_Friend[i].name ) == 0 )
+		if (::_stricmp(name, m_Friend[i].name) == 0)
 		{
 			return i;
 		}
 	}
 	return -1;
 }
-int CFriendGrup::DeleteName( int cn )
+int CFriendGrup::DeleteName(int cn)
 {
 	m_Friend[cn].clear();
 	count--;
 	return 1;
 }
 
-int CFriendGrup::SetRect( int cn, int type, int left, int top, int right, int bottom )
+int CFriendGrup::SetRect(int cn, int type, int left, int top, int right, int bottom)
 {
-	switch( type )
-	{
-	case 1: 
-		::SetRect( m_Friend[cn].rect1, left, top, right, bottom );
-		break;
-	case 2: 
-		::SetRect( m_Friend[cn].rect2, left, top, right, bottom );
-		break;
-	}
-	return 1;	
-}
-
-char *CFriendGrup::CheckRect( int cn, int type, int x, int y )
-{
-	switch( type )
+	switch (type)
 	{
 	case 1:
-		if( MouseInRectCheak( x, y, m_Friend[cn].rect1 ) )
+		::SetRect(m_Friend[cn].rect1, left, top, right, bottom);
+		break;
+	case 2:
+		::SetRect(m_Friend[cn].rect2, left, top, right, bottom);
+		break;
+	}
+	return 1;
+}
+
+char *CFriendGrup::CheckRect(int cn, int type, int x, int y)
+{
+	switch (type)
+	{
+	case 1:
+		if (MouseInRectCheak(x, y, m_Friend[cn].rect1))
 		{
 			return m_Friend[cn].name;
 		}
 		break;
 	case 2:
-		if( MouseInRectCheak( x, y, m_Friend[cn].rect2 ) )
+		if (MouseInRectCheak(x, y, m_Friend[cn].rect2))
 		{
 			return m_Friend[cn].name;
 		}
@@ -329,98 +329,98 @@ char *CFriendGrup::CheckRect( int cn, int type, int x, int y )
 }
 
 ///////////////////////////////////////////////////////////////////
-LPCTSTR CRuneExplain::GetTitleExplain( int lune_num )
+LPCTSTR CRuneExplain::GetTitleExplain(int lune_num)
 {
 	return m_szExplainTitle[lune_num].c_str();
 }
 
-int CRuneExplain::LoadLuneText2( int lune_num )
+int CRuneExplain::LoadLuneText2(int lune_num)
 {
-	if( !m_szExplainTitle[lune_num].empty() ) return 0;
-	
+	if (!m_szExplainTitle[lune_num].empty()) return 0;
+
 	char file[128];
-	sprintf( file, "./data/rune_%02d.txt", lune_num+1 );
-	
-	FILE *fp = Fopen( file, "rt" );
+	sprintf(file, "./data/rune_%02d.txt", lune_num + 1);
+
+	FILE *fp = Fopen(file, "rt");
 	char temp[4096];
-	if( !fp ) return 0;
-	while( fgets( temp, 4096, fp ) )
+	if (!fp) return 0;
+	while (fgets(temp, 4096, fp))
 	{
-		ChangeString2( temp, "\\n", " \n" );
+		ChangeString2(temp, "\\n", " \n");
 		m_szExplainTitle[lune_num] += temp;
-	}	
-	fclose( fp );
+	}
+	fclose(fp);
 	return 1;
 }
-int CRuneExplain::LoadLuneText( )
+int CRuneExplain::LoadLuneText()
 {
-	FILE *fp = Fopen( "./data/rune_ex.txt", "rt" );
-	if( !fp ) return 0;
-	
+	FILE *fp = Fopen("./data/rune_ex.txt", "rt");
+	if (!fp) return 0;
+
 	char temp[4096];
 	int step;
 	int rune_count;
-	while( fgets( temp, 4096, fp ) )
+	while (fgets(temp, 4096, fp))
 	{
-		if( temp[0] == ' '||temp[0] =='\n'||temp[0] =='#'||temp[0] == ';'|| temp[0] == NULL )
+		if (temp[0] == ' ' || temp[0] == '\n' || temp[0] == '#' || temp[0] == ';' || temp[0] == NULL)
 			continue;
-		
-		char *token = strtok( temp, "\t\n" );
-		if( !token ) continue;
-		step = atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		if( !token ) continue;
-		rune_count= atoi( token );
-		
-		token = strtok( NULL, "\t\n" );
-		if( !token ) continue;
-		strcpy( m_szTitle[step-1][rune_count], token );
-		
-		token = strtok( NULL, "\t\n" );
-		if( !token ) continue;
-		strcpy( m_szExplain[step-1][rune_count], token );
+
+		char *token = strtok(temp, "\t\n");
+		if (!token) continue;
+		step = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		if (!token) continue;
+		rune_count = atoi(token);
+
+		token = strtok(NULL, "\t\n");
+		if (!token) continue;
+		strcpy(m_szTitle[step - 1][rune_count], token);
+
+		token = strtok(NULL, "\t\n");
+		if (!token) continue;
+		strcpy(m_szExplain[step - 1][rune_count], token);
 	}
-	fclose( fp );
+	fclose(fp);
 	return 1;
 }
 
 int k_char_rgb::set()
 {
-	body_r = SCharacterData.body_r ;
-	body_g = SCharacterData.body_g ;
-	body_b = SCharacterData.body_b ;
-	cloth_r= SCharacterData.cloth_r;
-	cloth_g= SCharacterData.cloth_g;
-	cloth_b= SCharacterData.cloth_b;
+	body_r = SCharacterData.body_r;
+	body_g = SCharacterData.body_g;
+	body_b = SCharacterData.body_b;
+	cloth_r = SCharacterData.cloth_r;
+	cloth_g = SCharacterData.cloth_g;
+	cloth_b = SCharacterData.cloth_b;
 	return 1;
 }
 
 k_char_rgb::~k_char_rgb()
 {
-	SCharacterData.body_r = body_r ;
-	SCharacterData.body_g = body_g ;
-	SCharacterData.body_b = body_b ;
-	SCharacterData.cloth_r= cloth_r;
-	SCharacterData.cloth_g= cloth_g;
-	SCharacterData.cloth_b= cloth_b;
+	SCharacterData.body_r = body_r;
+	SCharacterData.body_g = body_g;
+	SCharacterData.body_b = body_b;
+	SCharacterData.cloth_r = cloth_r;
+	SCharacterData.cloth_g = cloth_g;
+	SCharacterData.cloth_b = cloth_b;
 
 	g_Menu_Variable.m_bChangeColor = true;
 }
 ///////////////////////////////////////////////////////////////////
 int CMenuVariable::clear()
 {
-	if( m_pGuildRegistExplain )
+	if (m_pGuildRegistExplain)
 	{
 		delete m_pGuildRegistExplain;
 		m_pGuildRegistExplain = NULL;
 	}
-	if( m_pRune )
+	if (m_pRune)
 	{
 		delete m_pRune;
 		m_pRune = NULL;
 	}
-	if( m_stRGB )
+	if (m_stRGB)
 	{
 		delete m_stRGB;
 		m_stRGB = 0;
@@ -428,64 +428,64 @@ int CMenuVariable::clear()
 	bCheckSalvation = 0;
 	g_Menu_Variable.set_bCheckSalvation(bCheckSalvation);//轟掘츰 ?
 
-	if( pGambleItem )
+	if (pGambleItem)
 	{
-		delete[] pGambleItem; 
+		delete[] pGambleItem;
 		pGambleItem = 0;
 	}
 	m_GambleRune = 0;
-	if( m_szGuildPublicNotics )
+	if (m_szGuildPublicNotics)
 	{
 		delete[] m_szGuildPublicNotics;
-		m_szGuildPublicNotics = 0 ;
+		m_szGuildPublicNotics = 0;
 	}
-	if( m_TodayGambleItem )
+	if (m_TodayGambleItem)
 	{
 		delete m_TodayGambleItem;
 		m_TodayGambleItem = 0;
 	}
-	if( m_pPutGuildItem )
+	if (m_pPutGuildItem)
 	{
 		delete m_pPutGuildItem;
 		m_pPutGuildItem = 0;
 	}
-	if( m_pSubGuildMaster )
+	if (m_pSubGuildMaster)
 	{
 		delete[] m_pSubGuildMaster;
 		m_pSubGuildMaster = NULL;
 	}
-	
+
 	m_GuildMemberName.clear();
 	m_szFileTextPut = "";
 	m_nation_item.clear();
-	
-	if( m_pGuildHouseInfo )
+
+	if (m_pGuildHouseInfo)
 	{
 		delete m_pGuildHouseInfo;
 		m_pGuildHouseInfo = 0;
 	}
-	
+
 	//acer5
-	if( m_pOtherChar ) 
+	if (m_pOtherChar)
 	{
 		delete m_pOtherChar;
 		m_pOtherChar = 0;
 	}
 	// 020620 YGI
-	if( m_pScenarioTrapInfo )
+	if (m_pScenarioTrapInfo)
 	{
 		delete m_pScenarioTrapInfo;
 		m_pScenarioTrapInfo = 0;
 	}
-	
+
 	// 020701 YGI
-	if( m_pScenarioTrapKey )
+	if (m_pScenarioTrapKey)
 	{
 		delete m_pScenarioTrapKey;
 		m_pScenarioTrapKey = 0;
 	}
-	
-	
+
+
 	return 1;
 }
 
@@ -493,23 +493,23 @@ int CMenuVariable::clear2()
 {
 	clear();
 	clear3();
-	
+
 	m_GuildSaveId = 0;
 	m_bGuildChatOn = 1;
 	m_bLoadGuildMark = 0;
-	
-	if( m_clsRuneExplain )
+
+	if (m_clsRuneExplain)
 	{
 		delete m_clsRuneExplain;
-		m_clsRuneExplain = 0;	
+		m_clsRuneExplain = 0;
 	}
-	if( m_stNationMoney )
+	if (m_stNationMoney)
 	{
 		delete m_stNationMoney;
-		m_stNationMoney = 0;	
+		m_stNationMoney = 0;
 	}
 	//m_GuildMemberName.clear();
-	if( m_FriendGrup )
+	if (m_FriendGrup)
 	{
 		delete m_FriendGrup;
 		m_FriendGrup = 0;
@@ -517,59 +517,59 @@ int CMenuVariable::clear2()
 	m_PartySelect = 0;
 	m_nCheckSubMaster = 0;
 	m_bTradeON = 1;		//020808 YGI 
-	
+
 	//021030 YGI
-	if( m_pEventObjcet )
+	if (m_pEventObjcet)
 	{
 		delete m_pEventObjcet;
 		m_pEventObjcet = 0;
 	}
-	
+
 	return 1;
 }
 
 int CMenuVariable::clear3()
 {
 	clear();
-	
+
 	m_bOXTime = 0;
 	m_OXTime = 0;
-	
-	if( m_PotalMap )
+
+	if (m_PotalMap)
 	{
 		delete m_PotalMap;
 		m_PotalMap = 0;
 	}
-	if( m_pGuildDegree )
+	if (m_pGuildDegree)
 	{
 		delete m_pGuildDegree;
 		m_pGuildDegree = NULL;
 	}
 	m_assent.type = 0;
-	
+
 	// 020620 YGI
-	if( m_pDinamicTile )
+	if (m_pDinamicTile)
 	{
 		delete m_pDinamicTile;
 		m_pDinamicTile = 0;
 	}
-	
+
 	// 021107 YGI
-	if( m_pEventMoveMap )
+	if (m_pEventMoveMap)
 	{
 		delete m_pEventMoveMap;
 		m_pEventMoveMap = 0;
 	}
-	
+
 	return 1;
 }
 int CMenuVariable::clear4()
 {
 	// 020428 YGI acer
-	if( m_CheckProcess )
+	if (m_CheckProcess)
 	{
 		delete m_CheckProcess;
-		m_CheckProcess= 0;
+		m_CheckProcess = 0;
 	}
 	return 1;
 }
@@ -577,49 +577,49 @@ int CMenuVariable::clear4()
 //021030 YGI
 int CMenuVariable::GetEventSound()
 {
-	if( m_pEventObjcet && ( m_pEventObjcet->active & ACTIVE_EVENT_SOUND ) )
+	if (m_pEventObjcet && (m_pEventObjcet->active & ACTIVE_EVENT_SOUND))
 	{
 		return m_pEventObjcet->sound;
 	}
 	return 0;
 }
 
-int CMenuVariable::LoadingGuildRegistExplain( char *szFileName )
+int CMenuVariable::LoadingGuildRegistExplain(char *szFileName)
 {
-	if( !szFileName ) return 0;
-	int nLine = GetTextLine( szFileName );
-	if( !nLine ) return 0;
-	
-	if( m_pGuildRegistExplain ) 
+	if (!szFileName) return 0;
+	int nLine = GetTextLine(szFileName);
+	if (!nLine) return 0;
+
+	if (m_pGuildRegistExplain)
 	{
 		delete m_pGuildRegistExplain;
 	}
-	
-	if( GetSysInfo( SI_GAME_MAKE_MODE  ) )
+
+	if (GetSysInfo(SI_GAME_MAKE_MODE))
 	{
-		if( nLine >= 100 ) 
+		if (nLine >= 100)
 		{
-			JustMsg( "guild_explain1.txt 에 설명이 너무 많습니다." ); 
+			JustMsg("guild_explain1.txt 에 설명이 너무 많습니다.");
 			return 0;
 		}
 	}
 	m_pGuildRegistExplain = new k_guild_regist_explain;
-	memset( m_pGuildRegistExplain, 0, sizeof( k_guild_regist_explain ) );
-	
-	FILE *fp = Fopen( szFileName, "rt" );
-	if( !fp ) return 0;
-	
-	
+	memset(m_pGuildRegistExplain, 0, sizeof(k_guild_regist_explain));
+
+	FILE *fp = Fopen(szFileName, "rt");
+	if (!fp) return 0;
+
+
 	char szTemp[256];
 	int nIndex = 0;
-	while( fgets( szTemp, 256, fp ) )
+	while (fgets(szTemp, 256, fp))
 	{
-		if( !szTemp[0] ) continue;
-		EatRearWhiteChar( szTemp );
-		strcpy( m_pGuildRegistExplain->m_pString[nIndex], szTemp );
+		if (!szTemp[0]) continue;
+		EatRearWhiteChar(szTemp);
+		strcpy(m_pGuildRegistExplain->m_pString[nIndex], szTemp);
 		nIndex++;
 	}
-	fclose( fp );
+	fclose(fp);
 	return nLine;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -632,31 +632,31 @@ CRuneMenu::CRuneMenu()
 }
 int CRuneMenu::LoadRuneMenuXY()
 {
-	FILE *fp = Fopen( "./data/rune_xy.txt", "rt" );
-	if( fp )
+	FILE *fp = Fopen("./data/rune_xy.txt", "rt");
+	if (fp)
 	{
 		char temp[256];
 		int count;
-		while( fgets( temp, 256, fp ) )
+		while (fgets(temp, 256, fp))
 		{
-			if( temp[0] == ';' || temp[0] == '#' ) continue;
-			char *token = strtok( temp, "\t\n" );
-			count = atoi( token );
+			if (temp[0] == ';' || temp[0] == '#') continue;
+			char *token = strtok(temp, "\t\n");
+			count = atoi(token);
 			m_stRune[count].m_nRuneNum = count;
-			
-			token = strtok( NULL, "\t\n" );
-			m_stRune[count].x = atoi( token );
-			
-			token = strtok( NULL, "\t\n" );
-			m_stRune[count].y = atoi( token );
-			
-			token = strtok( NULL, "\t\n" );
-			m_stRune[count].m_nLeftRuneImage = atoi( token );
-			
-			token = strtok( NULL, "\t\n" );
-			m_stRune[count].m_nRightRuneImage = atoi( token );
+
+			token = strtok(NULL, "\t\n");
+			m_stRune[count].x = atoi(token);
+
+			token = strtok(NULL, "\t\n");
+			m_stRune[count].y = atoi(token);
+
+			token = strtok(NULL, "\t\n");
+			m_stRune[count].m_nLeftRuneImage = atoi(token);
+
+			token = strtok(NULL, "\t\n");
+			m_stRune[count].m_nRightRuneImage = atoi(token);
 		}
-		fclose( fp );
+		fclose(fp);
 	}
 	return 1;
 }

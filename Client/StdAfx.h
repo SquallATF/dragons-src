@@ -35,26 +35,26 @@
 
 // 030930 kyo<<
 #ifdef MALAYSIA_LOCALIZING_ 
-	#define WAIT_TIME_RESPONSE_DURATION	20000
+#define WAIT_TIME_RESPONSE_DURATION	20000
 #else
-	#define WAIT_TIME_RESPONSE_DURATION	10000
+#define WAIT_TIME_RESPONSE_DURATION	10000
 #endif
 // 030930 kyo >>
 
 #ifdef CHINA_LOCALIZING_
-	#ifndef _DEBUG
-		#define _NO_COMMAND_RESET_ABILITY
+#ifndef _DEBUG
+#define _NO_COMMAND_RESET_ABILITY
 //		#define ALT_TAB_BLOCK // CSD-TW-030606
-	#endif
+#endif
 #endif
 // thai2 YGI
 #ifdef THAI_LOCALIZING_
-	#define USA_LOCALIZING_
+#define USA_LOCALIZING_
 #endif
 
 // malaysia // 030729 kyo
 #ifdef MALAYSIA_LOCALIZING_ 
-	#define USA_LOCALIZING_
+#define USA_LOCALIZING_
 #endif
 
 //#define LIGHT_VERSION_		// 021008 YGI

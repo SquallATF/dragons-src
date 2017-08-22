@@ -11,7 +11,7 @@
 
 #define MAX_HPUPDOWN		1000
 
-typedef struct 
+typedef struct
 {
 	bool flag;
 	int id;
@@ -20,7 +20,7 @@ typedef struct
 	int hpupdown;
 }t_hpupdown;
 
-typedef struct tagNUMBERANI{	
+typedef struct tagNUMBERANI {
 	short x, y;
 	short d, delay;
 	int offset;
@@ -30,7 +30,7 @@ typedef struct tagNUMBERANI{
 	struct tagNUMBERANI *prev, *next;
 }NUMBERANI, *LPNUMBERANI;
 
-class CNumberAniMgr  
+class CNumberAniMgr
 {
 public:
 	CNumberAniMgr();
@@ -40,16 +40,16 @@ public:
 
 #define NUMBER_ANIMATION_TYPE_UP_		0
 #define NUMBER_ANIMATION_TYPE_DOWN_		1	// Health Down.,..
-	
+
 #define NUMBER_ANIMATION_ST_EMPTY_		0
 #define NUMBER_ANIMATION_ST_ANIMATING_	1	
 #define NUMBER_ANIMATION_ST_END_		2	
 
-extern void DeleteNumberAni( LPNUMBERANI tt );
-extern LPNUMBERANI AddNumberAni( int type, int off, int x, int y, int num );
-extern void OutputNumberAni( void );
+extern void DeleteNumberAni(LPNUMBERANI tt);
+extern LPNUMBERANI AddNumberAni(int type, int off, int x, int y, int num);
+extern void OutputNumberAni(void);
 
-extern void		DisplayChatAndNumber( void );
+extern void		DisplayChatAndNumber(void);
 
 extern LPNUMBERANI  g_NumberAni;
 #endif // !defined(AFX_NUMBERANIMGR_H__3028D503_725C_4F31_8429_95303BA39959__INCLUDED_)

@@ -43,7 +43,7 @@ typedef struct  tagDRAGMOUSE
 
 typedef struct	tagMYHOUSETOOL
 {
-//	int	map;			//맵종류(1->ma-in/2->k_sung2/3->source/4->gray/5->hu_vm)
+	//	int	map;			//맵종류(1->ma-in/2->k_sung2/3->source/4->gray/5->hu_vm)
 	int sx, sy;			//시작점
 	int ex, ey;			//종결점
 	int type;			//집의 고유 번호
@@ -66,7 +66,7 @@ typedef struct	tagMyHouse
 
 extern int		radio_Statue;
 extern void		PutMyhouse(int x, int y);
-extern void		MapSkillTool_Attr( int mx, int my );
+extern void		MapSkillTool_Attr(int mx, int my);
 extern BOOL		LoadSkillMapTable(void);
 extern BOOL		SaveSkillMapTable(void);
 
@@ -83,21 +83,21 @@ extern char	subMineType[20][25];
 extern char	subHubType[20][25];
 
 ////////////////////// 0613 lkh 추가 ///////////////////////
-extern void DeleteNPCGenerate(int npc_Num=0);
-extern void DeleteAllSkillData( void );
-extern void ChangeNPCGenerate(int npc_from, int npc_to );
+extern void DeleteNPCGenerate(int npc_Num = 0);
+extern void DeleteAllSkillData(void);
+extern void ChangeNPCGenerate(int npc_from, int npc_to);
 
-extern void tool_MyHouseLBD( WPARAM wParam, LPARAM lParam );
-extern void tool_MyHouseLBU( WPARAM wParam, LPARAM lParam );
+extern void tool_MyHouseLBD(WPARAM wParam, LPARAM lParam);
+extern void tool_MyHouseLBU(WPARAM wParam, LPARAM lParam);
 
 extern void		DrawSkillBox(int mox, int moy);
-extern BOOL		CALLBACK SkillToolproc( HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam );
-extern BOOL		CALLBACK MyhouseToolproc( HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam );
-extern void		CheckHouseObjectEdit ( HWND hwnd, HINSTANCE hInstance);
+extern BOOL		CALLBACK SkillToolproc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam);
+extern BOOL		CALLBACK MyhouseToolproc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam);
+extern void		CheckHouseObjectEdit(HWND hwnd, HINSTANCE hInstance);
 
-extern void DeleteSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE lpST);	//두번째 인자의 경우 FindSkill함수에 의해 넘겨진 포인터
-extern void AddSkill( lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE	lpST );
-extern lpMAPSKILLTABLE FindSkill( lpMAPSKILLTABLE *Header, int x, int y, int order = 0);		// 010314 KHS
+extern void DeleteSkill(lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE lpST);	//두번째 인자의 경우 FindSkill함수에 의해 넘겨진 포인터
+extern void AddSkill(lpMAPSKILLTABLE *Header, lpMAPSKILLTABLE	lpST);
+extern lpMAPSKILLTABLE FindSkill(lpMAPSKILLTABLE *Header, int x, int y, int order = 0);		// 010314 KHS
 extern void GetEffect2Pix(void);
 extern void DeleteAllType(int delete_Type);
 
