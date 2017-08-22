@@ -1,7 +1,7 @@
 ﻿#include "hashtable.h"
 
 bool CHashTable::Initialize(DWORD dwMaxBucketNum)
-{	
+{
 	m_dwDataNum = 0;
 	m_dwMaxBucketNum = dwMaxBucketNum;
 	m_ppBucketTable = NULL;
@@ -10,19 +10,19 @@ bool CHashTable::Initialize(DWORD dwMaxBucketNum)
 	m_pListCur = NULL;
 
 	m_ppBucketTable = new BUCKET*[m_dwMaxBucketNum];
-	
+
 	if (!m_ppBucketTable)
 		return false;
 
-	memset(m_ppBucketTable,0,sizeof(BUCKET*)*m_dwMaxBucketNum);
-	
+	memset(m_ppBucketTable, 0, sizeof(BUCKET*)*m_dwMaxBucketNum);
+
 	return true;
 
 }
-bool CHashTable::Add(void* pVoid,DWORD dwKey)
+bool CHashTable::Add(void* pVoid, DWORD dwKey)
 {
 	DWORD index = dwKey % m_dwMaxBucketNum;
-	
+
 	BUCKET*	cur = NULL;
 	BUCKET*	prv = NULL;
 	BUCKET*	next = NULL;
@@ -31,12 +31,12 @@ bool CHashTable::Add(void* pVoid,DWORD dwKey)
 	if (!m_ppBucketTable[dwKey])
 	{
 
-		m_ppBucketTable[index] = new BUCKET(pVoid,dwKey);
+		m_ppBucketTable[index] = new BUCKET(pVoid, dwKey);
 		m_ppBucketTable[index]->pList = AddList(m_ppBucketTable[index]);
 
 		goto seg_ok;
 	}
-	else 
+	else
 	{
 		cur = m_ppBucketTable[index];
 		while (cur)
@@ -46,18 +46,18 @@ bool CHashTable::Add(void* pVoid,DWORD dwKey)
 
 			prv = cur;
 			cur = cur->pNext;
-			
+
 		}
-		cur = prv->pNext = new BUCKET(pVoid,dwKey);
+		cur = prv->pNext = new BUCKET(pVoid, dwKey);
 		cur->pPrv = prv;
 		cur->pList = AddList(cur);
-		
+
 		goto seg_ok;
-	
+
 	}
 seg_ok:
 	m_dwDataNum++;
-	
+
 	return true;
 }
 
@@ -75,7 +75,7 @@ LIST* CHashTable::AddList(BUCKET* pBucket)
 		pBucket->pList = m_pListHead;
 		return m_pListHead;
 	}
-	else 
+	else
 	{
 		cur = m_pListTail->pNext = new LIST;
 		cur->pPrv = m_pListTail;
@@ -94,7 +94,7 @@ void CHashTable::Remove(DWORD dwKey)
 	BUCKET*	cur = m_ppBucketTable[dwIndex];
 	BUCKET*	prv = NULL;
 	BUCKET*	next = NULL;
-	
+
 	while (cur)
 	{
 		if (cur->dwKey == dwKey)
@@ -103,12 +103,12 @@ void CHashTable::Remove(DWORD dwKey)
 			next = cur->pNext;
 			if (!prv)
 				m_ppBucketTable[dwIndex] = next;
-			else 
+			else
 				prv->pNext = next;
-				
+
 			if (next)
 				next->pPrv = prv;
-				
+
 			RemoveList(cur->pList);
 			delete cur;
 			cur = NULL;
@@ -121,25 +121,25 @@ void CHashTable::Remove(DWORD dwKey)
 
 void CHashTable::RemoveList(LIST* pList)
 {
-	
+
 	LIST*	cur = pList;
 	LIST*	prv = pList->pPrv;
 	LIST*	next = pList->pNext;
 
-	
+
 
 	if (prv)
 		prv->pNext = next;
-	else 
+	else
 		m_pListHead = next;
 
 	if (next)
 		next->pPrv = prv;
 	else
 		m_pListTail = prv;
-	
+
 	m_pListCur = m_pListHead;
-	
+
 	delete pList;
 	pList = NULL;
 
@@ -150,7 +150,7 @@ void* CHashTable::GetData(DWORD dwKey)
 
 	BUCKET* pBucket = m_ppBucketTable[index];
 
-	while(pBucket)
+	while (pBucket)
 	{
 		if (pBucket->dwKey == dwKey)
 		{
@@ -170,7 +170,7 @@ void* CHashTable::GetData()
 		m_pListCur = m_pListCur->pNext;
 		return pVoid;
 	}
-	else 
+	else
 		return NULL;
 
 	return pVoid;

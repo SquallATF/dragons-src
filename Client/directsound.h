@@ -14,7 +14,7 @@
 
 #include "dsound.h"
 
-#pragma pack ()
+//#pragma pack ()
 
 #define WAVEVERSION 1
 

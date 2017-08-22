@@ -297,7 +297,7 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	CHARLIST *ch = &c[cn].chrlst;
 	t_client_create_char *p = &packet->u.client_create_char;
 	//////////////////////////////////////////////////////////////////////////////	
-	if (p->Class>4 || p->Class<0)
+	if (p->Class > 4 || p->Class < 0)
 	{
 		//		HackLog(0,p->Class,p->name );
 		p->Class = 4;
@@ -394,12 +394,12 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 
 	int a, b, c1;
 	int i;
-	for (i = 0; i<2; i++)	// 포션 
+	for (i = 0; i < 2; i++)	// 포션 
 	{
 		SearchInv(ch->inv, a, b, c1);
 		ch->inv[a][b][c1] = GenerateItem(4001);
 	}
-	for (i = 0; i<2; i++)	// 빵 
+	for (i = 0; i < 2; i++)	// 빵 
 	{
 		SearchInv(ch->inv, a, b, c1);
 		ch->inv[a][b][c1] = GenerateItem(3007);
@@ -438,7 +438,7 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	}
 	case THIEF://如果是盗贼
 	{
-		for (i = 0; i<5; i++)
+		for (i = 0; i < 5; i++)
 		{
 			SetItemEmpty(ch, 10032);
 		}
@@ -452,7 +452,7 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	}
 	case ARCHER://如果是弓手
 	{
-		for (i = 0; i<5; i++)
+		for (i = 0; i < 5; i++)
 		{
 			SetItemEmpty(ch, 10033);
 		}
@@ -467,7 +467,7 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	}
 	case WIZARD://如果是巫师
 	{
-		for (i = 0; i<3; i++)
+		for (i = 0; i < 3; i++)
 		{
 			SetItemEmpty(ch, 4002);
 		}
@@ -482,7 +482,7 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	}
 	case PRIEST://如果是祭祀
 	{
-		for (i = 0; i<2; i++)
+		for (i = 0; i < 2; i++)
 		{
 			SetItemEmpty(ch, 4001);
 		}
@@ -527,13 +527,13 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	for (i = 0; i < 45; i++)	ch->skillexp[i] = 5;
 
 	//< CSD-011006
-	
+
 	//calcNewAbility(ch) ;
 	//ch->Hp		= ch->HpMax ;
 	//ch->Mana	= ch->ManaMax ;
 	//ch->HungryMax= getMaxHungry (ch) ;
 	//ch->Hungry= ch->HungryMax;
-	
+
 	const int nCon = ch->Con / 5;
 	ch->HpMax = ch->Hp = (86 + (111 + (nCon - 1)*(15 + nCon))) * 2;
 	ch->ManaMax = ch->Mana = int((ch->wsps)*5.3);		// 0910 YGI
@@ -628,14 +628,14 @@ void PutPacketCharDB(t_connection c[], int cn, t_packet *packet)
 
 	p->money = ch->Money;
 	//< CSD-010907	
-	
+
 	//p->hp				= ch->Hp;
 	//p->hpmax			= ch->HpMax;
 	//p->mp				= ch->Mana;
 	//p->mpmax			= ch->ManaMax;
 	//p->hungry			= ch->Hungry;
 	//p->hungrymax		= ch->HungryMax;
-	
+
 	p->nLife = ch->Hp;
 	p->nMaxHp = ch->HpMax;
 	p->nMana = ch->Mana;
@@ -671,7 +671,7 @@ void PutPacketCharDB(t_connection c[], int cn, t_packet *packet)
 	//short int		Luck  ;				//	행운
 	//short int		wsps  ;
 
-	
+
 	//p->nCharacterData[GENDER]		= ch->Gender   ;
 	//p->nCharacterData[FACE]			= ch->Face   ;
 	//p->nCharacterData[ARIGENENT]		= ch->   ;
@@ -855,15 +855,15 @@ void SendCharInfoBasic(int cn, short int kind, DWORD data)
 
 int InitPartyMemberServerToServer(CHARLIST *ch)		//  이름만 디비에 저장하고 이름만 꺼내온다.
 {
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		strcpy(ch->party[i].Name, ch->party_str[i]);
 	}
-	for (int i = 0; i<3; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		strcpy(ch->relation[i].Name, ch->relation_str[i]);
 	}
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		strcpy(ch->employment[i].Name, ch->employment_str[i]);
 	}
@@ -872,15 +872,15 @@ int InitPartyMemberServerToServer(CHARLIST *ch)		//  이름만 디비에 저장�
 
 int EndsetPartyMenberForUpdate(CHARLIST *ch)
 {
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		strcpy(ch->party_str[i], ch->party[i].Name);
 	}
-	for (int i = 0; i<3; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		strcpy(ch->relation_str[i], ch->relation[i].Name);
 	}
-	for (int i = 0; i<6; i++)
+	for (int i = 0; i < 6; i++)
 	{
 		strcpy(ch->employment_str[i], ch->employment[i].Name);
 	}
@@ -911,7 +911,7 @@ void SendDiesease(t_connection c[], int cn)		// diesease 보내주기
 	t_packet packet;
 	packet.h.header.type = CMD_SEND_CHAR_DISEASE;
 	{
-		for (int i = 0; i<6; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			packet.u.kein.server_disease.disease[i] = ch->disease[i];
 		}
@@ -922,63 +922,63 @@ void SendDiesease(t_connection c[], int cn)		// diesease 보내주기
 void SendEmployment(t_connection c[], int cn)		// employment 보내주기 //1229
 {
 	return;
-	//
+
 	//CHARLIST *ch = &c[cn].chrlst;
 	//int Level, Face, Str, Class, Gender;
 	//t_packet packet;
-	//int ret; 
-	//
-	//  memset( &packet, 0, sizeof( t_packet ) );
-	//  packet.h.header.type = CMD_EMPLOYMENT;
-	//  {	
-	//  for( int i=0; i<6; i++ ) 
-	//  {
-	//  if( ch->employment[i][0] ) ret = GetPartyChar_SQL( ch->employment[i], &Level, &Face, &Str, &Class, &Gender  );
-	//  if( ret == 1 )
-	//  {
-	//  packet.u.kein.server_party.Level[i]	= Level;
-	//  packet.u.kein.server_party.Gender[i]= Gender;
-	//  packet.u.kein.server_party.Face[i]	= Face;
-	//  packet.u.kein.server_party.Str[i]	= Str;
-	//  packet.u.kein.server_party.Class[i]	= Class;
-	//  memcpy( packet.u.kein.server_party.name[i], ch->employment[i], sizeof( char ) *31 );
-	//  }
-	//  }
-	//  }	
-	//  packet.h.header.size = sizeof(k_server_party );
-	//  QueuePacket(c, cn, &packet, 1);
-	//
+	//int ret;
+
+	//memset(&packet, 0, sizeof(t_packet));
+	//packet.h.header.type = CMD_EMPLOYMENT;
+	//{
+	//	for (int i = 0; i<6; i++)
+	//	{
+	//		if (ch->employment[i][0]) ret = GetPartyChar_SQL(ch->employment[i], &Level, &Face, &Str, &Class, &Gender);
+	//		if (ret == 1)
+	//		{
+	//			packet.u.kein.server_party.Level[i] = Level;
+	//			packet.u.kein.server_party.Gender[i] = Gender;
+	//			packet.u.kein.server_party.Face[i] = Face;
+	//			packet.u.kein.server_party.Str[i] = Str;
+	//			packet.u.kein.server_party.Class[i] = Class;
+	//			memcpy(packet.u.kein.server_party.name[i], ch->employment[i], sizeof(char) * 31);
+	//		}
+	//	}
+	//}
+	//packet.h.header.size = sizeof(k_server_party);
+	//QueuePacket(c, cn, &packet, 1);
+
 }
 
 void SendRelation(t_connection c[], int cn)		// 사제 관계보내주기		//1229
 {
 	return;
-	//
+
 	//CHARLIST *ch = &c[cn].chrlst;
 	//int Level, Face, Str, Class, Gender;
 	//t_packet packet;
-	//int ret; 
-	//
-	//  memset( &packet, 0, sizeof( t_packet ) );
-	//  packet.h.header.type = CMD_RELATION;
-	//  {
-	//  for( int i=0; i<3; i++ )
-	//  {
-	//  if( ch->relation[i][0] ) ret = GetPartyChar_SQL( ch->relation[i], &Level, &Face, &Str, &Class, &Gender );
-	//  if( ret == 1 )
-	//  {
-	//  packet.u.kein.server_relation.Level[i]	= Level;
-	//  packet.u.kein.server_relation.Gender[i]	= Gender;
-	//  packet.u.kein.server_relation.Face[i]	= Face;
-	//  packet.u.kein.server_relation.Str[i]	= Str;
-	//  packet.u.kein.server_relation.Class[i]	= Class;
-	//  memcpy( packet.u.kein.server_relation.name[i], ch->relation[i], sizeof( char ) *31 );
-	//  }
-	//  }
-	//  }
-	//  packet.h.header.size = sizeof(k_server_relation);
-	//  QueuePacket(c, cn, &packet, 1);
-	//
+	//int ret;
+
+	//memset(&packet, 0, sizeof(t_packet));
+	//packet.h.header.type = CMD_RELATION;
+	//{
+	//	for (int i = 0; i<3; i++)
+	//	{
+	//		if (ch->relation[i][0]) ret = GetPartyChar_SQL(ch->relation[i], &Level, &Face, &Str, &Class, &Gender);
+	//		if (ret == 1)
+	//		{
+	//			packet.u.kein.server_relation.Level[i] = Level;
+	//			packet.u.kein.server_relation.Gender[i] = Gender;
+	//			packet.u.kein.server_relation.Face[i] = Face;
+	//			packet.u.kein.server_relation.Str[i] = Str;
+	//			packet.u.kein.server_relation.Class[i] = Class;
+	//			memcpy(packet.u.kein.server_relation.name[i], ch->relation[i], sizeof(char) * 31);
+	//		}
+	//	}
+	//}
+	//packet.h.header.size = sizeof(k_server_relation);
+	//QueuePacket(c, cn, &packet, 1);
+
 }
 void SendParty(t_connection c[], int cn)			// 파티원 보내주기	//0213 YGI
 {
@@ -988,7 +988,7 @@ void SendParty(t_connection c[], int cn)			// 파티원 보내주기	//0213 YGI
 	memset(&packet, 0, sizeof(t_packet));
 	packet.h.header.type = CMD_PARTY;
 	{
-		for (int i = 0; i<6; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			if (ch->party[i].On)
 			{
@@ -1011,23 +1011,23 @@ int SetMySkill(CHARLIST *ch)		// 일단 기본적으로 알아야하는 스킬 �
 	int i;
 	switch (ch->Class)
 	{
-	case WARRIOR:	for (i = 0; i<MAX_SKILLMAIN; i++)
+	case WARRIOR:	for (i = 0; i < MAX_SKILLMAIN; i++)
 		if (SkillTbl[i].Class_Warrior == 1)
 			ch->Skill[i] = 1;
 		break;
-	case THIEF:	for (i = 0; i<MAX_SKILLMAIN; i++)
+	case THIEF:	for (i = 0; i < MAX_SKILLMAIN; i++)
 		if (SkillTbl[i].Class_Thief == 1)
 			ch->Skill[i] = 1;
 		break;
-	case ARCHER:	for (i = 0; i<MAX_SKILLMAIN; i++)
+	case ARCHER:	for (i = 0; i < MAX_SKILLMAIN; i++)
 		if (SkillTbl[i].Class_Archery == 1)
 			ch->Skill[i] = 1;
 		break;
-	case WIZARD:	for (i = 0; i<MAX_SKILLMAIN; i++)
+	case WIZARD:	for (i = 0; i < MAX_SKILLMAIN; i++)
 		if (SkillTbl[i].Class_Wizard == 1)
 			ch->Skill[i] = 1;
 		break;
-	case PRIEST:	for (i = 0; i<MAX_SKILLMAIN; i++)
+	case PRIEST:	for (i = 0; i < MAX_SKILLMAIN; i++)
 		if (SkillTbl[i].Class_Priest == 1)
 			ch->Skill[i] = 1;
 		break;
@@ -1035,21 +1035,21 @@ int SetMySkill(CHARLIST *ch)		// 일단 기본적으로 알아야하는 스킬 �
 
 	switch (ch->Job)
 	{
-	case J_FAMER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Farmer == 1) ch->Skill[i] = 1; break;
-	case J_MINNER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_miner == 1) ch->Skill[i] = 1; break;
-	case J_FISHER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_fisher == 1) ch->Skill[i] = 1; break;
-	case J_LUMBERJACK:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Lumberjack == 1) ch->Skill[i] = 1; break;
-	case J_BUTCHER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Butcher == 1) ch->Skill[i] = 1; break;
-	case J_HERB_DIGGER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Herbdigger == 1) ch->Skill[i] = 1; break;
-	case J_HERDSMAN:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_herdman == 1) ch->Skill[i] = 1; break;
-	case J_CARPENTER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Carpenter == 1) ch->Skill[i] = 1; break;
-	case J_BLACKSMITH:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Blacksmith == 1) ch->Skill[i] = 1; break;
-	case J_COOKER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Cooking == 1) ch->Skill[i] = 1; break;
-	case J_TAILOR:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Tailoring == 1) ch->Skill[i] = 1; break;
-	case J_BOWCRAFT:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Bowcraft_Fletcher == 1) ch->Skill[i] = 1; break;
-	case J_ALCHEMIST:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Alchemy == 1) ch->Skill[i] = 1; break;
-	case J_CANDLEMAKER:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Candlemaker == 1) ch->Skill[i] = 1; break;
-	case J_MERCHANT:	for (i = 0; i<MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Merchant == 1) ch->Skill[i] = 1; break;
+	case J_FAMER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Farmer == 1) ch->Skill[i] = 1; break;
+	case J_MINNER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_miner == 1) ch->Skill[i] = 1; break;
+	case J_FISHER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_fisher == 1) ch->Skill[i] = 1; break;
+	case J_LUMBERJACK:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Lumberjack == 1) ch->Skill[i] = 1; break;
+	case J_BUTCHER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Butcher == 1) ch->Skill[i] = 1; break;
+	case J_HERB_DIGGER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Herbdigger == 1) ch->Skill[i] = 1; break;
+	case J_HERDSMAN:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_herdman == 1) ch->Skill[i] = 1; break;
+	case J_CARPENTER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Carpenter == 1) ch->Skill[i] = 1; break;
+	case J_BLACKSMITH:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Blacksmith == 1) ch->Skill[i] = 1; break;
+	case J_COOKER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Cooking == 1) ch->Skill[i] = 1; break;
+	case J_TAILOR:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Tailoring == 1) ch->Skill[i] = 1; break;
+	case J_BOWCRAFT:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Bowcraft_Fletcher == 1) ch->Skill[i] = 1; break;
+	case J_ALCHEMIST:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Alchemy == 1) ch->Skill[i] = 1; break;
+	case J_CANDLEMAKER:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Candlemaker == 1) ch->Skill[i] = 1; break;
+	case J_MERCHANT:	for (i = 0; i < MAX_SKILLMAIN; i++) if (SkillTbl[i].Select_Merchant == 1) ch->Skill[i] = 1; break;
 	}
 	return 1;
 }
@@ -1092,7 +1092,7 @@ int SendPartyInfoOfOtherCharToGameserver(char *other_name, char *my_name, short 
 	char you_party[6][31];
 	get_BinaryData_Party((UCHAR **)you_party, other_name);
 
-	for (j = 0; j<6; j++)
+	for (j = 0; j < 6; j++)
 	{
 		if (!strcmp(my_name, you_party[j]))
 			break;
@@ -1124,9 +1124,9 @@ void SendCreateAbility(short int cn)
 {
 	CHARLIST *ch = &connections[cn].chrlst;
 	///////////////////////////////////////////////////////////////////////////
-	if (ch->Class>4 || ch->Class<0)
+	if (ch->Class > 4 || ch->Class < 0)
 	{
-		//		HackLog(0,ch->Class,ch->Name);
+		//HackLog(0,ch->Class,ch->Name);
 		ch->Class = 4;
 	}
 	////////////////////////////5//////////////////////////////////////////////
@@ -1168,7 +1168,7 @@ int GetDiceAbility(int DiceNumber)		// 다이스 돌리기
 	dice_max = DiceNumber % 1000;
 
 	int ret = 0;
-	for (int i = 0; i<dice_count; i++)
+	for (int i = 0; i < dice_count; i++)
 	{
 		ret += rand() % dice_max + 1;
 	}
@@ -1184,7 +1184,7 @@ void SendThrowDice(char type, short int cn)//能力确定,TYPE是人物的类型
 	if (!ch) return;
 
 	///////////////////////////////////////////////////////////////////////////
-	if (type>4 || type<0)
+	if (type > 4 || type < 0)
 	{
 		//		HackLog(0,type,ch->Name);
 		type = 4;
@@ -1203,7 +1203,7 @@ void SendThrowDice(char type, short int cn)//能力确定,TYPE是人物的类型
 		{ WIS,	WSPS }
 	};
 
-	for (int i = 0; i<2; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		int ability = GetDiceAbility(num_to_rate[i]);
 		nAbility[class_ability[ch->Class][i]] = ability;

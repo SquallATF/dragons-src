@@ -21,37 +21,37 @@ CRITICAL_SECTION g_LogManager;
 FILE *fpLog = NULL;
 char MapServerConfigFileName[MAX_LOG_LENGTH]; // CSD-030324 // thai YGI
 
-void InitMyLog( void )
+void InitMyLog(void)
 {	//< CSD-030324
 	InitializeCriticalSectionAndSpinCount(&g_LogManager, 1000);
 	// thai YGI
 	char NetworkDir[MAX_PATH];
-	if(GetPrivateProfileString("server_info","path","",NetworkDir,MAX_PATH,"./dbdemon.ini")<=0)
+	if (GetPrivateProfileString("server_info", "path", "", NetworkDir, MAX_PATH, "./dbdemon.ini") <= 0)
 	{
-		MyLog(0,"dbdemon.ini  path information wrong");
+		MyLog(0, "dbdemon.ini  path information wrong");
 	}
 	else
 	{
-		sprintf(MapServerConfigFileName,"%s/data/MapServerConfig.ini",NetworkDir);
+		sprintf(MapServerConfigFileName, "%s/data/MapServerConfig.ini", NetworkDir);
 	}
 
 	return;
 }	//> CSD-030324
 
-void FreeMyLog( void )
+void FreeMyLog(void)
 {
 	DeleteCriticalSection(&g_LogManager);
 
-	if( fpLog )
+	if (fpLog)
 	{
-		fclose( fpLog );
+		fclose(fpLog);
 	}
 	return;
 }
 
 #include "main.h"
 // Must be thread-safe function.
-void MyLog( int type, char *logmsg, ... )
+void MyLog(int type, char *logmsg, ...)
 {
 	va_list vargs;
 	struct tm *now;
@@ -62,66 +62,66 @@ void MyLog( int type, char *logmsg, ... )
 	int hour, min, sec;
 
 	char LogIdentifier[NUM_OF_LOG_TYPE] = { 'A', 'B', 'C', 'D', 'E', 'F' };
-	char buf[(MAX_LOG_LENGTH*10)+1];
-	static char sLogFileName[80+1];
+	char buf[(MAX_LOG_LENGTH * 10) + 1];
+	static char sLogFileName[80 + 1];
 
 	// Filtering unlogable things
-	if( (type < 0) && (type >= NUM_OF_LOG_TYPE ) )
+	if ((type < 0) && (type >= NUM_OF_LOG_TYPE))
 	{
 		// Self-calling.
-		MyLog( LOG_FATAL, "Unknown LOG_TYPE" );
+		MyLog(LOG_FATAL, "Unknown LOG_TYPE");
 		return;
 	}
 
-	if( (ConsoleLogLevel < type) && (FileLogLevel < type) )
+	if ((ConsoleLogLevel < type) && (FileLogLevel < type))
 	{
 		return;
 	}
 
 	// Argument Processing
-	va_start( vargs, logmsg );
+	va_start(vargs, logmsg);
 
 	// Get nowtime
-	time( &nowTime );
+	time(&nowTime);
 	now = localtime(&nowTime);
 
 	// Make it usable.
 	g_year = year = now->tm_year + 1900;
-	mon  = now->tm_mon + 1;
-	g_mon = mon-1;
-	g_day = day  = now->tm_mday;
+	mon = now->tm_mon + 1;
+	g_mon = mon - 1;
+	g_day = day = now->tm_mday;
 	g_hour = hour = now->tm_hour;
-	g_min = min  = now->tm_min;
-	g_sec = sec  = now->tm_sec;
+	g_min = min = now->tm_min;
+	g_sec = sec = now->tm_sec;
 
 
 	// Lock...
 	EnterCriticalSection(&g_LogManager);
 
-	if( log_year && ( (log_year != year) || (log_mon != mon) || (log_day != day) ) )
+	if (log_year && ((log_year != year) || (log_mon != mon) || (log_day != day)))
 	{
 		// Close fpLog
-		fclose( fpLog );
+		fclose(fpLog);
 		fpLog = NULL;
 
 		// Clear log_year
 		log_year = 0;
 	}
 
-	if( log_year == 0 || !fpLog )
+	if (log_year == 0 || !fpLog)
 	{
 		// Set log_year, log_mon, log_day.
 		log_year = year;
 		log_mon = mon;
 		log_day = day;
 
-		sprintf( sLogFileName,(GetAppPath() + _T(".\\%d-%d-%d.log")).c_str(), year, mon, day );
+		sprintf(sLogFileName, (GetAppPath() + _T(".\\%d-%d-%d.log")).c_str(), year, mon, day);
 
-		if( !(fpLog = fopen( sLogFileName, "a" )) )
+		if (!(fpLog = fopen(sLogFileName, "a")))
 		{
 			// Notify ERROR
-			sprintf( buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName );
-			WriteText( buf );
+			sprintf(buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName);
+			WriteText(buf);
 			goto ReturnMyLogAfterEnterCriticalSection;
 		}
 	}
@@ -131,14 +131,14 @@ void MyLog( int type, char *logmsg, ... )
 	buf[1] = ' ';
 
 	// Write Log rised time.
-	sprintf( buf+2, "<%2d:%2d:%2d> ", hour, min, sec );
+	sprintf(buf + 2, "<%2d:%2d:%2d> ", hour, min, sec);
 
 	// Write Log's Body.
-	if( strlen( logmsg ) > (MAX_LOG_LENGTH-2-11) )
+	if (strlen(logmsg) > (MAX_LOG_LENGTH - 2 - 11))
 	{
 		// Self-calling.
-		MyLog( LOG_FATAL, "Map() Too long string - This log will be lost" );
-		va_end( vargs );
+		MyLog(LOG_FATAL, "Map() Too long string - This log will be lost");
+		va_end(vargs);
 		goto ReturnMyLogAfterEnterCriticalSection;
 	}
 
@@ -147,41 +147,41 @@ void MyLog( int type, char *logmsg, ... )
 	// We only know the length of format. But Result can larger or smaller than format's own length.
 	// If buf[] overflowed, the Map server will crashed down.
 	// SO buf[] MUST LARGE ENOUGH TO CONTAIN LOG MESSAGES.
-	if( type == LOG_JUST_DISPLAY )
+	if (type == LOG_JUST_DISPLAY)
 	{
-		vsprintf( buf, logmsg, (vargs) );
+		vsprintf(buf, logmsg, (vargs));
 	}
 	else
 	{
-		vsprintf( buf+2+11, logmsg, (vargs) );
+		vsprintf(buf + 2 + 11, logmsg, (vargs));
 	}
-	
+
 	// Now Log it.
 	// To Screen
-	if( (ConsoleLogLevel >= type) || (type == LOG_JUST_DISPLAY) )
+	if ((ConsoleLogLevel >= type) || (type == LOG_JUST_DISPLAY))
 	{
-		WriteText( buf );
+		WriteText(buf);
 	}
-	
+
 	// To File
-	if( fpLog && (FileLogLevel >= type) )
+	if (fpLog && (FileLogLevel >= type))
 	{
-		strcat( buf, "\n" );
-		fputs( buf, fpLog );
+		strcat(buf, "\n");
+		fputs(buf, fpLog);
 		// this can make server to slow.
-		fflush( fpLog );
+		fflush(fpLog);
 	}
 
 ReturnMyLogAfterEnterCriticalSection:
 	LeaveCriticalSection(&g_LogManager);
-	
+
 	// Finish Func
-	va_end( vargs );
+	va_end(vargs);
 	return;
-}	
+}
 
 ///////////////////////////////////////记录外挂账号的Log,自定义
-void HackLog( int type, char *logmsg, ... )
+void HackLog(int type, char *logmsg, ...)
 {
 	va_list vargs;
 	struct tm *now;
@@ -192,74 +192,76 @@ void HackLog( int type, char *logmsg, ... )
 	int hour, min, sec;
 
 	char LogIdentifier[NUM_OF_LOG_TYPE] = { 'A', 'B', 'C', 'D', 'E', 'F' };
-	char buf[(MAX_LOG_LENGTH*10)+1];
-	static char sLogFileName[80+1];
+	char buf[(MAX_LOG_LENGTH * 10) + 1];
+	static char sLogFileName[80 + 1];
 	// ---------------------------------------------//创建记录文件夹
-		
-	DWORD   dwAttr   =   GetFileAttributes(".\\SQL漏洞记录");   
-	if(dwAttr   ==   0xFFFFFFFF)     //文件夹不存在   
-	{ CreateDirectory((GetAppPath() + _T(".\\SQL漏洞记录")).c_str(), NULL);  }    // ".\\SQL漏洞记录"
-/*	else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //是文件夹   
-	{   
-	//do   something   
-	}*/
-	//----------------------------------------------
 
-	// Filtering unlogable things
-	if( (type < 0) && (type >= NUM_OF_LOG_TYPE ) )
+	DWORD   dwAttr = GetFileAttributes(".\\SQL漏洞记录");
+	if (dwAttr == 0xFFFFFFFF)     //文件夹不存在   
+	{
+		CreateDirectory((GetAppPath() + _T(".\\SQL漏洞记录")).c_str(), NULL);
+	}    // ".\\SQL漏洞记录"
+//else   if(dwAttr   &   FILE_ATTRIBUTE_DIRECTORY)     //是文件夹   
+//{   
+////do   something   
+//}
+//----------------------------------------------
+
+// Filtering unlogable things
+	if ((type < 0) && (type >= NUM_OF_LOG_TYPE))
 	{
 		// Self-calling.
-		MyLog( LOG_FATAL, "Unknown LOG_TYPE" );
+		MyLog(LOG_FATAL, "Unknown LOG_TYPE");
 		return;
 	}
 
-	if( (ConsoleLogLevel < type) && (FileLogLevel < type) )
+	if ((ConsoleLogLevel < type) && (FileLogLevel < type))
 	{
 		return;
 	}
 
 	// Argument Processing
-	va_start( vargs, logmsg );
+	va_start(vargs, logmsg);
 
 	// Get nowtime
-	time( &nowTime );
+	time(&nowTime);
 	now = localtime(&nowTime);
 
 	// Make it usable.
 	year = now->tm_year + 1900;
-	mon  = now->tm_mon + 1;
-	day  = now->tm_mday;
+	mon = now->tm_mon + 1;
+	day = now->tm_mday;
 	hour = now->tm_hour;
-	min  = now->tm_min;
-	sec  = now->tm_sec;
+	min = now->tm_min;
+	sec = now->tm_sec;
 
 	// Lock...
 	EnterCriticalSection(&g_LogManager);
 
-	if( log_year && ( (log_year != year) || (log_mon != mon) || (log_day != day) ) )
+	if (log_year && ((log_year != year) || (log_mon != mon) || (log_day != day)))
 	{
 		// Close fpLog
-		fclose( fpLog );
+		fclose(fpLog);
 		fpLog = NULL;
 
 		// Clear log_year
 		log_year = 0;
 	}
 
-	if( log_year == 0 || !fpLog )
+	if (log_year == 0 || !fpLog)
 	{
 		// Set log_year, log_mon, log_day.
 		log_year = year;
 		log_mon = mon;
 		log_day = day;
 
-		sprintf( sLogFileName, (GetAppPath() + _T(".\\SQL漏洞记录\\SQL攻击记录%d-%d-%d.log")).c_str(), year, mon, day );  // ".\\SQL漏洞记录\\SQL攻击记录%d-%d-%d.log"
+		sprintf(sLogFileName, (GetAppPath() + _T(".\\SQL漏洞记录\\SQL攻击记录%d-%d-%d.log")).c_str(), year, mon, day);  // ".\\SQL漏洞记录\\SQL攻击记录%d-%d-%d.log"
 
-		if( !(fpLog = fopen( sLogFileName, "a" )) )
+		if (!(fpLog = fopen(sLogFileName, "a")))
 		{
 			// Notify ERROR
-			sprintf( buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName );
-			WriteText( buf );
+			sprintf(buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName);
+			WriteText(buf);
 			goto ReturnMyLogAfterEnterCriticalSection;
 		}
 	}
@@ -269,14 +271,14 @@ void HackLog( int type, char *logmsg, ... )
 	buf[1] = ' ';
 
 	// Write Log rised time.
-	sprintf( buf+2, "<%2d:%2d:%2d> ", hour, min, sec );
+	sprintf(buf + 2, "<%2d:%2d:%2d> ", hour, min, sec);
 
 	// Write Log's Body.
-	if( strlen( logmsg ) > (MAX_LOG_LENGTH-2-11) )
+	if (strlen(logmsg) > (MAX_LOG_LENGTH - 2 - 11))
 	{
 		// Self-calling.
-		MyLog( LOG_FATAL, "Map() Too long string - This log will be lost" );
-		va_end( vargs );
+		MyLog(LOG_FATAL, "Map() Too long string - This log will be lost");
+		va_end(vargs);
 		goto ReturnMyLogAfterEnterCriticalSection;
 	}
 
@@ -285,37 +287,36 @@ void HackLog( int type, char *logmsg, ... )
 	// We only know the length of format. But Result can larger or smaller than format's own length.
 	// If buf[] overflowed, the Map server will crashed down.
 	// SO buf[] MUST LARGE ENOUGH TO CONTAIN LOG MESSAGES.
-	if( type == LOG_JUST_DISPLAY )
+	if (type == LOG_JUST_DISPLAY)
 	{
-		vsprintf( buf, logmsg, (vargs) );
+		vsprintf(buf, logmsg, (vargs));
 	}
 	else
 	{
-		vsprintf( buf+2+11, logmsg, (vargs) );
+		vsprintf(buf + 2 + 11, logmsg, (vargs));
 	}
-	
+
 	// Now Log it.
 	// To Screen
-	if( (ConsoleLogLevel >= type) || (type == LOG_JUST_DISPLAY) )
+	if ((ConsoleLogLevel >= type) || (type == LOG_JUST_DISPLAY))
 	{
-		WriteText( buf );
+		WriteText(buf);
 	}
-	
+
 	// To File
-	if( fpLog && (FileLogLevel >= type) )
+	if (fpLog && (FileLogLevel >= type))
 	{
-		strcat( buf, "\n" );
-		fputs( buf, fpLog );
+		strcat(buf, "\n");
+		fputs(buf, fpLog);
 		// this can make server to slow.
-		fflush( fpLog );
+		fflush(fpLog);
 	}
 
 ReturnMyLogAfterEnterCriticalSection:
 	LeaveCriticalSection(&g_LogManager);
-	
+
 	// Finish Func
-	va_end( vargs );
+	va_end(vargs);
 	return;
 }
 
-						

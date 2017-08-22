@@ -277,11 +277,11 @@ bool TFileMgr<T, N>::Save(const char* pFile)
 	ofstream fout(pFile, ios::out | ios::binary);
 	// // CRC 구하기
 	// HselInit eninit;
-	   //eninit.iEncryptType	=	HSEL_ENCRYPTTYPE_RAND;
-	   //eninit.iDesCount = HSEL_DES_TRIPLE;
-	   //eninit.iCustomize	=	HSEL_KEY_TYPE_DEFAULT;
-	   //eninit.iSwapFlag = HSEL_SWAP_FLAG_ON;
-	   //if (!m_hsel.Initial(eninit))  return false;
+	//eninit.iEncryptType	=	HSEL_ENCRYPTTYPE_RAND;
+	//eninit.iDesCount = HSEL_DES_TRIPLE;
+	//eninit.iCustomize	=	HSEL_KEY_TYPE_DEFAULT;
+	//eninit.iSwapFlag = HSEL_SWAP_FLAG_ON;
+	//if (!m_hsel.Initial(eninit))  return false;
 	// // 헤더 저장하기
 	// HselInit deinit;
 	// deinit = m_hsel.GetHSELCustomizeOption();

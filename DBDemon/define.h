@@ -18,5 +18,5 @@
 #define MAX_MSGQUE_SIZE				5120000
 
 
-#endif
+#endif  // _DEFINE_H
 

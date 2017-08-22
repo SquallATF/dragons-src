@@ -19,39 +19,39 @@ class CPackedMsg
 	bool				m_bFlag;
 
 public:
-	void inline		SetMsg(char* msg,DWORD len) 
+	void inline		SetMsg(char* msg, DWORD len)
 	{
 		if (m_bFlag)
 			return;
 
 		m_bFlag = true;
-		m_dwMsgLength = len; 
-		memcpy(m_szBody,msg,len);
+		m_dwMsgLength = len;
+		memcpy(m_szBody, msg, len);
 	}
-	void inline Release() {m_dwMsgLength = 0;m_dwUserNum = 0;m_bFlag = false;}
+	void inline Release() { m_dwMsgLength = 0; m_dwUserNum = 0; m_bFlag = false; }
 	void inline AddUser(DWORD dwUserID)
 	{
 		*((DWORD*)(m_szBody + m_dwMsgLength) + m_dwUserNum) = dwUserID;
 		m_dwUserNum++;
 	}
-	DWORD	inline  GetPacketSize() {return 1 + 4 + 4 + m_dwMsgLength + m_dwUserNum*4;}
-	char*			GetMsg() {return m_szBody;}
-	DWORD	inline	GetMsgLength() {return m_dwMsgLength;}
-	DWORD	inline 	GetUserNum() {return m_dwUserNum;}
-	DWORD	inline 	GetUser(DWORD index) {return *((DWORD*)(m_szBody + m_dwMsgLength) + index);}
-	void	inline	SetConnectionIndex(DWORD index) {m_dwConnectionIndex = index;}
-	DWORD	inline	GetConnectionIndex() {return m_dwConnectionIndex;}
-	void	inline	SetAgentServerIndex(DWORD index) {m_dwAgentServerIndex = index;}
-	DWORD	inline	GetAgentServerIndex() {return m_dwAgentServerIndex;}
-	
-	
-	
+	DWORD	inline  GetPacketSize() { return 1 + 4 + 4 + m_dwMsgLength + m_dwUserNum * 4; }
+	char*			GetMsg() { return m_szBody; }
+	DWORD	inline	GetMsgLength() { return m_dwMsgLength; }
+	DWORD	inline 	GetUserNum() { return m_dwUserNum; }
+	DWORD	inline 	GetUser(DWORD index) { return *((DWORD*)(m_szBody + m_dwMsgLength) + index); }
+	void	inline	SetConnectionIndex(DWORD index) { m_dwConnectionIndex = index; }
+	DWORD	inline	GetConnectionIndex() { return m_dwConnectionIndex; }
+	void	inline	SetAgentServerIndex(DWORD index) { m_dwAgentServerIndex = index; }
+	DWORD	inline	GetAgentServerIndex() { return m_dwAgentServerIndex; }
+
+
+
 public:
 	CPackedMsg()
 	{
 		m_bFlag = false;
-		m_bID = (BYTE) PTCL_MAP_TO_AGENT_PACKED_MSG;
-		m_dwMsgLength = 0;	
+		m_bID = (BYTE)PTCL_MAP_TO_AGENT_PACKED_MSG;
+		m_dwMsgLength = 0;
 		m_dwUserNum = 0;
 		m_dwConnectionIndex = 0;
 	}
@@ -59,4 +59,4 @@ public:
 
 #pragma pack(pop)
 
-#endif
+#endif  // PACKED_H

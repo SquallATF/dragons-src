@@ -15,187 +15,187 @@
 char *public_bbs;
 
 extern NPCLev_to_Exp NPC_Lev_Ref[]; // CSD-030306
-t_mapinfo MapInfo[ MAX_MAP_];
+t_mapinfo MapInfo[MAX_MAP_];
 
 /////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 extern char SQLerror[200];/////////////////////////////////////定义发送外挂错误的字符串
-extern void HackLog( int type, char *logmsg, ... );//记录外挂的LOG
+extern void HackLog(int type, char *logmsg, ...);//记录外挂的LOG
 ////////////////////////////////////截获声明
-extern int i,len1,len2,len3,len4;
-extern char s1[100],s2[100],s3[100],s4[100],*str;
+extern int i, len1, len2, len3, len4;
+extern char s1[100], s2[100], s3[100], s4[100], *str;
 //char hackID[100],hackname[100];
 ///////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作用是所有连接进来作用时的ID号和用户名
+int CheckHandleByKein(t_packet *p, t_connection c[], int cn)  //这里的作用是所有连接进来作用时的ID号和用户名
 {
-	switch( p->h.header.type )
+	switch (p->h.header.type)
 	{
-	case CMD_LOGIN_GET_BOX_ITEM			:	RecvGetBoxItem( p->u.kein.req_login_server_box_open.box_id, p->u.kein.req_login_server_box_open.server_id, cn, c ); break;
-	case CMD_PUT_BOX_ITEM				:	ReSendBoxItemEach( &p->u.kein.login_put_box_item ); break;
-		
-	case CMD_LOGIN_PREACH_NAME			:	RecvPreachName( &p->u.kein.loginserver_preach_name, cn, c ); break;  //神殿
-	case CMD_LOGIN_PREACH_NAME_OK		:	RecvPreachNameOk( +10, &p->u.kein.loginserver_preach_name ); break;
-	case CMD_LOGIN_PREACH_NAME_CANCEL	:	RecvPreachNameOk( -10, &p->u.kein.loginserver_preach_name ); break;
-	case CMD_LOGIN_EVANGELIST_CREATE	:	UpdateEvaName( p->u.kein.login_sql_evangelist_create.my_name , p->u.kein.login_sql_evangelist_create.eva_name ); break;
-	case CMD_LOGIN_EVANGELIST_DELETE	:	UpdateEvaName( p->u.kein.login_sql_evangelist_delete.my_name, "" ); break;
-	case CMD_CHECK_NEW_CHAR				:	SendNewCharResult( p->u.kein.check_new_char.name, cn ); break;
-		
-	case CMD_GET_GOD_TABLE				:	SendGodTable( cn ); break;
-	case CMD_CHAR_UPDATE_DATA_BY_KEIN	:	RecvUpdateCharByKein( &p->u.kein.char_update_data ); break;
-	case CMD_GET_CHARINFO_BY_KEIN		:	SendGetCharInfoByKein( &p->u.kein.req_chr_info_etc, cn ); break;
-	case CMD_SEND_EAR_MESSAGE_OTHER		:	SendEachGameServerForEarMessage( &p->u.kein.login_send_ear_message, cn );	break;	// 귓속말을 위해 각 게임 서버로 전송 해본다.
-	case CMD_SEND_EAR_MESSAGE_OK		:	RecvEarMessageOk( &p->u.kein.send_ear_message_ok_to_login ); break;
-	case CMD_SEND_EAR_MESSAGE_RESULT	:	RecvEarMessageResult( &p->u.kein.send_ear_message_result ); break;
-	case CMD_GAME2LOGIN_CHECK_NAME		:	RecvCheckName( p->u.kein.loginserver_to_gameserver_ear_message.name, p->u.kein.loginserver_to_gameserver_ear_message.server_id, cn ); break;		// 구조체 별려씀
-		
-	case CMD_GAME2LOGIN_MOVING_ITEM		:	CheckMoveItem( &p->u.kein.moving_item ); break;
-	
-	case CMD_CHANGE_MAP_DATA1			:
-	case CMD_CHANGE_MAP_DATA2			:
-	case CMD_CHANGE_MAP_DATA3			:
-	case CMD_CHANGE_MAP_DATA4			:
-	case CMD_CHANGE_MAP_DATA5			:
-	case CMD_CHANGE_MAP_DATA6			:
-	case CMD_CHANGE_MAP_DATA7			:
-	case CMD_CHANGE_MAP_DATA8			:
-	case CMD_CHANGE_MAP_DATA9			:	RecvChangeMapData1( p ); break;
-		
-	case CMD_ACCESS_JOIN_KEIN			:	RecvChangeLogintableByChangemap( p->u.gs_req_insert_userid.id, p->u.gs_req_insert_userid.mapname, p->u.gs_req_insert_userid.server_id, cn ); break;
-	case CMD_IF_DOUBLE_BOX_THEN_DELETE	:	RecvDoubleBoxFind( p->u.kein.game2login_recall_box_item.box_id,p->u.kein.game2login_recall_box_item.server_id, cn ); break;
-	case CMD_REQ_FAITH_UP				:	RecvFaithUp( p->u.kein.req_faith_up.name, p->u.kein.req_faith_up.up_point ); break;
-		
-	case CMD_CALL_PUBLIC_BBS			:	SendPublicBbsEach( p->u.kein.server_id.server_id, cn ); break;
-	case CMD_HUNTER_REGIST				:	RecvHunterRegist( &p->u.kein.hunter_regist2 ); break;
-	case CMD_GET_HUNTER_LIST			:	RecvGetHunterList( p->u.kein.game_login_hunter_list.list_id, p->u.kein.game_login_hunter_list.server_id, cn); break;
-	case CMD_KILL_HUNTER_LIST			:	RecvKillHunter( p->u.kein.kill_hunter_list_login.list_id, p->u.kein.kill_hunter_list_login.hunter_name, p->u.kein.game_login_hunter_list.server_id, cn );break;
-		
-	case CMD_DELETE_BOX_ITEM			:	DeleteBox( p->u.kein.default_dword ); break;
-		
-	case CMD_RESET_JOB					:	RecvResetJob( p, cn ); break;
-	case CMD_SELECT_NATION				:	RecvSelectNation( p, cn ); break;	//注册新人物时选择的国家
-	case CMD_EXIST_NAME					: 	RecvExistName( p, cn ); break;		//通缉犯
-	case CMD_ISSAME_MY_NATION			:	RecvExistNameForNation( p, cn ); break;
-		
-	case CMD_REGIST_CANDIDATE			:	RecvRegistCandidate( p, cn ); break;
-	case CMD_IS_THIS_MAN_CANDIDATE		:	isThisManCandidate( p, cn ); break;	// 후보 등록가능한 캐릭터인지 아닌지
-	case CMD_CHECK_VOTE					:	CheckVote( p, cn ); break;
-		
-	case CMD_SET_VALUE_OF_VOTE			:	GetVoteValue( cn ); break;
-	case CMD_VOTE_GAME2LOGIN			:	CheckAndUpdateVote( p, cn ); break;
-		
-	case CMD_REQ_VOTE_SCORE				:	RecvVoteScore( p, cn ); break;
-	case CMD_SEND_ALL_MSG				:	RecvNationMsg( p, cn ); break;
-		
-	case CMD_YOU_ARE_KING_LOG2LOG		:	SendYouAreKingLog2Client( p->u.kein.default_name, CMD_YOU_ARE_KING_LOG2CLIENT ); break;
-	case CMD_YOU_ARE_NO_KING_LOG2LOG	:	SendYouAreKingLog2Client( p->u.kein.default_name, CMD_YOU_ARE_NO_KING_LOG2CLIENT ); break;
-		
-	case CMD_GUILD_JOIN_SERVER			:	CheckGuildJoin( p, cn ); break;   //加入公会
-	case CMD_GUILD_ALL_MSG				:	SendGuildAllMsg( p, cn ); break;
-	case CMD_GM_REGIST					:	RecvGmRegist( p ); break;
-	case CMD_BBS_ALL					:	RecvReturnGameServer( p ); break;		// 고대로 게임서버로 모두 돌려줘버린다.
-	case CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN	:	RecvRepStopWarRefusal( p ); break;	// 휴전 요청 거절
-	case CMD_REQ_STOP_WAR_TO_LOGIN			:	RecvReqStopWar( p, cn ); break;	// 휴전 요청
-	case CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN	:	RecvRepStopWarAccept( p ); break;
-		
-	case CMD_REQ_SALVATION_MONEY			:	RecvReqSalvationMoney( p, cn ); break;		// 기부금 요청
-	case CMD_SALVATION_MONEY				:	RecvInsertSalvation(p, cn ); break;			// 기부한걸 저정
-		
-	case CMD_EAT_CHOCOLATE					:	RecvEatChocolate( p, cn ); break;
-	case CMD_PAY_RUMOR						:	RecvCheckChocolate( p, cn ); break;
-	case CMD_OPENSCHOOL_DATA				:	RecvSaveOpenSchoolEvent( p, cn ); break;
-		
-	case CMD_GUILD_EXIT_COMMAND_GLOBAL		:	RecvExitGiild( p, cn ); break;
-		
-	case CMD_EAT_CANDY						:	RecvCheckCandy( p ); break;
-		
-	case CMD_UPDATE_LADDER_SCORE			:	RecvUpdateLadderScore( p ); break;
-	case CMD_REQ_RANK_LADDER				:	RecvReqRankLadder( p, cn ); break;
-		
-		
-	case CMD_REQ_SEARCH_RANK_LADDER			:	RecvSearchRankLadder( p, cn ); break;
-	case CMD_SAVE_NATION_INFO				:	SaveNationInfo_SQL( &p->u.kein.save_nation_info ); break;
-		
+	case CMD_LOGIN_GET_BOX_ITEM:	RecvGetBoxItem(p->u.kein.req_login_server_box_open.box_id, p->u.kein.req_login_server_box_open.server_id, cn, c); break;
+	case CMD_PUT_BOX_ITEM:	ReSendBoxItemEach(&p->u.kein.login_put_box_item); break;
+
+	case CMD_LOGIN_PREACH_NAME:	RecvPreachName(&p->u.kein.loginserver_preach_name, cn, c); break;  //神殿
+	case CMD_LOGIN_PREACH_NAME_OK:	RecvPreachNameOk(+10, &p->u.kein.loginserver_preach_name); break;
+	case CMD_LOGIN_PREACH_NAME_CANCEL:	RecvPreachNameOk(-10, &p->u.kein.loginserver_preach_name); break;
+	case CMD_LOGIN_EVANGELIST_CREATE:	UpdateEvaName(p->u.kein.login_sql_evangelist_create.my_name, p->u.kein.login_sql_evangelist_create.eva_name); break;
+	case CMD_LOGIN_EVANGELIST_DELETE:	UpdateEvaName(p->u.kein.login_sql_evangelist_delete.my_name, ""); break;
+	case CMD_CHECK_NEW_CHAR:	SendNewCharResult(p->u.kein.check_new_char.name, cn); break;
+
+	case CMD_GET_GOD_TABLE:	SendGodTable(cn); break;
+	case CMD_CHAR_UPDATE_DATA_BY_KEIN:	RecvUpdateCharByKein(&p->u.kein.char_update_data); break;
+	case CMD_GET_CHARINFO_BY_KEIN:	SendGetCharInfoByKein(&p->u.kein.req_chr_info_etc, cn); break;
+	case CMD_SEND_EAR_MESSAGE_OTHER:	SendEachGameServerForEarMessage(&p->u.kein.login_send_ear_message, cn);	break;	// 귓속말을 위해 각 게임 서버로 전송 해본다.
+	case CMD_SEND_EAR_MESSAGE_OK:	RecvEarMessageOk(&p->u.kein.send_ear_message_ok_to_login); break;
+	case CMD_SEND_EAR_MESSAGE_RESULT:	RecvEarMessageResult(&p->u.kein.send_ear_message_result); break;
+	case CMD_GAME2LOGIN_CHECK_NAME:	RecvCheckName(p->u.kein.loginserver_to_gameserver_ear_message.name, p->u.kein.loginserver_to_gameserver_ear_message.server_id, cn); break;		// 구조체 별려씀
+
+	case CMD_GAME2LOGIN_MOVING_ITEM:	CheckMoveItem(&p->u.kein.moving_item); break;
+
+	case CMD_CHANGE_MAP_DATA1:
+	case CMD_CHANGE_MAP_DATA2:
+	case CMD_CHANGE_MAP_DATA3:
+	case CMD_CHANGE_MAP_DATA4:
+	case CMD_CHANGE_MAP_DATA5:
+	case CMD_CHANGE_MAP_DATA6:
+	case CMD_CHANGE_MAP_DATA7:
+	case CMD_CHANGE_MAP_DATA8:
+	case CMD_CHANGE_MAP_DATA9:	RecvChangeMapData1(p); break;
+
+	case CMD_ACCESS_JOIN_KEIN:	RecvChangeLogintableByChangemap(p->u.gs_req_insert_userid.id, p->u.gs_req_insert_userid.mapname, p->u.gs_req_insert_userid.server_id, cn); break;
+	case CMD_IF_DOUBLE_BOX_THEN_DELETE:	RecvDoubleBoxFind(p->u.kein.game2login_recall_box_item.box_id, p->u.kein.game2login_recall_box_item.server_id, cn); break;
+	case CMD_REQ_FAITH_UP:	RecvFaithUp(p->u.kein.req_faith_up.name, p->u.kein.req_faith_up.up_point); break;
+
+	case CMD_CALL_PUBLIC_BBS:	SendPublicBbsEach(p->u.kein.server_id.server_id, cn); break;
+	case CMD_HUNTER_REGIST:	RecvHunterRegist(&p->u.kein.hunter_regist2); break;
+	case CMD_GET_HUNTER_LIST:	RecvGetHunterList(p->u.kein.game_login_hunter_list.list_id, p->u.kein.game_login_hunter_list.server_id, cn); break;
+	case CMD_KILL_HUNTER_LIST:	RecvKillHunter(p->u.kein.kill_hunter_list_login.list_id, p->u.kein.kill_hunter_list_login.hunter_name, p->u.kein.game_login_hunter_list.server_id, cn); break;
+
+	case CMD_DELETE_BOX_ITEM:	DeleteBox(p->u.kein.default_dword); break;
+
+	case CMD_RESET_JOB:	RecvResetJob(p, cn); break;
+	case CMD_SELECT_NATION:	RecvSelectNation(p, cn); break;	//注册新人物时选择的国家
+	case CMD_EXIST_NAME: 	RecvExistName(p, cn); break;		//通缉犯
+	case CMD_ISSAME_MY_NATION:	RecvExistNameForNation(p, cn); break;
+
+	case CMD_REGIST_CANDIDATE:	RecvRegistCandidate(p, cn); break;
+	case CMD_IS_THIS_MAN_CANDIDATE:	isThisManCandidate(p, cn); break;	// 후보 등록가능한 캐릭터인지 아닌지
+	case CMD_CHECK_VOTE:	CheckVote(p, cn); break;
+
+	case CMD_SET_VALUE_OF_VOTE:	GetVoteValue(cn); break;
+	case CMD_VOTE_GAME2LOGIN:	CheckAndUpdateVote(p, cn); break;
+
+	case CMD_REQ_VOTE_SCORE:	RecvVoteScore(p, cn); break;
+	case CMD_SEND_ALL_MSG:	RecvNationMsg(p, cn); break;
+
+	case CMD_YOU_ARE_KING_LOG2LOG:	SendYouAreKingLog2Client(p->u.kein.default_name, CMD_YOU_ARE_KING_LOG2CLIENT); break;
+	case CMD_YOU_ARE_NO_KING_LOG2LOG:	SendYouAreKingLog2Client(p->u.kein.default_name, CMD_YOU_ARE_NO_KING_LOG2CLIENT); break;
+
+	case CMD_GUILD_JOIN_SERVER:	CheckGuildJoin(p, cn); break;   //加入公会
+	case CMD_GUILD_ALL_MSG:	SendGuildAllMsg(p, cn); break;
+	case CMD_GM_REGIST:	RecvGmRegist(p); break;
+	case CMD_BBS_ALL:	RecvReturnGameServer(p); break;		// 고대로 게임서버로 모두 돌려줘버린다.
+	case CMD_REP_STOP_WAR_REFUSAL_TO_LOGIN:	RecvRepStopWarRefusal(p); break;	// 휴전 요청 거절
+	case CMD_REQ_STOP_WAR_TO_LOGIN:	RecvReqStopWar(p, cn); break;	// 휴전 요청
+	case CMD_REP_STOP_WAR_ACCEPT_TO_LOGIN:	RecvRepStopWarAccept(p); break;
+
+	case CMD_REQ_SALVATION_MONEY:	RecvReqSalvationMoney(p, cn); break;		// 기부금 요청
+	case CMD_SALVATION_MONEY:	RecvInsertSalvation(p, cn); break;			// 기부한걸 저정
+
+	case CMD_EAT_CHOCOLATE:	RecvEatChocolate(p, cn); break;
+	case CMD_PAY_RUMOR:	RecvCheckChocolate(p, cn); break;
+	case CMD_OPENSCHOOL_DATA:	RecvSaveOpenSchoolEvent(p, cn); break;
+
+	case CMD_GUILD_EXIT_COMMAND_GLOBAL:	RecvExitGiild(p, cn); break;
+
+	case CMD_EAT_CANDY:	RecvCheckCandy(p); break;
+
+	case CMD_UPDATE_LADDER_SCORE:	RecvUpdateLadderScore(p); break;
+	case CMD_REQ_RANK_LADDER:	RecvReqRankLadder(p, cn); break;
+
+
+	case CMD_REQ_SEARCH_RANK_LADDER:	RecvSearchRankLadder(p, cn); break;
+	case CMD_SAVE_NATION_INFO:	SaveNationInfo_SQL(&p->u.kein.save_nation_info); break;
+
 		// 테스트 용 패킷..
-	case CMD_SAVE_GUILD_MARK_IMAGE			:	UpdateGuildMark( 1, p->h.header.size-2, (BYTE *)p->u.kein.send_db_direct_map.data ); break;
-		
+	case CMD_SAVE_GUILD_MARK_IMAGE:	UpdateGuildMark(1, p->h.header.size - 2, (BYTE *)p->u.kein.send_db_direct_map.data); break;
+
 		// 실제 이미지 저장 패킷
-	case CMD_REGIST_GUILD_MARK				:	RecvRegistGuildMark( p, cn ); break;
-	case CMD_REGIST_GUILD_IMSI				:	RecvRegistGuild_DB( p, cn ); break;	//预备公会申请
-	case CMD_REQ_GUILD_EXPLAIN				:	RecvReqGuildExplain( p, cn ); break;
-		
-	case CMD_REGIST_GUILD					:	RecvRegistGuild( p, cn ); break;
-	case CMD_REQ_GUILD_IMAGE				:	SendGuildImage( p, cn ); break;
-		
-	case CMD_SAVE_GUILD_MEMBER_LIST			:	RecvSaveGuildMemberList( p ); break; //同意加入后存储
-	case CMD_UPDATE_GUILD_MAIL_ID			:	RecvUpdateGuildMailId( p ); break;
-	case CMD_GUILD_MASTER_AND_SUBMASTER		:	RecvGuildMasterAndSubMaster(p, cn ); break; //公会成员列表
-		
-	case CMD_REGIST_GUILD_CHECK				:	RecvRegistGuildCheck( p, cn ); break;
-	case CMD_CHECK_SUB_MASTER				:	RecvCheckSubMaster( p, cn ); break;			//公会副会长
-	case CMD_CHANGE_GUILD_DEGREE			:	RecvChangeGuildDegree( p, cn ); break;
-	case CMD_DELETE_GUILD					:	RecvChangeDeleteGuild( p ); break;
-		
-	case CMD_CHANGE_COLOR					:	RecvChangeColor( p ); break;
-	case CMD_CHECK_SALVATION_NAME			:	CheckSalvationName( p, cn ); break;
-	case CMD_REFRESH_SALVATION_NAME			:	RecvDeleteSalvation( ); break;
-	case CMD_GET_NAME_GUILD_MEMBER_LIST		:	RecvGetNameOfGuildMemberList( p, cn ); break;
-	case CMD_GET_GUILD_NOTICE				:	RecvGetGuildNotice( p, cn ); break;
-	case CMD_SEND_GUILD_NOTICE				:	RecvRegistGuildNotice( p, cn );break; //公会公告
-		
-	case CMD_REGIST_FRIEND					:	RecvRegistFriend( p, cn );break; //注册好友,增加好友
-	case CMD_GET_FRIEND						:	RecvGetFriend( p, cn ); break;
-	case CMD_SERVER_EXIT_GAME				:	RecvLogout( p ); break;
-	case CMD_DELETE_FRIEND					:	DeleteFriend( p, cn ); break;
-		
-	case CMD_CHECK_GUILD_NAME				:	RecvCheckGuildName( p, cn ); break;		//公会注册相关
-	case CMD_CHECK_GUILD_OTHER_CHARACTER	:	RecvCheckGuildOthercharacter( p, cn ); break;
-		
-	case CMD_ADD_EVENT_ITEM					:	RecvAddEventItem( p, cn ); break;
-		
-	case CMD_GET_GUILD_ITEM_FIRST			:	RecvGetGuildItemFirst( p, cn ); break;	// 길드 아이템 목록
-	case CMD_GET_GUILD_ITEM					:	RecvGetGuildItem( p, cn ); break;		// 길드 아이템 목록 가져오기
-	case CMD_PUT_GUILD_ITEM					:	RecvPutGuildItem( p ); break;
-	case CMD_GET_GUILD_ITEM_MAP				:	RecvGetGuildItemMap( p, cn ); break;		// 실제 아이템을 가져온다.
-		
-	case CMD_GET_GUILD_BOX_MONEY			:	RecvGetGuildBoxMoney( p, cn ); break;
-	case CMD_CHECK_GUILD_BOX_MONEY			:	RecvCheckGuildBoxMoney( p, cn ); break;
-		
-	case CMD_ADD_GUILD_BOX_MONEY			:	RecvUpdateGuildBoxMoney(); break;
-		
-	case CMD_GET_GUILD_ITEM_COUNT			:	RecvGetGuildItemCount( p, cn ); break;
-		
-	case CMD_CHANGE_GUILD_MASTER			:	RecvChangeGuildMaster( p, cn ); break;
-	case CMD_CHANGE_GUILD_MASTER_SUB		:	RecvChangeGuildMasterBySubMaster(p, cn ); break;
-	case CMD_REGIST_SUB_GUILD_MASTER		:	RecvRegistSubMaster( p, cn ); break;
-	case CMD_GUILD_HOUSE_INFO				:	RecvGuildHouseInfo( p, cn ); break;
-	case CMD_CHANGE_GUILDHOUSE_INFO			:	RecvChangeGuildHouseInfo( p, cn ); break;
-	case CMD_CHECK_GUILD_HOUSE				:	RecvCheckGuildHouse(); break;		// 하루에 한번
-		
+	case CMD_REGIST_GUILD_MARK:	RecvRegistGuildMark(p, cn); break;
+	case CMD_REGIST_GUILD_IMSI:	RecvRegistGuild_DB(p, cn); break;	//预备公会申请
+	case CMD_REQ_GUILD_EXPLAIN:	RecvReqGuildExplain(p, cn); break;
+
+	case CMD_REGIST_GUILD:	RecvRegistGuild(p, cn); break;
+	case CMD_REQ_GUILD_IMAGE:	SendGuildImage(p, cn); break;
+
+	case CMD_SAVE_GUILD_MEMBER_LIST:	RecvSaveGuildMemberList(p); break; //同意加入后存储
+	case CMD_UPDATE_GUILD_MAIL_ID:	RecvUpdateGuildMailId(p); break;
+	case CMD_GUILD_MASTER_AND_SUBMASTER:	RecvGuildMasterAndSubMaster(p, cn); break; //公会成员列表
+
+	case CMD_REGIST_GUILD_CHECK:	RecvRegistGuildCheck(p, cn); break;
+	case CMD_CHECK_SUB_MASTER:	RecvCheckSubMaster(p, cn); break;			//公会副会长
+	case CMD_CHANGE_GUILD_DEGREE:	RecvChangeGuildDegree(p, cn); break;
+	case CMD_DELETE_GUILD:	RecvChangeDeleteGuild(p); break;
+
+	case CMD_CHANGE_COLOR:	RecvChangeColor(p); break;
+	case CMD_CHECK_SALVATION_NAME:	CheckSalvationName(p, cn); break;
+	case CMD_REFRESH_SALVATION_NAME:	RecvDeleteSalvation(); break;
+	case CMD_GET_NAME_GUILD_MEMBER_LIST:	RecvGetNameOfGuildMemberList(p, cn); break;
+	case CMD_GET_GUILD_NOTICE:	RecvGetGuildNotice(p, cn); break;
+	case CMD_SEND_GUILD_NOTICE:	RecvRegistGuildNotice(p, cn); break; //公会公告
+
+	case CMD_REGIST_FRIEND:	RecvRegistFriend(p, cn); break; //注册好友,增加好友
+	case CMD_GET_FRIEND:	RecvGetFriend(p, cn); break;
+	case CMD_SERVER_EXIT_GAME:	RecvLogout(p); break;
+	case CMD_DELETE_FRIEND:	DeleteFriend(p, cn); break;
+
+	case CMD_CHECK_GUILD_NAME:	RecvCheckGuildName(p, cn); break;		//公会注册相关
+	case CMD_CHECK_GUILD_OTHER_CHARACTER:	RecvCheckGuildOthercharacter(p, cn); break;
+
+	case CMD_ADD_EVENT_ITEM:	RecvAddEventItem(p, cn); break;
+
+	case CMD_GET_GUILD_ITEM_FIRST:	RecvGetGuildItemFirst(p, cn); break;	// 길드 아이템 목록
+	case CMD_GET_GUILD_ITEM:	RecvGetGuildItem(p, cn); break;		// 길드 아이템 목록 가져오기
+	case CMD_PUT_GUILD_ITEM:	RecvPutGuildItem(p); break;
+	case CMD_GET_GUILD_ITEM_MAP:	RecvGetGuildItemMap(p, cn); break;		// 실제 아이템을 가져온다.
+
+	case CMD_GET_GUILD_BOX_MONEY:	RecvGetGuildBoxMoney(p, cn); break;
+	case CMD_CHECK_GUILD_BOX_MONEY:	RecvCheckGuildBoxMoney(p, cn); break;
+
+	case CMD_ADD_GUILD_BOX_MONEY:	RecvUpdateGuildBoxMoney(); break;
+
+	case CMD_GET_GUILD_ITEM_COUNT:	RecvGetGuildItemCount(p, cn); break;
+
+	case CMD_CHANGE_GUILD_MASTER:	RecvChangeGuildMaster(p, cn); break;
+	case CMD_CHANGE_GUILD_MASTER_SUB:	RecvChangeGuildMasterBySubMaster(p, cn); break;
+	case CMD_REGIST_SUB_GUILD_MASTER:	RecvRegistSubMaster(p, cn); break;
+	case CMD_GUILD_HOUSE_INFO:	RecvGuildHouseInfo(p, cn); break;
+	case CMD_CHANGE_GUILDHOUSE_INFO:	RecvChangeGuildHouseInfo(p, cn); break;
+	case CMD_CHECK_GUILD_HOUSE:	RecvCheckGuildHouse(); break;		// 하루에 한번
+
 		//021030 YGI
-	case CMD_SAVE_AMOUNT_EVENT_NPC_ITEM		:	RecvSaveAmountEventNpcItem( p ); break;
-		
+	case CMD_SAVE_AMOUNT_EVENT_NPC_ITEM:	RecvSaveAmountEventNpcItem(p); break;
+
 		//021107 YGI
-	case CMD_CHECK_EVENT_SCRIPT_ITEM		:	RecvCheckEventScriptItem( p, cn ); break;
-	case CMD_CHECK_EVENT_MOVE_MAP			:	RecvCheckEventMoveMap( p, cn ); break;
-		
-	case CMD_SAVE_EVENT_MAPMOVE_NOW			:	RecvSaveEventMapMoveNow( p, cn ); break;
+	case CMD_CHECK_EVENT_SCRIPT_ITEM:	RecvCheckEventScriptItem(p, cn); break;
+	case CMD_CHECK_EVENT_MOVE_MAP:	RecvCheckEventMoveMap(p, cn); break;
+
+	case CMD_SAVE_EVENT_MAPMOVE_NOW:	RecvSaveEventMapMoveNow(p, cn); break;
 	case CMD_GET_TREASURE_MAP_DETAIL_DB:
-		{	// 040105 YGI
-			RecvGetTreasureMapAttr( p, cn );
-			break;		
-		}
-	case CMD_SERVER_KILLPC:	break;
-		
-		
-		
+	{	// 040105 YGI
+		RecvGetTreasureMapAttr(p, cn);
 		break;
-	default	:
-		{
-			return(-31);
-		}
+	}
+	case CMD_SERVER_KILLPC:	break;
+
+
+
+		break;
+	default:
+	{
+		return(-31);
+	}
 	}
 	return 1;
 }
@@ -207,210 +207,210 @@ int CheckHandleByKein( t_packet *p, t_connection c[], int cn )  //这里的作�
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-void RecvGetBoxItem( DWORD box_id, short int server_id, short int gameserver_id, t_connection c[] )
+void RecvGetBoxItem(DWORD box_id, short int server_id, short int gameserver_id, t_connection c[])
 {
-	t_packet packet = {0, };
-	
-	packet.h.header.type = CMD_LOGIN_GET_BOX_ITEM ;
+	t_packet packet = { 0, };
+
+	packet.h.header.type = CMD_LOGIN_GET_BOX_ITEM;
 	{
 		packet.u.kein.login_server_box_open.server_id = server_id;
-		for( int i=0; i<MAX_BOX_ITEM; i++ )
+		for (int i = 0; i < MAX_BOX_ITEM; i++)
 		{
-			int ret = GetBoxItem_SQL( box_id, i, &packet.u.kein.login_server_box_open.box_item[i] );		// 값 가지겨오 실패를 해도 전송해줘야 한다.
+			int ret = GetBoxItem_SQL(box_id, i, &packet.u.kein.login_server_box_open.box_item[i]);		// 값 가지겨오 실패를 해도 전송해줘야 한다.
 		}
-		packet.u.kein.login_server_box_open.box_id= box_id;
+		packet.u.kein.login_server_box_open.box_id = box_id;
 		//AccessBoxData( box_id );
 	}
-	packet.h.header.size = sizeof( k_login_server_box_open );
-	QueuePacket( c, gameserver_id, &packet, 1 );
+	packet.h.header.size = sizeof(k_login_server_box_open);
+	QueuePacket(c, gameserver_id, &packet, 1);
 }
 
-void RecvDoubleBoxFind( DWORD box_id, short int server_id, short int gameserver_id )
+void RecvDoubleBoxFind(DWORD box_id, short int server_id, short int gameserver_id)
 {
 	t_packet packet;
-	packet.h.header.type = CMD_IF_DOUBLE_BOX_THEN_DELETE ;		// 똑같은 박스가 있는 경우 하나를 지워버린다.
-	packet.u.kein.game2login_recall_box_item.box_id= box_id;	
-	packet.u.kein.game2login_recall_box_item.server_id= server_id;	
-	packet.h.header.size = sizeof( k_game2login_recall_box_item );
-	
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	packet.h.header.type = CMD_IF_DOUBLE_BOX_THEN_DELETE;		// 똑같은 박스가 있는 경우 하나를 지워버린다.
+	packet.u.kein.game2login_recall_box_item.box_id = box_id;
+	packet.u.kein.game2login_recall_box_item.server_id = server_id;
+	packet.h.header.size = sizeof(k_game2login_recall_box_item);
+
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
-void RecvPreachName( k_loginserver_preach_name *data,  short int gameserver_id, t_connection c[] )//神殿
+void RecvPreachName(k_loginserver_preach_name *data, short int gameserver_id, t_connection c[])//神殿
 {
 	int ret;
-	t_packet packet = {0, };
-////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
-	strcpy(s1,data->name  );	//公会名称
+	t_packet packet = { 0, };
+	////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
+	strcpy(s1, data->name);	//公会名称
 //gets(pMailSend->szSender);
-len1 = (int)strlen(s1);
+	len1 = (int)strlen(s1);
 
-str="发现SQL漏洞攻击!非法内容:[%s],  神殿注册人名称:[%s]";
+	str = "发现SQL漏洞攻击!非法内容:[%s],  神殿注册人名称:[%s]";
 
-for(i = 0; i < len1; i++)		//公会名称
-{
-	if(s1[i]==39 || s1[i]=='-')
+	for (i = 0; i < len1; i++)		//公会名称
 	{
-		if(i==0)
+		if (s1[i] == 39 || s1[i] == '-')
 		{
-		sprintf(SQLerror,str,data->name,data->name);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, data->name, data->name);
+				HackLog(0, SQLerror);
+			}
+			data->name[i] = 32;
 		}
-	data->name[i] = 32;
 	}
-} 
 
- /*   if(pMailSend->szSender == '小手冰凉')
-	{
-		pMailSend->szSender = '小手冰凉';
-	}*/
+	//if(pMailSend->szSender == '小手冰凉')
+	//{
+	//	pMailSend->szSender = '小手冰凉';
+	//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-	if( CheckName_SQL( data->name ) )
+
+	if (CheckName_SQL(data->name))
 	{
 		int believe, faith;
-		ret = GetBelieveAndFaith_SQL( believe, faith, data->name );
-		if( ret )
+		ret = GetBelieveAndFaith_SQL(believe, faith, data->name);
+		if (ret)
 		{
-			if( believe == data->believe_god ) packet.u.kein.loginserver_preach_name_result.result = 1;		// 성공
+			if (believe == data->believe_god) packet.u.kein.loginserver_preach_name_result.result = 1;		// 성공
 			else packet.u.kein.loginserver_preach_name_result.result = 3; // 그 사람은 그 신전에 등록되어 있지 않다.
 		}
 		else packet.u.kein.loginserver_preach_name_result.result = 4;		// 쿼리문이 실행이 안 된상태
 	}
 	else
 		packet.u.kein.loginserver_preach_name_result.result = 2;	// 그런 사람 없다.
-	
-	packet.h.header.type = CMD_LOGIN_PREACH_NAME ;
+
+	packet.h.header.type = CMD_LOGIN_PREACH_NAME;
 	{
-		packet.u.kein.loginserver_preach_name_result.server_id= data->server_id;
-		//		packet.u.kein.loginserver_preach_name_result.result= data->server_id;
-		packet.u.kein.loginserver_preach_name_result.believe_god= data->believe_god;
-		sprintf( packet.u.kein.loginserver_preach_name_result.name ,data->name );
+		packet.u.kein.loginserver_preach_name_result.server_id = data->server_id;
+		//packet.u.kein.loginserver_preach_name_result.result= data->server_id;
+		packet.u.kein.loginserver_preach_name_result.believe_god = data->believe_god;
+		sprintf(packet.u.kein.loginserver_preach_name_result.name, data->name);
 	}
-	packet.h.header.size = sizeof( k_loginserver_preach_name_result);
-	QueuePacket( c, gameserver_id, &packet, 1 );
+	packet.h.header.size = sizeof(k_loginserver_preach_name_result);
+	QueuePacket(c, gameserver_id, &packet, 1);
 }
 
-void RecvPreachNameOk( int plus, k_loginserver_preach_name *data )		// 전도한 사람 신앙심 올려주기
+void RecvPreachNameOk(int plus, k_loginserver_preach_name *data)		// 전도한 사람 신앙심 올려주기
 {
 	int ret;
 	int faith, believe;
-	
-	ret = GetBelieveAndFaith_SQL( believe, faith, data->name );
-	if( ret )
+
+	ret = GetBelieveAndFaith_SQL(believe, faith, data->name);
+	if (ret)
 	{
-		if( believe == data->believe_god ) 
+		if (believe == data->believe_god)
 		{
 			faith += plus; // 더해주는 기본 수치
-			if( faith > 1000 ) faith = 1000;
-			if( faith < 0 ) faith = 0 ;
-			UpdateFaith_SQL( (short int )faith, data->name );
+			if (faith > 1000) faith = 1000;
+			if (faith < 0) faith = 0;
+			UpdateFaith_SQL((short int)faith, data->name);
 		}
 	}
 	return;
 }
 
-void SendNewCharResult( char *name, short int cn )	
+void SendNewCharResult(char *name, short int cn)
 {
 	int is_new;
 	int ret;
-	
-	ret = GetCharNew( is_new, name );
-	
+
+	ret = GetCharNew(is_new, name);
+
 	t_packet packet;
-	if( is_new || ret == 0)							// 1은 구 캐릭터, 0은 새로운 캐릭터
+	if (is_new || ret == 0)							// 1은 구 캐릭터, 0은 새로운 캐릭터
 		packet.h.header.type = CMD_CHECK_NEW_CHAR_NOT;
-	else 
+	else
 		packet.h.header.type = CMD_CHECK_NEW_CHAR_OK;
-	
+
 	packet.h.header.size = 0;
-	QueuePacket( connections, cn, &packet, 1 );
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void SendGodTable( short int cn )
+void SendGodTable(short int cn)
 {
 	t_packet packet;
-	
-	packet.h.header.type = CMD_GET_GOD_TABLE ;
-	packet.h.header.size = sizeof( k_get_god_table );
+
+	packet.h.header.type = CMD_GET_GOD_TABLE;
+	packet.h.header.size = sizeof(k_get_god_table);
 	{
-		for( int i=0; i<MAX_GOD; i++ )
+		for (int i = 0; i < MAX_GOD; i++)
 		{
 			int ret;
-			ret = GetGodMeetingTime( packet.u.kein.get_god_table.day,  
+			ret = GetGodMeetingTime(packet.u.kein.get_god_table.day,
 				packet.u.kein.get_god_table.month,
-				packet.u.kein.get_god_table.year, i );
-			
-			if( ret ) QueuePacket( connections, cn, &packet, 1 );
+				packet.u.kein.get_god_table.year, i);
+
+			if (ret) QueuePacket(connections, cn, &packet, 1);
 		}
 	}
 }
 
-void RecvUpdateCharByKein( k_char_update_data *p )
+void RecvUpdateCharByKein(k_char_update_data *p)
 {
-	UpdateCharStatusByKein( p );
+	UpdateCharStatusByKein(p);
 }
 
-void SendGetCharInfoByKein( k_req_chr_info_etc *p, short int cn )
+void SendGetCharInfoByKein(k_req_chr_info_etc *p, short int cn)
 {
 	k_get_char_info t;
-	
-	GetCharDataStatusByKein( &t, p->name );
-	
+
+	GetCharDataStatusByKein(&t, p->name);
+
 	t_packet packet;
 	packet.h.header.type = CMD_GET_CHARINFO_BY_KEIN;
 	{
-		strcpy( packet.u.kein.get_char_info.name, p->name );	// 030923 HK YGI
-		packet.u.kein.get_char_info.server_id		= p->server_id;
-		packet.u.kein.get_char_info.believe_god		= t.believe_god;
-		packet.u.kein.get_char_info.faith			= t.faith;
-		packet.u.kein.get_char_info.god_cast_level	= t.god_cast_level;
+		strcpy(packet.u.kein.get_char_info.name, p->name);	// 030923 HK YGI
+		packet.u.kein.get_char_info.server_id = p->server_id;
+		packet.u.kein.get_char_info.believe_god = t.believe_god;
+		packet.u.kein.get_char_info.faith = t.faith;
+		packet.u.kein.get_char_info.god_cast_level = t.god_cast_level;
 	}
-	
-	packet.h.header.size = sizeof( k_get_char_info );
-	QueuePacket( connections, cn, &packet, 1 );
+
+	packet.h.header.size = sizeof(k_get_char_info);
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void SendEachGameServerForEarMessage( k_login_send_ear_message *p, short int game_server )
+void SendEachGameServerForEarMessage(k_login_send_ear_message *p, short int game_server)
 {
-	if( !CheckName_SQL( p->recv_name ) ) return;		// 그런 놈 존재하지 않음.
-	
+	if (!CheckName_SQL(p->recv_name)) return;		// 그런 놈 존재하지 않음.
+
 	t_packet packet;
 	packet.h.header.type = CMD_SEND_EAR_MESSAGE_OTHER;
 	{
 		packet.u.kein.login_to_gameserver_ear_message.server_id = p->server_id;
 		packet.u.kein.login_to_gameserver_ear_message.nation = p->nation;
-		strcpy( packet.u.kein.login_to_gameserver_ear_message.recv_name, p->recv_name );
-		strcpy( packet.u.kein.login_to_gameserver_ear_message.send_name, p->send_name );
-		strcpy( packet.u.kein.login_to_gameserver_ear_message.message, p->message );
+		strcpy(packet.u.kein.login_to_gameserver_ear_message.recv_name, p->recv_name);
+		strcpy(packet.u.kein.login_to_gameserver_ear_message.send_name, p->send_name);
+		strcpy(packet.u.kein.login_to_gameserver_ear_message.message, p->message);
 		packet.u.kein.login_to_gameserver_ear_message.game_server = connections[game_server].server_check;
 	}
-	packet.h.header.size = sizeof( k_login_to_gameserver_ear_message ) - 200 + strlen( p->message );
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	packet.h.header.size = sizeof(k_login_to_gameserver_ear_message) - 200 + strlen(p->message);
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
-void RecvEarMessageOk( k_send_ear_message_ok_to_login *p )		// 어떤 게임서버에서 성공적으로 메시지를 보냈다는 회신
+void RecvEarMessageOk(k_send_ear_message_ok_to_login *p)		// 어떤 게임서버에서 성공적으로 메시지를 보냈다는 회신
 {
-	if( !p->gameserver_port ) return;
-	for(int i = 0; i < LOGIN_MAX_CONNECTIONS; i ++)		
+	if (!p->gameserver_port) return;
+	for (int i = 0; i < LOGIN_MAX_CONNECTIONS; i++)
 	{
-		if( connections[i].server_check == p->gameserver_port )
+		if (connections[i].server_check == p->gameserver_port)
 		{
 			t_packet packet;
 			packet.h.header.type = CMD_SEND_EAR_MESSAGE_OK;
 			{
 				packet.u.kein.loginserver_to_gameserver_ear_message.server_id = p->server_id;
-				strcpy( packet.u.kein.loginserver_to_gameserver_ear_message.name, p->name );
+				strcpy(packet.u.kein.loginserver_to_gameserver_ear_message.name, p->name);
 			}
-			packet.h.header.size = sizeof( k_loginserver_to_gameserver_ear_message );
+			packet.h.header.size = sizeof(k_loginserver_to_gameserver_ear_message);
 			//			QueuePacket( connections, p->gameserver_port, &packet, 1 );
-			QueuePacket( connections, i, &packet, 1 );
+			QueuePacket(connections, i, &packet, 1);
 			break;
 		}
 	}
 }
 
-void RecvEarMessageResult( k_send_ear_message_result *p )
+void RecvEarMessageResult(k_send_ear_message_result *p)
 {
 	t_packet packet;
 	packet.h.header.type = CMD_LOGIN2GAME_EAR_MESSAGE_RESULT;
@@ -418,88 +418,88 @@ void RecvEarMessageResult( k_send_ear_message_result *p )
 		packet.u.kein.login2game_ear_message_result.send_server_id = p->send_server_id;
 		packet.u.kein.login2game_ear_message_result.ret = p->ret;
 	}
-	packet.h.header.size = sizeof( k_login2game_ear_message_result );
-	
-	for(int i = 0; i < LOGIN_MAX_CONNECTIONS; i ++)
+	packet.h.header.size = sizeof(k_login2game_ear_message_result);
+
+	for (int i = 0; i < LOGIN_MAX_CONNECTIONS; i++)
 	{
-		if(connections[i].server_check == p->send_game_server )
+		if (connections[i].server_check == p->send_game_server)
 		{
-			QueuePacket( connections, i, &packet, 1 );
+			QueuePacket(connections, i, &packet, 1);
 			return;
 		}
 	}
 }
 
-void RecvCheckName( char *name, short int server_id, short int cn )
+void RecvCheckName(char *name, short int server_id, short int cn)
 {
 	int ret_type;
-	if( CheckName_SQL( name ) ) {ret_type = CMD_THEREIS_CHARNAME ;}
-	else {ret_type = CMD_THEREIS_NO_CHARNAME;}
-	
+	if (CheckName_SQL(name)) { ret_type = CMD_THEREIS_CHARNAME; }
+	else { ret_type = CMD_THEREIS_NO_CHARNAME; }
+
 	t_packet packet;
 	packet.h.header.type = CMD_GAME2LOGIN_CHECK_NAME;
 	{
-		packet.u.kein.login2game_ear_message_result.send_server_id= server_id;
+		packet.u.kein.login2game_ear_message_result.send_server_id = server_id;
 		packet.u.kein.login2game_ear_message_result.ret = ret_type;
 	}
-	packet.h.header.size = sizeof( k_login2game_ear_message_result );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.h.header.size = sizeof(k_login2game_ear_message_result);
+	QueuePacket(connections, cn, &packet, 1);
 }
 
 
-void CheckMoveItem( k_moving_item *p )
+void CheckMoveItem(k_moving_item *p)
 {
 	char *pos_type[20] = { "HAND", "INV", "EQUIP", "QUICK", "BANK", "BOX", "MAKE", "OTHER_CH", "CHARACTER", "GROUND", "USE", "BUY", "SELL", "DELETE", "EXCHANGE" };
-	
+
 	FILE *fp;
 	char temp[MAX_PATH];
-	sprintf( temp, ".\\logout_item\\%s_아이템이동.txt", p->name );
-	fp = fopen( temp, "at+" );
-	if( !fp ) return;
-	
-	CItem *t = ItemUnit( p->item );
-	if( !t ) 
+	sprintf(temp, ".\\logout_item\\%s_아이템이동.txt", p->name);
+	fp = fopen(temp, "at+");
+	if (!fp) return;
+
+	CItem *t = ItemUnit(p->item);
+	if (!t)
 	{
-		fclose( fp );
+		fclose(fp);
 		return;
 	}
-	
-	if( t->GetRbutton() == DIVIDE_ITEM )
-		fprintf( fp, "아이템:%s, 수량:%9ld, 위치:[%8s] ===> 위치:[%8s]     돈:[%8ld]\n", t->GetHanName(), p->item.attr[IATTR_MUCH], pos_type[p->source_type], pos_type[p->dest_type], p->money );
+
+	if (t->GetRbutton() == DIVIDE_ITEM)
+		fprintf(fp, "아이템:%s, 수량:%9ld, 위치:[%8s] ===> 위치:[%8s]     돈:[%8ld]\n", t->GetHanName(), p->item.attr[IATTR_MUCH], pos_type[p->source_type], pos_type[p->dest_type], p->money);
 	else
 	{
 		WORD dur_curr, dur_max;
-		GetItemDuration( p->item, dur_curr, dur_max );
-		fprintf( fp, "아이템:%s, Dur :%4d/%4d, 위치:[%8s] ===> 위치:[%8s]     돈:[%8ld]\n", t->GetHanName(), dur_curr, dur_max, pos_type[p->source_type], pos_type[p->dest_type], p->money );
+		GetItemDuration(p->item, dur_curr, dur_max);
+		fprintf(fp, "아이템:%s, Dur :%4d/%4d, 위치:[%8s] ===> 위치:[%8s]     돈:[%8ld]\n", t->GetHanName(), dur_curr, dur_max, pos_type[p->source_type], pos_type[p->dest_type], p->money);
 	}
-	
-	fclose( fp );
+
+	fclose(fp);
 }
 
-void RecvGuildMailTitle( int guild_code, short int server_id, short int game_id )
+void RecvGuildMailTitle(int guild_code, short int server_id, short int game_id)
 {
-	k_guild_mail mail[12] = {0, };
-	
-	int max = GetGuildMailTitle(guild_code, mail );
-	if( max > 0 )
+	k_guild_mail mail[12] = { 0, };
+
+	int max = GetGuildMailTitle(guild_code, mail);
+	if (max > 0)
 	{
 		t_packet packet;
 		packet.h.header.type = CMD_REP_RECV_GUILD_MAIL_TITLE;
 		{
 			packet.u.kein.login_to_game_mail_title.server_id = server_id;
 		}
-		for( int i=0; i<max; i++ )
+		for (int i = 0; i < max; i++)
 		{
 			packet.u.kein.login_to_game_guild_mail_title.degree = mail[i].degree;
 			packet.u.kein.login_to_game_guild_mail_title.mail_id = mail[i].mail_id;
 			packet.u.kein.login_to_game_guild_mail_title.mail_year = mail[i].year;
 			packet.u.kein.login_to_game_guild_mail_title.mail_month = mail[i].month;
 			packet.u.kein.login_to_game_guild_mail_title.mail_day = mail[i].day;
-			strcpy( packet.u.kein.login_to_game_guild_mail_title.mail_name, mail[i].send_name );
-			strcpy( packet.u.kein.login_to_game_guild_mail_title.mail_title, mail[i].mail_title );
-			
-			packet.h.header.size = sizeof( k_login_to_game_guild_mail_title ) - 60 + strlen( mail[i].mail_title );
-			QueuePacket( connections, game_id, &packet, 1 );
+			strcpy(packet.u.kein.login_to_game_guild_mail_title.mail_name, mail[i].send_name);
+			strcpy(packet.u.kein.login_to_game_guild_mail_title.mail_title, mail[i].mail_title);
+
+			packet.h.header.size = sizeof(k_login_to_game_guild_mail_title) - 60 + strlen(mail[i].mail_title);
+			QueuePacket(connections, game_id, &packet, 1);
 		}
 	}
 }
@@ -507,14 +507,14 @@ void RecvGuildMailTitle( int guild_code, short int server_id, short int game_id 
 // 020808 YGI --------------------------
 
 extern CServerTable*	g_pServerTable;
-void RecvChangeMapData1( t_packet *pPacket )
+void RecvChangeMapData1(t_packet *pPacket)
 {
 	// CMD_CHANGE_MAP_DATA1
-	for(int i = 0; i < LOGIN_MAX_CONNECTIONS; i ++)
+	for (int i = 0; i < LOGIN_MAX_CONNECTIONS; i++)
 	{
-		if(connections[i].server_check == pPacket->u.kein.change_map1.game_port )
+		if (connections[i].server_check == pPacket->u.kein.change_map1.game_port)
 		{
-			QueuePacket( connections, i, pPacket, 1 );
+			QueuePacket(connections, i, pPacket, 1);
 			return;
 		}
 	}
@@ -522,175 +522,175 @@ void RecvChangeMapData1( t_packet *pPacket )
 
 
 // 010218
-void RecvChangeLogintableByChangemap( char *user_id, char *map_name, short int server_id, short int cn )
+void RecvChangeLogintableByChangemap(char *user_id, char *map_name, short int server_id, short int cn)
 {
-	if( ::UpdateLogintablebyChangeMap( user_id, map_name ))
+	if (::UpdateLogintablebyChangeMap(user_id, map_name))
 	{
 		t_packet tp;
 		tp.h.header.type = CMD_JOINABLE;
 		tp.u.ls_joinable.server_id = server_id;
-		tp.h.header.size = sizeof( t_ls_joinable );
-		
-		::QueuePacket( connections, cn, &tp, 1 );
+		tp.h.header.size = sizeof(t_ls_joinable);
+
+		::QueuePacket(connections, cn, &tp, 1);
 	}
 }
 
 
-void ReSendBoxItemEach( k_login_put_box_item *box )
+void ReSendBoxItemEach(k_login_put_box_item *box)
 {
-	PutBoxItem_SQL( box->box_id, box->para, &box->item  );
-	
-	/*	t_packet p;
-	p.h.header.type = CMD_RECALL_BOX_ITEM;
-	p.u.kein.login_put_box_item = *box;
-	p.h.header.size = sizeof( k_login_put_box_item );
-	
-	  
-		for(int i = 0; i < LOGIN_MAX_CONNECTIONS; i ++)
-		{
-		if( connections[i].socket && connections[i].server_check )
-		{
-		QueuePacket( connections, i, &p, 1 );
-		}
-}*/
+	PutBoxItem_SQL(box->box_id, box->para, &box->item);
+
+	//t_packet p;
+	//p.h.header.type = CMD_RECALL_BOX_ITEM;
+	//p.u.kein.login_put_box_item = *box;
+	//p.h.header.size = sizeof( k_login_put_box_item );
+	//
+	//  
+	//	for(int i = 0; i < LOGIN_MAX_CONNECTIONS; i ++)
+	//	{
+	//	if( connections[i].socket && connections[i].server_check )
+	//	{
+	//	QueuePacket( connections, i, &p, 1 );
+	//	}
+	//}
 }
 
 
 // 전도한사람이 게임 서버에 있는지 체크해서 클라이언트로 보내준다.
-void RecvFaithUp( char *name, short int point )
+void RecvFaithUp(char *name, short int point)
 {
 	t_packet p;
 	p.h.header.type = CMD_REQ_FAITH_UP;
-	strcpy( p.u.kein.req_faith_up.name, name );
+	strcpy(p.u.kein.req_faith_up.name, name);
 	p.u.kein.req_faith_up.up_point = point;
-	p.h.header.size = sizeof( k_req_faith_up );
-	
-	g_pServerTable->BroadCastToEveryServer( (char *)&p, (sizeof(t_header)+p.h.header.size ), SERVER_TYPE_MAP );
+	p.h.header.size = sizeof(k_req_faith_up);
+
+	g_pServerTable->BroadCastToEveryServer((char *)&p, (sizeof(t_header) + p.h.header.size), SERVER_TYPE_MAP);
 }
 
-void SendOhMyParty( char *my_name, char *party_name )
+void SendOhMyParty(char *my_name, char *party_name)
 {
 	t_packet p;
 	p.h.header.type = CMD_OH_MY_PARTY;
-	
-	strcpy( p.u.kein.oh_my_party.my_name, my_name );
-	strcpy( p.u.kein.oh_my_party.party_name, party_name );
-	
-	p.h.header.size = sizeof( k_oh_my_party );
-	g_pServerTable->BroadCastToEveryServer( (char *)&p, (sizeof(t_header)+p.h.header.size ), SERVER_TYPE_MAP );
-	
+
+	strcpy(p.u.kein.oh_my_party.my_name, my_name);
+	strcpy(p.u.kein.oh_my_party.party_name, party_name);
+
+	p.h.header.size = sizeof(k_oh_my_party);
+	g_pServerTable->BroadCastToEveryServer((char *)&p, (sizeof(t_header) + p.h.header.size), SERVER_TYPE_MAP);
+
 }
 
 
 //////////////////////////////////////////////////////////
 //	공지 사항을 디비에서 읽어서 전체로 뿌려준다.
 
-void SendLoginToGameServerMessage( int type, char *szTemp )
+void SendLoginToGameServerMessage(int type, char *szTemp)
 {
-	if( !szTemp ) return;
+	if (!szTemp) return;
 	t_packet p;
-	int len=strlen( szTemp );
-	int max = (len / 512)+1;
-	
+	int len = strlen(szTemp);
+	int max = (len / 512) + 1;
+
 	p.h.header.type = type;
-	for( int i=0; i<max; i++ )
+	for (int i = 0; i < max; i++)
 	{
-		char *temp = szTemp+512*i;
-		strncpy( p.u.kein.server_text_default.text, temp ,512 );
+		char *temp = szTemp + 512 * i;
+		strncpy(p.u.kein.server_text_default.text, temp, 512);
 		p.u.kein.server_text_default.len = len;
-		
-		p.h.header.size = sizeof( k_server_text_default );
-		g_pServerTable->BroadCastToEveryServer( (char *)&p, (sizeof(t_header)+p.h.header.size ), SERVER_TYPE_MAP );
+
+		p.h.header.size = sizeof(k_server_text_default);
+		g_pServerTable->BroadCastToEveryServer((char *)&p, (sizeof(t_header) + p.h.header.size), SERVER_TYPE_MAP);
 	}
 }
 
 void SendPublicBbs()
 {
-	GetPublicBbs( &public_bbs );
-	SendLoginToGameServerMessage( CMD_LOGIN_TO_GAME_PUBLIC_BBS, public_bbs );
+	GetPublicBbs(&public_bbs);
+	SendLoginToGameServerMessage(CMD_LOGIN_TO_GAME_PUBLIC_BBS, public_bbs);
 }
 
-void SendLearnedItem( t_connection c[], short int cn )	
+void SendLearnedItem(t_connection c[], short int cn)
 {
 	t_packet packet;
-	
+
 	packet.h.header.type = CMD_SEND_LEARN_ITEM_INDEX;
 	{
 		packet.u.kein.server_learn_item.item_count = c[cn].chrlst.ItemMax;
-		memcpy( packet.u.kein.server_learn_item.item, c[ cn].chrlst.Item,	sizeof( short int ) * c[cn].chrlst.ItemMax );
+		memcpy(packet.u.kein.server_learn_item.item, c[cn].chrlst.Item, sizeof(short int) * c[cn].chrlst.ItemMax);
 	}
-	packet.h.header.size = sizeof( k_server_learn_item );
-	QueuePacket( c, cn, &packet, 1);
+	packet.h.header.size = sizeof(k_server_learn_item);
+	QueuePacket(c, cn, &packet, 1);
 }
 
-void SendPublicBbsEach( short int server_id, short int game_id )
+void SendPublicBbsEach(short int server_id, short int game_id)
 {
-	GetPublicBbs( &public_bbs );
-	if( !public_bbs  ) return;
-	
+	GetPublicBbs(&public_bbs);
+	if (!public_bbs) return;
+
 	t_packet p;
-	int len=strlen( public_bbs  );
-	int max = (len / 512)+1;
-	
+	int len = strlen(public_bbs);
+	int max = (len / 512) + 1;
+
 	p.h.header.type = CMD_CALL_PUBLIC_BBS_ONLY_ONE;
-	for( int i=0; i<max; i++ )
+	for (int i = 0; i < max; i++)
 	{
-		char *temp = public_bbs +512*i;
-		strncpy( p.u.kein.server_text_only_one.text, temp ,512 );
+		char *temp = public_bbs + 512 * i;
+		strncpy(p.u.kein.server_text_only_one.text, temp, 512);
 		p.u.kein.server_text_only_one.len = len;
 		p.u.kein.server_text_only_one.server_id = server_id;
-		
-		p.h.header.size = sizeof( k_server_text_only_one );
-		QueuePacket( connections, game_id, &p, 1 );
+
+		p.h.header.size = sizeof(k_server_text_only_one);
+		QueuePacket(connections, game_id, &p, 1);
 	}
 }
 
-void RecvHunterRegist( k_hunter_regist2 *p )
+void RecvHunterRegist(k_hunter_regist2 *p)
 {
-	int ret = InsertHunterList( p->target_name, p->regist_name, p->money, p->text );
+	int ret = InsertHunterList(p->target_name, p->regist_name, p->money, p->text);
 }
 
-void RecvGetHunterList( int list_id, short int server_id, short int game_id)
+void RecvGetHunterList(int list_id, short int server_id, short int game_id)
 {
 	k_hunter_list list;
-	int ret = GetHunterList( list_id, &list, 1 );		// 아이디 바로 밑의 내용을 가져온다.
-	if( ret != 1 ) return;
-	
+	int ret = GetHunterList(list_id, &list, 1);		// 아이디 바로 밑의 내용을 가져온다.
+	if (ret != 1) return;
+
 	t_packet p;
 	p.h.header.type = CMD_SEND_HUNTER_LIST;
 	p.u.kein.login_game_hunter_list.server_id = server_id;
 	p.u.kein.login_game_hunter_list.list = list;
-	p.h.header.size = sizeof( k_login_game_hunter_list )-1000+(strlen(list.text ));
-	QueuePacket( connections, game_id, &p, 1 );
+	p.h.header.size = sizeof(k_login_game_hunter_list) - 1000 + (strlen(list.text));
+	QueuePacket(connections, game_id, &p, 1);
 }
 
-void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short int game_id )
+void RecvKillHunter(int list_id, char *hunter_name, short int server_id, short int game_id)
 {
 	t_packet p;
 	k_hunter_list list;
-	int ret = GetHunterList( list_id, &list, 0 );		// 아이디로 억세스 한다.
-	if( ret != 1 || !list.index )		// 쿼리문에 실패했거나 리스트의 인덱스가 없을 경우 
+	int ret = GetHunterList(list_id, &list, 0);		// 아이디로 억세스 한다.
+	if (ret != 1 || !list.index)		// 쿼리문에 실패했거나 리스트의 인덱스가 없을 경우 
 	{
 		p.h.header.type = CMD_KILL_HUNTER_LIST_CANCEL;
 		p.u.kein.server_id.server_id = server_id;
-		p.h.header.size = sizeof( k_server_id );
-		QueuePacket( connections, game_id, &p, 1 );
+		p.h.header.size = sizeof(k_server_id);
+		QueuePacket(connections, game_id, &p, 1);
 	}
-	else 
+	else
 	{
-		DeleteHunterList( list_id );		// 내용을 삭제한다.
+		DeleteHunterList(list_id);		// 내용을 삭제한다.
 		// 게임서버로 돈하고 내용을 보내준다.	// 처리한 사람에게 정보를 보내준다.
 		p.h.header.type = CMD_KILL_HUNTER_LIST_OK;
-		//			strcpy( p.u.kein.send_kill_hunter_list.target_name, list.target_name);
-		//			strcpy( p.u.kein.send_kill_hunter_list.regist_name, list.regist_name);
+		//strcpy( p.u.kein.send_kill_hunter_list.target_name, list.target_name);
+		//strcpy( p.u.kein.send_kill_hunter_list.regist_name, list.regist_name);
 		p.u.kein.send_kill_hunter_list.money = list.money;
 		p.u.kein.send_kill_hunter_list.server_id = server_id;
-		p.h.header.size = sizeof( k_send_kill_hunter_list );
-		QueuePacket( connections, game_id, &p, 1 );
-		
+		p.h.header.size = sizeof(k_send_kill_hunter_list);
+		QueuePacket(connections, game_id, &p, 1);
+
 		// 결과를 현상범 건 사람에게 메일로 알려 준다.
-		EatRearWhiteChar( list.regist_name );
-		EatRearWhiteChar( list.target_name);
+		EatRearWhiteChar(list.regist_name);
+		EatRearWhiteChar(list.target_name);
 		k_game_to_login_send_mail result;
 		//< CSD-030324
 		char ini_from[20];
@@ -701,228 +701,228 @@ void RecvKillHunter( int list_id, char *hunter_name, short int server_id, short 
 		ini_title[0] = 0;
 		ini_body[0] = 0;
 
-// thai YGI
-		if(GetPrivateProfileString("hunter_mail","from","",ini_from,20,MapServerConfigFileName) > 0)
+		// thai YGI
+		if (GetPrivateProfileString("hunter_mail", "from", "", ini_from, 20, MapServerConfigFileName) > 0)
 		{
-			GetPrivateProfileString("hunter_mail","title","",ini_title,60,MapServerConfigFileName);
-			GetPrivateProfileString("hunter_mail","body","",ini_body,1000,MapServerConfigFileName);
+			GetPrivateProfileString("hunter_mail", "title", "", ini_title, 60, MapServerConfigFileName);
+			GetPrivateProfileString("hunter_mail", "body", "", ini_body, 1000, MapServerConfigFileName);
 		}
 
-		if( ini_from[0] && ini_title[0] && ini_body[0] )
+		if (ini_from[0] && ini_title[0] && ini_body[0])
 		{
-			strcpy( result.send_name, ini_from ); 
-			strcpy( result.uni.recv_name, list.regist_name );
-			strcpy( result.title, ini_title );
-			sprintf( result.body, ini_body, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
+			strcpy(result.send_name, ini_from);
+			strcpy(result.uni.recv_name, list.regist_name);
+			strcpy(result.title, ini_title);
+			sprintf(result.body, ini_body, list.target_name, hunter_name, list.target_name, list.regist_name, list.money);
 		}
 		else
-		{	
-			if(LocalMgr.IsAbleNation(CHINA))//021007 lsw
+		{
+			if (LocalMgr.IsAbleNation(CHINA))//021007 lsw
 			{
-				strcpy( result.send_name, "佣兵军团" ); 
-				strcpy( result.uni.recv_name, list.regist_name );
-				strcpy( result.title, "[公告] 抓到通缉犯！" );
-				sprintf( result.body, 	"抓到了您想抓的悬赏犯 '%s'。\n"
+				strcpy(result.send_name, "佣兵军团");
+				strcpy(result.uni.recv_name, list.regist_name);
+				strcpy(result.title, "[公告] 抓到通缉犯！");
+				sprintf(result.body, "抓到了您想抓的悬赏犯 '%s'。\n"
 					"[%s] 抓到了 '%s'，所以得到了 %s 设定的悬赏金 %d。\n"
 					"以后我们佣兵军团还是会尽力捉拿悬赏犯。"
-					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
-				
+					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money);
+
 			}
-			else if(LocalMgr.IsAbleNation(TAIWAN|HONGKONG))//021007 lsw
+			else if (LocalMgr.IsAbleNation(TAIWAN | HONGKONG))//021007 lsw
 			{
-				strcpy( result.send_name, "뗑?x민" ); 
-				strcpy( result.uni.recv_name, list.regist_name );
-				strcpy( result.title, "[ㅍ?] ㏃⑥??Η?" );
-				sprintf( result.body, 	"㏃⑥???㏃ず?썅Η '%s'?\n"
+				strcpy(result.send_name, "뗑?x민");
+				strcpy(result.uni.recv_name, list.regist_name);
+				strcpy(result.title, "[ㅍ?] ㏃⑥??Η?");
+				sprintf(result.body, "㏃⑥???㏃ず?썅Η '%s'?\n"
 					"[%s] ㏃⑥? '%s'?⒡??⑥? %s ??ず?썅? %d?\n"
 					"?メ㏀?뗑?x민줄??뵐????썅Η?"
-					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
+					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money);
 			}
 			else
 			{
-				strcpy( result.send_name, "용병길드 장" );
-				strcpy( result.uni.recv_name, list.regist_name );
-				strcpy( result.title, "[공지] 현상범 검거!" );
-				sprintf( result.body, "님께서 요청하신 현상범 \"%s\" 를 검거하였습니다.\n"
+				strcpy(result.send_name, "용병길드 장");
+				strcpy(result.uni.recv_name, list.regist_name);
+				strcpy(result.title, "[공지] 현상범 검거!");
+				sprintf(result.body, "님께서 요청하신 현상범 \"%s\" 를 검거하였습니다.\n"
 					"[%s]님께서 \"%s\"님을 검거함으로써 %s 님께서 걸어둔 현상금 %d를 획득하셨습니다.\n"
 					"다음에도 우리 용병 길드에서는 최선을 다해 현상범들을 잡도록 하겠습니다."
-					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money );
-				
+					, list.target_name, hunter_name, list.target_name, list.regist_name, list.money);
+
 			}
 		}
 		//> CSD-030324
-		if( g_MailMgr.InsertMail(CMailMgr::GUILD_MAIL, result.uni.recv_name, result.title, result.body, result.send_name ) ) 
+		if (g_MailMgr.InsertMail(CMailMgr::GUILD_MAIL, result.uni.recv_name, result.title, result.body, result.send_name))
 		{
 
 		}
 	}
 }
 
-void DeleteBoxByDeleteCharacter( const char *szName )		// 캐릭터를 지울때 박스도 지운다.//020725 lsw
+void DeleteBoxByDeleteCharacter(const char *szName)		// 캐릭터를 지울때 박스도 지운다.//020725 lsw
 {
 	ItemAttr inv[3][3][8];
 	ItemAttr bank[5][3][6];
-	int ret = SearchBoxAndDelete( (UCHAR**)inv, (UCHAR**)bank, szName );
-	if( ret == 1 )
+	int ret = SearchBoxAndDelete((UCHAR**)inv, (UCHAR**)bank, szName);
+	if (ret == 1)
 	{
-		for( int a=0; a<3; a++ )				// inventory
-			for( int b=0; b<3; b++)
-				for( int c=0; c<8; c++ )
+		for (int a = 0; a < 3; a++)				// inventory
+			for (int b = 0; b < 3; b++)
+				for (int c = 0; c < 8; c++)
 				{
 					ItemAttr item = inv[a][b][c];
-					if( item.item_no ) 
+					if (item.item_no)
 					{
-						CItem *t = ItemUnit( item );
-						if( t && t->GetItemKind() == IK_BOX ) 
+						CItem *t = ItemUnit(item);
+						if (t && t->GetItemKind() == IK_BOX)
 						{
-							DeleteBox( item.attr[IATTR_ID] );
+							DeleteBox(item.attr[IATTR_ID]);
 						}
 					}
 				}
-				
-				for(int a=0; a<5; a++ )				// bank
-					for( int b=0; b<3; b++)
-						for( int c=0; c<6; c++ )
+
+		for (int a = 0; a < 5; a++)				// bank
+			for (int b = 0; b < 3; b++)
+				for (int c = 0; c < 6; c++)
+				{
+					ItemAttr item = bank[a][b][c];
+					if (item.item_no)
+					{
+						CItem *t = ItemUnit(item);
+						if (t && t->GetItemKind() == IK_BOX)
 						{
-							ItemAttr item = bank[a][b][c];
-							if( item.item_no ) 
-							{
-								CItem *t = ItemUnit( item );
-								if( t && t->GetItemKind() == IK_BOX ) 
-								{
-									DeleteBox( item.attr[IATTR_ID] );
-								}
-							}	
+							DeleteBox(item.attr[IATTR_ID]);
 						}
+					}
+				}
 	}
 }
 
-void RecvResetJob( t_packet *p, short int cn )
+void RecvResetJob(t_packet *p, short int cn)
 {
 	int job = p->u.kein.reset_job.job;
 	int cls = p->u.kein.reset_job.cls;
 	char *name = p->u.kein.reset_job.name;
-	
-	unsigned short   Skill[200] = {0, };
+
+	unsigned short   Skill[200] = { 0, };
 	DWORD			skillexp[45];
-	int var[ _SCRIPT_VARABLE_POINT_ ];
-	
-	if( job < J_FAMER || job > J_HERB_DIGGER ) return;		// 직업선택은 6가지만 가능
-	if( cls < WARRIOR || cls > PRIEST )  return;			// 클레스 직업 스킬 배우기에 관해...
-	
-	if( UpdateResetJob_SQL( job, name ) )
+	int var[_SCRIPT_VARABLE_POINT_];
+
+	if (job < J_FAMER || job > J_HERB_DIGGER) return;		// 직업선택은 6가지만 가능
+	if (cls < WARRIOR || cls > PRIEST)  return;			// 클레스 직업 스킬 배우기에 관해...
+
+	if (UpdateResetJob_SQL(job, name))
 	{
-		int ret = get_Skill_BinaryData( (UCHAR**)&skillexp, (UCHAR**)&var, name );
-		
+		int ret = get_Skill_BinaryData((UCHAR**)&skillexp, (UCHAR**)&var, name);
+
 		//int skill_of_job[15];
 		DWORD exp = 0;
-		for( int i=0; i<MAX_SKILLMAIN;i++ ) 
+		for (int i = 0; i < MAX_SKILLMAIN; i++)
 		{
-			if(
-				( SkillTbl[i].Select_Farmer		== 1 )	||( SkillTbl[i].Select_miner		== 1 )	
-				||( SkillTbl[i].Select_fisher		== 1 )	||( SkillTbl[i].Select_Lumberjack	== 1 )	
-				||( SkillTbl[i].Select_Butcher		== 1 )	||( SkillTbl[i].Select_Herbdigger	== 1 )	
-				||( SkillTbl[i].Select_herdman		== 1 )	||( SkillTbl[i].Select_Carpenter	== 1 )	
-				||( SkillTbl[i].Select_Blacksmith	== 1 )	||( SkillTbl[i].Select_Cooking		== 1 )	
-				||( SkillTbl[i].Select_Tailoring	== 1 )	||( SkillTbl[i].Select_Bowcraft_Fletcher == 1 )
-				||( SkillTbl[i].Select_Alchemy		== 1 )	||( SkillTbl[i].Select_Candlemaker	== 1 )
-				||( SkillTbl[i].Select_Merchant		== 1 )	||( SkillTbl[i].MotherSkillType == 27 ) )		// 테밍일 경우에도 처리..
-				CheckSkillExp_kein( SkillTbl[i].MotherSkillType, skillexp, exp );
+			if (
+				(SkillTbl[i].Select_Farmer == 1) || (SkillTbl[i].Select_miner == 1)
+				|| (SkillTbl[i].Select_fisher == 1) || (SkillTbl[i].Select_Lumberjack == 1)
+				|| (SkillTbl[i].Select_Butcher == 1) || (SkillTbl[i].Select_Herbdigger == 1)
+				|| (SkillTbl[i].Select_herdman == 1) || (SkillTbl[i].Select_Carpenter == 1)
+				|| (SkillTbl[i].Select_Blacksmith == 1) || (SkillTbl[i].Select_Cooking == 1)
+				|| (SkillTbl[i].Select_Tailoring == 1) || (SkillTbl[i].Select_Bowcraft_Fletcher == 1)
+				|| (SkillTbl[i].Select_Alchemy == 1) || (SkillTbl[i].Select_Candlemaker == 1)
+				|| (SkillTbl[i].Select_Merchant == 1) || (SkillTbl[i].MotherSkillType == 27))		// 테밍일 경우에도 처리..
+				CheckSkillExp_kein(SkillTbl[i].MotherSkillType, skillexp, exp);
 		}
 		exp *= 0.4;		// 40 %만 가져 간다.
-		if( exp < 50000 ) exp = 50000;
-		switch( job )
+		if (exp < 50000) exp = 50000;
+		switch (job)
 		{
-		case J_FAMER		:	for(  i=0; i<MAX_SKILLMAIN;i++ ) 
-									if( SkillTbl[i].Select_Farmer== 1 ) 
-									{
-										Skill[i] = 1;
-										skillexp[ SkillTbl[i].MotherSkillType ] = exp;
-									}
-									break;
-		case J_MINNER		:	for(  i=0; i<MAX_SKILLMAIN;i++ ) 
-									if( SkillTbl[i].Select_miner== 1 ) 
-									{
-										Skill[i] = 1; 
-										skillexp[ SkillTbl[i].MotherSkillType ] = exp;
-									}										
-									break;
-		case J_FISHER		:	for(  i=0; i<MAX_SKILLMAIN;i++ ) 
-									if( SkillTbl[i].Select_fisher== 1 ) 
-									{
-										Skill[i] = 1; 
-										skillexp[ SkillTbl[i].MotherSkillType ] = exp;
-									}
-									break;
-		case J_LUMBERJACK	:	for(  i=0; i<MAX_SKILLMAIN;i++ ) 
-									if( SkillTbl[i].Select_Lumberjack== 1 ) 
-									{
-										Skill[i] = 1;
-										skillexp[ SkillTbl[i].MotherSkillType ] = exp;
-									}
-									break;
-		case J_BUTCHER		:	for(  i=0; i<MAX_SKILLMAIN;i++ ) 
-									if( SkillTbl[i].Select_Butcher== 1 ) 
-									{
-										Skill[i] = 1; 
-										skillexp[ SkillTbl[i].MotherSkillType ] = exp;
-									}
-									break;
-		case J_HERB_DIGGER	:	for(  i=0; i<MAX_SKILLMAIN;i++ ) 
-									if( SkillTbl[i].Select_Herbdigger== 1 ) 
-									{
-										Skill[i] = 1; 
-										skillexp[ SkillTbl[i].MotherSkillType ] = exp;
-									}
-									break;
-		}
-		
-		switch( cls ) 
-		{
-		case WARRIOR :	for(  i=0; i<MAX_SKILLMAIN;i++ )	
-							if( SkillTbl[i].Class_Warrior == 1 ) Skill[i] = 1;
+		case J_FAMER:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Select_Farmer == 1)
+			{
+				Skill[i] = 1;
+				skillexp[SkillTbl[i].MotherSkillType] = exp;
+			}
+						break;
+		case J_MINNER:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Select_miner == 1)
+			{
+				Skill[i] = 1;
+				skillexp[SkillTbl[i].MotherSkillType] = exp;
+			}
+						break;
+		case J_FISHER:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Select_fisher == 1)
+			{
+				Skill[i] = 1;
+				skillexp[SkillTbl[i].MotherSkillType] = exp;
+			}
+						break;
+		case J_LUMBERJACK:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Select_Lumberjack == 1)
+			{
+				Skill[i] = 1;
+				skillexp[SkillTbl[i].MotherSkillType] = exp;
+			}
 							break;
-		case THIEF :	for(  i=0; i<MAX_SKILLMAIN;i++ )
-							if( SkillTbl[i].Class_Thief == 1 ) Skill[i] = 1;
-							break;
-		case ARCHER :	for(  i=0; i<MAX_SKILLMAIN;i++ )
-							if( SkillTbl[i].Class_Archery == 1 ) Skill[i] = 1;
-							break;
-		case WIZARD :	for(  i=0; i<MAX_SKILLMAIN;i++ )
-							if( SkillTbl[i].Class_Wizard == 1 ) Skill[i] = 1;
-							break;
-		case PRIEST :	for(  i=0; i<MAX_SKILLMAIN;i++ )
-							if( SkillTbl[i].Class_Priest == 1 ) Skill[i] = 1;
+		case J_BUTCHER:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Select_Butcher == 1)
+			{
+				Skill[i] = 1;
+				skillexp[SkillTbl[i].MotherSkillType] = exp;
+			}
+						break;
+		case J_HERB_DIGGER:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Select_Herbdigger == 1)
+			{
+				Skill[i] = 1;
+				skillexp[SkillTbl[i].MotherSkillType] = exp;
+			}
 							break;
 		}
-		
-		
+
+		switch (cls)
+		{
+		case WARRIOR:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Class_Warrior == 1) Skill[i] = 1;
+			break;
+		case THIEF:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Class_Thief == 1) Skill[i] = 1;
+			break;
+		case ARCHER:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Class_Archery == 1) Skill[i] = 1;
+			break;
+		case WIZARD:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Class_Wizard == 1) Skill[i] = 1;
+			break;
+		case PRIEST:	for (i = 0; i < MAX_SKILLMAIN; i++)
+			if (SkillTbl[i].Class_Priest == 1) Skill[i] = 1;
+			break;
+		}
+
+
 		var[51] = 0; var[52] = 0; var[53] = 0;
-		ret = Update_Skill_BinaryData( (UCHAR**)&Skill, (UCHAR**)&skillexp, (UCHAR**)&var, name );
+		ret = Update_Skill_BinaryData((UCHAR**)&Skill, (UCHAR**)&skillexp, (UCHAR**)&var, name);
 	}
 }
 
-void CheckSkillExp_kein( int index, DWORD skillexp[], DWORD &exp )
+void CheckSkillExp_kein(int index, DWORD skillexp[], DWORD &exp)
 {
-	if( skillexp[index] >= 50000 )
+	if (skillexp[index] >= 50000)
 	{
-		if( exp < skillexp[index] ) exp = skillexp[index];
+		if (exp < skillexp[index]) exp = skillexp[index];
 		skillexp[index] = 6;
 	}
 }
 
-void RecvSelectNation( t_packet *p, short int cn )
+void RecvSelectNation(t_packet *p, short int cn)
 {
 	int nation = p->u.kein.default_char;
-	if( nation <= 0 || nation > 6 ) return;
-	
-	char name[MAX_CHARACTEROFID][NM_LENGTH]={0,};
-	GetCharacterNameInID( connections[cn].id, name );
-	for( int i = 0; i< MAX_CHARACTEROFID; i++ )
+	if (nation <= 0 || nation > 6) return;
+
+	char name[MAX_CHARACTEROFID][NM_LENGTH] = { 0, };
+	GetCharacterNameInID(connections[cn].id, name);
+	for (int i = 0; i < MAX_CHARACTEROFID; i++)
 	{
-		if( name[i][0] )
+		if (name[i][0])
 		{
-			int ret = UpdateSelectNation( nation, name[i] );
+			int ret = UpdateSelectNation(nation, name[i]);
 		}
 	}
 }
@@ -930,23 +930,23 @@ void RecvSelectNation( t_packet *p, short int cn )
 void CheckInitData()
 {
 	int size;
-	
-	size = sizeof( CCharRank );
-	if( size > sizeof(DWORD ) ) JustMsg( "Size of 'CCharRank' is %d Bytes ", size );
+
+	size = sizeof(CCharRank);
+	if (size > sizeof(DWORD)) JustMsg("Size of 'CCharRank' is %d Bytes ", size);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////
-inline int GetIndexByMapName( char *mapname )
+inline int GetIndexByMapName(char *mapname)
 {
-	EatRearWhiteChar( mapname );
-	strupr( mapname );
-	
-	for( int i=0; i<MAX_MAP_;i++ )
+	EatRearWhiteChar(mapname);
+	strupr(mapname);
+
+	for (int i = 0; i < MAX_MAP_; i++)
 	{
-		if( MapInfo[i].mapfile[0] ) 
+		if (MapInfo[i].mapfile[0])
 		{
-			if( ::stricmp( MapInfo[i].mapfile, mapname) ==  0 )
+			if (::stricmp(MapInfo[i].mapfile, mapname) == 0)
 			{
 				return i;
 			}
@@ -955,20 +955,20 @@ inline int GetIndexByMapName( char *mapname )
 	return -1;
 }
 
-int GetNationByMapName( char *mapname )
+int GetNationByMapName(char *mapname)
 {
-	int index = GetIndexByMapName( mapname );
-	if( index == -1 ) return -1;
+	int index = GetIndexByMapName(mapname);
+	if (index == -1) return -1;
 	else
 	{
 		return MapInfo[index].nation;
 	}
 }
 
-WORD GetPortByMapName( char *mapname )
+WORD GetPortByMapName(char *mapname)
 {
-	int index = GetIndexByMapName( mapname );
-	if( index == -1 ) return 0;
+	int index = GetIndexByMapName(mapname);
+	if (index == -1) return 0;
 	else
 	{
 		return MapInfo[index].port;
@@ -979,58 +979,58 @@ WORD GetPortByMapName( char *mapname )
 
 enum eSelectMap
 {
-	SC_HELTERNT_CASTLE	=1,
-	SC_HELTERNT_VILLAGE	=2,
-	SC_HUDAIN_RIVER		=3,
-	SC_GRAY_MOUNTAIN	=4,
-	SC_CALAHIL			=5,
-	SC_BAISUS_IMPEL		=6,
-	SC_RENUS		 	=7,
-	SC_DEL_HAPPA		=8,
-	SC_IRAMUS			=9,
-	SC_DIPH_UBEN		=10,
-	SC_SCHOLIUM			=11,
-	SC_TYREN			=12,
-	SC_BARANTAN			=13,	
-	SC_SCHOLIUM2		=14,		// 추가시 StartMapPosition도 추가한다.	// 20개 까지다..//020815-2 lsw
-	SC_RECENT_LOGOUT	= 99,
+	SC_HELTERNT_CASTLE = 1,
+	SC_HELTERNT_VILLAGE = 2,
+	SC_HUDAIN_RIVER = 3,
+	SC_GRAY_MOUNTAIN = 4,
+	SC_CALAHIL = 5,
+	SC_BAISUS_IMPEL = 6,
+	SC_RENUS = 7,
+	SC_DEL_HAPPA = 8,
+	SC_IRAMUS = 9,
+	SC_DIPH_UBEN = 10,
+	SC_SCHOLIUM = 11,
+	SC_TYREN = 12,
+	SC_BARANTAN = 13,
+	SC_SCHOLIUM2 = 14,		// 추가시 StartMapPosition도 추가한다.	// 20개 까지다..//020815-2 lsw
+	SC_RECENT_LOGOUT = 99,
 };
 
-int GetStartPostionByNation( CHARLIST *ch, int StartPosition )
+int GetStartPostionByNation(CHARLIST *ch, int StartPosition)
 {
-	switch( ch->name_status.nation )
+	switch (ch->name_status.nation)
 	{
-	case N_VYSEUS:	
+	case N_VYSEUS:
+	{
+		switch (StartPosition)
 		{
-			switch( StartPosition )
-			{
-			case SC_BAISUS_IMPEL :	if( ch->Level >= 41 ) return StartPosition;	break;
-			case SC_IRAMUS :		if( ch->Level >= 31 ) return StartPosition;	break;
-			}
-			return SC_HELTERNT_VILLAGE;		// 헬턴트
+		case SC_BAISUS_IMPEL:	if (ch->Level >= 41) return StartPosition;	break;
+		case SC_IRAMUS:		if (ch->Level >= 31) return StartPosition;	break;
 		}
-	case N_ZYPERN:	
-		{
-			switch( StartPosition )
-			{
-			case SC_DIPH_UBEN:	if( ch->Level >= 41 ) return StartPosition;	break;
-			case SC_TYREN:		if( ch->Level >= 31 ) return StartPosition;	break;
-			}
-			return SC_RENUS;		// 레너스
-		}
-	case N_YILSE: 	
-		{
-			return SC_BARANTAN;
-		}
+		return SC_HELTERNT_VILLAGE;		// 헬턴트
 	}
-	return 99;	
+	case N_ZYPERN:
+	{
+		switch (StartPosition)
+		{
+		case SC_DIPH_UBEN:	if (ch->Level >= 41) return StartPosition;	break;
+		case SC_TYREN:		if (ch->Level >= 31) return StartPosition;	break;
+		}
+		return SC_RENUS;		// 레너스
+	}
+	case N_YILSE:
+	{
+		return SC_BARANTAN;
+	}
+	}
+	return 99;
 }
 
 
-bool IsPossibleRecent( char *map_name, int &index )		// recent 할 수 있는 맵인가 아닌가?
+bool IsPossibleRecent(char *map_name, int &index)		// recent 할 수 있는 맵인가 아닌가?
 {	//< CSD-030804
 	static const int impossible_map[] =
-	{	
+	{
 			25, // event2
 			39, // evnetlw
 			69, // nation1
@@ -1049,8 +1049,8 @@ bool IsPossibleRecent( char *map_name, int &index )		// recent 할 수 있는 �
 			// 추가 하고 싶으면 밑으로 계속 추가..
 	};
 
-	static const int max = sizeof(impossible_map)/sizeof(int);
-	
+	static const int max = sizeof(impossible_map) / sizeof(int);
+
 	index = GetIndexByMapName(map_name);
 
 	if (index == -1)
@@ -1067,156 +1067,162 @@ bool IsPossibleRecent( char *map_name, int &index )		// recent 할 수 있는 �
 	}
 
 	if (LocalMgr.IsAbleNation(KOREA))
-	{	
+	{
 		// 030624 YGI : 죽으면 팅기는 맵으론 리센트 접속 할 수 없다.
 		int nRow = 0;
 		char query[256];
-		sprintf( query, "mapname = '%s'", map_name );
-		GetRowLineOfSQL( "Event_MoveWhenDie", "*", &nRow, query );
-		if(nRow>0) return false;
-	}	
+		sprintf(query, "mapname = '%s'", map_name);
+		GetRowLineOfSQL("Event_MoveWhenDie", "*", &nRow, query);
+		if (nRow > 0) return false;
+	}
 
 	return true;
 }	//> CSD-030804
 
 //020823 lsw
-void CheckStartMap( t_connection c[], short int cn, int &StartPosition )		// 1004 YGI
+void CheckStartMap(t_connection c[], short int cn, int &StartPosition)		// 1004 YGI
 {
 	// 시작 위치를 저장된 위치를 사용하는지를 판단한다.
 	CHARLIST *ch = &c[cn].chrlst;
 	//1			초보자1 초보자2
 	//2-7		초보자1 초보자2 마을
 	//7오버		마을(리센트 해도 안됨)
-	switch(ch->Level)
+	switch (ch->Level)
 	{
 	case 0:
 	case 1:
+	{
+		if (ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//이거 저거 둘중 하나면
 		{
-			if(ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//이거 저거 둘중 하나면
+			return;
+		}
+		if (ch->startposition != SC_SCHOLIUM && ch->startposition == SC_SCHOLIUM2)//레벨 1 주제에 다른데 접속 하려하면
+		{
+			if (ch->startposition = StartPosition = SC_SCHOLIUM)//초보자로 셋팅
 			{
 				return;
 			}
-			if(ch->startposition != SC_SCHOLIUM && ch->startposition == SC_SCHOLIUM2)//레벨 1 주제에 다른데 접속 하려하면
-			{
-				if(ch->startposition = StartPosition = SC_SCHOLIUM)//초보자로 셋팅
-				{
-					return;
-				}
-			}
-		}break;
+		}
+	}break;
 	case 2:
 	case 3:
 	case 4:
 	case 5:
 	case 6:
 	case 7:
+	{
+		if (ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//이거 저거 둘중 하나면
 		{
-			if(ch->startposition == SC_SCHOLIUM || ch->startposition == SC_SCHOLIUM2)//이거 저거 둘중 하나면
+			//	if(ch->startposition = StartPosition = SC_SCHOLIUM)//초보자로 셋팅
 			{
-				//	if(ch->startposition = StartPosition = SC_SCHOLIUM)//초보자로 셋팅
-				{
-					return;
-				}
+				return;
 			}
-		}//그게 아니라 엉뚱한거면 아래로 내려감
+		}
+	}//그게 아니라 엉뚱한거면 아래로 내려감
 	default:
-		{	// Recent로 접속하려고 할때, 그맵이 캐릭터의 나라이거나, 중립맵이면 들어갈수 있다. 
-			if( ch->startposition == 99 )
+	{	// Recent로 접속하려고 할때, 그맵이 캐릭터의 나라이거나, 중립맵이면 들어갈수 있다. 
+		if (ch->startposition == 99)
+		{
+			int index;
+			if (IsPossibleRecent(ch->MapName, index))		// 리센트 불가능 지역이 아니면
 			{
-				int index;
-				if( IsPossibleRecent( ch->MapName, index ) )		// 리센트 불가능 지역이 아니면
+				// 국가를 확인하여 처리한다.
+				int nation = MapInfo[index].nation;
+				if (!ch->name_status.nation || !nation || ch->name_status.nation == nation) // 중립도 생각
 				{
-					// 국가를 확인하여 처리한다.
-					int nation = MapInfo[index].nation;
-					if( !ch->name_status.nation || !nation || ch->name_status.nation == nation ) // 중립도 생각
-					{
-						return;		// 리센트 가능하다.
-					}
+					return;		// 리센트 가능하다.
 				}
 			}
-		}break;
+		}
+	}break;
 	}
 	// recent 불가능 지역이라면
 	// 캐릭의 나라맵으로 시작맵,시작좌표를 보정한다. 
-	ch->startposition = StartPosition = GetStartPostionByNation( ch, StartPosition );
-	
-	switch( ch->startposition )
+	ch->startposition = StartPosition = GetStartPostionByNation(ch, StartPosition);
+
+	switch (ch->startposition)
 	{
-	case SC_HELTERNT_VILLAGE :	switch( rand()%3 )	// ma-in..
-								{
-	case 0 :  ch->X = 247 * 32, ch->Y = 107 * 32; break;
-	case 1 :  ch->X = 232 * 32, ch->Y =  97 * 32; break;
-	default : ch->X = 266 * 32, ch->Y = 122 * 32; break;
-								}
-								break;
-								
-	case SC_BAISUS_IMPEL:	switch( rand()%3 )
-							{
-	case 0:		ch->X = 253 * 32, ch->Y = 449 * 32;	break;
-	case 1:		ch->X = 292 * 32, ch->Y = 456 * 32;	break;
-	default :	ch->X = 274 * 32, ch->Y = 472 * 32;	break;
-							}
-		break;					
-	case SC_IRAMUS		:	switch( rand()%2 )
-							{
-	case 0:		ch->X = 92 * 32, ch->Y = 67 * 32;	break;
-	default :	ch->X = 135 * 32, ch->Y = 74 * 32;	break;
-							}
+	case SC_HELTERNT_VILLAGE:
+		switch (rand() % 3)	// ma-in..
+		{
+		case 0:  ch->X = 247 * 32, ch->Y = 107 * 32; break;
+		case 1:  ch->X = 232 * 32, ch->Y = 97 * 32; break;
+		default: ch->X = 266 * 32, ch->Y = 122 * 32; break;
+		}
 		break;
-	case SC_DIPH_UBEN	:	switch( rand()%3 )
-							{
-	case 0:		ch->X = 276 * 32, ch->Y = 360 * 32;	break;
-	case 1:		ch->X = 289 * 32, ch->Y = 369 * 32;	break;
-	default :	ch->X = 302 * 32, ch->Y = 381 * 32;	break;
-							}
+
+	case SC_BAISUS_IMPEL:
+		switch (rand() % 3)
+		{
+		case 0:		ch->X = 253 * 32, ch->Y = 449 * 32;	break;
+		case 1:		ch->X = 292 * 32, ch->Y = 456 * 32;	break;
+		default:	ch->X = 274 * 32, ch->Y = 472 * 32;	break;
+		}
 		break;
-	case SC_TYREN		:	switch( rand()%2 )
-							{
-	case 0:		ch->X = 445 * 32, ch->Y = 260 * 32;	break;
-	default :	ch->X = 494 * 32, ch->Y = 305 * 32;	break;
-							}
+	case SC_IRAMUS:
+		switch (rand() % 2)
+		{
+		case 0:		ch->X = 92 * 32, ch->Y = 67 * 32;	break;
+		default:	ch->X = 135 * 32, ch->Y = 74 * 32;	break;
+		}
 		break;
-	case SC_BARANTAN	:	switch( rand()%2 )
-							{
-	case 0:		ch->X = 445 * 32, ch->Y = 260 * 32;	break;
-	default :	ch->X = 494 * 32, ch->Y = 305 * 32;	break;
-							}
+	case SC_DIPH_UBEN:
+		switch (rand() % 3)
+		{
+		case 0:		ch->X = 276 * 32, ch->Y = 360 * 32;	break;
+		case 1:		ch->X = 289 * 32, ch->Y = 369 * 32;	break;
+		default:	ch->X = 302 * 32, ch->Y = 381 * 32;	break;
+		}
+		break;
+	case SC_TYREN:
+		switch (rand() % 2)
+		{
+		case 0:		ch->X = 445 * 32, ch->Y = 260 * 32;	break;
+		default:	ch->X = 494 * 32, ch->Y = 305 * 32;	break;
+		}
+		break;
+	case SC_BARANTAN:
+		switch (rand() % 2)
+		{
+		case 0:		ch->X = 445 * 32, ch->Y = 260 * 32;	break;
+		default:	ch->X = 494 * 32, ch->Y = 305 * 32;	break;
+		}
 		break;
 	}
 }
 
-void RecvExistName( t_packet *p, short int cn )		//通缉犯
+void RecvExistName(t_packet *p, short int cn)		//通缉犯
 {
 	k_exist_name *t = &p->u.kein.exist_name;
-/////////////////////////////////截获非法字符///////////////////////////////////////////////////////	
-	strcpy(s1,t->name  );	//被通缉人
+	/////////////////////////////////截获非法字符///////////////////////////////////////////////////////	
+	strcpy(s1, t->name);	//被通缉人
 //gets(pMailSend->szSender);
-len1 = (int)strlen(s1);
+	len1 = (int)strlen(s1);
 
-str="发现SQL漏洞攻击!非法内容:[%s],  被通缉人:[%s]";
+	str = "发现SQL漏洞攻击!非法内容:[%s],  被通缉人:[%s]";
 
-for(i = 0; i < len1; i++)		//主旨
-{
-	if(s1[i]==39 || s1[i]=='-')
+	for (i = 0; i < len1; i++)		//主旨
 	{
-		if(i==0)
+		if (s1[i] == 39 || s1[i] == '-')
 		{
-		sprintf(SQLerror,str,t->name,t->name);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, t->name, t->name);
+				HackLog(0, SQLerror);
+			}
+			t->name[i] = 32;
 		}
-	t->name[i] = 32;
 	}
-} 
 
- /*   if(pMailSend->szSender == '小手冰凉')
-	{
-		pMailSend->szSender = '小手冰凉';
-	}*/
+	//if(pMailSend->szSender == '小手冰凉')
+	//{
+	//	pMailSend->szSender = '小手冰凉';
+	//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	t_packet packet;
-	int ret = CheckName_SQL( t->name );
-	if( ret )		// 존재 한다.
+	int ret = CheckName_SQL(t->name);
+	if (ret)		// 존재 한다.
 	{
 		packet.h.header.type = CMD_THEREIS_CHARNAME;
 	}
@@ -1225,24 +1231,24 @@ for(i = 0; i < len1; i++)		//主旨
 		packet.h.header.type = CMD_THEREIS_NO_CHARNAME;
 	}
 	packet.u.kein.default_short_int = t->server_id;
-	packet.h.header.size = sizeof( short int );
-	
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.h.header.size = sizeof(short int);
+
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void RecvExistNameForNation( t_packet *p, short int cn )
+void RecvExistNameForNation(t_packet *p, short int cn)
 {
-	k_exist_name_and_nation *t= &p->u.kein.exist_name_and_nation;
+	k_exist_name_and_nation *t = &p->u.kein.exist_name_and_nation;
 	t_packet packet;
-	
+
 	DWORD name_status;
-	int ret = GetNationByName( t->name, &name_status );		// 1018 YGI
-	if( !ret ) return;
-	
+	int ret = GetNationByName(t->name, &name_status);		// 1018 YGI
+	if (!ret) return;
+
 	CCharRank target;
-	memcpy( &target, &name_status, sizeof( DWORD ) );
-	
-	if( target.counselor || target.nation == 0 || target.nation == t->nation )
+	memcpy(&target, &name_status, sizeof(DWORD));
+
+	if (target.counselor || target.nation == 0 || target.nation == t->nation)
 	{
 		packet.h.header.type = CMD_THEREIS_CHARNAME;
 	}
@@ -1251,136 +1257,136 @@ void RecvExistNameForNation( t_packet *p, short int cn )
 		packet.h.header.type = CMD_THEREIS_NO_CHARNAME;
 	}
 	packet.u.kein.default_short_int = t->server_id;
-	packet.h.header.size = sizeof( short int );
-	
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.h.header.size = sizeof(short int);
+
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void CheckAndUpdateVote( t_packet *p, short int cn )
+void CheckAndUpdateVote(t_packet *p, short int cn)
 {
-	char *login_id	= p->u.kein.vote_game2login.login_id;
-	int server_id	= p->u.kein.vote_game2login.server_id;
-	int vote		= p->u.kein.vote_game2login.vote;			// 선거 번호
-	int nation		= p->u.kein.vote_game2login.nation;			// 나라
-	int support		= p->u.kein.vote_game2login.support;		// 택한 후보
-	
-	int check_vote = GetVoteById_SQL( login_id );
-	if( check_vote < 0 ) return;
-	
+	char *login_id = p->u.kein.vote_game2login.login_id;
+	int server_id = p->u.kein.vote_game2login.server_id;
+	int vote = p->u.kein.vote_game2login.vote;			// 선거 번호
+	int nation = p->u.kein.vote_game2login.nation;			// 나라
+	int support = p->u.kein.vote_game2login.support;		// 택한 후보
+
+	int check_vote = GetVoteById_SQL(login_id);
+	if (check_vote < 0) return;
+
 	t_packet packet;
-	if( check_vote < vote )
+	if (check_vote < vote)
 	{
-		SetPlusScoreVote( support, vote, nation );	// 선거 테이블에 표하나 ++ 해준다.
-		SetVote_SQL( login_id, vote );		// 선거를 치룬 사실을 등록
-		
+		SetPlusScoreVote(support, vote, nation);	// 선거 테이블에 표하나 ++ 해준다.
+		SetVote_SQL(login_id, vote);		// 선거를 치룬 사실을 등록
+
 		packet.h.header.type = CMD_VOTE_OK;	// 선거 했다.
 	}
-	else 
+	else
 	{
 		packet.h.header.type = CMD_VOTE_NOT;	// 선거를 할수 없다.
 	}
 	packet.u.kein.default_short_int = server_id;
-	packet.h.header.size = sizeof( short int );
-	QueuePacket( connections, cn, &packet, 1 );
-	
+	packet.h.header.size = sizeof(short int);
+	QueuePacket(connections, cn, &packet, 1);
+
 }
 
-void RecvRegistCandidate( t_packet *p, short int cn )
+void RecvRegistCandidate(t_packet *p, short int cn)
 {
 	short int server_id = p->u.kein.regist_candidate.server_id;
 	k_candidate *target = &p->u.kein.regist_candidate.candidate;
-	
+
 	t_packet packet;
-	int ret = RegistCandidate_SQL( target );
-	if( ret < 1 )
+	int ret = RegistCandidate_SQL(target);
+	if (ret < 1)
 	{
 		packet.h.header.type = CMD_REGIST_CANDIDATE_NOT;
 		packet.u.kein.login2game_ear_message_result.send_server_id = server_id;
 		packet.u.kein.login2game_ear_message_result.ret = ret;
-		packet.h.header.size = sizeof( k_login2game_ear_message_result );		
+		packet.h.header.size = sizeof(k_login2game_ear_message_result);
 	}
 	else
 	{
 		packet.h.header.type = CMD_REGIST_CANDIDATE_OK;
 		packet.u.kein.default_short_int = server_id;
-		packet.h.header.size = sizeof( short int );
+		packet.h.header.size = sizeof(short int);
 	}
-	QueuePacket( connections, cn, &packet, 1 );
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void isThisManCandidate( t_packet *p, short int cn )
+void isThisManCandidate(t_packet *p, short int cn)
 {
 	char *name = p->u.kein.is_this_man_candidate.name;
 	short int server_id = p->u.kein.is_this_man_candidate.server_id;
-	short int vote_num =  p->u.kein.is_this_man_candidate.vote_num;
-	
-	if( vote_num <= 0 ) return;
-	
+	short int vote_num = p->u.kein.is_this_man_candidate.vote_num;
+
+	if (vote_num <= 0) return;
+
 	int RowCount = 0;
 	char condition[255];
-	
+
 	t_packet packet;
-	sprintf( condition, "name = '%s' AND number = %d", name, vote_num );
-	int ret = GetRowLineOfSQL( "vote", "name", &RowCount, condition );
-	
-	if( ret < 0 || RowCount )		// 이미 등록했다.
+	sprintf(condition, "name = '%s' AND number = %d", name, vote_num);
+	int ret = GetRowLineOfSQL("vote", "name", &RowCount, condition);
+
+	if (ret < 0 || RowCount)		// 이미 등록했다.
 	{
 		packet.h.header.type = CMD_THIS_MAN_IS_CANDIDATE_NOT;
 		packet.u.kein.default_short_int = server_id;
-		packet.h.header.size = sizeof( short int );
-		QueuePacket( connections, cn, &packet, 1 );
+		packet.h.header.size = sizeof(short int);
+		QueuePacket(connections, cn, &packet, 1);
 		return;
 	}
-	
-	sprintf( condition, "name = '%s'", name );
-	ret = GetRowLineOfSQL( "vote_regist", "name", &RowCount, condition );
-	
-	
-	if( RowCount )
+
+	sprintf(condition, "name = '%s'", name);
+	ret = GetRowLineOfSQL("vote_regist", "name", &RowCount, condition);
+
+
+	if (RowCount)
 	{
 		// 후보자 명단에 있다.
 		packet.h.header.type = CMD_THIS_MAN_IS_CANDIDATE_OK;
 	}
-	else 
+	else
 	{
 		// 후보자 명단에 없다.
 		packet.h.header.type = CMD_THIS_MAN_IS_CANDIDATE_NOT;
 	}
 	packet.u.kein.default_short_int = server_id;
-	packet.h.header.size = sizeof( short int );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.h.header.size = sizeof(short int);
+	QueuePacket(connections, cn, &packet, 1);
 }
-void CheckVote( t_packet *p, short int game_id )
+void CheckVote(t_packet *p, short int game_id)
 {
 	short int server_id = p->u.kein.check_vote.server_id;
-	short int vote_num	= p->u.kein.check_vote.vote_num;
+	short int vote_num = p->u.kein.check_vote.vote_num;
 	short int nation = p->u.kein.check_vote.nation;
 	char	*login_id = p->u.kein.check_vote.login_id;
-	
-	
-	int check_vote = GetVoteById_SQL( login_id );
-	if( check_vote < 0 ) return;
-	
+
+
+	int check_vote = GetVoteById_SQL(login_id);
+	if (check_vote < 0) return;
+
 	t_packet packet;
-	if( vote_num <= check_vote )
+	if (vote_num <= check_vote)
 	{
 		// 이미 선거를 했다.
 		packet.h.header.type = CMD_CHECK_VOTE_NOT;
 		packet.u.kein.default_short_int = server_id;
-		packet.h.header.size = sizeof( short int );
-		QueuePacket( connections, game_id, &packet, 1 );
+		packet.h.header.size = sizeof(short int);
+		QueuePacket(connections, game_id, &packet, 1);
 	}
 	else
 	{
 		packet.h.header.type = CMD_CHECK_VOTE_OK;
-		int count = GetCandidate_SQL( vote_num, nation, packet.u.kein.check_vote_ok.candidate );
-		if( count > 0 && count <= 3 )
+		int count = GetCandidate_SQL(vote_num, nation, packet.u.kein.check_vote_ok.candidate);
+		if (count > 0 && count <= 3)
 		{
 			packet.u.kein.check_vote_ok.server_id = server_id;
 			packet.u.kein.check_vote_ok.candidate_count = count;
-			
-			packet.h.header.size = sizeof( k_check_vote_ok ) - sizeof( k_candidate )*(3-count);
-			QueuePacket( connections, game_id, &packet, 1 );
+
+			packet.h.header.size = sizeof(k_check_vote_ok) - sizeof(k_candidate)*(3 - count);
+			QueuePacket(connections, game_id, &packet, 1);
 		}
 		else
 		{
@@ -1391,171 +1397,171 @@ void CheckVote( t_packet *p, short int game_id )
 
 // 선거 결과 루틴 3-2
 // 로그인 서버로 보내 모든 게임서버로 보낼수 있게 한다.
-void SendYouAreKingLog2Log( char *name, short int cn, int type )
+void SendYouAreKingLog2Log(char *name, short int cn, int type)
 {
 	t_packet packet;
 	packet.h.header.type = type;
-	strcpy( packet.u.kein.default_name, name);
-	packet.h.header.size = strlen( name )+1;
-	QueuePacket( connections, cn, &packet, 1 );
+	strcpy(packet.u.kein.default_name, name);
+	packet.h.header.size = strlen(name) + 1;
+	QueuePacket(connections, cn, &packet, 1);
 }
 
 // 선거 결과 루틴 3-3
 // 클라언트까지 가도록 모든 게임 서버에 뿌린다.
-void SendYouAreKingLog2Client( char *name, int type )
+void SendYouAreKingLog2Client(char *name, int type)
 {
 	t_packet packet;
 	packet.h.header.type = type;
-	strcpy( packet.u.kein.default_name, name);
-	packet.h.header.size = strlen( name )+1;
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	strcpy(packet.u.kein.default_name, name);
+	packet.h.header.size = strlen(name) + 1;
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
-void GetVoteValue( short int cn )
+void GetVoteValue(short int cn)
 {
 	t_packet packet;
-	int ret = GetVoteInfo( &packet.u.kein.set_value_of_vote );
-	
+	int ret = GetVoteInfo(&packet.u.kein.set_value_of_vote);
+
 	char *is_voting = packet.u.kein.set_value_of_vote.is_voting;
 	char *vote_num = packet.u.kein.set_value_of_vote.vote_num;
-	
-	for( int i=0; i<6; i++ )
+
+	for (int i = 0; i < 6; i++)
 	{
-		if( is_voting[i] == 10 )		// 선거 완료
+		if (is_voting[i] == 10)		// 선거 완료
 		{
 			//	선거 완료 루틴
 			char the_king[20];
-			int ret = GetVoteNumberOne( i, vote_num[i], the_king );		// 1: 당선자 이름 알아오기
-			UpdateYouAreKing( the_king, 1 );							// 2: 당선자 db고쳐주기 (왕으로 만들어 준다 )
-			SendYouAreKingLog2Log( the_king, cn, CMD_YOU_ARE_KING_LOG2LOG );						// 3: 당선자 찾기
-			SetVoteEndFlag( i, 1 );										// 4: 선거 완료 플레그를 셋팅하기
-			CheckDbTable( i, the_king );								// 5: 왕 등록하고 후보 다 지운다.
+			int ret = GetVoteNumberOne(i, vote_num[i], the_king);		// 1: 당선자 이름 알아오기
+			UpdateYouAreKing(the_king, 1);							// 2: 당선자 db고쳐주기 (왕으로 만들어 준다 )
+			SendYouAreKingLog2Log(the_king, cn, CMD_YOU_ARE_KING_LOG2LOG);						// 3: 당선자 찾기
+			SetVoteEndFlag(i, 1);										// 4: 선거 완료 플레그를 셋팅하기
+			CheckDbTable(i, the_king);								// 5: 왕 등록하고 후보 다 지운다.
 		}
-		else if( is_voting[i] == 20 )		// 왕의 임기 완료	// 왕을 해제 시킨다.
+		else if (is_voting[i] == 20)		// 왕의 임기 완료	// 왕을 해제 시킨다.
 		{
 			char the_king[20];
-			GetKingOfNation_SQL( i, the_king );		// 왕의 이름을 가져오고
-			UpdateYouAreKing( the_king, 0 );		// 왕을 해임 시킨다.
-			SendYouAreKingLog2Log( the_king, cn, CMD_YOU_ARE_NO_KING_LOG2LOG );						// 3: 당선자 찾기
-			SetVoteEndFlag( i, 0 );										// 4: 선거 완료 플레그를 셋팅하기
+			GetKingOfNation_SQL(i, the_king);		// 왕의 이름을 가져오고
+			UpdateYouAreKing(the_king, 0);		// 왕을 해임 시킨다.
+			SendYouAreKingLog2Log(the_king, cn, CMD_YOU_ARE_NO_KING_LOG2LOG);						// 3: 당선자 찾기
+			SetVoteEndFlag(i, 0);										// 4: 선거 완료 플레그를 셋팅하기
 		}
 	}
-	if( ret == 1 )
+	if (ret == 1)
 	{
 		packet.h.header.type = CMD_SET_VALUE_OF_VOTE;
-		packet.h.header.size = sizeof( k_set_value_of_vote );
-		QueuePacket( connections, cn, &packet, 1 );
+		packet.h.header.size = sizeof(k_set_value_of_vote);
+		QueuePacket(connections, cn, &packet, 1);
 	}
 }
-void RecvVoteScore( t_packet *p, short int cn )
+void RecvVoteScore(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.req_vote_score.server_id;
 	int vote_num = p->u.kein.req_vote_score.vote_num;
 	int nation = p->u.kein.req_vote_score.nation;
-	
+
 	t_packet packet;
-	int ret = GetCurrentVoting( vote_num, nation, &packet.u.kein.rep_vote_score );
-	if( ret >= 1 )
+	int ret = GetCurrentVoting(vote_num, nation, &packet.u.kein.rep_vote_score);
+	if (ret >= 1)
 	{
 		packet.h.header.type = CMD_REP_VOTE_SCORE;
 		packet.u.kein.rep_vote_score.server_id = server_id;
 		packet.u.kein.rep_vote_score.max = ret;
-		packet.h.header.size = sizeof( k_rep_vote_score ) - sizeof( k_score_and_name )*(3-ret);
-		QueuePacket( connections, cn, &packet, 1 );
+		packet.h.header.size = sizeof(k_rep_vote_score) - sizeof(k_score_and_name)*(3 - ret);
+		QueuePacket(connections, cn, &packet, 1);
 	}
 }
 
-void RecvNationMsg( t_packet *p, short int cn )
+void RecvNationMsg(t_packet *p, short int cn)
 {
 	p->h.header.type = CMD_RECV_ALL_MSG;
-	g_pServerTable->BroadCastToEveryServer( (char *)p, (sizeof(t_header)+p->h.header.size ), SERVER_TYPE_MAP );
+	g_pServerTable->BroadCastToEveryServer((char *)p, (sizeof(t_header) + p->h.header.size), SERVER_TYPE_MAP);
 }
 
-void CheckGuildJoin( t_packet *p, short int cn )
+void CheckGuildJoin(t_packet *p, short int cn)
 {
-	int target_id	= p->u.kein.guild_join_server.target_id;
-	int server_id	= p->u.kein.guild_join_server.server_id;
-	int guild_code	= p->u.kein.guild_join_server.guild_code;
-	char *id		= p->u.kein.guild_join_server.id;
-	
+	int target_id = p->u.kein.guild_join_server.target_id;
+	int server_id = p->u.kein.guild_join_server.server_id;
+	int guild_code = p->u.kein.guild_join_server.guild_code;
+	char *id = p->u.kein.guild_join_server.id;
+
 	int is_possible = 1;
-	
+
 	// 같은 계정의 다른 캐릭터가 다른 길드에든거 아닌가?
-	is_possible = isPosableGuildJoinById( guild_code, id );
-	
+	is_possible = isPosableGuildJoinById(guild_code, id);
+
 	t_packet packet;
-	if( is_possible )		// 길드 가입이 가능하다.
+	if (is_possible)		// 길드 가입이 가능하다.
 		packet.h.header.type = CMD_GUILD_JOIN_SERVER_OK;
 	else
 		packet.h.header.type = CMD_GUILD_JOIN_SERVER_NOT;
-	
+
 	packet.u.kein.guild_join_result.server_id = server_id;
 	packet.u.kein.guild_join_result.target_id = target_id;
-	packet.h.header.size = sizeof( k_guild_join_result );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.h.header.size = sizeof(k_guild_join_result);
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void SendGuildAllMsg( t_packet *p, short int cn )
+void SendGuildAllMsg(t_packet *p, short int cn)
 {
 	p->h.header.type = CMD_GUILD_ALL_MSG_RECV;
-	g_pServerTable->BroadCastToEveryServer( (char *)p, (sizeof(t_header)+p->h.header.size ), SERVER_TYPE_MAP );
+	g_pServerTable->BroadCastToEveryServer((char *)p, (sizeof(t_header) + p->h.header.size), SERVER_TYPE_MAP);
 }
 
-void RecvReturnGameServer( t_packet *p, int type )
+void RecvReturnGameServer(t_packet *p, int type)
 {
-	if( type ) p->h.header.type = type;
-	g_pServerTable->BroadCastToEveryServer( (char *)p, (sizeof(t_header)+p->h.header.size ), SERVER_TYPE_MAP );
+	if (type) p->h.header.type = type;
+	g_pServerTable->BroadCastToEveryServer((char *)p, (sizeof(t_header) + p->h.header.size), SERVER_TYPE_MAP);
 }
 
-void RecvGmRegist( t_packet *p )
+void RecvGmRegist(t_packet *p)
 {
-	int total_gm_count=0, gm_count=0;
+	int total_gm_count = 0, gm_count = 0;
 	char condition[100];
-	
+
 	int gm_list = p->u.kein.gm_regist_db.gm_list;
 	char *name = p->u.kein.gm_regist_db.name;
-	sprintf( condition, "job = %d AND name = '%s'", gm_list, name );		// 같은 직종으로 똑같은 놈이 저장되는걸 막기 위해
-	int ret = GetRowLineOfSQL( "GM_TABLE", "*", &gm_count, condition );
-	if( gm_count == 0 ) 
+	sprintf(condition, "job = %d AND name = '%s'", gm_list, name);		// 같은 직종으로 똑같은 놈이 저장되는걸 막기 위해
+	int ret = GetRowLineOfSQL("GM_TABLE", "*", &gm_count, condition);
+	if (gm_count == 0)
 	{
-		ret = InsertGmRegist( &p->u.kein.gm_regist_db );
-		if( !ret ) return;
+		ret = InsertGmRegist(&p->u.kein.gm_regist_db);
+		if (!ret) return;
 	}
-	
-	sprintf( condition, "job = %d", gm_list);		// 같은 직종으로 똑같은 놈이 저장되는걸 막기 위해
-	ret = GetRowLineOfSQL( "GM_TABLE", "*", &gm_count, condition );		// 그 직업의 gm 수
-	ret = GetRowLineOfSQL( "GM_TABLE", "*", &total_gm_count, NULL);		// total gm 수
-	
+
+	sprintf(condition, "job = %d", gm_list);		// 같은 직종으로 똑같은 놈이 저장되는걸 막기 위해
+	ret = GetRowLineOfSQL("GM_TABLE", "*", &gm_count, condition);		// 그 직업의 gm 수
+	ret = GetRowLineOfSQL("GM_TABLE", "*", &total_gm_count, NULL);		// total gm 수
+
 	t_packet packet;
 	packet.h.header.type = CMD_COME_OUT_GM_FROM_LOGIN;		// 모든 사람에게 알린다.
 	packet.u.kein.send_gm_regist_ok.gm_index = gm_list;
-	packet.u.kein.send_gm_regist_ok.gm_rank= gm_count;
-	packet.u.kein.send_gm_regist_ok.total_gm_rank= total_gm_count;
-	strcpy( packet.u.kein.send_gm_regist_ok.name, name );
-	packet.h.header.size = sizeof(k_send_gm_regist_ok) - 20 +strlen( name )+1;
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	packet.u.kein.send_gm_regist_ok.gm_rank = gm_count;
+	packet.u.kein.send_gm_regist_ok.total_gm_rank = total_gm_count;
+	strcpy(packet.u.kein.send_gm_regist_ok.name, name);
+	packet.h.header.size = sizeof(k_send_gm_regist_ok) - 20 + strlen(name) + 1;
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
-void RecvRepStopWarRefusal( t_packet *p )
+void RecvRepStopWarRefusal(t_packet *p)
 {
 	int game_id = p->u.kein.rep_stop_war_login.game_id;		// gameserver_port;
 	int server_id = p->u.kein.rep_stop_war_login.server_id;
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_REP_STOP_WAR_REFUSAL_TO_CLIENT;
 	packet.u.kein.default_short_int = server_id;
-	packet.h.header.size = sizeof( short int );
-	
-	for(int j = 0; j < LOGIN_MAX_CONNECTIONS; j ++)
+	packet.h.header.size = sizeof(short int);
+
+	for (int j = 0; j < LOGIN_MAX_CONNECTIONS; j++)
 	{
-		if(connections[j].server_check == game_id )
+		if (connections[j].server_check == game_id)
 		{
-			QueuePacket( connections, j, &packet, 1 );
+			QueuePacket(connections, j, &packet, 1);
 		}
 	}
 }
 
-void RecvReqStopWar( t_packet *p, short int cn )		// 다른 맵에 요청할 나라왕이 있는지 보내준다.
+void RecvReqStopWar(t_packet *p, short int cn)		// 다른 맵에 요청할 나라왕이 있는지 보내준다.
 {
 	t_packet packet;
 	packet.h.header.type = CMD_REQ_STOP_WAR_TO_CLIENT;
@@ -1563,484 +1569,474 @@ void RecvReqStopWar( t_packet *p, short int cn )		// 다른 맵에 요청할 나
 	packet.u.kein.send_game_server_req_stop_war.send_nation = p->u.kein.send_login_req_stop_war.send_nation;
 	packet.u.kein.send_game_server_req_stop_war.server_id = p->u.kein.send_login_req_stop_war.server_id;
 	packet.u.kein.send_game_server_req_stop_war.game_id = connections[cn].server_check;
-	packet.h.header.size = sizeof( k_send_game_server_req_stop_war );
-	
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-	
+	packet.h.header.size = sizeof(k_send_game_server_req_stop_war);
+
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
 }
 
-void RecvRepStopWarAccept( t_packet *p )
+void RecvRepStopWarAccept(t_packet *p)
 {
 	p->h.header.type = CMD_REP_STOP_WAR_ACCEPT_TO_CLIENT;		// 자 모두에게 뿌려줘 보자
-	
-	g_pServerTable->BroadCastToEveryServer( (char *)p, (sizeof(t_header)+p->h.header.size ), SERVER_TYPE_MAP );
+
+	g_pServerTable->BroadCastToEveryServer((char *)p, (sizeof(t_header) + p->h.header.size), SERVER_TYPE_MAP);
 }
 
 /// YGI /////////
-int SetTactics( int spell_type, int sex, int tac_type )		// 캐릭터 메이크할경우 선택한 택틱스를 실제 배열첨자로 바꾸는 루틴..
+int SetTactics(int spell_type, int sex, int tac_type)		// 캐릭터 메이크할경우 선택한 택틱스를 실제 배열첨자로 바꾸는 루틴..
 {
-	int tac_con[2][12] = { 
+	int tac_con[2][12] = {
 		{ CRAPPLE_, SWORD_, ARCHERY_, FENCING_, MACE_, PIERCE_, WHIRL_, HURL_, PARRYING_, MAGERY_, },		 // 여자
 		{ CRAPPLE_, SWORD_, ARCHERY_, PARRYING_, MACE_, PIERCE_, WHIRL_, HURL_, MAGERY_, D_SWORD_, D_MACE_ },	// 남자
 	};
-	
+
 	int ret = tac_con[sex][tac_type];
-	if( spell_type == PRIEST_SPELL && ret == MAGERY_ ) ret = ORISON_;
+	if (spell_type == PRIEST_SPELL && ret == MAGERY_) ret = ORISON_;
 	return ret;
 }
 
 
+//////////////////////// for ServerViewer //////////////////////
+//void SendConnectServerCount(short int cn)
+//{
+//	t_packet packet;
+//	packet.h.header.type = CMD_SV_CONNECT_SERVER_COUNT;
+//	packet.u.kein.default_char = g_current_gameserver;
+//	packet.h.header.size = sizeof(char);
+//	QueuePacket(connections, cn, &packet, 1);
+//}
+//
+//void SendCurrServerPort(short int cn)
+//{
+//	t_packet packet;
+//	packet.h.header.type = CMD_SV_GET_CONNECT_SERVER_PORT;
+//
+//	short int &count = packet.u.kein.server_port.count;
+//	count = 0;
+//	for (int j = 0; j < LOGIN_MAX_CONNECTIONS; j++)
+//	{
+//		if (connections[j].socket && connections[j].server_check)
+//		{
+//			packet.u.kein.server_port.port[count++] = connections[j].server_check;
+//		}
+//	}
+//
+//	packet.h.header.size = sizeof(short int) + sizeof(short int)*count;
+//
+//	char *temp = (char *)&packet.u.kein.server_port;
+//	QueuePacket(connections, cn, &packet, 1);
+//}
+//
+//void RecvSVMessageAll(t_packet *p)
+//{
+//	SendPbs(p->u.kein.default_msg);
+//}
 
 
-
-
-
-/*
-
-  ////////////////////// for ServerViewer //////////////////////
-  void SendConnectServerCount( short int cn )
-  {
-  t_packet packet;
-  packet.h.header.type = CMD_SV_CONNECT_SERVER_COUNT;
-		packet.u.kein.default_char = g_current_gameserver;
-		packet.h.header.size = sizeof( char );
-		QueuePacket( connections, cn, &packet, 1 );
-		
-		  }
-		  
-			void SendCurrServerPort( short int cn )
-			{
-			t_packet packet;
-			packet.h.header.type = CMD_SV_GET_CONNECT_SERVER_PORT;
-			
-			  short int &count = packet.u.kein.server_port.count;
-			  count = 0;
-			  for(int j = 0; j < LOGIN_MAX_CONNECTIONS; j ++)
-			  {
-			  if( connections[j].socket && connections[j].server_check )
-			  {
-			  packet.u.kein.server_port.port[count++] = connections[j].server_check;
-			  }
-			  }
-			  
-				packet.h.header.size = sizeof( short int ) + sizeof( short int )*count;
-				
-				  char *temp = ( char *)&packet.u.kein.server_port;
-				  QueuePacket( connections, cn, &packet, 1 );
-				  }
-				  
-					void RecvSVMessageAll( t_packet *p )
-					{
-					SendPbs( p->u.kein.default_msg );
-					}
-					
-*/
-
-void SendReqSalvationMoney( short int server_id, DWORD money, short int cn )
+void SendReqSalvationMoney(short int server_id, DWORD money, short int cn)
 {
 	t_packet packet;
 	packet.h.header.type = CMD_DB2GAME_SALVATION;
 	packet.u.kein.db2game_salvation_money.server_id = server_id;
 	packet.u.kein.db2game_salvation_money.money = money;
-	packet.h.header.size = sizeof( k_db2game_salvation_money );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.h.header.size = sizeof(k_db2game_salvation_money);
+	QueuePacket(connections, cn, &packet, 1);
 }
-void RecvReqSalvationMoney( packet *p, short int cn )
+void RecvReqSalvationMoney(packet *p, short int cn)
 {
 	short int server_id = p->u.kein.req_salvation_money.server_id;
 	char *name = p->u.kein.req_salvation_money.name;
 	DWORD money;
-	int ret = GetSalvation( name, money );
-	if( ret == 1 )
+	int ret = GetSalvation(name, money);
+	if (ret == 1)
 	{
-		SendReqSalvationMoney( server_id, money, cn );
+		SendReqSalvationMoney(server_id, money, cn);
 	}
 }
 // 020826 YGI
-void RecvInsertSalvation( packet *p, short int cn )
+void RecvInsertSalvation(packet *p, short int cn)
 {
 	short int server_id = p->u.kein.db_salvation_money.server_id;
 	DWORD money = p->u.kein.db_salvation_money.money;
 	int nation = p->u.kein.db_salvation_money.nation;		// 나라
 	char *name = p->u.kein.db_salvation_money.name;
 	DWORD old_money;
-	
-	/*
-	int ret = CheckSalvationNameBasic( name );
-	if( ret )	
-	{
-	char result = ret;
-	DirectClient( CMD_CHECK_SALVATION_NAME, server_id, cn, &result, sizeof( char ) );
-	return; // 이미 기부한적이 있다.
-}*/
-	
-	int ret = GetSalvation( name, old_money );
-	if( ret != 1 )		// 실패
+
+
+	//int ret = CheckSalvationNameBasic(name);
+	//if (ret)
+	//{
+	//	char result = ret;
+	//	DirectClient(CMD_CHECK_SALVATION_NAME, server_id, cn, &result, sizeof(char));
+	//	return; // 이미 기부한적이 있다.
+	//}
+
+	int ret = GetSalvation(name, old_money);
+	if (ret != 1)		// 실패
 	{
 		return;
 	}
-	DWORD total_money = money+old_money;
-	if( old_money < 3000000 )// 아이템을 줄 경우인지 체크
+	DWORD total_money = money + old_money;
+	if (old_money < 3000000)// 아이템을 줄 경우인지 체크
 	{
-		if( total_money >= 3000000 ) 
+		if (total_money >= 3000000)
 		{
-			SendServerEachItem( 9047, server_id, cn );		// 적십자 비트 허트를 준다.
+			SendServerEachItem(9047, server_id, cn);		// 적십자 비트 허트를 준다.
 		}
 	}
 	char szQuerry[255];
-	sprintf(szQuerry, "UPDATE chr_info2 SET salvation=%u WHERE name = '%s'", total_money, name );
+	sprintf(szQuerry, "UPDATE chr_info2 SET salvation=%u WHERE name = '%s'", total_money, name);
 	// 토탈 기부액 더 해준다.
-	ret = Querry_SQL( szQuerry );
-	if( ret >= 0 )
+	ret = Querry_SQL(szQuerry);
+	if (ret >= 0)
 	{
 		// salvation에 저장한다.
-		
-		if( CheckSalvationNameBasic( name ) )
+		if (CheckSalvationNameBasic(name))
 		{
-			sprintf(szQuerry, "UPDATE salvation_name SET date = getdate() WHERE name = '%s'", name );
-			if( Querry_SQL( szQuerry ) < 0 )
+			sprintf(szQuerry, "UPDATE salvation_name SET date = getdate() WHERE name = '%s'", name);
+			if (Querry_SQL(szQuerry) < 0)
 			{
-				MyLog( 0, "UPDATE salvation_name table error, then user will contribute to money again...!!!" );
+				MyLog(0, "UPDATE salvation_name table error, then user will contribute to money again...!!!");
 			}
 		}
 		else
 		{
-			sprintf(szQuerry, "INSERT INTO salvation_name ( name, date ) VALUES ( '%s', getdate() )", name );
-			if( Querry_SQL( szQuerry ) < 0 )
-				MyLog( 0, "Insert salvation_name table error, then user will contribute to money again...!!!" );
+			sprintf(szQuerry, "INSERT INTO salvation_name ( name, date ) VALUES ( '%s', getdate() )", name);
+			if (Querry_SQL(szQuerry) < 0)
+				MyLog(0, "Insert salvation_name table error, then user will contribute to money again...!!!");
 		}
-		/*
-		SendReqSalvationMoney( server_id, money+old_money, cn );
-		double Total_Money = 0;
-		ret = PlusMoneyRedClose( Total_Money, money );
-		if( ret == 1 )	// 모두에게 뿌려준다.
-		{
-		t_packet packet;
-		packet.h.header.type = CMD_MSG_ALL_SALVATION_TOTAL_MONEY;
-		packet.u.kein.total_salvation_all_msg.nation = nation;
-		packet.u.kein.total_salvation_all_msg.money = money;
-		packet.u.kein.total_salvation_all_msg.total_money = Total_Money;
-		strcpy( packet.u.kein.total_salvation_all_msg.name, name );
-		packet.h.header.size = sizeof( k_total_salvation_all_msg ) - 20 + strlen(name)+1;
-		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-	}*/		
+
+		//SendReqSalvationMoney(server_id, money + old_money, cn);
+		//double Total_Money = 0;
+		//ret = PlusMoneyRedClose(Total_Money, money);
+		//if (ret == 1)	// 모두에게 뿌려준다.
+		//{
+		//	t_packet packet;
+		//	packet.h.header.type = CMD_MSG_ALL_SALVATION_TOTAL_MONEY;
+		//	packet.u.kein.total_salvation_all_msg.nation = nation;
+		//	packet.u.kein.total_salvation_all_msg.money = money;
+		//	packet.u.kein.total_salvation_all_msg.total_money = Total_Money;
+		//	strcpy(packet.u.kein.total_salvation_all_msg.name, name);
+		//	packet.h.header.size = sizeof(k_total_salvation_all_msg) - 20 + strlen(name) + 1;
+		//	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+		//}
 	}
-	
+
 	//	else SQLerror( szQuerry );
 }
 
 // 게임서버로 아이템을 만들라고 메시지를 보낸다.
-void SendServerEachItem( int item_no, short int server_id, short int game_id )
+void SendServerEachItem(int item_no, short int server_id, short int game_id)
 {
 	t_packet packet;
 	packet.h.header.type = CMD_SERVER_EACH_ITEM;
 	packet.u.kein.send_db2map_each_item.server_id = server_id;
 	packet.u.kein.send_db2map_each_item.item_no = item_no;
-	packet.h.header.size = sizeof( k_send_db2map_each_item );
-	QueuePacket( connections, game_id, &packet, 1 );
+	packet.h.header.size = sizeof(k_send_db2map_each_item);
+	QueuePacket(connections, game_id, &packet, 1);
 }
 
-void SaveItemAndLimit( int nItemNumber, char *szCharName, DWORD dwItemLimit )		// 초콜렛 리미트 번호 저장..
+void SaveItemAndLimit(int nItemNumber, char *szCharName, DWORD dwItemLimit)		// 초콜렛 리미트 번호 저장..
 {
 	char filename[MAX_PATH];
-	sprintf( filename, "%d.txt", nItemNumber );
+	sprintf(filename, "%d.txt", nItemNumber);
 	FILE *fp;
-	fp = fopen( filename, "at+" );
-	if( !fp ) return ;
-	
-	fprintf( fp, "%s	%u\n", szCharName, dwItemLimit );
-	fclose( fp );
+	fp = fopen(filename, "at+");
+	if (!fp) return;
+
+	fprintf(fp, "%s	%u\n", szCharName, dwItemLimit);
+	fclose(fp);
 }
 
-void RecvEatChocolate( t_packet *p, DWORD cn )
+void RecvEatChocolate(t_packet *p, DWORD cn)
 {
 	char *name = p->u.kein.eat_chocolate.name;
 	DWORD limit = p->u.kein.eat_chocolate.limit;
 	DWORD server_id = p->u.kein.eat_chocolate.server_id;
-	
+
 	int count = 0;
-	int ret = SetChocolateCount( name, count );
-	SaveItemAndLimit( 3052, name, limit );
-	if( ret != 1 ) return;
-	
+	int ret = SetChocolateCount(name, count);
+	SaveItemAndLimit(3052, name, limit);
+	if (ret != 1) return;
+
 	t_packet packet;
 	packet.h.header.type = CMD_EAT_CHOCOLATE_OK;
 	packet.u.kein.eat_chocolate_ok.server_id = server_id;
-	packet.u.kein.eat_chocolate_ok.chocolate_count= count;
-	packet.h.header.size = sizeof( k_eat_chocolate_ok );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.u.kein.eat_chocolate_ok.chocolate_count = count;
+	packet.h.header.size = sizeof(k_eat_chocolate_ok);
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void RecvCheckChocolate( t_packet *p, DWORD cn )
+void RecvCheckChocolate(t_packet *p, DWORD cn)
 {
 	DWORD server_id = p->u.kein.default_dword;
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_PAY_RUMOR_OK;
 	packet.u.kein.login_check_chocolate.server_id = server_id;
-	GetTopGivenChocolate( packet.u.kein.login_check_chocolate.name, packet.u.kein.login_check_chocolate.count );
-	packet.h.header.size = sizeof( k_login_check_chocolate) - 20 + strlen( packet.u.kein.login_check_chocolate.name ) + 1;
-	QueuePacket( connections, cn, &packet, 1 );
+	GetTopGivenChocolate(packet.u.kein.login_check_chocolate.name, packet.u.kein.login_check_chocolate.count);
+	packet.h.header.size = sizeof(k_login_check_chocolate) - 20 + strlen(packet.u.kein.login_check_chocolate.name) + 1;
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void RecvSaveOpenSchoolEvent( t_packet *p, short int cn )
+void RecvSaveOpenSchoolEvent(t_packet *p, short int cn)
 {
 	char *name = p->u.kein.openschool_data.name;
 	int item_no = p->u.kein.openschool_data.item_no;
 	int server_id = p->u.kein.openschool_data.server_id;
 	int nation = p->u.kein.openschool_data.nation;
 	int npc_id = p->u.kein.openschool_data.npc_id;
-	
+
 	int number;
 	t_packet packet;
-	int ret = SaveOpenSchoolItem( name, nation, item_no, number );
-	if( number > 10 ) number = 10;
-	switch( ret )
+	int ret = SaveOpenSchoolItem(name, nation, item_no, number);
+	if (number > 10) number = 10;
+	switch (ret)
 	{
-	case 1  :		// 제대로 성공 number 값을 이용
+	case 1:		// 제대로 성공 number 값을 이용
 		packet.u.kein.openschool_data_ok.number = number;
 		break;
-		
-	case -1 :		// 이미 있는 놈이 또 저장하려고 한다.
+
+	case -1:		// 이미 있는 놈이 또 저장하려고 한다.
 		packet.u.kein.openschool_data_ok.number = -1;
 		break;
-	case -2 :	return;  // 쿼리 실패
+	case -2:	return;  // 쿼리 실패
 	}
-	
+
 	packet.h.header.type = CMD_OPENSCHOOL_DATA_OK;
 	packet.u.kein.openschool_data_ok.server_id = server_id;
-	packet.u.kein.openschool_data_ok.item_no= item_no;
-	packet.u.kein.openschool_data_ok.npc_id= npc_id;
-	packet.h.header.size = sizeof( k_openschool_data_ok );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.u.kein.openschool_data_ok.item_no = item_no;
+	packet.u.kein.openschool_data_ok.npc_id = npc_id;
+	packet.h.header.size = sizeof(k_openschool_data_ok);
+	QueuePacket(connections, cn, &packet, 1);
 }
 
 // 030602 YGI
-void RecvExitGiild( t_packet *p, short int cn )
+void RecvExitGiild(t_packet *p, short int cn)
 {	//< CSD-030326
 	short int server_id = p->u.kein.guild_exit_global.server_id;
 	short int guild_code = p->u.kein.guild_exit_global.guild_code;
 	char *name = p->u.kein.guild_exit_global.name;
-	
+
 	CCharRank name_status;
 	DWORD status;
-	GetNationByName( name, &status );		// 대상의 길드내 등급값 가져오기
-	memcpy( &name_status, &status, sizeof(DWORD ) );
+	GetNationByName(name, &status);		// 대상의 길드내 등급값 가져오기
+	memcpy(&name_status, &status, sizeof(DWORD));
 
 	int target_guild_code = 0;				// 대상의 길드 코드값 가져오기
-	GetGuildCode( name, target_guild_code );
+	GetGuildCode(name, target_guild_code);
 
 	t_packet packet;
-	
+
 	// 같은 길드원이 아니거나 대상이 길마인 경우	// 020702 YGI
-	if(target_guild_code != guild_code || name_status.guild_master == 1)
+	if (target_guild_code != guild_code || name_status.guild_master == 1)
 	{
 		packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_NOT;
 		packet.u.kein.default_short_int = server_id;
-		packet.h.header.size = sizeof( short int );
-		QueuePacket( connections, cn, &packet, 1 );	
-		return;	
+		packet.h.header.size = sizeof(short int);
+		QueuePacket(connections, cn, &packet, 1);
+		return;
 	}
 
-	SetGuildCode( name, 0 );
+	SetGuildCode(name, 0);
 	name_status.guild_master = 0;
-	memcpy( &status, &name_status, sizeof( DWORD ) );
-	SetNationByName( status, name );
-	
+	memcpy(&status, &name_status, sizeof(DWORD));
+	SetNationByName(status, name);
+
 	packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_OK;		// guild 탈퇴		// 길드짱에게 성공했다고 알린다.
 	packet.u.kein.default_short_int = server_id;
-	packet.h.header.size = sizeof( short int );
-	QueuePacket( connections, cn, &packet, 1 );
-	
-	
+	packet.h.header.size = sizeof(short int);
+	QueuePacket(connections, cn, &packet, 1);
+
+
 	packet.h.header.type = CMD_GUILD_EXIT_COMMAND_GLOBAL_LET;		// guild 탈퇴		// 길드짱에게 성공했다고 알린다.
-	strcpy( packet.u.kein.default_name, name );
-	packet.h.header.size = strlen( name )+1;
-	
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-	
-	ChangeGuildMemberList( name, 0, 0 );		// guild_member_list 에서 삭제 시킨다.
+	strcpy(packet.u.kein.default_name, name);
+	packet.h.header.size = strlen(name) + 1;
+
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
+	ChangeGuildMemberList(name, 0, 0);		// guild_member_list 에서 삭제 시킨다.
 }	//> CSD-030326
 
-void RecvCheckCandy( t_packet *p )
+void RecvCheckCandy(t_packet *p)
 {
 	DWORD total_id = p->u.kein.eat_candy.total_id;	// 여자 아이디
 	DWORD limit = p->u.kein.eat_candy.candy_limit;	// 사탕을 준 남자 아이디
 	char *name = p->u.kein.eat_candy.name;		// 사탕을 받은 여자
-	
+
 	char target_name[20];		// 초콜렛을 받은 남자
 	char target_name2[20];		// 사탕을 준 남자 이름
-	
-	int ret = GetChocolateEatName( target_name, total_id );
-	if( ret != 1 ) return;		// 초콜렛을 주지 않았다.
-	
-	ret = GetNameByTotalId( target_name2, limit );
-	if( ret != 1 ) return;		// 없는 토탈아이디
-	
-	if( strcmp( target_name, target_name2 ) == 0 )		// 초콜렛을 받은 남자와 사탕을 준 남자가 동일인이다.
+
+	int ret = GetChocolateEatName(target_name, total_id);
+	if (ret != 1) return;		// 초콜렛을 주지 않았다.
+
+	ret = GetNameByTotalId(target_name2, limit);
+	if (ret != 1) return;		// 없는 토탈아이디
+
+	if (strcmp(target_name, target_name2) == 0)		// 초콜렛을 받은 남자와 사탕을 준 남자가 동일인이다.
 	{
 		// 이벤트 성공
-		SaveWhiteDayEvent( target_name, name );
+		SaveWhiteDayEvent(target_name, name);
 		// 모든 맵에 알린다.
-		
+
 		t_packet packet;
 		packet.h.header.type = CMD_EAT_CANDY_OK;		// guild 탈퇴		// 길드짱에게 성공했다고 알린다.
-		strcpy( packet.u.kein.name2.name1, target_name );
-		strcpy( packet.u.kein.name2.name2, name );
-		packet.h.header.size = sizeof( k_name2 );
-		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-		
+		strcpy(packet.u.kein.name2.name1, target_name);
+		strcpy(packet.u.kein.name2.name2, name);
+		packet.h.header.size = sizeof(k_name2);
+		g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
 	}
 }
 SItemAttr3 Soksungattr3;
 extern SItemchange itemchange[MAX_CHANGE_ITEM_COUNT];
-DWORD addSokSung(int SokSung,int NowGrade)
+DWORD addSokSung(int SokSung, int NowGrade)
 {
-	DWORD lastsok=0;
+	DWORD lastsok = 0;
 	Soksungattr3.grade = NowGrade;
-	Soksungattr3.soksung1= SokSung;
-	memcpy(&lastsok,&Soksungattr3,sizeof(Soksungattr3));
+	Soksungattr3.soksung1 = SokSung;
+	memcpy(&lastsok, &Soksungattr3, sizeof(Soksungattr3));
 	return lastsok;
-	
+
 }
 //010708 lsw
 void ChangeOldRareToNewRare(ItemAttr *item)
 {
-	
+
 	int no = item->item_no;
-	
-	int mid ; 
+
+	int mid;
 	int left = 0;
 	int right = ichangeItemCount;
-	
-	if( no < itemchange[left].origin_item_no || no > itemchange[right].origin_item_no)
+
+	if (no < itemchange[left].origin_item_no || no > itemchange[right].origin_item_no)
 		return;//안걸린 아템일 경우
-	
-	while( right >=left)
+
+	while (right >= left)
 	{
-		mid = (right+left)/2;
-		if( no == itemchange[mid].origin_item_no)
+		mid = (right + left) / 2;
+		if (no == itemchange[mid].origin_item_no)
 		{
 			item->item_no = itemchange[mid].will_change_item_no;
-			item->attr[IATTR_SOKSUNG] = addSokSung(itemchange[mid].add_soksung,itemchange[mid].add_grade);
+			item->attr[IATTR_SOKSUNG] = addSokSung(itemchange[mid].add_soksung, itemchange[mid].add_grade);
 			return;
 		}
-		if( no < itemchange[mid].origin_item_no)
-			right = mid-1;
+		if (no < itemchange[mid].origin_item_no)
+			right = mid - 1;
 		else
-			left = mid +1;
+			left = mid + 1;
 	}
-	return;	
+	return;
 }
 
 // 010613 YGI
-void ResetCharDB( int *var, CHARLIST *ch )		// var 변수를 이용하여 db를 초기화한다.	// 게임서버에서 요청할때
+void ResetCharDB(int *var, CHARLIST *ch)		// var 변수를 이용하여 db를 초기화한다.	// 게임서버에서 요청할때
 {
 	// 2가지의 제약이 있다.
 	// 1. gameserver로 보낼때만 사용한다. 즉, 클라이언트는 다른 내용이 보내질수 있다는 뜻이다.
 	int ret = 0;
-	if( var[VAR_RESET] < 2 )
+	if (var[VAR_RESET] < 2)
 	{
-		memset( &ch->WinLoseScore, 0, sizeof( DWORD ) );
+		memset(&ch->WinLoseScore, 0, sizeof(DWORD));
 		ch->LadderScore = 1000;
 		var[VAR_RESET] = 2;
 	}
-	
+
 	//this4 lsw //예전의 버그 아이템의 속성값의 초기화
-	if( var[VAR_RESET] < 3 )
+	if (var[VAR_RESET] < 3)
 	{
 		// 내가 가지고 있는 아이템..
-		
-		for(int iInv1 = 0;iInv1<3;iInv1++)
+
+		for (int iInv1 = 0; iInv1 < 3; iInv1++)
 		{
-			for(int iInv2 = 0;iInv2<3;iInv2++)
-				for(int iInv3 = 0;iInv3<8;iInv3++)
-				{	
-					if(ch->inv[iInv1][iInv2][iInv3].item_no)	ch->inv[iInv1][iInv2][iInv3].attr[3]=0;
+			for (int iInv2 = 0; iInv2 < 3; iInv2++)
+				for (int iInv3 = 0; iInv3 < 8; iInv3++)
+				{
+					if (ch->inv[iInv1][iInv2][iInv3].item_no)	ch->inv[iInv1][iInv2][iInv3].attr[3] = 0;
 				}
 		}
-		
-		for(int iEquip = 0;iEquip<8;iEquip++)
-		{	
-			if(ch->equip[iEquip].item_no)
-				ch->equip[iEquip].attr[3]=0;	
-		}
-		
-		for(int iQuick = 0;iQuick<7;iQuick++)
-		{	
-			if(ch->quick[iQuick].item_no)
-				ch->quick[iQuick].attr[3]=0;
-		}
-		if(ch->handheld.item_no)
-			ch->handheld.attr[3]=0;
-		
-		
-		for(int iBank = 0;iBank<5;iBank++)
+
+		for (int iEquip = 0; iEquip < 8; iEquip++)
 		{
-			for(int iBank = 0;iBank<3;iBank++)
-				for(int iBank = 0;iBank<6;iBank++)
+			if (ch->equip[iEquip].item_no)
+				ch->equip[iEquip].attr[3] = 0;
+		}
+
+		for (int iQuick = 0; iQuick < 7; iQuick++)
+		{
+			if (ch->quick[iQuick].item_no)
+				ch->quick[iQuick].attr[3] = 0;
+		}
+		if (ch->handheld.item_no)
+			ch->handheld.attr[3] = 0;
+
+
+		for (int iBank = 0; iBank < 5; iBank++)
+		{
+			for (int iBank = 0; iBank < 3; iBank++)
+				for (int iBank = 0; iBank < 6; iBank++)
 				{
-					if(ch->bank[iBank][iBank][iBank].item_no)
-						ch->bank[iBank][iBank][iBank].attr[3]=0;
+					if (ch->bank[iBank][iBank][iBank].item_no)
+						ch->bank[iBank][iBank][iBank].attr[3] = 0;
 				}
 		}
 		var[VAR_RESET] = 3;
 	}
-	
+
 	// 010531 KHS
 	// 일스추가되면서 nut1,nut2,nut3의 값을 초기화 한다. 
-	if( var[VAR_RESET] < 5 )
-	{	
+	if (var[VAR_RESET] < 5)
+	{
 		ch->nk[N_VYSEUS] = 0;
 		ch->nk[N_ZYPERN] = 0;
 		ch->nk[N_YILSE] = 0;
 		var[VAR_RESET] = 5;
-	}	
-	
-	if( var[VAR_RESET] < 6 )			// 010608 YGI
+	}
+
+	if (var[VAR_RESET] < 6)			// 010608 YGI
 	{
-		if( ch->LastLoan > 10000000 )
+		if (ch->LastLoan > 10000000)
 		{
 			ch->LastLoan = 0;
 		}
 		var[VAR_RESET] = 6;
 	}
-	
-	
-	if( var[VAR_RESET] < 12 )
+
+
+	if (var[VAR_RESET] < 12)
 	{	//< CSD-030326
-		if( ch->name_status.dwReserved )
+		if (ch->name_status.dwReserved)
 		{
 			int make_num = 0;
-			int ret = GetGuildMakeNumber( ch->name_status.dwReserved, make_num );
-			if( ret == 1 )
+			int ret = GetGuildMakeNumber(ch->name_status.dwReserved, make_num);
+			if (ret == 1)
 			{
-				if( make_num )		// 이미 바뀐적이 있는 길드다.
+				if (make_num)		// 이미 바뀐적이 있는 길드다.
 				{
 					ch->name_status.dwReserved = 0;
 					ch->name_status.guild_master = 0;
 				}
 				else
 				{
-					ChangeGuildMemberList( ch->Name, ch->name_status.dwReserved, ch->name_status.guild_master );
+					ChangeGuildMemberList(ch->Name, ch->name_status.dwReserved, ch->name_status.guild_master);
 				}
 				var[VAR_RESET] = 12;
 			}
-			else 
+			else
 			{
-				MyLog( LOG_NORMAL, " Warning!!! guild_list table Querry fail... Path ResetCharDB function" );
+				MyLog(LOG_NORMAL, " Warning!!! guild_list table Querry fail... Path ResetCharDB function");
 			}
 		}
 		else var[VAR_RESET] = 12;
 	}	//> CSD-030326
-	
-	
-	if (var[VAR_RESET]<13)
+
+
+	if (var[VAR_RESET] < 13)
 	{
-		ch->fame=1000;
-		var[VAR_RESET]=13;
+		ch->fame = 1000;
+		var[VAR_RESET] = 13;
 	}
-	
+
 	//< CSD-011022
 	if (var[VAR_RESET] < 14)
 	{
@@ -2056,7 +2052,7 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 변수를 이용하여 db를 
 		ch->nHoly = 100;
 		var[VAR_RESET] = 14;
 	}
-	
+
 	//< CSD-011024
 	if (var[VAR_RESET] < 20)
 	{
@@ -2066,10 +2062,10 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 변수를 이용하여 db를 
 		if (ch->Level >= 99)
 		{
 			const int nOffset = ch->Exp - 1917766395;
-			
+
 			if (nOffset > 0)
 			{
-				int nBouns = nOffset/10000000;
+				int nBouns = nOffset / 10000000;
 				if (nBouns > 24)  nBouns = 24;
 				ch->reserved_point += nBouns;
 				ch->Exp = 1917766395;
@@ -2080,7 +2076,7 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 변수를 이용하여 db를 
 		for (int i = 0; i < 13; ++i)
 		{
 			const int nOffset = ch->tac_skillEXP[i] - 1917766395;
-			
+
 			if (nOffset > 0)
 			{
 				ch->tac_skillEXP[i] = 1917766395;
@@ -2088,33 +2084,33 @@ void ResetCharDB( int *var, CHARLIST *ch )		// var 변수를 이용하여 db를 
 		}
 		var[VAR_RESET] = 20;
 	}
-	
-	if( var[VAR_RESET] < 22 )
-	{	/*
-		if( ch->name_status.guild_code )
-		{
-		if( ch->name_status.guild_master == 1 )
-		{
-		char querry[256];
-		sprintf( querry, "UPDATE guild_list SET master = '%s' WHERE code = %d", ch->Name,  ch->name_status.guild_code );
-		Querry_SQL( querry );
-		}
-		}
-		else
-		{
-		ChangeGuildMemberList( ch->Name, 0, 0 );
-	}*/
+
+	if (var[VAR_RESET] < 22)
+	{
+		//if (ch->name_status.guild_code)
+		//{
+		//	if (ch->name_status.guild_master == 1)
+		//	{
+		//		char querry[256];
+		//		sprintf(querry, "UPDATE guild_list SET master = '%s' WHERE code = %d", ch->Name, ch->name_status.guild_code);
+		//		Querry_SQL(querry);
+		//	}
+		//}
+		//else
+		//{
+		//	ChangeGuildMemberList(ch->Name, 0, 0);
+		//}
 		var[VAR_RESET] = 22;
 	}
 	if (var[VAR_RESET] < 23)//030701 LSW
 	{
-		ch->nPoison		= 70;
-		ch->nCurse		= 70;
-		ch->nFire		= 70;
-		ch->nIce		= 70;
-		ch->nElect		= 70;
-		ch->nHoly		= 70;
-		var[VAR_RESET]	= 23;
+		ch->nPoison = 70;
+		ch->nCurse = 70;
+		ch->nFire = 70;
+		ch->nIce = 70;
+		ch->nElect = 70;
+		ch->nHoly = 70;
+		var[VAR_RESET] = 23;
 	}
 
 }
@@ -2337,7 +2333,7 @@ LEVEL_INFO g_aLevelInfo[] =
 void ReadjustExpLevel(CHARLIST* pTarget)
 {	//< CSD-030306 : 레벨 경험치를 재설정하면서 기존의 경험치, 단계값 재조정
 	const int nLevel = pTarget->Level;
-	
+
 	if (nLevel >= 101)
 	{
 		if (nLevel <= MAX_EXP_LEVEL)
@@ -2358,7 +2354,7 @@ void ReadjustTacLevel(CHARLIST* pTarget, BYTE nKind)
 {	//< CSD-030306 : 택틱 경험치를 재설정하면서 기존의 경험치, 단계값 재조정
 	for (int i = 1; i <= MAX_TAC_LEVEL; ++i)
 	{
-		if (pTarget->aStepInfo[T01_STEP + nKind] == g_aLevelInfo[i].nStep && 
+		if (pTarget->aStepInfo[T01_STEP + nKind] == g_aLevelInfo[i].nStep &&
 			pTarget->tac_skillEXP[nKind] <= g_aLevelInfo[i].nMaxExp)
 		{
 			const int nTactic = i;
@@ -2377,9 +2373,9 @@ void ReadjustTacLevel(CHARLIST* pTarget, BYTE nKind)
 	pTarget->aStepInfo[T01_STEP + nKind] = NPC_Lev_Ref[MAX_TAC_LEVEL].nStep;
 }	//> CSD-030306
 
-void CheckNewGuildCode( CHARLIST *ch )
+void CheckNewGuildCode(CHARLIST *ch)
 {	//< CSD-030324
-	if( ch->Age < 136 )
+	if (ch->Age < 136)
 	{
 		ch->nGuildCode = ch->name_status.dwReserved;
 		ch->Age = 136;
@@ -2388,7 +2384,7 @@ void CheckNewGuildCode( CHARLIST *ch )
 }
 
 void ResetCharInfo(int *var, CHARLIST *ch)
-{ 
+{
 	if (ch->Age <= 100 || var[VAR_RESET] < 22)
 	{	//< CSD-TW-030606
 		ResetCharDB(var, ch);
@@ -2396,116 +2392,116 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 	}	//> CSD-TW-030606
 
 	char querry[256];
-	
-	if(ch->Age < 124)
+
+	if (ch->Age < 124)
 	{	//< CSD-030326
-		if( ch->name_status.dwReserved )
+		if (ch->name_status.dwReserved)
 		{
-			if( IsExistGiuildMember( ch->Name ) == 0 )		// 길드에 속해 있지 않을때..
+			if (IsExistGiuildMember(ch->Name) == 0)		// 길드에 속해 있지 않을때..
 			{
 				ch->name_status.dwReserved = 0;
 				ch->name_status.guild_master = 0;
 			}
-			else if( ch->name_status.guild_master == 1 )
+			else if (ch->name_status.guild_master == 1)
 			{
-				sprintf( querry, "UPDATE guild_list SET master = '%s' WHERE code = %d", ch->Name,  ch->name_status.dwReserved );
-				Querry_SQL( querry );
+				sprintf(querry, "UPDATE guild_list SET master = '%s' WHERE code = %d", ch->Name, ch->name_status.dwReserved);
+				Querry_SQL(querry);
 			}
 		}
 
 		ch->Age = 124;
 	}	//> CSD-030326
-	
-	if( ch->Age  < 125 )
+
+	if (ch->Age < 125)
 	{
-		for(int iInv1 = 0;iInv1<3;iInv1++)
+		for (int iInv1 = 0; iInv1 < 3; iInv1++)
 		{
-			for(int iInv2 = 0;iInv2<3;iInv2++)
-				for(int iInv3 = 0;iInv3<8;iInv3++)
-				{	
-					if(ch->inv[iInv1][iInv2][iInv3].item_no)
-						ChangeOldRareToNewRare( &ch->inv[iInv1][iInv2][iInv3] );
-				}
-		}
-		
-		for(int iEquip = 0;iEquip<8;iEquip++)
-		{	
-			if(ch->equip[iEquip].item_no)
-				ChangeOldRareToNewRare( &ch->equip[iEquip] );
-		}
-		
-		for(int iQuick = 0;iQuick<7;iQuick++)
-		{	
-			if(ch->quick[iQuick].item_no)
-				ChangeOldRareToNewRare( &ch->quick[iQuick] );
-		}
-		
-		if(ch->handheld.item_no)
-			ChangeOldRareToNewRare( &ch->handheld );
-		
-		
-		for(int iBank1 = 0;iBank1<5;iBank1++)
-		{
-			for(int iBank2 = 0;iBank2<3;iBank2++)
-				for(int iBank3 = 0;iBank3<6;iBank3++)
+			for (int iInv2 = 0; iInv2 < 3; iInv2++)
+				for (int iInv3 = 0; iInv3 < 8; iInv3++)
 				{
-					if(ch->bank[iBank1][iBank2][iBank3].item_no)
-						ChangeOldRareToNewRare( &ch->bank[iBank1][iBank2][iBank3]);
+					if (ch->inv[iInv1][iInv2][iInv3].item_no)
+						ChangeOldRareToNewRare(&ch->inv[iInv1][iInv2][iInv3]);
 				}
 		}
-		ch->Age  = 125;
+
+		for (int iEquip = 0; iEquip < 8; iEquip++)
+		{
+			if (ch->equip[iEquip].item_no)
+				ChangeOldRareToNewRare(&ch->equip[iEquip]);
+		}
+
+		for (int iQuick = 0; iQuick < 7; iQuick++)
+		{
+			if (ch->quick[iQuick].item_no)
+				ChangeOldRareToNewRare(&ch->quick[iQuick]);
+		}
+
+		if (ch->handheld.item_no)
+			ChangeOldRareToNewRare(&ch->handheld);
+
+
+		for (int iBank1 = 0; iBank1 < 5; iBank1++)
+		{
+			for (int iBank2 = 0; iBank2 < 3; iBank2++)
+				for (int iBank3 = 0; iBank3 < 6; iBank3++)
+				{
+					if (ch->bank[iBank1][iBank2][iBank3].item_no)
+						ChangeOldRareToNewRare(&ch->bank[iBank1][iBank2][iBank3]);
+				}
+		}
+		ch->Age = 125;
 	}
-	
-	if( ch->Age  < 126 )
+
+	if (ch->Age < 126)
 	{
 		ch->Sight = 0;
-		ch->Age  = 126;
+		ch->Age = 126;
 	}
-	
+
 	if (ch->Age < 129)
 	{
 		ch->aStepInfo[CSP_STEP] = 0;
-		
+
 		for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 		{
 			ch->Skill[i - 100] = 0;
 		}
-		
+
 		ch->Age = 129;
 	}
-	
+
 	if (ch->Age < 130)
 	{
 		ch->aStepInfo[CSP_STEP] = 0;
-		
+
 		for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 		{
 			ch->Skill[i - 100] = 0;
 		}
-		
+
 		ch->Age = 130;
 	}
-	
+
 	if (ch->Age < 132)
 	{	//< CSD-020724 : 전투스킬 포인터 재분배
 		int nSum = ch->aStepInfo[CSP_STEP];
-		
+
 		for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 		{
 			nSum += ch->Skill[i - 100];
 			ch->Skill[i - 100] = 0;
 		}
-		
+
 		ch->aStepInfo[CSP_STEP] = nSum;
 		ch->Age = 132;
 	}	//> CSD-020724
-	
+
 	if (ch->Age < 133)
 	{	//< CSD-020724 : 전투스킬 포인터 재분배  
 		const int nPoint = GetSkillPoint(ch->Name);
 		// 전투스킬 포이터 총합
 		int nTotal = ch->aStepInfo[CSP_STEP] + nPoint;
-		
+
 		if (ch->Level >= 1 && ch->Level <= 10)
 		{
 			if (nTotal > 1)  nTotal = 1;
@@ -2586,19 +2582,19 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 		{
 			if (nTotal > 20)  nTotal = 20;
 		}
-		
+
 		ch->aStepInfo[CSP_STEP] = nTotal;
 		ClearSkillPoint(ch->Name);
-		
+
 		ch->Age = 133;
 	}	//> CSD-020724
-	
-	if(LocalMgr.IsAbleNation(KOREA))//021007 lsw// 한국만 재분배 해준다.
+
+	if (LocalMgr.IsAbleNation(KOREA))//021007 lsw// 한국만 재분배 해준다.
 	{
 		if (ch->Age < 134)
 		{ //< CSD-020930 : 전투스킬 포인터 재분배
 			int nSum = ch->aStepInfo[CSP_STEP];
-			
+
 			for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 			{
 				nSum += ch->Skill[i - 100];
@@ -2627,7 +2623,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 
 		ch->Age = 136;
 	}	//> CSD-030306
-	
+
 	if (ch->Age < 137)
 	{	//< CSD-TW-030620
 		for (int i = T01_STEP; i <= T13_STEP; ++i)
@@ -2681,7 +2677,7 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 			ch->aStepInfo[EXP_STEP] = NPC_Lev_Ref[nLevel].nStep;
 
 			ch->Age = 140;
-		}		
+		}
 	}	//>soto-031031
 
 	if (!IsConnectName(ch->Name))
@@ -2690,81 +2686,81 @@ void ResetCharInfo(int *var, CHARLIST *ch)
 		Querry_SQL(querry);
 	}
 	// 길드 코드값이 있는데 guild_member_list 에 값이 없을때
-	if( ch->nGuildCode )
+	if (ch->nGuildCode)
 	{	//< CSD-030324
-		if( IsExistGiuildMember( ch->Name ) == 0 )		// 길드에 속해 있지 않을때..
+		if (IsExistGiuildMember(ch->Name) == 0)		// 길드에 속해 있지 않을때..
 		{
 			ch->nGuildCode = 0;
 			ch->name_status.guild_master = 0;
 		}
-		if( ch->name_status.guild_master == 1 )		// 길마 일 경우 길마 들어 온 시간을 갱신한다.
+		if (ch->name_status.guild_master == 1)		// 길마 일 경우 길마 들어 온 시간을 갱신한다.
 		{
-			sprintf( querry, "UPDATE guild_list SET master = '%s', master_last_connect = getdate() WHERE code = %d", 
-				ch->Name, 
-				ch->nGuildCode );
-			Querry_SQL( querry );
+			sprintf(querry, "UPDATE guild_list SET master = '%s', master_last_connect = getdate() WHERE code = %d",
+				ch->Name,
+				ch->nGuildCode);
+			Querry_SQL(querry);
 		}
 	}	//> CSD-030324
 }
 
-void RecvUpdateLadderScore( t_packet *p )
+void RecvUpdateLadderScore(t_packet *p)
 {
 	k_update_ladder_score *t = &p->u.kein.update_ladder_score;
 	UpdateLadderScore(t->score, t->name, t->nation, t->cls, t->btLevel); // CSD-030806
 }
 
-void RecvReqRankLadder( t_packet *p, short int cn )
+void RecvReqRankLadder(t_packet *p, short int cn)
 {
 	k_db_get_ladder_score_rank rank_data;
 	int page = p->u.kein.req_rank_ladder_to_db.page;
 	short int server_id = p->u.kein.req_rank_ladder_to_db.server_id;
-	int ret = GetLadderScoreRank( page*10+1, &rank_data );
-	if( ret == 2 )		// refresh 했다..
-		ret = GetLadderScoreRank( page*10+1, &rank_data );
-	
-	if( ret != 1 ) // 값이 없다.
+	int ret = GetLadderScoreRank(page * 10 + 1, &rank_data);
+	if (ret == 2)		// refresh 했다..
+		ret = GetLadderScoreRank(page * 10 + 1, &rank_data);
+
+	if (ret != 1) // 값이 없다.
 	{
-		DirectClient( CMD_REP_RANK_LADDER_FINISH, server_id, cn, NULL, 0 );
+		DirectClient(CMD_REP_RANK_LADDER_FINISH, server_id, cn, NULL, 0);
 	}
 	else
 	{
-		DirectClient( CMD_REP_RANK_LADDER, server_id, cn, &rank_data, sizeof( k_db_get_ladder_score_rank ) );
+		DirectClient(CMD_REP_RANK_LADDER, server_id, cn, &rank_data, sizeof(k_db_get_ladder_score_rank));
 	}
 }
 
-void DirectClient( short int type, short int server_id, short int cn, void *msg, int size )
+void DirectClient(short int type, short int server_id, short int cn, void *msg, int size)
 {
 	t_packet packet;
 	packet.h.header.type = CMD_DIRECT_CLIENT;
 	packet.u.kein.direct_client.server_id = server_id;
 	packet.u.kein.direct_client.type = type;
-	if( msg )
-		memcpy( packet.u.kein.direct_client.data, msg, size );
-	packet.h.header.size = sizeof( int ) + size;
-	QueuePacket( connections, cn, &packet, 1 );
+	if (msg)
+		memcpy(packet.u.kein.direct_client.data, msg, size);
+	packet.h.header.size = sizeof(int) + size;
+	QueuePacket(connections, cn, &packet, 1);
 }
 
-void RecvSearchRankLadder( t_packet *p, short int cn )
+void RecvSearchRankLadder(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	char *name = p->u.kein.send_db_direct_map.data;
-	
-	int rank = GetRankLadderByName( name );			// 010514 YGI
-	if( rank>0 )
+
+	int rank = GetRankLadderByName(name);			// 010514 YGI
+	if (rank > 0)
 	{
 		t_packet packet;
-		packet.u.kein.req_rank_ladder_to_db.page = rank/10;
+		packet.u.kein.req_rank_ladder_to_db.page = rank / 10;
 		packet.u.kein.req_rank_ladder_to_db.server_id = server_id;
-		
-		RecvReqRankLadder( &packet, cn );
+
+		RecvReqRankLadder(&packet, cn);
 	}
 	else
 	{
-		DirectClient( CMD_REQ_SEARCH_RENK_LADDER_FAIL, server_id, cn, NULL, 0 );
+		DirectClient(CMD_REQ_SEARCH_RENK_LADDER_FAIL, server_id, cn, NULL, 0);
 	}
 }
 
-int isPosableGuildJoinById( int guild_code, char *id )
+int isPosableGuildJoinById(int guild_code, char *id)
 {	//< CSD-030326
 	int is_possible = 1;
 	char name[MAX_CHARACTEROFID][NM_LENGTH];					// modify by taniey
@@ -2772,7 +2768,7 @@ int isPosableGuildJoinById( int guild_code, char *id )
 
 	if (GetCharacterNameInID(id, name) == 1)
 	{
-		for( int i=0; i<MAX_CHARACTEROFID; i++ )  // modify by taniey
+		for (int i = 0; i < MAX_CHARACTEROFID; i++)  // modify by taniey
 		{
 			if (name[i][0])
 			{
@@ -2780,7 +2776,7 @@ int isPosableGuildJoinById( int guild_code, char *id )
 
 				if (GetGuildCode(name[i], nGuildCode))
 				{
-				
+
 					if (nGuildCode > 0 && nGuildCode != guild_code) // 다른 길드에 들어 있으면
 					{
 						return 0;
@@ -2793,95 +2789,95 @@ int isPosableGuildJoinById( int guild_code, char *id )
 	return 1;
 }	//> CSD-030326
 
-int isPosableGuildJoinByName( int guild_code, char *name )
+int isPosableGuildJoinByName(int guild_code, char *name)
 {
 	char id[20];
-	int ret = GetLoginIdByName( name, id );
-	if( ret != 1 ) return -1;
-	
-	return isPosableGuildJoinById( guild_code, id );
+	int ret = GetLoginIdByName(name, id);
+	if (ret != 1) return -1;
+
+	return isPosableGuildJoinById(guild_code, id);
 }
 
-void RecvRegistGuild_DB( t_packet *p, short int cn )//预备公会申请
+void RecvRegistGuild_DB(t_packet *p, short int cn)//预备公会申请
 {
-	short int server_id	= p->u.kein.regist_guild_imsi_db.server_id;
+	short int server_id = p->u.kein.regist_guild_imsi_db.server_id;
 	char *master = p->u.kein.regist_guild_imsi_db.guild_ma;  //申请人名称
 	char *guild_name = p->u.kein.regist_guild_imsi_db.guild_name;//申请公会的名称
 	int nation = p->u.kein.regist_guild_imsi_db.nation;
-	int code, ret;	
+	int code, ret;
 	k_set_guild_info guild_info;
 	t_packet packet;
-	
+
 	char fail_type = 0;
 	int nRowCount = 0;
 	char conditon[512];
-	
-////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
-	strcpy(s1,master  );	//申请人名称
-	strcpy(s2,guild_name  );  //申请公会的名称
+
+	////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
+	strcpy(s1, master);	//申请人名称
+	strcpy(s2, guild_name);  //申请公会的名称
 //gets(pMailSend->szSender);
-len1 = (int)strlen(s1);
-len2 = (int)strlen(s2);
+	len1 = (int)strlen(s1);
+	len2 = (int)strlen(s2);
 
-str="发现SQL漏洞攻击!非法内容:[%s],  预备公会申请名称:[%s],	申请人:[%s]";
+	str = "发现SQL漏洞攻击!非法内容:[%s],  预备公会申请名称:[%s],	申请人:[%s]";
 
-for(i = 0; i < len1; i++)		//申请人名称
-{
-	if(s1[i]==39 || s1[i]=='-')
+	for (i = 0; i < len1; i++)		//申请人名称
 	{
-		if(i==0)
+		if (s1[i] == 39 || s1[i] == '-')
 		{
-		sprintf(SQLerror,str,master,guild_name,master);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, master, guild_name, master);
+				HackLog(0, SQLerror);
+			}
+			master[i] = 32;
 		}
-	master[i] = 32;
 	}
-} 
 
-for(i = 0; i < len2; i++)		//申请公会的名称
-{
-	if(s2[i]==39 || s2[i]=='-')
+	for (i = 0; i < len2; i++)		//申请公会的名称
 	{
-		if(i==0)
+		if (s2[i] == 39 || s2[i] == '-')
 		{
-		sprintf(SQLerror,str,guild_name,guild_name,master);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, guild_name, guild_name, master);
+				HackLog(0, SQLerror);
+			}
+			guild_name[i] = 32;
 		}
-	guild_name[i] = 32;
 	}
-} 
 
- /*   if(pMailSend->szSender == '小手冰凉')
-	{
-		pMailSend->szSender = '小手冰凉';
-	}*/
+	//if(pMailSend->szSender == '小手冰凉')
+	//{
+	//	pMailSend->szSender = '小手冰凉';
+	//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+
 	// 다른 길드에 들어 있는지를 체크
-	if( !isPosableGuildJoinByName( 0, master ) ) 
+	if (!isPosableGuildJoinByName(0, master))
 	{
 		// 길드 마스터가 다른 캐릭으로 길드에 가입해 있는 경우
 		fail_type = 1;
 		goto is_fail_;
 	}
-	ret = GetEmptyGuildCode( code );
-	if( ret != 1 ) 
+	ret = GetEmptyGuildCode(code);
+	if (ret != 1)
 	{
 		fail_type = 2;		// 길드가 꽉 찼을 경우
 		goto is_fail_;
 	}
-	
-	sprintf( conditon, "name = '%s'", guild_name);
-	ret = GetRowLineOfSQL( "guild_list", "name", &nRowCount, conditon );
-	if( nRowCount > 0 )
+
+	sprintf(conditon, "name = '%s'", guild_name);
+	ret = GetRowLineOfSQL("guild_list", "name", &nRowCount, conditon);
+	if (nRowCount > 0)
 	{
 		// 똑같은 이름의 길드가 존재한다.
 		fail_type = 4;			// db 저장에 실패했다.
 		goto is_fail_;
 	}
-	
-	ret = SaveGuildRegistImsi( code, &p->u.kein.regist_guild_imsi_db, &guild_info );
-	if( ret != 1 ) 
+
+	ret = SaveGuildRegistImsi(code, &p->u.kein.regist_guild_imsi_db, &guild_info);
+	if (ret != 1)
 	{
 		fail_type = 3;			// db 저장에 실패했다.
 		goto is_fail_;
@@ -2892,44 +2888,44 @@ for(i = 0; i < len2; i++)		//申请公会的名称
 		packet.h.header.type = CMD_REGIST_GUILD_IMSI_OK_ALL;
 		packet.u.kein.set_guild_info = guild_info;
 		//if( guild_info.guild_degree[0][0] )
-			packet.h.header.size = sizeof( k_set_guild_info );
+		packet.h.header.size = sizeof(k_set_guild_info);
 		//else
 		//	packet.h.header.size = sizeof( k_set_guild_info ) - 100;// char degree[5][20];
-		
-		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-		
+
+		g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
 		// 그 캐릭터에게 성공 사실을 알린다.
 		packet.h.header.type = CMD_REGIST_GUILD_IMSI_OK;
 		packet.u.kein.regist_guild_imsi_ok.server_id = server_id;
 		packet.u.kein.regist_guild_imsi_ok.guild_code = code;
-		packet.h.header.size = sizeof( k_regist_guild_imsi_ok );
-		QueuePacket( connections, cn, &packet, 1 );
+		packet.h.header.size = sizeof(k_regist_guild_imsi_ok);
+		QueuePacket(connections, cn, &packet, 1);
 		// 길드 멤버 테이블에 마스터를 저장시킨다.
-		ChangeGuildMemberList( master, code, 1 );
-		SaveGuildLog( code, 0, 1, master, guild_name );		// 021008 YGI
+		ChangeGuildMemberList(master, code, 1);
+		SaveGuildLog(code, 0, 1, master, guild_name);		// 021008 YGI
 		return;
 	}
-	
-is_fail_ :
+
+is_fail_:
 	// 실패 전송 
-	DirectClient( CMD_REGIST_GUILD_IMSI_FAIL, server_id, cn, &fail_type, 1 );
-	SaveGuildLog( code, 0, 1, master, guild_name );		// 021008 YGI
+	DirectClient(CMD_REGIST_GUILD_IMSI_FAIL, server_id, cn, &fail_type, 1);
+	SaveGuildLog(code, 0, 1, master, guild_name);		// 021008 YGI
 	return;
-	
+
 }
 
-void RecvReqGuildExplain( t_packet *p, short int cn )
+void RecvReqGuildExplain(t_packet *p, short int cn)
 {
 	short int guild_code;
-	memcpy( &guild_code, p->u.kein.send_db_direct_map.data, sizeof( short int ) );
+	memcpy(&guild_code, p->u.kein.send_db_direct_map.data, sizeof(short int));
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	
+
 	int len = 0;
 	k_guild_explain guild_info;
 	guild_info.guild_code = guild_code;
-	if( GetGuildExplain( guild_code, len, guild_info.explain ) == 1 )
+	if (GetGuildExplain(guild_code, len, guild_info.explain) == 1)
 	{
-		DirectClient( CMD_REQ_GUILD_EXPLAIN, server_id, cn, &guild_info, 2+len );
+		DirectClient(CMD_REQ_GUILD_EXPLAIN, server_id, cn, &guild_info, 2 + len);
 	}
 }
 
@@ -2944,102 +2940,102 @@ int CGuildMarkImage::InitData()
 }
 int CGuildMarkImage::FreeData()
 {
-	if( data ) delete [] data;
+	if (data) delete[] data;
 	InitData();
 	return 1;
 }
 
-int CGuildMarkImage::Setting(DWORD size, int xl, int yl )
+int CGuildMarkImage::Setting(DWORD size, int xl, int yl)
 {
 	FreeData();		// 이미 할당된적이 있으면 지우고 다시 할당.
-	
-	total_size = size+sizeof(k_image_header);
+
+	total_size = size + sizeof(k_image_header);
 	data = new char[total_size];		// 실제 이미지에 헤더까지 할당한다.
 	k_image_header *img_header;
 	img_header = (k_image_header *)data;
 	img_header->size = size;
 	img_header->xl = xl;
 	img_header->yl = yl;
-	
+
 	return 1;
 }
 
-int CGuildMarkImage::SaveImage( int subCount, char *img, int size )
+int CGuildMarkImage::SaveImage(int subCount, char *img, int size)
 {
-	if( !data ) return 0;		//초기 세팅을 안한 상태이다.
-	
+	if (!data) return 0;		//초기 세팅을 안한 상태이다.
+
 	k_image_header *img_header;
 	img_header = (k_image_header *)data;
-	
-	int headerSize = sizeof( k_image_header );
-	int start_point = (subCount-1)*IMAGE_UNIT_SIZE+headerSize;
-	if( start_point+size > total_size ) return 0;
-	
-	char *real_data = data+start_point ;
-	memcpy( real_data, img, size );
-	
+
+	int headerSize = sizeof(k_image_header);
+	int start_point = (subCount - 1)*IMAGE_UNIT_SIZE + headerSize;
+	if (start_point + size > total_size) return 0;
+
+	char *real_data = data + start_point;
+	memcpy(real_data, img, size);
+
 	return 1;
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void RecvRegistGuildMark( t_packet *p, short int cn )  //coromo 工会图标显示
+void RecvRegistGuildMark(t_packet *p, short int cn)  //coromo 工会图标显示
 //void orgRecvRegistGuildMark( t_packet *p, short int cn )
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_regist_guild_mark	*pRegistGuildMark;
 	pRegistGuildMark = (k_regist_guild_mark *)p->u.kein.send_db_direct_map.data;
 	short int guildCode = pRegistGuildMark->guild_code;
-	
-	if (guildCode < 0) 
+
+	if (guildCode < 0)
 	{	//< CSD-030324
 		return;
 	}	//> CSD-030324
-	
-	if( pRegistGuildMark->sub_count == 1 )	// 맨처음 받은것이므로 데이타를 세팅한다.
+
+	if (pRegistGuildMark->sub_count == 1)	// 맨처음 받은것이므로 데이타를 세팅한다.
 	{
-		if( pRegistGuildMark->size<= 0 || pRegistGuildMark->size > 1000000 ) 
+		if (pRegistGuildMark->size <= 0 || pRegistGuildMark->size > 1000000)
 		{
 			g_GuildMarkImage[guildCode].faile = 1;
 			return;// 1M 이상일 경우
 		}
-		g_GuildMarkImage[guildCode].Setting( 
-			pRegistGuildMark->size, pRegistGuildMark->xl, pRegistGuildMark->yl );
+		g_GuildMarkImage[guildCode].Setting(
+			pRegistGuildMark->size, pRegistGuildMark->xl, pRegistGuildMark->yl);
 	}
 	else
 	{
 		// 전에 실패 했을 경우
-		if( g_GuildMarkImage[guildCode].faile ) return;
+		if (g_GuildMarkImage[guildCode].faile) return;
 	}
-	
+
 	int sub_size;
-	if( pRegistGuildMark->sub_count == pRegistGuildMark->total )
+	if (pRegistGuildMark->sub_count == pRegistGuildMark->total)
 	{
 		sub_size = pRegistGuildMark->size % IMAGE_UNIT_SIZE;
 	}
 	else sub_size = IMAGE_UNIT_SIZE;
-	
+
 	// 이미지를 저장하고
-	if( g_GuildMarkImage[guildCode].SaveImage( 
-		pRegistGuildMark->sub_count, 
-		pRegistGuildMark->img, 
-		sub_size ) != 1 )
+	if (g_GuildMarkImage[guildCode].SaveImage(
+		pRegistGuildMark->sub_count,
+		pRegistGuildMark->img,
+		sub_size) != 1)
 	{
 		g_GuildMarkImage[guildCode].faile = true;
 		return;
 	}
-	
+
 	// 이미지를 모두 받았다면 디비서버에 저장한다.
-	if( pRegistGuildMark->sub_count == pRegistGuildMark->total && !g_GuildMarkImage[guildCode].faile )
+	if (pRegistGuildMark->sub_count == pRegistGuildMark->total && !g_GuildMarkImage[guildCode].faile)
 		// 실패가 없었을땐 DB에 저장한다.
 	{
-		int ret = UpdateGuildMark( guildCode, pRegistGuildMark->size+sizeof( k_image_header ), 
-			(UCHAR *)g_GuildMarkImage[guildCode].data );
-		
+		int ret = UpdateGuildMark(guildCode, pRegistGuildMark->size + sizeof(k_image_header),
+			(UCHAR *)g_GuildMarkImage[guildCode].data);
+
 		BYTE number;
-		if( ret == 1 ) 
+		if (ret == 1)
 		{
-			ret = IncreaseNumberOfGuildList( guildCode, 0, number );		// 이미지 번호를 증가시켜준다.
-			if( ret == 1 )
+			ret = IncreaseNumberOfGuildList(guildCode, 0, number);		// 이미지 번호를 증가시켜준다.
+			if (ret == 1)
 			{
 				// 이미지 번호 증가 사실을 모든 맵 서버에게 알려준다.
 				t_packet packet;
@@ -3047,444 +3043,447 @@ void RecvRegistGuildMark( t_packet *p, short int cn )  //coromo 工会图标显�
 				packet.u.kein.set_guild_number_info.type = 0;		// 이미지 번호
 				packet.u.kein.set_guild_number_info.number = number;
 				packet.u.kein.set_guild_number_info.guild_code = guildCode;
-				packet.h.header.size = sizeof( k_set_guild_number_info );
-				
-				g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-				
-				DirectClient( CMD_REFRESH_GUILD_CODE, server_id, cn, &guildCode, sizeof( short int ) );
+				packet.h.header.size = sizeof(k_set_guild_number_info);
+
+				g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
+				DirectClient(CMD_REFRESH_GUILD_CODE, server_id, cn, &guildCode, sizeof(short int));
 			}
 		}
 		g_GuildMarkImage[guildCode].FreeData();
 	}
 }
 
-void SendGuildImage( t_packet *p, short int cn )
+void SendGuildImage(t_packet *p, short int cn)
 {
 	int guildCode = p->u.kein.regist_guild_imsi_ok.guild_code;
 	int serverId = p->u.kein.regist_guild_imsi_ok.server_id;
-	
+
 	char *image;
-	
-	int size = GetGuildImageSize( guildCode );
-	if( size <= 0 ) return;
-	
+
+	int size = GetGuildImageSize(guildCode);
+	if (size <= 0) return;
+
 	int mark_num;
 	image = new char[size];
-	int ret = GetGuildMarkImage( guildCode, image, size, mark_num );
-	if( ret != 1 )
+	int ret = GetGuildMarkImage(guildCode, image, size, mark_num);
+	if (ret != 1)
 	{
-		delete [] image;
+		delete[] image;
 		return;
 	}
-	
+
 	int total = size / IMAGE_UNIT_SIZE + 1;
-	
+
 	k_guild_image guildImage;
-	
+
 	guildImage.guild_code = guildCode;
 	guildImage.total = total;
 	guildImage.mark_num = mark_num;
-	
+
 	int subSize;
-	for( int i=1; i<=total; i++ )
+	for (int i = 1; i <= total; i++)
 	{
-		if( i== total ) subSize = size % IMAGE_UNIT_SIZE;
+		if (i == total) subSize = size % IMAGE_UNIT_SIZE;
 		else subSize = IMAGE_UNIT_SIZE;
-		
+
 		guildImage.sub_count = i;
-		memcpy( guildImage.img, (image+IMAGE_UNIT_SIZE*(i-1)), subSize );
-		int packetSize = sizeof( k_guild_image)-IMAGE_UNIT_SIZE+subSize;
-		DirectClient( CMD_GUILD_MARK_IMAGE, serverId, cn, &guildImage, packetSize );
+		memcpy(guildImage.img, (image + IMAGE_UNIT_SIZE*(i - 1)), subSize);
+		int packetSize = sizeof(k_guild_image) - IMAGE_UNIT_SIZE + subSize;
+		DirectClient(CMD_GUILD_MARK_IMAGE, serverId, cn, &guildImage, packetSize);
 	}
 	//YGI 020523
-	delete [] image;
+	delete[] image;
 }
 
 // 정식 길드 등록
-void RecvRegistGuild( t_packet *p, short int cn )
+void RecvRegistGuild(t_packet *p, short int cn)
 {	//< CSD-030324
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_guild_regist* pGuildRegist = (k_guild_regist*)p->u.kein.send_db_direct_map.data;
 	int guildCode = pGuildRegist->guild_code;
-	
-	int	cCount = 0;	
-	GetRowLineOfSQL( "guild_list", "*", &cCount, NULL );
-	if( cCount <= 0 )
+
+	int	cCount = 0;
+	GetRowLineOfSQL("guild_list", "*", &cCount, NULL);
+	if (cCount <= 0)
 	{
 		return;
 	}
-	
+
 	vector<int> vtGuild;
 	vtGuild.reserve(cCount);
-	
+
 	int ret = DeleteImsiGuild(vtGuild.data(), cCount);	// 20일 지난 임시 길드를 찾는다.
-	if( ret == 1 )
+	if (ret == 1)
 	{
-		if( cCount )
+		if (cCount)
 		{
 			t_packet packet;
-			for( int i=0; i<cCount; i++ )
+			for (int i = 0; i < cCount; i++)
 			{
 				// 021118 YGI
 				packet.u.kein.guild_instroduction_basic.guild_code = vtGuild[i];
 				packet.u.kein.guild_instroduction_basic.guild_name[0] = 0;
-				RecvChangeDeleteGuild( &packet );				
+				RecvChangeDeleteGuild(&packet);
 			}
 		}
 	}
 	//////////////////////////////////////////////////////////////////////
-	
-	const int nCount = CheckGuildMemberForRegistGuild( guildCode );		// 그 길드원에 속해 있는 캐릭터가 몇명이냐?
-	
+
+	const int nCount = CheckGuildMemberForRegistGuild(guildCode);		// 그 길드원에 속해 있는 캐릭터가 몇명이냐?
+
 	if (nCount < MIN_GUILD_COUNT)
 	{	//< CSD-030320 : 정식 길드가 되기 위한 인원을 10명이상으로 변경
 		// 길드원 수가 부족하다.
-		SaveGuildLog( guildCode, 1, -1 );		// 021008 YGI
+		SaveGuildLog(guildCode, 1, -1);		// 021008 YGI
 		return;
 	}	//> CSD-030320
-	
+
 	int info_num;
-	ret = SaveGuildRegist( pGuildRegist, info_num );
-	if( ret != 1 ) 
+	ret = SaveGuildRegist(pGuildRegist, info_num);
+	if (ret != 1)
 	{
-		SaveGuildLog( guildCode, 1, -2 );		// 021008 YGI
+		SaveGuildLog(guildCode, 1, -2);		// 021008 YGI
 		return;
 	}
 	else
 	{
-		SaveGuildLog( guildCode, 1, 1 );		// 021008 YGI
+		SaveGuildLog(guildCode, 1, 1);		// 021008 YGI
 	}
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_GUILD_DEGREE_INFO;
 	packet.u.kein.guild_degree_info.guild_code = guildCode;
 	packet.u.kein.guild_degree_info.info_num = info_num;
-	memcpy( packet.u.kein.guild_degree_info.guild_degree, pGuildRegist->guild_degree, sizeof( char)*5*20 );
-	packet.h.header.size = sizeof( k_guild_degree_info );
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-	
-	DirectClient( CMD_REFRESH_GUILD_CODE, server_id, cn, &guildCode, sizeof( short int ) );
+	memcpy(packet.u.kein.guild_degree_info.guild_degree, pGuildRegist->guild_degree, sizeof(char) * 5 * 20);
+	packet.h.header.size = sizeof(k_guild_degree_info);
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
+	DirectClient(CMD_REFRESH_GUILD_CODE, server_id, cn, &guildCode, sizeof(short int));
 }	//> CSD-030324
 
-void RecvChangeGuildDegree( t_packet *p, short int cn )
+void RecvChangeGuildDegree(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_guild_change_degree *pGuildRegist;
 	pGuildRegist = (k_guild_change_degree *)p->u.kein.send_db_direct_map.data;
-	
+
 	int guildCode = pGuildRegist->guild_code;
 	int info_num;
-	int ret = SaveChangeGuildDegree( pGuildRegist, info_num );
-	if( ret != 1 ) return;
-	
+	int ret = SaveChangeGuildDegree(pGuildRegist, info_num);
+	if (ret != 1) return;
+
 	t_packet packet;
 	packet.h.header.type = CMD_GUILD_DEGREE_INFO2;
 	packet.u.kein.guild_degree_info.guild_code = guildCode;
 	packet.u.kein.guild_degree_info.info_num = info_num;
-	memcpy( packet.u.kein.guild_degree_info.guild_degree, pGuildRegist->guild_degree, sizeof( char)*5*20 );
-	packet.h.header.size = sizeof( k_guild_degree_info );
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	memcpy(packet.u.kein.guild_degree_info.guild_degree, pGuildRegist->guild_degree, sizeof(char) * 5 * 20);
+	packet.h.header.size = sizeof(k_guild_degree_info);
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
-void RecvSaveGuildMemberList( t_packet *p )
+void RecvSaveGuildMemberList(t_packet *p)
 {
 	int guild_code = p->u.kein.save_guild_member_list.guild_code;
 	int old_guild_code = p->u.kein.save_guild_member_list.old_guild_code;
 	int degree = p->u.kein.save_guild_member_list.degree;
 	char *name = p->u.kein.save_guild_member_list.name;
-	
-	ChangeGuildMemberList( name, guild_code, degree );
-	if( !guild_code )
+
+	ChangeGuildMemberList(name, guild_code, degree);
+	if (!guild_code)
 	{
 		// 혹시 부 길마 이면 guild_list 도 수정시켜준다.
 		char master[20];
 		char submaster[20];
-		int ret = GetGuildMasterAndsubMaster( old_guild_code, master, submaster);
-		if( ret == 1 )
+		int ret = GetGuildMasterAndsubMaster(old_guild_code, master, submaster);
+		if (ret == 1)
 		{
-			if( strcmp( name, submaster ) == 0 )
+			if (strcmp(name, submaster) == 0)
 			{
 				char querry[1024];
-				sprintf( querry, "UPDATE guild_list SET sub_master = NULL WHERE code = %d", old_guild_code );
-				Querry_SQL( querry );
+				sprintf(querry, "UPDATE guild_list SET sub_master = NULL WHERE code = %d", old_guild_code);
+				Querry_SQL(querry);
 			}
 		}
-	}	
+	}
 }
 
-void RecvUpdateGuildMailId( t_packet *p )
+void RecvUpdateGuildMailId(t_packet *p)
 {
 	DWORD mail_id = p->u.kein.guild_mail_id.guild_mail_id;
 	char *name = p->u.kein.guild_mail_id.name;
-	
-	UpdateGuildMailId( name, mail_id );
+
+	UpdateGuildMailId(name, mail_id);
 }
 
-void RecvGuildMasterAndSubMaster( t_packet *p, short int cn )
+void RecvGuildMasterAndSubMaster(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_req_guild_master_and_sub_master *guild_info;
 	guild_info = (k_req_guild_master_and_sub_master *)p->u.kein.send_db_direct_map.data;
-	
+
 	int guild_code = guild_info->guild_code;
 	int type = guild_info->type;
-	
-	if	(guild_code < 0) 
+
+	if (guild_code < 0)
 	{	//< CSD-030324
 		return;
 	}	//> CSD-030324
-	
-	k_req_guild_master_and_sub_master data ={0,};
+
+	k_req_guild_master_and_sub_master data = { 0, };
 	data.type = type;
 	data.guild_code = guild_code;
-	
-	int ret = GetGuildMasterAndsubMaster( guild_code, data.name1, data.name2 );
-	if( ret != 1 ) return;
-	
-	switch( type )
+
+	int ret = GetGuildMasterAndsubMaster(guild_code, data.name1, data.name2);
+	if (ret != 1) return;
+
+	switch (type)
 	{
-	case 2 : strcpy( data.name1, data.name2 );  // 서브 길마만
-	case 1 : DirectClient(						// 길마만
-				 CMD_GUILD_MASTER_AND_SUBMASTER, 
-				 server_id, 
-				 cn,
-				 &data, 
-				 sizeof( k_req_guild_master_and_sub_master )- 40 + strlen( data.name1 ) );
+	case 2:
+		strcpy(data.name1, data.name2);  // 서브 길마만
+	case 1:
+		DirectClient(						// 길마만
+			CMD_GUILD_MASTER_AND_SUBMASTER,
+			server_id,
+			cn,
+			&data,
+			sizeof(k_req_guild_master_and_sub_master) - 40 + strlen(data.name1));
 		break;
-	case 3 : DirectClient(						// 둘다
-				 CMD_GUILD_MASTER_AND_SUBMASTER, 
-				 server_id, 
-				 cn,
-				 &data, 
-				 sizeof( k_req_guild_master_and_sub_master ) - 20+ strlen( data.name2 ) );
+	case 3:
+		DirectClient(						// 둘다
+			CMD_GUILD_MASTER_AND_SUBMASTER,
+			server_id,
+			cn,
+			&data,
+			sizeof(k_req_guild_master_and_sub_master) - 20 + strlen(data.name2));
 		break;
 	}
 }
 
-void RecvRegistGuildCheck( t_packet *p, short int cn )
+void RecvRegistGuildCheck(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	int nGuildCode = *((short int*)p->u.kein.send_db_direct_map.data);
-	
-	const int nCount = CheckGuildMemberForRegistGuild( nGuildCode );		// 그 길드원에 속해 있는 캐릭터가 몇명이냐?
-	
+
+	const int nCount = CheckGuildMemberForRegistGuild(nGuildCode);		// 그 길드원에 속해 있는 캐릭터가 몇명이냐?
+
 	if (nCount >= MIN_GUILD_COUNT)
 	{	//< CSD-030320 : 정식 길드가 되기 위한 인원을 10명이상으로 변경
-		DirectClient( CMD_REGIST_GUILD_CHECK_OK, server_id, cn, NULL, 0 );
+		DirectClient(CMD_REGIST_GUILD_CHECK_OK, server_id, cn, NULL, 0);
 	}	//> CSD-030320
-	else 
+	else
 	{
-		char ret = nCount/(-100);
-		if( ret )
+		char ret = nCount / (-100);
+		if (ret)
 		{
-			DirectClient( CMD_REGIST_GUILD_CHECK_FAIL, server_id, cn, &ret, sizeof( char ) );
+			DirectClient(CMD_REGIST_GUILD_CHECK_FAIL, server_id, cn, &ret, sizeof(char));
 		}
 		else
 		{
 			char data[2];
 			data[0] = 5;
 			data[1] = nCount;
-			DirectClient( CMD_REGIST_GUILD_CHECK_FAIL, server_id, cn, data, sizeof( char )*2 );
+			DirectClient(CMD_REGIST_GUILD_CHECK_FAIL, server_id, cn, data, sizeof(char) * 2);
 		}
 	}
 }
 
-void RecvCheckSubMaster( t_packet *p, short int cn )//副会长
+void RecvCheckSubMaster(t_packet *p, short int cn)//副会长
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_check_sub_master *check_info = (k_check_sub_master *)p->u.kein.send_db_direct_map.data;
 	k_char_data_basic2 data;
 	char result = 0;
-	
-////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
-	strcpy(s1,check_info->name  );	//公会名称
+
+	////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
+	strcpy(s1, check_info->name);	//公会名称
 //gets(pMailSend->szSender);
-len1 = (int)strlen(s1);
+	len1 = (int)strlen(s1);
 
-str="发现SQL漏洞攻击!非法内容:[%s],  公会副会长名称:[%s]";
+	str = "发现SQL漏洞攻击!非法内容:[%s],  公会副会长名称:[%s]";
 
-for(i = 0; i < len1; i++)		//公会名称
-{
-	if(s1[i]==39 || s1[i]=='-')
+	for (i = 0; i < len1; i++)		//公会名称
 	{
-		if(i==0)
+		if (s1[i] == 39 || s1[i] == '-')
 		{
-		sprintf(SQLerror,str,check_info->name,check_info->name);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, check_info->name, check_info->name);
+				HackLog(0, SQLerror);
+			}
+			check_info->name[i] = 32;
 		}
-	check_info->name[i] = 32;
 	}
-} 
 
- /*   if(pMailSend->szSender == '小手冰凉')
-	{
-		pMailSend->szSender = '小手冰凉';
-	}*/
+	//if(pMailSend->szSender == '小手冰凉')
+	//{
+	//	pMailSend->szSender = '小手冰凉';
+	//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	char conditon[128];
-	sprintf( conditon, "guild_code = %d AND name = '%s'", check_info->guild_code, check_info->name );
-	int nRowCount =0;
-	int ret = GetRowLineOfSQL( "guild_member_list", "*", &nRowCount, conditon );
-	if( nRowCount <= 0 ) 
+	sprintf(conditon, "guild_code = %d AND name = '%s'", check_info->guild_code, check_info->name);
+	int nRowCount = 0;
+	int ret = GetRowLineOfSQL("guild_member_list", "*", &nRowCount, conditon);
+	if (nRowCount <= 0)
 	{
 		result = 1;			// 같은 길드원 사람이 아니다.
 		goto fail_;
 	}
-	
-	GetDataBasic2ByName( &data, check_info->name );
-	if( data.lv < 30 )
+
+	GetDataBasic2ByName(&data, check_info->name);
+	if (data.lv < 30)
 	{
 		result = 1;			// 부길마 레벨이 너무 낮다.
 		goto fail_;
 	}
-	DirectClient( CMD_CHECK_SUB_MASTER_OK, server_id, cn, check_info->name, strlen( check_info->name ) );
+	DirectClient(CMD_CHECK_SUB_MASTER_OK, server_id, cn, check_info->name, strlen(check_info->name));
 	return;
-	
-fail_ : 
-	DirectClient( CMD_CHECK_SUB_MASTER_FAIL, server_id, cn, &result, sizeof( char ) );
+
+fail_:
+	DirectClient(CMD_CHECK_SUB_MASTER_FAIL, server_id, cn, &result, sizeof(char));
 	return;
 }
 
 // 021008 YGI
-void RecvChangeDeleteGuild( t_packet *p )
+void RecvChangeDeleteGuild(t_packet *p)
 {
 	// 패킷 구조를 수정하게 되면 길드 등록하는 부분도 체크해봐야 한다. 
 	// 정식 길드 등록하는 부분에 임시 길드 지우는 부분이 있고 여기서 이 함수를 호출한다.!!!
 	int guild_code = p->u.kein.guild_instroduction_basic.guild_code;
 	char *name = p->u.kein.guild_instroduction_basic.guild_name;		// 지운 놈
-	int ret = DeleteGuild( guild_code );
-	if( ret == 1 )
+	int ret = DeleteGuild(guild_code);
+	if (ret == 1)
 	{
 		// 길드 멤버 테이블에서 지워준다.
-		DeleteGuildMemberList( guild_code );
-		
+		DeleteGuildMemberList(guild_code);
+
 		// 엠포리아가 있다면 지워준다.
 		char querry[512];
-		sprintf( querry, "UPDATE guild_house SET guild_code = 0 WHERE guild_code = %d", guild_code );
-		Querry_SQL( querry );
-		
+		sprintf(querry, "UPDATE guild_house SET guild_code = 0 WHERE guild_code = %d", guild_code);
+		Querry_SQL(querry);
+
 		// 021128 YGI------------
 		// 길드 메일을 지워준다.
-		sprintf(querry, "DELETE guild_mail WHERE guild_code = %d ", guild_code );
-		Querry_SQL( querry );
-		
+		sprintf(querry, "DELETE guild_mail WHERE guild_code = %d ", guild_code);
+		Querry_SQL(querry);
+
 		// 길드 아이템을 지운다.
-		sprintf(querry, "DELETE guild_item WHERE guild_code = %d ", guild_code );
-		Querry_SQL( querry );
+		sprintf(querry, "DELETE guild_item WHERE guild_code = %d ", guild_code);
+		Querry_SQL(querry);
 		//--------------------------
-		
+
 		t_packet packet;
 		packet.h.header.type = CMD_DELETE_GUILD_OK;
 		packet.u.kein.default_short_int = guild_code;
-		packet.h.header.size = sizeof( short int );
-		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-		
-		if( name[0] )	// 정식 길드 삭제
-			SaveGuildLog2( guild_code, 1, name );	// 길드 삭제시 로그로 남긴다.		// 021008 YGI
+		packet.h.header.size = sizeof(short int);
+		g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
+		if (name[0])	// 정식 길드 삭제
+			SaveGuildLog2(guild_code, 1, name);	// 길드 삭제시 로그로 남긴다.		// 021008 YGI
 		else			// 시간이 지난 임시 길드 삭제
-			SaveGuildLog2( guild_code, 0, NULL);
-	}	
+			SaveGuildLog2(guild_code, 0, NULL);
+	}
 }
 
-void RecvChangeColor( t_packet *p )
+void RecvChangeColor(t_packet *p)
 {
 	int type = p->u.kein.change_color_db.type;
-	int r= p->u.kein.change_color_db.r;
-	int g= p->u.kein.change_color_db.g;
-	int b= p->u.kein.change_color_db.b;
+	int r = p->u.kein.change_color_db.r;
+	int g = p->u.kein.change_color_db.g;
+	int b = p->u.kein.change_color_db.b;
 	char *name = p->u.kein.change_color_db.name;
-	
+
 	char querry[512];
-	if( type )
-		sprintf( querry, "update chr_info set bodyr = %d, bodyg = %d, bodyb=%d where name = '%s'"
-		, r, g, b, name );
-	else 
-		sprintf( querry, "update chr_info set clothr = %d, clothg = %d, clothb=%d where name = '%s'"
-		, r, g, b, name );
-	
-	Querry_SQL( querry );
+	if (type)
+		sprintf(querry, "update chr_info set bodyr = %d, bodyg = %d, bodyb=%d where name = '%s'"
+			, r, g, b, name);
+	else
+		sprintf(querry, "update chr_info set clothr = %d, clothg = %d, clothb=%d where name = '%s'"
+			, r, g, b, name);
+
+	Querry_SQL(querry);
 }
 
 // 020826 YGI
-void CheckSalvationName( t_packet *p, short int cn )
+void CheckSalvationName(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	char *name = (char *)p->u.kein.send_db_direct_map.data;
-	
-	int ret = CheckSalvationNameBasic2( name );	// 기부 가능 하는가?
+
+	int ret = CheckSalvationNameBasic2(name);	// 기부 가능 하는가?
 	char result = 1;
-	if( ret == 1 )
+	if (ret == 1)
 	{
 		result = 0;		// 기부 가능
 	}
-	DirectClient( CMD_CHECK_SALVATION_NAME, server_id, cn, &result, sizeof( char ) );
+	DirectClient(CMD_CHECK_SALVATION_NAME, server_id, cn, &result, sizeof(char));
 }
 
 // 020826 YGI
-int CheckSalvationNameBasic( char *name )
+int CheckSalvationNameBasic(char *name)
 {
 	int nRowCount = 0;
 	char condition[256];
-	sprintf( condition, "name = '%s'", name );
-	GetRowLineOfSQL( "salvation_name", "name", &nRowCount, condition );
-	return nRowCount?1:0;
+	sprintf(condition, "name = '%s'", name);
+	GetRowLineOfSQL("salvation_name", "name", &nRowCount, condition);
+	return nRowCount ? 1 : 0;
 }
 
 
-extern int SetEventItemEmpty( CHARLIST *ch,  const int iIndex, ItemAttr &GiveItem );
+extern int SetEventItemEmpty(CHARLIST *ch, const int iIndex, ItemAttr &GiveItem);
 
-int PutEventItem( const int turn, t_connection *c )
+int PutEventItem(const int turn, t_connection *c)
 {	//< CSD-040120
 	CHARLIST *ch = &c->chrlst;
 
 	if (ch == NULL)
 	{
-		MyLog(0,"PutEventItem Error : ch is NULL turn: %d - by soto",turn);//soto-cn031205
+		MyLog(0, "PutEventItem Error : ch is NULL turn: %d - by soto", turn);//soto-cn031205
 		return 0;
 	}
 
-	if (!LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG))
+	if (!LocalMgr.IsAbleNation(TAIWAN | CHINA | HONGKONG))
 	{
 		return 0;
 	}
-	
+
 	const int MAX_EVENT_USER_FILED = 10;
-	int iIndex[MAX_EVENT_USER_FILED] ={0,};	
-	::GetEventItemNumber( iIndex, c->id );
-	
+	int iIndex[MAX_EVENT_USER_FILED] = { 0, };
+	::GetEventItemNumber(iIndex, c->id);
+
 	k_item_log log_data;
 	log_data.lv = 1;
 	log_data.type = -1;
 	log_data.port = g_pServerTable->GetOwnServerData()->wPort;
-	strcpy( log_data.name1, "DB_DEMON" );
-	strcpy( log_data.name2, ch->Name );
-	
-	for(int ct = 0 ; MAX_EVENT_USER_FILED > ct; ct++)
+	strcpy(log_data.name1, "DB_DEMON");
+	strcpy(log_data.name2, ch->Name);
+
+	for (int ct = 0; MAX_EVENT_USER_FILED > ct; ct++)
 	{
-		if( iIndex[ct] )
+		if (iIndex[ct])
 		{
-			ItemAttr give_item = {0,};
-			int reset = SetEventItemEmpty( ch, iIndex[ct], give_item );
+			ItemAttr give_item = { 0, };
+			int reset = SetEventItemEmpty(ch, iIndex[ct], give_item);
 			//<soto-cn031205
-			if( turn == 2 && reset )//turn 이 2면 지우라는 이야기
+			if (turn == 2 && reset)//turn 이 2면 지우라는 이야기
 			{
 				//event%n 이니까 +1을 해준다
-				if(DeleteEventItemNumber( c->id, ct+1 ))
+				if (DeleteEventItemNumber(c->id, ct + 1))
 				{
 					log_data.item = give_item;
-					SaveItemLog( &log_data );
+					SaveItemLog(&log_data);
 				}
 				else
 				{
-					MyLog(0,"DeleteEventItemNumber Faild. - by soto");
+					MyLog(0, "DeleteEventItemNumber Faild. - by soto");
 				}
-				
+
 			}
 			else
 			{
-				if(!reset)
+				if (!reset)
 				{
-					MyLog(0,"SetEventItemEmpt() Faild!! - by soto");
+					MyLog(0, "SetEventItemEmpt() Faild!! - by soto");
 				}
 			}
 			//>soto-cn031205
@@ -3498,17 +3497,17 @@ int PutEventItem( const int turn, t_connection *c )
 extern ItemAttr MakeEventItem(int nIndex);
 // 해당유저아뒤의 Event0 - 10필드를 확인해 아이템을 생성해준다
 // But 실제로 지급해주는것은 맵서버이다
-int PutEventItemByMapReq(const int iCn,t_packet &p)
+int PutEventItemByMapReq(const int iCn, t_packet &p)
 {
 
-	if (!LocalMgr.IsAbleNation(TAIWAN|CHINA|HONGKONG)) // 타국가에서 사용을 원하면 필히 수정할곳
+	if (!LocalMgr.IsAbleNation(TAIWAN | CHINA | HONGKONG)) // 타국가에서 사용을 원하면 필히 수정할곳
 	{
 		return 0;
 	}
 	const int MAX_EVENT_USER_FILED = 10;
-	int iIndex[MAX_EVENT_USER_FILED];	
+	int iIndex[MAX_EVENT_USER_FILED];
 	memset(iIndex, 0L, sizeof(iIndex));
-	::GetEventItemNumber( iIndex, p.u.Event_Item_List.szLoginID );
+	::GetEventItemNumber(iIndex, p.u.Event_Item_List.szLoginID);
 
 	memset(p.u.Event_Item_List.item, 0L, sizeof(ItemAttr) * 10);
 
@@ -3518,38 +3517,38 @@ int PutEventItemByMapReq(const int iCn,t_packet &p)
 	log_data.lv = 1;
 	log_data.type = -1;
 	log_data.port = g_pServerTable->GetOwnServerData()->wPort;
-	strcpy( log_data.name1, "DB_DEMON" );
-	strcpy( log_data.name2, p.u.Event_Item_List.szChrName );
-	
+	strcpy(log_data.name1, "DB_DEMON");
+	strcpy(log_data.name2, p.u.Event_Item_List.szChrName);
+
 	// 안전 제일 임시변수에 받아서 쓰자
-	for(int ct = 0 ; MAX_EVENT_USER_FILED > ct; ct++)
+	for (int ct = 0; MAX_EVENT_USER_FILED > ct; ct++)
 	{
 		memset(&item, 0L, sizeof(item));
 		item = MakeEventItem(iIndex[ct]);		// 만든 아이템을 바로 때려 넣자
-	
-		if(!item.item_no)	// 헉! 아이템 넘버가 없다
+
+		if (!item.item_no)	// 헉! 아이템 넘버가 없다
 		{
 			continue;
 		}
 
 		p.u.Event_Item_List.item[ct] = item;
-		
+
 		// 받았으니 지워주고 로그 남기자
-		if(DeleteEventItemNumber( p.u.Event_Item_List.szLoginID, ct+1 ))
+		if (DeleteEventItemNumber(p.u.Event_Item_List.szLoginID, ct + 1))
 		{
 			log_data.item = item;
-			SaveItemLog( &log_data );
+			SaveItemLog(&log_data);
 
 		}
 
 	}
-	
+
 
 	// 걍 온 패킷 그대로 보내주자
 	p.h.header.type = CMD_EVENTRAREITEM_RES;
 	p.h.header.size = sizeof(t_EVENT_RARE_ITEM_LIST);
 	memcpy(p.u.Event_Item_List.nIndex, iIndex, sizeof(iIndex));
-	::QueuePacket(connections,iCn,&p,1);
+	::QueuePacket(connections, iCn, &p, 1);
 
 	return 1;
 }
@@ -3561,411 +3560,411 @@ int GetServerSetNum()
 }
 
 
-void RecvGetNameOfGuildMemberList( t_packet *p, short int cn )
+void RecvGetNameOfGuildMemberList(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_get_guild_member_list_req *req_data = (k_get_guild_member_list_req *)p->u.kein.send_db_direct_map.data;
-	
+
 	k_get_guild_memeber_list data;
 	data.degree = req_data->degree;
-	int ret = GetCharOfGuildMemberList( req_data->guild_code, &data );
-	if( ret >= 0 )
+	int ret = GetCharOfGuildMemberList(req_data->guild_code, &data);
+	if (ret >= 0)
 	{
-		for( int i=0; i<data.count; i++ )
+		for (int i = 0; i < data.count; i++)
 		{
-			data.name[i].is_connect = IsConnectName( data.name[i].name );
+			data.name[i].is_connect = IsConnectName(data.name[i].name);
 		}
-		DirectClient( CMD_GET_NAME_GUILD_MEMBER_LIST,server_id, cn, &data, 2+sizeof(k_get_guild_memeber_list_name)*data.count );
+		DirectClient(CMD_GET_NAME_GUILD_MEMBER_LIST, server_id, cn, &data, 2 + sizeof(k_get_guild_memeber_list_name)*data.count);
 	}
 }
 
-void RecvGetGuildNotice( t_packet *p, short int cn )
+void RecvGetGuildNotice(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	int guild_code = *(( short int *)p->u.kein.send_db_direct_map.data);
-	
-	char text[1024] = {0, };
-	int ret = GetGuildNotice( guild_code, text );
-	if( ret == 1 ) 
-		DirectClient( CMD_GET_GUILD_NOTICE, server_id, cn, &text, strlen(text)+1 );
-	
+	int guild_code = *((short int *)p->u.kein.send_db_direct_map.data);
+
+	char text[1024] = { 0, };
+	int ret = GetGuildNotice(guild_code, text);
+	if (ret == 1)
+		DirectClient(CMD_GET_GUILD_NOTICE, server_id, cn, &text, strlen(text) + 1);
+
 }
 
-void RecvRegistGuildNotice( t_packet *p, short int cn )
+void RecvRegistGuildNotice(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	k_guild_notice *data = ( k_guild_notice *)p->u.kein.send_db_direct_map.data;
-	
+	k_guild_notice *data = (k_guild_notice *)p->u.kein.send_db_direct_map.data;
+
 	char szQuerry[2048];
-	sprintf( szQuerry, "UPDATE guild_list SET notice = '%s' WHERE code = %d", data->msg, data->guild_code );
-	Querry_SQL( szQuerry );
+	sprintf(szQuerry, "UPDATE guild_list SET notice = '%s' WHERE code = %d", data->msg, data->guild_code);
+	Querry_SQL(szQuerry);
 }
 
-void RecvRegistFriend( t_packet *p, short int cn )			//这里是增加好友的地方!
+void RecvRegistFriend(t_packet *p, short int cn)			//这里是增加好友的地方!
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_regist_friend *data = (k_regist_friend *)p->u.kein.send_db_direct_map.data;
-////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
-	strcpy(s1,data->name1 );	//申请人
-	strcpy(s2,data->name2 );	//被加人
+	////////////////////////////////////////////////////////////////////////////////////////截获非法字符	
+	strcpy(s1, data->name1);	//申请人
+	strcpy(s2, data->name2);	//被加人
 //gets(pMailSend->szSender);
-len1 = (int)strlen(s1);
-len2 = (int)strlen(s2);
+	len1 = (int)strlen(s1);
+	len2 = (int)strlen(s2);
 
-str="发现SQL漏洞攻击!非法内容:[%s],  加好友人:[%s], 被加好友人:[%s]";
+	str = "发现SQL漏洞攻击!非法内容:[%s],  加好友人:[%s], 被加好友人:[%s]";
 
-for(i = 0; i < len1; i++)		//主旨
-{
-	if(s1[i]==39 || s1[i]=='-')
+	for (i = 0; i < len1; i++)		//主旨
 	{
-		if(i==0)
+		if (s1[i] == 39 || s1[i] == '-')
 		{
-		sprintf(SQLerror,str,data->name2,data->name1,data->name2);
-		HackLog(4,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, data->name2, data->name1, data->name2);
+				HackLog(4, SQLerror);
+			}
+			data->name1[i] = 32;
 		}
-	data->name1[i] = 32;
 	}
-} 
 
-for(i = 0; i < len2; i++)		//内容
-{
-	if(s2[i]==39 || s2[i]=='-')
+	for (i = 0; i < len2; i++)		//内容
 	{
-		if(i==0)
+		if (s2[i] == 39 || s2[i] == '-')
 		{
-		sprintf(SQLerror,str,data->name2,data->name1,data->name2);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, data->name2, data->name1, data->name2);
+				HackLog(0, SQLerror);
+			}
+			data->name2[i] = 32;
 		}
-	data->name2[i] = 32;
 	}
-} 
 
- /*   if(pMailSend->szSender == '小手冰凉')
-	{
-		pMailSend->szSender = '小手冰凉';
-	}*/
+	//if(pMailSend->szSender == '小手冰凉')
+	//{
+	//	pMailSend->szSender = '小手冰凉';
+	//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	char result = 0;
 	DWORD name_status;
-	int ret = GetNationByName( data->name2, &name_status );		// 1018 YGI
-	if( !ret ) // 그런 사람 없다.
+	int ret = GetNationByName(data->name2, &name_status);		// 1018 YGI
+	if (!ret) // 그런 사람 없다.
 	{
 		result = 0;
-		DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
+		DirectClient(CMD_REGIST_FRIEND, server_id, cn, &result, 1);
 		return;
 	}
-	
+
 	CCharRank target;
-	memcpy( &target, &name_status, sizeof( DWORD ) );
-	
-	if( target.nation == data->nation )
+	memcpy(&target, &name_status, sizeof(DWORD));
+
+	if (target.nation == data->nation)
 	{
-		int ret = RegistFriend_SQL( data->name1, data->name2 );
-		if( ret == 100 )		// 더이상 등록 할 수 없다.
+		int ret = RegistFriend_SQL(data->name1, data->name2);
+		if (ret == 100)		// 더이상 등록 할 수 없다.
 		{
 			result = 1;
-			DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
+			DirectClient(CMD_REGIST_FRIEND, server_id, cn, &result, 1);
 			return;
 		}
-		else if( ret == 1 )
+		else if (ret == 1)
 		{
 			// 등록 성공.. 그 사람이 현재 연결 상태인지 확인한다.
-			RecvCheckFriend( server_id, cn, data->name2 );
+			RecvCheckFriend(server_id, cn, data->name2);
 		}
-		else if( ret == 200 )
+		else if (ret == 200)
 		{
 			result = 3;
-			DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
+			DirectClient(CMD_REGIST_FRIEND, server_id, cn, &result, 1);
 		}
 	}
 	else
 	{
 		// 나라가 다르다.
 		result = 2;
-		DirectClient( CMD_REGIST_FRIEND, server_id, cn, &result, 1 );
+		DirectClient(CMD_REGIST_FRIEND, server_id, cn, &result, 1);
 		return;
 	}
 }
 
-int RecvGetFriend( t_packet *p, short int cn )
+int RecvGetFriend(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	char *name= p->u.kein.send_db_direct_map.data;
-	
-	k_get_friend data = {0, };
-	
-	int ret = GetFriend_SQL( name, data.name );
-	if( ret == 1 )
+	char *name = p->u.kein.send_db_direct_map.data;
+
+	k_get_friend data = { 0, };
+
+	int ret = GetFriend_SQL(name, data.name);
+	if (ret == 1)
 	{
 		//DirectClient( CMD_GET_FRIEND, server_id, cn, &data, sizeof( k_get_friend ) );
-		for( int i=0; i<30; i++ )
+		for (int i = 0; i < 30; i++)
 		{
-			if( data.name[i][0] )
+			if (data.name[i][0])
 			{
-				RecvCheckFriend( server_id, cn, data.name[i] );
+				RecvCheckFriend(server_id, cn, data.name[i]);
 			}
 		}
 	}
 	return 1;
 }
 
-void RecvLogout( t_packet *p )
+void RecvLogout(t_packet *p)
 {
 	char *name = p->u.data;
 	char szQuerry[256];
-	sprintf( szQuerry, "DELETE login_name WHERE name = '%s'", name );
-	Querry_SQL( szQuerry );
+	sprintf(szQuerry, "DELETE login_name WHERE name = '%s'", name);
+	Querry_SQL(szQuerry);
 }
 
-bool IsConnectName( char *name )		// 캐릭명으로 접속해 있는지 알아 보는 함수
+bool IsConnectName(char *name)		// 캐릭명으로 접속해 있는지 알아 보는 함수
 {
 	char querry[256];
 	int nRowCount = 0;
-	sprintf( querry, "name = '%s'", name );
-	GetRowLineOfSQL( "login_name", "name", &nRowCount, querry );
-	return (nRowCount == 0) ? false:true;
+	sprintf(querry, "name = '%s'", name);
+	GetRowLineOfSQL("login_name", "name", &nRowCount, querry);
+	return (nRowCount == 0) ? false : true;
 }
 
-void RecvCheckFriend( int server_id, int cn, char *name )
+void RecvCheckFriend(int server_id, int cn, char *name)
 {
 	k_add_friend add_friend;
-	add_friend.login = (char)IsConnectName( name );
-	strcpy( add_friend.name, name );
-	DirectClient( CMD_ADD_FRIEND, server_id, cn, &add_friend, strlen(name)+2 );
+	add_friend.login = (char)IsConnectName(name);
+	strcpy(add_friend.name, name);
+	DirectClient(CMD_ADD_FRIEND, server_id, cn, &add_friend, strlen(name) + 2);
 }
 
-void DeleteFriend( t_packet *p, short int cn )
+void DeleteFriend(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	k_delete_friend *names= (k_delete_friend *)p->u.kein.send_db_direct_map.data;
-	
-	k_get_friend data = {0, };
-	
-	int ret = GetFriend_SQL( names->name1, data.name );
-	if( ret == 1 )
+	k_delete_friend *names = (k_delete_friend *)p->u.kein.send_db_direct_map.data;
+
+	k_get_friend data = { 0, };
+
+	int ret = GetFriend_SQL(names->name1, data.name);
+	if (ret == 1)
 	{
-		for( int i=0; i<30; i++ )
+		for (int i = 0; i < 30; i++)
 		{
-			if( data.name[i][0] )
+			if (data.name[i][0])
 			{
-				if( strcmp( data.name[i], names->name2 ) == 0 )
+				if (strcmp(data.name[i], names->name2) == 0)
 				{
 					char szQuerry[256];
-					sprintf( szQuerry, "UPDATE friend_list SET friend%d = NULL WHERE name = '%s'", i+1, names->name1 );
-					Querry_SQL( szQuerry );
+					sprintf(szQuerry, "UPDATE friend_list SET friend%d = NULL WHERE name = '%s'", i + 1, names->name1);
+					Querry_SQL(szQuerry);
 					return;
 				}
 			}
 		}
-		DirectClient( CMD_DELETE_FRIEND, server_id, cn, NULL, 0 );
+		DirectClient(CMD_DELETE_FRIEND, server_id, cn, NULL, 0);
 	}
 }
 
 
-void RecvCheckGuildName( t_packet *p, short int cn )
+void RecvCheckGuildName(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	char *name= p->u.kein.send_db_direct_map.data;
-	
+	char *name = p->u.kein.send_db_direct_map.data;
+
 	int nRowCount = 0;
 	char conditon[256];
-////////////////////////////////////截获非法字符////////////////////////////////////////////////////	
-	strcpy(s1,name  );	//公会名称
+	////////////////////////////////////截获非法字符////////////////////////////////////////////////////	
+	strcpy(s1, name);	//公会名称
 //gets(pMailSend->szSender);
-len1 = (int)strlen(s1);
+	len1 = (int)strlen(s1);
 
-str="发现SQL漏洞攻击!非法内容:[%s],  公会申请名称:[%s]";
+	str = "发现SQL漏洞攻击!非法内容:[%s],  公会申请名称:[%s]";
 
 
-for(i = 0; i < len1; i++)		//公会名称
-{
-	if(s1[i]==39 || s1[i]=='-')
+	for (i = 0; i < len1; i++)		//公会名称
 	{
-		if(i==0)
+		if (s1[i] == 39 || s1[i] == '-')
 		{
-		sprintf(SQLerror,str,name,name);
-		HackLog(0,SQLerror);
+			if (i == 0)
+			{
+				sprintf(SQLerror, str, name, name);
+				HackLog(0, SQLerror);
+			}
+			name[i] = 32;
 		}
-	name[i] = 32;
 	}
-} 
 
- /*   if(pMailSend->szSender == '小手冰凉')
-	{
-		pMailSend->szSender = '小手冰凉';
-	}*/
+	//if(pMailSend->szSender == '小手冰凉')
+	//{
+	//	pMailSend->szSender = '小手冰凉';
+	//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	sprintf( conditon, "name = '%s'", name);
-	int ret = GetRowLineOfSQL( "guild_list", "name", &nRowCount, conditon );
-	if( nRowCount > 0 )
+
+	sprintf(conditon, "name = '%s'", name);
+	int ret = GetRowLineOfSQL("guild_list", "name", &nRowCount, conditon);
+	if (nRowCount > 0)
 	{
 		// 존재한다.
-		DirectClient( CMD_THEREIS_CHARANAME, server_id, cn, NULL, 0 );
+		DirectClient(CMD_THEREIS_CHARANAME, server_id, cn, NULL, 0);
 	}
 	else
 	{
 		//  존재하지 않는다.
-		DirectClient( CMD_THEREIS_NO_CHARANAME, server_id, cn, NULL, 0 );		
+		DirectClient(CMD_THEREIS_NO_CHARANAME, server_id, cn, NULL, 0);
 	}
 }
 
-void RecvCheckGuildOthercharacter( t_packet *p, short int cn )
+void RecvCheckGuildOthercharacter(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	char *name= p->u.kein.send_db_direct_map.data;
-	
-	if( !isPosableGuildJoinByName( 0, name ) )
+	char *name = p->u.kein.send_db_direct_map.data;
+
+	if (!isPosableGuildJoinByName(0, name))
 	{
-		DirectClient( CMD_THEREIS_CHARANAME, server_id, cn, NULL, 0 );
+		DirectClient(CMD_THEREIS_CHARANAME, server_id, cn, NULL, 0);
 	}
 	else
 	{
-		DirectClient( CMD_THEREIS_NO_CHARANAME, server_id, cn, NULL, 0 );		
+		DirectClient(CMD_THEREIS_NO_CHARANAME, server_id, cn, NULL, 0);
 	}
 }
 
-void RecvAddEventItem( t_packet *p, short int cn )
+void RecvAddEventItem(t_packet *p, short int cn)
 {
 	char *name = p->u.kein.save_event_item.name;
 	int item_no = p->u.kein.save_event_item.item_no;
 	int count = p->u.kein.save_event_item.count;
-	
-	SaveEventItem( name, item_no, count );
+
+	SaveEventItem(name, item_no, count);
 }
 
 // 초기 해당 길드 아이템의 인덱값만 보내준다.
-void RecvGetGuildItemFirst( t_packet *p, short int cn )
+void RecvGetGuildItemFirst(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	short int *pGuildCode = ( short int *)p->u.kein.send_db_direct_map.data;
-	
+	short int *pGuildCode = (short int *)p->u.kein.send_db_direct_map.data;
+
 	k_get_guild_item_first data;
 	int max = 0;
-	
-	int ret = GetGuildItemIndexAndCount( *pGuildCode, max, data.item_index );
-	if( ret == 1 )
+
+	int ret = GetGuildItemIndexAndCount(*pGuildCode, max, data.item_index);
+	if (ret == 1)
 	{
 		data.max = max;
-		DirectClient( CMD_GET_GUILD_ITEM_FIRST, server_id, cn, &data, 
-			sizeof( k_get_guild_item_first )-sizeof( int )*200+sizeof( int )*max );		
+		DirectClient(CMD_GET_GUILD_ITEM_FIRST, server_id, cn, &data,
+			sizeof(k_get_guild_item_first) - sizeof(int) * 200 + sizeof(int)*max);
 	}
 }
 
-void RecvGetGuildItemCount( t_packet *p, short int cn )
+void RecvGetGuildItemCount(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	short int *pGuildCode = ( short int *)p->u.kein.send_db_direct_map.data;
-	
+	short int *pGuildCode = (short int *)p->u.kein.send_db_direct_map.data;
+
 	char condition[256];
 	int RowCount = 0;
-	sprintf( condition, "guild_code = %d", *pGuildCode );
-	GetRowLineOfSQL( "guild_item", "cn", &RowCount, condition );
-	if( RowCount >= 0 )
+	sprintf(condition, "guild_code = %d", *pGuildCode);
+	GetRowLineOfSQL("guild_item", "cn", &RowCount, condition);
+	if (RowCount >= 0)
 	{
-		if( RowCount>150 ) RowCount = 150;
+		if (RowCount > 150) RowCount = 150;
 		BYTE data = (BYTE)RowCount;
-		DirectClient( CMD_GET_GUILD_ITEM_COUNT, server_id, cn, &data, sizeof( BYTE ));
+		DirectClient(CMD_GET_GUILD_ITEM_COUNT, server_id, cn, &data, sizeof(BYTE));
 	}
 }
 
 // 특정 인텍스 값에서 해당 길드 아이템의 다음 10개의 아이템을 보내준다.
-void RecvGetGuildItem( t_packet *p, short int cn )
+void RecvGetGuildItem(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	k_req_guild_item *pGuildItem= ( k_req_guild_item * )p->u.kein.send_db_direct_map.data;
-	
+	k_req_guild_item *pGuildItem = (k_req_guild_item *)p->u.kein.send_db_direct_map.data;
+
 	int count;
 	k_get_guild_item data;
-	int ret = GetGuildItem( pGuildItem->guild_code, pGuildItem->index, data.item, count, data.index );
-	if( ret == 1 ) 
+	int ret = GetGuildItem(pGuildItem->guild_code, pGuildItem->index, data.item, count, data.index);
+	if (ret == 1)
 	{
-		if( count )
+		if (count)
 		{
 			data.count = count;
-			DirectClient( CMD_GET_GUILD_ITEM, server_id, cn, &data, sizeof( k_get_guild_item ) );
+			DirectClient(CMD_GET_GUILD_ITEM, server_id, cn, &data, sizeof(k_get_guild_item));
 		}
 	}
 }
 
 // 아이템 저장
-void RecvPutGuildItem( t_packet *p )
+void RecvPutGuildItem(t_packet *p)
 {
 	ItemAttr *pItem = &p->u.kein.put_guild_item.item;
 	char *name = p->u.kein.put_guild_item.name;
 	int guild_code = p->u.kein.put_guild_item.guild_code;
-	if( !pItem->item_no ) return;
-	if( !guild_code ) return;
-	
-	InsertGuildItem( guild_code, pItem, name );
+	if (!pItem->item_no) return;
+	if (!guild_code) return;
+
+	InsertGuildItem(guild_code, pItem, name);
 }
 
-void RecvGetGuildItemMap( t_packet *p, short int cn )
+void RecvGetGuildItemMap(t_packet *p, short int cn)
 {
 	int guild_code = p->u.kein.get_guild_item_map.guild_code;
-	DWORD index =  p->u.kein.get_guild_item_map.index;
+	DWORD index = p->u.kein.get_guild_item_map.index;
 	int server_id = p->u.kein.get_guild_item_map.server_id;
 	int ret;
 	t_packet packet;
-	
-	if( !guild_code ) return;
+
+	if (!guild_code) return;
 	DWORD box_money = 0;
-	GetGuildItemPay( guild_code, box_money );
-	if( box_money ) return;		// 세금이 남아 있어서 사용하지 못한다.
-	
+	GetGuildItemPay(guild_code, box_money);
+	if (box_money) return;		// 세금이 남아 있어서 사용하지 못한다.
+
 	ItemAttr item;
-	ret = GetGuildItemOne( guild_code, index, &item );
-	if( ret == 1 )
-	{	
+	ret = GetGuildItemOne(guild_code, index, &item);
+	if (ret == 1)
+	{
 		packet.h.header.type = CMD_GET_GUILD_ITEM_MAP;
 		packet.u.kein.get_guild_item_db.server_id = server_id;
 		packet.u.kein.get_guild_item_db.item = item;
-		packet.h.header.size = sizeof( k_get_guild_item_db);
-		QueuePacket( connections, cn, &packet, 1 );
-		return ;
+		packet.h.header.size = sizeof(k_get_guild_item_db);
+		QueuePacket(connections, cn, &packet, 1);
+		return;
 	}
-	
-	SendPutMenuString( cn, KM_FAIL, 133, server_id );
+
+	SendPutMenuString(cn, KM_FAIL, 133, server_id);
 }
 
-void SendPutMenuString( short int game_server_id, int type, int str_num, int user_id ) 
+void SendPutMenuString(short int game_server_id, int type, int str_num, int user_id)
 {
 	k_put_menu_string put_menu_string;
-	
+
 	put_menu_string.type = type;
 	put_menu_string.str_num = str_num;
-	
-	DirectClient( CMD_PUT_MENU_STRING, user_id, game_server_id, &put_menu_string, sizeof( k_put_menu_string ) );
+
+	DirectClient(CMD_PUT_MENU_STRING, user_id, game_server_id, &put_menu_string, sizeof(k_put_menu_string));
 }
 
-DWORD CheckGuildItemPay( short int guild_code )
+DWORD CheckGuildItemPay(short int guild_code)
 {
 	DWORD box_money = 0;
-	GetGuildItemPay( guild_code, box_money );
-	if( box_money == 0 ) return 1;
-	int ret = DeleteGuildBoxMoney( box_money, guild_code );
-	if( ret )
+	GetGuildItemPay(guild_code, box_money);
+	if (box_money == 0) return 1;
+	int ret = DeleteGuildBoxMoney(box_money, guild_code);
+	if (ret)
 	{
 		char szQuerry[1024];
-		sprintf( szQuerry, "UPDATE guild_list SET box_money = %u WHERE code = %d ",box_money, guild_code );
-		Querry_SQL( szQuerry );
+		sprintf(szQuerry, "UPDATE guild_list SET box_money = %u WHERE code = %d ", box_money, guild_code);
+		Querry_SQL(szQuerry);
 	}
 	return box_money;
 }
 
-int DeleteGuildBoxMoney( DWORD &box_money, short int guild_code )
+int DeleteGuildBoxMoney(DWORD &box_money, short int guild_code)
 {
 	int item_no = GetMoneyItemNumber();
 	ItemAttr item;
 	char name[20];
-	int ret = GetGuildItemOne( guild_code, item_no, &item, name );
-	if( ret == 1 )
+	int ret = GetGuildItemOne(guild_code, item_no, &item, name);
+	if (ret == 1)
 	{
-		if( box_money >= item.attr[IATTR_MUCH] )
+		if (box_money >= item.attr[IATTR_MUCH])
 		{
 			box_money -= item.attr[IATTR_MUCH];
-			DeleteGuildBoxMoney( box_money, guild_code );
+			DeleteGuildBoxMoney(box_money, guild_code);
 			return 1;
 		}
 		else
@@ -3973,60 +3972,60 @@ int DeleteGuildBoxMoney( DWORD &box_money, short int guild_code )
 			item.attr[IATTR_MUCH] -= box_money;
 			box_money = 0;
 			// 남은 아이템을 저장한다.
-			InsertGuildItem( guild_code, &item, name );
+			InsertGuildItem(guild_code, &item, name);
 			return 1;
 		}
 	}
 	return 0;
 }
 
-void RecvGetGuildBoxMoney( t_packet *p, short int cn )
+void RecvGetGuildBoxMoney(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	short int *pGuildCode = ( short int *)p->u.kein.send_db_direct_map.data;
-	
+	short int *pGuildCode = (short int *)p->u.kein.send_db_direct_map.data;
+
 	DWORD box_money = 0;
-	int ret = GetGuildItemPay( *pGuildCode, box_money );
-	if( ret == 1 )
+	int ret = GetGuildItemPay(*pGuildCode, box_money);
+	if (ret == 1)
 	{
-		DirectClient( CMD_GET_GUILD_BOX_MONEY, server_id, cn, &box_money, sizeof( DWORD ) );
+		DirectClient(CMD_GET_GUILD_BOX_MONEY, server_id, cn, &box_money, sizeof(DWORD));
 	}
 }
 
-void RecvCheckGuildBoxMoney( t_packet *p, short int cn )
+void RecvCheckGuildBoxMoney(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	short int *pGuildCode = ( short int *)p->u.kein.send_db_direct_map.data;
-	
-	DWORD box_money = CheckGuildItemPay( *pGuildCode );
-	
-	DirectClient( CMD_GET_GUILD_BOX_MONEY, server_id, cn, &box_money, sizeof( DWORD ) );	
+	short int *pGuildCode = (short int *)p->u.kein.send_db_direct_map.data;
+
+	DWORD box_money = CheckGuildItemPay(*pGuildCode);
+
+	DirectClient(CMD_GET_GUILD_BOX_MONEY, server_id, cn, &box_money, sizeof(DWORD));
 }
 
 void RecvUpdateGuildBoxMoney()
 {	//< CSD-030324
 	int RowCount = 0;
 	char condition[255];
-	
+
 	int last_code;
-	if( GetLastGuildCode(last_code) != 1 ) return;
+	if (GetLastGuildCode(last_code) != 1) return;
 	int active, ret;
-	for( int i=0; i<last_code; i++ )
+	for (int i = 0; i < last_code; i++)
 	{
 		active = 0;
-		RowCount =0;
-		GetActiveByGuildList( i, active );
-		if( active )
+		RowCount = 0;
+		GetActiveByGuildList(i, active);
+		if (active)
 		{
-			sprintf( condition, "guild_code = %d", i );
-			ret = GetRowLineOfSQL( "guild_item", "cn", &RowCount, condition );
-			if( RowCount > 0 )
+			sprintf(condition, "guild_code = %d", i);
+			ret = GetRowLineOfSQL("guild_item", "cn", &RowCount, condition);
+			if (RowCount > 0)
 			{
-				if( RowCount > 150 ) RowCount = 150;
-				sprintf( condition, "Update guild_list set box_money = box_money+%d where code = %d", 
-					RowCount*1000, i );		// 보관료 = 총보관 아이템 * 150;
-				Querry_SQL( condition );
-				CheckGuildItemPay( i );		// 보관료 정산
+				if (RowCount > 150) RowCount = 150;
+				sprintf(condition, "Update guild_list set box_money = box_money+%d where code = %d",
+					RowCount * 1000, i);		// 보관료 = 총보관 아이템 * 150;
+				Querry_SQL(condition);
+				CheckGuildItemPay(i);		// 보관료 정산
 			}
 		}
 	}
@@ -4034,236 +4033,236 @@ void RecvUpdateGuildBoxMoney()
 
 int GetMoneyItemNumber()
 {
-	return (LocalMgr.IsChangeMoney())?10123:10030;//021007 lsw
+	return (LocalMgr.IsChangeMoney()) ? 10123 : 10030;//021007 lsw
 }
 
-void RecvChangeGuildMaster( t_packet *p, short int cn )
+void RecvChangeGuildMaster(t_packet *p, short int cn)
 {
 	// 맵을 통해서 온다.
 	short int guild_code = p->u.kein.default_short_int;
 	if (guild_code <= 0) return;
-	
+
 	char master[20];
 	char submaster[20];
-	int ret = GetGuildMasterAndsubMaster( guild_code, master, submaster);
-	if( ret != 1 ) return;
-	if( !master[0] || !submaster[0] ) return;		// 서브 길마가 없다.
-	
+	int ret = GetGuildMasterAndsubMaster(guild_code, master, submaster);
+	if (ret != 1) return;
+	if (!master[0] || !submaster[0]) return;		// 서브 길마가 없다.
+
 	// 길드 마스터의 guild_degree 값을 바꾼다.
 	DWORD data;
 	CCharRank name_status1;	// master 의
 	CCharRank name_status2; // subMaster 의
-	
-	ret = GetNationByName( master, &data );
-	if( !ret ) return;
-	memcpy( &name_status1, &data, sizeof( DWORD ) );
-	
-	ret = GetNationByName( submaster, &data );
-	if( !ret ) return;
-	memcpy( &name_status2, &data, sizeof( DWORD ) );
-	
-	name_status1.guild_master= 0;
-	name_status2.guild_master= 1;
-	
-	memcpy( &data, &name_status1, sizeof( DWORD ) );
-	SetNationByName( data, master );
-	
-	memcpy( &data, &name_status2, sizeof( DWORD ) );
-	SetNationByName( data, submaster );
-	
+
+	ret = GetNationByName(master, &data);
+	if (!ret) return;
+	memcpy(&name_status1, &data, sizeof(DWORD));
+
+	ret = GetNationByName(submaster, &data);
+	if (!ret) return;
+	memcpy(&name_status2, &data, sizeof(DWORD));
+
+	name_status1.guild_master = 0;
+	name_status2.guild_master = 1;
+
+	memcpy(&data, &name_status1, sizeof(DWORD));
+	SetNationByName(data, master);
+
+	memcpy(&data, &name_status2, sizeof(DWORD));
+	SetNationByName(data, submaster);
+
 	// guild_member_list 를 교체한다.
-	ChangeGuildMemberList( master, guild_code, name_status1.guild_master );
-	ChangeGuildMemberList( submaster, guild_code, name_status2.guild_master );
-	
+	ChangeGuildMemberList(master, guild_code, name_status1.guild_master);
+	ChangeGuildMemberList(submaster, guild_code, name_status2.guild_master);
+
 	// guild_list 를 수정한다.
 	char querry[1024];
-	sprintf( querry, "UPDATE guild_list SET master = '%s', sub_master = NULL WHERE code = %d", 
-		submaster, guild_code );
-	Querry_SQL( querry );
-	
+	sprintf(querry, "UPDATE guild_list SET master = '%s', sub_master = NULL WHERE code = %d",
+		submaster, guild_code);
+	Querry_SQL(querry);
+
 	// 전체 맵서버에 sub master 의 이름을 보내준다.
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_CHANGE_GUILD_MASTER_ALL_MAP;
-	packet.h.header.size = strlen( submaster )+1;
-	strcpy( packet.u.kein.default_name, submaster );
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	packet.h.header.size = strlen(submaster) + 1;
+	strcpy(packet.u.kein.default_name, submaster);
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
 
-void RecvChangeGuildMasterBySubMaster( t_packet *p, short int cn )
+void RecvChangeGuildMasterBySubMaster(t_packet *p, short int cn)
 {
 	// 클라이언트에서 직접온다.
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	k_guild_notice *info= (k_guild_notice *)p->u.kein.send_db_direct_map.data;
+	k_guild_notice *info = (k_guild_notice *)p->u.kein.send_db_direct_map.data;
 	char *sub_master = info->msg;
 	short int guild_code = info->guild_code;
-	if( !guild_code ) return;
-	
+	if (!guild_code) return;
+
 	char master[20];
 	char submaster[20];
-	int ret = GetGuildMasterAndsubMaster( guild_code, master, submaster);
-	if( ret != 1 ) return;
-	if( !master[0] || !submaster[0] ) return;		// 서브 길마가 없다.
-	if( strcmp( sub_master, submaster ) != 0 ) return;	// 부길마 정보가 틀리다.
-	
+	int ret = GetGuildMasterAndsubMaster(guild_code, master, submaster);
+	if (ret != 1) return;
+	if (!master[0] || !submaster[0]) return;		// 서브 길마가 없다.
+	if (strcmp(sub_master, submaster) != 0) return;	// 부길마 정보가 틀리다.
+
 	// 날자를 체크한다. 안되면 메시지를 보내준다.
-	ret = CheckGuildMasterLastConnect( guild_code );		// null 일경우 10일 전으로 세팅한다.
-	if( ret != 1 )		// 교체가 불가능하다.
+	ret = CheckGuildMasterLastConnect(guild_code);		// null 일경우 10일 전으로 세팅한다.
+	if (ret != 1)		// 교체가 불가능하다.
 	{
-		switch( ret )
+		switch (ret)
 		{
 		case 2:		// 5일 후에 다시 시도하세요
-			SendPutMenuString( cn, KM_FAIL, 140, server_id );
+			SendPutMenuString(cn, KM_FAIL, 140, server_id);
 			break;
 		case 3:		// 길드 마스터가 15일 이전으로 접속한적이 있습니다.
-			SendPutMenuString( cn, KM_FAIL, 141, server_id );
+			SendPutMenuString(cn, KM_FAIL, 141, server_id);
 			break;
 		}
 		return;
 	}
-	
+
 	// 변경 시작
 	// 길드 마스터의 guild_degree 값을 바꾼다.
 	DWORD data;
 	CCharRank name_status1;	// master 의
 	CCharRank name_status2; // subMaster 의
-	
-	ret = GetNationByName( master, &data );
-	if( !ret ) return;
-	memcpy( &name_status1, &data, sizeof( DWORD ) );
-	
-	ret = GetNationByName( submaster, &data );
-	if( !ret ) return;
-	memcpy( &name_status2, &data, sizeof( DWORD ) );
-	
-	name_status1.guild_master= 0;
-	name_status2.guild_master= 1;
-	
-	memcpy( &data, &name_status1, sizeof( DWORD ) );
-	SetNationByName( data, master );
-	
-	memcpy( &data, &name_status2, sizeof( DWORD ) );
-	SetNationByName( data, submaster );
-	
+
+	ret = GetNationByName(master, &data);
+	if (!ret) return;
+	memcpy(&name_status1, &data, sizeof(DWORD));
+
+	ret = GetNationByName(submaster, &data);
+	if (!ret) return;
+	memcpy(&name_status2, &data, sizeof(DWORD));
+
+	name_status1.guild_master = 0;
+	name_status2.guild_master = 1;
+
+	memcpy(&data, &name_status1, sizeof(DWORD));
+	SetNationByName(data, master);
+
+	memcpy(&data, &name_status2, sizeof(DWORD));
+	SetNationByName(data, submaster);
+
 	// guild_member_list 를 교체한다.
-	ChangeGuildMemberList( master, guild_code, name_status1.guild_master );
-	ChangeGuildMemberList( submaster, guild_code, name_status2.guild_master );
-	
+	ChangeGuildMemberList(master, guild_code, name_status1.guild_master);
+	ChangeGuildMemberList(submaster, guild_code, name_status2.guild_master);
+
 	// guild_list 를 수정한다.
 	char querry[1024];
-	sprintf( querry, "UPDATE guild_list SET master = '%s', sub_master = NULL WHERE code = %d", 
-		submaster, guild_code );
-	Querry_SQL( querry );
-	
+	sprintf(querry, "UPDATE guild_list SET master = '%s', sub_master = NULL WHERE code = %d",
+		submaster, guild_code);
+	Querry_SQL(querry);
+
 	// 전체 맵서버에 sub master 의 이름을 보내준다.
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_CHANGE_GUILD_MASTER_ALL_MAP;
-	packet.h.header.size = strlen( submaster )+1;
-	strcpy( packet.u.kein.default_name, submaster );
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
-	
+	packet.h.header.size = strlen(submaster) + 1;
+	strcpy(packet.u.kein.default_name, submaster);
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
+
 }
 
-void RecvRegistSubMaster( t_packet *p, short int cn )
+void RecvRegistSubMaster(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
-	k_guild_notice *info= (k_guild_notice *)p->u.kein.send_db_direct_map.data;
+	k_guild_notice *info = (k_guild_notice *)p->u.kein.send_db_direct_map.data;
 	char *submaster = info->msg;
 	short int guild_code = info->guild_code;
-	if( !guild_code ) return;
-	
+	if (!guild_code) return;
+
 	char querry[1024];
-	sprintf( querry, "UPDATE guild_list SET sub_master = '%s' WHERE code = %d", submaster, guild_code );
-	Querry_SQL( querry );
+	sprintf(querry, "UPDATE guild_list SET sub_master = '%s' WHERE code = %d", submaster, guild_code);
+	Querry_SQL(querry);
 }
 
-void RecvGuildHouseInfo( t_packet *p, short int cn )
+void RecvGuildHouseInfo(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	int nation = *p->u.kein.send_db_direct_map.data;
-	
+
 	int count = 0;
 	k_guild_house_info	guild_house_info;
-	
-	int ret = GetGuildHouseInfo( &guild_house_info, count, nation );
-	if( ret == 1 )
+
+	int ret = GetGuildHouseInfo(&guild_house_info, count, nation);
+	if (ret == 1)
 	{
 		// 해당 정보를 보내준다.
-		int size = sizeof( k_guild_house_info_unit )*count+sizeof( char );
-		if( !size ) return;
-		
+		int size = sizeof(k_guild_house_info_unit)*count + sizeof(char);
+		if (!size) return;
+
 		guild_house_info.count = count;
-		
-		DirectClient( CMD_GUILD_HOUSE_INFO, server_id, cn, &guild_house_info, size );
+
+		DirectClient(CMD_GUILD_HOUSE_INFO, server_id, cn, &guild_house_info, size);
 	}
 }
 
-DWORD SendDb2AllMap( int type, void *msg, int size )
+DWORD SendDb2AllMap(int type, void *msg, int size)
 {
 	t_packet packet;
 	packet.h.header.type = type;
-	if( msg )
+	if (msg)
 	{
-		memcpy( packet.u.data, msg, size );
+		memcpy(packet.u.data, msg, size);
 	}
 	else size = 0;
 	packet.h.header.size = size;
-	return g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+	return g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 
-bool IsExitRecordOfDB( char *table, char *condition )		// 특정 테이블에 레코드가 존재 하는가?
+bool IsExitRecordOfDB(char *table, char *condition)		// 특정 테이블에 레코드가 존재 하는가?
 {
-	int nRowCount =0;
-	
-	GetRowLineOfSQL( table, "*", &nRowCount, condition );
-	return ( nRowCount > 0 )?true:false;
+	int nRowCount = 0;
+
+	GetRowLineOfSQL(table, "*", &nRowCount, condition);
+	return (nRowCount > 0) ? true : false;
 }
 
-void RecvChangeGuildHouseInfo( t_packet *p, short int cn )
+void RecvChangeGuildHouseInfo(t_packet *p, short int cn)
 {
 	k_change_guild_house_info *pData = (k_change_guild_house_info *)p->u.kein.data;
-	
-	char szQuerry [512];
-	if( pData->day_type == 1 )		// 신규
+
+	char szQuerry[512];
+	if (pData->day_type == 1)		// 신규
 	{
-		sprintf( szQuerry , "guild_code = %d", pData->guild_code );
-		if( IsExitRecordOfDB( "guild_house", szQuerry ) )
+		sprintf(szQuerry, "guild_code = %d", pData->guild_code);
+		if (IsExitRecordOfDB("guild_house", szQuerry))
 		{
 			// 가지고 있는 길드가 잇다.
-			SendDb2AllMap( CMD_RELOAD_GUILD_HOUSE );
-			return;			
-		}
-		sprintf(szQuerry, "UPDATE guild_house SET date = getdate()+30, guild_code = %d WHERE id = %d", 
-			pData->guild_code, pData->id  );
-	}
-	else if( pData->day_type == 2 )		// 연장
-	{
-		sprintf( szQuerry , "guild_code = %d AND id = %d ", pData->guild_code, pData->id );
-		if( !IsExitRecordOfDB( "guild_house", szQuerry ) )
-		{
-			// 연장을 할 수 없다.
-			SendDb2AllMap( CMD_RELOAD_GUILD_HOUSE );
+			SendDb2AllMap(CMD_RELOAD_GUILD_HOUSE);
 			return;
 		}
-		sprintf(szQuerry, "UPDATE guild_house SET date = date+30 WHERE id = %d", pData->id );
+		sprintf(szQuerry, "UPDATE guild_house SET date = getdate()+30, guild_code = %d WHERE id = %d",
+			pData->guild_code, pData->id);
+	}
+	else if (pData->day_type == 2)		// 연장
+	{
+		sprintf(szQuerry, "guild_code = %d AND id = %d ", pData->guild_code, pData->id);
+		if (!IsExitRecordOfDB("guild_house", szQuerry))
+		{
+			// 연장을 할 수 없다.
+			SendDb2AllMap(CMD_RELOAD_GUILD_HOUSE);
+			return;
+		}
+		sprintf(szQuerry, "UPDATE guild_house SET date = date+30 WHERE id = %d", pData->id);
 	}
 	else return;
-	
-	Querry_SQL( szQuerry );
-	
+
+	Querry_SQL(szQuerry);
+
 	t_packet packet;
 	k_change_guild_house_info_db2map *guild_house_info = &packet.u.kein.change_guild_house_info_db2map;
-	int ret = GetGuildHouseInfoById( guild_house_info, pData->id );
-	if( ret == 1)
+	int ret = GetGuildHouseInfoById(guild_house_info, pData->id);
+	if (ret == 1)
 	{
 		// 모든 맵에 보내주자		
 		packet.h.header.type = CMD_CHANGE_GUILDHOUSE_INFO;
 		guild_house_info->house_id = pData->id;
-		packet.h.header.size = sizeof( k_change_guild_house_info_db2map );
-		
-		g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+		packet.h.header.size = sizeof(k_change_guild_house_info_db2map);
+
+		g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 	}
 }
 
@@ -4272,255 +4271,255 @@ void RecvCheckGuildHouse()
 {
 	static int old_day = g_day;
 	//if( old_day == g_day )  return;
-	
+
 	old_day = g_day;
-	
+
 	t_packet packet;
-	
+
 	int count;
 	char *pHouseId = packet.u.kein.check_guild_house.pHouseId;
-	int ret = GetCheckGuildHouse( pHouseId, count );
-	if( ret == 1 )
+	int ret = GetCheckGuildHouse(pHouseId, count);
+	if (ret == 1)
 	{
-		if( count )
+		if (count)
 		{
 			packet.h.header.type = CMD_CHECK_GUILD_HOUSE;
 			packet.u.kein.check_guild_house.count = count;
-			packet.h.header.size = sizeof( k_check_guild_house)*count + sizeof( char );		
-			g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+			packet.h.header.size = sizeof(k_check_guild_house)*count + sizeof(char);
+			g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 		}
 		// 실제로 지워준다.
 		char querry[512];
-		sprintf( querry, "UPDATE guild_house SET guild_code = 0 WHERE getdate() > date" );
-		Querry_SQL( querry );
+		sprintf(querry, "UPDATE guild_house SET guild_code = 0 WHERE getdate() > date");
+		Querry_SQL(querry);
 	}
 }
 
 // 020826 YGI
 void RecvDeleteSalvation()
 {
-	int ret = Querry_SQL( "DELETE salvation_name WHERE date < getdate()-1" );
-	MyLog( 0, "Delete Salvation_name Qurry, result %d", ret );
+	int ret = Querry_SQL("DELETE salvation_name WHERE date < getdate()-1");
+	MyLog(0, "Delete Salvation_name Qurry, result %d", ret);
 }
 
 // 021008 YGI ---------------------------------------
-void SaveGuildLog( int guild_code, int type1, int type2, char *master, char *guild_name )	// type1 0:imsi_guild, 1:regular guild, type2 <0:falel, >0:success
+void SaveGuildLog(int guild_code, int type1, int type2, char *master, char *guild_name)	// type1 0:imsi_guild, 1:regular guild, type2 <0:falel, >0:success
 {
 	FILE *fp;
-	fp = fopen( "./logout/guild_log.txt", "at+" );
-	if( !fp ) 
+	fp = fopen("./logout/guild_log.txt", "at+");
+	if (!fp)
 	{
-		mkdir( "logout" );
-		fp = fopen( "./logout/guild_log.txt", "at+" );
-		if( !fp ) return;
+		mkdir("logout");
+		fp = fopen("./logout/guild_log.txt", "at+");
+		if (!fp) return;
 	}
-	
+
 	char type1_str[2][50] = { "TEMP", "REGULAR" };
 	char why[100];
-	strcpy( why, " " );
-	switch( type2 )
+	strcpy(why, " ");
+	switch (type2)
 	{
-	case -1 : 
-		strcpy( why, "Current guild_member count less than 10" );
+	case -1:
+		strcpy(why, "Current guild_member count less than 10");
 		break;
-	case -2 :
-		strcpy( why, "SQL-DB write error" );
+	case -2:
+		strcpy(why, "SQL-DB write error");
 		break;
-	case 1 : 
-		strcpy( why, "success" );
+	case 1:
+		strcpy(why, "success");
 		break;
 	case -100:
 		guild_code = 0;		// 아직 길드 코드를 할당받기 전이다.
-		strcpy( why, "master already have guild" );
+		strcpy(why, "master already have guild");
 		break;
 	case -200:
 		guild_code = 0;
-		strcpy( why, "don't make more guild ( guild count is 512 )" );
+		strcpy(why, "don't make more guild ( guild count is 512 )");
 		break;
 	case -300:
-		strcpy( why, "already exist same guild name" );
+		strcpy(why, "already exist same guild name");
 		break;
 	case -400:
-		strcpy( why, "SQL-DB write error" );
+		strcpy(why, "SQL-DB write error");
 		break;
 	}
-	
-	fprintf( fp, "###################################################################################################\n" );
-	fprintf( fp, "character name [%s] - guild_name [%s]\n", master?master:"UNKNOWN", guild_name?guild_name:"UNKNOWN" );
-	fprintf( fp, "<%d-%02d-%02d %02d:%02d:%02d> : [REGIST %s] guild_type:%s, guild_code:%d (%s)\n", 
-		g_year, g_mon+1, g_day, g_hour, g_min, g_sec, (type2<=0)?"fail":"success", type1_str[type1], guild_code, why );
+
+	fprintf(fp, "###################################################################################################\n");
+	fprintf(fp, "character name [%s] - guild_name [%s]\n", master ? master : "UNKNOWN", guild_name ? guild_name : "UNKNOWN");
+	fprintf(fp, "<%d-%02d-%02d %02d:%02d:%02d> : [REGIST %s] guild_type:%s, guild_code:%d (%s)\n",
+		g_year, g_mon + 1, g_day, g_hour, g_min, g_sec, (type2 <= 0) ? "fail" : "success", type1_str[type1], guild_code, why);
 	//fprintf( fp, "###################################################################################################\n" );		
-	
-	fclose( fp );
+
+	fclose(fp);
 }
 
-void SaveGuildLog2( int guild_code, int type, char *name )	// type - 0:시간이 지나서, 1:누군가 지울때
+void SaveGuildLog2(int guild_code, int type, char *name)	// type - 0:시간이 지나서, 1:누군가 지울때
 {
 	FILE *fp;
-	fp = fopen( "./logout/guild_log.txt", "at+" );
-	if( !fp ) 
+	fp = fopen("./logout/guild_log.txt", "at+");
+	if (!fp)
 	{
-		mkdir( "logout" );
-		fp = fopen( "./logout/guild_log.txt", "at+" );
-		if( !fp ) return;
+		mkdir("logout");
+		fp = fopen("./logout/guild_log.txt", "at+");
+		if (!fp) return;
 	}
-	
+
 	char why[1024];
-	if( type == 1 )
+	if (type == 1)
 	{
 		// 누군가 지웠다.
-		sprintf( why, "Delete by '%s'", name );
+		sprintf(why, "Delete by '%s'", name);
 	}
 	else
 	{
 		// 20일이 지나서 임시 길드는 사라졌다.
-		strcpy( why, "Delete because over 20 day " );
+		strcpy(why, "Delete because over 20 day ");
 	}
-	
-	fprintf( fp, "###################################################################################################\n" );
-	fprintf( fp, "[GUILD DELETE]\n" );
-	fprintf( fp, "<%d-%02d-%02d %02d:%02d:%02d> type:%s, guild_code:%d \n", 
-		g_year, g_mon+1, g_day, g_hour, g_min, g_sec, why, guild_code );
+
+	fprintf(fp, "###################################################################################################\n");
+	fprintf(fp, "[GUILD DELETE]\n");
+	fprintf(fp, "<%d-%02d-%02d %02d:%02d:%02d> type:%s, guild_code:%d \n",
+		g_year, g_mon + 1, g_day, g_hour, g_min, g_sec, why, guild_code);
 	//fprintf( fp, "###################################################################################################\n" );		
-	fclose( fp );
+	fclose(fp);
 }
 //---------------------------------------------
 
 
 //021030 YGI
-void RecvSaveAmountEventNpcItem( t_packet *p )
+void RecvSaveAmountEventNpcItem(t_packet *p)
 {
 	int *data = (int *)p->u.data;
 	int event_no = data[0];
 	int amount = data[1];
-	
+
 	char query[512];
-	sprintf( query, "UPDATE event_monsteritem SET amount = %d, reg_date = getdate() "
-		" WHERE event_no = %d", amount, event_no );
-	Querry_SQL( query );
+	sprintf(query, "UPDATE event_monsteritem SET amount = %d, reg_date = getdate() "
+		" WHERE event_no = %d", amount, event_no);
+	Querry_SQL(query);
 }
 
 
-extern void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex,char* pMsg,DWORD dwLength);
+extern void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength);
 void CheckCrash()
 {
 	int nSize;
 	char *pData;
-	FILE *fp = fopen( "DBCrash_info.bin", "rb");
-	if( !fp ) return;
-	fread( &nSize, 4, 1, fp );
+	FILE *fp = fopen("DBCrash_info.bin", "rb");
+	if (!fp) return;
+	fread(&nSize, 4, 1, fp);
 	pData = new char[nSize];
-	fread( pData, 1, nSize, fp );
-	fclose( fp );
-	
-	ReceivedMsgServer( 1, pData, nSize );
+	fread(pData, 1, nSize, fp);
+	fclose(fp);
+
+	ReceivedMsgServer(1, pData, nSize);
 }
 
 void __stdcall GameTimeFunc(DWORD dwValue)
 {
 	prepare(connections);
-	if(g_pServerTable != NULL && g_pServerTable->GetOwnPort() == 4002 )
+	if (g_pServerTable != NULL && g_pServerTable->GetOwnPort() == 4002)
 	{
 		CheckOutSideMail(); // 030221 YGI
 	}
 }
 
 //021107 YGI
-void RecvCheckEventScriptItem( t_packet *p, short int cn )
+void RecvCheckEventScriptItem(t_packet *p, short int cn)
 {
 	k_event_script_item	*pData = (k_event_script_item	*)p->u.data;
 	char condition[512];
-	
+
 	int RowCount = 0;
-	sprintf( condition, "event_no=%d AND login_id = '%s'", pData->event_no, pData->id );
-	int ret = GetRowLineOfSQL( "Event_NpcItem_Recv_Id", "*", &RowCount, condition );
-	if( RowCount > 0 || ret != 1 ) // 테이블이 없거나 이미 받은 적이 있다면
+	sprintf(condition, "event_no=%d AND login_id = '%s'", pData->event_no, pData->id);
+	int ret = GetRowLineOfSQL("Event_NpcItem_Recv_Id", "*", &RowCount, condition);
+	if (RowCount > 0 || ret != 1) // 테이블이 없거나 이미 받은 적이 있다면
 	{
 		pData->result = 0;		// 실패
-		QueuePacket( connections, cn, p, 1 );
+		QueuePacket(connections, cn, p, 1);
 		return;		// 이미 받은적이 있다. 
 	}
-	
+
 	// 오래된 데이타는 지우자
-	Querry_SQL( "DELETE event_npcitem_recv_id WHERE recv_date < getdate()-30" );
-	
-	
+	Querry_SQL("DELETE event_npcitem_recv_id WHERE recv_date < getdate()-30");
+
+
 	pData->result = 1;		// 성공
 	// 맵서버로 고대로 다시 보내고 저장하도록 하자.
-	QueuePacket( connections, cn, p, 1 );
-	
-	sprintf( condition, "INSERT INTO event_npcitem_recv_id (event_no, recv_date, login_id, [character] ) "
-		"VALUES ( %d, getdate(), '%s', '%s' ) ", pData->event_no, pData->id, pData->name );
-	Querry_SQL( condition );
+	QueuePacket(connections, cn, p, 1);
+
+	sprintf(condition, "INSERT INTO event_npcitem_recv_id (event_no, recv_date, login_id, [character] ) "
+		"VALUES ( %d, getdate(), '%s', '%s' ) ", pData->event_no, pData->id, pData->name);
+	Querry_SQL(condition);
 }
 
-void RecvCheckEventMoveMap( t_packet *p, short int cn )
+void RecvCheckEventMoveMap(t_packet *p, short int cn)
 {
 	int server_id = p->u.kein.send_db_direct_map.server_id;
 	k_event_move_map_req *pData = (k_event_move_map_req *)p->u.kein.send_db_direct_map.data;
-	
-	if( pData->sex < 0 || pData->sex > 1 ) return;
-	if( pData->class_num < 0 || pData->class_num > 4 ) return;
-	if( pData->nation < 0 || pData->nation > 6 ) return;
-	
+
+	if (pData->sex < 0 || pData->sex > 1) return;
+	if (pData->class_num < 0 || pData->class_num > 4) return;
+	if (pData->nation < 0 || pData->nation > 6) return;
+
 	k_event_move_map_rep map_data;
 
-	int isActive = GetEventMoveMapName( pData, &map_data );
-	if( isActive )
+	int isActive = GetEventMoveMapName(pData, &map_data);
+	if (isActive)
 	{
-		DirectClient( CMD_CHECK_EVENT_MOVE_MAP, server_id, cn, &map_data, sizeof( k_event_move_map_rep ) );
+		DirectClient(CMD_CHECK_EVENT_MOVE_MAP, server_id, cn, &map_data, sizeof(k_event_move_map_rep));
 	}
 }
 
-void RecvSaveEventMapMoveNow( t_packet *p, short int cn )
+void RecvSaveEventMapMoveNow(t_packet *p, short int cn)
 {
 	k_save_event_move_map *pData = &p->u.kein.save_event_move_map;
 	char query[512];
-	sprintf( query, "EXEC up_update_event_mapmove_now %d, %d, %d", pData->event_no, pData->max, pData->now );
-	Querry_SQL( query );
+	sprintf(query, "EXEC up_update_event_mapmove_now %d, %d, %d", pData->event_no, pData->max, pData->now);
+	Querry_SQL(query);
 }
 // 외부에서 보낸 메일이 있는지 확인
 // 030221 YGI
-extern int GetRecvMailName( int *iRowCount, char recv_name[40][20] );
+extern int GetRecvMailName(int *iRowCount, char recv_name[40][20]);
 void CheckOutSideMail()
 {
-	char recv_name[40][20] = {0,};
+	char recv_name[40][20] = { 0, };
 	int iRowCount = 0;
-	
-	if( !GetRecvMailName( &iRowCount, recv_name ) ) 
+
+	if (!GetRecvMailName(&iRowCount, recv_name))
 	{
 		return;
 	}
-	
+
 	t_packet packet;
-	
+
 	packet.h.header.type = CMD_CHECK_RECV_MAIL;
-	packet.h.header.size = 1+20*iRowCount;
+	packet.h.header.size = 1 + 20 * iRowCount;
 	packet.u.kein.check_recv_mail.count = iRowCount;
-	
-	for( int i=0; i<iRowCount; i++ )
+
+	for (int i = 0; i < iRowCount; i++)
 	{
-		strcpy( packet.u.kein.check_recv_mail.name[i], recv_name[i] );
+		strcpy(packet.u.kein.check_recv_mail.name[i], recv_name[i]);
 	}
-	
-	g_pServerTable->BroadCastToEveryServer( (char *)&packet, (sizeof(t_header)+packet.h.header.size ), SERVER_TYPE_MAP );
+
+	g_pServerTable->BroadCastToEveryServer((char *)&packet, (sizeof(t_header) + packet.h.header.size), SERVER_TYPE_MAP);
 }
 // 040105 YGI
-void RecvGetTreasureMapAttr( t_packet* p, short int cn )
+void RecvGetTreasureMapAttr(t_packet* p, short int cn)
 {
 	k_get_treasure_map_detail_to_db *pData = &p->u.kein.get_treasure_map_detail_to_db;
 
 	int mapnumber, x, y;
-	int ret = GetTreasureAttr( mapnumber, x, y );
-	if( ret < 0 ) return;
+	int ret = GetTreasureAttr(mapnumber, x, y);
+	if (ret < 0) return;
 
 	t_packet packet;
 	packet.h.header.type = CMD_GET_TREASURE_MAP_DETAIL_DB;
-		packet.u.kein.get_treasure_map_detail_to_map.pos = pData->pos;
-		packet.u.kein.get_treasure_map_detail_to_map.cn = pData->cn;
-		packet.u.kein.get_treasure_map_detail_to_map.map_number = mapnumber;
-		packet.u.kein.get_treasure_map_detail_to_map.x = x;
-		packet.u.kein.get_treasure_map_detail_to_map.y = y;
-	packet.h.header.size = sizeof( k_get_treasure_map_detail_to_map );
-	QueuePacket( connections, cn, &packet, 1 );
+	packet.u.kein.get_treasure_map_detail_to_map.pos = pData->pos;
+	packet.u.kein.get_treasure_map_detail_to_map.cn = pData->cn;
+	packet.u.kein.get_treasure_map_detail_to_map.map_number = mapnumber;
+	packet.u.kein.get_treasure_map_detail_to_map.x = x;
+	packet.u.kein.get_treasure_map_detail_to_map.y = y;
+	packet.h.header.size = sizeof(k_get_treasure_map_detail_to_map);
+	QueuePacket(connections, cn, &packet, 1);
 }

@@ -16,30 +16,30 @@
 #include "LottoDBMgr.h"
 #include "ShopDemon.h"
 
-t_connection	connections[LOGIN_MAX_CONNECTIONS] = {0,};
+t_connection	connections[LOGIN_MAX_CONNECTIONS] = { 0, };
 
 extern bool CheckRookieServerAble(const int iLv);
 extern int CheckIDAutherizing(t_packet &packet, const int cn);
 
 extern HWND g_hWnd;
 
-extern int CheckHandleByKein( t_packet *p, t_connection c[], int cn );		// 0308 YGI
+extern int CheckHandleByKein(t_packet *p, t_connection c[], int cn);		// 0308 YGI
 
-extern int CheckHandleByNationWar(t_packet *p, t_connection c[], int cn );		// 010915 LTS
+extern int CheckHandleByNationWar(t_packet *p, t_connection c[], int cn);		// 010915 LTS
 
-extern void SendThrowDice( char type, short int cn );	// op_chr_status.cpp
-extern void SendCreateAbility( short int cn );
-extern void CheckStartMap( t_connection c[], short int cn, int &StartPosition );		// 1004 YGI
+extern void SendThrowDice(char type, short int cn);	// op_chr_status.cpp
+extern void SendCreateAbility(short int cn);
+extern void CheckStartMap(t_connection c[], short int cn, int &StartPosition);		// 1004 YGI
 extern int	CheckGameMakeTool(char *id, char ip[40]);	// 020830 YGI
 
 extern int GetUserAge(const char* szID);	// 030929 kyo 
 extern bool IsLimitedTime();				// 030929 kyo 
 ////////////////////////////////////////////////////////////
 extern char SQLerrorS[200];/////////////////////////////////////定义发送外挂错误的字符串
-extern void HackLog( int type, char *logmsg, ... );//记录外挂的LOG
+extern void HackLog(int type, char *logmsg, ...);//记录外挂的LOG
 ////////////////////////////////////截获声明
-extern int i,len1,len2,len3,len4;
-extern char s1[100],s2[100],s3[100],s4[100],*str;
+extern int i, len1, len2, len3, len4;
+extern char s1[100], s2[100], s3[100], s4[100], *str;
 //char hackID[100],hackname[100];
 ///////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,7 @@ extern char s1[100],s2[100],s3[100],s4[100],*str;
 //
 char	g_LogFName[255];
 char	Queue_Out_Buffer[MAX_SERVER_QUEUE_OUT_BUFFER];
-char	MapName[ MAX_PATH];
+char	MapName[MAX_PATH];
 /////////////////////////////////////////////////////////////////////////////////
 //
 //				User Functions....
@@ -57,31 +57,31 @@ char	MapName[ MAX_PATH];
 
 #define MAX_MSG_COUNT   25
 
-static int Msg[ MAX_MSG_COUNT][ MAX_PATH];            
+static int Msg[MAX_MSG_COUNT][MAX_PATH];
 int    MsgCount;
 
 //---------------------------------------------------------------------------------
-int QueuePacket( t_connection c[], int cn, t_packet *packet, int type )
+int QueuePacket(t_connection c[], int cn, t_packet *packet, int type)
 {
-	char temp[MM_MAX_PACKET_SIZE+6] = {0,};
- 	DWORD dwUserID = c[cn].dwUserID;
+	char temp[MM_MAX_PACKET_SIZE + 6] = { 0, };
+	DWORD dwUserID = c[cn].dwUserID;
 	DWORD dwLength = HEADER_SIZE + packet->h.header.size;
-	
+
 	temp[0] = (BYTE)PTCL_DB_ANSWER;
-	memcpy(temp+1,&dwUserID,4);
-	memcpy(temp+1+4,packet,dwLength);
-	
-	if( 1+4+dwLength >= MM_MAX_PACKET_SIZE )
+	memcpy(temp + 1, &dwUserID, 4);
+	memcpy(temp + 1 + 4, packet, dwLength);
+
+	if (1 + 4 + dwLength >= MM_MAX_PACKET_SIZE)
 	{
 		// it's a big bug.. 
 		//_asm int 3;
 	}
-	else 
+	else
 	{
-		temp[ 1+4+dwLength ]=0;
+		temp[1 + 4 + dwLength] = 0;
 	}
 
-	g_pServerTable->Send( c[cn].dwConIndex, temp, dwLength+5);
+	g_pServerTable->Send(c[cn].dwConIndex, temp, dwLength + 5);
 	return true;
 }
 
@@ -95,57 +95,57 @@ int DequeuePacket(t_connection c[], int cn, t_packet *packet, int type)
 
 
 void closeconnection(t_connection c[], int cn, const eCloseConnectionType errnum)
-{								
-	char temp[5] = {0,};
+{
+	char temp[5] = { 0, };
 
- 	DWORD dwUserID = c[cn].dwUserID;
-	
+	DWORD dwUserID = c[cn].dwUserID;
+
 	temp[0] = (BYTE)PTCL_DB_TO_AGENT_REQUEST_DISCONNECT_USER_BY_ID;
-	memcpy(temp+1,&dwUserID,4);
+	memcpy(temp + 1, &dwUserID, 4);
 
-	switch( errnum )
+	switch (errnum)
 	{
-	case CCT_ID_NOT_EXIST: 
-	case CCT_WRONG_PASSWORD: 
-	case CCT_ID_USING_NOW: 
+	case CCT_ID_NOT_EXIST:
+	case CCT_WRONG_PASSWORD:
+	case CCT_ID_USING_NOW:
 	case CCT_PAYMENT_NEED:
 		break;
-	case CCT_INVALID_CLIENT :	
-		{
-			::MyLog( LOG_NORMAL, "Invalid Client Version[ %d ]", dwUserID );
-		}break;
-	case CCT_NORMAL : 
-		{
-			::MyLog( LOG_NORMAL, "Normal Disconnection[ %d ]", dwUserID );
-		}break;
-	case CCT_AGENT_ORDER :  
-		{
-			::MyLog( LOG_NORMAL, "Agent order : Disconnection[ %d ]", dwUserID );
-		}break;
+	case CCT_INVALID_CLIENT:
+	{
+		::MyLog(LOG_NORMAL, "Invalid Client Version[ %d ]", dwUserID);
+	}break;
+	case CCT_NORMAL:
+	{
+		::MyLog(LOG_NORMAL, "Normal Disconnection[ %d ]", dwUserID);
+	}break;
+	case CCT_AGENT_ORDER:
+	{
+		::MyLog(LOG_NORMAL, "Agent order : Disconnection[ %d ]", dwUserID);
+	}break;
 	}
 
-	if( !g_pServerTable->Send( c[cn].dwConIndex, temp, 5) )
+	if (!g_pServerTable->Send(c[cn].dwConIndex, temp, 5))
 	{
-		MyLog( LOG_NORMAL,"SEND: Failed(to %d)", c[cn].dwConIndex);
+		MyLog(LOG_NORMAL, "SEND: Failed(to %d)", c[cn].dwConIndex);
 	}
-}		
-		
+}
+
 //---------------------------------------------------------------------------------
 int HandleAccepting(t_connection c[], SOCKET lsock)
-{		
+{
 	return(1);
-}		
-		
+}
+
 //---------------------------------------------------------------------------------
 int HandleReading(t_connection c[], int cn)
-{		
+{
 	return(1);
 }
 
 //---------------------------------------------------------------------------------
 int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUserID, int cn)  //接受
 {
-	const int ttype	= packet->h.header.type;
+	const int ttype = packet->h.header.type;
 	switch (ttype)
 	{
 	case CMD_NONE:
@@ -703,10 +703,10 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 			}
 		}
 
-		/*   if(pMailSend->szSender == '月神夜')
-		{
-		pMailSend->szSender = '月神夜';
-		}*/
+		//if (pMailSend->szSender == '月神夜')
+		//{
+		//	pMailSend->szSender = '月神夜';
+		//}
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		RecvIsThereCharName(cn, packet->u.client_isthere_charname.name); //注册ID
 		break;
@@ -808,15 +808,9 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 	///////////// network2.h을 위해..  0224 YGI ///////////////
 	case CMD_CREATE_ABILITY:	SendCreateAbility(cn); break;//到筛子那里
 	case CMD_THROW_DICE:	SendThrowDice(packet->u.kein.client_throw_dice.type, cn); break;//
-
-	case CMD_HOW_MANY_IN_MAP:	UpdateTotalMapConnections(packet->u.how_many_in_map.map, packet->u.how_many_in_map.how);
-		break;
-
-	case CMD_UPDATE_VERY_IMPORTANT_STATUS:	RecvUpdateCharacterVeryImportantStatus(&(packet->u.update_very_important_status));
-		break;
-
-	case CMD_UPDATE_VERY_IMPORTANT_TACTICS:	RecvUpdateTacticSkillExpData(&(packet->u.update_very_important_tactics));
-		break;
+	case CMD_HOW_MANY_IN_MAP:	UpdateTotalMapConnections(packet->u.how_many_in_map.map, packet->u.how_many_in_map.how); break;
+	case CMD_UPDATE_VERY_IMPORTANT_STATUS:	RecvUpdateCharacterVeryImportantStatus(&(packet->u.update_very_important_status)); break;
+	case CMD_UPDATE_VERY_IMPORTANT_TACTICS:	RecvUpdateTacticSkillExpData(&(packet->u.update_very_important_tactics)); break;
 
 	case CMD_ITEM_DURATION_CHANGE:
 	case CMD_TACTICS_PARRYING_EXP:
@@ -960,7 +954,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 		}
 	}
 	}  // switch		
-				
+
 	if (debug_SavePacketExeTimeIng() && ttype != CMD_NONE)
 	{
 		DWORD t = ViewCheckRoutine(9999);
@@ -987,18 +981,18 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 
 //-----------------------------------------------------------------------------
 //acer7
-int CheckMyCode( int code, char *mystring )
+int CheckMyCode(int code, char *mystring)
 {
-	static int count = strlen( MY_STRING );
-	if(!LocalMgr.IsAbleMyCode(code)) {return false;}//021007 lsw
-	if( strncmp( MY_STRING, mystring, count ) != 0 ) return false;
+	static int count = strlen(MY_STRING);
+	if (!LocalMgr.IsAbleMyCode(code)) { return false; }//021007 lsw
+	if (strncmp(MY_STRING, mystring, count) != 0) return false;
 
 	return true;
 }
 
 void SendCMD_ACCEPT_LOGIN(const int cn, const int iRemainDay)
 {
-	if( cn < 0 || cn >= LOGIN_MAX_CONNECTIONS){return;}
+	if (cn < 0 || cn >= LOGIN_MAX_CONNECTIONS) { return; }
 
 	t_connection *pCN = &connections[cn];
 
@@ -1007,72 +1001,72 @@ void SendCMD_ACCEPT_LOGIN(const int cn, const int iRemainDay)
 	packet.h.header.type = CMD_ACCEPT_LOGIN;
 	packet.h.header.size = sizeof(t_server_accept_login);
 
-	packet.u.server_accept_login.server_id		= cn;
-	packet.u.server_accept_login.remained_day	= iRemainDay;
-	::strcpy( packet.u.server_accept_login.id, pCN->id );
-	GetCharactersBasicInfoInID_SQL( pCN->id, &packet );
+	packet.u.server_accept_login.server_id = cn;
+	packet.u.server_accept_login.remained_day = iRemainDay;
+	::strcpy(packet.u.server_accept_login.id, pCN->id);
+	GetCharactersBasicInfoInID_SQL(pCN->id, &packet);
 
 	pCN->state = CONNECT_LOGIN;
-	
-	::Log_LogIn( g_mon+1, g_day, g_hour, g_min, g_sec, pCN->id );
+
+	::Log_LogIn(g_mon + 1, g_day, g_hour, g_min, g_sec, pCN->id);
 	::QueuePacket(connections, cn, &packet, 1);
 }
 
 void SendCMD_USED_ID(const int cn, const int iCallType)
 {
-	if( cn < 0 || cn >= LOGIN_MAX_CONNECTIONS){return;}
+	if (cn < 0 || cn >= LOGIN_MAX_CONNECTIONS) { return; }
 
 	t_connection *pCN = &connections[cn];
 
 	t_packet packet;
-	
+
 	packet.h.header.type = CMD_USED_ID;
 	packet.h.header.size = 0;
-	
-	::MyLog( 0, "ID('%s'):IP('%s') is Using Now!! (CallType = %d)", pCN->id, pCN->ip_address, iCallType);
+
+	::MyLog(0, "ID('%s'):IP('%s') is Using Now!! (CallType = %d)", pCN->id, pCN->ip_address, iCallType);
 	::QueuePacket(connections, cn, &packet, 1);
-			
-	WORD wPort = 0;	
-	DWORD dwID = 0;	
+
+	WORD wPort = 0;
+	DWORD dwID = 0;
 	DWORD dwServerSetNum = 0;
-	if( CheckUsedID_SQL(pCN->id, &wPort, &dwID, &dwServerSetNum ) == 1 )
+	if (CheckUsedID_SQL(pCN->id, &wPort, &dwID, &dwServerSetNum) == 1)
 	{	//	Modified by chan78 at 2000/02/19 :: 서버세트가 일치하는 경우에만 에이전트로 접속종료를 요구한다.
 		//	서버세트가 일치하지 않는 경우에는 그 사용자가 다른 서버세트에서 나갈때까지 접속이 불가능해진다.
-		if( dwServerSetNum == g_pServerTable->GetServerSetNum() )
+		if (dwServerSetNum == g_pServerTable->GetServerSetNum())
 		{
-			if( !SendRemoveUserToAgent( pCN->id, wPort, dwID )  )
+			if (!SendRemoveUserToAgent(pCN->id, wPort, dwID))
 			{
 				::MyLog(0, "FAILED : SendRemoveUserToAgent  %d, %d, %d", pCN->id, wPort, dwID);
 			}
 		}
 	}
-	::closeconnection( connections, cn, CCT_ID_USING_NOW ); // Try to Access with Using ID..
+	::closeconnection(connections, cn, CCT_ID_USING_NOW); // Try to Access with Using ID..
 }
 
 bool isUserLockd(const char* szID);
 
 int CheckIDAutherizing(t_packet &packet, const int cn)
 {
-	if(cn >= LOGIN_MAX_CONNECTIONS){return 0;}//目池记
+	if (cn >= LOGIN_MAX_CONNECTIONS) { return 0; }//目池记
 
 	t_connection *pCN = &connections[cn];
 
 	MyLog(LOG_FATAL, "<<<< sizeof  CLIENTACCESSLOGIN: %d >>>>", sizeof(CLIENTACCESSLOGIN));
 	MyLog(LOG_FATAL, "<<<< sizeof  packet.u.ClientAccessLogin: %d >>>>", sizeof(packet.u.ClientAccessLogin));
 
-	const int code		= packet.u.ClientAccessLogin.mycode;
-	char *szMyString	= packet.u.ClientAccessLogin.mystring;
-	const int version	= packet.u.ClientAccessLogin.version;
-	const WORD port		= packet.u.ClientAccessLogin.wPort;
+	const int code = packet.u.ClientAccessLogin.mycode;
+	char *szMyString = packet.u.ClientAccessLogin.mystring;
+	const int version = packet.u.ClientAccessLogin.version;
+	const WORD port = packet.u.ClientAccessLogin.wPort;
 
-	::memcpy(pCN->id,	packet.u.ClientAccessLogin.id, ID_LENGTH);
-	::memcpy(pCN->pw,	packet.u.ClientAccessLogin.pw, PW_LENGTH);
-	
-	::strcpy(pCN->ip_address,	packet.u.ClientAccessLogin.ip);
-	pCN->myconnectedagentport	= port;
+	::memcpy(pCN->id, packet.u.ClientAccessLogin.id, ID_LENGTH);
+	::memcpy(pCN->pw, packet.u.ClientAccessLogin.pw, PW_LENGTH);
 
-	const bool bIsGMTool = ((version != GM_TOOL_VERSION)?true:false);
-	if(bIsGMTool)   //coromo GM登陆器必须验证ID和IP
+	::strcpy(pCN->ip_address, packet.u.ClientAccessLogin.ip);
+	pCN->myconnectedagentport = port;
+
+	const bool bIsGMTool = ((version != GM_TOOL_VERSION) ? true : false);
+	if (bIsGMTool)   //coromo GM登陆器必须验证ID和IP
 	{
 		//
 		//packet.h.header.type = CMD_INVALID_VERSION;
@@ -1082,227 +1076,226 @@ int CheckIDAutherizing(t_packet &packet, const int cn)
 		//MyLog( 0, "Version error: ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address );
 		//return 0;
 		//
-		if(!::CheckGameMakeTool(pCN->id, pCN->ip_address))	// 020830 YGI
+		if (!::CheckGameMakeTool(pCN->id, pCN->ip_address))	// 020830 YGI
 		{
 			packet.h.header.type = CMD_INVALID_VERSION;
 			packet.h.header.size = 0;
 			::QueuePacket(connections, cn, &packet, 1);
 
-			::closeconnection( connections, cn, CCT_INVALID_CLIENT );
-			MyLog( 0, "Not GM_TOOL ip MY_CODE : ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address );
+			::closeconnection(connections, cn, CCT_INVALID_CLIENT);
+			MyLog(0, "Not GM_TOOL ip MY_CODE : ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address);
 			return 0;
 		}
 	}
 
-	if( !::CheckMyCode( code, szMyString ) ) 
+	if (!::CheckMyCode(code, szMyString))
 	{
 		packet.h.header.type = CMD_INVALID_VERSION;
 		packet.h.header.size = 0;
 		::QueuePacket(connections, cn, &packet, 1);
-		::closeconnection( connections, cn, CCT_INVALID_CLIENT );
+		::closeconnection(connections, cn, CCT_INVALID_CLIENT);
 
-		::MyLog( 0, "Not match MY_CODE : ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address ); 
+		::MyLog(0, "Not match MY_CODE : ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address);
 		return 0;
 	}
-		
-	if(isUserLockd(pCN->id)) {
+
+	if (isUserLockd(pCN->id)) {
 		packet.h.header.type = 14000;
 		packet.h.header.size = 0;
 		::QueuePacket(connections, cn, &packet, 1);
-		::closeconnection( connections, cn, CCT_INVALID_CLIENT );
-		
-		MyLog( 0, "Locked ID: ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address );
+		::closeconnection(connections, cn, CCT_INVALID_CLIENT);
+
+		MyLog(0, "Locked ID: ID[ %s ] - IP[ %s ] ", pCN->id, pCN->ip_address);
 		return 0;
 	}
 
 	DWORD id_index = 0;
-	LoginInfoPay in ={0,};
+	LoginInfoPay in = { 0, };
 
-	in.index		=	id_index;		
+	in.index = id_index;
 
-	::memcpy(in.UserID, packet.u.ClientAccessLogin.User_ID ,ID_LENGTH);
-	::strcpy(in.id,		pCN->id);
-	::strcpy(in.pw,		pCN->pw);
-	::strcpy(in.ip,		pCN->ip_address);
+	::memcpy(in.UserID, packet.u.ClientAccessLogin.User_ID, ID_LENGTH);
+	::strcpy(in.id, pCN->id);
+	::strcpy(in.pw, pCN->pw);
+	::strcpy(in.ip, pCN->ip_address);
 
 	// 030929 kyo << 
-	if( LocalMgr.IsAbleNation(THAI) )
+	if (LocalMgr.IsAbleNation(THAI))
 	{
-		if( onepass.CheckLimitedAgeAndTime(in.id) )
+		if (onepass.CheckLimitedAgeAndTime(in.id))
 		{// he is underage.
-			::MyLog(0, "ID Is Not permited. ID:('%s') AGE:('%d')", in.id, ::GetUserAge(in.id) );
+			::MyLog(0, "ID Is Not permited. ID:('%s') AGE:('%d')", in.id, ::GetUserAge(in.id));
 
 			packet.h.header.type = CMD_INVALID_AGE;
 			packet.h.header.size = 0;
 			::QueuePacket(connections, cn, &packet, 1);
-			::closeconnection( connections, cn, CCT_AGE_NOT_PERMIT ); 
+			::closeconnection(connections, cn, CCT_AGE_NOT_PERMIT);
 			return 0;
 		}
 	}
 	// 030929 kyo >>
-	
-	OUTPUT Output		=	onepass.OnePassID(cn,in,bIsGMTool);
-	int ret				=	Output.nRet;//로그인 할 수 있다 없다의 판별
-	const int iBillType	=	Output.nType;
-	
-	if(LocalMgr.IsFreeBeta())//021007 lsw
+
+	OUTPUT Output = onepass.OnePassID(cn, in, bIsGMTool);
+	int ret = Output.nRet;//로그인 할 수 있다 없다의 판별
+	const int iBillType = Output.nType;
+
+	if (LocalMgr.IsFreeBeta())//021007 lsw
 	{
-		if(COnePass::BT_NEED_PAY == ret)
+		if (COnePass::BT_NEED_PAY == ret)
 		{
 			ret = COnePass::BT_FREE;
 		}
 	}
-	
-	switch(ret)
+
+	switch (ret)
 	{
 	case COnePass::BT_WRONG_ID:
-		{
-			::MyLog(0, "ID Is Not Exist. ID:('%s') PW:('%s')", pCN->id, pCN->pw);
+	{
+		::MyLog(0, "ID Is Not Exist. ID:('%s') PW:('%s')", pCN->id, pCN->pw);
 
-			packet.h.header.type = CMD_INVALID_ID;
-			packet.h.header.size = 0;
-			::QueuePacket(connections, cn, &packet, 1);
-			::closeconnection( connections, cn, CCT_ID_NOT_EXIST ); 
-		}break;
+		packet.h.header.type = CMD_INVALID_ID;
+		packet.h.header.size = 0;
+		::QueuePacket(connections, cn, &packet, 1);
+		::closeconnection(connections, cn, CCT_ID_NOT_EXIST);
+	}break;
 	case COnePass::BT_WRONG_PW:
-		{
-			::MyLog(0, "User Enter Wrong PassWord ID:('%s') PW:('%s')", pCN->id, pCN->pw);
+	{
+		::MyLog(0, "User Enter Wrong PassWord ID:('%s') PW:('%s')", pCN->id, pCN->pw);
 
-			packet.h.header.type = CMD_INVALID_PW;
-			packet.h.header.size = 0;
-			::QueuePacket(connections, cn, &packet, 1);
-			::closeconnection( connections, cn, CCT_WRONG_PASSWORD ); 
-		}break;
+		packet.h.header.type = CMD_INVALID_PW;
+		packet.h.header.size = 0;
+		::QueuePacket(connections, cn, &packet, 1);
+		::closeconnection(connections, cn, CCT_WRONG_PASSWORD);
+	}break;
 	case COnePass::BT_NEED_PAY: // -3 : 돈내!...		//2001/01/28 ZHH
-		{
-			::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Called by CheckIDAutherizing()", pCN->id, pCN->pw);
+	{
+		::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Called by CheckIDAutherizing()", pCN->id, pCN->pw);
 
-			packet.h.header.type = CMD_INVALID_PAY;
-			packet.h.header.size = 0;
-			::QueuePacket(connections, cn, &packet, 1);
+		packet.h.header.type = CMD_INVALID_PAY;
+		packet.h.header.size = 0;
+		::QueuePacket(connections, cn, &packet, 1);
 
-			::closeconnection( connections, cn, CCT_PAYMENT_NEED );
-		}break;
+		::closeconnection(connections, cn, CCT_PAYMENT_NEED);
+	}break;
 	case COnePass::BT_WAIT_BILLING_MSG:
-		{	//빌링 메세지를 기다립니다. 아무 처리도 하지 않습니다.
-			break;
-		}
-	case COnePass::BT_FREE:
-		default:
-		{
-			const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
-			if( !ret_checkusedid )//사용중인 유저
-			{			
-				::SendCMD_USED_ID(cn,0);
-				return 0;
-			}
-			else
-			{	
-				::SendCMD_ACCEPT_LOGIN(cn,ret);
-				return 1;
-			}
-		}break;
-
-/*   //coromo  IS LOGIN  2007/04/29
-	default:
-		{
-			WORD wPort = 0;	
-			DWORD dwID = 0;	
-			DWORD dwServerSetNum = 0;
-			if( CheckUsedID_SQL(pCN->id, &wPort, &dwID, &dwServerSetNum ) == 1 )
-			{
-				if( dwServerSetNum == g_pServerTable->GetServerSetNum() ) 
-				{
-					::MyLog( 0, "ID('%s'):IP('%s') is Using Now!!", pCN->id, pCN->ip_address);
-					packet.h.header.type = 14;
-					packet.h.header.size = 0;
-					::QueuePacket(connections, cn, &packet, 1);
-					::closeconnection( connections, cn, CCT_ID_USING_NOW ); // Try to Access with Using ID..
-					return 0;
-				}
-			}
-			const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
-			if( !ret_checkusedid )//사용중인 유저
-			{			
-				//::SendCMD_USED_ID(cn,0);
-				::MyLog( 0, "ID('%s'):IP('%s') is Using Now!!", pCN->id, pCN->ip_address);
-				packet.h.header.type = 14;
-				packet.h.header.size = 0;
-				::QueuePacket(connections, cn, &packet, 1);
-				::closeconnection( connections, cn, CCT_ID_USING_NOW ); // Try to Access with Using ID..
-				return 0;
-			}
-			else
-			{	
-				::SendCMD_ACCEPT_LOGIN(cn,ret);
-				return 1;
-			}
-		}break;
-       */
+	{	//빌링 메세지를 기다립니다. 아무 처리도 하지 않습니다.
+		break;
 	}
-	return 0;	
+	case COnePass::BT_FREE:
+	default:
+	{
+		const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
+		if (!ret_checkusedid)//사용중인 유저
+		{
+			::SendCMD_USED_ID(cn, 0);
+			return 0;
+		}
+		else
+		{
+			::SendCMD_ACCEPT_LOGIN(cn, ret);
+			return 1;
+		}
+	}break;
+
+	//  //coromo  IS LOGIN  2007/04/29
+	   //default:
+	   //	{
+	   //		WORD wPort = 0;	
+	   //		DWORD dwID = 0;	
+	   //		DWORD dwServerSetNum = 0;
+	   //		if( CheckUsedID_SQL(pCN->id, &wPort, &dwID, &dwServerSetNum ) == 1 )
+	   //		{
+	   //			if( dwServerSetNum == g_pServerTable->GetServerSetNum() ) 
+	   //			{
+	   //				::MyLog( 0, "ID('%s'):IP('%s') is Using Now!!", pCN->id, pCN->ip_address);
+	   //				packet.h.header.type = 14;
+	   //				packet.h.header.size = 0;
+	   //				::QueuePacket(connections, cn, &packet, 1);
+	   //				::closeconnection( connections, cn, CCT_ID_USING_NOW ); // Try to Access with Using ID..
+	   //				return 0;
+	   //			}
+	   //		}
+	   //		const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", in.id, in.ip, in.UserID, iBillType, port, pCN->dwUserID);
+	   //		if( !ret_checkusedid )//사용중인 유저
+	   //		{			
+	   //			//::SendCMD_USED_ID(cn,0);
+	   //			::MyLog( 0, "ID('%s'):IP('%s') is Using Now!!", pCN->id, pCN->ip_address);
+	   //			packet.h.header.type = 14;
+	   //			packet.h.header.size = 0;
+	   //			::QueuePacket(connections, cn, &packet, 1);
+	   //			::closeconnection( connections, cn, CCT_ID_USING_NOW ); // Try to Access with Using ID..
+	   //			return 0;
+	   //		}
+	   //		else
+	   //		{	
+	   //			::SendCMD_ACCEPT_LOGIN(cn,ret);
+	   //			return 1;
+	   //		}
+	   //	}break;
+	}
+	return 0;
 }
 
-int	SendYesorNo( char *ID,			//[11]; //user'ID
-				 char *type,		//[2]; //type=P or M
-				 long point,		//user's Points(using in type=P)
-				 char *expiredata,	//[9];  //User's expire data(using in type=M) EX:20001220
-				 int success)		//if login or logout success
+int	SendYesorNo(char *ID,			//[11]; //user'ID
+	char *type,		//[2]; //type=P or M
+	long point,		//user's Points(using in type=P)
+	char *expiredata,	//[9];  //User's expire data(using in type=M) EX:20001220
+	int success)		//if login or logout success
 {
 	t_packet packet;
-	char UserID[20]= {0,};
-	::strcpy(UserID,ID);
-	
-	int cn,ret=10;
+	char UserID[20] = { 0, };
+	::strcpy(UserID, ID);
 
-	for(cn=2;cn<LOGIN_MAX_CONNECTIONS;cn++)
+	int cn, ret = 10;
+
+	for (cn = 2; cn < LOGIN_MAX_CONNECTIONS; cn++)
 	{
-		if(strlen(connections[cn].id)>0)
+		if (strlen(connections[cn].id) > 0)
 		{
-			if(!strcmp(connections[cn].id,UserID))
+			if (!strcmp(connections[cn].id, UserID))
 			{
 				break;
 			}
 		}
 	}
-	
-	if(cn==LOGIN_MAX_CONNECTIONS)
+
+	if (cn == LOGIN_MAX_CONNECTIONS)
 	{
 		return 0;
 	}
 
 	t_connection *pCN = &connections[cn];
 
-	if(success==1)		//로그인 성공.( 누군가 쓰지 않는다면)
+	if (success == 1)		//로그인 성공.( 누군가 쓰지 않는다면)
 	{
 		const int port = pCN->myconnectedagentport;
-		const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", pCN->id, pCN->ip_address , "  " , (int)type, port, pCN->dwUserID );
-		
-		if( !ret_checkusedid ) 
+		const int ret_checkusedid = onepass.InsertUsedID_SQL_ForPay(" ", pCN->id, pCN->ip_address, "  ", (int)type, port, pCN->dwUserID);
+
+		if (!ret_checkusedid)
 		{
-			::SendCMD_USED_ID(cn,1);
+			::SendCMD_USED_ID(cn, 1);
 			return 0;
 		}
-		else	
-		{	
-			::SendCMD_ACCEPT_LOGIN(cn,ret);
-			return 1;	
+		else
+		{
+			::SendCMD_ACCEPT_LOGIN(cn, ret);
+			return 1;
 		}
 	}
 	else//로그인 실패. 아이디와 패스워드는 맞으므로 남은것은 돈내는 것 뿐.
-	{			
+	{
 		::MyLog(0, "User Payment Need!! ID:('%s') PW:('%s') Cause = '%d' Called by SendYesorNo()", pCN->id, pCN->pw, success);
-		
+
 		packet.h.header.type = CMD_LOGIN_FAIL_MASSAGE;
-		packet.h.header.size = sizeof( client_login_fail_reason );
-		packet.u.client_login_fail_reason.cPaytype = memicmp("P",type,2) == 0 ? 0 : 1;	//Point면 0 정액이면 1
+		packet.h.header.size = sizeof(client_login_fail_reason);
+		packet.u.client_login_fail_reason.cPaytype = memicmp("P", type, 2) == 0 ? 0 : 1;	//Point면 0 정액이면 1
 		packet.u.client_login_fail_reason.cReserverdData = 0;
 		packet.u.client_login_fail_reason.dwType = success;
 		packet.u.client_login_fail_reason.dwPoint = point;
-		
-		::sprintf( packet.u.client_login_fail_reason.szExpireDate, expiredata);
+
+		::sprintf(packet.u.client_login_fail_reason.szExpireDate, expiredata);
 		::QueuePacket(connections, cn, &packet, 1);
-		::closeconnection( connections, cn, CCT_PAYMENT_NEED ); // 돈 안냈음 
+		::closeconnection(connections, cn, CCT_PAYMENT_NEED); // 돈 안냈음 
 		return 0;
 	}
 }

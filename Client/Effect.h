@@ -471,7 +471,7 @@ typedef struct	tagEFFECT_TABLE
 	char			sprite_Name[30];	//스프라이트의 이름
 	int				sound_Num;			//이펙트와 연결될 사운드의 고유번호
 	int				sound_Volume;		//이펙트와 연결된 사운드의 볼륨레벨
-	//				1000단위 이상 숫자->반복횟수(단 99일 경우 종료시까지) / 100단위까지 실제 사운드 번호 
+	//1000단위 이상 숫자->반복횟수(단 99일 경우 종료시까지) / 100단위까지 실제 사운드 번호 
 	int				sound_loop;			//사운드 출력 횟수
 
 	int				next_Effect;		//다음 이펙트 번호
@@ -481,7 +481,7 @@ typedef struct	tagEFFECT_TABLE
 	int				sort_Type;			//화면 sorting 방법(9(9+0)->일반적 소팅/10(9+1)->무조건 최상/11(9+2)->무조건 최하/12(9+3)->에니메이션 화일 참조하여 가변소팅/13(9+4)->시전자 앞뒤에 2장의 스프라이트 찍음)
 	int				spr_Speed;			//이팩트의 이동치
 	int				spr_Height;			//이팩트의 높이
-	//		int				body_Part;			//시전자의 몸 6부분에 대한 활성정의 값
+	//int				body_Part;			//시전자의 몸 6부분에 대한 활성정의 값
 	int				object_Num;			//이팩트 소스의 동시출력 갯수
 	int			fallow;				//인물을 따라갈지->1/말지->0
 	int				light;				//광원효과 넣을까?(0->넣지 않음/100자리수치->0이면 정상적 출력/1이면 높이값 더해서 출력(1~20 사이의 광원 단계)

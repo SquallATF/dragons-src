@@ -1427,8 +1427,6 @@ int DeleteChar_SQL(const char *szID, const char *szName, const char *szSecretKey
 	return -1;
 }
 
-
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // 함수설명: 캐릭터의 binary(크기가 큰배열들은 binary로 저장하고 binary로

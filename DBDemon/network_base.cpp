@@ -14,35 +14,35 @@ HANDLE	g_hEvent = NULL;
 #include "./china/mysocket.h"
 extern CMySocket *ConC;
 //#include "../China/QueryDBSocket.h"
-	
+
 // 021128 YGI
 void __stdcall RecvMessageFromBillingServer(DWORD dwValue)//020511 lsw
-{	 
+{
 	ConC->OnReceive(0);
-}	
-	
-	
+}
+
+
 void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//020511 lsw
-{	
+{
 	LP_SERVER_DATA pProxy = NULL;
-	
+
 	// Proxy 에 연결되지 않은 경우.
-	if( g_pServerTable )
+	if (g_pServerTable)
 	{
 		pProxy = g_pServerTable->GetOwnProxyServerData();
-		if( pProxy )
+		if (pProxy)
 		{
-			if( !g_pServerTable->GetOwnProxyServerData()->dwConnectionIndex )
+			if (!g_pServerTable->GetOwnProxyServerData()->dwConnectionIndex)
 			{
 				// Added by chan78 at 2001/04/11 :: 이미 접속 시도중인 경우 시도하지 않는다.
-				if( g_pServerTable->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE )
+				if (g_pServerTable->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE)
 				{
 					return;
 				}
 
-				MyLog( LOG_NORMAL, "@@ Trying to connect PROXY Server ..." );
+				MyLog(LOG_NORMAL, "@@ Trying to connect PROXY Server ...");
 				// 접속 시도.
-				if( g_pServerTable->ConnectToProxyServer() )
+				if (g_pServerTable->ConnectToProxyServer())
 				{
 					// Modified by chan78 at 2001/04/11 :: 타이머 포즈 처리는 결과처리 콜백함수에서.
 					return;
@@ -50,20 +50,20 @@ void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//020511 lsw
 			}
 			else
 			{
-				g_pINet->PauseTimer( 0 );
+				g_pINet->PauseTimer(0);
 				return;
 			}
 		}
 	}
-	
+
 	return;
-}	
-	
+}
+
 void __stdcall ShowDBServerStatus(DWORD dwValue)//020511 lsw
-{	
-	if( !g_pServerTable )
+{
+	if (!g_pServerTable)
 	{
-		MyLog( LOG_NORMAL, "CServerTable Is Not Available." );
+		MyLog(LOG_NORMAL, "CServerTable Is Not Available.");
 	}
 	else
 	{
@@ -71,24 +71,24 @@ void __stdcall ShowDBServerStatus(DWORD dwValue)//020511 lsw
 		g_pServerTable->ShowServerStatus();
 	}
 	return;
-}	
-	
-	
+}
+
+
 extern void __stdcall GameTimeFunc(DWORD dwValue);
 bool InitDBDemon()
-{	
+{
 	CUSTOM_EVENT ev[5];
 	ev[0].dwPeriodicTime = 1000;
 	ev[0].pEventFunc = AwaitingProxyServerConnect;
 	ev[1].dwPeriodicTime = 0;
 	ev[1].pEventFunc = ShowDBServerStatus;
-	
+
 	// 021128 YGI--------------
 	ev[2].dwPeriodicTime = 0;
 	ev[2].pEventFunc = RecvMessageFromBillingServer;
-	
-	ev[3].dwPeriodicTime = 1000*60;	// 1분
-	ev[3].pEventFunc = GameTimeFunc;	
+
+	ev[3].dwPeriodicTime = 1000 * 60;	// 1분
+	ev[3].pEventFunc = GameTimeFunc;
 	//--------------------------
 
 	DESC_NETWORK desc;
@@ -99,31 +99,31 @@ bool InitDBDemon()
 	desc.OnDisconnectUser = OnDisconnectUser;
 	desc.dwMainMsgQueMaxBufferSize = 10240000;	// 010322 KHS
 	desc.dwMaxServerNum = 120;	//020110 LSW		
-	desc.dwMaxUserNum = 100;			
+	desc.dwMaxUserNum = 100;
 	desc.dwServerBufferSizePerConnection = 512000;
 	desc.dwServerMaxTransferSize = 65000;
 	desc.dwUserBufferSizePerConnection = 65000;
-	desc.dwUserMaxTransferSize = 8192;	
+	desc.dwUserMaxTransferSize = 8192;
 	desc.OnRecvFromServerTCP = ReceivedMsgServer;
 	desc.OnRecvFromUserTCP = ReceivedMsgUser;
 	desc.dwConnectNumAtSameTime = 200;//020110 LSW
-										
+
 	desc.dwFlag = 0; // CSD-040127 : NETDDSC_DEBUG_LOG : INetwork 로그 기록
-										
+
 	//2001/02/19 zhh					
 	desc.dwCustomDefineEventNum = 4;	// 030221 YGI
-	
+
 	desc.pEvent = ev;
 
 	HRESULT hr;
 	CoInitialize(NULL);
-    
+
 	hr = CoCreateInstance(
-           CLSID_4DyuchiNET,
-           NULL,
-           CLSCTX_INPROC_SERVER,
-           IID_4DyuchiNET,
-           (void**)&g_pINet);
+		CLSID_4DyuchiNET,
+		NULL,
+		CLSCTX_INPROC_SERVER,
+		IID_4DyuchiNET,
+		(void**)&g_pINet);
 
 	if (FAILED(hr)) {
 		//REGDB_E_CLASSNOTREG;
@@ -141,11 +141,11 @@ bool InitDBDemon()
 		return false;
 	}
 
-	if (!g_pINet || !g_pINet->CreateNetwork(&desc,10,10))
+	if (!g_pINet || !g_pINet->CreateNetwork(&desc, 10, 10))
 		return false;
 
 	// 일단 정지...
-	g_pINet->PauseTimer( 0 );	// 040406 kyo
+	g_pINet->PauseTimer(0);	// 040406 kyo
 
 	hKeyEvent = g_pINet->GetCustomEventHandle(1);
 
@@ -154,9 +154,9 @@ bool InitDBDemon()
 
 	g_pServerTable = new CServerTable(DB_DEMON_INI_, MAX_SERVER_NUM, g_pINet);//021007 lsw
 
-	if( !g_pServerTable )
+	if (!g_pServerTable)
 	{
-		MyLog( LOG_FATAL, "ERROR: g_pServerTable is NULL" );
+		MyLog(LOG_FATAL, "ERROR: g_pServerTable is NULL");
 		return false;
 	}
 

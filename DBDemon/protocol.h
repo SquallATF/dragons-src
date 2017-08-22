@@ -16,84 +16,84 @@
 enum PTCL
 {
 	// -------------------------------------------------
-	PTCL_NONE									=	0,		// DO NOT USE
+	PTCL_NONE = 0,		// DO NOT USE
 	// -------------------------------------------------
 
 	// -------------------------------------------------
-	PTCL_NOTIFY_SERVER_UP						=	1,		// SERVER TO SERVER
-	PTCL_NOTIFY_YOU_ARE_CERTIFIED				=	2,
-	PTCL_NOTIFY_SERVER_STATUS					=	3,
-	PTCL_BROADCAST_TO_SERVERS					=	4,
-	PTCL_SERVER_DATA_SYNC						=	5,
-	PTCL_SERVER_TRY_TO_CHECK_CONNECTION			=	6,
-	PTCL_SERVER_CONNECTION_OK					=	7,
+	PTCL_NOTIFY_SERVER_UP = 1,		// SERVER TO SERVER
+	PTCL_NOTIFY_YOU_ARE_CERTIFIED = 2,
+	PTCL_NOTIFY_SERVER_STATUS = 3,
+	PTCL_BROADCAST_TO_SERVERS = 4,
+	PTCL_SERVER_DATA_SYNC = 5,
+	PTCL_SERVER_TRY_TO_CHECK_CONNECTION = 6,
+	PTCL_SERVER_CONNECTION_OK = 7,
 	// -------------------------------------------------
 
 	// Neogtiation Packets
 	// -------------------------------------------------
-	PTCL_REQUEST_SET_SERVER_LIST				=	10,		// Request
-	PTCL_REQUEST_TO_CONNECT_SERVER_LIST			=	11,		//
-	PTCL_REQUEST_SET_DB_DEMON					=	12,		//
+	PTCL_REQUEST_SET_SERVER_LIST = 10,		// Request
+	PTCL_REQUEST_TO_CONNECT_SERVER_LIST = 11,		//
+	PTCL_REQUEST_SET_DB_DEMON = 12,		//
 	// -------------------------------------------------
-	PTCL_ORDER_SET_SERVER_LIST					=	20,		// Order
-	PTCL_ORDER_CONNECT_TO_SERVERS				=	21,		//
-	PTCL_ORDER_SET_DB_DEMON						=	22,		//
-	PTCL_ORDER_TO_REPORT_SERVER_DATAS			=	23,		//
-	PTCL_ORDER_TO_REPORT_SERVER_STATUS			=	24,		//
+	PTCL_ORDER_SET_SERVER_LIST = 20,		// Order
+	PTCL_ORDER_CONNECT_TO_SERVERS = 21,		//
+	PTCL_ORDER_SET_DB_DEMON = 22,		//
+	PTCL_ORDER_TO_REPORT_SERVER_DATAS = 23,		//
+	PTCL_ORDER_TO_REPORT_SERVER_STATUS = 24,		//
 	// -------------------------------------------------
-	PTCL_SERVER_LIST_SETTING_RESULT				=	30,		// Result
-	PTCL_SERVER_CONNECTING_RESULT				=	31,		//
-	PTCL_DB_DEMON_SETTING_RESULT				=	32,		//
-	PTCL_REPORT_SERVER_DATAS					=	33,		//
-	PTCL_REPORT_SERVER_DESTROY					=	34,		//
-	PTCL_REPORT_SERVER_ERROR					=	35,		//
-	PTCL_REPORT_SERVER_STATUS					=	36,
-	PTCL_REPORT_SERVER_CONNECTION_STATUS_CHANGE	=	37,
-	// -------------------------------------------------
-
-	// -------------------------------------------------
-	PTCL_ORDER_TO_CLEAR_PAY_TABLE				=	41,		// PROXY's
-	PTCL_ORDER_DESTROY_SERVER					=	42,
+	PTCL_SERVER_LIST_SETTING_RESULT = 30,		// Result
+	PTCL_SERVER_CONNECTING_RESULT = 31,		//
+	PTCL_DB_DEMON_SETTING_RESULT = 32,		//
+	PTCL_REPORT_SERVER_DATAS = 33,		//
+	PTCL_REPORT_SERVER_DESTROY = 34,		//
+	PTCL_REPORT_SERVER_ERROR = 35,		//
+	PTCL_REPORT_SERVER_STATUS = 36,
+	PTCL_REPORT_SERVER_CONNECTION_STATUS_CHANGE = 37,
 	// -------------------------------------------------
 
 	// -------------------------------------------------
-	PTCL_AGENT_TO_MAP							=	50,		// AGENT TO MAP
-	PTCL_AGENT_TO_MAP_REQUEST_ADD_USER			=	51,
-	PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER		=	52,
-	PTCL_AGENT_TO_MAP_REQUEST_REMOVE_GHOST_USER = 	75,
-
-	PTCL_AGENT_TO_DB							=	60,		// AGENT TO DB
-	PTCL_AGENT_TO_DB_REQUEST_ADD_USER			=	61,
-	PTCL_AGENT_TO_DB_REQUEST_REMOVE_USER		=	62,
-	PTCL_AGENT_TO_DB_ADD_USER_TO_LOGIN_TABLE	=	63,
-	PTCL_AGENT_TO_DB_REMOVE_USER_FROM_LOGIN_TABLE	= 64,
+	PTCL_ORDER_TO_CLEAR_PAY_TABLE = 41,		// PROXY's
+	PTCL_ORDER_DESTROY_SERVER = 42,
 	// -------------------------------------------------
 
 	// -------------------------------------------------
-	PTCL_MAP_TO_AGENT							=	70,
-	PTCL_MAP_TO_AGENT_USER_ACCEPTED				=	71,
-	PTCL_MAP_TO_AGENT_USER_DENIED				=	72,
-	PTCL_MAP_TO_AGENT_PACKED_MSG				=	73,
-	PTCL_MAP_TO_AGENT_REQUEST_DISCONNECT_USER	=	74,
-	PTCL_MAP_TO_AGENT_CHECK_IS_USER_GHOST		=	75,
-	PTCL_MAP_TO_DB								=	80,
-	PTCL_MAP_TO_MAP								=	81,
-	PTCL_MAP_TO_MAP_HANDLE_COMMAND				=	82,
+	PTCL_AGENT_TO_MAP = 50,		// AGENT TO MAP
+	PTCL_AGENT_TO_MAP_REQUEST_ADD_USER = 51,
+	PTCL_AGENT_TO_MAP_REQUEST_REMOVE_USER = 52,
+	PTCL_AGENT_TO_MAP_REQUEST_REMOVE_GHOST_USER = 75,
+
+	PTCL_AGENT_TO_DB = 60,		// AGENT TO DB
+	PTCL_AGENT_TO_DB_REQUEST_ADD_USER = 61,
+	PTCL_AGENT_TO_DB_REQUEST_REMOVE_USER = 62,
+	PTCL_AGENT_TO_DB_ADD_USER_TO_LOGIN_TABLE = 63,
+	PTCL_AGENT_TO_DB_REMOVE_USER_FROM_LOGIN_TABLE = 64,
 	// -------------------------------------------------
 
 	// -------------------------------------------------
-	PTCL_DB_ANSWER								=	80,			// DB TO AGENT/MAP
-	PTCL_DB_TO_AGENT_REQUEST_DISCONNECT_USER_BY_ID	=	81,		// DB TO AGENT
+	PTCL_MAP_TO_AGENT = 70,
+	PTCL_MAP_TO_AGENT_USER_ACCEPTED = 71,
+	PTCL_MAP_TO_AGENT_USER_DENIED = 72,
+	PTCL_MAP_TO_AGENT_PACKED_MSG = 73,
+	PTCL_MAP_TO_AGENT_REQUEST_DISCONNECT_USER = 74,
+	PTCL_MAP_TO_AGENT_CHECK_IS_USER_GHOST = 75,
+	PTCL_MAP_TO_DB = 80,
+	PTCL_MAP_TO_MAP = 81,
+	PTCL_MAP_TO_MAP_HANDLE_COMMAND = 82,
 	// -------------------------------------------------
 
 	// -------------------------------------------------
-	PTCL_MANAGER_QUERY							=	90,
-	PTCL_MANAGER_ANSWER							=	91,
+	PTCL_DB_ANSWER = 80,			// DB TO AGENT/MAP
+	PTCL_DB_TO_AGENT_REQUEST_DISCONNECT_USER_BY_ID = 81,		// DB TO AGENT
+	// -------------------------------------------------
+
+	// -------------------------------------------------
+	PTCL_MANAGER_QUERY = 90,
+	PTCL_MANAGER_ANSWER = 91,
 	// -------------------------------------------------
 
 	// 011012 KBS
-	PTCL_PROXY_TO_MAP							=	100,	//PROXY TO MAP
-	PTCL_RM_FROM_PROXY							=   101		//RM Message
+	PTCL_PROXY_TO_MAP = 100,	//PROXY TO MAP
+	PTCL_RM_FROM_PROXY = 101		//RM Message
 	//
 };
 
@@ -182,4 +182,4 @@ typedef struct request_remove_ghost_user_packet
 #pragma pack( pop )
 
 
-#endif
+#endif  // PROTOCOL_H
