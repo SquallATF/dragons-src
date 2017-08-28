@@ -497,7 +497,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[5].nImageType = NATION_VOTE_IMG;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[5].rCheakBox, SMenu[MN_NATION_VOTE].nField[5].x, SMenu[MN_NATION_VOTE].nField[5].y,
 			SMenu[MN_NATION_VOTE].nField[5].x + 100, SMenu[MN_NATION_VOTE].nField[5].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[5].temp, "1번째 칸");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[5].temp, "1번째 칸");
+		strcpy(SMenu[MN_NATION_VOTE].nField[5].temp, "第1列");
 
 		SMenu[MN_NATION_VOTE].nField[6].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_VOTE].nField[6].nImageNumber = DP_RECT_STRING_PUT;
@@ -507,7 +508,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[6].nImageType = NATION_VOTE_IMG;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[6].rCheakBox, SMenu[MN_NATION_VOTE].nField[6].x, SMenu[MN_NATION_VOTE].nField[6].y,
 			SMenu[MN_NATION_VOTE].nField[6].x + 100, SMenu[MN_NATION_VOTE].nField[6].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[6].temp, "2번째 칸");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[6].temp, "2번째 칸");
+		strcpy(SMenu[MN_NATION_VOTE].nField[6].temp, "第2列");
 
 		SMenu[MN_NATION_VOTE].nField[7].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_VOTE].nField[7].nImageNumber = DP_RECT_STRING_PUT;
@@ -517,7 +519,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[7].nImageType = NATION_VOTE_IMG;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[7].rCheakBox, SMenu[MN_NATION_VOTE].nField[7].x, SMenu[MN_NATION_VOTE].nField[7].y,
 			SMenu[MN_NATION_VOTE].nField[7].x + 100, SMenu[MN_NATION_VOTE].nField[7].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[7].temp, "3번째 칸");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[7].temp, "3번째 칸");
+		strcpy(SMenu[MN_NATION_VOTE].nField[7].temp, "第3列");
 
 		SMenu[MN_NATION_VOTE].nField[8].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_VOTE].nField[8].nImageNumber = DP_RECT_STRING_PUT;
@@ -554,7 +557,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[11].nRectImage = 150;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[11].rCheakBox, SMenu[MN_NATION_VOTE].nField[11].x, SMenu[MN_NATION_VOTE].nField[11].y,
 			SMenu[MN_NATION_VOTE].nField[11].x + 100, SMenu[MN_NATION_VOTE].nField[11].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[11].temp, "애들 리스트1");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[11].temp, "애들 리스트1");
+		strcpy(SMenu[MN_NATION_VOTE].nField[11].temp, "孩子们的名单1");
 
 		SMenu[MN_NATION_VOTE].nField[12].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_VOTE].nField[12].nImageNumber = DP_RECT_STRING_PUT;
@@ -563,7 +567,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[12].nRectImage = 150;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[12].rCheakBox, SMenu[MN_NATION_VOTE].nField[12].x, SMenu[MN_NATION_VOTE].nField[12].y,
 			SMenu[MN_NATION_VOTE].nField[12].x + 100, SMenu[MN_NATION_VOTE].nField[12].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[12].temp, "애들 리스트1");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[12].temp, "애들 리스트1");
+		strcpy(SMenu[MN_NATION_VOTE].nField[12].temp, "孩子们的名单1");
 
 
 		SMenu[MN_NATION_VOTE].nField[13].nType = FT_DATA_PUT;
@@ -573,7 +578,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[13].nRectImage = 150;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[13].rCheakBox, SMenu[MN_NATION_VOTE].nField[13].x, SMenu[MN_NATION_VOTE].nField[13].y,
 			SMenu[MN_NATION_VOTE].nField[13].x + 100, SMenu[MN_NATION_VOTE].nField[13].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[13].temp, "애들 리스트1");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[13].temp, "애들 리스트1");
+		strcpy(SMenu[MN_NATION_VOTE].nField[13].temp, "孩子们的名单1");
 
 
 		SMenu[MN_NATION_VOTE].nField[14].nType = FT_DATA_PUT;
@@ -583,7 +589,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[14].nRectImage = 150;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[14].rCheakBox, SMenu[MN_NATION_VOTE].nField[14].x, SMenu[MN_NATION_VOTE].nField[14].y,
 			SMenu[MN_NATION_VOTE].nField[14].x + 100, SMenu[MN_NATION_VOTE].nField[14].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[14].temp, "애들 리스트1");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[14].temp, "애들 리스트1");
+		strcpy(SMenu[MN_NATION_VOTE].nField[14].temp, "孩子们的名单1");
 
 		SMenu[MN_NATION_VOTE].nField[15].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_VOTE].nField[15].nImageNumber = DP_RECT_STRING_PUT;
@@ -592,7 +599,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[15].nRectImage = 150;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[15].rCheakBox, SMenu[MN_NATION_VOTE].nField[15].x, SMenu[MN_NATION_VOTE].nField[15].y,
 			SMenu[MN_NATION_VOTE].nField[15].x + 100, SMenu[MN_NATION_VOTE].nField[15].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[15].temp, "애들 리스트1");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[15].temp, "애들 리스트1");
+		strcpy(SMenu[MN_NATION_VOTE].nField[15].temp, "孩子们的名单1");
 
 		SMenu[MN_NATION_VOTE].nField[16].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_VOTE].nField[16].nImageNumber = DP_RECT_STRING_PUT;
@@ -601,7 +609,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_VOTE].nField[16].nRectImage = 150;
 		::SetRect(SMenu[MN_NATION_VOTE].nField[16].rCheakBox, SMenu[MN_NATION_VOTE].nField[16].x, SMenu[MN_NATION_VOTE].nField[16].y,
 			SMenu[MN_NATION_VOTE].nField[16].x + 100, SMenu[MN_NATION_VOTE].nField[16].y + 30);
-		strcpy(SMenu[MN_NATION_VOTE].nField[16].temp, "애들 리스트1");
+		//strcpy(SMenu[MN_NATION_VOTE].nField[16].temp, "애들 리스트1");
+		strcpy(SMenu[MN_NATION_VOTE].nField[16].temp, "孩子们的名单1");
 
 	}
 	//부대
@@ -688,7 +697,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[6].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[6].rCheakBox, SMenu[MN_NATION_BUDAE].nField[6].x, SMenu[MN_NATION_BUDAE].nField[6].y,
 			SMenu[MN_NATION_BUDAE].nField[6].x + 100, SMenu[MN_NATION_BUDAE].nField[6].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[6].temp, "부대번호");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[6].temp, "부대번호");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[6].temp, "部队番号");
 
 		SMenu[MN_NATION_BUDAE].nField[7].nType = FT_NOMAL_PUT;
 		SMenu[MN_NATION_BUDAE].nField[7].nImageNumber = 28;
@@ -704,7 +714,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[8].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[8].rCheakBox, SMenu[MN_NATION_BUDAE].nField[8].x, SMenu[MN_NATION_BUDAE].nField[8].y,
 			SMenu[MN_NATION_BUDAE].nField[8].x + 100, SMenu[MN_NATION_BUDAE].nField[8].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[8].temp, "부대장이름");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[8].temp, "부대장이름");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[8].temp, "副队长名字");
 
 		SMenu[MN_NATION_BUDAE].nField[9].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_BUDAE].nField[9].nImageNumber = DP_RECT_STRING_PUT;
@@ -734,7 +745,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[12].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[12].rCheakBox, SMenu[MN_NATION_BUDAE].nField[12].x, SMenu[MN_NATION_BUDAE].nField[12].y,
 			SMenu[MN_NATION_BUDAE].nField[12].x + 100, SMenu[MN_NATION_BUDAE].nField[12].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[12].temp, "제 1 부대      %d/50");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[12].temp, "제 1 부대      %d/50");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[12].temp, "第 1 部队      %d/50");
 
 
 		SMenu[MN_NATION_BUDAE].nField[13].nType = FT_DATA_PUT;
@@ -745,7 +757,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[13].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[13].rCheakBox, SMenu[MN_NATION_BUDAE].nField[13].x, SMenu[MN_NATION_BUDAE].nField[13].y,
 			SMenu[MN_NATION_BUDAE].nField[13].x + 100, SMenu[MN_NATION_BUDAE].nField[13].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[13].temp, "제 2 부대      %d/40");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[13].temp, "제 2 부대      %d/40");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[13].temp, "第 2 部队      %d/40");
 
 
 		SMenu[MN_NATION_BUDAE].nField[14].nType = FT_DATA_PUT;
@@ -756,7 +769,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[14].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[14].rCheakBox, SMenu[MN_NATION_BUDAE].nField[14].x, SMenu[MN_NATION_BUDAE].nField[14].y,
 			SMenu[MN_NATION_BUDAE].nField[14].x + 100, SMenu[MN_NATION_BUDAE].nField[14].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[14].temp, "제 3 부대      %d/30");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[14].temp, "제 3 부대      %d/30");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[14].temp, "第 3 部队      %d/30");
 
 
 		SMenu[MN_NATION_BUDAE].nField[15].nType = FT_DATA_PUT;
@@ -767,7 +781,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[15].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[15].rCheakBox, SMenu[MN_NATION_BUDAE].nField[15].x, SMenu[MN_NATION_BUDAE].nField[15].y,
 			SMenu[MN_NATION_BUDAE].nField[15].x + 100, SMenu[MN_NATION_BUDAE].nField[15].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[15].temp, "제 4 부대      %d/20");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[15].temp, "제 4 부대      %d/20");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[15].temp, "第 4 部队      %d/20");
 
 		SMenu[MN_NATION_BUDAE].nField[16].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_BUDAE].nField[16].nImageNumber = DP_RECT_STRING_PUT;
@@ -777,7 +792,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[16].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[16].rCheakBox, SMenu[MN_NATION_BUDAE].nField[16].x, SMenu[MN_NATION_BUDAE].nField[16].y,
 			SMenu[MN_NATION_BUDAE].nField[16].x + 100, SMenu[MN_NATION_BUDAE].nField[16].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[16].temp, "사령관.");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[16].temp, "사령관.");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[16].temp, "司令官");
 
 		SMenu[MN_NATION_BUDAE].nField[17].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_BUDAE].nField[17].nImageNumber = DP_RECT_STRING_PUT;
@@ -787,7 +803,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[17].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[17].rCheakBox, SMenu[MN_NATION_BUDAE].nField[17].x, SMenu[MN_NATION_BUDAE].nField[17].y,
 			SMenu[MN_NATION_BUDAE].nField[17].x + 100, SMenu[MN_NATION_BUDAE].nField[17].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[17].temp, "레어 속성.");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[17].temp, "레어 속성.");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[17].temp, "稀有的属性");
 
 
 		SMenu[MN_NATION_BUDAE].nField[18].nType = FT_DATA_PUT;
@@ -798,7 +815,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[18].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[18].rCheakBox, SMenu[MN_NATION_BUDAE].nField[18].x, SMenu[MN_NATION_BUDAE].nField[18].y,
 			SMenu[MN_NATION_BUDAE].nField[18].x + 100, SMenu[MN_NATION_BUDAE].nField[18].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[18].temp, "레어 속성");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[18].temp, "레어 속성");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[18].temp, "属性");
 
 		SMenu[MN_NATION_BUDAE].nField[19].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_BUDAE].nField[19].nImageNumber = DP_RECT_STRING_PUT;
@@ -808,7 +826,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_BUDAE].nField[19].nImageType = NATION_BUDAE_IMG;
 		::SetRect(SMenu[MN_NATION_BUDAE].nField[19].rCheakBox, SMenu[MN_NATION_BUDAE].nField[19].x, SMenu[MN_NATION_BUDAE].nField[19].y,
 			SMenu[MN_NATION_BUDAE].nField[19].x + 100, SMenu[MN_NATION_BUDAE].nField[19].y + 30);
-		strcpy(SMenu[MN_NATION_BUDAE].nField[19].temp, "레어 속성");
+		//strcpy(SMenu[MN_NATION_BUDAE].nField[19].temp, "레어 속성");
+		strcpy(SMenu[MN_NATION_BUDAE].nField[19].temp, "属性");
 
 		//부대 마크 현재 얼굴 이미지로 되어있음
 		//SMenu[MN_NATION_BUDAE].nField[11].nType = FT_DATA_PUT;
@@ -883,87 +902,101 @@ void lsw_menu_set()
 		SMenu[MN_NATION_NOW].nField[6].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[6].x = 406;
 		SMenu[MN_NATION_NOW].nField[6].y = 66;
-		strcpy(SMenu[MN_NATION_NOW].nField[6].temp, "아군 숫자");
+		//strcpy(SMenu[MN_NATION_NOW].nField[6].temp, "아군 숫자");
+		strcpy(SMenu[MN_NATION_NOW].nField[6].temp, "我军数量");
 
 		// 적군 숫자 1개
 		SMenu[MN_NATION_NOW].nField[7].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[7].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[7].x = 406;
 		SMenu[MN_NATION_NOW].nField[7].y = 86;
-		strcpy(SMenu[MN_NATION_NOW].nField[7].temp, "적군 숫자");
+		//strcpy(SMenu[MN_NATION_NOW].nField[7].temp, "적군 숫자");
+		strcpy(SMenu[MN_NATION_NOW].nField[7].temp, "敌军数量");
 
 		// 글자 12 개
 		SMenu[MN_NATION_NOW].nField[8].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[8].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[8].x = 369;
 		SMenu[MN_NATION_NOW].nField[8].y = 119;
-		strcpy(SMenu[MN_NATION_NOW].nField[8].temp, "내용 2 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[8].temp, "내용 2 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[8].temp, "内容 2 ");
 
 		SMenu[MN_NATION_NOW].nField[9].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[9].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[9].x = 369;
 		SMenu[MN_NATION_NOW].nField[9].y = 138;
-		strcpy(SMenu[MN_NATION_NOW].nField[9].temp, "내용 3 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[9].temp, "내용 3 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[9].temp, "内容 3 ");
 
 		SMenu[MN_NATION_NOW].nField[10].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[10].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[10].x = 332;
 		SMenu[MN_NATION_NOW].nField[10].y = 156;
-		strcpy(SMenu[MN_NATION_NOW].nField[10].temp, "내용 4 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[10].temp, "내용 4 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[10].temp, "内容 4 ");
 
 		SMenu[MN_NATION_NOW].nField[11].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[11].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[11].x = 460;
 		SMenu[MN_NATION_NOW].nField[11].y = 119;
-		strcpy(SMenu[MN_NATION_NOW].nField[11].temp, "내용 5 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[11].temp, "내용 5 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[11].temp, "内容 5 ");
 
 		SMenu[MN_NATION_NOW].nField[12].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[12].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[12].x = 460;
 		SMenu[MN_NATION_NOW].nField[12].y = 138;
-		strcpy(SMenu[MN_NATION_NOW].nField[12].temp, "내용 6 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[12].temp, "내용 6 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[12].temp, "内容 6 ");
 
 		SMenu[MN_NATION_NOW].nField[13].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[13].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[13].x = 423;
 		SMenu[MN_NATION_NOW].nField[13].y = 156;
-		strcpy(SMenu[MN_NATION_NOW].nField[13].temp, "내용 7 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[13].temp, "내용 7 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[13].temp, "内容 7 ");
 
 		SMenu[MN_NATION_NOW].nField[14].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[14].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[14].x = 369;
 		SMenu[MN_NATION_NOW].nField[14].y = 189;
-		strcpy(SMenu[MN_NATION_NOW].nField[14].temp, "내용 8 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[14].temp, "내용 8 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[14].temp, "内容 8 ");
 
 		SMenu[MN_NATION_NOW].nField[15].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[15].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[15].x = 369;
 		SMenu[MN_NATION_NOW].nField[15].y = 208;
-		strcpy(SMenu[MN_NATION_NOW].nField[15].temp, "내용 9 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[15].temp, "내용 9 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[15].temp, "内容 9 ");
 
 		SMenu[MN_NATION_NOW].nField[16].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[16].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[16].x = 332;
 		SMenu[MN_NATION_NOW].nField[16].y = 226;
-		strcpy(SMenu[MN_NATION_NOW].nField[16].temp, "내용 10 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[16].temp, "내용 10 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[16].temp, "内容 10 ");
 
 		SMenu[MN_NATION_NOW].nField[17].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[17].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[17].x = 460;
 		SMenu[MN_NATION_NOW].nField[17].y = 189;
-		strcpy(SMenu[MN_NATION_NOW].nField[17].temp, "내용 11 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[17].temp, "내용 11 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[17].temp, "内容 11 ");
 
 		SMenu[MN_NATION_NOW].nField[18].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[18].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[18].x = 460;
 		SMenu[MN_NATION_NOW].nField[18].y = 208;
-		strcpy(SMenu[MN_NATION_NOW].nField[18].temp, "내용 12 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[18].temp, "내용 12 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[18].temp, "内容 12 ");
 
 		SMenu[MN_NATION_NOW].nField[19].nType = FT_DATA_PUT;
 		SMenu[MN_NATION_NOW].nField[19].nImageNumber = DP_RECT_STRING_PUT;
 		SMenu[MN_NATION_NOW].nField[19].x = 423;
 		SMenu[MN_NATION_NOW].nField[19].y = 226;
-		strcpy(SMenu[MN_NATION_NOW].nField[19].temp, "내용 1 ");
+		//strcpy(SMenu[MN_NATION_NOW].nField[19].temp, "내용 1 ");
+		strcpy(SMenu[MN_NATION_NOW].nField[19].temp, "内容 1 ");
 
 		// 부대 마크 4개 
 		SMenu[MN_NATION_NOW].nField[20].nImageType = NATION_NOW_IMG;
@@ -1272,7 +1305,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_MSGBOX].nField[2].nImageType = NATION_MSGBOX_IMG;
 		::SetRect(SMenu[MN_NATION_MSGBOX].nField[2].rCheakBox, SMenu[MN_NATION_MSGBOX].nField[0].x, SMenu[MN_NATION_MSGBOX].nField[0].y,
 			SMenu[MN_NATION_MSGBOX].nField[2].x + 100, SMenu[MN_NATION_MSGBOX].nField[0].y + 30);
-		strcpy(SMenu[MN_NATION_MSGBOX].nField[2].temp, "이 크크크.. ㅡ.ㅡ;; 으하하하하하?~");
+		//strcpy(SMenu[MN_NATION_MSGBOX].nField[2].temp, "이 크크크.. ㅡ.ㅡ;; 으하하하하하?~");
+		strcpy(SMenu[MN_NATION_MSGBOX].nField[2].temp, "克克克。--。--；；喝水。~");
 	}
 	////////////////////////////////////////////////////////////////////
 	// 던 메세지(DONE)
@@ -1297,7 +1331,8 @@ void lsw_menu_set()
 		SMenu[MN_NATION_DONEBOX].nField[1].y = 60;
 		SMenu[MN_NATION_DONEBOX].nField[1].nRectImage = 250;
 		SMenu[MN_NATION_DONEBOX].nField[1].nImageType = NATION_DONEBOX_IMG;
-		strcpy(SMenu[MN_NATION_DONEBOX].nField[1].temp, "내용 로딩중~입니다 길이에 맞게..");
+		//strcpy(SMenu[MN_NATION_DONEBOX].nField[1].temp, "내용 로딩중~입니다 길이에 맞게..");
+		strcpy(SMenu[MN_NATION_DONEBOX].nField[1].temp, "内容为交易中，长度符合。");
 	}
 
 	//투데이 노티스..
@@ -1625,7 +1660,8 @@ void lsw_menu_set()
 		SMenu[MN_ITEM_MAKE_SELECT].nField[12].x = 25;
 		SMenu[MN_ITEM_MAKE_SELECT].nField[12].y = 240;
 		SMenu[MN_ITEM_MAKE_SELECT].nField[12].nRectImage = 150;
-		strcpy(SMenu[MN_ITEM_MAKE_SELECT].nField[12].temp, "3번째 칸");
+		//strcpy(SMenu[MN_ITEM_MAKE_SELECT].nField[12].temp, "3번째 칸");
+		strcpy(SMenu[MN_ITEM_MAKE_SELECT].nField[12].temp, "第三间");
 	}
 
 
@@ -7867,7 +7903,8 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 			SubMenu->nField[15].nWillDo = nWillDo;//어빌리티 업 버튼에 스킬 번호 준다
 #ifdef _DEBUG
 			if (GetSysInfo(SI_GAME_MAKE_MODE))	// 020925 YGI
-				AddCurrentStatusMessage(0, 255, 255, "전투스킬 포인트 아이콘에 클릭 하셨습니다");
+				//AddCurrentStatusMessage(0, 255, 255, "전투스킬 포인트 아이콘에 클릭 하셨습니다");
+				AddCurrentStatusMessage(0, 255, 255, "战斗技能上的点击图标操作。");
 #endif
 		}break;
 		}
@@ -7891,7 +7928,8 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 			}	//> CSD-TW-030606
 #ifdef _DEBUG
 			if (GetSysInfo(SI_GAME_MAKE_MODE))	// 020925 YGI
-				AddCurrentStatusMessage(0, 255, 255, "전투스킬 두잉 아이콘에 클릭 하셨습니다");
+				//AddCurrentStatusMessage(0, 255, 255, "전투스킬 두잉 아이콘에 클릭 하셨습니다");
+				AddCurrentStatusMessage(0, 255, 255, "两个战斗技能的图标上点击。 ");
 #endif
 		}break;
 		}
@@ -7900,8 +7938,9 @@ bool DoButtonCheckOfMenu_lsw(int i, int j)
 	case 	FT_CSD_MAIN_ICON:
 	{
 #ifdef _DEBUG
-		if (GetSysInfo(SI_GAME_MAKE_MODE))	// 020925 YGI
-			AddCurrentStatusMessage(0, 255, 255, "전투스킬 두잉 메인 버튼에 좌클릭 하셨습니다");
+		if (GetSysInfo(SI_GAME_MAKE_MODE))	// 020925 YGI 
+			//AddCurrentStatusMessage(0, 255, 255, "전투스킬 두잉 메인 버튼에 좌클릭 하셨습니다");
+			AddCurrentStatusMessage(0, 255, 255, "战斗技能的两个主要按钮上点击左。");
 #endif
 		InitCombatSkill();
 		SetCSDIconRectAndnWillDo();

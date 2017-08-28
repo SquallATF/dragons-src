@@ -3398,7 +3398,7 @@ void PrintTextOnMenu()
 extern int g_BoadAndSignNumber;
 void PrintTextOnMenu2()
 {	//< CSD-030324
-	Hprint2(710, 5, NULL, "鬼좋질痢 v2.0");  //coromo 경굶뵀鞫刻  踏狗塘 絿하豚씹胡?"鬼좋질痢 v2.2"
+	Hprint2(710, 5, NULL, "小亮龙族 v2.0");  //coromo 版本号显示  游戏上角显示 的版本 e.g.:"小亮龙族 v2.2"
 #ifdef _DEBUG
 	if (!GetSysInfo(SI_GAME_MAKE_MODE))
 	{

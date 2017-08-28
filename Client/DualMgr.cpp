@@ -180,7 +180,9 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
-	if (rItemAttr.item_no == 4028)
+	if (rItemAttr.item_no == 4028 
+		|| rItemAttr.item_no == 1064 
+		|| rItemAttr.item_no == 1007)
 	{ // Packet 전송
 		t_packet packet;
 		packet.h.header.type = CMD_DUAL_ENABLE;

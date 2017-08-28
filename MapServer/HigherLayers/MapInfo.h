@@ -66,7 +66,7 @@ typedef struct MAPINFO
 		m_MoveType = 0;
 	}
 }t_MapInfo,*LPMAPINFO;
-#pragma pack(pop,1)
+//#pragma pack(pop,1)
 
 extern t_MapInfo MapInfo[MAX_MAP_];
 t_MapInfo* GetMapInfoByMapName(const char *szMapName); // CSD-030506

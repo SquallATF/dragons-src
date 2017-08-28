@@ -114,8 +114,8 @@ void ClearUserCN(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 
 void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 {
-	EXCEPTION_POINTERS* pException = NULL;//020508 lsw
-	__try	//020508 lsw
+	//EXCEPTION_POINTERS* pException = NULL;//020508 lsw
+	//__try	//020508 lsw
 	{
 
 		BYTE bID;
@@ -242,10 +242,6 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex, char* pMsg, DWORD dwLe
 		}
 		break;
 
-
-
-
-
 		// Added by chan78 at 2000/12/17
 		case PTCL_ORDER_TO_CLEAR_PAY_TABLE:
 		{
@@ -292,13 +288,13 @@ void __stdcall ReceivedMsgServer(DWORD dwConnectionIndex, char* pMsg, DWORD dwLe
 
 		}
 	}
-	//__except(pException = GetExceptionInformation())
-	__except (DumpException(GetExceptionInformation(), "Exception Raised on HadleCommand()"))
-	{
-		//acer7
-		//DumpException( pException, "Exception Raised on HadleCommand()", pMsg, dwLength );
-		ProcessEnd(FINISH_TYPE_UNKNOWN_ERROR);
-	}
+	////__except(pException = GetExceptionInformation())
+	//__except (DumpException(GetExceptionInformation(), "Exception Raised on HadleCommand()"))
+	//{
+	//	//acer7
+	//	//DumpException( pException, "Exception Raised on HadleCommand()", pMsg, dwLength );
+	//	ProcessEnd(FINISH_TYPE_UNKNOWN_ERROR);
+	//}
 }
 void __stdcall ReceivedMsgUser(DWORD dwConnectionIndex, char* pMsg, DWORD dwLength)
 {

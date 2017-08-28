@@ -458,67 +458,22 @@ void ItemRead()
 	Item_Ref.nItem[9] = Num_Of_CItem_Accessory;
 	Item_Ref.nItem[10] = Num_Of_CItem_Etc;
 
-	int z = 0;
+	//for (int z = 0; z < Num_Of_CItem_Plant; ++z) { Item_Ref.Item_type[0][z] = &plant[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Mineral; ++z) { Item_Ref.Item_type[1][z] = &mineral[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Herb; ++z) { Item_Ref.Item_type[2][z] = &herb[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Cook; ++z) { Item_Ref.Item_type[3][z] = &cook[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Potion; ++z) { Item_Ref.Item_type[4][z] = &potion[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Tool; ++z) { Item_Ref.Item_type[5][z] = &tool[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Weapon; ++z) { Item_Ref.Item_type[6][z] = &weapon[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Disposable; ++z) { Item_Ref.Item_type[7][z] = &disposable[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Armor; ++z) { Item_Ref.Item_type[8][z] = &armor[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Accessory; ++z) { Item_Ref.Item_type[9][z] = &accessory[z]; }
+	//for (int z = 0; z < Num_Of_CItem_Etc; ++z) { Item_Ref.Item_type[10][z] = &etc[z]; }
 
-	for (z = 0; z < Num_Of_CItem_Plant; ++z)
-	{
-		Item_Ref.Item_type[0][z] = &plant[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Mineral; ++z)
-	{
-		Item_Ref.Item_type[1][z] = &mineral[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Herb; ++z)
-	{
-		Item_Ref.Item_type[2][z] = &herb[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Cook; ++z)
-	{
-		Item_Ref.Item_type[3][z] = &cook[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Potion; ++z)
-	{
-		Item_Ref.Item_type[4][z] = &potion[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Tool; ++z)
-	{
-		Item_Ref.Item_type[5][z] = &tool[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Weapon; ++z)
-	{
-		Item_Ref.Item_type[6][z] = &weapon[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Disposable; ++z)
-	{
-		Item_Ref.Item_type[7][z] = &disposable[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Armor; ++z)
-	{
-		Item_Ref.Item_type[8][z] = &armor[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Accessory; ++z)
-	{
-		Item_Ref.Item_type[9][z] = &accessory[z];
-	}
-
-	for (z = 0; z < Num_Of_CItem_Etc; ++z)
-	{
-		Item_Ref.Item_type[10][z] = &etc[z];
-	}
-
-	const int	ItemAttrMax[11] = {
-		ITEM_Plant_MAX, ITEM_Mineral_MAX, ITEM_Herb_MAX, ITEM_Cook_MAX, ITEM_Potion_MAX, ITEM_Tool_MAX,
-		ITEM_Weapon_MAX, ITEM_Disposable_MAX, ITEM_Armor_MAX, ITEM_Accessory_MAX, ITEM_Etc_MAX,
-	};
+	//const int	ItemAttrMax[11] = {
+	//	ITEM_Plant_MAX, ITEM_Mineral_MAX, ITEM_Herb_MAX, ITEM_Cook_MAX, ITEM_Potion_MAX, ITEM_Tool_MAX,
+	//	ITEM_Weapon_MAX, ITEM_Disposable_MAX, ITEM_Armor_MAX, ITEM_Accessory_MAX, ITEM_Etc_MAX,
+	//};
 
 	for (int i = 0; i < Num_Of_Item_Type; i++)
 	{
@@ -662,9 +617,10 @@ void ItemRead()
 				}
 
 				//암호 하기
-				fwrite(&iTempNumOfItemTable, 4, 1, fp);//갯수를 그냥 기록
+				fwrite(&iTempNumOfItemTable, 4, 1, fp);//갯수를 그냥 기록 //
 
-													   //fwrite( &deinit, sizeof(HSEL_INITIAL), 1, fp );
+				//
+				//fwrite( &deinit, sizeof(HSEL_INITIAL), 1, fp );
 
 				ItemEn.Encrypt((char *)piNumOfItemTable, sizeof(int));
 				fwrite(piNumOfItemTable, 4, 1, fp);
@@ -683,7 +639,7 @@ void ItemRead()
 
 				fclose(fp);//파일 기록
 
-						   //암호 풀기
+				//암호 풀기
 				CHSEL_STREAM ItemDe;
 				//ItemDe.Initial(deinit);
 				ItemDe.Decrypt((char *)piNumOfItemTable, sizeof(int));
@@ -785,39 +741,38 @@ void ItemRead()
 				default:
 				{
 				}break;
-				}
+				}  // switch
+
+				fread(piNumOfItemTable, sizeof(int), 1, fp);
+				ItemDe.Decrypt((char *)piNumOfItemTable, sizeof(int));
+
+				if (iLineNum != *piNumOfItemTable)
 				{
-					fread(piNumOfItemTable, sizeof(int), 1, fp);
-					ItemDe.Decrypt((char *)piNumOfItemTable, sizeof(int));
+					JustMsg("ItemTable Read Error %d", i);
+					fclose(fp);
+				}
 
-					if (iLineNum != *piNumOfItemTable)
-					{
-						JustMsg("ItemTable Read Error %d", i);
-						fclose(fp);
-					}
-
-					int iCRC1 = 0;
+				int iCRC1 = 0;
+				const int iCRC2 = ItemDe.GetCRCConvertInt();//CRC 기록
+				fread(&iCRC1, sizeof(int), 1, fp);
+				//if( iCRC2  != iCRC1)
+				//{
+				//	JustMsg("ItemTable Read Error %d",i);
+				//	fclose(fp);
+				//}
+				for (int ct = 0; *piNumOfItemTable > ct; ct++)
+				{
+					fread((char*)pTable, iTableSize, 1, fp);//암호화된 데이타 기록
+					ItemDe.Decrypt((char*)pTable, iTableSize);
+					int iCRC1 = 0;//CRC 기록
 					const int iCRC2 = ItemDe.GetCRCConvertInt();//CRC 기록
 					fread(&iCRC1, sizeof(int), 1, fp);
 					//if( iCRC2  != iCRC1)
 					//{
-					//	JustMsg("ItemTable Read Error %d",i);
+					//	JustMsg("ItemTable Read Error %d , %d",i,ct);
 					//	fclose(fp);
 					//}
-					for (int ct = 0; *piNumOfItemTable > ct; ct++)
-					{
-						fread((char*)pTable, iTableSize, 1, fp);//암호화된 데이타 기록
-						ItemDe.Decrypt((char*)pTable, iTableSize);
-						int iCRC1 = 0;//CRC 기록
-						const int iCRC2 = ItemDe.GetCRCConvertInt();//CRC 기록
-						fread(&iCRC1, sizeof(int), 1, fp);
-						//if( iCRC2  != iCRC1)
-						//{
-						//	JustMsg("ItemTable Read Error %d , %d",i,ct);
-						//	fclose(fp);
-						//}
-						pTable += iTableSize;
-					}
+					pTable += iTableSize;
 				}
 				fclose(fp);
 			}
@@ -825,17 +780,30 @@ void ItemRead()
 		}
 	}
 
-	for (z = 0; z < Num_Of_CItem_Plant; z++) { Plant[z].CopyItemClass(&plant[z], ITEM_Plant_MAX); Item_Ref.Item_type[0][z] = &Plant[z]; }
-	for (z = 0; z < Num_Of_CItem_Mineral; z++) { Mineral[z].CopyItemClass(&mineral[z], ITEM_Mineral_MAX); Item_Ref.Item_type[1][z] = &Mineral[z]; }
-	for (z = 0; z < Num_Of_CItem_Herb; z++) { Herb[z].CopyItemClass(&herb[z], ITEM_Herb_MAX); Item_Ref.Item_type[2][z] = &Herb[z]; }
-	for (z = 0; z < Num_Of_CItem_Cook; z++) { Cook[z].CopyItemClass(&cook[z], ITEM_Cook_MAX); Item_Ref.Item_type[3][z] = &Cook[z]; }
-	for (z = 0; z < Num_Of_CItem_Potion; z++) { Potion[z].CopyItemClass(&potion[z], ITEM_Potion_MAX); Item_Ref.Item_type[4][z] = &Potion[z]; }
-	for (z = 0; z < Num_Of_CItem_Tool; z++) { Tool[z].CopyItemClass(&tool[z], ITEM_Tool_MAX); Item_Ref.Item_type[5][z] = &Tool[z]; }
-	for (z = 0; z < Num_Of_CItem_Weapon; z++) { Weapon[z].CopyItemClass(&weapon[z], ITEM_Weapon_MAX); Item_Ref.Item_type[6][z] = &Weapon[z]; }
-	for (z = 0; z < Num_Of_CItem_Disposable; z++) { Disposable[z].CopyItemClass(&disposable[z], ITEM_Disposable_MAX); Item_Ref.Item_type[7][z] = &Disposable[z]; }
-	for (z = 0; z < Num_Of_CItem_Armor; z++) { Armor[z].CopyItemClass(&armor[z], ITEM_Armor_MAX); Item_Ref.Item_type[8][z] = &Armor[z]; }
-	for (z = 0; z < Num_Of_CItem_Accessory; z++) { Accessory[z].CopyItemClass(&accessory[z], ITEM_Accessory_MAX); Item_Ref.Item_type[9][z] = &Accessory[z]; }
-	for (z = 0; z < Num_Of_CItem_Etc; z++) { Etc[z].CopyItemClass(&etc[z], ITEM_Etc_MAX); Item_Ref.Item_type[10][z] = &Etc[z]; }
+	for (int z = 0; z < Num_Of_CItem_Plant; z++) { Plant[z].CopyItemClass(&plant[z], ITEM_Plant_MAX); Item_Ref.Item_type[0][z] = &Plant[z]; }
+	for (int z = 0; z < Num_Of_CItem_Mineral; z++) { Mineral[z].CopyItemClass(&mineral[z], ITEM_Mineral_MAX); Item_Ref.Item_type[1][z] = &Mineral[z]; }
+	for (int z = 0; z < Num_Of_CItem_Herb; z++) { Herb[z].CopyItemClass(&herb[z], ITEM_Herb_MAX); Item_Ref.Item_type[2][z] = &Herb[z]; }
+	for (int z = 0; z < Num_Of_CItem_Cook; z++) { Cook[z].CopyItemClass(&cook[z], ITEM_Cook_MAX); Item_Ref.Item_type[3][z] = &Cook[z]; }
+	for (int z = 0; z < Num_Of_CItem_Potion; z++) { Potion[z].CopyItemClass(&potion[z], ITEM_Potion_MAX); Item_Ref.Item_type[4][z] = &Potion[z]; }
+	for (int z = 0; z < Num_Of_CItem_Tool; z++) { Tool[z].CopyItemClass(&tool[z], ITEM_Tool_MAX); Item_Ref.Item_type[5][z] = &Tool[z]; }
+	for (int z = 0; z < Num_Of_CItem_Weapon; z++) { Weapon[z].CopyItemClass(&weapon[z], ITEM_Weapon_MAX); Item_Ref.Item_type[6][z] = &Weapon[z]; }
+	for (int z = 0; z < Num_Of_CItem_Disposable; z++) { Disposable[z].CopyItemClass(&disposable[z], ITEM_Disposable_MAX); Item_Ref.Item_type[7][z] = &Disposable[z]; }
+	for (int z = 0; z < Num_Of_CItem_Armor; z++) { Armor[z].CopyItemClass(&armor[z], ITEM_Armor_MAX); Item_Ref.Item_type[8][z] = &Armor[z]; }
+	for (int z = 0; z < Num_Of_CItem_Accessory; z++) { Accessory[z].CopyItemClass(&accessory[z], ITEM_Accessory_MAX); Item_Ref.Item_type[9][z] = &Accessory[z]; }
+	for (int z = 0; z < Num_Of_CItem_Etc; z++) { Etc[z].CopyItemClass(&etc[z], ITEM_Etc_MAX); Item_Ref.Item_type[10][z] = &Etc[z]; }
+
+	//for (int z = 0; z < Num_Of_CItem_Plant; z++) { ZeroMemory((char *)(&plant[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Mineral; z++) { ZeroMemory((char *)(&mineral[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Herb; z++) { ZeroMemory((char *)(&herb[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Cook; z++) { ZeroMemory((char *)(&cook[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Potion; z++) { ZeroMemory((char *)(&potion[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Tool; z++) { ZeroMemory((char *)(&tool[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Weapon; z++) { ZeroMemory((char *)(&weapon[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Disposable; z++) { ZeroMemory((char *)(&disposable[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Armor; z++) { ZeroMemory((char *)(&armor[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Accessory; z++) { ZeroMemory((char *)(&accessory[z]), sizeof(int *) + sizeof(int) * 3); }
+	//for (int z = 0; z < Num_Of_CItem_Etc; z++) { ZeroMemory((char *)(&etc[z]), sizeof(int *) + sizeof(int) * 3); }
+
 
 	SAFE_DELETE_ARRAY(plant);
 	SAFE_DELETE_ARRAY(mineral);
