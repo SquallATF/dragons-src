@@ -8,7 +8,7 @@ typedef struct	tagSPNODE
 	int					x, y;
 	int					number;
 	struct tagSPNODE	*lpParent;
-	struct tagSPNODE	*lpChild[ 8 ];
+	struct tagSPNODE	*lpChild[8];
 	struct tagSPNODE	*lpNext;
 } SP_NODE, *LPSP_NODE;
 
@@ -23,15 +23,15 @@ extern "C"
 {
 #endif
 
-	extern BOOL			PathBuild( CHARLIST *ch, int dx, int dy );
-	extern void			PathDestroy( void );
-	extern LPSP_NODE	PathFind( CHARLIST *ch,int sx, int sy, int dx, int dy );
+	extern BOOL			PathBuild(CHARLIST *ch, int dx, int dy);
+	extern void			PathDestroy(void);
+	extern LPSP_NODE	PathFind(CHARLIST *ch, int sx, int sy, int dx, int dy);
 
 	////////////////// 0730 yjs 수정 디폴트 인자값을 넣음 //////////////////////////
-	extern int			FreeTile( LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My=0, LPCHARLIST attacker=NULL );
+	extern int			FreeTile(LPCHARLIST c, int sx, int sy, int x, int y, BOOL	notCheck_My = 0, LPCHARLIST attacker = NULL);
 	////////////////////////////////////////////////////////////////////////////////
 
-	#ifdef __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

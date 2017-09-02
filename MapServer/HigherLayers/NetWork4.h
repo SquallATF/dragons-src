@@ -296,19 +296,19 @@ typedef struct tag_LOTTOPAPER_SEEK
 
 
 // Packet Define End ____________________________________
- 
-const int 	NW_NATION_COUNT					=3;
-const int 	NW_WARFIELD_COUNT				=3;
-const int 	MAX_NEW_WARFIELD				=1;
 
-const int 	NW_NAME_MAX						=31;
-const int 	NW_SQUAD_MAX					=5;		// 0부대 : 부대 편성이 되지 않은 인원의 모임.
-const int 	NW_CANDIDATE_MAX				=6;
-const int 	NW_SQUAD_KIND					=3;
-const int 	MAX_STRING_PK					=600;
-const int 	NW_SQUAD_RARE_MAX				=3;
-const int 	FOG_MAX							=30;	// LTS DRAGON MODIFY
-const int 	MAX_DONT_DATA					=10;
+const int 	NW_NATION_COUNT = 3;
+const int 	NW_WARFIELD_COUNT = 3;
+const int 	MAX_NEW_WARFIELD = 1;
+
+const int 	NW_NAME_MAX = 31;
+const int 	NW_SQUAD_MAX = 5;		// 0부대 : 부대 편성이 되지 않은 인원의 모임.
+const int 	NW_CANDIDATE_MAX = 6;
+const int 	NW_SQUAD_KIND = 3;
+const int 	MAX_STRING_PK = 600;
+const int 	NW_SQUAD_RARE_MAX = 3;
+const int 	FOG_MAX = 30;	// LTS DRAGON MODIFY
+const int 	MAX_DONT_DATA = 10;
 
 //<------------------------------- 1.04 addition ------------------------------------------
 #define CMD_CHECK_WARFIELD_SQUAD_MEMBERCOUNT	26501	// LTH-040220-KO 부대 인원 수를 테크한다. 패킷
@@ -324,7 +324,7 @@ const INT MAX_WARFIELD = NW_WARFIELD_COUNT + MAX_NEW_WARFIELD + 1;
  * @struct	CheckSquadMemberCount_.
  * @brief	부대 인원 카운트.
  */
-//< LTH-040209-KO.
+ //< LTH-040209-KO.
 typedef struct CheckSquadMemberCount_
 {
 	char cWarfieldNo;
@@ -336,7 +336,7 @@ typedef struct CheckSquadMemberCount_
  * @struct	CheckSquadMemberCountR_.
  * @brief	부대 인원 체크 결과.
  */
-//< LTH-040209-KO.
+ //< LTH-040209-KO.
 typedef struct CheckSquadMemberCountR_
 {
 	char cWarfieldNo;
@@ -350,7 +350,7 @@ typedef struct CheckSquadMemberCountR_
  * @struct	NEO_WARFIELD_DATA.
  * @brief	신규 전쟁터 정보 전송용.
  */
-//< LTH-040212-KO.
+ //< LTH-040212-KO.
 struct NEO_WARFIELD_DATA
 {
 	DWORD dwRemainTime;
@@ -364,7 +364,7 @@ struct NEO_WARFIELD_DATA
  * @struct	NEO_WAR_RESULT.
  * @brief	전쟁 결과 전송용.
  */
-//< LTH-040225-KO.
+ //< LTH-040225-KO.
 struct NEO_WAR_RESULT
 {
 	INT nBYMemberCount;
@@ -382,7 +382,7 @@ struct NEO_WAR_RESULT
  * @struct	GUARD_CAN_NOT_BROKE.
  * @brief	가드를 부술수 없는 이유전송.
  */
-//< LTH-040317-KO.
+ //< LTH-040317-KO.
 struct GUARD_CAN_NOT_BROKE
 {
 	int nWarfieldNo;
@@ -393,7 +393,7 @@ struct GUARD_CAN_NOT_BROKE
  * @struct	REMAIN_GUARD.
  * @brief	남은 가드(성문, 수호석)의 수를 반환한다.
  */
-//< LTH-040318-KO.
+ //< LTH-040318-KO.
 struct REMAIN_GUARD
 {
 	DWORD dwRemainTime;				// 걍 전쟁 남은 시간까지 보내자구
@@ -412,7 +412,7 @@ struct REMAIN_GUARD
  * @struct	tagWarfieldPeaceMove.
  * @brief	평화 기간에 전쟁터에 이동 요청 할때에 필요.
  */
-//< LTH-040422-KO.
+ //< LTH-040422-KO.
 typedef struct tagWARFIELD_PEACE_MOVE
 {
 	int nWarfieldNo;		// 이동할 전쟁터 번호.
@@ -424,7 +424,7 @@ typedef struct tagWARFIELD_PEACE_MOVE
  * @struct	tagWarfieldPeaceMoveResult.
  * @brief	평화 기간에 전쟁터에 이동 요청에 대한 결과.
  */
-//< LTH-040503-KO.
+ //< LTH-040503-KO.
 typedef struct tagWARFIELD_PEACE_MOVE_RESULT
 {
 	DWORD dwYlMoveMoney;		// 일스의 이동 요금
@@ -438,7 +438,7 @@ typedef struct tagWARFIELD_PEACE_MOVE_RESULT
  * @struct	tagWarfieldInfo.
  * @brief	전쟁터 소유자와 전쟁터 상태 요청.
  */
-//< LTH-040504-KO.
+ //< LTH-040504-KO.
 typedef struct tagWARFIELD_INFO
 {
 	int nWarfieldNo;			// 요청할 전쟁터
@@ -451,7 +451,7 @@ typedef struct tagWARFIELD_INFO
  * @struct	tagWarfieldInfoResult.
  * @brief	전쟁터 소유자와 전쟁터 상태 요청 결과.
  */
-//< LTH-040504-KO.
+ //< LTH-040504-KO.
 typedef struct tagWARFIELD_INFO_RESULT
 {
 	int nWarfieldNo;			// 이동할 전쟁터 번호.
@@ -552,7 +552,7 @@ typedef struct RegSquadLeader_P			// 서버간 패킷
 	unsigned __int8		nDual;					// 011020 LTS
 	unsigned __int8		nStep;					// 011020 LTS
 	DWORD		LadderScore;
-	
+
 }	t_RegSquadLeader;
 
 typedef struct RequestCommanderVoteData_P
@@ -609,7 +609,7 @@ typedef struct CommanderVotingResult_P
 	short		Level;					// 011028 LTS
 	char		Fame;
 	short int	Face;
-	short int	Gender;		
+	short int	Gender;
 	short int	Class;					// 011016 LTS
 	unsigned __int8		nDual;					// 011020 LTS
 	unsigned __int8		nStep;					// 011020 LTS
@@ -903,7 +903,7 @@ typedef struct NoticeWar2Reinforce_
 typedef	struct NoticeWarPeace1V_				// War Result	// 011025 LTS
 {
 	char	Type;
-	char	SecretWarfieldNo;	
+	char	SecretWarfieldNo;
 	char	WarfieldNo;
 	DWORD	Money;
 	DWORD	Warfield1RemainTime;
@@ -928,7 +928,7 @@ typedef struct NoticeWarPeace1Reinforce_						// 011025 LTS
 	char	WarfieldNo;
 	char	VictoryNation;
 	char	DefeatNation;
-	DWORD	Warfield1RemainTime;								
+	DWORD	Warfield1RemainTime;
 	DWORD	Warfield2RemainTime;
 	DWORD	Warfield3RemainTime;
 }	t_NoticeWarPeace1Reinforce;
@@ -936,7 +936,7 @@ typedef struct NoticeWarPeace1Reinforce_						// 011025 LTS
 typedef struct NoticeWarPeace2_									// 011025 LTS
 {
 	char	Type;
-	DWORD	Warfield1RemainTime;								
+	DWORD	Warfield1RemainTime;
 	DWORD	Warfield2RemainTime;
 	DWORD	Warfield3RemainTime;
 }	t_NoticeWarPeace2;
@@ -1140,7 +1140,7 @@ typedef union NationWar_P
 	t_NoticeWarPeace2			NoticeWarPeace2;
 	t_Delivery_Notice			Delivery_Notice;
 	t_RemainTime				RemainTime;
-	t_WarControl				WarControl;			
+	t_WarControl				WarControl;
 	t_WarLoopTime				WarLoopTime;			// 011025 LTS
 	t_SecretOpen				SecretOpen;
 	t_CheckNationMemberCount	CheckNationMemberCount;
@@ -1193,7 +1193,7 @@ typedef struct LocalWarInfo_
 {
 	t_LocalWarInfo1				LocalWarInfo1[7];			// 최악의 방법
 	t_LocalWarInfo2				LocalWarInfo2;
-	t_LocalWarPointChanged		LocalWarPointChanged;	
+	t_LocalWarPointChanged		LocalWarPointChanged;
 	char						LocalWarDefencePoint[3];
 }	t_LocalWarInfo;
 
@@ -1204,7 +1204,7 @@ typedef struct LocarWarUserAdd_
 	char	Nation;
 }	t_LocalWarUserAdd;
 
-typedef struct UserJoinLocalWar_ 
+typedef struct UserJoinLocalWar_
 {
 	unsigned int	ServerID;
 }	t_UserJoinLocalWar;
@@ -1250,7 +1250,7 @@ typedef struct EventLocalWarMessage_
 	char			EventStatus;
 	unsigned char	MinLevel;
 	unsigned char	MaxLevel;
-	POINTS			EventJoinLocation[3];			
+	POINTS			EventJoinLocation[3];
 }	t_EventLocalWarMessage;
 
 typedef	struct EventJoin_
@@ -1279,7 +1279,7 @@ typedef struct AI_Status_					// LTS AI2 TEMP			// 디버그용
 {
 	int		ID;
 	int		PatternType;
-}	t_AI_Status;	
+}	t_AI_Status;
 
 typedef struct EVMonster_					// LTS AI2 TEMP
 {
@@ -1291,7 +1291,7 @@ typedef struct CommunityAction_				// LTS ACTION
 {
 	int		ID;
 	char	Action;
-	char	Direction;						
+	char	Direction;
 	char	Result;
 }	t_CommunityAction;
 
@@ -1323,7 +1323,7 @@ typedef struct AIFog_						// LTS NEW AI
 {
 	char	Type;
 	DWORD	Delay;
-	POINTS	Location[FOG_MAX];					
+	POINTS	Location[FOG_MAX];
 }	t_AIFog;
 
 typedef struct AIActionTest_
@@ -1367,7 +1367,7 @@ typedef union LocalWar_
 	t_ActionStatus				ActionStatus;
 	t_SDChanged					SDChanged;
 	t_EventLocalWarMessage		EventLocalWarMessage;
-	t_EventJoin					EventJoin; 
+	t_EventJoin					EventJoin;
 	t_DeleteEventJoin			DeleteEventJoin;		// 020115 LTS
 	t_EventPoint				EventPoint;				// 020115 LTS
 	t_EventRemainTime			EventRemainTime;		// LTS BUG

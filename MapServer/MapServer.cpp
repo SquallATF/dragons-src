@@ -22,7 +22,7 @@ I4DyuchiNET* g_pINet = NULL;
 HANDLE hKeyEvent[5] = { NULL, };	// 010205 KHS
 
 // 001211 KHS
-extern char MapName[ MAX_PATH]; 
+extern char MapName[MAX_PATH];
 extern int MAX_EXP_LEVEL;  // CSD-040204
 extern int MAX_TAC_LEVEL;  // CSD-040204
 extern int MAX_JOB_LEVEL;  // CSD-040223
@@ -42,9 +42,9 @@ bool InitMapServer()
 
 void __stdcall ShowMapServerStatus(DWORD dwValue)//020511 lsw		// VK_F1
 {
-	if( !g_pServerTable )
+	if (!g_pServerTable)
 	{
-		MyLog( LOG_NORMAL, "CServerTable Is Not Available." );
+		MyLog(LOG_NORMAL, "CServerTable Is Not Available.");
 	}
 	else
 	{
@@ -69,26 +69,26 @@ extern int InitLoadQuestTable();
 
 void __stdcall ReLoadGameServerDataByKeyInput(DWORD dwValue)//020511 lsw		// vk_f5
 {
-	if( !g_pServerTable )
+	if (!g_pServerTable)
 	{
-		MyLog( LOG_NORMAL, "ReLoadGameServerData() :: Server Is not Ready, Retry Later" );
+		MyLog(LOG_NORMAL, "ReLoadGameServerData() :: Server Is not Ready, Retry Later");
 		return;
 	}
 
 	//020121 KBS
-	g_pServerTable->SetServerStatus( STATUS_RELOAD_GAMESERVER_DATA );
-	
+	g_pServerTable->SetServerStatus(STATUS_RELOAD_GAMESERVER_DATA);
+
 	//010305 YGI
 	LoadAIConfig();				// LTS AI		// 030919 HK YGI
 	Load_NPC_ItemGenerateTable();
 	initItem();
-	LoadScript( MapName );		// 0201
+	LoadScript(MapName);		// 0201
 	LoadFilterWord();			// 0527 YGI
 	LoadGetGodTable();			// 0605 YGI
-	InitSkillTable();			
-//	LoadAIConfig();				// LTS AI 		// 030919 HK YGI
-	InitSkillMapTable();		
-	initNPCGenerationTable();	
+	InitSkillTable();
+	//LoadAIConfig();				// LTS AI 		// 030919 HK YGI
+	InitSkillMapTable();
+	initNPCGenerationTable();
 	LoadItemJoinTable();
 	LoadGenerateSpecialItem();	//1027 zhh
 	MakeStoreList();
@@ -104,107 +104,107 @@ void __stdcall ReLoadGameServerDataByKeyInput(DWORD dwValue)//020511 lsw		// vk_
 	ReLoadNationData();			// 011218 LTS
 	ReLoadEventLocalWarData();	// LTS BUG
 	InitMapServerConfigINI();	// 020115 LTS		// LTS NEW LOCALWAR
-	MyLog( LOG_NORMAL, "Re-Loaded a part of 'GameServerData'" );
+	MyLog(LOG_NORMAL, "Re-Loaded a part of 'GameServerData'");
 
 	//020121 KBS
-	g_pServerTable->SetServerStatus( STATUS_FINISH_RELOAD_GAMESERVER_DATA );
+	g_pServerTable->SetServerStatus(STATUS_FINISH_RELOAD_GAMESERVER_DATA);
 	SetGlobalBlockValues();
 
 	InitLoadQuestTable();	// 021015 kyo
 	SetGlobalBlockValues();
-	if(LottoSystem())
+	if (LottoSystem())
 	{
 		LottoSystem()->LoadTable(g_hDBC_DragonDB);
 	}
-	
-	if( LocalMgr.IsAbleNation(THAI) ) // 030929 kyo
+
+	if (LocalMgr.IsAbleNation(THAI)) // 030929 kyo
 	{
 		::InitLimitedTimeAndAge();
 	}
 }
-	
-	
+
+
 // 021128 YGI
 // 030211 YGI
 void __stdcall SaveNPCStatusByKeyInput(DWORD dwValue)//020511 lsw
-{	
-	if( !g_pServerTable )
-	{		
-		MyLog( LOG_NORMAL, "SaveNPCStatus() :: Server Is not Ready, Retry Later" );
+{
+	if (!g_pServerTable)
+	{
+		MyLog(LOG_NORMAL, "SaveNPCStatus() :: Server Is not Ready, Retry Later");
 		return;
-	}		
-			
+	}
+
 	FILE *fp;
-	char tmp[ FILENAME_MAX];
+	char tmp[FILENAME_MAX];
 	int alive = 0;
 	int eventnpc = 0;
 	int dummy = 0;
 	int save = 0;		// 기록할지 말지를 결정
-	
+
 	static char explain_str[3][50] =		// 
-	{ 
+	{
 		"GT_EVENT_MONSTER",
 		"GT_SCENARIO_MONSTER",
-		"GT_EVENT_NPC" 
+		"GT_EVENT_NPC"
 	};
 	char *temp_str = 0;		// 설명글 받아 올 변수
 
-	sprintf( tmp, "%02d.%02d %02d.%02d NPC Status.txt", g_mon+1, g_day, g_hour, g_min );
-	fp = fopen( tmp, "at+" );
-	if( fp )
-	{		
-		fprintf( fp, "alive SprNo ScriptNo Name        X  Y \n" );
+	sprintf(tmp, "%02d.%02d %02d.%02d NPC Status.txt", g_mon + 1, g_day, g_hour, g_min);
+	fp = fopen(tmp, "at+");
+	if (fp)
+	{
+		fprintf(fp, "alive SprNo ScriptNo Name        X  Y \n");
 
-		for( int i = NPC_LIST_START ; i < MAX_NPC_LIST ; i ++)
+		for (int i = NPC_LIST_START; i < MAX_NPC_LIST; i++)
 		{
-			if( NPCList[i].bAlive == REMOVE_ ) 
+			if (NPCList[i].bAlive == REMOVE_)
 				continue;
 
-			alive ++;
+			alive++;
 			save = 0;
 			temp_str = 0;
-			if( NPCList[i].eventno > 0 ) 
+			if (NPCList[i].eventno > 0)
 			{
-				if( NPCList[i].bAlive != REMOVE_ ) eventnpc ++;
+				if (NPCList[i].bAlive != REMOVE_) eventnpc++;
 				save = 1;
 			}
 
-			if( NPCList[i].Race == DUMMY )
+			if (NPCList[i].Race == DUMMY)
 			{
 				dummy++;
 				save = 1;
 			}
 
-			if( save )
+			if (save)
 			{
-				fprintf( fp, "%3d     %3d     %3d  %20s   %4d %4d\n",	NPCList[i].bAlive,
-					NPCList[i].SprNo, NPCList[i].eventno, NPCList[i].Name, NPCList[i].MoveSx, NPCList[i].MoveSy );
+				fprintf(fp, "%3d     %3d     %3d  %20s   %4d %4d\n", NPCList[i].bAlive,
+					NPCList[i].SprNo, NPCList[i].eventno, NPCList[i].Name, NPCList[i].MoveSx, NPCList[i].MoveSy);
 			}
 			else
 			{
-				if( NPCList[i].generationtype == GT_EVENT_MONSTER )
+				if (NPCList[i].generationtype == GT_EVENT_MONSTER)
 				{
 					temp_str = explain_str[0];
 				}
-				else if( NPCList[i].generationtype == GT_SCENARIO_MONSTER )
+				else if (NPCList[i].generationtype == GT_SCENARIO_MONSTER)
 				{
 					temp_str = explain_str[1];
 				}
-				else if( NPCList[i].generationtype == GT_EVENT_NPC )
+				else if (NPCList[i].generationtype == GT_EVENT_NPC)
 				{
 					temp_str = explain_str[2];
 				}
-				if( temp_str )
+				if (temp_str)
 				{
-					fprintf( fp, "%3d     %3d     %3d  %20s   %4d %4d	%s\n",	
+					fprintf(fp, "%3d     %3d     %3d  %20s   %4d %4d	%s\n",
 						NPCList[i].bAlive, NPCList[i].SprNo, NPCList[i].eventno, NPCList[i].Name,
-						NPCList[i].MoveSx, NPCList[i].MoveSy, temp_str );
+						NPCList[i].MoveSx, NPCList[i].MoveSy, temp_str);
 				}
 			}
 		}
 
-		fprintf( fp, "Alive NPC No.       :  %d \n", alive );
-		fprintf( fp, "Alive Event NPC No. :  %d \n\n", eventnpc );
+		fprintf(fp, "Alive NPC No.       :  %d \n", alive);
+		fprintf(fp, "Alive Event NPC No. :  %d \n\n", eventnpc);
 
 
 		fclose(fp);
@@ -215,18 +215,18 @@ void __stdcall SaveNPCStatusByKeyInput(DWORD dwValue)//020511 lsw
 void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//020511 lsw
 {
 	// Proxy 에 연결되지 않은 경우.
-	if( g_pServerTable && g_pServerTable->GetOwnProxyServerData() && !g_pServerTable->GetOwnProxyServerData()->dwConnectionIndex )
+	if (g_pServerTable && g_pServerTable->GetOwnProxyServerData() && !g_pServerTable->GetOwnProxyServerData()->dwConnectionIndex)
 	{
-		MyLog( LOG_NORMAL, "@@ Trying to connect PROXY Server ..." );
+		MyLog(LOG_NORMAL, "@@ Trying to connect PROXY Server ...");
 
 		// Added by chan78 at 2001/04/11 :: 이미 접속 시도중인 경우 시도하지 않는다.
-		if( g_pServerTable->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE )
+		if (g_pServerTable->GetConnectionResultData()->dwConnectionType != CONNECT_TYPE_NONE)
 		{
 			return;
 		}
 
 		// 접속 시도.
-		if( g_pServerTable->ConnectToProxyServer() )
+		if (g_pServerTable->ConnectToProxyServer())
 		{
 			// Modified by chan78 at 2001/04/11 :: 타이머 포즈 처리는 결과처리 콜백함수에서.
 			return;
@@ -236,14 +236,14 @@ void __stdcall AwaitingProxyServerConnect(DWORD dwValue)//020511 lsw
 }
 
 // Added by chan78 at 2001/02/08
-extern t_connection	connections[DRAGON_MAX_CONNECTIONS_+1];
+extern t_connection	connections[DRAGON_MAX_CONNECTIONS_ + 1];
 void __stdcall CleanUpDeadConnections(DWORD dwValue)//020511 lsw
 {	//< CSD-CN-031213
 	// 주기적으로 t_connection 배열을 뒤져서 해당 Agent로 사용자가 GHOST가 아닌지 체크하는 패킷을 날린다.
 	// AGENT는 이 패킷을 받았을때 그 사용자가 존재하지 않으면 그 사용자가 GHOST 이므로 제거를 요청한다.
 	// 제거할때는 일반적인 종료 PTCL 이 아니라 다른것을 사용하므로 따로 로그를 남긴다.
 	// 한번 진입할때마다 반(홀/짝) 으로 나누어 처리한다.
-	char pMsg[256 + 1] = {0, };
+	char pMsg[256 + 1] = { 0, };
 	pMsg[0] = PTCL_MAP_TO_AGENT_CHECK_IS_USER_GHOST;
 
 	LP_CHECK_IS_USER_GHOST_PACKET pPacket = (LP_CHECK_IS_USER_GHOST_PACKET)(pMsg + 1);
@@ -253,7 +253,7 @@ void __stdcall CleanUpDeadConnections(DWORD dwValue)//020511 lsw
 	for (CUserManager::ITOR_USER i = mpUser.begin(); i != mpUser.end(); ++i)
 	{
 		const int idGhost = i->second;
-		
+
 		if (connections[idGhost].dwAgentConnectionIndex && connections[idGhost].dwIDForAgent)
 		{
 			pPacket->dwID = connections[idGhost].dwIDForAgent;
@@ -273,7 +273,7 @@ void __stdcall CleanUpDeadConnections(DWORD dwValue)//020511 lsw
 extern void InitNationValues();//030102 lsw
 bool Init()
 {
-	CUSTOM_EVENT ev[ CUSTOM_EVENT_NUM_];	// 010205 KHS
+	CUSTOM_EVENT ev[CUSTOM_EVENT_NUM_];	// 010205 KHS
 	// Added by chan78 at 2000/11/27
 	ev[0].dwPeriodicTime = 1000;
 	ev[0].pEventFunc = AwaitingProxyServerConnect;
@@ -284,7 +284,7 @@ bool Init()
 	ev[3].dwPeriodicTime = 0;
 	ev[3].pEventFunc = ShowMapServerStatus;
 	ev[4].dwPeriodicTime = 0;
-	ev[4].pEventFunc = ReLoadGameServerDataByKeyInput; 
+	ev[4].pEventFunc = ReLoadGameServerDataByKeyInput;
 	ev[5].dwPeriodicTime = 0;
 	ev[5].pEventFunc = SaveNPCStatusByKeyInput;
 	ev[6].dwPeriodicTime = 0;
@@ -311,15 +311,15 @@ bool Init()
 
 	HRESULT hr;
 	CoInitialize(NULL);
-    
+
 	//CoCreateInstance(,);
 	hr = CoCreateInstance(
-           CLSID_4DyuchiNET,
-           NULL,
-		   CLSCTX_SERVER,
-           // CLSCTX_INPROC_SERVER,
-           IID_4DyuchiNET,
-           (void**)&g_pINet);
+		CLSID_4DyuchiNET,
+		NULL,
+		CLSCTX_SERVER,
+		// CLSCTX_INPROC_SERVER,
+		IID_4DyuchiNET,
+		(void**)&g_pINet);
 
 	if (FAILED(hr)) {
 		//REGDB_E_CLASSNOTREG;
@@ -337,16 +337,16 @@ bool Init()
 		return false;
 	}
 
-	if (!g_pINet || !g_pINet->CreateNetwork(&desc,10,10))
+	if (!g_pINet || !g_pINet->CreateNetwork(&desc, 10, 10))
 	{
 		return false;
 	}
 
 	// 일단 정지...	
-	g_pINet->PauseTimer( 0 );	// 040406 kyo
-	g_pINet->PauseTimer( 1 ); // 040406 kyo
-	g_pINet->PauseTimer( 2 ); // 040406 kyo
-	g_pINet->PauseTimer( 3 );	// 040406 kyo
+	g_pINet->PauseTimer(0);	// 040406 kyo
+	g_pINet->PauseTimer(1); // 040406 kyo
+	g_pINet->PauseTimer(2); // 040406 kyo
+	g_pINet->PauseTimer(3);	// 040406 kyo
 
 	hKeyEvent[0] = g_pINet->GetCustomEventHandle(3);
 	hKeyEvent[1] = g_pINet->GetCustomEventHandle(4);
@@ -356,32 +356,32 @@ bool Init()
 	hKeyEvent[3] = g_pINet->GetCustomEventHandle(6);
 
 	// 서버 테이블 생성.
-	g_pServerTable = new CServerTable( MAP_SERVER_INI_, MAX_SERVER_NUM, g_pINet  );
+	g_pServerTable = new CServerTable(MAP_SERVER_INI_, MAX_SERVER_NUM, g_pINet);
 	SERVER_DATA * pServer = g_pServerTable->GetOwnServerData();
 
-	if( !g_pServerTable )
+	if (!g_pServerTable)
 	{
-		MyLog( LOG_FATAL, "ERROR: g_pServerTable is NULL" );
+		MyLog(LOG_FATAL, "ERROR: g_pServerTable is NULL");
 		return false;
 	}
 
-	char szNationName[100] = {0,} ;
-	if( GetPrivateProfileString( "nation_set", "nation_name", "" , szNationName, 50,MAP_SERVER_INI_ ) )
+	char szNationName[100] = { 0, };
+	if (GetPrivateProfileString("nation_set", "nation_name", "", szNationName, 50, MAP_SERVER_INI_))
 	{
-		const bool bIsFree = (GetPrivateProfileInt( "NATION_SET", "BETA_SERVER", 0, MAP_SERVER_INI_ ))?true:false;
-		if(!LocalMgr.InitVersion(szNationName,bIsFree)){return false;}
+		const bool bIsFree = (GetPrivateProfileInt("NATION_SET", "BETA_SERVER", 0, MAP_SERVER_INI_)) ? true : false;
+		if (!LocalMgr.InitVersion(szNationName, bIsFree)) { return false; }
 		::InitNationValues();
 	}
 	else
 	{
-		MyLog(0,"Nation_Set Data Fault!!");
+		MyLog(0, "Nation_Set Data Fault!!");
 		return false;
 	}
-	
+
 	char szLogPath[MAX_PATH];
 	memset(szLogPath, 0, MAX_PATH);
 	// 로그 디렉토리 생성
-	if (GetPrivateProfileString("option", "LogPath", "" , szLogPath, MAX_PATH, MAP_SERVER_INI_) > 0)
+	if (GetPrivateProfileString("option", "LogPath", "", szLogPath, MAX_PATH, MAP_SERVER_INI_) > 0)
 	{	//< CSD-040407
 		g_pLogManager->CreateMainPath(szLogPath);
 		g_pLogManager->CreateSubPath(LT_ACCELATER, "Accelater");
@@ -404,9 +404,9 @@ bool Init()
 	char szLevel[MAX_PATH];
 	memset(szLevel, 0, MAX_PATH);
 
-	if (GetPrivateProfileString("option", "max_exp_level", "" , szLevel, MAX_PATH, MAP_SERVER_INI_) > 0)
+	if (GetPrivateProfileString("option", "max_exp_level", "", szLevel, MAX_PATH, MAP_SERVER_INI_) > 0)
 	{
-		MAX_EXP_LEVEL = atoi(szLevel);	
+		MAX_EXP_LEVEL = atoi(szLevel);
 		Dbg_Assert(MAX_EXP_LEVEL > 0 && MAX_EXP_LEVEL <= 200);
 	}
 	else
@@ -414,7 +414,7 @@ bool Init()
 		MAX_EXP_LEVEL = 200;//된섬 龜?
 	}
 
-	if (GetPrivateProfileString("option", "max_tac_level", "" , szLevel, MAX_PATH, MAP_SERVER_INI_) > 0)
+	if (GetPrivateProfileString("option", "max_tac_level", "", szLevel, MAX_PATH, MAP_SERVER_INI_) > 0)
 	{
 		MAX_TAC_LEVEL = atoi(szLevel) - 1;
 		Dbg_Assert(MAX_TAC_LEVEL > 0 && MAX_TAC_LEVEL <= 499);
@@ -424,7 +424,7 @@ bool Init()
 		MAX_TAC_LEVEL = 499;//濫섀 龜?
 	}
 
-	if (GetPrivateProfileString("option", "max_job_level", "" , szLevel, MAX_PATH, MAP_SERVER_INI_) > 0)
+	if (GetPrivateProfileString("option", "max_job_level", "", szLevel, MAX_PATH, MAP_SERVER_INI_) > 0)
 	{
 		MAX_JOB_LEVEL = atoi(szLevel);
 		Dbg_Assert(MAX_JOB_LEVEL > 0 && MAX_JOB_LEVEL <= 100);
@@ -433,7 +433,7 @@ bool Init()
 	{
 		MAX_JOB_LEVEL = 100;//묏鱗세콘 龜?
 	}
-	
+
 	MyLog(LOG_NORMAL, "max_exp_level(%d), max_tac_level(%d), max_job_level(%d)\n", MAX_EXP_LEVEL, MAX_TAC_LEVEL, MAX_JOB_LEVEL);
 	//> CSD-040223
 	return true;
@@ -453,12 +453,12 @@ void EndMapServer()
 
 	SAFE_RELEASE(g_pINet);
 	SAFE_DELETE(g_pServerTable);
-	
+
 	CloseNationSystem();  // 010904 LTS
 	CloseLocalWarSystem();		// LTS LOCALWAR
 	CloseEventLocalWarSystem();		// 020115 LTS
-	
-	DeleteSkillAll( );
+
+	DeleteSkillAll();
 	DeleteMenuData();
 
 	CoFreeUnusedLibraries();

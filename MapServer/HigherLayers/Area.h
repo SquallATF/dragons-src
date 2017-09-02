@@ -43,21 +43,21 @@ typedef struct defCmdArea
 } CMD_AREA;
 
 //----------------------------------------------------------------------------------------------
-extern void CastMe2Other( int cn, t_packet *packet );
-extern void CastNPC2Other( int npc, t_packet *packet );
+extern void CastMe2Other(int cn, t_packet *packet);
+extern void CastNPC2Other(int npc, t_packet *packet);
 extern int  SetArea(int Cmd, int Id);
 extern void RunArea(t_connection c[]);
-extern void SendModifyPositionNPC( t_connection c[], int npc );
-extern void RecvNPCModifyPos( int cn, int id, int mx, int my );
-	   
-extern void SendMoveNPCArea(t_connection c[], int cn);
-extern void SendNPCChatArea( int npc, char *String, ...  );
-extern void SendChatArea(const int cn, t_packet *packet);//021126 lsw
-extern void SendAttackNPCArea( t_connection c[], int npc );
-extern void SendMagicNPCArea(t_connection c[], int npc, BYTE nMagic, bool bPattern = false);
-extern void JustMessage( char *txt, ... );
+extern void SendModifyPositionNPC(t_connection c[], int npc);
+extern void RecvNPCModifyPos(int cn, int id, int mx, int my);
 
-extern int Zip(BYTE * pbIn, int iSize,BYTE *pbOut,int iMax);
+extern void SendMoveNPCArea(t_connection c[], int cn);
+extern void SendNPCChatArea(int npc, char *String, ...);
+extern void SendChatArea(const int cn, t_packet *packet);//021126 lsw
+extern void SendAttackNPCArea(t_connection c[], int npc);
+extern void SendMagicNPCArea(t_connection c[], int npc, BYTE nMagic, bool bPattern = false);
+extern void JustMessage(char *txt, ...);
+
+extern int Zip(BYTE * pbIn, int iSize, BYTE *pbOut, int iMax);
 
 extern int PC_COUNT;
 extern int NPC_COUNT;

@@ -12,29 +12,29 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 얼음속성 전투스킬
-class CFreezeCombat : public TBinder<CCombat, CFreezeCombat>  
+class CFreezeCombat : public TBinder<CCombat, CFreezeCombat>
 {
 public:
 	CFreezeCombat();
 	virtual ~CFreezeCombat();
 
 public:
-  virtual bool Bind();
-  virtual bool Elapse(CHARLIST* pTarget);
-  
-public:
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
+	virtual bool Bind();
+	virtual bool Elapse(CHARLIST* pTarget);
 
 public:
-  bool IcingBlast();
-  bool CriticalHiding();
-  bool SharkMissile();
-  bool HornOfIceBerg();
-  bool IceShield();
-  bool IceExtreme();
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
+
+public:
+	bool IcingBlast();
+	bool CriticalHiding();
+	bool SharkMissile();
+	bool HornOfIceBerg();
+	bool IceShield();
+	bool IceExtreme();
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

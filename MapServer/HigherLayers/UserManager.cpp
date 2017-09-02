@@ -36,7 +36,7 @@ void CUserManager::AddMember(WORD idUser)
 
 	if (pUser == NULL)
 	{
-		MyLog(LOG_NORMAL, "CUserManager::AddNew : Character is NULL" );
+		MyLog(LOG_NORMAL, "CUserManager::AddNew : Character is NULL");
 		return;
 	}
 
@@ -65,7 +65,7 @@ void CUserManager::DelMember(WORD idUser)
 
 	if (itor != m_hash.end())
 	{
-		m_hash.erase(itor);	
+		m_hash.erase(itor);
 	}
 	else
 	{
@@ -96,7 +96,7 @@ void CUserManager::SendPacket(t_packet* pPacket)
 	for (ITOR_USER i = m_hash.begin(); i != m_hash.end(); ++i)
 	{
 		const int idUser = i->second;
-	
+
 		if (connections[idUser].dwAgentConnectionIndex == 0)
 		{
 			continue;

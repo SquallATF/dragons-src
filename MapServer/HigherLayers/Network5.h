@@ -142,7 +142,7 @@ struct t_server_throw_attack
 };	//> CSD-TW-030606
 
 struct t_client_throw_result
-{ 
+{
 	WORD idTarget; // 마법을 사용한 대상자
 	__int16 nX;    // 마법이 발생된 위치의 X좌표
 	__int16 nY;    // 마법이 발생된 위치의 Y좌표
@@ -258,7 +258,7 @@ struct t_client_magic_execute
 	__int16 nY;    // 마법이 발생된 위치의 Y좌표
 };	//> CSD-TW-030606
 
-struct t_server_magic_execute 
+struct t_server_magic_execute
 {	//< CSD-TW-030606
 	BYTE nMagic;   // 마법의 번호
 	WORD idCaster; // 마법 시전자
@@ -274,7 +274,7 @@ struct t_client_magic_result
 	WORD idTarget; // 마법을 사용한 대상자
 	__int16 nX;    // 마법이 발생된 위치의 X좌표
 	__int16 nY;    // 마법이 발생된 위치의 Y좌표
-	bool bWanted; 
+	bool bWanted;
 };
 
 struct t_server_magic_result
@@ -479,7 +479,7 @@ union t_combat
 	t_client_combat_attack   client_combat_attack;
 	t_server_combat_attack   server_combat_attack;
 	t_client_combat_result   client_combat_result;
-	t_server_combat_result   server_combat_result;  
+	t_server_combat_result   server_combat_result;
 	t_server_combat_result_h server_combat_result_h;
 	t_server_combat_result_m server_combat_result_m;
 	t_server_combat_result_s server_combat_result_s;
@@ -757,7 +757,7 @@ struct t_arena_game_message1
 struct t_arena_game_message2
 {
 	char nTeamNumber1;
-	char szTeamMember1[20];	
+	char szTeamMember1[20];
 	char nTeamNumber2;
 	char szTeamMember2[20];
 };
@@ -778,10 +778,10 @@ struct t_arena_game_message4
 union t_arena
 {
 	t_arena_enter_lobby      arena_enter_lobby;
-	
+
 	t_arena_enter_team       arena_enter_team;
 	t_arena_leave_team       arena_leave_team;
-	
+
 	t_arena_enter_observe    arena_enter_observe;
 
 	t_arena_enter_gambling   arena_enter_gambling;
@@ -794,7 +794,7 @@ union t_arena
 
 	t_arena_add_gambling	 arena_add_gambling;
 	t_arena_delete_gambling  arena_delete_gambling;
-	
+
 	t_arena_add_observe  	 arena_add_observe;
 	t_arena_delete_observe   arena_delete_observe;
 

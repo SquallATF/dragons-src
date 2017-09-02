@@ -12,7 +12,7 @@
 
 CProtectionMagic::CProtectionMagic()
 {
-  
+
 }
 
 CProtectionMagic::~CProtectionMagic()
@@ -25,11 +25,11 @@ CProtectionMagic::~CProtectionMagic()
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CProtectionMagic::Bind()
-{ 
+{
 	Resist(PROTECTION, &CProtectionMagic::Protection);
 	Resist(SHIELD, &CProtectionMagic::Shield);
 	Resist(FIRE_RESIST, &CProtectionMagic::FireResist);
-	Resist(ICE_RESIST , &CProtectionMagic::IceResist);
+	Resist(ICE_RESIST, &CProtectionMagic::IceResist);
 	Resist(ELECT_RESIST, &CProtectionMagic::ElectResist);
 	Resist(TWINKLE_STAR, &CProtectionMagic::TwinkleStar);
 	Resist(PROTECT_RANGE_WEAPON, &CProtectionMagic::ProtectRangeWeapon); // 장거리 무기로부터 보호
@@ -44,7 +44,7 @@ bool CProtectionMagic::Bind()
 	Resist(PERFECT_PROTECT, &CProtectionMagic::PerfectProtect);
 	Resist(AUTHORITY_OF_ATHYAS, &CProtectionMagic::AuthorityOfAthyas); // 030415 kyo 
 	return true;
-} 
+}
 
 bool CProtectionMagic::DragonScale()
 { // [86]드래곤의 비늘 : 물리적 공격 데미지 60% 방어
@@ -56,9 +56,9 @@ bool CProtectionMagic::DragonScale()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
-	
+
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
 	// 결과값을 대상자에게 Packet으로 보내기
@@ -83,7 +83,7 @@ bool CProtectionMagic::ProtectRangeWeapon()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 
 	// 시전자의 경험치 계산
@@ -136,7 +136,7 @@ bool CProtectionMagic::IceResist()
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
 	m_packet.u.magic.server_magic_result_t.nState = m_pTarget->GetState();
 	m_packet.u.magic.server_magic_result_t.nResult = HIT_AND_NOTDEAD;
-	m_packet.u.magic.server_magic_result_t.wDuration= wPeriod;
+	m_packet.u.magic.server_magic_result_t.wDuration = wPeriod;
 	SendMagicResult();
 	return true;
 }
@@ -173,7 +173,7 @@ bool CProtectionMagic::TwinkleStar()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -194,14 +194,14 @@ bool CProtectionMagic::Protection()
 	// 물리적 방어력 30% 증가
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, 30, 30, 30);
 	// 저주 3, 4, 5계열 마법 방어
-	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
-		CMagicState::CURSE_1|CMagicState::CURSE_3|CMagicState::CURSE_4);
+	m_pTarget->SetCurseDefense(m_dwNow + wPeriod,
+		CMagicState::CURSE_1 | CMagicState::CURSE_3 | CMagicState::CURSE_4);
 	// 일반 보호계열 마법 상태임을 설정
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -228,7 +228,7 @@ bool CProtectionMagic::Shield()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -248,16 +248,16 @@ bool CProtectionMagic::Bless()
 	// 유지시간 계산
 	const WORD wPeriod = CalcPeriod(); // 유지시간 계산
 	// 저주 1, 2, 3, 4계열 마법 방어
-	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
-		CMagicState::CURSE_1|CMagicState::CURSE_2|CMagicState::CURSE_3|CMagicState::CURSE_4);
+	m_pTarget->SetCurseDefense(m_dwNow + wPeriod,
+		CMagicState::CURSE_1 | CMagicState::CURSE_2 | CMagicState::CURSE_3 | CMagicState::CURSE_4);
 	// 일반 보호계열 마법 상태임을 설정
-    m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
-	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;   //속죄侶얌鞫刻돨角괏빱침랬  맣죄龍르옵鹿렝?┵歐?
-	m_pTarget->dwSpecialProtect = m_dwNow + wPeriod;  //속죄侶얌鞫刻돨角괏빱침랬  맣죄龍르옵鹿렝?┵歐?
+	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
+	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;   //加了这句显示的是保护魔法  改了祝福可以防絕對障壁
+	m_pTarget->dwSpecialProtect = m_dwNow + wPeriod;  //加了这句显示的是保护魔法  改了祝福可以防絕對障壁
 
-	if (m_pCaster == m_pTarget) 
+	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	  // 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -278,19 +278,19 @@ bool CProtectionMagic::ProtectDanger()
 	// 방어률 계산
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
-	int nBasic = (nWis + nTactics)/10 + 40;
+	int nBasic = (nWis + nTactics) / 10 + 40;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 50)  nBasic = 50;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic);
 	// 저주 1, 2계열 마법 방어
-	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
-		CMagicState::CURSE_1|CMagicState::CURSE_2);
+	m_pTarget->SetCurseDefense(m_dwNow + wPeriod,
+		CMagicState::CURSE_1 | CMagicState::CURSE_2);
 	// 일반 보호계열 마법 상태임을 설정
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -311,19 +311,19 @@ bool CProtectionMagic::GreatShield()
 	// 방어률 계산
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
-	int nBasic = (nWis + nTactics)/10 + 40;
+	int nBasic = (nWis + nTactics) / 10 + 40;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 50)  nBasic = 50;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic);
 	// 저주 1, 2계열 마법 방어
-	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
-		CMagicState::CURSE_1|CMagicState::CURSE_2);
+	m_pTarget->SetCurseDefense(m_dwNow + wPeriod,
+		CMagicState::CURSE_1 | CMagicState::CURSE_2);
 	// 일반 보호계열 마법 상태임을 설정
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -344,7 +344,7 @@ bool CProtectionMagic::AuthorityLethy()
 	// 물리적 공격 방어력 계산
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
-	int nBasic = (nWis + nTactics)/10;
+	int nBasic = (nWis + nTactics) / 10;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 10)  nBasic = 10;
 	// 물리 공격 방어력 40 - 50% 증가
@@ -361,7 +361,7 @@ bool CProtectionMagic::AuthorityLethy()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -386,7 +386,7 @@ bool CProtectionMagic::NullityMagic()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -405,8 +405,8 @@ bool CProtectionMagic::CancelDivine()
 { // [159]반신력 무효화 : 저주계열(1, 2, 3, 4, 5)  마법을 100% 방어
 	const WORD wPeriod = CalcPeriod(); // 유지시간 계산
 	// 저주 1, 2, 3, 4, 5계열 마법 방어
-	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
-		CMagicState::CURSE_1|CMagicState::CURSE_2|CMagicState::CURSE_3|CMagicState::CURSE_4|CMagicState::CURSE_5);
+	m_pTarget->SetCurseDefense(m_dwNow + wPeriod,
+		CMagicState::CURSE_1 | CMagicState::CURSE_2 | CMagicState::CURSE_3 | CMagicState::CURSE_4 | CMagicState::CURSE_5);
 	// 특수 보호계열 마법 상태임을 설정
 	m_pTarget->dwNormalProtect = m_dwNow + wPeriod;
 	// 시전자의 경험치 계산
@@ -448,14 +448,14 @@ bool CProtectionMagic::PerfectProtect()
 	const WORD wPeriod = CalcPeriod(); // 유지시간 계산
 	// 물리적 방어율 계산
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison];
-	int nBasic = 80 + (nTactics>>1);
+	int nBasic = 80 + (nTactics >> 1);
 	if (nBasic > 100)  nBasic = 100;
 	// 물리적 방어력
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic);
 	m_pTarget->SetMagicalDefense(m_dwNow + wPeriod, nBasic, nBasic, nBasic, nBasic);
-	m_pTarget->SetCurseDefense(m_dwNow + wPeriod, 
-		CMagicState::CURSE_1|CMagicState::CURSE_2|
-		CMagicState::CURSE_3|CMagicState::CURSE_4|
+	m_pTarget->SetCurseDefense(m_dwNow + wPeriod,
+		CMagicState::CURSE_1 | CMagicState::CURSE_2 |
+		CMagicState::CURSE_3 | CMagicState::CURSE_4 |
 		CMagicState::CURSE_5);
 	//  예외 보호 계열 마법은 일반이면서 특수 보호계열 마법 상태로 설정
 	m_pTarget->dwExceptProtect = m_dwNow + wPeriod;
@@ -464,7 +464,7 @@ bool CProtectionMagic::PerfectProtect()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -485,10 +485,10 @@ bool CProtectionMagic::AuthorityOfAthyas() // 030415 kyo
 	// 방어률 계산
 	const int nWis = m_pCaster->GetAbility(WIS) - GetRequireWidom(m_nIndex);
 	const int nTactics = m_pCaster->Skill[TACTICS_Orison] - GetRequireTactics(m_nIndex);
-	int nBasic = (nWis + nTactics)/10;
+	int nBasic = (nWis + nTactics) / 10;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 10)  nBasic = 10;
-	
+
 	//물리방어 10 - 20
 	const int nStrike = nBasic + 10;
 	m_pTarget->SetPhysicalDefense(m_dwNow + wPeriod, nStrike, nStrike, nBasic);
@@ -502,10 +502,10 @@ bool CProtectionMagic::AuthorityOfAthyas() // 030415 kyo
 	// 이동속도 20-30%증가
 	const int nSpeed = 20 + nBasic;
 	m_pTarget->speedUp.SetState(m_dwNow + wPeriod, nSpeed);
-	
+
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwProtectionContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);

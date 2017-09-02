@@ -9,7 +9,7 @@ t_MapInfo MapInfo[MAX_MAP_];
 
 t_MapInfo* GetMapInfoByMapName(const char *szMapName)
 {	//< CSD-030506
-	for (int i = 0;  i< MAX_MAP_; ++i)
+	for (int i = 0; i < MAX_MAP_; ++i)
 	{
 		if (!stricmp(MapInfo[i].mapfile, szMapName))
 		{
@@ -22,7 +22,7 @@ t_MapInfo* GetMapInfoByMapName(const char *szMapName)
 
 t_MapInfo* GetMapInfoByMapPort(int nPort)
 {	//< CSD-030506
-	for (int i = 0;  i< MAX_MAP_; ++i)
+	for (int i = 0; i < MAX_MAP_; ++i)
 	{
 		if (MapInfo[i].port == nPort)
 		{

@@ -35,11 +35,11 @@ private:
 public:
 	~CGuildInfo();
 
-public :
+public:
 	BYTE on;				// 등록된 길드 인지 확인
 	BYTE first;			// 예비 길드 인가?
 	BYTE active;			// 사용하고 있는 길드인지의 여부
-	BYTE make;	
+	BYTE make;
 	BYTE mark_num;	// 바뀐 이미지 값
 	BYTE info_num;
 	BYTE nation;
@@ -69,7 +69,7 @@ class CGuildManager : public TSingleton<CGuildManager>
 public:
 	typedef map<short, CGuildInfo*> HASH_GUILD;
 	typedef HASH_GUILD::iterator    ITOR_GUILD;
-	typedef HASH_GUILD::value_type  PAIR_GUILD;	
+	typedef HASH_GUILD::value_type  PAIR_GUILD;
 
 	CGuildManager();
 	virtual ~CGuildManager();
@@ -77,7 +77,7 @@ public:
 public:
 	bool AddGuild(int nCode, CGuildInfo* pGuild);
 	bool DelGuild(int nCode);
-	
+
 	bool AddMember(int nCode, DWORD idMember);
 	bool DelMember(int nCode, DWORD idMember);
 
@@ -101,7 +101,7 @@ public:
 
 	bool IsExist(int nCode) const
 	{
-		return (m_hash.find(nCode) != m_hash.end()) ? true:false;
+		return (m_hash.find(nCode) != m_hash.end()) ? true : false;
 	}
 
 private:

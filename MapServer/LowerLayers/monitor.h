@@ -7,8 +7,8 @@
 
 extern HANDLE g_hOut;
 HANDLE GetCurrentConsoleOut();
-void SetMonitorSize(DWORD col,DWORD row);
-void WriteText(char* msg, bool type = true );
-void WriteText(char* msg,WORD x,WORD y);
+void SetMonitorSize(DWORD col, DWORD row);
+void WriteText(char* msg, bool type = true);
+void WriteText(char* msg, WORD x, WORD y);
 
 #endif

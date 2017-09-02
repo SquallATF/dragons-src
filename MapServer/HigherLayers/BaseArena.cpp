@@ -20,20 +20,20 @@ CBaseArena* CBaseArena::CreateArena(int nIndex, int nType)
 	switch (nType)
 	{
 	case AT_CORE:
-		{
-			pArena = new CCoreArena(nIndex, nType);
-			break;
-		}
+	{
+		pArena = new CCoreArena(nIndex, nType);
+		break;
+	}
 	case AT_STONE:
-		{
-			pArena = new CStoneArena(nIndex, nType);
-			break;
-		}
+	{
+		pArena = new CStoneArena(nIndex, nType);
+		break;
+	}
 	case AT_MONSTER:
-		{
-			pArena = new CMonsterArena(nIndex, nType);
-			break;
-		}
+	{
+		pArena = new CMonsterArena(nIndex, nType);
+		break;
+	}
 	}
 
 	return pArena;
@@ -81,7 +81,7 @@ void CBaseArena::AddTeam(CArenaTeam* pTeam)
 {
 	m_ltTeam.push_back(pTeam);
 }
-	
+
 void CBaseArena::DelTeam(CArenaTeam* pTeam)
 {
 	m_ltTeam.remove(pTeam);
@@ -97,7 +97,7 @@ void CBaseArena::AddBonus(CArenaBonus* pBonus)
 {
 	m_ltBonus.push_back(pBonus);
 }
-	
+
 void CBaseArena::DelBonus(CArenaBonus* pBonus)
 {
 	m_ltBonus.remove(pBonus);
@@ -177,7 +177,7 @@ bool CBaseArena::AddTeam(int nTeam, CHARLIST* pMember)
 		SendDeleteLobby(pMember);
 		m_pLobby->DelMember(pMember);
 	}
-		
+
 	pMember->SetJoinArenaTeam(pTeam);
 	pTeam->AddMember(pMember);
 	SendAddTeam(nTeam, pMember);
@@ -192,12 +192,12 @@ bool CBaseArena::DelTeam(CHARLIST* pMember)
 	{
 		return false;
 	}
-		
+
 	if (!pTeam->IsExistMember(pMember))
 	{
 		return false;
 	}
-	
+
 	const int nTeam = pTeam->GetTeamNumber();
 	SendDeleteTeam(nTeam, pMember);
 
@@ -252,7 +252,7 @@ bool CBaseArena::DelObserve(CHARLIST* pMember)
 	{
 		return false;
 	}
-		
+
 	if (!pTeam->IsExistObserve(pMember))
 	{
 		return false;
@@ -322,7 +322,7 @@ bool CBaseArena::DelGambler(CHARLIST* pMember)
 	{
 		return false;
 	}
-		
+
 	if (!pTeam->IsExistGambler(pMember))
 	{
 		return false;
@@ -342,7 +342,7 @@ void CBaseArena::SendAddLobby(CHARLIST* pMember)
 	packet.u.arena.arena_add_lobby.idMember = pMember->GetServerID();
 	SendPacketAll(&packet);
 }
-	
+
 void CBaseArena::SendDeleteLobby(CHARLIST* pMember)
 {
 	t_packet packet;
@@ -468,7 +468,7 @@ void CBaseArena::SendRemainTime(CHARLIST* pTarget, DWORD dwTime)
 	t_packet packet;
 	packet.h.header.size = sizeof(t_arena_game_message4);
 	packet.h.header.type = CMD_ARENA_GAME_MESSAGE4;
-	packet.u.arena.arena_game_message4.dwRemainMinute = m_pState->GetRemainTime(dwTime)/60;
+	packet.u.arena.arena_game_message4.dwRemainMinute = m_pState->GetRemainTime(dwTime) / 60;
 	::QueuePacket(connections, pTarget->GetServerID(), &packet, 1);
 }	//> CSD-TW-030627
 
@@ -518,15 +518,15 @@ void CBaseArena::SendGameMessage(CHARLIST* pCaster, CHARLIST* pTarget)
 	}
 
 	CArenaTeam* pTeam1 = pCaster->GetJoinArenaTeam();
-	
-	if (pTeam1 == NULL) 
+
+	if (pTeam1 == NULL)
 	{
 		return;
 	}
 
 	CArenaTeam* pTeam2 = pTarget->GetJoinArenaTeam();
-	
-	if (pTeam2 == NULL) 
+
+	if (pTeam2 == NULL)
 	{
 		return;
 	}
@@ -545,8 +545,8 @@ void CBaseArena::SendGameMessage(CHARLIST* pCaster, CHARLIST* pTarget)
 void CBaseArena::SendGameMessage(CHARLIST* pTarget, int nType, int nData)
 {
 	CArenaTeam* pTeam = pTarget->GetJoinArenaTeam();
-	
-	if (pTeam == NULL) 
+
+	if (pTeam == NULL)
 	{
 		return;
 	}
@@ -710,7 +710,7 @@ void CBaseArena::RequestGambling(CHARLIST* pGambler)
 	packet.h.header.size = sizeof(t_arena_gambling_info);
 
 	CArenaTeam* pTeam = NULL;
-	
+
 	for (ITOR_TEAM i = m_ltTeam.begin(); i != m_ltTeam.end(); ++i)
 	{
 		if ((*i)->IsExistGambler(pGambler))
@@ -756,7 +756,7 @@ void CBaseArena::RequestGambling(CHARLIST* pGambler)
 			pGambler->SendCharInfoBasic(BANKMONEY, dwBankMoney - dwBattingMoney);
 
 			const DWORD dwDividendMoney = m_pGambling->GetDividendRate(*k) + dwBattingMoney;
-			
+
 			memset(&packet, 0, sizeof(t_arena_dividend_info));
 			packet.h.header.type = CMD_ARENA_DIVIDEND_INFO;
 			packet.h.header.size = sizeof(t_arena_dividend_info);
@@ -840,7 +840,7 @@ void CBaseArena::StartGame(DWORD dwTime)
 	for (ITOR_TEAM i = m_ltTeam.begin(); i != m_ltTeam.end(); ++i)
 	{
 		CArenaTeam* pTeam = *i;
-		
+
 		if (!m_pGambling->IsEnableBattingMoney(pTeam))
 		{	//< CSD-031119
 			//pMember->Message(MK_SHORTAGE, 1, 112);
@@ -858,7 +858,7 @@ void CBaseArena::StartGame(DWORD dwTime)
 	m_pState->StartState(dwTime);
 
 	//< KJY-040909 아레나 로그강화
-	MyLog( 0, "Gamble Start Money : %i", m_pGambling->GetBattingMoney() );
+	MyLog(0, "Gamble Start Money : %i", m_pGambling->GetBattingMoney());
 	//> KJY-040909 아레나 로그강화
 }
 
@@ -888,14 +888,14 @@ void CBaseArena::EndGame(CArenaInfo* pArena)
 	m_pGambling->InitBattingMoney();
 
 	//< KJY-040909 아레나 로그강화
-	MyLog( 0, "Gamble End Money : %i", m_pGambling->GetBattingMoney() );
+	MyLog(0, "Gamble End Money : %i", m_pGambling->GetBattingMoney());
 	//> KJY-040909 아레나 로그강화
 }
 
 bool CBaseArena::PlayGame(DWORD dwTime)
 {
 	int nCheck = m_pState->CheckState(dwTime);
-	
+
 	if (nCheck >= 0)
 	{
 		SendPacketTeam(CMD_FIGHT_MAP_REMAIN_TIME, &nCheck, 1);
@@ -913,15 +913,15 @@ void CBaseArena::DoResult(CArenaTeam* pTeam)
 	switch (pTeam->GetGameResult())
 	{
 	case FST_WIN:
-		{
-			DoVictory(pTeam);
-			break;
-		}
+	{
+		DoVictory(pTeam);
+		break;
+	}
 	case FST_DEFEAT:
-		{
-			DoDefeat(pTeam);
-			break;
-		}
+	{
+		DoDefeat(pTeam);
+		break;
+	}
 	}
 }
 
@@ -951,7 +951,7 @@ void CBaseArena::SendPacketAll(int nType, void* pMsg, int nSize)
 	t_packet packet;
 	packet.h.header.type = nType;
 	packet.h.header.size = nSize;
-	
+
 	if (pMsg != NULL)
 	{
 		memcpy(packet.u.data, pMsg, nSize);
@@ -978,7 +978,7 @@ void CBaseArena::SendPacketTeam(int nType, void* pMsg, int nSize)
 	t_packet packet;
 	packet.h.header.type = nType;
 	packet.h.header.size = nSize;
-	
+
 	if (pMsg != NULL)
 	{
 		memcpy(packet.u.data, pMsg, nSize);
@@ -1000,7 +1000,7 @@ void CBaseArena::SendPacketWait(int nType, void* pMsg, int nSize)
 	t_packet packet;
 	packet.h.header.type = nType;
 	packet.h.header.size = nSize;
-	
+
 	if (pMsg != NULL)
 	{
 		memcpy(packet.u.data, pMsg, nSize);
@@ -1035,7 +1035,7 @@ bool CBaseArena::IsEnableReady()
 		{
 			return false;
 		}
-		
+
 		nCount = __max((*i)->GetMemberCount(), nCount);
 	}
 
@@ -1048,7 +1048,7 @@ bool CBaseArena::IsEnableReady()
 	{
 		if (nCount != (*j)->GetMemberCount())
 		{
-		 	return false;
+			return false;
 		}
 	}
 

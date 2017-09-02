@@ -10,13 +10,13 @@
 #endif // _MSC_VER > 1000
 #include "Dr_Network.h"
 
-class CGMMgr  
+class CGMMgr
 {
 public:
 	CGMMgr();
 	virtual ~CGMMgr();
 public:
-	int		CanGmRegist( const int iGmIndex, CHARLIST *ch );
+	int		CanGmRegist(const int iGmIndex, CHARLIST *ch);
 	bool	IsMerchant(CHARLIST *ch)const;
 	int		IsAllGM(CHARLIST *ch)const;//1차 2차 올 지엠?
 	int		IsSkillMaster(CHARLIST *ch)const;//기성인가? 기성이면 스킬 넘버를 넘겨라

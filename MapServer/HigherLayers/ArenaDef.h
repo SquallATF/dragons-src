@@ -11,9 +11,9 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-static int s_aCheckTime[] = 
-{ 
-	600, 300, 60, 30, 0 
+static int s_aCheckTime[] =
+{
+	600, 300, 60, 30, 0
 };
 //
 ///////////////////////////////////////////////////////////////////////////////
@@ -33,23 +33,23 @@ private:
 
 public:
 	~CArenaInfo();
-	
+
 public:
-	void SetMapPort(int nPort) 
-	{ 
-		m_nMapPort = nPort; 
+	void SetMapPort(int nPort)
+	{
+		m_nMapPort = nPort;
 	}
 
-	void SetWaitPosition(int nX, int nY) 
+	void SetWaitPosition(int nX, int nY)
 	{
-		m_ptWait.x = nX; 
-		m_ptWait.y = nY; 
+		m_ptWait.x = nX;
+		m_ptWait.y = nY;
 	}
 
 	void GetWaitPosition(int& rX, int& rY)
-	{ 
+	{
 		rX = m_ptWait.x;
-		rY = m_ptWait.y; 
+		rY = m_ptWait.y;
 	}
 
 private:
@@ -70,7 +70,7 @@ public:
 public:
 	static CArenaLobby* CreateArenaLobby()
 	{
-		return new CArenaLobby; 
+		return new CArenaLobby;
 	}
 
 private:
@@ -93,20 +93,20 @@ public:
 		return m_ltMember;
 	}
 
-	int GetMemberCount() const 
+	int GetMemberCount() const
 	{	//< CSD-TW-030701
-		return m_ltMember.size(); 
+		return m_ltMember.size();
 	}	//> CSD-TW-030701
 
 	bool IsEmptyMember() const
 	{
-		return (m_ltMember.empty()) ? true:false;
+		return (m_ltMember.empty()) ? true : false;
 	}
 
 	bool IsExistMember(CHARLIST* pMember)
 	{
 		ITOR_MEMBER itor = find(m_ltMember.begin(), m_ltMember.end(), pMember);
-		return (itor != m_ltMember.end()) ? true:false;	
+		return (itor != m_ltMember.end()) ? true : false;
 	}
 
 private:
@@ -165,7 +165,7 @@ public:
 
 	void SendPacket(t_packet* pPacket);
 	void SendPacket(int idTarget, int nType);
-	
+
 public:
 	void GetBasePosition(int& rX, int& rY)
 	{
@@ -190,11 +190,11 @@ public:
 
 	int GetMemberCount() const { return m_ltMember.size(); }
 	int GetGamblerCount() const { return m_mpGambler.size(); }
-	
+
 	DWORD GetBattingMoney(CHARLIST* pGambler)
 	{
 		ITOR_GAMBLER itor = m_mpGambler.find(pGambler);
-		
+
 		if (itor != m_mpGambler.end())
 		{
 			return itor->second;
@@ -231,19 +231,19 @@ public:
 	bool IsExistMember(CHARLIST* pMember)
 	{
 		ITOR_MEMBER itor = find(m_ltMember.begin(), m_ltMember.end(), pMember);
-		return (itor != m_ltMember.end()) ? true:false;	
+		return (itor != m_ltMember.end()) ? true : false;
 	}
 
 	bool IsExistObserve(CHARLIST* pObserve)
 	{
 		ITOR_MEMBER itor = find(m_ltObserve.begin(), m_ltObserve.end(), pObserve);
-		return (itor != m_ltObserve.end()) ? true:false;	
+		return (itor != m_ltObserve.end()) ? true : false;
 	}
 
 	bool IsExistGambler(CHARLIST* pGambler)
 	{
 		ITOR_GAMBLER itor = m_mpGambler.find(pGambler);
-		return (itor != m_mpGambler.end()) ? true:false;
+		return (itor != m_mpGambler.end()) ? true : false;
 	}
 
 private:
@@ -288,9 +288,9 @@ public:
 	bool IsPlayGame() const;
 
 public:
-	void SetPlayTime(DWORD dwMinute) 
-	{ 
-		m_dwPlayMinute = dwMinute; 
+	void SetPlayTime(DWORD dwMinute)
+	{
+		m_dwPlayMinute = dwMinute;
 	}
 
 	void SetReadyTime(DWORD dwSecond)
@@ -299,10 +299,10 @@ public:
 	}
 
 	void SetContinueTime(DWORD dwTime)
-	{ 
-		m_dwContinueTime = dwTime; 
+	{
+		m_dwContinueTime = dwTime;
 	}
-	
+
 private:
 	int GetWinTeamLaderScore(CArenaTeam* pTeam);
 	int GetLoseTeamLaderScore(CArenaTeam* pTeam);
@@ -323,7 +323,7 @@ private:
 //
 class CArenaGambling
 {
-	enum {MAX_MEMBER_COUNT = 30};
+	enum { MAX_MEMBER_COUNT = 30 };
 
 public:
 	CArenaGambling();
@@ -423,28 +423,28 @@ public:
 	}
 
 	void SetItemHouse(int nHouse)
-	{ 
+	{
 		m_nItemHouse = nHouse;
 	}
 
 	void SetItemKind(int nKind)
-	{ 
+	{
 		m_nItemKind = nKind;
 	}
 
 	void SetItemGrade(int nGrade)
-	{ 
+	{
 		m_nItemGrade = nGrade;
 	}
 
-	void SetItemGainRate(float fRate) 
-	{ 
-		m_fItemGainRate = fRate; 
+	void SetItemGainRate(float fRate)
+	{
+		m_fItemGainRate = fRate;
 	}
 
-	void SetExpRate(float fRate) 
-	{ 
-		m_fExpRate = fRate; 
+	void SetExpRate(float fRate)
+	{
+		m_fExpRate = fRate;
 	}
 
 private:

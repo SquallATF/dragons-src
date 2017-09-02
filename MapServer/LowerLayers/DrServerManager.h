@@ -16,13 +16,13 @@ typedef struct server_status
 	DWORD		dwTotalServerConnections;
 
 	DWORD		dwStatus;
-	char		szServerName[80+1];
+	char		szServerName[80 + 1];
 } MGR_SERVER_STATUS_PACKET, *LP_MGR_SERVER_STATUS_PACKET;
 
 typedef struct request_auth
 {
-	char		szID[16+1];
-	char		szPasswd[16+1];
+	char		szID[16 + 1];
+	char		szPasswd[16 + 1];
 } MGR_REQUEST_AUTH_PACKET, *LP_MGR_REQUEST_AUTH_PACKET;
 
 // -------------------------------------------------
@@ -43,7 +43,7 @@ typedef struct manager_packet_header
 typedef struct manager_packet
 {
 	MANAGER_PACKET_HEADER h;
-	
+
 	union
 	{
 		MGR_SERVER_STATUS_PACKET	myMgrServerStatusPacket;
@@ -55,12 +55,12 @@ typedef struct manager_packet
 #pragma pack(pop)
 
 #ifdef __IS_PROXY_SERVER
-bool OnRecvMsgFromManager( USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD dwLength );
-bool OnRecvAuthMsgFromManager( USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD dwLength );
-bool AnswerToManager( LP_MANAGER_PACKET pPacket, DWORD dwLength );
+bool OnRecvMsgFromManager(USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD dwLength);
+bool OnRecvAuthMsgFromManager(USERINFO *pUserInfo, LP_MANAGER_PACKET pPacket, DWORD dwLength);
+bool AnswerToManager(LP_MANAGER_PACKET pPacket, DWORD dwLength);
 #else
-bool OnRecvMsgFromManager( LP_MANAGER_PACKET pPacket, DWORD dwLength );
-bool AnswerToManager( LP_MANAGER_PACKET pPacket, DWORD dwLength );
+bool OnRecvMsgFromManager(LP_MANAGER_PACKET pPacket, DWORD dwLength);
+bool AnswerToManager(LP_MANAGER_PACKET pPacket, DWORD dwLength);
 #endif
 
 // ---------------------------------------------------

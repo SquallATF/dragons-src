@@ -15,44 +15,44 @@ class CBattle;
 class CBattleManager : public TSingleton<CBattleManager>
 {
 	typedef vector<CBattle*> VECTOR;
-	
+
 public:
 	CBattleManager();
 	virtual ~CBattleManager();
-	
+
 public:
 	void Elapse(DWORD dwSecond = 1);
 	void ClearCombat(BYTE nCombat, WORD idMaster);
 	void ChangeCombat(BYTE nCombat, WORD idMaster);
 	void ResetCombat(BYTE nCombat, WORD idMaster);
-	
+
 	void SendNpcAttack(WORD idNpc);
 	void SendNpcThrow(WORD idNpc);
 	void SendNpcMagic(WORD idNpc, BYTE nMagic);
 	void SendNpcMagic(WORD idNpc, BYTE nMagic, int nX, int nY, bool bTimeDisable);
 	void SendNpcRecall(WORD idNpc, BYTE nMagic, BYTE nMonster, int nX, int nY);
 	void SendNpcTeleport(WORD idNpc, int nX, int nY); // CSD_030314
-	
+
 	void RecvNpcAttack(t_npc_attack* pPacket);
 	void RecvStrikeAttack(WORD idCaster, t_player_attack* pPacket);
-	
+
 	void RecvNpcThrow(t_npc_throw* pPacket);
 	void RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPacket);
 	void RecvThrowResult(WORD idCaster, t_client_throw_result* pPacket);
 
 	void RecvEffectResult(WORD idCaster, t_client_effect_result* pPacket); // CSD-031007
-	
+
 	void RecvMagicLearn(WORD idMaster, k_client_learn_magic* pPacket);
 	void RecvNpcMagic(t_client_npc_magic* pPacket);
 	void RecvNpcRecall(t_client_npc_magic* pPacket); // CSD-021119
 	void RecvNpcTeleport(t_client_npc_magic* pPacket); // CSD-030306
-	
+
 	void RecvMagicSelect(WORD idCaster, t_client_magic_select* pPacket); // CSD-TW-030606
 	void RecvMagicCasting(WORD idCaster, t_client_magic_casting* pPacket); // CSD-TW-030606
 	void RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPacket); // CSD-TW-030606
 	void RecvMagicResult(WORD idCaster, t_client_magic_result* pPacket);
 	void RecvMagicResult(t_magic_result_d* pPacket);
-	
+
 	void RecvCombatReset(WORD idMaster);
 	void RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPacket);
 	void RecvCombatRequest(WORD idMaster, t_client_combat_request* pPacket);
@@ -61,10 +61,10 @@ public:
 	void RecvCombatSelect(WORD idCaster, t_client_combat_select* pPacket);
 	void RecvCombatAttack(WORD idCaster, t_client_combat_attack* pPacket);
 	void RecvCombatResult(WORD idCaster, t_client_combat_result* pPacket);
-	
+
 protected:
 	void AutoCurse(WORD idCaster, WORD idTarget);
-	
+
 	bool FilterNpcAttack(CHARLIST* pCaster, CHARLIST* pTarget);
 	bool FilterAttack(CHARLIST* pCaster, CHARLIST* pTarget);
 	bool FilterThrow(CHARLIST* pCaster, CHARLIST* pTarget);
@@ -75,24 +75,24 @@ protected:
 	bool FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTarget);
 	bool FilterResult(CHARLIST* pCaster, CHARLIST* pTarget);
 	bool FilterResult(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTarget);
-	
+
 protected:
-	CBattle* GetBattle(int nIndex) const 
-	{ 
-		return m_vtBuffer[nIndex]; 
+	CBattle* GetBattle(int nIndex) const
+	{
+		return m_vtBuffer[nIndex];
 	}
-	
+
 	bool IsMagic(int nIndex) const
 	{
-		return (nIndex >= LIFE_UP && nIndex <= RAGE_LIGHT_BALL) ? true:false;
+		return (nIndex >= LIFE_UP && nIndex <= RAGE_LIGHT_BALL) ? true : false;
 	}
-	
+
 	bool IsCombat(int nIndex) const
 	{
-		return (nIndex >= LIGHTNING_BOOM && nIndex <= WIND_EXTREME) ? true:false;
+		return (nIndex >= LIGHTNING_BOOM && nIndex <= WIND_EXTREME) ? true : false;
 	}
-	
-private:  
+
+private:
 	bool IsBattle() const;
 	bool IsBattle(CHARLIST* pCaster) const;
 	bool IsBattle(CHARLIST* pCaster, CHARLIST* pTarget) const;
@@ -114,12 +114,12 @@ private:
 	bool IsActiveCombat(BYTE nCombat) const;
 	bool IsPassiveCombat(BYTE nCombat) const;
 	bool IsRecoveryCombat(BYTE nCombat) const; // 030415 kyo
-	
+
 protected:
 	static DWORD s_dwDelay;
-	
+
 private:
-	enum 
+	enum
 	{
 		CRAPPLE = 0,              // 주먹
 		SWORDMANSHIP = 1,         // 한손검
@@ -134,7 +134,7 @@ private:
 		DOUBLE_MACEFIGHTING = 10, // 양손도끼, 메이스
 		ALL_WEAPON = 11           // 모든 무기
 	};
-	
+
 	VECTOR   m_vtBuffer;
 	t_packet m_packet;
 };

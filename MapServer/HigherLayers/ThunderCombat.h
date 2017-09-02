@@ -19,22 +19,22 @@ public:
 	virtual ~CThunderCombat();
 
 public:
-  virtual bool Bind();
-  virtual bool Elapse(CHARLIST* pTarget);
-  
-public:
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
+	virtual bool Bind();
+	virtual bool Elapse(CHARLIST* pTarget);
 
 public:
-  bool LightningBoom();
-  bool ThunderBlow();
-  bool LightningShock();
-  bool ThunderStrike();
-  bool LightningShield();
-  bool LightningExtreme();
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
+
+public:
+	bool LightningBoom();
+	bool ThunderBlow();
+	bool LightningShock();
+	bool ThunderStrike();
+	bool LightningShield();
+	bool LightningExtreme();
 
 };
 //

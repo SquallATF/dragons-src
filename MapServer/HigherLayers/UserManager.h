@@ -42,14 +42,14 @@ public:
 		return m_hash;
 	}
 
-	int GetSize() const 
-	{ 
-		return m_hash.size(); 
+	int GetSize() const
+	{
+		return m_hash.size();
 	}
 
 	bool IsExist(const char* pName) const
 	{
-		return (m_hash.find(pName) != m_hash.end()) ? true:false;
+		return (m_hash.find(pName) != m_hash.end()) ? true : false;
 	}
 
 private:

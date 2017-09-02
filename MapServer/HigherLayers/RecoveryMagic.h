@@ -19,34 +19,34 @@ public:
 	virtual ~CRecoveryMagic();
 
 public:
-  virtual bool Bind();
+	virtual bool Bind();
 
 public:
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
 
-  virtual bool Elapse(CHARLIST* pTarget) 
-  { 
-    return true; 
-  }
+	virtual bool Elapse(CHARLIST* pTarget)
+	{
+		return true;
+	}
 
 public:
-  bool Healing();               // 마법 회복 계열 마법
-  bool Decipher();
-  bool HealDisease();
-  bool GreatHeal();
-  bool AutoHeal();
-  bool RemoveCurse();
-  bool RestoreAuthority();      // 신력 회복 계열 마법
-  bool MiracleRecover();
-  bool ReliefAuthority();
-  bool RecoverPoison();
-  bool AuthorityRecoverSight();
-  bool CureDisease();
-  bool AuthoritySimunian();
-  bool HolyCure(); // 030415 kyo 
+	bool Healing();               // 마법 회복 계열 마법
+	bool Decipher();
+	bool HealDisease();
+	bool GreatHeal();
+	bool AutoHeal();
+	bool RemoveCurse();
+	bool RestoreAuthority();      // 신력 회복 계열 마법
+	bool MiracleRecover();
+	bool ReliefAuthority();
+	bool RecoverPoison();
+	bool AuthorityRecoverSight();
+	bool CureDisease();
+	bool AuthoritySimunian();
+	bool HolyCure(); // 030415 kyo 
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

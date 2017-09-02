@@ -26,33 +26,33 @@ CFreezeCombat::~CFreezeCombat()
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-bool CFreezeCombat::Bind() 
-{ 
+bool CFreezeCombat::Bind()
+{
 	Resist(ICING_BLAST, &CFreezeCombat::IcingBlast);
 	Resist(CRITICAL_HIDING, &CFreezeCombat::CriticalHiding);
 	Resist(SHARK_MISSILE, &CFreezeCombat::SharkMissile);
 	Resist(HORN_OF_ICEBERG, &CFreezeCombat::HornOfIceBerg);
 	Resist(ICE_SHIELD, &CFreezeCombat::IceShield);
 	Resist(ICE_EXTREME, &CFreezeCombat::IceExtreme);
-	return true; 
+	return true;
 }
 
 bool CFreezeCombat::Elapse(CHARLIST* pTarget)
 {	//< CSD-TW-030623
 	switch (pTarget->GetPassiveCombat())
 	{
-    case ICE_SHIELD:
+	case ICE_SHIELD:
+	{
+		if (!pTarget->IsPassiveCombatState())
 		{
-			if (!pTarget->IsPassiveCombatState())
-			{
-				pTarget->InitPassiveCombat();
-				SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
-			}
-
-			break;
+			pTarget->InitPassiveCombat();
+			SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 }	//> CSD-TW-030623
 

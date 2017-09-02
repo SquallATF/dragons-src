@@ -14,7 +14,7 @@
 #include "LogManager.h"
 
 extern bool IsWar();
-extern bool CanDestroyTarget(CHARLIST* pCaster,CHARLIST* pTarget);
+extern bool CanDestroyTarget(CHARLIST* pCaster, CHARLIST* pTarget);
 extern void Send_CMD_SEALSTONE_STATUS(LPCHARLIST ch, int status);
 ///////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -22,12 +22,12 @@ extern void Send_CMD_SEALSTONE_STATUS(LPCHARLIST ch, int status);
 
 CAttackMagic::CAttackMagic()
 {
-	
+
 }
 
 CAttackMagic::~CAttackMagic()
 {
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -90,17 +90,17 @@ bool CAttackMagic::Bind()
 	Resist(SNOWSTORM, &CAttackMagic::SnowStorm);// 030415 kyo
 	Resist(ICE_BREATH2, &CAttackMagic::IceBreath2);// 030415 kyo
 	Resist(BLOOD_LIGHTNING, &CAttackMagic::BloodLightning);// 030415 kyo
-	Resist(AUTHORITY_OF_WHOARENCHA ,&CAttackMagic::AuthorityOfWhoarencha);// 030415 kyo
+	Resist(AUTHORITY_OF_WHOARENCHA, &CAttackMagic::AuthorityOfWhoarencha);// 030415 kyo
 	return true;
-} 
+}
 
 bool CAttackMagic::FireArrow()
 {	// [29]불화살
-	if (m_pCaster->equip[WT_WEAPON].item_no == 0)  
+	if (m_pCaster->equip[WT_WEAPON].item_no == 0)
 	{
 		return false;
 	}
-	
+
 	const int nHD = GetMagicDamage(m_nIndex);
 	return AttackMagic(nHD);
 }
@@ -197,11 +197,11 @@ bool CAttackMagic::FlamePour()
 
 bool CAttackMagic::IceArrow()
 {	// [38]얼음화살
-	if (m_pCaster->equip[WT_WEAPON].item_no == 0)  
+	if (m_pCaster->equip[WT_WEAPON].item_no == 0)
 	{
 		return false;
 	}
-	
+
 	const int nHD = GetMagicDamage(m_nIndex);
 	return AttackMagic(nHD);
 }
@@ -228,7 +228,7 @@ bool CAttackMagic::CircleIce()
 {	// [43]원형얼음 공격 
 	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
-}	
+}
 
 bool CAttackMagic::IceStorm()
 {	// [44]얼음폭풍
@@ -324,7 +324,7 @@ bool CAttackMagic::DeathFire()
 
 bool CAttackMagic::DeathFiree()
 {	// [188]갠梧聃삽
-	const int nHD =  CalcHitDice();
+	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
@@ -409,9 +409,9 @@ bool CAttackMagic::AreaBatAttack()
 
 bool CAttackMagic::SnowStorm() // 030415 kyo
 {	// [59]눈보라의 폭풍
-	const int nHD =  CalcHitDice();
-	
-	if (rand()%100 < g_CSymbolMgr.GetSymbolGrade(m_pCaster))
+	const int nHD = CalcHitDice();
+
+	if (rand() % 100 < g_CSymbolMgr.GetSymbolGrade(m_pCaster))
 	{	//< CSD-030519
 		SetFrozen(5);
 	}	//> CSD-030519
@@ -421,9 +421,9 @@ bool CAttackMagic::SnowStorm() // 030415 kyo
 
 bool CAttackMagic::IceBreath2()// 030415 kyo
 {	// [60]아이스브레스2
-	const int nHD =  CalcHitDice();
+	const int nHD = CalcHitDice();
 
-	if (rand()%100 < g_CSymbolMgr.GetSymbolGrade(m_pCaster))
+	if (rand() % 100 < g_CSymbolMgr.GetSymbolGrade(m_pCaster))
 	{
 		SetFrozen(5);
 	}
@@ -433,13 +433,13 @@ bool CAttackMagic::IceBreath2()// 030415 kyo
 
 bool CAttackMagic::BloodLightning()// 030415 kyo
 {	// [61]블러드라이트닝
-	const int nHD =  CalcHitDice();
+	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
 bool CAttackMagic::AuthorityOfWhoarencha() // 030415 kyo
 {	// [187]화랜타의 권능
-	const int nHD =  CalcHitDice();
+	const int nHD = CalcHitDice();
 	return AttackMagic(nHD);
 }
 
@@ -450,7 +450,7 @@ bool CAttackMagic::AuthorityOfWhoarencha() // 030415 kyo
 void CAttackMagic::SetFrozen(int nPeriod)
 {
 	if (m_pTarget->IsNpc())
-	{ 
+	{
 		switch (m_pTarget->Race)
 		{	//< CSD-040202
 		case DUMMY:
@@ -461,7 +461,7 @@ void CAttackMagic::SetFrozen(int nPeriod)
 		case SEALSTONE:  return;
 		}	//> CSD-040202
 	}
-	
+
 	m_pTarget->speedDown.SetState(m_dwNow + nPeriod, 70);
 	m_pTarget->ApplyCurse(6, CON_FROZEN, m_dwNow + nPeriod);
 }
@@ -471,51 +471,51 @@ bool CAttackMagic::AttackMagic(int nHD)
 	const int nAttack = CalcAttack(nHD);
 	const int nDefense = CalcDefense(nAttack);
 	int nDamage = nAttack - nDefense;
-	
+
 	switch (m_nIndex)
 	{
-    case FIRE_ARROW:
-    case ICE_ARROW:
+	case FIRE_ARROW:
+	case ICE_ARROW:
+	{
+		const int nStrike = ((m_pTarget->IsIgnorePhysicalAttack()) ? 0 : m_pCaster->GetLongAttack());
+		const int nAmplify = m_pCaster->GetMagicAmplify();
+		const int nAttack = m_pCaster->CalcPhysicalStrikingPower(nStrike + nAmplify);
+		const int nDefence = m_pTarget->CalcPhysicalDefensivePower(nAttack);
+		// 총 데미지 계산(수정요망 - 1.4배 제거)
+		int nPhysical = (nAttack - nDefence)*1.4;
+		// 마법에 의한 장거리 무기에 의한 방어력 보정
+		if (!m_pCaster->IsIgnorePhysicalDefence())
 		{
-			const int nStrike = ((m_pTarget->IsIgnorePhysicalAttack()) ? 0:m_pCaster->GetLongAttack());
-			const int nAmplify = m_pCaster->GetMagicAmplify(); 
-			const int nAttack = m_pCaster->CalcPhysicalStrikingPower(nStrike + nAmplify);
-			const int nDefence = m_pTarget->CalcPhysicalDefensivePower(nAttack);
-			// 총 데미지 계산(수정요망 - 1.4배 제거)
-			int nPhysical = (nAttack - nDefence)*1.4;
-			// 마법에 의한 장거리 무기에 의한 방어력 보정
-			if (!m_pCaster->IsIgnorePhysicalDefence())
-			{
-				m_pTarget->CorrectLongDamage(nPhysical);
-			}
-			// 마법에 의한 데미지 + 활의 물리적 데미지
-			nDamage = (nDamage>>1) + nPhysical;
-			break;
+			m_pTarget->CorrectLongDamage(nPhysical);
 		}
+		// 마법에 의한 데미지 + 활의 물리적 데미지
+		nDamage = (nDamage >> 1) + nPhysical;
+		break;
+	}
 	}
 	// 공격 마법에 의한 데미지 계산
 	const int nType = GetResistType(m_nIndex);
 	nDamage = CalcDamage(nType, nDamage);
 	// 각종보정
-	Correct(nDamage); 
+	Correct(nDamage);
 	// 방어구의 내구도 감소
 	::DecreaseEquipDuration(m_pTarget, nDamage, ::getEquipRandomPos(), m_pTarget->SprNo, false);
-	
+
 	if (m_pTarget->IsNpc())				// LTS AI
 	{
 		if (m_pTarget->ChairNum)		// 서버 AI이면 	// LTS AI2	
 		{
-			if (m_pTarget->patterntype>=NPC_PATTERN_WANDER&&m_pTarget->patterntype<NPC_PATTERN_BOSS_WANDER)  // LTS DRAGON MODIFY
+			if (m_pTarget->patterntype >= NPC_PATTERN_WANDER&&m_pTarget->patterntype < NPC_PATTERN_BOSS_WANDER)  // LTS DRAGON MODIFY
 			{
-				if (rand()%10 > 5)							// LTS AI2
+				if (rand() % 10 > 5)							// LTS AI2
 				{
-					g_pAIManager->SetAI(m_pTarget,NPC_PATTERN_ATTACKED);
-					g_pAIManager->SetTarget(m_pTarget,m_pCaster->GetServerID());
+					g_pAIManager->SetAI(m_pTarget, NPC_PATTERN_ATTACKED);
+					g_pAIManager->SetTarget(m_pTarget, m_pCaster->GetServerID());
 				}
 			}
 		}
 	}
-	
+
 	return Result(nDamage);
 }
 
@@ -538,22 +538,22 @@ void CAttackMagic::Correct(int& rDamage)
 	}
 	// 높낮이에 따른 보정
 	const BYTE nRiseFall = GetRiseFall(m_nIndex);
-	const int nX = m_pTarget->MoveSx; 
+	const int nX = m_pTarget->MoveSx;
 	const int nY = m_pTarget->MoveSy;
 	m_pCaster->CorrectRiseFall(nRiseFall, nX, nY, rDamage);
 	// 거리에 따른 보정
 	const int nDistance = ::getDistance(m_pCaster, m_pTarget);
 	m_pCaster->CorrectMagicRange(nDistance, rDamage);
 	// 왕이나 운영자에 대한 보정
-	if (m_pCaster->name_status.nation == m_pTarget->name_status.nation )
-	{	
+	if (m_pCaster->name_status.nation == m_pTarget->name_status.nation)
+	{
 		//if (m_pCaster->name_status.king || m_pTarget->IsCounselor())	 //coromo 2005/05/06 혼뇜KING景홈
 		//{
 		//	rDamage /= 30;
 		//}
-	}	
-	else 
-	{	
+	}
+	else
+	{
 		//if (m_pCaster->IsCounselor())	 
 		//{
 		//	rDamage /= 30;
@@ -565,7 +565,7 @@ bool CAttackMagic::Result(int nDamage)
 {
 	BYTE nResult = HIT_FAILED, nState = CON_NORMAL;
 	int nMana = 0;
-	
+
 	if (nDamage <= 0 || IsMiss())
 	{
 		nDamage = 0;
@@ -575,7 +575,7 @@ bool CAttackMagic::Result(int nDamage)
 	}
 	// 석화에 걸려있으면 어떠한 공격 마법의 데미지를 받지 못함
 	if (m_pTarget->IsStone())
-	{		
+	{
 		nDamage = 0;
 		nState = m_pTarget->GetState();
 		nResult = HIT_FAILED;
@@ -585,18 +585,18 @@ bool CAttackMagic::Result(int nDamage)
 	if (!m_pCaster->IsMagicPiercing() && m_pTarget->dwMagicDamageToMana > 0)
 	{
 		const int	nMinus = GetExhaustMana(m_nIndex);
-		
+
 		if (m_pTarget->Mana - nMinus >= 0)
-		{	
+		{
 			m_pTarget->DecMana(nMinus);
-			nDamage	= 0;
-			nMana	= nMinus;
+			nDamage = 0;
+			nMana = nMinus;
 			nState = m_pTarget->GetState();
 			nResult = HIT_AND_NOTDEAD;
 			goto SEND;
-		}							
+		}
 		else
-		{	
+		{
 			m_pTarget->dwMagicDamageToMana = 0;
 			nMana = 0;
 		}
@@ -605,71 +605,71 @@ bool CAttackMagic::Result(int nDamage)
 	if (m_pTarget->IsNpc())
 	{
 		nDamage /= 1.4;
-		
+
 		switch (m_pTarget->Race)
 		{
 		case DUMMY:
-			{
-				break;
-			}
+		{
+			break;
+		}
 		case SEALSTONE:
-			{
-				m_pTarget->DecLife(nDamage);
-				g_pLogManager->SaveLogLocalWar_SealStoneInfo(m_pCaster, m_pTarget, nDamage); // CSD-040316
-				break;
-			}
+		{
+			m_pTarget->DecLife(nDamage);
+			g_pLogManager->SaveLogLocalWar_SealStoneInfo(m_pCaster, m_pTarget, nDamage); // CSD-040316
+			break;
+		}
 		case GUARDSTONE:
-		//case GUARDTOWER:		// LTH-040403-KO 방어탑은 밑에 있다
-			{	//< CSD-040202
-				if (IsWar() && ::CanDestroyTarget(m_pCaster, m_pTarget))
-				{ // 전쟁인 경우 보조 수호석이 다 파괴되었다면          
-					m_pTarget->DecLife(nDamage);
-				}
-				else
-				{ // 전쟁이 아닌 경우나 전쟁 중 보조 수호석이 다 파괴되지 않았다면
-					nDamage = 0;
-					nState = m_pTarget->GetState();
-					nResult = HIT_AND_NOTDEAD;
-					goto SEND;
-				}
-				
-				break;
-			}	//> CSD-040202
-		case GUARDTOWER:
-			{	//< LTH-040403-KO 방어탑의 경우 수호석과는 상관 없다.
-				if (IsWar())
-				{ // 전쟁인 경우
-					m_pTarget->DecLife(nDamage);
-				}
-				else
-				{ // 전쟁이 아닌 경우
-					nDamage = 0;
-					nState = m_pTarget->GetState();
-					nResult = HIT_AND_NOTDEAD;
-					goto SEND;
-				}
-				
-				break;
-			}	//> LTH-040403-KO
-		case ORC_DUMMY:
-			{
-				::AddCasterEXP(m_pCaster, m_pTarget, 2, 1, m_nIndex, abs(nDamage));
-				nState = m_pTarget->GetState();
-				nResult = HIT_AND_NOTDEAD;
-				goto SEND;
+			//case GUARDTOWER:		// LTH-040403-KO 방어탑은 밑에 있다
+		{	//< CSD-040202
+			if (IsWar() && ::CanDestroyTarget(m_pCaster, m_pTarget))
+			{ // 전쟁인 경우 보조 수호석이 다 파괴되었다면          
+				m_pTarget->DecLife(nDamage);
 			}
-		case LIFELESS:
-			{
+			else
+			{ // 전쟁이 아닌 경우나 전쟁 중 보조 수호석이 다 파괴되지 않았다면
 				nDamage = 0;
 				nState = m_pTarget->GetState();
 				nResult = HIT_AND_NOTDEAD;
 				goto SEND;
 			}
-		default:
-			{ 
+
+			break;
+		}	//> CSD-040202
+		case GUARDTOWER:
+		{	//< LTH-040403-KO 방어탑의 경우 수호석과는 상관 없다.
+			if (IsWar())
+			{ // 전쟁인 경우
 				m_pTarget->DecLife(nDamage);
-				break;
-			} 
+			}
+			else
+			{ // 전쟁이 아닌 경우
+				nDamage = 0;
+				nState = m_pTarget->GetState();
+				nResult = HIT_AND_NOTDEAD;
+				goto SEND;
+			}
+
+			break;
+		}	//> LTH-040403-KO
+		case ORC_DUMMY:
+		{
+			::AddCasterEXP(m_pCaster, m_pTarget, 2, 1, m_nIndex, abs(nDamage));
+			nState = m_pTarget->GetState();
+			nResult = HIT_AND_NOTDEAD;
+			goto SEND;
+		}
+		case LIFELESS:
+		{
+			nDamage = 0;
+			nState = m_pTarget->GetState();
+			nResult = HIT_AND_NOTDEAD;
+			goto SEND;
+		}
+		default:
+		{
+			m_pTarget->DecLife(nDamage);
+			break;
+		}
 		}
 	}
 	else
@@ -682,7 +682,7 @@ bool CAttackMagic::Result(int nDamage)
 		::AddCasterEXP(m_pCaster, m_pTarget, 1, 1, m_nIndex, abs(nDamage));
 		::KillWho(m_pTarget, m_pCaster);
 		// NK에 계산 
-		if(LocalMgr.IsAbleNation(TAIWAN))//030102 lsw Local
+		if (LocalMgr.IsAbleNation(TAIWAN))//030102 lsw Local
 		{
 			if (m_pCaster->IsTamedNpc())
 			{
@@ -690,14 +690,14 @@ bool CAttackMagic::Result(int nDamage)
 			}
 			else
 			{
-				::CheckNK(m_idCaster, m_idTarget, NK_TYPE_KILL_);		
+				::CheckNK(m_idCaster, m_idTarget, NK_TYPE_KILL_);
 			}
 		}
 		else
 		{
 			::CheckNK(m_idCaster, m_idTarget, NK_TYPE_KILL_);
 		}
-		
+
 		if (m_pTarget->IsNpc())
 		{
 			m_pTarget->m_xSummon.Remove(KillMonster);
@@ -708,26 +708,26 @@ bool CAttackMagic::Result(int nDamage)
 		nResult = HIT_AND_DEAD;
 	}
 	else
-	{		
+	{
 		if (m_pTarget->Race == SEALSTONE)
 		{
-			if (++m_pTarget->sealstone%50 == 0)
+			if (++m_pTarget->sealstone % 50 == 0)
 			{
 				::Send_CMD_SEALSTONE_STATUS(m_pTarget, 2);
 			}
 		}
-		
+
 		if (!m_pCaster->IsTamedNpc())
 		{
 			::AddCasterEXP(m_pCaster, m_pTarget, 2, 1, m_nIndex, abs(nDamage));
 			::CheckNK(m_idCaster, m_idTarget, NK_TYPE_NO_KILL_);
 		}
-		
+
 		nState = m_pTarget->GetState();
 		nResult = HIT_AND_NOTDEAD;
 	}
-	
-SEND:  
+
+SEND:
 	// 결과값을 대상자에게 Packet으로 보내기
 	InitMagicResult(CMD_MAGIC_RESULT_M);
 	m_packet.u.magic.server_magic_result_m.nMagic = m_nIndex;
@@ -738,19 +738,19 @@ SEND:
 	m_packet.u.magic.server_magic_result_m.nResult = nResult;
 	m_packet.u.magic.server_magic_result_m.bDoubleExpUp = m_pCaster->IsDoubleExpUp(); // CSD-040803
 	SendMagicResult();
-	
+
 	if (!m_pCaster->IsNpc() && m_pTarget->IsMagicReflect())
 	{
-		if (rand()%101 <= 20)
+		if (rand() % 101 <= 20)
 		{
 			const int nReal = m_pCaster->DecLife(nDamage*0.3, 10);
-			
+
 			if (nReal > 0)
 			{
 				SendBattleDamage(m_idCaster, 0, -nReal);
 			}
 		}
 	}
-	
+
 	return true;
 }

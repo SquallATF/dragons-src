@@ -15,12 +15,12 @@
 
 CRecoveryMagic::CRecoveryMagic()
 {
-	
+
 }
 
 CRecoveryMagic::~CRecoveryMagic()
 {
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -53,7 +53,7 @@ bool CRecoveryMagic::Healing()
 	}
 	const int nInt = m_pCaster->GetAbility(INT_);
 	const int nWsPs = m_pCaster->GetAbility(WSPS);
-	const int nPlus = ((nInt + nWsPs)>>1)*(m_pCaster->Skill[TACTICS_Magery]>>1) + 100;
+	const int nPlus = ((nInt + nWsPs) >> 1)*(m_pCaster->Skill[TACTICS_Magery] >> 1) + 100;
 	const int nReal = m_pTarget->IncLife(nPlus);
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex, nReal);
 	// 결과값을 대상자에게 Packet으로 보내기
@@ -88,8 +88,8 @@ bool CRecoveryMagic::HealDisease()
 	{ // 배고픔 수치가 전부 차있다면
 		return false;
 	}
-	
-	const int nPlus = m_pTarget->HungryMax/5;
+
+	const int nPlus = m_pTarget->HungryMax / 5;
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
 	// 시전자의 경험치 계산
@@ -110,10 +110,10 @@ bool CRecoveryMagic::GreatHeal()
 	{ // MP가 전부 차있다면
 		return false;
 	}
-	
+
 	const int nInt = m_pCaster->GetAbility(INT_);
 	const int nWsPs = m_pCaster->GetAbility(WSPS);
-	const int nPlus = ((nInt + nWsPs)>>1)*((m_pCaster->Skill[TACTICS_Magery]*3)>>1) + 600;
+	const int nPlus = ((nInt + nWsPs) >> 1)*((m_pCaster->Skill[TACTICS_Magery] * 3) >> 1) + 600;
 	const int nReal = m_pTarget->IncLife(nPlus);
 	// 저주 1, 2계열 마법 상태 회복
 	m_pTarget->ClearCurse(1);
@@ -156,10 +156,10 @@ bool CRecoveryMagic::RestoreAuthority()
 	{ // MP가 전부 차있다면
 		return false;
 	}
-	
+
 	const int nWis = m_pCaster->GetAbility(WIS);
 	const int nWsPs = m_pCaster->GetAbility(WSPS);
-	const int nPlus = ((nWis + nWsPs)>>1)*(m_pCaster->Skill[TACTICS_Orison]) + 400;
+	const int nPlus = ((nWis + nWsPs) >> 1)*(m_pCaster->Skill[TACTICS_Orison]) + 400;
 	const int nReal = m_pTarget->IncLife(nPlus);
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex, nReal);
@@ -198,11 +198,11 @@ bool CRecoveryMagic::MiracleRecover()
 bool CRecoveryMagic::ReliefAuthority()
 { // [164]구원의 권능 : 대상자를 유령 상태에서 정상 상태로 만들고 HP와 마나를 최대까지 배고픔 수치를 절반 올려줌
 	//020501 lsw 살리기쪽 고침
-	if(!m_pCaster->bCanViewGhost)//유령을 볼 수 없는 상태라면
+	if (!m_pCaster->bCanViewGhost)//유령을 볼 수 없는 상태라면
 	{
 		return false;
 	}
-	if(m_pTarget->viewtype != VIEWTYPE_GHOST_) 
+	if (m_pTarget->viewtype != VIEWTYPE_GHOST_)
 	{ // 유령 상태가 아니라면
 		return false;
 	}
@@ -254,14 +254,14 @@ bool CRecoveryMagic::AuthorityRecoverSight()
 
 bool CRecoveryMagic::CureDisease()
 { // [155]질병치료의 권능 : Health(배고픔 상태) 증가
-	if (m_pTarget->IsFullHungry()) 
+	if (m_pTarget->IsFullHungry())
 	{ // 배고픔 수치가 전부 차있다면
 		return false;
 	}
-	
-	const int nPlus = m_pTarget->HungryMax/4;
+
+	const int nPlus = m_pTarget->HungryMax / 4;
 	m_pTarget->IncHungry(nPlus);
-	m_pTarget->SendCharInfoBasic( SP, m_pTarget->Hungry);//020704 lsw
+	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
 	// 결과값을 대상자에게 Packet으로 보내기
@@ -276,12 +276,12 @@ bool CRecoveryMagic::CureDisease()
 
 bool CRecoveryMagic::AuthoritySimunian()
 { // [181]시무니안의 권능
-	if (m_pTarget->IsFullHungry()) 
+	if (m_pTarget->IsFullHungry())
 	{ // 배고픔 수치가 전부 차있다면
 		return false;
 	}
-	
-	const int nPlus = m_pTarget->HungryMax/4;
+
+	const int nPlus = m_pTarget->HungryMax / 4;
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
 	// 시전자의 경험치 계산
@@ -298,17 +298,17 @@ bool CRecoveryMagic::AuthoritySimunian()
 
 bool CRecoveryMagic::HolyCure()
 { // [179]신성한 치유 = 저주해제+완치의기적+프리즌 해제 // 030415 kyo
-	
+
 	m_pTarget->ClearCurse(1);
 	m_pTarget->ClearCurse(2);
 	m_pTarget->ClearCurse(3);
 	m_pTarget->ClearCurse(4);
 	m_pTarget->ClearCurse(6);//Freezn 해제
-	
+
 	const int nPlus = m_pTarget->HungryMax; // 030516 kyo
 	m_pTarget->IncHungry(nPlus);
 	m_pTarget->SendCharInfoBasic(SP, m_pTarget->Hungry);//020704 lsw
-	
+
 	::SendMagicCommand(m_pTarget, SET_CUREBLIND, 0, 0);	//시력상실 회복
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -319,7 +319,7 @@ bool CRecoveryMagic::HolyCure()
 		//return false;
 	}
 	const int nReal = m_pTarget->IncLife(50000);
-	
+
 	InitMagicResult(CMD_MAGIC_RESULT_H);
 	m_packet.u.magic.server_magic_result_h.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_h.idTarget = m_idTarget;

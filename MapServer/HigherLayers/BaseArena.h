@@ -13,7 +13,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-class CBaseArena  
+class CBaseArena
 {
 	enum { MAX_TEAM_NUMBER = 7 }; // CSD-TW-030618
 
@@ -29,13 +29,13 @@ public:
 
 protected:
 	CBaseArena();
-	
-public:	
+
+public:
 	virtual ~CBaseArena();
 
 public:
 	void Clear();
-	
+
 	void AddTeam(CArenaTeam* pTeam);
 	void DelTeam(CArenaTeam* pTeam);
 	void ClearTeam();
@@ -97,12 +97,12 @@ public:
 
 	void SetArenaGambling(CArenaGambling* pGambling)
 	{
-		m_pGambling	= pGambling;
+		m_pGambling = pGambling;
 	}
 
 	void SetArenaObserve(CArenaObserve* pObserve)
 	{
-		m_pObserve	= pObserve;
+		m_pObserve = pObserve;
 	}
 
 	void SetArenaLobby(CArenaLobby* pLobby)

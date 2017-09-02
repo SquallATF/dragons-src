@@ -65,17 +65,17 @@ typedef struct	server_arigement_response
 
 struct t_server_magic_position
 {
-  BYTE nType;
-  WORD idTarget;
-  __int16 nX;
-  __int16 nY;
+	BYTE nType;
+	WORD idTarget;
+	__int16 nX;
+	__int16 nY;
 };
 
 struct t_server_character_condition
 {
 	WORD idTarget;
-  __int32 nLife;
-  BYTE nState;
+	__int32 nLife;
+	BYTE nState;
 };
 
 typedef struct  server_magic_command
@@ -165,7 +165,7 @@ typedef struct send_map_change_date
 	WORD		wDay;
 	WORD		wMonth;
 
-	DWORD	GetPacketSize() { return (DWORD)5;	}
+	DWORD	GetPacketSize() { return (DWORD)5; }
 
 }t_send_map_change_date;
 //

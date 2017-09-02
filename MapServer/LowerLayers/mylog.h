@@ -11,6 +11,6 @@
 
 #define NUM_OF_LOG_TYPE		7
 
-void MyLog( const int type, char *logmsg, ... );//020903 lsw
-void InitMyLog( void );
-void FreeMyLog( void );
+void MyLog(const int type, char *logmsg, ...);//020903 lsw
+void InitMyLog(void);
+void FreeMyLog(void);

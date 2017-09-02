@@ -11,35 +11,35 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 어둠속성 전투스킬
-class CDarkCombat : public TBinder<CCombat, CDarkCombat>  
+class CDarkCombat : public TBinder<CCombat, CDarkCombat>
 {
 public:
 	CDarkCombat();
 	virtual ~CDarkCombat();
 
 public:
-  virtual bool Bind();
-  virtual bool Elapse(CHARLIST* pTarget);
-
-public:  
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
-  
-  virtual bool Exist()
-  { 
-    return IsExist(m_nIndex); 
-  }
+	virtual bool Bind();
+	virtual bool Elapse(CHARLIST* pTarget);
 
 public:
-  bool PoisoningNova();
-  bool CherroyShade();
-  bool DarkBlade();
-  bool TybernGift();
-  bool DarkArmor();
-  bool DarkExtreme();
-  bool AcuquireDark(); // 030415 kyo
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
+
+	virtual bool Exist()
+	{
+		return IsExist(m_nIndex);
+	}
+
+public:
+	bool PoisoningNova();
+	bool CherroyShade();
+	bool DarkBlade();
+	bool TybernGift();
+	bool DarkArmor();
+	bool DarkExtreme();
+	bool AcuquireDark(); // 030415 kyo
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

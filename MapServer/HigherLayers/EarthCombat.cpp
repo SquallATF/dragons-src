@@ -39,18 +39,18 @@ bool CEarthCombat::Elapse(CHARLIST* pTarget)
 {	//< CSD-TW-030623
 	switch (pTarget->GetPassiveCombat())
 	{
-    case SIMUNIAN_BOSOM:
+	case SIMUNIAN_BOSOM:
+	{
+		if (!pTarget->IsPassiveCombatState())
 		{
-			if (!pTarget->IsPassiveCombatState())
-			{
-				pTarget->InitPassiveCombat();
-				SendInit(PASSIVE_COMBAT, pTarget->GetServerID()); 
-			}
-
-			break;
+			pTarget->InitPassiveCombat();
+			SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 }	//> CSD-TW-030623
 
@@ -58,12 +58,12 @@ bool CEarthCombat::BloodEarth()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723
 
@@ -71,12 +71,12 @@ bool CEarthCombat::GroundAttack()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723
 
@@ -118,11 +118,11 @@ bool CEarthCombat::EarthExtreme()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723

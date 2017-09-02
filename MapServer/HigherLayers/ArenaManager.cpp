@@ -55,7 +55,7 @@ void CArenaManager::ClearArena()
 {
 	for (ITOR_ARENA i = m_mpArena.begin(); i != m_mpArena.end(); ++i)
 	{
-		delete i->second;	
+		delete i->second;
 	}
 
 	m_mpArena.clear();
@@ -79,7 +79,7 @@ void CArenaManager::ClearGame()
 {
 	for (ITOR_GAME i = m_mpGame.begin(); i != m_mpGame.end(); ++i)
 	{
-		delete i->second;	
+		delete i->second;
 	}
 
 	m_mpGame.clear();
@@ -93,7 +93,7 @@ void CArenaManager::Ready(DWORD dwSecond)
 	}
 
 	CArenaInfo* pArena = GetArenaInfo(g_MapPort);
-	
+
 	if (pArena == NULL)
 	{
 		return;
@@ -125,7 +125,7 @@ void CArenaManager::Execute(DWORD dwSecond)
 	}
 
 	CArenaInfo* pArena = GetArenaInfo(g_MapPort);
-	
+
 	if (pArena == NULL)
 	{
 		return;
@@ -159,15 +159,15 @@ void CArenaManager::Remove(WORD idMember)
 	}
 
 	CBaseArena* pGame = pMember->GetJoinArenaGame();
-	
+
 	if (pGame == NULL)
 	{
 		return;
 	}
-	
+
 	if (pGame->DelLobby(pMember))
 	{
-	
+
 	}
 
 	if (pGame->DelTeam(pMember))
@@ -183,7 +183,7 @@ void CArenaManager::Remove(WORD idMember)
 
 	if (pGame->DelObserve(pMember))
 	{
-	
+
 	}
 
 	pMember->SetJoinArenaGame(NULL);
@@ -201,13 +201,13 @@ void CArenaManager::RecvEnterLobby(WORD idWaiter, t_arena_enter_lobby* pPacket)
 
 	const int nGame = pPacket->nArenaGame;
 	CBaseArena* pGame = GetGameInfo(nGame);
-	
+
 	if (pGame == NULL)
 	{
 		pMember->Message(MK_INFORMATION, 1, 102);
 		return;
 	}
-	
+
 	if (pGame->IsPlayGame())
 	{
 		pMember->Message(MK_INFORMATION, 1, 103);
@@ -256,7 +256,7 @@ void CArenaManager::RecvLeaveLobby(WORD idWaiter)
 
 	if (pGame->DelObserve(pMember))
 	{
-	
+
 	}
 
 	pMember->SetJoinArenaGame(NULL);
@@ -266,7 +266,7 @@ void CArenaManager::RecvLeaveLobby(WORD idWaiter)
 void CArenaManager::RecvEnterTeam(WORD idMember, t_arena_enter_team* pPacket)
 {
 	CHARLIST* pMember = ::CheckServerId(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -286,9 +286,9 @@ void CArenaManager::RecvEnterTeam(WORD idMember, t_arena_enter_team* pPacket)
 		pMember->Message(MK_INFORMATION, 1, 103);
 		return;
 	}
-	
+
 	const int nTeam = pPacket->nArenaTeam;
-	
+
 	if (pGame->AddTeam(nTeam, pMember))
 	{	// 팀에서 등록된 사람이 있음을 알린다.
 		SendTeamBattleMessageAddCharOk((char)nTeam, idMember);
@@ -300,7 +300,7 @@ void CArenaManager::RecvEnterTeam(WORD idMember, t_arena_enter_team* pPacket)
 void CArenaManager::RecvLeaveTeam(WORD idMember, t_arena_leave_team* pPacket)
 {
 	CHARLIST* pMember = ::CheckServerId(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -329,7 +329,7 @@ void CArenaManager::RecvLeaveTeam(WORD idMember, t_arena_leave_team* pPacket)
 void CArenaManager::RecvReadyGame(WORD idLeader, t_arena_ready_game* pPacket)
 {	//< CSD-TW0-030606
 	CHARLIST* pLeader = ::CheckServerId(idLeader);
-	
+
 	if (pLeader == NULL)
 	{
 		return;
@@ -366,7 +366,7 @@ void CArenaManager::RecvReadyGame(WORD idLeader, t_arena_ready_game* pPacket)
 void CArenaManager::RecvStartGame(WORD idLeader)
 {
 	CHARLIST* pLeader = ::CheckServerId(idLeader);
-	
+
 	if (pLeader == NULL)
 	{
 		return;
@@ -392,7 +392,7 @@ void CArenaManager::RecvStartGame(WORD idLeader)
 void CArenaManager::RecvEnterObserve(WORD idMember, t_arena_enter_observe* pPacket)
 {
 	CHARLIST* pMember = ::CheckServerId(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -420,7 +420,7 @@ void CArenaManager::RecvEnterObserve(WORD idMember, t_arena_enter_observe* pPack
 void CArenaManager::RecvEnterGambling(WORD idMember, t_arena_enter_gambling* pPacket)
 {
 	CHARLIST* pMember = ::CheckServerId(idMember);
-	
+
 	if (pMember == NULL)
 	{
 		return;
@@ -440,10 +440,10 @@ void CArenaManager::RecvEnterGambling(WORD idMember, t_arena_enter_gambling* pPa
 		pMember->Message(MK_INFORMATION, 1, 103);
 		return;
 	}
-	
+
 	const int nTeam = pPacket->nArenaTeam;
 	const DWORD dwBattingMoney = pPacket->dwBattingMoney;
-	
+
 	if (pGame->AddGambler(nTeam, pMember, dwBattingMoney))
 	{
 		pGame->RequestGambling(pMember);

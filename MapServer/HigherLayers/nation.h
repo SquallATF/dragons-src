@@ -6,7 +6,7 @@
 
 struct tagNationInfo
 {
-//	char	name[30];			// 국가 이름
+	//char	name[30];			// 국가 이름
 	int		main_map_port;		// 데이타를 관리할 맵서버
 	char	king_name[20];		// 왕이름
 	double	nation_money;		// 국고
@@ -48,7 +48,7 @@ struct tagNationInfo
 	int		dec_max_ill;
 
 	int		nation_item[20];		// 국가가 가질수 있는 20가지의 아이템의 양 -> 아이템이 뭔지는 따로
-	
+
 	int		prize_money_va;			// 침입자 처단 포상 돈
 	int		prize_money_zy;
 	int		prize_money_ill;
@@ -61,8 +61,8 @@ struct tagNationInfo
 extern tagNationInfo NationInfo[MAX_NATION];
 extern int	 g_MapPort;		// 010522 YGI
 extern void CheckMainMap();
-extern void SendNationMoney( int type, int nation, double moneny );
-extern void SaveNationInfo( int nation );		// 디비 데몬에 저장한다.
-extern int LoadNationInfoOfMainMap( int nation );
+extern void SendNationMoney(int type, int nation, double moneny);
+extern void SaveNationInfo(int nation);		// 디비 데몬에 저장한다.
+extern int LoadNationInfoOfMainMap(int nation);
 
 #endif

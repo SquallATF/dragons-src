@@ -19,9 +19,9 @@
 #define		NPC_ITEM_TABLE_BETWEEN_POS		63							//배열안의 위치.
 #define		NPC_ITEM_TABLE_LEVEL_POS		1							//배열안의 위치.
 
-const int	MAX_ITEM_SKILL_COUNT	=	10000;//020527 lsw
-const int	SADONIX_NO				=	1046;
-const int	BLESSLEAF_NO			=	1047;
+const int	MAX_ITEM_SKILL_COUNT = 10000;//020527 lsw
+const int	SADONIX_NO = 1046;
+const int	BLESSLEAF_NO = 1047;
 
 const int	STATIC_RARE_VIEW_FORCE_TIME = 60;
 
@@ -31,27 +31,27 @@ const int	STATIC_RARE_VIEW_FORCE_TIME = 60;
 #define		SKILL_LEVEL_EXP_TABLE_MAX_	100
 #define		SKILL_EXP_TABLE_MAX_		100
 
-const int	HP_RECOVER_RATE						=	5		;//1회 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_HP_MAX_PERCENT		=	50		;//최대 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_HP_TIME				=	25000	;//밀리세컨드
+const int	HP_RECOVER_RATE = 5;//1회 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_HP_MAX_PERCENT = 50;//최대 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_HP_TIME = 25000;//밀리세컨드
 
-const int	MANA_RECOVER_RATE					=	5		;//1회 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_MANA_MAX_PERCENT	=	50		;//최대 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_MANA_TIME			=	30000	;//밀리세컨드
+const int	MANA_RECOVER_RATE = 5;//1회 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_MANA_MAX_PERCENT = 50;//최대 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_MANA_TIME = 30000;//밀리세컨드
 
-const int	DIVINE_RECOVER_RATE					=	5		;//1회 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_DIVINE_MAX_PERCENT	=	100		;//최대 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_DIVINE_TIME			=	20000	;//밀리세컨드 성직자가 약간더 빠르다
+const int	DIVINE_RECOVER_RATE = 5;//1회 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_DIVINE_MAX_PERCENT = 100;//최대 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_DIVINE_TIME = 20000;//밀리세컨드 성직자가 약간더 빠르다
 
-const int	HUNGRY_CHANGE_RATE					=	5		;//1회 자동 회복 퍼센테이지
-const int	DEFAULT_CHANGE_HUNGRY_MAX_PERCENT	=	100		;//최대 자동 회복 퍼센테이지
-const int	DEFAULT_CHANGE_HUNGRY_TIME			=	10000	;//밀리세컨드
+const int	HUNGRY_CHANGE_RATE = 5;//1회 자동 회복 퍼센테이지
+const int	DEFAULT_CHANGE_HUNGRY_MAX_PERCENT = 100;//최대 자동 회복 퍼센테이지
+const int	DEFAULT_CHANGE_HUNGRY_TIME = 10000;//밀리세컨드
 
-const int	CP_CHANGE_RATE				    	=	2		;//1회 자동 회복 퍼센테이지
-const int	DEFAULT_CHANGE_CP_MAX_PERCENT		=	100		;//최대 자동 회복 퍼센테이지
-const int	DEFAULT_RECOVER_CP_TIME				=	10000	;//밀리세컨드
+const int	CP_CHANGE_RATE = 2;//1회 자동 회복 퍼센테이지
+const int	DEFAULT_CHANGE_CP_MAX_PERCENT = 100;//최대 자동 회복 퍼센테이지
+const int	DEFAULT_RECOVER_CP_TIME = 10000;//밀리세컨드
 
-const int	COMBAT_RECOVERY_TIME				=	5000	;//5초 빨리 cp 올림 // 030415 kyo 
+const int	COMBAT_RECOVERY_TIME = 5000;//5초 빨리 cp 올림 // 030415 kyo 
 
 ////////////////////////////////////////////////////////////////
 // 스킬 실패 왜 하는가 관련된거
@@ -145,43 +145,43 @@ const int	COMBAT_RECOVERY_TIME				=	5000	;//5초 빨리 cp 올림 // 030415 kyo
 
 class CItem_Join
 {
-public :
+public:
 	int no;
 	int item_id;
 	char item_name[31];
 	int item_amount;
-	char han_name[31];	
-	int need_know;	
-	int teach_place;	
-	int need_skill1;	
-	int skill1_minimum;	
-	int skill1_maximum;	
-	int need_skill2;	
-	int skill2_minimum;	
-	int skill2_maximum;	
-	int tech_price;	
-	int Tool_kind;	
-	int Flatform_kind;	
-	int resource1;	
-	int resource1_amount;	
-	int resource2;	
-	int resource2_amount;	
-	int resource3;	
-	int resource3_amount;	
-	int resource4;	
-	int resource4_amount;	
-	int Result_resource1;	
-	int Result_resource1_amount;	
-	int Result_resource2;	
-	int Result_resource2_amount;	
-	int reutilizerble;	
-	int k1;	
+	char han_name[31];
+	int need_know;
+	int teach_place;
+	int need_skill1;
+	int skill1_minimum;
+	int skill1_maximum;
+	int need_skill2;
+	int skill2_minimum;
+	int skill2_maximum;
+	int tech_price;
+	int Tool_kind;
+	int Flatform_kind;
+	int resource1;
+	int resource1_amount;
+	int resource2;
+	int resource2_amount;
+	int resource3;
+	int resource3_amount;
+	int resource4;
+	int resource4_amount;
+	int Result_resource1;
+	int Result_resource1_amount;
+	int Result_resource2;
+	int Result_resource2_amount;
+	int reutilizerble;
+	int k1;
 	int k2;
 	char explain[500];		// 0710 YGI
 	char txt[220];
 
-public :
-	void ReadItemJoin( char *string );
+public:
+	void ReadItemJoin(char *string);
 
 };
 
@@ -205,27 +205,27 @@ typedef struct  tagMAPSKILLTABLE
 	int probability;						//해당기술이 성공할 확률
 	int type_Num;					//NPC 고유 타입 번호(0~99) // NPC일경우에만 사용...
 	int subType;						//해당 기술의 하위 관련 데이터값
-	
+
 	struct  tagMAPSKILLTABLE *prev;		//이전 스킬 속성 테이블 포인터	
 	struct  tagMAPSKILLTABLE *next;		//다음 스킬 속성 포인터
 }	MAPSKILLTABLE, *lpMAPSKILLTABLE;
 
 typedef struct
 {
-	short reclaim_old[ MAX_EARTHSKILL ];
-	short reclaim[ MAX_EARTHSKILL ];
+	short reclaim_old[MAX_EARTHSKILL];
+	short reclaim[MAX_EARTHSKILL];
 	short reclaimcount;
-	short mining_old[ MAX_EARTHSKILL ];
-	short mining[ MAX_EARTHSKILL ];
+	short mining_old[MAX_EARTHSKILL];
+	short mining[MAX_EARTHSKILL];
 	short miningcount;
-	short fishing_old[ MAX_EARTHSKILL ];
-	short fishing[ MAX_EARTHSKILL ];
+	short fishing_old[MAX_EARTHSKILL];
+	short fishing[MAX_EARTHSKILL];
 	short fishingcount;
-	short cutting_old[ MAX_EARTHSKILL ];
-	short cutting[ MAX_EARTHSKILL ];
+	short cutting_old[MAX_EARTHSKILL];
+	short cutting[MAX_EARTHSKILL];
 	short cuttingcount;
-	short digging_old[ MAX_EARTHSKILL ];
-	short digging[ MAX_EARTHSKILL ];
+	short digging_old[MAX_EARTHSKILL];
+	short digging[MAX_EARTHSKILL];
 	short diggingcount;
 }t_earthpower;
 
@@ -249,7 +249,7 @@ const int MAX_BASICITEMBAG = 1000;
 
 typedef struct ItemControlPercent
 {
-	int iNo	;
+	int iNo;
 	int	per[8];//0번은 토탈값 1~5는 베이직 그룹 6~7은 레어 그룹
 }t_ItemControlPercent;
 const int MAX_ITEMCONTROLPERCENT = 1000;
@@ -270,160 +270,160 @@ typedef struct ITEMCONTROL
 }t_ItemControl;
 const int MAX_ITEMCONTROL = 1000;
 
-class CSkillMgr  
+class CSkillMgr
 {
 public:
 	CSkillMgr();
 	virtual ~CSkillMgr();
 	void	AutoSetCanView(CHARLIST *ch);
 
-	bool	CanViewGhost(CHARLIST *ch)		const	{return ch->bCanViewGhost;}
-	bool	CanViewTrap(CHARLIST *ch)		const	{return ch->bCanViewTrap;}
-	
-	bool	CheckSkillNo( const int iSkillNo )const;
-	bool	CheckIsYourSkill( LPCHARLIST ch, const int iSkillNo )const;
+	bool	CanViewGhost(CHARLIST *ch)		const { return ch->bCanViewGhost; }
+	bool	CanViewTrap(CHARLIST *ch)		const { return ch->bCanViewTrap; }
+
+	bool	CheckSkillNo(const int iSkillNo)const;
+	bool	CheckIsYourSkill(LPCHARLIST ch, const int iSkillNo)const;
 	int		CorrectLearnItem(CHARLIST *ch);
 
 	void	CharacterToAlive(CHARLIST *ch, const int iType = 0);
 	void	CharacterToGhost(CHARLIST *ch, const int iType = 0);
-	
+
 	bool	SetCanViewGhost(CHARLIST *ch, const int iTime);//초단위
 	bool	SetCanViewBomb(CHARLIST *ch, const int iTime);//초단위
 	bool	SetCanViewTrap(CHARLIST *ch, const int iTime);//초단위
 
-  bool  IncSkillCount(CHARLIST *ch, const int iType, const int iKind, const int iPoint);//초단위
-	void	SendSkillExp( const int iType, const t_skillexp exp, const int cn);
+	bool  IncSkillCount(CHARLIST *ch, const int iType, const int iKind, const int iPoint);//초단위
+	void	SendSkillExp(const int iType, const t_skillexp exp, const int cn);
 
 	int		FallItemWhenNPCDie(CHARLIST *NPC);
-	
+
 	int		GenerateNPCItem2(CHARLIST *NPC, NPC_Generation* g);
 
 	void	RecvCMD_CONFORM_SADONIX(const t_packet &p);
 private:
-	void	SendCMD_CONFORM_SADONIX(const int cn, const int iItemNo,const int kind,const int x , const int y);//절대 private
-	bool	IsRecoverAble(const int iNow,const int iMax)const;//현재 값과 최대량을 비교해서 최대량이 현재보다 많으면 가능하다를 리턴한다
-	
+	void	SendCMD_CONFORM_SADONIX(const int cn, const int iItemNo, const int kind, const int x, const int y);//절대 private
+	bool	IsRecoverAble(const int iNow, const int iMax)const;//현재 값과 최대량을 비교해서 최대량이 현재보다 많으면 가능하다를 리턴한다
+
 	int		GetItemFallPercentPos(const int iFallNo);
-	int		SetNPCInventory(CHARLIST *NPC, const int iItemControlNo,ItemAttr* pItem, const int iCallType = 0);
-	int		SetNPCItem(const int iBagNo, const bool bIsBasic, ItemAttr *pItem,const int iCallType = 0);
-	
+	int		SetNPCInventory(CHARLIST *NPC, const int iItemControlNo, ItemAttr* pItem, const int iCallType = 0);
+	int		SetNPCItem(const int iBagNo, const bool bIsBasic, ItemAttr *pItem, const int iCallType = 0);
+
 
 public:
 	void	AutoRecoverHp(CHARLIST *ch);
 	void	AutoRecoverMp(CHARLIST *ch);
-	void	AutoChangeHungry(CHARLIST *ch );//배고픔 게이지는 그냥 차지 않는다 특별한 상황에서만 찬다(ex>의자)
+	void	AutoChangeHungry(CHARLIST *ch);//배고픔 게이지는 그냥 차지 않는다 특별한 상황에서만 찬다(ex>의자)
 	void	AutoRecoverCp(CHARLIST *ch);
 	void	AutoRefreshRareMakeCount(CHARLIST *ch);
-	int		CheckYouCanSkillIt( const int cn, CItem_Join &join, const int skillno, const int x, const int y, const int target_id );
-	int 	CheckSkillTool( LPCHARLIST ch, CItem_Join &join, const int iSkillNo, const int target_id );
-	int		FindLearnItem( CHARLIST *ch, const int item_no );		// 배운게 있으면 -1을 리턴, 없으면 item_max를 리턴
-	bool	CanLearnItem( CHARLIST *ch, const int join_num )const;
+	int		CheckYouCanSkillIt(const int cn, CItem_Join &join, const int skillno, const int x, const int y, const int target_id);
+	int 	CheckSkillTool(LPCHARLIST ch, CItem_Join &join, const int iSkillNo, const int target_id);
+	int		FindLearnItem(CHARLIST *ch, const int item_no);		// 배운게 있으면 -1을 리턴, 없으면 item_max를 리턴
+	bool	CanLearnItem(CHARLIST *ch, const int join_num)const;
 
-	void	SkillMapper( const int cn, const int iSkillNo, const int x, const int y, const int targettype, const int target_id, const POS s );
-	int		MakeItemByItemControl( ItemAttr *pItem, const int iItemControlNo ) { return SetNPCInventory(NULL, iItemControlNo, pItem );}		// 020821 YGI
+	void	SkillMapper(const int cn, const int iSkillNo, const int x, const int y, const int targettype, const int target_id, const POS s);
+	int		MakeItemByItemControl(ItemAttr *pItem, const int iItemControlNo) { return SetNPCInventory(NULL, iItemControlNo, pItem); }		// 020821 YGI
 private:
-	int Skill_Detect_ghost					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Talk_with_ghost				(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Poisoning						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Detect_poison					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Find_traps					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Remove_traps					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Entrapment					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Detect_bomb					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Bomb_in_box					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Remove_bomb					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Stealing						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Reclaim						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Sow							(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Havest						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Mining						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Refine						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Fish_hooking					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Netting						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Cutting						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Lumbering						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Butchering					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Digging						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Makepowder					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Shear							(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Carpentry						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Blacksmithy					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Cooking						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Clothing						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Tailoring						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Bowcrafting					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Fletching						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Makepotion					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Makemetal						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Makebottle					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Candlemaking					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Snooping						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Makefire						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Taming						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Evaluate_inteligence			(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Evaluate_wisdom				(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Anatomy_judgement				(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Item_identification			(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_crapple						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_swordmanship				(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_archery						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_fencing						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_mace_fighting				(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_pierce						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_whirl						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_hurl						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_parrying					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_double_swordmanship			(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_double_macefighting			(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_magery						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Tactics_orison						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Ghost_resurrection			(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_carpenter					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_blacksmith					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_cook						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_tailor						(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_bowcraft					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_alchemist					(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
-	int Skill_Gm_candlemaker				(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID );
+	int Skill_Detect_ghost(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Talk_with_ghost(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Poisoning(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Detect_poison(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Find_traps(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Remove_traps(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Entrapment(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Detect_bomb(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Bomb_in_box(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Remove_bomb(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Stealing(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Reclaim(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Sow(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Havest(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Mining(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Refine(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Fish_hooking(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Netting(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Cutting(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Lumbering(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Butchering(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Digging(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Makepowder(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Shear(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Carpentry(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Blacksmithy(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Cooking(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Clothing(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Tailoring(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Bowcrafting(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Fletching(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Makepotion(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Makemetal(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Makebottle(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Candlemaking(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Snooping(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Makefire(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Taming(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Evaluate_inteligence(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Evaluate_wisdom(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Anatomy_judgement(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Item_identification(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_crapple(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_swordmanship(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_archery(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_fencing(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_mace_fighting(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_pierce(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_whirl(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_hurl(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_parrying(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_double_swordmanship(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_double_macefighting(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_magery(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Tactics_orison(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Ghost_resurrection(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_carpenter(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_blacksmith(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_cook(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_tailor(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_bowcraft(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_alchemist(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
+	int Skill_Gm_candlemaker(const int iCn, const int iSkillNo, const int iX, const int iY, const int targettype, const int iTargetID);
 };
 
 extern CSkillMgr  SkillMgr;
 
-extern CItem_Join	item_join[ ITEM_JOIN_MAX];
+extern CItem_Join	item_join[ITEM_JOIN_MAX];
 extern lpMAPSKILLTABLE	Header[8][8];
 extern t_earthpower EarthPower;
-extern int GiveSpecialItem(int NPCno,int dx,int dy,int MapNo,int How);
-extern void SendCharacterCondition( CHARLIST* lpChar, int change_HP );
+extern int GiveSpecialItem(int NPCno, int dx, int dy, int MapNo, int How);
+extern void SendCharacterCondition(CHARLIST* lpChar, int change_HP);
 extern int Npc_Item_Table[NPC_ITEM_TABLE_X][NPC_ITEM_TABLE_Y];	//npc가 죽을때 나올 아이템들이 모여있는 테이블
-extern void RecvSkillInfo( int cn, t_client_skill_info *sp);
-extern void RecvSkillCursorView( int cn, t_client_skill_cursor_view  *p);
+extern void RecvSkillInfo(int cn, t_client_skill_info *sp);
+extern void RecvSkillCursorView(int cn, t_client_skill_cursor_view  *p);
 extern BOOL LoadSkillMapTable(void);
-extern bool LoadItemJoinTable( void );
-extern void RecvCMD_FOOT_ON_TRAP_0_ITEM( int cn, t_client_foot_on_trap0 *p );
-extern void RecvCMD_FOOT_ON_TRAP_1_ITEM( int cn, t_client_foot_on_trap1 *p );
-extern void RecvSkillGauge( int cn, t_client_skill_gauge *p );
-extern int AddSkillExp( int cn, int skillno, int hitrate );
-extern void CheckSkillTimeElapsed( void );
-extern DWORD ReturnHowLongTimeGrow( LPITEMLIST i );
-extern bool youvegotitInventory( int cn, ItemAttr *item );
-extern void RecvDebugChangeSkillExp( t_debug_change_skill_exp *tp );
+extern bool LoadItemJoinTable(void);
+extern void RecvCMD_FOOT_ON_TRAP_0_ITEM(int cn, t_client_foot_on_trap0 *p);
+extern void RecvCMD_FOOT_ON_TRAP_1_ITEM(int cn, t_client_foot_on_trap1 *p);
+extern void RecvSkillGauge(int cn, t_client_skill_gauge *p);
+extern int AddSkillExp(int cn, int skillno, int hitrate);
+extern void CheckSkillTimeElapsed(void);
+extern DWORD ReturnHowLongTimeGrow(LPITEMLIST i);
+extern bool youvegotitInventory(int cn, ItemAttr *item);
+extern void RecvDebugChangeSkillExp(t_debug_change_skill_exp *tp);
 extern int OutMessage(int cn, DWORD para1, DWORD para2);
-extern int OutMessage( LPCHARLIST ch, DWORD para1, DWORD para2);
+extern int OutMessage(LPCHARLIST ch, DWORD para1, DWORD para2);
 extern int OutSound(LPCHARLIST ch, const int iFileType, const int iNo);
-extern void SendSkillResult( int cn, int skillno, int target_id, int x, int y, int result );
-extern int GiveBasicItem(const int cn,const int iSkillTooltype,const int subType);
-extern int ReturnDemandFromSkillMapTable( const int iSkillToolType, const int iTableno, const int iHitrate );
-extern int ReturnFromSkillMapTable(const int cn, const int iSkillToolType, const int iTableno, const int iHitrate ,int iReturnType);
-extern void SkillMapper( const int cn, const int iSkillNo, const int x, const int y, const int targettype, const int target_id, POS s );
-extern int TryRareItem(int cn, const int iSkillNo, CItem_Join join, const int iTryRare, const int iRareGruop, const int iMakeCount,const int iSuccess);//020530 lsw
-extern void SendViewTypeChange(const int cn, int viewtype );
-extern void DecreaseEquipDuration( CHARLIST *ch, const DWORD dwDecValue, const int iItemPos, const int iTargetSprNo, const bool bIsAttacker= true,bool bIsNoCount= false);
-extern bool exist(int, int, POS &) ;
+extern void SendSkillResult(int cn, int skillno, int target_id, int x, int y, int result);
+extern int GiveBasicItem(const int cn, const int iSkillTooltype, const int subType);
+extern int ReturnDemandFromSkillMapTable(const int iSkillToolType, const int iTableno, const int iHitrate);
+extern int ReturnFromSkillMapTable(const int cn, const int iSkillToolType, const int iTableno, const int iHitrate, int iReturnType);
+extern void SkillMapper(const int cn, const int iSkillNo, const int x, const int y, const int targettype, const int target_id, POS s);
+extern int TryRareItem(int cn, const int iSkillNo, CItem_Join join, const int iTryRare, const int iRareGruop, const int iMakeCount, const int iSuccess);//020530 lsw
+extern void SendViewTypeChange(const int cn, int viewtype);
+extern void DecreaseEquipDuration(CHARLIST *ch, const DWORD dwDecValue, const int iItemPos, const int iTargetSprNo, const bool bIsAttacker = true, bool bIsNoCount = false);
+extern bool exist(int, int, POS &);
 extern int exchangePOS_of_Item(const int char_id, t_chr_status_info *cstatus, const POS source, const POS dest);
 extern void aliveCharacter(CHARLIST *d);
-extern void SendServerEachItem( const POS *pos, const ItemAttr *item, const int cn );			// 그자리에 콕 찝어서 값을 보내준다.
-extern void SendServerEachItem( const ItemAttr *item, const CHARLIST *ch );	// 포인터로 찾을때
-extern bool LoadItemTable( void );
+extern void SendServerEachItem(const POS *pos, const ItemAttr *item, const int cn);			// 그자리에 콕 찝어서 값을 보내준다.
+extern void SendServerEachItem(const ItemAttr *item, const CHARLIST *ch);	// 포인터로 찾을때
+extern bool LoadItemTable(void);
 extern bool LoadRareItemBag();
 extern bool LoadItemControlPercent();
 extern bool LoadItemFallPercent();

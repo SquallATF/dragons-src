@@ -8,7 +8,7 @@
 #include "..\HigherLayers\OP_Magic.h"
 #include "..\HigherLayers\OP_Battle.h"
 
-int	PRAY_RECOVER_DIVINE_TIME			=	0	; // 030520 kyo
+int	PRAY_RECOVER_DIVINE_TIME = 0; // 030520 kyo
 ///////////////////////////////////////////////////////////////////////////////
 // Static Variable
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,12 +31,12 @@ static POINT s_aPlace[8][5] =
 
 CExtraMagic::CExtraMagic()
 {
-    
+
 }
 
 CExtraMagic::~CExtraMagic()
 {
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -44,7 +44,7 @@ CExtraMagic::~CExtraMagic()
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CExtraMagic::Bind()
-{ 
+{
 	Resist(PHASING, &CExtraMagic::Phasing);
 	Resist(TELEPORT, &CExtraMagic::Teleport);
 	Resist(MEMORIZING_LOCATION, &CExtraMagic::MemorizingLocation);
@@ -64,16 +64,16 @@ bool CExtraMagic::Bind()
 	Resist(APPRECIATE, &CExtraMagic::Appreciate);
 	Resist(PRAY, &CExtraMagic::Pray);	// 030415 kyo
 	return true;
-} 
+}
 
 bool CExtraMagic::Phasing()
 {	// [64]장소이동 : 임의적으로 위치가 순간적으로 이동
 	int nCount = 0;
-	
-	do	
+
+	do
 	{
-		m_nX = (m_pCaster->X>>5);
-		m_nY = (m_pCaster->Y>>5);
+		m_nX = (m_pCaster->X >> 5);
+		m_nY = (m_pCaster->Y >> 5);
 		// 위치 얻기
 		GetArea(m_nX, m_nY);
 		//< CSD-030930
@@ -91,9 +91,8 @@ bool CExtraMagic::Phasing()
 		{	// 10회 이상 시도시 실패했다면 마법이 실패한 것으로 간주
 			return false;
 		}
-	} 
-	while (!::IsMovable(m_nX, m_nY));
-	
+	} while (!::IsMovable(m_nX, m_nY));
+
 	::TransArea(PT_PHASING, m_pCaster, m_nX, m_nY);
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // 시전자의 경험치 계산
 	// 결과값을 대상자에게 Packet으로 보내기
@@ -108,11 +107,11 @@ bool CExtraMagic::Phasing()
 
 bool CExtraMagic::Teleport()
 {	// [66]순간이동 : 선택한 장소로 순간적으로 이동
-	if (::IsMovable(m_nX, m_nY) == false)  
+	if (::IsMovable(m_nX, m_nY) == false)
 	{ // 이동을 할 수 없는 곳이라면
 		return false;
 	}
-	
+
 	::TransArea(PT_TELEPORT, m_pCaster, m_nX, m_nY);
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -128,7 +127,7 @@ bool CExtraMagic::Teleport()
 
 bool CExtraMagic::MemorizingLocation()
 { // [65]이동장소기억 : 차원이동이나 복수차원으로 이동될 장소(맵이름, 좌표값)를 기억시킴
-	if (::IsMovable(m_nX, m_nY) == false)  
+	if (::IsMovable(m_nX, m_nY) == false)
 	{ // 이동을 할 수 없는 곳이라면
 		return false;
 	}
@@ -153,7 +152,7 @@ bool CExtraMagic::TownPortal()
 	{ // 기억된 이동 장소 정보가 없다면
 		return false;
 	}
-	
+
 	::TransMap(m_pCaster);
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -169,11 +168,11 @@ bool CExtraMagic::TownPortal()
 
 bool CExtraMagic::MultiPort()
 { // [67]복수차원이동 : 일정 영역에 있는 사람들을 기억된 장소(맵이름, 좌표값)로 이동
-	if (m_pCaster->IsTransMap() == false)  
+	if (m_pCaster->IsTransMap() == false)
 	{ // 기억된 이동 장소 정보가 없다면 실패
 		return false;
 	}
-	
+
 	::TransMap(m_pCaster);
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -187,24 +186,23 @@ bool CExtraMagic::MultiPort()
 	return true;
 }
 
-bool CExtraMagic::VampireDodge()        
+bool CExtraMagic::VampireDodge()
 { // [91]뱀파이어 회피
 	int nCount = 0;
-	
-	do	
+
+	do
 	{
-		m_nX = (m_pCaster->X>>5);
-		m_nY = (m_pCaster->Y>>5);
+		m_nX = (m_pCaster->X >> 5);
+		m_nY = (m_pCaster->Y >> 5);
 		// 위치 얻기
-		GetArea(m_nX, m_nY);    
+		GetArea(m_nX, m_nY);
 		// 10회 이상 시도시 실패했다면 마법이 실패한 것으로 간주
-		if (++nCount > MAX_COUNT)	 
+		if (++nCount > MAX_COUNT)
 		{
 			return false;
 		}
-	} 
-	while (!::IsMovable(m_nX, m_nY));
-	
+	} while (!::IsMovable(m_nX, m_nY));
+
 	::TransArea(PT_DODGE, m_pCaster, m_nX, m_nY);
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // 시전자의 경험치 계산
 	// 결과값을 대상자에게 Packet으로 보내기
@@ -223,18 +221,18 @@ bool CExtraMagic::LowMonsterRecall()
 	{ // 소환된 몬스터가 있다면
 		m_pCaster->m_xSummon.Remove(KillMonster);
 	}
-	
+
 	int nCreate = 0;
-	
-	switch (rand()%3)
+
+	switch (rand() % 3)
 	{
-    case 0:  nCreate = 14; break; // 라이칸스롭
-    case 1:  nCreate = 47; break; // 도마뱀인간
-    case 2:  nCreate = 42; break; // 무지나
-    default: nCreate = -1; break;
+	case 0:  nCreate = 14; break; // 라이칸스롭
+	case 1:  nCreate = 47; break; // 도마뱀인간
+	case 2:  nCreate = 42; break; // 무지나
+	default: nCreate = -1; break;
 	}
-	
-	if (::SummonMonster(m_pCaster, nCreate, m_nX, m_nY) == false)  
+
+	if (::SummonMonster(m_pCaster, nCreate, m_nX, m_nY) == false)
 	{ // 소환에 실패했다면
 		return false;
 	}
@@ -256,17 +254,17 @@ bool CExtraMagic::MiddleMonsterRecall()
 	{ // 소환된 몬스터가 있다면
 		m_pCaster->m_xSummon.Remove(KillMonster);
 	}
-	
+
 	int nCreate = 0;
-	
-	switch (rand()%2)
+
+	switch (rand() % 2)
 	{
-    case 0:  nCreate = 34; break; // 브루드
-    case 1:  nCreate = 38; break; // 스톤골렘
-    default: nCreate = -1; break;
+	case 0:  nCreate = 34; break; // 브루드
+	case 1:  nCreate = 38; break; // 스톤골렘
+	default: nCreate = -1; break;
 	}
-	
-	if (::SummonMonster(m_pCaster, nCreate, m_nX, m_nY) == false)  
+
+	if (::SummonMonster(m_pCaster, nCreate, m_nX, m_nY) == false)
 	{ // 소환에 실패했다면
 		return false;
 	}
@@ -288,8 +286,8 @@ bool CExtraMagic::SummoningSkeleton()
 	{ // 소환된 몬스터가 있다면
 		return false;
 	}
-	
-	if (::SummonMonster(m_pCaster, 49, m_nX, m_nY) == false)  
+
+	if (::SummonMonster(m_pCaster, 49, m_nX, m_nY) == false)
 	{ // 소환에 실패했다면
 		return false;
 	}
@@ -311,7 +309,7 @@ bool CExtraMagic::SummoningUndead()
 	{ // 소환된 몬스터가 있다면
 		return false;
 	}
-	
+
 	if (!::IsMovable(m_nX, m_nY))  return false;
 	if (!::SummonMonster(m_pCaster, 81, m_nX, m_nY))  return false;
 	// 시전자의 경험치 계산
@@ -341,10 +339,10 @@ bool CExtraMagic::RecallFollow()
 	{
 		return false;
 	}
-	
+
 	const int nMonster = m_pCaster->GetFollow();
 
-	if (!::SummonMonster(m_pCaster, nMonster, nX, nY))  
+	if (!::SummonMonster(m_pCaster, nMonster, nX, nY))
 	{
 		return false;
 	}
@@ -364,37 +362,37 @@ bool CExtraMagic::RecallFollow()
 bool CExtraMagic::MagicalTrap()
 {	// [20]마법트랩 : 지정된 위치에 화염, 얼음, 복합 마법 효과를 가진 덫 설치
 	// 30초(1 레벨) ~ 150초(99 레벨)
-	const WORD	wDuration = TRAP_TIME + ((m_pCaster->GetLevel()/5 - 5)*TRAP_TIME/10); // CSD-030806
+	const WORD	wDuration = TRAP_TIME + ((m_pCaster->GetLevel() / 5 - 5)*TRAP_TIME / 10); // CSD-030806
 	const int nX = m_nX;
 	const int nY = m_nY;
 	// 덫의 종류 정의(0->X/1->+/2->복합)
-	switch (rand()%3)
+	switch (rand() % 3)
 	{
 	case 0:	// ㅁ형 트랩	(화염) - 데미지:경
-		{
-			::InsertTrap(nX,     nY,     0, g_curr_time + wDuration);
-			::InsertTrap(nX + 1, nY,     0, g_curr_time + wDuration);
-			::InsertTrap(nX,     nY + 1, 0, g_curr_time + wDuration);
-			::InsertTrap(nX + 1, nY + 1, 0, g_curr_time + wDuration);
-			break;
-		}
+	{
+		::InsertTrap(nX, nY, 0, g_curr_time + wDuration);
+		::InsertTrap(nX + 1, nY, 0, g_curr_time + wDuration);
+		::InsertTrap(nX, nY + 1, 0, g_curr_time + wDuration);
+		::InsertTrap(nX + 1, nY + 1, 0, g_curr_time + wDuration);
+		break;
+	}
 	case 1:	// +형 트랩	(얼음) - 데미지:중
-		{
-			::InsertTrap(nX,     nY - 1, 1, g_curr_time + wDuration);
-			::InsertTrap(nX,     nY,     1, g_curr_time + wDuration);
-			::InsertTrap(nX,     nY + 1, 1, g_curr_time + wDuration);
-			::InsertTrap(nX - 1, nY,     1, g_curr_time + wDuration);
-			::InsertTrap(nX + 1, nY,     1, g_curr_time + wDuration);
-			break;
-		}
+	{
+		::InsertTrap(nX, nY - 1, 1, g_curr_time + wDuration);
+		::InsertTrap(nX, nY, 1, g_curr_time + wDuration);
+		::InsertTrap(nX, nY + 1, 1, g_curr_time + wDuration);
+		::InsertTrap(nX - 1, nY, 1, g_curr_time + wDuration);
+		::InsertTrap(nX + 1, nY, 1, g_curr_time + wDuration);
+		break;
+	}
 	case 2:	// ㅁ형 트랩 (복합체) - 데미지:강
-		{
-			::InsertTrap(nX,     nY,     2, g_curr_time + wDuration);
-			::InsertTrap(nX + 1, nY,     2, g_curr_time + wDuration);
-			::InsertTrap(nX,     nY + 1, 2, g_curr_time + wDuration);
-			::InsertTrap(nX + 1, nY + 1, 2, g_curr_time + wDuration);
-			break;
-		}
+	{
+		::InsertTrap(nX, nY, 2, g_curr_time + wDuration);
+		::InsertTrap(nX + 1, nY, 2, g_curr_time + wDuration);
+		::InsertTrap(nX, nY + 1, 2, g_curr_time + wDuration);
+		::InsertTrap(nX + 1, nY + 1, 2, g_curr_time + wDuration);
+		break;
+	}
 	}
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -429,15 +427,15 @@ bool CExtraMagic::MagicDetect()
 
 bool CExtraMagic::Anthem()
 {	// [163]성가 : 대상의 NK수치를 감소시키고 대신 경험치를 줄임
-	if (::IsHeNK(m_pTarget, MapInfo[MapNumber].nation) <= 0)  
+	if (::IsHeNK(m_pTarget, MapInfo[MapNumber].nation) <= 0)
 	{ // 현재있는 맵의 NK 수치 검사
 		return false;
 	}
 	//< CSD-030314 : 경험치 감소
-	const bool bNK = (IsHeNK(m_pTarget, MapInfo[MapNumber].nation) > 0) ? true: false; 
+	const bool bNK = (IsHeNK(m_pTarget, MapInfo[MapNumber].nation) > 0) ? true : false;
 	m_pTarget->DecExperience(bNK);
 	//> CSD-030314 : NK 수치 10 감소
-	::InNK(m_pTarget, MapInfo[MapNumber].nation, -10); 
+	::InNK(m_pTarget, MapInfo[MapNumber].nation, -10);
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
 	// 결과값을 대상자에게 Packet으로 보내기
@@ -498,7 +496,7 @@ bool CExtraMagic::Appreciate()
 }
 
 bool CExtraMagic::Pray()
-	{	//< CSD-TW-030606 : [178]기도 : 마나를 PRAY_RECOVER_DIVINE_TIME(5)초 더 빨리 채운다. // 030415 kyo
+{	//< CSD-TW-030606 : [178]기도 : 마나를 PRAY_RECOVER_DIVINE_TIME(5)초 더 빨리 채운다. // 030415 kyo
 	const WORD wPeriod = CalcMaintain(); // 030521 kyo
 	m_pCaster->dwUpDivineMana = m_dwNow + wPeriod;
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex); // 시전자의 경험치 계산
@@ -518,12 +516,12 @@ bool CExtraMagic::Pray()
 ///////////////////////////////////////////////////////////////////////////////
 
 void CExtraMagic::GetArea(int& rX, int& rY)
-{  
+{
 	const int nLeft = rX - 3;
 	const int nTop = rY - 2;
 	const int nRight = rX + 3;
 	const int nBottom = rY + 2;
-	
+
 	RECT aArea[4] =
 	{
 		{nLeft - 5, nTop - 7, nLeft, nTop},
@@ -531,17 +529,17 @@ void CExtraMagic::GetArea(int& rX, int& rY)
 		{nLeft - 5, nBottom, nLeft, nBottom + 7},
 		{nRight, nBottom, nRight + 5, nBottom + 7}
 	};
-	
-	RECT rtRand = aArea[rand()%4];
-	rX = rtRand.left + rand()%5;
-	rY = rtRand.top + rand()%7;
+
+	RECT rtRand = aArea[rand() % 4];
+	rX = rtRand.left + rand() % 5;
+	rY = rtRand.top + rand() % 7;
 }
 
 bool CExtraMagic::GetRecallPlace(int nSrcX, int nSrcY, int& rDstX, int& rDstY)
 {	//< CSD-030324 : 소환할 곳의 위치 구하기
 	const int nDir = m_pCaster->Direction;
-	int nX = nSrcX + s_aPlace[nDir][rand()%5].x;
-	int nY = nSrcY - s_aPlace[nDir][rand()%5].y;
+	int nX = nSrcX + s_aPlace[nDir][rand() % 5].x;
+	int nY = nSrcY - s_aPlace[nDir][rand() % 5].y;
 
 	if (::IsMovable(nX, nY))
 	{
@@ -552,8 +550,8 @@ bool CExtraMagic::GetRecallPlace(int nSrcX, int nSrcY, int& rDstX, int& rDstY)
 	// 소환하는 자의 주변을 검색
 	for (int i = DIRECTION_DOWN; i <= DIRECTION_RIGHTDOWN; ++i)
 	{
-		nX = nSrcX + s_aPlace[i][rand()%5].x;
-		nY = nSrcY - s_aPlace[i][rand()%5].y;
+		nX = nSrcX + s_aPlace[i][rand() % 5].x;
+		nY = nSrcY - s_aPlace[i][rand() % 5].y;
 
 		if (::IsMovable(nX, nY))
 		{

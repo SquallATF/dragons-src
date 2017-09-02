@@ -42,7 +42,7 @@ extern int g_LocalWarBegin;
 extern bool IsWar();
 extern bool isAttacker(CHARLIST* pCaster);
 extern bool isNationWarfieldServer();
-extern int CanLocalWarAttack(CHARLIST* pAttacker,CHARLIST* pDefencer); // 020115 LTS
+extern int CanLocalWarAttack(CHARLIST* pAttacker, CHARLIST* pDefencer); // 020115 LTS
 extern int CheckLocalWarAttacker(CHARLIST* pAttacker);						     // 020115 LTS
 extern int CheckEventAttack();	 // 020115 LTS
 extern int CheckEventWarDoing(); // 020115 LTS
@@ -52,7 +52,7 @@ extern void SaveLogChange_Combat(CHARLIST* ch, int nCombat, int nOld, int nNew);
 */
 
 extern bool isNewWarfieldServer();
-extern bool isMyTeam(LPCHARLIST pCaster,LPCHARLIST pTarget);
+extern bool isMyTeam(LPCHARLIST pCaster, LPCHARLIST pTarget);
 extern CSymbolItemMgr g_CSymbolMgr; //031110 kyo
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -107,9 +107,9 @@ void CBattleManager::Elapse(DWORD dwSecond)
 
 	mem_fun1_t<bool, CBattle, CHARLIST*> mf(&CBattle::Elapse);
 	CHARLIST* pTemp = NULL;
-	
+
 	for (int i = DRAGON_CONNECTIONS_START; i < DRAGON_MAX_CONNECTIONS; ++i)
-	{	
+	{
 		pTemp = ::CheckServerId(i);
 
 		if (pTemp != NULL)
@@ -121,8 +121,8 @@ void CBattleManager::Elapse(DWORD dwSecond)
 			// 마법이나 전투스킬 상태 검사
 			for_each(m_vtBuffer.begin(), m_vtBuffer.end(), bind2nd(mf, pTemp));
 		}
-	}	
-	
+	}
+
 	for (int j = NPC_LIST_START; j < MAX_NPC_LIST; ++j)
 	{
 		pTemp = ::CheckNpcId(j);
@@ -130,7 +130,7 @@ void CBattleManager::Elapse(DWORD dwSecond)
 		if (pTemp != NULL && pTemp->bAlive != REMOVE_)
 		{
 			pTemp->IncPoisonedCount();
-		
+
 			::CheckCharacterCondition(pTemp);
 			// 마법이나 전투스킬 상태 검사
 			for_each(m_vtBuffer.begin(), m_vtBuffer.end(), bind2nd(mf, pTemp));
@@ -144,7 +144,7 @@ void CBattleManager::ClearCombat(BYTE nCombat, WORD idMaster)
 {	//< CSD-TW-030623
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	if (nCombat != 0 && !IsEnableWeapon(nCombat, pMaster))
 	{	// 무기를 바꾼 경우에 처리
 		t_client_combat_clear packet;
@@ -152,79 +152,79 @@ void CBattleManager::ClearCombat(BYTE nCombat, WORD idMaster)
 		RecvCombatClear(idMaster, &packet);
 		return;
 	}
-	
+
 	switch (nCombat)
 	{
-    case LIGHTNING_BOOM:
-    case THUNDER_BLOW:
-    case LIGHTNING_SHOCK:
-    case THUNDER_STRIKE:
-    case BLOOD_WILL:
-    case GROUND_ATTACK:
-    case SWORD_N_ROSES:
-    case FLEET_MISSILE:
-    case CONVERTING_ARMOR:
-    case CHERROY_SHADE:
-    case DARK_BLADE:
-    case SHARK_MISSILE:
-    case HORN_OF_ICEBERG:
-    case DOUBLE_ATTACK:
-    case CHARGING:
-    case MULTIPLE_FIRE:
-    case ICING_BLAST:
-    case LIGHTNING_EXTREME:
-    case EARTH_EXTREME:
-    case FIRE_EXTREME:
-    case DARK_EXTREME:
-    case ICE_EXTREME:
-    case WIND_EXTREME:
+	case LIGHTNING_BOOM:
+	case THUNDER_BLOW:
+	case LIGHTNING_SHOCK:
+	case THUNDER_STRIKE:
+	case BLOOD_WILL:
+	case GROUND_ATTACK:
+	case SWORD_N_ROSES:
+	case FLEET_MISSILE:
+	case CONVERTING_ARMOR:
+	case CHERROY_SHADE:
+	case DARK_BLADE:
+	case SHARK_MISSILE:
+	case HORN_OF_ICEBERG:
+	case DOUBLE_ATTACK:
+	case CHARGING:
+	case MULTIPLE_FIRE:
+	case ICING_BLAST:
+	case LIGHTNING_EXTREME:
+	case EARTH_EXTREME:
+	case FIRE_EXTREME:
+	case DARK_EXTREME:
+	case ICE_EXTREME:
+	case WIND_EXTREME:
+	{
+		if (pMaster->IsCount())
 		{
-			if (pMaster->IsCount())
-			{
-				const int nCount = pMaster->DecCombatCount();
-				pMaster->SendCharInfoBasic( BP, nCount);//020704 lsw
-				break;
-			}
-			// 전투스킬 초기화
-			pMaster->InitActiveCombat();
-			pMaster->ClearActiveState();
-			// 관련 Packet 전송  
-			memset(&m_packet, 0, sizeof(t_packet));
-			m_packet.h.header.type = CMD_COMBAT_INIT;
-			m_packet.h.header.size = sizeof(t_combat_init);
-			m_packet.u.combat.server_combat_clear.idMaster = idMaster;
-			m_packet.u.combat.server_combat_clear.nType = ACTIVE_COMBAT;
-			::QueuePacket(connections, idMaster, &m_packet, 1);
-			::CastMe2Other(idMaster, &m_packet);
+			const int nCount = pMaster->DecCombatCount();
+			pMaster->SendCharInfoBasic(BP, nCount);//020704 lsw
 			break;
 		}
-    case CRITICAL_HIDING:
+		// 전투스킬 초기화
+		pMaster->InitActiveCombat();
+		pMaster->ClearActiveState();
+		// 관련 Packet 전송  
+		memset(&m_packet, 0, sizeof(t_packet));
+		m_packet.h.header.type = CMD_COMBAT_INIT;
+		m_packet.h.header.size = sizeof(t_combat_init);
+		m_packet.u.combat.server_combat_clear.idMaster = idMaster;
+		m_packet.u.combat.server_combat_clear.nType = ACTIVE_COMBAT;
+		::QueuePacket(connections, idMaster, &m_packet, 1);
+		::CastMe2Other(idMaster, &m_packet);
+		break;
+	}
+	case CRITICAL_HIDING:
+	{
+		if (pMaster->IsCount())
 		{
-			if (pMaster->IsCount())
+			const int nCount = pMaster->DecCombatCount();
+			pMaster->SendCharInfoBasic(BP, nCount);//020704 lsw
+
+			if (nCount <= 0)
 			{
-				const int nCount = pMaster->DecCombatCount();
-				pMaster->SendCharInfoBasic( BP, nCount);//020704 lsw
-				
-				if (nCount <= 0)
-				{
-					::CheckTransparency(pMaster, true);
-				}
-				
-				break;
+				::CheckTransparency(pMaster, true);
 			}
-			// 전투스킬 초기화
-			pMaster->InitActiveCombat();
-			pMaster->ClearActiveState();
-			// 관련 Packet 전송  
-			memset(&m_packet, 0, sizeof(t_packet));
-			m_packet.h.header.type = CMD_COMBAT_INIT;
-			m_packet.h.header.size = sizeof(t_combat_init);
-			m_packet.u.combat.server_combat_clear.idMaster = idMaster;
-			m_packet.u.combat.server_combat_clear.nType = ACTIVE_COMBAT;
-			::QueuePacket(connections, idMaster, &m_packet, 1);
-			::CastMe2Other(idMaster, &m_packet);
+
 			break;
 		}
+		// 전투스킬 초기화
+		pMaster->InitActiveCombat();
+		pMaster->ClearActiveState();
+		// 관련 Packet 전송  
+		memset(&m_packet, 0, sizeof(t_packet));
+		m_packet.h.header.type = CMD_COMBAT_INIT;
+		m_packet.h.header.size = sizeof(t_combat_init);
+		m_packet.u.combat.server_combat_clear.idMaster = idMaster;
+		m_packet.u.combat.server_combat_clear.nType = ACTIVE_COMBAT;
+		::QueuePacket(connections, idMaster, &m_packet, 1);
+		::CastMe2Other(idMaster, &m_packet);
+		break;
+	}
 	}
 }	//> CSD-TW-030623
 
@@ -232,18 +232,18 @@ void CBattleManager::ChangeCombat(BYTE nCombat, WORD idMaster)
 {
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	switch (nCombat)
 	{
-    case BLOOD_EARTH:
-    case TWISTER:
-    case POISONING_NOVA:
-    case WHILWIND:
-		{
-			const int nCount = pMaster->DecCombatCount();
-			pMaster->SendCharInfoBasic(BP, nCount);//020704 lsw
-			break;
-		}
+	case BLOOD_EARTH:
+	case TWISTER:
+	case POISONING_NOVA:
+	case WHILWIND:
+	{
+		const int nCount = pMaster->DecCombatCount();
+		pMaster->SendCharInfoBasic(BP, nCount);//020704 lsw
+		break;
+	}
 	}
 }
 
@@ -257,41 +257,41 @@ void CBattleManager::ResetCombat(BYTE nCombat, WORD idMaster)
 	if (IsActiveCombat(nCombat))
 	{
 		int nMax = 0, nNow = 0;
-		
+
 		switch (nCombat)
 		{
 		case BLOOD_EARTH:
 		case POISONING_NOVA:
 		case WHILWIND:
 		case TWISTER:
-			{ // 사용뒤 감소
-				nMax = Magic_Ref[nCombat].nCombatCount;
-				pMaster->SetActiveCombat(nCombat, nMax);
-				pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
-				nNow = pMaster->DecCombatCount();
-				pMaster->SendCharInfoBasic(BP, nNow);//020704 lsw
-				break;
-			}
-		case STONE_ARMOR:
-			{
-				nMax = pMaster->GetCombatValue(nCombat);
-				pMaster->SetActiveCombat(nCombat, nMax);
-				pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
-				nNow = pMaster->GetCombatCount();
-				pMaster->SendCharInfoBasic(BP, nNow);//020704 lsw
-				break;
-			}
-		default:
-			{ // 공격뒤 감소
-				nMax = Magic_Ref[nCombat].nCombatCount;
-				pMaster->SetActiveCombat(nCombat, nMax);
-				pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
-				nNow = pMaster->GetCombatCount();
-				pMaster->SendCharInfoBasic(BP, nNow);//020704 lsw
-				break;
-			}
+		{ // 사용뒤 감소
+			nMax = Magic_Ref[nCombat].nCombatCount;
+			pMaster->SetActiveCombat(nCombat, nMax);
+			pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
+			nNow = pMaster->DecCombatCount();
+			pMaster->SendCharInfoBasic(BP, nNow);//020704 lsw
+			break;
 		}
-		
+		case STONE_ARMOR:
+		{
+			nMax = pMaster->GetCombatValue(nCombat);
+			pMaster->SetActiveCombat(nCombat, nMax);
+			pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
+			nNow = pMaster->GetCombatCount();
+			pMaster->SendCharInfoBasic(BP, nNow);//020704 lsw
+			break;
+		}
+		default:
+		{ // 공격뒤 감소
+			nMax = Magic_Ref[nCombat].nCombatCount;
+			pMaster->SetActiveCombat(nCombat, nMax);
+			pMaster->SendCharInfoBasic(MAX_BP, nMax);//020704 lsw
+			nNow = pMaster->GetCombatCount();
+			pMaster->SendCharInfoBasic(BP, nNow);//020704 lsw
+			break;
+		}
+		}
+
 		return;
 	}
 	// 패시브 속성의 전투스킬인 경우
@@ -426,12 +426,12 @@ void CBattleManager::RecvNpcAttack(t_npc_attack* pPacket)
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
-	
+
 	if (FilterNpcAttack(pCaster, pTarget) == false)
 	{
 		return;
 	}
-	
+
 	const int nBattle = 0; // 현재 NPC는 단거리 공격만 가능하도록 설정
 	GetBattle(nBattle)->SetIndex(WR_SHORT);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
@@ -463,39 +463,39 @@ void CBattleManager::RecvStrikeAttack(WORD idCaster, t_player_attack* pPacket)
 	g_pLogManager->SaveLogCheck_StrikeAttack(pCaster, pTarget);
 
 	switch (pCaster->GetTacticsKind())
-	{	
+	{
 	case TACTICS_Archery: // 장거리 무기
 	case TACTICS_Hurl:
-		{ 
-			return;
-		}
-    case TACTICS_Whirl:   // 중거리 무기
-    case TACTICS_Pierce:
-    case TACTICS_Magery:
-    case TACTICS_Orison:    
-		{ 
-			GetBattle(nBattle)->SetIndex(WR_MIDDLE);
-			break;
-		}
-    default:              //	단거리 무기  
-		{ 
-			GetBattle(nBattle)->SetIndex(WR_SHORT);
-			break;
-		}
+	{
+		return;
 	}
-	
+	case TACTICS_Whirl:   // 중거리 무기
+	case TACTICS_Pierce:
+	case TACTICS_Magery:
+	case TACTICS_Orison:
+	{
+		GetBattle(nBattle)->SetIndex(WR_MIDDLE);
+		break;
+	}
+	default:              //	단거리 무기  
+	{
+		GetBattle(nBattle)->SetIndex(WR_SHORT);
+		break;
+	}
+	}
+
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 	// 공격 횟수 설정
 	int nCount = 1;
-	
+
 	switch (nCombat)
 	{
-    case SWORD_N_ROSES: nCount = pCaster->GetCombatLevel(nCombat); break;
-    case DOUBLE_ATTACK: nCount = 2;                                break;
+	case SWORD_N_ROSES: nCount = pCaster->GetCombatLevel(nCombat); break;
+	case DOUBLE_ATTACK: nCount = 2;                                break;
 	}
-	
+
 	for (int i = 0; i < nCount; ++i)
 	{
 		GetBattle(nBattle)->Execute();
@@ -532,7 +532,7 @@ void CBattleManager::RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPack
 	if (!IsBattle(pCaster))                     return;
 	if (!IsBattle(pCaster, pTarget))            return;
 	if (!pCaster->CheckAttack(2, g_curr_time))  return;
-	
+
 	const int nCombat = pCaster->GetActiveCombat();
 	ClearCombat(nCombat, idCaster);
 	if (!FilterAttack(pCaster, pTarget))        return;
@@ -542,29 +542,29 @@ void CBattleManager::RecvThrowAttack(WORD idCaster, t_client_throw_attack* pPack
 	g_pLogManager->SaveLogCheck_ThrowAttack(pCaster, pTarget);
 
 	switch (pCaster->GetTacticsKind())
-	{	
+	{
 	case TACTICS_Archery: // 활쏘기
+	{
+		if (!pCaster->IsArrow())
 		{
-			if (!pCaster->IsArrow())
-			{
-				pCaster->Message(MK_SHORTAGE, 0, 31);
-				return;
-			}
+			pCaster->Message(MK_SHORTAGE, 0, 31);
+			return;
 		}
+	}
 	case TACTICS_Hurl: // 비검 던지기
-		{ 
-			memset(&m_packet, 0, sizeof(t_packet));
-			m_packet.h.header.type = CMD_THROW_ATTACK;
-			m_packet.h.header.size = sizeof(t_server_throw_attack);
-			m_packet.u.strike.server_throw_attack.idCaster = idCaster;
-			m_packet.u.strike.server_throw_attack.idTarget = idTarget;
-			m_packet.u.strike.server_throw_attack.nX = pTarget->Tox;
-			m_packet.u.strike.server_throw_attack.nY = pTarget->Toy;
-			m_packet.u.strike.server_throw_attack.nCombat = pCaster->GetActiveCombat();
-			::QueuePacket(connections, idCaster, &m_packet, 1);
-			::CastMe2Other(idCaster, &m_packet);
-			break;
-		}
+	{
+		memset(&m_packet, 0, sizeof(t_packet));
+		m_packet.h.header.type = CMD_THROW_ATTACK;
+		m_packet.h.header.size = sizeof(t_server_throw_attack);
+		m_packet.u.strike.server_throw_attack.idCaster = idCaster;
+		m_packet.u.strike.server_throw_attack.idTarget = idTarget;
+		m_packet.u.strike.server_throw_attack.nX = pTarget->Tox;
+		m_packet.u.strike.server_throw_attack.nY = pTarget->Toy;
+		m_packet.u.strike.server_throw_attack.nCombat = pCaster->GetActiveCombat();
+		::QueuePacket(connections, idCaster, &m_packet, 1);
+		::CastMe2Other(idCaster, &m_packet);
+		break;
+	}
 	}
 }	//> CSD-TW-030606
 
@@ -573,42 +573,42 @@ void CBattleManager::RecvThrowResult(WORD idCaster, t_client_throw_result* pPack
 	const WORD idTarget = pPacket->idTarget; // 마법을 사용한 대상자
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
-	if (pCaster == NULL || pTarget == NULL)  return;  
+	if (pCaster == NULL || pTarget == NULL)  return;
 	if (!FilterThrow(pCaster, pTarget))      return;
 
 	// 현상범인지 여부 설정
 	pTarget->SetWanted(pPacket->bWanted);
 	// 저주속성 설정
 	AutoCurse(idCaster, idTarget);
-	
-	const int nBattle = 0; 
-	
+
+	const int nBattle = 0;
+
 	switch (pCaster->GetTacticsKind())
-	{	
-	case TACTICS_Archery: 
-		{ 
-			GetBattle(nBattle)->SetIndex(WR_LONG1);
-			break; 
+	{
+	case TACTICS_Archery:
+	{
+		GetBattle(nBattle)->SetIndex(WR_LONG1);
+		break;
+	}
+	case TACTICS_Hurl:
+	{
+		if (pCaster->GetWeaponKind() == IK_THROW_EVENT)
+		{	// 눈싸움
+			GetBattle(nBattle)->SetIndex(WR_LONG3);
 		}
-	case TACTICS_Hurl:    
-		{ 
-			if (pCaster->GetWeaponKind() == IK_THROW_EVENT)
-			{	// 눈싸움
-				GetBattle(nBattle)->SetIndex(WR_LONG3);
-			}
-			else
-			{	// 비검 던지기
-				GetBattle(nBattle)->SetIndex(WR_LONG2);
-			}
-			
-			break;
+		else
+		{	// 비검 던지기
+			GetBattle(nBattle)->SetIndex(WR_LONG2);
 		}
+
+		break;
+	}
 	default:
-		{
-			return;
-		}
-	}  
-	
+	{
+		return;
+	}
+	}
+
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
@@ -642,9 +642,9 @@ void CBattleManager::RecvEffectResult(WORD idCaster, t_client_effect_result* pPa
 	{
 		return;
 	}
-	
+
 	pTarget->SetWanted(pPacket->bWanted); // 현상범인지 여부 설정
-	
+
 	const int nBattle = 0;
 	const int nX = pPacket->nX;           // 전투스킬이 발생된 위치의 X좌표
 	const int nY = pPacket->nY;           // 전투스킬이 발생된 위치의 Y좌표
@@ -653,7 +653,7 @@ void CBattleManager::RecvEffectResult(WORD idCaster, t_client_effect_result* pPa
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetContinueTime(0);
-	GetBattle(nBattle)->SetPosition(nX>>5, nY>>5);
+	GetBattle(nBattle)->SetPosition(nX >> 5, nY >> 5);
 	GetBattle(nBattle)->Execute();
 }	//< CSD-031007
 
@@ -661,79 +661,79 @@ void CBattleManager::RecvMagicLearn(WORD idMaster, k_client_learn_magic* pPacket
 {
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	const int nMagic = pPacket->num;
-	
+
 	switch (pMaster->Spell)
 	{
-    case WIZARD_SPELL:
+	case WIZARD_SPELL:
+	{
+		if (!IsEnableClass(nMagic, pMaster))
 		{
-			if (!IsEnableClass(nMagic, pMaster))  
-			{
-				return;
-			}
-			
-			if (pMaster->Ws[nMagic])
-			{
-				::SendServerResult(CM_LEARN_MAGIC, 2, idMaster);
-				return;
-			}
-			
-			break;
+			return;
 		}
-    case PRIEST_SPELL:
+
+		if (pMaster->Ws[nMagic])
 		{
-			if (!IsEnableClass(nMagic + 150, pMaster))  
-			{
-				return;
-			}
-			
-			if (pMaster->Ps[nMagic] != 0)	
-			{
-				::SendServerResult(CM_LEARN_MAGIC, 2, idMaster);
-				return;
-			}
-			
-			break;
+			::SendServerResult(CM_LEARN_MAGIC, 2, idMaster);
+			return;
 		}
+
+		break;
 	}
-	
+	case PRIEST_SPELL:
+	{
+		if (!IsEnableClass(nMagic + 150, pMaster))
+		{
+			return;
+		}
+
+		if (pMaster->Ps[nMagic] != 0)
+		{
+			::SendServerResult(CM_LEARN_MAGIC, 2, idMaster);
+			return;
+		}
+
+		break;
+	}
+	}
+
 	switch (::CanLearnMagic(nMagic, pMaster))
 	{
-	case 1:	 
-		{
-			::SendLearnMagicOk(nMagic, idMaster);	
-			break;
-		}
-    case 3:	 
-		{
-			::SendServerResult(CM_LEARN_MAGIC, 3, idMaster);	
-			return;
-		}
-    case 4:	 
-		{
-			::SendServerResult(CM_LEARN_MAGIC, 4, idMaster);	
-			return;
-		}
-	default:	
-		{
-			return;
-		}
+	case 1:
+	{
+		::SendLearnMagicOk(nMagic, idMaster);
+		break;
 	}
-	
+	case 3:
+	{
+		::SendServerResult(CM_LEARN_MAGIC, 3, idMaster);
+		return;
+	}
+	case 4:
+	{
+		::SendServerResult(CM_LEARN_MAGIC, 4, idMaster);
+		return;
+	}
+	default:
+	{
+		return;
+	}
+	}
+
 	switch (pMaster->Spell)
 	{
-    case WIZARD_SPELL:
-		{
-			::SubtractMoney(Magic_Ref[nMagic].Price, pMaster);
-			pMaster->Ws[nMagic] = true;
-			break;
-		}
-    case PRIEST_SPELL:
-		{
-			pMaster->Ps[nMagic] = true;
-			break;
-		}
+	case WIZARD_SPELL:
+	{
+		::SubtractMoney(Magic_Ref[nMagic].Price, pMaster);
+		pMaster->Ws[nMagic] = true;
+		break;
+	}
+	case PRIEST_SPELL:
+	{
+		pMaster->Ps[nMagic] = true;
+		break;
+	}
 	}
 }
 
@@ -743,50 +743,50 @@ void CBattleManager::RecvNpcMagic(t_client_npc_magic* pPacket)
 	const WORD idTarget = pPacket->idTarget; // 마법을 사용한 대상자
 	const int nMagic = pPacket->nMagic;
 	const bool bTimeDisable = pPacket->bTimeDisable;	// LTS DRAGON MODIFY
-	
+
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
-	if (pCaster == NULL || pTarget == NULL)  return;  
-	
+	if (pCaster == NULL || pTarget == NULL)  return;
+
 	switch (nMagic)
 	{
-    case FIRE_ARROW:
-    case ICE_ARROW: 
-		{ // 화염화살이나 얼음화살인 경우는 물리적 공격으로 처리
+	case FIRE_ARROW:
+	case ICE_ARROW:
+	{ // 화염화살이나 얼음화살인 경우는 물리적 공격으로 처리
+		return;
+	}
+	case SUMMONING_SKELETON: // 스켈레톤킹 소환
+	case SUMMONING_UNDEAD:   // 언데드 소환
+	{
+		if (pCaster->m_xSummon.Count() >= Magic_Ref[nMagic].nCombatCount)
+		{ // 소환된 몬스터수가 최대라면 마법을 실행하지 않음
 			return;
 		}
-    case SUMMONING_SKELETON: // 스켈레톤킹 소환
-    case SUMMONING_UNDEAD:   // 언데드 소환
-		{
-			if (pCaster->m_xSummon.Count() >= Magic_Ref[nMagic].nCombatCount)
-			{ // 소환된 몬스터수가 최대라면 마법을 실행하지 않음
-				return;
-			}
-			
-			break;
-		}
+
+		break;
 	}
-	
+	}
+
 	if (!bTimeDisable && !pCaster->CheckDelay(nMagic, g_curr_time))		// LTS DRAGON MODIFY
 	{
 		pCaster->ClearMagic();
 		return;
 	}
-	
+
 	bool bFail = false;
 	// 석화에 걸려있으면 어떠한 마법도 적용을 받지 못함. 단 저주해제는 제외
 	if (pTarget->IsStone() && pPacket->nMagic != REMOVE_CURSE)
-	{		
+	{
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
 	// 마법 사용 산출 여부 가능 검사
 	if (!FilterNpcMagic(nMagic, pCaster, pTarget, pPacket->nX, pPacket->nY))
-	{ 
+	{
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
-	
+
 MAGIC_FAIL:
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_NPC_MAGIC;
@@ -809,20 +809,20 @@ void CBattleManager::RecvNpcRecall(t_client_npc_magic* pPacket)
 	const int nY = pPacket->nY;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
-	if (pCaster == NULL || pTarget == NULL)  return;  
+	if (pCaster == NULL || pTarget == NULL)  return;
 	// 마법 사용 산출 여부 가능 검사
 	if (!FilterNpcMagic(nMagic, pCaster, pTarget, nX, nY))
-	{ 
+	{
 		return;
 	}
-	
-	const int nBattle = Magic_Ref[nMagic].magic_Type/10;
+
+	const int nBattle = Magic_Ref[nMagic].magic_Type / 10;
 	GetBattle(nBattle)->SetIndex(nMagic);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetContinueTime(0);
-	GetBattle(nBattle)->SetPosition(nX>>5, nY>>5);
+	GetBattle(nBattle)->SetPosition(nX >> 5, nY >> 5);
 	GetBattle(nBattle)->Execute();
 } //> CSD-021119
 
@@ -835,27 +835,27 @@ void CBattleManager::RecvNpcTeleport(t_client_npc_magic* pPacket)
 	const int nY = pPacket->nY;
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
-	if (pCaster == NULL || pTarget == NULL)  return;  
+	if (pCaster == NULL || pTarget == NULL)  return;
 	// 마법 사용 산출 여부 가능 검사
 	if (!FilterNpcMagic(nMagic, pCaster, pTarget, nX, nY))
-	{ 
+	{
 		return;
 	}
-	
-	const int nBattle = Magic_Ref[nMagic].magic_Type/10;
+
+	const int nBattle = Magic_Ref[nMagic].magic_Type / 10;
 	GetBattle(nBattle)->SetIndex(nMagic);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetContinueTime(0);
-	GetBattle(nBattle)->SetPosition(nX>>5, nY>>5);
+	GetBattle(nBattle)->SetPosition(nX >> 5, nY >> 5);
 	GetBattle(nBattle)->Execute();
 } //> CSD-030306
 
 void CBattleManager::RecvMagicSelect(WORD idCaster, t_client_magic_select* pPacket)
 {	//< CSD-TW-030623
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
-	
+
 	if (pCaster == NULL)
 	{
 		return;
@@ -871,7 +871,7 @@ void CBattleManager::RecvMagicSelect(WORD idCaster, t_client_magic_select* pPack
 	pCaster->ClearActiveState();
 	pCaster->ClearPassiveState();
 	pCaster->ClearRecoveryState();
-	
+
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_MAGIC_SELECT;
 	m_packet.h.header.size = sizeof(t_server_magic_select);
@@ -884,29 +884,29 @@ void CBattleManager::RecvMagicSelect(WORD idCaster, t_client_magic_select* pPack
 void CBattleManager::RecvMagicCasting(WORD idCaster, t_client_magic_casting* pPacket)
 {	//< CSD-TW-030606
 	CHARLIST* pCaster = GetCharListPtr(idCaster);
-	if (pCaster == NULL)  return;  
+	if (pCaster == NULL)  return;
 	// 마법 시전 검사 설정
 	const BYTE nMagic = pPacket->nMagic;
 	const DWORD dwNow = g_curr_time + RareEM.GetStaticRareBear(pCaster->StaticRare);
-	
-	if (!pCaster->CheckStart(nMagic, g_curr_time)) 
-	{ 
+
+	if (!pCaster->CheckStart(nMagic, g_curr_time))
+	{
 		pCaster->ClearMagic();
 		return;
 	}
 	// 서로 공격 가능여부 검사
-	if (!IsBattle(pCaster))  
+	if (!IsBattle(pCaster))
 	{
 		pCaster->ClearMagic();
 		return;
 	}
 	// 마법 시전 산출 여부 가능 검사
 	if (!FilterStart(pCaster))
-	{ 
+	{
 		pCaster->ClearMagic();
 		return;
 	}
-	
+
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_MAGIC_CASTING;
 	m_packet.h.header.size = sizeof(t_server_magic_casting);
@@ -923,28 +923,28 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 	// 화염화살이나 얼음화살인 경우는 물리적 공격으로 처리
 	switch (nMagic)
 	{
-    case FIRE_ARROW:
-    case ICE_ARROW: return;
+	case FIRE_ARROW:
+	case ICE_ARROW: return;
 	}
-	
+
 	const WORD idTarget = pPacket->idTarget; // 마법 대상자 
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
-	if (pCaster == NULL || pTarget == NULL)  return;  
+	if (pCaster == NULL || pTarget == NULL)  return;
 	// 효과벽에 대한 처리
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
-	
-	if (!IsValid(nMagic, nX>>5, nY>>5))
+
+	if (!IsValid(nMagic, nX >> 5, nY >> 5))
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return;
 	}
-	
+
 	bool bFail = false;
 	// 석화에 걸려있으면 어떠한 마법도 적용을 받지 못함. 단 저주해제는 제외
 	if (pTarget->IsStone() && pPacket->nMagic != REMOVE_CURSE)
-	{		
+	{
 		pCaster->Message(MK_NORMAL, 1, 18);
 		pCaster->ClearMagic();
 		bFail = true;
@@ -957,7 +957,7 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
-	
+
 	// 마법 사용이 가능한지 검사
 	if (!pCaster->CheckDoing(nMagic, g_curr_time))
 	{
@@ -965,18 +965,18 @@ void CBattleManager::RecvMagicExecute(WORD idCaster, t_client_magic_execute* pPa
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
-	
+
 	if (!FilterMagic(pCaster, pTarget, nX, nY))
 	{
 		pCaster->ClearMagic();
 		bFail = true;
 		goto MAGIC_FAIL;
 	}
-	
+
 	pCaster->ClearMagic(false); // 마법 사용이 되었음을 설정
 	// CSD-030806
 	g_pLogManager->SaveLogCheck_MagicExecute(nMagic, pCaster, pTarget, nX, nY);
-	
+
 MAGIC_FAIL:
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_MAGIC_EXECUTE;
@@ -996,54 +996,54 @@ void CBattleManager::RecvMagicResult(WORD idCaster, t_client_magic_result* pPack
 	const WORD idTarget = pPacket->idTarget; // 마법을 사용한 대상자
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
-	if (pCaster == NULL || pTarget == NULL)  return;  
-	
+	if (pCaster == NULL || pTarget == NULL)  return;
+
 	const int nMagic = pPacket->nMagic;
 	if (nMagic == 0)  return;
 	// 효과벽에 대한 처리
 	const int nX = pPacket->nX;
 	const int nY = pPacket->nY;
-	
-	if (!IsValid(nMagic, nX>>5, nY>>5))
+
+	if (!IsValid(nMagic, nX >> 5, nY >> 5))
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return;
 	}
 	// 석화에 걸려있으면 어떠한 마법도 적용을 받지 못함. 단 저주해제는 제외
 	if (pTarget->IsStone() && nMagic != REMOVE_CURSE)
-	{	
+	{
 		pCaster->ClearMagic();
 		return;
 	}
 	// 마법 적용이 가능한지 검사
 	if (!pCaster->CheckEnd(nMagic, g_curr_time))
-	{ 
+	{
 		pCaster->ClearMagic();
 		return;
-	}  
+	}
 	// 서로 공격 가능여부 검사
 	if (!IsBattle(pCaster, pTarget))
 	{
 		pCaster->ClearMagic();
 		return;
 	}
-	
+
 	if (!FilterResult(pCaster, pTarget))
 	{
 		pCaster->ClearMagic();
 		return;
 	}
-	
+
 	pTarget->SetWanted(pPacket->bWanted);    // 현상범인지 여부 설정
-	
-	const int nBattle = Magic_Ref[nMagic].magic_Type/10;
-	
+
+	const int nBattle = Magic_Ref[nMagic].magic_Type / 10;
+
 	GetBattle(nBattle)->SetIndex(nMagic);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetContinueTime(0);
-	GetBattle(nBattle)->SetPosition(nX>>5, nY>>5);
+	GetBattle(nBattle)->SetPosition(nX >> 5, nY >> 5);
 	GetBattle(nBattle)->Execute();
 }
 
@@ -1056,15 +1056,15 @@ void CBattleManager::RecvMagicResult(t_magic_result_d* pPacket)
 	if (pCaster == NULL || pTarget == NULL)  return;
 	// 마법 결과 산출 여부 가능 검사
 	if (!FilterResult(pPacket->nMagic, pCaster, pTarget))
-	{ 
+	{
 		return;
 	}
-	
+
 	const BYTE nMagic = pPacket->nMagic; // 마법의 번호
 	const int nX = pPacket->nX;          // 마법이 발생된 위치의 X좌표
 	const int nY = pPacket->nY;          // 마법이 발생된 위치의 Y좌표  
-	const int nBattle = Magic_Ref[nMagic].magic_Type/10;
-	
+	const int nBattle = Magic_Ref[nMagic].magic_Type / 10;
+
 	if (nBattle >= 1 && nBattle <= 6)
 	{
 		GetBattle(nBattle)->SetIndex(nMagic);
@@ -1072,7 +1072,7 @@ void CBattleManager::RecvMagicResult(t_magic_result_d* pPacket)
 		GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 		GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 		GetBattle(nBattle)->SetContinueTime(0);
-		GetBattle(nBattle)->SetPosition(nX>>5, nY>>5);
+		GetBattle(nBattle)->SetPosition(nX >> 5, nY >> 5);
 		GetBattle(nBattle)->Execute();
 	}
 }
@@ -1081,15 +1081,15 @@ void CBattleManager::RecvCombatReset(WORD idMaster)
 { // 전투스킬 포인터 재분배
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	int nCount = pMaster->GetCombatPoint();
-	
+
 	for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 	{
 		nCount += pMaster->GetCombatLevel(i);
 		pMaster->SetCombatLevel(i, 0);
 	}
-	
+
 	pMaster->SetCombatPoint(nCount);
 }
 
@@ -1097,16 +1097,16 @@ void CBattleManager::RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPa
 {
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	const int nPoint = pPacket->nPoint;
 	const int nOld = pMaster->GetCombatPoint();
 	// 제한치 검사
-	if (pMaster->IsLimit(nPoint))  
+	if (pMaster->IsLimit(nPoint))
 	{
 		pMaster->Message(MK_INFORMATION, 1, 58);
 		return;
 	}
-	
+
 	const int nNew = pMaster->GetCombatPoint();
 	g_pLogManager->SaveLogChange_ObtainCombat(pMaster, nOld, nNew);
 	// Packet 전송
@@ -1122,7 +1122,7 @@ void CBattleManager::RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPa
 }
 
 void CBattleManager::RecvCombatRequest(WORD idMaster, t_client_combat_request* pPacket)
-{  
+{
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
 	// 제한치를 넘었다면 초기화
@@ -1133,51 +1133,51 @@ void CBattleManager::RecvCombatRequest(WORD idMaster, t_client_combat_request* p
 	m_packet.h.header.size = sizeof(t_server_combat_request);
 	m_packet.u.combat.server_combat_request.idMaster = idMaster;
 	m_packet.u.combat.server_combat_request.nRemain = pMaster->GetCombatPoint();
-	
+
 	for (int i = 0; i < 36; ++i)
 	{
 		m_packet.u.combat.server_combat_request.aLevel[i] = pMaster->GetCombatLevel(i + LIGHTNING_BOOM);
 	}
-	
+
 	::QueuePacket(connections, idMaster, &m_packet, 1);
 }
 
 void CBattleManager::RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPacket)
-{  
+{
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	const int nCombat = pPacket->nSkill;
-	
+
 	if (!IsEnableClass(nCombat, pMaster))  return;
 	// 제한치를 넘었다면 초기화
-	if (pMaster->IsLimit())  
+	if (pMaster->IsLimit())
 	{
 		pMaster->InitCombat();
 		return;
 	}
-	
+
 	switch (nCombat)
 	{
-    case LIGHTNING_EXTREME:
-    case EARTH_EXTREME:
-    case FIRE_EXTREME:
-    case DARK_EXTREME:
-    case ICE_EXTREME:
-    case WIND_EXTREME:
+	case LIGHTNING_EXTREME:
+	case EARTH_EXTREME:
+	case FIRE_EXTREME:
+	case DARK_EXTREME:
+	case ICE_EXTREME:
+	case WIND_EXTREME:
+	{
+		if (!pMaster->IsDual())
 		{
-			if (!pMaster->IsDual())
-			{
-				pMaster->Message(MK_SHORTAGE, 1, 54);
-				return;
-			}
-			
-			break;
+			pMaster->Message(MK_SHORTAGE, 1, 54);
+			return;
 		}
+
+		break;
+	}
 	}
 	// 전투스킬 습득
 	const int nLevel = pMaster->GetCombatLevel(nCombat) + 1;
-	
+
 	if (!IsValid(nCombat, nLevel, pMaster))
 	{
 		pMaster->Message(MK_SHORTAGE, 1, 54);
@@ -1186,17 +1186,17 @@ void CBattleManager::RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPack
 	//< CSD-020909
 	const int nPoint = pPacket->nPoint;
 	const int nOld = pMaster->GetCombatLevel(nCombat);
-	
+
 	if (!pMaster->LevelUpCombat(nCombat, nPoint))
 	{
 		pMaster->Message(MK_SHORTAGE, 1, 54);
 		return;
 	}
-	
+
 	const int nNew = pMaster->GetCombatLevel(nCombat);
 	g_pLogManager->SaveLogChange_Combat(pMaster, nCombat, nOld, nNew);
 	//> CSD-020909
-	
+
 	// Packet 전송
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_LEARN;
@@ -1211,7 +1211,7 @@ void CBattleManager::RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPack
 void CBattleManager::RecvCombatClear(WORD idMaster, t_client_combat_clear* pPacket)
 {	//< CSD-TW-030606
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
-	
+
 	if (pMaster == NULL)
 	{
 		return;
@@ -1221,7 +1221,7 @@ void CBattleManager::RecvCombatClear(WORD idMaster, t_client_combat_clear* pPack
 	pMaster->ClearActiveState();
 	pMaster->ClearPassiveState();
 	pMaster->ClearRecoveryState();
-	
+
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_CLEAR;
 	m_packet.h.header.size = sizeof(t_server_combat_clear);
@@ -1243,7 +1243,7 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 	if (!IsValid(nCombat, pCaster))  return;
 	// cp회복계열 마법이 발동중일때는 아무것도 할 수 없음 // 030430 kyo
 	if (pCaster->IsRecoveryCombatState())
-	{	
+	{
 		pCaster->Message(MK_INFORMATION, 1, 43);
 		return;
 	}
@@ -1253,59 +1253,59 @@ void CBattleManager::RecvCombatSelect(WORD idCaster, t_client_combat_select* pPa
 		pCaster->Message(MK_WARNING, 1, 69);
 		return;
 	}	//> CSD-040826
-	
+
 	switch (Magic_Ref[nCombat].Spell_Type)
 	{
 	case ACTIVE_COMBAT:
-		{	// Passive 전투스킬 상태에서 다른 계열의 전투스킬을 선택한 경우
-			const int nPassive = pCaster->GetPassiveCombat();
-			
-			if (nPassive > 0)
-			{				
-				if (Magic_Ref[nCombat].order_Type%10 != Magic_Ref[nPassive].order_Type%10)
-				{ 
-					pCaster->ClearPassiveState();
-					pCaster->Message(MK_INFORMATION, 1, 90);
-				}
-			}
-			
-			break;
-		}
-	case PASSIVE_COMBAT:
-		{	// Active 속성 전투스킬 상태에서 다른 계열의 전투스킬을 선택한 경우
-			const int nActive = pCaster->GetActiveCombat();
-			
-			if (nActive > 0)
+	{	// Passive 전투스킬 상태에서 다른 계열의 전투스킬을 선택한 경우
+		const int nPassive = pCaster->GetPassiveCombat();
+
+		if (nPassive > 0)
+		{
+			if (Magic_Ref[nCombat].order_Type % 10 != Magic_Ref[nPassive].order_Type % 10)
 			{
-				if (Magic_Ref[nCombat].order_Type%10 != Magic_Ref[nActive].order_Type%10)
-				{
-					pCaster->Message(MK_INFORMATION, 1, 90);
-					return;
-				}
+				pCaster->ClearPassiveState();
+				pCaster->Message(MK_INFORMATION, 1, 90);
 			}
-
-			break;
 		}
-	case RECOVERY_COMBAT: // 030415 kyo
-		{	// RECOVERY_COMBAT타입 
-			const int nRecovery = pCaster->GetRecoveryCombat();
 
-			if (nRecovery > 0)
-			{	// cp회복 타입은 active속성을 초기화 시킨다.
-				pCaster->InitActiveCombat();
-				pCaster->ClearActiveState();
-
-				if (Magic_Ref[nCombat].order_Type%10 != Magic_Ref[nRecovery].order_Type%10)
-				{
-					pCaster->Message(MK_INFORMATION, 1, 90);
-					return;
-				}
-			}
-
-			break;
-		}
+		break;
 	}
-	
+	case PASSIVE_COMBAT:
+	{	// Active 속성 전투스킬 상태에서 다른 계열의 전투스킬을 선택한 경우
+		const int nActive = pCaster->GetActiveCombat();
+
+		if (nActive > 0)
+		{
+			if (Magic_Ref[nCombat].order_Type % 10 != Magic_Ref[nActive].order_Type % 10)
+			{
+				pCaster->Message(MK_INFORMATION, 1, 90);
+				return;
+			}
+		}
+
+		break;
+	}
+	case RECOVERY_COMBAT: // 030415 kyo
+	{	// RECOVERY_COMBAT타입 
+		const int nRecovery = pCaster->GetRecoveryCombat();
+
+		if (nRecovery > 0)
+		{	// cp회복 타입은 active속성을 초기화 시킨다.
+			pCaster->InitActiveCombat();
+			pCaster->ClearActiveState();
+
+			if (Magic_Ref[nCombat].order_Type % 10 != Magic_Ref[nRecovery].order_Type % 10)
+			{
+				pCaster->Message(MK_INFORMATION, 1, 90);
+				return;
+			}
+		}
+
+		break;
+	}
+	}
+
 	pCaster->ClearCombat(nCombat);
 	// Packet 전송
 	memset(&m_packet, 0, sizeof(t_packet));
@@ -1326,11 +1326,11 @@ void CBattleManager::RecvCombatAttack(WORD idCaster, t_client_combat_attack* pPa
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
-	
+
 	bool bFail = false;
 	// 석화에 걸려있으면 어떠한 전투스킬도 적용을 받지 못함
 	if (pTarget->IsStone())
-	{		
+	{
 		pCaster->Message(MK_NORMAL, 1, 18);
 		bFail = true;
 		goto COMBAT_FAIL;
@@ -1345,7 +1345,7 @@ void CBattleManager::RecvCombatAttack(WORD idCaster, t_client_combat_attack* pPa
 	if (!IsEnableWeapon(nCombat, pCaster))  return;
 	// 전투스킬 사용 여부 가능 검사
 	if (!FilterCombat(nCombat, pCaster, pTarget, nX, nY))
-	{ 
+	{
 		bFail = true;
 		goto COMBAT_FAIL;
 	}
@@ -1358,31 +1358,31 @@ void CBattleManager::RecvCombatAttack(WORD idCaster, t_client_combat_attack* pPa
 	// 스킬 사용가능수 재설정
 	switch (nCombat)
 	{
-    case BLOOD_EARTH:
-    case TWISTER:
-    case POISONING_NOVA:
-    case WHILWIND:
+	case BLOOD_EARTH:
+	case TWISTER:
+	case POISONING_NOVA:
+	case WHILWIND:
+	{
+		if (pCaster->IsCount())
 		{
-			if (pCaster->IsCount())
-			{
-				ChangeCombat(nCombat, idCaster);
-			}
-			else
-			{
-				ResetCombat(nCombat, idCaster);
-			}
-			
-			break;
+			ChangeCombat(nCombat, idCaster);
 		}
-    default:
+		else
 		{
 			ResetCombat(nCombat, idCaster);
-			break;
 		}
+
+		break;
+	}
+	default:
+	{
+		ResetCombat(nCombat, idCaster);
+		break;
+	}
 	}
 	// CSD-030806
 	g_pLogManager->SaveLogCheck_CombatExecute(nCombat, pCaster, pTarget, nX, nY);
-	
+
 COMBAT_FAIL:
 	memset(&m_packet, 0, sizeof(t_packet));
 	m_packet.h.header.type = CMD_COMBAT_ATTACK;
@@ -1411,20 +1411,20 @@ void CBattleManager::RecvCombatResult(WORD idCaster, t_client_combat_result* pPa
 	if (!IsBattle(pCaster))                        return;
 	if (!IsBattle(pCaster, pTarget))               return;
 	if (!FilterCombat(nCombat, pCaster, pTarget))  return;
-	
+
 	pTarget->SetWanted(pPacket->bWanted); // 현상범인지 여부 설정
-	
+
 	const int nType = Magic_Ref[nCombat].order_Type;
-	const int nBattle = (nType/10) + (nType%10);
+	const int nBattle = (nType / 10) + (nType % 10);
 	const int nX = pPacket->nX;           // 전투스킬이 발생된 위치의 X좌표
 	const int nY = pPacket->nY;           // 전투스킬이 발생된 위치의 Y좌표  
-	
+
 	GetBattle(nBattle)->SetIndex(nCombat);
 	GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 	GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
 	GetBattle(nBattle)->SetCurrentTime(g_curr_time);
 	GetBattle(nBattle)->SetContinueTime(0);
-	GetBattle(nBattle)->SetPosition(nX>>5, nY>>5);
+	GetBattle(nBattle)->SetPosition(nX >> 5, nY >> 5);
 	GetBattle(nBattle)->Execute();
 }
 
@@ -1437,8 +1437,8 @@ void CBattleManager::AutoCurse(WORD idCaster, WORD idTarget)
 	CHARLIST* pCaster = ::GetCharListPtr(idCaster);
 	CHARLIST* pTarget = ::GetCharListPtr(idTarget);
 	if (pCaster == NULL || pTarget == NULL)  return;
-	if (rand()%101 >= 5)                     return;
-	
+	if (rand() % 101 >= 5)                     return;
+
 	int nMagic = 0, nContinue = 0;
 	// 저주계열의 레어 아이템
 	const int nStiff = RareEM.GetStaticRareStiff(pCaster->StaticRare);       // 석화  
@@ -1446,39 +1446,39 @@ void CBattleManager::AutoCurse(WORD idCaster, WORD idTarget)
 	const int nVertigly = RareEM.GetStaticRareVertigly(pCaster->StaticRare); // 혼란
 	const int nPoison = RareEM.GetStaticRarePoison(pCaster->StaticRare);     // 중독
 	const int nSlack = RareEM.GetStaticRareSlack(pCaster->StaticRare);       // 속도저하
-	
+
 	if (nStiff > 0)
 	{
-		nMagic = STONELY;            
+		nMagic = STONELY;
 		nContinue = nStiff;
 	}
 	else if (nSnag > 0)
 	{
-		nMagic = ABSOLUTE_PARALYSIS; 
+		nMagic = ABSOLUTE_PARALYSIS;
 		nContinue = nSnag;
 	}
 	else if (nVertigly > 0)
 	{
-		nMagic = CONFUSION;          
+		nMagic = CONFUSION;
 		nContinue = nVertigly;
 	}
 	else if (nPoison > 0)
 	{
-		nMagic = INTOXICATION;       
+		nMagic = INTOXICATION;
 		nContinue = nPoison;
 	}
 	else if (nSlack > 0)
 	{
-		nMagic = SLOW;               
+		nMagic = SLOW;
 		nContinue = nStiff;
 	}
-	
+
 	if (nMagic > 0)
 	{
 		const BYTE nType = Magic_Ref[nMagic].magic_Type;
 		// 마법을 적용할 수 없는 경우
 		if (!IsApply(nType, pCaster, pTarget))
-		{ 
+		{
 			return;
 		}
 		// 마법이 실패한 경우라면
@@ -1486,8 +1486,8 @@ void CBattleManager::AutoCurse(WORD idCaster, WORD idTarget)
 		{
 			return;
 		}
-		
-		const int nBattle = Magic_Ref[nMagic].magic_Type/10;
+
+		const int nBattle = Magic_Ref[nMagic].magic_Type / 10;
 		GetBattle(nBattle)->SetIndex(nMagic);
 		GetBattle(nBattle)->SetBothID(idCaster, idTarget);
 		GetBattle(nBattle)->SetBothPtr(pCaster, pTarget);
@@ -1507,88 +1507,88 @@ bool CBattleManager::FilterNpcAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 	if (!::CanBattleArea(pCaster, pTarget))  return false;
 	// 소환몬은 인간 NPC를 죽일 수 없음
 	if (pCaster->IsTamedNpc() && pTarget->IsNpc())
-	{	
+	{
 		switch (pTarget->Race)
 		{
-		case HUMAN:  
-			{
-				return false;
-			}
-		case SEALSTONE:
-			{
-				return IsBreak(pCaster, pTarget);
-			}
+		case HUMAN:
+		{
+			return false;
 		}
-	}	
-	
-	return (IsMissAttack(pCaster, pTarget)) ? false:true;
+		case SEALSTONE:
+		{
+			return IsBreak(pCaster, pTarget);
+		}
+		}
+	}
+
+	return (IsMissAttack(pCaster, pTarget)) ? false : true;
 }	//> CSD-030723
 
 bool CBattleManager::FilterAttack(CHARLIST* pCaster, CHARLIST* pTarget)
-{ 
+{
 	// 버그몹에 대한 임시 방편
 	if (!IsBugMon(pCaster, pTarget))  return false;
 	// 공격이 불가한 경우라면
-	if (!::CanBattleArea(pCaster, pTarget))  
+	if (!::CanBattleArea(pCaster, pTarget))
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
 	}
 	// 극악 NK라면 물리적 공격 불가
 	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation))
-	{ 
+	{
 		::OutMessage(pCaster, 1, 18);
 		return false;
 	}
 	// NPC인 경우라면
 	if (pTarget->IsNpc())
-	{ 
+	{
 		switch (pTarget->Race)
 		{
 		case HUMAN:
-			{ //< CSD-021019
-				t_client_event data;
-				data.type = EVENT_TYPE_NPC;
-				data.event_no = pTarget->GetServerID() + 10000;
-				RecvEvent( &data, pCaster->GetServerID());
-				return false;
-			} //> CSD-021019
-		case SEALSTONE: 
-			{
-				return IsBreak(pCaster, pTarget);
-			}
+		{ //< CSD-021019
+			t_client_event data;
+			data.type = EVENT_TYPE_NPC;
+			data.event_no = pTarget->GetServerID() + 10000;
+			RecvEvent(&data, pCaster->GetServerID());
+			return false;
+		} //> CSD-021019
+		case SEALSTONE:
+		{
+			return IsBreak(pCaster, pTarget);
 		}
-	}  
-	
+		}
+	}
+
 	if (IsColleague(pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// 1 : 고 -> 저, 2 : 저 -> 고, 3 : 같은 높이
-	const int nX = pTarget->MoveSx; 
+	const int nX = pTarget->MoveSx;
 	const int nY = pTarget->MoveSy;
 	const BYTE nRiseFall = pCaster->GetRiseFall(nX, nY);
-	
+
 	switch (pCaster->GetTacticsKind())
 	{
-    case TACTICS_Archery: // 활쏘기
+	case TACTICS_Archery: // 활쏘기
 	case TACTICS_Hurl:    // 비검 던지기
-		{ // 장거리 무기
-			return true;
-		}
-    case TACTICS_Whirl:
-    case TACTICS_Pierce:
-    case TACTICS_Magery:
-    case TACTICS_Orison:
-		{ // 중거리 무기
-			return (nRiseFall == 3) ? true:false; // 높이가 다르다면 실패
-		}
-    default: 
-		{ // 단거리 무기
-			return (nRiseFall == 3) ? true:false; // 높이가 다르다면 실패
-		}
+	{ // 장거리 무기
+		return true;
 	}
-	
+	case TACTICS_Whirl:
+	case TACTICS_Pierce:
+	case TACTICS_Magery:
+	case TACTICS_Orison:
+	{ // 중거리 무기
+		return (nRiseFall == 3) ? true : false; // 높이가 다르다면 실패
+	}
+	default:
+	{ // 단거리 무기
+		return (nRiseFall == 3) ? true : false; // 높이가 다르다면 실패
+	}
+	}
+
 	return true;
 }
 
@@ -1609,10 +1609,10 @@ bool CBattleManager::FilterThrow(CHARLIST* pCaster, CHARLIST* pTarget)
 	if (!IsBugMon(pCaster, pTarget))  return false;
 	// 동료인 경우라면
 	if (IsColleague(pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -1623,13 +1623,13 @@ bool CBattleManager::FilterNpcMagic(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pT
 		switch (pTarget->Race)
 		{
 		case HUMAN:
-			{
-				return false;
-			}
-		case SEALSTONE: 
-			{
-				return IsBreak(pCaster, pTarget);
-			}
+		{
+			return false;
+		}
+		case SEALSTONE:
+		{
+			return IsBreak(pCaster, pTarget);
+		}
 		}
 	}
 	// 마법 시전이 불가한 상태나 능력이나 마나가 부족한 상태인 경우
@@ -1637,19 +1637,19 @@ bool CBattleManager::FilterNpcMagic(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pT
 	{
 		return false;
 	}
-	
+
 	const BYTE nType = Magic_Ref[nMagic].magic_Type;
 	// 마법을 적용할 수 없는 경우
 	if (!IsApply(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// 마법이 실패한 경우라면
 	if (IsMissMagic(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
-	
+
 	return true;
 }	//> CSD-030723
 
@@ -1659,7 +1659,7 @@ bool CBattleManager::FilterStart(CHARLIST* pCaster)
 	const BYTE nMagic = pCaster->GetMagic();
 	if (IsValid(nMagic, pCaster) == false)                   return false;
 	if (nMagic == RELIEF_AUTHORITY && CheckEventWarDoing())  return false;
-	
+
 	const int nX = pCaster->MoveSx;
 	const int nY = pCaster->MoveSy;
 	// 마법 사용 불가 지역인 경우  															 
@@ -1668,7 +1668,7 @@ bool CBattleManager::FilterStart(CHARLIST* pCaster)
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
 	}
-		
+
 	const BYTE nType = Magic_Ref[nMagic].magic_Type;
 
 	if (nType == MapInfo[MapNumber].nDisableMagicType)
@@ -1681,10 +1681,10 @@ bool CBattleManager::FilterStart(CHARLIST* pCaster)
 	{
 		pCaster->Message(MK_WARNING, 1, 4);
 		return false;
-	}  
+	}
 	// 극악 NK라면 마법 사용이 불가
-	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation)) 
-	{ 
+	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation))
+	{
 		pCaster->Message(MK_WARNING, 1, 5);
 		return false;
 	}
@@ -1703,7 +1703,7 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 	if (!IsAbility(nMagic, pCaster))  return false;
 	// NPC인 경우라면 이로운 마법을 사용한 경우 마법 적용 불가
 	if (pTarget->IsNpc())
-	{ 
+	{
 		if (!IsHarmfulMagic(nMagic))
 		{
 			pCaster->Message(MK_NORMAL, 1, 17);
@@ -1720,54 +1720,54 @@ bool CBattleManager::FilterMagic(CHARLIST* pCaster, CHARLIST* pTarget, int nX, i
 		}
 	}
 	// 1 : 고 -> 저, 2 : 저 -> 고, 3 : 같은 높이
-	const BYTE nRiseFall = pCaster->GetRiseFall(nX>>5, nY>>5);
-	
+	const BYTE nRiseFall = pCaster->GetRiseFall(nX >> 5, nY >> 5);
+
 	switch (Magic_Ref[nMagic].nRiseFall)
 	{
-    case 1: 
-		{ // 같은 높이만 공격이 가능한 경우
-			if (nRiseFall == 1 || nRiseFall == 2)  
-			{ 
-				pCaster->Message(MK_NORMAL, 1, 20);
-				return false;
-			}
-			
-			break;
+	case 1:
+	{ // 같은 높이만 공격이 가능한 경우
+		if (nRiseFall == 1 || nRiseFall == 2)
+		{
+			pCaster->Message(MK_NORMAL, 1, 20);
+			return false;
 		}
-    case 2: 
-		{ // 고->저와 같은 높이만 공격이 가능한 경우
-			if (nRiseFall == 2)  
-			{
-				pCaster->Message(MK_NORMAL, 1, 20);
-				return false;
-			}
-			
-			break;
-		}
-    case 3: 
-		{ // 저->고와 같은 높이만 공격이 가능한 경우
-			if (nRiseFall == 1)  
-			{
-				pCaster->Message(MK_NORMAL, 1, 20);
-				return false;
-			}
-			
-			break;
-		}
+
+		break;
 	}
-	
+	case 2:
+	{ // 고->저와 같은 높이만 공격이 가능한 경우
+		if (nRiseFall == 2)
+		{
+			pCaster->Message(MK_NORMAL, 1, 20);
+			return false;
+		}
+
+		break;
+	}
+	case 3:
+	{ // 저->고와 같은 높이만 공격이 가능한 경우
+		if (nRiseFall == 1)
+		{
+			pCaster->Message(MK_NORMAL, 1, 20);
+			return false;
+		}
+
+		break;
+	}
+	}
+
 	const BYTE nType = Magic_Ref[nMagic].magic_Type;
 	// 마법을 적용할 수 없는 경우
 	if (!IsApply(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// 마법이 실패한 경우라면
 	if (IsMissMagic(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
-	
+
 	pCaster->DecMana(Magic_Ref[nMagic].exhaust_MP);
 	return true;
 }
@@ -1786,96 +1786,96 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 		return false;
 	}
 	// 극악 NK라면 마법 사용이 불가
-	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation)) 
-	{ 
+	if (pCaster->IsUltraNK(MapInfo[MapNumber].nation))
+	{
 		pCaster->Message(MK_WARNING, 1, 5);
 		return false;
 	}
-	
+
 	if (pCaster->IsProtectionContinue() || pCaster->IsAssistanceContinue())
 	{	//< CSD-040826 : 보호/보조 계열의 마법 상태인 경우
 		pCaster->Message(MK_WARNING, 1, 69);
 		return false;
 	}	//> CSD-040826
-	
+
 	// 전투스킬 사용 유효거리 검사
 	if (Magic_Ref[nCombat].avail_Range != 0)
 	{
 		switch (nCombat)
 		{
 		case CHARGING:
+		{
+			const int nTemp = pCaster->GetDistance(nX, nY);
+
+			if (pCaster->GetDistance(nX, nY) > pCaster->GetCombatValue(nCombat))
 			{
-				const int nTemp = pCaster->GetDistance(nX, nY);
-				
-				if (pCaster->GetDistance(nX, nY) > pCaster->GetCombatValue(nCombat))
-				{
-					pCaster->Message(MK_NORMAL, 1, 72);
-					return false;
-				} 
-				
-				break;
+				pCaster->Message(MK_NORMAL, 1, 72);
+				return false;
 			}
+
+			break;
+		}
 		default:
+		{
+			if (pCaster->GetDistance(nX, nY) > Magic_Ref[nCombat].avail_Range)
 			{
-				if (pCaster->GetDistance(nX, nY) > Magic_Ref[nCombat].avail_Range)
-				{
-					pCaster->Message(MK_NORMAL, 1, 72);
-					return false;
-				} 
-				
-				break;
+				pCaster->Message(MK_NORMAL, 1, 72);
+				return false;
 			}
+
+			break;
+		}
 		}
 	}
 	// 1 : 고 -> 저, 2 : 저 -> 고, 3 : 같은 높이
-	const BYTE nRiseFall = pCaster->GetRiseFall(nX>>5, nY>>5);
-	
+	const BYTE nRiseFall = pCaster->GetRiseFall(nX >> 5, nY >> 5);
+
 	switch (Magic_Ref[nCombat].nRiseFall)
 	{
-    case 1: 
-		{ // 같은 높이만 공격이 가능한 경우
-			if (nRiseFall == 1 || nRiseFall == 2)  
-			{ 
-				//pCaster->Message(MK_NORMAL, 1, 20);
-				return false;
-			}
-			
-			break;
+	case 1:
+	{ // 같은 높이만 공격이 가능한 경우
+		if (nRiseFall == 1 || nRiseFall == 2)
+		{
+			//pCaster->Message(MK_NORMAL, 1, 20);
+			return false;
 		}
-    case 2: 
-		{ // 고->저와 같은 높이만 공격이 가능한 경우
-			if (nRiseFall == 2)  
-			{
-				//pCaster->Message(MK_NORMAL, 1, 20);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 2:
+	{ // 고->저와 같은 높이만 공격이 가능한 경우
+		if (nRiseFall == 2)
+		{
+			//pCaster->Message(MK_NORMAL, 1, 20);
+			return false;
 		}
-    case 3: 
-		{ // 저->고와 같은 높이만 공격이 가능한 경우
-			if (nRiseFall == 1)  
-			{
-				//pCaster->Message(MK_NORMAL, 1, 20);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 3:
+	{ // 저->고와 같은 높이만 공격이 가능한 경우
+		if (nRiseFall == 1)
+		{
+			//pCaster->Message(MK_NORMAL, 1, 20);
+			return false;
 		}
-	}  
-	
+
+		break;
+	}
+	}
+
 	const BYTE nType = Magic_Ref[nCombat].magic_Type;
 	// 마법을 적용할 수 없는 경우
 	if (!IsApply(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// 마법이 실패한 경우라면
 	if (IsMissMagic(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
-	
+
 	return true;
 }	//> CSD-TW-030606
 
@@ -1890,52 +1890,52 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 	// 전투스킬 상태 검사
 	switch (Magic_Ref[nCombat].Spell_Type)
 	{
-    case ACTIVE_COMBAT: 
-		{
-			if (pCaster->GetActiveCombat() != nCombat)  
-			{
-				return false;
-			}
-			
-			break;
-		}
-    case PASSIVE_COMBAT:
-		{
-			if (pCaster->GetPassiveCombat() != nCombat)  
-			{
-				return false;
-			}
-			
-			break;
-		}
-	case RECOVERY_COMBAT: // 030415 kyo
-		{
-			if (pCaster->GetRecoveryCombat() != nCombat)  
-			{
-				return false;
-			}
-			break;
-		}
-    default:  
+	case ACTIVE_COMBAT:
+	{
+		if (pCaster->GetActiveCombat() != nCombat)
 		{
 			return false;
 		}
+
+		break;
 	}
-    
+	case PASSIVE_COMBAT:
+	{
+		if (pCaster->GetPassiveCombat() != nCombat)
+		{
+			return false;
+		}
+
+		break;
+	}
+	case RECOVERY_COMBAT: // 030415 kyo
+	{
+		if (pCaster->GetRecoveryCombat() != nCombat)
+		{
+			return false;
+		}
+		break;
+	}
+	default:
+	{
+		return false;
+	}
+	}
+
 	const BYTE nType = Magic_Ref[nCombat].magic_Type;
 	// 마법을 적용할 수 없는 경우
 	if (!IsApply(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// 마법이 실패한 경우라면
 	if (IsMissMagic(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// NPC인 경우라면
 	if (pTarget->IsNpc())
-	{ 
+	{
 		switch (pTarget->Race)
 		{
 		case HUMAN:      return false;
@@ -1943,14 +1943,14 @@ bool CBattleManager::FilterCombat(BYTE nCombat, CHARLIST* pCaster, CHARLIST* pTa
 		}
 		// 위의 경우를 제외하고는 NPC는 이로운 마법 적용이 불가능  
 		if (!IsHarmfulMagic(nCombat))  return false;
-	} 
+	}
 	// 카운셀러인 경우라면
 	if (pTarget->IsCounselor())     return false;
 	if (pTarget->accessory[0] == 114)       return false;
 	// 버그몬에 대한 임시 방편
 	if (!IsBugMon(pCaster, pTarget))        return false;
-	
-	return (IsHarmfulMagic(nCombat) && IsColleague(pCaster, pTarget)) ? false:true;
+
+	return (IsHarmfulMagic(nCombat) && IsColleague(pCaster, pTarget)) ? false : true;
 }	//> CSD-TW-030606
 
 
@@ -1962,41 +1962,41 @@ bool CBattleManager::FilterResult(CHARLIST* pCaster, CHARLIST* pTarget)
 	if (!IsApply(nType, pCaster, pTarget))  return false;
 	// 마법이 실패한 경우라면
 	if (IsHarmfulMagic(nMagic) && IsMissMagic(nType, pCaster, pTarget))
-	{ 
+	{
 		return false;
 	}
 	// 투명상태에서 마법 적용시 투명 상태가 해제
-	if (pTarget->dwTransparency > 0)  
+	if (pTarget->dwTransparency > 0)
 	{
 		::CheckTransparency(pTarget, true);
 		pTarget->Message(MK_NORMAL, 1, 28);
 	}
 	// NPC인 경우라면
 	if (pTarget->IsNpc())
-	{ 
+	{
 		switch (pTarget->Race)
 		{
 		case HUMAN:      return false;
 		case GUARDSTONE: return true; // 완치의 기적이 가능하도록 함
 		}
 		// 위의 경우를 제외하고는 NPC는 이로운 마법 적용이 불가능  
-		if (!IsHarmfulMagic(nMagic))  
+		if (!IsHarmfulMagic(nMagic))
 		{
 			return false;
 		}
-		
+
 		switch (pTarget->Race)
 		{
 		case SEALSTONE:  return IsBreak(pCaster, pTarget);
 		}
-	} 
+	}
 	// 카운셀러인 경우라면
 	if (pTarget->IsCounselor())  return false;
 	if (pTarget->accessory[0] == 114)  return false;
 	// 버그몬에 대한 임시 방편
 	if (!IsBugMon(pCaster, pTarget) && nMagic != RELIEF_AUTHORITY)  return false;
-	
-	return (IsHarmfulMagic(nMagic) && IsColleague(pCaster, pTarget)) ? false:true;
+
+	return (IsHarmfulMagic(nMagic) && IsColleague(pCaster, pTarget)) ? false : true;
 }	//> CSD-TW-030627
 
 bool CBattleManager::FilterResult(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTarget)
@@ -2004,7 +2004,7 @@ bool CBattleManager::FilterResult(BYTE nMagic, CHARLIST* pCaster, CHARLIST* pTar
 	//if (IsValid(nMagic, pCaster) == false)           return false;
 	if (pTarget->IsNpc() && IsHarmfulMagic(nMagic))  return false;
 	// 버그몬에 대한 임시 방편
-	return (IsBugMon(pCaster, pTarget) || nMagic == RELIEF_AUTHORITY) ? true:false;
+	return (IsBugMon(pCaster, pTarget) || nMagic == RELIEF_AUTHORITY) ? true : false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -2020,13 +2020,13 @@ bool CBattleManager::IsBattle() const
 
 bool CBattleManager::IsBattle(CHARLIST* pCaster) const
 { // 현재 상태에서 전투가 가능한지 여부 검사
-	if (::CheckEventAttack())  
+	if (::CheckEventAttack())
 	{ // 백병전인 경우
 		pCaster->Message(MK_NORMAL, 0, 346);
 		return false;
 	}
 	// 020428 YGI acer
-	if( pCaster->Hungry <= 0 ) 
+	if (pCaster->Hungry <= 0)
 	{
 		pCaster->Message(MK_NORMAL, 2, 5);
 		return false;
@@ -2037,7 +2037,7 @@ bool CBattleManager::IsBattle(CHARLIST* pCaster) const
 		pCaster->Message(MK_NORMAL, 1, 91);
 		return false;
 	} //> CSD-021011
-	
+
 	return true;
 }
 
@@ -2045,57 +2045,57 @@ bool CBattleManager::IsBattle(CHARLIST* pCaster, CHARLIST* pTarget) const
 { // 서로 전투가 가능한지 여부 검사
 	if (pTarget->ChairNum)// LTS DRAGON MODIFY
 	{
-		if (pTarget->patterntype==NPC_PATTERN_BOSS_WAIT)
+		if (pTarget->patterntype == NPC_PATTERN_BOSS_WAIT)
 		{
-			pTarget->patterntype=NPC_PATTERN_BOSS_ACCESS;
+			pTarget->patterntype = NPC_PATTERN_BOSS_ACCESS;
 		}
 	}
-	
+
 	if (pCaster->IsPlayer() && pTarget->IsPlayer())
-	{ 
-		if (pCaster != pTarget) 
-		{  
+	{
+		if (pCaster != pTarget)
+		{
 			if (g_LocalWarBegin && g_isLocalWarServer)
 			{ // 국지전은 경우
 				if (pCaster->JoinLocalWar && pTarget->JoinLocalWar)
 				{ // 둘다 참가자인 경우
 					return true;
 				}
-				
+
 				if (!pCaster->JoinLocalWar && !pTarget->JoinLocalWar)
 				{ // 둘다 비참가자인 경우
 					return true;
 				}
-				
+
 				return false;
 			}
 		}
 	}
-	
+
 	return true;
 }
 
 bool CBattleManager::IsValid(BYTE nMagic, int nX, int nY) const
 { //< 020522 : 효과벽인 경우 처리
 	if (nX < 0)  return false;
-	if (nY < 0)  return false; 
+	if (nY < 0)  return false;
 	if (nX >= g_lpMapFile->wWidth)   return false;
-	if (nY >= g_lpMapFile->wHeight)  return false; 
-	
-	switch (Magic_Ref[nMagic].magic_Type/10)
+	if (nY >= g_lpMapFile->wHeight)  return false;
+
+	switch (Magic_Ref[nMagic].magic_Type / 10)
 	{
-    case 4: // 저주계열의 마법인 경우
-    case 5: // 공격계열의 마법인 경우
+	case 4: // 저주계열의 마법인 경우
+	case 5: // 공격계열의 마법인 경우
+	{
+		if (TileMap[nX][nY].attr_light)
 		{
-			if (TileMap[nX][nY].attr_light)
-			{
-				return false;
-			}
-			
-			break;
+			return false;
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 } //> 020522
 
@@ -2111,34 +2111,34 @@ bool CBattleManager::IsValid(BYTE nKind, CHARLIST* pCaster) const
 		switch (pCaster->Spell)
 		{
 		case WIZARD_SPELL: // 마법사라면  
-			{
-				if (pCaster->Ws[nKind])  return true;
-				break;
-			}
-		case PRIEST_SPELL: // 성직자라면
-			{
-				if (pCaster->Ps[nKind - 150])  return true;
-				break;
-			}
+		{
+			if (pCaster->Ws[nKind])  return true;
+			break;
 		}
-		
+		case PRIEST_SPELL: // 성직자라면
+		{
+			if (pCaster->Ps[nKind - 150])  return true;
+			break;
+		}
+		}
+
 		return false;
 	}
 	// 전투스킬인 경우
 	if (IsCombat(nKind))
 	{
 		const int nLevel = pCaster->GetLevel(); // CSD-030806
-		
+
 		switch (pCaster->GetCombatLevel(nKind))
 		{
-		case 1: return (nLevel >= Magic_Ref[nKind].basic_Level) ? true:false;
-		case 2: return (nLevel >= Magic_Ref[nKind].before_Magic) ? true:false;
-		case 3: return (nLevel >= Magic_Ref[nKind].basic_magery) ? true:false;
+		case 1: return (nLevel >= Magic_Ref[nKind].basic_Level) ? true : false;
+		case 2: return (nLevel >= Magic_Ref[nKind].before_Magic) ? true : false;
+		case 3: return (nLevel >= Magic_Ref[nKind].basic_magery) ? true : false;
 		}
-		
+
 		return false;
 	}
-	
+
 	return false;
 }
 
@@ -2147,75 +2147,75 @@ bool CBattleManager::IsValid(BYTE nKind, BYTE nStep, CHARLIST* pCaster) const
 	if (IsCombat(nKind))
 	{
 		const int nLevel = pCaster->GetLevel(); // CSD-030806
-		
+
 		switch (nStep)
 		{
-		case 1: return (nLevel >= Magic_Ref[nKind].basic_Level) ? true:false;
-		case 2: return (nLevel >= Magic_Ref[nKind].before_Magic) ? true:false;
-		case 3: return (nLevel >= Magic_Ref[nKind].basic_magery) ? true:false;
+		case 1: return (nLevel >= Magic_Ref[nKind].basic_Level) ? true : false;
+		case 2: return (nLevel >= Magic_Ref[nKind].before_Magic) ? true : false;
+		case 3: return (nLevel >= Magic_Ref[nKind].basic_magery) ? true : false;
 		}
 		return false;
 	}
-	
+
 	return false;
 }
 
 bool CBattleManager::IsAbility(BYTE nMagic, CHARLIST* pCaster) const
 {
-	if (pCaster->GetAbility(INT_) < Magic_Ref[nMagic].require_IT)	
+	if (pCaster->GetAbility(INT_) < Magic_Ref[nMagic].require_IT)
 	{
 		pCaster->Message(MK_SHORTAGE, 1, 6);
 		return false;
 	}
-	
+
 	if (pCaster->GetAbility(WIS) < Magic_Ref[nMagic].require_WP)
 	{
 		pCaster->Message(MK_SHORTAGE, 1, 6);
 		return false;
 	}
-	
+
 	if (pCaster->GetAbility(WSPS) < Magic_Ref[nMagic].point_WS)
 	{
 		pCaster->Message(MK_SHORTAGE, 1, 6);
 		return false;
 	}
-	
+
 	switch (pCaster->Spell)
 	{
-    case WIZARD_SPELL: // 마법사라면
+	case WIZARD_SPELL: // 마법사라면
+	{
+		if (pCaster->Skill[TACTICS_Magery] + 1 < Magic_Ref[nMagic].basic_magery)
 		{
-			if (pCaster->Skill[TACTICS_Magery] + 1 < Magic_Ref[nMagic].basic_magery)
-			{
-				pCaster->Message(MK_SHORTAGE, 1, 7);
-				return false;
-			}
-			
-			if (pCaster->Mana < Magic_Ref[nMagic].exhaust_MP)	
-			{
-				pCaster->Message(MK_SHORTAGE, 1, 9);
-				return false;
-			}
-			
-			break;
+			pCaster->Message(MK_SHORTAGE, 1, 7);
+			return false;
 		}
-    case PRIEST_SPELL: // 성직자라면
+
+		if (pCaster->Mana < Magic_Ref[nMagic].exhaust_MP)
 		{
-			if (pCaster->Skill[TACTICS_Orison] + 1 < Magic_Ref[nMagic].basic_magery)
-			{
-				pCaster->Message(MK_SHORTAGE, 1, 8);
-				return false;
-			}
-			
-			if (pCaster->Mana < Magic_Ref[nMagic].exhaust_MP)	
-			{
-				pCaster->Message(MK_SHORTAGE, 1, 10);
-				return false;
-			}
-			
-			break;
+			pCaster->Message(MK_SHORTAGE, 1, 9);
+			return false;
 		}
+
+		break;
 	}
-	
+	case PRIEST_SPELL: // 성직자라면
+	{
+		if (pCaster->Skill[TACTICS_Orison] + 1 < Magic_Ref[nMagic].basic_magery)
+		{
+			pCaster->Message(MK_SHORTAGE, 1, 8);
+			return false;
+		}
+
+		if (pCaster->Mana < Magic_Ref[nMagic].exhaust_MP)
+		{
+			pCaster->Message(MK_SHORTAGE, 1, 10);
+			return false;
+		}
+
+		break;
+	}
+	}
+
 	return true;
 }
 
@@ -2225,25 +2225,25 @@ bool CBattleManager::IsEnable(BYTE nMagic, CHARLIST* pCaster) const
 	// 보호계열 마법 중 완전한 결계인 경우
 	if (pCaster->IsPerfect() || pCaster->IsDivineUp())
 	{
-		switch (nType/10)
+		switch (nType / 10)
 		{
-		case 4: 
-			{ // 저주계열의 마법
-				pCaster->Message(MK_WARNING, 1, 11);
-				return false; 
-			}
-		case 5: 
-			{ // 공격계열의 마법
-				pCaster->Message(MK_WARNING, 1, 12);
-				return false; 
-			}		
+		case 4:
+		{ // 저주계열의 마법
+			pCaster->Message(MK_WARNING, 1, 11);
+			return false;
+		}
+		case 5:
+		{ // 공격계열의 마법
+			pCaster->Message(MK_WARNING, 1, 12);
+			return false;
+		}
 		}
 	}
 	/*
 	if (nType == 64)
 	{	// 기도일때 안됨
 		pCaster->Message(MK_WARNING, 1, 42);
-		return false; 
+		return false;
 	}
 	*/
 	// 저주 1계열 마법 상태나 캐스팅 불가한 경우
@@ -2254,23 +2254,23 @@ bool CBattleManager::IsEnable(BYTE nMagic, CHARLIST* pCaster) const
 	}
 
 	// 듀얼 아이템레벨에 맞지 않는 마법 사용불가 // 031110 kyo
-	if( Magic_Ref[nMagic].nDualStep > g_CSymbolMgr.GetSymbolGrade(pCaster) )	
+	if (Magic_Ref[nMagic].nDualStep > g_CSymbolMgr.GetSymbolGrade(pCaster))
 	{
 		pCaster->Message(MK_WARNING, 1, 45);
 		return false;
 	}
-	
+
 	return true;
 }	//> CSD-TW-030606
 
 bool CBattleManager::IsHarmfulMagic(BYTE nMagic) const
 {
-	switch (Magic_Ref[nMagic].magic_Type/10)
+	switch (Magic_Ref[nMagic].magic_Type / 10)
 	{
-    case 4:              // 저주계열의 마법인 경우
-    case 5: return true; // 공격계열의 마법인 경우
+	case 4:              // 저주계열의 마법인 경우
+	case 5: return true; // 공격계열의 마법인 경우
 	}
-	
+
 	return false;
 }
 
@@ -2280,14 +2280,14 @@ bool CBattleManager::IsPlaceMagic(BYTE nMagic, int nX, int nY) const
 	{
 		return false;
 	}
-	
+
 	return true;
 }
 
 bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) const
 {	// 대상자 마법 적용 가능 여부 판단
 	// 특별한 NPC는 저주 계열 마법 적용 불가
-	if (pTarget->IsNpc() && nType/10 == 4)
+	if (pTarget->IsNpc() && nType / 10 == 4)
 	{
 		switch (pTarget->Race)
 		{	//< CSD-040202
@@ -2300,172 +2300,172 @@ bool CBattleManager::IsApply(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) c
 		case GUARDTOWER: return false;
 		}	//> CSD-040202
 	}
-	
+
 	switch (nType)
-	{ 
+	{
 		// 보호계열 마법인 경우
-    case 21: 
-		{ // 일반보호계열 마법
-			if (pTarget->dwNormalProtect > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 21);
-				return false;
-			}
-			
-			break;  
+	case 21:
+	{ // 일반보호계열 마법
+		if (pTarget->dwNormalProtect > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 21);
+			return false;
 		}
-    case 22: 
-		{ // 특수보호계열 마법
-			if (pTarget->dwSpecialProtect > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 21);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 22:
+	{ // 특수보호계열 마법
+		if (pTarget->dwSpecialProtect > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 21);
+			return false;
 		}
-    case 23: 
-		{	// 예외보호계열 마법
-			if (pTarget->dwSpecialProtect > 0 ||
-				pTarget->dwExceptProtect > 0) // 내가 기도나 완결일땐 완결 안됨
-			{
-				pCaster->Message(MK_WARNING, 1, 21);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 23:
+	{	// 예외보호계열 마법
+		if (pTarget->dwSpecialProtect > 0 ||
+			pTarget->dwExceptProtect > 0) // 내가 기도나 완결일땐 완결 안됨
+		{
+			pCaster->Message(MK_WARNING, 1, 21);
+			return false;
 		}
-		// 보조계열 마법인 경우
-    case 31: 
-		{ // 이동 속도
-			if (pTarget->speedUp.IsContinue() == true)
-			{
-				pCaster->Message(MK_WARNING, 1, 22);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	// 보조계열 마법인 경우
+	case 31:
+	{ // 이동 속도
+		if (pTarget->speedUp.IsContinue() == true)
+		{
+			pCaster->Message(MK_WARNING, 1, 22);
+			return false;
 		}
-    case 32: 
-		{ // 물리적 공격 데미지
-			if (pTarget->apShort.IsContinue() && 
-				pTarget->apMiddle.IsContinue() && 
-				pTarget->apLong.IsContinue())
-			{
-				pCaster->Message(MK_WARNING, 1, 22);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 32:
+	{ // 물리적 공격 데미지
+		if (pTarget->apShort.IsContinue() &&
+			pTarget->apMiddle.IsContinue() &&
+			pTarget->apLong.IsContinue())
+		{
+			pCaster->Message(MK_WARNING, 1, 22);
+			return false;
 		}
-    case 33: 
-		{ // 공격 마법 데미지
-			if (pTarget->amplify.IsContinue() == true)
-			{
-				pCaster->Message(MK_WARNING, 1, 22);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 33:
+	{ // 공격 마법 데미지
+		if (pTarget->amplify.IsContinue() == true)
+		{
+			pCaster->Message(MK_WARNING, 1, 22);
+			return false;
 		}
-    case 34: 
-		{ // 투명
-			if (pTarget->dwTransparency > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 22);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 34:
+	{ // 투명
+		if (pTarget->dwTransparency > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 22);
+			return false;
 		}
-    case 35: 
-		{ // 빛
-			if (pTarget->dwLight > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 22);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 35:
+	{ // 빛
+		if (pTarget->dwLight > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 22);
+			return false;
 		}
-    case 36: 
-		{ // 행운
-			if (pTarget->dwDontMiss > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 22);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 36:
+	{ // 행운
+		if (pTarget->dwDontMiss > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 22);
+			return false;
 		}
-		// 저주계열 마법인 경우
-    case 41: 
-		{ // 저주 1계열 마법
-			if (pTarget->dwCurse1 > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 23);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	// 저주계열 마법인 경우
+	case 41:
+	{ // 저주 1계열 마법
+		if (pTarget->dwCurse1 > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 23);
+			return false;
 		}
-    case 42:
-		{ //< CSD-021024 : 저주 2계열 마법 
-			if (pTarget->dwCurse2 > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 23);
-				return false;
-			}
-			
-			break;
-		} //> CSD-021024
-    case 43: 
-		{ // 저주 3계열 마법
-			if (pTarget->dwCurse3 > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 23);
-				return false;
-			}
-			
-			break;
+
+		break;
+	}
+	case 42:
+	{ //< CSD-021024 : 저주 2계열 마법 
+		if (pTarget->dwCurse2 > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 23);
+			return false;
 		}
-    case 44: 
-		{ // 저주 4계열 마법
-			if (pTarget->dwCurse4 > 0)
-			{
-				pCaster->Message(MK_WARNING, 1, 23);
-				return false;
-			}
-			
-			break;
-		} 
-    case 46:
-		{ //< CSD-021024 : 얼림 저주 마법
-			if (pTarget->IsFreeze())
-			{
-				pCaster->Message(MK_WARNING, 1, 23);
-				return false;
-			}
-			
-			break;
-		} //> CSD-021024
-  }
-  
-  return true;
+
+		break;
+	} //> CSD-021024
+	case 43:
+	{ // 저주 3계열 마법
+		if (pTarget->dwCurse3 > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 23);
+			return false;
+		}
+
+		break;
+	}
+	case 44:
+	{ // 저주 4계열 마법
+		if (pTarget->dwCurse4 > 0)
+		{
+			pCaster->Message(MK_WARNING, 1, 23);
+			return false;
+		}
+
+		break;
+	}
+	case 46:
+	{ //< CSD-021024 : 얼림 저주 마법
+		if (pTarget->IsFreeze())
+		{
+			pCaster->Message(MK_WARNING, 1, 23);
+			return false;
+		}
+
+		break;
+	} //> CSD-021024
+	}
+
+	return true;
 }
 
 bool CBattleManager::IsMissAttack(CHARLIST* pCaster, CHARLIST* pTarget) const
 { // 물리적 공격 성공 여부 판단
 	const int nDefence = RareEM.GetStaticRareSmart(pTarget->StaticRare);
 	// 20을 100으로 환산하여 계산
-	const int nRate = pCaster->CalcAttackSuccessRate(nDefence); 
-	return (nRate < rand()%101) ? true:false;
+	const int nRate = pCaster->CalcAttackSuccessRate(nDefence);
+	return (nRate < rand() % 101) ? true : false;
 }
 
 bool CBattleManager::IsMissMagic(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarget) const
 {	//< CSD-021024 : 마법 실패 여부 판단
 	if (pTarget->IsPerfect())
-	{ 
+	{
 		pCaster->Message(MK_WARNING, 1, 24);
 		return true;
 	}
@@ -2477,28 +2477,28 @@ bool CBattleManager::IsMissMagic(BYTE nType, CHARLIST* pCaster, CHARLIST* pTarge
 	}
 	// 저주계열 마법 회피 여부 검사
 	if (pTarget->IsCurseAvoid(nType))
-	{ 
+	{
 		pCaster->Message(MK_WARNING, 1, 37);
 		return true;
-	} 
-	
+	}
+
 	switch (nType)
 	{
-    case 41:
-    case 42:
-    case 43:
-    case 44:
-    case 45:
+	case 41:
+	case 42:
+	case 43:
+	case 44:
+	case 45:
+	{
+		if (RareEM.GetDynamicRareValue(FITEM_INVALID_CURSE, pTarget->DynamicRare))
 		{
-			if (RareEM.GetDynamicRareValue(FITEM_INVALID_CURSE, pTarget->DynamicRare))
-			{ 
-				return true;
-			}			
-			
-			break;
+			return true;
 		}
+
+		break;
 	}
-	
+	}
+
 	return false;
 } //> CSD-021024
 
@@ -2506,7 +2506,7 @@ bool CBattleManager::IsBugMon(CHARLIST* pCaster, CHARLIST* pTarget) const
 {
 	if (pCaster->Hp <= 0)  return false;
 	if (pTarget->Hp <= 0)  return false;
-	return (pTarget->Hp > pTarget->HpMax) ? false:true;
+	return (pTarget->Hp > pTarget->HpMax) ? false : true;
 }
 
 bool CBattleManager::IsBreak(CHARLIST* pCaster, CHARLIST* pTarget) const
@@ -2515,19 +2515,19 @@ bool CBattleManager::IsBreak(CHARLIST* pCaster, CHARLIST* pTarget) const
 	{ // 깰 수 있는 상태가 아니라면 
 		return false;
 	}
-	
-	if (::CheckLocalWarAttacker(pCaster))  
+
+	if (::CheckLocalWarAttacker(pCaster))
 	{ // 국지전 참여자가 아니라면
 		return false;
 	}
-    
+
 	switch (pTarget->SprNo)
 	{
-    case 98: return (pCaster->name_status.nation == 3) ? false:true; // 바이서스 
-    case 99: return (pCaster->name_status.nation == 4) ? false:true; // 자이펀
-    case 91: return (pCaster->name_status.nation == 6) ? false:true; // 일스
+	case 98: return (pCaster->name_status.nation == 3) ? false : true; // 바이서스 
+	case 99: return (pCaster->name_status.nation == 4) ? false : true; // 자이펀
+	case 91: return (pCaster->name_status.nation == 6) ? false : true; // 일스
 	}
-	
+
 	return false;
 }
 
@@ -2568,7 +2568,7 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 			{
 				return true;
 			}
-			
+
 			return false;
 		}
 	}
@@ -2579,25 +2579,25 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 		{ // 둘다 공격자인 경우
 			return true;
 		}
-		
+
 		if (!::isAttacker(pCaster) && !::isAttacker(pTarget))
 		{ // 둘다 방어자인 경우
 			return true;
 		}
-		
+
 		return false;
 	}
-	
-	if (isNewWarfieldServer() && isMyTeam(pCaster,pTarget))
+
+	if (isNewWarfieldServer() && isMyTeam(pCaster, pTarget))
 	{
 		return true;
 	}
-	
+
 	//< LTH-040225-KO 1.4 신규국가전에서는 유저는 모두 동맹이다.
 	if (::IsNeoWarfieldServer() && ::IsWar())
 		return TRUE;
 	//> LTH-040225-KO
-	
+
 	if (g_NoPkMode == 1)
 	{
 		return true;
@@ -2606,7 +2606,7 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 	{
 		// Scholium에서는 무조건 이 사람을 칠수 없음
 		if (MapNumber == 30 || MapNumber == 85)//020905 lsw
-		{ 
+		{
 			return true;
 		}
 	}
@@ -2614,12 +2614,12 @@ bool CBattleManager::IsColleague(CHARLIST* pCaster, CHARLIST* pTarget) const
 	for (int i = 0; i < 6; ++i)
 	{
 		if (pCaster->party[i].On && !strcmp(pCaster->party[i].Name, pTarget->Name))
-		{ 
+		{
 			return true;
 		}
 	}
-	
-	return (::IsColleagueWhenColossus(pCaster, pTarget)) ? true:false;
+
+	return (::IsColleagueWhenColossus(pCaster, pTarget)) ? true : false;
 }	//> CSD-031013
 
 bool CBattleManager::IsEnableClass(BYTE nCombat, CHARLIST* pCaster) const
@@ -2627,7 +2627,7 @@ bool CBattleManager::IsEnableClass(BYTE nCombat, CHARLIST* pCaster) const
 	bitset<MAX_CLASS> bsClass(Magic_Ref[nCombat].nClass);
 	// 클래스 검사  
 	const int nClass = pCaster->Class;
-	
+
 	if (nClass < WARRIOR || nClass > PRIEST)
 	{
 		pCaster->Message(MK_INFORMATION, 1, 73);
@@ -2644,10 +2644,10 @@ bool CBattleManager::IsEnableClass(BYTE nCombat, CHARLIST* pCaster) const
 		case WIZARD:  pCaster->Message(MK_INFORMATION, 1, 77); break;
 		case PRIEST:  pCaster->Message(MK_INFORMATION, 1, 78); break;
 		}
-		
+
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -2656,7 +2656,7 @@ bool CBattleManager::IsEnableWeapon(BYTE nCombat, CHARLIST* pCaster) const
 	bitset<ALL_WEAPON> bsWeapon(Magic_Ref[nCombat].nTactics);
 	// 무기택틱 검사
 	const int nTactics = pCaster->GetTacticsKind() - TACTICS_Crapple;
-	
+
 	if (nTactics < CRAPPLE || nTactics > DOUBLE_MACEFIGHTING)
 	{
 		pCaster->Message(MK_INFORMATION, 1, 79);
@@ -2677,24 +2677,24 @@ bool CBattleManager::IsEnableWeapon(BYTE nCombat, CHARLIST* pCaster) const
 		case DOUBLE_SWORDMANSHIP: pCaster->Message(MK_INFORMATION, 1, 87); break;
 		case DOUBLE_MACEFIGHTING: pCaster->Message(MK_INFORMATION, 1, 88); break;
 		}
-		
+
 		return false;
 	}
-	
+
 	return true;
 }
 
 bool CBattleManager::IsActiveCombat(BYTE nCombat) const
 {
-	return (Magic_Ref[nCombat].Spell_Type == ACTIVE_COMBAT) ? true:false;
+	return (Magic_Ref[nCombat].Spell_Type == ACTIVE_COMBAT) ? true : false;
 }
 
 bool CBattleManager::IsPassiveCombat(BYTE nCombat) const
 {
-	return (Magic_Ref[nCombat].Spell_Type == PASSIVE_COMBAT) ? true:false;
+	return (Magic_Ref[nCombat].Spell_Type == PASSIVE_COMBAT) ? true : false;
 }
 
 bool CBattleManager::IsRecoveryCombat(BYTE nCombat) const // 030415 kyo
 {
-	return (Magic_Ref[nCombat].Spell_Type == RECOVERY_COMBAT) ? true:false;
+	return (Magic_Ref[nCombat].Spell_Type == RECOVERY_COMBAT) ? true : false;
 }

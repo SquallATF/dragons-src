@@ -6,31 +6,31 @@
 
 enum	KYO_CODE
 {
-	SPELL_MAP_MOVE_TYPE			=	10,		//alive_zone의 alive_word_type값
+	SPELL_MAP_MOVE_TYPE = 10,		//alive_zone의 alive_word_type값
 
-	CMD_RM_NOW_REPAIR			=	14000,
-	CMD_WHAT_QUEST_IN_MAP		=	14001,
+	CMD_RM_NOW_REPAIR = 14000,
+	CMD_WHAT_QUEST_IN_MAP = 14001,
 
-	CMD_SCRIPT_SHOW_COLOR_MSG	=	14002,
-	
+	CMD_SCRIPT_SHOW_COLOR_MSG = 14002,
+
 	//타이머용
-	CMD_SCRIPT_TIMER_START		=	14110,
-	CMD_SCRIPT_TIMER_SYNC		=	14111,
-	CMD_SCRIPT_TIMER_END_SUC	=	14112,
-	CMD_SCRIPT_TIMER_END_FAL	=	14113,
+	CMD_SCRIPT_TIMER_START = 14110,
+	CMD_SCRIPT_TIMER_SYNC = 14111,
+	CMD_SCRIPT_TIMER_END_SUC = 14112,
+	CMD_SCRIPT_TIMER_END_FAL = 14113,
 	//카운터용
-	CMD_SCRIPT_COUNTER_START	=	14120,
-	CMD_SCRIPT_COUNTER_SYNC		=	14121,
-	CMD_SCRIPT_COUNTER_END		=	14122,
+	CMD_SCRIPT_COUNTER_START = 14120,
+	CMD_SCRIPT_COUNTER_SYNC = 14121,
+	CMD_SCRIPT_COUNTER_END = 14122,
 
-	CMD_SCRIPT_SPELL_MAPMOVE	=	14200,	// 021128 kyo
-	CMD_SCRIPT_SPELL_MAPMOVE_SUC=	14201,	// 021128 kyo
-	CMD_SCRIPT_SPELL_MAPMOVE_FAIL=	14202,	// 021128 kyo
+	CMD_SCRIPT_SPELL_MAPMOVE = 14200,	// 021128 kyo
+	CMD_SCRIPT_SPELL_MAPMOVE_SUC = 14201,	// 021128 kyo
+	CMD_SCRIPT_SPELL_MAPMOVE_FAIL = 14202,	// 021128 kyo
 
-	DEFAULT_TIMER_SYNC_TIME		=	5000,	//5초
-	MAX_TIMER_TIME				= 5 * 3600 * 1000,		//5시간이 제한이다.
-	MIN_SYNCH_TIME				= 2 * 1000,				//2초이하다.
-       
+	DEFAULT_TIMER_SYNC_TIME = 5000,	//5초
+	MAX_TIMER_TIME = 5 * 3600 * 1000,		//5시간이 제한이다.
+	MIN_SYNCH_TIME = 2 * 1000,				//2초이하다.
+
 };
 //#include "Dr_Network.h"
 
@@ -91,7 +91,7 @@ typedef struct DB_FIELD_TYPE
 /*
 typedef struct SCRIPT_DATA
 {
-	t_script_counter 
+	t_script_counter
 };
 */
 
@@ -166,6 +166,6 @@ typedef struct SCRIPT_SPELLMAPMOVE // 021128 kyo
 }t_script_spellmapmove;
 //extern void SendWhatQuestInMap( int iMapNum, int cn);
 
-extern void CheckSpellMapMoveArea( char *szMsg, int cn);
+extern void CheckSpellMapMoveArea(char *szMsg, int cn);
 
 #endif //_NETWORK7_H_

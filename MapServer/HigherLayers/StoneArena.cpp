@@ -28,7 +28,7 @@ CStoneArena::~CStoneArena()
 void CStoneArena::StartGame(DWORD dwTime)
 {
 	//< KJY-040909 아레나 로그강화
-	MyLog( 0, "############# Stone Arena EndGame #############" );
+	MyLog(0, "############# Stone Arena EndGame #############");
 	//> KJY-040909 아레나 로그강화
 
 	CBaseArena::StartGame(dwTime);
@@ -46,23 +46,23 @@ void CStoneArena::StartGame(DWORD dwTime)
 void CStoneArena::EndGame(CArenaInfo* pArena)
 {
 	//< KJY-040909 아레나 로그강화
-	MyLog( 0, "############# Stone Arena EndGame #############" );
+	MyLog(0, "############# Stone Arena EndGame #############");
 	//> KJY-040909 아레나 로그강화
 
 	CBaseArena::EndGame(pArena);
 }
-	
+
 bool CStoneArena::PlayGame(DWORD dwTime)
 {
 	DWORD dwRemainTime = m_pState->GetRemainTime(dwTime);
-	
+
 	g_ColossusStone.GetTeamCount(m_aStone);
 
 	for (int i = 0; i < 2; ++i)
 	{
 		SendOccupyStone(i, m_aStone[i]);
 	}
-	
+
 	if (dwRemainTime <= 0 || g_ColossusStone.IsEnd())
 	{
 		int bottom_level = 1000000;		// 가장 낮은 레벨
@@ -80,7 +80,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 			}
 			else if (top == m_aStone[nIndex])		// 동점	 // 팀이 2개 일때만 적용
 			{
-				if (bottom_level > nTotal) 
+				if (bottom_level > nTotal)
 				{
 					bottom_level = nTotal;
 				}
@@ -88,7 +88,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 
 			++nIndex;
 		}
-		
+
 		nIndex = 0;
 
 		for (ITOR_TEAM j = m_ltTeam.begin(); j != m_ltTeam.end(); ++j)
@@ -102,7 +102,7 @@ bool CStoneArena::PlayGame(DWORD dwTime)
 			}
 			else if (top == m_aStone[nIndex])	// 동점	 // 팀이 2개 일때만 적용
 			{
-				if (bottom_level > nTotal) 
+				if (bottom_level > nTotal)
 				{
 					bottom_level = nTotal;
 				}

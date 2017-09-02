@@ -12,30 +12,30 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 화염속성 전투스킬
-class CFlameCombat : public TBinder<CCombat, CFlameCombat>  
+class CFlameCombat : public TBinder<CCombat, CFlameCombat>
 {
 public:
 	CFlameCombat();
 	virtual ~CFlameCombat();
 
 public:
-  virtual bool Bind();
-  virtual bool Elapse(CHARLIST* pTarget);
-  
-public:
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
+	virtual bool Bind();
+	virtual bool Elapse(CHARLIST* pTarget);
 
 public:
-  bool SwordNRoses();
-  bool MultipleFire();
-  bool FleetMissile();
-  bool ConvertingArmor();
-  bool CriticalFire();
-  bool FireExtreme();
-  bool BurningBloody(); // 030415 kyo
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
+
+public:
+	bool SwordNRoses();
+	bool MultipleFire();
+	bool FleetMissile();
+	bool ConvertingArmor();
+	bool CriticalFire();
+	bool FireExtreme();
+	bool BurningBloody(); // 030415 kyo
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

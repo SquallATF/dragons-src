@@ -1,7 +1,7 @@
 ﻿
 
-extern int  LoadWeatherTable( void );
-extern void CheckWeatherSystem( void );
+extern int  LoadWeatherTable(void);
+extern void CheckWeatherSystem(void);
 
 extern DWORD today_rainstart[5];
 extern DWORD today_rainend[5];

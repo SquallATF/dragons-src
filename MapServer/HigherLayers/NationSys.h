@@ -78,53 +78,53 @@ class SquadMember
 	int		m_iData;
 	char	m_cStatus;
 
-public :
-	SquadMember(){}
-	SquadMember(int i) { m_iData=i;}
-	SquadMember(int i,int Status) {m_iData=i; m_cStatus=Status; }
+public:
+	SquadMember() {}
+	SquadMember(int i) { m_iData = i; }
+	SquadMember(int i, int Status) { m_iData = i; m_cStatus = Status; }
 	~SquadMember() {}
-	void SetData(int i)	{ m_iData=i;}
-	int  GetData()	{ return m_iData; }
-	void SetStatus(int i)	{ m_cStatus=i; }
-	int	GetStatus()	{ return m_cStatus; }
+	void SetData(int i) { m_iData = i; }
+	int  GetData() { return m_iData; }
+	void SetStatus(int i) { m_cStatus = i; }
+	int	GetStatus() { return m_cStatus; }
 };
 
 class cKiller
 {
 	char	m_sUserName[20];
 	WORD	m_wKillSprNo;
-public :
-	cKiller(){}
-	cKiller(char* Name,int SprNo) { strcpy(m_sUserName,Name); m_wKillSprNo=SprNo; }
+public:
+	cKiller() {}
+	cKiller(char* Name, int SprNo) { strcpy(m_sUserName, Name); m_wKillSprNo = SprNo; }
 	~cKiller() {}
-	void SetUserName(char* Name) { strcpy(m_sUserName,Name); }
-	void SetKillSprNo(int SprNo) { m_wKillSprNo=SprNo; }
+	void SetUserName(char* Name) { strcpy(m_sUserName, Name); }
+	void SetKillSprNo(int SprNo) { m_wKillSprNo = SprNo; }
 	const char* GetUserName() { return m_sUserName; }
 	int GetKillSprNo() { return m_wKillSprNo; }
 };
 
-class cMonster			
+class cMonster
 {
 	t_WeaponStruct	Data;
 
-public :
-	cMonster(){}
-	cMonster(t_WeaponStruct Monster) 
+public:
+	cMonster() {}
+	cMonster(t_WeaponStruct Monster)
 	{
-		Data.NPC_ID=Monster.NPC_ID;
-		Data.MonPointIndex=Monster.MonPointIndex;
-		Data.NPC_Index=Monster.NPC_Index;
-		Data.Locationx=Monster.Locationx;
-		Data.Locationy=Monster.Locationy;
-		Data.EventNo=Monster.EventNo;
-		Data.GenerationPos=Monster.GenerationPos;
-		Data.GenerationType=Monster.GenerationType;
-		Data.Status=Monster.Status;
+		Data.NPC_ID = Monster.NPC_ID;
+		Data.MonPointIndex = Monster.MonPointIndex;
+		Data.NPC_Index = Monster.NPC_Index;
+		Data.Locationx = Monster.Locationx;
+		Data.Locationy = Monster.Locationy;
+		Data.EventNo = Monster.EventNo;
+		Data.GenerationPos = Monster.GenerationPos;
+		Data.GenerationType = Monster.GenerationType;
+		Data.Status = Monster.Status;
 	}
-	~cMonster(){}
+	~cMonster() {}
 	int GetMonsterID() { return Data.NPC_ID; }
-	void SetMonsterID(int ID) { Data.NPC_ID=ID; } 
-	t_WeaponStruct GetMonsterData() { return Data; } 
+	void SetMonsterID(int ID) { Data.NPC_ID = ID; }
+	t_WeaponStruct GetMonsterData() { return Data; }
 };
 
 
@@ -143,7 +143,7 @@ typedef struct Squad_P
 struct MonPoint2
 {
 	int Size;
-	POINTS* MPoint; 
+	POINTS* MPoint;
 };
 
 struct MonsterPoints2
@@ -187,7 +187,7 @@ typedef struct StartWarTime
 {
 	int DayofWeek;
 	int DHour;
-}* LP_START_WAR_TIME;
+}*LP_START_WAR_TIME;
 
 class cWarfield
 {
@@ -256,7 +256,7 @@ class cWarfield
 	WORD			m_NationMemberCount[3];							// 바이 자이 일스의 멤버카운트	// 011218 LTS
 
 
-public :
+public:
 
 	cWarfield();
 	~cWarfield();
@@ -275,21 +275,21 @@ public :
 	void			ClearCommander(int Kind);
 	void			ClearSquadCount();
 
-	inline int		GetLoopActive()				{ return m_cLoopActive; }
-	inline void		SetLoopActive(bool Active)	{ m_cLoopActive=Active; }
-	inline DWORD	GetLoopTime()				{ return m_LoopTime; }
+	inline int		GetLoopActive() { return m_cLoopActive; }
+	inline void		SetLoopActive(bool Active) { m_cLoopActive = Active; }
+	inline DWORD	GetLoopTime() { return m_LoopTime; }
 
-	inline int		GetNationCode()				{ return m_NationCode; }
-	inline void		SetNationCode(int Code)		{ m_NationCode=Code; }
-	inline int		GetWarfieldCode()			{ return m_WarfieldCode; }
+	inline int		GetNationCode() { return m_NationCode; }
+	inline void		SetNationCode(int Code) { m_NationCode = Code; }
+	inline int		GetWarfieldCode() { return m_WarfieldCode; }
 
-	inline void		SetTileDont(int MonNo,int type);
+	inline void		SetTileDont(int MonNo, int type);
 	void			CheckCastleGateWay();
 	void			CheckGroup(SquadList* g_SquadList);
 	void			CheckCommanderGroup();
-	void			SendTileDont(t_packet *p, t_connection c[], int cn );
+	void			SendTileDont(t_packet *p, t_connection c[], int cn);
 	void			SendAllTileDont(int type);
-	void			SendTileDontChange(int MonNo,int type);
+	void			SendTileDontChange(int MonNo, int type);
 
 	void			KickDefeatUser2Home();
 
@@ -297,67 +297,85 @@ public :
 	void			SetStatus(char Status);
 	char			GetStatus() { return m_Status; }
 
-	inline int		GetGuardStoneCount()		{ return m_cGuardStoneCount; }
-	inline int		GetCastleDoorCount()		{ return m_cCastleDoorCount; }
+	inline int		GetGuardStoneCount() { return m_cGuardStoneCount; }
+	inline int		GetCastleDoorCount() { return m_cCastleDoorCount; }
 
-	inline int		GetNpcCount()				{ return m_cNpcCount; }
-	inline int		GetWeaponIndex(int No)		{ return m_tWeaponData[No].NPC_Index; }
-	inline int		GetWeaponStatus(int No)		{ return m_tWeaponData[No].Status; }
+	inline int		GetNpcCount() { return m_cNpcCount; }
+	inline int		GetWeaponIndex(int No) { return m_tWeaponData[No].NPC_Index; }
+	inline int		GetWeaponStatus(int No) { return m_tWeaponData[No].Status; }
 
-	inline int		GetAllSquadCurrentMemberCount(int Kind) 
-												{
-													int temp=0;
-													temp+=g_SquadCount[Kind][0];	// LOOP UNROLL
-													temp+=g_SquadCount[Kind][1];	// NW_SQUAD
-													temp+=g_SquadCount[Kind][2];
-													temp+=g_SquadCount[Kind][3];
-													temp+=g_SquadCount[Kind][4];
-													temp+=m_JoinSquadCount[Kind];
-													return temp;
-												}
-	inline int		GetSquadCurrentMemberCount(int Kind,int SquadNo)
-												{return g_SquadCount[Kind][SquadNo];}
+	inline int		GetAllSquadCurrentMemberCount(int Kind)
+	{
+		int temp = 0;
+		temp += g_SquadCount[Kind][0];	// LOOP UNROLL
+		temp += g_SquadCount[Kind][1];	// NW_SQUAD
+		temp += g_SquadCount[Kind][2];
+		temp += g_SquadCount[Kind][3];
+		temp += g_SquadCount[Kind][4];
+		temp += m_JoinSquadCount[Kind];
+		return temp;
+	}
+	inline int		GetSquadCurrentMemberCount(int Kind, int SquadNo)
+	{
+		return g_SquadCount[Kind][SquadNo];
+	}
 
-	
-	t_SquadInformation*			GetSquadInfo(int Kind,int SquadNo);	// Kind : 0 : Attack, 1: Defence, 2:Reinforce
+
+	t_SquadInformation*			GetSquadInfo(int Kind, int SquadNo);	// Kind : 0 : Attack, 1: Defence, 2:Reinforce
 
 	void			InitSquad();
 
-    inline void		IncSquadMemberCount(int Kind, int SquadNo)			// 부대편성시 (전쟁상황이 아닐때..) 편성인원 증가
-												{m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount++;}
+	inline void		IncSquadMemberCount(int Kind, int SquadNo)			// 부대편성시 (전쟁상황이 아닐때..) 편성인원 증가
+	{
+		m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount++;
+	}
 	inline void		DecSquadMemberCount(int Kind, int SquadNo)			// 부대편성시 (전쟁상황이 아닐때..) 편성인원 감소
-												{m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount--;}
-	inline int		GetSquadMemberCount(int Kind,int SquadNo) 
-												{ return m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount; }
-	inline void		SetSquadLoadingPoint(int Kind,int SquadNo,int LoadingPoint) 
-												{m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint=LoadingPoint;}
-	void			SetSquadLeader(int Kind,int SqaudNo,t_CommanderInformation* SquadLeaderInfo);
+	{
+		m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount--;
+	}
+	inline int		GetSquadMemberCount(int Kind, int SquadNo)
+	{
+		return m_tSquad[Kind].SquadInfo[SquadNo].SoliderCount;
+	}
+	inline void		SetSquadLoadingPoint(int Kind, int SquadNo, int LoadingPoint)
+	{
+		m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint = LoadingPoint;
+	}
+	void			SetSquadLeader(int Kind, int SqaudNo, t_CommanderInformation* SquadLeaderInfo);
 
-	void			SetCommander(int Kind,int CandidaterNo);
-	void			SetCommander(int Kind,t_CommanderInformation* Commander);
+	void			SetCommander(int Kind, int CandidaterNo);
+	void			SetCommander(int Kind, t_CommanderInformation* Commander);
 
 	void			InitCommanderCandidater();
 
-	inline t_CommanderInformation*		GetCommanderInfo(int Kind) 
-												{ return &m_tSquad[Kind].Commander; }
-	inline t_CommanderInformation*		GetCandidaterInfo(int Kind,int CandidaterNo) 
-												{ return &m_tSquad[Kind].Candidater[CandidaterNo];}
-	inline void		IncCommanderVoteData(int Kind,int CandidaterNo) 
-												{ m_tSquad[Kind].Candidater[CandidaterNo].VoteCount++; }
-	inline int		GetCommanderVoteData(int Kind,int CandidaterNo) 
-												{ return m_tSquad[Kind].Candidater[CandidaterNo].VoteCount; }
-	bool			CanRegCommanderCandidater(int Kind,int CandidaterNo);
-	void			SetCandidaterInfo(int Kind,int CandidaterNo,t_CommanderInformation* CandidaterInfo);
+	inline t_CommanderInformation*		GetCommanderInfo(int Kind)
+	{
+		return &m_tSquad[Kind].Commander;
+	}
+	inline t_CommanderInformation*		GetCandidaterInfo(int Kind, int CandidaterNo)
+	{
+		return &m_tSquad[Kind].Candidater[CandidaterNo];
+	}
+	inline void		IncCommanderVoteData(int Kind, int CandidaterNo)
+	{
+		m_tSquad[Kind].Candidater[CandidaterNo].VoteCount++;
+	}
+	inline int		GetCommanderVoteData(int Kind, int CandidaterNo)
+	{
+		return m_tSquad[Kind].Candidater[CandidaterNo].VoteCount;
+	}
+	bool			CanRegCommanderCandidater(int Kind, int CandidaterNo);
+	void			SetCandidaterInfo(int Kind, int CandidaterNo, t_CommanderInformation* CandidaterInfo);
 
 	void			AllGuardStoneWasBroked(); // 전쟁승패의 결정..
 	void			ProcessNationWarEnd(bool AttackerWin);    //전쟁의 처리 //인자 콜타입.. 시간, 수호석..
 
 	void			FirstMakeWeaponData();
 	void			MakeWeaponData();   //NPC생성
-  void      WeaponDataList();   // 디버그용
+	void      WeaponDataList();   // 디버그용
 
-	void			GiveSquadPoint2Other(int cn,int Point);
-	void			GiveGuildPoint2Other(int cn,int Point);
+	void			GiveSquadPoint2Other(int cn, int Point);
+	void			GiveGuildPoint2Other(int cn, int Point);
 	void			ReturnFame();		// 커넥션이 뭘 부셨다면 값을 리턴한다.
 	void			CalcFame(bool AttackerWin);		// FAME계산 
 
@@ -365,85 +383,95 @@ public :
 	void			SendWarfieldStatus();
 	void			ChangeWarfieldStatus(int Result);
 	void			SendCMD_REQUEST_VOTE_RESULT();
-	void			RecvCMD_ANSWER_VOTE_RESULT(t_packet *p, t_connection c[], int cn );
+	void			RecvCMD_ANSWER_VOTE_RESULT(t_packet *p, t_connection c[], int cn);
 	void			SendStartUpMapPossession();
 	void			SendMapPossessChanged();
 
 	void			ClearAllSquad(int Nation);
 	void			MoneySpread(double TotalMoney);
 
-	void			DisplaySquadMember(int Type,int SquadNo); 
+	void			DisplaySquadMember(int Type, int SquadNo);
 	void			DisplayMember(SquadList* g_SquadList);
 	void			DeleteSquadMember(const int cn); //020903 lsw
-	void			DeleteSquadMember(const int Type,const int SquadNo,const int ID);
-	void			DeleteMember(SquadList* g_SquadList,int ID); // Type : Attacker, Defender
-	void			SendSquadMessage(int Type,int SquadNo,t_packet* p);
-	void			SendMessage(SquadList* g_SquadList,t_packet* p);
+	void			DeleteSquadMember(const int Type, const int SquadNo, const int ID);
+	void			DeleteMember(SquadList* g_SquadList, int ID); // Type : Attacker, Defender
+	void			SendSquadMessage(int Type, int SquadNo, t_packet* p);
+	void			SendMessage(SquadList* g_SquadList, t_packet* p);
 	void			DeleteSquadHash(SquadList* g_SquadList);
 	void			DeleteAllSquadMember();
-	void			InsertSquadMember(int cn,int Status=1);
-	void			InsertSquadMember(int Type,int SquadNo,int ID,int Status=1); // Type : Attacker, Defender, Reinforce, Commander
-	void			InsertMember(SquadList* g_SquadList,int ID,int Status=1); 
+	void			InsertSquadMember(int cn, int Status = 1);
+	void			InsertSquadMember(int Type, int SquadNo, int ID, int Status = 1); // Type : Attacker, Defender, Reinforce, Commander
+	void			InsertMember(SquadList* g_SquadList, int ID, int Status = 1);
 
 	void			DeleteAllKiller();
 	void			DeleteKiller(char* Name);
-	void			InsertKiller(char* Name,int KillSprNo);
+	void			InsertKiller(char* Name, int KillSprNo);
 	void			DeleteAllMonsterData();
 	void			InsertMonsterData(t_WeaponStruct Monster);
 
 	void			CommanderEnter(int Type);
 	void			CommanderLeave(int Type);
-	void			SquadLeaderEnter(int Type,int SquadNo);
-	void			SquadLeaderLeave(int Type,int SquadNo);
+	void			SquadLeaderEnter(int Type, int SquadNo);
+	void			SquadLeaderLeave(int Type, int SquadNo);
 
-	inline bool		CommanderExist(int Type)				{ return m_bCommanderExist[Type]; }
-	inline bool		SquadLeaderExist(int Type,int SquadNo)	{ return m_bSquadLeaderExist[Type][SquadNo]; }
+	inline bool		CommanderExist(int Type) { return m_bCommanderExist[Type]; }
+	inline bool		SquadLeaderExist(int Type, int SquadNo) { return m_bSquadLeaderExist[Type][SquadNo]; }
 
-	inline const char*	GetCommanderName(int Kind)			{ return m_tSquad[Kind].Commander.CO_Name; }
-	inline const char*	GetCandidaterName(int Kind,int CandidaterNo) 
-															{ return m_tSquad[Kind].Candidater[CandidaterNo].CO_Name; }
-	inline const int	GetCandidaterVoteCount(int Kind,int CandidaterNo) 
-															{ return m_tSquad[Kind].Candidater[CandidaterNo].VoteCount; }
+	inline const char*	GetCommanderName(int Kind) { return m_tSquad[Kind].Commander.CO_Name; }
+	inline const char*	GetCandidaterName(int Kind, int CandidaterNo)
+	{
+		return m_tSquad[Kind].Candidater[CandidaterNo].CO_Name;
+	}
+	inline const int	GetCandidaterVoteCount(int Kind, int CandidaterNo)
+	{
+		return m_tSquad[Kind].Candidater[CandidaterNo].VoteCount;
+	}
 
 	void			ActiveBonusTime();
 	void			FirstMakeMonster();
 	void			MakeMonster();
 	void			PrepareSquadForWar();
-	inline bool		isBonusTime()							{ return m_bBonusActive; }
+	inline bool		isBonusTime() { return m_bBonusActive; }
 
-	SquadList*		GetSquadListPointer(int iBattleType, int iSqaudNo) 
-															{
-																switch(iBattleType)
-																{
-																case NW_ATTACKER:
-																	return &g_AttackSquadList[iSqaudNo];
-																case NW_DEFENCER:
-																	return &g_DefenceSquadList[iSqaudNo];
-																case NW_REINFORCE:
-																	return &g_ReinforceSquadList[iSqaudNo];
-																}
-																return NULL;
-															}
+	SquadList*		GetSquadListPointer(int iBattleType, int iSqaudNo)
+	{
+		switch (iBattleType)
+		{
+		case NW_ATTACKER:
+			return &g_AttackSquadList[iSqaudNo];
+		case NW_DEFENCER:
+			return &g_DefenceSquadList[iSqaudNo];
+		case NW_REINFORCE:
+			return &g_ReinforceSquadList[iSqaudNo];
+		}
+		return NULL;
+	}
 
-	inline void		IncKilledCount(int Kind)				{ m_KilledCount[Kind]++; }
-	inline int		GetKilledCount(int Kind)				{ return m_KilledCount[Kind]; }
+	inline void		IncKilledCount(int Kind) { m_KilledCount[Kind]++; }
+	inline int		GetKilledCount(int Kind) { return m_KilledCount[Kind]; }
 
-	inline POINTS	GetLivePoints(int Kind)					{ return m_LivePoints[Kind]; }		// 011015 LTS
-	inline char		GetSquadLoadingPoint(int Kind,int SquadNo) 
-															{ return m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint; }
-	inline char		GetSquadRareSok(int Kind,int SquadNo,int SokNo) 
-															{ return m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo]; } //범위에러 
-	inline char*	GetSquadRareSok2(int Kind,int SquadNo)	{ return m_tSquad[Kind].SquadInfo[SquadNo].Sok; } //범위에러 
-	inline void		SetSquadRareSok(int Kind,int SquadNo,int SokNo,int Sok) 
-															{ m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo]=Sok; }
+	inline POINTS	GetLivePoints(int Kind) { return m_LivePoints[Kind]; }		// 011015 LTS
+	inline char		GetSquadLoadingPoint(int Kind, int SquadNo)
+	{
+		return m_tSquad[Kind].SquadInfo[SquadNo].LoadingPoint;
+	}
+	inline char		GetSquadRareSok(int Kind, int SquadNo, int SokNo)
+	{
+		return m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo];
+	} //범위에러 
+	inline char*	GetSquadRareSok2(int Kind, int SquadNo) { return m_tSquad[Kind].SquadInfo[SquadNo].Sok; } //범위에러 
+	inline void		SetSquadRareSok(int Kind, int SquadNo, int SokNo, int Sok)
+	{
+		m_tSquad[Kind].SquadInfo[SquadNo].Sok[SokNo] = Sok;
+	}
 	char*			GetLeadCandidaterName(int Kind);
-	inline bool		ElectCommander()						{ return m_bRequestCommanderVotingResult; }
-	inline bool		CheckSecretPlaceOpen()					{ return m_bBonusActive; }
-	inline void		SetRemainTime(DWORD RemainTime)			{ m_dRemainTime=RemainTime;}
-	inline DWORD	GetRemainTime()							{ return m_dRemainTime; }
+	inline bool		ElectCommander() { return m_bRequestCommanderVotingResult; }
+	inline bool		CheckSecretPlaceOpen() { return m_bBonusActive; }
+	inline void		SetRemainTime(DWORD RemainTime) { m_dRemainTime = RemainTime; }
+	inline DWORD	GetRemainTime() { return m_dRemainTime; }
 	DWORD			GetWarLoopTime();						// 011025 LTS
 	void			SetWarLoopTime(DWORD LoopTime);		// 011025 LTS
-	inline void		SetSecretOpen(bool isActive)			{ m_bBonusActive=isActive; }	// 011025 LTS
+	inline void		SetSecretOpen(bool isActive) { m_bBonusActive = isActive; }	// 011025 LTS
 
 	void			SendSecretActiveMessage2Manager();
 	void			InitWarLoopDefine();									// 011101 LTS
@@ -464,7 +492,7 @@ public :
 	void ClearCastleGateDont();						// LTH-040528-KO
 
 public:
-  cWarfield& operator[](int nIndex);
+	cWarfield& operator[](int nIndex);
 };
 
 struct tSealStoneIndex															// LTS NEW LOCALWAR
@@ -483,7 +511,7 @@ class cNation
 	int							m_VoteData[NW_WARFIELD_COUNT];
 	DWORD						m_WarNo;
 
-	int							m_LocalWarfieldSize;				
+	int							m_LocalWarfieldSize;
 
 	int							m_LocalWarStart;					//국지전이 시작되었다.
 	int							m_WarStart;
@@ -509,10 +537,10 @@ class cNation
 
 	inline int		GetPointMAXIndex(unsigned short Point[3]);										// LTS NEW LOCALWAR	
 	inline int		GetPointMAXIndex();										//030505 kyo 한번만에 국지전승리국가를 리턴한다.
-	inline int		GetPointEqual(int Index,unsigned short Point[3]);								// LTS NEW LOCALWAR	
-	inline int		GetLPointEqual(int Index,unsigned short Point[3],unsigned short DPoint[3]);				// LTS NEW LOCALWAR	
+	inline int		GetPointEqual(int Index, unsigned short Point[3]);								// LTS NEW LOCALWAR	
+	inline int		GetLPointEqual(int Index, unsigned short Point[3], unsigned short DPoint[3]);				// LTS NEW LOCALWAR	
 
-public :
+public:
 
 	cNation();
 	~cNation();
@@ -521,8 +549,8 @@ public :
 	bool LoadWarfieldData();
 	bool InitLocalWarfield();
 
-	void SetWarFieldStatus(int WarfieldNo,int Status);
-	void CheckWarFieldStatus(int WarfieldNo,int Status);
+	void SetWarFieldStatus(int WarfieldNo, int Status);
+	void CheckWarFieldStatus(int WarfieldNo, int Status);
 	int  GetWarfieldStatus(int WarfieldNo);
 
 	void			CheckStartWarfieldWar();						// New		Day of Week
@@ -533,30 +561,30 @@ public :
 
 	int  GetVoteData(int WarfieldNo) { return m_VoteData[WarfieldNo]; }
 	void IncVoteData(int WarfieldNo) { m_VoteData[WarfieldNo]++; }
-	void InitVoteData(int WarfieldNo) { m_VoteData[WarfieldNo]=0; }
+	void InitVoteData(int WarfieldNo) { m_VoteData[WarfieldNo] = 0; }
 
 	void ClearWarfieldData(int Warfieldno);
 
-	DWORD GetWarCount() { return (DWORD)m_WarNo%128; }
-	int   GetWarNo()  { return m_WarNo; }
+	DWORD GetWarCount() { return (DWORD)m_WarNo % 128; }
+	int   GetWarNo() { return m_WarNo; }
 
-	int GetSquadKind(int Nation,int WarfieldNo)
+	int GetSquadKind(int Nation, int WarfieldNo)
 	{
-		int tempNation=Warfield[WarfieldNo].GetNationCode();
-		if (Nation==NW_YL) return NW_REINFORCE;
-		if (Nation==tempNation) return NW_DEFENCER;
+		int tempNation = Warfield[WarfieldNo].GetNationCode();
+		if (Nation == NW_YL) return NW_REINFORCE;
+		if (Nation == tempNation) return NW_DEFENCER;
 		else return NW_ATTACKER;
 	}
 
 	int GetAttacker(int WarfieldNo)
 	{
-		if (Warfield[WarfieldNo].GetNationCode()==NW_BY) return NW_ZY;
+		if (Warfield[WarfieldNo].GetNationCode() == NW_BY) return NW_ZY;
 		else return NW_BY;
 	}
 
 	int GetDefender(int WarfieldNo)
 	{
-		if (Warfield[WarfieldNo].GetNationCode()==NW_BY) return NW_BY;
+		if (Warfield[WarfieldNo].GetNationCode() == NW_BY) return NW_BY;
 		else return NW_ZY;
 	}
 
@@ -565,107 +593,107 @@ public :
 		return NW_YL;
 	}
 
-	int GetNation(int WarfieldNo,int Kind)
+	int GetNation(int WarfieldNo, int Kind)
 	{
-		int tempNation=Warfield[WarfieldNo].GetNationCode();
-		switch(Kind)
+		int tempNation = Warfield[WarfieldNo].GetNationCode();
+		switch (Kind)
 		{
-		case NW_ATTACKER :
-			if (tempNation==NW_BY) return NW_ZY;
+		case NW_ATTACKER:
+			if (tempNation == NW_BY) return NW_ZY;
 			else return NW_BY;
 			break;
-		case NW_DEFENCER :
+		case NW_DEFENCER:
 			return tempNation;
 			break;
-		case NW_REINFORCE :
+		case NW_REINFORCE:
 			return NW_YL;
 			break;
 		}
 	}
 
-	t_SquadInformation*	GetSquadInfo(int Nation,int WarfieldNo,int SquadNo) 
-	{ 
-		return Warfield[WarfieldNo].GetSquadInfo(GetSquadKind(Nation,WarfieldNo),SquadNo); 
-	}
-
-    void IncSquadMemberCount(int Nation,int WarfieldNo,int SquadNo) 
-	{ 
-		Warfield[WarfieldNo].IncSquadMemberCount(GetSquadKind(Nation,WarfieldNo),SquadNo); 
-
-	}
-	void DecSquadMemberCount(int Nation,int WarfieldNo,int SquadNo) 
-	{ 
-		Warfield[WarfieldNo].DecSquadMemberCount(GetSquadKind(Nation,WarfieldNo),SquadNo); 
-	}
-	int GetSquadMemberCount(int Nation,int WarfieldNo,int SquadNo) 
-	{ 
-		return Warfield[WarfieldNo].GetSquadMemberCount(GetSquadKind(Nation,WarfieldNo),SquadNo); 
-	}
-	void SetSquadLoadingPoint(int Nation,int WarfieldNo,int SquadNo,int LoadingPoint) 
-	{ 
-		Warfield[WarfieldNo].SetSquadLoadingPoint(GetSquadKind(Nation,WarfieldNo),SquadNo,LoadingPoint); 
-	}
-	void SetSquadLeader(int Nation,int WarfieldNo,int SquadNo,t_CommanderInformation* SquadLeaderInfo) 
-	{ 
-		Warfield[WarfieldNo].SetSquadLeader(GetSquadKind(Nation,WarfieldNo),SquadNo,SquadLeaderInfo); 
-	}
-
-	t_CommanderInformation* GetCommanderInfo(int Nation,int WarfieldNo) 
-	{ 
-		return Warfield[WarfieldNo].GetCommanderInfo(GetSquadKind(Nation,WarfieldNo)); 
-	}
-
-	t_CommanderInformation* GetCommanderInfoByKind(int Kind,int WarfieldNo) 
-	{ 
-		return Warfield[WarfieldNo].GetCommanderInfo(Kind); 
-	}
-
-	t_CommanderInformation* GetCandidaterInfo(int Nation,int WarfieldNo,int CandidaterNo) 
-	{ 
-		return Warfield[WarfieldNo].GetCandidaterInfo(GetSquadKind(Nation,WarfieldNo),CandidaterNo); 
-	}
-	void IncCommanderVoteData(int Nation,int WarfieldNo,int CandidaterNo) 
-	{ 
-		Warfield[WarfieldNo].IncCommanderVoteData(GetSquadKind(Nation,WarfieldNo),CandidaterNo); 
-	}
-	int GetCommanderVoteData(int Nation,int WarfieldNo,int CandidaterNo) 
-	{ 
-		return Warfield[WarfieldNo].GetCommanderVoteData(GetSquadKind(Nation,WarfieldNo),CandidaterNo); 
-	}
-	int GetCommanderVoteDataByKind(int WarfieldNo,int Kind,int CandidaterNo)
+	t_SquadInformation*	GetSquadInfo(int Nation, int WarfieldNo, int SquadNo)
 	{
-		return Warfield[WarfieldNo].GetCommanderVoteData(Kind,CandidaterNo);
+		return Warfield[WarfieldNo].GetSquadInfo(GetSquadKind(Nation, WarfieldNo), SquadNo);
 	}
-	bool CanRegCommanderCandidater(int Nation,int WarfieldNo,int CandidaterNo) 
-	{ 
-		return Warfield[WarfieldNo].CanRegCommanderCandidater(GetSquadKind(Nation,WarfieldNo),CandidaterNo); 
-	} 
-	void SetCandidaterInfo(int Nation,int WarfieldNo,int CandidaterNo,t_CommanderInformation* CandidaterInfo) 
-	{ 
-		Warfield[WarfieldNo].SetCandidaterInfo(GetSquadKind(Nation,WarfieldNo),CandidaterNo,CandidaterInfo); 
-	}
-	void SetCommander(int WarfieldNo,int Kind,int CandidaterNo)
+
+	void IncSquadMemberCount(int Nation, int WarfieldNo, int SquadNo)
 	{
-		Warfield[WarfieldNo].SetCommander(Kind,CandidaterNo);
+		Warfield[WarfieldNo].IncSquadMemberCount(GetSquadKind(Nation, WarfieldNo), SquadNo);
+
+	}
+	void DecSquadMemberCount(int Nation, int WarfieldNo, int SquadNo)
+	{
+		Warfield[WarfieldNo].DecSquadMemberCount(GetSquadKind(Nation, WarfieldNo), SquadNo);
+	}
+	int GetSquadMemberCount(int Nation, int WarfieldNo, int SquadNo)
+	{
+		return Warfield[WarfieldNo].GetSquadMemberCount(GetSquadKind(Nation, WarfieldNo), SquadNo);
+	}
+	void SetSquadLoadingPoint(int Nation, int WarfieldNo, int SquadNo, int LoadingPoint)
+	{
+		Warfield[WarfieldNo].SetSquadLoadingPoint(GetSquadKind(Nation, WarfieldNo), SquadNo, LoadingPoint);
+	}
+	void SetSquadLeader(int Nation, int WarfieldNo, int SquadNo, t_CommanderInformation* SquadLeaderInfo)
+	{
+		Warfield[WarfieldNo].SetSquadLeader(GetSquadKind(Nation, WarfieldNo), SquadNo, SquadLeaderInfo);
+	}
+
+	t_CommanderInformation* GetCommanderInfo(int Nation, int WarfieldNo)
+	{
+		return Warfield[WarfieldNo].GetCommanderInfo(GetSquadKind(Nation, WarfieldNo));
+	}
+
+	t_CommanderInformation* GetCommanderInfoByKind(int Kind, int WarfieldNo)
+	{
+		return Warfield[WarfieldNo].GetCommanderInfo(Kind);
+	}
+
+	t_CommanderInformation* GetCandidaterInfo(int Nation, int WarfieldNo, int CandidaterNo)
+	{
+		return Warfield[WarfieldNo].GetCandidaterInfo(GetSquadKind(Nation, WarfieldNo), CandidaterNo);
+	}
+	void IncCommanderVoteData(int Nation, int WarfieldNo, int CandidaterNo)
+	{
+		Warfield[WarfieldNo].IncCommanderVoteData(GetSquadKind(Nation, WarfieldNo), CandidaterNo);
+	}
+	int GetCommanderVoteData(int Nation, int WarfieldNo, int CandidaterNo)
+	{
+		return Warfield[WarfieldNo].GetCommanderVoteData(GetSquadKind(Nation, WarfieldNo), CandidaterNo);
+	}
+	int GetCommanderVoteDataByKind(int WarfieldNo, int Kind, int CandidaterNo)
+	{
+		return Warfield[WarfieldNo].GetCommanderVoteData(Kind, CandidaterNo);
+	}
+	bool CanRegCommanderCandidater(int Nation, int WarfieldNo, int CandidaterNo)
+	{
+		return Warfield[WarfieldNo].CanRegCommanderCandidater(GetSquadKind(Nation, WarfieldNo), CandidaterNo);
+	}
+	void SetCandidaterInfo(int Nation, int WarfieldNo, int CandidaterNo, t_CommanderInformation* CandidaterInfo)
+	{
+		Warfield[WarfieldNo].SetCandidaterInfo(GetSquadKind(Nation, WarfieldNo), CandidaterNo, CandidaterInfo);
+	}
+	void SetCommander(int WarfieldNo, int Kind, int CandidaterNo)
+	{
+		Warfield[WarfieldNo].SetCommander(Kind, CandidaterNo);
 	}
 
 	int  GetWarfieldNationCode(int WarfieldNo) { return Warfield[WarfieldNo].GetNationCode(); }
-	int  GetWarfieldNationCode() 
+	int  GetWarfieldNationCode()
 	{
-		if (Warfield[0].GetStatus()>=2) return Warfield[0].GetNationCode();
-		if (Warfield[1].GetStatus()>=2) return Warfield[1].GetNationCode();
-		if (Warfield[2].GetStatus()>=2) return Warfield[2].GetNationCode();
+		if (Warfield[0].GetStatus() >= 2) return Warfield[0].GetNationCode();
+		if (Warfield[1].GetStatus() >= 2) return Warfield[1].GetNationCode();
+		if (Warfield[2].GetStatus() >= 2) return Warfield[2].GetNationCode();
 	}
-	void SetWarfieldNationCode(int WarfieldNo,int Code) {Warfield[WarfieldNo].SetNationCode(Code); }
+	void SetWarfieldNationCode(int WarfieldNo, int Code) { Warfield[WarfieldNo].SetNationCode(Code); }
 
-	const char* GetCommanderName(int WarfieldNo,int Nation) { return Warfield[WarfieldNo].GetCommanderName(GetSquadKind(Nation,WarfieldNo)); }
-	const char* GetCandidaterName(int WarfieldNo,int Nation,int CandidaterNo) { return Warfield[WarfieldNo].GetCandidaterName(GetSquadKind(Nation,WarfieldNo),CandidaterNo); }
-	const int GetCandidaterVoteCount(int WarfieldNo,int Nation,int CandidaterNo) { return Warfield[WarfieldNo].GetCandidaterVoteCount(GetSquadKind(Nation,WarfieldNo),CandidaterNo); }
-	char GetSquadLoadingPoint(int WarfieldNo,int Kind,int SquadNo) { return Warfield[WarfieldNo].GetSquadLoadingPoint(Kind,SquadNo); }
-	char GetSquadRareSok(int WarfieldNo,int Kind,int SquadNo,int SokNo) { return Warfield[WarfieldNo].GetSquadRareSok(Kind,SquadNo,SokNo); }
-	char* GetSquadRareSok2(int WarfieldNo,int Kind,int SquadNo) { return Warfield[WarfieldNo].GetSquadRareSok2(Kind,SquadNo); }
+	const char* GetCommanderName(int WarfieldNo, int Nation) { return Warfield[WarfieldNo].GetCommanderName(GetSquadKind(Nation, WarfieldNo)); }
+	const char* GetCandidaterName(int WarfieldNo, int Nation, int CandidaterNo) { return Warfield[WarfieldNo].GetCandidaterName(GetSquadKind(Nation, WarfieldNo), CandidaterNo); }
+	const int GetCandidaterVoteCount(int WarfieldNo, int Nation, int CandidaterNo) { return Warfield[WarfieldNo].GetCandidaterVoteCount(GetSquadKind(Nation, WarfieldNo), CandidaterNo); }
+	char GetSquadLoadingPoint(int WarfieldNo, int Kind, int SquadNo) { return Warfield[WarfieldNo].GetSquadLoadingPoint(Kind, SquadNo); }
+	char GetSquadRareSok(int WarfieldNo, int Kind, int SquadNo, int SokNo) { return Warfield[WarfieldNo].GetSquadRareSok(Kind, SquadNo, SokNo); }
+	char* GetSquadRareSok2(int WarfieldNo, int Kind, int SquadNo) { return Warfield[WarfieldNo].GetSquadRareSok2(Kind, SquadNo); }
 
-	char* GetLeadCandidaterName(int WarfieldNo,int Kind)
+	char* GetLeadCandidaterName(int WarfieldNo, int Kind)
 	{
 		return Warfield[WarfieldNo].GetLeadCandidaterName(Kind);
 	}
@@ -675,7 +703,7 @@ public :
 	//< LTH-040206-KO 1.4 패치 후 새 전쟁터 덕분에 cpp 파일로 이전
 	bool CheckSecretPlaceOpen();
 	int GetSecretOpenedWarfieldNo();
-	void SetRemainTime(int WarfieldNo,DWORD RemainTime);
+	void SetRemainTime(int WarfieldNo, DWORD RemainTime);
 	DWORD GetRemainTime(int WarfieldNo);
 	//> LTH-040206-KO
 
@@ -684,20 +712,20 @@ public :
 
 	VOID GetNeoWarRemainTime(char* ReturnStr);
 
-	void SetSecretOpen(int WarfieldNo,bool isActive) { Warfield[WarfieldNo].SetSecretOpen(isActive); }	// 011025 LTS
+	void SetSecretOpen(int WarfieldNo, bool isActive) { Warfield[WarfieldNo].SetSecretOpen(isActive); }	// 011025 LTS
 
 	void SetLocalWarStatus(int isStart);
 	void SetLocalWarStatus2(int isStart);				// LTS NEW LOCALWAR
-	int	 GetLocalWarStatus()			{ return m_LocalWarStart; }
+	int	 GetLocalWarStatus() { return m_LocalWarStart; }
 
 	//LocalWarfield_Info	GetLocalWarfieldInfo(int Index) { return LocalWarfield[Index].GetLocalWarfieldInfo(); }
 	//void				SetLocalWarfieldInfo(int Index, LocalWarfield_Info LF) { LocalWarfield[Index].SetLocalWarfieldInfo(LocalWarfield_Info LF); }
 
 	int				ConvertNation2Index(int Nation) { return LocalWarfield[0].ConvertNation2Index(Nation); }
 	short			GetLocalWarfieldManCount(int NationIndex);
-	short			GetLocalWarfieldManCount(int Index,int NationIndex) {return LocalWarfield[Index].GetManCount(NationIndex); }
-	void			IncLocalWarfieldManCount(int Index,int NationIndex);
-	void			DecLocalWarfieldManCount(int Index,int NationIndex);
+	short			GetLocalWarfieldManCount(int Index, int NationIndex) { return LocalWarfield[Index].GetManCount(NationIndex); }
+	void			IncLocalWarfieldManCount(int Index, int NationIndex);
+	void			DecLocalWarfieldManCount(int Index, int NationIndex);
 	void			ClearLocalWarfieldManCount();
 
 	/*short 			GetLocalWarfieldPoint(int NationIndex);
@@ -706,17 +734,17 @@ public :
 	void			ClearLocalWarfieldPoint();*/
 
 	short 			GetLocalWarPoint(int NationIndex) { return m_LocalWarPoint[NationIndex]; }
-	void			IncLocalWarPoint(int NationIndex,int Value) { m_LocalWarPoint[NationIndex]+=Value; }
-	void			ClearLocalWarPoint() { m_LocalWarPoint[0]=0;m_LocalWarPoint[1]=0;m_LocalWarPoint[2]=0; }
-	void			ClearLocalWarDefencePoint() {m_LocalWarDefencePoint[0]=100;m_LocalWarDefencePoint[1]=100;m_LocalWarDefencePoint[2]=100;}
-	void			ClearLocalWarRemainTime() { g_LocalWarRemainTime=0; }
-	__int64			GetLocalWarRemainTime()	{ return g_LocalWarRemainTime; }	// 020115 LTS
+	void			IncLocalWarPoint(int NationIndex, int Value) { m_LocalWarPoint[NationIndex] += Value; }
+	void			ClearLocalWarPoint() { m_LocalWarPoint[0] = 0; m_LocalWarPoint[1] = 0; m_LocalWarPoint[2] = 0; }
+	void			ClearLocalWarDefencePoint() { m_LocalWarDefencePoint[0] = 100; m_LocalWarDefencePoint[1] = 100; m_LocalWarDefencePoint[2] = 100; }
+	void			ClearLocalWarRemainTime() { g_LocalWarRemainTime = 0; }
+	__int64			GetLocalWarRemainTime() { return g_LocalWarRemainTime; }	// 020115 LTS
 
-	void			SetSealStoneStatus(int NationIndex,int SealNo,int Status, int nHP);// 030516 kyo // LTS NEW LOCALWAR	
+	void			SetSealStoneStatus(int NationIndex, int SealNo, int Status, int nHP);// 030516 kyo // LTS NEW LOCALWAR	
 	void			CheckSealStoneStatus();												// LTS NEW LOCALWAR	
 	inline int		CheckAllSealStoneBroked(int NationIndex);							// LTS NEW LOCALWAR	
 	void			ClearLocalWarResult();												// LTS NEW LOCALWAR	
-	inline void		SetLocalWarResult(int NationIndex,int Result);						// LTS NEW LOCALWAR	
+	inline void		SetLocalWarResult(int NationIndex, int Result);						// LTS NEW LOCALWAR	
 	void			CalcDefencePoint(int NationIndex);									// LTS NEW LOCALWAR	
 	int				CheckWinNation();													// LTS NEW LOCALWAR	
 	int				CheckLocalWarResult();												// LTS NEW LOCALWAR	
@@ -731,7 +759,7 @@ public :
 	void			SaveWarNo();														// LTS NEW_NATION_WAR
 	bool			CheckWarStart();													// LTS NEW_NATION_WAR
 	int				GetNewWarfieldStatus(int Index);												// LTS NEW_NATION_WAR
-	void			SetNewWarfieldStatus(int Index,int Status);												// LTS NEW_NATION_WAR	
+	void			SetNewWarfieldStatus(int Index, int Status);												// LTS NEW_NATION_WAR	
 	bool			InitNewWarfield();
 
 	void			CheckAndSendWarStart(t_packet* p);
@@ -740,7 +768,7 @@ public :
 	void			GetAllLocalSealStoneHP();			//030506 kyo // 국지전에서 모든 결계석의 HP량
 
 	unsigned long	GetLocalWarAllSealStoneHP(const int nNationIndex) const { return m_nAllLocalWarSealStoneHP[nNationIndex]; };
-	
+
 public:
 	void SetWarStartInfo(CWarStartInfo* pWarStartInfo)
 	{	//< CSD-030723
@@ -757,13 +785,13 @@ public:
 
 private:
 	CWarStartInfo* m_pWarStartInfo; // CSD-030723
-};	
+};
 
 
-typedef void	*LPVOID,**LP2VOID;
+typedef void	*LPVOID, **LP2VOID;
 typedef class CTeam															// Team Class 는 분리...
 {
-	typedef list<SquadMember*>		TeamList;				
+	typedef list<SquadMember*>		TeamList;
 	typedef TeamList::iterator		TeamItor;
 
 	TeamList						m_TeamList;
@@ -777,7 +805,7 @@ typedef class CTeam															// Team Class 는 분리...
 	int								m_NationMember[3];
 
 
-public :
+public:
 
 	CTeam();
 	~CTeam();
@@ -792,7 +820,7 @@ public :
 	bool	CheckTeam(int cn);
 	void	KickTeamAll();
 	void	KickUser(int ID);
-	void	GiveFame(LPCHARLIST pCaster,LPCHARLIST pTarget,int Range,int AddFame);
+	void	GiveFame(LPCHARLIST pCaster, LPCHARLIST pTarget, int Range, int AddFame);
 	void	GiveFame2All(int AddFame);
 	int		GetNationCount(int Nation);
 	void	AddDesthCount();
@@ -830,7 +858,7 @@ protected:	// LTH-040216-KO 상속 받기 위해
 	//int				m_iTypeCount[3];
 	int				m_iTypeCount[4];	// 0 : 보스, 1 : 가드, 2 성문, 3 : 외성수호석 LTH-040311-KO
 
-public :
+public:
 
 	CGuardStone();
 	~CGuardStone();
@@ -862,10 +890,10 @@ public :
 	void			GetTileDont(DONT_DATA* lpDontData);
 	void			GetStatus(char* lpStatus);
 
-	void			SendBrokeBBS(int Team,int Type,int No,LPCHARLIST pTarget);
+	void			SendBrokeBBS(int Team, int Type, int No, LPCHARLIST pTarget);
 
 	LPGDATA			GetGData(const int nIndex); // 030506 kyo
-	int				GetCount(){return m_iGDataCount;};	// 030506 kyo
+	int				GetCount() { return m_iGDataCount; };	// 030506 kyo
 
 }*LPGUARDSTONE;
 
@@ -885,8 +913,8 @@ class CNewWarfield
 	LPTEAM			m_pTeam;
 	LPGUARDSTONE	m_pGuard;
 	int				m_iTeamCount;
-	int				m_iWarfieldNo; 
-	
+	int				m_iWarfieldNo;
+
 	WarTimeData		m_Time;
 	int				m_iStatus;						// 0 : PEACE, 1:WAR, 2 : SOPEN
 
@@ -902,7 +930,7 @@ class CNewWarfield
 	long			m_nAllNormalGStoneHP[2];		// 030506 kyo
 	long			m_nAllGatelHP[2];				// 030506 kyo
 
-public :
+public:
 
 	CNewWarfield();
 	~CNewWarfield();
@@ -929,18 +957,18 @@ public :
 	void			UpdateWar();
 	void			UpdateSOpen();
 
-	bool			isMyTeam(LPCHARLIST lpChar,int NPCNo);
+	bool			isMyTeam(LPCHARLIST lpChar, int NPCNo);
 	int				GetTeamNo(LPCHARLIST lpChar);
 
-	bool			CanAttackGuard(LPCHARLIST pCaster,LPCHARLIST pTarget);
+	bool			CanAttackGuard(LPCHARLIST pCaster, LPCHARLIST pTarget);
 
 	void			KickAllUser2Home();
 
 	void			SetWinTeam(int TeamNo);
 	int				GetWinTeam();
 
-	void			UpdateGuardStatus(LPCHARLIST pCaster,LPCHARLIST pTarget);
-	void			GiveFame(int TeamNo,LPCHARLIST pCaster,LPCHARLIST pTarget);
+	void			UpdateGuardStatus(LPCHARLIST pCaster, LPCHARLIST pTarget);
+	void			GiveFame(int TeamNo, LPCHARLIST pCaster, LPCHARLIST pTarget);
 	void			SendWarResult();
 
 	void			CountDeath(LPCHARLIST lpChar);
@@ -951,7 +979,7 @@ public :
 	void			DeleteMember(int cn);
 	void			LoopTimeChange(t_packet* p);
 
-	void			SendSquadChat(LPCHARLIST lpChar,t_packet* p);
+	void			SendSquadChat(LPCHARLIST lpChar, t_packet* p);
 	POINT			GetLivePoint(LPCHARLIST lpChar);
 
 	int				GetNationMemberMax(int Nation);
@@ -962,17 +990,17 @@ public :
 	void			MakeMonster();
 
 	//<< 030506 kyo
-	long			GetAllGDataTypeHP(const int nTeamNum , const int nType); // 030506 kyo
+	long			GetAllGDataTypeHP(const int nTeamNum, const int nType); // 030506 kyo
 	void			GetAllGuardsHP(); // 030506 kyo
 	void			CheckWinTeam(); //030506 kyo //계산해서 이긴팀이 어딘지 알아보구.. 결과도 설정한다.
 
-	
-	long			GetFinalGStoneHP(const int nTeamNum );			
-	long			GetAllNormalGStoneHP(const int nTeamNum );		
-	long			GetAllGatelHP(const int nTeamNum );		
-	void			SetFinalGStoneHP(const int nTeamNum, long lAllHP );
-	void			SetAllNormalGStoneHP(const int nTeamNum, long lAllHP );
-	void			SetAllGatelHP(const int nTeamNum, long lAllHP );
+
+	long			GetFinalGStoneHP(const int nTeamNum);
+	long			GetAllNormalGStoneHP(const int nTeamNum);
+	long			GetAllGatelHP(const int nTeamNum);
+	void			SetFinalGStoneHP(const int nTeamNum, long lAllHP);
+	void			SetAllNormalGStoneHP(const int nTeamNum, long lAllHP);
+	void			SetAllGatelHP(const int nTeamNum, long lAllHP);
 	void			ClearFinalGStoneHP();
 	void			ClearAllNormalGStoneHP();
 	void			ClearAllGatelHP();
@@ -982,21 +1010,21 @@ public :
 //< LTH-040429-KO 평화 기간 전쟁터 맵 이동 결과
 enum eNW_PEACE_MOVE_RESULT
 {
-	NPM_OK					= 0,	// 이동 가능
-	NPM_FAIL_NOT_PEACE		= 1,	// 평화 상태가 아니다
-	NPM_FAIL_NO_POSSESSION	= 2,	// 소유 전쟁터가 아니다
-	NPM_FAIL_NOT_BANK_MONEY	= 3,	// 은행에 돈이 없다
-	NPM_FAIL_SAME_WARFIELD	= 4,	// 전쟁터에서 같은 전쟁터로 이동
+	NPM_OK = 0,	// 이동 가능
+	NPM_FAIL_NOT_PEACE = 1,	// 평화 상태가 아니다
+	NPM_FAIL_NO_POSSESSION = 2,	// 소유 전쟁터가 아니다
+	NPM_FAIL_NOT_BANK_MONEY = 3,	// 은행에 돈이 없다
+	NPM_FAIL_SAME_WARFIELD = 4,	// 전쟁터에서 같은 전쟁터로 이동
 	NPM_MAX,						// 최대 결과 값
 };
 //> LTH-040429-KO 
- 
+
 //< LTH-040507-KO 전쟁터 유저 방출 BBS공지 종류
 enum eNW_GO_OUTSIDE_BBS
 {
-	NGOB_ERROR				= 0,	// Error Message.
-	NGOB_DEMEND_GO_OUT		= 1,	// 전쟁터에서 나가 주세요라고 정중하게 얘기해보는 것.
-	NGOB_RETURN_VILLAGE		= 2,	// 마을로 이동합니다 하는 공지
+	NGOB_ERROR = 0,	// Error Message.
+	NGOB_DEMEND_GO_OUT = 1,	// 전쟁터에서 나가 주세요라고 정중하게 얘기해보는 것.
+	NGOB_RETURN_VILLAGE = 2,	// 마을로 이동합니다 하는 공지
 	NGOB_MAX,
 };
 //> LTH-040507-KO

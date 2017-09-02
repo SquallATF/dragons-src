@@ -8,12 +8,12 @@
 
 enum eLF_TYPE//enum Log Fame
 {
-	LF_DUAL						=0,			// 듀얼소비
-	LF_LOCALWAR					=1,			// 국지전
-	LF_ITEMBUY					=2,			// 국가고급아이템
-	LF_DONATION					=3,			// 국가기부
-	LF_NATIONWAR				=4,			// 국가전
-	LF_SCRIPT					=5			// 스크립트
+	LF_DUAL = 0,			// 듀얼소비
+	LF_LOCALWAR = 1,			// 국지전
+	LF_ITEMBUY = 2,			// 국가고급아이템
+	LF_DONATION = 3,			// 국가기부
+	LF_NATIONWAR = 4,			// 국가전
+	LF_SCRIPT = 5			// 스크립트
 };
 
 #include <list>						// LTS DRAGONLORD
@@ -25,7 +25,7 @@ struct LocalWarfield_Info			// LTS NEW LOCALWAR
 	int				Phase;			// 맵에서 맵으로의 위치 
 	char			MapName[20];
 	int				Port;
-	int				SealNo[3][4];		
+	int				SealNo[3][4];
 };
 
 struct SealStoneStatus
@@ -42,14 +42,14 @@ class cLocalWarfield
 	LocalWarfield_Info	m_tLocalWarfieldInfo;
 
 	short				m_ManCount[LOCALWAR_NATION_MAX];
-//	short				m_LocalWarPoint[LOCALWAR_NATION_MAX];
+	//	short				m_LocalWarPoint[LOCALWAR_NATION_MAX];
 	int					m_bisLocalWarActive;
 
 	int					m_SealStoneNo[NW_NATION_COUNT][LOCALWAR_SEALSTONE_MAX];			// LTS NEW LOCALWAR
 	CHARLIST*			m_SealStonePtr[NW_NATION_COUNT][LOCALWAR_SEALSTONE_MAX];		// LTS NEW LOCALWAR
 
 
-public :
+public:
 
 	cLocalWarfield();
 	~cLocalWarfield() {}
@@ -57,7 +57,7 @@ public :
 	LocalWarfield_Info	GetLocalWarfieldInfo() { return m_tLocalWarfieldInfo; }
 	void				SetLocalWarfieldInfo(LocalWarfield_Info LF);
 	int					GetLocalWarfieldPhase() { return m_tLocalWarfieldInfo.Phase; }
-	int					GetLocalWarfieldIndex()	{ return m_tLocalWarfieldInfo.Index; }
+	int					GetLocalWarfieldIndex() { return m_tLocalWarfieldInfo.Index; }
 
 	int				ConvertNation2Index(int Nation);
 	short			GetManCount(int NationIndex) { return m_ManCount[NationIndex]; }
@@ -65,17 +65,17 @@ public :
 	void			DecManCount(int NationIndex) { m_ManCount[NationIndex]--; }
 	void			ClearManCount();
 
-/*	short			GetPoint(int NationIndex) { return m_LocalWarPoint[NationIndex]; }
-	void			IncPoint(int NationIndex,int Value) { m_LocalWarPoint[NationIndex]+=Value; }
-	void			ClearPoint();*/
+	/*	short			GetPoint(int NationIndex) { return m_LocalWarPoint[NationIndex]; }
+		void			IncPoint(int NationIndex,int Value) { m_LocalWarPoint[NationIndex]+=Value; }
+		void			ClearPoint();*/
 
 	int				GetLocalWarStatus() { return m_bisLocalWarActive; }
-	void			SetLocalWarStatus(int Status) { m_bisLocalWarActive=Status; }
+	void			SetLocalWarStatus(int Status) { m_bisLocalWarActive = Status; }
 
 	int				CheckAllSealStonebroked(int NationIndex);						// LTS NEW LOCALWAR
 	void			CheckSealStonePtr(CHARLIST* ch);								// LTS NEW LOCALWAR
 	void			ClearSealStonePtr();											// LTS NEW LOCALWAR
-	CHARLIST*		GetSealStonePtr( const int nNation, const int nStoneNum );		// 030506 kyo //해당 결계석의 포인터를 리턴한다.
+	CHARLIST*		GetSealStonePtr(const int nNation, const int nStoneNum);		// 030506 kyo //해당 결계석의 포인터를 리턴한다.
 	void			RecoveryAllSealStone(); // 030520 kyo
 };
 
@@ -115,15 +115,15 @@ class cEventLocalWarfield			// 020115 LTS
 	__int64			m_EventEndTime;			// TimeUpdate 시간 
 	EventMapData	m_tData;					// 이벤트 맵데이타
 	int				m_CheckLoadData;			// 데이터 로딩 이상없나 체크
-	WORD			m_ManCount[3];				
+	WORD			m_ManCount[3];
 	int				m_nEventPoint;				// LTH-040729-CN 이벤트 국지전 수정. MapServerConfig.ini에서 읽어온다.
-public :
+public:
 	cEventLocalWarfield();
 	~cEventLocalWarfield();
 
 	void			InitEventLocalWarfield();
 	void			LoadEventLocalWarfieldData();
-	inline int		CheckLoadData()				{ return m_CheckLoadData; }
+	inline int		CheckLoadData() { return m_CheckLoadData; }
 	void			InitEvent();
 
 	void			ClearUserCloth();
@@ -140,17 +140,17 @@ public :
 	void			LogJoinUser();
 	void			LogVictoryUser();
 	int				GetNationIndex(int Nation);
-	inline int		GetEventStatus()			{ return m_EventStatus; }		
+	inline int		GetEventStatus() { return m_EventStatus; }
 
 	inline bool		CheckLevel(int Level);
 	inline bool		IncManCount(int Nation);
-	inline void		ClearManCount()				{ m_ManCount[0]=0;m_ManCount[1]=0;m_ManCount[2]=0; }
+	inline void		ClearManCount() { m_ManCount[0] = 0; m_ManCount[1] = 0; m_ManCount[2] = 0; }
 
-	inline int		GetEventPointSetting()		{ return m_nEventPoint; }		// LTH-040729-CN 세팅된 이벤트 포인트 불러오기.
+	inline int		GetEventPointSetting() { return m_nEventPoint; }		// LTH-040729-CN 세팅된 이벤트 포인트 불러오기.
 };
 
 typedef list<int>					MemberList;
-typedef MemberList::iterator		MemberListItor;	
+typedef MemberList::iterator		MemberListItor;
 
 #define BLUETEAM				0
 #define REDTEAM					1
@@ -178,12 +178,12 @@ class cDragonLordWar													// LTS DRAGONLORD
 
 	POINT			KickPoint[3];
 
-	void			(*DeActiveFunc)();
-	void			(*MessageFunc)();
-	
+	void(*DeActiveFunc)();
+	void(*MessageFunc)();
+
 	void			SetTimer(DWORD	WarTime);
 	void			SetMessageTime(DWORD MsgTime);
-	void			PushMember(int Type,int ID);
+	void			PushMember(int Type, int ID);
 	void			ClearMemberList();
 	void			ClearMemberCount();
 	void			SetReturnFunc(void(*pFunc)());
@@ -197,19 +197,19 @@ class cDragonLordWar													// LTS DRAGONLORD
 	void			KickTeamAll();
 	void			KickTeam(int Type);
 	void			KickUser(int ID);
-	void			SendTeamChange(int ID,int TeamNo);
+	void			SendTeamChange(int ID, int TeamNo);
 	void			CheckRemainTime();
 
-public :
+public:
 
 	cDragonLordWar();
 	~cDragonLordWar();
 
 	DWORD			GetRemainTime();
-	void			ActiveWar(DWORD WarTime,void(*pFunc)(),DWORD MessageTime,void(*pMsgFunc)(),POINT* kPoint,int RedTeamCount,int* RedTeam,int BlueTeamCount,int* BlueTeam);
+	void			ActiveWar(DWORD WarTime, void(*pFunc)(), DWORD MessageTime, void(*pMsgFunc)(), POINT* kPoint, int RedTeamCount, int* RedTeam, int BlueTeamCount, int* BlueTeam);
 	void			DeActiveWar();
-	void			SetTeamList(int Type,int Count,int* Member);	// Type RED:0,BLUE:1
-	void			FindAndDeleteMember(int ID,bool Kick=true);
+	void			SetTeamList(int Type, int Count, int* Member);	// Type RED:0,BLUE:1
+	void			FindAndDeleteMember(int ID, bool Kick = true);
 	void			UpdateWarTimer();
 	bool			GetWarStatus();
 	int				ReturnWinMemberCount();

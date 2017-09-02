@@ -12,6 +12,6 @@ extern HANDLE hKeyEvent[5];	// 010205 KHS
 bool InitMapServer();
 bool Init();
 void __stdcall OnDisconnectServer(DWORD dwConnectionIndex);
-void EndMapServer();		
+void EndMapServer();
 
 #endif

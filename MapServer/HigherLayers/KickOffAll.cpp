@@ -25,7 +25,7 @@ CKickOffAll::CKickOffAll()
 CKickOffAll::~CKickOffAll()
 {
 	//<! BBD 040401
-	 m_nKickAmount1Time = 0;
+	m_nKickAmount1Time = 0;
 	//> BBD 040401
 }
 
@@ -37,19 +37,19 @@ CKickOffAll::~CKickOffAll()
 /////////////////////////////////////////////////////
 bool CKickOffAll::InitKickOffUserAll()
 {
-//<! BBD 040401
-/*
-	if(!g_pUserManager)		// 유효한지 검사
-	{
-		return false;
-	}
-	HASH_USER users = g_pUserManager->GetUserSet();
-	m_nConnectAmount = users.size();
-*/
-//>! BBD 040401
-	m_nKickAmount1Time =GetPrivateProfileInt("KICKOFF_INFO", "KickAmount1Times" , 0, MapServerConfigFileName);
-	
-	if(!m_nKickAmount1Time) // 한번에 암두 않잘르면 할게 없더
+	//<! BBD 040401
+
+		//if(!g_pUserManager)		// 유효한지 검사
+		//{
+		//	return false;
+		//}
+		//HASH_USER users = g_pUserManager->GetUserSet();
+		//m_nConnectAmount = users.size();
+
+	//>! BBD 040401
+	m_nKickAmount1Time = GetPrivateProfileInt("KICKOFF_INFO", "KickAmount1Times", 0, MapServerConfigFileName);
+
+	if (!m_nKickAmount1Time) // 한번에 암두 않잘르면 할게 없더
 	{
 		return false;
 	}
@@ -66,31 +66,31 @@ bool CKickOffAll::InitKickOffUserAll()
 //////////////////////////////////////////////////////
 void CKickOffAll::KickOffSeverlUser()
 {	//<! BBD 040401
-	if(m_bIsAllKick || !m_bIsKicking)	// Kick중이 아니거나 모두 킥했을때는 걍 리턴
+	if (m_bIsAllKick || !m_bIsKicking)	// Kick중이 아니거나 모두 킥했을때는 걍 리턴
 	{
 		return;
 	}
 
 
-/*	if(!m_nConnectAmount)	// 모두 다 잘려나갔다
-	{
-		return;
-	}
+	//if(!m_nConnectAmount)	// 모두 다 잘려나갔다
+	//{
+	//	return;
+	//}
 
-	// 유저들을 저장하고 잘라주자
-	static int s_KickCurrent = DRAGON_CONNECTIONS_START;					// 현재 자를 콘넥션의 인덱스
-	static int s_KickEnd = DRAGON_CONNECTIONS_START + m_nKickAmount1Time;	// 이번에 잘라줄 콘넥션의 Maximum
-*/
+	//// 유저들을 저장하고 잘라주자
+	//static int s_KickCurrent = DRAGON_CONNECTIONS_START;					// 현재 자를 콘넥션의 인덱스
+	//static int s_KickEnd = DRAGON_CONNECTIONS_START + m_nKickAmount1Time;	// 이번에 잘라줄 콘넥션의 Maximum
+
 	// 루프를 돌며 이번에 잘라줄 놈들을 자르자
 	int count = 0;
-	for(int cn = DRAGON_CONNECTIONS_START; cn < DRAGON_MAX_CONNECTIONS; ++cn)
+	for (int cn = DRAGON_CONNECTIONS_START; cn < DRAGON_MAX_CONNECTIONS; ++cn)
 	{
-		if( connections[cn].dwAgentConnectionIndex && connections[cn].state >= CONNECT_JOIN )
+		if (connections[cn].dwAgentConnectionIndex && connections[cn].state >= CONNECT_JOIN)
 		{
-			CHARLIST *ch = &connections[cn].chrlst;			
-			::closeconnection( connections, cn, -33 , false);		// BBD 040401
+			CHARLIST *ch = &connections[cn].chrlst;
+			::closeconnection(connections, cn, -33, false);		// BBD 040401
 			count++;
-			if(count >= m_nKickAmount1Time)
+			if (count >= m_nKickAmount1Time)
 			{
 				return;
 			}

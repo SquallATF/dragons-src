@@ -6955,6 +6955,11 @@ void DoRButtonCheckOfMenu(int i, int j)
 			g_mgrBattle.SendCombatObtain(Hero, first_para, ItemX, ItemY, 1);
 			break;
 		}
+		//case 10064:
+		//case 10073:
+		//case 10075:
+		//case 10292:
+		//case 10293:
 		case 4028: // 듀얼체인지 아이템
 		{
 			ItemSound(item_attr.item_no);

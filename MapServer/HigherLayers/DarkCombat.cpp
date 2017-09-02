@@ -24,15 +24,15 @@ CDarkCombat::~CDarkCombat()
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-bool CDarkCombat::Bind() 
-{ 
+bool CDarkCombat::Bind()
+{
 	Resist(POISONING_NOVA, &CDarkCombat::PoisoningNova);
 	Resist(CHERROY_SHADE, &CDarkCombat::CherroyShade);
 	Resist(DARK_BLADE, &CDarkCombat::DarkBlade);
 	Resist(TYBERN_GIFT, &CDarkCombat::TybernGift);
 	Resist(ACUQUIRE_DARK, &CDarkCombat::AcuquireDark);
 	Resist(DARK_EXTREME, &CDarkCombat::DarkExtreme);
-	return true; 
+	return true;
 }
 
 bool CDarkCombat::Elapse(CHARLIST* pTarget)
@@ -41,36 +41,36 @@ bool CDarkCombat::Elapse(CHARLIST* pTarget)
 	{
 		return false;
 	}
-	
+
 	switch (pTarget->GetPassiveCombat())
 	{
-    case TYBERN_GIFT:
+	case TYBERN_GIFT:
+	{
+		if (!pTarget->IsPassiveCombatState())
 		{
-			if (!pTarget->IsPassiveCombatState())
-			{
-				pTarget->ResetAbility(0);
-				pTarget->InitPassiveCombat();
-				SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
-			}
-
-			break;
+			pTarget->ResetAbility(0);
+			pTarget->InitPassiveCombat();
+			SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	switch (pTarget->GetRecoveryCombat())
 	{
 	case ACUQUIRE_DARK:
+	{
+		if (!pTarget->IsRecoveryCombatState())
 		{
-			if (!pTarget->IsRecoveryCombatState())
-			{
-				pTarget->InitRecoveryCombat();
-				SendInit(RECOVERY_COMBAT, pTarget->GetServerID());
-			}
-			
-			break;    
+			pTarget->InitRecoveryCombat();
+			SendInit(RECOVERY_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 }	//> CSD-TW-030624
 
@@ -80,7 +80,7 @@ bool CDarkCombat::PoisoningNova()
 	const int nTarget = m_pTarget->GetActiveCombat(); // 대상자의 전투속성
 	const int nResult = Relation(nCaster, nTarget);   // 승패, 대립 관계
 	const int nPercent = m_pCaster->CorrectCombatAttack(nCaster, nResult);
-	const int nDamage = m_pTarget->HpMax*nPercent/100;
+	const int nDamage = m_pTarget->HpMax*nPercent / 100;
 	WORD wRemain = CalcMaintain();
 	m_pTarget->SetPoisonedPoint(nDamage);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wRemain);
@@ -152,7 +152,7 @@ bool CDarkCombat::DarkExtreme()
 	const int nTarget = m_pTarget->GetActiveCombat(); // 대상자의 전투속성
 	const int nResult = Relation(nCaster, nTarget);   // 승패, 대립 관계
 	const int nPercent = m_pCaster->CorrectCombatAttack(nCaster, nResult);
-	const int nDamage = m_pTarget->HpMax*nPercent/100;
+	const int nDamage = m_pTarget->HpMax*nPercent / 100;
 	WORD wRemain = CalcMaintain();
 	m_pTarget->SetPoisonedPoint(nDamage);
 	m_pTarget->ApplyCurse(3, CON_POISON, m_dwNow + wRemain);

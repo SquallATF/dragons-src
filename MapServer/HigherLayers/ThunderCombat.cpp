@@ -24,33 +24,33 @@ CThunderCombat::~CThunderCombat()
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-bool CThunderCombat::Bind() 
-{ 
+bool CThunderCombat::Bind()
+{
 	Resist(LIGHTNING_BOOM, &CThunderCombat::LightningBoom);
 	Resist(THUNDER_BLOW, &CThunderCombat::ThunderBlow);
 	Resist(LIGHTNING_SHOCK, &CThunderCombat::LightningShock);
 	Resist(THUNDER_STRIKE, &CThunderCombat::ThunderStrike);
 	Resist(LIGHTNING_SHIELD, &CThunderCombat::LightningShield);
 	Resist(LIGHTNING_EXTREME, &CThunderCombat::LightningExtreme);
-	return true; 
+	return true;
 }
 
 bool CThunderCombat::Elapse(CHARLIST* pTarget)
 {	//< CSD-TW-030623
 	switch (pTarget->GetPassiveCombat())
 	{
-    case LIGHTNING_SHIELD:
+	case LIGHTNING_SHIELD:
+	{
+		if (!pTarget->IsPassiveCombatState())
 		{
-			if (!pTarget->IsPassiveCombatState())
-			{
-				pTarget->InitPassiveCombat();
-				SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
-			}
-
-			break;
+			pTarget->InitPassiveCombat();
+			SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 }	//> CSD-TW-030623
 
@@ -58,12 +58,12 @@ bool CThunderCombat::LightningBoom()
 {	// [215]라이트닝 붐
 	switch (GetKind(m_pCaster))
 	{	//< CSD-030723
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}	//> CSD-030723
-	
+
 	return false;
 }
 
@@ -118,11 +118,11 @@ bool CThunderCombat::LightningExtreme()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723

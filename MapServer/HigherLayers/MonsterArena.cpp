@@ -12,26 +12,26 @@
 // Global Function
 ///////////////////////////////////////////////////////////////////////////////
 
-extern int DeleteINVItem(CHARLIST *pChar,int nItemNumber,int nDelCount);
+extern int DeleteINVItem(CHARLIST *pChar, int nItemNumber, int nDelCount);
 
 void SaveMonsterArena(int idGame, int nPoint, CArenaTeam::LIST_MEMBER& rMember)
 {	//< CSD-030603
-	char szFile[FILENAME_MAX];											
+	char szFile[FILENAME_MAX];
 	sprintf(szFile, "Event/MonsterArena.txt");
-	
+
 	FILE* fp = fopen(szFile, "at+");
 	if (fp == NULL)  return;
-	
+
 	time_t nowTime;
 	time(&nowTime);
 	tm* pNow = localtime(&nowTime);
 
 	const int nYear = pNow->tm_year + 1900;
-	const int nMon  = pNow->tm_mon + 1;
-	const int nDay  = pNow->tm_mday;
+	const int nMon = pNow->tm_mon + 1;
+	const int nDay = pNow->tm_mday;
 	const int nHour = pNow->tm_hour;
-	const int nMin  = pNow->tm_min;
-	const int nSec  = pNow->tm_sec;
+	const int nMin = pNow->tm_min;
+	const int nSec = pNow->tm_sec;
 
 	fprintf(fp, "%04d-%02d-%02d ", nYear, nMon, nDay);
 	fprintf(fp, "%02d:%02d ", nHour, nMin);
@@ -90,12 +90,12 @@ void CMonsterArena::EndGame(CArenaInfo* pArena)
 		for (CArenaTeam::ITOR_MEMBER i = ltMember.begin(); i != ltMember.end(); ++i)
 		{
 			CHARLIST* pMember = *i;
-			
+
 			//DeleteINVItem(pMember,10247,1); // 030617 kyo
-			DeleteINVItem(pMember,10256,1); // 030617 kyo
+			DeleteINVItem(pMember, 10256, 1); // 030617 kyo
 		}
 	}
-	
+
 	CBaseArena::EndGame(pArena);
 
 	for (ITOR_TEAM i = m_ltTeam.begin(); i != m_ltTeam.end(); ++i)
@@ -106,7 +106,7 @@ void CMonsterArena::EndGame(CArenaInfo* pArena)
 		(*i)->ResetKillCount();
 	}
 }
-	
+
 bool CMonsterArena::PlayGame(DWORD dwTime)
 {
 	DWORD dwRemainTime = m_pState->GetRemainTime(dwTime);
@@ -126,7 +126,7 @@ bool CMonsterArena::PlayGame(DWORD dwTime)
 
 		return false;
 	}
-	
+
 	return CBaseArena::PlayGame(dwTime);
 }
 
@@ -144,7 +144,7 @@ void CMonsterArena::DoResult(CArenaTeam* pTeam)
 		{
 			continue;
 		}
-			
+
 		if (pTemp->GetKillCount() < pTeam->GetKillCount())
 		{
 			pTeam->SetGameResult(FST_WIN);
@@ -179,7 +179,7 @@ void CMonsterArena::DoVictory(CArenaTeam* pTeam)
 
 	::SaveMonsterArena(GetGameIndex(), pTeam->GetKillCount(), ltMember); // CSD-030603
 }
-	
+
 void CMonsterArena::DoDefeat(CArenaTeam* pTeam)
 {
 	CBaseArena::DoDefeat(pTeam);

@@ -31,7 +31,7 @@ public:
 	int GetNeedFame() const { return m_nNeedFame; }
 	int GetConsumeLadder() const { return m_nConsumeLadder; }
 	int GetConsumeFame() const { return m_nConsumeFame; }
-	
+
 	void SetMaxLevel(int nLevel) { m_nMaxLevel = nLevel; }
 	void SetNeedLadder(int nLadder) { m_nNeedLadder = nLadder; }
 	void SetNeedFame(int nFame) { m_nNeedFame = nFame; }
@@ -95,15 +95,15 @@ class CDualManager : public TSingleton<CDualManager>
 	typedef vector<CDualClassInfo*> VECTOR_DUAL_CLASS;
 	typedef vector<CDualDataInfo*>  VECTOR_DUAL_DATA;
 
-	enum 
+	enum
 	{
-		DC_FAIL = 0, 
-		DC_LEVLE = 1, 
-		DC_LADDER = 2, 
+		DC_FAIL = 0,
+		DC_LEVLE = 1,
+		DC_LADDER = 2,
 		DC_FAME = 3,
 		MAX_DUAL_STEP = 6  //coromo  離댕6瘻
 	};
-	
+
 public:
 	CDualManager();
 	virtual ~CDualManager();
@@ -150,15 +150,15 @@ public:
 
 	bool IsExist(int nStep) const
 	{
-		return (nStep >= 1 && nStep <= MAX_DUAL_STEP) ? true:false;
+		return (nStep >= 1 && nStep <= MAX_DUAL_STEP) ? true : false;
 	}
 
 protected:
 	void Change(BYTE nStep, CHARLIST* pMaster);
-	
+
 private:
 	bool IsLevelUp(BYTE nStep, CHARLIST* pMaster);
-	
+
 private:
 	VECTOR_DUAL_DATA  m_vtDualData;
 	VECTOR_DUAL_CLASS m_vtDualClass;

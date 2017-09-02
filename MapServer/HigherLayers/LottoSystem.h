@@ -32,7 +32,7 @@ class CLottoSystem
 	DATECHECK		m_LotteryEnd;
 
 	VT_LOTTERY_DATE		m_vtLottery_date;
-		
+
 	int		m_EventStatus;
 	static	CLottoSystem*	m_pClass;
 	int		m_anNumbers[10];
@@ -52,7 +52,7 @@ public:
 	int	m_anGiveItemNumber[5];//등수별 아이템 번호.
 	int m_anItemCount4Grade[5];
 	int m_nLottoNumberCount;
-//	int m_nGiveItemNumber;
+	//int m_nGiveItemNumber;
 	void RecvCheckOpenWinnerMenu(t_WINNER_MENU* pWinnerMenu);
 	void RecvOpenWinnerMenu(int cn);
 	void RecvLottoInfo(LOTTO_EVENT_INFO* pLottoInfo);
@@ -67,16 +67,16 @@ public:
 	void RunProc();
 	void Clear();
 	bool LoadTable(HDBC hDragonDB);
-	int GetMinNumber(int aNumbers[],int size);
-	void Sort(int aNubers[],int size);
+	int GetMinNumber(int aNumbers[], int size);
+	void Sort(int aNubers[], int size);
 	int SetLottoID(int nID);
 	int Check6Number(int an6Numbers[]);
 	void Generate6Number();
 	bool IsMember(int nNumber);
-	static	CLottoSystem*	GetClass(){return m_pClass;}
+	static	CLottoSystem*	GetClass() { return m_pClass; }
 	static	bool	Create();
-	static	void	Destroy()	{if(m_pClass){delete m_pClass;m_pClass = NULL;}}
-		
+	static	void	Destroy() { if (m_pClass) { delete m_pClass; m_pClass = NULL; } }
+
 	//< 040614_KJHuNs CMD_NEW_EVENT (로또)를 DB에 한번만 세팅하게 처리.
 	bool m_bIsNewEventRegistToOnce;
 	CLottoSystem();
@@ -87,7 +87,7 @@ private:
 	int RandomNumber();
 	int CreateOneNumber();
 };
-extern inline CLottoSystem*	LottoSystem(){return CLottoSystem::GetClass();}
+extern inline CLottoSystem*	LottoSystem() { return CLottoSystem::GetClass(); }
 
 
 #endif // !defined(AFX_LOTTOSYSTEM_H__42D51FB0_EFA1_4F33_AC72_242893C6C971__INCLUDED_)

@@ -22,7 +22,7 @@ CPrison::CPrison()
 {
 	if (false == LoadPrisonInfo())
 	{
-		::MyLog(LOG_FATAL,"CPrison::CPrison(), LoadPrisonInfo() Loading Error!!");
+		::MyLog(LOG_FATAL, "CPrison::CPrison(), LoadPrisonInfo() Loading Error!!");
 		return;
 	}
 
@@ -41,13 +41,13 @@ CPrison::~CPrison()
  * @brief	DB에서 직접 감옥 위치 정보를 얻어온다.
  * @return	bool. 불러오기에 성공하면 true.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::LoadPrisonInfo()
 {
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
 	SDWORD	cbValue;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	int nNation = 0;
 	int nJ;
@@ -60,30 +60,30 @@ bool CPrison::LoadPrisonInfo()
 		wsprintf(szQuery, "EXEC up_get_NumOfprison %d", nNation);
 
 		retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-		if(!SQL_SUCCEEDED(retCode))
+		if (!SQL_SUCCEEDED(retCode))
 		{
-			::MyLog(LOG_FATAL,"CPrison::LoadPrisonInfo(), up_get_NumOfprison, prisonInfo Table Query Error!!");
-			SQLFreeStmt(hStmt,SQL_DROP);
+			::MyLog(LOG_FATAL, "CPrison::LoadPrisonInfo(), up_get_NumOfprison, prisonInfo Table Query Error!!");
+			SQLFreeStmt(hStmt, SQL_DROP);
 			return false;
 		}
 
-		retCode = SQLFetch( hStmt );
-		if(!SQL_SUCCEEDED(retCode))
+		retCode = SQLFetch(hStmt);
+		if (!SQL_SUCCEEDED(retCode))
 		{
-			::MyLog(LOG_FATAL,"CPrison::LoadPrisonInfo(), up_get_NumOfprison, prisonInfo Table Fetch Error!!");
-			SQLFreeStmt(hStmt,SQL_DROP);
+			::MyLog(LOG_FATAL, "CPrison::LoadPrisonInfo(), up_get_NumOfprison, prisonInfo Table Fetch Error!!");
+			SQLFreeStmt(hStmt, SQL_DROP);
 			return false;
 		}
 
 		retCode = SQLGetData(hStmt, 1, SQL_INTEGER, &m_naNumOfPrisonByNation[nJ], sizeof(int), &cbValue);
-		if(!SQL_SUCCEEDED(retCode))
+		if (!SQL_SUCCEEDED(retCode))
 		{
-			::MyLog(LOG_FATAL,"CPrison::LoadPrisonInfo(), up_get_NumOfprison, prisonInfo Table SQL Return Error(%d)!!",retCode);
-			SQLFreeStmt(hStmt,SQL_DROP);
+			::MyLog(LOG_FATAL, "CPrison::LoadPrisonInfo(), up_get_NumOfprison, prisonInfo Table SQL Return Error(%d)!!", retCode);
+			SQLFreeStmt(hStmt, SQL_DROP);
 			return false;
 		}
 
-		SQLFreeStmt(hStmt,SQL_DROP);
+		SQLFreeStmt(hStmt, SQL_DROP);
 
 		// 국가별 감옥 정보를 읽어온다.
 		m_ppPrisonInfo[nJ] = new tagPrisonInfo[m_naNumOfPrisonByNation[nJ]];
@@ -92,44 +92,44 @@ bool CPrison::LoadPrisonInfo()
 		wsprintf(szQuery, "EXEC up_get_prison_info %d", nNation);
 
 		retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-		if(!SQL_SUCCEEDED(retCode))
+		if (!SQL_SUCCEEDED(retCode))
 		{
-			::MyLog(LOG_FATAL,"CPrison::LoadPrisonInfo(), up_get_prison_info, prisonInfo Table Query Error!!");
-			SQLFreeStmt(hStmt,SQL_DROP);
+			::MyLog(LOG_FATAL, "CPrison::LoadPrisonInfo(), up_get_prison_info, prisonInfo Table Query Error!!");
+			SQLFreeStmt(hStmt, SQL_DROP);
 			return false;
 		}
 
-		retCode = SQLFetch( hStmt );
-		if(!SQL_SUCCEEDED(retCode))
+		retCode = SQLFetch(hStmt);
+		if (!SQL_SUCCEEDED(retCode))
 		{
-			::MyLog(LOG_FATAL,"CPrison::LoadPrisonInfo(), up_get_prison_info, prisonInfo Table Fetch Error!!");
-			SQLFreeStmt(hStmt,SQL_DROP);
+			::MyLog(LOG_FATAL, "CPrison::LoadPrisonInfo(), up_get_prison_info, prisonInfo Table Fetch Error!!");
+			SQLFreeStmt(hStmt, SQL_DROP);
 			return false;
 		}
 
-		char szMapName[20] = {0,};
+		char szMapName[20] = { 0, };
 		int nX = 0;
 		int nY = 0;
 		int nI = 0;
-		while(SQL_SUCCEEDED(retCode))
+		while (SQL_SUCCEEDED(retCode))
 		{
 			retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, &szMapName, sizeof(szMapName), &cbValue);
 			retCode = SQLGetData(hStmt, 2, SQL_C_LONG, &nX, sizeof(int), &cbValue);
 			retCode = SQLGetData(hStmt, 3, SQL_C_LONG, &nY, sizeof(int), &cbValue);
-			if(!SQL_SUCCEEDED(retCode))
+			if (!SQL_SUCCEEDED(retCode))
 			{
-				::MyLog(LOG_FATAL,"CPrison::LoadPrisonInfo(), up_get_prison_info, prisonInfo Table SQL Return Error!!(%d)", retCode);
-				SQLFreeStmt(hStmt,SQL_DROP);
+				::MyLog(LOG_FATAL, "CPrison::LoadPrisonInfo(), up_get_prison_info, prisonInfo Table SQL Return Error!!(%d)", retCode);
+				SQLFreeStmt(hStmt, SQL_DROP);
 				return false;
 			}
 			strcpy(m_ppPrisonInfo[nJ][nI].szMapName, szMapName);
 			::EatRearWhiteChar(m_ppPrisonInfo[nJ][nI].szMapName);
 			m_ppPrisonInfo[nJ][nI].xyPosition.x = nX;
 			m_ppPrisonInfo[nJ][nI].xyPosition.y = nY;
-			
-			retCode = SQLFetch( hStmt );
+
+			retCode = SQLFetch(hStmt);
 			++nI;
-			
+
 			if (nI >= m_naNumOfPrisonByNation[nJ])
 				break;
 		}
@@ -150,7 +150,7 @@ bool CPrison::LoadPrisonInfo()
  *			char* szUserID. 반환될 찾은 유저 ID.
  * @return	bool. DB접근에 Error가 없으면 true.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::GetUserID(const char* szCharName, char* szUserID)
 {
 	if (NULL == szCharName)
@@ -159,41 +159,41 @@ bool CPrison::GetUserID(const char* szCharName, char* szUserID)
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
 	SDWORD	cbValue;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	//< LTH-040726-KO 불량 유저의 아이디를 찾아본다.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_login_id '%s'", szCharName);
 
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		SQLFreeStmt(hStmt,SQL_DROP);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	retCode = SQLFetch( hStmt );
+	retCode = SQLFetch(hStmt);
 	// 존재 하지 않는 캐릭터 이름 입니다.
 	if (retCode == SQL_NO_DATA)
 	{
 		::MyLog(LOG_FATAL, "CPrison::GetUserID(), up_get_login_id, Not Exist Character Name!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
 		::MyLog(LOG_FATAL, "CPrison::GetUserID(), up_get_login_id, chr_info Table SQL Fetch Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	char szTemp[20] = {0,};
+	char szTemp[20] = { 0, };
 	retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, &szTemp, sizeof(szTemp), &cbValue);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetUserID(), up_get_login_id, chr_info Table SQL Return Error!!(%d)", retCode);
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetUserID(), up_get_login_id, chr_info Table SQL Return Error!!(%d)", retCode);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 	::EatRearWhiteChar(szTemp);
@@ -212,7 +212,7 @@ bool CPrison::GetUserID(const char* szCharName, char* szUserID)
  *			int& nNation. 반환될 소속국가 값.
  * @return	bool. DB접근에 Error가 없으면 true.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::GetUserNation(const char *szCharName, int& nNation)
 {
 	if (NULL == szCharName)
@@ -221,33 +221,33 @@ bool CPrison::GetUserNation(const char *szCharName, int& nNation)
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
 	SDWORD	cbValue;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	//< LTH-040727-KO 불량 유저의 아이디로 소속 국가를 찾아본다.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_UserNation '%s'", szCharName);
 
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetUserNation(), up_get_UserNation, chr_info Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetUserNation(), up_get_UserNation, chr_info Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	retCode = SQLFetch( hStmt );
-	if(!SQL_SUCCEEDED(retCode))
+	retCode = SQLFetch(hStmt);
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetUserNation(), up_get_UserNation, chr_info Table Fetch Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetUserNation(), up_get_UserNation, chr_info Table Fetch Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
 	retCode = SQLGetData(hStmt, 1, SQL_C_ULONG, &nNation, sizeof(int), &cbValue);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetUserNation(), up_get_UserNation, chr_info Table SQL Return Error!!(%d)", retCode);
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetUserNation(), up_get_UserNation, chr_info Table SQL Return Error!!(%d)", retCode);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
@@ -267,7 +267,7 @@ bool CPrison::GetUserNation(const char *szCharName, int& nNation)
  * @param	const char szUserID[20]. 찾을 유저 ID.
  * @return	bool. DB접근에 Error가 없거나 유저를 찾으면 true.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::IsBadUser(const char* szUserID)
 {
 	if (NULL == szUserID)
@@ -276,7 +276,7 @@ bool CPrison::IsBadUser(const char* szUserID)
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
 	SDWORD	cbValue;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_BadUser '%s'", szUserID);
@@ -284,37 +284,37 @@ bool CPrison::IsBadUser(const char* szUserID)
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
 	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::IsBadUser, up_get_BadUser, prisonerList Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::IsBadUser, up_get_BadUser, prisonerList Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	retCode = SQLFetch( hStmt );
+	retCode = SQLFetch(hStmt);
 	// 유저 아이디가 없으면...
 	if (retCode == SQL_NO_DATA)
 	{
 		::MyLog(LOG_FATAL, "User %s is not prisner!!", szUserID);
-		SQLFreeStmt(hStmt,SQL_DROP);
-		return false;
-	}
-	
-	if (!SQL_SUCCEEDED(retCode))
-	{
-		::MyLog(LOG_FATAL,"CPrison::IsBadUser, up_get_BadUser, prisonerList Table Fetch Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	char szUserIDTemp[20] = {0,};
+	if (!SQL_SUCCEEDED(retCode))
+	{
+		::MyLog(LOG_FATAL, "CPrison::IsBadUser, up_get_BadUser, prisonerList Table Fetch Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
+		return false;
+	}
+
+	char szUserIDTemp[20] = { 0, };
 	retCode = SQLGetData(hStmt, 1, SQL_C_CHAR, &szUserIDTemp, sizeof(szUserIDTemp), &cbValue);
 	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::IsBadUser, up_get_BadUser, prisonerList Table SQL Return Error!!(%d)", retCode);
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::IsBadUser, up_get_BadUser, prisonerList Table SQL Return Error!!(%d)", retCode);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
-	SQLFreeStmt(hStmt, SQL_DROP);	
+	SQLFreeStmt(hStmt, SQL_DROP);
 
 	return true;
 }	//> LTH-040821-KO.
@@ -327,7 +327,7 @@ bool CPrison::IsBadUser(const char* szUserID)
  *			const DWORD dwRemainTime. 감옥에 있어야 하는 시간.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::SetBadUser(const char* szUserID, const char* szCharName, const DWORD dwRemainTime)
 {
 	if ((NULL == szUserID) || (NULL == szCharName))
@@ -335,17 +335,17 @@ bool CPrison::SetBadUser(const char* szUserID, const char* szCharName, const DWO
 
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	wsprintf(szQuery, "EXEC up_set_BadUser '%s', '%s', %d", szUserID, szCharName, dwRemainTime);
 
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
-	
+
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::SetBadUser(), PrisonerList Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::SetBadUser(), PrisonerList Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
@@ -362,7 +362,7 @@ bool CPrison::SetBadUser(const char* szUserID, const char* szCharName, const DWO
  * @param	const CPrison::ePRISON_SYS_RESULT ePrisonSysResult. 결과값 상수.
  * @return	void.
  */
-//< LTH-040727-KO.
+ //< LTH-040727-KO.
 void CPrison::SendPrisonSystemResult(const int nCn, const CPrison::ePRISON_SYS_RESULT ePrisonSysResult)
 {
 	t_packet packet;
@@ -381,7 +381,7 @@ void CPrison::SendPrisonSystemResult(const int nCn, const CPrison::ePRISON_SYS_R
  *			POINT &xyPosition. 위치값 반환
  * @return	void.
  */
-//< LTH-040727-KO.
+ //< LTH-040727-KO.
 void CPrison::GetPrisonPosition(const int nNation, char *szMapName, POINT &xyPosition)
 {
 	int nRandomNumber = 0;
@@ -389,7 +389,7 @@ void CPrison::GetPrisonPosition(const int nNation, char *szMapName, POINT &xyPos
 	if (m_naNumOfPrisonByNation[nNation] > 0)
 	{
 		// 감옥 내에 타일 중에 랜덤한 값을 반환
-		srand( (unsigned)time( NULL ) );
+		srand((unsigned)time(NULL));
 		nRandomNumber = rand() % m_naNumOfPrisonByNation[nNation];
 	}
 	else
@@ -406,32 +406,32 @@ void CPrison::GetPrisonPosition(const int nNation, char *szMapName, POINT &xyPos
  *			POINT &xyPosition. 위치값 반환
  * @return	void.
  */
-//< LTH-040805-KO.
+ //< LTH-040805-KO.
 void CPrison::GetVillagePosition(const int nNation, char *szMapName, POINT &xyPosition)
 {
 	switch (nNation)
 	{
 	case PN_VYSEUS:
-		{
-			strcpy(szMapName, "MA-IN");
-			xyPosition.x = 245;
-			xyPosition.y = 115;
-		}
-		break;
-	case PN_ZYPERN: 
-		{
-			strcpy(szMapName, "RENES_C");
-			xyPosition.x = 210;
-			xyPosition.y = 175;
-		}
-		break;
-	case PN_YILSE: 
-		{
-			strcpy(szMapName, "BARANTAN");
-			xyPosition.x = 325;
-			xyPosition.y = 98;
-		}
-		break;
+	{
+		strcpy(szMapName, "MA-IN");
+		xyPosition.x = 245;
+		xyPosition.y = 115;
+	}
+	break;
+	case PN_ZYPERN:
+	{
+		strcpy(szMapName, "RENES_C");
+		xyPosition.x = 210;
+		xyPosition.y = 175;
+	}
+	break;
+	case PN_YILSE:
+	{
+		strcpy(szMapName, "BARANTAN");
+		xyPosition.x = 325;
+		xyPosition.y = 98;
+	}
+	break;
 	}
 
 }	//> LTH-040805-KO.
@@ -444,19 +444,19 @@ void CPrison::GetVillagePosition(const int nNation, char *szMapName, POINT &xyPo
  *			const POINT xyPosition. 좌표.
  * @return	bool. DB 접근에 실패하면 false.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::SetUserStartingMap(const char *szUserID, const char *szMapName, const POINT xyPosition)
 {
 	if ((NULL == szUserID) || (NULL == szMapName))
 		return false;
 
-	char szTempCharName[4][20] = { {0,},};
+	char szTempCharName[4][20] = { {0,}, };
 	GetAllCharName(szUserID, szTempCharName);
 
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
-	TCHAR	szQuery[256] = {0,};
-	
+	TCHAR	szQuery[256] = { 0, };
+
 	// LTH-040802-KO 타일 픽셀 값으로 변환
 	int nI;
 	int nX = (xyPosition.x * TILE_SIZE) + (TILE_SIZE / 2);
@@ -469,11 +469,11 @@ bool CPrison::SetUserStartingMap(const char *szUserID, const char *szMapName, co
 			wsprintf(szQuery, "EXEC up_set_UserStatingMap '%s', '%s', %d, %d", szTempCharName[nI], szMapName, nX, nY);
 
 			SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
-			
+
 			retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-			if(!SQL_SUCCEEDED(retCode))
+			if (!SQL_SUCCEEDED(retCode))
 			{
-				SQLFreeStmt(hStmt,SQL_DROP);
+				SQLFreeStmt(hStmt, SQL_DROP);
 				return false;
 			}
 
@@ -488,32 +488,32 @@ bool CPrison::SetUserStartingMap(const char *szUserID, const char *szMapName, co
 
 /**
  * @fn		CPrison::GetAllCharName().
- * @brief	유저의 모든 캐릭터 이름을 불러온다 
+ * @brief	유저의 모든 캐릭터 이름을 불러온다
  * @param	const char* szUserID. 유저 ID.
  *			const char *szCharName[4]. 캐릭터 이름 배열.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 void CPrison::GetAllCharName(const char* szUserID, char szCharName[4][20])
 {
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
 	SDWORD	cbValue;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	//< 해당 아이디의 모든 캐릭터 이름을 가져온다.
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_char_all_name '%s'", szUserID);
 
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetAllCharName, up_get_char_all_name, chr_info Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetAllCharName, up_get_char_all_name, chr_info Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return;
 	}
 
-	retCode = SQLFetch( hStmt );
+	retCode = SQLFetch(hStmt);
 	// 캐릭이 하나도 없을 경우
 	if (retCode == SQL_NO_DATA)
 	{
@@ -521,10 +521,10 @@ void CPrison::GetAllCharName(const char* szUserID, char szCharName[4][20])
 		return;
 	}
 
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetAllCharName, up_get_char_all_name, chr_info Table Fetch Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetAllCharName, up_get_char_all_name, chr_info Table Fetch Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return;
 	}
 
@@ -532,10 +532,10 @@ void CPrison::GetAllCharName(const char* szUserID, char szCharName[4][20])
 	for (nI = 0; nI < 4; ++nI)
 	{
 		retCode = SQLGetData(hStmt, nI + 1, SQL_C_CHAR, &szCharName[nI], 20, &cbValue);
-		if(!SQL_SUCCEEDED(retCode))
+		if (!SQL_SUCCEEDED(retCode))
 		{
-			::MyLog(LOG_FATAL,"CPrison::GetAllCharName, up_get_char_all_name, chr_info Table Get Error!!");
-			SQLFreeStmt(hStmt,SQL_DROP);
+			::MyLog(LOG_FATAL, "CPrison::GetAllCharName, up_get_char_all_name, chr_info Table Get Error!!");
+			SQLFreeStmt(hStmt, SQL_DROP);
 			return;
 		}
 		::EatRearWhiteChar(szCharName[nI]);
@@ -556,17 +556,17 @@ extern void MovePc(short int cn, int x, int y);		// LTH-040824-KO
 
 /**
  * @fn		CPrison::MoveToPrison().
- * @brief	유저를 감옥 맵으로 이동시킨다. 
+ * @brief	유저를 감옥 맵으로 이동시킨다.
  *			현재 접속 중이지 않은 유저는 시작맵의 위치를 감옥으로 바꾼다.
  * @param	const char* szUserID. 유저 ID.
  *			const char *szCharName. 캐릭터 이름.
  *			const int nNation. 국가 코드.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 void CPrison::MoveToPrison(const char* szUserID, const int nNation)
 {
-	char szMapName[20] = {0,};
+	char szMapName[20] = { 0, };
 	POINT xyPosition;
 
 	// 유저의 해당 국가의 감옥 위치를 얻어오고
@@ -576,7 +576,7 @@ void CPrison::MoveToPrison(const char* szUserID, const int nNation)
 	// 시작 맵의 위치를 바꾼다.
 	SetUserStartingMap(szUserID, szMapName, xyPosition);
 
-	char szCharName[4][20] = { {0,},};
+	char szCharName[4][20] = { {0,}, };
 	GetAllCharName(szUserID, szCharName);
 
 	bool bIsMove = false;
@@ -626,16 +626,16 @@ void CPrison::MoveToPrison(const char* szUserID, const int nNation)
  * @param	t_packet *p. 패킷변수.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 void CPrison::RecvBadUserImprison(t_packet* p, const int nCn)
 {
 	// 패킷의 유저 캐릭터 명을 가져오고
-	char szCharName[20] = {0,};
+	char szCharName[20] = { 0, };
 	strcpy(szCharName, p->u.kein.tagBadUserInfo.szName);
 	::EatRearWhiteChar(szCharName);
-	
+
 	// 캐릭터 명으로 유저 아이디를 가져오고
-	char szUserID[20] = {0,};
+	char szUserID[20] = { 0, };
 	if (false == GetUserID(szCharName, szUserID))
 		return;
 	::EatRearWhiteChar(szUserID);
@@ -681,7 +681,7 @@ void CPrison::RecvBadUserImprison(t_packet* p, const int nCn)
  * @param	const char* szUserID. 유저 ID.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::SetDeleteBadUser(const char *szUserID)
 {
 	if (NULL == szUserID)
@@ -689,17 +689,17 @@ bool CPrison::SetDeleteBadUser(const char *szUserID)
 
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	wsprintf(szQuery, "EXEC up_DeleteBadUserID '%s'", szUserID);
 
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
-	
+
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::SetDeleteBadUser(), PrisonerList Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::SetDeleteBadUser(), PrisonerList Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
@@ -712,17 +712,17 @@ bool CPrison::SetDeleteBadUser(const char *szUserID)
 
 /**
  * @fn		CPrison::MoveToVillage().
- * @brief	유저를 감옥에서 각자 메인 마을 맵으로 이동시킨다. 
+ * @brief	유저를 감옥에서 각자 메인 마을 맵으로 이동시킨다.
  *			현재 접속 중이지 않은 유저는 시작맵의 위치를 메인마을로 바꾼다.
  * @param	const char* szUserID. 유저 ID.
  *			const char *szCharName. 캐릭터 이름.
  *			const int nNation. 국가 코드.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 void CPrison::MoveToVillage(const char *szUserID, const int nNation)
 {
-	char szMapName[20] = {0,};
+	char szMapName[20] = { 0, };
 	POINT xyPosition;
 
 	// 유저의 해당 국가의 메인 마을 위치를 얻어오고
@@ -732,7 +732,7 @@ void CPrison::MoveToVillage(const char *szUserID, const int nNation)
 	// 시작 맵의 위치를 바꾼다.
 	SetUserStartingMap(szUserID, szMapName, xyPosition);
 
-	char szCharName[4][20] = { {0,},};
+	char szCharName[4][20] = { {0,}, };
 	GetAllCharName(szUserID, szCharName);
 
 	bool bIsMove = false;
@@ -773,16 +773,16 @@ void CPrison::MoveToVillage(const char *szUserID, const int nNation)
  * @param	t_packet *p. 패킷변수.
  * @return	void.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 void CPrison::RecvBadUserRelease(t_packet* p, const int nCn)
 {
 	// 패킷의 유저 캐릭터 명을 가져오고
-	char szCharName[20] = {0,};
+	char szCharName[20] = { 0, };
 	strcpy(szCharName, p->u.kein.tagBadUserInfo.szName);
 	::EatRearWhiteChar(szCharName);
-	
+
 	// 캐릭터 명으로 유저 아이디를 가져오고
-	char szUserID[20] = {0,};
+	char szUserID[20] = { 0, };
 	if (false == GetUserID(szCharName, szUserID))
 		return;
 	::EatRearWhiteChar(szUserID);
@@ -829,7 +829,7 @@ void CPrison::RecvBadUserRelease(t_packet* p, const int nCn)
  * @param	const DWORD dwImprisonTerm. 저장할 수감 시간.
  * @return	true. DB 저장에 성공하면 true.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 bool CPrison::SetImprisonTerm(const char *szUserId, const DWORD dwImprisonTerm)
 {
 	if (NULL == szUserId)
@@ -837,17 +837,17 @@ bool CPrison::SetImprisonTerm(const char *szUserId, const DWORD dwImprisonTerm)
 
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	wsprintf(szQuery, "EXEC up_set_Update_Imprison_Term '%s', %d", szUserId, dwImprisonTerm);
 
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
-	
+
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::SetImprisonTerm(), PrisonerList Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::SetImprisonTerm(), PrisonerList Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return false;
 	}
 
@@ -862,7 +862,7 @@ bool CPrison::SetImprisonTerm(const char *szUserId, const DWORD dwImprisonTerm)
  * @param	const char* szUserId. 유저 ID.
  * @return	DWORD. 수감기간.
  */
-//< LTH-040821-KO.
+ //< LTH-040821-KO.
 DWORD CPrison::GetImprisonTerm(const char *szUserId)
 {
 	if (NULL == szUserId)
@@ -871,33 +871,33 @@ DWORD CPrison::GetImprisonTerm(const char *szUserId)
 	HSTMT	hStmt = NULL;
 	RETCODE	retCode;
 	SDWORD	cbValue;
-	TCHAR	szQuery[256] = {0,};
+	TCHAR	szQuery[256] = { 0, };
 
 	SQLAllocStmt(g_hDBC_DragonDB, &hStmt);
 	wsprintf(szQuery, "EXEC up_get_ImprisonTerm '%s'", szUserId);
 
 	retCode = SQLExecDirect(hStmt, (UCHAR*)szQuery, SQL_NTS);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetImprisonTerm(), up_get_ImprisonTerm, prisonerList Table Query Error!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetImprisonTerm(), up_get_ImprisonTerm, prisonerList Table Query Error!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return 0;
 	}
 
-	retCode = SQLFetch( hStmt );
-	if(!SQL_SUCCEEDED(retCode))
+	retCode = SQLFetch(hStmt);
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetImprisonTerm(), up_get_ImprisonTerm, prisonerList Table Fetch Error!! or Already exist!!");
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetImprisonTerm(), up_get_ImprisonTerm, prisonerList Table Fetch Error!! or Already exist!!");
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return 0;
 	}
 
 	DWORD dwImprisonTerm = 0;
 	retCode = SQLGetData(hStmt, 1, SQL_C_LONG, &dwImprisonTerm, sizeof(DWORD), &cbValue);
-	if(!SQL_SUCCEEDED(retCode))
+	if (!SQL_SUCCEEDED(retCode))
 	{
-		::MyLog(LOG_FATAL,"CPrison::GetImprisonTerm(), up_get_ImprisonTerm, prisonerList Table SQL Return Error!!(%d)", retCode);
-		SQLFreeStmt(hStmt,SQL_DROP);
+		::MyLog(LOG_FATAL, "CPrison::GetImprisonTerm(), up_get_ImprisonTerm, prisonerList Table SQL Return Error!!(%d)", retCode);
+		SQLFreeStmt(hStmt, SQL_DROP);
 		return 0;
 	}
 
@@ -913,7 +913,7 @@ DWORD CPrison::GetImprisonTerm(const char *szUserId)
  * @param	t_packet *p. 패킷변수.
  * @return	void.
  */
-//< LTH-040810-KO.
+ //< LTH-040810-KO.
 void CPrison::RecvUpdateImprisonTerm(const short int cn)
 {
 	LPCHARLIST lpChar = ::CheckServerId((WORD)cn);
@@ -959,7 +959,7 @@ extern int GetMapPortByName(char* map_name);	// LTH-040824-KO
  * @brief	현재 맵서버가 감옥 맵서버인지 판별.
  * @return	bool. 이 맵서버가 감옥을 포함하고 있으면 true.
  */
-//< LTH-040824-KO.
+ //< LTH-040824-KO.
 bool CPrison::IsPrisonMap()
 {
 	WORD wMapServerport = 0;

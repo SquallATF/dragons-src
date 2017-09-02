@@ -6,9 +6,9 @@ const int MAX_NAME = 21;
 #define CMD_SKILL_RARE_UPGRADE_RESULT			5601
 
 typedef struct HWOARANG_SANGWOO_SKILLRAREUPGRADE
-{	
+{
 	short int iSkillNo;
-	
+
 	ItemAttr	SourceItem;
 
 	int iBuffer1;
@@ -20,9 +20,9 @@ typedef struct HWOARANG_SANGWOO_SKILLRAREUPGRADE
 
 
 typedef struct HWOARANG_SANGWOO_SKILLRAREUPGRADE_RESULT
-{	
+{
 	short int iSuccess;
-	
+
 	ItemAttr	SourceItem;
 
 }t_SkillRareUpgradeResult;
@@ -31,13 +31,13 @@ typedef struct HWOARANG_SANGWOO_SKILLRAREUPGRADE_RESULT
 #define CMD_RARE_UPGRADE_BBS				2003
 #define CMD_RARE_UPGRADE_BBS_MAP_TO_MAP		2004
 typedef struct HWOARANG_SANGWOO_RAREUPGRADE_BBS
-{	
+{
 	char	name[20];
 	ItemAttr	Item;
 }t_RareUpgradeBBS;
 
 typedef struct HWOARANG_SANGWOO_RAREUPGRADE_BBS_MAP_TO_MAP
-{	
+{
 	char	name[20];
 	ItemAttr	Item;
 }t_RareUpgradeBBSMapToMap;
@@ -51,13 +51,13 @@ typedef struct CONFORMSADONIX
 	ItemAttr item;
 	int		x;
 	int		y;
-}t_ConformSadonix,*LPCONFORMSADONIX;
+}t_ConformSadonix, *LPCONFORMSADONIX;
 
 #define CMD_SADONIX_COUNT_UPDATE		9010
 typedef struct SADONIXCOUNTUPDATE
 {
 	short nSadTime;
-}t_SadonixCountUpdate,*LPSADONIXCOUNTUPDATE;
+}t_SadonixCountUpdate, *LPSADONIXCOUNTUPDATE;
 
 #define CMD_MOVE_TO_HOMETOWN			2005
 #define CMD_MOVE_TO_HOMETOWN_WITH_ALIVE	2007
@@ -68,14 +68,14 @@ extern void MoveToHomeTownWithAilve(CHARLIST *Caster);
 typedef struct DAYLIGHT
 {
 	short int nDayLightControl;
-}t_DayLight,*LPDAYLIGHT;
+}t_DayLight, *LPDAYLIGHT;
 
 #define CMD_NOW_SKILL_POINT				9019//020815 lsw
 typedef struct NOWSKILLPOINT
 {
 	ItemAttr	item;
-	int			iNowPoint;	
-}t_NowSkillPoint,*LPNOWSKILLPOINT;
+	int			iNowPoint;
+}t_NowSkillPoint, *LPNOWSKILLPOINT;
 
 #define CMD_COMFORM_RESET_ABILILTY				9020//020820 lsw
 typedef struct COMFORMRESETABILILTY
@@ -83,7 +83,7 @@ typedef struct COMFORMRESETABILILTY
 	int cn;
 	char szName[21];
 	int iIsAble;//020821-1 lsw
-}t_ComformResetAbililty,*LPCOMFORMRESETABILILTY;
+}t_ComformResetAbililty, *LPCOMFORMRESETABILILTY;
 
 extern void SendCMD_COMFORM_RESET_ABILITY(CHARLIST *ch);//020820 lsw
 
@@ -96,7 +96,7 @@ typedef struct SEARCHPACKETCLIENT
 	int		nPeriod;		//등록 기간 설정.// 0:1일, 1:3일,  2:일주일.
 	int		iIndex;
 	int		iKey;
-}t_SearchPacketClient,*lpSEARCHPACKETCLIENT;
+}t_SearchPacketClient, *lpSEARCHPACKETCLIENT;
 //>soto-030511 수정.  
 
 
@@ -106,7 +106,7 @@ typedef struct SEARCHPACKETSERVER
 	int iCn;
 	char szName[21];
 	t_SearchPacketClient	ClientMsg;
-}t_SearchPacketServer,*lpSEARCHPACKETSERVER;
+}t_SearchPacketServer, *lpSEARCHPACKETSERVER;
 
 typedef struct SEARCHRESULT
 {
@@ -118,7 +118,7 @@ typedef struct SEARCHRESULT
 	int			iSellerTake;
 	int			iBuyerTake;
 	ItemAttr	m_ResultItem;
-}t_SearchResult,*lpSEARCHRESULT;
+}t_SearchResult, *lpSEARCHRESULT;
 
 #define CMD_MERCHANT_BUY_ITEM_SEARCH_RESULT			16001//020815 lsw
 #define CMD_MERCHANT_SELL_LIST_REQUEST_RESULT		16004
@@ -131,7 +131,7 @@ typedef struct SEARCHRESULTLIST
 	char szName[21];
 	int iKey;
 	SEARCHRESULT ResultList[MAX_SEARCH_RESULT_LIST];
-}t_SearchResultList,*lpSEARCHRESULTLIST;
+}t_SearchResultList, *lpSEARCHRESULTLIST;
 //
 
 //구매자용 아이템 구입을 하겠다는 패킷
@@ -148,7 +148,7 @@ typedef struct MERCHANT_ITEM_BUY
 	DWORD		dwSellValue;//판매금액은 20억을 넘기지 않습니다.
 	ItemAttr	SellItem;
 	int			iKey;
-}t_MerchantItemBuy,*lpMERCHANTITEMBUY;
+}t_MerchantItemBuy, *lpMERCHANTITEMBUY;
 
 //
 
@@ -160,7 +160,7 @@ typedef struct SELLERITEMREQUEST
 	int iIndex;
 	int iKey;
 	char szName[21];//자신의 이름을 보내서 아이템을 검색 합니다.
-}t_SellerItemRequest,*lpSELLERITEMREQUEST;
+}t_SellerItemRequest, *lpSELLERITEMREQUEST;
 
 //아이템 등록
 #define CMD_MERCHANT_SELL_ITEM_REGISTER					16009//판매아이템을 등록 합니다.
@@ -179,7 +179,7 @@ typedef struct SELLERITEMREGISTER
 	DWORD		dwSellValue;
 	ItemAttr	SellItem;
 	int			iKey;
-}t_SellerItemRegister,*lpSELLERITEMREGISTER;
+}t_SellerItemRegister, *lpSELLERITEMREGISTER;
 
 #define CMD_MERCHANT_SELL_ITEM_DELETE					16020//판매를 취소합니다.
 #define CMD_MERCHANT_SELL_ITEM_DELETE_RESULT			16021//판매를 취소합니다.
@@ -199,7 +199,7 @@ typedef struct SELLERITEMDELETE
 	DWORD		dwSellValue;
 	ItemAttr	SellItem;
 	int			iKey;
-}t_SellerItemDelete,*lpSELLERITEMDELETE;
+}t_SellerItemDelete, *lpSELLERITEMDELETE;
 
 #define CMD_MERCHANT_RESULT_TAKE						16032
 #define CMD_MERCHANT_RESULT_TAKE_RESULT					16033
@@ -226,7 +226,7 @@ typedef struct MERCHANTRESULTTAKE
 	int			iSellerTake;
 	int			iBuyerTake;
 	int			iKey;
-}t_MerchantResultTake,*lpMERCHANTRESULTTAKE;
+}t_MerchantResultTake, *lpMERCHANTRESULTTAKE;
 
 #define CMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUSET					16090
 #define CMD_MERCHANT_DIRECT_EXCHANGE_LIST_REQUSET_RESULT			16091
@@ -238,9 +238,9 @@ typedef struct MERCHANTEXCHANGEREQUEST
 	char		szSellerName[21];
 	char		szMyName[21];
 	int			iKey;//인덱스 위인가 아래인가.
-}t_MerchantExchangeRequest,*lpMERCHANTEXCHANGERequest;
+}t_MerchantExchangeRequest, *lpMERCHANTEXCHANGERequest;
 
-const int CMD_SKILL_MASTER_MULTI_RARE_MAKE				=		16200;
+const int CMD_SKILL_MASTER_MULTI_RARE_MAKE = 16200;
 
 typedef struct tagMakeItem		// 작업대에서 사용할 아이템 구조체
 {
@@ -255,41 +255,41 @@ typedef struct tagMakeItem		// 작업대에서 사용할 아이템 구조체
 typedef struct MULTIRARESRC
 {
 	MakeItem SrcData[2];
-}t_MultiRareSrc,*LPMULTIRARESRC;
+}t_MultiRareSrc, *LPMULTIRARESRC;
 
 typedef struct SKILLMASTERMULTIRAREMAKE
 {
 	int iCn;
 	int iSkillNo;
 	MULTIRARESRC MRS;
-}t_SkillMasterMultiRareMake,*LPSKILLMASTERMULTIRAREMAKE;
+}t_SkillMasterMultiRareMake, *LPSKILLMASTERMULTIRAREMAKE;
 
-const int CMD_EXCHANGE_BOND_MONEY				=		16201;
+const int CMD_EXCHANGE_BOND_MONEY = 16201;
 typedef struct EXCHANGEBONDMONEY
 {
 	int iCn;
 	POS	pos;//위치 
 	ITEMATTR BondMoneyItem;//본드머니 정보
 	int iKey;//여분으로 사용할 키
-}t_ExchangeBondMoney,*LPEXCHANGEBONDMONEY;
+}t_ExchangeBondMoney, *LPEXCHANGEBONDMONEY;
 
-const int CMD_EXCHANGE_CANCEL_SIGN	= 16202;
-const int CMD_MAP_MOVE_LV_LIMIT		= 16203;
+const int CMD_EXCHANGE_CANCEL_SIGN = 16202;
+const int CMD_MAP_MOVE_LV_LIMIT = 16203;
 
 typedef struct MAPMOVELVLIMIT
 {
 	int iLvMin;
 	int iLvMax;
-}t_MapMoveLvLimit,*LPMAPMOVELVLIMIT;
+}t_MapMoveLvLimit, *LPMAPMOVELVLIMIT;
 
-const int CMD_TRADE_MODE_CHANGE				=		16204;//030127 lsw
+const int CMD_TRADE_MODE_CHANGE = 16204;//030127 lsw
 typedef struct TRADEMODECHANGE
 {
 	int iCn;
 	bool bIsTradeOn;
-}t_TradeModeChange,*LPTRADEMODECHANGE;
+}t_TradeModeChange, *LPTRADEMODECHANGE;
 // Mail System //////////////////////////////////////////////////////////////////////////////
-const int MAX_MAIL_PAGE	= 12;
+const int MAX_MAIL_PAGE = 12;
 const int MAX_MAIL_RECEIVER = 5;
 const int MAX_MAIL_BODY_LEN = 1000;
 
@@ -299,10 +299,10 @@ typedef struct MAILDATA
 
 	int iType;
 	bool bIsRead;
-	
+
 	char szSender[20];
 	char szReceiver[20];
-	
+
 	char szTitle[60];
 	TIMESTAMP_STRUCT	date;
 	int	iBodyIndex;
@@ -314,18 +314,18 @@ typedef struct MAILBODY
 	char szBody[MAX_MAIL_BODY_LEN];
 }t_MailBody, *LPMAILBODY;
 
-const int CMD_MAIL_REQ_BODY		= 16102;//해당 메일의 바디
+const int CMD_MAIL_REQ_BODY = 16102;//해당 메일의 바디
 typedef struct REQESTMAILBODY
 {
-//	int iWantMailType;
+	//	int iWantMailType;
 	int iMailIndex;
 	char szName[MAX_NAME];
-}t_ReqestMailBody,*LPREQESTMAILBODY;
+}t_ReqestMailBody, *LPREQESTMAILBODY;
 
-const int CMD_MAIL_REQ_BODY_RESULT		= 16113;//해당 메일의 바디
+const int CMD_MAIL_REQ_BODY_RESULT = 16113;//해당 메일의 바디
 typedef struct REQESTMAILBODYRESULT
 {
-//	int iWantMailType;
+	//	int iWantMailType;
 	int iMailIndex;
 	int iType;
 	char szSender[MAX_NAME];
@@ -333,7 +333,7 @@ typedef struct REQESTMAILBODYRESULT
 	char szTitle[MAX_NAME];
 	TIMESTAMP_STRUCT	date;
 	char szBody[MAX_MAIL_BODY_LEN];
-}t_ReqestMailBodyResult,*LPREQESTMAILBODYRESULT;
+}t_ReqestMailBodyResult, *LPREQESTMAILBODYRESULT;
 
 const int CMD_MAIL_REQUEST_LIST = 16114;//한페이지 분량의 메일 리스트.
 typedef struct REQESTMAILLIST
@@ -341,10 +341,10 @@ typedef struct REQESTMAILLIST
 	int iWantMailType;
 	int iPageIndex;
 	char szName[MAX_NAME];
-}t_ReqestMailList,*LPREQESTMAILLIST;
+}t_ReqestMailList, *LPREQESTMAILLIST;
 
 //메일 관련 받기 (클라이언트)
-const int CMD_MAIL_SEND	=10142;	// 메일 보내기
+const int CMD_MAIL_SEND = 10142;	// 메일 보내기
 typedef struct MAILSEND
 {
 	int iType;
@@ -352,7 +352,7 @@ typedef struct MAILSEND
 	char szSender[MAX_NAME];
 	char szTitle[60];
 	char szBody[MAX_MAIL_BODY_LEN];
-}t_MailSend,*LPMAILSEND;
+}t_MailSend, *LPMAILSEND;
 
 const int CMD_MAIL_LIST_FROM_DBDEMON = 16100;
 typedef struct MAILLISTRESULT
@@ -361,7 +361,7 @@ typedef struct MAILLISTRESULT
 	int iWantViewType;
 	int iWantViewPage;
 	MAILDATA MailData[MAX_MAIL_PAGE];
-}t_MailListResult,*LPMAILLISTRESULT;
+}t_MailListResult, *LPMAILLISTRESULT;
 
 #define CMD_REQ_RECV_MAIL_BODY				10144	// 메일 내용 요청
 
@@ -380,14 +380,14 @@ typedef struct MAILLISTRESULT
 
 const int CMD_MAIL_ALERT = 16400;//메일 얼럿
 
-const int CMD_MAIL_DELETE	=10143;	// 메일 삭제
-const int CMD_MAIL_REPAIR	=10145;	// 메일 삭제
+const int CMD_MAIL_DELETE = 10143;	// 메일 삭제
+const int CMD_MAIL_REPAIR = 10145;	// 메일 삭제
 typedef struct MAILDELETE
 {
 	int cn;
 	char szName[MAX_NAME];
 	int aiMailIndex[MAX_MAIL_PAGE];
-}t_MailDelete,*LPMAILDELETE;
+}t_MailDelete, *LPMAILDELETE;
 //< CSD-030808
 #define CMD_CHECK_ACCEL	6060
 typedef struct server_check_accel
@@ -404,14 +404,14 @@ typedef struct tag_ACCEL_TYPE
 //> CSD-030808
 typedef struct HWOARANG_PACKET
 {
-	union			
+	union
 	{
 		char	data[MAX_PACKET_SIZE];
 		t_SkillMasterMultiRareMake	SMMultiRareMake;
 		t_ExchangeBondMoney			ExBondMoney;
 		t_MapMoveLvLimit			MapMoveLvLimit;
 		t_TradeModeChange			TradeModeChange;
-		
+
 		t_ReqestMailList			ReqestMailList;
 		t_MailSend					MailSend;
 		t_MailDelete				MailDelete;
@@ -436,18 +436,18 @@ typedef struct ITEMMALLEVENTITEM
 	int	idayRemain;		// 기간제한 아이템속성으로 일단위로 기입
 	int	ihourRemain;	// 기간제한 아이템속성으로 시단위로 기입
 	int	iminuteRemain;	// 기간제한 아이템속성으로 분단위로 기입
-}t_ItemMallItem,*LPItemMallItem;
+}t_ItemMallItem, *LPItemMallItem;
 
 typedef struct ITEM_MALL_TIME_MAIN
 {							//용도	(MAX)	(2진수)	[누계]
-	DWORD	year		: 7;//년	(99)	1100011
-	DWORD	month		: 4;//월	(12)	1100	[11]
-	DWORD	day			: 5;//일	(31)	11111	[16]
-	DWORD	hour		: 5;//시	(23)	10111	[21]
-	DWORD	minute		: 6;//분	(59)	111011	[27]
-	DWORD	Reserve		: 5;//NotUse(59)			[32]
+	DWORD	year : 7;//년	(99)	1100011
+	DWORD	month : 4;//월	(12)	1100	[11]
+	DWORD	day : 5;//일	(31)	11111	[16]
+	DWORD	hour : 5;//시	(23)	10111	[21]
+	DWORD	minute : 6;//분	(59)	111011	[27]
+	DWORD	Reserve : 5;//NotUse(59)			[32]
 }t_ITEM_MALL_TIME, *LP_ITEM_MALL_TIME;
 
-extern int LoadItemMallItemKind();		
+extern int LoadItemMallItemKind();
 extern vector<t_ItemMallItem> g_ItemMallItem;	//TotalDB의 ItemMallItemKind정보(아이템삭제시 아이템번호를 참고하기위함)
 //>050224_KCH 마일리지몰 작업

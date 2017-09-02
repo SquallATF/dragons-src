@@ -28,14 +28,14 @@ struct NPCGenerationPos  				// LTS AI2
 
 	NPCGenerationPos()
 	{
-		CurNPC=0;
-		GroupNo=0;
-		isBoss=0;
-		NPCNo=0;
-		LocationX=0;
-		LocationY=0;
-		EventNo=0;
-		MaxNo=0;
+		CurNPC = 0;
+		GroupNo = 0;
+		isBoss = 0;
+		NPCNo = 0;
+		LocationX = 0;
+		LocationY = 0;
+		EventNo = 0;
+		MaxNo = 0;
 	}
 };
 
@@ -48,10 +48,10 @@ struct EMGroupInfo
 
 	EMGroupInfo()
 	{
-		ExecType=0;
-		DayofWeek=0;
-		DHour=0;
-		KilledGroup=0;
+		ExecType = 0;
+		DayofWeek = 0;
+		DHour = 0;
+		KilledGroup = 0;
 	}
 };
 
@@ -80,10 +80,10 @@ public:
 	int GetDataCountByIndex(int Index);
 
 	int CheckActivedGroup();
-	
-	NPCGenerationPos* GetGenerationPosByGroupNo(int GroupNo,int Pos);
-	NPCGenerationPos* GetGenerationPosByIndex(int Index,int Pos);
-			
+
+	NPCGenerationPos* GetGenerationPosByGroupNo(int GroupNo, int Pos);
+	NPCGenerationPos* GetGenerationPosByIndex(int Index, int Pos);
+
 	void RemoveEventMonster(CHARLIST* ch);
 	void CheckBossAndDeActiveGroupNo(CHARLIST* ch);
 	void CheckDayAndActive(int Index);
@@ -100,9 +100,9 @@ public:
 
 	int GetGroupIndex(int GroupNo) const
 	{
-		for (int i=0;i<MAX_GROUP_NO;i++)
+		for (int i = 0; i < MAX_GROUP_NO; i++)
 		{
-			if (m_piGroupNo[i]==GroupNo)
+			if (m_piGroupNo[i] == GroupNo)
 			{
 				return i;
 			}
@@ -113,8 +113,8 @@ public:
 
 	int GetActiveStatusByGroupNo(int GroupNo) const
 	{
-		int tempIndex=GetGroupIndex(GroupNo);
-		if (tempIndex>=0)
+		int tempIndex = GetGroupIndex(GroupNo);
+		if (tempIndex >= 0)
 		{
 			return m_piActived[tempIndex];
 		}
@@ -123,7 +123,7 @@ public:
 
 	int GetActiveStatusByIndex(int Index) const
 	{
-		if (Index<0||Index>=MAX_GROUP_NO) 
+		if (Index < 0 || Index >= MAX_GROUP_NO)
 		{
 			return -1;
 		}

@@ -12,7 +12,7 @@
 const short int nMinimumLight = 9;
 const short int nMaximumLight = 31;
 
-class CWeatherControl  
+class CWeatherControl
 {
 public:
 	CWeatherControl();
@@ -22,16 +22,16 @@ public:
 	void CheckDayLight();
 	void AutoSetDayLight(CHARLIST *ch);
 	void SetDayLight(const short int nValue);
-	void SetChLight(CHARLIST *ch,const int iLight,const int iTimeSec );
+	void SetChLight(CHARLIST *ch, const int iLight, const int iTimeSec);
 private:
 	short int nDayLightControl;
 };
 extern CWeatherControl WeatherControl;
 
-extern void CurrentGameDate( const DWORD t, int *y, int *mo, int *d, int *h, int *mi, int *sec );
-extern int  LoadWeatherTable( void );
-extern void CheckWeatherSystem( void );
-extern short int getWeatherCorrection( void );
+extern void CurrentGameDate(const DWORD t, int *y, int *mo, int *d, int *h, int *mi, int *sec);
+extern int  LoadWeatherTable(void);
+extern void CheckWeatherSystem(void);
+extern short int getWeatherCorrection(void);
 
 extern DWORD today_rainstart[5];
 extern DWORD today_rainend[5];

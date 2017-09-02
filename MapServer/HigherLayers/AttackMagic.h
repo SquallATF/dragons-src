@@ -13,25 +13,25 @@
 ///////////////////////////////////////////////////////////////////////////////
 // 공격계열 마법
 class CAttackMagic : public TBinder<CMagic, CAttackMagic>
-{ 
+{
 public:
 	CAttackMagic();
 	virtual ~CAttackMagic();
-	
+
 public:
 	virtual bool Bind();
-	
+
 public:
-	virtual bool Execute() 
-	{ 
-		return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
 	}
-	
-	virtual bool Elapse(CHARLIST* pTarget) 
-	{ 
-		return true; 
+
+	virtual bool Elapse(CHARLIST* pTarget)
+	{
+		return true;
 	}
-	
+
 public:
 	bool FireArrow();            // 불계열의 공격마법
 	bool FireWall();
@@ -45,7 +45,7 @@ public:
 	bool GreatMeteor();
 	bool FlyingSpark();
 	bool FireExplosion();
-	bool FireStorm(); 
+	bool FireStorm();
 	bool FireBreath();
 	bool FlamePillar();
 	bool FlamePour();
@@ -92,18 +92,18 @@ public:
 protected:
 	void SetFrozen(int nPeriod);
 	bool AttackMagic(int nDamage);
-	
+
 private:
 	void Correct(int& rDamage);
 	bool Result(int nHD);
-	
+
 private:
 	bool IsMiss() const
 	{ // 마법 성공률에 따른 마법 실패 여부 검사
-		if( m_pTarget && m_pTarget->IsDead() ) return true;		// 020818 YGI
+		if (m_pTarget && m_pTarget->IsDead()) return true;		// 020818 YGI
 		const int nDefense = RareEM.GetStaticRareEvasion(m_pTarget->StaticRare);
-		const int nRate= m_pCaster->CalcMagicSuccessRate(nDefense);
-		return (nRate < rand()%101) ? true:false;
+		const int nRate = m_pCaster->CalcMagicSuccessRate(nDefense);
+		return (nRate < rand() % 101) ? true : false;
 	}
 };
 //

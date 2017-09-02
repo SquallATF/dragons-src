@@ -20,7 +20,7 @@ using namespace std;
 
 
 
-typedef struct tag_SYMBOL_ITEM{
+typedef struct tag_SYMBOL_ITEM {
 	char	strName[MAX_NAME_BUFFER];
 	char	strHanName[MAX_NAME_BUFFER];
 	int		nFirst_Class;
@@ -32,7 +32,7 @@ typedef struct tag_SYMBOL_ITEM{
 typedef vector<SYMBOL_ITEM>	SYMBOL_LIST; // 현재 23개다.
 typedef vector<SYMBOL_ITEM>::iterator	ITOR_SYMBOL_LIST;
 
-typedef struct tag_SYMBOL_VALUE{
+typedef struct tag_SYMBOL_VALUE {
 	int		anAttrValue[MAX_SYMBOL_ITEM];
 }SYMBOL_VALUE;
 typedef vector<SYMBOL_VALUE>	SYMBOL_VALUE_LIST; //현재 5개의 레벨로 설정되어 있다.
@@ -41,7 +41,7 @@ typedef vector<SYMBOL_VALUE>	SYMBOL_VALUE_LIST; //현재 5개의 레벨로 설�
 typedef vector<SYMBOL_VALUE_LIST> SYMBOL_APPLY_ATTR_LIST;//현재 5개의 속성으로 되어있다.
 
 
-enum{
+enum {
 	SYMBOL_RARENUM0 = 0,
 	SYMBOL_RARENUM1 = 1,
 	SYMBOL_RARENUM2 = 2,
@@ -67,18 +67,18 @@ private:
 public:
 	int GetMagicAttr(CHARLIST *pChar);
 	void UpGradeSymbol(CHARLIST *pChar);
-	void UpGradeSymbol(CHARLIST* pChar,int nGrade);
-	void MakeSymbolItem(CHARLIST*	pChar,int nGrade=1);
+	void UpGradeSymbol(CHARLIST* pChar, int nGrade);
+	void MakeSymbolItem(CHARLIST*	pChar, int nGrade = 1);
 	int GetSymbolGrade(CHARLIST* pChar);
 	bool DoHaveSymbol(CHARLIST* pChar);
-	int GetItemNumber(int n1StClass,int n2StClass);
+	int GetItemNumber(int n1StClass, int n2StClass);
 	int AddSymbolEffect(CHARLIST *pChar);
-	
-	bool ExChangeSymbol(CHARLIST *pCharactor,int nFirstClass,int nSecondClass ,int nDualGrade);
+
+	bool ExChangeSymbol(CHARLIST *pCharactor, int nFirstClass, int nSecondClass, int nDualGrade);
 	void Init(HDBC hDragonDB = NULL, HDBC hChrLogDB = NULL);
 	void DestroyAllObject();
 	bool LoadTable();
-	void InitDBHandle(HDBC hDragonDB = NULL,HDBC hChrLogDB = NULL);
+	void InitDBHandle(HDBC hDragonDB = NULL, HDBC hChrLogDB = NULL);
 	CSymbolItemMgr(HDBC hDragonDB, HDBC hChrLogDB);
 	CSymbolItemMgr();
 	virtual ~CSymbolItemMgr();

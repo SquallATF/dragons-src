@@ -13,7 +13,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-class CArenaManager : public TSingleton<CArenaManager>  
+class CArenaManager : public TSingleton<CArenaManager>
 {
 public:
 	typedef map<int, CArenaInfo*>  HASH_ARENA;
@@ -58,7 +58,7 @@ public:
 
 public:
 	HASH_ARENA& GetArenaSet() { return m_mpArena; }
-	HASH_GAME& GetGameSet()   { return m_mpGame; }
+	HASH_GAME& GetGameSet() { return m_mpGame; }
 
 	CArenaInfo* GetArenaInfo(int nPort)
 	{
@@ -82,17 +82,17 @@ public:
 
 	bool IsArenaInfo(int nPort) const
 	{
-		return (m_mpArena.find(nPort) != m_mpArena.end()) ? true:false;
+		return (m_mpArena.find(nPort) != m_mpArena.end()) ? true : false;
 	}
 
 	bool IsGameInfo(int nIndex)
 	{
-		return (m_mpGame.find(nIndex) != m_mpGame.end()) ? true:false;
+		return (m_mpGame.find(nIndex) != m_mpGame.end()) ? true : false;
 	}
 
 	bool IsColossusArena() const
 	{
-		return (!m_mpGame.empty()) ? true:false;
+		return (!m_mpGame.empty()) ? true : false;
 	}
 
 private:

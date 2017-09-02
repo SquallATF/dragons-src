@@ -25,7 +25,7 @@ CFlameCombat::~CFlameCombat()
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-bool CFlameCombat::Bind() 
+bool CFlameCombat::Bind()
 {	//< CSD-TW-030606
 	Resist(SWORD_N_ROSES, &CFlameCombat::SwordNRoses);
 	Resist(MULTIPLE_FIRE, &CFlameCombat::MultipleFire);
@@ -33,25 +33,25 @@ bool CFlameCombat::Bind()
 	Resist(CONVERTING_ARMOR, &CFlameCombat::ConvertingArmor);
 	Resist(BURNING_BLOODY, &CFlameCombat::BurningBloody); // 030415 kyo
 	Resist(FIRE_EXTREME, &CFlameCombat::FireExtreme);
-	return true; 
+	return true;
 }	//> CSD-TW-030606
 
 bool CFlameCombat::Elapse(CHARLIST* pTarget)
 {	//< CSD-TW-030624
-	switch( pTarget->GetRecoveryCombat())
+	switch (pTarget->GetRecoveryCombat())
 	{
 	case BURNING_BLOODY:
+	{
+		if (!pTarget->IsRecoveryCombatState())
 		{
-			if (!pTarget->IsRecoveryCombatState())
-			{
-				pTarget->InitRecoveryCombat();
-				SendInit(RECOVERY_COMBAT, pTarget->GetServerID());
-			}
-
-			break;    
+			pTarget->InitRecoveryCombat();
+			SendInit(RECOVERY_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 }	//> CSD-TW-030624
 
@@ -115,7 +115,7 @@ bool CFlameCombat::BurningBloody() // 030415 kyo
 {	//< CSD-TW-030606
 	const WORD wPeriod = CalcMaintain(); // 유지시간 계산
 	m_pCaster->dwCombatRecovery = m_dwNow + wPeriod;
-	
+
 	t_server_combat_result_t packet;
 	packet.nSkill = m_nIndex;
 	packet.idTarget = m_idTarget;

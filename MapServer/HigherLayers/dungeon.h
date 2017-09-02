@@ -48,17 +48,17 @@ template <class T1> class TKeinList
 	TKeinList<T1> *m_pPrev;
 	TKeinList<T1> *m_pNext;
 	TKeinList<T1> *m_pFind;
-	
-public :
+
+public:
 	TKeinList() { Set(); }
 	~TKeinList() { SAFE_DELETE(m_pData); SAFE_DELETE(GetNext()); }
-	TKeinList<T1> *&GetNext(){ return m_pNext; }
-	TKeinList<T1> *&GetPrev(){ return m_pPrev; }
-	
+	TKeinList<T1> *&GetNext() { return m_pNext; }
+	TKeinList<T1> *&GetPrev() { return m_pPrev; }
+
 	TKeinList<T1> *GetEndNode()
-	{ 
+	{
 		TKeinList<T1> *temp = this;
-		for(; temp->GetNext(); temp = temp->GetNext() );
+		for (; temp->GetNext(); temp = temp->GetNext());
 		return temp;
 	}
 	void Set() { m_pData = 0; GetNext() = 0; GetPrev() = 0; }
@@ -80,7 +80,7 @@ public :
 	{
 		return *m_pFind->GetData();
 	}
-	bool AddNode( T1 data )
+	bool AddNode(T1 data)
 	{
 		TKeinList<T1> *pEnd = GetEndNode();
 		TKeinList<T1> *pAddData = new TKeinList<T1>;
@@ -90,7 +90,7 @@ public :
 		pAddData->GetPrev() = pEnd;
 		return true;
 	}
-	bool AddNode( T1 *pData )
+	bool AddNode(T1 *pData)
 	{
 		TKeinList<T1> *pEnd = GetEndNode();
 		TKeinList<T1> *pAddData = new TKeinList<T1>;
@@ -99,15 +99,15 @@ public :
 		pAddData->GetPrev() = pEnd;
 		return true;
 	}
-	bool DeleteNode( T1 data )
+	bool DeleteNode(T1 data)
 	{
 		TKeinList<T1> *temp = this;
-		while( temp=temp->FindNode(data) )
+		while (temp = temp->FindNode(data))
 		{
 			temp->GetPrev()->GetNext() = temp->GetNext();
-			if( temp->GetNext() ) 
+			if (temp->GetNext())
 				temp->GetNext()->GetPrev() = temp->GetPrev();
-			
+
 			TKeinList<T1> *temp2;
 			temp2 = temp->GetPrev();
 			temp->GetNext() = 0;
@@ -116,11 +116,11 @@ public :
 		}
 		return true;
 	}
-	TKeinList<T1> * FindNode( T1 data )
+	TKeinList<T1> * FindNode(T1 data)
 	{
-		for( TKeinList<T1> *temp = GetNext(); temp; temp = temp->GetNext() ) 
+		for (TKeinList<T1> *temp = GetNext(); temp; temp = temp->GetNext())
 		{
-			if( *temp->m_pData == data )
+			if (*temp->m_pData == data)
 			{
 				return temp;
 			}
@@ -130,13 +130,13 @@ public :
 	bool DeleteFirst()
 	{
 		TKeinList<T1> *temp = GetNext();
-		if( !temp ) return 0;
+		if (!temp) return 0;
 		TKeinList<T1> *next = temp->GetNext();
 		GetNext() = next;
-		
-		if( next )
+
+		if (next)
 			next->GetPrev() = this;
-		
+
 		temp->GetNext() = 0;
 		SAFE_DELETE(temp);
 		return true;
@@ -144,7 +144,7 @@ public :
 	bool DeleteEnd()
 	{
 		TKeinList<T1> *pEnd = GetEndNode();
-		if( pEnd == this ) return 0;
+		if (pEnd == this) return 0;
 		pEnd->GetPrev()->GetNext() = 0;
 		SAFE_DELETE(pEnd);
 		return 1;
@@ -152,27 +152,27 @@ public :
 	int GetCount()
 	{
 		int count = 0;
-		for( TKeinList<T1> *temp = this; temp->GetNext(); temp = temp->GetNext() ) count++;
+		for (TKeinList<T1> *temp = this; temp->GetNext(); temp = temp->GetNext()) count++;
 		return count;
 	}
-	int AddNodeLimit( T1 *pData, int max, int delete_first = 1 )
+	int AddNodeLimit(T1 *pData, int max, int delete_first = 1)
 	{
-		AddNode( pData );
-		if( GetCount() > max )
+		AddNode(pData);
+		if (GetCount() > max)
 		{
-			if( delete_first ) DeleteFirst();
+			if (delete_first) DeleteFirst();
 		}
 		return 1;
 	}
 	T1* GetData(int nIndex)
 	{
 		TKeinList<T1> *temp = GetNext();
-		for( int i=0; i<nIndex; i++ )
+		for (int i = 0; i < nIndex; i++)
 		{
-			if( !temp ) return NULL;
+			if (!temp) return NULL;
 			temp = temp->GetNext();
 		}
-		return temp?temp->m_pData:NULL;
+		return temp ? temp->m_pData : NULL;
 	}
 	T1 *GetData()
 	{
@@ -184,23 +184,23 @@ public :
 
 class CDungeonHistory
 {
-public :
+public:
 	enum eDungeonHistoryType
 	{
-		NORMAL_TRAP_OPEN	= 1,		// 보통의 트랩
-		NORMAL_TRAP_CLOSE	= 2,			
-		MIDDLE_BOSS_OPEN	= 3,			// 중간 보스로 가는 포탈
-		MIDDLE_BOSS_CLOSE	= 4,			
-		LAYER_POTAL_OPEN	= 5,			// 다음 층으로 가는 포탈
-		LAYER_POTAL_CLOSE	= 6,			
-		DUNGEON_POTAL_OPEN	= 7,			// 밖으로 나가는 포탈
-		DUNGEON_POTAL_CLOSE	= 8,
-		DUNGEON_OPEN		= 9,				// 시나리오에 의해서 던전이 오픈되고 안되고
-		DUNGEON_CLOSE		= 10,
+		NORMAL_TRAP_OPEN = 1,		// 보통의 트랩
+		NORMAL_TRAP_CLOSE = 2,
+		MIDDLE_BOSS_OPEN = 3,			// 중간 보스로 가는 포탈
+		MIDDLE_BOSS_CLOSE = 4,
+		LAYER_POTAL_OPEN = 5,			// 다음 층으로 가는 포탈
+		LAYER_POTAL_CLOSE = 6,
+		DUNGEON_POTAL_OPEN = 7,			// 밖으로 나가는 포탈
+		DUNGEON_POTAL_CLOSE = 8,
+		DUNGEON_OPEN = 9,				// 시나리오에 의해서 던전이 오픈되고 안되고
+		DUNGEON_CLOSE = 10,
 		DUNGEON_WHEN_OPEN_CLOSE_NOTICE = 11,//시나리오가 언제 열리는지
 	};
-	
-public :
+
+public:
 	int m_nType;			// 공지 타입
 	int m_nMonth;			// 시간
 	int m_nDay;
@@ -209,8 +209,8 @@ public :
 	int m_nLayer;
 	char m_szDungeon[20];
 	char m_szName[20];
-	
-public :
+
+public:
 	CDungeonHistory()
 	{
 		m_nType = 0;
@@ -221,17 +221,17 @@ public :
 		m_szName[0] = 0;
 		m_nLayer = 0;
 	}
-	int SetData( int type, int layer, char *name, const char *mapname = NULL );
-	CDungeonHistory & operator = ( const CDungeonHistory &data ) 
+	int SetData(int type, int layer, char *name, const char *mapname = NULL);
+	CDungeonHistory & operator = (const CDungeonHistory &data)
 	{
-		m_nType		= data.m_nType  ;
-		m_nType		= data.m_nType	;	
-		m_nMonth	= data.m_nMonth	;
-		m_nDay		= data.m_nDay	;	
-		m_nHour		= data.m_nHour	;
-		m_nMin		= data.m_nMin ;
-		strcpy( m_szDungeon, data.m_szDungeon );
-		strcpy( m_szName, data.m_szName );
+		m_nType = data.m_nType;
+		m_nType = data.m_nType;
+		m_nMonth = data.m_nMonth;
+		m_nDay = data.m_nDay;
+		m_nHour = data.m_nHour;
+		m_nMin = data.m_nMin;
+		strcpy(m_szDungeon, data.m_szDungeon);
+		strcpy(m_szName, data.m_szName);
 		return *this;
 	}
 };
@@ -239,30 +239,30 @@ public :
 //////////////////////////////////////////////////////////////
 class CScenarioBoss
 {
-public :
+public:
 	enum
 	{
 		NT_NONE = 0,
-			NT_NORMAL_DRAGON = 1,
-			NT_DRAGON_LOAD = 2,
-			NT_DRAGON_HEART = 3,
-			NT_NORMAL_BOSS = 4,
-			NT_FOLLOWER = 5,		// 졸병
+		NT_NORMAL_DRAGON = 1,
+		NT_DRAGON_LOAD = 2,
+		NT_DRAGON_HEART = 3,
+		NT_NORMAL_BOSS = 4,
+		NT_FOLLOWER = 5,		// 졸병
 	};
 	enum
 	{
 		BT_NORMAL = 0,
-			BT_LAYER_BOSS = 1,
-			BT_DARAGON_HEART = 2,
-			BT_DARAGON = 3,
+		BT_LAYER_BOSS = 1,
+		BT_DARAGON_HEART = 2,
+		BT_DARAGON = 3,
 	};
-public :
+public:
 	int m_nNpcType;
 	int m_nSprNum;		// 스프라이트 넘버
 	int m_nNpcIndex;	// NPCLIST 에서 사용하는 인덱스
 	int m_nBossType;		// 그 층의 보스냐?
-	
-public :
+
+public:
 	CScenarioBoss()
 	{
 		Clear();
@@ -277,44 +277,44 @@ public :
 	~CScenarioBoss() { DeleteBoss(); }
 	int GetBossType() { return m_nBossType; }
 	int DeleteBoss();
-	bool IsDragonLoad() { return (m_nNpcType==NT_DRAGON_LOAD)?true:false; }
-	int CreateBoss( int npc_type, int npc_num = 0, int x=0, int y=0 );
-	
+	bool IsDragonLoad() { return (m_nNpcType == NT_DRAGON_LOAD) ? true : false; }
+	int CreateBoss(int npc_type, int npc_num = 0, int x = 0, int y = 0);
+
 };
 
 //////////////////////////////////////////////////////////////
 class CDungeonObject
 {
-public : 
+public:
 	void *m_pMother;
 public:
-	enum 
+	enum
 	{
 		TILE_NOT = 0,
-			TILE_DONT = 1,
-			TILE_EVENT = 2,
+		TILE_DONT = 1,
+		TILE_EVENT = 2,
 	};
 	enum	// m_nNeedType		// 액티브 되는 조건
 	{
-		ONT_NEED_ITEM	= 1,		// 액티브 될때 아이템이 필요
-			ONT_NEED_TRAP	= 2,		// 액티브시 다른 트랩이 필요 ( OET_NORMAL_TRAP 이 전부 액티브 되야 한다. )
-			ONT_NEED_TRAP2	= 3,		// 액티브시 다른 트랩이 필요 ( 바로전 인덱스의 값이 액티브 되야 한다. )
-			ONT_NEED_QUBE	= 4,		// 아아템으로 번호를 맞춰야 한다.
-			ONT_NEED_QUBE2	= 5,		// 큐브가 다 액티브 될때 액티브 된다.
-			ONT_NEED_DRAGON	= 6,		// 드래곤이 나타날때 액티브 ( 드래곤 로드가 나타나면 close )
-			ONT_NEED_MONSTER = 7,		// 몬스터가 죽을때 액티브 된다.
+		ONT_NEED_ITEM = 1,		// 액티브 될때 아이템이 필요
+		ONT_NEED_TRAP = 2,		// 액티브시 다른 트랩이 필요 ( OET_NORMAL_TRAP 이 전부 액티브 되야 한다. )
+		ONT_NEED_TRAP2 = 3,		// 액티브시 다른 트랩이 필요 ( 바로전 인덱스의 값이 액티브 되야 한다. )
+		ONT_NEED_QUBE = 4,		// 아아템으로 번호를 맞춰야 한다.
+		ONT_NEED_QUBE2 = 5,		// 큐브가 다 액티브 될때 액티브 된다.
+		ONT_NEED_DRAGON = 6,		// 드래곤이 나타날때 액티브 ( 드래곤 로드가 나타나면 close )
+		ONT_NEED_MONSTER = 7,		// 몬스터가 죽을때 액티브 된다.
 	};
 	enum	// m_nExecuteType	// 액티브시 해야 할 행동
 	{
-		OET_NORMAL_TRAP			= 1,
-			OET_POTAL_BOSS			= 2,
-			OET_POTAL_OUT_LAYER		= 3,
-			OET_POTAL_OUT_DUNGEON	= 4,
-			OET_POTAL_DRAGON		= 5,		// 드래곤으로 가는 포탈
-			
-			//OET_OTHER_ACTIVE_TRAP	= 5,	// 자기가 액티브 될때 다른 놈도 액티브 시켜준다.
+		OET_NORMAL_TRAP = 1,
+		OET_POTAL_BOSS = 2,
+		OET_POTAL_OUT_LAYER = 3,
+		OET_POTAL_OUT_DUNGEON = 4,
+		OET_POTAL_DRAGON = 5,		// 드래곤으로 가는 포탈
+
+		//OET_OTHER_ACTIVE_TRAP	= 5,	// 자기가 액티브 될때 다른 놈도 액티브 시켜준다.
 	};
-	
+
 public:
 	int m_Index;					// 트랩 번호 0번은 사용하지 않는다.
 	int m_nLayer;					// 해당 층
@@ -333,18 +333,18 @@ public:
 	int m_ObjectId;					// 생성시킨 오브젝트 번호	// -1은 없음
 	int m_nActiveItemNo;			// 작동시키는 아이템
 	char m_szOutputMap[20];
-	
+
 	// 타일에 관련된
 	// close 용
 	int m_eTileType1;		// 0이면 없다.	enum 사용
 	int m_nRange1;			// 속성을 칠 범위
 	int m_nEventNo1;		// 밟아야 하는 이벤트 번호
-	
+
 	// active용
 	int m_eTileType2;		// 0이면 없다.	enum 사용
 	int m_nRange2;			// 속성을 칠 범위
 	int m_nEventNo2;		// 밟아야 하는 이벤트 번호
-	
+
 	// 보스 생성
 	CScenarioBoss	*m_pBoss;			// 보스
 	int				m_nBossCount;		// 용일 경우 2개이다.
@@ -354,11 +354,11 @@ public:
 	int m_nBossY;
 	int m_nBossItem;
 	int m_nResenTime;
-	
+
 	int m_nFollower;			// 주변에 같이 나오는 쫄병
 	int m_nFollowerCount;		// 쫄병 수
-	
-	
+
+
 public:
 	CDungeonObject()
 	{
@@ -382,60 +382,60 @@ public:
 		m_nBossCount = 0;
 	}
 	~CDungeonObject();
-	
+
 	bool IsThisLayerActive();
-	bool IsNormalTrap() { return ( m_nExecuteType == OET_NORMAL_TRAP )?true:false; }
-	void SetMotherPointer( void *pointer ) { m_pMother = pointer; }
+	bool IsNormalTrap() { return (m_nExecuteType == OET_NORMAL_TRAP) ? true : false; }
+	void SetMotherPointer(void *pointer) { m_pMother = pointer; }
 	int CheckCloseTime();
 	int IsActive() { return m_bActive; }
-	void CloseObject( int npc_create_type = 1 );
+	void CloseObject(int npc_create_type = 1);
 	int CreateNormalBoss();		// 중간 보스 생성
 	void ActiveObject();
-	int Execute( short int cn );
-	bool TryActive( CHARLIST *ch );
-	bool SetActive( CHARLIST *ch );
+	int Execute(short int cn);
+	bool TryActive(CHARLIST *ch);
+	bool SetActive(CHARLIST *ch);
 	int DeleteObjectImage();
 	int Start();
-	int CreateScenarioBoss( int boss_type = CScenarioBoss::NT_NORMAL_BOSS);
-	int KillBoss( CHARLIST *user, CHARLIST *boss );		// npc가 죽었을때 그 npc가 시나리오 보스일경우 처리
+	int CreateScenarioBoss(int boss_type = CScenarioBoss::NT_NORMAL_BOSS);
+	int KillBoss(CHARLIST *user, CHARLIST *boss);		// npc가 죽었을때 그 npc가 시나리오 보스일경우 처리
 	int DeletBoss();									// 강제로 보스를 없앨 경우
 	bool IsDragonLoad();
-	void SendObjectTileAttr( short int cn );
+	void SendObjectTileAttr(short int cn);
 };
 
 //#define _KEIN_TEST_
 const int MESSAGE_COUNT = 2;
 class CDungeonMap		// 맵단위
 {
-public : 
+public:
 	enum	// m_nDungeonType 
 	{
 		DT_NONE = 1,
-			DT_PASSWORD = 2,
+		DT_PASSWORD = 2,
 	};
 public:
 	TKeinList<CDungeonHistory> m_History;
-	
+
 	CDungeonObject *m_pObject;
 	int m_nObjectCount;
-	
+
 	int m_nLayer;
 	int m_nTrapCount;			// 대미궁에서 암호로 사용한다.
 	int m_nDungeonType;			// 
-	
+
 	bool m_bActive;
 	int m_nMessageCount;
 	int m_pKey[7];
 	int m_nMessageOption;
-	
+
 	bool m_bDragonRoad;
-	
+
 	char m_szOutMap[20];
 	int m_nOutX;
 	int m_nOutY;
-	
-public :
-	CDungeonMap( int flag = 1 )
+
+public:
+	CDungeonMap(int flag = 1)
 	{
 		m_pObject = 0;
 		m_bDragonRoad = 0;
@@ -446,20 +446,20 @@ public :
 		Clear();
 	}
 	void SetDragonRoad() { m_bDragonRoad = !m_bDragonRoad; }
-	
-	bool IsDragonRoad() 
+
+	bool IsDragonRoad()
 	{	//< CSD-030304
-		
+
 		/*
 		#ifdef _KEIN_TEST_
 		return 1;
 		#endif
-		return m_bDragonRoad; 
+		return m_bDragonRoad;
 		*/
 		return false; // 무조건 레드 드래곤이 나오도록 설정
 	}	//> CSD-030304
-	
-	int SetTrapKey( int item_no, CHARLIST *ch );
+
+	int SetTrapKey(int item_no, CHARLIST *ch);
 	int Clear()
 	{
 		SAFE_DELETE_ARRAY(m_pObject);
@@ -472,66 +472,66 @@ public :
 		m_szOutMap[0] = 0;
 		m_nOutX = 0;
 		m_nOutY = 0;
-		
+
 		ResetKey();
 		return 1;
 	}
-	int Load( int layer );
-	int SetDungeonObject( int count )
+	int Load(int layer);
+	int SetDungeonObject(int count)
 	{
 		m_nObjectCount = count;
 		m_pObject = new CDungeonObject[count];
-		for( int i=0; i<count; i++ )
+		for (int i = 0; i < count; i++)
 		{
-			m_pObject[i].SetMotherPointer( this );
+			m_pObject[i].SetMotherPointer(this);
 		}
-		
+
 		return 1;
 	}
 	void ResetKey()
 	{
-		memset( m_pKey, 0, sizeof( int )*7 );
+		memset(m_pKey, 0, sizeof(int) * 7);
 		m_nMessageOption = 1;
 	}
 	int IsActive() { return m_bActive; }
 	int SetActive();
 	int SetClose();
-	int NewJoin( short int cn );
-	bool CheckObject( int cn, int event_no );
-	CDungeonObject *GetObjectByEventNo( int event_no );
-	int SendEventWhenAddItem( int item_index, short int cn );
-	int SetInt( int *pTemp, int nMax );
-	int SetHistory( CHARLIST *ch, CDungeonObject *pDO, int type ); 
+	int NewJoin(short int cn);
+	bool CheckObject(int cn, int event_no);
+	CDungeonObject *GetObjectByEventNo(int event_no);
+	int SendEventWhenAddItem(int item_index, short int cn);
+	int SetInt(int *pTemp, int nMax);
+	int SetHistory(CHARLIST *ch, CDungeonObject *pDO, int type);
 	void Proc();
-	int GetTrapCount( int &count, int &intctive_count , int &aactive_time);
-	int KillBoss( CHARLIST *user, CHARLIST *boss );		// 보스가 죽었다.
+	int GetTrapCount(int &count, int &intctive_count, int &aactive_time);
+	int KillBoss(CHARLIST *user, CHARLIST *boss);		// 보스가 죽었다.
 	void OpenDragonRoadObject();
 	void CloseDragonRoadObject();
 	int DeleteDragon();
-	int SendTileAttrToNewUser( short int cn );		// 새로 들어온 놈에게 이미 만들어 져 있는 속성을 모두 보낸다.
+	int SendTileAttrToNewUser(short int cn);		// 새로 들어온 놈에게 이미 만들어 져 있는 속성을 모두 보낸다.
 };
 
 class CDungeonMapMgr
 {
-public :
+public:
 	enum		// GET_OUT_TYPE
 	{
-		GOT_END_BOSS_POTAL	= 1,	// 보스 포탈이 닫일때, 보스 포탈 안 탄놈
-			GOT_END_LAYER		= 2,	// 층 포탈이 닫일때, 팅기기
-			GOT_END_SCENARIO	= 3,	// 시나리오 종료
-			GOT_END_VOTE		= 4,	// 찬반 끝났을때
-			// 늘어나면 GetOutDugeon() 에 배열을 늘려야 한다.
+		GOT_END_BOSS_POTAL = 1,	// 보스 포탈이 닫일때, 보스 포탈 안 탄놈
+		GOT_END_LAYER = 2,	// 층 포탈이 닫일때, 팅기기
+		GOT_END_SCENARIO = 3,	// 시나리오 종료
+		GOT_END_VOTE = 4,	// 찬반 끝났을때
+		// 늘어나면 GetOutDugeon() 에 배열을 늘려야 한다.
 	};
-	
-public :
+
+public:
 	int m_nCount;
 	CDungeonMap* m_pData;
 	TKeinList< int > *pVoteTrue;		// 찬성
 	TKeinList< int > *pVoteFalse;		// 반대
 	TKeinList< int > *pPotalList;		// 보스 포탈을 거친 사람 등록
-	
-public :
-	CDungeonMapMgr( int N )
+
+public:
+	CDungeonMapMgr(int N)
 	{
 		m_pData = new CDungeonMap[N];
 		m_nCount = N;
@@ -550,7 +550,7 @@ public :
 		ClearVote();
 		DeletePotalMember();
 	}
-	
+
 	void ClearVote()
 	{
 		SAFE_DELETE(pVoteTrue);
@@ -564,7 +564,7 @@ public :
 	}
 	void DeletePotalMember()
 	{
-		if( pPotalList ) delete pPotalList;
+		if (pPotalList) delete pPotalList;
 		pPotalList = 0;
 	}
 	void InitPotalMember()		// 포탈이 생성 될때 사용
@@ -572,41 +572,41 @@ public :
 		DeletePotalMember();
 		pPotalList = new TKeinList< int >;
 	}
-	void AddPotalMember( int cn )
+	void AddPotalMember(int cn)
 	{
 		int *data = new int;
 		*data = cn;
-		if( !pPotalList ) 
+		if (!pPotalList)
 		{
 			InitPotalMember();
 		}
-		pPotalList->AddNode( data );
+		pPotalList->AddNode(data);
 	}
-	int SendEventWhenAddItem( int id, int cn )
+	int SendEventWhenAddItem(int id, int cn)
 	{
 		int ret = 0;
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			ret += m_pData[i].SendEventWhenAddItem( id, cn );
+			ret += m_pData[i].SendEventWhenAddItem(id, cn);
 		}
 		return ret;
 	}
-	bool CheckObject( int cn, int event_no )
+	bool CheckObject(int cn, int event_no)
 	{
 		int ret = 0;
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			if( m_pData[i].m_bActive )
-				ret += m_pData[i].CheckObject( cn, event_no )?1:0;
+			if (m_pData[i].m_bActive)
+				ret += m_pData[i].CheckObject(cn, event_no) ? 1 : 0;
 		}
-		return ret?true:false;
+		return ret ? true : false;
 	}
-	void SetSatus( char *value )
+	void SetSatus(char *value)
 	{
 		int scenario_end = 1;
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			if( value[m_pData[i].m_nLayer-1] )
+			if (value[m_pData[i].m_nLayer - 1])
 			{
 				m_pData[i].SetActive();
 				scenario_end = 0;
@@ -616,23 +616,23 @@ public :
 				m_pData[i].SetClose();
 			}
 		}
-		
-		if( scenario_end )		// 전부 팅기자..
-			GetOutDugeon( CDungeonMapMgr::GOT_END_SCENARIO );
+
+		if (scenario_end)		// 전부 팅기자..
+			GetOutDugeon(CDungeonMapMgr::GOT_END_SCENARIO);
 	}
-	CDungeonMap* GetDungeonMapByLayer( int layer )
+	CDungeonMap* GetDungeonMapByLayer(int layer)
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			if( m_pData[i].m_nLayer == layer ) return &m_pData[i];
+			if (m_pData[i].m_nLayer == layer) return &m_pData[i];
 		}
 		return NULL;
 	}
 	CDungeonMap* GetActiveDungeonMap()
 	{
-		for( int i=m_nCount-1; i>=0; i-- )
+		for (int i = m_nCount - 1; i >= 0; i--)
 		{
-			if( m_pData[i].m_bActive ) return &m_pData[i];
+			if (m_pData[i].m_bActive) return &m_pData[i];
 		}
 		return NULL;
 	}
@@ -642,56 +642,56 @@ public :
 	}
 	void LoadTrap()
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			m_pData[i].Load( m_pData[i].m_nLayer );
+			m_pData[i].Load(m_pData[i].m_nLayer);
 		}
 	}
 	void Proc()
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
 			m_pData[i].Proc();
 		}
 	}
-	int GetTrapCount( int &count, int &active_count , int &active_time )
+	int GetTrapCount(int &count, int &active_count, int &active_time)
 	{
 		CDungeonMap* pDM = GetActiveDungeonMap();
-		return pDM?pDM->GetTrapCount( count, active_count, active_time ):0;
+		return pDM ? pDM->GetTrapCount(count, active_count, active_time) : 0;
 	}
-	int KilledScenarioBoss( CHARLIST *user, CHARLIST *npc )
+	int KilledScenarioBoss(CHARLIST *user, CHARLIST *npc)
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			m_pData[i].KillBoss( user, npc );
+			m_pData[i].KillBoss(user, npc);
 		}
 		return 1;
 	}
-	int CloseConnect( int cn )
+	int CloseConnect(int cn)
 	{
-		if( pVoteTrue ) 
+		if (pVoteTrue)
 		{
-			pVoteTrue->DeleteNode( cn );
-			pVoteFalse->DeleteNode( cn );
+			pVoteTrue->DeleteNode(cn);
+			pVoteFalse->DeleteNode(cn);
 			return 1;
 		}
-		if( pPotalList )
+		if (pPotalList)
 		{
-			pPotalList->DeleteNode( cn );
+			pPotalList->DeleteNode(cn);
 			return 1;
 		}
 		else return 0;
 	}
-	void GetOutDugeon( int type );
-	int ScenarioFightProc( CDungeonObject *pDO );
+	void GetOutDugeon(int type);
+	int ScenarioFightProc(CDungeonObject *pDO);
 	int EndUserFightByDragon();
 	int DropDragonItem();
-	void NewJoin( short int cn )
+	void NewJoin(short int cn)
 	{
 		// 언데드 끼임 현상 해결 // 030811
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
-			m_pData[i].NewJoin( cn );
+			m_pData[i].NewJoin(cn);
 		}
 	}
 };
@@ -699,7 +699,7 @@ public :
 class CDungeonBasic
 {
 public:
-	enum 
+	enum
 	{
 		TYPE_STATUS = 1,
 		TYPE_STATUS_REGIST = 2,
@@ -707,27 +707,27 @@ public:
 
 	typedef vector<START_UP_INFO>     VECTOR_START_UP; // CSD-030323
 	typedef VECTOR_START_UP::iterator ITOR_START_UP;   // CSD-030323
-	
-public :
+
+public:
 	int m_nId;
 	int m_nDungeonMapPort1;
 	int m_nDungeonMapPort2;
-	union 
+	union
 	{
 		int m_nActive;
 		BYTE m_pActive[4];
 	};
-	
+
 protected:
 	int             m_nIndex;
 	VECTOR_START_UP m_vtStartUpInfo;
-	
+
 public:
 	int m_nContinueTime; // 액티브 되어 있는 시간 - 2시간
 	int m_nStartTime;	 // 현재 상태 진행된 시간
 	int m_nWaitTime;	 // 기달려야 하는 시간
-	
-public :
+
+public:
 	CDungeonBasic()
 	{
 		m_nId = 0;
@@ -746,9 +746,9 @@ public :
 	}
 
 	void SetID(int nID) { m_nId = nID; }
-	
-	void AddStartUpInfo(DWORD idIndex, int nApplyDay, int nStartHour, int nEndHour) 
-	{ 
+
+	void AddStartUpInfo(DWORD idIndex, int nApplyDay, int nStartHour, int nEndHour)
+	{
 		START_UP_INFO infStartUp;
 		infStartUp.idIndex = idIndex;
 		infStartUp.nApplyDay = nApplyDay;
@@ -758,7 +758,7 @@ public :
 		infStartUp.nStartMinute = 0;
 		m_vtStartUpInfo.push_back(infStartUp);
 	}
-	
+
 	START_UP_INFO* GetStartUpInfo(DWORD idIndex)
 	{
 		for (int i = 0; i < GetStartUpInfoCount(); ++i)
@@ -768,17 +768,17 @@ public :
 				return &m_vtStartUpInfo[i];
 			}
 		}
-		
+
 		return NULL;
 	}
-	
-	int GetStartUpInfoCount()const{return m_vtStartUpInfo.size();}//030321 lsw
-	
+
+	int GetStartUpInfoCount()const { return m_vtStartUpInfo.size(); }//030321 lsw
+
 	VECTOR_START_UP& GetStartUpList()
 	{
 		return m_vtStartUpInfo;
 	}
-	
+
 	void SetStartUpInfo(DWORD idIndex, int nApplyDay, int nStartHour, int nStartMinute, int nEndHour, int nEndMinute)
 	{
 		for (int i = 0; i < GetStartUpInfoCount(); ++i)
@@ -794,8 +794,8 @@ public :
 			}
 		}
 	}
-	
-	
+
+
 	bool IsExistStartUp(DWORD idIndex)const
 	{
 		for (int i = 0; i < GetStartUpInfoCount(); ++i)
@@ -805,17 +805,17 @@ public :
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	void SetDungeonMapPort1(int nPort) { m_nDungeonMapPort1 = nPort; }
 	void SetDungeonMapPort2(int nPort) { m_nDungeonMapPort2 = nPort; }
-	
+
 	int SetInt(int* data)
 	{	//< CSD-030723
-		int* set_int =  &m_nId;
-		
+		int* set_int = &m_nId;
+
 		for (int i = 0; i < MAX_CDUNGEONBASIC_INT; ++i)
 		{
 			set_int[i] = data[i];
@@ -827,42 +827,42 @@ public :
 	int Proc();
 	int SendScenarioStatus();
 	int SaveDungeonStatus();
-	int SetActiveFlag( int layer, int value=0, int type = 0 )
+	int SetActiveFlag(int layer, int value = 0, int type = 0)
 	{
-		if( !layer ) m_nActive = 0;
+		if (!layer) m_nActive = 0;
 		else
 		{
-			if( type )
+			if (type)
 			{
-				for( int i=0; i<4; i++ )
+				for (int i = 0; i < 4; i++)
 				{
-					if( i == layer-1 ) continue;
+					if (i == layer - 1) continue;
 					m_pActive[i] = 0;
 				}
 			}
-			m_pActive[layer-1] = value;
+			m_pActive[layer - 1] = value;
 		}
 		SendScenarioStatus();
 		return 1;
 	}
-	int IsActive( int layer )
+	int IsActive(int layer)
 	{
-		if( layer < 0 ) return 0;
-		return m_pActive[layer-1];
+		if (layer < 0) return 0;
+		return m_pActive[layer - 1];
 	}
-	
+
 	bool IsOpenDungeon(int nIndex) const
 	{
 		struct tm* NewTime;
 		time_t LongTime;
 		time(&LongTime);
 		NewTime = localtime(&LongTime);
-		
+
 		if (NewTime->tm_wday != m_vtStartUpInfo[nIndex].nApplyDay)
 		{
 			return false;
 		}
-		
+
 		if (g_hour != m_vtStartUpInfo[nIndex].nStartHour)
 		{
 			return false;
@@ -875,19 +875,19 @@ public :
 
 		return true;
 	}
-	
+
 	bool IsCloseDungeon(int nIndex) const
 	{
 		if (nIndex < 0)
 		{
 			return false;
 		}
-		
+
 		if (g_hour != m_vtStartUpInfo[nIndex].nEndHour)
 		{
 			return false;
 		}
-		
+
 		if (g_min != m_vtStartUpInfo[nIndex].nEndMinute)
 		{
 			return false;
@@ -897,18 +897,18 @@ public :
 	}
 
 	// calcurate remain time	// 031110 YGI
-	int GetRemainTime( ) const 
+	int GetRemainTime() const
 	{
-		if(m_nIndex< 0)
+		if (m_nIndex < 0)
 		{
 			return false;
 		}
 		int temp_time = 0;
 
-		temp_time = (m_vtStartUpInfo[m_nIndex].nEndHour%24) - (g_hour%24);
+		temp_time = (m_vtStartUpInfo[m_nIndex].nEndHour % 24) - (g_hour % 24);
 		temp_time += 24;
 		temp_time %= 24;
-		temp_time = 60*temp_time+m_vtStartUpInfo[m_nIndex].nEndMinute - g_min;	
+		temp_time = 60 * temp_time + m_vtStartUpInfo[m_nIndex].nEndMinute - g_min;
 		return temp_time;
 	}
 };
@@ -917,26 +917,26 @@ class CDungeonMgr		// 4개의 던전을 관리
 {
 	CDungeonBasic** m_pData;
 	int m_nCount;
-public :
+public:
 	TKeinList<CDungeonHistory> m_History;
-	
-	
-public : 
-	CDungeonMgr( int N )
+
+
+public:
+	CDungeonMgr(int N)
 	{
 		m_pData = new CDungeonBasic*[N];
-		for( int i=0; i<N; i++ )
+		for (int i = 0; i < N; i++)
 		{
 			m_pData[i] = 0;
 		}
 		m_nCount = N;
 	}
-	~CDungeonMgr() 
-	{ 
-		for( int i=0; i<m_nCount; i++ )
+	~CDungeonMgr()
+	{
+		for (int i = 0; i < m_nCount; i++)
 		{
 			CDungeonBasic* pTemp = GetDungeon(i);
-			if( pTemp )
+			if (pTemp)
 			{
 				SAFE_DELETE(pTemp);
 			}
@@ -946,39 +946,39 @@ public :
 	}
 	int SaveDungeonStatus()
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
 			CDungeonBasic* pTemp = GetDungeon(i);
-			if(pTemp)
+			if (pTemp)
 			{
 				pTemp->SaveDungeonStatus();
 			}
 		}
 		return 1;
 	}
-	bool SetData( int i, CDungeonBasic *pData )
+	bool SetData(int i, CDungeonBasic *pData)
 	{
-		if( i>=m_nCount ){return false;}
-		
+		if (i >= m_nCount) { return false; }
+
 		SAFE_DELETE(m_pData[i]);
 		m_pData[i] = pData;
 		return true;
 	}
-	CDungeonBasic* GetDungeon( int index ) 
+	CDungeonBasic* GetDungeon(int index)
 	{
-		if( index>=m_nCount ) {return NULL;}
+		if (index >= m_nCount) { return NULL; }
 		return m_pData[index];
 	}
-	
-	CDungeonBasic* GetDungeonByPort( WORD port ) 
+
+	CDungeonBasic* GetDungeonByPort(WORD port)
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
 			CDungeonBasic* pTemp = GetDungeon(i);
-			if( pTemp )
+			if (pTemp)
 			{
-				if( pTemp->m_nDungeonMapPort1 == port 
-					|| pTemp->m_nDungeonMapPort2 == port )
+				if (pTemp->m_nDungeonMapPort1 == port
+					|| pTemp->m_nDungeonMapPort2 == port)
 				{
 					return m_pData[i];
 				}
@@ -986,24 +986,24 @@ public :
 		}
 		return NULL;
 	}
-	
+
 	int GetCount() { return m_nCount; }
 	int Proc();
-	int CheckActive( int port )		// 그 맵에 들어갈 수 있는지 없는지
+	int CheckActive(int port)		// 그 맵에 들어갈 수 있는지 없는지
 	{
 		CDungeonBasic* temp = GetDungeonByPort(port);
-		if( temp ) 
+		if (temp)
 		{
-			if( !temp->m_nActive || temp->m_pActive[0] ) return 1;
+			if (!temp->m_nActive || temp->m_pActive[0]) return 1;
 		}
 		return 0;
 	}
 	int SendScenarioStatus()
 	{
-		for( int i=0; i<m_nCount; i++ )
+		for (int i = 0; i < m_nCount; i++)
 		{
 			CDungeonBasic* pTemp = GetDungeon(i);
-			if( pTemp )
+			if (pTemp)
 			{
 				pTemp->SendScenarioStatus();
 			}
@@ -1017,11 +1017,11 @@ public :
 
 class CScenarioDragonItem
 {
-public :
+public:
 	ItemAttr *m_pTotalItem;
 	int		m_nTotalCount;
-	
-public :
+
+public:
 	CScenarioDragonItem()
 	{
 		m_pTotalItem = 0;
@@ -1033,9 +1033,9 @@ public :
 		m_pTotalItem = 0;
 		m_nTotalCount = 0;
 	}
-	
-	int MakeDragonItem( int total );
-	int DropDragonItem( TKeinList<int> *pLink1, TKeinList<int> *pLink2 );
+
+	int MakeDragonItem(int total);
+	int DropDragonItem(TKeinList<int> *pLink1, TKeinList<int> *pLink2);
 };
 
 
@@ -1043,9 +1043,9 @@ public :
 
 //////////////////////////////////////////////////////////////////
 
-extern void SendTileAttr( int index, int type, int number, int x, int y, int range, short int cn );
-extern int LoadDungeonTrap( CDungeonObject *pData, int layer );
-extern int LoadDungeonMapEach( int port, int *temp );
+extern void SendTileAttr(int index, int type, int number, int x, int y, int range, short int cn);
+extern int LoadDungeonTrap(CDungeonObject *pData, int layer);
+extern int LoadDungeonMapEach(int port, int *temp);
 
 
 extern CDungeonMapMgr *g_pDungeonMap;		// 해당 맵에 있는 던전들( 1층, 2층 )의 관리 클래스
@@ -1054,29 +1054,29 @@ extern CDungeonMgr *g_pDungeonMgr;				// 모든 던전( 아비스 미궁,.. )의
 extern CScenarioDragonItem	*g_pDragonItem;
 
 
-extern void RecvGetScenarioInfo( t_packet *p, short int cn );
-extern void RecvGetScenarioInfoMap( t_packet *p, int type = 0 );
-extern void RecvScenarioCommand( t_packet *p );
-extern void RecvCheckGotoScenarioDungeon( t_packet *p, short int cn );
-extern void RecvCheckGotoScenarioDungeonResult( t_packet *p, short int cn );
-extern void SendCheckGotoScenarioDungeon( short int cn, char *map_name, int x, int y );
-extern int SendDungeonHistory( CDungeonHistory *pHistory );
-extern void RecvScenarioMessageMap( t_packet *p, short int cn );
-extern void SendRegistDungeonMgrServer( int type, void *msg, int size );
-extern void RecvScenarioDetailInfo( t_packet *p, short int cn );
-extern void RecvScenarioDetailInfoMap( t_packet *p, short int cn );
-extern void SendDeleteScenarioEventBox( int index );
-extern void RecvScenarioTrapKeyInfo( t_packet *p, short int cn );
-extern void SendScenarioMessage( short int cn, int type, void *data = NULL, int size = 0 );
+extern void RecvGetScenarioInfo(t_packet *p, short int cn);
+extern void RecvGetScenarioInfoMap(t_packet *p, int type = 0);
+extern void RecvScenarioCommand(t_packet *p);
+extern void RecvCheckGotoScenarioDungeon(t_packet *p, short int cn);
+extern void RecvCheckGotoScenarioDungeonResult(t_packet *p, short int cn);
+extern void SendCheckGotoScenarioDungeon(short int cn, char *map_name, int x, int y);
+extern int SendDungeonHistory(CDungeonHistory *pHistory);
+extern void RecvScenarioMessageMap(t_packet *p, short int cn);
+extern void SendRegistDungeonMgrServer(int type, void *msg, int size);
+extern void RecvScenarioDetailInfo(t_packet *p, short int cn);
+extern void RecvScenarioDetailInfoMap(t_packet *p, short int cn);
+extern void SendDeleteScenarioEventBox(int index);
+extern void RecvScenarioTrapKeyInfo(t_packet *p, short int cn);
+extern void SendScenarioMessage(short int cn, int type, void *data = NULL, int size = 0);
 
-extern void DeleteScenarioItem( CHARLIST *ch );
-extern void RecvDragonVote( t_packet *p, short int cn );
+extern void DeleteScenarioItem(CHARLIST *ch);
+extern void RecvDragonVote(t_packet *p, short int cn);
 extern void ScenarioDragonEndWar();
 extern void ScenarioDragonMsgFunc();
-extern void RecvGetScenarioTime( t_packet *p, short int cn );
+extern void RecvGetScenarioTime(t_packet *p, short int cn);
 extern void SendGetScenarioTime(int port, int cn, k_client_scenario_time_info* pPacket); // CSD-030306
-extern void RecvChangeScenarioTime( t_packet *p, short int cn );
-extern int KilledScenarioBoss( CHARLIST *user, CHARLIST *npc );		// 시나라리오 몬스터가 죽었다.
+extern void RecvChangeScenarioTime(t_packet *p, short int cn);
+extern int KilledScenarioBoss(CHARLIST *user, CHARLIST *npc);		// 시나라리오 몬스터가 죽었다.
 
 
 #endif

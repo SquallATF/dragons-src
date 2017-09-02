@@ -17,32 +17,32 @@ class CPhysicalAttack : public TBinder<CStrike, CPhysicalAttack>
 public:
 	CPhysicalAttack();
 	virtual ~CPhysicalAttack();
-	
+
 public:
 	virtual bool Bind();
-	
+
 public:
-	virtual bool Execute() 
-	{ 
-		return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
 	}
-	
-	virtual bool Elapse(CHARLIST* pTarget) 
-	{ 
-		return true; 
+
+	virtual bool Elapse(CHARLIST* pTarget)
+	{
+		return true;
 	}
-	
+
 public:
 	bool AttackShort();  // 단거리 물리적 공격
 	bool AttackMiddle(); // 중거리 물리적 공격
 	bool AttackLong();   // 장거리 물리적 공격
 	bool AttackEvent();  // CSD-030716
 	bool AttackEffect(); // CSD-031007
-	
+
 protected:
 	bool IsRange() const;
 	bool IsMiss() const;
-	
+
 private:
 	void Correct(int& rDamage);
 	bool Result(int nDamage);

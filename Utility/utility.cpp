@@ -15,7 +15,7 @@ StdString GetAppPath(void)
 		::GetModuleFileName(NULL, bufPath, MAX_PATH);
 
 		strAppPath = bufPath;
-		strAppPath = strAppPath.substr(0, strAppPath.rfind(_T("\\"))+1);
+		strAppPath = strAppPath.substr(0, strAppPath.rfind(_T("\\")) + 1);
 	}
 
 	return strAppPath;

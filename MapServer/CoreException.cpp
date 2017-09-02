@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "CoreException.h"
 
-BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int nSize )
+BOOL DumpException(LPEXCEPTION_POINTERS lpExcep, char* szOutMsg, void *pData, int nSize)
 {
 	if (!lpExcep)
 		return FALSE;
@@ -11,7 +11,7 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 	SYSTEMTIME time;
 	FILE*		fp = NULL;
 
-	
+
 	const DWORD		dwExceptionAddress = (DWORD)lpExcep->ExceptionRecord->ExceptionAddress;
 	const DWORD		dwExceptionCode = lpExcep->ExceptionRecord->ExceptionCode;
 	const DWORD		dwExceptionFlags = lpExcep->ExceptionRecord->ExceptionFlags;
@@ -40,67 +40,67 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 	const DWORD		dwEbx = lpExcep->ContextRecord->Ebx;
 	const DWORD		dwEcx = lpExcep->ContextRecord->Ecx;
 	const DWORD		dwEdx = lpExcep->ContextRecord->Edx;
-	
+
 	__try
 	{
-		char szFileName[256+1];
+		char szFileName[256 + 1];
 		GetLocalTime(&time);
 
-		sprintf( szFileName, "MapCrash_%d_%d_%d_%d_%d_%d.log", time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond );
-		fp = fopen( szFileName, "w");
+		sprintf(szFileName, "MapCrash_%d_%d_%d_%d_%d_%d.log", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+		fp = fopen(szFileName, "w");
 
-		fprintf(fp,"%d year, %d month, %d day,%d hour, %d minute, %d second\n",
-			time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond);
-		
-		fprintf(fp,"%s\n",szOutMsg);
-		fprintf(fp,"Crashed address %xh \n",dwExceptionAddress);
+		fprintf(fp, "%d year, %d month, %d day,%d hour, %d minute, %d second\n",
+			time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
 
-		fprintf(fp,"Crashed Map Address %04X:%08X\n",
+		fprintf(fp, "%s\n", szOutMsg);
+		fprintf(fp, "Crashed address %xh \n", dwExceptionAddress);
+
+		fprintf(fp, "Crashed Map Address %04X:%08X\n",
 			dwSegCs,
 			dwExceptionAddress);
 
 
-		fprintf(fp,"Exception Code %u \n",dwExceptionCode);
-		fprintf(fp,"Exception Flag %xh \n",dwExceptionFlags);
-		fprintf(fp,"NumberParameters %d \n",dwNumberParameters);
-		fprintf(fp,"Dr0 %xh \n",dwDr0);
-		fprintf(fp,"Dr1 %xh \n",dwDr1);
-		fprintf(fp,"Dr2 %xh \n",dwDr2);
-		fprintf(fp,"Dr3 %xh \n",dwDr3);
-		fprintf(fp,"Dr6 %xh \n",dwDr6);
-		fprintf(fp,"Dr7 %xh \n",dwDr7);
-		
-		fprintf(fp,"SegGs %xh \n",dwSegGs);
-		fprintf(fp,"SegFs %xh \n",dwSegFs);
-		fprintf(fp,"SegEs %xh \n",dwSegEs);
-		fprintf(fp,"EFlags %xh \n",dwEFlags);
-		
-		fprintf(fp,"Esi %xh \n",dwEsi);
-		fprintf(fp,"Edi %xh \n",dwEdi);
-		fprintf(fp,"Ebp %xh \n",dwEbp);
-		fprintf(fp,"Esp %xh \n",dwEsp);
-		fprintf(fp,"Eip %xh \n",dwEip);
-		
+		fprintf(fp, "Exception Code %u \n", dwExceptionCode);
+		fprintf(fp, "Exception Flag %xh \n", dwExceptionFlags);
+		fprintf(fp, "NumberParameters %d \n", dwNumberParameters);
+		fprintf(fp, "Dr0 %xh \n", dwDr0);
+		fprintf(fp, "Dr1 %xh \n", dwDr1);
+		fprintf(fp, "Dr2 %xh \n", dwDr2);
+		fprintf(fp, "Dr3 %xh \n", dwDr3);
+		fprintf(fp, "Dr6 %xh \n", dwDr6);
+		fprintf(fp, "Dr7 %xh \n", dwDr7);
 
-		fprintf(fp,"Eax %xh \n",dwEax);
-		fprintf(fp,"Ebx %xh \n",dwEbx);
-		fprintf(fp,"Ecx %xh \n",dwEcx);
-		fprintf(fp,"Edx %xh \n",dwEdx);
+		fprintf(fp, "SegGs %xh \n", dwSegGs);
+		fprintf(fp, "SegFs %xh \n", dwSegFs);
+		fprintf(fp, "SegEs %xh \n", dwSegEs);
+		fprintf(fp, "EFlags %xh \n", dwEFlags);
 
-		if( pData )	fprintf(fp,"info : packet_type(PTCL_) =  %d \n",*((char*)pData));
-	
-		fprintf(fp,"\n\n");
+		fprintf(fp, "Esi %xh \n", dwEsi);
+		fprintf(fp, "Edi %xh \n", dwEdi);
+		fprintf(fp, "Ebp %xh \n", dwEbp);
+		fprintf(fp, "Esp %xh \n", dwEsp);
+		fprintf(fp, "Eip %xh \n", dwEip);
+
+
+		fprintf(fp, "Eax %xh \n", dwEax);
+		fprintf(fp, "Ebx %xh \n", dwEbx);
+		fprintf(fp, "Ecx %xh \n", dwEcx);
+		fprintf(fp, "Edx %xh \n", dwEdx);
+
+		if (pData)	fprintf(fp, "info : packet_type(PTCL_) =  %d \n", *((char*)pData));
+
+		fprintf(fp, "\n\n");
 
 		fclose(fp);
 		fp = NULL;
 
-		if( pData )
+		if (pData)
 		{
-			sprintf( szFileName, "MapCrash_info_%d_%d_%d_%d_%d_%d.bin", time.wYear,time.wMonth,time.wDay, time.wHour,time.wMinute,time.wSecond );
-			fp = fopen( szFileName, "w");
-			fwrite( &nSize, 4, 1, fp );
-			fwrite( pData, 1, nSize, fp );
-			fclose( fp );
+			sprintf(szFileName, "MapCrash_info_%d_%d_%d_%d_%d_%d.bin", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
+			fp = fopen(szFileName, "w");
+			fwrite(&nSize, 4, 1, fp);
+			fwrite(pData, 1, nSize, fp);
+			fclose(fp);
 			fp = NULL;
 		}
 	}
@@ -108,7 +108,7 @@ BOOL DumpException(LPEXCEPTION_POINTERS lpExcep,char* szOutMsg, void *pData, int
 	{
 		if (fp)
 			fclose(fp);
-	
+
 		result = FALSE;
 	}
 

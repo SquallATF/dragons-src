@@ -11,7 +11,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // 접속자 관리 클래스
-class CWarStartInfo  
+class CWarStartInfo
 {
 	typedef vector<START_UP_INFO*> VECTOR_TIME;
 	typedef VECTOR_TIME::iterator  ITOR_TIME;
@@ -35,16 +35,16 @@ public:
 protected:
 	bool IsCheckIn(int nIndex) const;
 	bool IsCheckOut(int nIndex) const;
-	
+
 public:
 	DWORD GetRemainTime() const
 	{
-		return 2*60*60;
+		return 2 * 60 * 60;
 	}
 
-	bool IsActive() const 
-	{ 
-		return m_bActive; 
+	bool IsActive() const
+	{
+		return m_bActive;
 	}
 
 private:

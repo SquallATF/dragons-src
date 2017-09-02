@@ -119,59 +119,59 @@ typedef struct tNPCgeneratePosition
 }sNPCgeneratePosition;
 
 extern int NpcPatternTable[20];
-extern sNPCgeneratePosition NPCgeneratePosition[ MAX_GENERATE_POSITION_];
+extern sNPCgeneratePosition NPCgeneratePosition[MAX_GENERATE_POSITION_];
 extern int NPCgeneratePositionMax;
 
 extern bool CharMovingThreadStart0;
 extern bool CharMovingThreadStart1;
 extern bool CharMovingThreadStart2;
 
-extern void InitMoveDelayTable( void );
-extern DWORD Get_MoveDelayTime( CHARLIST *ch );
-extern int InDistance( CHARLIST *s, CHARLIST *d, int dis );
-extern int NPC_NearCh( CHARLIST *n, CHARLIST *ch, int *x, int *y );
-extern int NPC_NearBackCh( CHARLIST *n, CHARLIST *ch, int *x, int *y, int dist );
-extern int NPC_GetDir( int sx, int sy, int ex, int ey );
-extern int NPC_MakePath( CHARLIST *n, int tx, int ty, int how );
-extern int NPC_MakePathBumn( CHARLIST *n, int tx, int ty, int how );
-extern int NPC_IsMoving( CHARLIST *n );
-extern int NPC_IsWhoNearPC( CHARLIST *npc, int tilerange );
-extern CHARLIST* NPC_ReturnCharListPoint( const int id );
-extern CHARLIST* ReturnCharListPoint( char *name );
-extern void RecvTameCommand( int cn, t_tame_command *p );
-extern void SendTameResult( int cn, int result  );
-extern void SendHostName( int cn, CHARLIST *n );
-extern void SendToAllHostName( int cn, CHARLIST *n );
-extern void CheckNPCTammingTimeElapsed( CHARLIST *n );
+extern void InitMoveDelayTable(void);
+extern DWORD Get_MoveDelayTime(CHARLIST *ch);
+extern int InDistance(CHARLIST *s, CHARLIST *d, int dis);
+extern int NPC_NearCh(CHARLIST *n, CHARLIST *ch, int *x, int *y);
+extern int NPC_NearBackCh(CHARLIST *n, CHARLIST *ch, int *x, int *y, int dist);
+extern int NPC_GetDir(int sx, int sy, int ex, int ey);
+extern int NPC_MakePath(CHARLIST *n, int tx, int ty, int how);
+extern int NPC_MakePathBumn(CHARLIST *n, int tx, int ty, int how);
+extern int NPC_IsMoving(CHARLIST *n);
+extern int NPC_IsWhoNearPC(CHARLIST *npc, int tilerange);
+extern CHARLIST* NPC_ReturnCharListPoint(const int id);
+extern CHARLIST* ReturnCharListPoint(char *name);
+extern void RecvTameCommand(int cn, t_tame_command *p);
+extern void SendTameResult(int cn, int result);
+extern void SendHostName(int cn, CHARLIST *n);
+extern void SendToAllHostName(int cn, CHARLIST *n);
+extern void CheckNPCTammingTimeElapsed(CHARLIST *n);
 
-extern DWORD ReturnDestTime( LPCHARLIST ch );
-extern void SaveMoveDelayTable( void );
-extern void InitMoveDelayTable( void );
+extern DWORD ReturnDestTime(LPCHARLIST ch);
+extern void SaveMoveDelayTable(void);
+extern void InitMoveDelayTable(void);
 
-extern void NPCAddBasicData(  int i, t_server_npc_add *p );
+extern void NPCAddBasicData(int i, t_server_npc_add *p);
 
-extern void NPCGeneratePosition( int npcindex, int x, int y, int eventno, int maxno );
+extern void NPCGeneratePosition(int npcindex, int x, int y, int eventno, int maxno);
 extern int  GetDeleteAbleNPC();//030211 lsw
-extern int  NPC_Create( int Num, int npcindex, int x, int y, int eventno, int gen_pos, int gen_type = 0,int GroupNo=0,int isBoss=0);	// LTS AI2
-extern int  NPC_AdjustPosition( int sprno, int *x, int *y );
-extern void NPC_AutoCreationProc( void );
-extern void NPC_AutoCreationProc2( void );				// LTS AI2
-extern void NPC_CheckRemove( void );
+extern int  NPC_Create(int Num, int npcindex, int x, int y, int eventno, int gen_pos, int gen_type = 0, int GroupNo = 0, int isBoss = 0);	// LTS AI2
+extern int  NPC_AdjustPosition(int sprno, int *x, int *y);
+extern void NPC_AutoCreationProc(void);
+extern void NPC_AutoCreationProc2(void);				// LTS AI2
+extern void NPC_CheckRemove(void);
 extern void NPC_AutoCreate();							// LTS AI2
-extern void RecvCMD_MODIFY_POSITION(  int cn,  t_client_modify_position *p );
-extern void SendReadyMoveDate( int cn );
-extern void RecvSmileFace( int cn, int smileno );
+extern void RecvCMD_MODIFY_POSITION(int cn, t_client_modify_position *p);
+extern void SendReadyMoveDate(int cn);
+extern void RecvSmileFace(int cn, int smileno);
 
-extern void SendNPCControlData( int cn, int npc );
-extern int ManageNPC( int );
+extern void SendNPCControlData(int cn, int npc);
+extern int ManageNPC(int);
 
-extern void SendNPC_Parameter( int id, int type, int data );
-extern void SendNPC_StringParameter( int id, int type, char *data );
+extern void SendNPC_Parameter(int id, int type, int data);
+extern void SendNPC_StringParameter(int id, int type, char *data);
 
-extern void RecvNPC_Parameter( int id, int type, int data );
-extern void RecvNPC_StringParameter( int id, int type, char *data );
+extern void RecvNPC_Parameter(int id, int type, int data);
+extern void RecvNPC_StringParameter(int id, int type, char *data);
 
-extern void Recv_JustAni( t_packet *p );
+extern void Recv_JustAni(t_packet *p);
 extern int initNPCGenerationTable(void);
 extern void MovingCharacter();
 extern void MovingNPC();

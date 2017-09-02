@@ -11,18 +11,18 @@
 
 CAbility::CAbility()
 {
-  m_wStr = 0;
-  m_wDex = 0;
-  m_wCon = 0;
-  m_wWis = 0;
-  m_wInt = 0;
-  m_wCha = 0;
-  m_wEndu = 0;
-  m_wMovp = 0;
-  m_wMor = 0;
-  m_wLuck = 0;
-  m_wWs = 0;
-  m_wPs = 0;
+	m_wStr = 0;
+	m_wDex = 0;
+	m_wCon = 0;
+	m_wWis = 0;
+	m_wInt = 0;
+	m_wCha = 0;
+	m_wEndu = 0;
+	m_wMovp = 0;
+	m_wMor = 0;
+	m_wLuck = 0;
+	m_wWs = 0;
+	m_wPs = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -31,8 +31,8 @@ CAbility::CAbility()
 
 CAbilityDivide::CAbilityDivide()
 {
-  m_wBefore = 0;
-  m_wAfter = 0;
+	m_wBefore = 0;
+	m_wAfter = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -41,9 +41,9 @@ CAbilityDivide::CAbilityDivide()
 
 CAbilityLimit::CAbilityLimit()
 {
-  m_wClass = 0;
-  m_wStep = 0;
-  m_wMaxTactic = 0;
+	m_wClass = 0;
+	m_wStep = 0;
+	m_wMaxTactic = 0;
 }
 
 ABILITYLIMIT  g_mgrLimit;

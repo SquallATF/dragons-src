@@ -374,16 +374,16 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 	}
 }
 
-void CDualManager::RecvResetAbility(WORD idMaster)//路롸듐변鑒
+void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
 	
-//	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101섬路롸듐돨掘齡. 
-	{	//< 101롸듐
+//	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101级重分点的限制. 
+	{	//< 101分点
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;
-		// 固셕듐
+		// 统计点
 		pMaster->Str = BASIC_ABILITY[nClass][STR];
 		pMaster->Dex = BASIC_ABILITY[nClass][DEX];
 		pMaster->Con = BASIC_ABILITY[nClass][CON];
@@ -406,10 +406,10 @@ void CDualManager::RecvResetAbility(WORD idMaster)//路롸듐변鑒
 		{
 			nMinus += BASIC_ABILITY[nClass][i];
 		}
-		// 셕炬듐鑒깻할돨써벎
+		// 计算点数并且的结果
 		pMaster->SetReservedPoint(nTotal - nMinus - nFirst - nSecond);
 		::SendCharInfo(idMaster);
-	}	//> 101롸듐
+	}	//> 101分点
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -463,7 +463,7 @@ void CDualManager::Change(BYTE nStep, CHARLIST* pMaster)
 			pMaster->fame -= DecFame;
 			break;
 		}
-	case 6:  //coromo 瘻斂係숭
+	case 6:  //coromo 转职条件
 		{
 			g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
 			const int change = pDualData->GetConsumeLadder();
@@ -531,7 +531,7 @@ bool CDualManager::IsLevelUp(BYTE nStep, CHARLIST* pMaster)
 			
 			break;
 		}
-	case 6:  //coromo 瘻斂係숭
+	case 6:  //coromo 转职条件
 		{
 			if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
 			{

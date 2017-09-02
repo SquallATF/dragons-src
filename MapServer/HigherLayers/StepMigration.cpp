@@ -57,7 +57,7 @@ void CStepMigration::Save(unsigned char* pData)
 void CStepMigration::CheckStepInfo(unsigned char* pData)
 {	// 캐릭터의 단계 정보 검사
 	m_vtBuffer.assign(pData, pData + MAX_STEP);
-	
+
 	CheckClassStep(CLS_STEP);
 	CheckDualClass(DUAL_CLS);
 	CheckCombatPoint(CSP_STEP);
@@ -113,17 +113,17 @@ void CStepMigration::CheckExpStep(int nStepType)
 		switch (cStep)
 		{
 		case 31:
-			{
-				m_vtBuffer[nStepType] = 32;
-				break;
-			}
-		case 38:
-			{
-				m_vtBuffer[nStepType] = 39;
-				break;
-			}
+		{
+			m_vtBuffer[nStepType] = 32;
+			break;
 		}
-		
+		case 38:
+		{
+			m_vtBuffer[nStepType] = 39;
+			break;
+		}
+		}
+
 		return;
 	}
 
@@ -134,23 +134,23 @@ void CStepMigration::CheckExpStep(int nStepType)
 void CStepMigration::CheckTacStep(int nStepType)
 {	// 경험치 단계 검사
 	const unsigned char cStep = m_vtBuffer[nStepType];
-	
+
 	if (cStep >= 0 && cStep <= NPC_Lev_Ref[MAX_TAC_LEVEL].nStep)
 	{	// 데이타베이스에서 저장이 되지 않는 문자
 		switch (cStep)
 		{
 		case 31:
-			{
-				m_vtBuffer[nStepType] = 32;
-				break;
-			}
-		case 38:
-			{
-				m_vtBuffer[nStepType] = 39;
-				break;
-			}
+		{
+			m_vtBuffer[nStepType] = 32;
+			break;
 		}
-		
+		case 38:
+		{
+			m_vtBuffer[nStepType] = 39;
+			break;
+		}
+		}
+
 		return;
 	}
 

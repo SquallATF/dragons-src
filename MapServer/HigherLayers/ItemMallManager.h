@@ -15,7 +15,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 
-class CItemMallManager : public TSingleton<CItemMallManager>  
+class CItemMallManager : public TSingleton<CItemMallManager>
 {
 public:
 	CItemMallManager();

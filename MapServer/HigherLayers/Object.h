@@ -47,13 +47,7 @@
 
 #define MAX_MAPOBJECT_		5000
 
-
-
-
-
-
-		
-typedef struct {	
+typedef struct {
 	WORD  id;
 	BYTE  status;
 	WORD  objectoritem;
@@ -74,7 +68,7 @@ typedef struct {
 	char  anidir;
 }MAPOBJECT_old, *LPMAPOBJECT_old;
 
-typedef struct {	
+typedef struct {
 	WORD  id;
 	BYTE  status;
 	WORD  objectoritem;
@@ -100,32 +94,31 @@ typedef struct {
 
 }MAPOBJECT, *LPMAPOBJECT;
 
-		
-		
+
+
 extern WORD			TotalMapObject;
-extern MAPOBJECT	Mo[ MAX_MAPOBJECT_];
+extern MAPOBJECT	Mo[MAX_MAPOBJECT_];
 extern int			MapObjectLevel;
-extern short int	Doors[ 500];
+extern short int	Doors[500];
 extern int			DoorNum;
-		
+
 ///////////////////////////////////////////////////////////////////////////////
 //		
 //		
-		
+
 #ifdef __cplusplus
 extern "C"
-{		
+{
 #endif	
-		
-extern int  SaveTOI( char *filename );
-extern int  SaveTOI2( char *filename );
-extern int	LoadTOI( char *filename );
-extern void FreeTOI( void );
+
+	extern int  SaveTOI(char *filename);
+	extern int  SaveTOI2(char *filename);
+	extern int	LoadTOI(char *filename);
+	extern void FreeTOI(void);
 
 
 #ifdef __cplusplus
-}	
+}
 #endif
-	
+
 #endif	// __OBJECT_H__
-	

@@ -25,38 +25,38 @@ CWindCombat::~CWindCombat()
 ///////////////////////////////////////////////////////////////////////////////
 
 bool CWindCombat::Bind()
-{ 
+{
 	Resist(CHARGING, &CWindCombat::Charging);
 	Resist(DOUBLE_ATTACK, &CWindCombat::DoubleAttack);
 	Resist(WHILWIND, &CWindCombat::Whilwind);
 	Resist(TWISTER, &CWindCombat::Twister);
 	Resist(GUST, &CWindCombat::Gust);
 	Resist(WIND_EXTREME, &CWindCombat::WindExtreme);
-	return true; 
+	return true;
 }
 
 bool CWindCombat::Elapse(CHARLIST* pTarget)
 {	//< CSD-TW-030623
 	switch (pTarget->GetPassiveCombat())
 	{
-    case GUST:
+	case GUST:
+	{
+		if (!pTarget->IsPassiveCombatState())
 		{
-			if (!pTarget->IsPassiveCombatState())
-			{
-				pTarget->InitPassiveCombat();
-				SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
-			}
-
-			break;
+			pTarget->InitPassiveCombat();
+			SendInit(PASSIVE_COMBAT, pTarget->GetServerID());
 		}
+
+		break;
 	}
-	
+	}
+
 	return true;
 }	//> CSD-TW-030623
 
 bool CWindCombat::Charging()
 {	// [239] Charging
-	if (m_idCaster == m_idTarget)  
+	if (m_idCaster == m_idTarget)
 	{
 		return false;
 	}
@@ -84,12 +84,12 @@ bool CWindCombat::Whilwind()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723
 
@@ -97,12 +97,12 @@ bool CWindCombat::Twister()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723
 
@@ -122,11 +122,11 @@ bool CWindCombat::WindExtreme()
 {	//< CSD-030723
 	switch (GetKind(m_pCaster))
 	{
-    case WR_SHORT:  return AttackShort();
-    case WR_MIDDLE: return AttackMiddle();
-    case WR_LONG1:  return AttackLong(WR_LONG1);
-    case WR_LONG2:  return AttackLong(WR_LONG2);
+	case WR_SHORT:  return AttackShort();
+	case WR_MIDDLE: return AttackMiddle();
+	case WR_LONG1:  return AttackLong(WR_LONG1);
+	case WR_LONG2:  return AttackLong(WR_LONG2);
 	}
-	
+
 	return false;
 }	//> CSD-030723

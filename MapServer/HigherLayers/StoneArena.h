@@ -13,7 +13,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //
-class CStoneArena : public CBaseArena  
+class CStoneArena : public CBaseArena
 {
 public:
 	CStoneArena(int nIndex, int nType);

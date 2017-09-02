@@ -3299,7 +3299,8 @@ int UseItemByRbutton(POS pos_s, ItemAttr &item_attr)
 	if (item_attr.item_no && (!MouseDrag || g_MouseItemType == 1))
 	{
 		int type = GetItemAttr(item_attr.item_no, DO_RBUTTON);
-		if ((item_attr.item_no == 3052 && (SCharacterData.nCharacterData[GENDER] == MALE)) || (item_attr.item_no == 3053 && (SCharacterData.nCharacterData[GENDER] == FEMALE)))
+		if ((item_attr.item_no == 3052 && (SCharacterData.nCharacterData[GENDER] == MALE)) ||
+			(item_attr.item_no == 3053 && (SCharacterData.nCharacterData[GENDER] == FEMALE)))
 		{
 			type = USE_ITEM;
 		}
@@ -3309,8 +3310,12 @@ int UseItemByRbutton(POS pos_s, ItemAttr &item_attr)
 		case REMAIN_ITEM:
 		case USE_ITEM:
 		{
-			for (int a = 0; a < max_submenu; a++)	SMenu[y_ItemSubMenu[a]].bActive = false;
-			if (IsHeroDead()) return 0;
+			for (int a = 0; a < max_submenu; a++)
+				SMenu[y_ItemSubMenu[a]].bActive = false;
+
+			if (IsHeroDead())
+				return 0;
+
 			EatItem(item_attr, pos_s);
 			break;
 		}
@@ -3320,7 +3325,9 @@ int UseItemByRbutton(POS pos_s, ItemAttr &item_attr)
 				MP3(SN_WARNING);
 				break;
 			}
-			for (int a = 0; a < max_submenu; a++)	SMenu[y_ItemSubMenu[a]].bActive = false;
+			for (int a = 0; a < max_submenu; a++)
+				SMenu[y_ItemSubMenu[a]].bActive = false;
+
 			LeftClose();
 			CallMenu(MN_DIVIDE_ITEM, 0);
 			SMenu[MN_DIVIDE_ITEM].nField[0].nSHideNomalCount = 0;
@@ -3332,13 +3339,20 @@ int UseItemByRbutton(POS pos_s, ItemAttr &item_attr)
 			break;
 		}
 		case MAGIC_BOOK_ITEM: {
-			for (int a = 0; a < max_submenu; a++)	SMenu[y_ItemSubMenu[a]].bActive = false;
-			if (SCharacterData.nCharacterData[SPELL] == PRIEST_SPELL) break;
-			if (GetSysInfo(SI_GAME_MAKE_MODE)) RecvCanMemorizeOk();
+			for (int a = 0; a < max_submenu; a++)
+				SMenu[y_ItemSubMenu[a]].bActive = false;
+
+			if (SCharacterData.nCharacterData[SPELL] == PRIEST_SPELL)
+				break;
+
+			if (GetSysInfo(SI_GAME_MAKE_MODE))
+				RecvCanMemorizeOk();
+
 			CallServer(CMD_CAN_MEMORIZE);
 			break;
 		}
-		case DIARY_ITEM:	break;
+		case DIARY_ITEM:
+			break;
 		}
 		return 1;
 	}

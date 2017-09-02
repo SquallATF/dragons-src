@@ -33,8 +33,7 @@ public:
 
 };
 
-/* 040715_KJHuNs g_pLogManager로 이동(정리목적)
-extern void SaveLogChange_BankMoney(const int idTarget, const DWORD nOldBankMoney, const DWORD nNewBankMoney , const eBankMoneyChangeType BMCT); // CSD-040324
-*/
+// 040715_KJHuNs g_pLogManager로 이동(정리목적)
+//extern void SaveLogChange_BankMoney(const int idTarget, const DWORD nOldBankMoney, const DWORD nNewBankMoney , const eBankMoneyChangeType BMCT); // CSD-040324
 
 #endif // !defined(AFX_EXCHANGEMGR_H__854CDDBC_E149_4C5C_9842_C8447030B821__INCLUDED_)

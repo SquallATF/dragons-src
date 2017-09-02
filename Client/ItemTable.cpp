@@ -4906,8 +4906,8 @@ void DeleteItemByItemNumber(int item)
 void CItem_Plant::CopyItemClass(CItem_Plant *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -4922,8 +4922,8 @@ void CItem_Plant::CopyItemClass(CItem_Plant *source, int ct)
 void CItem_Mineral::CopyItemClass(CItem_Mineral *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -4938,8 +4938,8 @@ void CItem_Mineral::CopyItemClass(CItem_Mineral *source, int ct)
 void CItem_Herb::CopyItemClass(CItem_Herb *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -4954,8 +4954,8 @@ void CItem_Herb::CopyItemClass(CItem_Herb *source, int ct)
 void CItem_Cook::CopyItemClass(CItem_Cook *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -4970,8 +4970,8 @@ void CItem_Cook::CopyItemClass(CItem_Cook *source, int ct)
 void CItem_Potion::CopyItemClass(CItem_Potion *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -4986,8 +4986,8 @@ void CItem_Potion::CopyItemClass(CItem_Potion *source, int ct)
 void CItem_Tool::CopyItemClass(CItem_Tool *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -5002,8 +5002,8 @@ void CItem_Tool::CopyItemClass(CItem_Tool *source, int ct)
 void CItem_Weapon::CopyItemClass(CItem_Weapon *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -5018,8 +5018,8 @@ void CItem_Weapon::CopyItemClass(CItem_Weapon *source, int ct)
 void CItem_Disposable::CopyItemClass(CItem_Disposable *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -5034,8 +5034,8 @@ void CItem_Disposable::CopyItemClass(CItem_Disposable *source, int ct)
 void CItem_Armor::CopyItemClass(CItem_Armor *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -5050,8 +5050,8 @@ void CItem_Armor::CopyItemClass(CItem_Armor *source, int ct)
 void CItem_Accessory::CopyItemClass(CItem_Accessory *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;
@@ -5066,8 +5066,8 @@ void CItem_Accessory::CopyItemClass(CItem_Accessory *source, int ct)
 void CItem_Etc::CopyItemClass(CItem_Etc *source, int ct)
 {
 	Item_id = source->Item_id;
-	strcpy(Name, source->Name);
-	strcpy(Han_Name, source->Han_Name);
+	strncpy(Name, source->Name, ITEM_NAME_MAX);
+	strncpy(Han_Name, source->Han_Name, ITEM_NAME_MAX);
 
 	int *item_value = &lv;
 	int *source_item_value = &source->lv;

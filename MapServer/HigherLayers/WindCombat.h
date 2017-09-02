@@ -12,29 +12,29 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 바람속성 전투스킬
-class CWindCombat : public TBinder<CCombat, CWindCombat>  
+class CWindCombat : public TBinder<CCombat, CWindCombat>
 {
 public:
 	CWindCombat();
 	virtual ~CWindCombat();
 
 public:
-  virtual bool Bind();
-  virtual bool Elapse(CHARLIST* pTarget);
-  
-public:
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
+	virtual bool Bind();
+	virtual bool Elapse(CHARLIST* pTarget);
 
 public:
-  bool Charging();
-  bool DoubleAttack();
-  bool Whilwind();
-  bool Twister();
-  bool Gust();
-  bool WindExtreme();
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
+
+public:
+	bool Charging();
+	bool DoubleAttack();
+	bool Whilwind();
+	bool Twister();
+	bool Gust();
+	bool WindExtreme();
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

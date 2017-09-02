@@ -11,7 +11,7 @@
 // Construction/Destruction
 ///////////////////////////////////////////////////////////////////////////////
 
-CRegenInfo::CRegenInfo(int nType) 
+CRegenInfo::CRegenInfo(int nType)
 {
 	m_nOrder = 0;
 	m_nGroupNo = -1;
@@ -53,7 +53,7 @@ void CRegenInfo::CalcPlaceOrder(int nCount)
 
 void CRegenInfo::CalcRegenTime()
 {
-	m_dwRegenTime = global_time + m_dwDelayTime*1000;
+	m_dwRegenTime = global_time + m_dwDelayTime * 1000;
 }
 
 void CRegenInfo::AddMaster(CHARLIST* pMonster)
@@ -80,7 +80,7 @@ void CRegenInfo::AddMember(CHARLIST* pMonster)
 	m_ltMember.push_back(pMonster);
 
 	if (IsExistMaster())
-	{	
+	{
 		pMonster->SetMaster(m_pMaster->GetServerID());          // 리더을 설정
 		m_pMaster->m_xSummon.Increase(pMonster->GetServerID()); // 리더가 부하로 추가
 	}
@@ -158,7 +158,7 @@ void CGroupInfo::DelRegen(CRegenInfo* pRegen)
 {
 	m_ltRegen.remove(pRegen);
 }
-	
+
 void CGroupInfo::ClearRegen()
 {
 	for_each(m_ltRegen.begin(), m_ltRegen.end(), TDelete());
@@ -241,7 +241,7 @@ void CGroupInfo::RegenerateAll()
 
 	if (++m_itCurrent != m_ltRegen.end())
 	{
-	
+
 	}
 	else
 	{
@@ -291,12 +291,12 @@ void CGroupInfo::CreateMonster(CRegenInfo* pRegen, int nPlace, int nMonster)
 {
 	REGEN_PLACE_INFO infPlace = pRegen->GetPlaceInfo(nPlace);
 	REGEN_MONSTER_INFO infMonster = pRegen->GetMonsterInfo(nMonster);
-	
+
 	const int nGroup = pRegen->GetGroupNumber();
 	const int nCount = infMonster.nMonsterCount;
 	const int nNo = infMonster.nMonsterNo;
 	const int nType = infMonster.nMonsterType;
-	
+
 	for (int i = 0; i < nCount; ++i)
 	{
 		const int nIndex = ::GetAliveNPCList();
@@ -306,11 +306,11 @@ void CGroupInfo::CreateMonster(CRegenInfo* pRegen, int nPlace, int nMonster)
 			continue;
 		}
 
-		const int nRandomX = rand()%infPlace.nScope;
-		const int nRandomY = rand()%infPlace.nScope;
+		const int nRandomX = rand() % infPlace.nScope;
+		const int nRandomY = rand() % infPlace.nScope;
 
 		int nX = 0, nY = 0;
-		
+
 		if (nType == 1)
 		{	// 보스 몬스터 생성 좌표설정
 			nX = infPlace.nPosX;
@@ -318,13 +318,13 @@ void CGroupInfo::CreateMonster(CRegenInfo* pRegen, int nPlace, int nMonster)
 		}
 		else
 		{
-			nX = infPlace.nPosX + ((rand()%2) ? -nRandomX:nRandomX);
-			nY = infPlace.nPosY + ((rand()%2) ? -nRandomY:nRandomY);
+			nX = infPlace.nPosX + ((rand() % 2) ? -nRandomX : nRandomX);
+			nY = infPlace.nPosY + ((rand() % 2) ? -nRandomY : nRandomY);
 		}
 
 		if (::NPC_AdjustPosition(nNo, &nX, &nY) == 0)
-		{	
-			MyLog(LOG_NORMAL,"No more create place(%d, %d)!!!", nX, nY);
+		{
+			MyLog(LOG_NORMAL, "No more create place(%d, %d)!!!", nX, nY);
 			continue;
 		}
 
@@ -339,7 +339,7 @@ void CGroupInfo::CreateMonster(CRegenInfo* pRegen, int nPlace, int nMonster)
 			case 1: pRegen->AddMaster(pMonster); break;
 			}
 
-			MyLog(LOG_NORMAL,"[%d]Regen Group Monster : No(%d), Position(%d, %d) -> NPC Count(%d)", nGroup, nNo, nX, nY, nIndex); // CSD-040310
+			MyLog(LOG_NORMAL, "[%d]Regen Group Monster : No(%d), Position(%d, %d) -> NPC Count(%d)", nGroup, nNo, nX, nY, nIndex); // CSD-040310
 		}
 	}
 }
@@ -376,7 +376,7 @@ bool CRegenManager::AddGroup(int nHunt, CGroupInfo* pGroup)
 	m_mpGroup.insert(PAIR_GROUP(nHunt, pGroup));
 	return true;
 }
-	
+
 bool CRegenManager::DelGroup(int nHunt)
 {
 	ITOR_GROUP itor = m_mpGroup.find(nHunt);
@@ -404,7 +404,7 @@ void CRegenManager::ClearGroup()
 {
 	for (ITOR_GROUP i = m_mpGroup.begin(); i != m_mpGroup.end(); ++i)
 	{
-		delete i->second;	
+		delete i->second;
 	}
 
 	m_mpGroup.clear();
@@ -416,7 +416,7 @@ CRegenInfo* CRegenManager::GetRegenInfo(int nGroup)
 	{
 		CGroupInfo* pGroup = i->second;
 		CRegenInfo* pRegen = pGroup->GetRegenInfo(nGroup);
-		
+
 		if (pRegen != NULL)
 		{
 			return pRegen;
@@ -429,14 +429,14 @@ CRegenInfo* CRegenManager::GetRegenInfo(int nGroup)
 void CRegenManager::Ready(int nEvent)
 {	//< CSD-040317
 	for (ITOR_GROUP i = m_mpGroup.begin(); i != m_mpGroup.end(); ++i)
-	{	
+	{
 		CGroupInfo* pGroup = i->second;
-		
+
 		if (pGroup->GetEventType() == nEvent)
 		{
 			pGroup->Ready();
 		}
-	}	
+	}
 
 	if (!m_mpGroup.empty())
 	{
@@ -472,7 +472,7 @@ void CRegenManager::Regenerate(int nEvent)
 		{
 			pGroup->Regenerate();
 		}
-	}	
+	}
 }	//> CSD-040317
 
 void CRegenManager::Regenerate(int nHunt, int nEvent)

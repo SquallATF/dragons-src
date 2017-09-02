@@ -69,12 +69,12 @@ bool CWarStartInfo::IsCheckIn(int nIndex) const
 	{
 		return false;
 	}
-	
+
 	if (g_hour != m_vtTime[nIndex]->nStartHour)
 	{
 		return false;
 	}
-	
+
 	if (g_min != m_vtTime[nIndex]->nStartMinute)
 	{
 		return false;
@@ -89,7 +89,7 @@ bool CWarStartInfo::IsCheckOut(int nIndex) const
 	{
 		return false;
 	}
-	
+
 	if (g_min != m_vtTime[nIndex]->nEndMinute)
 	{
 		return false;

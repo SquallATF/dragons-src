@@ -28,7 +28,7 @@ CGameSystem::CGameSystem(IGameFactory* pFactory)
 	m_pRegenManager = NULL;
 	m_pBattleManager = NULL;
 	m_pRaidManager = NULL;
-	m_pItemMallManager	= NULL;
+	m_pItemMallManager = NULL;
 
 	Dbg_Assert(pFactory != NULL);
 	m_pFactory = pFactory;
@@ -47,7 +47,7 @@ CGameSystem::~CGameSystem()
 	m_pFactory->DestroyBattleManager(m_pBattleManager);
 	m_pFactory->DestroyRaidManager(m_pRaidManager);
 	m_pFactory->DestroyItemMallManager(m_pItemMallManager);
-	
+
 	m_pFactory = NULL;
 }
 
@@ -104,7 +104,7 @@ void CGameSystem::CreateManager(eGAME_SYSTEM _eGameSystem)
 		Dbg_Assert(m_pItemMallManager != NULL);
 		break;
 	default:
-		MyLog(LOG_IMPORTANT,"CGameSystem::CreateManager 에서 해당하는 Type이 없습니다.[%s]",ConvertToMgrType(_eGameSystem));
+		MyLog(LOG_IMPORTANT, "CGameSystem::CreateManager 에서 해당하는 Type이 없습니다.[%s]", ConvertToMgrType(_eGameSystem));
 		break;
 	}
 }
@@ -123,7 +123,7 @@ const char* CGameSystem::ConvertToMgrType(eGAME_SYSTEM _GameSystem)
 		CASE_SELECT(BattleManager)
 		CASE_SELECT(RaidManager)
 		CASE_SELECT(ItemMallManager)
-	END_SELECT(UNKNOWN_Manager)
+		END_SELECT(UNKNOWN_Manager)
 }
 
 CLogManager* CGameSystem::GetLogManager()
@@ -167,7 +167,7 @@ CArenaManager* CGameSystem::GetArenaManager()
 	Dbg_Assert(m_pArenaManager != NULL);
 	return m_pArenaManager;
 }
-	
+
 CRegenManager* CGameSystem::GetRegenManager()
 {
 	Dbg_Assert(m_pRegenManager != NULL);

@@ -15,8 +15,8 @@
 #define _NATION_APPLY_
 
 #define ATTACKPOWER_PRO_	140
-#define GET_EXP_PC_AND_PC_	30// PC간에는 경험치를 NPC에 의해 얻는 수치에 아래수치롤 나누어 준다. ( 되게 쪼금준다. )
-#define ULTRA_PK_NUM_		100// 극악PK인경우 아래 수치를 넘게되면 name_status.ultra_pk == 1이되고 공격을 못하게 된다. 
+#define GET_EXP_PC_AND_PC_	30	// PC간에는 경험치를 NPC에 의해 얻는 수치에 아래수치롤 나누어 준다. ( 되게 쪼금준다. )
+#define ULTRA_PK_NUM_		100	// 극악PK인경우 아래 수치를 넘게되면 name_status.ultra_pk == 1이되고 공격을 못하게 된다. 
 
 ///////////////////////////////////////////////////////////////////////////////
 //< CSD-030517
@@ -25,21 +25,21 @@ const int Num_Of_Magic = 251;
 const int Num_Of_NPC_Type = 100;
 const int Num_Of_NPC_Lev = 500; //coromo
 const int Num_Of_NPC_Name = 8915;
-const int Num_Of_NPC_Generation	= 397;
+const int Num_Of_NPC_Generation = 397;
 
 const int MAX_LOG_TYPE = 4;     // CSD-TW-030622
 const int MAX_COMBAT_LEVEL = 3; // CSD-TW-030622
 const int MAX_NATION = 7;
-const int MAX_AREA_BUFFER =	1000;
+const int MAX_AREA_BUFFER = 1000;
 const int MAX_MAUL = 10;
 const int MAX_MAP_IN_MAUL = 20;
 const int MAX_GAMBLE_ITEM_KIND = 8;
-const int MAX_GAMBLE_ITEM_TYPE  = 7;
+const int MAX_GAMBLE_ITEM_TYPE = 7;
 const int MAX_GUARDIAN_GUILD = 3;
 const int MAX_MAXIMUM_NUMBER = 24; // CSD-TW-030704
 const int MAX_CDUNGEONBASIC_INT = 6; // CSD-030723
 const int MAX_PARTY_MEMBER = 6; // CSD-030723
-const int MAX_SKILL_NO	= 200; // CSD-030723
+const int MAX_SKILL_NO = 200; // CSD-030723
 const int MAX_DIR_TABLE = 256; // CSD-030723
 const int MAX_SHORTPATH = 100; // CSD-030723 // LTS AI
 const int MAX_LEARN_ITEM = 1000; // CSD-030723
@@ -67,17 +67,17 @@ const int DEAD_PC_COUNT_BOTTOM_ = DEAD_PC_COUNT_ - 5;	// PC는 시체인상태�
 const int DEAD_NPC_ANIMAL_COUNT_ = 25;
 const int DEAD_NPC_HUNT_MONSTER_COUNT_ = 6; // CSD-040407
 const int DEAD_NPC_MONSTER_COUNT_ = 15;
-const int DEAD_SEALSTONE_COUNT_ = (2*60*60)/5;		// LTS NEW LOCALWAR
+const int DEAD_SEALSTONE_COUNT_ = (2 * 60 * 60) / 5;		// LTS NEW LOCALWAR
 
 //const int CIB_POTION_BOX = 70; // CSD-030723	//050413_KCH REDEFINE제거
 const int LOTTO_PAY = 20000; // CSD-TW-030704 : 로또 구입 비용
-const int GUILD_WEAR01	   = 102; // 지키미 길드복
+const int GUILD_WEAR01 = 102; // 지키미 길드복
 
-const int PS_EXP		= 10;  // 그냥 경험치
-const int PS_TACTIC	= 20;  // 택틱 경험치
-const int PS_MAGIC_TAC	= 30;  // 마법 택틱 경험치
-const int NO_TAC		= 13;  // 전투에 사용되는 택틱수
-const int ULTRA_NK     = 100; // Ultra NK 수치
+const int PS_EXP = 10;  // 그냥 경험치
+const int PS_TACTIC = 20;  // 택틱 경험치
+const int PS_MAGIC_TAC = 30;  // 마법 택틱 경험치
+const int NO_TAC = 13;  // 전투에 사용되는 택틱수
+const int ULTRA_NK = 100; // Ultra NK 수치
 const int ENABLE_DUMMY_LEVEL = 10; // CSD-030806
 const int ENABLE_DUEL_LEVEL = 10; // CSD-030806
 const int ENABLE_GM_LEVEL = 20; // CSD-030806
@@ -90,7 +90,7 @@ const int ENABLE_DOUBLE_LEVEL = 141; // CSD-040818 : 두배 경험치가 가능�
 const int BUILD_GUILD_LEVEL = 40; // CSD-030806
 const int CROSSING_CLASS_LEVEL = 101; // CSD-030806
 
-enum LOG_TYPE 
+enum LOG_TYPE
 {	//< CSD-030808
 	LT_ACCELATER = 0,
 	LT_BATTLE = 1,
@@ -98,8 +98,8 @@ enum LOG_TYPE
 	LT_CHECK = 3,
 	LT_LEVEL_UP = 4,
 	LT_CHAT = 5,
-	LT_SCRIPT	= 6,	// 030826 kyo
-	LT_AUCTION	= 7,	// BBD 040226
+	LT_SCRIPT = 6,	// 030826 kyo
+	LT_AUCTION = 7,	// BBD 040226
 	LT_EVENTITEM = 8,	// BBD 040308
 	LT_LOCAL_WAR = 9,    // CSD-040407
 	LT_NEONATIONWAR = 10,	// LTH-040322-KO 1.04 신규 국가전을 위한 로그
@@ -163,7 +163,7 @@ enum DAY_TYPE
 };	//> CSD-030804
 
 enum NATION_TYPE
-{	
+{
 	N_NEUTRAL = 0,
 	N_NONSTER = 2,
 	N_VYSEUS = 3,
@@ -197,13 +197,13 @@ enum HOUSE_TYPE
 enum LIFE_TYPE
 {	//< CSD-030723
 	REMOVE_ = 0,
-	ALIVE_ = 1,	
+	ALIVE_ = 1,
 	DEAD_ = 2,
 	BUFE_ = 3
 };	//> CSD-030723
 
 enum NK_TYPE
-{	
+{
 	NK_TYPE_STEAL_ = 0,
 	NK_TYPE_KILL_ = 1,
 	NK_TYPE_NO_KILL_ = 2
@@ -211,7 +211,7 @@ enum NK_TYPE
 
 enum CLASS_TYPE
 {	//< CSD-030723
-	WARRIOR	= 0,
+	WARRIOR = 0,
 	THIEF = 1,
 	ARCHER = 2,
 	WIZARD = 3,
@@ -227,18 +227,18 @@ enum CHAR_STATUS_TYPE
 };	//> CSD-030723
 
 enum VIEW_TYPE
-{	
+{
 	VIEWTYPE_NORMAL_ = 0,
 	VIEWTYPE_CAMELEON_ = 1,
-	VIEWTYPE_GHOST_	= 2,
-	VIEWTYPE_TREE_	= 3,
+	VIEWTYPE_GHOST_ = 2,
+	VIEWTYPE_TREE_ = 3,
 	VIEWTYPE_OBSERVE_ = 4,
-	VIEWTYPE_CONFUSION_	= 5,
+	VIEWTYPE_CONFUSION_ = 5,
 	VIEWTYPE_POISON_ = 6,
-	VIEWTYPE_STONE_	= 7,
+	VIEWTYPE_STONE_ = 7,
 	VIEWTYPE_SLOW_ = 8,
 	VIEWTYPE_FROZEN_ = 9,
-	VIEWTYPE_CURSE_	= 10,
+	VIEWTYPE_CURSE_ = 10,
 	VIEWTYPE_TRANSPARENCY_ = 11,
 	VIEWTYPE_SELECT_ = 12,
 	VIEWTYPE_STAND_UP_ = 13
@@ -275,16 +275,16 @@ enum DIRECTION
 	DIRECTION_SAME = 0,
 	DIRECTION_UP = 4,
 	DIRECTION_RIGHTUP = 5,
-	DIRECTION_RIGHT	= 6,
-	DIRECTION_RIGHTDOWN	= 7,
+	DIRECTION_RIGHT = 6,
+	DIRECTION_RIGHTDOWN = 7,
 	DIRECTION_DOWN = 0,
 	DIRECTION_LEFTDOWN = 1,
 	DIRECTION_LEFT = 2,
-	DIRECTION_LEFTUP = 3	
+	DIRECTION_LEFTUP = 3
 };	//> CSD-030723
 
 enum HIT_TYPE
-{ 
+{
 	HIT_FAILED = 0,
 	HIT_AND_DEAD = 1,
 	HIT_AND_NOTDEAD = 2,
@@ -307,23 +307,23 @@ enum RESIST_TYPE
 
 enum eRESIST_TYPE
 {
-	RT_POISON	=0,
-	RT_CURSE	=1,
-	RT_HOLY 	=2,
-	RT_FIRE		=3,
-	RT_ICE		=4,
-	RT_ELECT	=5
+	RT_POISON = 0,
+	RT_CURSE = 1,
+	RT_HOLY = 2,
+	RT_FIRE = 3,
+	RT_ICE = 4,
+	RT_ELECT = 5
 };
 
 enum TACTIC_TYPE
-{ 
+{
 	CRAPPLE_ = 0,
 	SWORD_ = 1,
 	ARCHERY_ = 2,
 	FENCING_ = 3,
 	MACE_ = 4,
 	PIERCE_ = 5,
-	WHIRL_ = 6,		
+	WHIRL_ = 6,
 	HURL_ = 7,
 	PARRYING_ = 8,
 	D_SWORD_ = 9,
@@ -352,7 +352,7 @@ enum JOB_TYPE
 };	//> CSD-030723
 
 enum MAGIC_TYPE
-{ 
+{
 	MT_PROTECTION = 2,
 	MT_ASSISTANCE = 3,
 	MT_CURSE = 4
@@ -393,7 +393,7 @@ enum WEAPON_RANGE_TYPE
 enum BATTLE_TYPE
 {	//< CSD-031007
 	// 물리적 공격 
-	PHYSICAL = 0,                  
+	PHYSICAL = 0,
 	// 마법
 	LIFE_UP = 1,                   // 체력회복 
 	PROTECTION = 2,                // 보호
@@ -404,7 +404,7 @@ enum BATTLE_TYPE
 	SLOW = 10,                     // 속도저하
 	CONFUSION = 11,                // 혼란
 	INTOXICATION = 12,             // 중독
-	STONELY =	13,                // 석화
+	STONELY = 13,                // 석화
 	ABSOLUTE_PARALYSIS = 14,       // 절대마비
 	TOXIC_CLOUD = 15,              // 독구름  
 	DISEASE_INDUCE = 16,           // 질병유발 
@@ -418,9 +418,9 @@ enum BATTLE_TYPE
 	MAGIC_AMPLIFY = 26,            // 마법증폭
 	FIRE_RESIST = 28,              // 불에 대한 저항  
 	FIRE_ARROW = 29,               // 화염화살 
-	FIRE_BALL= 30,                 // 화염구
+	FIRE_BALL = 30,                 // 화염구
 	SCORCHER = 31,                 // 화염군(화염방사)
-	CIRCLE_FLAME= 33,              // 방사화염
+	CIRCLE_FLAME = 33,              // 방사화염
 	FIRE_WALL = 34,                // 화염벽
 	FLAME_WAVE = 35,               // 움직이는 화염벽
 	APOCALYPSE = 36,               // 지옥의 불
@@ -442,8 +442,8 @@ enum BATTLE_TYPE
 	LIGHTNING_5TILE_RADIUS = 54,   // 반경 5타일 전격
 	LOW_MONSTER_RECALL = 55,       // 저급 몬스터 소환
 	MIDDLE_MONSTER_RECALL = 58,    // 중급 몬스터 소환
-	SNOWSTORM	= 59,			   // 눈보라의 폭풍
-	ICE_BREATH2	= 60,			   // 아이스 브레스2
+	SNOWSTORM = 59,			   // 눈보라의 폭풍
+	ICE_BREATH2 = 60,			   // 아이스 브레스2
 	BLOOD_LIGHTNING = 61,		   // 블러드 라이트닝
 	PHASING = 64,                  // 장소이동
 	MEMORIZING_LOCATION = 65,      // 이동장소기억
@@ -482,7 +482,7 @@ enum BATTLE_TYPE
 	FLAME_POUR = 106,              // 화염 폭풍 
 	OCTA_LIGHTNING = 107,          // 방사 전격
 	BLOOD_SPRINKLE = 108,          // 피뿌리기
-	GAZER	= 109,				   // 게이저
+	GAZER = 109,				   // 게이저
 	FLAME_ARROW = 110,             // 화염화살 
 
 	AREA_BAT_ATTACK = 111,         // 지역 박쥐공격
@@ -522,8 +522,8 @@ enum BATTLE_TYPE
 	AUTHORITY_SIMUNIAN = 181,      // 시무니안의 권능
 	AUTHORITY_CHARISNUMEN = 182,   // 카리스 누멘의 권능
 	AUTHORITY_LETHY = 183,         // 레티의 권능
-	AUTHORITY_OF_ATHYAS	= 185,     // 아샤스의 권능
-	AUTHORITY_OF_WHOARENCHA	= 187, // 화렌차의 권능
+	AUTHORITY_OF_ATHYAS = 185,     // 아샤스의 권능
+	AUTHORITY_OF_WHOARENCHA = 187, // 화렌차의 권능
 	DEATH_FIREE = 188,             // 갠梧聃삽
 	RAGE_STONE = 189,              // 대지의 분노
 	LIFE_DRAIN = 190,              // 생명력 탈취  
@@ -532,46 +532,46 @@ enum BATTLE_TYPE
 	THROW_ARROW = 194,             // 화살
 	THROW_KNIFE = 195,             // 비도
 	// 번개 속성 전투스킬
-	LIGHTNING_BOOM = 215,          
+	LIGHTNING_BOOM = 215,
 	THUNDER_BLOW = 216,
 	LIGHTNING_SHOCK = 217,
 	THUNDER_STRIKE = 218,
 	LIGHTNING_SHIELD = 219,
 	LIGHTNING_EXTREME = 220,
 	// 대지 속성 전투스킬
-	BLOOD_EARTH = 221,             
-	GROUND_ATTACK = 222, 
+	BLOOD_EARTH = 221,
+	GROUND_ATTACK = 222,
 	BLOOD_WILL = 223,
 	STONE_ARMOR = 224,
 	SIMUNIAN_BOSOM = 225,
 	EARTH_EXTREME = 226,
 	// 화염 속성 전투스킬 
 	SWORD_N_ROSES = 227,
-	MULTIPLE_FIRE = 228, 
+	MULTIPLE_FIRE = 228,
 	FLEET_MISSILE = 229,
-	CONVERTING_ARMOR = 230, 
-	BURNING_BLOODY= 231,
+	CONVERTING_ARMOR = 230,
+	BURNING_BLOODY = 231,
 	FIRE_EXTREME = 232,
 	// 어둠 속성 전투스킬
 	POISONING_NOVA = 233,
-	CHERROY_SHADE = 234, 
-	DARK_BLADE = 235, 
+	CHERROY_SHADE = 234,
+	DARK_BLADE = 235,
 	TYBERN_GIFT = 236,
 	ACUQUIRE_DARK = 237,
 	DARK_EXTREME = 238,
 	// 얼음 속성 전투스킬
 	ICING_BLAST = 239,
-	CRITICAL_HIDING = 240, 
-	SHARK_MISSILE = 241, 
-	HORN_OF_ICEBERG = 242, 
+	CRITICAL_HIDING = 240,
+	SHARK_MISSILE = 241,
+	HORN_OF_ICEBERG = 242,
 	ICE_SHIELD = 243,
 	ICE_EXTREME = 244,
 	// 바람 속성 전투스킬
 	CHARGING = 245,
-	DOUBLE_ATTACK = 246, 
+	DOUBLE_ATTACK = 246,
 	WHILWIND = 247,
-	TWISTER = 248, 
-	GUST = 249, 
+	TWISTER = 248,
+	GUST = 249,
 	WIND_EXTREME = 250,
 	// 이펙트 아이템
 	ITEM_FIRE_EFFECT = 610, // CSD-030916
@@ -657,9 +657,9 @@ enum ARENA_TYPE
 
 enum ARENA_STATE
 {
-	CS_NOW_PEACE	= 0, // 평화로운 상태(보통맵과 다를게 없는 상태
-	CS_NOW_REGISTER	= 1, // 각각 팀에 등록하는 상태. 
-	CS_NOW_FIGHT	= 2  // 전투 시작 상태
+	CS_NOW_PEACE = 0, // 평화로운 상태(보통맵과 다를게 없는 상태
+	CS_NOW_REGISTER = 1, // 각각 팀에 등록하는 상태. 
+	CS_NOW_FIGHT = 2  // 전투 시작 상태
 };
 
 enum ARENA_RESULT
@@ -679,7 +679,7 @@ enum ARENA_ITEM
 ///////////////////////////////////////////////////////////////////////////////
 
 struct AREA
-{	
+{
 	BOOL	  bAlive;
 	short int Type;
 	short int ID;
@@ -689,135 +689,135 @@ struct AREA
 //< CSD-030723
 enum eBillingType
 {	//-값으로 구성 해야 합니다. CheckPW_TotalDB_SQL이 남은 날짜(양수)를 리턴하기 때문입니다.
-	BT_WRONG_ID					= -1,//ID 틀림
-	BT_WRONG_PW					= -2,//PW 틀림
+	BT_WRONG_ID = -1,//ID 틀림
+	BT_WRONG_PW = -2,//PW 틀림
 
-	BT_NEED_PAY					= -3,//돈 부족
+	BT_NEED_PAY = -3,//돈 부족
 
-	BT_COMMERCIAL_TIME_REMAIN	= -4,//남은 시간 있는놈
-	BT_COMMERCIAL_IP			= -20,//IP 종량제
-	BT_FREE						= -100,//공짜
-	BT_WAIT_BILLING_MSG			= -200,//대만 같은 곳의 처리 방식 빌링을 기다리도록 처리
+	BT_COMMERCIAL_TIME_REMAIN = -4,//남은 시간 있는놈
+	BT_COMMERCIAL_IP = -20,//IP 종량제
+	BT_FREE = -100,//공짜
+	BT_WAIT_BILLING_MSG = -200,//대만 같은 곳의 처리 방식 빌링을 기다리도록 처리
 };	//DBDemon과 항상 동기화 시키십시요
 
 enum eBankMoneyChangeType
 {
-	BMCT_ARENA_GAMBLE_DIVIDEND	=	1,
-	BMCT_ARENA_GAMBLE_BETTING	=	2,
-	BMCT_BANK_DEPOSIT			=	3,
-	BMCT_BANK_DEFRAYAL			=	4,
-	BMCT_AUCTION_ITEM_BUY		=	5,
-	BMCT_AUCTION_ITEM_REGISTER	=	6,
-	BMCT_BUY_LOTTO				=	7,
-	BMCT_RESET_ABILITY			=	8,
-	BMCT_CHAR_LOGIN				=	9,
-	BMCT_RECV_MAP_CHANGE		=	10,
-	BMCT_RECV_CHAR_INFO_BASIC	=	11,
-	BMCT_SKILL_RESET			=	12,
-	BMCT_YL_WARFIELD_MOVE		=	13,	// LTH-040429-KO 평화기간에 전쟁터로 이동하기 위해 일스가 지불하는 돈.
+	BMCT_ARENA_GAMBLE_DIVIDEND = 1,
+	BMCT_ARENA_GAMBLE_BETTING = 2,
+	BMCT_BANK_DEPOSIT = 3,
+	BMCT_BANK_DEFRAYAL = 4,
+	BMCT_AUCTION_ITEM_BUY = 5,
+	BMCT_AUCTION_ITEM_REGISTER = 6,
+	BMCT_BUY_LOTTO = 7,
+	BMCT_RESET_ABILITY = 8,
+	BMCT_CHAR_LOGIN = 9,
+	BMCT_RECV_MAP_CHANGE = 10,
+	BMCT_RECV_CHAR_INFO_BASIC = 11,
+	BMCT_SKILL_RESET = 12,
+	BMCT_YL_WARFIELD_MOVE = 13,	// LTH-040429-KO 평화기간에 전쟁터로 이동하기 위해 일스가 지불하는 돈.
 };
 
 enum eSendCharInfoType//021030 lsw 
 {
-	STR			=0,
-	DEX			=1,
-	CON			=2,
-	WIS			=3,
-	INT_		=4,
-	CHA			=5,
-	MOVP		=6,
-	ENDU		=7,
-	MOR			=8,
-	WSPS		=9,
-	LUCK		=10,
-	HEALTH		=11,
-	MOV			=12,
-	AC			=13,
-	FAME		=14,
-	DAMAGE		=15,
-	HIT			=16,
-	TACTICS		=17,
-	MONEY		=18,
-	LVPOINT		=19,
-	LEV			=20,
-	EXP			=21,
-	HP	  		=22,
-	MAX_HP		=23,
-	MP			=24,
-	MAX_MP		=25,
-	SP			=26,
-	MAX_SP		=27,
-	CP      	=28,
-	MAX_CP  	=29,
-	BP	    	=30,
-	MAX_BP  	=31,
-	R_FIR		=32,
-	R_ICE		=33,
-	R_ELE		=34,
-	DAM_MIN		=35,
-	DAM_MAX		=36,
-	HIT_RAT		=37,
-	DEF_RAT		=38,
-	TAC_L1		=39,
-	TAC_L2		=40,
-	TAC_L3		=41,
-	TAC_L4		=42,
-	TAC_L5		=43,
-	TAC_L6		=44,
-	TAC_L7		=45,
-	TAC_L8		=46,
-	TAC_L9		=47,
-	TAC_L10		=48,
-	TAC_L11		=49,
-	TAC_L12		=50,
-	TAC_L13		=51,
-	TAC_E1		=52,
-	TAC_E2		=53,
-	TAC_E3		=54,
-	TAC_E4		=55,
-	TAC_E5		=56,
-	TAC_E6		=57,
-	TAC_E7		=58,
-	TAC_E8		=59,
-	TAC_E9		=60,
-	TAC_E10		=61,
-	TAC_E11		=62,
-	TAC_E12		=63,
-	TAC_E13 	=64,
-	BANKMONEY	=65,
-	FAITH		=66,
-	VIEWGHOST	=67,
-	VIEWBOMB	=68,
-	VIEWTRAP	=69,
-	CIB_POTION_BOX	=70,		// YGI 020418
+	STR = 0,
+	DEX = 1,
+	CON = 2,
+	WIS = 3,
+	INT_ = 4,
+	CHA = 5,
+	MOVP = 6,
+	ENDU = 7,
+	MOR = 8,
+	WSPS = 9,
+	LUCK = 10,
+	HEALTH = 11,
+	MOV = 12,
+	AC = 13,
+	FAME = 14,
+	DAMAGE = 15,
+	HIT = 16,
+	TACTICS = 17,
+	MONEY = 18,
+	LVPOINT = 19,
+	LEV = 20,
+	EXP = 21,
+	HP = 22,
+	MAX_HP = 23,
+	MP = 24,
+	MAX_MP = 25,
+	SP = 26,
+	MAX_SP = 27,
+	CP = 28,
+	MAX_CP = 29,
+	BP = 30,
+	MAX_BP = 31,
+	R_FIR = 32,
+	R_ICE = 33,
+	R_ELE = 34,
+	DAM_MIN = 35,
+	DAM_MAX = 36,
+	HIT_RAT = 37,
+	DEF_RAT = 38,
+	TAC_L1 = 39,
+	TAC_L2 = 40,
+	TAC_L3 = 41,
+	TAC_L4 = 42,
+	TAC_L5 = 43,
+	TAC_L6 = 44,
+	TAC_L7 = 45,
+	TAC_L8 = 46,
+	TAC_L9 = 47,
+	TAC_L10 = 48,
+	TAC_L11 = 49,
+	TAC_L12 = 50,
+	TAC_L13 = 51,
+	TAC_E1 = 52,
+	TAC_E2 = 53,
+	TAC_E3 = 54,
+	TAC_E4 = 55,
+	TAC_E5 = 56,
+	TAC_E6 = 57,
+	TAC_E7 = 58,
+	TAC_E8 = 59,
+	TAC_E9 = 60,
+	TAC_E10 = 61,
+	TAC_E11 = 62,
+	TAC_E12 = 63,
+	TAC_E13 = 64,
+	BANKMONEY = 65,
+	FAITH = 66,
+	VIEWGHOST = 67,
+	VIEWBOMB = 68,
+	VIEWTRAP = 69,
+	CIB_POTION_BOX = 70,		// YGI 020418
 	CHANGE_GENDER = 71,			//050413_KCH 성전환 아이템
 };
 
 enum eMkType//021030 lsw 
 {
-	MK_NORMAL      =0,	// 일반적인 경우
-	MK_WARNING     =1,	// 위험, 경고
-	MK_SHORTAGE    =2,	// 부족
-	MK_INFORMATION =3,	// 정보
+	MK_NORMAL = 0,	// 일반적인 경우
+	MK_WARNING = 1,	// 위험, 경고
+	MK_SHORTAGE = 2,	// 부족
+	MK_INFORMATION = 3,	// 정보
 };
 
 enum eSpriteType
 {
-	SPRITETYPE_NONE			=0,
-	SPRITETYPE_CHARACTER	=1,
-	SPRITETYPE_NPC			=2,
+	SPRITETYPE_NONE = 0,
+	SPRITETYPE_CHARACTER = 1,
+	SPRITETYPE_NPC = 2,
 };
 //Skill No
 enum eSkillNoIndex
 {
-	SKILL_UNKNOWN							=0,	// 030117 kyo 
-	SKILL_DETECT_GHOST						=1,	
-	SKILL_TALK_WITH_GHOST					=2,	
-	SKILL_POISONING							=3,	
-	SKILL_DETECT_POISON						=4,	
-	SKILL_FIND_TRAPS						=5,	
-	SKILL_REMOVE_TRAPS						=6,	
-	SKILL_ENTRAPMENT						=7,	
+	SKILL_UNKNOWN = 0,	// 030117 kyo 
+	SKILL_DETECT_GHOST = 1,
+	SKILL_TALK_WITH_GHOST = 2,
+	SKILL_POISONING = 3,
+	SKILL_DETECT_POISON = 4,
+	SKILL_FIND_TRAPS = 5,
+	SKILL_REMOVE_TRAPS = 6,
+	SKILL_ENTRAPMENT = 7,
 	//	SKILL_MAGIC_SCROLLING					=8,	
 	//	SKILL_ABILITY_SCROLLING					=9,	
 	//	SKILL_EMERGENCY_ALRAM					=10,	
@@ -826,44 +826,44 @@ enum eSkillNoIndex
 	//	SKILL_SECRETHEAR						=13,	
 	//	SKILL_WALLCLIMBING						=14,	
 	//	SKILL_INTUITION							=15,	
-	SKILL_DETECT_BOMB						=16,	
-	SKILL_BOMB_IN_BOX						=17,	
-	SKILL_REMOVE_BOMB						=18,	
-	SKILL_STEALING							=19,	
+	SKILL_DETECT_BOMB = 16,
+	SKILL_BOMB_IN_BOX = 17,
+	SKILL_REMOVE_BOMB = 18,
+	SKILL_STEALING = 19,
 	//	SKILL_LOCKPICKING						=20,	
-	SKILL_RECLAIM							=21,	
-	SKILL_SOW								=22,	
+	SKILL_RECLAIM = 21,
+	SKILL_SOW = 22,
 	//	SKILL_CULTIVATE							=23,	
-	SKILL_HAVEST							=24,	
+	SKILL_HAVEST = 24,
 	//	SKILL_DETECT_MINERAL					=25,	
-	SKILL_MINING							=26,	
-	SKILL_REFINE							=27,	
-	SKILL_FISH_HOOKING						=28,	
+	SKILL_MINING = 26,
+	SKILL_REFINE = 27,
+	SKILL_FISH_HOOKING = 28,
 	//	SKILL_BAITMAKING						=29,	
-	SKILL_NETTING							=30,	
+	SKILL_NETTING = 30,
 	//	SKILL_SAILING							=31,	
-	SKILL_CUTTING							=32,	
-	SKILL_LUMBERING							=33,	
-	SKILL_BUTCHERING						=34,	
+	SKILL_CUTTING = 32,
+	SKILL_LUMBERING = 33,
+	SKILL_BUTCHERING = 34,
 	//	SKILL_DETECT_HERB						=35,	
-	SKILL_DIGGING							=36,	
-	SKILL_MAKEPOWDER						=37,	
+	SKILL_DIGGING = 36,
+	SKILL_MAKEPOWDER = 37,
 	//	SKILL_HERDING							=38,	
 	//	SKILL_MILKING							=39,	
 	//	SKILL_MIDWIFERY							=40,	
-	SKILL_SHEAR								=41,	
-	SKILL_CARPENTRY							=42,	
-	SKILL_BLACKSMITHY						=43,	
-	SKILL_COOKING							=44,	
-	SKILL_CLOTHING							=45,	
+	SKILL_SHEAR = 41,
+	SKILL_CARPENTRY = 42,
+	SKILL_BLACKSMITHY = 43,
+	SKILL_COOKING = 44,
+	SKILL_CLOTHING = 45,
 	//	SKILL_DYEING							=46,	
-	SKILL_TAILORING							=47,	
-	SKILL_BOWCRAFTING						=48,	
-	SKILL_FLETCHING							=49,	
-	SKILL_MAKEPOTION						=50,	
-	SKILL_MAKEMETAL							=51,	
-	SKILL_MAKEBOTTLE						=52,	
-	SKILL_CANDLEMAKING						=53,	
+	SKILL_TAILORING = 47,
+	SKILL_BOWCRAFTING = 48,
+	SKILL_FLETCHING = 49,
+	SKILL_MAKEPOTION = 50,
+	SKILL_MAKEMETAL = 51,
+	SKILL_MAKEBOTTLE = 52,
+	SKILL_CANDLEMAKING = 53,
 	//	SKILL_WAXING							=54,	
 	//	SKILL_REPAIRNG							=55,	
 	//	SKILL_REUTILIZING						=56,	
@@ -875,211 +875,211 @@ enum eSkillNoIndex
 	//	SKILL_ENTICEMENT						=62,	
 	//	SKILL_NOISE								=63,	
 	//	SKILL_TRACKING							=64,	
-	SKILL_SNOOPING							=65,	
+	SKILL_SNOOPING = 65,
 	//	SKILL_SEARCH							=66,	
-	SKILL_MERCHANT							=67,	
-	SKILL_BLACKSMITHY_MASTER				=68,	//대장장이 기성	
-	SKILL_CARPENTRY_MASTER					=69,	//목수 기성	
-	SKILL_BOWCRAFTING_MASTER				=70,	//활제작사 기성	
-	SKILL_TAILORING_MASTER					=71,	//재단사 기성
+	SKILL_MERCHANT = 67,
+	SKILL_BLACKSMITHY_MASTER = 68,	//대장장이 기성	
+	SKILL_CARPENTRY_MASTER = 69,	//목수 기성	
+	SKILL_BOWCRAFTING_MASTER = 70,	//활제작사 기성	
+	SKILL_TAILORING_MASTER = 71,	//재단사 기성
 	//	SKILL_HIDE								=72,	
 	//	SKILL_CAMPING							=73,	
-	SKILL_MAKEFIRE							=74,	
-	SKILL_TAMING							=75,	
+	SKILL_MAKEFIRE = 74,
+	SKILL_TAMING = 75,
 	//	SKILL_COMMUNICATE_WITH_ANIMAL			=76,	
 	//	SKILL_COMMUNICATE_WITH_OTHER_TRIBE		=77,	
 	//	SKILL_ANIMAL_LORE						=78,	
 	//	SKILL_ARMS_LORE							=79,	
-	SKILL_EVALUATE_INTELIGENCE				=80,	
-	SKILL_EVALUATE_WISDOM					=81,	
-	SKILL_ANATOMY_JUDGEMENT					=82,	
-	SKILL_ITEM_IDENTIFICATION				=83,	
+	SKILL_EVALUATE_INTELIGENCE = 80,
+	SKILL_EVALUATE_WISDOM = 81,
+	SKILL_ANATOMY_JUDGEMENT = 82,
+	SKILL_ITEM_IDENTIFICATION = 83,
 	//	SKILL_TASTE_IDENTIFICATION				=84,	
 	//	SKILL_APPRAISAL							=85,	
 	//	SKILL_HEALING							=86,	
-	SKILL_TACTICS							=87,//021113 lsw
-	TACTICS_Crapple							=88,
-	TACTICS_swordmanship					=89,
-	TACTICS_Archery							=90,
-	TACTICS_Fencing							=91,	
-	TACTICS_Mace_fighting					=92,
-	TACTICS_Pierce							=93,
-	TACTICS_Whirl							=94,
-	TACTICS_Hurl							=95,
-	TACTICS_Parrying						=96,
-	TACTICS_Double_Swordmanship				=97,
-	TACTICS_Double_MaceFighting				=98,	
-	TACTICS_Magery							=99,
-	TACTICS_Orison							=100,
+	SKILL_TACTICS = 87,//021113 lsw
+	TACTICS_Crapple = 88,
+	TACTICS_swordmanship = 89,
+	TACTICS_Archery = 90,
+	TACTICS_Fencing = 91,
+	TACTICS_Mace_fighting = 92,
+	TACTICS_Pierce = 93,
+	TACTICS_Whirl = 94,
+	TACTICS_Hurl = 95,
+	TACTICS_Parrying = 96,
+	TACTICS_Double_Swordmanship = 97,
+	TACTICS_Double_MaceFighting = 98,
+	TACTICS_Magery = 99,
+	TACTICS_Orison = 100,
 	//	SKILL_THREAD							=101,	
 	//	SKILL_COLORING							=102,	
 	//	SKILL_JUMP								=103,	
 	//	SKILL_RIDING							=104,	
-	SKILL_GHOST_RESURRECTION				=105,	
-	SKILL_GM_CARPENTER						=106,	
-	SKILL_GM_BLACKSMITH						=107,	
-	SKILL_GM_COOK							=108,	
-	SKILL_GM_TAILOR							=109,	
-	SKILL_GM_BOWCRAFT						=110,	
-	SKILL_GM_ALCHEMIST						=111,	
-	SKILL_GM_CANDLEMAKER					=112,	
+	SKILL_GHOST_RESURRECTION = 105,
+	SKILL_GM_CARPENTER = 106,
+	SKILL_GM_BLACKSMITH = 107,
+	SKILL_GM_COOK = 108,
+	SKILL_GM_TAILOR = 109,
+	SKILL_GM_BOWCRAFT = 110,
+	SKILL_GM_ALCHEMIST = 111,
+	SKILL_GM_CANDLEMAKER = 112,
 };
 // 아이템 kind
 typedef enum eItemKindType
 {
-	IK_NONE							=0,	//	non
-	IK_GON							=1,	//	곤			
-	IK_PENCING						=2,	//	펜싱검		
-	IK_ONE_SWORD					=3,	//	한손검
-	IK_ONE_AXE						=4,	//	한손도끼
-	IK_ONE_MACE						=5,	//	한손철퇴
-	IK_CLUB							=6,	//	몽둥이
-	IK_WHIRL						=7,	//	봉
-	IK_STAFE						=8,	//	지팡이
-	IK_SPEAR						=9,	//	보통창
-	IK_FORK							=10,	//	포크
-	IK_HURL							=11,	//	비검,던지는무기
-	IK_SHORT_BOW					=12,	//	소형활
-	IK_TWO_SWORD					=13,	//	양손검
-	IK_TWO_AXE						=14,	//	양손도끼
-	IK_TWO_MACE						=15,	//	양손 철퇴
-	IK_TWO_ARROW					=16,	//	화살
-	IK_IRON_ARMOR					=17,	//	쇠갑옷
-	IK_LEATHER_ARMOR				=18,	//	가죽갑옷
-	IK_RING							=19,	//	반지
-	IK_SHIELD						=20,	//	방패
-	IK_SHOES						=21,	//	신발
-	IK_ROBE							=22,	//	로브
-	IK_FULL_HELMET					=23,	//	플헬멧
-	IK_HALF_HELMET					=24,	//	하프헬멧
-	IK_NORMAL_CLOTHE				=25,	//	보통옷
-	IK_AMULET						=26,	//	목거리
-	IK_ARMLET						=27,	//	팔찌
-	IK_MUSIC						=28,	//	악기
-	IK_SCROLL						=29,	//	스크롤
-	IK_LONG_BOW						=30,	//	대형활
-	IK_BOX							=31,	//	상자
-	IK_GRAIN						=32,	//	곡식
-	IK_POTION						=33,	//	포션
-	IK_FOOD_MASS					=34,	//	덩어리 음식
-	IK_PLATE_FOOD					=35,	//	쟁반 음식
-	IK_DRINK						=36,	//	음료
-	IK_ARROW_POINT					=37,	//	화살 촉
-	IK_FEATHER						=38,	//	깃털		
-	IK_SEED							=39,	//  씨앗.
-	IK_MONEY						=40,	//	돈
-	IK_MINERAL						=41,	//	광석
-	IK_MINERAL_LUMP					=42,	//	가공한 광석( 철괴, 금괴... )
-	IK_HERB							=43,	//	약초					// 0626 YGI
-	IK_HERB_POWDER					=44,	//	약초 가루
-	IK_WOOD_BEFOR_USE				=45,		//가공전의 나무
-	IK_WOOD_AFTER_USE				=46,		//가공후의 나무
-	IK_TENT							=47,		//텐트류
-	IK_TOOL_RECLAI					=48,		//도구 개간용
-	IK_TOOL_HAVEST					=49,		//도구 추수용
-	IK_TOOL_MINING					=50,		//도구 채광용
-	IK_TOOL_REFINE					=51,		//도구 제련용
-	IK_TOOL_FISH_HOOKING			=52,		//도구 낚시용
-	IK_TOOL_CUTTING					=53,		//도구 벌목용
-	IK_TOOL_LUMBERING				=54,		//도구 목재가공용
-	IK_TOOL_BUTCHERING				=55,		//도구 도축용
-	IK_TOOL_DIGGING					=56,		//도구 약초채집용
-	IK_TOOL_MAKEPOWDER				=57,		//도구 약재만들기용
-	IK_TOOL_SHEAR					=58,		//도구 가위류
-	IK_TOOL_CARPENTRY				=59,		//도구 목공용
-	IK_TOOL_BLACKSMITHY				=60,		//도구 철공용
-	IK_TOOL_COOKING_FIRE			=61,		//도구 대우는요리용
-	IK_TOOL_COOKING_CUT				=62,		//도구 써는요리용
-	IK_TOOL_PIN						=63,		//도구 바늘류
-	IK_TOOL_BOWCRAFTING				=64,		//도구 활제작용
-	IK_TOOL_FIRE_BOAD				=65,		//도구 불대
-	IK_TOOL_CANDLEMAKING			=66,		//도구 양초제작용
-	IK_TOOL_OILING					=67,		//도구 밀납가공용
-	IK_TOOL_TAMING					=68,		//도구 테이밍용
-	IK_TOOL_NETTING					=69,		//도구 그물류
-	IK_TOOL_MAKEFIRE				=70,		//도구 부싯돌류
-	IK_WORK_BOAD_BLAST_FURNACE 		=71,		//작업대 용광로
-	IK_WORK_BOAD_BAETLE				=72,		//작업대 배틀
-	IK_WORK_BOAD_BLOCK				=73,		//작업대 선반
-	IK_WORK_BOAD_ANVIL				=74,		//작업대 모루
-	IK_WORK_BOAD_BRAZIER			=75,		//작업대 화덕
-	IK_WORK_BOAD_TEST_TUBE			=76,		//작업대 시험관류
-	IK_WORK_BOAD_SPINNING_WHEEL		=77,		//작업대 물레
-	IK_WORK_BOAD_FIRE_BOAD			=78,		//작업대 불대
-	IK_TOOL_BUCKET					=79,		//도구 양동이
-	IK_TOOL_RECYCLE					=80,		//도구 재활용
-	IK_TOOL_REPAIR					=81,		//도구 수리용
-	IK_IRON_SHIELD					=82,		//쇠방패	
-	IK_IRON_SHOES					=83,		//쇠 신발	
-	IK_CAP							=84,		//모자	
-	IK_GOKAL						=85,		//두건	
-	IK_PRIEST_ROBE					=86,		//성직로브	
-	IK_CANDLE						=87,		//양초	
-	IK_MAN_TO_MAN					=88,		//결투서	
-	IK_CRACKER						=89,		// 폭죽			// 010210 YGI
-	IK_RAJA_EMBLEM					=90,		// 라자 엠블렘
-	IK_POTION_CHANGE_COLOR_CLOTHES	=91,	// 옷 염색약
-	IK_POTION_CHANGE_COLOR_HAIR		=92,	// 피부 염색약
-	IK_NEW_MONEY					=93,	// 신권돈
-	IK_LOCK_STEAL					=94,	// 도둑방지 덫
-	IK_MAP							=95,	//	지도
-	IK_GAUNTLET						=96,		//건틀렛
-	IK_GOOD_FOOD					=97,		//고급음식
-	IK_GOOD_POTION					=98,		//고급포션
-	IK_GOOD_CANDLE					=99,		//고급양초
-	IK_UNIQ_RESOURCE				=100,		//유니크재료
-	IK_GENERAL_GAMBLE				=101,		//일반겜블아이템
-	IK_GRADE_GAMBLE					=102,		//그레이드겜블아이템
-	IK_CLOAK						=103,		//망토
-	IK_CHAIR						=104,		//의자			// LTS SITDOWN
-	IK_BOMB							=105,		//011212 lsw 
-	IK_TRAP							=106,		//011212 lsw 
-	IK_THROW_EVENT					=107,		//CSD-030723 : 이벤트용 던지기 물건 눈덩이(IK_SNOW_BALL)
-	IK_POTION_BOX					=108,		// 포션 주머니		020418 YGI
-	IK_FALG							=109,		// 깃발
-	IK_SADDLE						=110,		// 말안장
-	IK_DUAL_GAUNTLET				=111,	
-	IK_DUAL_SWORD					=112,	
-	IK_DUAL_BOW						=113,	
-	IK_DUAL_FENCING					=114,	
-	IK_DUAL_AXE						=115,	
-	IK_DUAL_SPEAR					=116,	
-	IK_DUAL_KNIFE					=117,	
-	IK_DUAL_DOUBLE_SWORD			=118,	
-	IK_DUAL_DOUBLE_AXE				=119,	
-	IK_DUAL_MAGICIAN_STAFF			=120,	
-	IK_DUAL_PRIEST_STAFF			=121,	
-	IK_DUAL_SHIELD					=122,	
-	IK_DUAL_ARMOR					=123,	
-	IK_DUAL_ARCHER_LEATHER			=124,	
-	IK_DUAL_MAGICIAN_ROBE			=125,	
-	IK_DUAL_HELM					=126,	
-	IK_DUAL_ARCHER_CAP				=127,	
-	IK_DUAL_MAGICIAN_HAT			=128,	
-	IK_DUAL_BOOTS					=129,	
-	IK_DUAL_ARCHER_SHOES			=130,	
-	IK_DUAL_MAGICIAN_SHOES			=131,	
-	IK_DUAL_THIEF_SHOES				=132,	
-	IK_DUAL_PRIEST_SHOES			=133,	
-	IK_DUAL_THIEF_CAP				=134,	
-	IK_DUAL_PRIEST_HAT				=135,	
-	IK_DUAL_THIEF_LEATHER			=136,	
-	IK_DUAL_PRIEST_ROBE				=137,	
-	IK_DUAL_THIEF_SHIELD			=138,	
-	IK_DUAL_ARROW					=139,	
-	IK_ABYSS_MAZE					=140,	//아비스 미궁용 아이템	
-	IK_UNDEAD_DUNGEON				=141,	//언데드 던전용 아이템	
-	IK_GREAT_MAZE					=142,	//대미궁 용 아이템	
-	IK_TREASURE_MAP					=145,	// 보물지도	// 040105 YGI
-	IK_TREASURE_BOX					=146,	// BBD 040213 보물지도 // 필요할것 같아 일단 추가해둠
-	IK_POTION_BAG					=147,	// BBD 040213 포션백
-	IK_CP_POTION					=148,	// 040622 YGI cp포션
-	IK_ABILITY_RESET				=149,	//< kjy-040805	어빌리티 재분배 >
-	IK_DOUBLE_EXP_UP                =150,	// CSD-040810 : 경험치 두배
-	IK_CHANGE_GENDER				=151,	// KCH_050412 : 성전환 아이템
-	IK_INSURANCE_NORMAL				=152,
-	IK_INSURANCE_MULTI				=153, 
-	IK_ABILITY_RESET_EACH_STAT		=154, 
+	IK_NONE = 0,	//	non
+	IK_GON = 1,	//	곤			
+	IK_PENCING = 2,	//	펜싱검		
+	IK_ONE_SWORD = 3,	//	한손검
+	IK_ONE_AXE = 4,	//	한손도끼
+	IK_ONE_MACE = 5,	//	한손철퇴
+	IK_CLUB = 6,	//	몽둥이
+	IK_WHIRL = 7,	//	봉
+	IK_STAFE = 8,	//	지팡이
+	IK_SPEAR = 9,	//	보통창
+	IK_FORK = 10,	//	포크
+	IK_HURL = 11,	//	비검,던지는무기
+	IK_SHORT_BOW = 12,	//	소형활
+	IK_TWO_SWORD = 13,	//	양손검
+	IK_TWO_AXE = 14,	//	양손도끼
+	IK_TWO_MACE = 15,	//	양손 철퇴
+	IK_TWO_ARROW = 16,	//	화살
+	IK_IRON_ARMOR = 17,	//	쇠갑옷
+	IK_LEATHER_ARMOR = 18,	//	가죽갑옷
+	IK_RING = 19,	//	반지
+	IK_SHIELD = 20,	//	방패
+	IK_SHOES = 21,	//	신발
+	IK_ROBE = 22,	//	로브
+	IK_FULL_HELMET = 23,	//	플헬멧
+	IK_HALF_HELMET = 24,	//	하프헬멧
+	IK_NORMAL_CLOTHE = 25,	//	보통옷
+	IK_AMULET = 26,	//	목거리
+	IK_ARMLET = 27,	//	팔찌
+	IK_MUSIC = 28,	//	악기
+	IK_SCROLL = 29,	//	스크롤
+	IK_LONG_BOW = 30,	//	대형활
+	IK_BOX = 31,	//	상자
+	IK_GRAIN = 32,	//	곡식
+	IK_POTION = 33,	//	포션
+	IK_FOOD_MASS = 34,	//	덩어리 음식
+	IK_PLATE_FOOD = 35,	//	쟁반 음식
+	IK_DRINK = 36,	//	음료
+	IK_ARROW_POINT = 37,	//	화살 촉
+	IK_FEATHER = 38,	//	깃털		
+	IK_SEED = 39,	//  씨앗.
+	IK_MONEY = 40,	//	돈
+	IK_MINERAL = 41,	//	광석
+	IK_MINERAL_LUMP = 42,	//	가공한 광석( 철괴, 금괴... )
+	IK_HERB = 43,	//	약초					// 0626 YGI
+	IK_HERB_POWDER = 44,	//	약초 가루
+	IK_WOOD_BEFOR_USE = 45,		//가공전의 나무
+	IK_WOOD_AFTER_USE = 46,		//가공후의 나무
+	IK_TENT = 47,		//텐트류
+	IK_TOOL_RECLAI = 48,		//도구 개간용
+	IK_TOOL_HAVEST = 49,		//도구 추수용
+	IK_TOOL_MINING = 50,		//도구 채광용
+	IK_TOOL_REFINE = 51,		//도구 제련용
+	IK_TOOL_FISH_HOOKING = 52,		//도구 낚시용
+	IK_TOOL_CUTTING = 53,		//도구 벌목용
+	IK_TOOL_LUMBERING = 54,		//도구 목재가공용
+	IK_TOOL_BUTCHERING = 55,		//도구 도축용
+	IK_TOOL_DIGGING = 56,		//도구 약초채집용
+	IK_TOOL_MAKEPOWDER = 57,		//도구 약재만들기용
+	IK_TOOL_SHEAR = 58,		//도구 가위류
+	IK_TOOL_CARPENTRY = 59,		//도구 목공용
+	IK_TOOL_BLACKSMITHY = 60,		//도구 철공용
+	IK_TOOL_COOKING_FIRE = 61,		//도구 대우는요리용
+	IK_TOOL_COOKING_CUT = 62,		//도구 써는요리용
+	IK_TOOL_PIN = 63,		//도구 바늘류
+	IK_TOOL_BOWCRAFTING = 64,		//도구 활제작용
+	IK_TOOL_FIRE_BOAD = 65,		//도구 불대
+	IK_TOOL_CANDLEMAKING = 66,		//도구 양초제작용
+	IK_TOOL_OILING = 67,		//도구 밀납가공용
+	IK_TOOL_TAMING = 68,		//도구 테이밍용
+	IK_TOOL_NETTING = 69,		//도구 그물류
+	IK_TOOL_MAKEFIRE = 70,		//도구 부싯돌류
+	IK_WORK_BOAD_BLAST_FURNACE = 71,		//작업대 용광로
+	IK_WORK_BOAD_BAETLE = 72,		//작업대 배틀
+	IK_WORK_BOAD_BLOCK = 73,		//작업대 선반
+	IK_WORK_BOAD_ANVIL = 74,		//작업대 모루
+	IK_WORK_BOAD_BRAZIER = 75,		//작업대 화덕
+	IK_WORK_BOAD_TEST_TUBE = 76,		//작업대 시험관류
+	IK_WORK_BOAD_SPINNING_WHEEL = 77,		//작업대 물레
+	IK_WORK_BOAD_FIRE_BOAD = 78,		//작업대 불대
+	IK_TOOL_BUCKET = 79,		//도구 양동이
+	IK_TOOL_RECYCLE = 80,		//도구 재활용
+	IK_TOOL_REPAIR = 81,		//도구 수리용
+	IK_IRON_SHIELD = 82,		//쇠방패	
+	IK_IRON_SHOES = 83,		//쇠 신발	
+	IK_CAP = 84,		//모자	
+	IK_GOKAL = 85,		//두건	
+	IK_PRIEST_ROBE = 86,		//성직로브	
+	IK_CANDLE = 87,		//양초	
+	IK_MAN_TO_MAN = 88,		//결투서	
+	IK_CRACKER = 89,		// 폭죽			// 010210 YGI
+	IK_RAJA_EMBLEM = 90,		// 라자 엠블렘
+	IK_POTION_CHANGE_COLOR_CLOTHES = 91,	// 옷 염색약
+	IK_POTION_CHANGE_COLOR_HAIR = 92,	// 피부 염색약
+	IK_NEW_MONEY = 93,	// 신권돈
+	IK_LOCK_STEAL = 94,	// 도둑방지 덫
+	IK_MAP = 95,	//	지도
+	IK_GAUNTLET = 96,		//건틀렛
+	IK_GOOD_FOOD = 97,		//고급음식
+	IK_GOOD_POTION = 98,		//고급포션
+	IK_GOOD_CANDLE = 99,		//고급양초
+	IK_UNIQ_RESOURCE = 100,		//유니크재료
+	IK_GENERAL_GAMBLE = 101,		//일반겜블아이템
+	IK_GRADE_GAMBLE = 102,		//그레이드겜블아이템
+	IK_CLOAK = 103,		//망토
+	IK_CHAIR = 104,		//의자			// LTS SITDOWN
+	IK_BOMB = 105,		//011212 lsw 
+	IK_TRAP = 106,		//011212 lsw 
+	IK_THROW_EVENT = 107,		//CSD-030723 : 이벤트용 던지기 물건 눈덩이(IK_SNOW_BALL)
+	IK_POTION_BOX = 108,		// 포션 주머니		020418 YGI
+	IK_FALG = 109,		// 깃발
+	IK_SADDLE = 110,		// 말안장
+	IK_DUAL_GAUNTLET = 111,
+	IK_DUAL_SWORD = 112,
+	IK_DUAL_BOW = 113,
+	IK_DUAL_FENCING = 114,
+	IK_DUAL_AXE = 115,
+	IK_DUAL_SPEAR = 116,
+	IK_DUAL_KNIFE = 117,
+	IK_DUAL_DOUBLE_SWORD = 118,
+	IK_DUAL_DOUBLE_AXE = 119,
+	IK_DUAL_MAGICIAN_STAFF = 120,
+	IK_DUAL_PRIEST_STAFF = 121,
+	IK_DUAL_SHIELD = 122,
+	IK_DUAL_ARMOR = 123,
+	IK_DUAL_ARCHER_LEATHER = 124,
+	IK_DUAL_MAGICIAN_ROBE = 125,
+	IK_DUAL_HELM = 126,
+	IK_DUAL_ARCHER_CAP = 127,
+	IK_DUAL_MAGICIAN_HAT = 128,
+	IK_DUAL_BOOTS = 129,
+	IK_DUAL_ARCHER_SHOES = 130,
+	IK_DUAL_MAGICIAN_SHOES = 131,
+	IK_DUAL_THIEF_SHOES = 132,
+	IK_DUAL_PRIEST_SHOES = 133,
+	IK_DUAL_THIEF_CAP = 134,
+	IK_DUAL_PRIEST_HAT = 135,
+	IK_DUAL_THIEF_LEATHER = 136,
+	IK_DUAL_PRIEST_ROBE = 137,
+	IK_DUAL_THIEF_SHIELD = 138,
+	IK_DUAL_ARROW = 139,
+	IK_ABYSS_MAZE = 140,	//아비스 미궁용 아이템	
+	IK_UNDEAD_DUNGEON = 141,	//언데드 던전용 아이템	
+	IK_GREAT_MAZE = 142,	//대미궁 용 아이템	
+	IK_TREASURE_MAP = 145,	// 보물지도	// 040105 YGI
+	IK_TREASURE_BOX = 146,	// BBD 040213 보물지도 // 필요할것 같아 일단 추가해둠
+	IK_POTION_BAG = 147,	// BBD 040213 포션백
+	IK_CP_POTION = 148,	// 040622 YGI cp포션
+	IK_ABILITY_RESET = 149,	//< kjy-040805	어빌리티 재분배 >
+	IK_DOUBLE_EXP_UP = 150,	// CSD-040810 : 경험치 두배
+	IK_CHANGE_GENDER = 151,	// KCH_050412 : 성전환 아이템
+	IK_INSURANCE_NORMAL = 152,
+	IK_INSURANCE_MULTI = 153,
+	IK_ABILITY_RESET_EACH_STAT = 154,
 }E_ITEM_KIND_TYPE;
 
 enum ItemMallFunction		// 040621 YGI
@@ -1090,31 +1090,31 @@ enum ItemMallFunction		// 040621 YGI
 
 enum eFuntionItemIndex
 {
-	FITEM_MOVABLE			=1,	//마비,석화,혼란 해제	마비계열해제	
-	FITEM_RECOVERY			=2,	//속도저하 해제	속도저하 해제	
-	FITEM_DETOX				=3,	//해독작용	해독	
-	FITEM_ENLIGHT			=4,	//시력 회복	시력상실	
+	FITEM_MOVABLE = 1,	//마비,석화,혼란 해제	마비계열해제	
+	FITEM_RECOVERY = 2,	//속도저하 해제	속도저하 해제	
+	FITEM_DETOX = 3,	//해독작용	해독	
+	FITEM_ENLIGHT = 4,	//시력 회복	시력상실	
 	//FITEM_NULL			=5,	NULL	NULL	
 	//FITEM_NULL			=6,	NULL	NULL	
-	FITEM_REVIVAL			=7,	//자동 부활	자동 부활	
-	FITEM_COME_BACK			=8,	//마을로의 귀환	자신이 속한 국가의 마을로 돌아옴 	
-	FITEM_RESIST_UP			=9,	//모든 계열 저항력 상승	모든 계열 마법 저항력 상승	
-	FITEM_STEALTH			=10,	//투명 상태 유지	일정 시간 투명 상태 유지	
-	FITEM_INVALID_CURSE		=11,	//저주 계열 마법 무효화	상대의 저주 계열 마법 무효화	
-	FITEM_INVALID_OFFENCE	=12,	//공격 계열 마법 무효화	상대의 공격 계열 마법 무효화	
-	FITEM_POWER_UP			=13,	//물리적 공격력 증가	물리적 공격력 증가(%)	
-	FITEM_SPEED_UP			=14,	//이동 속도 증가	이동 속도 (이동력) 증가	
-	FITEM_HEAVY_ARMOR		=15,	//AC 증가	AC 수치 증가	
-	FITEM_SPELL_UP			=16,	//마법 데미지 증폭	마법 데미지 증폭(%)	
-	FITEM_SPELL_TIME_UP		=17,	//마법 지속 시간 증폭	마법 지속 시간 증폭(msec)	
-	FITEM_CRITICAL			=18,	//CRITICAL DAMAGE 	크리티컬 데미지로 물리적 공격	
-	FITEM_STROKE			=19,	//물리적 공격 성공률 100%	물리적 공격 성공률 100%	
-	FITEM_AGILITY			=20,	//물리적 공격 회피율 70%	물리적 공격 회피율 70%	
-	FITEM_INVALID_PROTECT	=21,	//상대의 보호 계열 마법 무시	상대의 보호 계열 마법을 무조건 무시하여 공격(물리/마법 모두)	
-	FITEM_INVALID_RESIST	=22,	//상대의 마법 저항력 무시	상대의 마법 저항력 무조건 무시 (마법 저항력 0으로 적용)	
-	FITEM_GHOST				=23,	//유령을 볼 수 있음	유령을 볼 수 있음	
-	FITEM_SAMARITAN			=24,	//NK의 공격을 무시	NK의 물리적/마법 공격 모두 무시	
-	FITEM_SLIGHT			=25,	//마법 캐스팅 시간 단축	마법 캐스팅 시간 단축(%)	
+	FITEM_REVIVAL = 7,	//자동 부활	자동 부활	
+	FITEM_COME_BACK = 8,	//마을로의 귀환	자신이 속한 국가의 마을로 돌아옴 	
+	FITEM_RESIST_UP = 9,	//모든 계열 저항력 상승	모든 계열 마법 저항력 상승	
+	FITEM_STEALTH = 10,	//투명 상태 유지	일정 시간 투명 상태 유지	
+	FITEM_INVALID_CURSE = 11,	//저주 계열 마법 무효화	상대의 저주 계열 마법 무효화	
+	FITEM_INVALID_OFFENCE = 12,	//공격 계열 마법 무효화	상대의 공격 계열 마법 무효화	
+	FITEM_POWER_UP = 13,	//물리적 공격력 증가	물리적 공격력 증가(%)	
+	FITEM_SPEED_UP = 14,	//이동 속도 증가	이동 속도 (이동력) 증가	
+	FITEM_HEAVY_ARMOR = 15,	//AC 증가	AC 수치 증가	
+	FITEM_SPELL_UP = 16,	//마법 데미지 증폭	마법 데미지 증폭(%)	
+	FITEM_SPELL_TIME_UP = 17,	//마법 지속 시간 증폭	마법 지속 시간 증폭(msec)	
+	FITEM_CRITICAL = 18,	//CRITICAL DAMAGE 	크리티컬 데미지로 물리적 공격	
+	FITEM_STROKE = 19,	//물리적 공격 성공률 100%	물리적 공격 성공률 100%	
+	FITEM_AGILITY = 20,	//물리적 공격 회피율 70%	물리적 공격 회피율 70%	
+	FITEM_INVALID_PROTECT = 21,	//상대의 보호 계열 마법 무시	상대의 보호 계열 마법을 무조건 무시하여 공격(물리/마법 모두)	
+	FITEM_INVALID_RESIST = 22,	//상대의 마법 저항력 무시	상대의 마법 저항력 무조건 무시 (마법 저항력 0으로 적용)	
+	FITEM_GHOST = 23,	//유령을 볼 수 있음	유령을 볼 수 있음	
+	FITEM_SAMARITAN = 24,	//NK의 공격을 무시	NK의 물리적/마법 공격 모두 무시	
+	FITEM_SLIGHT = 25,	//마법 캐스팅 시간 단축	마법 캐스팅 시간 단축(%)	
 };
 //< CSD-030723
 ///////////////////////////////////////////////////////////////////////////////
@@ -1130,7 +1130,7 @@ struct MAGICTABLE
 	int	basic_Level;		  // 사용 기본 레벨(1~9)
 	int	point_MS;		      // Magic S point 
 	int before_Magic;		  // 전 단계 마법(먼저 익혀야 할 마법)
-	int	basic_magery ;		//
+	int	basic_magery;		//
 	int	cast_Time;		    // 캐스팅 시간(절대시간)
 	int	cast_Continue;	  // 캐스팅 지속 시간(절대시간)
 	int	continue_Time;	  // 지속시간(0->영원히/1~절대시간)
@@ -1150,8 +1150,8 @@ struct MAGICTABLE
 	int nAddition;        // 전투스킬 사용시 소모되는 소모량
 	int aLevel[4];        // 전투스킬 레벨
 	int aRandom[4];       // 전투스킬 레벨 편차
-	int Spell_Type ;		  // 0 Wizard, 1~13 priest(God별 type들 때문에 다양
-	int	Appoint_Type ;
+	int Spell_Type;		  // 0 Wizard, 1~13 priest(God별 type들 때문에 다양
+	int	Appoint_Type;
 	int	Excute_Type;
 	int	magic_Type;
 	int	Price;
@@ -1169,7 +1169,7 @@ struct MAGICTABLE
 /////////////////////////////////////////////////////////////////////////////////////////
 // 020808 YGI(변수의 위치와 구조를 바꿨음)
 class CEffectTbl
-{ 
+{
 public:
 	CEffectTbl()
 	{
@@ -1194,26 +1194,26 @@ public:
 		impect_Effect_Num = 0;
 		send_result = false;
 	}
-	
+
 public:
-	int Check() const 
+	int Check() const
 	{
 		int value;
 		char *pValue = (char *)&value;
-		pValue[0] = Check1()+Check3();
-		pValue[1] = Check2()+Check4();
+		pValue[0] = Check1() + Check3();
+		pValue[1] = Check2() + Check4();
 		pValue[2] = 0;
 		pValue[3] = 0;
 		return (short int)value;
 	}
-	
+
 	char Check1() const
 	{
-		return (char)(effect_Num+end_Time);
+		return (char)(effect_Num + end_Time);
 	}
 	char Check2() const
 	{
-		return (char)(sort_Type+next_Effect+sort_Type+object_Num);
+		return (char)(sort_Type + next_Effect + sort_Type + object_Num);
 	}
 	char Check3() const
 	{
@@ -1223,7 +1223,7 @@ public:
 	{
 		return (char)(pattern_Num + sprite_Num + link_Frame);
 	}
-	
+
 public:
 	short int	end_Time;			//종료까지의 총 프레임수
 	short int	light;				//광원효과 넣을까?(0->넣지 않음/100자리수치->0이면 정상적 출력/1이면 높이값 더해서 출력(1~20 사이의 광원 단계)
@@ -1248,18 +1248,18 @@ public:
 };
 
 class CEffectTbl2
-{ 
+{
 public:
 	CEffectTbl2()
 	{
-		ZeroMemory(sprite_Name,sizeof(sprite_Name));	//050329_KCH 초기화
+		ZeroMemory(sprite_Name, sizeof(sprite_Name));	//050329_KCH 초기화
 	}
-	int Check() const 
+	int Check() const
 	{
 		int value = 0;
-		for( int i=0; i<30; i++ )
+		for (int i = 0; i < 30; i++)
 			value += sprite_Name[i];
-		
+
 		return value;
 	}
 public:
@@ -1306,22 +1306,22 @@ public:
 		nDualStep = 0; // 030415 kyo
 
 	}
-	
+
 public:
-	int Check() const 
+	int Check() const
 	{
-		return serial_Num + basic_Level + cast_Time + cast_Continue + 
+		return serial_Num + basic_Level + cast_Time + cast_Continue +
 			continue_Time + avail_Range + excute_Type + appoint_Type +
 			avail_Type + spell_Type + magic_Type + nCombatCount;
 	}
-	
+
 public:
 	int	order_Type;			     // 계열(1->생/2->사/3->일반/4->화염/5->얼음/6->전격/7->소환/8->시공/9->신성/10->정동/11->정념/12->특수)
 	int	serial_Num;			     // 고유번호(1~)
 	int	basic_Level;		     // 사용 기본 레벨(1~9)
 	int	WS;					         // wizwrd spell(or priest spell) point 
 	int	before_Magic;		     // 전 단계 마법(먼저 익혀야 할 마법)
-	int	basic_Magery ;		   // 기본 마법력
+	int	basic_Magery;		   // 기본 마법력
 	int	cast_Time;			     // 캐스팅 시간(절대시간)
 	int	cast_Continue;		   // 캐스팅 지속 시간(절대시간)
 	int	continue_Time;		   // 지속시간(0->순간,영원히/1~절대시간)	
@@ -1333,7 +1333,7 @@ public:
 	int	require_IT;			     // 요구 지능
 	int	point_WS;			       // WS 포인트(0->not available/1~)
 	int	invalid_TargetIT;	   // 마법 사용가능 범위
-	int	spell_Type ;		     // 0 Wizard, 1~13 priest(God별 type들 때문에 다양)
+	int	spell_Type;		     // 0 Wizard, 1~13 priest(God별 type들 때문에 다양)
 	int	appoint_Type;		     // 대상 지정방식 타입(0->나자신/1->대상지정(단일/복수대상)/2->특정지점(클릭위치)/3->지역마법)
 	int	excute_Type;		     // 마법 캐스팅 유지시 시행될수 있는 횟수(0->여러번/1->한번만)
 	int	magic_Type;			     // 마법 대분류(0->비공격마법/1->대상공격마법/2->지역복수공격마법)
@@ -1351,9 +1351,9 @@ public:
 
 struct NPCName_by_Gender
 {
-	char Female[17] ;
-	char Male[17] ;
-	char Last[17] ;
+	char Female[17];
+	char Male[17];
+	char Last[17];
 };
 
 struct NPCLev_to_Exp
@@ -1415,12 +1415,12 @@ struct NPC_Generation
 	int nAINo;           // Npc AI 패턴 번호
 	int nLvMin;
 	int nLvMax;
-	int Money_min;						
-	int Money_Max;						
+	int Money_min;
+	int Money_Max;
 	int AttackDelay;	// 0811 NPC KHS	
 	int AccessDelay;	// 0811 NPC KHS	
 	int BackDelay;		// 0811 NPC KHS	
-	int PCfindDelay;	
+	int PCfindDelay;
 	int nRvAp;	      // 공격력 보정(단위%)
 	int nRvLife;	    // Life 보정(단위%)
 	int nRvExp;       // 경험치 보정(단위%) 
@@ -1455,7 +1455,7 @@ struct NPC_Generation
 	//int Success;
 	//int Leathal_ps;
 	//int DamagePercent_ps;
-	int Inventory[15] ;
+	int Inventory[15];
 	//int Amount_Dice;
 	//int Righthand;
 	//int Lefthand;
@@ -1545,7 +1545,7 @@ struct NPC_Generation
 	int Get_beewax;
 	int BeeWax_amount;
 	int mutant;
-	
+
 	bool CanUse;
 };	//> CSD-030806
 
@@ -1560,10 +1560,10 @@ struct TimeData
 
 	TimeData()
 	{
-		Year=0;
-		Month=0;
-		Day=0;
-		DayofWeek=0;
+		Year = 0;
+		Month = 0;
+		Day = 0;
+		DayofWeek = 0;
 	}
 };
 //
@@ -1630,7 +1630,7 @@ typedef	struct	tag_DateCheck
 struct START_UP_INFO
 {	//< CSD-030723
 	DWORD idIndex;
-	int	  nApplyDay;  
+	int	  nApplyDay;
 	int   nStartHour;
 	int   nStartMinute;
 	int   nEndHour;
@@ -1650,9 +1650,9 @@ struct CharacterParty
 
 struct WINLOSEPOINT
 {	//< CSD-030723
-	DWORD win:13;
-	DWORD defeat:12;
-	DWORD disconnect:7;
+	DWORD win : 13;
+	DWORD defeat : 12;
+	DWORD disconnect : 7;
 };	//> CSD-030723
 
 struct Event_Join							// 020115 LTS
@@ -1670,22 +1670,22 @@ struct Event_Join							// 020115 LTS
 struct DiseaseTable
 {	//< CSD-030723							
 	short int	disease_number;
-	char		han_name[31];	
-	char		name[31];	
-	short int	lv;			
-	short int	nut1_1;		
-	short int	nut2_1;			
-	short int	nut3_1;		
+	char		han_name[31];
+	char		name[31];
+	short int	lv;
+	short int	nut1_1;
+	short int	nut2_1;
+	short int	nut3_1;
 	short int	probability_1;
-	short int	andor_1;	
+	short int	andor_1;
 	short int	checktime_1;
 	short int	contact_char;
-	short int	talk_char;	
-	short int	fuck_char;	
+	short int	talk_char;
+	short int	fuck_char;
 	short int	contact_obj;
-	short int	eat_obj;	
-	short int	nut1_2;		
-	short int	nut2_2;	
+	short int	eat_obj;
+	short int	nut1_2;
+	short int	nut2_2;
 	short int	nut3_2;
 	short int	probability_2;
 	short int	checktime_2;
@@ -1703,32 +1703,32 @@ struct DiseaseTable
 	short int	dec_ws;
 	short int	dec_ps;
 	short int	recoverable;
-	short int	life	;
-	short int	health	;
-	short int	mp	;
-	short int	dp	;
-	short int	max_	;
-	short int	damage	;
-	short int	att_rate	;
-	short int	depen_rate	;
-	short int	ac	;
-	short int	mad	;
-	short int	poison	;
-	short int	stony	;
-	short int	sluggish	;
-	short int	active	;
-	short int	paralysis	;
-	short int	active_time	;
-	short int	maintain_time	;
-	short int	natural_recovery	;
-	short int	nut1_3	;
-	short int	nut2_3	;
-	short int	nut3_3	;
-	short int	probability_3	;
-	short int	checktime_3	;
-	short int	andor_3	;
-	short int	price_heal	;
-	short int	price_prevent	;	
+	short int	life;
+	short int	health;
+	short int	mp;
+	short int	dp;
+	short int	max_;
+	short int	damage;
+	short int	att_rate;
+	short int	depen_rate;
+	short int	ac;
+	short int	mad;
+	short int	poison;
+	short int	stony;
+	short int	sluggish;
+	short int	active;
+	short int	paralysis;
+	short int	active_time;
+	short int	maintain_time;
+	short int	natural_recovery;
+	short int	nut1_3;
+	short int	nut2_3;
+	short int	nut3_3;
+	short int	probability_3;
+	short int	checktime_3;
+	short int	andor_3;
+	short int	price_heal;
+	short int	price_prevent;
 };	//> CSD-030723
 
 struct GodTable
@@ -1743,30 +1743,30 @@ struct GodTable
 
 struct NW_Character	// 010904 LTS		// LTS CHAR		
 {	//< CSD-030723
-	DWORD WarNo						:	7;	//	전쟁번호
-	DWORD WarfieldNo					:	3;	//	전쟁터 번호
-	DWORD SquadNo						:	3;	//	부대번호
-	DWORD isSquadLeader				:	1;	//	부대장인가?	
-	DWORD isCommander					:	1;	//	사령관인가?
-	DWORD isCommanderCandidater		:	1;	//  사령관 후보인가?		// 010915 LTS
-	DWORD DoWarJoinVote				:	1;	//	전쟁터 참여 투표를 했나?
-	DWORD DoCommanderVote				:	1;	//	사령관 투표를 했다
-	DWORD YL_JoinNation				:	4;	//	일스인경우 자이펀에했나? 바이서스에 했나?  // 국가번호
-	DWORD Reserved					:	10;	//	예약..
+	DWORD WarNo : 7;	//	전쟁번호
+	DWORD WarfieldNo : 3;	//	전쟁터 번호
+	DWORD SquadNo : 3;	//	부대번호
+	DWORD isSquadLeader : 1;	//	부대장인가?	
+	DWORD isCommander : 1;	//	사령관인가?
+	DWORD isCommanderCandidater : 1;	//  사령관 후보인가?		// 010915 LTS
+	DWORD DoWarJoinVote : 1;	//	전쟁터 참여 투표를 했나?
+	DWORD DoCommanderVote : 1;	//	사령관 투표를 했다
+	DWORD YL_JoinNation : 4;	//	일스인경우 자이펀에했나? 바이서스에 했나?  // 국가번호
+	DWORD Reserved : 10;	//	예약..
 };	//> CSD-030723
 
 struct CCharRank
 {	//< CSD-030723
-	DWORD nation	  :3;  // 속한나라 - 0:없음, 1, 2, 3:바이서스, 4:자이펀, 5:헤게모니아, 6:일스
-	DWORD guild_master:3;  // 길드 마스터
-	DWORD king		  :1;  // 나라 왕
-	DWORD dwReserved  :9;  // 사용되지 않음
-	DWORD counselor	  :2;  // 0 : 없음, 1: 회사 운영자, 2: 게임내 운영자
-	DWORD ultra_nk3	  :1;  // 극악피케이	1004 YGI
-	DWORD ultra_nk4	  :1;  // 극악피케이	1004 YGI
-	DWORD ultra_nk6	  :1;  // 극악피케이	1004 YGI
-	DWORD reporter	  :1;
-	DWORD imsi		  :10; // 1004 YGI
+	DWORD nation : 3;  // 속한나라 - 0:없음, 1, 2, 3:바이서스, 4:자이펀, 5:헤게모니아, 6:일스
+	DWORD guild_master : 3;  // 길드 마스터
+	DWORD king : 1;  // 나라 왕
+	DWORD dwReserved : 9;  // 사용되지 않음
+	DWORD counselor : 2;  // 0 : 없음, 1: 회사 운영자, 2: 게임내 운영자
+	DWORD ultra_nk3 : 1;  // 극악피케이	1004 YGI
+	DWORD ultra_nk4 : 1;  // 극악피케이	1004 YGI
+	DWORD ultra_nk6 : 1;  // 극악피케이	1004 YGI
+	DWORD reporter : 1;
+	DWORD imsi : 10; // 1004 YGI
 };	//> CSD-030723
 
 struct MAP_MOVE_INFO

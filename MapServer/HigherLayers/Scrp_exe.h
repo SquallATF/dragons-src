@@ -37,45 +37,45 @@
 #define s_GhostEndCountDef	65
 #define VAR_RESET			47 // DB Demon에서 캐릭터데이터 초기화으로 사용 
 
-struct QT 
+struct QT
 {
 	DWORD Tick;
-	void (*Func)( void );
+	void(*Func)(void);
 
 	int ExtInt;
 	char ExtChar[255];
 };
 
-extern void (*TimerFunc[ _SCRIPT_FUNCTION_POINT_ ])( void );
+extern void(*TimerFunc[_SCRIPT_FUNCTION_POINT_])(void);
 extern QT QTickData[DRAGON_MAX_CONNECTIONS_];
 extern DWORD QTemp;
 extern DWORD QTick;
-extern void RecvEvent( t_client_event *pEvent, short int cn );
+extern void RecvEvent(t_client_event *pEvent, short int cn);
 
-extern void (*SFunction[ _SCRIPT_FUNCTION_POINT_ ])( void );
-extern int var[ DRAGON_MAX_CONNECTIONS_][ _SCRIPT_VARABLE_POINT_ ];
+extern void(*SFunction[_SCRIPT_FUNCTION_POINT_])(void);
+extern int var[DRAGON_MAX_CONNECTIONS_][_SCRIPT_VARABLE_POINT_];
 extern int EventPC, EventNPC[DRAGON_MAX_CONNECTIONS_];
-extern void ReCallScript( void );
-extern void Recv_CMD_QUEST_JOB_FINISH( int cn, int type  );
+extern void ReCallScript(void);
+extern void Recv_CMD_QUEST_JOB_FINISH(int cn, int type);
 extern void QuestSecond();
 extern int MapMove(int idUser, const char* pMapName, int nX, int nY);
 extern int GotoMap(int cn, int nMapPort, int nMoveX, int nMoveY);
-extern int SearchItemByInv( int item_no, CHARLIST *ch );
-extern int SearchItemByInv( int item_no, CHARLIST *ch, int &a, int &b, int &c );
-extern int SendDial( short int cn, int npc_index, char *msg, int length );// npc에게 대화를 보낸다.
+extern int SearchItemByInv(int item_no, CHARLIST *ch);
+extern int SearchItemByInv(int item_no, CHARLIST *ch, int &a, int &b, int &c);
+extern int SendDial(short int cn, int npc_index, char *msg, int length);// npc에게 대화를 보낸다.
 
 enum eLDF_TYPE //enum Log Dual Fame
 {
-	LDF_LOCALWAR				=0,			// 국지전
-	LDF_QUEST					=1,			// 퀘스트
-	LDF_NEOWAR					=2,			// LTH-040226-KO 1.4 이후 신규국가전용
+	LDF_LOCALWAR = 0,			// 국지전
+	LDF_QUEST = 1,			// 퀘스트
+	LDF_NEOWAR = 2,			// LTH-040226-KO 1.4 이후 신규국가전용
 };
 
-/*040719_KJHuNs g_pLogManager로 이동(정리 목적)
-extern void SaveLogChange_DualFame(CHARLIST *ch, const int nOldDualFame, const int nNewDualFame, eLDF_TYPE type); //030226 lsw
-*/
+//040719_KJHuNs g_pLogManager로 이동(정리 목적)
+//extern void SaveLogChange_DualFame(CHARLIST *ch, const int nOldDualFame, const int nNewDualFame, eLDF_TYPE type); //030226 lsw
+//
 
-extern int var[ DRAGON_MAX_CONNECTIONS_][ _SCRIPT_VARABLE_POINT_ ];
+extern int var[DRAGON_MAX_CONNECTIONS_][_SCRIPT_VARABLE_POINT_];
 
 #endif
 

@@ -8,19 +8,19 @@
 #include "..\HigherLayers\OP_Magic.h"
 #include "..\HigherLayers\WeatherControl.h"
 
-extern CHARLIST* CheckServerName( const char* szName );// kyo 
+extern CHARLIST* CheckServerName(const char* szName);// kyo 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
 CAssistanceMagic::CAssistanceMagic()
 {
-	
+
 }
 
 CAssistanceMagic::~CAssistanceMagic()
 {
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -47,15 +47,15 @@ bool CAssistanceMagic::SpeedUp()
 	// 증가률 계산
 	const int nInt = m_pCaster->GetAbility(INT_);
 	const int nTactics = m_pCaster->Skill[TACTICS_Magery];
-	int nBasic = (nInt + nTactics)/20;
+	int nBasic = (nInt + nTactics) / 20;
 	if (nBasic < 0)   nBasic = 0;
 	if (nBasic > 30)  nBasic = 30;
 	// 이동속도 20 ~ 50% 증가
 	m_pTarget->speedUp.SetState(m_dwNow + wPeriod, nBasic + 20);
-	
+
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -78,17 +78,17 @@ bool CAssistanceMagic::EnchantWeapon()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
 	// 결과값을 대상자에게 Packet으로 보내기
 	InitMagicResult(CMD_MAGIC_RESULT_T);
-	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex; 
+	m_packet.u.magic.server_magic_result_t.nMagic = m_nIndex;
 	m_packet.u.magic.server_magic_result_t.idTarget = m_idTarget;
 	m_packet.u.magic.server_magic_result_t.nState = m_pTarget->GetState();
 	m_packet.u.magic.server_magic_result_t.nResult = HIT_AND_NOTDEAD;
-	m_packet.u.magic.server_magic_result_t.wDuration= wPeriod;
+	m_packet.u.magic.server_magic_result_t.wDuration = wPeriod;
 	SendMagicResult();
 	return true;
 }
@@ -101,7 +101,7 @@ bool CAssistanceMagic::PrayPower()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -124,7 +124,7 @@ bool CAssistanceMagic::GreatPray()
 
 	if (m_pCaster == m_pTarget)
 	{	//< CSD-040826
-		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod; 
+		m_pTarget->dwAssistanceContinue = m_dwNow + wPeriod;
 	}	//> CSD-040826
 	// 시전자의 경험치 계산
 	::AddCasterEXP(m_pCaster, m_pTarget, 2, 0, m_nIndex);
@@ -178,7 +178,7 @@ bool CAssistanceMagic::MagicAmplify()
 bool CAssistanceMagic::Transparency()
 {	// [22]투명주문 : 자신의 몸을 투명하게 만들어 줌
 	const WORD wPeriod = CalcPeriod(); // 유지시간 계산
-	m_pTarget->dwTransparency = m_dwNow + wPeriod; 
+	m_pTarget->dwTransparency = m_dwNow + wPeriod;
 	// 투명체 출력을 위한 VIEWTYPE 설정(transparency)
 	m_pTarget->viewtype = VIEWTYPE_TRANSPARENCY_;
 	::SendViewType(m_pTarget, VIEWTYPE_TRANSPARENCY_, m_pTarget->dwTransparency);
@@ -202,15 +202,15 @@ bool CAssistanceMagic::Light()
 	m_pTarget->dwLight = m_dwNow + wPeriod;
 	// 주위를 환하게 함
 	WeatherControl.SetChLight(m_pCaster, nMaximumLight, wPeriod);
-	
+
 	for (int i = 0; i < MAX_PARTY_MEMBER; ++i)
 	{
 		if (m_pCaster->party[i].On)
-		{ 
+		{
 			//CHARLIST *Target = CheckServerId( m_pCaster->party[i].Server_id );
-			CHARLIST *Target = CheckServerName( &(m_pCaster->party[i].Name[0]) );
-			if(!Target){continue;}
-			WeatherControl.SetChLight(Target,nMaximumLight/2,5*60);
+			CHARLIST *Target = CheckServerName(&(m_pCaster->party[i].Name[0]));
+			if (!Target) { continue; }
+			WeatherControl.SetChLight(Target, nMaximumLight / 2, 5 * 60);
 		}
 	}
 	// 시전자의 경험치 계산

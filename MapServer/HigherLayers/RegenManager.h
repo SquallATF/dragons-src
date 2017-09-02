@@ -72,9 +72,9 @@ public:
 
 	bool IsExistMaster() const
 	{
-		return (m_pMaster != NULL) ? true:false;
+		return (m_pMaster != NULL) ? true : false;
 	}
-	
+
 protected:
 	CHARLIST*      m_pMaster;
 	LIST_MEMBER    m_ltMember;
@@ -138,25 +138,25 @@ public:
 	}
 
 	int GetGroupType() const
-	{ 
-		return m_nGroupType; 
-	}
-	
-	void SetGroupType(int nType) 
-	{ 
-		m_nGroupType = nType; 
+	{
+		return m_nGroupType;
 	}
 
-	int GetEventType() const 
+	void SetGroupType(int nType)
+	{
+		m_nGroupType = nType;
+	}
+
+	int GetEventType() const
 	{	//< CSD-031027
-		return m_nEventType; 
+		return m_nEventType;
 	}	//> CSD-031027
 
 	void SetEventType(int nType)
 	{	//< CSD-031027
-		m_nEventType = nType; 
+		m_nEventType = nType;
 	}	//> CSD-031027
-	
+
 protected:
 	void RegenerateAll();
 	void RegenerateCycle();
@@ -175,11 +175,11 @@ private:
 
 ///////////////////////////////////////////////////////////////////////////////
 // 몬스터 출현 관리 위한 관리 클래스
-class CRegenManager : public TSingleton<CRegenManager> 
+class CRegenManager : public TSingleton<CRegenManager>
 {
 public:
 	typedef map<int, CGroupInfo*>  HASH_GROUP;
-	typedef HASH_GROUP::iterator   ITOR_GROUP;	
+	typedef HASH_GROUP::iterator   ITOR_GROUP;
 	typedef HASH_GROUP::value_type PAIR_GROUP;
 
 	CRegenManager();
@@ -209,7 +209,7 @@ public:
 
 	bool IsExistHunt(int nHunt) const
 	{
-		return (m_mpGroup.find(nHunt) != m_mpGroup.end()) ? true:false;
+		return (m_mpGroup.find(nHunt) != m_mpGroup.end()) ? true : false;
 	}
 
 	bool IsReady() const

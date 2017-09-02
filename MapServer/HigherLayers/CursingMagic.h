@@ -17,17 +17,17 @@ class CCursingMagic : public TBinder<CMagic, CCursingMagic>
 public:
 	CCursingMagic();
 	virtual ~CCursingMagic();
-	
+
 public:
 	virtual bool Bind();
 	virtual bool Elapse(CHARLIST* pTarget);
-	
+
 public:
-	virtual bool Execute() 
-	{ 
-		return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
 	}
-	
+
 public:
 	bool Confusion();          // 历林 1拌凯 付过
 	bool AbsoluteParalysis();
@@ -36,7 +36,7 @@ public:
 	bool AreaParalysis();
 	bool AreaConfusion();
 	bool Slow();               // 历林 2拌凯 付过  
-	bool SpiderWeb(); 
+	bool SpiderWeb();
 	bool AreaSlow();
 	bool FeatherOfCurse();
 	bool Intoxication();       // 历林 3拌凯 付过
@@ -50,7 +50,7 @@ public:
 	bool VampireTouch();
 	bool LifeDrain();
 	bool Gazer(); // 030509 kyo
-	
+
 protected:
 	bool CheckDeath(int nDamage);
 	void CheckStun(CHARLIST* pTarget);   // CSD-021024
@@ -58,7 +58,7 @@ protected:
 	void CheckPoison(CHARLIST* pTarget); // CSD-021024
 	void CheckBlind(CHARLIST* pTarget);  // CSD-021024
 	void CheckFreeze(CHARLIST* pTarget); // CSD-021024
-	
+
 private:
 	bool IsReturn(CHARLIST* pTarget) const; // CSD-021104
 };

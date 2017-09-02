@@ -9,7 +9,7 @@
 
 #include <direct.h>
 
-//莖샙
+//天机
 #define BEGIN_SELECT(e) switch (e) {
 #define CASE_SELECT(e)  case(e): return CS(e);
 #define END_SELECT(e)   } return CS(e);
@@ -47,7 +47,7 @@ void CLogManager::CreateMainPath(const char* pPath)
 	// 월별 디렉토리 생성
 	char szBuffer[MAX_PATH];
 	memset(szBuffer, 0, MAX_PATH);
-	sprintf(szBuffer,"%s\\%04d_%02d", pPath, nYear, nMon);
+	sprintf(szBuffer, "%s\\%04d_%02d", pPath, nYear, nMon);
 	mkdir(szBuffer);
 	//
 	m_strRoot = szBuffer;
@@ -72,28 +72,28 @@ void CLogManager::SaveLogRoot_DeadEventNpc(CHARLIST* pTarget)
 	{
 		return;
 	}
-	
+
 	const char* pPath = VA("%s\\DeadEventNpc.txt", strPath.c_str());
 	FILE* pFile = fopen(pPath, "at+");
-	
+
 	if (pFile == NULL)
 	{
 		return;
 	}
 
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	fprintf(pFile, "%s(%3d, %3d), EventNo(%d), Killer(%s)\n", MapName, 
-		                                                      pTarget->MoveSx, 
-															  pTarget->MoveSy, 
-															  pTarget->eventno,
-															  pTarget->KillerName);
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	fprintf(pFile, "%s(%3d, %3d), EventNo(%d), Killer(%s)\n", MapName,
+		pTarget->MoveSx,
+		pTarget->MoveSy,
+		pTarget->eventno,
+		pTarget->KillerName);
 	fclose(pFile);
 }	//> CSD-031013
 
 // 040715_KJHuNs Menuserver.cpp 의 GambleLog함수를 여기로 이동(정리목적)
-void CLogManager::SaveLogRoot_GambleLogFile( CHARLIST *ch, int house, int class_type,
-											int user_count, ItemAttr *item, int resource_type, 
-											int lv_band )
+void CLogManager::SaveLogRoot_GambleLogFile(CHARLIST *ch, int house, int class_type,
+	int user_count, ItemAttr *item, int resource_type,
+	int lv_band)
 {	//< CSD-TW-030622
 	string strPath;
 
@@ -102,16 +102,16 @@ void CLogManager::SaveLogRoot_GambleLogFile( CHARLIST *ch, int house, int class_
 		return;
 	}
 
-	char file[MAX_PATH]= {0,};
-	::sprintf( file, "%s/gamble_item%d.txt", strPath.c_str(), house );	// 030506 YGI
-	FILE *fp = ::fopen( file, "at+" );
-	if(!fp){return;}
+	char file[MAX_PATH] = { 0, };
+	::sprintf(file, "%s/gamble_item%d.txt", strPath.c_str(), house);	// 030506 YGI
+	FILE *fp = ::fopen(file, "at+");
+	if (!fp) { return; }
 
-	fprintf( fp, "---%02d.%02d %02d:%02d:%02d ---\n",  g_mon+1, g_day, g_hour, g_min, g_sec );
-	fprintf( fp, "item_no[%d]	house:%d	room:%d		%s(lv:%d)\n", item->item_no, house, class_type, ch->Name, ch->GetLevel()); // CSD-030806
-	fprintf( fp, "resource_type:%d	user:%d	lv_band%d\n\n", resource_type, user_count, lv_band );	
+	fprintf(fp, "---%02d.%02d %02d:%02d:%02d ---\n", g_mon + 1, g_day, g_hour, g_min, g_sec);
+	fprintf(fp, "item_no[%d]	house:%d	room:%d		%s(lv:%d)\n", item->item_no, house, class_type, ch->Name, ch->GetLevel()); // CSD-030806
+	fprintf(fp, "resource_type:%d	user:%d	lv_band%d\n\n", resource_type, user_count, lv_band);
 
-	fclose( fp );
+	fclose(fp);
 }
 
 // 040715_KJHuNs Op_Battle.cpp 의 pk루틴을 여기로 이동(정리목적)
@@ -123,7 +123,7 @@ void CLogManager::SaveLogRoot_PK(LPTSTR lpMsg)
 	{
 		//< CSD-TW-030701
 		char temp_path[80];
-		sprintf( temp_path, "%s/pk.txt", strPath.c_str());
+		sprintf(temp_path, "%s/pk.txt", strPath.c_str());
 
 		SaveLogDefault(temp_path, lpMsg, 0);
 
@@ -144,29 +144,29 @@ void CLogManager::SaveLogAccelater(CHARLIST* pTarget, const char* pType, const i
 
 	//050328_KCH 캐릭명으로만 남으니까, 문제가 생겨서, 로그가 너무 많이 생겨서 해당 날짜별로 남게함.
 //	FILE* pFile = fopen(VA("%s/%s.txt", strPath.c_str(), pTarget->Name), "at+");
-	FILE* pFile = fopen(VA("%s/%02d_%02d_%02d.txt", strPath.c_str(), g_year-2000, g_mon + 1, g_day), "at+");
+	FILE* pFile = fopen(VA("%s/%02d_%02d_%02d.txt", strPath.c_str(), g_year - 2000, g_mon + 1, g_day), "at+");
 	Dbg_Assert(NULL != pFile);
-	Dbg_Assert(0 <= cn && cn <= DRAGON_MAX_CONNECTIONS_+1);
+	Dbg_Assert(0 <= cn && cn <= DRAGON_MAX_CONNECTIONS_ + 1);
 
-	if (NULL != connections[cn].id && 0 < strlen(connections[cn].id) )
+	if (NULL != connections[cn].id && 0 < strlen(connections[cn].id))
 	{
 		//> CSD-040224
-		fprintf(pFile, "[%02d:%02d:%02d](%s) ", g_hour, g_min, g_sec,pTarget->Name);
-		fprintf(pFile, "ID(%s) MapName(%s), IP(%s), Type(%s)\n", 
-														  connections[cn].id,
-														  connections[cn].mapname, 
-														  connections[cn].ip_address,
-														  pType);
+		fprintf(pFile, "[%02d:%02d:%02d](%s) ", g_hour, g_min, g_sec, pTarget->Name);
+		fprintf(pFile, "ID(%s) MapName(%s), IP(%s), Type(%s)\n",
+			connections[cn].id,
+			connections[cn].mapname,
+			connections[cn].ip_address,
+			pType);
 	}
 	else
 	{
 		//> CSD-040224
-		fprintf(pFile, "[%02d:%02d:%02d](%s) ", g_hour, g_min, g_sec,pTarget->Name);
+		fprintf(pFile, "[%02d:%02d:%02d](%s) ", g_hour, g_min, g_sec, pTarget->Name);
 		fprintf(pFile, "ID(%s) MapName(%s), IP(%s), Type(%s)\n",
-														  connections[pTarget->GetServerID()].id,
-														  connections[pTarget->GetServerID()].mapname, 
-														  connections[pTarget->GetServerID()].ip_address,
-														  pType);
+			connections[pTarget->GetServerID()].id,
+			connections[pTarget->GetServerID()].mapname,
+			connections[pTarget->GetServerID()].ip_address,
+			pType);
 	}
 	fclose(pFile);
 }	//> CSD-030808
@@ -179,7 +179,7 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 
 	// 로그 타입 분류
 	char szType[64];
-	switch(type)
+	switch (type)
 	{
 	case ACLT_SELLER_REGIST:
 		sprintf(szType, "<<SELLER_REGIST>>");
@@ -206,9 +206,9 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 	}
 
 	// 경로에 파일을 연다
-	const char* pPath = VA("%s\\AuctionLog_%02d_%02d_%02d.txt", strPath.c_str(), g_year-2000, g_mon + 1, g_day);
+	const char* pPath = VA("%s\\AuctionLog_%02d_%02d_%02d.txt", strPath.c_str(), g_year - 2000, g_mon + 1, g_day);
 	FILE* pFile = fopen(pPath, "at+");
-	
+
 	if (pFile == NULL)
 	{
 		return;
@@ -216,7 +216,7 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 
 
 	//로그를 한줄씩 남긴다
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]\t", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]\t", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 
 	// 지저분하니깐 여기서 받아오자
 	char * Seller = pRecordInfo->szSellerName;
@@ -236,193 +236,193 @@ void CLogManager::SaveLogAuction(int type, t_SellerItemDelete *pRecordInfo)
 //> 040715_KJHuNs Auction폴더에 저장
 
 //< 040715_KJHuNs Battle폴더에 저장
-void SaveBallancing2( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int mana, int attack, int attacktype, int tac  )
+void SaveBallancing2(LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int mana, int attack, int attacktype, int tac)
 {   //< CSD-030324
-	if(a->IsNpc()){return;}
-	if( a->balancingtest/20  == (a->balancingtest-1)/20)//20 번에 한번
+	if (a->IsNpc()) { return; }
+	if (a->balancingtest / 20 == (a->balancingtest - 1) / 20)//20 번에 한번
 	{
 		return;
 	}
-	
-	char temp[ FILENAME_MAX] = {0,};
-	::sprintf( temp, "./SimpleLog/%s.txt", a->Name );
-	FILE *fp = fopen( temp, "at+");
-	if( NULL == fp )
+
+	char temp[FILENAME_MAX] = { 0, };
+	::sprintf(temp, "./SimpleLog/%s.txt", a->Name);
+	FILE *fp = fopen(temp, "at+");
+	if (NULL == fp)
 	{
-		sprintf( temp, "./SimpleLog/%s.txt", connections[a->GetServerID()].id );
-		fp = fopen( temp, "at+" );
-		if( fp == NULL ) return;
-		fprintf( fp, " %s \n", a->Name );
+		sprintf(temp, "./SimpleLog/%s.txt", connections[a->GetServerID()].id);
+		fp = fopen(temp, "at+");
+		if (fp == NULL) return;
+		fprintf(fp, " %s \n", a->Name);
 	}
-	
-	if( magicno )
+
+	if (magicno)
 	{
 		if (magicno >= 215)
 		{
-			fprintf( fp, "Combat Skill< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name );
+			fprintf(fp, "Combat Skill< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name);
 		}
 		else
 		{
-			fprintf( fp, "Magic< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name );
+			fprintf(fp, "Magic< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name);
 		}
-		
-		fprintf( fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n",  MapName, a->MoveSx, a->MoveSy, g_mon+1, g_day,g_hour, g_min, g_sec );
-		
-		fprintf( fp, " Attack(Lv:%3d/Exp:%9d/ladder:%3d/fame:%3d)\n", a->GetLevel(), a->Exp, a->LadderScore, a->fame); // CSD-030806
-		fprintf( fp, " Defence(Lv:%3d/Exp:%9d)\n", d->GetLevel(), d->Exp); // CSD-030806
 
-		fprintf( fp, " Hp %4d/%4d ->  Hp %4d/%4d \n", a->Hp, a->HpMax, d->Hp, d->HpMax );
-		fprintf( fp, " Mana %4d/%4d -> Mana %4d/%4d \n", a->Mana, a->ManaMax, d->Mana, d->ManaMax );  
-		fprintf( fp, " Hungry %4d/%4d -> Hngy %4d/%4d \n", a->Hungry, a->HungryMax, d->Hungry, d->HungryMax );
-		fprintf( fp, " Damage : %4d        \n", damage );
-		fprintf( fp, " Used Mana: %4d        \n",   mana );
+		fprintf(fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n", MapName, a->MoveSx, a->MoveSy, g_mon + 1, g_day, g_hour, g_min, g_sec);
 
-		switch(a->Spell)
-		{
-		case WIZARD_SPELL:
-			{
-				::fprintf(fp, " Magery               Tactics(%3d:%d)\n", 
-					a->Skill[TACTICS_Magery], a->tac_skillEXP[11]);
-			}break;
-		case PRIEST_SPELL:
-			{
-				::fprintf(fp, " Orison               Tactics(%3d:%d)\n", 
-					a->Skill[TACTICS_Orison], a->tac_skillEXP[12]);
-			}break;
-		}
-	}	
-	else
-	{
-		fprintf( fp, "Weapon-Attack< %d:%s >  --> %s\n", attacktype, magicno, Magic_Ref[magicno].Han_Name,  d->Name  );
-		fprintf( fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n",  MapName, a->MoveSx, a->MoveSy, g_mon+1, g_day,g_hour, g_min, g_sec );
-		
 		fprintf(fp, " Attack(Lv:%3d/Exp:%9d/ladder:%3d/fame:%3d)\n", a->GetLevel(), a->Exp, a->LadderScore, a->fame); // CSD-030806
 		fprintf(fp, " Defence(Lv:%3d/Exp:%9d)\n", d->GetLevel(), d->Exp); // CSD-030806
-				
-		const int ino = a->equip[ WT_WEAPON].item_no;
+
+		fprintf(fp, " Hp %4d/%4d ->  Hp %4d/%4d \n", a->Hp, a->HpMax, d->Hp, d->HpMax);
+		fprintf(fp, " Mana %4d/%4d -> Mana %4d/%4d \n", a->Mana, a->ManaMax, d->Mana, d->ManaMax);
+		fprintf(fp, " Hungry %4d/%4d -> Hngy %4d/%4d \n", a->Hungry, a->HungryMax, d->Hungry, d->HungryMax);
+		fprintf(fp, " Damage : %4d        \n", damage);
+		fprintf(fp, " Used Mana: %4d        \n", mana);
+
+		switch (a->Spell)
+		{
+		case WIZARD_SPELL:
+		{
+			::fprintf(fp, " Magery               Tactics(%3d:%d)\n",
+				a->Skill[TACTICS_Magery], a->tac_skillEXP[11]);
+		}break;
+		case PRIEST_SPELL:
+		{
+			::fprintf(fp, " Orison               Tactics(%3d:%d)\n",
+				a->Skill[TACTICS_Orison], a->tac_skillEXP[12]);
+		}break;
+		}
+	}
+	else
+	{
+		fprintf(fp, "Weapon-Attack< %d:%s >  --> %s\n", attacktype, magicno, Magic_Ref[magicno].Han_Name, d->Name);
+		fprintf(fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n", MapName, a->MoveSx, a->MoveSy, g_mon + 1, g_day, g_hour, g_min, g_sec);
+
+		fprintf(fp, " Attack(Lv:%3d/Exp:%9d/ladder:%3d/fame:%3d)\n", a->GetLevel(), a->Exp, a->LadderScore, a->fame); // CSD-030806
+		fprintf(fp, " Defence(Lv:%3d/Exp:%9d)\n", d->GetLevel(), d->Exp); // CSD-030806
+
+		const int ino = a->equip[WT_WEAPON].item_no;
 		CItem *ii = ItemUnit(ino);
-		
+
 		int itemkind = IK_NONE;
 
-		if( ii )	{itemkind = ii->GetItemKind();}
-		else		{itemkind = IK_NONE;}
-		
+		if (ii) { itemkind = ii->GetItemKind(); }
+		else { itemkind = IK_NONE; }
+
 		char *at = NULL;
 
-		switch( itemkind )
-		{			
+		switch (itemkind)
+		{
 			//	장거리 무기....
 		case IK_DUAL_BOW:		at = "DUAL_BOW";	break;//030102 lsw Dual BOW
-		case IK_SHORT_BOW	:	at = "SHORT_BOW";	break;
-		case IK_TWO_ARROW	:	at = "TWO_ARROW";	break;
-		case IK_DUAL_ARROW	:	at = "DUAL_ARROW";	break;//030102 lsw
-		case IK_LONG_BOW	:	at = "LONG_BOW";	break;
-		case IK_ARROW_POINT	:	at = "ARROW_POINT";	break;
-		case IK_FEATHER		:	at = "FEATHER";	break;
+		case IK_SHORT_BOW:	at = "SHORT_BOW";	break;
+		case IK_TWO_ARROW:	at = "TWO_ARROW";	break;
+		case IK_DUAL_ARROW:	at = "DUAL_ARROW";	break;//030102 lsw
+		case IK_LONG_BOW:	at = "LONG_BOW";	break;
+		case IK_ARROW_POINT:	at = "ARROW_POINT";	break;
+		case IK_FEATHER:	at = "FEATHER";	break;
 			// 중장거리.. 
-		case IK_HURL		:	at = "THROWING WEAPON"; break;
+		case IK_HURL:	at = "THROWING WEAPON"; break;
 			//	단거리무기..
-		default             :   at = "MELEE WEAPON";    break;
-		}			
-		
-		char temp[ FILENAME_MAX];
-		
-		if( ii ) 
-		{
-			strcpy( temp, ii->GetHanName() );
+		default:   at = "MELEE WEAPON";    break;
 		}
-		else 
+
+		char temp[FILENAME_MAX];
+
+		if (ii)
 		{
-			strcpy( temp, " NO WEAPON " );
+			strcpy(temp, ii->GetHanName());
 		}
-		fprintf( fp, " Hp %4d/%4d ->  Hp %4d/%4d \n", a->Hp, a->HpMax, d->Hp, d->HpMax );
-		fprintf( fp, " Mana %4d/%4d ->Mana %4d/%4d \n", a->Mana, a->ManaMax, d->Mana, d->ManaMax );
-		fprintf( fp, " Hungry %4d/%4d ->Hngy %4d/%4d \n", a->Hungry, a->HungryMax, d->Hungry, d->HungryMax );
-		fprintf( fp, " Ac  %3d    ->       %3d   \n", 	a->Ac, d->Ac );
-		fprintf( fp, " Damage  :    %4d     \n",   damage );
-		fprintf( fp, " WEAPON :  %s( %d )  \n",    temp, a->equip[ WT_WEAPON].item_no );
-		fprintf( fp, " AttackType :    %s      \n",    at );
+		else
+		{
+			strcpy(temp, " NO WEAPON ");
+		}
+		fprintf(fp, " Hp %4d/%4d ->  Hp %4d/%4d \n", a->Hp, a->HpMax, d->Hp, d->HpMax);
+		fprintf(fp, " Mana %4d/%4d ->Mana %4d/%4d \n", a->Mana, a->ManaMax, d->Mana, d->ManaMax);
+		fprintf(fp, " Hungry %4d/%4d ->Hngy %4d/%4d \n", a->Hungry, a->HungryMax, d->Hungry, d->HungryMax);
+		fprintf(fp, " Ac  %3d    ->       %3d   \n", a->Ac, d->Ac);
+		fprintf(fp, " Damage  :    %4d     \n", damage);
+		fprintf(fp, " WEAPON :  %s( %d )  \n", temp, a->equip[WT_WEAPON].item_no);
+		fprintf(fp, " AttackType :    %s      \n", at);
 	}
-//	
+	//	
 	const int iTacKind = a->GetTacticsKind();// == SKILL_UNKNOWN 이면 기록 하면 안되지.
-	switch(iTacKind)
+	switch (iTacKind)
 	{
-	case TACTICS_Crapple						:
-		{
-			::fprintf(fp, " Crapple              Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[0]);
-		}break;
-	case TACTICS_swordmanship					:
-		{
-			::fprintf(fp, " Swordmanship         Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[1]);
-		}break;
-	case TACTICS_Archery						:
-		{
-			::fprintf(fp, " Archery              Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[2]);
-		}break;
-	case TACTICS_Fencing						:
-		{
-			::fprintf(fp, " Fencing              Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[3]);
-		}break;
-	case TACTICS_Mace_fighting					:
-		{
-			::fprintf(fp, " Mace Fighting        Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[4]);
-		}break;
-	case TACTICS_Pierce							:
-		{
-			::fprintf(fp, " Pierce               Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[5]);
-		}break;
-	case TACTICS_Whirl							:
-		{
-			::fprintf(fp, " Whirl                Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[6]);
-		}break;
-	case TACTICS_Hurl							:
-		{
-			::fprintf(fp, " Hurl                 Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[7]);
-		}break;
-	case TACTICS_Parrying						:
-		{
-			::fprintf(fp, " Parrying             Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[8]);
-		}break;
-	case TACTICS_Double_Swordmanship			:
-		{
-			::fprintf(fp, " Double Swordmanship  Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[9]);
-		}break;
-	case TACTICS_Double_MaceFighting			:
-		{
-			::fprintf(fp, " Double Mace Fighting Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[10]);
-		}break;
-	case TACTICS_Magery							:
-		{
-			::fprintf(fp, " Magery               Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[11]);
-		}break;
-	case TACTICS_Orison							:
-		{
-			::fprintf(fp, " Orison               Tactics(%3d:%d)\n", 
-				a->Skill[iTacKind], a->tac_skillEXP[12]);
-		}break;
+	case TACTICS_Crapple:
+	{
+		::fprintf(fp, " Crapple              Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[0]);
+	}break;
+	case TACTICS_swordmanship:
+	{
+		::fprintf(fp, " Swordmanship         Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[1]);
+	}break;
+	case TACTICS_Archery:
+	{
+		::fprintf(fp, " Archery              Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[2]);
+	}break;
+	case TACTICS_Fencing:
+	{
+		::fprintf(fp, " Fencing              Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[3]);
+	}break;
+	case TACTICS_Mace_fighting:
+	{
+		::fprintf(fp, " Mace Fighting        Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[4]);
+	}break;
+	case TACTICS_Pierce:
+	{
+		::fprintf(fp, " Pierce               Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[5]);
+	}break;
+	case TACTICS_Whirl:
+	{
+		::fprintf(fp, " Whirl                Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[6]);
+	}break;
+	case TACTICS_Hurl:
+	{
+		::fprintf(fp, " Hurl                 Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[7]);
+	}break;
+	case TACTICS_Parrying:
+	{
+		::fprintf(fp, " Parrying             Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[8]);
+	}break;
+	case TACTICS_Double_Swordmanship:
+	{
+		::fprintf(fp, " Double Swordmanship  Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[9]);
+	}break;
+	case TACTICS_Double_MaceFighting:
+	{
+		::fprintf(fp, " Double Mace Fighting Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[10]);
+	}break;
+	case TACTICS_Magery:
+	{
+		::fprintf(fp, " Magery               Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[11]);
+	}break;
+	case TACTICS_Orison:
+	{
+		::fprintf(fp, " Orison               Tactics(%3d:%d)\n",
+			a->Skill[iTacKind], a->tac_skillEXP[12]);
+	}break;
 	default:
-		{
-			::fprintf(fp, " TACTIC UNKNOWN \n");
-		}break;
+	{
+		::fprintf(fp, " TACTIC UNKNOWN \n");
+	}break;
 	}
 	::fprintf(fp, "\n");
 	fclose(fp);
 }
-void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d, 
-										   int magicno, int damage, int mana, 
-										   int attack, int attacktype, int tac )
+void CLogManager::SaveLogBattle_Ballancing(LPCHARLIST a, LPCHARLIST d,
+	int magicno, int damage, int mana,
+	int attack, int attacktype, int tac)
 {   //< CSD-TW-030622
 	if (a->IsNpc())
 	{
@@ -430,14 +430,14 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 	}
 
 	//char temp[ FILENAME_MAX];	// LTH-040227-KO 사용되지 않아서 삭제
-	a->balancingtest --;
-	if( a->balancingtest > 0 )
+	a->balancingtest--;
+	if (a->balancingtest > 0)
 	{
-		::SaveBallancing2( a, d, magicno, damage, mana, attack, attacktype, tac  );
+		::SaveBallancing2(a, d, magicno, damage, mana, attack, attacktype, tac);
 		return;
 	}
 	a->balancingtest = 100;
-	
+
 	string strPath;
 
 	if (!GetLogPath(LT_BATTLE, strPath))
@@ -458,100 +458,100 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 		}
 	}
 	//> CSD-040224
-	
-	if( magicno )
+
+	if (magicno)
 	{
 		if (magicno >= 215)
 		{
-			fprintf( fp, "Combat Skill< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name );
+			fprintf(fp, "Combat Skill< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name);
 		}
 		else
 		{
-			fprintf( fp, "Magic< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name );
+			fprintf(fp, "Magic< %3d:%30s >  --> %20s   \n", magicno, Magic_Ref[magicno].Han_Name, d->Name);
 		}
-		
-		fprintf( fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n",  MapName, a->MoveSx, a->MoveSy, g_mon+1, g_day,g_hour, g_min, g_sec );
-		
+
+		fprintf(fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n", MapName, a->MoveSx, a->MoveSy, g_mon + 1, g_day, g_hour, g_min, g_sec);
+
 		fprintf(fp, " Attack(Lv:%3d/Exp:%9d/ladder:%3d/fame:%3d)\n", a->GetLevel(), a->Exp, a->LadderScore, a->fame); // CSD-030806
 		fprintf(fp, " Defence(Lv:%3d/Exp:%9d)\n", d->GetLevel(), d->Exp); // CSD-030806
-		fprintf( fp, " Reserved Point %3d -> Reserved Point %3d\n", a->GetReservedPoint(), d->GetReservedPoint());
-		fprintf( fp, " Str   %3d    ->  Str   %3d                Hp %4d/%4d ->  Hp %4d/%4d \n", a->Str, d->Str, a->Hp, a->HpMax, d->Hp, d->HpMax );
-		fprintf( fp, " Con   %3d    ->  Con   %3d              Mana %4d/%4d ->Mana %4d/%4d \n", a->Con, d->Con, a->Mana, a->ManaMax, d->Mana, d->ManaMax );  
-		fprintf( fp, " Dex   %3d    ->  Dex   %3d            Hungry %4d/%4d ->Hngy %4d/%4d \n", a->Dex, d->Dex, a->Hungry, a->HungryMax, d->Hungry, d->HungryMax );
-		fprintf( fp, " Wis   %3d    ->  Wis   %3d                                   \n", 	a->Wis, d->Wis );
-		fprintf( fp, " Int   %3d    ->  Int   %3d                 Damage : %4d        \n", 	a->Int, d->Int, damage );
-		fprintf( fp, " MoveP %3d    ->  MoveP %3d             Used Mana: %4d        \n",    a->MoveP, d->MoveP, mana );
-		fprintf( fp, " Char  %3d    ->  Char  %3d                                   \n",    a->Char , d->Char );
-		fprintf( fp, " Endu  %3d    ->  Endu  %3d                                   \n",    a->Endu , d->Endu ); 
-		fprintf( fp, " Moral %3d    ->  Moral %3d                                   \n",    a->Moral, d->Moral); 
-		fprintf( fp, " Luck  %3d    ->  Luck  %3d                                   \n",    a->Luck , d->Luck ); 
-		fprintf( fp, " wsps  %3d    ->  wsps  %3d                                   \n",    a->wsps , d->wsps ); 
-		
-		fprintf( fp, "방어자의 마법저항치 \n" );
+		fprintf(fp, " Reserved Point %3d -> Reserved Point %3d\n", a->GetReservedPoint(), d->GetReservedPoint());
+		fprintf(fp, " Str   %3d    ->  Str   %3d                Hp %4d/%4d ->  Hp %4d/%4d \n", a->Str, d->Str, a->Hp, a->HpMax, d->Hp, d->HpMax);
+		fprintf(fp, " Con   %3d    ->  Con   %3d              Mana %4d/%4d ->Mana %4d/%4d \n", a->Con, d->Con, a->Mana, a->ManaMax, d->Mana, d->ManaMax);
+		fprintf(fp, " Dex   %3d    ->  Dex   %3d            Hungry %4d/%4d ->Hngy %4d/%4d \n", a->Dex, d->Dex, a->Hungry, a->HungryMax, d->Hungry, d->HungryMax);
+		fprintf(fp, " Wis   %3d    ->  Wis   %3d                                   \n", a->Wis, d->Wis);
+		fprintf(fp, " Int   %3d    ->  Int   %3d                 Damage : %4d        \n", a->Int, d->Int, damage);
+		fprintf(fp, " MoveP %3d    ->  MoveP %3d             Used Mana: %4d        \n", a->MoveP, d->MoveP, mana);
+		fprintf(fp, " Char  %3d    ->  Char  %3d                                   \n", a->Char, d->Char);
+		fprintf(fp, " Endu  %3d    ->  Endu  %3d                                   \n", a->Endu, d->Endu);
+		fprintf(fp, " Moral %3d    ->  Moral %3d                                   \n", a->Moral, d->Moral);
+		fprintf(fp, " Luck  %3d    ->  Luck  %3d                                   \n", a->Luck, d->Luck);
+		fprintf(fp, " wsps  %3d    ->  wsps  %3d                                   \n", a->wsps, d->wsps);
+
+		fprintf(fp, "방어자의 마법저항치 \n");
 		fprintf(fp, "Resist Poison  %3d\n", d->GetBasicResist(RT_POISON));//030227 lsw
 		fprintf(fp, "Resist Curse   %3d\n", d->GetBasicResist(RT_CURSE));
 		fprintf(fp, "Resist Fire    %3d\n", d->GetBasicResist(RT_FIRE));
 		fprintf(fp, "Resist Ice     %3d\n", d->GetBasicResist(RT_ICE));
 		fprintf(fp, "Resist Elect   %3d\n", d->GetBasicResist(RT_ELECT));
 		fprintf(fp, "Resist Holy    %3d\n", d->GetBasicResist(RT_HOLY));
-	}	
+	}
 	else
-	{	
-		fprintf( fp, "Weapon-Attack< %d:%s >  --> %s\n", attacktype, magicno, Magic_Ref[magicno].Han_Name,  d->Name  );
-		fprintf( fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n",  MapName, a->MoveSx, a->MoveSy, g_mon+1, g_day,g_hour, g_min, g_sec );
-		
+	{
+		fprintf(fp, "Weapon-Attack< %d:%s >  --> %s\n", attacktype, magicno, Magic_Ref[magicno].Han_Name, d->Name);
+		fprintf(fp, "---%s(%3d,%3d) %02d.%02d %02d:%02d:%02d ---\n", MapName, a->MoveSx, a->MoveSy, g_mon + 1, g_day, g_hour, g_min, g_sec);
+
 		fprintf(fp, " Attack(Lv:%3d/Exp:%9d/ladder:%3d/fame:%3d)\n", a->GetLevel(), a->Exp, a->LadderScore, a->fame); // CSD-030806
 		fprintf(fp, " Defence(Lv:%3d/Exp:%9d)\n", d->GetLevel(), d->Exp); // CSD-030806
-		
+
 		int itemkind;
 		char *at;
-		const int ino = a->equip[ WT_WEAPON].item_no;
-		CItem *ii = ItemUnit( ino/1000, ino%1000);
-		
-		if( ii )	itemkind = ii->GetItemKind();
+		const int ino = a->equip[WT_WEAPON].item_no;
+		CItem *ii = ItemUnit(ino / 1000, ino % 1000);
+
+		if (ii)	itemkind = ii->GetItemKind();
 		else		itemkind = IK_NONE;
-		
-		switch( itemkind )
-		{			
+
+		switch (itemkind)
+		{
 			//	장거리 무기....
 		case IK_DUAL_BOW:		at = "DUAL_BOW";	break;//030102 lsw Dual BOW
-		case IK_SHORT_BOW	:	at = "SHORT_BOW";	break;
-		case IK_TWO_ARROW	:	at = "TWO_ARROW";	break;
-		case IK_DUAL_ARROW	:	at = "DUAL_ARROW";	break;//030102 lsw
-		case IK_LONG_BOW	:	at = "LONG_BOW";	break;
-		case IK_ARROW_POINT	:	at = "ARROW_POINT";	break;
-		case IK_FEATHER		:	at = "FEATHER";	break;
+		case IK_SHORT_BOW:	at = "SHORT_BOW";	break;
+		case IK_TWO_ARROW:	at = "TWO_ARROW";	break;
+		case IK_DUAL_ARROW:	at = "DUAL_ARROW";	break;//030102 lsw
+		case IK_LONG_BOW:	at = "LONG_BOW";	break;
+		case IK_ARROW_POINT:	at = "ARROW_POINT";	break;
+		case IK_FEATHER:	at = "FEATHER";	break;
 			// 중장거리.. 
-		case IK_HURL		:	at = "THROWING WEAPON"; break;
+		case IK_HURL:	at = "THROWING WEAPON"; break;
 			//	단거리무기..
-		default             :   at = "MELEE WEAPON";    break;
-		}			
-		
-		char temp[ FILENAME_MAX];
-		
-		if( ii ) 
-		{
-			strcpy( temp, ii->GetHanName() );
+		default:   at = "MELEE WEAPON";    break;
 		}
-		else 
+
+		char temp[FILENAME_MAX];
+
+		if (ii)
 		{
-			strcpy( temp, " NO WEAPON " );
+			strcpy(temp, ii->GetHanName());
 		}
-		
-		fprintf( fp, " Reserved Point %3d -> Reserved Point %3d\n", a->GetReservedPoint(), d->GetReservedPoint());
-		fprintf( fp, " Str   %3d	->  Str   %3d                Hp %4d/%4d ->  Hp %4d/%4d \n", a->Str, d->Str, a->Hp, a->HpMax, d->Hp, d->HpMax );
-		fprintf( fp, " Con   %3d	->  Con   %3d              Mana %4d/%4d ->Mana %4d/%4d \n", a->Con, d->Con, a->Mana, a->ManaMax, d->Mana, d->ManaMax );
-		fprintf( fp, " Dex   %3d	->  Dex   %3d            Hungry %4d/%4d ->Hngy %4d/%4d \n", a->Dex, d->Dex, a->Hungry, a->HungryMax, d->Hungry, d->HungryMax );
-		fprintf( fp, " Wis   %3d	->  Wis   %3d                Ac  %3d    ->       %3d   \n", 	a->Wis, d->Wis, a->Ac, d->Ac );
-		fprintf( fp, " Int   %3d	->  Int   %3d                                   \n",    a->Int, d->Int);
-		fprintf( fp, " MoveP %3d	->  MoveP %3d              Damage  :    %4d     \n",    a->MoveP, d->MoveP, damage );
-		fprintf( fp, " Char  %3d	->  Char  %3d             WEAPON :  %s( %d )  \n",    a->Char , d->Char,  temp, a->equip[ WT_WEAPON].item_no );
-		fprintf( fp, " Endu  %3d	->  Endu  %3d           AttackType :    %s      \n",    a->Endu , d->Endu,  at );
-		fprintf( fp, " Moral %3d	->  Moral %3d                                   \n",    a->Moral, d->Moral );
-		fprintf( fp, " Luck  %3d	->  Luck  %3d                                   \n",    a->Luck , d->Luck );
-		fprintf( fp, " wsps  %3d	->  wsps  %3d                                   \n",    a->wsps , d->wsps );
+		else
+		{
+			strcpy(temp, " NO WEAPON ");
+		}
+
+		fprintf(fp, " Reserved Point %3d -> Reserved Point %3d\n", a->GetReservedPoint(), d->GetReservedPoint());
+		fprintf(fp, " Str   %3d	->  Str   %3d                Hp %4d/%4d ->  Hp %4d/%4d \n", a->Str, d->Str, a->Hp, a->HpMax, d->Hp, d->HpMax);
+		fprintf(fp, " Con   %3d	->  Con   %3d              Mana %4d/%4d ->Mana %4d/%4d \n", a->Con, d->Con, a->Mana, a->ManaMax, d->Mana, d->ManaMax);
+		fprintf(fp, " Dex   %3d	->  Dex   %3d            Hungry %4d/%4d ->Hngy %4d/%4d \n", a->Dex, d->Dex, a->Hungry, a->HungryMax, d->Hungry, d->HungryMax);
+		fprintf(fp, " Wis   %3d	->  Wis   %3d                Ac  %3d    ->       %3d   \n", a->Wis, d->Wis, a->Ac, d->Ac);
+		fprintf(fp, " Int   %3d	->  Int   %3d                                   \n", a->Int, d->Int);
+		fprintf(fp, " MoveP %3d	->  MoveP %3d              Damage  :    %4d     \n", a->MoveP, d->MoveP, damage);
+		fprintf(fp, " Char  %3d	->  Char  %3d             WEAPON :  %s( %d )  \n", a->Char, d->Char, temp, a->equip[WT_WEAPON].item_no);
+		fprintf(fp, " Endu  %3d	->  Endu  %3d           AttackType :    %s      \n", a->Endu, d->Endu, at);
+		fprintf(fp, " Moral %3d	->  Moral %3d                                   \n", a->Moral, d->Moral);
+		fprintf(fp, " Luck  %3d	->  Luck  %3d                                   \n", a->Luck, d->Luck);
+		fprintf(fp, " wsps  %3d	->  wsps  %3d                                   \n", a->wsps, d->wsps);
 	}
-	
+
 	fprintf(fp, " [Tactic Info]\n");
 	fprintf(fp, " Crapple              Tactics(%3d:%d)\n", a->Skill[TACTICS_Crapple], a->tac_skillEXP[0]);
 	fprintf(fp, " Swordmanship         Tactics(%3d:%d)\n", a->Skill[TACTICS_swordmanship], a->tac_skillEXP[1]);
@@ -569,15 +569,15 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 
 	fprintf(fp, " [NK Info]\n");
 	fprintf(fp, "N_NEUTRAL  = %d	N_NONSTER	= %d	N_VYSEUS = %d\n", a->nk[N_NEUTRAL], a->nk[N_NONSTER], a->nk[N_VYSEUS]);
-	fprintf(fp, "N_ZYPERN	= %d	N_HEGEMONIA	= %d	N_YILSE	 =%d\n", a->nk[N_ZYPERN	], a->nk[N_HEGEMONIA], a->nk[N_YILSE]);
-	
+	fprintf(fp, "N_ZYPERN	= %d	N_HEGEMONIA	= %d	N_YILSE	 =%d\n", a->nk[N_ZYPERN], a->nk[N_HEGEMONIA], a->nk[N_YILSE]);
+
 	fprintf(fp, " [Party Info]\n");
-	
+
 	for (int i = 0; i < MAX_PARTY_MEMBER; ++i)
 	{
 		if (a->party[i].On && a->party[i].Name)
-		{ 
-			fprintf(fp, " [%d]%20s%s", i, a->party[i].Name, (i==2)?"\n":"  ");
+		{
+			fprintf(fp, " [%d]%20s%s", i, a->party[i].Name, (i == 2) ? "\n" : "  ");
 		}
 	}
 
@@ -587,10 +587,10 @@ void CLogManager::SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d,
 //> 040715_KJHuNs Battle폴더에 저장
 
 //< 040715_KJHuNs Change폴더에 저장
-void CLogManager::SaveLogChange_BankMoney(const int idTarget, 
-											const DWORD nOldBankMoney, 
-											const DWORD nNewBankMoney ,
-											const eBankMoneyChangeType BMCT)
+void CLogManager::SaveLogChange_BankMoney(const int idTarget,
+	const DWORD nOldBankMoney,
+	const DWORD nNewBankMoney,
+	const eBankMoneyChangeType BMCT)
 {	//< CSD-040324
 	string strPath;
 
@@ -613,75 +613,75 @@ void CLogManager::SaveLogChange_BankMoney(const int idTarget,
 
 	string strWhy = "";
 
-	switch(BMCT)
+	switch (BMCT)
 	{
 	case BMCT_ARENA_GAMBLE_DIVIDEND:
-		{
-			strWhy = "Arena Gamble Dividend";
-			break;
-		}
+	{
+		strWhy = "Arena Gamble Dividend";
+		break;
+	}
 	case BMCT_ARENA_GAMBLE_BETTING:
-		{
-			strWhy = "Arena Gamble Betting";
-			break;
-		}
+	{
+		strWhy = "Arena Gamble Betting";
+		break;
+	}
 	case BMCT_BANK_DEPOSIT:
-		{
-			strWhy = "Bank Deposit";
-			break;
-		}
+	{
+		strWhy = "Bank Deposit";
+		break;
+	}
 	case BMCT_BANK_DEFRAYAL:
-		{
-			strWhy = "Bank Gamble Defrayal";
-			break;
-		}
+	{
+		strWhy = "Bank Gamble Defrayal";
+		break;
+	}
 	case BMCT_AUCTION_ITEM_BUY:
-		{
-			strWhy = "Auction Item Buy ";
-			break;
-		}
+	{
+		strWhy = "Auction Item Buy ";
+		break;
+	}
 	case BMCT_AUCTION_ITEM_REGISTER:
-		{
-			strWhy = "Auction Item Register";
-			break;
-		}
+	{
+		strWhy = "Auction Item Register";
+		break;
+	}
 	case BMCT_BUY_LOTTO:
-		{
-			strWhy = "Buy Lotto";
-			break;
-		}
+	{
+		strWhy = "Buy Lotto";
+		break;
+	}
 	case BMCT_RESET_ABILITY:
-		{
-			strWhy = "Reset Ability";
-			break;
-		}
+	{
+		strWhy = "Reset Ability";
+		break;
+	}
 	case BMCT_CHAR_LOGIN:
-		{
-			strWhy = "User Login";
-			break;
-		}
+	{
+		strWhy = "User Login";
+		break;
+	}
 	case BMCT_RECV_MAP_CHANGE:
-		{
-			strWhy = "User MapMove";
-			break;
-		}
+	{
+		strWhy = "User MapMove";
+		break;
+	}
 	case BMCT_RECV_CHAR_INFO_BASIC:
-		{
-			strWhy = "Recv CharInfo Basic";
-			break;
-		}
+	{
+		strWhy = "Recv CharInfo Basic";
+		break;
+	}
 	default:
-		{
-			strWhy = "UnKnown";
-			break;
-		}
+	{
+		strWhy = "UnKnown";
+		break;
+	}
 	}
 
-	::fprintf( fp, "@ChangeBankMoney	%d-%02d-%02d %02d:%02d:%02d	(Old)%d	(New)%d %s\n",
-			g_year-2000, g_mon+1, g_day, 
-			g_hour, g_min, g_sec,
-			nOldBankMoney, nNewBankMoney, strWhy.c_str());
-	::fclose( fp );
+	::fprintf(fp, "@ChangeBankMoney	%d-%02d-%02d %02d:%02d:%02d	(Old)%d	(New)%d %s\n",
+		g_year - 2000, g_mon + 1, g_day,
+		g_hour, g_min, g_sec,
+		nOldBankMoney, nNewBankMoney, strWhy.c_str());
+	::fclose(fp);
 }	//> CSD-040324
 
 void CLogManager::SaveLogChange_BattingMoney(CHARLIST* pTarget, DWORD dwOldMoney, DWORD dwNewMoney)
@@ -706,13 +706,13 @@ void CLogManager::SaveLogChange_BattingMoney(CHARLIST* pTarget, DWORD dwOldMoney
 	}
 	//> CSD-040224
 	::fprintf(fp, "@ChangeBattingMoney	%d-%02d-%02d %02d:%02d:%02d	BankMoney (Before)%d (After)%d\n",
-			  g_year-2000, g_mon+1, g_day, g_hour, g_min, g_sec,
-			  dwOldMoney, dwNewMoney);
-	::fclose( fp );
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
+		dwOldMoney, dwNewMoney);
+	::fclose(fp);
 }	//> CSD-TW-030624
 
-void CLogManager::SaveLogChange_ClassQuest(CHARLIST* pTarget, const char* pMsg, 
-										   int nQuestNo, int nQcount, int nStart)
+void CLogManager::SaveLogChange_ClassQuest(CHARLIST* pTarget, const char* pMsg,
+	int nQuestNo, int nQcount, int nStart)
 {	//< CSD-TW-030701
 	string strPath;
 
@@ -734,9 +734,9 @@ void CLogManager::SaveLogChange_ClassQuest(CHARLIST* pTarget, const char* pMsg,
 	}
 	//> CSD-040224
 	::fprintf(fp, "@ChangeQuest[%d]	%02d-%02d-%02d %02d:%02d:%02d	Msg=%s, Qcount=%d, Start=%d\n",
-			  nQuestNo,       
-		      g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
-			  pMsg, nQcount, nStart);
+		nQuestNo,
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
+		pMsg, nQcount, nStart);
 	::fclose(fp);
 }	//> CSD-TW-030701
 
@@ -762,8 +762,8 @@ void CLogManager::SaveLogChange_ClassStep(CHARLIST* pTarget, int nPrevStep, int 
 	}
 	//> CSD-040224	
 	::fprintf(fp, "@ChangeStep	%02d-%02d-%02d %02d:%02d:%02d	(old)%d	(new)%d\n",
-		      g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
-			  nPrevStep, nNextStep);
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
+		nPrevStep, nNextStep);
 	::fclose(fp);
 }	//> CSD-TW-030622
 
@@ -789,7 +789,7 @@ void CLogManager::SaveLogChange_DividendMoney(CHARLIST* pTarget, DWORD dwOldMone
 	}
 	//> CSD-040224
 	fprintf(fp, "@ChangeDividendMoney	%d-%02d-%02d %02d:%02d:%02d	",
-			  g_year-2000, g_mon+1, g_day, g_hour, g_min, g_sec);
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 
 	if (bBank)
 	{
@@ -800,11 +800,11 @@ void CLogManager::SaveLogChange_DividendMoney(CHARLIST* pTarget, DWORD dwOldMone
 		fprintf(fp, "InventoryMoney (Before)%d (After)%d\n", dwOldMoney, dwNewMoney);
 	}
 
-	::fclose( fp );
+	::fclose(fp);
 }	//> CSD-TW-030624
 
-void CLogManager::SaveLogChange_DualFame(CHARLIST* pTarget, const int nOldDualFame, 
-										 const int nNewDualFame, eLDF_TYPE type)
+void CLogManager::SaveLogChange_DualFame(CHARLIST* pTarget, const int nOldDualFame,
+	const int nNewDualFame, eLDF_TYPE type)
 {	//< CSD-040224
 	string strPath;
 
@@ -825,40 +825,40 @@ void CLogManager::SaveLogChange_DualFame(CHARLIST* pTarget, const int nOldDualFa
 		}
 	}
 
-	char why[MAX_PATH] = {0,};
+	char why[MAX_PATH] = { 0, };
 	switch (type)
 	{
-	case LDF_LOCALWAR: 
-		{	// 듀얼 소비
-			::strcpy(why, "LocalWar");
-			break;
-		}
+	case LDF_LOCALWAR:
+	{	// 듀얼 소비
+		::strcpy(why, "LocalWar");
+		break;
+	}
 	case LDF_QUEST:
-		{	// 국지전
-			::strcpy(why, "Quest");
-			break;
-		}
+	{	// 국지전
+		::strcpy(why, "Quest");
+		break;
+	}
 	case LDF_NEOWAR:	//< LTH-040226-KO
-		{
-			::strcpy( why, "NeoWar" );			// 1.4 신규국가전 
-		}
-		break;			//> LTH-040226-KO
-	default : 	
-		{
-			::strcpy( why, "default" );
-		}break;
+	{
+		::strcpy(why, "NeoWar");			// 1.4 신규국가전 
+	}
+	break;			//> LTH-040226-KO
+	default:
+	{
+		::strcpy(why, "default");
+	}break;
 	}
 
-	::fprintf( fp, "@ChangeDualFame	why=%s %02d-%02d-%02d %02d:%02d:%02d	(x:%d y:%d)	(old)%d	(new)%d\n",
-			why, 
-			g_year-2000, g_mon+1, g_day, 
-			g_hour, g_min, g_sec,
-			pTarget->X, pTarget->Y, nOldDualFame, nNewDualFame);
-	::fclose( fp );
+	::fprintf(fp, "@ChangeDualFame	why=%s %02d-%02d-%02d %02d:%02d:%02d	(x:%d y:%d)	(old)%d	(new)%d\n",
+		why,
+		g_year - 2000, g_mon + 1, g_day,
+		g_hour, g_min, g_sec,
+		pTarget->X, pTarget->Y, nOldDualFame, nNewDualFame);
+	::fclose(fp);
 }	//> CSD-040224
 
-void CLogManager::SaveLogChange_Fame(CHARLIST* pTarget, int old_fame, int new_fame, 
-									 eLF_TYPE type)
+void CLogManager::SaveLogChange_Fame(CHARLIST* pTarget, int old_fame, int new_fame,
+	eLF_TYPE type)
 {	//< CSD-040224
 	string strPath;
 
@@ -878,54 +878,54 @@ void CLogManager::SaveLogChange_Fame(CHARLIST* pTarget, int old_fame, int new_fa
 			return;
 		}
 	}
-	
-	char why[MAX_PATH] = {0,};
+
+	char why[MAX_PATH] = { 0, };
 
 	switch (type)
 	{
-	case LF_DUAL: 
-		{	// 듀얼 소비
-			strcpy(why, "upgrade dual");
-			break;
-		}
+	case LF_DUAL:
+	{	// 듀얼 소비
+		strcpy(why, "upgrade dual");
+		break;
+	}
 	case LF_LOCALWAR:
-		{	// 국지전
-			strcpy(why, "LocalWar");
-			break;
-		}
+	{	// 국지전
+		strcpy(why, "LocalWar");
+		break;
+	}
 	case LF_ITEMBUY:
-		{	// 국가 고급 아이템
-			strcpy(why, "Nation Item Buy");
-			break;
-		}
+	{	// 국가 고급 아이템
+		strcpy(why, "Nation Item Buy");
+		break;
+	}
 	case LF_DONATION:
-		{	// 국가 기부
-			strcpy(why, "Nation Doantion");
-			break;
-		}
+	{	// 국가 기부
+		strcpy(why, "Nation Doantion");
+		break;
+	}
 	case LF_NATIONWAR:
-		{	// 국가전
-			strcpy(why, "Nation War");
-			break;
-		}
+	{	// 국가전
+		strcpy(why, "Nation War");
+		break;
+	}
 	case LF_SCRIPT:
-		{	// 스크립트 펑션
-			strcpy(why, "Script Func");
-			break;
-		}
+	{	// 스크립트 펑션
+		strcpy(why, "Script Func");
+		break;
+	}
 	default:
-		{
-			strcpy(why, "default");
-			break;
-		}
+	{
+		strcpy(why, "default");
+		break;
+	}
 	}
 
 	::fprintf(fp, "@ChangeFame	why=%s %02d-%02d-%02d %02d:%02d:%02d	(x:%d y:%d)	(old)%d	(new)%d\n",
-			  why, 
-			  g_year-2000, g_mon + 1, g_day,
-			  g_hour, g_min, g_sec,
-			  pTarget->X, pTarget->Y, old_fame, new_fame);
-	::fclose( fp );
+		why,
+		g_year - 2000, g_mon + 1, g_day,
+		g_hour, g_min, g_sec,
+		pTarget->X, pTarget->Y, old_fame, new_fame);
+	::fclose(fp);
 }	//> CSD-040224
 
 void CLogManager::SaveLogChange_NationItem(CHARLIST* pTarget, int type, ItemAttr* item)
@@ -949,13 +949,13 @@ void CLogManager::SaveLogChange_NationItem(CHARLIST* pTarget, int type, ItemAttr
 		}
 	}
 
-	CItem *t = ItemUnit( item->item_no );
-	
-	::fprintf( fp, "@ChangeNationItem	%d-%02d-%02d %02d:%02d:%02d	(Type)%s	(item:%s)%d	%d	%d	%d\n",
-			g_year-2000, g_mon+1, g_day, 
-			g_hour, g_min, g_sec, type?"FAME":"MONEY", t?t->GetHanName():"WRONG ITEM", item->item_no,
-			item->attr[0], item->attr[1], item->attr[2] );
-	::fclose( fp );
+	CItem *t = ItemUnit(item->item_no);
+
+	::fprintf(fp, "@ChangeNationItem	%d-%02d-%02d %02d:%02d:%02d	(Type)%s	(item:%s)%d	%d	%d	%d\n",
+		g_year - 2000, g_mon + 1, g_day,
+		g_hour, g_min, g_sec, type ? "FAME" : "MONEY", t ? t->GetHanName() : "WRONG ITEM", item->item_no,
+		item->attr[0], item->attr[1], item->attr[2]);
+	::fclose(fp);
 }	//> CSD-040224
 
 void CLogManager::SaveLogChange_Ladder(CHARLIST* pTarget, int old_ladder, int new_ladder, int type)
@@ -983,34 +983,34 @@ void CLogManager::SaveLogChange_Ladder(CHARLIST* pTarget, int old_ladder, int ne
 
 	switch (type)
 	{
-		case CLT_CHANGE_DUAL: 
-			{
-				strcpy(why, "upgrade dual");
-				break;
-			}
-		case CLT_WIN_COLOSSUS:
-			{
-				strcpy(why, "win colossus");
-				break;
-			}
-		case CLT_LOSE_COLOSSUS:
-			{
-				strcpy(why, "loss colossus");
-				break;
-			}
-		default:
-			{
-				strcpy(why, "default");
-				break;
-			}
+	case CLT_CHANGE_DUAL:
+	{
+		strcpy(why, "upgrade dual");
+		break;
+	}
+	case CLT_WIN_COLOSSUS:
+	{
+		strcpy(why, "win colossus");
+		break;
+	}
+	case CLT_LOSE_COLOSSUS:
+	{
+		strcpy(why, "loss colossus");
+		break;
+	}
+	default:
+	{
+		strcpy(why, "default");
+		break;
+	}
 	}
 
 	fprintf(fp,
-		    "@ChangeLadderScore	%02d/%02d/%02d/%02d/%02d/%02d	(old ladder)%d(==>)	(new ladder)%d	(why)%s",
-			g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
-			old_ladder, new_ladder, why);
-	fprintf( fp, "\n" );
-	fclose( fp );
+		"@ChangeLadderScore	%02d/%02d/%02d/%02d/%02d/%02d	(old ladder)%d(==>)	(new ladder)%d	(why)%s",
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec,
+		old_ladder, new_ladder, why);
+	fprintf(fp, "\n");
+	fclose(fp);
 }	//> CSD-040224
 
 void CLogManager::SaveLogChange_ObtainCombat(CHARLIST* pTarget, int nOld, int nNew)
@@ -1021,7 +1021,7 @@ void CLogManager::SaveLogChange_ObtainCombat(CHARLIST* pTarget, int nOld, int nN
 	{
 		return;
 	}
-	
+
 	FILE* fp = fopen(VA("%s/%s.txt", strPath.c_str(), pTarget->Name), "at+");
 
 	if (fp == NULL)
@@ -1033,10 +1033,10 @@ void CLogManager::SaveLogChange_ObtainCombat(CHARLIST* pTarget, int nOld, int nN
 			return;
 		}
 	}
-	
-	fprintf(fp ,
-		    "@ObtainCombatPoint	%02d/%02d/%02d/%02d/%02d/%02d	(old point)%d(==>)	(new point)%d\n",
-		    g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec, nOld, nNew);
+
+	fprintf(fp,
+		"@ObtainCombatPoint	%02d/%02d/%02d/%02d/%02d/%02d	(old point)%d(==>)	(new point)%d\n",
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec, nOld, nNew);
 	fprintf(fp, ";Lightning Boom    %3d  Thunder Blow      %3d\n", pTarget->GetCombatLevel(LIGHTNING_BOOM), pTarget->GetCombatLevel(THUNDER_BLOW));
 	fprintf(fp, ";Lightning Shock   %3d  Thunder Strike    %3d\n", pTarget->GetCombatLevel(LIGHTNING_SHOCK), pTarget->GetCombatLevel(THUNDER_STRIKE));
 	fprintf(fp, ";Lightning Shield  %3d  Lightning Extreme %3d\n", pTarget->GetCombatLevel(LIGHTNING_SHIELD), pTarget->GetCombatLevel(LIGHTNING_EXTREME));
@@ -1056,19 +1056,19 @@ void CLogManager::SaveLogChange_ObtainCombat(CHARLIST* pTarget, int nOld, int nN
 	fprintf(fp, ";Whilwind          %3d  Twister           %3d\n", pTarget->GetCombatLevel(WHILWIND), pTarget->GetCombatLevel(TWISTER));
 	fprintf(fp, ";Gust              %3d  Wind Extreme      %3d\n", pTarget->GetCombatLevel(GUST), pTarget->GetCombatLevel(WIND_EXTREME));
 	fprintf(fp, ";Reserved Combat Skill Point %3d \n", pTarget->GetCombatPoint());
-	
+
 	fclose(fp);
 }	//> CSD-040224
 
 void CLogManager::SaveLogChange_Combat(CHARLIST* pTarget, int nCombat, int nOld, int nNew)
 {	//< CSD-040224
 	string strPath;
-	
+
 	if (!GetLogPath(LT_CHANGE, strPath))
 	{
 		return;
 	}
-	
+
 	FILE* fp = fopen(VA("%s/%s.txt", strPath.c_str(), pTarget->Name), "at+");
 
 	if (fp == NULL)
@@ -1080,10 +1080,10 @@ void CLogManager::SaveLogChange_Combat(CHARLIST* pTarget, int nCombat, int nOld,
 			return;
 		}
 	}
-	
+
 	fprintf(fp,
-		    "@ChangeCombatPoint	%02d/%02d/%02d/%02d/%02d/%02d	(old level)%d(==>)	(new level)%d	(combat skill)%d\n",
-		    g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec, nOld, nNew, nCombat);
+		"@ChangeCombatPoint	%02d/%02d/%02d/%02d/%02d/%02d	(old level)%d(==>)	(new level)%d	(combat skill)%d\n",
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec, nOld, nNew, nCombat);
 	fprintf(fp, ";Lightning Boom    %3d  Thunder Blow      %3d\n", pTarget->GetCombatLevel(LIGHTNING_BOOM), pTarget->GetCombatLevel(THUNDER_BLOW));
 	fprintf(fp, ";Lightning Shock   %3d  Thunder Strike    %3d\n", pTarget->GetCombatLevel(LIGHTNING_SHOCK), pTarget->GetCombatLevel(THUNDER_STRIKE));
 	fprintf(fp, ";Lightning Shield  %3d  Lightning Extreme %3d\n", pTarget->GetCombatLevel(LIGHTNING_SHIELD), pTarget->GetCombatLevel(LIGHTNING_EXTREME));
@@ -1103,30 +1103,30 @@ void CLogManager::SaveLogChange_Combat(CHARLIST* pTarget, int nCombat, int nOld,
 	fprintf(fp, ";Whilwind          %3d  Twister           %3d\n", pTarget->GetCombatLevel(WHILWIND), pTarget->GetCombatLevel(TWISTER));
 	fprintf(fp, ";Gust              %3d  Wind Extreme      %3d\n", pTarget->GetCombatLevel(GUST), pTarget->GetCombatLevel(WIND_EXTREME));
 	fprintf(fp, ";Reserved Combat Skill Point %3d \n", pTarget->GetCombatPoint());
-	
+
 	fclose(fp);
 }	//> CSD-040224
 
 // 030923 HK YGI
-void CLogManager::SaveLogChange_LoginLogoutByKein(CHARLIST* pTarget, int type, int call_function_id )
+void CLogManager::SaveLogChange_LoginLogoutByKein(CHARLIST* pTarget, int type, int call_function_id)
 {
 	if (!g_EventFlagMgr.IsSaveLogWhenSaveUserData())
 	{
 		return;
 	}
 
-	char type2str[2][20] = {"LOGOUT", "LOGIN"};
-	
+	char type2str[2][20] = { "LOGOUT", "LOGIN" };
+
 	string strPath;
 
 	if (GetLogPath(LT_CHANGE, strPath))
 	{
-		char temp[FILENAME_MAX] = {0,};
-		char log[FILENAME_MAX] = {0,};
+		char temp[FILENAME_MAX] = { 0, };
+		char log[FILENAME_MAX] = { 0, };
 		::sprintf(temp, "%s/savelog_%s.txt", strPath.c_str(), pTarget->Name);
 		::sprintf(log, "%s(%d): [%s][%s] lv=%d, exp=(%d)%d, class=%d",
-			      type2str[type], call_function_id, MapName,
-				  pTarget->Name, pTarget->GetLevel(), pTarget->GetExperienceStep(), pTarget->Exp, pTarget->Class);
+			type2str[type], call_function_id, MapName,
+			pTarget->Name, pTarget->GetLevel(), pTarget->GetExperienceStep(), pTarget->Exp, pTarget->Class);
 		SaveLogDefault2(temp, log);
 	}
 }
@@ -1157,12 +1157,12 @@ void CLogManager::SaveLogCheck_StrikeAttack(CHARLIST* pCaster, CHARLIST* pTarget
 		}
 	}
 	//> CSD-040224
-	
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	
+
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+
 	const int nCombat = pCaster->GetActiveCombat();
 	bitset<MAX_CLASS> bsClass(Magic_Ref[nCombat].nClass);
-	
+
 	const int nClass = pCaster->Class;
 
 	if (!bsClass[nClass])
@@ -1180,9 +1180,9 @@ void CLogManager::SaveLogCheck_StrikeAttack(CHARLIST* pCaster, CHARLIST* pTarget
 
 	const int nKind = pCaster->GetTacticsKind();
 	fprintf(pFile, "%s(%d/%d/%d)\n", ConvertToTactics(nKind),
-		                             pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
-					  			     pCaster->Skill[nKind],
-									 pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
+		pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
+		pCaster->Skill[nKind],
+		pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
 	fclose(pFile);
 }	//> CSD-030804
 
@@ -1196,7 +1196,7 @@ void CLogManager::SaveLogCheck_ThrowAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 	{
 		return;
 	}
-	
+
 	//< CSD-040224
 	FILE* pFile = fopen(VA("%s/%s.txt", strPath.c_str(), pCaster->Name), "at+");
 
@@ -1210,12 +1210,12 @@ void CLogManager::SaveLogCheck_ThrowAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 		}
 	}
 	//> CSD-040224
-	
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	
+
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+
 	const int nCombat = pCaster->GetActiveCombat();
 	bitset<MAX_CLASS> bsClass(Magic_Ref[nCombat].nClass);
-	
+
 	const int nClass = pCaster->Class;
 
 	if (!bsClass[nClass])
@@ -1233,9 +1233,9 @@ void CLogManager::SaveLogCheck_ThrowAttack(CHARLIST* pCaster, CHARLIST* pTarget)
 
 	const int nKind = pCaster->GetTacticsKind();
 	fprintf(pFile, "%s(%d/%d/%d)\n", ConvertToTactics(nKind),
-		                             pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
-					  			     pCaster->Skill[nKind],
-									 pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
+		pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
+		pCaster->Skill[nKind],
+		pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
 	fclose(pFile);
 }	//> CSD-030804
 
@@ -1249,7 +1249,7 @@ void CLogManager::SaveLogCheck_MagicExecute(BYTE nMagic, CHARLIST* pCaster, CHAR
 	{
 		return;
 	}
-	
+
 	//< CSD-040224
 	FILE* pFile = fopen(VA("%s/%s.txt", strPath.c_str(), pCaster->Name), "at+");
 
@@ -1263,11 +1263,11 @@ void CLogManager::SaveLogCheck_MagicExecute(BYTE nMagic, CHARLIST* pCaster, CHAR
 		}
 	}
 	//> CSD-040224
-	
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 	fprintf(pFile, "%s, ", Magic_Ref[nMagic].Han_Name);
 	fprintf(pFile, "%s(%3d, %3d), ", MapName, pCaster->MoveSx, pCaster->MoveSy);
-	fprintf(pFile, "%s(%d, %d), ", GetTargetName(pTarget), nX/32, nY/32);
+	fprintf(pFile, "%s(%d, %d), ", GetTargetName(pTarget), nX / 32, nY / 32);
 	fprintf(pFile, "exp(%d/%d/%d), ", pCaster->GetExperienceStep(), pCaster->GetLevel(), pCaster->Exp); // CSD-030806
 
 	int nKind = TACTICS_Crapple;
@@ -1277,11 +1277,11 @@ void CLogManager::SaveLogCheck_MagicExecute(BYTE nMagic, CHARLIST* pCaster, CHAR
 	case WIZARD_SPELL: nKind = TACTICS_Magery; break;
 	case PRIEST_SPELL: nKind = TACTICS_Orison; break;
 	}
-	
+
 	fprintf(pFile, "%s(%d/%d/%d)\n", ConvertToTactics(nKind),
-		                             pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
-					  			     pCaster->Skill[nKind],
-									 pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
+		pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
+		pCaster->Skill[nKind],
+		pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
 	fclose(pFile);
 }	//> CSD-030804
 
@@ -1308,18 +1308,18 @@ void CLogManager::SaveLogCheck_CombatExecute(BYTE nCombat, CHARLIST* pCaster, CH
 		}
 	}
 	//> CSD-040224
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 	fprintf(pFile, "%s(%d), ", Magic_Ref[nCombat].Han_Name, Magic_Ref[nCombat].nCombatCount);
 	fprintf(pFile, "%s(%3d, %3d), ", MapName, pCaster->MoveSx, pCaster->MoveSy);
-	fprintf(pFile, "%s(%d, %d), ", GetTargetName(pTarget), nX/32, nY/32);
-	fprintf(pFile, "exp(%d/%d/%d), ", pCaster->GetExperienceStep(), 
-									  pCaster->GetLevel(),
-									  pCaster->Exp); // CSD-030806
+	fprintf(pFile, "%s(%d, %d), ", GetTargetName(pTarget), nX / 32, nY / 32);
+	fprintf(pFile, "exp(%d/%d/%d), ", pCaster->GetExperienceStep(),
+		pCaster->GetLevel(),
+		pCaster->Exp); // CSD-030806
 	const int nKind = pCaster->GetTacticsKind();
 	fprintf(pFile, "%s(%d/%d/%d)\n", ConvertToTactics(nKind),
-		                             pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
-					  			     pCaster->Skill[nKind],
-									 pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
+		pCaster->GetTacticsStep(nKind - TACTICS_Crapple),
+		pCaster->Skill[nKind],
+		pCaster->tac_skillEXP[nKind - TACTICS_Crapple]);
 	fclose(pFile);
 }	//> CSD-030804
 
@@ -1329,7 +1329,7 @@ void CLogManager::SaveLogEventItem_Lost(int type, char * szName, int nIndex)
 {
 	// 로그 타입 분류
 	char szReason[64];
-	switch(type)
+	switch (type)
 	{
 	case EILT_INVALID_CONNECTION:
 		sprintf(szReason, "<<Disconnected>>");
@@ -1352,19 +1352,19 @@ void CLogManager::SaveLogEventItem_Lost(int type, char * szName, int nIndex)
 	}
 
 	// 경로에 파일을 연다
-	const char* pPath = VA("%s\\EventItemLog_%02d_%02d_%02d.txt", strPath.c_str(), g_year-2000, g_mon + 1, g_day);
+	const char* pPath = VA("%s\\EventItemLog_%02d_%02d_%02d.txt", strPath.c_str(), g_year - 2000, g_mon + 1, g_day);
 	FILE* pFile = fopen(pPath, "at+");
-	
+
 	if (pFile == NULL)
 	{
 		return;
 	}
 
 	//로그를 한줄씩 남긴다
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]\t", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]\t", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 
 	fprintf(pFile, "Reason : %s\tName : %s\tItemIndex : %d\t\n", szReason, szName, nIndex);
-	
+
 	fclose(pFile);
 }
 //> BBD 040308 이벤트 아이템 로스트 로그
@@ -1392,8 +1392,8 @@ void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 		}
 	}
 	//> CSD-040224
-	fprintf(fp, " %02d.%02d.%02d %02d:%02d:%02d\n", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec); // CSD-040202
-	
+	fprintf(fp, " %02d.%02d.%02d %02d:%02d:%02d\n", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec); // CSD-040202
+
 	fprintf(fp, " [Ability Info]\n");
 	fprintf(fp, " Level %3d     Exp   %3d     Step  %3d\n", pTarget->GetLevel(), pTarget->Exp, pTarget->GetExperienceStep()); // CSD-030806
 	fprintf(fp, " Class %3d     Step  %3d     Dual  %3d\n", pTarget->Class, pTarget->GetClassStep(), pTarget->GetDualClass());
@@ -1401,7 +1401,7 @@ void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 	fprintf(fp, " Wis   %3d     Int   %3d     MoveP %3d\n", pTarget->Wis, pTarget->Int, pTarget->MoveP);
 	fprintf(fp, " Char  %3d     Endu  %3d     Moral %3d\n", pTarget->Char, pTarget->Endu, pTarget->Moral);
 	fprintf(fp, " Luck  %3d     wsps  %3d     Reserved Point %3d\n", pTarget->Luck, pTarget->wsps, pTarget->GetReservedPoint());
-	
+
 	fprintf(fp, " [Tactic Info]\n");
 	fprintf(fp, " Crapple              Tactics(%3d:%d)\n", pTarget->Skill[TACTICS_Crapple], pTarget->tac_skillEXP[0]);
 	fprintf(fp, " Swordmanship         Tactics(%3d:%d)\n", pTarget->Skill[TACTICS_swordmanship], pTarget->tac_skillEXP[1]);
@@ -1416,7 +1416,7 @@ void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 	fprintf(fp, " Double Mace Fighting Tactics(%3d:%d)\n", pTarget->Skill[TACTICS_Double_MaceFighting], pTarget->tac_skillEXP[10]);
 	fprintf(fp, " Magery               Tactics(%3d:%d)\n", pTarget->Skill[TACTICS_Magery], pTarget->tac_skillEXP[11]);
 	fprintf(fp, " Orison               Tactics(%3d:%d)\n", pTarget->Skill[TACTICS_Orison], pTarget->tac_skillEXP[12]);
-	
+
 	fprintf(fp, " [Resist Info]\n");
 	fprintf(fp, " Resist Poison  %3d\n", pTarget->GetBasicResist(RT_POISON));//030227 lsw
 	fprintf(fp, " Resist Curse   %3d\n", pTarget->GetBasicResist(RT_CURSE));
@@ -1424,7 +1424,7 @@ void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 	fprintf(fp, " Resist Ice     %3d\n", pTarget->GetBasicResist(RT_ICE));
 	fprintf(fp, " Resist Elect   %3d\n", pTarget->GetBasicResist(RT_ELECT));
 	fprintf(fp, " Resist Holy    %3d\n", pTarget->GetBasicResist(RT_HOLY));
-	
+
 	fprintf(fp, " [Combat Skill Info]\n");
 	fprintf(fp, " Lightning Boom    %3d  Thunder Blow      %3d\n", pTarget->GetCombatLevel(LIGHTNING_BOOM), pTarget->GetCombatLevel(THUNDER_BLOW));
 	fprintf(fp, " Lightning Shock   %3d  Thunder Strike    %3d\n", pTarget->GetCombatLevel(LIGHTNING_SHOCK), pTarget->GetCombatLevel(THUNDER_STRIKE));
@@ -1445,20 +1445,20 @@ void CLogManager::SaveLogLevelUp(LPCHARLIST pTarget)
 	fprintf(fp, " Whilwind          %3d  Twister           %3d\n", pTarget->GetCombatLevel(WHILWIND), pTarget->GetCombatLevel(TWISTER));
 	fprintf(fp, " Gust              %3d  Wind Extreme      %3d\n", pTarget->GetCombatLevel(GUST), pTarget->GetCombatLevel(WIND_EXTREME));
 	fprintf(fp, " Combat Skill Point %3d \n", pTarget->GetCombatPoint());
-	
+
 	fprintf(fp, " [NK Info]\n");
 	fprintf(fp, " N_NEUTRAL %d	N_NONSTER   %d	N_VYSEUS %d\n", pTarget->nk[N_NEUTRAL], pTarget->nk[N_NONSTER], pTarget->nk[N_VYSEUS]);
 	fprintf(fp, " N_ZYPERN	%d	N_HEGEMONIA	%d	N_YILSE  %d\n", pTarget->nk[N_ZYPERN], pTarget->nk[N_HEGEMONIA], pTarget->nk[N_YILSE]);
-	
+
 	fprintf(fp, " [Party Info]\n");
 	for (int i = 0; i < MAX_PARTY_MEMBER; ++i)
 	{
 		if (pTarget->party[i].On && pTarget->party[i].Name)
-		{ 
-			fprintf(fp, " [%d]%20s%s", i, pTarget->party[i].Name, (i==2)?"\n":"  ");
+		{
+			fprintf(fp, " [%d]%20s%s", i, pTarget->party[i].Name, (i == 2) ? "\n" : "  ");
 		}
 	}
-	
+
 	fprintf(fp, "\n");
 	fclose(fp);
 }	//> CSD-TW-030622
@@ -1473,101 +1473,101 @@ void CLogManager::SaveLogLocalWar_SealStoneInfo(CHARLIST* pSource, CHARLIST* pTa
 
 	string strPath;
 
-	if (!GetLogPath(LT_LOCAL_WAR,strPath))
+	if (!GetLogPath(LT_LOCAL_WAR, strPath))
 	{
 		return;
 	}
-	
+
 	// 040331-YGI
-	const char* pPath = VA("%s\\%d%02d%02d%02d_SealStone.txt", strPath.c_str(), g_MapPort, g_year-2000, g_mon+1, g_day);
+	const char* pPath = VA("%s\\%d%02d%02d%02d_SealStone.txt", strPath.c_str(), g_MapPort, g_year - 2000, g_mon + 1, g_day);
 	FILE* pFile = fopen(pPath, "at+");
-	
+
 	if (pFile == NULL)
 	{
 		return;
 	}
 
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
 	fprintf(pFile, "%s(%3d, %3d), %s(%3d, %3d), Damage(%d)\n", pSource->Name,
-		                                                       pSource->X,
-											                   pSource->Y, 
-															   pTarget->Name,
-		                                                       pTarget->MoveSx,
-											                   pTarget->MoveSy, 
-												               nDamage);
+		pSource->X,
+		pSource->Y,
+		pTarget->Name,
+		pTarget->MoveSx,
+		pTarget->MoveSy,
+		nDamage);
 	fclose(pFile);
 }	//> CSD-040316
 
 void CLogManager::SaveLogLocalWar_Info(CHARLIST* pTarget)
 {	//< CSD-040407
 
-	/* 040721_KJHuNs SaveLog_List()에서 불러들이는 것으로 통일(정리목적)
-		//%s\\%02d%02d%02d.txt 같은 파일에 저장된다.
-	string strPath;
+	// 040721_KJHuNs SaveLog_List()에서 불러들이는 것으로 통일(정리목적)
+	//	//%s\\%02d%02d%02d.txt 같은 파일에 저장된다.
+	//string strPath;
 
-	if (!GetLogPath(LT_LOCAL_WAR,strPath))
-	{
-		return;
-	}
-	
-	// 040331-YGI
-	const char* pPath = VA("%s\\%02d%02d%02d.txt", strPath.c_str(), g_year - 2000, g_mon + 1, g_day);
-	
-	FILE* pFile = fopen(pPath, "at+");
+	//if (!GetLogPath(LT_LOCAL_WAR,strPath))
+	//{
+	//	return;
+	//}
+	//
+	//// 040331-YGI
+	//const char* pPath = VA("%s\\%02d%02d%02d.txt", strPath.c_str(), g_year - 2000, g_mon + 1, g_day);
+	//
+	//FILE* pFile = fopen(pPath, "at+");
 
-	if (pFile == NULL)
-	{
-		return;
-	}
-	*/
+	//if (pFile == NULL)
+	//{
+	//	return;
+	//}
+	//
 
 	string strNation;
 	switch (pTarget->name_status.nation)
 	{
-	case NW_BY:	
-		{
-			strNation = "NW_BY";
-			break;
-		}
-	case NW_ZY:	
-		{
-			strNation = "NW_ZY";
-			break;
-		}
-	case NW_YL:	
-		{
-			strNation = "NW_YL";
-			break;
-		}
-	default:
-		{
-			strNation = "UNKNOWN";
-			break;
-		}
+	case NW_BY:
+	{
+		strNation = "NW_BY";
+		break;
 	}
-	
-	/* 040721_KJHuNs SaveLog_List()에서 불러들이는 것으로 통일(정리목적)
-	//파일을 열고닫기때문에 비효율적이지만, 통일시켜서 이해하기 편하게 수정하였다.
-	fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	fprintf(pFile, "Nation(%s), Map(%d), %s(%3d, %3d)\n", strNation.c_str(),
-		                                                  g_MapPort,
-										                  pTarget->Name,
-		                                                  pTarget->X,
-											              pTarget->Y);
-	fclose(pFile);
-	*/
+	case NW_ZY:
+	{
+		strNation = "NW_ZY";
+		break;
+	}
+	case NW_YL:
+	{
+		strNation = "NW_YL";
+		break;
+	}
+	default:
+	{
+		strNation = "UNKNOWN";
+		break;
+	}
+	}
 
-	SaveLog_List(LT_LOCAL_WAR,"[%02d.%02d.%02d %02d:%02d:%02d]",	\
-					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	SaveLog_List(LT_LOCAL_WAR,"Nation(%s), Map(%d), %s(%3d, %3d)\n",\
-					strNation.c_str(),g_MapPort, pTarget->Name, pTarget->X, pTarget->Y);
+	// 040721_KJHuNs SaveLog_List()에서 불러들이는 것으로 통일(정리목적)
+	////파일을 열고닫기때문에 비효율적이지만, 통일시켜서 이해하기 편하게 수정하였다.
+	//fprintf(pFile, "[%02d.%02d.%02d %02d:%02d:%02d]", g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	//fprintf(pFile, "Nation(%s), Map(%d), %s(%3d, %3d)\n", strNation.c_str(),
+	//	                                                  g_MapPort,
+	//									                  pTarget->Name,
+	//	                                                  pTarget->X,
+	//										              pTarget->Y);
+	//fclose(pFile);
+	//
+
+	SaveLog_List(LT_LOCAL_WAR, "[%02d.%02d.%02d %02d:%02d:%02d]", \
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	SaveLog_List(LT_LOCAL_WAR, "Nation(%s), Map(%d), %s(%3d, %3d)\n", \
+		strNation.c_str(), g_MapPort, pTarget->Name, pTarget->X, pTarget->Y);
 }	//> CSD-040407
 
-void CLogManager::SaveLog_List(const LOG_TYPE eLogType, LPCSTR lpLogMsg, ... )
+void CLogManager::SaveLog_List(const LOG_TYPE eLogType, LPCSTR lpLogMsg, ...)
 {
 
 	string strPath;
-	if (!GetLogPath(eLogType,strPath)) { return; }
+	if (!GetLogPath(eLogType, strPath)) { return; }
 
 	LPCSTR lpPath = VA("%s\\%02d%02d%02d.txt", strPath.c_str(), g_year - 2000, g_mon + 1, g_day);
 	FILE* pFile = fopen(lpPath, "at+");
@@ -1576,10 +1576,10 @@ void CLogManager::SaveLog_List(const LOG_TYPE eLogType, LPCSTR lpLogMsg, ... )
 
 	va_list vargs;
 	// Argument Processing
-	va_start( vargs, lpLogMsg );
-	vfprintf(pFile,lpLogMsg,vargs);
+	va_start(vargs, lpLogMsg);
+	vfprintf(pFile, lpLogMsg, vargs);
 	va_end(vargs);
-	
+
 	fclose(pFile);
 
 }
@@ -1594,7 +1594,7 @@ const char* CLogManager::ConvertToDay(int nDay) const
 		CASE_SELECT(THURSDAY)
 		CASE_SELECT(FRIDAY)
 		CASE_SELECT(SATURDAY)
-	END_SELECT(UNKNOWNDAY)
+		END_SELECT(UNKNOWNDAY)
 }	//> CSD-030804
 
 const char* CLogManager::ConvertToTactics(int nKind) const
@@ -1613,7 +1613,7 @@ const char* CLogManager::ConvertToTactics(int nKind) const
 		CASE_SELECT(TACTICS_Double_MaceFighting)
 		CASE_SELECT(TACTICS_Magery)
 		CASE_SELECT(TACTICS_Orison)
-	END_SELECT(SKILL_UNKNOWN)
+		END_SELECT(SKILL_UNKNOWN)
 }	//> CSD-030804
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1641,23 +1641,23 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 	int hour = 0, min = 0, sec = 0;
 
 	// Get nowtime
-	time( &nowTime );
+	time(&nowTime);
 	now = localtime(&nowTime);
 
 	// Make it usable.
 	year = now->tm_year + 1900;
-	mon  = now->tm_mon + 1;
-	day  = now->tm_mday;
+	mon = now->tm_mon + 1;
+	day = now->tm_mday;
 	hour = now->tm_hour;
-	min  = now->tm_min;
-	sec  = now->tm_sec;
+	min = now->tm_min;
+	sec = now->tm_sec;
 
-	char szTime[64] = {0,};
+	char szTime[64] = { 0, };
 	sprintf(szTime, "[%02d:%02d:%02d] ", hour, min, sec);
 
 	// 로그 타입 분류
-	char szType[64] = {0,};
-	switch(nType)
+	char szType[64] = { 0, };
+	switch (nType)
 	{
 	case NNT_TIME_INFO:
 		sprintf(szType, "[Time Info] ");
@@ -1679,12 +1679,12 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 		break;
 	}
 
-	va_start( vargs, szLogMsg );
+	va_start(vargs, szLogMsg);
 
 	if (strlen(szLogMsg) > 2048 - (strlen(szType) + strlen(szTime) + 1))
 	{
-		MyLog( LOG_FATAL, "Log Too long string - This log will be lost" );
-		va_end( vargs );
+		MyLog(LOG_FATAL, "Log Too long string - This log will be lost");
+		va_end(vargs);
 		return;
 	}
 
@@ -1695,26 +1695,26 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
 	}
 
 	// 경로에 파일을 연다
-	const char* pPath = VA("%s\\NeoNationWarLog_%02d_%02d_%02d.txt", strPath.c_str(), year-2000, mon, day);
+	const char* pPath = VA("%s\\NeoNationWarLog_%02d_%02d_%02d.txt", strPath.c_str(), year - 2000, mon, day);
 	FILE* pFile = fopen(pPath, "at+");
-	
+
 	if (pFile == NULL)
 	{
 		return;
 	}
 
-	char szLog[2048] = {0,};
+	char szLog[2048] = { 0, };
 	strcpy(szLog, szTime);
 	strcat(szLog, szType);
-	char szTemp[2048] = {0,};
-	vsprintf( szTemp, szLogMsg, (vargs) );
+	char szTemp[2048] = { 0, };
+	vsprintf(szTemp, szLogMsg, (vargs));
 	strcat(szLog, szTemp);
 	strcat(szLog, "\n");
-	
+
 	fprintf(pFile, szLog);
 	fclose(pFile);
 	// Finish Func
-	va_end( vargs );
+	va_end(vargs);
 
 	::MyLog(LOG_JUST_DISPLAY, szLog);
 }
@@ -1728,7 +1728,7 @@ void CLogManager::SaveLogNeoNationWar(const int nType, char *szLogMsg, ...)
  * @param	... .... 가변 인자.
  * @return	void.
  */
-//< LTH-040515-KO.
+ //< LTH-040515-KO.
 void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 {
 	va_list vargs;
@@ -1739,23 +1739,23 @@ void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 	int hour = 0, min = 0, sec = 0;
 
 	// Get nowtime
-	time( &nowTime );
+	time(&nowTime);
 	now = localtime(&nowTime);
 
 	// Make it usable.
 	year = now->tm_year + 1900;
-	mon  = now->tm_mon + 1;
-	day  = now->tm_mday;
+	mon = now->tm_mon + 1;
+	day = now->tm_mday;
 	hour = now->tm_hour;
-	min  = now->tm_min;
-	sec  = now->tm_sec;
+	min = now->tm_min;
+	sec = now->tm_sec;
 
-	char szTime[64] = {0,};
+	char szTime[64] = { 0, };
 	sprintf(szTime, "[%02d:%02d:%02d] ", hour, min, sec);
 
 	// 로그 타입 분류
-	char szType[64] = {0,};
-	switch(nType)
+	char szType[64] = { 0, };
+	switch (nType)
 	{
 	case MTWT_GUARD_INFO:
 		sprintf(szType, "[Guard Info] ");
@@ -1774,12 +1774,12 @@ void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 		break;
 	}
 
-	va_start( vargs, szLogMsg );
+	va_start(vargs, szLogMsg);
 
 	if (strlen(szLogMsg) > 2048 - (strlen(szType) + strlen(szTime) + 1))
 	{
-		MyLog( LOG_FATAL, "Log Too long string - This log will be lost" );
-		va_end( vargs );
+		MyLog(LOG_FATAL, "Log Too long string - This log will be lost");
+		va_end(vargs);
 		return;
 	}
 
@@ -1792,32 +1792,32 @@ void CLogManager::SaveMoveToWarfield(const int nType, char *szLogMsg, ...)
 	// 경로에 파일을 연다
 	const char* pPath = VA("%s\\MoveToWarfieldLog_%04d_%02d_%02d.txt", strPath.c_str(), year, mon, day);
 	FILE* pFile = fopen(pPath, "at+");
-	
+
 	if (pFile == NULL)
 	{
 		return;
 	}
 
-	char szLog[2048] = {0,};
+	char szLog[2048] = { 0, };
 	strcpy(szLog, szTime);
 	strcat(szLog, szType);
-	char szTemp[2048] = {0,};
-	vsprintf( szTemp, szLogMsg, (vargs) );
+	char szTemp[2048] = { 0, };
+	vsprintf(szTemp, szLogMsg, (vargs));
 	strcat(szLog, szTemp);
 	strcat(szLog, "\n");
-	
+
 	fprintf(pFile, szLog);
 	fclose(pFile);
 	// Finish Func
-	va_end( vargs );
+	va_end(vargs);
 
 	::MyLog(LOG_JUST_DISPLAY, szLog);
 }
 //> LTH-040515-KO.
 
 //040721_KJHuNs Script폴더
-void CLogManager::SaveLogScriptLog(CHARLIST* pTarget, const int nQuestNo, 
-								   const int nQuestStep, const char* msg) //kyo
+void CLogManager::SaveLogScriptLog(CHARLIST* pTarget, const int nQuestNo,
+	const int nQuestStep, const char* msg) //kyo
 {	//< CSD-040224
 	string strPath;
 
@@ -1838,34 +1838,34 @@ void CLogManager::SaveLogScriptLog(CHARLIST* pTarget, const int nQuestNo,
 		}
 	}
 
-	::fprintf( fp, "@ScriptLog[%d]:%d %02d-%02d-%02d %02d:%02d:%02d	(x:%d y:%d)	(Msg)%s	\n",
-			nQuestNo, nQuestStep,
-			g_year-2000, g_mon+1, g_day, 
-			g_hour, g_min, g_sec,
-			pTarget->X, pTarget->Y, msg);
-	::fclose( fp );
+	::fprintf(fp, "@ScriptLog[%d]:%d %02d-%02d-%02d %02d:%02d:%02d	(x:%d y:%d)	(Msg)%s	\n",
+		nQuestNo, nQuestStep,
+		g_year - 2000, g_mon + 1, g_day,
+		g_hour, g_min, g_sec,
+		pTarget->X, pTarget->Y, msg);
+	::fclose(fp);
 }	//> CSD-040224
 
 void CLogManager::ItemMallLog(char* pString)
 {	//<050224_KCH 마일리지몰 작업
 
-	SaveLog_List(KCH_ITEM_MALL_ITEM,"[%02d.%02d.%02d %02d:%02d:%02d] ",	\
-					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	SaveLog_List(KCH_ITEM_MALL_ITEM,"%s \n",	pString);
+	SaveLog_List(KCH_ITEM_MALL_ITEM, "[%02d.%02d.%02d %02d:%02d:%02d] ", \
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	SaveLog_List(KCH_ITEM_MALL_ITEM, "%s \n", pString);
 }	//>050224_KCH 마일리지몰 작업
 
 void CLogManager::SKILL_RARE_UPGRADE_FAIL_Log(char* pString)
 {	//<050224_KCH 마일리지몰 작업
 
-	SaveLog_List(KCH_SKILL_RARE_UPGRADE_FAIL,"[%02d.%02d.%02d %02d:%02d:%02d] ",	\
-					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	SaveLog_List(KCH_SKILL_RARE_UPGRADE_FAIL,"%s \n",	pString);
+	SaveLog_List(KCH_SKILL_RARE_UPGRADE_FAIL, "[%02d.%02d.%02d %02d:%02d:%02d] ", \
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	SaveLog_List(KCH_SKILL_RARE_UPGRADE_FAIL, "%s \n", pString);
 }
 
 void CLogManager::ItemMall_Use_Log(char* pString)
 {	//<050224_KCH 마일리지몰 작업
 
-	SaveLog_List(KCH_ITEM_MALL_ITEM_USE,"[%02d.%02d.%02d %02d:%02d:%02d] ",	\
-					g_year-2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
-	SaveLog_List(KCH_ITEM_MALL_ITEM_USE,"%s \n",	pString);
+	SaveLog_List(KCH_ITEM_MALL_ITEM_USE, "[%02d.%02d.%02d %02d:%02d:%02d] ", \
+		g_year - 2000, g_mon + 1, g_day, g_hour, g_min, g_sec);
+	SaveLog_List(KCH_ITEM_MALL_ITEM_USE, "%s \n", pString);
 }

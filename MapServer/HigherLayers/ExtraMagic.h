@@ -13,25 +13,25 @@
 ///////////////////////////////////////////////////////////////////////////////
 // 기타계열 마법 
 class CExtraMagic : public TBinder<CMagic, CExtraMagic>
-{ 
+{
 public:
 	CExtraMagic();
 	virtual ~CExtraMagic();
-	
+
 public:
 	virtual bool Bind();
-	
+
 public:
-	virtual bool Execute() 
-	{ 
-		return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
 	}
-	
-	virtual bool Elapse(CHARLIST* pTarget) 
-	{ 
-		return true; 
+
+	virtual bool Elapse(CHARLIST* pTarget)
+	{
+		return true;
 	}
-	
+
 public:
 	bool Phasing();             // 시공 계열 마법
 	bool Teleport();
@@ -51,9 +51,9 @@ public:
 	bool VoiceSoul();
 	bool Appreciate();
 	bool Pray();				// 마나 올리는 계열 마법 // 030415 kyo
-	
+
 protected:
-	enum {MAX_COUNT = 10};
+	enum { MAX_COUNT = 10 };
 	void GetArea(int& rX, int& rY);
 	bool GetRecallPlace(int nSrcX, int nSrcY, int& rDstX, int& rDstY); // CSD-030324
 };

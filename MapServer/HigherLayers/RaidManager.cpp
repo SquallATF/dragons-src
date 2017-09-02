@@ -51,7 +51,7 @@ void CRaidManager::RecvMonsterRaidEnd()
 	}
 	else
 	{
-		m_bRunning = false;	
+		m_bRunning = false;
 	}
 
 	g_pRegenManager->Remove(CGroupInfo::ET_RAID);

@@ -43,7 +43,7 @@ void CCoreArena::EndGame(CArenaInfo* pArena)
 {
 	CBaseArena::EndGame(pArena);
 }
-	
+
 bool CCoreArena::PlayGame(DWORD dwTime)
 {
 	DWORD dwRemainTime = m_pState->GetRemainTime(dwTime);
@@ -61,7 +61,7 @@ bool CCoreArena::PlayGame(DWORD dwTime)
 			break;
 		}
 	}
-	
+
 	if (dwRemainTime <= 0)
 	{
 		/////////////////////////////////////////////////////////////////////////////
@@ -86,11 +86,11 @@ bool CCoreArena::PlayGame(DWORD dwTime)
 			}
 			else if (top == nCount)
 			{
-				if (bottom_level > nTotal) 
+				if (bottom_level > nTotal)
 				{
 					bottom_level = nTotal;
 				}
-			}			
+			}
 		}
 
 		if (is_over) // 남은 수가 같은 경우 레벨까지 체크한다.
@@ -101,14 +101,14 @@ bool CCoreArena::PlayGame(DWORD dwTime)
 
 				const int nCount = pTeam->GetAliveCount();
 				const int nTotal = pTeam->GetTeamLevel();
-				
+
 				if (nCount == top && nTotal == bottom_level)
 				{
 					pTeam->SetGameResult(FST_WIN);
 					pTeam->GiveBonus(); // 겜블 아이템을 준다.
 
 					const DWORD dwFlowTime = m_pState->GetFlowTime(dwTime);
-					
+
 					if (dwFlowTime < 300)		// 5분 이내라면
 					{
 						MyLog(LOG_NORMAL, "Team Battle End!!! time = %d", dwFlowTime);

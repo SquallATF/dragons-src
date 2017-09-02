@@ -30,12 +30,12 @@ int MAX_TIME_USE_GUILD_ITEM_MENU = 30;		// 040623 YGI
 // Public Method
 ///////////////////////////////////////////////////////////////////////////////
 
-int CStatePoint::Increase(int nPoint, int nPercent = 100) 
+int CStatePoint::Increase(int nPoint, int nPercent = 100)
 {	// 증가
 	const int nOldPoint = m_nCurPoint;
-	m_nCurPoint += nPoint; 
+	m_nCurPoint += nPoint;
 
-	const int nMaxPoint = m_nMaxPoint*nPercent/100;
+	const int nMaxPoint = m_nMaxPoint*nPercent / 100;
 
 	if (m_nCurPoint > nMaxPoint)
 	{
@@ -45,12 +45,12 @@ int CStatePoint::Increase(int nPoint, int nPercent = 100)
 	return m_nCurPoint - nOldPoint;
 }
 
-int CStatePoint::Decrease(int nPoint, int nPercent = 0) 
+int CStatePoint::Decrease(int nPoint, int nPercent = 0)
 {	// 감소
 	const int nOldPoint = m_nCurPoint;
-	m_nCurPoint -= nPoint; 
+	m_nCurPoint -= nPoint;
 
-	const int nMaxPoint = m_nMaxPoint*nPercent/100;
+	const int nMaxPoint = m_nMaxPoint*nPercent / 100;
 
 	if (m_nCurPoint < nMaxPoint)
 	{
@@ -75,12 +75,12 @@ CCharInfo::CCharInfo()
 	m_nClsStep = 0;
 	m_nExpStep = 0;
 	m_bEventRecv = false;	// BBD 040308
-	
+
 	for (int i = 0; i < NO_TAC; ++i)
 	{
 		m_aTacStep[i] = 0;
 	}
-	
+
 	m_gnAbility.Clear(); // 올릴 수 있는 어빌러티 포인터 초기화
 	m_gnCombat.Clear();  // 올릴 수 있는 전투스킬 포인터 초기화
 	m_pArenaGame = NULL; // CSD-030509
@@ -94,7 +94,7 @@ CCharInfo::CCharInfo()
 void CCharInfo::InitCombat()
 {
 	SetCombatPoint(0);
-	
+
 	for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 	{
 		Skill[i - 100] = 0;
@@ -104,29 +104,29 @@ void CCharInfo::InitCombat()
 void CCharInfo::IncAbility(BYTE nType)
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	switch (nType)
 	{
 	case STR:	if (pLimit->GetStr() <= Str)     return; ++Str;   break;
 	case CON:	if (pLimit->GetCon() <= Con)     return; ++Con;   break;
-    case DEX:	if (pLimit->GetDex() <= Dex)     return; ++Dex;   break;
-    case WIS:	if (pLimit->GetWis() <= Wis)     return; ++Wis;   break;
+	case DEX:	if (pLimit->GetDex() <= Dex)     return; ++Dex;   break;
+	case WIS:	if (pLimit->GetWis() <= Wis)     return; ++Wis;   break;
 	case INT_: if (pLimit->GetInt() <= Int)     return; ++Int;   break;
 	case MOVP: if (pLimit->GetMove() <= MoveP)  return; ++MoveP; break;
 	case CHA:	 if (pLimit->GetChar() <= Char)    return; ++Char;  break;
 	case ENDU: if (pLimit->GetEndu() <= Endu)   return; ++Endu;  break;
-    case MOR:  if (pLimit->GetMor() <= Moral)   return; ++Moral; break;
+	case MOR:  if (pLimit->GetMor() <= Moral)   return; ++Moral; break;
 	case LUCK: if (pLimit->GetLuck() <= Luck)   return; ++Luck;  break;
-	case WSPS: 
+	case WSPS:
+	{
+		switch (Spell)
 		{
-			switch (Spell)
-			{
-			case WIZARD_SPELL: if (pLimit->GetWs() <= wsps)  return; ++wsps;  break;
-			case PRIEST_SPELL: if (pLimit->GetPs() <= wsps)  return; ++wsps;  break;
-			}
+		case WIZARD_SPELL: if (pLimit->GetWs() <= wsps)  return; ++wsps;  break;
+		case PRIEST_SPELL: if (pLimit->GetPs() <= wsps)  return; ++wsps;  break;
 		}
 	}
-	
+	}
+
 	m_gnAbility.Decrease();
 }
 
@@ -136,24 +136,24 @@ void CCharInfo::DecAbility(BYTE nType)
 	{
 	case STR:	 if (Str > 10)    return; --Str;   break;
 	case CON:	 if (Con > 10)    return; --Con;   break;
-    case DEX:	 if (Dex > 10)    return; --Dex;   break;
-    case WIS:	 if (Wis > 10)    return; --Wis;   break;
+	case DEX:	 if (Dex > 10)    return; --Dex;   break;
+	case WIS:	 if (Wis > 10)    return; --Wis;   break;
 	case INT_: if (Int > 10)    return; --Int;   break;
 	case MOVP: if (MoveP > 10)  return; --MoveP; break;
 	case CHA:	 if (Char > 10)   return; --Char;  break;
 	case ENDU: if (Endu > 10)   return; --Endu;  break;
-    case MOR:  if (Moral > 10)  return; --Moral; break;
+	case MOR:  if (Moral > 10)  return; --Moral; break;
 	case LUCK: if (Luck > 10)   return; --Luck;  break;
-	case WSPS: 
+	case WSPS:
+	{
+		switch (Spell)
 		{
-			switch (Spell)
-			{
-			case WIZARD_SPELL: if (wsps > 10)  return; --wsps;  break;
-			case PRIEST_SPELL: if (wsps > 10)  return; --wsps;  break;
-			}
+		case WIZARD_SPELL: if (wsps > 10)  return; --wsps;  break;
+		case PRIEST_SPELL: if (wsps > 10)  return; --wsps;  break;
 		}
 	}
-	
+	}
+
 	m_gnAbility.Increase();
 }
 
@@ -161,7 +161,7 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 {
 	// 최대 Life량 계산
 	const int nMaxHp = CalcNewLife(nCombat);
-	
+
 	if (HpMax != nMaxHp)
 	{
 		HpMax = nMaxHp;
@@ -170,7 +170,7 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 	}
 	// 최대 Mana량 계산
 	const int nMaxMp = CalcNewMana(nCombat);
-	
+
 	if (ManaMax != nMaxMp)
 	{
 		ManaMax = nMaxMp;
@@ -179,7 +179,7 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 	}
 	// 최대 Hungry량 계산
 	const int nMaxSp = CalcNewHungry(nCombat);
-	
+
 	if (HungryMax != nMaxSp)
 	{
 		HungryMax = nMaxSp;
@@ -188,7 +188,7 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 	}
 	// 최대 전투스킬 사용가능량 계산
 	const int nMaxCp = CalcNewCombat();
-	
+
 	if (CpMax != nMaxCp)
 	{
 		CpMax = nMaxCp;
@@ -196,25 +196,25 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 		if (IsPlayer())  SendCharInfoBasic(MAX_CP, CpMax);
 	}
 	// 변화된 최대 Life에 따른 Life 재설정
-	if (Hp > HpMax)  
+	if (Hp > HpMax)
 	{
 		Hp = HpMax;
 		// Player인 경우 값이 변경되면 Client에 전송
 		if (IsPlayer())  SendCharInfoBasic(HP, Hp);
 	}
 	// 변화된 최대 Mana에 따른 Mana 재설정
-	if (Mana > ManaMax)  
+	if (Mana > ManaMax)
 	{
 		Mana = ManaMax;
 		// Player인 경우 값이 변경되면 Client에 전송
 		if (IsPlayer())  SendCharInfoBasic(MP, Mana);
 	}
 	// 변화된 최대 Hungry에 따른 Hungry 재설정
-	if (Hungry > HungryMax)	 
+	if (Hungry > HungryMax)
 	{
 		Hungry = HungryMax;
 		// Player인 경우 값이 변경되면 Client에 전송
-		if (IsPlayer())  SendCharInfoBasic(SP, Hungry); 
+		if (IsPlayer())  SendCharInfoBasic(SP, Hungry);
 	}
 	// 변화된 최대 전투스킬 사용가능량에 따른 Cp 재설정
 	if (Cp > CpMax)
@@ -241,14 +241,14 @@ void CCharInfo::DivideAbility(BYTE nNext)
 	Endu += pDivide->GetEndu();
 	Moral += pDivide->GetMor();
 	Luck += pDivide->GetLuck();
-	
+
 	switch (Spell)
 	{
-    case WIZARD_SPELL: wsps += pDivide->GetWs(); break; 
-    case PRIEST_SPELL: wsps += pDivide->GetPs(); break;
+	case WIZARD_SPELL: wsps += pDivide->GetWs(); break;
+	case PRIEST_SPELL: wsps += pDivide->GetPs(); break;
 	}
 	// 듀얼 클래스 단계 상승
-	++m_nClsStep; 
+	++m_nClsStep;
 	// Reserved Point 계산
 	int nPoint = GetRemainStr();
 	nPoint += GetRemainCon();
@@ -260,11 +260,11 @@ void CCharInfo::DivideAbility(BYTE nNext)
 	nPoint += GetRemainEndu();
 	nPoint += GetRemainMor();
 	nPoint += GetRemainLuck();
-	
+
 	switch (Spell)
 	{
-    case WIZARD_SPELL: nPoint += GetRemainWs(); break; 
-    case PRIEST_SPELL: nPoint += GetRemainPs(); break;
+	case WIZARD_SPELL: nPoint += GetRemainWs(); break;
+	case PRIEST_SPELL: nPoint += GetRemainPs(); break;
 	}
 	// Reserved Point 추가
 	IncReservedPoint(nPoint);
@@ -279,17 +279,17 @@ void CCharInfo::DivideAbility(BYTE nNext)
 	Endu -= GetRemainEndu();
 	Moral -= GetRemainMor();
 	Luck -= GetRemainLuck();
-	
+
 	switch (Spell)
 	{
-    case WIZARD_SPELL: wsps -= GetRemainWs(); break; 
-    case PRIEST_SPELL: wsps -= GetRemainPs(); break;
+	case WIZARD_SPELL: wsps -= GetRemainWs(); break;
+	case PRIEST_SPELL: wsps -= GetRemainPs(); break;
 	}
 }
 
 void CCharInfo::ConvertTacticsLevel(BYTE nKind)
 {	//< CSD-030314
-	for (int i = 1 ; i <= MAX_TAC_LEVEL; ++i)
+	for (int i = 1; i <= MAX_TAC_LEVEL; ++i)
 	{
 		if (m_aTacStep[nKind] == NPC_Lev_Ref[i].nStep && tac_skillEXP[nKind] <= NPC_Lev_Ref[i].nMaxExp)
 		{
@@ -297,7 +297,7 @@ void CCharInfo::ConvertTacticsLevel(BYTE nKind)
 			return;
 		}
 	}
-	
+
 	Skill[TACTICS_Crapple + nKind] = MAX_TAC_LEVEL;
 }	//> CSD-030314
 
@@ -321,9 +321,9 @@ bool CCharInfo::IncExperience(int nExp)
 		return false;
 	}
 
-	if ( name_status.king == 1 )
+	if (name_status.king == 1)
 	{
-		Exp += nExp * 3;  //coromo 된섬쒔駱
+		Exp += nExp * 3;  //coromo 等级经验
 	}
 	Exp += nExp * 2;
 
@@ -336,14 +336,14 @@ bool CCharInfo::IncExperience(int nExp)
 	SendCharInfoBasic(EXP, Exp);
 	return true;
 }	//> CSD-030930
-	
+
 bool CCharInfo::DecExperience(bool bNK)
 {	//< CSD-030930
 	const int nLevel = GetLevel();
-	const float fReduce = (bNK) ? NPC_Lev_Ref[nLevel].fNKReduction:
-	                              NPC_Lev_Ref[nLevel].fExpReduction;
-	const int nMinus = (NPC_Lev_Ref[nLevel].nNeedExp/100)*fReduce;
-		
+	const float fReduce = (bNK) ? NPC_Lev_Ref[nLevel].fNKReduction :
+		NPC_Lev_Ref[nLevel].fExpReduction;
+	const int nMinus = (NPC_Lev_Ref[nLevel].nNeedExp / 100)*fReduce;
+
 	if (Exp < nMinus)
 	{
 		Exp = 0;
@@ -359,25 +359,25 @@ bool CCharInfo::DecExperience(bool bNK)
 bool CCharInfo::IncTacticExp(BYTE nKind, int nExp)
 {   //< CSD-030930
 	const int nLevel = Skill[TACTICS_Crapple + nKind];
-	const int nPlus = nExp*NPC_Lev_Ref[nLevel].nTacRate/100;
+	const int nPlus = nExp*NPC_Lev_Ref[nLevel].nTacRate / 100;
 
-	if (nPlus <=0)
+	if (nPlus <= 0)
 	{
 		return false;
 	}
 
-	if ( name_status.king == 1)
-	{	
-		tac_skillEXP[nKind] += nPlus * 4;  //coromo 濫섀쒔駱
+	if (name_status.king == 1)
+	{
+		tac_skillEXP[nKind] += nPlus * 4;  //coromo 战绩经验
 	}
-		tac_skillEXP[nKind] += nPlus * 3;
+	tac_skillEXP[nKind] += nPlus * 3;
 
 
 	if (tac_skillEXP[nKind] > NPC_Lev_Ref[nLevel].nMaxExp)
 	{
 		tac_skillEXP[nKind] = NPC_Lev_Ref[nLevel].nMaxExp + 1;
 	}
-	
+
 	SendCharInfoTactic(nKind);
 	return true;
 }   //> CSD-030930
@@ -385,10 +385,10 @@ bool CCharInfo::IncTacticExp(BYTE nKind, int nExp)
 bool CCharInfo::DecTacticExp(BYTE nKind, bool bNK)
 {   //< CSD-030930
 	int nLevel = Skill[TACTICS_Crapple + nKind];
-	const float fReduce = (bNK) ? NPC_Lev_Ref[nLevel].fNKReduction:
-	                              NPC_Lev_Ref[nLevel].fExpReduction;
-	const int nMinus = (NPC_Lev_Ref[nLevel].nNeedExp/100)*fReduce;
-		
+	const float fReduce = (bNK) ? NPC_Lev_Ref[nLevel].fNKReduction :
+		NPC_Lev_Ref[nLevel].fExpReduction;
+	const int nMinus = (NPC_Lev_Ref[nLevel].nNeedExp / 100)*fReduce;
+
 	if (tac_skillEXP[nKind] < nMinus)
 	{
 		Skill[TACTICS_Crapple + nKind] = --nLevel;
@@ -407,7 +407,7 @@ bool CCharInfo::DecTacticExp(BYTE nKind, bool bNK)
 int CCharInfo::GetAbility(BYTE nType) const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	switch (nType)
 	{
 	case STR:	 return __min(pLimit->GetStr(), GetExtStr());
@@ -420,23 +420,23 @@ int CCharInfo::GetAbility(BYTE nType) const
 	case ENDU: return __min(pLimit->GetEndu(), GetExtEndu());
 	case MOR:	 return __min(pLimit->GetMor(), GetExtMor());
 	case LUCK: return __min(pLimit->GetLuck(), GetExtLuck());
-	case WSPS: 
+	case WSPS:
+	{
+		switch (Spell)
 		{
-			switch (Spell)
-			{
-			case WIZARD_SPELL: return __min(pLimit->GetWs(), GetExtWs());
-			case PRIEST_SPELL: return __min(pLimit->GetPs(), GetExtPs());
-			}
+		case WIZARD_SPELL: return __min(pLimit->GetWs(), GetExtWs());
+		case PRIEST_SPELL: return __min(pLimit->GetPs(), GetExtPs());
 		}
 	}
-	
+	}
+
 	return 0;
 }
 
 int CCharInfo::GetWeaponSkill()
 {	// 기술숙련도 구하기
 	const int nIndex = GetTacticsKind();
-	
+
 	if (nIndex >= TACTICS_Crapple && nIndex <= TACTICS_Orison)
 	{
 		cur_tac_skill = nIndex - TACTICS_Crapple;
@@ -445,25 +445,25 @@ int CCharInfo::GetWeaponSkill()
 	{
 		cur_tac_skill = 0;
 	}
-	
+
 	return Skill[nIndex];
 }
 
 int CCharInfo::GetNpcAttack() const
 {	//< CSD-031007 : NPC 물리적 공격력
 	int nRandom = 0;
-	
+
 	if (NPC_Gen_Ref[npc_index].nStrikeRandom != 0)
 	{
-		if (++m_nCriticalCount > 5 && NPC_Gen_Ref[npc_index].nCriticalRate < rand()%101)
+		if (++m_nCriticalCount > 5 && NPC_Gen_Ref[npc_index].nCriticalRate < rand() % 101)
 		{
-			nRandom += NPC_Gen_Ref[npc_index].nStrikeDamage*NPC_Gen_Ref[npc_index].nCriticalDamage/100;
+			nRandom += NPC_Gen_Ref[npc_index].nStrikeDamage*NPC_Gen_Ref[npc_index].nCriticalDamage / 100;
 			m_nCriticalCount = 0;
 		}
-		
-		nRandom += rand()%NPC_Gen_Ref[npc_index].nStrikeRandom;
+
+		nRandom += rand() % NPC_Gen_Ref[npc_index].nStrikeRandom;
 	}
-	
+
 	return NPC_Gen_Ref[npc_index].nStrikeDamage + nRandom;
 }	//> CSD-031007
 
@@ -475,43 +475,43 @@ int CCharInfo::GetNpcDefence() const
 int CCharInfo::GetNpcMagic() const
 {	//< CSD-020822 : NPC 마법 공격력
 	int nRandom = 0;
-	
+
 	if (NPC_Gen_Ref[npc_index].nMagicRandom != 0)
 	{
-		nRandom = rand()%NPC_Gen_Ref[npc_index].nMagicRandom;
+		nRandom = rand() % NPC_Gen_Ref[npc_index].nMagicRandom;
 	}
-	
+
 	return (NPC_Gen_Ref[npc_index].nMagicDamage) + nRandom;
 }	//> CSD-020822
 
 int CCharInfo::GetNpcDefence(BYTE nType) const
 {	//< CSD-021019 : NPC 마법 방어력
 	int nResist = 0; // 몬스터의 기본 마법저항력
-	
+
 	switch (nType)
-	{    
-    case RESIST_FIRE: 
-		{ // 불계열 마법에 대한 저항력
-			nResist += NPC_Gen_Ref[npc_index].nFire;  
-			break;
-		}
-    case RESIST_ICE: 
-		{ // 얼음계열 마법에 대한 저항력
-			nResist += NPC_Gen_Ref[npc_index].nIce;   
-			break;
-		}
-    case RESIST_ELECT: 
-		{ // 전격계열 마법에 대한 저항력
-			nResist += NPC_Gen_Ref[npc_index].nElect; 
-			break;
-		}
-    case RESIST_HOLY: 
-		{ // 신력계열 마법에 대한 저항력
-			nResist += NPC_Gen_Ref[npc_index].nHoly;  
-			break;
-		}
+	{
+	case RESIST_FIRE:
+	{ // 불계열 마법에 대한 저항력
+		nResist += NPC_Gen_Ref[npc_index].nFire;
+		break;
 	}
-	
+	case RESIST_ICE:
+	{ // 얼음계열 마법에 대한 저항력
+		nResist += NPC_Gen_Ref[npc_index].nIce;
+		break;
+	}
+	case RESIST_ELECT:
+	{ // 전격계열 마법에 대한 저항력
+		nResist += NPC_Gen_Ref[npc_index].nElect;
+		break;
+	}
+	case RESIST_HOLY:
+	{ // 신력계열 마법에 대한 저항력
+		nResist += NPC_Gen_Ref[npc_index].nHoly;
+		break;
+	}
+	}
+
 	return nResist;
 }	//> CSD-021019
 
@@ -559,48 +559,48 @@ int CCharInfo::GetMovePower(BYTE nType) const
 {	// 이동력 구하기
 	const int nMax = __min(MoveP, 310);
 	if (IsNpc())  return nMax;
-	
+
 	int nBase = 0, nMove = 50;
 	// 아이템의 이동력 가지고 오기
 	CItem* pItem = ::ItemUnit(equip[WT_SHOES]);
-	
+
 	if (pItem != NULL)
-	{ 
+	{
 		switch (nType)
 		{
 		case HORSE:
-			{
-				nBase = __max(8*((nMax - 10)/30), 0);
-				nMove += (pItem->GetDefense_power() + nBase)*0.3;
-				break;
-			}
+		{
+			nBase = __max(8 * ((nMax - 10) / 30), 0);
+			nMove += (pItem->GetDefense_power() + nBase)*0.3;
+			break;
+		}
 		case BULL:
-			{
-				nBase = __max(9*((nMax - 10)/30), 0);
-				nMove += (pItem->GetDefense_power() + nBase)*0.3;
-				break;
-			}
+		{
+			nBase = __max(9 * ((nMax - 10) / 30), 0);
+			nMove += (pItem->GetDefense_power() + nBase)*0.3;
+			break;
+		}
 		case PHANTOM:
-			{
-				nBase = __max(10*((nMax - 10)/30), 0);
-				nMove += (pItem->GetDefense_power() + nBase)*0.3;
-				break;
-			}
+		{
+			nBase = __max(10 * ((nMax - 10) / 30), 0);
+			nMove += (pItem->GetDefense_power() + nBase)*0.3;
+			break;
+		}
 		default:
-			{
-				nMove += pItem->GetDefense_power()*0.3;
-				break;
-			}
+		{
+			nMove += pItem->GetDefense_power()*0.3;
+			break;
+		}
 		}
 	}
-    
+
 	return nMove;
 }
 
 int CCharInfo::GetDistance(int nX, int nY) const
 {
 	const int nDistance = int(sqrt(pow(X - nX, 2) + pow(Y - nY, 2)));
-	return nDistance>>5;
+	return nDistance >> 5;
 }
 
 int CCharInfo::GetRiseFall(int nX, int nY) const
@@ -615,66 +615,66 @@ int CCharInfo::GetRiseFall(int nX, int nY) const
 int CCharInfo::GetWeaponKind() const
 {
 	const int nItem = equip[WT_WEAPON].item_no;
-	CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);	
-	return (pItem != NULL) ? pItem->GetItemKind():IK_NONE;
+	CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
+	return (pItem != NULL) ? pItem->GetItemKind() : IK_NONE;
 }
 
 int CCharInfo::GetTacticsKind() const
 {
 	const int nItem = equip[WT_WEAPON].item_no;
-	CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);	
-	
+	CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
+
 	if (pItem == NULL)
 	{	// 030116 kyo 오른손에 있는 무기가 없다. 
 		return SKILL_UNKNOWN;	// 030117 맨손일때는 tatic이 오르지 않는다. 
 	}
-	
+
 	const int nTactic = pItem->GetSkill_Ability();
-	
+
 	if (nTactic < TACTICS_Crapple || nTactic > TACTICS_Orison)
 	{
 		return TACTICS_Crapple;
 	}
-	
+
 	return nTactic;
 }
 
-int CCharInfo::GetCombatValue(int nIndex) const 
+int CCharInfo::GetCombatValue(int nIndex) const
 {
 	const int nLevel = Skill[nIndex - 100];
-	return Magic_Ref[nIndex].aLevel[nLevel]; 
+	return Magic_Ref[nIndex].aLevel[nLevel];
 }
 
 int CCharInfo::GetPureLife() const
 {	//< CSD-030806
 	const int nLevel = GetLevel();
 	int nBase = 0;
-	
+
 	switch (Class)
-	{	
-    case WARRIOR: nBase = NPC_Lev_Ref[nLevel].nWarriorLife; break;
-    case THIEF:   nBase = NPC_Lev_Ref[nLevel].nThiefLife;   break;
-    case ARCHER:  nBase = NPC_Lev_Ref[nLevel].nArcherLife;  break;
-    case WIZARD:  nBase = NPC_Lev_Ref[nLevel].nWizardLife;  break;
-    case PRIEST:  nBase = NPC_Lev_Ref[nLevel].nPriestLife;  break;
+	{
+	case WARRIOR: nBase = NPC_Lev_Ref[nLevel].nWarriorLife; break;
+	case THIEF:   nBase = NPC_Lev_Ref[nLevel].nThiefLife;   break;
+	case ARCHER:  nBase = NPC_Lev_Ref[nLevel].nArcherLife;  break;
+	case WIZARD:  nBase = NPC_Lev_Ref[nLevel].nWizardLife;  break;
+	case PRIEST:  nBase = NPC_Lev_Ref[nLevel].nPriestLife;  break;
 	}
-	
-	const int nCon = GetAbility(CON)/5;
-	return (nBase + 111 + (nCon - 1)*(15 + nCon))<<1;
+
+	const int nCon = GetAbility(CON) / 5;
+	return (nBase + 111 + (nCon - 1)*(15 + nCon)) << 1;
 }	//> CSD-030806
 
 int CCharInfo::GetExtendAc() const
 {
-	return CalcNewAc() + 
-		   RareEM.GetStaticRareHardest(StaticRare) +
-	       RareEM.GetStaticRareHighShield(StaticRare) +
-		   RareEM.GetDynamicRareValue(FITEM_HEAVY_ARMOR, DynamicRare);
+	return CalcNewAc() +
+		RareEM.GetStaticRareHardest(StaticRare) +
+		RareEM.GetStaticRareHighShield(StaticRare) +
+		RareEM.GetDynamicRareValue(FITEM_HEAVY_ARMOR, DynamicRare);
 }
 
 int CCharInfo::GetItemEffectNumber() const
 {	//< CSD-031101 : 물리적 공격 성공 여부 판단
 	CItem_Weapon* pWeapon = static_cast<CItem_Weapon*>(::ItemUnit(equip[WT_WEAPON]));
-	
+
 	if (pWeapon == NULL)
 	{
 		return 0;
@@ -685,10 +685,10 @@ int CCharInfo::GetItemEffectNumber() const
 		return 0;
 	}
 
-	const int nRate = pWeapon->kind_of_magic +  rand()%pWeapon->SkillEffect;
-	
+	const int nRate = pWeapon->kind_of_magic + rand() % pWeapon->SkillEffect;
+
 	if (++m_nItemEffectCount <= nRate)
-	{ 
+	{
 		return 0;
 	}
 
@@ -699,16 +699,16 @@ int CCharInfo::GetItemEffectNumber() const
 void CCharInfo::GetStepInfo(unsigned char* pData, int nSize)
 {	// 단계 데이타 구하기
 	if (nSize < MAX_STEP)  return;
-	
+
 	pData[CLS_STEP] = unsigned char(m_nClsStep);
 	pData[DUAL_CLS] = unsigned char(m_nDualCls);
 	pData[EXP_STEP] = unsigned char(m_nExpStep);
-	
+
 	for (int i = 0; i < NO_TAC; ++i)
 	{
 		pData[i + T01_STEP] = unsigned char(m_aTacStep[i]);
 	}
-	
+
 	pData[CSP_STEP] = unsigned char(m_gnCombat.GetPoint());
 	pData[MAX_STEP] = '\0';
 }
@@ -716,7 +716,7 @@ void CCharInfo::GetStepInfo(unsigned char* pData, int nSize)
 void CCharInfo::SetStepInfo(unsigned char* pData, int nSize)
 {	//< CSD-030806 : 단계 데이타 재설정
 	if (nSize < MAX_STEP)  return;
-	
+
 	m_nClsStep = unsigned __int8(pData[CLS_STEP]);
 	m_nDualCls = unsigned __int8(pData[DUAL_CLS]);
 	m_nExpStep = unsigned __int8(pData[EXP_STEP]);
@@ -727,7 +727,7 @@ void CCharInfo::SetStepInfo(unsigned char* pData, int nSize)
 	{
 		m_nExpStep = NPC_Lev_Ref[nLevel].nStep;
 	}
-	
+
 	for (int i = 0; i < NO_TAC; ++i)
 	{
 		m_aTacStep[i] = unsigned __int8(pData[i + T01_STEP]);
@@ -739,76 +739,76 @@ void CCharInfo::SetStepInfo(unsigned char* pData, int nSize)
 	{
 		nCombatPoint = NPC_Lev_Ref[nLevel].nCspMax;
 	}
-	
+
 	m_gnCombat.SetPoint(nCombatPoint);
 }	//> CSD-030806
 
 int CCharInfo::CorrectCombatAttack(int nCombat, int nResult) const
 {	// 공격 전투스킬 속성 보정
 	const int nLevel = GetCombatLevel(nCombat);
-	
+
 	switch (nResult)
 	{
-    case CSR_NORMAL: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel]/2;
-		}
-    case CSR_PRIOR: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
-		}
-    case CSR_POSTERIOR: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel];
-		}
-    case CSR_CONFLICT: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
-		}
-    case CSR_EQUAL:
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel]/2;
-		}
+	case CSR_NORMAL:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel] / 2;
 	}
-	
+	case CSR_PRIOR:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
+	}
+	case CSR_POSTERIOR:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel];
+	}
+	case CSR_CONFLICT:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
+	}
+	case CSR_EQUAL:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel] / 2;
+	}
+	}
+
 	return 0;
 }
 
 int CCharInfo::CorrectCombatDefense(int nCombat, int nResult) const
 {	// 방어 전투스킬 속성 보정
 	const int nLevel = GetCombatLevel(nCombat);
-	
+
 	switch (nResult)
 	{
-    case CSR_NORMAL: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel]/2;
-		}
-    case CSR_PRIOR: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel];
-		}
-    case CSR_POSTERIOR: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
-		}
-    case CSR_CONFLICT: 
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
-		}
-    case CSR_EQUAL:
-		{
-			return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel]/2;
-		}
+	case CSR_NORMAL:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel] / 2;
 	}
-	
+	case CSR_PRIOR:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel];
+	}
+	case CSR_POSTERIOR:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
+	}
+	case CSR_CONFLICT:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel];
+	}
+	case CSR_EQUAL:
+	{
+		return Magic_Ref[nCombat].aLevel[nLevel] + Magic_Ref[nCombat].aRandom[nLevel] / 2;
+	}
+	}
+
 	return 0;
 }
 
 int CCharInfo::CorrectItemEffect() const
 {	//< CSD-031007
 	CItem_Weapon* pWeapon = static_cast<CItem_Weapon*>(::ItemUnit(equip[WT_WEAPON]));
-	
+
 	if (pWeapon == NULL)
 	{
 		return 0;
@@ -833,7 +833,7 @@ bool CCharInfo::LevelUpAbility()
 	{
 		return false;
 	}
-	
+
 	++m_nLevel;
 
 	Exp = NPC_Lev_Ref[m_nLevel].nMinExp;
@@ -852,20 +852,20 @@ bool CCharInfo::LevelUpTactics(int nKind)
 	if (!IsPlayer())                                         return false;
 	if (!IsLevelUp(nLevel))                                  return false;
 	if (tac_skillEXP[nKind] <= NPC_Lev_Ref[nLevel].nMaxExp)  return false;
-	
+
 	++nLevel;
 	tac_skillEXP[nKind] = NPC_Lev_Ref[nLevel].nMinExp;
 	SetTacticsStep(nKind, NPC_Lev_Ref[nLevel].nStep);
 	Skill[TACTICS_Crapple + nKind] = nLevel;
-	return true;	
+	return true;
 }	//> CSD-030314
 
 bool CCharInfo::LevelUpCombat(int nKind, int nPoint)
 {	// 전투스킬 레벨업
 	if (!m_gnCombat.IsEnough(nPoint))  return false;
-	
+
 	int nLevel = GetCombatLevel(nKind);
-	
+
 	if (nLevel < MAX_COMBAT_LEVEL)
 	{
 		nLevel += nPoint;
@@ -873,7 +873,7 @@ bool CCharInfo::LevelUpCombat(int nKind, int nPoint)
 		m_gnCombat.Decrease(nPoint);
 		return true;
 	}
-	
+
 	return false;
 }
 
@@ -892,19 +892,19 @@ bool CCharInfo::ChangeUpAddExp(int nExp, bool bDoubleExpUp)
 	}
 
 	if (bDoubleExpUp)
-	{	
+	{
 		nExp *= 2;
-	}	
+	}
 
 	float fPlusRate = 1.0;
 
 	switch (Class)
 	{
-	case WARRIOR: fPlusRate = NPC_Lev_Ref[nLevel].nWarriorExpRate/100.0; break;
-	case THIEF:   fPlusRate = NPC_Lev_Ref[nLevel].nThiefExpRate/100.0;   break;
-	case ARCHER:  fPlusRate = NPC_Lev_Ref[nLevel].nArcherExpRate/100.0;  break;
-	case WIZARD:  fPlusRate = NPC_Lev_Ref[nLevel].nWizardExpRate/100.0;  break;
-	case PRIEST:  fPlusRate = NPC_Lev_Ref[nLevel].nPriestExpRate/100.0;  break;
+	case WARRIOR: fPlusRate = NPC_Lev_Ref[nLevel].nWarriorExpRate / 100.0; break;
+	case THIEF:   fPlusRate = NPC_Lev_Ref[nLevel].nThiefExpRate / 100.0;   break;
+	case ARCHER:  fPlusRate = NPC_Lev_Ref[nLevel].nArcherExpRate / 100.0;  break;
+	case WIZARD:  fPlusRate = NPC_Lev_Ref[nLevel].nWizardExpRate / 100.0;  break;
+	case PRIEST:  fPlusRate = NPC_Lev_Ref[nLevel].nPriestExpRate / 100.0;  break;
 	}
 
 	IncExperience(nExp*fPlusRate);
@@ -922,7 +922,7 @@ bool CCharInfo::ChangeUpAddExpBonus(int nExp)
 	{
 		return false;
 	}
-	
+
 	IncExperience(nExp);
 	return true;
 }	//> CSD-030806
@@ -934,7 +934,7 @@ bool CCharInfo::ChangeUpTacExp(int nType, int nExp, bool bDoubleExpUp)
 	if (nType < 0 && nType > 13)                     return false;
 	if (!IsPlayer())                                 return false;
 	if (!IsLevelUp(Skill[TACTICS_Crapple + nType]))  return false;
-	
+
 	if (bDoubleExpUp)
 	{
 		nExp *= 2;
@@ -943,94 +943,94 @@ bool CCharInfo::ChangeUpTacExp(int nType, int nExp, bool bDoubleExpUp)
 	switch (nType)
 	{
 	case 0: // 일반 Tactics
-		{	
-			const int nKind = GetTacticsKind();
-			
-			if (SKILL_UNKNOWN == nKind) break; // 030116 kyo 맨손일땐 태틱이 올르지 안는다. 
-			AddPhysicalTacExp1(nKind - TACTICS_Crapple, nExp);
-			
-			if (IsShield())
-			{
-				const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
-				AddPhysicalTacExp1(nParrying, nExp);
-				// 경험치 변화를 위한 Packet 전송
-				t_packet packet;
-				packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
-				packet.h.header.size = sizeof(t_tactics_parrying_exp);
-				packet.u.tactics_parrying_exp.exp = tac_skillEXP[nParrying];
-				packet.u.tactics_parrying_exp.step = GetTacticsStep(nParrying);
-				::QueuePacket(connections, GetServerID(), &packet, 1);
-			}
-			
-			break;
-		}
-	case 1:	// 택틱수련에서 Tactics
+	{
+		const int nKind = GetTacticsKind();
+
+		if (SKILL_UNKNOWN == nKind) break; // 030116 kyo 맨손일땐 태틱이 올르지 안는다. 
+		AddPhysicalTacExp1(nKind - TACTICS_Crapple, nExp);
+
+		if (IsShield())
 		{
-			const int nKind = GetTacticsKind();
-			if( SKILL_UNKNOWN == nKind ) break; // 030116 kyo 맨손일땐 태틱이 올르지 안는다. 				
-			AddPhysicalTacExp2(nKind - TACTICS_Crapple, nExp);
-			
-			if (IsShield())
-			{
-				const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
-				AddPhysicalTacExp2(nParrying , nExp);
-				// 경험치 변화를 위한 Packet 전송
-				t_packet packet;
-				packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
-				packet.h.header.size = sizeof(t_tactics_parrying_exp);
-				packet.u.tactics_parrying_exp.exp = tac_skillEXP[nParrying];
-				packet.u.tactics_parrying_exp.step = GetTacticsStep(nParrying);
-				::QueuePacket(connections, GetServerID(), &packet, 1);
-			}
-			
-			break;
+			const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
+			AddPhysicalTacExp1(nParrying, nExp);
+			// 경험치 변화를 위한 Packet 전송
+			t_packet packet;
+			packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
+			packet.h.header.size = sizeof(t_tactics_parrying_exp);
+			packet.u.tactics_parrying_exp.exp = tac_skillEXP[nParrying];
+			packet.u.tactics_parrying_exp.step = GetTacticsStep(nParrying);
+			::QueuePacket(connections, GetServerID(), &packet, 1);
 		}
-    case 2: // 일반 Tactics
-		{
-			const int nKind = (Spell == 0) ? TACTICS_Magery - TACTICS_Crapple:
-			TACTICS_Orison - TACTICS_Crapple;
-			AddMagicTacExp1(nKind, nExp);
-			break;
-		}
-    case 3:	// 택틱수련에서 Tactics
-		{
-			const int nKind = (Spell == 0) ? TACTICS_Magery - TACTICS_Crapple:
-			TACTICS_Orison - TACTICS_Crapple;
-			AddMagicTacExp2(nKind, nExp);
-			break;
-		}
-    case 4: // 맞았을 경우 방패 택틱
-		{
-			if (IsShield() && Peacests)
-			{
-				const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
-				AddPhysicalTacExp1(nParrying, nExp);
-				// 경험치 변화를 위한 Packet 전송
-				t_packet packet;
-				packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
-				packet.h.header.size = sizeof(t_tactics_parrying_exp);
-				packet.u.tactics_parrying_exp.exp = tac_skillEXP[nParrying];
-				packet.u.tactics_parrying_exp.step = GetTacticsStep(nParrying);
-				::QueuePacket(connections, GetServerID(), &packet, 1);
-			}
-			
-			break;
-		}
-    case 5: // 파티시 물리적 공격 택틱
-		{
-			const int nKind = GetTacticsKind();
-			if( SKILL_UNKNOWN == nKind ) break; // 030116 kyo 맨손일땐 태틱이 올르지 안는다. 
-			AddPhysicalTacExp3(nKind - TACTICS_Crapple, nExp);
-			break; 
-		}
+
+		break;
 	}
-	
+	case 1:	// 택틱수련에서 Tactics
+	{
+		const int nKind = GetTacticsKind();
+		if (SKILL_UNKNOWN == nKind) break; // 030116 kyo 맨손일땐 태틱이 올르지 안는다. 				
+		AddPhysicalTacExp2(nKind - TACTICS_Crapple, nExp);
+
+		if (IsShield())
+		{
+			const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
+			AddPhysicalTacExp2(nParrying, nExp);
+			// 경험치 변화를 위한 Packet 전송
+			t_packet packet;
+			packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
+			packet.h.header.size = sizeof(t_tactics_parrying_exp);
+			packet.u.tactics_parrying_exp.exp = tac_skillEXP[nParrying];
+			packet.u.tactics_parrying_exp.step = GetTacticsStep(nParrying);
+			::QueuePacket(connections, GetServerID(), &packet, 1);
+		}
+
+		break;
+	}
+	case 2: // 일반 Tactics
+	{
+		const int nKind = (Spell == 0) ? TACTICS_Magery - TACTICS_Crapple :
+			TACTICS_Orison - TACTICS_Crapple;
+		AddMagicTacExp1(nKind, nExp);
+		break;
+	}
+	case 3:	// 택틱수련에서 Tactics
+	{
+		const int nKind = (Spell == 0) ? TACTICS_Magery - TACTICS_Crapple :
+			TACTICS_Orison - TACTICS_Crapple;
+		AddMagicTacExp2(nKind, nExp);
+		break;
+	}
+	case 4: // 맞았을 경우 방패 택틱
+	{
+		if (IsShield() && Peacests)
+		{
+			const int nParrying = TACTICS_Parrying - TACTICS_Crapple;
+			AddPhysicalTacExp1(nParrying, nExp);
+			// 경험치 변화를 위한 Packet 전송
+			t_packet packet;
+			packet.h.header.type = CMD_TACTICS_PARRYING_EXP;
+			packet.h.header.size = sizeof(t_tactics_parrying_exp);
+			packet.u.tactics_parrying_exp.exp = tac_skillEXP[nParrying];
+			packet.u.tactics_parrying_exp.step = GetTacticsStep(nParrying);
+			::QueuePacket(connections, GetServerID(), &packet, 1);
+		}
+
+		break;
+	}
+	case 5: // 파티시 물리적 공격 택틱
+	{
+		const int nKind = GetTacticsKind();
+		if (SKILL_UNKNOWN == nKind) break; // 030116 kyo 맨손일땐 태틱이 올르지 안는다. 
+		AddPhysicalTacExp3(nKind - TACTICS_Crapple, nExp);
+		break;
+	}
+	}
+
 	return true;
 }	//> CSD-040803
 
 void CCharInfo::GenerateNpcName()
 {	//< CSD-030408
-	const int nName = (NPC_MaleName_Count == 0) ? 0:(rand()%NPC_MaleName_Count);
+	const int nName = (NPC_MaleName_Count == 0) ? 0 : (rand() % NPC_MaleName_Count);
 	strcpy(Name, NPC_Name_Ref[nName].Male);
 	::EatRearWhiteChar(Name);
 
@@ -1041,10 +1041,10 @@ void CCharInfo::GenerateNpcName()
 void CCharInfo::AutoAttribute()
 {	//< CSD-021024 : 자동 속성 설정
 	const int nBasicResist = RareEM.GetStaticRareBasicResist(StaticRare) +
-							 RareEM.GetDynamicRareValue(FITEM_INVALID_RESIST, DynamicRare);
+		RareEM.GetDynamicRareValue(FITEM_INVALID_RESIST, DynamicRare);
 	if (nBasicResist > 0)
 	{
-		if (rand()%101 < nBasicResist)
+		if (rand() % 101 < nBasicResist)
 		{
 			m_bsAttr.set(IGNORE_MAGIC_RESIST);
 		}
@@ -1062,24 +1062,24 @@ void CCharInfo::AutoAttribute()
 void CCharInfo::SetAttribute(int nRace)
 {	//< CSD-030408 : NPC 속성 설정
 	switch (nRace)
-	{	
+	{
 	case GUARD:
-		{	// 경비원인 경우
-			m_bsAttr.set(IGNORE_STRIKE_ATTACK);
-			m_bsAttr.set(IGNORE_MAGIC_AMPLIFY);
-			
-			if (eventno >= 0)  
-			{
-				eventno = -1;
-			}
+	{	// 경비원인 경우
+		m_bsAttr.set(IGNORE_STRIKE_ATTACK);
+		m_bsAttr.set(IGNORE_MAGIC_AMPLIFY);
 
-			break;
+		if (eventno >= 0)
+		{
+			eventno = -1;
 		}
+
+		break;
+	}
 	case NORM_MON:
-		{	// 몬스터들은 집안에 들어갈수 없다. 
-			notcomeinside = true;
-			break;
-		}
+	{	// 몬스터들은 집안에 들어갈수 없다. 
+		notcomeinside = true;
+		break;
+	}
 	}
 }	//> CSD-030408
 
@@ -1087,40 +1087,40 @@ bool CCharInfo::IsShield() const
 {
 	ItemAttr shield = equip[WT_SHIELD];
 	if (shield.item_no == 0)  return false;
-	
+
 	CItem* pShield = ItemUnit(shield);
 	if (pShield == NULL)  return false;
 	//  방어구가 방패이면
-	return (pShield->GetItemKind() == IK_SHIELD || pShield->GetItemKind() == IK_IRON_SHIELD)	? true:false;
+	return (pShield->GetItemKind() == IK_SHIELD || pShield->GetItemKind() == IK_IRON_SHIELD) ? true : false;
 }
 
 bool CCharInfo::IsArrow() const
 {
 	ItemAttr arrow = equip[WT_SHIELD];
 	if (arrow.item_no == 0)  return false;
-	
+
 	CItem* pArrow = ItemUnit(arrow);
 	if (pArrow == NULL)  return false;
 	//  화살이 있다면
-	return (pArrow->GetItemKind() == IK_TWO_ARROW || pArrow->GetItemKind() == IK_DUAL_ARROW) ? true:false;//030102 lsw Arrow
+	return (pArrow->GetItemKind() == IK_TWO_ARROW || pArrow->GetItemKind() == IK_DUAL_ARROW) ? true : false;//030102 lsw Arrow
 }
 
 bool CCharInfo::IsLimit(int nPoint) const
 {	//< CSD-030806
 	int nCount = GetCombatPoint() + nPoint;
-	
+
 	for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
 	{
 		nCount += GetCombatLevel(i);
 	}
-	
+
 	const int nLevel = GetLevel();
-	return (nCount > NPC_Lev_Ref[nLevel].nCspMax) ? true:false;
+	return (nCount > NPC_Lev_Ref[nLevel].nCspMax) ? true : false;
 }	//> CSD-030806
 
-bool CCharInfo::IsEnableCombat(BYTE nCombat) const 
+bool CCharInfo::IsEnableCombat(BYTE nCombat) const
 {
-	return (Magic_Ref[nCombat].exhaust_MP <= Cp) ? true:false;
+	return (Magic_Ref[nCombat].exhaust_MP <= Cp) ? true : false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -1129,52 +1129,52 @@ bool CCharInfo::IsEnableCombat(BYTE nCombat) const
 
 int CCharInfo::GetExtStr() const
 {
-	return Str+ Strw + RareEM.GetStaticRareStrength(StaticRare);
+	return Str + Strw + RareEM.GetStaticRareStrength(StaticRare);
 }
 
 int CCharInfo::GetExtCon() const
 {
-	return Con + Conw + RareEM.GetStaticRareConstitution(StaticRare);  
+	return Con + Conw + RareEM.GetStaticRareConstitution(StaticRare);
 }
 
 int CCharInfo::GetExtDex() const
 {
-	return Dex + Dexw + RareEM.GetStaticRareDexterity(StaticRare);  
+	return Dex + Dexw + RareEM.GetStaticRareDexterity(StaticRare);
 }
 
 int CCharInfo::GetExtWis() const
 {
-	return Wis + Wisw + RareEM.GetStaticRareWisdom(StaticRare);  
+	return Wis + Wisw + RareEM.GetStaticRareWisdom(StaticRare);
 }
 
 int CCharInfo::GetExtInt() const
 {
-	return Int + Intw + RareEM.GetStaticRareIntelligence(StaticRare);  
+	return Int + Intw + RareEM.GetStaticRareIntelligence(StaticRare);
 }
 
 int CCharInfo::GetExtMove() const
 {
-	return MoveP + MovePw + RareEM.GetStaticRareMovement(StaticRare);  
+	return MoveP + MovePw + RareEM.GetStaticRareMovement(StaticRare);
 }
 
 int CCharInfo::GetExtChar() const
 {
-	return Char + Charw + RareEM.GetStaticRareCharisma(StaticRare);  
+	return Char + Charw + RareEM.GetStaticRareCharisma(StaticRare);
 }
 
 int CCharInfo::GetExtEndu() const
 {
-	return Endu + Enduw + RareEM.GetStaticRareEndurance(StaticRare);  
+	return Endu + Enduw + RareEM.GetStaticRareEndurance(StaticRare);
 }
 
 int CCharInfo::GetExtMor() const
 {
-	return Moral + Moralw + RareEM.GetStaticRareMoral(StaticRare);  
+	return Moral + Moralw + RareEM.GetStaticRareMoral(StaticRare);
 }
 
 int CCharInfo::GetExtLuck() const
 {
-	return Luck + Luckw + RareEM.GetStaticRareLucky(StaticRare);  
+	return Luck + Luckw + RareEM.GetStaticRareLucky(StaticRare);
 }
 
 int CCharInfo::GetExtWs() const
@@ -1190,97 +1190,97 @@ int CCharInfo::GetExtPs() const
 int CCharInfo::GetRemainStr() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Str - pLimit->GetStr();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainCon() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Con - pLimit->GetCon();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainDex() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Dex - pLimit->GetDex();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainWis() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Wis - pLimit->GetWis();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainInt() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Int - pLimit->GetInt();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainMove() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = MoveP - pLimit->GetMove();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainChar() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Char - pLimit->GetChar();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainEndu() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Endu - pLimit->GetEndu();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainMor() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Moral - pLimit->GetMor();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainLuck() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = Luck - pLimit->GetLuck();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainWs() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = wsps - pLimit->GetWs();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::GetRemainPs() const
 {
 	CAbilityLimit* pLimit = g_mgrLimit.GetCell(Class, m_nClsStep);
-	
+
 	const int nDiff = wsps - pLimit->GetPs();
-	return (nDiff < 0) ? 0:nDiff;
+	return (nDiff < 0) ? 0 : nDiff;
 }
 
 int CCharInfo::CalcNewLife(BYTE nCombat) const
@@ -1289,77 +1289,77 @@ int CCharInfo::CalcNewLife(BYTE nCombat) const
 	{
 		return NPC_Gen_Ref[npc_index].nHpMax;
 	}
-	
+
 	int nNew = GetPureLife(), nPercent = 0, nAdd = 0;
-	
+
 	switch (nCombat)
 	{
 	case TYBERN_GIFT:
-		{
-			nPercent = __max(RareEM.GetStaticRareBrood(StaticRare), GetCombatValue(nCombat));
-			nAdd = RareEM.GetStaticRareLife(StaticRare) + RareEM.GetStaticRareHighBlood(StaticRare);//020730 lsw
-			
-			break;
-		}
-    default:
-		{
-			nPercent = RareEM.GetStaticRareBrood(StaticRare);
-			nAdd = RareEM.GetStaticRareLife(StaticRare)+RareEM.GetStaticRareHighBlood(StaticRare);//020730 lsw
-			break;
-		}
+	{
+		nPercent = __max(RareEM.GetStaticRareBrood(StaticRare), GetCombatValue(nCombat));
+		nAdd = RareEM.GetStaticRareLife(StaticRare) + RareEM.GetStaticRareHighBlood(StaticRare);//020730 lsw
+
+		break;
 	}
-	
-	nNew += nNew*nPercent/100;
+	default:
+	{
+		nPercent = RareEM.GetStaticRareBrood(StaticRare);
+		nAdd = RareEM.GetStaticRareLife(StaticRare) + RareEM.GetStaticRareHighBlood(StaticRare);//020730 lsw
+		break;
+	}
+	}
+
+	nNew += nNew*nPercent / 100;
 	nNew += nAdd;
-	
-	for (int i = 0 ; i < 8 ; ++i)	
+
+	for (int i = 0; i < 8; ++i)
 	{
 		const int nItem = equip[i].item_no;
-		if (nItem) 
+		if (nItem)
 		{
-			CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);
+			CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
 			if (pItem != NULL)
 			{
 				nNew += pItem->GetPlusLife();
 			}
 		}
 	}
-	
-	if (nNew <= 0 )  nNew = 1;
-	if (nNew >= 200000)  nNew = 200000; // CSD-030306  //coromo 離멕沂좆20拱
+
+	if (nNew <= 0)  nNew = 1;
+	if (nNew >= 200000)  nNew = 200000; // CSD-030306  //coromo 最高血量20万
 	return nNew;
 }
 
 int CCharInfo::CalcNewMana(BYTE nCombat) const
 {	// 최대 Mana량 계산 
 	if (IsNpc() == true)  return 0;
-	
+
 	int nNew = GetAbility(WSPS)*5.3;
-	
+
 	if (Spell == PRIEST_SPELL)//성직자
 	{
-		nNew += nNew * RareEM.GetStaticRareSpirit(StaticRare)/100; //020214 lsw
+		nNew += nNew * RareEM.GetStaticRareSpirit(StaticRare) / 100; //020214 lsw
 		nNew += RareEM.GetStaticRareDivine(StaticRare);
 	}
 	else
 	{
-		nNew += nNew * RareEM.GetStaticRareMind(StaticRare)/100;	 //020214 lsw
+		nNew += nNew * RareEM.GetStaticRareMind(StaticRare) / 100;	 //020214 lsw
 		nNew += RareEM.GetStaticRareMana(StaticRare);
 	}
 	// 장착한 장비의 Mana 속성값을 더함
-	for (int i = 0 ; i < 8 ; ++i)	
+	for (int i = 0; i < 8; ++i)
 	{
 		const int nItem = equip[i].item_no;
-		if (nItem) 
+		if (nItem)
 		{
-			CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);
+			CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
 			if (pItem != NULL)
 			{
-				nNew += (Spell) ? pItem->GetPlusDivine():pItem->GetPlusMana();
+				nNew += (Spell) ? pItem->GetPlusDivine() : pItem->GetPlusMana();
 			}
 		}
 	}
-	
+
 	if (nNew <= 0)  nNew = 1;
 	if (nNew >= 150000)	nNew = 150000; // CSD-030306
 	return nNew;
@@ -1367,25 +1367,25 @@ int CCharInfo::CalcNewMana(BYTE nCombat) const
 
 int CCharInfo::CalcNewHungry(BYTE nCombat) const
 {	// 최대 Hungry량 계산
-	const int nCon = GetAbility(CON)*20;
-	int nNew = (nCon + GetLevel()*100 + 3000)/100; // CSD-030806
+	const int nCon = GetAbility(CON) * 20;
+	int nNew = (nCon + GetLevel() * 100 + 3000) / 100; // CSD-030806
 	// 장착한 장비의 Hungry 속성값을 더함
-	for (int i = 0 ; i < 8 ; ++i)	
+	for (int i = 0; i < 8; ++i)
 	{
 		const int nItem = equip[i].item_no;
-		
-		if (nItem) 
+
+		if (nItem)
 		{
-			CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);
-			
+			CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
+
 			if (pItem != NULL)
 			{
 				nNew += pItem->GetPlusHungry();
 			}
 		}
 	}
-	
-	nNew += nNew*RareEM.GetStaticRareYouth(StaticRare)/100; //020214 lsw
+
+	nNew += nNew*RareEM.GetStaticRareYouth(StaticRare) / 100; //020214 lsw
 	nNew += RareEM.GetStaticRareHealth(StaticRare);
 	return nNew;
 }
@@ -1399,64 +1399,64 @@ int CCharInfo::CalcNewCombat() const
 int CCharInfo::CalcNewAc() const
 {
 	int nAc = 1;
-	
-	for (int i = 0 ; i < 8 ; i ++)	// 장착한 장비의 방어력 가치를 더한다. 
+
+	for (int i = 0; i < 8; i++)	// 장착한 장비의 방어력 가치를 더한다. 
 	{
 		const int nItem = equip[i].item_no;
-		
-		if (nItem) 
+
+		if (nItem)
 		{
-			CItem* pItem = ::ItemUnit(nItem/1000, nItem%1000);
-			
-			if (pItem != NULL)  
+			CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
+
+			if (pItem != NULL)
 			{
 				nAc += pItem->GetAR_or_DH();
 			}
 		}
 	}
-	
+
 	return nAc;
 }
 
 int CCharInfo::CalcWeaponHit() const
 {
-	int nWeapon	=	iPhysicalTotalDamage;
-	
-	if (iPhysicalRandomDamage!= 0)
+	int nWeapon = iPhysicalTotalDamage;
+
+	if (iPhysicalRandomDamage != 0)
 	{
-		const int nRandom	=	rand()%abs(iPhysicalRandomDamage);
-		nWeapon = (iPhysicalRandomDamage > 0) ? nWeapon + nRandom:nWeapon - nRandom;
+		const int nRandom = rand() % abs(iPhysicalRandomDamage);
+		nWeapon = (iPhysicalRandomDamage > 0) ? nWeapon + nRandom : nWeapon - nRandom;
 	}
-	
+
 	return nWeapon;
 }
 
 int CCharInfo::CalcCriticalHit(BYTE nActive, BYTE nPassive) const
 {	//< CSD-031007 : 물리적 공격에서 크리티컬 히트 보정
 	const int nItem = RareEM.GetStaticRareCritical(StaticRare);
-	int nRate = __max(50 - (nItem*50/100 + 20) + rand()%10, 5);
-	
+	int nRate = __max(50 - (nItem * 50 / 100 + 20) + rand() % 10, 5);
+
 	if (RareEM.GetDynamicRareValue(FITEM_CRITICAL, DynamicRare))
 	{
 		nRate = 5;
 	}
-	
+
 	switch (nActive)
 	{
-    case CRITICAL_HIDING:
-		{
-			nRate = 0;
-			break;
-		}
+	case CRITICAL_HIDING:
+	{
+		nRate = 0;
+		break;
 	}
-	
+	}
+
 	if (++m_nCriticalCount > nRate)
-	{ 
-		const int nRandom = Hp*100/HpMax;
+	{
+		const int nRandom = Hp * 100 / HpMax;
 		m_nCriticalCount = 0; // 크리티컬 히트 초기화
-		return (nRandom <= 0) ? 50:50 + rand()%nRandom;
+		return (nRandom <= 0) ? 50 : 50 + rand() % nRandom;
 	}
-	
+
 	return 0;
 }	//> CSD-031007
 
@@ -1464,7 +1464,7 @@ int CCharInfo::CalcTacticExp(BYTE nKind, DWORD dwExp) const
 {   //< CSD-020821
 	const int nLevel = Skill[TACTICS_Crapple + nKind];
 	//MyLog(LOG_NORMAL, "Tactics Rate : %d", NPC_Lev_Ref[nLevel].nTacRate);
-	return dwExp*NPC_Lev_Ref[nLevel].nTacRate/100;
+	return dwExp*NPC_Lev_Ref[nLevel].nTacRate / 100;
 }   //> CSD-020821
 
 void CCharInfo::SendCharInfoBasic(BYTE nKind, DWORD dwData) const
@@ -1497,12 +1497,12 @@ void CCharInfo::SendCharInfoTactic(BYTE nKind) const
 void CCharInfo::AddPhysicalTacExp1(int nKind, int nExp)
 {	//< CSD-TW-030624 : 사냥시 택틱 경험치
 	if (!IsLimitTac(nKind))  return;
-	
-	if (Tactics_para == nKind)  
+
+	if (Tactics_para == nKind)
 	{
 		nExp = nExp*1.2;
 	}
-	
+
 	cur_tac_skill = nKind;
 
 	IncTacticExp(nKind, nExp);
@@ -1517,22 +1517,22 @@ void CCharInfo::AddPhysicalTacExp2(int nKind, int nExp)
 	}
 
 	const int nLevel = GetLevel();
-	
+
 	if (NPC_Lev_Ref[nLevel].nMaxTactic > Skill[TACTICS_Crapple + nKind])
 	{	// 택틱 수련에서 올릴 수 있는 경험치 제한
 		if (Tactics_para == nKind)
 		{
-			nExp = (NPC_Lev_Ref[nLevel].nTrainingExp*nExp/HpMax)/7;
+			nExp = (NPC_Lev_Ref[nLevel].nTrainingExp*nExp / HpMax) / 7;
 		}
 		else
 		{
-			nExp = (NPC_Lev_Ref[nLevel].nTrainingExp*nExp/HpMax)/12;
+			nExp = (NPC_Lev_Ref[nLevel].nTrainingExp*nExp / HpMax) / 12;
 		}
-		
+
 		cur_tac_skill = nKind;
 		IncTacticExp(nKind, nExp);
 		LevelUpTactics(nKind);
-	}	
+	}
 }	//> CSD-030806
 
 void CCharInfo::AddPhysicalTacExp3(int nKind, int nExp)
@@ -1543,19 +1543,19 @@ void CCharInfo::AddPhysicalTacExp3(int nKind, int nExp)
 	}
 
 	const int nLevel = GetLevel();
-	
+
 	if (NPC_Lev_Ref[nLevel].nMaxTactic > Skill[TACTICS_Crapple + nKind])
 	{	// 택틱 수련에서 올릴 수 있는 경험치 제한
 		cur_tac_skill = nKind;
 		IncTacticExp(nKind, nExp);
 		LevelUpTactics(nKind);
-	}	
+	}
 }	//> CSD-030806
 
 void CCharInfo::AddMagicTacExp1(int nKind, int nExp)
 {	//< CSD-TW-030624 : 사냥시 택틱 경험치
 	if (!IsLimitTac(nKind))  return;
-	
+
 	cur_tac_skill = nKind;
 	IncTacticExp(nKind, nExp);
 	LevelUpTactics(nKind);
@@ -1569,7 +1569,7 @@ void CCharInfo::AddMagicTacExp2(int nKind, int nExp)
 	}
 
 	const int nLevel = GetLevel();
-	
+
 	if (NPC_Lev_Ref[nLevel].nMaxTactic > Skill[TACTICS_Crapple + nKind])
 	{	// 택틱 수련에서 올릴 수 있는 경험치 제한
 		cur_tac_skill = nKind;
@@ -1580,45 +1580,45 @@ void CCharInfo::AddMagicTacExp2(int nKind, int nExp)
 
 bool CCharInfo::SetChangeGender()//050413_KCH 성전환 아이템 구현
 {	//0:여자, 1:남자
-	char szLog[256] = {0.};
+	char szLog[256] = { 0. };
 	if (FEMALE == Gender)
 	{
-		SprNo	= 1;
-		Gender	= 1;
-		Face	= 0;	//Face는 고정으로 세팅, 차후에 얼굴이미지 변환 아이템을 판매.
+		SprNo = 1;
+		Gender = 1;
+		Face = 0;	//Face는 고정으로 세팅, 차후에 얼굴이미지 변환 아이템을 판매.
 
-		sprintf(szLog ,
+		sprintf(szLog,
 			"[%d][%s]님이 성전환 아이템을 사용해서, '남성'캐릭 변환에 성공했습니다.",
 			g_pServerTable->GetOwnServerData()->wPort,
 			Name);
 		g_pLogManager->ItemMall_Use_Log(szLog);
 
-		SendCharInfoBasic(CHANGE_GENDER,Gender);
+		SendCharInfoBasic(CHANGE_GENDER, Gender);
 		return true;
 	}
 	else if (MALE == Gender)
 	{
-		SprNo	= 0;
-		Gender	= 0;
-		Face	= 5;	//Face는 고정으로 세팅, 차후에 얼굴이미지 변환 아이템을 판매.
+		SprNo = 0;
+		Gender = 0;
+		Face = 5;	//Face는 고정으로 세팅, 차후에 얼굴이미지 변환 아이템을 판매.
 
-		sprintf(szLog ,
+		sprintf(szLog,
 			"[%d][%s]님이 성전환 아이템을 사용해서, '여성'캐릭 변환에 성공했습니다.",
 			g_pServerTable->GetOwnServerData()->wPort,
 			Name);
 		g_pLogManager->ItemMall_Use_Log(szLog);
-		SendCharInfoBasic(CHANGE_GENDER,Gender);
+		SendCharInfoBasic(CHANGE_GENDER, Gender);
 		return true;
 	}
 
-	sprintf(szLog ,
-			" [%d][%s]님이 성전환 아이템을 사용해서, 'XXX'캐릭 변환에 실패했습니다. "
-			" (SprNo:%d ,Gender:%d, Face:%d ) ",
-			g_pServerTable->GetOwnServerData()->wPort,
-			Name,
-			SprNo,
-			Gender,
-			Face);
+	sprintf(szLog,
+		" [%d][%s]님이 성전환 아이템을 사용해서, 'XXX'캐릭 변환에 실패했습니다. "
+		" (SprNo:%d ,Gender:%d, Face:%d ) ",
+		g_pServerTable->GetOwnServerData()->wPort,
+		Name,
+		SprNo,
+		Gender,
+		Face);
 	g_pLogManager->ItemMall_Use_Log(szLog);
 	return false;
 }
@@ -1629,7 +1629,7 @@ bool CCharInfo::SetChangeGender()//050413_KCH 성전환 아이템 구현
 
 bool CCharInfo::IsLimitExp(int nLevel)
 {	//< CSD-030415
-	const int nStep = GetClassStep();  
+	const int nStep = GetClassStep();
 	// 클래스 단계에 따른 제한
 	CDualDataInfo* pDualData = g_pDualManager->GetDualDataInfo(nStep);
 
@@ -1642,21 +1642,21 @@ bool CCharInfo::IsLimitExp(int nLevel)
 	{
 		return false;
 	}
-	
+
 	return true;
 }	//> CSD-030415
 
 bool CCharInfo::IsLimitTac(int nKind)
 {	//< CSD-030806
 	const int nTactic = Skill[TACTICS_Crapple + nKind];
-	
+
 	if (!IsLevelUp(nTactic))
 	{
 		return false;
 	}
-	
+
 	if (GetLevel() <= 99)
-	{ 
+	{
 		if (nTactic >= 99)
 		{
 			m_aTacStep[nKind] = NPC_Lev_Ref[nTactic].nStep;
@@ -1664,13 +1664,13 @@ bool CCharInfo::IsLimitTac(int nKind)
 			return false;
 		}
 	}
-	
+
 	return true;
 }	//> CSD-030806
 
 void CCharInfo::SetBankMoney(const DWORD dwMoney, const eBankMoneyChangeType BMCT)
 {	//< CSD-030723
 	g_pLogManager->SaveLogChange_BankMoney(GetServerID(), GetBankMoney(), dwMoney, BMCT);
-	
+
 	m_dwBankMoney = dwMoney;
 }	//> CSD-030723

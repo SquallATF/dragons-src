@@ -25,7 +25,7 @@ CGameFactory::CGameFactory()
 {
 
 }
-	
+
 CGameFactory::~CGameFactory()
 {
 
@@ -44,7 +44,7 @@ void CGameFactory::DestroyLogManager(CLogManager* pManager)
 {
 	SAFE_DELETE(pManager);
 }
-	
+
 CUserManager* CGameFactory::CreateUserManager()
 {
 	return new CUserManager();
@@ -54,7 +54,7 @@ void CGameFactory::DestroyUserManager(CUserManager* pManager)
 {
 	SAFE_DELETE(pManager);
 }
-	
+
 CDualManager* CGameFactory::CreateDualManager()
 {
 	return new CDualManager();
@@ -119,7 +119,7 @@ CBattleManager* CGameFactory::CreateBattleManager()
 {
 	return new CBattleManager();
 }
-	
+
 void CGameFactory::DestroyBattleManager(CBattleManager* pManager)
 {
 	SAFE_DELETE(pManager);

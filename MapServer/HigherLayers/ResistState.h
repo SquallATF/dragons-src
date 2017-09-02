@@ -13,7 +13,7 @@
 // 저항 상태에 대한 클래스
 class CResistState
 {
-  enum {MIN = 0, MAX = 500};
+	enum { MIN = 0, MAX = 500 };
 
 public:
 	CResistState();

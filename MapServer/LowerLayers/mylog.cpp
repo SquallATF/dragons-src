@@ -19,19 +19,19 @@ int FileLogLevel = 7;
 CRITICAL_SECTION g_LogManager;
 FILE *fpLog = NULL;
 
-void InitMyLog( void )
+void InitMyLog(void)
 {
 	InitializeCriticalSectionAndSpinCount(&g_LogManager, 1000);
 	return;
 }
 
-void FreeMyLog( void )
+void FreeMyLog(void)
 {
 	DeleteCriticalSection(&g_LogManager);
 
-	if( fpLog )
+	if (fpLog)
 	{
-		fclose( fpLog );
+		fclose(fpLog);
 	}
 	return;
 }
@@ -39,9 +39,9 @@ void FreeMyLog( void )
 // Must be thread-safe function.
 //020903 lsw
 const char LogIdentifier[NUM_OF_LOG_TYPE] = { 'A', 'B', 'C', 'D', 'E', 'F' };
-void MyLog( const int type, char *logmsg, ... )
+void MyLog(const int type, char *logmsg, ...)
 {
-//	if( type
+	//	if( type
 	va_list vargs;
 	struct tm *now;
 	time_t nowTime;
@@ -49,58 +49,58 @@ void MyLog( const int type, char *logmsg, ... )
 	static int log_year = 0, log_mon = 0, log_day = 0;
 	int year = 0, mon = 0, day = 0;
 	int hour = 0, min = 0, sec = 0;
-	
-	char buf[(MAX_LOG_LENGTH*10)+1];
-	static char sLogFileName[80+1];
+
+	char buf[(MAX_LOG_LENGTH * 10) + 1];
+	static char sLogFileName[80 + 1];
 
 	// Filtering unlogable things
-	if( (type < 0) && (type >= NUM_OF_LOG_TYPE ) )
+	if ((type < 0) && (type >= NUM_OF_LOG_TYPE))
 	{
 		// Self-calling.
-		MyLog( LOG_FATAL, "Unknown LOG_TYPE" );
+		MyLog(LOG_FATAL, "Unknown LOG_TYPE");
 		return;
 	}
 
-	if( (ConsoleLogLevel < type) && (FileLogLevel < type) )
+	if ((ConsoleLogLevel < type) && (FileLogLevel < type))
 	{
 		return;
 	}
 
 	// Argument Processing
-	va_start( vargs, logmsg );
+	va_start(vargs, logmsg);
 
 	// Get nowtime
-	time( &nowTime );
+	time(&nowTime);
 	now = localtime(&nowTime);
 
 	// Make it usable.
 	year = now->tm_year + 1900;
-	mon  = now->tm_mon + 1;
-	day  = now->tm_mday;
+	mon = now->tm_mon + 1;
+	day = now->tm_mday;
 	hour = now->tm_hour;
-	min  = now->tm_min;
-	sec  = now->tm_sec;
+	min = now->tm_min;
+	sec = now->tm_sec;
 
 	// Lock...
 	EnterCriticalSection(&g_LogManager);
 
-	if( log_year && ( (log_year != year) || (log_mon != mon) || (log_day != day) ) )
+	if (log_year && ((log_year != year) || (log_mon != mon) || (log_day != day)))
 	{
-		fclose( fpLog );// Close fpLog
+		fclose(fpLog);// Close fpLog
 		fpLog = NULL;
 		log_year = 0;// Clear log_year
 	}
 
-	if( log_year == 0 || !fpLog )
+	if (log_year == 0 || !fpLog)
 	{// Set log_year, log_mon, log_day.
 		log_year = year;
 		log_mon = mon;
 		log_day = day;
-		sprintf( sLogFileName, (GetAppPath() + _T(".\\%d-%d-%d.log")).c_str(), year, mon, day );  //".\\%4d-%2d-%2d.log"
-		if( !(fpLog = fopen( sLogFileName, "a" )) )
+		sprintf(sLogFileName, (GetAppPath() + _T(".\\%d-%d-%d.log")).c_str(), year, mon, day);  //".\\%4d-%2d-%2d.log"
+		if (!(fpLog = fopen(sLogFileName, "a")))
 		{	// Notify ERROR
-			sprintf( buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName );
-			WriteText( buf );
+			sprintf(buf, "FATAL ERROR at MyLog() :: Can't open LogFile('%s')", sLogFileName);
+			WriteText(buf);
 			goto ReturnMyLogAfterEnterCriticalSection;
 		}
 	}
@@ -110,14 +110,14 @@ void MyLog( const int type, char *logmsg, ... )
 	buf[1] = ' ';
 
 	// Write Log rised time.
-	sprintf( buf+2, "<%2d:%2d:%2d> ", hour, min, sec );
+	sprintf(buf + 2, "<%2d:%2d:%2d> ", hour, min, sec);
 
 	// Write Log's Body.
-	if( strlen( logmsg ) > (MAX_LOG_LENGTH-2-11) )
+	if (strlen(logmsg) > (MAX_LOG_LENGTH - 2 - 11))
 	{
 		// Self-calling.
-		MyLog( LOG_FATAL, "Map() Too long string - This log will be lost" );
-		va_end( vargs );
+		MyLog(LOG_FATAL, "Map() Too long string - This log will be lost");
+		va_end(vargs);
 		goto ReturnMyLogAfterEnterCriticalSection;
 	}
 
@@ -126,34 +126,34 @@ void MyLog( const int type, char *logmsg, ... )
 	// We only know the length of format. But Result can larger or smaller than format's own length.
 	// If buf[] overflowed, the Map server will crashed down.
 	// SO buf[] MUST LARGE ENOUGH TO CONTAIN LOG MESSAGES.
-	if( type == LOG_JUST_DISPLAY )
+	if (type == LOG_JUST_DISPLAY)
 	{
-		vsprintf( buf, logmsg, (vargs) );
+		vsprintf(buf, logmsg, (vargs));
 	}
 	else
 	{
-		vsprintf( buf+2+11, logmsg, (vargs) );
-	}
-	
-	// Now Log it.
-	// To Screen
-	if( (ConsoleLogLevel >= type) || (type == LOG_JUST_DISPLAY) )
-	{
-		WriteText( buf );
-	}
-	
-	// To File
-	if( fpLog && (FileLogLevel >= type) )
-	{
-		strcat( buf, "\n" );
-		fputs( buf, fpLog );
-		// this can make server to slow.
-		fflush( fpLog );
+		vsprintf(buf + 2 + 11, logmsg, (vargs));
 	}
 
-	ReturnMyLogAfterEnterCriticalSection:
+	// Now Log it.
+	// To Screen
+	if ((ConsoleLogLevel >= type) || (type == LOG_JUST_DISPLAY))
+	{
+		WriteText(buf);
+	}
+
+	// To File
+	if (fpLog && (FileLogLevel >= type))
+	{
+		strcat(buf, "\n");
+		fputs(buf, fpLog);
+		// this can make server to slow.
+		fflush(fpLog);
+	}
+
+ReturnMyLogAfterEnterCriticalSection:
 	LeaveCriticalSection(&g_LogManager);
 	// Finish Func
-	va_end( vargs );
+	va_end(vargs);
 	return;
 }

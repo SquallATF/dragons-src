@@ -11,7 +11,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // BEGIN
-class CRaidManager : public TSingleton<CRaidManager>  
+class CRaidManager : public TSingleton<CRaidManager>
 {
 public:
 	CRaidManager();

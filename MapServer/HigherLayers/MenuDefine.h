@@ -212,7 +212,7 @@
 #define MN_TOWNHALL_BBS1				97		// ok, cancel있는 게시판
 #define MN_TOWNHALL_BBS2				98		// join, cancel 있는 게시판
 #define MN_TOWNHALL_BBS3				99		// write, exit 있는 게시판
-														
+
 #define MN_BLACKSMITH					100		// 직업 길드 메뉴
 #define MN_FARM							101
 #define MN_RESTAURANT					102
@@ -339,7 +339,7 @@
 
 #define MN_RESIST_FRIEND				207		// 내 친구 등록 메뉴
 #define	MN_MAIN_EXPLAIN					208		// 메인 메뉴 설명 창
-		
+
 #define MN_QUICK_MAGIC_SCROLL			209		// 퀵 매직 배열에서 5개 이상 넘어갈경우 스크롤 처리
 #define MN_QUICK_MAGIC_PLUS				210		// 저장 매직 배열 메뉴 
 #define MN_TIME_DISPLAY_ON_OFF			211		// 메뉴 디스플레이 메뉴 활성화 버튼을 가지고 있는 메뉴
@@ -672,7 +672,7 @@
 //메뉴 구성요소 타입번호 설정
 #define FT_NOMAL_PUT                1  //이미지만 찍는 구성요소
 #define FT_NOMAL_PUT_CENTER         2  //이미지만 찍으면서 상위 메뉴 x축가운데 찍기
- 
+
 #define FT_TEXT_PUT                 3  //글자를 출력
 #define FT_TEXT_PUT_CENTER          4  // 상위메뉴 x축 가운데 부분에 영어 문자열을 출력
 #define FT_TEXT_PUT_CENTER_X		41	// x 변수에 넓이를 넣어 준다.

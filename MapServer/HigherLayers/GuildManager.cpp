@@ -10,7 +10,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 CGuildInfo::CGuildInfo()
-{ 
+{
 	on = 0;
 	first = 0;
 	active = 0;
@@ -38,7 +38,7 @@ void CGuildInfo::AddNew(DWORD idMember)
 {
 	m_ltMember.push_back(idMember);
 }
-	
+
 void CGuildInfo::Delete(DWORD idMember)
 {
 	m_ltMember.remove(idMember);
@@ -48,7 +48,7 @@ void CGuildInfo::SendPacket(t_packet* pPacket)
 {
 	for (ITOR_MEMBER i = m_ltMember.begin(); i != m_ltMember.end(); ++i)
 	{
-		if(::CheckServerId((*i)))
+		if (::CheckServerId((*i)))
 		{
 			::QueuePacket(connections, (*i), pPacket, 1);
 		}
@@ -78,7 +78,7 @@ CGuildManager::~CGuildManager()
 {
 	for (ITOR_GUILD i = m_hash.begin(); i != m_hash.end(); ++i)
 	{
-		delete i->second;	
+		delete i->second;
 	}
 
 	m_hash.clear();
@@ -125,7 +125,7 @@ bool CGuildManager::DelGuild(int nCode)
 	MyLog(LOG_NORMAL, ">>> guild code : %d", nCode);
 	return false;
 }
-	
+
 bool CGuildManager::AddMember(int nCode, DWORD idMember)
 {
 	if (!IsExist(nCode))
@@ -134,7 +134,7 @@ bool CGuildManager::AddMember(int nCode, DWORD idMember)
 		MyLog(LOG_NORMAL, ">>> guild code : %d", nCode);
 		return false;
 	}
-		
+
 	if (m_hash[nCode]->IsExist(idMember))
 	{
 		MyLog(LOG_NORMAL, "CGuildManager::AddMember : exist user_id");
@@ -154,7 +154,7 @@ bool CGuildManager::DelMember(int nCode, DWORD idMember)
 		MyLog(LOG_NORMAL, ">>> guild code : %d", nCode);
 		return false;
 	}
-		
+
 	if (!m_hash[nCode]->IsExist(idMember))
 	{
 		return false;
@@ -173,6 +173,6 @@ bool CGuildManager::SendPacket(int nCode, t_packet* pPacket)
 		return false;
 	}
 
-	m_hash[nCode]->SendPacket(pPacket);	
+	m_hash[nCode]->SendPacket(pPacket);
 	return true;
 }

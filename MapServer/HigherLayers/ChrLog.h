@@ -14,16 +14,16 @@
 #ifndef __CHR_LOG_H__
 #define __CHR_LOG_H__
 
-	extern int CheckingChrLogAvailable( void );	
-	extern void SendLog2ChrLogDB( t_connection c[], int cn, int type );
+extern int CheckingChrLogAvailable(void);
+extern void SendLog2ChrLogDB(t_connection c[], int cn, int type);
 
-	
+
 
 #else
 
-	int		ChrLogStart_Login;
-	int		ChrLogStart_Logout;
-	int		ChrLogStart_Levelup;
+int		ChrLogStart_Login;
+int		ChrLogStart_Logout;
+int		ChrLogStart_Levelup;
 
 #endif
 

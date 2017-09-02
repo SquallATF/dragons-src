@@ -9,7 +9,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class CImportantListMgr  
+class CImportantListMgr
 {
 public:
 	enum eInitType
@@ -24,27 +24,27 @@ public:
 public:
 	bool IsExist(const int iItemNo)
 	{
-		const HashItor iter = m_mapItemList.find(iItemNo); 
-		if (m_mapItemList.end() == iter) 
-		{ 
+		const HashItor iter = m_mapItemList.find(iItemNo);
+		if (m_mapItemList.end() == iter)
+		{
 			return false;
-		} 
+		}
 		return true;
 	}
 
 	int GetChangeLimitNo(const int iItemNo, const bool bIsInc)
 	{
-		const HashItor iter = m_mapItemList.find(iItemNo); 
-		if (iter == m_mapItemList.end()) { return 0;} 
+		const HashItor iter = m_mapItemList.find(iItemNo);
+		if (iter == m_mapItemList.end()) { return 0; }
 
 		const int iNowNo = iter->second;
-		if(bIsInc){iter->second++;}
+		if (bIsInc) { iter->second++; }
 		return iNowNo;
 	}
 
 	void Clear();
 	bool Init(const eInitType InitType, const char *filename);
-	int GetCount()const{return m_mapItemList.size();}//Return Elements Count
+	int GetCount()const { return m_mapItemList.size(); }//Return Elements Count
 
 private:
 	typedef map<__int32, __int32> HASH;

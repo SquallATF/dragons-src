@@ -12,29 +12,29 @@
 #include "Battle.h"
 ///////////////////////////////////////////////////////////////////////////////
 // 대지속성 전투스킬
-class CEarthCombat : public TBinder<CCombat, CEarthCombat>  
+class CEarthCombat : public TBinder<CCombat, CEarthCombat>
 {
 public:
 	CEarthCombat();
 	virtual ~CEarthCombat();
 
 public:
-  virtual bool Bind();
-  virtual bool Elapse(CHARLIST* pTarget);
-  
-public:
-  virtual bool Execute() 
-  { 
-    return (!IsExist(m_nIndex)) ? false:(*this.*m_tblHash[m_nIndex])(); 
-  }
+	virtual bool Bind();
+	virtual bool Elapse(CHARLIST* pTarget);
 
 public:
-  bool BloodEarth();
-  bool GroundAttack();
-  bool BloodWill();
-  bool StoneArmor();
-  bool SimunianBosom();
-  bool EarthExtreme();
+	virtual bool Execute()
+	{
+		return (!IsExist(m_nIndex)) ? false : (*this.*m_tblHash[m_nIndex])();
+	}
+
+public:
+	bool BloodEarth();
+	bool GroundAttack();
+	bool BloodWill();
+	bool StoneArmor();
+	bool SimunianBosom();
+	bool EarthExtreme();
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

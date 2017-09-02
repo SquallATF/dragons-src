@@ -90,7 +90,7 @@ extern int DRAGON_MAX_CONNECTIONS;
 #define CMD_INVALID_PW					2
 #define CMD_INVALID_DB					3
 #define CMD_INVALID_PAY					4
-										 
+
 #define CMD_PING						5
 
 #define CMD_ACCESS_LOGIN				6066 //010707 lsw 수정
@@ -116,7 +116,7 @@ typedef struct server_accept_join
 #define CMD_ALL_READY					33
 typedef struct all_ready
 {
-	short int x,y;
+	short int x, y;
 
 }t_all_ready;
 
@@ -130,10 +130,6 @@ typedef struct GUARDAINLIST
 	short int	anGuildCodes[MAX_GUARDIAN];
 }t_GUARDIANLIST;
 //> soto-030331
-
-
-
-
 
 
 #define CMD_USER_DB						40
@@ -156,7 +152,7 @@ typedef struct GUARDAINLIST
 #define CMD_ITEM_ATTR_CHANGE			78
 #define CMD_ITEM_DOOR_OPEN_CLOSE		79
 #define	CMD_ITEM_ADD_ZIPED 					7001 //this lsw // 패킷 타입 추가 
-typedef struct item_door_open_close			
+typedef struct item_door_open_close
 {
 	short int item_id;
 	char  openclose;
@@ -175,35 +171,35 @@ typedef struct server_item_box_break
 
 }t_server_item_box_break;
 
-											
+
 #define CMD_ITEM_BOX_BREAK_RESULT		212	
-typedef struct client_item_box_break_result	
-{														
-	short int		item_id;				
-}t_client_item_box_break_result;				
-											
+typedef struct client_item_box_break_result
+{
+	short int		item_id;
+}t_client_item_box_break_result;
+
 #define CMD_ITEM_BOX_REFRESH			211	
-											
+
 // 매직으로 아이템을 부술때 사용한다.		
 #define CMD_ITEM_BOX_MAGIC_BREAK		214		
-typedef struct client_item_box_magic_break	
-{													
-	short int		item_id;					
-}t_client_item_box_magic_break;						
-											
+typedef struct client_item_box_magic_break
+{
+	short int		item_id;
+}t_client_item_box_magic_break;
+
 #define CMD_ITEM_BOX_MAGIC_BREAK_RESULT	213 
 typedef struct server_item_box_magic_break_result
-{												
-	short int		item_id;							
-	char			type;								
-}t_server_item_box_magic_break_result;							
-											
+{
+	short int		item_id;
+	char			type;
+}t_server_item_box_magic_break_result;
+
 
 #define CMD_JUST_ATTACK_ANIMATION		215
-typedef struct client_just_attack_animation{
+typedef struct client_just_attack_animation {
 	short int		item_id;
 }t_client_just_attack_animation;
-												
+
 #define CMD_MOVE						6100	//010707 lsw 수정
 #define CMD_CHAT_DATA					6250	//010707 lsw 수정
 #define CMD_WEATHER						83	
@@ -215,9 +211,6 @@ typedef struct server_insert_magic
 	short int effectno;
 	short int tx, ty;
 }t_server_insert_magic;
-
-
-	
 
 
 //------------ 은행 메뉴 추가 -------------------------------
@@ -237,8 +230,8 @@ typedef struct server_insert_magic
 // server_char_basic_data
 #define CMD_CHAR_INFO_BASIC 			5003
 typedef struct char_info_basic
-{	
-  short int kind;
+{
+	short int kind;
 	DWORD  data;
 	char   password;
 }t_char_info_basic;
@@ -247,21 +240,22 @@ typedef struct char_info_basic
 
 #define CMD_CHAR_INFO_MAGIC				5004
 typedef struct char_info_magic
-{	
-	unsigned char magic[ 200 ];
+{
+	unsigned char magic[200];
 }t_char_info_magic;
 
 
 #define CMD_CHAR_INFO_SKILL				5005
 typedef struct char_info_skill
-{	
-	unsigned short skill[ 200 ];
+{
+	unsigned short skill[200];
 }t_char_info_skill;
 
 
 #define CMD_OTHER_INFO_BASIC 			5006
 typedef struct other_info_basic
-{	short int server_id;
+{
+	short int server_id;
 	short int kind;
 	DWORD  data;
 }t_other_info_basic;
@@ -269,7 +263,7 @@ typedef struct other_info_basic
 
 
 #define CMD_GIVE_ITEM					5007
-typedef struct server_give_item	
+typedef struct server_give_item
 {
 	char p1, p2, p3;
 	ItemAttr item;
@@ -285,7 +279,7 @@ typedef struct client_item_inv // 1218 YGI
 #define CMD_CHAR_INFO_TAC_SKILL_EXP		5008
 typedef struct char_info_tac_skillexp
 {
-	unsigned int tac_skillEXP[ 13];
+	unsigned int tac_skillEXP[13];
 	BYTE		aStepInfo[20];
 
 }t_char_info_tac_skillexp;
@@ -302,31 +296,31 @@ typedef struct char_info_tac_skillexp
 
 struct t_client_foot_on_trap0
 {
-  WORD idServer;
+	WORD idServer;
 };
 
 struct t_server_foot_on_trap0
 {
-  WORD idServer;
-  WORD idItem;
-  __int32 nLife;
+	WORD idServer;
+	WORD idItem;
+	__int32 nLife;
 };
 
 struct t_client_foot_on_trap1
 {
-  WORD idServer;
+	WORD idServer;
 };
 
 struct t_server_foot_on_trap1
 {
-  WORD idServer;
-  WORD idItem;
-  __int32 nLife;
+	WORD idServer;
+	WORD idItem;
+	__int32 nLife;
 };
 struct t_server_steal_on_trap//011212 lsw
 {
-  WORD idServer;
-  __int32 nLife;
+	WORD idServer;
+	__int32 nLife;
 };
 
 //----------- Event ---------------------------------
@@ -414,7 +408,7 @@ typedef struct server_guild_info
 
 #define CMD_LEARN_SKILL					7010
 typedef struct client_learn_skill
-{ 
+{
 	short int guildindex;
 	short int skillno;
 }t_client_learn_skill;
@@ -427,12 +421,12 @@ typedef struct server_learn_skill
 	short int skillexp;
 }t_server_learn_skill;
 
-	
+
 #define CMD_LEARN_SKILLITEM				7020		
 typedef struct server_learn_skillitem
 {
-	short int		skillitemno[ 30];
-	short int		shillmoney[ 30];
+	short int		skillitemno[30];
+	short int		shillmoney[30];
 	unsigned char	required_lv[30];
 }t_server_learn_skillitem;
 
@@ -445,7 +439,7 @@ typedef struct server_learn_skillitem
 typedef struct server_repair_itemlist
 {
 	char  array;
-	short int item[ 10]; // 길드에서 취급하는 Item목록.
+	short int item[10]; // 길드에서 취급하는 Item목록.
 }t_server_repair_itemlist;
 
 
@@ -461,7 +455,7 @@ typedef struct server_item_repair
 	short int	 itemposition;
 	ItemAttr	 item;
 	unsigned int money;
-}t_server_item_repair;	
+}t_server_item_repair;
 
 
 #define MM_RUMOR_				0		
@@ -509,8 +503,8 @@ typedef struct server_menu_message_title
 	unsigned char   type;
 	unsigned char   no;
 	unsigned int    date;
-	unsigned char   name[  NM_LENGTH ];
-	char			title[ TEXT_LENGTH];
+	unsigned char   name[NM_LENGTH];
+	char			title[TEXT_LENGTH];
 }t_server_menu_message_title;
 typedef struct client_menu_message_title
 {
@@ -519,7 +513,7 @@ typedef struct client_menu_message_title
 }t_client_menu_message_title;
 typedef struct server_menu_message_text
 {
-	char			text[ TEXT_LENGTH];
+	char			text[TEXT_LENGTH];
 }t_server_menu_message_text;
 
 
@@ -558,32 +552,16 @@ typedef struct roof_close
 	short int roofno;
 }t_roof_close;
 
-
-
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
-
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 typedef struct  server_interface_peace
 {
-	short int	client_id ;
+	short int	client_id;
 }t_server_interface_peace;
 
 typedef struct  server_interface_battle
 {
-	short int	client_id ;
+	short int	client_id;
 }t_server_interface_battle;
 
 
@@ -600,28 +578,28 @@ typedef struct server_weather
 
 struct t_server_npc_add
 {	//< CSD-030419
-	DWORD nX:15;
-	DWORD nY:15;
-	DWORD nStatus:2;
-  
-	DWORD nHomeX:10;
-	DWORD nHomeY:10;
-	DWORD nSprNo:9;
-	DWORD nEventNpc:1;
-	DWORD nAIType:1; // LTS AI 0 : 클라이언트 AI, 1 : 서버 AI
-	DWORD nRecall:1; 
+	DWORD nX : 15;
+	DWORD nY : 15;
+	DWORD nStatus : 2;
 
-	DWORD idNpc:16;
-	DWORD nNameNo:13;
-	DWORD nMutant:3;
+	DWORD nHomeX : 10;
+	DWORD nHomeY : 10;
+	DWORD nSprNo : 9;
+	DWORD nEventNpc : 1;
+	DWORD nAIType : 1; // LTS AI 0 : 클라이언트 AI, 1 : 서버 AI
+	DWORD nRecall : 1;
 
-	DWORD nViewType:4;
-	DWORD nAttr:4;
-	DWORD nRace:4;
+	DWORD idNpc : 16;
+	DWORD nNameNo : 13;
+	DWORD nMutant : 3;
+
+	DWORD nViewType : 4;
+	DWORD nAttr : 4;
+	DWORD nRace : 4;
 };	//> CSD-030419
 
 typedef struct server_npc_remove
-{	
+{
 	short int		server_id;
 } t_server_npc_remove;
 
@@ -645,27 +623,19 @@ typedef struct t_client_change_equip
 // Attack........................................
 // Attack........................................
 // Attack........................................
-typedef struct client_attack										
-{														
-	short int		target_id;								
-} t_client_attack;											
-														
-typedef struct server_attack							
-{														
-	short int		server_id;						
-	short int		target_id;					
-} t_server_attack;	
+typedef struct client_attack
+{
+	short int		target_id;
+} t_client_attack;
 
+typedef struct server_attack
+{
+	short int		server_id;
+	short int		target_id;
+} t_server_attack;
 
-
-
-		
-												
-											
 // Item......................................
-// Item......................................
-// Item......................................
-typedef struct server_item_add 		
+typedef struct server_item_add
 {
 	short int		item_id;
 	ItemAttr		item;
@@ -674,11 +644,10 @@ typedef struct server_item_add
 } t_server_item_add;
 
 //this lsw 이것이압축될 패킷. 010326
-typedef struct server_item_add_ziped 		
+typedef struct server_item_add_ziped
 {
 	BYTE zipedpack[50];
 } t_server_item_add_ziped;
-
 
 
 typedef struct server_item_remove
@@ -692,7 +661,7 @@ typedef struct server_you_got_item
 typedef struct client_item_drop
 {
 	ItemAttr		item;
-	short int		x,y;
+	short int		x, y;
 } t_client_item_drop;
 typedef struct client_item_take
 {
@@ -724,27 +693,21 @@ typedef struct chr_item_info2
 } t_chr_item_info2;
 typedef struct chr_name_info
 {
-	char	name[ NM_LENGTH];
+	char	name[NM_LENGTH];
 	char	login_id[ID_LENGTH];
 } t_chr_name_info;
 
-//---
-
-
-
-
 
 // Bank........................................
 // Bank........................................
 // Bank........................................
-typedef struct client_bank		
+typedef struct client_bank
 {
 	int				total_money;
 	int				money;
 	int				char_money;
 	DWORD			time;
 } t_client_bank;
-
 
 
 // Event ................................................ ###0923
@@ -765,15 +728,12 @@ typedef struct item_attr_change
 }t_item_attr_change;
 
 
-
-
-
-/// Change Map .........................................
-/// Change Map .........................................
-/// Change Map .........................................
+// Change Map .........................................
+// Change Map .........................................
+// Change Map .........................................
 typedef struct server_change_map
 {
-	char			mapname[ NM_LENGTH ];
+	char			mapname[NM_LENGTH];
 	int				port;
 	short int		x;
 	short int		y;
@@ -796,32 +756,32 @@ typedef struct client_access_login
 //--------------------------------------------------------
 typedef struct server_accept_login
 {
-	short int		remained_day;					
-	char			id[ ID_LENGTH];
-	unsigned char	level[ MAX_CHARACTEROFID];		
-	unsigned char	gender[ MAX_CHARACTEROFID];		
-	unsigned char	cla[ MAX_CHARACTEROFID];		
-	unsigned char	job[ MAX_CHARACTEROFID];		
-													
-	unsigned char   clothr[ MAX_CHARACTEROFID];		
-	unsigned char   bodyg[ MAX_CHARACTEROFID];		
-	unsigned char   clothb[ MAX_CHARACTEROFID];		
-													
-	unsigned char   bodyr[ MAX_CHARACTEROFID];		
-	unsigned char   clothg[ MAX_CHARACTEROFID];		
-	unsigned char   bodyb[ MAX_CHARACTEROFID];		
-													
-	short int		age[ MAX_CHARACTEROFID];		
-	unsigned int	money[ MAX_CHARACTEROFID];		
-	unsigned char	acc_equip1[ MAX_CHARACTEROFID];	
-	unsigned char	acc_equip2[ MAX_CHARACTEROFID];	
-	unsigned char	acc_equip3[ MAX_CHARACTEROFID];	
-	unsigned char	acc_equip4[ MAX_CHARACTEROFID];	
-													
-	short int		server_id;						
-	char			nation;							
+	short int		remained_day;
+	char			id[ID_LENGTH];
+	unsigned char	level[MAX_CHARACTEROFID];
+	unsigned char	gender[MAX_CHARACTEROFID];
+	unsigned char	cla[MAX_CHARACTEROFID];
+	unsigned char	job[MAX_CHARACTEROFID];
 
-	char			name[ MAX_CHARACTEROFID][NM_LENGTH];
+	unsigned char   clothr[MAX_CHARACTEROFID];
+	unsigned char   bodyg[MAX_CHARACTEROFID];
+	unsigned char   clothb[MAX_CHARACTEROFID];
+
+	unsigned char   bodyr[MAX_CHARACTEROFID];
+	unsigned char   clothg[MAX_CHARACTEROFID];
+	unsigned char   bodyb[MAX_CHARACTEROFID];
+
+	short int		age[MAX_CHARACTEROFID];
+	unsigned int	money[MAX_CHARACTEROFID];
+	unsigned char	acc_equip1[MAX_CHARACTEROFID];
+	unsigned char	acc_equip2[MAX_CHARACTEROFID];
+	unsigned char	acc_equip3[MAX_CHARACTEROFID];
+	unsigned char	acc_equip4[MAX_CHARACTEROFID];
+
+	short int		server_id;
+	char			nation;
+
+	char			name[MAX_CHARACTEROFID][NM_LENGTH];
 
 } t_server_accept_login;
 
@@ -838,28 +798,28 @@ typedef struct server_connect_info	// 사용안함.
 	char			ip[3][18];
 	int				port;
 } t_server_connect_info;
-	
+
 //--------------------------------------------------------
 typedef struct client_chat_data
-{	
+{
 	short int		range;
 	unsigned char	type;
 	unsigned char	length;
 	char			text[TEXT_LENGTH];
 } t_client_chat_data;
-	
+
 //--------------------------------------------------------
 typedef struct server_chat_data
-{	
+{
 	short int		server_id;
 	unsigned char   type;
 	unsigned char	length;
 	char			text[TEXT_LENGTH];
 } t_server_chat_data;
-	
+
 //--------------------------------------------------------
 typedef struct client_move
-{	
+{
 	short int		server_id;
 	short int       movep;
 	unsigned char	movetype;
@@ -870,10 +830,10 @@ typedef struct client_move
 	short int		goy;
 	unsigned char	dir_tbl[MAX_DIR_TABLE];
 } t_client_move;
-	
+
 //--------------------------------------------------------
 typedef struct server_move
-{	
+{
 	short int		server_id;
 	short int		sx;
 	unsigned char	movetype;
@@ -885,10 +845,10 @@ typedef struct server_move
 	unsigned int	desttime;
 	unsigned char	dir_tbl[MAX_DIR_TABLE];
 } t_server_move;
-	
+
 //--------------------------------------------------------
 typedef struct client_create_char
-{	
+{
 	char			name[NM_LENGTH];
 	unsigned char	gender;
 	unsigned char	face;
@@ -913,57 +873,57 @@ struct ACCESSJOIN
 };	//> CSD-030806
 
 typedef struct server_assign_server_id
-{	
+{
 	short int		server_id;
 	short int		x, y;
 }t_server_assign_server_id;
-	
+
 //// LoginServer와 GameServer간의 Access Join관계..
-	
+
 #define CMD_REQ_INSERT_USERID			34
 #define CMD_REQ_DELETE_USERID			35
 #define CMD_JOINABLE					36
 #define CMD_NOT_JOINABLE				37
-	
+
 #define CMD_UPDATING					38
-	
-	
+
+
 typedef struct gs_req_insert_userid
-{	
+{
 	short int server_id;
-	char id[ ID_LENGTH];
-	char pw[ PW_LENGTH];
-	char name[ NM_LENGTH];
-	char mapname[ NM_LENGTH];
+	char id[ID_LENGTH];
+	char pw[PW_LENGTH];
+	char name[NM_LENGTH];
+	char mapname[NM_LENGTH];
 }t_gs_req_insert_userid;
-	
-	
+
+
 typedef struct gs_req_delete_userid
-{	
+{
 	short int server_id;
-	char id[ ID_LENGTH];
-	char mapname[ NM_LENGTH];
+	char id[ID_LENGTH];
+	char mapname[NM_LENGTH];
 }t_gs_req_delete_userid;
-	
+
 typedef struct ls_joinable
-{	
+{
 	short int server_id;
 }t_ls_joinable;
-	
+
 typedef struct ls_not_joinable
-{	
+{
 	short int server_id;
-	
+
 }t_ls_not_joinable;
-	
-	
+
+
 typedef struct ls_updating		// LoginServer ->  GameServer.	요청한 User는 현재 Data를 Updating하고 있기 때문에 잠시 기다려야 합니다. 
-{	
+{
 	short int server_id;
-	
+
 }t_ls_updating;
-	
-	
+
+
 struct t_server_user_db_data
 {	//< CSD-031001
 	short int		lev;
@@ -978,30 +938,30 @@ struct t_server_user_db_data
 	int	nMaxMp;
 	int	nHungry;
 	int	nMaxHungry;
-  	char spell;
+	char spell;
 	BYTE condition;
-	
+
 	short int sprno;
 	short int x;
 	short int y;
-	
+
 	unsigned char acc_equip1;
 	unsigned char acc_equip2;
 	unsigned char acc_equip3;
 	unsigned char acc_equip4;
-	
+
 	char mapname[NM_LENGTH];
-	
+
 	unsigned char bodyr, bodyg, bodyb;
-	unsigned char clothr,clothg,clothb;
+	unsigned char clothr, clothg, clothb;
 	int	sight;
 	short int Age;
-	
+
 	short int openhouse;
 	short int reserved_point;
-	
+
 	char viewtype;
-	
+
 	short int social_status;
 	short int fame;
 	short int fame_pk;		// 010915 LTS		//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
@@ -1013,10 +973,10 @@ struct t_server_user_db_data
 	DWORD nation;			//1004 YGI
 	BYTE aStepInfo[20];
 };	//> CSD-031001
-	
+
 //--------------------------------------------------------
 typedef struct server_envir_info
-{	
+{
 	DWORD			currtime_count;
 	DWORD			weather_count;
 	DWORD			rainstart;
@@ -1025,81 +985,81 @@ typedef struct server_envir_info
 	short			temperature;
 	char			mapname[NM_LENGTH];
 } t_server_envir_info;
-  	
+
 //------------------------------------------
 
 
 struct t_server_user_add
 {	//< CSD-031007
-	DWORD nk3:16;
-	DWORD server_id:15;
-	DWORD peacests:1;
+	DWORD nk3 : 16;
+	DWORD server_id : 15;
+	DWORD peacests : 1;
 
-	DWORD body_r:5;
-	DWORD body_g:5;
-	DWORD body_b:5;
-	DWORD cloth_r:5;
-	DWORD cloth_g:5;
-	DWORD cloth_b:5;
-	DWORD bAlive:2;
-	
-	DWORD x:11;
-	DWORD y:11;
+	DWORD body_r : 5;
+	DWORD body_g : 5;
+	DWORD body_b : 5;
+	DWORD cloth_r : 5;
+	DWORD cloth_g : 5;
+	DWORD cloth_b : 5;
+	DWORD bAlive : 2;
+
+	DWORD x : 11;
+	DWORD y : 11;
 	//DWORD face:5;		//050413_KCH 인터페이스 얼굴 이미지 버그 잘못된거 수정(32개의 이미지까지 표현가능)
-	DWORD face:4;
-	DWORD viewtype:4;
-	DWORD spr_no:1;
-	DWORD spell:1;
+	DWORD face : 4;
+	DWORD viewtype : 4;
+	DWORD spr_no : 1;
+	DWORD spell : 1;
 
-	DWORD equip0:8;
-	DWORD equip1:8;
-	DWORD equip2:8;
-	DWORD equip3:8;
+	DWORD equip0 : 8;
+	DWORD equip1 : 8;
+	DWORD equip2 : 8;
+	DWORD equip3 : 8;
 
-	DWORD namelen:5;
-	DWORD lv:8;				// 0807 YGI
-	DWORD nation:3;			// 1014 YGI
-	DWORD guild_master:3;			// 1014 YGI
-	DWORD king:1;			// 1014 YGI
-	DWORD imsi:9;			// 1014 YGI
-	DWORD counselor:2;			// 1014 YGI
-	DWORD reporter:1;		
+	DWORD namelen : 5;
+	DWORD lv : 8;				// 0807 YGI
+	DWORD nation : 3;			// 1014 YGI
+	DWORD guild_master : 3;			// 1014 YGI
+	DWORD king : 1;			// 1014 YGI
+	DWORD imsi : 9;			// 1014 YGI
+	DWORD counselor : 2;			// 1014 YGI
+	DWORD reporter : 1;
 
-	DWORD nk4:16;
-	DWORD nk6:16;
+	DWORD nk4 : 16;
+	DWORD nk6 : 16;
 
-	DWORD SquadNo:3;	//	부대번호		// 010915 LTS
-	DWORD isSquadLeader:1;	//	부대장인가?	
-	DWORD YL_JoinNation:4;	//	일스인경우 자이펀에했나? 바이서스에 했나?  // 국가번호
-	DWORD nDualCls:4;		// 듀얼 관련	
-	DWORD nClsStep:4;		
-	DWORD mantle:16;  // 011018 KHS 망또 
+	DWORD SquadNo : 3;	//	부대번호		// 010915 LTS
+	DWORD isSquadLeader : 1;	//	부대장인가?	
+	DWORD YL_JoinNation : 4;	//	일스인경우 자이펀에했나? 바이서스에 했나?  // 국가번호
+	DWORD nDualCls : 4;		// 듀얼 관련	
+	DWORD nClsStep : 4;
+	DWORD mantle : 16;  // 011018 KHS 망또 
 
-	DWORD isCommander:1;	//	사령관인가?
-	DWORD jjing:4;	// 011030 KHS JJING
-	DWORD JoinLocalWar:1;		// 국기전에 참여 했다. // LTS LOCALWAR
-	DWORD nCurrentAction:1;		
-	DWORD ChairNum:2;		  // 0 없음 1 의자1  2 의자2	// LTS SITDOWN BUG
-	DWORD HorseNo:2;			// LTS HORSERIDER
-	DWORD RiderNo:2;			// LTS HORSERIDER
-	DWORD HorseGrade:2;			// LTS HORSERIDER
-	DWORD RiderGrade:2;			// LTS HORSERIDER
-	DWORD DragonLordWarTeam:2;			// LTS DRAGONLORD
-	DWORD guild_code:16; 
-	
-	DWORD idWeaponItem:16;
-	DWORD class_type:3;		// 0807 YGI
+	DWORD isCommander : 1;	//	사령관인가?
+	DWORD jjing : 4;	// 011030 KHS JJING
+	DWORD JoinLocalWar : 1;		// 국기전에 참여 했다. // LTS LOCALWAR
+	DWORD nCurrentAction : 1;
+	DWORD ChairNum : 2;		  // 0 없음 1 의자1  2 의자2	// LTS SITDOWN BUG
+	DWORD HorseNo : 2;			// LTS HORSERIDER
+	DWORD RiderNo : 2;			// LTS HORSERIDER
+	DWORD HorseGrade : 2;			// LTS HORSERIDER
+	DWORD RiderGrade : 2;			// LTS HORSERIDER
+	DWORD DragonLordWarTeam : 2;			// LTS DRAGONLORD
+	DWORD guild_code : 16;
+
+	DWORD idWeaponItem : 16;
+	DWORD class_type : 3;		// 0807 YGI
 
 	char name[16];
 };	//> CSD-031007
 
-	
+
 //--------------------------------------------------------
 typedef struct server_user_remove
-{	
+{
 	short int		server_id;
 } t_server_user_remove;
-	
+
 //--------------------------------------------------------
 
 
@@ -1119,23 +1079,18 @@ typedef struct req_item_add
 }t_req_item_add;
 
 typedef struct element {
-	unsigned char var_kind ;
-	short int value ;
-} t_element ;
+	unsigned char var_kind;
+	short int value;
+} t_element;
 
 typedef struct mass_data {
-	unsigned char num ;
-	t_element elements[100] ;
-} t_mass_data ;
+	unsigned char num;
+	t_element elements[100];
+} t_mass_data;
 
 
 ////////////////////////////////////////////////////////////////  Binary Update..................................
 ////////////////////////////////////////////////////////////////  Binary Update..................................
-////////////////////////////////////////////////////////////////  Binary Update..................................
-////////////////////////////////////////////////////////////////  Binary Update..................................
-////////////////////////////////////////////////////////////////  Binary Update..................................
-////////////////////////////////////////////////////////////////  Binary Update..................................
-
 
 #define CMD_UPDATE_CHAR_DB			8500
 #define CMD_UPDATE_BINARY_DATA0		8501
@@ -1154,25 +1109,25 @@ struct t_update_char_db
 	short social_status; // 신분
 	short fame;	// 명성치
 	NW_Character NWCharacter; // 국가전 관련 필드 // 010915 LTS
-	short Str;	
-	short Con;	
+	short Str;
+	short Con;
 	short Dex;
-	short Wis;	
+	short Wis;
 	short Int;
-	short MoveP;	  
+	short MoveP;
 	short Char;
 	short Endu;
-	short Moral;	  
-	short Luck ;	 
+	short Moral;
+	short Luck;
 	short wsps;
 	BYTE Tactics; // 선택한 전투기술 (보여주기 위함)
 	DWORD nation; // 1004 YGI
 	DWORD Money;
 	int	Hp;
-	int	HpMax ;
+	int	HpMax;
 	int	Mana;
 	int	ManaMax;
-	int Hungry;	
+	int Hungry;
 	int	HungryMax;
 	BYTE Condition;	// 캐릭터 상태
 	char MapName[21];
@@ -1193,13 +1148,13 @@ struct t_update_char_db
 	BYTE accessory[4];
 	short mantle; // 011018 KHS 망또
 	short openhouse;
-	short reserved_point ;
+	short reserved_point;
 	DWORD BankMoney;
 	DWORD win_defeat;
 	DWORD LadderScore;
 	DWORD LastLoan;
 	DWORD Exp;
-	char disease[6];					
+	char disease[6];
 	char viewtype;
 	short nk3;
 	short nk4;
@@ -1216,8 +1171,8 @@ struct t_update_char_db
 
 typedef struct  server_update_binary_data0
 {
-	char            name[ NM_LENGTH];
-	char            id[ NM_LENGTH];
+	char            name[NM_LENGTH];
+	char            id[NM_LENGTH];
 
 	UCHAR			Ws[SIZE_OF_WS];
 	UCHAR			Ps[SIZE_OF_PS];
@@ -1229,133 +1184,129 @@ typedef struct  server_update_binary_data0
 
 typedef struct  server_update_script_data
 {
-	char            name[ NM_LENGTH];
-	char            id[ NM_LENGTH];
+	char            name[NM_LENGTH];
+	char            id[NM_LENGTH];
 	UCHAR			script_var[SIZE_OF_SCRIPT_VAR];
 	int				check_crc;		// acer5
 } t_server_update_script_data;
 
 typedef struct  server_update_binary_data1
 {
-	char            name[ NM_LENGTH];
-	char            id[ NM_LENGTH];
+	char            name[NM_LENGTH];
+	char            id[NM_LENGTH];
 
 	UCHAR			equip[SIZE_OF_EQUIP];
 	UCHAR			quick[SIZE_OF_QUICK];
 	UCHAR			party[SIZE_OF_PARTY];
 	UCHAR			relation[SIZE_OF_RELATION];
-	UCHAR			employment[SIZE_OF_EMPLOYMENT];		
+	UCHAR			employment[SIZE_OF_EMPLOYMENT];
 	int				check_crc;		// acer5
 } t_server_update_binary_data1;
 
 
 typedef struct  server_update_inv_data
 {
-	char            name[ NM_LENGTH];
-	char            id[ NM_LENGTH];
+	char            name[NM_LENGTH];
+	char            id[NM_LENGTH];
 	UCHAR			inv[SIZE_OF_INV];
 	int				check_crc;		// acer5
 } t_server_update_inv_data;
 
 typedef struct  server_update_item_data
 {
-	char            name[ NM_LENGTH];
-	char            id[ NM_LENGTH];
+	char            name[NM_LENGTH];
+	char            id[NM_LENGTH];
 	UCHAR			Item[SIZE_OF_ITEMINDEX];
 	int				check_crc;		// acer5
 } t_server_update_item_data;
 
 typedef struct  server_update_bankitem_data
 {
-	char            name[ NM_LENGTH];
-	char            id[ NM_LENGTH];
-	char			mapname[ 20];
+	char            name[NM_LENGTH];
+	char            id[NM_LENGTH];
+	char			mapname[20];
 	UCHAR			bankitem[SIZE_OF_BANKITEM];
 	int				check_crc;		// acer5
 } t_server_update_bankitem_data;
 
 ////////////////////////////////////////////////////////////////  Binary Update..................................
 ////////////////////////////////////////////////////////////////  Binary Update..................................
-////////////////////////////////////////////////////////////////  Binary Update..................................
-////////////////////////////////////////////////////////////////  Binary Update..................................
-
-
 
 // Character Basic Data*********************************************
 
 typedef struct chr_status_info
 {
 	short int		Str;				//  힘
-	bool			fStr ;
+	bool			fStr;
 	short int		Con;				//  건강
-	bool			fCon ;
+	bool			fCon;
 	short int		Dex;				//	민첩성
-	bool			fDex ;
+	bool			fDex;
 	short int		Wis;				//	지혜
-	bool			fWis ;
+	bool			fWis;
 	short int		Int;				//	지능
-	bool			fInt ;
+	bool			fInt;
 	short int		MoveP;				//	이동력
-	bool			fMoveP ;
+	bool			fMoveP;
 	short int		Char;				//	매력
-	bool			fChar ;
+	bool			fChar;
 	short int		Endu;				//  저향력
-	bool			fEndu ;
+	bool			fEndu;
 	short int		Health;				//	체력
-	bool			fHealth ;
+	bool			fHealth;
 	short int		Moral;				//	사기
-	bool			fMoral ;
+	bool			fMoral;
 	short int		Luck;				//	행운
-	bool			fLuck ;
+	bool			fLuck;
 
 	short int		Resis_Poision;		//	독/죽음 저항력
-	bool			fPoison ;
+	bool			fPoison;
 	short int		Resis_Stone;		//	석화 마비 저항력
-	bool			fStone ;
+	bool			fStone;
 	short int		Resis_Magic;		//	마법저항력
-	bool			fMagic ;
+	bool			fMagic;
 	short int		Resis_Fire;			//	불 저항력
-	bool			fFire ;
+	bool			fFire;
 	short int		Resis_Ice;			//	얼음저항력
-	bool			fIce ;
+	bool			fIce;
 	short int		Resis_Elect;		//	전기저향력
-	bool			fElect ;
+	bool			fElect;
 
-	short int		Ap ;
-	bool			fAp ;
-		
-	short int		Hp ;
-	bool			fHp ;
+	short int		Ap;
+	bool			fAp;
 
-	short int		HpMax ;
-	bool			fHpMax ;
-	
-	short int		Mp ;
-	bool			fMp ;
-	short int		MpMax ;
-	bool			fMpMax ;
+	short int		Hp;
+	bool			fHp;
 
-	short int		Ac ;
-	bool			fAc ;
-	short int		Hit ;
-	bool			fHit ;
-	short int		Dam_Min, Dam_Max ;
-	bool			fDamage ;
-	short int		Tactics ;
-	bool			fTactic ;
-	
-	short int		WsPs ;
-	bool			fWsPs ;
+	short int		HpMax;
+	bool			fHpMax;
 
-	int		Sight ;		// YGI 020418
-	bool			fSight ;
+	short int		Mp;
+	bool			fMp;
+	short int		MpMax;
+	bool			fMpMax;
 
-} t_chr_status_info ;
+	short int		Ac;
+	bool			fAc;
+	short int		Hit;
+	bool			fHit;
+	short int		Dam_Min, Dam_Max;
+	bool			fDamage;
+	short int		Tactics;
+	bool			fTactic;
+
+	short int		WsPs;
+	bool			fWsPs;
+
+	int		Sight;		// YGI 020418
+	bool			fSight;
+
+} t_chr_status_info;
 
 typedef struct item_ex_info				// 메뉴에서 사용 (아이템)( 서버용 )
 {
-//	ItemAttr item_attr;
-	int		itemno ;
+	//	ItemAttr item_attr;
+	int		itemno;
 	POS		pos_s;
 	POS		pos_t;
 } t_item_ex_info;
@@ -1394,7 +1345,7 @@ typedef struct server_call_smallmenucustom
 typedef struct tag_store_list_item			// 객체		// 0928 YGI
 {
 	short int item;
-//	short int price;
+	//	short int price;
 }k_store_list_item;
 
 typedef struct server_store_itemlist
@@ -1432,21 +1383,18 @@ typedef struct server_menu_message
 
 struct t_client_levelup_point
 {
-  WORD aPoint[11];
+	WORD aPoint[11];
 };
 
 struct t_server_levelup_point
 {
-  WORD idServer;
-  __int16 nPoint;
-  __int16 nLevel;
-  __int32 nLife;
-  BYTE aStepInfo[20];
+	WORD idServer;
+	__int16 nPoint;
+	__int16 nLevel;
+	__int32 nLife;
+	BYTE aStepInfo[20];
 };
 
-//------------  Animation --------------------------------
-//------------  Animation --------------------------------
-//------------  Animation --------------------------------
 //------------  Animation --------------------------------
 //------------  Animation --------------------------------
 
@@ -1456,9 +1404,6 @@ typedef struct server_turn_dir
 	DIRECTION  dir;
 }t_server_turn_dir;
 
-// ----------------- Skill -------------------------------
-// ----------------- Skill -------------------------------
-// ----------------- Skill -------------------------------
 // ----------------- Skill -------------------------------
 // ----------------- Skill -------------------------------
 
@@ -1484,7 +1429,6 @@ typedef struct client_skill_info
 }t_client_skill_info;
 
 
-
 #define CMD_SKILL_RESULT				610
 typedef struct server_skill_result
 {
@@ -1506,7 +1450,7 @@ typedef struct server_skill_animal_lore
 {
 	short int skillno;
 	short int x, y;
-	char  name[ NM_LENGTH];
+	char  name[NM_LENGTH];
 	unsigned long int NowLife;
 	unsigned long int MaxLife;
 	unsigned long int exp;
@@ -1525,8 +1469,8 @@ typedef struct server_special_item
 	int S_Day;
 }t_server_special_item;
 
-const int  CMD_OUTPUT_MESSAGE				=704;
-const int  CMD_SOUND_OUT					=705;//아래와 같이 씁니다.
+const int  CMD_OUTPUT_MESSAGE = 704;
+const int  CMD_SOUND_OUT = 705;//아래와 같이 씁니다.
 typedef struct server_output_message
 {
 	DWORD para1;
@@ -1556,13 +1500,13 @@ typedef struct server_skill_result_fail
 
 #define	CMD_SKILL_RESULT_TOOTHER		619
 typedef struct server_skill_result_toother
-{	
+{
 	short int id;
 	short     skillno;
 	char	  result;
-	
+
 }t_server_skill_result_toother;
-	
+
 
 
 #define CMD_SKILL_CURSOR_VIEW			611
@@ -1594,7 +1538,7 @@ typedef struct server_skill_gauge
 #define CMD_VIEWTYPE_CHANGE				620
 typedef struct viewtype_change
 {
-	short int   server_id; 
+	short int   server_id;
 	char		viewtype;
 }t_viewtype_change;
 
@@ -1615,7 +1559,7 @@ typedef struct view_char_info
 typedef struct chat_set
 {
 	char chattype;
-	char chatname[ NM_LENGTH];
+	char chatname[NM_LENGTH];
 }t_chat_set;
 #define CMD_CHAT_SET_RESULT			7510		
 typedef struct chat_set_result	// 설정했는데 상대가 없다면 없다고 얘기 해준다. 
@@ -1639,20 +1583,20 @@ typedef struct  total_connections
 
 #define CMD_ISTHERE_CHARNAME		7540
 typedef struct client_isthere_charname
-{		
-	char name[ NM_LENGTH];
+{
+	char name[NM_LENGTH];
 }t_client_isthere_charname;
 #define CMD_THEREIS_NO_CHARNAME		7541
 #define CMD_THEREIS_CHARNAME		7542
-		
+
 //------------ NEW_APPEND -------------------------------
 #define CMD_IM_GAME_SERVER         	9011
 typedef struct im_game_server
-{		
+{
 	int my_code;
 	int port;
 }t_im_game_server;
-		
+
 #define CMD_ACCESS_CHAR_DB			9021
 #define CMD_ACCEPT_CHAR_DB			9031
 #define CMD_ACCEPT_CHAR_GAME_DB		9032
@@ -1661,46 +1605,46 @@ typedef struct im_game_server
 #define CMD_ACCEPT_INV_DATA			9035
 #define CMD_ACCEPT_ITEM_DATA		9036
 #define CMD_ACCEPT_BANKITEM_DATA	9037
-		
+
 #define CMD_ACCEPT_BINARY_DATA_ERROR	9038
-								
-							
+
+
 //-------------------------------------------------------
 //------------ NEW_APPEND -------------------------------
 typedef struct  server_access_char_db
-{							
+{
 	short int		server_id;
-							
+
 	char			id[ID_LENGTH];
 	char			name[NM_LENGTH];
-} t_server_access_char_db;	
-							
+} t_server_access_char_db;
+
 typedef struct  server_accept_char_db // 2308
-{							
+{
 	char			name[20];		// 030923 HK YGI	// 이름으로 확인한다.
 	short int		server_id;
-							
-	short int		Level;	
-	DWORD			Exp;	
-							
-	short int		Gender;	
-	short int		Face;							
+
+	short int		Level;
+	DWORD			Exp;
+
+	short int		Gender;
+	short int		Face;
 	short int		nGuildCode; // CSD-030324
-	short int		Class;	
+	short int		Class;
 	short int		Job;		// 0212YGI
-	short int		Spell;	
-							
-	short int		Str;	
-	short int		Con;	
-	short int		Dex;	
-	short int		Wis;		
-	short int		Int;	
-	short int		MoveP;	
-	short int		Char;	
-	short int		Endu;	
-	short int		Moral;	
-							
-	DWORD			Money;	
+	short int		Spell;
+
+	short int		Str;
+	short int		Con;
+	short int		Dex;
+	short int		Wis;
+	short int		Int;
+	short int		MoveP;
+	short int		Char;
+	short int		Endu;
+	short int		Moral;
+
+	DWORD			Money;
 
 	__int32	nLife;
 	__int32	nMaxHp;
@@ -1708,16 +1652,16 @@ typedef struct  server_accept_char_db // 2308
 	__int32	nMaxMp;
 	__int32	nHungry;
 	__int32	nMaxHungry;
-	
+
 	BYTE			Condition;
-						
+
 	short int		SprNo;
 	short int		X;
 	short int		Y;
 	char			MapName[20];
 	unsigned char	Peacests;
 	int		Sight;		// YGI 020418
-	
+
 	short int		BodyR;
 	short int		BodyG;
 	short int		BodyB;
@@ -1736,7 +1680,7 @@ typedef struct  server_accept_char_db // 2308
 
 	BYTE			bAlive;
 	short int		openhouse;
-	char			disease[6];		
+	char			disease[6];
 	DWORD			total_id;
 
 	__int16 nPoison; // 저주계열 마법에 대한 저항력
@@ -1751,10 +1695,10 @@ typedef struct  server_accept_char_db // 2308
 	short int		fame;
 	short int		fame_pk;		// 010915 LTS	//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
 	NW_Character	NWCharacter;	// 010915 LTS
- 
+
 	BYTE aStepInfo[20];
 	int		nUserAge;				// 030929 kyo	// 태국에서 사용하는 유저나이 
-  	Event_Join		EventJoin;		// 020115 LTS
+	Event_Join		EventJoin;		// 020115 LTS
 } t_server_accept_char_db;
 
 typedef struct  server_accept_char_game_db
@@ -1792,7 +1736,7 @@ typedef struct  server_accept_binary_data
 	UCHAR			quick[SIZE_OF_QUICK];
 	UCHAR			party[SIZE_OF_PARTY];
 	UCHAR			relation[SIZE_OF_RELATION];
-	UCHAR			employment[SIZE_OF_EMPLOYMENT];		
+	UCHAR			employment[SIZE_OF_EMPLOYMENT];
 } t_server_accept_binary_data;
 
 typedef struct  server_accept_script_data
@@ -1829,7 +1773,7 @@ typedef struct  server_accept_bankitem_data
 
 typedef struct server_accept_data_error		// login server에서 Error가 발생했다. 
 {
-	char name[ NM_LENGTH];
+	char name[NM_LENGTH];
 }t_server_accept_data_error;
 
 
@@ -1846,23 +1790,23 @@ typedef struct server_accept_data_error		// login server에서 Error가 발생�
 typedef struct tame_command
 {
 	BYTE	cmd;
-	char	mybaby[ NM_LENGTH];
-	char    toname[ NM_LENGTH]; 
+	char	mybaby[NM_LENGTH];
+	char    toname[NM_LENGTH];
 }t_tame_command;
 
 //-------------------------------------------------------
 #define CMD_TAME_NAME_CHANGE		8101
-typedef struct tame_name_change 
+typedef struct tame_name_change
 {
 	short int id;
-	char name[ NM_LENGTH];
+	char name[NM_LENGTH];
 }t_tame_name_change;
 
 #define CMD_TAME_HOST_NAME			8102
 typedef struct tame_host_name
 {
 	short int id;
-	char hostname[ NM_LENGTH];
+	char hostname[NM_LENGTH];
 }t_tame_host_name;
 
 #define CMD_TAME_COMMAND_RESULT		8103
@@ -1906,7 +1850,7 @@ typedef struct debug_server_req_char_info
 
 	int     Hp, HpMax;
 	int     Mp, MpMax;
-	int		Hungry,HungryMax;		
+	int		Hungry, HungryMax;
 
 	short int event_no;			// 0131 YGI
 
@@ -1924,8 +1868,8 @@ typedef struct debug_client_req_char_info
 
 struct t_please_give_life
 {
-  short int id;
-  short int who;
+	short int id;
+	short int who;
 	__int32 nLife;
 	__int32 nMana;
 	__int32 nHungry;
@@ -1934,11 +1878,11 @@ struct t_please_give_life
 #define CMD_GOTO_EDELBROY_TOGETLIFE		8402
 
 #define CMD_SMILE_FACE			8410
-typedef struct client_smile_face	
+typedef struct client_smile_face
 {
 	char smileno;
 }t_client_smile_face;
-typedef struct server_smile_face	
+typedef struct server_smile_face
 {
 	short int id;
 	char  smileno;
@@ -1948,7 +1892,7 @@ typedef struct server_smile_face
 #define		CMD_BBS					8411
 typedef struct server_bbs
 {
-	char bbs[ MAX_PATH];
+	char bbs[MAX_PATH];
 }t_server_bbs;
 
 #define CMD_ACCESS_JOIN_YOU_ALREADY_IN_MAP			8412	// id와 Password를 들고 접근하지만. 당신은 이미 맵에 있다. 또는 현재 Update중이다. 
@@ -1957,7 +1901,7 @@ typedef struct server_bbs
 #define CMD_HOW_MANY_IN_MAP							8413
 typedef struct how_many_in_map
 {
-	char		map[ NM_LENGTH ];
+	char		map[NM_LENGTH];
 	short int	how;
 }t_how_many_in_map;
 
@@ -1988,7 +1932,7 @@ typedef struct make_ghost
 
 
 #define CMD_GIVE_LIFE								8425
-typedef struct give_life 
+typedef struct give_life
 {
 	short id;
 }t_give_life;
@@ -2014,55 +1958,55 @@ typedef struct item_duration_change
 typedef struct npc_chat_data
 {
 	short int id;
-	char      data[ TEXT_LENGTH];
+	char      data[TEXT_LENGTH];
 }t_npc_chat_data;
 
 
 
 #define CMD_NPCCTRL_SEALSTONE_						8901
 typedef struct npcctrl_sealstone
-{								
-	short int id;				
-	short int patterntype;		
-}t_npcctrl_sealstone;				
+{
+	short int id;
+	short int patterntype;
+}t_npcctrl_sealstone;
 
 
 
 #define CMD_NPCCTRL_MURI_8							8428
-typedef struct npcctrl_muri_8	
-{								
-	short int id;				
-	short int oldpatterntype;		
-	short int patterntype;		
+typedef struct npcctrl_muri_8
+{
+	short int id;
+	short int oldpatterntype;
+	short int patterntype;
 	short int bossid;
 	DWORD	  Exp;
-}t_npcctrl_muri_8;				
-								
-								
+}t_npcctrl_muri_8;
+
+
 #define CMD_NPCCTRL_MURI_18							8429
-typedef struct npcctrl_muri_18	
-{								
-	short int id;				
-	short int oldpatterntype;	
-	short int patterntype;		
+typedef struct npcctrl_muri_18
+{
+	short int id;
+	short int oldpatterntype;
+	short int patterntype;
 	short int bossid;
 	DWORD	  Exp;
-}t_npcctrl_muri_18;				
-								
-									
+}t_npcctrl_muri_18;
+
+
 #define CMD_NPCCTRL_MURI_28							8430
-typedef struct npcctrl_muri_28 
-{								
-	short int id;				
-	short int oldpatterntype;	
-	short int patterntype;		
+typedef struct npcctrl_muri_28
+{
+	short int id;
+	short int oldpatterntype;
+	short int patterntype;
 	short int bossid;
 	DWORD	  Exp;
 
-}t_npcctrl_muri_28;				
+}t_npcctrl_muri_28;
 
 #define CMD_NPCCTRL_WANDER_MAUL						8431
-typedef struct npcctrl_wander_maul 
+typedef struct npcctrl_wander_maul
 {
 	short int id;
 	short int oldpatterntype;
@@ -2070,7 +2014,7 @@ typedef struct npcctrl_wander_maul
 }t_npcctrl_wander_maul;
 
 #define CMD_NPCCTRL_NO_MOVE							8432
-typedef struct npcctrl_no_move 
+typedef struct npcctrl_no_move
 {
 	short int id;
 	short int oldpatterntype;
@@ -2078,15 +2022,15 @@ typedef struct npcctrl_no_move
 }t_npcctrl_no_move;
 
 #define CMD_NPCCTRL_WANDER_GUARD					8433
-typedef struct npcctrl_wander_guard 
-{	
+typedef struct npcctrl_wander_guard
+{
 	short int id;
 	short int oldpatterntype;
 	short int patterntype;
 }t_npcctrl_wander_guard;
 
 #define CMD_NPCCTRL_WANDER_38						8434
-typedef struct npcctrl_wander_38 
+typedef struct npcctrl_wander_38
 {
 	short int id;
 	short int oldpatterntype;
@@ -2106,62 +2050,62 @@ typedef struct npcctrl_tame
 	char	  TargetName[31];
 	short int tame;
 	BYTE	  tame_cmd;
-					
-}t_npcctrl_tame;	
-	
+
+}t_npcctrl_tame;
+
 #define CMD_NPC_MODIFY_POS							8436
 typedef struct npc_modify_pos
-{				 	
-	short int id;	
+{
+	short int id;
 	short int mx, my;
-}t_npc_modify_pos;	
-					
-							
+}t_npc_modify_pos;
+
+
 #define CMD_SEND_NPC_PARAMETER						8437
 typedef struct send_npc_parameter
-{					
+{
 	short id;
 	short type;
 	short data;
 }t_send_npc_parameter;
-						
+
 #define CMD_SEND_NPC_STRING_PARAMETER				8438
 typedef struct send_npc_string_parameter
-{							
-	short id;			
-	short type;				
-	char data[ 31];		
+{
+	short id;
+	short type;
+	char data[31];
 }t_send_npc_string_parameter;
-						
-						
+
+
 #define CMD_START_GOODBAD							8439
 typedef struct start_goodbad
-{						
-	short int	id;		
+{
+	short int	id;
 	short int	 nk3;
 	short int	 nk4;
 	short int	 nk6;
-						
-}t_start_goodbad;			
-						
+
+}t_start_goodbad;
+
 #define CMD_ENDOF_GOODBAD							8440
 typedef struct endof_goodbad
-{							
-	short int id;			
-}t_endof_goodbad;				
-							
+{
+	short int id;
+}t_endof_goodbad;
+
 #define	CMD_LOGIN_BBS								8450
 typedef struct login_bbs
 {
-	char	bbs[ MAX_PATH];
+	char	bbs[MAX_PATH];
 }t_login_bbs;
 
 
 
 #define	CMD_CHAR_IN_GAME							8460	
-typedef struct char_in_game							
+typedef struct char_in_game
 {
-	char name[ NM_LENGTH];
+	char name[NM_LENGTH];
 }t_char_in_game;
 
 
@@ -2169,9 +2113,9 @@ typedef struct char_in_game
 // Login Server -> Game Server
 // id를 가진 놈을 끊어라...
 #define CMD_CLOSE_LOGIN_ID							8462
-typedef struct login_close_login_id 
+typedef struct login_close_login_id
 {
-	char id[ NM_LENGTH];
+	char id[NM_LENGTH];
 }t_login_close_login_id;
 
 
@@ -2179,23 +2123,23 @@ typedef struct login_close_login_id
 #define CMD_UPDATE_VERY_IMPORTANT_STATUS			8465
 typedef struct update_very_important_status
 {
-	char            name[ NM_LENGTH];
-	
+	char            name[NM_LENGTH];
+
 	short int		Level;
 
-	short int		Str  ;	
-	short int		Con  ;	
-	short int		Dex  ;	
-	short int		Wis  ;	
-	short int		Int  ;	
-	short int		MoveP;	  
-	short int		Char ;	 
-	short int		Endu ;	 
-	short int		Moral;	  
-	short int		Luck ;	 
-	short int		wsps ;	 
+	short int		Str;
+	short int		Con;
+	short int		Dex;
+	short int		Wis;
+	short int		Int;
+	short int		MoveP;
+	short int		Char;
+	short int		Endu;
+	short int		Moral;
+	short int		Luck;
+	short int		wsps;
 
-	int		HpMax ;
+	int		HpMax;
 	int		ManaMax;
 	int		HungryMax;
 
@@ -2210,8 +2154,8 @@ typedef struct update_very_important_status
 #define CMD_UPDATE_VERY_IMPORTANT_TACTICS		8466
 typedef struct update_very_important_tactics
 {
-	char name[ NM_LENGTH];
-	char tac_skillEXP[ SIZE_OF_TAC_SKILL_EXP];
+	char name[NM_LENGTH];
+	char tac_skillEXP[SIZE_OF_TAC_SKILL_EXP];
 }t_update_very_important_tactics;
 
 
@@ -2233,19 +2177,19 @@ typedef struct tactics_parrying_exp
 	DWORD exp;
 	unsigned char step;
 }t_tactics_parrying_exp;
-	
-	
-	
-	
+
+
+
+
 #define CMD_DUAL_PROPOSAL			8472
-typedef struct dual_proposal	
-{	
-	char name[ NM_LENGTH];
+typedef struct dual_proposal
+{
+	char name[NM_LENGTH];
 }t_dual_fight_proposal;
-	
+
 #define CMD_DUAL_PROPOSAL_ACCEPT	8472
 typedef struct dual_proposal_accept
-{	
+{
 	char name[NM_LENGTH];
 }t_dual_proposal_accept;
 
@@ -2291,7 +2235,7 @@ typedef struct server_npc_access_table_reload
 // 국가전에 대한  packet..
 #define CMD_SEALSTONE_WAR_LEFTTIME			8850
 typedef struct sealstone_warlefttime
-{				
+{
 	char  nation;
 	DWORD lefttime;
 }t_sealstone_warlefttime;
@@ -2299,13 +2243,13 @@ typedef struct sealstone_warlefttime
 
 #define CMD_SEALSTONE_WAR_START				8851
 typedef struct sealstone_war_start
-{				
+{
 	char  nation;
 }t_sealstone_war_start;
 
 
 typedef struct sealstone_client_warlefttime
-{				
+{
 	DWORD lefttime;
 }t_sealstone_client_warlefttime;
 
@@ -2313,30 +2257,30 @@ typedef struct sealstone_client_warlefttime
 #define CMD_WAR_START_BLOCK					8852
 
 
-	
+
 #define CMD_SEALSTONE_RE_GENTIME			8860
 typedef struct sealstone_regentime
-{	
+{
 	char nation;
 	DWORD regentime;
 }t_sealstone_regentime;
- 
- 
+
+
 #define CMD_SEALSTONE_START_RE_GENTIME		8869
 #define CMD_SEALSTONE_END_RE_GENTIME		8870
- 
- 
+
+
 #define CMD_SEALSTONE_RESULT				8880
 #define CMD_SEALSTONE_RESULT_DEFEAT			8881
 #define CMD_SEALSTONE_RESULT_VICTORY		8882
 #define CMD_SEALSTONE_RESULT_DRWAW			8883
 
- 
+
 typedef struct sealstone_result
-{	
+{
 	char aresult;
 	char anation;
-	
+
 	char bresult;
 	char bnation;
 }t_sealstone_result;
@@ -2356,7 +2300,7 @@ typedef struct sealstone_status
 	short int	x, y;
 	unsigned long Hp; // 030516 kyo
 	char		sealstonesprno;
-	char		mapnumber;	
+	char		mapnumber;
 	char		status;
 
 }t_sealstone_status;
@@ -2381,7 +2325,7 @@ typedef struct sealstone_client_status
 
 typedef struct nation2nation_relation
 {
-	char a,b;
+	char a, b;
 	char relation;
 	short int year, yday, hour;
 	DWORD howlong;
@@ -2395,16 +2339,16 @@ typedef struct nation2nation_relation_result
 {
 	BYTE why;
 
-}t_nation2nation_relation_result;				
+}t_nation2nation_relation_result;
 
 
 
 
 #define CMD_JUST_ANI						8900
-typedef struct just_ani							
-{												
-	short int id;								
-	char	  ani;								
+typedef struct just_ani
+{
+	short int id;
+	char	  ani;
 }t_just_ani;
 
 
@@ -2419,28 +2363,28 @@ typedef struct face_directions
 #define CMD_MANTLE_CANDLE					8960
 typedef struct mantle_candle
 {
-	DWORD id		:	16;
-	DWORD mantleno	:   14;
-	DWORD candle	:    2;
+	DWORD id : 16;
+	DWORD mantleno : 14;
+	DWORD candle : 2;
 }t_mantle_candle;
 
 
 
 #define CMD_CANDLE_ON	8965
 typedef struct candle_on
-{	
+{
 	WORD id;
 }t_candle_on;
 
 #define CMD_CANDLE_OFF	8966
 typedef struct candle_off
-{	
+{
 	WORD id;
 }t_candle_off;
 
 #define CMD_CANDLE_CLICK	8967
 typedef struct candle_click
-{	
+{
 	POS		pos;
 }t_candle_click;
 
@@ -2453,7 +2397,7 @@ typedef struct client_install_type
 	BYTE type;
 
 }t_client_install_type;
-			
+
 
 
 
@@ -2461,8 +2405,8 @@ typedef struct client_install_type
 
 typedef struct server_chr_log_basic_data
 {
-	char id[ NM_LENGTH];
-	char name[ NM_LENGTH];
+	char id[NM_LENGTH];
+	char name[NM_LENGTH];
 	char state;
 	BYTE btLevel; // CSD-030806
 
@@ -2482,22 +2426,22 @@ typedef struct server_chr_log_basic_data
 	int  wsps;
 
 	int  Tactics;
-	DWORD nation;	
+	DWORD nation;
 
 	DWORD Money;
-	int HpMax ;
+	int HpMax;
 	int ManaMax;
 
-	char MapName[ NM_LENGTH];
+	char MapName[NM_LENGTH];
 	int HungryMax;
 
-  __int16 nPoison; // 저주계열 마법에 대한 저항력
-  __int16 nCurse; // 저주계열 마법에 대한 저항력	
-  __int16 nFire;	 // 불계열 공격 마법에 대한 저항력
-  __int16 nIce;		 // 얼음계열 공격 마법에 대한 저항력
-  __int16 nElect;	 // 전격계열 공격 마법에 대한 저향력
-  __int16 nHoly;	 // 신력계열 공격 마법에 대한 저항력
-  
+	__int16 nPoison; // 저주계열 마법에 대한 저항력
+	__int16 nCurse; // 저주계열 마법에 대한 저항력	
+	__int16 nFire;	 // 불계열 공격 마법에 대한 저항력
+	__int16 nIce;		 // 얼음계열 공격 마법에 대한 저항력
+	__int16 nElect;	 // 전격계열 공격 마법에 대한 저향력
+	__int16 nHoly;	 // 신력계열 공격 마법에 대한 저항력
+
 	int X, Y;
 	int		reserved_point;
 	DWORD	BankMoney;
@@ -2510,35 +2454,35 @@ typedef struct server_chr_log_basic_data
 typedef struct server_chr_log_binary_data0
 {
 
-	char name[ NM_LENGTH];
-	char Skill[ SIZE_OF_SKILL];
-	char skillexp[ SIZE_OF_SKILL_EXP];
-	char tac_skillEXP[ SIZE_OF_TAC_SKILL_EXP];
+	char name[NM_LENGTH];
+	char Skill[SIZE_OF_SKILL];
+	char skillexp[SIZE_OF_SKILL_EXP];
+	char tac_skillEXP[SIZE_OF_TAC_SKILL_EXP];
 }t_server_chr_log_binary_data0;
 
 
 #define CMD_CHR_LOG_BINARY_DATA1	9004
 typedef struct server_chr_log_binary_data1
 {
-	char name[ NM_LENGTH];
-	char equip[ SIZE_OF_EQUIP];
-	char quick[ SIZE_OF_QUICK];
+	char name[NM_LENGTH];
+	char equip[SIZE_OF_EQUIP];
+	char quick[SIZE_OF_QUICK];
 }t_server_chr_log_binary_data1;
 
-	
+
 #define CMD_CHR_LOG_BINARY_DATA2	9005
 typedef struct server_chr_log_inv_binary_data2
 {
-		char name[ NM_LENGTH];
-		char inv[ SIZE_OF_INV];
+	char name[NM_LENGTH];
+	char inv[SIZE_OF_INV];
 }t_server_chr_log_binary_data2;
 
 
 #define CMD_CHR_LOG_BINARY_DATA4	9006
 typedef struct server_chr_log_binary_data3
 {
-	char name[ NM_LENGTH];
-	char bankitem[ SIZE_OF_BANKITEM];
+	char name[NM_LENGTH];
+	char bankitem[SIZE_OF_BANKITEM];
 }t_server_chr_log_binary_data3;
 
 
@@ -2547,7 +2491,7 @@ typedef struct server_chr_log_binary_data3
 #define CMD_HACKING_USER			9007
 typedef struct hacking_user
 {
-	char	id[ 20];
+	char	id[20];
 	char	name[20];
 	short	type;
 	char	ip[20];
@@ -2561,11 +2505,11 @@ typedef struct rare_item_make_log
 	int map;
 	//date; 자동 기록
 	char maker[20];
-	
+
 	int itemno;//아이템 자체 넘버
-	
+
 	int today_count;//오늘 몇번 만들었나
-	
+
 	int grade;
 
 	int mutanttype1;
@@ -2580,7 +2524,7 @@ typedef struct rare_item_make_log
 	int resultlimit;
 	int resultnowdur;//
 	int resultmaxdur;//
-	
+
 	int why;
 	int why2;
 
@@ -2611,7 +2555,7 @@ typedef struct dragon_header
 {
 	short int		type;
 	short int		size;
-	char			  crc;  
+	char			  crc;
 } t_header;
 
 
@@ -2630,7 +2574,7 @@ typedef struct packet
 		t_server_weather		server_weather;
 		t_server_npc_add		server_npc_add;
 		t_server_npc_remove		server_npc_remove;
-    t_client_attack			client_attack;
+		t_client_attack			client_attack;
 		t_server_attack			server_attack;
 
 		t_server_modify_position				server_modify_position;
@@ -2662,8 +2606,7 @@ typedef struct packet
 		t_client_move			client_move;
 		t_server_move			server_move;
 		t_client_create_char	client_create_char;
-//		t_client_delete_char	client_delete_char;//020725 lsw
-
+		//t_client_delete_char	client_delete_char;//020725 lsw
 
 		t_client_event							client_event; // ###0923
 		t_item_attr_change						item_attr_change;
@@ -2679,12 +2622,11 @@ typedef struct packet
 
 		t_server_change_map						server_change_map;
 
-
 		t_server_foot_on_trap0		server_foot_on_trap0;
 		t_client_foot_on_trap0		client_foot_on_trap0;
 		t_server_foot_on_trap1		server_foot_on_trap1;
 		t_client_foot_on_trap1		client_foot_on_trap1;
-		
+
 		t_server_steal_on_trap		server_steal_on_trap;//011212 lsw
 
 		t_chr_item_info0			chr_item_info0;
@@ -2703,31 +2645,30 @@ typedef struct packet
 		t_req_npc_add				req_npc_add;
 		t_req_item_add				req_item_add;
 
-
 		t_server_user_db_data		server_user_db_data;
 		t_server_user_add			server_user_add;
 		t_server_envir_info			server_envir_info;
 		t_server_user_remove		server_user_remove;
 
-		t_item_ex_info				item_ex_info ;
+		t_item_ex_info				item_ex_info;
 		t_item_exchange				item_exchange;
 		t_chr_status_info			chr_status_info;
-    
-		t_server_change_equip		server_change_equip ;
-		t_client_change_equip		client_change_equip ;
 
-		t_mass_data					mass_data ;
+		t_server_change_equip		server_change_equip;
+		t_client_change_equip		client_change_equip;
+
+		t_mass_data					mass_data;
 		t_server_insert_magic		server_insert_magic;
 		//t_inv_info				inv_info ;
 		//t_equip_info				equip_info ;
-		t_server_interface_battle	server_interface_battle ;
-		t_server_interface_peace	server_interface_peace ;
+		t_server_interface_battle	server_interface_battle;
+		t_server_interface_peace	server_interface_peace;
 
 		// Menu..
-		t_server_call_smallmenu		server_call_smallmenu ;
+		t_server_call_smallmenu		server_call_smallmenu;
 		t_server_store_itemlist		server_store_itemlist;
-		t_client_item_buy			client_item_buy ;
-		t_client_item_sell			client_item_sell ;
+		t_client_item_buy			client_item_buy;
+		t_client_item_sell			client_item_sell;
 		t_server_menu_message		server_menu_message;
 
 		t_server_guild_info			server_guild_info;
@@ -2789,7 +2730,6 @@ typedef struct packet
 		t_tame_command_result			tame_command_result;
 		t_tame_end						tame_end;
 
-
 		t_you_die						you_die;
 
 		t_debug_server_req_char_info	debug_server_req_char_info;
@@ -2803,10 +2743,8 @@ typedef struct packet
 		// 공지사항..
 		t_server_bbs					server_bbs;
 
-
 		// 게임서버 인식 
 		t_im_game_server				im_game_server;
-
 
 		//------------------- NEW_APPEND -------------------------
 		t_server_access_char_db			server_access_char_db;
@@ -2825,7 +2763,6 @@ typedef struct packet
 		t_make_ghost					make_ghost;
 		t_give_life						give_life;
 
-
 		// Update to LoginServer....
 		t_update_char_db				update_char_db;
 		t_server_update_binary_data0	server_update_binary_data0;
@@ -2834,7 +2771,6 @@ typedef struct packet
 		t_server_update_inv_data		server_update_inv_data;
 		t_server_update_item_data		server_update_item_data;
 		t_server_update_bankitem_data	server_update_bankitem_data;
-
 
 		// GameServer와  LoginServer와의 Access Join관계..
 		t_gs_req_insert_userid	gs_req_insert_userid;
@@ -2848,14 +2784,13 @@ typedef struct packet
 		// Item Duration 감소처리....
 		t_item_duration_change	item_duration_change;
 
-
 		// Client에서 NPC관리를 위한 프로토콜
 		t_npc_chat_data			npc_chat_data;
 
 		t_npcctrl_sealstone		npcctrl_sealstone;
 		t_npcctrl_muri_8		npcctrl_muri_8;
 		t_npcctrl_muri_18		npcctrl_muri_18;
-		t_npcctrl_muri_28		npcctrl_muri_28;		
+		t_npcctrl_muri_28		npcctrl_muri_28;
 		t_npcctrl_wander_38		npcctrl_wander_38;
 		t_npcctrl_wander_maul	npcctrl_wander_maul;
 		t_npcctrl_no_move		npcctrl_no_move;
@@ -2884,14 +2819,13 @@ typedef struct packet
 		// 0811 NPC KHS
 		t_server_npc_access_table_reload	server_npc_access_table_reload;
 
-
 		// 국가전에 대한 packet.
 		t_sealstone_warlefttime		sealstone_warlefttime;
 		t_sealstone_war_start		sealstone_war_start;
 		t_sealstone_client_warlefttime	sealstone_client_warlefttime;
 		t_sealstone_result			sealstone_result;
 		t_sealstone_fromking		sealstone_fromking;
-		t_sealstone_status			sealstone_status;			
+		t_sealstone_status			sealstone_status;
 		t_sealstone_client_status	sealstone_client_status;
 
 		t_nation2nation_relation_result nation2nation_relation_result;
@@ -2908,7 +2842,6 @@ typedef struct packet
 		t_candle_on					candle_on;
 		t_candle_off				candle_off;
 
-
 		t_client_install_type		client_install_type;
 
 		t_server_chr_log_basic_data		server_chr_log_basic_data;
@@ -2921,10 +2854,8 @@ typedef struct packet
 		t_server_item_add_ziped		server_item_add_ziped;
 		t_server_check_accel		server_check_accel;//엑셀레이터 쓰는거 방지 010604 lsw
 
-
 		t_hacking_user				hacking_user;
 		t_rare_item_make_log		rare_item_make_log;
-
 
 		t_angra angra;
 		t_kein kein;
@@ -2939,7 +2870,7 @@ typedef struct packet
 		// 011012 KBS
 		t_send_map_change_date		send_map_change_date;
 		//
-		
+
 		//011004 lsw >
 		t_SkillRareUpgrade			SkillRareUpgrade;
 		t_SkillRareUpgradeResult	SkillRareUpgradeResult;
@@ -2955,7 +2886,7 @@ typedef struct packet
 		//011004 lsw <
 
 		//011212 KBS
-		t_rm_change_weather			RmChangeWeather;	
+		t_rm_change_weather			RmChangeWeather;
 		//
 
 		t_SearchPacketClient		SearchPacketClient;//021008 lsw
@@ -2969,7 +2900,7 @@ typedef struct packet
 		t_MerchantExchangeRequest	MerchantExchangeRequest;
 		t_Hwoarang					Hwoa;
 		// 1010 CSB
-		t_server_call_smallmenucustom		server_call_smallmenucustom ;
+		t_server_call_smallmenucustom		server_call_smallmenucustom;
 		//
 		t_AddEffect					AddEffect;//020314 lsw 
 		t_LocalWar	        LocalWar;	// LTS LOCALWAR
@@ -2986,7 +2917,7 @@ typedef struct packet
 		t_WINNER_MENU		Lotto_Winner_Menu;
 		t_OPEN_LOTTO_MENU	Lotto_Menu_Open;
 		t_ACCEL_TYPE		Accel_Type; // CSD-030808
-		
+
 		t_LOTTERY_INFO		Lotto_BroadCast;//soto-HK030924
 
 		t_LOTTOPAPER_SEEK	Lotto_Seek;//soto-Lotto추가.
@@ -2994,15 +2925,13 @@ typedef struct packet
 		t_DEL_LOTTO_USER_OK			Lotto_Del_Ok;		// BBD 040127	로또 프로세스 변경
 		t_EVENT_RARE_ITEM_LIST		Event_Item_List;	// BBD 040308	이벤트레어아이템 확인용 구조체
 	} u;
-	
+
 	struct packet *next;
 
 } t_packet;
 
-#pragma pack(pop,1)
-
-	
-
+//#pragma pack(pop,1)
+#pragma pack(pop)
 
 
 //--------------------------------------------------------
@@ -3014,7 +2943,7 @@ typedef struct packet
 //--------------------------------------------------------
 //--------------------------------------------------------
 
-typedef struct connection 
+typedef struct connection
 {
 	int				state;
 
@@ -3027,10 +2956,9 @@ typedef struct connection
 
 	int				server_check;	// 현재 Sealstone.cpp에서 사용하는데.. 정리해야할 변수이다..010531 KHS
 
-    CHARLIST		chrlst;
+	CHARLIST		chrlst;
 
 	AREA			area_tbl[MAX_AREA_BUFFER];
-
 
 	// 2000/11/07, chan78. Two Members Added.
 	DWORD dwAgentConnectionIndex;
@@ -3043,13 +2971,13 @@ typedef struct connection
 } t_connection;
 
 
-extern t_connection	connections[DRAGON_MAX_CONNECTIONS_+1];
+extern t_connection	connections[DRAGON_MAX_CONNECTIONS_ + 1];
 
 extern DWORD		global_time;
 extern DWORD		alive_time;
 
 extern int			DRAGON_PORT;
-	
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -3061,47 +2989,47 @@ extern "C"
 #endif
 
 
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
+	//-----------------------------------------------------------------
+	//-----------------------------------------------------------------
+	//-----------------------------------------------------------------
 
 	extern void CheckProcessRoutine(t_connection c[]);
-	extern int  QueuePacket_(t_connection c[], int cn, t_packet *packet, int type, char *file, int line );
+	extern int  QueuePacket_(t_connection c[], int cn, t_packet *packet, int type, char *file, int line);
 	extern int  DequeuePacket(t_connection c[], int cn, t_packet *packet, int type);
 	extern void SendAliveCheckRoutine(t_connection c[]);
 	extern void SendWeatherRoutine(t_connection c[]);
 	//extern void closeconnection(t_connection c[], int cn, int errnum);
-	extern void closeconnection(t_connection c[], int cn, int errnum,  bool bUseDemon = false);	// BBD 040110 인수 확장
-	extern void closeconnection_core( t_connection c[], int cn, int errnum);
+	extern void closeconnection(t_connection c[], int cn, int errnum, bool bUseDemon = false);	// BBD 040110 인수 확장
+	extern void closeconnection_core(t_connection c[], int cn, int errnum);
 
 	//------------ NEW_APPEND -------------------------------
-	extern int	ConnectServer(t_connection c[], int cn, LPSTR lpIP, int nPort );
+	extern int	ConnectServer(t_connection c[], int cn, LPSTR lpIP, int nPort);
 	//-------------------------------------------------------
 	extern int  HandleAccepting(t_connection c[], SOCKET lsock);
-	extern int  HandleCommand( int cn, t_packet *pakcet);
+	extern int  HandleCommand(int cn, t_packet *pakcet);
 	extern int  HandleReading(t_connection c[], int cn);
 	extern int  HandleWriting(t_connection c[], int cn);
 	extern int  HandleWriting_neo(t_connection c[], int cn);
 	extern void SendUserData(t_connection c[]);
-	
-	extern int SettingMoveData_( int j, CHARLIST *c, t_packet *p );
 
-	extern void RecvCMD_ITEM_BOX_BREAK( int cn, t_client_item_box_break *p );
-	extern void RecvCMD_JUST_ATTACK_ANIMATION( int cn, t_client_just_attack_animation *p );
-	extern void RecvCMD_ITEM_BOX_BREAK_RESULT( int cn, t_client_item_box_break_result *p );
-	extern void RecvCMD_ITEM_BOX_MAGIC_BREAK( int cn, t_client_item_box_magic_break	*p );
-	extern void RecvTotalMapConnections( int cn );
-	extern void RecvTotalConnections( int cn );
+	extern int SettingMoveData_(int j, CHARLIST *c, t_packet *p);
+
+	extern void RecvCMD_ITEM_BOX_BREAK(int cn, t_client_item_box_break *p);
+	extern void RecvCMD_JUST_ATTACK_ANIMATION(int cn, t_client_just_attack_animation *p);
+	extern void RecvCMD_ITEM_BOX_BREAK_RESULT(int cn, t_client_item_box_break_result *p);
+	extern void RecvCMD_ITEM_BOX_MAGIC_BREAK(int cn, t_client_item_box_magic_break	*p);
+	extern void RecvTotalMapConnections(int cn);
+	extern void RecvTotalConnections(int cn);
 
 	/* 040715_KJHuNs g_pLogManager로 이동(정리) - 로그는 Battle폴더에 저장됨
 			연관된 BallancingXXX는 현재 사용치 않는것으로 보여서 이녀석만 이동.
 	extern void SaveLogBattle_Ballancing( LPCHARLIST a, LPCHARLIST d, int magicno, int damage, int mana, int attack, int attacktype, int tac  );
-	
+
 	extern void SaveLogLevelUp(LPCHARLIST pChar);
 	*/
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
-//-----------------------------------------------------------------
+	//-----------------------------------------------------------------
+	//-----------------------------------------------------------------
+	//-----------------------------------------------------------------
 
 
 

@@ -15,7 +15,7 @@ extern CGambleItem g_GambleItem;
 extern void CalcWinLoseScore(WINLOSEPOINT& win_lose, int wintype);
 extern ItemAttr GenerateItem(const int iItemFullNo);
 extern void SendViewType(CHARLIST *target, int view_Type, int continue_Time);
-extern int SubtractMoney( DWORD money, CHARLIST *ch );
+extern int SubtractMoney(DWORD money, CHARLIST *ch);
 extern bool isLevelUp(CHARLIST*);
 
 /* 040715_KJHuNs g_pLogManager로  이동(정리목적)
@@ -33,10 +33,10 @@ CArenaInfo::CArenaInfo()
 	m_ptWait.x = 0;
 	m_ptWait.y = 0;
 }
-	
+
 CArenaInfo::~CArenaInfo()
 {
-	
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ CArenaTeam::CArenaTeam()
 {
 	Clear();
 }
-	
+
 CArenaTeam::~CArenaTeam()
 {
 	ClearMember();
@@ -122,7 +122,7 @@ void CArenaTeam::AddMember(CHARLIST* pMember)
 {
 	m_ltMember.push_back(pMember);
 }
-	
+
 void CArenaTeam::DelMember(CHARLIST* pMember)
 {
 	m_ltMember.remove(pMember);
@@ -179,7 +179,7 @@ void CArenaTeam::DelGambler(CHARLIST* pGambler)
 
 	if (itor != m_mpGambler.end())
 	{
-		m_mpGambler.erase(itor);	
+		m_mpGambler.erase(itor);
 	}
 	else
 	{
@@ -213,7 +213,7 @@ int CArenaTeam::GetAliveCount()
 
 	return nCount;
 }
-	
+
 int CArenaTeam::GetDeadCount()
 {
 	int nCount = 0;
@@ -244,27 +244,27 @@ void CArenaTeam::GiveBonus()
 {
 	const int nSize = m_ltMember.size();
 
-	if (nSize <= 1 || nSize > 15) 
+	if (nSize <= 1 || nSize > 15)
 	{
 		return;
 	}
 
-	const int nParam = ::ChoiceParam(g_game_rate_data.give_gamble_item_rate[nSize], 
-		                             2, 
-									 rand()%100 + 1);
+	const int nParam = ::ChoiceParam(g_game_rate_data.give_gamble_item_rate[nSize],
+		2,
+		rand() % 100 + 1);
 
 	for (ITOR_MEMBER i = m_ltMember.begin(); i != m_ltMember.end(); ++i)
 	{
 		const int nItemNo = g_GambleItem.GetRandItem(GT_RESOURCE, nParam);
-		
-		if (nItemNo == 0) 
+
+		if (nItemNo == 0)
 		{
 			continue;
 		}
 
 		ItemAttr item = ::GenerateItem(nItemNo);
-		
-		if (item.item_no == 0) 
+
+		if (item.item_no == 0)
 		{
 			continue;
 		}
@@ -313,7 +313,7 @@ void CArenaTeam::EndGame(int nX, int nY)
 		::SendViewType(pObserve, VIEWTYPE_NORMAL_, 0);
 		::MovePc(pObserve->GetServerID(), nX, nY);
 	}
-	
+
 	ClearMember();
 	ClearObserve();
 	ClearGambler();
@@ -334,7 +334,7 @@ void CArenaTeam::SendPacket(int idTarget, int nType)
 	t_packet packet;
 	packet.h.header.type = nType;
 	packet.h.header.size = sizeof(k_team_add_message);
-		
+
 	for (ITOR_MEMBER i = m_ltMember.begin(); i != m_ltMember.end(); ++i)
 	{
 		packet.u.kein.team_add_message.total_id = (*i)->total_id;
@@ -343,7 +343,7 @@ void CArenaTeam::SendPacket(int idTarget, int nType)
 		strcpy(packet.u.kein.team_add_message.name, (*i)->Name);
 		::QueuePacket(connections, idTarget, &packet, 1);
 	}
-}	
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Private Method
@@ -411,8 +411,8 @@ void CArenaState::ReadyState(DWORD dwTime)
 void CArenaState::StartState(DWORD dwTime)
 {
 	m_nState = CS_NOW_FIGHT;
-	m_dwContinueTime = dwTime + m_dwPlayMinute*60; 
-	
+	m_dwContinueTime = dwTime + m_dwPlayMinute * 60;
+
 	DWORD dwRemainTime = GetRemainTime(dwTime);
 
 	for (int i = 0; i < 4; ++i)
@@ -446,17 +446,17 @@ int CArenaState::CheckState(DWORD dwTime)
 
 DWORD CArenaState::GetReadyTime(DWORD dwTime) const
 {
-	return (m_dwPrepareTime <= dwTime) ? 0:m_dwPrepareTime - dwTime;
+	return (m_dwPrepareTime <= dwTime) ? 0 : m_dwPrepareTime - dwTime;
 }
 
 DWORD CArenaState::GetRemainTime(DWORD dwTime) const
 {
-	return (m_dwContinueTime <= dwTime) ? 0:m_dwContinueTime - dwTime;
+	return (m_dwContinueTime <= dwTime) ? 0 : m_dwContinueTime - dwTime;
 }
 
 DWORD CArenaState::GetFlowTime(DWORD dwTime) const
 {
-	return m_dwPlayMinute*60 - (m_dwContinueTime - dwTime);
+	return m_dwPlayMinute * 60 - (m_dwContinueTime - dwTime);
 }
 
 void CArenaState::CalcWinTeamLaderScore(CArenaTeam* pTeam)
@@ -484,7 +484,7 @@ void CArenaState::CalcLoseTeamLaderScore(CArenaTeam* pTeam)
 	for (CArenaTeam::ITOR_MEMBER i = ltMember.begin(); i != ltMember.end(); ++i)
 	{
 		CHARLIST* pMember = *i;
-	
+
 		if (pMember->LadderScore < nPoint)
 		{
 			nPoint = pMember->LadderScore;
@@ -505,17 +505,17 @@ float CArenaState::GetTeamProbability(CArenaTeam* pTeam)
 		return 0.0;
 	}
 
-	return pTeam->GetTeamLevel()*100.0/m_nTotalLevel;
+	return pTeam->GetTeamLevel()*100.0 / m_nTotalLevel;
 }
 
 bool CArenaState::IsReadyGame() const
-{ 
-	return (m_dwReadySecond != 0) ? true:false;
+{
+	return (m_dwReadySecond != 0) ? true : false;
 }
 
 bool CArenaState::IsPlayGame() const
-{ 
-	return (m_nState == CS_NOW_FIGHT) ? true:false;
+{
+	return (m_nState == CS_NOW_FIGHT) ? true : false;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -525,14 +525,14 @@ bool CArenaState::IsPlayGame() const
 int CArenaState::GetWinTeamLaderScore(CArenaTeam* pTeam)
 {
 	const int nTeamLevel = pTeam->GetTeamLevel();
-	float fTeamRate = (float)(m_nTotalLevel - nTeamLevel)/nTeamLevel;
+	float fTeamRate = (float)(m_nTotalLevel - nTeamLevel) / nTeamLevel;
 
 	if (m_nTotalLevel == 0)
 	{
 		fTeamRate = 1.0;
 	}
-	
-	bool bHiLevel = (nTeamLevel >= m_nTotalLevel - nTeamLevel) ? true:false;
+
+	bool bHiLevel = (nTeamLevel >= m_nTotalLevel - nTeamLevel) ? true : false;
 
 	int nCorrection = 10;
 
@@ -546,7 +546,7 @@ int CArenaState::GetWinTeamLaderScore(CArenaTeam* pTeam)
 		nCorrection = 5;
 		fTeamRate = 1.0;
 	}
-	else 
+	else
 	{
 		if (bHiLevel)
 		{
@@ -558,20 +558,20 @@ int CArenaState::GetWinTeamLaderScore(CArenaTeam* pTeam)
 		}
 	}
 
-	return fTeamRate*5*nCorrection;
+	return fTeamRate * 5 * nCorrection;
 }
 
 int CArenaState::GetLoseTeamLaderScore(CArenaTeam* pTeam)
 {
 	const int nTeamLevel = pTeam->GetTeamLevel();
-	float fTeamRate = (float)(m_nTotalLevel - nTeamLevel)/nTeamLevel;
+	float fTeamRate = (float)(m_nTotalLevel - nTeamLevel) / nTeamLevel;
 
 	if (m_nTotalLevel == 0)
 	{
 		fTeamRate = 1.0;
 	}
-	
-	bool bHiLevel = (nTeamLevel >= m_nTotalLevel - nTeamLevel) ? true:false;
+
+	bool bHiLevel = (nTeamLevel >= m_nTotalLevel - nTeamLevel) ? true : false;
 
 	int nCorrection = 10;
 
@@ -585,7 +585,7 @@ int CArenaState::GetLoseTeamLaderScore(CArenaTeam* pTeam)
 		nCorrection = 5;
 		fTeamRate = 1.0;
 	}
-	else 
+	else
 	{
 		if (bHiLevel)
 		{
@@ -597,13 +597,13 @@ int CArenaState::GetLoseTeamLaderScore(CArenaTeam* pTeam)
 		}
 	}
 
-	return (fTeamRate*5 - 1)*nCorrection;
+	return (fTeamRate * 5 - 1)*nCorrection;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 // Construction/Destruction
 ///////////////////////////////////////////////////////////////////////////////
-	
+
 CArenaGambling::CArenaGambling()
 {
 	m_dwMaxBattingMoney = 0;
@@ -632,7 +632,7 @@ void CArenaGambling::CalcBattingMoney(CArenaTeam* pTeam)
 	CArenaTeam::HASH_GAMBLER mpGambler = pTeam->GetGamblerSet();
 
 	for (CArenaTeam::ITOR_GAMBLER i = mpGambler.begin(); i != mpGambler.end(); ++i)
-	{	
+	{
 		CHARLIST* pGambler = i->first;
 
 		const DWORD dwOldMoney = pGambler->GetBankMoney();
@@ -666,7 +666,7 @@ void CArenaGambling::CalcDividendMoney(CArenaTeam* pTeam)
 		{
 			const DWORD dwOldMoney = ::GetMoneyByItem(pGambler);
 			::GiveMoney(pGambler, dwDividendMoney);
-			
+
 			const DWORD dwNewMoney = ::GetMoneyByItem(pGambler);
 			g_pLogManager->SaveLogChange_DividendMoney(pGambler, dwOldMoney, dwNewMoney, false);
 			::SendGamblingResult(pGambler, 1, dwDividendMoney);
@@ -677,14 +677,14 @@ void CArenaGambling::CalcDividendMoney(CArenaTeam* pTeam)
 DWORD CArenaGambling::GetDividendRate(CArenaTeam* pTeam)
 {
 	const int nTeamCount = pTeam->GetGamblerCount();
-	
+
 	if (nTeamCount == 0)
 	{
 		return 0;
 	}
-	
+
 	const DWORD dwTeamMoney = pTeam->GetBattingMoney();
-	return ((m_dwBattingMoney - dwTeamMoney)*m_fDividendRate)/nTeamCount;
+	return ((m_dwBattingMoney - dwTeamMoney)*m_fDividendRate) / nTeamCount;
 }
 
 bool CArenaGambling::IsEnableGamblerCount(CArenaTeam* pTeam) const
@@ -702,9 +702,9 @@ bool CArenaGambling::IsEnableBattingMoney(CArenaTeam* pTeam) const
 	CArenaTeam::HASH_GAMBLER mpGambler = pTeam->GetGamblerSet();
 
 	for (CArenaTeam::ITOR_GAMBLER i = mpGambler.begin(); i != mpGambler.end(); ++i)
-	{	
+	{
 		CHARLIST* pGambler = i->first;
-		
+
 		if (pGambler->GetBankMoney() < i->second)
 		{
 			return false;
@@ -713,7 +713,7 @@ bool CArenaGambling::IsEnableBattingMoney(CArenaTeam* pTeam) const
 
 	return true;
 }	//> CSD-031119
-	
+
 bool CArenaGambling::IsEnableBattingMoney(DWORD dwMoney) const
 {
 	if (m_dwMinBattingMoney > dwMoney)
@@ -815,22 +815,22 @@ bool CArenaBonus::GiveBonus(CHARLIST* pMember)
 void CArenaBonus::AddExperience(CHARLIST* pMember)
 {	//< CSD-030806
 	const int nLevel = pMember->GetLevel();
-	pMember->ChangeUpAddExpBonus((NPC_Lev_Ref[nLevel].nNeedExp/100)*m_fExpRate);
+	pMember->ChangeUpAddExpBonus((NPC_Lev_Ref[nLevel].nNeedExp / 100)*m_fExpRate);
 	::isLevelUp(pMember);
 }	//> CSD-030806
 
 void CArenaBonus::AddGambleItem(CHARLIST* pMember)
-{	
+{
 	ItemAttr item;
-	
-	if (rand()%1000 > int(m_fItemGainRate)*10)
+
+	if (rand() % 1000 > int(m_fItemGainRate) * 10)
 	{
 		const int nParam = ::ChoiceParam(g_game_rate_data.give_gamble_item_rate[15],
-										 2, 
-										 rand()%100 + 1);
+			2,
+			rand() % 100 + 1);
 		const int nItemNo = g_GambleItem.GetRandItem(GT_RESOURCE, nParam);
-		
-		if (nItemNo == 0) 
+
+		if (nItemNo == 0)
 		{
 			return;
 		}
@@ -840,8 +840,8 @@ void CArenaBonus::AddGambleItem(CHARLIST* pMember)
 	else
 	{
 		const int nItem = g_GambleItem.GetRandItem(m_nItemHouse, 0);
-			
-		if (nItem == 0) 
+
+		if (nItem == 0)
 		{
 			return;
 		}
@@ -851,35 +851,35 @@ void CArenaBonus::AddGambleItem(CHARLIST* pMember)
 		switch (m_nItemKind)
 		{
 		case H_LV_NO_HIGH_ITEM:
-			{
-				item = ItemMgr.GiveRareItem(nItem, 
-											0, 
-											RARE_ABLE, 
-											1,
-											1, m_nItemGrade, 
-											r, 
-											H_LV_NO_HIGH_ITEM);
-				break;
-			}
+		{
+			item = ItemMgr.GiveRareItem(nItem,
+				0,
+				RARE_ABLE,
+				1,
+				1, m_nItemGrade,
+				r,
+				H_LV_NO_HIGH_ITEM);
+			break;
+		}
 		case H_LV_HIGH_ITEM:
-			{
-				item = ItemMgr.GiveRareItem(nItem, 
-											0,
-											1,
-											RARE_ABLE, 
-											1, m_nItemGrade,
-											r, 
-											H_LV_HIGH_ITEM);
-				break;
-			}
+		{
+			item = ItemMgr.GiveRareItem(nItem,
+				0,
+				1,
+				RARE_ABLE,
+				1, m_nItemGrade,
+				r,
+				H_LV_HIGH_ITEM);
+			break;
+		}
 		default:
-			{
-				return;
-			}
+		{
+			return;
+		}
 		}
 	}
 
-	if (item.item_no == 0) 
+	if (item.item_no == 0)
 	{
 		return;
 	}

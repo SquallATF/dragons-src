@@ -13,7 +13,7 @@
 
 CMagicState::CMagicState()
 {
-  Clear();
+	Clear();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ void CMagicState::Clear()
 	ClearActiveState();
 	ClearPassiveState();
 	ClearRecoveryState();
-	
+
 	m_nAttack = 0;            // 물리적 공격 회수 
 	m_nNature = NAT_NORMAL;   // 성질 상태 초기화
 	m_nState = CON_NORMAL;    // 마법 상태 초기화
@@ -37,49 +37,49 @@ void CMagicState::Clear()
 	m_wPoisonedPoint = 0;     // 중독되었을 때 HP가 감소되는 양 초기화
 	m_wPoisonedCount = 0;     // 중독되었을 때 HP가 감소되는 초 초기화
 	m_nLifeUp = 0;            // Life 증가량
-	
+
 	m_dwAttack = 0;           // 물리적 공격 시간 초기화
 	m_dwCasting = 0;          // 마법 시전 시작 시간 초기화
 	m_dwContinue = 0;         // 마법 시전 유지 시간 초기화
 	m_bLock = true;           // 마법 시전 설정 초기화
-	
+
 	apShort.Clear();          // 단거리 물리적 공격력
 	apMiddle.Clear();         // 중거리 물리적 공격력
 	apLong.Clear();           // 장거리 물리적 공격력
-	
+
 	dpShort.Clear();          // 단거리 물리적 방어력
 	dpMiddle.Clear();         // 중거리 물리적 방어력
 	dpLong.Clear();           // 장거리 물리적 방어력
-	
+
 	dpFire.Clear();           // 불계열 공격마법  방어력
 	dpIce.Clear();            // 얼음계열 공격마법 방어력
 	dpElect.Clear();          // 전격계열 공격마법 방어력
 	dpHoly.Clear();           // 신력계열 공격마법 방어력
-	
+
 	dpCurse1.Clear();         // 저주 1계열 마법 방어력
 	dpCurse2.Clear();         // 저주 2계열 마법 방어력
 	dpCurse3.Clear();         // 저주 3계열 마법 방어력
 	dpCurse4.Clear();         // 저주 4계열 마법 방어력
 	dpCurse5.Clear();         // 저주 5계열 마법 방어력
 	dpFreeze.Clear();         // CSD-021216 : 얼림 저주 마법 방어력
-    
+
 	amplify.Clear();          // 공격 마법 데미지
 	speedUp.Clear();          // 이동속도 증가   
 	speedDown.Clear();        // 이동속도 감소  
-	
+
 	avoid.Clear();            // 회피율
 	agility.Clear();          // 민첩성
-	
+
 	dwCurse1 = 0;             // 저주 1계열 마법 상태 
 	dwCurse2 = 0;             // 저주 2계열 마법 상태 
 	dwCurse3 = 0;             // 저주 3계열 마법 상태 
 	dwCurse4 = 0;             // 저주 4계열 마법 상태 
 	dwFreeze = 0;             // CSD-021024 : 얼림 저주 마법 상태
-	
+
 	dwNormalProtect = 0;      // 일반 보호계열 마법 상태
 	dwSpecialProtect = 0;     // 특수 보호계열 마법 상태 
 	dwExceptProtect = 0;      // 예외 보호계열 마법 상태 (모든 마법이 실패)
-	
+
 	dwAttackDelay = 0;	      // 공격 속도 감소(캐릭터가 공격 할수 있는 여부)
 	dwDontMove = 0;           // 이동이 되지 않음
 	dwDontAttack = 0;		      // 일반적인 공격이 되지 않음
@@ -102,7 +102,7 @@ void CMagicState::Clear()
 	{
 		dwNature[i] = 0;
 	}
-	
+
 	dwUseTimeOfGuildItemMenu = 0;	// 040623 YGI
 }	//> CSD-TW-030623
 
@@ -115,29 +115,29 @@ void CMagicState::Recovery(DWORD dwNow)
 	if (dpShort.IsContinue(dwNow) == false)  dpShort.Clear();
 	if (dpMiddle.IsContinue(dwNow) == false)  dpMiddle.Clear();
 	if (dpLong.IsContinue(dwNow) == false)  dpLong.Clear();
-	
+
 	if (dpFire.IsContinue(dwNow) == false)  dpFire.Clear();
 	if (dpIce.IsContinue(dwNow) == false)  dpIce.Clear();
 	if (dpElect.IsContinue(dwNow) == false)  dpElect.Clear();
 	if (dpHoly.IsContinue(dwNow) == false)  dpHoly.Clear();
-	
+
 	if (dpCurse1.IsContinue(dwNow) == false)  dpCurse1.Clear();
 	if (dpCurse2.IsContinue(dwNow) == false)  dpCurse2.Clear();
 	if (dpCurse3.IsContinue(dwNow) == false)  dpCurse3.Clear();
 	if (dpCurse4.IsContinue(dwNow) == false)  dpCurse4.Clear();
 	if (dpCurse5.IsContinue(dwNow) == false)  dpCurse5.Clear();
 	if (dpFreeze.IsContinue(dwNow) == false)  dpFreeze.Clear();
-	
-	if (amplify.IsContinue(dwNow) == false)  amplify.Clear();  
+
+	if (amplify.IsContinue(dwNow) == false)  amplify.Clear();
 	if (speedUp.IsContinue(dwNow) == false)  speedUp.Clear();
-	if (speedDown.IsContinue(dwNow) == false)  speedDown.Clear();  
+	if (speedDown.IsContinue(dwNow) == false)  speedDown.Clear();
 	if (avoid.IsContinue(dwNow) == false)  avoid.Clear();
 	if (agility.IsContinue(dwNow) == false)  agility.Clear();
-	
+
 	if (dwNormalProtect < dwNow)  dwNormalProtect = 0;
 	if (dwSpecialProtect < dwNow)  dwSpecialProtect = 0;
 	if (dwExceptProtect < dwNow)  dwExceptProtect = 0;
-	
+
 	if (dwAttackDelay < dwNow)  dwAttackDelay = 0;
 	if (dwDontMove < dwNow)  dwDontMove = 0;
 	if (dwDontAttack < dwNow)  dwDontAttack = 0;
@@ -146,7 +146,7 @@ void CMagicState::Recovery(DWORD dwNow)
 	if (dwBlocking < dwNow)  dwBlocking = 0;
 	if (dwLight < dwNow) dwLight = 0;
 	if (dwTransparency < dwNow)  dwTransparency = 0;
-	
+
 	if (dwMagicDamageToMana < dwNow)  dwMagicDamageToMana = 0;
 	if (dwReturnMagic < dwNow)  dwReturnMagic = 0;
 	if (dwLifeUp < dwNow)  dwLifeUp = 0;
@@ -156,7 +156,7 @@ void CMagicState::Recovery(DWORD dwNow)
 	if (dwDoubleExpUp < dwNow)  dwDoubleExpUp = 0; // CSD-040803
 	if (dwProtectionContinue < dwNow) dwProtectionContinue = 0; // CSD-040826
 	if (dwAssistanceContinue < dwNow) dwAssistanceContinue = 0; // CSD-040826
-	
+
 	for (int i = 0; i < NAT_NORMAL; ++i)
 	{
 		if (dwNature[i] < dwNow)
@@ -165,13 +165,13 @@ void CMagicState::Recovery(DWORD dwNow)
 			m_nNature = NAT_NORMAL;
 		}
 	}
-	
+
 	if (dwCombatState < dwNow)  dwCombatState = 0;
-	if (dwCombatRecovery < dwNow)  dwCombatRecovery = 0; 
+	if (dwCombatRecovery < dwNow)  dwCombatRecovery = 0;
 
 	// 040623 YGI
 	if (dwUseTimeOfGuildItemMenu < dwNow) dwUseTimeOfGuildItemMenu = 0;
-	
+
 }	//> CSD-TW-030623
 
 bool CMagicState::CheckAttack(BYTE nCount, DWORD dwNow)
@@ -187,10 +187,10 @@ bool CMagicState::CheckAttack(BYTE nCount, DWORD dwNow)
 		{
 			return false;
 		}
-		
+
 		++m_nAttack;
 	}
-	
+
 	return true;
 }
 
@@ -201,22 +201,22 @@ bool CMagicState::CheckStart(BYTE nMagic, DWORD dwNow)
 	case 0:
 	case 9: return false;
 	}
-	
+
 	if (m_dwCasting > dwNow)
 	{
 		return false;
 	}
 	// 화염벽인 경우 유지 시간 설정
-	if (nMagic == FIRE_WALL)  
+	if (nMagic == FIRE_WALL)
 	{
 		m_dwFireWall = dwNow + Magic_Ref[nMagic].continue_Time;
 	}
 	// 얼음벽인 경우 유지 시간 설정
-	if (nMagic == ICE_WALL)  
+	if (nMagic == ICE_WALL)
 	{
 		m_dwIceWall = dwNow + Magic_Ref[nMagic].continue_Time;
 	}
-	
+
 	m_nMagic = nMagic;                              // 시전할 마법 번호 설정
 	m_dwCasting = dwNow + DELAY;                    // 마법 시전 시작 시간
 	m_dwContinue = dwNow + GetCastContinue(nMagic); // 캐스팅 유지 시간 설정
@@ -228,27 +228,27 @@ bool CMagicState::CheckDoing(BYTE nMagic, DWORD dwNow)
 { //
 	switch (Magic_Ref[nMagic].Excute_Type)
 	{
-    case 0: // 한번 시전에 캐스팅 유지 시간동안 마법 사용
-		{
-			if (m_dwContinue < dwNow)  
-			{ // 유효한 마법 시전 가능 시간인지 검사
-				return false;
-			}
-			
-			break;
+	case 0: // 한번 시전에 캐스팅 유지 시간동안 마법 사용
+	{
+		if (m_dwContinue < dwNow)
+		{ // 유효한 마법 시전 가능 시간인지 검사
+			return false;
 		}
-    case 1: // 한번 시전에 한번 마법 사용
-		{
-			if (m_bLock == false)  
-			{ // 시전을 했는지 검사
-				return false;
-			}
-			
-			break;
-		}
-    default: return false;
+
+		break;
 	}
-	
+	case 1: // 한번 시전에 한번 마법 사용
+	{
+		if (m_bLock == false)
+		{ // 시전을 했는지 검사
+			return false;
+		}
+
+		break;
+	}
+	default: return false;
+	}
+
 	m_nMagic = nMagic; // 사용할 마법 번호 설정
 	return true;
 }
@@ -256,27 +256,27 @@ bool CMagicState::CheckDoing(BYTE nMagic, DWORD dwNow)
 bool CMagicState::CheckEnd(BYTE nMagic, DWORD dwNow)
 { //
 	// 화염벽 유지 시간 검사
-	if (nMagic == FIRE_WALL && m_dwFireWall < dwNow)  
-	{ 
+	if (nMagic == FIRE_WALL && m_dwFireWall < dwNow)
+	{
 		return false;
 	}
 	// 얼음벽 유지 시간 검사
-	if (nMagic == ICE_WALL && m_dwIceWall < dwNow)  
-	{ 
+	if (nMagic == ICE_WALL && m_dwIceWall < dwNow)
+	{
 		return false;
 	}
-	
+
 	m_nMagic = nMagic; // 사용할 마법 번호 설정
 	return true;
 }
 
 bool CMagicState::CheckDelay(BYTE nMagic, DWORD dwNow)
 { // 유효한 마법 시전 가능 시간인지 검사
-	if (m_dwCasting > dwNow)  
+	if (m_dwCasting > dwNow)
 	{ // 유효한 마법 시전 가능 시간인지 검사
 		return false;
 	}
-	
+
 	m_nMagic = nMagic;                             // 사용할 마법 번호 설정
 	m_dwCasting = dwNow + GetCastContinue(nMagic); // 캐스팅 유지 시간 설정 
 	return true;
@@ -284,11 +284,11 @@ bool CMagicState::CheckDelay(BYTE nMagic, DWORD dwNow)
 
 bool CMagicState::CheckCombat(BYTE nCombat, DWORD dwNow)
 {
-	if (dwCombatState > dwNow)  
+	if (dwCombatState > dwNow)
 	{ // 유효한 마법 시전 가능 시간인지 검사
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -305,43 +305,43 @@ void CMagicState::ClearCurse(BYTE nType)
 {
 	switch (nType)
 	{
-    case 1: 
-		{ 
-			dwCurse1 = 0;
-			dwDontCasting = 0;
-			dwDontAttack = 0;
-			dwBlocking = 0;
-			DelState(CON_CURSE|CON_DAZE|CON_STONE);
-			break;
-		} 
-    case 2: 
-		{ //< CSD-021024
-			dwCurse2 = 0;
-			speedDown.Clear();
-			DelState(CON_SLOW);
-			break;
-		} //> CSD-021024
-    case 3: 
-		{
-			dwCurse3 = 0; 
-			dwCurse3 = 0;
-			m_wPoisonedPoint = 0;
-			DelState(CON_POISON);
-			break;
-		}
-    case 4: 
-		{
-			dwCurse4 = 0;
-			DelState(CON_DARKNESS);
-			break;
-		}
-    case 6:
-		{ //< CSD-021024
-			dwFreeze = 0;
-			dwAttackDelay = 0;
-			DelState(CON_FROZEN);
-			break;
-		} //> CSD-021024
+	case 1:
+	{
+		dwCurse1 = 0;
+		dwDontCasting = 0;
+		dwDontAttack = 0;
+		dwBlocking = 0;
+		DelState(CON_CURSE | CON_DAZE | CON_STONE);
+		break;
+	}
+	case 2:
+	{ //< CSD-021024
+		dwCurse2 = 0;
+		speedDown.Clear();
+		DelState(CON_SLOW);
+		break;
+	} //> CSD-021024
+	case 3:
+	{
+		dwCurse3 = 0;
+		dwCurse3 = 0;
+		m_wPoisonedPoint = 0;
+		DelState(CON_POISON);
+		break;
+	}
+	case 4:
+	{
+		dwCurse4 = 0;
+		DelState(CON_DARKNESS);
+		break;
+	}
+	case 6:
+	{ //< CSD-021024
+		dwFreeze = 0;
+		dwAttackDelay = 0;
+		DelState(CON_FROZEN);
+		break;
+	} //> CSD-021024
 	}
 }
 
@@ -349,12 +349,12 @@ void CMagicState::ApplyCurse(BYTE nType, BYTE nState, DWORD dwTime)
 { //< CSD-021024 : 저주계열 마법 상태로 적용
 	switch (nType)
 	{
-    case 1: dwCurse1 = dwTime; AddState(nState); break;
-    case 2: dwCurse2 = dwTime; AddState(nState); break;
-    case 3: dwCurse3 = dwTime; AddState(nState); break;
-    case 4: dwCurse4 = dwTime; AddState(nState); break;
-    case 6: dwFreeze = dwTime; AddState(nState); break;
-    default: return;
+	case 1: dwCurse1 = dwTime; AddState(nState); break;
+	case 2: dwCurse2 = dwTime; AddState(nState); break;
+	case 3: dwCurse3 = dwTime; AddState(nState); break;
+	case 4: dwCurse4 = dwTime; AddState(nState); break;
+	case 6: dwFreeze = dwTime; AddState(nState); break;
+	default: return;
 	}
 } //> CSD-021024
 
@@ -363,14 +363,14 @@ int CMagicState::GetAvailRange(BYTE nMagic) const
 	return Magic_Ref[nMagic].avail_Range;
 }
 
-int CMagicState::GetCastReady(BYTE nMagic) const 
-{ 
-	return Magic_Ref[nMagic].cast_Time*70; 
+int CMagicState::GetCastReady(BYTE nMagic) const
+{
+	return Magic_Ref[nMagic].cast_Time * 70;
 }
 
 int CMagicState::GetCastContinue(BYTE nMagic) const
-{ 
-	return Magic_Ref[nMagic].cast_Continue/6;
+{
+	return Magic_Ref[nMagic].cast_Continue / 6;
 }
 
 int CMagicState::GetDualStep(BYTE nMagic) const // 030415 kyo
@@ -401,36 +401,36 @@ void CMagicState::ClearCombat(BYTE nSelect)
 {	//< CSD-TW-030623
 	switch (Magic_Ref[nSelect].Spell_Type)
 	{
-    case ACTIVE_COMBAT:
-		{
-			InitActiveCombat();
-			ClearActiveState();
-			break;
-		}
-    case PASSIVE_COMBAT:
-		{
-			InitPassiveCombat();
-			ClearPassiveState();
-			break;
-		}
+	case ACTIVE_COMBAT:
+	{
+		InitActiveCombat();
+		ClearActiveState();
+		break;
+	}
+	case PASSIVE_COMBAT:
+	{
+		InitPassiveCombat();
+		ClearPassiveState();
+		break;
+	}
 	case RECOVERY_COMBAT:
-		{
-			InitRecoveryCombat();
-			ClearRecoveryState();
-			break;
-		}
+	{
+		InitRecoveryCombat();
+		ClearRecoveryState();
+		break;
+	}
 	}
 }	//> CSD-TW-030623
 
 void CMagicState::SetActiveCombat(BYTE nCombat, int nCount)
-{ 
-	m_nActive = nCombat; 
+{
+	m_nActive = nCombat;
 	m_nCount = nCount;
 }
 
-void CMagicState::SetPassiveCombat(BYTE nCombat, DWORD dwPeriod) 
-{ 
-	m_nPassive = nCombat; 
+void CMagicState::SetPassiveCombat(BYTE nCombat, DWORD dwPeriod)
+{
+	m_nPassive = nCombat;
 	dwCombatState = dwPeriod;
 }
 
@@ -500,7 +500,7 @@ void CMagicState::ClearNpcStatusUp()
 void CMagicState::ClearNpcRecovery()
 { //
 	m_nNature = NAT_NORMAL;
-	dwNature[NAT_LIFE_UP] = 0; 
+	dwNature[NAT_LIFE_UP] = 0;
 	dwLifeUp = 0;
 	m_nLifeUp = 0;
 }
@@ -529,181 +529,181 @@ void CMagicState::SetNpcStatusUp(DWORD dwTime, int nAttack, int nDefense, int nS
 void CMagicState::SetNpcRecovery(DWORD dwTime, int nLife)
 { //
 	m_nNature = NAT_LIFE_UP;
-	dwNature[NAT_LIFE_UP] = dwTime; 
+	dwNature[NAT_LIFE_UP] = dwTime;
 	dwLifeUp = dwTime;
 	m_nLifeUp = nLife;
 }
 
 void CMagicState::SetDoubleExpUp(DWORD dwTime)
 {	//< CSD-040803 : 5분 간
-	dwDoubleExpUp = dwTime + 5*60;
+	dwDoubleExpUp = dwTime + 5 * 60;
 }	//> CSD-040803
 
 void CMagicState::CorrectShortDamage(int& rDamage, int nPlus, int nMinus) const
 { // 단거리 무기에 대한 방어력 보정
 	int nRatio = dpShort.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectMiddleDamage(int& rDamage, int nPlus, int nMinus) const
 { // 중거리 무기에 대한 방어력 보정
 	int nRatio = dpMiddle.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectLongDamage(int& rDamage, int nPlus, int nMinus) const
 { // 장거리 무기에 대한 방어력 보정
 	int nRatio = dpLong.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectFireDamage(int& rDamage, int nPlus, int nMinus) const
 { // 불계열 마법에 대한 방어력 보정
 	int nRatio = dpFire.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectIceDamage(int& rDamage, int nPlus, int nMinus) const
 { // 얼음계열 마법에 대한 방어력 보정
 	int nRatio = dpIce.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectElectDamage(int& rDamage, int nPlus, int nMinus) const
 { // 전격계열 마법에 대한 방어력 보정
 	int nRatio = dpElect.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectHolyDamage(int& rDamage, int nPlus, int nMinus) const
 { // 신력계열 마법에 대한 방어력 보정
 	int nRatio = dpHoly.GetRatio();
-	
+
 	if (nPlus > 0)
 	{
 		nRatio += nPlus;
 	}
-	
+
 	if (nMinus > 0)
 	{
 		nRatio -= nMinus;
-		
+
 	}
-	
-	rDamage -= rDamage*nRatio/100;
+
+	rDamage -= rDamage*nRatio / 100;
 }
 
 void CMagicState::CorrectMovePlus(int& rMove, int nPlus) const
 { //< CSD-020710
 	const int nCorrent = rMove;
-	
+
 	if (speedUp.GetRatio() > nPlus)
 	{
 		rMove += speedUp.Convert(nCorrent);
 	}
 	else
 	{
-		rMove += (nCorrent*nPlus/100);
+		rMove += (nCorrent*nPlus / 100);
 	}
 } //> CSD-020710
 
 void CMagicState::CorrectMoveMinus(int& rMove, int nMinus) const
 { //< CSD-021024
 	const int nCorrent = rMove;
-	
+
 	if (speedDown.GetRatio() > nMinus)
 	{ // 얼림 상태인 경우라면
 		rMove -= speedDown.Convert(nCorrent);
 	}
 	else
 	{
-		rMove -= (nCorrent*nMinus/100);
+		rMove -= (nCorrent*nMinus / 100);
 	}
 } //> CSD-021024
 
-int CMagicState::GetRecoveryCombatDecHPRate(int nLevel) 
+int CMagicState::GetRecoveryCombatDecHPRate(int nLevel)
 {// 030514 kyo // cp회복 전투스킬에 대한 HP떨어지는 %
-	if( nLevel <= 0 )
+	if (nLevel <= 0)
 	{
 		return 0;
 	}
-	else if( nLevel == 1 )
+	else if (nLevel == 1)
 	{
 		return 5;
 	}
-	else if( nLevel == 2 )
+	else if (nLevel == 2)
 	{
 		return 10;
 	}

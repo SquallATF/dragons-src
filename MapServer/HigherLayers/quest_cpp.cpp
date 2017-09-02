@@ -7,11 +7,11 @@
 #include "quest_cpp.h"
 
 
-void SendBBS2( char *text, short int cn )
+void SendBBS2(char *text, short int cn)
 {
 	t_packet p;
 	p.h.header.type = CMD_BBS_QUEST;
-		strcpy( p.u.server_bbs.bbs, text );
-	p.h.header.size = sizeof( t_server_bbs ) - MAX_PATH + strlen( text );
-	QueuePacket( connections, cn , &p, 1 );
+	strcpy(p.u.server_bbs.bbs, text);
+	p.h.header.size = sizeof(t_server_bbs) - MAX_PATH + strlen(text);
+	QueuePacket(connections, cn, &p, 1);
 }
