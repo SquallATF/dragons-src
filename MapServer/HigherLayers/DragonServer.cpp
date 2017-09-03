@@ -1195,7 +1195,8 @@ int HandleCommand(int cn, t_packet *packet)
 		g_pBattleManager->RecvCombatResult(cn, &packet->u.combat.client_combat_result);
 		break;
 	}
-	case CMD_CLIENT_CHARACTER_DEMAND:	RecvCMD_CLIENT_CHARACTER_DEMAND(cn, &packet->u.angra.client_character_demand);
+	case CMD_CLIENT_CHARACTER_DEMAND:
+		RecvCMD_CLIENT_CHARACTER_DEMAND(cn, &packet->u.angra.client_character_demand);
 		break;
 
 	case CMD_CHANGE_EQUIP:
@@ -1689,7 +1690,7 @@ int HandleCommand(int cn, t_packet *packet)
 		RecvAbsLogOut2GameServer(packet->u.login_close_login_id.id);
 		break;
 	}
-	case   CMD_SERVER_ITEMTABLE_RELOAD:
+	case CMD_SERVER_ITEMTABLE_RELOAD:
 	{
 		initItem();
 		LoadItemJoinTable();

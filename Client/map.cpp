@@ -2443,14 +2443,16 @@ void LoadingLoadMaskTable(void)
 
 	ViewVersion(g_GameInfo.version);
 
-
-	WORD *t;
+	//WORD *t;
 	for (j = 31; j >= 14; j--)
 	{
+		if (!g_DirectDrawInfo.lpDirectDrawSurfaceBack)
+			continue;
+
 		g_DestBackBuf = GetSurfacePointer(g_DirectDrawInfo.lpDirectDrawSurfaceBack);
 		memcpy(g_DestBackBuf, LoadMaskBackBuf, dDxSize * SCREEN_HEIGHT);
 
-		t = (WORD *)g_DestBackBuf;
+		WORD *t = (WORD *)g_DestBackBuf;
 		for (i = 0; i < (int)(dDxSize * SCREEN_HEIGHT); i += 2, t++) {
 			*t = rgbTable[j * 65536 + *t];
 		}
@@ -2458,8 +2460,9 @@ void LoadingLoadMaskTable(void)
 		FlipScreen(&g_DirectDrawInfo);
 	}
 
-	t = (WORD *)LoadMaskBackBuf;
-	for (i = 0; i < (int)(dDxSize * SCREEN_HEIGHT); i += 2, t++)	*t = rgbTable[j * 65536 + *t];
+	WORD *t = (WORD *)LoadMaskBackBuf;
+	for (i = 0; i < (int)(dDxSize * SCREEN_HEIGHT); i += 2, t++)
+		*t = rgbTable[j * 65536 + *t];
 
 	for (i = 0; i < SCREEN_WIDTH*SCREEN_HEIGHT; i++)
 		*(LoadMaskBuf + i) = *(LoadMaskBuf + i) >> 3;
@@ -2471,10 +2474,6 @@ void LoadingLoadMaskTable(void)
 	LoadMaskFlag = 30;
 
 	g_OrderInfo.count = 0;
-
-
-
-
 }
 
 void ViewLoadMask(void)

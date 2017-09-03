@@ -559,6 +559,7 @@ public:
 	bool IsPlayer() const { return (SprType < SPRITETYPE_NPC) ? true : false; }
 	bool IsNpc() const { return (SprType > SPRITETYPE_CHARACTER) ? true : false; }
 	bool IsDual() const { return m_nClsStep > 0; }
+	bool IsRightDual(BYTE nCurStep) const{ return m_nClsStep > 0 && m_nClsStep >= nCurStep; }		// add by taniey
 	bool IsUltraNK(int nNation) const { return (nk[nNation] >= ULTRA_NK) ? true : false; }
 	bool IsJoinArenaGame() const { return (m_pArenaGame == NULL) ? false : true; } // CSD-030509
 	bool IsJoinArenaTeam() const { return (m_pArenaTeam == NULL) ? false : true; } // CSD-030509

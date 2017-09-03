@@ -1448,7 +1448,11 @@ void MouseProcess(UINT message, WPARAM wParam, LPARAM lParam)
 
 	switch (message)
 	{
-	case WM_LBUTTONUP:	g_nLButtonState = STATE_BUTTON_RELEASED; LButtonDownIng = 0;	tool_MyHouseLBU(wParam, lParam); ReleaseCapture();
+	case WM_LBUTTONUP:
+		g_nLButtonState = STATE_BUTTON_RELEASED;
+		LButtonDownIng = 0;
+		tool_MyHouseLBU(wParam, lParam);
+		ReleaseCapture();
 		//------这里是给按键信息加密的地方----------
 		g_LS_res = g_nLButtonState;
 		g_RS_res = g_nRButtonState;
@@ -1456,7 +1460,13 @@ void MouseProcess(UINT message, WPARAM wParam, LPARAM lParam)
 		g_RS_res ^= MSK_G_RS;
 		//	----------------------------	
 		break;
-	case WM_LBUTTONDOWN:	YouCanHeroActionProc = 1; YouCanViewTipsCheck = 1; g_nLButtonState = STATE_BUTTON_PRESSED;  LButtonDownIng = 1;	tool_MyHouseLBD(wParam, lParam); SetCapture(g_hwndMain);
+	case WM_LBUTTONDOWN:
+		YouCanHeroActionProc = 1;
+		YouCanViewTipsCheck = 1;
+		g_nLButtonState = STATE_BUTTON_PRESSED;
+		LButtonDownIng = 1;
+		tool_MyHouseLBD(wParam, lParam);
+		SetCapture(g_hwndMain);
 		//------这里是给按键信息加密的地方----------
 		g_LS_res = g_nLButtonState;
 		g_RS_res = g_nRButtonState;
@@ -1464,7 +1474,10 @@ void MouseProcess(UINT message, WPARAM wParam, LPARAM lParam)
 		g_RS_res ^= MSK_G_RS;
 		//	----------------------------	
 		break;
-	case WM_RBUTTONUP:	g_nRButtonState = STATE_BUTTON_RELEASED; RButtonDownIng = 0;	ReleaseCapture();
+	case WM_RBUTTONUP:
+		g_nRButtonState = STATE_BUTTON_RELEASED;
+		RButtonDownIng = 0;
+		ReleaseCapture();
 		//------这里是给按键信息加密的地方----------
 		g_LS_res = g_nLButtonState;
 		g_RS_res = g_nRButtonState;
@@ -1472,15 +1485,24 @@ void MouseProcess(UINT message, WPARAM wParam, LPARAM lParam)
 		g_RS_res ^= MSK_G_RS;
 		//	----------------------------				
 		break;
-	case WM_RBUTTONDOWN:	g_nRButtonState = STATE_BUTTON_PRESSED;	 RButtonDownIng = 1;	SetCapture(g_hwndMain);
+	case WM_RBUTTONDOWN:
+		g_nRButtonState = STATE_BUTTON_PRESSED;
+		RButtonDownIng = 1;
+		SetCapture(g_hwndMain);
 		//------这里是给按键信息加密的地方----------
 		g_LS_res = g_nLButtonState;
 		g_RS_res = g_nRButtonState;
 		g_LS_res ^= MSK_G_LS;
 		g_RS_res ^= MSK_G_RS;
 		//	----------------------------
-	case WM_LBUTTONDBLCLK:	g_nLDButtonState = STATE_BUTTON_DOUBLECLICK;	SetCapture(g_hwndMain);		break;
-	case WM_RBUTTONDBLCLK:	g_nRDButtonState = STATE_BUTTON_DOUBLECLICK;	SetCapture(g_hwndMain);		break;
+	case WM_LBUTTONDBLCLK:
+		g_nLDButtonState = STATE_BUTTON_DOUBLECLICK;
+		SetCapture(g_hwndMain);
+		break;
+	case WM_RBUTTONDBLCLK:
+		g_nRDButtonState = STATE_BUTTON_DOUBLECLICK;
+		SetCapture(g_hwndMain);
+		break;
 	}
 
 	x = LOWORD(lParam);
@@ -1505,20 +1527,16 @@ void MouseProcess(UINT message, WPARAM wParam, LPARAM lParam)
 	g_pointMouseX = g_pointMouse.x = x;
 	Mox = Mapx + g_pointMouseX;		Moy = Mapy + g_pointMouseY;
 
-	/*int		SkillNo;
-	int		SkillStatus;
-	Spr	   *SkillIcon;
-	int		SkillItemNo;			// 기술에 사용될  Item의 번호.
-	POS		SkillItemPOS;			// 기술에 사용될  Item의 위치값.
+	//int		SkillNo;
+	//int		SkillStatus;
+	//Spr	   *SkillIcon;
+	//int		SkillItemNo;			// 기술에 사용될  Item의 번호.
+	//POS		SkillItemPOS;			// 기술에 사용될  Item의 위치값.
 
-
-
-	bool	SkillMouseDontMoveFlag;	//	노가다를 해야 하는 기술은 한번 그곳을 선택하면   오른쪽마우스로 취소하든가 NogadaCount가 Max가 될때까지 기다려야 한다.
-	DWORD	SkillRetryTime;
-	int		SkillDontMoveSx,SkillDontMoveSy,SkillDontMoveEx,SkillDontMoveEy;
-	bool	YouCanNogadaFlag;
-	*/
-
+	//bool	SkillMouseDontMoveFlag;	//	노가다를 해야 하는 기술은 한번 그곳을 선택하면   오른쪽마우스로 취소하든가 NogadaCount가 Max가 될때까지 기다려야 한다.
+	//DWORD	SkillRetryTime;
+	//int		SkillDontMoveSx,SkillDontMoveSy,SkillDontMoveEx,SkillDontMoveEy;
+	//bool	YouCanNogadaFlag;
 }
 
 //1206 zhh
@@ -1589,6 +1607,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}	//soto End.
 	case WM_CREATE:
 	{
+		MoveWindow(hWnd, 200, 50, 800, 600, false);
+
 		//SetCursor( NULL );
 		SetTimer(hWnd, 13, 1000, NULL);
 		break;
@@ -1630,12 +1650,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			//exit(0);// 要使窗口不能切换改这里//这里是只要切换就退出程序
 			//------------------------------
 			//鹿苟돨角학뻣놔혼빈瞳麟깃0,깻崗샌.
-			/*
-			SetCursorPos(20,20);
-			mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
-			mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
-			SetForegroundWindow(g_hwndMain);
-			*/
+			//
+			//SetCursorPos(20,20);
+			//mouse_event(MOUSEEVENTF_LEFTDOWN,0,0,0,0);
+			//mouse_event(MOUSEEVENTF_LEFTUP,0,0,0,0);
+			//SetForegroundWindow(g_hwndMain);
+			//
 			//------------------------------
 			//---上面是防切换的代码---------
 			g_bIsActive = FALSE;
@@ -1646,7 +1666,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 				CleanupDirectDraw(&g_DirectDrawInfo);
 			}
-			ShowWindow(FindWindow("DRAGONRAJA_CLASS", "DragonRaja Online"), SW_SHOWNORMAL); // 这个函数乱加的,竟然能干扰外挂!想不到...
+			//ShowWindow(FindWindow("DRAGONRAJA_CLASS", "DragonRaja Online"), SW_SHOWNORMAL); // 这个函数乱加的,竟然能干扰外挂!想不到...
 			break;
 		}
 		case WA_ACTIVE:
@@ -1685,6 +1705,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_MOVE:
 	case WM_SIZE:
 	{
+
 		if (g_bIsActive)
 		{
 			if (g_DirectDrawInfo.bFullscreen)
@@ -1851,9 +1872,9 @@ BOOL LoadGameInfo(void)
 	}
 	else
 	{
-		//	char temp[ MAX_PATH];
-		//	sprintf( temp, "%d", 400 );
-		//	WritePrivateProfileString( "network", "ver", temp, "dragon.ini" );
+		//char temp[ MAX_PATH];
+		//sprintf( temp, "%d", 400 );
+		//WritePrivateProfileString( "network", "ver", temp, "dragon.ini" );
 	}
 #endif
 
@@ -1879,7 +1900,7 @@ BOOL LoadGameInfo(void)
 	//> CSD-040127	
 	return	TRUE;
 	CRYPT_END
-}
+	}
 
 int LoadingGameData()
 {	// eLoadingGameDataStep 를 사용
@@ -2069,7 +2090,7 @@ int LoadingGameData()
 	return s_iLoadingPos;
 }
 
-DWORD	WaitToEndProcess(void	*p)
+DWORD	WaitToEndProcess(void *p)
 {
 	WaitForSingleObject(g_hEndProEvent, INFINITE);
 	//	Sleep(1000*10);
@@ -2080,14 +2101,16 @@ DWORD	WaitToEndProcess(void	*p)
 	//TerminateProcess(g_hHackProc,0);
 	return 1;
 }
+
 #define		LIB_NAME_NUM	28
-/*		//sprintf(buff,"%x	%x",FuncA,FuncW);
-//MessageBox(0,BUFF,"ddd",0);
-if(FuncA)
-{
-//代码看不完整:ReadProcessMemory(INVALID_HANDLE_VALUE,(void*)FuncA,(void*)btOldBytes[0],size
-*/
-DWORD	CheckHackThreadFunc(void	*p)
+////sprintf(buff,"%x	%x",FuncA,FuncW);
+////MessageBox(0,BUFF,"ddd",0);
+//if(FuncA)
+//{
+////代码看不完整:ReadProcessMemory(INVALID_HANDLE_VALUE,(void*)FuncA,(void*)btOldBytes[0],size
+//
+
+DWORD CheckHackThreadFunc(void	*p)
 {//这里就是这个函数的实现
 	int		i = 0;
 
@@ -2201,7 +2224,7 @@ BOOL HOOKprocess()//HOOK掉HOOK_OpenProcess
 	return 1;
 }
 
-int KillProcess(LPCSTR pszClassName, LPCSTR pszWindowTitle)//查找和杀死进程中的内存修改程序
+int KillProcess(LPCSTR pszClassName, LPCSTR pszWindowTitle)		// 查找和杀死进程中的内存修改程序
 
 {
 	HANDLE hProcessHandle;

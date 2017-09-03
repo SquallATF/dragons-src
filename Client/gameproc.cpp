@@ -2250,117 +2250,118 @@ void DoHeroEvent(int x, int y)
 	sx = Hero->x;
 	sy = Hero->y;
 
-	if ((ex - sx)*(ex - sx) + (ey - sy)*(ey - sy) > 20000) goto ACCESS_;
+	if ((ex - sx)*(ex - sx) + (ey - sy)*(ey - sy) > 20000)
+		goto ACCESS_;
 
-	if (Hero == (LPCHARACTER)(Hero->lpAttacked)) return;
+	if (Hero == (LPCHARACTER)(Hero->lpAttacked))
+		return;
 
-	if (CheckEventWith_NPC(Hero, (LPCHARACTER)(Hero->lpAttacked)) == FALSE)
+	if (CheckEventWith_NPC(Hero, (LPCHARACTER)(Hero->lpAttacked)))
+		return;
+
+ACCESS_:
+	if (!ReturnXYNearNPC(&x, &y, &dx, &dy, range, Hero, (LPCHARACTER)(Hero->lpAttacked)))
+		return;
+
+	g_ActionAnger = TRUE;						// LTS ACTION
+	Hero->destx = dx, Hero->desty = dy;
+	if (PathBuild(Hero))
 	{
-	ACCESS_:
-
-		if (ReturnXYNearNPC(&x, &y, &dx, &dy, range, Hero, (LPCHARACTER)(Hero->lpAttacked)))
+		// ### 서버에 보낸다. 
+		if (SysInfo.notconectserver)
 		{
-			g_ActionAnger = TRUE;						// LTS ACTION
-			Hero->destx = dx, Hero->desty = dy;
-			if (PathBuild(Hero))
+			if (Hero->nCurrentAction != Hero->basicWalk)
 			{
-				// ### 서버에 보낸다. 
-				if (SysInfo.notconectserver)
+				Hero->moveFlag = TRUE;
+				Hero->gox = x;
+				Hero->goy = y;
+				Hero->movetype = 0;
+				Hero->nCurrentAction = Hero->basicWalk;
+				Hero->nCurrentFrame = 0;
+				Hero->set_nCurrentAction(Hero->nCurrentAction); //人物动作行为
+				Hero->set_nCurrentFrame(Hero->nCurrentFrame); //人物晃动值	
+			}
+		}
+		else
+		{
+			if (GetIndexOfCondition(SCharacterData.condition) == CC_DAZE)
+				return;				//혼란상태
+
+			Hero->moveFlag = TRUE;
+			Hero->gox = x;
+			Hero->goy = y;
+
+			if (Hero->peacests)
+			{
+				Hero->movetype = 1;
+			}
+			else
+			{
+				if (Hero->pathcount > 5) Hero->movetype = 1;
+				else Hero->movetype = 0;
+			}
+
+			switch (Hero->movetype)
+			{
+			case 0: {
+				if (Hero->nCurrentAction != Hero->basicWalk)
 				{
-					if (Hero->nCurrentAction != Hero->basicWalk)
+					if (Hero->nCurrentAction != ACTION_SITDOWN)		// 011213 LTS
 					{
-						Hero->moveFlag = TRUE;
-						Hero->gox = x;
-						Hero->goy = y;
-						Hero->movetype = 0;
 						Hero->nCurrentAction = Hero->basicWalk;
+						Hero->nCurrentFrame = 0;
+						Hero->set_nCurrentAction(Hero->nCurrentAction); //人物动作行为
+						Hero->set_nCurrentFrame(Hero->nCurrentFrame); //人物晃动值	
+
+					}
+				}
+				break;
+			}
+			case 1: {
+				if (Hero->nCurrentAction != ACTION_RUN)
+				{
+					if (Hero->nCurrentAction != ACTION_SITDOWN)		// 011214 LTS
+					{
+						Hero->nCurrentAction = ACTION_RUN;
 						Hero->nCurrentFrame = 0;
 						Hero->set_nCurrentAction(Hero->nCurrentAction); //人物动作行为
 						Hero->set_nCurrentFrame(Hero->nCurrentFrame); //人物晃动值	
 					}
 				}
+				break;
+			}
+			}  // switch
+
+			if (CheckLeftControlKey())			// LTS DRAGON MODIFY
+			{
+				LPCHARACTER tempch = (LPCHARACTER)(Hero->lpAttacked);
+
+				if (abs(tempch->x - Hero->x) < 50 && abs(tempch->y - Hero->y) < 50)	//아주가까운 거리에 있어서 패스빌드가 실패한경우
+				{
+					ChangeDirection(&Hero->direction, Hero->x, Hero->y, tempch->x, tempch->y);
+					SendAction(ACTION_ANGER, Hero->direction);					// LTS ACTION
+				}
 				else
 				{
-					if (GetIndexOfCondition(SCharacterData.condition) == CC_DAZE)		return;//혼란상태
-
-					Hero->moveFlag = TRUE;
-					Hero->gox = x;
-					Hero->goy = y;
-
-					if (Hero->peacests)
-					{
-						Hero->movetype = 1;
-					}
-					else
-					{
-						if (Hero->pathcount > 5) Hero->movetype = 1;
-						else Hero->movetype = 0;
-					}
-
-					switch (Hero->movetype)
-					{
-					case 0: {
-						if (Hero->nCurrentAction != Hero->basicWalk)
-						{
-							if (Hero->nCurrentAction != ACTION_SITDOWN)		// 011213 LTS
-							{
-								Hero->nCurrentAction = Hero->basicWalk;
-								Hero->nCurrentFrame = 0;
-								Hero->set_nCurrentAction(Hero->nCurrentAction); //人物动作行为
-								Hero->set_nCurrentFrame(Hero->nCurrentFrame); //人物晃动值	
-
-							}
-						}
-						break;
-					}
-					case 1: {
-						if (Hero->nCurrentAction != ACTION_RUN)
-						{
-							if (Hero->nCurrentAction != ACTION_SITDOWN)		// 011214 LTS
-							{
-								Hero->nCurrentAction = ACTION_RUN;
-								Hero->nCurrentFrame = 0;
-								Hero->set_nCurrentAction(Hero->nCurrentAction); //人物动作行为
-								Hero->set_nCurrentFrame(Hero->nCurrentFrame); //人物晃动值	
-
-							}
-						}
-						break;
-					}
-					}  // switch
-
-					if (CheckLeftControlKey())			// LTS DRAGON MODIFY
-					{
-						LPCHARACTER tempch = (LPCHARACTER)(Hero->lpAttacked);
-
-						if (abs(tempch->x - Hero->x) < 50 && abs(tempch->y - Hero->y) < 50)	//아주가까운 거리에 있어서 패스빌드가 실패한경우
-						{
-							ChangeDirection(&Hero->direction, Hero->x, Hero->y, tempch->x, tempch->y);
-							SendAction(ACTION_ANGER, Hero->direction);					// LTS ACTION
-						}
-						else
-						{
-							SendMoveData(Hero);
-						}
-					}
-					else
-					{
-						SendMoveData(Hero);
-					}
-
-					if ((LPCHARACTER)(Hero->lpAttacked))
-					{
-						if (((LPCHARACTER)(Hero->lpAttacked))->id < 10000)
-						{
-							SendChatData(GreetingStr);
-						}
-					}
+					SendMoveData(Hero);
 				}
-			}  // if (PathBuild( Hero))
+			}
 			else
 			{
+				SendMoveData(Hero);
+			}
+
+			if ((LPCHARACTER)(Hero->lpAttacked))
+			{
+				if (((LPCHARACTER)(Hero->lpAttacked))->id < 10000)
+				{
+					SendChatData(GreetingStr);
+				}
 			}
 		}
+	}  // if (PathBuild( Hero))
+	else
+	{
 	}
 }
 
@@ -3412,7 +3413,7 @@ void CalcOrder(void)
 
 	MouseCheckCharacterName = NULL;
 	g_GameInfo.nSelectedSpriteType = SPRITETYPE_NONE;
-	g_GameInfo.Set_SST(g_GameInfo.nSelectedSpriteType);//就是这里出错,造成乱档的!还有DRAGON.H里!
+	g_GameInfo.Set_SST(g_GameInfo.nSelectedSpriteType);		// 就是这里出错,造成乱档的!还有DRAGON.H里! //
 
 	g_GameInfo.lpcharacter = NULL;
 	for (i = 0; i < g_OrderInfo.count; i++)
@@ -3433,7 +3434,7 @@ void CalcOrder(void)
 					g_GameInfo.lpvSelectedSprite = pi->lpvData;
 					g_GameInfo.nSelectedSpriteType = pi->wType;
 					g_GameInfo.lpcharacter = (LPCHARACTER)pi->lpvData;
-					g_GameInfo.Set_SST(g_GameInfo.nSelectedSpriteType);//就是这里出错,造成乱档的!还有DRAGON.H里!
+					g_GameInfo.Set_SST(g_GameInfo.nSelectedSpriteType);	// 就是这里出错,造成乱档的!还有DRAGON.H里!
 
 					return;
 				}
@@ -3550,7 +3551,7 @@ void CalcOrder(void)
 					g_GameInfo.lpvSelectedSprite = pi->lpvData;
 					g_GameInfo.nSelectedSpriteType = pi->wType;
 					g_GameInfo.lpcharacter = (LPCHARACTER)pi->lpvData;
-					g_GameInfo.Set_SST(g_GameInfo.nSelectedSpriteType);//就是这里出错,造成乱档的!还有DRAGON.H里!
+					g_GameInfo.Set_SST(g_GameInfo.nSelectedSpriteType);		// 就是这里出错,造成乱档的!还有DRAGON.H里!
 
 					return;
 				}

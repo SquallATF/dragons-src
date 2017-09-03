@@ -1556,7 +1556,8 @@ LPCHARACTER ReturnCharacterPoint(int id)
 	LPCHARACTER lpcharacter = Hero;
 	while (lpcharacter != NULL)
 	{
-		if (lpcharacter->id == id) return lpcharacter;
+		if (lpcharacter->id == id)
+			return lpcharacter;
 		lpcharacter = lpcharacter->lpNext;
 	}
 

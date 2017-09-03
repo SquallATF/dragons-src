@@ -2335,28 +2335,30 @@ void Check_NPC_Pattern(LPCHARACTER  n)
 
 	switch (n->patterntype)
 	{
-		//------------------------------------------------------------------------------------------------------------
 	case NPC_PATTERN_WANDER_8_:
 	case NPC_PATTERN_IAM_BOSS_8_:
 	case NPC_PATTERN_TOBOSS_8_:
 	case NPC_PATTERN_MURI_8_:
 	case NPC_PATTERN_ACCESS_PC_8_:
 	case NPC_PATTERN_ATTACK_PC_8_:
-	case NPC_PATTERN_BACKDRAW_8_:	NPC_Pattern_8(n);
+	case NPC_PATTERN_BACKDRAW_8_:
+		NPC_Pattern_8(n);
 		break;
 
 	case NPC_PATTERN_IAM_BOSS_28_:
 	case NPC_PATTERN_TOBOSS_28_:
 	case NPC_PATTERN_WANDER_28_:
 	case NPC_PATTERN_MURI_28_:
-	case NPC_PATTERN_BACKDRAW_PC_28_:	NPC_Pattern_28(n);
+	case NPC_PATTERN_BACKDRAW_PC_28_:
+		NPC_Pattern_28(n);
 		break;
 
 	case  NPC_PATTERN_ACCESS_PC_38_:
 	case  NPC_PATTERN_ATTACK_PC_38_:
 	case  NPC_PATTERN_WANDER_38_:
 	case  NPC_PATTERN_MURI_38_:
-	case  NPC_PATTERN_BACKDRAW_PC_38_:	NPC_Pattern_38(n);
+	case  NPC_PATTERN_BACKDRAW_PC_38_:
+		NPC_Pattern_38(n);
 		break;
 
 	case  NPC_PATTERN_IAM_BOSS_GUARD_:
@@ -2365,18 +2367,22 @@ void Check_NPC_Pattern(LPCHARACTER  n)
 	case  NPC_PATTERN_MURI_GUARD_:
 	case  NPC_PATTERN_ACCESS_PC_GUARD_:
 	case  NPC_PATTERN_ATTACK_PC_GUARD_:
-	case  NPC_PATTERN_BACKDRAW_PC_GUARD_:	NPC_Pattern_GUARD(n);
+	case  NPC_PATTERN_BACKDRAW_PC_GUARD_:
+		NPC_Pattern_GUARD(n);
 		break;
 
-	case NPC_PATTERN_TAME_:	NPC_Pattern_Tammed(n);
+	case NPC_PATTERN_TAME_:
+		NPC_Pattern_Tammed(n);
 		break;
 
 	case NPC_PATTERN_EVENTING_MAUL_:
-	case NPC_PATTERN_WANDER_MAUL_:	NPC_Pattern_MAUL(n);
+	case NPC_PATTERN_WANDER_MAUL_:
+		NPC_Pattern_MAUL(n);
 		break;
 
 	case NPC_PATTERN_SEALSTONE_NO_OPERATE_:
-	case NPC_PATTERN_SEALSTONE_ATTACK_:	NPC_Pattern_SealStone(n);
+	case NPC_PATTERN_SEALSTONE_ATTACK_:
+		NPC_Pattern_SealStone(n);
 		break;
 	}
 }

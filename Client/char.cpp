@@ -4919,30 +4919,32 @@ int ReturnXYNearNPC(int *x, int *y, int *dx, int *dy, int range, LPCHARACTER her
 
 		switch (AttackRangeTable[hero->sprno][hero->accessory[2]][7])
 		{
-		case 0: switch (tdir)
-		{
-		case	DIRECTION_UP:						my += 1000;	break;
-		case	DIRECTION_RIGHTUP:		mx -= 1000;	my += 700;	break;
-		case	DIRECTION_LEFTUP:		mx += 1000;	my += 700;	break;
-		case	DIRECTION_RIGHT:		mx -= 1000;				break;
-		case	DIRECTION_LEFT:			mx += 1000;				break;
-		case	DIRECTION_RIGHTDOWN:	mx -= 1000;	my -= 700;	break;
-		case	DIRECTION_LEFTDOWN:		mx += 1000;	my -= 700;	break;
-		case	DIRECTION_DOWN:						my -= 1000;	break;
-		}
-				break;
-		default:switch (tdir)
-		{
-		case	DIRECTION_UP:						my += 1000;	break;
-		case	DIRECTION_RIGHTUP:		mx -= 1000;	my += 1000;	break;
-		case	DIRECTION_LEFTUP:		mx += 1000;	my += 1000;	break;
-		case	DIRECTION_RIGHT:		mx -= 1000;				break;
-		case	DIRECTION_LEFT:			mx += 1000;				break;
-		case	DIRECTION_RIGHTDOWN:	mx -= 1000;	my -= 1000;	break;
-		case	DIRECTION_LEFTDOWN:		mx += 1000;	my -= 1000;	break;
-		case	DIRECTION_DOWN:						my -= 1000;	break;
-		}
-				break;
+		case 0:
+			switch (tdir)
+			{
+			case DIRECTION_UP:						my += 1000;	break;
+			case DIRECTION_RIGHTUP:		mx -= 1000;	my += 700;	break;
+			case DIRECTION_LEFTUP:		mx += 1000;	my += 700;	break;
+			case DIRECTION_RIGHT:		mx -= 1000;				break;
+			case DIRECTION_LEFT:		mx += 1000;				break;
+			case DIRECTION_RIGHTDOWN:	mx -= 1000;	my -= 700;	break;
+			case DIRECTION_LEFTDOWN:	mx += 1000;	my -= 700;	break;
+			case DIRECTION_DOWN:					my -= 1000;	break;
+			}
+			break;
+		default:
+			switch (tdir)
+			{
+			case DIRECTION_UP:						my += 1000;	break;
+			case DIRECTION_RIGHTUP:		mx -= 1000;	my += 1000;	break;
+			case DIRECTION_LEFTUP:		mx += 1000;	my += 1000;	break;
+			case DIRECTION_RIGHT:		mx -= 1000;				break;
+			case DIRECTION_LEFT:		mx += 1000;				break;
+			case DIRECTION_RIGHTDOWN:	mx -= 1000;	my -= 1000;	break;
+			case DIRECTION_LEFTDOWN:	mx += 1000;	my -= 1000;	break;
+			case DIRECTION_DOWN:					my -= 1000;	break;
+			}
+			break;
 		}
 
 		onLineDistantPosition(lx, ly, mx, my, &tox, &toy, range);

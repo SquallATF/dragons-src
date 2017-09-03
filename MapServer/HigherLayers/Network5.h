@@ -490,6 +490,7 @@ union t_combat
 struct t_client_dual_enable
 {
 	WORD idMaster; // 듀얼 클래스 요청자
+	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;    // INV 위치
 	BYTE nPosX;    // INV의 X자리 
 	BYTE nPosY;    // INV의 Y자리
@@ -498,6 +499,7 @@ struct t_client_dual_enable
 struct t_server_dual_enable
 {
 	WORD idMaster; // 듀얼 클래스 요청자
+	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;    // INV 위치
 	BYTE nPosX;    // INV의 X자리
 	BYTE nPosY;    // INV의 Y자리
@@ -506,6 +508,7 @@ struct t_server_dual_enable
 struct t_client_dual_change
 {
 	WORD idMaster;  // 듀얼 클래스가 되는 Player
+	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;     // INV 위치
 	BYTE nPosX;     // INV의 X자리
 	BYTE nPosY;     // INV의 Y자리
@@ -515,6 +518,7 @@ struct t_client_dual_change
 struct t_server_dual_change
 {
 	WORD  idMaster; // 듀얼 클래스가 되는 Player
+	BYTE  nStep;	// INV update level [1-6]
 	BYTE  nDual;    // 듀얼 클래스
 	DWORD dwFame;   // 국가전 fame 점수
 	WORD  wStr;     // Str
@@ -534,12 +538,14 @@ struct t_server_dual_change
 struct t_client_dual_divide
 {
 	WORD idMaster; // 듀얼 클래스가 되는 Player
+	BYTE nStep;		// INV update level [1-6]
 	BYTE nNext;    // 분배할 듀얼 클래스
 };
 
 struct t_server_dual_divide
 {
 	WORD idMaster; // 듀얼 클래스가 되는 Player
+	BYTE nStep;		// INV update level [1-6]
 	BYTE nDual;    // 듀얼 클래스
 	WORD wStr;     // Str
 	WORD wCon;     // Con

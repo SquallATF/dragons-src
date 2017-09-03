@@ -57,6 +57,7 @@ private:
 	BYTE m_nPara;
 	BYTE m_nPosX;
 	BYTE m_nPosY;
+	BYTE m_nCurStep;
 };
 
 extern CDualMgr g_mgrDual;

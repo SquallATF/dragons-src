@@ -1,3 +1,101 @@
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{
+#########################################################################################
+#########################################################################################
+客户端 ： （DragonRaja-Online）
+NetWork5.h :
+497L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable)
+506L, add,  BYTE nStep;		// INV update level [1-6]  0(或者找到 t_server_dual_enable)
+
+-----------------------------------------------------------------------------------------
+Menu.cpp :
+(6958L --- 6962L, 可以找到 <<case 4028>>, 在此之前加入修改)
+6958L, add, case 10064:
+6959L, add, case 10073:
+6960L, add, case 10075:
+6961L, add, case 10292:
+6962L, add, case 10293:
+
+-----------------------------------------------------------------------------------------
+DualMgr.cpp :
+60L, add, BYTE m_nCurStep;
+
+-----------------------------------------------------------------------------------------
+DualMgr.cpp :
+31L, add, m_nCurStep = 0;
+
+(177L --- 207L, 可以找到函数, SendDualEnable(...)  替换整个函数)
+
+(230L --- 273L, 可以找到函数, SendDualChange(...)  替换整个函数)
+
+(275L --- 313L, 可以找到函数, SendDualDivide(...)  替换整个函数)  ----> 暂不修改
+
+(315L --- 356L, 可以找到函数, RecvDualEnable(...)  替换整个函数)
+
+368L, add, m_nCurStep = 0;   // add by taniey
+-----------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
+#########################################################################################
+#########################################################################################
+服务端 ： （MapServer）
+NetWork5.h :
+497L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable)
+506L, add,  BYTE nStep;		// INV update level [1-6]  0(或者找到 t_server_dual_enable)
+
+-----------------------------------------------------------------------------------------
+CharInfo.h
+562L, add, 	bool IsRightDual(BYTE nCurStep) const{ return m_nClsStep > 0 && m_nClsStep >= nCurStep; }		// add by taniey
+
+-----------------------------------------------------------------------------------------
+DualManager.h :
+118L, modify,   	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);   ---> 	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep);
+119L, modify,   	void SendDualChange(WORD idMaster);   ---> 	 void SendDualChange(WORD idMaster, BYTE nStep);
+120L, modify,   	void SendDualDivide(WORD idMaster);   --->   void SendDualDivide(WORD idMaster, BYTE nStep);
+
+-----------------------------------------------------------------------------------------
+DualManager.cpp ：
+(213L --- 222L, 可以找到函数, SendDualEnable(...)  替换整个函数)
+213L, modify, void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY)   --->   void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep)
+222L, add, 	packet.u.dual.server_dual_enable.nStep = nStep;  // modify by taniey
+
+(226L --- 235L, 可以找到函数, SendDualChange(...)  替换整个函数)
+226L, modify, void CDualManager::SendDualChange(WORD idMaster)   --->   void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
+235L, add , 	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
+
+
+(226L --- 235L, 可以找到函数, SendDualChange(...)  替换整个函数)
+253L, modify, void CDualManager::SendDualDivide(WORD idMaster)   --->   void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
+262L, add , 	packet.u.dual.server_dual_divide.nStep = nStep;				// add by taniey
+
+(283L --- 307L, 可以找到函数, RecvDualEnable(...)  替换整个函数)
+283L, modify, if (pMaster->IsDual())   --->   if (pMaster->IsRightDual(pPacket->nStep))
+285L, modify, pMaster->Message(MK_WARNING, 0, 383);   <<<  此处修改尚不确定，暂时保留！！！  >>>
+292L, modify, const int nStep = 1;   --->   const int nStep =  pPacket->nStep;    // modify by taniey
+307L, modify, SendDualEnable(idMaster, nPara, nX, nY);   --->   SendDualEnable(idMaster, nPara, nX, nY, nStep);
+
+(321L --- 350L, 可以找到函数, RecvDualChange(...)  替换整个函数)
+321L, modify, if (pMaster->IsDual())   --->   if (pMaster->IsRightDual(pPacket->nStep))
+323L, modify, pMaster->Message(MK_WARNING, 0, 383);   <<<  此处修改尚不确定，暂时保留！！！  >>>
+330L, modify, const int nStep = 1;   --->   const int nStep = pPacket->nStep;
+350L, modify, SendDualChange(idMaster);  --->   SendDualChange(idMaster, nStep);
+355L, modify, pMaster->Message(MK_WARNING, 0, 381);   <<<  此处修改尚不确定，暂时保留！！！  >>>
+
+(372L --- 372L, 可以找到函数, RecvDualDivide(...)  替换整个函数)
+368L, modify, if (pMaster->IsDual() && IsLevelUp(nStep, pMaster))   --->   if (pMaster->IsRightDual(pPacket->nStep) && IsLevelUp(nStep, pMaster))
+372L, modify, SendDualDivide(idMaster);   --->   SendDualDivide(idMaster, nStep);
+377L, modify, pMaster->Message(MK_WARNING, 0, 382);   <<<  此处修改尚不确定，暂时保留！！！  >>>
+
+
+#########################################################################################
+
+}}}}}
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
 StartMenuProc
 
 gameproc.cpp: 1335L

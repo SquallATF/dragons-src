@@ -898,14 +898,20 @@ void SendStoreItemList(int cn, int storelistindex, int menu)
 
 			switch (menu)
 			{
-			case MN_SKILLGUILD_REPAIR:	break;
+			case MN_SKILLGUILD_REPAIR:
+				break;
 			case MN_SKILLGUILD_SELL:
-			case MN_SHOP_SELL:	if (storelist_attr[storelistindex][i] == SIT_ONLY_SELL) continue;
+			case MN_SHOP_SELL:
+				if (storelist_attr[storelistindex][i] == SIT_ONLY_SELL)
+					continue;
 				break;
 			case MN_SKILLGUILD_BUY:
-			case MN_SHOP_BUY:	if (storelist_attr[storelistindex][i] == SIT_ONLY_BUY) continue;
+			case MN_SHOP_BUY:
+				if (storelist_attr[storelistindex][i] == SIT_ONLY_BUY)
+					continue;
 				break;
-			default: break;
+			default:
+				break;
 			}
 			p.u.server_store_itemlist.store_item[count++].item = storelist[storelistindex][i].item_no;
 		}
@@ -8071,7 +8077,10 @@ void SendPutMenuString(int type, int str_num, short int cn, char* pName /*=NULL*
 	packet.h.header.type = CMD_PUT_MENU_STRING;
 	packet.u.kein.put_menu_string.type = type;
 	packet.u.kein.put_menu_string.str_num = str_num;
-	if (NULL == pName) { ZeroMemory(packet.u.kein.put_menu_string.szName, sizeof(packet.u.kein.put_menu_string.szName)); }
+	if (NULL == pName)
+	{
+		ZeroMemory(packet.u.kein.put_menu_string.szName, sizeof(packet.u.kein.put_menu_string.szName));
+	}
 	else
 	{
 		strcpy(packet.u.kein.put_menu_string.szName, pName);

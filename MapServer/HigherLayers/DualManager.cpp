@@ -209,7 +209,8 @@ bool CDualManager::DelMember(WORD idMember)
 	return true;
 }
 
-void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY)
+// modify by taniey
+void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep)
 {
 	t_packet packet;
 	packet.h.header.type = CMD_DUAL_ENABLE;
@@ -218,10 +219,11 @@ void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY)
 	packet.u.dual.server_dual_enable.nPara = nPara;
 	packet.u.dual.server_dual_enable.nPosX = nX;
 	packet.u.dual.server_dual_enable.nPosY = nY;
+	packet.u.dual.server_dual_enable.nStep = nStep;  // add by taniey
 	::QueuePacket(connections, idMaster, &packet, 1);
 }
 
-void CDualManager::SendDualChange(WORD idMaster)
+void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
@@ -230,6 +232,7 @@ void CDualManager::SendDualChange(WORD idMaster)
 	packet.h.header.type = CMD_DUAL_CHANGE;
 	packet.h.header.size = sizeof(t_server_dual_change);
 	packet.u.dual.server_dual_change.idMaster = idMaster;
+	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
 	packet.u.dual.server_dual_change.nDual = pMaster->GetDualClass();
 	packet.u.dual.server_dual_change.dwFame = pMaster->fame;
 	packet.u.dual.server_dual_change.wStr = pMaster->Str;  
@@ -247,7 +250,7 @@ void CDualManager::SendDualChange(WORD idMaster)
 	::QueuePacket(connections, idMaster, &packet, 1);
 }
 
-void CDualManager::SendDualDivide(WORD idMaster)
+void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
@@ -256,6 +259,7 @@ void CDualManager::SendDualDivide(WORD idMaster)
 	packet.h.header.type = CMD_DUAL_DIVIDE;
 	packet.h.header.size = sizeof(t_server_dual_divide);
 	packet.u.dual.server_dual_divide.idMaster = idMaster;
+	packet.u.dual.server_dual_divide.nStep = nStep;			// add by taniey
 	packet.u.dual.server_dual_divide.nDual = pMaster->GetDualClass();
 	packet.u.dual.server_dual_divide.wStr = pMaster->Str;  
 	packet.u.dual.server_dual_divide.wCon = pMaster->Con;  
@@ -277,7 +281,7 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
 	// 듀얼 여부 검사
-	if (pMaster->IsDual())
+	if (pMaster->IsRightDual(pPacket->nStep))    // modify by taniey
 	{
 		pMaster->Message(MK_WARNING, 0, 383);
 		return;
@@ -286,7 +290,7 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
-	const int nStep = 1;
+	const int nStep = pPacket->nStep;     // modify by taniey
 	
 	POS pos;
 	::SetItemPos(INV, nPara, nY, nX, &pos);
@@ -301,7 +305,7 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 	{ 
 		if (IsLevelUp(nStep, pMaster))
 		{
-			SendDualEnable(idMaster, nPara, nX, nY);
+			SendDualEnable(idMaster, nPara, nX, nY, nStep);    // modify by taniey
 		}
 		else
 		{
@@ -315,7 +319,7 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
 	// 듀얼 여부 검사
-	if (pMaster->IsDual())
+	if (pMaster->IsRightDual(pPacket->nStep))    // modify by taniey
 	{
 		pMaster->Message(MK_WARNING, 0, 383);
 		return;
@@ -324,7 +328,7 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
-	const int nStep = 1;
+	const int nStep = pPacket->nStep;   // modify by taniey
 	
 	POS pos;
 	::SetItemPos(INV, nPara, nY, nX, &pos);
@@ -344,7 +348,7 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 			pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정
 			pMaster->DivideAbility(pPacket->nNext);
 			Change(nStep, pMaster);
-			SendDualChange(idMaster);
+			SendDualChange(idMaster, nStep);		// modify by taniey
 		}
 		else
 		{
@@ -360,12 +364,12 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 	// 듀얼의 단계가 올라가는 경우
 	const int nStep = pMaster->GetClassStep() + 1;
 	
-	if (pMaster->IsDual() && IsLevelUp(nStep, pMaster))
+	if (pMaster->IsRightDual(pPacket->nStep) && IsLevelUp(nStep, pMaster))		// modify by taniey
 	{	//< CSD-030326
 		DelMember(idMaster);
 		pMaster->DivideAbility(pPacket->nNext);
 		Change(nStep, pMaster);
-		SendDualDivide(idMaster);
+		SendDualDivide(idMaster, nStep);			// modify by taniey
 		AddMember(idMaster);
 	}	//> CSD-030326
 	else
@@ -379,7 +383,7 @@ void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
 	
-//	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101级重分点的限制. 
+	//if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101级重分点的限制. 
 	{	//< 101分点
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;

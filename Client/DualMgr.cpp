@@ -28,6 +28,7 @@ CDualMgr::CDualMgr()
 	m_nPara = 0;
 	m_nPosX = 0;
 	m_nPosY = 0;
+	m_nCurStep = 0;
 }
 
 CDualMgr::~CDualMgr()
@@ -174,6 +175,8 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 {
 	if (pMaster == NULL)  return;
 
+	if (IsDead(Hero)) return;			// add by taniey
+
 	POS pos;
 	// 전투스킬 포인터 획득 아이템 위치 구하기
 	::SetItemPos(INV, nPara, nY, nX, &pos);
@@ -187,20 +190,48 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 		rItemAttr.item_no == 10292 ||
 		rItemAttr.item_no == 10293)
 	{ // Packet 전송
+		BYTE nStep = 0;
+		switch (rItemAttr.item_no)
+		{
+		case 4028: nStep = 1; break;		// for 2 up
+		case 10064: nStep = 2; break;		// for 3 up
+		case 10073: nStep = 3; break;		// for 4 up
+		case 10075: nStep = 4; break;		// for 5 up
+		case 10292: nStep = 5; break;		// for 6 up
+		default: break;
+		}
+
 		t_packet packet;
 		packet.h.header.type = CMD_DUAL_ENABLE;
 		packet.h.header.size = sizeof(t_client_dual_enable);
-		packet.u.combat.client_combat_obtain.idMaster = WORD(pMaster->id);
-		packet.u.combat.client_combat_obtain.nPara = nPara;
-		packet.u.combat.client_combat_obtain.nPosX = nX;
-		packet.u.combat.client_combat_obtain.nPosY = nY;
+		packet.u.dual.client_dual_enable.idMaster = WORD(pMaster->id);
+		packet.u.dual.client_dual_enable.nStep = nStep;
+		packet.u.dual.client_dual_enable.nPara = nPara;
+		packet.u.dual.client_dual_enable.nPosX = nX;
+		packet.u.dual.client_dual_enable.nPosY = nY;
 		::QueuePacket(&packet, 1);
 	}
+	//else if (rItemAttr.item_no == 10064 ||
+	//	rItemAttr.item_no == 10073 ||
+	//	rItemAttr.item_no == 10075 ||
+	//	rItemAttr.item_no == 10292 ||
+	//	rItemAttr.item_no == 10293) {
+	//	//SendEvent(EVENT_TYPE_NPC, rItemAttr.item_no);
+
+	//	t_packet packet;
+	//	packet.h.header.type = CMD_EVENT;
+	//	packet.h.header.size = sizeof(t_client_event);
+	//	packet.u.client_event.type = EVENT_TYPE_NPC;
+	//	packet.u.client_event.event_no = 10069;//  ((LPCHARACTER)(Hero->lpAttacked))->id;
+	//	QueuePacket(&packet, 1);
+	//}
 }
 
 void CDualMgr::SendDualChange(LPCHARACTER pMaster, BYTE nNext)
 {
 	if (pMaster == NULL)  return;
+
+	if (IsDead(Hero)) return;			// add by taniey
 
 	POS pos;
 	// 전투스킬 포인터 획득 아이템 위치 구하기
@@ -208,12 +239,31 @@ void CDualMgr::SendDualChange(LPCHARACTER pMaster, BYTE nNext)
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[m_nPara][m_nPosY][m_nPosX];
 
-	if (rItemAttr.item_no == 4028)
+	//if (rItemAttr.item_no == 4028)
+	//{ // Packet 전송
+	if (rItemAttr.item_no == 4028 ||
+		rItemAttr.item_no == 10064 ||
+		rItemAttr.item_no == 10073 ||
+		rItemAttr.item_no == 10075 ||
+		rItemAttr.item_no == 10292 ||
+		rItemAttr.item_no == 10293)
 	{ // Packet 전송
+		BYTE nStep = 0;
+		switch (rItemAttr.item_no)
+		{
+		case 4028: nStep = 1; break;		// for 2 up
+		case 10064: nStep = 2; break;		// for 3 up
+		case 10073: nStep = 3; break;		// for 4 up
+		case 10075: nStep = 4; break;		// for 5 up
+		case 10292: nStep = 5; break;		// for 6 up
+		default: break;
+		}
+
 		t_packet packet;
 		packet.h.header.type = CMD_DUAL_CHANGE;
 		packet.h.header.size = sizeof(t_client_dual_change);
 		packet.u.dual.client_dual_change.idMaster = WORD(pMaster->id);
+		packet.u.dual.client_dual_change.nStep = nStep;		// add by taneiy
 		packet.u.dual.client_dual_change.nPara = m_nPara;
 		packet.u.dual.client_dual_change.nPosX = m_nPosX;
 		packet.u.dual.client_dual_change.nPosY = m_nPosY;
@@ -226,10 +276,38 @@ void CDualMgr::SendDualDivide(LPCHARACTER pMaster, BYTE nNext)
 {
 	if (pMaster == NULL)  return;
 
+	//if (IsDead(Hero)) return;			// add by taniey
+
+	//POS pos;
+	//// 전투스킬 포인터 획득 아이템 위치 구하기
+	//::SetItemPos(INV, m_nPara, m_nPosY, m_nPosX, &pos);
+	//// 전투스킬 포인터 획득 아이템 확인
+	//ItemAttr& rItemAttr = InvItemAttr[m_nPara][m_nPosY][m_nPosX];
+
+	//BYTE nStep = 0;
+	//if (rItemAttr.item_no == 4028 ||
+	//	rItemAttr.item_no == 10064 ||
+	//	rItemAttr.item_no == 10073 ||
+	//	rItemAttr.item_no == 10075 ||
+	//	rItemAttr.item_no == 10292 ||
+	//	rItemAttr.item_no == 10293)
+	//{ // Packet 전송
+	//	switch (rItemAttr.item_no)
+	//	{
+	//	case 4028: nStep = 1; break;		// for 2 up
+	//	case 10064: nStep = 2; break;		// for 3 up
+	//	case 10073: nStep = 3; break;		// for 4 up
+	//	case 10075: nStep = 4; break;		// for 5 up
+	//	case 10292: nStep = 5; break;		// for 6 up
+	//	default: break;
+	//	}
+	//}
+
 	t_packet packet;
 	packet.h.header.type = CMD_DUAL_DIVIDE;
 	packet.h.header.size = sizeof(t_client_dual_divide);
 	packet.u.dual.client_dual_divide.idMaster = WORD(pMaster->id);
+	//packet.u.dual.client_dual_divide.nStep = nStep;
 	packet.u.dual.client_dual_divide.nNext = nNext;
 	::QueuePacket(&packet, 1);
 }
@@ -242,17 +320,37 @@ void CDualMgr::RecvDualEnable(t_server_dual_enable* pPacket)
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
+	const BYTE nStep = pPacket->nStep;   // add by taniey
 	// 전투스킬 포인터 획득 아이템 위치 구하기
 	POS pos;
 	::SetItemPos(INV, nPara, nY, nX, &pos);
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
-	if (rItemAttr.item_no == 4028)
+	//if (rItemAttr.item_no == 4028)
+	//{ // Packet 전송
+	if (rItemAttr.item_no == 4028 ||
+		rItemAttr.item_no == 10064 ||
+		rItemAttr.item_no == 10073 ||
+		rItemAttr.item_no == 10075 ||
+		rItemAttr.item_no == 10292 ||
+		rItemAttr.item_no == 10293)
 	{ // Packet 전송
+		//BYTE nStep = 0;
+		//switch (rItemAttr.item_no)
+		//{
+		//case 4028: nStep = 1; break;		// for 2 up
+		//case 10064: nStep = 2; break;		// for 3 up
+		//case 10073: nStep = 3; break;		// for 4 up
+		//case 10075: nStep = 4; break;		// for 5 up
+		//case 10292: nStep = 5; break;		// for 6 up
+		//default: break;
+		//}
+
 		m_nPara = nPara;
 		m_nPosX = nX;
 		m_nPosY = nY;
+		m_nCurStep = nStep;    // add by taniey
 		::CallDualInterFace(MT_DUAL_CHANGE);
 	}
 }
@@ -267,6 +365,7 @@ void CDualMgr::RecvDualChange(t_server_dual_change* pPacket)
 		m_nPara = 0;
 		m_nPosX = 0;
 		m_nPosY = 0;
+		m_nCurStep = 0;   // add by taniey
 
 		pDual->aStepInfo[CLS_STEP] = 1;              // 듀얼 클래스 단계 상승
 		pDual->aStepInfo[DUAL_CLS] = pPacket->nDual; // 듀얼 클래스 설정
@@ -283,8 +382,6 @@ void CDualMgr::RecvDualChange(t_server_dual_change* pPacket)
 		SCharacterData.nCharacterAbility[LUCK] = pPacket->wLuck;
 		SCharacterData.nCharacterAbility[WSPS] = pPacket->wWsPs;
 		SCharacterData.LvUpPoint = pPacket->wPoint;
-
-
 	}
 
 	::InsertMagic(pDual, pDual, 443, -1, 0, 0, 0, 0);
@@ -326,15 +423,15 @@ int CDualMgr::GetAbility(BYTE nType)
 
 	switch (nType)
 	{
-	case STR:  return pLimit->GetStr();  // 힘
-	case CON:	 return pLimit->GetCon();  // 체력
-	case DEX:	 return pLimit->GetDex();  // 민첩
-	case WIS:	 return pLimit->GetWis();  // 지능
+	case STR: return pLimit->GetStr();  // 힘
+	case CON: return pLimit->GetCon();  // 체력
+	case DEX: return pLimit->GetDex();  // 민첩
+	case WIS: return pLimit->GetWis();  // 지능
 	case INT_: return pLimit->GetInt();	 // 지혜
-	case CHA:	 return pLimit->GetCha();  // 매력
+	case CHA: return pLimit->GetCha();  // 매력
 	case MOVP: return pLimit->GetMovp(); // 이동력
 	case ENDU: return pLimit->GetEndu(); // 인내
-	case MOR:	 return pLimit->GetMor();  // 사기
+	case MOR: return pLimit->GetMor();  // 사기
 	case LUCK: return pLimit->GetLuck(); // 행운
 	case WSPS:
 	{

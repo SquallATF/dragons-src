@@ -115,9 +115,9 @@ public:
 	bool AddMember(WORD idMember);
 	bool DelMember(WORD idMember);
 
-	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);
-	void SendDualChange(WORD idMaster);
-	void SendDualDivide(WORD idMaster);
+	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep);   // modify by taniey
+	void SendDualChange(WORD idMaster, BYTE nStep);									// modify by taniey
+	void SendDualDivide(WORD idMaster, BYTE nStep);									// modify by taniey
 	void RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket);
 	void RecvDualChange(WORD idMaster, t_client_dual_change* pPacket);
 	void RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket);
