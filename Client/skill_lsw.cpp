@@ -954,10 +954,13 @@ int GetKnowCSGroupType(const int iGroupNo)//그룹넘버를 가지고 나의 그
 {
 	switch (iGroupNo)
 	{
-	case 1:		case 2:		case 3:
+	case 1:
+	case 2:
+	case 3:
 		break;
 	default:
-		JustMsg("GetKnowCSGroupType에 그룹값이 이상합니다");
+		//JustMsg("GetKnowCSGroupType에 그룹값이 이상합니다");
+		JustMsg("在 GetKnowCSGroupType 值之外（iGroupNo != 1, 2, 3）");
 		break;
 	}
 	const int iGroup1Start = iCSCovertSkillID + (iGroupNo - 1) * 12;//1번 그룹부터 시작하니까
@@ -1283,8 +1286,10 @@ void SendCSLvUp(const int iCombatSkillIndex)//iSkillNo(1~6)
 {
 	if (!iCombatSkillIndex)
 	{
-		if (GetSysInfo(SI_GAME_MAKE_MODE))		// 020925 YGI
-			AddCurrentStatusMessage(255, 255, 255, "전투스킬 인덱스가 이상합니다");
+		if (GetSysInfo(SI_GAME_MAKE_MODE)) {		// 020925 YGI
+			//AddCurrentStatusMessage(255, 255, 255, "전투스킬 인덱스가 이상합니다");
+			AddCurrentStatusMessage(255, 255, 255, "战斗技能指标异常。");
+		}
 		return;
 	}
 

@@ -3297,8 +3297,10 @@ void MenuSubProcessType(SMENU *SubMenu)
 				SubMenu->work = atoi(SubMenu->nField[0].temp);
 				sprintf(SubMenu->nField[0].temp, "%d", SubMenu->work);
 				EWndMgr.SetTxt(HWND_3, SubMenu->nField[0].temp);//021001 lsw
-				Hprint2(SubMenu->x + 5, SubMenu->y + 3, g_DestBackBuf, "입력값 : %d", SubMenu->work);
-				Hprint2(SubMenu->x + 5, SubMenu->y + 3 + back_spr->yl, g_DestBackBuf, "현재값 : %d", SubMenu->key);
+				//Hprint2(SubMenu->x + 5, SubMenu->y + 3, g_DestBackBuf, "입력값 : %d", SubMenu->work);
+				//Hprint2(SubMenu->x + 5, SubMenu->y + 3 + back_spr->yl, g_DestBackBuf, "현재값 : %d", SubMenu->key);
+				Hprint2(SubMenu->x + 5, SubMenu->y + 3, g_DestBackBuf, "输入值 : %d", SubMenu->work);
+				Hprint2(SubMenu->x + 5, SubMenu->y + 3 + back_spr->yl, g_DestBackBuf, "当前值 : %d", SubMenu->key);
 				break;
 			case 1:
 				Box(Mapx + SubMenu->x + r.left + 1, Mapy + SubMenu->y + r.top + 1, Mapx + SubMenu->x + r.right, Mapy + SubMenu->y + r.bottom, button_color1);
@@ -5925,10 +5927,10 @@ void MenuSubProcessType(SMENU *SubMenu)
 					//if( g_CurrUsedMagic >= 150 ) g_CurrUsedMagic -= 150;
 					const char *name = magic[g_CurrUsedMagic].GetName();
 #ifdef CHINA_LOCALIZING_
-					Hprint2(GAME_SCREEN_XSIZE / 2 - back_spr->ox + 3, SubMenu->y - 52 - back_spr->yl + 3, g_DestBackBuf, "\"%s\" 硫구嘉랬", name);
+					Hprint2(GAME_SCREEN_XSIZE / 2 - back_spr->ox + 3, SubMenu->y - 52 - back_spr->yl + 3, g_DestBackBuf, "\"%s\" 准备施法", name);
 #else
 #if defined (TAIWAN_LOCALIZING_) || defined (HONGKONG_LOCALIZING_) 
-					Hprint2(GAME_SCREEN_XSIZE / 2 - back_spr->ox + 3, SubMenu->y - 52 - back_spr->yl + 3, g_DestBackBuf, "\"%s\" 렷냔??", name);
+					Hprint2(GAME_SCREEN_XSIZE / 2 - back_spr->ox + 3, SubMenu->y - 52 - back_spr->yl + 3, g_DestBackBuf, "\"%s\" 準備施法", name);
 #else
 					Hprint2(GAME_SCREEN_XSIZE / 2 - back_spr->ox + 3, SubMenu->y - 52 - back_spr->yl + 3, g_DestBackBuf, "\"%s\" Casting", name);
 #endif

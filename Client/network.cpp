@@ -497,9 +497,9 @@ int ConnectLogin(t_connection *c, LPSTR ID, LPSTR PW, int LineNum)
 	strcpy(HackID, ID);//쌔삿ID
 
 #ifdef _DEBUG
-	packet.u.ClientAccessLogin.version = 6708; GM_TOOL_VERSION + abs(rand() % 100) + 1;  //coromo
+	packet.u.ClientAccessLogin.version = 6708; //GM_TOOL_VERSION + abs(rand() % 100) + 1;  //coromo
 #else
-	packet.u.ClientAccessLogin.version = 6708; GM_TOOL_VERSION;
+	packet.u.ClientAccessLogin.version = 6708; //GM_TOOL_VERSION;
 #endif
 	//packet.u.ClientAccessLogin.patch = 20050801;
 	packet.u.ClientAccessLogin.patch = 0;
@@ -598,7 +598,10 @@ void SendAllReady(void)
 	CallServer(CMD_MOVEMAP_FOR_LIGHT_VERSION);		// light 버전이라는 사실을 서버에 알린다.
 #endif
 
-	if (GetSysInfo(SI_GAME_MAKE_MODE))	Log("맵이동.txt", "CMD_ALL_READY");
+	if (GetSysInfo(SI_GAME_MAKE_MODE)) {
+		//Log("맵이동.txt", "CMD_ALL_READY");
+		Log("move_map.txt", "CMD_ALL_READY");
+	}
 
 	SendInstallType();
 
@@ -2695,7 +2698,10 @@ int HandleCommand(t_connection *c)
 		}
 		case CMD_ACCEPT_JOIN:
 		{
-			if (GetSysInfo(SI_GAME_MAKE_MODE))Log("맵이동.txt", "CMD_ACCEPT_JOIN");
+			if (GetSysInfo(SI_GAME_MAKE_MODE)) {
+				//Log("맵이동.txt", "CMD_ACCEPT_JOIN");
+				Log("move_map.txt", "CMD_ACCEPT_JOIN");
+			}
 			RecvAcceptJoin(&packet.u.server_accept_join);
 			ListenCommand = CMD_ACCEPT_JOIN;
 			break;
@@ -2706,7 +2712,8 @@ int HandleCommand(t_connection *c)
 
 			if (GetSysInfo(SI_GAME_MAKE_MODE))
 			{
-				Log("맵이동.txt", "CMD_ASSIGN_SERVER_ID");
+				//Log("맵이동.txt", "CMD_ASSIGN_SERVER_ID");
+				Log("move_map.txt", "CMD_ASSIGN_SERVER_ID");
 			}
 
 			break;
@@ -3122,7 +3129,8 @@ int HandleCommand(t_connection *c)
 
 			if (GetSysInfo(SI_GAME_MAKE_MODE))
 			{
-				Log("맵이동.txt", "CMD_CHANGE_MAP");
+				//Log("맵이동.txt", "CMD_CHANGE_MAP");
+				Log("move_map.txt", "CMD_CHANGE_MAP");
 			}
 
 			break;
@@ -4121,9 +4129,11 @@ void SendAliveCheckRoutine(void)
 //------------------------------------------------------------------------------------------------------------------------------------	
 void InitBytesRoutine(void)
 {
-	if (!GetSysInfo(SI_GAME_MAKE_MODE)) return;
+	if (!GetSysInfo(SI_GAME_MAKE_MODE))
+		return;
 
-	FILE *fp = Fopen("받은양보낸양.txt", "at+");
+	//FILE *fp = Fopen("받은양보낸양.txt", "at+");
+	FILE *fp = Fopen("packet_recv_send_checktime.txt", "at+");
 	if (fp)
 	{
 		fprintf(fp, "\n");
@@ -4138,7 +4148,8 @@ void InitBytesRoutine(void)
 //------------------------------------------------------------------------------------------------------------------------------------	
 void CheckBytesRoutine(void)
 {
-	if (!GetSysInfo(SI_GAME_MAKE_MODE)) return;
+	if (!GetSysInfo(SI_GAME_MAKE_MODE))
+		return;
 
 	static DWORD check_time;
 
@@ -4148,7 +4159,8 @@ void CheckBytesRoutine(void)
 	{
 		check_time = g_packet_recv_send_checktime;
 
-		FILE *fp = Fopen("받은양보낸양.txt", "at+");
+		//FILE *fp = Fopen("받은양보낸양.txt", "at+");
+		FILE *fp = Fopen("packet_recv_send_checktime.txt", "at+");
 		if (fp)
 		{
 			struct tm *today;

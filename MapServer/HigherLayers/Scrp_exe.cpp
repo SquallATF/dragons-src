@@ -334,11 +334,11 @@ void sSetQuestNumStep(void)
 {
 	int quest_no = GetInt();
 	int quest_value = GetInt();
-	//	EventPC		// 스크립트를 진행하고 있는 캐릭터 아이디를 가지고 있다.
-	//	connections	// 현재 서버에 접속해있는 클라이언트 구조체 ( 캐릭터 정보도 가지고 있다. )
+	//EventPC		// 스크립트를 진행하고 있는 캐릭터 아이디를 가지고 있다.
+	//connections	// 현재 서버에 접속해있는 클라이언트 구조체 ( 캐릭터 정보도 가지고 있다. )
 
-	//	CHARLIST *ch = &connections[EventPC].chrlst;
-	//	if( !ch ) return;
+	//CHARLIST *ch = &connections[EventPC].chrlst;
+	//if( !ch ) return;
 
 	var[EventPC][quest_no] = quest_value;
 	//return ch->var[quest_no] = quest_value;

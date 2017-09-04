@@ -481,7 +481,8 @@ int	CAuction::IncBuyerViewPage()
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_BUY_LIST_REQUEST(0, true);
 		}
 	}
@@ -513,7 +514,8 @@ int	CAuction::DecBuyerViewPage()
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_BUY_LIST_REQUEST(0, true);
 		}
 	}
@@ -539,7 +541,8 @@ int	CAuction::IncResultViewPage()
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_RESULT_LIST_REQUEST(0, true);
 		}
 	}
@@ -581,7 +584,8 @@ int	CAuction::DecResultViewPage()
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_RESULT_LIST_REQUEST(0, true);
 		}
 	}
@@ -607,7 +611,8 @@ int	CAuction::IncSellerViewPage()
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_SELL_LIST_REQUEST(0, true);
 		}
 	}
@@ -639,7 +644,8 @@ int	CAuction::DecSellerViewPage()
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_SELL_LIST_REQUEST(0, true);
 		}
 	}
@@ -658,7 +664,8 @@ int CAuction::SendCMD_MERCHANT_EXCHANGE_LIST_REQUEST(char* szSellerName, const i
 	//	if(!pch){return 0;}	//사람이 내 시야에 있구나.
 		if (!strcmp(szSellerName, Hero->name))
 		{
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "자기자신의 목록을 신청 할 수 없습니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "자기자신의 목록을 신청 할 수 없습니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "申请自己的列表。");
 			return 0;
 		}
 
@@ -767,7 +774,8 @@ int CAuction::IncPageBackupList()	// 페이지 Down 버튼 클릭시 호출됨
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_BACKUP_LIST_REQUEST(0, true);
 		}
 	}
@@ -807,7 +815,8 @@ int CAuction::DecPageBackupList()	// 페이지 Up 버튼 클릭시 호출됨
 		else
 		{
 			COMMENT::AddCurrentStatusMessage(FONT_COLOR_WHITE, lan->OutputMessage(4, 510));
-			COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			//COMMENT::AddCurrentStatusMessage(255, 255, 255, "첫 목록 부터 다시 신청합니다.");
+			COMMENT::AddCurrentStatusMessage(255, 255, 255, "第一个列表重新申请。");
 			SendCMD_MERCHANT_BACKUP_LIST_REQUEST(0, true);
 		}
 	}

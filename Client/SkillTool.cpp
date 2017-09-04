@@ -1121,7 +1121,8 @@ BOOL CALLBACK MyhouseToolproc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPa
 			memset(&g_DragMouse, 0, sizeof(DRAGMOUSE));
 			return TRUE;
 		case IDC_SAVE:
-			if (YesOrNo("내집 시스템 타일(이미지) Table을 저장합니다. ", "확인") == IDYES)
+			//if (YesOrNo("내집 시스템 타일(이미지) Table을 저장합니다. ", "확인") == IDYES)
+			if (YesOrNo("我的家制砖（形象） Table保存。", "确认") == IDYES)
 			{
 				FILE*		fp;
 				TILE*		temp_Tile;

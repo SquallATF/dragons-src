@@ -171,7 +171,8 @@ FILE *FopenSub_(char *name, char *filemode, char *wherefile, int line)
 				fp = fopen("./data_b5/beta.txt", "r");
 				if (!fp)
 				{
-					MessageBox(GetActiveWindow(), "프리 베타 서버로 접속하려면 홈페이지에서 꼭 패치파일을 다운 받아야 합니다. \n http://www.dr-online.co.kr", "Information", MB_OK | MB_ICONINFORMATION);
+					//MessageBox(GetActiveWindow(), "프리 베타 서버로 접속하려면 홈페이지에서 꼭 패치파일을 다운 받아야 합니다. \n http://www.dr-online.co.kr", "Information", MB_OK | MB_ICONINFORMATION);
+					MessageBox(GetActiveWindow(), "点击测试服务器连接主页,确保下载补丁文件。 \n http://www.dr-online.co.kr", "Information", MB_OK | MB_ICONINFORMATION);
 					exit(0);
 				}
 				else fclose(fp);

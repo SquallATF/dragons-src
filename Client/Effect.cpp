@@ -4497,7 +4497,7 @@ void InsertMagic(LPCHARACTER lpChar_Own, LPCHARACTER lpChar_Target, int magicNum
 		}
 		//이펙트 누적 카운트 더함
 		effSpr_Count[g_lpET[magicNum].sprite_Num]++;
-		//		effSpr_Count[TempList->sprite_Num]++;
+		//effSpr_Count[TempList->sprite_Num]++;
 	}
 	InsertMagicList(&g_lpML, TempList);
 }

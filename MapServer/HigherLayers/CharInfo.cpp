@@ -1584,13 +1584,16 @@ bool CCharInfo::SetChangeGender()//050413_KCH 성전환 아이템 구현
 	if (FEMALE == Gender)
 	{
 		SprNo = 1;
-		Gender = 1;
+		Gender = MALE;
 		Face = 0;	//Face는 고정으로 세팅, 차후에 얼굴이미지 변환 아이템을 판매.
 
-		sprintf(szLog,
-			"[%d][%s]님이 성전환 아이템을 사용해서, '남성'캐릭 변환에 성공했습니다.",
-			g_pServerTable->GetOwnServerData()->wPort,
-			Name);
+		//sprintf(szLog,
+		//	"[%d][%s]님이 성전환 아이템을 사용해서, '남성'캐릭 변환에 성공했습니다.",
+		//	g_pServerTable->GetOwnServerData()->wPort,
+		//	Name);
+		sprintf(szLog, "[%d][%s] Change Gender：FEMALE  ---> MALE .",
+			g_pServerTable->GetOwnServerData()->wPort, Name);
+
 		g_pLogManager->ItemMall_Use_Log(szLog);
 
 		SendCharInfoBasic(CHANGE_GENDER, Gender);
@@ -1599,26 +1602,31 @@ bool CCharInfo::SetChangeGender()//050413_KCH 성전환 아이템 구현
 	else if (MALE == Gender)
 	{
 		SprNo = 0;
-		Gender = 0;
+		Gender = FEMALE;
 		Face = 5;	//Face는 고정으로 세팅, 차후에 얼굴이미지 변환 아이템을 판매.
 
-		sprintf(szLog,
-			"[%d][%s]님이 성전환 아이템을 사용해서, '여성'캐릭 변환에 성공했습니다.",
-			g_pServerTable->GetOwnServerData()->wPort,
-			Name);
+		//sprintf(szLog,
+		//	"[%d][%s]님이 성전환 아이템을 사용해서, '여성'캐릭 변환에 성공했습니다.",
+		//	g_pServerTable->GetOwnServerData()->wPort,
+		//	Name);
+		sprintf(szLog, "[%d][%s] Change Gender：MALE  --->  FEMALE.",
+			g_pServerTable->GetOwnServerData()->wPort, Name);
+
 		g_pLogManager->ItemMall_Use_Log(szLog);
 		SendCharInfoBasic(CHANGE_GENDER, Gender);
 		return true;
 	}
 
-	sprintf(szLog,
-		" [%d][%s]님이 성전환 아이템을 사용해서, 'XXX'캐릭 변환에 실패했습니다. "
-		" (SprNo:%d ,Gender:%d, Face:%d ) ",
-		g_pServerTable->GetOwnServerData()->wPort,
-		Name,
-		SprNo,
-		Gender,
-		Face);
+	//sprintf(szLog,
+	//	" [%d][%s]님이 성전환 아이템을 사용해서, 'XXX'캐릭 변환에 실패했습니다. "
+	//	" (SprNo:%d ,Gender:%d, Face:%d ) ",
+	//	g_pServerTable->GetOwnServerData()->wPort,
+	//	Name,
+	//	SprNo,
+	//	Gender,
+	//	Face);
+	sprintf(szLog, " [%d][%s] Change Gender：(SprNo:%d ,Gender:%d, Face:%d ) ",
+		g_pServerTable->GetOwnServerData()->wPort, Name, SprNo, Gender, Face);
 	g_pLogManager->ItemMall_Use_Log(szLog);
 	return false;
 }

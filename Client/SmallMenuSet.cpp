@@ -6546,7 +6546,8 @@ void SmallMenuSet()
 	SMenu[MN_EFFECT_TOOL].nField[1].y = 0;
 	SMenu[MN_EFFECT_TOOL].nField[1].nWillDo = 1;
 	SetRect(SMenu[MN_EFFECT_TOOL].nField[1].rCheakBox, 180, 10, 220, 30);
-	strcpy(SMenu[MN_EFFECT_TOOL].nField[1].temp, "확인");
+	//strcpy(SMenu[MN_EFFECT_TOOL].nField[1].temp, "확인");
+	strcpy(SMenu[MN_EFFECT_TOOL].nField[1].temp, "确认");
 
 
 
@@ -7406,7 +7407,8 @@ void SmallMenuSet()
 	SMenu[MN_DUAL_MAIN].nField[6].x = 320;
 	SMenu[MN_DUAL_MAIN].nField[6].y = 60;
 	SMenu[MN_DUAL_MAIN].nField[6].nRectImage = 200;
-	strcpy(SMenu[MN_DUAL_MAIN].nField[6].temp, "현재 내용 로딩중입니다..\n NOW LOADING... ... 잠시만 기다려 주십시요 위의 버튼을 클릭 하십시요 ");
+	//strcpy(SMenu[MN_DUAL_MAIN].nField[6].temp, "현재 내용 로딩중입니다..\n NOW LOADING... ... 잠시만 기다려 주십시요 위의 버튼을 클릭 하십시요 ");
+	strcpy(SMenu[MN_DUAL_MAIN].nField[6].temp, "当前内容到交易中。\n NOW LOADING... ...  稍等请点击上面的按钮。");
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -8653,19 +8655,14 @@ void SmallMenuSet()
 		SMenuReg(iMnIndex, CENTER_X, 65, iImg, 0, 15);	//300 짜리 인터페이스 이니까//투명이라 0 0 이다
 
 		// 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,		// 지도 
-			20, 52, 80, 30, iImg, 4, 4);
-		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALLMENU_END, //버튼 
-			363, 310, 109, 29, iImg, 6, 7);
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,		// 방어자
-			188, 125, 280, 200, iImg, 9, 9);
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,		// 화살표
-			116, 200, 180, 300, iImg, 12, 12);
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,		// 공격자
-			55, 120, 180, 200, iImg, 10, 10);
-		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "전쟁이 시작되었습니다.");		// 내용
-		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0,
-			330, 70, 80, 30, 0, 170, DP_RECT_STRING_PUT);
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 20, 52, 80, 30, iImg, 4, 4);		// 지도 
+		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALLMENU_END, 363, 310, 109, 29, iImg, 6, 7); //버튼 
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 188, 125, 280, 200, iImg, 9, 9);		// 방어자
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 116, 200, 180, 300, iImg, 12, 12);		// 화살표
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 55, 120, 180, 200, iImg, 10, 10);		// 공격자
+		//strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "전쟁이 시작되었습니다.");		// 내용
+		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "战争开始了。 ");		// 내용
+		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0, 330, 70, 80, 30, 0, 170, DP_RECT_STRING_PUT);
 	}
 
 	{
@@ -8674,23 +8671,12 @@ void SmallMenuSet()
 		int iFtNum = 0;
 
 		SMenuReg(iMnIndex, CENTER_X, 65, iImg, 0, 15);	//300 짜리 인터페이스 이니까//투명이라 0 0 이다
-
-		// 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			18, 40, 80, 30, iImg, 1, 1);
-
-		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALLMENU_END,
-			154, 301, 110, 30, iImg, 9, 10);		// 취소 버튼
-
-		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_WAR_MOVE,
-			14, 301, 110, 30, iImg, 6, 7);			// 이동버튼
-
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			184, 207, 80, 30, iImg, 12, 12);				// 공격자 자이펀
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			65, 92, 80, 30, iImg, 13, 13);					// 방어자 바이서스 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			135, 157, 80, 30, iImg, 11, 11);					// 화살표
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 18, 40, 80, 30, iImg, 1, 1);
+		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALLMENU_END, 154, 301, 110, 30, iImg, 9, 10);		// 취소 버튼
+		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_WAR_MOVE, 14, 301, 110, 30, iImg, 6, 7);			// 이동버튼
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 184, 207, 80, 30, iImg, 12, 12);				// 공격자 자이펀
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 65, 92, 80, 30, iImg, 13, 13);					// 방어자 바이서스 
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 135, 157, 80, 30, iImg, 11, 11);					// 화살표
 	}
 
 	{
@@ -8698,55 +8684,41 @@ void SmallMenuSet()
 		const int iImg = WAR_STATUS_IMG;
 		int iFtNum = 0;
 		SMenuReg(iMnIndex, CENTER_X, 65, iImg, 0, 20);	//300 짜리 인터페이스 이니까//투명이라 0 0 이다
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			172, 7, 342, 34, iImg, 18, 18);				// 전쟁터 글자 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			20, 46, 80, 30, iImg, 3, 3);				// 전쟁터 그림
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 172, 7, 342, 34, iImg, 18, 18);				// 전쟁터 글자 
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 20, 46, 80, 30, iImg, 3, 3);				// 전쟁터 그림
 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			0, 0, 80, 30, iImg, 13, 13);				// 나의 위치
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 0, 0, 80, 30, iImg, 13, 13);				// 나의 위치
 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			78, 95, 80, 30, iImg, 4, 4);				// 보스가드 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			78, 131, 80, 30, iImg, 4, 4);				// 1상태
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			115, 95, 80, 30, iImg, 4, 4);					// 2상태
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			115, 131, 80, 30, iImg, 5, 5);				// 3상태
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			197, 95, 80, 30, iImg, 4, 4);				// 보스상태
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			199, 131, 80, 30, iImg, 4, 4);				// 1상태
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			236, 95, 80, 30, iImg, 4, 4);				// 2상태
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			236, 131, 80, 30, iImg, 5, 5);				// 3상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 78, 95, 80, 30, iImg, 4, 4);				// 보스가드 
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 78, 131, 80, 30, iImg, 4, 4);				// 1상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 115, 95, 80, 30, iImg, 4, 4);					// 2상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 115, 131, 80, 30, iImg, 5, 5);				// 3상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 197, 95, 80, 30, iImg, 4, 4);				// 보스상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 199, 131, 80, 30, iImg, 4, 4);				// 1상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 236, 95, 80, 30, iImg, 4, 4);				// 2상태
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 236, 131, 80, 30, iImg, 5, 5);				// 3상태
 
-		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "남은시간");		// 내용
-		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0,
-			417, 73, 80, 30, 0, 170, DP_RECT_STRING_PUT);
-		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "바이서스");		// 내용
-		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0,
-			417, 162, 80, 30, 0, 170, DP_RECT_STRING_PUT);
-		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "자이펀");		// 내용
-		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0,
-			417, 255, 80, 30, 0, 170, DP_RECT_STRING_PUT);
+		//strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "남은시간");		// 내용
+		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "剩余时间");		// 내용
+		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0, 417, 73, 80, 30, 0, 170, DP_RECT_STRING_PUT);
+		//strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "바이서스");		// 내용
+		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "李斯酒吧");		// 내용
+		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0, 417, 162, 80, 30, 0, 170, DP_RECT_STRING_PUT);
+		//strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "자이펀");		// 내용
+		strcpy(SMenu[iMnIndex].nField[iFtNum].temp, "查找");		// 내용
+		SMenuFTReg(iMnIndex, iFtNum++, FT_DATA_PUT, 0, 417, 255, 80, 30, 0, 170, DP_RECT_STRING_PUT);
 
-		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALLMENU_END, // Done버튼
-			356, 302, 76, 27, iImg, 2, 1);		// 취소 버튼
+		SMenuFTReg(iMnIndex, iFtNum++, FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_SMALLMENU_END, 356, 302, 76, 27, iImg, 2, 1);		// 취소 버튼 // Done버튼
 
-	//<! BBD 040311
-		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0,
-			326, 158, 77, 116, iImg, 21, 21);				// 바이서스 & 자이펀 글자
+		//<! BBD 040311
+		SMenuFTReg(iMnIndex, iFtNum++, FT_NOMAL_PUT, 0, 326, 158, 77, 116, iImg, 21, 21);				// 바이서스 & 자이펀 글자
 
-//> BBD 040311
+		//> BBD 040311
 
-//SMenuFTReg(iMnIndex,iFtNum++,FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_WAR_MOVE,			// 리프레쉬 버튼
-//		432, 270, 82, 23, iImg, 6, 5);			// 이동버튼
+		//SMenuFTReg(iMnIndex,iFtNum++,FT_HIDE_SPECIAL_WILLDO_AUTO_PUT, SWD_WAR_MOVE,			// 리프레쉬 버튼
+		//		432, 270, 82, 23, iImg, 6, 5);			// 이동버튼
 
 	}
-
 
 	// 020701 YGI
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////	

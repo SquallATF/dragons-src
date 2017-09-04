@@ -1158,15 +1158,17 @@ void SendDragonAction(char* Arg)			// LTS DRAGON TEMP
 
 	if (!ch)
 	{
-		if (GetSysInfo(SI_GAME_MAKE_MODE))	// 020925 YGI
-			AddCurrentStatusMessage(255, 255, 0, "해당 스프라이트 번호를 검출하지 못하였습니다.");
+		if (GetSysInfo(SI_GAME_MAKE_MODE)) {	// 020925 YGI
+			//AddCurrentStatusMessage(255, 255, 0, "해당 스프라이트 번호를 검출하지 못하였습니다.");
+			AddCurrentStatusMessage(255, 255, 0, "有关雪碧号检测不到。");
+		}
 		return;
 	}
 
 	ch->nCurrentAction = i;	//액션세팅
 	ch->nCurrentFrame = 0;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+	ch->set_nCurrentAction(ch->nCurrentAction);		//人物动作行为
+	ch->set_nCurrentFrame(ch->nCurrentFrame);		//人物晃动值
 }
 
 
@@ -1347,18 +1349,30 @@ void PrintMessage(int Index)			// LTS NEW AI
 #ifdef _DEBUG
 	switch (Index)
 	{
-	case 1: AddCurrentStatusMessage(255, 255, 0, "회피루틴을 호출하였습니다.");			break;
-	case 2: AddCurrentStatusMessage(255, 255, 0, "리커버리 루틴을 호출하였습니다.");		break;
-	case 3: AddCurrentStatusMessage(255, 255, 0, "광폭 루틴을 호출하였습니다.");			break;
-	case 4: AddCurrentStatusMessage(255, 255, 0, "안개 루틴을 호출하였습니다.");			break;
-	case 5: AddCurrentStatusMessage(255, 255, 0, "대기 루틴을 호출하였습니다.");			break;
-	case 6: AddCurrentStatusMessage(255, 255, 0, "사운드 루틴을 호출하였습니다.");		break;
-	case 7: AddCurrentStatusMessage(255, 255, 0, "소환 루틴을 호출하였습니다.");			break;
-	case 8: AddCurrentStatusMessage(255, 255, 0, "지진 루틴을 호출하였습니다.");		break;
-	case 9: AddCurrentStatusMessage(255, 255, 0, "등장관련 루틴을 호출하였습니다.");		break;
-	case 10: AddCurrentStatusMessage(255, 255, 0, "소환2 루틴을 호출하였습니다.");		break;
-	case 11: AddCurrentStatusMessage(255, 255, 0, "드래곤텔레포트 루틴을 호출하였습니다.");		break;
-	case 12: AddCurrentStatusMessage(255, 255, 0, "드래곤포그 루틴을 호출하였습니다.");			break;
+	//case 1: AddCurrentStatusMessage(255, 255, 0, "회피루틴을 호출하였습니다.");			break;
+	//case 2: AddCurrentStatusMessage(255, 255, 0, "리커버리 루틴을 호출하였습니다.");		break;
+	//case 3: AddCurrentStatusMessage(255, 255, 0, "광폭 루틴을 호출하였습니다.");			break;
+	//case 4: AddCurrentStatusMessage(255, 255, 0, "안개 루틴을 호출하였습니다.");			break;
+	//case 5: AddCurrentStatusMessage(255, 255, 0, "대기 루틴을 호출하였습니다.");			break;
+	//case 6: AddCurrentStatusMessage(255, 255, 0, "사운드 루틴을 호출하였습니다.");		break;
+	//case 7: AddCurrentStatusMessage(255, 255, 0, "소환 루틴을 호출하였습니다.");			break;
+	//case 8: AddCurrentStatusMessage(255, 255, 0, "지진 루틴을 호출하였습니다.");		break;
+	//case 9: AddCurrentStatusMessage(255, 255, 0, "등장관련 루틴을 호출하였습니다.");		break;
+	//case 10: AddCurrentStatusMessage(255, 255, 0, "소환2 루틴을 호출하였습니다.");		break;
+	//case 11: AddCurrentStatusMessage(255, 255, 0, "드래곤텔레포트 루틴을 호출하였습니다.");		break;
+	//case 12: AddCurrentStatusMessage(255, 255, 0, "드래곤포그 루틴을 호출하였습니다.");			break;
+	case 1: AddCurrentStatusMessage(255, 255, 0, "回避程序 调用。");			break;
+	case 2: AddCurrentStatusMessage(255, 255, 0, "康复程序 调用。");		break;
+	case 3: AddCurrentStatusMessage(255, 255, 0, "宽幅程序调用。");			break;
+	case 4: AddCurrentStatusMessage(255, 255, 0, "雾程序调用。");			break;
+	case 5: AddCurrentStatusMessage(255, 255, 0, "等待程序调用。");			break;
+	case 6: AddCurrentStatusMessage(255, 255, 0, "的程序调用。");		break;
+	case 7: AddCurrentStatusMessage(255, 255, 0, "召回程序调用。");			break;
+	case 8: AddCurrentStatusMessage(255, 255, 0, "地震程序调用。");		break;
+	case 9: AddCurrentStatusMessage(255, 255, 0, "出现相关程序调用。");		break;
+	case 10: AddCurrentStatusMessage(255, 255, 0, "召唤2程序调用。");		break;
+	case 11: AddCurrentStatusMessage(255, 255, 0, "龙瞬间移动程序调用。");		break;
+	case 12: AddCurrentStatusMessage(255, 255, 0, "吃海带的程序调用。");			break;
 	}
 #endif
 }
@@ -1392,16 +1406,18 @@ void RecvCMD_AI_NPC_ACTION(t_packet* p)	// LTS NEW AI
 	ch->nCurrentAction = p->u.LocalWar.AINPCAction.Action;
 	ch->nCurrentFrame = 0;
 	ch->direction = DIRECTION_LEFTDOWN;
-	ch->set_nCurrentAction(ch->nCurrentAction); //훙膠땡鱗契槨
-	ch->set_nCurrentFrame(ch->nCurrentFrame); //훙膠뾔땡令
+	ch->set_nCurrentAction(ch->nCurrentAction); //人物动作行为
+	ch->set_nCurrentFrame(ch->nCurrentFrame);	//人物晃动值
 
 	if (p->u.LocalWar.AINPCAction.Action == 4)
 	{
 		//RecvBreath(ch->x,ch->y);
 	}
 #ifdef _DEBUG
-	if (GetSysInfo(SI_GAME_MAKE_MODE))	// 020925 YGI
-		AddCurrentStatusMessage(255, 255, 0, "패킷에의한 액션을 변경하였습니다. 액션 : %d", ch->nCurrentAction);
+	if (GetSysInfo(SI_GAME_MAKE_MODE)) {	// 020925 YGI
+		//AddCurrentStatusMessage(255, 255, 0, "패킷에의한 액션을 변경하였습니다. 액션 : %d", ch->nCurrentAction);
+		AddCurrentStatusMessage(255, 255, 0, "包的动作更改. 动作 : %d", ch->nCurrentAction);
+	}
 #endif
 }
 

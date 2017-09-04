@@ -696,7 +696,8 @@ int SaveTOI2(char *filename)
 		DWORD fileattr = GetFileAttributes(szFilePath);
 		if (fileattr & FILE_ATTRIBUTE_READONLY)
 		{
-			JustMsg("'%s'은 '읽기전용'으로 되어 있습니다. \n 저장하지 않았습니다.", szFilePath);
+			//JustMsg("'%s'은 '읽기전용'으로 되어 있습니다. \n 저장하지 않았습니다.", szFilePath);
+			JustMsg("'%s' file Read only. ", szFilePath);
 			return 0;
 		}
 	}
@@ -728,15 +729,18 @@ int SaveTOI2(char *filename)
 			DWORD fileattr = GetFileAttributes(szFilePath);
 			if (fileattr & FILE_ATTRIBUTE_READONLY)
 			{
-				JustMsg("'%s'은 '읽기전용'으로 되어 있습니다. \n 저장하지 않았습니다.", szFilePath);
+				//JustMsg("'%s'은 '읽기전용'으로 되어 있습니다. \n 저장하지 않았습니다.", szFilePath);
+				JustMsg("'%s' file Read only. ", szFilePath);
 				return 0;
 			}
 		}
 		return 0;
 	}
 
-	fprintf(fp, "# 0:NO Animation  1:왕복  2:반복  3:문열림   4:문열림상태   5:문닫힘   6:문닫힌상태\n");
-	fprintf(fp, "# 집을수있다 AnimationType Type   Dir  찍는방법 찍는순서 그림자 Light  Lightxy            DontBox            총그림수		\n");
+	//fprintf(fp, "# 0:NO Animation  1:왕복  2:반복  3:문열림   4:문열림상태   5:문닫힘   6:문닫힌상태\n");
+	//fprintf(fp, "# 집을수있다 AnimationType Type   Dir  찍는방법 찍는순서 그림자 Light  Lightxy            DontBox            총그림수		\n");
+	fprintf(fp, "# 0:NO Animation  1:往返  2:重复   3:门打开   4:门打开的状态   5:关闭的门   6:门关闭的状态\n");
+	fprintf(fp, "# 家 AnimationType Type   Dir  的方法的顺序。 Light  Lightxy            DontBox            总图像数		\n");
 
 	ob = NULL;
 	MemAlloc(ob, sizeof(MAPOBJECT *) * TotalMapObject);
@@ -866,7 +870,8 @@ void InsertMapObject(int moid, int x, int y)
 
 	if (TotalMapObject >= MAX_MAPOBJECT_)
 	{
-		JustMsg("음,, 벌서 MapObject갯수가 5000넘었어요.. 더이상은 무리에요..");
+		//JustMsg("음,, 벌서 MapObject갯수가 5000넘었어요.. 더이상은 무리에요..");
+		JustMsg("嗯，不，MapObject沟5000多了。更奇怪的是。。 ");
 		return;
 	}
 
@@ -928,7 +933,8 @@ void DeleteMapObject(int no)
 
 	if (no == -1) return;
 
-	if (YesOrNo("맵오브젝트를 없애려구 ?", "혹시나..") == IDYES)
+	//if (YesOrNo("맵오브젝트를 없애려구 ?", "혹시나..") == IDYES)
+	if (YesOrNo("映射物镜消除。", "我..") == IDYES)
 	{
 	}
 	else
@@ -948,7 +954,8 @@ void DeleteMapObjectAll(int no)
 
 	if (no == -1) return;
 
-	if (YesOrNo("맵에서 no번 맵오브젝트를 모두 없애려구 ????", "혹시나..") == IDYES)
+	//if (YesOrNo("맵에서 no번 맵오브젝트를 모두 없애려구 ????", "혹시나..") == IDYES)
+	if (YesOrNo("射中映射no次物镜都没有孩子。 ????", "我..") == IDYES)
 	{
 	}
 	else

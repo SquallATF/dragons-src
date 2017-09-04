@@ -128,7 +128,8 @@ bool CSymbolMgr_Client::LoadTables()
 		}
 		else
 		{
-			JustMsg(" 정보에 필요한 화일이 없습니다 \"./Itemtable/Item_Symbol.Bin\" ");
+			//JustMsg(" 정보에 필요한 화일이 없습니다 \"./Itemtable/Item_Symbol.Bin\" ");
+			JustMsg(" 信息所需的文件 \"./Itemtable/Item_Symbol.Bin\" ");
 			return false;
 		}
 	}

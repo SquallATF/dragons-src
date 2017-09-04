@@ -642,7 +642,7 @@ int		CClientBill::SendSpecifiedMessage(HWND hwnd)		//해당업체가 게이트�
 int		CClientBill::DecideLine()	//주어진 라인를 분석해서 어떤 라인을 쓰고 있는지 확인한다.
 {
 	//_asm int 3;
-	if (FindWindow("DRAGONRAJA_CLASS", "鬼좋질痢"))
+	if (FindWindow("DRAGONRAJA_CLASS", "小亮龙族"))
 	{
 		WhatLineIUse = -1;
 		return 0;//판단 실패
@@ -1160,7 +1160,7 @@ int CClientBill::ExciteGame_SendMessage()
 		return -3;
 
 	case OP_DUPLICATIONERROR:
-		MessageBox(NULL, "ExciteGame Error", "중복 Error", MB_OK);
+		MessageBox(NULL, "ExciteGame Error", "repeat Error", MB_OK);
 		return -4;
 
 	case OP_SERVERCONNECTFAIL:
@@ -1180,7 +1180,7 @@ int CClientBill::ExciteGame_SendMessage()
 		return -8;
 
 	case OP_NOMONEY:
-		MessageBox(NULL, "ExciteGame Error", "요금 미납자.", MB_OK);
+		MessageBox(NULL, "ExciteGame Error", "NOMONEY", MB_OK);
 		return -9;
 
 	case OP_BADBOY:
@@ -1188,15 +1188,15 @@ int CClientBill::ExciteGame_SendMessage()
 		return -10;
 
 	case OP_OVEREXPIRE:
-		MessageBox(NULL, "ExciteGame Error", "정액 시간 초과.", MB_OK);
+		MessageBox(NULL, "ExciteGame Error", "OVEREXPIRE", MB_OK);
 		return -11;
 
 	case OP_SOCKETTIMEOUT:
-		MessageBox(NULL, "ExciteGame Error", "소켓 타임 Out.", MB_OK);
+		MessageBox(NULL, "ExciteGame Error", "socket timeout", MB_OK);
 		return -12;
 
 	case OP_SOCKETCLOSED:
-		MessageBox(NULL, "ExciteGame Error", "소켓이 닫혔습니다. ", MB_OK);
+		MessageBox(NULL, "ExciteGame Error", "socket closeed", MB_OK);
 		return -13;
 	default:
 		return -99;
@@ -1214,14 +1214,16 @@ int CClientBill::Check_ExciteGame()
 
 	if (FAILED(hr = ::CoInitialize(NULL)))
 	{
-		MessageBox(NULL, "ExciteGame의 Dll를 로딩하는데 실패하였습니다.", "Excite Game Error", MB_OK);
+		//MessageBox(NULL, "ExciteGame의 Dll를 로딩하는데 실패하였습니다.", "Excite Game Error", MB_OK);
+		MessageBox(NULL, "ExciteGame的Dll到交易失败了。", "Excite Game Error", MB_OK);
 		PostQuitMessage(0);
 		return 0;
 	}
 
 	if (FAILED(hr = this->pClient.CreateInstance(__uuidof(LogIn))))
 	{
-		MessageBox(NULL, "ExciteGame의 Dll를 로딩하는데 실패하였습니다.", "구성요소가 설치되지 않았습니다.", MB_OK);
+		//MessageBox(NULL, "ExciteGame의 Dll를 로딩하는데 실패하였습니다.", "구성요소가 설치되지 않았습니다.", MB_OK);
+		MessageBox(NULL, "ExciteGame的Dll到交易失败了。", "component not installed. ", MB_OK);
 		PostQuitMessage(0);
 		::CoUninitialize();
 		return 0;
@@ -1716,7 +1718,8 @@ int CClientBill::Netsgo_SendMessage()
 		return 0;
 	if (!strcmp(Buffer, "~1"))		//multi login이면
 	{
-		MessageBox(NULL, "누군가 아이디를 쓰고 있습니다.", "Netsgo", NULL);
+		//MessageBox(NULL, "누군가 아이디를 쓰고 있습니다.", "Netsgo", NULL);
+		MessageBox(NULL, "有人在用。", "Netsgo", NULL);
 		PostQuitMessage(0);
 		return 0;
 	}

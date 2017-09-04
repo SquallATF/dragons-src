@@ -140,15 +140,15 @@ void GetName(char* temp, char* name, FILE *fp, int n = 0)
 }
 
 
-void SaveName(char *token)
-{
-	FILE *fp = Fopen("30자 넘는 아이템.txt", "at+");
-	if (fp)
-	{
-		fprintf(fp, "%s\n", token);
-		fclose(fp);
-	}
-}
+//void SaveName(char *token)
+//{
+//	FILE *fp = Fopen("30자 넘는 아이템.txt", "at+");
+//	if (fp)
+//	{
+//		fprintf(fp, "%s\n", token);
+//		fclose(fp);
+//	}
+//}
 
 int ReadItemTableFunction(char *text, int &Item_id, char *Name, char *Han_Name, int *item_value, int max)
 {

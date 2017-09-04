@@ -673,7 +673,7 @@ void DoSomeThingWithKey(WPARAM wParam, LPARAM lParam)
 
 		LoadCursorAni();
 		LoadMouseCursor("Cursor.Spr");
-		JustMsg(" CursorAni.txt를 읽었습니다.");
+		JustMsg(" CursorAni.txt read.");
 		break;
 
 	case VK_F5:
@@ -699,7 +699,7 @@ void DoSomeThingWithKey(WPARAM wParam, LPARAM lParam)
 			}
 			else
 			{
-				fprintf(fp, " --- CharacterInfo(%2d시%2d분%2d초) --- \n name = %s\n position(x,y) = (%d, %d),(%d, %d),(%d, %d) \n condition = %d\n ",
+				fprintf(fp, " --- CharacterInfo(%2d:%2d:%2d) --- \n name = %s\n position(x,y) = (%d, %d),(%d, %d),(%d, %d) \n condition = %d\n ",
 					hour, min, sec,
 					Hero->name,
 					Hero->x, Hero->y, Hero->gox, Hero->goy,
@@ -1087,18 +1087,18 @@ AGAIN_:
 		{
 			if (GetBitsPerPixel() <= 8)
 			{
-				JustMsg("溝固戮충奈 ヌサ界П望胤밉? 65536color)鹿 ?\n");
+				JustMsg("系统桌面颜色太低，必须使用( 65536 color)以上.\n\n");
 				goto AGAIN_;
 			}
 
 			//if( GetBitsPerPixel() > 16 ) 
-			//{	
-			//	JustMsg ( "溝固戮충奈 ヌジ山?胤밉?6貫 サ케阮?\n" );
+			//{
+			//	JustMsg ( "系统桌面颜色太高，请使用16位色的设置.\n" );
 			//	goto AGAIN_;
 			//}
 		}
 	}
-#else
+#else	// !_DEBUG
 
 
 	SysInfo.music = 1;
@@ -1107,13 +1107,13 @@ AGAIN_:
 
 #ifdef _SWITCH_SCREEN
 	SysInfo.dx = 0;		// switch screen
-	g_DirectDrawInfo.bFullscreen = false;// switch screen//눗왯친駕
+	g_DirectDrawInfo.bFullscreen = false;// switch screen// 窗口模式  //
 #else 
 	SysInfo.dx = 1;		// switch screen
-	g_DirectDrawInfo.bFullscreen = true;// switch screen//홍팁친駕
+	g_DirectDrawInfo.bFullscreen = true;// switch screen// 全屏模式  //
 #endif
 
-#endif
+#endif  // !_DEBUG
 
 }
 
@@ -1137,7 +1137,8 @@ BOOL CALLBACK CheckEquipmentProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM 
 		{
 			id = 0;
 			lpChar = Hero;
-			JustMsg(" 그런  ID는 없어요.   ID를 0번으로 바꿉니다. ");
+			//JustMsg(" 그런  ID는 없어요.   ID를 0번으로 바꿉니다. ");
+			JustMsg("这样的ID。ID更改为 0. ");
 		}
 	}
 	else
@@ -1146,7 +1147,8 @@ BOOL CALLBACK CheckEquipmentProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM 
 		{
 			id = 1;
 			lpChar = Hero;
-			JustMsg(" 그런  ID는 없어요.   ID를 1번으로 바꿉니다. ");
+			//JustMsg(" 그런  ID는 없어요.   ID를 1번으로 바꿉니다. ");
+			JustMsg("这样的ID。ID更改为 1.");
 		}
 	}
 
@@ -1189,7 +1191,8 @@ BOOL CALLBACK CheckEquipmentProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM 
 			{
 				id = 1;
 				lpChar = Hero;
-				JustMsg(" 그런  ID는 없어요.   ID를 1번으로 바꿉니다. ");
+				//JustMsg(" 그런  ID는 없어요.   ID를 1번으로 바꿉니다. ");
+				JustMsg("这样的ID。ID更改为 1. ");
 			}
 			ac = lpChar->accessory;
 
@@ -1314,7 +1317,10 @@ void GetAnimationTxt(LPCHARACTER lpChar, HWND hwnd)
 		AnotherLineCount++;
 	}
 
-	if (AnotherLineCount != LineCount) 	JustMsg("라인수가 달라..");
+	if (AnotherLineCount != LineCount) {
+		//JustMsg("라인수가 달라..");
+		JustMsg("Line Count not equal.");
+	}
 	lpChar->AnimationTable[TempAnimationCount].nCount = LineCount;
 }
 
@@ -1516,7 +1522,8 @@ BOOL CALLBACK CheckAnimationProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM 
 			}
 			else
 			{
-				JustMsg("몬스터나 NPC는 장비를 장착할수 없습니다. ");
+				//JustMsg("몬스터나 NPC는 장비를 장착할수 없습니다. ");
+				JustMsg(" NPC 装备无法装备. ");
 			}
 
 			break;
@@ -1559,7 +1566,8 @@ BOOL CALLBACK CheckAnimationProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM 
 
 			fclose(fp);
 
-			JustMsg("%d 번 캐릭터의 Animation Data를 저장합니다. \n \n[%s]", lpChar->sprno, temp);
+			//JustMsg("%d 번 캐릭터의 Animation Data를 저장합니다. \n \n[%s]", lpChar->sprno, temp);
+			JustMsg("%d 号 角色的 Animation Data 数据已保存. \n \n[%s]", lpChar->sprno, temp);
 
 			break;
 		}
@@ -1576,7 +1584,7 @@ BOOL CALLBACK CheckAnimationProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM 
 			lpChar->mutant = atoi(temp);
 
 			sprintf(temp, "./char_test/%03d000.spr", lpChar->sprno);
-			lpChar->set_mutant(lpChar->mutant);//瘻斂변鑒쌔삿
+			lpChar->set_mutant(lpChar->mutant); // 转职函数截获
 
 
 			if (CharBuf[lpChar->sprno] != NULL) { FreeCharacterSpriteData(CharBuf[lpChar->sprno]); CharBuf[lpChar->sprno] = 0; }
@@ -2216,10 +2224,13 @@ BOOL CALLBACK ViewMapObjectInfoProc(HWND hDlg, UINT Message, WPARAM wParam, LPAR
 
 			//////////////////// 0203 이규훈 수정 //////////////////
 		case IDC_BUTTON_SAVE:
-			if (SysInfo.notconectserver)
+			if (SysInfo.notconectserver) {
 				SaveTOI2(MapName);
-			else
-				MessageBox(NULL, "서버와 연결된 상태에서는 SAVE되지 않습니다.", 0, MB_OK);
+			}
+			else {
+				//MessageBox(NULL, "서버와 연결된 상태에서는 SAVE되지 않습니다.", 0, MB_OK);
+				MessageBox(NULL, "与服务器连接的状态下SAVE。", 0, MB_OK);
+			}
 			break;
 
 		case IDC_BUTTON_SORTL_U: ModifyMapObjectSort(mo, IDC_BUTTON_SORTL_U, 3);  sprintf(temp, "%d", mo->dy0[mo->curframe]); Edit_SetText(GetDlgItem(hDlg, IDC_EDIT_SORTL_Y), temp); ; GameTestProc(&g_DirectDrawInfo); break;
@@ -2687,31 +2698,37 @@ BOOL CALLBACK InputMapAttrProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 
 
 		case IDC_SOURCE_AFFECT_YES:   tMapAttrAllAffect = IDC_SOURCE_AFFECT_YES;	break; //SetFocus( g_hwndMain );g_bIsActive = TRUE;	SetAcquire( g_bIsActive ); ;break;
-		case IDC_SOURCE_AFFECT_NO:   tMapAttrAllAffect = IDC_SOURCE_AFFECT_NO;	break; //	SetFocus( g_hwndMain );g_bIsActive = TRUE;	SetAcquire( g_bIsActive ); ;break;
+		case IDC_SOURCE_AFFECT_NO:   tMapAttrAllAffect = IDC_SOURCE_AFFECT_NO;	break; //SetFocus( g_hwndMain );g_bIsActive = TRUE;	SetAcquire( g_bIsActive ); ;break;
 
-		case IDC_DONT_TO_GE:	if (YesOrNo("Dont 속성을 효과벽 속성으로 Copy합니다. ", "?") == IDYES)
-		{
-			if (YesOrNo("여기서 잠깐! \n 음.. 갱신된 Data는 UnDo되지 않습니다. '.MAP'을 먼저 저장하세요 \n\n 'Yes'를 누르면 게속진행합니다.", "확인") == IDYES)
+		case IDC_DONT_TO_GE:
+			//if (YesOrNo("Dont 속성을 효과벽 속성으로 Copy합니다. ", "?") == IDYES)  // Dont属性效果壁属性说明。
+			if (YesOrNo("未保存属性提示. ", "?") == IDYES)  // Dont属性效果壁属性说明。
 			{
-				ChangeMapAttrDont2Geffect();
-				JustMsg("모든 Dont 속성이 효과벽속성으로 바뀌었습니다. ");
+				//if (YesOrNo("여기서 잠깐! \n 음.. 갱신된 Data는 UnDo되지 않습니다. '.MAP'을 먼저 저장하세요 \n\n 'Yes'를 누르면 게속진행합니다.", "확인") == IDYES)
+				if (YesOrNo("稍等! \n 更新的数据尚未保存。 '.MAP'请先保存.\n\n 点击“Yes”，继续进行.", "提示") == IDYES)
+				{
+					ChangeMapAttrDont2Geffect();
+					//JustMsg("모든 Dont 속성이 효과벽속성으로 바뀌었습니다. ");
+					JustMsg("所有未保存属性的效果已转变。  ");
+				}
 			}
-		}
-								break;
+			break;
 
 		case IDOK:
 		{
 			char temp[FILENAME_MAX];
 			sprintf(temp, "./map/%s.map", MapName);
 
-			if (YesOrNo("맵을 갱신합니다. \n\n '%s'", "확인") == IDYES)
+			//if (YesOrNo("맵을 갱신합니다. \n\n '%s'", "확인") == IDYES)
+			if (YesOrNo("地图更新. \n\n '%s'", "提示") == IDYES)
 			{
 				MapWirteFile(&g_Map.file, temp);
 			}
 			return (TRUE);
 		}
 
-		case IDCANCEL:		EndDialog(hDlg, LOWORD(wParam));
+		case IDCANCEL:
+			EndDialog(hDlg, LOWORD(wParam));
 			tool_ID_INPUT_MAP_ATTR = 0;
 			tool_ViewAttrDontFlag = 0;
 			tool_ViewAttrRiver = 0;
@@ -2723,7 +2740,6 @@ BOOL CALLBACK InputMapAttrProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 			tool_ViewAttrOccupied = 0;
 			tool_ViewAttrTop = 0;    // 010904 LTS
 
-			;
 			return (TRUE);
 		}
 		break;
@@ -2748,7 +2764,8 @@ BOOL CALLBACK tool_MouseCursorProc(HWND hDlg, UINT Message, WPARAM wParam, LPARA
 
 		switch (LOWORD(wParam))
 		{
-		case IDC_CURSOR_DOWN:	Edit_GetText(GetDlgItem(hDlg, IDC_EDIT_START), temp, FILENAME_MAX);
+		case IDC_CURSOR_DOWN:
+			Edit_GetText(GetDlgItem(hDlg, IDC_EDIT_START), temp, FILENAME_MAX);
 			cursorani[CurMouseCursorNo - 1].start = atoi(temp);
 			Edit_GetText(GetDlgItem(hDlg, IDC_EDIT_END), temp, FILENAME_MAX);
 			cursorani[CurMouseCursorNo - 1].end = atoi(temp);
@@ -2760,7 +2777,8 @@ BOOL CALLBACK tool_MouseCursorProc(HWND hDlg, UINT Message, WPARAM wParam, LPARA
 			GameTestProc(&g_DirectDrawInfo);
 			break;
 
-		case IDC_CURSOR_UP:	Edit_GetText(GetDlgItem(hDlg, IDC_EDIT_START), temp, FILENAME_MAX);
+		case IDC_CURSOR_UP:
+			Edit_GetText(GetDlgItem(hDlg, IDC_EDIT_START), temp, FILENAME_MAX);
 			cursorani[CurMouseCursorNo - 1].start = atoi(temp);
 			Edit_GetText(GetDlgItem(hDlg, IDC_EDIT_END), temp, FILENAME_MAX);
 			cursorani[CurMouseCursorNo - 1].end = atoi(temp);
@@ -2772,15 +2790,15 @@ BOOL CALLBACK tool_MouseCursorProc(HWND hDlg, UINT Message, WPARAM wParam, LPARA
 			GameTestProc(&g_DirectDrawInfo);
 			break;
 
-		case IDLOAD:	LoadCursorAni();
+		case IDLOAD:
+			LoadCursorAni();
 			LoadMouseCursor("Cursor.Spr");
-			JustMsg(" CursorAni.txt와 Cursor.Spr를 읽었습니다.");
+			//JustMsg(" CursorAni.txt와 Cursor.Spr를 읽었습니다.");
+			JustMsg(" CursorAni.txt and Cursor.Spr read.");
 			break;
 
 		case IDOK:
-		{
 			return (TRUE);
-		}
 
 		case IDCANCEL:	EndDialog(hDlg, LOWORD(wParam));
 			tool_MouseCursorBlock = 0;
@@ -2820,8 +2838,6 @@ static int tool_MapObjectSelect(HWND hDlg, int id)
 
 	tool_MapObjectEditBoxSetting(hDlg);
 
-	;
-
 	GameTestProc(&g_DirectDrawInfo);
 
 	return 1;
@@ -2832,7 +2848,8 @@ BOOL CALLBACK tool_IDD_INPUT_MAPOBJECTProc(HWND hDlg, UINT Message, WPARAM wPara
 {
 	switch (Message)
 	{
-	case WM_INITDIALOG:		LoadTempSprite(tool_CurMapObjectId);
+	case WM_INITDIALOG:
+		LoadTempSprite(tool_CurMapObjectId);
 		tool_MapObjectEditBoxSetting(hDlg);
 		return TRUE;
 
@@ -2853,7 +2870,8 @@ BOOL CALLBACK tool_IDD_INPUT_MAPOBJECTProc(HWND hDlg, UINT Message, WPARAM wPara
 		case IDC_IO_D1000:	tool_MapObjectSelect(hDlg, 1000); break;
 
 		case IDOK:
-		case IDCANCEL:		EndDialog(hDlg, LOWORD(wParam));
+		case IDCANCEL:
+			EndDialog(hDlg, LOWORD(wParam));
 			tool_IDD_INPUT_MAPOBJECT = 0;
 			;
 			return (TRUE);
@@ -2907,15 +2925,16 @@ BOOL CALLBACK GenerateItemProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 		return TRUE;
 	}
 
-	case WM_PAINT:		SetTimer(g_hwndMain, 13, 1000, NULL);
+	case WM_PAINT:
+		SetTimer(g_hwndMain, 13, 1000, NULL);
 		break;
 
-	case WM_TIMER:	if (wParam == 13)
-	{
-		;
-		GameTestProc(&g_DirectDrawInfo);
-	}
-					break;
+	case WM_TIMER:
+		if (wParam == 13)
+		{
+			GameTestProc(&g_DirectDrawInfo);
+		}
+		break;
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
@@ -2932,11 +2951,9 @@ BOOL CALLBACK GenerateItemProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 			gener_item.gennum = atoi(szBuffer);
 
 			bGenerateItemOn = true;
-
-
-
 		}
-		case IDCANCEL:	EndDialog(hDlg, LOWORD(wParam));
+		case IDCANCEL:
+			EndDialog(hDlg, LOWORD(wParam));
 			;
 			return (TRUE);
 		default: return true;
@@ -2963,11 +2980,8 @@ void CreateItemByTool()
 }
 
 
-
-
 BOOL CALLBACK DeleteNPCProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam)
 {
-
 	char szBuffer[127];
 	int from, to;
 	switch (Message)
@@ -2977,9 +2991,9 @@ BOOL CALLBACK DeleteNPCProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPara
 		return TRUE;
 	}
 
-	case WM_PAINT:		break;
+	case WM_PAINT: break;
 
-	case WM_TIMER:	break;
+	case WM_TIMER: break;
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
@@ -2991,9 +3005,10 @@ BOOL CALLBACK DeleteNPCProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPara
 			GetDlgItemText(hDlg, IDC_EDIT_TO, szBuffer, sizeof(szBuffer) - 1);
 			to = atoi(szBuffer);
 
-			sprintf(szBuffer, "현 맵에 있는 NPC배치중에서 \n %d(%s)-> %d(%s)로 바꿉니다.", from, g_infNpc[from].szName, to, g_infNpc[to].szName); // CSD-030419
+			//sprintf(szBuffer, "현 맵에 있는 NPC배치중에서 \n %d(%s)-> %d(%s)로 바꿉니다.", from, g_infNpc[from].szName, to, g_infNpc[to].szName); // CSD-030419
+			sprintf(szBuffer, "现映射的NPC布局中。 \n %d(%s)-> %d(%s)替换。", from, g_infNpc[from].szName, to, g_infNpc[to].szName); // CSD-030419
 
-			if (YesOrNo(szBuffer, "주의") == IDYES)
+			if (YesOrNo(szBuffer, "注意") == IDYES)
 			{
 				ChangeNPCGenerate(from, to);
 				break;
@@ -3002,9 +3017,10 @@ BOOL CALLBACK DeleteNPCProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPara
 
 			// 전체 NPC를 지운다. 
 		case ID_NPC_ALL_DELETE:
-			sprintf(szBuffer, "현 맵에 있는 NPC배치를 모두 없앱니다. ");
+			//sprintf(szBuffer, "현 맵에 있는 NPC배치를 모두 없앱니다. ");
+			sprintf(szBuffer, "ID_NPC_ALL_DELETE。  ");
 
-			if (YesOrNo(szBuffer, "주의") == IDYES)
+			if (YesOrNo(szBuffer, "注意") == IDYES)
 			{
 				DeleteNPCGenerate();
 
@@ -3019,9 +3035,10 @@ BOOL CALLBACK DeleteNPCProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPara
 
 			GetDlgItemText(hDlg, IDC_EDIT1, szBuffer, sizeof(szBuffer) - 1);
 			no = atoi(szBuffer);
-			sprintf(szBuffer, "다음의 NPC배치를 없앱니다. \n %d번 %s ", no, g_infNpc[no].szName); // CSD-030419
+			//sprintf(szBuffer, "다음의 NPC배치를 없앱니다. \n %d번 %s ", no, g_infNpc[no].szName); // CSD-030419
+			sprintf(szBuffer, "NPC安排下的去除。 . \n %d번 %s ", no, g_infNpc[no].szName); // CSD-030419
 
-			if (YesOrNo(szBuffer, "주의") == IDYES)
+			if (YesOrNo(szBuffer, "注意") == IDYES)
 			{
 				DeleteNPCGenerate(no);
 				// 지우는 함수... 
@@ -3069,8 +3086,7 @@ ChangeCharacterAbilityProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam
 		IDC_ABILIT_MOR ,IDC_ABILIT_LUCK,IDC_ABILIT_WSPS };
 	switch (Message)
 	{
-	case WM_INITDIALOG:
-	{
+	case WM_INITDIALOG: {
 		for (int i = STR; i <= LUCK; i++)
 		{
 			SetDlgItemInt(hDlg, ability_to_idc[i], SCharacterData.nCharacterAbility[i], true);
@@ -3079,24 +3095,23 @@ ChangeCharacterAbilityProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam
 		SetDlgItemInt(hDlg, IDC_ABILIT_MONEY, SCharacterData.nMoney, true);
 		return TRUE;
 	}
-
-	case WM_PAINT:		SetTimer(g_hwndMain, 13, 1000, NULL);
+	case WM_PAINT:
+		SetTimer(g_hwndMain, 13, 1000, NULL);
 		break;
 
-	case WM_TIMER:	if (wParam == 13)
-	{
-		;
-		GameTestProc(&g_DirectDrawInfo);
-	}
-					break;
+	case WM_TIMER:
+		if (wParam == 13)
+		{
+			GameTestProc(&g_DirectDrawInfo);
+		}
+		break;
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
-		case IDC_ABILIT_STR:			break;
+		case IDC_ABILIT_STR: break;
 		case IDOK:
 		case IDC_UPDATE: {
-			;
 			char szBuffer[127];
 			double data;
 			UINT flag;
@@ -3181,7 +3196,6 @@ BOOL CALLBACK ToolPasswordProc2(HWND hDlg, UINT Message, WPARAM wParam, LPARAM l
 	case WM_TIMER:
 		if (wParam == 20)
 		{
-			;
 			GameTestProc(&g_DirectDrawInfo);
 		}
 		break;
@@ -3190,7 +3204,6 @@ BOOL CALLBACK ToolPasswordProc2(HWND hDlg, UINT Message, WPARAM wParam, LPARAM l
 		switch (LOWORD(wParam))
 		{
 		case IDOK: {
-			;
 			char lpszPW[21] = { 0, };
 			GetDlgItemText(hDlg, IDC_EDIT_TOOL_PW, lpszPW, 20);
 			if (!(*lpszPW))
@@ -3220,21 +3233,21 @@ BOOL CALLBACK ToolPasswordProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 	{
 	case WM_INITDIALOG:	break;
 
-	case WM_PAINT:		SetTimer(g_hwndMain, 13, 1000, NULL);
+	case WM_PAINT:
+		SetTimer(g_hwndMain, 13, 1000, NULL);
 		break;
 
-	case WM_TIMER:	if (wParam == 13)
-	{
-		;
-		GameTestProc(&g_DirectDrawInfo);
-	}
-					break;
+	case WM_TIMER:
+		if (wParam == 13)
+		{
+			GameTestProc(&g_DirectDrawInfo);
+		}
+		break;
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
 		case IDOK: {
-			;
 			char lpszPW[11] = { 0, };
 			GetDlgItemText(hDlg, IDC_EDIT_TOOL_PW, lpszPW, 11);
 			if (!(*lpszPW))
@@ -3246,7 +3259,7 @@ BOOL CALLBACK ToolPasswordProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lP
 		case IDCANCEL:
 		{
 			EndDialog(hDlg, LOWORD(wParam));
-			SetFocus2(HWND_GAME_MAIN);//021001 lsw
+			SetFocus2(HWND_GAME_MAIN);	//021001 lsw
 			;
 			return (TRUE);
 		}break;
@@ -3266,9 +3279,8 @@ void ToolPassWord(int type = 0)
 	HWND hAbilityDlg;
 	switch (type)
 	{
-	case 1: hAbilityDlg = CreateDialog(g_hInstance, MAKEINTRESOURCE(IDD_INPUT_PASSWORD), g_hwndMain, (DLGPROC)ToolPasswordProc2);
-		break;
-	default: hAbilityDlg = CreateDialog(g_hInstance, MAKEINTRESOURCE(IDD_INPUT_PASSWORD), g_hwndMain, (DLGPROC)ToolPasswordProc);
+	case 1: hAbilityDlg = CreateDialog(g_hInstance, MAKEINTRESOURCE(IDD_INPUT_PASSWORD), g_hwndMain, (DLGPROC)ToolPasswordProc2); break;
+	default: hAbilityDlg = CreateDialog(g_hInstance, MAKEINTRESOURCE(IDD_INPUT_PASSWORD), g_hwndMain, (DLGPROC)ToolPasswordProc); break;
 	}
 
 	ShowWindow(hAbilityDlg, SW_HIDE);
@@ -3289,13 +3301,15 @@ void ToolPassWord(int type = 0)
 
 BOOL CALLBACK ChangeCharacterTacticsProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam)
 {
-	int tac_to_idc[] = { IDC_TAC_CRAPPLE	,IDC_TAC_SWORD	,IDC_TAC_ARCHERY,IDC_TAC_FENCING,
+	int tac_to_idc[] = {
+		IDC_TAC_CRAPPLE	,IDC_TAC_SWORD	,IDC_TAC_ARCHERY,IDC_TAC_FENCING,
 		IDC_TAC_MACE	,IDC_TAC_PIERCE	,IDC_TAC_WHIRL	,IDC_TAC_HURL 	,
 		IDC_TAC_PARRYING,IDC_TAC_DSWORD,IDC_TAC_DMACE	,IDC_TAC_MAGERY	,
 		IDC_TAC_ORISON, };
-	int tac2_to_idc[] = { IDC_TAC_CRAPPLE2	,IDC_TAC_SWORD2	,IDC_TAC_ARCHERY2,IDC_TAC_FENCING2,
+	int tac2_to_idc[] = {
+		IDC_TAC_CRAPPLE2	,IDC_TAC_SWORD2	,IDC_TAC_ARCHERY2,IDC_TAC_FENCING2,
 		IDC_TAC_MACE2		,IDC_TAC_PIERCE2,IDC_TAC_WHIRL2	,IDC_TAC_HURL2	,
-		IDC_TAC_PARRYING2	,IDC_TAC_DSWORD2,IDC_TAC_DMACE2	,IDC_TAC_MAGERY2	,
+		IDC_TAC_PARRYING2	,IDC_TAC_DSWORD2,IDC_TAC_DMACE2	,IDC_TAC_MAGERY2,
 		IDC_TAC_ORISON2, };
 
 
@@ -3318,7 +3332,6 @@ BOOL CALLBACK ChangeCharacterTacticsProc(HWND hDlg, UINT Message, WPARAM wParam,
 	case WM_TIMER:
 		if (wParam == 13)
 		{
-			;
 			GameTestProc(&g_DirectDrawInfo);
 		}
 		break;
@@ -3327,7 +3340,6 @@ BOOL CALLBACK ChangeCharacterTacticsProc(HWND hDlg, UINT Message, WPARAM wParam,
 		switch (LOWORD(wParam))
 		{
 		case IDC_CONVERT: {
-			;
 			char szBuffer[127];
 			UINT flag;
 			int data2;
@@ -3344,7 +3356,6 @@ BOOL CALLBACK ChangeCharacterTacticsProc(HWND hDlg, UINT Message, WPARAM wParam,
 			break;
 		}
 		case IDC_UPDATE: {
-			;
 			char szBuffer[127];
 			double data;
 			UINT flag;
@@ -3521,7 +3532,8 @@ BOOL CALLBACK PublicBroadCastingProc(HWND hDlg, UINT Message, WPARAM wParam, LPA
 
 	switch (Message)
 	{
-	case WM_INITDIALOG:		Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), temp);
+	case WM_INITDIALOG:
+		Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), temp);
 		return TRUE;
 
 	case WM_PAINT:
@@ -3530,11 +3542,13 @@ BOOL CALLBACK PublicBroadCastingProc(HWND hDlg, UINT Message, WPARAM wParam, LPA
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
-		case IDOK:		Edit_GetText(GetDlgItem(hDlg, IDC_EDIT1), temp, MAX_PATH);
+		case IDOK:
+			Edit_GetText(GetDlgItem(hDlg, IDC_EDIT1), temp, MAX_PATH);
 			SendBBS(temp);
 			break;
 
-		case IDCANCEL:	EndDialog(hDlg, LOWORD(wParam));
+		case IDCANCEL:
+			EndDialog(hDlg, LOWORD(wParam));
 			return (TRUE);
 		}
 		break;
@@ -3562,7 +3576,8 @@ BOOL CALLBACK PublicBroadCastingAllProc(HWND hDlg, UINT Message, WPARAM wParam, 
 
 	switch (Message)
 	{
-	case WM_INITDIALOG:		Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), temp);
+	case WM_INITDIALOG:
+		Edit_SetText(GetDlgItem(hDlg, IDC_EDIT1), temp);
 		return TRUE;
 
 	case WM_PAINT:
@@ -3571,11 +3586,13 @@ BOOL CALLBACK PublicBroadCastingAllProc(HWND hDlg, UINT Message, WPARAM wParam, 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
-		case IDOK:		Edit_GetText(GetDlgItem(hDlg, IDC_EDIT1), temp, MAX_PATH);
+		case IDOK:
+			Edit_GetText(GetDlgItem(hDlg, IDC_EDIT1), temp, MAX_PATH);
 			SendBBSAll(temp);
 			break;
 
-		case IDCANCEL:	EndDialog(hDlg, LOWORD(wParam));
+		case IDCANCEL:
+			EndDialog(hDlg, LOWORD(wParam));
 			return (TRUE);
 		}
 		break;
@@ -3591,9 +3608,7 @@ void PublicBroadCastingtoAll(void)
 
 	PbcAllHwnd = CreateDialog(g_hInstance, MAKEINTRESOURCE(IDD_PUBLIC_MESSAGE_ALL), g_hwndMain, (DLGPROC)PublicBroadCastingAllProc);
 	ShowWindow(PbcAllHwnd, SW_SHOW);
-
 #endif
-
 }
 
 
@@ -3607,7 +3622,6 @@ void SystemMenuProcess(WPARAM wParam)
 	int  ScreenX;
 	RECT rect, grect;
 	int i, j;
-
 
 	switch (wParam)
 	{
@@ -3721,8 +3735,8 @@ void SystemMenuProcess(WPARAM wParam)
 		tool_mapobject_modify = !tool_mapobject_modify;
 		SysInfo.gamemakemode = 1;
 		if (tool_mapobject_modify)
-			AddCurrentStatusMessage(255, 255, 255, "MapObject수정가능");
-		else AddCurrentStatusMessage(255, 0, 0, "MapObject수정 불가");
+			AddCurrentStatusMessage(255, 255, 255, "MapObject修改");
+		else AddCurrentStatusMessage(255, 0, 0, "MapObject不可修改");
 		break;
 
 	case ID_INPUT_MAP_ATTR:
@@ -3827,19 +3841,18 @@ void SystemMenuProcess(WPARAM wParam)
 		}
 
 		break;
-
 	case ID_EFFECT_TEST: tool_ID_EFFECT_TEST = !tool_ID_EFFECT_TEST;
 		if (tool_ID_EFFECT_TEST)
 		{
-			AddCurrentStatusMessage(0, 0, 255, "마법이 정상화 되었습니다.");
+			//AddCurrentStatusMessage(0, 0, 255, "마법이 정상화 되었습니다.");
+			AddCurrentStatusMessage(0, 0, 255, "魔法正常化了。");
 		}
 		else
 		{
-			AddCurrentStatusMessage(0, 0, 255, "오른쪽마우스에의해 fireBall이 나갑니다.");
+			//AddCurrentStatusMessage(0, 0, 255, "오른쪽마우스에의해 fireBall이 나갑니다.");
+			AddCurrentStatusMessage(0, 0, 255, "鼠标右键的fireBall出去。");
 		}
 		break;
-
-
 	case ID_INPUT_MAPOBJECT_MENU:
 		tool_IDD_INPUT_MAPOBJECT = !tool_IDD_INPUT_MAPOBJECT;
 
@@ -3877,7 +3890,8 @@ void SystemMenuProcess(WPARAM wParam)
 	case ID_CHARACTER_LIST:	if (!g_StartMenuOn) ChangeCharacterAbility(); break;
 	case ID_GENERATE_ITEM:	if (!g_StartMenuOn) CreateItemByTool();		break;
 	case ID_CHANGE_TACTICS:	if (!g_StartMenuOn) ChangeCharacterTactics(); break;
-	case IDD_SMALL_RADAR:   tool_ViewAllCharacter = !tool_ViewAllCharacter;
+	case IDD_SMALL_RADAR:
+		tool_ViewAllCharacter = !tool_ViewAllCharacter;
 		tool_SkillTool_FARMING = tool_SkillTool_MINING = tool_SkillTool_FISHING = tool_SkillTool_CHOPPING = tool_SkillTool_HUB = tool_SkillTool_NPC = tool_SkillTool_ITEM_SEAL = false;
 		break;
 
@@ -3946,7 +3960,8 @@ void SystemMenuProcess(WPARAM wParam)
 		}
 		else
 		{
-			AddCurrentStatusMessage(255, 100, 100, "팀배틀용이 아니라 '팀배틀 시작/끝' 명령을 보낼수 없습니다.");
+			//AddCurrentStatusMessage(255, 100, 100, "팀배틀용이 아니라 '팀배틀 시작/끝' 명령을 보낼수 없습니다.");
+			AddCurrentStatusMessage(255, 100, 100, "龙队的战斗。战斗开始/结束“组”命令无法发送。");
 		}
 		break;
 	case ID_TEAM_BATTLE_START:
@@ -3957,17 +3972,14 @@ void SystemMenuProcess(WPARAM wParam)
 		}
 		else
 		{
-			AddCurrentStatusMessage(255, 100, 100, "팀배틀용이 아니라 '팀배틀 시작/끝' 명령을 보낼수 없습니다.");
+			//AddCurrentStatusMessage(255, 100, 100, "팀배틀용이 아니라 '팀배틀 시작/끝' 명령을 보낼수 없습니다.");
+			AddCurrentStatusMessage(255, 100, 100, "龙队的战斗。战斗开始/结束“组”命令无法发送。");
 		}
 		break;
 
 	case IDD_MY_SKILL_EXP: tool_ViewMyExp = !tool_ViewMyExp; break;
-
 	default: Check_Kein_Menu(wParam); break;			// 1004 YGI
-
 	}
-
-	;
 }
 
 //soto 030307
@@ -4099,9 +4111,9 @@ BOOL CALLBACK AgreeDlgProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam
 		case IDCANCEL:
 			EndDialog(hDlg, LOWORD(wParam));
 			return (false);
-	}
+		}
 		break;
-}
+	}
 
 	return FALSE;
 }
@@ -4137,16 +4149,14 @@ ToolLogoutCharacterProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam)
 	switch (Message)
 	{
 	case WM_INITDIALOG:	break;
+	case WM_PAINT: SetTimer(g_hwndMain, 13, 1000, NULL); break;
 
-	case WM_PAINT:		SetTimer(g_hwndMain, 13, 1000, NULL);
+	case WM_TIMER:
+		if (wParam == 13)
+		{
+			GameTestProc(&g_DirectDrawInfo);
+		}
 		break;
-
-	case WM_TIMER:	if (wParam == 13)
-	{
-		;
-		GameTestProc(&g_DirectDrawInfo);
-	}
-					break;
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
@@ -4233,30 +4243,30 @@ BOOL CALLBACK OXEventProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam)
 			GameTestProc(&g_DirectDrawInfo);
 		}
 		break;
-	//
-	//case WM_NCHITTEST :
-	//{
-	////GetRect(
-	//POINT point;
-	//point.x= GET_X_LPARAM(lParam);
-	//point.y= GET_Y_LPARAM(lParam);
-	////ScreenToClient( hDlg, &point );
+		//
+		//case WM_NCHITTEST :
+		//{
+		////GetRect(
+		//POINT point;
+		//point.x= GET_X_LPARAM(lParam);
+		//point.y= GET_Y_LPARAM(lParam);
+		////ScreenToClient( hDlg, &point );
 
-	//  for( int i=0; i<4; i++ )
-	//  {
-	//  if( RectAndDotCrash( &rect[i], point.x, point.y) )
-	//  {
-	//  crash = i;
-	//  break;
-	//  }
-	//  }
+		//  for( int i=0; i<4; i++ )
+		//  {
+		//  if( RectAndDotCrash( &rect[i], point.x, point.y) )
+		//  {
+		//  crash = i;
+		//  break;
+		//  }
+		//  }
 
-	//	if( crash >= 0 )
-	//	{
-	//	sprintf( temp, "%d", i );
-	//	Edit_SetText(GetDlgItem(hDlg, IDC_EXPLAIN ), temp );
-	//	}
-	//	break;
+		//	if( crash >= 0 )
+		//	{
+		//	sprintf( temp, "%d", i );
+		//	Edit_SetText(GetDlgItem(hDlg, IDC_EXPLAIN ), temp );
+		//	}
+		//	break;
 
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
@@ -4382,7 +4392,6 @@ BOOL CALLBACK ToolMapMoveProc(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPa
 	case WM_TIMER:
 		if (wParam == 15)
 		{
-			;
 			GameTestProc(&g_DirectDrawInfo);
 		}
 		break;
@@ -4451,8 +4460,6 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 		LPCHARACTER		pChar = g_CharacterList.lpFirst;
 		while (pChar != NULL)
 		{
-
-
 			if (!IsNPC(pChar) && g_CharacterList.lpFirst != pChar)		//자기자신은 마지막에 들어간다.
 				SendMessage(hListWnd, LB_ADDSTRING, 0, (LPARAM)pChar->name);	//왜 냐하면..이동될때 자신은 마지막에 이동되어야.
 																			//유저들이 바르게 큰트롤 될수 있기 때문이다.
@@ -4461,14 +4468,11 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 
 		SendMessage(hListWnd, LB_ADDSTRING, 0, (LPARAM)g_CharacterList.lpFirst->name);
 
-
-
 		int nCount = SendMessage(hListWnd, LB_GETCOUNT, 0, 0);
 		if (0 < nCount)
 		{
 			SendMessage(hListWnd, LB_SETCURSEL, 0, 0);
 		}
-
 
 		HWND hMapNameWnd = GetDlgItem(hDlg, CBO_MAPNAME);
 
@@ -4485,9 +4489,6 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 			}	//> soto-030320
 		}
 		SendMessage(hMapNameWnd, CB_SETCURSEL, 0, 0);
-
-
-
 		return TRUE;
 	}
 	case WM_PAINT:
@@ -4495,10 +4496,10 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 
 	}
 	break;
-	//	case WM_ACTIVATE:
-	//		{
-	//			return TRUE;
-	//		}		
+	//case WM_ACTIVATE:
+	//	{
+	//		return TRUE;
+	//	}		
 	case WM_TIMER:
 	{
 	}
@@ -4509,8 +4510,6 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 		{
 		case BTN_MOVE:	// map move
 		{
-
-
 			HWND hLeftListWnd = GetDlgItem(hDlg, LST_SELECTED_USERS);
 			int nCount = SendMessage(hLeftListWnd, LB_GETCOUNT, 0, 0);
 
@@ -4523,7 +4522,6 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 				bool bZypern = (SendMessage(hChkZypernWnd, BM_GETCHECK, 0, 0) == BST_CHECKED);
 				bool bViseus = (SendMessage(hChkViseusWnd, BM_GETCHECK, 0, 0) == BST_CHECKED);
 				// 속한나라	0 : 없음, 1, 2, 3: 바이서스 4: 자이펀 5:헤게모니아 6: 일스
-
 
 				t_packet packet;
 
@@ -4542,7 +4540,6 @@ BOOL CALLBACK ToolMapMoveMultipleProc(HWND hDlg, UINT Message, WPARAM wParam, LP
 						JustMsg("Error! Wrong map name1");
 						return true;
 					}
-
 				}
 				else
 				{
@@ -5046,7 +5043,8 @@ extern void SetLocalWarTime()
 {
 #ifdef _DEBUG
 
-	JustMsg(" 아직 지원되지 않는 기능입니다. - soto -"); return; //아직 지원되지 않는다. 030308 soto
+	//JustMsg(" 아직 지원되지 않는 기능입니다. - soto -"); return; //아직 지원되지 않는다. 030308 soto
+	JustMsg("还不支持的功能。 - soto -"); return; //아직 지원되지 않는다. 030308 soto
 
 
 	HWND hDlgWnd = CreateDialog(g_hInstance, MAKEINTRESOURCE(IDD_LOCAL_WAR_SET), g_hwndMain, (DLGPROC)SetLocalWarTimeProc);
@@ -5061,8 +5059,6 @@ extern void SetLocalWarTime()
 
 #endif
 }
-
-
 
 extern void SetNationWarTime()
 {
@@ -5211,10 +5207,6 @@ void StartSetScenarioTime()
 
 //< soto 030307
 
-
-
-
-
 ////// ProcSetScenario에서만 쓰이는 전용 함수이다. 딴데서 쓰지 맙시다.
 //
 //
@@ -5331,12 +5323,6 @@ bool AddTimeList(void* pTemp)
 }
 
 
-
-//
-//
-///////
-
-
 BOOL CALLBACK ProcSetScenario(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lParam)
 {
 #ifdef _DEBUG
@@ -5402,10 +5388,10 @@ BOOL CALLBACK ProcSetScenario(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPa
 
 			if (0 > strlen(szStr1) || 0 > strlen(szStr2) || 0 > strlen(szStr3) || 0 > strlen(szStr4))
 			{
-				JustMsg("모든 값이 셋팅되어야 합니다.");
+				//JustMsg("모든 값이 셋팅되어야 합니다.");
+				JustMsg("所有这三个市场。 ");
 				return false;
 			}
-
 
 			pData = (k_scenario_time_change*)SendMessage(hListWnd, LB_GETITEMDATA, nListIndex, 0);
 
@@ -5460,7 +5446,7 @@ BOOL CALLBACK ProcSetScenario(HWND hDlg, UINT Message, WPARAM wParam, LPARAM lPa
 	}
 #endif
 	return false;
-	}
+}
 //> soto 030307
 
 void ShowProFileDlg() // 031013 kyo

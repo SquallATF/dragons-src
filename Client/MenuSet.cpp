@@ -599,7 +599,8 @@ int CMenuVariable::LoadingGuildRegistExplain(char *szFileName)
 	{
 		if (nLine >= 100)
 		{
-			JustMsg("guild_explain1.txt 에 설명이 너무 많습니다.");
+			//JustMsg("guild_explain1.txt 에 설명이 너무 많습니다.");
+			JustMsg("guild_explain1.txt 解释太多。");
 			return 0;
 		}
 	}

@@ -354,126 +354,126 @@ int skill_Makefire_preCheck(const int cn, const int skillno, const int x, const 
 	return 1;
 }
 
-void PrintSkillItemJoin(void)
-{
-	FILE *fp;
-	CItem_Join *s;
-	int i;
-	int no;
-
-	fp = fopen("./OutPut/WhatNeededToMakeItem.txt", "wt");
-	if (fp == NULL) return;
-
-	for (i = 0; i < TotalItemJoinTableCount; i++)
-	{
-		s = &item_join[i];
-
-		no = s->item_id;
-		CItem *ii = ItemUnit(no / 1000, no % 1000);
-
-		if (ii == NULL)
-		{
-			fprintf(fp, "\n %d에 있는 Item은 사용되지 않는 Item이가요? \n\n", no);
-			continue;
-		}
-
-		fprintf(fp, "'%s(%d)'을 얻을려면 '%s(%d)기술이 필요.\n", ii->GetHanName(), no,
-			SkillTbl[s->need_skill1].Skill_Minute, s->need_skill1);
-
-
-		fprintf(fp, "        필요한 기술은 ");
-		if (s->need_skill1)	fprintf(fp, "'%30s(%7d)'( %d - %d )\n", SkillTbl[s->need_skill1].Skill_Minute, s->need_skill1, s->skill1_minimum, s->skill1_maximum);
-		if (s->need_skill2)	fprintf(fp, "                        '%30s(%7d)'( %d - %d )\n", SkillTbl[s->need_skill2].Skill_Minute, s->need_skill2, s->skill2_minimum, s->skill2_maximum);
-
-		if (s->need_skill1 == 0 && s->need_skill2 == 0)
-		{
-			fprintf(fp, "없습니다. \n");
-		}
-
-		if (s->resource1 == 0 && s->resource2 == 0 && s->resource3 == 0 && s->resource4 == 0)
-		{
-			fprintf(fp, " 이기술은 아이템이 필요가 없습니다. \n");
-		}
-		else
-		{
-			//fprintf( fp, "        필요한 Item 은  " );
-
-			if (s->resource1)
-				if (s->resource1_amount)
-				{
-					ii = ItemUnit(s->resource1 / 1000, s->resource1 % 1000);
-					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource1, s->resource1_amount);
-				}
-			if (s->resource2)
-				if (s->resource2_amount)
-				{
-					ii = ItemUnit(s->resource2 / 1000, s->resource2 % 1000);
-					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource2, s->resource2_amount);
-				}
-			if (s->resource3)
-				if (s->resource3_amount)
-				{
-					ii = ItemUnit(s->resource3 / 1000, s->resource3 % 1000);
-					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource3, s->resource3_amount);
-				}
-			if (s->resource4)
-				if (s->resource4_amount)
-				{
-					ii = ItemUnit(s->resource4 / 1000, s->resource4 % 1000);
-					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource4, s->resource4_amount);
-				}
-		}
-
-		switch (s->Tool_kind)
-		{
-		case 48:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 개간용(48)\n");		break;
-		case 49:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 추수용(49)\n");		break;
-		case 50:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 채광용(50)\n");		break;
-		case 51:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 제련용(51)\n");		break;
-		case 52:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 낚시용(52)\n");		break;
-		case 53:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 벌목용(53)\n");		break;
-		case 54:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 목재가공용(54)\n");	break;
-		case 55:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 도축용(55)\n");		break;
-		case 56:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 약초채집용(56)\n");	break;
-		case 57:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 약재만들기용(57)\n");	break;
-		case 58:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 가위류(58)\n");		break;
-		case 59:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 목공용(59)\n"); break;
-		case 60:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 철공용(60)\n"); break;
-		case 61:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 대우는요리용(쿠커)(61)\n"); break;
-		case 62:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 써는요리용(62)\n"); break;
-		case 63:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 바늘류(63)\n"); break;
-		case 64:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 활제작용(64)\n"); break;
-		case 65:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 불대(65)\n"); break;
-		case 66:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 양초제작용(66)\n"); break;
-		case 67:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 밀납가공용(67)\n"); break;
-		case 68:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 테이밍용(68)\n"); break;
-		case 69:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 그물류(69)\n"); break;
-		case 70:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 부싯돌류(70)\n"); break;
-
-		default: 		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 없음..\n"); break;
-		}
-
-		fprintf(fp, "        필요한 장소는  ");
-		switch (s->Flatform_kind)
-		{
-		case 0:  fprintf(fp, "'아무데나' 이다. \n");			break;
-
-		case 71:		fprintf(fp, " 작업대 용광로(71)\n"); break;
-		case 72:		fprintf(fp, " 작업대 배틀(72)\n"); break;
-		case 73:		fprintf(fp, " 작업대 선반(73)\n"); break;
-		case 74:		fprintf(fp, " 작업대 모루(74)\n"); break;
-		case 75:		fprintf(fp, " 작업대 화덕(75)\n"); break;
-		case 76:		fprintf(fp, " 작업대 시험관류(76)\n"); break;
-		case 77:		fprintf(fp, " 작업대 물레(77)\n"); break;
-		case 78:		fprintf(fp, " 작업대 불대 (78)\n"); break;
-
-		default: fprintf(fp, "'테이블값이 잘못된것같다.\n");	break;
-		}
-
-		fprintf(fp, "---------------------------------------------------------------------------------------------\n");
-	}
-	fclose(fp);
-}
+//void PrintSkillItemJoin(void)
+//{
+//	FILE *fp;
+//	CItem_Join *s;
+//	int i;
+//	int no;
+//
+//	fp = fopen("./OutPut/WhatNeededToMakeItem.txt", "wt");
+//	if (fp == NULL) return;
+//
+//	for (i = 0; i < TotalItemJoinTableCount; i++)
+//	{
+//		s = &item_join[i];
+//
+//		no = s->item_id;
+//		CItem *ii = ItemUnit(no / 1000, no % 1000);
+//
+//		if (ii == NULL)
+//		{
+//			fprintf(fp, "\n %d에 있는 Item은 사용되지 않는 Item이가요? \n\n", no);
+//			continue;
+//		}
+//
+//		fprintf(fp, "'%s(%d)'을 얻을려면 '%s(%d)기술이 필요.\n", ii->GetHanName(), no,
+//			SkillTbl[s->need_skill1].Skill_Minute, s->need_skill1);
+//
+//
+//		fprintf(fp, "        필요한 기술은 ");
+//		if (s->need_skill1)	fprintf(fp, "'%30s(%7d)'( %d - %d )\n", SkillTbl[s->need_skill1].Skill_Minute, s->need_skill1, s->skill1_minimum, s->skill1_maximum);
+//		if (s->need_skill2)	fprintf(fp, "                        '%30s(%7d)'( %d - %d )\n", SkillTbl[s->need_skill2].Skill_Minute, s->need_skill2, s->skill2_minimum, s->skill2_maximum);
+//
+//		if (s->need_skill1 == 0 && s->need_skill2 == 0)
+//		{
+//			fprintf(fp, "없습니다. \n");
+//		}
+//
+//		if (s->resource1 == 0 && s->resource2 == 0 && s->resource3 == 0 && s->resource4 == 0)
+//		{
+//			fprintf(fp, " 이기술은 아이템이 필요가 없습니다. \n");
+//		}
+//		else
+//		{
+//			//fprintf( fp, "        필요한 Item 은  " );
+//
+//			if (s->resource1)
+//				if (s->resource1_amount)
+//				{
+//					ii = ItemUnit(s->resource1 / 1000, s->resource1 % 1000);
+//					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource1, s->resource1_amount);
+//				}
+//			if (s->resource2)
+//				if (s->resource2_amount)
+//				{
+//					ii = ItemUnit(s->resource2 / 1000, s->resource2 % 1000);
+//					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource2, s->resource2_amount);
+//				}
+//			if (s->resource3)
+//				if (s->resource3_amount)
+//				{
+//					ii = ItemUnit(s->resource3 / 1000, s->resource3 % 1000);
+//					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource3, s->resource3_amount);
+//				}
+//			if (s->resource4)
+//				if (s->resource4_amount)
+//				{
+//					ii = ItemUnit(s->resource4 / 1000, s->resource4 % 1000);
+//					if (ii) fprintf(fp, "        '%15s(%7d)'  %d개 필요\n", ii->GetHanName(), s->resource4, s->resource4_amount);
+//				}
+//		}
+//
+//		switch (s->Tool_kind)
+//		{
+//		case 48:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 개간용(48)\n");		break;
+//		case 49:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 추수용(49)\n");		break;
+//		case 50:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 채광용(50)\n");		break;
+//		case 51:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 제련용(51)\n");		break;
+//		case 52:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 낚시용(52)\n");		break;
+//		case 53:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 벌목용(53)\n");		break;
+//		case 54:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 목재가공용(54)\n");	break;
+//		case 55:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 도축용(55)\n");		break;
+//		case 56:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 약초채집용(56)\n");	break;
+//		case 57:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 약재만들기용(57)\n");	break;
+//		case 58:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 가위류(58)\n");		break;
+//		case 59:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 목공용(59)\n"); break;
+//		case 60:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 철공용(60)\n"); break;
+//		case 61:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 대우는요리용(쿠커)(61)\n"); break;
+//		case 62:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 써는요리용(62)\n"); break;
+//		case 63:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 바늘류(63)\n"); break;
+//		case 64:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 활제작용(64)\n"); break;
+//		case 65:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 불대(65)\n"); break;
+//		case 66:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 양초제작용(66)\n"); break;
+//		case 67:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 밀납가공용(67)\n"); break;
+//		case 68:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 테이밍용(68)\n"); break;
+//		case 69:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 그물류(69)\n"); break;
+//		case 70:		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 도구 부싯돌류(70)\n"); break;
+//
+//		default: 		fprintf(fp, "        필요로하는 하는 Tool 종류는 : 없음..\n"); break;
+//		}
+//
+//		fprintf(fp, "        필요한 장소는  ");
+//		switch (s->Flatform_kind)
+//		{
+//		case 0:  fprintf(fp, "'아무데나' 이다. \n");			break;
+//
+//		case 71:		fprintf(fp, " 작업대 용광로(71)\n"); break;
+//		case 72:		fprintf(fp, " 작업대 배틀(72)\n"); break;
+//		case 73:		fprintf(fp, " 작업대 선반(73)\n"); break;
+//		case 74:		fprintf(fp, " 작업대 모루(74)\n"); break;
+//		case 75:		fprintf(fp, " 작업대 화덕(75)\n"); break;
+//		case 76:		fprintf(fp, " 작업대 시험관류(76)\n"); break;
+//		case 77:		fprintf(fp, " 작업대 물레(77)\n"); break;
+//		case 78:		fprintf(fp, " 작업대 불대 (78)\n"); break;
+//
+//		default: fprintf(fp, "'테이블값이 잘못된것같다.\n");	break;
+//		}
+//
+//		fprintf(fp, "---------------------------------------------------------------------------------------------\n");
+//	}
+//	fclose(fp);
+//}
 
 void CItem_Join::ReadItemJoin(char *buf)
 {
@@ -585,7 +585,7 @@ bool LoadItemJoinTable(void)
 
 	SQLFreeStmt(hStmt, SQL_DROP);
 
-	PrintSkillItemJoin();
+	//PrintSkillItemJoin();
 
 	return 1;
 }
@@ -2407,7 +2407,7 @@ int skill_Stealing(const int cn, const int skillno, int x, int y, const int targ
 	} //PK가 안되는 지역에서는 훔칠 수 없다.
 
 
-	if (::stricmp(target->Name, caster->cur_skillTargetName))//020531 lsw 
+	if (::_stricmp(target->Name, caster->cur_skillTargetName))//020531 lsw 
 	{
 		goto FAIL__;
 	}

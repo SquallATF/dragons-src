@@ -461,7 +461,7 @@ void LoadPublicNotice(void)
 	}
 	else
 	{
-		MessageBox(NULL, "화일 에러잖아", "에러", MB_OK);
+		MessageBox(NULL, "Can't open file 'public_notice'.", "error", MB_OK);
 		return;
 	}
 
@@ -2656,13 +2656,13 @@ void RecvBbsMessageReq(int type, char ct, short int cn)	// 공지사항등 내�
 		switch (type)
 		{
 		case CMD_PUBLIC_NOTICE_BBS_REQ: {
-			;
 			char *szTemp;
 			szTemp = GetMessageBBS_public(ct);
 			if (!szTemp)
 			{
 				szTemp = new char[100];
-				sprintf(szTemp, "내용이 없습니다.");
+				//sprintf(szTemp, "내용이 없습니다.");
+				sprintf(szTemp, "no content.");
 			}
 			int len = strlen(szTemp);
 			int max = (len / 512) + 1;
@@ -3450,7 +3450,8 @@ void CheckChatingData(char *name, char *message)		// 채팅하는 말 저장 하
 {
 	FILE *fp;
 	char temp[MAX_PATH];
-	sprintf(temp, ".\\logout_chat\\채팅_%s.txt", name);
+	//sprintf(temp, ".\\logout_chat\\채팅_%s.txt", name);
+	sprintf(temp, ".\\logout_chat\\chat_%s.txt", name);
 	fp = fopen(temp, "at+");
 	if (!fp) return;
 

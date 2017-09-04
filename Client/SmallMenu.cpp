@@ -199,8 +199,10 @@ CHouse::CHouse()
 {
 	//	strcpy(m_Explain1, lan->OutputMessage(7,111)); //010215 lsw
 	//	strcpy(m_Explain2, lan->OutputMessage(7,112)); //010215 lsw
-	strcpy(m_Explain1, "뭘봐"); //010215 lsw
-	strcpy(m_Explain2, "첨봐"); //010215 lsw
+	//strcpy(m_Explain1, "뭘봐"); //010215 lsw
+	//strcpy(m_Explain2, "첨봐"); //010215 lsw
+	strcpy(m_Explain1, "看什么看"); //010215 lsw
+	strcpy(m_Explain2, "第一次看"); //010215 lsw
 
 	strcpy(m_Owner, "Kein");
 	strcpy(m_Kind, "APT");
@@ -683,13 +685,21 @@ void InitMenu()				// 시작할때, 셋업을 상황에 맞춰 해야 할 경우
 		SCharacterData.nCharacterSP = 100;
 		SCharacterData.nCharacterMAXSP = 150;
 
-		c_BbsTitle[0].SetBbsTitle(0, 1009, "kein1", "안녕1 여긴 처음");
-		c_BbsTitle[1].SetBbsTitle(1, 1009, "kein2", "안녕2 여긴 처음");
-		c_BbsTitle[2].SetBbsTitle(2, 1009, "kein3", "안녕3 여긴 처음");
-		c_BbsTitle[3].SetBbsTitle(3, 1009, "kein4", "안녕4 여긴 처음");
-		c_BbsTitle[4].SetBbsTitle(4, 1009, "kein5", "안녕5 여긴 처음");
-		c_BbsTitle[5].SetBbsTitle(5, 1009, "kein6", "안녕6 여긴 처음");
-		c_BbsTitle[6].SetBbsTitle(6, 1009, "kein7", "안녕7 여긴 처음");
+		//c_BbsTitle[0].SetBbsTitle(0, 1009, "kein1", "안녕1 여긴 처음");
+		//c_BbsTitle[1].SetBbsTitle(1, 1009, "kein2", "안녕2 여긴 처음");
+		//c_BbsTitle[2].SetBbsTitle(2, 1009, "kein3", "안녕3 여긴 처음");
+		//c_BbsTitle[3].SetBbsTitle(3, 1009, "kein4", "안녕4 여긴 처음");
+		//c_BbsTitle[4].SetBbsTitle(4, 1009, "kein5", "안녕5 여긴 처음");
+		//c_BbsTitle[5].SetBbsTitle(5, 1009, "kein6", "안녕6 여긴 처음");
+		//c_BbsTitle[6].SetBbsTitle(6, 1009, "kein7", "안녕7 여긴 처음");
+
+		c_BbsTitle[0].SetBbsTitle(0, 1009, "kein1", "一是第一次");
+		c_BbsTitle[1].SetBbsTitle(1, 1009, "kein2", "二是第一次");
+		c_BbsTitle[2].SetBbsTitle(2, 1009, "kein3", "三是第一次");
+		c_BbsTitle[3].SetBbsTitle(3, 1009, "kein4", "四是第一次");
+		c_BbsTitle[4].SetBbsTitle(4, 1009, "kein5", "五是第一次");
+		c_BbsTitle[5].SetBbsTitle(5, 1009, "kein6", "六是第一次");
+		c_BbsTitle[6].SetBbsTitle(6, 1009, "kein7", "七是第一次");
 
 		strcpy(SCharacterData.party[0].m_Name, lan->OutputMessage(5, 81));//010215 lsw
 		//SCharacterData.party[0].m_ImageNo = 6;
@@ -755,7 +765,7 @@ void InitMenu()				// 시작할때, 셋업을 상황에 맞춰 해야 할 경우
 			SCharacterData.MagicId[a] = true;
 
 		}
-		for (int a = 0; a < 13; a++)							// 택틱스 ?력치	
+		for (int a = 0; a < 13; a++)					// 택틱스 ?력치	
 		{
 			SCharacterData.SkillId[a + 88] = a;
 			SCharacterData.TacticsExp[a] = a * 10;
@@ -797,13 +807,20 @@ void InitMenu()				// 시작할때, 셋업을 상황에 맞춰 해야 할 경우
 	//CallOkCancelMessageBox(0,0,0, "현재는 메모라이즈 개념이 아닙니다. 바꾸려면 숫자키 7번을 눌러 주세요", 0 );
 
 	//CheckAbility();		// 아이템에 의한 
-	if (BetaTest)
-		CallOkCancelMessageBox(0, 0, 0, "당신은 베타테스트 서버로 들어 오셨습니다.", 0);//010215 lsw temp
+	if (BetaTest) {
+		//CallOkCancelMessageBox(0, 0, 0, "당신은 베타테스트 서버로 들어 오셨습니다.", 0);//010215 lsw temp
+		CallOkCancelMessageBox(0, 0, 0, "你是β测试服务器来了。", 0);//010215 lsw temp
+	}
 
 	if (GetSysInfo(SI_GAME_MAKE_MODE))
 	{
-		g_ServerText.SetText("안녕하세요. 이건 서버에서 텍스트문을 받아 출력하려고 만든 클레스입니다. 지금 줄단위 테스트를 하고 있는데"
-			" 어떻게 잘 나오고 있는지 모르겠군요..  잘 출력이 되야 할텐데요..  "
+		//g_ServerText.SetText("안녕하세요. 이건 서버에서 텍스트문을 받아 출력하려고 만든 클레스입니다. 지금 줄단위 테스트를 하고 있는데"
+		//	" 어떻게 잘 나오고 있는지 모르겠군요..  잘 출력이 되야 할텐데요..  "
+		//	".. 1234567890"
+		//	".. 1234567890"
+		//	".. 1234567890"
+		//	".. 1234567890");
+		g_ServerText.SetText("你好，这是服务器上的输出文本文件。可惜，在单元测试，你怎么做我不知道，好的输出才行。 "
 			".. 1234567890"
 			".. 1234567890"
 			".. 1234567890"
@@ -8947,7 +8964,10 @@ void LoadTextDefault(char *filename, char *text, int text_max)
 		fseek(fp, 0, SEEK_SET);
 		if (GetSysInfo(SI_GAME_MAKE_MODE))
 		{
-			if (max_fp > text_max) JustMsg("file : %s :::: max==>[%d], curr==>[%d] : 글자가 너무 많네요. ", filename, text_max, max_fp);
+			if (max_fp > text_max) {
+				//JustMsg("file : %s :::: max==>[%d], curr==>[%d] : 글자가 너무 많네요. ", filename, text_max, max_fp);
+				JustMsg("file : %s :::: max==>[%d], curr==>[%d] :  word too much  ", filename, text_max, max_fp);
+			}
 		}
 
 		char temp[10001];
@@ -10369,7 +10389,8 @@ void CheckImage(int type, int nImageNumber)
 	if (!fp) return;
 
 	if (para == -1)
-		fprintf(fp, "잘못된 타입 : %26d, %d\n", type, nImageNumber);
+		//fprintf(fp, "잘못된 타입 : %26d, %d\n", type, nImageNumber);
+		fprintf(fp, "错误的类型: %26d, %d\n", type, nImageNumber);
 	else
 		fprintf(fp, "%40s, %5d\n", type2name[para], nImageNumber);
 
@@ -10615,7 +10636,11 @@ void LogFile(char *text)
 		fprintf(fp, "%s\n", text);
 		fclose(fp);
 	}
-	else JustMsg("실패");
+	else
+	{
+		//JustMsg("실패");
+		JustMsg("open 'logfile.txt' failed.");
+	}
 }
 
 int LoadScale()
@@ -11169,7 +11194,8 @@ void CheckBetaForFileName(char *filename)// 메타냐 상용에 따라서 파일
 				fp = fopen("./data_b5/beta.txt", "r");
 				if (!fp)
 				{
-					MessageBox(GetActiveWindow(), "프리 베타 서버로 접속하려면 홈페이지에서 꼭 패치파일을 다운 받아야 합니다. \n http://www.dr-online.co.kr", "Information", MB_OK | MB_ICONINFORMATION);
+					//MessageBox(GetActiveWindow(), "프리 베타 서버로 접속하려면 홈페이지에서 꼭 패치파일을 다운 받아야 합니다. \n http://www.dr-online.co.kr", "Information", MB_OK | MB_ICONINFORMATION);
+					MessageBox(GetActiveWindow(), "点击测试服务器连接主页,确保下载补丁文件。\n http://www.dr-online.co.kr", "Information", MB_OK | MB_ICONINFORMATION);
 					exit(0);
 				}
 				else fclose(fp);

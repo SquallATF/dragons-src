@@ -2161,14 +2161,12 @@ void RecvItemMallItemList(t_packet *p, short int cn)
 		SendReturnResultForItemMall(pData, Wait_ItemMallItem);		//아이템 지급 실패(처음부터)
 
 		char szLog[256] = { 0. };
-		sprintf(szLog,
-			"[%d]DupeItem Delete [%s]님의 마일리지 아이템	\
-%s[%d](itemmall_index:%d) Is Delete",
-g_pServerTable->GetOwnServerData()->wPort,
-pData->name,
-pItemCls->GetHanName(),
-pData->item.item_no,
-pData->itemmall_index);
+		sprintf(szLog, "[%d]DupeItem Delete [%s]님의 마일리지 아이템	 %s[%d](itemmall_index:%d) Is Delete",
+			g_pServerTable->GetOwnServerData()->wPort,
+			pData->name,
+			pItemCls->GetHanName(),
+			pData->item.item_no,
+			pData->itemmall_index);
 		g_pLogManager->ItemMallLog(szLog);
 		return;
 	}
@@ -2179,15 +2177,13 @@ pData->itemmall_index);
 		SendReturnResultForItemMall(pData, Wait_ItemMallItem);		// 실패
 
 		char szLog[256] = { 0. };
-		sprintf(szLog,
-			"[%d][%s]님의 마일리지 아이템	\
-%s[%d](itemmall_index:%d)을 [%s] type Is Wrong",
-g_pServerTable->GetOwnServerData()->wPort,
-pItemCls->GetHanName(),
-pData->name,
-pData->item.item_no,
-pData->itemmall_index,
-pData->result_type);
+		sprintf(szLog, "[%d][%s]님의 마일리지 아이템 %s[%d](itemmall_index:%d)을 [%s] type Is Wrong",
+			g_pServerTable->GetOwnServerData()->wPort,
+			pItemCls->GetHanName(),
+			pData->name,
+			pData->item.item_no,
+			pData->itemmall_index,
+			pData->result_type);
 		g_pLogManager->ItemMallLog(szLog);
 
 		return;
@@ -2207,23 +2203,19 @@ pData->result_type);
 	SendPutMenuString(KM_OK, 217, pCh->GetServerID(), pItemCls->GetHanName());	//아이템 몰에서 구입한 아이템을 받았습니다.
 
 	char szLog[256] = { 0. };
-	sprintf(szLog,
-		"[%d][%s]님의 마일리지 아이템	\
-%s[%d](itemmall_index:%d)을 성공적으로 받았습니다.",
-g_pServerTable->GetOwnServerData()->wPort,
-pData->name,
-pItemCls->GetHanName(),
-pData->item.item_no,
-pData->itemmall_index);
+	sprintf(szLog, "[%d][%s]님의 마일리지 아이템 %s[%d](itemmall_index:%d)을 성공적으로 받았습니다.",
+		g_pServerTable->GetOwnServerData()->wPort,
+		pData->name,
+		pItemCls->GetHanName(),
+		pData->item.item_no,
+		pData->itemmall_index);
 	g_pLogManager->ItemMallLog(szLog);
 
 	//050408_KCH 만약 지급후, 맵이 다운되어서 정보를 저장못한다면, 아이템이 날아가버림,그래서 아이템 지급 받는 시점에 정보를 DB에 저장하자.
 	if (!::CanSaveUserData(pCh, 1))
 	{
 		char szLog[256] = { 0. };
-		sprintf(szLog,
-			"[%d][%s]님의 마일리지 아이템	\
-	%s[%d](itemmall_index:%d)을 저장시 ERROR[CanSaveUserData 실패.]",
+		sprintf(szLog, "[%d][%s]님의 마일리지 아이템 %s[%d](itemmall_index:%d)을 저장시 ERROR[CanSaveUserData 실패.]",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
 			pItemCls->GetHanName(),
@@ -2241,9 +2233,7 @@ pData->itemmall_index);
 	{
 		MyLog(LOG_NORMAL, "Error :(a) chr->Name = %s   c[ char_id].name = %s", pCh->Name, connections[pCh->GetServerID()].name);
 		char szLog[256] = { 0. };
-		sprintf(szLog,
-			"[%d][%s]님의 마일리지 아이템	\
-	%s[%d](itemmall_index:%d)을 저장시 ERROR[connection의 캐릭명이 다름]",
+		sprintf(szLog, "[%d][%s]님의 마일리지 아이템 %s[%d](itemmall_index:%d)을 저장시 ERROR[connection의 캐릭명이 다름]",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
 			pItemCls->GetHanName(),
@@ -2286,8 +2276,7 @@ pData->itemmall_index);
 		printf("\n Update Character: Update BIN Error");
 		char szLog[256] = { 0. };
 		sprintf(szLog,
-			"[%d][%s]님의 마일리지 아이템	\
-	%s[%d](itemmall_index:%d)을 저장시 ERROR[Update Character: Update chr_info BIN Error]",
+			"[%d][%s]님의 마일리지 아이템	 %s[%d](itemmall_index:%d)을 저장시 ERROR[Update Character: Update chr_info BIN Error]",
 			g_pServerTable->GetOwnServerData()->wPort,
 			pData->name,
 			pItemCls->GetHanName(),
@@ -2301,9 +2290,7 @@ pData->itemmall_index);
 		if (update_BinaryData_to_Chr_Info2((UCHAR *)pCh->bank, connections[pCh->GetServerID()].id, connections[pCh->GetServerID()].name) < 0)
 		{
 			char szLog[256] = { 0. };
-			sprintf(szLog,
-				"[%d][%s]님의 마일리지 아이템	\
-		%s[%d](itemmall_index:%d)을 저장시 ERROR[Update Character: Update chr_info2 BIN Error]",
+			sprintf(szLog, "[%d][%s]님의 마일리지 아이템 %s[%d](itemmall_index:%d)을 저장시 ERROR[Update Character: Update chr_info2 BIN Error]",
 				g_pServerTable->GetOwnServerData()->wPort,
 				pData->name,
 				pItemCls->GetHanName(),
@@ -2427,7 +2414,7 @@ int CreateBackUPatYearTBL(const char *table_name)
 
 	if (SQL_NO_DATA == retCode)
 	{
-		sprintf(szQuerry, \
+		sprintf(szQuerry,
 			"CREATE TABLE [dbo].[%s] (	\
 			[idx] [int] NOT NULL ,	\
 			[recv_name] [char] (16) COLLATE Korean_Wansung_CI_AS NOT NULL ,	\
@@ -2476,20 +2463,20 @@ int ExpireToItem_to_GameTBL(const char *pOrginalTBLName, const int& itemmall_ind
 		return FailedCreateTBL;	//테이블 생성Failed 비정상적인 실패
 
 	//1. 원본 테이블의 기간만료임을 세팅하자.
-	sprintf(szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\
-	  BEGIN																		\
-		UPDATE [dbo].[%s] SET recv_type = '%d' WHERE idx = '%d'					\
-	  END ",
+	sprintf(szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\n"
+		"BEGIN \n"
+		"UPDATE [dbo].[%s] SET recv_type = '%d' WHERE idx = '%d' \n"
+		"END",
 		pOrginalTBLName, itemmall_index,
 		pOrginalTBLName, Expire_TIMESTAMP_ItemMallItem, itemmall_index);
 	if (!Querry_SQL(szQuerry, g_hDBC_TotalDB))
 		return FailedEditTBL;	//테이블 수정 실패.
 
 	//2. 백업테이블(item_to_game_2005)에 먼저 Insert 하고.
-	sprintf(szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\
-	  BEGIN																		\
-		insert  [dbo].[%s] select * from  Item_to_Game where idx = '%d'			\
-	  END ",
+	sprintf(szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0 \n"
+		"BEGIN \n"
+		"insert  [dbo].[%s] select * from  Item_to_Game where idx = '%d' \n"
+		"END",
 		pOrginalTBLName,
 		itemmall_index,
 		szDestTBLName,
@@ -2503,10 +2490,10 @@ int ExpireToItem_to_GameTBL(const char *pOrginalTBLName, const int& itemmall_ind
 
 
 	//3. 기존 테이블(item_to_game)에서는 삭제한다.
-	sprintf(szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0	\
-	  BEGIN																		\
-		delete  [dbo].[%s] where idx = '%d'										\
-	  END ",
+	sprintf(szQuerry, "if (select idx from [dbo].[%s] where idx = '%d') > 0 \n"
+		"BEGIN \n"
+		"delete  [dbo].[%s] where idx = '%d' \n"
+		"END ",
 		pOrginalTBLName,
 		itemmall_index,
 		pOrginalTBLName,
@@ -2550,15 +2537,14 @@ void ExpireToItemMall(const char* pTBLName, const int nItemMall_Index,
 
 	CTime curTime(_EndUseTime);
 	//기간제한 아이템을 처리한 관련로그를 남기자.
-	fprintf(pFP, "[%s]기간만기아이템삭제[%s], \
-itemMall[%6d], EndUseTime:[%2d:%2d:%2d] (%s)\n",
-ItemClsName,
-ConvertToRet(nRet),
-nItemMall_Index,
-curTime.GetHour(),
-curTime.GetMinute(),
-curTime.GetSecond(),
-pRecvName);
+	fprintf(pFP, "[%s]기간만기아이템삭제[%s], itemMall[%6d], EndUseTime:[%2d:%2d:%2d] (%s)\n",
+		ItemClsName,
+		ConvertToRet(nRet),
+		nItemMall_Index,
+		curTime.GetHour(),
+		curTime.GetMinute(),
+		curTime.GetSecond(),
+		pRecvName);
 	fclose(pFP);
 }
 
@@ -2580,10 +2566,9 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn)
 		CItem *pItemCls = ::ItemUnit(pData->ItemNo);
 		//인벤토리를 검색해서 아이템 삭제.	//기간제한 아이템의 정상적인 삭제.
 		int a, b, c;
-		for (a = 0; a < 3; ++a)
-			for (b = 0; b < 3; ++b)
-				for (c = 0; c < 8; ++c)
-				{
+		for (a = 0; a < 3; ++a) {
+			for (b = 0; b < 3; ++b) {
+				for (c = 0; c < 8; ++c) {
 					ItemAttr *pItem = &pUser->inv[a][b][c];
 					if (pData->itemmall_index == pItem->attr[IATTR_ITEM_MALL_IDX])
 						/*pData->ItemNo == pItem->item_no && pData->item_limit == pItem->attr[IATTR_LIMIT] ) */
@@ -2596,9 +2581,8 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn)
 							SendDeleteItem(pItem, &pos, pUser, 2);
 
 							char szLog[256] = { 0. };
-							sprintf(szLog,
-								"[%d][%s]님의 마일리지 아이템	\
-	%s[%d](itemmall_index:%d)의 사용기간이 끝났습니다.",
+							sprintf(szLog, "[%d][%s]님의 마일리지 아이템	"
+								"%s[%d](itemmall_index:%d)의 사용기간이 끝났습니다.",
 								g_pServerTable->GetOwnServerData()->wPort,
 								pData->recv_name,
 								pItemCls->GetHanName(),
@@ -2610,9 +2594,8 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn)
 						{
 							//비정상적인 테이블 세팅값.
 							char szLog[256] = { 0. };
-							sprintf(szLog,
-								"[%d][%s](ItemKind:%d) attr[IATTR_ATTR][%d]이 마일리지 아이템	\
-	%s[%d](itemmall_index:%d)이 아닙니다. 아이템번호 중복 CRITICAL ERR",
+							sprintf(szLog, "[%d][%s](ItemKind:%d) attr[IATTR_ATTR][%d]이 마일리지 아이템	"
+								"%s[%d](itemmall_index:%d)이 아닙니다. 아이템번호 중복 CRITICAL ERR",
 								g_pServerTable->GetOwnServerData()->wPort,
 								ConvertToItemMallKind(pItemCls->GetItemKind()),
 								pItemCls->GetItemKind(),
@@ -2626,7 +2609,9 @@ void RecvItemMallItemDelete_Per1Min(t_packet *p, short int cn)
 						}
 					}
 					//Skip
-				}
+				} // for
+			} // for
+		} // for
 
 		//DB의 테이블을 제거및 이동 처리.
 		ExpireToItemMall(ITEM_TO_GAME, pData->itemmall_index,
@@ -2641,7 +2626,7 @@ bool DeleteToExpireItemMallItem(_DeleteToExpireItemMallItem& _ItemMall)
 
 	if (GetAttr2(pItem->attr[IATTR_ATTR], IA2_ITEMMALL_ITEM))
 	{
-		//				'SQl DB TBL에 1부터 순차적으로 인덱스가 Unique하게 세팅되어 있다는 전제.
+		//'SQl DB TBL에 1부터 순차적으로 인덱스가 Unique하게 세팅되어 있다는 전제.
 		if (0 < pItem->attr[IATTR_ITEM_MALL_IDX])
 		{
 			CTime curTime = CTime::GetCurrentTime();
@@ -2670,8 +2655,8 @@ bool DeleteToExpireItemMallItem(_DeleteToExpireItemMallItem& _ItemMall)
 					SendDeleteItem(pItem, &pos, pChar, 2);
 
 					char szLog[256] = { 0. };
-					sprintf(szLog, "[%d]DupeItem Delete [%s]님의 마일리지 아이템	\
-	%s[%d](itemmall_Idx:%d) Is Delete(Time Stuff Problem)",
+					sprintf(szLog, "[%d]DupeItem Delete [%s]님의 마일리지 아이템"
+						"%s[%d](itemmall_Idx:%d) Is Delete(Time Stuff Problem)",
 						g_pServerTable->GetOwnServerData()->wPort,
 						pChar->Name,
 						pItemCls->GetHanName(),
