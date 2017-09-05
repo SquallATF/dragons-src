@@ -494,8 +494,8 @@ struct t_dual_message
 	BYTE nType;   // 메세지의 분류
 	BYTE nKind;   // 메세지의 종류
 	WORD nNumber; // 메세지의 번호
-	BYTE nStep;
-	//char szName[ITEM_NAME_MAX];
+	BYTE nStep;		// current item operate step
+	BYTE nCharCls;	// current character class
 };
 
 // 듀얼 클래스 관련

@@ -175,11 +175,11 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 {
 	if (pMaster == NULL)  return;
 
-	if (IsDead(Hero)) return;			// add by taniey
+	if (IsDead(pMaster)) return;			// add by taniey
 
-	POS pos;
-	// 전투스킬 포인터 획득 아이템 위치 구하기
-	::SetItemPos(INV, nPara, nY, nX, &pos);
+	//POS pos;
+	//// 전투스킬 포인터 획득 아이템 위치 구하기
+	//::SetItemPos(INV, nPara, nY, nX, &pos);
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
@@ -232,11 +232,11 @@ void CDualMgr::SendDualChange(LPCHARACTER pMaster, BYTE nNext)
 {
 	if (pMaster == NULL)  return;
 
-	if (IsDead(Hero)) return;			// add by taniey
+	if (IsDead(pMaster)) return;			// add by taniey
 
-	POS pos;
-	// 전투스킬 포인터 획득 아이템 위치 구하기
-	::SetItemPos(INV, m_nPara, m_nPosY, m_nPosX, &pos);
+	//POS pos;
+	//// 전투스킬 포인터 획득 아이템 위치 구하기
+	//::SetItemPos(INV, m_nPara, m_nPosY, m_nPosX, &pos);
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[m_nPara][m_nPosY][m_nPosX];
 
@@ -321,9 +321,9 @@ void CDualMgr::RecvDualEnable(t_server_dual_enable* pPacket)
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
 	const BYTE nStep = pPacket->nStep;   // add by taniey
-	// 전투스킬 포인터 획득 아이템 위치 구하기
-	POS pos;
-	::SetItemPos(INV, nPara, nY, nX, &pos);
+	//// 전투스킬 포인터 획득 아이템 위치 구하기
+	//POS pos;
+	//::SetItemPos(INV, nPara, nY, nX, &pos);
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
@@ -393,7 +393,6 @@ void CDualMgr::RecvDualDivide(t_server_dual_divide* pPacket)
 
 	if (pDual == Hero)
 	{
-
 		++Hero->aStepInfo[CLS_STEP];                // 듀얼 클래스 단계 상승
 		Hero->aStepInfo[DUAL_CLS] = pPacket->nDual; // 듀얼 클래스 설정
 		SCharacterData.nCharacterAbility[STR] = pPacket->wStr;
@@ -408,7 +407,6 @@ void CDualMgr::RecvDualDivide(t_server_dual_divide* pPacket)
 		SCharacterData.nCharacterAbility[LUCK] = pPacket->wLuck;
 		SCharacterData.nCharacterAbility[WSPS] = pPacket->wWsPs;
 		SCharacterData.LvUpPoint = pPacket->wPoint;
-
 	}
 
 	::InsertMagic(pDual, pDual, 443, -1, 0, 0, 0, 0);
@@ -445,49 +443,100 @@ int CDualMgr::GetAbility(BYTE nType)
 	return 0;
 }
 
+static int StepToItemNo(BYTE nStep)
+{
+	switch (nStep)
+	{
+	case 1: return ITEM_ID_POTION_EXTREAM_STONE; break;
+	case 2: return ITEM_ID_ETC_BALROG_TOOTH; break;
+	case 3: return ITEM_ID_ETC_LICH_EYEBALL; break;
+	case 4: return ITEM_ID_ETC_RED_DRAGON_SCALE; break;
+	case 5: return ITEM_ID_ETC_AMURSTART_SWORD; break;
+	case 6: return ITEM_ID_ETC_MERCHANT_YLL_PERMIT; break;
+	default:return ITEM_ID_POTION_EXTREAM_STONE; break;
+	}
+}
+
 // add by taniey
-extern void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...);
+extern void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...);
 void CDualMgr::RecvDualMsg(t_dual_message* pPacket)
 {
 	const string strMsg = ::lan->OutputMessage(pPacket->nKind, pPacket->nNumber);
-	//Message(pPacket->nType, strMsg.c_str());
 
-	char szBuffer[1000] = {0};
-	//vsprintf(szBuffer, "", pPacket->nStep);
-	::AddCurrentStatusMessage(255, 40, 60, szBuffer);
+	switch (pPacket->nNumber)
+	{
+	case 665: {
+		Message(pPacket->nType, strMsg.c_str(), pPacket->nStep);
+		break;
+	}
+	case 666: {
+		int nLevel = 0;
+		switch (pPacket->nStep)
+		{
+		case 1:  nLevel = 105; break;
+		case 2:  nLevel = 110; break;
+		case 3:  nLevel = 120; break;
+		case 4:  nLevel = 135; break;
+		case 5:  nLevel = 150; break;
+		case 6:  nLevel = 200; break;
+		default: nLevel = 105; break;
+		}
 
+		Message(pPacket->nType, strMsg.c_str(), nLevel);
+		break;
+	}
+	case 667: {
+		int nItemNo = StepToItemNo(pPacket->nStep);
+		int nItemType = nItemNo / 1000;
+		int nItemNum = nItemNo % 1000;
+		const char * nItemName = Item_Ref.Item_type[nItemType][nItemNum]->GetItemHanName();
+
+		Message(pPacket->nType, strMsg.c_str(), pPacket->nCharCls, nItemName);
+		break;
+	}
+	case 668: {
+		int nItemNo = StepToItemNo(pPacket->nCharCls + 1);
+		int nItemType = nItemNo / 1000;
+		int nItemNum = nItemNo % 1000;
+		const char * nItemName = Item_Ref.Item_type[nItemType][nItemNum]->GetItemHanName();
+
+		Message(pPacket->nType, strMsg.c_str(), pPacket->nCharCls + 1, nItemName);
+		break;
+	}
+	default: break;
+	}
 }
 
-//void CDualMgr::Message(int nType, const char* pContext, ...)
-//{
-//	char szBuffer[1000];
-//	// 가변인자값을 버퍼에 저장
-//	va_list vaList;
-//	va_start(vaList, pContext);
-//	vsprintf(szBuffer, pContext, vaList);
-//	va_end(vaList);
-//
-//	switch (nType)
-//	{
-//	case MK_NORMAL:
-//	{ // 상태
-//		::AddCurrentStatusMessage(255, 180, 190, szBuffer);
-//		break;
-//	}
-//	case MK_WARNING:
-//	{ // 실패
-//		::AddCurrentStatusMessage(255, 40, 60, szBuffer);
-//		break;
-//	}
-//	case MK_SHORTAGE:
-//	{	// 성공
-//		::AddCurrentStatusMessage(150, 150, 255, szBuffer);
-//		break;
-//	}
-//	case MK_INFORMATION:
-//	{ // 알림
-//		::AddCurrentStatusMessage(200, 200, 200, szBuffer);
-//		break;
-//	}
-//	}
-//}
+void CDualMgr::Message(int nType, const char* pContext, ...)
+{
+	char szBuffer[1000];
+	// 가변인자값을 버퍼에 저장
+	va_list vaList;
+	va_start(vaList, pContext);
+	vsprintf(szBuffer, pContext, vaList);
+	va_end(vaList);
+
+	switch (nType)
+	{
+	case MK_NORMAL:
+	{ // 상태
+		::AddCurrentStatusMessage(255, 180, 190, szBuffer);
+		break;
+	}
+	case MK_WARNING:
+	{ // 실패
+		::AddCurrentStatusMessage(255, 40, 60, szBuffer);
+		break;
+	}
+	case MK_SHORTAGE:
+	{	// 성공
+		::AddCurrentStatusMessage(150, 150, 255, szBuffer);
+		break;
+	}
+	case MK_INFORMATION:
+	{ // 알림
+		::AddCurrentStatusMessage(200, 200, 200, szBuffer);
+		break;
+	}
+	}
+}

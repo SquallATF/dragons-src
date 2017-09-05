@@ -299,7 +299,7 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 		//default:nMsgNum = 664; break;
 		//}
 		//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 383
-		pMaster->Message(MK_WARNING, 0, 667, pPacket->nStep);  // old value: 383
+		pMaster->Message(MK_WARNING, 0, 667, pPacket->nStep, pMaster->GetClassStep());  // old value: 383
 		return;
 	}
 	else
@@ -318,7 +318,7 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 			//default:nMsgNum = 664; break;
 			//}
 			//pMaster->Message(MK_WARNING, 0, nMsgNum);  // no old value
-			pMaster->Message(MK_WARNING, 0, 668, pMaster->GetClassStep() + 1);  // no old value
+			pMaster->Message(MK_WARNING, 0, 668, pPacket->nStep, pMaster->GetClassStep());  // no old value
 			return;
 		}
 	}
@@ -357,7 +357,7 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 			//default:nMsgNum = 664; break;
 			//}
 			//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 381
-			pMaster->Message(MK_WARNING, 0, 665, pPacket->nStep);  // old value: 381
+			pMaster->Message(MK_WARNING, 0, 665, pPacket->nStep, pMaster->GetClassStep());  // old value: 381
 		}
 	}
 }
@@ -381,7 +381,7 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 		//default:nMsgNum = 664; break;
 		//}
 		//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 383
-		pMaster->Message(MK_WARNING, 0, 667, pPacket->nStep);  // old value: 383
+		pMaster->Message(MK_WARNING, 0, 667, pPacket->nStep, pMaster->GetClassStep());  // old value: 383
 
 		return;
 	}
@@ -425,7 +425,7 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 			//default:nMsgNum = 664; break;
 			//}
 			//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 381
-			pMaster->Message(MK_WARNING, 0, 665, pPacket->nStep);  // old value: 381
+			pMaster->Message(MK_WARNING, 0, 665, pPacket->nStep, pMaster->GetClassStep());  // old value: 381
 		}
 	}
 }
@@ -459,7 +459,7 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 		//default:nMsgNum = 664; break;
 		//}
 		//pMaster->Message(MK_WARNING, 0, nMsgNum);    // old value: 382
-		pMaster->Message(MK_WARNING, 0, 666, pPacket->nStep);  // old value: 382
+		pMaster->Message(MK_WARNING, 0, 666, pPacket->nStep, pMaster->GetClassStep());  // old value: 382
 	}
 }
 

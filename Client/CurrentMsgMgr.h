@@ -47,6 +47,6 @@ private:
 	}
 };
 extern CCurrentMsgMgr  CurrentMsgMgr;
-extern void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...);
-extern void AddCurrentStatusMessage(const WORD wColor, char *msg, ...);
+extern void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...);
+extern void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...);
 #endif // !defined(AFX_CURRENTMSGMGR_H__589944BD_DCE5_4B05_9D6B_82C08591AC88__INCLUDED_)

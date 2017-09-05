@@ -312,7 +312,7 @@ void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber)
 	::QueuePacket(connections, GetServerID(), &packet, 1);
 }
 
-void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep)
+void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep, BYTE nCharCls)
 {
 	t_packet packet;
 	packet.h.header.type = CMD_DUAL_MESSAMGE;
@@ -321,6 +321,7 @@ void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep)
 	packet.u.dual.dual_msg.nKind = nKind;
 	packet.u.dual.dual_msg.nNumber = nNumber;
 	packet.u.dual.dual_msg.nStep = nStep;
+	packet.u.dual.dual_msg.nCharCls = nCharCls;
 	::QueuePacket(connections, GetServerID(), &packet, 1);
 }
 

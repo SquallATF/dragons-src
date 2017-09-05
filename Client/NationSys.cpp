@@ -206,7 +206,7 @@ extern DEVELOPE_ENVIR	SysInfo;
 
 // Extern Function Definition
 extern void			ShowComeOutGM(char *name);
-extern void			AddCurrentStatusMessage(BYTE r, BYTE g, BYTE b, char *msg, ...); // CSD-030324
+extern void			AddCurrentStatusMessage(BYTE r, BYTE g, BYTE b, const char *msg, ...); // CSD-030324
 extern void			LoadHeroClothAccessoryDataOne(int sprno, int no);
 extern void			FreeHeroClothAccessoryDataOne(int sprno, int no);
 extern void			InsertMagic(LPCHARACTER lpChar_Own, LPCHARACTER lpChar_Target, int magicNum, int magicSubNum, int s_X, int s_Y, int t_X, int t_Y, bool firePattern = 0, int next_Effect = 0, bool failed = 0, DWORD dwDuration = 0);

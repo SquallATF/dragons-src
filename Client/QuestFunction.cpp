@@ -7,7 +7,7 @@
 CQuestMgr	g_cQuest;
 
 //extern char* GetMapNameByMapfile( char *map_file );
-extern void AddCurrentStatusMessage(const WORD wColor, char *msg, ...);
+extern void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //CScriptTimer

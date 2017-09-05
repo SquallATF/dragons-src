@@ -1,23 +1,23 @@
 
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-{{{{{
 #########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第三次增加>>>>>>>>>>>>>>
 #########################################################################################
 
 客户端 ： （DragonRaja-Online）
 NetWork5.h :
 45L, add, #define CMD_DUAL_MESSAMGE		 7623	// add by taniey
 
-(71L --- 78L, 可以找到结构, t_battle_message(...)  在其后 添加)    ------不用加了！！！！
-71L, add, struct t_dual_message
-72L, add, {
-73L, add, 	BYTE nType;
-74L, add, 	BYTE nKind;
-75L, add, 	WORD nNumber;
-76L, add, 	BYTE nStep;
-77L, add,	//char szName[ITEM_NAME_MAX];
-78L, add,  };
+(492L --- 499L, 可以找到结构, t_client_dual_enable(...)  在其前面添加)
+492L, add, struct t_dual_message
+493L, add, {
+494L, add, 	BYTE nType;
+495L, add, 	BYTE nKind;
+496L, add, 	WORD nNumber;
+497L, add, 	BYTE nStep;		// current item operate step
+498L, add, 	BYTE nCharCls;	// current character class
+499L, add,  };
 
 505L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable 替换)
 514L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_enable 替换)
@@ -52,8 +52,8 @@ Menu.cpp :
 -----------------------------------------------------------------------------------------
 DualMgr.h :
 37L, add, 	void RecvDualMsg(dual_msg* pPacket);
-37L, add, 	void Message(int nType, const char* pContext, ...);
-61L, add, BYTE m_nCurStep;
+38L, add, 	void Message(int nType, const char* pContext, ...);
+62L, add, BYTE m_nCurStep;
 
 -----------------------------------------------------------------------------------------
 DualMgr.cpp :
@@ -69,7 +69,11 @@ DualMgr.cpp :
 
 368L, add, m_nCurStep = 0;   // add by taniey
 
-(448L --- 451, 找到函数, RecvDualMsg(...)  增加整个函数)
+(446L --- 458L, 找到函数, StepToItemNo(...)  增加整个函数)
+
+(461L --- 508L, 找到函数, RecvDualMsg(...)  增加整个函数)
+
+(510L --- 542L, 找到函数, Message(...)  增加整个函数)
 
 -----------------------------------------------------------------------------------------
 network.cpp :
@@ -85,6 +89,22 @@ BattleMgr.cpp :
 829L, modify, if (rItemAttr.item_no == 3105)   --->   if (rItemAttr.item_no == ITEM_ID_COOK_COMBAT_SKILL_BOOK)
 2307L, modify, if (rItemAttr.item_no == 3105)   --->   if (rItemAttr.item_no == ITEM_ID_COOK_COMBAT_SKILL_BOOK)
 
+-----------------------------------------------------------------------------------------
+QuestFunction.cpp :
+10L, modify, extern void AddCurrentStatusMessage(const WORD wColor, char *msg, ...);   --->   extern void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...);
+
+-----------------------------------------------------------------------------------------
+NationSys.cpp :
+209L, modify, extern void			AddCurrentStatusMessage(BYTE r, BYTE g, BYTE b, char *msg, ...); // CSD-030324   --->   extern void			AddCurrentStatusMessage(BYTE r, BYTE g, BYTE b, const char *msg, ...); // CSD-030324
+
+-----------------------------------------------------------------------------------------
+CurrentMsgMgr.h :
+50L, modify, extern void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...);   --->   extern void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...);
+51L, modify, extern void AddCurrentStatusMessage(const WORD wColor, char *msg, ...);   --->   extern void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...);
+
+
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------
 #########################################################################################
 客户端执行目录：
@@ -122,19 +142,28 @@ Data\Ch_lan.txt :  （找到 [magic] ，在这之前 增加如下信息）
 664 : "无效的职业进阶(dual class)"
 
 665 : "还未到进阶职业(dual class)【%d】等级的资格."
-666 : "等级要LV 200 以上才行."
+666 : "等级要【LV %d】 以上才行."
 667 : "因为你已经是进阶职业(dual class)【%d】等级，【%s】无法发挥效果"
-668 : "请先进行【%s】级职业进阶，需要 【%s】一个"
+668 : "请先进行【%d】级职业进阶，需要 【%s】一个"
 
 
 #########################################################################################
-
 数据库：（DragonRajaDB）
 执行如下语句：
 update [DragonRajaDB].[dbo].[Item_Etc]
  set [Mouse_MR] = 8
  where [Item_id] = 64 or [Item_id] = 73 or [Item_id] = 75 or [Item_id] = 292 or [Item_id] = 293 ;
 
+SELECT TOP (1000)
+	 [Item_id]
+	 ,[Name]
+	 ,[Han_Name]
+      ,[Mouse_MR]
+      ,[Mouse_MRD]
+      ,[Mouse_MR_Effect]
+      ,[Mouse_MR_Wave]
+ FROM [DragonRajaDB].[dbo].[Item_Etc]
+ where [Item_id] = 64 or [Item_id] = 73 or [Item_id] = 75 or [Item_id] = 292 or [Item_id] = 293 ;
 
 #########################################################################################
 
@@ -142,14 +171,14 @@ update [DragonRajaDB].[dbo].[Item_Etc]
 NetWork5.h :
 45L, add, #define CMD_DUAL_MESSAMGE		 7623	// add by taniey
 
-(71L --- 78L, 可以找到结构, t_client_dual_enable(...)  在其上添加)
+(492L --- 499L, 可以找到结构, t_client_dual_enable(...)  在其前面添加)
 492L, add, struct t_dual_message
 493L, add, {
 494L, add, 	BYTE nType;
 495L, add, 	BYTE nKind;
 496L, add, 	WORD nNumber;
-497L, add, 	BYTE nStep;
-498L, add,	//char szName[ITEM_NAME_MAX];
+497L, add, 	BYTE nStep;		// current item operate step
+498L, add, 	BYTE nCharCls;	// current character class
 499L, add,  };
 
 505L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable 替换)
@@ -163,22 +192,23 @@ NetWork5.h :
 
 -----------------------------------------------------------------------------------------
 CharInfo.h
-446L, add, 	void Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep);   // add by taniey
+446L, add, 	void Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep, BYTE nCharCls);   // add by taniey
 563L, add, 	bool IsRightDual(BYTE nCurStep) const{ return m_nClsStep > 0 && m_nClsStep >= nCurStep; }		// add by taniey
 
 -----------------------------------------------------------------------------------------
 CharInfo.cpp :
 (315L --- 325L, 可以找到第二个函数, Message(...)  替换整个函数)
-315L, add, void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep)
+315L, add, void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep, BYTE nCharCls)
 316L, add, {
-317L, add, 	t_packet packet;
-318L, add, 	packet.h.header.type = CMD_DUAL_MESSAMGE;
-319L, add, 	packet.h.header.size = sizeof(t_dual_message);
-320L, add, 	packet.u.dual.dual_msg.nType = nType;
-321L, add, 	packet.u.dual.dual_msg.nKind = nKind;
-322L, add, 	packet.u.dual.dual_msg.nNumber = nNumber;
-323L, add, 	packet.u.dual.dual_msg.nStep = nStep;
-324L, add, 	::QueuePacket(connections, GetServerID(), &packet, 1);
+317L, add, 		t_packet packet;
+318L, add, 		packet.h.header.type = CMD_DUAL_MESSAMGE;
+319L, add, 		packet.h.header.size = sizeof(t_dual_message);
+320L, add, 		packet.u.dual.dual_msg.nType = nType;
+321L, add, 		packet.u.dual.dual_msg.nKind = nKind;
+322L, add, 		packet.u.dual.dual_msg.nNumber = nNumber;
+323L, add, 		packet.u.dual.dual_msg.nStep = nStep;
+323L, add, 		packet.u.dual.dual_msg.nCharCls = nCharCls;
+324L, add, 		::QueuePacket(connections, GetServerID(), &packet, 1);
 325L, add, }
 
 -----------------------------------------------------------------------------------------

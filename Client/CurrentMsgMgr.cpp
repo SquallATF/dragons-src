@@ -44,7 +44,7 @@ CCurrentMsgMgr::~CCurrentMsgMgr()
 
 }
 
-void AddCurrentStatusMessage(const WORD wColor, char *msg, ...)
+void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...)
 {
 	char temp[MAX_PATH] = { 0, };
 	va_list arg;
@@ -54,7 +54,7 @@ void AddCurrentStatusMessage(const WORD wColor, char *msg, ...)
 	CurrentMsgMgr.AddString(wColor, temp);
 }
 
-void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...)
+void AddCurrentStatusMessage(const int R, const int G, const int B,const char *msg, ...)
 {	//< CSD-030723
 	char temp[MAX_PATH] = { 0, };
 	va_list arg;
