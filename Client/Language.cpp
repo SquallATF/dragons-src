@@ -60,13 +60,18 @@ int		CLanguage::CheckArea()			//어떤 언어를 쓰는지 체크하는 함수
 
 int CLanguage::LoadingByAreaCode()	//AreaCode에 의해서 해당하는 화일을 읽어 들인다.
 {
-	char path[MAX_FILE_LENGTH];
-	wsprintf(LoadedFileName, "%s_lan.txt", LanguageInt[AreaCode]);
-	wsprintf(path, "./data/%s", LoadedFileName);
-	wsprintf(this->LoadedFileName, "%s", path);
+	//char path[MAX_FILE_LENGTH] = {0};
+	//wsprintf(LoadedFileName, "%s_lan.txt", LanguageInt[AreaCode]);
+	//wsprintf(path, "./data/%s", LoadedFileName);
+	//wsprintf(this->LoadedFileName, "%s", path);
 
-	FILE * fp = Fopen(path, "rt");
-	if (fp == NULL) { MessageBox(NULL, "Can't Find Language Text", "Language Error", NULL);	return -1; }
+	wsprintf(LoadedFileName, "./data/%s_lan.txt", LanguageInt[AreaCode]);
+
+	FILE * fp = Fopen(LoadedFileName, "rt");
+	if (fp == NULL) {
+		MessageBox(NULL, "Can't Find Language Text", "Language Error", NULL);
+		return -1;
+	}
 	fclose(fp);
 	return(1);
 }

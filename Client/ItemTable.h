@@ -291,11 +291,20 @@ enum eItemKindType
 #define VF_CURR_EQUIP	103
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// add by taniey
+#define ITEM_ID_COOK_COMBAT_SKILL_BOOK			3105		// CombatSkill Book		战斗技能书
 
+#define ITEM_ID_POTION_EXTREAM_STONE			4028		// Extream Stone		极限之石
+#define ITEM_ID_ETC_BALROG_TOOTH				10064		// Balrog's Tooth		炎魔的牙齿
+#define ITEM_ID_ETC_LICH_EYEBALL				10073		// Lich's Eyeball		大巫妖的眼球
+#define ITEM_ID_ETC_RED_DRAGON_SCALE			10075		// Red Dragon's Scale   红龙的鳞片
+#define ITEM_ID_ETC_AMURSTART_SWORD				10292		// sword of amurtart    阿姆塔特的剑
+#define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293		// Merchant Yll. permit  转职任务卷
 
 //#pragma pack ()
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 typedef struct tagSkill
 {
 	int		m_Id;

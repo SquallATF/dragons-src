@@ -4,23 +4,56 @@
 {{{{{
 #########################################################################################
 #########################################################################################
+
 客户端 ： （DragonRaja-Online）
 NetWork5.h :
-497L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable)
-506L, add,  BYTE nStep;		// INV update level [1-6]  0(或者找到 t_server_dual_enable)
+45L, add, #define CMD_DUAL_MESSAMGE		 7623	// add by taniey
 
+(71L --- 78L, 可以找到结构, t_battle_message(...)  在其后 添加)    ------不用加了！！！！
+71L, add, struct t_dual_message
+72L, add, {
+73L, add, 	BYTE nType;
+74L, add, 	BYTE nKind;
+75L, add, 	WORD nNumber;
+76L, add, 	BYTE nStep;
+77L, add,	//char szName[ITEM_NAME_MAX];
+78L, add,  };
+
+505L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable 替换)
+514L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_enable 替换)
+523L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_change 替换)
+533L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_change 替换)
+553L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_divide 替换)
+560L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_divide 替换)
+
+-----------------------------------------------------------------------------------------
+ItemTable.h :
+294L, add, 加分隔符
+296L, add, #define ITEM_ID_COOK_COMBAT_SKILL_BOOK			3105		// CombatSkill Book		战斗技能书
+297L, add, 空行
+298L, add, #define ITEM_ID_POTION_EXTREAM_STONE			4028		// Extream Stone		极限之石
+299L, add, #define ITEM_ID_ETC_BALROG_TOOTH				10064		// Balrog's Tooth		炎魔的牙齿
+300L, add, #define ITEM_ID_ETC_LICH_EYEBALL				10073		// Lich's Eyeball		大巫妖的眼球
+301L, add, #define ITEM_ID_ETC_RED_DRAGON_SCALE			10075		// Red Dragon's Scale   红龙的鳞片
+302L, add, #define ITEM_ID_ETC_AMURSTART_SWORD				10292		// sword of amurtart    阿姆塔特的剑
+303L, add, #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293		// Merchant Yll. permit  转职任务卷
 -----------------------------------------------------------------------------------------
 Menu.cpp :
+6955L, modify, case 3105:   --->   case ITEM_ID_COOK_COMBAT_SKILL_BOOK:
+
 (6958L --- 6962L, 可以找到 <<case 4028>>, 在此之前加入修改)
-6958L, add, case 10064:
-6959L, add, case 10073:
-6960L, add, case 10075:
-6961L, add, case 10292:
-6962L, add, case 10293:
+6961L, add, case ITEM_ID_ETC_BALROG_TOOTH:
+6962L, add, case ITEM_ID_ETC_LICH_EYEBALL:
+6963L, add, case ITEM_ID_ETC_RED_DRAGON_SCALE:
+6964L, add, case ITEM_ID_ETC_AMURSTART_SWORD:
+6965L, add, case ITEM_ID_ETC_MERCHANT_YLL_PERMIT:
+6966L, modify, case 4028:   --->   case ITEM_ID_POTION_EXTREAM_STONE:
 
 -----------------------------------------------------------------------------------------
-DualMgr.cpp :
-60L, add, BYTE m_nCurStep;
+DualMgr.h :
+37L, add, 	void RecvDualMsg(dual_msg* pPacket);
+37L, add, 	void Message(int nType, const char* pContext, ...);
+61L, add, BYTE m_nCurStep;
 
 -----------------------------------------------------------------------------------------
 DualMgr.cpp :
@@ -35,10 +68,65 @@ DualMgr.cpp :
 (315L --- 356L, 可以找到函数, RecvDualEnable(...)  替换整个函数)
 
 368L, add, m_nCurStep = 0;   // add by taniey
+
+(448L --- 451, 找到函数, RecvDualMsg(...)  增加整个函数)
+
 -----------------------------------------------------------------------------------------
+network.cpp :
+(3744L --- 3748L, 可以找到case CMD_DUAL_DIVIDE: {...}  和 case CMD_ON_CONNECT: {...} 在两个 case 之间增加)
+3744L, add, 		case CMD_DUAL_MESSAMGE:
+3745L, add, 		{
+3746L, add, 			g_mgrDual.RecvDualMsg(&packet.u.dual.dual_msg);
+3747L, add, 			break;
+3748L, add, 		}
+
+-----------------------------------------------------------------------------------------
+BattleMgr.cpp :
+829L, modify, if (rItemAttr.item_no == 3105)   --->   if (rItemAttr.item_no == ITEM_ID_COOK_COMBAT_SKILL_BOOK)
+2307L, modify, if (rItemAttr.item_no == 3105)   --->   if (rItemAttr.item_no == ITEM_ID_COOK_COMBAT_SKILL_BOOK)
 
 -----------------------------------------------------------------------------------------
 #########################################################################################
+客户端执行目录：
+Data\Ch_lan.txt :  （找到 [magic] ，在这之前 增加如下信息）
+640 : "还未到进阶职业(dual class)【1】等级的资格."
+641 : "等级要LV 105, ladder要 50,000 以上或名声要 2,000 以上才行."
+642 : "因为你已经是进阶职业(dual class)【1】等级，【极限之石】无法发挥效果"
+643 : "请先进行【1】级职业进阶，需要 【极限之石】一个"
+
+644 : "还未到进阶职业(dual class)【2】等级的资格."
+645 : "等级要LV 110以上才行."
+646 : "因为你已经是进阶职业(dual class)【2】等级，【炎魔的牙齿】无法发挥效果"
+647 : "请先进行【2】级职业进阶，需要 【炎魔的牙齿】一个"
+
+648 : "还未到进阶职业(dual class)【3】等级的资格."
+649 : "等级要LV 120才行."
+650 : "因为你已经是进阶职业(dual class)【3】等级，【大巫妖的眼球】无法发挥效果"
+651 : "请先进行【3】级职业进阶，需要 【大巫妖的眼球】一个"
+
+652 : "还未到进阶职业(dual class)【4】等级的资格."
+653 : "等级要LV 135以上才行."
+654 : "因为你已经是进阶职业(dual class)【4】等级，【红龙的鳞片】无法发挥效果"
+655 : "请先进行【4】级职业进阶，需要 【红龙的鳞片】一个"
+
+656 : "还未到进阶职业(dual class)【5】等级的资格."
+657 : "等级要LV 150以上才行."
+658 : "因为你已经是进阶职业(dual class)【5】等级，【阿姆塔特的剑】无法发挥效果"
+659 : "请先进行【5】级职业进阶，需要 【阿姆塔特的剑】一个"
+
+660 : "还未到进阶职业(dual class)【6】等级的资格."
+661 : "等级要LV 200 以上才行."
+662 : "因为你已经是进阶职业(dual class)【6】等级，【转职任务卷】无法发挥效果"
+663 : "请先进行【6】级职业进阶，需要 【转职任务卷】一个"
+
+664 : "无效的职业进阶(dual class)"
+
+665 : "还未到进阶职业(dual class)【%d】等级的资格."
+666 : "等级要LV 200 以上才行."
+667 : "因为你已经是进阶职业(dual class)【%d】等级，【%s】无法发挥效果"
+668 : "请先进行【%s】级职业进阶，需要 【%s】一个"
+
+
 #########################################################################################
 
 数据库：（DragonRajaDB）
@@ -52,12 +140,46 @@ update [DragonRajaDB].[dbo].[Item_Etc]
 
 服务端 ： （MapServer）
 NetWork5.h :
-497L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable)
-506L, add,  BYTE nStep;		// INV update level [1-6]  0(或者找到 t_server_dual_enable)
+45L, add, #define CMD_DUAL_MESSAMGE		 7623	// add by taniey
+
+(71L --- 78L, 可以找到结构, t_client_dual_enable(...)  在其上添加)
+492L, add, struct t_dual_message
+493L, add, {
+494L, add, 	BYTE nType;
+495L, add, 	BYTE nKind;
+496L, add, 	WORD nNumber;
+497L, add, 	BYTE nStep;
+498L, add,	//char szName[ITEM_NAME_MAX];
+499L, add,  };
+
+505L, add, 	BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_enable 替换)
+514L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_enable 替换)
+523L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_change 替换)
+533L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_change 替换)
+553L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_client_dual_divide 替换)
+560L, add,  BYTE nStep;		// INV update level [1-6]  (或者找到 t_server_dual_divide 替换)
+
+578L, add, 	t_dual_message dual_msg;
 
 -----------------------------------------------------------------------------------------
 CharInfo.h
-562L, add, 	bool IsRightDual(BYTE nCurStep) const{ return m_nClsStep > 0 && m_nClsStep >= nCurStep; }		// add by taniey
+446L, add, 	void Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep);   // add by taniey
+563L, add, 	bool IsRightDual(BYTE nCurStep) const{ return m_nClsStep > 0 && m_nClsStep >= nCurStep; }		// add by taniey
+
+-----------------------------------------------------------------------------------------
+CharInfo.cpp :
+(315L --- 325L, 可以找到第二个函数, Message(...)  替换整个函数)
+315L, add, void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep)
+316L, add, {
+317L, add, 	t_packet packet;
+318L, add, 	packet.h.header.type = CMD_DUAL_MESSAMGE;
+319L, add, 	packet.h.header.size = sizeof(t_dual_message);
+320L, add, 	packet.u.dual.dual_msg.nType = nType;
+321L, add, 	packet.u.dual.dual_msg.nKind = nKind;
+322L, add, 	packet.u.dual.dual_msg.nNumber = nNumber;
+323L, add, 	packet.u.dual.dual_msg.nStep = nStep;
+324L, add, 	::QueuePacket(connections, GetServerID(), &packet, 1);
+325L, add, }
 
 -----------------------------------------------------------------------------------------
 DualManager.h :
@@ -71,33 +193,20 @@ DualManager.cpp ：
 213L, modify, void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY)   --->   void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep)
 222L, add, 	packet.u.dual.server_dual_enable.nStep = nStep;  // modify by taniey
 
-(226L --- 235L, 可以找到函数, SendDualChange(...)  替换整个函数)
+(226L --- 236L, 可以找到函数, SendDualChange(...)  替换整个函数)
 226L, modify, void CDualManager::SendDualChange(WORD idMaster)   --->   void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
-235L, add , 	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
+236L, add , 	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
 
 
 (226L --- 235L, 可以找到函数, SendDualChange(...)  替换整个函数)
-253L, modify, void CDualManager::SendDualDivide(WORD idMaster)   --->   void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
-262L, add , 	packet.u.dual.server_dual_divide.nStep = nStep;				// add by taniey
+254L, modify, void CDualManager::SendDualDivide(WORD idMaster)   --->   void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
+264L, add , 	packet.u.dual.server_dual_divide.nStep = nStep;				// add by taniey
 
-(283L --- 307L, 可以找到函数, RecvDualEnable(...)  替换整个函数)
-283L, modify, if (pMaster->IsDual())   --->   if (pMaster->IsRightDual(pPacket->nStep))
-285L, modify, pMaster->Message(MK_WARNING, 0, 383);   <<<  此处修改尚不确定，暂时保留！！！  >>>
-292L, modify, const int nStep = 1;   --->   const int nStep =  pPacket->nStep;    // modify by taniey
-307L, modify, SendDualEnable(idMaster, nPara, nX, nY);   --->   SendDualEnable(idMaster, nPara, nX, nY, nStep);
+(283L --- 362L, 找到函数, RecvDualEnable(...)  替换整个函数)
 
-(321L --- 350L, 可以找到函数, RecvDualChange(...)  替换整个函数)
-321L, modify, if (pMaster->IsDual())   --->   if (pMaster->IsRightDual(pPacket->nStep))
-323L, modify, pMaster->Message(MK_WARNING, 0, 383);   <<<  此处修改尚不确定，暂时保留！！！  >>>
-330L, modify, const int nStep = 1;   --->   const int nStep = pPacket->nStep;
-350L, modify, SendDualChange(idMaster);  --->   SendDualChange(idMaster, nStep);
-355L, modify, pMaster->Message(MK_WARNING, 0, 381);   <<<  此处修改尚不确定，暂时保留！！！  >>>
+(364L --- 430L, 找到函数, RecvDualChange(...)  替换整个函数)
 
-(372L --- 372L, 可以找到函数, RecvDualDivide(...)  替换整个函数)
-368L, modify, if (pMaster->IsDual() && IsLevelUp(nStep, pMaster))   --->   if (pMaster->IsRightDual(pPacket->nStep) && IsLevelUp(nStep, pMaster))
-372L, modify, SendDualDivide(idMaster);   --->   SendDualDivide(idMaster, nStep);
-377L, modify, pMaster->Message(MK_WARNING, 0, 382);   <<<  此处修改尚不确定，暂时保留！！！  >>>
-
+(432L --- 463L, 找到函数, RecvDualDivide(...)  替换整个函数)
 
 #########################################################################################
 

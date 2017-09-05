@@ -312,6 +312,19 @@ void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber)
 	::QueuePacket(connections, GetServerID(), &packet, 1);
 }
 
+void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep)
+{
+	t_packet packet;
+	packet.h.header.type = CMD_DUAL_MESSAMGE;
+	packet.h.header.size = sizeof(t_dual_message);
+	packet.u.dual.dual_msg.nType = nType;
+	packet.u.dual.dual_msg.nKind = nKind;
+	packet.u.dual.dual_msg.nNumber = nNumber;
+	packet.u.dual.dual_msg.nStep = nStep;
+	::QueuePacket(connections, GetServerID(), &packet, 1);
+}
+
+
 bool CCharInfo::IncExperience(int nExp)
 {	//< CSD-030930
 	const int nLevel = GetLevel();

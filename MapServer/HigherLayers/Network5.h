@@ -5,26 +5,26 @@
 ///////////////////////////////////////////////////////////////////////////////
 //
 #define CMD_NPC_ATTACK		       86 
-#define CMD_ATTACK				       6200
+#define CMD_ATTACK				 6200
 #define CMD_ATTACK_RESULT  	     6110
 #define CMD_ATTACK_RESULT_D	     6111
 
-#define CMD_NPC_THROW  		       8903
+#define CMD_NPC_THROW  		     8903
 #define CMD_THROW_ATTACK         6112
 #define CMD_THROW_RESULT         6113
 #define CMD_THROW_RESULT_D       6114
 
-#define CMD_EFFECT_RESULT 7615 // CSD-031007
+#define CMD_EFFECT_RESULT		7615 // CSD-031007
 
-#define	CMD_NPC_MAGIC				    20008
-#define CMD_MAGIC_SELECT   7590 // CSD-TW-030606
-#define CMD_MAGIC_CASTING  7591 // CSD-TW-030606
-#define CMD_MAGIC_EXECUTE  7592 // CSD-TW-030606
-#define CMD_MAGIC_RESULT   7593 // CSD-TW-030606
-#define CMD_MAGIC_RESULT_T 7594 // CSD-TW-030606
-#define CMD_MAGIC_RESULT_H 7595 // CSD-TW-030606
-#define CMD_MAGIC_RESULT_M 7596 // CSD-TW-030606
-#define CMD_MAGIC_RESULT_D 7597 // CSD-TW-030606
+#define	CMD_NPC_MAGIC			20008
+#define CMD_MAGIC_SELECT		7590 // CSD-TW-030606
+#define CMD_MAGIC_CASTING		7591 // CSD-TW-030606
+#define CMD_MAGIC_EXECUTE		7592 // CSD-TW-030606
+#define CMD_MAGIC_RESULT		7593 // CSD-TW-030606
+#define CMD_MAGIC_RESULT_T		7594 // CSD-TW-030606
+#define CMD_MAGIC_RESULT_H		7595 // CSD-TW-030606
+#define CMD_MAGIC_RESULT_M		7596 // CSD-TW-030606
+#define CMD_MAGIC_RESULT_D		7597 // CSD-TW-030606
 
 #define CMD_COMBAT_CLEAR         7608
 #define CMD_COMBAT_OBTAIN        7609
@@ -40,6 +40,7 @@
 #define CMD_COMBAT_RESULT_T      7619
 #define CMD_COMBAT_RESET         7620
 #define CMD_COMBAT_INIT          7621
+#define CMD_COMBAT_SYNC			 7622 // 030517 kyo
 
 #define CMD_BATTLE_DAMAGE        7606
 #define CMD_BATTLE_MESSAMGE      7607
@@ -48,6 +49,8 @@
 #define CMD_DUAL_CHANGE          7502
 #define CMD_DUAL_DIVIDE          7503
 #define CMD_RESET_ABILITY        7504
+
+#define CMD_DUAL_MESSAMGE		 7505	// add by taniey
 
 #define CMD_CHAR_INFO_TACTIC 5009 // CSD-TW-030624
 
@@ -486,6 +489,15 @@ union t_combat
 	t_server_combat_result_t server_combat_result_t;
 };
 
+struct t_dual_message
+{
+	BYTE nType;   // 메세지의 분류
+	BYTE nKind;   // 메세지의 종류
+	WORD nNumber; // 메세지의 번호
+	BYTE nStep;
+	//char szName[ITEM_NAME_MAX];
+};
+
 // 듀얼 클래스 관련
 struct t_client_dual_enable
 {
@@ -563,6 +575,7 @@ struct t_server_dual_divide
 
 union t_dual
 {
+	t_dual_message dual_msg;				// add by taniey
 	t_client_dual_enable client_dual_enable;
 	t_server_dual_enable server_dual_enable;
 	t_client_dual_change client_dual_change;

@@ -443,6 +443,7 @@ public:
 	void DivideAbility(BYTE nNext);
 	void ConvertTacticsLevel(BYTE nKind);
 	void Message(BYTE nType, BYTE nKind, WORD nNumber);
+	void Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep);   // add by taniey
 
 	bool IncExperience(int nExp); // CSD-030930
 	bool DecExperience(bool bNK); // CSD-030930

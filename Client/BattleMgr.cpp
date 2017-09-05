@@ -826,7 +826,7 @@ void CBattleMgr::SendCombatObtain(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
-	if (rItemAttr.item_no == 3105)
+	if (rItemAttr.item_no == ITEM_ID_COOK_COMBAT_SKILL_BOOK)
 	{ // Packet 전송
 		t_packet packet;
 		packet.h.header.type = CMD_COMBAT_OBTAIN;
@@ -2304,7 +2304,7 @@ void CBattleMgr::RecvCombatObtain(t_server_combat_obtain* pPacket)
 		// 전투스킬 포인터 획득 아이템 제거
 		ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
-		if (rItemAttr.item_no == 3105)
+		if (rItemAttr.item_no == ITEM_ID_COOK_COMBAT_SKILL_BOOK)
 		{
 			::UseItemByRbutton(pos, rItemAttr);
 			pMaster->aStepInfo[CSP_STEP] = iCSReservPoint = nTotal + 1;

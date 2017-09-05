@@ -3741,6 +3741,11 @@ int HandleCommand(t_connection *c)
 			g_mgrDual.RecvDualDivide(&packet.u.dual.server_dual_divide);
 			break;
 		}
+		case CMD_DUAL_MESSAMGE:
+		{
+			g_mgrDual.RecvDualMsg(&packet.u.dual.dual_msg);
+			break;
+		}
 		case CMD_ON_CONNECT:
 		{
 			RecvCMD_ON_CONNECT(packet, c);

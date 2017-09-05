@@ -34,6 +34,7 @@ public:
 	void RecvDualEnable(t_server_dual_enable* pPacket);
 	void RecvDualChange(t_server_dual_change* pPacket);
 	void RecvDualDivide(t_server_dual_divide* pPacket);
+	void RecvDualMsg(t_dual_message* pPacket);	// add by taniey
 
 public:
 	int GetAbility(BYTE nType);

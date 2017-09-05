@@ -6952,17 +6952,18 @@ void DoRButtonCheckOfMenu(int i, int j)
 
 		switch (item_attr.item_no)
 		{ //< CSD-021003
-		case 3105: // 전투시술서
+		case ITEM_ID_COOK_COMBAT_SKILL_BOOK: // 전투시술서
 		{
 			g_mgrBattle.SendCombatObtain(Hero, first_para, ItemX, ItemY, 1);
 			break;
 		}
-		case 10064:
-		case 10073:
-		case 10075:
-		case 10292:
-		case 10293:		// add by taniey
-		case 4028: // 듀얼체인지 아이템
+
+		case ITEM_ID_ETC_BALROG_TOOTH:
+		case ITEM_ID_ETC_LICH_EYEBALL:
+		case ITEM_ID_ETC_RED_DRAGON_SCALE:
+		case ITEM_ID_ETC_AMURSTART_SWORD:
+		case ITEM_ID_ETC_MERCHANT_YLL_PERMIT:		// add by taniey
+		case ITEM_ID_POTION_EXTREAM_STONE:			// 듀얼체인지 아이템
 		{
 			ItemSound(item_attr.item_no);
 			g_mgrDual.SendDualEnable(Hero, first_para, ItemX, ItemY);

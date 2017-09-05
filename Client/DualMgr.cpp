@@ -183,21 +183,22 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
-	if (rItemAttr.item_no == 4028 ||
-		rItemAttr.item_no == 10064 ||
-		rItemAttr.item_no == 10073 ||
-		rItemAttr.item_no == 10075 ||
-		rItemAttr.item_no == 10292 ||
-		rItemAttr.item_no == 10293)
+	if (rItemAttr.item_no == ITEM_ID_POTION_EXTREAM_STONE ||
+		rItemAttr.item_no == ITEM_ID_ETC_BALROG_TOOTH ||
+		rItemAttr.item_no == ITEM_ID_ETC_LICH_EYEBALL ||
+		rItemAttr.item_no == ITEM_ID_ETC_RED_DRAGON_SCALE ||
+		rItemAttr.item_no == ITEM_ID_ETC_AMURSTART_SWORD ||
+		rItemAttr.item_no == ITEM_ID_ETC_MERCHANT_YLL_PERMIT)
 	{ // Packet 전송
 		BYTE nStep = 0;
 		switch (rItemAttr.item_no)
 		{
-		case 4028: nStep = 1; break;		// for 2 up
-		case 10064: nStep = 2; break;		// for 3 up
-		case 10073: nStep = 3; break;		// for 4 up
-		case 10075: nStep = 4; break;		// for 5 up
-		case 10292: nStep = 5; break;		// for 6 up
+		case ITEM_ID_POTION_EXTREAM_STONE:		nStep = 1; break;		// for 1 up
+		case ITEM_ID_ETC_BALROG_TOOTH:			nStep = 2; break;		// for 2 up
+		case ITEM_ID_ETC_LICH_EYEBALL:			nStep = 3; break;		// for 3 up
+		case ITEM_ID_ETC_RED_DRAGON_SCALE:		nStep = 4; break;		// for 4 up
+		case ITEM_ID_ETC_AMURSTART_SWORD:		nStep = 5; break;		// for 5 up
+		case ITEM_ID_ETC_MERCHANT_YLL_PERMIT:	nStep = 6; break;		// for 6 up
 		default: break;
 		}
 
@@ -239,23 +240,22 @@ void CDualMgr::SendDualChange(LPCHARACTER pMaster, BYTE nNext)
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[m_nPara][m_nPosY][m_nPosX];
 
-	//if (rItemAttr.item_no == 4028)
-	//{ // Packet 전송
-	if (rItemAttr.item_no == 4028 ||
-		rItemAttr.item_no == 10064 ||
-		rItemAttr.item_no == 10073 ||
-		rItemAttr.item_no == 10075 ||
-		rItemAttr.item_no == 10292 ||
-		rItemAttr.item_no == 10293)
+	if (rItemAttr.item_no == ITEM_ID_POTION_EXTREAM_STONE ||
+		rItemAttr.item_no == ITEM_ID_ETC_BALROG_TOOTH ||
+		rItemAttr.item_no == ITEM_ID_ETC_LICH_EYEBALL ||
+		rItemAttr.item_no == ITEM_ID_ETC_RED_DRAGON_SCALE ||
+		rItemAttr.item_no == ITEM_ID_ETC_AMURSTART_SWORD ||
+		rItemAttr.item_no == ITEM_ID_ETC_MERCHANT_YLL_PERMIT)
 	{ // Packet 전송
 		BYTE nStep = 0;
 		switch (rItemAttr.item_no)
 		{
-		case 4028: nStep = 1; break;		// for 2 up
-		case 10064: nStep = 2; break;		// for 3 up
-		case 10073: nStep = 3; break;		// for 4 up
-		case 10075: nStep = 4; break;		// for 5 up
-		case 10292: nStep = 5; break;		// for 6 up
+		case ITEM_ID_POTION_EXTREAM_STONE:		nStep = 1; break;		// for 1 up
+		case ITEM_ID_ETC_BALROG_TOOTH:			nStep = 2; break;		// for 2 up
+		case ITEM_ID_ETC_LICH_EYEBALL:			nStep = 3; break;		// for 3 up
+		case ITEM_ID_ETC_RED_DRAGON_SCALE:		nStep = 4; break;		// for 4 up
+		case ITEM_ID_ETC_AMURSTART_SWORD:		nStep = 5; break;		// for 5 up
+		case ITEM_ID_ETC_MERCHANT_YLL_PERMIT:	nStep = 6; break;		// for 6 up
 		default: break;
 		}
 
@@ -327,25 +327,24 @@ void CDualMgr::RecvDualEnable(t_server_dual_enable* pPacket)
 	// 전투스킬 포인터 획득 아이템 확인
 	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
 
-	//if (rItemAttr.item_no == 4028)
-	//{ // Packet 전송
-	if (rItemAttr.item_no == 4028 ||
-		rItemAttr.item_no == 10064 ||
-		rItemAttr.item_no == 10073 ||
-		rItemAttr.item_no == 10075 ||
-		rItemAttr.item_no == 10292 ||
-		rItemAttr.item_no == 10293)
+	if (rItemAttr.item_no == ITEM_ID_POTION_EXTREAM_STONE ||
+		rItemAttr.item_no == ITEM_ID_ETC_BALROG_TOOTH ||
+		rItemAttr.item_no == ITEM_ID_ETC_LICH_EYEBALL ||
+		rItemAttr.item_no == ITEM_ID_ETC_RED_DRAGON_SCALE ||
+		rItemAttr.item_no == ITEM_ID_ETC_AMURSTART_SWORD ||
+		rItemAttr.item_no == ITEM_ID_ETC_MERCHANT_YLL_PERMIT)
 	{ // Packet 전송
-		//BYTE nStep = 0;
-		//switch (rItemAttr.item_no)
-		//{
-		//case 4028: nStep = 1; break;		// for 2 up
-		//case 10064: nStep = 2; break;		// for 3 up
-		//case 10073: nStep = 3; break;		// for 4 up
-		//case 10075: nStep = 4; break;		// for 5 up
-		//case 10292: nStep = 5; break;		// for 6 up
-		//default: break;
-		//}
+		BYTE nStep = 0;
+		switch (rItemAttr.item_no)
+		{
+		case ITEM_ID_POTION_EXTREAM_STONE:		nStep = 1; break;		// for 1 up
+		case ITEM_ID_ETC_BALROG_TOOTH:			nStep = 2; break;		// for 2 up
+		case ITEM_ID_ETC_LICH_EYEBALL:			nStep = 3; break;		// for 3 up
+		case ITEM_ID_ETC_RED_DRAGON_SCALE:		nStep = 4; break;		// for 4 up
+		case ITEM_ID_ETC_AMURSTART_SWORD:		nStep = 5; break;		// for 5 up
+		case ITEM_ID_ETC_MERCHANT_YLL_PERMIT:	nStep = 6; break;		// for 6 up
+		default: break;
+		}
 
 		m_nPara = nPara;
 		m_nPosX = nX;
@@ -445,3 +444,50 @@ int CDualMgr::GetAbility(BYTE nType)
 
 	return 0;
 }
+
+// add by taniey
+extern void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...);
+void CDualMgr::RecvDualMsg(t_dual_message* pPacket)
+{
+	const string strMsg = ::lan->OutputMessage(pPacket->nKind, pPacket->nNumber);
+	//Message(pPacket->nType, strMsg.c_str());
+
+	char szBuffer[1000] = {0};
+	//vsprintf(szBuffer, "", pPacket->nStep);
+	::AddCurrentStatusMessage(255, 40, 60, szBuffer);
+
+}
+
+//void CDualMgr::Message(int nType, const char* pContext, ...)
+//{
+//	char szBuffer[1000];
+//	// 가변인자값을 버퍼에 저장
+//	va_list vaList;
+//	va_start(vaList, pContext);
+//	vsprintf(szBuffer, pContext, vaList);
+//	va_end(vaList);
+//
+//	switch (nType)
+//	{
+//	case MK_NORMAL:
+//	{ // 상태
+//		::AddCurrentStatusMessage(255, 180, 190, szBuffer);
+//		break;
+//	}
+//	case MK_WARNING:
+//	{ // 실패
+//		::AddCurrentStatusMessage(255, 40, 60, szBuffer);
+//		break;
+//	}
+//	case MK_SHORTAGE:
+//	{	// 성공
+//		::AddCurrentStatusMessage(150, 150, 255, szBuffer);
+//		break;
+//	}
+//	case MK_INFORMATION:
+//	{ // 알림
+//		::AddCurrentStatusMessage(200, 200, 200, szBuffer);
+//		break;
+//	}
+//	}
+//}
