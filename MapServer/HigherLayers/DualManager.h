@@ -101,7 +101,7 @@ class CDualManager : public TSingleton<CDualManager>
 		DC_LEVLE = 1,
 		DC_LADDER = 2,
 		DC_FAME = 3,
-		MAX_DUAL_STEP = 6  //coromo  離댕6瘻
+		MAX_DUAL_STEP = 6  //coromo  最大6转 //
 	};
 
 public:

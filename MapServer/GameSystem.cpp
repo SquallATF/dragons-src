@@ -104,7 +104,7 @@ void CGameSystem::CreateManager(eGAME_SYSTEM _eGameSystem)
 		Dbg_Assert(m_pItemMallManager != NULL);
 		break;
 	default:
-		MyLog(LOG_IMPORTANT, "CGameSystem::CreateManager 에서 해당하는 Type이 없습니다.[%s]", ConvertToMgrType(_eGameSystem));
+		MyLog(LOG_IMPORTANT, "CGameSystem::CreateManager in type:[%s]", ConvertToMgrType(_eGameSystem));
 		break;
 	}
 }
@@ -123,7 +123,7 @@ const char* CGameSystem::ConvertToMgrType(eGAME_SYSTEM _GameSystem)
 		CASE_SELECT(BattleManager)
 		CASE_SELECT(RaidManager)
 		CASE_SELECT(ItemMallManager)
-		END_SELECT(UNKNOWN_Manager)
+	END_SELECT(UNKNOWN_Manager)
 }
 
 CLogManager* CGameSystem::GetLogManager()

@@ -212,20 +212,6 @@ void CDualMgr::SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 		packet.u.dual.client_dual_enable.nPosY = nY;
 		::QueuePacket(&packet, 1);
 	}
-	//else if (rItemAttr.item_no == 10064 ||
-	//	rItemAttr.item_no == 10073 ||
-	//	rItemAttr.item_no == 10075 ||
-	//	rItemAttr.item_no == 10292 ||
-	//	rItemAttr.item_no == 10293) {
-	//	//SendEvent(EVENT_TYPE_NPC, rItemAttr.item_no);
-
-	//	t_packet packet;
-	//	packet.h.header.type = CMD_EVENT;
-	//	packet.h.header.size = sizeof(t_client_event);
-	//	packet.u.client_event.type = EVENT_TYPE_NPC;
-	//	packet.u.client_event.event_no = 10069;//  ((LPCHARACTER)(Hero->lpAttacked))->id;
-	//	QueuePacket(&packet, 1);
-	//}
 }
 
 void CDualMgr::SendDualChange(LPCHARACTER pMaster, BYTE nNext)
@@ -276,32 +262,7 @@ void CDualMgr::SendDualDivide(LPCHARACTER pMaster, BYTE nNext)
 {
 	if (pMaster == NULL)  return;
 
-	//if (IsDead(Hero)) return;			// add by taniey
-
-	//POS pos;
-	//// 전투스킬 포인터 획득 아이템 위치 구하기
-	//::SetItemPos(INV, m_nPara, m_nPosY, m_nPosX, &pos);
-	//// 전투스킬 포인터 획득 아이템 확인
-	//ItemAttr& rItemAttr = InvItemAttr[m_nPara][m_nPosY][m_nPosX];
-
-	//BYTE nStep = 0;
-	//if (rItemAttr.item_no == 4028 ||
-	//	rItemAttr.item_no == 10064 ||
-	//	rItemAttr.item_no == 10073 ||
-	//	rItemAttr.item_no == 10075 ||
-	//	rItemAttr.item_no == 10292 ||
-	//	rItemAttr.item_no == 10293)
-	//{ // Packet 전송
-	//	switch (rItemAttr.item_no)
-	//	{
-	//	case 4028: nStep = 1; break;		// for 2 up
-	//	case 10064: nStep = 2; break;		// for 3 up
-	//	case 10073: nStep = 3; break;		// for 4 up
-	//	case 10075: nStep = 4; break;		// for 5 up
-	//	case 10292: nStep = 5; break;		// for 6 up
-	//	default: break;
-	//	}
-	//}
+	if (IsDead(pMaster)) return;			// add by taniey
 
 	t_packet packet;
 	packet.h.header.type = CMD_DUAL_DIVIDE;
@@ -458,7 +419,6 @@ static int StepToItemNo(BYTE nStep)
 }
 
 // add by taniey
-extern void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...);
 void CDualMgr::RecvDualMsg(t_dual_message* pPacket)
 {
 	const string strMsg = ::lan->OutputMessage(pPacket->nKind, pPacket->nNumber);
@@ -509,7 +469,7 @@ void CDualMgr::RecvDualMsg(t_dual_message* pPacket)
 
 void CDualMgr::Message(int nType, const char* pContext, ...)
 {
-	char szBuffer[1000];
+	char szBuffer[512] = { 0 };
 	// 가변인자값을 버퍼에 저장
 	va_list vaList;
 	va_start(vaList, pContext);
@@ -518,25 +478,9 @@ void CDualMgr::Message(int nType, const char* pContext, ...)
 
 	switch (nType)
 	{
-	case MK_NORMAL:
-	{ // 상태
-		::AddCurrentStatusMessage(255, 180, 190, szBuffer);
-		break;
-	}
-	case MK_WARNING:
-	{ // 실패
-		::AddCurrentStatusMessage(255, 40, 60, szBuffer);
-		break;
-	}
-	case MK_SHORTAGE:
-	{	// 성공
-		::AddCurrentStatusMessage(150, 150, 255, szBuffer);
-		break;
-	}
-	case MK_INFORMATION:
-	{ // 알림
-		::AddCurrentStatusMessage(200, 200, 200, szBuffer);
-		break;
-	}
+	case MK_NORMAL:			{ ::AddCurrentStatusMessage(255, 180, 190, szBuffer); break; }
+	case MK_WARNING:		{ ::AddCurrentStatusMessage(255, 40, 60, szBuffer); break; }
+	case MK_SHORTAGE:		{ ::AddCurrentStatusMessage(150, 150, 255, szBuffer); break; }
+	case MK_INFORMATION:	{ ::AddCurrentStatusMessage(200, 200, 200, szBuffer); break; }
 	}
 }

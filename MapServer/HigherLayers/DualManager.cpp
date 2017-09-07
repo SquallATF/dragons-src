@@ -287,18 +287,6 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 	// 듀얼 여부 검사
 	if (pMaster->IsRightDual(pPacket->nStep))    // modify by taniey
 	{
-		//int nMsgNum = 0;
-		//switch (pPacket->nStep)
-		//{
-		//case 1: nMsgNum = 642; break;
-		//case 2: nMsgNum = 646; break;
-		//case 3: nMsgNum = 650; break;
-		//case 4: nMsgNum = 654; break;
-		//case 5: nMsgNum = 658; break;
-		//case 6: nMsgNum = 662; break;
-		//default:nMsgNum = 664; break;
-		//}
-		//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 383
 		pMaster->Message(MK_WARNING, 0, 667, pPacket->nStep, pMaster->GetClassStep());  // old value: 383
 		return;
 	}
@@ -306,18 +294,6 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 	{
 		if (pMaster->GetClassStep()+1 < pPacket->nStep)  // 非当前职转
 		{
-			//int nMsgNum = 0;
-			//switch (pMaster->GetClassStep()+1)
-			//{
-			//case 1: nMsgNum = 643; break;
-			//case 2: nMsgNum = 647; break;
-			//case 3: nMsgNum = 651; break;
-			//case 4: nMsgNum = 655; break;
-			//case 5: nMsgNum = 659; break;
-			//case 6: nMsgNum = 663; break;
-			//default:nMsgNum = 664; break;
-			//}
-			//pMaster->Message(MK_WARNING, 0, nMsgNum);  // no old value
 			pMaster->Message(MK_WARNING, 0, 668, pPacket->nStep, pMaster->GetClassStep());  // no old value
 			return;
 		}
@@ -345,18 +321,6 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 		}
 		else
 		{
-			//int nMsgNum = 0;
-			//switch (pPacket->nStep)
-			//{
-			//case 1: nMsgNum = 640; break;
-			//case 2: nMsgNum = 644; break;
-			//case 3: nMsgNum = 648; break;
-			//case 4: nMsgNum = 652; break;
-			//case 5: nMsgNum = 656; break;
-			//case 6: nMsgNum = 660; break;
-			//default:nMsgNum = 664; break;
-			//}
-			//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 381
 			pMaster->Message(MK_WARNING, 0, 665, pPacket->nStep, pMaster->GetClassStep());  // old value: 381
 		}
 	}
@@ -369,18 +333,6 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 	// 듀얼 여부 검사
 	if (pMaster->IsRightDual(pPacket->nStep))    // modify by taniey
 	{
-		//int nMsgNum = 0;
-		//switch (pPacket->nStep)
-		//{
-		//case 1: nMsgNum = 642; break;
-		//case 2: nMsgNum = 646; break;
-		//case 3: nMsgNum = 650; break;
-		//case 4: nMsgNum = 654; break;
-		//case 5: nMsgNum = 658; break;
-		//case 6: nMsgNum = 662; break;
-		//default:nMsgNum = 664; break;
-		//}
-		//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 383
 		pMaster->Message(MK_WARNING, 0, 667, pPacket->nStep, pMaster->GetClassStep());  // old value: 383
 
 		return;
@@ -413,18 +365,6 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 		}
 		else
 		{
-			//int nMsgNum = 0;
-			//switch (pPacket->nStep)
-			//{
-			//case 1: nMsgNum = 640; break;
-			//case 2: nMsgNum = 644; break;
-			//case 3: nMsgNum = 648; break;
-			//case 4: nMsgNum = 652; break;
-			//case 5: nMsgNum = 656; break;
-			//case 6: nMsgNum = 660; break;
-			//default:nMsgNum = 664; break;
-			//}
-			//pMaster->Message(MK_WARNING, 0, nMsgNum);  // old value: 381
 			pMaster->Message(MK_WARNING, 0, 665, pPacket->nStep, pMaster->GetClassStep());  // old value: 381
 		}
 	}
@@ -447,18 +387,6 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 	}	//> CSD-030326
 	else
 	{
-		//int nMsgNum = 0;
-		//switch (pPacket->nStep)
-		//{
-		//case 1: nMsgNum = 641; break;
-		//case 2: nMsgNum = 645; break;
-		//case 3: nMsgNum = 649; break;
-		//case 4: nMsgNum = 653; break;
-		//case 5: nMsgNum = 657; break;
-		//case 6: nMsgNum = 661; break;
-		//default:nMsgNum = 664; break;
-		//}
-		//pMaster->Message(MK_WARNING, 0, nMsgNum);    // old value: 382
 		pMaster->Message(MK_WARNING, 0, 666, pPacket->nStep, pMaster->GetClassStep());  // old value: 382
 	}
 }

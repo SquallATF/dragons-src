@@ -63,6 +63,8 @@ private:
 };
 
 extern CDualMgr g_mgrDual;
+extern void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...);
+
 //
 ///////////////////////////////////////////////////////////////////////////////
 #endif // !defined(AFX_DUALMGR_H__690DA1C4_817F_408E_BFCA_9547849ECCF7__INCLUDED_)
