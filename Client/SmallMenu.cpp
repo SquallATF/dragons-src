@@ -8834,7 +8834,7 @@ void LoadCallNameByLv()
 void PutLvNameByColor(int x, int y, LPCHARACTER ch)
 {
 	const int color = Lv_Color[ch->lv - 1].GetRGB();
-	const string strName = g_mgrDual.GetClassName(ch->class_type,
+	const string strName = g_mgrDual.GetClsName(ch->class_type,
 		ch->aStepInfo[DUAL_CLS],
 		ch->aStepInfo[CLS_STEP],
 		ch->lv);

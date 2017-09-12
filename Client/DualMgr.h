@@ -25,7 +25,7 @@ public:
 	void Load(const char* pFile);
 	void Save(const char* pFile);
 
-	string GetClassName(int nBefore, int nAfter, int nStep, int nLevel) const;
+	string GetClsName(int nBefore, int nAfter, int nStep, int nLevel) const;
 	string GetDulaExplain(int nBefore, int nAfter) const;
 
 	void SendDualEnable(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);

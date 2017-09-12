@@ -2,6 +2,19 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 *****************************************************************************************
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第四次增加>>>>>>>>>>>>>>
+#########################################################################################
+服务端 ： （MapServer）
+DualManager.cpp :
+(315L --- 325L, 可以找到函数, RecvDualChange(...)  在函数内找到：pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정  一行，修改如下)
+
+361L, add, 	if (pPacket->nStep <= 1) {
+362L, modify, 	pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정      (此行为原有行，不需要修改)
+363L, add, 	}
+
 
 #########################################################################################
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -11,7 +24,7 @@
 
 客户端 ： （DragonRaja-Online）
 NetWork5.h :
-45L, add, #define CMD_DUAL_MESSAMGE		 7623	// add by taniey
+53L, add, #define CMD_DUAL_MESSAMGE		 7505	// add by taniey
 
 (492L --- 499L, 可以找到结构, t_client_dual_enable(...)  在其前面添加)
 492L, add, struct t_dual_message
@@ -107,8 +120,11 @@ CurrentMsgMgr.h :
 50L, modify, extern void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...);   --->   extern void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...);
 51L, modify, extern void AddCurrentStatusMessage(const WORD wColor, char *msg, ...);   --->   extern void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...);
 
-
 -----------------------------------------------------------------------------------------
+CurrentMsgMgr.cpp :
+47L, modify, void AddCurrentStatusMessage(const int R, const int G, const int B, char *msg, ...)   --->   void AddCurrentStatusMessage(const int R, const int G, const int B, const char *msg, ...)
+57L, modify, void AddCurrentStatusMessage(const WORD wColor, char *msg, ...)   --->   void AddCurrentStatusMessage(const WORD wColor, const char *msg, ...)
+
 =========================================================================================
 客户端执行目录：
 Data\Ch_lan.txt :  （找到 [magic] ，在这一行之前 增加如下信息）
@@ -172,7 +188,7 @@ SELECT TOP (1000)
 
 服务端 ： （MapServer）
 NetWork5.h :
-45L, add, #define CMD_DUAL_MESSAMGE		 7623	// add by taniey
+53L, add, #define CMD_DUAL_MESSAMGE		 7505	// add by taniey
 
 (492L --- 499L, 可以找到结构, t_client_dual_enable(...)  在其前面添加)
 492L, add, struct t_dual_message

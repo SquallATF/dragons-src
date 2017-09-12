@@ -1302,7 +1302,7 @@ void RecvCMD_ANSWER_COMMANDER_VOTE_DATA(t_packet* p)		// Answer Commander Candid
 		const unsigned __int8 nBefore = p->u.NationWar.CommanderVoteData.Class;	// 클래스		// 011020 LTS
 		const unsigned __int8 nAfter = p->u.NationWar.CommanderVoteData.nDual;	// 듀얼..		// 011020 LTS
 		const unsigned __int8 nStep = p->u.NationWar.CommanderVoteData.nStep;	// 스텝			// 011020 LTS
-		const string strName = g_mgrDual.GetClassName(nBefore, nAfter, nStep, g_CommanderCandidaterLevel);
+		const string strName = g_mgrDual.GetClsName(nBefore, nAfter, nStep, g_CommanderCandidaterLevel);
 		sprintf(SMenu[MN_NATION_VOTE].nField[7].temp, "%s", strName.c_str());
 		sprintf(SMenu[MN_NATION_VOTE].nField[8].temp, "%d", p->u.NationWar.CommanderVoteData.Fame);
 		sprintf(SMenu[MN_NATION_VOTE].nField[9].temp, "%d", p->u.NationWar.CommanderVoteData.LadderScore);

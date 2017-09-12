@@ -13,14 +13,14 @@
 extern inline int GetTotalAbility(LPCHARLIST ch);
 extern void AddAbility(CHARLIST *ch, int type, int add);
 extern int SendCharInfo(short int cn);
-extern inline void	CallClient( short int id, short int type );
+extern inline void	CallClient(short int id, short int type);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Global Memeber
 ///////////////////////////////////////////////////////////////////////////////
 
-static int ADD_ABILITY[5][2] = 
-{ 
+static int ADD_ABILITY[5][2] =
+{
 	{STR,  CON},
 	{DEX,  MOVP},
 	{DEX,  CON},
@@ -28,7 +28,7 @@ static int ADD_ABILITY[5][2] =
 	{WIS,  WSPS}
 };
 
-static int BASIC_ABILITY[5][11] = 
+static int BASIC_ABILITY[5][11] =
 {
 	{50, 10, 30, 10, 10, 10, 10, 10, 10, 10, 10},
 	{10, 40, 20, 10, 10, 10, 20, 10, 10, 10, 20},
@@ -60,7 +60,7 @@ CDualDataInfo::~CDualDataInfo()
 ///////////////////////////////////////////////////////////////////////////////
 
 CDualClassInfo::CDualClassInfo()
-{ 
+{
 	m_ltMember.clear();
 }
 
@@ -77,7 +77,7 @@ void CDualClassInfo::AddNew(WORD idMember)
 {
 	m_ltMember.push_back(idMember);
 }
-	
+
 void CDualClassInfo::Delete(WORD idMember)
 {
 	m_ltMember.remove(idMember);
@@ -137,7 +137,7 @@ void CDualManager::AddDualData(CDualDataInfo* pDualData)
 {
 	m_vtDualData.push_back(pDualData);
 }
-	
+
 void CDualManager::AddDualClass(CDualClassInfo* pDualClass)
 {
 	m_vtDualClass.push_back(pDualClass);
@@ -165,7 +165,7 @@ bool CDualManager::AddMember(WORD idMember)
 
 		return false;
 	}
-		
+
 	if (m_vtDualClass[nStep]->IsExist(idMember))
 	{
 		MyLog(LOG_NORMAL, "CGuildManager::AddMember : exist user");
@@ -176,7 +176,7 @@ bool CDualManager::AddMember(WORD idMember)
 	m_vtDualClass[nStep]->AddNew(idMember);
 	return true;
 }
-	
+
 bool CDualManager::DelMember(WORD idMember)
 {
 	CHARLIST* pMember = ::CheckServerId(idMember);
@@ -199,7 +199,7 @@ bool CDualManager::DelMember(WORD idMember)
 
 		return false;
 	}
-		
+
 	if (!m_vtDualClass[nStep]->IsExist(idMember))
 	{
 		return false;
@@ -228,7 +228,7 @@ void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)
 		return;
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_DUAL_CHANGE;
 	packet.h.header.size = sizeof(t_server_dual_change);
@@ -236,15 +236,15 @@ void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
 	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
 	packet.u.dual.server_dual_change.nDual = pMaster->GetDualClass();
 	packet.u.dual.server_dual_change.dwFame = pMaster->fame;
-	packet.u.dual.server_dual_change.wStr = pMaster->Str;  
-	packet.u.dual.server_dual_change.wCon = pMaster->Con;  
-	packet.u.dual.server_dual_change.wDex = pMaster->Dex;  
-	packet.u.dual.server_dual_change.wWis = pMaster->Wis;  
-	packet.u.dual.server_dual_change.wInt = pMaster->Int;  
+	packet.u.dual.server_dual_change.wStr = pMaster->Str;
+	packet.u.dual.server_dual_change.wCon = pMaster->Con;
+	packet.u.dual.server_dual_change.wDex = pMaster->Dex;
+	packet.u.dual.server_dual_change.wWis = pMaster->Wis;
+	packet.u.dual.server_dual_change.wInt = pMaster->Int;
 	packet.u.dual.server_dual_change.wMovep = pMaster->MoveP;
-	packet.u.dual.server_dual_change.wCha = pMaster->Char; 
+	packet.u.dual.server_dual_change.wCha = pMaster->Char;
 	packet.u.dual.server_dual_change.wEndu = pMaster->Endu;
-	packet.u.dual.server_dual_change.wMor = pMaster->Moral; 
+	packet.u.dual.server_dual_change.wMor = pMaster->Moral;
 	packet.u.dual.server_dual_change.wLuck = pMaster->Luck;
 	packet.u.dual.server_dual_change.wWsPs = pMaster->wsps;
 	packet.u.dual.server_dual_change.wPoint = pMaster->GetReservedPoint();
@@ -256,22 +256,22 @@ void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)
 		return;
-	
+
 	t_packet packet;
 	packet.h.header.type = CMD_DUAL_DIVIDE;
 	packet.h.header.size = sizeof(t_server_dual_divide);
 	packet.u.dual.server_dual_divide.idMaster = idMaster;
 	packet.u.dual.server_dual_divide.nStep = nStep;			// add by taniey
 	packet.u.dual.server_dual_divide.nDual = pMaster->GetDualClass();
-	packet.u.dual.server_dual_divide.wStr = pMaster->Str;  
-	packet.u.dual.server_dual_divide.wCon = pMaster->Con;  
-	packet.u.dual.server_dual_divide.wDex = pMaster->Dex;  
-	packet.u.dual.server_dual_divide.wWis = pMaster->Wis;  
-	packet.u.dual.server_dual_divide.wInt = pMaster->Int;  
+	packet.u.dual.server_dual_divide.wStr = pMaster->Str;
+	packet.u.dual.server_dual_divide.wCon = pMaster->Con;
+	packet.u.dual.server_dual_divide.wDex = pMaster->Dex;
+	packet.u.dual.server_dual_divide.wWis = pMaster->Wis;
+	packet.u.dual.server_dual_divide.wInt = pMaster->Int;
 	packet.u.dual.server_dual_divide.wMovep = pMaster->MoveP;
-	packet.u.dual.server_dual_divide.wCha = pMaster->Char; 
+	packet.u.dual.server_dual_divide.wCha = pMaster->Char;
 	packet.u.dual.server_dual_divide.wEndu = pMaster->Endu;
-	packet.u.dual.server_dual_divide.wMor = pMaster->Moral; 
+	packet.u.dual.server_dual_divide.wMor = pMaster->Moral;
 	packet.u.dual.server_dual_divide.wLuck = pMaster->Luck;
 	packet.u.dual.server_dual_divide.wWsPs = pMaster->wsps;
 	packet.u.dual.server_dual_divide.wPoint = pMaster->GetReservedPoint();
@@ -292,29 +292,29 @@ void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 	}
 	else
 	{
-		if (pMaster->GetClassStep()+1 < pPacket->nStep)  // 非当前职转
+		if (pMaster->GetClassStep() + 1 < pPacket->nStep)  // 非当前职转
 		{
 			pMaster->Message(MK_WARNING, 0, 668, pPacket->nStep, pMaster->GetClassStep());  // no old value
 			return;
 		}
 	}
-	
+
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
 	const int nStep = pPacket->nStep;     // modify by taniey
-	
+
 	POS pos;
 	::SetItemPos(INV, nPara, nY, nX, &pos);
 	ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
 	if (pAttr == NULL)  return;
 	CItem* pItem = ::ItemUnit(*pAttr);
 	if (pItem == NULL)  return;
-	
+
 	const int ni = pItem->GetRbutton();
-	
+
 	if (pItem->GetRbutton() == DUAL_CHANGE_ITEM)
-	{ 
+	{
 		if (IsLevelUp(nStep, pMaster))
 		{
 			SendDualEnable(idMaster, nPara, nX, nY, nStep);    // modify by taniey
@@ -342,23 +342,25 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
 	const int nStep = pPacket->nStep;   // modify by taniey
-	
+
 	POS pos;
 	::SetItemPos(INV, nPara, nY, nX, &pos);
 	ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
 	if (pAttr == NULL)  return;
 	CItem* pItem = ::ItemUnit(*pAttr);
 	if (pItem == NULL)  return;
-	
+
 	const int ni = pItem->GetRbutton();
-	
+
 	if (pItem->GetRbutton() == DUAL_CHANGE_ITEM)
 	{ // 020428 YGI acer
 		if (IsLevelUp(nStep, pMaster))
 		{
 			::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
 			::SendDeleteItem(pAttr, &pos, pMaster, 0);
-			pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정
+			if (pPacket->nStep <= 1) {
+				pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정
+			}
 			pMaster->DivideAbility(pPacket->nNext);
 			Change(nStep, pMaster);
 			SendDualChange(idMaster, nStep);		// modify by taniey
@@ -376,7 +378,7 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 	if (pMaster == NULL)  return;
 	// 듀얼의 단계가 올라가는 경우
 	const int nStep = pMaster->GetClassStep() + 1;
-	
+
 	if (pMaster->IsRightDual(pPacket->nStep) && IsLevelUp(nStep, pMaster))		// modify by taniey
 	{	//< CSD-030326
 		DelMember(idMaster);
@@ -395,7 +397,7 @@ void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	//if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101级重分点的限制. 
 	{	//< 101分点
 		const int nTotal = ::GetTotalAbility(pMaster);
@@ -416,9 +418,9 @@ void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
 		::AddAbility(pMaster, ADD_ABILITY[nClass][0], nFirst);
 		const int nSecond = 2;
 		::AddAbility(pMaster, ADD_ABILITY[nClass][1], nSecond);
-		
+
 		int nMinus = 0;
-		
+
 		for (int i = STR; i <= LUCK; ++i)
 		{
 			nMinus += BASIC_ABILITY[nClass][i];
@@ -444,53 +446,53 @@ void CDualManager::Change(BYTE nStep, CHARLIST* pMaster)
 
 	switch (nStep)
 	{
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-		{
-			if (pMaster->LadderScore >= pDualData->GetNeedLadder())
-			{
-				g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
-				const int change = pDualData->GetConsumeLadder();
-				g_pLogManager->SaveLogChange_Ladder(pMaster, pMaster->LadderScore, pMaster->LadderScore - change, CLT_CHANGE_DUAL);
-				pMaster->LadderScore -= pDualData->GetConsumeLadder();
-				return;
-			}
-			
-			if (pMaster->fame >= pDualData->GetNeedFame())
-			{
-				g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
-				const int DecFame = pDualData->GetConsumeFame();
-				::g_pLogManager->SaveLogChange_Fame(pMaster,pMaster->fame,pMaster->fame-DecFame,LF_DUAL);
-				pMaster->fame -= DecFame;
-				return;
-			}
-			
-			break;
-		}
-    case 5:
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	{
+		if (pMaster->LadderScore >= pDualData->GetNeedLadder())
 		{
 			g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
 			const int change = pDualData->GetConsumeLadder();
-			g_pLogManager->SaveLogChange_Ladder( pMaster, pMaster->LadderScore, pMaster->LadderScore - change, CLT_CHANGE_DUAL );
+			g_pLogManager->SaveLogChange_Ladder(pMaster, pMaster->LadderScore, pMaster->LadderScore - change, CLT_CHANGE_DUAL);
 			pMaster->LadderScore -= pDualData->GetConsumeLadder();
-			const int DecFame = pDualData->GetConsumeFame();
-			::g_pLogManager->SaveLogChange_Fame(pMaster,pMaster->fame,pMaster->fame-DecFame,LF_DUAL);
-			pMaster->fame -= DecFame;
-			break;
+			return;
 		}
+
+		if (pMaster->fame >= pDualData->GetNeedFame())
+		{
+			g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
+			const int DecFame = pDualData->GetConsumeFame();
+			::g_pLogManager->SaveLogChange_Fame(pMaster, pMaster->fame, pMaster->fame - DecFame, LF_DUAL);
+			pMaster->fame -= DecFame;
+			return;
+		}
+
+		break;
+	}
+	case 5:
+	{
+		g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
+		const int change = pDualData->GetConsumeLadder();
+		g_pLogManager->SaveLogChange_Ladder(pMaster, pMaster->LadderScore, pMaster->LadderScore - change, CLT_CHANGE_DUAL);
+		pMaster->LadderScore -= pDualData->GetConsumeLadder();
+		const int DecFame = pDualData->GetConsumeFame();
+		::g_pLogManager->SaveLogChange_Fame(pMaster, pMaster->fame, pMaster->fame - DecFame, LF_DUAL);
+		pMaster->fame -= DecFame;
+		break;
+	}
 	case 6:  //coromo 转职条件
-		{
-			g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
-			const int change = pDualData->GetConsumeLadder();
-			g_pLogManager->SaveLogChange_Ladder( pMaster, pMaster->LadderScore, pMaster->LadderScore - change, CLT_CHANGE_DUAL );
-			pMaster->LadderScore -= pDualData->GetConsumeLadder();
-			const int DecFame = pDualData->GetConsumeFame();
-			::g_pLogManager->SaveLogChange_Fame(pMaster,pMaster->fame,pMaster->fame-DecFame,LF_DUAL);
-			pMaster->fame -= DecFame;
-			break;
-		}
+	{
+		g_pLogManager->SaveLogChange_ClassStep(pMaster, nStep - 1, nStep);
+		const int change = pDualData->GetConsumeLadder();
+		g_pLogManager->SaveLogChange_Ladder(pMaster, pMaster->LadderScore, pMaster->LadderScore - change, CLT_CHANGE_DUAL);
+		pMaster->LadderScore -= pDualData->GetConsumeLadder();
+		const int DecFame = pDualData->GetConsumeFame();
+		::g_pLogManager->SaveLogChange_Fame(pMaster, pMaster->fame, pMaster->fame - DecFame, LF_DUAL);
+		pMaster->fame -= DecFame;
+		break;
+	}
 	}
 }	//> CSD-TW-030606
 
@@ -506,81 +508,81 @@ bool CDualManager::IsLevelUp(BYTE nStep, CHARLIST* pMaster)
 	{
 		return false;
 	}
-	
+
 	switch (nStep)
 	{	//< CSD-030806
-    case 1:
-    case 2:
-    case 3:
-    case 4:
+	case 1:
+	case 2:
+	case 3:
+	case 4:
+	{
+		if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
 		{
-			if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
+			if (pMaster->LadderScore >= pDualData->GetNeedLadder())
 			{
-				if (pMaster->LadderScore >= pDualData->GetNeedLadder())  
-				{
-					return true;
-				}
-
-				if (pMaster->fame >= pDualData->GetNeedFame())
-				{
-					return true;
-				}
-			}
-
-			break;
-		}
-    case 5:
-		{
-			if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
-			{
-				if (pMaster->LadderScore < pDualData->GetNeedLadder())
-				{
-					break;
-				}
-				
-				if (pMaster->fame < pDualData->GetNeedFame())
-				{
-					break;
-				}
-
 				return true;
 			}
-			
-			break;
+
+			if (pMaster->fame >= pDualData->GetNeedFame())
+			{
+				return true;
+			}
 		}
+
+		break;
+	}
+	case 5:
+	{
+		if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
+		{
+			if (pMaster->LadderScore < pDualData->GetNeedLadder())
+			{
+				break;
+			}
+
+			if (pMaster->fame < pDualData->GetNeedFame())
+			{
+				break;
+			}
+
+			return true;
+		}
+
+		break;
+	}
 	case 6:  //coromo 转职条件
+	{
+		if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
 		{
-			if (pMaster->GetLevel() >= pDualData->GetMaxLevel())
+			if (pMaster->LadderScore < pDualData->GetNeedLadder())
 			{
-				if (pMaster->LadderScore < pDualData->GetNeedLadder())
-				{
-					break;
-				}
-				
-				if (pMaster->fame < pDualData->GetNeedFame())
-				{
-					break;
-				}
-
-				return true;
+				break;
 			}
-			
-			break;
+
+			if (pMaster->fame < pDualData->GetNeedFame())
+			{
+				break;
+			}
+
+			return true;
 		}
+
+		break;
+	}
 	}	//> CSD-030806
-	
+
 	return false;
 }
 
 //< kjy-040804
-extern bool IsThereEquipedItem( CHARLIST* pMaster );
+extern bool IsThereEquipedItem(CHARLIST* pMaster);
 void CDualManager::RecvResetAbilityItem(WORD idMaster)
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
 	if (pMaster == NULL)  return;
-	
+
 	// 착용한 아이템이 있는지 확인해야 한다.
-	if ( !IsThereEquipedItem( pMaster ) )
+	if (!IsThereEquipedItem(pMaster))
 	{	//< CSD-030806
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;
@@ -600,9 +602,9 @@ void CDualManager::RecvResetAbilityItem(WORD idMaster)
 		::AddAbility(pMaster, ADD_ABILITY[nClass][0], nFirst);
 		const int nSecond = 2;
 		::AddAbility(pMaster, ADD_ABILITY[nClass][1], nSecond);
-		
+
 		int nMinus = 0;
-		
+
 		for (int i = STR; i <= LUCK; ++i)
 		{
 			nMinus += BASIC_ABILITY[nClass][i];
@@ -611,7 +613,7 @@ void CDualManager::RecvResetAbilityItem(WORD idMaster)
 		pMaster->SetReservedPoint(nTotal - nMinus - nFirst - nSecond);
 		::SendCharInfo(idMaster);
 
-		MyLog( 0, "%s Ability Reset by item", pMaster->Name );
+		MyLog(0, "%s Ability Reset by item", pMaster->Name);
 	}	//> CSD-030806
 }
 //> kjy-040804
@@ -620,10 +622,10 @@ const int RESET_ABILITY_EACH_STAT_ITEM_NO = 1061;   //1061
 void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*STR ~ LUCK*/)
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
-	if(pMaster == NULL)  return;
-	
+	if (pMaster == NULL)  return;
+
 	// 착용한 아이템이 있는지 확인해야 한다.
-	if ( !IsThereEquipedItem( pMaster ) )
+	if (!IsThereEquipedItem(pMaster))
 	{//스텟을 확인 해 보고//아이템이 있는지 확인 하고 
 		short int AfterReserve = 0;
 		const short int nClass = pMaster->Class;
@@ -631,90 +633,90 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 
 		short int *pAbility = NULL;
 
-		switch(Statkind)
+		switch (Statkind)
 		{
-		case STR:	{pAbility = &pMaster->Str;	}break;
-		case DEX:	{pAbility = &pMaster->Dex;	}break;
-		case CON:	{pAbility = &pMaster->Con;	}break;
-		case WIS:	{pAbility = &pMaster->Wis;	}break;
-		case INT_:	{pAbility = &pMaster->Int;	}break;
-		case CHA:	{pAbility = &pMaster->Char;	}break;
-		case MOVP:	{pAbility = &pMaster->MoveP;}break;
-		case ENDU:	{pAbility = &pMaster->Endu;	}break;
-		case MOR:	{pAbility = &pMaster->Moral;}break;
-		case WSPS:	{pAbility = &pMaster->wsps;	}break;
-		case LUCK:	{pAbility = &pMaster->Luck;	}break;
+		case STR: {pAbility = &pMaster->Str;	}break;
+		case DEX: {pAbility = &pMaster->Dex;	}break;
+		case CON: {pAbility = &pMaster->Con;	}break;
+		case WIS: {pAbility = &pMaster->Wis;	}break;
+		case INT_: {pAbility = &pMaster->Int;	}break;
+		case CHA: {pAbility = &pMaster->Char;	}break;
+		case MOVP: {pAbility = &pMaster->MoveP; }break;
+		case ENDU: {pAbility = &pMaster->Endu;	}break;
+		case MOR: {pAbility = &pMaster->Moral; }break;
+		case WSPS: {pAbility = &pMaster->wsps;	}break;
+		case LUCK: {pAbility = &pMaster->Luck;	}break;
 		default:
-			{
-				MyLog(LOG_FATAL, "RecvResetAbilityEachStat Incorrect StatKind");
-				return;
-			}break;
+		{
+			MyLog(LOG_FATAL, "RecvResetAbilityEachStat Incorrect StatKind");
+			return;
+		}break;
 		}
 
-		AfterReserve = (*pAbility)  - iBase;//남을 리저브 포인트를 계산하고
+		AfterReserve = (*pAbility) - iBase;//남을 리저브 포인트를 계산하고
 
 		const int nFirst = 3;
 		const int nSecond = 2;
 		int BonusAddOn = 0;
-		if( Statkind == ADD_ABILITY[nClass][0] )
+		if (Statkind == ADD_ABILITY[nClass][0])
 		{
 			BonusAddOn += nFirst;
 		}
-		
-		if( Statkind == ADD_ABILITY[nClass][1] )
+
+		if (Statkind == ADD_ABILITY[nClass][1])
 		{
 			BonusAddOn += nSecond;
 		}
 
-		if( BonusAddOn >= AfterReserve )
+		if (BonusAddOn >= AfterReserve)
 		{
-			::OutMessage(pMaster,2,996);//임시,,미니멈 상태 입니다.
+			::OutMessage(pMaster, 2, 996);//임시,,미니멈 상태 입니다.
 			return;
 		}
 
 		//아이템 확인 ->
 		const int Lv = pMaster->GetLevel();
 		int need_count = 1;
-		if( Lv	>	104	){ need_count = 5; }
-		if( 104 >=	Lv	){ need_count = 3; }
-		if( 80	>=	Lv	){ need_count = 2; }
-		if( 50	>=	Lv	){ need_count = 1; }
+		if (Lv > 104) { need_count = 5; }
+		if (104 >= Lv) { need_count = 3; }
+		if (80 >= Lv) { need_count = 2; }
+		if (50 >= Lv) { need_count = 1; }
 
 		const int iNowCt = ::CheckInventory(pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count);//내가 원한 값에서 현재 결과를 주니까 -값이 나올 수 있다
-		if( 0 <= iNowCt )//갯수가 맞으면 지워라
+		if (0 <= iNowCt)//갯수가 맞으면 지워라
 		{
-			::SendDeleteItemQuantity( pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count );		// 특정 아이템을 특정 갯수만큼 삭제 한다.
+			::SendDeleteItemQuantity(pMaster, RESET_ABILITY_EACH_STAT_ITEM_NO, need_count);		// 특정 아이템을 특정 갯수만큼 삭제 한다.
 		}
 		else
 		{
-			::OutMessage(pMaster, 2,994);//임시,,재분배 아이템이 모자랍니다.
+			::OutMessage(pMaster, 2, 994);//임시,,재분배 아이템이 모자랍니다.
 			return;
 		}
 		//아이템 확인 <-
 
 		(*pAbility) = iBase;//어빌리티 베이스를 셋팅 해준다. 
-		
-		if( Statkind == ADD_ABILITY[nClass][0] )
+
+		if (Statkind == ADD_ABILITY[nClass][0])
 		{
 			::AddAbility(pMaster, ADD_ABILITY[nClass][0], nFirst);//주사위 굴린 어빌 지급
 			AfterReserve -= nFirst;
 		}
-		
-		if( Statkind == ADD_ABILITY[nClass][1] )
+
+		if (Statkind == ADD_ABILITY[nClass][1])
 		{
 			::AddAbility(pMaster, ADD_ABILITY[nClass][1], nSecond);
 			AfterReserve -= nSecond;
 		}
 
 		const int iBeforeReservePoint = pMaster->GetReservedPoint();//리저브 포인트에 더해줘야 한다.
-			
-		pMaster->SetReservedPoint( iBeforeReservePoint + AfterReserve );
+
+		pMaster->SetReservedPoint(iBeforeReservePoint + AfterReserve);
 		::SendCharInfo(idMaster);
 
-		MyLog( 0, "%s Ability Reset Each Stat by item", pMaster->Name );
+		MyLog(0, "%s Ability Reset Each Stat by item", pMaster->Name);
 	}
 	else
 	{
-		::OutMessage(pMaster,0,500);//임시,,인벤토리 공간이 충분치 않습니다.
+		::OutMessage(pMaster, 0, 500);//임시,,인벤토리 공간이 충분치 않습니다.
 	}//> CSD-030806
 }

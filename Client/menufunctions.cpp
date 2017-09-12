@@ -62,7 +62,7 @@ int CallDualInterFace(int type)
 {
 	for (int i = 0; i < 3; ++i)
 	{
-		const string strName = g_mgrDual.GetClassName(Hero->class_type,
+		const string strName = g_mgrDual.GetClsName(Hero->class_type,
 			i,
 			Hero->aStepInfo[CLS_STEP] + 1,
 			Hero->lv);
@@ -75,7 +75,7 @@ int CallDualInterFace(int type)
 	{
 	case WIZARD_SPELL: // 마법사 스펠을 가지고 있는 경우
 	{
-		const string strName = g_mgrDual.GetClassName(Hero->class_type,
+		const string strName = g_mgrDual.GetClsName(Hero->class_type,
 			WIZARD,
 			Hero->aStepInfo[CLS_STEP] + 1,
 			Hero->lv);
@@ -85,7 +85,7 @@ int CallDualInterFace(int type)
 	}
 	case PRIEST_SPELL: // 성직자 스펠을 가지고 있는 경우
 	{
-		const string strName = g_mgrDual.GetClassName(Hero->class_type,
+		const string strName = g_mgrDual.GetClsName(Hero->class_type,
 			PRIEST,
 			Hero->aStepInfo[CLS_STEP] + 1,
 			Hero->lv);

@@ -5425,7 +5425,8 @@ int GetRecentMapName(char *char_name, char *map_name)
 };
 void GetPublicBbs(char **text)			// 0725 YGI
 {
-	if (*text) delete *text;
+	if (*text != NULL)
+		delete []*text;
 	*text = NULL;
 
 	SDWORD		cbValue;

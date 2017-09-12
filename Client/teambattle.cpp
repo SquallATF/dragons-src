@@ -186,7 +186,7 @@ void CFightMapCharInfo::AddCharInfo(DWORD total_id, DWORD win_defeat, DWORD ladd
 				temp->m_dwLadderScore = ladder;
 				temp->type = type;
 
-				const string strName = g_mgrDual.GetClassName(Class, dual_cls, cls_step, level);
+				const string strName = g_mgrDual.GetClsName(Class, dual_cls, cls_step, level);
 				strcpy(temp->m_szCallLevel, strName.c_str());
 				temp->m_wColor = Lv_Color[level - 1].GetRGB16();
 				return;
@@ -204,7 +204,7 @@ void CFightMapCharInfo::AddCharInfo(DWORD total_id, DWORD win_defeat, DWORD ladd
 	temp->m_TotalId = total_id;
 	memcpy(&temp->m_WinDefeat, &win_defeat, sizeof(DWORD));
 	temp->m_dwLadderScore = ladder;
-	const string strName = g_mgrDual.GetClassName(Class,
+	const string strName = g_mgrDual.GetClsName(Class,
 		Hero->aStepInfo[DUAL_CLS],
 		Hero->aStepInfo[CLS_STEP],
 		level);

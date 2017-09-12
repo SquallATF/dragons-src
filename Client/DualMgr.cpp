@@ -117,16 +117,19 @@ void CDualMgr::Save(const char* pFile)
 	fout.close();
 }
 
-string CDualMgr::GetClassName(int nBefore, int nAfter, int nStep, int nLevel) const
+string CDualMgr::GetClsName(int nBefore, int nAfter, int nStep, int nLevel) const
 {
 	switch (nStep)
 	{
-	case 0: return (nLevel >= 100) ? "贱人" : m_aBank[nBefore][(nLevel - 1) / 10].strName;
+	case 0:
+		return (nLevel >= 100) ? "贱人" : m_aBank[nBefore][(nLevel - 1) / 10].strName;
 	case 1:
 	case 2:
 	case 3:
-	case 4: return m_aBank[nBefore][nAfter + 10].strName;
-	case 5: return "扑街";
+	case 4:
+		return m_aBank[nBefore][nAfter + 10].strName;
+	case 5:
+		return "扑街";
 	case 6:
 
 		if (m_aBank[nBefore][nAfter + 10].strName == "至尊骑士") { return "屠龙王者"; }

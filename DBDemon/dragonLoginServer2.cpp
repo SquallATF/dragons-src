@@ -12,7 +12,7 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
-char *public_bbs;
+char *public_bbs = NULL;
 
 extern NPCLev_to_Exp NPC_Lev_Ref[]; // CSD-030306
 t_mapinfo MapInfo[MAX_MAP_];
@@ -940,13 +940,13 @@ void CheckInitData()
 inline int GetIndexByMapName(char *mapname)
 {
 	EatRearWhiteChar(mapname);
-	strupr(mapname);
+	_strupr(mapname);
 
 	for (int i = 0; i < MAX_MAP_; i++)
 	{
 		if (MapInfo[i].mapfile[0])
 		{
-			if (::stricmp(MapInfo[i].mapfile, mapname) == 0)
+			if (::_stricmp(MapInfo[i].mapfile, mapname) == 0)
 			{
 				return i;
 			}
@@ -4309,7 +4309,7 @@ void SaveGuildLog(int guild_code, int type1, int type2, char *master, char *guil
 	fp = fopen("./logout/guild_log.txt", "at+");
 	if (!fp)
 	{
-		mkdir("logout");
+		_mkdir("logout");
 		fp = fopen("./logout/guild_log.txt", "at+");
 		if (!fp) return;
 	}
@@ -4359,7 +4359,7 @@ void SaveGuildLog2(int guild_code, int type, char *name)	// type - 0:시간이 �
 	fp = fopen("./logout/guild_log.txt", "at+");
 	if (!fp)
 	{
-		mkdir("logout");
+		_mkdir("logout");
 		fp = fopen("./logout/guild_log.txt", "at+");
 		if (!fp) return;
 	}
