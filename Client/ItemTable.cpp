@@ -458,17 +458,17 @@ void ItemRead()
 	Item_Ref.nItem[9] = Num_Of_CItem_Accessory;
 	Item_Ref.nItem[10] = Num_Of_CItem_Etc;
 
-	//for (int z = 0; z < Num_Of_CItem_Plant; ++z) { Item_Ref.Item_type[0][z] = &plant[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Mineral; ++z) { Item_Ref.Item_type[1][z] = &mineral[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Herb; ++z) { Item_Ref.Item_type[2][z] = &herb[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Cook; ++z) { Item_Ref.Item_type[3][z] = &cook[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Potion; ++z) { Item_Ref.Item_type[4][z] = &potion[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Tool; ++z) { Item_Ref.Item_type[5][z] = &tool[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Weapon; ++z) { Item_Ref.Item_type[6][z] = &weapon[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Disposable; ++z) { Item_Ref.Item_type[7][z] = &disposable[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Armor; ++z) { Item_Ref.Item_type[8][z] = &armor[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Accessory; ++z) { Item_Ref.Item_type[9][z] = &accessory[z]; }
-	//for (int z = 0; z < Num_Of_CItem_Etc; ++z) { Item_Ref.Item_type[10][z] = &etc[z]; }
+	for (int z = 0; z < Num_Of_CItem_Plant; ++z) { Item_Ref.Item_type[0][z] = &plant[z]; }
+	for (int z = 0; z < Num_Of_CItem_Mineral; ++z) { Item_Ref.Item_type[1][z] = &mineral[z]; }
+	for (int z = 0; z < Num_Of_CItem_Herb; ++z) { Item_Ref.Item_type[2][z] = &herb[z]; }
+	for (int z = 0; z < Num_Of_CItem_Cook; ++z) { Item_Ref.Item_type[3][z] = &cook[z]; }
+	for (int z = 0; z < Num_Of_CItem_Potion; ++z) { Item_Ref.Item_type[4][z] = &potion[z]; }
+	for (int z = 0; z < Num_Of_CItem_Tool; ++z) { Item_Ref.Item_type[5][z] = &tool[z]; }
+	for (int z = 0; z < Num_Of_CItem_Weapon; ++z) { Item_Ref.Item_type[6][z] = &weapon[z]; }
+	for (int z = 0; z < Num_Of_CItem_Disposable; ++z) { Item_Ref.Item_type[7][z] = &disposable[z]; }
+	for (int z = 0; z < Num_Of_CItem_Armor; ++z) { Item_Ref.Item_type[8][z] = &armor[z]; }
+	for (int z = 0; z < Num_Of_CItem_Accessory; ++z) { Item_Ref.Item_type[9][z] = &accessory[z]; }
+	for (int z = 0; z < Num_Of_CItem_Etc; ++z) { Item_Ref.Item_type[10][z] = &etc[z]; }
 
 	//const int	ItemAttrMax[11] = {
 	//	ITEM_Plant_MAX, ITEM_Mineral_MAX, ITEM_Herb_MAX, ITEM_Cook_MAX, ITEM_Potion_MAX, ITEM_Tool_MAX,

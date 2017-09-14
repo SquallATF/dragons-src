@@ -202,11 +202,11 @@ LINECOMMAND LC[MAX_LINE_COMMAND_] =
 	{"", LC_RAID_START}, // CSD-040310
 	{"", LC_RAID_END}, // CSD-040310
 	//>>kyo
-	{"", 0},  //貫零꼇硫, 衢役켤契㈘쓱壎賤?속몸0윱輕념
-	{"", 0},  //貫零꼇硫, 衢役켤契㈘쓱壎賤?속몸0윱輕념
-	{"", LC_LINERESET_POINT}, //墩 駐?90822
-	{"", LC_MINIWINDOW_MODE}, //墩 駐?90822
-	{"", LC_MAXWINDOW_MODE}, //墩 駐?90822
+	{"", 0},  //位置不准,上面的有些删除掉了,加个0来填充
+	{"", 0},  //位置不准,上面的有些删除掉了,加个0来填充
+	{"", LC_LINERESET_POINT}, //月神夜090822
+	{"", LC_MINIWINDOW_MODE}, //月神夜090822
+	{"", LC_MAXWINDOW_MODE}, //月神夜090822
 
 	{"", 0} };  //> CSD-030311
 
@@ -977,44 +977,44 @@ int IsLineCommand(char *message, int nsize)
 #endif
 				break;
 			}	//> CSD-040310
-			case LC_LINERESET_POINT: //踏狗櫓路롸듐鑒.墩 駐?90822
+			case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
 			{
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
-				//	CallSmallMenu(MN_INIT_ABILITY);//댔역콘제눗왯
-				CallServer(CMD_RESET_ABILITY);//랙箇路롸변鑒
-				CallMenu(MN_ABILITY);//댔역橄昑꽉데
+				// CallSmallMenu(MN_INIT_ABILITY);	//打开能力窗口
+				CallServer(CMD_RESET_ABILITY);		//发送重分函数
+				CallMenu(MN_ABILITY);				//打开属性菜单
 				//CallServer(CMD_OPEN_ABILITY);
 				break;
 			}
-			case 	LC_MINIWINDOW_MODE:	//墩 駐?90822,離鬼뺏눗왯
+			case 	LC_MINIWINDOW_MODE:	//月神夜090822,最小化窗口
 			{
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(230));
 				if (g_DirectDrawInfo.bFullscreen == 1)
 				{
 					//SysInfo.dx = 0;
-					g_DirectDrawInfo.bFullscreen = false;// switch screen//눗왯친駕
+					g_DirectDrawInfo.bFullscreen = false; // switch screen //窗口模式
 					SetWindowLong(g_hwndMain, GWL_STYLE, WS_OVERLAPPEDWINDOW);
 					SetWindowPos(g_hwndMain, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-					ShowWindow(g_hwndMain, SW_MINIMIZE);//극꼇옵 名Х粥識盈譯塑惡?侶쟁邱離鬼뺏寧苟눗왯
-					ShowWindow(g_hwndMain, SW_MAXIMIZE);//극꼇옵 名Х粥識盈譯塑惡?횔빈侶離댕뺏寧苟눗왯,앎샴삶죄
+					ShowWindow(g_hwndMain, SW_MINIMIZE); //必不可少，否则界面会变乱,这里先最小化一下窗口
+					ShowWindow(g_hwndMain, SW_MAXIMIZE); //必不可少，否则界面会变乱,然后这最大化一下窗口,就激活了
 				}
 				else
 				{
-					Kein_PutMessage(KM_INFO, kein_GetMenuString(231));//侶몸角뗍혤MENUSTRING.TXT쟁句口돨,옵鹿菱성속
+					Kein_PutMessage(KM_INFO, kein_GetMenuString(231)); //这个是读取MENUSTRING.TXT里消息的,可以自己加
 				}
 				break;
 			}
-			case	LC_MAXWINDOW_MODE:	//墩 駐?90822,離댕뺏눗왯
+			case	LC_MAXWINDOW_MODE:	//月神夜090822,最大化窗口
 			{
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(232));
 				if (g_DirectDrawInfo.bFullscreen == 0)
 				{
 					//SysInfo.dx = 1;
-					g_DirectDrawInfo.bFullscreen = true;// switch screen//홍팁친駕
+					g_DirectDrawInfo.bFullscreen = true;// switch screen//全屏模式
 					SetWindowLong(g_hwndMain, GWL_STYLE, WS_POPUP);
 					SetWindowPos(g_hwndMain, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-					ShowWindow(g_hwndMain, SW_MINIMIZE);//극꼇옵 名Х粥識盈譯塑惡?侶쟁邱離鬼뺏寧苟눗왯
-					ShowWindow(g_hwndMain, SW_MAXIMIZE);//극꼇옵 名Х粥識盈譯塑惡?횔빈侶離댕뺏寧苟눗왯,앎샴삶죄
+					ShowWindow(g_hwndMain, SW_MINIMIZE); //必不可少，否则界面会变乱,这里先最小化一下窗口
+					ShowWindow(g_hwndMain, SW_MAXIMIZE); //必不可少，否则界面会变乱,然后这最大化一下窗口,就激活了
 				}
 				else
 				{
@@ -1162,13 +1162,13 @@ void RecvTameCommandResult(int result)
 {
 	switch (result)
 	{
-	case TAME_FAIL_CHANGE_NAME: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 74));		break;//010215 lsw
+	case TAME_FAIL_CHANGE_NAME: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 74)); break;//010215 lsw
 	case TAME_NO_CHAR: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 75)); break;
-	case TAME_NO_NAME_CHAR: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 76));	break;
-	case TAME_FOLLOW: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 77));	break;
-	case TAME_STOP: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 78));	break;
-	case TAME_ATTACK: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 79));	break;
-	case TAME_SUCCESS_CHANGE_NAME: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 80));	break;//010215 lsw
+	case TAME_NO_NAME_CHAR: AddCurrentStatusMessage(214, 100, 122, lan->OutputMessage(3, 76)); break;
+	case TAME_FOLLOW: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 77)); break;
+	case TAME_STOP: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 78)); break;
+	case TAME_ATTACK: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 79)); break;
+	case TAME_SUCCESS_CHANGE_NAME: AddCurrentStatusMessage(114, 100, 122, lan->OutputMessage(3, 80)); break;//010215 lsw
 	}
 }
 

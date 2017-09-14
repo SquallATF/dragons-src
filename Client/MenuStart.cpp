@@ -64,28 +64,32 @@ HANDLE ghThread1; // 스레드 핸들
 DWORD gdwThread1; // 스레드 ID
 
 
-int		dw_TotalImageSize;
-int		g_StartMenuOn;
+int dw_TotalImageSize;
+int g_StartMenuOn;
 
-//	Spr		ch_armor_image_befor[7][80];//020530 lsw
-Spr		ch_armor_image_after[7][80];
-//	Spr		ch_body_image_befor[7][80];
-Spr		ch_body_image_after[7][80];
-//	Spr		ch_line_image_befor[7][80];
-Spr		ch_line_image_after[7][80];
+//Spr ch_armor_image_befor[7][80];//020530 lsw
+Spr ch_armor_image_after[7][80];
 
-//Spr		ch_armor_image_befor_b[7][80];//020530 lsw
-Spr		ch_armor_image_after_b[7][80];
-//Spr		ch_body_image_befor_b[7][80];
-Spr		ch_body_image_after_b[7][80];
-//Spr		ch_line_image_befor_b[7][80];
-Spr		ch_line_image_after_b[7][80];
+//Spr ch_body_image_befor[7][80];
+Spr ch_body_image_after[7][80];
 
-char	*ani_buf[12];
+//Spr ch_line_image_befor[7][80];
+Spr ch_line_image_after[7][80];
+
+//Spr ch_armor_image_befor_b[7][80];//020530 lsw
+Spr ch_armor_image_after_b[7][80];
+
+//Spr ch_body_image_befor_b[7][80];
+Spr ch_body_image_after_b[7][80];
+
+//Spr ch_line_image_befor_b[7][80];
+Spr ch_line_image_after_b[7][80];
+
+char *ani_buf[12];
 
 
-int		character_active = 0;		// 선택된 캐릭터//020815-2 lsw
-int		move_text_flag;
+int character_active = 0;		// 선택된 캐릭터//020815-2 lsw
+int move_text_flag;
 
 // BOOL RButtonDown;
 BOOL LButtonDown;                      //마우스 왼쪽버튼이 눌렸었는지 안눌렸었는지 표시
@@ -207,59 +211,67 @@ BYTE CheakArray[MAX_CHEAKARRAY][16][33] =
 
 //메뉴에 사용해서 필요시 로드할 이미지의 번호를 저장하는 메뉴 끝부분은 9999로 값을 넣는다
 int aMenuImageNumber[8][MAX_MENUDATA * 5] = {
-	/* 0 */{ 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10, 11, 12, 13, 14,17, 18, 19, 20, 22, 24, 25, 26, 27, 28, 29, 30, 31,73,74,75,76,77,80, // 스타트
+	/* 0 */
+	{ 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 , 10, 11, 12, 13, 14,17, 18, 19, 20, 22, 24, 25, 26, 27, 28, 29, 30, 31,73,74,75,76,77,80, // 스타트
 	81,82,83,32, 33, 34, 64, 65, 66, 67, 68, 142,143,144,206,207,208,209,242,243,244,400,401,486,549,550,551,552,553,554,555,556,
 	557,558,503,510,511,512,513,514,515,516,517,153,823,824,825,826,827,828,829,830,831,832,833,834,835,836,837,838,543,544,
 	839,840,841,MAX_SYSDAT + 3,MAX_SYSDAT + 2, 844,845,846,847,76,77,468,469,470,471,472,473,305,306,307,308,309,877,878,879, 240,
 	906,907,908,909,910,911,912,913,914,915,916,917,918,919,920,921,922,923,924,925,926,927,928,929,930, 9999, },
 
-	/* 1 */{ 21, 35, 36, 37, 69, 120,121,122,123,124,125,126,127,128,129,130,131,145,146,147,148,149,150,151,152,172,173,174,175,176,310, // 메인
+	/* 1 */
+	{ 21, 35, 36, 37, 69, 120,121,122,123,124,125,126,127,128,129,130,131,145,146,147,148,149,150,151,152,172,173,174,175,176,310, // 메인
 	177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,245,246,247,248,249,250,
 	251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269,270,271,272,273,274,275,276,277,278,279,280,
 	281,282,283,311,312,313,314,315,316,317,318,319,320,321,322,323,324,325,326,327,328,329,330,331,332,333,334,335,336,337,
 	338,339,340,341,342,343,344,345,346,347,348,349,201,202,203,204,205,504,505,301,439,437,440,438,441,442,487,
 	9999, },
 
-	/* 2 */{ 350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,	//메인
+	/* 2 */
+	{ 350,351,352,353,354,355,356,357,358,359,360,361,362,363,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378,379,	//메인
 	380,381,382,383,384,385,386,387,388,389,390,391,392,393,394,395,396,397,398,399,456,457,458,459,460,461,462,463,464,
 	465,466,467,474,475,476,477,478,483,498,508,509,521,MAX_SYSDAT + 4,MAX_SYSDAT + 5,523,524,528,70,72,86,87,499,500,501,241,525,526,527,302 ,
 	502,506,507,488,489,492,493,494,495,496,497,479,480,481,878,879,880,881,882,883,884,885,886,887,888,889,890,891,
 	892,893,894,895,78,79,84,85,944,945,946,947,948,949,950,951,952,953,954,955,956,9999, },
 
-	/* 3 */{ 132,133,134,135,136,137,138,139,140,141,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,		//스몰
+	/* 3 */
+	{ 132,133,134,135,136,137,138,139,140,141,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,		//스몰
 	231,232,233,234,235,236,237,238,239,284,286,287,288,289,290,291,292,293,294,295,300,303,304,490, 491,
 	433,434,435,436,443,444,445,446,447,448,449,450,451,452,453,454,455,586,587,588,589,590,591,592,593,594,595,596,
 	597,598,599,600,601,602,603,604,605,607,608,609,610,611,612,613,614,615,616,617,618,619,620,621,622,623,624,625,626,627,628,
 	629,630,631,632,633,634,635,636,637,9999, },
 
-	/* 4 */{ 38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,90,484,485,0,296,297,298,299, 71,			// 공통	
+	/* 4 */
+	{ 38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,90,484,485,0,296,297,298,299, 71,			// 공통	
 	154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,16,15,285,23,645,646,647,648,649,706,210,
 	211,801,802,803,804,805,806,807,808,809,810,811,812,813,814,815,816,817,758,941,942,943,
 	935,936,957,958,959,960,961,962,963,964,896,897,898,899,900,901,902,903,904,905,
 	9999, },
 
-	/* 5 */{ 559,560,561,562,563,564,565,566,567,568,569,570,571,572,573,574,575,576,577,578,579,580,581,582,583,584,585,638,639,640,	// 메인 추가	
+	/* 5 */
+	{ 559,560,561,562,563,564,565,566,567,568,569,570,571,572,573,574,575,576,577,578,579,580,581,582,583,584,585,638,639,640,	// 메인 추가	
 	641,642,643,644,760,761,762,763,764,765,767,768,769,770,771,772,773,774,775,776,777,778,779,780,781,782,783,784,
 	785,786,766,848,849,850,851,852,853,854,855,856,857,858,859,860,861,862,863,864,865,866,867,868,869,870,871,872,873,
 	874,875,876,638,639,640,641,642,643,644,732,733,734,735,736,737,738,931,932,933,934,1022,1023,1024,1025,1026,1027,1028,
 	1029,1030,1031,1032,1033,1034,1035,1036,1037,1038,1039, 1040, MAX_SYSDAT + 1, 9999, },
 
-	/* 6 */{ 402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,	//스몰 추가	
+	/* 6 */
+	{ 402,403,404,405,406,407,408,409,410,411,412,413,414,415,416,417,418,419,420,421,422,423,424,425,426,427,428,429,430,431,	//스몰 추가	
 	432,650,651,652,653,654,655,656,657,658,659,660,661,662,663,664,665,666,667,668,669,670,671,672,673,674,759,
 	675,676,677,678,679,680,681,682,683,684,685,686,687,688,689,690,691,692,693,694,695,696,697,698,699,700,701,702,703,704,
 	705,707,708,709,710,711,712,713,714,715,716,717,718,719,720,721,722,723,724,725,726,727,728,729,730,731,
 	965,966,967,968,969,970,971,972,973,974,975,976,977,978,979,980,981,982,983,984,985,986,987,988,989,990,991,992,993,
 	994,995,996,997,998,999,1000,9999, },
 
-	/* 7 */{ 739,740,741,742,743,744,745,746,747,748,749,750,751,752,753,754,755,756,757,787,788,789,790,791,792,793,794,795,796,797,	//스몰 추가	
+	/* 7 */
+	{ 739,740,741,742,743,744,745,746,747,748,749,750,751,752,753,754,755,756,757,787,788,789,790,791,792,793,794,795,796,797,	//스몰 추가	
 	798,799,800,529,530,531,532,533,534,535,536,537,538,539,540,541,542,545,546,547,548,818,819,820,821,822,1001,1002,1003,1004,
 	1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,518,519,520,9999, },
 };
 
 
-int menu[] = {//	MN_MAINSTART_BACK,
-			  //	MN_LOGO_START_SAMSUNG,
-
+int menu[] = {
+	//MN_MAINSTART_BACK,
+	//MN_LOGO_START_SAMSUNG,
 	MN_MAKECHARACTER_BASIC,
 	MN_MAINSTART_BASIC,
 	MN_MAINSTART_START,
@@ -306,14 +318,12 @@ int menu[] = {//	MN_MAINSTART_BACK,
 	MN_SELECT_TUTORIAL_LOGIN,//020815-2 lsw
 
 	MN_SYSTEM_LOGOUT,
-
-
 };
 
-const int MAX_START = (int) sizeof(menu) / sizeof(int);//020815-2 lsw
+const int MAX_START = (int) sizeof(menu) / sizeof(int);	//020815-2 lsw
 
-													   //010216 lsw
-													   //char NationName[7][20] = { "중립", "","", "바이서스", "자이펀", "헤게모니아", "일스" };
+//010216 lsw
+//char NationName[7][20] = { "중립", "","", "바이서스", "자이펀", "헤게모니아", "일스" };
 char NationName[8][20];
 
 char *GetNationName(int nation)
@@ -325,7 +335,7 @@ const DWORD NationColor[7] = { RGB(200,200,255), RGB(200,200,255), RGB(200,200,2
 const WORD NationColor16[7] = { RGB16(200,200,255), RGB16(200,200,255), RGB16(200,200,255), RGB16(0,0,255), RGB16(255,0,0),  RGB16(200,200,255), RGB16(215,215,145) };
 
 void	StartMenuSubProcessType(SMENU *SubMenu);                //메뉴 구성요소에 타입을 판별해서 실행
-void	SetCharacterData();                   //nCharacterData 변수값을 구조체들 안에 대입
+void	SetCharacterData();										//nCharacterData 변수값을 구조체들 안에 대입
 int		k_PutImage(int x, int y, int nImageNumber, BOOL bEnd);		//x, y좌표로 이미지 연출
 																	//상위 메뉴의 x,상위 메뉴의 y,찍힐 상대적인 x,찍힐 상대적인 y,찍힐 이미지
 void	FieldTypeNomalPutFx(int mx, int my, int x, int y, int nImageNumber, int t, int j);
@@ -340,7 +350,7 @@ int		ImgToAbility(int num_to_img[10], int img);				// 주사위 굴릴때, 이�
 void	DoLButtonDoubbleClickOfStartMenu(int i, int j);
 void	SetDamageOfHero(SCharacter *ch);						//	기본 공격력 설정 
 void	InitStartMenu();				// 외모 색 초기 설정을 위해 -1로 셋팅 
-										//void	LoadOpenningSpr( char *filename, BYTE **buf, Spr *spr );	// 020701 YGI
+//void	LoadOpenningSpr( char *filename, BYTE **buf, Spr *spr );	// 020701 YGI
 
 
 int CalCreateMoney(const SCharacter *s);
@@ -405,7 +415,7 @@ void FieldTypeNomalPutFx3(int mx, int my, int x, int y, int nImageNumber, int ty
 	if (s)
 	{
 		PutCompressedImageFX(mx + x + s->ox, my + y + s->oy, s, t, j);
-		//	PutCompressedImage(mx+x+s->ox, my+y+s->oy, s);
+		//PutCompressedImage(mx+x+s->ox, my+y+s->oy, s);
 	}
 }
 
@@ -522,7 +532,6 @@ void FreeMenuData(int nNum)
 		i++;
 	}
 }
-
 
 
 //변경시 int GetRectTextLine을 맞 춰 줄 수 있어야 합니다 
@@ -1073,10 +1082,7 @@ inline void UpperMenuNomalPut(int &x, int y, int nImageNumber, int type)
 
 //###########################################################################################//
 //###########################################################################################//
-//###########################################################################################//
-//###########################################################################################//
 //마우스상황에 따른 메뉴의 처리
-
 
 void StartMenuChecking()
 {
@@ -1100,21 +1106,6 @@ void StartMenuChecking()
 
 				switch (SMenu[i].CheakType)
 				{
-				default: {
-					if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SMenu[i].nField[j].rCheakBox))	SMenu[i].nField[j].fRectMouse = TRUE;
-					else	SMenu[i].nField[j].fRectMouse = false;
-
-					if (SMenu[i].nField[j].nType == FT_HIDE_NOMAL_ONE_PUT)
-					{
-						for (k = SMenu[i].nField[j].nSHideNomalStart; k < (SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k < SMenu[i].nField[j].nSHideNomalCount; k++)
-						{
-							if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].rCheakBox))
-								SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].bRect = true;
-							else SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].bRect = false;
-						}
-					}
-					break;
-				}
 				case 1:											// 배열형
 				case 2: {
 					int ArrayX = (g_pointMouseX - (SMenu[i].x + 31)) / 10;
@@ -1138,30 +1129,45 @@ void StartMenuChecking()
 					}
 					break;
 				}
-						//case 3:	{
-						//	int ArrayX=(g_pointMouseX - (SMenu[i].x + 202) )/8;
-						//	int ArrayY=(g_pointMouseY - (SMenu[i].y + 390) )/13;
-						//	if( (ArrayX >= 0) && (ArrayX <= 15)  &&  (ArrayY >=0) && (ArrayY <=15) ) // 마우스를 이용해 구한 좌표가 배열에 들어가냐?
-						//	{
-						//		if( ( (CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j ) )
-						//				SMenu[i].nField[j].fRectMouse = true;
-						//		else 
-						//		{
-						//			SMenu[i].nField[j].fRectMouse=false;
-						//			SMenu[i].nField[j].fLButtonDown=false;
-						//			SMenu[i].nField[j].fCheakFlag=false;
-						//		}
-						//	}
-						//	else	
-						//	{
-						//			SMenu[i].nField[j].fRectMouse=false;
-						//			SMenu[i].nField[j].fLButtonDown=false;
-						//	//		SMenu[i].nField[j].fCheakFlag=false;
-						//	}
-						//	break;
-						//}
+				//case 3:	{
+				//	int ArrayX=(g_pointMouseX - (SMenu[i].x + 202) )/8;
+				//	int ArrayY=(g_pointMouseY - (SMenu[i].y + 390) )/13;
+				//	if( (ArrayX >= 0) && (ArrayX <= 15)  &&  (ArrayY >=0) && (ArrayY <=15) ) // 마우스를 이용해 구한 좌표가 배열에 들어가냐?
+				//	{
+				//		if( ( (CheakArray[SMenu[i].CheakType - 1][ArrayY][ArrayX] - 1) == j ) )
+				//				SMenu[i].nField[j].fRectMouse = true;
+				//		else 
+				//		{
+				//			SMenu[i].nField[j].fRectMouse=false;
+				//			SMenu[i].nField[j].fLButtonDown=false;
+				//			SMenu[i].nField[j].fCheakFlag=false;
+				//		}
+				//	}
+				//	else	
+				//	{
+				//			SMenu[i].nField[j].fRectMouse=false;
+				//			SMenu[i].nField[j].fLButtonDown=false;
+				//	//		SMenu[i].nField[j].fCheakFlag=false;
+				//	}
+				//	break;
+				//}
+				default: {
+					if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SMenu[i].nField[j].rCheakBox))	SMenu[i].nField[j].fRectMouse = TRUE;
+					else	SMenu[i].nField[j].fRectMouse = false;
+
+					if (SMenu[i].nField[j].nType == FT_HIDE_NOMAL_ONE_PUT)
+					{
+						for (k = SMenu[i].nField[j].nSHideNomalStart; k < (SMenu[i].nField[j].nSHideNomalStart) + (SMenu[i].nField[j].nShideNomalPlus) && k < SMenu[i].nField[j].nSHideNomalCount; k++)
+						{
+							if (MouseInRectCheak(SMenu[i].x, SMenu[i].y, SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].rCheakBox))
+								SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].bRect = true;
+							else SHideNomal[SMenu[i].nField[j].nSHideNomalNumber][k].bRect = false;
+						}
+					}
+					break;
 				}
-			}
+				} // switch
+			} // for
 		}
 		else
 		{
