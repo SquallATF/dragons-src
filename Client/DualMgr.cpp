@@ -424,13 +424,15 @@ static int StepToItemNo(BYTE nStep)
 // add by taniey
 void CDualMgr::RecvDualMsg(t_dual_message* pPacket)
 {
-	const string strMsg = ::lan->OutputMessage(pPacket->nKind, pPacket->nNumber);
+	string strMsg = ::lan->OutputMessage(pPacket->nKind, pPacket->nNumber);
 
 	switch (pPacket->nNumber)
 	{
 	case 665: {
 		Message(pPacket->nType, strMsg.c_str(), pPacket->nStep);
-		break;
+
+		strMsg = ::lan->OutputMessage(pPacket->nKind, 666);   // reset need level msg
+		//break;
 	}
 	case 666: {
 		int nLevel = 0;

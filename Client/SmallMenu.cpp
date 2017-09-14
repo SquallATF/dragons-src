@@ -2106,7 +2106,8 @@ int ItemExplainAfterMenuDisplay(int prev)			// 나중에 설명을 띄운다.
 	int ret = 0;
 	static ItemAttr ExplainItem_back = ExplainItemAttr;
 
-	if ((ExplainItem_back.item_no != ExplainItemAttr.item_no) || (ExplainItem_back.attr[IATTR_DURATION] != ExplainItemAttr.attr[IATTR_DURATION]))				// 마지막 프레임에 설명한번 더 찍기
+	if ((ExplainItem_back.item_no != ExplainItemAttr.item_no) ||
+		(ExplainItem_back.attr[IATTR_DURATION] != ExplainItemAttr.attr[IATTR_DURATION]))				// 마지막 프레임에 설명한번 더 찍기
 	{
 		if (ExplainItem_back.item_no && !ExplainItemAttr.item_no)
 		{
@@ -10168,15 +10169,18 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 		{
 		case REMAIN_ITEM:
 		case USE_ITEM:
+		case DUAL_CHANGE_ITEM:
 		{
 			msg = 1;
 			strcpy(temp_str, lan->OutputMessage(7, 159));
-		}break;
+			break;
+		}
 		case DIVIDE_ITEM:
 		{
 			msg = 1;
 			strcpy(temp_str, lan->OutputMessage(7, 160));
-		}break;
+			break;
+		}
 		case MAGIC_BOOK_ITEM:
 		{
 			if (SCharacterData.nCharacterData[SPELL] == WIZARD_SPELL)
@@ -10184,7 +10188,8 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 				msg = 1;
 				strcpy(temp_str, lan->OutputMessage(7, 161));
 			}
-		}break;
+			break;
+		}
 		case DIARY_ITEM:
 		case BOX_ITEM:
 			break;
@@ -10192,9 +10197,10 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 		{
 			msg = 1;
 			strcpy(temp_str, lan->OutputMessage(7, 175)); //011212 lsw
+			break;
 		}
-
-		default:				break;
+		default:
+			break;
 		}
 
 	}
