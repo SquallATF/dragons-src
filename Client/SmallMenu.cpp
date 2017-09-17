@@ -253,8 +253,8 @@ bool ReadHouseTable()
 	FILE *fp;
 	char	filename[MAX_FILENAME], filenameBin[MAX_FILENAME];
 
-	sprintf(filename, "./itemtable/housetable.txt");
-	sprintf(filenameBin, "./itemtable/housetable.bin");
+	sprintf_s(filename, "./itemtable/housetable.txt");
+	sprintf_s(filenameBin, "./itemtable/housetable.bin");
 
 	if (fp = Fopen(filename, "rt"))
 	{
@@ -394,7 +394,7 @@ void SettingChangMapMenu(int ct)
 	{
 		char str[10];
 		char ch = ct / 10 + 'A';
-		if (ch >= 'A' && ch <= 'Z') sprintf(str, "%c", ch);
+		if (ch >= 'A' && ch <= 'Z') sprintf_s(str, "%c", ch);
 		FieldTypeTextPut(100, GAME_SCREEN_YSIZE - 30, ct, 0, str);
 	}
 	for (int k = 0; k < ct && ct < 440; k++) FieldTypeNomalPut(0, 0, 105 + k, GAME_SCREEN_YSIZE - 10, gauge);	// 차오르는 게이지바 찍기
@@ -4227,13 +4227,13 @@ void LoadHouseImage(int is_open)
 
 	if (is_open == OPEN_HOUSE)
 	{
-		sprintf(temp, "./data/%s", "openhouse.dat");
+		sprintf_s(temp, "./data/%s", "openhouse.dat");
 		s = openhouse;
 		buf = &openbuf;
 	}
 	else
 	{
-		sprintf(temp, "./data/%s", "closehouse.dat");
+		sprintf_s(temp, "./data/%s", "closehouse.dat");
 		s = closehouse;
 		buf = &closebuf;
 	}
@@ -5237,7 +5237,7 @@ void PutStartLodingImg()//020515 lsw
 	memset(&t, 0, sizeof(Spr));
 	Spr *s = &t;
 	char filename[MAX_FILENAME];
-	sprintf(filename, "./data/Loading.dat");
+	sprintf_s(filename, "./data/Loading.dat");
 	LoadSpriteOnlyOne(s, filename);
 	if (s->img)
 	{
@@ -5630,25 +5630,25 @@ void PutDirectBoardMenu(const DIRECTBOARDDATA *lpDB)
 	if (lpDB->str_East[0])
 	{
 		SMenu[MN_DISTANCE_TABLE].nField[ct].nWillDo = 1;
-		sprintf(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_East);
+		sprintf_s(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_East);
 		ct++;
 	}
 	if (lpDB->str_South[0])
 	{
 		SMenu[MN_DISTANCE_TABLE].nField[ct].nWillDo = 2;
-		sprintf(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_South);
+		sprintf_s(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_South);
 		ct++;
 	}
 	if (lpDB->str_West[0])
 	{
 		SMenu[MN_DISTANCE_TABLE].nField[ct].nWillDo = 3;
-		sprintf(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_West);
+		sprintf_s(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_West);
 		ct++;
 	}
 	if (lpDB->str_North[0])
 	{
 		SMenu[MN_DISTANCE_TABLE].nField[ct].nWillDo = 4;
-		sprintf(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_North);
+		sprintf_s(SMenu[MN_DISTANCE_TABLE].nField[ct].temp, "%s", lpDB->str_North);
 		ct++;
 	}
 
@@ -5661,7 +5661,7 @@ void PutBoardMenu(int cn, char *name)
 {
 	SMenu[MN_STORE_SIGN].bActive = true;
 	SMenu[MN_STORE_SIGN].work = 150;
-	sprintf(SMenu[MN_STORE_SIGN].nField[0].temp, "%s", name);
+	sprintf_s(SMenu[MN_STORE_SIGN].nField[0].temp, "%s", name);
 }
 
 
@@ -5915,7 +5915,7 @@ bool CaptureScreenForJpg2(int file_num, Spr *pSpr)
 {	//< CSD-030324
 	if (!GetSysInfo(SI_GAME_MAKE_MODE)) return false;
 	char szFileName[MAX_PATH];
-	sprintf(szFileName, "./graphic_data/%04d.jpg", file_num);
+	sprintf_s(szFileName, "./graphic_data/%04d.jpg", file_num);
 
 	JPEG_CORE_PROPERTIES image = { 0, };
 
@@ -6020,10 +6020,10 @@ bool CaptureScreenForJpg(void)//020926 lsw
 
 	char szTargetFolder[MAX_PATH] = { 0, };
 	const char szScreenShotFolder[] = "/MyScreenshot";
-	sprintf(szTargetFolder, "%s%s", GetCurrentWorkingDirectory(), szScreenShotFolder);
+	sprintf_s(szTargetFolder, "%s%s", GetCurrentWorkingDirectory(), szScreenShotFolder);
 
 	_mkdir(szTargetFolder);
-	sprintf(szFileName, "%s/Save %d-%d-%d %d-%d(%d).jpg", //2002 09 25 11 15
+	sprintf_s(szFileName, "%s/Save %d-%d-%d %d-%d(%d).jpg", //2002 09 25 11 15
 		szTargetFolder,
 		time.wYear,
 		time.wMonth,
@@ -6137,7 +6137,7 @@ void CallGodMenuMessage(char *msg, int believe)
 {
 	int pre_menu = GetMenuNumByBelieveGod(believe);
 	CallSmallMenu(MN_GOD_REGIST_MESSAGE, pre_menu);
-	sprintf(SMenu[MN_GOD_REGIST_MESSAGE].nField[2].temp, "%s", msg);
+	sprintf_s(SMenu[MN_GOD_REGIST_MESSAGE].nField[2].temp, "%s", msg);
 }
 
 
@@ -7752,7 +7752,7 @@ void SetSmallMapMenu()
 	}
 
 	char filename[FILENAME_MAX];
-	sprintf(filename, "./data/map%02d.pos", MapNumber);
+	sprintf_s(filename, "./data/map%02d.pos", MapNumber);
 	FILE *fp;
 	fp = Fopen(filename, "rt");
 	if (fp)
@@ -7924,7 +7924,7 @@ int LoadSmallMapSprData(int map_number)
 	}
 
 	char filename[FILENAME_MAX];
-	sprintf(filename, "./data/map%02d.dat", map_number);
+	sprintf_s(filename, "./data/map%02d.dat", map_number);
 	LoadOpenningSpr(filename, &small_map_buf, small_map_spr);
 	return small_map_spr[0].img ? 1 : 0;
 }	//> CSD-030324
@@ -8218,7 +8218,7 @@ void SetMenuExplain(int type, int menu, int start_field)
 {
 	return;
 	char filename[FILENAME_MAX];
-	sprintf(filename, "./data/explain%02d.exp", type);
+	sprintf_s(filename, "./data/explain%02d.exp", type);
 	FILE *fp;
 	fp = Fopen(filename, "rt");
 	if (!fp) return;
@@ -8261,7 +8261,7 @@ void SetMenuExplain(int type, int menu, int start_field)
 			if (len > 500) JustMsg("it's very long  [%d]", len);
 		}
 
-		sprintf(SMenu[menu].nField[start_field + count].temp, "%s\n%s", name_temp, token);
+		sprintf_s(SMenu[menu].nField[start_field + count].temp, "%s\n%s", name_temp, token);
 
 		count++;
 	}
@@ -9236,7 +9236,7 @@ BOOL LaunchApplication_kein(char *app_name, char *arg)
 	char full_name[255];
 
 	HKEY hKey;
-	sprintf(value, "%s/shell/open/command", app_name);
+	sprintf_s(value, "%s/shell/open/command", app_name);
 	int ret = RegOpenKeyEx(HKEY_CLASSES_ROOT, value, 0, KEY_ALL_ACCESS, &hKey);
 	if (ret != ERROR_SUCCESS) return 0;
 
@@ -9247,7 +9247,7 @@ BOOL LaunchApplication_kein(char *app_name, char *arg)
 	RegCloseKey(hKey);
 	if (ret != ERROR_SUCCESS) return 0;
 
-	sprintf(full_name, "%s %s", full_name, arg);
+	sprintf_s(full_name, "%s %s", full_name, arg);
 	ret = WinExec(full_name, SW_SHOWNORMAL);
 	if (ret > 31) return true;
 	else return false;
@@ -9669,7 +9669,7 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 		temp_str[0] = NULL;
 		for (int i = 0; i < need_count; i++)
 		{
-			sprintf(temp_str, "%s  %d %s", temp_str, need_value[i], string_ability[need_type[i]]);
+			sprintf_s(temp_str, "%s  %d %s", temp_str, need_value[i], string_ability[need_type[i]]);
 		}
 		//< CSD-030324
 #ifndef USA_LOCALIZING_ // thai2 YGI
@@ -9683,8 +9683,8 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 #endif
 	//> CSD-030324
 		iCt += iReultLineCount;
-		//		iReultBlankSize = TxtOut.RcBlankOut(x,y+iBlk+iLGab*iCt,iWidth,1);
-		//		iBlk+=iReultBlankSize;
+		//iReultBlankSize = TxtOut.RcBlankOut(x,y+iBlk+iLGab*iCt,iWidth,1);
+		//iBlk+=iReultBlankSize;
 	}
 
 	if (!IsEquipAbleClass(item->GetClassWarriorAble(), item->GetClassThiefAble(),
@@ -9924,9 +9924,11 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 		{
 			for (; iCheckNeedCount < need_count; )
 			{
-				sprintf(temp_str, "%s %s %+d", temp_str, string_up_point_abilit[need_type[iCheckNeedCount]], need_value[iCheckNeedCount]);
+				sprintf_s(temp_str, "%s %s %+d", temp_str, string_up_point_abilit[need_type[iCheckNeedCount]], need_value[iCheckNeedCount]);
 				iCheckNeedCount++;
-				if (!(iCheckNeedCount % 4)) { break; }
+				if (!(iCheckNeedCount % 4)) {
+					break;
+				}
 			}
 			Hcolor(FONT_COLOR_PLUS);
 			//< CSD-030324			
@@ -10044,17 +10046,18 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 
 		for (int ii = 0; ii < 6; ii++)
 		{
-			sprintf(anti_name[ii], "%s", lan->OutputMessage(5, ii + 107));//lsw
+			sprintf_s(anti_name[ii], "%s", lan->OutputMessage(5, ii + 107));//lsw
 		}
 
 		for (int i = 0; i < 6; i++)
 		{
 			if (anti[i])
 			{
-				if (!i) strcpy(temp_str, anti_name[i]);
-				else sprintf(temp_str, "%s %s", temp_str, anti_name[i]);
+				char local_str[256] = { 0 };
+				if (!i) strcpy(local_str, anti_name[i]);
+				else sprintf_s(local_str, "%s %s", temp_str, anti_name[i]);
 
-				sprintf(temp_str, "%s %d", temp_str, anti[i]);
+				sprintf_s(temp_str, "%s %d", local_str, anti[i]);
 			}
 		}
 
@@ -10069,16 +10072,17 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 	rate = item->GetItemWeight();
 	if (rate)
 	{
-		sprintf(temp_str, lan->OutputMessage(7, 153), rate);
+		char local_str[256] = { 0 };
+		sprintf_s(local_str, lan->OutputMessage(7, 153), rate);
 		if (item->GetRButton() == DIVIDE_ITEM)
 		{
-			sprintf(temp_str, lan->OutputMessage(7, 154), temp_str, olg_item->attr[IATTR_MUCH]);
+			sprintf_s(temp_str, lan->OutputMessage(7, 154), local_str, olg_item->attr[IATTR_MUCH]);
 		}
 		else
 		{
 			WORD d_max, d_curr;
 			GetItemDuration(*olg_item, d_curr, d_max);
-			sprintf(temp_str, lan->OutputMessage(7, 155), temp_str, d_curr / 10, d_max / 10);
+			sprintf_s(temp_str, lan->OutputMessage(7, 155), local_str, d_curr / 10, d_max / 10);
 		}
 	}
 	else
@@ -10086,17 +10090,17 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 		if (item->GetRButton() == DIVIDE_ITEM)
 		{
 			if (kind == IK_MONEY)
-				sprintf(temp_str, "%d CELL", olg_item->attr[IATTR_MUCH]);
+				sprintf_s(temp_str, "%d CELL", olg_item->attr[IATTR_MUCH]);
 			if (kind == IK_NEW_MONEY)
-				sprintf(temp_str, "%d CRIT", olg_item->attr[IATTR_MUCH]);
+				sprintf_s(temp_str, "%d CRIT", olg_item->attr[IATTR_MUCH]);
 			else
-				sprintf(temp_str, lan->OutputMessage(7, 156), olg_item->attr[IATTR_MUCH]);
+				sprintf_s(temp_str, lan->OutputMessage(7, 156), olg_item->attr[IATTR_MUCH]);
 		}
 		else
 		{
 			WORD d_max, d_curr;
 			GetItemDuration(*olg_item, d_curr, d_max);
-			sprintf(temp_str, lan->OutputMessage(7, 157), d_curr / 10, d_max / 10);
+			sprintf_s(temp_str, lan->OutputMessage(7, 157), d_curr / 10, d_max / 10);
 		}
 	}
 
@@ -10127,13 +10131,13 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 
 		temp_str[0] = NULL;
 		Hcolor(FONT_COLOR_BLIGHT_GREEN);
-		if (iNeeds & LEGEND_NEED_WEAPON) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 801)); }
-		if (iNeeds & LEGEND_NEED_SHIELD) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 802)); }
-		if (iNeeds & LEGEND_NEED_HELMET) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 803)); }
-		if (iNeeds & LEGEND_NEED_ARMOR) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 804)); }
-		if (iNeeds & LEGEND_NEED_NECK) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 805)); }
-		if (iNeeds & LEGEND_NEED_SHOES) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 806)); }
-		if (iNeeds & LEGEND_NEED_UNIQUE) { sprintf(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 807)); }
+		if (iNeeds & LEGEND_NEED_WEAPON) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 801)); }
+		if (iNeeds & LEGEND_NEED_SHIELD) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 802)); }
+		if (iNeeds & LEGEND_NEED_HELMET) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 803)); }
+		if (iNeeds & LEGEND_NEED_ARMOR) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 804)); }
+		if (iNeeds & LEGEND_NEED_NECK) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 805)); }
+		if (iNeeds & LEGEND_NEED_SHOES) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 806)); }
+		if (iNeeds & LEGEND_NEED_UNIQUE) { sprintf_s(temp_str, "%s %s", temp_str, lan->OutputMessage(2, 807)); }
 		iReultLineCount = TxtOut.RcTXTOut(x, y + iBlk + iLGab*iCt, iWidth, 0, temp_str);//lsw
 		iCt += iReultLineCount;
 	}
@@ -10421,11 +10425,11 @@ int CheckSelectServer()
 	char temp_server_str[20];
 	for (int i = 1; i <= server_count; i++)
 	{
-		sprintf(temp_server_str, "name%d", i);
+		sprintf_s(temp_server_str, "name%d", i);
 		GetPrivateProfileString("network", temp_server_str, "", server_set[i - 1].server_name, 20, g_szInfoFile);
-		sprintf(temp_server_str, "name%d_host1", i);
+		sprintf_s(temp_server_str, "name%d_host1", i);
 		GetPrivateProfileString("network", temp_server_str, "", server_set[i - 1].server_ip1, 20, g_szInfoFile);
-		sprintf(temp_server_str, "name%d_host2", i);
+		sprintf_s(temp_server_str, "name%d_host2", i);
 		GetPrivateProfileString("network", temp_server_str, "", server_set[i - 1].server_ip2, 20, g_szInfoFile);
 		CRYPT_END
 	}
@@ -11242,7 +11246,7 @@ void CheckBetaForFileName(char *filename)// 메타냐 상용에 따라서 파일
 		{	//< CSD-031030
 			*token = 0;
 			token++;
-			sprintf(result_name, "%s_b5/%s", work_name, token);
+			sprintf_s(result_name, "%s_b5/%s", work_name, token);
 		}	//> CSD-031030
 		FILE *fp = fopen(result_name, "rt");
 		if (fp)
@@ -11610,10 +11614,10 @@ bool PutTestAnimation(const int iGender, const int iClass, const DWORD dwBodyRGB
 		char filename3[MAX_FILENAME] = "";
 		char filename4[MAX_FILENAME] = "";
 
-		sprintf(filename1, "./char/CharAniBig1%1d%1d.spr", iGender, iClass);
-		sprintf(filename2, "./char/CharAniBig2%1d%1d.spr", iGender, iClass);
-		sprintf(filename3, "./char/CharAniBig3%1d%1d.spr", iGender, iClass);
-		sprintf(filename4, "./char/CharAniBig4%1d%1d.spr", iGender, iClass);
+		sprintf_s(filename1, "./char/CharAniBig1%1d%1d.spr", iGender, iClass);
+		sprintf_s(filename2, "./char/CharAniBig2%1d%1d.spr", iGender, iClass);
+		sprintf_s(filename3, "./char/CharAniBig3%1d%1d.spr", iGender, iClass);
+		sprintf_s(filename4, "./char/CharAniBig4%1d%1d.spr", iGender, iClass);
 
 		LoadOpenningSpr(filename1, &test_animation_buf1, test_animation_spr1);
 		LoadOpenningSpr(filename2, &test_animation_buf2, test_animation_spr2);
@@ -11673,7 +11677,7 @@ bool PutTestAnimation2(const int iGender, const int iClass, const DWORD dwBodyRG
 	{
 		FreeTestAnimation();
 		char filename1[MAX_FILENAME] = "";
-		sprintf(filename1, "./char/CharAniSmall%1d%1d.spr", iGender, iClass);
+		sprintf_s(filename1, "./char/CharAniSmall%1d%1d.spr", iGender, iClass);
 		LoadOpenningSpr(filename1, &test_animation_buf5, test_animation_spr5);
 	}
 
