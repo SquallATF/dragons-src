@@ -64,7 +64,9 @@ bool CConnection::SendFromBuffer()
 				return false;
 			}
 		}
-		m_dwSendBufferPosition -= result;
+
+		m_dwSendBufferPosition = (m_dwSendBufferPosition >= result) ? m_dwSendBufferPosition - result : 0;
+		//m_dwSendBufferPosition -= result;
 		memcpy(m_pSendBuffer, m_pSendBuffer + result, m_dwSendBufferPosition);
 	}
 	return true;

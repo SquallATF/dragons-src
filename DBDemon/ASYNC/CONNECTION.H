@@ -21,9 +21,13 @@ class CConnection
 	char*				m_pRecvBuffer;
 
 
-	DWORD				m_dwMaxBufferSize;
-	DWORD				m_dwSendBufferPosition;
-	DWORD				m_dwRecvBufferPosition;
+	//DWORD				m_dwMaxBufferSize;
+	//DWORD				m_dwSendBufferPosition;
+	//DWORD				m_dwRecvBufferPosition;
+	int				m_dwMaxBufferSize;
+	int				m_dwSendBufferPosition;
+	int				m_dwRecvBufferPosition;
+
 public:
 	bool				SendFromBuffer();
 	DWORD				GetSendBufferPosition() {return m_dwSendBufferPosition;}

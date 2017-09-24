@@ -53,6 +53,8 @@ public:
 	void Recv_SymbolUpGrade(t_SYMBOL_ITEM_MSG* pSymbol);
 	void SetDualItem(int n1StClass, int n2StClass, int nLevel);
 	void Recv_SymbolMake(t_SYMBOL_ITEM_MSG* pSymbol);
+	//void Recv_SymbolRestoreToCC(t_SYMBOL_ITEM_MSG* pSymbol);   // add by taniey
+
 	bool IsHave();
 	int m_nPutY;
 	int m_nPutX;

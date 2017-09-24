@@ -122,6 +122,7 @@ public:
 	void RecvDualChange(WORD idMaster, t_client_dual_change* pPacket);
 	void RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket);
 	void RecvResetAbility(WORD idMaster);
+	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
 	//< kjy-040804
 	void RecvResetAbilityItem(WORD idMaster);
 	//> kjy-040804

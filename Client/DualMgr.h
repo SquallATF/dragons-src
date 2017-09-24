@@ -37,6 +37,11 @@ public:
 	void RecvDualMsg(t_dual_message* pPacket);	// add by taniey
 	void Message(int nType, const char* pContext, ...);
 
+	//< add by taniey begin
+	void SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
+	void RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket);
+	//> add by taniey end
+
 public:
 	int GetAbility(BYTE nType);
 

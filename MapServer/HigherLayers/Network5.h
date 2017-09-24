@@ -51,6 +51,7 @@
 #define CMD_RESET_ABILITY        7504
 
 #define CMD_DUAL_MESSAMGE		 7505	// add by taniey
+#define CMD_RESET_DUAL_TO_CC		 7506	// add by taniey
 
 #define CMD_CHAR_INFO_TACTIC 5009 // CSD-TW-030624
 
@@ -573,6 +574,24 @@ struct t_server_dual_divide
 	WORD wPoint;   // 남아있는 Ability Point 개수
 };
 
+struct t_client_reset_dual_to_cc
+{
+	WORD idMaster; // 듀얼 클래스 요청자
+	BYTE nStep;		// INV update level [1-6]
+	BYTE nPara;    // INV 위치
+	BYTE nPosX;    // INV의 X자리
+	BYTE nPosY;    // INV의 Y자리
+};
+
+struct t_server_reset_dual_to_cc
+{
+	WORD idMaster; // 듀얼 클래스 요청자
+	BYTE nStep;		// INV update level [1-6]
+	BYTE nPara;    // INV 위치
+	BYTE nPosX;    // INV의 X자리
+	BYTE nPosY;    // INV의 Y자리
+};
+
 union t_dual
 {
 	t_dual_message dual_msg;				// add by taniey
@@ -582,6 +601,8 @@ union t_dual
 	t_server_dual_change server_dual_change;
 	t_client_dual_divide client_dual_divide;
 	t_server_dual_divide server_dual_divide;
+	t_client_reset_dual_to_cc client_reset_dual_to_cc;
+	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 };
 //
 ///////////////////////////////////////////////////////////////////////////////

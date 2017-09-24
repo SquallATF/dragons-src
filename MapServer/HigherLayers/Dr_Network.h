@@ -2924,6 +2924,8 @@ typedef struct packet
 
 		t_DEL_LOTTO_USER_OK			Lotto_Del_Ok;		// BBD 040127	로또 프로세스 변경
 		t_EVENT_RARE_ITEM_LIST		Event_Item_List;	// BBD 040308	이벤트레어아이템 확인용 구조체
+
+		//t_RRESTORE_TO_CC_MSG restore_to_cc;		// add by taniey
 	} u;
 
 	struct packet *next;

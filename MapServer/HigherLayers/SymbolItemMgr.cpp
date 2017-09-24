@@ -297,7 +297,8 @@ void CSymbolItemMgr::MakeSymbolItem(CHARLIST*	pChar, int nGrade)
 		pChar->quick[5].attr[0] = nGrade;
 
 		//클라이언트로 만들었다는 메세지를 보낸다.
-		t_packet	packet; memset(&packet, 0, sizeof(t_packet));
+		t_packet	packet;
+		memset(&packet, 0, sizeof(t_packet));
 		packet.h.header.type = CMD_SYMBOL_MAKE;
 		packet.h.header.size = sizeof(t_SYMBOL_ITEM_MSG);
 		packet.u.Symbol_Item.m_nGrade = nGrade;

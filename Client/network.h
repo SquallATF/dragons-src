@@ -2650,6 +2650,8 @@ typedef struct packet
 		t_LOTTERY_INFO		Lotto_BroadCast;//soto-HK030924
 
 		t_LOTTOPAPER_SEEK	Lotto_Seek;//soto-Lotto추가.
+
+		//t_RRESTORE_TO_CC_MSG restore_to_cc;		// add by taniey
 	} u;
 
 	struct packet *next;

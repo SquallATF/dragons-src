@@ -608,3 +608,10 @@ void CSymbolMgr_Client::SaveBinFile_Item_Symbol_Abilliy()
 		}
 	}
 }
+
+//// add by taneiy
+//void CSymbolMgr_Client::Recv_SymbolRestoreToCC(t_SYMBOL_ITEM_MSG* pSymbol)
+//{
+//	//SetDualItem(pSymbol->m_nItemNumber, pSymbol->m_nGrade);
+//	::AddCurrentStatusMessage(255, 255, 255, lan->OutputMessage(4, 141));
+//}

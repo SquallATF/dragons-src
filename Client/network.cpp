@@ -2580,6 +2580,10 @@ void RecvCMD_ON_CONNECT(t_packet packet, t_connection *c)
 	::QueuePacket(&packet, 1);
 }
 
+void RecvCMD_Restore_To_CC(t_packet packet, t_connection *c)
+{
+}
+
 int HandleCommand(t_connection *c)
 {
 #ifdef USE_PROFILER	// 031013 kyo
@@ -3744,6 +3748,11 @@ int HandleCommand(t_connection *c)
 		case CMD_DUAL_MESSAMGE:
 		{
 			g_mgrDual.RecvDualMsg(&packet.u.dual.dual_msg);
+			break;
+		}
+		case CMD_RESET_DUAL_TO_CC:
+		{	// add by taniey
+			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_restore_to_cc);
 			break;
 		}
 		case CMD_ON_CONNECT:

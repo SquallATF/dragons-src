@@ -986,7 +986,7 @@ int IsLineCommand(char *message, int nsize)
 				//CallServer(CMD_OPEN_ABILITY);
 				break;
 			}
-			case 	LC_MINIWINDOW_MODE:	//月神夜090822,最小化窗口
+			case LC_MINIWINDOW_MODE:	//月神夜090822,最小化窗口
 			{
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(230));
 				if (g_DirectDrawInfo.bFullscreen == 1)
@@ -1004,7 +1004,7 @@ int IsLineCommand(char *message, int nsize)
 				}
 				break;
 			}
-			case	LC_MAXWINDOW_MODE:	//月神夜090822,最大化窗口
+			case LC_MAXWINDOW_MODE:	//月神夜090822,最大化窗口
 			{
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(232));
 				if (g_DirectDrawInfo.bFullscreen == 0)

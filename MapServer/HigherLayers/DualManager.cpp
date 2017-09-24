@@ -431,6 +431,11 @@ void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
 	}	//> 101分点
 }
 
+void  CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket)
+{
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Protected Method
 ///////////////////////////////////////////////////////////////////////////////
@@ -720,3 +725,4 @@ void CDualManager::RecvResetAbilityEachStat(WORD idMaster, const int Statkind /*
 		::OutMessage(pMaster, 0, 500);//임시,,인벤토리 공간이 충분치 않습니다.
 	}//> CSD-030806
 }
+

@@ -1818,6 +1818,11 @@ int HandleCommand(int cn, t_packet *packet)
 		g_pDualManager->RecvResetAbility(cn);
 		break;
 	}
+	case CMD_RESET_DUAL_TO_CC:
+	{
+		g_pDualManager->RecvResetDualToCC(cn, &packet->u.dual.client_reset_dual_to_cc);
+		break;
+	}
 	case CMD_RARE_UPGRADE_BBS_MAP_TO_MAP:
 	{	//< CSD-CN-031213
 		packet->h.header.type = CMD_RARE_UPGRADE_BBS;

@@ -489,3 +489,14 @@ void CDualMgr::Message(int nType, const char* pContext, ...)
 	case MK_INFORMATION:	{ ::AddCurrentStatusMessage(200, 200, 200, szBuffer); break; }
 	}
 }
+
+//< add by taniey
+void CDualMgr::SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
+{
+
+}
+
+void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket)
+{
+
+}

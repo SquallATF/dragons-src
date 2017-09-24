@@ -208,6 +208,8 @@
 
 #define		CMD_DEL_LOTTO_USER_OK					20418	// BBD 040127	로또프로세스 변경
 
+//#define		CMD_RESET_DUAL_TO_CC						264500	// add taniey
+
 //<soto-HK030924
 typedef struct	tag_LOTTERY_INFO
 {
@@ -281,6 +283,15 @@ typedef struct tag_SYMBOL_ITEM_MSG
 	int	m_nGrade; // 1이 고정.
 } t_SYMBOL_ITEM_MSG;
 //> soto-030418
+
+////< add by taniey
+//typedef struct tag_RRESTORE_TO_CC_MSG
+//{
+//	int nCanFlag;		// can restore to cc or not. 1, can; 2, not can;
+//	int nItemNumber;
+//	int	nGrade; // 1이 고정.
+//} t_RRESTORE_TO_CC_MSG;
+////> 
 
 //<soto-Lotto추가.
 typedef struct tag_LOTTOPAPER_SEEK
