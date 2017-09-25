@@ -37,7 +37,6 @@ NetWork5.h :
 struct t_client_reset_dual_to_cc
 {
 	WORD idMaster; // 듀얼 클래스 요청자
-	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;    // INV 위치
 	BYTE nPosX;    // INV의 X자리
 	BYTE nPosY;    // INV의 Y자리
@@ -46,7 +45,6 @@ struct t_client_reset_dual_to_cc
 struct t_server_reset_dual_to_cc
 {
 	WORD idMaster; // 듀얼 클래스 요청자
-	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;    // INV 위치
 	BYTE nPosX;    // INV의 X자리
 	BYTE nPosY;    // INV의 Y자리
@@ -104,7 +102,6 @@ struct t_server_dual_divide
 struct t_client_reset_dual_to_cc
 {
 	WORD idMaster; // 듀얼 클래스 요청자
-	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;    // INV 위치
 	BYTE nPosX;    // INV의 X자리
 	BYTE nPosY;    // INV의 Y자리
@@ -113,7 +110,6 @@ struct t_client_reset_dual_to_cc
 struct t_server_reset_dual_to_cc
 {
 	WORD idMaster; // 듀얼 클래스 요청자
-	BYTE nStep;		// INV update level [1-6]
 	BYTE nPara;    // INV 위치
 	BYTE nPosX;    // INV의 X자리
 	BYTE nPosY;    // INV의 Y자리
