@@ -473,6 +473,15 @@ void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* p
 
 		if (RESET_DUAL_TO_CC == pItem->GetRbutton())
 		{
+			::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
+			::SendDeleteItem(pAttr, &pos, pMaster, 0);
+			pMaster->SetDualClass(0); // 듀얼 클래스 설정
+			pMaster->SetClassStep(0);
+			//pMaster->DivideAbility(pPacket->nNext);
+			//Change(nStep, pMaster);
+			//SendDualChange(idMaster, nStep);		// modify by taniey
+
+
 			//1.reset Ability first 
 			RecvResetAbility(idMaster);
 

@@ -549,7 +549,8 @@ void CDualMgr::SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE 
 void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket)
 {
 	LPCHARACTER pDual = ::ReturnCharacterPoint(pPacket->idMaster);
-	if (pDual == NULL)  return;
+	if (pDual == NULL)
+		return;
 
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
@@ -566,5 +567,11 @@ void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket)
 	m_nPosY = nY;
 	//::CallDualInterFace(MT_DUAL_CHANGE);
 	// please add new code
+	g_SymBolMgr.SetDualItem(0, 0);
+
+	pDual->aStepInfo[CLS_STEP] = 0;			// 듀얼 클래스 단계 상승
+	pDual->aStepInfo[DUAL_CLS] = 0;			// 듀얼 클래스 설정
+	Hero->aStepInfo[CLS_STEP] =0;                // 듀얼 클래스 단계 상승
+	Hero->aStepInfo[DUAL_CLS] = 0; // 듀얼 클래스 설정
 
 }
