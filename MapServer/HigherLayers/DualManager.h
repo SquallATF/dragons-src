@@ -118,11 +118,14 @@ public:
 	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep);   // modify by taniey
 	void SendDualChange(WORD idMaster, BYTE nStep);									// modify by taniey
 	void SendDualDivide(WORD idMaster, BYTE nStep);									// modify by taniey
+	void SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);			// add by taniey
+	
 	void RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket);
 	void RecvDualChange(WORD idMaster, t_client_dual_change* pPacket);
 	void RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket);
 	void RecvResetAbility(WORD idMaster);
 	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
+
 	//< kjy-040804
 	void RecvResetAbilityItem(WORD idMaster);
 	//> kjy-040804

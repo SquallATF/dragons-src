@@ -278,6 +278,20 @@ void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
 	::QueuePacket(connections, idMaster, &packet, 1);
 }
 
+// add by taniey
+void CDualManager::SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY)
+{
+	t_packet packet;
+	packet.h.header.type = CMD_RESET_DUAL_TO_CC;
+	packet.h.header.size = sizeof(t_server_reset_dual_to_cc);
+	packet.u.dual.server_dual_enable.idMaster = idMaster;
+	packet.u.dual.server_dual_enable.nPara = nPara;
+	packet.u.dual.server_dual_enable.nPosX = nX;
+	packet.u.dual.server_dual_enable.nPosY = nY;
+	::QueuePacket(connections, idMaster, &packet, 1);
+}
+
+
 void CDualManager::RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket)
 {	// 듀얼이 가능한지 검사
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
@@ -431,9 +445,44 @@ void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
 	}	//> 101分点
 }
 
-void  CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket)
+void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket)
 {
+	CHARLIST* pMaster = ::CheckServerId(idMaster);
+	if (pMaster == NULL)
+		return;
 
+	// 듀얼 여부 검사
+	if (!pMaster->IsDual()) // 非职转
+	{
+		pMaster->Message(MK_WARNING, 4, 144, 0, 0);  // old value: 383
+	}
+	else
+	{
+		const BYTE nPara = pPacket->nPara;
+		const BYTE nX = pPacket->nPosX;
+		const BYTE nY = pPacket->nPosY;
+
+		POS pos;
+		::SetItemPos(INV, nPara, nY, nX, &pos);
+		ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
+		if (pAttr == NULL)  return;
+		CItem* pItem = ::ItemUnit(*pAttr);
+		if (pItem == NULL)  return;
+
+		const int ni = pItem->GetRbutton();
+
+		if (RESET_DUAL_TO_CC == pItem->GetRbutton())
+		{
+			int nGrade = 0;
+			// reset to 0
+			pMaster->quick[5].item_no = 0;
+			pMaster->quick[5].attr[0] = nGrade;
+
+			SendResetDualToCC(idMaster, nPara, nX, nY);
+			pMaster->Message(MK_WARNING, 4, 143, 0, 0);
+			//Send_RareItemMakeLog(pMaster->GetServerID(), 0, -1, nGrade, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

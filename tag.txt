@@ -9,6 +9,25 @@ case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
 /////////////////////////////////////////////////////////////////////////////////////////
 {{{{{ <<<<<<<<<<<<<第五次增加>>>>>>>>>>>>>>
 #########################################################################################
+数据库：（DragonRajaDB）
+执行如下语句：
+update [DragonRajaDB].[dbo].[Item_Etc]
+ set [Mouse_MR] = 9, [Name] = 'cc of battle', [Han_Name]='CC 药瓶'
+ where [Item_id] = 79;
+
+SELECT TOP (1000)
+	 [Item_id]
+	 ,[Name]
+	 ,[Han_Name]
+      ,[Mouse_MR]
+      ,[Mouse_MRD]
+      ,[Mouse_MR_Effect]
+      ,[Mouse_MR_Wave]
+ FROM [DragonRajaDB].[dbo].[Item_Etc]
+ where [Item_id] = 79;
+
+=========================================================================================
+
 服务端 ： （MapServer）
 NetWork5.h :
 54L, add, #define CMD_RESET_DUAL_TO_CC		 7506	// add by taniey
@@ -38,31 +57,27 @@ struct t_server_reset_dual_to_cc
 641L, add,	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 
 -----------------------------------------------------------------------------------------
+CItem.h :
+(169L, 找到 << #define		DUAL_CHANGE_ITEM	8  >> 一行，在之后增加)
+169L, add, #define		RESET_DUAL_TO_CC	9		// add by taniey
+
+-----------------------------------------------------------------------------------------
 DualManager.h :
-118L, modify,   	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);   ---> 	void SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep);
-119L, modify,   	void SendDualChange(WORD idMaster);   ---> 	 void SendDualChange(WORD idMaster, BYTE nStep);
-120L, modify,   	void SendDualDivide(WORD idMaster);   --->   void SendDualDivide(WORD idMaster, BYTE nStep);
+(121L, 找到 SendDualDivide 函数， 在之后增加)
+121L, add,	void SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);			// add by taniey
+
+
+(121L, 找到 RecvResetAbility 函数， 在之后增加)
+127L, add, 	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
 
 -----------------------------------------------------------------------------------------
 DualManager.cpp ：
-(213L --- 222L, 可以找到函数, SendDualEnable(...)  替换整个函数)
-213L, modify, void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY)   --->   void CDualManager::SendDualEnable(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY, BYTE nStep)
-222L, add, 	packet.u.dual.server_dual_enable.nStep = nStep;  // modify by taniey
+(282L --- 292L, 可以找到函数, SendDualDivide(...){...}  在之后增加)
+282L -- 292L, add, void CDualManager::SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY) {...}
 
-(226L --- 236L, 可以找到函数, SendDualChange(...)  替换整个函数)
-226L, modify, void CDualManager::SendDualChange(WORD idMaster)   --->   void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
-236L, add , 	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
+(448L --- 486L, 可以找到函数, RecvResetAbility(...)  在之后增加)
+448L --- 486L, add, void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket) {...}
 
-
-(226L --- 235L, 可以找到函数, SendDualChange(...)  替换整个函数)
-254L, modify, void CDualManager::SendDualDivide(WORD idMaster)   --->   void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep)
-264L, add , 	packet.u.dual.server_dual_divide.nStep = nStep;				// add by taniey
-
-(283L --- 362L, 找到函数, RecvDualEnable(...)  替换整个函数)
-
-(364L --- 430L, 找到函数, RecvDualChange(...)  替换整个函数)
-
-(432L --- 463L, 找到函数, RecvDualDivide(...)  替换整个函数)
 
 -----------------------------------------------------------------------------------------
 DragonServer.cpp :
@@ -77,11 +92,15 @@ DragonServer.cpp :
 =========================================================================================
 客户端 ： （DragonRaja-Online）
 NetWork5.h :
-NetWork5.h :
+(54L, 找到定义, << #define CMD_DUAL_MESSAMGE		 7505 >> 这一行， 在其后增加)
 54L, add, #define CMD_RESET_DUAL_TO_CC		 7506	// add by taniey
 
-(, 找到结构 t_server_dual_divide, 在此结构之后增加)
-586L, add,
+(577L  -- 594L, 找到结构 << 
+struct t_server_dual_divide
+{
+...
+};
+ >>, 在此结构之后增加 )
 struct t_client_reset_dual_to_cc
 {
 	WORD idMaster; // 듀얼 클래스 요청자
@@ -105,6 +124,28 @@ struct t_server_reset_dual_to_cc
 641L, add,	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 
 -----------------------------------------------------------------------------------------
+ItemTable.h :
+(305L, 找到 << #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293 >> 一行, 在其后增加)
+305L, add, #define ITEM_ID_ETC_CC_OF_BATTLE				10079		// cc of battle  转职 回到 CC 药瓶
+
+
+-----------------------------------------------------------------------------------------
+Menu.cpp :
+(6972L --- 6978L, 找到, <<
+		case ITEM_ID_POTION_EXTREAM_STONE:			// 듀얼체인지 아이템
+		{
+		...
+		}
+ >>  在其后增加)
+6972L, add,		case ITEM_ID_ETC_CC_OF_BATTLE:				// add by taniey
+6973L, add,		{
+6974L, add,			ItemSound(item_attr.item_no);
+6975L, add,			g_mgrDual.SendResetDualToCC(Hero, first_para, ItemX, ItemY);
+6976L, add,
+6977L, add,			break;
+6978L, add,		}
+
+-----------------------------------------------------------------------------------------
 DualMgr.h :
 37L, add, 	void SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
 38L, add, 	void RecvResetDualToCC(t_server_restore_to_cc* pPacket);
@@ -118,7 +159,17 @@ DualMgr.cpp :
 
 -----------------------------------------------------------------------------------------
 network.cpp :
-(3753L --- 3757L, 可以找到case CMD_DUAL_MESSAMGE: {...}  和 case CMD_ON_CONNECT: {...} 在两个 case 之间增加)
+(3753L --- 3757L, 找到
+case CMD_DUAL_MESSAMGE:
+{
+...
+}
+和
+case CMD_ON_CONNECT:
+{
+...
+}
+在两个 case 之间增加)
 3753L, add, 		case CMD_RESET_DUAL_TO_CC:
 3754L, add, 		{
 3755L, add, 			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_restore_to_cc);
@@ -130,17 +181,12 @@ network.cpp :
 客户端执行目录：
 在目录 ./data/Ch_lan.txt ：
 (1543L --- 1544L, 找到 ，<< 142 : "进阶纹章已经升级了." >> 这一行，修改之后两行)
-1543L, modify,  已退回到CC。
-1544L, modify,  不是进阶职业，不能进行 CC 操作。(找到 ，<< 142 : "进阶纹章已经升级了." >> 这一行，修改之后一行)
+1543L, modify,  143 :    --->   143 : "已退回到CC。"
+1544L, modify,  144 :    --->   144 : "不是进阶职业，不能进行 CC 操作。"
 
 
 =========================================================================================
 #########################################################################################
-
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-*****************************************************************************************
 #########################################################################################
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////

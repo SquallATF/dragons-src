@@ -302,6 +302,8 @@ enum eItemKindType
 #define ITEM_ID_ETC_AMURSTART_SWORD				10292		// sword of amurtart    阿姆塔特的剑
 #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293		// Merchant Yll. permit  转职任务卷
 
+#define ITEM_ID_ETC_CC_OF_BATTLE				10079		// cc of battle  转职 回到 CC 药瓶
+
 //#pragma pack ()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

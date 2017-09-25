@@ -6969,6 +6969,13 @@ void DoRButtonCheckOfMenu(int i, int j)
 			g_mgrDual.SendDualEnable(Hero, first_para, ItemX, ItemY);
 			break;
 		}
+		case ITEM_ID_ETC_CC_OF_BATTLE:				// add by taniey
+		{
+			ItemSound(item_attr.item_no);
+			g_mgrDual.SendResetDualToCC(Hero, first_para, ItemX, ItemY);
+
+			break;
+		}
 		default:
 		{
 			UseItemByRbutton(pos_s, item_attr);

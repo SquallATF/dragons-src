@@ -166,6 +166,7 @@ enum _eRT_INV_ITEMMALL
 #define		DIARY_ITEM			6		// 일기책이 뜬다.
 #define		BOX_ITEM			7		// 박스가 열린다.
 #define		DUAL_CHANGE_ITEM	8
+#define		RESET_DUAL_TO_CC	9		// add by taniey
 #define		ITEM_MALL_ITEM		10		// 040621 YGI
 
 class CItem
