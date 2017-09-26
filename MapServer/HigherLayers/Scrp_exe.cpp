@@ -2124,8 +2124,7 @@ bool DeleteItemMuch(const int iItemNum, const int iNumMuch, const int cn)
 	for (int a = 0; a < 3; a++) {
 		for (int b = 0; b < 3; b++) {
 			for (int c = 0; c < 8; c++) {
-				if (ch->inv[a][b][c].item_no == iItemNum)
-				{
+				if (ch->inv[a][b][c].item_no == iItemNum) {
 					ItemAttr target = GenerateItem(iItemNum, 0, 0);
 					SendItemEventLog(&target, cn, SN_NOT_USER, SILT_MAKE_BY_SCRIPT, 2);
 					ch->inv[a][b][c] = target;
@@ -2271,19 +2270,22 @@ void sUpRareInEquip()			//96 // 021028 kyo
 
 	if (WT_WEAPON > iEquipPos || iEquipPos > WT_UNIQUE2)
 	{//위치 에러
-		sYES = 0; return;
+		sYES = 0;
+		return;
 	}
 	int item_no = ch->equip[iEquipPos].item_no;
 	if (!item_no)
 	{// 아이템을 안 들고 있다.
-		sYES = 0; return;
+		sYES = 0;
+		return;
 	}
 
 	int grade_gab = iMax - iMin + 1;
 
 	if (0 >= grade_gab)
 	{
-		sYES = 0; return;
+		sYES = 0;
+		return;
 	}
 
 	ItemAttr item = { 0, };
@@ -2297,7 +2299,8 @@ void sUpRareInEquip()			//96 // 021028 kyo
 	}
 	else
 	{
-		sYES = 2; return;
+		sYES = 2;
+		return;
 	}
 
 	sYES = 1;
@@ -2391,8 +2394,9 @@ void sDualClassCheck()
 			sYES = 1;
 		}
 	}
-	else
+	else {
 		sYES = 0;
+	}
 }
 
 void sUpDualClassItem()
