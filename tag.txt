@@ -12,7 +12,7 @@ case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
 数据库：（DragonRajaDB）
 执行如下语句：
 update [DragonRajaDB].[dbo].[Item_Etc]
- set [Mouse_MR] = 9, [Name] = 'cc of battle', [Han_Name]='CC 药瓶'
+ set [Mouse_MR] = 8, [Name] = 'cc of battle', [Han_Name]='CC 药瓶'
  where [Item_id] = 79;
 
 SELECT TOP (1000)
