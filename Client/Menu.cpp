@@ -6976,6 +6976,11 @@ void DoRButtonCheckOfMenu(int i, int j)
 
 			break;
 		}
+		case ITEM_ID_ETC_RESET_ABILITY_POINTS: {		// <add by taniey> ability reset points
+			ItemSound(item_attr.item_no);
+			g_mgrDual.SendResetAbilityPoints(Hero, first_para, ItemX, ItemY);
+			break;
+		}
 		default:
 		{
 			UseItemByRbutton(pos_s, item_attr);

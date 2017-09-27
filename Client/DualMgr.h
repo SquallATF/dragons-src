@@ -40,6 +40,9 @@ public:
 	//< add by taniey begin
 	void SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
 	void RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket);
+
+	void SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
+	//void RecvResetAbilityPoints(void* data);
 	//> add by taniey end
 
 public:

@@ -569,6 +569,7 @@ void CallServer(int type, void *msg, int size)
 	QueuePacket(&packet, 1);
 }
 
+
 void RecvSkillExp(int type, t_SkillExp exp)		//31개 짜리
 {//021111 lsw
 	SCharacterData.nJobSkill[type] = exp;
@@ -643,8 +644,6 @@ void RecvParty(k_server_party *p)
 		ch->party[i].m_Str = p->Str[i];
 		ch->party[i].m_Class = p->Class[i];
 	}
-	/*
-	*/
 
 	//	CallServer( CMD_REQ_MY_PARTY );			// 파티원들중 이미 들어 온 놈이 있는지...
 	//	SetExistMeOfParty( );					// 파티원중 나는 항상 조인한 상태다.

@@ -234,6 +234,7 @@ void CDualManager::SendDualChange(WORD idMaster, BYTE nStep)
 	packet.h.header.size = sizeof(t_server_dual_change);
 	packet.u.dual.server_dual_change.idMaster = idMaster;
 	packet.u.dual.server_dual_change.nStep = nStep;			// add by taniey
+	//packet.u.dual.server_dual_change.nStep = pMaster->GetClassStep();			// add by taniey
 	packet.u.dual.server_dual_change.nDual = pMaster->GetDualClass();
 	packet.u.dual.server_dual_change.dwFame = pMaster->fame;
 	packet.u.dual.server_dual_change.wStr = pMaster->Str;
@@ -375,9 +376,22 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 			if (pPacket->nStep <= 1) {
 				pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정
 			}
+
+			switch (nStep)  // for NPC sysc
+			{
+			case 1: s_Dual_NPC_Check = 0; break;
+			case 2: s_Dual_NPC_Check = 601; break;
+			case 3: s_Dual_NPC_Check = 602; break;
+			case 4: s_Dual_NPC_Check = 603; break;
+			case 5: s_Dual_NPC_Check = 604; break;
+			case 6: s_Dual_NPC_Check = 605; break;
+			}
+			
 			pMaster->DivideAbility(pPacket->nNext);
 			Change(nStep, pMaster);
 			SendDualChange(idMaster, nStep);		// modify by taniey
+
+			CharacterAutoUpdate();					// save to db
 		}
 		else
 		{
@@ -407,12 +421,35 @@ void CDualManager::RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket)
 	}
 }
 
-void CDualManager::RecvResetAbility(WORD idMaster)	//重分点函数
+void CDualManager::RecvResetAbility(WORD idMaster, void *data, int size)	//重分点函数
 {
 	CHARLIST* pMaster = ::CheckServerId(idMaster);
-	if (pMaster == NULL)  return;
+	if (pMaster == NULL)
+		return;
 
-	//if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) //101级重分点的限制. 
+	BYTE content[4] = { 0 };
+	memcpy(content, data, size);
+
+	const BYTE nPara = content[0];
+	const BYTE nX = content[1];
+	const BYTE nY = content[2];
+
+	POS pos;
+	::SetItemPos(INV, nPara, nY, nX, &pos);
+	ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
+	if (pAttr == NULL)  return;
+	CItem* pItem = ::ItemUnit(*pAttr);
+	if (pItem == NULL)  return;
+
+	const int ni = pItem->GetRbutton();
+
+	if (USE_ITEM != pItem->GetRbutton())
+		return;
+
+	::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
+	::SendDeleteItem(pAttr, &pos, pMaster, 0);
+
+	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) // 101级重分点的限制. 
 	{	//< 101分点
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;
@@ -451,55 +488,54 @@ void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* p
 	if (pMaster == NULL)
 		return;
 
-	// 듀얼 여부 검사
-	if (!pMaster->IsDual()) // 非职转
-	{
-		pMaster->Message(MK_WARNING, 4, 144, 0, 0);  // old value: 383
-	}
-	else
-	{
-		const BYTE nPara = pPacket->nPara;
-		const BYTE nX = pPacket->nPosX;
-		const BYTE nY = pPacket->nPosY;
+	if (!pMaster->IsDual()) // not dual don`t deal
+		return;
 
-		POS pos;
-		::SetItemPos(INV, nPara, nY, nX, &pos);
-		ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
-		if (pAttr == NULL)  return;
-		CItem* pItem = ::ItemUnit(*pAttr);
-		if (pItem == NULL)  return;
+	const BYTE nPara = pPacket->nPara;
+	const BYTE nX = pPacket->nPosX;
+	const BYTE nY = pPacket->nPosY;
 
-		const int ni = pItem->GetRbutton();
+	POS pos;
+	::SetItemPos(INV, nPara, nY, nX, &pos);
+	ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
+	if (pAttr == NULL)  return;
+	CItem* pItem = ::ItemUnit(*pAttr);
+	if (pItem == NULL)  return;
 
-		if (RESET_DUAL_TO_CC == pItem->GetRbutton())
-		{
-			::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
-			::SendDeleteItem(pAttr, &pos, pMaster, 0);
-			//sYES = 0;
-			s_SymBol = 0;
-			// 2. reset to cc.
-			int nGrade = 0;
-			// reset to 0
-			pMaster->quick[5].item_no = 0;
-			pMaster->quick[5].attr[0] = nGrade;
-			pMaster->SetDualClass(0); // 듀얼 클래스 설정
-			pMaster->SetClassStep(0);
-			//pMaster->DivideAbility(pPacket->nNext);
-			//Change(nStep, pMaster);
-			//SendDualChange(idMaster, nStep);		// modify by taniey
+	//const int ni = pItem->GetRbutton();
+	if (RESET_DUAL_TO_CC != pItem->GetRbutton())
+		return;
 
+	// Start clear the dual , symbol and upgrade info
+	::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
+	::SendDeleteItem(pAttr, &pos, pMaster, 0);
 
-			//1.reset Ability first 
-			RecvResetAbility(idMaster);
+	s_SymBol_Get_NPC_Check_WARRIOR = 0;
+	s_SymBol_Get_NPC_Check_THIEF = 0;
+	s_SymBol_Get_NPC_Check_ARCHER = 0;
+	s_SymBol_Get_NPC_Check_WIZARD = 0;
+	s_SymBol_Get_NPC_Check_PRIEST = 0;
 
-			SendResetDualToCC(idMaster, nPara, nX, nY);
-			pMaster->Message(MK_NORMAL, 4, 143, 0, 0);
-			//Send_RareItemMakeLog(pMaster->GetServerID(), 0, -1, nGrade, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	s_SymBol_Upgrade_NPC_Check = 0;
+	
+	s_Dual_NPC_Check = 0;
 
-			CharacterAutoUpdate();
+	// reset to cc.
+	int nGrade = 0;
+	// reset to 0
+	pMaster->quick[5].item_no = 0;
+	pMaster->quick[5].attr[0] = nGrade;
+	pMaster->SetDualClass(0); // 듀얼 클래스 설정
+	pMaster->SetClassStep(0);
 
-		}
-	}
+	//1.reset Ability first 
+	//RecvResetAbility(idMaster);
+
+	SendResetDualToCC(idMaster, nPara, nX, nY);
+	//pMaster->Message(MK_NORMAL, 4, 143, 0, 0);
+	CharacterAutoUpdate();  // save to db
+
+	Send_RareItemMakeLog(pMaster->GetServerID(), 0, -1, nGrade, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

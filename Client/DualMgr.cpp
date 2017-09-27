@@ -11,7 +11,7 @@
 #include "CharDataTable.h"
 #include "SmallMenuSet.h"
 #include "SymbolMgr_Client.h"
-//#include "Menu.h"
+#include "Menu.h"
 
 extern CHARACTERLIST g_CharacterList;
 extern int UseItemByRbutton(POS pos_s, ItemAttr &item_attr);
@@ -331,8 +331,8 @@ void CDualMgr::RecvDualChange(t_server_dual_change* pPacket)
 		m_nPosY = 0;
 		m_nCurStep = 0;   // add by taniey
 
-		pDual->aStepInfo[CLS_STEP] = 1;              // 듀얼 클래스 단계 상승
-		pDual->aStepInfo[DUAL_CLS] = pPacket->nDual; // 듀얼 클래스 설정
+		pDual->aStepInfo[CLS_STEP] = pPacket->nStep;              // 듀얼 클래스 단계 상승
+		pDual->aStepInfo[DUAL_CLS] = pPacket->nDual;			  // 듀얼 클래스 설정
 		SCharacterData.nCharacterAbility[FAME] = pPacket->dwFame; // 국가전 fame 점수 재설정
 		SCharacterData.nCharacterAbility[STR] = pPacket->wStr;
 		SCharacterData.nCharacterAbility[DEX] = pPacket->wDex;
@@ -426,77 +426,52 @@ static int StepToItemNo(BYTE nStep)
 void CDualMgr::RecvDualMsg(t_dual_message* pPacket)
 {
 	string strMsg = ::lan->OutputMessage(pPacket->nKind, pPacket->nNumber);
-	switch (pPacket->nKind)
+
+	switch (pPacket->nNumber)
 	{
-	case 0: 
-	{
-		switch (pPacket->nNumber)
+	case 665: {
+		Message(pPacket->nType, strMsg.c_str(), pPacket->nStep);
+
+		// reset need level message
+		strMsg = ::lan->OutputMessage(pPacket->nKind, 666);
+		//break; // not need
+	}
+	case 666: {
+		int nLevel = 0;
+		switch (pPacket->nStep)
 		{
-		case 665: {
-			Message(pPacket->nType, strMsg.c_str(), pPacket->nStep);
-
-			strMsg = ::lan->OutputMessage(pPacket->nKind, 666);   // reset need level msg
-																  //break;
-		}
-		case 666: {
-			int nLevel = 0;
-			switch (pPacket->nStep)
-			{
-			case 1:  nLevel = 105; break;
-			case 2:  nLevel = 110; break;
-			case 3:  nLevel = 120; break;
-			case 4:  nLevel = 135; break;
-			case 5:  nLevel = 150; break;
-			case 6:  nLevel = 200; break;
-			default: nLevel = 105; break;
-			}
-
-			Message(pPacket->nType, strMsg.c_str(), nLevel);
-			break;
-		}
-		case 667: {
-			int nItemNo = StepToItemNo(pPacket->nStep);
-			int nItemType = nItemNo / 1000;
-			int nItemNum = nItemNo % 1000;
-			const char * nItemName = Item_Ref.Item_type[nItemType][nItemNum]->GetItemHanName();
-
-			Message(pPacket->nType, strMsg.c_str(), pPacket->nCharCls, nItemName);
-			break;
-		}
-		case 668: {
-			int nItemNo = StepToItemNo(pPacket->nCharCls + 1);
-			int nItemType = nItemNo / 1000;
-			int nItemNum = nItemNo % 1000;
-			const char * nItemName = Item_Ref.Item_type[nItemType][nItemNum]->GetItemHanName();
-
-			Message(pPacket->nType, strMsg.c_str(), pPacket->nCharCls + 1, nItemName);
-			break;
-		}
-		default: break;
+		case 1:  nLevel = 105; break;
+		case 2:  nLevel = 110; break;
+		case 3:  nLevel = 120; break;
+		case 4:  nLevel = 135; break;
+		case 5:  nLevel = 150; break;
+		case 6:  nLevel = 200; break;
+		default: nLevel = 105; break;
 		}
 
+		Message(pPacket->nType, strMsg.c_str(), nLevel);
 		break;
 	}
-	case 4:
-	{
-		Message(pPacket->nType, strMsg.c_str());
+	case 667: {
+		int nItemNo = StepToItemNo(pPacket->nStep);
+		int nItemType = nItemNo / 1000;
+		int nItemNum = nItemNo % 1000;
+		const char * nItemName = Item_Ref.Item_type[nItemType][nItemNum]->GetItemHanName();
 
-		//switch (pPacket->nNumber)
-		//{
-		//case 143:
-		//	break;
-		//case 144:
-		//	break;
-		//default:
-		//	break;
-		//}
-
+		Message(pPacket->nType, strMsg.c_str(), pPacket->nCharCls, nItemName);
 		break;
 	}
-	default:
+	case 668: {
+		int nItemNo = StepToItemNo(pPacket->nCharCls + 1);
+		int nItemType = nItemNo / 1000;
+		int nItemNum = nItemNo % 1000;
+		const char * nItemName = Item_Ref.Item_type[nItemType][nItemNum]->GetItemHanName();
+
+		Message(pPacket->nType, strMsg.c_str(), pPacket->nCharCls + 1, nItemName);
 		break;
 	}
-
+	default: break;
+	}
 }
 
 void CDualMgr::Message(int nType, const char* pContext, ...)
@@ -520,15 +495,18 @@ void CDualMgr::Message(int nType, const char* pContext, ...)
 //< add by taniey
 void CDualMgr::SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
 {
-	//Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
-	//CallServer(CMD_RESET_ABILITY);		//发送重分函数
-	//CallMenu(MN_ABILITY);				//打开属性菜单
-
 	if (pMaster == NULL)
 		return;
 
 	if (IsDead(pMaster))
 		return;			// add by taniey
+
+	if (pMaster->aStepInfo[CLS_STEP] > 0) {
+
+		string strMsg = ::lan->OutputMessage(4, 144);
+		Message(MK_WARNING, strMsg.c_str());
+		return;
+	}
 
 	//POS pos;
 	//// 전투스킬 포인터 획득 아이템 위치 구하기
@@ -548,8 +526,8 @@ void CDualMgr::SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE 
 
 void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket)
 {
-	LPCHARACTER pDual = ::ReturnCharacterPoint(pPacket->idMaster);
-	if (pDual == NULL)
+	LPCHARACTER pMaster = ::ReturnCharacterPoint(pPacket->idMaster);
+	if (pMaster == NULL)
 		return;
 
 	const BYTE nPara = pPacket->nPara;
@@ -569,9 +547,31 @@ void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket)
 	// please add new code
 	g_SymBolMgr.SetDualItem(0, 0);
 
-	pDual->aStepInfo[CLS_STEP] = 0;			// 듀얼 클래스 단계 상승
-	pDual->aStepInfo[DUAL_CLS] = 0;			// 듀얼 클래스 설정
-	Hero->aStepInfo[CLS_STEP] =0;                // 듀얼 클래스 단계 상승
-	Hero->aStepInfo[DUAL_CLS] = 0; // 듀얼 클래스 설정
+	pMaster->aStepInfo[CLS_STEP] = 0;			// 듀얼 클래스 단계 상승
+	pMaster->aStepInfo[DUAL_CLS] = 0;			// 듀얼 클래스 설정
 
+	string strMsg = ::lan->OutputMessage(4, 143);
+	Message(MK_NORMAL, strMsg.c_str());
 }
+
+// add by taniey
+void CDualMgr::SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
+{
+	if (pMaster == NULL)
+		return;
+
+	if (IsDead(pMaster))
+		return;
+
+	Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
+
+	BYTE data[4] = { 0 };
+	data[0] = nPara, data[1] = nX, data[2] = nY;
+	CallServer(CMD_RESET_ABILITY, data, sizeof(data));		// send reset ability command
+	CallMenu(MN_ABILITY);									// menu of the ability
+}
+
+//void CDualMgr::RecvResetAbilityPoints(void * data)
+//{
+//}
+

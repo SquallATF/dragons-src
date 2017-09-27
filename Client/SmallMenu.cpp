@@ -9293,16 +9293,11 @@ void AutoLevelUp()
 
 	switch (class_type)
 	{
-	case WARRIOR:	AddCurrentStatusMessage(255, 255, 0, "STR:%d, CON:%d", ability[STR], ability[CON]);
-		break;
-	case THIEF:	AddCurrentStatusMessage(255, 255, 0, "DEX:%d, CON:%d, MOVP:%d", ability[DEX], ability[CON], ability[MOVP]);
-		break;
-	case ARCHER:	AddCurrentStatusMessage(255, 255, 0, "DEX:%d, CON:%d, MOVP:%d", ability[DEX], ability[CON], ability[MOVP]);
-		break;
-	case WIZARD:	AddCurrentStatusMessage(255, 255, 0, "CON:%d, INT:%d, WS:%d", ability[CON], ability[INT_], ability[WSPS]);
-		break;
-	case PRIEST:	AddCurrentStatusMessage(255, 255, 0, "CON:%d, WIS:%d, PS:%d", ability[CON], ability[WIS], ability[WSPS]);
-		break;
+	case WARRIOR: AddCurrentStatusMessage(255, 255, 0, "STR:%d, CON:%d", ability[STR], ability[CON]); break;
+	case THIEF: AddCurrentStatusMessage(255, 255, 0, "DEX:%d, CON:%d, MOVP:%d", ability[DEX], ability[CON], ability[MOVP]); break;
+	case ARCHER: AddCurrentStatusMessage(255, 255, 0, "DEX:%d, CON:%d, MOVP:%d", ability[DEX], ability[CON], ability[MOVP]); break;
+	case WIZARD: AddCurrentStatusMessage(255, 255, 0, "CON:%d, INT:%d, WS:%d", ability[CON], ability[INT_], ability[WSPS]); break;
+	case PRIEST: AddCurrentStatusMessage(255, 255, 0, "CON:%d, WIS:%d, PS:%d", ability[CON], ability[WIS], ability[WSPS]); break;
 	}
 
 	MP3(SN_LV_EACH_UP);

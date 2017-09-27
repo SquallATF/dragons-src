@@ -1815,7 +1815,7 @@ int HandleCommand(int cn, t_packet *packet)
 	}
 	case CMD_RESET_ABILITY:
 	{
-		g_pDualManager->RecvResetAbility(cn);
+		g_pDualManager->RecvResetAbility(cn, packet->u.data, packet->h.header.size);
 		break;
 	}
 	case CMD_RESET_DUAL_TO_CC:

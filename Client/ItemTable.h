@@ -303,6 +303,7 @@ enum eItemKindType
 #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293		// Merchant Yll. permit  转职任务卷
 
 #define ITEM_ID_ETC_CC_OF_POTION				10079		// cc of potion  转职 回到 CC 药水
+#define ITEM_ID_ETC_RESET_ABILITY_POINTS		10299		// Reset ability points permit 重设能力点卷轴
 
 //#pragma pack ()
 

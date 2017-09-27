@@ -123,7 +123,7 @@ public:
 	void RecvDualEnable(WORD idMaster, t_client_dual_enable* pPacket);
 	void RecvDualChange(WORD idMaster, t_client_dual_change* pPacket);
 	void RecvDualDivide(WORD idMaster, t_client_dual_divide* pPacket);
-	void RecvResetAbility(WORD idMaster);
+	void RecvResetAbility(WORD idMaster, void *data, int size);
 	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
 
 	//< kjy-040804

@@ -9,11 +9,17 @@ case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
 /////////////////////////////////////////////////////////////////////////////////////////
 {{{{{ <<<<<<<<<<<<<第五次增加>>>>>>>>>>>>>>
 #########################################################################################
+=========================================================================================
 数据库：（DragonRajaDB）
-执行如下语句：
+=========================================================================================
+执行如下语句, (如果有更好名字，换名后执行这些语句)：
 update [DragonRajaDB].[dbo].[Item_Etc]
- set [Mouse_MR] = 8, [Name] = 'cc of battle', [Han_Name]='CC 药瓶'
+ set [Mouse_MR] = 8, [Name] = 'cc of potion', [Han_Name]='CC 药水'
  where [Item_id] = 79;
+
+ update [DragonRajaDB].[dbo].[Item_Etc]
+ set [Name] = 'Reset ability points permit', [Han_Name]='重设能力点卷轴'
+ where [Item_id] = 299;
 
 SELECT TOP (1000)
 	 [Item_id]
@@ -24,11 +30,11 @@ SELECT TOP (1000)
       ,[Mouse_MR_Effect]
       ,[Mouse_MR_Wave]
  FROM [DragonRajaDB].[dbo].[Item_Etc]
- where [Item_id] = 79;
+ where [Item_id] = 79 or [Item_id] = 299;
 
 =========================================================================================
-
 服务端 ： （MapServer）
+=========================================================================================
 NetWork5.h :
 54L, add, #define CMD_RESET_DUAL_TO_CC		 7506	// add by taniey
 
@@ -54,45 +60,87 @@ struct t_server_reset_dual_to_cc
 640L, add,	t_client_reset_dual_to_cc client_reset_dual_to_cc;
 641L, add,	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 
+
 -----------------------------------------------------------------------------------------
 CItem.h :
 (169L, 找到 << #define		DUAL_CHANGE_ITEM	8  >> 一行，在之后增加)
 169L, add, #define		RESET_DUAL_TO_CC	DUAL_CHANGE_ITEM		// add by taniey
+
 
 -----------------------------------------------------------------------------------------
 DualManager.h :
 (121L, 找到 SendDualDivide 函数， 在之后增加)
 121L, add,	void SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);			// add by taniey
 
-
 (121L, 找到 RecvResetAbility 函数， 在之后增加)
 127L, add, 	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
 
+
 -----------------------------------------------------------------------------------------
 DualManager.cpp ：
-(282L --- 292L, 可以找到函数, SendDualDivide(...){...}  在之后增加)
+
+(282L --- 292L, 找到函数, << void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep){...} >> 在之后增加)
 282L -- 292L, add, void CDualManager::SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY) {...}
 
-(448L --- 486L, 可以找到函数, RecvResetAbility(...)  在之后增加)
-448L --- 486L, add, void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket) {...}
+(343L --- 398L, 找到函数, << void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket) >> 在内部增加)
+内部找到：
+			if (pPacket->nStep <= 1) {
+				pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정
+			}
+
+			在之后增加：
+			
+			switch (nStep)
+			{
+			case 1: s_Dual_NPC_Check = 0; break;
+			case 2: s_Dual_NPC_Check = 601; break;
+			case 3: s_Dual_NPC_Check = 602; break;
+			case 4: s_Dual_NPC_Check = 603; break;
+			case 5: s_Dual_NPC_Check = 604; break;
+			case 6: s_Dual_NPC_Check = 605; break;
+			}
+
+(410L --- 469L, 找到函数, << void CDualManager::RecvResetAbility(WORD idMaster){...} >>  替换)
+410L --- 469L, modify, void CDualManager::RecvResetAbility(WORD idMaster, void *data, int size)	{...}
+
+(471L --- 522L, 找到函数, void CDualManager::RecvResetAbility(WORD idMaster, void *data, int size){...}  在之后增加)
+471L --- 522L, add, void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket) {...}
 
 
 -----------------------------------------------------------------------------------------
 DragonServer.cpp :
-(1821L --- 1825L, 可以找到case CMD_RESET_ABILITY: {...}  和 case CMD_RARE_UPGRADE_BBS_MAP_TO_MAP: {...} 在两个 case 之间增加)
-1821L, add, 	case CMD_RESET_DUAL_TO_CC:
-1822L, add, 	{
-1823L, add, 		g_pDualManager->RecvResetToCC(cn);
-1824L, add, 		break;
-1825L, add, 	}
+(找到, case 语句, << case CMD_RESET_ABILITY: >>, 修改如下)
+	case CMD_RESET_ABILITY:
+	{
+		g_pDualManager->RecvResetAbility(cn, packet->u.data, packet->h.header.size);
+		break;
+	}
 
+并在其之后, 及 << case CMD_RARE_UPGRADE_BBS_MAP_TO_MAP:{...} >>之前，增加 case 逻辑:
+	case CMD_RESET_DUAL_TO_CC:
+	{
+		g_pDualManager->RecvResetDualToCC(cn, &packet->u.dual.client_reset_dual_to_cc);
+		break;
+	}
+
+	
 -----------------------------------------------------------------------------------------
 Scrp_exe.h :
-(34L, 找到定义, << #define s_Nation				(var[EventPC][7]) >> 这一行， 在其后增加)
-34L, add, #define s_SymBol				(var[EventPC][25])		// add by taniey
+(35L  -- 43L, 找到定义, << #define s_Nation				(var[EventPC][7]) >> 这一行， 在其后增加)
+35L, add, #define s_SymBol_Get_NPC_Check_A			(var[EventPC][24])		// add by taniey, value: 205
+36L, add, #define s_SymBol_Get_NPC_Check_B			(var[EventPC][25])		// add by taniey, value: 255
+37L, add, #define s_SymBol_Get_NPC_Check_C			(var[EventPC][26])		// add by taniey, value: 500
+38L, add, #define s_SymBol_Get_NPC_Check_D			(var[EventPC][27])		// add by taniey, value: 400
+39L, add, #define s_SymBol_Get_NPC_Check_E			(var[EventPC][28])		// add by taniey, value: 400
+
+41L, add, #define s_SymBol_Upgrade_NPC_Check			(var[EventPC][30])		// add by taniey, value: 3995
+
+43L, add, #define s_Dual_NPC_Check					(var[EventPC][182])		// add by taniey, value: 2. 601; 3. 602; 4. 603; 5. 604; 6.605;
+
 
 =========================================================================================
 客户端 ： （DragonRaja-Online）
+=========================================================================================
 NetWork5.h :
 (54L, 找到定义, << #define CMD_DUAL_MESSAMGE		 7505 >> 这一行， 在其后增加)
 54L, add, #define CMD_RESET_DUAL_TO_CC		 7506	// add by taniey
@@ -123,53 +171,81 @@ struct t_server_reset_dual_to_cc
 640L, add,	t_client_reset_dual_to_cc client_reset_dual_to_cc;
 641L, add,	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 
+
 -----------------------------------------------------------------------------------------
 ItemTable.h :
 (305L, 找到 << #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293 >> 一行, 在其后增加)
-305L, add, #define ITEM_ID_ETC_CC_OF_BATTLE				10079		// cc of battle  转职 回到 CC 药瓶
+305L, add, #define ITEM_ID_ETC_CC_OF_POTION				10079		// cc of battle  转职 回到 CC 药瓶
+306L, add, #define ITEM_ID_ETC_RESET_ABILITY_POINTS		10299		// reset ability points  重设能力点卷
 
 
 -----------------------------------------------------------------------------------------
 Menu.cpp :
-(6972L --- 6978L, 找到, <<
+(6972L --- 6984L, 找到, <<
 		case ITEM_ID_POTION_EXTREAM_STONE:			// 듀얼체인지 아이템
 		{
 		...
 		}
- >>  在其后增加)
-6972L, add,		case ITEM_ID_ETC_CC_OF_BATTLE:				// add by taniey
-6973L, add,		{
-6974L, add,			ItemSound(item_attr.item_no);
-6975L, add,			g_mgrDual.SendResetDualToCC(Hero, first_para, ItemX, ItemY);
-6976L, add,
-6977L, add,			break;
-6978L, add,		}
+		
+		和
+		
+		default:
+		{
+			UseItemByRbutton(pos_s, item_attr);
+			break;
+		}
+
+ >>  在其间增加)
+case ITEM_ID_ETC_CC_OF_POTION:				// add by taniey
+{
+	ItemSound(item_attr.item_no);
+	g_mgrDual.SendResetDualToCC(Hero, first_para, ItemX, ItemY);
+
+	break;
+}
+case ITEM_ID_ETC_RESET_ABILITY_POINTS: {		// <add by taniey> ability reset points
+	ItemSound(item_attr.item_no);
+	g_mgrDual.SendResetAbilityPoints(Hero, first_para, ItemX, ItemY);
+	break;
+}
+
 
 -----------------------------------------------------------------------------------------
 DualMgr.h :
-37L, add, 	void SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
-38L, add, 	void RecvResetDualToCC(t_server_restore_to_cc* pPacket);
+41L, add, 	void SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
+42L, add, 	void RecvResetDualToCC(t_server_restore_to_cc* pPacket);
+43L, add,	void SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
+
 
 -----------------------------------------------------------------------------------------
 DualMgr.cpp :
-(494L --- 497L, 找到函数, SendResetDualToCC(...)  增加整个函数)
+(426L -- 500L, 找到函数, << void CDualMgr::RecvDualChange(t_server_dual_change* pPacket){...} >> 在内部替换)
+334, modify, pDual->aStepInfo[CLS_STEP] = 1;	  --->   pDual->aStepInfo[CLS_STEP] = pPacket->nStep;
 
-(499L --- 503L, 找到函数, RecvResetDualToCC(...)  增加整个函数)
+(521L --- 547L, 找到函数, << void CDualMgr::SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY) >>  增加整个函数)
+
+(549L --- 577L, 找到函数, << void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket) >>  增加整个函数)
+
+(549L --- 577L, 找到函数, << void CDualMgr::SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY) >>  增加整个函数)
+
+
+-----------------------------------------------------------------------------------------
+LineCommand.cpp :
+(找到, case 语句: << case LC_LINERESET_POINT:{...} >> ,删除或者注释掉这段 case 逻辑, 原代码如下)
+			case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
+			{
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
+				// CallSmallMenu(MN_INIT_ABILITY);	//打开能力窗口
+				CallServer(CMD_RESET_ABILITY);		//发送重分函数
+				CallMenu(MN_ABILITY);				//打开属性菜单
+				//CallServer(CMD_OPEN_ABILITY);
+				break;
+			}
 
 
 -----------------------------------------------------------------------------------------
 network.cpp :
-(3753L --- 3757L, 找到
-case CMD_DUAL_MESSAMGE:
-{
-...
-}
-和
-case CMD_ON_CONNECT:
-{
-...
-}
-在两个 case 之间增加)
+(3753L --- 3757L, 找到  << case CMD_DUAL_MESSAMGE: {...} >> 和 << case CMD_ON_CONNECT: {...} >>  在两个 case 之间增加)
 3753L, add, 		case CMD_RESET_DUAL_TO_CC:
 3754L, add, 		{
 3755L, add, 			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_restore_to_cc);
@@ -179,9 +255,10 @@ case CMD_ON_CONNECT:
 
 =========================================================================================
 客户端执行目录：
+=========================================================================================
 在目录 ./data/Ch_lan.txt ：
 (1543L --- 1544L, 找到 ，<< 142 : "进阶纹章已经升级了." >> 这一行，修改之后两行)
-1543L, modify,  143 :    --->   143 : "已成功退回到CC，并进行了技能点重分。"
+1543L, modify,  143 :    --->   143 : "已成功退回到CC。"
 1544L, modify,  144 :    --->   144 : "不是进阶职业，不能进行 CC 操作。"
 
 
