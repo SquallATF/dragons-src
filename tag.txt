@@ -57,7 +57,7 @@ struct t_server_reset_dual_to_cc
 -----------------------------------------------------------------------------------------
 CItem.h :
 (169L, 找到 << #define		DUAL_CHANGE_ITEM	8  >> 一行，在之后增加)
-169L, add, #define		RESET_DUAL_TO_CC	9		// add by taniey
+169L, add, #define		RESET_DUAL_TO_CC	DUAL_CHANGE_ITEM		// add by taniey
 
 -----------------------------------------------------------------------------------------
 DualManager.h :
@@ -86,6 +86,10 @@ DragonServer.cpp :
 1824L, add, 		break;
 1825L, add, 	}
 
+-----------------------------------------------------------------------------------------
+Scrp_exe.h :
+(34L, 找到定义, << #define s_Nation				(var[EventPC][7]) >> 这一行， 在其后增加)
+34L, add, #define s_SymBol				(var[EventPC][25])		// add by taniey
 
 =========================================================================================
 客户端 ： （DragonRaja-Online）
@@ -177,7 +181,7 @@ case CMD_ON_CONNECT:
 客户端执行目录：
 在目录 ./data/Ch_lan.txt ：
 (1543L --- 1544L, 找到 ，<< 142 : "进阶纹章已经升级了." >> 这一行，修改之后两行)
-1543L, modify,  143 :    --->   143 : "已退回到CC。"
+1543L, modify,  143 :    --->   143 : "已成功退回到CC，并进行了技能点重分。"
 1544L, modify,  144 :    --->   144 : "不是进阶职业，不能进行 CC 操作。"
 
 

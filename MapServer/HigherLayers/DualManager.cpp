@@ -473,18 +473,31 @@ void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* p
 
 		if (RESET_DUAL_TO_CC == pItem->GetRbutton())
 		{
-			//1.reset Ability first 
-			RecvResetAbility(idMaster);
-
+			::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
+			::SendDeleteItem(pAttr, &pos, pMaster, 0);
+			//sYES = 0;
+			s_SymBol = 0;
 			// 2. reset to cc.
 			int nGrade = 0;
 			// reset to 0
 			pMaster->quick[5].item_no = 0;
 			pMaster->quick[5].attr[0] = nGrade;
+			pMaster->SetDualClass(0); // 듀얼 클래스 설정
+			pMaster->SetClassStep(0);
+			//pMaster->DivideAbility(pPacket->nNext);
+			//Change(nStep, pMaster);
+			//SendDualChange(idMaster, nStep);		// modify by taniey
+
+
+			//1.reset Ability first 
+			RecvResetAbility(idMaster);
 
 			SendResetDualToCC(idMaster, nPara, nX, nY);
 			pMaster->Message(MK_NORMAL, 4, 143, 0, 0);
 			//Send_RareItemMakeLog(pMaster->GetServerID(), 0, -1, nGrade, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+			CharacterAutoUpdate();
+
 		}
 	}
 }

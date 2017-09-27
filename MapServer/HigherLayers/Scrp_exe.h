@@ -31,6 +31,7 @@
 #define s_RandomNumber			(var[EventPC][5])
 #define s_PcMoney				(var[EventPC][6])
 #define s_Nation				(var[EventPC][7])		// 010530 YGI
+#define s_SymBol				(var[EventPC][25])		// add by taniey
 
 #define DUAL_FAME_FIELD		10 // 스파이게임 스크립트 변수 
 #define s_GhostLvDef		64
