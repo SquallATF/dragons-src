@@ -69,21 +69,18 @@ CItem.h :
 
 -----------------------------------------------------------------------------------------
 DualManager.h :
-(121L, 找到 SendDualDivide 函数， 在之后增加)
-121L, add,	void SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);			// add by taniey
-
-(121L, 找到 RecvResetAbility 函数， 在之后增加)
-127L, add, 	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
-
+(130L -- 131L, 找到 RecvResetAbility 函数， 在之后增加)
+125L, add,	void SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY);			// add by taniey
+126L, add, 	void RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket);		// add by taniey
+128L, modify,  void RecvResetAbility(WORD idMaster);   --->   void RecvResetAbility(WORD idMaster, void *data, int size); 
 
 -----------------------------------------------------------------------------------------
 DualManager.cpp ：
-
 (282L --- 292L, 找到函数, << void CDualManager::SendDualDivide(WORD idMaster, BYTE nStep){...} >> 在之后增加)
 282L -- 292L, add, void CDualManager::SendResetDualToCC(WORD idMaster, BYTE nPara, BYTE nX, BYTE nY) {...}
 
-(343L --- 398L, 找到函数, << void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket) >> 在内部增加)
-内部找到：
+(343L --- 398L, 找到函数, << void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket) >> 内部找到)
+
 			if (pPacket->nStep <= 1) {
 				pMaster->SetDualClass(pPacket->nNext); // 듀얼 클래스 설정
 			}
@@ -110,18 +107,18 @@ DualManager.cpp ：
 -----------------------------------------------------------------------------------------
 DragonServer.cpp :
 (找到, case 语句, << case CMD_RESET_ABILITY: >>, 修改如下)
-	case CMD_RESET_ABILITY:
-	{
-		g_pDualManager->RecvResetAbility(cn, packet->u.data, packet->h.header.size);
-		break;
-	}
+		case CMD_RESET_ABILITY:
+			{
+				g_pDualManager->RecvResetAbility(cn, packet->u.data, packet->h.header.size);
+				break;
+			}
 
 并在其之后, 及 << case CMD_RARE_UPGRADE_BBS_MAP_TO_MAP:{...} >>之前，增加 case 逻辑:
-	case CMD_RESET_DUAL_TO_CC:
-	{
-		g_pDualManager->RecvResetDualToCC(cn, &packet->u.dual.client_reset_dual_to_cc);
-		break;
-	}
+		case CMD_RESET_DUAL_TO_CC:
+			{
+				g_pDualManager->RecvResetDualToCC(cn, &packet->u.dual.client_reset_dual_to_cc);
+				break;
+			}
 
 	
 -----------------------------------------------------------------------------------------
@@ -143,7 +140,7 @@ Scrp_exe.h :
 =========================================================================================
 NetWork5.h :
 (54L, 找到定义, << #define CMD_DUAL_MESSAMGE		 7505 >> 这一行， 在其后增加)
-54L, add, #define CMD_RESET_DUAL_TO_CC		 7506	// add by taniey
+54L, add, #define CMD_RESET_DUAL_TO_CC		7506	// add by taniey
 
 (577L  -- 594L, 找到结构 << 
 struct t_server_dual_divide
@@ -167,14 +164,14 @@ struct t_server_reset_dual_to_cc
 	BYTE nPosY;    // INV의 Y자리
 };
 
-(640L -- 641L, 可以找到结构 t_dual, 在此结构内增加)
+(640L -- 641L, 找到结构 t_dual, 在此结构内增加)
 640L, add,	t_client_reset_dual_to_cc client_reset_dual_to_cc;
 641L, add,	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 
 
 -----------------------------------------------------------------------------------------
 ItemTable.h :
-(305L, 找到 << #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293 >> 一行, 在其后增加)
+(305L -- 306L, 找到 << #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT			10293 >> 一行, 在其后增加)
 305L, add, #define ITEM_ID_ETC_CC_OF_POTION				10079		// cc of battle  转职 回到 CC 药瓶
 306L, add, #define ITEM_ID_ETC_RESET_ABILITY_POINTS		10299		// reset ability points  重设能力点卷
 
@@ -195,23 +192,27 @@ Menu.cpp :
 			break;
 		}
 
- >>  在其间增加)
-case ITEM_ID_ETC_CC_OF_POTION:				// add by taniey
-{
-	ItemSound(item_attr.item_no);
-	g_mgrDual.SendResetDualToCC(Hero, first_para, ItemX, ItemY);
+ >>  在其间增加如下代码)
+				case ITEM_ID_ETC_CC_OF_POTION:				// add by taniey
+				{
+					ItemSound(item_attr.item_no);
+					g_mgrDual.SendResetDualToCC(Hero, first_para, ItemX, ItemY);
 
-	break;
-}
-case ITEM_ID_ETC_RESET_ABILITY_POINTS: {		// <add by taniey> ability reset points
-	ItemSound(item_attr.item_no);
-	g_mgrDual.SendResetAbilityPoints(Hero, first_para, ItemX, ItemY);
-	break;
-}
+					break;
+				}
+				case ITEM_ID_ETC_RESET_ABILITY_POINTS: {		// <add by taniey> ability reset points
+					ItemSound(item_attr.item_no);
+					g_mgrDual.SendResetAbilityPoints(Hero, first_para, ItemX, ItemY);
+					break;
+				}
 
 
 -----------------------------------------------------------------------------------------
 DualMgr.h :
+(找到代码，<< #include "SymbolMgr_Client.h" >> , 在之后增加)
+41L, add, #include "Menu.h"
+
+(41L -- 43L, 找到函数， << void Message(int nType, const char* pContext, ...); >>, 在之后增加)
 41L, add, 	void SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
 42L, add, 	void RecvResetDualToCC(t_server_restore_to_cc* pPacket);
 43L, add,	void SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
@@ -246,12 +247,11 @@ LineCommand.cpp :
 -----------------------------------------------------------------------------------------
 network.cpp :
 (3753L --- 3757L, 找到  << case CMD_DUAL_MESSAMGE: {...} >> 和 << case CMD_ON_CONNECT: {...} >>  在两个 case 之间增加)
-3753L, add, 		case CMD_RESET_DUAL_TO_CC:
-3754L, add, 		{
-3755L, add, 			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_restore_to_cc);
-3756L, add, 			break;
-3757L, add, 		}
-
+ 		case CMD_RESET_DUAL_TO_CC:
+ 		{
+ 			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_restore_to_cc);
+ 			break;
+ 		}
 
 =========================================================================================
 客户端执行目录：
@@ -261,6 +261,8 @@ network.cpp :
 1543L, modify,  143 :    --->   143 : "已成功退回到CC。"
 1544L, modify,  144 :    --->   144 : "不是进阶职业，不能进行 CC 操作。"
 
+(找到， << 668 : "请先进行【%d】级职业进阶，需要 【%s】一个" >> 在其后增加)
+669 : "要到【Lv %d】级以上才能进行技能点重分。"
 
 =========================================================================================
 #########################################################################################
@@ -331,6 +333,7 @@ ItemTable.h :
 301L, add, #define ITEM_ID_ETC_RED_DRAGON_SCALE			10075		// Red Dragon's Scale   红龙的鳞片
 302L, add, #define ITEM_ID_ETC_AMURSTART_SWORD			10292		// sword of amurtart    阿姆塔特的剑
 303L, add, #define ITEM_ID_ETC_MERCHANT_YLL_PERMIT		10293		// Merchant Yll. permit  转职任务卷
+
 -----------------------------------------------------------------------------------------
 Menu.cpp :
 6955L, modify, case 3105:   --->   case ITEM_ID_COOK_COMBAT_SKILL_BOOK:

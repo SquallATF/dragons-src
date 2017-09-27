@@ -977,15 +977,15 @@ int IsLineCommand(char *message, int nsize)
 #endif
 				break;
 			}	//> CSD-040310
-			case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
-			{
-				Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
-				// CallSmallMenu(MN_INIT_ABILITY);	//打开能力窗口
-				CallServer(CMD_RESET_ABILITY);		//发送重分函数
-				CallMenu(MN_ABILITY);				//打开属性菜单
-				//CallServer(CMD_OPEN_ABILITY);
-				break;
-			}
+			//case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
+			//{
+			//	Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
+			//	// CallSmallMenu(MN_INIT_ABILITY);	//打开能力窗口
+			//	CallServer(CMD_RESET_ABILITY);		//发送重分函数
+			//	CallMenu(MN_ABILITY);				//打开属性菜单
+			//	//CallServer(CMD_OPEN_ABILITY);
+			//	break;
+			//}
 			case LC_MINIWINDOW_MODE:	//月神夜090822,最小化窗口
 			{
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(230));

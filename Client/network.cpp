@@ -3752,7 +3752,7 @@ int HandleCommand(t_connection *c)
 		}
 		case CMD_RESET_DUAL_TO_CC:
 		{	// add by taniey
-			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_restore_to_cc);
+			g_mgrDual.RecvResetDualToCC(&packet.u.dual.server_reset_dual_to_cc);
 			break;
 		}
 		case CMD_ON_CONNECT:

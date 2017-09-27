@@ -501,26 +501,20 @@ void CDualMgr::SendResetDualToCC(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE 
 	if (IsDead(pMaster))
 		return;			// add by taniey
 
-	if (pMaster->aStepInfo[CLS_STEP] > 0) {
+	if (pMaster->aStepInfo[CLS_STEP] <= 0) {
 
 		string strMsg = ::lan->OutputMessage(4, 144);
 		Message(MK_WARNING, strMsg.c_str());
 		return;
 	}
 
-	//POS pos;
-	//// 전투스킬 포인터 획득 아이템 위치 구하기
-	//::SetItemPos(INV, nPara, nY, nX, &pos);
-	// 전투스킬 포인터 획득 아이템 확인
-	//ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
-
 	t_packet packet;
 	packet.h.header.type = CMD_RESET_DUAL_TO_CC;
 	packet.h.header.size = sizeof(t_client_reset_dual_to_cc);
-	packet.u.dual.client_restore_to_cc.idMaster = WORD(pMaster->id);
-	packet.u.dual.client_restore_to_cc.nPara = nPara;
-	packet.u.dual.client_restore_to_cc.nPosX = nX;
-	packet.u.dual.client_restore_to_cc.nPosY = nY;
+	packet.u.dual.client_reset_dual_to_cc.idMaster = WORD(pMaster->id);
+	packet.u.dual.client_reset_dual_to_cc.nPara = nPara;
+	packet.u.dual.client_reset_dual_to_cc.nPosX = nX;
+	packet.u.dual.client_reset_dual_to_cc.nPosY = nY;
 	::QueuePacket(&packet, 1);
 }
 
@@ -530,21 +524,6 @@ void CDualMgr::RecvResetDualToCC(t_server_reset_dual_to_cc* pPacket)
 	if (pMaster == NULL)
 		return;
 
-	const BYTE nPara = pPacket->nPara;
-	const BYTE nX = pPacket->nPosX;
-	const BYTE nY = pPacket->nPosY;
-
-	//// 전투스킬 포인터 획득 아이템 위치 구하기
-	//POS pos;
-	//::SetItemPos(INV, nPara, nY, nX, &pos);
-	// 전투스킬 포인터 획득 아이템 확인
-	//ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
-
-	m_nPara = nPara;
-	m_nPosX = nX;
-	m_nPosY = nY;
-	//::CallDualInterFace(MT_DUAL_CHANGE);
-	// please add new code
 	g_SymBolMgr.SetDualItem(0, 0);
 
 	pMaster->aStepInfo[CLS_STEP] = 0;			// 듀얼 클래스 단계 상승
@@ -563,7 +542,12 @@ void CDualMgr::SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, 
 	if (IsDead(pMaster))
 		return;
 
-	Kein_PutMessage(KM_INFO, kein_GetMenuString(229));
+	const int CROSSING_CLASS_LEVEL = 101; // CSD-030806
+	if (pMaster->lv < CROSSING_CLASS_LEVEL) {
+		string strMsg = ::lan->OutputMessage(0, 669);
+		Message(MK_WARNING, strMsg.c_str(), CROSSING_CLASS_LEVEL);
+		return;
+	}
 
 	BYTE data[4] = { 0 };
 	data[0] = nPara, data[1] = nX, data[2] = nY;
@@ -571,7 +555,4 @@ void CDualMgr::SendResetAbilityPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, 
 	CallMenu(MN_ABILITY);									// menu of the ability
 }
 
-//void CDualMgr::RecvResetAbilityPoints(void * data)
-//{
-//}
 

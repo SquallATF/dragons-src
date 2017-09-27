@@ -14,6 +14,7 @@ extern inline int GetTotalAbility(LPCHARLIST ch);
 extern void AddAbility(CHARLIST *ch, int type, int add);
 extern int SendCharInfo(short int cn);
 extern inline void	CallClient(short int id, short int type);
+extern void UpdateCharacterData(t_connection c[], int cn, bool bDirect = false);
 
 ///////////////////////////////////////////////////////////////////////////////
 // Global Memeber
@@ -391,7 +392,8 @@ void CDualManager::RecvDualChange(WORD idMaster, t_client_dual_change* pPacket)
 			Change(nStep, pMaster);
 			SendDualChange(idMaster, nStep);		// modify by taniey
 
-			CharacterAutoUpdate();					// save to db
+			//CharacterAutoUpdate();					// save to db
+			UpdateCharacterData(connections, idMaster); // save to db
 		}
 		else
 		{
@@ -441,16 +443,17 @@ void CDualManager::RecvResetAbility(WORD idMaster, void *data, int size)	//重�
 	CItem* pItem = ::ItemUnit(*pAttr);
 	if (pItem == NULL)  return;
 
-	const int ni = pItem->GetRbutton();
+	//const int ni = pItem->GetRbutton();
 
 	if (USE_ITEM != pItem->GetRbutton())
 		return;
 
-	::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
-	::SendDeleteItem(pAttr, &pos, pMaster, 0);
-
-	if (pMaster->GetLevel() == CROSSING_CLASS_LEVEL) // 101级重分点的限制. 
+	if (pMaster->GetLevel() >= CROSSING_CLASS_LEVEL) // 101级重分点的限制. 
 	{	//< 101分点
+
+		::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
+		::SendDeleteItem(pAttr, &pos, pMaster, 0);
+
 		const int nTotal = ::GetTotalAbility(pMaster);
 		const int nClass = pMaster->Class;
 		// 统计点
@@ -533,7 +536,8 @@ void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* p
 
 	SendResetDualToCC(idMaster, nPara, nX, nY);
 	//pMaster->Message(MK_NORMAL, 4, 143, 0, 0);
-	CharacterAutoUpdate();  // save to db
+	//CharacterAutoUpdate();  // save to db
+	UpdateCharacterData(connections, idMaster); // save to db
 
 	Send_RareItemMakeLog(pMaster->GetServerID(), 0, -1, nGrade, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 }

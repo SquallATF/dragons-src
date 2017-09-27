@@ -600,8 +600,8 @@ union t_dual
 	t_server_dual_change server_dual_change;
 	t_client_dual_divide client_dual_divide;
 	t_server_dual_divide server_dual_divide;
-	t_client_reset_dual_to_cc client_restore_to_cc;
-	t_server_reset_dual_to_cc server_restore_to_cc;
+	t_client_reset_dual_to_cc client_reset_dual_to_cc;
+	t_server_reset_dual_to_cc server_reset_dual_to_cc;
 };
 //
 ///////////////////////////////////////////////////////////////////////////////
