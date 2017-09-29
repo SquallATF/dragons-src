@@ -13,24 +13,16 @@ case LC_LINERESET_POINT: //游戏中重分点数.月神夜090822
 数据库：（DragonRajaDB）
 =========================================================================================
 执行如下语句, (如果有更好名字，换名后执行这些语句)：
-update [DragonRajaDB].[dbo].[Item_Etc]
- set [Mouse_MR] = 8, [Name] = 'cc of potion', [Han_Name]='CC 药水'
- where [Item_id] = 79;
 
- update [DragonRajaDB].[dbo].[Item_Etc]
- set [Name] = 'Reset ability points permit', [Han_Name]='重设能力点卷轴'
- where [Item_id] = 299;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Need2_max_age] = 1, [Imunity_Cure_5] = 110 where [Item_id] = 64;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Need2_max_age] = 2,[Imunity_Cure_5] = 120 where [Item_id] = 73;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Need2_max_age] = 3,[Imunity_Cure_5] = 135 where [Item_id] = 75;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Need2_max_age] = 1, [Mouse_MR] = 8, [Name] = 'cc of potion', [Han_Name]='CC 药水' where [Item_id] = 79;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Need2_max_age] = 4,[Imunity_Cure_5] = 150 where [Item_id] = 292;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Need2_max_age] = 5,[Imunity_Cure_5] = 200 where [Item_id] = 293;
+update [DragonRajaDB].[dbo].[Item_Etc] set [Imunity_Cure_5] = 101, [Name] = 'Reset ability permit', [Han_Name]='重置能力点卷轴' where [Item_id] = 299;
 
-SELECT TOP (1000)
-	 [Item_id]
-	 ,[Name]
-	 ,[Han_Name]
-      ,[Mouse_MR]
-      ,[Mouse_MRD]
-      ,[Mouse_MR_Effect]
-      ,[Mouse_MR_Wave]
- FROM [DragonRajaDB].[dbo].[Item_Etc]
- where [Item_id] = 79 or [Item_id] = 299;
+SELECT  * FROM [DragonRajaDB].[dbo].[Item_Etc] where [Item_id] = 79 or [Item_id] = 299;
 
 =========================================================================================
 服务端 ： （MapServer）
@@ -263,6 +255,8 @@ network.cpp :
 
 (找到， << 668 : "请先进行【%d】级职业进阶，需要 【%s】一个" >> 在其后增加)
 669 : "要到【Lv %d】级以上才能进行技能点重分。"
+
+2361L, modify, "可佩带 等级 : %d"    --->   "可用 等级 : %d"    (此处自己决定改不改)
 
 =========================================================================================
 #########################################################################################
