@@ -31,7 +31,7 @@ struct CHAR_DATA
 	DWORD			Exp;
 	short int		Gender;						// 0:여자 1 : 남자(050413_KCH sprno와 같아야함)
 	short int		Face;
-	short int		Class;						// 0:전사 1:궁수 2:도적 3:성직자 4:마법사
+	short int		Class;						// 0:전사(战士) 1:궁수(弓手) 2:도적(盗贼) 3:성직자(神职人员) 4:마법사(向导)
 	short int		Spell;					// 마법사:0 / 성직자:1
 	short int		fame;
 

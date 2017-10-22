@@ -6957,7 +6957,12 @@ void DoRButtonCheckOfMenu(int i, int j)
 			g_mgrBattle.SendCombatObtain(Hero, first_para, ItemX, ItemY, 1);
 			break;
 		}
-
+		case ITEM_ID_ETC_COMBAT_RESET_BOOK:
+		{
+			ItemSound(item_attr.item_no);
+			g_mgrBattle.SendResetCombatPoints(Hero, first_para, ItemX, ItemY);
+			break;
+		}
 		case ITEM_ID_ETC_BALROG_TOOTH:
 		case ITEM_ID_ETC_LICH_EYEBALL:
 		case ITEM_ID_ETC_RED_DRAGON_SCALE:

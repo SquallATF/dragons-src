@@ -999,6 +999,44 @@ void CBattleMgr::SendCombatResult(BYTE nCombat, LPCHARACTER pCaster, LPCHARACTER
 	}
 }
 
+void CBattleMgr::SendResetCombatPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY)
+{
+	POS pos;
+	// 전투스킬 포인터 획득 아이템 위치 구하기
+	::SetItemPos(INV, nPara, nY, nX, &pos);
+	// 전투스킬 포인터 획득 아이템 확인
+	ItemAttr& rItemAttr = InvItemAttr[nPara][nY][nX];
+
+	if (rItemAttr.item_no != ITEM_ID_ETC_COMBAT_RESET_BOOK)
+		return;
+
+	if (pMaster->class_type > 2) {
+		string strMsg = ::lan->OutputMessage(1, 50);
+		Message(MK_WARNING, strMsg.c_str());
+		return;
+	}
+
+	const int CROSSING_CLASS_LEVEL = 101; // CSD-030806
+	if (pMaster->lv < CROSSING_CLASS_LEVEL) {
+		string strMsg = ::lan->OutputMessage(0, 669);
+		Message(MK_WARNING, strMsg.c_str(), CROSSING_CLASS_LEVEL);
+		return;
+	}
+
+	t_packet packet;
+	packet.h.header.type = CMD_COMBAT_RESET;
+	packet.h.header.size = sizeof(t_client_combat_reset);
+	packet.u.combat.client_combat_reset.idMaster = WORD(pMaster->id);
+	packet.u.combat.client_combat_reset.nPara = nPara;
+	packet.u.combat.client_combat_reset.nPosX = nX;
+	packet.u.combat.client_combat_reset.nPosY = nY;
+	::QueuePacket(&packet, 1);
+}
+
+//void CBattleMgr::RecvResetCombatPoints(client_combat_reset * pPacket)
+//{
+//}
+
 void CBattleMgr::SendModifyPosition(LPCHARACTER pTarget)
 { //< CSD-021107
 	if (pTarget->pathcount > 2 || pTarget->moveFlag == TRUE)

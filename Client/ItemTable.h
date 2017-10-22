@@ -294,6 +294,7 @@ enum eItemKindType
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // add by taniey
 #define ITEM_ID_COOK_COMBAT_SKILL_BOOK			3105		// CombatSkill Book		战斗技能书
+#define ITEM_ID_ETC_COMBAT_RESET_BOOK			10312		// CombatSkill reset Book 战技点重分书
 
 #define ITEM_ID_POTION_EXTREAM_STONE			4028		// Extream Stone		极限之石
 #define ITEM_ID_ETC_BALROG_TOOTH				10064		// Balrog's Tooth		炎魔的牙齿

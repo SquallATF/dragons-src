@@ -119,6 +119,12 @@
       <IgnoreSpecificDefaultLibraries>libc.lib;nafxcwd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
+    <PostBuildEvent>
+      <Command>copy $(TargetPath) $(OutDir)dragonmap\5190_RENES_C_雷诺斯市\
+copy $(TargetPath) $(OutDir)dragonmap\5770_w_glade_西部林地\
+copy $(TargetPath) $(OutDir)dragonmap\5830_SCHOLIUM2_新手村\
+</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Utility\utility.cpp" />

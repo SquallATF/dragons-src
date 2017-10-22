@@ -1167,7 +1167,7 @@ int HandleCommand(int cn, t_packet *packet)
 	}
 	case CMD_COMBAT_RESET:
 	{
-		g_pBattleManager->RecvCombatReset(cn);
+		g_pBattleManager->RecvCombatReset(cn, &packet->u.combat.client_combat_reset);
 		break;
 	}
 	case CMD_COMBAT_REQUEST:

@@ -1,3 +1,170 @@
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第七次增加>>>>>>>>>>>>>>
+#########################################################################################
+=========================================================================================
+客户端执行目录：
+=========================================================================================
+在目录 ./data/Ch_lan.txt ：
+(找到， << [magic] >> 在其后找到 第49 和 50  的序号 修改为)
+49 : "技能重分成功"
+50 : "非物理职业，不能使用此道具。"
+
+=========================================================================================
+客户端： （DragonRaja-Online）
+=========================================================================================
+ItemTable.h :
+(297L, 找到 ITEM_ID_COOK_COMBAT_SKILL_BOOK 这一行，在其后增加)
+297L, add, #define ITEM_ID_ETC_COMBAT_RESET_BOOK				10249		// CombatSkill reset Book 战技点重分书
+
+-----------------------------------------------------------------------------------------
+NetWork5.h :
+(471L-487L, 找到结构，<<
+struct t_server_combat_result_t : public t_server_combat_result
+{
+	BYTE nState;    // 전투스킬 적용 상태
+	WORD wMaintain; // 전투스킬 속성 유지시간
+};
+>> 在其后增加如下信息：)
+// add by taniey
+struct t_client_combat_reset
+{
+	WORD idMaster; // 전투스킬 포인터 습득자
+	BYTE nPara;    // INV 위치
+	BYTE nPosX;    // INV의 X자리 
+	BYTE nPosY;    // INV의 Y자리
+};
+
+(512L-513L, 找到结构 union t_combat{...}, 在内部找到，<< t_server_combat_result_t server_combat_result_t; >> 在其后增加以下两行)
+	t_client_combat_reset	client_combat_reset;
+	
+-----------------------------------------------------------------------------------------
+BattleMgr.h :
+(找到代码, <<void SendCombatResult(BYTE nCombat, LPCHARACTER pCaster, LPCHARACTER pTarget, int nX, int nY); >>, 在其后增加)
+100L, add ,	void SendResetCombatPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
+
+-----------------------------------------------------------------------------------------
+BattleMgr.cpp :
+(1002L, 找到函数,<< void CBattleMgr::SendCombatResult(BYTE nCombat, LPCHARACTER pCaster, LPCHARACTER pTarget, int nX, int nY) {...} >>, 在其后增加)
+1002L, void CBattleMgr::SendResetCombatPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY) {...}
+
+-----------------------------------------------------------------------------------------
+Menu.cpp :
+(找到，<< 
+		case ITEM_ID_ETC_COMBAT_RESET_BOOK: // 전투시술서
+		{
+			g_mgrBattle.SendCombatObtain(Hero, first_para, ItemX, ItemY, 1);
+			break;
+		}
+ >> 在其后增加)
+		case ITEM_ID_ETC_COMBAT_POINTS_RESET:
+		{
+			ItemSound(item_attr.item_no);
+			g_mgrBattle.SendResetCombatPoints(Hero, first_para, ItemX, ItemY);
+			break;
+		}
+
+=========================================================================================
+服务端：（MapServer）
+=========================================================================================
+NetWork5.h :
+(471L-487L, 找到结构，<<
+struct t_server_combat_result_t : public t_server_combat_result
+{
+	BYTE nState;    // 전투스킬 적용 상태
+	WORD wMaintain; // 전투스킬 속성 유지시간
+};
+>> 在其后增加如下信息：)
+// add by taniey
+struct t_client_combat_reset
+{
+	WORD idMaster; // 전투스킬 포인터 습득자
+	BYTE nPara;    // INV 위치
+	BYTE nPosX;    // INV의 X자리 
+	BYTE nPosY;    // INV의 Y자리
+};
+
+(512L-513L, 找到结构 union t_combat{...}, 在内部找到，<< t_server_combat_result_t server_combat_result_t; >> 在其后增加以下两行)
+	t_client_combat_reset	client_combat_reset;
+	
+-----------------------------------------------------------------------------------------
+DragonServer.cpp :
+(找到代码, << 
+			case CMD_COMBAT_RESET:
+			{
+				g_pBattleManager->RecvCombatReset(cn);
+				break;
+			}
+ >> , 内部  替换如下代码)
+1170L, modify, 		g_pBattleManager->RecvCombatReset(cn);   --->  g_pBattleManager->RecvCombatReset(cn, &packet->u.combat.client_combat_reset);
+
+-----------------------------------------------------------------------------------------
+BattleManager.h :
+(57L, 找到 void RecvCombatReset(WORD idMaster); ，在其后增加)
+57L, add, 	void RecvCombatReset(WORD idMaster, t_client_combat_reset* pPacket);
+
+-----------------------------------------------------------------------------------------
+BattleManager.cpp :
+(1096L,找到函数， << void CBattleManager::RecvCombatReset(WORD idMaster){...} >> , 在其后增加)
+1096L, add, void CBattleManager::RecvCombatReset(WORD idMaster, t_client_combat_reset * pPacket){...}
+
+
+=========================================================================================
+数据库：（DragonRajaDB）
+=========================================================================================
+insert into [DragonRajaDB].[dbo].[Item_Etc]
+ (Item_id,Name,Han_Name,lv,Image_Number,Repairable,Repair_min,Repair_max,Repair_Skill2,Repair_Skill2_min,Repair_Res1,Amt_of_Repair_Res1,Repair_Res2,Amt_of_Repair_Res2,Repair_Res3,Amt_of_Repair_Res3,Repair_Tool,Amt_of_abrasion,Need2_lv,Need2_str,Need2_dex,Need2_con,Need2_wis,Need2_int,Need2_cha,Need2_end,Need2_Movp,Need2_mor,Need2_luc,Need2_ws,Need2_ps,Need2_Magery,Need2_Orison,Need2_fame,Need2_rank,Need2_gender,Need2_race,Need2_min_age,Need2_max_age,Need3_lv,Need3_str,Need3_dex,Need3_con,Need3_wis,Need3_int,Need3_cha,Need3_end,Need3_Movp,Need3_mor,Need3_luc,Need3_ws,Need3_ps,Need3_fame,Need3_rank,Need3_gender,Need3_race,Need3_min_age,Need3_max_age,Class_Warrior,Class_Archer,Class_Thief,Class_Wizard,Class_Cleric,Change_str,Change_dex,Change_con,Change_wis,Change_int,Change_cha,Change_end,Change_mor,Change_luc,Change_ws,Change_ps,Change_mag,Change_dev,casting_Time,Change_Life_max,Change_mana_max,Change_Divine_Max,Change_health_max,Increase_Poisoning,Increase_Stone,Increase_Magic,Increase_Fire,Increase_Ice,Increase_lightning,imunity_Cure_1,Imunity_Cure_2,Imunity_Cure_3,Imunity_Cure_4,Imunity_Cure_5,Imunity_Cure_6,Skill_effect,Substitution_magic,Skill_Ability,Damage,Hit_rate,Defense_rate,AR_or_DH,Defense_power,body,arms,head,leg,neck,hand,JobSkill_Farming,JobSkill_Mining,JobSkill_Fishing,JobSkill_Cutdown,JobSkill_Butchering,JobSkill_Herb_digging,JobSkill_Herding,JobSkill_Carpentary,JobSkill_Blacksmithy,JobSkill_Cooking,JobSkill_Tailoring,JobSkill_Bowcraft,JobSkill_Alchemy,JobSkill_Candle,JobSkill_repair,JobSkill_reutil,JobSkill_music,JobSkill_detect,JobSkill_hide,JobSkill_campiing,JobSkill_taming,comm_animal,comm_human,comm_orc,comm_elf,comm_fairy,comm_hobbit,comm_dwarf,comm_dragon,animal_lore,arms_lore,evaluate_int,evaluate_wis,analomy,item_ident,taste_ident,Appraisal,healing,spirituality,poisoning,entrapment,scrooling,cunning,bomb_play,tactice,crapple,sword,archey,fencing,mace,pierce,whid,hurt,parrying,double_sword,double_mace,change_music,change_detect,change_hide,change_amping,change_taming,weight,max_duration,object,wear_able,base_value,base_store,store_const,store_plus_const,Item_kind,Mouse_MR,Mouse_MRD,Mouse_MR_Effect,Mouse_MR_Wave,Use_Junk,kind_of_magic,incr_damage)
+values
+(312,'Combat skill reset book','战技点重分书',101,1031200,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1000,1031200,1,3256705,1,10000000,0,29,1,0,0,0,0,0,0)
+
+select * from [DragonRajaDB].[dbo].[Item_Etc] where [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 312;
+
+=========================================================================================
+}}}}}
+#########################################################################################
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第六次增加>>>>>>>>>>>>>>
+#########################################################################################
+=========================================================================================
+客户端执行目录：
+=========================================================================================
+在目录 ./data/Ch_lan.txt ：
+(找到， << 669 : "要到【Lv %d】级以上才能进行技能点重分。" >> 在其后增加)
+670 : "请先进行技能点重分。"
+
+=========================================================================================
+服务端 ： （MapServer）
+=========================================================================================
+DualMgr.cpp :
+找到函数 void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* pPacket) , 内部找到：
+	if (!pMaster->IsDual()) // not dual don`t deal
+		return;
+		
+		在其后增加:
+
+	int nCurResPoint = pMaster->GetReservedPoint();
+	int nCurClassStep = pMaster->GetClassStep();
+	if (pMaster->GetReservedPoint() < 100 * nCurClassStep) {
+		pMaster->Message(MK_WARNING, 0, 670);
+		return;
+	}
+
+然后在此函数内找到：	::SendDeleteItem(pAttr, &pos, pMaster, 0);
+在其后增加
+
+	pMaster->SetReservedPoint(nCurResPoint - 100 * nCurClassStep);
+	::SendCharInfo(idMaster);
+
+
+=========================================================================================
+=========================================================================================
+}}}}}
+#########################################################################################
+#########################################################################################
+#########################################################################################
 
 CMD_SYMBOL_MAKE
 CMD_SYMBOL_UPGRADE
@@ -289,6 +456,9 @@ DualMgr.cpp :
 ./ItemTable/itemtable10.bin
 
 =========================================================================================
+=========================================================================================
+}}}}}
+#########################################################################################
 #########################################################################################
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////

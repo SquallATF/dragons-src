@@ -494,6 +494,13 @@ void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* p
 	if (!pMaster->IsDual()) // not dual don`t deal
 		return;
 
+	int nCurResPoint = pMaster->GetReservedPoint();
+	int nCurClassStep = pMaster->GetClassStep();
+	if (pMaster->GetReservedPoint() < 100 * nCurClassStep) {
+		pMaster->Message(MK_WARNING, 0, 670);
+		return;
+	}
+
 	const BYTE nPara = pPacket->nPara;
 	const BYTE nX = pPacket->nPosX;
 	const BYTE nY = pPacket->nPosY;
@@ -512,6 +519,9 @@ void CDualManager::RecvResetDualToCC(WORD idMaster, t_client_reset_dual_to_cc* p
 	// Start clear the dual , symbol and upgrade info
 	::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
 	::SendDeleteItem(pAttr, &pos, pMaster, 0);
+
+	pMaster->SetReservedPoint(nCurResPoint - 100 * nCurClassStep);
+	::SendCharInfo(idMaster);
 
 	s_SymBol_Get_NPC_Check_WARRIOR = 0;
 	s_SymBol_Get_NPC_Check_THIEF = 0;

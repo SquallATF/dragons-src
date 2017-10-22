@@ -26,6 +26,9 @@
 #define CMD_MAGIC_RESULT_M		7596 // CSD-TW-030606
 #define CMD_MAGIC_RESULT_D		7597 // CSD-TW-030606
 
+#define CMD_BATTLE_DAMAGE        7606
+#define CMD_BATTLE_MESSAMGE      7607
+
 #define CMD_COMBAT_CLEAR         7608
 #define CMD_COMBAT_OBTAIN        7609
 #define CMD_COMBAT_REQUEST       7610
@@ -41,9 +44,7 @@
 #define CMD_COMBAT_RESET         7620
 #define CMD_COMBAT_INIT          7621
 #define CMD_COMBAT_SYNC			 7622 // 030517 kyo
-
-#define CMD_BATTLE_DAMAGE        7606
-#define CMD_BATTLE_MESSAMGE      7607
+//#define CMD_COMBAT_RESET_POINTS	 7623 // add by taniey
 
 #define CMD_DUAL_ENABLE          7501
 #define CMD_DUAL_CHANGE          7502
@@ -467,6 +468,15 @@ struct t_server_combat_result_t : public t_server_combat_result
 	WORD wMaintain; // 전투스킬 속성 유지시간
 };
 
+// add by taniey
+struct t_client_combat_reset
+{
+	WORD idMaster; // 전투스킬 포인터 습득자
+	BYTE nPara;    // INV 위치
+	BYTE nPosX;    // INV의 X자리 
+	BYTE nPosY;    // INV의 Y자리
+};
+
 union t_combat
 {
 	t_combat_init            combat_init;
@@ -488,6 +498,7 @@ union t_combat
 	t_server_combat_result_m server_combat_result_m;
 	t_server_combat_result_s server_combat_result_s;
 	t_server_combat_result_t server_combat_result_t;
+	t_client_combat_reset	client_combat_reset;
 };
 
 struct t_dual_message

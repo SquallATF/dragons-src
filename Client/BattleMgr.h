@@ -97,6 +97,9 @@ public:
 	void SendCombatAttack(BYTE nCombat, LPCHARACTER pTarget, int nX, int nY);
 	void SendCombatResult(BYTE nCombat, LPCHARACTER pCaster, LPCHARACTER pTarget, int nX, int nY);
 
+	void SendResetCombatPoints(LPCHARACTER pMaster, BYTE nPara, BYTE nX, BYTE nY);
+	//void RecvResetCombatPoints(t_server_combat_points_reset* pPacket);
+
 	void SendModifyPosition(LPCHARACTER pTarget); // CSD-021107
 	void SendTameCommand(LPCHARACTER pTame, LPCHARACTER pTarget);
 

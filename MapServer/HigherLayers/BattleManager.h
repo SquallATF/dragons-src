@@ -54,6 +54,7 @@ public:
 	void RecvMagicResult(t_magic_result_d* pPacket);
 
 	void RecvCombatReset(WORD idMaster);
+	void RecvCombatReset(WORD idMaster, t_client_combat_reset* pPacket);
 	void RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPacket);
 	void RecvCombatRequest(WORD idMaster, t_client_combat_request* pPacket);
 	void RecvCombatLearn(WORD idMaster, t_client_combat_learn* pPacket);

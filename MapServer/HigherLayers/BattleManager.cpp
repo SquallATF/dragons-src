@@ -1093,6 +1093,47 @@ void CBattleManager::RecvCombatReset(WORD idMaster)
 	pMaster->SetCombatPoint(nCount);
 }
 
+void CBattleManager::RecvCombatReset(WORD idMaster, t_client_combat_reset * pPacket)
+{
+	CHARLIST *pMaster = ::GetCharListPtr(idMaster);
+	if (!pMaster) return;
+
+	if (pMaster->Class > 2) {
+		pMaster->Message(MK_WARNING, 1, 50);
+		return;
+	}
+
+	const BYTE nPara = pPacket->nPara;
+	const BYTE nX = pPacket->nPosX;
+	const BYTE nY = pPacket->nPosY;
+
+	POS pos;
+	::SetItemPos(INV, nPara, nY, nX, &pos);
+	ItemAttr* pAttr = ::GetItemByPOS(idMaster, pos);
+	if (pAttr == NULL)  return;
+	CItem* pItem = ::ItemUnit(*pAttr);
+	if (pItem == NULL)  return;
+
+	if (USE_ITEM != pItem->GetRbutton())
+		return;
+
+	// Start clear the dual , symbol and upgrade info
+	::SendItemEventLog(pAttr, idMaster, 0, SILT_USE, 3); //020829 lsw
+	::SendDeleteItem(pAttr, &pos, pMaster, 0);
+
+	// reset the combat points
+	int nCount = pMaster->GetCombatPoint();
+	for (int i = LIGHTNING_BOOM; i <= WIND_EXTREME; ++i)
+	{
+		nCount += pMaster->GetCombatLevel(i);
+		pMaster->SetCombatLevel(i, 0);
+	}
+
+	pMaster->SetCombatPoint(nCount);
+	pMaster->Message(MK_INFORMATION, 1, 49);
+
+}
+
 void CBattleManager::RecvCombatObtain(WORD idMaster, t_client_combat_obtain* pPacket)
 {
 	CHARLIST* pMaster = ::GetCharListPtr(idMaster);
