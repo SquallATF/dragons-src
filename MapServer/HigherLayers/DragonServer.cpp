@@ -1823,6 +1823,16 @@ int HandleCommand(int cn, t_packet *packet)
 		g_pDualManager->RecvResetDualToCC(cn, &packet->u.dual.client_reset_dual_to_cc);
 		break;
 	}
+	case CMD_CHAR_INFO_INC_EXP:
+	{
+		CHARLIST* pMaster = ::CheckServerId(cn);
+		if (pMaster == NULL)
+			break;
+
+		pMaster->SetIncExp(packet->u.data[0]);
+		break;
+	}
+
 	case CMD_RARE_UPGRADE_BBS_MAP_TO_MAP:
 	{	//< CSD-CN-031213
 		packet->h.header.type = CMD_RARE_UPGRADE_BBS;

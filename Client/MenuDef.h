@@ -60,6 +60,7 @@ const WORD FONT_COLOR_RARE_MINUS_POINT = ConvertColor(255, 0, 0);		//옥색
 
 const WORD FONT_COLOR_WHITE = ConvertColor(233, 233, 233);//020725 lsw
 const WORD FONT_COLOR_EXP_PERCENT = ConvertColor(220, 230, 9);//020725 lsw
+const WORD FONT_COLOR_STOP_EXP_INC = ConvertColor(220, 9, 9);	// ADD BY TANIEY
 
 extern DWORD Convert16to32(const WORD wColor);
 
@@ -318,80 +319,157 @@ enum eSelectMap
 #define ITEM_REPAIR		300			// REPAIR 메뉴..
 
 // 캐릭터 nCharacterAbility의 배열 첨자에 사용하기 위한 define
+//enum CharInfoType
+//{
+//	STR = 0,		// 힘
+//	DEX = 1,		// 건강
+//	CON = 2,		// 민첩성
+//	WIS = 3,		// 지능
+//	INT_ = 4,		// 지혜
+//	CHA = 5,		// 매력
+//	MOVP = 6,		// 이동력
+//	ENDU = 7,		// 인내
+//	MOR = 8,		// 사기
+//	WSPS = 9,		// 마법 신법
+//	LUCK = 10,		// 행운
+//	HEALTH = 11,
+//	MOV = 12,
+//	AC = 13,
+//	FAME = 14,
+//	DAMAGE = 15,
+//	HIT = 16,
+//	TACTICE = 17,
+//	MONEY = 18,
+//	LVPOINT = 19,
+//	LEV = 20,
+//	EXP = 21,
+//	HP = 22,
+//	MAX_HP = 23,
+//	MP = 24,
+//	MAX_MP = 25,
+//	SP = 26,
+//	MAX_SP = 27,
+//	CP = 28,
+//	MAX_CP = 29,
+//	BP = 30,
+//	MAX_BP = 31,
+//	R_FIR = 32,
+//	R_ICE = 33,
+//	R_ELE = 34,
+//	DAM_MIN = 35,
+//	DAM_MAX = 36,
+//	HIT_RAT = 37,
+//	DEF_RAT = 38,
+//	TAC_L1 = 39,
+//	TAC_L2 = 40,
+//	TAC_L3 = 41,
+//	TAC_L4 = 42,
+//	TAC_L5 = 43,
+//	TAC_L6 = 44,
+//	TAC_L7 = 45,
+//	TAC_L8 = 46,
+//	TAC_L9 = 47,
+//	TAC_L10 = 48,
+//	TAC_L11 = 49,
+//	TAC_L12 = 50,
+//	TAC_L13 = 51,
+//	TAC_E1 = 52,
+//	TAC_E2 = 53,
+//	TAC_E3 = 54,
+//	TAC_E4 = 55,
+//	TAC_E5 = 56,
+//	TAC_E6 = 57,
+//	TAC_E7 = 58,
+//	TAC_E8 = 59,
+//	TAC_E9 = 60,
+//	TAC_E10 = 61,
+//	TAC_E11 = 62,
+//	TAC_E12 = 63,
+//	TAC_E13 = 64,
+//	BANKMONEY = 65,
+//	FAITH = 66,
+//	VIEWGHOST = 67,//020314 lsw
+//	VIEWBOMB = 68,
+//	VIEWTRAP = 69,
+//	CIB_POTION_BOX = 70,		// YGI 020418
+//};
 enum CharInfoType
 {
-	STR = 0,		// 힘
-	DEX = 1,		// 건강
-	CON = 2,		// 민첩성
-	WIS = 3,		// 지능
-	INT_ = 4,		// 지혜
-	CHA = 5,		// 매력
-	MOVP = 6,		// 이동력
-	ENDU = 7,		// 인내
-	MOR = 8,		// 사기
-	WSPS = 9,		// 마법 신법
-	LUCK = 10,		// 행운
-	HEALTH = 11,
-	MOV = 12,
-	AC = 13,
-	FAME = 14,
-	DAMAGE = 15,
-	HIT = 16,
-	TACTICE = 17,
-	MONEY = 18,
-	LVPOINT = 19,
-	LEV = 20,
-	EXP = 21,
-	HP = 22,
-	MAX_HP = 23,
-	MP = 24,
-	MAX_MP = 25,
-	SP = 26,
-	MAX_SP = 27,
-	CP = 28,
-	MAX_CP = 29,
-	BP = 30,
-	MAX_BP = 31,
-	R_FIR = 32,
-	R_ICE = 33,
-	R_ELE = 34,
-	DAM_MIN = 35,
-	DAM_MAX = 36,
-	HIT_RAT = 37,
-	DEF_RAT = 38,
-	TAC_L1 = 39,
-	TAC_L2 = 40,
-	TAC_L3 = 41,
-	TAC_L4 = 42,
-	TAC_L5 = 43,
-	TAC_L6 = 44,
-	TAC_L7 = 45,
-	TAC_L8 = 46,
-	TAC_L9 = 47,
-	TAC_L10 = 48,
-	TAC_L11 = 49,
-	TAC_L12 = 50,
-	TAC_L13 = 51,
-	TAC_E1 = 52,
-	TAC_E2 = 53,
-	TAC_E3 = 54,
-	TAC_E4 = 55,
-	TAC_E5 = 56,
-	TAC_E6 = 57,
-	TAC_E7 = 58,
-	TAC_E8 = 59,
-	TAC_E9 = 60,
-	TAC_E10 = 61,
-	TAC_E11 = 62,
-	TAC_E12 = 63,
-	TAC_E13 = 64,
-	BANKMONEY = 65,
-	FAITH = 66,
-	VIEWGHOST = 67,//020314 lsw
-	VIEWBOMB = 68,
-	VIEWTRAP = 69,
-	CIB_POTION_BOX = 70,		// YGI 020418
+	STR,		// 힘
+	DEX,		// 건강
+	CON,		// 민첩성
+	WIS,		// 지능
+	INT_,		// 지혜
+	CHA,		// 매력
+	MOVP,		// 이동력
+	ENDU,		// 인내
+	MOR,		// 사기
+	WSPS,		// 마법 신법
+	LUCK,		// 행운
+	HEALTH,
+	MOV,
+	AC,
+	FAME,
+	DAMAGE,
+	HIT,
+	TACTICE,
+	MONEY,
+	LVPOINT,
+	LEV,
+	EXP,
+	HP,
+	MAX_HP,
+	MP,
+	MAX_MP,
+	SP,
+	MAX_SP,
+	CP,
+	MAX_CP,
+	BP,
+	MAX_BP,
+	R_FIR,
+	R_ICE,
+	R_ELE,
+	DAM_MIN,
+	DAM_MAX,
+	HIT_RAT,
+	DEF_RAT,
+	TAC_L1,
+	TAC_L2,
+	TAC_L3,
+	TAC_L4,
+	TAC_L5,
+	TAC_L6,
+	TAC_L7,
+	TAC_L8,
+	TAC_L9,
+	TAC_L10,
+	TAC_L11,
+	TAC_L12,
+	TAC_L13,
+	TAC_E1,
+	TAC_E2,
+	TAC_E3,
+	TAC_E4,
+	TAC_E5,
+	TAC_E6,
+	TAC_E7,
+	TAC_E8,
+	TAC_E9,
+	TAC_E10,
+	TAC_E11,
+	TAC_E12,
+	TAC_E13,
+	BANKMONEY,
+	FAITH,
+	VIEWGHOST,//020314 lsw
+	VIEWBOMB,
+	VIEWTRAP,
+	CIB_POTION_BOX,		// YGI 020418
+	CHANGE_GENDER,			//050413_KCH 성전환 아이템
+	INC_EXP,
 };
+
 //######## SCharacter 구조체안에 nCharacterData 배열에 사용할 구조체 ##########
 
 #define GENDER				0
@@ -722,6 +800,7 @@ typedef struct
 	__int16 nLevel;
 	DWORD	nExp;
 	DWORD	nExpNext;
+	BOOL	bCanIncExp;
 
 	char	sCharacterName[MAX_NAME];
 	char	nGuild[MAX_NAME];

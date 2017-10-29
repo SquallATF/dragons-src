@@ -3750,6 +3750,7 @@ void MenuSet2()// 필드를 추가할때 죽었을 경우 체크 되지 않아�
 																								//이름 뛰우기
 		::SMenuFTReg(MN_MAININTERFACE, 6, FT_DATA_PUT, 0, 267, 46, 0, 0, 0, 0, DP_NAME_CENTER);
 		//경험치 띄우기
+		//::SMenuFTReg(MN_MAININTERFACE, 7, FT_DATA_PUT, 0, 397, 46, 0, 0, MAININTERFACE_IMG, 28, DP_MAIN_LEVEL);
 		::SMenuFTReg(MN_MAININTERFACE, 7, FT_DATA_PUT, 0, 397, 46, 0, 0, MAININTERFACE_IMG, 28, DP_MAIN_LEVEL);
 		//레벨 뛰우기
 		::SMenuFTReg(MN_MAININTERFACE, 8, FT_DATA_PUT, 0, 350, 46, 0, 0, MAININTERFACE_IMG, 28, DP_LEVEL_IN_TIME_MENU);
@@ -6870,6 +6871,12 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 				::FieldTypeNomalPut(iMainX, iMainY, iFieldX + iCount, iFieldY, nRcImg, iImgType);
 			}
 
+			if (!SCharacterData.bCanIncExp) {
+				::SetHangulAlign(TA_CENTER);
+				::HprintBold(iMainX + iFieldX + EXPBarWidth/2, iMainY + iFieldY,
+					Convert16to32(FONT_COLOR_STOP_EXP_INC), Convert16to32(FONT_COLOR_BLACK),
+					"X");
+			}
 
 			::Hcolor(ConvertColor(200, 200, 9));
 			if (SCharacterData.nLevel <= 100)//100 Level 이하 경험치 나옴

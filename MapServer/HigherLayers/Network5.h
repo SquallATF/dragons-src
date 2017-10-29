@@ -54,7 +54,8 @@
 #define CMD_DUAL_MESSAMGE		 7505	// add by taniey
 #define CMD_RESET_DUAL_TO_CC	 7506	// add by taniey
 
-#define CMD_CHAR_INFO_TACTIC 5009 // CSD-TW-030624
+#define CMD_CHAR_INFO_TACTIC	5009 // CSD-TW-030624
+#define CMD_CHAR_INFO_INC_EXP	 5010 // CSD-TW-030624
 
 struct t_char_info_tactic
 {	//< CSD-TW-030624

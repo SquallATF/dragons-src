@@ -33,7 +33,7 @@ extern void RecvHeroInit(t_server_user_db_data *p);
 //extern void CallOkCancelMessageBox( int menu, int x, int y, char *source, bool ok_cancel=true, int param = 0 );
 
 
-int CheckHandleByKein(t_packet *p)//句口변鑒
+int CheckHandleByKein(t_packet *p)//消息函数
 {
 	//	char text_buffer[TEXT_LENGTH];
 

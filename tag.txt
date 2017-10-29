@@ -1,4 +1,194 @@
 #########################################################################################
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第九次增加>>>>>>>>>>>>>>
+#########################################################################################
+=========================================================================================
+客户端： （DragonRaja-Online）
+=========================================================================================
+
+MenuDef.h :
+(找到代码， << const WORD FONT_COLOR_EXP_PERCENT = ConvertColor(220, 230, 9);//020725 lsw >> ,在之后增加)
+63L, add, const WORD FONT_COLOR_STOP_EXP_INC = ConvertColor(220, 9, 9);	// ADD BY TANIEY
+
+(找到代码, << enum CharInfoType {...} >> 全部替换, 或者在最后增加 << 	INC_EXP, >>)
+
+
+(找到代码 <<
+	__int16 nLevel;
+	DWORD	nExp;
+	DWORD	nExpNext;
+>> 在之后增加)
+726L, add, 	BOOL	bCanIncExp;
+
+-----------------------------------------------------------------------------------------
+MenuStart.cpp :
+(找到代码 << SCharacter SCharacterData = { >> , 在其后一行修改)
+99L, modify, 	7, 3333, 10000,   --->   	7, 3333, 10000,1,
+
+(找到代码 << SCharacter SCharSource = { >> , 在其后一行修改)
+114L, modify, 	1,0,0,	   --->   	1,0,0,1,	
+
+-----------------------------------------------------------------------------------------
+MenuNetwork.cpp:
+(找到代码，<< case FAITH:			SCharacterData.faith = d;		break; >>, 在之后增加)
+1145L, add, 	case INC_EXP:		SCharacterData.bCanIncExp = d;	break;
+
+
+-----------------------------------------------------------------------------------------
+kh_menuset.cpp :
+(找到代码 << 	case DP_MAIN_LEVEL:{...} >> 在内部找到，
+			for (int iCount = 0; iCount < iTarget; iCount++)//011031 lsw
+			{
+				::FieldTypeNomalPut(iMainX, iMainY, iFieldX + iCount, iFieldY, nRcImg, iImgType);
+			}
+在之后增加)
+
+			if (!SCharacterData.bCanIncExp) {
+				::SetHangulAlign(TA_CENTER);
+				::HprintBold(iMainX + iFieldX + EXPBarWidth/2, iMainY + iFieldY,
+					Convert16to32(FONT_COLOR_STOP_EXP_INC), Convert16to32(FONT_COLOR_BLACK),
+					"X");
+			}
+			
+LineCommand.cpp :
+找到刚增加的 <<case LC_INC_EXP_START:  >> 和 << case LC_INC_EXP_STOP: >> 修改为如下：
+			case LC_INC_EXP_STOP:	// add by taniey, stop inc exp 
+			{
+				char bIncExp = 0;
+				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
+				//static bool bIncExpFlag = true;
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(234));
+				break;
+			}
+			case LC_INC_EXP_START:	// add by taniey, start inc exp
+			{
+				char bIncExp = 1;
+				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
+				//static bool bIncExpFlag = true;
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(235));
+				break;
+			}
+
+=========================================================================================
+服务端：（MapServer）
+=========================================================================================
+DefaultHeader.h :
+(找到代码， << enum eSendCharInfoType >>, 全部替换 )
+
+-----------------------------------------------------------------------------------------
+CharInfo.cpp :
+(找到代码，<< void CCharInfo::ResetAbility(BYTE nCombat) >>, 在内部找到，<< 	Ac = CalcNewAc(); >>,在这一行之前增加 )
+229L, add,	if (IsPlayer())  SendCharInfoBasic(INC_EXP, m_bCanIncExp);
+
+=========================================================================================
+}}}}}
+#########################################################################################
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第八次增加>>>>>>>>>>>>>>
+#########################################################################################
+=========================================================================================
+客户端执行目录：
+=========================================================================================
+在目录 ./data/Ch_lan.txt ：
+(找到， << [temp] >> 在其后找到 第49 和 50  的序号 修改为)
+650 : "StopExpInc"
+651 : "StartExpInc"
+
+-----------------------------------------------------------------------------------------
+在目录 ./data/menustring.txt ：
+(找到：<< 231 要到【Lv 101】级以上才能进行技能点重分。 >> 在其后增加如下三行， 也就是在文件末尾增加)
+;
+232
+233
+234 经验获取已暂停。
+235 经验获取已开启。
+
+=========================================================================================
+客户端： （DragonRaja-Online）
+=========================================================================================
+NetWork5.h :
+(找到代码， << #define CMD_CHAR_INFO_TACTIC	 5009 >> , 在之后增加)
+#define CMD_CHAR_INFO_INC_EXP	 5010
+
+-----------------------------------------------------------------------------------------
+LineCommand.h :
+(1, 找到：<< enum LineCommandIndex {...}; >> 全部替换)
+
+-----------------------------------------------------------------------------------------
+LineCommand.cpp :
+(找到， << 	{ "", LC_MAXWINDOW_MODE }, //月神夜090822 >> 这一行，在其后增加)
+210L, add, 	{ "", LC_INC_EXP_STOP }, // add by taniey
+211L, add,	{ "", LC_INC_EXP_START }, // add by taniey
+
+
+(找到 case LC_MAXWINDOW_MODE: {...} 在之后增加, 也就是 << } //switch >> 之前)
+			case LC_INC_EXP_STOP:	// add by taniey, stop inc exp 
+			{
+				char bIncExp = 0;
+				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
+				//static bool bIncExpFlag = true;
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(234));
+				break;
+			}
+			case LC_INC_EXP_START:	// add by taniey, start inc exp
+			{
+				char bIncExp = 1;
+				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
+				//static bool bIncExpFlag = true;
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(235));
+				break;
+			}
+
+SmallMenu.cpp :
+(找到：<< void LoadMenuStr() >>, 在内部找到第二个 << token = strtok(NULL, "\t\n"); >> 这一行，在其后增加增加)
+10465L, add, 		if (!token) continue;
+
+=========================================================================================
+服务端：（MapServer）
+=========================================================================================
+NetWork5.h :
+(找到代码， << #define CMD_CHAR_INFO_TACTIC	 5009 >> , 在之后增加)
+#define CMD_CHAR_INFO_INC_EXP	 5010
+
+-----------------------------------------------------------------------------------------
+CharInfo.h :
+(357L, 找到 << int			m_nUserAge; >> 这一行，在其后增加)
+357L, add,	bool			m_bCanIncExp;		// 是否可增加经验值
+
+(666L-666L, 找到 << bool SetChangeGender(); >> 这一行，在其后增加如下两行)
+666L, add, 	void SetIncExp(bool bFlag) { m_bCanIncExp = bFlag; }
+667L, add,	bool IsIncExp() { return m_bCanIncExp; }		// can inc exp
+
+-----------------------------------------------------------------------------------------
+CharInfo.cpp :
+(67L, 找到 CCharInfo::CCharInfo() 函数， 在内部找到 << m_bEventRecv = false; >> 这一行，在其后增加)
+67L, add, 		m_bCanIncExp = true;
+
+(67L, 找到 bool CCharInfo::IncExperience(int nExp) 函数， 在内部开头（即<< { >>之后）增加如下代码)
+	if (!m_bCanIncExp)
+		return false;
+
+-----------------------------------------------------------------------------------------
+DragonServer.cpp :
+(找到, case 语句, << case CMD_RESET_DUAL_TO_CC: {...}>>  和 << case CMD_RARE_UPGRADE_BBS_MAP_TO_MAP:{...} >>, 在之间增加)
+	case CMD_CHAR_INFO_INC_EXP:
+	{
+		CHARLIST* pMaster = ::CheckServerId(cn);
+		if (pMaster == NULL)
+			break;
+
+		pMaster->SetIncExp(packet->u.data[0]);
+		break;
+	}
+
+
+}}}}}
+#########################################################################################
+#########################################################################################
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 {{{{{ <<<<<<<<<<<<<第七次增加>>>>>>>>>>>>>>

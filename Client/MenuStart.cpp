@@ -96,7 +96,7 @@ BOOL LButtonDown;                      //마우스 왼쪽버튼이 눌렸었는�
 SHN SHideNomal[MAX_SHN][MAX_SHN_FIELD];   //FT_HIDE_NOMAL_에 사용할 구조체 선언
 
 SCharacter SCharacterData = {
-	7, 3333, 10000,
+	7, 3333, 10000,1,
 	{ "NoConnect" },
 	{ "" },
 	{ 0,1000,4,3,0,0,0,0,0,1,1,3 },
@@ -111,7 +111,7 @@ SCharacter SCharacterData = {
 };
 
 SCharacter SCharSource = {
-	1,0,0,										// lv, exp
+	1,0,0,1,										// lv, exp
 	{ "" },
 	"None",
 	{ -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1 },		//data

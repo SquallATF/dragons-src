@@ -10462,6 +10462,7 @@ void LoadMenuStr()
 		if (!token)  continue;
 		index = atoi(token);
 		token = strtok(NULL, "\t\n");
+		if (!token) continue;
 		g_MenuStr[index].AddString(token);
 	}
 	fclose(fp);

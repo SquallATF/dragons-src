@@ -1116,24 +1116,15 @@ void RecvCharInfoBasic(t_char_info_basic *p)
 	case FAME:
 	case DAMAGE:
 	case HIT:
-	case TACTICE:	SCharacterData.nCharacterAbility[p->kind] = d;
-		break;
+	case TACTICE:	SCharacterData.nCharacterAbility[p->kind] = d;	break;
+	case MONEY:		SCharacterData.nMoney = d;						break;
 
-	case MONEY:	SCharacterData.nMoney = d;
-		break;
-
-	case HP:	SCharacterData.nCharacterHP = Hero->hp = d;
-		break;				// HP와 MP를 저장하는 변수
-	case MAX_HP:	SCharacterData.nCharacterMAXHP = d;
-		break;
-	case MP:	SCharacterData.nCharacterMP = d;
-		break;				// HP와 MP의 최대치
-	case MAX_MP:	SCharacterData.nCharacterMAXMP = d;
-		break;
-	case SP:   SCharacterData.nCharacterSP = d;
-		break;
-	case MAX_SP:  	SCharacterData.nCharacterMAXSP = d;
-		break;
+	case HP:		SCharacterData.nCharacterHP = Hero->hp = d;		break;				// HP와 MP를 저장하는 변수
+	case MAX_HP:	SCharacterData.nCharacterMAXHP = d;				break;
+	case MP:		SCharacterData.nCharacterMP = d;				break;				// HP와 MP의 최대치
+	case MAX_MP:	SCharacterData.nCharacterMAXMP = d;				break;
+	case SP:		SCharacterData.nCharacterSP = d;				break;
+	case MAX_SP:  	SCharacterData.nCharacterMAXSP = d;				break;
 	case CP:
 	{	//< CSD-TW-030624
 		switch (Hero->nRecoveryCombat)
@@ -1145,33 +1136,35 @@ void RecvCharInfoBasic(t_char_info_basic *p)
 		iCSPNow = d;
 		break;
 	}	//> CSD-TW-030624
-	case MAX_CP: iCSPMax = d;	 break;
-	case BP:     iCSPCNow = d; break;
-	case MAX_BP: iCSPCMax = d; break;
-	case BANKMONEY:	SCharacterData.BankMoney = d;	break;
-	case EXP:	SCharacterData.nExp = d;	break;
-	case FAITH:	SCharacterData.faith = d;	break;
+	case MAX_CP:		iCSPMax = d;					break;
+	case BP:			iCSPCNow = d;					break;
+	case MAX_BP:		iCSPCMax = d;					break;
+	case BANKMONEY:		SCharacterData.BankMoney = d;	break;
+	case EXP:			SCharacterData.nExp = d;		break;
+	case FAITH:			SCharacterData.faith = d;		break;
+	case INC_EXP:		SCharacterData.bCanIncExp = d;	break;
 
 	case CIB_POTION_BOX: SCharacterData.potion_box1 = d;	break;
-
-		//020314 lsw
+	//020314 lsw
 	case VIEWGHOST:
 	{
 		(d) ? Hero->bCanViewGhost = true : Hero->bCanViewGhost = false;
 		Hero->dwCanViewGhostTime = g_ClientTimeNoGap + (d * 1000);
-		Hero->set_bCanViewGhost(Hero->bCanViewGhost);//였뱁변鑒쌔삿!
-
-	}break;
+		Hero->set_bCanViewGhost(Hero->bCanViewGhost);//看鬼函数截获!
+		break;
+	}
 	case VIEWBOMB:
 	{
 		(d) ? Hero->bCanViewBomb = true : Hero->bCanViewBomb = false;
 		Hero->dwCanViewBombTime = g_ClientTimeNoGap + (d * 1000);
-	}break;
+		break;
+	}
 	case VIEWTRAP:
 	{
 		(d) ? Hero->bCanViewTrap = true : Hero->bCanViewTrap = false;
 		Hero->dwCanViewTrapTime = g_ClientTimeNoGap + (d * 1000);
-	}break;
+		break;
+	}
 	default:
 	{
 		char buf[255];

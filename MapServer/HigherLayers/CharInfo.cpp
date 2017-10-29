@@ -76,6 +76,8 @@ CCharInfo::CCharInfo()
 	m_nExpStep = 0;
 	m_bEventRecv = false;	// BBD 040308
 
+	m_bCanIncExp = true;
+
 	for (int i = 0; i < NO_TAC; ++i)
 	{
 		m_aTacStep[i] = 0;
@@ -223,6 +225,9 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 		// Player인 경우 값이 변경되면 Client에 전송
 		if (IsPlayer())  SendCharInfoBasic(CP, Cp);
 	}
+	// send INC_EXP
+	if (IsPlayer())  SendCharInfoBasic(INC_EXP, m_bCanIncExp);
+
 	// AC 계산
 	Ac = CalcNewAc();
 }
@@ -328,6 +333,10 @@ void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep, BYTE n
 
 bool CCharInfo::IncExperience(int nExp)
 {	//< CSD-030930
+	//return false;
+	if (!m_bCanIncExp)
+		return false;
+
 	const int nLevel = GetLevel();
 
 	if (nExp <= 0)
@@ -833,21 +842,12 @@ int CCharInfo::CorrectItemEffect() const
 
 bool CCharInfo::LevelUpAbility()
 {	//< CSD-030806 : 경험치 레벨업
-	if (!IsPlayer())
-	{
+	if (!IsPlayer() ||
+		!IsLevelUp() ||
+		(Exp <= NPC_Lev_Ref[m_nLevel].nMaxExp))
 		return false;
-	}
 
-	if (!IsLevelUp())
-	{
-		return false;
-	}
-
-	if (Exp <= NPC_Lev_Ref[m_nLevel].nMaxExp)
-	{
-		return false;
-	}
-
+	//if (0)
 	++m_nLevel;
 
 	Exp = NPC_Lev_Ref[m_nLevel].nMinExp;
@@ -863,9 +863,14 @@ bool CCharInfo::LevelUpAbility()
 bool CCharInfo::LevelUpTactics(int nKind)
 {	//< CSD-030314 : 택틱 경험치 레벨업
 	int nLevel = Skill[TACTICS_Crapple + nKind];
-	if (!IsPlayer())                                         return false;
-	if (!IsLevelUp(nLevel))                                  return false;
-	if (tac_skillEXP[nKind] <= NPC_Lev_Ref[nLevel].nMaxExp)  return false;
+	if (!IsPlayer() ||
+		!IsLevelUp(nLevel) ||
+		(tac_skillEXP[nKind] <= NPC_Lev_Ref[nLevel].nMaxExp))
+		return false;
+	//if (!IsLevelUp(nLevel))
+	//	return false;
+	//if (tac_skillEXP[nKind] <= NPC_Lev_Ref[nLevel].nMaxExp)
+	//	return false;
 
 	++nLevel;
 	tac_skillEXP[nKind] = NPC_Lev_Ref[nLevel].nMinExp;

@@ -353,6 +353,8 @@ struct CHAR_DATA
 	int				m_iExchangeState;		// 거래하고 있는지 없는지...
 	bool			m_bExchangeMode;		// 거래하고 있는지 없는지...
 	int				m_nUserAge;				// 030929 kyo // 태국에서만 사용하는 유저 나이
+
+	bool			m_bCanIncExp;		// 是否可增加经验值
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -654,6 +656,9 @@ public:
 	bool IsEventRecv() { return m_bEventRecv; };			// BBD 040308
 	void SetEventRecv(bool val) { m_bEventRecv = val; };	// BBD 040308
 	bool SetChangeGender();									//050413_KCH 성전환 아이템 구현
+
+	void SetIncExp(bool bFlag) { m_bCanIncExp = bFlag; }
+	bool IsIncExp() { return m_bCanIncExp; }		// can inc exp
 
 protected:
 	int GetExtStr() const;

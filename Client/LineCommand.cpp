@@ -206,7 +206,9 @@ LINECOMMAND LC[MAX_LINE_COMMAND_] =
 	{"", 0},  //位置不准,上面的有些删除掉了,加个0来填充
 	{"", LC_LINERESET_POINT}, //月神夜090822
 	{"", LC_MINIWINDOW_MODE}, //月神夜090822
-	{"", LC_MAXWINDOW_MODE}, //月神夜090822
+	{ "", LC_MAXWINDOW_MODE }, //月神夜090822
+	{ "", LC_INC_EXP_STOP }, // add by taniey
+	{ "", LC_INC_EXP_START }, // add by taniey
 
 	{"", 0} };  //> CSD-030311
 
@@ -1022,7 +1024,23 @@ int IsLineCommand(char *message, int nsize)
 				}
 				break;
 			}
+			case LC_INC_EXP_STOP:	// add by taniey, stop inc exp 
+			{
+				char bIncExp = 0;
+				SCharacterData.bCanIncExp = bIncExp;
+				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(234));
+				break;
 			}
+			case LC_INC_EXP_START:	// add by taniey, start inc exp
+			{
+				char bIncExp = 1;
+				SCharacterData.bCanIncExp = bIncExp;
+				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
+				Kein_PutMessage(KM_INFO, kein_GetMenuString(235));
+				break;
+			}
+			}// switch
 
 			return 1;
 		}
