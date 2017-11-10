@@ -1109,6 +1109,7 @@ typedef struct server_user_db_data
   //< CSD-011006
   BYTE aStepInfo[20];
   //> CSD-011006
+  BYTE bcan_exp_inc;
 } t_server_user_db_data;
 	
 //--------------------------------------------------------
@@ -1266,6 +1267,7 @@ struct t_update_char_db
 	short nk4;
 	short nk6;
 	BYTE aStepInfo[20];
+	BYTE bcan_exp_inc;		// add by taniey
 	int nCombatAmount;
 	int	check_crc; //acer5
 };	//> CSD-030807
@@ -1822,8 +1824,11 @@ typedef struct  server_accept_char_db // 2308
 	short int		fame_pk;		// 010915 LTS	//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
 	NW_Character	NWCharacter;	// 010915 LTS
  
-	BYTE aStepInfo[20];
-	int		nUserAge;				// 030929 kyo
+	BYTE			aStepInfo[20];
+
+	BYTE			bcan_exp_inc;	// add by taniey
+
+	int				nUserAge;		// 030929 kyo
   	Event_Join		EventJoin;		// 020115 LTS
 } t_server_accept_char_db;
 

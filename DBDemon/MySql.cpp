@@ -620,17 +620,17 @@ int GetCharDB_SQL(t_connection c[], int cn)
 		if (retCode == SQL_SUCCESS)
 		{
 			// "Select lev, exp "
-			retCode = SQLGetData(hStmt, 1, SQL_C_ULONG, &t, 0, &cbValue);         ch->Level = (short)t;
-			retCode = SQLGetData(hStmt, 2, SQL_C_CHAR, exp, 11, &cbValue);        ch->Exp = (DWORD)atof(exp);
+			retCode = SQLGetData(hStmt, 1, SQL_C_ULONG, &t, 0, &cbValue);          ch->Level = (short)t;
+			retCode = SQLGetData(hStmt, 2, SQL_C_CHAR, exp, 11, &cbValue);         ch->Exp = (DWORD)atof(exp);
 			// "gender, face, spritvalue, class, spell, "				
-			retCode = SQLGetData(hStmt, 3, SQL_C_ULONG, &t, 0, &cbValue);         ch->Gender = (short)t;
-			retCode = SQLGetData(hStmt, 4, SQL_C_ULONG, &t, 0, &cbValue);         ch->Face = (short)t;
-			retCode = SQLGetData(hStmt, 5, SQL_C_ULONG, &t, 0, &cbValue);         ch->nGuildCode = (short)t; // CSD-030324
-			retCode = SQLGetData(hStmt, 6, SQL_C_ULONG, &t, 0, &cbValue);         ch->Class = (short)t;
-			retCode = SQLGetData(hStmt, 7, SQL_C_ULONG, &t, 0, &cbValue);         ch->Spell = (short)t;
+			retCode = SQLGetData(hStmt, 3, SQL_C_ULONG, &t, 0, &cbValue);          ch->Gender = (short)t;
+			retCode = SQLGetData(hStmt, 4, SQL_C_ULONG, &t, 0, &cbValue);          ch->Face = (short)t;
+			retCode = SQLGetData(hStmt, 5, SQL_C_ULONG, &t, 0, &cbValue);          ch->nGuildCode = (short)t; // CSD-030324
+			retCode = SQLGetData(hStmt, 6, SQL_C_ULONG, &t, 0, &cbValue);          ch->Class = (short)t;
+			retCode = SQLGetData(hStmt, 7, SQL_C_ULONG, &t, 0, &cbValue);          ch->Spell = (short)t;
 			// "str, con, dex, wis, int, movep, char, endu, moral, "			
-			retCode = SQLGetData(hStmt, 8, SQL_C_ULONG, &t, 0, &cbValue);         ch->Str = (short)t; //SET_LIMIT( ch->Str, 0, 100 );
-			retCode = SQLGetData(hStmt, 9, SQL_C_ULONG, &t, 0, &cbValue);         ch->Con = (short)t; //SET_LIMIT( ch->Con, 0, 100 );
+			retCode = SQLGetData(hStmt, 8, SQL_C_ULONG, &t, 0, &cbValue);          ch->Str = (short)t; //SET_LIMIT( ch->Str, 0, 100 );
+			retCode = SQLGetData(hStmt, 9, SQL_C_ULONG, &t, 0, &cbValue);          ch->Con = (short)t; //SET_LIMIT( ch->Con, 0, 100 );
 			retCode = SQLGetData(hStmt, 10, SQL_C_ULONG, &t, 0, &cbValue);         ch->Dex = (short)t; //SET_LIMIT( ch->Dex, 0, 100 );
 			retCode = SQLGetData(hStmt, 11, SQL_C_ULONG, &t, 0, &cbValue);         ch->Wis = (short)t; //SET_LIMIT( ch->Wis, 0, 100 );
 			retCode = SQLGetData(hStmt, 12, SQL_C_ULONG, &t, 0, &cbValue);         ch->Int = (short)t; //SET_LIMIT( ch->Int, 0, 100 );
@@ -640,15 +640,15 @@ int GetCharDB_SQL(t_connection c[], int cn)
 			retCode = SQLGetData(hStmt, 16, SQL_C_ULONG, &t, 0, &cbValue);         ch->Moral = (short)t; //SET_LIMIT( ch->Moral, 0, 100 );
 			// "money, hp, hpmax, mana, manamax, hungry, hungrymax, condition, "				
 			//< CSD-011012
-			retCode = SQLGetData(hStmt, 17, SQL_C_CHAR, money, 11, &cbValue);		  ch->Money = (DWORD)atof(money);
-			retCode = SQLGetData(hStmt, 18, SQL_C_LONG, &t, 0, &cbValue);         ch->Hp = t;
-			retCode = SQLGetData(hStmt, 19, SQL_C_ULONG, &t, 0, &cbValue);         ch->HpMax = t; SET_LIMIT(ch->Hp, 0, ch->HpMax);
-			retCode = SQLGetData(hStmt, 20, SQL_C_ULONG, &t, 0, &cbValue);         ch->Mana = t;
-			retCode = SQLGetData(hStmt, 21, SQL_C_ULONG, &t, 0, &cbValue);         ch->ManaMax = t; SET_LIMIT(ch->Mana, 0, ch->ManaMax);
-			retCode = SQLGetData(hStmt, 22, SQL_C_ULONG, &t, 0, &cbValue);         ch->Hungry = t;
-			retCode = SQLGetData(hStmt, 23, SQL_C_ULONG, &t, 0, &cbValue);         ch->HungryMax = t; SET_LIMIT(ch->Hungry, 0, ch->HungryMax);
+			retCode = SQLGetData(hStmt, 17, SQL_C_CHAR, money, 11, &cbValue);		ch->Money = (DWORD)atof(money);
+			retCode = SQLGetData(hStmt, 18, SQL_C_LONG, &t, 0, &cbValue);			ch->Hp = t;
+			retCode = SQLGetData(hStmt, 19, SQL_C_ULONG, &t, 0, &cbValue);          ch->HpMax = t; SET_LIMIT(ch->Hp, 0, ch->HpMax);
+			retCode = SQLGetData(hStmt, 20, SQL_C_ULONG, &t, 0, &cbValue);          ch->Mana = t;
+			retCode = SQLGetData(hStmt, 21, SQL_C_ULONG, &t, 0, &cbValue);          ch->ManaMax = t; SET_LIMIT(ch->Mana, 0, ch->ManaMax);
+			retCode = SQLGetData(hStmt, 22, SQL_C_ULONG, &t, 0, &cbValue);          ch->Hungry = t;
+			retCode = SQLGetData(hStmt, 23, SQL_C_ULONG, &t, 0, &cbValue);          ch->HungryMax = t; SET_LIMIT(ch->Hungry, 0, ch->HungryMax);
 			//> CSD-011012
-			retCode = SQLGetData(hStmt, 24, SQL_C_ULONG, &t, 0, &cbValue);         ch->Condition = (BYTE)t;
+			retCode = SQLGetData(hStmt, 24, SQL_C_ULONG, &t, 0, &cbValue);          ch->Condition = (BYTE)t;
 
 			if (ch->Condition == CON_DEATH)		//0206 YGI
 			{
@@ -702,7 +702,7 @@ int GetCharDB_SQL(t_connection c[], int cn)
 			// "social_status, fame, fame_pk"
 			retCode = SQLGetData(hStmt, 61, SQL_C_ULONG, &t, 0, &cbValue);	ch->social_status = (short)t;			// 
 			retCode = SQLGetData(hStmt, 62, SQL_C_ULONG, &t, 0, &cbValue);	ch->fame = (short)t;
-			retCode = SQLGetData(hStmt, 63, SQL_C_LONG, &t, 0, &cbValue);			memcpy(&ch->NWCharacter, &t, sizeof(DWORD));	// 010915 LTS
+			retCode = SQLGetData(hStmt, 63, SQL_C_LONG, &t, 0, &cbValue);	memcpy(&ch->NWCharacter, &t, sizeof(DWORD));	// 010915 LTS
 			//< CSD-010927
 			retCode = SQLGetData(hStmt, 64, SQL_C_CHAR, ch->aStepInfo, 20, &cbValue);
 			ConvertLoad(ch->aStepInfo);
@@ -710,6 +710,10 @@ int GetCharDB_SQL(t_connection c[], int cn)
 				// MyLog(LOG_NORMAL, "[%d] load astepinfo : %d", i, ch->aStepInfo[i]);  //coromo load astepinfo
 			}
 			//> CSD-010927
+
+			// set can exp inc flag;
+			ch->bCanExpInc = true;	// all true, add by taniey 
+
 			SQLFreeStmt(hStmt, SQL_DROP);
 
 			return(1);
@@ -2467,7 +2471,6 @@ void updateCharacterStatusToLoginServer(t_connection c[], int char_id)
 	t_update_char_db *tp;
 	LPCHARLIST ch = &c[char_id].chrlst;
 
-
 	p.h.header.type = CMD_UPDATE_CHAR_DB;
 	tp = &p.u.update_char_db;
 
@@ -2484,7 +2487,6 @@ void updateCharacterStatusToLoginServer(t_connection c[], int char_id)
 	tp->social_status = ch->social_status;
 	tp->fame = ch->fame;
 	tp->NWCharacter = ch->NWCharacter;	// 010915 LTS
-
 
 	tp->Str = ch->Str;
 	tp->Con = ch->Con;
@@ -2558,6 +2560,9 @@ void updateCharacterStatusToLoginServer(t_connection c[], int char_id)
 	//< CSD-010927
 	memcpy(tp->aStepInfo, ch->aStepInfo, sizeof(tp->aStepInfo));
 	//> CSD-010927
+
+	tp->bcan_exp_inc = ch->bCanExpInc;		// add by taniey
+
 	p.h.header.size = sizeof(t_update_char_db);
 
 	QueuePacket(connections, DB_DEMON, &p, 1);
@@ -2692,6 +2697,9 @@ int RecvUpdateCharDB(t_update_char_db *p)
 	//for(int i = 0; i < 20; i++){
 	//	MyLog(LOG_NORMAL, "[%d] save astepinfo : %d", i, p->aStepInfo[i]);  //coromo save astepinfo
 	//}
+
+	p->bcan_exp_inc;    // reservice , add by taniey
+
 	sprintf(query, "UPDATE chr_info "
 		"SET lev = %d, spritvalue = %d, social_status = %d, fame = %d, fame_pk = %d, guildname = '%s' "
 		"WHERE name= '%s'",
@@ -2799,11 +2807,7 @@ int RecvUpdateCharDB(t_update_char_db *p)
 
 		p->win_defeat,
 		p->LadderScore,
-
-
 		p->nk3, p->nk4, p->nk6,
-
-
 		p->name);
 
 	SQLAllocStmt(hDBC, &hstmt);

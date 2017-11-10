@@ -692,6 +692,8 @@ int HandleCommand(int cn, t_packet *packet)
 		ch->timetoupdate = g_curr_time;
 		ch->SetStepInfo(tt->aStepInfo, sizeof(tt->aStepInfo));
 
+		ch->m_bCanIncExp = tt->bcan_exp_inc;
+
 		ch->m_nUserAge = tt->nUserAge;			// 030929 kyo
 		ch->EventJoin = tt->EventJoin;		// 020115 LTS
 		// 030923 HK YGI
@@ -1830,6 +1832,8 @@ int HandleCommand(int cn, t_packet *packet)
 			break;
 
 		pMaster->SetIncExp(packet->u.data[0]);
+		int nStrNo = packet->u.data[0] ? 132 : 131;
+		pMaster->Message(KM_INFO, 5, nStrNo);
 		break;
 	}
 

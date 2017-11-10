@@ -225,8 +225,9 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 		// Player인 경우 값이 변경되면 Client에 전송
 		if (IsPlayer())  SendCharInfoBasic(CP, Cp);
 	}
-	// send INC_EXP
-	if (IsPlayer())  SendCharInfoBasic(INC_EXP, m_bCanIncExp);
+	//// send INC_EXP
+	//if (IsPlayer()) 
+	//	SendCharInfoBasic(INC_EXP, m_bCanIncExp);
 
 	// AC 계산
 	Ac = CalcNewAc();

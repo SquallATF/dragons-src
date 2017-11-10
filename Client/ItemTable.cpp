@@ -1047,12 +1047,8 @@ int GetItemAttr2(int gender, int item_id, int attr)
 	{
 	case WEAR_ABLE:	return t->GetItemClass();
 	case WEIGHT:	return t->GetItemWeight();
-	case VALUE:	if (!t->curr_value) ReqItemValue(item_id);
-		return t->curr_value;
-
-	//case VALUE_SELL	:	if( !t->curr_value_sell ) ReqItemValue_Sell(item_id);
-	//					return t->curr_value_sell;
-
+	case VALUE:	if (!t->curr_value) ReqItemValue(item_id); return t->curr_value;
+	//case VALUE_SELL: if( !t->curr_value_sell ) ReqItemValue_Sell(item_id); return t->curr_value_sell;
 	case VALUE_REPAIR:	return t->curr_value_repair;
 	case DURATION:	return t->GetItemDuration();
 	case ITEMSHOW:	return t->GetItemShow(is_man);
@@ -2026,7 +2022,7 @@ void ChangeSkillMenuInventory(int x)
 	}
 }
 
-bool	IsEquipAbleItemKind(const int iItemKind)
+bool IsEquipAbleItemKind(const int iItemKind)
 {
 	if (IK_FALG == iItemKind)
 	{
@@ -2044,7 +2040,7 @@ bool	IsEquipAbleItemKind(const int iItemKind)
 	return true;
 }
 
-bool	IsEquipAbleAbilityCheck(const int iNeedAbility, const int iMyAbility)
+bool IsEquipAbleAbilityCheck(const int iNeedAbility, const int iMyAbility)
 {
 	if ((!iNeedAbility) || (iNeedAbility <= iMyAbility))
 	{
@@ -2053,7 +2049,7 @@ bool	IsEquipAbleAbilityCheck(const int iNeedAbility, const int iMyAbility)
 	return false;
 }
 
-bool	IsEquipAbleCheckWisInt(const int iNeedWis, const int iNeedInt, const int iMyWis, const int iMyInt)
+bool IsEquipAbleCheckWisInt(const int iNeedWis, const int iNeedInt, const int iMyWis, const int iMyInt)
 {
 	if (iNeedWis && (!iNeedInt))//Wis만 요구 하면
 	{
@@ -2077,7 +2073,7 @@ bool	IsEquipAbleCheckWisInt(const int iNeedWis, const int iNeedInt, const int iM
 	return false;
 }
 
-bool	IsEquipAbleCheckWsPs(const int iNeedWs, const int iNeedPs, const int iMyWsPs, const int iSpellType)
+bool IsEquipAbleCheckWsPs(const int iNeedWs, const int iNeedPs, const int iMyWsPs, const int iSpellType)
 {
 	switch (iSpellType)
 	{
@@ -2101,7 +2097,7 @@ bool	IsEquipAbleCheckWsPs(const int iNeedWs, const int iNeedPs, const int iMyWsP
 	}
 	return false;
 }
-bool	IsEquipAbleCheckGender(const int iNeedGender, const int iMyGender)
+bool IsEquipAbleCheckGender(const int iNeedGender, const int iMyGender)
 {
 	switch (iNeedGender)
 	{
@@ -2130,7 +2126,7 @@ bool	IsEquipAbleCheckGender(const int iNeedGender, const int iMyGender)
 	}
 	return false;
 }
-bool	IsEquipAbleCheckMouseMRD(const int iNeedMouseMRD, const int iMyMouseMRD)// 택틱체크
+bool IsEquipAbleCheckMouseMRD(const int iNeedMouseMRD, const int iMyMouseMRD)// 택틱체크
 {
 	if ((iNeedMouseMRD <= 1) || (iNeedMouseMRD <= iMyMouseMRD))
 	{
@@ -2192,12 +2188,12 @@ inline bool IsEquipAbleCheckFame(const int iAbleFame, const CHARACTER *ch)
 	return false;
 }
 
-bool	IsEquipAbleDualStep(const int iDualStep, const CHARACTER *ch)
+bool IsEquipAbleDualStep(const int iDualStep, const CHARACTER *ch)
 {
 	return ((iDualStep <= ch->aStepInfo[CLS_STEP]) ? true : false);
 }
 
-bool	IsEquipAbleClass(const int iWarrior, const int iThief,
+bool IsEquipAbleClass(const int iWarrior, const int iThief,
 	const int iArcher, const int iWizard,
 	const int iPriest, const CHARACTER *ch)
 {
@@ -2557,8 +2553,8 @@ void GetLearnKnowlageInv(int start)			// 지식 기술을 배울때 가져올 �
 	int a, b, s;
 	memset(SkillInventory, 0, sizeof(int[2][2][4]));
 
-	motherSkillImageNo[0] = 636;	// IDENTIFICATION // 현재는 임시
-									//	motherSkillImageNo[1] = 637;	// HEALING
+	motherSkillImageNo[0] = 636;		// IDENTIFICATION // 현재는 임시
+	//motherSkillImageNo[1] = 637;	// HEALING
 	SMenu[MN_SKILLGUILD_KNOWLAGE].nField[6].nSHideNomalCount = 1;
 	SMenu[MN_SKILLGUILD_KNOWLAGE].nField[6].nSHideNomalStart = start;
 	SMenu[MN_SKILLGUILD_KNOWLAGE].nField[5].nType = FT_NOMAL_PUT;	// other button
@@ -4352,25 +4348,27 @@ inline void ReadItemSokSung(char * buf, int i)
 
 	token = strtok(buf, "\t\n\r");	if (token == NULL) return;
 	i = atoi(token);
-	if (i > MAX_ITEM_RARE) { JustMsg("ItemSokSung Read Error"); exit(0); return; }
+	if (i > MAX_ITEM_RARE) {
+		JustMsg("ItemSokSung Read Error"); exit(0); return;
+	}
 	ItemRare[i].iNo = i;
 	token = strtok(NULL, "\t\n\r");	if (token == NULL) return;	ItemRare[i].iType = atoi(token);
-	token = strtok(NULL, "\t\n"); if (token == NULL) return;		strcpy(ItemRare[i].EngName, token);	EatRearWhiteChar(ItemRare[i].EngName);
-	token = strtok(NULL, "\t\n"); if (token == NULL) return;		strcpy(ItemRare[i].LocalName, token);	EatRearWhiteChar(ItemRare[i].LocalName);
-	token = strtok(NULL, "\t\n"); if (token == NULL) return;		strcpy(ItemRare[i].Explain, token);		EatRearWhiteChar(ItemRare[i].Explain);
-	token = strtok(NULL, "\t\n"); if (token == NULL) return;		strcpy(ItemRare[i].ExplainAdd, token);	EatRearWhiteChar(ItemRare[i].ExplainAdd);
-	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iExpMark = atoi(token);
-	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iMakeAble = atoi(token);
+	token = strtok(NULL, "\t\n"); if (token == NULL) return;	strcpy(ItemRare[i].EngName, token);	EatRearWhiteChar(ItemRare[i].EngName);
+	token = strtok(NULL, "\t\n"); if (token == NULL) return;	strcpy(ItemRare[i].LocalName, token);	EatRearWhiteChar(ItemRare[i].LocalName);
+	token = strtok(NULL, "\t\n"); if (token == NULL) return;	strcpy(ItemRare[i].Explain, token);		EatRearWhiteChar(ItemRare[i].Explain);
+	token = strtok(NULL, "\t\n"); if (token == NULL) return;	strcpy(ItemRare[i].ExplainAdd, token);	EatRearWhiteChar(ItemRare[i].ExplainAdd);
+	token = strtok(NULL, "\t\n"); if (token == NULL) return;	ItemRare[i].iExpMark = atoi(token);
+	token = strtok(NULL, "\t\n"); if (token == NULL) return;	ItemRare[i].iMakeAble = atoi(token);
 	int Count = 0;
 	for (Count = 0; Count < 8; Count++)
 	{
-		token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].RaisePro[Count] = atoi(token);
+		token = strtok(NULL, "\t\n"); if (token == NULL) return;	ItemRare[i].RaisePro[Count] = atoi(token);
 	}
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iUpgradeAble = atoi(token);
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].iAbleNation = atoi(token);
 	for (Count = 0; Count < 16; Count++)
 	{
-		token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].GRADE[Count] = atoi(token);
+		token = strtok(NULL, "\t\n"); if (token == NULL) return;	ItemRare[i].GRADE[Count] = atoi(token);
 	}
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].Buffer1 = atoi(token);
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].Buffer2 = atoi(token);
@@ -4378,7 +4376,6 @@ inline void ReadItemSokSung(char * buf, int i)
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].Buffer4 = atoi(token);
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].Buffer5 = atoi(token);
 	token = strtok(NULL, "\t\n"); if (token == NULL) return;		ItemRare[i].Buffer6 = atoi(token);
-	return;
 }
 
 bool LoadItemSokSungTable()
@@ -4706,8 +4703,10 @@ ItemAttr *GetItemByPos(POS item)
 CItem *ItemUnit(int type, int item_no)
 {
 	//	if( !item_no ) return NULL;
-	if ((type < 0) || (type > 10)) goto ITEM_UNIT_NOT;
-	if ((item_no < 0) || (item_no >= Item_Ref.nItem[type])) goto ITEM_UNIT_NOT;
+	if ((type < 0) || (type > 10))
+		goto ITEM_UNIT_NOT;
+	if ((item_no < 0) || (item_no >= Item_Ref.nItem[type]))
+		goto ITEM_UNIT_NOT;
 
 	return Item_Ref.Item_type[type][item_no];
 
@@ -5242,7 +5241,9 @@ ItemAttr GenerateItem(int item_no)
 		{
 			item.attr[IATTR_DURATION] = t->GetItemDuration();
 		}
-		else item.attr[IATTR_DURATION] = MAKELONG(t->GetItemDuration(), t->GetItemDuration());
+		else {
+			item.attr[IATTR_DURATION] = MAKELONG(t->GetItemDuration(), t->GetItemDuration());
+		}
 
 		//item.attr[IATTR_LIMIT] = t->GetLimit()*6*3600 + g_curr_time;
 	}

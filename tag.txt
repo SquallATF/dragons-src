@@ -2,6 +2,171 @@
 #########################################################################################
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第十一次增加>>>>>>>>>>>>>>
+#########################################################################################
+=========================================================================================
+客户端： （DragonRaja-Online）
+=========================================================================================
+
+
+
+
+=========================================================================================
+数据库：（DragonRajaDB）
+=========================================================================================
+insert into [DragonRajaDB].[dbo].[Item_Etc]
+ (Item_id,Name,Han_Name,lv,Image_Number,Repairable,Repair_min,Repair_max,Repair_Skill2,Repair_Skill2_min,Repair_Res1,Amt_of_Repair_Res1,Repair_Res2,Amt_of_Repair_Res2,Repair_Res3,Amt_of_Repair_Res3,Repair_Tool,Amt_of_abrasion,Need2_lv,Need2_str,Need2_dex,Need2_con,Need2_wis,Need2_int,Need2_cha,Need2_end,Need2_Movp,Need2_mor,Need2_luc,Need2_ws,Need2_ps,Need2_Magery,Need2_Orison,Need2_fame,Need2_rank,Need2_gender,Need2_race,Need2_min_age,Need2_max_age,Need3_lv,Need3_str,Need3_dex,Need3_con,Need3_wis,Need3_int,Need3_cha,Need3_end,Need3_Movp,Need3_mor,Need3_luc,Need3_ws,Need3_ps,Need3_fame,Need3_rank,Need3_gender,Need3_race,Need3_min_age,Need3_max_age,Class_Warrior,Class_Archer,Class_Thief,Class_Wizard,Class_Cleric,Change_str,Change_dex,Change_con,Change_wis,Change_int,Change_cha,Change_end,Change_mor,Change_luc,Change_ws,Change_ps,Change_mag,Change_dev,casting_Time,Change_Life_max,Change_mana_max,Change_Divine_Max,Change_health_max,Increase_Poisoning,Increase_Stone,Increase_Magic,Increase_Fire,Increase_Ice,Increase_lightning,imunity_Cure_1,Imunity_Cure_2,Imunity_Cure_3,Imunity_Cure_4,Imunity_Cure_5,Imunity_Cure_6,Skill_effect,Substitution_magic,Skill_Ability,Damage,Hit_rate,Defense_rate,AR_or_DH,Defense_power,body,arms,head,leg,neck,hand,JobSkill_Farming,JobSkill_Mining,JobSkill_Fishing,JobSkill_Cutdown,JobSkill_Butchering,JobSkill_Herb_digging,JobSkill_Herding,JobSkill_Carpentary,JobSkill_Blacksmithy,JobSkill_Cooking,JobSkill_Tailoring,JobSkill_Bowcraft,JobSkill_Alchemy,JobSkill_Candle,JobSkill_repair,JobSkill_reutil,JobSkill_music,JobSkill_detect,JobSkill_hide,JobSkill_campiing,JobSkill_taming,comm_animal,comm_human,comm_orc,comm_elf,comm_fairy,comm_hobbit,comm_dwarf,comm_dragon,animal_lore,arms_lore,evaluate_int,evaluate_wis,analomy,item_ident,taste_ident,Appraisal,healing,spirituality,poisoning,entrapment,scrooling,cunning,bomb_play,tactice,crapple,sword,archey,fencing,mace,pierce,whid,hurt,parrying,double_sword,double_mace,change_music,change_detect,change_hide,change_amping,change_taming,weight,max_duration,object,wear_able,base_value,base_store,store_const,store_plus_const,Item_kind,Mouse_MR,Mouse_MRD,Mouse_MR_Effect,Mouse_MR_Wave,Use_Junk,kind_of_magic,incr_damage)
+values
+(138,'double experience level 1','1-109级双倍经验胶囊',0,1030700,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1000,1013800,9,111705,1,10000000,0,150,1,0,0,0,0,0,0)
+
+insert into [DragonRajaDB].[dbo].[Item_Etc]
+ (Item_id,Name,Han_Name,lv,Image_Number,Repairable,Repair_min,Repair_max,Repair_Skill2,Repair_Skill2_min,Repair_Res1,Amt_of_Repair_Res1,Repair_Res2,Amt_of_Repair_Res2,Repair_Res3,Amt_of_Repair_Res3,Repair_Tool,Amt_of_abrasion,Need2_lv,Need2_str,Need2_dex,Need2_con,Need2_wis,Need2_int,Need2_cha,Need2_end,Need2_Movp,Need2_mor,Need2_luc,Need2_ws,Need2_ps,Need2_Magery,Need2_Orison,Need2_fame,Need2_rank,Need2_gender,Need2_race,Need2_min_age,Need2_max_age,Need3_lv,Need3_str,Need3_dex,Need3_con,Need3_wis,Need3_int,Need3_cha,Need3_end,Need3_Movp,Need3_mor,Need3_luc,Need3_ws,Need3_ps,Need3_fame,Need3_rank,Need3_gender,Need3_race,Need3_min_age,Need3_max_age,Class_Warrior,Class_Archer,Class_Thief,Class_Wizard,Class_Cleric,Change_str,Change_dex,Change_con,Change_wis,Change_int,Change_cha,Change_end,Change_mor,Change_luc,Change_ws,Change_ps,Change_mag,Change_dev,casting_Time,Change_Life_max,Change_mana_max,Change_Divine_Max,Change_health_max,Increase_Poisoning,Increase_Stone,Increase_Magic,Increase_Fire,Increase_Ice,Increase_lightning,imunity_Cure_1,Imunity_Cure_2,Imunity_Cure_3,Imunity_Cure_4,Imunity_Cure_5,Imunity_Cure_6,Skill_effect,Substitution_magic,Skill_Ability,Damage,Hit_rate,Defense_rate,AR_or_DH,Defense_power,body,arms,head,leg,neck,hand,JobSkill_Farming,JobSkill_Mining,JobSkill_Fishing,JobSkill_Cutdown,JobSkill_Butchering,JobSkill_Herb_digging,JobSkill_Herding,JobSkill_Carpentary,JobSkill_Blacksmithy,JobSkill_Cooking,JobSkill_Tailoring,JobSkill_Bowcraft,JobSkill_Alchemy,JobSkill_Candle,JobSkill_repair,JobSkill_reutil,JobSkill_music,JobSkill_detect,JobSkill_hide,JobSkill_campiing,JobSkill_taming,comm_animal,comm_human,comm_orc,comm_elf,comm_fairy,comm_hobbit,comm_dwarf,comm_dragon,animal_lore,arms_lore,evaluate_int,evaluate_wis,analomy,item_ident,taste_ident,Appraisal,healing,spirituality,poisoning,entrapment,scrooling,cunning,bomb_play,tactice,crapple,sword,archey,fencing,mace,pierce,whid,hurt,parrying,double_sword,double_mace,change_music,change_detect,change_hide,change_amping,change_taming,weight,max_duration,object,wear_able,base_value,base_store,store_const,store_plus_const,Item_kind,Mouse_MR,Mouse_MRD,Mouse_MR_Effect,Mouse_MR_Wave,Use_Junk,kind_of_magic,incr_damage)
+values
+(281,'double experience level 2','110-200级双倍经验胶囊',110,1030800,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,111,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,1000,1028100,9,256705,1,10000000,0,150,1,0,0,0,0,0,0)
+
+select * from [DragonRajaDB].[dbo].[Item_Etc] where
+ [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 138 or
+ [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 281 or
+ [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 304 or
+ [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 300 
+
+ 
+update [DragonRajaDB].[dbo].[Item_Etc] set Repair_Skill2_min = 1105, Repair_Res1 = 1129, object=1030700 where 
+ [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 138
+
+update [DragonRajaDB].[dbo].[Item_Etc] set Repair_Skill2_min = 1106, Repair_Res1 = 1129, object=1030800 where 
+ [DragonRajaDB].[dbo].[Item_Etc].[Item_id] = 281
+
+=========================================================================================
+}}}}}
+#########################################################################################
+
+
+client : RecvHeroInit()
+
+DBDemon : GetCharDB_SQL()
+CMD_USER_DB
+
+PutPacketCharDB
+
+#########################################################################################
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+{{{{{ <<<<<<<<<<<<<第十次增加>>>>>>>>>>>>>>
+#########################################################################################
+=========================================================================================
+客户端： （DragonRaja-Online）
+=========================================================================================
+Network.h :
+(找到代码， << struct t_server_user_db_data >>, 在内部找到 << 	BYTE aStepInfo[20]; >>, 在之后 增加 )
+1112L, add,   BYTE bcan_exp_inc;
+
+-----------------------------------------------------------------------------------------
+Network.cpp :
+(找到函数 << void RecvHeroInit(t_server_user_db_data *p) >> ,内部找到 << 	Hero->SetGuildCode(p->Attr[2]); // CSD-031001 // thai2 YGI	 >>,在之后 增加)
+1987L, add, 	ch.bCanIncExp = p->bcan_exp_inc;	// add by taniey
+
+
+=========================================================================================
+服务端：（ DBDemon ）
+=========================================================================================
+Network.h :
+(找到代码， << } t_server_user_db_data; >>, 在之上增加一行 )
+1112L, add,   BYTE bcan_exp_inc;		// add by taniey
+
+(找到结构， << struct t_update_char_db >> , 在内部找到， << BYTE aStepInfo[20]; >>, 在之后 增加)
+1270L, add, 	BYTE bcan_exp_inc;		// add by taniey
+
+(找到结构，<< typedef struct  server_accept_char_db >>, 在内部找到， << BYTE aStepInfo[20]; >>，在之后增加 )
+1829L, add, 	BYTE bcan_exp_inc;		// add by taniey
+
+-----------------------------------------------------------------------------------------
+CharList.h :
+(找到代码 << } CHARLIST, *LPCHARLIST; >>, 在其上一行增加 )
+900L, add, 	bool	bCanExpInc;
+
+-----------------------------------------------------------------------------------------
+MySql.cpp :
+(找到函数：<< int GetCharDB_SQL(t_connection c[], int cn) >>, 在内部找到，
+<<
+			ConvertLoad(ch->aStepInfo);
+			for (int i = 0; i < 20; i++) {
+				// MyLog(LOG_NORMAL, "[%d] load astepinfo : %d", i, ch->aStepInfo[i]);  //coromo load astepinfo
+			}
+			//> CSD-010927
+>>
+ 在其后增加一行)
+715L, add , 			ch->bCanExpInc = true;	// all true, add by taniey 
+
+
+(找到函数 << int RecvUpdateCharDB(t_update_char_db *p) >>, 在内部找到， << ConvertSave(p->aStepInfo); >>, 在之后 增加)
+2700L, add, 	p->bcan_exp_inc;    // reservice
+
+
+(找到函数， << void updateCharacterStatusToLoginServer(t_connection c[], int char_id) >>, 在内部找到，
+<< 	memcpy(tp->aStepInfo, ch->aStepInfo, sizeof(tp->aStepInfo)); >> , 在之后增加)
+2566L, add, 	tp->bcan_exp_inc = ch->bCanExpInc;		// add by taniey
+
+-----------------------------------------------------------------------------------------
+OP_Chr_Status.cpp :
+(找到函数， << void PutPacketCharDB(t_connection c[], int cn, t_packet *packet) >>, 函数内部最后位置增加一行)
+717L, add, 	p->bcan_exp_inc = ch->bCanExpInc;
+
+-----------------------------------------------------------------------------------------
+DragonLoginServer.cpp :
+(找到函数， << int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUserID, int cn) >>, 在内部找到，
+<< memcpy(tp->aStepInfo, ch->aStepInfo, sizeof(ch->aStepInfo)); >> 在之后增加)
+717L, add, 		tp->bcan_exp_inc = ch->bCanExpInc;			// add by taniey
+
+
+=========================================================================================
+服务端：（MapServer）
+=========================================================================================
+CharInfo.cpp :
+(找到代码，<< void CCharInfo::ResetAbility(BYTE nCombat) >>, 在内部找到，<< 	Ac = CalcNewAc(); >>,在这一行之前增加 )
+229L, delete,	if (IsPlayer())  SendCharInfoBasic(INC_EXP, m_bCanIncExp);
+
+-----------------------------------------------------------------------------------------
+Dr_Network.h :
+(找到代码， << struct t_update_char_db >>, 在内部找到， << 	BYTE aStepInfo[20]; >>, 在其后增加)
+1170L, add, 	BYTE bcan_exp_inc;		// add by taniey
+
+(找到结构，<< struct t_server_user_db_data >>, 在内部找到， << 	BYTE aStepInfo[20]; >>, 即 结构体最后，增加 )
+975L, add, 	BYTE bcan_exp_inc;		// add by taniey
+
+(找到结构，<< typedef struct  server_accept_char_db >>, 在内部找到， << BYTE aStepInfo[20]; >>，在之后增加 )
+1703L, add, 	BYTE bcan_exp_inc;		// add by taniey
+
+-----------------------------------------------------------------------------------------
+MySql.cpp :
+(找到函数， << void updateCharacterStatusToLoginServer(t_connection c[], int char_id) >>, 内部找到：
+<< ch->GetStepInfo(tp->aStepInfo, sizeof(tp->aStepInfo)); >> 在之后 增加一行)
+740L, add, 	tp->bcan_exp_inc = ch->m_bCanIncExp;			// add by taniey
+
+
+(找到函数， << int updateCharacterStatus(t_connection c[], int char_id) >>, 可能需要修改)
+419L, modify, ???????????????????????????????????????????????????????????????????????????
+
+-----------------------------------------------------------------------------------------
+MenuServer.cpp :
+(找到函数，<< bool NewSendGameToLoginChangeMapData(short int cn, WORD wMyAgentServerID, WORD wTargetServerID) >>, 
+内部找到 << ch->GetStepInfo(tp->aStepInfo, sizeof(tp->aStepInfo)); >>, 在之后增加一行)
+3691L, add, 		tp->bcan_exp_inc = ch->m_bCanIncExp;		// add by taniey
+
+(找到函数，<< void NewRecvChangeMapData1(k_change_map1 *p, DWORD cn) >>, 
+内部找到 <<	ch->SetStepInfo(data1->aStepInfo, sizeof(data1->aStepInfo)); >>, 在之后增加一行)
+3691L, add,		ch->m_bCanIncExp = data1->bcan_exp_inc;		// add by taniey
+
+-----------------------------------------------------------------------------------------
+OP_Chr_Status.cpp :
+(找到函数， << void PutPacketCharDB(t_connection c[], int cn, t_packet *packet) >>, 函数内部最后位置增加一行)
+717L, add, 	p->bcan_exp_inc = ch->bCanExpInc;
+
+#########################################################################################
+#########################################################################################
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 {{{{{ <<<<<<<<<<<<<第九次增加>>>>>>>>>>>>>>
 #########################################################################################
 =========================================================================================
@@ -52,21 +217,22 @@ kh_menuset.cpp :
 					"X");
 			}
 			
+-----------------------------------------------------------------------------------------
 LineCommand.cpp :
 找到刚增加的 <<case LC_INC_EXP_START:  >> 和 << case LC_INC_EXP_STOP: >> 修改为如下：
 			case LC_INC_EXP_STOP:	// add by taniey, stop inc exp 
 			{
 				char bIncExp = 0;
+				SCharacterData.bCanIncExp = bIncExp;
 				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
-				//static bool bIncExpFlag = true;
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(234));
 				break;
 			}
 			case LC_INC_EXP_START:	// add by taniey, start inc exp
 			{
 				char bIncExp = 1;
+				SCharacterData.bCanIncExp = bIncExp;
 				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
-				//static bool bIncExpFlag = true;
 				Kein_PutMessage(KM_INFO, kein_GetMenuString(235));
 				break;
 			}

@@ -1029,7 +1029,7 @@ int IsLineCommand(char *message, int nsize)
 				char bIncExp = 0;
 				SCharacterData.bCanIncExp = bIncExp;
 				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
-				Kein_PutMessage(KM_INFO, kein_GetMenuString(234));
+				//Kein_PutMessage(KM_INFO, kein_GetMenuString(234));
 				break;
 			}
 			case LC_INC_EXP_START:	// add by taniey, start inc exp
@@ -1037,7 +1037,7 @@ int IsLineCommand(char *message, int nsize)
 				char bIncExp = 1;
 				SCharacterData.bCanIncExp = bIncExp;
 				CallServer(CMD_CHAR_INFO_INC_EXP, &bIncExp, sizeof(bIncExp));
-				Kein_PutMessage(KM_INFO, kein_GetMenuString(235));
+				//Kein_PutMessage(KM_INFO, kein_GetMenuString(235));
 				break;
 			}
 			}// switch

@@ -972,6 +972,7 @@ struct t_server_user_db_data
 
 	DWORD nation;			//1004 YGI
 	BYTE aStepInfo[20];
+	BYTE bcan_exp_inc;		// add by taniey
 };	//> CSD-031001
 
 //--------------------------------------------------------
@@ -1160,6 +1161,7 @@ struct t_update_char_db
 	short nk4;
 	short nk6;
 	BYTE aStepInfo[20];
+	BYTE bcan_exp_inc;		// add by taniey
 	int nCombatAmount;
 	int	check_crc; //acer5
 	//<050413_KCH 성전환 아이템때문에 추가.
@@ -1696,8 +1698,11 @@ typedef struct  server_accept_char_db // 2308
 	short int		fame_pk;		// 010915 LTS	//Fame_PK -> NWCharacter로 교체 DB에는 실제로 NWCharacter의 값이 들어갑니다.		
 	NW_Character	NWCharacter;	// 010915 LTS
 
-	BYTE aStepInfo[20];
-	int		nUserAge;				// 030929 kyo	// 태국에서 사용하는 유저나이 
+	BYTE			aStepInfo[20];
+
+	BYTE			bcan_exp_inc;	// add by taniey
+
+	int				nUserAge;		// 030929 kyo	// 태국에서 사용하는 유저나이 
 	Event_Join		EventJoin;		// 020115 LTS
 } t_server_accept_char_db;
 

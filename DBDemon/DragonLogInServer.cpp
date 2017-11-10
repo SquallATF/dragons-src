@@ -297,6 +297,7 @@ int HandleCommand(t_connection c[], DWORD dwIndex, t_packet *packet, DWORD dwUse
 		tp->EventJoin = ch->EventJoin;	// 020115 LTS
 		tp->nUserAge = GetUserAge(c[cn].id); // 030929 kyo
 		memcpy(tp->aStepInfo, ch->aStepInfo, sizeof(ch->aStepInfo));
+		tp->bcan_exp_inc = ch->bCanExpInc;			// add by taniey
 		if (!QueuePacket(c, cn, packet, 1)) { break; }
 
 		/////////////////////////////////////////////////////////////////////////

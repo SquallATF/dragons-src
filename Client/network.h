@@ -1070,6 +1070,8 @@ struct t_server_user_db_data
 
 	DWORD nation;			//1004 YGI
 	BYTE aStepInfo[20];
+
+	BYTE bcan_exp_inc;		// add by taniey
 };	//> CSD-031001
 
 

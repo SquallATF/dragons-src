@@ -8382,10 +8382,12 @@ int GetTextLine(char *filename)
 	int line = 0;
 	if (fp)
 	{
-		char buf[2048];
-		while (fgets(buf, 2048, fp) != NULL)
-			if (buf[0]) line++;
-
+		char *buf = new char[MAX_STRING_];
+		while (fgets(buf, MAX_STRING_, fp) != NULL) {
+			if (buf[0])
+				line++;
+		}
+		delete[]buf;
 		fclose(fp);
 	}
 
@@ -9845,12 +9847,14 @@ void ExplainItem2(int xx, int yy, ItemAttr *olg_item)//020821-2 lsw
 
 	if (bTimeLimit && iStartDay && iEndDay)
 	{
-		is_equip = IsEquipAbleCheckAbleDay(iStartDay, iEndDay);
 		Hcolor(FONT_COLOR_NAME);
 		iReultLineCount = TxtOut.RcTXTOut(x, y + iBlk + iLGab*iCt, iWidth, 0, lan->OutputMessage(5, 122));
 		iCt += iReultLineCount;
-		if (is_equip) { Hcolor(FONT_COLOR_BLUE); }
-		else { Hcolor(FONT_COLOR_PLUS); }
+
+		is_equip = IsEquipAbleCheckAbleDay(iStartDay, iEndDay);
+		Hcolor(is_equip ? FONT_COLOR_BLUE : FONT_COLOR_PLUS);
+		//if (is_equip) { Hcolor(FONT_COLOR_BLUE); }
+		//else { Hcolor(FONT_COLOR_PLUS); }
 		iReultLineCount = TxtOut.RcTXTOut(x, y + iBlk + iLGab*iCt, iWidth, 0, lan->OutputMessage(5, 121),
 			iStartDay / 100, iStartDay % 100,
 			iEndDay / 100, iEndDay % 100);

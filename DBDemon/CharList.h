@@ -387,16 +387,16 @@ struct WINLOSEPOINT
 
 struct NW_Character						// 010915 LTS		// LTS CHAR
 {
-	DWORD		WarNo						:	7;	//	전쟁번호
-	DWORD		WarfieldNo					:	3;	//	전쟁터 번호
-	DWORD		SquadNo						:	3;	//	부대번호
-	DWORD		isSquadLeader				:	1;	//	부대장인가?	
-	DWORD		isCommander					:	1;	//	사령관인가?
-	DWORD		isCommanderCanidater		:	1;	//	사령관후보 인가?
-	DWORD		DoWarJoinVote				:	1;	//	전쟁터 참여 투표를 했나?
-	DWORD		DoCommanderVote				:	1;	//	사령관 투표를 했다
-	DWORD		YL_JoinNation				:	4;	//	일스인경우 자이펀에했나? 바이서스에 했나?  //국가번호 
-	DWORD		Reserved					:	10;	//	예약..
+	DWORD		WarNo					: 7;	//	전쟁번호
+	DWORD		WarfieldNo				: 3;	//	전쟁터 번호
+	DWORD		SquadNo					: 3;	//	부대번호
+	DWORD		isSquadLeader			: 1;	//	부대장인가?	
+	DWORD		isCommander				: 1;	//	사령관인가?
+	DWORD		isCommanderCanidater	: 1;	//	사령관후보 인가?
+	DWORD		DoWarJoinVote			: 1;	//	전쟁터 참여 투표를 했나?
+	DWORD		DoCommanderVote			: 1;	//	사령관 투표를 했다
+	DWORD		YL_JoinNation			: 4;	//	일스인경우 자이펀에했나? 바이서스에 했나?  //국가번호 
+	DWORD		Reserved				: 10;	//	예약..
 };
 
 struct Event_Join							// 020115 LTS
@@ -415,36 +415,36 @@ struct Event_Join							// 020115 LTS
 typedef struct tagCHARLIST
 {	
 	BYTE			bAlive;					// 캐릭터의 생사여부(	REMOVE_:0 / ALIVE_:1 / DEAD_:2 / BUFE_:3)
-	int				deadcount;					// 캐릭터가 죽은후 실제 없어지기까지의 count
+	int				deadcount;				// 캐릭터가 죽은후 실제 없어지기까지의 count
 	
 	short			server_id;
 	DWORD			total_id;
 	short			eventno;
-	short			generationpos;		// NPC일경우 발생 위치 Table의 Index값을 기억하고 있는다.
+	short			generationpos;			// NPC일경우 발생 위치 Table의 Index값을 기억하고 있는다.
 	
 	char			Name[20];
 	
 	short int		Level;
 	short int       LvUpPoint;
 	DWORD			Exp;
-	DWORD			addexp;		// AttackMapper에서 증가되는 수치를 적어둔다. ( Ballance용 )
+	DWORD			addexp;					// AttackMapper에서 증가되는 수치를 적어둔다. ( Ballance용 )
 	
 	DWORD			oldExp;
 	short int		oldLevel;
 	
-	short int		Gender;						// 0:여자 1 : 남자
+	short int		Gender;					// 0:여자 1 : 남자
 	short int		Face;						
-	short int		nGuildCode; // CSD-030324
-	short int		Class;						// 0:전사 1:궁수 2:도적 3:성직자 4:마법사
-	//	short int		Class_Sprituality;	
-	//	short int		Class_Poisioning;	
-	//	short int		Class_Bombplay;		
-	//	short int		Class_Entrapment;	
-	//	short int		Class_Scrolling;	
-	//	short int		Class_Cunning1;	
-	//	short int		Class_Cunning2;	
-	//	short int		Class_Cunning3;	
-	//	short int		Class_Stealing;	
+	short int		nGuildCode;				// CSD-030324
+	short int		Class;					// 0:전사 1:궁수 2:도적 3:성직자 4:마법사
+	//short int		Class_Sprituality;	
+	//short int		Class_Poisioning;	
+	//short int		Class_Bombplay;		
+	//short int		Class_Entrapment;	
+	//short int		Class_Scrolling;	
+	//short int		Class_Cunning1;	
+	//short int		Class_Cunning2;	
+	//short int		Class_Cunning3;	
+	//short int		Class_Stealing;	
 	short int		Spell;					// 마법사:0 / 성직자:1
 	
 	
@@ -494,17 +494,17 @@ typedef struct tagCHARLIST
 	unsigned int		LuckTp;				//	행운
 	unsigned int		wspsTp;
 	
-	short int		Strm;				//  힘
-	short int		Conm;				//  건강
-	short int		Dexm;				//	민첩성
-	short int		Wism;				//	지혜
-	short int		Intm;				//	지능
-	short int		MovePm;				//	이동력
-	short int		Charm;				//	매력
-	short int		Endum;				//  저향력
-	short int		Moralm;				//	사기
-	short int		Luckm;				//	행운
-	short int		wspsm;
+	short int			Strm;				//  힘
+	short int			Conm;				//  건강
+	short int			Dexm;				//	민첩성
+	short int			Wism;				//	지혜
+	short int			Intm;				//	지능
+	short int			MovePm;				//	이동력
+	short int			Charm;				//	매력
+	short int			Endum;				//  저향력
+	short int			Moralm;				//	사기
+	short int			Luckm;				//	행운
+	short int			wspsm;
 	
 	unsigned int		StrTm;				//  힘   g_curr_time + 60
 	unsigned int		ConTm;				//  건강
@@ -542,9 +542,9 @@ typedef struct tagCHARLIST
 	CCharRank		name_status;		// 0927 YGI
 	
 	
-	short int		Ac;			// 창 AC( 방어력 )
-	short int		AcDex;		// 0129 KHS
-	short int		Att;		// 공격력..
+	short int		Ac;					// 창 AC( 방어력 )
+	short int		AcDex;				// 0129 KHS
+	short int		Att;				// 공격력..
 	short int		defence_rate;
 	
 	short int		Job;
@@ -575,8 +575,7 @@ typedef struct tagCHARLIST
 	short int		Age;
 	
 	// 010531 KHS	
-	short int		nk[ MAX_NATION];							// 국가간 우호도(NK)
-	
+	short int		nk[ MAX_NATION];			// 국가간 우호도(NK)
 	
 	DWORD			killmon;					// 1계열몬스터 킬링스
 	DWORD			killanimal;					// 동물 킬링수
@@ -584,14 +583,14 @@ typedef struct tagCHARLIST
 	char			KillerName[ 31];
 	//////////////////// 0117 lkh (자료형) //////////////////////////
 	//< CSD-010907
-	/*
-	float     	Resis_Poison;		//	독/죽음 저항력  _poinsion을 _poinson으로 변경 
-	float				Resis_Stone	;		//	석화 마비 저항력
-	float				Resis_Magic	;		//	마법저항력
-	float				Resis_Fire	;			//	불 저항력
-	float				Resis_Ice	;			//	얼음저항력
-	float				Resis_Elect	;		//	전기저향력
-	*/
+	
+	//float     	Resis_Poison;		//	독/죽음 저항력  _poinsion을 _poinson으로 변경 
+	//float			Resis_Stone	;		//	석화 마비 저항력
+	//float			Resis_Magic	;		//	마법저항력
+	//float			Resis_Fire	;			//	불 저항력
+	//float			Resis_Ice	;			//	얼음저항력
+	//float			Resis_Elect	;		//	전기저향력
+	
 	__int16 nPoison; // 저주계열 마법에 대한 저항력
 	__int16 nCurse;  // 저주계열 마법에 대한 저항력	
 	__int16 nFire;	 // 불계열 공격 마법에 대한 저항력
@@ -610,11 +609,6 @@ typedef struct tagCHARLIST
 	
 	unsigned short   Skill[200];
 	DWORD			skillexp[45];		// 1219 YGI 경험치
-	
-	
-	
-	
-	
 	
 	// 내가 가지고 있는 아이템..
 	// 인벤토리
@@ -661,7 +655,7 @@ typedef struct tagCHARLIST
 	int				path[ MAX_SHORTPATH][2];		// PathBuild()를 위한 변수..
 	int				pathcount;
 	
-	// --------------  NPC Pattern---------- NPC공격을 위해..-
+	//--------------  NPC Pattern---------- NPC공격을 위해..-
 	short 			patterntype;
 	short 			oldpatterntype;
 	int				targetid;
@@ -675,7 +669,7 @@ typedef struct tagCHARLIST
 	
 	
 	// 1207 khs 추가.
-	//  ------------------------------------- NPC가 죽으면 얻을수 있는 것들...
+	//------------------------------------- NPC가 죽으면 얻을수 있는 것들...
 	short int				Get_meat;
 	char					Meat_amount;
 	short int				Get_skin;
@@ -702,7 +696,7 @@ typedef struct tagCHARLIST
 	short int				HostId;
 	char					TargetName[ 31]; // 주인이 정한 공격자의 이름.
 	
-	//	DWORD					pk;			// pk를 했다면 현재시간보다 큰수를 가지고 있다 ! 
+	//DWORD					pk;			// pk를 했다면 현재시간보다 큰수를 가지고 있다 ! 
 	short					pkid;		//
 	short					pkcount;	// 이 수치가 3이상이면 PK를 한것이다 ! 
 	DWORD					cast_pk;	// BroadCast된 시간.
@@ -730,18 +724,13 @@ typedef struct tagCHARLIST
 	POS				cur_skillPOS;
 	DWORD			exetime_skill; // 실행될 Skill의 시간.
 	
-	
-	
-	
-	
 	short int		MaxWizardSpell ;
 	short int		MaxPriestSpell ;
 	
 	short int		Weight, MaxWeight ;
 	
-	//	short int		Def_Correction ;				// 방어보정의 총 합. 아이템 장착시 여기에 누적된다.
-	//	bool			class_item_corr_flag ;			// 클래스 보정
-	
+	//short int		Def_Correction ;				// 방어보정의 총 합. 아이템 장착시 여기에 누적된다.
+	//bool			class_item_corr_flag ;			// 클래스 보정
 	
 	DWORD			tac_skillEXP[13] ;
 	char			cur_tac_skill;					// 현재 어떤공격이 이류어졌을때 Setting되며 전투기술 Index가 들어간다. ( TACTICS_Crapple....과 같은 )
@@ -750,9 +739,8 @@ typedef struct tagCHARLIST
 	short	int 	reserved_point ;
 	int				nAbilityPlusOfPotion[20];		//먹는거에 의한 파워업
 	DWORD			dwAbiliityPlusTime[20];
-	//	int				nAbilityPlusOfWeapon[20];		//아이템에 장작에 의한 파워업
+	//int				nAbilityPlusOfWeapon[20];		//아이템에 장작에 의한 파워업
 	DWORD			DontDiseaseTime[6];             //질병에 걸리지 않은 시간 
-	
 	
 	DWORD			BankMoney;
 	DWORD			LastTotal;
@@ -771,20 +759,13 @@ typedef struct tagCHARLIST
 	float			Hungry_much;					// 한번 떨어질때 얼마나 떨어질 것인가.. 디폴트 5
 	bool			HungryChangeFlag;
 	
-	
-	
-	
-	
-	
-	
 	// Chatting관련 변수 ----------------
 	char			chatname[ 31];
 	char			chattype;
 	short int		whisperid;
 	// ----------------------------------
 	
-	
-	/// ######### 0218 YGI ################
+	// ######### 0218 YGI ###############
 	// Party / Relation / Employment.........................	0213 YGI
 	CharacterParty party[6];			
 	CharacterParty relation[3];				
@@ -798,13 +779,11 @@ typedef struct tagCHARLIST
 	
 	int partyrequestflag;
 	
-	
 	//////////////////////// 0331 이하 전체수정 LKH /////////////////////
 	BYTE			Condition;			// 0정상->CON_NORMAL, 1활동적->CON_ACTIVE, 2무기력->CON_SLUGGISH, 3슬로우->CON_SLOW, 4혼란->CON_DAZE, 5중독->CON_POISON, 6석화->CON_STONE, 7죽음->CON_DEATH 
 	DWORD			Condition_Time[8];	// 상태 지속 시간;	
 	
 	BYTE			Status;				// 캐릭터의 휴식 상태 0은 nomal		//0108
-	
 	
 	//DWORD			doing_CheckTime;	// 특정 효력을 발생하는데 걸리는 시간
 	//short int		doing_Type;			// 특정효력 고유번호:1->죽음
@@ -842,11 +821,10 @@ typedef struct tagCHARLIST
 	DWORD			Plus50Ac;			// 물리방어력(ac)50%증가	
 	DWORD			Plus50Luck;			// 행운치50%증가
 	DWORD			Plus100Defence;		// 전체 방어율 100% 증가
-	/////////////////////////// 여기까지 ///////////////////////////////
+	///////////// 여기까지 ///////////////////////////
 	
-	////////////// 0410 lkh 추가 //////////////
+	////////////// 0410 lkh 추가 //////////////////
 	DWORD		ReturnMagic;		//	마법의 효과를 시전자에게 되돌림
-	
 	
 	//////////// 0125 YGI ///////////// 아이템 거래
 	K_ITEM		give[20];		// 내가 줘야 하는 아이템
@@ -861,18 +839,14 @@ typedef struct tagCHARLIST
 	
 	DWORD		DontDamage;		
 	
-	
 #ifdef _GAME_SERVER_
 	AREA		area_tbl[MAX_AREA_BUFFER];
 #endif
 	
-	
 	bool		counseler;		// counseler는 타격을 받지 않는다. 
 	
 	int			ctrlpc;			// NPC일경우 나를 제어하는 NPC의 ID, 없을 경우 -1를 가지고 있다.
-	int			ctrlnpc[MAX_PC_CONTROL_NPC];		
-	
-	
+	int			ctrlnpc[MAX_PC_CONTROL_NPC];
 	
 	/////////////// 0315 lkh 추가 ////////////////
 	DWORD		DontAttack;			// 일반공격불가
@@ -922,7 +896,9 @@ typedef struct tagCHARLIST
 	//> CSD-010907
 	int				nUserAge;			// 030923 kyo
 	Event_Join		EventJoin;			// 020115 LTS
-} CHARLIST, *LPCHARLIST;		
+
+	bool	bCanExpInc;					// add by taniey
+} CHARLIST, *LPCHARLIST;
 
 #define		HUNGRY_TIME		60		// 1분  //###1213_2 수정
 #define		HUNGRY_MUCH		1.0	

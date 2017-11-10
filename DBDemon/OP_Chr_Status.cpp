@@ -713,6 +713,8 @@ void PutPacketCharDB(t_connection c[], int cn, t_packet *packet)
 												//< CSD-011006
 	memcpy(p->aStepInfo, ch->aStepInfo, sizeof(p->aStepInfo));
 	//< CSD-011006
+
+	p->bcan_exp_inc = ch->bCanExpInc;		// add by taniey
 }
 
 //#define CMD_CHAR_INFO_MAGIC				5004

@@ -736,6 +736,9 @@ void updateCharacterStatusToLoginServer(t_connection c[], int char_id)
 	tp->nk4 = ch->nk[N_ZYPERN];
 	tp->nk6 = ch->nk[N_YILSE];
 	ch->GetStepInfo(tp->aStepInfo, sizeof(tp->aStepInfo));
+
+	tp->bcan_exp_inc = ch->m_bCanIncExp;			// add by taniey
+
 	p.h.header.size = sizeof(t_update_char_db);
 	CheckFightMap(tp->MapName, tp->X, tp->Y, ch);		// 0910 YGI
 	tp->check_crc = AddCRC(p.u.data, p.h.header.size - 4, 10); // acer5

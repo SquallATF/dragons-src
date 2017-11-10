@@ -278,8 +278,8 @@ ItemAttr	HandItemAttr;
 ItemAttr	SupperItemAttr[3][15];
 
 ItemAttr	InvAttrBackUp[3][3][8];
-ItemAttr	EquipAttrBackUp[8];
-ItemAttr	QuickAttrBackUp[7];
+ItemAttr	EquipAttrBackUp[ITEM_EQUIP_MAX];
+ItemAttr	QuickAttrBackUp[ITEM_QUICK_MAX + 1];
 ItemAttr	HandAttrBackUp;
 ItemAttr	aItemInventoryFull;		// 인벤토리 창에 꽉 찼을 때
 

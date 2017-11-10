@@ -371,6 +371,9 @@ void PutPacketCharDB(t_connection c[], int cn, t_packet *packet)
 	p->nk4 = IsHeNK(ch, N_ZYPERN);
 	p->nk6 = IsHeNK(ch, N_YILSE);
 	ch->GetStepInfo(p->aStepInfo, sizeof(p->aStepInfo));
+
+	p->bcan_exp_inc = ch->m_bCanIncExp;
+
 }
 
 void SendItemInventory(int count, t_connection c[], int cn)		//1218
