@@ -293,7 +293,12 @@ extern int SetTactics(int spell_type, int sex, int tac_type);	// 1101 YGI
 																// 최초 캐릭터의  생성위치, 기본수치, Item들을 Setting한다. 
 void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 {
-	//	DWORD tac_skillexp[13] = {0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D};//coromo 濫섀쒔駱
+	////coromo 战绩经验
+	//DWORD tac_skillexp[13] = {
+	//	0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,
+	//	0x219C457D,0x219C457D,0x219C457D,0x219C457D,0x219C457D,
+	//	0x219C457D,0x219C457D,0x219C457D
+	//};
 	CHARLIST *ch = &c[cn].chrlst;
 	t_client_create_char *p = &packet->u.client_create_char;
 	//////////////////////////////////////////////////////////////////////////////	
@@ -304,17 +309,17 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	}
 	//////////////////////////////////////////////////////////////////////////////	
 
-	memset(ch->Ws, 0, SIZE_OF_WS);	//	마법
-	memset(ch->Ps, 0, SIZE_OF_PS);				//	신법
+	memset(ch->Ws, 0, SIZE_OF_WS);				// 마법
+	memset(ch->Ps, 0, SIZE_OF_PS);				// 신법
 	memset(ch->Skill, 0, SIZE_OF_SKILL);
 	memset(ch->skillexp, 0, SIZE_OF_SKILL_EXP);
-	//	memset( ch->tac_skillEXP,(unsigned int)tac_skillexp, SIZE_OF_TAC_SKILL_EXP );  //coromo 濫섀쒔駱
+	//memset( ch->tac_skillEXP,(unsigned int)tac_skillexp, SIZE_OF_TAC_SKILL_EXP );  //coromo 战绩经验
 	memset(ch->tac_skillEXP, 0, SIZE_OF_TAC_SKILL_EXP);
 
-	memset(var[cn], 0, SIZE_OF_SCRIPT_VAR); // 0819 KHS
-	memset(ch->inv, 0, SIZE_OF_INV);	// 인벤토리
+	memset(var[cn], 0, SIZE_OF_SCRIPT_VAR);		// 0819 KHS
+	memset(ch->inv, 0, SIZE_OF_INV);			// 인벤토리
 	memset(ch->equip, 0, SIZE_OF_EQUIP);		// 장착
-	memset(ch->quick, 0, sizeof(ItemAttr) * 7);		// 퀵 
+	memset(ch->quick, 0, sizeof(ItemAttr) * 7);	// 퀵 
 	memset(ch->bank, 0, SIZE_OF_BANKITEM);
 
 	memset(ch->party, 0, SIZE_OF_PARTY);
@@ -329,47 +334,47 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 
 	ch->bAlive = ALIVE_;
 
-	ch->Level = 1;  //coromo 
+	ch->Level = 1;						//coromo 新建人物等级
 	ch->LvUpPoint = 0;
 	ch->Exp = 0;
 
-	ch->LastLoan = 0;		// 010608 YGI
+	ch->LastLoan = 0;					// 010608 YGI
 
-	ch->Gender = p->gender;						// 0:여자 1 : 남자	
+	ch->Gender = p->gender;				// 0:여자 1 : 남자	
 	ch->Face = p->face;
-	ch->nGuildCode = 0; // CSD-030324
-	ch->Job = p->job;						// 0:전사 1:궁수 2:도적 3:성직자 4:마법사
+	ch->nGuildCode = 0;					// CSD-030324
+	ch->Job = p->job;					// 0:전사 1:궁수 2:도적 3:성직자 4:마법사
 	ch->Class = p->Class;
 
-	int nation = GetNationById(c[cn].id);					// 1004 YGI
+	int nation = GetNationById(c[cn].id);// 1004 YGI
 	if (nation < 0) nation = 0;
 	ch->name_status.nation = nation;
-	ch->Race = 0;	// 종족
+	ch->Race = 0;						// 종족
 	ch->Tactics = p->tactics;
 	ch->Condition = 0;
-	strcpy(ch->MapName, "SCHOLIUM");  //coromo 新建人物所在地图
+	strcpy(ch->MapName, "SCHOLIUM");	//coromo 新建人物所在地图
 
 	ch->Peacests = 0;
 	ch->Sight = 12;
 	ch->BodyR = p->body_r, ch->BodyG = p->body_g, ch->BodyB = p->body_b;		// 몸 색깔 R.G.B
-	ch->ClothR = p->cloth_r, ch->ClothG = p->cloth_g, ch->ClothB = p->cloth_b;		// 띠 색깔 R.G.B
+	ch->ClothR = p->cloth_r, ch->ClothG = p->cloth_g, ch->ClothB = p->cloth_b;	// 띠 색깔 R.G.B
 	ch->Age = p->age;
 	// 010531 KHS
-	ch->nk[3] = 0;					// NK로 사용된다.
+	ch->nk[3] = 0;						// NK로 사용된다.
 	ch->nk[4] = 0;
 	ch->nk[6] = 0;
 
 
 	ch->killmon = 0;					// 1계열몬스터 킬링스
 	ch->killanimal = 0;					// 동물 킬링수
-	ch->killpc = 0;					// 사람,NPC 킬링수
+	ch->killpc = 0;						// 사람,NPC 킬링수
 	ch->nPoison = 0;
 	ch->nCurse = 0;
 	ch->nFire = 0;
 	ch->nIce = 0;
 	ch->nElect = 0;
 	ch->nHoly = 0;
-	ch->Spell = p->spell;			// 0 : Ws   1 : Ps
+	ch->Spell = p->spell;				// 0 : Ws   1 : Ps
 
 	//////////////////////////////////////////////////////////////////////////////////						
 	// 내가 가지고 있는 아이템..	//0101
@@ -500,7 +505,7 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	if (ch->Spell == WIZARD_SPELL)
 	{
 		SetItemEmpty(ch, 10025);				// 마법책
-	}											// 001215 YGI -----------------------------------------
+	}											// 001215 YGI 
 	SetMySkill(ch);
 
 	//  Client을 위한 Data
@@ -524,7 +529,8 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	memset(ch->MoveDirTbl, 0, MAX_DIR_TABLE);
 
 	// 최초의 Skill Exp 적용 
-	for (i = 0; i < 45; i++)	ch->skillexp[i] = 5;
+	for (i = 0; i < 45; i++)
+		ch->skillexp[i] = 5;
 
 	//< CSD-011006
 
@@ -547,9 +553,9 @@ void CreateCharacter(t_connection c[], int cn, t_packet *packet)		// 001215 YGI
 	ch->viewtype = 0;
 	ch->reserved_point = 0;  //coromo 
 
-							 //< CSD-011006
+	//< CSD-011006
 	memset(ch->aStepInfo, 1, sizeof(ch->aStepInfo));//전투스킬 초기에 -1 되어 있는 버그.
-													//> CSD-011006
+	//> CSD-011006
 
 	ch->openhouse = -1; // 최초에 집밖에서 시작하므로  닫혀있는것으로 시작해야지...
 }

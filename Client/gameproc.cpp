@@ -1130,11 +1130,7 @@ BOOL GameTestProc(LPDIRECTDRAWINFO lpDirectDrawInfo)
 	CurrentMsgMgr.ViewCurrentStatusMessage();
 	DisplayDebug();
 
-
 	CursorDisplayBack();
-
-
-
 
 	FlipScreen(lpDirectDrawInfo);
 	while (((::timeGetTime()) - tick) < (DWORD)skip) {}
@@ -1167,10 +1163,6 @@ SKIP__:
 
 	return	TRUE;
 }
-
-
-
-
 
 
 static int	effect_Test = 1;

@@ -1142,7 +1142,7 @@ void RecvCharInfoBasic(t_char_info_basic *p)
 	case BANKMONEY:		SCharacterData.BankMoney = d;	break;
 	case EXP:			SCharacterData.nExp = d;		break;
 	case FAITH:			SCharacterData.faith = d;		break;
-	case INC_EXP:		SCharacterData.bCanIncExp = d;	break;
+	case INC_EXP:		SCharacterData.bCanExpInc = d;	break;
 
 	case CIB_POTION_BOX: SCharacterData.potion_box1 = d;	break;
 	//020314 lsw

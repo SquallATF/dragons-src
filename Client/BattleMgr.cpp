@@ -1098,7 +1098,7 @@ void CBattleMgr::RecvCharInfoTactic(t_char_info_tactic* pPacket)
 		Hero->aStepInfo[wKind + TAC_INDEX] = nStep;
 		SCharacterData.TacticsExp[wKind] = dwExperience;
 
-		SCharacterData.SkillId[wKind + 88] = nLevel;
+		SCharacterData.SkillId[wKind + TACTICS_Crapple] = nLevel;
 
 		SCharacterData.TacticsExpNext[wKind] = NPC_Lev_Ref[nLevel].nMaxExp;
 

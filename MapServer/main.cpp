@@ -1106,6 +1106,11 @@ int main() {
 int orgmain()
 //int main()
 {	//< CSD-HK-030829
+#if _DEBUG
+	StdString strAppPath = GetAppPath();
+	SetCurrentDirectory(strAppPath.c_str());  //设置
+#endif // _DEBUG
+
 
 	CGameFactory gameFactory;
 	CGameSystem gameSystem(&gameFactory);	//050224_KCH 마일리지몰 작업

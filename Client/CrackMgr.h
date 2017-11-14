@@ -18,7 +18,7 @@ typedef struct server_check_accel
 
 class CCrackMgr
 {
-	typedef	struct CLOCK
+	struct CLOCK
 	{
 		DWORD	dwLow;
 		DWORD	dwHi;

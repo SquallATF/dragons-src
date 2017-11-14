@@ -737,7 +737,7 @@ void updateCharacterStatusToLoginServer(t_connection c[], int char_id)
 	tp->nk6 = ch->nk[N_YILSE];
 	ch->GetStepInfo(tp->aStepInfo, sizeof(tp->aStepInfo));
 
-	tp->bcan_exp_inc = ch->m_bCanIncExp;			// add by taniey
+	tp->bcan_exp_inc = ch->bCanExpInc;			// add by taniey
 
 	p.h.header.size = sizeof(t_update_char_db);
 	CheckFightMap(tp->MapName, tp->X, tp->Y, ch);		// 0910 YGI

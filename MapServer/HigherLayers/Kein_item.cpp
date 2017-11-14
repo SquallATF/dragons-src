@@ -31,24 +31,25 @@ CItem *ItemUnit(int item_no)
 CItem *ItemUnit(int type, int item_no)
 {
 	if ((type < 0) || (type > 10)) return NULL;
-	if ((item_no <= 0) || (item_no > Item_Ref.nItem[type])) return NULL;
+	if ((item_no < 0) || (item_no > Item_Ref.nItem[type])) return NULL;
+	//return Item_Ref.Item_Info[type][item_no];
 
 	switch (type)
 	{
-	case 	PLANT:	return &CPlant[item_no];	break;
-	case 	MINERAL:	return &CMineral[item_no];	break;
-	case 	HERB:	return &CHerb[item_no];	break;
-	case 	COOK:	return &CCook[item_no];	break;
-	case 	POTION:	return &CPotion[item_no];	break;
-	case 	TOOL:	return &CTool[item_no];	break;
-	case 	WEAPON:	return &CWeapon[item_no];	break;
-	case 	DISPOSABLE:	return &CDisposable[item_no];	break;
-	case 	ARMOR:	return &CArmor[item_no];	break;
-	case 	ACCESSORY:	return &CAccessory[item_no];	break;
-	case 	ETC:	return &CEtc[item_no];	break;
+	case PLANT:		return &CPlant[item_no];
+	case MINERAL:	return &CMineral[item_no];
+	case HERB:		return &CHerb[item_no];
+	case COOK:		return &CCook[item_no];
+	case POTION:	return &CPotion[item_no];
+	case TOOL:		return &CTool[item_no];
+	case WEAPON:	return &CWeapon[item_no];
+	case DISPOSABLE:return &CDisposable[item_no];
+	case ARMOR:		return &CArmor[item_no];
+	case ACCESSORY:	return &CAccessory[item_no];
+	case ETC:		return &CEtc[item_no];
+	default:		return NULL;
 	}
 	return NULL;
-	//return Item_Ref.Item_Info[type][item_no];
 }
 
 DWORD CreateItemDuration(int type, int itemno)			// 0620 YGI

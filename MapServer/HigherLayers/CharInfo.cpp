@@ -76,7 +76,7 @@ CCharInfo::CCharInfo()
 	m_nExpStep = 0;
 	m_bEventRecv = false;	// BBD 040308
 
-	m_bCanIncExp = true;
+	bCanExpInc = true;
 
 	for (int i = 0; i < NO_TAC; ++i)
 	{
@@ -227,7 +227,7 @@ void CCharInfo::ResetAbility(BYTE nCombat)
 	}
 	//// send INC_EXP
 	//if (IsPlayer()) 
-	//	SendCharInfoBasic(INC_EXP, m_bCanIncExp);
+	//	SendCharInfoBasic(INC_EXP, bCanExpInc);
 
 	// AC 계산
 	Ac = CalcNewAc();
@@ -335,7 +335,7 @@ void CCharInfo::Message(BYTE nType, BYTE nKind, WORD nNumber, BYTE nStep, BYTE n
 bool CCharInfo::IncExperience(int nExp)
 {	//< CSD-030930
 	//return false;
-	if (!m_bCanIncExp)
+	if (!bCanExpInc)
 		return false;
 
 	const int nLevel = GetLevel();
@@ -646,6 +646,10 @@ int CCharInfo::GetWeaponKind() const
 int CCharInfo::GetTacticsKind() const
 {
 	const int nItem = equip[WT_WEAPON].item_no;
+
+	//if (0 == nItem)					// if item = 0 , there is no item on equip.
+	//	return TACTICS_Crapple;		// add by taniey
+
 	CItem* pItem = ::ItemUnit(nItem / 1000, nItem % 1000);
 
 	if (pItem == NULL)

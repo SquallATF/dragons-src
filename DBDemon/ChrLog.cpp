@@ -234,11 +234,8 @@ int PushCharData2ChrLogDB_Basic(t_chr_log *t)
 		SQLBindParameter(hStmt, ct, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_LONGVARBINARY, SIZE_OF_QUICK, 0, t->quick, 0, &cbquick); ct++;
 		SQLBindParameter(hStmt, ct, SQL_PARAM_INPUT, SQL_C_BINARY, SQL_LONGVARBINARY, SIZE_OF_BANKITEM, 0, t->bankitem, 0, &cbbankitem); ct++;
 
-
-
 		strcpy(szId, t->id);
 		strcpy(szName, t->name);
-
 
 		s_IntOuput[0] = t->state;
 		s_IntOuput[1] = t->Level;

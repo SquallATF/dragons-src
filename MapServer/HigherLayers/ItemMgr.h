@@ -86,12 +86,12 @@ const int SIZE_OF_BUFFER = (ITEM_BUFFER_MAX * sizeof(ITEMATTR));
 
 typedef struct ITEMRAREMAIN
 {
-	DWORD	grade : 4;//등급
-	DWORD	soksung1 : 8;//속성1
-	DWORD	soksung2 : 8;//속성2 멀티 속성
-	DWORD	soksung3 : 8;//시간등급
-	DWORD	iHighLevel : 3;//플러스 타입 값이 있다면 IsDynamicRare-->는 반드시 0 이어야 한다
-	DWORD	IsDynamicRare : 1;//1 이면 기능 아이템 0 이면 레어 아이템
+	DWORD	grade : 4;			//등급
+	DWORD	soksung1 : 8;		//속성1
+	DWORD	soksung2 : 8;		//속성2 멀티 속성
+	DWORD	soksung3 : 8;		//시간등급
+	DWORD	iHighLevel : 3;		//플러스 타입 값이 있다면 IsDynamicRare-->는 반드시 0 이어야 한다
+	DWORD	IsDynamicRare : 1;	//1 이면 기능 아이템 0 이면 레어 아이템
 }RareMain, *LPRareMain;
 
 typedef struct t_POS
@@ -109,13 +109,13 @@ typedef struct tag_K_ITEM
 ///////////////////////////////////////////////////////
 struct CTreasureMapItem
 {
-	DWORD mapnumber : 7;
-	DWORD x : 10;
-	DWORD y : 10;
-	//	DWORD use		:1;	// 사용했는가?
-	DWORD isChecked : 1;	// 생성한 후에 좌표를 얻어 왔는가?
-	DWORD offset : 2;
-	DWORD offset2 : 2;
+	DWORD mapnumber		:7;
+	DWORD x				:10;
+	DWORD y				:10;
+	//DWORD use			:1;		// 사용했는가?
+	DWORD isChecked		:1;		// 생성한 후에 좌표를 얻어 왔는가?
+	DWORD offset		:2;
+	DWORD offset2		:2;
 };
 
 extern CTreasureMapItem GetTreasureAttr(ItemAttr *item);
@@ -125,120 +125,118 @@ extern CTreasureMapItem GetTreasureAttr(ItemAttr *item);
 const int	MAX_SKILL_EXP = 45;
 typedef struct SkillExp
 {
-	DWORD	skillexp : 20;//스킬 경험치
-	DWORD	rare : 12;//레어 성공률
+	DWORD	skillexp	:20;	//스킬 경험치
+	DWORD	rare		:12;	//레어 성공률
 }t_skillexp, *LPSKILLEXP;
 
 typedef struct SkillExp2
 {
-	DWORD	skillexp : 20;//스킬 경험치
-	DWORD	makecount : 6;//만든 갯수
-	DWORD	day : 3;//저장된 날짜
-	DWORD	month : 3;//저장된 날짜
+	DWORD	skillexp	:20;	//스킬 경험치
+	DWORD	makecount	:6;		//만든 갯수
+	DWORD	day			:3;		//저장된 날짜
+	DWORD	month		:3;		//저장된 날짜
 }t_skillexp2, *LPSKILLEXP2;
 
-typedef struct SkillExp3//021030 lsw
+typedef struct SkillExp3		//021030 lsw
 {
-	DWORD	skillType : 8;//스킬타입
-	DWORD	year : 12;//년도
-	DWORD	day : 12;//날짜
+	DWORD	skillType	:8;		//스킬타입
+	DWORD	year		:12;	//년도
+	DWORD	day			:12;	//날짜
 }t_SkillExp3, *LPSKILLEXP3;
-
-///////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////
 //		레어 이펙트
 ///////////////////////////////////////////////////////////////////////////
 typedef struct STATICRAREEFFECT
 {
-	short	nPower;//아이템의 물리적 Damage 증가	
-	short	nAccurate;//물리적 공격 성공률 증가 (타격시 miss 확률 감소)	
-	short	nWise;//마법 캐스팅 시간 00만큼 단축		short	nPhysicDmg			;//데미지 미리 구하기
-	short	nBear;//캐스팅 유지 시간 00만큼 증가		short	nPhysicDmgPlusRate	;//010607 lsw 데미지 퍼센트 증가율
-	short	nDistant;//공격 범위가 멀었을 때의 데미지 증가 (현재 100%/90%/85%로 감소)		
-	short	nVigor;//아이템의 물리적 Damage % 증가		short	nPhysicAttackRate	;	
-	short	nCurse;//자신이 시전한 저주 계열 마법 효과 지속 시간 00 증가		short	nPhysicDefenceRate	;	
-	short	nAid;//자신이 시전한 보조 계열 마법 효과 지속 시간 00 증가		
-	short	nMasking;//자신이 시전한 보호 계열 마법 효과 지속 시간 00 증가		short	nAc					;
-	short	nPiercing;//00% 확률로 상대의 보호 계열 마법을 무시하여 물리적 데미지를 입힘		short	nMoveSpeed			;
-	short	nBasicResist;//00% 확률로 상대의 마법 저항력을 무시(기본저항력)하여 마법 데미지를 입힘		
-	short	nHardest;//ac 증가		int		iHpMax				;
-	short	nSmart;//물리적 공격 회피율 증가 (상대가 물리적 타격시 miss 확률 증가)		int		iManaMax			;
-	short	nResist_freeze;//얼음저항력 증가		int		iDivineMax			;
-	short	nResist_venom;//독저항력 증가		int		iHealthMax			;
-	short	nResist_lightning;//전격저항력 증가			
-	short	nResist_blaze;//불저항력 증가		short	nHpMaxPlusRate		;
-	short	nResist_paralysis;//마비저항력 증가		short	nManaMaxPlusRate	;
-	short	nResist_holy;//신법저항력 증가		short	nDivineMaxPlusRate	;
-	short	nResist_all;//모든 저항력 증가
-	short	nSpeed;//이동 속도 증가	
-	short	nLife;//Life max 증가		short	nStr	;
-	short	nMana;//Mana max 증가		short	nDex	;
-	short	nDivine;//Divine max 증가		short	nCon	;
-	short	nHealth;//Health max 증가		short	nWis	;
-	short	nBrood;//Life max % 증가		short	nInt	;
-	short	nMind;//Mana max % 증가		short	nChar	;
-	short	nSpirit;//Divine max % 증가		short	nEndu	;
-	short	nYouth;//Health max % 증가		short	nMoveP	;
-	short	nFatal;//Life 1회 자동 회복량 증가		short	nMoral	;
-	short	nMagic;//Mana 1회 자동 회복량 증가		short	nLuck	;
-	short	nNature;//Divine 1회 자동 회복량 증가		short	nWs		;	
-	short	nStrength;//str 증가		short	nPs		;	
-	short	nDexterity;//dex 증가	
-	short	nConstitution;//con 증가		short	nResistIce	;
-	short	nWisdom;//wis 증가		short	nResistElect	;
-	short	nIntelligence;//int 증가		short	nResistFire	;
-	short	nCharisma;//cha 증가		short	nResistHoly	;
-	short	nEndurance;//endu 증가		short	nResistPoison;
-	short	nMovement;//movp 증가		short	nResistCurse ;
-	short	nMoral;//mor 증가	
-	short	nLucky;//luck 증가	////////////////////////////
-	short	nWizard;//WS 증가	// 마법 증폭 속성
-	short	nPriest;//PS 증가		char	cAmpIce		;
-	//short	nMagic_power		;//위자드 계열 마법 데미지 증폭		char	cAmpElect	;
-	short	nMagic_vigor;//위자드 계열 마법 데미지 00% 증폭		char	cAmpFire		;
-	short	nMagic_stay;//위자드 계열 마법 지속 시간 증폭		char	cAmpHoly		;
-	//short	nNature_power		;//프리스트 계열 마법 데미지 증폭		char	cAmpPoison	;
-	short	nNature_vigor;//프리스트 계열 마법 데미지 00% 증폭		char	cAmpCurse	;
-	short	nNature_stay;//프리스트 계열 마법 지속시간 증폭	
-	short	nLife_recovery;//Life 자동 회복량 최대치 증가 (전체의 00%까지 자동 회복)////////////////////////////
-	short	nMana_recovery;//Mana 자동 회복량 최대치 증가 (전체의 00%까지 자동 회복)// 흡혈 속성
-	short	nCritical;//크리티컬 데미지 나올 확률 00% 증가		short	HpSteal;
+	short	nPower;				//아이템의 물리적 Damage 증가	
+	short	nAccurate;			//물리적 공격 성공률 증가 (타격시 miss 확률 감소)	
+	short	nWise;				//마법 캐스팅 시간 00만큼 단축		short	nPhysicDmg			;//데미지 미리 구하기
+	short	nBear;				//캐스팅 유지 시간 00만큼 증가		short	nPhysicDmgPlusRate	;//010607 lsw 데미지 퍼센트 증가율
+	short	nDistant;			//공격 범위가 멀었을 때의 데미지 증가 (현재 100%/90%/85%로 감소)		
+	short	nVigor;				//아이템의 물리적 Damage % 증가		short	nPhysicAttackRate	;	
+	short	nCurse;				//자신이 시전한 저주 계열 마법 효과 지속 시간 00 증가	short	nPhysicDefenceRate;	
+	short	nAid;				//자신이 시전한 보조 계열 마법 효과 지속 시간 00 증가		
+	short	nMasking;			//자신이 시전한 보호 계열 마법 효과 지속 시간 00 증가	short	nAc;
+	short	nPiercing;			//00% 확률로 상대의 보호 계열 마법을 무시하여 물리적 데미지를 입힘	short	nMoveSpeed;
+	short	nBasicResist;		//00% 확률로 상대의 마법 저항력을 무시(기본저항력)하여 마법 데미지를 입힘		
+	short	nHardest;			//ac 증가				int		iHpMax;
+	short	nSmart;				//물리적 공격 회피율 증가 (상대가 물리적 타격시 miss 확률 증가)		int		iManaMax;
+	short	nResist_freeze;		//얼음저항력 증가		int		iDivineMax			;
+	short	nResist_venom;		//독저항력 증가			int		iHealthMax			;
+	short	nResist_lightning;	//전격저항력 증가			
+	short	nResist_blaze;		//불저항력 증가			short	nHpMaxPlusRate		;
+	short	nResist_paralysis;	//마비저항력 증가		short	nManaMaxPlusRate	;
+	short	nResist_holy;		//신법저항력 증가		short	nDivineMaxPlusRate	;
+	short	nResist_all;		//모든 저항력 증가
+	short	nSpeed;				//이동 속도 증가	
+	short	nLife;				//Life max 증가			short	nStr	;
+	short	nMana;				//Mana max 증가			short	nDex	;
+	short	nDivine;			//Divine max 증가		short	nCon	;
+	short	nHealth;			//Health max 증가		short	nWis	;
+	short	nBrood;				//Life max % 증가		short	nInt	;
+	short	nMind;				//Mana max % 증가		short	nChar	;
+	short	nSpirit;			//Divine max % 증가		short	nEndu	;
+	short	nYouth;				//Health max % 증가		short	nMoveP	;
+	short	nFatal;				//Life 1회 자동 회복량 증가	short	nMoral	;
+	short	nMagic;				//Mana 1회 자동 회복량 증가	short	nLuck	;
+	short	nNature;			//Divine 1회 자동 회복량 증가	short	nWs		;	
+	short	nStrength;			//str 증가		short	nPs;	
+	short	nDexterity;			//dex 증가	
+	short	nConstitution;		//con 증가		short	nResistIce;
+	short	nWisdom;			//wis 증가		short	nResistElect;
+	short	nIntelligence;		//int 증가		short	nResistFire	;
+	short	nCharisma;			//cha 증가		short	nResistHoly	;
+	short	nEndurance;			//endu 증가		short	nResistPoison;
+	short	nMovement;			//movp 증가		short	nResistCurse ;
+	short	nMoral;				//mor 증가	
+	short	nLucky;				//luck 증가	////////////////////////////
+	short	nWizard;			//WS 증가	// 마법 증폭 속성
+	short	nPriest;			//PS 증가		char	cAmpIce;
+	//short	nMagic_power		;//위자드 계열 마법 데미지 증폭		char	cAmpElect;
+	short	nMagic_vigor;		//위자드 계열 마법 데미지 00% 증폭	char	cAmpFire;
+	short	nMagic_stay;		//위자드 계열 마법 지속 시간 증폭		char	cAmpHoly;
+	//short	nNature_power		;//프리스트 계열 마법 데미지 증폭		char	cAmpPoison;
+	short	nNature_vigor;		//프리스트 계열 마법 데미지 00% 증폭	char	cAmpCurse;
+	short	nNature_stay;		//프리스트 계열 마법 지속시간 증폭	
+	short	nLife_recovery;		//Life 자동 회복량 최대치 증가 (전체의 00%까지 자동 회복)////////////////////////////
+	short	nMana_recovery;		//Mana 자동 회복량 최대치 증가 (전체의 00%까지 자동 회복)// 흡혈 속성
+	short	nCritical;			//크리티컬 데미지 나올 확률 00% 증가	short	HpSteal;
 	//short	nGuardian			;//캐릭터의 물리적 방어력 증가		short	ManaSteal;
-	short	nEvasion;//공격 마법 회피율 증가 (상대의 공격 마법 무효화 확률)		short	DivineSteal;
-	//		56					//
-	//		57					//
-	//		58					//
-	//		59					//
-	//		60					//
-	//		61					//
-	//		62					//
-	//		63					//
-	//		64					//
-	//		65					//
-	//		66					//
-	//		67					//
-	short	nWitch;//타격 시 상대의 Mana를 00만큼 뺏어옴		short	CastingTimeReduceRate;
-	short	nDevil;//타격 시 상대의 Mana를 00% 만큼 뺏어옴		short	CastingTimeKeepRate;
-	short	nDesire;//타격 시 상대의 Life를 부가적으로 00만큼 뺏어옴		short	MagicContinueTimeRate;
-	short	nRobber;//타격 시 상대의 Life를 부가적으로 00% 만큼 뺏어옴	////////////////////////////
-	short	nEvil;//타격 시 상대의 Divine을 부가적으로 00만큼 뺏어옴	// 회복 속성
-	short	nSatan;//타격 시 상대의 Divine을 부가적으로 00% 만큼 뺏어옴		short	HpRecoverSpeed; 
-	short	nWeary;//타격 시 상대의 Health를 부가적으로 00만큼 뺏어옴		short	ManaRecoverSpeed; 
-	short	nFatigue;//타격 시 상대의 Health를 부가적으로 00% 만큼 뺏어옴		short	DivineRecoverSpeed; 
-	short	nCounterattack;//공격자에게 00의 데미지를 돌려줌	////////////////////////////
-	short	nStrike;//공격자의 데미지에서 00%를 돌려줌	// 반격 속성
-	short	nSnag;//타격 시 상대를 00(시간)동안 마비시킴		short	DmgReturn;
-	short	nVertigly;//타격 시 상대를 00(시간)동안 혼란에 걸리게 함		short	DmgReturnRate;
-	short	nPoison;//타격 시 상대를 00(시간)동안 중독에 걸리게 함	
-	short	nStiff;//타격 시 상대를 00(시간)동안 석화에 걸리게 함	
-	short	nSlack;//타격 시 상대를 00(시간)동안 속도저하에 걸리게 함	//011025 lsw <
-	//		83					//	
-	//		84					//	
-	short	nGhost;//착용하게 되면 유령을 볼 수 있음	
-	short	nLandmine;//일반 트랩을 감지할 수 있음		
-	short	nTraping;//마법 트랩을 감지할 수 있음		
-	short	nDetect;//모든 트랩을 감지할 수 있음	//위에꺼 따다 씀 	
+	short	nEvasion;			//공격 마법 회피율 증가 (상대의 공격 마법 무효화 확률)	short	DivineSteal;
+	//56					//
+	//57					//
+	//58					//
+	//59					//
+	//60					//
+	//61					//
+	//62					//
+	//63					//
+	//64					//
+	//65					//
+	//66					//
+	//67					//
+	short	nWitch;				//타격 시 상대의 Mana를 00만큼 뺏어옴			short	CastingTimeReduceRate;
+	short	nDevil;				//타격 시 상대의 Mana를 00% 만큼 뺏어옴		short	CastingTimeKeepRate;
+	short	nDesire;			//타격 시 상대의 Life를 부가적으로 00만큼 뺏어옴	short	MagicContinueTimeRate;
+	short	nRobber;			//타격 시 상대의 Life를 부가적으로 00% 만큼 뺏어옴	////////////////////////////
+	short	nEvil;				//타격 시 상대의 Divine을 부가적으로 00만큼 뺏어옴	// 회복 속성
+	short	nSatan;				//타격 시 상대의 Divine을 부가적으로 00% 만큼 뺏어옴	short	HpRecoverSpeed; 
+	short	nWeary;				//타격 시 상대의 Health를 부가적으로 00만큼 뺏어옴		short	ManaRecoverSpeed; 
+	short	nFatigue;			//타격 시 상대의 Health를 부가적으로 00% 만큼 뺏어옴	short	DivineRecoverSpeed; 
+	short	nCounterattack;		//공격자에게 00의 데미지를 돌려줌	////////////////////////////
+	short	nStrike;			//공격자의 데미지에서 00%를 돌려줌	// 반격 속성
+	short	nSnag;				//타격 시 상대를 00(시간)동안 마비시킴		short	DmgReturn;
+	short	nVertigly;			//타격 시 상대를 00(시간)동안 혼란에 걸리게 함	short	DmgReturnRate;
+	short	nPoison;			//타격 시 상대를 00(시간)동안 중독에 걸리게 함	
+	short	nStiff;				//타격 시 상대를 00(시간)동안 석화에 걸리게 함	
+	short	nSlack;				//타격 시 상대를 00(시간)동안 속도저하에 걸리게 함	//011025 lsw <
+	//83					//	
+	//84					//	
+	short	nGhost;				//착용하게 되면 유령을 볼 수 있음	
+	short	nLandmine;			//일반 트랩을 감지할 수 있음		
+	short	nTraping;			//마법 트랩을 감지할 수 있음		
+	short	nDetect;			//모든 트랩을 감지할 수 있음	//위에꺼 따다 씀 	
 
 	short	nHighPower;
 	short	nHighShield;
@@ -279,23 +277,23 @@ class CItemLimitMgr
 public:
 	enum
 	{
-		LIMIT_OF_NO_HAVE_LIMIT_ITEM = 1004,			// 리미트 넘버를 가질 수 없는 아이템들의 리미트 번호
+		LIMIT_OF_NO_HAVE_LIMIT_ITEM = 1004,	// 리미트 넘버를 가질 수 없는 아이템들의 리미트 번호
 	};
 private:
-	int		m_nItemLimitCount;	// 고유 리미트 넘버 // 카운트 되는 값
+	int		m_nItemLimitCount;				// 고유 리미트 넘버 // 카운트 되는 값
 	map<int, int> m_mapHaveLimitItem;		//  리미트 값을 가져야 하는 아이템 번호 모음
 
 public:
 	CItemLimitMgr() {}
 	~CItemLimitMgr() { m_mapHaveLimitItem.clear(); }
 
-	int	GetLimitNumber(int item_no);	// 맵서버당 가지고 있는 고유의 리미트 넘버 값
+	int	GetLimitNumber(int item_no);		// 맵서버당 가지고 있는 고유의 리미트 넘버 값
 	int	GetLimitNumberDontCount() { return m_nItemLimitCount; };	// 카운트 하지 않는다.
 	void SetLimitCount(int count)
 	{
 		m_nItemLimitCount = count;
 	}
-	int	LoadHaveLimitItem();		// 디비에서 로딩해온다.
+	int	LoadHaveLimitItem();				// 디비에서 로딩해온다.
 	bool IsCanHaveLimitItem(int item_no)	// 리미트 번호를 가질수 없는 아이템 인가?
 	{
 		map<int, int>::iterator itor;
@@ -329,7 +327,7 @@ public:
 	ITEMATTR	GenerateItem(const int iItemNo);
 	ITEMATTR	GenerateItem(const int iItemNo, const int iType, const int iCustomValue);//dwCustomDuration 듀레이션
 
-//int			CheckFaultItem(){return 0;}//전체 리스트 중에 이상한 애들을 지워낸다 내부에는 CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)이 돌아간다
+	//int		CheckFaultItem(){return 0;}//전체 리스트 중에 이상한 애들을 지워낸다 내부에는 CheckFaultItem(ITEMATTR &item,bool bDeleteFlag)이 돌아간다
 	int			CheckFaultItem(ITEMATTR &item, bool bDeleteFlag);//iDeleteFlag 1을 넣으면 잘못된 아이템일 경우 삭제 시켜버린다, 0을 넣으면 삭제는 시키지 않는다.
 
 	int			CheckAddAbleItem(const ITEMATTR SourceItem, const ITEMATTR TargetItem);

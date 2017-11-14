@@ -3688,7 +3688,7 @@ bool NewSendGameToLoginChangeMapData(short int cn, WORD wMyAgentServerID, WORD w
 		tp->Exp = ch->Exp;
 		tp->viewtype = ch->viewtype;
 		ch->GetStepInfo(tp->aStepInfo, sizeof(tp->aStepInfo));
-		tp->bcan_exp_inc = ch->m_bCanIncExp;		// add by taniey
+		tp->bcan_exp_inc = ch->bCanExpInc;		// add by taniey
 		tp->nCombatAmount = ch->Cp;
 		//<050413_KCH 성전환 아이템때문에 추가.
 		tp->gender = ch->Gender;
@@ -3881,7 +3881,7 @@ void NewRecvChangeMapData1(k_change_map1 *p, DWORD cn)		// 캐릭터 데이타 1
 	ch->Exp = data1->Exp;
 	ch->viewtype = data1->viewtype;
 	ch->SetStepInfo(data1->aStepInfo, sizeof(data1->aStepInfo));
-	ch->m_bCanIncExp = data1->bcan_exp_inc;		// add by taniey
+	ch->bCanExpInc = data1->bcan_exp_inc;		// add by taniey
 	ch->Cp = data1->nCombatAmount;
 
 	//<050413_KCH 성전환 아이템때문에 추가.

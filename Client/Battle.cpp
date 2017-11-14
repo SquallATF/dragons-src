@@ -381,7 +381,8 @@ void CBattle::EffectSpreadIrregular(MAGICLIST* pMagic, DWORD dwNow, const int nT
 { // 주변에 nSize간격안에 불규칙적으로 이펙트를 뿌린다. 찌지미 형태
 	LPCHARACTER pCaster = pMagic->lpChar_Own;
 	LPCHARACTER pTarget = pMagic->lpChar_Target;
-	if (pCaster == NULL || pTarget == NULL) 	return;
+	if (pCaster == NULL || pTarget == NULL)
+		return;
 
 	//static const int nSpreadIrregular[3][25] =   { //최대 3번까지 찌진다.		
 	const int nSpreadIrregular[3][25] = { //최대 3번까지 찌진다. 

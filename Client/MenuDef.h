@@ -800,7 +800,7 @@ typedef struct
 	__int16 nLevel;
 	DWORD	nExp;
 	DWORD	nExpNext;
-	BOOL	bCanIncExp;
+	BOOL	bCanExpInc;
 
 	char	sCharacterName[MAX_NAME];
 	char	nGuild[MAX_NAME];
@@ -809,7 +809,7 @@ typedef struct
 	int		nCharacterAbility[20];				//STR,CON,DEX,WIS,INT,CHA,MOVP,ENDU,MOR,CONV,LUCK, WSPS,
 	int		nAbilityMax[20];					//STR,CON,DEX,WIS,INT,CHA,MOVP,ENDU,MOR,CONV,LUCK, WSPS,
 
-	DWORD	nMoney;		// 돈
+	DWORD	nMoney;								// 돈
 
 	int		nCharacterFace;						// 캐릭터 얼굴 표정을 저장 총8가지가 있다
 	int		nCharacterHP;						// HP와 MP를 저장하는 변수
@@ -819,33 +819,33 @@ typedef struct
 	int		nCharacterSP;
 	int		nCharacterMAXSP;
 
-	BYTE	condition;		// 캐릭터의 상태를 저장하는 변수 0이면 정상이다. 
+	BYTE	condition;							// 캐릭터의 상태를 저장하는 변수 0이면 정상이다. 
 
-	int		nWeight;					// 들고 다니는 아이템의 무게
-	DWORD	BankMoney;					//	
+	int		nWeight;							// 들고 다니는 아이템의 무게
+	DWORD	BankMoney;							//	
 	int		LoanTotal;
 	int		LastLoan;
 	DWORD	LastLoan_Time;
 
-	//	int		nJobSkill_Lv[31];				// 캐러의 직업스킬 능력치
-	//	DWORD	nJobSkill[MAX_MOTHER_SKILL];					// 기술 경험치
-	t_SkillExp	nJobSkill[MAX_MOTHER_SKILL];					// 기술 경험치//011013 lsw 
-//	int		nJopSkillHit[31];				// 성공률
+	//int		nJobSkill_Lv[31];				// 캐러의 직업스킬 능력치
+	//DWORD	nJobSkill[MAX_MOTHER_SKILL];		// 기술 경험치
+	t_SkillExp	nJobSkill[MAX_MOTHER_SKILL];	// 기술 경험치//011013 lsw 
+	//int		nJopSkillHit[31];				// 성공률
 
 	BYTE	MagicId[MAX_MAGIC];					// 사용할 수 있는 매직
-	USHORT	SkillId[MAX_SKILL_ID];					// 할수 있는 스킬
+	USHORT	SkillId[MAX_SKILL_ID];				// 할수 있는 스킬
 	short int	ItemId[MAX_LEARN_ITEM];			// 만들수 있는 아이템
-	int		ItemIdCount;					// 내가 만들수 있는 아이템 수...
+	int		ItemIdCount;						// 내가 만들수 있는 아이템 수...
 
-	int		curr_magic[MEMORIZE_MAX];		// 현재 메모라이즈 한 마법
-	int		curr_magic_ct;					//						   의 총수
+	int		curr_magic[MEMORIZE_MAX];			// 현재 메모라이즈 한 마법
+	int		curr_magic_ct;						// 의 총수
 
-	int		memorize_point;					// 현재 메모라이즈 하고 남은 포인트
-	int		memorize_point_max;				// 메모라이즈 할 수 있는 포인트 최대치	// 현재 wsps+3
+	int		memorize_point;						// 현재 메모라이즈 하고 남은 포인트
+	int		memorize_point_max;					// 메모라이즈 할 수 있는 포인트 최대치	// 현재 wsps+3
 
 
-//	int		TacticsLv[13];					// 택틱스 레벨
-	DWORD	TacticsExp[13];					// 택틱스 경험치
+	//int		TacticsLv[13];					// 택틱스 레벨
+	DWORD	TacticsExp[13];						// 택틱스 경험치
 	DWORD	TacticsExpNext[13];
 
 	short naBasicResist[MAX_RESIST_TYPE];
@@ -854,62 +854,62 @@ typedef struct
 	int		LvUpPoint;
 	WORD 	EachUp[11];
 
-	int		body_r;			//  외모 색
+	int		body_r;								//  외모 색
 	int		body_g;
 	int		body_b;
 	int		cloth_r;
 	int		cloth_g;
 	int		cloth_b;
 
-	int		nk3, nk4, nk6;		// 국가 적대감
+	int		nk3, nk4, nk6;						// 국가 적대감
 
-	int		age;			// 나이
+	int		age;								// 나이
 
-	int		tatics;			// 현재 착용 아이템의 텍틱스
-	int		beat;			// 내가 죽인 몬스터의 수
-	int		ac;				// 방어력
-	int		mov;			// 스테이터스 창에 나타나는 이동력
+	int		tatics;								// 현재 착용 아이템의 텍틱스
+	int		beat;								// 내가 죽인 몬스터의 수
+	int		ac;									// 방어력
+	int		mov;								// 스테이터스 창에 나타나는 이동력
 
-	int		accessory[4];	// 현재 착용하고 있는 갑옷, 무기 등등...
+	int		accessory[4];						// 현재 착용하고 있는 갑옷, 무기 등등...
 
-	BYTE	believe_god;			// 섬기는 신 0: 없음... ~
-	int		faith;					// 신앙심
-	char	much_supper;			// 신전에서 음식 제공할때 그 갯수
+	BYTE	believe_god;						// 섬기는 신 0: 없음... ~
+	int		faith;								// 신앙심
+	char	much_supper;						// 신전에서 음식 제공할때 그 갯수
 
-	int		dmg_count;		// first	// 3d2 ( 1~2인 주사위를 3번 던진다.)
-	int		dmg_max;		// second
+	int		dmg_count;							// first	// 3d2 ( 1~2인 주사위를 3번 던진다.)
+	int		dmg_max;							// second
 
-//	BYTE	dmg_count_of_inv[8];
-//	BYTE	dmg_max_of_inv[8];		// 굳이 잡을 필요없이 타격 계산할때 그때마다 사용한다.
+	//BYTE	dmg_count_of_inv[8];
+	//BYTE	dmg_max_of_inv[8];					// 굳이 잡을 필요없이 타격 계산할때 그때마다 사용한다.
 
-	bool	disease[6];			// 질병에 걸렸는지...
+	bool	disease[6];							// 질병에 걸렸는지...
 	DWORD	disease_no_time[6];
 
-	DWORD	time_maintain1;				// 저항 효과 지속 시간
-	DWORD	time_maintain2;				// 능력 효과 지속 시간
-	DWORD	time_maintain3;				// 상태 변환 효과 지속 시간
+	DWORD	time_maintain1;						// 저항 효과 지속 시간
+	DWORD	time_maintain2;						// 능력 효과 지속 시간
+	DWORD	time_maintain3;						// 상태 변환 효과 지속 시간
 
-	CharacterParty	party[6];			// 맺은 인물의 이름
+	CharacterParty	party[6];					// 맺은 인물의 이름
 	CharacterParty	relation[3];
 	CharacterParty	employment[6];
 
-	int		nAbilityPlusOfPotion[20];	// 먹는 거에 의한 파워업 ( 겹치기는 안 된다. )
-	DWORD	dwAbilityPluseTime[20];		// 먹는 거에 의한 파워업일 경우 그 유지 시간.
-	int		nAbilityPlusOfWeapon[20];	// 아이템 장착에 의한 파워업 ( 겹치기 가능 )
+	int		nAbilityPlusOfPotion[20];			// 먹는 거에 의한 파워업 ( 겹치기는 안 된다. )
+	DWORD	dwAbilityPluseTime[20];				// 먹는 거에 의한 파워업일 경우 그 유지 시간.
+	int		nAbilityPlusOfWeapon[20];			// 아이템 장착에 의한 파워업 ( 겹치기 가능 )
 	// 매직 부분 필요
 
-	BYTE	magic_casting_time[200];		// 단위:초*10
+	BYTE	magic_casting_time[200];			// 단위:초*10
 
-	int		sleep;			// 자고 일어 났거나 새로 시작했을 경우...
+	int		sleep;								// 자고 일어 났거나 새로 시작했을 경우...
 
 	int		class_famous;
 	int		job_famous;
 	int		nation;
 
 	//char aStepInfo[20];
-	int m_nQuestStep;	// 스파이 퀘스트
+	int m_nQuestStep;							// 스파이 퀘스트
 	int m_nSelectRune;
-	int potion_box1;		// 포션박스
+	int potion_box1;							// 포션박스
 
 	// 020428 YGI acer
 	DWORD attack_time;

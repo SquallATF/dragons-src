@@ -58,19 +58,17 @@ extern int g_DontPlayNPC;
 //#define NPC_PATTERN_ESCAPE_PC_			110		// 찾은 PC로 부터 도망간다. 
 //#define NPC_PATTERN_ESCAPE_BATTLE_PC_	120		// 근처에 공격 PC가 있으면 멀리 도망간다. 
 //
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///////////   Variables..
 
-int NpcPatternTable[20] = { NPC_PATTERN_HOSTILE_,
-							NPC_PATTERN_FIND_CLOSE_PC_,
-							NPC_PATTERN_ACCESS_PC_,
-							NPC_PATTERN_ATTACK_PC_,
-							NPC_PATTERN_BACKDRAW_,
-							NPC_PATTERN_RETURN_,
+int NpcPatternTable[20] = {
+	NPC_PATTERN_HOSTILE_,
+	NPC_PATTERN_FIND_CLOSE_PC_,
+	NPC_PATTERN_ACCESS_PC_,
+	NPC_PATTERN_ATTACK_PC_,
+	NPC_PATTERN_BACKDRAW_,
+	NPC_PATTERN_RETURN_,
 };
-
 
 // 0811 NPC KHS
 short NPCAccessTable[400][4];
@@ -191,10 +189,6 @@ void RecvNPC_stringparameter(int id, int type, char *data)
 	}
 }
 
-
-
-
-
 int InDistance(CHARACTER *s, CHARACTER *d, int dis)
 {
 	if (s == NULL) return 0;
@@ -233,8 +227,6 @@ void SendModifyPositionNPC(int id)
 
 	QueuePacket(&p, 1);
 }
-
-
 
 
 void SendNPCChatArea(int id, char *data)
@@ -318,38 +310,44 @@ void SendNPCAttack(int attacker_npc_id)
 
 	switch (dir)
 	{
-	case DIRECTION_DOWN:	t_X = 0;		t_Y = how;		break;
-	case DIRECTION_LEFTDOWN:	t_X = -how;	t_Y = how;		break;
-	case DIRECTION_LEFT:	t_X = -how;	t_Y = 0;			break;
-	case DIRECTION_LEFTUP:	t_X = -how;	t_Y = -how;		break;
-	case DIRECTION_UP:	t_X = 0;		t_Y = -how;		break;
-	case DIRECTION_RIGHTUP:	t_X = how;	t_Y = -how;		break;
-	case DIRECTION_RIGHT:	t_X = how; 	t_Y = 0;			break;
-	case DIRECTION_RIGHTDOWN:	t_X = how;	t_Y = how;		break;
-	default:	dir = DIRECTION_SAME; t_X = 0;	t_Y = 0;		break;
+	case DIRECTION_DOWN:		t_X = 0;	t_Y = how;	break;
+	case DIRECTION_LEFTDOWN:	t_X = -how;	t_Y = how;	break;
+	case DIRECTION_LEFT:		t_X = -how;	t_Y = 0;	break;
+	case DIRECTION_LEFTUP:		t_X = -how;	t_Y = -how;	break;
+	case DIRECTION_UP:			t_X = 0;	t_Y = -how;	break;
+	case DIRECTION_RIGHTUP:		t_X = how;	t_Y = -how;	break;
+	case DIRECTION_RIGHT:		t_X = how; 	t_Y = 0;	break;
+	case DIRECTION_RIGHTDOWN:	t_X = how;	t_Y = how;	break;
+	default: dir = DIRECTION_SAME; t_X = 0;	t_Y = 0;	break;
 	}
 
-	if (t_X || t_Y) { x += t_X;	y += t_Y; }
-	else { x = 0;		y = 0; }						//뒤로 밀리는 연출 일어나지 않도록
+	if (t_X || t_Y)
 	{
-		p.h.header.type = CMD_NPC_ATTACK;
-		p.u.strike.npc_attack.idCaster = WORD(attacker_npc_id);
-		p.u.strike.npc_attack.idTarget = WORD(attacker_npc_ch->targetid);
-
-		if (FreeTile(diffender_npc_ch, x >> 5, y >> 5, x >> 5, y >> 5))			//실제 갈수 있는 지점인가?
-		{
-			p.u.strike.npc_attack.nX = x;
-			p.u.strike.npc_attack.nY = y;
-		}
-		else
-		{
-			p.u.strike.npc_attack.nX = 0;
-			p.u.strike.npc_attack.nY = 0;
-		}
-
-		p.h.header.size = sizeof(t_npc_attack);
-		QueuePacket(&p, 1);
+		x += t_X;	y += t_Y;
 	}
+	else   // 뒤로 밀리는 연출 일어나지 않도록
+	{
+		x = 0;
+		y = 0;
+	}
+
+	p.h.header.type = CMD_NPC_ATTACK;
+	p.u.strike.npc_attack.idCaster = WORD(attacker_npc_id);
+	p.u.strike.npc_attack.idTarget = WORD(attacker_npc_ch->targetid);
+
+	if (FreeTile(diffender_npc_ch, x >> 5, y >> 5, x >> 5, y >> 5))			//실제 갈수 있는 지점인가?
+	{
+		p.u.strike.npc_attack.nX = x;
+		p.u.strike.npc_attack.nY = y;
+	}
+	else
+	{
+		p.u.strike.npc_attack.nX = 0;
+		p.u.strike.npc_attack.nY = 0;
+	}
+
+	p.h.header.size = sizeof(t_npc_attack);
+	QueuePacket(&p, 1);
 }
 
 int NPC_NearPosition(CHARACTER *n, CHARACTER *c, int *x, int *y)
@@ -376,13 +374,13 @@ int NPC_NearPosition(CHARACTER *n, CHARACTER *c, int *x, int *y)
 			d = (tempdir + 8 + dirt[i]) % 8;
 			switch (d)
 			{
-			case 0:			tty += j; break;
+			case 0:				tty += j; break;
 			case 1: ttx -= j;	tty += j; break;
-			case 2: ttx -= j;			 break;
+			case 2: ttx -= j;			  break;
 			case 3: ttx -= j;	tty -= j; break;
-			case 4:			tty -= j; break;
+			case 4:				tty -= j; break;
 			case 5: ttx += j;	tty -= j; break;
-			case 6: ttx += j;			 break;
+			case 6: ttx += j;			  break;
 			case 7: ttx += j;	tty += j; break;
 			}
 			if (FreeTile(n, n->x / TILE_SIZE, n->y / TILE_SIZE, ttx, tty))
@@ -526,7 +524,6 @@ int NPC_NearCh(CHARACTER *n, CHARACTER *ch, int *x, int *y)
 		}
 	}
 
-
 	DWORD area1, area2;
 
 	switch (n->patterntype)
@@ -550,30 +547,30 @@ int NPC_NearCh(CHARACTER *n, CHARACTER *ch, int *x, int *y)
 		}
 		break;
 		//
-		//case NPC_PATTERN_WANDER_8_			:
+		//case NPC_PATTERN_WANDER_8_		:
 		//case NPC_PATTERN_IAM_BOSS_8_		:
-		//case NPC_PATTERN_TOBOSS_8_			:
-		//case NPC_PATTERN_MURI_8_			:`
+		//case NPC_PATTERN_TOBOSS_8_		:
+		//case NPC_PATTERN_MURI_8_			:
 		//case NPC_PATTERN_ACCESS_PC_8_		:
 		//case NPC_PATTERN_ATTACK_PC_8_		:
 		//case NPC_PATTERN_BACKDRAW_8_		:	
 
 		//case NPC_PATTERN_IAM_BOSS_28_		:
-		//case NPC_PATTERN_TOBOSS_28_			:
-		//case NPC_PATTERN_WANDER_28_			:
+		//case NPC_PATTERN_TOBOSS_28_		:
+		//case NPC_PATTERN_WANDER_28_		:
 		//case NPC_PATTERN_MURI_28_			:
 		//case NPC_PATTERN_BACKDRAW_PC_28_	:	
 
 		//case  NPC_PATTERN_IAM_BOSS_GUARD_	:
-		//case  NPC_PATTERN_TOBOSS_GUARD_		:
-		//case  NPC_PATTERN_WANDER_GUARD_		:
+		//case  NPC_PATTERN_TOBOSS_GUARD_	:
+		//case  NPC_PATTERN_WANDER_GUARD_	:
 		//case  NPC_PATTERN_MURI_GUARD_		:
 		//case  NPC_PATTERN_ACCESS_PC_GUARD_	:
 		//case  NPC_PATTERN_ATTACK_PC_GUARD_	:
 		//case  NPC_PATTERN_BACKDRAW_PC_GUARD_:	
 
-		//case NPC_PATTERN_TAME_				:	
-		//case NPC_PATTERN_EVENTING_MAUL_		:
+		//case NPC_PATTERN_TAME_			:	
+		//case NPC_PATTERN_EVENTING_MAUL_	:
 		//case NPC_PATTERN_WANDER_MAUL_		:
 		//	break;
 		//	
@@ -590,13 +587,13 @@ int NPC_NearCh(CHARACTER *n, CHARACTER *ch, int *x, int *y)
 			d = (tempdir + 8 + dirt[i]) % 8;
 			switch (d)
 			{
-			case 0:			tty += j; break;
+			case 0:				tty += j; break;
 			case 1: ttx -= j;	tty += j; break;
-			case 2: ttx -= j;			 break;
+			case 2: ttx -= j;			  break;
 			case 3: ttx -= j;	tty -= j; break;
-			case 4:			tty -= j; break;
+			case 4:				tty -= j; break;
 			case 5: ttx += j;	tty -= j; break;
-			case 6: ttx += j;			 break;
+			case 6: ttx += j;			  break;
 			case 7: ttx += j;	tty += j; break;
 			}
 			if (FreeTile(n, n->x / TILE_SIZE, n->y / TILE_SIZE, ttx, tty))
@@ -612,8 +609,6 @@ int NPC_NearCh(CHARACTER *n, CHARACTER *ch, int *x, int *y)
 
 
 #define TILE_BLOCK_SIZE  11
-
-
 BYTE TileBlock[TILE_BLOCK_SIZE][TILE_BLOCK_SIZE] = {
 	{ 0,0,0,0,1,1,1,0,0,0,0 },
 	{ 0,0,1,1,1,1,1,1,1,0,0 },
@@ -639,7 +634,6 @@ void GetTileBlock(int x, int y)
 	ex = x + (TILE_BLOCK_SIZE / 2);
 	ey = y + (TILE_BLOCK_SIZE / 2);
 
-
 	for (; sx <= ex; sx++)
 	{
 		for (; sy <= ey; sy++)
@@ -649,12 +643,9 @@ void GetTileBlock(int x, int y)
 	}
 }
 
-
 void PutTileBlock(int x, int y, int xl, int yl)
 {
 }
-
-
 
 // 주의에 퍼진 위치를 찾는다. 
 int NPC_NearChPart(CHARACTER *n, CHARACTER *ch, int *x, int *y)
@@ -687,13 +678,13 @@ int NPC_NearChPart(CHARACTER *n, CHARACTER *ch, int *x, int *y)
 			d = (tempdir + 8 + dirt[i]) % 8;
 			switch (d)
 			{
-			case 0:			tty += j; break;
+			case 0:				tty += j; break;
 			case 1: ttx -= j;	tty += j; break;
-			case 2: ttx -= j;			 break;
+			case 2: ttx -= j;			  break;
 			case 3: ttx -= j;	tty -= j; break;
-			case 4:			tty -= j; break;
+			case 4:				tty -= j; break;
 			case 5: ttx += j;	tty -= j; break;
-			case 6: ttx += j;			 break;
+			case 6: ttx += j;			  break;
 			case 7: ttx += j;	tty += j; break;
 			}
 			if (FreeTile(n, n->x / TILE_SIZE, n->y / TILE_SIZE, ttx, tty))
@@ -733,11 +724,11 @@ int NPC_NearBackCh(CHARACTER *n, CHARACTER *ch, int *x, int *y, int dist)
 
 	switch (tempdir)
 	{
-	case 0:			ty += dist;	break;
+	case 0:				ty += dist;	break;
 	case 1: tx -= dist;	ty += dist;	break;
 	case 2: tx -= dist;				break;
 	case 3: tx -= dist;	ty -= dist;	break;
-	case 4:			ty -= dist;	break;
+	case 4:				ty -= dist;	break;
 	case 5: tx += dist;	ty -= dist;	break;
 	case 6: tx += dist;				break;
 	case 7: tx += dist;	ty += dist;	break;
@@ -751,13 +742,13 @@ int NPC_NearBackCh(CHARACTER *n, CHARACTER *ch, int *x, int *y, int dist)
 			d = (tempdir + 8 + dirt[i]) % 8;
 			switch (d)
 			{
-			case 0:			tty += j; break;
+			case 0:				tty += j; break;
 			case 1: ttx -= j;	tty += j; break;
-			case 2: ttx -= j;			 break;
+			case 2: ttx -= j;			  break;
 			case 3: ttx -= j;	tty -= j; break;
-			case 4:			tty -= j; break;
+			case 4:				tty -= j; break;
 			case 5: ttx += j;	tty -= j; break;
-			case 6: ttx += j;			 break;
+			case 6: ttx += j;			  break;
 			case 7: ttx += j;	tty += j; break;
 			}
 
@@ -772,18 +763,15 @@ int NPC_NearBackCh(CHARACTER *n, CHARACTER *ch, int *x, int *y, int dist)
 	return 0;
 }
 
-
-
-
 //	접근 거리 
 int NPC_GetAttackRange(CHARACTER *n)
 {
 	// 나중에 Table값으로 대치......
 	switch (n->sprno)
 	{
-	case 8:	return 50 * 50 * 2;
-	case 38:	return 80 * 80 * 2;
-	default: 	return 80 * 80 * 2;
+	case 8:	 return 50 * 50 * 2;
+	case 38: return 80 * 80 * 2;
+	default: return 80 * 80 * 2;
 	}
 }
 
@@ -879,12 +867,12 @@ int NPC_GetDir(int sx, int sy, int ex, int ey)
 //				py = ny;
 //			}
 //	
-//			n->MoveLength		= c;
+//			n->MoveLength	= c;
 //			n->pathcount	= 0;
-//			n->MoveGox			= tx * TILE_SIZE + 16 -5 + Random(10);
+//			n->MoveGox		= tx * TILE_SIZE + 16 -5 + Random(10);
 //			n->goy			= ty * TILE_SIZE + 16 -5 + Random(10);
-//			n->WalkTime			= g_ClientTime; // ::timeGetTime();
-//			n->MoveType			= 0;
+//			n->WalkTime		= g_ClientTime; // ::timeGetTime();
+//			n->MoveType		= 0;
 //	
 //			
 //			return 1;
@@ -940,8 +928,6 @@ int NPC_MakePath(CHARACTER *n, int tx, int ty, int how = 0)
 
 	time = ::timeGetTime();
 
-
-
 	memcpy(&t, n, sizeof(CHARACTER));
 	t.moveFlag = TRUE;
 	t.movetype = 0;
@@ -985,14 +971,12 @@ int NPC_MakePath(CHARACTER *n, int tx, int ty, int how = 0)
 }
 
 
-
 //	
 //int NPC_MakePath( CHARACTER *n, int tx, int ty, int how = 0 )
 //{		
 //	int dir;
 //	int c, i;
 //	int nx, ny, px, py;
-//
 //
 //	if( g_block_move )
 //	{
@@ -1046,14 +1030,12 @@ int NPC_MakePath(CHARACTER *n, int tx, int ty, int how = 0)
 //				py = ny;
 //			}
 //	
-//			n->MoveLength		= c;
+//			n->MoveLength	= c;
 //			n->pathcount	= 0;
-//			n->MoveGox			= tx * TILE_SIZE + 16 -5 + Random(10);
+//			n->MoveGox		= tx * TILE_SIZE + 16 -5 + Random(10);
 //			n->goy			= ty * TILE_SIZE + 16 -5 + Random(10);
-//			n->WalkTime			= g_ClientTime; // ::timeGetTime();
-//			n->MoveType			= 0;
-//	
-//	
+//			n->WalkTime		= g_ClientTime; // ::timeGetTime();
+//			n->MoveType		= 0;
 //
 //			return 1;
 //		}
@@ -1108,8 +1090,6 @@ int NPC_MakePathBumn(CHARACTER *n, int tx, int ty, int how = 0)
 
 	//n->sendmove = 0;
 	return 0;
-
-
 }
 
 
@@ -1152,7 +1132,8 @@ int NPC_MakePathMaul(CHARACTER *n, int tx, int ty, int how)
 	// 010515 KHS
 	if (n->eventnpc) return 0;
 
-	if (CheckDestinationOk(tx * TILE_SIZE, ty * TILE_SIZE) == 0) return 0;
+	if (CheckDestinationOk(tx * TILE_SIZE, ty * TILE_SIZE) == 0)
+		return 0;
 
 	memcpy(&t, n, sizeof(CHARACTER));
 	t.moveFlag = TRUE;
@@ -1177,10 +1158,6 @@ int NPC_MakePathMaul(CHARACTER *n, int tx, int ty, int how)
 	return 0;
 }
 
-
-
-//
-//
 //int NPC_MakePathBumn( CHARACTER *n, int tx, int ty, int how )
 //{
 //	int dir;
@@ -1274,7 +1251,6 @@ int NPC_IsAttackableRange(CHARACTER *n)
 	int tx;
 	int ty;
 
-
 	if (n->targetid < 0) 	goto FAIL_;
 
 	ch = ReturnCharacterPoint(n->targetid);
@@ -1295,13 +1271,11 @@ int NPC_IsAttackableRange(CHARACTER *n)
 	}
 
 FAIL_:
-
 	return 0;
 }
 
 int NPC_IsInBossRange(CHARACTER *n)
 {
-
 	if (n->bossid == -1) return 0;
 
 	LPCHARACTER boss = ReturnCharacterPoint(n->bossid);
@@ -1439,9 +1413,9 @@ int NPC_IsWhoNearOtherNationPc(int npc_nation, LPCHARACTER npc, int range)
 			{
 			case 0:
 			case 1:
-				//case 18 :	
-				//case 19 :	
-				//case 20 :	
+			//case 18 :	
+			//case 19 :	
+			//case 20 :	
 				if (npc_nation == tempch->name_status.nation) break;
 				tx = tempch->x;
 				ty = tempch->y;
@@ -1532,10 +1506,6 @@ int NPC_WhoIsAttackMyBaby(CHARACTER *n)
 
 	return -1;
 }
-
-
-
-
 
 int NPC_WhoIsBoss(CHARACTER *n)
 {
@@ -1808,13 +1778,13 @@ void NPC_Pattern_28(LPCHARACTER n)
 								ty = n->y / TILE_SIZE;
 								switch (dir)
 								{
-								case 0:			ty += how; break;
+								case 0:				ty += how; break;
 								case 1: tx -= how;	ty += how; break;
-								case 2: tx -= how;            break;
+								case 2: tx -= how;             break;
 								case 3: tx -= how;	ty -= how; break;
-								case 4:			ty -= how; break;
+								case 4:				ty -= how; break;
 								case 5: tx += how;	ty -= how; break;
-								case 6: tx += how;		      break;
+								case 6: tx += how;		       break;
 								case 7: tx += how;	ty += how; break;
 								}
 
@@ -1918,22 +1888,23 @@ void NPC_Pattern_28(LPCHARACTER n)
 				}
 				else //  Boss곁으로 가야지...
 				{
-				TO_BOSS_:				if (n->bossid != -1)
-				{
-					LPCHARACTER tempch = ReturnCharacterPoint(n->bossid);
-
-					if (NPC_NearPosition(n, tempch, &ex, &ey))
+				TO_BOSS_:
+					if (n->bossid != -1)
 					{
-						NPC_MakePath(n, ex, ey, Random(6));
+						LPCHARACTER tempch = ReturnCharacterPoint(n->bossid);
+
+						if (NPC_NearPosition(n, tempch, &ex, &ey))
+						{
+							NPC_MakePath(n, ex, ey, Random(6));
+							break;
+						}
+					}
+					else
+					{
+						n->patterntype = NPC_PATTERN_MURI_28_;
+						n->targetid = -1;
 						break;
 					}
-				}
-										else
-										{
-											n->patterntype = NPC_PATTERN_MURI_28_;
-											n->targetid = -1;
-											break;
-										}
 				}
 			}
 		}
@@ -1970,7 +1941,6 @@ void NPC_Pattern_28(LPCHARACTER n)
 						n->targetid = -1;
 						SendNPC_parameter(n->id, NPC_PARAMETER_BOSSID, bossid);
 						SendNPC_parameter(n->id, NPC_PARAMETER_TARGETID, -1);
-
 					}
 				}
 				else
@@ -1986,8 +1956,6 @@ void NPC_Pattern_28(LPCHARACTER n)
 		}
 	}
 	break;
-
-
 	case NPC_PATTERN_BACKDRAW_PC_28_:
 	{
 		if (g_ClientTime - n->aitimedelay > n->aidelayhowmuch)
@@ -1997,13 +1965,11 @@ void NPC_Pattern_28(LPCHARACTER n)
 
 			if (NPC_IsMoving(n))
 			{
-
 			}
 			else
 			{
 				if (n->targetid != -1)
 				{
-
 					LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
 					if (InDistance(n, tempch, TILE_SIZE * 10))	// 그 PC가  10 타일안에 있다면.
 					{
@@ -2080,13 +2046,13 @@ void NPC_Pattern_38(LPCHARACTER n)
 				ty = n->y / TILE_SIZE;
 				switch (dir)
 				{
-				case 0:			ty += how; break;
+				case 0:				ty += how; break;
 				case 1: tx -= how;	ty += how; break;
-				case 2: tx -= how;            break;
+				case 2: tx -= how;             break;
 				case 3: tx -= how;	ty -= how; break;
-				case 4:			ty -= how; break;
+				case 4:				ty -= how; break;
 				case 5: tx += how;	ty -= how; break;
-				case 6: tx += how;		      break;
+				case 6: tx += how;		       break;
 				case 7: tx += how;	ty += how; break;
 				}
 
@@ -2128,6 +2094,7 @@ void NPC_Pattern_38(LPCHARACTER n)
 				//if( NPC_Hostile( n ) ) // 공격모드이면...
 				LPCHARACTER tempch = ReturnCharacterPoint(n->targetid);
 				if (tempch)
+				{
 					if (!IsDead(tempch))
 					{
 						if (NPC_IsAttackableRange(n))// 공격 가능한 거리까지 왔나 ?
@@ -2169,6 +2136,7 @@ void NPC_Pattern_38(LPCHARACTER n)
 						n->targetid = -1;
 						break;
 					}
+				}
 			}
 		}
 	}
@@ -2183,7 +2151,6 @@ void NPC_Pattern_38(LPCHARACTER n)
 			n->aidelayhowmuch = ATTACKACCESS(n) + (rand() % 600);
 		}
 		else break;
-
 
 		if (NPC_IsMoving(n))	//  현재 이동중이면 
 		{
@@ -2290,7 +2257,6 @@ void NPC_Pattern_38(LPCHARACTER n)
 
 			if (NPC_IsMoving(n))
 			{
-
 			}
 			else
 			{
@@ -2306,13 +2272,11 @@ void NPC_Pattern_38(LPCHARACTER n)
 						}
 						else
 						{
-
 						}
 					}
 					else	// 충분히 멀리있군.
 					{
 						n->patterntype = NPC_PATTERN_WANDER_38_;
-
 					}
 				}
 				else
@@ -2387,7 +2351,6 @@ void Check_NPC_Pattern(LPCHARACTER  n)
 	}
 }
 
-
 void RecvNK(int id, int nk3, int nk4, int nk6)
 {
 	LPCHARACTER ch = ReturnCharacterPoint(id);
@@ -2397,7 +2360,6 @@ void RecvNK(int id, int nk3, int nk4, int nk6)
 	ch->nk6 = nk6;
 	ch->dummy_pk = 0;
 }
-
 
 void RecvServerKillPc(int id, int killpc)
 {
@@ -2555,8 +2517,6 @@ void LoadNPCAccessTable(void)
 	}
 }
 
-
-
 void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD(t_packet *p)
 {
 	memcpy(&NPCAccessTable[0][0], p->u.server_npc_access_table_reload.data, sizeof(short) * 400);
@@ -2574,7 +2534,6 @@ void Recv_CMD_SERVER_NPC_ACCESS_TABLE_RELOAD4(t_packet *p)
 	memcpy(&NPCAccessTable[300][0], p->u.server_npc_access_table_reload.data, sizeof(short) * 400);
 	SaveNPCAcessTable();
 }
-
 
 static char monname_temp[17];
 char *LoadMonNameTable(int namenumber)

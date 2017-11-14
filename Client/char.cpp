@@ -4437,7 +4437,7 @@ void AnimationType_Mon1_FrameCount(LPCHARACTER ch)
 		{
 			ch->nCurrentFrame = ch->AnimationTable[ch->nCurrentAction].nCount - 1;
 			ch->set_nCurrentFrame(ch->nCurrentFrame); //人物晃动值	
-
+#ifdef _DEBUG
 			if (SysInfo.notconectserver)
 			{
 				if (ch->dieani == 0) // 죽었으면..
@@ -4448,6 +4448,7 @@ void AnimationType_Mon1_FrameCount(LPCHARACTER ch)
 				}
 			}
 			else
+#endif  // _DEBUG
 			{
 				if (ch->blood_Set == false)
 				{

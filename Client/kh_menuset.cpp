@@ -6871,7 +6871,7 @@ void lsw_FT_DATA_PUT(SMENU *SubMenu, int j)
 				::FieldTypeNomalPut(iMainX, iMainY, iFieldX + iCount, iFieldY, nRcImg, iImgType);
 			}
 
-			if (!SCharacterData.bCanIncExp) {
+			if (!SCharacterData.bCanExpInc) {
 				::SetHangulAlign(TA_CENTER);
 				::HprintBold(iMainX + iFieldX + EXPBarWidth/2, iMainY + iFieldY,
 					Convert16to32(FONT_COLOR_STOP_EXP_INC), Convert16to32(FONT_COLOR_BLACK),

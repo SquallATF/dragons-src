@@ -1984,7 +1984,7 @@ void RecvHeroInit(t_server_user_db_data *p)
 	memcpy(Hero->aStepInfo, p->aStepInfo, sizeof(Hero->aStepInfo));
 	Hero->SetGuildCode(p->Attr[2]); // CSD-031001 // thai2 YGI	
 
-	ch.bCanIncExp = p->bcan_exp_inc;	// add by taniey
+	ch.bCanExpInc = p->bcan_exp_inc;	// add by taniey
 
 	if (g_StartMenuOn)
 	{	//1218 YGI

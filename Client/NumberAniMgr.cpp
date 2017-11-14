@@ -128,7 +128,7 @@ void OutputNumberAni(void)	// 0105 KHS
 			t->delay--;
 			if (t->delay <= 0) { temp = t->next; DeleteNumberAni(t); t = temp; continue; }
 		}break;
-		}
+		} // switch
 
 		if (BoxAndDotCrash(Mapx, Mapy, GAME_SCREEN_XSIZE, GAME_SCREEN_YSIZE, t->x, t->y))
 		{
@@ -157,8 +157,6 @@ void InitHpUpDown(void)
 	for (i = 0; i < MAX_HPUPDOWN; i++)
 		HpUpDown[i].flag = false;
 }
-
-
 
 void InputHpUpDown(int id, int hp, int attackedresult)
 {
@@ -279,7 +277,7 @@ void DisplayChatAndNumber(void)
 		case	SPRITETYPE_MONSTER:
 		case	SPRITETYPE_NPC:
 		{
-			LPCHARACTER		ch = (LPCHARACTER)g_OrderInfo.order[i].lpvData;
+			LPCHARACTER	ch = (LPCHARACTER)g_OrderInfo.order[i].lpvData;
 			::DisplayChatMessage(ch);
 		}break;
 		case	SPRITETYPE_NUMBER:

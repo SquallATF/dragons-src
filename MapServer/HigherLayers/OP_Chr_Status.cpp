@@ -372,7 +372,7 @@ void PutPacketCharDB(t_connection c[], int cn, t_packet *packet)
 	p->nk6 = IsHeNK(ch, N_YILSE);
 	ch->GetStepInfo(p->aStepInfo, sizeof(p->aStepInfo));
 
-	p->bcan_exp_inc = ch->m_bCanIncExp;
+	p->bcan_exp_inc = ch->bCanExpInc;
 
 }
 

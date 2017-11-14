@@ -1109,7 +1109,7 @@ typedef struct server_user_db_data
   //< CSD-011006
   BYTE aStepInfo[20];
   //> CSD-011006
-  BYTE bcan_exp_inc;
+  BYTE bcan_exp_inc;				// add by taniey
 } t_server_user_db_data;
 	
 //--------------------------------------------------------

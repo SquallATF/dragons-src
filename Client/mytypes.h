@@ -643,10 +643,14 @@ typedef struct _SChName
 }SChName;
 
 extern std::vector<SChName>		*pChNames;
-//-------------------------
-class CCharacter     //这个类里面包括了人物名下边的所有信息,晃动值,人物ID,怪物ID等.且都是按顺序
-					//排列的.可以改变其顺序就可以改变数据所在位置
-{//角 ?
+
+//-----------------------------------------------------------------------------
+//角色类
+//这个类里面包括了人物名下边的所有信息,晃动值,人物ID,怪物ID等.且都是按顺序
+//排列的.可以改变其顺序就可以改变数据所在位置
+//-----------------------------------------------------------------------------
+class CCharacter
+{
 public:
 	CCharacter() : lpPrev(NULL), lpNext(NULL)
 	{
@@ -723,8 +727,8 @@ public:
 private:
 	DWORD		server_19;
 	int			m_nGuildCode;
-	DWORD		xid;  //角 蛘吖治锏?D
-	// DWORD		xCF;  //人物晃动值
+	DWORD		xid;		//角色或者怪物的ID
+	//DWORD		xCF;		//人物晃动值
 
 public:
 	CCharRank name_status;  //地位
@@ -742,7 +746,7 @@ public:
 	// 010515 KHS
 	bool eventnpc;
 
-	//DOWRD	reserved_6; //无用.//这里几个变量也是,可以加加
+	//DOWRD	reserved_6;		//无用.//这里几个变量也是,可以加加
 	short nCharacterData[20];
 	int	animationType;
 	int	AIanimationRest;	//  0 아니면  움직이지 않고 그대로 서있는다. 
@@ -750,15 +754,15 @@ public:
 	short movetargetid;
 	bool sealstone;
 	short sealstoneani;
-	char GuardStoneAni;	// 010915 LTS	// LTS SEALSTONE
+	char GuardStoneAni;		// 010915 LTS	// LTS SEALSTONE
 	char SetAni2Zero;
 
-	//DOWRD	reserved_2; //无用.//这里几个变量也是,可以加加
+	//DOWRD	reserved_2;		//无用.//这里几个变量也是,可以加加
 	int x;
 	int	restdx;
-	// int	movp;//移动力,需要保存
+	// int	movp;			//移动力,需要保存
 	int	ddx;
-	short int tox, toy; //可以改变变量的位置
+	short int tox, toy;		//可以改变变量的位置
 	bool toflag;
 	int y;
 
@@ -777,33 +781,33 @@ public:
 	char destflag;
 	int	sex;
 	int	walktime;
-	// DOWRD	reserved_3; //无用.//这里几个变量也是,可以加加
+	// DOWRD	reserved_3;		//无用.//这里几个变量也是,可以加加
 	POINT position, oldposition;
 	POINT offset;
 	DIRECTION direction;
-	DIRECTION todir; // direction은 todir로 바꾸려는성질이 있다. 
+	DIRECTION todir;			// direction은 todir로 바꾸려는성질이 있다. 
 	short dirdelay;
 
-	// int __movp; //移动力,需要保存
+	// int __movp;				// 移动力,需要保存
 
-	int	light;  //应该是照明吧...
+	int	light;					// 应该是照明吧...
 	int	attackMinRange;
 	int	attackMaxRange;
-	int	changeActionFlag;// 1이면 동작중에 다른동작으로 바뀔수 없다.
+	int	changeActionFlag;		// 1이면 동작중에 다른동작으로 바뀔수 없다.
 
-	// int	nAttackedType;//攻击类型,保存
+	//int	nAttackedType;		// 攻击类型,保存
 	void* lpAttacked;
 
 
 
-	int	nCurrentAction;		//人物动作值
-	int	movp;//移动力,需要保存
+	int	nCurrentAction;			//人物动作值
+	int	movp;					//移动力,需要保存
 
-	//int	nCurrentFrame;		//人物晃动值
-	bool bCanViewGhost;    //看鬼开关,需要保存
-	// int	excute_MagicNum;	//현재 시전자가 준비하고 있는 매직번호//姦렴침랬잚謹,괏닸
-	int	nAttackedType;	// 攻击类型,保存
-	int	bow_Type;		// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+	//int	nCurrentFrame;		// 人物晃动值
+	bool bCanViewGhost;			// 看鬼开关,需要保存
+	//int	excute_MagicNum;	// 현재 시전자가 준비하고 있는 매직번호 //释放魔法类型,保存
+	int	nAttackedType;			// 攻击类型,保存
+	int	bow_Type;				// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 	int TotalAni;
 	PCANIMATIONTABLE AnimationTable[MAX_ANIMATION];
 
@@ -812,8 +816,8 @@ public:
 	int	pathcount;
 	int	oldpathcount;
 	int	path[MAX_SHORTPATH][2];
-	bool moveFlag; //이동시 Tile의 위치를 기억하여 정확히 그곳으로 간다. 
-	BYTE movetype; // 0:walk 1:run 2:horse riding.
+	bool moveFlag;				//이동시 Tile의 위치를 기억하여 정확히 그곳으로 간다. 
+	BYTE movetype;				// 0:walk 1:run 2:horse riding.
 
 	short basicAction;
 	short basicWalk;
@@ -821,8 +825,8 @@ public:
 	BYTE canview;
 	short canviewitem;
 	//020320 lsw
-	// bool bCanViewGhost;    //看鬼开关,需要保存
-	// DOWRD	serverd_5;
+	//bool bCanViewGhost;    //看鬼开关,需要保存
+	//DOWRD	serverd_5;
 	DWORD dwCanViewGhostTime;
 
 	bool bCanViewMagicTrap;
@@ -838,14 +842,14 @@ public:
 	BYTE ghostanito;
 
 	int	accessory[4];
-	int	mantle;	// 011018 KHS 망또
-	int	jjing;	// 011030 KHS JJING
+	int	mantle;					// 011018 KHS 망또
+	int	jjing;					// 011030 KHS JJING
 
 	DWORD bodycolor;
 	DWORD clothcolor;
-	DWORD mantlecolor;	// 011018 KHS 망또	
+	DWORD mantlecolor;			// 011018 KHS 망또	
 
-	int	hp, mp, Sp;//sp需要保存
+	int	hp, mp, Sp;				//sp需要保存
 	int	hpmax, mpmax, Spmax;
 	int	dieani;
 	int	diedelay;
@@ -854,14 +858,14 @@ public:
 
 	BYTE wisdom;
 	BYTE intelligence;
-	BYTE health;				//배고픔 or Health
-	BYTE con;					//건강도
+	BYTE health;				// 배고픔 or Health
+	BYTE con;					// 건강도
 	char spell;
 	short face;
 
 	bool stolen;
 
-	int	sight;//视野,保存
+	int	sight;					// 视野,保存
 	BYTE peacests;
 	BYTE goodbad;
 
@@ -875,41 +879,41 @@ public:
 	short int smiledelay;
 
 
-	int	excute_MagicNum;	//현재 시전자가 준비하고 있는 매직번호//姦렴침랬잚謹,괏닸
-	int	ready_Magic;		//0->마법 무 /1->마법 casting 중/2->마법 casting 유지 중/3->마법 발사
+	int	excute_MagicNum;		// 현재 시전자가 준비하고 있는 매직번호//姦렴침랬잚謹,괏닸
+	int	ready_Magic;			// 0->마법 무 /1->마법 casting 중/2->마법 casting 유지 중/3->마법 발사
 	int	ready_Magic_rare;
-	DWORD start_Casting;		//casting 시작 시간
+	DWORD start_Casting;		// casting 시작 시간
 	DWORD continue_Time;
-	DWORD end_Casting;		//casting 준비 완료 시간
+	DWORD end_Casting;			// casting 준비 완료 시간
 
-	DWORD start_ReadyMagic;	//casting 유지 시작된 시간
-	DWORD end_ReadyMagic;		//casting 유지 종료될 시간 
+	DWORD start_ReadyMagic;		// casting 유지 시작된 시간
+	DWORD end_ReadyMagic;		// casting 유지 종료될 시간 
 
-	DWORD start_RunMagic;		//실제 마법 효과가 시작된 시간
+	DWORD start_RunMagic;		// 실제 마법 효과가 시작된 시간
 	DWORD continue_RunMagic;
-	DWORD end_RunMagic;		//마법 효과 끝나는 시간
+	DWORD end_RunMagic;			// 마법 효과 끝나는 시간
 
 	int	inc_Num;
 
-	bool blood_Set;			//서버로부터 죽었다는 메시지 날라오기 전에 클라이언트에서 미리 피 출력
-	BYTE condition;			//캐릭터의 상태
-	int	arigement;			//캐릭터의 가치관
-	int	insertPattern;		// 
+	bool blood_Set;				// 서버로부터 죽었다는 메시지 날라오기 전에 클라이언트에서 미리 피 출력
+	BYTE condition;				// 캐릭터의 상태
+	int	arigement;				// 캐릭터의 가치관
+	int	insertPattern;			// 
 
 	DWORD	serverd_13;
-	int	lostSight;			//캐릭터가 눈먼 상태 셋팅(0->평상상태/1이상->시야상실 정도)
-	DWORD lostSightTime;		//시야 상실 지속 시간
+	int	lostSight;				// 캐릭터가 눈먼 상태 셋팅(0->평상상태/1이상->시야상실 정도)
+	DWORD lostSightTime;		// 시야 상실 지속 시간
 
-	int shoot_PointX;		//화살 에니메이션의 발사시점에 정확히 클릭한 위치로 발사위해 사용
+	int shoot_PointX;			// 화살 에니메이션의 발사시점에 정확히 클릭한 위치로 발사위해 사용
 	int	shoot_PointY;
 
 	int	eventdelay;
 
 	int	_lev;
 	int _str;
-	int	_Wis;				//	지혜
-	int	_Int;				//	지능
-	int	_wsps;				//  마법력->마법 메모라이즈
+	int	_Wis;					// 지혜
+	int	_Int;					// 지능
+	int	_wsps;					// 마법력->마법 메모라이즈
 
 	int _Hp, _HpMax;
 	int _Mp, _MpMax;
@@ -919,10 +923,10 @@ public:
 
 	DWORD serverd_14;
 	int destx;
-	int desty;		// 목적 Map x,y;
+	int desty;					// 목적 Map x,y;
 
 	char HostName[21];
-	//  npc움직임에 대한 변수 ...
+	// npc움직임에 대한 변수 ...
 	short patterntype, oldpatterntype;
 	int targetid;
 	int bossid;
@@ -932,19 +936,19 @@ public:
 	int attacked;
 	DWORD pk;
 	DWORD Exp;
-	int MoveP;		// NPC의 움직임을 다양하게 하기 위한 변수로 쓰임..
-	bool notcomeinside; //  몬스터는 집안에 들어올수 없다. 
+	int MoveP;					// NPC의 움직임을 다양하게 하기 위한 변수로 쓰임..
+	bool notcomeinside;			// 몬스터는 집안에 들어올수 없다. 
 
-	bool just_ani;	// true이면 단순 Animation만을 한다. 
+	bool just_ani;				// true이면 단순 Animation만을 한다. 
 
 	short social_status;
 	short fame;
 	short nk3;
 	short nk4;
 	short nk6;
-	short dummy_pk;  //  별 관계 없이 경비병을건들면 중가..   새로 area에 들어오면 
+	short dummy_pk;				// 별 관계 없이 경비병을건들면 중가..   새로 area에 들어오면 
 
-	DWORD killpc;	   // user
+	DWORD killpc;				// user
 
 	short int tame;
 	BYTE tame_cmd;
@@ -952,34 +956,34 @@ public:
 	//char HostName[ 21];
 	char TargetName[31];
 
-	int	hpupdown; //  데미지 처리시간을 보장하기 위한 변수.
+	int	hpupdown;				//  데미지 처리시간을 보장하기 위한 변수.
 
 	int	feeldelay;
 	int	feeltype;
 
-	bool hunter_target;		// 내가 등록한 현상범이다 아니다, 	// 0807 YGI
-	BYTE lv;//Level
-	char class_type;// 클레스
+	bool hunter_target;			// 내가 등록한 현상범이다 아니다, 	// 0807 YGI
+	BYTE lv;					// Level
+	char class_type;			// 클레스
 
 	////////////////////// SoundUp lkh 추가(캐릭 각 동작별 고유음 출력위한 시간변수) ///////////////////////////
 	DWORD naturalSound_Time;
-	int	odd_Even;				//짝수번-홀수번 루프
-	int	attacker_ID;			//나를 공격한 대상의 ID
+	int	odd_Even;				// 짝수번-홀수번 루프
+	int	attacker_ID;			// 나를 공격한 대상의 ID
 	//void		*lpAttacker;			//나를 공격한 대상 포인터
 
-	BOOL fight_flag;		//대결 상태체크..
-	int	stone_x;		//전투돌 x 좌표..
-	int	stone_y;		//전투돌 y 좌표..
-	int	fight_id;		//전투할 놈..
-	int	fight_time;		//전투시간..
+	BOOL fight_flag;			// 대결 상태체크..
+	int	stone_x;				// 전투돌 x 좌표..
+	int	stone_y;				// 전투돌 y 좌표..
+	int	fight_id;				// 전투할 놈..
+	int	fight_time;				// 전투시간..
 
-	BYTE light_On;		//광원여부(주인공 캐릭과 파티/일부 NPC만 기본적으로 광원을 지니고 있음)
+	BYTE light_On;				// 광원여부(주인공 캐릭과 파티/일부 NPC만 기본적으로 광원을 지니고 있음)
 	DWORD castStartingTime;
 	int	fight_map_team_num;		// 0906 YGI	fightmap
 	int	homex, homey;
 
-	int	job;			// 출력할 직업		1004 YGI
-	int	call_job_lv;	// 출력할 직업 레벨
+	int	job;					// 출력할 직업		1004 YGI
+	int	call_job_lv;			// 출력할 직업 레벨
 
 	int	candle;
 
@@ -999,41 +1003,41 @@ public:
 	char reporter_mode;
 	int nAttr;
 	int nRace;
-	int nActiveCombat;//弓盗技能地址.E4 00 00 00 00 00 00 00 00 00 00 00 01冰暴什么的.
+	int nActiveCombat;			// 弓盗技能地址.E4 00 00 00 00 00 00 00 00 00 00 00 01冰暴什么的.
 	int nPassiveCombat;
 	int nRecoveryCombat;
-	int nActiveLevel;//弓盗技能等级地址.                                 
+	int nActiveLevel;			// 弓盗技能等级地址.                                 
 	int nPassiveLevel;
 	int nRecoveryLevel;
 	bool bCrash;
 	bool bShoot;
 	bool bSelect;
 	bool bLock;
-	WORD idWeaponItem; // CSD-031001
-	int	nCurrentFrame;		//人物晃动值
+	WORD idWeaponItem;			// CSD-031001
+	int	nCurrentFrame;			//人物晃动值
 
 	//-----------fqyd 060730--
 	//------关键信息在这里备份------
-	int mutant_res;//转职
-	int movp_res;	//移动力
-	int nAttackedType_res;//攻击类型
-	int bCanViewGhost_res;//看鬼开关
-	int Sp_res;				//SP...就是SP喽
-	int sight_res;			//视野
-	int excute_MagicNum_res;//释放魔法类型,保存
-	int nActiveCombat_res;//弓盗技能地址.E4 00 00 00 00 00 00 00 00 00 00 00 01冰暴什么的.
-	int nActiveLevel_res;//弓盗技能等级地址.
-	int	nCurrentAction_res;		//人物动作行为
-	int	nCurrentFrame_res;		//人物晃动值
-	int	bow_Type_res;		// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+	int mutant_res;				// 转职
+	int movp_res;				// 移动力
+	int nAttackedType_res;		// 攻击类型
+	int bCanViewGhost_res;		// 看鬼开关
+	int Sp_res;					// SP...就是SP喽
+	int sight_res;				// 视野
+	int excute_MagicNum_res;	// 释放魔法类型,保存
+	int nActiveCombat_res;		// 弓盗技能地址.E4 00 00 00 00 00 00 00 00 00 00 00 01冰暴什么的.
+	int nActiveLevel_res;		// 弓盗技能等级地址.
+	int	nCurrentAction_res;		// 人物动作行为
+	int	nCurrentFrame_res;		// 人物晃动值
+	int	bow_Type_res;			// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 
-///////////////*******************新加的2009.7.14月 褚?**************************
-	int	ready_Magic_res;		//0->마법 무 /1->마법 casting 중/2->마법 casting 유지 중/3->마법 발사
-	DWORD start_Casting_res;		//casting 시작 시간
-	DWORD end_Casting_res;		//casting 준비 완료 시간	
-	DWORD end_ReadyMagic_res;		//casting 유지 종료될 시간 	
-	DWORD end_RunMagic_res;		//마법 효과 끝나는 시간
-	DWORD castStartingTime_res; //魔法间隔时间?
+	//============新加的2009.7.14月神夜========================================
+	int	ready_Magic_res;		// 0->마법 무 /1->마법 casting 중/2->마법 casting 유지 중/3->마법 발사
+	DWORD start_Casting_res;	// casting 시작 시간
+	DWORD end_Casting_res;		// casting 준비 완료 시간	
+	DWORD end_ReadyMagic_res;	// casting 유지 종료될 시간 	
+	DWORD end_RunMagic_res;		// 마법 효과 끝나는 시간
+	DWORD castStartingTime_res; // 魔法间隔时间?
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 	//char	pluse_value_res;
@@ -1044,25 +1048,25 @@ public:
 		mutant_res ^= mutant_MSK_CA;//转职
 		if (mutant != mutant_res)
 			return 0;
-		mutant_cont();				//随机函数
+		mutant_cont();			//随机函数
 		mutant_res ^= mutant_MSK_CA;
 
 		movp_res ^= movp_MSK_CA;//移动
 		if (movp != movp_res)
 			return 1;
-		movp_cont();				//随机函数
+		movp_cont();			//随机函数
 		movp_res ^= movp_MSK_CA;
 
 		nAttackedType_res ^= nAttackedType_MSK_CA;//攻击类型
 		if (nAttackedType != nAttackedType_res)
 			return 2;
-		nAttackedType_cont();				//随机函数
+		nAttackedType_cont();	//随机函数
 		nAttackedType_res ^= nAttackedType_MSK_CA;
 
 		bCanViewGhost_res ^= bCanViewGhost_MSK_CA;//看鬼
 		if (bCanViewGhost != bCanViewGhost_res)
 			return 3;
-		bCanViewGhost_cont();				//随机函数
+		bCanViewGhost_cont();	//随机函数
 		bCanViewGhost_res ^= bCanViewGhost_MSK_CA;
 
 		//Sp_res^=MSK_CA;
@@ -1073,86 +1077,86 @@ public:
 		sight_res ^= sight_MSK_CA;//视野
 		if (sight != sight_res)
 			return 4;
-		sight_cont();				//随机函数
+		sight_cont();			//随机函数
 		sight_res ^= sight_MSK_CA;
 
-		excute_MagicNum_res ^= excute_MagicNum_MSK_CA;//释放魔法类型
+		excute_MagicNum_res ^= excute_MagicNum_MSK_CA;	//释放魔法类型
 		if (excute_MagicNum != excute_MagicNum_res)
 			return 5;
-		excute_MagicNum_cont();				//随机函数
+		excute_MagicNum_cont();	//随机函数
 		excute_MagicNum_res ^= excute_MagicNum_MSK_CA;
 
 		continue_RunMagic_res ^= continue_RunMagic_MSK_CA;//魔法持续时间
 		if (continue_RunMagic_res != continue_RunMagic)
 			return 6;
-		continue_RunMagic_cont();				//随机函数
+		continue_RunMagic_cont();//随机函数
 		continue_RunMagic_res ^= continue_RunMagic_MSK_CA;
 
-		nActiveCombat_res ^= nActiveCombat_MSK_CA;//弓盗技能地址.E4 00 00 00 00 00 00 00 00 00 00 00 01冰暴什么的.
+		nActiveCombat_res ^= nActiveCombat_MSK_CA;		//弓盗技能地址.E4 00 00 00 00 00 00 00 00 00 00 00 01冰暴什么的.
 		if (nActiveCombat != nActiveCombat_res)
 			return 7;
-		nActiveCombat_cont();				//随机函数
+		nActiveCombat_cont();	//随机函数
 		nActiveCombat_res ^= nActiveCombat_MSK_CA;
 
-		nActiveLevel_res ^= nActiveLevel_MSK_CA;////弓盗技能等级地址.
+		nActiveLevel_res ^= nActiveLevel_MSK_CA;		//弓盗技能等级地址.
 		if (nActiveLevel != nActiveLevel_res)
 			return 8;
-		nActiveLevel_cont();				//随机函数
+		nActiveLevel_cont();	//随机函数
 		nActiveLevel_res ^= nActiveLevel_MSK_CA;
 
-		nCurrentAction_res ^= nCurrentAction_MSK_CA;//人物动作行为
+		nCurrentAction_res ^= nCurrentAction_MSK_CA;	//人物动作行为
 		if (nCurrentAction != nCurrentAction_res)
 			return 9;
-		nCurrentAction_cont();				//随机函数
+		nCurrentAction_cont();	//随机函数
 		nCurrentAction_res ^= nCurrentAction_MSK_CA;
 
-		nCurrentFrame_res ^= nCurrentFrame_MSK_CA;//人物晃动值
+		nCurrentFrame_res ^= nCurrentFrame_MSK_CA;		//人物晃动值
 		if (nCurrentFrame != nCurrentFrame_res)
 			return 10;
-		nCurrentFrame_cont();				//随机函数
+		nCurrentFrame_cont();	//随机函数
 		nCurrentFrame_res ^= nCurrentFrame_MSK_CA;
 
-		bow_Type_res ^= bow_Type_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+		bow_Type_res ^= bow_Type_MSK_CA;				// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (bow_Type != bow_Type_res)
 			return 11;
-		bow_Type_cont();				//随机函数
+		bow_Type_cont();		//随机函数
 		bow_Type_res ^= bow_Type_MSK_CA;
 
-		/////////////////////**新加的<月 褚?2009.7.14.//////////////
-		ready_Magic_res ^= ready_Magic_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+		//=======**新加的<月神夜2009.7.14.====================
+		ready_Magic_res ^= ready_Magic_MSK_CA;			// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (ready_Magic != ready_Magic_res)
 			return 12;
-		ready_Magic_cont();				//随机函数
+		ready_Magic_cont();		//随机函数
 		ready_Magic_res ^= ready_Magic_MSK_CA;
 
-		start_Casting_res ^= start_Casting_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+		start_Casting_res ^= start_Casting_MSK_CA;		// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (start_Casting != start_Casting_res)
 			return 13;
-		start_Casting_cont();				//随机函数
+		start_Casting_cont();	//随机函数
 		start_Casting_res ^= start_Casting_MSK_CA;
 
-		end_Casting_res ^= end_Casting_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+		end_Casting_res ^= end_Casting_MSK_CA;			// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (end_Casting != end_Casting_res)
 			return 14;
-		end_Casting_cont();				//随机函数
+		end_Casting_cont();		//随机函数
 		end_Casting_res ^= end_Casting_MSK_CA;
 
-		end_ReadyMagic_res ^= end_ReadyMagic_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+		end_ReadyMagic_res ^= end_ReadyMagic_MSK_CA;	// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (end_ReadyMagic != end_ReadyMagic_res)
 			return 15;
-		end_ReadyMagic_cont();				//随机函数
+		end_ReadyMagic_cont();	//随机函数
 		end_ReadyMagic_res ^= end_ReadyMagic_MSK_CA;
 
-		end_RunMagic_res ^= end_RunMagic_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
+		end_RunMagic_res ^= end_RunMagic_MSK_CA;		// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (end_RunMagic != end_RunMagic_res)
 			return 16;
-		end_RunMagic_cont();				//随机函数
+		end_RunMagic_cont();	//随机函数
 		end_RunMagic_res ^= end_RunMagic_MSK_CA;
 
 		castStartingTime_res ^= castStartingTime_MSK_CA;// 魔法弓箭,0代表没有,1代表火箭,2代表冰箭.
 		if (castStartingTime != castStartingTime_res)
 			return 17;
-		castStartingTime_cont();				//随机函数
+		castStartingTime_cont();//随机函数
 		castStartingTime_res ^= castStartingTime_MSK_CA;
 
 		return 18;

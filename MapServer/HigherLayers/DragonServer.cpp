@@ -692,7 +692,7 @@ int HandleCommand(int cn, t_packet *packet)
 		ch->timetoupdate = g_curr_time;
 		ch->SetStepInfo(tt->aStepInfo, sizeof(tt->aStepInfo));
 
-		ch->m_bCanIncExp = tt->bcan_exp_inc;
+		ch->bCanExpInc = tt->bcan_exp_inc;
 
 		ch->m_nUserAge = tt->nUserAge;			// 030929 kyo
 		ch->EventJoin = tt->EventJoin;		// 020115 LTS

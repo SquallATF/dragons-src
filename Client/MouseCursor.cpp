@@ -376,11 +376,11 @@ void CursorStatus(void)
 
 			//	BBD 031114	이렇게 되면 g_MouseInMenu에 메뉴번호를 넣은 의미가 없어짐
 			//	계인 PM 님이 의도한 코드를 막는듯하여 임시로 주석처리
-	/*
-			if( g_MouseInMenu == true )
-			{
-			}
-			*/
+	
+			//if( g_MouseInMenu == true )
+			//{
+			//}
+			
 		}
 
 	if (oldcursor != cursor) // 마우스커셔가 바뀌었으면....
@@ -388,11 +388,6 @@ void CursorStatus(void)
 		CursorNo(cursor);
 	}
 }
-
-
-
-
-
 
 // 0810 KHS
 void CursorNo(int no)
@@ -405,7 +400,8 @@ void CursorNo(int no)
 	case 53:
 		break;
 
-	default:	if (no >= 16) no /= 10;
+	default:
+		if (no >= 16) no /= 10;
 		break;
 	}
 
@@ -419,8 +415,6 @@ void CursorNo(int no)
 
 	CurMouseCursorAni = CurMouseCursorStart;
 }
-
-
 
 
 void PushMouseCursor(void)
@@ -449,16 +443,12 @@ void PopMouseCursor(void)
 }
 
 
-
-
-
 extern void		PutItemIcon(int x, int y, int item_number, int delay = 0, int effect = 2, int is_not_equip = 0);
 extern	POINT	MouseItemInRect;
 
 extern ItemAttr	InvItemAttr[3][3][8];
 extern ItemAttr	EquipItemAttr[8];
 extern ItemAttr	QuickItemAttr[7];
-
 
 
 void withSkillItem(void)
@@ -803,9 +793,6 @@ void LoadMouseCursor(char *filename)
 
 //-------------------------------------------------------------------
 //-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
-//-------------------------------------------------------------------
 
 void DeleteSkillCursor(LPSKILLCURSOR tt)
 {
@@ -867,11 +854,8 @@ LPSKILLCURSOR AddSkillCursor(LPCHARACTER ch, int skillno, int cursorno, int x, i
 	temp->repeat = repeat;
 	temp->endtime = g_curr_time + repeat;
 
-
 	temp->prev = NULL;
 	temp->next = NULL;
-
-
 
 	if (g_SkillCursor == NULL)
 	{
@@ -908,7 +892,6 @@ bool StopDoingSkillCursor(LPCHARACTER ch)
 }
 
 
-
 bool IsDoingSkillCursor(LPCHARACTER ch)
 {
 	LPSKILLCURSOR t;
@@ -925,8 +908,6 @@ bool IsDoingSkillCursor(LPCHARACTER ch)
 	}
 	return false;
 }
-
-
 
 
 void OutputSkillCursor(void)

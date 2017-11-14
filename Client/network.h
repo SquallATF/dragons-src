@@ -1262,6 +1262,7 @@ struct t_update_char_db
 	short nk4;
 	short nk6;
 	BYTE aStepInfo[20];
+	BYTE bCanExpInc;
 	int nCombatAmount;
 	int	check_crc; //acer5
 };	//> CSD-030807

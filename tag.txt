@@ -1,3 +1,35 @@
+
+mapserver , gametimeer.cpp :
+ Run()
+CheckItemTimeElapsed();
+
+
+network.cpp : RecvNpcRemove(...)
+
+gameproc.cpp : 3810 
+#ifdef _DEBUG
+	if (GetSysInfo(SI_GAME_MAKE_MODE))
+	{
+		if (ch->dieani)  // 0910 KHS
+		{
+			::HprintBold(x + 10 - 40, y - 4 - ch->height, RGB(100, 100, 0xff), 0, "%d", ch->dieani);
+		}
+
+		if (ch->id > 10000)
+		{
+			if (ch->ChairNum)
+			{
+				::HprintBold(x + 10 - 40, y - 4 - ch->height + 20, RGB(255, 255, 255), 0, "S_AI");	// LTS AI
+			}
+			else
+			{
+				::HprintBold(x + 10 - 40, y - 4 - ch->height + 40, RGB(255, 255, 255), 0, "C_AI");	// LTS AI
+			}
+		}
+	}
+#endif
+
+
 #########################################################################################
 #########################################################################################
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -41,13 +73,6 @@ update [DragonRajaDB].[dbo].[Item_Etc] set Repair_Skill2_min = 1106, Repair_Res1
 }}}}}
 #########################################################################################
 
-
-client : RecvHeroInit()
-
-DBDemon : GetCharDB_SQL()
-CMD_USER_DB
-
-PutPacketCharDB
 
 #########################################################################################
 #########################################################################################
@@ -123,11 +148,6 @@ DragonLoginServer.cpp :
 =========================================================================================
 服务端：（MapServer）
 =========================================================================================
-CharInfo.cpp :
-(找到代码，<< void CCharInfo::ResetAbility(BYTE nCombat) >>, 在内部找到，<< 	Ac = CalcNewAc(); >>,在这一行之前增加 )
-229L, delete,	if (IsPlayer())  SendCharInfoBasic(INC_EXP, m_bCanIncExp);
-
------------------------------------------------------------------------------------------
 Dr_Network.h :
 (找到代码， << struct t_update_char_db >>, 在内部找到， << 	BYTE aStepInfo[20]; >>, 在其后增加)
 1170L, add, 	BYTE bcan_exp_inc;		// add by taniey
@@ -162,6 +182,23 @@ MenuServer.cpp :
 OP_Chr_Status.cpp :
 (找到函数， << void PutPacketCharDB(t_connection c[], int cn, t_packet *packet) >>, 函数内部最后位置增加一行)
 717L, add, 	p->bcan_exp_inc = ch->bCanExpInc;
+
+-----------------------------------------------------------------------------------------
+CharInfo.cpp :
+(找到代码，<< void CCharInfo::ResetAbility(BYTE nCombat) >>, 在内部找到，<< 	Ac = CalcNewAc(); >>,在这一行之前增加 )
+229L, delete,	if (IsPlayer())  SendCharInfoBasic(INC_EXP, m_bCanIncExp);
+
+(找到函数，<< int CCharInfo::GetTacticsKind() const >> , 在内部找到，<< 	const int nItem = equip[WT_WEAPON].item_no; >>
+在之后增加 如下代码，??此处修改解决没有装备任何武器时，徒手搏击 战技 不增加问题??)
+	if (0 == nItem)					// if item = 0 , there is no item on equip.
+		return TACTICS_Crapple;		// add by taniey
+
+Kein_item.cpp :
+此处修改可以解决没有装备任何武器时，徒手搏击 战技 不增加问题
+(找到函数，<< CItem *ItemUnit(int type, int item_no) >> , 在内部找到，<<
+ 	if ((item_no <= 0) || (item_no > Item_Ref.nItem[type])) return NULL;
+ 修改为)
+ 	if ((item_no < 0) || (item_no > Item_Ref.nItem[type])) return NULL;
 
 #########################################################################################
 #########################################################################################
